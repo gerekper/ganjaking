@@ -30,7 +30,7 @@ class Functions extends AbstractExtension {
 
   private function getWooCommerceHelper(): WooCommerceHelper {
     if ($this->woocommerceHelper === null) {
-      $this->woocommerceHelper = new WooCommerceHelper();
+      $this->woocommerceHelper = new WooCommerceHelper($this->getWp());
     }
     return $this->woocommerceHelper;
   }
@@ -154,6 +154,11 @@ class Functions extends AbstractExtension {
         ['is_safe' => ['all']]
       ),
       new TwigFunction(
+        'get_woocommerce_version',
+        [$this, 'getWooCommerceVersion'],
+        ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
         'wp_start_of_week',
         [$this, 'getWPStartOfWeek'],
         ['is_safe' => ['all']]
@@ -181,6 +186,11 @@ class Functions extends AbstractExtension {
       new TwigFunction(
         'is_loading_3rd_party_enabled',
         [$this, 'libs3rdPartyEnabled'],
+        ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
+        'is_dotcom_ecommerce_plan',
+        [$this, 'isDotcomEcommercePlan'],
         ['is_safe' => ['all']]
       ),
     ];
@@ -277,6 +287,10 @@ class Functions extends AbstractExtension {
     return $this->getWooCommerceHelper()->isWooCommerceActive();
   }
 
+  public function getWooCommerceVersion() {
+    return $this->getWooCommerceHelper()->getWooCommerceVersion();
+  }
+
   public function statsColor($percentage) {
     if ($percentage > 3) {
       return '#7ed321';
@@ -322,5 +336,12 @@ class Functions extends AbstractExtension {
 
   public function libs3rdPartyEnabled(): bool {
     return $this->getSettings()->get('3rd_party_libs.enabled') === '1';
+  }
+
+  public function isDotcomEcommercePlan(): bool {
+    if (function_exists('wc_calypso_bridge_is_ecommerce_plan')) {
+      return wc_calypso_bridge_is_ecommerce_plan();
+    }
+    return false;
   }
 }

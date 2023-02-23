@@ -45,6 +45,7 @@ class Automation {
   public function render() {
     $this->assetsController->setupAutomationListingDependencies();
     $this->pageRenderer->displayPage('automation.html', [
+      'locale_full' => $this->wp->getLocale(),
       'api' => [
         'root' => rtrim($this->wp->escUrlRaw($this->wp->restUrl()), '/'),
         'nonce' => $this->wp->wpCreateNonce('wp_rest'),

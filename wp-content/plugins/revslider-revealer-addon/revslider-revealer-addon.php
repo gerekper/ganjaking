@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Reveal Preloaders
 Plugin URI: http://www.themepunch.com/
 Description: Reveal your sliders in style
 Author: ThemePunch
-Version: 3.0.2
+Version: 3.0.3
 Author URI: http://themepunch.com
 */
 

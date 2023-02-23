@@ -129,6 +129,7 @@ class RsMousetrapSlideFront extends RevSliderFunctions {
 		$delay = $this->get_val($addOn, array('follow','delay'),0);		
 		$ease = $this->get_val($addOn,  array('follow','ease'),'none');
 		
+		$mcenter = $this->get_val($addOn, array('mcenter'),false);
 		$revert = $this->get_val($addOn, array('revert', 'use'),false);
 		$rspeed = $this->get_val($addOn, array('revert','speed'),0);
 		$rease = $this->get_val($addOn,  array('revert','ease'),'none');
@@ -170,6 +171,7 @@ class RsMousetrapSlideFront extends RevSliderFunctions {
 			if ($rease!='none') $settings .='re:'.$rease.';';
 		}
 
+		if ($mcenter==true) $settings.='mc:t;';
 		$rules = array("rx","ry","rz","sx","sy","op");
 		foreach ($rules as $key => $value) {
 			$temp_d = $this->get_val($addOn, array('rules', $value, 'axis'),'none'); 

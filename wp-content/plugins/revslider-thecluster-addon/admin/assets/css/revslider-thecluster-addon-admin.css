@@ -1,0 +1,133 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2022 ThemePunch
+*/
+
+
+.gP_pointTitle {
+  padding-left: 15px;
+  text-align: left;
+  color: #b7bbc0;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  line-height: 30px;
+  vertical-align: top;
+}
+
+
+.gravdot{ width: 10px; height: 10px;  border-radius: 5px; display:inline-block; margin-right:15px;}
+.gravdot-rose { background-color: #FF2765; }
+.gravdot-cyan { background-color: #0D94F2; }
+.gravdot-blue { background-color: #31F5AE; }
+
+.gravlabel {
+  display:inline-block;
+  margin-right:15px;
+}
+
+#thecluster_svg,
+#theclusterbg_svg {
+  position: absolute;
+  background: url(../../../public/lib/par1.png);
+  background-size: contain;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tp-shapewrapper.tp-thecluster {
+  overflow: hidden;
+}
+
+.form_inside_title {
+  margin-top: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: 25px;
+}
+
+.wpar_longlabel {
+  overflow: visible;
+}
+
+#thecluster_particles .miniprevimage_wrap > .material-icons {
+  opacity: 0;
+}
+
+.settingsmenu_wrapbtn.disabled {
+  background: #35383d;
+  color: rgba(183, 187, 192, 0.4);
+  pointer-events: none;
+}
+
+#rbm_addon_thecluster {
+  width: 755px;
+}
+
+
+
+.layerinput.easyinit.shortfield.callEvent.valueduekeyboard {
+  background-color: #2a2c2f;
+  color: #b7bbc0;
+  font-weight: 500;
+  margin-bottom: 10px;
+  border: 1px solid #2a2c2f;
+}
+
+.gP_infobox {
+  display: flex;
+  padding: 20px;
+}
+
+#gP_infoIcon {
+  margin-right: 15px;
+  color: #b7bbc0;
+  padding-top: 7px;
+}
+
+.gP_mainContent {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.gP_amountSelector {
+  padding: 0px 20px;
+}
+
+.material-icons.vmi {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.tc_gravamount_selections{
+  display: flex;
+  justify-content: space-around;
+  color: #b7bbc0;
+  padding: 15px;
+}
+
+#gravButton_1, #gravButton_2, #gravButton_3{
+  background-color: #3a3e44;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #b7bbc0;
+  line-height: 30px;
+  padding: 0px 60px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+#randSizeMaxLabel{
+  width: 24px;
+  margin-left: 5px;
+  margin-right: 10px;
+}

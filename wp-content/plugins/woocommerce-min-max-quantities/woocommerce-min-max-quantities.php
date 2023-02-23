@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 4.0.6
+ * Version: 4.0.7
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.4
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '4.0.6' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '4.0.7' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -818,7 +818,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 					if ( $allow_combination && ( $product->is_type( 'variation' ) || $product->is_type( 'variable' ) ) ) {
 
 						/* translators: %1$s: Product name, %2$s: Maximum order quantity, %3$s: Total cart quantity */
-						$notice = sprintf( __( 'The quantity of "%1$s" cannot be higher %2$s to place an order. You currently have %3$s in your cart.', 'woocommerce-min-max-quantities' ), $variation_title, $maximum_quantity, $quantity );
+						$notice = sprintf( __( 'The quantity of "%1$s" cannot be higher than %2$s to place an order. You currently have %3$s in your cart.', 'woocommerce-min-max-quantities' ), $variation_title, $maximum_quantity, $quantity );
 
 						throw new Exception( $notice );
 
@@ -829,7 +829,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 							$notice = sprintf( __( 'The quantity of "%1$s" has been decreased to %2$s. This is the maximum allowed quantity.', 'woocommerce-min-max-quantities' ), $variation_title, $maximum_quantity );
 						} else {
 							/* translators: %1$s: Product name, %2$s: Maximum order quantity */
-							$notice = sprintf( __( 'The quantity of "%1$s" cannot be higher %2$s to place an order.', 'woocommerce-min-max-quantities' ), $variation_title, $maximum_quantity );
+							$notice = sprintf( __( 'The quantity of "%1$s" cannot be higher than %2$s to place an order.', 'woocommerce-min-max-quantities' ), $variation_title, $maximum_quantity );
 						}
 
 						throw new Exception( $notice );

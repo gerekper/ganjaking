@@ -1,5 +1,9 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-02-20 - version 1.1.48
+* Fix - Error when exporting a ticket which was created without an order.
+* Fix - Placeholder `{ticket_id}` and `{barcode}` links do not add placeholder to editor.
+
 2023-01-27 - version 1.1.47
 * Fix - Use a unique ID for tickets to prevent deletion of wrong ticket.
 * Tweak - Bump WooCommerce "Tested up to" version 7.3.0.

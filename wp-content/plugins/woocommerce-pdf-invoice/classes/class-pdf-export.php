@@ -49,6 +49,12 @@
 
 			// Bail out if this is not the pdf_bulk_export.
 			if ( $action === 'pdf_bulk_export' && class_exists("ZipArchive") ) {
+				
+				// Clear existing transients
+				delete_transient( '_pdf_export_status' );
+    			delete_transient( '_pdf_export_zip_file' );
+    			delete_transient( '_pdf_export_changed' );
+
 				// Logging
 				$export_log['Action'] 	= $action;
 				$export_log['Class'] 	= "ZipArchive";
@@ -139,9 +145,6 @@
 				$redirect_to = add_query_arg( array(
 					'post_type'    	=> 'shop_order',
 					'pdf_export'   	=> $zip->status,
-					'zip_file'		=> $zip_file,
-					'changed'      	=> $changed,
-					'ids'          	=> join( ',', $ids ),
 				), $redirect_to );
 
 				$zip->close();
@@ -151,6 +154,10 @@
 			// Logging
     		$export_log['Redirect To'] 	= $redirect_to;
     		$export_log['Zip File'] 	= "Zip File Created!";
+
+    		set_transient( '_pdf_export_status', $zip->status, DAY_IN_SECONDS );
+    		set_transient( '_pdf_export_zip_file', $zip_file, DAY_IN_SECONDS );
+    		set_transient( '_pdf_export_changed', $changed, DAY_IN_SECONDS );
 
     		return esc_url_raw( $redirect_to );
 
@@ -171,7 +178,7 @@
 
 			// Set the temp directory
 			$pdftemp 	= sys_get_temp_dir();
-			$upload_dir =  wp_upload_dir();
+			$upload_dir = wp_upload_dir();
             if ( file_exists( $upload_dir['basedir'] . '/woocommerce_pdf_invoice/index.html' ) ) {
 				$pdftemp = $upload_dir['basedir'] . '/woocommerce_pdf_invoice';
 			}
@@ -180,18 +187,26 @@
     		$export_log['Temp'] 	= $pdftemp;
 
 			// Bulk Download
-			if( isset( $_REQUEST['pdf_export'] ) ) {
+			$zip_status = get_transient( '_pdf_export_status', $zip->status, DAY_IN_SECONDS );
+    		$zip_file 	= get_transient( '_pdf_export_zip_file', $zip_file, DAY_IN_SECONDS );
+    		$changed 	= get_transient( '_pdf_export_changed', $changed, DAY_IN_SECONDS );
+			
+			if( isset( $zip_status ) && isset( $_REQUEST['pdf_export'] ) ) {
 
-				if( $_REQUEST['pdf_export'] == 0 ) {
+				if( $zip_status == 0 ) {
 
-					$number = isset( $_REQUEST['changed'] ) ? absint( $_REQUEST['changed'] ) : 0;
+					$number = isset( $changed ) ? absint( $changed ) : 0;
 					/* translators: %s: orders count */
-					echo '<div class="updated"><p>' . sprintf( _n( '%s invoice added to zip file.', '%s invoices added to zip file.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) ) . '</p><p>' . sprintf( __( 'Download the zipfile from <a href="%1$s/%2$s.zip">%3$s.zip</a>', 'woocommerce-pdf-invoice' ), $upload_dir['baseurl'].'/woocommerce_pdf_invoice', $_REQUEST['zip_file'], $_REQUEST['zip_file'] ) . '</p></div>';
+					echo '<div class="updated"><p>' . sprintf( _n( '%s invoice added to zip file.', '%s invoices added to zip file.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) ) . '</p><p>' . sprintf( __( 'Download the zipfile from <a href="%1$s/%2$s.zip">%3$s.zip</a>', 'woocommerce-pdf-invoice' ), $upload_dir['baseurl'].'/woocommerce_pdf_invoice', $zip_file, $zip_file ) . '</p></div>';
 							
 				} else {
 					echo '<div class="error"><p>' . __('Zip file creation failed. Check the log in the WooCommerce System Status logs tab.', 'woocommerce-pdf-invoice') . '</p></div>';
 				}
 			}
+
+			delete_transient( '_pdf_export_status' );
+    		delete_transient( '_pdf_export_zip_file' );
+    		delete_transient( '_pdf_export_changed' );
 			
 		}
 

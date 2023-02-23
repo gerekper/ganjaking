@@ -26,6 +26,8 @@ return array(
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
+    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php',
+    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php',
     'MailPoet\\Premium\\Config\\Env' => $baseDir . '/lib/Config/Env.php',

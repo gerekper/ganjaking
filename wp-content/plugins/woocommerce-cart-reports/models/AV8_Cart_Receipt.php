@@ -11,6 +11,7 @@ class AV8_Cart_Receipt {
 	public $post_title;
 	public $post_status;
 	public $post_date;
+	public $post_type;
 	public $products = [];
 	public $sid;
 	public $post_id;
@@ -223,11 +224,17 @@ class AV8_Cart_Receipt {
 		$this->is_new = false;
 		$post         = get_post( $this->post_id );
 
+
+		if ($post->post_type !== 'carts') {
+			return null;
+		}
+
 		// $products = get_post_meta($post_id,'av8_cartitems',true);
 
 		$this->post_title  = $post->post_title;
 		$this->post_author = $post->post_author;
 		$this->post_date   = $post->post_date;
+		$this->post_type = $post->post_type;
 
 		$this->ip_address = get_post_meta( $this->post_id, 'av8_ip_address', true );
 		// $this->user_agent = get_post_meta($this->post_id,'av8_user_agent',true);
@@ -279,11 +286,7 @@ class AV8_Cart_Receipt {
 			],
 		];
 
-		add_filter( 'posts_where', [ $this, 'very_recent' ] );
-
 		$carts = get_posts( $args );
-
-		remove_filter( 'posts_where', [ $this, 'very_recent' ] );
 
 		if ( count( $carts ) > 0 ) {
 			return;
@@ -301,14 +304,6 @@ class AV8_Cart_Receipt {
 	public function delete_receipt() {
 		$post_id = $this->post_id;
 		wp_delete_post( $post_id, true );
-	}
-
-	public function very_recent( $where ) {
-		global $offset;
-
-		$where .= " AND post_date > '" . date( 'Y-m-d G:i:s', time() + ( $offset * 3600 ) - 8 ) . "' ";
-
-		return $where;
 	}
 
 	public function status() {

@@ -145,6 +145,7 @@ class RsAddOnMousetrapBase {
 				'events' => __('On Events','revslider-mousetrap-addon'),				
 				'ranges' => __('Pointer is over Ranges','revslider-mousetrap-addon'),				
 				'hidemouse' => __('Hide Pointer','revslider-mousetrap-addon'),				
+				'mcenter' => __('Center Origin','revslider-mousetrap-addon'),				
 				'delay' => __('Speed','revslider-mousetrap-addon'),				
 				'speed' => __('Speed','revslider-mousetrap-addon'),				
 				'revert' => __('Revert','revslider-mousetrap-addon'),				

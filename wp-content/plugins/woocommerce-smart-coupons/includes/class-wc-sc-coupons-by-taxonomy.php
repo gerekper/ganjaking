@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       4.13.0
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 			add_action( 'wp_ajax_taxonomy_restriction_select_tag_html', array( $this, 'ajax_taxonomy_restriction_select_tag_html' ) );
 			add_action( 'wp_ajax_default_taxonomy_restriction_row_html', array( $this, 'ajax_default_taxonomy_restriction_row_html' ) );
 			add_action( 'admin_footer', array( $this, 'styles_and_scripts' ) );
-			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			add_filter( 'woocommerce_coupon_is_valid_for_product', array( $this, 'validate' ), 11, 4 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'handle_non_product_type_coupons' ), 11, 3 );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
@@ -96,7 +96,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 				'excl' => __( 'Exclude', 'woocommerce-smart-coupons' ),
 			);
 
-			$taxonomy_restrictions = get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
+			$taxonomy_restrictions = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_taxonomy_restrictions' ) : $this->get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
 
 			?>
 			<div class="options_group smart-coupons-field wc_sc_taxonomy_restrictions">
@@ -482,30 +482,16 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 		/**
 		 * Save coupon by payment method data in meta
 		 *
-		 * @param  Integer $post_id The coupon post ID.
-		 * @param  WP_Post $post    The coupon post.
+		 * @param  Integer   $post_id The coupon post ID.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
-				return;
+
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
 
 			$taxonomy_restrictions = ( isset( $_POST['wc_sc_taxonomy_restrictions'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_taxonomy_restrictions'] ) ) : array(); // phpcs:ignore
@@ -513,7 +499,12 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 				$taxonomy_restrictions = array_values( $taxonomy_restrictions );
 			}
 
-			update_post_meta( $post_id, 'wc_sc_taxonomy_restrictions', $taxonomy_restrictions );
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
+				$coupon->update_meta_data( 'wc_sc_taxonomy_restrictions', $taxonomy_restrictions );
+				$coupon->save();
+			} else {
+				$this->update_post_meta( $post_id, 'wc_sc_taxonomy_restrictions', $taxonomy_restrictions );
+			}
 		}
 
 		/**
@@ -554,7 +545,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 			$product_ids = array_unique( array_filter( $product_ids ) );
 
 			if ( ! empty( $coupon_id ) ) {
-				$taxonomy_restrictions = get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
+				$taxonomy_restrictions = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_taxonomy_restrictions' ) : $this->get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
 
 				if ( ! empty( $taxonomy_restrictions ) ) {
 					$term_ids = $this->get_restricted_term_ids( array( 'taxonomy_restrictions' => $taxonomy_restrictions ) );
@@ -634,7 +625,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 			}
 
 			if ( ! empty( $coupon_id ) ) {
-				$taxonomy_restrictions = get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
+				$taxonomy_restrictions = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_taxonomy_restrictions' ) : $this->get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
 				// If product attributes are not set in coupon, stop further processing and return from here.
 				if ( empty( $taxonomy_restrictions ) ) {
 					return $valid;

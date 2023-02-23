@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.4.0
+ * @version     2.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -381,33 +381,45 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				'comment_status' => $post['comment_status'],
 			);
 
-			$post_id = wp_insert_post( $postdata, true );
+			$_coupon = new WC_Coupon();
+			$_coupon->set_code( $postdata['post_title'] );
+			$_coupon->set_status( $postdata['post_status'] );
+			$_coupon->set_date_created( $postdata['post_date'] );
+			$_coupon->set_description( $postdata['post_excerpt'] );
 
-			if ( is_wp_error( $post_id ) ) {
+			$post_id = $_coupon->save();
 
+			if ( ! empty( $post_id ) ) {
+				$postdata       = array_diff_key( $postdata, array_flip( array( 'post_date', 'post_excerpt', 'post_title', 'post_status', 'post_type' ) ) );
+				$postdata['ID'] = $post_id;
+				wp_update_post( $postdata );
+			} else {
 				$this->skipped++;
 				unset( $post );
 				return;
-
 			}
 
 			unset( $postdata );
 
 			// map pre-import ID to local ID.
 			if ( empty( $post['post_id'] ) ) {
-				$post['post_id'] = absint( $post_id );
+				$post['post_id'] = $post_id;
 			}
-			$this->processed_posts[ intval( $post['post_id'] ) ] = absint( $post_id );
+			$this->processed_posts[ intval( $post['post_id'] ) ] = $post_id;
 
-			$coupon_code = strtolower( $post['post_title'] );
+			$coupon_code = strtolower( $post_title );
+
+			$_coupon = new WC_Coupon( $post_id );
 
 			// add/update post meta.
 			if ( ! empty( $post['postmeta'] ) && is_array( $post['postmeta'] ) ) {
 
-					$postmeta = array();
+				$postmeta = array();
 				foreach ( $post['postmeta'] as $meta ) {
 					$postmeta[ $meta['key'] ] = $meta['value'];
 				}
+
+				$is_callable_update_meta_data = $this->is_callable( $_coupon, 'update_meta_data' );
 
 				foreach ( $postmeta as $meta_key => $meta_value ) {
 					switch ( $meta_key ) {
@@ -420,7 +432,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 							$coupon_amount = maybe_unserialize( $meta_value );
 							$discount_type = ! empty( $postmeta['discount_type'] ) ? $postmeta['discount_type'] : '';
 							if ( ! empty( $discount_type ) && 'smart_coupon' === $discount_type ) {
-								update_post_meta( $post_id, 'wc_sc_original_amount', $coupon_amount );
+								if ( true === $is_callable_update_meta_data ) {
+									$_coupon->update_meta_data( 'wc_sc_original_amount', $coupon_amount );
+								} else {
+									update_post_meta( $post_id, 'wc_sc_original_amount', $coupon_amount );
+								}
 							}
 							break;
 
@@ -504,19 +520,54 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 							)
 						);
 						if ( true === $is_import_meta ) {
-							if ( $this->is_wc_gte_30() && 'expiry_date' === $meta_key ) {
-								if ( ! empty( $meta_value ) ) {
-									$meta_value = $this->wc_string_to_datetime_to_timestamp( $meta_value );
-									$meta_value = $this->get_date_expires_value( $meta_value );
+							if ( $this->is_wc_gte_30() ) {
+								if ( 'expiry_date' === $meta_key ) {
+									if ( ! empty( $meta_value ) ) {
+										$meta_value = $this->wc_string_to_datetime_to_timestamp( $meta_value );
+										$meta_value = $this->get_date_expires_value( $meta_value );
+									} else {
+										$meta_value = null;
+									}
+									if ( true === $is_callable_update_meta_data ) {
+										$_coupon->set_date_expires( $meta_value );
+									} else {
+										update_post_meta( $post_id, 'date_expires', $meta_value );
+									}
 								} else {
-									$meta_value = null;
+									$key          = ltrim( $meta_key, '_' );
+									$key_to_props = array(
+										'coupon_amount'  => 'amount',
+										'customer_email' => 'email_restrictions',
+										'exclude_product_categories' => 'excluded_product_categories',
+										'exclude_product_ids' => 'excluded_product_ids',
+									);
+									if ( array_key_exists( $key, $key_to_props ) ) {
+										$key = $key_to_props[ $key ];
+									}
+									$function   = 'set_' . $key;
+									$has_setter = $this->is_callable( $_coupon, $function );
+									if ( true === $has_setter ) {
+										$value = in_array( $key, array( 'individual_use', 'free_shipping', 'exclude_sale_items' ), true ) ? $this->wc_string_to_bool( maybe_unserialize( $meta_value ) ) : maybe_unserialize( $meta_value );
+										$_coupon->{$function}( $value );
+									} elseif ( true === $is_callable_update_meta_data ) {
+										$_coupon->update_meta_data( $meta_key, maybe_unserialize( $meta_value ) );
+									} else {
+										update_post_meta( $post_id, $meta_key, maybe_unserialize( $meta_value ) );
+									}
 								}
-								update_post_meta( $post_id, 'date_expires', $meta_value );
 							} else {
-								update_post_meta( $post_id, $meta_key, maybe_unserialize( $meta_value ) );
+								if ( true === $is_callable_update_meta_data ) {
+									$_coupon->update_meta_data( $meta_key, maybe_unserialize( $meta_value ) );
+								} else {
+									update_post_meta( $post_id, $meta_key, maybe_unserialize( $meta_value ) );
+								}
 							}
 						}
 					}
+				}
+
+				if ( $this->is_callable( $_coupon, 'save' ) ) {
+					$_coupon->save();
 				}
 
 				unset( $post['postmeta'] );
@@ -697,13 +748,6 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 					'usage_limit',
 					'usage_limit_per_user',
 				);
-
-				foreach ( $default as $head ) {
-					if ( ! in_array( $head, $header, true ) ) {
-						$is_valid = false;
-						break;
-					}
-				}
 			}
 
 			return $is_valid;

@@ -1,5 +1,14 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2023-02-22 - version 4.9.1
+* Fix: Revert minimum required version of WooCommerce to 6.5 due to fatal errors on some sites.
+
+2023-02-22 - version 4.9.0
+* Add: Declare WooCommerce Subscriptions compatible with High-Performance Order Storage.
+* Dev: Update subscriptions-core to 5.4.0.
+* Dev: Remove the recurring shipping method cache that caused bugs for third-party plugins like Conditional Shipping and Payments.
+* Dev: Bump minimum required version of WooCommerce to 7.0.
+
 2023-02-01 - version 4.8.1
 * Fix: Fatal error when loading the Edit Subscription page with custom admin billing or shipping fields.
 * Dev: Update subscriptions-core to 5.3.1.

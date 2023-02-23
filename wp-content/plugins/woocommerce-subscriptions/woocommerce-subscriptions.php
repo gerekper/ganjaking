@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 4.8.1
+ * Version: 4.9.1
  *
  * WC requires at least: 6.5
- * WC tested up to: 7.3.0
+ * WC tested up to: 7.4.0
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -46,15 +46,15 @@ if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) || version_compare( get
 }
 
 /**
- * Declare plugin incompatibility with WooCommerce HPOS.
+ * Declare plugin compatibility with WooCommerce HPOS.
  *
- * @since 4.6.0
+ * @since 4.9.0
  */
 add_action(
 	'before_woocommerce_init',
 	function() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, false );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 		}
 	}
 );
@@ -82,7 +82,7 @@ class WC_Subscriptions {
 	public static $plugin_file = __FILE__;
 
 	/** @var string */
-	public static $version = '4.8.1';
+	public static $version = '4.9.1';
 
 	/** @var string */
 	public static $wc_minimum_supported_version = '6.5';

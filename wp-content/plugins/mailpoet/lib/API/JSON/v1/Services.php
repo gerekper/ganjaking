@@ -129,7 +129,7 @@ class Services extends APIEndpoint {
     }
 
     if ($successMessage) {
-      return $this->successResponse(['message' => $successMessage, 'state' => $state]);
+      return $this->successResponse(['message' => $successMessage, 'state' => $state, 'result' => $result]);
     }
 
     switch ($state) {
@@ -279,6 +279,11 @@ class Services extends APIEndpoint {
     return $this->successResponse([
       'email_address' => $fromEmail,
     ]);
+  }
+
+  public function refreshMSSKeyStatus() {
+    $key = $this->settings->get('mta.mailpoet_api_key');
+    return $this->checkMSSKey(['key' => $key]);
   }
 
   private function isItemInArray($item, $array): bool {

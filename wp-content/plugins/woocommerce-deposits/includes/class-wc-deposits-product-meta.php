@@ -48,18 +48,16 @@ class WC_Deposits_Product_Meta {
 			return null;
 		}
 
-		// For variation, meta is stored in parent product.
-		if ( $product->is_type( 'variation' ) ) {
-			$product_id = $product->get_parent_id();
-		} else {
-			$product_id = $product->get_id();
+		$value = $product->get_meta( $meta_key, true );
+
+		// Check if the variation inherit deposits settings from the parent product.
+		if ( $product->is_type( 'variation' ) && empty( $value ) ) {
+			$parent_id = $product->get_parent_id();
+			$parent    = wc_get_product( $parent_id );
+			$value     = $parent->get_meta( $meta_key, true );
 		}
 
-		// Retrieve parent product instance.
-		if ( $product->is_type( 'variation' ) ) {
-			$product = wc_get_product( $product_id );
-		}
-		return $product->get_meta( $meta_key, true );
+		return $value;
 	}
 
 	/**

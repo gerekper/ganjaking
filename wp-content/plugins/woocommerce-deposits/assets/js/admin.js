@@ -1,51 +1,75 @@
 jQuery( function( $ ){
 	// product level
-	$( 'body' ).on( 'change', 'select#_wc_deposit_enabled', function () {
-		$( '._wc_deposit_payment_plans_field' ).hide();
-		$( '._wc_deposit_amount_field' ).hide();
-		$( '._wc_deposit_multiple_cost_by_booking_persons_field' ).hide();
-		$( '._wc_deposit_type_field' ).hide();
+	$( 'body' ).on( 'change', 'select._wc_deposit_enabled', function () {
+		const $context = $(this).closest('.options_group');
+		const value = $(this).val();
+		const type = $context.parent().data('type');
 
-		if ( 'optional' === $(this).val() || 'forced' == $(this).val() ) {
-			$( '._wc_deposit_type_field' ).show();
-			$( 'select#_wc_deposit_type' ).trigger( 'change' );
+		$context.find( '._wc_deposit_payment_plans_field' ).hide();
+		$context.find( '._wc_deposit_amount_field' ).hide();
+		$context.find( '._wc_deposit_multiple_cost_by_booking_persons_field' ).hide();
+		$context.find( '._wc_deposit_type_field' ).hide();
+
+		if ( 'optional' === value || 'forced' === value ) {
+			$context.find( '._wc_deposit_type_field' ).show();
+			$context.find( 'select._wc_deposit_type' ).trigger( 'change' );
 		}
 
-		if ( '' === $(this).val() && 'no' !== $( '._wc_deposits_default_enabled_field' ).val() ) {
-			$( '._wc_deposit_type_field' ).show();
-			$( 'select#_wc_deposit_type' ).trigger( 'change' );
+		if ( '' === value && 'no' !== $context.find( '._wc_deposits_default_enabled_field' ).val() ) {
+			$context.find( '._wc_deposit_type_field' ).show();
+			$context.find( 'select._wc_deposit_type' ).trigger( 'change' );
 		}
 	} );
 
 	// product level
-	$( 'body' ).on( 'change', 'select#_wc_deposit_type', function() {
-		$( '._wc_deposit_payment_plans_field' ).hide();
-		$( '._wc_deposit_amount_field' ).hide();
-		$( '._wc_deposit_multiple_cost_by_booking_persons_field' ).hide();
+	$( 'body' ).on( 'change', 'select._wc_deposit_type', function() {
+		const $context = $(this).closest('.options_group');
+		const value = $(this).val();
+		
+		$context.find( '._wc_deposit_payment_plans_field' ).hide();
+		$context.find( '._wc_deposit_amount_field' ).hide();
+		$context.find( '._wc_deposit_multiple_cost_by_booking_persons_field' ).hide();
 
-		if ( 'percent' === $(this).val() )  {
-			$( '#_wc_deposit_amount' ).attr( 'placeholder', $( '._wc_deposits_default_amount_field' ).val() );
-			$( '._wc_deposit_amount_field' ).show();
-		} else if ( 'fixed' === $(this).val() ) {
-			$( '._wc_deposit_amount_field' ).show();
-			$( '#_wc_deposit_amount' ).attr( 'placeholder', '0' );
-		} else if ( 'plan' === $(this).val() ) {
-			$( '._wc_deposit_payment_plans_field' ).show();
-		} else if ( '' === $(this).val() ) {
-			var default_type = $( '._wc_deposits_default_type_field' ).val();
-			if ( 'plan' === default_type ) {
-				$( '._wc_deposit_payment_plans_field' ).show();
-			} else if ( 'percent' === default_type ) {
-				$( '#_wc_deposit_amount' ).attr( 'placeholder', $( '._wc_deposits_default_amount_field' ).val() );
-				$( '._wc_deposit_amount_field' ).show();
-			} else if ( 'fixed' === default_type ) {
-				$( '._wc_deposit_amount_field' ).show();
-				$( '#_wc_deposit_amount' ).attr( 'placeholder', '0' );
-			}
-		}
+		switch ( value ) {
+			case 'percent':
+				$context.find( '._wc_deposit_amount' ).attr( 'placeholder', $( '._wc_deposits_default_amount_field' ).val() );
+				$context.find( '._wc_deposit_amount_field' ).show();
+				break;
 
-		if ( 'fixed' === $(this).val() && 'booking' === $( '#product-type' ).val() ) {
-			$( '._wc_deposit_multiple_cost_by_booking_persons_field' ).show();
+			case 'fixed':
+				$context.find( '._wc_deposit_amount_field' ).show();
+				$context.find( '._wc_deposit_amount' ).attr( 'placeholder', '0' );
+				break;
+
+			case 'plan':
+				$context.find( '._wc_deposit_payment_plans_field' ).show();
+				break;
+
+			case '':
+			default:
+				var default_type = $context.find( '._wc_deposits_default_type_field' ).val();
+
+				switch ( default_type ) {
+					case 'plan':
+						$context.find( '._wc_deposit_payment_plans_field' ).show();
+						break;
+
+					case 'percent':
+						$context.find( '._wc_deposit_amount' ).attr( 'placeholder', $( '._wc_deposits_default_amount_field' ).val() );
+						$context.find( '._wc_deposit_amount_field' ).show();
+						break;
+
+					case 'fixed':
+						$context.find( '._wc_deposit_amount_field' ).show();
+						$context.find( '._wc_deposit_amount' ).attr( 'placeholder', '0' );
+						break;
+				} // switch default_type
+
+				break; // case '', default
+		} // switch value
+
+		if ( 'fixed' === value && 'booking' === $( '#product-type' ).val() ) {
+			$context.find( '._wc_deposit_multiple_cost_by_booking_persons_field' ).show();
 		}
 	} );
 
@@ -69,19 +93,90 @@ jQuery( function( $ ){
 		}
 	});
 
-	$( document.body ).on( 'change', 'select#_wc_deposit_selected_type', function() {
+	$( document.body ).on( 'change', 'select._wc_deposit_selected_type', function() {
 		var value = $( this ).val();
-
+		const $context = $(this).closest('.options_group');
 		// set the hidden element field to be saved
-		$( '._wc_deposits_default_selected_type_field' ).val( value );
+		$context.find( '._wc_deposits_default_selected_type_field' ).val( value );
 	});
 
-	$( 'select#_wc_deposit_type' ).trigger( 'change' );
-	$( 'select#_wc_deposit_enabled' ).trigger( 'change' );
-	$( 'select#_wc_deposit_selected_type' ).trigger( 'change' );
-	$( 'select#wc_deposits_default_type' ).trigger( 'change' );
+	const updateVariationPlansDescription = function() {
+		const $variationPlansDescription = $('.woocommerce_variation_deposits ._wc_deposit_payment_plans_field .description em');
+		const $productPlansSelector = $('#deposits ._wc_deposit_payment_plans');
+		const selection = $productPlansSelector.val();
+		const $productDepositType = $('#_wc_deposit_type');
 
-	var $paymentPlans = $( '#_wc_deposit_payment_plans, #wc_deposits_default_plans' );
+		let plansString = $('#deposits ._wc_deposit_payment_plans_field .description em').text();
+
+		if ( 'plan' === $productDepositType.val() && selection.length ) {
+			const planNames = selection.map(function(id) {
+				return $productPlansSelector.find(`option[value=${id}]`).text();
+			});
+			plansString = planNames.join(',');
+		}
+
+		$variationPlansDescription.text(plansString);
+	}
+
+	const initDeposits = function() {
+		$( 'select._wc_deposit_type' ).trigger( 'change' );
+		$( 'select._wc_deposit_enabled' ).trigger( 'change' );
+		$( 'select._wc_deposit_selected_type' ).trigger( 'change' );
+		$( 'select.wc_deposits_default_type' ).trigger( 'change' );
+
+		var $paymentPlans = $( '._wc_deposit_payment_plans, #wc_deposits_default_plans' );
+
+		// Set selected items order upon page load.
+		$paymentPlans.each(function() {
+			const $this = $( this );
+			const plansData = $this.data('plans-order').toString();
+			if ( plansData.indexOf( ',' ) > 0 ) {
+				const preservedOrder = plansData.split( ',' );
+				$.each( preservedOrder, function ( _, el ) {
+					const option = $this.find( '[value=' + el + ']' );
+					reorderOption( $this, option );
+				} );
+			}
+
+			// Attach selected plans in order of selection.
+			$this.on( 'select2:select', function( e ){
+				var option = e.params.data.element;
+				reorderOption( $this, option );
+			});
+
+			if ( $this.is('#_wc_deposit_payment_plans') ) {
+				$this.on( 'change', function() {
+					updateVariationPlansDescription();
+				} );
+			}
+
+			$this.selectWoo({
+				// Sort dropdown elements in the initial order.
+				sorter: function( data ) {
+					return data.sort( function( a, b ) {
+						if ( a.id < b.id ) {
+							return -1;
+						} else if ( a.id > b.id ) {
+							return 1;
+						} else {
+							return 0;
+						}
+					} );
+				}
+			});
+		});
+
+		updateVariationPlansDescription();
+	}
+
+	initDeposits();
+
+	$(document).on('woocommerce_variations_loaded', initDeposits);
+
+	$('#_wc_deposit_type').on( 'change', updateVariationPlansDescription)
+
+	// Init default type select on admin settings page.
+	$( 'select#wc_deposits_default_type' ).trigger( 'change' );
 
 	/**
 	 * Change option position in the selectWoo element
@@ -94,35 +189,4 @@ jQuery( function( $ ){
 		$select.append( $option );
 		$select.trigger( 'change' );
 	}
-
-	// Set selected items order upon page load.
-	var plansData = $paymentPlans.data('plans-order').toString();
-	if ( plansData.indexOf( ',' ) > 0 ) {
-		var preservedOrder = plansData.split( ',' );
-		$.each( preservedOrder, function ( _, el ) {
-			var option = $paymentPlans.find( '[value=' + el + ']' );
-			reorderOption( $paymentPlans, option );
-		} );
-	}
-
-	// Attach selected plans in order of selection.
-	$paymentPlans.on( 'select2:select', function( e ){
-		var option = e.params.data.element;
-		reorderOption( $( this ), option );
-	});
- 
-	$paymentPlans.selectWoo({
-		// Sort dropdown elements in the initial order.
-		sorter: function( data ) {
-			return data.sort( function( a, b ) {
-				if ( a.id < b.id ) {
-					return -1;
-				} else if ( a.id > b.id ) {
-					return 1;
-				} else {
-					return 0;
-				}
-			} );
-		}
-	});
 } );

@@ -11,8 +11,9 @@ use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Subscribers {
-  const SUBSCRIBERS_OLD_LIMIT = 2000;
-  const SUBSCRIBERS_NEW_LIMIT = 1000;
+  const SUBSCRIBERS_OLD_LIMIT = 'unlimited';
+  const SUBSCRIBERS_NEW_LIMIT = 'unlimited';
+  const PREMIUM_SUBSCRIBERS_LIMIT= 'unlimited';
   const NEW_LIMIT_DATE = '2019-11-00';
   const MSS_KEY_STATE = 'mta.mailpoet_api_key_state.state';
   const MSS_SUBSCRIBERS_LIMIT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.site_active_subscriber_limit';
@@ -53,47 +54,21 @@ class Subscribers {
   }
 
   public function checkEmailVolumeLimitIsReached(): bool {
-    $emailVolumeLimit = $this->getEmailVolumeLimit();
-    if (!$emailVolumeLimit) {
-      return false;
+    return false;
     }
-    $emailsSent = $this->getEmailsSent();
-    return $emailsSent > $emailVolumeLimit;
-  }
 
-  public function getSubscribersCount(): int {
-    $count = $this->wp->getTransient(self::SUBSCRIBERS_COUNT_CACHE_KEY);
-    if (is_numeric($count)) {
-      return (int)$count;
-    }
-    $count = $this->subscribersRepository->getTotalSubscribers();
-
-    // cache only when number of subscribers exceeds minimum value
-    if ($count > self::SUBSCRIBERS_COUNT_CACHE_MIN_VALUE) {
-      $this->wp->setTransient(self::SUBSCRIBERS_COUNT_CACHE_KEY, $count, self::SUBSCRIBERS_COUNT_CACHE_EXPIRATION_MINUTES * 60);
-    }
-    return $count;
+  public function getSubscribersCount() {
+    return $this->subscribersRepository->getTotalSubscribers();
   }
 
   public function hasValidApiKey(): bool {
+    return true;
     return $this->hasValidMssKey() || $this->hasValidPremiumKey();
   }
 
   public function getSubscribersLimit() {
-    if (!$this->hasValidApiKey()) {
-      return $this->getFreeSubscribersLimit();
-    }
-
-    if ($this->hasValidMssKey() && $this->hasMssSubscribersLimit()) {
-      return $this->getMssSubscribersLimit();
-    }
-
-    if ($this->hasValidPremiumKey() && $this->hasPremiumSubscribersLimit()) {
-      return $this->getPremiumSubscribersLimit();
-    }
-
     return false;
-  }
+    }
 
   public function getEmailVolumeLimit(): int {
     return (int)$this->settings->get(self::PREMIUM_EMAIL_VOLUME_LIMIT_SETTING_KEY);
@@ -104,6 +79,7 @@ class Subscribers {
   }
 
   private function hasValidMssKey() {
+    return true;
     $state = $this->settings->get(self::MSS_KEY_STATE);
     return $state === Bridge::KEY_VALID || $state === Bridge::KEY_EXPIRING;
   }
@@ -117,15 +93,18 @@ class Subscribers {
   }
 
   public function hasMssPremiumSupport() {
+    return true;
     return $this->hasValidMssKey() && $this->settings->get(self::MSS_SUPPORT_SETTING_KEY) === 'premium';
   }
 
   public function hasValidPremiumKey() {
+    return true;
     $state = $this->settings->get(self::PREMIUM_KEY_STATE);
     return $state === Bridge::KEY_VALID || $state === Bridge::KEY_EXPIRING;
   }
 
   private function hasPremiumSubscribersLimit() {
+    return true;
     return !empty($this->settings->get(self::PREMIUM_SUBSCRIBERS_LIMIT_SETTING_KEY));
   }
 
@@ -134,6 +113,7 @@ class Subscribers {
   }
 
   public function hasPremiumSupport() {
+    return true;
     return $this->hasValidPremiumKey() && $this->settings->get(self::PREMIUM_SUPPORT_SETTING_KEY) === 'premium';
   }
 

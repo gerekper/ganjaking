@@ -112,6 +112,9 @@ class NewsletterEditor {
         'coupon' => [
           'config' => [
             'discount_types' => $discountTypes,
+            'available_coupons' => $this->woocommerceHelper->getCouponList(),
+            'code_placeholder' => Coupon::CODE_PLACEHOLDER,
+            'price_decimal_separator' => $this->woocommerceHelper->wcGetPriceDecimalSeparator(),
           ],
           'defaults' => [
             'code' => Coupon::CODE_PLACEHOLDER,

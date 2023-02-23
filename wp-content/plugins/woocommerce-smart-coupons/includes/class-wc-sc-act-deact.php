@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 		 */
 		public static function process_activation() {
 
-			global $wpdb, $blog_id;
+			global $wpdb, $blog_id, $woocommerce_smart_coupon;
 
 			$is_migrate_site_options = get_site_option( 'wc_sc_migrate_site_options', 'yes' );
 
@@ -83,6 +83,17 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 				add_option( 'smart_coupon_email_subject' );
 			}
 
+			if ( ! is_object( $woocommerce_smart_coupon ) || ! is_a( $woocommerce_smart_coupon, 'WC_Smart_Coupons' ) || ! is_callable( array( $woocommerce_smart_coupon, 'update_post_meta' ) ) ) {
+				if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
+					if ( file_exists( WP_PLUGIN_DIR . '/woocommerce-smart-coupons/includes/class-wc-smart-coupons.php' ) ) {
+						include_once WP_PLUGIN_DIR . '/woocommerce-smart-coupons/includes/class-wc-smart-coupons.php';
+					}
+					if ( class_exists( 'WC_Smart_Coupons' ) && is_callable( array( 'WC_Smart_Coupons', 'get_instance' ) ) ) {
+						$woocommerce_smart_coupon = WC_Smart_Coupons::get_instance();
+					}
+				}
+			}
+
 			foreach ( $blog_ids as $blogid ) {
 
 				if ( ( file_exists( WP_PLUGIN_DIR . '/woocommerce/woocommerce.php' ) ) && ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) ) {
@@ -103,14 +114,22 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 					); // WPCS: cache ok, db call ok.
 
 					foreach ( $results as $result ) {
-						update_post_meta( $result, 'auto_generate_coupon', 'yes' );
+						if ( is_object( $woocommerce_smart_coupon ) && is_callable( array( $woocommerce_smart_coupon, 'update_post_meta' ) ) ) {
+							$woocommerce_smart_coupon->update_post_meta( $result, 'auto_generate_coupon', 'yes' );
+						} else {
+							update_post_meta( $result, 'auto_generate_coupon', 'yes' );
+						}
 					}
 
 					// To disable apply_before_tax option for Gift Certificates / Store Credit.
 					$tax_post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key = %s AND meta_value = %s", 'discount_type', 'smart_coupon' ) ); // WPCS: cache ok, db call ok.
 
 					foreach ( $tax_post_ids as $tax_post_id ) {
-						update_post_meta( $tax_post_id, 'apply_before_tax', 'no' );
+						if ( is_object( $woocommerce_smart_coupon ) && is_callable( array( $woocommerce_smart_coupon, 'update_post_meta' ) ) ) {
+							$woocommerce_smart_coupon->update_post_meta( $tax_post_id, 'apply_before_tax', 'no' );
+						} else {
+							update_post_meta( $tax_post_id, 'apply_before_tax', 'no' );
+						}
 					}
 
 					if ( 'yes' === $is_migrate_site_options ) {

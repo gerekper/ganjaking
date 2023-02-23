@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Deposits 2.1.2\n"
+"Project-Id-Version: WooCommerce Deposits 2.1.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-deposits\n"
-"POT-Creation-Date: 2023-01-17 02:00:48+00:00\n"
+"POT-Creation-Date: 2023-02-22 01:21:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,70 +72,70 @@ msgstr ""
 msgid "Oops!"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:457
+#: includes/class-wc-deposits-cart-manager.php:493
 msgid "Please select a valid payment plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:469
+#: includes/class-wc-deposits-cart-manager.php:505
 #. translators: %s: product name
 msgid "You cannot add another \"%s\" to your cart."
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1021
+#: includes/class-wc-deposits-cart-manager.php:1062
 #: includes/class-wc-deposits-plans-admin.php:181
 #: includes/class-wc-deposits-settings.php:132
 #: includes/list-tables/class-wc-deposits-plans-table.php:29
-#: includes/views/html-deposit-data.php:78
+#: includes/views/html-deposit-data.php:107
 #: includes/views/html-payment-plan-form.php:13
 msgid "Payment Plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1145
+#: includes/class-wc-deposits-cart-manager.php:1186
 #: includes/class-wc-deposits-order-manager.php:1130
 #. translators: item subtotal
 #. translators: full amount payable
 msgid "%s payable in total"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1211
+#: includes/class-wc-deposits-cart-manager.php:1252
 #. translators: %s: country name
 msgid "estimated for %s"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1213
+#: includes/class-wc-deposits-cart-manager.php:1254
 #. translators: %s: tax information
 msgid "(includes %s)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1334
+#: includes/class-wc-deposits-cart-manager.php:1375
 #: includes/class-wc-deposits-order-manager.php:1011
 msgid "(includes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1334
+#: includes/class-wc-deposits-cart-manager.php:1375
 #: includes/class-wc-deposits-order-manager.php:1011
 msgid "(excludes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1361
-#: includes/class-wc-deposits-cart-manager.php:1362
+#: includes/class-wc-deposits-cart-manager.php:1402
+#: includes/class-wc-deposits-cart-manager.php:1403
 msgid "Due Today"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1368
-#: includes/class-wc-deposits-cart-manager.php:1369
+#: includes/class-wc-deposits-cart-manager.php:1409
+#: includes/class-wc-deposits-cart-manager.php:1410
 #: includes/class-wc-deposits-order-manager.php:1016
 msgid "Discount Applied Toward Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1375
-#: includes/class-wc-deposits-cart-manager.php:1376
+#: includes/class-wc-deposits-cart-manager.php:1416
+#: includes/class-wc-deposits-cart-manager.php:1417
 #: includes/class-wc-deposits-order-manager.php:1028
 #: includes/class-wc-deposits-order-manager.php:1033
 msgid "Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1525
+#: includes/class-wc-deposits-cart-manager.php:1566
 msgid "Select options"
 msgstr ""
 
@@ -297,7 +297,7 @@ msgstr ""
 
 #: includes/class-wc-deposits-plans-admin.php:63
 #: includes/list-tables/class-wc-deposits-plans-table.php:30
-#: includes/views/html-deposit-data.php:130
+#: includes/views/html-deposit-data.php:172
 #: includes/views/html-payment-plans.php:10
 msgid "Payment Plans"
 msgstr ""
@@ -340,6 +340,11 @@ msgstr ""
 msgid "Pay a deposit of %1$s per %2$s"
 msgstr ""
 
+#: includes/class-wc-deposits-product-manager.php:148
+#. translators: %s is the deposit amount to be paid
+msgid "Pay a %s deposit per item"
+msgstr ""
+
 #: includes/class-wc-deposits-scheduled-order-manager.php:75
 msgid ""
 "Error: Unable to schedule orders for product with payment plan. Reason: "
@@ -374,17 +379,17 @@ msgid "You must set a default amount below if setting this option to \"yes\"."
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:115
-#: includes/views/html-deposit-data.php:59
+#: includes/views/html-deposit-data.php:85
 msgid "Yes - deposits are optional"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:116
-#: includes/views/html-deposit-data.php:60
+#: includes/views/html-deposit-data.php:86
 msgid "Yes - deposits are required"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:117
-#: includes/views/html-deposit-data.php:61
+#: includes/views/html-deposit-data.php:87
 msgid "No"
 msgstr ""
 
@@ -401,12 +406,12 @@ msgid "None"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:130
-#: includes/views/html-deposit-data.php:76
+#: includes/views/html-deposit-data.php:105
 msgid "Percentage"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:131
-#: includes/views/html-deposit-data.php:77
+#: includes/views/html-deposit-data.php:106
 msgid "Fixed Amount"
 msgstr ""
 
@@ -423,7 +428,7 @@ msgid "n/a"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:147
-#: includes/views/html-deposit-data.php:109
+#: includes/views/html-deposit-data.php:148
 msgid "Default Deposit Selected Type"
 msgstr ""
 
@@ -434,12 +439,12 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:154
-#: includes/views/html-deposit-data.php:113 templates/deposit-form.php:17
+#: includes/views/html-deposit-data.php:152 templates/deposit-form.php:25
 msgid "Pay Deposit"
 msgstr ""
 
 #: includes/class-wc-deposits-settings.php:155
-#: includes/views/html-deposit-data.php:114 templates/deposit-form.php:23
+#: includes/views/html-deposit-data.php:153 templates/deposit-form.php:31
 msgid "Pay in Full"
 msgstr ""
 
@@ -513,102 +518,107 @@ msgstr ""
 msgid "Schedule"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:13
+#: includes/views/html-deposit-data.php:32
+msgid "Inherit product settings"
+msgstr ""
+
+#: includes/views/html-deposit-data.php:34
 msgid "Inherit storewide settings"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:19
+#: includes/views/html-deposit-data.php:43
 msgid "percent"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:22
+#: includes/views/html-deposit-data.php:46
 msgid "fixed amount"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:25
+#: includes/views/html-deposit-data.php:49
 msgid "payment plan"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:28
+#: includes/views/html-deposit-data.php:52
 msgid "none"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:33
+#: includes/views/html-deposit-data.php:57
 msgid "yes, optional"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:36
+#: includes/views/html-deposit-data.php:60
 msgid "yes, required"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:39
+#: includes/views/html-deposit-data.php:63
 msgid "no"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:44
+#: includes/views/html-deposit-data.php:68
 msgid "pay deposit"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:47
+#: includes/views/html-deposit-data.php:71
 msgid "pay in full"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:54
+#: includes/views/html-deposit-data.php:80
 msgid "Enable Deposits"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:56
-#. translators: a link to store settings page
+#: includes/views/html-deposit-data.php:82
+#. translators: Link to storewide settings
 msgid ""
 "Allow customers to pay a deposit for this product. <br> <a href=\"%s\" "
 "target=\"_blank\">Manage storewide settings</a>"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:72
+#: includes/views/html-deposit-data.php:101
 msgid "Deposit Type"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:73
+#: includes/views/html-deposit-data.php:102
 msgid "Choose how customers can pay for this product using a deposit."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:89
+#: includes/views/html-deposit-data.php:121
 msgid "Booking Persons"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:90
+#: includes/views/html-deposit-data.php:122
 msgid "Multiply fixed deposits by the number of persons booking"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:98
+#: includes/views/html-deposit-data.php:133
 msgid "Deposit Amount"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:100
+#: includes/views/html-deposit-data.php:135
 msgid "The amount of deposit needed. Do not include currency or percent symbols."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:110
+#: includes/views/html-deposit-data.php:149
 msgid "Choose the default selected type of payment on page load."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:135
+#: includes/views/html-deposit-data.php:177
 msgid "You have not created any payment plans yet."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:136
+#: includes/views/html-deposit-data.php:178
 msgid "Create a Payment Plan"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:141
+#: includes/views/html-deposit-data.php:182
 msgid "Choose some plans"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:148
+#: includes/views/html-deposit-data.php:188
 msgid "Choose which payment plans customers can use for this product."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:158
+#: includes/views/html-deposit-data.php:199
+#: includes/views/html-deposit-data.php:202
 #. translators: default payment plan
 msgid "\"%s\" will be used if no payment plan is selected."
 msgstr ""

@@ -49,4 +49,36 @@ class StatisticsWooCommercePurchasesRepository extends Repository {
     $statistics->setSubscriber($click->getSubscriber());
     $this->flush();
   }
+
+  public function getRevenuesByCampaigns(string $currency): array {
+    $revenueStatsTable = $this->entityManager->getClassMetadata(StatisticsWooCommercePurchaseEntity::class)->getTableName();
+    $newsletterTable = $this->entityManager->getClassMetadata(NewsletterEntity::class)->getTableName();
+
+    // The "SELECT MIN(click_id)..." sub-query is used to count each purchase only once.
+    // In the data we track a purchase to multiple newsletters if clicks from multiple newsletters occurred.
+    $data = $this->entityManager->getConnection()->executeQuery('
+      SELECT
+        SUM(swp.order_price_total) AS revenue,
+        COALESCE(n.parent_id, n.id) AS campaign_id,
+        (CASE WHEN n.type = :notification_history_type THEN :notification_type ELSE n.type END) AS campaign_type,
+        COUNT(order_id) as orders_count
+      FROM ' . $revenueStatsTable . ' swp
+        JOIN ' . $newsletterTable . ' n ON
+          n.id = swp.newsletter_id
+          AND swp.click_id IN (SELECT MIN(click_id) FROM ' . $revenueStatsTable . ' ss GROUP BY order_id)
+      WHERE swp.order_currency = :currency
+      GROUP BY campaign_id, n.type;
+    ', [
+      'notification_history_type' => NewsletterEntity::TYPE_NOTIFICATION_HISTORY,
+      'notification_type' => NewsletterEntity::TYPE_NOTIFICATION,
+      'currency' => $currency,
+    ])->fetchAllAssociative();
+
+    $data = array_map(function($row) {
+      $row['revenue'] = round(floatval($row['revenue']), 2);
+      $row['orders_count'] = intval($row['orders_count']);
+      return $row;
+    }, $data);
+    return $data;
+  }
 }

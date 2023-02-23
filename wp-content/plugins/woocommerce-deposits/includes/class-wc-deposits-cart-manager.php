@@ -46,7 +46,7 @@ class WC_Deposits_Cart_Manager {
 		add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'deposits_form_output' ), 99 );
 		add_action( 'woocommerce_before_variations_form', array( $this, 'reposition_display_for_variable_product' ), 99 );
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 10, 6 );
-		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 2 );
+		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 3 );
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'add_cart_item' ), 99, 1 );
 
 		// Apply deposit information on cart delayed in case of membership plugin is installed (need to apply on front-end only).
@@ -109,6 +109,8 @@ class WC_Deposits_Cart_Manager {
 		// Display correct tax when the "Display Tax Totals" setting is set to "As a single total".
 		// @see https://github.com/woocommerce/woocommerce-deposits/issues/385.
 		add_filter( 'woocommerce_cart_totals_taxes_total_html', array( $this, 'cart_totals_taxes_total_html' ) );
+
+		add_filter( 'woocommerce_available_variation', array( $this, 'variation_deposits_form' ), 10, 3 );
 	}
 
 	/**
@@ -124,10 +126,44 @@ class WC_Deposits_Cart_Manager {
 	 * Show deposits form.
 	 */
 	public function deposits_form_output() {
-		if ( WC_Deposits_Product_Manager::deposits_enabled( $GLOBALS['post']->ID ) ) {
-			wp_enqueue_script( 'wc-deposits-frontend' );
-			wc_get_template( 'deposit-form.php', array( 'post' => $GLOBALS['post'] ), 'woocommerce-deposits', WC_DEPOSITS_TEMPLATE_PATH );
+		global $post;
+		$product = wc_get_product( $post->ID );
+
+		$should_display_form = WC_Deposits_Product_Manager::deposits_enabled( $product->get_id() );
+
+		// Check if any variation has deposits enabled.
+		if ( ! $should_display_form && $product->is_type( 'variable' ) ) {
+			foreach ( $product->get_available_variations() as $variation ) {
+				if ( WC_Deposits_Product_Manager::deposits_enabled( $variation['variation_id'] ) ) {
+					$should_display_form = true;
+					break;
+				}
+			}
 		}
+
+		if ( $should_display_form ) {
+			wp_enqueue_script( 'wc-deposits-frontend' );
+			wc_get_template( 'deposit-form.php', array( 'product' => $product ), 'woocommerce-deposits', WC_DEPOSITS_TEMPLATE_PATH );
+		}
+	}
+
+	/**
+	 * Add deposits form to variation data.
+	 *
+	 * @since 2.1.3
+	 *
+	 * @param array                $data Variation data.
+	 * @param WC_Product           $product Product.
+	 * @param WC_Product_Variation $variation Variation object.
+	 * @return array
+	 */
+	public function variation_deposits_form( $data, $product, $variation ) {
+		ob_start();
+		wc_get_template( 'deposit-form.php', array( 'product' => $variation ), 'woocommerce-deposits', WC_DEPOSITS_TEMPLATE_PATH );
+		$html_form = ob_get_clean();
+
+		$data['deposits_form'] = $html_form;
+		return $data;
 	}
 
 	/**
@@ -479,11 +515,16 @@ class WC_Deposits_Cart_Manager {
 	/**
 	 * Add posted data to the cart item.
 	 *
-	 * @param array $cart_item_meta Cart Item meta.
-	 * @param int   $product_id Product ID.
+	 * @param  array $cart_item_meta Cart item data.
+	 * @param  int   $product_id Product ID.
+	 * @param  int   $variation_id Variation ID.
 	 * @return array
 	 */
-	public function add_cart_item_data( $cart_item_meta, $product_id ) {
+	public function add_cart_item_data( $cart_item_meta, $product_id, $variation_id ) {
+		if ( ! empty( $variation_id ) ) {
+			$product_id = $variation_id;
+		}
+
 		if ( ! WC_Deposits_Product_Manager::deposits_enabled( $product_id ) ) {
 			return $cart_item_meta;
 		}

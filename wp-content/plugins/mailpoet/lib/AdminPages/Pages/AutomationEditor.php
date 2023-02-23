@@ -12,7 +12,6 @@ use MailPoet\Automation\Engine\Mappers\AutomationMapper;
 use MailPoet\Automation\Engine\Registry;
 use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Form\AssetsController;
-use MailPoet\Segments\SegmentsRepository;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoet\WP\Notice as WPNotice;
 
@@ -32,9 +31,6 @@ class AutomationEditor {
   /** @var Registry */
   private $registry;
 
-  /** @var SegmentsRepository  */
-  private $segmentsRepository;
-
   /** @var WPFunctions */
   private $wp;
 
@@ -44,7 +40,6 @@ class AutomationEditor {
     AutomationStorage $automationStorage,
     PageRenderer $pageRenderer,
     Registry $registry,
-    SegmentsRepository $segmentsRepository,
     WPFunctions $wp
   ) {
     $this->assetsController = $assetsController;
@@ -52,7 +47,6 @@ class AutomationEditor {
     $this->automationStorage = $automationStorage;
     $this->pageRenderer = $pageRenderer;
     $this->registry = $registry;
-    $this->segmentsRepository = $segmentsRepository;
     $this->wp = $wp;
   }
 
@@ -79,15 +73,13 @@ class AutomationEditor {
       exit();
     }
 
-    $segments = [];
-    foreach ($this->segmentsRepository->findAll() as $segment) {
-      $segments[] = ['id' => $segment->getId(), 'name' => $segment->getName(), 'type' => $segment->getType()];
-    }
     $roles = new \WP_Roles();
     $this->pageRenderer->displayPage('automation/editor.html', [
+      'registry' => $this->buildRegistry(),
       'context' => $this->buildContext(),
       'automation' => $this->automationMapper->buildAutomation($automation),
       'sub_menu' => 'mailpoet-automation',
+      'locale_full' => $this->wp->getLocale(),
       'api' => [
         'root' => rtrim($this->wp->escUrlRaw($this->wp->restUrl()), '/'),
         'nonce' => $this->wp->wpCreateNonce('wp_rest'),
@@ -96,11 +88,10 @@ class AutomationEditor {
         'root' => rtrim($this->wp->escUrlRaw(admin_url('admin-ajax.php')), '/'),
       ],
       'user_roles' => $roles->get_names(),
-      'segments' => $segments,
     ]);
   }
 
-  private function buildContext(): array {
+  private function buildRegistry(): array {
     $steps = [];
     foreach ($this->registry->getSteps() as $key => $step) {
       $steps[$key] = [
@@ -110,5 +101,13 @@ class AutomationEditor {
       ];
     }
     return ['steps' => $steps];
+  }
+
+  private function buildContext(): array {
+    $data = [];
+    foreach ($this->registry->getContextFactories() as $key => $factory) {
+      $data[$key] = $factory();
+    }
+    return $data;
   }
 }

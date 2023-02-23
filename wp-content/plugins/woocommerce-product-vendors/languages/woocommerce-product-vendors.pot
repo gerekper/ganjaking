@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Product Vendors package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Vendors 2.1.73\n"
+"Project-Id-Version: WooCommerce Product Vendors 2.1.74\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-vendors\n"
-"POT-Creation-Date: 2023-01-27 19:01:28+00:00\n"
+"POT-Creation-Date: 2023-02-20 19:18:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -141,7 +141,7 @@ msgid "Search Order #"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:943
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:655
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:665
 msgid "%d item processed."
 msgid_plural "%d items processed"
 msgstr[0] ""
@@ -628,15 +628,15 @@ msgstr ""
 #: includes/admin/class-wc-product-vendors-store-commission-list.php:465
 #: includes/admin/class-wc-product-vendors-store-commission-list.php:474
 #: includes/admin/class-wc-product-vendors-store-commission-list.php:556
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:569
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:595
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:579
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:605
 #: includes/admin/class-wc-product-vendors-vendor-dashboard.php:260
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:262
 #: includes/admin/class-wc-product-vendors-vendor-orders-list.php:379
 #: includes/admin/class-wc-product-vendors-vendor-orders-list.php:388
 #: includes/admin/class-wc-product-vendors-vendor-orders-list.php:477
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:490
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:521
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:500
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:531
 #: includes/admin/views/html-vendor-order-page.php:11
 #: includes/integrations/class-wc-product-vendors-bookings.php:288
 #: includes/integrations/class-wc-product-vendors-bookings.php:300
@@ -666,83 +666,87 @@ msgid "SKU: %s"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-commission-list.php:544
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:563
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:209
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:227
 #: includes/admin/class-wc-product-vendors-vendor-orders-list.php:464
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:484
 msgid "<br /><small class=\"wpcv-refunded\">-%s</small>"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:572
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:565
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:486
+#. translators: 1. commission refund status label
+msgid "Fully Refunded"
+msgstr ""
+
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:582
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:234
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:493
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:503
 msgid "UNPAID"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:576
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:586
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:238
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:497
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:507
 msgid "PAID"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:580
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:590
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:242
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:501
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:511
 msgid "VOID"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:589
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:599
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:256
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:515
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:525
 msgid "UNFULFILLED"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:592
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:602
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:259
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:518
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:528
 msgid "FULFILLED"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:658
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:668
 msgid "No commissions found."
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:673
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:683
 msgid "Pay Commission"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:674
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:684
 msgid "Mark Unpaid"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:675
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:685
 msgid "Mark Paid"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:676
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:686
 msgid "Mark Void"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:677
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:687
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:319
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:603
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:613
 msgid "Mark Fulfilled"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:678
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:688
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:320
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:604
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:614
 msgid "Mark Unfulfilled"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:679
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:689
 msgid "Delete Commission"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-store-commission-list.php:834
+#: includes/admin/class-wc-product-vendors-store-commission-list.php:844
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:421
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:710
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:720
 msgid "Select All"
 msgstr ""
 
@@ -968,7 +972,7 @@ msgid "<br />%1$s: %2$s"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:304
-#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:588
+#: includes/admin/class-wc-product-vendors-vendor-orders-list.php:598
 msgid "No orders found."
 msgstr ""
 
@@ -1750,12 +1754,20 @@ msgstr ""
 msgid "configure your vendor settings"
 msgstr ""
 
-#: includes/class-wc-product-vendors-order.php:366
+#: includes/class-wc-product-vendors-order.php:367
 msgid "Commission data generated."
 msgstr ""
 
-#: includes/class-wc-product-vendors-order.php:383
+#: includes/class-wc-product-vendors-order.php:384
 msgid "Generate Vendor Commission"
+msgstr ""
+
+#: includes/class-wc-product-vendors-order.php:680
+msgid "Vendor commission (#%4$s) for \"%1$s\" updated to %2$s with refund #%3$s"
+msgstr ""
+
+#: includes/class-wc-product-vendors-order.php:758
+msgid "Vendor commission (#%3$s) for \"%1$s\" is fully refunded with refund #%2$s"
 msgstr ""
 
 #: includes/class-wc-product-vendors-registration.php:54

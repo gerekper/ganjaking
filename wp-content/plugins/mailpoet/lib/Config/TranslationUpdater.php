@@ -13,6 +13,8 @@ use Tracy\ILogger;
 class TranslationUpdater {
   const API_UPDATES_BASE_URI = 'https://translate.wordpress.com/api/translations-updates/mailpoet/';
   const MAILPOET_FREE_DOT_COM_PROJECT_ID = 'MailPoet - MailPoet';
+  const TRANSIENT_KEY_PREFIX = 'mailpoet_translation_updates_';
+  const TRANSIENT_EXPIRATION = 300; // 5 minutes
 
   /** @var WPFunctions */
   private $wpFunctions;
@@ -28,9 +30,6 @@ class TranslationUpdater {
 
   /** @var string|null */
   private $premiumVersion;
-
-  /** @var array  */
-  private $requestCache = [];
 
   public function __construct(
     WPFunctions $wpFunctions,
@@ -89,30 +88,29 @@ class TranslationUpdater {
       $requestBody['plugins'][$this->premiumSlug] = ['version' => $this->premiumVersion];
     }
 
-    // Ten seconds, plus one extra second for every 10 locales.
-    $timeout = 10 + (int)(count($locales) / 10);
-    $requestHash = md5(serialize($requestBody));
-    if (!isset($this->requestCache[$requestHash])) {
-      $this->requestCache[$requestHash] = $this->wpFunctions->wpRemotePost(self::API_UPDATES_BASE_URI, [
-        'body' => json_encode($requestBody),
-        'headers' => ['Content-Type: application/json'],
-        'timeout' => $timeout,
-      ]);
-    }
-    $rawResponse = $this->requestCache[$requestHash];
-
-    // Don't continue when API request failed.
-    $responseCode = $this->wpFunctions->wpRemoteRetrieveResponseCode($rawResponse);
-    if ($responseCode !== 200) {
-      $this->logError("MailPoet: Failed to fetch translations from WordPress.com API with $responseCode and response message: " . $this->wpFunctions->wpRemoteRetrieveResponseMessage($rawResponse));
-      return [];
+    $cacheKey = self::TRANSIENT_KEY_PREFIX . md5(serialize($requestBody));
+    $rawResponse = $this->wpFunctions->getTransient($cacheKey);
+    if (!$rawResponse) {
+      $rawResponse = $this->fetchApiResponse($requestBody);
+      $responseCode = $this->wpFunctions->wpRemoteRetrieveResponseCode($rawResponse);
+      // Wait a couple of seconds and retry when 429 is returned.
+      if ($responseCode === 429) {
+        sleep(2);
+        $rawResponse = $this->fetchApiResponse($requestBody);
+        $responseCode = $this->wpFunctions->wpRemoteRetrieveResponseCode($rawResponse);
+      }
+      // Don't continue when API request failed.
+      if ($responseCode !== 200) {
+        $this->logError("MailPoet: Failed to fetch translations from WordPress.com API with $responseCode and response message: " . $this->wpFunctions->wpRemoteRetrieveResponseMessage($rawResponse));
+        return [];
+      }
+      $this->wpFunctions->setTransient($cacheKey, $rawResponse, self::TRANSIENT_EXPIRATION);
     }
     $response = json_decode($this->wpFunctions->wpRemoteRetrieveBody($rawResponse), true);
     if (!is_array($response) || (array_key_exists('success', $response) && $response['success'] === false)) {
-      $this->logError("MailPoet: Failed to fetch translations from WordPress.com API with $responseCode and response: " . json_encode($response));
+      $this->logError("MailPoet: Failed to fetch translations from WordPress.com API with code 200 and response: " . json_encode($response));
       return [];
     }
-
     return $response['data'];
   }
 
@@ -171,5 +169,19 @@ class TranslationUpdater {
       Debugger::log($message, ILogger::ERROR);
     }
     error_log($message); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
+  }
+
+  /**
+   * @return array|\WP_Error
+   */
+  private function fetchApiResponse(array $requestBody) {
+    // Ten seconds, plus one extra second for every 10 locales.
+    $timeout = 10 + (int)(count($requestBody['locales']) / 10);
+    $response = $this->wpFunctions->wpRemotePost(self::API_UPDATES_BASE_URI, [
+      'body' => json_encode($requestBody),
+      'headers' => ['Content-Type: application/json'],
+      'timeout' => $timeout,
+    ]);
+    return $response;
   }
 }

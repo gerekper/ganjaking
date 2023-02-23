@@ -7,10 +7,28 @@
 			/**
 			 * Initializes Validation Controller.
 			 * When a new variation is selected, validate and conditionally adjust its quantity.
+			 * When the Min Qty = Max Qty = 1, hide the quantity selector.
 			 *
 			 * @param {jQuery object} $cart_form
 			 */
 			init: function ( $cart_form ) {
+
+				// Simple Products.
+				var $qty_input     = $cart_form.find( 'input.qty' ),
+					$quantity_wrap = $cart_form.find( '.quantity' ),
+					min_qty        = parseInt( $qty_input.prop( 'min' ), 10 ),
+					max_qty        =  '' !== $qty_input.prop( 'max' ) ? parseInt($qty_input.prop( 'max' ), 10 ) : Infinity;
+
+				// Hide variation quantity, only if Min Qty = Max Qty = 1, and display it otherwise.
+				if ( 1 === min_qty && min_qty === max_qty ) {
+					$qty_input.prop( 'type', 'hidden' );
+					$quantity_wrap.addClass( 'hidden' );
+				} else if ( $quantity_wrap.hasClass( 'hidden' ) ) {
+					$qty_input.prop( 'type', 'number' );
+					$quantity_wrap.removeClass( 'hidden' );
+				}
+
+				// Variations.
 				if ( ! $cart_form.hasClass( 'variations_form' ) ) {
 					return;
 				}
@@ -20,7 +38,7 @@
 						$quantity_wrap = $cart_form.find( '.quantity' ),
 						step           = 'undefined' !== typeof variation.step && ! variation.step.length ? parseInt( variation.step, 10 ) : 1,
 						min_qty        = parseInt( variation.min_qty, 10 ),
-						max_qty        = parseInt( variation.max_qty, 10 );
+						max_qty        = '' !== variation.max_qty ? parseInt( variation.max_qty, 10 ) : Infinity;
 
 					if ( step > 1 ) {
 
@@ -45,16 +63,16 @@
 					$qty_input.prop( 'min', min_qty );
 					$qty_input.prop( 'max', max_qty );
 
-					// If the parent's Minimum Quantity is equal to the Maximum Quantity, then the qty selector is hidden for all variations.
-					// To fix this, the following code shows the qty input if users should be able to configure the variation's qty.
-					if ( $quantity_wrap.hasClass( 'hidden' ) && min_qty + step <= max_qty ) {
-						$qty_input.prop( 'type', 'number' );
-						$quantity_wrap.removeClass( 'hidden' );
-					} else if ( ! $quantity_wrap.hasClass( 'hidden' ) && min_qty + step > max_qty ) {
+					// Hide variation quantity, only if Min Qty = Max Qty = 1, and display it otherwise.
+					if ( 1 === min_qty && min_qty === max_qty ) {
 						$qty_input.prop( 'type', 'hidden' );
 						$quantity_wrap.addClass( 'hidden' );
+					} else if ( $quantity_wrap.hasClass( 'hidden' ) ) {
+						$qty_input.prop( 'type', 'number' );
+						$quantity_wrap.removeClass( 'hidden' );
 					}
 				} );
+
 			},
 			/**
 			 * Listens to any scripts that trigger the Min/Max Quantities validation manually.

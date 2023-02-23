@@ -49,7 +49,6 @@ class RevSliderLicense extends RevSliderFunctions {
 	 * Deactivate the Plugin through the ThemePunch Servers
 	 * @before 6.0.0: RevSliderOperations::doPurchaseDeactivation();
 	 * @before 6.2.0: RevSliderAdmin::deactivate_plugin();
-	 **/
 	public function deactivate_plugin(){
 		$rstrack = new RevSliderTracking();
 		$rstrack->_run(false);
@@ -78,4 +77,5 @@ class RevSliderLicense extends RevSliderFunctions {
 		
 		return false;
 	}
+	 **/
 }

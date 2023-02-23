@@ -1,5 +1,10 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2023.02.27 - version 4.0.7
+* Update - Hid product/variation quantity selector when the Minimum Quantity = Maximum Quantity = 1.
+* Fix - Updated maximum quantity resolution notice to fix a syntax error.
+* Fix - Fixed an issue that prevented the quantity selector from showing up for variations without a Maximum Quantity.
+
 2022.11.29 - version 4.0.6
 * Fix - Fixed fatal error triggered in WordPress versions prior to 6.1.0.
 

@@ -39,7 +39,7 @@ class Migrator {
     }
 
     foreach ($migrations as $migration) {
-      if ($migration['status'] === self::MIGRATION_STATUS_COMPLETED) {
+      if ($migration['unknown'] || $migration['status'] === self::MIGRATION_STATUS_COMPLETED) {
         continue;
       }
 
@@ -59,7 +59,7 @@ class Migrator {
     }
   }
 
-  /** @return array{name: string, status: string, started_at: string|null, completed_at: string|null, retries: int|null, error: string|null}[] */
+  /** @return array{name: string, status: string, started_at: string|null, completed_at: string|null, retries: int|null, error: string|null, unknown: bool}[] */
   public function getStatus(): array {
     $defined = $this->repository->loadAll();
     $processed = $this->store->getAll();
@@ -77,6 +77,7 @@ class Migrator {
         'completed_at' => $data['completed_at'] ?? null,
         'retries' => isset($data['retries']) ? (int)$data['retries'] : null,
         'error' => $data && $data['error'] ? mb_strimwidth($data['error'], 0, 20, '…') : null,
+        'unknown' => !in_array($name, $defined, true),
       ];
     }
     return $status;

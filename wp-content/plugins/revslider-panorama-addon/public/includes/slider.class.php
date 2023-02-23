@@ -58,16 +58,13 @@ class RsPanoramaSliderFront extends RevSliderFunctions {
 			$export->pclzip->add(RS_PANORAMA_PLUGIN_PATH.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', PCLZIP_OPT_REMOVE_PATH, RS_PANORAMA_PLUGIN_PATH.'public/assets/css/', PCLZIP_OPT_ADD_PATH, 'css/');
 		}
 		$html = str_replace($this->pluginUrl.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css', $html);
-		$html = str_replace(array($this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', $this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . '.js', $html);
+		$html = str_replace($this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $html);
 		$html = str_replace(RS_PLUGIN_URL.'public/assets/js/libs/three.min.js', $export->path_js .'three.min.js', $html);
 		
 
 		//check for all slides to add and replace images
 		$slides = $output->get_current_slides();
 		$front = new RsPanoramaSlideFront($this->pluginTitle);
-
-		
-
 
 		if(!empty($slides)){
 			$plugins_url = plugins_url('', dirname(__FILE__));

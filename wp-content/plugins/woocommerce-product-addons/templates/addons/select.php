@@ -2,13 +2,15 @@
 /**
  * The Template for displaying select field.
  *
- * @version 6.0.0
+ * @version 6.0.4
  * @package woocommerce-product-addons
  */
 
 $loop             = 0;
 $field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
 $restriction_data = WC_Product_Addons_Helper::get_restriction_data( $addon );
+$required         = ! empty( $addon['required'] ) ? $addon['required'] : '';
+
 ?>
 <div class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 	<select

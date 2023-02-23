@@ -121,7 +121,15 @@ class ShortcodesHelper {
         ],
         [
           'text' => __('Homepage link', 'mailpoet'),
-          'shortcode' => '[site:homepage_link]',
+          'shortcode' => sprintf(
+            '<a target="_blank" href="%s">%s</a>',
+            '[site:homepage_url]',
+            '[site:title]'
+          ),
+        ],
+        [
+          'text' => __('Homepage URL', 'mailpoet'),
+          'shortcode' => '[site:homepage_url]',
         ],
       ],
     ];

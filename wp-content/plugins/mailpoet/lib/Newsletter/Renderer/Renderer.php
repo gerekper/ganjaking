@@ -217,6 +217,7 @@ class Renderer {
    * @return array
    */
   private function addMailpoetLogoContentBlock(array $content, array $styles) {
+    return $content;
     if (empty($content['blocks'])) return $content;
     $content['blocks'][] = [
       'type' => 'container',

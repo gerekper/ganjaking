@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.8.0
+ * @version     1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 		public function __construct() {
 
 			add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 2 );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'validate_after_checkout' ), 99, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
@@ -94,11 +94,17 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 			$user_role_ids         = array();
 			$exclude_user_role_ids = array();
 			if ( ! empty( $coupon_id ) ) {
-				$user_role_ids = get_post_meta( $coupon_id, 'wc_sc_user_role_ids', true );
+				if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+					$coupon = new WC_Coupon( $coupon_id );
+				}
+
+				$is_callable_coupon_get_meta = $this->is_callable( $coupon, 'get_meta' );
+
+				$user_role_ids = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'wc_sc_user_role_ids' ) : get_post_meta( $coupon_id, 'wc_sc_user_role_ids', true );
 				if ( empty( $user_role_ids ) || ! is_array( $user_role_ids ) ) {
 					$user_role_ids = array();
 				}
-				$exclude_user_role_ids = get_post_meta( $coupon_id, 'wc_sc_exclude_user_role_ids', true );
+				$exclude_user_role_ids = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'wc_sc_exclude_user_role_ids' ) : get_post_meta( $coupon_id, 'wc_sc_exclude_user_role_ids', true );
 				if ( empty( $exclude_user_role_ids ) || ! is_array( $exclude_user_role_ids ) ) {
 					$exclude_user_role_ids = array();
 				}
@@ -147,37 +153,30 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 		/**
 		 * Save coupon by user role data in meta
 		 *
-		 * @param  Integer $post_id The coupon post ID.
-		 * @param  WP_Post $post    The coupon post.
+		 * @param  Integer   $post_id The coupon post ID.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
-				return;
+
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
 
 			$user_role_ids = ( isset( $_POST['wc_sc_user_role_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_user_role_ids'] ) ) : array(); // phpcs:ignore
 			$exclude_user_role_ids = ( isset( $_POST['wc_sc_exclude_user_role_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_exclude_user_role_ids'] ) ) : array(); // phpcs:ignore
 
-			update_post_meta( $post_id, 'wc_sc_user_role_ids', $user_role_ids );
-			update_post_meta( $post_id, 'wc_sc_exclude_user_role_ids', $exclude_user_role_ids );
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
+				$coupon->update_meta_data( 'wc_sc_user_role_ids', $user_role_ids );
+				$coupon->update_meta_data( 'wc_sc_exclude_user_role_ids', $exclude_user_role_ids );
+				$coupon->save();
+			} else {
+				update_post_meta( $post_id, 'wc_sc_user_role_ids', $user_role_ids );
+				update_post_meta( $post_id, 'wc_sc_exclude_user_role_ids', $exclude_user_role_ids );
+			}
+
 		}
 
 		/**
@@ -196,9 +195,17 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 				return $valid;
 			}
 
-			$coupon_id             = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
-			$user_role_ids         = get_post_meta( $coupon_id, 'wc_sc_user_role_ids', true );
-			$exclude_user_role_ids = get_post_meta( $coupon_id, 'wc_sc_exclude_user_role_ids', true );
+			$coupon_id = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
+			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $coupon_id );
+			}
+			if ( $this->is_callable( $coupon, 'get_meta' ) ) {
+				$user_role_ids         = $coupon->get_meta( 'wc_sc_user_role_ids' );
+				$exclude_user_role_ids = $coupon->get_meta( 'wc_sc_exclude_user_role_ids' );
+			} else {
+				$user_role_ids         = get_post_meta( $coupon_id, 'wc_sc_user_role_ids', true );
+				$exclude_user_role_ids = get_post_meta( $coupon_id, 'wc_sc_exclude_user_role_ids', true );
+			}
 
 			$current_user = wp_get_current_user();
 

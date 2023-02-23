@@ -21,11 +21,13 @@ class ConflictResolver {
       'jetpack',
       'query-monitor',
       'wpt-tx-updater-network',
-      // WP.com styles
+      // WP.com
       '^/_static',
       'atomic-plugins/debug-bar/css',
       'woocommerce-payments/',
       'automatewoo/',
+      'full-site-editing',
+      'wpcomsh',
     ],
     'scripts' => [
       'mailpoet',
@@ -38,6 +40,9 @@ class ConflictResolver {
       // third-party
       'query-monitor',
       'wpt-tx-updater-network',
+      // WP.com
+      'full-site-editing',
+      'wpcomsh',
     ],
   ];
 

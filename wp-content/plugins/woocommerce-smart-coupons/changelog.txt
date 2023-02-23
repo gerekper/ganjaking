@@ -1,5 +1,11 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.02.20 - version 7.2.0
+* New: Use of CRUD functions throughout plugin
+* Fix: Missing 3rd argument causing issues when using filter 'woocommerce_payment_complete_order_status'
+* Fix: Incorrectly updating store credit balance when order is having virtual-downloadable product & more than one coupon is applied to that order
+* Update: POT file
+
 2023.01.18 - version 7.1.0
 * New: Credits & coupons were not getting generated & emailed when paid with [Klarna Checkout for WooCommerce](https://wordpress.org/plugins/klarna-checkout-for-woocommerce/)
 * Fix: Auto apply does not happen when 'Disable email restriction?' is enabled

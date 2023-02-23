@@ -89,7 +89,14 @@
 				// Add invoice link to Thank You page
 				add_action( 'woocommerce_thankyou' , array( $this,'invoice_link_thanks' ), 10 );
 
-				add_filter( 'wcs_renewal_order_meta_query', array( $this, 'subscriptions_remove_renewal_order_meta_3' ), 10, 3 );
+				// Deprecated Subscriptions filters :/
+				if ( class_exists( 'WC_Subscriptions' ) ) {
+					if ( version_compare( WC_Subscriptions::$version, '4.6.0', '<' ) ) {
+						add_filter( 'woocommerce_subscriptions_renewal_order_meta_query', array( $this, 'subscriptions_remove_renewal_order_meta_3' ), 10, 3 );
+					} else {
+						add_filter( 'wcs_renewal_order_meta_query', array( $this, 'subscriptions_remove_renewal_order_meta_3' ), 10, 3 );
+					}
+				}
 
 			}
 

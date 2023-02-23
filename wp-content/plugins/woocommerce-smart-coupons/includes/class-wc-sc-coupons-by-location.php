@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.6.0
+ * @version     1.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -80,7 +80,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 			if ( is_admin() ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_javascript_css' ) );
 				add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ) );
-				add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+				add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			}
 
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
@@ -172,10 +172,13 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				wp_enqueue_script( 'sa_coupons_by_location_chosen' );
 			}
 
-			$this->locations_lookup_in = get_post_meta( $post->ID, 'sa_cbl_locations_lookup_in', true );
+			$coupon                      = ( ! empty( $post->ID ) ) ? new WC_Coupon( $post->ID ) : null;
+			$is_callable_coupon_get_meta = $this->is_callable( $coupon, 'get_meta' );
+
+			$this->locations_lookup_in = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'sa_cbl_locations_lookup_in' ) : get_post_meta( $post->ID, 'sa_cbl_locations_lookup_in', true );
 			if ( ! is_array( $this->locations_lookup_in ) || empty( $this->locations_lookup_in ) ) {
 				$this->locations_lookup_in = array( 'address' => 'billing' );
-				update_post_meta( $post->ID, 'sa_cbl_locations_lookup_in', $this->locations_lookup_in );
+				$this->update_post_meta( $post->ID, 'sa_cbl_locations_lookup_in', $this->locations_lookup_in );
 			}
 
 			$this->address = $this->locations_lookup_in['address'];
@@ -197,7 +200,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				<p class="form-field">
 					<label class="options_header"><?php echo esc_html__( 'Locations', 'woocommerce-smart-coupons' ); ?></label>
 					<?php
-						$locations = get_post_meta( $post->ID, 'sa_cbl_' . $this->address . '_locations', true );
+						$locations = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'sa_cbl_' . $this->address . '_locations' ) : get_post_meta( $post->ID, 'sa_cbl_' . $this->address . '_locations', true );
 					if ( empty( $locations ) || ! is_array( $locations ) ) {
 						$locations = array();
 					}
@@ -261,40 +264,33 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 		/**
 		 * Save coupon by location data in meta
 		 *
-		 * @param  Integer $post_id The coupon post ID.
-		 * @param  WP_Post $post    The coupon post.
+		 * @param  Integer   $post_id The coupon post ID.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
 
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
+
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
 
 			$locations                            = ( ! empty( $_POST['locations'] ) ) ? wc_clean( wp_unslash( $_POST['locations'] ) ) : array(); // phpcs:ignore
 			$this->locations_lookup_in['address'] = ( ! empty( $_POST['sa_cbl_search_in']['address'] ) ) ? wc_clean( wp_unslash( $_POST['sa_cbl_search_in']['address'] ) ) : ''; // phpcs:ignore
 
-			update_post_meta( $post_id, 'sa_cbl_' . $this->locations_lookup_in['address'] . '_locations', $locations );
-
-			if ( isset( $this->locations_lookup_in['address'] ) && ! empty( $this->locations_lookup_in['address'] ) ) {
-				update_post_meta( $post_id, 'sa_cbl_locations_lookup_in', $this->locations_lookup_in );
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
+				$coupon->update_meta_data( 'sa_cbl_' . $this->locations_lookup_in['address'] . '_locations', $locations );
+				if ( isset( $this->locations_lookup_in['address'] ) && ! empty( $this->locations_lookup_in['address'] ) ) {
+					$coupon->update_meta_data( 'sa_cbl_locations_lookup_in', $this->locations_lookup_in );
+				}
+				$coupon->save();
+			} else {
+				update_post_meta( $post_id, 'sa_cbl_' . $this->locations_lookup_in['address'] . '_locations', $locations );
+				if ( isset( $this->locations_lookup_in['address'] ) && ! empty( $this->locations_lookup_in['address'] ) ) {
+					update_post_meta( $post_id, 'sa_cbl_locations_lookup_in', $this->locations_lookup_in );
+				}
 			}
 
 			$this->countries = array_map( 'strtolower', WC()->countries->countries );
@@ -344,15 +340,16 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				return $valid;
 			}
 
-			$coupon_id = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
+			$coupon_id                   = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
+			$is_callable_coupon_get_meta = $this->is_callable( $coupon, 'get_meta' );
 
-			$this->locations_lookup_in = get_post_meta( $coupon_id, 'sa_cbl_locations_lookup_in', true );
+			$this->locations_lookup_in = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'sa_cbl_locations_lookup_in' ) : get_post_meta( $coupon_id, 'sa_cbl_locations_lookup_in', true );
 
 			if ( empty( $this->locations_lookup_in ) || empty( $this->locations_lookup_in['address'] ) ) {
 				return $valid;
 			}
 
-			$locations = get_post_meta( $coupon_id, 'sa_cbl_' . $this->locations_lookup_in['address'] . '_locations', true );
+			$locations = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'sa_cbl_' . $this->locations_lookup_in['address'] . '_locations' ) : get_post_meta( $coupon_id, 'sa_cbl_' . $this->locations_lookup_in['address'] . '_locations', true );
 
 			if ( ! empty( $locations ) && is_array( $locations ) && ! empty( $locations['additional_locations'] ) && is_array( $locations['additional_locations'] ) && array_key_exists( 'additional_locations', $locations ) ) {
 
@@ -538,9 +535,19 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				$billing_locations   = get_post_meta( $old_coupon_id, 'sa_cbl_billing_locations', true );
 				$shipping_locations  = get_post_meta( $old_coupon_id, 'sa_cbl_shipping_locations', true );
 			}
-			update_post_meta( $new_coupon_id, 'sa_cbl_locations_lookup_in', $locations_lookup_in );
-			update_post_meta( $new_coupon_id, 'sa_cbl_billing_locations', $billing_locations );
-			update_post_meta( $new_coupon_id, 'sa_cbl_shipping_locations', $shipping_locations );
+
+			$new_coupon = new WC_Coupon( $new_coupon_id );
+
+			if ( $this->is_callable( $new_coupon, 'update_meta_data' ) && $this->is_callable( $new_coupon, 'save' ) ) {
+				$new_coupon->update_meta_data( 'sa_cbl_locations_lookup_in', $locations_lookup_in );
+				$new_coupon->update_meta_data( 'sa_cbl_billing_locations', $billing_locations );
+				$new_coupon->update_meta_data( 'sa_cbl_shipping_locations', $shipping_locations );
+				$new_coupon->save();
+			} else {
+				update_post_meta( $new_coupon_id, 'sa_cbl_locations_lookup_in', $locations_lookup_in );
+				update_post_meta( $new_coupon_id, 'sa_cbl_billing_locations', $billing_locations );
+				update_post_meta( $new_coupon_id, 'sa_cbl_shipping_locations', $shipping_locations );
+			}
 
 			if ( ! empty( $billing_locations['additional_locations'] ) ) {
 				$this->update_global_additional_locations( $billing_locations['additional_locations'] );

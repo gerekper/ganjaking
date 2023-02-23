@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.5.0
+ * @version     1.6.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -147,7 +147,7 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 						$expiry_date = strtotime( $expiry_date );
 					}
 					if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
-						$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+						$expiry_time = (int) $woocommerce_smart_coupon->get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 						if ( ! empty( $expiry_time ) ) {
 							$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 						}

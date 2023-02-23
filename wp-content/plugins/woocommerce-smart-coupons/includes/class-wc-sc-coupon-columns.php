@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.5.2
- * @version     1.0.1
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 		}
 
 		/**
-		 * Render columm: view_orders.
+		 * Render column: view_orders.
 		 */
 		public function render_view_orders_column() {
 

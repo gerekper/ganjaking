@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -93,8 +93,12 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 		 */
 		public function sc_wcs_renewal_filters() {
 			if ( self::is_wcs_gte( '2.0.0' ) ) {
+				if ( self::is_wcs_gte( '2.5.0' ) ) {
+					add_filter( 'wc_subscriptions_renewal_order_data', array( $this, 'sc_wcs_renewal_order_meta' ), 10, 3 );
+				} else {
+					add_filter( 'wcs_renewal_order_meta', array( $this, 'sc_wcs_renewal_order_meta' ), 10, 3 );
+				}
 				add_filter( 'wcs_get_subscription', array( $this, 'sc_wcs_modify_subscription' ) );
-				add_filter( 'wcs_renewal_order_meta', array( $this, 'sc_wcs_renewal_order_meta' ), 10, 3 );
 				add_filter( 'wcs_new_order_created', array( $this, 'sc_wcs_modify_renewal_order_meta' ), 10, 2 );
 				add_filter( 'wcs_renewal_order_items', array( $this, 'sc_wcs_modify_renewal_order' ), 10, 3 );
 				add_filter( 'wcs_renewal_order_items', array( $this, 'sc_wcs_renewal_order_items' ), 10, 3 );
@@ -179,12 +183,12 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 		/**
 		 * Function to add meta which is necessary for coupon processing, in order
 		 *
-		 * @param   array           $meta Order meta.
-		 * @param   WC_Order        $to_order Order to copy meta to.
-		 * @param   WC_Subscription $from_order Order to copy meta from.
+		 * @param   array    $meta Order meta.
+		 * @param   WC_Order $to_order Order to copy meta to.
+		 * @param   WC_Order $from_order Order to copy meta from.
 		 * @return  array $meta
 		 */
-		public function sc_wcs_renewal_order_meta( $meta, $to_order, $from_order ) {
+		public function sc_wcs_renewal_order_meta( $meta = array(), $to_order = null, $from_order = null ) {
 
 			if ( $this->is_wc_gte_30() ) {
 				$order    = $from_order->get_parent();
@@ -197,6 +201,8 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			if ( empty( $order_id ) ) {
 				return $meta;
 			}
+
+			$is_callable_order_get_meta = $this->is_callable( $order, 'get_meta' );
 
 			$meta_exists = array(
 				'coupon_sent'                => false,
@@ -226,22 +232,30 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				if ( $value ) {
 					continue;
 				}
-				$meta_value = get_post_meta( $order_id, $key, true );
+				$meta_value = ( true === $is_callable_order_get_meta ) ? $order->get_meta( $key ) : get_post_meta( $order_id, $key, true );
 
 				if ( empty( $meta_value ) ) {
 					continue;
 				}
 
 				if ( $this->is_wcs_gte( '2.2.0' ) ) {
-					$renewal_order_id = ( is_object( $to_order ) && is_callable( array( $to_order, 'get_id' ) ) ) ? $to_order->get_id() : 0;
+					$renewal_order_id                 = ( $this->is_callable( $to_order, 'get_id' ) ) ? $to_order->get_id() : 0;
+					$is_callable_to_order_update_meta = $this->is_callable( $to_order, 'update_meta_data' );
 					if ( 'coupon_sent' === $key ) {
-						// update_post_meta( $renewal_order_id, $key, 'no' );
 						// No need to update meta 'coupon_sent' as it's being updated by function sc_modify_renewal_order in this class.
 						continue;
 					} elseif ( 'smart_coupons_contribution' === $key ) {
-						update_post_meta( $renewal_order_id, $key, array() );
+						if ( true === $is_callable_to_order_update_meta ) {
+							$to_order->update_meta_data( $key, array() );
+						} else {
+							update_post_meta( $renewal_order_id, $key, array() );
+						}
 					} else {
-						update_post_meta( $renewal_order_id, $key, $meta_value );
+						if ( true === $is_callable_to_order_update_meta ) {
+							$to_order->update_meta_data( $key, $meta_value );
+						} else {
+							update_post_meta( $renewal_order_id, $key, $meta_value );
+						}
 					}
 				} else {
 					if ( ! isset( $meta ) || ! is_array( $meta ) ) {
@@ -436,6 +450,9 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 
 			if ( ! empty( $applied_coupons ) ) {
 
+				$order_id = absint( $order_id );
+				$order    = ( function_exists( 'wc_get_order' ) ) ? wc_get_order( $order_id ) : null;
+
 				foreach ( $applied_coupons as $code ) {
 
 					$smart_coupon = new WC_Coupon( $code );
@@ -467,7 +484,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 						}
 
 						if ( $update ) {
-							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupon_credit_used, true );
+							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupon_credit_used, true, $order );
 						}
 					}
 				}
@@ -534,16 +551,22 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			$is_recursive = false;
 			if ( ! empty( $order_items ) ) {
 				foreach ( $order_items as $order_item ) {
-					$send_coupons_on_renewals = 'no';
-					if ( ! empty( $order_item['variation_id'] ) ) {
-						$coupon_titles = get_post_meta( $order_item['variation_id'], '_coupon_title', true );
+					$send_coupons_on_renewals            = 'no';
+					$item_product_id                     = ( $this->is_callable( $order_item, 'get_product_id' ) ) ? $order_item->get_product_id() : $order_item['product_id'];
+					$item_variation_id                   = ( $this->is_callable( $order_item, 'get_variation_id' ) ) ? $order_item->get_variation_id() : $order_item['variation_id'];
+					$item_product                        = ( ! empty( $item_product_id ) && function_exists( 'wc_get_product' ) ) ? wc_get_product( $item_product_id ) : null;
+					$item_variation                      = ( ! empty( $item_variation_id ) && function_exists( 'wc_get_product' ) ) ? wc_get_product( $item_variation_id ) : null;
+					$is_callable_item_product_get_meta   = $this->is_callable( $item_product, 'get_meta' );
+					$is_callable_item_variation_get_meta = $this->is_callable( $item_variation, 'get_meta' );
+					if ( ! empty( $item_variation_id ) ) {
+						$coupon_titles = ( true === $is_callable_item_variation_get_meta ) ? $item_variation->get_meta( '_coupon_title' ) : get_post_meta( $item_variation_id, '_coupon_title', true );
 						if ( empty( $coupon_titles ) ) {
-							$send_coupons_on_renewals = get_post_meta( $order_item['product_id'], 'send_coupons_on_renewals', true );
+							$send_coupons_on_renewals = ( true === $is_callable_item_product_get_meta ) ? $item_product->get_meta( 'send_coupons_on_renewals' ) : get_post_meta( $item_product_id, 'send_coupons_on_renewals', true );
 						} else {
-							$send_coupons_on_renewals = get_post_meta( $order_item['variation_id'], 'send_coupons_on_renewals', true );
+							$send_coupons_on_renewals = ( true === $is_callable_item_variation_get_meta ) ? $item_variation->get_meta( 'send_coupons_on_renewals' ) : get_post_meta( $item_variation_id, 'send_coupons_on_renewals', true );
 						}
-					} elseif ( ! empty( $order_item['product_id'] ) ) {
-						$send_coupons_on_renewals = get_post_meta( $order_item['product_id'], 'send_coupons_on_renewals', true );
+					} elseif ( ! empty( $item_product_id ) ) {
+						$send_coupons_on_renewals = ( true === $is_callable_item_product_get_meta ) ? $item_product->get_meta( 'send_coupons_on_renewals' ) : get_post_meta( $item_product_id, 'send_coupons_on_renewals', true );
 					} else {
 						continue;
 					}
@@ -553,11 +576,27 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 					}
 				}
 			}
+			$renewal_order_id                      = absint( $renewal_order_id );
+			$renewal_order                         = ( ! empty( $renewal_order_id ) && function_exists( 'wc_get_order' ) ) ? wc_get_order( $renewal_order_id ) : null;
+			$is_callable_renewal_order_update_meta = $this->is_callable( $renewal_order, 'update_meta_data' );
+
 			$stop_recursive_coupon_generation = get_option( 'stop_recursive_coupon_generation', 'no' );
 			if ( ( empty( $stop_recursive_coupon_generation ) || 'no' === $stop_recursive_coupon_generation ) && $is_recursive ) {
-				update_post_meta( $renewal_order_id, 'coupon_sent', 'no' );
+				if ( true === $is_callable_renewal_order_update_meta ) {
+					$renewal_order->update_meta_data( 'coupon_sent', 'no' );
+				} else {
+					update_post_meta( $renewal_order_id, 'coupon_sent', 'no' );
+				}
 			} else {
-				update_post_meta( $renewal_order_id, 'coupon_sent', 'yes' );
+				if ( true === $is_callable_renewal_order_update_meta ) {
+					$renewal_order->update_meta_data( 'coupon_sent', 'yes' );
+				} else {
+					update_post_meta( $renewal_order_id, 'coupon_sent', 'yes' );
+				}
+			}
+
+			if ( $this->is_callable( $renewal_order, 'save' ) ) {
+				$renewal_order->save();
 			}
 
 			return $order_items;
@@ -719,7 +758,12 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 							$this->update_post_meta( $renewal_order_id, '_order_total', $new_order_total, true, $renewal_order );
 							$this->update_post_meta( $renewal_order_id, '_order_discount', $discount, true, $renewal_order );
 							if ( $new_order_total <= floatval( 0 ) ) {
-								update_post_meta( $renewal_order_id, '_renewal_paid_by_smart_coupon', 'yes' );
+								if ( $this->is_callable( $renewal_order, 'update_meta_data' ) && $this->is_callable( $renewal_order, 'save' ) ) {
+									$renewal_order->update_meta_data( '_renewal_paid_by_smart_coupon', 'yes' );
+									$renewal_order->save();
+								} else {
+									update_post_meta( $renewal_order_id, '_renewal_paid_by_smart_coupon', 'yes' );
+								}
 							}
 							if ( $this->is_wc_gte_30() ) {
 								$item = new WC_Order_Item_Coupon();
@@ -740,7 +784,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 					}
 				}
 				if ( ! empty( $smart_coupons_contribution ) ) {
-					$this->update_post_meta( $renewal_order_id, 'smart_coupons_contribution', $smart_coupons_contribution, true );
+					$this->update_post_meta( $renewal_order_id, 'smart_coupons_contribution', $smart_coupons_contribution, true, $renewal_order );
 					$renewal_order->sc_total_credit_used = $smart_coupons_contribution;
 				}
 			}
@@ -802,12 +846,16 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				}
 			}
 
-			$is_renewal_paid_by_smart_coupon = get_post_meta( $renewal_order_id, '_renewal_paid_by_smart_coupon', true );
+			if ( $this->is_callable( $renewal_order, 'meta_exists' ) && true !== $renewal_order->meta_exists( '_renewal_paid_by_smart_coupon' ) ) {
+				$renewal_order->read_meta_data( true );
+			}
+
+			$is_renewal_paid_by_smart_coupon = ( $this->is_callable( $renewal_order, 'get_meta' ) ) ? $renewal_order->get_meta( '_renewal_paid_by_smart_coupon' ) : get_post_meta( $renewal_order_id, '_renewal_paid_by_smart_coupon', true );
 			if ( ! empty( $is_renewal_paid_by_smart_coupon ) && 'yes' === $is_renewal_paid_by_smart_coupon ) {
 
 				/* translators: %s: singular name for store credit */
 				$order_paid_txt = ! empty( $store_credit_label['singular'] ) ? sprintf( __( 'Order paid by %s', 'woocommerce-smart-coupons' ), strtolower( $store_credit_label['singular'] ) ) : __( 'Order paid by store credit.', 'woocommerce-smart-coupons' );
-				$renewal_order->update_status( apply_filters( 'woocommerce_payment_complete_order_status', $order_needs_processing ? 'processing' : 'completed', $renewal_order_id ), $order_paid_txt );
+				$renewal_order->update_status( apply_filters( 'woocommerce_payment_complete_order_status', $order_needs_processing ? 'processing' : 'completed', $renewal_order_id, $renewal_order ), $order_paid_txt ); // HN WC SA Support #7485.
 			}
 		}
 
@@ -1043,7 +1091,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				$old_coupon_id       = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 				$wcs_number_payments = get_post_meta( $old_coupon_id, '_wcs_number_payments', true );
 			}
-			update_post_meta( $new_coupon_id, '_wcs_number_payments', $wcs_number_payments );
+			$this->update_post_meta( $new_coupon_id, '_wcs_number_payments', $wcs_number_payments );
 
 		}
 

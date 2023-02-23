@@ -110,7 +110,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				if ( $this->id )
 					$file = get_attached_file( $this->id );
 				else if ( $this->file_url_import_enabled )
-					$file = ABSPATH . $this->file_url;
+					$file = WP_CONTENT_DIR . $this->file_url;
 
 				try {
 					$file = str_replace( "\\", "/", $file );
@@ -542,7 +542,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		if ( $this->id )
 			$file = get_attached_file( $this->id );
 		else if ( $this->file_url_import_enabled )
-			$file = ABSPATH . $this->file_url;
+			$file = WP_CONTENT_DIR . $this->file_url;
 		else
 			return;
 
@@ -700,7 +700,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 * @version 1.10.13
 	 */
 	protected function handle_initial_path_file_check() {
-		$this->perform_file_path_checks( ABSPATH . $_POST['file_url'] );
+		$this->perform_file_path_checks( WP_CONTENT_DIR . $_POST['file_url'] );
 		$this->file_url = esc_attr( $_POST['file_url'] );
 	}
 
@@ -717,8 +717,8 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			throw new Exception( __( 'Sorry, filepath must not be within a PHAR executable.', 'woocommerce-product-csv-import-suite' ) );
 		}
 
-		if ( ! $this->is_within_abspath( $filepath ) ) {	/* translators: placeholder is base directory (ABSPATH) */
-			throw new Exception( sprintf( __( 'Sorry, there has been an error: path file must exist inside %s.', 'woocommerce-product-csv-import-suite' ), ABSPATH ) );
+		if ( ! $this->is_within_content_dir( $filepath ) ) {	/* translators: placeholder is base directory (WP_CONTENT_DIR) */
+			throw new Exception( sprintf( __( 'Sorry, there has been an error: filepath must exist inside %s.', 'woocommerce-product-csv-import-suite' ), WP_CONTENT_DIR ) );
 		}
 
 		if ( ! file_exists( $filepath ) ) {
@@ -739,10 +739,10 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 *
 	 * @param string $filepath The filepath to be checked.
 	 *
-	 * @return bool True if the filepath is within ABSPATH.
+	 * @return bool True if the filepath is within WP_CONTENT_DIR.
 	 */
-	private function is_within_abspath( string $filepath ): bool {
-		return 0 === strpos( wp_normalize_path( realpath( $filepath ) ), wp_normalize_path( trailingslashit( realpath( ABSPATH ) ) ) );
+	private function is_within_content_dir( string $filepath ): bool {
+		return 0 === strpos( wp_normalize_path( realpath( $filepath ) ), wp_normalize_path( trailingslashit( realpath( WP_CONTENT_DIR ) ) ) );
 	}
 
 	public function product_exists( $title, $sku = '', $post_name = '' ) {
@@ -1353,7 +1353,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		$upload_dir 		= wp_upload_dir();
 
 		if ( strstr( $url, site_url() ) ) {
-			$abs_url 	= str_replace( trailingslashit( site_url() ), trailingslashit( ABSPATH ), $url );
+			$abs_url 	= str_replace( trailingslashit( site_url() ), trailingslashit( WP_CONTENT_DIR ), $url );
 			$new_name 	= wp_unique_filename( $upload_dir['path'], basename( $url ) );
 			$new_url 	= trailingslashit( $upload_dir['path'] ) . $new_name;
 
@@ -1374,7 +1374,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			// We have the path, check it exists
 			if ( file_exists( $attachment_file ) ) {
 
-				$attachment_url = str_replace( trailingslashit( ABSPATH ), trailingslashit( site_url() ), $attachment_file );
+				$attachment_url = str_replace( trailingslashit( WP_CONTENT_DIR ), trailingslashit( site_url() ), $attachment_file );
 				$attachment_id  = attachment_url_to_postid( $attachment_url );
 
 				// Avoid duplicate media in library.

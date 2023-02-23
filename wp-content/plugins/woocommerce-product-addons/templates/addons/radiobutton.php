@@ -2,7 +2,7 @@
 /**
  * The Template for displaying radio button field.
  *
- * @version 6.0.0
+ * @version 6.1.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
@@ -60,7 +60,7 @@ foreach ( $addon['options'] as $i => $option ) {
 		$price_display = $price_raw;
 	}
 
-	$option_id = sanitize_title( $field_name ) . '-' . $i;
+	$option_id = $addon_key . '-' . $i;
 	?>
 	<div class="wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 		<input

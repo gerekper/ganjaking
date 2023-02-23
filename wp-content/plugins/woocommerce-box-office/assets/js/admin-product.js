@@ -16,6 +16,8 @@
 			labelVariablesInfoSelector: '.ticket-label-variables-info',
 			labelVariablesSelector: '.ticket-label-variables',
 			ticketLinkVarSelector: '.ticket-link-var',
+			ticketIdVarSelector: '.ticket-id-var',
+			ticketBarcodeVarSelector: '.ticket-barcode-var',
 			ticketTokenVarSelector: '.ticket-token-var',
 			ticketPostVarsSelector: '.ticket-post-vars'
 		},
@@ -42,6 +44,8 @@
 		$( self.ticketFieldsSelector ).on( 'row:deleted', self.populateTicketFields );
 		$( self.labelVariablesSelector ).on( 'click', 'a', self.insertLabelToEditor );
 		$( self.ticketLinkVarSelector ).on( 'click', 'a', self.insertLabelToEditor );
+		$( self.ticketIdVarSelector ).on( 'click', 'a', self.insertLabelToEditor )
+		$( self.ticketBarcodeVarSelector ).on( 'click', 'a', self.insertLabelToEditor )
 		$( self.ticketTokenVarSelector ).on( 'click', 'a', self.insertLabelToEditor );
 		$( self.ticketPostVarsSelector ).on( 'click', 'a', self.insertLabelToEditor );
 	};

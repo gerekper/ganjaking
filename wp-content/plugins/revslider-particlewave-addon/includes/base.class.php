@@ -15,7 +15,7 @@ class RsParticleWaveBase extends RsAddOnParticleWaveBase {
 					 $_PluginUrl     = RS_PARTICLEWAVE_PLUGIN_URL,
 					 $_PluginTitle   = 'particlewave',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '1.0.2';
+				     $_Version       = '1.0.9';
 	
 	public function __construct() {
 		

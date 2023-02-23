@@ -26,7 +26,7 @@
 							<label for="file_url"><?php _e( 'OR enter path to file:', 'woocommerce-product-csv-import-suite' ); ?></label>
 						</th>
 						<td>
-							<?php echo ' ' . wp_normalize_path( ABSPATH ) . ' '; ?><input type="text" id="file_url" name="file_url" size="50" />
+							<?php echo ' ' . wp_normalize_path( WP_CONTENT_DIR ) . ' '; ?><input type="text" id="file_url" name="file_url" size="50" />
 						</td>
 					</tr>
 					<?php endif; ?>

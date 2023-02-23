@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.4.0
+ * @version     1.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 		private function __construct() {
 
 			add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'wc_sc_export_coupon_meta', array( $this, 'export_coupon_meta_data' ), 10, 2 );
@@ -91,7 +91,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 
 			$shipping_method_ids = array();
 			if ( ! empty( $coupon_id ) ) {
-				$shipping_method_ids = get_post_meta( $coupon_id, 'wc_sc_shipping_method_ids', true );
+				$shipping_method_ids = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_shipping_method_ids' ) : $this->get_post_meta( $coupon_id, 'wc_sc_shipping_method_ids', true );
 				if ( empty( $shipping_method_ids ) || ! is_array( $shipping_method_ids ) ) {
 					$shipping_method_ids = array();
 				}
@@ -122,35 +122,26 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 		/**
 		 * Save coupon by shipping method data in meta
 		 *
-		 * @param  Integer $post_id The coupon post ID.
-		 * @param  WP_Post $post    The coupon post.
+		 * @param  Integer   $post_id The coupon post ID.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
-				return;
+
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
 
 			$shipping_method_ids = ( isset( $_POST['wc_sc_shipping_method_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_shipping_method_ids'] ) ) : array(); // phpcs:ignore
 
-			update_post_meta( $post_id, 'wc_sc_shipping_method_ids', $shipping_method_ids );
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
+				$coupon->update_meta_data( 'wc_sc_shipping_method_ids', $shipping_method_ids );
+				$coupon->save();
+			} else {
+				$this->update_post_meta( $post_id, 'wc_sc_shipping_method_ids', $shipping_method_ids );
+			}
 		}
 
 		/**
@@ -170,7 +161,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 			}
 
 			$coupon_id           = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
-			$shipping_method_ids = get_post_meta( $coupon_id, 'wc_sc_shipping_method_ids', true );
+			$shipping_method_ids = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_shipping_method_ids' ) : $this->get_post_meta( $coupon_id, 'wc_sc_shipping_method_ids', true );
 
 			if ( is_array( $shipping_method_ids ) && ! empty( $shipping_method_ids ) ) {
 				$chosen_shipping_method_data   = WC()->session->__isset( 'chosen_shipping_methods' ) ? WC()->session->get( 'chosen_shipping_methods' ) : '';

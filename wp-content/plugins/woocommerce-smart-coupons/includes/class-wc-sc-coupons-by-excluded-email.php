@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       6.7.0
- * @version     1.1.0
+ * @version     1.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 		private function __construct() {
 
 			add_action( 'wc_sc_start_coupon_options_email_restriction', array( $this, 'usage_restriction' ) );
-			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'check_customer_coupons' ), 99, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
@@ -117,33 +117,17 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 		/**
 		 * Save coupon by excluded email data in meta
 		 *
-		 * @param  Integer $post_id The coupon post ID.
-		 * @param  WP_Post $post    The coupon post.
+		 * @param  Integer   $post_id The coupon post ID.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
-				return;
-			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-            if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
 
-			$coupon = new WC_Coupon( $post_id );
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
+			}
 
             $excluded_emails = ( isset( $_POST['wc_sc_excluded_customer_email'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_excluded_customer_email'] ) ) : ''; // phpcs:ignore
 			$excluded_emails = explode( ',', $excluded_emails );
@@ -151,7 +135,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 			$excluded_emails = array_filter( $excluded_emails, 'is_email' );
 			$excluded_emails = array_filter( $excluded_emails );
 
-			if ( is_object( $coupon ) && is_callable( array( $coupon, 'update_meta_data' ) ) && is_callable( array( $coupon, 'save' ) ) ) {
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
 				$coupon->update_meta_data( 'wc_sc_excluded_customer_email', $excluded_emails );
 				$coupon->save();
 			} else {

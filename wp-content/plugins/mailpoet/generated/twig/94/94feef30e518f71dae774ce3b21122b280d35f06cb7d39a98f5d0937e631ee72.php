@@ -29,7 +29,6 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'after_javascript' => [$this, 'block_after_javascript'],
             'after_css' => [$this, 'block_after_css'],
         ];
     }
@@ -55,36 +54,33 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
         echo "<div class=\"wrap\">
   <div id=\"mailpoet_automation\"></div>
 </div>
-";
-    }
 
-    // line 9
-    public function block_after_javascript($context, array $blocks = [])
-    {
-        $macros = $this->macros;
+<script type=\"text/javascript\">
+  var mailpoet_locale_full = ";
+        // line 9
+        echo json_encode(($context["locale_full"] ?? null));
+        echo ";
+  var mailpoet_automation_api = ";
         // line 10
-        echo "  <script type=\"text/javascript\">
-    var mailpoet_automation_api = ";
-        // line 11
         echo json_encode(($context["api"] ?? null));
         echo ";
-    var mailpoet_automation_count = ";
-        // line 12
+  var mailpoet_automation_count = ";
+        // line 11
         echo json_encode(($context["automationCount"] ?? null));
         echo ";
-    var mailpoet_automation_templates = ";
-        // line 13
+  var mailpoet_automation_templates = ";
+        // line 12
         echo json_encode(($context["templates"] ?? null));
         echo ";
-  </script>
+</script>
 ";
     }
 
-    // line 17
+    // line 16
     public function block_after_css($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 18
+        // line 17
         echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-automation.css");
         echo "
 ";
@@ -102,7 +98,7 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
 
     public function getDebugInfo()
     {
-        return array (  85 => 18,  81 => 17,  74 => 13,  70 => 12,  66 => 11,  63 => 10,  59 => 9,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  81 => 17,  77 => 16,  70 => 12,  66 => 11,  62 => 10,  58 => 9,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

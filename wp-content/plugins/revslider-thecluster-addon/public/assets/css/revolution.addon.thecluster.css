@@ -1,0 +1,21 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2022 ThemePunch
+*/
+
+.tp-thecluster svg a,
+.tp-thecluster svg d,
+.tp-thecluster svg g,
+.tp-thecluster svg polygon,
+.tp-thecluster svg rect,
+.tp-thecluster svg line
+.tp-thecluster svg text,
+.tp-thecluster svg circle,
+.tp-thecluster svg path
+{		
+		transition: none;
+
+}
+
+#tp_svg_gradients {   visibility: hidden; position: absolute; z-index: 0; top:0px; left:0px; pointer-events: none}

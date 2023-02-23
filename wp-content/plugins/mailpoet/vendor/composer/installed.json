@@ -77,7 +77,6 @@
                 "soundasleep/component-tests": "dev-master"
             },
             "time": "2019-04-24T12:03:33+00:00",
-            "default-branch": true,
             "type": "library",
             "installation-source": "dist",
             "autoload": {

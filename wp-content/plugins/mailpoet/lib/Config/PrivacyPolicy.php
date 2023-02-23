@@ -32,7 +32,7 @@ class PrivacyPolicy {
       '</p>' .
       '<p>' .
         Helpers::replaceLinkTags(
-          __('This website can send emails through the [link]MailPoet sending service[/link]. This service allows us to track opens and clicks on our emails. We use this information to improve the content of our newsletters.', 'mailpoet'),
+          __('This website can send emails through the [link]MailPoet Sending Service[/link]. This service allows us to track opens and clicks on our emails. We use this information to improve the content of our newsletters.', 'mailpoet'),
         'https://www.mailpoet.com/privacy-notice/',
           ['target' => '_blank']
         ) .
@@ -41,7 +41,7 @@ class PrivacyPolicy {
         __('No identifiable information is otherwise tracked outside this website except for the email address.', 'mailpoet') .
       '</p>'
     );
-    $helper = new WooCommerceHelper();
+    $helper = new WooCommerceHelper(WPFunctions::get());
     if ($helper->isWooCommerceActive()) {
       $content .= (
         '<p> ' .

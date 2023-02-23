@@ -27,6 +27,8 @@ class RsParticleWaveSliderFront extends RevSliderFunctions {
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
 		add_action('revslider_get_slider_wrapper_div', array($this, 'check_if_ajax_loaded'), 10, 2);
 		add_filter('revslider_get_slider_html_addition', array($this, 'add_html_script_additions'), 10, 2);
+		add_action('revslider_export_html_write_footer', array($this, 'write_export_footer'), 10, 1);
+		add_filter('revslider_export_html_file_inclusion', array($this, 'add_addon_files'), 10, 2);
 		
 	}
 	
@@ -41,6 +43,16 @@ class RsParticleWaveSliderFront extends RevSliderFunctions {
 	
 	
 	private function isEnabled($slider){
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+
+		if(empty($addOn) || !$addOn['enable']) return false;
+
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
 		
@@ -91,6 +103,39 @@ class RsParticleWaveSliderFront extends RevSliderFunctions {
 		
 	}
 	
+	public function write_export_footer($export){
+		$output = $export->slider_output;
+		$array = $this->add_html_script_additions(array(), $output);
+		$toload = $this->get_val($array, 'toload', array());
+		if(!empty($toload)){
+			foreach($toload as $script){
+				echo $script;
+			}
+		}
+	}
+
+	public function add_addon_files($html, $export){
+		$output = $export->slider_output;
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $html;
+
+		$_jsPathMin = file_exists(RS_PARTICLEWAVE_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		if(!$export->usepcl){
+			$export->zip->addFile(RS_PLUGIN_PATH . 'public/assets/js/libs/three.min.js', 'js/three.min.js');
+			$export->zip->addFile(RS_PARTICLEWAVE_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js');
+			$export->zip->addFile(RS_PARTICLEWAVE_PLUGIN_PATH . 'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css');
+		}else{
+			$export->pclzip->add(RS_PLUGIN_PATH.'public/assets/js/libs/three.min.js', PCLZIP_OPT_REMOVE_PATH, RS_PLUGIN_PATH.'public/assets/js/libs/', PCLZIP_OPT_ADD_PATH, 'js/');
+			$export->pclzip->add(RS_PARTICLEWAVE_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', PCLZIP_OPT_REMOVE_PATH, RS_PARTICLEWAVE_PLUGIN_PATH.'public/assets/js/', PCLZIP_OPT_ADD_PATH, 'js/');
+			$export->pclzip->add(RS_PARTICLEWAVE_PLUGIN_PATH.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', PCLZIP_OPT_REMOVE_PATH, RS_PARTICLEWAVE_PLUGIN_PATH.'public/assets/css/', PCLZIP_OPT_ADD_PATH, 'css/');
+		}
+
+		$html = str_replace($this->pluginUrl.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css', $html);
+		$html = str_replace($this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $html);
+
+		return $html;
+	}
+
 	public function add_scripts(){
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base = $this->pluginUrl . 'public/assets/';		
@@ -104,11 +149,6 @@ class RsParticleWaveSliderFront extends RevSliderFunctions {
 
 		add_action('wp_footer', array($this, 'write_footer_scripts'));
 		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
-
-		
-		
-		
-		
 	}
 
 	public function add_html_script_additions($return, $output){

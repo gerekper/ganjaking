@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 6.0.0
+ * @version 6.1.0
  * @package woocommerce-product-addons
  */
 
@@ -45,7 +45,7 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 }
 ?>
 
-<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $name ) ); ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>">
+<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>">
 
 	<?php do_action( 'wc_product_addon_start', $addon ); ?>
 

@@ -15,7 +15,7 @@ class RsScrollvideoBase extends RsAddOnScrollvideoBase {
 					 $_PluginUrl     = RS_SCROLLVIDEO_PLUGIN_URL,
 					 $_PluginTitle   = 'scrollvideo',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.2';
+				     $_Version       = '3.0.4';
 	
 	public function __construct() {
 		

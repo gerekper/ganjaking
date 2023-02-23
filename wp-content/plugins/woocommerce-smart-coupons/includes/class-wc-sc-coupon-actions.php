@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.5.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -610,7 +610,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 				$old_coupon_id       = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 				$add_product_details = get_post_meta( $old_coupon_id, 'wc_sc_add_product_details', true );
 			}
-			update_post_meta( $new_coupon_id, 'wc_sc_add_product_details', $add_product_details );
+			$this->update_post_meta( $new_coupon_id, 'wc_sc_add_product_details', $add_product_details );
 
 		}
 
@@ -664,8 +664,15 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 					$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 				}
 				if ( ! empty( $coupon_code ) ) {
-					$actions        = get_post_meta( $coupon_id, 'wc_sc_add_product_details', true );
-					$coupon_actions = apply_filters( 'wc_sc_coupon_actions', $actions, array( 'coupon_code' => $coupon_code ) );
+					$actions        = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_add_product_details' ) : get_post_meta( $coupon_id, 'wc_sc_add_product_details', true );
+					$coupon_actions = apply_filters(
+						'wc_sc_coupon_actions',
+						$actions,
+						array(
+							'coupon_code' => $coupon_code,
+							'source'      => $this,
+						)
+					);
 					if ( ! empty( $coupon_actions ) ) {
 						return true;
 					}

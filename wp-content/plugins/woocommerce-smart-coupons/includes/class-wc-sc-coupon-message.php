@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.8.0
+ * @version     1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 		private function __construct() {
 
 			add_action( 'wc_smart_coupons_actions', array( $this, 'wc_coupon_message_options' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'wc_process_coupon_message_meta' ), 1, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'wc_process_coupon_message_meta' ), 10, 2 );
 
 			add_action( 'wp_ajax_get_wc_coupon_message', array( $this, 'get_wc_coupon_message' ) );
 			add_action( 'wp_ajax_nopriv_get_wc_coupon_message', array( $this, 'get_wc_coupon_message' ) );
@@ -123,7 +123,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 			?>
 			<p class="form-field wc_coupon_message_row">
 				<label for="wc_coupon_message"><?php echo esc_html__( 'Display message', 'woocommerce-smart-coupons' ); ?></label>
-				<?php $wc_coupon_message = get_post_meta( $post->ID, 'wc_coupon_message', true ); ?>
+				<?php $wc_coupon_message = $this->get_post_meta( $post->ID, 'wc_coupon_message', true ); ?>
 				<?php wp_editor( $wc_coupon_message, 'wc_coupon_message', $editor_args ); ?>
 			</p>
 			<?php
@@ -145,41 +145,38 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 		 *
 		 * @since 1.0
 		 *
-		 * @param  integer $post_id Coupon's id.
-		 * @param  object  $post Current coupon's post object.
+		 * @param  integer   $post_id Coupon's id.
+		 * @param  WC_Coupon $coupon Current coupon object.
 		 */
-		public function wc_process_coupon_message_meta( $post_id, $post ) {
+		public function wc_process_coupon_message_meta( $post_id = 0, $coupon = null ) {
 
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
-				return;
-			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
 
-			if ( isset( $_POST['wc_coupon_message'] ) ) {
-				update_post_meta( $post_id, 'wc_coupon_message', wp_filter_post_kses( $_POST['wc_coupon_message'] ) ); // phpcs:ignore
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
 
-			if ( isset( $_POST['wc_email_message'] ) ) {
-				update_post_meta( $post_id, 'wc_email_message', wc_clean( wp_unslash( $_POST['wc_email_message'] ) ) ); // phpcs:ignore
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
+				if ( isset( $_POST['wc_coupon_message'] ) ) { // phpcs:ignore
+					$coupon->update_meta_data( 'wc_coupon_message', wp_filter_post_kses( $_POST['wc_coupon_message'] ) ); // phpcs:ignore
+				}
+				if ( isset( $_POST['wc_email_message'] ) ) { // phpcs:ignore
+					$coupon->update_meta_data( 'wc_email_message', wc_clean( wp_unslash( $_POST['wc_email_message'] ) ) ); // phpcs:ignore
+				} else {
+					$coupon->update_meta_data( 'wc_email_message', 'no' );
+				}
+				$coupon->save();
 			} else {
-				update_post_meta( $post_id, 'wc_email_message', 'no' );
+				if ( isset( $_POST['wc_coupon_message'] ) ) { // phpcs:ignore
+					update_post_meta( $post_id, 'wc_coupon_message', wp_filter_post_kses( $_POST['wc_coupon_message'] ) ); // phpcs:ignore
+				}
+				if ( isset( $_POST['wc_email_message'] ) ) { // phpcs:ignore
+					update_post_meta( $post_id, 'wc_email_message', wc_clean( wp_unslash( $_POST['wc_email_message'] ) ) ); // phpcs:ignore
+				} else {
+					update_post_meta( $post_id, 'wc_email_message', 'no' );
+				}
 			}
 
 		}
@@ -207,7 +204,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				} else {
 					$coupon_id = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 				}
-				$wc_coupon_message = get_post_meta( $coupon_id, 'wc_coupon_message', true );
+				$wc_coupon_message = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_coupon_message' ) : get_post_meta( $coupon_id, 'wc_coupon_message', true );
 				if ( empty( $wc_coupon_message ) ) {
 					continue;
 				}
@@ -324,8 +321,14 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				} else {
 					$coupon_id = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 				}
-				$coupon_message   = get_post_meta( $coupon_id, 'wc_coupon_message', true );
-				$include_in_email = get_post_meta( $coupon_id, 'wc_email_message', true );
+				$is_callable_coupon_get_meta = $this->is_callable( $coupon, 'get_meta' );
+				if ( true === $is_callable_coupon_get_meta ) {
+					$coupon_message   = $coupon->get_meta( 'wc_coupon_message' );
+					$include_in_email = $coupon->get_meta( 'wc_email_message' );
+				} else {
+					$coupon_message   = get_post_meta( $coupon_id, 'wc_coupon_message', true );
+					$include_in_email = get_post_meta( $coupon_id, 'wc_email_message', true );
+				}
 				if ( ! empty( $coupon_message ) && 'yes' === $include_in_email ) {
 					$is_filter_content = apply_filters(
 						'wc_sc_is_filter_content_coupon_message',
@@ -436,16 +439,20 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				return;
 			}
 
-			if ( $this->is_wc_gte_30() ) {
+			$new_coupon = new WC_Coupon( $new_coupon_id );
+
+			if ( $this->is_callable( $new_coupon, 'get_meta' ) && $this->is_callable( $new_coupon, 'update_meta_data' ) && $this->is_callable( $new_coupon, 'save' ) ) {
 				$coupon_message = $coupon->get_meta( 'wc_coupon_message' );
 				$email_message  = $coupon->get_meta( 'wc_email_message' );
+				$new_coupon->update_meta_data( 'wc_coupon_message', wp_filter_post_kses( $coupon_message ) );
+				$new_coupon->update_meta_data( 'wc_email_message', $email_message );
 			} else {
 				$old_coupon_id  = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 				$coupon_message = get_post_meta( $old_coupon_id, 'wc_coupon_message', true );
 				$email_message  = get_post_meta( $old_coupon_id, 'wc_email_message', true );
+				update_post_meta( $new_coupon_id, 'wc_coupon_message', wp_filter_post_kses( $coupon_message ) );
+				update_post_meta( $new_coupon_id, 'wc_email_message', $email_message );
 			}
-			update_post_meta( $new_coupon_id, 'wc_coupon_message', wp_filter_post_kses( $coupon_message ) );
-			update_post_meta( $new_coupon_id, 'wc_email_message', $email_message );
 
 		}
 

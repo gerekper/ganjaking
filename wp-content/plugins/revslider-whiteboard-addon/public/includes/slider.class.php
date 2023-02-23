@@ -51,8 +51,8 @@ class rs_whiteboard_fe_slider extends RevSliderFunctions {
 			$export->pclzip->add(WHITEBOARD_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', PCLZIP_OPT_REMOVE_PATH, WHITEBOARD_PLUGIN_PATH.'public/assets/js/', PCLZIP_OPT_ADD_PATH, 'js/');
 		}
 		
-		$html = str_replace(array(WHITEBOARD_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', WHITEBOARD_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', $html);
-		
+		$html = str_replace(WHITEBOARD_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $html);
+
 		return $html;
 	}
 

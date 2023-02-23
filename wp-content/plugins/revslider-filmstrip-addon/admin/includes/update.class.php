@@ -38,8 +38,12 @@ class RevAddOnFilmstripUpdate {
 		}
 
 		if(!empty($this->data->basic) && is_object($this->data->basic)){
-			if(version_compare($this->version, $this->data->basic->version, '<')){
-				$this->data->basic->new_version = $this->data->basic->version;
+			$version = (isset($this->data->basic->version)) ? $this->data->basic->version : $this->data->basic->new_version;
+			if(version_compare($this->version, $version, '<')){
+				$this->data->basic->new_version = $version;
+				if(isset($this->data->basic->version)){
+					unset($this->data->basic->version);
+				}
 				$transient->response[$this->plugin_path] = $this->data->basic;
 			}
 		}

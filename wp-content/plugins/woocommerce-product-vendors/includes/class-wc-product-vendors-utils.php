@@ -1589,4 +1589,152 @@ class WC_Product_Vendors_Utils {
 
 		return 'partial-refunded';
 	}
+
+	/**
+	 * Calculate the total tax refunded for a line item.
+	 *
+	 * @since x.x.x
+	 *
+	 * @param WC_Order_Item $item  Order item id.
+	 * @param WC_Order      $order Order.
+	 *
+	 * @return float
+	 */
+	public static function get_total_tax_refunded_line_item( WC_Order_Item $item, WC_Order $order ) {
+		$tax_items          = $item->get_taxes()['total'];
+		$total_tax_refunded = 0;
+		foreach ( $tax_items as $key => $tax_item ) {
+			$total_tax_refunded += $order->get_tax_refunded_for_item( $item->get_id(), $key );
+		}
+
+		return $total_tax_refunded;
+	}
+
+	/**
+	 * Gets the count of order items (only need shipping).
+	 *
+	 * @since x.x.x
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return int
+	 */
+	public static function get_item_count_need_with_shipping( WC_Order $order ) {
+		$items = $order->get_items();
+		$count = 0;
+
+		foreach ( $items as $item ) {
+			$product = wc_get_product( $item['product_id'] );
+
+			if ( $product->needs_shipping() ) {
+				$count += $item->get_quantity();
+			}
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Gets the count of refunded order items (only need shipping).
+	 *
+	 * @since x.x.x
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return int
+	 */
+	public static function get_total_qty_refunded_with_need_shipping( WC_Order $order ) {
+		/* @var WC_Order_Refund[] $refunds */
+		$refunds = $order->get_refunds();
+		$count   = 0;
+
+		foreach ( $refunds as $refund ) {
+			$items = $refund->get_items();
+			foreach ( $items as $item ) {
+				$product = wc_get_product( $item['product_id'] );
+
+				if ( $product->needs_shipping() ) {
+					$count += ( $item->get_quantity() * - 1 );
+				}
+			}
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Calculate the total shipping charges for refunded order item.
+	 *
+	 * @since x.x.x
+	 *
+	 * @return array
+	 */
+	public static function get_total_order_item_shipping_charges_with_refund( WC_Order_Item $item ) {
+		$shipping_charges = [
+			'taxes'         => 0,
+			'shipping_cost' => 0
+		];
+
+		$product = wc_get_product( $item['product_id'] );
+
+		if( ! $product->needs_shipping() ) {
+			return  $shipping_charges;
+		}
+
+		$order                       = $item->get_order();
+		$total_order_qty_with_refund = self::get_item_count_need_with_shipping($order) - self::get_total_qty_refunded_with_need_shipping($order);
+		$total_item_with_with_refund = $item->get_quantity() + $order->get_qty_refunded_for_item( $item->get_id() );
+
+		$pp_shipping_title = get_option( 'woocommerce_wcpv_per_product_settings', '' );
+		$pp_shipping_title = ! empty( $pp_shipping_title ) ? $pp_shipping_title['title'] : '';
+
+		// "Per Product Shipping" shipping method should charge for order.
+		if ( ! $pp_shipping_title || ! $order->get_shipping_method() ) {
+			return $shipping_charges;
+		}
+
+		// Get total refunded shipping changes (Only per product shipping charges).
+		foreach ( $order->get_refunds() as $refund ) {
+			foreach ( $refund->get_shipping_methods() as $refunded_shipping_method ) {
+				if ( $pp_shipping_title !== $refunded_shipping_method->get_name() ) {
+					continue;
+				}
+
+				$shipping_charges['taxes']         += $refunded_shipping_method->get_total_tax() * - 1;
+				$shipping_charges['shipping_cost'] += $refunded_shipping_method->get_total() * - 1;
+				break;
+			}
+		}
+
+		// Get total shipping changes with refund (Only per product shipping charges).
+		foreach ( $order->get_shipping_methods() as $shipping_method ) {
+			if ( $pp_shipping_title !== $shipping_method->get_name() ) {
+				continue;
+			}
+
+			$shipping_charges = [
+				'taxes'         => $shipping_method->get_total_tax() - $shipping_charges['taxes'],
+				'shipping_cost' => $shipping_method->get_total() - $shipping_charges['shipping_cost'],
+			];
+			break;
+		}
+
+		// Get shipping charges per line item.
+		$shipping_charges = [
+			'taxes'         => $shipping_charges['taxes'] / $total_order_qty_with_refund,
+			'shipping_cost' => $shipping_charges['shipping_cost'] / $total_order_qty_with_refund,
+		];
+
+		// Get shipping charges for total quantity of item.
+		return [
+			'taxes'         => round(
+				$shipping_charges['taxes'] * $total_item_with_with_refund,
+				wc_get_rounding_precision()
+			),
+			'shipping_cost' => round(
+				$shipping_charges['shipping_cost'] * $total_item_with_with_refund,
+				wc_get_rounding_precision()
+			),
+		];
+	}
 }

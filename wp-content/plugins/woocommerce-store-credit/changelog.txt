@@ -1,5 +1,9 @@
 *** Store Credit Changelog ***
 
+2023-02-21 - version 4.2.5
+* Fix - Removed the HTML tags in the email heading.
+* Tweak - Tested compatibility with WC 7.4.
+
 2022-12-01 - version 4.2.4
 * Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Tested compatibility with WC 7.1.

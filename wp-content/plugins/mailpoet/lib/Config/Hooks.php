@@ -92,6 +92,7 @@ class Hooks {
     $this->setupWooCommerceUsers();
     $this->setupWooCommercePurchases();
     $this->setupWooCommerceSubscriberEngagement();
+    $this->setupWooCommerceTracking();
     $this->setupImageSize();
     $this->setupListing();
     $this->setupSubscriptionEvents();
@@ -209,11 +210,11 @@ class Hooks {
     );
     $this->wp->addFilter(
       'the_content',
-      [$this->displayFormInWPContent, 'display']
+      [$this->displayFormInWPContent, 'contentDisplay']
     );
     $this->wp->addFilter(
       'woocommerce_product_loop_end',
-      [$this->displayFormInWPContent, 'display']
+      [$this->displayFormInWPContent, 'wooProductListDisplay']
     );
   }
 
@@ -320,6 +321,11 @@ class Hooks {
       $this->hooksWooCommerce,
       'declareHposCompatibility',
     ]);
+
+    $this->wp->addAction('init', [
+      $this->hooksWooCommerce,
+      'addMailPoetTaskToWooHomePage',
+    ]);
   }
 
   public function setupWooCommerceUsers() {
@@ -379,6 +385,14 @@ class Hooks {
       'woocommerce_new_order',
       [$this->hooksWooCommerce, 'updateSubscriberEngagement'],
       7
+    );
+  }
+
+  public function setupWooCommerceTracking() {
+    $this->wp->addFilter(
+      'woocommerce_tracker_data',
+      [$this->hooksWooCommerce, 'addTrackingData'],
+      10
     );
   }
 

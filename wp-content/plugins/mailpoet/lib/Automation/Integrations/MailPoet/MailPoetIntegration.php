@@ -15,6 +15,9 @@ use MailPoet\Automation\Integrations\MailPoet\Triggers\SomeoneSubscribesTrigger;
 use MailPoet\Automation\Integrations\MailPoet\Triggers\UserRegistrationTrigger;
 
 class MailPoetIntegration implements Integration {
+  /** @var ContextFactory */
+  private $contextFactory;
+
   /** @var SegmentSubject */
   private $segmentSubject;
 
@@ -33,6 +36,7 @@ class MailPoetIntegration implements Integration {
   private $automationEditorLoadingHooks;
 
   public function __construct(
+    ContextFactory $contextFactory,
     SegmentSubject $segmentSubject,
     SubscriberSubject $subscriberSubject,
     SomeoneSubscribesTrigger $someoneSubscribesTrigger,
@@ -40,6 +44,7 @@ class MailPoetIntegration implements Integration {
     SendEmailAction $sendEmailAction,
     AutomationEditorLoadingHooks $automationEditorLoadingHooks
   ) {
+    $this->contextFactory = $contextFactory;
     $this->segmentSubject = $segmentSubject;
     $this->subscriberSubject = $subscriberSubject;
     $this->someoneSubscribesTrigger = $someoneSubscribesTrigger;
@@ -49,6 +54,10 @@ class MailPoetIntegration implements Integration {
   }
 
   public function register(Registry $registry): void {
+    $registry->addContextFactory('mailpoet', function () {
+      return $this->contextFactory->getContextData();
+    });
+
     $registry->addSubject($this->segmentSubject);
     $registry->addSubject($this->subscriberSubject);
     $registry->addTrigger($this->someoneSubscribesTrigger);

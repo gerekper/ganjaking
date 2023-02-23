@@ -115,27 +115,10 @@ class __TwigTemplate_53b89d2127c3e3553aef87a0684de61c60938709506258cd8a7cd55ed96
         }
         // line 29
         echo "  >
-    ";
-        // line 30
-        if ((((($context["form_type"] ?? null) == "popup") || (($context["form_type"] ?? null) == "fixed_bar")) || (($context["form_type"] ?? null) == "slide_in"))) {
-            // line 31
-            echo "      <img
-        class=\"mailpoet_form_close_icon\"
-        alt=\"close\"
-        width=20
-        height=20
-        src='";
-            // line 36
-            echo $this->extensions['MailPoet\Twig\Assets']->generateImageUrl((("form_close_icon/" . ($context["close_button_icon"] ?? null)) . ".svg"));
-            echo "'
-      >
-    ";
-        }
-        // line 39
-        echo "
+
     <style type=\"text/css\">
      ";
-        // line 41
+        // line 32
         echo ($context["styles"] ?? null);
         echo "
     </style>
@@ -144,91 +127,110 @@ class __TwigTemplate_53b89d2127c3e3553aef87a0684de61c60938709506258cd8a7cd55ed96
       target=\"_self\"
       method=\"post\"
       action=\"";
-        // line 47
+        // line 38
         echo admin_url("admin-post.php?action=mailpoet_subscription_form");
         echo "\"
       class=\"mailpoet_form mailpoet_form_form mailpoet_form_";
-        // line 48
+        // line 39
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["form_type"] ?? null), "html", null, true);
         echo "\"
       novalidate
       data-delay=\"";
-        // line 50
+        // line 41
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["delay"] ?? null), "html", null, true);
         echo "\"
       data-exit-intent-enabled=\"";
-        // line 51
+        // line 42
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["enableExitIntent"] ?? null), "html", null, true);
         echo "\"
       data-font-family=\"";
-        // line 52
+        // line 43
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["fontFamily"] ?? null), "html", null, true);
         echo "\"
       data-cookie-expiration-time=\"";
-        // line 53
+        // line 44
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["cookieFormExpirationTime"] ?? null), "html", null, true);
         echo "\"
     >
       <input type=\"hidden\" name=\"data[form_id]\" value=\"";
-        // line 55
+        // line 46
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["form_id"] ?? null), "html", null, true);
         echo "\" />
       <input type=\"hidden\" name=\"token\" value=\"";
-        // line 56
+        // line 47
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["token"] ?? null), "html", null, true);
         echo "\" />
       <input type=\"hidden\" name=\"api_version\" value=\"";
-        // line 57
+        // line 48
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["api_version"] ?? null), "html", null, true);
         echo "\" />
       <input type=\"hidden\" name=\"endpoint\" value=\"subscribers\" />
       <input type=\"hidden\" name=\"mailpoet_method\" value=\"subscribe\" />
 
       ";
-        // line 61
+        // line 52
         echo ($context["html"] ?? null);
         echo "
       <div class=\"mailpoet_message\">
         <p class=\"mailpoet_validate_success\"
         ";
-        // line 64
+        // line 55
         if ( !($context["success"] ?? null)) {
-            // line 65
+            // line 56
             echo "        style=\"display:none;\"
         ";
         }
-        // line 67
+        // line 58
         echo "        >";
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["form_success_message"] ?? null), "html", null, true);
         echo "
         </p>
         <p class=\"mailpoet_validate_error\"
         ";
-        // line 70
+        // line 61
         if ( !($context["error"] ?? null)) {
-            // line 71
+            // line 62
             echo "        style=\"display:none;\"
         ";
         }
-        // line 73
+        // line 64
         echo "        >";
         if (($context["error"] ?? null)) {
-            // line 74
+            // line 65
             echo "        ";
             echo $this->extensions['MailPoet\Twig\I18n']->translate("An error occurred, make sure you have filled all the required fields.");
             echo "
         ";
         }
-        // line 76
+        // line 67
         echo "        </p>
       </div>
     </form>
-  </div>
+
+    ";
+        // line 71
+        if ((((($context["form_type"] ?? null) == "popup") || (($context["form_type"] ?? null) == "fixed_bar")) || (($context["form_type"] ?? null) == "slide_in"))) {
+            // line 72
+            echo "      <input type=\"image\"
+        class=\"mailpoet_form_close_icon\"
+        alt=\"";
+            // line 74
+            echo $this->extensions['MailPoet\Twig\I18n']->translate("Close");
+            echo "\"
+        src='";
+            // line 75
+            echo $this->extensions['MailPoet\Twig\Assets']->generateImageUrl((("form_close_icon/" . ($context["close_button_icon"] ?? null)) . ".svg"));
+            echo "'
+      />
+    ";
+        }
+        // line 78
+        echo "  </div>
 
   ";
-        // line 81
+        // line 80
         if (($context["after_widget"] ?? null)) {
-            // line 82
+            // line 81
             echo "    ";
             echo ($context["after_widget"] ?? null);
             echo "
@@ -243,7 +245,7 @@ class __TwigTemplate_53b89d2127c3e3553aef87a0684de61c60938709506258cd8a7cd55ed96
 
     public function getDebugInfo()
     {
-        return array (  229 => 82,  227 => 81,  220 => 76,  214 => 74,  211 => 73,  207 => 71,  205 => 70,  198 => 67,  194 => 65,  192 => 64,  186 => 61,  179 => 57,  175 => 56,  171 => 55,  166 => 53,  162 => 52,  158 => 51,  154 => 50,  149 => 48,  145 => 47,  136 => 41,  132 => 39,  126 => 36,  119 => 31,  117 => 30,  114 => 29,  109 => 27,  106 => 26,  104 => 25,  99 => 23,  95 => 22,  91 => 21,  85 => 18,  81 => 16,  74 => 13,  72 => 12,  67 => 9,  59 => 7,  57 => 6,  54 => 5,  48 => 3,  45 => 2,  38 => 1,);
+        return array (  231 => 81,  229 => 80,  225 => 78,  219 => 75,  215 => 74,  211 => 72,  209 => 71,  203 => 67,  197 => 65,  194 => 64,  190 => 62,  188 => 61,  181 => 58,  177 => 56,  175 => 55,  169 => 52,  162 => 48,  158 => 47,  154 => 46,  149 => 44,  145 => 43,  141 => 42,  137 => 41,  132 => 39,  128 => 38,  119 => 32,  114 => 29,  109 => 27,  106 => 26,  104 => 25,  99 => 23,  95 => 22,  91 => 21,  85 => 18,  81 => 16,  74 => 13,  72 => 12,  67 => 9,  59 => 7,  57 => 6,  54 => 5,  48 => 3,  45 => 2,  38 => 1,);
     }
 
     public function getSourceContext()

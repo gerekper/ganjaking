@@ -63,7 +63,7 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 
 		$html = str_replace(RS_PLUGIN_URL.'public/assets/fonts/font-awesome/css/font-awesome.css', 'css/font-awesome.css', $html);
 		$html = str_replace(RS_BEFOREAFTER_PLUGIN_URL.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css', $html);
-		$html = str_replace(array(RS_BEFOREAFTER_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', RS_BEFOREAFTER_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . '.js', $html);
+		$html = str_replace(RS_BEFOREAFTER_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin .'.js', $html);
 		
 		return $html;
 	}

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.1
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/emails/
  */
@@ -163,7 +163,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 				}
 
 				if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
-					$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+					$expiry_time = (int) $woocommerce_smart_coupon->get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 					if ( ! empty( $expiry_time ) ) {
 						$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 					}
@@ -341,6 +341,10 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 			$order_id = isset( $this->email_args['order_id'] ) ? $this->email_args['order_id'] : 0;
 			$order    = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
 
+			$wc_price_args = array(
+				'currency' => is_callable( array( $order, 'get_currency' ) ) ? $order->get_currency() : '',
+			);
+
 			$discount_type = isset( $this->email_args['discount_type'] ) ? $this->email_args['discount_type'] : '';
 			$is_gift       = isset( $this->email_args['is_gift'] ) ? $this->email_args['is_gift'] : '';
 
@@ -381,17 +385,20 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 				$_excluded_product_categories = ( ! empty( $_coupon->exclude_product_categories ) ) ? $_coupon->exclude_product_categories : array();
 			}
 
+			if ( false === stripos( $discount_type, 'percent' ) ) {
+				$amount = $woocommerce_smart_coupon->read_price( $amount, true, $order );
+			}
+
 			switch ( $discount_type ) {
 
 				case 'smart_coupon':
-					$amount = $woocommerce_smart_coupon->read_price( $amount, true, $order );
 					/* translators: %s coupon amount */
-					$coupon_value = sprintf( __( 'worth %2$s ', 'woocommerce-smart-coupons' ), $smart_coupon_type, wc_price( $amount ) );
+					$coupon_value = sprintf( __( 'worth %s ', 'woocommerce-smart-coupons' ), wc_price( $amount, $wc_price_args ) );
 					break;
 
 				case 'fixed_cart':
 					/* translators: %s: coupon amount */
-					$coupon_value = sprintf( __( 'worth %s (for entire purchase) ', 'woocommerce-smart-coupons' ), wc_price( $amount ) );
+					$coupon_value = sprintf( __( 'worth %s (for entire purchase) ', 'woocommerce-smart-coupons' ), wc_price( $amount, $wc_price_args ) );
 					break;
 
 				case 'fixed_product':
@@ -402,7 +409,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 					}
 
 					/* translators: 1: coupon amount 2: discount for text */
-					$coupon_value = sprintf( __( 'worth %1$s (%2$s) ', 'woocommerce-smart-coupons' ), wc_price( $amount ), $_discount_for_text );
+					$coupon_value = sprintf( __( 'worth %1$s (%2$s) ', 'woocommerce-smart-coupons' ), wc_price( $amount, $wc_price_args ), $_discount_for_text );
 					break;
 
 				case 'percent_product':
@@ -427,7 +434,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 					$max_discount      = $woocommerce_smart_coupon->get_post_meta( $_coupon_id, 'wc_sc_max_discount', true, true, $order );
 					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
 						/* translators: %s: Maximum coupon discount amount */
-						$max_discount_text = sprintf( __( ' upto %s', 'woocommerce-smart-coupons' ), wc_price( $max_discount ) );
+						$max_discount_text = sprintf( __( ' upto %s', 'woocommerce-smart-coupons' ), wc_price( $max_discount, $wc_price_args ) );
 					}
 
 					/* translators: 1: coupon amount 2: max discount text 3: discount for text */
@@ -451,7 +458,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 				$coupon_value = sprintf( __( '%1$s Free Shipping%2$s', 'woocommerce-smart-coupons' ), ( ( ! empty( $amount ) ) ? $coupon_value . __( '&', 'woocommerce-smart-coupons' ) : __( 'You have received a', 'woocommerce-smart-coupons' ) ), ( ( empty( $amount ) ) ? __( ' coupon', 'woocommerce-smart-coupons' ) : '' ) );
 			}
 
-			return $coupon_value;
+			return wp_strip_all_tags( $coupon_value );
 		}
 
 		/**

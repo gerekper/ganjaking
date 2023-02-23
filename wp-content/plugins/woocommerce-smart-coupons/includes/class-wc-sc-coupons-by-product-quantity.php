@@ -6,7 +6,7 @@
  * @author      StoreApps
  * @package     woocommerce-smart-coupons/includes
  * @since       5.0.0
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 		private function __construct() {
 			add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ), 99, 2 );
 			add_action( 'admin_footer', array( $this, 'styles_and_scripts' ) );
-			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 3 );
 		}
 
@@ -85,9 +85,14 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 				return;
 			}
 
-			$product_quantity_restrictions = is_callable( array( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_product_quantity_restrictions' ) : '';
-			if ( empty( $product_quantity_restrictions ) ) {
-				$product_quantity_restrictions = get_post_meta( $coupon_id, 'wc_sc_product_quantity_restrictions', true );
+			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = ( ! empty( $coupon_id ) ) ? new WC_Coupon( $coupon_id ) : null;
+			}
+
+			if ( $this->is_callable( $coupon, 'get_meta' ) ) {
+				$product_quantity_restrictions = $coupon->get_meta( 'wc_sc_product_quantity_restrictions' );
+			} else {
+				$product_quantity_restrictions = $this->get_post_meta( $coupon_id, 'wc_sc_product_quantity_restrictions', true );
 			}
 
 			if ( ! is_array( $product_quantity_restrictions ) ) {
@@ -388,31 +393,17 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 		/**
 		 * Save coupon by product quantity data in meta
 		 *
-		 * @param Integer $post_id The coupon post ID.
-		 * @param WP_Post $post The coupon post.
+		 * @param Integer   $post_id The coupon post ID.
+		 * @param WC_Coupon $coupon The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
 
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-            if (empty($_POST['woocommerce_meta_nonce']) || !wp_verify_nonce(wc_clean(wp_unslash($_POST['woocommerce_meta_nonce'])), 'woocommerce_save_data')) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
-				return;
+
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
 
             $product_quantity_restrictions = (isset($_POST['wc_sc_product_quantity_restrictions'])) ? wc_clean(wp_unslash($_POST['wc_sc_product_quantity_restrictions'])) : array(); // phpcs:ignore
@@ -450,13 +441,12 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 					}
 				}
 			}
-			$coupon = new WC_Coupon( $post_id );
 
-			if ( is_object( $coupon ) && is_callable( array( $coupon, 'update_meta_data' ) ) ) {
+			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
 				$coupon->update_meta_data( 'wc_sc_product_quantity_restrictions', $product_quantity_restrictions );
 				$coupon->save();
 			} else {
-				update_post_meta( $post_id, 'wc_sc_product_quantity_restrictions', $product_quantity_restrictions );
+				$this->update_post_meta( $post_id, 'wc_sc_product_quantity_restrictions', $product_quantity_restrictions );
 			}
 		}
 
@@ -507,9 +497,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 				return $valid;
 			}
 
-			$coupon_id                     = is_callable( array( $coupon, 'get_id' ) ) ? $coupon->get_id() : 0;
-			$product_quantity_restrictions = is_callable( array( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_product_quantity_restrictions' ) : '';
-			if ( empty( $product_quantity_restrictions ) && ! empty( $coupon_id ) ) {
+			$coupon_id = is_callable( array( $coupon, 'get_id' ) ) ? $coupon->get_id() : 0;
+
+			if ( $this->is_callable( $coupon, 'get_meta' ) ) {
+				$product_quantity_restrictions = $coupon->get_meta( 'wc_sc_product_quantity_restrictions' );
+			} else {
 				$product_quantity_restrictions = get_post_meta( $coupon_id, 'wc_sc_product_quantity_restrictions', true );
 			}
 			if ( is_array( $product_quantity_restrictions ) && ! empty( $product_quantity_restrictions ) ) {

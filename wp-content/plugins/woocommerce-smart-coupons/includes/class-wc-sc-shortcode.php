@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -256,7 +256,8 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			if ( true === $is_generate ) {
 
 				if ( ! empty( $_coupon_code ) ) {
-					$coupon = new WC_Coupon( $_coupon_code );
+					$coupon                         = new WC_Coupon( $_coupon_code );
+					$is_callable_coupon_update_meta = $this->is_callable( $coupon, 'update_meta_data' );
 
 					if ( $this->is_wc_gte_30() ) {
 						if ( ! is_object( $coupon ) || ! is_callable( array( $coupon, 'get_id' ) ) ) {
@@ -280,18 +281,24 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 					$coupon_amount = $this->get_amount( $coupon, true );
 
+					$is_callable_coupon_get_meta = $this->is_callable( $coupon, 'get_meta' );
+
 					if ( ! empty( $discount_type ) ) {
 
-						$is_auto_generate             = get_post_meta( $coupon_id, 'auto_generate_coupon', true );
-						$is_disable_email_restriction = get_post_meta( $coupon_id, 'sc_disable_email_restriction', true );
+						$is_auto_generate             = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'auto_generate_coupon' ) : get_post_meta( $coupon_id, 'auto_generate_coupon', true );
+						$is_disable_email_restriction = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'sc_disable_email_restriction' ) : get_post_meta( $coupon_id, 'sc_disable_email_restriction', true );
 
 						if ( ( empty( $is_disable_email_restriction ) || 'no' === $is_disable_email_restriction ) && ( empty( $is_auto_generate ) || 'no' === $is_auto_generate ) ) {
-							$existing_customer_emails = get_post_meta( $coupon_id, 'customer_email', true );
+							$existing_customer_emails = ( $this->is_callable( $coupon, 'get_email_restrictions' ) ) ? $coupon->get_email_restrictions() : get_post_meta( $coupon_id, 'customer_email', true );
 							if ( empty( $existing_customer_emails ) || ! is_array( $existing_customer_emails ) ) {
 								$existing_customer_emails = array();
 							}
 							$existing_customer_emails[] = $customer_email;
-							update_post_meta( $coupon_id, 'customer_email', $existing_customer_emails );
+							if ( true === $is_callable_coupon_update_meta ) {
+								$coupon->set_email_restrictions( $existing_customer_emails );
+							} else {
+								update_post_meta( $coupon_id, 'customer_email', $existing_customer_emails );
+							}
 						}
 
 						if ( ! empty( $is_auto_generate ) && 'yes' === $is_auto_generate ) {
@@ -355,7 +362,24 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							'post_parent'  => ! empty( $coupon_id ) ? absint( $coupon_id ) : 0,
 						);
 
-						$new_coupon_id = wp_insert_post( $coupon_args );
+						$new_coupon = new WC_Coupon();
+						$new_coupon->set_code( $coupon_args['post_title'] );
+						$new_coupon->set_status( $coupon_args['post_status'] );
+
+						$new_coupon_id = $new_coupon->save();
+
+						if ( ! empty( $new_coupon_id ) ) {
+							$coupon_args       = array_diff_key( $coupon_args, array_flip( array( 'post_title', 'post_status', 'post_type' ) ) );
+							$coupon_args['ID'] = $new_coupon_id;
+							wp_update_post( $coupon_args );
+						}
+
+						$new_coupon_id = absint( $new_coupon_id );
+
+						$new_coupon = new WC_Coupon( $new_coupon_id );
+
+						$is_callable_new_coupon_update_meta = $this->is_callable( $new_coupon, 'update_meta_data' );
+
 						if ( ! empty( $shortcode['expiry_date'] ) ) {
 							$timestamp    = strtotime( $shortcode['expiry_date'] ) + $this->wc_timezone_offset();
 							$_expiry_date = gmdate( 'Y-m-d', $timestamp );
@@ -363,36 +387,59 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							$timestamp    = strtotime( "+$expiry_days days" ) + $this->wc_timezone_offset();
 							$_expiry_date = gmdate( 'Y-m-d', $timestamp );
 						}
-
-						// Add meta for coupons.
-						update_post_meta( $new_coupon_id, 'discount_type', $_discount_type );
+						if ( $this->is_wc_gte_30() ) {
+							if ( ! empty( $_expiry_date ) ) {
+								$_expiry_date = strtotime( $_expiry_date ) - $this->wc_timezone_offset();
+								$_expiry_date = $this->get_date_expires_value( $_expiry_date );
+								if ( true === $is_callable_new_coupon_update_meta ) {
+									$new_coupon->set_date_expires( $_expiry_date );
+								} else {
+									update_post_meta( $new_coupon_id, 'date_expires', $_expiry_date );
+								}
+							}
+						} else {
+							if ( true === $is_callable_new_coupon_update_meta ) {
+								$new_coupon->update_meta_data( 'expiry_date', $_expiry_date );
+							} else {
+								update_post_meta( $new_coupon_id, 'expiry_date', $_expiry_date );
+							}
+						}
 
 						if ( 'smart_coupon' === $_discount_type ) {
 							$this->update_post_meta( $new_coupon_id, 'wc_sc_original_amount', $_coupon_amount, false );
 						}
 
-						update_post_meta( $new_coupon_id, 'coupon_amount', $_coupon_amount );
-						update_post_meta( $new_coupon_id, 'individual_use', $individual_use );
-						update_post_meta( $new_coupon_id, 'minimum_amount', $minimum_amount );
-						update_post_meta( $new_coupon_id, 'maximum_amount', $maximum_amount );
-						update_post_meta( $new_coupon_id, 'usage_limit', $usage_limit );
-
-						if ( $this->is_wc_gte_30() ) {
-							if ( ! empty( $_expiry_date ) ) {
-								$_expiry_date = strtotime( $_expiry_date ) - $this->wc_timezone_offset();
-								$_expiry_date = $this->get_date_expires_value( $_expiry_date );
-								update_post_meta( $new_coupon_id, 'date_expires', $_expiry_date );
-							}
+						if ( true === $is_callable_new_coupon_update_meta ) {
+							$new_coupon->set_discount_type( $_discount_type );
+							$new_coupon->set_amount( $_coupon_amount );
+							$new_coupon->set_individual_use( $this->wc_string_to_bool( $individual_use ) );
+							$new_coupon->set_minimum_amount( $minimum_amount );
+							$new_coupon->set_maximum_amount( $maximum_amount );
+							$new_coupon->set_usage_limit( $usage_limit );
+							$new_coupon->set_email_restrictions( array( $customer_email ) );
+							$new_coupon->update_meta_data( 'apply_before_tax', $apply_before_tax );
+							$new_coupon->set_free_shipping( $this->wc_string_to_bool( $_free_shipping ) );
+							$new_coupon->set_product_categories( array() );
+							$new_coupon->set_excluded_product_categories( array() );
+							$new_coupon->update_meta_data( 'sc_disable_email_restriction', $disable_email );
 						} else {
-							update_post_meta( $new_coupon_id, 'expiry_date', $_expiry_date );
+							update_post_meta( $new_coupon_id, 'discount_type', $_discount_type );
+							update_post_meta( $new_coupon_id, 'coupon_amount', $_coupon_amount );
+							update_post_meta( $new_coupon_id, 'individual_use', $individual_use );
+							update_post_meta( $new_coupon_id, 'minimum_amount', $minimum_amount );
+							update_post_meta( $new_coupon_id, 'maximum_amount', $maximum_amount );
+							update_post_meta( $new_coupon_id, 'usage_limit', $usage_limit );
+							update_post_meta( $new_coupon_id, 'customer_email', array( $customer_email ) );
+							update_post_meta( $new_coupon_id, 'apply_before_tax', $apply_before_tax );
+							update_post_meta( $new_coupon_id, 'free_shipping', $_free_shipping );
+							update_post_meta( $new_coupon_id, 'product_categories', array() );
+							update_post_meta( $new_coupon_id, 'exclude_product_categories', array() );
+							update_post_meta( $new_coupon_id, 'sc_disable_email_restriction', $disable_email );
 						}
 
-						update_post_meta( $new_coupon_id, 'customer_email', array( $customer_email ) );
-						update_post_meta( $new_coupon_id, 'apply_before_tax', $apply_before_tax );
-						update_post_meta( $new_coupon_id, 'free_shipping', $_free_shipping );
-						update_post_meta( $new_coupon_id, 'product_categories', array() );
-						update_post_meta( $new_coupon_id, 'exclude_product_categories', array() );
-						update_post_meta( $new_coupon_id, 'sc_disable_email_restriction', $disable_email );
+						if ( $this->is_callable( $new_coupon, 'save' ) ) {
+							$new_coupon->save();
+						}
 
 						$new_generated_coupon_code = $_coupon_code;
 						$this->save_shortcode_generated_coupon( $new_generated_coupon_code, $current_user, $coupon );
@@ -494,7 +541,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			}
 
 			if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
-				$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+				$expiry_time = ( $this->is_callable( $coupon, 'get_meta' ) ) ? (int) $coupon->get_meta( 'wc_sc_expiry_time' ) : (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 				if ( ! empty( $expiry_time ) ) {
 					$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 				}

@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Transitionpack Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Create beautiful WebGL Transitions in Slider Revolution
 Author: ThemePunch
-Version: 1.0.4
+Version: 1.0.5
 Author URI: http://themepunch.com
 */
 

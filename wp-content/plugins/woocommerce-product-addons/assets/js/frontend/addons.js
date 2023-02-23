@@ -1043,9 +1043,9 @@
 							'</strong></li></ul></div>';
 
 						if ( self.show_subtotal_panel ) {
-							self.$form.html( html );
+							self.$totals.html( html );
 						} else {
-							self.$form.html( '' );
+							self.$totals.html( '' );
 						}
 
 						self.$form.trigger( 'updated_addons' );

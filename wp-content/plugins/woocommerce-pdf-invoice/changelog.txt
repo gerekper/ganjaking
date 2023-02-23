@@ -1,4 +1,8 @@
 *** WooCommerce PDF Invoice Changelog ***
+2023.02.16 - version 4.17.2
+ * Fix - Deprecated Subscriptions filters
+ * Fix - PDF Export notice
+
 2022.11.03 - version 4.17.1
  * Fix - Download from My Account page
 

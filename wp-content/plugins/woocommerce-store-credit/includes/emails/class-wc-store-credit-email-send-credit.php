@@ -127,7 +127,7 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 			$coupon_amount = wc_price( $this->coupon->get_amount() );
 
 			$this->placeholders['{coupon_code}']   = $this->coupon->get_code();
-			$this->placeholders['{coupon_amount}'] = ( 'plain' === $this->get_email_type() ? wp_strip_all_tags( $coupon_amount ) : $coupon_amount );
+			$this->placeholders['{coupon_amount}'] = wp_strip_all_tags( $coupon_amount );
 
 			if ( $this->is_enabled() && $this->get_recipient() ) {
 				$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );

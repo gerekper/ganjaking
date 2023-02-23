@@ -555,6 +555,34 @@ class WC_Product_Vendors_Commission {
 	}
 
 	/**
+	 * Should return commission id for order item.
+	 *
+	 * @since x.x.x
+	 *
+	 * @param int $order_item_id Order item ID.
+	 * @param int $order_id Order ID.
+	 *
+	 * @return int
+	 */
+	public function get_commission_id_by_order_item_id( $order_item_id, $order_id ) {
+		global $wpdb;
+
+		// check for existing commission data.
+		$check_sql = 'SELECT `id`';
+		$check_sql .= ' FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE;
+		$check_sql .= ' WHERE `order_item_id` = %d';
+		$check_sql .= ' AND `order_id` = %d';
+
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				$check_sql,
+				$order_item_id,
+				$order_id
+			)
+		);
+	}
+
+	/**
 	 * Should return commission by order item id and order id if exists, null otherwise.
 	 *
 	 * @since 2.1.72

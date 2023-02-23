@@ -1,7 +1,17 @@
-*** Product Addons Changelog ***		       	 	 	   
-	      	   	      	 	      
+*** Product Addons Changelog ***
+
+2023-02-22 - version 6.1.0
+* New - Important: Updated addons templates and removed addons titles from element attributes.
+* Fix - Fixed an issue that disabled addons validation when an addon had non-Latin characters in its title. 
+
+2023-02-17 - version 6.0.4
+* Fix - Fixed an issue that set 'None' as the default option for required multiple choice addons.
+
+2023-02-16 - version 6.0.3
+* Fix - Fixed an issue that hid the product form when a custom tax suffix was used.
+
 2023-02-16 - version 6.0.2
-* Fix - Fixed an issue that made users select all options in required checkboxes.
+* Fix - Fixed an issue that made users select all options in required checkboxes. 
 
 2023-02-15 - version 6.0.1
 * Fix - Fixed an issue that prevented addon totals from being updated when the product quantity changed.

@@ -15,7 +15,7 @@ class RsRevealerBase extends RsAddOnRevealerBase {
 					 $_PluginUrl     = RS_REVEALER_PLUGIN_URL,
 					 $_PluginTitle   = 'revealer',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.2';
+				     $_Version       = '3.0.3';
 	
 	public function __construct() {
 		

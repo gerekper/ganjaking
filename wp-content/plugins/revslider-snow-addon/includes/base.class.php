@@ -15,7 +15,7 @@ class RsSnowBase extends RsAddOnSnowBase {
 					 $_PluginUrl     = RS_SNOW_PLUGIN_URL,
 					 $_PluginTitle   = 'snow',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.4';
+				     $_Version       = '3.0.5';
 	
 	public function __construct() {
 		

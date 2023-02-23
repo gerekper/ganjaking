@@ -41,6 +41,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Config\\AccessControl' => 'getAccessControlService',
             'MailPoet\\Config\\Renderer' => 'getRendererService',
             'MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository' => 'getNewsletterLinkRepositoryService',
+            'MailPoet\\CustomFields\\CustomFieldsRepository' => 'getCustomFieldsRepositoryService',
             'MailPoet\\Features\\FeaturesController' => 'getFeaturesControllerService',
             'MailPoet\\Listing\\Handler' => 'getHandlerService',
             'MailPoet\\Listing\\PageLimit' => 'getPageLimitService',
@@ -61,6 +62,8 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction' => 'getRemoveFromListActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => 'getRemoveTagActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => 'getUnsubscribeActionService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => 'getUpdateSubscriberActionService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => 'getContextFactoryService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => 'getMailPoetPremiumIntegrationService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => 'getPremiumAutomationTemplatesService',
             'MailPoet\\Premium\\Config\\Initializer' => 'getInitializerService',
@@ -74,6 +77,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Settings\\TrackingConfig' => 'getTrackingConfigService',
             'MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository' => 'getStatisticsWooCommercePurchasesRepositoryService',
             'MailPoet\\Statistics\\Track\\Unsubscribes' => 'getUnsubscribesService',
+            'MailPoet\\Subscribers\\SubscriberCustomFieldRepository' => 'getSubscriberCustomFieldRepositoryService',
             'MailPoet\\Subscribers\\SubscriberSegmentRepository' => 'getSubscriberSegmentRepositoryService',
             'MailPoet\\Subscribers\\SubscriberTagRepository' => 'getSubscriberTagRepositoryService',
             'MailPoet\\Subscribers\\SubscribersRepository' => 'getSubscribersRepositoryService',
@@ -239,6 +243,16 @@ class PremiumCachedContainer extends Container
     protected function getNewsletterLinkRepositoryService()
     {
         return $this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository');
+    }
+
+    /**
+     * Gets the public 'MailPoet\CustomFields\CustomFieldsRepository' shared service.
+     *
+     * @return \MailPoet\CustomFields\CustomFieldsRepository
+     */
+    protected function getCustomFieldsRepositoryService()
+    {
+        return $this->services['MailPoet\\CustomFields\\CustomFieldsRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\CustomFields\\CustomFieldsRepository');
     }
 
     /**
@@ -444,13 +458,33 @@ class PremiumCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction
+     */
+    protected function getUpdateSubscriberActionService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction(($this->services['MailPoet\\CustomFields\\CustomFieldsRepository'] ?? $this->getCustomFieldsRepositoryService()), ($this->services['MailPoet\\Subscribers\\SubscriberCustomFieldRepository'] ?? $this->getSubscriberCustomFieldRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory
+     */
+    protected function getContextFactoryService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory(($this->services['MailPoet\\CustomFields\\CustomFieldsRepository'] ?? $this->getCustomFieldsRepositoryService()));
+    }
+
+    /**
      * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration' shared autowired service.
      *
      * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration
      */
     protected function getMailPoetPremiumIntegrationService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction'] ?? $this->getUnsubscribeActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] ?? $this->getAddTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] ?? $this->getRemoveTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] ?? $this->getAddToListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction'] ?? $this->getRemoveFromListActionService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] ?? $this->getContextFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction'] ?? $this->getUnsubscribeActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] ?? $this->getAddTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] ?? $this->getRemoveTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] ?? $this->getAddToListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction'] ?? $this->getRemoveFromListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction'] ?? $this->getUpdateSubscriberActionService()));
     }
 
     /**
@@ -575,6 +609,16 @@ class PremiumCachedContainer extends Container
     protected function getUnsubscribesService()
     {
         return $this->services['MailPoet\\Statistics\\Track\\Unsubscribes'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Statistics\\Track\\Unsubscribes');
+    }
+
+    /**
+     * Gets the public 'MailPoet\Subscribers\SubscriberCustomFieldRepository' shared service.
+     *
+     * @return \MailPoet\Subscribers\SubscriberCustomFieldRepository
+     */
+    protected function getSubscriberCustomFieldRepositoryService()
+    {
+        return $this->services['MailPoet\\Subscribers\\SubscriberCustomFieldRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Subscribers\\SubscriberCustomFieldRepository');
     }
 
     /**

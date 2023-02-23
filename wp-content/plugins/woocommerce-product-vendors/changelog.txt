@@ -1,5 +1,9 @@
 *** Product Vendors Changelog ***
 
+2023-02-20 - version 2.1.74
+* Dev - Implement PHPCS GitHub Action to help improve code quality.
+* Fix - Sync vendor commission data with refunded order.
+
 2023-01-27 - version 2.1.73
 * Add - Override Per Product shipping rules on import.
 * Fix - Product tax handling is not working.

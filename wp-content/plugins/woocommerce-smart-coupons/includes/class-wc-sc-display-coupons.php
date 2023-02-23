@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.0
+ * @version     3.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -59,8 +59,6 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			add_action( 'wp_footer', array( $this, 'frontend_styles_and_scripts' ) );
 
 			add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'woocommerce_update_order_review_fragments' ) );
-
-			add_filter( 'woocommerce_coupon_get_date_expires', array( $this, 'wc_sc_get_date_expires' ), 10, 2 );
 
 			add_action( 'init', array( $this, 'endpoint_hooks' ) );
 
@@ -253,7 +251,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					}
 
 					if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
-						$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+						$expiry_time = ( $this->is_callable( $coupon, 'get_meta' ) ) ? (int) $coupon->get_meta( 'wc_sc_expiry_time' ) : (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 						if ( ! empty( $expiry_time ) ) {
 							$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 						}
@@ -544,6 +542,8 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 						$coupon = new WC_Coupon( $coupon_title );
 
+						$is_callable_coupon_get_meta = $this->is_callable( $coupon, 'get_meta' );
+
 						if ( $this->is_wc_gte_30() ) {
 							if ( ! is_object( $coupon ) || ! is_callable( array( $coupon, 'get_id' ) ) ) {
 								continue;
@@ -570,7 +570,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 						$coupon_amount = $this->get_amount( $coupon, true );
 
-						$is_pick_price_of_product = get_post_meta( $coupon_id, 'is_pick_price_of_product', true );
+						$is_pick_price_of_product = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'is_pick_price_of_product' ) : get_post_meta( $coupon_id, 'is_pick_price_of_product', true );
 
 						if ( $list_started && ! empty( $discount_type ) ) {
 							echo '<div class="gift-certificates">';
@@ -1047,7 +1047,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				}
 
 				if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
-					$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+					$expiry_time = ( $this->is_callable( $coupon, 'get_meta' ) ) ? (int) $coupon->get_meta( 'wc_sc_expiry_time' ) : (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 					if ( ! empty( $expiry_time ) ) {
 						$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 					}
@@ -1750,32 +1750,6 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		}
 
 		/**
-		 * Get date expires if not exists
-		 *
-		 * @param  mixed|WC_DateTime $value  The date expires value.
-		 * @param  WC_Coupon         $coupon The coupon object.
-		 * @return mixed|WC_DateTime
-		 */
-		public function wc_sc_get_date_expires( $value = null, $coupon = null ) {
-
-			if ( $this->is_wc_gte_30() && empty( $value ) ) {
-				$coupon_id   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
-				$expiry_date = ( ! empty( $coupon_id ) ) ? get_post_meta( $coupon_id, 'expiry_date', true ) : '';
-
-				if ( ! empty( $expiry_date ) ) {
-					$datetime  = $this->wc_string_to_datetime( $expiry_date ); // Can't use wrapper function 'WC_Smart_Coupons::wc_string_to_datetime_to_timestamp' here as $datetime object is needed later.
-					$timestamp = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : null;
-					$timestamp = $this->get_date_expires_value( $timestamp );
-					if ( ! empty( $timestamp ) ) {
-						return $datetime->__toString();
-					}
-				}
-			}
-
-			return $value;
-		}
-
-		/**
 		 * Get endpoint
 		 *
 		 * @return string The endpoint
@@ -1890,11 +1864,13 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 			$generated_coupon_data = array();
 			foreach ( $new_order_ids as $id ) {
-				$data = get_post_meta( $id, 'sc_coupon_receiver_details', true );
+				$order                      = function_exists( 'wc_get_order' ) ? wc_get_order( $id ) : null;
+				$is_callable_order_get_meta = $this->is_callable( $order, 'get_meta' );
+				$data                       = ( true === $is_callable_order_get_meta ) ? $order->get_meta( 'sc_coupon_receiver_details' ) : get_post_meta( $id, 'sc_coupon_receiver_details', true );
 				if ( empty( $data ) ) {
 					continue;
 				}
-				$from = get_post_meta( $id, '_billing_email', true );
+				$from = ( true === $is_callable_order_get_meta ) ? $order->get_billing_email() : get_post_meta( $id, '_billing_email', true );
 				if ( empty( $generated_coupon_data[ $from ] ) ) {
 					$generated_coupon_data[ $from ] = array();
 				}
@@ -1906,7 +1882,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			if ( in_array( 'sc_generated_coupon_data_metabox', $backtrace_functions, true ) ) {
 				reset( $order_ids );
 				$order_id   = current( $order_ids );
-				$from       = get_post_meta( $id, '_billing_email', true );
+				$from       = $this->get_post_meta( $order_id, '_billing_email', true );
 				$coupon_ids = $wpdb->get_col( // phpcs:ignore
 					$wpdb->prepare(
 						"SELECT DISTINCT p.ID
@@ -1927,7 +1903,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				);
 				if ( ! empty( $coupon_ids ) && is_array( $coupon_ids ) ) {
 					foreach ( $coupon_ids as $coupon_id ) {
-						$coupon_receiver_details = get_post_meta( $coupon_id, 'wc_sc_coupon_receiver_details', true );
+						$coupon_receiver_details = $this->get_post_meta( $coupon_id, 'wc_sc_coupon_receiver_details', true );
 						$from                    = ( ! empty( $coupon_receiver_details['gift_certificate_sender_email'] ) ) ? $coupon_receiver_details['gift_certificate_sender_email'] : $from;
 						if ( empty( $generated_coupon_data[ $from ] ) || ! is_array( $generated_coupon_data[ $from ] ) ) {
 							$generated_coupon_data[ $from ] = array();
@@ -2215,7 +2191,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							}
 
 							if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
-								$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+								$expiry_time = ( $this->is_callable( $coupon, 'get_meta' ) ) ? (int) $coupon->get_meta( 'wc_sc_expiry_time' ) : (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 								if ( ! empty( $expiry_time ) ) {
 									$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 								}
@@ -2437,7 +2413,8 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			$coupon_code = get_option( 'smart_coupons_storewide_offer_coupon_code' );
 			if ( ! empty( $coupon_code ) ) {
 				$coupon_id     = wc_get_coupon_id_by_code( $coupon_code );
-				$coupon_status = get_post_status( $coupon_id );
+				$coupon        = new WC_Coupon( $coupon_id );
+				$coupon_status = ( $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $coupon_id );
 				if ( 'publish' === $coupon_status && ! is_store_notice_showing() ) {
 					update_option( 'woocommerce_demo_store', 'yes' );
 				} elseif ( 'publish' !== $coupon_status && is_store_notice_showing() ) {

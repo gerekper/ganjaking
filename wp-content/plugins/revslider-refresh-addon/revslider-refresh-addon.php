@@ -3,7 +3,7 @@
 Plugin Name:       Slider Revolution URL Load Add-on
 Plugin URI:        https://revolution.themepunch.com
 Description:       Load an URL (or reload) after certain amount of time/slider loops/after certain slide
-Version:           3.0.3
+Version:           3.0.4
 Author:            ThemePunch
 Author URI:        https://www.themepunch.com
 */

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -126,7 +126,7 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 			if ( $posts ) {
 				foreach ( $posts as $post ) {
 
-					$discount_type = get_post_meta( $post->ID, 'discount_type', true );
+					$discount_type = $this->get_post_meta( $post->ID, 'discount_type', true );
 
 					if ( ! empty( $all_discount_types[ $discount_type ] ) ) {
 						$discount_type                       = ' (' . __( 'Type', 'woocommerce-smart-coupons' ) . ': ' . $all_discount_types[ $discount_type ] . ')';
@@ -313,7 +313,7 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 
 				foreach ( $posts as $post ) {
 
-					$discount_type = get_post_meta( $post->ID, 'discount_type', true );
+					$discount_type = $this->get_post_meta( $post->ID, 'discount_type', true );
 					if ( ! empty( $all_discount_types[ $discount_type ] ) ) {
 
 						$coupon = new WC_Coupon( $post->post_title );

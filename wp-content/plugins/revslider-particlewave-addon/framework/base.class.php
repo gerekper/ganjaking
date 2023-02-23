@@ -96,6 +96,7 @@ class RsAddOnParticleWaveBase {
 			wp_localize_script($_handle.'-addon-admin-js', 'revslider_particlewave_addon', self::get_var() );
 			
 			wp_enqueue_script('revbuilder-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', array('jquery', 'revbuilder-admin',$_handle.'-js'), RS_REVISION);						
+			add_action('revslider_do_ajax', array($this, 'do_ajax'), 10, 2);
 		}		
 	}
 
@@ -232,6 +233,109 @@ class RsAddOnParticleWaveBase {
 	
 	}
 	
+
+	public function do_ajax($return = "",$action ="") {
+		switch ($action) {
+			case 'delete_custom_templates_revslider-particlewave-addon':
+				$return = $this->delete_template($_REQUEST["data"]);
+				if($return){
+					return  __('Particle Wave Template deleted', 'revslider-particlewave-addon');
+				}
+				else{
+					return  __('Particle Wave Template could not be deleted', 'revslider-particlewave-addon');
+				}
+				break;
+			case 'save_custom_templates_revslider-particlewave-addon':
+				$return = $this->save_template($_REQUEST["data"]);
+				if(empty($return) || !$return){
+					return  __('Particle Wave Template could not be saved', 'revslider-particlewave-addon');
+				} 
+				else {
+					return  array( 'message' => __('Particle Wave Template saved', 'revslider-particlewave-addon'), 'data' => array("id" => $return));	
+				}
+				break;
+			default:
+				return $return;
+				break;
+		}
+	}
+
+	/**
+	 * Save Custom Template
+	 *
+	 * @since    2.0.0
+	 */
+	private function save_template($template){		
+		//load already saved templates
+		$custom = $this->get_templates();
+		
+		//empty custom templates?
+		if(!$custom && !is_array($custom)){
+			$custom = array();
+			$new_id = 1;
+		}
+		else{
+			//custom templates exist
+			if(isset($template["id"]) && is_numeric($template["id"]) ){
+				//id exists , overwrite
+				$new_id = $template["id"];
+			}
+			else{
+				//id does not exist , new template
+				$new_id = max(array_keys($custom))+1;
+			}
+		}
+		
+		//update or insert template
+		$custom[$new_id]["title"] = $template["obj"]["title"];
+		$custom[$new_id]["preset"] = $template["obj"]["preset"];
+		if(update_option( 'revslider_addon_particlewave_templates', $custom )){
+			//return the ID the template was saved with
+			return $new_id;	
+		}
+		else {
+			//updating failed, blank result set
+			return "";
+		}
+	
+	}
+
+	/**
+	 * Delete Custom Template
+	 *
+	 * @since    2.0.0
+	 */
+	private function delete_template($template){
+		//load templates array
+		$custom = $this->get_templates();
+		
+		//custom template exist
+		if(isset($template["id"]) && is_numeric($template["id"]) ){
+			//delete given ID
+			$delete_id = $template["id"];
+			unset($custom[$delete_id]);
+			//save the resulting templates array again
+			if(update_option( 'revslider_addon_particlewave_templates', $custom )){
+				return true;	
+			}
+			else {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Read Custom Templates from WP option, false if not set
+	 *
+	 * @since    2.0.0
+	 */
+	private static function get_templates(){
+		//load WP option
+		$custom = get_option('revslider_addon_particlewave_templates',false);
+
+		return $custom;
+	}
+
 	/**
 	 * Returns the global JS variable
 	 *

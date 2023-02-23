@@ -26,7 +26,7 @@ class Coupon {
   public function render($element, $columnBaseWidth) {
     $couponCode = self::CODE_PLACEHOLDER;
     if (!empty($element['couponId'])) {
-      $couponCode = $this->helper->wcGetCouponCodeById($element['couponId']);
+      $couponCode = $this->helper->wcGetCouponCodeById((int)$element['couponId']);
     }
     $element['styles']['block']['width'] = $this->calculateWidth($element, $columnBaseWidth);
     $styles = 'display:inline-block;-webkit-text-size-adjust:none;mso-hide:all;text-decoration:none;text-align:center;' . StylesHelper::getBlockStyles($element, $exclude = ['textAlign']);
@@ -50,12 +50,12 @@ class Coupon {
                   <center style="color:' . EHelper::escapeHtmlStyleAttr($element['styles']['block']['fontColor']) . ';
                     font-family:' . EHelper::escapeHtmlStyleAttr($element['styles']['block']['fontFamily']) . ';
                     font-size:' . EHelper::escapeHtmlStyleAttr($element['styles']['block']['fontSize']) . ';
-                    font-weight:bold;">' . EHelper::escapeHtmlText($element['code']) . '
+                    font-weight:bold;">' . EHelper::escapeHtmlText($couponCode) . '
                   </center>
                   </v:roundrect>
                   <![endif]-->
                   <!--[if !mso]><!-- -->
-                  <div class="mailpoet_coupon" style="' . $styles . '"> ' . EHelper::escapeHtmlText($couponCode) . '</div>
+                  <div class="mailpoet_coupon" style="' . $styles . '">' . EHelper::escapeHtmlText($couponCode) . '</div>
                   <!--<![endif]-->
                 </td>
               </tr>

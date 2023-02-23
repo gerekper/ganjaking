@@ -297,9 +297,12 @@ class WC_Box_Office_Tools {
 					$purchase_time = get_the_time( __( 'Y/m/d g:i:s A', 'woocommerce-box-office' ), $order_id );
 				}
 
-				// Get Coupon information
-				$coupons      = $order->get_coupon_codes();
-				$coupon_codes = is_array( $coupons ) ? implode( ', ', $coupons ) : '';
+				// Get Coupon information.
+				$coupon_codes = '';
+				if ( $order ) {
+					$coupons      = $order->get_coupon_codes();
+					$coupon_codes = is_array( $coupons ) ? implode( ', ', $coupons ) : '';
+				}
 
 				// Add basic ticket data to export.
 				$data = array(

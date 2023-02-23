@@ -15,7 +15,7 @@ class RsLiquideffectBase extends RsAddOnLiquideffectBase {
 					 $_PluginUrl     = RS_LIQUIDEFFECT_PLUGIN_URL,
 					 $_PluginTitle   = 'liquideffect',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.3';
+				     $_Version       = '3.0.5';
 	
 	public function __construct() {
 		

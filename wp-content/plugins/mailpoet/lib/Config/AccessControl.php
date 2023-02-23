@@ -70,6 +70,7 @@ class AccessControl {
         'mailpoet_permission_manage_automations',
         [
           'administrator',
+          'editor',
         ]
       ),
     ];

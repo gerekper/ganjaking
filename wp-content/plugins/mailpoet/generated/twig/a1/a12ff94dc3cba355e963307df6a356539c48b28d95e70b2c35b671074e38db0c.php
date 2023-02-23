@@ -38,7 +38,7 @@ class __TwigTemplate_57bfdd4fb362dd94264b1d68ab1e6f4bdf9b65226909b1d15784e661ea7
         $macros = $this->macros;
         // line 1
         echo "<div class=\"mailpoet_tools\"></div>
-<div class=\"mailpoet_content\">
+<div class=\"mailpoet_content\" data-automation-id=\"coupon_block\">
     <div  class=\"mailpoet_editor_coupon\" style=\"{{#ifCond model.styles.block.textAlign '==' 'left'}}margin: 0 auto 0 0; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'center'}}margin: auto; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'right'}}margin: 0 0 0 auto; {{/ifCond}}line-height: {{ model.styles.block.lineHeight }}; width: {{ model.styles.block.width }}; background-color: {{ model.styles.block.backgroundColor }}; color: {{ model.styles.block.fontColor }}; font-family: {{fontWithFallback model.styles.block.fontFamily }}; font-size: {{ model.styles.block.fontSize }}; font-weight: {{ model.styles.block.fontWeight }}; border: {{ model.styles.block.borderWidth }} {{ model.styles.block.borderStyle }} {{ model.styles.block.borderColor }}; border-radius: {{ model.styles.block.borderRadius }};\">{{ model.code }}</div>
     <div class=\"mailpoet_editor_coupon_overlay\">";
         // line 4

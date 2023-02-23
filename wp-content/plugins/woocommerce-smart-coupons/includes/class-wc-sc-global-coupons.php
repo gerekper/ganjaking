@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		private function __construct() {
 
 			add_action( 'admin_init', array( $this, 'set_global_coupons' ) );
-			add_action( 'save_post', array( $this, 'update_global_coupons' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'update_global_coupons' ), 10, 2 );
 			add_action( 'deleted_post', array( $this, 'sc_delete_global_coupons' ) );
 			add_action( 'trashed_post', array( $this, 'sc_delete_global_coupons' ) );
 			add_action( 'untrashed_post', array( $this, 'sc_untrash_global_coupons' ) );
@@ -217,10 +217,11 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		/**
 		 * Function to update list of global coupons
 		 *
-		 * @param int    $post_id The post id.
-		 * @param string $action Action.
+		 * @param int      $post_id The post id.
+		 * @param string   $action Action.
+		 * @param WC_Coupn $coupon The coupon object.
 		 */
-		public function sc_update_global_coupons( $post_id, $action = 'add' ) {
+		public function sc_update_global_coupons( $post_id, $action = 'add', $coupon = null ) {
 			if ( empty( $post_id ) ) {
 				return;
 			}
@@ -228,18 +229,34 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 				return;
 			}
 
-			$coupon_meta   = get_post_meta( $post_id );
-			$coupon_status = get_post_status( $post_id );
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
+			}
+
+			$coupon_status = ( $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $post_id );
+
+			if ( $this->is_callable( $coupon, 'get_meta' ) ) {
+				$customer_email          = $coupon->get_email_restrictions();
+				$sc_is_visible_storewide = $coupon->get_meta( 'sc_is_visible_storewide' );
+				$auto_generate_coupon    = $coupon->get_meta( 'auto_generate_coupon' );
+				$discount_type           = $coupon->get_discount_type();
+			} else {
+				$coupon_meta             = get_post_meta( $post_id );
+				$customer_email          = ( ! empty( $coupon_meta['customer_email'] ) ) ? $coupon_meta['customer_email'][0] : '';
+				$sc_is_visible_storewide = ( ! empty( $coupon_meta['sc_is_visible_storewide'] ) ) ? $coupon_meta['sc_is_visible_storewide'][0] : '';
+				$auto_generate_coupon    = ( ! empty( $coupon_meta['auto_generate_coupon'] ) ) ? $coupon_meta['auto_generate_coupon'][0] : '';
+				$discount_type           = ( ! empty( $coupon_meta['discount_type'] ) ) ? $coupon_meta['discount_type'][0] : '';
+			}
 
 			$global_coupons_list = get_option( 'sc_display_global_coupons' );
 			$global_coupons      = ( ! empty( $global_coupons_list ) ) ? explode( ',', $global_coupons_list ) : array();
 			$key                 = array_search( (string) $post_id, $global_coupons, true );
 
 			if ( ( 'publish' === $coupon_status
-					&& ( empty( $coupon_meta['customer_email'][0] ) || serialize( array() ) === $coupon_meta['customer_email'][0] ) // phpcs:ignore
-					&& ( ! empty( $coupon_meta['sc_is_visible_storewide'][0] ) && 'yes' === $coupon_meta['sc_is_visible_storewide'][0] )
-					&& ( ! empty( $coupon_meta['auto_generate_coupon'][0] ) && 'yes' !== $coupon_meta['auto_generate_coupon'][0] )
-					&& ( ! empty( $coupon_meta['discount_type'][0] ) && 'smart_coupon' !== $coupon_meta['discount_type'][0] ) )
+					&& ( empty( $customer_email ) || serialize( array() ) === $customer_email ) // phpcs:ignore
+					&& ( ! empty( $sc_is_visible_storewide ) && 'yes' === $sc_is_visible_storewide )
+					&& ( ! empty( $auto_generate_coupon ) && 'yes' !== $auto_generate_coupon )
+					&& ( ! empty( $discount_type ) && 'smart_coupon' !== $discount_type ) )
 				|| ( 'trash' === $coupon_status && 'delete' === $action ) ) {
 
 				if ( 'add' === $action && false === $key ) {
@@ -309,33 +326,19 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		/**
 		 * Update global coupons on saving coupon
 		 *
-		 * @param  int    $post_id The post id.
-		 * @param  object $post The post object.
+		 * @param  int       $post_id The post id.
+		 * @param  WC_Coupon $coupon The coupon object.
 		 */
-		public function update_global_coupons( $post_id, $post ) {
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
-				return;
-			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
+		public function update_global_coupons( $post_id = 0, $coupon = null ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
 
-			$this->sc_update_global_coupons( $post_id );
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
+			}
+
+			$this->sc_update_global_coupons( $post_id, 'add', $coupon );
 
 		}
 

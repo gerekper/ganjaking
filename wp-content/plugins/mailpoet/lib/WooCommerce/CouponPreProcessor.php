@@ -12,6 +12,9 @@ use MailPoet\WP\DateTime;
 
 class CouponPreProcessor {
 
+  /** @var bool */
+  private $generated = false;
+
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
@@ -52,18 +55,19 @@ class CouponPreProcessor {
 
   private function ensureCouponForBlocks(array &$blocks, NewsletterEntity $newsletter): bool {
 
-    static $generated = false;
     foreach ($blocks as &$innerBlock) {
       if (isset($innerBlock['blocks']) && !empty($innerBlock['blocks'])) {
         $this->ensureCouponForBlocks($innerBlock['blocks'], $newsletter);
       }
       if (isset($innerBlock['type']) && $innerBlock['type'] === Coupon::TYPE) {
-        $generated = $this->shouldGenerateCoupon($innerBlock);
-        $innerBlock['couponId'] = $this->addOrUpdateCoupon($innerBlock, $newsletter);
+        if ($this->shouldGenerateCoupon($innerBlock)) {
+          $innerBlock['couponId'] = $this->addOrUpdateCoupon($innerBlock, $newsletter);
+          $this->generated = true;
+        }
       }
     }
 
-    return $generated;
+    return $this->generated;
   }
 
   private function addOrUpdateCoupon(array $couponBlock, NewsletterEntity $newsletter): int {
@@ -72,10 +76,7 @@ class CouponPreProcessor {
       $code = isset($couponBlock['code']) && $couponBlock['code'] !== Coupon::CODE_PLACEHOLDER ? $couponBlock['code'] : $this->generateRandomCode();
       $coupon->set_code($code);
     }
-    $coupon->set_discount_type($couponBlock['discountType']);
-    $coupon->set_amount($couponBlock['amount']);
-    $expiration = (new DateTime())->getCurrentDateTime()->modify("+{$couponBlock['expiryDay']} day")->getTimestamp();
-    $coupon->set_date_expires($expiration);
+
     $coupon->set_description(
       sprintf(
       // translators: %1$s is newsletter id and %2$s is the subject.
@@ -85,7 +86,57 @@ class CouponPreProcessor {
       )
     );
 
+    // general
+    $coupon->set_discount_type($couponBlock['discountType']);
+
+    if (isset($couponBlock['amount'])) {
+      $coupon->set_amount($couponBlock['amount']);
+    }
+
+    if (isset($couponBlock['expiryDay'])) {
+      $expiration = (new DateTime())->getCurrentDateTime()->modify("+{$couponBlock['expiryDay']} day")->getTimestamp();
+      $coupon->set_date_expires($expiration);
+    }
+
+    $coupon->set_free_shipping($couponBlock['freeShipping'] ?? false);
+
+    // usage restriction
+    $coupon->set_minimum_amount($couponBlock['minimumAmount'] ?? '');
+    $coupon->set_maximum_amount($couponBlock['maximumAmount'] ?? '');
+    $coupon->set_individual_use($couponBlock['individualUse'] ?? false);
+    $coupon->set_exclude_sale_items($couponBlock['excludeSaleItems'] ?? false);
+
+    $coupon->set_product_ids($this->getProductIds($couponBlock['productIds'] ?? []));
+    $coupon->set_excluded_product_ids($this->getProductIds($couponBlock['excludedProductIds'] ?? []));
+
+    $coupon->set_product_categories($this->getCategoryItemIds($couponBlock['productCategories'] ?? []));
+    $coupon->set_excluded_product_categories($this->getCategoryItemIds($couponBlock['excludedProductCategories'] ?? []));
+
+    $coupon->set_email_restrictions(explode(',', $couponBlock['emailRestrictions'] ?? ''));
+
+    // usage limit
+    $coupon->set_usage_limit($couponBlock['usageLimit'] ?? 0);
+    $coupon->set_usage_limit_per_user($couponBlock['usageLimitPerUser'] ?? 0);
+
     return $coupon->save();
+  }
+
+  private function getCategoryItemIds(array $items): array {
+    return $this->getItemIds($items, 'term_id');
+  }
+
+  private function getProductIds(array $items): array {
+    return $this->getItemIds($items, 'ID');
+  }
+
+  private function getItemIds(array $items, $field = ''): array {
+    if (empty($items)) {
+      return [];
+    }
+
+    return array_map(function ($item) use ($field) {
+      return $item[$field];
+    }, $items);
   }
 
   /**
@@ -105,13 +156,11 @@ class CouponPreProcessor {
   private function shouldGenerateCoupon(array $block): bool {
     return empty($block['couponId']);
   }
-  
+
   /**
-   * For some renders/send outs the coupon id shouldn't be persisted along the coupon block
-   * This is a placeholder method and should be augmented with more newsletter types that should dynamically get coupons
-   * and not have one single coupon saved along with the block's settings
+   * Only emails that can have their body-HTML re-generated should persist the generated couponId
    */
   private function shouldPersist(NewsletterEntity $newsletter): bool {
-    return $newsletter->getType() !== NewsletterEntity::TYPE_AUTOMATIC;
+    return in_array($newsletter->getType(), NewsletterEntity::TYPES_WITH_RESETTABLE_BODY);
   }
 }

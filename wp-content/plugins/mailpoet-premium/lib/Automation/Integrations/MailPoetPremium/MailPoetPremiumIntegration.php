@@ -12,8 +12,11 @@ use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddToListAc
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction;
 
 class MailPoetPremiumIntegration implements Integration {
+  /** @var ContextFactory */
+  private $contextFactory;
 
   /** @var UnsubscribeAction */
   private $unsubscribeAction;
@@ -30,25 +33,37 @@ class MailPoetPremiumIntegration implements Integration {
   /** @var RemoveFromListAction */
   private $removeFromListAction;
 
+  /** @var UpdateSubscriberAction */
+  private $updateSubscriberAction;
+
   public function __construct(
+    ContextFactory $contextFactory,
     UnsubscribeAction $unsubscribeAction,
     AddTagAction $addTagAction,
     RemoveTagAction $removeTagAction,
     AddToListAction $addToListAction,
-    RemoveFromListAction $removeFromListAction
+    RemoveFromListAction $removeFromListAction,
+    UpdateSubscriberAction $updateSubscriberAction
   ) {
+    $this->contextFactory = $contextFactory;
     $this->unsubscribeAction = $unsubscribeAction;
     $this->addTagAction = $addTagAction;
     $this->removeTagAction = $removeTagAction;
     $this->addToListAction = $addToListAction;
     $this->removeFromListAction = $removeFromListAction;
+    $this->updateSubscriberAction = $updateSubscriberAction;
   }
 
   public function register(Registry $registry): void {
+    $registry->addContextFactory('mailpoet-premium', function () {
+      return $this->contextFactory->getContextData();
+    });
+
     $registry->addAction($this->unsubscribeAction);
     $registry->addAction($this->addTagAction);
     $registry->addAction($this->removeTagAction);
     $registry->addAction($this->addToListAction);
     $registry->addAction($this->removeFromListAction);
+    $registry->addAction($this->updateSubscriberAction);
   }
 }

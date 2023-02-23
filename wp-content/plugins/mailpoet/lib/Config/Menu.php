@@ -373,7 +373,7 @@ class Menu {
 
     // import
     $this->wp->addSubmenuPage(
-      'admin.php?page=mailpoet-subscribers',
+      self::SUBSCRIBERS_PAGE_SLUG,
       $this->setPageTitle(__('Import', 'mailpoet')),
       esc_html__('Import', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_SUBSCRIBERS,
@@ -386,7 +386,7 @@ class Menu {
 
     // export
     $this->wp->addSubmenuPage(
-      $showEntries ? self::$mainPageSlug : true,
+      self::SUBSCRIBERS_PAGE_SLUG,
       $this->setPageTitle(__('Export', 'mailpoet')),
       esc_html__('Export', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_SUBSCRIBERS,

@@ -118,6 +118,8 @@ class Changelog {
   public function maybeRedirectToLandingPage() {
     if ($this->isWelcomeWizardPage()) return; // do not redirect when on welcome wizard page
 
+    if ($this->isExperimentalPage()) return; // do not redirect when on experimental page
+
     $this->redirectToLandingPage();
   }
 
@@ -131,6 +133,10 @@ class Changelog {
 
   private function isLandingPage() {
     return isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) === Menu::LANDINGPAGE_PAGE_SLUG;
+  }
+
+  private function isExperimentalPage() {
+    return isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) === Menu::EXPERIMENTS_PAGE_SLUG;
   }
 
   private function checkWooCommerceListImportPage() {

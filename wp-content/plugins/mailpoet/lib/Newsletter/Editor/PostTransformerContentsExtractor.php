@@ -24,7 +24,7 @@ class PostTransformerContentsExtractor {
   ) {
     $this->args = $args;
     $this->wp = new WPFunctions();
-    $this->woocommerceHelper = new WooCommerceHelper();
+    $this->woocommerceHelper = new WooCommerceHelper($this->wp);
   }
 
   public function getContent($post, $withPostClass, $displayType) {

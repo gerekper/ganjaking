@@ -38,6 +38,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Config\AccessControl::class);
     $this->registerFreeService($container, \MailPoet\Config\Renderer::class);
     $this->registerFreeService($container, \MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository::class);
+    $this->registerFreeService($container, \MailPoet\CustomFields\CustomFieldsRepository::class);
     $this->registerFreeService($container, \MailPoet\Features\FeaturesController::class);
     $this->registerFreeService($container, \MailPoet\Listing\Handler::class);
     $this->registerFreeService($container, \MailPoet\Listing\PageLimit::class);
@@ -48,6 +49,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Settings\TrackingConfig::class);
     $this->registerFreeService($container, \MailPoet\Statistics\StatisticsWooCommercePurchasesRepository::class);
     $this->registerFreeService($container, \MailPoet\Statistics\Track\Unsubscribes::class);
+    $this->registerFreeService($container, \MailPoet\Subscribers\SubscriberCustomFieldRepository::class);
     $this->registerFreeService($container, \MailPoet\Subscribers\SubscriberSegmentRepository::class);
     $this->registerFreeService($container, \MailPoet\Subscribers\SubscribersRepository::class);
     $this->registerFreeService($container, \MailPoet\WooCommerce\Helper::class);
@@ -74,12 +76,14 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint::class)->setPublic(true);
     // Automation - MailPoet Premium integration
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddToListAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction::class)->setPublic(true);
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);

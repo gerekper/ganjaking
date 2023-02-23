@@ -63,6 +63,8 @@ class WC_Product_Vendors_Order {
 
 		add_action( 'woocommerce_payment_complete', array( $this, 'payment_complete' ) );
 
+		add_action( 'woocommerce_order_refunded', array( $this, 'process_order_refund' ), 10, 2 );
+
 		$this->log = new WC_Logger();
 
 		return true;
@@ -102,13 +104,25 @@ class WC_Product_Vendors_Order {
 	 * @access public
 	 * @since 2.0.0
 	 * @version 2.0.0
-	 * @param object $order
+	 * @param WC_Order $order
 	 * @return bool
 	 */
 	public function process_manual_create_commission_action( $order ) {
 		$order_id = $order->get_id();
+		$refunds  = $order->get_refunds();
 
-		$this->process( $order_id );
+		if ( $refunds ) {
+			$refunds = array_reverse( $refunds );
+
+			/* @var WC_Order_Refund $refund Latest refund object for order. */
+			foreach ( $refunds as $refund ) {
+				$this->process_order_refund( $order_id, $refund->get_id() );
+			}
+
+			$this->add_commission_order_note( $order );
+		} else {
+			$this->process( $order_id );
+		}
 
 		return true;
 	}
@@ -218,24 +232,7 @@ class WC_Product_Vendors_Order {
 						}
 					}
 
-					$attributes = '';
-
-					if ( 'variation' === $_product->get_type() ) {
-						// get variation attributes.
-						$variation_attributes = $_product->get_variation_attributes();
-
-						if ( ! empty( $variation_attributes ) ) {
-							$attributes = array();
-
-							foreach ( $variation_attributes as $name => $value ) {
-								$name = ucfirst( str_replace( 'attribute_', '', $name ) );
-
-								$attributes[ $name ] = $value;
-							}
-
-							$attributes = maybe_serialize( $attributes );
-						}
-					}
+					$attributes = $this->get_serialize_product_variation_value( $_product );
 
 					$order_date = $this->order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->order->get_date_created()->getOffsetTimestamp() ) : '';
 
@@ -307,6 +304,10 @@ class WC_Product_Vendors_Order {
 					if ( ! empty( $customer_user ) ) {
 						WC_Product_Vendors_Utils::update_user_related_vendors( $customer_user, absint( $vendor_id ) );
 					}
+
+					// Record initial commission amount. Vendor commission amount can be change on refund.
+					// In this case, we can use this value to find difference between latest and initial vendor commission.
+					$this->order->update_meta_data( "_wcpv_commission_{$last_commission_id}_amount", $total_commission );
 
 					$commission_added = true;
 				}
@@ -519,4 +520,249 @@ class WC_Product_Vendors_Order {
 		WC_Product_Vendors_Utils::clear_reports_transients();
 	}
 
+
+	/**
+	 * Update commission data when refunds performed.
+	 *
+	 * @since x.x.x
+	 *
+	 * @param int $order_id Order ID.
+	 * @param int $refund_id Refund ID.
+	 *
+	 * @return void
+	 */
+	public function process_order_refund( $order_id, $refund_id ) {
+		global $wpdb;
+
+		$order  = wc_get_order( $order_id );
+		$refund = wc_get_order( $refund_id );
+
+		if (
+			! is_a( $order, 'WC_Order' ) ||
+			! is_a( $refund, 'WC_Order_Refund' ) ||
+			0 >= $refund->get_amount() ||
+			! ( $items = $order->get_items( 'line_item' ) )
+		) {
+			return;
+		}
+
+		// Order should already have a commission for vendor.
+		$check_commission_added = $order->get_meta( '_wcpv_commission_added', true );
+		if ( 'yes' !== $check_commission_added ) {
+			return;
+		}
+
+		$is_fully_refunded = 0 === count( $refund->get_items() ) && 0 == $order->get_remaining_refund_amount();
+
+		foreach ( $items as $order_item_id => $item ) {
+			$product = wc_get_product( $item['product_id'] );
+
+			if ( ! is_object( $product ) ) {
+				continue;
+			}
+
+			// Vendor should have a commission for a order item.
+			$last_commission_id = $this->commission->get_commission_id_by_order_item_id( $order_item_id, $order_id );
+			if ( empty( $last_commission_id ) ) {
+				continue;
+			}
+
+			// Product must have a valid vendor.
+			$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product->get_id() );
+			if ( ! $vendor_id ) {
+				continue;
+			}
+
+			if ( $is_fully_refunded ) {
+				$this->commission_fully_refunded( $order, $item, $refund, $last_commission_id );
+				continue;
+			}
+
+			$_product_id             = ! empty( $item['variation_id'] ) ? $item['variation_id'] : $item['product_id'];
+			$_product                = wc_get_product( $_product_id );
+			$vendor_data             = WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor_id );
+			$item_total_tax_refunded = WC_Product_Vendors_Utils:: get_total_tax_refunded_line_item( $item, $order );
+
+			$item_quantity_with_refunds   = $item->get_quantity() + $order->get_qty_refunded_for_item( $item->get_id() );
+			$item_total_including_refunds = $item['line_total'] - $order->get_total_refunded_for_item( $item->get_id() );
+			$item_taxes_including_refunds = $item['line_tax'] - $item_total_tax_refunded;
+
+			$product_commission = $this->commission->calc_order_product_commission(
+				$_product->get_id(),
+				$vendor_id,
+				$item_total_including_refunds,
+				$item_quantity_with_refunds
+			);
+
+			$item_total_commission = $product_commission;
+			$shipping_amount       = '';
+			$shipping_tax_amount   = '';
+
+			$product_settings = WC_Product_Vendors_Utils::get_product_vendor_settings( $product, $vendor_data );
+
+			// get the per product shipping title.
+			$pp_shipping_title = get_option( 'woocommerce_wcpv_per_product_settings', '' );
+			$pp_shipping_title = ! empty( $pp_shipping_title ) ? $pp_shipping_title['title'] : '';
+
+			// calculate shipping amount and shipping tax ( per product shipping ).
+			$pp_shipping_method = $order->get_shipping_method();
+			if (
+				! empty( $pp_shipping_method ) &&
+				! empty( $pp_shipping_title ) &&
+				false !== strpos( $pp_shipping_method, $pp_shipping_title ) &&
+				'yes' === $product_settings['pass_shipping']
+			) {
+				$shipping_data = WC_Product_Vendors_Utils::get_total_order_item_shipping_charges_with_refund( $item );
+
+				$shipping_amount     = $shipping_data['shipping_cost'];
+				$shipping_tax_amount = $shipping_data['taxes'];
+				$shipping_total      = round(
+					$shipping_amount + $shipping_tax_amount,
+					wc_get_rounding_precision()
+				);
+
+				$item_total_commission = round(
+					$item_total_commission + $shipping_total,
+					wc_get_rounding_precision()
+				);
+			}
+
+			// calculate tax into total commission.
+			if ( wc_tax_enabled() ) {
+				$tax_total = $item_taxes_including_refunds;
+
+				if ( 'pass-tax' === $product_settings['taxes'] ) {
+					$item_total_commission = round(
+						$item_total_commission + $tax_total,
+						wc_get_rounding_precision()
+					);
+				} elseif ( 'split-tax' === $product_settings['taxes'] ) {
+					$commission_array = WC_Product_Vendors_Utils::get_product_commission(
+						$_product_id,
+						$vendor_data
+					);
+
+					if ( 'percentage' === $commission_array['type'] ) {
+						$tax_commission        = round(
+							$tax_total * ( abs( $commission_array['commission'] ) / 100 ),
+							wc_get_rounding_precision()
+						);
+						$item_total_commission = round(
+							$item_total_commission + $tax_commission,
+							wc_get_rounding_precision()
+						);
+					}
+				}
+			}
+
+			$attributes = $this->get_serialize_product_variation_value( $_product );
+
+			$wpdb->update(
+				WC_PRODUCT_VENDORS_COMMISSION_TABLE,
+				[
+					'variation_attributes'        => $attributes,
+					'variation_id'                => $item['variation_id'],
+					'product_amount'              => $item_total_including_refunds,
+					'product_quantity'            => $item_quantity_with_refunds,
+					'product_shipping_amount'     => $shipping_amount,
+					'product_shipping_tax_amount' => $shipping_tax_amount,
+					'product_tax_amount'          => $item_taxes_including_refunds,
+					'product_commission_amount'   => wc_format_decimal( $product_commission ),
+					'total_commission_amount'     => wc_format_decimal( $item_total_commission )
+				],
+				[ 'id' => $last_commission_id ],
+				[ '%s', '%d' ],
+				[ 'id' => '%d' ]
+			);
+
+			$order->add_order_note(
+				sprintf(
+					esc_html__(
+						'Vendor commission (#%4$s) for "%1$s" updated to %2$s with refund #%3$s',
+						'woocommerce-product-vendors'
+					),
+					$item->get_name(),
+					wc_price( wc_format_decimal( $item_total_commission ) ),
+					$refund->get_id(),
+					$last_commission_id
+				)
+			);
+		}
+	}
+
+	/**
+	 * Should return serialize value of product variation.
+	 *
+	 * @since x.x.x
+	 *
+	 * @param WC_Product $product Product object.
+	 *
+	 * @return string
+	 */
+	private function get_serialize_product_variation_value( WC_Product $product ) {
+		$data = '';
+		if ( 'variation' === $product->get_type() ) {
+			// get variation attributes.
+			$variation_attributes = $product->get_variation_attributes();
+
+			if ( ! empty( $variation_attributes ) ) {
+				$data = [];
+
+				foreach ( $variation_attributes as $name => $value ) {
+					$name = ucfirst( str_replace( 'attribute_', '', $name ) );
+
+					$data[ $name ] = $value;
+				}
+
+				$data = maybe_serialize( $data );
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Should fully refund vendor commission.
+	 *
+	 * @since x.x.x
+	 *
+	 * @return void
+	 */
+	private function commission_fully_refunded(
+		WC_Order $order,
+		WC_Order_Item $item,
+		WC_Order_Refund $refund,
+		int $commission_id
+	) {
+		global $wpdb;
+
+		$wpdb->update(
+			WC_PRODUCT_VENDORS_COMMISSION_TABLE,
+			[
+				'variation_id'                => $item['variation_id'],
+				'product_amount'              => 0,
+				'product_quantity'            => 0,
+				'product_shipping_amount'     => 0,
+				'product_shipping_tax_amount' => 0,
+				'product_tax_amount'          => 0,
+				'product_commission_amount'   => 0,
+				'total_commission_amount'     => 0
+			],
+			[ 'id' => $commission_id ],
+			[ '%s', '%d' ],
+			[ 'id' => '%d' ]
+		);
+
+		$order->add_order_note(
+			sprintf(
+				esc_html__(
+					'Vendor commission (#%3$s) for "%1$s" is fully refunded with refund #%2$s',
+					'woocommerce-product-vendors'
+				),
+				$item->get_name(),
+				$refund->get_id(),
+				$commission_id
+			)
+		);
+	}
 }

@@ -23,6 +23,7 @@ use MailPoet\Statistics\Track\SubscriberActivityTracker;
 use MailPoet\Util\ConflictResolver;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Notices\PermanentNotices;
+use MailPoet\Util\Url;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WooCommerce\TransactionalEmailHooks as WCTransactionalEmails;
 use MailPoet\WP\Functions as WPFunctions;
@@ -116,6 +117,9 @@ class Initializer {
   /** @var DaemonActionSchedulerRunner */
   private $actionSchedulerRunner;
 
+  /** @var Url */
+  private $urlHelper;
+
   const INITIALIZED = 'MAILPOET_INITIALIZED';
 
   const PLUGIN_ACTIVATED = 'mailpoet_plugin_activated';
@@ -148,7 +152,8 @@ class Initializer {
     Engine $automationEngine,
     MailPoetIntegration $automationMailPoetIntegration,
     PersonalDataExporters $personalDataExporters,
-    DaemonActionSchedulerRunner $actionSchedulerRunner
+    DaemonActionSchedulerRunner $actionSchedulerRunner,
+    Url $urlHelper
   ) {
     $this->rendererFactory = $rendererFactory;
     $this->accessControl = $accessControl;
@@ -178,6 +183,7 @@ class Initializer {
     $this->automationMailPoetIntegration = $automationMailPoetIntegration;
     $this->personalDataExporters = $personalDataExporters;
     $this->actionSchedulerRunner = $actionSchedulerRunner;
+    $this->urlHelper = $urlHelper;
   }
 
   public function init() {
@@ -340,6 +346,12 @@ class Initializer {
    */
   public function afterPluginActivation() {
     if (!$this->wpFunctions->isAdmin() || !defined(self::INITIALIZED) || !$this->wpFunctions->getOption(self::PLUGIN_ACTIVATED)) return;
+
+    $currentUrl = $this->urlHelper->getCurrentUrl();
+
+    // wp automatically redirect to `wp-admin/plugins.php?activate=true&...` after plugin activation
+    $activatedByWpAdmin = !empty(strpos($currentUrl, 'plugins.php')) && isset($_GET['activate']) && (bool)$_GET['activate'];
+    if (!$activatedByWpAdmin) return; // not activated by wp. Do not redirect e.g WooCommerce NUX
 
     $this->changelog->redirectToLandingPage();
 

@@ -11,8 +11,21 @@ use MailPoet\RuntimeException;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Helper {
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(
+    WPFunctions $wp
+  ) {
+    $this->wp = $wp;
+  }
+
   public function isWooCommerceActive() {
     return class_exists('WooCommerce');
+  }
+
+  public function getWooCommerceVersion() {
+    return $this->isWooCommerceActive() ? get_plugin_data(WP_PLUGIN_DIR . '/woocommerce/woocommerce.php')['Version'] : null;
   }
 
   public function isWooCommerceBlocksActive($min_version = '') {
@@ -171,5 +184,39 @@ class Helper {
    */
   public function createWcCoupon($data) {
     return new \WC_Coupon($data);
+  }
+
+  public function getCouponList(): array {
+    $couponPosts = $this->wp->getPosts([
+      'posts_per_page' => -1,
+      'orderby' => 'name',
+      'order' => 'asc',
+      'post_type' => 'shop_coupon',
+      'post_status' => 'publish',
+    ]);
+
+    return array_map(function(\WP_Post $post): array {
+      return [
+        'id' => $post->ID,
+        'text' => $post->post_title, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      ];
+    }, $couponPosts);
+  }
+
+  public function wcGetPriceDecimalSeparator() {
+    return wc_get_price_decimal_separator();
+  }
+
+  public function getLatestCoupon(): ?string {
+    $coupons = $this->wp->getPosts([
+      'numberposts' => 1,
+      'orderby' => 'name',
+      'order' => 'desc',
+      'post_type' => 'shop_coupon',
+      'post_status' => 'publish',
+    ]);
+    $coupon = reset($coupons);
+
+    return $coupon ? $coupon->post_title : null; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
 }

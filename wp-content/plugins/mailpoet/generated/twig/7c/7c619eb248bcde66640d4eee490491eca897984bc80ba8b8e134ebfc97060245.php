@@ -80,8 +80,12 @@ class __TwigTemplate_fabd1248ff21b91584686f92b4c5275cf43b599b650065f182e5564d092
 {{else if isConfirmationEmailTemplate}}
   <div class=\"mailpoet_editor_confirmation_email_section\">
     <div class=\"mailpoet_save_button_group\">
-      <input type=\"button\" name=\"save\" value=\"";
+      <input type=\"button\" name=\"preview\" value=\"";
         // line 26
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("Preview");
+        echo "\" class=\"button mailpoet_show_preview\" />
+      <input type=\"button\" name=\"save\" value=\"";
+        // line 27
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Save");
         echo "\" class=\"button button-primary mailpoet_save_button\" />
     </div>
@@ -91,7 +95,7 @@ class __TwigTemplate_fabd1248ff21b91584686f92b4c5275cf43b599b650065f182e5564d092
       <div class=\"mailpoet_editor_last_saved\">
         &nbsp;
         <span class=\"mailpoet_autosaved_message mailpoet_hidden\">";
-        // line 33
+        // line 34
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Autosaved");
         echo "</span>
         <span class=\"mailpoet_autosaved_at\"></span>
@@ -100,27 +104,27 @@ class __TwigTemplate_fabd1248ff21b91584686f92b4c5275cf43b599b650065f182e5564d092
     <div class=\"clearfix\"></div>
     <div class=\"mailpoet_save_confirmation_email_disabled{{#if confirmationEmailCustomizerEnabled}} mailpoet_hidden{{/if}}\">
       <div class=\"mailpoet_save_woocommerce_error\">";
-        // line 39
+        // line 40
         echo $this->extensions['MailPoet\Twig\I18n']->translate("The usage of this email template for your Confirmation emails is not yet activated.");
         echo "</div>
       <input type=\"button\" name=\"activate_confirmation_email_customizer\" value=\"";
-        // line 40
+        // line 41
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Activate now");
         echo "\" class=\"button button-primary mailpoet_save_activate_confirmation_email_customizer_button\" style=\"margin-top: 17px\">
     </div>
   </div>
 {{else}}
     <input type=\"button\" name=\"preview\" class=\"button mailpoet_show_preview\" value=\"";
-        // line 44
+        // line 45
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Preview");
         echo "\" />
     <input type=\"button\" name=\"next\" value=\"";
-        // line 45
+        // line 46
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Next");
         echo "\" class=\"button button-primary mailpoet_save_next\" />
     <div class=\"mailpoet_button_group mailpoet_save_button_group\">
         <input type=\"button\" name=\"save\" value=\"";
-        // line 47
+        // line 48
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Save");
         echo "\" class=\"button button-primary mailpoet_save_button\" /><button class=\"button button-primary mailpoet_save_show_options\" data-automation-id=\"newsletter_save_options_toggle\" ><span class=\"dashicons mailpoet_save_show_options_icon\"></span></button>
     </div>
@@ -130,7 +134,7 @@ class __TwigTemplate_fabd1248ff21b91584686f92b4c5275cf43b599b650065f182e5564d092
         <div class=\"mailpoet_editor_last_saved\">
             &nbsp;
             <span class=\"mailpoet_autosaved_message mailpoet_hidden\">";
-        // line 54
+        // line 55
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Autosaved");
         echo "</span>
             <span class=\"mailpoet_autosaved_at mailpoet_hidden\"></span>
@@ -138,40 +142,40 @@ class __TwigTemplate_fabd1248ff21b91584686f92b4c5275cf43b599b650065f182e5564d092
     </div>
     <ul class=\"mailpoet_save_options mailpoet_hidden\">
         <li class=\"mailpoet_save_option\"><a href=\"javascript:;\" class=\"mailpoet_save_template\" data-automation-id=\"newsletter_save_as_template_option\">";
-        // line 59
+        // line 60
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Save as new template");
         echo "</a></li>
         <li class=\"mailpoet_save_option\"><a href=\"javascript:;\" class=\"mailpoet_save_export\">";
-        // line 60
+        // line 61
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Export as template");
         echo "</a></li>
     </ul>
     <div class=\"clearfix\"></div>
     <div class=\"mailpoet_save_as_template_container mailpoet_hidden\">
         <p><b class=\"mailpoet_save_as_template_title\">";
-        // line 64
+        // line 65
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Save as new template");
         echo "</b></p>
         <p><input type=\"text\" name=\"template_name\" value=\"\" placeholder=\"";
-        // line 65
+        // line 66
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Insert template name");
         echo "\" class=\"mailpoet_input mailpoet_save_as_template_name\" /></p>
         <p><input type=\"button\" name=\"save_as_template\" value=\"";
-        // line 66
+        // line 67
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Save as new template");
         echo "\" class=\"button button-primary mailpoet_button_full mailpoet_save_as_template\" data-automation-id=\"newsletter_save_as_template_button\" /></p>
     </div>
     <div class=\"mailpoet_export_template_container mailpoet_hidden\">
         <p><b class=\"mailpoet_export_template_title\">";
-        // line 69
+        // line 70
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Export template");
         echo "</b></p>
         <p><input type=\"text\" name=\"export_template_name\" value=\"\" placeholder=\"";
-        // line 70
+        // line 71
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Template name");
         echo "\" class=\"mailpoet_input mailpoet_export_template_name\" /></p>
         <p><input type=\"button\" name=\"export_template\" value=\"";
-        // line 71
+        // line 72
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Export template");
         echo "\" class=\"button button-primary mailpoet_button_full mailpoet_export_template\" /></p>
     </div>
@@ -192,7 +196,7 @@ class __TwigTemplate_fabd1248ff21b91584686f92b4c5275cf43b599b650065f182e5564d092
 
     public function getDebugInfo()
     {
-        return array (  172 => 71,  168 => 70,  164 => 69,  158 => 66,  154 => 65,  150 => 64,  143 => 60,  139 => 59,  131 => 54,  121 => 47,  116 => 45,  112 => 44,  105 => 40,  101 => 39,  92 => 33,  82 => 26,  75 => 22,  71 => 21,  65 => 18,  61 => 17,  52 => 11,  42 => 4,  37 => 1,);
+        return array (  176 => 72,  172 => 71,  168 => 70,  162 => 67,  158 => 66,  154 => 65,  147 => 61,  143 => 60,  135 => 55,  125 => 48,  120 => 46,  116 => 45,  109 => 41,  105 => 40,  96 => 34,  86 => 27,  82 => 26,  75 => 22,  71 => 21,  65 => 18,  61 => 17,  52 => 11,  42 => 4,  37 => 1,);
     }
 
     public function getSourceContext()

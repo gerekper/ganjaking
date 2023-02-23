@@ -135,12 +135,12 @@ class Activator {
   }
 
   private function checkForDisabledMailFunction() {
-    $sendingMethodSet = $this->settings->get('mta.method', false);
+    $version = $this->settings->get('version');
 
-    if ($sendingMethodSet === 'PHPMail') {
-      // check for valid mail function
-      $this->settings->set(DisabledMailFunctionNotice::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, true);
-    }
+    if (!is_null($version)) return; // not a new user
+
+    // check for valid mail function on new installs
+    $this->settings->set(DisabledMailFunctionNotice::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, true);
   }
 
   private function deleteAllMailPoetTablesAndData(): void {

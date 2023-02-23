@@ -1,9 +1,9 @@
 === MailPoet - Premium ===
 Contributors: mailpoet
 Tags: newsletter, email, welcome email, post notification, autoresponder, mailchimp, signup, smtp
-Requires at least: 5.3
-Requires PHP: 7.1
-Stable tag: 4.5.0
+Requires at least: 5.9
+Requires PHP: 7.2
+Stable tag: 4.7.0
 Create and send beautiful emails and newsletters from WordPress.
 
 == Description ==
@@ -14,7 +14,7 @@ Try the new MailPoet! This is a Premium version of our completely new email news
 
 * New email designer
 * Responsive templates
-* Send with MailPoet's sending service
+* Send with MailPoet Sending Service
 * Fast user interface
 * Easier initial configuration
 
@@ -56,6 +56,12 @@ Our [support site](https://kb.mailpoet.com/) has plenty of articles. You can wri
 5. Importing subscribers with a CSV or from MailChimp.
 
 == Changelog ==
+
+= 4.7.0 - 2023-02-20 =
+* Updated: minimum required WordPress version to 5.9.
+
+= 4.6.0 - 2023-01-31 =
+* Added: update subscriber action in Automations.
 
 = 4.5.0 - 2023-01-17 =
 * Fixed: occasional class not found error during plugin update.

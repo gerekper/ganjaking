@@ -4843,6 +4843,7 @@ class RevSliderOutput extends RevSliderFunctions {
 				
 				$data['vimeoid'] = $vid;
 				$data['vatr'] = $vargs;
+				$data['video']['vc'] = $control;
 			break;
 			case 'streaminstagram':
 			case 'streaminstagramboth':

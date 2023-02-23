@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		private function __construct() {
 
 			add_action( 'woocommerce_coupon_options', array( $this, 'usage_restriction' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
 			add_filter( 'sc_generate_coupon_meta', array( $this, 'generate_coupon_meta' ), 10, 2 );
@@ -132,32 +132,20 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		/**
 		 * Save auto apply coupon in meta
 		 *
-		 * @param  Integer $post_id The coupon post ID.
-		 * @param  WP_Post $post    The coupon post.
+		 * @param  Integer   $post_id The coupon post ID.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 */
-		public function process_meta( $post_id = 0, $post = null ) {
+		public function process_meta( $post_id = 0, $coupon = null ) {
 
-			if ( empty( $post_id ) || empty( $post ) || empty( $_POST ) ) {
+			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
+
+			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $post_id );
 			}
-			if ( is_int( wp_is_post_revision( $post ) ) ) {
-				return;
-			}
-			if ( is_int( wp_is_post_autosave( $post ) ) ) {
-				return;
-			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
-				return;
-			}
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			if ( 'shop_coupon' !== $post->post_type ) {
-				return;
-			}
+
+			$is_callable_coupon_update_meta = $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' );
 
 			// Get list of ids of coupons to auto apply.
 			$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
@@ -165,13 +153,23 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			$post_id               = absint( $post_id );
 			if ( isset( $_POST['wc_sc_auto_apply_coupon'] ) && isset( $_POST['discount_type'] ) && 'smart_coupon' !==  wc_clean( wp_unslash( $_POST['discount_type'] ) ) ) { // phpcs:ignore
 				$auto_apply_coupon = wc_clean( wp_unslash( $_POST['wc_sc_auto_apply_coupon'] ) ); // phpcs:ignore
-				update_post_meta( $post_id, 'wc_sc_auto_apply_coupon', $auto_apply_coupon );
+				if ( true === $is_callable_coupon_update_meta ) {
+					$coupon->update_meta_data( 'wc_sc_auto_apply_coupon', $auto_apply_coupon );
+					$coupon->save();
+				} else {
+					$this->update_post_meta( $post_id, 'wc_sc_auto_apply_coupon', $auto_apply_coupon );
+				}
 				// Add coupon id to auto apply coupon list if haven't added already.
 				if ( is_array( $auto_apply_coupon_ids ) && ! in_array( $post_id, $auto_apply_coupon_ids, true ) ) {
 					$auto_apply_coupon_ids[] = $post_id;
 				}
 			} else {
-				update_post_meta( $post_id, 'wc_sc_auto_apply_coupon', 'no' );
+				if ( true === $is_callable_coupon_update_meta ) {
+					$coupon->update_meta_data( 'wc_sc_auto_apply_coupon', 'no' );
+					$coupon->save();
+				} else {
+					$this->update_post_meta( $post_id, 'wc_sc_auto_apply_coupon', 'no' );
+				}
 				// Remove coupon id from auto apply coupon list if auto apply is disabled.
 				if ( is_array( $auto_apply_coupon_ids ) && in_array( $post_id, $auto_apply_coupon_ids, true ) ) {
 					$auto_apply_coupon_ids = array_diff( $auto_apply_coupon_ids, array( $post_id ) );

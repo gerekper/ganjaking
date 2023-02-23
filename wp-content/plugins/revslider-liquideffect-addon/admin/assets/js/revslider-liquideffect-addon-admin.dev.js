@@ -176,9 +176,7 @@
 				customevt: 'distortionAjax',
 				groups: {defaults: {title: bricks.presets, elements: addon.defaults}, custom: {title: bricks.customprests, elements: addon.customs}},
 				onclick: events.presets
-				 
 			});
-			
 			var _h = '';							
 			_h += '<div class="form_inner_header"><i class="material-icons">fingerprint</i>'+bricks.settings+'</div>';
 			_h += '<div class="collapsable" style="display:block !important; padding: 0">';																
@@ -203,6 +201,7 @@
 			_h += '    			</select>';
 			_h += '			</row>';
 			_h += ' 		<div class="div10"></div>';
+			_h += plist;
 			_h += ' 	</div>';
 			_h += ' 	<div id="distortion_slide_settings">';
 			_h += ' 		<div style="padding: 0 20px">';
@@ -216,7 +215,7 @@
 			
 			_h += ' 		<div id="distortion_map_wrap" class="form_inner_header" style="margin-top: 20px"><i class="material-icons">map</i>'+bricks.map+'</div>';
 			_h += ' 		<div style="padding: 20px">';
-			_h += plist;
+
 			_h += ' 			<label_a>' + bricks.imagemap + '</label_a';
 			_h += '     		><select id="distortion_map" class="slideinput tos2 nosearchbox easyinit callEvent" data-r="addOns.'+slug+'.map.image" data-evt="distortionUpdateDisplay" data-showprio="hide" data-hide="#distortion_choose_image:not(.distortion-choose_hide_*val*), .distortion-size_hide_*val*" data-show="#distortion_size_wrap:not(.distortion-size_hide_*val*), .distortion-choose_hide_*val*">';
 			_h += ' 				<option value="Ripple">Ripple</option>';
@@ -268,10 +267,10 @@
 			_h += '						<oneshort><label_icon class="ui_y"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="%" data-r="addOns.'+slug+'.animation.scaley" type="text"></oneshort>';
 			_h += '					</row>';
 			_h += ' 				<span class="linebreak"></span>';
-			_h += '					<row class="direktrow">';
-			_h += '						<onelong><label_icon class="ui_rotatex"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.animation.rotationx" type="text"></onelong>';
-			_h += '						<oneshort><label_icon class="ui_rotatey"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.animation.rotationy" type="text"></oneshort>';
-			_h += '					</row>';
+			// _h += '					<row class="direktrow">';
+			// _h += '						<onelong><label_icon class="ui_rotatex"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.animation.rotationx" type="text"></onelong>';
+			// _h += '						<oneshort><label_icon class="ui_rotatey"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.animation.rotationy" type="text"></oneshort>';
+			// _h += '					</row>';
 			_h += ' 				<span class="linebreak"></span>';
 			_h += '					<row class="direktrow">';
 			_h += '						<onelong><label_icon class="ui_rotatez"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.animation.rotation" type="text"></onelong>';
@@ -297,10 +296,10 @@
 			_h += '						<onelong><label_icon class="ui_x"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="%" data-r="addOns.'+slug+'.transition.scalex" type="text"></onelong>';
 			_h += '						<oneshort><label_icon class="ui_y"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="%" data-r="addOns.'+slug+'.transition.scaley" type="text"></oneshort>';
 			_h += '					</row>';
-			_h += '					<row class="direktrow">';
-			_h += '						<onelong><label_icon class="ui_rotatex"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.transition.rotationx" type="text"></onelong>';
-			_h += '						<oneshort><label_icon class="ui_rotatey"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.transition.rotationy" type="text"></oneshort>';
-			_h += '					</row>';
+			// _h += '					<row class="direktrow">';
+			// _h += '						<onelong><label_icon class="ui_rotatex"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.transition.rotationx" type="text"></onelong>';
+			// _h += '						<oneshort><label_icon class="ui_rotatey"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.transition.rotationy" type="text"></oneshort>';
+			// _h += '					</row>';
 			_h += '					<row class="direktrow">';
 			_h += '						<onelong><label_icon class="ui_rotatez"></label_icon><input class="slideinput easyinit shortfield" data-numeric="true" data-allowed="deg" data-r="addOns.'+slug+'.transition.rotation" type="text"></onelong>';
 			_h += '						<oneshort><i class="material-icons" style="width: 30px; height: 30px; text-align: center; color: #b7bbc0; font-size: 17px; margin-right: 5px">power</i><input type="checkbox" id="distortion_transpower" class="slideinput easyinit" data-r="addOns.'+slug+'.transition.power" value="off"></oneshort>';
@@ -353,7 +352,7 @@
 			
 			// append settings markup
 			addon.forms.slidegeneral.append(_h);
-			
+			addon.forms.slidegeneral.find('#distortion_templates').addClass('distortion_hide_wrap');
 		}
 		
 		function initInputs() {

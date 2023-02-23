@@ -191,8 +191,7 @@ class WC_Product_Addons_Helper {
 				continue;
 			}
 			if ( empty( $addons[ $addon_key ]['field_name'] ) ) {
-				$addon_name                         = substr( $addon['name'], 0, $max_addon_name_length );
-				$addons[ $addon_key ]['field_name'] = sanitize_title( $prefix . $addon_name . '-' . $addon_field_counter );
+				$addons[ $addon_key ]['field_name'] = $prefix . $addon_field_counter;
 				$addon_field_counter++;
 			}
 		}

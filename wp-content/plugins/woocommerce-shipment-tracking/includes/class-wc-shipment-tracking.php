@@ -634,7 +634,7 @@ class WC_Shipment_Tracking_Actions {
 			}
 		}
 
-		return $formatted;
+		return apply_filters( 'wc_shipment_tracking_formatted_item', $formatted, $order_id, $tracking_item, $this );
 	}
 
 	/**

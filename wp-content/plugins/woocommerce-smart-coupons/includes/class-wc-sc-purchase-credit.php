@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.0
+ * @version     2.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -141,8 +141,10 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 			$product_price = $product->get_price();
 
+			$_nyp = ( $this->is_callable( $product, 'get_meta' ) ) ? $product->get_meta( '_nyp' ) : get_post_meta( $product_id, '_nyp', true );
+
 			// MADE CHANGES IN THE CONDITION TO SHOW INPUT FIELD FOR PRICE ONLY FOR COUPON AS A PRODUCT.
-			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ( ! ( ! empty( $product_price ) || ( is_plugin_active( 'woocommerce-name-your-price/woocommerce-name-your-price.php' ) && ( get_post_meta( $product_id, '_nyp', true ) === 'yes' ) ) ) ) ) {
+			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ( ! ( ! empty( $product_price ) || ( is_plugin_active( 'woocommerce-name-your-price/woocommerce-name-your-price.php' ) && ( 'yes' === $_nyp ) ) ) ) ) {
 
 				$js = "
 							const minCreditAmount      = parseFloat( jQuery('input#credit_called').attr('min') );
@@ -734,7 +736,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 						$coupon_amount = $this->get_amount( $coupon, true );
 
-						$pick_price_of_prod                              = get_post_meta( $coupon_id, 'is_pick_price_of_product', true );
+						$pick_price_of_prod                              = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'is_pick_price_of_product' ) : get_post_meta( $coupon_id, 'is_pick_price_of_product', true );
 						$smart_coupon_gift_certificate_form_page_text    = get_option( 'smart_coupon_gift_certificate_form_page_text' );
 						$smart_coupon_gift_certificate_form_page_text    = ( ! empty( $smart_coupon_gift_certificate_form_page_text ) ) ? $smart_coupon_gift_certificate_form_page_text : __( 'Send Coupons to...', 'woocommerce-smart-coupons' );
 						$smart_coupon_gift_certificate_form_details_text = get_option( 'smart_coupon_gift_certificate_form_details_text' );
@@ -1137,7 +1139,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 			$_product = wc_get_product( $product_id );
 
-			$coupons = get_post_meta( $product_id, '_coupon_title', true );
+			$coupons = ( $this->is_callable( $_product, 'get_meta' ) ) ? $_product->get_meta( '_coupon_title' ) : get_post_meta( $product_id, '_coupon_title', true );
 
 			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $_product->get_price() > 0 ) ) {
 				$request_credit_called           = ( ! empty( $_REQUEST['credit_called'] ) ) ? wc_clean( wp_unslash( $_REQUEST['credit_called'] ) ) : array(); // phpcs:ignore
@@ -1182,7 +1184,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 			$_product = wc_get_product( $product_id );
 
-			$coupons = get_post_meta( $product_id, '_coupon_title', true );
+			$coupons = ( $this->is_callable( $_product, 'get_meta' ) ) ? $_product->get_meta( '_coupon_title' ) : get_post_meta( $product_id, '_coupon_title', true );
 
 			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $_product->get_price() > 0 ) ) {
 				$credit_called = $this->get_session( 'credit_called' );

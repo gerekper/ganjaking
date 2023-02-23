@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Mousetrap Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Draw and Animate Mousetrap on Canvas as Layers in Slider Revolution
 Author: ThemePunch
-Version: 3.0.4
+Version: 3.0.7
 Author URI: http://themepunch.com
 */
 

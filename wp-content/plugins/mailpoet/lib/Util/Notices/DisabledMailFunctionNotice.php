@@ -5,6 +5,7 @@ namespace MailPoet\Util\Notices;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Cron\Workers\SendingQueue\Tasks\Shortcodes;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerFactory;
 use MailPoet\Settings\SettingsController;
@@ -59,7 +60,7 @@ class DisabledMailFunctionNotice {
       $this->settings->set(self::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, false);
     }
 
-    $sendingMethod = $this->settings->get('mta.method', false);
+    $sendingMethod = $this->settings->get('mta.method', SettingsController::DEFAULT_SENDING_METHOD);
     $isPhpMailSendingMethod = $sendingMethod === Mailer::METHOD_PHPMAIL;
 
     if (!$isPhpMailSendingMethod) {
@@ -87,11 +88,18 @@ class DisabledMailFunctionNotice {
    * disabled_mail_function_check === true
    * or
    * queue_disabled_mail_function_check === true
+   * or
+   * Totally disabled when wp filter `mailpoet_display_disabled_mail_function_notice` === false
    *
    */
   public function shouldCheckMisconfiguredFunction(): bool {
+    $shouldCheck = $this->wp->applyFilters('mailpoet_display_disabled_mail_function_notice', true);
     $this->isInQueueForChecking = $this->settings->get(self::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, false);
-    return $this->settings->get(self::DISABLED_MAIL_FUNCTION_CHECK, false) || $this->isInQueueForChecking;
+
+    return $shouldCheck && (
+      $this->settings->get(self::DISABLED_MAIL_FUNCTION_CHECK, false) ||
+      $this->isInQueueForChecking
+      );
   }
 
   public function isFunctionDisabled(string $function): bool {
@@ -144,17 +152,28 @@ class DisabledMailFunctionNotice {
       return false; // skip sending mail again
     }
 
-    $mailBody = 'Yup, it works! You can start blasting away emails to the moon.';
+    $replyToAddress = $this->settings->get('reply_to.address');
+    $senderAddress = $this->settings->get('sender.address');
+
+    $mailBody = "Hi there! \n
+
+Your website ([site:homepage_link]) sent you this email to confirm that it can send emails.
+If you're reading this email, then it works! You can now continue sending marketing emails with MailPoet! \n
+
+MailPoet on [site:homepage_link]";
+
+    $body = Shortcodes::process($mailBody, null, null, null, null);
+
     $sendTestMailData = [
       'mailer' => $this->settings->get('mta'),
       'newsletter' => [
-        'subject' => 'This is a Sending Method Test',
+        'subject' => 'MailPoet can deliver your marketing emails!',
         'body' => [
-          'html' => "<p>$mailBody</p>",
-          'text' => $mailBody,
+          'html' => nl2br($body),
+          'text' => $body,
         ],
       ],
-      'subscriber' => 'blackhole@mailpoet.com',
+      'subscriber' => empty($replyToAddress) ? $senderAddress : $replyToAddress,
     ];
 
     $sendMailResult = $this->sendTestMail($sendTestMailData);

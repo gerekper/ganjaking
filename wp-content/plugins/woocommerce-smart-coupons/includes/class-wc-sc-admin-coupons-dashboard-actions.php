@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.0
- * @version     1.3.0
+ * @version     1.4.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -286,7 +286,7 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 				exit;
 			} else {
 				/* translators: %d: Post ID */
-				wp_die( sprintf( esc_html__( 'Coupon creation failed, could not find original product: %d', 'woocommerce-smart-coupons' ), esc_html( $id ) ) );
+				wp_die( sprintf( esc_html__( 'Coupon creation failed, could not find original coupon: %d', 'woocommerce-smart-coupons' ), esc_html( $id ) ) );
 			}
 		}
 
@@ -294,7 +294,101 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 		 * Function to call function to create duplicate coupon
 		 */
 		public function woocommerce_duplicate_coupon_action() {
-			$this->woocommerce_duplicate_coupon();
+			$coupon_id = ( ! empty( $_REQUEST['post'] ) ) ? absint( $_REQUEST['post'] ) : 0;
+
+			check_admin_referer( 'woocommerce-duplicate-coupon_' . $coupon_id );
+
+			$action = ( ! empty( $_REQUEST['action'] ) ) ? wc_clean( wp_unslash( $_REQUEST['action'] ) ) : ''; // phpcs:ignore
+
+			if ( 'duplicate_coupon' !== $action ) {
+				return;
+			}
+
+			if ( $this->is_wc_gte_30() ) {
+				$coupon = new WC_Coupon( $coupon_id );
+
+				if ( false === $coupon ) {
+					/* translators: %s: coupon id */
+					wp_die( sprintf( esc_html__( 'Coupon creation failed, could not find original coupon: %s', 'woocommerce-smart-coupons' ), esc_html( $coupon_id ) ) );
+				}
+
+				$duplicate = $this->coupon_duplicate( $coupon );
+
+				// Hook rename to match other woocommerce_coupon_* hooks, and to move away from depending on a response from the wp_posts table.
+				do_action( 'wc_sc_duplicate_coupon', $duplicate, $coupon );
+
+				// Redirect to the edit screen for the new draft page.
+				wp_safe_redirect( admin_url( 'post.php?action=edit&post=' . $duplicate->get_id() ) );
+				exit;
+			} else {
+				$this->woocommerce_duplicate_coupon();
+			}
+		}
+
+		/**
+		 * Duplicate coupon
+		 *
+		 * @param WC_Coupon $coupon The coupon object to duplicate.
+		 * @return WC_Coupon $duplicate The duplicated coupon.
+		 */
+		public function coupon_duplicate( $coupon = null ) {
+			/**
+			 * Filter to allow us to exclude meta keys from coupon duplication..
+			 *
+			 * @param array $exclude_meta The keys to exclude from the duplicate.
+			 * @param array $existing_meta_keys The meta keys that the coupon already has.
+			 * @since 7.2.0
+			 */
+			$meta_to_exclude = array_filter(
+				apply_filters(
+					'wc_sc_duplicate_coupon_exclude_meta',
+					array(),
+					array_map(
+						function ( $meta ) {
+							return $meta->key;
+						},
+						$coupon->get_meta_data()
+					)
+				)
+			);
+
+			$duplicate = clone $coupon;
+			$duplicate->set_id( 0 );
+			/* translators: %s contains the code of the original coupon. */
+			$duplicate->set_code( sprintf( '%s-copy', $duplicate->get_code() ) );
+			$duplicate->set_status( 'draft' );
+			$duplicate->set_date_created( null );
+			$duplicate->set_usage_count( 0 );
+			$duplicate->set_used_by( array() );
+			$duplicate->set_date_expires( null );
+
+			foreach ( $meta_to_exclude as $meta_key ) {
+				$duplicate->delete_meta_data( $meta_key );
+			}
+
+			/**
+			 * This action can be used to modify the object further before it is created - it will be passed by reference.
+			 *
+			 * @since 3.0
+			 */
+			do_action( 'wc_sc_coupon_duplicate_before_save', $duplicate, $coupon );
+
+			// Save parent coupon.
+			$duplicate_id = $duplicate->save();
+
+			$duplicate = new WC_Coupon( $duplicate_id );
+
+			$this->woocommerce_duplicate_coupon_post_taxonomies( $coupon->get_id(), $duplicate_id, 'shop_coupon' );
+
+			if ( ! empty( $duplicate_id ) && 'draft' !== $duplicate->get_status() ) {
+				$args = array(
+					'ID'          => $duplicate_id,
+					'post_status' => 'draft',
+				);
+				wp_update_post( $args ); // Because $coupon->set_status( 'draft' ) not working.
+			}
+
+			return new WC_Coupon( $duplicate_id );
 		}
 
 		/**

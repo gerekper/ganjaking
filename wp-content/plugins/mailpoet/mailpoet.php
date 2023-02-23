@@ -1,31 +1,21 @@
 <?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
-add_action( 'plugins_loaded', function() {
-add_filter( 'pre_http_request', function( $pre, $args, $url ) {
-if ( strpos( $url, 'https://bridge.mailpoet.com/api/v0/' ) !== false ) {
-return [
-'response' => [ 'code' => 200, 'message' => 'ОК' ],
-'body' => json_encode( [ 'is_approved' => 'true' ] ),
-];
-}
-return $pre;
-}, 10, 3 );
-} );
+
 if (!defined('ABSPATH')) exit;
 
 
 /*
  * Plugin Name: MailPoet
- * Version: 4.5.2
+ * Version: 4.7.0
  * Plugin URI: https://www.mailpoet.com
  * Description: Create and send newsletters, post notifications and welcome emails from your WordPress.
  * Author: MailPoet
  * Author URI: https://www.mailpoet.com
- * Requires at least: 5.8
+ * Requires at least: 5.9
  * Text Domain: mailpoet
  * Domain Path: /lang
- *
- * WC requires at least: 6.9.0
- * WC tested up to: 7.1.0
+ * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
+ * WC requires at least: 7.2.0
+ * WC tested up to: 7.4.0
  *
  * @package WordPress
  * @author MailPoet
@@ -33,12 +23,14 @@ if (!defined('ABSPATH')) exit;
  */
 
 $mailpoetPlugin = [
-  'version' => '4.5.2',
+  'version' => '4.7.0',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',
   'initializer' => dirname(__FILE__) . '/mailpoet_initializer.php',
 ];
+
+const MAILPOET_MINIMUM_REQUIRED_WP_VERSION = '5.9';
 
 function mailpoet_deactivate_plugin() {
   deactivate_plugins(plugin_basename(__FILE__));
@@ -48,7 +40,7 @@ function mailpoet_deactivate_plugin() {
 }
 
 // Check for minimum supported WP version
-if (version_compare(get_bloginfo('version'), '5.8', '<')) {
+if (version_compare(get_bloginfo('version'), MAILPOET_MINIMUM_REQUIRED_WP_VERSION, '<')) {
   add_action('admin_notices', 'mailpoet_wp_version_notice');
   // deactivate the plugin
   add_action('admin_init', 'mailpoet_deactivate_plugin');
@@ -68,7 +60,11 @@ function mailpoet_wp_version_notice() {
   $notice = str_replace(
     '[link]',
     '<a href="https://kb.mailpoet.com/article/152-minimum-requirements-for-mailpoet-3#wp_version" target="_blank">',
-    __('MailPoet plugin requires WordPress version 5.8 or newer. Please read our [link]instructions[/link] on how to resolve this issue.', 'mailpoet')
+    sprintf(
+      // translators: %s is the number of minimum WordPress version that MailPoet requires
+      __('MailPoet plugin requires WordPress version %s or newer. Please read our [link]instructions[/link] on how to resolve this issue.', 'mailpoet'),
+      MAILPOET_MINIMUM_REQUIRED_WP_VERSION
+    )
   );
   $notice = str_replace('[/link]', '</a>', $notice);
   printf(
@@ -155,3 +151,5 @@ function mailpoet_core_dependency_notice() {
 
 // Initialize plugin
 require_once($mailpoetPlugin['initializer']);
+/* Anti-Leecher Indentifier */
+/* Credited By BABIATO-FORUM */

@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInitd09937169f535fcfccaa4fa197d45291
+class ComposerStaticInit4e6e09073b9c93fc057cb6efc3f45c51
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -46,6 +46,8 @@ class ComposerStaticInitd09937169f535fcfccaa4fa197d45291
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
@@ -69,9 +71,9 @@ class ComposerStaticInitd09937169f535fcfccaa4fa197d45291
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd09937169f535fcfccaa4fa197d45291::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd09937169f535fcfccaa4fa197d45291::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd09937169f535fcfccaa4fa197d45291::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4e6e09073b9c93fc057cb6efc3f45c51::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4e6e09073b9c93fc057cb6efc3f45c51::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4e6e09073b9c93fc057cb6efc3f45c51::$classMap;
 
         }, null, ClassLoader::class);
     }

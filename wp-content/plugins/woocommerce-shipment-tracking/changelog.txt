@@ -1,5 +1,8 @@
 *** Shipment Tracking Changelog ***
 
+2023-02-20 - version 2.2.0
+* Add - Filter hook to manipulate the tracking link.
+
 2023-02-14 - version 2.1.0
 * Add - Filter hook to exclude emails.
 

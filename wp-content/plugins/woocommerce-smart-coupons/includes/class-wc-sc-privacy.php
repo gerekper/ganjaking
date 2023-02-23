@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -304,9 +304,22 @@ if ( ! class_exists( 'WC_SC_Privacy' ) ) {
 				return array( false, false, array() );
 			}
 
-			delete_post_meta( $coupon['coupon_id'], 'customer_email' );
-			delete_post_meta( $coupon['coupon_id'], 'generated_from_order_id' );
-			wp_delete_post( $coupon['coupon_id'], true );
+			if ( $this->is_wc_gte_30() ) {
+				$_coupon = ( ! empty( $coupon['coupon_id'] ) ) ? new WC_Coupon( $coupon['coupon_id'] ) : null;
+				if ( $this->is_callable( $_coupon, 'delete_meta_data' ) && $this->is_callable( $_coupon, 'save' ) && $this->is_callable( $_coupon, 'delete' ) ) {
+					if ( $this->is_callable( $_coupon, 'set_email_restrictions' ) ) {
+						$_coupon->set_email_restrictions( array() );
+					}
+					$_coupon->delete_meta_data( 'customer_email' );
+					$_coupon->delete_meta_data( 'generated_from_order_id' );
+					$_coupon->save();
+					$_coupon->delete( true );
+				}
+			} else {
+				delete_post_meta( $coupon['coupon_id'], 'customer_email' );
+				delete_post_meta( $coupon['coupon_id'], 'generated_from_order_id' );
+				wp_delete_post( $coupon['coupon_id'], true );
+			}
 
 			return array( true, false, array( '<strong>' . __( 'Store Credit/Gift Certificate', 'woocommerce-smart-coupons' ) . '</strong> - ' . __( 'Removed Coupon Personal Data', 'woocommerce-smart-coupons' ) ) );
 		}
@@ -660,10 +673,19 @@ if ( ! class_exists( 'WC_SC_Privacy' ) ) {
 				return array( false, false, array() );
 			}
 
-			delete_post_meta( $order['post_id'], 'sc_coupon_receiver_details' );
-			delete_post_meta( $order['post_id'], 'gift_receiver_email' );
-			delete_post_meta( $order['post_id'], 'gift_receiver_message' );
-			delete_post_meta( $order['post_id'], 'gift_sending_timestamp' );
+			$order = ( ! empty( $order['post_id'] ) && function_exists( 'wc_get_order' ) ) ? wc_get_order( $order['post_id'] ) : null;
+			if ( $this->is_callable( $order, 'delete_meta_data' ) && $this->is_callable( $order, 'save' ) ) {
+				$order->delete_meta_data( 'sc_coupon_receiver_details' );
+				$order->delete_meta_data( 'gift_receiver_email' );
+				$order->delete_meta_data( 'gift_receiver_message' );
+				$order->delete_meta_data( 'gift_sending_timestamp' );
+				$order->save();
+			} else {
+				delete_post_meta( $order['post_id'], 'sc_coupon_receiver_details' );
+				delete_post_meta( $order['post_id'], 'gift_receiver_email' );
+				delete_post_meta( $order['post_id'], 'gift_receiver_message' );
+				delete_post_meta( $order['post_id'], 'gift_sending_timestamp' );
+			}
 
 			return array( true, false, array( '<strong>' . __( 'Store Credit/Gift Certificate', 'woocommerce-smart-coupons' ) . '</strong> - ' . __( 'Removed Order Personal Data', 'woocommerce-smart-coupons' ) ) );
 		}

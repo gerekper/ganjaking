@@ -37,12 +37,12 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * Deactivate the Plugin through the ThemePunch Servers
 	 * @before: RevSliderOperations::doPurchaseDeactivation();
 	 * @moved to RevSliderLicense::deactivate_plugin();
-	 **/
+	 
 	public function deactivate_plugin(){
 		$rs_license = new RevSliderLicense();
 		return $rs_license->deactivate_plugin();
 	}
-	
+	 **/
 	/**
 	 * END: DEPRECATED FUNCTIONS THAT ARE IN HERE FOR OLD ADDONS TO WORK PROPERLY
 	 **/

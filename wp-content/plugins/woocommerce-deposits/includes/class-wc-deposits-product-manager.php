@@ -134,6 +134,23 @@ class WC_Deposits_Product_Manager {
 	}
 
 	/**
+	 * Formatted deposit amount for a product based on payment plan.
+	 *
+	 * @param  int $product_id Product ID.
+	 * @param  int $plan_id    Payment Plan ID.
+	 * @return string
+	 */
+	public static function get_formatted_deposit_payment_plan_amount( $product_id, $plan_id ) {
+		$product = wc_get_product( $product_id );
+		$amount  = self::get_deposit_amount_for_display( $product, $plan_id );
+		if ( $amount ) {
+			/* translators: %s is the deposit amount to be paid */
+			return sprintf( __( 'Pay a %s deposit per item', 'woocommerce-deposits' ), '<span class="wc-deposits-amount">' . $amount . '</span>' );
+		}
+		return '';
+	}
+
+	/**
 	 * Deposit amount for a product based on fixed or %.
 	 *
 	 * @param  WC_Product|int $product Product.

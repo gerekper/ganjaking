@@ -37,8 +37,10 @@ class WC_Deposits_Plans_Product_Admin {
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'styles_and_scripts' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 20 );
+		add_action( 'woocommerce_save_product_variation', array( $this, 'save_variation_data' ), 10, 2 );
 		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'add_tab' ), 5 );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'deposit_panels' ) );
+		add_action( 'woocommerce_variation_options_pricing', array( $this, 'variation_deposit_data' ), 10, 3 );
 
 		// Import/Export support for _wc_deposit_payment_plans meta field.
 		add_filter( 'woocommerce_product_export_meta_value', array( $this, 'format_deposit_payment_plans_export' ), 10, 4 );
@@ -70,6 +72,20 @@ class WC_Deposits_Plans_Product_Admin {
 	}
 
 	/**
+	 * Show deposits settings for variation.
+	 *
+	 * @since 2.1.3
+	 *
+	 * @param int     $loop           Position in the loop.
+	 * @param array   $variation_data Variation data.
+	 * @param WP_Post $variation      Post data.
+	 * @return void
+	 */
+	public function variation_deposit_data( $loop, $variation_data, $variation ) {
+		include 'views/html-deposit-data.php';
+	}
+
+	/**
 	 * Save data.
 	 *
 	 * @param int $post_id Post ID.
@@ -85,6 +101,22 @@ class WC_Deposits_Plans_Product_Admin {
 		);
 		foreach ( $meta_to_save as $meta_key => $sanitize ) {
 			$value = ! empty( $_POST[ $meta_key ] ) ? $_POST[ $meta_key ] : ''; // phpcs:ignore WordPress.Security -- Conditional sanitize, see below
+
+			/**
+			 * Payment Plans form data is an array. On a product level it contains both
+			 * the product and all variations array elements.
+			 *
+			 * Filter out variation nested arrays.
+			 */
+			if ( '_wc_deposit_payment_plans' === $meta_key && is_array( $value ) ) {
+				$value = array_filter(
+					$value,
+					function( $v ) {
+						return ! is_array( $v );
+					}
+				);
+			}
+
 			switch ( $sanitize ) {
 				case 'int':
 					$value = $value ? ( is_array( $value ) ? array_map( 'absint', $value ) : absint( $value ) ) : '';
@@ -102,6 +134,47 @@ class WC_Deposits_Plans_Product_Admin {
 					$value = is_array( $value ) ? array_map( 'sanitize_text_field', $value ) : sanitize_text_field( $value );
 			}
 			WC_Deposits_Product_Meta::update_meta( $post_id, $meta_key, $value );
+		}
+	}
+
+	/**
+	 * Save variation data.
+	 *
+	 * @since 2.1.3
+	 *
+	 * @param int $variation_id Variation.
+	 * @param int $i Variation number.
+	 * @return void
+	 */
+	public function save_variation_data( $variation_id, $i ) {
+		$meta_to_save = array(
+			'_wc_deposit_enabled'                          => '',
+			'_wc_deposit_type'                             => '',
+			'_wc_deposit_amount'                           => 'float',
+			'_wc_deposit_payment_plans'                    => 'int',
+			'_wc_deposit_selected_type'                    => '',
+			'_wc_deposit_multiple_cost_by_booking_persons' => 'issetyesno',
+		);
+		foreach ( $meta_to_save as $meta_key => $sanitize ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput -- Sanitized later.
+			$value = ! empty( $_POST[ $meta_key ][ $i ] ) ? $_POST[ $meta_key ][ $i ] : '';
+			switch ( $sanitize ) {
+				case 'int':
+					$value = $value ? ( is_array( $value ) ? array_map( 'absint', $value ) : absint( $value ) ) : '';
+					break;
+				case 'float':
+					$value = $value ? ( is_array( $value ) ? array_map( 'floatval', $value ) : floatval( $value ) ) : '';
+					break;
+				case 'yesno':
+					$value = 'yes' === $value ? 'yes' : 'no';
+					break;
+				case 'issetyesno':
+					$value = $value ? 'yes' : 'no';
+					break;
+				default:
+					$value = is_array( $value ) ? array_map( 'sanitize_text_field', $value ) : sanitize_text_field( $value );
+			}
+			WC_Deposits_Product_Meta::update_meta( $variation_id, $meta_key, $value );
 		}
 	}
 

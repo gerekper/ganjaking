@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -888,7 +888,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 							$email_args               = array(
 								'coupon' => array(
 									'code'   => $coupon_code,
-									'amount' => wc_price( 0 ),
+									'amount' => 0,
 								),
 							);
 							$email_coupon->email_args = wp_parse_args( $email_args, $email_coupon->email_args );
@@ -900,7 +900,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 							ob_start();
 							wc_get_template( 'emails/email-styles.php' );
 							$css = ob_get_clean();
-							$css = apply_filters( 'woocommerce_email_styles', $css, $email_coupon );
+							$css = apply_filters( 'woocommerce_email_styles', str_replace( '"', "'", $css ), $email_coupon );
 							ob_start();
 							echo '<div id="wc-sc-preview-email-template-css" data-css="' . esc_attr( $css ) . '"></div>'; // phpcs:ignore
 							echo $email_content; // phpcs:ignore
@@ -923,12 +923,16 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 			$empty_reference_coupon = get_option( 'empty_reference_smart_coupons' );
 
 			if ( false === $empty_reference_coupon ) {
-				$args              = array(
-					'post_status' => 'auto-draft',
-					'post_type'   => 'shop_coupon',
-				);
-				$reference_post_id = wp_insert_post( $args );
-				update_option( 'empty_reference_smart_coupons', $reference_post_id, 'no' );
+				$coupon            = new WC_Coupon();
+				$reference_post_id = ( $this->is_callable( $coupon, 'save' ) ) ? $coupon->save() : 0;
+				if ( ! empty( $reference_post_id ) ) {
+					$args = array(
+						'ID'          => $reference_post_id,
+						'post_status' => 'auto-draft',
+					);
+					wp_update_post( $args ); // Because $coupon->set_status( 'draft' ) not working.
+					update_option( 'empty_reference_smart_coupons', $reference_post_id, 'no' );
+				}
 			} else {
 				$reference_post_id = $empty_reference_coupon;
 			}
@@ -936,12 +940,16 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 			$post = get_post( $reference_post_id ); // phpcs:ignore
 
 			if ( empty( $post ) ) {
-				$args              = array(
-					'post_status' => 'auto-draft',
-					'post_type'   => 'shop_coupon',
-				);
-				$reference_post_id = wp_insert_post( $args );
-				update_option( 'empty_reference_smart_coupons', $reference_post_id, 'no' );
+				$coupon            = new WC_Coupon();
+				$reference_post_id = ( $this->is_callable( $coupon, 'save' ) ) ? $coupon->save() : 0;
+				if ( ! empty( $reference_post_id ) ) {
+					$args = array(
+						'ID'          => $reference_post_id,
+						'post_status' => 'auto-draft',
+					);
+					wp_update_post( $args ); // Because $coupon->set_status( 'auto-draft' ) not working.
+					update_option( 'empty_reference_smart_coupons', $reference_post_id, 'no' );
+				}
 				$post = get_post( $reference_post_id ); // phpcs:ignore
 			}
 
@@ -1330,10 +1338,11 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 					}
 					jQuery('#sc-preview-email').on('click', function(){
 						jQuery('body #wc-sc-email-style').remove();
-						setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 100);
+						setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 1000);
 						tinymce_apply_changes();
 						if ( ! jQuery('.sc-preview-email-container').is(':visible') ) {
 							let email_css = jQuery('#wc-sc-preview-email-template-css').data('css');
+								email_css = email_css.replace( 'body', '#sc-body-ignore' );
 							if( '' !== email_css ) {
 								let email_style = '<style type="text/css" id="wc-sc-email-style">' + email_css + '</style>';
 								jQuery('body').append(email_style);
@@ -1386,8 +1395,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						jQuery('.sc-email-content .coupon-expire').html(expiry_date);
 					});
 
-
-					setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 100);
+					setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 1000);
 					jQuery('.sc-email-content #body_content_inner').prepend('<p class="sc-credit-message"></p>');
 					jQuery('#' + editor_id).on('keyup change', function(){
 						var element = jQuery(this);
@@ -1585,7 +1593,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		 */
 		public function add_original_amount_column_value( $column = '', $post_id = 0 ) {
 			if ( 'wc_sc_original_amount' === $column ) {
-				$column_value = get_post_meta( $post_id, $column, true );
+				$column_value = $this->get_post_meta( $post_id, $column, true );
 				if ( ! empty( $column_value ) ) {
 					echo esc_html( $column_value );
 				} else {

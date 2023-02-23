@@ -479,9 +479,19 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 				$refund          = '';
 				$refunded_amount = $order->get_total_refunded_for_item( intval( $item->order_item_id ) );
 
-				if ( $refunded_amount ) {
+				if ( ! $item->total_commission_amount && 'void' !== $item->commission_status ) {
+					$refund = sprintf(
+					/* translators: 1. commission refund status label */
+						'<br><small class="wpcv-refunded">%1$s</small>',
+						esc_html__( 'Fully Refunded', 'woocommerce-product-vendors' )
+					);
+				} elseif ( $refunded_amount ) {
 					$refunded_commission = $refunded_amount * $item->product_commission_amount / $item->product_amount;
-					$refund              = sprintf( __( '<br /><small class="wpcv-refunded">-%s</small>', 'woocommerce-product-vendors' ), wc_price( $refunded_commission ) );
+
+					$refund = sprintf(
+						'<br /><small class="wpcv-refunded">-%1$s</small>',
+						wc_price( $refunded_commission )
+					);
 				}
 
 				return wc_price( sanitize_text_field( $item->total_commission_amount ) ) . $refund;
