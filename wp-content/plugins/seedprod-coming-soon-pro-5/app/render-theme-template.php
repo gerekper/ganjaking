@@ -650,15 +650,21 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 				$current_post_type       = get_post_type();
 				$is_edited_with_seedprod = get_post_meta( $current_post_id, '_seedprod_edited_with_seedprod', true );
 				if ( 'page' === $current_post_type && ! empty( $is_edited_with_seedprod ) && ! is_search() ) {
-					if ( ! empty( $clean_code ) ) {
-						$current_post_type       = get_post_type();
-						$is_edited_with_seedprod = get_post_meta( $current_post_id, '_seedprod_edited_with_seedprod', true );
-						$code                    = get_post_meta( $current_post_id, '_seedprod_html', true );
-						ob_start();
-					} else {
-						the_content();
-						$code            = ob_get_clean();
+					// Check if page content is password protected.
+					if ( post_password_required( $current_post_id  ) ) {
+						$code            = get_the_password_form( $page->ID );
 						$current_post_id = get_the_ID();
+					} else {
+						if ( ! empty( $clean_code ) ) {
+							$current_post_type       = get_post_type();
+							$is_edited_with_seedprod = get_post_meta( $current_post_id, '_seedprod_edited_with_seedprod', true );
+							$code                    = get_post_meta( $current_post_id, '_seedprod_html', true );
+							ob_start();
+						} else {
+							the_content();
+							$code            = ob_get_clean();
+							$current_post_id = get_the_ID();
+						}
 					}
 				} else {
 					// get template code

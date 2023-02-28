@@ -10,7 +10,7 @@
  * Plugin name:          Polylang for WooCommerce
  * Plugin URI:           https://polylang.pro
  * Description:          Adds multilingual capability to WooCommerce
- * Version:              1.7.1
+ * Version:              1.7.2
  * Requires at least:    5.7
  * Requires PHP:         7.0
  * Author:               WP SYNTEX
@@ -21,7 +21,7 @@
  * License URI:          https://www.gnu.org/licenses/gpl-3.0.txt
  *
  * WC requires at least: 5.1
- * WC tested up to:      7.2
+ * WC tested up to:      7.4
  *
  * Copyright 2016-2020 Frédéric Demarle
  * Copyright 2020-2023 WP SYNTEX
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Don't access directly.
 }
 
-define( 'PLLWC_VERSION', '1.7.1' );
+define( 'PLLWC_VERSION', '1.7.2' );
 define( 'PLLWC_MIN_PLL_VERSION', '3.0' );
 
 define( 'PLLWC_FILE', __FILE__ ); // This file.

@@ -669,6 +669,10 @@ if ( defined( 'DOING_AJAX' ) ) {
 	
 
 	
+	add_action( 'wp_ajax_seedprod_pro_render_business_review_shortcode', 'seedprod_pro_render_business_review_shortcode' );
+	
+
+	
 	add_action( 'wp_ajax_seedprod_pro_get_domain_mapping_domain', 'seedprod_pro_get_domain_mapping_domain' );
 	
 

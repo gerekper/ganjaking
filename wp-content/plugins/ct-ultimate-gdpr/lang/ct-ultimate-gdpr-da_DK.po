@@ -3,8 +3,6 @@
 # https://wpml.org
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: WPML_EXPORT\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -12,7 +10,9 @@ msgstr ""
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 3.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
 
 # printf(
 # wp_kses_post(__( "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner", 'ct-ultimate-gdpr' )),
@@ -2828,7 +2828,7 @@ msgstr "[WooCommerce] Pseudonymiser fakturering email"
 # $admin->get_option_value_escaped( $field_name, esc_html__( 'I consent to the storage of my data according to the Privacy Policy', 'ct-ultimate-gdpr' ) ),
 # $admin->get_option_value_escaped( $field_name, $this->get_service_name() )
 msgid "I consent to the storage of my data according to the Privacy Policy"
-msgstr "Jeg accepterer opbevaring af mine data i henhold til Privacy Policy "
+msgstr "Jeg accepterer opbevaring af mine data i henhold til Privacy Policy"
 
 # protected function get_default_description() {
 # return esc_html__( 'WooCommerce gathers data entered by users in shop orders', 'ct-ultimate-gdpr' );
@@ -2840,7 +2840,7 @@ msgstr "WooCommerce samler data, der indtastes af brugere i indkøbsordrer"
 # sprintf( esc_html__( "[%s] Block Wordfence cookies when a user doesn't accept Functionality cookies", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
 # array( $this, "render_field_services_wordfence_block_cookies" ), // Callback
 msgid "[%s] Block Wordfence cookies when a user doesn't accept Functionality cookies"
-msgstr "[%s] Bloker Wordfence-cookies, når en bruger ikke accepterer "
+msgstr "[%s] Bloker Wordfence-cookies, når en bruger ikke accepterer"
 
 # if( $inject && ! ct_ultimate_gdpr_get_value( 'ct-ultimate-gdpr-consent-field', $_POST ) ) {
 # die ( __( 'Please give consent to collect your data', 'ct-ultimate-gdpr' ) );
@@ -3272,7 +3272,7 @@ msgstr "Det kan tage op til få minutter. Tak for din tålmodighed!"
 # <p class="cookies-scanner-content__response-notice-1 hidden"><?php echo esc_html__('One of our bees returned with: ', 'ct-ultimate-gdpr'); ?></p>
 # <p><em class="cookies-scanner-content__response"></em></p>
 msgid "One of our bees returned with: "
-msgstr "Et af vores bier returneres med:"
+msgstr "Et af vores bier returneres med: "
 
 # <p class="cookies-scanner-content__response-notice-2 hidden">
 # <span class="cookies-scanner-content__response-notice-continue hidden"><?php echo esc_html__('Other bees are still searching...', 'ct-ultimate-gdpr'); ?></span>
@@ -3284,7 +3284,7 @@ msgstr "Andre bier søger stadig..."
 # <span class="cookies-scanner-content__response-notice-ended hidden"><?php echo esc_html__('All our busy bees are back with these results: ', 'ct-ultimate-gdpr'); ?></span>
 # </p>
 msgid "All our busy bees are back with these results: "
-msgstr "Alle vores travle bier er tilbage med disse resultater:"
+msgstr "Alle vores travle bier er tilbage med disse resultater: "
 
 # <div class="ct-ultimate-gdpr-cookies-scanner-content__scan">
 # <span class="pull-left ct-ultimate-gdpr-cookies-scanner__Message"><?php echo esc_html__('We are currently scanning:', 'ct-ultimate-gdpr'); ?></span>

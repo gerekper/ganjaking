@@ -13,4 +13,24 @@
   content: url("images/menu-icon-active.png");
 }
 
+/* RTL version */
+html[dir=rtl] #adminmenu li.menu-top#toplevel_page_ct-ultimate-gdpr:before {
+  content: '';
+}
+html[dir=rtl] #adminmenu li.menu-top#toplevel_page_ct-ultimate-gdpr:after {
+  content: url("images/menu-icon-inactive.png");
+  width: 15px;
+  height: 17px;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 1;
+}
+html[dir=rtl] #adminmenu li.menu-top#toplevel_page_ct-ultimate-gdpr:hover:before {
+  content: '';
+}
+html[dir=rtl] #adminmenu li.menu-top#toplevel_page_ct-ultimate-gdpr:hover:after {
+  content: url("images/menu-icon-active.png");
+}
+
 /* END ICON FOR LEFT PANEL ADMIN LINKS */

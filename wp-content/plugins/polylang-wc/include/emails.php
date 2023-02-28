@@ -17,18 +17,16 @@ class PLLWC_Emails {
 	protected $data_store;
 
 	/**
-	 * Stores if the locale has been switched.
+	 * Stores previous language information each time it may be switched.
 	 *
-	 * @var bool[]
-	 */
-	protected $switched_locale = array();
-
-	/**
-	 * Previous current language.
+	 * @var array[] {
+	 *   @type bool              $switched Has the WordPress locale been switched?
+	 *   @type PLL_Language|null $language Previous current language.
+	 * }
 	 *
-	 * @var (PLL_Language|null)[]
+	 * @phpstan-var array<array{switched:bool, language:PLL_Language|null}>
 	 */
-	protected $saved_curlang;
+	private $previous_languages = array();
 
 	/**
 	 * Constructor.
@@ -287,10 +285,11 @@ class PLLWC_Emails {
 	 * @return void
 	 */
 	public function set_email_language( $language ) {
-		$this->switched_locale[] = switch_to_locale( $language->locale );
+		$this->previous_languages[] = array(
+			'switched' => switch_to_locale( $language->locale ),
+			'language' => empty( PLL()->curlang ) ? null : PLL()->curlang,
+		);
 
-		// Sets the current language.
-		$this->saved_curlang[] = empty( PLL()->curlang ) ? null : PLL()->curlang;
 		PLL()->curlang = $language;
 
 		// Translates pages ids (to translate urls if any).
@@ -375,11 +374,17 @@ class PLLWC_Emails {
 	 * @return void
 	 */
 	public function after_email() {
-		if ( array_pop( $this->switched_locale ) ) {
+		if ( empty( $this->previous_languages ) ) {
+			return;
+		}
+
+		$previous = array_pop( $this->previous_languages );
+
+		if ( $previous['switched'] ) {
 			restore_previous_locale();
 		}
 
-		PLL()->curlang = array_pop( $this->saved_curlang );
+		PLL()->curlang = $previous['language'];
 
 		if ( empty( PLL()->curlang ) ) {
 			foreach ( array( 'myaccount', 'shop', 'cart', 'checkout', 'terms' ) as $page ) {

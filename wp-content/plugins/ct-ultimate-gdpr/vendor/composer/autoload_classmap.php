@@ -70,6 +70,7 @@ return array(
     'CT_Ultimate_GDPR_Service_Quform' => $baseDir . '/includes/service/service-quform.php',
     'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => $baseDir . '/includes/service/service-sell-personal-data.php',
     'CT_Ultimate_GDPR_Service_Siteorigin_Panels' => $baseDir . '/includes/service/service-siteorigin-panels.php',
+    'CT_Ultimate_GDPR_Service_Sitepress_WPML' => $baseDir . '/includes/service/service-sitepress-multilingual-cms.php',
     'CT_Ultimate_GDPR_Service_Ultimate_Member' => $baseDir . '/includes/service/service-ultimate-member.php',
     'CT_Ultimate_GDPR_Service_WPForms_Lite' => $baseDir . '/includes/service/service-wpforms-lite.php',
     'CT_Ultimate_GDPR_Service_WP_Comments' => $baseDir . '/includes/service/service-wp-comments.php',

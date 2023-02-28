@@ -4,7 +4,7 @@ Tags: multilingual, woocommerce
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,12 @@ Some popular extensions such as WooCommerce Subscriptions, Dynamic Pricing, Tabl
 This extension can be used either with the free version of Polylang or in combination with Polylang Pro.
 
 == Changelog ==
+
+= 1.7.2 (2023-02-21) =
+
+* Fix a fatal error when sending emails and the order has no language.
+* Fix a warning with WC Brands.
+* Fix image saved in wrong language in WC Brands.
 
 = 1.7.1 (2023-01-10) =
 

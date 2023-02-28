@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the Ultimate GDPR & CCPA plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR & CCPA 3.9\n"
+"Project-Id-Version: Ultimate GDPR & CCPA 4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-03T16:05:52+01:00\n"
-"PO-Revision-Date: 2022-11-03T16:05:52+01:00\n"
+"POT-Creation-Date: 2022-12-05T15:52:10+01:00\n"
+"PO-Revision-Date: 2022-12-05T15:52:10+01:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ct-ultimate-gdpr\n"
 
@@ -2022,6 +2022,7 @@ msgstr ""
 #: includes/service/service-newsletter.php:168
 #: includes/service/service-ninja-forms.php:89
 #: includes/service/service-quform.php:153
+#: includes/service/service-sitepress-multilingual-cms.php:102
 #: includes/service/service-ultimate-member.php:85
 #: includes/service/service-woocommerce.php:237
 #: includes/service/service-wordfence.php:78
@@ -2044,6 +2045,10 @@ msgstr ""
 #: includes/service/service-akismet.php:150
 #: includes/service/service-ultimate-member.php:77
 msgid "Inject consent checkbox to all forms"
+msgstr ""
+
+#: includes/service/service-akismet.php:185
+msgid "<i>Set this on Akismet Plugin %s </i>"
 msgstr ""
 
 #: includes/service/service-akismet.php:311
@@ -2374,6 +2379,10 @@ msgstr ""
 
 #: includes/service/service-siteorigin-panels.php:134
 msgid "Page Builder by SiteOrigin does not collect users data, however it may use services from Google Fonts, Google Maps, and embed external videos from Youtube or Vimeo. By using this Site, you signify your acceptance of this policy."
+msgstr ""
+
+#: includes/service/service-sitepress-multilingual-cms.php:94
+msgid "[%s] Block WPML cookies when a user doesn't accept Functionality cookies"
 msgstr ""
 
 #: includes/service/service-ultimate-member.php:126

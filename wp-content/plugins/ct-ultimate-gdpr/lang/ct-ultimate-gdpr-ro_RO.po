@@ -3,8 +3,6 @@
 # https://wpml.org
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: WPML_EXPORT\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -12,7 +10,9 @@ msgstr ""
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 3.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
 
 # printf(
 # wp_kses_post(__( "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner", 'ct-ultimate-gdpr' )),

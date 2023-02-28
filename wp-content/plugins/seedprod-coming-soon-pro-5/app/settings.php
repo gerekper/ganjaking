@@ -113,6 +113,8 @@ function seedprod_pro_save_app_settings() {
 
 			// Facebook ID
 			$new_app_settings['facebook_g_app_id'] = sanitize_text_field( $app_settings['facebook_g_app_id'] );
+			$new_app_settings['google_places_app_key'] = sanitize_text_field( $app_settings['google_places_app_key'] );
+			$new_app_settings['yelp_app_api_key'] = sanitize_text_field( $app_settings['yelp_app_api_key'] );
 			$app_settings_encode                   = wp_json_encode( $new_app_settings );
 
 			update_option( 'seedprod_app_settings', $app_settings_encode );

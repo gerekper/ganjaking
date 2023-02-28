@@ -181,8 +181,8 @@ class CT_Ultimate_GDPR_Service_Akismet extends CT_Ultimate_GDPR_Service_Abstract
 
     }
 	public function render_services_Akismet_inject_consent_field(){
-		$settingLink = $this->is_active() ? '<a href="' . get_admin_url() . '/options-general.php?page=akismet-key-config">Settings</a>' : 'Settings (Not Active)';
-		printf('<i>Set this on Akismet Plugin ' . $settingLink . '</i>');
+		$settingLink = $this->is_active() ? '<a href="' . get_admin_url() . '/options-general.php?page=akismet-key-config">'.__('Settings').'</a>' : __('Settings (Not Active)');
+		printf( __('<i>Set this on Akismet Plugin %s </i>', 'ct-ultimate-gdpr'), $settingLink );
 	}
 	public function render_field_breach_services() {
 
@@ -288,7 +288,7 @@ class CT_Ultimate_GDPR_Service_Akismet extends CT_Ultimate_GDPR_Service_Abstract
 		
 		// $data = apply_filters( 'ct_ultimate_gdpr_service_Akismet_form_content', $fields, $original_fields, $inject, $position_first );
 		$data = array(
-			'consent_text' => $consentText ? $consentText : 'I consent to the storage of my data according to the Privacy Policy'
+			'consent_text' => $consentText ? $consentText : esc_html__('I consent to the storage of my data according to the Privacy Policy')
 		);
 		if ( $inject ) {
 			echo ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'service/service-akismet-consent-field', false ), false, $data );

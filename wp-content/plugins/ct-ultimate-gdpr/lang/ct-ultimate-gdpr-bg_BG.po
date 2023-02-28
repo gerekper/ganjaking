@@ -624,7 +624,7 @@ msgstr "Запомня твоите данни за вход; Рекламни: 
 # 'age_group_popup_features_available_group_5'    => esc_html__("Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location",
 # 'ct-ultimate-gdpr'),
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
-msgstr "Нужни: Запомням твоите настройки за бисквитки; Нужни: Позволи бисквитки на сесиите; Нужни: Събирам информацията, която въвеждаш във формулярите за връзка, формулярите за бюлетини по страниците; Нужни: Следя какво вкарваш в пазарската си количка; Нужни: Удостоверявам, че си влезнал в акаунта си; Нужни: Помня избраната от тебе версия на езика; Функционални: Запомням настройките ти за социални медии; Функционалност: Запомням избраните страна и регион;Аналитични: Следя посетените от тебе страници и предприетите действия; Аналитични: Следя твоите местоположение и регион на базата на твоя IP адрес; Аналитични: Следя времето, прекарано на всяка страница; Аналитични: Повишавам качеството на статистическите функции;Рекламни: Използвам информацията за персонализирани реклами с трети страни; Рекламни: Позволявам ти да се свързваш със социални сайтове; Рекламни: Иденктифицирам устройството, което използваш; Рекламни: Събирам лична информация, като име и място."
+msgstr "Нужни: Запомням твоите настройки за бисквитки; Нужни: Позволи бисквитки на сесиите; Нужни: Събирам информацията, която въвеждаш във формулярите за връзка, формулярите за бюлетини по страниците; Нужни: Следя какво вкарваш в пазарската си количка; Нужни: Удостоверявам, че си влезнал в акаунта си; Нужни: Помня избраната от тебе версия на езика; Функционални: Запомням настройките ти за социални медии; Функционалност: Запомням избраните страна и регион;Аналитични: Следя посетените от тебе страници и предприетите действия; Аналитични: Следя твоите местоположение и регион на базата на твоя IP адрес; Аналитични: Следя времето, прекарано на всяка страница; Аналитични: Повишавам качеството на статистическите функции;Рекламни: Използвам информацията за персонализирани реклами с трети страни; Рекламни: Позволявам ти да се свързваш със социални сайтове; Рекламни: Иденктифицирам устройството, което използваш; Рекламни: Събирам лична информация, като име и място"
 
 # 'ct-ultimate-gdpr'),
 # 'age_group_popup_features_nonavailable_group_5' => esc_html__("Remember your login details", 'ct-ultimate-gdpr'),
@@ -1974,7 +1974,7 @@ msgstr "Избери данни за криптиране"
 # esc_html__( 'This feature is experimental and may lead to irreversible data lost! After encryption, it may be impossible for anyone to decrypt your data. ', 'ct-ultimate-gdpr' ),
 # '</h4>'
 msgid "This feature is experimental and may lead to irreversible data lost! After encryption, it may be impossible for anyone to decrypt your data. "
-msgstr "Тази функция е експериментална и може да доведе до необратими загуби на данни. Може никой повече да не може да ги декриптира."
+msgstr "Тази функция е експериментална и може да доведе до необратими загуби на данни. Може никой повече да не може да ги декриптира. "
 
 # echo sprintf( "%s %s %s %s %s %s %s %s %s %s %s %s %s %s",
 # esc_html__( 'Pseudonymization feature allows you to encrypt some of the data stored in the database. That way, if anyone got access to your database, the user\'s data would be pseudonymized. Database contents are permanently encrypted and can be decrypted on the fly when accessed by users. You can also permanently decrypt all your contents.', 'ct-ultimate-gdpr' ),
@@ -3272,7 +3272,7 @@ msgstr "Може да отнеме до няколко минути. Благо�
 # <p class="cookies-scanner-content__response-notice-1 hidden"><?php echo esc_html__('One of our bees returned with: ', 'ct-ultimate-gdpr'); ?></p>
 # <p><em class="cookies-scanner-content__response"></em></p>
 msgid "One of our bees returned with: "
-msgstr "Една от нашите пчели се завърна с:"
+msgstr "Една от нашите пчели се завърна с: "
 
 # <p class="cookies-scanner-content__response-notice-2 hidden">
 # <span class="cookies-scanner-content__response-notice-continue hidden"><?php echo esc_html__('Other bees are still searching...', 'ct-ultimate-gdpr'); ?></span>
@@ -3284,7 +3284,7 @@ msgstr "Други пчели все още търсят..."
 # <span class="cookies-scanner-content__response-notice-ended hidden"><?php echo esc_html__('All our busy bees are back with these results: ', 'ct-ultimate-gdpr'); ?></span>
 # </p>
 msgid "All our busy bees are back with these results: "
-msgstr "Всички наши заети пчели се завръщат с тези резултати:"
+msgstr "Всички наши заети пчели се завръщат с тези резултати: "
 
 # <div class="ct-ultimate-gdpr-cookies-scanner-content__scan">
 # <span class="pull-left ct-ultimate-gdpr-cookies-scanner__Message"><?php echo esc_html__('We are currently scanning:', 'ct-ultimate-gdpr'); ?></span>
@@ -3344,7 +3344,7 @@ msgstr "GDPR бе приет от европейския парламент пр
 # <?php echo esc_html__( " The regulation will take effect after a two-year transition period and, unlike a Directive it does not require any enabling legislation to be passed by government; meaning it will be in force May 2018.", 'ct-ultimate-gdpr' ); ?>
 # </p>
 msgid " The regulation will take effect after a two-year transition period and, unlike a Directive it does not require any enabling legislation to be passed by government; meaning it will be in force May 2018."
-msgstr "Регулацията ще влезе в сила след двугодишен преходен период и за разлика от директивите, тя не изисква местните правителства да я одобрят поотделно, което означава, че ще влезне в сила през месец май 2018г."
+msgstr " Регулацията ще влезе в сила след двугодишен преходен период и за разлика от директивите, тя не изисква местните правителства да я одобрят поотделно, което означава, че ще влезне в сила през месец май 2018г."
 
 # <p>
 # <?php echo esc_html__( "The GDPR not only applies to organisations located within the EU but it will also apply to organisations located outside of the EU if they offer goods or services to, or monitor the behaviour of, EU data subjects. It applies to all companies processing and holding the personal data of data subjects residing in the European Union, regardless of the company's location.", 'ct-ultimate-gdpr' ); ?>
@@ -3398,7 +3398,7 @@ msgstr "Псевдонимизирай част от данните в база�
 # <li><?php echo esc_html__( "Check currently activated plugins for GDPR compliance.", 'ct-ultimate-gdpr' ); ?></li>
 # </ol>
 msgid "Check currently activated plugins for GDPR compliance."
-msgstr "Провери активираните в момента разширения за спазване на GDPR"
+msgstr "Провери активираните в момента разширения за спазване на GDPR."
 
 # <p>
 # <?php echo esc_html__( "To start, browse through settings. Then, create a new page with shortcode:", 'ct-ultimate-gdpr' ); ?>
@@ -3452,7 +3452,7 @@ msgstr "[ultimate_gdpr_terms_accept]"
 # <?php echo esc_html__( 'Cookie Popup Link:', 'ct-ultimate-gdpr' ); ?>
 # </span>
 msgid "Cookie Popup Link:"
-msgstr "Линк на изскачащия прозорец за бисквитки"
+msgstr "Линк на изскачащия прозорец за бисквитки:"
 
 # <strong>
 # <?php echo esc_html__( '[ultimate_gdpr_cookie_popup]Link [/ultimate_gdpr_cookie_popup]', 'ct-ultimate-gdpr' ); ?>
@@ -3614,7 +3614,7 @@ msgstr "или ни питай по имейл"
 # <p><?php echo esc_html__( 'Link to our ', 'ct-ultimate-gdpr' ); ?> <a
 # href="http://gdpr-plugin.readthedocs.io/"
 msgid "Link to our "
-msgstr "Линк към нашата"
+msgstr "Линк към нашата "
 
 # href="http://gdpr-plugin.readthedocs.io/"
 # class="ct-ultimate-gdpr-link"><?php echo esc_html__( 'Documentation', 'ct-ultimate-gdpr' ); ?></a>
@@ -3974,7 +3974,7 @@ msgstr "Съгласявам се със съхранението на данн�
 # <?php echo esc_html__( 'I consent to the storage of my data according to the Privacy Policy ', 'ct-ultimate-gdpr' ); ?>
 # </label>
 msgid "I consent to the storage of my data according to the Privacy Policy "
-msgstr "Съгласявам се със съхранението на данните ми според политиката за Поверителност"
+msgstr "Съгласявам се със съхранението на данните ми според политиката за Поверителност "
 
 # <div id="nf-error-consent" class="ct-ultimate-gdpr-nf-consent-field-error" role="alert" style="display: none">
 # <div class="nf-error-msg nf-error-required-error"><?php echo esc_html__('This is a required field.', 'ct-ultimate-gdpr'); ?></div>

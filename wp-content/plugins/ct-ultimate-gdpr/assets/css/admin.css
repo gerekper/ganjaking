@@ -1,4 +1,8 @@
 /* ADMIN */
+html[dir=rtl] body {
+  text-align: right;
+}
+
 body[class*="ct-ultimate-gdpr"] {
   background-color: #f1f1f1;
 }
@@ -599,24 +603,20 @@ body[class*="ct-ultimate-gdpr"] {
   }
 }
 
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3,
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-7 {
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 {
   margin-top: 0;
 }
 
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 tbody tr:first-child,
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-7 tbody tr:first-child {
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 tbody tr:first-child {
   border-top: 0 solid;
 }
 
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 td,
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-7 td {
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 td {
   display: block;
   width: 100%;
 }
 
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th,
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-7 th {
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th {
   -webkit-transition: all .3s ease-in-out;
   background-color: #f5f5f5;
   border-bottom: 1px solid #eeeeee;
@@ -631,8 +631,7 @@ body[class*="ct-ultimate-gdpr"] {
   width: 100%;
 }
 
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th:after,
-.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-7 th:after {
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th:after {
   content: '\f078';
   font-family: fontAwesome;
   font-size: 10px;
@@ -730,15 +729,6 @@ body[class*="ct-ultimate-gdpr"] {
 
 .ultimate-gdpr_page_ct-ultimate-gdpr-services .ct-ultimate-gdpr-wrap #accordion .ct-ultimate-gdpr-half-width .card-header.active .btn-link:after {
   color: #fff;
-}
-
-@-moz-document url-prefix() {
-  .ultimate-gdpr_page_ct-ultimate-gdpr-services .ct-ultimate-gdpr-wrap #accordion .ct-ultimate-gdpr-half-width .card-header .btn.btn-link:after {
-    margin-top: -16px;
-  }
-  .ultimate-gdpr_page_ct-ultimate-gdpr-services .ct-ultimate-gdpr-wrap #accordion .ct-ultimate-gdpr-half-width .card-header .btn.btn-link.collapsed:after {
-    margin-top: -25px;
-  }
 }
 
 .ultimate-gdpr_page_ct-ultimate-gdpr-services .ct-ultimate-gdpr-wrap #accordion .ct-ultimate-gdpr-half-width .card-body {

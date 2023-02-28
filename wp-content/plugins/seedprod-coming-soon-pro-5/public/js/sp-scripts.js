@@ -1029,3 +1029,140 @@ function hotspotTooltips(blockId, items) {
     });
   });
 }
+
+jQuery('.sp-type-alert button.sp-alert-close').click(function () {
+  jQuery(this).parents('.sp-type-alert').hide();
+});
+/**
+ * businessreview javascript
+ */
+
+jQuery('.sp-businessreview-nav button').click(function () {
+  var currentId = '#' + jQuery(this).parents('.sp-businessreview-wrapper').attr('id');
+  var currentButtonIndex = jQuery(currentId + ' .sp-businessreview-nav button').index(this);
+  var currentIndex = 0;
+  var businessreviews = jQuery('.seedprod-business-review-wrapper', jQuery(this).parents(currentId));
+  var slideshowmax = jQuery(this).parents('.sp-businessreview-wrapper').attr('data-slidetoshow');
+
+  if (slideshowmax == undefined) {
+    slideshowmax = 1;
+  }
+
+  var slider_length = Math.ceil(businessreviews.length / parseInt(slideshowmax));
+
+  for (var customindexdata = 0; customindexdata < slider_length; customindexdata++) {
+    var opa = jQuery(currentId + ' .sp-businessreview-nav button[data-index="' + customindexdata + '"]').css('opacity');
+
+    if (opa >= 0.5) {
+      //console.log("customindexdata is =" + customindexdata);
+      currentIndex = customindexdata;
+    }
+  }
+
+  var buttonsLength = jQuery(currentId + ' .sp-businessreview-nav button').length - 1;
+  var currentButtonIndexData = jQuery(currentId + ' .sp-businessreview-nav button').eq(currentButtonIndex).attr('data-index'); // check for previous button click
+
+  if (currentButtonIndex == 0) {
+    if (0 == currentIndex) {
+      currentIndex = Math.ceil(businessreviews.length / parseInt(slideshowmax)) - 1;
+    } else {
+      currentIndex--;
+    }
+  } // check for next button click
+
+
+  if (currentButtonIndex == buttonsLength) {
+    if (Math.ceil(businessreviews.length / parseInt(slideshowmax)) - 1 == currentIndex) {
+      currentIndex = 0;
+    } else {
+      currentIndex++;
+    }
+  } // reset states
+
+
+  businessreviews.css({
+    'z-index': 999,
+    'opacity': 0,
+    'height': '0',
+    'position': 'absolute'
+  });
+  jQuery(currentId + ' .sp-businessreview-nav button[data-index]').css({
+    'opacity': 0.25
+  });
+  var startindex = parseInt(currentIndex * parseInt(slideshowmax));
+  var endindex = parseInt(startindex + parseInt(slideshowmax)); // select businessreviews and button
+
+  if (currentButtonIndexData !== undefined) {
+    currentIndex = currentButtonIndexData;
+    startindex = parseInt(currentIndex * parseInt(slideshowmax));
+    endindex = parseInt(startindex + parseInt(slideshowmax));
+
+    for (var i = startindex; i < endindex; i++) {
+      jQuery(businessreviews).eq(i).css({
+        'opacity': 1,
+        'height': 'auto',
+        'position': 'initial'
+      });
+    } //jQuery(businessreviews).eq(currentIndex).css({ 'opacity': 1, 'height': 'auto', 'position': 'initial' });
+
+
+    jQuery(currentId + ' .sp-businessreview-nav button').eq(currentButtonIndex).css({
+      'opacity': 1
+    });
+  } else {
+    startindex = parseInt(currentIndex * parseInt(slideshowmax));
+    endindex = parseInt(startindex + parseInt(slideshowmax));
+
+    for (var _i3 = startindex; _i3 < endindex; _i3++) {
+      jQuery(businessreviews).eq(_i3).css({
+        'opacity': 1,
+        'height': 'auto',
+        'position': 'initial'
+      }); //jQuery(currentId + ' .sp-imagecarousel-nav button').eq(currentButtonIndex).css({ 'opacity': 1 })	
+    } //jQuery(businessreviews).eq(currentIndex).css({ 'opacity': 1, 'height': 'auto', 'position': 'initial' });
+
+
+    jQuery(currentId + ' .sp-businessreview-nav button').eq(currentIndex + 1).css({
+      'opacity': 1
+    });
+  }
+});
+var businessreview_timers = {};
+jQuery(".sp-businessreview-wrapper").each(function (index) {
+  var currentId = '#' + jQuery(this).attr('id');
+  var autoPlay = jQuery(this).attr('data-autoplay');
+  var speed = jQuery(this).attr('data-speed');
+
+  if (speed === '') {
+    speed = 5000;
+  } else {
+    speed = parseInt(speed) * 1000;
+  }
+
+  if (autoPlay !== undefined) {
+    businessreview_timers[currentId] = setInterval(function () {
+      jQuery(currentId + ' .sp-businessreview-nav button:last-child').trigger('click');
+    }, speed);
+  }
+});
+jQuery(".sp-businessreview-wrapper").hover(function () {
+  var id = '#' + jQuery(this).attr('id');
+  clearInterval(businessreview_timers[id]);
+});
+jQuery(".sp-businessreview-wrapper").mouseleave(function () {
+  var currentId = '#' + jQuery(this).attr('id');
+  var autoPlay = jQuery(this).attr('data-autoplay');
+  var speed = jQuery(this).attr('data-speed');
+
+  if (speed === '') {
+    speed = 5000;
+  } else {
+    speed = parseInt(speed) * 1000;
+  }
+
+  if (autoPlay !== undefined) {
+    businessreview_timers[currentId] = setInterval(function () {
+      jQuery(currentId + ' .sp-businessreview-nav button:last-child').trigger('click');
+    }, speed);
+  }
+});

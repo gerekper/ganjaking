@@ -589,6 +589,9 @@ $seedprod_data = array(
 	// Get translations
 	$seedprod_data['translations_pro'] = seedprod_pro_get_jed_locale_data( 'seedprod-pro' );
 
+	// Get help documents
+	$seedprod_data['inline_help_articles'] = seedprod_pro_fetch_inline_help_data();
+
 	echo wp_json_encode( $seedprod_data );
 	?>
 	;

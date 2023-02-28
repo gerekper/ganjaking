@@ -3,8 +3,6 @@
 # https://wpml.org
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: WPML_EXPORT\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -12,7 +10,9 @@ msgstr ""
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 3.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
 
 # printf(
 # wp_kses_post(__( "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner", 'ct-ultimate-gdpr' )),
@@ -3272,7 +3272,7 @@ msgstr "Néhány percig tarthat. Köszönöm a türelmét!"
 # <p class="cookies-scanner-content__response-notice-1 hidden"><?php echo esc_html__('One of our bees returned with: ', 'ct-ultimate-gdpr'); ?></p>
 # <p><em class="cookies-scanner-content__response"></em></p>
 msgid "One of our bees returned with: "
-msgstr "Az egyik méhek visszatértek:"
+msgstr "Az egyik méhek visszatértek: "
 
 # <p class="cookies-scanner-content__response-notice-2 hidden">
 # <span class="cookies-scanner-content__response-notice-continue hidden"><?php echo esc_html__('Other bees are still searching...', 'ct-ultimate-gdpr'); ?></span>
@@ -3284,7 +3284,7 @@ msgstr "Más méhek még mindig keresik ..."
 # <span class="cookies-scanner-content__response-notice-ended hidden"><?php echo esc_html__('All our busy bees are back with these results: ', 'ct-ultimate-gdpr'); ?></span>
 # </p>
 msgid "All our busy bees are back with these results: "
-msgstr "Minden elfoglalt méhek visszatérnek ezekkel az eredményekkel:"
+msgstr "Minden elfoglalt méhek visszatérnek ezekkel az eredményekkel: "
 
 # <div class="ct-ultimate-gdpr-cookies-scanner-content__scan">
 # <span class="pull-left ct-ultimate-gdpr-cookies-scanner__Message"><?php echo esc_html__('We are currently scanning:', 'ct-ultimate-gdpr'); ?></span>
@@ -3404,7 +3404,7 @@ msgstr "Ellenőrizze a jelenleg aktivált bővítményeket a GDPR megfeleléshez
 # <?php echo esc_html__( "To start, browse through settings. Then, create a new page with shortcode:", 'ct-ultimate-gdpr' ); ?>
 # <strong> <?php echo esc_html__( '[ultimate_gdpr_myaccount]', 'ct-ultimate-gdpr' ); ?></strong>
 msgid "To start, browse through settings. Then, create a new page with shortcode:"
-msgstr "Indítsa el a böngészést a beállítások között. Ezután hozzon létre egy új"
+msgstr "Indítsa el a böngészést a beállítások között. Ezután hozzon létre egy új:"
 
 # <?php echo esc_html__( "To start, browse through settings. Then, create a new page with shortcode:", 'ct-ultimate-gdpr' ); ?>
 # <strong> <?php echo esc_html__( '[ultimate_gdpr_myaccount]', 'ct-ultimate-gdpr' ); ?></strong>

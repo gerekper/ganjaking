@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita6318e105f72dc3205eadabf87505107
+class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
 {
     public static $classMap = array (
         'PLLWC_Admin' => __DIR__ . '/../..' . '/admin/admin.php',
@@ -71,7 +71,7 @@ class ComposerStaticInita6318e105f72dc3205eadabf87505107
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInita6318e105f72dc3205eadabf87505107::$classMap;
+            $loader->classMap = ComposerStaticInitab96494d6f353a3e57be9269edad83e5::$classMap;
 
         }, null, ClassLoader::class);
     }

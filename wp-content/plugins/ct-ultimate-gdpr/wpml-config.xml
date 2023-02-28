@@ -1,19 +1,18 @@
 <wpml-config>
     <admin-texts>
         <key name="ct-ultimate-gdpr-cookie">
+            <key name="cookie_content_language"/>
             <key name="cookie_content"/>
             <key name="cookie_group_popup_header_content"/>
             <key name="cookie_popup_label_accept"/>
             <key name="cookie_popup_label_read_more"/>
             <key name="cookie_popup_label_settings"/>
-            <key name="cookie_group_popup_label_save"/>
-            <key name="cookie_group_popup_label_will"/>
-            <key name="cookie_group_popup_label_wont"/>
-            <key name="cookie_group_popup_label_block_all"/>
-            <key name="cookie_group_popup_label_essentials"/>
-            <key name="cookie_group_popup_label_functionality"/>
-            <key name="cookie_group_popup_label_analytics"/>
-            <key name="cookie_group_popup_label_advertising"/>
+            <key name="cookie_popup_consent_crawler"/>
+            <key name="cookie_close_text_modal"/>
+            <key name="cookie_protection_shortcode_label"/>
+            <key name="cookie_withdrawal_cookies_agreement"/>
+            <key name="cookie_withdrawal_cookies_agreement_description"/>
+            <key name="cookie_my_account_disclaimer"/>
             <key name="cookie_group_popup_features_available_group_2"/>
             <key name="cookie_group_popup_features_nonavailable_group_2"/>
             <key name="cookie_group_popup_features_available_group_3"/>
@@ -22,12 +21,87 @@
             <key name="cookie_group_popup_features_nonavailable_group_4"/>
             <key name="cookie_group_popup_features_available_group_5"/>
             <key name="cookie_group_popup_features_nonavailable_group_5"/>
-            <key name="cookie_protection_shortcode_label"/>
+            <key name="cookie_group_popup_label_will"/>
+            <key name="cookie_group_popup_label_wont"/>
+            <key name="cookie_group_popup_label_block_all"/>
+            <key name="cookie_group_popup_label_essentials"/>
+            <key name="cookie_group_popup_label_functionality"/>
+            <key name="cookie_group_popup_label_analytics"/>
+            <key name="cookie_group_popup_label_advertising"/>
+            <key name="cookie_group_popup_label_save"/>
+        </key>
+        <key name="ct-ultimate-gdpr-age">
+            <key name="age_popup_title"/>
+            <key name="age_popup_content"/>
+            <key name="age_popup_label_accept"/>
+            <key name="age_popup_consent_crawler"/>
+            <key name="age_read_tabs"/>
+        </key>
+        <key name="ct-ultimate-gdpr-forgotten">
+            <key name="forgotten_notify_email_subject"/>
+            <key name="forgotten_notify_email_message"/>
+        </key>
+        <key name="ct-ultimate-gdpr-dataaccess">
+            <key name="dataaccess_mail_title"/>
+            <key name="dataaccess_mail_content"/>
+        </key>
+        <key name="ct-ultimate-gdpr-breach">
+            <key name="breach_mail_title"/>
+            <key name="breach_mail_content"/>
+        </key>
+        <key name="ct-ultimate-gdpr-rectification">
+            <key name="rectification_mail_title"/>
+            <key name="rectification_mail_content"/>
+        </key>
+        <key name="ct-ultimate-gdpr-unsubscribe">
+            <key name="unsubscribe_mail_title"/>
+            <key name="unsubscribe_mail_content"/>
+            <key name="unsubscribe_subheader"/>   
+        </key>
+        <key name="ct-ultimate-gdpr-services">
             <key name="services_arforms_description"/>
+            <key name="services_bbpress_service_name"/>
             <key name="services_bbpress_description"/>
+            <key name="services_buddypress_service_name"/>
             <key name="services_buddypress_description"/>
-            <key name="services_contact-form-7_description"/>
+            <key name="services_caldera_forms_service_name"/>
+            <key name="services_caldera_forms_description"/>
+            <key name="services_cf7db_service_name"/>
+            <key name="services_cf7db_description"/>
+            <key name="services_contact_form_7_service_gdpr_accepted"/>
+            <key name="services_Yikes_Inc_Easy_Mailchimp_Extender_consent_text_field">
+                <key name="placeholder"/></key>
+            <key name="services_ct_waitlist_service_name"/>
+            <key name="services_ct_waitlist_description"/>
+            <key name="services_eform_service_name"/>
             <key name="services_eform_description"/>
+            <key name="services_flamingo_service_name"/>
+            <key name="services_flamingo_description"/>
+            <key name="services_formcraft_service_name"/>
+            <key name="services_formcraft_description"/>
+            <key name="services_formidable_forms_service_name"/>
+            <key name="services_formidable_forms_description"/>
+            <key name="services_mailster_service_name"/>
+            <key name="services_mailster_description"/>
+            <key name="services_ninja_forms_service_name"/>
+            <key name="services_ninja_forms_description"/>
+            <key name="services_quform_service_name"/>
+            <key name="services_quform_description"/>
+            <key name="services_woocommerce_service_name"/>
+            <key name="services_woocommerce_description"/>
+            <key name="services_woocommerce_order_checkout_description"/>
+            <key name="services_wp_comments_service_name"/>
+            <key name="services_wp_comments_description"/>
+            <key name="services_wp_foro_service_name"/>
+            <key name="services_wp_foro_description"/>
+            <key name="services_wp_job_manager_service_name"/>
+            <key name="services_wp_job_manager_description"/>
+            <key name="services_wp_posts_service_name"/>
+            <key name="services_wp_posts_description"/>
+            <key name="services_wp_user_service_name"/>
+            <key name="services_wp_user_description"/>
+            <key name="services_yith_woocommerce_wishlist_service_name"/>
+            <key name="services_contact-form-7_description"/>
             <key name="services_events-manager_description"/>
             <key name="services_facebook-pixel_description"/>
             <key name="services_flamingo_description"/>
@@ -37,8 +111,6 @@
             <key name="services_mailchimp_description"/>
             <key name="services_mailpoet_description"/>
             <key name="services_mailster_description"/>
-            <key name="services_quform_description"/>
-            <key name="services_woocommerce_description"/>
             <key name="services_wordfence_description"/>
             <key name="services_wp-comments_description"/>
             <key name="services_wp-job-manager_description"/>
@@ -52,4 +124,12 @@
         </key>
         <key name="simple_string_option"/>
     </admin-texts>
+    <custom-types>
+        <custom-type translate="2">ct_ugdpr_service</custom-type>
+    </custom-types>
+    <custom-fields>
+        <custom-field action="translate">expiry_time</custom-field>
+        <custom-field action="translate">purpose</custom-field>
+        <custom-field action="copy">is_active</custom-field>
+    </custom-fields>
 </wpml-config>

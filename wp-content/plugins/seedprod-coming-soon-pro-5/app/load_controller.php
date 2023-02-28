@@ -14,6 +14,7 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/templateparts.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-post-info.php';
 
 
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-inline-help.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-wpforms.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-rafflepress.php';
 
@@ -21,6 +22,10 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-lp.php';
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-theme-template.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-woocommerce-template-tags.php';
+
+
+
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-business-reviews.php';
 
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-csp-mm.php';
@@ -70,9 +75,9 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/upgrade.php';
 
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-theme-functions.php';
-require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-landing-functions.php'; 
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-landing-functions.php';
 
-require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/import-cross-site-functions.php'; 
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/import-cross-site-functions.php';
 
 
 

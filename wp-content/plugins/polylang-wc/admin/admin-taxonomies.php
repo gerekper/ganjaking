@@ -34,8 +34,8 @@ class PLLWC_Admin_Taxonomies {
 			add_filter( 'pll_translate_term_meta', array( $this, 'translate_meta' ), 10, 3 );
 
 			// WooCommerce ( verified in 2.5.5 ) inconsistently uses created_term and edit_term so we can't use pll_save_term.
-			add_action( 'created_product_cat', array( $this, 'saved_product_cat' ), 999 );
-			add_action( 'edited_product_cat', array( $this, 'saved_product_cat' ), 999 );
+			add_action( 'created_product_cat', array( $this, 'fix_term_thumbnail' ), 999 );
+			add_action( 'edited_product_cat', array( $this, 'fix_term_thumbnail' ), 999 );
 		}
 
 		// Attributes.
@@ -154,7 +154,7 @@ class PLLWC_Admin_Taxonomies {
 	 * @param int $term_id Term id.
 	 * @return void
 	 */
-	public function saved_product_cat( $term_id ) {
+	public function fix_term_thumbnail( $term_id ) {
 		$thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
 		$thumbnail_id = is_numeric( $thumbnail_id ) ? (int) $thumbnail_id : 0;
 
@@ -223,8 +223,19 @@ class PLLWC_Admin_Taxonomies {
 	public function admin_enqueue_scripts() {
 		$screen = get_current_screen();
 		if ( ! empty( $screen ) && in_array( $screen->base, array( 'edit-tags', 'term' ) ) && 'product_cat' === $screen->taxonomy ) {
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_script( 'pllwc_product_cat', plugins_url( '/js/build/product-cat' . $suffix . '.js', PLLWC_FILE ), array( 'jquery' ), PLLWC_VERSION, true );
+			$this->load_scripts();
 		}
+	}
+
+	/**
+	 * Enqueues filter script.
+	 *
+	 * @since 1.7.2
+	 *
+	 * @return void
+	 */
+	public function load_scripts() {
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		wp_enqueue_script( 'pllwc_product_cat', plugins_url( '/js/build/filter-media-taxonomy' . $suffix . '.js', PLLWC_FILE ), array( 'jquery' ), PLLWC_VERSION, true );
 	}
 }

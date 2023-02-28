@@ -1,5 +1,4 @@
 jQuery(document).ready(function ($) {
-
     // set color picker options
     $().wpColorPicker && $('.ct-color-field').wpColorPicker();
 
@@ -98,23 +97,23 @@ jQuery(document).ready(function ($) {
             $( $html ).insertAfter( $this );
 
             if ( $this[0].hasAttribute( 'checked' )  ) {
-                $this.next().find( '.switch' ).css( 'left', '0' ).text( ct_ultimate_gdpr_admin_translations.enabled );
+                $this.next().find( '.switch' ).css( 'left', $('html').attr('dir') === 'rtl' ? '50%' : '0%' ).text( ct_ultimate_gdpr_admin_translations.enabled );
             } else {
-                $this.next().find( '.switch' ).css( 'left', '50%' ).text( ct_ultimate_gdpr_admin_translations.disabled );
+                $this.next().find( '.switch' ).css( 'left', $('html').attr('dir') === 'rtl' ? '0%' : '50%' ).text( ct_ultimate_gdpr_admin_translations.disabled );
             }
         } );
 
         $( '.ct-ultimate-gdpr-checkbox-switch .off' ).on( 'click', function () {
             var $this = $( this );
-            var checkBox =  $this.parent().prev();
-            checkBox.prop( "checked", !checkBox.prop("checked")  );
-            $this.next().css( 'left', '50%' ).text( ct_ultimate_gdpr_admin_translations.disabled );
+            $this.parent().prev().removeAttr( 'checked' );
+            var leftValue = $('html').attr('dir') === 'rtl' ? '0%' : '50%';
+            $this.next().css( 'left', leftValue ).text( ct_ultimate_gdpr_admin_translations.disabled );
         });
         $( '.ct-ultimate-gdpr-checkbox-switch .on' ).on( 'click', function () {
             var $this = $( this );
-            var checkBox =  $this.parent().prev();
-            checkBox.prop( "checked", !checkBox.prop("checked")  );
-            $this.next().next().css( 'left', '0' ).text( ct_ultimate_gdpr_admin_translations.enabled );
+            $this.parent().prev().attr( 'checked', 'checked' );
+            var leftValue = $('html').attr('dir') === 'rtl' ? '50%' : '0%';
+            $this.next().next().css( 'left', leftValue ).text( ct_ultimate_gdpr_admin_translations.enabled );
         });
     }
 

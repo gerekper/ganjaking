@@ -3,8 +3,6 @@
 # https://wpml.org
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: WPML_EXPORT\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -12,7 +10,9 @@ msgstr ""
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 3.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
 
 # printf(
 # wp_kses_post(__( "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner", 'ct-ultimate-gdpr' )),
@@ -48,7 +48,7 @@ msgstr "Impostazioni importate con successo"
 # array( esc_html__( 'Settings were not imported. Please check the import file.', 'ct-ultimate-gdpr' ) );
 #
 msgid "Settings were not imported. Please check the import file."
-msgstr "Le impostazioni non sono state importate. Si prega di controllare il file di "
+msgstr "Le impostazioni non sono state importate. Si prega di controllare il file di."
 
 # if ( ! isset( $service['post_title'] ) ) {
 # return $this->view_options['notices'] = array( esc_html__( 'Wrong file format for services.', 'ct-ultimate-gdpr' ) );
@@ -1548,7 +1548,7 @@ msgstr "Cookie rilevati: %s, cookie salvati: %s"
 # $result->message = esc_html__( 'There was a problem with connecting to the cookie scanner. Skipped this url.', 'ct-ultimate-gdpr' );
 # }
 msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
-msgstr "Si è verificato un problema con la connessione allo scanner dei cookie. "
+msgstr "Si è verificato un problema con la connessione allo scanner dei cookie."
 
 # <input type="text" readonly class="button button-primary" name="ct-ultimate-gdpr-cookie-content-language"
 # value="<?php _e( 'Load', 'ct-ultimate-gdpr' ); ?>" />
@@ -2678,7 +2678,7 @@ msgstr "[%s] Applica casella di controllo per consentire l'iscrizione ai moduli"
 # esc_html__( "[%s] Inject consent checkbox as the first field instead of the last", 'ct-ultimate-gdpr' ),
 # $this->get_name()
 msgid "[%s] Inject consent checkbox as the first field instead of the last"
-msgstr "[%s] Seleziona la casella di controllo del consenso come primo campo anziché "
+msgstr "[%s] Seleziona la casella di controllo del consenso come primo campo anziché"
 
 # sprintf(
 # esc_html__( "[%s] Inject consent checkbox to unsubscribe forms", 'ct-ultimate-gdpr' ),
@@ -2828,7 +2828,7 @@ msgstr "[WooCommerce] Pseudonimizza email di fatturazione"
 # $admin->get_option_value_escaped( $field_name, esc_html__( 'I consent to the storage of my data according to the Privacy Policy', 'ct-ultimate-gdpr' ) ),
 # $admin->get_option_value_escaped( $field_name, $this->get_service_name() )
 msgid "I consent to the storage of my data according to the Privacy Policy"
-msgstr "Acconsento all’archiviazione dei miei dati secondo l’Informativa sulla Privacy "
+msgstr "Acconsento all’archiviazione dei miei dati secondo l’Informativa sulla Privacy"
 
 # protected function get_default_description() {
 # return esc_html__( 'WooCommerce gathers data entered by users in shop orders', 'ct-ultimate-gdpr' );
@@ -2966,13 +2966,13 @@ msgstr "[WP User Data] Pseudonimizza nome e cognome"
 # esc_html__('[WP User] Inject consent checkbox to User network signup form fields', 'ct-ultimate-gdpr'), // Title
 # array($this, 'render_field_services_wp_comments_network_signup_consent_field'), // Callback
 msgid "[WP User] Inject consent checkbox to User network signup form fields"
-msgstr "[WP User] Inietta casella di consenso ai campi del form di registrazione "
+msgstr "[WP User] Inietta casella di consenso ai campi del form di registrazione"
 
 # 'services_wp_comments_register_consent_field', // ID
 # esc_html__('[WP User] Inject consent checkbox to User register form fields', 'ct-ultimate-gdpr'), // Title
 # array($this, 'render_field_services_wp_comments_register_consent_field'), // Callback
 msgid "[WP User] Inject consent checkbox to User register form fields"
-msgstr "[WP User] Inietta casella di consenso ai campi del form di registrazione "
+msgstr "[WP User] Inietta casella di consenso ai campi del form di registrazione"
 
 # 'services_wp_comments_lost_password_consent_field', // ID
 # esc_html__('[WP User] Inject consent checkbox to lost password form fields', 'ct-ultimate-gdpr'), // Title
@@ -3272,7 +3272,7 @@ msgstr "Possono essere necessari alcuni minuti. Grazie per la vostra pazienza!"
 # <p class="cookies-scanner-content__response-notice-1 hidden"><?php echo esc_html__('One of our bees returned with: ', 'ct-ultimate-gdpr'); ?></p>
 # <p><em class="cookies-scanner-content__response"></em></p>
 msgid "One of our bees returned with: "
-msgstr "Una delle nostre api è tornata con:"
+msgstr "Una delle nostre api è tornata con: "
 
 # <p class="cookies-scanner-content__response-notice-2 hidden">
 # <span class="cookies-scanner-content__response-notice-continue hidden"><?php echo esc_html__('Other bees are still searching...', 'ct-ultimate-gdpr'); ?></span>
@@ -3284,7 +3284,7 @@ msgstr "Altre api stanno ancora cercando..."
 # <span class="cookies-scanner-content__response-notice-ended hidden"><?php echo esc_html__('All our busy bees are back with these results: ', 'ct-ultimate-gdpr'); ?></span>
 # </p>
 msgid "All our busy bees are back with these results: "
-msgstr "Tutte le nostre api impegnate sono tornate con questi risultati:"
+msgstr "Tutte le nostre api impegnate sono tornate con questi risultati: "
 
 # <div class="ct-ultimate-gdpr-cookies-scanner-content__scan">
 # <span class="pull-left ct-ultimate-gdpr-cookies-scanner__Message"><?php echo esc_html__('We are currently scanning:', 'ct-ultimate-gdpr'); ?></span>
