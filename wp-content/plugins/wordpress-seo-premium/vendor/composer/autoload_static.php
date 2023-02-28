@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d
+class ComposerStaticInit76d28351682756ba81cbecec1e653e88
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -198,6 +198,7 @@ class ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Upgrade_Integration' => __DIR__ . '/../..' . '/src/integrations/upgrade-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Premium_Option_Wpseo_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/premium-option-wpseo-watcher.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Prominent_Words_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/prominent-words-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/zapier-apikey-reset-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Main' => __DIR__ . '/../..' . '/src/main.php',
         'Yoast\\WP\\SEO\\Premium\\Presenters\\Mastodon_Link_Presenter' => __DIR__ . '/../..' . '/src/presenters/mastodon-link-presenter.php',
@@ -219,9 +220,9 @@ class ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit76d28351682756ba81cbecec1e653e88::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit76d28351682756ba81cbecec1e653e88::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit76d28351682756ba81cbecec1e653e88::$classMap;
 
         }, null, ClassLoader::class);
     }

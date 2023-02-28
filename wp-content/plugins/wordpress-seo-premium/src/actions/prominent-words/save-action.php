@@ -85,24 +85,26 @@ class Save_Action {
 	public function link( $object_type, $object_id, $words ) {
 		$indexable = $this->indexable_repository->find_by_id_and_type( $object_id, $object_type );
 
-		// Set the prominent words version number on the indexable.
-		$indexable->prominent_words_version = WPSEO_Premium_Prominent_Words_Versioning::get_version_number();
+		if ( $indexable ) {
+			// Set the prominent words version number on the indexable.
+			$indexable->prominent_words_version = WPSEO_Premium_Prominent_Words_Versioning::get_version_number();
 
-		/*
-		 * It is correct to save here, because if the indexable didn't exist yet,
-		 * find_by_id_and_type (in the above 'save' function) will have auto-created an indexable object
-		 * with the correct data. So we are not saving an incomplete indexable.
-		 */
-		$indexable->save();
+			/*
+			 * It is correct to save here, because if the indexable didn't exist yet,
+			 * find_by_id_and_type (in the above 'save' function) will have auto-created an indexable object
+			 * with the correct data. So we are not saving an incomplete indexable.
+			 */
+			$indexable->save();
 
-		// Find the prominent words that were already associated with this indexable.
-		$old_words = $this->prominent_words_repository->find_by_indexable_id( $indexable->id );
+			// Find the prominent words that were already associated with this indexable.
+			$old_words = $this->prominent_words_repository->find_by_indexable_id( $indexable->id );
 
-		// Handle these words.
-		$words = $this->handle_old_words( $indexable->id, $old_words, $words );
+			// Handle these words.
+			$words = $this->handle_old_words( $indexable->id, $old_words, $words );
 
-		// Create database entries for all new words that are not yet in the database.
-		$this->create_words( $indexable->id, $words );
+			// Create database entries for all new words that are not yet in the database.
+			$this->create_words( $indexable->id, $words );
+		}
 	}
 
 	/**

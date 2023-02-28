@@ -152,8 +152,10 @@ class Zapier_Action {
 		);
 		$zapier_data = [];
 		foreach ( $latest_post as $item ) {
-			$indexable     = $this->indexable_repository->find_by_id_and_type( $item->ID, 'post' );
-			$zapier_data[] = (object) $this->zapier_helper->get_data_for_zapier( $indexable );
+			$indexable = $this->indexable_repository->find_by_id_and_type( $item->ID, 'post' );
+			if ( $indexable ) {
+				$zapier_data[] = (object) $this->zapier_helper->get_data_for_zapier( $indexable );
+			}
 		}
 
 		return (object) [

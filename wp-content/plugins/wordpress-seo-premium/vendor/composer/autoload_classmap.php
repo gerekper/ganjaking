@@ -179,6 +179,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Upgrade_Integration' => $baseDir . '/src/integrations/upgrade-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration' => $baseDir . '/src/integrations/user-profile-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Premium_Option_Wpseo_Watcher' => $baseDir . '/src/integrations/watchers/premium-option-wpseo-watcher.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Prominent_Words_Watcher' => $baseDir . '/src/integrations/watchers/prominent-words-watcher.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => $baseDir . '/src/integrations/watchers/zapier-apikey-reset-watcher.php',
     'Yoast\\WP\\SEO\\Premium\\Main' => $baseDir . '/src/main.php',
     'Yoast\\WP\\SEO\\Premium\\Presenters\\Mastodon_Link_Presenter' => $baseDir . '/src/presenters/mastodon-link-presenter.php',
