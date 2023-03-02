@@ -707,15 +707,7 @@ class WC_AM_Product_Admin {
             </script>
 			<?php
 
-			if ( WCAM()->get_wc_version() >= '3.2' ) :
-				WCAM()->wc_am_print_js( "
-				jQuery('select.wc-am-select').selectWoo({allowClear:true});
-			" );
-			else :
-				WCAM()->wc_am_print_js( "
-				jQuery('select.wc-am-select').select2({allowClear:true});
-			" );
-			endif;
+			WCAM()->wc_am_print_js( "jQuery('select.wc-am-select').selectWoo({allowClear:true}); " );
 		}
 	}
 
@@ -1106,15 +1098,7 @@ class WC_AM_Product_Admin {
 
 		" );
 
-		if ( WCAM()->get_wc_version() >= '3.2' ) :
-			WCAM()->wc_am_print_js( "
-				jQuery('select.wc-am-var-select').selectWoo({allowClear:true});
-			" );
-		else :
-			WCAM()->wc_am_print_js( "
-				jQuery('select.wc-am-var-select').select2({allowClear:true});
-			" );
-		endif;
+		WCAM()->wc_am_print_js( " jQuery('select.wc-am-var-select').selectWoo({allowClear:true}); " );
 	}
 
 	/**

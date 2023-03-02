@@ -1,5 +1,18 @@
 *** Redsys Gateway Change Log ***
 
+2023.02.27 - version 20.2.0
+
+* NEW: New modal options for Redsys redirection.
+* NEW: Added InSite API V3.
+* NEW: New option for disable the action by the plugin of mark as paid the renewal subscriptions in Redirections and InSite.
+* NEW: Declared compatibility with WooCommerce 7.4
+* UPDATE: Redesign of InSite Separate fields (Stripe Clone).
+* UPDATE: Updated function create_add_payment_method_number() for delete WP cache for "number_ad_paymnt_mehod" before get the option.
+* UPDATE: Updated function create_checkout_insite_number() for delete WP cache for "number_insite_checkout" before get the option.
+* FIX: Fixed many Notices and some Warnings.
+* FIX: In "The Call 5" with InSite, the customer name and last name was not send to Redsys.
+* FIX: Show tokens in Admin user Edit screen.
+
 2023.02.09 - version 20.1.0
 
 * NEW: a dedicated logo for PayGold and the ability to custimize it from admin settings.
@@ -686,7 +699,7 @@
 * Updated some messages
 * Updated language files
 
-2015.11.03 - version 3.0
+2015.11.03 - version 3.0.0
 
 * NEW: Added new SHA-256 API to Redsys.
 * NEW: Added new SHA-256 API to Iupay.
@@ -695,11 +708,11 @@
 * NEW: Added Check for mcrypt_encrypt needed for the new SHA-256 API.
 * Updated translation files.
 
-2015.08.05 - Version 2.1
+2015.08.05 - Version 2.1.0
 
 * Fixed a bug in Sequential Invoice number.
 
-2015.06.02 - Version 2.0
+2015.06.02 - Version 2.0.0
 
 * NEW: Added Iupay!.
 * NEW: Added Sequential Invoice number.
@@ -708,10 +721,10 @@
 * Fixed code for some test Banks.
 * Added Ds_Merchant_MerchantName
 
-2015.2.11 - version 1.9
+2015.2.11 - version 1.9.0
 * Added compatibility with WooCommerce 2.3
 
-2014.08.08 - version 1.8
+2014.08.08 - version 1.8.0
  * Added some meta to Orders
  * Ds_AuthorisationCode
  * Ds_Date
@@ -719,32 +732,32 @@
  * Ds_AuthorisationCode
  * Ds_Card_Country
 
-2014.06.21 - version 1.7
+2014.06.21 - version 1.7.0
  * NEW: Added compatibility with WPML. Now, the Redsys Gateway is shown in the customer language if WPML is installed.
 
-2014.06.15 - version 1.6
+2014.06.15 - version 1.6.0
  * NEW: Added compatibility with "WooCommerce Sequential Order Numbers Pro"
 
 2014.05.06 - version 1.5.1
  * Fixed Terminal number.
 
-2014.04.30 - version 1.5
+2014.04.30 - version 1.5.0
  * NEW: Added ability for select the language for Redsys Gateway from admin panel.
  * NEW: Added a Second Terminal, now the Admins can set a second terminal.
  * Fixed a problem with shops under HTTPS
 
-2014.04.23 - version 1.4
+2014.04.23 - version 1.4.0
  * Fixed return url when the payment fails
 
-2014.01.10 - version 1.3
+2014.01.10 - version 1.3.0
  * Compatibility fix with WooCommerce 2.1
 
-2013.10.09 - version 1.2
+2013.10.09 - version 1.2.0
  * Fix a posible problem with duplicated orders number and Redsys Gateway if the customer go back.
 
-2013.06.25 - version 1.1
+2013.06.25 - version 1.1.0
  * Fixed odd caracter
  * Added BRL currency
 
-2013.03.21 - version 1.0
+2013.03.21 - version 1.0.0
  * First Release

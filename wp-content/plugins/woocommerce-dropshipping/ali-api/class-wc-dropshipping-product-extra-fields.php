@@ -662,5 +662,434 @@ class WC_Dropshipping_Product_Extra_Fields {
 			update_post_meta( $post_id, '_custom_product_text_field_description', esc_attr( $woocommerce_custom_product_text_field ) );
 		}
 	}
-
 }
+
+/* Related to Price Calculator */
+
+add_action( 'woocommerce_variation_options_pricing', 'bbloomer_add_custom_field_to_variations', 10, 3 );
+
+function bbloomer_add_custom_field_to_variations( $loop, $variation_data, $variation ) {
+
+  $regular_price = $variation_data['_regular_price'][0];
+  $sale_price = $variation_data['_sale_price'][0];
+  $costofproduct = '';
+
+	if (!empty($regular_price) && ( $sale_price )) {
+	  $costofproduct = $sale_price;
+	} else {
+	  $costofproduct = $regular_price;
+	}
+ 
+	  $options = get_option( 'wc_dropship_manager' );
+	  $prft_prcnt_val = 0;
+	  $prft_dolr_val = 0;
+	  $fee_prcnt_val = 0;
+	  $fee_dolr_val = 0;
+	if (!empty($options['fee_percent_value'])) {
+
+		$fee_prcnt_val = $options['fee_percent_value'];
+	}
+
+	if (!empty($options['fee_doller_value'])) {
+
+		$fee_dolr_val = $options['fee_doller_value'];
+	}
+	   
+	if ($options['dynamic_profit_margin'] != 1 ) {
+		
+		if (!empty($options['profit_percent_value'])) {
+
+		  $prft_prcnt_val = $options['profit_percent_value'];
+		} 
+
+		if (!empty($options['profit_doller_value'])) {
+
+		  $prft_dolr_val = $options['profit_doller_value'];
+		}
+
+	} else {
+
+		if (!empty(@$options['profit_margin_hidden_textarea'])) {
+						
+			$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+			$allElements = explode('~', $textAreaValue);
+			
+			foreach ($allElements as $row) {
+
+				  $allTds = explode('_', $row);
+				if ('null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >=$allTds[0] && $costofproduct <= $allTds[1] ) {
+
+					$prft_prcnt_val = $allTds[2];
+					$prft_dolr_val = $allTds[3];
+					break;
+				}
+			}
+		}
+	}
+
+		/* $pcnt_profit = $prft_prcnt_val / 100 * 100;
+		
+		$all_prft_some = $costofproduct + $pcnt_profit + $prft_dolr_val + $fee_dolr_val;
+		$final_some = $all_prft_some / 100 * 100;
+
+		$devide_left = 100 - $fee_prcnt_val;
+
+		$right_calculesn = number_format($final_some * 100 / $devide_left, 2);
+		$final_prcnt_fee = number_format($right_calculesn - $final_some, 2); */
+		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		$estimated_profit = $profit_prcnt + $prft_dolr_val;
+	  
+	  woocommerce_wp_text_input( array(
+		'id' => 'estmt_profit[' . $loop . ']',
+		'class' => 'estmt_profit_variable',
+		'custom_attributes' => array(
+			'hidden' => 'hidden',
+		  ),
+		'label' => __( 'Estimated Profit : ' . wc_price($estimated_profit), 'woocommerce' ),
+		'value' => get_post_meta( $variation->ID, 'estmt_profit', true )
+		) );
+}
+
+add_action( 'woocommerce_product_options_general_product_data', 'echo_product_id_sku_general_tab' );
+function echo_product_id_sku_general_tab() {
+	global $product_object;
+
+	if ( $product_object->is_type('variable') ) {
+		$count = 1;
+
+		foreach ( $product_object->get_children() as $variation_id ) {
+		  $variation = wc_get_product($variation_id);
+			
+		  $costofproduct = $variation->get_price();
+		  
+		  $options = get_option( 'wc_dropship_manager' );
+		  $prft_prcnt_val = 0;
+		  $prft_dolr_val = 0;
+		  $fee_prcnt_val = 0;
+		  $fee_dolr_val = 0;
+
+			if (!empty($options['fee_percent_value'])) {
+
+			  $fee_prcnt_val = $options['fee_percent_value'];
+			}
+
+			if (!empty($options['fee_doller_value'])) {
+
+			  $fee_dolr_val = $options['fee_doller_value'];
+			}
+
+			if ($options['dynamic_profit_margin'] != 1 ) {
+			
+				if (!empty($options['profit_percent_value'])) {
+
+				  $prft_prcnt_val = $options['profit_percent_value'];
+				} 
+
+				if (!empty($options['profit_doller_value'])) {
+
+				  $prft_dolr_val = $options['profit_doller_value'];
+				}
+
+			} else {
+
+				if (!empty(@$options['profit_margin_hidden_textarea'])) {
+						
+					$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+					$allElements = explode('~', $textAreaValue);
+					
+					foreach ($allElements as $row) {
+
+						 $allTds = explode('_', $row);
+				
+						
+						if ('null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >=$allTds[0] && $costofproduct <= $allTds[1] ) {
+
+							$prft_prcnt_val = $allTds[2];
+							$prft_dolr_val = $allTds[3];
+							break;
+						}
+					}
+				}
+			}
+
+		/* $pcnt_profit = $prft_prcnt_val / 100 * 100;
+		
+		$all_prft_some = $costofproduct + $pcnt_profit + $prft_dolr_val + $fee_dolr_val;
+		$final_some = $all_prft_some / 100 * 100;
+
+		$devide_left = 100 - $fee_prcnt_val;
+
+		$right_calculesn = number_format($final_some * 100 / $devide_left, 2);
+		$final_prcnt_fee = number_format($right_calculesn - $final_some, 2); */
+		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		$estimated_profit = $profit_prcnt + $prft_dolr_val;
+
+		$range_price[] = $estimated_profit;
+
+			$count++;
+		}
+
+		$min = min($range_price);
+		$max = max($range_price);
+		
+		echo '<p class="form-field">
+                <label>Estimated Profit : </label>
+            <span class="description">' . wc_price($min) . ' - ' . wc_price($max) . '</span>
+            </p>';
+	}
+}
+
+add_action( 'woocommerce_product_options_general_product_data', 'woo_product_custom_fields_for_profitcal' );
+
+function woo_product_custom_fields_for_profitcal() {
+
+  global $woocommerce, $post;
+  $variation = wc_get_product($post->ID);
+   
+	if ('variable' != $variation->get_type('variable') ) {
+	
+	 $costofproduct = $variation->get_price();
+	 $options = get_option( 'wc_dropship_manager' );
+	 $prft_prcnt_val = 0;
+	 $prft_dolr_val = 0;
+	 $fee_prcnt_val = 0;
+	 $fee_dolr_val = 0;
+
+		if (!empty($options['profit_doller_value'])) {
+
+			$prft_dolr_val = $options['profit_doller_value'];
+		}
+
+		if (!empty($options['fee_percent_value'])) {
+
+		   $fee_prcnt_val = $options['fee_percent_value'];
+		}
+
+		if ($options['dynamic_profit_margin'] != 1 ) {
+	  
+			if (!empty($options['profit_percent_value'])) {
+
+			   $prft_prcnt_val = $options['profit_percent_value'];
+			} 
+
+			if (!empty($options['fee_doller_value'])) {
+
+			$fee_dolr_val = $options['fee_doller_value'];
+			}
+		} else {
+
+			if (!empty(@$options['profit_margin_hidden_textarea'])) {
+						
+				$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+				$allElements = explode('~', $textAreaValue);
+				
+				foreach ($allElements as $row) {
+
+					  $allTds = explode('_', $row);
+
+					if ('null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >=$allTds[0] && $costofproduct <= $allTds[1] ) {
+
+						$prft_prcnt_val = $allTds[2];
+						$prft_dolr_val = $allTds[3];
+						break;
+					}
+				}
+			}
+		}
+
+	 /* $pcnt_profit = $prft_prcnt_val / 100 * 100;
+
+	 $all_prft_some = $costofproduct + $pcnt_profit + $prft_dolr_val + $fee_dolr_val;
+	 $final_some = $all_prft_some / 100 * 100;
+
+	 $devide_left = 100 - $fee_prcnt_val;
+
+	 $right_calculesn = number_format($final_some * 100 / $devide_left, 2);
+	 $final_prcnt_fee = number_format($right_calculesn - $final_some, 2); */
+	$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+	$estimated_profit = $profit_prcnt + $prft_dolr_val;
+
+	 echo '<p class="form-field">
+            <label>Estimated Profit : </label>
+        <span class="description">' . wc_price($estimated_profit) . '</span>
+        </p>';
+	}
+}
+
+add_filter( 'manage_edit-product_columns', 'bbloomer_admin_products_visibility_column', 9999 );
+ 
+function bbloomer_admin_products_visibility_column( $columns ) {
+   $columns['est_profit'] = 'Estimated Profit';
+   return $columns;
+}
+
+add_filter( 'manage_edit-product_columns', 'est_profit_column_place', 20 );
+function est_profit_column_place( $columns_array ) {
+
+  // I want to display Brand column just after the product name column
+  return array_slice( $columns_array, 0, 6, true )
+  + array( 'est_profit' => 'est_profit' )
+  + array_slice( $columns_array, 6, null, true );
+}
+ 
+add_action( 'manage_product_posts_custom_column', 'admin_products_est_profit_column_content', 10, 2 );
+ 
+function admin_products_est_profit_column_content( $column, $product_id ) {
+	if ( $column == 'est_profit' ) {
+
+	global $product;
+
+		if ( $product->get_type('variable') == 'variable') {
+			$count = 1;
+			$range_price= array();
+			foreach ( $product->get_children() as $variation_id ) {
+			  $variation = wc_get_product($variation_id);
+			
+			  $costofproduct = $variation->get_price();
+		  
+			  $options = get_option( 'wc_dropship_manager' );
+			  $prft_prcnt_val = 0;
+			  $prft_dolr_val = 0;
+			  $fee_prcnt_val = 0;
+			  $fee_dolr_val = 0;
+				if (!empty($options['fee_percent_value'])) {
+
+					$fee_prcnt_val = $options['fee_percent_value'];
+				}
+
+				if (!empty($options['fee_doller_value'])) {
+
+			  		$fee_dolr_val = $options['fee_doller_value'];
+				}
+
+				if ($options['dynamic_profit_margin'] != 1 ) {
+				
+					if (!empty($options['profit_percent_value'])) {
+
+					  $prft_prcnt_val = $options['profit_percent_value'];
+
+					} 
+
+					if (!empty($options['profit_doller_value'])) {
+
+					  $prft_dolr_val = $options['profit_doller_value'];
+					}
+
+				} else {
+					if (!empty(@$options['profit_margin_hidden_textarea'])) {
+						
+						$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+						$allElements = explode('~', $textAreaValue);
+						
+						foreach ($allElements as $row) {
+
+							  $allTds = explode('_', $row);
+					
+							if ('null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >=$allTds[0] && $costofproduct <= $allTds[1] ) {
+
+								$prft_prcnt_val = $allTds[2];
+								$prft_dolr_val = $allTds[3];
+								break;
+							}
+						}
+					}
+			  
+				}
+
+		/*$pcnt_profit = $prft_prcnt_val / 100 * 100;
+		
+		$all_prft_some = $costofproduct + $pcnt_profit + $prft_dolr_val + $fee_dolr_val;
+		$final_some = $all_prft_some / 100 * 100;
+
+		$devide_left = 100 - $fee_prcnt_val;
+
+		$right_calculesn = number_format($final_some * 100 / $devide_left, 2);
+		$final_prcnt_fee = number_format($right_calculesn - $final_some, 2); */
+		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		$estimated_profit = $profit_prcnt + $prft_dolr_val;
+
+		$range_price[] = $estimated_profit;
+
+			$count++;
+			}
+
+			$min = min($range_price);
+			$max = max($range_price);
+			echo wc_price($min) . ' - ' . wc_price($max);
+		} else {
+	  
+		   $variation = wc_get_product($product_id);
+			$costofproduct = $variation->get_price();
+			 $options = get_option( 'wc_dropship_manager' );
+			  $prft_prcnt_val = 0;
+			  $prft_dolr_val = 0;
+			  $fee_prcnt_val = 0;
+			  $fee_dolr_val = 0;
+
+			if (!empty($options['fee_percent_value'])) {
+
+			$fee_prcnt_val = $options['fee_percent_value'];
+			}
+
+			if (!empty($options['fee_doller_value'])) {
+
+				$fee_dolr_val = $options['fee_doller_value'];
+			}
+
+			if ($options['dynamic_profit_margin'] != 1 ) {
+			
+				if (!empty($options['profit_percent_value'])) {
+
+				  $prft_prcnt_val = $options['profit_percent_value'];
+				} 
+
+				if (!empty($options['profit_doller_value'])) {
+
+				  $prft_dolr_val = $options['profit_doller_value'];
+				}
+
+			} else {
+
+				if (!empty(@$options['profit_margin_hidden_textarea'])) {
+						
+					$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+					$allElements = explode('~', $textAreaValue);
+					
+					foreach ($allElements as $row) {
+
+						$allTds = explode('_', $row);
+						
+						if ('null' != $allTds[0] && 'null' != $allTds[1] && 'null' != $allTds[2] && 'null' != $allTds[3] && $costofproduct >=$allTds[0] && $costofproduct <= $allTds[1] ) {
+
+							$prft_prcnt_val = $allTds[2];
+							$prft_dolr_val = $allTds[3];
+							break;
+						}
+					}
+				}
+			}
+
+		/* $pcnt_profit = $prft_prcnt_val / 100 * 100;
+		
+		$all_prft_some = $costofproduct + $pcnt_profit + $prft_dolr_val + $fee_dolr_val;
+		$final_some = $all_prft_some / 100 * 100;
+
+		$devide_left = 100 - $fee_prcnt_val;
+
+		$right_calculesn = number_format($final_some * 100 / $devide_left, 2);
+		$final_prcnt_fee = number_format($right_calculesn - $final_some, 2); */
+		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		$estimated_profit = $profit_prcnt + $prft_dolr_val;
+		echo wc_price($estimated_profit);
+	  
+		}
+	}
+}
+
+add_action('admin_head', 'ds_product_column_width');
+function ds_product_column_width() {
+  echo '<style type="text/css">';
+  echo 'table.wp-list-table .column-est_profit { width: 15%; text-align: left!important;}';
+  echo '</style>';
+}
+/* Related to Price Calculator END*/

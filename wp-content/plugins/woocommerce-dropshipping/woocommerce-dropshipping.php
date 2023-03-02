@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.8.0
+ * Version: 4.9.0
 
  * Author: OPMC Australia Pty Ltd
 
@@ -289,7 +289,25 @@ final class WC_Dropshipping {
 		add_filter("cdiscount_product_add_pro",array($this,'cdiscount_product_add'),10,3);
 		add_filter("banggood_product_add_pro",array($this,'banggood_product_add'),10,3);
 		add_filter("update_aliexpress_tracking_number_pro",array($this,'update_aliexpress_tracking_number'),10,3);
+		add_action('admin_enqueue_scripts', array( $this, 'switch_onoff') );
 
+	}
+
+	public function switch_onoff( $hookget) {
+
+		 if ( 'woocommerce_page_wc-settings' != $hookget ) {
+			return;
+		 }
+
+		if (!isset($_REQUEST['tab']) || 'wc_dropship_settings' !== $_REQUEST['tab']) {
+			return;
+		}
+
+		wp_enqueue_style('on-off-switch', plugins_url('assets/css/on-off-switch.css', __FILE__), array(), 'v1.0');
+		wp_enqueue_style('opmc_af_admin_css', plugins_url( 'assets/css/app.css', __FILE__), array(), 'v1.0'  );
+		wp_enqueue_script('on-off-switch', plugins_url('assets/js/on-off-switch.js', __FILE__), array(), 'v1.0');
+		//wp_enqueue_script('app', plugins_url('assets/js/app.js', __FILE__), array(), 'v1.0');
+		wp_enqueue_script('on-off-switch-onload', plugins_url('assets/js/on-off-switch-onload.js', __FILE__), array(), 'v1.0');
 	}
 
 	/**

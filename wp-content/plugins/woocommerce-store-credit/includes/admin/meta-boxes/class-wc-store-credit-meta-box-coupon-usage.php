@@ -24,6 +24,7 @@ class WC_Store_Credit_Meta_Box_Coupon_Usage {
 	 */
 	public static function output( $post ) {
 		$coupon = wc_store_credit_get_coupon( $post->ID );
+		$orders = self::get_orders( $coupon );
 
 		include 'views/html-coupon-store-credit-usage.php';
 	}
@@ -115,9 +116,8 @@ class WC_Store_Credit_Meta_Box_Coupon_Usage {
 				);
 				break;
 			case 'credit':
-				$code        = wc_store_credit_get_coupon_code( $coupon );
-				$credit_used = wc_get_store_credit_used_for_order( $order, 'per_coupon' );
-				$value       = wc_price( isset( $credit_used[ $code ] ) ? $credit_used[ $code ] : 0 );
+				$credit_used = wc_get_coupon_store_credit_used_for_order( $order, $coupon );
+				$value       = wc_price( $credit_used );
 				break;
 		}
 

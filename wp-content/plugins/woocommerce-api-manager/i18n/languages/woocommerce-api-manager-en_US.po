@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2022-09-14 00:25-0700\n"
-"PO-Revision-Date: 2022-09-14 00:25-0700\n"
+"POT-Creation-Date: 2023-02-27 22:44-0800\n"
+"PO-Revision-Date: 2023-02-27 22:44-0800\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -50,8 +50,9 @@ msgid "Object"
 msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:32
-#: includes/wc-am-order-admin.php:44
+#: includes/wc-am-order-admin.php:72
 #: templates/emails/api-keys-order-complete.php:36
+#: templates/emails/plain/api-keys-order-complete.php:36
 #: templates/myaccount/api-keys.php:53
 #, fuzzy
 msgid "Master API Key"
@@ -69,14 +70,14 @@ msgid "Associated API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:63
-#: templates/myaccount/api-keys.php:243
+#: templates/myaccount/api-keys.php:246
 #, fuzzy
 msgid "Delete"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:17
 #: includes/admin/meta-boxes/html-order-api-resources.php:23
-#: templates/myaccount/api-keys.php:203
+#: templates/myaccount/api-keys.php:206
 msgid "never"
 msgstr ""
 
@@ -107,7 +108,7 @@ msgid "A value less than the current Activation Limit Total is not valid."
 msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:67
-#: includes/wc-am-product-admin.php:443 includes/wc-am-product-admin.php:799
+#: includes/wc-am-product-admin.php:443 includes/wc-am-product-admin.php:791
 msgid "1"
 msgstr ""
 
@@ -130,8 +131,9 @@ msgid "Resource Title:"
 msgstr "Titre du logiciel"
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:87
-#: includes/wc-am-product-admin.php:803
+#: includes/wc-am-product-admin.php:795
 #: templates/emails/api-keys-order-complete.php:61
+#: templates/emails/plain/api-keys-order-complete.php:61
 #, fuzzy
 msgid "Product ID:"
 msgstr "Produit"
@@ -445,6 +447,7 @@ msgstr "Vous n'avez pas de clés API."
 
 #: includes/admin/wc-am-settings-admin.php:224
 #: templates/emails/api-keys-order-complete.php:48
+#: templates/emails/plain/api-keys-order-complete.php:48
 #, fuzzy
 msgid "Product Order API Keys"
 msgstr "Clés de licence API"
@@ -469,31 +472,31 @@ msgid ""
 msgstr ""
 
 #: includes/admin/wc-am-settings-admin.php:243
-#: includes/wc-am-product-admin.php:527 includes/wc-am-product-admin.php:914
+#: includes/wc-am-product-admin.php:527 includes/wc-am-product-admin.php:906
 #, fuzzy
 msgid "Description"
 msgstr "Description"
 
 #: includes/admin/wc-am-settings-admin.php:252
-#: includes/wc-am-product-admin.php:565 includes/wc-am-product-admin.php:956
+#: includes/wc-am-product-admin.php:565 includes/wc-am-product-admin.php:948
 #, fuzzy
 msgid "Installation"
 msgstr "Installation"
 
 #: includes/admin/wc-am-settings-admin.php:261
-#: includes/wc-am-product-admin.php:584 includes/wc-am-product-admin.php:977
+#: includes/wc-am-product-admin.php:584 includes/wc-am-product-admin.php:969
 #, fuzzy
 msgid "FAQ"
 msgstr "FAQ"
 
 #: includes/admin/wc-am-settings-admin.php:270
-#: includes/wc-am-product-admin.php:603 includes/wc-am-product-admin.php:998
+#: includes/wc-am-product-admin.php:603 includes/wc-am-product-admin.php:990
 #, fuzzy
 msgid "Screenshots"
 msgstr "Copies d'écran"
 
 #: includes/admin/wc-am-settings-admin.php:279
-#: includes/wc-am-product-admin.php:622 includes/wc-am-product-admin.php:1019
+#: includes/wc-am-product-admin.php:622 includes/wc-am-product-admin.php:1011
 #, fuzzy
 msgid "Other Notes"
 msgstr "Autres notes"
@@ -872,33 +875,33 @@ msgid "Authentication failed."
 msgstr "Action"
 
 #: includes/wc-am-download-handler.php:89
-#: includes/wc-am-download-handler.php:144
+#: includes/wc-am-download-handler.php:135
 #, fuzzy
 msgid "No file defined"
 msgstr "Fichier non défini"
 
-#: includes/wc-am-download-handler.php:164
+#: includes/wc-am-download-handler.php:155
 #, fuzzy
 msgid "Invalid order."
 msgstr "Commande invalide."
 
-#: includes/wc-am-download-handler.php:178
+#: includes/wc-am-download-handler.php:169
 #, fuzzy
 msgid "Sorry, you have reached your download limit for this file"
 msgstr ""
 "Désolé, vous avez atteint votre limite de téléchargement pour ce fichier"
 
-#: includes/wc-am-download-handler.php:191
+#: includes/wc-am-download-handler.php:182
 #, fuzzy
 msgid "Sorry, this download has expired"
 msgstr "Désolé, ce téléchargement a expiré"
 
-#: includes/wc-am-download-handler.php:417
+#: includes/wc-am-download-handler.php:408
 #, fuzzy
 msgid "File not found"
 msgstr "Fichier introuvable"
 
-#: includes/wc-am-download-handler.php:609
+#: includes/wc-am-download-handler.php:600
 #, fuzzy
 msgid "Go to shop"
 msgstr "Retour à l'accueil &rarr;"
@@ -913,72 +916,72 @@ msgstr ""
 msgid "%s ago"
 msgstr ""
 
-#: includes/wc-am-install.php:108
+#: includes/wc-am-install.php:105
 #, fuzzy
 msgid "Settings"
 msgstr "Paramètres globaux"
 
-#: includes/wc-am-install.php:123
+#: includes/wc-am-install.php:120
 msgid "Docs"
 msgstr ""
 
-#: includes/wc-am-install.php:124
+#: includes/wc-am-install.php:121
 #, fuzzy
 msgid "Support"
 msgstr "Support"
 
-#: includes/wc-am-order-admin.php:48
+#: includes/wc-am-order-admin.php:73
 #, fuzzy
 msgid "API Resources"
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:52
+#: includes/wc-am-order-admin.php:74
 #, fuzzy
 msgid "API Resource Activations"
 msgstr "Activations"
 
-#: includes/wc-am-order-admin.php:68 includes/wc-am-order-admin.php:106
-#: includes/wc-am-order-admin.php:215
+#: includes/wc-am-order-admin.php:94 includes/wc-am-order-admin.php:135
+#: includes/wc-am-order-admin.php:277
 #, fuzzy
 msgid "Contains no API Product."
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:91 includes/wc-am-order-admin.php:149
-#: includes/wc-am-order-admin.php:199
+#: includes/wc-am-order-admin.php:117 includes/wc-am-order-admin.php:224
+#: includes/wc-am-order-admin.php:258
 msgid "No API resources for this order."
 msgstr ""
 
-#: includes/wc-am-order-admin.php:226 includes/wc-am-order-admin.php:294
+#: includes/wc-am-order-admin.php:288 includes/wc-am-order-admin.php:356
 #, fuzzy
 msgid "No activations yet."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:238
+#: includes/wc-am-order-admin.php:300
 #, fuzzy
 msgid "Are you sure you want to delete this activation?"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
-#: includes/wc-am-order-admin.php:434
+#: includes/wc-am-order-admin.php:500
 #, fuzzy
 msgid "Contains API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:434
+#: includes/wc-am-order-admin.php:500
 #, fuzzy
 msgid "API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:454
+#: includes/wc-am-order-admin.php:520
 #, fuzzy
 msgid "Has activations."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:456
+#: includes/wc-am-order-admin.php:522
 #, fuzzy
 msgid "No activations."
 msgstr "Activations"
 
-#: includes/wc-am-order.php:631
+#: includes/wc-am-order.php:642
 msgid "Cancelled API Products update job."
 msgstr ""
 
@@ -1014,7 +1017,7 @@ msgstr ""
 msgid "The software version number."
 msgstr "Le numéro de version du logiciel."
 
-#: includes/wc-am-product-admin.php:319 includes/wc-am-product-admin.php:856
+#: includes/wc-am-product-admin.php:319 includes/wc-am-product-admin.php:848
 #, fuzzy
 msgid "e.g. 1.2.5"
 msgstr "ex. 1.2.5"
@@ -1024,12 +1027,12 @@ msgstr "ex. 1.2.5"
 msgid "Page URL"
 msgstr "URL de la page du logiciel"
 
-#: includes/wc-am-product-admin.php:326 includes/wc-am-product-admin.php:907
+#: includes/wc-am-product-admin.php:326 includes/wc-am-product-admin.php:899
 #, fuzzy
 msgid "The software page URL."
 msgstr "URL de la page du logiciel."
 
-#: includes/wc-am-product-admin.php:327 includes/wc-am-product-admin.php:911
+#: includes/wc-am-product-admin.php:327 includes/wc-am-product-admin.php:903
 #, fuzzy
 msgid "http://myplugin.com"
 msgstr "http://monplugin.fr"
@@ -1078,7 +1081,7 @@ msgid ""
 msgstr ""
 "La plus récente version de WordPress sur laquelle le logiciel a été testé."
 
-#: includes/wc-am-product-admin.php:351 includes/wc-am-product-admin.php:874
+#: includes/wc-am-product-admin.php:351 includes/wc-am-product-admin.php:866
 #, fuzzy
 msgid "e.g. 4.0"
 msgstr "ex. 4.0"
@@ -1087,12 +1090,12 @@ msgstr "ex. 4.0"
 msgid "Requires PHP Version"
 msgstr ""
 
-#: includes/wc-am-product-admin.php:358 includes/wc-am-product-admin.php:879
+#: includes/wc-am-product-admin.php:358 includes/wc-am-product-admin.php:871
 #, fuzzy
 msgid "Minimum version of PHP software requires."
 msgstr "Version miminum de WordPress requise."
 
-#: includes/wc-am-product-admin.php:359 includes/wc-am-product-admin.php:883
+#: includes/wc-am-product-admin.php:359 includes/wc-am-product-admin.php:875
 #, fuzzy
 msgid "e.g. 7.3"
 msgstr "ex. 3.3"
@@ -1107,7 +1110,7 @@ msgstr "Dernière mise à jour du logiciel"
 msgid "When the software was last updated."
 msgstr "Quand le logiciel a été actualisé pour la dernière fois"
 
-#: includes/wc-am-product-admin.php:367 includes/wc-am-product-admin.php:893
+#: includes/wc-am-product-admin.php:367 includes/wc-am-product-admin.php:885
 #, fuzzy
 msgid "YYYY-MM-DD"
 msgstr "YYYY-MM-DD"
@@ -1116,11 +1119,11 @@ msgstr "YYYY-MM-DD"
 msgid "Upgrade Notice"
 msgstr ""
 
-#: includes/wc-am-product-admin.php:374 includes/wc-am-product-admin.php:843
+#: includes/wc-am-product-admin.php:374 includes/wc-am-product-admin.php:835
 msgid "A notice displayed when an update is available."
 msgstr ""
 
-#: includes/wc-am-product-admin.php:375 includes/wc-am-product-admin.php:847
+#: includes/wc-am-product-admin.php:375 includes/wc-am-product-admin.php:839
 msgid "Optional"
 msgstr ""
 
@@ -1131,12 +1134,12 @@ msgid ""
 "Activation limit, not listed below, must be set per variation."
 msgstr ""
 
-#: includes/wc-am-product-admin.php:431 includes/wc-am-product-admin.php:785
+#: includes/wc-am-product-admin.php:431 includes/wc-am-product-admin.php:777
 #, fuzzy
 msgid "Unlimited Activations"
 msgstr "Activations"
 
-#: includes/wc-am-product-admin.php:433 includes/wc-am-product-admin.php:787
+#: includes/wc-am-product-admin.php:433 includes/wc-am-product-admin.php:779
 #, fuzzy
 msgid "Enable for unlimited number of activations."
 msgstr "Nombre d'activations maximum dépassé"
@@ -1146,7 +1149,7 @@ msgstr "Nombre d'activations maximum dépassé"
 msgid "Activation Limit"
 msgstr "Limit d'activation"
 
-#: includes/wc-am-product-admin.php:446 includes/wc-am-product-admin.php:795
+#: includes/wc-am-product-admin.php:446 includes/wc-am-product-admin.php:787
 msgid ""
 "Limits the number of API Key activations. Default is 1 when left empty. "
 "Caution: Changing this value will cause all existing API Resources/purchases "
@@ -1158,12 +1161,12 @@ msgstr ""
 msgid "API Access Expires"
 msgstr "Permission d'accès API"
 
-#: includes/wc-am-product-admin.php:474 includes/wc-am-product-admin.php:834
-#: includes/wc-am-product-admin.php:835
+#: includes/wc-am-product-admin.php:474 includes/wc-am-product-admin.php:826
+#: includes/wc-am-product-admin.php:827
 msgid "Never"
 msgstr ""
 
-#: includes/wc-am-product-admin.php:477 includes/wc-am-product-admin.php:831
+#: includes/wc-am-product-admin.php:477 includes/wc-am-product-admin.php:823
 msgid ""
 "Enter the number of days before API access expires, or leave blank to never "
 "expire. Caution: Changing this value will cause all existing API Resources/"
@@ -1172,8 +1175,8 @@ msgstr ""
 
 #: includes/wc-am-product-admin.php:508
 #: templates/myaccount/api-downloads.php:51
-#: templates/myaccount/api-downloads.php:163
-#: templates/myaccount/api-downloads.php:263
+#: templates/myaccount/api-downloads.php:166
+#: templates/myaccount/api-downloads.php:266
 msgid "Documentation"
 msgstr ""
 
@@ -1194,9 +1197,9 @@ msgstr ""
 msgid "A description of the software."
 msgstr "Une description du logiciel."
 
-#: includes/wc-am-product-admin.php:546 includes/wc-am-product-admin.php:935
-#: templates/myaccount/api-downloads.php:152
-#: templates/myaccount/api-downloads.php:252
+#: includes/wc-am-product-admin.php:546 includes/wc-am-product-admin.php:927
+#: templates/myaccount/api-downloads.php:155
+#: templates/myaccount/api-downloads.php:255
 #, fuzzy
 msgid "Changelog"
 msgstr "Modifications"
@@ -1216,7 +1219,7 @@ msgstr "Comment installer le logiciel."
 msgid "Frequently Asked Questions."
 msgstr "Foire Aux Questions."
 
-#: includes/wc-am-product-admin.php:619 includes/wc-am-product-admin.php:998
+#: includes/wc-am-product-admin.php:619 includes/wc-am-product-admin.php:990
 #, fuzzy
 msgid "Screenshots of the software."
 msgstr "Copies d'écran du logiciel."
@@ -1234,49 +1237,49 @@ msgid ""
 "and future, purchases."
 msgstr ""
 
-#: includes/wc-am-product-admin.php:767
+#: includes/wc-am-product-admin.php:759
 #, fuzzy
 msgid "API Manager Options"
 msgstr "Options de l'API Manager"
 
-#: includes/wc-am-product-admin.php:775
+#: includes/wc-am-product-admin.php:767
 #, fuzzy
 msgid "Set API options for this variable product only."
 msgstr ""
 "Paramétrer les options d'API pour cette variable de produit uniquement."
 
-#: includes/wc-am-product-admin.php:777
+#: includes/wc-am-product-admin.php:769
 #, fuzzy
 msgid "The information set here will only apply to this variable product."
 msgstr ""
 "L'information paramétré ici sera uniquement appliqué à cette variation de "
 "produit."
 
-#: includes/wc-am-product-admin.php:794
+#: includes/wc-am-product-admin.php:786
 #, fuzzy
 msgid "Activation Limit:"
 msgstr "Limit d'activation"
 
-#: includes/wc-am-product-admin.php:805
+#: includes/wc-am-product-admin.php:797
 msgid ""
 "Unique ID used to indentify this API resource. Do NOT delete this product."
 msgstr ""
 
-#: includes/wc-am-product-admin.php:830
+#: includes/wc-am-product-admin.php:822
 #, fuzzy
 msgid "API Access Expires:"
 msgstr "Permission d'accès API"
 
-#: includes/wc-am-product-admin.php:842
+#: includes/wc-am-product-admin.php:834
 msgid "Upgrade Notice:"
 msgstr ""
 
-#: includes/wc-am-product-admin.php:851
+#: includes/wc-am-product-admin.php:843
 #, fuzzy
 msgid "Version:"
 msgstr "Le numéro de version du logiciel."
 
-#: includes/wc-am-product-admin.php:852
+#: includes/wc-am-product-admin.php:844
 #, fuzzy
 msgid ""
 "The current software version number, which triggers an update notification "
@@ -1285,12 +1288,12 @@ msgstr ""
 "Le numéro de version actuel du logiciel, qui déclencge une notification de "
 "mise à jour si le client a une version plus ancienne installée. "
 
-#: includes/wc-am-product-admin.php:860
+#: includes/wc-am-product-admin.php:852
 #, fuzzy
 msgid "Version Required:"
 msgstr "Version WP requise"
 
-#: includes/wc-am-product-admin.php:861
+#: includes/wc-am-product-admin.php:853
 #, fuzzy
 msgid ""
 "The minimum version of platform/framework, such as WordPress, required to "
@@ -1298,17 +1301,17 @@ msgid ""
 msgstr ""
 "La version minimale de WordPress requise pour faire fonctionner le logiciel."
 
-#: includes/wc-am-product-admin.php:865
+#: includes/wc-am-product-admin.php:857
 #, fuzzy
 msgid "e.g. 3.3"
 msgstr "ex. 3.3"
 
-#: includes/wc-am-product-admin.php:869
+#: includes/wc-am-product-admin.php:861
 #, fuzzy
 msgid "Version Tested Up To:"
 msgstr "Version WP testée jusqu'à"
 
-#: includes/wc-am-product-admin.php:870
+#: includes/wc-am-product-admin.php:862
 #, fuzzy
 msgid ""
 "The highest version of platform/framework, such as WordPress, the software "
@@ -1316,64 +1319,64 @@ msgid ""
 msgstr ""
 "La plus récente version de WordPress pour laquelle le logiciel a été testé."
 
-#: includes/wc-am-product-admin.php:878
+#: includes/wc-am-product-admin.php:870
 msgid "Requires PHP Version:"
 msgstr ""
 
-#: includes/wc-am-product-admin.php:887
+#: includes/wc-am-product-admin.php:879
 #, fuzzy
 msgid "Last Updated:"
 msgstr "Dernière mise à jour du logiciel"
 
-#: includes/wc-am-product-admin.php:888
+#: includes/wc-am-product-admin.php:880
 #, fuzzy
 msgid "The date the software was last updated."
 msgstr "La date de dernière mise à jour du logiciel."
 
-#: includes/wc-am-product-admin.php:897
+#: includes/wc-am-product-admin.php:889
 #, fuzzy
 msgid "Author:"
 msgstr "Le nom de l'auteur du logiciel."
 
-#: includes/wc-am-product-admin.php:898
+#: includes/wc-am-product-admin.php:890
 #, fuzzy
 msgid "The name of the software author."
 msgstr "Le nom de l'auteur du logiciel."
 
-#: includes/wc-am-product-admin.php:902
+#: includes/wc-am-product-admin.php:894
 #, fuzzy
 msgid "Todd Lahman"
 msgstr "Todd Lahman"
 
-#: includes/wc-am-product-admin.php:906
+#: includes/wc-am-product-admin.php:898
 #, fuzzy
 msgid "Page URL:"
 msgstr "URL de la page du logiciel :"
 
-#: includes/wc-am-product-admin.php:914
+#: includes/wc-am-product-admin.php:906
 #, fuzzy
 msgid "A description of the software, and how it works."
 msgstr "Une description du logiciel, et comment il fonctionne."
 
-#: includes/wc-am-product-admin.php:932 includes/wc-am-product-admin.php:974
-#: includes/wc-am-product-admin.php:995 includes/wc-am-product-admin.php:1016
-#: includes/wc-am-product-admin.php:1037 includes/wc-am-product-admin.php:1058
+#: includes/wc-am-product-admin.php:924 includes/wc-am-product-admin.php:966
+#: includes/wc-am-product-admin.php:987 includes/wc-am-product-admin.php:1008
+#: includes/wc-am-product-admin.php:1029 includes/wc-am-product-admin.php:1050
 #, fuzzy
 msgid "Select a page &hellip; (Optional)"
 msgstr "Sélectionner une page&hellip; (Optionnel)"
 
-#: includes/wc-am-product-admin.php:935
+#: includes/wc-am-product-admin.php:927
 #, fuzzy
 msgid "A list of changes to the software that should be grouped by date."
 msgstr ""
 "Une liste de changements du logiciel qui doivent être groupés par jour."
 
-#: includes/wc-am-product-admin.php:953
+#: includes/wc-am-product-admin.php:945
 #, fuzzy
 msgid "Select a page &hellip; (Recommended)"
 msgstr "Sélectionner une page&hellip; (Recommandé)"
 
-#: includes/wc-am-product-admin.php:956
+#: includes/wc-am-product-admin.php:948
 #, fuzzy
 msgid ""
 "Instructions on how to install the software, and notes regarding "
@@ -1381,21 +1384,21 @@ msgid ""
 msgstr ""
 "Instructions pour installer le logiciel, et notes concernant l'installation."
 
-#: includes/wc-am-product-admin.php:977
+#: includes/wc-am-product-admin.php:969
 #, fuzzy
 msgid "Frequently Asked Questions about the software."
 msgstr "Questions fréquentes concernant le logiciel."
 
-#: includes/wc-am-product-admin.php:1019
+#: includes/wc-am-product-admin.php:1011
 #, fuzzy
 msgid "Other notes about the software."
 msgstr "Autres notes concernant le logiciel."
 
-#: includes/wc-am-product-admin.php:1040
+#: includes/wc-am-product-admin.php:1032
 msgid "My Account Documentation"
 msgstr ""
 
-#: includes/wc-am-product-admin.php:1040
+#: includes/wc-am-product-admin.php:1032
 msgid "Documentation link for My Account dashboard."
 msgstr ""
 
@@ -1438,6 +1441,7 @@ msgid "Generate Master API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
 #: includes/wc-am-user.php:381 templates/emails/api-keys-order-complete.php:39
+#: templates/emails/plain/api-keys-order-complete.php:39
 #, fuzzy
 msgid "Master API Key:"
 msgstr "Clé de licence API"
@@ -1455,6 +1459,7 @@ msgstr "Impossible d'activer la clé de licence API"
 #: includes/wc-api-manager-query.php:123 includes/wc-api-manager-query.php:146
 #: includes/wc-api-manager-query.php:149 includes/wc-api-manager-query.php:278
 #: templates/emails/api-keys-order-complete.php:29
+#: templates/emails/plain/api-keys-order-complete.php:29
 #, fuzzy
 msgid "API Downloads"
 msgstr "API"
@@ -1496,7 +1501,7 @@ msgstr ""
 msgid "API Resource Access Expires update started for Product ID# "
 msgstr ""
 
-#: includes/wcam-background-api-resource-access-expires-updater.php:144
+#: includes/wcam-background-api-resource-access-expires-updater.php:149
 msgid "API Resource Access Expires update completed."
 msgstr ""
 
@@ -1510,27 +1515,30 @@ msgstr ""
 msgid "API Resource Activations update started for Product ID# "
 msgstr "Activations"
 
-#: includes/wcam-background-api-resource-activations-updater.php:140
+#: includes/wcam-background-api-resource-activations-updater.php:145
 #, fuzzy
 msgid "API Resource Activations update completed."
 msgstr "Activations"
 
 #: templates/emails/api-keys-order-complete.php:32
-#, fuzzy
-msgid "Download Your Files"
-msgstr "Téléchargement invalide."
+#: templates/emails/plain/api-keys-order-complete.php:32
+msgid "Click here to login and download Your File(s)"
+msgstr ""
 
 #: templates/emails/api-keys-order-complete.php:43
+#: templates/emails/plain/api-keys-order-complete.php:43
 msgid "A Master API Key can be used to activate any and all products."
 msgstr ""
 
 #: templates/emails/api-keys-order-complete.php:51
+#: templates/emails/plain/api-keys-order-complete.php:51
 msgid ""
 "A Product Order API Key can be used to limit activation to a single product "
 "from a single order."
 msgstr ""
 
 #: templates/emails/api-keys-order-complete.php:66
+#: templates/emails/plain/api-keys-order-complete.php:66
 #, fuzzy
 msgid "Product Order API Key(s):"
 msgstr "Clé de licence API"
@@ -1546,39 +1554,39 @@ msgid "Release Date"
 msgstr "Date &amp; Heure"
 
 #: templates/myaccount/api-downloads.php:52
-#: templates/myaccount/api-downloads.php:173
 #: templates/myaccount/api-downloads.php:176
-#: templates/myaccount/api-downloads.php:273
-#: templates/myaccount/api-downloads.php:277
+#: templates/myaccount/api-downloads.php:179
+#: templates/myaccount/api-downloads.php:276
+#: templates/myaccount/api-downloads.php:280
 #, fuzzy
 msgid "Download"
 msgstr "Désolé, ce téléchargement a expiré"
 
-#: templates/myaccount/api-downloads.php:142
-#: templates/myaccount/api-downloads.php:242
+#: templates/myaccount/api-downloads.php:145
+#: templates/myaccount/api-downloads.php:245
 #, fuzzy
 msgid "No Date"
 msgstr ""
 "Une liste de changements du logiciel qui doivent être groupés par jour."
 
-#: templates/myaccount/api-downloads.php:178
-#: templates/myaccount/api-downloads.php:196
-#: templates/myaccount/api-downloads.php:280
-#: templates/myaccount/api-downloads.php:298
+#: templates/myaccount/api-downloads.php:181
+#: templates/myaccount/api-downloads.php:199
+#: templates/myaccount/api-downloads.php:283
+#: templates/myaccount/api-downloads.php:301
 msgid "Disabled"
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:316
-#: templates/myaccount/api-keys.php:274
+#: templates/myaccount/api-downloads.php:319
+#: templates/myaccount/api-keys.php:277
 msgid "Go shop"
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:318
+#: templates/myaccount/api-downloads.php:321
 msgid "No API downloads available yet."
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:324
-#: templates/myaccount/api-keys.php:282
+#: templates/myaccount/api-downloads.php:327
+#: templates/myaccount/api-keys.php:285
 msgid "This account has been disabled."
 msgstr ""
 
@@ -1601,29 +1609,29 @@ msgstr ""
 msgid "Activations"
 msgstr "Activations"
 
-#: templates/myaccount/api-keys.php:172 templates/myaccount/api-keys.php:174
-#: templates/myaccount/api-keys.php:212 templates/myaccount/api-keys.php:214
+#: templates/myaccount/api-keys.php:175 templates/myaccount/api-keys.php:177
+#: templates/myaccount/api-keys.php:215 templates/myaccount/api-keys.php:217
 #, fuzzy
 msgid " out of "
 msgstr "%s sur %s activations restantes"
 
-#: templates/myaccount/api-keys.php:201
+#: templates/myaccount/api-keys.php:204
 msgid "Expired"
 msgstr ""
 
-#: templates/myaccount/api-keys.php:276
+#: templates/myaccount/api-keys.php:279
 msgid "No API products available yet."
 msgstr ""
 
-#: woocommerce-api-manager.php:147
+#: woocommerce-api-manager.php:150
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:156
+#: woocommerce-api-manager.php:159
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:536
+#: woocommerce-api-manager.php:551
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must "
@@ -1631,7 +1639,7 @@ msgid ""
 "WooCommerce on the %splugin page%s once it is installed."
 msgstr ""
 
-#: woocommerce-api-manager.php:554
+#: woocommerce-api-manager.php:569
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s is inactive because it requires PHP version "
@@ -1639,7 +1647,7 @@ msgid ""
 "upgrade your version of PHP."
 msgstr ""
 
-#: woocommerce-api-manager.php:591
+#: woocommerce-api-manager.php:606
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, "
@@ -1648,7 +1656,7 @@ msgid ""
 "%s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:611
+#: woocommerce-api-manager.php:626
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version "
@@ -1656,7 +1664,7 @@ msgid ""
 "installed. Please upgrade WooCommerce Subscriptions to version %s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:666
+#: woocommerce-api-manager.php:681
 #, php-format
 msgid ""
 "Warning! Version 2.0 is a major update to the WooCommerce API Manager "
@@ -1664,6 +1672,10 @@ msgid ""
 "extensions, and test all plugins and custom code with version 2.0 on a "
 "staging site. %sLearn more about the changes in version 2.0 &raquo;%s"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Download Your Files"
+#~ msgstr "Téléchargement invalide."
 
 #, fuzzy
 #~ msgid "limit "

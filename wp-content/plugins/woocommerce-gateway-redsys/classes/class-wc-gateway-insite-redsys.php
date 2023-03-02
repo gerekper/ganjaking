@@ -55,48 +55,49 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$this->init_settings();
 
 		// Define user set variables.
-		$this->title            = WCRed()->get_redsys_option( 'title', 'insite' );
-		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'insite' );
-		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'insite' );
-		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'insite' );
-		$this->bankingnetwork   = WCRed()->get_redsys_option( 'bankingnetwork', 'insite' );
-		$this->logo             = WCRed()->get_redsys_option( 'logo', 'insite' );
-		$this->description      = WCRed()->get_redsys_option( 'description', 'insite' );
-		$this->textnotfillfilds = WCRed()->get_redsys_option( 'textnotfillfilds', 'insite' );
-		$this->customer         = WCRed()->get_redsys_option( 'customer', 'insite' );
-		$this->terminal         = WCRed()->get_redsys_option( 'terminal', 'insite' );
-		$this->customfieldname  = WCRed()->get_redsys_option( 'customfieldname', 'insite' );
-		$this->secretsha256     = WCRed()->get_redsys_option( 'secretsha256', 'insite' );
-		$this->pay1clic         = WCRed()->get_redsys_option( 'pay1clic', 'insite' );
-		$this->debug            = WCRed()->get_redsys_option( 'debug', 'insite' );
-		$this->hashtype         = WCRed()->get_redsys_option( 'hashtype', 'insite' );
-		$this->insitelanguage   = WCRed()->get_redsys_option( 'insitelanguage', 'insite' );
-		$this->wooinsiteurlko   = WCRed()->get_redsys_option( 'wooinsiteurlko', 'insite' );
-		$this->commercename     = WCRed()->get_redsys_option( 'wooinsitecomercename', 'insite' );
-		$this->insitetype       = WCRed()->get_redsys_option( 'insitetype', 'insite' );
-		$this->lwvactive        = WCRed()->get_redsys_option( 'lwvactive', 'insite' );
-		$this->traactive        = WCRed()->get_redsys_option( 'traactive', 'insite' );
-		$this->traamount        = WCRed()->get_redsys_option( 'traamount', 'insite' );
-		$this->colorbutton      = WCRed()->get_redsys_option( 'colorbutton', 'insite' );
-		$this->colorfieldtext   = WCRed()->get_redsys_option( 'colorfieldtext', 'insite' );
-		$this->colortextbutton  = WCRed()->get_redsys_option( 'colortextbutton', 'insite' );
-		$this->textcolor        = WCRed()->get_redsys_option( 'textcolor', 'insite' );
-		$this->buttontext       = WCRed()->get_redsys_option( 'buttontext', 'insite' );
-		$this->butonbgcolor     = WCRed()->get_redsys_option( 'butonbgcolor', 'insite' );
-		$this->butontextcolor   = WCRed()->get_redsys_option( 'butontextcolor', 'insite' );
-		$this->cvvboxcolor      = WCRed()->get_redsys_option( 'cvvboxcolor', 'insite' );
-		$this->button_heigth    = WCRed()->get_redsys_option( 'button_heigth', 'insite' );
-		$this->button_width     = WCRed()->get_redsys_option( 'button_width', 'insite' );
-		$this->descripredsys    = WCRed()->get_redsys_option( 'descripredsys', 'insite' );
-		$this->customtestsha256 = WCRed()->get_redsys_option( 'customtestsha256', 'insite' );
-		$this->testforuser      = WCRed()->get_redsys_option( 'testforuser', 'insite' );
-		$this->testforuserid    = WCRed()->get_redsys_option( 'testforuserid', 'insite' );
-		$this->testshowgateway  = WCRed()->get_redsys_option( 'testshowgateway', 'insite' );
-		$this->moveterms        = WCRed()->get_redsys_option( 'moveterms', 'insite' );
-		$this->notiemail        = WCRed()->get_redsys_option( 'notiemail', 'insite' );
-		$this->merchantgroup    = WCRed()->get_redsys_option( 'merchantgroup', 'insite' );
-		$this->log              = new WC_Logger();
-		$this->supports         = array(
+		$this->title               = WCRed()->get_redsys_option( 'title', 'insite' );
+		$this->multisitesttings    = WCRed()->get_redsys_option( 'multisitesttings', 'insite' );
+		$this->ownsetting          = WCRed()->get_redsys_option( 'ownsetting', 'insite' );
+		$this->hideownsetting      = WCRed()->get_redsys_option( 'hideownsetting', 'insite' );
+		$this->bankingnetwork      = WCRed()->get_redsys_option( 'bankingnetwork', 'insite' );
+		$this->logo                = WCRed()->get_redsys_option( 'logo', 'insite' );
+		$this->description         = WCRed()->get_redsys_option( 'description', 'insite' );
+		$this->textnotfillfilds    = WCRed()->get_redsys_option( 'textnotfillfilds', 'insite' );
+		$this->customer            = WCRed()->get_redsys_option( 'customer', 'insite' );
+		$this->terminal            = WCRed()->get_redsys_option( 'terminal', 'insite' );
+		$this->customfieldname     = WCRed()->get_redsys_option( 'customfieldname', 'insite' );
+		$this->secretsha256        = WCRed()->get_redsys_option( 'secretsha256', 'insite' );
+		$this->pay1clic            = WCRed()->get_redsys_option( 'pay1clic', 'insite' );
+		$this->debug               = WCRed()->get_redsys_option( 'debug', 'insite' );
+		$this->hashtype            = WCRed()->get_redsys_option( 'hashtype', 'insite' );
+		$this->insitelanguage      = WCRed()->get_redsys_option( 'insitelanguage', 'insite' );
+		$this->wooinsiteurlko      = WCRed()->get_redsys_option( 'wooinsiteurlko', 'insite' );
+		$this->commercename        = WCRed()->get_redsys_option( 'wooinsitecomercename', 'insite' );
+		$this->insitetype          = WCRed()->get_redsys_option( 'insitetype', 'insite' );
+		$this->lwvactive           = WCRed()->get_redsys_option( 'lwvactive', 'insite' );
+		$this->traactive           = WCRed()->get_redsys_option( 'traactive', 'insite' );
+		$this->traamount           = WCRed()->get_redsys_option( 'traamount', 'insite' );
+		$this->colorbutton         = WCRed()->get_redsys_option( 'colorbutton', 'insite' );
+		$this->colorfieldtext      = WCRed()->get_redsys_option( 'colorfieldtext', 'insite' );
+		$this->colortextbutton     = WCRed()->get_redsys_option( 'colortextbutton', 'insite' );
+		$this->textcolor           = WCRed()->get_redsys_option( 'textcolor', 'insite' );
+		$this->buttontext          = WCRed()->get_redsys_option( 'buttontext', 'insite' );
+		$this->butonbgcolor        = WCRed()->get_redsys_option( 'butonbgcolor', 'insite' );
+		$this->butontextcolor      = WCRed()->get_redsys_option( 'butontextcolor', 'insite' );
+		$this->cvvboxcolor         = WCRed()->get_redsys_option( 'cvvboxcolor', 'insite' );
+		$this->button_heigth       = WCRed()->get_redsys_option( 'button_heigth', 'insite' );
+		$this->button_width        = WCRed()->get_redsys_option( 'button_width', 'insite' );
+		$this->descripredsys       = WCRed()->get_redsys_option( 'descripredsys', 'insite' );
+		$this->customtestsha256    = WCRed()->get_redsys_option( 'customtestsha256', 'insite' );
+		$this->testforuser         = WCRed()->get_redsys_option( 'testforuser', 'insite' );
+		$this->testforuserid       = WCRed()->get_redsys_option( 'testforuserid', 'insite' );
+		$this->testshowgateway     = WCRed()->get_redsys_option( 'testshowgateway', 'insite' );
+		$this->moveterms           = WCRed()->get_redsys_option( 'moveterms', 'insite' );
+		$this->notiemail           = WCRed()->get_redsys_option( 'notiemail', 'insite' );
+		$this->merchantgroup       = WCRed()->get_redsys_option( 'merchantgroup', 'insite' );
+		$this->disablesubscrippaid = WCRed()->get_redsys_option( 'disablesubscrippaid', 'insite' );
+		$this->log                 = new WC_Logger();
+		$this->supports            = array(
 			'products',
 			'tokenization',
 			'refunds',
@@ -276,34 +277,34 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		}
 
 		$this->form_fields = array(
-			'enabled'          => array(
+			'enabled'             => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable InSite', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'multisitesttings' => array(
+			'multisitesttings'    => array(
 				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
 				'description' => '',
 				'default'     => 'no',
 			),
-			'hideownsetting'   => array(
+			'hideownsetting'      => array(
 				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
 				'description' => '',
 				'default'     => 'no',
 			),
-			'ownsetting'       => array(
+			'ownsetting'          => array(
 				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
 				'description' => '',
 				'default'     => 'no',
 			),
-			'bankingnetwork'   => array(
+			'bankingnetwork'      => array(
 				'title'       => __( 'When show InSite', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Select Show only to Banking network, Spain & Portugal (default) or Show to all countries (NOT recomended).', 'woocommerce-redsys' ),
@@ -313,7 +314,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					'showallcountries'   => __( 'Show to all countries (NOT recomended)', 'woocommerce-redsys' ),
 				),
 			),
-			'insitetype'       => array(
+			'insitetype'          => array(
 				'title'       => __( 'Select InSite Type', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Select Independent elements (default) o Integrated form.', 'woocommerce-redsys' ),
@@ -323,86 +324,86 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					'unifiedintegration' => __( 'Unified integration', 'woocommerce-redsys' ),
 				),
 			),
-			'pay1clic'         => array(
+			'pay1clic'            => array(
 				'title'   => __( 'Pay with 1click', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Pay with 1click', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'title'            => array(
+			'title'               => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'InSite', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'description'      => array(
+			'description'         => array(
 				'title'       => __( 'Description', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via InSite; you can pay with your credit card.', 'woocommerce-redsys' ),
 			),
-			'logo'             => array(
+			'logo'                => array(
 				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'textnotfillfilds' => array(
+			'textnotfillfilds'    => array(
 				'title'       => __( 'Text when the customer', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'Text when the customer has not yet filled in the required billing fields for InSite.', 'woocommerce-redsys' ),
 				'default'     => __( 'Please fill in the billing fields of the checkout form. After filling them, the credit card form will appear.', 'woocommerce-redsys' ),
 			),
-			'lwvactive'        => array(
+			'lwvactive'           => array(
 				'title'   => __( 'Enable LWV', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable LWV. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'traactive'        => array(
+			'traactive'           => array(
 				'title'   => __( 'Enable TRA', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable TRA. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'traamount'        => array(
+			'traamount'           => array(
 				'title'       => __( 'Limit import for TRA', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'TRA will be sent when the amount is inferior to what you specify here. Write the amount without the currency sign, i.e. if it is 250€, ONLY write 250', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'notiemail'        => array(
+			'notiemail'           => array(
 				'title'       => __( 'Notification email', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Email errors will arrive to this email', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'commercename'     => array(
+			'commercename'        => array(
 				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'customer'         => array(
+			'customer'            => array(
 				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce number (FUC) provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'merchantgroup'    => array(
+			'merchantgroup'       => array(
 				'title'       => __( 'Merchant Group Number', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'It is an identifier for sharing tokens between websites of the same company', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'terminal'         => array(
+			'terminal'            => array(
 				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'descripredsys'    => array(
+			'descripredsys'       => array(
 				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
@@ -414,26 +415,33 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
 				),
 			),
-			'secretsha256'     => array(
+			'disablesubscrippaid' => array(
+				'title'       => __( 'Disable mark as paid Subscriptions by plugin', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'You should only check this option if subscription renewals are marked twice as paid.', 'woocommerce-redsys' ),
+				'label'       => __( 'Disable Subscription paid, it is enabled by default', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'secretsha256'        => array(
 				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'customtestsha256' => array(
+			'customtestsha256'    => array(
 				'title'       => __( 'TEST MODE: Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank for test mode.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'insitelanguage'   => array(
+			'insitelanguage'      => array(
 				'title'       => __( 'Language Gateway', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Choose the language for the Gateway. Not all Banks accept all languages', 'woocommerce-redsys' ),
 				'default'     => '001',
 				'options'     => array(),
 			),
-			'wooinsiteurlko'   => array(
+			'wooinsiteurlko'      => array(
 				'title'       => __( 'Return URL (Redsys Error button)', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'When the user press the return button at Redsys Gateway (Ex: The user type an incorrect credit cart), you can redirect the user to My Cart page canceling the order, or you can redirect the user to Checkput page without cancel the order.', 'woocommerce-redsys' ),
@@ -443,87 +451,87 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					'returnnocancel' => __( 'Don\'t cancel the order and return to Checkout page', 'woocommerce-redsys' ),
 				),
 			),
-			'not_use_https'    => array(
+			'not_use_https'       => array(
 				'title'       => __( 'HTTPS SNI Compatibility', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Activate SNI Compatibility (only activate it if José Conti indicate you).', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'Only use it if José Conti indicate you. WARNING: If you are forcing redirection to HTTPS with htaccess, you need to add an exception for notification URL', 'woocommerce-redsys' ) ),
 			),
-			'moveterms'        => array(
+			'moveterms'           => array(
 				'title'       => __( 'Move Terms and conditions', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Move terms and Conditions above gateways.', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'This option move terms and Conditions above gateways. Recomended when InSite is active', 'woocommerce-redsys' ) ),
 			),
-			'customfieldname'  => array(
+			'customfieldname'     => array(
 				'title'       => __( 'Custom "Name" field', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'default'     => '',
 				'description' => __( 'In some cases you modify the billing field "Name" in the checkout. If you do this, add the custom name field or InSite will not work, example billing_first_name', 'woocommerce-redsys' ),
 			),
-			'buttontext'       => array(
+			'buttontext'          => array(
 				'title'       => __( 'Button Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'default'     => 'Realizar pago',
 				'description' => __( 'Add the Button Text.', 'woocommerce-redsys' ),
 			),
-			'textcolor'        => array(
+			'textcolor'           => array(
 				'title'       => __( 'General Color Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This is the General text color added by InSite. Default #2e3131', 'woocommerce-redsys' ),
 				'default'     => '#2e3131',
 				'class'       => 'colorpick',
 			),
-			'colorbutton'      => array(
+			'colorbutton'         => array(
 				'title'       => __( 'Color Button', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This if button color. Default #f39c12', 'woocommerce-redsys' ),
 				'default'     => '#f39c12',
 				'class'       => 'colorpick',
 			),
-			'colortextbutton'  => array(
+			'colortextbutton'     => array(
 				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This if button text color. Default #ffffff', 'woocommerce-redsys' ),
 				'default'     => '#ffffff',
 				'class'       => 'colorpick',
 			),
-			'colorfieldtext'   => array(
+			'colorfieldtext'      => array(
 				'title'       => __( 'Color Fields Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This the text color of the field text. Default #95a5a6', 'woocommerce-redsys' ),
 				'default'     => '#95a5a6',
 				'class'       => 'colorpick',
 			),
-			'cvvboxcolor'      => array(
+			'cvvboxcolor'         => array(
 				'title'       => __( 'CVV box background color', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This the background color of CVV field. Default #d5d5d5', 'woocommerce-redsys' ),
 				'default'     => '#d5d5d5',
 				'class'       => 'colorpick',
 			),
-			'button_heigth'    => array(
+			'button_heigth'       => array(
 				'title'       => __( 'Button Pay Now heigth', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'The heigth os Pay now button. Default 85px (you can use px or %)', 'woocommerce-redsys' ),
 				'default'     => '85px',
 			),
-			'button_width'     => array(
+			'button_width'        => array(
 				'title'       => __( 'Button Pay Now width', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'The width os Pay now button. Default 100% (you can use px or %)', 'woocommerce-redsys' ),
 				'default'     => '100%',
 			),
-			'testmode'         => array(
+			'testmode'            => array(
 				'title'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'default'     => 'yes',
 				'description' => sprintf( __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ) ),
 			),
-			'testshowgateway'  => array(
+			'testshowgateway'     => array(
 				'title'       => __( 'Show to this users', 'woocommerce-redsys' ),
 				'type'        => 'multiselect',
 				'label'       => __( 'Show the gateway in the chcekout when it is in test mode', 'woocommerce-redsys' ),
@@ -533,14 +541,14 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				'default'     => '',
 				'description' => sprintf( __( 'Select users that will see the gateway when it is in test mode. If no users are selected, will be shown to all users', 'woocommerce-redsys' ) ),
 			),
-			'testforuser'      => array(
+			'testforuser'         => array(
 				'title'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'default'     => '',
 				'description' => sprintf( __( 'The user selected below will use the terminal in test mode. Other users will continue to use live mode unless you have the "Running in test mode" option checked.', 'woocommerce-redsys' ) ),
 			),
-			'testforuserid'    => array(
+			'testforuserid'       => array(
 				'title'       => __( 'Users', 'woocommerce-redsys' ),
 				'type'        => 'multiselect',
 				'label'       => __( 'Users running in test mode', 'woocommerce-redsys' ),
@@ -550,7 +558,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				'default'     => '',
 				'description' => sprintf( __( 'Select users running in test mode', 'woocommerce-redsys' ) ),
 			),
-			'debug'            => array(
+			'debug'               => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
@@ -633,7 +641,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '/****************************/' );
 				$this->log->add( 'insite', ' ' );
 			}
-			echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+			echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 		} else {
 			$user_test = $this->check_user_test_mode( $user_id );
 			if ( $user_test ) {
@@ -644,7 +652,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
 				}
-				echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+				echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 			} else {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
@@ -653,7 +661,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
 				}
-				echo '<script src="https://sis.redsys.es/sis/NC/redsysV2.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+				echo '<script src="https://sis.redsys.es/sis/NC/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 			}
 		}
 	}
@@ -1404,7 +1412,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', 'payment_complete() 1' );
 					}
-					// $order->payment_complete();
+					if ( 'yes' !== $this->disablesubscrippaid ) {
+						$order->payment_complete();
+					}
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', ' ' );
 						$this->log->add( 'insite', '/****************************/' );
@@ -1556,7 +1566,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', 'payment_complete() 2' );
 					}
-					// $order->payment_complete();
+					if ( 'yes' !== $this->disablesubscrippaid ) {
+						$order->payment_complete();
+					}
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', ' ' );
 						$this->log->add( 'insite', '/****************************/' );
@@ -2452,70 +2464,88 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', ' ' );
 			}
 			echo '
-				<style>
-					.payment_method_insite .input-wrap {
-						height: 60px !important;
-						margin-left: -8px;
-						margin-bottom: 15px;
-					}
-					.payment_method_insite .input-wrap#card-number {
-						margin-right: -8px;
-					}
-					.payment_method_insite .date-wrap {
-						display: flex;
-						justify-content: space-between;
-					}
-					.payment_method_insite .date-wrap > div {
-						width: 30%;
-						display: flex;
-						flex-direction: column;
-						justify-content: flex-end;
-					}
-					.payment_method_insite .date-wrap > div label {
-						line-height: 1.2em;
-					}
-					.payment_method_insite .date-wrap .cvv-wrap {
-						background-color: ' . esc_html( $cvvbox ) . ';
-						padding-top: 2px;
-						width: 40%;
-					}
-					#payment .payment_methods li .payment_box fieldset .cvv-wrap label {
-						width: 85%;
-						margin-left: auto;
-					}
-					#payment .payment_methods li .payment_box fieldset .cvv-wrap #cvv {
-						width: 85% !important;
-						margin-left: auto;
-						margin-right: auto;
-					}
-					#payment .payment_methods li .payment_box {
-						padding-top: 5px;
-					}
-					#payment .payment_methods li .payment_box fieldset.card-saved {
-						padding-top: 0;
-						padding-bottom: 15px;
-						font-size: .875em;
-						line-height: 1.4em;
-					}
-					#payment .payment_methods li .payment_box fieldset input[type="radio"] + label,
-					#payment .payment_methods li .payment_box fieldset input[type="checkbox"] + label {
-						margin-left: 6px;
-					}
-					.payment_box fieldset.card-saved div {
-						padding-bottom: 5px;
-					}
-					.token-wrap {
-						margin: 15px 0 15px;
-					}
-					#redsys-submit {
-						margin: 0 -8px;
-						max-height: 100px;
-					}
-					.insite-unificado, .insite-unificado #card-form {
-						height: 350px;
-						margin-bottom: 35px;
-					}
-				</style>
+			<style>
+				.payment_method_insite .input-wrap {
+					height: 60px !important;
+					margin-left: 0px;
+				}
+				.payment_method_insite .input-wrap#card-number {
+					margin-right: 0px;
+				}
+				.payment_method_insite .date-wrap {
+					display: flex;
+				}
+				.payment_method_insite .date-wrap > div {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: flex-end;
+				}
+				.payment_method_insite .date-wrap > div label, fieldset.redsys-new-card-data .cardinfo-label  {
+					line-height: 1.2em;
+					width: 100%;
+					font-size: 13px;
+    				font-weight: 600;
+					transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+					line-height: 26px;
+					text-decoration: none solid rgb(84, 84, 84);
+					text-shadow: none;
+					text-transform: uppercase;
+					color: rgb(84, 84, 84);
+    				font-family: NeueEinstellung, -apple-system, BlinkMacSystemFont, Arial, Helvetica, "Helvetica Neue", Verdana, sans-serif;
+    				letter-spacing: normal;
+					margin-left: 8px !important;
+				}
+				.payment_method_insite .date-wrap .cvv-wrap {
+					padding-top: 2px;
+					width: 100%;
+					margin-left: 8px;
+				}
+				#payment .payment_methods li .payment_box fieldset .cvv-wrap label {
+					width: 100%;
+					margin-left: 8px !important;
+				}
+				#payment .payment_methods li .payment_box fieldset .cvv-wrap #cvv {
+					width: 100% !important;
+					margin-left: auto;
+					margin-right: auto;
+				}
+				#payment .payment_methods li .payment_box {
+					padding-top: 5px;
+				}
+				#payment .payment_methods li .payment_box fieldset.card-saved {
+					padding-top: 0;
+					padding-bottom: 15px;
+					font-size: .875em;
+					line-height: 1.4em;
+				}
+				#payment .payment_methods li .payment_box fieldset input[type="radio"] + label,
+				#payment .payment_methods li .payment_box fieldset input[type="checkbox"] + label {
+					margin-left: 6px;
+				}
+				.payment_box fieldset.card-saved div {
+					padding-bottom: 5px;
+				}
+				.token-wrap {
+					margin: 15px 0 15px;
+				}
+				#redsys-submit {
+					margin: 0 auto;
+					max-height: 100px;
+					max-width: 100%;
+				}
+				.insite-unificado, .insite-unificado #card-form {
+					height: 350px;
+					margin-bottom: 35px;
+				}
+				fieldset.redsys-new-card-data {
+					max-width: 70%;
+					margin: 0 auto !important;
+				}
+				fieldset.redsys-new-card-data-uni {
+					margin: 0 auto !important;
+				}
+			</style>
 
 				<div class="payment_method_insite">
 					<fieldset class="card-saved">
@@ -2577,42 +2607,36 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( 'intindepenelements' === $this->insitetype ) { // Integration by independent elements.
-					echo '
-					</fieldset>
-					<fieldset class="new-card-data">
+				echo '
+				</fieldset>
+				<fieldset class="redsys-new-card-data">
+					<div>
+						<label class="cardinfo-label" for="card-number" autocomplete="cc-number">' . esc_html__( 'CREDIT CARD NUMBER', 'woocommerce-redsys' ) . '</label>
+						<div class="input-wrap" id="card-number" autocomplete="cc-number"></div>
+					</div>
+					<div class="date-wrap">
 						<div>
-							<label class="cardinfo-label" for="card-number" autocomplete="cc-number">' . esc_html__( 'Credit Card Number', 'woocommerce-redsys' ) . '</label>
-							<div class="input-wrap" id="card-number" autocomplete="cc-number"></div>
+							<label class="cardinfo-label" for="expiration-date" autocomplete="cc-exp-month">' . esc_html__( 'EXPIRATION', 'woocommerce-redsys' ) . '</label>
+							<div class="input-wrap" id="expiration-month" autocomplete="cc-exp-month"></div>
 						</div>
-						<div class="exp-date" >' . esc_html__( 'Expiration Date', 'woocommerce-redsys' ) . '</div>
-						<div class="date-wrap">
-							<div>
-								<label class="cardinfo-label" for="expiration-date" autocomplete="cc-exp-month">' . esc_html__( 'Month (MM)', 'woocommerce-redsys' ) . '</label>
-								<div class="input-wrap" id="expiration-month" autocomplete="cc-exp-month"></div>
-							</div>
-							<div>
-								<label class="cardinfo-label" for="expiration-date2" autocomplete="cc-exp-year">' . esc_html__( 'Year (YY)', 'woocommerce-redsys' ) . '</label>
-								<div class="input-wrap" id="expiration-year" autocomplete="cc-exp-year"></div>
-							</div>
-							<div class="cvv-wrap">
-								<label class="cardinfo-label" for="cvv" autocomplete="cc-csc">' . esc_html__( 'CVV', 'woocommerce-redsys' ) . '</label>
-								<div class="input-wrap" id="cvv" autocomplete="cc-csc"></div>
-							</div>
+						<div class="cvv-wrap">
+							<label class="cardinfo-label" for="cvv" autocomplete="cc-csc">' . esc_html__( 'CVC', 'woocommerce-redsys' ) . '</label>
+							<div class="input-wrap" id="cvv" autocomplete="cc-csc"></div>
 						</div>
-					</fieldset>
-					<div>';
+					</div>
+					<div class="input-wrapper" id="redsys-submit"></div>
+				</fieldset>';
 			} else {
 				// Campo unificado.
 				echo '
-				<fieldset class="new-card-data insite-unificado">
-					<div id="card-form"/></div>
-				</fieldset>
-				<div>';
+				<div>
+					<fieldset class="redsys-new-card-data-uni insite-unificado">
+						<div id="card-form"/></div>
+					</fieldset>
+				</div>';
 			}
-						echo '
-						<div class="input-wrapper" id="redsys-submit"></div>
-					</div>
-					<input type="hidden" id="token" ></input>
+			echo '
+				<input type="hidden" id="token" ></input>
 					<input type="hidden" id="errorCode" ></input>
 					<input type="hidden" name="_temp_redsys_order_number" id="_temp_redsys_order_number" value="' . esc_html( $order_id_2 ) . '"></input>
 					<div class="clear"></div>
@@ -2622,27 +2646,44 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					var c = new Date();';
 			if ( 'yes' === $need_token ) {
 				echo '
-						var save = "yes";';
+					var save = "yes";';
 			} else {
 				echo '
-						var save = "no";';
+					var save = "no";';
 			}
 			if ( 'no' === $need_token ) {
 				echo '
-						function redysTokenCheck( cb ) {
-							if (cb.checked) {
-								delete save;
-								save = "yes";
-								console.log("save:", save );
-							} else {
-								delete save;
-								save = "no";
-								console.log("save:", save );
-							}
+					function redysTokenCheck( cb ) {
+						if (cb.checked) {
+							delete save;
+							save = "yes";
+							console.log("save:", save );
+						} else {
+							delete save;
+							save = "no";
+							console.log("save:", save );
 						}
-						console.log("save:", save );';
+					}
+					console.log("save:", save );';
 			}
 			if ( 'intindepenelements' === $this->insitetype ) { // Integration by independent elements.
+				if ( 'yes' === $this->testmode ) {
+					$link_rear_card     = 'https://sis-t.redsys.es:25443/sis/NC/assets/images/cc-back.svg';
+					$link_calendar_card = 'https://sis-t.redsys.es:25443/sis/NC/assets/images/cc-calendar.svg';
+				} else {
+					if ( is_user_logged_in() ) {
+						$user_id = get_current_user_id();
+					} else {
+						$user_id = '0';
+					}
+					$user_test = $this->check_user_test_mode( $user_id );
+					if ( $user_test ) {
+						$link_rear_card     = 'https://sis-t.redsys.es:25443/sis/NC/assets/images/cc-back.svg';
+						$link_calendar_card = 'https://sis-t.redsys.es:25443/sis/NC/assets/images/cc-calendar.svg';
+					}
+					$link_rear_card     = 'https://sis.redsys.es/sis/NC/assets/images/cc-back.svg';
+					$link_calendar_card = 'https://sis.redsys.es/sis/NC/assets/images/cc-calendar.svg';
+				}
 					echo '
 					// Listener
 					var receive = function receiveMessage(event) {
@@ -2710,23 +2751,19 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 					getCardInput(
 						"card-number",
-						"box-sizing: border-box; width: 100%; font-size: 0.875em; padding: 10px; color: ' . esc_html( $colorfieldtext ) . '; border: 2px solid #ddd; "
+						"background-color: rgb(255, 255, 255);width: 100%;border-radius: 5px;transition: background 0.15s ease, border 0.15s ease,box-shadow 0.15s ease,color 0.15s ease;border: 1px solid #e6e6e6;box-shadow: none;border-bottom-color: rgba(84, 84, 84, 0.1);border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;border-bottom-style: solid;border-bottom-width: 0.761905px;border-left-color: rgba(84, 84, 84, 0.1);border-left-style: solid;border-left-width: 0.761905px;border-right-color: rgba(84, 84, 84, 0.1);border-right-style: solid;border-right-width: 0.761905px;border-top-color: rgba(84, 84, 84, 0.1);border-top-left-radius: 0px;border-top-right-radius: 0px;border-top-style: solid;border-top-width: 0.761905px;color: rgb(68, 68, 68);font-family: Radnika, -apple-system, BlinkMacSystemFont, Arial, Helvetica, Verdana, sans-serif;font-size: 14px;font-weight: 400;letter-spacing: normal;line-height: normal;outline-offset: 0px;padding-bottom: 8px;padding-left: 8px;padding-right: 8px;padding-top: 8px;text-decoration: none solid rgb(68, 68, 68);text-shadow: none;text-transform: none;outline: 0px none rgb(68, 68, 68);", "' . esc_html__( '1234 1234 1234 1234', 'woocommerce-redsys' ) . '"
 					);
-					getExpirationMonthInput(
+					getExpirationInput(
 						"expiration-month",
-						"box-sizing: border-box; width: 100%; font-size: 0.875em; padding: 10px; color: ' . esc_html( $colorfieldtext ) . '; text-align: center; border: 2px solid #ddd;"
-					);
-					getExpirationYearInput(
-						"expiration-year",
-						"box-sizing: border-box; width: 100%; font-size: 0.875em; padding: 10px; color: ' . esc_html( $colorfieldtext ) . '; text-align: center; border: 2px solid #ddd;"
+						"padding-right: 0px!important;background: url(' . esc_url( $link_calendar_card ) . ') no-repeat center right;background-color: rgb(255, 255, 255);width: 100%;border-radius: 5px;transition: background 0.15s ease, border 0.15s ease,box-shadow 0.15s ease,color 0.15s ease;border: 1px solid #e6e6e6;box-shadow: none;border-bottom-color: rgba(84, 84, 84, 0.1);border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;border-bottom-style: solid;border-bottom-width: 0.761905px;border-left-color: rgba(84, 84, 84, 0.1);border-left-style: solid;border-left-width: 0.761905px;border-right-color: rgba(84, 84, 84, 0.1);border-right-style: solid;border-right-width: 0.761905px;border-top-color: rgba(84, 84, 84, 0.1);border-top-left-radius: 0px;border-top-right-radius: 0px;border-top-style: solid;border-top-width: 0.761905px;color: rgb(68, 68, 68);font-family: Radnika, -apple-system, BlinkMacSystemFont, Arial, Helvetica, Verdana, sans-serif;font-size: 14px;font-weight: 400;letter-spacing: normal;line-height: normal;outline-offset: 0px;padding-bottom: 8px;padding-left: 8px;padding-right: 8px;padding-top: 8px;text-decoration: none solid rgb(68, 68, 68);text-shadow: none;text-transform: none;outline: 0px none rgb(68, 68, 68);", "' . esc_html__( 'MM / YY', 'woocommerce-redsys' ) . '"
 					);
 					getCVVInput(
 						"cvv",
-						"box-sizing: border-box; width: 100%; font-size: 0.875em; padding: 10px; color: ' . esc_html( $colorfieldtext ) . '; text-align: center; border: 2px solid #ddd;"
+						"padding-right: 0px!important;background: url(' . esc_url( $link_rear_card ) . ') no-repeat center right;background-color: rgb(255, 255, 255);width: 100%;border-radius: 5px;transition: background 0.15s ease, border 0.15s ease,box-shadow 0.15s ease,color 0.15s ease;border: 1px solid #e6e6e6;box-shadow: none;border-bottom-color: rgba(84, 84, 84, 0.1);border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;border-bottom-style: solid;border-bottom-width: 0.761905px;border-left-color: rgba(84, 84, 84, 0.1);border-left-style: solid;border-left-width: 0.761905px;border-right-color: rgba(84, 84, 84, 0.1);border-right-style: solid;border-right-width: 0.761905px;border-top-color: rgba(84, 84, 84, 0.1);border-top-left-radius: 0px;border-top-right-radius: 0px;border-top-style: solid;border-top-width: 0.761905px;color: rgb(68, 68, 68);font-family: Radnika, -apple-system, BlinkMacSystemFont, Arial, Helvetica, Verdana, sans-serif;font-size: 14px;font-weight: 400;letter-spacing: normal;line-height: normal;outline-offset: 0px;padding-bottom: 8px;padding-left: 8px;padding-right: 8px;padding-top: 8px;text-decoration: none solid rgb(68, 68, 68);text-shadow: none;text-transform: none;outline: 0px none rgb(68, 68, 68);", "' . esc_html__( 'CVC', 'woocommerce-redsys' ) . '"
 					);
 					getPayButton(
 						"redsys-submit",
-						"height: ' . esc_html( $button_heigth ) . '; font-size: 1.41575em; width: ' . esc_html( $button_width ) . '; vertical-align: middle; background-color:' . esc_html( $colorbutton ) . '; color:' . esc_html( $colortextbutton ) . '; border-width: 0px; cursor: pointer; ",
+						"padding: 10px;font-size: 1.41575em; width: ' . esc_html( $button_width ) . '; vertical-align: baseline; background-color:' . esc_html( $colorbutton ) . '; color:' . esc_html( $colortextbutton ) . '; border-width: 0px; cursor: pointer; ",
 						"' . esc_html( $buttontext ) . '",
 						"' . esc_html( $fuc ) . '",
 						"' . esc_html( $terminal ) . '",
@@ -2739,80 +2776,82 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			} else {
 				// Campos unificados.
 				echo '
-							<!-- Listener -->
-							window.addEventListener("message", function receiveMessage(event) {
-								storeIdOper(event,"token", "errorCode");
-								if ( token.value ) {
-									console.log(event);
-									console.log("Order Id token:", token.value );
-									console.log("Error:", errorCode.value);
-									console.log("Ajax URL:", ajaxurl);
+					<!-- Listener -->
+					window.addEventListener("message", function receiveMessage(event) {
+						storeIdOper(event,"token", "errorCode");
+						if ( token.value ) {
+							console.log(event);
+							console.log("Order Id token:", token.value );
+							console.log("Error:", errorCode.value);
+							console.log("Ajax URL:", ajaxurl);
+							if ( token.value ) {
+								jQuery(document).ready( function() {
+									console.log("llega Ajax");
 									if ( token.value ) {
-										jQuery(document).ready( function() {
-											console.log("llega Ajax");
-											if ( token.value ) {
-												console.log("se defino token.value:", token.value );
-												console.log("El numero de pedido es:", ' . esc_html( $order_id_2 ) . ' );
-												jQuery.ajax({
-													type : "post",
-													url : ajaxurl,
-													data : {
-														"action": "check_token_insite_from_action_checkout",
-														"token" : token.value,
-														"order_id" : "' . esc_html( $order_id_2 ) . '",
-														"order_total" : "' . esc_html( $order_total ) . '",
-														"billing_first_name" : "' . esc_html( $billing_first_name ) . '",
-														"billing_last_name" : "' . esc_html( $billing_last_name ) . '",
-														"user_id" : "' . esc_html( $user_id ) . '",
-														"redsysnonce"  : "' . esc_html( $nonce ) . '",
-														"userAgent"    : navigator.userAgent,
-														"language"     : navigator.language,
-														"height"       : screen.height,
-														"width"        : screen.width,
-														"colorDepth"   : screen.colorDepth,
-														"Timezone"     : c.getTimezoneOffset(),
-														"http_accept"  : "' . esc_html( $http_accept ) . '",
-														"need_token"   : "' . esc_html( $need_token ) . '",
-														"token_needed" : "' . esc_html( $token_type_needed ) . '",
-														"saved"        : save
-													},
-													success: function(response) {
-														console.log("response:", response, "type of:", typeof response);
-														if(response=="success") {
-															document.getElementById("place_order").click();
-														} else if ( response=="ChallengeRequest" ) {
-															document.getElementById("place_order").click();
-														} else {
-															location.reload();
-															if ( "La firma no coincide" == response ) {
-																alert("' . esc_html__( 'Error: Please make sure that everything is filled in and enter your card details again.', 'woocommerce-redsys' ) . '");
-															} else {
-																alert("Error: " + response );
-															}
-														}
+										console.log("se defino token.value:", token.value );
+										console.log("El numero de pedido es:", ' . esc_html( $order_id_2 ) . ' );
+										jQuery.ajax({
+											type : "post",
+											url : ajaxurl,
+											data : {
+												"action": "check_token_insite_from_action_checkout",
+												"token" : token.value,
+												"order_id" : "' . esc_html( $order_id_2 ) . '",
+												"order_total" : "' . esc_html( $order_total ) . '",
+												"billing_first_name" : "' . esc_html( $billing_first_name ) . '",
+												"billing_last_name" : "' . esc_html( $billing_last_name ) . '",
+												"user_id" : "' . esc_html( $user_id ) . '",
+												"redsysnonce"  : "' . esc_html( $nonce ) . '",
+												"userAgent"    : navigator.userAgent,
+												"language"     : navigator.language,
+												"height"       : screen.height,
+												"width"        : screen.width,
+												"colorDepth"   : screen.colorDepth,
+												"Timezone"     : c.getTimezoneOffset(),
+												"http_accept"  : "' . esc_html( $http_accept ) . '",
+												"need_token"   : "' . esc_html( $need_token ) . '",
+												"token_needed" : "' . esc_html( $token_type_needed ) . '",
+												"saved"        : save
+											},
+											success: function(response) {
+												console.log("response:", response, "type of:", typeof response);
+												if(response=="success") {
+													document.getElementById("place_order").click();
+												} else if ( response=="ChallengeRequest" ) {
+													document.getElementById("place_order").click();
+												} else {
+													location.reload();
+													if ( "La firma no coincide" == response ) {
+														alert("' . esc_html__( 'Error: Please make sure that everything is filled in and enter your card details again.', 'woocommerce-redsys' ) . '");
+													} else {
+														alert("Error: " + response );
 													}
-												})
+												}
 											}
-										});
-									}	
-								}
-							});
-							getInSiteForm(
-								"card-form",
-								"background-color:' . esc_html( $colorbutton ) . '; color:' . esc_html( $colortextbutton ) . '",
-								"color:' . esc_html( $textcolor ) . ';",
-								"color:' . esc_html( $colorfieldtext ) . ';",
-								";",
-								"' . esc_html( $buttontext ) . '",
-								"' . esc_html( $fuc ) . '",
-								"' . esc_html( $terminal ) . '",
-								"' . esc_html( $order_id_2 ) . '"
-							);
+										})
+									}
+								});
+							}	
+						}
+					});
+					getInSiteForm(
+						"card-form",
+						"background-color:' . esc_html( $colorbutton ) . '; color:' . esc_html( $colortextbutton ) . '",
+						"color:' . esc_html( $textcolor ) . '; max-width: 300px;",
+						"color:' . esc_html( $colorfieldtext ) . ';",
+						";",
+						"' . esc_html( $buttontext ) . '",
+						"' . esc_html( $fuc ) . '",
+						"' . esc_html( $terminal ) . '",
+						"' . esc_html( $order_id_2 ) . '",
+						"ES",
+						"false"
+					);
 
-						</script>
-						<style>
-							#redsys-hosted-pay-button {margin-top:' . esc_html( $margintop ) . 'px; min-height: ' . esc_html( $minheigh ) . 'px;}
-						</style>';
+				</script>
+				<style>
+				#redsys-hosted-pay-button {min-height: ' . esc_html( $minheigh ) . 'px;}
+				</style>';
 			}
 		}
 	}
@@ -4091,6 +4130,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$http_accept                     = WCRed()->get_order_meta( $order_id, '_accept_haders', true );
 		$redsys_adr_ws                   = $this->get_redsys_url_gateway_ws( $user_id, $type );
 		$description                     = WCRed()->product_description( $order, $order_id );
+		$merchan_name                    = $order->get_billing_first_name();
+		$merchant_lastnme                = $order->get_billing_last_name();
 
 		set_transient( $order_id . '_insite_token_redsys', $tokennum, 3600 );
 		set_transient( $order_id . '_insite_token', $insite_redsys_token, 3600 );
@@ -4104,6 +4145,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		set_transient( $order_id . '_insite_transaction_type', $insite_transaction_type, 3600 );
 		set_transient( $order_id . '_insite_currency', $insite_currency, 3600 );
 		set_transient( $ordermi . '_insite_redsys_number', $order_id, 3600 );
+		set_transient( $order_id . '_insite_merchan_name', $merchan_name, 3600 );
+		set_transient( $order_id . '_insite_merchant_lastnme', $merchant_lastnme, 3600 );
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );

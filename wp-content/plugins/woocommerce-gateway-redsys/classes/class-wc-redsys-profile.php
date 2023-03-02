@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 		 * @param WP_User $profileuser User object.
 		 */
 		public function add_tokens_fields( $profileuser ) {
-			if ( ! apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $user->ID ) ) {
+			if ( ! apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $profileuser->ID ) ) {
 				return;
 			}
 			if ( is_network_admin() ) {
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 							<label for="toekens"><?php esc_html_e( '1click Tokens', 'woocommerce-redsys' ); ?></label>
 						</th>
 						<td>
-							<textarea name="toekens" id="toekens" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user->ID, 'C' ); ?></textarea>
+							<textarea name="toekens" id="toekens" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user_id, 'C' ); ?></textarea>
 							<p class="submit">
 								<a href="<?php echo esc_url( $full_url ) . '&token=s'; ?>" class="button-primary" target="_self"><?php esc_html_e( 'Request 1click Token', 'woocommerce-redsys' ); ?></a>
 							</p>
@@ -64,7 +64,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 							<label for="toekenr"><?php esc_html_e( 'Subscriptions Tokens', 'woocommerce-redsys' ); ?></label>
 						</th>
 						<td>
-							<textarea name="toekenr" id="toekenr" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user->ID, 'R' ); ?></textarea>
+							<textarea name="toekenr" id="toekenr" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user_id, 'R' ); ?></textarea>
 							<p class="submit">
 								<a href="<?php echo esc_url( $full_url ) . '&token=r'; ?>" class="button-primary" target="_self"><?php esc_html_e( 'Request Subscription Token', 'woocommerce-redsys' ); ?></a>
 							</p>

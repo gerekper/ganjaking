@@ -14,7 +14,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
- * @package WooCommerce API Manager/Templates/API Keys
+ * @package WooCommerce API Manager/Templates
  * @version 2.0
  */
 
@@ -253,9 +253,9 @@ if ( ! empty( $user_id ) ) {
                                                 <a style="text-align:left; vertical-align: middle; border-left: 0; padding-left: 1.5em;"
                                                    href="<?php echo esc_url( $activation_info->object ); ?>"
                                                    target="_blank"><?php echo WC_AM_URL()->remove_url_prefix( $object ); ?></a><span
-                                                        style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $activation_info->activation_time ); ?></span>
+                                                        style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ); ?></span>
 											<?php } else { ?>
-                                                <span style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $activation_info->activation_time ); ?></span>
+                                                <span style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ); ?></span>
 											<?php } ?>
                                         </td>
                                     </tr>

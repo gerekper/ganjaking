@@ -20,7 +20,7 @@ if ( ! empty( $resource ) ) {
 		if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
 			$expires = 'Expired';
 		} else {
-			$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $resource->access_expires ) );
+			$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
 		}
 	}
 
@@ -93,7 +93,7 @@ if ( ! empty( $resource ) ) {
                         </div>
                         <div style="display: inline-block; vertical-align: middle;">
                             <span style="text-decoration: none;">
-                            <?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . WC_AM_PRODUCT_DATA_STORE()->get_parent_id_from_product_id( $resource->product_id ) . '&action=edit' ) . '" target="_blank">' ?>
+                            <?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $resource->product_id ) . '&action=edit' ) . '" target="_blank">' ?>
                         </span>
                             <span style="text-decoration: none;" class="dashicons dashicons-admin-links"></span></a>
                         </div>
@@ -112,51 +112,6 @@ if ( ! empty( $resource ) ) {
                                value="<?php echo $expires ?>"
                                placeholder="<?php esc_html_e( 'Required', 'woocommerce-api-manager' ); ?>" readonly/>
                     </td>
-
-					<?php
-					if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
-						?>
-                        <input type="hidden" id="current_access_expires[<?php echo $i; ?>]" name="current_access_expires[<?php echo $i; ?>]" value="<?php echo $resource->access_expires ?>">
-						<?php
-						ob_start();
-						?>
-                        /* Datepicker for Access Expires */
-                        jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
-                        showOn: "button",
-                        buttonImage: '<?php echo WCAM()->plugin_url() . '/includes/assets/images/calendar.gif' ?>',
-                        buttonImageOnly: true,
-                        buttonText: "Add More Time",
-                        dateFormat: 'yy-mm-dd',
-                        numberOfMonths: 1,
-                        showButtonPanel: true,
-                        minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ) ?>',
-                        onSelect: function(datetext) {
-                        var d = new Date(); // for now
-
-                        var h = d.getHours();
-                        h = (h < 10) ? ("0" + h) : h ;
-
-                        var m = d.getMinutes();
-                        m = (m < 10) ? ("0" + m) : m ;
-
-                        var s = d.getSeconds();
-                        s = (s < 10) ? ("0" + s) : s ;
-
-                        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-                        jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).val(datetext);
-                        }
-                        });
-						<?php
-						/*
-						 * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
-						 * }).datepicker( "setDate", '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ); ?>');
-						 * */
-						$javascript = ob_get_clean();
-						WCAM()->wc_am_print_js( $javascript );
-					}
-					?>
-
                 </tr>
                 </tbody>
             </table>

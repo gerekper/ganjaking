@@ -44,7 +44,7 @@ class WC_AM_Format {
 	 * @return string
 	 * @throws \Exception
 	 */
-	function get_human_time_diff( $timestamp_gmt ) {
+	public function get_human_time_diff( $timestamp_gmt ) {
 		$timestamp_gmt = (int) $timestamp_gmt;
 		$current_time  = WC_AM_ORDER_DATA_STORE()->get_current_time_stamp();
 		$time_diff     = $timestamp_gmt - $current_time;
@@ -56,7 +56,7 @@ class WC_AM_Format {
 			// translators: placeholder is human time diff (e.g. "3 weeks")
 			$date_to_display = sprintf( __( '%s ago', 'woocommerce-api-manager' ), human_time_diff( $current_time, $timestamp_gmt ) );
 		} else {
-			$date_to_display = $this->unix_timestamp_to_date_i18n( $timestamp_gmt );
+			$date_to_display = $this->unix_timestamp_to_date( $timestamp_gmt );
 		}
 
 		return $date_to_display;
@@ -74,7 +74,7 @@ class WC_AM_Format {
 	 *
 	 * @return string Number of seconds of time difference.
 	 */
-	function find_time_diff( $from, $to = 0 ) {
+	public function find_time_diff( $from, $to = 0 ) {
 		if ( empty( $to ) ) {
 			$to = time();
 		}
@@ -149,22 +149,25 @@ class WC_AM_Format {
 	 *
 	 * This makes sure the date is never converted.
 	 *
+	 * wc_string_to_timestamp() - no timezone offset.
+	 * date_to_time() - timezone offset.
+	 *
 	 * @since 2.0
 	 *
-	 * @param string $date_string A date string formatted in MySQl or similar format that will map correctly when instantiating an instance of
+	 * @param string $date        A date string formatted in MySQl or similar format that will map correctly when instantiating an instance of
 	 *                            DateTime().
 	 *
 	 * @return int Unix timestamp representation of the timestamp passed in without any changes for timezones
 	 * @throws \Exception
 	 */
-	function date_to_time( $date_string ) {
-		if ( $date_string == 0 ) {
+	public function date_to_time( $date, $offset = true ) {
+		if ( $date == 0 ) {
 			return 0;
 		}
 
-		$date_time = new WC_DateTime( $date_string, new DateTimeZone( 'UTC' ) );
+		$date_time = new WC_DateTime( $date, new DateTimeZone( 'UTC' ) );
 
-		return intval( $date_time->getOffsetTimestamp() );
+		return ( $offset ) ? intval( $date_time->getOffsetTimestamp() ) : intval( $date_time->getTimestamp() );
 	}
 
 	/**
@@ -174,8 +177,8 @@ class WC_AM_Format {
 	 *
 	 * @return string
 	 */
-	function date_format() {
-		return apply_filters( 'wc_am_date_format', get_option( 'date_format' ) );
+	public function date_format() {
+		return apply_filters( 'wc_am_date_format', wc_date_format() );
 	}
 
 	/**
@@ -185,8 +188,57 @@ class WC_AM_Format {
 	 *
 	 * @return string
 	 */
-	function time_format() {
-		return apply_filters( 'wc_am_time_format', get_option( 'time_format' ) );
+	public function time_format() {
+		return apply_filters( 'wc_am_time_format', wc_time_format() );
+	}
+
+	/**
+	 * Returns the timezone of the site as a string.
+	 *
+	 * Uses the `timezone_string` option to get a proper timezone name if available,
+	 * otherwise falls back to a manual UTC ± offset.
+	 *
+	 * Example return values:
+	 *
+	 *  - 'Europe/Rome'
+	 *  - 'America/North_Dakota/New_Salem'
+	 *  - 'UTC'
+	 *  - '-06:30'
+	 *  - '+00:00'
+	 *  - '+08:45'
+	 *
+	 * @since 2.5
+	 *
+	 * @return string
+	 */
+	public function timezone_string() {
+		return wp_timezone_string();
+	}
+
+	/**
+	 * Retrieves the timezone of the site as a `DateTimeZone` object.
+	 *
+	 * Timezone can be based on a PHP timezone string or a ±HH:MM offset.
+	 *
+	 * @since 2.5
+	 *
+	 * @return DateTimeZone Timezone object.
+	 */
+	public function timezone() {
+		return wp_timezone();
+	}
+
+	/**
+	 * Take a date and convert it into an epoch/unix timestamp without the timezone offset.
+	 *
+	 * @since   2.5
+	 *
+	 * @param string $datetime
+	 *
+	 * @return int
+	 */
+	public function date_to_unix_timestamp_with_no_timezone_offset( $datetime ) {
+		return $this->date_to_time( $datetime, false );
 	}
 
 	/**
@@ -194,21 +246,42 @@ class WC_AM_Format {
 	 *
 	 * @since 2.4.4
 	 *
-	 * @param $datetime_string
+	 * @param string $datetime
 	 *
 	 * @return int
-	 * @throws \Exception
 	 */
-	function date_to_unix_timestamp_with_timezone_offset( $datetime_string ) {
-		return wc_string_to_timestamp( $datetime_string );
+	public function date_to_unix_timestamp_with_timezone_offset( $datetime ) {
+		return $this->date_to_time( $datetime );
+	}
 
-		//try {
-		//	$datetime = new DateTime( $datetime_string, new DateTimeZone( wc_timezone_string() ) );
-		//
-		//	return (int) $datetime->format( 'U' );
-		//} catch ( Exception $e ) {
-		//	WC_AM_LOG()->log_error( esc_html__( 'Details from date_to_unix_timestamp_with_timezone_offset() method.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'date_to_unix_timestamp_with_timezone_offset' );
-		//}
+	/**
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date and time.
+	 *
+	 * @since 2.0.6
+	 *
+	 * @param int $timestamp
+	 *
+	 * @return string
+	 */
+	public function unix_timestamp_to_date( $timestamp ) {
+		$timestamp_localized = $this->date_to_time( gmdate( $this->date_format() . ' ' . $this->time_format(), $timestamp ) );
+
+		return date_i18n( $this->date_format() . ' ' . $this->time_format(), $timestamp_localized );
+	}
+
+	/**
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date for a calendar.
+	 *
+	 * @since 2.4
+	 *
+	 * @param int $timestamp
+	 *
+	 * @return string
+	 */
+	public function unix_timestamp_to_calendar_date( $timestamp ) {
+		$timestamp_localized = $this->date_to_time( gmdate( $this->date_format(), $timestamp ) );
+
+		return date_i18n( 'Y-m-d', $timestamp_localized );
 	}
 
 	/**
@@ -223,40 +296,6 @@ class WC_AM_Format {
 	 */
 	public function count( $collection ) {
 		return is_array( $collection ) || is_object( $collection ) ? count( $collection ) : 0;
-	}
-
-	/**
-	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date and time.
-	 *
-	 * @since 2.0.6
-	 *
-	 * @param int $timestamp
-	 *
-	 * @return string
-	 * @throws \Exception
-	 */
-	public function unix_timestamp_to_date_i18n( $timestamp ) {
-		$timestamp_site  = $this->date_to_time( gmdate( 'Y-m-d H:i:s', $timestamp ) );
-		$date_to_display = date_i18n( $this->date_format(), $timestamp_site ) . ' ' . date_i18n( $this->time_format(), $timestamp_site );
-
-		return $date_to_display;
-	}
-
-	/**
-	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date for a calendar.
-	 *
-	 * @since 2.4
-	 *
-	 * @param int $timestamp
-	 *
-	 * @return string
-	 * @throws \Exception
-	 */
-	public function unix_timestamp_to_calendar_date_i18n( $timestamp ) {
-		$timestamp_site  = $this->date_to_time( gmdate( 'Y-m-d', $timestamp ) );
-		$date_to_display = date_i18n( 'Y-m-d', $timestamp_site );
-
-		return $date_to_display;
 	}
 
 	/**
@@ -312,6 +351,21 @@ class WC_AM_Format {
 		}
 
 		return is_object( $var ) ? empty( json_decode( json_encode( $var ), true ) ) : empty( $var );
+	}
+
+	/**
+	 * Returns false if either type String compared is null to prevent PHP 8.2 deprecated notice.
+	 * PHP notice: Deprecated: strcmp(): Passing null to parameter #1 ($string1) of type string is deprecated ...
+	 *
+	 * @since 2.5
+	 *
+	 * @param String $str1
+	 * @param String $str2
+	 *
+	 * @return bool
+	 */
+	public function strcmp( $str1, $str2 ) {
+		return ! is_null( $str1 ) && ! is_null( $str2 ) && strcmp( $str1, $str2 ) !== 0;
 	}
 
 }

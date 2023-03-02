@@ -115,26 +115,17 @@ class WC_AM_Download_Handler {
 
 				$this->check_order_is_valid( $download );
 
-				if ( WCAM()->get_wc_version() < '3.3' ) {
-					$count = $download->get_download_count();
-					//$remaining = $download->get_downloads_remaining();
-					$download->set_download_count( $count + 1 );
-					$download->save();
-				}
+				// Track the download in logs and change remaining/counts.
+				$current_user_id = $user_id;
+				$ip_address      = WC_Geolocation::get_ip_address();
 
-				if ( WCAM()->get_wc_version() >= '3.3' ) {
-					// Track the download in logs and change remaining/counts.
-					$current_user_id = $user_id;
-					$ip_address      = WC_Geolocation::get_ip_address();
+				$parsed_file_path = $this->parse_file_path( $file_path );
 
-					$parsed_file_path = $this->parse_file_path( $file_path );
+				if ( $parsed_file_path ) {
+					$download_range = $this->get_download_range( @filesize( $parsed_file_path[ 'file_path' ] ) );
 
-					if ( $parsed_file_path ) {
-						$download_range = $this->get_download_range( @filesize( $parsed_file_path[ 'file_path' ] ) );
-
-						if ( ! $download_range[ 'is_range_request' ] ) {
-							$download->track_download( $current_user_id > 0 ? $current_user_id : null, ! empty( $ip_address ) ? $ip_address : null );
-						}
+					if ( ! $download_range[ 'is_range_request' ] ) {
+						$download->track_download( $current_user_id > 0 ? $current_user_id : null, ! empty( $ip_address ) ? $ip_address : null );
 					}
 				}
 			}
@@ -274,7 +265,7 @@ class WC_AM_Download_Handler {
 					'http',
 					'https',
 					'ftp'
-				), true ) ) && isset( $parsed_file_path[ 'path' ] ) && file_exists( $parsed_file_path[ 'path' ] ) ) {
+				),                                                           true ) ) && isset( $parsed_file_path[ 'path' ] ) && file_exists( $parsed_file_path[ 'path' ] ) ) {
 			$remote_file = false;
 			$file_path   = $parsed_file_path[ 'path' ];
 		}

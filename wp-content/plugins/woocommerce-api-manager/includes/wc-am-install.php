@@ -89,10 +89,7 @@ class WC_AM_Install {
 		add_action( 'init', array( $this, 'init_background_updater' ), 5 );
 		add_action( 'init', array( $this, 'check_version' ), 5 );
 		add_action( 'admin_init', array( $this, 'install_actions' ) );
-
-		if ( WCAM()->get_wc_version() >= '3.2' ) {
-			add_action( 'wc_api_manager_installed', 'wc_delete_expired_transients' );
-		}
+		add_action( 'wc_api_manager_installed', 'wc_delete_expired_transients' );
 	}
 
 	/**
@@ -121,7 +118,7 @@ class WC_AM_Install {
 		if ( WCAM()->get_file() == $file ) {
 			$row_meta = array(
 				'Docs'    => '<a href="' . esc_url( apply_filters( 'wc_api_manager_docs_url', 'http://docs.woocommerce.com/document/woocommerce-api-manager/', 'woocommerce-api-manager' ) ) . '">' . esc_html__( 'Docs', 'woocommerce-api-manager' ) . '</a>',
-				'Support' => '<a href="' . esc_url( apply_filters( 'wc_api_manager_support_url', 'https://woocommerce.com/my-account/create-a-ticket?broken=primary&select=260110' ) ) . '">' . esc_html__( 'Support', 'woocommerce-api-manager' ) . '</a>',
+				'Support' => '<a href="' . esc_url( apply_filters( 'wc_api_manager_support_url', 'https://woocommerce.com/my-account/create-a-ticket/?select=260110' ) ) . '">' . esc_html__( 'Support', 'woocommerce-api-manager' ) . '</a>',
 			);
 
 			return array_merge( $links, $row_meta );

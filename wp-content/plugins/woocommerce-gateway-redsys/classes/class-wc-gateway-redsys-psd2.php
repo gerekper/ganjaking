@@ -250,7 +250,7 @@ class WC_Gateway_Redsys_PSD2 {
 	 * @param array  $post_status Post status.
 	 * @param string $date_query Date query.
 	 */
-	public function get_post_num( $post_status = array(), $date_query ) {
+	public function get_post_num( $post_status, $date_query ) {
 
 		$this->debug( 'get_post_num()' );
 		$this->debug( '$post_status: ' . print_r( $post_status, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
@@ -651,7 +651,7 @@ class WC_Gateway_Redsys_PSD2 {
 			$customer         = new WC_Customer( $user_id );
 			$dt               = new DateTime( $customer->get_date_modified() );
 			$ch_acc_change    = $dt->format( 'Ymd' );
-			$account_modified = intval( ( strtotime( 'now' ) - strtotime( (int) $customer->get_date_modified() ) ) / 60 );
+			$account_modified = intval( ( time() - strtotime( $customer->get_date_modified() ) ) / 60 );
 			$n_days           = intval( $account_modified / 1440 );
 
 			if ( $account_modified < 20 ) {

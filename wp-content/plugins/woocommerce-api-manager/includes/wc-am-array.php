@@ -322,7 +322,7 @@ class WC_AM_Array {
 	}
 
 	/**
-	 * Callback method for sorting an array by key
+	 * Callback method for sorting an array by key.
 	 *
 	 * @since 1.3.7
 	 *
@@ -552,6 +552,19 @@ class WC_AM_Array {
 		$array = array_unique( $array );
 
 		return array_map( 'json_decode', $array );
+	}
+
+	/**
+	 * Casts an object to an associative array.
+	 *
+	 * @since 2.5
+	 *
+	 * @param object|array $object
+	 *
+	 * @return mixed
+	 */
+	public function object_to_array( $object ) {
+		return is_object( $object ) || is_array( $object ) ? json_decode( json_encode( $object ), true ) : $object;
 	}
 
 } // end class

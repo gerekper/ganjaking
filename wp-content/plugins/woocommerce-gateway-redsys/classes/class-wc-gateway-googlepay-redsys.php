@@ -583,15 +583,15 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 
 		$response = intval( $response );
 		if ( $response <= 99 ) {
-			// authorized
+			// authorized.
 			$order_total_compare = number_format( $order->get_total(), 2, '', '' );
 			if ( $order_total_compare != $total ) {
-				// amount does not match
+				// amount does not match.
 				if ( 'yes' == $this->debug ) {
 					$this->log->add( 'googlepay', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
 
-				// Put this order on-hold for manual checking
+				// Put this order on-hold for manual checking.
 				$order->update_status( 'on-hold', sprintf( __( 'Validation error: Order vs. Notification amounts do not match (order: %1$s - received: %2$s).', 'woocommerce-redsys' ), $order_total_compare, $total ) );
 				exit;
 			}

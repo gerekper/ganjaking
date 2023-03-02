@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gravity Forms 2.7.1.1\n"
+"Project-Id-Version: Gravity Forms 2.7.2\n"
 "Report-Msgid-Bugs-To: https://gravityforms.com/support\n"
 "Last-Translator: Gravity Forms <support@gravityforms.com>\n"
 "Language-Team: Gravity Forms <support@gravityforms.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-20T16:29:35+00:00\n"
+"POT-Creation-Date: 2023-02-27T21:10:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: gravityforms\n"
@@ -24,8 +24,8 @@ msgstr ""
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:752
 #: assets/js/src/admin/block-editor/blocks/form/index.js:24
-#: assets/js/dist/scripts-admin.js:1038
-#: assets/js/dist/scripts-admin.js:1099
+#: assets/js/dist/scripts-admin.js:1171
+#: assets/js/dist/scripts-admin.js:1232
 msgid "Gravity Forms"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 #: tooltips.php:24
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:273
-#: assets/js/dist/scripts-admin.js:559
+#: assets/js/dist/scripts-admin.js:692
 msgid "Form Title"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgstr ""
 #: includes/fields/class-gf-field.php:2519
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:374
-#: assets/js/dist/scripts-admin.js:660
+#: assets/js/dist/scripts-admin.js:793
 msgid "Medium"
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 #: includes/fields/class-gf-field.php:2520
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:375
-#: assets/js/dist/scripts-admin.js:661
+#: assets/js/dist/scripts-admin.js:794
 msgid "Large"
 msgstr ""
 
@@ -318,7 +318,7 @@ msgstr ""
 #: gravityforms.php:5638
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:555
-#: assets/js/dist/scripts-admin.js:841
+#: assets/js/dist/scripts-admin.js:974
 msgid "Preview"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 #: common.php:5340
 #: common.php:6065
 #: form_list.php:150
-#: form_list.php:607
+#: form_list.php:606
 #: includes/addon/class-gf-feed-addon.php:2466
 #: includes/class-confirmation.php:156
 #: includes/class-confirmation.php:1064
@@ -368,7 +368,7 @@ msgstr ""
 
 #: common.php:5341
 #: form_list.php:146
-#: form_list.php:610
+#: form_list.php:609
 #: includes/addon/class-gf-feed-addon.php:2469
 #: includes/class-confirmation.php:152
 #: includes/class-confirmation.php:1067
@@ -464,7 +464,7 @@ msgstr ""
 
 #: common.php:5353
 #: form_display.php:1608
-#: form_list.php:326
+#: form_list.php:325
 #: gravityforms.php:3181
 #: includes/fields/class-gf-field-submit.php:158
 #: includes/settings/fields/class-button.php:50
@@ -1087,7 +1087,7 @@ msgstr ""
 #: entry_detail.php:436
 #: entry_list.php:1436
 #: entry_list.php:1475
-#: form_list.php:877
+#: form_list.php:876
 msgid "You don't have adequate permission to delete entries."
 msgstr ""
 
@@ -1169,7 +1169,7 @@ msgid "show empty fields"
 msgstr ""
 
 #: entry_detail.php:1152
-#: form_list.php:534
+#: form_list.php:533
 msgid "Status"
 msgstr ""
 
@@ -1257,8 +1257,8 @@ msgstr ""
 #: entry_detail.php:1373
 #: entry_list.php:1201
 #: entry_list.php:1335
-#: form_list.php:515
-#: form_list.php:667
+#: form_list.php:514
+#: form_list.php:666
 msgid "Restore"
 msgstr ""
 
@@ -1292,7 +1292,7 @@ msgstr ""
 #: select_columns.php:277
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:112
-#: assets/js/dist/scripts-admin.js:398
+#: assets/js/dist/scripts-admin.js:531
 msgid "Cancel"
 msgstr ""
 
@@ -1396,7 +1396,7 @@ msgstr ""
 #: entry_list.php:502
 #: entry_list.php:1276
 #: entry_list.php:1358
-#: form_list.php:702
+#: form_list.php:701
 msgid "Trash"
 msgstr ""
 
@@ -1668,7 +1668,7 @@ msgstr ""
 #: includes/config/items/class-gf-config-admin-i18n.php:43
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:199
-#: assets/js/dist/scripts-admin.js:485
+#: assets/js/dist/scripts-admin.js:618
 msgid "Edit Form"
 msgstr ""
 
@@ -1745,7 +1745,7 @@ msgstr ""
 #: widget.php:142
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:81
-#: assets/js/dist/scripts-admin.js:367
+#: assets/js/dist/scripts-admin.js:500
 msgid "Select a Form"
 msgstr ""
 
@@ -1962,7 +1962,7 @@ msgstr ""
 #: form_detail.php:2267
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:547
-#: assets/js/dist/scripts-admin.js:833
+#: assets/js/dist/scripts-admin.js:966
 msgid "Advanced"
 msgstr ""
 
@@ -2163,7 +2163,7 @@ msgstr ""
 #: form_detail.php:790
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:298
-#: assets/js/dist/scripts-admin.js:584
+#: assets/js/dist/scripts-admin.js:717
 msgid "Default"
 msgstr ""
 
@@ -2206,10 +2206,10 @@ msgstr ""
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:456
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:488
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:522
-#: assets/js/dist/scripts-admin.js:702
-#: assets/js/dist/scripts-admin.js:742
-#: assets/js/dist/scripts-admin.js:774
-#: assets/js/dist/scripts-admin.js:808
+#: assets/js/dist/scripts-admin.js:835
+#: assets/js/dist/scripts-admin.js:875
+#: assets/js/dist/scripts-admin.js:907
+#: assets/js/dist/scripts-admin.js:941
 msgid "Text"
 msgstr ""
 
@@ -2451,7 +2451,7 @@ msgstr ""
 #: form_detail.php:1602
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:370
-#: assets/js/dist/scripts-admin.js:656
+#: assets/js/dist/scripts-admin.js:789
 msgid "Size"
 msgstr ""
 
@@ -2460,7 +2460,7 @@ msgstr ""
 #: includes/fields/class-gf-field.php:2518
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:373
-#: assets/js/dist/scripts-admin.js:659
+#: assets/js/dist/scripts-admin.js:792
 msgid "Small"
 msgstr ""
 
@@ -2595,7 +2595,7 @@ msgid "Alternative Text"
 msgstr ""
 
 #: form_detail.php:1188
-#: form_list.php:535
+#: form_list.php:534
 #: gravityforms.php:2554
 #: includes/fields/class-gf-field-post-image.php:153
 #: includes/fields/class-gf-field-post-image.php:155
@@ -4460,7 +4460,7 @@ msgstr ""
 #: tooltips.php:25
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:279
-#: assets/js/dist/scripts-admin.js:565
+#: assets/js/dist/scripts-admin.js:698
 msgid "Form Description"
 msgstr ""
 
@@ -4527,104 +4527,104 @@ msgstr ""
 msgid "Search Forms"
 msgstr ""
 
-#: form_list.php:216
-#: form_list.php:236
+#: form_list.php:215
+#: form_list.php:235
 #: includes/template-library/config/class-gf-template-library-config.php:99
 msgid "There was an issue creating your form."
 msgstr ""
 
-#: form_list.php:228
+#: form_list.php:227
 #: form_settings.php:1281
 msgid "Please enter a form title."
 msgstr ""
 
-#: form_list.php:240
+#: form_list.php:239
 #: form_settings.php:1285
 #: includes/template-library/config/class-gf-template-library-config.php:98
 msgid "Please enter a unique form title."
 msgstr ""
 
-#: form_list.php:301
+#: form_list.php:300
 msgid "Create a New Form"
 msgstr ""
 
-#: form_list.php:301
+#: form_list.php:300
 msgid "Provide a title and a description for this form"
 msgstr ""
 
-#: form_list.php:317
+#: form_list.php:316
 msgid "Creating Form..."
 msgstr ""
 
-#: form_list.php:351
+#: form_list.php:350
 msgid "Saved! Redirecting..."
 msgstr ""
 
-#: form_list.php:436
+#: form_list.php:435
 msgctxt "Form List"
 msgid "All"
 msgstr ""
 
-#: form_list.php:437
+#: form_list.php:436
 msgctxt "Form List"
 msgid "Active"
 msgstr ""
 
-#: form_list.php:438
+#: form_list.php:437
 msgctxt "Form List"
 msgid "Inactive"
 msgstr ""
 
-#: form_list.php:439
+#: form_list.php:438
 msgctxt "Form List"
 msgid "Trash"
 msgstr ""
 
-#: form_list.php:516
-#: form_list.php:675
+#: form_list.php:515
+#: form_list.php:674
 msgid "Delete permanently"
 msgstr ""
 
-#: form_list.php:520
+#: form_list.php:519
 msgid "Mark as Active"
 msgstr ""
 
-#: form_list.php:521
+#: form_list.php:520
 msgid "Mark as Inactive"
 msgstr ""
 
-#: form_list.php:522
+#: form_list.php:521
 msgid "Reset Views"
 msgstr ""
 
-#: form_list.php:523
+#: form_list.php:522
 msgid "Permanently Delete Entries"
 msgstr ""
 
-#: form_list.php:524
+#: form_list.php:523
 msgid "Move to trash"
 msgstr ""
 
-#: form_list.php:536
+#: form_list.php:535
 msgid "ID"
 msgstr ""
 
-#: form_list.php:537
+#: form_list.php:536
 #: gravityforms.php:1790
 #: gravityforms.php:5352
 #: gravityforms.php:5611
 msgid "Entries"
 msgstr ""
 
-#: form_list.php:538
+#: form_list.php:537
 msgid "Views"
 msgstr ""
 
-#: form_list.php:539
+#: form_list.php:538
 msgid "Conversion"
 msgstr ""
 
-#: form_list.php:693
+#: form_list.php:692
 #: includes/addon/class-gf-feed-addon.php:1684
 #: includes/class-confirmation.php:1092
 #: includes/fields/class-gf-field.php:1516
@@ -4632,107 +4632,107 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: form_list.php:703
+#: form_list.php:702
 msgid "Move this form to the trash"
 msgstr ""
 
-#: form_list.php:728
+#: form_list.php:727
 msgid "No forms were found for your search query. %sView all forms%s."
 msgstr ""
 
-#: form_list.php:733
+#: form_list.php:732
 msgid "There are no forms in the trash."
 msgstr ""
 
-#: form_list.php:735
+#: form_list.php:734
 msgid "You don't have any forms. Let's go %screate one%s!"
 msgstr ""
 
-#: form_list.php:759
-#: form_list.php:808
+#: form_list.php:758
+#: form_list.php:807
 msgid "Form moved to the trash."
 msgstr ""
 
-#: form_list.php:762
-#: form_list.php:811
+#: form_list.php:761
+#: form_list.php:810
 msgid "You don't have adequate permission to trash forms."
 msgstr ""
 
-#: form_list.php:769
+#: form_list.php:768
 msgid "Form restored."
 msgstr ""
 
-#: form_list.php:772
+#: form_list.php:771
 msgid "You don't have adequate permission to restore forms."
 msgstr ""
 
-#: form_list.php:779
+#: form_list.php:778
 msgid "Form deleted."
 msgstr ""
 
-#: form_list.php:782
+#: form_list.php:781
 msgid "You don't have adequate permission to delete forms."
 msgstr ""
 
-#: form_list.php:789
-#: form_list.php:820
+#: form_list.php:788
+#: form_list.php:819
 msgid "Form duplicated."
 msgstr ""
 
-#: form_list.php:792
-#: form_list.php:823
+#: form_list.php:791
+#: form_list.php:822
 msgid "You don't have adequate permission to duplicate forms."
 msgstr ""
 
-#: form_list.php:842
+#: form_list.php:841
 msgid "%s form moved to the trash."
 msgid_plural "%s forms moved to the trash."
 msgstr[0] ""
 msgstr[1] ""
 
-#: form_list.php:844
+#: form_list.php:843
 msgid "You don't have adequate permissions to trash forms."
 msgstr ""
 
-#: form_list.php:850
+#: form_list.php:849
 msgid "%s form restored."
 msgid_plural "%s forms restored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: form_list.php:852
+#: form_list.php:851
 msgid "You don't have adequate permissions to restore forms."
 msgstr ""
 
-#: form_list.php:858
+#: form_list.php:857
 msgid "%s form deleted."
 msgid_plural "%s forms deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: form_list.php:860
+#: form_list.php:859
 msgid "You don't have adequate permissions to delete forms."
 msgstr ""
 
-#: form_list.php:868
+#: form_list.php:867
 msgid "Views for %s form have been reset."
 msgid_plural "Views for %s forms have been reset."
 msgstr[0] ""
 msgstr[1] ""
 
-#: form_list.php:875
+#: form_list.php:874
 msgid "Entries for %s form have been deleted."
 msgid_plural "Entries for %s forms have been deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: form_list.php:885
+#: form_list.php:884
 msgid "%s form has been marked as active."
 msgid_plural "%s forms have been marked as active."
 msgstr[0] ""
 msgstr[1] ""
 
-#: form_list.php:891
+#: form_list.php:890
 msgid "%s form has been marked as inactive."
 msgid_plural "%s forms have been marked as inactive."
 msgstr[0] ""
@@ -4931,8 +4931,8 @@ msgstr ""
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:220
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:262
-#: assets/js/dist/scripts-admin.js:506
-#: assets/js/dist/scripts-admin.js:548
+#: assets/js/dist/scripts-admin.js:639
+#: assets/js/dist/scripts-admin.js:681
 msgid "Form Settings"
 msgstr ""
 
@@ -5275,7 +5275,7 @@ msgstr ""
 #: widget.php:38
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:266
-#: assets/js/dist/scripts-admin.js:552
+#: assets/js/dist/scripts-admin.js:685
 msgid "Form"
 msgstr ""
 
@@ -7075,7 +7075,7 @@ msgstr ""
 #: includes/embed-form/config/class-gf-embed-config-i18n.php:39
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:678
-#: assets/js/dist/scripts-admin.js:964
+#: assets/js/dist/scripts-admin.js:1097
 msgid "Form ID: %s"
 msgstr ""
 
@@ -9477,7 +9477,7 @@ msgstr ""
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:113
 #: assets/js/src/admin/block-editor/copy-paste-styles.js:127
 #: assets/js/dist/scripts-admin.block-editor.150af96c7dc6c93ba043.js:311
-#: assets/js/dist/scripts-admin.js:399
+#: assets/js/dist/scripts-admin.js:532
 msgid "Close"
 msgstr ""
 
@@ -14778,61 +14778,61 @@ msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:286
-#: assets/js/dist/scripts-admin.js:572
+#: assets/js/dist/scripts-admin.js:705
 msgid "Form Styles"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:295
-#: assets/js/dist/scripts-admin.js:581
+#: assets/js/dist/scripts-admin.js:714
 msgid "Form Theme"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:299
-#: assets/js/dist/scripts-admin.js:585
+#: assets/js/dist/scripts-admin.js:718
 msgid "Orbital"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:309
-#: assets/js/dist/scripts-admin.js:595
+#: assets/js/dist/scripts-admin.js:728
 msgid "Reset Defaults"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:110
-#: assets/js/dist/scripts-admin.js:396
+#: assets/js/dist/scripts-admin.js:529
 msgid "Restore Defaults"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:111
-#: assets/js/dist/scripts-admin.js:397
+#: assets/js/dist/scripts-admin.js:530
 msgid "This will restore your form styles back to their default values and cannot be undone. Are you sure you want to continue?"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:121
-#: assets/js/dist/scripts-admin.js:407
+#: assets/js/dist/scripts-admin.js:540
 msgid "Restore Default Styles"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:346
-#: assets/js/dist/scripts-admin.js:632
+#: assets/js/dist/scripts-admin.js:765
 msgid "Form style options are not available for forms that use %1$slegacy mode%2$s."
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:351
-#: assets/js/dist/scripts-admin.js:637
+#: assets/js/dist/scripts-admin.js:770
 msgid "Input Styles"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:384
-#: assets/js/dist/scripts-admin.js:670
+#: assets/js/dist/scripts-admin.js:803
 msgid "Border Radius"
 msgstr ""
 
@@ -14840,67 +14840,67 @@ msgstr ""
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:385
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:445
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:477
-#: assets/js/dist/scripts-admin.js:671
-#: assets/js/dist/scripts-admin.js:731
-#: assets/js/dist/scripts-admin.js:763
+#: assets/js/dist/scripts-admin.js:804
+#: assets/js/dist/scripts-admin.js:864
+#: assets/js/dist/scripts-admin.js:896
 msgid "In pixels."
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:396
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:512
-#: assets/js/dist/scripts-admin.js:682
-#: assets/js/dist/scripts-admin.js:798
+#: assets/js/dist/scripts-admin.js:815
+#: assets/js/dist/scripts-admin.js:931
 msgid "Background"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:406
-#: assets/js/dist/scripts-admin.js:692
+#: assets/js/dist/scripts-admin.js:825
 msgid "Border"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:436
-#: assets/js/dist/scripts-admin.js:722
+#: assets/js/dist/scripts-admin.js:855
 msgid "Label Styles"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:444
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:476
-#: assets/js/dist/scripts-admin.js:730
-#: assets/js/dist/scripts-admin.js:762
+#: assets/js/dist/scripts-admin.js:863
+#: assets/js/dist/scripts-admin.js:895
 msgid "Font Size"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:468
-#: assets/js/dist/scripts-admin.js:754
+#: assets/js/dist/scripts-admin.js:887
 msgid "Description Styles"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:500
-#: assets/js/dist/scripts-admin.js:786
+#: assets/js/dist/scripts-admin.js:919
 msgid "Button Styles"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:561
-#: assets/js/dist/scripts-admin.js:847
+#: assets/js/dist/scripts-admin.js:980
 msgid "AJAX"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:567
-#: assets/js/dist/scripts-admin.js:853
+#: assets/js/dist/scripts-admin.js:986
 msgid "Field Values"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:576
-#: assets/js/dist/scripts-admin.js:862
+#: assets/js/dist/scripts-admin.js:995
 msgid "Tabindex"
 msgstr ""
 
@@ -14909,33 +14909,33 @@ msgstr ""
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:635
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:645
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:654
-#: assets/js/dist/scripts-admin.js:906
-#: assets/js/dist/scripts-admin.js:921
-#: assets/js/dist/scripts-admin.js:931
-#: assets/js/dist/scripts-admin.js:940
+#: assets/js/dist/scripts-admin.js:1039
+#: assets/js/dist/scripts-admin.js:1054
+#: assets/js/dist/scripts-admin.js:1064
+#: assets/js/dist/scripts-admin.js:1073
 msgid "Colors"
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:660
-#: assets/js/dist/scripts-admin.js:946
+#: assets/js/dist/scripts-admin.js:1079
 msgid "Also used for form UI elements such as checkbox and radio."
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:746
-#: assets/js/dist/scripts-admin.js:1032
+#: assets/js/dist/scripts-admin.js:1165
 msgid "The selected form has been deleted or trashed. Please select a new form."
 msgstr ""
 
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:766
-#: assets/js/dist/scripts-admin.js:1052
+#: assets/js/dist/scripts-admin.js:1185
 msgid "You must have at least one form to use the block."
 msgstr ""
 
 #: assets/js/src/admin/block-editor/blocks/form/index.js:25
-#: assets/js/dist/scripts-admin.js:1100
+#: assets/js/dist/scripts-admin.js:1233
 msgid "Select and display one of your forms."
 msgstr ""
 

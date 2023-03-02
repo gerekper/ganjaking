@@ -1,0 +1,65 @@
+
+/* switch checkbox */
+.form-table label.opmc-toggle-control {
+display: block !important;
+position: relative;
+padding-left: 100px;
+margin:0 0 25px !important;
+cursor: pointer;
+font-size: 22px;
+-webkit-user-select: none;
+ -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none;
+}
+.opmc-toggle-control input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.opmc-toggle-control input:checked ~ .opmc-control {
+background-color: dodgerblue;
+}
+.opmc-toggle-control input:checked ~ .opmc-control:after {
+left: 35px;
+}
+.opmc-toggle-control input:checked ~ .opmc-control:before {
+content: "Enabled";
+color: green;
+transition: all 0.15s ease-in-out;
+
+}
+.opmc-toggle-control .opmc-control {
+position: absolute;
+top: 0px;
+height: 25px;
+width: 58px;
+border-radius: 25px;
+background-color: darkgray;
+transition: background-color 0.15s ease-in;
+}
+.opmc-toggle-control .opmc-control:after {
+content: "";
+position: absolute;
+left: 3px;
+top: 50%;
+width: 20px;
+height: 20.5px;
+border-radius: 25px;
+background: white;
+transition: left 0.15s ease-in;
+transform: translateY(-50%);
+}
+.opmc-toggle-control .opmc-control:before{
+content: "Disabled";
+position: absolute;
+left: calc(100% + 10px);
+top: 50%;
+transform: translateY(-50%);
+color: gray;
+transition: all 0.15s ease-in-out;
+font-size: 12px;
+pointer-events: none;
+}

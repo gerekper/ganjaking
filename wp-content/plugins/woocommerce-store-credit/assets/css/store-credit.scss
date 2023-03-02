@@ -29,6 +29,15 @@
 	}
 }
 
+.woocommerce-MyAccount-navigation {
+
+	ul li.woocommerce-MyAccount-navigation-link--store-credit a::before {
+		font-family: dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
+		content: "\f524";
+		font-weight: 400;
+	}
+}
+
 .woocommerce-MyAccount-store-credit {
 
 	.button {

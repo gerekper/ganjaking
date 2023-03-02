@@ -1,5 +1,10 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-02-28 - version 1.7.27
+* Fix - Adds placeholder for minimum and maximum points discount field.
+* Fix - Changes Minimum Points Discount field type to number to avoid non-numeric characters.
+* Fix - Excessive recording of events for zero redeemed points.
+
 2023-01-31 - version 1.7.26
 * Fix - Only allow non-negative customer point updates.
 * Tweak - WC 7.4 compatibility.

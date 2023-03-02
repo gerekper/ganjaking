@@ -543,29 +543,32 @@ class WC_Points_Rewards_Admin {
 
 			// Minimum points discount.
 			array(
-				'title'    => __( 'Minimum Points Discount', 'woocommerce-points-and-rewards' ),
-				'desc_tip' => __( 'Set the minimum amount a user\'s points must add up to in order to redeem points. Use a fixed monetary amount or leave blank to disable.', 'woocommerce-points-and-rewards' ),
-				'id'       => 'wc_points_rewards_cart_min_discount',
-				'default'  => '',
-				'type'     => 'text',
+				'title'       => __( 'Minimum Points Discount', 'woocommerce-points-and-rewards' ),
+				'desc_tip'    => __( 'Set the minimum amount a user\'s points must add up to in order to redeem points. Use a fixed monetary amount or leave blank to disable.', 'woocommerce-points-and-rewards' ),
+				'id'          => 'wc_points_rewards_cart_min_discount',
+				'default'     => '',
+				'placeholder' => __( 'Enter amount', 'woocommerce-points-and-rewards' ),
+				'type'        => 'number',
 			),
 
 			// maximum points discount available.
 			array(
-				'title'    => __( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ),
-				'desc_tip' => __( 'Set the maximum product discount allowed for the cart when redeeming points. Use either a fixed monetary amount or a percentage based on the product price. Leave blank to disable.', 'woocommerce-points-and-rewards' ),
-				'id'       => 'wc_points_rewards_cart_max_discount',
-				'default'  => '',
-				'type'     => 'text',
+				'title'       => __( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ),
+				'desc_tip'    => __( 'Set the maximum product discount allowed for the cart when redeeming points. Use either a fixed monetary amount or a percentage based on the product price. Leave blank to disable.', 'woocommerce-points-and-rewards' ),
+				'id'          => 'wc_points_rewards_cart_max_discount',
+				'default'     => '',
+				'placeholder' => __( 'Enter amount or percentage value', 'woocommerce-points-and-rewards' ),
+				'type'        => 'text',
 			),
 
 			// maximum points discount available.
 			array(
-				'title'    => __( 'Maximum Product Points Discount', 'woocommerce-points-and-rewards' ),
-				'desc_tip' => __( 'Set the maximum product discount allowed when redeeming points per-product. Use either a fixed monetary amount or a percentage based on the product price. Leave blank to disable. This can be overridden at the category and product level.', 'woocommerce-points-and-rewards' ),
-				'id'       => 'wc_points_rewards_max_discount',
-				'default'  => '',
-				'type'     => 'text',
+				'title'       => __( 'Maximum Product Points Discount', 'woocommerce-points-and-rewards' ),
+				'desc_tip'    => __( 'Set the maximum product discount allowed when redeeming points per-product. Use either a fixed monetary amount or a percentage based on the product price. Leave blank to disable. This can be overridden at the category and product level.', 'woocommerce-points-and-rewards' ),
+				'id'          => 'wc_points_rewards_max_discount',
+				'default'     => '',
+				'placeholder' => __( 'Enter amount or percentage value', 'woocommerce-points-and-rewards' ),
+				'type'        => 'text',
 			),
 
 			// Tax settings.
@@ -1000,8 +1003,8 @@ class WC_Points_Rewards_Admin {
 
 		$current_tab     = ( empty( $_GET['tab'] ) )         ? null : sanitize_text_field( urldecode( $_GET['tab'] ) );
 		$current_action  = ( empty( $_REQUEST['action'] ) )  ? null : sanitize_text_field( urldecode( $_REQUEST['action'] ) );
-		$date 			 = ( empty( $_REQUEST['date'] ) )	 ? null : sanitize_text_field( urldecode( $_REQUEST['date'] ) );
-		$date 			 = strtotime( $date );
+		$date           = empty( $_REQUEST['date'] ) ? '' : urldecode( sanitize_text_field( wp_unslash( $_REQUEST['date'] ) ) );
+		$date           = strtotime( $date );
 
 		if ( 'settings' !== $current_tab ) {
 			return;

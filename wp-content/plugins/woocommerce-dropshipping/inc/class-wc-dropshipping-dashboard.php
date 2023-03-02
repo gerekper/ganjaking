@@ -51,21 +51,21 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 			$dp_query = new WP_Query($params);
 			if ($dp_query->have_posts()) :
 			//While loop through all the posts to identify products imported from Aliexpress
-		   while ($dp_query->have_posts()) :
-				 $dp_query->the_post();
-			// Condition to check if Aliexpress Product Url exists in postmeta to confirm product is imported from Aliexpress
-		   if(get_post_meta(get_the_id(),'ali_product_url',true)){
+				while ($dp_query->have_posts()) :
+					  $dp_query->the_post();
+				 // Condition to check if Aliexpress Product Url exists in postmeta to confirm product is imported from Aliexpress
+					if (get_post_meta(get_the_id(), 'ali_product_url', true)) {
 			
-			// Declaring temp array to prepare data for publishing the product.
-			$temp_post_data = array();
+					// Declaring temp array to prepare data for publishing the product.
+					$temp_post_data = array();
 			
-			// Preparing data in array for publising
-			$temp_post_data = [ 'ID' => get_the_id(), 'post_status' => 'publish' ];
+					// Preparing data in array for publising
+					$temp_post_data = [ 'ID' => get_the_id(), 'post_status' => 'publish' ];
 		
-			// Publishing Products which is in Draft
-			wp_update_post( $temp_post_data );
-		   }
-		   // End While
+					// Publishing Products which is in Draft
+					wp_update_post( $temp_post_data );
+					}
+				// End While
 		   endwhile;
 		   // Reset Post data
 		   wp_reset_postdata();
@@ -1369,13 +1369,13 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 			if ($dp_query->have_posts()) :
 
-			while ($dp_query->have_posts()) :
+				while ($dp_query->have_posts()) :
 					$dp_query->the_post();
 
-			// Checking if Aliexpress Product Url exists in postmeta to confirm that product is imported from Aliexpress
-			if(get_post_meta(get_the_id(),'ali_product_url',true)){
-				array_push($ali_draft_id, get_the_id());
-			}
+				// Checking if Aliexpress Product Url exists in postmeta to confirm that product is imported from Aliexpress
+					if (get_post_meta(get_the_id(), 'ali_product_url', true)) {
+						array_push($ali_draft_id, get_the_id());
+					}
 			endwhile;
 			wp_reset_postdata();
 			endif;
@@ -1386,4 +1386,4 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 	}
 
-endif; ?>
+endif; 

@@ -71,9 +71,9 @@ class WC_AM_Order {
 		add_action( 'woocommerce_delete_order', array( $this, 'delete_order' ) );
 		add_action( 'woocommerce_trash_order', array( $this, 'delete_order' ) );
 		add_action( 'woocommerce_before_delete_order_item', array( $this, 'delete_order_item' ) );
-		add_action( 'wp_trash_post', array( $this, 'trash_post' ) );
-		add_action( 'untrashed_post', array( $this, 'untrashed_post' ) );
-		add_action( 'edit_post', array( $this, 'edit_post' ), 10, 2 );
+		add_action( 'wp_trash_post', array( $this, 'trash_order' ) );
+		add_action( 'untrashed_post', array( $this, 'untrashed_order' ) );
+		add_action( 'edit_post', array( $this, 'edit_order' ), 10, 2 );
 		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_license_keys' ), 10, 3 );
 	}
 
@@ -937,30 +937,36 @@ class WC_AM_Order {
 	/**
 	 * Delete the API resource order items when the order is trashed.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
-	 * @param int $post_id
+	 * @param int $order_id
 	 *
 	 * @throws \Exception
 	 */
-	public function trash_post( $post_id ) {
-		if ( get_post_type( $post_id ) == 'shop_order' ) {
-			$this->delete_order( $post_id );
+	public function trash_order( $order_id ) {
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+
+		if ( is_object( $order ) && $order->get_type() === 'shop_order' ) {
+			$this->delete_order( $order_id );
 		}
 	}
 
 	/**
 	 * Restore the API resource order items when the order is restored from the trash.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
-	 * @param int $post_id
+	 * @param int $order_id
 	 *
 	 * @throws \Exception
 	 */
-	public function untrashed_post( $post_id ) {
-		if ( get_post_type( $post_id ) == 'shop_order' ) {
-			$this->update_order( $post_id );
+	public function untrashed_order( $order_id ) {
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+
+		if ( is_object( $order ) && $order->get_type() === 'shop_order' ) {
+			$this->update_order( $order_id );
 		}
 	}
 
@@ -972,7 +978,7 @@ class WC_AM_Order {
 	 * @param int     $post_ID Post ID.
 	 * @param WP_Post $post    Post object.
 	 */
-	public function edit_post( $post_ID, $post ) {
+	public function edit_order( $post_ID, $post ) {
 		global $wpdb;
 
 		$product_title = $wpdb->get_var( $wpdb->prepare( "
@@ -985,7 +991,7 @@ class WC_AM_Order {
 		$product_object = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $post_ID );
 		$title          = $product_object ? $product_object->get_title() : '';
 
-		if ( strcmp( $product_title, $title ) !== 0 ) {
+		if ( WC_AM_FORMAT()->strcmp( $product_title, $title ) ) {
 			$data = array(
 				'product_title' => $title
 			);

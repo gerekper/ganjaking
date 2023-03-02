@@ -51,7 +51,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Get product metadata.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $product
 	 * @param string         $meta_key
@@ -63,10 +64,6 @@ class WC_AM_Product_Data_Store {
 		$product = $this->get_product_object( $product );
 
 		if ( $product ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				return get_post_meta( $product->get_id(), $meta_key, $single );
-			}
-
 			if ( $single ) {
 				/**
 				 * @usage returns a single value for a single key. A single value for the single order.
@@ -89,7 +86,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Get all product meta data.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $product
 	 *
@@ -98,15 +96,7 @@ class WC_AM_Product_Data_Store {
 	public function get_meta_data( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				return WC_AM_ARRAY()->get_meta_query_flattened( 'postmeta', $product->get_id() );
-			}
-
-			return $product->get_meta_data();
-		}
-
-		return false;
+		return is_object( $product ) ? $product->get_meta_data() : false;
 	}
 
 	/**
@@ -140,18 +130,15 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Returns a list of product objects.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param array $args
 	 *
 	 * @return array|\stdClass
 	 */
 	public function get_products( $args = array() ) {
-		if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-			return get_posts( $args );
-		} else {
-			return wc_get_products( $args );
-		}
+		return wc_get_products( $args );
 	}
 
 	/**
@@ -167,11 +154,7 @@ class WC_AM_Product_Data_Store {
 	public function get_downloads( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			return $product->get_downloads();
-		}
-
-		return false;
+		return is_object( $product ) ? $product->get_downloads() : false;
 	}
 
 	/**
@@ -205,7 +188,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Return only the first/latest download URL for a product download.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $product
 	 *
@@ -214,34 +198,13 @@ class WC_AM_Product_Data_Store {
 	public function get_first_download_url( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				$file_path = get_post_meta( $product->get_id(), '_downloadable_files', true );
+		if ( is_object( $product ) ) {
+			$downloads = $this->get_downloads( $product );
 
-				if ( is_array( $file_path ) ) {
-					foreach ( $file_path as $key => $value ) {
-						$path[] = $value;
-					}
-				}
-
-				if ( empty( $path[ 0 ] ) ) {
-					return false;
-				}
-
-				if ( empty( $path[ 0 ][ 'file' ] ) ) {
-					return false;
-				}
-
-				// return only the latest/first download URL.
-				return $path[ 0 ][ 'file' ];
-			} else {
-				$downloads = $this->get_downloads( $product );
-
-				if ( is_array( $downloads ) ) {
-					foreach ( $downloads as $download => $value ) {
-						// return only the latest/first download URL.
-						return $value[ 'file' ];
-					}
+			if ( is_array( $downloads ) && ! empty( $downloads ) ) {
+				foreach ( $downloads as $download => $value ) {
+					// return only the latest/first download URL.
+					return $value[ 'file' ];
 				}
 			}
 		}
@@ -252,7 +215,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Return download ID for a product download.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $product
 	 *
@@ -261,28 +225,13 @@ class WC_AM_Product_Data_Store {
 	public function get_download_id( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				$file_path = get_post_meta( $product->get_id(), '_downloadable_files', true );
+		if ( is_object( $product ) ) {
+			$downloads = $this->get_downloads( $product );
 
-				if ( is_array( $file_path ) ) {
-					foreach ( $file_path as $key => $value ) {
-						$path[] = $key;
-					}
-				}
-
-				if ( empty( $path[ 0 ] ) ) {
-					return false;
-				}
-
-				return $path[ 0 ];
-			} else {
-				$downloads = $this->get_downloads( $product );
-
-				if ( is_array( $downloads ) ) {
-					foreach ( $downloads as $download => $value ) {
-						return $value[ 'id' ];
-					}
+			if ( is_array( $downloads ) && ! empty( $downloads ) ) {
+				foreach ( $downloads as $download => $value ) {
+					// return only the latest/first download id.
+					return $value[ 'id' ];
 				}
 			}
 		}
@@ -302,8 +251,7 @@ class WC_AM_Product_Data_Store {
 	public function get_product_ids( $product ) {
 		$product = $this->get_product_object( $product );
 
-		// Method check for WC < 3.0>
-		if ( $product && is_callable( array( $product, 'get_parent_id', 'is_type' ) ) ) {
+		if ( is_object( $product ) ) {
 			$product_ids = array(
 				'product_id'   => $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id(),
 				'variation_id' => $product->is_type( 'variation' ) ? $product->get_id() : 0,
@@ -327,14 +275,8 @@ class WC_AM_Product_Data_Store {
 	public function get_parent_product_id( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			if ( is_callable( array( $product, 'get_parent_id', 'is_type' ) ) ) {
-				return $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
-			} elseif ( is_callable( array( $product, 'get_product_id' ) ) ) {
-				return ! empty( $product->get_product_id() ) ? $product->get_product_id() : $product->get_id();
-			} else {
-				return $product->get_id();
-			}
+		if ( is_object( $product ) ) {
+			return $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
 		}
 
 		return false;
@@ -352,20 +294,23 @@ class WC_AM_Product_Data_Store {
 	public function get_parent_id_from_product_id( $product_id ) {
 		global $wpdb;
 
-		$sql = "
+		$parent_id = $this->get_parent_product_id( $product_id );
+
+		if ( $parent_id === false ) {
+			$sql = "
                 SELECT post_parent
                 FROM {$wpdb->prefix}posts
                 WHERE ID = %d
                 AND post_type = %s
             ";
 
-		// If the product variation lists the $product_id in the post_parent column, then $product_id is the parent product_id.
-		$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, $product_id, 'product_variation' ) );
+			// If the product variation lists the $product_id in the post_parent column, then $product_id is the parent product_id.
+			$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, $product_id, 'product_variation' ) );
 
-		if ( ! empty( $parent_id ) ) {
-			return $parent_id;
-		} else {
-			$sql = "
+			if ( ! empty( $parent_id ) ) {
+				return $parent_id;
+			} else {
+				$sql = "
                 SELECT ID
                 FROM {$wpdb->prefix}posts
                 WHERE ID = %d
@@ -373,33 +318,34 @@ class WC_AM_Product_Data_Store {
                 AND post_parent = %d
             ";
 
-			// This is a simple product.
-			$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, $product_id, 'product', 0 ) );
+				// This is a simple product.
+				$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, $product_id, 'product', 0 ) );
 
-			// This could be a grouped parent product.
-			if ( empty( $parent_id ) ) {
-				$sql = "
+				// This could be a grouped parent product.
+				if ( empty( $parent_id ) ) {
+					$sql = "
 	                SELECT ID
 	                FROM {$wpdb->prefix}posts
 	                WHERE ID = %d
 	                AND post_type = %s
 	            ";
 
-				$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, $product_id, 'product' ) );
+					$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, $product_id, 'product' ) );
 
-				// Check if the parent product is a grouped product parent.
-				if ( $this->is_product_grouped( $parent_id ) ) {
-					/**
-					 * A grouped product parent is not considered a parent for this purpose, since it is not required to be flagged as an API product,
-					 * so the grouped child product will be checked instead, since it can be any type of product that is only linked to the
-					 * grouped parent product, and yet the child is also a standalone product.
-					 */
-					return $product_id;
+					// Check if the parent product is a grouped product parent.
+					if ( $this->is_product_grouped( $parent_id ) ) {
+						/**
+						 * A grouped product parent is not considered a parent for this purpose, since it is not required to be flagged as an API product,
+						 * so the grouped child product will be checked instead, since it can be any type of product that is only linked to the
+						 * grouped parent product, and yet the child is also a standalone product.
+						 */
+						return $product_id;
+					}
 				}
 			}
-
-			return ! empty( $parent_id ) && $parent_id == $product_id ? $product_id : false;
 		}
+
+		return ! empty( $parent_id ) && $parent_id == $product_id ? $product_id : false;
 	}
 
 	/**
@@ -414,18 +360,10 @@ class WC_AM_Product_Data_Store {
 	public function get_product_id( $product ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			// WC >= 3.0
-			if ( is_callable( array( $product, 'get_product_id' ) ) ) {
-				$product_id = ! empty( $product->get_product_id() ) ? $product->get_product_id() : $product->get_id();
-			} else {
-				$product_id = $product->get_id();
-			}
+		if ( is_object( $product ) ) {
+			$product_id = ! empty( $product->get_product_id() ) ? $product->get_product_id() : $product->get_id();
 
-			return is_callable( array(
-				                    $product,
-				                    'get_variation_id'
-			                    ) ) && ! empty( $product->get_variation_id() ) ? $product->get_variation_id() : $product_id;
+			return ! empty( $product->get_variation_id() ) ? $product->get_variation_id() : $product_id;
 		}
 
 		return false;
@@ -576,7 +514,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Update product metadata.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $product
 	 * @param string         $meta_key
@@ -585,13 +524,9 @@ class WC_AM_Product_Data_Store {
 	public function update_meta( $product, $meta_key, $meta_value ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				update_post_meta( $product->get_id(), $meta_key, $meta_value );
-			} else {
-				$product->update_meta_data( $meta_key, $meta_value );
-				$product->save_meta_data();
-			}
+		if ( is_object( $product ) ) {
+			$product->update_meta_data( $meta_key, $meta_value );
+			$product->save_meta_data();
 		}
 	}
 
@@ -632,7 +567,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Delete product metadata.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $product
 	 * @param string         $meta_key
@@ -640,12 +576,8 @@ class WC_AM_Product_Data_Store {
 	public function delete_meta( $product, $meta_key ) {
 		$product = $this->get_product_object( $product );
 
-		if ( $product ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				delete_post_meta( $product->get_id(), $meta_key );
-			} else {
-				$product->delete_meta_data( $meta_key );
-			}
+		if ( is_object( $product ) ) {
+			$product->delete_meta_data( $meta_key );
 		}
 	}
 
@@ -751,11 +683,11 @@ class WC_AM_Product_Data_Store {
 		$is_api = $this->get_meta( $product_id, '_is_api' );
 
 		if ( empty( $is_api ) ) {
-			$parent_id = $this->get_parent_id_from_product_id( $product_id );
+			$parent_id = $this->get_parent_product_id( $product_id );
 			$is_api    = $this->get_meta( $parent_id, '_is_api' );
 		}
 
-		return ! empty( $is_api ) && $is_api == 'yes' ? true : false;
+		return ! empty( $is_api ) && $is_api == 'yes';
 	}
 
 	/**
@@ -881,7 +813,7 @@ class WC_AM_Product_Data_Store {
 	 * @return bool
 	 */
 	public function has_valid_product_status( $product_id ) {
-		return $this->product_exists( $product_id ) && $this->product_is_active( $product_id ) ? true : false;
+		return $this->product_exists( $product_id ) && $this->product_is_active( $product_id );
 	}
 
 	/**
@@ -922,31 +854,33 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Verifies a product exists.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int $product_id
 	 *
 	 * @return bool
 	 */
 	public function product_exists( $product_id ) {
-		$post = get_post( $product_id );
+		$product = $this->get_product_object( $product_id );
 
-		return ! empty( $post ) ? true : false;
+		return is_object( $product ) && $product->exists();
 	}
 
 	/**
 	 * Check if a product exists and is not in the trash
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int $product_id
 	 *
 	 * @return bool
 	 */
 	public function product_is_active( $product_id ) {
-		$post_status = get_post_status( $product_id );
+		$product = $this->get_product_object( $product_id );
 
-		return ! empty( $post_status ) && $post_status != 'trash' ? true : false;
+		return is_object( $product ) && $product->get_status() !== 'trash';
 	}
 
 	/**

@@ -1,14 +1,14 @@
 === WooCommerce API Manager ===
 Contributors: toddlahman
 Tags: woocommerce, api manager, ecommerce, e-commerce, commerce, wordpress ecommerce, subscriptions
-Requires at least: 5.6
+Requires at least: 6.0
 Tested up to: 6.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-WC requires at least: 5.6
-WC tested up to: 7.2.1
+WC requires at least: 7.4
+WC tested up to: 7.4
 Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
-Requires WP: 5.8
+Requires WP: 6.0
 Requires PHP: 7.2
 
 == Upgrade Notice ==

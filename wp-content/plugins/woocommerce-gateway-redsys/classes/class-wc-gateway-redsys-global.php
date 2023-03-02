@@ -351,62 +351,65 @@ class WC_Gateway_Redsys_Global {
 		}
 	}
 	/**
-	 * Clean Data
+	 * Clean data
 	 *
 	 * @param string $out Data to clean.
+	 *
+	 * @return string
 	 */
 	public function clean_data( $out ) {
+		$replacements = array(
+			'Á' => 'A',
+			'À' => 'A',
+			'Ä' => 'A',
+			'É' => 'E',
+			'È' => 'E',
+			'Ë' => 'E',
+			'Í' => 'I',
+			'Ì' => 'I',
+			'Ï' => 'I',
+			'Ó' => 'O',
+			'Ò' => 'O',
+			'Ö' => 'O',
+			'Ú' => 'U',
+			'Ù' => 'U',
+			'Ü' => 'U',
+			'á' => 'a',
+			'à' => 'a',
+			'ä' => 'a',
+			'é' => 'e',
+			'è' => 'e',
+			'ë' => 'e',
+			'í' => 'i',
+			'ì' => 'i',
+			'ï' => 'i',
+			'ó' => 'o',
+			'ò' => 'o',
+			'ö' => 'o',
+			'ú' => 'u',
+			'ù' => 'u',
+			'ü' => 'u',
+			'ç' => 'c',
+			'Ç' => 'C',
+			'Ñ' => 'N',
+			'ñ' => 'n',
+			'&' => '-',
+			'<' => ' ',
+			'>' => ' ',
+			'/' => ' ',
+			'"' => ' ',
+			"'" => ' ',
+			'?' => ' ',
+			'¿' => ' ',
+			'º' => ' ',
+			'ª' => ' ',
+			'#' => ' ',
+			'@' => ' ',
+			'[' => ' ',
+			']' => ' ',
+		);
 
-		$out = str_replace( 'Á', 'A', $out );
-		$out = str_replace( 'À', 'A', $out );
-		$out = str_replace( 'Ä', 'A', $out );
-		$out = str_replace( 'É', 'E', $out );
-		$out = str_replace( 'È', 'E', $out );
-		$out = str_replace( 'Ë', 'E', $out );
-		$out = str_replace( 'Í', 'I', $out );
-		$out = str_replace( 'Ì', 'I', $out );
-		$out = str_replace( 'Ï', 'I', $out );
-		$out = str_replace( 'Ó', 'O', $out );
-		$out = str_replace( 'Ò', 'O', $out );
-		$out = str_replace( 'Ö', 'O', $out );
-		$out = str_replace( 'Ú', 'U', $out );
-		$out = str_replace( 'Ù', 'U', $out );
-		$out = str_replace( 'Ü', 'U', $out );
-		$out = str_replace( 'á', 'a', $out );
-		$out = str_replace( 'à', 'a', $out );
-		$out = str_replace( 'ä', 'a', $out );
-		$out = str_replace( 'é', 'e', $out );
-		$out = str_replace( 'è', 'e', $out );
-		$out = str_replace( 'ë', 'e', $out );
-		$out = str_replace( 'í', 'i', $out );
-		$out = str_replace( 'ì', 'i', $out );
-		$out = str_replace( 'ï', 'i', $out );
-		$out = str_replace( 'ó', 'o', $out );
-		$out = str_replace( 'ò', 'o', $out );
-		$out = str_replace( 'ö', 'o', $out );
-		$out = str_replace( 'ú', 'u', $out );
-		$out = str_replace( 'ù', 'u', $out );
-		$out = str_replace( 'ü', 'u', $out );
-		$out = str_replace( 'ç', 'c', $out );
-		$out = str_replace( 'Ç', 'C', $out );
-		$out = str_replace( 'Ñ', 'N', $out );
-		$out = str_replace( 'ñ', 'n', $out );
-		$out = str_replace( '&', '-', $out );
-		$out = str_replace( '<', ' ', $out );
-		$out = str_replace( '>', ' ', $out );
-		$out = str_replace( '/', ' ', $out );
-		$out = str_replace( '"', ' ', $out );
-		$out = str_replace( "'", ' ', $out );
-		$out = str_replace( '"', ' ', $out );
-		$out = str_replace( '?', ' ', $out );
-		$out = str_replace( '¿', ' ', $out );
-		$out = str_replace( 'º', ' ', $out );
-		$out = str_replace( 'ª', ' ', $out );
-		$out = str_replace( '#', ' ', $out );
-		$out = str_replace( '&', ' ', $out );
-		$out = str_replace( '@', ' ', $out );
-		$out = str_replace( '[', ' ', $out );
-		$out = str_replace( ']', ' ', $out );
+		$out = strtr( $out, $replacements );
 
 		return $out;
 	}
@@ -884,33 +887,27 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function is_redsys_order( $order_id, $type = null ) {
 
-		$post_status = $this->order_exist( $order_id );
+		$order = wc_get_order( $order_id );
 
-		if ( $post_status ) {
-			$order        = new WC_Order( $order_id );
+		if ( $order ) {
+
 			$gateway      = $order->get_payment_method();
-			$redsys_types = array();
 			$redsys_types = $this->get_orders_type();
-			if ( ! empty( $redsys_types ) ) {
-				if ( ! $type ) {
-					foreach ( $redsys_types as $redsys_type ) {
-						if ( (string) $redsys_type === (string) $gateway ) {
-							return true;
-						}
-						continue;
-					}
-					return false;
-				} else {
-					if ( $gateway === $type ) {
-						return true;
-					} else {
-						return false;
-					}
+
+			if ( empty( $redsys_types ) ) {
+				return false;
+			}
+
+			if ( $type ) {
+				return $gateway === $type;
+			}
+
+			foreach ( $redsys_types as $redsys_type ) {
+				if ( (string) $redsys_type === (string) $gateway ) {
+					return true;
 				}
 			}
-			return false;
 		}
-		return false;
 	}
 	/**
 	 * Get Gateway
@@ -1054,15 +1051,9 @@ class WC_Gateway_Redsys_Global {
 	public function get_order_meta( $order_id, $key, $single = true, $context = false ) {
 		$order = wc_get_order( $order_id );
 		if ( $order ) {
-			$order_id = $order->get_meta( 'post_id', $single, $context );
-			if ( $order_id ) {
-				$post_id = $order_id;
-			}
-			$meta = $order->get_meta( $key, $single, $context );
-			return $meta;
-		} else {
-			return false;
+			return $order->get_meta( $key, $single, $context );
 		}
+		return false;
 	}
 	/**
 	 * Get status pending.
@@ -1418,38 +1409,52 @@ class WC_Gateway_Redsys_Global {
 		return $order_total_sign;
 	}
 	/**
-	 * Product_description
+	 * Obtiene una descripción del producto para utilizarla como descripción del pedido en Redsys.
 	 *
-	 * @param obj    $order Order.
-	 * @param string $gateway Gateway.
+	 * @param WC_Order $order Objeto que representa el pedido de WooCommerce.
+	 * @param string   $gateway Nombre de la pasarela de pago.
+	 * @return string|null Cadena de texto con la descripción del producto, o null si el pedido no es de Redsys.
 	 */
 	public function product_description( $order, $gateway ) {
+		// Verificar si el pedido es de Redsys.
 		if ( ! $this->is_redsys_order( $order->get_id() ) ) {
-			return;
+			return null;
 		}
-		$product_id = '';
-		$name       = '';
-		$sku        = '';
+
+		// Inicializar variables para almacenar los IDs de producto, nombres y SKUs.
+		$product_ids = array();
+		$names       = array();
+		$skus        = array();
+
+		// Recorrer los elementos del pedido para obtener información de cada producto.
 		foreach ( $order->get_items() as $item ) {
-			$product_id_i = $item->get_product_id();
-			$product_id  .= $item->get_product_id() . ', ';
-			$name        .= $item->get_name() . ', ';
-			$product      = wc_get_product( $product_id_i );
-			$sku         .= $product->get_meta( $item->get_product_id(), '_sku' );
+			// Almacenar el ID de producto y nombre en arrays separados.
+			$product_ids[] = $item->get_product_id();
+			$names[]       = $item->get_name();
+
+			// Obtener el objeto de producto correspondiente y obtener su SKU.
+			$product = wc_get_product( $item->get_product_id() );
+			$skus[]  = $product->get_sku();
 		}
-		// Can be order, id, name or sku.
+
+		// Definir las opciones de descripción disponibles y sus valores correspondientes.
+		$description_options = array(
+			'id'    => implode( ', ', $product_ids ),
+			'name'  => implode( ', ', $names ),
+			'sku'   => implode( ', ', $skus ),
+			'order' => __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number(),
+		);
+
+		// Obtener el tipo de descripción seleccionado por el usuario.
 		$description_type = $this->get_redsys_option( 'descripredsys', $gateway );
 
-		if ( 'id' === $description_type ) {
-			$description = $product_id;
-		} elseif ( 'name' === $description_type ) {
-			$description = $name;
-		} elseif ( 'sku' === $description_type ) {
-			$description = $sku;
-		} else {
-			$description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
-		}
+		// Obtener el valor correspondiente a la opción seleccionada.
+		$description = isset( $description_options[ $description_type ] ) ? $description_options[ $description_type ] : $description_options['order'];
+
+		// Aplicar cualquier filtro definido por otros plugins o temas.
 		$description = apply_filters( 'redsys_product_description', $description, $order );
+
+		// Devolver la descripción del producto.
 		return $description;
 	}
 	/**
@@ -1487,16 +1492,17 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function create_add_payment_method_number() {
 
+		wp_cache_delete( 'number_ad_paymnt_mehod' );
 		$current_number = get_option( 'number_ad_paymnt_mehod' );
 
 		if ( ! $current_number ) {
-			update_option( 'number_ad_paymnt_mehod', '1' );
+			update_option( 'number_ad_paymnt_mehod', '1', false );
 			$number_to_send = str_pad( '1', 12, '0', STR_PAD_LEFT );
 			return $number_to_send;
 		} else {
 			$new_number    = intval( $current_number ) + 1;
 			$string_number = strval( $new_number );
-			update_option( 'number_ad_paymnt_mehod', $string_number );
+			update_option( 'number_ad_paymnt_mehod', $string_number, false );
 			$number_to_send = str_pad( $string_number, 12, '0', STR_PAD_LEFT );
 			return $number_to_send;
 		}
@@ -1506,16 +1512,17 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function create_checkout_insite_number() {
 
+		wp_cache_delete( 'number_insite_checkout' );
 		$current_number = get_option( 'number_insite_checkout' );
 
 		if ( ! $current_number ) {
-			update_option( 'number_insite_checkout', '1' );
+			update_option( 'number_insite_checkout', '1', false );
 			$number_to_send = '1' . str_pad( '1', 11, '0', STR_PAD_LEFT );
 			return $number_to_send;
 		} else {
 			$new_number    = intval( $current_number ) + 1;
 			$string_number = strval( $new_number );
-			update_option( 'number_insite_checkout', $string_number );
+			update_option( 'number_insite_checkout', $string_number, false );
 			$number_to_send = '1' . str_pad( $string_number, 11, '0', STR_PAD_LEFT );
 			return $number_to_send;
 		}
@@ -1656,7 +1663,7 @@ class WC_Gateway_Redsys_Global {
 					$last4       = $token->get_last4();
 					$month       = $token->get_expiry_month();
 					$year        = substr( $token->get_expiry_year(), -2 );
-					echo '<input class="input-radio" type="radio" id="' . esc_html( $token_id ) . '" name="token" value="' . esc_html( $token_id ) . '">';
+					echo '<input id="' . esc_html( $token_id ) . '" type="radio" class="input-radio" name="token" value="' . esc_html( $token_id ) . '" />';
 					echo '<label for="' . esc_html( $token_id ) . '"> ' . esc_html( $brand ) . ' ' . esc_html__( 'ending in', 'woocommerce-redsys' ) . ' ' . esc_html( $last4 ) . ' (' . esc_html__( 'expires ', 'woocommerce-redsys' ) . esc_html( $month ) . '/' . esc_html( $year ) . ')</label><br />';
 					continue;
 				} else {
@@ -1994,20 +2001,12 @@ class WC_Gateway_Redsys_Global {
 	 * @return boolean
 	 */
 	public function check_soap( $terminal_state = 'real' ) {
+		$link = ( 'real' === $terminal_state ) ? 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' : 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
 
-		if ( 'real' === $terminal_state ) {
-			$link = 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl';
-		} else {
-			$link = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
-		}
 		try {
 			$soap_client = new SoapClient( $link );
-		} catch ( Exception $e ) {
-			$exception_message = $e->getMessage();
-		}
-		if ( ! $exception_message ) {
 			return true;
-		} else {
+		} catch ( Exception $e ) {
 			return false;
 		}
 	}
@@ -2375,6 +2374,9 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function check_product_key() {
 
+		if ( ! REDSYS_CHECK_WOO_CONNECTION ) {
+			return true;
+		}
 		if ( is_multisite() ) {
 			switch_to_blog( REDSYS_LICENSE_SITE_ID );
 		}

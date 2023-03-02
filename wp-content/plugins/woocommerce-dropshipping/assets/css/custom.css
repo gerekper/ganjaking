@@ -1,47 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+.wc-dropship-setting-tabs li, .drop-setting-section p, .drop-setting-section span, .drop-setting-section a, .drop-setting-section label{
+    font-family: 'Poppins', sans-serif ; 
+    font-weight: 500;
+}
+.drop-setting-section li{
+    font-family: 'Poppins', sans-serif ;
+    font-weight: 500;
+}
+.drop-setting-section h1, .drop-setting-section h2, .drop-setting-section h3, .drop-setting-section h4, .drop-setting-section h5, .drop-setting-section h6{
+    font-family: 'Poppins', sans-serif ;
+    font-weight:600;
+}
 #_wc_dropshipping_order_number_field span.optional{
   display:none;
 }
 #wcds-remove-supplier {
   color: red!important;
 }
-.wc-dropship-setting-tabs{
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  display: table;
+.form-table th{
+    width:300px;
+}
+.field-close td label {
+    float: left;
+    padding: 5px 10px 5px 0;
+}
+tr.add-rem-bttn {
+    float: left;
+}
+.field-close {
+    width: 100%;
+    float: left;
+}
+.progress {
+    height: 1.5rem;
+    font-size: .9rem;
+    font-weight: 600;
+}
+.wc-dropship-setting-tabs {
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    display: table; 
+    margin-bottom: 0;
+    border-bottom: 0;
+    margin-top: 40px;
 }
 
-.wc-dropship-setting-tabs li{
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 8px 16px;
-  transition: 0.3s;
-  margin-bottom: 0;
-  border-bottom: 1px solid #ccc;
+.wc-dropship-setting-tabs li {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none; 
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 12px;
+    transition: 0.3s;
+    color: #000;
+    margin-bottom: 0;
+    
 }
-
+.update-messages h2, .update-php h2, h4{
+    margin:0;
+}
+.packing-slip-sections input {
+    border: 1px solid #dbdbdb;
+    border-radius: 2px;
+}
 .wc-dropship-setting-tabs li:hover {
-  background-color: #ddd;
+  background-color: #2271b1;
+  color: #fff;
 }
 
 .wc-dropship-setting-tabs li.active {
-  background-color: #ccc;
+    background-color: #2271b1;
+    color: #fff;
 }
 
-.drop-setting-section{display:none;}
+.drop-setting-section {
+    display: none;
+    background: #fff;
+    padding: 25px;
+    margin: 0 20px 20px 0px;
+    border: 1px solid #dbdbdb;
+}
 .drop-setting-section.active{display:block;}
 .slidesection_bkp .submit {padding-left: 20px;}
-.packing-slip-sections{border: 2px solid #999;padding: 20px;position: relative;}
-.packing-slip-sections h4{position: absolute;top: -35px;font-size: 20px;background: #f0f0f1;padding: 0 8px;font-weight: 400;}
+.packing-slip-sections {
+    border: 1px solid #e3e3e3;
+    padding: 20px;
+    position: relative;
+    margin-top: 30px;
+    background: #f8f8f8;
+}
+.packing-slip-sections h4 {
+    position: absolute;
+    top: -35px !important;
+    font-size: 16px;
+    background: #4c5358;
+    color: #fff;
+    padding: 8px 10px;
+    font-weight: 600;
+    left:-1px;
+}
 .inner-toggle{display:none;}
 .sw-pagination{margin-top: 25px;}
 .sw-pagination a {
     padding: 8px 14px;
     background: #2271b1;
     color: #fff;
-	text-decoration: none;
+    text-decoration: none;
 }
 .sw-pagination .current{padding: 8px 10px;background: #ccc;color: #fff;}
 
@@ -53,9 +121,32 @@
 #taxonomy-dropship_supplier{
   width: 15%;
  }
+/* Related to Price Calculator */
+td#profit_val {
+    width: 30%;
+}
+
+td#cog_val {
+    width: 30%;
+}
+
+td#progress_bar_td {
+    width: 60%;
+    padding: 0 0 16px;
+    position: relative;
+}
+
+#packing_t tbody {
+    border:1px solid #c1c1c1;
+}
+
+#packing_t{
+  border-collapse: collapse !important; 
+}
+/* Related to Price Calculator End*/
 
 /*************************  CSS for ADMIN Menu in mobile view *******************/
-@media (max-width: 680px){
+@media (max-width: 767px){
 /*#adminmenuwrap {
     display: block!important;
     max-width: 56px!important;
@@ -72,4 +163,107 @@
     position: static!important;
     display: none!important;
 }*/
+.w-ful{
+    width:100% !important;
 }
+.titledesc img.help_tip {
+    margin-top: 0px !important;
+}
+.wc-dropship-setting-tabs li {
+    background-color: #fff;
+    margin: 7px 7px 0px 0px;
+    font-size: 13px;
+    padding: 7px;
+}
+.wc-dropship-setting-tabs {
+    border: none;
+    margin-bottom: 20px;
+}
+input, textarea { 
+    font-size: 16px;
+    width: 100%;
+}
+.packing-slip-sections td {
+    width: auto !important;
+}
+.packing-slip-sections label{
+    font-size:12px;
+}
+.drop-setting-section{
+    padding:10px;
+    margin-right:0px;
+}
+.packing-slip-sections h4{
+    font-size:14px;
+}
+.packing-slip-sections {
+    padding:10px;
+}
+.field-close td label {
+   width:70px;
+    padding: 10px 10px 10px 0;
+}
+p.p_cost_range {
+    /* margin: 7px 0 4px; */
+    
+    font-size: 12px;
+}
+#packing_t {
+    border-collapse: collapse !important;
+    width: 575px !important;
+}
+span#profir_margin {
+    margin: 0 0 0px !important;
+    font-size: 11px !important;
+    bottom: 18px; 
+}
+span#cost_of_product {
+    margin: 10px 0px 60px !important;
+    font-size: 11px !important;
+}
+.progress-bar {
+    font-size: 12px;
+}
+.responsive-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+}
+@media screen and (min-device-width: 768px) and (max-device-width: 1100px) { 
+  input, textarea { 
+    font-size: 16px;
+    width: 100%;
+}
+.woocommerce-segmented-selection {
+    width: auto;
+}
+.w-ful{
+    width:100% !important;
+}
+
+}    
+
+span#cost_of_product {
+    position: absolute;
+    margin: 0px 0px 60px; 
+    color: rgb(60, 67, 74);
+    font-size: 13px;
+}
+
+span#profir_margin {
+    position: absolute;
+    margin: 0 0 60px;
+    color: rgb(60, 67, 74);
+    font-size: 13px;
+    /*right: 0;*/
+}
+
+p.p_cost_range {
+    /* margin: 7px 0 4px; */
+    top: 12px;
+    margin-left: 5px;
+    position: relative;
+}
+

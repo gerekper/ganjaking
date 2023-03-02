@@ -66,10 +66,6 @@ class WC_AM_Order_Data_Store {
 		$order = $this->get_order_object( $order );
 
 		if ( $order ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				return get_post_meta( $order->get_id(), $meta_key, $single );
-			}
-
 			if ( $single ) {
 				/**
 				 * @usage returns a single value for a single key. A single value for the single order.
@@ -102,10 +98,6 @@ class WC_AM_Order_Data_Store {
 		$order = $this->get_order_object( $order );
 
 		if ( $order ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				return WC_AM_ARRAY()->flatten_array( get_post_meta( $order->get_id(), '', false ) );
-			}
-
 			$args = array(
 				'id'     => $order->get_id(),
 				'number' => $order->get_order_number(),
@@ -250,7 +242,8 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Return the customer/user ID.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|mixed $order WC_Order or order ID.
 	 *
@@ -259,17 +252,14 @@ class WC_AM_Order_Data_Store {
 	public function get_customer_id( $order ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order && ! ( $order instanceof WC_Order_Refund ) ) {
-			return WCAM()->is_woocommerce_pre( '3.0' ) ? $order->get_user_id() : $order->get_customer_id();
-		}
-
-		return false;
+		return is_object( $order ) && ! ( $order instanceof WC_Order_Refund ) ? $order->get_customer_id() : false;
 	}
 
 	/**
 	 * Return the order key.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|mixed $order WC_Order or order ID.
 	 *
@@ -278,15 +268,7 @@ class WC_AM_Order_Data_Store {
 	public function get_order_key( $order ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				return ! empty( $order->order_key ) ? $order->order_key : '';
-			}
-
-			return $order->get_order_key();
-		}
-
-		return false;
+		return is_object( $order ) ? $order->get_order_key() : false;
 	}
 
 	/**
@@ -590,14 +572,18 @@ class WC_AM_Order_Data_Store {
 
 		if ( is_object( $order ) && WC_AM_FORMAT()->count( $get_items ) > 0 ) {
 			foreach ( $get_items as $item_id => $item ) {
-				$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item );
-				$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( ! empty( $parent_product_id ) ? $parent_product_id : $item->get_product_id() );
+				/**
+				 * $item->get_id() is the order_item_id.
+				 */
+				$data              = $item->get_data();
+				$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item->get_product_id() );
+				$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( ! empty( $parent_product_id ) ? $parent_product_id : $data[ 'variation_id' ] );
 
 				// Only store API resource data for API products that have an order status of completed.
 				if ( $is_api ) {
-					$variation_id  = ! empty( $item->get_variation_id() ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $item->get_variation_id() ) ? $item->get_variation_id() : 0;
-					$product_id    = ! empty( $variation_id ) ? $variation_id : $item->get_product_id();
-					$valid_product = WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $parent_product_id );
+					$variation_id  = ! empty( $data[ 'variation_id' ] ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $data[ 'variation_id' ] ) ? $data[ 'variation_id' ] : 0;
+					$product_id    = ! empty( $variation_id ) ? $variation_id : $parent_product_id;
+					$valid_product = WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $product_id );
 
 					// Skip WC Subscriptions.
 					$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $parent_product_id );
@@ -644,10 +630,9 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Converted order time to an Epoch time stamp else get the current Epoch time stamp.
 	 *
-	 * Updated in version 2.3.13 to eliminate calls to get_post_meta().
-	 *
 	 * @since   2.0.1
-	 * @updated 2.3.13
+	 * @updated 2.3.13 Eliminate call to get_post_meta().
+	 * @updated 2.5 Replace return strtotime( gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getTimestamp() ) );
 	 *
 	 * @param int|object $order_id
 	 *
@@ -657,7 +642,7 @@ class WC_AM_Order_Data_Store {
 		$order = $this->get_order_object( $order_id );
 
 		if ( is_object( $order ) ) {
-			return strtotime( gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getTimestamp() ) );
+			return $order->get_date_created()->getOffsetTimestamp();
 		}
 
 		return $this->get_current_time_stamp();
@@ -748,7 +733,8 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Delete order metadata.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|WC_Product $order
 	 * @param string         $meta_key
@@ -756,19 +742,16 @@ class WC_AM_Order_Data_Store {
 	public function delete_meta( $order, $meta_key ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				delete_post_meta( $order->get_id(), $meta_key );
-			} else {
-				$order->delete_meta_data( $meta_key );
-			}
+		if ( is_object( $order ) ) {
+			$order->delete_meta_data( $meta_key );
 		}
 	}
 
 	/**
 	 * Update order metadata.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|mixed $order WC_Order or order ID.
 	 * @param string    $meta_key
@@ -777,11 +760,7 @@ class WC_AM_Order_Data_Store {
 	public function update_meta( $order, $meta_key, $meta_value ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				update_post_meta( $order->get_id(), $meta_key, $meta_value );
-			}
-
+		if ( is_object( $order ) ) {
 			$order->update_meta_data( $meta_key, $meta_value );
 			$order->save_meta_data();
 		}
@@ -799,7 +778,7 @@ class WC_AM_Order_Data_Store {
 	public function has_status_completed( $order ) {
 		$order = $this->get_order_object( $order );
 
-		return $order->has_status( 'completed' ) ? true : false;
+		return is_object( $order ) && $order->has_status( 'completed' );
 	}
 
 	/**
@@ -814,13 +793,14 @@ class WC_AM_Order_Data_Store {
 	public function has_status_processing( $order ) {
 		$order = $this->get_order_object( $order );
 
-		return $order->has_status( 'processing' ) ? true : false;
+		return is_object( $order ) && $order->has_status( 'processing' );
 	}
 
 	/**
 	 * Return true if the order contains an API product.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|mixed $order WC_Order or order ID.
 	 *
@@ -829,19 +809,13 @@ class WC_AM_Order_Data_Store {
 	public function has_api_product( $order ) {
 		$order = $this->get_order_object( $order );
 
-		foreach ( $order->get_items() as $item_id => $item ) {
-			// WC >= 3.0
-			if ( WCAM()->get_wc_version() >= '3.0' && is_callable( array( $item, 'get_product' ) ) ) {
+		if ( is_object( $order ) ) {
+			foreach ( $order->get_items() as $item_id => $item ) {
 				$product = $item->get_product();
-			} elseif ( WCAM()->get_wc_version() < '3.0' ) {
-				// Deprecated.
-				$product = $order->get_product_from_item( $item );
-			} else {
-				$product = false;
-			}
 
-			if ( $product && is_object( $product ) && $product->exists() && WC_AM_PRODUCT_DATA_STORE()->is_api_product( $item->get_product_id() ) ) {
-				return true;
+				if ( is_object( $product ) && $product->exists() && WC_AM_PRODUCT_DATA_STORE()->is_api_product( $item->get_product_id() ) ) {
+					return true;
+				}
 			}
 		}
 
@@ -861,9 +835,11 @@ class WC_AM_Order_Data_Store {
 	public function has_product( $order, $product_id ) {
 		$order = $this->get_order_object( $order );
 
-		foreach ( $order->get_items() as $line_item ) {
-			if ( $line_item[ 'product_id' ] == $product_id || $line_item[ 'variation_id' ] == $product_id ) {
-				return true;
+		if ( is_object( $order ) ) {
+			foreach ( $order->get_items() as $line_item ) {
+				if ( $line_item[ 'product_id' ] == $product_id || $line_item[ 'variation_id' ] == $product_id ) {
+					return true;
+				}
 			}
 		}
 

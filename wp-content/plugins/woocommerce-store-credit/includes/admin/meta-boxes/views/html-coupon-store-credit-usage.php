@@ -8,7 +8,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$orders = WC_Store_Credit_Meta_Box_Coupon_Usage::get_orders( $coupon );
+/**
+ * Template vars.
+ *
+ * @var WC_Coupon  $coupon Coupon object.
+ * @var WC_Order[] $orders The orders in which the coupon has been used.
+ */
 ?>
 <div class="store-credit-coupon-usage">
 	<?php if ( empty( $orders ) ) : ?>
@@ -31,7 +36,12 @@ $orders = WC_Store_Credit_Meta_Box_Coupon_Usage::get_orders( $coupon );
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach ( $orders as $related_order ) : ?>
+			<?php
+			$total_used = 0;
+
+			foreach ( $orders as $related_order ) :
+				$total_used += wc_get_coupon_store_credit_used_for_order( $related_order, $coupon );
+				?>
 				<tr>
 				<?php
 				foreach ( $columns as $key => $label ) :
@@ -48,6 +58,19 @@ $orders = WC_Store_Credit_Meta_Box_Coupon_Usage::get_orders( $coupon );
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
+			<tfoot>
+				<?php
+				$initial_amount = (float) $coupon->get_meta( 'store_credit_amount' );
+
+				if ( $initial_amount <= 0 ) :
+					$initial_amount = $total_used + $coupon->get_amount();
+				endif;
+				?>
+				<tr>
+					<th colspan="2"><?php esc_html_e( 'Initial amount:', 'woocommerce-store-credit' ); ?> <?php echo wp_kses_post( wc_price( $initial_amount ) ); ?></th>
+					<th colspan="2"><?php esc_html_e( 'Total used:', 'woocommerce-store-credit' ); ?> <?php echo wp_kses_post( wc_price( $total_used ) ); ?></th>
+				</tr>
+			</tfoot>
 		</table>
 	<?php endif; ?>
 </div>

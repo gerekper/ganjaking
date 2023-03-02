@@ -255,6 +255,11 @@ class WC_Points_Rewards_Order {
 			return;
 		}
 
+		// Bail if there are no points to be redeemed.
+		if ( 0 === absint( $points_redeemed ) ) {
+			return;
+		}
+
 		// deduct points
 		WC_Points_Rewards_Manager::decrease_points( $order_user_id, $points_redeemed, 'order-redeem', array( 'discount_code' => $discount_code, 'discount_amount' => $discount_amount ), $order_id );
 

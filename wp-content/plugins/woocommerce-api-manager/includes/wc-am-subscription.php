@@ -147,8 +147,6 @@ class WC_AM_Subscription {
 	 * @return bool|null|string
 	 */
 	public function get_subscription_id( $order_id ) {
-		global $wpdb;
-
 		if ( ! is_int( $order_id ) ) {
 			$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 
@@ -158,30 +156,6 @@ class WC_AM_Subscription {
 		}
 
 		if ( ! empty( $order_id ) ) {
-			if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-				$sub_id = $wpdb->get_var( $wpdb->prepare( "
-					SELECT 	ID
-					FROM 	{$wpdb->prefix}posts
-					WHERE 	post_parent = %d
-					AND 	post_type = %s
-				", absint( $order_id ), esc_attr( 'shop_subscription' ) ) );
-
-				/**
-				 * This could be a switched subscription order, which has the sub ID in the postmeta.
-				 *
-				 * @since 1.5
-				 */
-				if ( empty( $sub_id ) ) {
-					$switched = $this->is_subscription_switch_order( $order_id );
-
-					if ( $switched ) {
-						$sub_id = $this->get_subscription_switch_order_parent_id( $order_id );
-					}
-				}
-
-				return ! empty( $sub_id ) ? $sub_id : false;
-			}
-
 			/**
 			 * @since 2.0
 			 */
@@ -252,19 +226,14 @@ class WC_AM_Subscription {
 	 * Returns the user subscription order_key
 	 * For WooCommerce >= 2.0
 	 *
-	 * @since 1.3.9.8
+	 * @since   1.3.9.8
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int $sub_id
 	 *
 	 * @return bool|mixed
 	 */
 	public function get_subscription_order_key( $sub_id ) {
-		if ( WCAM()->is_woocommerce_pre( '3.0' ) ) {
-			$order_key = get_post_meta( $sub_id, '_order_key', true );
-
-			return ! empty( $order_key ) ? $order_key : false;
-		}
-
 		$subscription = $this->get_subscription_object( $sub_id );
 
 		return is_object( $subscription ) ? $subscription->get_order_key() : false;
@@ -273,14 +242,15 @@ class WC_AM_Subscription {
 	/**
 	 * Gets the Parent Post_ID of a switched subscription order.
 	 *
-	 * @since 1.5
+	 * @since   1.5
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int $order_id
 	 *
 	 * @return bool|mixed
 	 */
 	public function get_subscription_switch_order_parent_id( $order_id ) {
-		$sub_parent_id = get_post_meta( $order_id, '_subscription_switch', true );
+		$sub_parent_id = WC_AM_ORDER_DATA_STORE()->get_meta( $order_id, '_subscription_switch', true );
 
 		return ! empty( $sub_parent_id ) ? $sub_parent_id : false;
 	}
@@ -805,7 +775,8 @@ class WC_AM_Subscription {
 	/**
 	 * Returns true if a subscription has an active or pending-cancel status.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
 	 *
 	 * @param int|object $subscription
 	 *
@@ -815,7 +786,7 @@ class WC_AM_Subscription {
 		$subscription = $this->get_subscription_object( $subscription );
 
 		if ( is_object( $subscription ) ) {
-			$status = $this->is_user_subscription_active( wcs_get_subscription_status_name( get_post_status( $subscription->get_id() ) ) );
+			$status = $this->is_user_subscription_active( wcs_get_subscription_status_name( $subscription->get_status( $subscription->get_id() ) ) );
 
 			if ( $status ) {
 				return true;

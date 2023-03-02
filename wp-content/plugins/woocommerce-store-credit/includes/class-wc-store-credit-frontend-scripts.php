@@ -35,7 +35,7 @@ class WC_Store_Credit_Frontend_Scripts {
 		self::register_styles();
 		self::register_scripts();
 
-		if ( is_account_page() && is_wc_endpoint_url( 'store-credit' ) ) {
+		if ( is_account_page() ) {
 			wp_enqueue_style( 'wc-store-credit' );
 		}
 

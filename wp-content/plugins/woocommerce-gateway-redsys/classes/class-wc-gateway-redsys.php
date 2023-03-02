@@ -106,6 +106,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->descripredsys        = WCRed()->get_redsys_option( 'descripredsys', 'redsys' );
 		$this->markpending          = WCRed()->get_redsys_option( 'markpending', 'redsys' );
 		$this->testshowgateway      = WCRed()->get_redsys_option( 'testshowgateway', 'redsys' );
+		$this->disablesubscrippaid  = WCRed()->get_redsys_option( 'disablesubscrippaid', 'redsys' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -142,6 +143,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode' ) );
 		add_action( 'ywsbs_pay_renew_order_with_' . $this->id, array( $this, 'renew_yith_subscription' ), 10, 1 );
+		add_action( 'woocommerce_after_checkout_form',  array( $this, 'custom_jquery_checkout' ) );
 
 		// WooCommerce Subscriptions.
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
@@ -325,7 +327,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'default'     => 'redirection',
 				'options'     => array(
 					'redirection' => __( 'Redirect to Redsys for payment', 'woocommerce-redsys' ),
-					'iframe'      => __( 'Embed Redsys in the website.', 'woocommerce-redsys' ),
+					'iframe'      => __( 'Modal in the checkout.', 'woocommerce-redsys' ),
 				),
 			),
 			'redirectiontime'      => array(
@@ -382,6 +384,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'type'        => 'checkbox',
 				'description' => __( 'Tokenization is enabled by default (Enable Pay with One Click is not needed). Here you can disable tokenization for WooCommerce Subscriptions.', 'woocommerce-redsys' ),
 				'label'       => __( 'Disable Subscription token, it is enabled by default', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'disablesubscrippaid'  => array(
+				'title'       => __( 'Disable mark as paid Subscriptions by plugin', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'You should only check this option if subscription renewals are marked twice as paid.', 'woocommerce-redsys' ),
+				'label'       => __( 'Disable Subscription paid, it is enabled by default', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
 			'usetokensdirect'      => array(
@@ -1962,7 +1971,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $redsys_data_send['gatewaylanguage'] );
 		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', $redsys_data_send['product_description'] );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $redsys_data_send['merchant_name'] );
-		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
+		// $mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchant_name . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 		$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '0' );
 		$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', 'REQUIRED' );
 
@@ -3021,7 +3030,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				if ( $authorisationcode ) {
 					WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
-					// $order->payment_complete();
+					if ( 'yes' !== $this->disablesubscrippaid ) {
+						$order->payment_complete();
+					}
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', 'payment_complete 1' );
 					}
@@ -3169,7 +3180,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 				if ( $authorisationcode ) {
 					WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
-					// $order->payment_complete();
+					if ( 'yes' !== $this->disablesubscrippaid ) {
+						$order->payment_complete();
+					}
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', 'payment_complete 2' );
 					}
@@ -5203,14 +5216,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 
-		if ( isset( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
+		if ( isset( $_POST['token'] ) && isset( $_POST['_redsys_token_type'] ) && 'add' !== $_POST['token'] ) {
 			$token_type = sanitize_text_field( wp_unslash( $_POST['_redsys_token_type'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$tokennum   = sanitize_text_field( wp_unslash( $_POST['token'] ) );
 			$use_token  = sanitize_text_field( wp_unslash( $_POST['token'] ) );
 			set_transient( $order_id . '$token_type', $token_type, 36000 );
 		}
 
-		if ( isset( $_POST['token'] ) && 'add' === $_POST['token'] ) {
+		if ( isset( $_POST['token'] ) && isset( $_POST['_redsys_save_token'] ) && 'add' === $_POST['token'] ) {
 			$token_type = sanitize_text_field( wp_unslash( $_POST['_redsys_token_type'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$tokennum   = 'no';
 			$use_token  = 'no';
@@ -5874,6 +5887,19 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', ' ' );
 			}
 			$redirect = WCRed()->get_url_redsys_payment( $order_id, $final_notify_url );
+			if ( 'iframe' === $this->usebrowserreceipt ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', 'Utilizando Modal para pago' );
+					$this->log->add( 'redsys', ' ' );
+				}
+				return array(
+					'result'   => 'success',
+					'redirect' => '?order_id=' . $order_id . '#open-popup',
+					'order_id' => $order_id,
+					'url'      => WCRed()->get_url_redsys_payment( $order_id, $final_notify_url ),
+				);
+			}
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
 				$this->log->add( 'redsys', '$redirect: ' . $redirect );
@@ -7003,6 +7029,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$testsha256       = $this->testsha256;
 
 		if ( $usesecretsha256 || $customtestsha256 || $testsha256 ) {
+			if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) || ! isset( $_POST['Ds_Signature'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', 'Received INVALID notification from Servired/RedSys' );
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '/******************************************/' );
+					$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
+					$this->log->add( 'redsys', '/******************************************/' );
+					$this->log->add( 'redsys', ' ' );
+				}
+				delete_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
+				return false;
+			}
 			$version           = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
@@ -7833,7 +7871,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				echo '<script>document.getElementById("redsys_payment_form").submit();</script>';
 				exit();
 			} else {
-				get_header();
+				// get_header();
 				echo '
 				<style type="text/css">
 					body {
@@ -7865,11 +7903,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="redsysiframe">
 				' . implode( '', $form_inputs ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				. '
-				<input type="button" class="button-alt" id="submit_redsys_payment_form" value="' . esc_html__( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
 				</form>
 					<iframe name="redsysiframe" src="" class="iframe_3DS_Challenge" allowfullscreen></iframe>';
 				echo '<script>document.getElementById("redsys_payment_form").submit();</script>';
-				get_footer();
+				// get_footer();
 				exit();
 			}
 		}
@@ -7948,41 +7985,46 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$version              = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$data                 = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$remote_sign          = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$three_ds_method_data = sanitize_text_field( wp_unslash( $_POST['threeDSMethodData'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$mi_obj               = new WooRedsysAPI();
-		$usesecretsha256      = $this->secretsha256;
-		$dscardnumbercompl    = '';
-		$dsexpiration         = '';
-		$dsmerchantidenti     = '';
-		$dscardnumber4        = '';
-		$dsexpiryyear         = '';
-		$dsexpirymonth        = '';
-		$decodedata           = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret          = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total                = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi              = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode               = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code        = $mi_obj->getParameter( 'Ds_Currency' );
-		$response             = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans             = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate               = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour               = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal            = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata        = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment      = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry        = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry    = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype    = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti     = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand          = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata         = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dscargtype           = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$dserrorcode          = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod           = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
-		$response             = (int) $response;
-		$secretsha256         = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
-		$is_add_method        = get_transient( $ordermi . '_get_method' );
-		$order1               = $ordermi;
+		if ( isset( $_POST['threeDSMethodData'] ) ) {
+			$three_ds_method_data = sanitize_text_field( wp_unslash( $_POST['threeDSMethodData'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		} else {
+			$three_ds_method_data = '';
+		}
+		$mi_obj            = new WooRedsysAPI();
+		$usesecretsha256   = $this->secretsha256;
+		$dscardnumbercompl = '';
+		$dsexpiration      = '';
+		$dsmerchantidenti  = '';
+		$dscardnumber4     = '';
+		$dsexpiryyear      = '';
+		$dsexpirymonth     = '';
+		$user_id           = '';
+		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
+		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+		$total             = $mi_obj->getParameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
+		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
+		$response          = $mi_obj->getParameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
+		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
+		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
+		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
+		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
+		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
+		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
+		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
+		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$response          = (int) $response;
+		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
+		$is_add_method     = get_transient( $ordermi . '_get_method' );
+		$order1            = $ordermi;
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', '$version: ' . $version );
@@ -8033,7 +8075,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$user_id: ' . $user_id );
 			}
 		}
-		$usesecretsha256 = $this->get_redsys_sha256( $user_id );
+
+		if ( $user_id && (int) $user_id > 0 ) {
+			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
+		}
 
 		delete_transient( 'redsys_signature_' . sanitize_title( $ordermi ) );
 		delete_transient( $ordermi . '_get_method' );
@@ -11663,5 +11708,119 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 		return $available_gateways;
+	}
+
+	public function custom_jquery_checkout() {
+
+		if ( 'yes' === $this->not_use_https ) {
+			$final_notify_url = $this->notify_url_not_https;
+		} else {
+			$final_notify_url = $this->notify_url;
+		}
+		if ( isset( $_GET['order_id'] ) && ! empty( $_GET['order_id'] ) ) {
+			$order_id     = sanitize_text_field( wp_unslash( $_GET['order_id'] ) );
+			$url          = $final_notify_url;
+			$current_page = get_permalink( wc_get_page_id( 'checkout' ) );
+			?>
+			<style>
+				#open-popup {
+					display: none;
+					position: fixed;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					background-color: rgba(0, 0, 0, 0.5);
+					z-index: 9999;
+				}
+				.popup-content {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					height: 550px;
+					background-color: #fff;
+				}
+				#redsys-iframe {
+					width: 100%;
+					height: 100%;
+				}
+				@media only screen and (min-width: 280px) {
+					.popup-content {
+						width: 270px;
+					}
+				}
+				@media only screen and (min-width: 320px) {
+					.popup-content {
+						width: 300px;
+					}
+				}
+				@media only screen and (min-width: 400px) {
+					.popup-content {
+						width: 380px;
+					}
+				}
+				@media only screen and (min-width: 480px) {
+					.popup-content {
+						width: 470px;
+					}
+				}
+				@media only screen and (min-width: 768px) {
+					.popup-content {
+						width: 760px;
+					}
+				}
+				@media only screen and (min-width: 992px) {
+					.popup-content {
+						width: 900px;
+					}
+				}
+				@media only screen and (min-width: 1200px) {
+					.popup-content {
+						width: 900px;
+					}
+				}
+			</style>
+			<div id="open-popup">
+				<div class="popup-content">
+					<iframe id="redsys-iframe" src="" frameborder="0"></iframe>
+					<button id="close-popup"><?php esc_html_e( 'Close', 'woocommerce-redsys' ); ?></button>
+				</div>
+			</div>
+			<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$.urlParam = function(name){
+					var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+					if (results==null){
+					return null;
+					}
+					else{
+					console.log('order_id = ' + results[1] || 0 + '');
+					return results[1] || 0;
+					}
+				}
+				$(document).ready(function() {
+					if ( $( '#payment_method_redsys' ).is( ':checked' ) ) {
+						var order_id = $.urlParam('order_id');
+						var domain   = '<?php echo $final_notify_url; ?>';
+						var url = domain + '&redsys-order-id=' + order_id + '&redsys-iframe=yes';
+						if ( order_id != null ) {
+							console.log('order_id = ' + order_id );
+							$('#redsys-iframe').attr('src', url );
+							$('#open-popup').fadeIn();
+						}
+					}
+				});
+				$(document).ready(function() {
+					$( 'body' ).on( 'click', '#close-popup', function() {
+						var url = '<?php echo esc_url( $current_page ); ?>';
+						$('#open-popup').fadeOut();
+						window.location.href = url;
+					});
+				});
+			});
+			</script>
+			<?php
+		}
 	}
 }

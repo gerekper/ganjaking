@@ -14,7 +14,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
- * @package WooCommerce API Manager/Templates/API Downloads
+ * @package WooCommerce API Manager/Templates
  * @version 2.0
  */
 

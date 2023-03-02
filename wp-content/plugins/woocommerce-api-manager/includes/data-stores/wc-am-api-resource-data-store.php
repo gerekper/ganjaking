@@ -43,9 +43,8 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @param int $order_id
 	 *
-	 * @throws \Exception
-	 *
 	 * @return array
+	 * @throws \Exception
 	 */
 	public function get_all_api_resources_for_order_id( $order_id ) {
 		global $wpdb;
@@ -115,7 +114,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_all_api_non_wc_subscription_resources_for_order_id( $order_id ) {
 		global $wpdb;
@@ -185,7 +183,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_all_api_resources_for_sub_parent_id( $sub_parent_id ) {
 		global $wpdb;
@@ -253,7 +250,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_api_resources_for_user_id( $user_id ) {
 		global $wpdb;
@@ -321,7 +317,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_api_resources_for_user_id_sort_by_product_title( $user_id ) {
 		global $wpdb;
@@ -391,7 +386,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_api_resources_for_master_api_key( $mak ) {
 		global $wpdb;
@@ -459,7 +453,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_api_resources_for_master_api_key_or_product_order_api_key( $api_key ) {
 		global $wpdb;
@@ -521,16 +514,15 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
-	 * Return all API resource order item rows matching the Product Order API Key.
+	 * Return all API resource order item rows matching the Product Order API Key and Product ID.
 	 *
 	 * @since 2.0
 	 *
-	 * @param string $poak Product Order API Key.
-	 * @param string $product_id
+	 * @param string     $poak Product Order API Key.
+	 * @param string|int $product_id
 	 *
 	 * @return array
 	 * @throws \Exception
-	 *
 	 */
 	public function get_api_resources_for_product_order_api_key( $poak, $product_id ) {
 		global $wpdb;
@@ -630,16 +622,15 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
-	 * Return all API resource order item rows matching a Master API Key, a Product Order API Key, or an Associated API Key.
+	 * Return all API resource order item rows matching a Master API Key, a Product Order API Key, or an Associated API Key matching a Product ID.
 	 *
 	 * @since 2.0
 	 *
-	 * @param string     $api_key A Master API Key, a Product Order API Key, or an Associated API Key.
-	 * @param string|int $product_id
+	 * @param string     $api_key    A Master API Key, a Product Order API Key, or an Associated API Key.
+	 * @param string|int $product_id String (Title) for pre 2.0, or an integer for post 2.0.
 	 *
 	 * @return array|bool
 	 * @throws \Exception
-	 *
 	 */
 	public function get_api_resources_for_api_key_by_product_id( $api_key, $product_id ) {
 		$ids = array();
@@ -657,7 +648,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $product_ids ) ) {
 					foreach ( $product_ids as $id ) {
 						// Compare the string $product_id to the legacy software title to determine the numeric product ID.
-						if ( strcmp( $product_id, WC_AM_PRODUCT_DATA_STORE()->get_product_legacy_api_software_title( $id ) ) === 0 ) {
+						if ( WC_AM_FORMAT()->strcmp( $product_id, WC_AM_PRODUCT_DATA_STORE()->get_product_legacy_api_software_title( $id ) ) ) {
 							$ids[] = $id;
 						}
 					}
@@ -1037,7 +1028,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array|bool
 	 * @throws \Exception
-	 *
 	 */
 	public function get_active_api_resources_for_user_id_by_product_id_int( $user_id, $product_id ) {
 		$resources = $this->get_api_resources_for_user_id( $user_id );
@@ -1055,7 +1045,6 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @return array|bool
 	 * @throws \Exception
-	 *
 	 */
 	public function get_active_api_resources( $api_key, $product_id ) {
 		$resources = $this->get_api_resources_for_api_key_by_product_id( $api_key, $product_id );
@@ -1230,7 +1219,7 @@ class WC_AM_API_Resource_Data_Store {
 		foreach ( $resources as $resource ) {
 			if ( $resource->sub_id == 0 ) {
 				$results[ 'non_wc_subs_resources' ][] = array(
-					'friendly_api_key_expiration_date' => ! empty( $resource->access_expires ) ? WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $resource->access_expires ) : 'Not yet ended',
+					'friendly_api_key_expiration_date' => ! empty( $resource->access_expires ) ? WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) : 'Not yet ended',
 					'number_of_expiring_activations'   => $unlimited_activations == false ? $resource->activations_purchased_total : 'Unlimited activations',
 					'product_title'                    => $resource->product_title,
 					'order_id'                         => $resource->order_id,

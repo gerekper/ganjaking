@@ -75,6 +75,8 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_bizum' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_bizum' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
+		// La siguiente línea carga el JS para el iframe. Por si algun dia deja Bizum estar en un iframe
+		// add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );
 
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
@@ -457,9 +459,10 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	public function disable_bizum( $available_gateways ) {
+		global $woocommerce;
 
 		if ( ! is_admin() && WCRed()->is_gateway_enabled( 'bizumredsys' ) ) {
-			$total = (int) WC()->cart->total;
+			$total = (int) $woocommerce->cart->get_cart_total();
 			$limit = (int) $this->transactionlimit;
 			if ( ! empty( $limit ) && $limit > 0 ) {
 				$result = $limit - $total;
@@ -794,6 +797,15 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 */
 	public function process_payment( $order_id ) {
 		$order = WCRed()->get_order( $order_id );
+		/*
+		// Lo dejo aquí por si Bizum decide que se pueda utilizar un iframe.
+		return array(
+			'result'   => 'success',
+			'redirect' => '?order_id=' . $order_id . '#bizum-open-popup',
+			'order_id' => $order_id,
+			'url'      => $order->get_checkout_payment_url( true ),
+		);
+		*/
 		return array(
 			'result'   => 'success',
 			'redirect' => $order->get_checkout_payment_url( true ),
@@ -926,6 +938,57 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	public function check_ipn_response() {
 		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		$_POST = stripslashes_deep( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_GET['bizum-order-id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$order_id = sanitize_text_field( wp_unslash( $_GET['bizum-order-id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wc_nocache_headers();
+			$order       = WCRed()->get_order( $order_id );
+			$user_id     = $order->get_user_id();
+			$redsys_adr  = self::get_redsys_url_gateway( $user_id );
+			$redsys_args = self::get_redsys_args( $order );
+			$form_inputs = array();
+
+			foreach ( $redsys_args as $key => $value ) {
+				$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
+			}
+
+			if ( isset( $_GET['bizum-iframe'] ) && 'yes' === $_GET['bizum-iframe'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				echo '
+				<style type="text/css">
+					body {
+						margin:0;
+					}
+					.redsys-iframe-container {
+						width:100vw;
+						height:1000px;
+						margin:0 !important;
+						padding:0 !important;
+						text-align:center !important;
+					}
+					iframe {
+						position: absolute;
+						left: 0px;
+						display: block;       /* iframes are inline by default */
+						border: none;         /* Reset default border */
+						width:100vw !important;
+						height:1000px;
+						margin:0 !important;
+						padding:0 !important;
+						text-align:center !important;
+						margin-left: 0px !important;
+						max-width: 100vw !important;
+						z-index: 999999999;
+					}
+				</style>
+				
+				<form action="' . esc_url( $redsys_adr ) . '" method="post" id="bizum_payment_form" target="bizumiframe">
+				' . implode( '', $form_inputs ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				. '
+				</form>
+					<iframe name="bizumiframe" src="" class="iframe_3DS_Challenge" allowfullscreen></iframe>';
+				echo '<script>document.getElementById("bizum_payment_form").submit();</script>';
+				exit();
+			}
+		}
 		if ( $this->check_ipn_request_is_valid() ) {
 			header( 'HTTP/1.1 200 OK' );
 			do_action( 'valid_' . $this->id . '_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -1588,6 +1651,123 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			}
 		}
 		return $available_gateways;
+	}
+	/**
+	 * Add custom jQuery to checkout page.
+	 */
+	public function custom_jquery_checkout() {
+
+		if ( 'yes' === $this->not_use_https ) {
+			$final_notify_url = $this->notify_url_not_https;
+		} else {
+			$final_notify_url = $this->notify_url;
+		}
+		if ( isset( $_GET['order_id'] ) && ! empty( $_GET['order_id'] ) ) {
+			$order_id     = sanitize_text_field( wp_unslash( $_GET['order_id'] ) );
+			$url          = $final_notify_url;
+			$current_page = get_permalink( wc_get_page_id( 'checkout' ) );
+			$order        = WCRed()->get_order( $order_id );
+			?>
+			<style>
+				#bizum-open-popup {
+					display: none;
+					position: fixed;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					background-color: rgba(0, 0, 0, 0.5);
+					z-index: 9999;
+				}
+				.bizum-popup-content {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					height: 550px;
+					background-color: #fff;
+				}
+				#bizum-iframe {
+					width: 100%;
+					height: 100%;
+				}
+				@media only screen and (min-width: 280px) {
+					.bizum-popup-content {
+						width: 270px;
+					}
+				}
+				@media only screen and (min-width: 320px) {
+					.bizum-popup-content {
+						width: 300px;
+					}
+				}
+				@media only screen and (min-width: 400px) {
+					.bizum-popup-content {
+						width: 380px;
+					}
+				}
+				@media only screen and (min-width: 480px) {
+					.bizum-popup-content {
+						width: 470px;
+					}
+				}
+				@media only screen and (min-width: 768px) {
+					.bizum-popup-content {
+						width: 760px;
+					}
+				}
+				@media only screen and (min-width: 992px) {
+					.bizum-popup-content {
+						width: 900px;
+					}
+				}
+				@media only screen and (min-width: 1200px) {
+					.bizum-popup-content {
+						width: 900px;
+					}
+				}
+			</style>
+			<div id="bizum-open-popup">
+				<div class="bizum-popup-content">
+					<iframe id="bizum-iframe" src="" frameborder="0"></iframe>
+					<button id="bizum-close-popup"><?php esc_html_e( 'Close', 'woocommerce-redsys' ); ?></button>
+				</div>
+			</div>
+			<script type="text/javascript">
+				jQuery(document).ready(function($) {
+					$.urlParam = function(name){
+						var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+						if (results==null){
+						return null;
+						}
+						else{
+						console.log('order_id = ' + results[1] || 0 + '');
+						return results[1] || 0;
+						}
+					}
+					$(document).ready(function() {
+						if ( $( '#payment_method_bizumredsys' ).is( ':checked' ) ) {
+							var order_id = $.urlParam('order_id');
+						var domain   = '<?php echo $final_notify_url; ?>';
+						var url = domain + '&bizum-order-id=' + order_id + '&bizum-iframe=yes';
+							if ( order_id != null ) {
+								console.log('order_id = ' + order_id );
+								$('#bizum-iframe').attr('src', url );
+								$('#bizum-open-popup').fadeIn();
+							}
+						}
+					});
+					$(document).ready(function() {
+						$( 'body' ).on( 'click', '#bizum-close-popup', function() {
+							var url = '<?php echo esc_url( $current_page ); ?>';
+							$('#bizum-open-popup').fadeOut();
+							window.location.href = url;
+						});
+					});
+				});
+			</script>
+			<?php
+		}
 	}
 }
 /**

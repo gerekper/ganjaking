@@ -163,6 +163,27 @@ function wc_get_store_credit_used_for_order( $the_order, $return = 'total' ) {
 }
 
 /**
+ * Gets the store credit used in the specified order for a specific coupon.
+ *
+ * @since 4.3.0
+ *
+ * @param mixed $the_order  Order object or ID.
+ * @param mixed $the_coupon Coupon object, ID or code.
+ * @return float
+ */
+function wc_get_coupon_store_credit_used_for_order( $the_order, $the_coupon ) {
+	$credit_used = wc_get_store_credit_used_for_order( $the_order, 'per_coupon' );
+
+	if ( empty( $credit_used ) ) {
+		return 0;
+	}
+
+	$code = wc_store_credit_get_coupon_code( $the_coupon );
+
+	return ( $code && isset( $credit_used[ $code ] ) ? floatval( $credit_used[ $code ] ) : 0 );
+}
+
+/**
  * Updates the store credit used in the specified order.
  *
  * Automatically deletes the credit used if it's empty or `$value` is zero.

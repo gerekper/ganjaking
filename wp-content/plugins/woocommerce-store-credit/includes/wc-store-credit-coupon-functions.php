@@ -498,7 +498,7 @@ function wc_store_credit_create_coupon( $amount, $args = array(), $code_args = a
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array The coupon arguments.
+	 * @param array $args The coupon arguments.
 	 */
 	$args = apply_filters( 'wc_store_credit_coupon_args', $args );
 
@@ -536,6 +536,7 @@ function wc_store_credit_create_coupon( $amount, $args = array(), $code_args = a
 	$coupon->set_props( $props );
 
 	$metas                                   = $args['metas'];
+	$metas['store_credit_amount']            = $args['amount'];
 	$metas['store_credit_inc_tax']           = wc_bool_to_string( $args['inc_tax'] );
 	$metas['store_credit_apply_to_shipping'] = wc_bool_to_string( $args['apply_to_shipping'] );
 

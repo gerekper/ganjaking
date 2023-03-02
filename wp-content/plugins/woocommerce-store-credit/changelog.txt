@@ -1,8 +1,13 @@
 *** Store Credit Changelog ***
 
+2023-02-27 - version 4.3.0
+* Feature - Added the 'Store Credit' section to the 'My Account' page menu.
+* Feature - Display the 'Initial' and the 'Total used' amounts in the 'Store credit usage' meta box.
+* Tweak - Register the plugin integrations when all plugins have been loaded.
+
 2023-02-21 - version 4.2.5
+* Tweak - Tested compatibility up to WC 7.4.
 * Fix - Removed the HTML tags in the email heading.
-* Tweak - Tested compatibility with WC 7.4.
 
 2022-12-01 - version 4.2.4
 * Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).

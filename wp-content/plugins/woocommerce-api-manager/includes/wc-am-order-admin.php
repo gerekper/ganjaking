@@ -33,42 +33,68 @@ class WC_AM_Order_Admin {
 	}
 
 	private function __construct() {
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 		add_action( 'wp_ajax_wc_api_manager_delete_activation', array( $this, 'delete_activation' ) );
 		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'save' ), 10, 2 );
-		add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_contains_api_product_column' ) );
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+
+		if ( WCAM()->is_custom_order_tables_usage_enabled() ) {
+			/**
+			 * For WooCommerce HPOS.
+			 *
+			 * @since 2.5
+			 */
+			add_filter( 'manage_edit-woocommerce_page_wc-orders_columns', array( $this, 'render_contains_api_product_column' ) );
+			add_action( 'manage_woocommerce_page_wc-orders_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+		} else {
+			add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_contains_api_product_column' ) );
+			add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+		}
 	}
 
-	public function add_meta_boxes() {
-		add_meta_box( 'wc_am_master_api_key', esc_html__( 'Master API Key', 'woocommerce-api-manager' ), array(
-			$this,
-			'master_api_key_meta_box'
-		),            'shop_order', 'normal', 'high' );
-		add_meta_box( 'wc_am_api_resource', esc_html__( 'API Resources', 'woocommerce-api-manager' ), array(
-			$this,
-			'api_resource_meta_box'
-		),            'shop_order', 'normal', 'high' );
-		add_meta_box( 'wc_am_api_resource_activations', esc_html__( 'API Resource Activations', 'woocommerce-api-manager' ), array(
-			$this,
-			'api_resource_activation_meta_box'
-		),            'shop_order', 'normal', 'high' );
+	/**
+	 * Adds meta boxes to Order screen.
+	 *
+	 * @updated 2.5 For WooCommerce HPOS.
+	 *
+	 * @param string                $post_type            Post type.
+	 * @param WP_Post|WC_Order|null $post_or_order_object Post object.
+	 */
+	public function add_meta_boxes( $post_type, $post_or_order_object ) {
+		// Ensure backward compatibility if $post_or_order_object is WP_Post or WC_Order.
+		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
+
+		// Get "Edit Order" screen ID, which differs if HPOS is enabled.
+		$order_screen_id = WCAM()->get_wc_page_screen_id( 'shop_order' );
+		$current_screen  = get_current_screen();
+
+		// Only display the meta boxes if viewing an order that contains an API Resource (product).
+		if ( is_object( $order ) && $current_screen && $current_screen->id === $order_screen_id && WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
+			add_meta_box( 'wc_am_master_api_key', esc_html__( 'Master API Key', 'woocommerce-api-manager' ), array( $this, 'master_api_key_meta_box' ), $order_screen_id, 'normal', 'high' );
+			add_meta_box( 'wc_am_api_resource', esc_html__( 'API Resources', 'woocommerce-api-manager' ), array( $this, 'api_resource_meta_box' ), $order_screen_id, 'normal', 'high' );
+			add_meta_box( 'wc_am_api_resource_activations', esc_html__( 'API Resource Activations', 'woocommerce-api-manager' ), array(
+				$this,
+				'api_resource_activation_meta_box'
+			),            $order_screen_id, 'normal', 'high' );
+		}
 	}
 
 	/**
 	 * Master API Key Meta Box*
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
+	 *
+	 * @param WP_Post|WC_Order Object $post_or_order_object
 	 */
-	public function master_api_key_meta_box() {
-		global $post;
+	public function master_api_key_meta_box( $post_or_order_object ) {
+		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $post->ID ) ) {
+		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 			?>
             <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 			<?php
 		} else {
-			$user_id = WC_AM_API_RESOURCE_DATA_STORE()->get_user_id_by_order_id( $post->ID );
+			$user_id = WC_AM_API_RESOURCE_DATA_STORE()->get_user_id_by_order_id( $order->get_id() );
 
 			/**
 			 * Every customer must have a Master API Key, and it is missing, so create it now.
@@ -96,12 +122,15 @@ class WC_AM_Order_Admin {
 	/**
 	 * API Resources Meta Box*
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
+	 *
+	 * @param WP_Post|WC_Order Object $post_or_order_object
 	 */
-	public function api_resource_meta_box() {
-		global $post;
+	public function api_resource_meta_box( $post_or_order_object ) {
+		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $post->ID ) ) {
+		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 			?>
             <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 			<?php
@@ -114,20 +143,20 @@ class WC_AM_Order_Admin {
 			 * Subscription resources should be displayed on the Subscription parent order only.
 			 */
 			if ( WCAM()->get_wc_subs_exist() ) {
-				$sub_parent_id = WC_AM_SUBSCRIPTION()->get_parent_id( $post->ID );
+				$sub_parent_id = WC_AM_SUBSCRIPTION()->get_parent_id( $order->get_id() );
 
-				if ( (int) $sub_parent_id == (int) $post->ID ) {
+				if ( (int) $sub_parent_id == (int) $order->get_id() ) {
 					// Use $sub_parent_id, since $post_id would get results only for the current post, not the parent.
 					$sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_id );
 				}
 			}
 
 			if ( ! empty( $sub_resources ) ) {
-				$non_sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_non_wc_subscription_resources_for_order_id( $post->ID );
+				$non_sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_non_wc_subscription_resources_for_order_id( $order->get_id() );
 				$resources         = array_merge( $non_sub_resources, $sub_resources );
 			} else {
 				// If WC Subs exist, but WC Subs is deactvated, the Expires field will display required.
-				$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $post->ID );
+				$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $order->get_id() );
 			}
 
 			if ( ! empty( $resources ) ) {
@@ -144,8 +173,51 @@ class WC_AM_Order_Admin {
 						WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
 
 						// This prevents Subscription orders that were switched away from, from displaying API Resources meant for the new Switched order.
-						if ( $post->ID == $resource->order_id ) {
+						if ( $order->get_id() == $resource->order_id ) {
 							include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-resources.php' );
+
+							// Update Access Expires
+							if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
+								?>
+                                <input type="hidden" id="current_access_expires[<?php echo $i; ?>]" name="current_access_expires[<?php echo $i; ?>]" value="<?php echo $resource->access_expires ?>">
+								<?php
+								ob_start();
+								?>
+                                /* Datepicker for Access Expires */
+                                jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
+                                showOn: "button",
+                                buttonImage: '<?php echo WCAM()->plugin_url() . 'includes/assets/images/calendar.gif' ?>',
+                                buttonImageOnly: true,
+                                buttonText: "Add More Time",
+                                dateFormat: 'yy-mm-dd',
+                                numberOfMonths: 1,
+                                showButtonPanel: true,
+                                minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date( $resource->access_expires ) ?>',
+                                onSelect: function(datetext) {
+                                var d = new Date(); // for now
+
+                                var h = d.getHours();
+                                h = (h < 10) ? ("0" + h) : h ;
+
+                                var m = d.getMinutes();
+                                m = (m < 10) ? ("0" + m) : m ;
+
+                                var s = d.getSeconds();
+                                s = (s < 10) ? ("0" + s) : s ;
+
+                                datetext = datetext + " " + h + ":" + m + ":" + s;
+
+                                jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).val(datetext);
+                                }
+                                });
+								<?php
+								/*
+								 * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
+								 * }).datepicker( "setDate", '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ); ?>');
+								 * */
+								$javascript = ob_get_clean();
+								WCAM()->wc_am_print_js( $javascript );
+							}
 
 							$i ++;
 						} else {
@@ -182,22 +254,6 @@ class WC_AM_Order_Admin {
 				<?php
 				$javascript = ob_get_clean();
 				WCAM()->wc_am_print_js( $javascript );
-
-				if ( WCAM()->get_wc_version() >= '3.2' ) :
-					ob_start();
-					?>
-                    jQuery('select.add_api_license_key').selectWoo({allowClear:true});
-					<?php
-					$javascript = ob_get_clean();
-					WCAM()->wc_am_print_js( $javascript );
-				else :
-					ob_start();
-					?>
-                    jQuery('select.add_api_license_key').select2({allowClear:true});
-					<?php
-					$javascript = ob_get_clean();
-					WCAM()->wc_am_print_js( $javascript );
-				endif;
 			} else {
 				?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
 				return;
@@ -208,23 +264,26 @@ class WC_AM_Order_Admin {
 	/**
 	 * API Resources Meta Box*
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.5 For WooCommerce HPOS.
+	 *
+	 * @param WP_Post|WC_Order Object $post_or_order_object
 	 */
-	public function api_resource_activation_meta_box() {
-		global $post;
+	public function api_resource_activation_meta_box( $post_or_order_object ) {
+		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $post->ID ) ) {
+		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 			?>
             <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 			<?php
 		} else {
-			$activation_resources  = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $post->ID );
-			$order_contains_switch = ! empty( $activation_resources[ 0 ]->sub_item_id ) && WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $post->ID );
+			$activation_resources  = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order->get_id() );
+			$order_contains_switch = ! empty( $activation_resources[ 0 ]->sub_item_id ) && WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $order->get_id() );
 
 			/**
 			 * Subscription activations should be displayed on the Subscription parent, or Switched Subscription, order only.
 			 */
-			if ( ! empty( $activation_resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $activation_resources[ 0 ]->sub_parent_id != $post->ID ) {
+			if ( ! empty( $activation_resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $activation_resources[ 0 ]->sub_parent_id != $order->get_id() ) {
 				?>
                 <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
 				<?php
@@ -393,8 +452,8 @@ class WC_AM_Order_Admin {
 				 * @since 2.4
 				 */
 				if ( isset( $_POST[ 'access_expires' ] ) && isset( $_POST[ 'current_access_expires' ] ) && ! empty( $_POST[ 'current_access_expires' ][ $i ] ) ) {
-					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( $_POST[ 'access_expires' ][ $i ] );
-					$current_access_expires_timestamp = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $_POST[ 'current_access_expires' ][ $i ] ) );
+					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_no_timezone_offset( $_POST[ 'access_expires' ][ $i ] );
+					$current_access_expires_timestamp = $_POST[ 'current_access_expires' ][ $i ];
 					$order_created_time               = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $post_id );
 
 					if ( $current_access_expires_timestamp != $order_created_time && $new_access_expires != $current_access_expires_timestamp ) {
@@ -439,7 +498,7 @@ class WC_AM_Order_Admin {
 	 */
 	public function render_contains_api_product_column( $columns ) {
 		$column_header = '<span class="api_product_head tips" data-tip="' . esc_attr__( 'Contains API Product', 'woocommerce-api-manager' ) . '">' . esc_attr__( 'API Product', 'woocommerce-api-manager' ) . '</span>';
-		$new_columns   = WC_AM_ARRAY()->array_insert_after( 'shipping_address', $columns, 'api_product', $column_header );
+		$new_columns   = WC_AM_ARRAY()->array_insert_after( 'order_status', $columns, 'api_product', $column_header );
 
 		return $new_columns;
 	}
