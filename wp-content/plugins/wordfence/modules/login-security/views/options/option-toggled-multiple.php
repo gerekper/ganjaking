@@ -20,7 +20,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
  */
 ?>
 <ul class="wfls-option wfls-option-toggled-multiple">
-	<li class="wfls-option-title"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title); ?><?php if (isset($helpLink)) { echo ' <a href="' . esc_attr($helpLink) . '"  target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="' . (WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o') . '" aria-hidden="true"></i></a>'; } ?></li>
+	<li class="wfls-option-title"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title); ?><?php if (isset($helpLink)) { echo ' <a href="' . esc_attr($helpLink) . '"  target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="' . (\WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o') . '" aria-hidden="true"></i></a>'; } ?></li>
 	<li class="wfls-option-checkboxes<?php if (isset($wrap) && $wrap) { echo ' wfls-option-checkboxes-wrap'; } ?>">
 		<?php
 		foreach ($options as $o):

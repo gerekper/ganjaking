@@ -11,6 +11,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 
 $titleHTML = \WordfenceLS\Text\Model_HTML::esc_html($title);
 $messageHTML = \WordfenceLS\Text\Model_HTML::esc_html($message);
+$embedded = isset($embedded) ? $embedded : false;
 
 if (!isset($secondaryButtons)) {
 	$secondaryButtons = array();
@@ -25,7 +26,7 @@ $secondaryButtons = array_reverse($secondaryButtons);
 			</div>
 		</div>
 		<div class="wfls-modal-header-action">
-			<div class="wfls-padding-add-left-small wfls-modal-header-action-close"><a href="#" onclick="WFLS.panelClose(); return false"><i class="<?php echo (WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-times-circle' : 'wfls-fa wfls-fa-times-circle'); ?>" aria-hidden="true"></i></a></div>
+			<div class="wfls-padding-add-left-small wfls-modal-header-action-close"><a href="#" onclick="WFLS.panelClose(); return false"><i class="<?php echo (\WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-times-circle' : 'wfls-fa wfls-fa-times-circle'); ?>" aria-hidden="true"></i></a></div>
 		</div>
 	</div>
 	<div class="wfls-modal-content">

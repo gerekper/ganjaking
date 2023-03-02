@@ -31,7 +31,7 @@ $id = 'wfls-option-' . preg_replace('/[^a-z0-9]/i', '-', $textOptionName);
 				<ul class="wfls-flex-vertical wfls-flex-align-left">
 					<li>
 				<?php endif; ?>
-						<span id="<?php echo esc_attr($id); ?>-label"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title); ?></span><?php if (isset($helpLink)) { echo ' <a href="' . esc_attr($helpLink) . '"  target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="' . (WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o') . '" aria-hidden="true"></i></a>'; } ?>
+						<span id="<?php echo esc_attr($id); ?>-label"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title); ?></span><?php if (isset($helpLink)) { echo ' <a href="' . esc_attr($helpLink) . '"  target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="' . (\WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o') . '" aria-hidden="true"></i></a>'; } ?>
 				<?php if (isset($subtitle) && $subtitlePosition == 'title'): ?>
 					</li>
 					<li class="wfls-option-subtitle"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($subtitle); ?></li>

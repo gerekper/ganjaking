@@ -8,9 +8,9 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 	<!-- begin status content -->
 	<div id="wfls-user-stats" class="wfls-flex-row wfls-flex-row-equal-heights wfls-flex-item-xs-100">
 		<?php
-		echo \WordfenceLS\Model_View::create('settings/user-stats', array(
-			'counts' => \WordfenceLS\Controller_Users::shared()->detailed_user_counts(),
-		))->render();
+			echo \WordfenceLS\Model_View::create('settings/user-stats', array(
+				'counts' => \WordfenceLS\Controller_Users::shared()->get_detailed_user_counts_if_enabled(),
+			))->render();
 		?>
 	</div>
 	<!-- end status content -->

@@ -42,6 +42,9 @@ class Controller_Settings {
 	const OPTION_SHARED_SYMMETRIC_SECRET_KEY = 'shared-symmetric-secret';
 	const OPTION_DISMISSED_FRESH_INSTALL_MODAL = 'dismissed-fresh-install-modal';
 	const OPTION_CAPTCHA_STATS = 'captcha-stats';
+	const OPTION_SCHEMA_VERSION = 'schema-version';
+	const OPTION_USER_COUNT_QUERY_STATE = 'user-count-query-state';
+	const OPTION_DISABLE_TEMPORARY_TABLES = 'disable-temporary-tables';
 
 	const DEFAULT_REQUIRE_2FA_USER_GRACE_PERIOD = 10;
 	const MAX_REQUIRE_2FA_USER_GRACE_PERIOD = 99;
@@ -95,7 +98,10 @@ class Controller_Settings {
 			self::OPTION_ENABLE_WOOCOMMERCE_ACCOUNT_INTEGRATION => array('value' => false, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
 			self::OPTION_ENABLE_SHORTCODE => array('value' => false, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
 			self::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS => array('value' => true, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
-			self::OPTION_STACK_UI_COLUMNS => array('value' => true, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false)
+			self::OPTION_STACK_UI_COLUMNS => array('value' => true, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
+			self::OPTION_SCHEMA_VERSION => array('value' => 0, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
+			self::OPTION_USER_COUNT_QUERY_STATE => array('value' => 0, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
+			self::OPTION_DISABLE_TEMPORARY_TABLES => array('value' => 0, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false)
 		));
 	}
 	
@@ -172,11 +178,15 @@ class Controller_Settings {
 			case self::OPTION_ENABLE_SHORTCODE:
 			case self::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS:
 			case self::OPTION_STACK_UI_COLUMNS:
+			case self::OPTION_USER_COUNT_QUERY_STATE:
+			case self::OPTION_DISABLE_TEMPORARY_TABLES:
 				return true;
 				
 			//Int
 			case self::OPTION_LAST_SECRET_REFRESH:
-				return is_numeric($value);
+				return is_numeric($value); //Left using is_numeric to prevent issues with existing values
+			case self::OPTION_SCHEMA_VERSION:
+				return Utility_Number::isInteger($value, 0);
 				
 			//Array
 			case self::OPTION_GLOBAL_NOTICES:
@@ -274,12 +284,15 @@ class Controller_Settings {
 			case self::OPTION_ENABLE_SHORTCODE;
 			case self::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS:
 			case self::OPTION_STACK_UI_COLUMNS:
+			case self::OPTION_USER_COUNT_QUERY_STATE:
+			case self::OPTION_DISABLE_TEMPORARY_TABLES:
 				return $this->_truthy_to_bool($value);
 				
 			//Int
 			case self::OPTION_REMEMBER_DEVICE_DURATION:
 			case self::OPTION_LAST_SECRET_REFRESH:
 			case self::OPTION_REQUIRE_2FA_USER_GRACE_PERIOD:
+			case self::OPTION_SCHEMA_VERSION:
 				return (int) $value;
 				
 			//Float

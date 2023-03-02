@@ -4,7 +4,7 @@ Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute f
 Requires at least: 3.9
 Requires PHP: 5.3
 Tested up to: 6.1
-Stable tag: 7.9.0
+Stable tag: 7.9.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,12 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.9.1 - March 1, 2023 =
+* Improvement: Further improved performance when viewing 2FA settings and hid user counts by default on sites with many users
+* Fix: Adjusted style inclusion and usage to prevent missing icons
+* Fix: Avoided using the ctype extension as it may not be enabled
+* Fix: Prevented fatal errors caused by malformed Central keys
 
 = 7.9.0 - February 14, 2023 =
 * Improvement: Added 2FA management shortcode and WooCommerce account integration

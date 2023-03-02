@@ -68,7 +68,7 @@ $customerRoleWarning = __('Requiring 2FA for customers is not recommended as som
 		<h4><?php esc_html_e('2FA Notifications', 'wordfence-2fa') ?></h4>
 		<p>
 			<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA. Select the desired role and optionally specify the URL to be sent in the email to setup 2FA. If left blank, the URL defaults to the standard wordpress login and Wordfence’s Two-Factor Authentication plugin page. For example, if using WooCommerce, input the relative URL of the account page.', 'wordfence-2fa') ?></small>
-			<a href="<?php echo \WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_2FA_NOTIFICATIONS) ?>" target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="<?php echo WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o'; ?>" aria-hidden="true"></i></a>
+			<a href="<?php echo \WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_2FA_NOTIFICATIONS) ?>" target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="<?php echo \WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o'; ?>" aria-hidden="true"></i></a>
 		</p>
 		<div>
 			<label><?php esc_html_e('2FA Role', 'wordfence-2fa') ?></label>

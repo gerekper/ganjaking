@@ -11,6 +11,6 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 	<?php endif; ?>
 	<h2 class="wfls-center-xs" id="section-title-<?php echo esc_attr($title->id); ?>"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title->title); ?></h2>
 	<?php if ($title->helpURL !== null && $title->helpLink !== null): ?>
-		<span class="wfls-hidden-xs"><a href="<?php echo esc_url($title->helpURL); ?>" target="_blank" rel="noopener noreferrer" class="wfls-help-link"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title->helpLink); ?> <i class="<?php echo (WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-external-link' : 'wfls-fa wfls-fa-external-link'); ?>" aria-hidden="true"></i></a></span>
+		<span class="wfls-hidden-xs"><a href="<?php echo esc_url($title->helpURL); ?>" target="_blank" rel="noopener noreferrer" class="wfls-help-link"><?php echo \WordfenceLS\Text\Model_HTML::esc_html($title->helpLink); ?> <i class="<?php echo (\WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-external-link' : 'wfls-fa wfls-fa-external-link'); ?>" aria-hidden="true"></i></a></span>
 	<?php endif; ?>
 </div>

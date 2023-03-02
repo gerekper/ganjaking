@@ -16,6 +16,7 @@ class Controller_WordfenceLS {
 
 	private $management_assets_registered = false;
 	private $management_assets_enqueued = false;
+	private $use_core_font_awesome_styles = null;
 	
 	/**
 	 * Returns the singleton Controller_Wordfence2FA.
@@ -355,6 +356,13 @@ END
 		);
 	}
 
+	public function should_use_core_font_awesome_styles() {
+		if ($this->use_core_font_awesome_styles === null) {
+			$this->use_core_font_awesome_styles = wp_style_is('wordfence-font-awesome-style');
+		}
+		return $this->use_core_font_awesome_styles;
+	}
+
 	private function get_2fa_management_assets($embedded = false) {
 		$assets = array(
 			Model_Script::create('wordfence-ls-jquery.qrcode', Model_Asset::js('jquery.qrcode.min.js'), array('jquery'), WORDFENCE_LS_VERSION),
@@ -385,7 +393,7 @@ END
 			$assets[] = Model_Style::create('dashicons');
 			$assets[] = Model_Style::create('wordfence-ls-embedded', Model_Asset::css('embedded.css'), array(), WORDFENCE_LS_VERSION);
 		}
-		if (!WORDFENCE_LS_FROM_CORE) {
+		if (!$this->should_use_core_font_awesome_styles()) {
 			$assets[] = Model_Style::create('wordfence-ls-font-awesome', Model_Asset::css('font-awesome.css'), array(), WORDFENCE_LS_VERSION);
 		}
 		return $assets;

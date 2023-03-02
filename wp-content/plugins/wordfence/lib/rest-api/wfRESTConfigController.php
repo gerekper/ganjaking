@@ -19,6 +19,7 @@ class wfRESTConfigController extends wfRESTBaseController {
 		wfConfig::set('wordfenceCentralDisconnected', true);
 		wfConfig::set('wordfenceCentralDisconnectTime', time());
 		wfConfig::set('wordfenceCentralDisconnectEmail', $adminEmail);
+		wfConfig::set('wordfenceCentralConfigurationIssue', false);
 
 		return !!$result;
 	}

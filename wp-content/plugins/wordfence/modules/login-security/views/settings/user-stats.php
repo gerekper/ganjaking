@@ -1,7 +1,7 @@
 <?php
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 /**
- * @var array $counts The counts to display. Required.
+ * @var ?array $counts The counts to display or null to hide user counts.
  */
 ?>
 <div class="wfls-block wfls-always-active wfls-flex-item-full-width">
@@ -15,6 +15,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 			<a href="users.php"><?php esc_html_e('Manage Users', 'wordfence-2fa'); ?></a>
 		</div>
 	</div>
+	<?php if (is_array($counts)) : ?>
 	<div class="wfls-block-content wfls-padding-no-left wfls-padding-no-right">
 		<table class="wfls-table wfls-table-striped wfls-table-header-separators wfls-table-expanded wfls-no-bottom">
 			<thead>
@@ -28,14 +29,15 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 			<tbody>
 			<?php
 			$roles = new WP_Roles();
+			$roleNames = $roles->get_names();
+			$roleNames['super-admin'] = __('Super Administrator', 'wordfence-2fa');
+			$roleNames[\WordfenceLS\Controller_Users::TRUNCATED_ROLE_KEY] = __('Custom Capabilities / Multiple Roles', 'wordfence-2fa');
 			foreach ($counts['avail_roles'] as $roleTag => $count):
-				$superAdmin = ($roleTag === 'super-admin');
-				$role = $roles->get_role($roleTag);
-				if (!$superAdmin && !$role) { continue; }
-				$names = $roles->get_names();
-				$roleName = $superAdmin ? __('Super Administrator', 'wordfence-2fa') : $names[$roleTag];
 				$activeCount = (isset($counts['active_avail_roles'][$roleTag]) ? $counts['active_avail_roles'][$roleTag] : 0);
 				$inactiveCount = $count - $activeCount;
+				if ($activeCount === 0 && $inactiveCount === 0)
+					continue;
+				$roleName = $roleNames[$roleTag];
 				$requiredAt = \WordfenceLS\Controller_Settings::shared()->get_required_2fa_role_activation_time($roleTag);
 				$inactive = $inactiveCount > 0 && $requiredAt !== false;
 				$viewUsersBaseUrl = 'admin.php?' . http_build_query(array('page' => 'WFLS', 'role'=> $roleTag));
@@ -67,4 +69,10 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 			</tfoot>
 		</table>
 	</div>
+	<?php else: ?>
+	<div class="wfls-block-content wfls-padding-add-bottom">
+		<p><?php $counts === null ? esc_html_e('User counts are hidden by default on sites with large numbers of users in order to improve performance.', 'wordfence-2fa') : esc_html_e('User counts are currently disabled as the most recent attempt to count users failed to complete successfully.', 'wordfence-2fa') ?></p>
+		<a href="<?php echo esc_attr(add_query_arg('wfls-show-user-counts', 'true') . '#top#settings') ?>" class="wfls-btn wfls-btn-sm wfls-btn-primary"<?php if (\WordfenceLS\Controller_Users::shared()->should_force_user_counts()): ?> onclick="window.location.reload()"<?php endif ?>><?php $counts === null ? esc_html_e('Show User Counts', 'wordfence-2fa') : esc_html_e('Try Again', 'wordfence-2fa') ?></a>
+	</div>
+	<?php endif ?>
 </div>

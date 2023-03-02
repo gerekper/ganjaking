@@ -34,7 +34,7 @@
 				<div class="wf-central-dashboard">
 					<img class="wf-central-dashboard-logo" src="<?php echo wfUtils::getBaseURL() ?>images/wf-central-logo.svg" alt="Wordfence Central">
 					<div class="wf-central-dashboard-copy">
-						<p><strong><?php esc_html_e('Wordfence Central Status', 'wordfence') ?></strong></p>
+						<p id="wf-central-status"><strong><?php esc_html_e('Wordfence Central Status', 'wordfence') ?></strong></p>
 						<p><?php
 							if ($d->wordfenceCentralConnected) {
 								echo esc_html(sprintf(

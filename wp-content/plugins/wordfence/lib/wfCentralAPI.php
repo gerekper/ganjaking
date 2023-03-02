@@ -252,6 +252,9 @@ class wfCentralAuthenticatedAPIRequest extends wfCentralAPIRequest {
 			try {
 				$token = $this->fetchToken();
 				break;
+			} catch (wfCentralConfigurationException $e) {
+				wfConfig::set('wordfenceCentralConfigurationIssue', true);
+				throw new wfCentralAPIException(__('Fetching token for Wordfence Central authentication due to configuration issue.', 'wordfence'));
 			} catch (wfCentralAPIException $e) {
 				continue;
 			}
@@ -268,6 +271,7 @@ class wfCentralAuthenticatedAPIRequest extends wfCentralAPIRequest {
 		if (!empty($tokenContents['body']['exp'])) {
 			set_transient('wordfenceCentralJWT' . wfConfig::get('wordfenceCentralSiteID'), $token, $tokenContents['body']['exp'] - time());
 		}
+		wfConfig::set('wordfenceCentralConfigurationIssue', false);
 		return $token;
 	}
 
@@ -301,7 +305,12 @@ class wfCentralAuthenticatedAPIRequest extends wfCentralAPIRequest {
 
 		// Sign nonce to pull down JWT.
 		$data = $nonce . '|' . $siteID;
-		$signature = ParagonIE_Sodium_Compat::crypto_sign_detached($data, $secretKey);
+		try {
+			$signature = ParagonIE_Sodium_Compat::crypto_sign_detached($data, $secretKey);
+		}
+		catch (SodiumException $e) {
+			throw new wfCentralConfigurationException('Signing failed, likely due to malformed secret key', $e);
+		}
 		$request = new wfCentralAPIRequest(sprintf('/site/%s/login', $siteID), 'POST', null, array(
 			'data'      => $data,
 			'signature' => ParagonIE_Sodium_Compat::bin2hex($signature),
@@ -323,6 +332,14 @@ class wfCentralAuthenticatedAPIRequest extends wfCentralAPIRequest {
 }
 
 class wfCentralAPIException extends Exception {
+
+}
+
+class wfCentralConfigurationException extends RuntimeException {
+
+	public function __construct($message, $previous = null) {
+		parent::__construct($message, 0, $previous);
+	}
 
 }
 

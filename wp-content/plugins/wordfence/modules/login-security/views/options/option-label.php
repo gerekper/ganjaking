@@ -25,7 +25,7 @@ if (!isset($titleHTML)) {
 				<ul class="wfls-flex-vertical wfls-flex-align-left">
 					<li>
 						<?php endif; ?>
-						<?php echo $titleHTML; ?><?php if (isset($helpLink)) { echo ' <a href="' . esc_attr($helpLink) . '"  target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="' . (WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o') . '" aria-hidden="true"></i></a>'; } ?>
+						<?php echo $titleHTML; ?><?php if (isset($helpLink)) { echo ' <a href="' . esc_attr($helpLink) . '"  target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="' . (\WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o') . '" aria-hidden="true"></i></a>'; } ?>
 						<?php if (isset($subtitle)): ?>
 					</li>
 					<li class="wfls-option-subtitle"><?php echo esc_html($subtitle); ?></li>
