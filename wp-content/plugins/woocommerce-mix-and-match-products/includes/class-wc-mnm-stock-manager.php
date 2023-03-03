@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Stock
  * @since    1.0.5
- * @version  1.7.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -37,32 +37,44 @@ class WC_Mix_and_Match_Stock_Manager {
 	 */
 	public $product;
 
-	public function __construct( $product ) {
+	public function __construct( \WC_Product $product ) {
 
 		$this->items  = array();
 		$this->total_qty = 0;
 		$this->product = $product;
+
 	}
 
 	/**
 	 * Add a product to the collection.
 	 *
-	 * @param int          $product_id
-	 * @param int    $variation_id
-	 * @param int          $quantity
+	 * @param WC_MNM_Child_Item $child_item
+	 * @param int               $quantity
+	 * @param false             $deprecated - formerly quantity.
 	 */
-	public function add_item( $product_id, $variation_id = 0, $quantity = 1 ) {
+	public function add_item( $child_item, $quantity = 1, $deprecated = false ) {
 
-		$this->items[] = new WC_Mix_and_Match_Stock_Manager_Item( $product_id, $variation_id, $quantity );
+		if ( is_int( $child_item ) ) {
+			wc_deprecated_argument( '$product_id', '2.4.0', 'WC_Mix_and_Match_Stock_Manager::add_item() should be called with a WC_MNM_Child_Item object as the first argument. Warning! This will break in 3.0.0.' );
+		}
+
+		$this->items[] = new WC_Mix_and_Match_Stock_Manager_Item( $child_item, $quantity, $deprecated );
 
 		// update the total of items in the container.
-		$this->total_qty += $quantity;
+		if ( is_int( $deprecated ) ) {
+			wc_deprecated_argument( '$quantity', '2.4.0', 'WC_Mix_and_Match_Stock_Manager::add_item() expects quantity as the 2nd argument. Warning! This will break in 3.0.0.' );
+			// update the total of items in the container.
+			$this->total_qty += $deprecated;
+		} else {
+			$this->total_qty += $quantity;
+		}
+
 	}
 
 	/**
 	 * Return the items of this collection.
 	 *
-	 * @return array
+	 * @return WC_Mix_and_Match_Stock_Manager_Product[]
 	 */
 	public function get_items() {
 
@@ -116,7 +128,11 @@ class WC_Mix_and_Match_Stock_Manager {
 	 * To validate stock accurately, this method is used to add quantities and build a list of product/variation ids to check.
 	 * Note that in some cases, stock for a variation might be managed by the parent - this is tracked by the managed_by_id property in WC_Mix_and_Match_Stock_Manager_Item.
 	 *
-	 * @return array
+	 * @return array { int $managed_by_id {
+	 * 		@type WC_Product $product  The product object controlling this item's stock
+	 *      @type int        $quantity The selected quantity for this item.
+	 * 	}
+	 * }
 	 */
 	public function get_managed_items() {
 
@@ -126,19 +142,26 @@ class WC_Mix_and_Match_Stock_Manager {
 
 			foreach ( $this->items as $purchased_item ) {
 
-				$managed_by_id = $purchased_item->managed_by_id;
+				$managed_by_id = $purchased_item->get_managed_by_id();
 
 				if ( isset( $managed_items[ $managed_by_id ] ) ) {
 
-					$managed_items[ $managed_by_id ]['quantity'] += $purchased_item->quantity;
+					$managed_items[ $managed_by_id ]['quantity'] += $purchased_item->get_quantity();
 
 				} else {
 
-					$managed_items[ $managed_by_id ]['quantity'] = $purchased_item->quantity;
+					// Store the managed product.
+					$managed_items[ $managed_by_id ]['product']  = $purchased_item->get_managed_product();
 
-					if ( $purchased_item->variation_id && $purchased_item->variation_id == $managed_by_id ) {
+					// Store initial quantity.
+					$managed_items[ $managed_by_id ]['quantity'] = $purchased_item->get_quantity();
+
+					$purchased_product = $purchased_item->get_managed_product();
+
+					// Legacy array keys. Deprecated in 2.4.0. Will be removed in 3.0.0.
+					if ( $purchased_product && $purchased_product->get_parent_id() && $purchased_product->get_id() === $managed_by_id ) {
 						$managed_items[ $managed_by_id ]['is_variation'] = true;
-						$managed_items[ $managed_by_id ]['product_id']   = $purchased_item->product_id;
+						$managed_items[ $managed_by_id ]['product_id']   = $purchased_product->get_parent_id();
 					} else {
 						$managed_items[ $managed_by_id ]['is_variation'] = false;
 					}
@@ -224,9 +247,7 @@ class WC_Mix_and_Match_Stock_Manager {
 		}
 
 		if ( ! isset( $this->product ) || ! is_object( $this->product ) ) {
-			if ( WP_DEBUG ) {
-				trigger_error( 'WC_Mix_and_Match_Stock_Manager class instantiated with invalid constructor arguments.' );
-			}
+			wc_doing_it_wrong( 'WC_Mix_and_Match_Stock_Manager __constructor()', 'WC_Mix_and_Match_Stock_Manager class instantiated with invalid constructor arguments.', '2.4.0' );
 			return false;
 		}
 
@@ -237,14 +258,15 @@ class WC_Mix_and_Match_Stock_Manager {
 
 			try {
 
-				$quantity = $managed_item['quantity'];
-
 				// Get the product.
-				$managed_product       = wc_get_product( $managed_item_id );
+				$managed_product = $managed_item['product'];
 
 				if ( ! $managed_product ) {
 					continue;
 				}
+
+				// Get the quantity.
+				$quantity = $managed_item['quantity'];
 
 				$managed_product_title = $managed_product->get_title();
 
@@ -252,7 +274,7 @@ class WC_Mix_and_Match_Stock_Manager {
 					$managed_product_title .= ' &ndash; ' . wc_get_formatted_variation( $managed_product, true );
 				}
 
-				// Check if product is_sold_individually.
+				// Check if product is_sold_individually. @TODO - HOW DOES SOLD INDIVIDUALLY WORK WHEN MANAGED AT PARENT LEVEL vs MANAGED AT VARIATION LEVEL???
 				if ( $managed_product->is_sold_individually() && $quantity > 1 ) {
 					// translators: %s product title.
 					$reason = sprintf( _x( 'Only 1 &quot;%s&quot; may be purchased.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
@@ -303,7 +325,7 @@ class WC_Mix_and_Match_Stock_Manager {
 				}
 
 				// Stock check - this time accounting for whats already in-cart.
-				if ( $managed_product->managing_stock() ) {
+				if ( $managed_product->managing_stock() || $managed_product->is_sold_individually() ) {
 
 					// Get quantities of items already in cart: returns array of IDs => quantity.
 					$cart_quantities = $quantities_in_cart = $this->get_quantities_in_cart();
@@ -325,8 +347,25 @@ class WC_Mix_and_Match_Stock_Manager {
 
 						throw new Exception( $notice );
 
+					} elseif ( $managed_product->is_sold_individually() ) {
+
+						// translators: %1$s product title.
+						$reason = sprintf( _x( 'You cannot add another &quot;%s&quot; to the cart.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
+
+						if ( 'add-to-cart' === $context ) {
+							// translators: %1$s product title. %2$s Error reason.
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to the cart as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						} else {
+							// translators: %1$s product title. %2$s Error reason.
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						}
+
+						throw new Exception( $notice );
+
 					}
+
 				}
+
 			} catch ( Exception $e ) {
 
 				$error = $e->getMessage();
@@ -343,71 +382,182 @@ class WC_Mix_and_Match_Stock_Manager {
 	}
 }
 
+
 /**
  * Maps a product/variation in the collection to the item managing stock for it.
  * These 2 will differ only if stock for a variation is managed by its parent.
  *
  * @class    WC_Mix_and_Match_Stock_Manager_Item
- * @version  1.0.5
+ * 
  * @since    1.0.5
+ * @version  2.4.0
  */
 class WC_Mix_and_Match_Stock_Manager_Item {
 
 	/**
-	 * Product ID.
+	 * The variation|product ID that manages the stock for this item.
 	 *
 	 * @var int
 	 */
-	public $product_id;
-
-	/**
-	 * Varitation ID.
-	 *
-	 * @var int
-	 */
-	public $variation_id;
+	private $managed_by_id;
 
 	/**
 	 * Quantity of Item in Container.
 	 *
 	 * @var int
 	 */
-	public $quantity;
+	private $quantity = 0;
 
 	/**
-	 * The variation or product ID that manages the stock for this item.
+	 * Child item object.
+	 *
+	 * @var WC_MNM_Child_Item
+	 */
+	private $child_item;
+
+	/**
+	 * Managed product object.
+	 *
+	 * @var WC_Product
+	 */
+	private $managed_product = null;
+
+	/**
+	 * Magic getter for old props.
 	 *
 	 * @var int
 	 */
-	public $managed_by_id;
+	public function __get( $prop ) {
+
+		wc_doing_it_wrong( $prop, 'WC_Mix_and_Match_Stock_Manager_Item properties should not be accessed directly. Warning! This will break in 3.0.0.', '2.4.0' );
+
+		$get_fn = 'get_' . $prop;
+
+		if ( is_callable( array( $this, $get_fn ) ) ) {
+			return $this->$get_fn();
+		}
+		
+		switch ( $prop ) {
+			case 'product_id':
+				$product = $this->get_product();
+				if ( $product ) {
+					$value = $product->get_parent_id() ? $product->get_parent_id(): $product->get_id();
+				} else {
+					$value = 0;
+				}
+				break;
+			case 'variation_id';
+				$product = $this->get_product();
+				if ( $product ) {
+					$value = $product->get_parent_id() ? $product->get_id() : 0;
+				} else {
+					$value = 0;
+				}
+				break;
+			default:
+				$value = '';
+		}
+
+	}
 
 	/**
 	 * __construct function.
 	 *
-	 * @param int $product_id
-	 * @param int $variation_id
+	 * @param WC_MNM_Child_Item $child_item
 	 * @param int $quantity
+	 * @param int $deprecated
 	 */
 
-	public function __construct( $product_id, $variation_id = 0, $quantity = 1 ) {
+	public function __construct( $child_item, $quantity = 1, $deprecated = false ) {
 
-		$this->product_id   = $product_id;
-		$this->variation_id = $variation_id;
-		$this->quantity     = $quantity;
+		if ( $child_item instanceof WC_MNM_Child_Item ) {
 
-		if ( $variation_id ) {
+			$this->child_item = $child_item;
+			$this->quantity   = $quantity;
 
-			$variation_stock = get_post_meta( $variation_id, '_stock', true );
+		} else if ( is_int( $child_item ) ) {
+			wc_deprecated_argument( '$product_id', '2.4.0', 'WC_Mix_and_Match_Stock_Manager_Item should be instantiated with a WC_MNM_Child_Item object. Warning! This will break in 3.0.0.' );
+			$this->quantity = $deprecated;
 
-			// If stock is managed at variation level.
-			if ( isset( $variation_stock ) && $variation_stock !== '' ) {
-				$this->managed_by_id = $variation_id;
-				// Otherwise stock is managed by the parent.
-			} else {
-				$this->managed_by_id = $product_id;
-			}
-		} else {
-			$this->managed_by_id = $product_id;
+			// Not entirely certain this is going to work without the container_id.
+			$this->child_item = new WC_MNM_Child_Item( array(
+				'product_id' => $child_item,
+				'variation_id' => $quantity,
+			 	)
+			);
+
+			// Get the managed by ID from post meta in the absence of the product object.
+			$variation_manage_stock = get_post_meta( $this->variation_id, '_manage_stock', true );
+			
+			$this->get_managed_by_id = 'parent' === $variation_manage_stock ? $this->product_id : $this->variation_id;
 		}
+
+		if ( $deprecated ) {
+			wc_deprecated_argument( 'quantity', '2.4.0', 'Quantity is now the 2nd parameter in the WC_Mix_and_Match_Stock_Manager_Item constructor. Warning! This will break in 3.0.0.' );
+			$this->quantity = $deprecated;
+		}
+
+		if ( $this->child_item instanceof WC_MNM_Child_Item && $this->child_item->get_product() instanceof WC_Product ) {
+			$this->managed_by_id = $child_item->get_product()->get_stock_managed_by_id();	
+		} else {
+			wc_doing_it_wrong( 'WC_Mix_and_Match_Stock_Manager_Item __construct()', 'WC_Mix_and_Match_Stock_Manager_Item constructed with a WC_MNM_Child_Item that had no valid product.', '2.4.0' );
+		}
+
 	}
+
+	/**
+	 * Get the stock managed by ID.
+	 * 
+	 * @return int
+	 */
+	public function get_managed_by_id() {
+		return $this->managed_by_id;
+	}
+
+	/**
+	 * Get the configured quantity.
+	 * 
+	 * @return int
+	 */
+	public function get_quantity() {
+		return $this->quantity;
+	}
+
+	/**
+	 * Get the child item object for this item.
+	 * 
+	 * @return WC_MNM_Child_Item
+	 */
+	public function get_child_item() {
+		return $this->child_item;
+	}
+
+	/**
+	 * Get the product object for this item.
+	 * 
+	 * @return WC_Product}false
+	 */
+	public function get_product() {
+		return $this->get_child_item() && $this->get_child_item()->get_product() ? $this->get_child_item()->get_product() : false;
+	}
+
+	/**
+	 * Get the stock-managed product object for this item.
+	 * Mostly it's the same, except when a variation is managed at the parent-product level.
+	 * 
+	 * @return WC_Product|false
+	 */
+	public function get_managed_product() {
+
+		if ( is_null( $this->managed_product ) ) {
+			$this->managed_product = $this->get_child_item()->get_product();
+
+			if ( $this->managed_product && $this->managed_product->get_id() !== $this->get_managed_by_id() ) {
+				$this->managed_product = wc_get_product( $this->get_managed_by_id() );
+			}
+		}
+
+		return $this->managed_product;
+	}
+	
 }

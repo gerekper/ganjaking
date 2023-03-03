@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.3
- * @version  2.0.3
+ * @version  2.4.3
  */
 
 // Exit if accessed directly.
@@ -57,8 +57,17 @@ class WC_MNM_Woodmart_Compatibility {
 	 * @return array
 	 */
 	public static function child_item_classes( $classes, $product ) {
-		$new_classes = array( 'product-grid-item', 'wd-with-labels', 'col-lg-4', 'col-md-4', 'col-6' );
+		$new_classes = array( 'product-grid-item', 'wd-with-labels', 'col-6' );
+
+		$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', get_option( 'wc_mnm_number_columns', 3 ), $product );
+
+		if ( $columns ) {
+			$bootstrap_columns = floor ( 12 / $columns );
+			$new_classes[] = 'col-lg-' . $bootstrap_columns;
+		}
+
 		return array_merge( $classes, $new_classes );
+		
 	}
 
 } // End class.

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Cart
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -557,7 +557,6 @@ class WC_Mix_and_Match_Cart {
 	}
 
 
-
 	/**
 	 * Validates add to cart for MNM containers.
 	 * Basically ensures that stock for all child products exists before attempting to add them to cart.
@@ -664,7 +663,7 @@ class WC_Mix_and_Match_Cart {
 						}
 
 						// Stock management.
-						$mnm_stock->add_item( $child_item->get_product_id(), $child_item->get_variation_id(), $quantity );
+						$mnm_stock->add_item( $child_item, $quantity );
 
 						/**
 						 * Individual item validation.

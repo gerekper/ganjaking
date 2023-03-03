@@ -1,7 +1,13 @@
 *** WooCommerce Conditional Content Changelog ***
-2022.01.08 - version 2.1.8
+2023.03.01 - version 2.2.0
+    * Update:  WP and WC compatibility tags.
+    * Update:  PHP 8 compatibility.
+    * Update:  HPOS compatibility.
+
+2022.09.06 - version 2.1.8
+    * Fix:  Corrections for PHP 8.x
     * Enhancement:  Added a Customer Order History condition to allow showing or hiding a block if the current user has purchased product(s).
-                        Uses either the logged in user id, or the billing email in the case the user checked out as guest.
+                        Uses either the logged-in user id, or the billing email in the case the user checked out as guest.
 
 2021.09.02 - version 2.1.7
     * Update:  Allow the selection of specific variations for Cart Product rules.
@@ -52,7 +58,7 @@
 
 2018.06.14 - version 2.0.7
     * Update:  Version bump for WC and WP.
-    
+
 2018.03.23 - version 2.0.6
     * Update:  Version updates.
     * Fix:  Fix issue with manual template display function.
@@ -83,24 +89,24 @@
 
 2016.05.13 - version 1.2.0
 	* Fix:  Correct missing chosen library in WC 2.6
-	* Fix:  Correct incorrect reference to $post->ID inside of the Product Attribute rule type. 
-	* Update:  Update CSS to allow for better display of search results on the rules builder. 
+	* Fix:  Correct incorrect reference to $post->ID inside of the Product Attribute rule type.
+	* Update:  Update CSS to allow for better display of search results on the rules builder.
 	* Note: WC 2.6 Ready
-	
+
 2016.02.26 - version 1.1.7
-	* Fix:  Fix issue in product rules where the global $post variable was null. 
-	* Update:  Update various functions to resolve deprecated notices. 
-	* Update:  General source formatting and closing php tag removal. 
-	
+	* Fix:  Fix issue in product rules where the global $post variable was null.
+	* Update:  Update various functions to resolve deprecated notices.
+	* Update:  General source formatting and closing php tag removal.
+
 2015.09.08 - version 1.1.6
-	* Update:  Moved conditional to fire on the init hook, rather than when the plugin is instantiated. 
-	
+	* Update:  Moved conditional to fire on the init hook, rather than when the plugin is instantiated.
+
 2015.04.14 - version 1.1.5
-	* Feature:  Added the ability to show content blocks based on a users country. 
-	
+	* Feature:  Added the ability to show content blocks based on a users country.
+
 2014.12.09 - version 1.1.4
-	* Fix the quantity counter for Cart Products calculations. 
-	
+	* Fix the quantity counter for Cart Products calculations.
+
 2014.03.11 - version 1.1.3
 	* Added filter to disable applying "the_content" filter on Content Blocks
 		Filter:  woocommerce_conditional_content_apply_the_content_filter
@@ -109,36 +115,36 @@
 		To disable the_content filter:   add_filter('woocommerce_conditional_content_apply_the_content_filter', '__return_false');
 
 2014.02.25 - version 1.1.2
-	* Corrected logic for Product Attributes Not In selector. 
+	* Corrected logic for Product Attributes Not In selector.
 
 2014.02.20 - version 1.1.1
-	* Added setting to allow a content block to be used in a loop, such as the main shop listing or a category listing of products. 
-		* Default is Single, which means the action hook the content is linked to is expected to fire only once. 
-		* New Loop option causes the conditional content block to be checked each time the action filter is fired. 
+	* Added setting to allow a content block to be used in a loop, such as the main shop listing or a category listing of products.
+		* Default is Single, which means the action hook the content is linked to is expected to fire only once.
+		* New Loop option causes the conditional content block to be checked each time the action filter is fired.
 
 2014.01.19 - version 1.1.0
 	* Compatibility with WooCommerce 2.1x
-		Changed code to get product attribute taxonomies. 
+		Changed code to get product attribute taxonomies.
 		Modified code to get formatted product attribute name
-		
+
 2014.01.04 - version 1.0.5
-	* Prevent duplication of content when the same hook is used with a different priority. 
+	* Prevent duplication of content when the same hook is used with a different priority.
 
 2013.11.29 - version 1.0.4
-	* Correction to logic inside product type rules. 
-	* Change "Contains At Least" to match when the cart quantity is greater OR equal to the specificed quantity. 
+	* Correction to logic inside product type rules.
+	* Change "Contains At Least" to match when the cart quantity is greater OR equal to the specificed quantity.
 
 2013.11.21 - version 1.0.3
-	* Modification to allow variation and products with other addons to contribute to the total when using Cart Quantity rules. 
+	* Modification to allow variation and products with other addons to contribute to the total when using Cart Quantity rules.
 
 2013.11.13 - version 1.0.2
-	* Correction to prevent a single matching content block to show others in some situations. 
+	* Correction to prevent a single matching content block to show others in some situations.
 
 2013.11.07 - version 1.0.1
-	* Small tweak to the match logic to make it more understandable. 
-	* Correction to counting of categories. 
-	* Correction to how product attributes are rendered in the builder and procesed 
-	* Cleanup extra " in chosen select. 
+	* Small tweak to the match logic to make it more understandable.
+	* Correction to counting of categories.
+	* Correction to how product attributes are rendered in the builder and procesed
+	* Cleanup extra " in chosen select.
 
 2013.06.10 - version 1.0.0
  * First Release

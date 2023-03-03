@@ -458,7 +458,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 	update_option( 'wc_mnm_layout', $layout );
 	update_option( 'wc_mnm_add_to_cart_form_location', $location );
 
-	$columns = apply_filters( 'wc_mnm_grid_layout_columns', 3, new WC_Product_Mix_and_Match );
+	$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', 3, new WC_Product_Mix_and_Match );
 
 	update_option( 'wc_mnm_number_columns', $columns );
 

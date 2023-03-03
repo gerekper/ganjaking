@@ -55,7 +55,7 @@ class WC_GFPA_Entry {
 			$is_subscription_renewal = true;
 		}
 
-		if ($is_subscription_renewal && apply_filters( 'woocommerce_gravityforms_wcs_new_order_created_create_entries', false, $the_order ) == false ) {
+		if ( $is_subscription_renewal && apply_filters( 'woocommerce_gravityforms_wcs_new_order_created_create_entries', false, $the_order ) == false ) {
 			return;
 		}
 
@@ -63,18 +63,13 @@ class WC_GFPA_Entry {
 			$gravity_forms_history = null;
 
 			$meta_data = $order_item->get_meta_data();
-			if ( WC_GFPA_Compatibility::is_wc_version_gte_3_2() ) {
 
-				foreach ( $meta_data as $meta_data_item ) {
-					$d = $meta_data_item->get_data();
-					if ( $d['key'] == '_gravity_forms_history' ) {
-						$gravity_forms_history = array( $meta_data_item );
-						break;
-					}
+			foreach ( $meta_data as $meta_data_item ) {
+				$d = $meta_data_item->get_data();
+				if ( $d['key'] == '_gravity_forms_history' ) {
+					$gravity_forms_history = array( $meta_data_item );
+					break;
 				}
-
-			} else {
-				$gravity_forms_history = wp_list_filter( $meta_data, array( 'key' => '_gravity_forms_history' ) );
 			}
 
 			$entry_id = false;
@@ -85,6 +80,19 @@ class WC_GFPA_Entry {
 
 
 				$gravity_forms_history_value = array_pop( $gravity_forms_history );
+
+				if ( empty( $gravity_forms_history_value ) ) {
+					continue;
+				}
+
+				$form_data = $gravity_forms_history_value->value['_gravity_form_data'];
+				$lead_data = $gravity_forms_history_value->value['_gravity_form_lead'];
+				if ( empty( $form_data ) || empty( $lead_data ) ) {
+					continue;
+				}
+
+				//$gravity_forms_history_data = $gravity_forms_history_value->get_data();
+				// $gravity_forms_history_value = maybe_unserialize($gravity_forms_history_data['value']);
 
 				$create_entries                    = true;
 				$create_entries_on_specific_status = apply_filters( 'woocommerce_gravityforms_create_entries_on_specific_statuses', false, $the_order );
@@ -128,8 +136,6 @@ class WC_GFPA_Entry {
 
 				}
 
-				$form_data = $gravity_forms_history_value->value['_gravity_form_data'];
-				$lead_data = $gravity_forms_history_value->value['_gravity_form_lead'];
 
 				if ( $create_entries && empty( $entry_id ) ) {
 
@@ -142,6 +148,9 @@ class WC_GFPA_Entry {
 
 					unset( $lead_data['lead_id'] );
 
+					add_filter( 'gform_is_feed_asynchronous', function ( $async ) {
+						return false;
+					}, 99999 );
 
 					$entry_id = GFAPI::add_entry( $lead_data );
 
@@ -225,7 +234,7 @@ class WC_GFPA_Entry {
 
 
 					//slash it so that unicode doesn't get stripped out by WP add_metadata wp_unslash
-					$cart_item_lead = wp_slash($gravity_forms_history_value->value['_gravity_form_lead']);
+					$cart_item_lead = wp_slash( $gravity_forms_history_value->value['_gravity_form_lead'] );
 
 					$new_history = array(
 						'_gravity_form_cart_item_key'   => $cart_item_key,
@@ -328,9 +337,10 @@ class WC_GFPA_Entry {
 	 *
 	 * We can't use the order item id to track because it get's deleted and a new one created, so we use the cart_item_key as the unique hash.
 	 *
+	 * @param int $order_id The woocommerce order id being resumed.
+	 *
 	 * @since 3.2.5
 	 *
-	 * @param int $order_id The woocommerce order id being resumed.
 	 */
 	public function on_woocommerce_resume_order( $order_id ) {
 
@@ -526,6 +536,11 @@ class WC_GFPA_Entry {
 			'label' => __( 'WooCommerce Order Item Product ID', 'wc_gf_addons' )
 		) );
 
+		array_push( $form['fields'], array(
+			'id'    => 'woocommerce_order_item_product_quantity',
+			'label' => __( 'WooCommerce Order Item Quantity', 'wc_gf_addons' )
+		) );
+
 		return $form;
 	}
 
@@ -535,7 +550,12 @@ class WC_GFPA_Entry {
 		switch ( $field_id ) {
 			case 'woocommerce_order_number' :
 				$order_id = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				$value    = empty( $order_id ) ? '' : $order_id;
+				if ( ! empty( $order_id ) ) {
+					$the_order = wc_get_order( $order_id );
+					$value     = $the_order->get_order_number();
+				} else {
+					$value = '';
+				}
 				break;
 			case 'woocommerce_order_item_number' :
 				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
@@ -562,6 +582,17 @@ class WC_GFPA_Entry {
 					$order_items = $the_order->get_items();
 					if ( isset( $order_items[ $order_item_id ] ) ) {
 						$value = $order_items[ $order_item_id ]['product_id'];
+					}
+				}
+				break;
+			case 'woocommerce_order_item_product_quantity' :
+				$order_id      = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
+				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
+				$the_order     = wc_get_order( $order_id );
+				if ( $the_order ) {
+					$order_items = $the_order->get_items();
+					if ( isset( $order_items[ $order_item_id ] ) ) {
+						$value = $order_items[ $order_item_id ]['qty'];
 					}
 				}
 				break;

@@ -2,9 +2,7 @@
 /**
  * API Keys Order Complete Email
  *
- * Shows downloads on the account page.
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/api-keys-order-complete.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/api-keys-order-complete.php.
  *
  * HOWEVER, on occasion WooCommerce API Manager will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -15,58 +13,53 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates/Emails
- * @version 2.0
+ * @version 2.5.4
  */
 
 defined( 'ABSPATH' ) || exit;
 
-if ( is_object( $order ) && ! empty( $resources ) ) :
+if ( is_object( $order ) && ! empty( $resources ) ) {
 	$hide_product_order_api_keys = WC_AM_USER()->hide_product_order_api_keys();
 
-	if ( $order->has_downloadable_item() ) :
-		?>
-        <h2>
-			<?php esc_html_e( 'API Downloads', 'woocommerce-api-manager' ); ?>
-        </h2>
-        <p>
-            <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>"><?php esc_html_e( 'Click here to login and download Your File(s)', 'woocommerce-api-manager' ); ?></a>
-        </p>
-	<?php endif; ?>
-    <h2>
-		<?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?>
-    </h2>
-    <p>
-		<?php esc_html_e( 'Master API Key:', 'woocommerce-api-manager' ); ?>
-        <strong><?php echo esc_attr( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></strong>
-    </p>
-    <p>
-		<?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?>
-    </p>
-	<?php
-	if ( ! $hide_product_order_api_keys ) : ?>
-        <h3>
-			<?php esc_html_e( 'Product Order API Keys', 'woocommerce-api-manager' ); ?>
-        </h3>
-        <p>
-			<?php esc_html_e( 'A Product Order API Key can be used to limit activation to a single product from a single order.', 'woocommerce-api-manager' ); ?>
-        </p>
-	<?php
-	endif;
-	foreach ( $resources as $resource ) :
+	echo "\n\n" . esc_html( '-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-' );
+	echo "\n\n" . __( 'API Product Information', 'woocommerce-api-manager' ) . "\n\n";
+
+	foreach ( $resources as $resource ) {
 		$product_object = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
-		?>
-        <h4>
-			<?php echo esc_attr( $product_object->get_title() ); ?>
-        </h4>
-        <p><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?><strong><?php echo absint( $resource->product_id ) ?></strong>
-        </p>
-		<?php if ( ! $hide_product_order_api_keys ) : ?>
-        <ul>
-            <li>
-				<?php esc_html_e( 'Product Order API Key(s):', 'woocommerce-api-manager' ); ?>
-                <br><strong><?php echo esc_attr( $resource->product_order_api_key ); ?></strong>
-            </li>
-        </ul>
-	<?php endif;
-	endforeach;
-endif;
+
+		if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
+			$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
+		} else {
+			$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->get_human_time_diff( $resource->access_expires ) );
+		}
+
+		// translators: %s placeholder is title
+		echo sprintf( _x( 'Product: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $product_object->get_title() ) . "\n";
+
+		if ( ! $hide_product_order_api_keys ) {
+			// translators: %s placeholder is Product Order Api Key
+			echo sprintf( _x( 'Product Order API Key(s): %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $resource->product_order_api_key ) . "\n";
+		}
+
+		// translators: %s placeholder is Product ID
+		echo sprintf( _x( 'Product ID: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), absint( $resource->product_id ) ) . "\n";
+		// translators: %s placeholder is Activations
+		echo sprintf( _x( 'Activations: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $resource->activations_purchased_total ) . "\n";
+		// translators: %s placeholder is Expires date and time
+		echo sprintf( _x( 'Expires: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $expires ) . "\n";
+
+		echo esc_html( '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' ) . "\n\n";
+	}
+
+	// translators: %s placeholder is Master API Key
+	echo sprintf( _x( 'Master API Key: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) . "\n";
+
+	echo "\n" . esc_html__( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ) . "\n";
+
+	if ( $order->has_downloadable_item() ) {
+		// translators: %s placeholder is My Account > API Downloads -> URL
+		echo "\n" . sprintf( _x( 'Click here to login and download your file(s): %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), wc_get_endpoint_url( 'api-downloads', '', wc_get_page_permalink( 'myaccount' ) ) ) . "\n";
+	}
+
+	echo "\n" . esc_html( '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_' ) . "\n\n";
+}

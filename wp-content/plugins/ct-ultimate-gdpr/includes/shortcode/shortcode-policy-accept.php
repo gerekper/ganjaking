@@ -93,8 +93,13 @@ class CT_Ultimate_GDPR_Shortcode_Policy_Accept {
 			$this->policy_page_id = (int) $page_id;
 
 			add_filter( 'the_content', function($content) {
-	
-				if ( is_singular() && get_post()->ID == $this->policy_page_id ) {
+				$trid = apply_filters( 'wpml_element_trid', NULL, $this->policy_page_id, 'post_page' );
+				$translations = apply_filters( 'wpml_get_element_translations', NULL, $trid, 'post_page' );
+				$lang = apply_filters( 'wpml_current_language', null );
+				$post_id = get_post()->ID;
+				$element_id = !empty($lang) ? $translations[$lang]->element_id : $this->policy_page_id;
+				
+				if ( (is_singular() && $post_id  == $element_id)) {
  
 					wp_enqueue_script(
 						'ct-ultimate-gdpr-shortcode-policy-accept',

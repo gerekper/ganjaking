@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Install
  * @since    1.2.0
- * @version  2.2.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -124,22 +124,42 @@ class WC_MNM_Install {
 	}
 
 	/**
+	 * Test if we are using WC Admin Notes or classic notices.
+	 *
+	 * @since  2.4.0
+	 */
+	private static function is_wc_admin_active() {
+		return WC()->is_wc_admin_active() && false !== get_option( 'woocommerce_admin_install_timestamp' );
+	}
+
+	/**
 	 * See if we need to show or run database updates during install.
 	 *
 	 * @since  2.0.0
 	 */
 	public static function admin_db_update_notice() {
 
-		if ( self::needs_db_update() && ! self::is_new_install() ) {
+		// Add WC Admin based db update notice.
+		if ( self::is_wc_admin_active() ) {
 
-			if ( self::auto_update_enabled() ) {
-				self::update();
-			} else {
+			self::remove_admin_notices();
+			
+			new WC_MNM_Notes_Run_Db_Update();
 
-				// Add 'update' notice.
-				WC_MNM_Admin_Notices::add_notice( 'update', true );
+			// If WC Admin is disabled show the old style notices.
+		} else if (
+			self::needs_db_update() && 
+			! self::is_new_install() )
+			{
 
-			}
+				if ( self::auto_update_enabled() ) {
+					self::update();
+				} else {
+
+					// Add 'update' notice.
+					WC_MNM_Admin_Notices::add_notice( 'update', true );
+
+				}
 
 		}
 	}
@@ -206,16 +226,19 @@ class WC_MNM_Install {
 	public static function install_actions() {
 		if ( ! empty( $_GET[ 'wc_mnm_update_action' ] ) ) {
 
-			$action = wc_clean( $_GET[ 'wc_mnm_update_action' ] );
+			$result = check_admin_referer( 'wc_mnm_update_action', 'wc_mnm_update_action_nonce' );
 
-			check_admin_referer( $action, 'wc_mnm_update_action_nonce' );
+			$action = wc_clean( $_GET[ 'wc_mnm_update_action' ] );
 
 			if ( is_callable( array( __CLASS__, $action ) ) ) {
 				call_user_func( array( __CLASS__, $action ) );
 			} else {
 				do_action( 'wc_mnm_update_action_' . $action );
 			}
-			WC_MNM_Admin_Notices::add_notice( 'update', true );
+
+			if ( ! self::is_wc_admin_active() ) {
+				WC_MNM_Admin_Notices::add_notice( 'update', true );
+			}
 		}
 	}
 

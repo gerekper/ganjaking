@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Helpers
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -189,6 +189,28 @@ class WC_MNM_Helpers {
 		return $escaped_array;
 	}
 
+	/**
+	 * Check how long plugin has been active for.
+	 * 
+	 * @since   2.4.0
+	 * @param   int $seconds - Time in seconds to check.
+	 * @return  boolean|int Whether or not plugin has been active for $seconds.
+	 */
+	public static function is_plugin_active_for( $seconds = '' ) {
+		if ( empty( $seconds ) ) {
+			return true;
+		}
+
+		// Getting install timestamp.
+		$install_timestamp = get_option( 'wc_mnm_install_timestamp', false );
+
+		if ( ! is_numeric( $install_timestamp ) ) {
+			$install_timestamp = time();
+			update_option( 'wc_mnm_install_timestamp', $install_timestamp );
+		}
+
+		return ( ( time() - $install_timestamp ) >= $seconds );
+	}
 
 	/*-----------------------------------------------------------------------------------*/
 	/* Deprecated Functions */

@@ -151,9 +151,9 @@ $attr_array  = array(
 
     <div class="ct-ultimate-gdpr-age-content" <?php echo $content_style; ?>>
 
-        <h4 class="ct-ultimate-gdpr-age-content-title"><?php echo esc_html($options['age_popup_title']); ?></h4>
+        <h4 class="ct-ultimate-gdpr-age-content-title"><?php echo esc_html__( $options['age_popup_title'], 'ct-ultimate-gdpr' ); ?></h4>
 
-        <div class="ct-ultimate-gdpr-age-content-description"><?php echo wp_kses_post($options['age_popup_content']); ?></div>
+        <div class="ct-ultimate-gdpr-age-content-description"><?php echo wp_kses_post( esc_html__( $options['age_popup_content'], 'ct-ultimate-gdpr' ) ); ?></div>
 
         <div class="ct-ultimate-gdpr-age-content-form">
             <div class="ct-gdpr-select-wrapper">
@@ -187,7 +187,7 @@ $attr_array  = array(
                 $age_button_style = $age_button_shape.$age_button_bg_color.$age_button_text_color;
             ?>
             style="cursor:pointer;line-height:1.4em;<?=$age_button_style?>">
-            <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
+            <?php echo wp_kses_post( esc_html__( $options['age_popup_label_accept']), 'ct-ultimate-gdpr' ); ?>
             </a>
         </div>
     </div>

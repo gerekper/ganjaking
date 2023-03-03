@@ -928,7 +928,7 @@ function perfmatters_settings() {
     //preload critical images
     add_settings_field(
         'critical_images', 
-        perfmatters_title(__('Preload Critical Images', 'perfmatters') . '<span class="perfmatters-beta">BETA</span>', 'critical_images', 'https://perfmatters.io/docs/preload/#critical-images'), 
+        perfmatters_title(__('Preload Critical Images', 'perfmatters'), 'critical_images', 'https://perfmatters.io/docs/preload/#critical-images'), 
         'perfmatters_print_input', 
         'perfmatters_options', 
         'preload', 
@@ -1396,7 +1396,8 @@ function perfmatters_settings() {
                 'gtagv4' => 'gtag.js v4',
                 'gtag' => 'gtag.js',
                 'minimal' => __('Minimal', 'perfmatters'),
-                'minimal_inline' => __('Minimal Inline', 'perfmatters')
+                'minimal_inline' => __('Minimal Inline', 'perfmatters'),
+                'minimalv4' => __('Minimal v4', 'perfmatters')
             ),
             'class' => 'perfmatters-input-controller',
             'tooltip' => __('Choose which script method you would like to use.', 'perfmatters')
@@ -1428,7 +1429,7 @@ function perfmatters_settings() {
         array(
             'section' => 'analytics',
             'id' => 'anonymize_ip',
-            'class' => 'analytics-script_type perfmatters-select-control-gtagv4 perfmatters-control-reverse' . (!empty($perfmatters_options['analytics']['script_type']) && $perfmatters_options['analytics']['script_type'] == 'gtagv4' ? ' hidden' : ''),
+            'class' => 'analytics-script_type perfmatters-select-control-gtagv4 perfmatters-select-control-minimalv4 perfmatters-control-reverse' . (!empty($perfmatters_options['analytics']['script_type']) && ($perfmatters_options['analytics']['script_type'] == 'gtagv4' || $perfmatters_options['analytics']['script_type'] == 'minimalv4') ? ' hidden' : ''),
             'tooltip' => __('Shorten visitor IP to comply with privacy restrictions in some countries.', 'perfmatters')
         )
     );
@@ -1505,7 +1506,7 @@ function perfmatters_settings() {
         array(
             'section' => 'analytics',
             'id' => 'enable_amp',
-            'class' => 'analytics-script_type perfmatters-select-control-gtagv4 perfmatters-control-reverse' . (!empty($perfmatters_options['analytics']['script_type']) && $perfmatters_options['analytics']['script_type'] == 'gtagv4' ? ' hidden' : ''),
+            'class' => 'analytics-script_type perfmatters-select-control-gtagv4 perfmatters-select-control-minimalv4 perfmatters-control-reverse' . (!empty($perfmatters_options['analytics']['script_type']) && ($perfmatters_options['analytics']['script_type'] == 'gtagv4' || $perfmatters_options['analytics']['script_type'] == 'minimalv4') ? ' hidden' : ''),
             'tooltip' => __('Enable support for analytics tracking on AMP sites. This is not a local script, but a native AMP script.', 'perfmatters')
         )
     );

@@ -4,34 +4,35 @@
  * Plugin Name: WooCommerce Gravity Forms Product Add-Ons
  * Plugin URI: http://woothemes.com/products/gravity-forms-add-ons/
  * Description: Allows you to use Gravity Forms on individual WooCommerce products. Requires the Gravity Forms plugin to work.
- * Version: 3.3.26
+ * Version: 3.4.1
  * Author: Element Stark
  * Author URI: https://www.elementstark.com/
  * Developer: Lucas Stark
  * Developer URI: http://www.elementstark.com/
  * Requires at least: 3.1
- * Tested up to: 5.8
+ * Tested up to: 6.2
 
- * Copyright: © 2009-2022 Element Stark.
+ * Copyright: © 2009-2023 Element Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
+ * WC requires at least: 6.0
+ * WC tested up to: 7.4.0
  * Woo: 18633:a6ac0ab1a1536e3a357ccf24c0650ed0
- * WC requires at least: 3.0.0
- * WC tested up to: 6.1
  */
 
 /**
  * Required functions
  */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
+if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
 }
 
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'a6ac0ab1a1536e3a357ccf24c0650ed0', '18633' );
+add_filter('gform_form_args', 'no_ajax_on_all_forms', 9999, 1);
+function no_ajax_on_all_forms($args){
+	$args['ajax'] = false;
+	return $args;
+}
 
 if ( is_woocommerce_active() ) {
 
@@ -47,18 +48,53 @@ if ( is_woocommerce_active() ) {
 
 	include 'compatibility.php';
 
-	add_action('plugins_loaded', 'wc_gravityforms_product_addons_plugins_loaded');
+	add_action( 'plugins_loaded', 'wc_gravityforms_product_addons_plugins_loaded' );
 
 	function wc_gravityforms_product_addons_plugins_loaded() {
-		if ( WC_GFPA_Compatibility::is_wc_version_gte_2_7() ) {
-			require_once 'gravityforms-product-addons-main.php';
+		if ( wc_gravityforms_is_plugin_active( 'gravityforms/gravityforms.php' ) || wc_gravityforms_is_plugin_active_for_network( 'gravityforms/gravityforms.php' ) ) {
+			if ( WC_GFPA_Compatibility::is_wc_version_gte_2_7() ) {
+				require_once 'gravityforms-product-addons-main.php';
+			} else {
+				require_once 'back_compat_less_27/gravityforms-product-addons-main.php';
+			}
 		} else {
-			require_once 'back_compat_less_27/gravityforms-product-addons-main.php';
+			add_action( 'admin_notices', 'wc_gravityforms_admin_install_notices' );
 		}
+	}
+
+	function wc_gravityforms_is_plugin_active( $plugin ) {
+		return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || wc_gravityforms_is_plugin_active_for_network( $plugin );
+	}
+
+	function wc_gravityforms_is_plugin_active_for_network( $plugin ) {
+		if ( ! is_multisite() ) {
+			return false;
+		}
+
+		$plugins = get_site_option( 'active_sitewide_plugins' );
+		if ( isset( $plugins[ $plugin ] ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	function wc_gfpa_get_plugin_url() {
 		return plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) );
+	}
+
+	function wc_gravityforms_admin_install_notices() {
+		?>
+        <div id="message" class="updated woocommerce-error wc-connect">
+            <div class="squeezer">
+                <h4><?php _e( '<strong>Gravity Forms Not Found</strong> &#8211; The Gravity Forms Plugin is required to build and manage the forms for your products.', 'wc_gf_addons' ); ?></h4>
+                <p class="submit">
+                    <a href="https://www.gravityforms.com/"
+                       class="button-primary"><?php _e( 'Get Gravity Forms', 'wc_gf_addons' ); ?></a>
+                </p>
+            </div>
+        </div>
+		<?php
 	}
 
 }

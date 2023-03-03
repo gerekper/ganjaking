@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 2.3.1\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 2.4.3\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2023-01-19 16:05:46+00:00\n"
+"POT-Creation-Date: 2023-03-02 15:45:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: includes/admin/class-wc-mnm-admin-notices.php:151
+#: includes/admin/class-wc-mnm-admin-notices.php:154
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin-notices.php:155
+#: includes/admin/class-wc-mnm-admin-notices.php:158
 msgid "You do not have permission to dismiss this notice."
 msgstr ""
 
@@ -29,41 +29,41 @@ msgstr ""
 msgid "WooCommerce Mix and Match Products"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:162
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:169
+#: includes/admin/class-wc-mnm-admin.php:165
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:174
 msgid "Configure"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:163
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:169
+#: includes/admin/class-wc-mnm-admin.php:166
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:174
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:164
+#: includes/admin/class-wc-mnm-admin.php:167
 msgid ""
 "Failed to initialize form. If this issue persists, please reload the page "
 "and try again."
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:165
+#: includes/admin/class-wc-mnm-admin.php:168
 msgid ""
 "Failed to validate configuration. If this issue persists, please reload the "
 "page and try again."
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:225
+#: includes/admin/class-wc-mnm-admin.php:228
 msgid "Learn how to update"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:296
+#: includes/admin/class-wc-mnm-admin.php:299
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:297
+#: includes/admin/class-wc-mnm-admin.php:300
 msgid "Support"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:320
+#: includes/admin/class-wc-mnm-admin.php:323
 msgid ""
 "<strong>Warning!</strong> Version 1.3.0 is a major update to the template "
 "system. Before updating, please test and update your custom templates with "
@@ -71,7 +71,7 @@ msgid ""
 "version 1.3.0 &raquo;%2$s"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:321
+#: includes/admin/class-wc-mnm-admin.php:324
 msgid ""
 "<strong>Warning!</strong> Version 2.0.0 is a major update to the database "
 "and templates. Before updating, please test the upgrade on a staging site. "
@@ -156,16 +156,16 @@ msgstr ""
 msgid "Mix and Match Products"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:122
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:118
 #. translators: order note listing all the child products added.
 msgid "Added line items: %s"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:247
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:252
 msgid "Close modal panel"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:254
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:259
 msgid "Update"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgid "Cumulative &mdash; Packed weight depends on the selected child items"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:220
-#: includes/class-wc-mnm-install.php:248
+#: includes/class-wc-mnm-install.php:271
 msgid "Mix and Match"
 msgstr ""
 
@@ -371,6 +371,93 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
+#: includes/admin/notes/class-wc-mnm-notes-get-support.php:59
+msgid ""
+"It looks like you haven't created a Mix and Match Product yet. Please let "
+"us know if there is anything we can assist you with."
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-get-support.php:76
+msgid "Need help with Mix and Match?"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-get-support.php:82
+msgid "Ask a question"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-help-improve.php:59
+msgid ""
+"We'd love your input to shape the future of Mix and Match. Would you tell "
+"us a little about yourself? Feel free to share any feedback or ideas that "
+"you have."
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-help-improve.php:69
+msgid "Help improve Mix and Match"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-help-improve.php:76
+msgid "Share feedback"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:126
+#: includes/admin/views/html-notice-update-2x00.php:36
+#: includes/admin/views/html-notice-update.php:29
+msgid "Update Database"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:135
+#: includes/admin/views/html-notice-update-2x00.php:39
+#: includes/admin/views/html-notice-update.php:32
+msgid "Learn more about updates"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:153
+msgid "WooCommerce Mix and Match database update required"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:155
+msgid ""
+"WooCommerce Mix and Match has been updated! To keep things running "
+"smoothly, we have to update your database to the newest version."
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:156
+msgid ""
+"The database update process runs in the background and may take a little "
+"while, so please be patient."
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:190
+msgid "You can manually run queued updates here."
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:190
+msgid "View progress →"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:193
+msgid "WooCommerce Mix and Match database update in progress"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:194
+msgid ""
+"The database is updating in the background. The database update process may "
+"take a little while, so please be patient."
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:228
+msgid "Thanks!"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:244
+msgid "WooCommerce Mix and Match database update done"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:245
+msgid "Database update complete. Thank you for updating to the latest version!"
+msgstr ""
+
 #: includes/admin/views/html-notice-update-2x00.php:21
 #: includes/admin/views/html-notice-update.php:21
 msgid "Mix and Match Database update required"
@@ -389,16 +476,6 @@ msgid ""
 "recommend you take a backup of your database first. If you are using any "
 "custom snippets or mini-extensions, you should also test them against 2.0 "
 "in staging before updating in production."
-msgstr ""
-
-#: includes/admin/views/html-notice-update-2x00.php:36
-#: includes/admin/views/html-notice-update.php:29
-msgid "Update Database"
-msgstr ""
-
-#: includes/admin/views/html-notice-update-2x00.php:39
-#: includes/admin/views/html-notice-update.php:32
-msgid "Learn more about updates"
 msgstr ""
 
 #: includes/admin/views/html-notice-updated-2x00.php:21
@@ -638,7 +715,7 @@ msgstr ""
 msgid "Selections"
 msgstr ""
 
-#: includes/class-wc-mix-and-match.php:268
+#: includes/class-wc-mix-and-match.php:271
 #. translators: %1$s is opening link to WordPress plugin site. 2$s is closing
 #. link. %3$s is minimum version of WooCommerce.
 msgid ""
@@ -647,72 +724,72 @@ msgid ""
 "function. Please upgrade or activate WooCommerce."
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:160
+#: includes/class-wc-mnm-ajax.php:198
 #. translators: %s is the validation failure reason.
 msgid "Cannot update this mix and match product. Reason: %s."
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:272
+#: includes/class-wc-mnm-ajax.php:310
 #. translators: List of items
 msgid "Deleted child line items: %s"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:277
+#: includes/class-wc-mnm-ajax.php:315
 #. translators: List of items
 msgid "Added child line items: %s"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:282
+#: includes/class-wc-mnm-ajax.php:320
 #. translators: List of items
 msgid "Adjusted child line items: %s"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:371
+#: includes/class-wc-mnm-ajax.php:417
 msgid "Security failure"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:376
+#: includes/class-wc-mnm-ajax.php:422
 msgid "Missing order ID or item ID"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:384
+#: includes/class-wc-mnm-ajax.php:430
 msgid "Not a valid order"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:391
+#: includes/class-wc-mnm-ajax.php:437
 msgid "You do not have authority to edit this subscription"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:396
+#: includes/class-wc-mnm-ajax.php:442
 msgid "You do not have authority to edit this order"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:402
+#: includes/class-wc-mnm-ajax.php:448
 msgid "No configuration found"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:409
+#: includes/class-wc-mnm-ajax.php:455
 msgid "Not a valid order item"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:424
+#: includes/class-wc-mnm-ajax.php:470
 msgid "This product does not exist and so can not be edited"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:429
+#: includes/class-wc-mnm-ajax.php:475
 msgid "Product is not an editable %s type and so cannot be edited"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:434
+#: includes/class-wc-mnm-ajax.php:480
 msgid "Container product does not have any available child items"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:469
+#: includes/class-wc-mnm-ajax.php:515
 #. translators: %s is the validation failure reason.
 msgid "Cannot edit this mix and match product. Reason: %s."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:711
+#: includes/class-wc-mnm-cart.php:710
 #. translators: %1$d is the maximum container quantity. %2$s is the container
 #. product title.
 msgid ""
@@ -724,7 +801,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-mnm-cart.php:718
+#: includes/class-wc-mnm-cart.php:717
 #. translators: %1$d is the minimum container quantity. %2$s is the container
 #. product title.
 msgid ""
@@ -736,17 +813,22 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-mnm-display.php:809
+#: includes/class-wc-mnm-display.php:240
+#. translators: %v is the current quantity message.
+msgid "%v Please make some changes to your configuration to update."
+msgstr ""
+
+#: includes/class-wc-mnm-display.php:811
 #: includes/wc-mnm-update-functions.php:250
 msgid "Container size"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:871
+#: includes/class-wc-mnm-display.php:873
 #: includes/wc-mnm-update-functions.php:266
 msgid "Purchased with"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:872 includes/class-wc-mnm-order.php:554
+#: includes/class-wc-mnm-display.php:874 includes/class-wc-mnm-order.php:554
 #: includes/wc-mnm-update-functions.php:258
 msgid "Part of"
 msgstr ""
@@ -849,21 +931,21 @@ msgid ""
 "remove the <strong>Mix and Match: Subscriptions</strong> plugin."
 msgstr ""
 
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:571
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:595
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:793
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:570
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:594
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:792
 msgid "Update selections"
 msgstr ""
 
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:774
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:773
 msgid "Between Mix and Match Configurations"
 msgstr ""
 
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:788
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:787
 msgid "Mix and Match Configuration Switch Button Text"
 msgstr ""
 
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:789
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:788
 msgid ""
 "Customize the text displayed on the button next to the mix and match "
 "product subscription on the subscriber's account page. The default is "
@@ -1058,8 +1140,21 @@ msgstr ""
 msgid "Display short description"
 msgstr ""
 
+#: includes/customizer/class-wc-mnm-customizer.php:280
+msgid "Apply enhanced mobile layout"
+msgstr ""
+
 #: includes/customizer/class-wc-mnm-customizer.php:281
-#: includes/customizer/class-wc-mnm-customizer.php:282
+#: includes/customizer/class-wc-mnm-customizer.php:309
+msgid "May conflict with your theme styles."
+msgstr ""
+
+#: includes/customizer/class-wc-mnm-customizer.php:308
+msgid "Display plus/minus buttons"
+msgstr ""
+
+#: includes/customizer/class-wc-mnm-customizer.php:337
+#: includes/customizer/class-wc-mnm-customizer.php:338
 msgid "Customize Mix and Match"
 msgstr ""
 
@@ -1090,8 +1185,8 @@ msgid ""
 "given."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:758
-#: includes/wc-mnm-template-functions.php:807
+#: includes/wc-mnm-template-functions.php:785
+#: includes/wc-mnm-template-functions.php:834
 msgid ""
 "The Mix and Match database is updating in the background. During this time, "
 "all mix and match products on your site will be unavailable. If this "
@@ -1099,8 +1194,8 @@ msgid ""
 "with our support team. Note: This message is visible to store managers only."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:760
-#: includes/wc-mnm-template-functions.php:809
+#: includes/wc-mnm-template-functions.php:787
+#: includes/wc-mnm-template-functions.php:836
 msgid ""
 "&quot;%1$s&quot; is not purchasable because it is missing a base price. To "
 "give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data "
@@ -1108,13 +1203,21 @@ msgid ""
 "Note: This message is visible to store managers only."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:762
-#: includes/wc-mnm-template-functions.php:811
+#: includes/wc-mnm-template-functions.php:789
+#: includes/wc-mnm-template-functions.php:838
 msgid ""
 "Please make sure that this product has allowed contents defined and that "
 "those products have a price and/or are in stock. WooCommerce does not allow "
 "products with a blank price to be purchased. Note: This message is visible "
 "to store managers only."
+msgstr ""
+
+#: includes/wc-mnm-template-functions.php:939
+msgid "Reduce quantity"
+msgstr ""
+
+#: includes/wc-mnm-template-functions.php:950
+msgid "Increase quantity"
 msgstr ""
 
 #: includes/wc-mnm-update-functions.php:692
@@ -1149,33 +1252,33 @@ msgstr ""
 msgid "http://kathyisawesome.com/"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:203
+#: includes/admin/class-wc-mnm-admin.php:206
 msgctxt "label for the system staus page"
 msgid "Version"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:207
+#: includes/admin/class-wc-mnm-admin.php:210
 msgctxt "label for the system staus page"
 msgid "Database Version"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:214
+#: includes/admin/class-wc-mnm-admin.php:217
 msgctxt "label for the system status page"
 msgid "Template Overrides"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:222
+#: includes/admin/class-wc-mnm-admin.php:225
 msgctxt "label for the system status page"
 msgid "Outdated Templates"
 msgstr ""
 
 #: includes/api/class-wc-mnm-store-api.php:274
-#: includes/class-wc-mnm-display.php:352
+#: includes/class-wc-mnm-display.php:354
 msgctxt "edit in cart link text"
 msgid "Edit selections"
 msgstr ""
 
-#: includes/class-wc-mnm-ajax.php:265
+#: includes/class-wc-mnm-ajax.php:303
 #. translators: %1$s: Product title, %2$s: SKU
 msgctxt "child items change note format"
 msgid "%1$s (%2$s)"
@@ -1188,7 +1291,7 @@ msgid ""
 "cart and try again."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:643
+#: includes/class-wc-mnm-cart.php:642
 #. translators: %s is the product title.
 msgctxt "[Frontend]"
 msgid ""
@@ -1196,7 +1299,7 @@ msgid ""
 "&quot;%s&quot; cannot be purchased."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:654
+#: includes/class-wc-mnm-cart.php:653
 #. translators: %1ds is the maximum quantity of the child product. %2$s is the
 #. product title.
 msgctxt "[Frontend]"
@@ -1205,7 +1308,7 @@ msgid ""
 "cannot select more than %1$d of &quot;%2$s&quot;."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:658
+#: includes/class-wc-mnm-cart.php:657
 #. translators: %1$d is the minimum quantity of the child product. %2$s is the
 #. product title.
 msgctxt "[Frontend]"
@@ -1214,7 +1317,7 @@ msgid ""
 "must select at least %1$d of &quot;%2$s&quot;."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:662
+#: includes/class-wc-mnm-cart.php:661
 #. translators: %1$s is the product title. %2$d is the step quantity of the
 #. child product.
 msgctxt "[Frontend]"
@@ -1223,12 +1326,12 @@ msgid ""
 "must select &quot;%1$s&quot; in quantities of %2$d."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:821
+#: includes/class-wc-mnm-cart.php:820
 msgctxt "[Frontend]"
 msgid "Cart updated."
 msgstr ""
 
-#: includes/class-wc-mnm-child-item.php:433
+#: includes/class-wc-mnm-child-item.php:434
 msgctxt "[Frontend]"
 msgid "Temporarily unavailable"
 msgstr ""
@@ -1424,67 +1527,68 @@ msgctxt "[Frontend]"
 msgid "Are you sure you want to clear all your selections?"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:707 includes/class-wc-mnm-display.php:717
+#: includes/class-wc-mnm-display.php:709 includes/class-wc-mnm-display.php:719
 msgctxt "[Frontend]"
 msgid "Selections"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:889
+#: includes/class-wc-mnm-display.php:891
 msgctxt "[Frontend]"
 msgid "Container size"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:892
+#: includes/class-wc-mnm-display.php:894
 msgctxt "[Frontend]"
 msgid "Part of"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:895
+#: includes/class-wc-mnm-display.php:897
 msgctxt "[Frontend]"
 msgid "Purchased with"
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:258
+#: includes/class-wc-mnm-stock-manager.php:280
 #. translators: %s product title.
 msgctxt "[Frontend]"
 msgid "Only 1 &quot;%s&quot; may be purchased."
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:262
-#: includes/class-wc-mnm-stock-manager.php:280
+#: includes/class-wc-mnm-stock-manager.php:284
+#: includes/class-wc-mnm-stock-manager.php:302
 #. translators: %1$s product title. %2$s Error reason.
 msgctxt "[Frontend]"
 msgid "&quot;%1$s&quot; cannot be added to your cart as configued. %2$s"
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:266
-#: includes/class-wc-mnm-stock-manager.php:283
-#: includes/class-wc-mnm-stock-manager.php:298
-#: includes/class-wc-mnm-stock-manager.php:321
+#: includes/class-wc-mnm-stock-manager.php:288
+#: includes/class-wc-mnm-stock-manager.php:305
+#: includes/class-wc-mnm-stock-manager.php:320
+#: includes/class-wc-mnm-stock-manager.php:343
+#: includes/class-wc-mnm-stock-manager.php:360
 #. translators: %1$s product title. %2$s Error reason.
 msgctxt "[Frontend]"
 msgid "&quot;%1$s&quot; cannot be purchased as configured. %2$s"
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:276
+#: includes/class-wc-mnm-stock-manager.php:298
 #. translators: %s product title.
 msgctxt "[Frontend]"
 msgid "&quot;%s&quot; is out of stock."
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:291
+#: includes/class-wc-mnm-stock-manager.php:313
 #. translators: %1$s product title. %2$s quantity in stock.
 msgctxt "[Frontend]"
 msgid "There is not enough stock of &quot;%1$s&quot; (%2$s remaining)."
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:295
+#: includes/class-wc-mnm-stock-manager.php:317
 #. translators: %1$s product title. %2$s Error reason.
 msgctxt "[Frontend]"
 msgid "&quot;%1$s&quot; cannot be added to your cart as configured. %2$s"
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:314
+#: includes/class-wc-mnm-stock-manager.php:336
 #. translators: %1$s product title. %2$s quantity in stock. %3$s quantity in
 #. cart.
 msgctxt "[Frontend]"
@@ -1493,15 +1597,22 @@ msgid ""
 "cart)."
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:318
+#: includes/class-wc-mnm-stock-manager.php:340
+#: includes/class-wc-mnm-stock-manager.php:357
 #. translators: %1$s product title. %2$s Error reason.
 msgctxt "[Frontend]"
 msgid "&quot;%1$s&quot; cannot be added to the cart as configured. %2$s"
 msgstr ""
 
-#: includes/class-wc-mnm-stock-manager.php:324
+#: includes/class-wc-mnm-stock-manager.php:346
 msgctxt "[Frontend]"
 msgid "View Cart"
+msgstr ""
+
+#: includes/class-wc-mnm-stock-manager.php:353
+#. translators: %1$s product title.
+msgctxt "[Frontend]"
+msgid "You cannot add another &quot;%s&quot; to the cart."
 msgstr ""
 
 #: includes/class-wc-product-mix-and-match.php:179
@@ -1582,30 +1693,30 @@ msgid_plural "Please choose fewer than %d items to continue&hellip;"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-mnm-template-functions.php:197
+#: includes/wc-mnm-template-functions.php:236
 msgctxt "[Frontend]"
 msgid "Product"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:198
+#: includes/wc-mnm-template-functions.php:237
 msgctxt "[Frontend]"
 msgid "Quantity"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:608
+#: includes/wc-mnm-template-functions.php:630
 #. translators: %1$d: Quantity, %2$s: Product name.
 msgctxt "[Frontend]"
 msgid "&times;%1$d <span class=\"screen-reader-text\">%2$s</span>"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:615
+#: includes/wc-mnm-template-functions.php:637
 #. translators: %1$d: Quantity, %2$s: Product name.
 msgctxt "[Frontend]"
 msgid "Add %1$d <span class=\"screen-reader-text\">%2$s</span>"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:750
-#: includes/wc-mnm-template-functions.php:799
+#: includes/wc-mnm-template-functions.php:777
+#: includes/wc-mnm-template-functions.php:826
 msgctxt "[Frontend]"
 msgid "This product is currently unavailable."
 msgstr ""
@@ -1702,14 +1813,14 @@ msgctxt "dropdown option sale price"
 msgid "%1$s (was %2$s)"
 msgstr ""
 
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:692
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:691
 msgctxt "used in order note"
 msgid ""
 "\"%1$s\" (Product ID: #%2$d) removal triggered by \"%3$s\" via the My "
 "Account page."
 msgstr ""
 
-#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:747
+#: includes/compatibility/modules/apfs/class-wc-mnm-apfs-switching-compatibility.php:746
 msgctxt "used in order note"
 msgid ""
 "\"%1$s\" (Product ID: #%2$d) removal un-done by \"%3$s\" via the My Account "

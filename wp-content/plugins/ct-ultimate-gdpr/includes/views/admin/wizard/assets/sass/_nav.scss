@@ -1,0 +1,58 @@
+nav {
+    .js-save-and-go {
+        margin: 0 0 1rem 3.2rem;
+        color: $light-gray;
+        position: relative;
+        font-size: 18px;
+        border:1px solid $gray;
+        &.active {
+            background-color: $orange;
+            border:1px solid $orange;
+            color: $white;
+            &:before{
+                background-color: $orange; 
+            }
+        }
+        &:before{
+            content: '';
+            background-color: $gray;
+            height: 1px;
+            width: 52px;
+            position:absolute;
+            left: -51px;
+            top: 50%;
+        }
+        &:last-child {
+            &:after {
+                content: '';
+                background-color: $gray;
+                height: 1px;
+                width: 48px;
+                position:absolute;
+                right: -48px;
+                top: 50%;
+            }
+
+            &.active {
+                &:after{
+                    background-color: $orange; 
+                }
+            }
+        }
+        &.done {
+            background-color: transparent;
+            color: $orange;
+            border:1px solid $orange;
+            &:before{
+                background-color: $orange; 
+            }
+
+            &:after{
+                background-color: $orange; 
+            }
+        }
+    }
+
+    
+}
+

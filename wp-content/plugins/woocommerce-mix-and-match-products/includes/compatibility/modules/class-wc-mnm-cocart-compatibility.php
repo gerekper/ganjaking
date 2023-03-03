@@ -6,7 +6,7 @@
  *
  * @package WooCommerce Mix and Match Products/Compatibility
  * @since   1.10.0
- * @version 2.2.0
+ * @version 2.4.0
  */
 
 // Exit if accessed directly.
@@ -96,7 +96,7 @@ class WC_MNM_COCART_Compatibility {
 				$product = wc_get_product( $product_id );
 
 				try {
-					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration( $product, $values['quantity'], $cart_item_data['mnm_config'], array( 'context' => 'cart', 'throw_exception' => true ) );
+					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration( $product, $quantity, $cart_item_data['mnm_config'], array( 'context' => 'cart', 'throw_exception' => true ) );
 				} catch ( Exception $e ) {
 					throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 				}

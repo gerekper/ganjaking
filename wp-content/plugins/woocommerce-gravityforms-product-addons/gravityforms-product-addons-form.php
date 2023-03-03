@@ -160,7 +160,7 @@ class woocommerce_gravityforms_product_form {
 		?>
         <div class="product_totals">
             <ul id="gform_totals_<?php echo $this->form_id; ?>"
-                class="gform_fields <?php echo $form_meta['labelPlacement'] . ' ' . $description_class; ?>">
+                class="gform_fields <?php echo rgar( $form_meta, "labelPlacement", "above" ) . ' ' . $description_class; ?>">
                 <li class="gfield" <?php
 				if ( $disable_label_subtotal == 'yes' ) {
 					echo 'style="display:none !important;"';

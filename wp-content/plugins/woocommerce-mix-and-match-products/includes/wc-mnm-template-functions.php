@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -72,22 +72,6 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 	wp_enqueue_script( 'wc-add-to-cart-mnm' );
 	wp_enqueue_style( 'wc-mnm-frontend' );
 
-	$classes = array( 
-		'mnm_form',
-		'cart',
-		'cart_group',
-		'layout_' . $product->get_layout(),
-	);
-
-	/**
-	 * Form classes.
-	 *
-	 * @param array - The classes that will print in the <form> tag.
-	 * @param obj $product WC_Mix_And_Match of parent product
-	 * @since  2.2.0
-	 */
-	$classes = apply_filters( 'wc_mnm_form_classes', $classes, $product );
-
 	// Load the add to cart template.
 	wc_get_template(
 		'single-product/add-to-cart/mnm.php',
@@ -95,7 +79,7 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 			'container'          => $product,
 			'min_container_size' => $product->get_min_container_size(),
 			'max_container_size' => $product->get_max_container_size(),
-			'classes'            => $classes
+			'classes'            => wc_mnm_get_form_classes( array(), $product ),
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
@@ -103,6 +87,61 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 
 	// Restore product object.
 	$product = $backup_product;
+
+}
+
+/**
+ * Build form classes.
+ *
+ * @since  2.4.0
+ *
+ * @param WC_Product_Mix_and_Match $product
+ * @return array
+ */
+function wc_mnm_get_form_classes( $classes = array(), $product = false ) {
+
+	$defaults = array( 
+		'mnm_form',
+		'cart',
+		'cart_group',
+	);
+
+	if ( is_callable( array( $product, 'get_layout' ) ) ) {
+		$defaults[] = 'layout_' . $product->get_layout();
+	}
+
+	if ( wc_string_to_bool( get_option( 'wc_mnm_display_short_description', 'no' ) ) ) {
+		$defaults[] = 'has-short-descriptions';
+	}
+
+	if ( wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'no' ) ) ) {
+		$defaults[] = 'has-thumbnails';
+	}
+
+	if ( wc_string_to_bool( get_option( 'wc_mnm_mobile_optimized_layout', 'no' ) ) ) {
+		$defaults[] = 'has-mobile-layout';
+	}
+
+	if ( wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) ) {
+		$defaults[] = 'has-plus-minus-buttons';
+	}
+
+	if ( apply_filters( 'wc_mnm_center_align_quantity', true, $product ) ) {
+		$defaults[] = 'has-center-aligned-quantity';
+	}
+
+	/**
+	 * Form classes.
+	 * 
+	 * @since  2.2.0
+	 * @see wc_mnm_template_get_form_classes()
+	 *
+	 * @param array - The classes that will print in the <form> tag.
+	 * @param obj $product WC_Mix_And_Match of parent product
+	 */
+	$classes = apply_filters( 'wc_mnm_form_classes', wp_parse_args( (array) $classes, $defaults ), $product );
+
+	return array_map( 'esc_attr', array_unique( array_filter( $classes ) ) );
 
 }
 
@@ -181,7 +220,7 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 
 		// Get the columns.
 		$default_columns = get_option( 'wc_mnm_number_columns', 3 );
-		$columns = apply_filters( 'wc_mnm_grid_layout_columns', $default_columns, $product );
+		$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', $default_columns, $product );
 
 		// Reset the loop.
 		wc_set_loop_prop( 'loop', 0 );
@@ -190,7 +229,7 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 		$column_headers = array();
 
 		// Check whether or not to display thumbnails.
-		if ( 'yes' === get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+		if ( wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) ) {
 			$column_headers[ 'thumbnail' ] = '&nbsp;';
 		}
 
@@ -229,18 +268,6 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 				$classes[] = 'has-flex';
 			}
 
-		}
-
-		if ( wc_string_to_bool( get_option( 'wc_mnm_display_short_description', 'no' ) ) ) {
-			$classes[] = 'has-short-descriptions';
-		}
-
-		if ( wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'no' ) ) ) {
-			$classes[] = 'has-thumbnails';
-		}
-
-		if ( apply_filters( 'wc_mnm_center_align_quantity', true, $product ) ) {
-			$classes[] = 'has-center-aligned-quantity';
 		}
 
 		/**
@@ -308,11 +335,6 @@ function wc_mnm_template_child_item_details_wrapper_open( $child_item, $product 
  * @param obj WC_Mix_and_Match $product the parent container
  */
 function wc_mnm_template_child_item_thumbnail_open( $child_item, $product ) {
-
-	// Check whether or not to display thumbnails.
-	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
-		return;
-	}
 
 	/**
 	 * Wrapping classes.
@@ -618,17 +640,22 @@ function wc_mnm_template_child_item_quantity( $child_item, $product ) {
 	);
 
 	$input_args = array(
-		'input_id'    => uniqid( 'quantity_' ),
-		'input_name'  => $child_item->get_input_name(),
-		'input_value' => $child_item->get_quantity( 'value' ),
-		'min_value'   => $child_item->get_quantity( 'min' ),
-		'max_value'   => $child_item->get_quantity( 'max' ),
-		'placeholder' => 0,
-		'step'        => $child_item->get_quantity( 'step' ),
-		'classes'     => array( 'qty', 'mnm-quantity', 'input-text' ),
-		'required_text' => $required_text,
-		'checkbox_label' => $checkbox_label,
+		'input_id'        => uniqid( 'quantity_' ),
+		'input_name'      => $child_item->get_input_name(),
+		'input_value'     => $child_item->get_quantity( 'value' ),
+		'min_value'       => $child_item->get_quantity( 'min' ),
+		'max_value'       => $child_item->get_quantity( 'max' ),
+		'placeholder'     => 0,
+		'step'            => $child_item->get_quantity( 'step' ),
+		'classes'         => array( 'qty', 'mnm-quantity', 'input-text' ),
+		'wrapper_classes' => array( 'quantity' ),
+		'required_text'   => $required_text,
+		'checkbox_label'  => $checkbox_label,
 	);
+
+	if ( wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) ) {
+		$input_args['wrapper_classes'][] = 'buttons_added';
+	}
 
 	/**
 	 * Filter wc_mnm_child_item_quantity_input_args.
@@ -864,10 +891,6 @@ function wc_mnm_template_add_to_cart_button( $product ) {
 */
 function wc_mnm_child_item_short_description( $child_item, $product ) {
 
-	if ( 'yes' !== get_option( 'wc_mnm_display_short_description', 'no' ) ) {
-		return;
-	}
-
 	global $post;
 	$backup_post = $post;
 
@@ -882,6 +905,51 @@ function wc_mnm_child_item_short_description( $child_item, $product ) {
 	// Restore the global post object.
 	$post = $backup_post;
 }
+
+/*-----------------------------------------------------------------------------------*/
+/* Plus/Minus Buttons */
+/*-----------------------------------------------------------------------------------*/
+
+/**
+ * Hook plus/minus buttons only in MNM context
+ *
+ * @since  2.4.0
+ */
+function wc_mnm_add_plus_minus_buttons() {
+	add_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_minus_button' );
+	add_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_plus_button', 20 );	
+}
+
+/**
+ * Unhook plus/minus buttons
+ *
+ * @since  2.4.0
+ */
+function wc_mnm_remove_plus_minus_buttons() {
+	remove_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_minus_button' );
+	remove_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_plus_button', 20 );
+}
+
+/**
+ * Minus Button
+ *
+ * @since  2.4.0
+ */
+function wc_mnm_template_quantity_minus_button() {
+	echo '<button type="button" tabindex="-1" aria-label="' . esc_attr__( 'Reduce quantity', 'woocommerce-mix-and-match-products' ) . '" class="button button--minus">－</button>';
+	
+	
+}
+
+/**
+ * Plus Button
+ *
+ * @since  2.4.0
+ */
+function wc_mnm_template_quantity_plus_button() {
+	echo '<button type="button" tabindex="-1" aria-label="' . esc_attr__( 'Increase quantity', 'woocommerce-mix-and-match-products' ) . '" class="button button--plus">＋</button>';
+}
+
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -1104,11 +1172,40 @@ function wc_mnm_first_category_caption( $product ) {
 function wc_mnm_category_title( $category, $product ) {
 
 	if ( $category instanceof WP_Term ) {
-		
-		woocommerce_template_loop_category_title( $category );	
 
+		wc_get_template(
+			'single-product/mnm-category-title.php',
+			array(
+				'category' => $category,
+			),
+			'',
+			WC_Mix_and_Match()->plugin_path() . '/templates/'
+		);
+		
 	}
 
+}
+
+
+/**
+ * Display the category descriptions in the loop.
+ *
+ * @since 2.4.0
+ *
+ * @param obj $category WP_Term
+ * @param WC_Product_Mix_and_Match
+ */
+function wc_mnm_category_description( $category, $product ) {
+   if ( $category instanceof WP_Term ) {
+		wc_get_template(
+			'single-product/mnm-category-description.php',
+			array(
+				'category' => $category,
+			),
+			'',
+			WC_Mix_and_Match()->plugin_path() . '/templates/'
+		);
+   }
 }
 
 
@@ -1140,28 +1237,12 @@ if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
 			return;
 		}
 
-		$classes = array( 
-			'mnm_form',
-			'cart',
-			'cart_group',
-			'edit_container',
-			'layout_' . $product->get_layout(),
-		);
-
-		/**
-		 * Form classes.
-		 *
-		 * @param array - The classes that will print in the <form> tag.
-		 * @param obj $product WC_Mix_And_Match of parent product
-		 */
-		$classes = apply_filters( 'wc_mnm_edit_form_classes', $classes, $product );
-			
 		wc_get_template(
 			'edit-order-item/edit-container.php',
 			array(
 				'order_item' => $order_item,
 				'order'      => $order,
-				'classes'    => $classes,
+				'classes'    => wc_mnm_get_form_classes( array( 'edit_container' ), $product ),
 				'source'     => $source,
 			),
 			'',

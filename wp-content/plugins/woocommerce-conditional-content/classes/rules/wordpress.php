@@ -75,7 +75,7 @@ class WC_Conditional_Content_Rule_Post_Type_Select extends WC_Conditional_Conten
 			'public' => true,
 		], 'objects');
 
-		if ( $types ) {
+		if ( $types && !is_wp_error($types) ) {
 			foreach ( $types as $type ) {
 				$result[ $type->name ] = $type->labels->name;
 			}

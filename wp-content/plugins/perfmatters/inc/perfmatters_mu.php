@@ -3,7 +3,7 @@
 Plugin Name: Perfmatters MU
 Plugin URI: https://perfmatters.io/
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.0.5
+Version: 2.0.6
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -159,6 +159,7 @@ function perfmatters_mu_disable_plugins($plugins) {
 
                 //remove plugin from list
                 $m_array = preg_grep('/^' . $handle . '.*/', $plugins);
+                $single_array = array();
                 if(!empty($m_array) && is_array($m_array)) {
                     if(count($m_array) > 1) {
                         $single_array = preg_grep('/' . $handle . '\.php/', $m_array);
@@ -402,7 +403,7 @@ function perfmatters_url_to_postid($url) {
                 }
  
                 $post_status_obj = get_post_status_object( $page->post_status );
-                if ( ! $post_status_obj->public && ! $post_status_obj->protected
+                if (is_object($post_status_obj) && ! $post_status_obj->public && ! $post_status_obj->protected
                     && ! $post_status_obj->private && $post_status_obj->exclude_from_search ) {
                     continue;
                 }
@@ -463,9 +464,11 @@ function perfmatters_url_to_postid($url) {
             *************************************************************************/
 
             // Taken from class-wp.php
-            foreach ( $GLOBALS['wp_post_types'] as $post_type => $t ) {
-                if ( $t->query_var ) {
-                    $post_type_query_vars[ $t->query_var ] = $post_type;
+            if(!empty($GLOBALS['wp_post_types'])) {
+                foreach ( $GLOBALS['wp_post_types'] as $post_type => $t ) {
+                    if ( $t->query_var ) {
+                        $post_type_query_vars[ $t->query_var ] = $post_type;
+                    }
                 }
             }
 

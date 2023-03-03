@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.3
+ * Version: 4.1.4
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
  * Tested up to: 6.1
  * WC requires at least: 5.0.0
- * WC tested up to: 7.3.0
+ * WC tested up to: 7.4.0
  * Woo: 669839:b73d2c19a6ff0f06485e0f11eb4bf922
  *
  * Text Domain: ns-fba-for-woocommerce
@@ -71,7 +71,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.3';
+			public $version = '4.1.4';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -783,23 +783,24 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				// updates legacy checkbox setting format in case this installation is updated from an older version.
 				if ( empty( $the_options['ns_fba_version'] ) ) {
 
-					$the_options['ns_fba_update_inventory']       = $this->utils->isset_how( $the_options['ns_fba_update_inventory'] );
-					$the_options['ns_fba_email_on_error']         = $this->utils->isset_how( $the_options['ns_fba_email_on_error'] );
-					$the_options['ns_fba_exclude_phone']          = $this->utils->isset_how( $the_options['ns_fba_exclude_phone'] );
-					$the_options['ns_fba_encode_convert_bypass']  = $this->utils->isset_how( $the_options['ns_fba_encode_convert_bypass'] );
-					$the_options['ns_fba_encode_check_override']  = $this->utils->isset_how( $the_options['ns_fba_encode_check_override'] );
-					$the_options['ns_fba_automatic_completion']   = $this->utils->isset_how( $the_options['ns_fba_automatic_completion'] );
-					$the_options['ns_fba_sync_ship_status']       = $this->utils->isset_how( $the_options['ns_fba_sync_ship_status'] );
-					$the_options['ns_fba_disable_shipping_email'] = $this->utils->isset_how( $the_options['ns_fba_disable_shipping_email'] );
-					$the_options['ns_fba_display_order_tracking'] = $this->utils->isset_how( $the_options['ns_fba_display_order_tracking'] );
-					$the_options['ns_fba_debug_mode']             = $this->utils->isset_how( $the_options['ns_fba_debug_mode'] );
-					$the_options['ns_fba_manual_order_override']  = $this->utils->isset_how( $the_options['ns_fba_manual_order_override'] );
-					$the_options['ns_fba_disable_international']  = $this->utils->isset_how( $the_options['ns_fba_disable_international'] );
-					$the_options['ns_fba_manual_item_override']   = $this->utils->isset_how( $the_options['ns_fba_manual_item_override'] );
-					$the_options['ns_fba_manual_only_mode']       = $this->utils->isset_how( $the_options['ns_fba_manual_only_mode'] );
-					$the_options['ns_fba_vacation_mode']          = $this->utils->isset_how( $the_options['ns_fba_vacation_mode'] );
-					$the_options['ns_fba_perfection_mode']        = $this->utils->isset_how( $the_options['ns_fba_perfection_mode'] );
-					$the_options['ns_fba_version']                = $this->version;
+					$the_options['ns_fba_update_inventory']               = $this->utils->isset_how( $the_options['ns_fba_update_inventory'] );
+					$the_options['ns_fba_update_inventory_selected_only'] = $this->utils->isset_how( $the_options['ns_fba_update_inventory_selected_only'] );
+					$the_options['ns_fba_email_on_error']                 = $this->utils->isset_how( $the_options['ns_fba_email_on_error'] );
+					$the_options['ns_fba_exclude_phone']                  = $this->utils->isset_how( $the_options['ns_fba_exclude_phone'] );
+					$the_options['ns_fba_encode_convert_bypass']          = $this->utils->isset_how( $the_options['ns_fba_encode_convert_bypass'] );
+					$the_options['ns_fba_encode_check_override']          = $this->utils->isset_how( $the_options['ns_fba_encode_check_override'] );
+					$the_options['ns_fba_automatic_completion']           = $this->utils->isset_how( $the_options['ns_fba_automatic_completion'] );
+					$the_options['ns_fba_sync_ship_status']               = $this->utils->isset_how( $the_options['ns_fba_sync_ship_status'] );
+					$the_options['ns_fba_disable_shipping_email']         = $this->utils->isset_how( $the_options['ns_fba_disable_shipping_email'] );
+					$the_options['ns_fba_display_order_tracking']         = $this->utils->isset_how( $the_options['ns_fba_display_order_tracking'] );
+					$the_options['ns_fba_debug_mode']                     = $this->utils->isset_how( $the_options['ns_fba_debug_mode'] );
+					$the_options['ns_fba_manual_order_override']          = $this->utils->isset_how( $the_options['ns_fba_manual_order_override'] );
+					$the_options['ns_fba_disable_international']          = $this->utils->isset_how( $the_options['ns_fba_disable_international'] );
+					$the_options['ns_fba_manual_item_override']           = $this->utils->isset_how( $the_options['ns_fba_manual_item_override'] );
+					$the_options['ns_fba_manual_only_mode']               = $this->utils->isset_how( $the_options['ns_fba_manual_only_mode'] );
+					$the_options['ns_fba_vacation_mode']                  = $this->utils->isset_how( $the_options['ns_fba_vacation_mode'] );
+					$the_options['ns_fba_perfection_mode']                = $this->utils->isset_how( $the_options['ns_fba_perfection_mode'] );
+					$the_options['ns_fba_version']                        = $this->version;
 
 					update_option( $this->options_name, $the_options );
 				}

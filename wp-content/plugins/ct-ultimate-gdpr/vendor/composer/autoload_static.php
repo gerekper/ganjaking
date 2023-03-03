@@ -46,6 +46,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Controller_Services' => __DIR__ . '/../..' . '/includes/controller/controller-services.php',
         'CT_Ultimate_GDPR_Controller_Terms' => __DIR__ . '/../..' . '/includes/controller/controller-terms.php',
         'CT_Ultimate_GDPR_Controller_Unsubscribe' => __DIR__ . '/../..' . '/includes/controller/controller-unsubscribe.php',
+        'CT_Ultimate_GDPR_Controller_Wizard' => __DIR__ . '/../..' . '/includes/controller/controller-wizard.php',
         'CT_Ultimate_GDPR_Model_Dummy' => __DIR__ . '/../..' . '/includes/model/model-phpmailer-dummy.php',
         'CT_Ultimate_GDPR_Model_Front_View' => __DIR__ . '/../..' . '/includes/model/model-front-view.php',
         'CT_Ultimate_GDPR_Model_Group' => __DIR__ . '/../..' . '/includes/model/model-group.php',

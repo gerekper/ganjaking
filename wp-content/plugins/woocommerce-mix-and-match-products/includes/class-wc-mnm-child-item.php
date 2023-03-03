@@ -3,7 +3,9 @@
  * Child Item class.
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
- * @since    2.3.0
+ * 
+ * @since   2.0.0
+ * @version 2.4.2
  */
 
 // Exit if accessed directly.
@@ -15,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Child Item class.
  *
  * @class    WC_MNM_Child_Item
- * @version  2.1.2
  */
 class WC_MNM_Child_Item extends WC_Data {
 
@@ -641,7 +642,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * Returns whether or not the item's product price is discounted.
 	 *
 	 * @param string $context
-	 * @return string|float
+	 * @return cool
 	 */
 	public function has_discount( $context = 'view' ) {
 		return $this->is_priced_individually( $context ) && $this->get_discount( $context ) > 0;
@@ -650,7 +651,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	/**
 	 * Returns whether or not the item's product price is discounted from regular price or sale price.
 	 *
-	 * @return string|float
+	 * @return bool
 	 */
 	public function is_discounted_from_regular_price() {
 
@@ -662,6 +663,6 @@ class WC_MNM_Child_Item extends WC_Data {
 			$discount_from_regular = apply_filters( 'woocommerce_mnm_item_discount_from_regular', $discount_from_regular, $this->get_container() );
 		}
 
-		return apply_filters( 'wc_mnm_child_item_discount_from_regular', $discount_from_regular, $this );
+		return (bool) apply_filters( 'wc_mnm_child_item_discount_from_regular', $discount_from_regular, $this );
 	}
 }

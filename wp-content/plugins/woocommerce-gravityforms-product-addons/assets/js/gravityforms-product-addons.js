@@ -154,7 +154,7 @@ function update_dynamic_price_ajax(gform_total) {
 
             //Maybe jump to validation error:
 
-            if ($('.gform_validation_error', 'form.cart').length) {
+            if (wc_gravityforms_params.use_anchors && $('.gform_validation_error', 'form.cart').length) {
                 if (!window.location.hash) {
                     window.location = window.location + '#gform_' + form_id;
                 }

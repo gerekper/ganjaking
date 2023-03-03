@@ -4,38 +4,42 @@
  * Woo: 187872:aa3a54eef10ec085a1b1357375e86c2d
  * Plugin URI: https://www.elementstark.com/solutions/woocommerce-bulk-variation-forms/
  * Description: WooCommerce Bulk Variations allows your shoppers to add more than one variation at a time to the cart.  Great for wholesales, B2B sites, and for easing the process of adding more than one variation at a time for anyone.
- * Version: 1.6.9
+ * Version: 1.7.1
  * Author: Lucas Stark
  * Author URI: https://elementstark.com
- * Requires at least: 3.3
- * Tested up to: 5.8
+ * Requires at least: 5.0
+ * Tested up to: 6.1
  * Text Domain: woocommerce-bulk-variations
  * Domain Path: /i18n/languages/
- * Copyright: © 2009-2021 Lucas Stark.
+ * Copyright: © 2009-2023 Lucas Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 5.6
+ * WC tested up to: 7.4
  */
 
 
 /**
  * Required functions
  */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
+if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
 }
 
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'aa3a54eef10ec085a1b1357375e86c2d', '187872' );
 
 if ( is_woocommerce_active() ) {
 	/**
 	 * Localisation
 	 * */
 	load_plugin_textdomain( 'woocommerce-bulk-variations', false, dirname( plugin_basename( __FILE__ ) ) . '/' );
+
+	// Declare support for features
+	add_action( 'before_woocommerce_init', function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	} );
+
 
 	class WC_Bulk_Variations {
 		/**

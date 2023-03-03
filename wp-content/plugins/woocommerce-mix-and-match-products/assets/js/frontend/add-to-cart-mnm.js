@@ -27,7 +27,7 @@ var wc_mnm_scripts = {};
  * 			decimal_sep:       string
  *			currency_position: string
  *			currency_symbol:   string
- *			args.:        bool,
+ *			trim_zeros:        bool,
  *			num_decimals:      int,
  *			html:              bool,
  * }
@@ -51,24 +51,22 @@ function wc_mnm_price_format(price, args) {
 
 	price = wc_mnm_number_format(price, args);
 
-	if (args.trim_zeros === 'yes' && args.num_decimals > 0) {
-		for (var i = 0; i < args.num_decimals; i++) {
-			args.decimal_sep = args.decimal_sep + '0';
-		}
-		price = price.replace(args.decimal_sep, '');
-	}
+	var formatted_price = price;
+	var formatted_symbol = args.html ? '<span class="woocommerce-Price-currencySymbol">' + args.currency_symbol + '</span>' : args.currency_symbol;
 
-	var formatted_price = price,
-		formatted_symbol = args.html ? '<span class="woocommerce-Price-currencySymbol">' + args.currency_symbol + '</span>' : args.currency_symbol;
-
-	if ('left' === args.currency_position) {
-		formatted_price = formatted_symbol + formatted_price;
-	} else if ('right' === args.currency_position) {
-		formatted_price = formatted_price + formatted_symbol;
-	} else if ('left_space' === args.currency_position) {
-		formatted_price = formatted_symbol + ' ' + formatted_price;
-	} else if ('right_space' === args.currency_position) {
-		formatted_price = formatted_price + ' ' + formatted_symbol;
+	switch ( args.currency_position ) {
+		case 'left':
+			formatted_price = formatted_symbol + formatted_price;
+			break;
+		case 'right':
+			formatted_price = formatted_price + formatted_symbol;
+			break;
+		case 'left_space':
+			formatted_price = formatted_symbol + ' ' + formatted_price;
+			break;
+		case 'right_space':
+			formatted_price = formatted_price + ' ' + formatted_symbol;
+			break;
 	}
 
 	formatted_price = args.html ? '<span class="woocommerce-Price-amount amount">' + formatted_price + '</span>' : formatted_price;
@@ -92,30 +90,39 @@ function wc_mnm_woocommerce_number_format(price, args) {
  *
  * @param float number The value to format
  * @param object args {
- * 			decimal_sep:       string
+ * 			decimal_sep      : string
  *			currency_position: string
- *			currency_symbol:   string
- *			args.:        bool,
- *			num_decimals:      int,
- *			html:              bool,
+ *          trim_zeros       : bool,
+ *			num_decimals     : int
  * }
  */
 function wc_mnm_number_format(number, args) {
 
 	var default_args = {
-		decimal_sep: wc_mnm_params.currency_format_decimal_sep,
+		decimal_sep  : wc_mnm_params.currency_format_decimal_sep,
 		thousands_sep: wc_mnm_params.currency_format_thousand_sep,
-		num_decimals: wc_mnm_params.currency_format_num_decimals
+		num_decimals : wc_mnm_params.currency_format_num_decimals,
+		trim_zeros   : wc_mnm_params.currency_format_trim_zeros
 	};
 
 	args = Object.assign(default_args, args);
 
-	var n = number, c = isNaN(args.num_decimals = Math.abs(args.num_decimals)) ? 2 : args.num_decimals;
+	var n = number;
+	var c = isNaN(args.num_decimals = Math.abs(args.num_decimals)) ? 2 : args.num_decimals;
 	var d = args.decimal_sep === undefined ? ',' : args.decimal_sep;
-	var t = args.thousands_sep === undefined ? '.' : args.thousands_sep, s = n < 0 ? '-' : '';
-	var i = parseInt(n = Math.abs(+n || 0).toFixed(c), 10) + '', j = (j = i.length) > 3 ? j % 3 : 0;
+	var t = args.thousands_sep === undefined ? '.' : args.thousands_sep;
+	var s = n < 0 ? '-' : '';
+	var i = parseInt(n = Math.abs(+n || 0).toFixed(c), 10) + '';
+	var j = (j = i.length) > 3 ? j % 3 : 0;
 
-	return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+	var formatted_number = s + (j ? i.substring(0, j) + t : '') + i.substring(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+
+	if ( args.trim_zeros ) {
+		var regex       = new RegExp( '\\' + args.decimal_sep + '0+$', 'i' );
+		formatted_number = formatted_number.replace( regex, '' );
+	}
+
+	return formatted_number;
 }
 
 /**
@@ -416,6 +423,20 @@ jQuery.fn.wc_get_mnm_script = function () {
 					function () {
 						child_item.update_quantity();
 					}
+				)
+				.on(
+					'click.wc-mnm-form',
+					'.button--minus',
+					function () {
+						child_item.decrease_quantity();
+					}
+				)
+				.on(
+					'click.wc-mnm-form',
+					'.button--plus',
+					function () {
+						child_item.increase_quantity();
+					}
 				);
 
 		};
@@ -439,6 +460,9 @@ jQuery.fn.wc_get_mnm_script = function () {
 			});
 
 			container.$mnm_form.on('wc-mnm-container-reset', container.reset);
+
+			// Ignore any accidental press of the enter key.
+			container.$mnm_form.on('keypress', ':input:not(:button)', container.onKeypress);
 
 		};
 
@@ -882,15 +906,20 @@ jQuery.fn.wc_get_mnm_script = function () {
 		};
 
 		/**
-		 * False if there are validation messages to display.
+		 * Prevent submit on pressing Enter key.
+		 */
+		this.onKeypress = function( e ) {
+			if ( 'Enter' === e.key ) {
+				e.preventDefault();				
+			}
+		};
+
+		/**
+		 * True if there are no validation messages to display for the container.
+		 * Force false if in edit context and no changes have yet been made.
 		 */
 		this.passes_validation = function () {
-
-			if (this.validation_messages.length > 0) {
-				return false;
-			}
-
-			return true;
+			return 0 === this.validation_messages.length;
 		};
 
 		/**
@@ -994,34 +1023,33 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 		},
 
+		/**
+		 * Updates the container totals.
+		 */
+		this.update_container_task = function (triggered_by, config) {
 
-			/**
-			 * Updates the container totals.
-			 */
-			this.update_container_task = function (triggered_by, config) {
+			// Reset status/error messages state.
+			this.reset_messages();
 
-				// Reset status/error messages state.
-				this.reset_messages();
+			// Get config.
+			this.update_quantities(triggered_by, config);
 
-				// Get config.
-				this.update_quantities(triggered_by, config);
+			// Validate total quantites.
+			this.validate();
 
-				// Validate total quantites.
-				this.validate();
+			// Calculate totals.
+			if (false === this.is_initialized || (container.api.is_purchasable() && container.api.is_priced_per_product())) {
+				this.update_totals(triggered_by);
+			}
 
-				// Calculate totals.
-				if (false === this.is_initialized || (container.api.is_purchasable() && container.api.is_priced_per_product())) {
-					this.update_totals(triggered_by);
-				}
+			// Update status/notices.
+			if (container.api.is_purchasable() && container.api.is_in_stock()) {
+				this.update_ui();
+			}
 
-				// Update status/notices.
-				if (container.api.is_purchasable() && container.api.is_in_stock()) {
-					this.update_ui();
-				}
+			this.$mnm_form.trigger('wc-mnm-form-updated', [this]);
 
-				this.$mnm_form.trigger('wc-mnm-form-updated', [this]);
-
-			};
+		};
 
 		/**
 		 * Updates the container quantities.
@@ -1270,11 +1298,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			var min_container_size = this.api.get_min_container_size();
 			var max_container_size = this.api.get_max_container_size();
-			var total_qty = this.api.get_container_size();
-			var qty_message = this.selected_quantity_message(total_qty); // "Selected X total".
-			var error_message = '';
-			var valid_message = '';
-			var validation_status = container.is_initialized ? '' : container.api.get_validation_status();
+			var total_qty          = this.api.get_container_size();
+			var qty_message        = this.selected_quantity_message(total_qty); // "Selected X total".
+			var error_message      = '';
+			var valid_message      = '';
+			var validation_status  = container.is_initialized ? '': container.api.get_validation_status();
 
 			// Validation.
 			switch (true) {
@@ -1286,6 +1314,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 					if (total_qty !== min_container_size) {
 						error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
 						error_message = error_message.replace('%s', min_container_size);
+						this.add_message(error_message.replace('%v', qty_message), 'error');
 					}
 
 					break;
@@ -1297,6 +1326,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty > max_container_size) {
 						error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
+						error_message = error_message.replace('%max', max_container_size).replace('%v', qty_message);
+						this.add_message(error_message, 'error');
 					}
 
 					break;
@@ -1308,6 +1339,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty < min_container_size || total_qty > max_container_size) {
 						error_message = wc_mnm_params.i18n_min_max_qty_error;
+						error_message = error_message.replace('%max', max_container_size).replace('%min', min_container_size).replace('%v', qty_message);
+						this.add_message(error_message, 'error');
 					}
 					break;
 
@@ -1318,26 +1351,35 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty < min_container_size) {
 						error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
+						error_message = error_message.replace('%min', min_container_size).replace('%v', qty_message);
+						this.add_message(error_message, 'error');
 					}
 
 					break;
 
 			}
 
-			// Add error message.
-			if (error_message !== '') {
 
-				error_message = error_message.replace('%max', max_container_size).replace('%min', min_container_size);
+			
+			if ( this.passes_validation() ) {
+				
+				// Prompt users to change their config when editing.
+				if ( 'edit' === container.validation_context && ! container.is_initialized ) {
 
-				this.add_message(error_message.replace('%v', qty_message), 'error');
+					this.add_message( wc_mnm_params.i18n_change_config_prompt.replace('%v', qty_message), 'error' );
 
-				// Add selected qty status message if there are no error messages.
-			} else if (valid_message !== '') {
+					// Add selected qty status message if there are no error messages.
+				} else if (this.passes_validation() && valid_message !== '') {
+	
+					valid_message = valid_message.replace('%max', max_container_size).replace('%min', min_container_size);
+	
+					this.add_message(valid_message.replace('%v', qty_message));
+				}
 
-				valid_message = valid_message.replace('%max', max_container_size).replace('%min', min_container_size);
 
-				this.add_message(valid_message.replace('%v', qty_message));
 			}
+
+			
 
 			// Let mini extensions add their own error/status messages.
 			this.$mnm_form.trigger('wc-mnm-validation', [container, total_qty]);
@@ -1392,20 +1434,28 @@ jQuery.fn.wc_get_mnm_script = function () {
 	 */
 	function WC_MNM_Child_Item(container, $mnm_item, index) {
 
+		/**
+		 * Set up this specific child item.
+		 */
 		this.initialize = function () {
 
-			this.$self = $mnm_item;
-			this.$mnm_item_qty = $mnm_item.find(':input.qty');
-			this.$item_qty_div = $mnm_item.find('.quantity');
-			this.$mnm_item_data = $mnm_item.find('.mnm-item-data');
-			this.$mnm_item_images = $mnm_item.find('.mnm_child_product_images');
+			this.$self               = $mnm_item;
+			this.$mnm_item_qty       = $mnm_item.find(':input.qty');
+			this.$plus_button        = $mnm_item.find('.button--plus');
+			this.$minus_button       = $mnm_item.find('.button--minus');
+			this.$item_qty_div       = $mnm_item.find('.quantity');
+			this.$mnm_item_data      = $mnm_item.find('.mnm-item-data');
+			this.$mnm_item_images    = $mnm_item.find('.mnm_child_product_images');
+			this.$msg_html           = $mnm_item.find('.wc_mnm_child_item_error');
 
-			this.child_item_timer = false;
-			this.child_item_index = index;
-			this.mnm_item_index = index;
-			this.mnm_item_id = this.$mnm_item_data.data('mnm_item_id');
+			this.child_item_timer    = false;
+			this.child_item_index    = index;
+			this.mnm_item_index      = index;
+			this.mnm_item_id         = this.$mnm_item_data.data('mnm_item_id');
 
-			this.sold_individually = typeof (container.price_data.is_sold_individually[this.mnm_item_id]) === 'undefined' ? false : container.price_data.is_sold_individually[this.mnm_item_id] === 'yes';
+			this.sold_individually   = typeof (container.price_data.is_sold_individually[this.mnm_item_id]) === 'undefined' ? false: container.price_data.is_sold_individually[this.mnm_item_id] === 'yes';
+
+			this.validation_messages = [];
 
 			// Set original quantity.
 			this.$mnm_item_data.data('original_quantity', this.get_quantity());
@@ -1414,10 +1464,16 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 		};
 
+		/**
+		 * Get the ID
+		 */
 		this.get_item_id = function () {
 			return this.mnm_item_id;
 		};
 
+		/**
+		 * Get the currently selected quantity by input type.
+		 */
 		this.get_quantity = function () {
 			var qty,
 				type = this.get_type();
@@ -1436,75 +1492,96 @@ jQuery.fn.wc_get_mnm_script = function () {
 			return qty ? parseInt(qty, 10) : 0;
 		};
 
+		/**
+		 * Get the original quantity from data attributes so we can enable reset.
+		 */
 		this.get_original_quantity = function () {
 			var original_quantity = this.$mnm_item_data.data('original_quantity');
 			return original_quantity ? parseInt(original_quantity, 10) : 0;
 		};
 
+		/**
+		 * Get the previous quantity from data attributes in case new quantity is not valid.
+		 */
 		this.get_prev_quantity = function () {
 			var qty = this.$self.data('prev_quantity');
-			return qty ? parseInt(qty, 10) : this.get_original_quantity();
+			return 'undefined' !== typeof qty ? parseInt(qty, 10) : this.get_original_quantity();
 		};
 
+		/**
+		 * Handle the minus button click
+		 */
+		this.decrease_quantity = function() {
+			var qty = this.get_quantity(),
+			min = parseFloat(this.$mnm_item_qty.attr('min')),
+			max = parseFloat(this.$mnm_item_qty.attr('max')),
+			step = parseFloat(this.$mnm_item_qty.attr('step'));
+
+			if ( qty - step <= min ) {
+				this.update_quantity( min );
+			} else {
+			    this.update_quantity( qty - step );
+			}
+
+			// Conditionally disable buttons.
+			this.$minus_button.prop('disabled',this.get_quantity() === min);
+			this.$plus_button.prop('disabled', this.get_quantity() >= max);
+
+		};
+
+		/**
+		 * Handle the plus button click
+		 */
+		this.increase_quantity = function() {
+			// Restrict to min/max limits.
+			var qty = this.get_quantity(),
+			min = parseFloat(this.$mnm_item_qty.attr('min')),
+			max = parseFloat(this.$mnm_item_qty.attr('max')),
+			step = parseFloat(this.$mnm_item_qty.attr('step'));
+
+			if ( qty + step > max ) {
+				this.update_quantity( max );
+			} else {
+				this.update_quantity( qty + step );
+			}
+
+			// Conditionally disable buttons.
+			this.$minus_button.prop('disabled', this.get_quantity() <= min );
+			this.$plus_button.prop('disabled',this.get_quantity() === max);
+
+		};
+
+		/**
+		 * Try to update to the new quantity and correct as needed.
+		 * 
+		 * @param int
+		 * @return int - The adjusted/accepted new quantity.
+		 */
 		this.update_quantity = function (qty) {
 
-			// Restrict to min/max limits.
-			var $msg_html = this.$item_qty_div.find('.wc_mnm_child_item_error'),
-				msg = '',
-				type = this.get_type(),
-				current_qty = qty || this.get_quantity(),
-				new_qty = qty || this.get_quantity(),
-				prev_qty = this.get_prev_quantity(),
-				min = parseFloat(this.$mnm_item_qty.attr('min')),
-				max = parseFloat(this.$mnm_item_qty.attr('max')),
-				step = parseFloat(this.$mnm_item_qty.attr('step')),
-				container_max = container.api.get_max_container_size(),
-				container_size = container.api.get_container_size(),
-				potential_size = container_size + (current_qty - prev_qty);
+			var new_qty = this.validate(qty);
 
-			if (!$msg_html.length) {
-				this.$item_qty_div.append('<div class="wc_mnm_child_item_error" aria-live="polite" />');
-				$msg_html = this.$item_qty_div.find('.wc_mnm_child_item_error');
+			// At the child level, we really only can display one message at a time.
+			if ( ! this.passes_validation() ) {
+				this.$msg_html.html('<span>' + this.get_messages().shift() + '</span>').addClass('show');
+
+				// Show the messages briefly and then clear. Relay the "this" object into the setTimeout anonymous function as "self".
+				this.child_item_timer = setTimeout(
+					function (self) {
+						self.$msg_html.removeClass('show');
+						self.reset_messages();
+					}, 2000, this);
+
+			} else {
+				this.$msg_html.removeClass('show').html('');
+				clearTimeout(this.child_item_timer);
 			}
 
-			// Max can't be higher than the container size.
-			if (container_max > 0) {
-				max = Math.min(max, container_max);
-			}
+			// Add a class if quantity is non-zero
+			this.$self.toggleClass('has-quantity-selected', new_qty > 0);
 
-			// Validate individual quantity limits and prevent over-filling container.
-			if (container_max > 0 && potential_size > container_max) {
-
-				if (container_size >= container_max) {
-					new_qty = prev_qty - (container_size - container_max);
-					new_qty = new_qty > 0 ? new_qty : 0;
-				} else {
-					new_qty = Math.min(container_max - container_size, max);
-				}
-
-				msg = wc_mnm_params.i18n_child_item_max_container_qty_message.replace('%d', container_max);
-			} else if (min >= 0 && current_qty < min) {
-				new_qty = min;
-				msg = wc_mnm_params.i18n_child_item_min_qty_message.replace('%d', min);
-			} else if (max > 0 && current_qty > max) {
-				new_qty = max;
-				msg = wc_mnm_params.i18n_child_item_max_qty_message.replace('%d', max);
-			} else if (step > 1 && current_qty % step) {
-				new_qty = current_qty - (current_qty % step);
-				msg = wc_mnm_params.i18n_child_item_step_qty_message.replace('%d', step);
-			}
-
-			if (msg) {
-				$msg_html.html('<span>' + msg + '</span>').addClass('show');
-			}
-
-			this.child_item_timer = setTimeout(
-				function () {
-					$msg_html.removeClass('show');
-				}, 2000);
-
-			// Get the quantity from various types of inputs.
-			switch (type) {
+			// Set the new quantity from various types of inputs.
+			switch (this.get_type()) {
 				case 'checkbox':
 					this.$mnm_item_qty.prop('checked', this.$mnm_item_qty.val() && new_qty === parseInt(this.$mnm_item_qty.val()));
 					break;
@@ -1516,14 +1593,107 @@ jQuery.fn.wc_get_mnm_script = function () {
 			}
 
 			// Update the container if there was a change.
-			if (new_qty !== prev_qty) {
+			if (new_qty !== this.get_prev_quantity()) {
 				container.update_container_task(this);
 			}
 
+			// Store the quantity as prev_quantity for next update.
 			this.$self.data('prev_quantity', new_qty);
 
 		};
 
+		/**
+		 * Test if we can update the input to this specific quantity.
+		 * 
+		 * @param int
+		 * @return int - The adjusted/accepted new quantity.
+		 */
+		this.validate = function(qty) {
+
+			// Restrict to min/max limits.
+			var current_qty = 'undefined' !== typeof qty ? parseFloat(qty): this.get_quantity(),
+			new_qty         = current_qty,
+			prev_qty        = this.get_prev_quantity(),
+			min             = parseFloat(this.$mnm_item_qty.attr('min')),
+			max             = parseFloat(this.$mnm_item_qty.attr('max')),
+			step            = parseFloat(this.$mnm_item_qty.attr('step')),
+			container_max   = container.api.get_max_container_size(),
+			container_size  = container.api.get_container_size(),
+			potential_size  = container_size + (current_qty - prev_qty);
+
+			// Add the message holder as needed.
+			if (!this.$msg_html.length) {
+				this.$item_qty_div.append('<div class="wc_mnm_child_item_error" aria-live="polite" />');
+				this.$msg_html = this.$item_qty_div.find('.wc_mnm_child_item_error');
+			}
+
+			// Max can't be higher than the container size.
+			if (container_max > 0) {
+				max = Math.min(max, container_max);
+			}
+
+			// Validation.
+			switch (true) {
+				// Prevent over-filling container.
+				case container_max > 0 && potential_size > container_max:
+
+					// Space left to fill.
+					if ( container_size < container_max ) {
+						new_qty = Math.min(container_max - container_size, max);
+
+						// No space left in container, reset to previous.
+					} else {
+						new_qty = prev_qty;						
+					}
+
+					// If the new quantity is the individual max, re-use the item-specific error message.
+					if (max === new_qty) {
+						this.add_message(wc_mnm_params.i18n_child_item_max_qty_message.replace('%d', max));
+					} else {
+						this.add_message(wc_mnm_params.i18n_child_item_max_container_qty_message.replace('%d', container_max));
+					}
+
+					break;
+
+				// Check the item quantity is not below min.
+				case min >= 0 && current_qty < min:
+					new_qty = min;
+					this.add_message(wc_mnm_params.i18n_child_item_min_qty_message.replace('%d', min));
+					
+					break;
+
+				// Check the item quantity it not below it's max
+				case max > 0 && current_qty > max:
+					new_qty = max;
+					this.add_message(wc_mnm_params.i18n_child_item_max_qty_message.replace('%d', max));
+					
+					break;
+
+				// Check the item quantity has correct step.
+				case step > 1 && current_qty % step:
+					new_qty = current_qty - (current_qty % step);
+					this.add_message(wc_mnm_params.i18n_child_item_step_qty_message.replace('%d', step));
+					
+					break;
+					
+			}
+
+			// Let mini extensions set the new quantity and add their own error/status messages.
+			qty = this.$self.triggerHandler('wc-mnm-child-item-valid-quantity', [this, new_qty, current_qty, prev_qty] );
+
+			if ( 'number' === typeof qty ) {
+				new_qty = qty;
+			}
+
+			return new_qty;
+
+		};
+
+		/**
+		 * Get the type of this input, which later determines how we get/set values, etc.
+		 * 
+		 * @returns string
+		 */
 		this.get_type = function () {
 			var type = 'input';
 
@@ -1538,7 +1708,9 @@ jQuery.fn.wc_get_mnm_script = function () {
 			return type;
 		};
 
-		// Reset behaves more like "clear".
+		/**
+		 * Reset the input quantity to initial state, typically by clearing the value.
+		 */
 		this.reset = function () {
 
 			var type = this.get_type();
@@ -1560,10 +1732,19 @@ jQuery.fn.wc_get_mnm_script = function () {
 			}
 		};
 
+		/**
+		 * Is child item sold individually?
+		 * Currently unused
+		 * 
+		 * @return bool;
+		 */
 		this.is_sold_individually = function () {
 			return this.sold_individually;
 		};
 
+		/**
+		 * Launch specific scripts. Currently only photoswipe if enabled.
+		 */
 		this.init_scripts = function () {
 
 			// Init PhotoSwipe if present.
@@ -1586,6 +1767,36 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 		};
 
+		/**
+		 * True if there are no validation messages to display for this child item.
+		 */
+		this.passes_validation = function () {
+			return 0 === this.validation_messages.length;
+		};
+
+		/**
+		 * Add validation message.
+		 */
+		this.add_message = function (message) {
+			this.validation_messages.push(message.toString());
+		};
+
+		/**
+		 * Get the error messages.
+		 */
+
+		this.get_messages = function () {
+			return this.validation_messages;
+		};
+
+		/**
+		 * Clear error messages.
+		 */
+		this.reset_messages = function () {
+			this.validation_messages = [];
+		};
+
+		// Start this up.
 		this.initialize();
 
 	} // End WC_MNM_Child_Item.

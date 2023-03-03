@@ -1,10 +1,11 @@
 jQuery(document).ready(function ($) {
-
+    
     if ( $("#tabs").tabs ) {
         $("#tabs").tabs({
             active: 0
         });
     }
+
 
     // SIMULATE CHECKBOX FUNCTION
     $( '.ct-ultimate-gdpr-container label[for*="ct-ultimate-gdpr-consent-"]' ).on( 'click', function() {
@@ -43,6 +44,23 @@ jQuery(document).ready(function ($) {
             setTimeout( function() {
                 $( '#ui-id-4' ).trigger( 'click' )
             }, 0 );
+        }
+    }
+
+    var $params = new URLSearchParams(window.location.search);
+    if($params.has('i')) {
+        switch ($params.get('i')) {    
+            case 'ct-ultimate-gdpr-forgotten':
+                setTimeout( function() { $( '#ui-id-2' ).trigger( 'click' ) }, 0 );
+                break;
+            case 'ct-ultimate-gdpr-rectification':
+                setTimeout( function() { $( '#ui-id-3' ).trigger( 'click' ) }, 0 );
+                break;
+            case 'ct-ultimate-gdpr-unsubscribe':
+                setTimeout( function() { $( '#ui-id-4' ).trigger( 'click' ) }, 0 );
+                break;
+            default:
+                setTimeout( function() { $( '#ui-id-1' ).trigger( 'click' ) }, 0 );
         }
     }
 

@@ -1,5 +1,26 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.03.02 - version 2.4.3
+* Fix: Vertical alignment of quantity inputs in grid mode (for most themes).
+* Fix: Tweak WoodMart theme module to support different column numbers.
+
+2023.03.01 - version 2.4.2
+* Fix: Previous quantity is not correctly calculated when it's 0. #495.
+* Fix: Declare table display for table element.
+
+2023.02.10 - version 2.4.1
+* New: Add string to prompt users to change configuration when editing container.
+* Fix: Switch admin notes check to a daily schedule.
+
+2023.02.09 - version 2.4.0
+* New: Optional mobile-optimized layout for small screens, see settings in Customizer.
+* New: Optional plus/minus buttons, see settings in Customizer.
+* New: Display category description when listing child products by category.
+* Fix: Reapply discounts/coupons after editing a Mix and Match product in order admin.
+* Dev: Move category title text to a template.
+* Dev: Move template includes from after_setup_theme to template_redirect hook for better compat with Customzier.
+* Dev: Refactor WC_Mix_and_Match_Stock_Manager and WC_MNM_Child_Item classes. Eliminate need to re-instantiate product objects and easier extensibility for validating in other contexts (such as weight). But extreme caution if you were using these classes for any custom purposes.
+
 2023.01.19 - version 2.3.1
 * Fix - Fixed double subscription discount on container cart prices when using per-item pricing. #434.
 
@@ -37,6 +58,7 @@
 * Tweak: Admin edit orders, handle updates with no changes.
 
 2022.10.24 - version 2.2.0
+* Important: mnm-add-to-cart-wrap.php template is deprecated.
 * Update: Tested up to WooCommerce 7.0.0.
 * Update - Declared compatibility with the new Custom Order Tables.
 * New: Convert container order item editing to use reuasable ajax callbacks and templates. Fixes display issues in admin and allows for extensibility.

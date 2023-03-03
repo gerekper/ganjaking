@@ -106,27 +106,30 @@ class WC_Swatch_Term {
 		$image_class  = apply_filters( 'woocommerce_swatches_get_swatch_image_css_class', 'swatch-img', $this );
 		$image_alt    = apply_filters( 'woocommerce_swatches_get_swatch_image_alt', $this->thumbnail_alt, $this );
 
+		$effective_label = '';
 		if ( $this->type == 'photo' || $this->type == 'image' ) {
-			$picker .= '<a href="' . $href . '" style="width:' . $this->width . 'px;height:' . $this->height . 'px;" title="' . esc_attr( $this->term_label ) . '" class="' . $anchor_class . '">';
+			$effective_label = 'Select ' . esc_attr( $this->term_label );
+			$picker .= '<a aria-hidden="true" tabindex="-1"  href="' . $href . '" style="width:' . $this->width . 'px;height:' . $this->height . 'px;" title="' . esc_attr( $this->term_label ) . '" class="' . $anchor_class . '">';
 			$picker .= '<img src="' . apply_filters( 'woocommerce_swatches_get_swatch_image', $this->thumbnail_src, $this->term_slug, $this->taxonomy_slug, $this ) . '" alt="' . $image_alt . '" class="wp-post-image swatch-photo' . $this->meta_key() . ' ' . $image_class . '" width="' . $this->width . '" height="' . $this->height . '"/>';
 			$picker .= '</a>';
 		} elseif ( $this->type == 'color' ) {
-			$picker .= '<a href="' . $href . '" style="text-indent:-9999px;width:' . $this->width . 'px;height:' . $this->height . 'px;background-color:' . apply_filters( 'woocommerce_swatches_get_swatch_color', $this->color, $this->term_slug, $this->taxonomy_slug, $this ) . ';" title="' . $this->term_label . '" class="' . $anchor_class . '">' . $this->term_label . '</a>';
+			$effective_label = 'Select ' . esc_attr($this->term_label);
+			$picker .= '<a aria-hidden="true" tabindex="-1" href="' . $href . '" style="text-indent:-9999px;width:' . $this->width . 'px;height:' . $this->height . 'px;background-color:' . apply_filters( 'woocommerce_swatches_get_swatch_color', $this->color, $this->term_slug, $this->taxonomy_slug, $this ) . ';" title="' . $this->term_label . '" class="' . $anchor_class . '">' . $this->term_label . '</a>';
 		} elseif ( $placeholder ) {
 			if ( $placeholder_src == 'default' ) {
 				$src = apply_filters( 'woocommerce_placeholder_img_src', WC()->plugin_url() . '/assets/images/placeholder.png' );
 			} else {
 				$src = $placeholder_src;
 			}
-
-			$picker .= '<a href="' . $href . '" style="width:' . $this->width . 'px;height:' . $this->height . 'px;" title="' . esc_attr( $this->term_label ) . '"  class="' . $anchor_class . '">';
+			$effective_label  = esc_attr( $this->term_label );
+			$picker .= '<a aria-hidden="true" tabindex="-1" href="' . $href . '" style="width:' . $this->width . 'px;height:' . $this->height . 'px;" title="' . esc_attr( $this->term_label ) . '"  class="' . $anchor_class . '">';
 			$picker .= '<img src="' . $src . '" alt="' . $image_alt . '" class="wp-post-image swatch-photo' . $this->meta_key() . ' ' . $image_class . '" width="' . $this->width . '" height="' . $this->height . '"/>';
 			$picker .= '</a>';
 		} else {
 			return '';
 		}
 
-		$out = '<div class="select-option swatch-wrapper' . ( $this->selected ? ' selected' : '' ) . '" data-attribute="' . esc_attr( $this->taxonomy_slug ) . '" data-value="' . esc_attr( $this->term_slug ) . '">';
+		$out = '<div aria-label="' . $effective_label . '" role="button" tabindex="0" class="select-option swatch-wrapper' . ( $this->selected ? ' selected' : '' ) . '" data-attribute="' . esc_attr( $this->taxonomy_slug ) . '" data-value="' . esc_attr( $this->term_slug ) . '">';
 		$out .= apply_filters( 'woocommerce_swatches_picker_html', $picker, $this );
 		$out .= '</div>';
 

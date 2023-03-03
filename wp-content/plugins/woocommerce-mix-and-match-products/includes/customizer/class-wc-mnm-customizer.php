@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Customizer
  * @since    2.0.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -254,6 +254,62 @@ class WC_MNM_Customizer {
 					'section'  => 'wc_mnm',
 					'type'     => 'kia-toggle',
 					'settings' => 'wc_mnm_display_short_description',
+				)
+			)
+		);
+
+		/**
+		 * Mobile optimized layout @todo - does this need a full refresh?
+		 */
+		$wp_customize->add_setting(
+			'wc_mnm_mobile_optimized_layout',
+			array(
+				'default'              => 'no',
+				'type'                 => 'option',
+				'capability'           => 'manage_woocommerce',
+				'sanitize_callback'    => 'wc_bool_to_string',
+				'sanitize_js_callback' => 'wc_string_to_bool',
+			)
+		);
+
+		$wp_customize->add_control(
+			new KIA_Customizer_Toggle_Control(
+				$wp_customize,
+				'wc_mnm_mobile_optimized_layout',
+				array(
+					'label'    => __( 'Apply enhanced mobile layout', 'woocommerce-mix-and-match-products' ),
+					'description' => __( 'May conflict with your theme styles.', 'woocommerce-mix-and-match-products' ),
+					'section'  => 'wc_mnm',
+					'type'     => 'kia-toggle',
+					'settings' => 'wc_mnm_mobile_optimized_layout',
+				)
+			)
+		);
+
+		/**
+		 * Plus/minus buttons @todo - does this need a full refresh?
+		 */
+		$wp_customize->add_setting(
+			'wc_mnm_display_plus_minus_buttons',
+			array(
+				'default'              => 'no',
+				'type'                 => 'option',
+				'capability'           => 'manage_woocommerce',
+				'sanitize_callback'    => 'wc_bool_to_string',
+				'sanitize_js_callback' => 'wc_string_to_bool',
+			)
+		);
+
+		$wp_customize->add_control(
+			new KIA_Customizer_Toggle_Control(
+				$wp_customize,
+				'wc_mnm_display_plus_minus_buttons',
+				array(
+					'label'    => __( 'Display plus/minus buttons', 'woocommerce-mix-and-match-products' ),
+					'description' => __( 'May conflict with your theme styles.', 'woocommerce-mix-and-match-products' ),
+					'section'  => 'wc_mnm',
+					'type'     => 'kia-toggle',
+					'settings' => 'wc_mnm_display_plus_minus_buttons',
 				)
 			)
 		);

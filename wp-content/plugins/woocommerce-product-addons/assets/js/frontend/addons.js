@@ -1360,11 +1360,13 @@
 
 			if ( $element.is( ':checkbox' ) || $element.is( ':radio' ) ) {
 
-				var $container_element = $element.closest( '.wc-pao-addon-container' );
+				var $container_element = $element.closest( '.wc-pao-addon-container' ),
+					$options           = $container_element.find( '.wc-pao-addon-field' ),
+					self               = this;
 
 				validity = false;
 
-				$.each( $container_element.find( '.wc-pao-addon-field' ), function() {
+				$.each( $options, function() {
 					if ( $( this ).is( ':checked' ) ) {
 						validity = true;
 						return;
@@ -1373,6 +1375,15 @@
 
 				if ( ! validity ) {
 					message = woocommerce_addons_params.i18n_validation_required_select;
+				} else {
+
+					// For groups of options, like radio buttons/checkboxes, if at least 1 option is selected, then consider all options as valid.
+					$.each( $options, function() {
+						var option_id = $(this).attr( 'id');
+						self.validationState[ option_id ] = { validity: validity, message: message, reason: reason };
+					} );
+
+					return;
 				}
 
 			} else if ( $element.hasClass( 'wc-pao-addon-image-swatch-select' ) ) {

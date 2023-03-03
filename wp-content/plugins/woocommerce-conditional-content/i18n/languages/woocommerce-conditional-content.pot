@@ -1,15 +1,15 @@
-# Copyright (C) 2022 Lucas Stark
+# Copyright (C) 2023 Lucas Stark
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Content 2.1.8\n"
+"Project-Id-Version: WooCommerce Conditional Content 2.2.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-conditional-content\n"
-"POT-Creation-Date: 2022-01-08 17:59:23+00:00\n"
+"POT-Creation-Date: 2023-03-01 20:29:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
@@ -411,7 +411,7 @@ msgstr ""
 #: back_compat_less_27/woocommerce-conditional-content-main.php:124
 #: classes/rules/base.php:31 classes/rules/cart.php:11
 #: classes/rules/cart.php:75 classes/rules/cart.php:312
-#: classes/rules/products.php:258 classes/rules/schedule.php:115
+#: classes/rules/products.php:268 classes/rules/schedule.php:115
 #: classes/rules/stock.php:58 classes/rules/store.php:11
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/base.php:31
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/cart.php:11
@@ -422,7 +422,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:11
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:75
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:312
-#: dist/woocommerce-conditional-content/classes/rules/products.php:258
+#: dist/woocommerce-conditional-content/classes/rules/products.php:268
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:115
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:58
 #: dist/woocommerce-conditional-content/classes/rules/store.php:11
@@ -438,7 +438,7 @@ msgstr ""
 #: back_compat_less_27/woocommerce-conditional-content-main.php:125
 #: classes/rules/base.php:32 classes/rules/cart.php:12
 #: classes/rules/cart.php:76 classes/rules/cart.php:313
-#: classes/rules/products.php:259 classes/rules/schedule.php:116
+#: classes/rules/products.php:269 classes/rules/schedule.php:116
 #: classes/rules/stock.php:59 classes/rules/store.php:12
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/base.php:32
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/cart.php:12
@@ -449,7 +449,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:12
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:76
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:313
-#: dist/woocommerce-conditional-content/classes/rules/products.php:259
+#: dist/woocommerce-conditional-content/classes/rules/products.php:269
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:116
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:59
 #: dist/woocommerce-conditional-content/classes/rules/store.php:12
@@ -462,7 +462,7 @@ msgstr ""
 #: back_compat_less_27/classes/rules/products.php:212
 #: back_compat_less_27/classes/rules/stock.php:61 classes/rules/cart.php:13
 #: classes/rules/cart.php:77 classes/rules/cart.php:314
-#: classes/rules/products.php:260 classes/rules/schedule.php:117
+#: classes/rules/products.php:270 classes/rules/schedule.php:117
 #: classes/rules/stock.php:60 classes/rules/store.php:13
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/cart.php:13
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:212
@@ -470,7 +470,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:13
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:77
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:314
-#: dist/woocommerce-conditional-content/classes/rules/products.php:260
+#: dist/woocommerce-conditional-content/classes/rules/products.php:270
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:117
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:60
 #: dist/woocommerce-conditional-content/classes/rules/store.php:13
@@ -481,7 +481,7 @@ msgstr ""
 #: back_compat_less_27/classes/rules/products.php:213
 #: back_compat_less_27/classes/rules/stock.php:62 classes/rules/cart.php:14
 #: classes/rules/cart.php:78 classes/rules/cart.php:315
-#: classes/rules/products.php:261 classes/rules/schedule.php:118
+#: classes/rules/products.php:271 classes/rules/schedule.php:118
 #: classes/rules/stock.php:61 classes/rules/store.php:14
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/cart.php:14
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:213
@@ -489,7 +489,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:14
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:78
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:315
-#: dist/woocommerce-conditional-content/classes/rules/products.php:261
+#: dist/woocommerce-conditional-content/classes/rules/products.php:271
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:118
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:61
 #: dist/woocommerce-conditional-content/classes/rules/store.php:14
@@ -500,7 +500,7 @@ msgstr ""
 #: back_compat_less_27/classes/rules/products.php:214
 #: back_compat_less_27/classes/rules/stock.php:63 classes/rules/cart.php:15
 #: classes/rules/cart.php:79 classes/rules/cart.php:316
-#: classes/rules/products.php:262 classes/rules/schedule.php:119
+#: classes/rules/products.php:272 classes/rules/schedule.php:119
 #: classes/rules/stock.php:62 classes/rules/store.php:15
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/cart.php:15
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:214
@@ -508,7 +508,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:15
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:79
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:316
-#: dist/woocommerce-conditional-content/classes/rules/products.php:262
+#: dist/woocommerce-conditional-content/classes/rules/products.php:272
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:119
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:62
 #: dist/woocommerce-conditional-content/classes/rules/store.php:15
@@ -519,7 +519,7 @@ msgstr ""
 #: back_compat_less_27/classes/rules/products.php:215
 #: back_compat_less_27/classes/rules/stock.php:64 classes/rules/cart.php:16
 #: classes/rules/cart.php:80 classes/rules/cart.php:317
-#: classes/rules/products.php:263 classes/rules/schedule.php:120
+#: classes/rules/products.php:273 classes/rules/schedule.php:120
 #: classes/rules/stock.php:63 classes/rules/store.php:16
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/cart.php:16
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:215
@@ -527,7 +527,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:16
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:80
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:317
-#: dist/woocommerce-conditional-content/classes/rules/products.php:263
+#: dist/woocommerce-conditional-content/classes/rules/products.php:273
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:120
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:63
 #: dist/woocommerce-conditional-content/classes/rules/store.php:16
@@ -640,16 +640,16 @@ msgid "is not"
 msgstr ""
 
 #: back_compat_less_27/classes/rules/products.php:137
-#: classes/rules/products.php:137
+#: classes/rules/products.php:141
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:137
-#: dist/woocommerce-conditional-content/classes/rules/products.php:137
+#: dist/woocommerce-conditional-content/classes/rules/products.php:141
 msgid "has"
 msgstr ""
 
 #: back_compat_less_27/classes/rules/products.php:138
-#: classes/rules/products.php:138
+#: classes/rules/products.php:142
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:138
-#: dist/woocommerce-conditional-content/classes/rules/products.php:138
+#: dist/woocommerce-conditional-content/classes/rules/products.php:142
 msgid "does not have"
 msgstr ""
 
@@ -1001,19 +1001,19 @@ msgstr ""
 msgid "Order Status"
 msgstr ""
 
-#: classes/rules/cart.php:280 classes/rules/products.php:90
-#: classes/rules/products.php:211
+#: classes/rules/cart.php:280 classes/rules/products.php:92
+#: classes/rules/products.php:219
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:280
-#: dist/woocommerce-conditional-content/classes/rules/products.php:90
-#: dist/woocommerce-conditional-content/classes/rules/products.php:211
+#: dist/woocommerce-conditional-content/classes/rules/products.php:92
+#: dist/woocommerce-conditional-content/classes/rules/products.php:219
 msgid "in"
 msgstr ""
 
-#: classes/rules/cart.php:281 classes/rules/products.php:91
-#: classes/rules/products.php:212
+#: classes/rules/cart.php:281 classes/rules/products.php:93
+#: classes/rules/products.php:220
 #: dist/woocommerce-conditional-content/classes/rules/cart.php:281
-#: dist/woocommerce-conditional-content/classes/rules/products.php:91
-#: dist/woocommerce-conditional-content/classes/rules/products.php:212
+#: dist/woocommerce-conditional-content/classes/rules/products.php:93
+#: dist/woocommerce-conditional-content/classes/rules/products.php:220
 msgid "not in"
 msgstr ""
 

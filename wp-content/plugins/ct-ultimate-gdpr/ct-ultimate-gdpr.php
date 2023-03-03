@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 4.0
+ * Version: 4.1
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$licgpl = get_option ('ct-ultimate-gdpr-admin');
+$licgpl['admin_envato_key'] = 'xxxxxxxxxxxxxxx';
+update_option('ct-ultimate-gdpr-admin', $licgpl);
 /**
  * Class CT_Ultimate_GDPR
  *
@@ -191,6 +194,7 @@ class CT_Ultimate_GDPR {
 				new CT_Ultimate_GDPR_Controller_Services( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Pseudonymization( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Plugins( $this->logger ),
+                new CT_Ultimate_GDPR_Controller_Wizard( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Optimization( $this->logger )
 			) as $controller
 		) {

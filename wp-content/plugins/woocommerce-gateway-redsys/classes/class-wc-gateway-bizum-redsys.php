@@ -73,7 +73,8 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_bizum' ) );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_bizum' ) );
+		// Temporalmente desactivado mientras doy con el problema en esta función que ha dejado de funcionar.
+		// add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_bizum' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
 		// La siguiente línea carga el JS para el iframe. Por si algun dia deja Bizum estar en un iframe
 		// add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );

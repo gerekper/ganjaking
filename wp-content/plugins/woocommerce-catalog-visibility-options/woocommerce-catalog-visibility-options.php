@@ -4,21 +4,21 @@
  *
  * Plugin URI: https://woocommerce.com/products/catalog-visibility-options/
  * Description: Provides the ability to hide prices, or show prices only to authenticated users. Provides the ability to disable e-commerce functionality by disabling the cart.
- * Version: 3.2.18
+ * Version: 3.3.0
  * Author: Lucas Stark
  * Author URI: https://www.elementstark.com/
  * Requires at least: 4.0
- * Tested up to: 5.9
+ * Tested up to: 6.1
  *
  * Text Domain: wc_catalog_restrictions
  * Domain Path: /i18n/languages/
  *
- * Copyright: © 2016-2022 Lucas Stark.
+ * Copyright: © 2016-2023 Lucas Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * WC tested up to: 6.3
- * WC requires at least: 4.2
+ * WC tested up to: 7.4
+ * WC requires at least: 6.0
  * Woo: 18648:12e791110365fdbb5865c8658907967e
  */
 
@@ -38,6 +38,14 @@ if ( is_woocommerce_active() ) {
 	require 'wc-catalog-visibility-compatibility.php';
 
 	load_plugin_textdomain( 'wc_catalog_restrictions', null, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+
+	// Declare support for features
+	add_action( 'before_woocommerce_init', function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	} );
+
 
 	require 'shortcodes/shortcodes-init.php';
 

@@ -202,11 +202,11 @@ jQuery(document).ready(function ($) {
 
     // COOKIE ACCORDION FUNCTION
     if ( $( '.ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th' ).length ) {
-        var accHead = $( '.ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th' );
-        accHead.next().slideUp();
-        accHead.on( 'click', function() {
-            accHead.next().slideUp();
-            accHead.removeClass( 'ct-acc-active' );
+        var accHeadGroup = $( '.ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th' );
+        accHeadGroup.next().slideUp();
+        accHeadGroup.on( 'click', function() {
+            accHeadGroup.next().slideUp();
+            accHeadGroup.removeClass( 'ct-acc-active' );
             $( this ).addClass( 'ct-acc-active' );
             if ( $( this ).next().is( ':visible' ) ) {
                 $( this ).next().slideUp();
@@ -455,11 +455,9 @@ jQuery(document).ready(function ($) {
         toggleSingleCookieListOptions();
         
         enableSwitcher.on('click','.ct-ultimate-gdpr-checkbox-switch', function(){
-            if( enableSwitcher.find('input').attr('checked') === "checked") {
-                toggleSingleCookieListOptions()
-            } 
+            toggleSingleCookieListOptions();
         })
     }
-    initSingleCookiePopup()
+    initSingleCookiePopup();
 
 });

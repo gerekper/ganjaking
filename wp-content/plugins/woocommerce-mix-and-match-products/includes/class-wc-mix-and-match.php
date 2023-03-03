@@ -5,7 +5,7 @@
  * @class    WC_Mix_and_Match
  * @package  WooCommerce Mix and Match
  * @since    1.0.0
- * @version  2.2.2
+ * @version  2.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.3.1';
+	public $version = '2.4.3';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -167,7 +167,7 @@ class WC_Mix_and_Match {
 		WC_Mix_and_Match_Cart::get_instance();
 
 		// Include theme-level hooks and actions files.
-		add_action( 'after_setup_theme', array( $this, 'theme_includes' ) );
+		add_action( 'template_redirect', array( $this, 'theme_includes' ), -10 );
 
 		/**
 		 * WooCommerce Mix and Match is fully loaded.
@@ -191,6 +191,9 @@ class WC_Mix_and_Match {
 	 * Include required core files used in admin and on the frontend.
 	 */
 	public function includes() {
+
+		// Class autoloader.
+		include_once WC_MNM_ABSPATH . 'includes/class-wc-mnm-autoloader.php';
 
 		// Class containing compatibility functions and filters.
 		require_once 'compatibility/class-wc-mnm-compatibility.php';
@@ -309,19 +312,26 @@ class WC_Mix_and_Match {
 
 		switch ( $handle ) {
 			case 'ticket-form':
-				$resource = 'https://woocommerce.com/my-account/marketplace-ticket-form/';
+				$resource = 'https://woocommerce.com/my-account/create-a-ticket/?select=853021';
+				break;
 			case 'unsupported-types':
 				$resource = 'https://woocommerce.com/document/woocommerce-mix-and-match-products/config/#h-supported-product-types';
+				break;
 			case 'docs':
 				$resource = 'https://woocommerce.com/document/woocommerce-mix-and-match-products/';
+				break;
 			case 'updating':
 				$resource = 'https://woocommerce.com/document/how-to-update-woocommerce/';
+				break;
 			case 'outdated-templates':
 				$resource = 'https://woocommerce.com/document/fix-outdated-templates-woocommerce/';
+				break;
 			case 'new-1.3':
 				$resource = 'https://woocommerce.com/document/woocommerce-mix-and-match-products/version-1-3';
+				break;
 			case 'new-2.0':
 				$resource = 'https://woocommerce.com/document/woocommerce-mix-and-match-products/version-2-0';
+				break;
 			default:
 				$resource = false;
 		}

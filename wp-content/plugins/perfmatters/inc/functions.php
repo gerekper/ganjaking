@@ -1059,7 +1059,7 @@ function perfmatters_instant_page_attribute($tag, $handle) {
 	if($handle !== 'perfmatters-instant-page') {
 		return $tag;
 	}
-	return str_replace(' src', ' data-cfasync="false" data-no-optimize="1" src', $tag);
+	return str_replace(' src', ' async data-no-optimize="1" src', $tag);
 }
 
 /* Google Analytics
@@ -1217,7 +1217,7 @@ function perfmatters_print_ga() {
 	    $output.= "</script>";
 	}
 	elseif($options['analytics']['script_type'] == 'gtag') {
-		$output.= '<script src="' . $upload_dir['baseurl'] . '/perfmatters/gtag.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
+		$output.= '<script async src="' . $upload_dir['baseurl'] . '/perfmatters/gtag.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
 		$output.= '<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "' . $options['analytics']['tracking_id'] . '", {' . (!empty($options['analytics']['anonymize_ip']) ? '"anonymize_ip": true' : '') . '});';
 		if(!empty($options['analytics']['dual_tracking']) && !empty($options['analytics']['measurement_id'])) {
     		$output.= 'gtag("config", "' . $options['analytics']['measurement_id'] . '");';
@@ -1225,15 +1225,19 @@ function perfmatters_print_ga() {
 		$output.= '</script>';
 	}
 	elseif($options['analytics']['script_type'] == 'gtagv4') {
-    	$output.= '<script src="' . $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
+    	$output.= '<script async src="' . $upload_dir['baseurl'] . '/perfmatters/gtagv4.js?id=' . $options['analytics']['tracking_id'] . '"></script>'; 
     	$output.= '<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "' . $options['analytics']['tracking_id'] . '");</script>';
 	}
 	elseif($options['analytics']['script_type'] == 'minimal') {
 		$output.= '<script>window.pmGAID="' . $options['analytics']['tracking_id'] . '";' . (!empty($options['analytics']['anonymize_ip']) ? 'window.pmGAAIP=true;' : '') . '</script>';
-		$output.= '<script src="' . str_replace('http:', 'https:', plugins_url()) . '/perfmatters/js/analytics-minimal.js"></script>';
+		$output.= '<script async src="' . str_replace('http:', 'https:', plugins_url()) . '/perfmatters/js/analytics-minimal.js"></script>';
 	}
 	elseif($options['analytics']['script_type'] == 'minimal_inline') {
 		$output.= '<script>(function(a,b,c){var d=a.history,e=document,f=navigator||{},g=localStorage,h=encodeURIComponent,i=d.pushState,k=function(){return Math.random().toString(36)},l=function(){return g.cid||(g.cid=k()),g.cid},m=function(r){var s=[];for(var t in r)r.hasOwnProperty(t)&&void 0!==r[t]&&s.push(h(t)+"="+h(r[t]));return s.join("&")},n=function(r,s,t,u,v,w,x){var z="https://www.google-analytics.com/collect",A=m({v:"1",ds:"web",aip:c.anonymizeIp?1:void 0,tid:b,cid:l(),t:r||"pageview",sd:c.colorDepth&&screen.colorDepth?screen.colorDepth+"-bits":void 0,dr:e.referrer||void 0,dt:e.title,dl:e.location.origin+e.location.pathname+e.location.search,ul:c.language?(f.language||"").toLowerCase():void 0,de:c.characterSet?e.characterSet:void 0,sr:c.screenSize?(a.screen||{}).width+"x"+(a.screen||{}).height:void 0,vp:c.screenSize&&a.visualViewport?(a.visualViewport||{}).width+"x"+(a.visualViewport||{}).height:void 0,ec:s||void 0,ea:t||void 0,el:u||void 0,ev:v||void 0,exd:w||void 0,exf:"undefined"!=typeof x&&!1==!!x?0:void 0});if(f.sendBeacon)f.sendBeacon(z,A);else{var y=new XMLHttpRequest;y.open("POST",z,!0),y.send(A)}};d.pushState=function(r){return"function"==typeof d.onpushstate&&d.onpushstate({state:r}),setTimeout(n,c.delay||10),i.apply(d,arguments)},n(),a.ma={trackEvent:function o(r,s,t,u){return n("event",r,s,t,u)},trackException:function q(r,s){return n("exception",null,null,null,null,r,s)}}})(window,"' . $options['analytics']['tracking_id'] . '",{' . (!empty($options['analytics']['anonymize_ip']) ? 'anonymizeIp:true,' : '') . 'colorDepth:true,characterSet:true,screenSize:true,language:true});</script>';
+	}
+	elseif($options['analytics']['script_type'] == 'minimalv4') {
+		$output.= '<script>window.pmGAID="' . $options['analytics']['tracking_id'] . '";</script>';
+		$output.= '<script async src="' . str_replace('http:', 'https:', plugins_url()) . '/perfmatters/js/analytics-minimal-v4.js"></script>';
 	}
 
 	//amp analytics
@@ -1623,6 +1627,11 @@ function perfmatters_activate_license() {
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
+		$license_data->success = true;
+ $license_data->error = '';
+ $license_data->expires = date('Y-m-d', strtotime('+50 years'));
+ $license_data->license = 'valid';
+
 		//update stored option
 		if(is_network_admin()) {
 			update_site_option('perfmatters_edd_license_status', $license_data->license);
@@ -1658,6 +1667,11 @@ function perfmatters_deactivate_license() {
 
 		// decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
+
+		$license_data->success = true;
+ $license_data->error = '';
+ $license_data->expires = date('Y-m-d', strtotime('+50 years'));
+ $license_data->license = 'valid';
 
 		// $license_data->license will be either "deactivated" or "failed"
 		if($license_data->license == 'deactivated') {
@@ -1696,6 +1710,11 @@ function perfmatters_check_license() {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
+
+		$license_data->success = true;
+ $license_data->error = '';
+ $license_data->expires = date('Y-m-d', strtotime('+50 years'));
+ $license_data->license = 'valid';
 
 		//update license option
 		if(is_network_admin()) {

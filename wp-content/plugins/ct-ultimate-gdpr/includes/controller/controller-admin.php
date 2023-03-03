@@ -406,7 +406,7 @@ class CT_Ultimate_GDPR_Controller_Admin {
 	 */
 	private function register_option_fields() {
 		add_action( 'current_screen', array( $this, 'add_option_fields' ), 5 );
-		add_filter( 'whitelist_options', array( $this, 'whitelist_options_filter' ) );
+		add_filter( 'allowed_options', array( $this, 'whitelist_options_filter' ) );
 	}
 
 	/**

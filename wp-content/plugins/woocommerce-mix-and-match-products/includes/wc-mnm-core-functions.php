@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.2.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -256,7 +256,7 @@ function wc_mnm_get_order_item_container( $child_order_item, $order = false, $re
 			}
 		}
 
-		$order_items = is_object( $order ) ? $order->get_items( 'line_item' ) : $order;
+		$order_items = is_callable( array( $order, 'get_items' ) ) ? $order->get_items() : $order;
 
 		if ( ! empty( $order_items ) ) {
 			foreach ( $order_items as $order_item_id => $order_item ) {
@@ -305,9 +305,10 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 			}
 		}
 
-		$order_items = is_object( $order ) ? $order->get_items( 'line_item' ) : $order;
+		$order_items = is_callable( array( $order, 'get_items' ) ) ? $order->get_items() : $order;
 
 		if ( ! empty( $order_items ) ) {
+			
 			foreach ( $order_items as $order_item_id => $order_item ) {
 
 				$is_child = ! empty( $order_item['mnm_container'] ) && isset( $container_order_item['mnm_cart_key'] ) && $order_item['mnm_container'] === $container_order_item['mnm_cart_key'];
@@ -317,6 +318,7 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 				}
 			}
 		}
+
 	}
 
 	return $return_ids ? array_keys( $child_order_items ) : $child_order_items;

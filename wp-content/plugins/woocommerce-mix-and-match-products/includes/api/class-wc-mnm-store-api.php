@@ -483,7 +483,7 @@ class WC_MNM_Store_API {
 	}
 
 	/**
-	 * Prevents access to the checkout block if a cart in the cart is misconfigured.
+	 * Prevents access to the checkout block if a container in the cart is misconfigured.
 	 *
 	 * @throws RouteException
 	 *

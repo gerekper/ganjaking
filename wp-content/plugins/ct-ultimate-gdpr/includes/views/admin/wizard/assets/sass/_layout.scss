@@ -1,0 +1,53 @@
+.inner {
+  background:#fff;
+  padding:3.5rem;
+  margin:2rem 0;
+
+  .welcome &,
+  .welcomeb &,
+  .step1a &,
+  .step8c & {
+    min-height: 767px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 767px) {
+      min-height: auto;
+    }
+  }
+
+  .step7 & {
+    min-height: 767px;
+
+    @media (max-width: 767px) {
+      min-height: auto;
+    }
+  }
+}
+.ct-ultimate-gdpr-wizard {
+  #ct-ultimate-gdpr-cookies-scanner {
+    position:relative;
+    background: transparent;
+    height:auto;
+    z-index:auto;
+
+    .ct-ultimate-gdpr-cookies-scanner-content{
+      max-width: 100%;
+      margin: 0;
+    }
+    .ct-ultimate-gdpr-cookies-scanner__Close {
+      display:none;
+    }
+  }
+  &.step2b,
+  &.step8b{
+    .container1 {
+      max-width:90%;
+    }
+  }
+}
+
+.non-active {
+  color:#999;
+}

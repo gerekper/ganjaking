@@ -4,18 +4,18 @@
  * Plugin Name: WooCommerce Variation Swatches and Photos
  * Plugin URI: https://woocommerce.com/products/variation-swatches-and-photos/
  * Description: WooCommerce Swatches and Photos allows you to configure colors and photos for shoppers on your site to use when picking variations.
- * Version: 3.1.6
+ * Version: 3.1.7
  * Author: Element Stark
  * Author URI: https://elementstark.com/solutions/woocommerce-variation-swatches-and-photos/
  * Requires at least: 3.5
- * Tested up to: 5.9
+ * Tested up to: 6.1
  * Domain Path: /i18n/languages/
- * Copyright: © 2009-2022 Element Stark LLC.
+ * Copyright: © 2009-2023 Element Stark LLC.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * WC requires at least: 3.0.0
- * WC tested up to: 6.4
+ * WC tested up to: 7.4
  * Woo: 18697:37bea8d549df279c8278878d081b062f
  */
 
@@ -43,6 +43,13 @@ if ( is_woocommerce_active() ) {
 		load_textdomain( 'wc_swatches_and_photos', WP_LANG_DIR . '/woocommerce/wc_swatches_and_photos-' . $locale . '.mo' );
 		load_plugin_textdomain( 'wc_swatches_and_photos', false, plugin_basename( dirname( __FILE__ ) ) . '/i18n/languages' );
 	}
+
+	// Declare support for features
+	add_action( 'before_woocommerce_init', function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	} );
 
 	add_action( 'plugins_loaded', 'wc_swatches_on_plugin_loaded' );
 

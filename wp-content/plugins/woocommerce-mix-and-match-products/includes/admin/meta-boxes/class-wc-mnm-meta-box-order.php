@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order
  * @since    1.7.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -36,10 +36,6 @@ class WC_MNM_Meta_Box_Order {
 
 		// Display "Configure/Edit" button next to configurable container items in the edit-order screen.
 		add_action( 'woocommerce_after_order_itemmeta', array( __CLASS__, 'display_edit_button' ), 10, 3 );
-		
-		// Force some styles when editing.
-		add_action( 'wc_mnm_edit_container_order_item_in_shop_order', array( __CLASS__, 'force_container_styles' ), 0, 4 );
-		add_action( 'wc_mnm_edit_container_order_item_in_shop_subscription', array( __CLASS__, 'force_container_styles' ), 0, 4 );
 
 		// Add JS template.
 		add_action( 'admin_footer', array( __CLASS__, 'add_js_template' ) );
@@ -141,6 +137,15 @@ class WC_MNM_Meta_Box_Order {
 	}
 
 	/**
+	 * Reattach the edit button when doing ajax.
+	 * 
+	 * @since 2.4.0
+	 */
+	public static function reattach_edit_button() {
+		add_action( 'woocommerce_after_order_itemmeta', array( __CLASS__, 'display_edit_button' ), 10, 3 );
+	}
+
+	/**
 	 * Display "Configure/Edit" button next to configurable Mix and Match container items in the edit-order screen.
 	 *
 	 * @param  $item_id  int
@@ -170,7 +175,7 @@ class WC_MNM_Meta_Box_Order {
 
 				?>
 				<div class="configure_container_order_item">
-					<button data-order_item_id="<?php echo esc_attr( $item->get_id() );?>" data-container_id="<?php echo esc_attr( $product->get_id() );?>" class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
+					<button type="button" data-order_item_id="<?php echo esc_attr( $item->get_id() );?>" data-container_id="<?php echo esc_attr( $product->get_id() );?>" class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
 						<?php echo esc_html( $button_text ); ?>
 					</button>
 				</div>

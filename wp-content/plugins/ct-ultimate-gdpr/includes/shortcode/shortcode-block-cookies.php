@@ -23,14 +23,14 @@ class CT_Ultimate_GDPR_Shortcode_Block_Cookies {
 
     ?>
 <div id="ct-ultimate-gdpr-withdrawal-cookie-agreement">
-    <h4><?php echo $title; ?></h4>
+    <h4><?php echo esc_html__( $title, 'ct-ultimate-gdpr' ); ?></h4>
     <form id="ct-ultimate-gdpr-block-cookies" action="#">
         <div class="ct-ultimate-gdpr-cookie checkbox">
             <label for="blockCookies" class="ct-ultimate-gdpr-block-cookies">
                 <input type="checkbox" name="ct-ultimate-gdpr-block-cookies" id="blockCookies"
                     class="ct-ultimate-gdpr-block-cookies-checkbox"
                     <?php echo (CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL == apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0)) ? 'checked' : ''; ?>>
-                <p class="description"><?php echo $content; ?></p>
+                <p class="description"><?php echo esc_html__( $content, 'ct-ultimate-gdpr' ); ?></p>
             </label>
         </div>
 

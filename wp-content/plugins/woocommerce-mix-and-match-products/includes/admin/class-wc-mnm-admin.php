@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.0.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -25,7 +25,7 @@ class WC_Mix_and_Match_Admin {
 	public static function init() {
 
 		// Admin includes.
-		add_action( 'init', array( __CLASS__, 'includes' ) );
+		self::includes();
 
 		// Add a message in the WP Privacy Policy Guide page.
 		add_action( 'admin_init', array( __CLASS__, 'add_privacy_policy_guide_content' ) );
@@ -93,6 +93,9 @@ class WC_Mix_and_Match_Admin {
 		if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
 			include_once __DIR__ . '/meta-boxes/class-wc-mnm-meta-box-order.php';
 		}
+
+		// Admin Notes.
+		include_once WC_Mix_and_Match()->plugin_path() . '/includes/admin/class-wc-mnm-admin-notes.php';
 
 	}
 

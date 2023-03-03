@@ -92,7 +92,14 @@ class CT_Ultimate_GDPR_Shortcode_Terms_Accept {
 
 			add_filter( 'the_content', function($content) {
 
-				if ( is_singular() && get_post()->ID == $this->terms_page_id ) {
+				// for wpml
+				$trid = apply_filters( 'wpml_element_trid', NULL, $this->terms_page_id, 'post_page' );
+				$translations = apply_filters( 'wpml_get_element_translations', NULL, $trid, 'post_page' );
+				$lang = apply_filters( 'wpml_current_language', null );
+				$post_id = get_post()->ID;
+				$element_id = !empty($lang) ? $translations[$lang]->element_id : $this->terms_page_id;
+				
+				if ( (is_singular() && $post_id  == $element_id)) {
  
 					wp_enqueue_script(
 						'ct-ultimate-gdpr-shortcode-terms-accept',

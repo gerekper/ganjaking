@@ -1,5 +1,8 @@
 *** WooCommerce Composite Products ***
 
+2023.03.02 - version 8.7.2
+* Fix - Fixed an issue that prevented bundled item add-ons that were added to components from being validated.
+
 2023.02.16 - version 8.7.1
 * Fix - Fixed compatibility notices with Product Addons and Min/Max Quantities.
 

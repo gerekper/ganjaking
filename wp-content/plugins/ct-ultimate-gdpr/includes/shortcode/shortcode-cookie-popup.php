@@ -782,7 +782,7 @@ function ct_gdpr_get_box_bg( $bg_img = null, $skin_name = null ) {
     $box_bg['light_img'] = "";
     if ( 'classic_blue' == $skin_name ) :
         $box_bg['img'] = 'background-image:url(' . ct_ultimate_gdpr_url() . '/assets/css/images/Cookie-pop-up-bg.jpg );';
-        $box_bg['img'] .= 'background-position: right -24px top -29px; background-color:#262626 !important;';
+        $box_bg['img'] .= 'background-position: right 60px top -29px; background-color:#262626 !important;';
         $box_bg['img'] .= 'background-repeat: no-repeat;';
     elseif ( 'classic_light' == $skin_name ) :
         $box_bg['img'] = 'background-color:#ffffff !important; color:#333;';

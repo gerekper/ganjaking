@@ -205,6 +205,7 @@ class WC_GFPA_Main {
 		$prices   = array();
 		$suffixes = array();
 		$use_ajax = array();
+		$use_anchors = array();
 
 		$product_ids = array();
 
@@ -248,6 +249,8 @@ class WC_GFPA_Main {
 						$prices[ $_product->get_id() ]   = wc_get_price_to_display( $_product );
 						$suffixes[ $_product->get_id() ] = $_product->get_price_suffix();
 						$use_ajax[ $_product->get_id() ] = apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false );
+						$use_anchors[ $_product->get_id() ] = $gravity_form_data['disable_anchor'] != 'yes';
+
 						if ( $_product->has_child() ) {
 							foreach ( $_product->get_children() as $variation_id ) {
 								$variation               = wc_get_product( $variation_id );
@@ -286,6 +289,7 @@ class WC_GFPA_Main {
 				'prices'                       => $prices,
 				'price_suffix'                 => $suffixes,
 				'use_ajax'                     => $use_ajax,
+				'use_anchors'              => $use_anchors
 			);
 
 			$wc_gravityforms_params = apply_filters( 'woocommerce_gforms_quickview_script_params', $wc_gravityforms_params, $product_ids );
@@ -409,6 +413,7 @@ class WC_GFPA_Main {
 			'prices'                       => $prices,
 			'price_suffix'                 => array( $product->get_id() => $product->get_price_suffix() ),
 			'use_ajax'                     => array( $product->get_id() => apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false ) ),
+			'use_anchors'                  => $gravity_form_data['disable_anchor' ] != 'yes',
 			'initialize_file_uploader'     => apply_filters('woocommerce_gforms_initialize_file_uploader', false)
 		);
 

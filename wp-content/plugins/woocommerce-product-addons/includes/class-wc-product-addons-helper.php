@@ -348,7 +348,7 @@ class WC_Product_Addons_Helper {
 			$restriction_data[ 'content' ] = $addon[ 'restrictions_type' ];
 		}
 
-		if (  isset( $addon[ 'min' ] ) && '' !== $addon[ 'min' ] && $addon[ 'min' ] > 0 ) {
+		if (  isset( $addon[ 'min' ] ) && '' !== $addon[ 'min' ] && $addon[ 'min' ] >= 0 ) {
 			$restriction_data[ 'min' ] = $addon[ 'min' ];
 		}
 

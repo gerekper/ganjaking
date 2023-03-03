@@ -1,5 +1,8 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-03-02 - version 2.4.2
+* Fix - Fixed the delivery date column content in the order list table when the order has no delivery date.
+
 2023-02-16 - version 2.4.1
 * Fix - Fixed fatal error when loading the customizer.
 * Dev - Include the table columns parameter when filtering the position of the delivery columns in the order list table.

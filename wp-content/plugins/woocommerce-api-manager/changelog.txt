@@ -1,7 +1,27 @@
 *** WooCommerce API Manager Changelog ***
 
+2023.03.02 - version 2.5.4
+* Update: Refactored templates/emails/api-keys-order-complete.php to place data in a table, and to add more details.
+* Update: Refactored templates/emails/plain/api-keys-order-complete.php to add more details.
+* Dev: Added woocommerce-api-manager/includes/wcam-time-functions.php - Functions must be called using the plugins_loaded action hook.
+* Dev: New action hooks added:
+    - wc_am_before_order_partially_refunded
+    - wc_am_after_order_partially_refunded
+    - wc_am_before_order_fully_refunded
+    - wc_am_after_order_fully_refunded
+    - wc_am_before_refund_deleted
+    - wc_am_after_refund_deleted
+    - wc_am_before_remove_order
+    - wc_am_after_remove_order
+    - wc_am_before_delete_order
+    - wc_am_after_delete_order
+    - wc_am_before_delete_order_item
+    - wc_am_after_delete_order_item
+    - wc_am_before_delete_sub_order_item
+    - wc_am_after_delete_sub_order_item
+
 2023.02.28 - version 2.5.3
-* Fix: PHP Fatal error:  Uncaught Error: Call to undefined function Automattic\\WooCommerce\\Utilities\\wc_get_container().
+* Fix: PHP Fatal error:  Uncaught Error: Call to undefined function Automattic\WooCommerce\Utilities\wc_get_container().
 
 2023.02.28 - version 2.5.2
 * Fix: Uncaught Error: Call to undefined method WP_Post::get_id() when loading Product edit screen meta boxes if not using HPOS.

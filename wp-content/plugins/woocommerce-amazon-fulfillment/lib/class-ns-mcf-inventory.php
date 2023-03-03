@@ -179,18 +179,30 @@ if ( ! class_exists( 'NS_MCF_Inventory' ) ) {
 				$reason = ' because current stock of ' . $stock . ' is equal to or less than the set threshold: ' . $threshold;
 				$stock  = 0;
 			}
-			if ( $this->ns_fba->wc->is_woo_version( '3.0' ) ) {
-				wc_update_product_stock( $current_product, $stock );
-			} else {
-				$current_product->set_stock( $stock );
+
+			$sync_inventory_selected_only = isset( $this->ns_fba->options['ns_fba_update_inventory_selected_only'] )
+				&& $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_update_inventory_selected_only'] );
+			$update_product_stock         = true;
+			if ( 'sync-inventory' === $log_entry_prefix && $sync_inventory_selected_only ) {
+				$update_product_stock = $this->ns_fba->utils->is_product_amazon_fulfill( $current_product );
 			}
 
-			$this->ns_fba->logger->add_entry( $log_entry_prefix . ' Updated ' . $sku . ' stock to ' . $stock . $reason, 'wc', '_inventory' );
-			$this->ns_fba->logger->add_entry(
-				$log_entry_prefix . ' Updated ' . $sku . ' stock to ' . $stock . $reason . "<br />\n",
-				'info',
-				$this->ns_fba->inv_log_path
-			);
+			if ( $update_product_stock ) {
+				if ( $this->ns_fba->wc->is_woo_version( '3.0' ) ) {
+					wc_update_product_stock( $current_product, $stock );
+				} else {
+					$current_product->set_stock( $stock );
+				}
+
+				$this->ns_fba->logger->add_entry( $log_entry_prefix . ' Updated ' . $sku . ' stock to ' . $stock . $reason, 'wc', '_inventory' );
+				$this->ns_fba->logger->add_entry(
+					$log_entry_prefix . ' Updated ' . $sku . ' stock to ' . $stock . $reason . "<br />\n",
+					'info',
+					$this->ns_fba->inv_log_path
+				);
+			} else {
+				$this->ns_fba->logger->add_entry( $log_entry_prefix . ' Skipped ' . $sku . '. Only FBA products are allowed to sync', 'wc', '_inventory' );
+			}
 		}
 
 

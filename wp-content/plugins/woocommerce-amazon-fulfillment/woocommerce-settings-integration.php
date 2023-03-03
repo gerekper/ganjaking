@@ -1123,6 +1123,14 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 							'type'        => 'checkbox',
 						),
 
+						'ns_fba_update_inventory_selected_only' => array(
+							'title'    => __( 'Only Update Inventory of FBA Products', $this->text_domain ),
+							'label'    => __( 'Update stock levels of FBA enabled products only with auto inventory sync', $this->text_domain ),
+							'desc_tip' => false,
+							'default'  => 'no',
+							'type'     => 'checkbox',
+						),
+
 						'ns_fba_sp_api_sync_inventory_interval' => array(
 							'title'       => __( 'Set Interval for Level Sync', $this->text_domain ),
 							'label'       => __( 'Set Interval for Level Sync', $this->text_domain ),

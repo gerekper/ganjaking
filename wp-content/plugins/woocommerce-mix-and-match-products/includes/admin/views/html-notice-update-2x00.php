@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $update_url = wp_nonce_url(
 	add_query_arg( 'wc_mnm_update_action', 'do_update_db' ),
-	'do_update_db',
+	'wc_mnm_update_action',
 	'wc_mnm_update_action_nonce'
 );
 

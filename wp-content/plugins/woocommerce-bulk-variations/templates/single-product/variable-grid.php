@@ -9,7 +9,6 @@ $matrix_rows      = $matrix_data['matrix_rows'];
 $row_attribute    = $matrix_data['row_attribute'];
 $column_attribute = $matrix_data['column_attribute'];
 
-//Set up some locals
 $row_index    = 0;
 $column_index = 0;
 $cell_index   = 0;
@@ -17,20 +16,12 @@ $info_boxes   = array();
 ?>
 
 <?php do_action( 'woocommerce_bv_before_add_to_cart_form' ); ?>
-
-
-
-
 <div id="matrix_form">
-
-
-
     <div class="summary">
 		<?php woocommerce_template_single_title(); ?>
 		<?php woocommerce_template_single_price(); ?>
 		<?php woocommerce_template_single_excerpt(); ?>
     </div>
-
     <form id="wholesale_form" action="" class="bulk_variations_form cart matrix" method="post" enctype='multipart/form-data'>
         <div style="display: flex;">
             <div>
@@ -51,13 +42,12 @@ $info_boxes   = array();
 			    <?php do_action( 'woocommerce_bv_after_add_to_cart_button' ); ?>
             </div>
         </div>
-
         <table id="matrix_form_table">
             <thead>
             <tr>
                 <th></th>
 				<?php foreach ( $matrix_columns as $column ) : ?>
-                    <th><?php echo woocommerce_bulk_variations_get_title( $column_attribute, $column ); ?></th>
+                    <th class="bv-table-column-<?php echo $column_attribute; ?> bv-table-column-<?php echo $column; ?>"><?php echo woocommerce_bulk_variations_get_title( $column_attribute, $column ); ?></th>
 				<?php endforeach; ?>
 				<?php if ( $wc_bulk_variations->get_setting( 'use_quantity_selectors', false ) ) : ?>
                     <th></th>
@@ -67,20 +57,17 @@ $info_boxes   = array();
             <tbody>
 			<?php foreach ( $matrix as $row => $columns ) : ?>
 				<?php $column_index = 0; ?>
-                <tr class="<?php echo $row_index % 2 == 0 ? '' : 'alt'; ?>" data-index="<?php echo $row_index; ?>">
+                <tr class="bv-table-row-<?php echo $row_attribute; ?> <?php echo $row; ?><?php echo $row_index % 2 == 0 ? '' : 'alt'; ?>" data-index="<?php echo $row_index; ?>">
                     <td class="row-label"><?php echo woocommerce_bulk_variations_get_title( $row_attribute, $matrix_rows[ $row_index ] ); ?></td>
-
 					<?php foreach ( $columns as $key => $field_data ): ?>
 						<?php $column_index ++; ?>
-
-                        <td>
+                        <td class="bv-table-column-<?php echo $key; ?>">
 							<?php if ( $field_data ) : ?>
 
 								<?php $variation = new WC_Product_Variation( $field_data['variation_id'] );
 								$managing_stock  = WC_Bulk_Variations_Compatibility::is_wc_version_gte_2_7() ? $variation->get_manage_stock() : $variation->manage_stock;
 								$vmsg            = $variation->get_stock_quantity() ? sprintf( __( 'Only %s available', 'woocommerce-bulk-variations' ), $variation->get_stock_quantity() ) : sprintf( __( 'Currently unavailable', 'woocommerce-bulk-variations' ) );
 								?>
-
                                 <input
                                         data-manage-stock="<?php echo $managing_stock; ?>"
                                         data-purchasable="<?php echo $variation->is_purchasable() ? '1' : '0'; ?>"
@@ -99,20 +86,15 @@ $info_boxes   = array();
 								<?php if ( $wc_bulk_variations->get_setting( 'show_prices_in_grid', true ) ) : ?>
                                     <p><?php echo $field_data['price_html']; ?></p>
 								<?php endif; ?>
-
 								<?php $info_boxes[ 'qty_input_' . $cell_index . '_info' ] = array( $row_attribute    => $row,
 								                                                                   $column_attribute => $key,
 								                                                                   'variation_data'  => $field_data,
 								                                                                   'variation'       => $variation
 								); ?>
-
-
                                 <input type="hidden" name="order_info[<?php echo $cell_index; ?>][variation_id]" value="<?php echo $field_data['variation_id']; ?>"/>
                                 <input type="hidden" name="order_info[<?php echo $cell_index; ?>][variation_data][attribute_<?php echo $column_attribute; ?>]" value="<?php echo $key; ?>"/>
                                 <input type="hidden" name="order_info[<?php echo $cell_index; ?>][variation_data][attribute_<?php echo $row_attribute; ?>]" value="<?php echo $row; ?>"/>
 							<?php else : ?>
-
-
 							<?php endif; ?>
                         </td>
 						<?php
@@ -131,15 +113,10 @@ $info_boxes   = array();
                         </td>
 					<?php endif; ?>
                 </tr>
-
 				<?php $row_index ++; ?>
-
-
 			<?php endforeach; ?>
-
             </tbody>
         </table>
-
         <div style="display: flex;">
             <div>
                 <div style="padding-left: 0;" class="matrix-add-to-cart-wrap">
@@ -164,14 +141,9 @@ $info_boxes   = array();
             <input type="hidden" name="product_id" value="<?php echo esc_attr( $post->ID ); ?>"/>
         </div>
     </form>
-
-
-
     <div id="matrix_form_info_holder" style="display:none;">
 		<?php foreach ( $info_boxes as $key => $field_data ) : ?>
-
 			<?php $variation = $field_data['variation']; ?>
-
             <div id="<?php echo $key; ?>" class="qty_input_info">
                 <div class="images">
 					<?php echo $variation->get_image(); ?>
@@ -182,19 +154,14 @@ $info_boxes   = array();
                     <ul>
                         <li><?php echo WC_Bulk_Variations_Compatibility::wc_attribute_label( $row_attribute ); ?>: <?php echo woocommerce_bulk_variations_get_title( $row_attribute, $field_data[ $row_attribute ] ); ?></li>
                         <li><?php echo WC_Bulk_Variations_Compatibility::wc_attribute_label( $column_attribute ); ?>: <?php echo woocommerce_bulk_variations_get_title( $column_attribute, $field_data[ $column_attribute ] ); ?></li>
-
 						<?php if ( $variation->get_sku() ) : ?>
                             <li><?php echo $field_data['variation_data']['sku']; ?></li>
 						<?php endif; ?>
-
                     </ul>
-
-
 					<?php echo $field_data['variation_data']['availability_html'] ? $field_data['variation_data']['availability_html'] : '<p class="stock">&nbsp;</p>'; ?>
                 </div>
             </div>
 		<?php endforeach; ?>
     </div>
 </div>
-
-<?php do_action( 'woocommerce_bv_after_add_to_cart_form' ); ?> 
+<?php do_action( 'woocommerce_bv_after_add_to_cart_form' ); ?>

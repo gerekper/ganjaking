@@ -177,13 +177,10 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 				return true;
 			}
 
-			// TODO: Future handling for both parent and variation level settings on/off fulfillment.
-			$maybe_parent_id = $item_product->get_parent_id();
-			// Simple product check if the setting for Fulfill with Amazon FBA is turned ON.
-			if ( $item_product && 'yes' === get_post_meta( $product_id, 'ns_fba_is_fulfill', true ) ) {
-				$is_order_item_amazon_fulfill = true;
-				// Variation product check for parent product setting where Fulfill with Amazon is ON.
-			} elseif ( ! empty( $maybe_parent_id ) && 'yes' === get_post_meta( $maybe_parent_id, 'ns_fba_is_fulfill', true ) ) {
+			// Check if the product or product variation is set to fulfil with Amazon.
+			$is_amazon_fulfil = self::is_product_amazon_fulfill( $product_id );
+
+			if ( $is_amazon_fulfil ) {
 				$is_order_item_amazon_fulfill = true;
 			} else {
 				$is_order_item_amazon_fulfill = false;
@@ -220,6 +217,38 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			}
 
 			return $is_order_item_amazon_fulfill;
+		}
+
+		/**
+		 * Check if selected product or variation is set to be fulfiled.
+		 *
+		 * @param WC_Product|Int $product The product. This can be an object or the product id.
+		 *
+		 * @return boolean
+		 */
+		public function is_product_amazon_fulfill( $product ) {
+			if ( is_integer( $product ) ) {
+				$product = wc_get_product( $product );
+			}
+
+			if ( ! $product ) {
+				return false;
+			}
+
+			if ( $product->is_virtual() ) {
+				return false;
+			}
+
+			$product_parent_id = $product->get_parent_id();
+			// Simple product check if the setting for Fulfill with Amazon FBA is turned ON.
+			if ( 'yes' === get_post_meta( $product->get_id(), 'ns_fba_is_fulfill', true ) ) {
+				return true;
+			} elseif ( ! empty( $product_parent_id )
+				&& 'yes' === get_post_meta( $product_parent_id, 'ns_fba_is_fulfill', true ) ) { // Variation product check for parent product setting where Fulfill with Amazon is ON.
+				return true;
+			}
+
+			return false;
 		}
 
 		/**

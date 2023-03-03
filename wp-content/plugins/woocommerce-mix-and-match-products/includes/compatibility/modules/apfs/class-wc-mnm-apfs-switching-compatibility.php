@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -567,8 +567,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			$product = $item->get_product();
 
 			if ( wc_mnm_is_product_container_type( $product ) ) {
-				$switch_url  = WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription );
-				$switch_link_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
+				$switch_link_text = get_option( 'wc_mnm_subscription_switch_button_text', esc_html__( 'Update selections', 'woocommerce-mix-and-match-products' ) );
 			}
 
 			return $switch_link_text;
@@ -592,7 +591,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			if ( wc_mnm_is_product_container_type( $product ) ) {
 				$switch_url  = WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription );
-				$switch_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
+				$switch_text = get_option( 'wc_mnm_subscription_switch_button_text', esc_html__( 'Update selections', 'woocommerce-mix-and-match-products' ) );
 				$switch_link = sprintf( '<a href="%s" class="wcs-switch-link button">%s</a>', esc_url( $switch_url ), esc_html( $switch_text ) );
 			}
 
@@ -771,7 +770,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			$data[] = array(
 				'id'    => 'mnm_contents',
-				'label' => __( 'Between Mix and Match Configurations', 'woocommerce-mix-and-match-products' )
+				'label' => esc_html__( 'Between Mix and Match Configurations', 'woocommerce-mix-and-match-products' )
 			);
 
 			return $data;
@@ -785,12 +784,12 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		public static function add_settings( $settings ) {
 
 			$switching_settings = array(
-					'name'     => __( 'Mix and Match Configuration Switch Button Text', 'woocommerce-subscriptions', 'woocommerce-mix-and-match-products' ),
-					'desc'     => __( 'Customize the text displayed on the button next to the mix and match product subscription on the subscriber\'s account page. The default is "Update selections", but you may wish to change this to "Change selections".', 'woocommerce-subscriptions', 'woocommerce-mix-and-match-products' ),
+					'name'     => esc_html__( 'Mix and Match Configuration Switch Button Text', 'woocommerce-mix-and-match-products' ),
+					'desc'     => esc_html__( 'Customize the text displayed on the button next to the mix and match product subscription on the subscriber\'s account page. The default is "Update selections", but you may wish to change this to "Change selections".', 'woocommerce-mix-and-match-products' ),
 					'tip'      => '',
 					'id'       => 'wc_mnm_subscription_switch_button_text',
 					'css'      => 'min-width:150px;',
-					'default'  => __( 'Update selections', 'woocommerce-mix-and-match-products' ),
+					'default'  => esc_html__( 'Update selections', 'woocommerce-mix-and-match-products' ),
 					'type'     => 'text',
 					'desc_tip' => true,
 			);

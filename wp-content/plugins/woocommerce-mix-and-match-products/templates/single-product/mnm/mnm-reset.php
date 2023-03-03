@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 2.3.0
+ * @version 2.4.0
  */
 
 // Exit if accessed directly.
@@ -21,4 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<button type="button" class="mnm_reset button alt" style="display: none;"><?php echo esc_html_x( 'Clear selections', '[Frontend]', 'woocommerce-mix-and-match-products' ); ?></button>
+<button type="button" class="mnm_reset button<?php echo esc_attr( WC_MNM_Core_Compatibility::wp_theme_get_element_class_name( 'button' ) ); ?>" style="display: none;"><?php echo esc_html_x( 'Clear selections', '[Frontend]', 'woocommerce-mix-and-match-products' ); ?></button>

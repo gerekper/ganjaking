@@ -1,61 +1,5 @@
 [
     {
-        "name": "themeforest-common/build",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "git@gitlab.createit.pl:themeforest-common/build.git",
-            "reference": "7b7b2198552bdc960985dbbfce879ee5ca2683ba"
-        },
-        "time": "2020-07-08T12:37:46+00:00",
-        "type": "createit-build",
-        "installation-source": "source",
-        "description": "Basic tools for building projects"
-    },
-    {
-        "name": "ip2location/ip2location-php",
-        "version": "8.1.1",
-        "version_normalized": "8.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/chrislim2888/IP2Location-PHP-Module.git",
-            "reference": "e0e7a98e2826bda3260cd8bd36b006e1479c8cf3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/chrislim2888/IP2Location-PHP-Module/zipball/e0e7a98e2826bda3260cd8bd36b006e1479c8cf3",
-            "reference": "e0e7a98e2826bda3260cd8bd36b006e1479c8cf3",
-            "shasum": ""
-        },
-        "time": "2019-10-09T01:00:20+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "IP2Location.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "IP2Location",
-                "email": "support@ip2location.com",
-                "homepage": "http://www.ip2location.com"
-            }
-        ],
-        "description": "[Official Release] IP2Location PHP API to get location info from IPv4 and IPv6 address.",
-        "homepage": "http://www.ip2location.com",
-        "keywords": [
-            "geolocation",
-            "ip2location",
-            "ip2locationlite"
-        ]
-    },
-    {
         "name": "composer/installers",
         "version": "v1.12.0",
         "version_normalized": "1.12.0.0",
@@ -191,6 +135,48 @@
         ]
     },
     {
+        "name": "ip2location/ip2location-php",
+        "version": "8.1.1",
+        "version_normalized": "8.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/chrislim2888/IP2Location-PHP-Module.git",
+            "reference": "e0e7a98e2826bda3260cd8bd36b006e1479c8cf3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/chrislim2888/IP2Location-PHP-Module/zipball/e0e7a98e2826bda3260cd8bd36b006e1479c8cf3",
+            "reference": "e0e7a98e2826bda3260cd8bd36b006e1479c8cf3",
+            "shasum": ""
+        },
+        "time": "2019-10-09T01:00:20+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "IP2Location.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "IP2Location",
+                "email": "support@ip2location.com",
+                "homepage": "http://www.ip2location.com"
+            }
+        ],
+        "description": "[Official Release] IP2Location PHP API to get location info from IPv4 and IPv6 address.",
+        "homepage": "http://www.ip2location.com",
+        "keywords": [
+            "geolocation",
+            "ip2location",
+            "ip2locationlite"
+        ]
+    },
+    {
         "name": "oomphinc/composer-installers-extender",
         "version": "2.0.1",
         "version_normalized": "2.0.1.0",
@@ -244,5 +230,19 @@
         ],
         "description": "Extend the composer/installers plugin to accept any arbitrary package type.",
         "homepage": "http://www.oomphinc.com/"
+    },
+    {
+        "name": "themeforest-common/build",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@gitlab.createit.pl:themeforest-common/build.git",
+            "reference": "cdf4e5a2ae2d68ce07126b9197a15b0b468608ae"
+        },
+        "time": "2022-07-27T11:34:50+00:00",
+        "type": "createit-build",
+        "installation-source": "source",
+        "description": "Basic tools for building projects"
     }
 ]

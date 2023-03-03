@@ -23,6 +23,7 @@ return array(
     'CT_Ultimate_GDPR_Controller_Services' => $baseDir . '/includes/controller/controller-services.php',
     'CT_Ultimate_GDPR_Controller_Terms' => $baseDir . '/includes/controller/controller-terms.php',
     'CT_Ultimate_GDPR_Controller_Unsubscribe' => $baseDir . '/includes/controller/controller-unsubscribe.php',
+    'CT_Ultimate_GDPR_Controller_Wizard' => $baseDir . '/includes/controller/controller-wizard.php',
     'CT_Ultimate_GDPR_Model_Dummy' => $baseDir . '/includes/model/model-phpmailer-dummy.php',
     'CT_Ultimate_GDPR_Model_Front_View' => $baseDir . '/includes/model/model-front-view.php',
     'CT_Ultimate_GDPR_Model_Group' => $baseDir . '/includes/model/model-group.php',

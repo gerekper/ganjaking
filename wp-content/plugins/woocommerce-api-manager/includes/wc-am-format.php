@@ -257,6 +257,22 @@ class WC_AM_Format {
 	/**
 	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date and time.
 	 *
+	 * @since     2.0.6
+	 * @depecated 2.5
+	 *
+	 * @param int $timestamp
+	 *
+	 * @return string
+	 */
+	public function unix_timestamp_to_date_i18n( $timestamp ) {
+		_deprecated_function( 'WC_AM_FORMAT()->unix_timestamp_to_date_i18n', 2.5, 'WC_AM_FORMAT()->unix_timestamp_to_date' );
+
+		return $this->unix_timestamp_to_date( $timestamp );
+	}
+
+	/**
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date and time.
+	 *
 	 * @since 2.0.6
 	 *
 	 * @param int $timestamp
@@ -267,6 +283,22 @@ class WC_AM_Format {
 		$timestamp_localized = $this->date_to_time( gmdate( $this->date_format() . ' ' . $this->time_format(), $timestamp ) );
 
 		return date_i18n( $this->date_format() . ' ' . $this->time_format(), $timestamp_localized );
+	}
+
+	/**
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date for a calendar.
+	 *
+	 * @since     2.4
+	 * @depecated 2.5
+	 *
+	 * @param int $timestamp
+	 *
+	 * @return string
+	 */
+	public function unix_timestamp_to_calendar_date_i18n( $timestamp ) {
+		_deprecated_function( 'WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n', 2.5, 'WC_AM_FORMAT()->unix_timestamp_to_calendar_date' );
+
+		return $this->unix_timestamp_to_calendar_date( $timestamp );
 	}
 
 	/**

@@ -1,4 +1,22 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2023.02.24 - version 3.4.1
+    * Fix:  Fix issue with multi-file upload fields for Gravity Forms 2.7.x
+    * Update:  Filter the WooCommerce order number before exporting.
+    * Update:  Remove old compatibility code for WooCommerce < 3
+    * Update:  WC and WP compatibility updates.
+
+2022.11.10 - version 3.3.28
+    * Fix:  Include the RGFormsModel if it's not already loaded.
+    * Update:  WC and WP Updates.
+    * Update:  Don't put hash on query string if disable anchors is on.
+    * Update:  PHP 8.1 compatibility.
+    * Update:  WC 7.x compatibility.
+
+2022.02.21 - version 3.3.27
+    * Update:  Disable feed queue so that webhooks are triggered right away when the order is placed.
+    * Update:  Check if Gravity Forms itself is active before running any plugin code.
+    * New:  Add woocommerce order item quantity as export field option when exporting gravity forms entries.
+
 2022.01.08 - version 3.3.26
     * Enhancement:  Added action, woocommerce_gforms_after_field_groups, to allow rendering custom sections in the gravity forms configuration section.
     * Enhancement:  Added filter, woocommerce_gravityforms_before_save_metadata, to allow adjusting the _gravity_form_data value before save.
@@ -104,7 +122,7 @@
 2018.08.22 - version 3.3.5
     * Update:  Only use file names when creating the order item meta.
     * Fix:  Fix issue with the reorder validation.
-    
+
 2018.08.09 - version 3.3.4
     * Fix:  Fix calculation when using Dynamic Pricing.
     * Update:  WP version update.

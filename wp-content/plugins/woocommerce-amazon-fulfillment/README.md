@@ -68,6 +68,11 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2023-03-02 - version 4.1.4
+* Added setting option to only sync products that fulfil with Amazon.
+* Added API timeout default duration to allow for adequate API request time.
+
+
 ### 2023-01-20 - version 4.1.3
 * Fix order sync update issue
 * Add error handling when calculating shipping costs.

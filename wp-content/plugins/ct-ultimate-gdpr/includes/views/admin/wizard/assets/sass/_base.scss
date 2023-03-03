@@ -1,0 +1,126 @@
+body.admin_page_ct-ultimate-gdpr-wizard {
+  #adminmenumain {
+    display:none !important;
+  }
+  #wpcontent{
+    margin-top: 40px;
+  }
+  #wpcontent,
+  #wpfooter {
+    margin-left:0;
+  }
+
+  font-size: 16px;
+  font-family: $roboto;
+  color: $black;
+
+  .container {
+    max-width: 1220px;
+  }
+
+}
+
+h1{
+  margin-bottom: 2.4rem;
+}
+
+h1,h2,h3 {
+  font-family: $mark-pro;
+  font-weight: 900;
+  font-size: 2.25rem;
+}
+
+p {
+  margin-bottom: 22px;
+}
+
+p,a {
+  font-size: 0.938rem;
+}
+
+a {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+p,a,button,label,legend,span {
+  font-family: $roboto;
+  line-height: 1.406rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+.btn {
+  padding:10px 30px;
+  border-radius: 100px;
+  background-color: $gray;
+  text-transform: uppercase;
+  color: $dark-gray;
+  font-size: 0.938rem;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.btn-primary {
+  background-color: $orange;
+  border-color: $orange;
+  color:$white;
+  font-weight: 700;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $black !important;
+    border-color: $black !important;
+    outline: none;
+    box-shadow: none !important;
+    color: $white !important;
+  }
+}
+
+.btn-load {
+  background-color: $orange !important;
+  border-color: $orange !important;
+  color:$white !important;
+  font-weight: 700;
+  font-size: 0.938rem !important;
+  border-radius: 100px !important;
+  width: 100px;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $black !important;
+    border-color: $black !important;
+    outline: none;
+    box-shadow: none !important;
+    color: $white !important;
+  }
+}
+
+button {
+  padding:10px 20px;
+  border-radius: 100px;
+  background-color: $gray;
+  border:0;
+}
+
+.btn-back {
+  background-color: transparent;
+  color: $orange;
+}
+
+.btn-cancel {
+  font-weight: 700;
+  font-size: 0.938rem;
+}
+
+.highlight-text {
+  color: $orange;
+}

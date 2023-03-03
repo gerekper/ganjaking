@@ -157,6 +157,7 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 
 		if ( ! $delivery_date ) {
 			echo '<span class="na">–</span>';
+			return;
 		}
 
 		$this->output_datetime( wc_string_to_datetime( $delivery_date ) );

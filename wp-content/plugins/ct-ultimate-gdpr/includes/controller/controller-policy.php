@@ -679,6 +679,7 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 
 		// empty option
 		echo "<option></option>";
+		printf( "<option value='0' %s >%s</option>",  $value == 0 ? 'selected' : '', esc_html__( "Don't redirect", 'ct-ultimate-gdpr' ) );
 
 		// wordpress default policy page option
 		$wp_page             = new stdClass();

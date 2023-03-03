@@ -1,5 +1,8 @@
 *** WooCommerce Instagram Changelog ***
 
+2023-03-02 - version 4.3.4
+* Tweak - Tested compatibility up to WC 7.4.
+
 2022-12-12 - version 4.3.3
 * Tweak - Tested compatibility with WC 7.2.
 * Fix - The catalog feed dialog never refreshes until the process of generating the feed finishes.

@@ -19,7 +19,7 @@ $dismiss_url = wp_nonce_url(
 
 $cleanup_url = wp_nonce_url(
 	add_query_arg( 'wc_mnm_update_action', 'do_2x00_cleanup_legacy_child_meta' ),
-	'do_2x00_cleanup_legacy_child_meta',
+	'wc_mnm_update_action',
 	'wc_mnm_update_action_nonce'
 );
 

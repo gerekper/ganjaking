@@ -86,7 +86,9 @@
   
         jQuery('#ct-ultimate-gdpr-cookie-popup').hide();
         jQuery('.ct-ultimate-gdpr-cookie-fullPanel-overlay').hide();
-        jQuery('#ct-ultimate-gdpr-cookie-open').show();
+        jQuery('#ct-ultimate-gdpr-cookie-open').show(function(){
+            $(this).css('display','flex');
+        });
     }
   
     function showPopup() {
@@ -98,7 +100,9 @@
         if (isModalAlwaysVisible()) return;
   
         jQuery('#ct-ultimate-gdpr-cookie-modal').hide();
-        jQuery('#ct-ultimate-gdpr-cookie-open').show();
+        jQuery('#ct-ultimate-gdpr-cookie-open').show(function(){
+            $(this).css('display','flex');
+        });
     }
   
     function showModal() {

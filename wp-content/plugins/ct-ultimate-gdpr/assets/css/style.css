@@ -2040,6 +2040,12 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   text-transform: uppercase;
 }
 
+@media (max-width: 767px) {
+  .ct-ultimate-gdpr-cookie-skin-one #ct-ultimate-gdpr-cookie-modal-body h2 {
+    font-size: 26px;
+  }
+}
+
 .ct-ultimate-gdpr-cookie-skin-one #ct-ultimate-gdpr-cookie-modal-body h3 {
   font-size: 22px !important;
   font-weight: 500;
@@ -7988,6 +7994,20 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   }
 }
 
+@media (max-width: 575px) {
+  .ct-ultimate-gdpr-cookie-modal-single li svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ct-ultimate-gdpr-cookie-modal-single li svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 .ct-ultimate-gdpr-cookie-modal-single li svg path {
   fill: #595959;
 }
@@ -8002,6 +8022,20 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   margin: 0 auto;
   position: relative;
   border: 3px solid #fafafa;
+}
+
+@media (max-width: 575px) {
+  .ct-ultimate-gdpr-cookie-modal-single li label {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ct-ultimate-gdpr-cookie-modal-single li label {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .ct-ultimate-gdpr-cookie-modal-single li.activ label {
@@ -8021,6 +8055,12 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   font-size: 13px;
   margin-top: 15px;
   color: #595959;
+}
+
+@media (max-width: 480px) {
+  .ct-ultimate-gdpr-cookie-modal-single li span {
+    font-size: 9px;
+  }
 }
 
 .ct-ultimate-gdpr-cookie-modal-single input {
@@ -8047,12 +8087,22 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 
 .ct-ultimate-gdpr-cookie-modal-single [type="radio"] {
   border: 2px solid rgba(0, 0, 0, 0.3);
+  width: 22px;
+  height: 22px;
+  padding: 0;
 }
 
 .ct-ultimate-gdpr-cookie-modal-single [type="radio"]::after {
   background: #82aa3b;
   left: 5px;
   top: 5px;
+}
+
+.ct-ultimate-gdpr-cookie-modal-single [type="radio"]:checked {
+  background: url("images/icons8_Delete_1.png");
+  background-size: 12px;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .ct-ultimate-gdpr-cookie-modal-single .icon-border-fill {

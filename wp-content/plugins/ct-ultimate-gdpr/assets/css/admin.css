@@ -603,19 +603,23 @@ body[class*="ct-ultimate-gdpr"] {
   }
 }
 
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-7,
 .ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 {
   margin-top: 0;
 }
 
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-7 tbody tr:first-child,
 .ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 tbody tr:first-child {
   border-top: 0 solid;
 }
 
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-7 td,
 .ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap .form-table.section-3 td {
   display: block;
   width: 100%;
 }
 
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-7 th,
 .ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th {
   -webkit-transition: all .3s ease-in-out;
   background-color: #f5f5f5;
@@ -631,6 +635,7 @@ body[class*="ct-ultimate-gdpr"] {
   width: 100%;
 }
 
+.ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-7 th:after,
 .ultimate-gdpr_page_ct-ultimate-gdpr-cookie .ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-3 th:after {
   content: '\f078';
   font-family: fontAwesome;

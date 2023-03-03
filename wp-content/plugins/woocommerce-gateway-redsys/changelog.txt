@@ -1,5 +1,9 @@
 *** Redsys Gateway Change Log ***
 
+2023.03.01 - version 20.2.1
+
+* FIX: Temp disabled function for hiding Bizum. I have to check what changed in WooCommerce.
+
 2023.02.27 - version 20.2.0
 
 * NEW: New modal options for Redsys redirection.

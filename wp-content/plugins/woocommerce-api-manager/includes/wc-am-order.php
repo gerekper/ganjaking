@@ -74,7 +74,7 @@ class WC_AM_Order {
 		add_action( 'wp_trash_post', array( $this, 'trash_order' ) );
 		add_action( 'untrashed_post', array( $this, 'untrashed_order' ) );
 		add_action( 'edit_post', array( $this, 'edit_order' ), 10, 2 );
-		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_license_keys' ), 10, 3 );
+		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_api_keys' ), 10, 3 );
 	}
 
 	/**
@@ -658,7 +658,11 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function order_partially_refunded( $order_id, $refund_id ) {
+		do_action( 'wc_am_before_order_partially_refunded', $order_id, $refund_id );
+
 		$this->update_order( $order_id );
+
+		do_action( 'wc_am_after_order_partially_refunded', $order_id, $refund_id );
 	}
 
 	/**
@@ -672,7 +676,11 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function order_fully_refunded( $order_id, $refund_id ) {
+		do_action( 'wc_am_before_order_fully_refunded', $order_id, $refund_id );
+
 		$this->update_order( $order_id );
+
+		do_action( 'wc_am_after_order_fully_refunded', $order_id, $refund_id );
 	}
 
 	/**
@@ -686,7 +694,11 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function refund_deleted( $refund_id, $order_id ) {
+		do_action( 'wc_am_before_refund_deleted', $refund_id, $order_id );
+
 		$this->update_order( $order_id );
+
+		do_action( 'wc_am_after_refund_deleted', $refund_id, $order_id );
 	}
 
 	/**
@@ -701,6 +713,8 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function remove_order( $order_id, $old_status, $new_status ) {
+		do_action( 'wc_am_before_remove_order', $order_id, $old_status, $new_status );
+
 		// Clear the Database Cache
 		$this->delete_cache( $order_id );
 
@@ -766,6 +780,8 @@ class WC_AM_Order {
 				}
 			}
 		}
+
+		do_action( 'wc_am_after_remove_order', $order_id, $old_status, $new_status );
 	}
 
 	/**
@@ -778,6 +794,8 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function delete_order( $order_id ) {
+		do_action( 'wc_am_before_delete_order', $order_id );
+
 		global $wpdb;
 
 		// Clear the Database Cache
@@ -832,6 +850,8 @@ class WC_AM_Order {
 				$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
 			}
 		}
+
+		do_action( 'wc_am_after_delete_order', $order_id );
 	}
 
 	/**
@@ -844,6 +864,8 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function delete_order_item( $item_id ) {
+		do_action( 'wc_am_before_delete_order_item', $item_id );
+
 		global $wpdb;
 
 		// Clear the Database Cache
@@ -882,6 +904,8 @@ class WC_AM_Order {
 		 * Delete orphaned order item API resources that no longer exist on the order.
 		 */
 		$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
+
+		do_action( 'wc_am_after_delete_order_item', $item_id );
 	}
 
 	/**
@@ -894,6 +918,8 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function delete_sub_order_item( $item_id ) {
+		do_action( 'wc_am_before_delete_sub_order_item', $item_id );
+
 		global $wpdb;
 
 		// Clear the Database Cache
@@ -932,6 +958,25 @@ class WC_AM_Order {
 				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
 			}
 		}
+
+		do_action( 'wc_am_after_delete_sub_order_item', $item_id );
+	}
+
+	/**
+	 * Delete the API resource order items when the order is trashed.
+	 *
+	 * @since     2.0
+	 * @updated   2.5 For WooCommerce HPOS.
+	 * @depecated 2.5
+	 *
+	 * @param int $post_id
+	 *
+	 * @throws \Exception
+	 */
+	public function trash_post( $post_id ) {
+		_deprecated_function( 'WC_AM_ORDER()->trash_post', 2.5, 'WC_AM_ORDER()->trash_order' );
+
+		return $this->trash_order( $post_id );
 	}
 
 	/**
@@ -955,6 +1000,23 @@ class WC_AM_Order {
 	/**
 	 * Restore the API resource order items when the order is restored from the trash.
 	 *
+	 * @since     2.0
+	 * @updated   2.5 For WooCommerce HPOS.
+	 * @depecated 2.5
+	 *
+	 * @param int $post_id
+	 *
+	 * @throws \Exception
+	 */
+	public function untrashed_post( $post_id ) {
+		_deprecated_function( 'WC_AM_ORDER()->untrashed_post', 2.5, 'WC_AM_ORDER()->untrashed_order' );
+
+		return $this->untrashed_order( $post_id );
+	}
+
+	/**
+	 * Restore the API resource order items when the order is restored from the trash.
+	 *
 	 * @since   2.0
 	 * @updated 2.5 For WooCommerce HPOS.
 	 *
@@ -968,6 +1030,21 @@ class WC_AM_Order {
 		if ( is_object( $order ) && $order->get_type() === 'shop_order' ) {
 			$this->update_order( $order_id );
 		}
+	}
+
+	/**
+	 * Update the API resource product title when the shop product title is updated.
+	 *
+	 * @since     2.0
+	 * @depecated 2.5
+	 *
+	 * @param int     $post_ID Post ID.
+	 * @param WP_Post $post    Post object.
+	 */
+	public function edit_post( $post_ID, $post ) {
+		_deprecated_function( 'WC_AM_ORDER()->edit_post', 2.5, 'WC_AM_ORDER()->edit_order' );
+
+		return $this->edit_order( $post_ID, $post );
 	}
 
 	/**
@@ -1015,13 +1092,29 @@ class WC_AM_Order {
 	/**
 	 * Email API License Key and API License Email after order complete.
 	 *
-	 * @since 2.0
+	 * @since     2.0
+	 * @depecated 2.5
 	 *
 	 * @param object $order WC_Order
 	 * @param bool   $sent_to_admin
 	 * @param bool   $plain_text
 	 */
 	public function email_license_keys( $order, $sent_to_admin = false, $plain_text = false ) {
+		_deprecated_function( 'WC_AM_ORDER()->email_license_keys', 2.5, 'WC_AM_ORDER()->email_api_keys' );
+
+		$this->email_api_keys( $order, $sent_to_admin = false, $plain_text = false );
+	}
+
+	/**
+	 * Email API License Key and API License Email after order complete.
+	 *
+	 * @since 2.0
+	 *
+	 * @param object $order WC_Order
+	 * @param bool   $sent_to_admin
+	 * @param bool   $plain_text
+	 */
+	public function email_api_keys( $order, $sent_to_admin = false, $plain_text = false ) {
 		$not_renewal_order = true;
 		$cancelled         = false;
 
@@ -1034,7 +1127,9 @@ class WC_AM_Order {
 			$resources = WC_AM_ORDER_DATA_STORE()->get_api_resource_items_for_order( $order );
 
 			if ( ! empty( $resources ) && WC_AM_ORDER_DATA_STORE()->has_api_product( $order ) ) {
-				wc_get_template( 'emails/api-keys-order-complete.php', array(
+				$template = ( $plain_text ) ? 'emails/plain/api-keys-order-complete.php' : 'emails/api-keys-order-complete.php';
+
+				wc_get_template( $template, array(
 					'order'     => $order,
 					'resources' => $resources
 				),               '', WCAM()->plugin_path() . '/templates/' );

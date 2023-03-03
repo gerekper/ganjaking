@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.2.0
- * @version  2.0.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -18,8 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handle the addition/display of admin notices.
  */
 class WC_MNM_Admin_Notices {
-
-	private static $counter = 1;
 
 	/**
 	 * Stores notices.
@@ -61,7 +59,11 @@ class WC_MNM_Admin_Notices {
 	 * Store  notices to DB.
 	 */
 	public static function store_notices() {
-		update_option( 'wc_mnm_admin_notices', self::get_notices() );
+		if ( ! empty( self::get_notices() ) ) {
+			update_option( 'wc_mnm_admin_notices', self::get_notices() );
+		} else {
+			delete_option( 'wc_mnm_admin_notices' );
+		}
 	}
 
 	/**
@@ -92,7 +94,7 @@ class WC_MNM_Admin_Notices {
 	public static function add_notice( $name, $force_save = false, $save_notice = false ) {
 
 		if ( is_array( $force_save ) ) {
-			wc_deprecated_argument( '__FUNCTION__', '2.0.0', 'WC_MNM_Admin_Notices::add_notice() cannot be used to set a custom notice text. Use WC_Admin_Notices::add_custom_notice( $name, $notice_html ) instead.' );
+			wc_deprecated_argument( '__FUNCTION__', '2.0.0', 'WC_MNM_Admin_Notices::add_notice() cannot be used to set a custom notice text. Use WC_MNM_Admin_Notices::add_custom_notice( $name, $notice_html ) instead.' );
 			$html = ! empty( self::$core_notices[ $name ] ) ? $name : false;
 			return WC_Admin_Notices::add_custom_notice( sanitize_text_field( $name ), $html );
 		}
@@ -122,6 +124,9 @@ class WC_MNM_Admin_Notices {
 			// Adding early save to prevent more race conditions with notices.
 			self::store_notices();
 		}
+
+		// Needed to dismiss Note notices.
+		do_action( 'wc_mnm_hide_' . $name . '_notice' );
 	}
 
 	/**
@@ -143,8 +148,6 @@ class WC_MNM_Admin_Notices {
 	 */
 	public static function hide_notices() {
 
-		self::$counter++;
-
 		if ( isset( $_GET[ 'wc-mnm-hide-notice' ] ) && isset( $_GET[ '_wc_mnm_notice_nonce'] ) ) {
 
 			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_mnm_notice_nonce'] ) ), 'wc_mnm_hide_notices' ) ) { // WPCS: input var ok, CSRF ok.
@@ -163,7 +166,6 @@ class WC_MNM_Admin_Notices {
 				$notice = 'update';
 			}
 
-			// NB: see WC_Admin_Notices::hide_notice() if we ever need notices that are dismissed on a per-user basis.
 			self::remove_notice( $notice );
 		}
 	}
@@ -276,7 +278,7 @@ class WC_MNM_Admin_Notices {
 	 * @deprecated 2.0.0
 	 */
 	public static function output_notices() {
-		wc_deprecated_function( 'WC_MNM_Admin_Notices::add_maintenance_notice()', '2.0.0', 'Method renamed add_notices().' );
+		wc_deprecated_function( 'WC_MNM_Admin_Notices::output_notices()', '2.0.0', 'Method renamed add_notices().' );
 		return self::add_notices();
 	}
 

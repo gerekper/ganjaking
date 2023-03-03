@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match/Ajax
  * @since    2.2.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -23,7 +23,22 @@ class WC_MNM_Ajax {
 	/**
 	 * Hook in.
 	 */
-	public static function init() {}
+	public static function init() {
+
+		/**
+		 * Frontend Edit-Order callbacks.
+		 */
+
+		// Ajax handler used to fetch form content for editing container order items.
+		add_action( 'wc_ajax_mnm_get_edit_container_order_item_form', array( __CLASS__, 'edit_container_order_item_form' ) );
+
+		// Ajax handler for editing containers in order.
+		add_action( 'wc_ajax_mnm_update_container_order_item', [ __CLASS__ , 'update_container_order_item' ] );
+	
+		// Force some styles when editing.
+		add_action( 'wc_mnm_edit_container_order_item', array( __CLASS__, 'force_container_styles' ), 0, 4 );
+
+	}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -31,6 +46,15 @@ class WC_MNM_Ajax {
 	|--------------------------------------------------------------------------
 	*/
 
+	/**
+	 * True when displaying content in an edit-container order item modal.
+	 * 
+	 * @since 2.4.0
+	 * @return bool
+	 */
+	public static function is_container_edit_request() {
+		return doing_action( 'wp_ajax_woocommerce_configure_container_order_item' ) || doing_action( 'wc_ajax_mnm_get_edit_container_order_item_form' );
+	}
 
 	/**
 	 * Form content used to populate "Configure/Edit" container order item modals.
@@ -38,7 +62,7 @@ class WC_MNM_Ajax {
 	public static function edit_container_order_item_form() {
 
 		$result = self::can_edit_container();
-		
+
 		if ( is_wp_error( $result ) ) {
 			wp_send_json_error( $result->get_error_message() );
 		}
@@ -58,7 +82,20 @@ class WC_MNM_Ajax {
 		ob_start();
 		echo '<div class="wc-mnm-edit-container wc-mnm-edit-container-' . $order->get_type() . '">'; // Restore wrapping class as fragments replaces it.
 
-		/*
+		/**
+		 * `wc_mnm_edit_container_order_item` hook
+		 * 
+		 * @since 2.4.0
+		 * 
+		 * @param  $product  WC_Product_Mix_and_Match
+		 * @param  $order_item WC_Order_Item
+		 * @param  $order      WC_Order
+		 * @param  string $source The originating source loading this template
+		 */
+
+		 do_action( 'wc_mnm_edit_container_order_item', $product, $order_item, $order, $source );
+
+		/**
 		 * `wc_mnm_edit_container_order_item_in_shop_order` hook
 		 * 'wc_mnm_edit_container_order_item_in_shop_subscription' hook.
 		 * 
@@ -69,6 +106,7 @@ class WC_MNM_Ajax {
 		 */
 
 		do_action( 'wc_mnm_edit_container_order_item_in_' . $order->get_type(), $product, $order_item, $order, $source );
+
 		echo '</div>';
 
 		$form = ob_get_clean();
@@ -292,6 +330,9 @@ class WC_MNM_Ajax {
 
 				unset( $changes_map );
 
+				// Re-apply discounts.
+				$order->recalculate_coupons();
+
 				/**
 				 * 'wc_mnm_updated_container_in_order' action.
 				 *
@@ -321,6 +362,11 @@ class WC_MNM_Ajax {
 				$fragments = array();
 
 				if ( 'metabox' === $source ) {
+
+					// Rettach the edit button when reloading the items via ajax. Our metabox hooks are only loaded when is_admin() is true.
+					// is_admin() is no longer true when using the wc-ajax hooks.
+					include_once WC_Mix_and_Match()->plugin_path() . '/includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php';
+					WC_MNM_Meta_Box_Order::reattach_edit_button();
 
 					// Return HTML items.
 					ob_start();
@@ -484,6 +530,60 @@ class WC_MNM_Ajax {
 		wc_mix_and_match()->display->frontend_scripts();
 
 		do_action( 'wc_mnm_container_editing_enqueue_scripts' );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Edit-Order Modal.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Force tabular layout and hide child links.
+	 * 
+	 * @since 2.4.0
+	 * 
+	 * @param  $product  WC_Product_Mix_and_Match
+	 * @param  $order_item WC_Order_Item
+	 * @param  $order      WC_Order
+	 * @param  string $source The originating source loading this template
+	 */
+	public static function force_container_styles( $product, $order_item, $order, $source ) {
+
+		if ( 'metabox' === $source ) {
+
+			// Force tabular layout.
+			add_filter( 'woocommerce_product_get_layout', function() { return 'tabular'; }, 9999 );
+
+			// Prevent theme override of quantity-input.php template in admin.
+			add_filter( 'wc_get_template', array( __CLASS__, 'force_core_template' ), 9999, 5 );
+
+		}
+
+		// Force default location.
+		add_filter( 'woocommerce_product_get_add_to_cart_form_location', function() { return 'default'; }, 9999 );
+	
+		// Hide links.
+		add_filter( 'woocommerce_product_is_visible', '__return_false' );
+		
+	}
+
+	/**
+	 * Nuke any theme overrides of quantity-input.php template.
+	 * 
+	 * @since 2.4.0
+	 *
+	 * @param  $item_id  int
+	 * @param  $item     WC_Order_Item
+	 * @param  $order    WC_Product
+	 * @return void
+	 */
+	public static function force_core_template( $template, $template_name, $args, $template_path, $default_path ) {
+		if ( $template_name === 'global/quantity-input.php' ) {
+			$default_path = WC()->plugin_path() . '/templates/';
+			$template = $default_path . $template_name;
+		}
+		return $template;
 	}
 
 }

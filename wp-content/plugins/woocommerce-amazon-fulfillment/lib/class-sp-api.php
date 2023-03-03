@@ -126,7 +126,7 @@ if ( ! class_exists( 'SP_API' ) ) {
 			$url = add_query_arg( $args, self::SP_API_REQUEST_ENDPOINT );
 
 			// Grabbing the response here gives us a single logging point on all request / response pairs.
-			$response = wp_remote_post( $url ); // phpcs:ignore
+			$response = wp_remote_post( $url, array( 'timeout' => apply_filters( 'ns_fba_api_timeout_duration', 60 ) ) ); // phpcs:ignore
 
 			/** TODO: JUST FOR TESTING.
 			 */

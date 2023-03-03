@@ -1,4 +1,9 @@
 *** Catalog Visibility Options Changelog ***
+2023.03.01 - version 3.3.0
+    * Update: WP and WC version compatibility.
+    * Update: PHP 8 compatibility.
+    * Update: HPOS compatibility.
+
 2022.04.06 - version 3.2.18
     * Update:  Only clear the transients when the operation being performed is not a bulk operation, such as saving a menu.
     * Update:  WP and WC version compatibility tags.

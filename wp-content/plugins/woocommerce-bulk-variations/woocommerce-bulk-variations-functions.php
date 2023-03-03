@@ -48,8 +48,8 @@ function woocommerce_bulk_variations_create_matrix( $post_id ) {
 
 	$attributes = $_product->get_attributes();
 
-	$row_attribute    = ( wc_bv_get_post_meta( $_product->get_id(), '_bv_y', true ) );
-	$column_attribute = ( wc_bv_get_post_meta( $_product->get_id(), '_bv_x', true ) );
+	$row_attribute    = ( wc_bv_get_post_meta( $_product->get_id(), '_bv_y' ) );
+	$column_attribute = ( wc_bv_get_post_meta( $_product->get_id(), '_bv_x' ) );
 
 	$av_temp = $_product->get_variation_attributes();
 
@@ -97,20 +97,20 @@ function woocommerce_bulk_variations_create_matrix( $post_id ) {
 	foreach ( $grid as $row_key => &$column ) {
 		foreach ( $column as $column_key => &$field_value ) {
 			$matches = $filter->get_matches( $row_key, $column_key );
-
 			$field_value = $matches;
 		}
 	}
 
-	$matrix_data = array(
+	$av_column_values = $av[ ( wc_bv_get_post_meta( $_product->get_id(), '_bv_x', true ) ) ] ?? [];
+	$av_row_values = $av[ wc_bv_get_post_meta( $_product->get_id(), '_bv_y', true ) ] ?? [];
+
+	return array(
 		'row_attribute'    => $row_attribute,
 		'column_attribute' => $column_attribute,
-		'matrix_columns'   => array_values( $av[ ( wc_bv_get_post_meta( $_product->get_id(), '_bv_x', true ) ) ] ),
-		'matrix_rows'      => array_values( $av[ ( wc_bv_get_post_meta( $_product->get_id(), '_bv_y', true ) ) ] ),
+		'matrix_columns'   => array_values( $av_column_values),
+		'matrix_rows'      => array_values( $av_row_values ),
 		'matrix'           => $grid
 	);
-
-	return $matrix_data;
 }
 
 function woocommerce_bulk_variations_get_title( $taxonomy, $value ) {
@@ -200,14 +200,14 @@ function woocommerce_bulk_variations_add_to_cart_message( $count ) {
 /**
  * Get product meta for a product, WC 2.7 compatible.
  *
- * @since 1.5.0
- *
  * @param $product_id
  * @param $meta_key
  *
  * @return mixed
+ * @since 1.5.0
+ *
  */
-function wc_bv_get_post_meta( $product_id, $meta_key ) {
+function wc_bv_get_post_meta( $product_id, $meta_key, $single = true ) {
 	if ( WC_Bulk_Variations_Compatibility::is_wc_version_gte_2_7() ) {
 		$product = wc_get_product( $product_id );
 		if ( $product ) {
@@ -216,18 +216,19 @@ function wc_bv_get_post_meta( $product_id, $meta_key ) {
 			return false;
 		}
 	} else {
-		return get_post_meta( $product_id, $meta_key, true );
+		return get_post_meta( $product_id, $meta_key, $single );
 	}
 }
 
 /**
  * Update product meta for a product, WC 2.7 compatible.
  *
- * @since 1.5.0
- *
  * @param $product_id
  * @param $meta_key
  * @param $meta_value
+ *
+ * @since 1.5.0
+ *
  */
 function wc_bv_update_post_meta( $product_id, $meta_key, $meta_value ) {
 	if ( WC_Bulk_Variations_Compatibility::is_wc_version_gte_2_7() ) {
@@ -242,10 +243,11 @@ function wc_bv_update_post_meta( $product_id, $meta_key, $meta_value ) {
 /**
  * Removes product meta for a product, WC 2.7 compatible.
  *
- * @since 1.5
- *
  * @param $product_id
  * @param $meta_key
+ *
+ * @since 1.5
+ *
  */
 function wc_bv_delete_post_meta( $product_id, $meta_key ) {
 	if ( WC_Bulk_Variations_Compatibility::is_wc_version_gte_2_7() ) {

@@ -2,8 +2,6 @@
 /**
  * API Keys Order Complete Email
  *
- * Shows downloads on the account page.
- *
  * This template can be overridden by copying it to yourtheme/woocommerce/emails/api-keys-order-complete.php.
  *
  * HOWEVER, on occasion WooCommerce API Manager will need to update template files and you
@@ -15,58 +13,84 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates/Emails
- * @version 2.0
+ * @version 2.5.4
  */
 
 defined( 'ABSPATH' ) || exit;
 
-if ( is_object( $order ) && ! empty( $resources ) ) :
+$text_align = is_rtl() ? 'right' : 'left';
+
+if ( is_object( $order ) && ! empty( $resources ) ) {
 	$hide_product_order_api_keys = WC_AM_USER()->hide_product_order_api_keys();
 
-	if ( $order->has_downloadable_item() ) :
-		?>
-        <h2>
-			<?php esc_html_e( 'API Downloads', 'woocommerce-api-manager' ); ?>
-        </h2>
-        <p>
-            <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>"><?php esc_html_e( 'Click here to login and download Your File(s)', 'woocommerce-api-manager' ); ?></a>
-        </p>
-	<?php endif; ?>
-    <h2>
-		<?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?>
-    </h2>
-    <p>
-		<?php esc_html_e( 'Master API Key:', 'woocommerce-api-manager' ); ?>
-        <strong><?php echo esc_attr( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></strong>
-    </p>
-    <p>
-		<?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?>
-    </p>
-	<?php
-	if ( ! $hide_product_order_api_keys ) : ?>
-        <h3>
-			<?php esc_html_e( 'Product Order API Keys', 'woocommerce-api-manager' ); ?>
-        </h3>
-        <p>
-			<?php esc_html_e( 'A Product Order API Key can be used to limit activation to a single product from a single order.', 'woocommerce-api-manager' ); ?>
-        </p>
-	<?php
-	endif;
-	foreach ( $resources as $resource ) :
-		$product_object = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
-		?>
-        <h4>
-			<?php echo esc_attr( $product_object->get_title() ); ?>
-        </h4>
-        <p><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?><strong><?php echo absint( $resource->product_id ) ?></strong>
-        </p>
-		<?php if ( ! $hide_product_order_api_keys ) : ?>
-        <ul>
-            <li>
-				<?php esc_html_e( 'Product Order API Key(s):', 'woocommerce-api-manager' ); ?>
-                <br><strong><?php echo esc_attr( $resource->product_order_api_key ); ?></strong>
-            </li>
-        </ul>
-	<?php endif;
-	endforeach;
-endif;
+	?><h2><?php esc_html_e( 'API Product Information', 'woocommerce-api-manager' ); ?></h2>
+
+    <div style="margin-bottom: 40px;">
+        <table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
+            <thead>
+            <tr>
+                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Product', 'woocommerce-api-manager' ); ?></th>
+                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'ID', 'woocommerce-api-manager' ); ?></th>
+                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></th>
+                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Expires', 'woocommerce-api-manager' ); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+			<?php foreach ( $resources as $resource ) {
+				$product_object = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
+				?>
+                <tr>
+                    <td class="td" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+						<?php esc_attr_e( $product_object->get_title() ); ?>
+                    </td>
+                    <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+						<?php echo absint( $resource->product_id ) ?>
+                    </td>
+                    <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+						<?php esc_attr_e( $resource->activations_purchased_total ) ?>
+                    </td>
+                    <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+						<?php
+						if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
+							$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
+						} else {
+							$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->get_human_time_diff( $resource->access_expires ) );
+						}
+
+						esc_html_e( $expires );
+						?>
+                    </td>
+                </tr>
+				<?php if ( ! $hide_product_order_api_keys ) { ?>
+                    <tr>
+                        <td class="td" colspan="4" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                            <strong><?php esc_html_e( 'Product Order API Key(s):', 'woocommerce-api-manager' ); ?></strong>
+                            <br><?php echo esc_attr( $resource->product_order_api_key ); ?>
+                        </td>
+                    </tr>
+				<?php } ?>
+			<?php } ?>
+            </tbody>
+            <tfoot>
+			<?php
+			if ( $order->has_downloadable_item() ) {
+				$my_account_url = wc_get_endpoint_url( 'api-downloads', '', wc_get_page_permalink( 'myaccount' ) );
+				?>
+                <tr>
+                    <td class="td" scope="row" colspan="4" style="text-align:center;"><a
+                                href="<?php echo esc_url( ( $my_account_url ) ); ?>"><?php echo esc_html__( 'Click here to login and download your file(s)', 'woocommerce-api-manager' ); ?></a></td>
+                </tr>
+			<?php } ?>
+            <tr>
+                <th class="td" scope="row" colspan="4" style="text-align:center; ?>;"><?php esc_html_e( 'Master API Key', 'woocommerce' ); ?></th>
+            </tr>
+            <tr>
+                <td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
+            </tr>
+            <tr>
+                <td class="td" scope="row" colspan="4" style="text-align:center; ?>;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce' ); ?></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+<?php }

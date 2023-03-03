@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match/Admin/Ajax
  * @since    1.7.0
- * @version  2.3.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -27,15 +27,14 @@ class WC_MNM_Admin_Ajax {
 		 * 
 		 * Use admin-ajax.php in the admin so is_admin() is true and we don't lose our minds again.
 		 * 
-		 * Ajax handler used to fetch form content for editing container order items.
-		 * Ajax handler for editing containers in order.
+		 * These hooks are no long used, but are left for legacy. We add the admin hooks in WC_MNM_Ajax.
 		 */
 
 		// Ajax handler used to fetch form content for populating "Configure/Edit" container order item modals.
-		add_action( 'wp_ajax_woocommerce_mnm_get_edit_container_order_item_form', array( 'WC_MNM_Ajax', 'edit_container_order_item_form' ) );
+		add_action( 'wp_ajax_woocommerce_configure_container_order_item', array( 'WC_MNM_Ajax', 'edit_container_order_item_form' ) );
 
 		// Ajax handler for editing containers in manual/editable orders.
-		add_action( 'wp_ajax_woocommerce_mnm_update_container_order_item', array( 'WC_MNM_Ajax' , 'update_container_order_item' ) );
+		add_action( 'wp_ajax_woocommerce_edit_container_in_order', array( 'WC_MNM_Ajax' , 'update_container_order_item' ) );
 
 	}
 
@@ -52,8 +51,8 @@ class WC_MNM_Admin_Ajax {
 	 * @return bool
 	 */
 	public static function is_container_edit_request() {
-		wc_deprecated_function( __METHOD__ . '()', '2.3.0', 'Use doing_action( "wp_ajax_woocommerce_mnm_get_edit_container_order_item_form" )' );
-		return doing_action( 'wp_ajax_woocommerce_edit_container_in_order' );
+		wc_deprecated_function( __METHOD__ . '()', '2.3.0', 'Relocated to WC_MNM_Ajax::is_container_edit_request()' );
+		return WC_MNM_Ajax::is_container_edit_request();
 	}
 
 	/**

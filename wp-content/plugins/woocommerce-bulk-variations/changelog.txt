@@ -1,4 +1,13 @@
 *** WooCommerce Bulk Variations Changelog ***
+2023.03.01 - version 1.7.1
+    * Update: WP and WC compatibility updates.
+    * Update: HPOS compatibility.
+
+2022.11.16 - version 1.7.0
+    * Update:  Add CSS classes to the table headers.
+    * Update: PHP 8 compatibility.
+    * Update: WP and WC compatibility updates.
+
 2021.08.25 - version 1.6.9
     * Fix:  Fix issue where product addons are rendered twice, once before the form and once after.
     * Update:  WC and WP Updates
@@ -60,30 +69,30 @@
 
 2015.12.04 - version 1.3.5
 	* Fix:  Corrects issue with translation string for "%s products successfully added to your cart."  Text domain changed from woocommerce to wc_bulk_variations
-	* Fix:  Correct issue with redirecting to cart after adding from the bulk selection form. 
-	
+	* Fix:  Correct issue with redirecting to cart after adding from the bulk selection form.
+
 2015.07.29 - version 1.3.4
 	* 1.3.4 is WC 2.4 ready
-	* Update:  Compatibility updates for WC 2.4x.  Issue was with variations with custom product attributes with all variations linked. 
-	
+	* Update:  Compatibility updates for WC 2.4x.  Issue was with variations with custom product attributes with all variations linked.
+
 2015.06.11 - version 1.3.3
-	* Fix:  Add woocommerce_bv_render_form filter back in. 
-	* Update: Remove extra templates directory from template override path. 
-	
+	* Fix:  Add woocommerce_bv_render_form filter back in.
+	* Update: Remove extra templates directory from template override path.
+
 2015.02.25 - version 1.3.2
 	* Fix: Compat issue resolved with WooCommerce >= 2.2
-	
+
 2014.12.06 - version 1.3.1
-	* Resolved issue where attributes on the form were listed using the attribute slug rather than the title. 
-	
+	* Resolved issue where attributes on the form were listed using the attribute slug rather than the title.
+
 2014.11.24 - version 1.3.0
-	* Resolved issue where attributes were using the attribute slug rather than the attribute title when adding to the cart. 
+	* Resolved issue where attributes were using the attribute slug rather than the attribute title when adding to the cart.
 
 2014.08.28 - version 1.2.3
 	* Resolved error "Can't use function return value in write context"
 
 2014.08.27 - version 1.2.2
-	* Fixed problem with installer after update. 
+	* Fixed problem with installer after update.
 
 2014.08.19 - version 1.2.1
 	* Fixed some compatibility issues with WooCommerce Quick View 1.0.16+
@@ -92,27 +101,27 @@
 	* Added compatibility for WooCommerce Quick View 1.0.16+
 
 2014.05.23 - version 1.1.3
-	* Fix syntax error. 
+	* Fix syntax error.
 
 2014.05.22 - version 1.1.2
-	* Update woocommerce_get_product_terms to fix a core bug where fields are not being sent to term filters properly. 
+	* Update woocommerce_get_product_terms to fix a core bug where fields are not being sent to term filters properly.
 
 2014.03.11 - version 1.1.1
-	* Modify CSS to use max-width: 50px instead of the hardcoded value. 
-	
+	* Modify CSS to use max-width: 50px instead of the hardcoded value.
+
 2014.01.22 - version 1.1.0
 	* 2.1 Compatibility Added
 		Modified uses of $woocommerce->add_message and $woocommerce->add_error.
 		Modified uses of $woocommerce->attribute_label.
 		Modified uses of $woocommerce->template_url
-	* Fixed a missing check for a $_POST value on new products that generated a warning. 
+	* Fixed a missing check for a $_POST value on new products that generated a warning.
 
 2013.08.13 - version 1.0.6
-	* Update - Use product attribute sort order when rendering rows and columns. 
+	* Update - Use product attribute sort order when rendering rows and columns.
 
 2013.08.01 - version 1.0.5
 	* Fix: Missing row and column headings when not all variation attributes from a
-		taxonomy are in use on a product. 
+		taxonomy are in use on a product.
 
 2013.07.15 - version 1.0.4
 	* Update:  CSS for Firefox
@@ -125,7 +134,7 @@
   * Update: Use term name when rows are a taxonomy
 
 2013.05.07 - version 1.0.1
- * Update: Support for custom product attributes, not just taxonomy attributes. 
+ * Update: Support for custom product attributes, not just taxonomy attributes.
 
 2013.05.02 - version 1.0
  * Initial Release

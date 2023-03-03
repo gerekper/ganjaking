@@ -5,7 +5,9 @@
  * Uninstalling Mix and Match deletes tables, post meta, and options.
  *
  * @package WooCommerce Mix and Match Prodicts\Uninstaller
- * @version 2.0.0
+ * 
+ * @since 2.0.0
+ * @version 2.4.0
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
@@ -70,6 +72,12 @@ if ( defined( 'WC_MNM_REMOVE_ALL_DATA' ) && true === WC_MNM_REMOVE_ALL_DATA ) {
 
 	if ( $mnm_term ) {
 		wp_delete_term( $mnm_term->term_id, 'product_type' );
+	}
+
+	// Delete WooCommerce Admin Notes.
+	if ( function_exists( 'wc_admin_connect_page' ) && ! apply_filters( 'woocommerce_admin_disabled', false ) ) {
+		Automattic\WooCommerce\Admin\Notes\Notes::delete_notes_with_name( 'wc-mnm-admin-help-improve-note' );
+		Automattic\WooCommerce\Admin\Notes\Notes::delete_notes_with_name( 'wc-mnm-admin-get-support-note' );
 	}
 
 	// Clear any cached data that has been removed.

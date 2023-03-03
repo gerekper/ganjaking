@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.2.0
- * @version  2.0.0
+ * @version  2.4.0
  */
 
 // Exit if accessed directly.
@@ -227,6 +227,24 @@ class WC_MNM_Core_Compatibility {
 		}
 
 		return method_exists( WC(), 'is_rest_api_request' ) ? WC()->is_rest_api_request() : defined( 'REST_REQUEST' );
+	}
+
+	/**
+	 * Given an element name, returns a class name.
+	 *
+	 * If the WP-related function is not defined (added in 6.1), return empty string.
+	 *
+	 * @param string $element The name of the element.
+	 *
+	 * @since 2.4.0
+	 * @return string
+	 */
+	public static function wp_theme_get_element_class_name( $element ) {
+		if ( function_exists( 'wp_theme_get_element_class_name' ) && '' !== wp_theme_get_element_class_name( $element ) ) {
+			return ' ' . wp_theme_get_element_class_name( $element );
+		}
+
+		return '';
 	}
 
 	/*

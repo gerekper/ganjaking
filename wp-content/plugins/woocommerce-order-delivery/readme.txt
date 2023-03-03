@@ -4,7 +4,7 @@ Tags: woocommerce, delivery, date
 Requires PHP: 5.6
 Requires at least: 4.9
 Tested up to: 6.1
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.7

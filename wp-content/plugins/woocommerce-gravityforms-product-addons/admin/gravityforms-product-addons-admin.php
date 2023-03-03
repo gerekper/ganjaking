@@ -184,15 +184,11 @@ class WC_GFPA_Admin_Controller {
 		$selected_field = '';
 		if ( $product_id ) {
 			$gravity_form_data = wc_gfpa()->get_gravity_form_data( $product_id );
-
 			if ( $gravity_form_data && isset( $gravity_form_data['enable_cart_quantity_management'] ) ) {
-
 				if ( isset( $gravity_form_data['cart_quantity_field'] ) ) {
 					$selected_field = $gravity_form_data['cart_quantity_field'];
 				}
-
 			}
-
 		}
 
 

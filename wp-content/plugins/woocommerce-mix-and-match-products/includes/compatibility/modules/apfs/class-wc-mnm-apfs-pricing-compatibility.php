@@ -92,7 +92,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 		* @since 2.3.1
 		*/
 		public static function remove_regular_price_filters() {
-			error_log("remove_regular_price_filters");
 			WCS_ATT_Product_Price_Filters::remove( 'price' );
 		}
 
