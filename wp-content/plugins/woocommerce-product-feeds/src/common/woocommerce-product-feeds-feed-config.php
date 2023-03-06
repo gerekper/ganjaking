@@ -135,7 +135,11 @@ class WoocommerceProductFeedsFeedConfig {
 				continue;
 			}
 			if ( is_array( $value ) ) {
-				$value = implode( ', ', $value );
+				if ( $key === 'categories' ) {
+					$value = $this->generate_category_list( $value );
+				} else {
+					$value = implode( ', ', $value );
+				}
 			}
 			$key = ucfirst( str_replace( '_', ' ', $key ) );
 			if ( empty( $value ) ) {
@@ -145,5 +149,39 @@ class WoocommerceProductFeedsFeedConfig {
 		}
 
 		return $summary;
+	}
+
+	/**
+	 * @param array $value
+	 *
+	 * @return string
+	 */
+	private function generate_category_list( array $value ) {
+		$categories = array_map( [ $this, 'generate_category_string' ], $value );
+
+		return implode( ', ', $categories );
+	}
+
+	/**
+	 * @param $term_id
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @return mixed|string|null
+	 */
+	private function generate_category_string( $term_id ) {
+		$term = get_term( $term_id, 'product_cat' );
+		if ( ! $term ) {
+			return __( 'Unknown category', 'woocommerce_gpf' );
+		}
+		$parent_string = get_term_parents_list(
+			$term_id,
+			'product_cat',
+			[
+				'separator' => ' » ',
+				'link'      => false,
+				'inclusive' => false,
+			]
+		);
+		return esc_html( $parent_string . $term->name . '(' . $term_id . ')' );
 	}
 }

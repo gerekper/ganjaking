@@ -1,4 +1,10 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2023.03.06 - version 3.4.2
+    * Compatibility:  Add support for WooCommerce HPOS.
+    * Fix: Fix issue with the multi-file uploader not working on the last page of a multi-page form.
+    * Fix: Fix issue with the anti-spam honeypot rejecting submissions.
+    * Fix: Fix issues with multi page forms.
+
 2023.02.24 - version 3.4.1
     * Fix:  Fix issue with multi-file upload fields for Gravity Forms 2.7.x
     * Update:  Filter the WooCommerce order number before exporting.

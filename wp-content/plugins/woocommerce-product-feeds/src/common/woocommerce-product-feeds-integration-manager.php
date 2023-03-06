@@ -199,8 +199,10 @@ class WoocommerceProductFeedsIntegrationManager {
 	 * @return void
 	 */
 	private function currency_switcher_for_woocommerce_integration() {
+		$wccs = $GLOBALS['WCCS'] ?? new stdClass();
 		if ( ! defined( 'WCCS_VERSION' ) ||
-			 version_compare( WCCS_VERSION, '1.2.2', 'lt' ) ) {
+			 version_compare( WCCS_VERSION, '1.2.2', 'lt' ) ||
+			 ! is_callable( [ $wccs, 'wccs_get_currencies' ] ) ) {
 			return;
 		}
 		$this->container['WoocommerceGpfCurrencySwitcherForWooCommerce']->run();

@@ -255,7 +255,7 @@ class WoocommerceGpfFrontend {
 		$args = $this->get_query_args( $chunk_size );
 
 		if ( $this->debug->debug_active() ) {
-			add_filter( 'woocommerce_product_object_query_args', [ $this, 'log_query_args' ], 99999 );
+			add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $this, 'log_query_args' ], 99999 );
 		}
 
 		$output_count = 0;

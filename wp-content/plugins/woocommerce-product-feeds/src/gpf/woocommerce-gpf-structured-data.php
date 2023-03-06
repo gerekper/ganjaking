@@ -53,7 +53,8 @@ class WoocommerceGpfStructuredData {
 	 */
 	public function structured_data_product( $markup, $product ) {
 
-		if ( $product instanceof WC_Product_Simple ) {
+		if ( $product instanceof WC_Product_Simple ||
+			 $product instanceof WC_Product_Bundle ) {
 			return $this->structured_data_simple_product( $markup, $product );
 		}
 		if ( $product instanceof WC_Product_Variable ) {

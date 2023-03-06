@@ -4,15 +4,15 @@
  * Plugin URI: https://woocommerce.com/products/msrp-pricing/
  * Description: A WooCommerce extension that lets you flag Manufacturer Suggested Retail Prices against products, and display them on the front end.
  * Author: Ademti Software Ltd.
- * Version: 3.4.14
+ * Version: 3.4.15
  * Woo: 18727:b9133a56078a1ffa217e74136769022b
- * WC requires at least: 6.6
- * WC tested up to: 7.4
+ * WC requires at least: 7.0
+ * WC tested up to: 7.5
  * Author URI: https://www.ademti-software.co.uk/
  * License: GPLv3
 */
 
-define( 'WOOCOMMERCE_MSRP_VERSION', '3.4.14' );
+define( 'WOOCOMMERCE_MSRP_VERSION', '3.4.15' );
 
 /**
  * Add default option settings on plugin activation
@@ -38,3 +38,14 @@ require_once 'woocommerce-msrp-woocommerce-product-feeds-integration.php';
 $woocommerce_msrp_main = new woocommerce_msrp_main();
 add_action( 'plugins_loaded', [ $woocommerce_msrp_main, 'run' ] );
 
+/**
+ * Declare support for High Performance Order Storage.
+ */
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);

@@ -10,8 +10,32 @@ class woocommerce_gravityforms_product_form {
 		$this->form_id    = $form_id;
 		$this->product_id = $product_id;
 
-		add_filter( 'gform_form_tag', array( $this, 'on_form_tag' ), 10, 2 );
-		add_filter( 'gform_submit_button', array( $this, 'on_submit_button' ), 10, 2 );
+		add_filter( 'gform_form_tag', [ $this, 'on_form_tag' ], 10, 2 );
+		add_filter( 'gform_submit_button', [ $this, 'on_submit_button' ], 10, 2 );
+		add_filter( 'gform_form_args', [ $this, 'no_ajax_on_all_forms' ], 9999, 1 );
+		add_filter( 'gform_form_args', [ $this, 'no_honeypot_on_all_forms' ], 9999, 1 );
+	}
+
+	function no_ajax_on_all_forms( $args ) {
+		if ( $args['form_id'] == $this->form_id ) {
+			$args['ajax'] = false;
+		}
+
+		return $args;
+	}
+
+	function no_honeypot_on_all_forms( $args ) {
+		if ( $args['form_id'] == $this->form_id ) {
+			$args['honeypotAction'] = false;
+		}
+
+		return $args;
+	}
+
+	private function set_submission_if_null( $form_id, $key, $val ) {
+		if ( ! isset( GFFormDisplay::$submission[ $form_id ][ $key ] ) ) {
+			GFFormDisplay::$submission[ $form_id ][ $key ] = $val;
+		}
 	}
 
 	public function get_form( $options ) {
@@ -41,14 +65,43 @@ class woocommerce_gravityforms_product_form {
 
 		//Get the form meta so we can make sure the form exists.
 		$form_meta = RGFormsModel::get_form_meta( $this->form_id );
-		if ( !empty( $form_meta ) ) {
+		if ( ! empty( $form_meta ) ) {
 
-			if ( !empty( $_POST ) ) {
+			if ( ! empty( $_POST ) ) {
 				$_POST['gform_submit']     = isset( $_POST['gform_old_submit'] ) ? $_POST['gform_old_submit'] : '';
 				$_POST['gform_old_submit'] = $_POST['gform_submit'];
 			}
 
+			$field_values = [];
 			$field_values = apply_filters( 'woocommerce_gravityforms_field_values', $field_values, $this->form_id );
+
+			/* If the form was submitted, has multiple pages and is invalid, set the current page to the first page with an invalid field. */
+			/*
+            if ( $has_pages && $is_postback && ! $is_valid ) {
+				self::set_current_page( $form_id, GFFormDisplay::get_first_page_with_error( $form ) );
+			}
+            */
+			/*
+			$form_object  = GFAPI::get_form( $this->form_id );
+			$field_values = GFForms::post( 'gform_field_values' );
+
+			$current_page = GFFormDisplay::get_current_page( $this->form_id );
+			$source_page_number = GFFormDisplay::get_source_page( $this->form_id );
+
+			$has_pages    = GFCommon::has_pages( $form_object );
+			if ( $has_pages ) {
+				$target_page  = GFFormDisplay::get_target_page( $form_object, $current_page, $field_values );
+				GFFormDisplay::set_current_page( $this->form_id, $target_page );
+			}
+
+			$this->set_submission_if_null( $this->form_id, 'page_number', $current_page );
+			$this->set_submission_if_null( $this->form_id, 'source_page_number', $source_page_number );
+			$this->set_submission_if_null( $this->form_id, 'form_id', $this->form_id );;
+			$this->set_submission_if_null( $this->form_id, 'form', $form_object );
+			$this->set_submission_if_null( $this->form_id, 'lead', [] );
+			$this->set_submission_if_null( $this->form_id, 'confirmation_message', false );
+			$this->set_submission_if_null( $this->form_id, 'is_valid', true );
+			*/
 
 			$form = GFForms::get_form( $this->form_id, $display_title, $display_description, $display_inactive, $field_values, $ajax, $tabindex );
 
@@ -75,6 +128,7 @@ class woocommerce_gravityforms_product_form {
 				echo '<input type="hidden" name="wc_gforms_previous_cart_item_key" value="' . esc_attr( $_GET['wc_gforms_cart_item_key'] ) . '" />';
 			}
 
+			echo '<input type="hidden" name="wc_gforms_product_id" value="' . $this->product_id . '" />';
 			echo '<input type="hidden" name="product_id" value="' . $this->product_id . '" />';
 
 			wp_nonce_field( 'add_to_cart' );
@@ -96,7 +150,7 @@ class woocommerce_gravityforms_product_form {
 				<?php endif; ?>
 			<?php endif; ?>
 
-			<?php if ( $max_page && !$is_last_page ): ?>
+			<?php if ( $max_page && ! $is_last_page ): ?>
                 <style>
                     .button[type=submit], div.quantity, #wl-wrapper {
                         display: none !important;
@@ -113,6 +167,8 @@ class woocommerce_gravityforms_product_form {
 			echo '<input type="hidden" id="woocommerce_product_base_price" value="' . $product->get_price() . '" />';
 
 			echo '<input type="hidden" name="wc_gforms_form_id"  value="' . $this->form_id . '" />';
+			echo '<input type="hidden" name="wc_gforms_current_page"  value="' . $this->current_page . '" />';
+			echo '<input type="hidden" name="wc_gforms_max_page"  value="' . $max_page . '" />';
 			echo '<input type="hidden" name="wc_gforms_next_page"  value="' . $this->next_page . '" />';
 			echo '<input type="hidden" name="wc_gforms_previous_page"  value="' . $this->previous_page . '" />';
 
@@ -138,13 +194,13 @@ class woocommerce_gravityforms_product_form {
                 }
 
                 .product_totals ul {
-                    margin-left:0;
-                    padding-left:0;
+                    margin-left: 0;
+                    padding-left: 0;
                 }
 
                 .product_totals ul li {
-                    list-style:none;
-                    margin-bottom:1rem;
+                    list-style: none;
+                    margin-bottom: 1rem;
                 }
 
             </style>

@@ -42,9 +42,105 @@ class WC_GFPA_Cart {
 
 	}
 
+	/**
+	 * Performs the validation of the gravity form.
+	 * Processes the form and saves the lead for later use during the cart_item_data filter.
+	 * This is being done so that multi file fields can be processed.
+	 * Also resolves issues with the honeypot plugin and Signature addons.
+	 *
+	 * @param $cart_item_data
+	 * @param $product_id
+	 * @param $variation_id
+	 *
+	 * @return mixed
+	 */
+	public function add_to_cart_validation( $valid, $product_id, $quantity ) {
+
+		if ( ! $valid ) {
+			return false;
+		}
+
+		// Check if we need a gravity form!
+		$context           = ( isset( $_POST['add-variations-to-cart'] ) && $_POST['add-variations-to-cart'] ) ? 'bulk' : 'single';
+		$gravity_form_data = wc_gfpa()->get_gravity_form_data( $product_id, $context );
+
+		if ( is_array( $gravity_form_data ) && $gravity_form_data['id'] && empty( $_POST['gform_form_id'] ) ) {
+			return false;
+		}
+
+		if ( $gravity_form_data && is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && intval( $gravity_form_data['id'] ) > 0 && isset( $_POST['gform_form_id'] ) && is_numeric( $_POST['gform_form_id'] ) ) {
+
+			if ( ! class_exists( 'GFFormDisplay' ) ) {
+				require_once( GFCommon::get_base_path() . "/form_display.php" );
+			}
+
+			if ( ! class_exists( 'RGFormsModel' ) ) {
+				require_once( GFCommon::get_base_path() . "/forms_model.php" );
+			}
+
+			$form_id = $_POST['gform_form_id'];
+
+			//Gravity forms generates errors and warnings.  To prevent these from conflicting with other things, we are going to disable warnings and errors.
+			$err_level = error_reporting();
+			error_reporting( 0 );
+
+			//Disable all hooks so that the form does not get processed or sent to feeds.
+			$this->disable_hooks( $form_id );
+
+			//Remove all post_submission hooks so data does not get sent to feeds such as Zapier
+			$this->disable_gform_after_submission_hooks( $form_id );
+
+				GFFormDisplay::$submission = array();
+				require_once( GFCommon::get_base_path() . "/form_display.php" );
+				$_POST['gform_submit'] = $_POST['gform_old_submit'];
+
+				GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Processing Add to Cart Validation #{$form_id}." );
+
+				$delete_cart_entries = isset( $gravity_form_data['keep_cart_entries'] ) && $gravity_form_data['keep_cart_entries'] == 'yes' ? false : true;
+				if ( apply_filters( 'woocommerce_gravityforms_delete_entries', $delete_cart_entries ) ) {
+					//We are going to delete this entry, so let's remove all after submission hooks.
+					//Remove all post_submission hooks so data does not get sent to feeds such as Zapier
+					$this->disable_gform_after_submission_hooks( $form_id );
+				} else {
+					//Entry will not be deleted, so add the hooks back in so they will be fired when the form is processed by GForms
+					$this->enable_gform_after_submission_hooks( $form_id );
+				}
+
+				add_filter( 'gform_pre_process_' . $form_id, array( $this, 'on_gform_pre_process' ) );
+				add_filter( 'gform_abort_submission_with_confirmation', '__return_false', 999, 1 );
+				add_filter( 'gform_entry_is_spam', '__return_false', 999, 1 );
+
+				GFFormDisplay::process_form( $form_id );
+
+				remove_filter( 'gform_pre_process_' . $form_id, array( $this, 'on_gform_pre_process' ) );
+
+				$_POST['gform_old_submit'] = $_POST['gform_submit'];
+				unset( $_POST['gform_submit'] );
+
+				if ( ! GFFormDisplay::$submission[ $form_id ]['is_valid'] ) {
+					$valid = false;
+				}
+
+				if ( GFFormDisplay::$submission[ $form_id ]['page_number'] != 0 ) {
+					$valid = false;
+				}
+
+				if ( $valid ) {
+					$lead                       = GFFormDisplay::$submission[ $form_id ]['lead'];
+					$this->lead_from_validation = $lead;
+				}
+				//GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Add to Cart Validation - Deleting Entry #{$lead['id']}." );
+
+			}
+			error_reporting( $err_level );
+
+
+		return $valid;
+	}
+
+
 	//Helper function, used when an item is added to the cart as well as when an item is restored from session.
 	public function add_cart_item( $cart_item, $restoring_session = false ) {
-		global $woocommerce;
 
 		// Adjust price if required based on the gravity form data
 		if ( isset( $cart_item['_gravity_form_lead'] ) && isset( $cart_item['_gravity_form_data'] ) ) {
@@ -147,7 +243,11 @@ class WC_GFPA_Cart {
 		$gravity_form_data                    = wc_gfpa()->get_gravity_form_data( $product_id, $context );
 		$cart_item_meta['_gravity_form_data'] = $gravity_form_data;
 
-		if ( $gravity_form_data && is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && intval( $gravity_form_data['id'] ) > 0 ) {
+		if ( $this->lead_from_validation && $gravity_form_data && is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && intval( $gravity_form_data['id'] ) > 0 ) {
+
+			//Gravity forms generates errors and warnings.  To prevent these from conflicting with other things, we are going to disable warnings and errors.
+			$err_level = error_reporting();
+			error_reporting( 0 );
 
 			if ( ! class_exists( 'GFFormDisplay' ) ) {
 				require_once( GFCommon::get_base_path() . "/form_display.php" );
@@ -161,68 +261,10 @@ class WC_GFPA_Cart {
 			$form_meta = RGFormsModel::get_form_meta( $form_id );
 			$form_meta = gf_apply_filters( array( 'gform_pre_render', $form_id ), $form_meta );
 
-			//Gravity forms generates errors and warnings.  To prevent these from conflicting with other things, we are going to disable warnings and errors.
-			$err_level = error_reporting();
-			error_reporting( 0 );
-
-			//MUST disable notifications manually.
-			add_filter( 'gform_disable_notification', array( $this, 'disable_notifications' ), 999, 3 );
-
-			add_filter( 'gform_disable_user_notification', array( $this, 'disable_notifications', 999, 3 ) );
-			add_filter( 'gform_disable_user_notification_' . $form_id, array(
-				$this,
-				'disable_notifications'
-			), 999, 3 );
-
-			add_filter( 'gform_disable_admin_notification' . $form_id, array(
-				$this,
-				'disable_notifications'
-			), 10, 3 );
-
-
-			add_filter( 'gform_disable_admin_notification_' . $form_id, array(
-				$this,
-				'disable_notifications'
-			), 10, 3 );
-
-
-			add_filter( 'gform_disable_notification_' . $form_id, array( $this, 'disable_notifications' ), 999, 3 );
-
-			add_filter( "gform_confirmation_" . $form_id, array( $this, "disable_confirmation" ), 998, 4 );
-
-			if ( empty( $form_meta ) ) {
-				return $cart_item_meta;
-			}
-
-			$delete_cart_entries = isset( $gravity_form_data['keep_cart_entries'] ) && $gravity_form_data['keep_cart_entries'] == 'yes' ? false : true;
-
-			if ( apply_filters( 'woocommerce_gravityforms_delete_entries', $delete_cart_entries ) ) {
-				//We are going to delete this entry, so let's remove all after submission hooks.
-				//Remove all post_submission hooks so data does not get sent to feeds such as Zapier
-				$this->disable_gform_after_submission_hooks( $form_id );
-			} else {
-				//Entry will not be deleted, so add the hooks back in so they will be fired when the form is processed by GForms
-				$this->enable_gform_after_submission_hooks( $form_id );
-			}
-
 			GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Processing Add to Cart #{$form_id}." );
-			GFFormDisplay::$submission = array();
-			require_once( GFCommon::get_base_path() . "/form_display.php" );
-			$_POST['gform_submit'] = $_POST['gform_old_submit'];
 
-
-			add_filter( 'gform_pre_process_' . $form_id, array( $this, 'on_gform_pre_process' ) );
-			GFFormDisplay::process_form( $form_id );
-			remove_filter( 'gform_pre_process_' . $form_id, array( $this, 'on_gform_pre_process' ) );
-
-
-			$_POST['gform_old_submit'] = $_POST['gform_submit'];
-			unset( $_POST['gform_submit'] );
-
-			// unset the confirmation message so it does not display after adding the product to the cart.
 			unset( GFFormDisplay::$submission[ $form_id ]['confirmation_message'] );
-
-			$lead                                 = GFFormDisplay::$submission[ $form_id ]['lead'];
+			$lead                                 = $this->lead_from_validation;
 			$cart_item_meta['_gravity_form_lead'] = array(
 				'form_id'    => $form_id,
 				'source_url' => $lead['source_url'],
@@ -267,6 +309,7 @@ class WC_GFPA_Cart {
 				}
 			}
 
+			$delete_cart_entries = isset( $gravity_form_data['keep_cart_entries'] ) && $gravity_form_data['keep_cart_entries'] == 'yes' ? false : true;
 			if ( apply_filters( 'woocommerce_gravityforms_delete_entries', $delete_cart_entries ) ) {
 				GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Add to Cart - Deleting Entry #{$lead['id']}." );
 				$this->delete_entry( $lead );
@@ -409,96 +452,6 @@ class WC_GFPA_Cart {
 		}
 
 		return $other_data;
-	}
-
-	public function add_to_cart_validation( $valid, $product_id, $quantity ) {
-		global $woocommerce;
-
-		if ( ! $valid ) {
-			return false;
-		}
-
-
-		// Check if we need a gravity form!
-		$context           = ( isset( $_POST['add-variations-to-cart'] ) && $_POST['add-variations-to-cart'] ) ? 'bulk' : 'single';
-		$gravity_form_data = wc_gfpa()->get_gravity_form_data( $product_id, $context );
-
-		if ( is_array( $gravity_form_data ) && $gravity_form_data['id'] && empty( $_POST['gform_form_id'] ) ) {
-			return false;
-		}
-
-		if ( $gravity_form_data && is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && intval( $gravity_form_data['id'] ) > 0 && isset( $_POST['gform_form_id'] ) && is_numeric( $_POST['gform_form_id'] ) ) {
-
-			if ( ! class_exists( 'GFFormDisplay' ) ) {
-				require_once( GFCommon::get_base_path() . "/form_display.php" );
-			}
-
-			$form_id = $_POST['gform_form_id'];
-
-			//Gravity forms generates errors and warnings.  To prevent these from conflicting with other things, we are going to disable warnings and errors.
-			$err_level = error_reporting();
-			error_reporting( 0 );
-
-			//MUST disable notifications manually.
-			add_filter( 'gform_disable_notification', array( $this, 'disable_notifications' ), 999, 3 );
-
-			add_filter( 'gform_disable_user_notification', array( $this, 'disable_notifications', 999, 3 ) );
-			add_filter( 'gform_disable_user_notification_' . $form_id, array(
-				$this,
-				'disable_notifications'
-			), 999, 3 );
-
-			add_filter( 'gform_disable_admin_notification' . $form_id, array(
-				$this,
-				'disable_notifications'
-			), 10, 3 );
-
-
-			add_filter( 'gform_disable_admin_notification_' . $form_id, array(
-				$this,
-				'disable_notifications'
-			), 10, 3 );
-
-
-			add_filter( 'gform_disable_notification_' . $form_id, array( $this, 'disable_notifications' ), 999, 3 );
-
-			add_filter( "gform_confirmation_" . $form_id, array( $this, "disable_confirmation" ), 999, 4 );
-
-			//Remove all post_submission hooks so data does not get sent to feeds such as Zapier
-			$this->disable_gform_after_submission_hooks( $form_id );
-
-			if ( version_compare( GFForms::$version, '2.6.4', '>=') ) {
-				$validated = GFAPI::validate_form( $form_id );
-				$valid     = $validated['is_valid'];
-				if ( ! $valid ) {
-					wc_add_notice( __( 'Unable to process the submission. Errors have been highlighted below', 'wc_gf_addons' ), 'error' );
-				}
-			} else {
-				GFFormDisplay::$submission = array();
-				require_once( GFCommon::get_base_path() . "/form_display.php" );
-				$_POST['gform_submit'] = $_POST['gform_old_submit'];
-
-				GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Processing Add to Cart Validation #{$form_id}." );
-				GFFormDisplay::process_form( $form_id );
-				$_POST['gform_old_submit'] = $_POST['gform_submit'];
-				unset( $_POST['gform_submit'] );
-
-				if ( ! GFFormDisplay::$submission[ $form_id ]['is_valid'] ) {
-					return false;
-				}
-
-				if ( GFFormDisplay::$submission[ $form_id ]['page_number'] != 0 ) {
-					return false;
-				}
-				$lead                       = GFFormDisplay::$submission[ $form_id ]['lead'];
-				$this->lead_from_validation = $lead;
-				GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Add to Cart Validation - Deleting Entry #{$lead['id']}." );
-				$this->delete_entry( GFFormDisplay::$submission[ $form_id ]['lead'] );
-			}
-			error_reporting( $err_level );
-		}
-
-		return $valid;
 	}
 
 	/**
@@ -975,6 +928,36 @@ class WC_GFPA_Cart {
 		$wpdb->query( $sql );
 	}
 
+
+	private function disable_hooks( $form_id ) {
+		//MUST disable notifications manually.
+		add_filter( 'gform_disable_notification', array( $this, 'disable_notifications' ), 999, 3 );
+
+		add_filter( 'gform_disable_user_notification', array( $this, 'disable_notifications', 999, 3 ) );
+		add_filter( 'gform_disable_user_notification_' . $form_id, array(
+			$this,
+			'disable_notifications'
+		), 999, 3 );
+
+		add_filter( 'gform_disable_admin_notification' . $form_id, array(
+			$this,
+			'disable_notifications'
+		), 10, 3 );
+
+
+		add_filter( 'gform_disable_admin_notification_' . $form_id, array(
+			$this,
+			'disable_notifications'
+		), 10, 3 );
+
+
+		add_filter( 'gform_disable_notification_' . $form_id, array( $this, 'disable_notifications' ), 999, 3 );
+
+		add_filter( "gform_confirmation_" . $form_id, array( $this, "disable_confirmation" ), 998, 4 );
+
+		$delete_cart_entries = isset( $gravity_form_data['keep_cart_entries'] ) && $gravity_form_data['keep_cart_entries'] == 'yes' ? false : true;
+
+	}
 
 	private function disable_gform_after_submission_hooks( $form_id ) {
 		global $wp_filter, $wp_actions;
