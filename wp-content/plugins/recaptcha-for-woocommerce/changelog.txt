@@ -1,7 +1,10 @@
 *** Changelog ***
 
-2023-02-12 - version 2.41
+2023-03-03 - version 2.42
 
+* Fixed PayPal standard got stuck in a loop if reCaptcha expired in between
+
+2023-02-12 - version 2.41
 
 * Improvements on Jetpack Forms Captcha
 
@@ -174,7 +177,7 @@
 
 * Added support for Elavon payment processor
 
-* Added new option "Disable on the fly reCAPTCHA v3 token generation" that will allow you to use this option if two submit button fighting for taking control. So use only if you have problem
+* Added new option Disable on the fly reCAPTCHA v3 token generation that will allow you to use this option if two submit button fighting for taking control. So use only if you have problem
   with submit button.
 
 * Fixed problem with javascript errors, When the html of page is minified.
@@ -187,7 +190,7 @@
 
 2020-12-12 - version 2.5
 
-* Added support for custom login form that built using "wp_login_form" function
+* Added support for custom login form that built using wp_login_form function
 
 
 2020-12-08 - version 2.4
@@ -212,7 +215,7 @@
 
 2020-10-27 - version 2.0
 
-* Now "recaptcha for woocommerce" support google latest version of greCAPTCHA V3
+* Now recaptcha for woocommerce support google latest version of greCAPTCHA V3
 * This version never disturb user, ReCaptcha V3 Uses a behind-the-scenes scoring system to detect abusive traffic, and lets you decide the minimum passing score. Please note that there is no user interaction shown in reRecapcha V3 meaning that no recaptcha challenge is shown to solve.
 
 
@@ -290,7 +293,7 @@
 
 
 2020-04-09 - version 1.0.4
-* Added new option "No-conflict" mode. This will helpful when there is conflict is Recaptcha js.
+* Added new option No-conflict mode. This will helpful when there is conflict is Recaptcha js.
 
 
 2020-03-24 - version 1.0.3

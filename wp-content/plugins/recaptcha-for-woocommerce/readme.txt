@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
 Tested up to:6.1
-Version:2.41
-Stable tag:2.41
+Version:2.42
+Stable tag:2.42
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,11 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.42 =
+
+* Fixed PayPal standard got stuck in a loop if reCaptcha expired in between
+
 
 = 2.41 =
 
