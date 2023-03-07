@@ -23,6 +23,7 @@ use MailPoet\Models\StatisticsNewsletters as StatisticsNewslettersModel;
 use MailPoet\Models\Subscriber as SubscriberModel;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\SubscribersFinder;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -81,6 +82,9 @@ class SendingQueue {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
+  /*** @var SendingQueuesRepository */
+  private $sendingQueuesRepository;
+
   public function __construct(
     SendingErrorHandler $errorHandler,
     SendingThrottlingHandler $throttlingHandler,
@@ -95,6 +99,7 @@ class SendingQueue {
     ScheduledTasksRepository $scheduledTasksRepository,
     MailerTask $mailerTask,
     SubscribersRepository $subscribersRepository,
+    SendingQueuesRepository $sendingQueuesRepository,
     $newsletterTask = false
   ) {
     $this->errorHandler = $errorHandler;
@@ -112,6 +117,7 @@ class SendingQueue {
     $this->links = $links;
     $this->scheduledTasksRepository = $scheduledTasksRepository;
     $this->subscribersRepository = $subscribersRepository;
+    $this->sendingQueuesRepository = $sendingQueuesRepository;
   }
 
   public function process($timer = false) {
@@ -165,6 +171,7 @@ class SendingQueue {
 
     // pre-process newsletter (render, replace shortcodes/links, etc.)
     $newsletterEntity = $this->newsletterTask->preProcessNewsletter($newsletterEntity, $queue);
+
     if (!$newsletterEntity) {
       $this->deleteTask($queue);
       return;
@@ -241,25 +248,33 @@ class SendingQueue {
       // reschedule bounce task to run sooner, if needed
       $this->reScheduleBounceTask();
 
-      $queue = $this->processQueue(
-        $queue,
-        $_newsletter,
-        $foundSubscribers,
-        $timer
-      );
-      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
-        'after queue chunk processing',
-        ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
-      );
-      if ($queue->status === ScheduledTaskEntity::STATUS_COMPLETED) {
+      if ($newsletterEntity->getStatus() !== NewsletterEntity::STATUS_CORRUPT) {
+        $queue = $this->processQueue(
+          $queue,
+          $_newsletter,
+          $foundSubscribers,
+          $timer
+        );
         $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
-          'completed newsletter sending',
+          'after queue chunk processing',
           ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
         );
-        $this->newsletterTask->markNewsletterAsSent($newsletterEntity, $queue);
-        $this->statsNotificationsScheduler->schedule($newsletterEntity);
+        if ($queue->status === ScheduledTaskEntity::STATUS_COMPLETED) {
+          $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
+            'completed newsletter sending',
+            ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
+          );
+          $this->newsletterTask->markNewsletterAsSent($newsletterEntity, $queue);
+          $this->statsNotificationsScheduler->schedule($newsletterEntity);
+        }
+        $this->enforceSendingAndExecutionLimits($timer);
+      } else {
+        $this->sendingQueuesRepository->pause($queue->getSendingQueueEntity());
+        $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->error(
+          'Can\'t send corrupt newsletter',
+          ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
+        );
       }
-      $this->enforceSendingAndExecutionLimits($timer);
     }
   }
 
@@ -277,6 +292,9 @@ class SendingQueue {
     $statistics = [];
     $metas = [];
     $oneClickUnsubscribeUrls = [];
+    $sendingQueueEntity = $queue->getSendingQueueEntity();
+    $sendingQueueMeta = $sendingQueueEntity->getMeta() ?? [];
+    $campaignId = $sendingQueueMeta['campaignId'] ?? null;
 
     $newsletterEntity = $this->newslettersRepository->findOneById($newsletter->id);
 
@@ -307,7 +325,11 @@ class SendingQueue {
       $unsubscribeUrls[] = $this->links->getUnsubscribeUrl($queue->id, $subscriberEntity);
       $oneClickUnsubscribeUrls[] = $this->links->getOneClickUnsubscribeUrl($queue->id, $subscriberEntity);
 
-      $metas[] = $this->mailerMetaInfo->getNewsletterMetaInfo($newsletter, $subscriberEntity);
+      $metasForSubscriber = $this->mailerMetaInfo->getNewsletterMetaInfo($newsletter, $subscriberEntity);
+      if ($campaignId) {
+        $metasForSubscriber['campaign_id'] = $campaignId;
+      }
+      $metas[] = $metasForSubscriber;
 
       // keep track of values for statistics purposes
       $statistics[] = [
@@ -346,7 +368,11 @@ class SendingQueue {
         $preparedSubscribers,
         $statistics,
         $timer,
-        ['unsubscribe_url' => $unsubscribeUrls, 'meta' => $metas, 'one_click_unsubscribe' => $oneClickUnsubscribeUrls]
+        [
+          'unsubscribe_url' => $unsubscribeUrls,
+          'meta' => $metas,
+          'one_click_unsubscribe' => $oneClickUnsubscribeUrls,
+        ]
       );
     }
     return $queue;

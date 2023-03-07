@@ -9,6 +9,7 @@ use MailPoet\Automation\Engine\Integration;
 use MailPoet\Automation\Engine\Registry;
 use MailPoet\Automation\Integrations\MailPoet\Actions\SendEmailAction;
 use MailPoet\Automation\Integrations\MailPoet\Hooks\AutomationEditorLoadingHooks;
+use MailPoet\Automation\Integrations\MailPoet\Hooks\CreateAutomationRunHook;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SegmentSubject;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Automation\Integrations\MailPoet\Triggers\SomeoneSubscribesTrigger;
@@ -33,7 +34,11 @@ class MailPoetIntegration implements Integration {
   /** @var SendEmailAction */
   private $sendEmailAction;
 
+  /** @var AutomationEditorLoadingHooks  */
   private $automationEditorLoadingHooks;
+
+  /** @var CreateAutomationRunHook */
+  private $createAutomationRunHook;
 
   public function __construct(
     ContextFactory $contextFactory,
@@ -42,7 +47,8 @@ class MailPoetIntegration implements Integration {
     SomeoneSubscribesTrigger $someoneSubscribesTrigger,
     UserRegistrationTrigger $userRegistrationTrigger,
     SendEmailAction $sendEmailAction,
-    AutomationEditorLoadingHooks $automationEditorLoadingHooks
+    AutomationEditorLoadingHooks $automationEditorLoadingHooks,
+    CreateAutomationRunHook $createAutomationRunHook
   ) {
     $this->contextFactory = $contextFactory;
     $this->segmentSubject = $segmentSubject;
@@ -51,6 +57,7 @@ class MailPoetIntegration implements Integration {
     $this->userRegistrationTrigger = $userRegistrationTrigger;
     $this->sendEmailAction = $sendEmailAction;
     $this->automationEditorLoadingHooks = $automationEditorLoadingHooks;
+    $this->createAutomationRunHook = $createAutomationRunHook;
   }
 
   public function register(Registry $registry): void {
@@ -71,5 +78,6 @@ class MailPoetIntegration implements Integration {
     );
 
     $this->automationEditorLoadingHooks->init();
+    $this->createAutomationRunHook->init();
   }
 }

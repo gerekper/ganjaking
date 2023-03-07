@@ -51,6 +51,9 @@ class PermanentNotices {
   /** @var DisabledMailFunctionNotice */
   private $disabledMailFunctionNotice;
 
+  /** @var PendingApprovalNotice */
+  private $pendingApprovalNotice;
+
   public function __construct(
     WPFunctions $wp,
     TrackingConfig $trackingConfig,
@@ -71,6 +74,7 @@ class PermanentNotices {
     $this->changedTrackingNotice = new ChangedTrackingNotice($wp);
     $this->deprecatedFilterNotice = new DeprecatedFilterNotice($wp);
     $this->disabledMailFunctionNotice = new DisabledMailFunctionNotice($wp, $settings, $subscribersFeature, $mailerFactory);
+    $this->pendingApprovalNotice = new PendingApprovalNotice($settings);
   }
 
   public function init() {
@@ -116,6 +120,9 @@ class PermanentNotices {
       Menu::isOnMailPoetAdminPage($excludeSetupWizard)
     );
     $this->disabledMailFunctionNotice->init(
+      Menu::isOnMailPoetAdminPage($excludeSetupWizard)
+    );
+    $this->pendingApprovalNotice->init(
       Menu::isOnMailPoetAdminPage($excludeSetupWizard)
     );
   }

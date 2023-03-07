@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\Blocks\Coupon;
+use MailPoet\NewsletterProcessingException;
 use MailPoet\WP\DateTime;
 
 class CouponPreProcessor {
@@ -29,11 +30,14 @@ class CouponPreProcessor {
     $this->newslettersRepository = $newslettersRepository;
   }
 
+  /**
+   * @throws NewsletterProcessingException
+   */
   public function processCoupons(NewsletterEntity $newsletter, array $blocks, bool $preview = false): array {
     if ($preview) {
       return $blocks;
     }
-
+    
     $generated = $this->ensureCouponForBlocks($blocks, $newsletter);
     $body = $newsletter->getBody();
 
@@ -60,9 +64,16 @@ class CouponPreProcessor {
         $this->ensureCouponForBlocks($innerBlock['blocks'], $newsletter);
       }
       if (isset($innerBlock['type']) && $innerBlock['type'] === Coupon::TYPE) {
+        if (!$this->wcHelper->isWooCommerceActive()) {
+          throw NewsletterProcessingException::create()->withMessage(__('WooCommerce is not active', 'mailpoet'));
+        }
         if ($this->shouldGenerateCoupon($innerBlock)) {
-          $innerBlock['couponId'] = $this->addOrUpdateCoupon($innerBlock, $newsletter);
-          $this->generated = true;
+          try {
+            $innerBlock['couponId'] = $this->addOrUpdateCoupon($innerBlock, $newsletter);
+            $this->generated = true;
+          } catch (\Exception $e) {
+            throw NewsletterProcessingException::create()->withMessage($e->getMessage())->withCode($e->getCode());
+          }
         }
       }
     }
@@ -70,7 +81,13 @@ class CouponPreProcessor {
     return $this->generated;
   }
 
-  private function addOrUpdateCoupon(array $couponBlock, NewsletterEntity $newsletter): int {
+  /**
+   * @param array $couponBlock
+   * @param NewsletterEntity $newsletter
+   * @return int
+   * @throws \WC_Data_Exception|\Exception
+   */
+  private function addOrUpdateCoupon(array $couponBlock, NewsletterEntity $newsletter) {
     $coupon = $this->wcHelper->createWcCoupon($couponBlock['couponId'] ?? '');
     if ($this->shouldGenerateCoupon($couponBlock)) {
       $code = isset($couponBlock['code']) && $couponBlock['code'] !== Coupon::CODE_PLACEHOLDER ? $couponBlock['code'] : $this->generateRandomCode();
@@ -94,7 +111,9 @@ class CouponPreProcessor {
     }
 
     if (isset($couponBlock['expiryDay'])) {
-      $expiration = (new DateTime())->getCurrentDateTime()->modify("+{$couponBlock['expiryDay']} day")->getTimestamp();
+      $expiration = (new DateTime())->getCurrentDateTime()
+        ->modify("+{$couponBlock['expiryDay']} day")
+        ->getTimestamp();
       $coupon->set_date_expires($expiration);
     }
 
@@ -106,36 +125,27 @@ class CouponPreProcessor {
     $coupon->set_individual_use($couponBlock['individualUse'] ?? false);
     $coupon->set_exclude_sale_items($couponBlock['excludeSaleItems'] ?? false);
 
-    $coupon->set_product_ids($this->getProductIds($couponBlock['productIds'] ?? []));
-    $coupon->set_excluded_product_ids($this->getProductIds($couponBlock['excludedProductIds'] ?? []));
+    $coupon->set_product_ids($this->getItemIds($couponBlock['productIds'] ?? []));
+    $coupon->set_excluded_product_ids($this->getItemIds($couponBlock['excludedProductIds'] ?? []));
 
-    $coupon->set_product_categories($this->getCategoryItemIds($couponBlock['productCategories'] ?? []));
-    $coupon->set_excluded_product_categories($this->getCategoryItemIds($couponBlock['excludedProductCategories'] ?? []));
+    $coupon->set_product_categories($this->getItemIds($couponBlock['productCategoryIds'] ?? []));
+    $coupon->set_excluded_product_categories($this->getItemIds($couponBlock['excludedProductCategoryIds'] ?? []));
 
     $coupon->set_email_restrictions(explode(',', $couponBlock['emailRestrictions'] ?? ''));
 
     // usage limit
     $coupon->set_usage_limit($couponBlock['usageLimit'] ?? 0);
     $coupon->set_usage_limit_per_user($couponBlock['usageLimitPerUser'] ?? 0);
-
     return $coupon->save();
   }
 
-  private function getCategoryItemIds(array $items): array {
-    return $this->getItemIds($items, 'term_id');
-  }
-
-  private function getProductIds(array $items): array {
-    return $this->getItemIds($items, 'ID');
-  }
-
-  private function getItemIds(array $items, $field = ''): array {
+  private function getItemIds(array $items): array {
     if (empty($items)) {
       return [];
     }
 
-    return array_map(function ($item) use ($field) {
-      return $item[$field];
+    return array_map(function ($item) {
+      return $item['id'];
     }, $items);
   }
 

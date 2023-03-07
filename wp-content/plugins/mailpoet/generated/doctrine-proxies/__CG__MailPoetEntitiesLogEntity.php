@@ -70,10 +70,10 @@ class LogEntity extends \MailPoet\Entities\LogEntity implements \MailPoetVendor\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'level', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'message', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'createdAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'level', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'message', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'rawMessage', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'context', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'createdAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'level', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'message', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'createdAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'level', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'message', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'rawMessage', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'context', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\LogEntity' . "\0" . 'createdAt'];
     }
 
     /**
@@ -216,6 +216,28 @@ class LogEntity extends \MailPoet\Entities\LogEntity implements \MailPoetVendor\
     /**
      * {@inheritDoc}
      */
+    public function getRawMessage(): ?string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRawMessage', []);
+
+        return parent::getRawMessage();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getContext(): ?array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContext', []);
+
+        return parent::getContext();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName(?string $name): void
     {
 
@@ -255,6 +277,28 @@ class LogEntity extends \MailPoet\Entities\LogEntity implements \MailPoetVendor\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', [$createdAt]);
 
         parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRawMessage(string $message): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRawMessage', [$message]);
+
+        parent::setRawMessage($message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContext(array $context): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContext', [$context]);
+
+        parent::setContext($context);
     }
 
     /**

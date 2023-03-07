@@ -74,14 +74,27 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       <div class=\"mailpoet-premium-page-intro-link-wrap\">
         <a
           target=\"_blank\"
-          href=\"";
-        // line 18
-        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->addReferralId((((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 18)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase")), "html_attr");
-        echo "\"
-          class=\"mailpoet-button button-primary\"
-        >
           ";
-        // line 21
+        // line 18
+        if (($context["has_valid_api_key"] ?? null)) {
+            // line 19
+            echo "            href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo "\"
+          ";
+        } else {
+            // line 21
+            echo "            href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 21)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo "\"
+          ";
+        }
+        // line 23
+        echo "          class=\"mailpoet-button button-primary\"
+        >
+
+          ";
+        // line 26
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Upgrade", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </a>
@@ -90,11 +103,11 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
     </div>
     <img
       src=\"";
-        // line 27
+        // line 32
         echo $this->extensions['MailPoet\Twig\Assets']->generateCdnUrl("premium/1-we-take-care.svg");
         echo "\"
       alt=\"";
-        // line 28
+        // line 33
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Image bird feeder");
         echo "\"
     >
@@ -103,32 +116,32 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
   <hr>
 
   ";
-        // line 34
-        if ((($context["subscriber_count"] ?? null) < 1000)) {
-            // line 35
+        // line 39
+        if (((($context["subscriber_count"] ?? null) < 1000) &&  !($context["has_valid_api_key"] ?? null))) {
+            // line 40
             echo "  <div class=\"mailpoet-premium-page-section mailpoet-premium-page-section-narrow mailpoet-premium-page-text-center\">
     <h1 class=\"mailpoet-h0\">
       ";
-            // line 37
+            // line 42
             echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("MailPoet Starter plan is actually yours for free", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
             echo "
     </h1>
     <p class=\"mailpoet-premium-page-section-large\">
       ";
-            // line 40
+            // line 45
             echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Website owners with less than 1,000 subscribers, like you, can get their emails delivered reliably for free with MailPoet Sending Service", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
             echo "
     </p>
     <a
       target=\"_blank\"
       href=\"";
-            // line 44
-            echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->addReferralId((((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=starter&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 44)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase")), "html_attr");
+            // line 49
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=starter&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 49)) . \MailPoetVendor\twig_escape_filter($this->env, "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase", "html_attr")), "html", null, true);
             echo "\"
       class=\"mailpoet-button button-primary\"
     >
       ";
-            // line 47
+            // line 52
             echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Sign up for free", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
             echo "
     </a>
@@ -137,19 +150,19 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
   <hr>
   ";
         }
-        // line 53
+        // line 58
         echo "
   <div class=\"mailpoet-premium-page-upgrade-to-premium mailpoet-premium-page-section\">
     <div class=\" mailpoet-premium-page-section-narrow mailpoet-premium-page-text-center\">
       <h1 class=\"mailpoet-h0\">
         ";
-        // line 57
+        // line 62
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Fuel growth with<br>a MailPoet Business plan", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </h1>
       <p>
         ";
-        // line 60
+        // line 65
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Everything you need to take your email marketing (and business!) to the next level.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </p>
@@ -158,27 +171,27 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       <div>
         <h2 class=\"mailpoet-h2\">
           ";
-        // line 66
+        // line 71
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Optimize with detailed engagement statistics", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h2>
         <p>
           ";
-        // line 69
+        // line 74
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Learn more about your subscribers and optimize your campaigns.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 70
+        // line 75
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("<b>Understand how your subscribers engage with your emails</b> via open, click, and unsubscribe statistics.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 71
+        // line 76
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("And if you manage a WooCommerce store, you’ll be able to see <b>how your email campaigns influence purchase behavior, including total revenue, number of orders, and the products purchased.</b>", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <p>
           ";
-        // line 74
+        // line 79
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Use these valuable insights to make incremental improvements to your email campaigns, and better tailor your marketing to your target audience to <b>increase engagement and conversions!</b>", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
@@ -186,27 +199,27 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       <div>
         <h2 class=\"mailpoet-h2\">
           ";
-        // line 79
+        // line 84
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Get personal with multi-segment criteria", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h2>
         <p>
           ";
-        // line 82
+        // line 87
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("The more you can tailor your email campaigns to your subscribers’ interests or behavior, the higher the engagement and conversion levels you can expect to see.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 83
+        // line 88
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("When you upgrade to a paid plan, you’ll <b>unlock the ability to combine subscriber segments</b> in order to further personalize your email campaigns.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <p>
           ";
-        // line 86
+        // line 91
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("For example, if you’d like to invite your most loyal, long-term subscribers to sign up to receive exclusive content, you could combine the “subscribe date” option with “number of email opens” to send an email to this subset of subscribers inviting them to sign up.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 87
+        // line 92
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Or if you run a WooCommerce store and you’d like to encourage one-time customers to return and make an additional purchase, you could combine the “number of orders” segment with “purchased in this category” to send an exclusive discount tailored to their purchase history.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
@@ -214,23 +227,23 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       <div>
         <h2 class=\"mailpoet-h2\">
           ";
-        // line 92
+        // line 97
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Track engagement with Google Analytics", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h2>
         <p>
           ";
-        // line 95
+        // line 100
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("<b>Discover the part your email marketing campaigns play in your overall marketing strategy</b> by connecting MailPoet with your Google Analytics account.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 96
+        // line 101
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Add a custom campaign name for each of your email campaigns, then <b>track how your subscribers are engaging with your website content</b> (through behavior metrics such as time on site, pages per visit, etc.), where they’re based (filter by city, country, or continent), and how they’re viewing your content (screen resolution, device, operating system, etc.).", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <p>
           ";
-        // line 99
+        // line 104
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Unlike in MailPoet, you won’t be able to track the identity of each visitor. This is against Google’s policy, which we respect.", "This text resides in the Uprade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
@@ -238,19 +251,19 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       <div>
         <h2 class=\"mailpoet-h2\">
           ";
-        // line 104
+        // line 109
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Expert help on hand, whenever you need it", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h2>
         <p>
           ";
-        // line 107
+        // line 112
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("If you’re ever not sure on how to use any of our features, what the best way to achieve your email marketing goals would be, or you run into a technical issue, you’ll have <b>direct access to our expert customer support team</b>.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <p>
           ";
-        // line 110
+        // line 115
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Reach out to them via our priority support form, or by using the chat icon on your dashboard, and one of our friendly experts will respond within 48 hours.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
@@ -259,27 +272,27 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       <div>
         <h2 class=\"mailpoet-h2\">
           ";
-        // line 116
+        // line 121
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Email that scales with you", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h2>
         <p>
           ";
-        // line 119
+        // line 124
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Whether you send 10 or 100,000 emails a day, if you use the MailPoet Sending Service, <b>your emails will always be delivered on time, every time</b>.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 120
+        // line 125
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Our advanced email infrastructure routinely handles small business newsletters through to huge mailing lists with tens of thousands of subscribers.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <p>
           ";
-        // line 123
+        // line 128
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Our plans scale as your list grows, with an automated upgrade option available for up to 200,000 subscribers.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           ";
-        // line 124
+        // line 129
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Going beyond 200,000? No problem. Contact our friendly support team to discuss plan options and pricing.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
@@ -292,13 +305,13 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
   <div class=\"mailpoet-premium-page-get-started mailpoet-premium-page-section mailpoet-premium-page-text-center\">
     <h1 class=\"mailpoet-h0\">
       ";
-        // line 134
+        // line 139
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Upgrade and unlock MailPoet’s advanced features", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
     </h1>
     <p>
       ";
-        // line 137
+        // line 142
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Choose the MailPoet plan that’s right for you.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
     </p>
@@ -307,84 +320,96 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         <div class=\"mailpoet-premium-page-options-label-wrap\">
           <div class=\"mailpoet-premium-page-options-label\">
             ";
-        // line 143
+        // line 148
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Recommended", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
           </div>
         </div>
         <h1 class=\"mailpoet-h0\">
           ";
-        // line 147
+        // line 152
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Business", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h1>
         <p class=\"mailpoet-premium-page-text-large\">
           ";
-        // line 150
+        // line 155
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("From \$10/month,<br>based on 500 subscribers", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <h3>
           ";
-        // line 153
+        // line 158
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Send with: MailPoet Sending Service", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h3>
         <div class=\"mailpoet-premium-page-options-divider\"></div>
         <h3 class=\"mailpoet-premium-feature-list-heading\">
           ";
-        // line 157
+        // line 162
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("This plan includes:", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h3>
         <ul>
           <li>";
-        // line 160
+        // line 165
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Use MailPoet on 1 website", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 161
+        // line 166
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Send unlimited emails", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 162
+        // line 167
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Without MailPoet branding", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 163
+        // line 168
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Priority customer support", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         </ul>
         <h3 class=\"mailpoet-premium-feature-list-heading\">
           ";
-        // line 166
+        // line 171
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("All Starter features, plus:", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h3>
         <ul>
           <li>";
-        // line 169
+        // line 174
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Detailed engagement statistics", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 170
+        // line 175
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Subscriber segmentation", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 171
+        // line 176
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Google Analytics integration", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         </ul>
         <a
           target=\"_blank\"
-          href=\"";
-        // line 175
-        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->addReferralId((((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 175)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase")), "html_attr");
-        echo "\"
-          class=\"mailpoet-button button-primary\"
+          ";
+        // line 180
+        if (($context["has_valid_api_key"] ?? null)) {
+            // line 181
+            echo "            href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo "\"
+          ";
+        } else {
+            // line 183
+            echo "            href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 183)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo "\"
+          ";
+        }
+        // line 185
+        echo "        class=\"mailpoet-button button-primary\"
         >
           ";
-        // line 178
+        // line 187
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Get started", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </a>
@@ -393,73 +418,85 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         <div class=\"mailpoet-premium-page-options-label-wrap\"></div>
         <h1 class=\"mailpoet-h0\">
           ";
-        // line 184
+        // line 193
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Creator", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h1>
         <p class=\"mailpoet-premium-page-text-large\">
           ";
-        // line 187
+        // line 196
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("From \$8/month,<br>based on 500 subscribers", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </p>
         <h3>
           ";
-        // line 190
+        // line 199
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Send with: Your own sending method", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h3>
         <h3 class=\"mailpoet-premium-feature-list-heading\">
           ";
-        // line 193
+        // line 202
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("This plan includes:", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h3>
         <ul>
           <li>";
-        // line 196
+        // line 205
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Use MailPoet on 1 website", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 197
+        // line 206
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Without MailPoet branding", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 198
+        // line 207
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Priority customer support", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         </ul>
         <h3 class=\"mailpoet-premium-feature-list-heading\">
           ";
-        // line 201
+        // line 210
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("All Starter features, plus:", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </h3>
         <ul>
           <li>";
-        // line 204
+        // line 213
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Detailed engagement statistics", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 205
+        // line 214
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Subscriber segmentation", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
           <li>";
-        // line 206
+        // line 215
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Google Analytics integration", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         </ul>
         <div class=\"mailpoet-premium-page-options-divider\"></div>
         <a
           target=\"_blank\"
-          href=\"";
-        // line 211
-        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->addReferralId((((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=creator&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 211)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase")), "html_attr");
-        echo "\"
-          class=\"mailpoet-button button-primary\"
+          ";
+        // line 220
+        if (($context["has_valid_api_key"] ?? null)) {
+            // line 221
+            echo "            href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo "\"
+          ";
+        } else {
+            // line 223
+            echo "            href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=creator&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 223)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo "\"
+          ";
+        }
+        // line 225
+        echo "          class=\"mailpoet-button button-primary\"
         >
           ";
-        // line 214
+        // line 227
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Get started", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         </a>
@@ -473,97 +510,109 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
     <div>
       <h1 class=\"mailpoet-h0\">
         ";
-        // line 225
+        // line 238
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Want to use MailPoet on multiple websites? Choose the Agency plan", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </h1>
       <p>
         ";
-        // line 228
+        // line 241
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Our Agency plan has been designed for those who maintain or build WordPress and WooCommerce solutions for multiple clients.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
         ";
-        // line 229
+        // line 242
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Quickly deploy an easy to learn email solution on up to 50 websites, and rest assured that your clients’ emails make it to the inbox with the MailPoet Sending Service.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </p>
       <h3>
         ";
-        // line 232
+        // line 245
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("From \$30/month, based on 500 subscribers per website", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </h3>
       <h3>
         ";
-        // line 235
+        // line 248
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Send with: MailPoet Sending Service", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </h3>
       <h3>
         ";
-        // line 238
+        // line 251
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("This plan includes:", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </h3>
       <ul class=\"mailpoet-premium-page-bullet-list\">
         <li>";
-        // line 241
+        // line 254
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Use MailPoet on 50 websites", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         <li>";
-        // line 242
+        // line 255
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Send unlimited emails", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         <li>";
-        // line 243
+        // line 256
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Without MailPoet branding", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         <li>";
-        // line 244
+        // line 257
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Priority customer support", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
       </ul>
       <h3>
         ";
-        // line 247
+        // line 260
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("All Starter features, plus:", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </h3>
       <ul class=\"mailpoet-premium-page-bullet-list\">
         <li>";
-        // line 250
+        // line 263
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Detailed engagement statistics", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         <li>";
-        // line 251
+        // line 264
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Subscriber segmentation", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
         <li>";
-        // line 252
+        // line 265
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Google Analytics integration", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "</li>
       </ul>
       <a
         target=\"_blank\"
-        href=\"";
-        // line 256
-        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->addReferralId((((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=agency&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 256)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase")), "html_attr");
-        echo "\"
-        class=\"mailpoet-button button-primary\"
+        ";
+        // line 269
+        if (($context["has_valid_api_key"] ?? null)) {
+            // line 270
+            echo "          href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo "\"
+        ";
+        } else {
+            // line 272
+            echo "          href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=agency&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 272)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo "\"
+        ";
+        }
+        // line 274
+        echo "        class=\"mailpoet-button button-primary\"
       >
         ";
-        // line 259
+        // line 276
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Buy Now", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       </a>
     </div>
     <img
       src=\"";
-        // line 263
+        // line 280
         echo $this->extensions['MailPoet\Twig\Assets']->generateCdnUrl("premium/3-our-agency-license.svg");
         echo "\"
       alt=\"";
-        // line 264
+        // line 281
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Image woodpecker");
         echo "\"
     >
@@ -574,38 +623,50 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
   <div class=\"mailpoet-premium-page-section mailpoet-premium-page-section-narrow mailpoet-premium-page-text-center\">
     <h1 class=\"mailpoet-h0\">
       ";
-        // line 272
+        // line 289
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Get started today!", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
     </h1>
     <p class=\"mailpoet-premium-page-text-large\">
       ";
-        // line 275
+        // line 292
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Over 500,000 people trust MailPoet to power their email marketing campaigns – why not join them?!", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
       ";
-        // line 276
+        // line 293
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Upgrade now to grow your business and achieve your business goals.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
     </p>
     <a
       target=\"_blank\"
-      href=\"";
-        // line 280
-        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->addReferralId((((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 280)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase")), "html_attr");
-        echo "\"
-      class=\"mailpoet-button button-primary\"
+      ";
+        // line 297
+        if (($context["has_valid_api_key"] ?? null)) {
+            // line 298
+            echo "        href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo "\"
+      ";
+        } else {
+            // line 300
+            echo "        href=\"";
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 300)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo "\"
+      ";
+        }
+        // line 302
+        echo "      class=\"mailpoet-button button-primary\"
     >
       ";
-        // line 283
+        // line 304
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Upgrade now", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade");
         echo "
     </a>
     <p>
       ";
-        // line 286
+        // line 307
         echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade"), "https://www.mailpoet.com/support/sales-pre-sales-questions/", ["target" => "_blank"]);
-        // line 290
+        // line 311
         echo "
     </p>
   </div>
@@ -614,11 +675,11 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
 <div class=\"mailpoet-premium-page-footer-image\">
   <img
     src=\"";
-        // line 297
+        // line 318
         echo $this->extensions['MailPoet\Twig\Assets']->generateCdnUrl("premium/5-footer.png");
         echo "\"
     alt=\"";
-        // line 298
+        // line 319
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Image rooster crowing");
         echo "\"
   >
@@ -626,11 +687,11 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
 ";
     }
 
-    // line 303
+    // line 324
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 304
+        // line 325
         echo "<script type=\"text/javascript\">
   MailPoet.trackEvent('Premium page viewed');
 </script>
@@ -649,7 +710,7 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
 
     public function getDebugInfo()
     {
-        return array (  631 => 304,  627 => 303,  619 => 298,  615 => 297,  606 => 290,  604 => 286,  598 => 283,  592 => 280,  585 => 276,  581 => 275,  575 => 272,  564 => 264,  560 => 263,  553 => 259,  547 => 256,  540 => 252,  536 => 251,  532 => 250,  526 => 247,  520 => 244,  516 => 243,  512 => 242,  508 => 241,  502 => 238,  496 => 235,  490 => 232,  484 => 229,  480 => 228,  474 => 225,  460 => 214,  454 => 211,  446 => 206,  442 => 205,  438 => 204,  432 => 201,  426 => 198,  422 => 197,  418 => 196,  412 => 193,  406 => 190,  400 => 187,  394 => 184,  385 => 178,  379 => 175,  372 => 171,  368 => 170,  364 => 169,  358 => 166,  352 => 163,  348 => 162,  344 => 161,  340 => 160,  334 => 157,  327 => 153,  321 => 150,  315 => 147,  308 => 143,  299 => 137,  293 => 134,  280 => 124,  276 => 123,  270 => 120,  266 => 119,  260 => 116,  251 => 110,  245 => 107,  239 => 104,  231 => 99,  225 => 96,  221 => 95,  215 => 92,  207 => 87,  203 => 86,  197 => 83,  193 => 82,  187 => 79,  179 => 74,  173 => 71,  169 => 70,  165 => 69,  159 => 66,  150 => 60,  144 => 57,  138 => 53,  129 => 47,  123 => 44,  116 => 40,  110 => 37,  106 => 35,  104 => 34,  95 => 28,  91 => 27,  82 => 21,  76 => 18,  68 => 13,  64 => 12,  58 => 9,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  692 => 325,  688 => 324,  680 => 319,  676 => 318,  667 => 311,  665 => 307,  659 => 304,  655 => 302,  649 => 300,  643 => 298,  641 => 297,  634 => 293,  630 => 292,  624 => 289,  613 => 281,  609 => 280,  602 => 276,  598 => 274,  592 => 272,  586 => 270,  584 => 269,  577 => 265,  573 => 264,  569 => 263,  563 => 260,  557 => 257,  553 => 256,  549 => 255,  545 => 254,  539 => 251,  533 => 248,  527 => 245,  521 => 242,  517 => 241,  511 => 238,  497 => 227,  493 => 225,  487 => 223,  481 => 221,  479 => 220,  471 => 215,  467 => 214,  463 => 213,  457 => 210,  451 => 207,  447 => 206,  443 => 205,  437 => 202,  431 => 199,  425 => 196,  419 => 193,  410 => 187,  406 => 185,  400 => 183,  394 => 181,  392 => 180,  385 => 176,  381 => 175,  377 => 174,  371 => 171,  365 => 168,  361 => 167,  357 => 166,  353 => 165,  347 => 162,  340 => 158,  334 => 155,  328 => 152,  321 => 148,  312 => 142,  306 => 139,  293 => 129,  289 => 128,  283 => 125,  279 => 124,  273 => 121,  264 => 115,  258 => 112,  252 => 109,  244 => 104,  238 => 101,  234 => 100,  228 => 97,  220 => 92,  216 => 91,  210 => 88,  206 => 87,  200 => 84,  192 => 79,  186 => 76,  182 => 75,  178 => 74,  172 => 71,  163 => 65,  157 => 62,  151 => 58,  142 => 52,  136 => 49,  129 => 45,  123 => 42,  119 => 40,  117 => 39,  108 => 33,  104 => 32,  95 => 26,  90 => 23,  84 => 21,  78 => 19,  76 => 18,  68 => 13,  64 => 12,  58 => 9,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

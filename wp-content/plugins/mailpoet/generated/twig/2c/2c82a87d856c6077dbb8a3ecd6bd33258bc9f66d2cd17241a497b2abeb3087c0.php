@@ -42,10 +42,12 @@ class __TwigTemplate_fa065697f25afa3f448331ec5feeaeff06376f390132a244e352df6f052
         echo "</h3>
 <div class=\"mailpoet_settings_abandoned_cart_content_display_options\"></div>
 <div class=\"mailpoet_settings_abandoned_cart_content_controls\">
-  <input type=\"button\" class=\"button button-primary mailpoet_done_editing\" value=\"";
-        // line 4
+  <div class=\"mailpoet_form_field\">
+    <input type=\"button\" class=\"button button-primary mailpoet_done_editing\" value=\"";
+        // line 5
         echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\I18n']->translate("Done"), "html_attr");
         echo "\" />
+  </div>
 </div>
 ";
     }
@@ -62,7 +64,7 @@ class __TwigTemplate_fa065697f25afa3f448331ec5feeaeff06376f390132a244e352df6f052
 
     public function getDebugInfo()
     {
-        return array (  44 => 4,  37 => 1,);
+        return array (  45 => 5,  37 => 1,);
     }
 
     public function getSourceContext()

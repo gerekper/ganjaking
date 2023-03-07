@@ -82,6 +82,9 @@ class AutomationTemplateStorage {
             'delay_type' => 'MINUTES',
           ],
           [],
+        ],
+        [
+          'mailpoet:run-once-per-subscriber' => true,
         ]
       ),
       AutomationTemplate::TYPE_FREE_ONLY
@@ -108,6 +111,9 @@ class AutomationTemplateStorage {
             'delay_type' => 'MINUTES',
           ],
           [],
+        ],
+        [
+          'mailpoet:run-once-per-subscriber' => true,
         ]
       ),
       AutomationTemplate::TYPE_FREE_ONLY

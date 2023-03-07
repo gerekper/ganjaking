@@ -453,29 +453,40 @@ class BookStoreWithCoupon {
                     'text' => '<h2 style="text-align: center;"><strong>20% off all books</strong></h2>',
                    ],
                   3 =>
-                   [
-                    'type' => 'button',
-                    'text' => 'Coupon_Code',
-                    'url' => '',
-                    'styles' =>
-                     [
-                      'block' =>
-                       [
-                        'backgroundColor' => '#ffffff',
-                        'borderColor' => '#125674',
-                        'borderWidth' => '3px',
-                        'borderRadius' => '40px',
-                        'borderStyle' => 'solid',
-                        'width' => '288px',
-                        'lineHeight' => '50px',
-                        'fontColor' => '#125674',
-                        'fontFamily' => 'Courier New',
-                        'fontSize' => '26px',
-                        'fontWeight' => 'bold',
-                        'textAlign' => 'center',
-                       ],
-                     ],
-                   ],
+                    [
+                      'productIds' => [],
+                      'excludedProductIds' => [],
+                      'productCategoryIds' => [],
+                      'excludedProductCategoryIds' => [],
+                      'type' => 'coupon',
+                      'amount' => 10,
+                      'amountMax' => 100,
+                      'discountType' => 'percent',
+                      'expiryDay' => 10,
+                      'usageLimit' => '',
+                      'usageLimitPerUser' => '',
+                      'minimumAmount' => '',
+                      'maximumAmount' => '',
+                      'emailRestrictions' => '',
+                      'styles' => [
+                        'block' => [
+                          'backgroundColor' => '#ffffff',
+                          'borderColor' => '#125674',
+                          'borderWidth' => '3px',
+                          'borderRadius' => '40px',
+                          'borderStyle' => 'solid',
+                          'width' => '288px',
+                          'lineHeight' => '50px',
+                          'fontColor' => '#125674',
+                          'fontFamily' => 'Courier New',
+                          'fontSize' => '26px',
+                          'fontWeight' => 'bold',
+                          'textAlign' => 'center',
+                        ],
+                      ],
+                      'source' => 'createNew',
+                      'code' => 'XXXX-XXXXXXX-XXXX',
+                    ],
                   4 =>
                    [
                     'type' => 'image',
@@ -1017,30 +1028,6 @@ class BookStoreWithCoupon {
            ],
           'backgroundColor' => '#ffffff',
           'backgroundColorAlternate' => '#eeeeee',
-         ],
-        'button' =>
-         [
-          'text' => 'Coupon_Code',
-          'url' => '',
-          'styles' =>
-           [
-            'block' =>
-             [
-              'backgroundColor' => '#ffffff',
-              'borderColor' => '#125674',
-              'borderWidth' => '3px',
-              'borderRadius' => '40px',
-              'borderStyle' => 'solid',
-              'width' => '288px',
-              'lineHeight' => '50px',
-              'fontColor' => '#125674',
-              'fontFamily' => 'Courier New',
-              'fontSize' => '26px',
-              'fontWeight' => 'bold',
-              'textAlign' => 'center',
-             ],
-           ],
-          'type' => 'button',
          ],
         'divider' =>
          [

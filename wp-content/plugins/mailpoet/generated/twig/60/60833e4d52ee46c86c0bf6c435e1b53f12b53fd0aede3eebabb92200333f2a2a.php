@@ -137,10 +137,12 @@ class __TwigTemplate_4dad24d6979ff687df324ba72e4a627bdb1ada3d948a10097db0d301237
         echo "\" />
 </div>
 
-<p class=\"mailpoet_settings_notice\">";
-        // line 69
+<div class=\"mailpoet_form_field\">
+  <p class=\"mailpoet_settings_notice\">";
+        // line 70
         echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translate("If an email client [link]does not support a custom web font[/link], a similar standard font will be used instead."), "https://kb.mailpoet.com/article/176-which-fonts-can-be-used-in-mailpoet#custom-web-fonts", ["target" => "_blank", "data-beacon-article" => "586b882690336009736c1455"]);
         echo "</p>
+</div>
 
 <script type=\"text/javascript\">
     fontsSelect('#mailpoet_field_footer_text_font_family');
@@ -160,7 +162,7 @@ class __TwigTemplate_4dad24d6979ff687df324ba72e4a627bdb1ada3d948a10097db0d301237
 
     public function getDebugInfo()
     {
-        return array (  139 => 69,  133 => 66,  124 => 60,  115 => 54,  106 => 48,  96 => 41,  84 => 32,  78 => 29,  58 => 12,  50 => 7,  43 => 3,  37 => 1,);
+        return array (  140 => 70,  133 => 66,  124 => 60,  115 => 54,  106 => 48,  96 => 41,  84 => 32,  78 => 29,  58 => 12,  50 => 7,  43 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

@@ -97,6 +97,7 @@ class AutomationEditor {
       $steps[$key] = [
         'key' => $step->getKey(),
         'name' => $step->getName(),
+        'subject_keys' => $step->getSubjectKeys(),
         'args_schema' => $step->getArgsSchema()->toArray(),
       ];
     }

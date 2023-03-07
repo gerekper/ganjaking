@@ -402,7 +402,7 @@ class Functions {
 
     /**
    * @param string $tag
-   * @param callable $functionToRemove
+   * @param callable|string|array $functionToRemove
    * @param int $priority
    */
   public function removeAction($tag, $functionToRemove, $priority = 10) {
@@ -865,5 +865,9 @@ class Functions {
 
   public function wpIsSiteUrlUsingHttps(): bool {
     return wp_is_site_url_using_https();
+  }
+
+  public function getPostMeta(int $postId, string $key, bool $single = false) {
+    return get_post_meta($postId, $key, $single);
   }
 }

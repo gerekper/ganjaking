@@ -417,6 +417,17 @@ class ScheduledTaskEntity extends \MailPoet\Entities\ScheduledTaskEntity impleme
     /**
      * {@inheritDoc}
      */
+    public function getSubscribersByProcessed(int $processed): array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubscribersByProcessed', [$processed]);
+
+        return parent::getSubscribersByProcessed($processed);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getSendingQueue(): ?\MailPoet\Entities\SendingQueueEntity
     {
 

@@ -463,29 +463,40 @@ class WineCity {
 <p style="text-align: center;"><span style="color: #6d6d6d;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a elementum ex. Aliquam mollis metus ac nisl luctus pulvinar. Donec tincidunt pharetra sem, nec eleifend augue.</span></p>',
                                  ],
                               2 =>
-                                 [
-                                  'type' => 'button',
-                                  'text' => 'CoUponCoDE',
-                                  'url' => '',
-                                  'styles' =>
-                                     [
-                                      'block' =>
-                                         [
-                                          'backgroundColor' => '#ffffff',
-                                          'borderColor' => '#6d6d6d',
-                                          'borderWidth' => '2px',
-                                          'borderRadius' => '0px',
-                                          'borderStyle' => 'solid',
-                                          'width' => '219px',
-                                          'lineHeight' => '50px',
-                                          'fontColor' => '#6d6d6d',
-                                          'fontFamily' => 'Courier New',
-                                          'fontSize' => '30px',
-                                          'fontWeight' => 'bold',
-                                          'textAlign' => 'center',
-                                         ],
-                                     ],
-                                 ],
+                                [
+                                  'productIds' => [],
+                                  'excludedProductIds' => [],
+                                  'productCategoryIds' => [],
+                                  'excludedProductCategoryIds' => [],
+                                  'type' => 'coupon',
+                                  'amount' => 10,
+                                  'amountMax' => 100,
+                                  'discountType' => 'percent',
+                                  'expiryDay' => 10,
+                                  'usageLimit' => '',
+                                  'usageLimitPerUser' => '',
+                                  'minimumAmount' => '',
+                                  'maximumAmount' => '',
+                                  'emailRestrictions' => '',
+                                  'styles' => [
+                                   'block' => [
+                                     'backgroundColor' => '#ffffff',
+                                     'borderColor' => '#6d6d6d',
+                                     'borderWidth' => '2px',
+                                     'borderRadius' => '0px',
+                                     'borderStyle' => 'solid',
+                                     'width' => '219px',
+                                     'lineHeight' => '50px',
+                                     'fontColor' => '#6d6d6d',
+                                     'fontFamily' => 'Courier New',
+                                     'fontSize' => '30px',
+                                     'fontWeight' => 'bold',
+                                     'textAlign' => 'center',
+                                   ],
+                                  ],
+                                  'source' => 'createNew',
+                                  'code' => 'XXXX-XXXXXXX-XXXX',
+                               ],
                               3 =>
                                  [
                                   'type' => 'divider',
@@ -759,30 +770,6 @@ class WineCity {
                  ],
               'backgroundColor' => '#ffffff',
               'backgroundColorAlternate' => '#eeeeee',
-             ],
-          'button' =>
-             [
-              'text' => 'CoUponCoDE',
-              'url' => '',
-              'styles' =>
-                 [
-                  'block' =>
-                     [
-                      'backgroundColor' => '#ffffff',
-                      'borderColor' => '#6d6d6d',
-                      'borderWidth' => '2px',
-                      'borderRadius' => '0px',
-                      'borderStyle' => 'solid',
-                      'width' => '219px',
-                      'lineHeight' => '50px',
-                      'fontColor' => '#6d6d6d',
-                      'fontFamily' => 'Courier New',
-                      'fontSize' => '30px',
-                      'fontWeight' => 'bold',
-                      'textAlign' => 'center',
-                     ],
-                 ],
-              'type' => 'button',
              ],
           'divider' =>
              [

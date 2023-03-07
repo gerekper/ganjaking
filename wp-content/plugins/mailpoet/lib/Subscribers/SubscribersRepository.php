@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Config\SubscriberChangesNotifier;
 use MailPoet\Doctrine\Repository;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberCustomFieldEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
@@ -53,18 +54,22 @@ class SubscribersRepository extends Repository {
   }
 
   public function getTotalSubscribers(): int {
+    return $this->getCountOfSubscribersForStates([
+      SubscriberEntity::STATUS_SUBSCRIBED,
+      SubscriberEntity::STATUS_UNCONFIRMED,
+      SubscriberEntity::STATUS_INACTIVE,
+    ]);
+  }
+
+  public function getCountOfSubscribersForStates(array $states): int {
     $query = $this->entityManager
       ->createQueryBuilder()
       ->select('count(n.id)')
       ->from(SubscriberEntity::class, 'n')
       ->where('n.deletedAt IS NULL AND n.status IN (:statuses)')
-      ->setParameter('statuses', [
-        SubscriberEntity::STATUS_SUBSCRIBED,
-        SubscriberEntity::STATUS_UNCONFIRMED,
-        SubscriberEntity::STATUS_INACTIVE,
-      ])
+      ->setParameter('statuses', $states)
       ->getQuery();
-    return (int)$query->getSingleScalarResult();
+    return intval($query->getSingleScalarResult());
   }
 
   public function invalidateTotalSubscribersCache(): void {
@@ -370,7 +375,82 @@ class SubscribersRepository extends Repository {
       ->getQuery()
       ->getSingleScalarResult();
 
-    return is_int($maxSubscriberId) ? $maxSubscriberId : 0;
+    return intval($maxSubscriberId);
+  }
+
+  /**
+   * Returns count of subscribers who subscribed after given date regardless of their current status.
+   * @return int
+   */
+  public function getCountOfLastSubscribedAfter(\DateTimeInterface $subscribedAfter): int {
+    $result = $this->entityManager->createQueryBuilder()
+      ->select('COUNT(s.id)')
+      ->from(SubscriberEntity::class, 's')
+      ->where('s.lastSubscribedAt > :lastSubscribedAt')
+      ->andWhere('s.deletedAt IS NULL')
+      ->setParameter('lastSubscribedAt', $subscribedAfter)
+      ->getQuery()
+      ->getSingleScalarResult();
+    return intval($result);
+  }
+
+  /**
+   * Returns count of subscribers who unsubscribed after given date regardless of their current status.
+   * @return int
+   */
+  public function getCountOfUnsubscribedAfter(\DateTimeInterface $unsubscribedAfter): int {
+    $result = $this->entityManager->createQueryBuilder()
+      ->select('COUNT(DISTINCT s.id)')
+      ->from(StatisticsUnsubscribeEntity::class, 'su')
+      ->join('su.subscriber', 's')
+      ->andWhere('su.createdAt > :unsubscribedAfter')
+      ->andWhere('s.deletedAt IS NULL')
+      ->setParameter('unsubscribedAfter', $unsubscribedAfter)
+      ->getQuery()
+      ->getSingleScalarResult();
+    return intval($result);
+  }
+
+  /**
+   * Returns count of subscribers who subscribed to a list after given date regardless of their current global status.
+   */
+  public function getListLevelCountsOfSubscribedAfter(\DateTimeInterface $date): array {
+    $data = $this->entityManager->createQueryBuilder()
+      ->select('seg.id, seg.name, seg.type, seg.averageEngagementScore, COUNT(ss.id) as count')
+      ->from(SubscriberSegmentEntity::class, 'ss')
+      ->join('ss.subscriber', 's')
+      ->join('ss.segment', 'seg')
+      ->where('ss.updatedAt > :date')
+      ->andWhere('ss.status = :segment_status')
+      ->andWhere('s.lastSubscribedAt > :date') // subscriber subscribed at some point after the date
+      ->andWhere('s.deletedAt IS NULL')
+      ->andWhere('seg.deletedAt IS NULL') // no trashed lists and disabled WP Users list
+      ->setParameter('date', $date)
+      ->setParameter('segment_status', SubscriberEntity::STATUS_SUBSCRIBED)
+      ->groupBy('ss.segment')
+      ->getQuery()
+      ->getArrayResult();
+    return $data;
+  }
+
+  /**
+   * Returns count of subscribers who unsubscribed from a list after given date regardless of their current global status.
+   */
+  public function getListLevelCountsOfUnsubscribedAfter(\DateTimeInterface $date): array {
+    return $this->entityManager->createQueryBuilder()
+      ->select('seg.id, seg.name, seg.type, seg.averageEngagementScore, COUNT(ss.id) as count')
+      ->from(SubscriberSegmentEntity::class, 'ss')
+      ->join('ss.subscriber', 's')
+      ->join('ss.segment', 'seg')
+      ->where('ss.updatedAt > :date')
+      ->andWhere('ss.status = :segment_status')
+      ->andWhere('s.deletedAt IS NULL')
+      ->andWhere('seg.deletedAt IS NULL') // no trashed lists and disabled WP Users list
+      ->setParameter('date', $date)
+      ->setParameter('segment_status', SubscriberEntity::STATUS_UNSUBSCRIBED)
+      ->groupBy('ss.segment')
+      ->getQuery()
+      ->getArrayResult();
   }
 
   /**

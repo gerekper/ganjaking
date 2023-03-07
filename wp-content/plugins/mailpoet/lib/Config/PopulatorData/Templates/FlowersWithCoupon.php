@@ -369,29 +369,40 @@ class FlowersWithCoupon {
     <p style="text-align: center;"><span style="color: #333333;"><strong>here\'s a little gift from us for your next order.</strong></span></p>',
                    ],
                   1 =>
-                   [
-                    'type' => 'button',
-                    'text' => 'CoUpOn_Code',
-                    'url' => '',
-                    'styles' =>
-                     [
-                      'block' =>
-                       [
-                        'backgroundColor' => '#292929',
-                        'borderColor' => '#0074a2',
-                        'borderWidth' => '0px',
-                        'borderRadius' => '0px',
-                        'borderStyle' => 'solid',
-                        'width' => '288px',
-                        'lineHeight' => '50px',
-                        'fontColor' => '#ffffff',
-                        'fontFamily' => 'Courier New',
-                        'fontSize' => '26px',
-                        'fontWeight' => 'normal',
-                        'textAlign' => 'center',
-                       ],
-                     ],
-                   ],
+                    [
+                      'productIds' => [],
+                      'excludedProductIds' => [],
+                      'productCategoryIds' => [],
+                      'excludedProductCategoryIds' => [],
+                      'type' => 'coupon',
+                      'amount' => 10,
+                      'amountMax' => 100,
+                      'discountType' => 'percent',
+                      'expiryDay' => 10,
+                      'usageLimit' => '',
+                      'usageLimitPerUser' => '',
+                      'minimumAmount' => '',
+                      'maximumAmount' => '',
+                      'emailRestrictions' => '',
+                      'styles' => [
+                        'block' => [
+                          'backgroundColor' => '#292929',
+                          'borderColor' => '#0074a2',
+                          'borderWidth' => '0px',
+                          'borderRadius' => '0px',
+                          'borderStyle' => 'solid',
+                          'width' => '288px',
+                          'lineHeight' => '50px',
+                          'fontColor' => '#ffffff',
+                          'fontFamily' => 'Courier New',
+                          'fontSize' => '26px',
+                          'fontWeight' => 'normal',
+                          'textAlign' => 'center',
+                        ],
+                      ],
+                      'source' => 'createNew',
+                      'code' => 'XXXX-XXXXXXX-XXXX',
+                    ],
                   2 =>
                    [
                     'type' => 'text',

@@ -18,10 +18,13 @@ use MailPoet\Newsletter\Links\Links as NewsletterLinks;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\PostProcess\OpenTracking;
 use MailPoet\Newsletter\Renderer\Renderer;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\GATracking;
 use MailPoet\Tasks\Sending;
 use MailPoet\Util\Helpers;
+use MailPoet\Util\pQuery\DomNode;
+use MailPoet\Util\pQuery\pQuery;
 use MailPoet\WP\Emoji;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
@@ -57,6 +60,9 @@ class Newsletter {
   /** @var NewsletterLinks */
   private $newsletterLinks;
 
+  /** @var SendingQueuesRepository */
+  private $sendingQueuesRepository;
+
   public function __construct(
     WPFunctions $wp = null,
     PostsTask $postsTask = null,
@@ -86,6 +92,7 @@ class Newsletter {
     $this->newslettersRepository = ContainerWrapper::getInstance()->get(NewslettersRepository::class);
     $this->linksTask = ContainerWrapper::getInstance()->get(LinksTask::class);
     $this->newsletterLinks = ContainerWrapper::getInstance()->get(NewsletterLinks::class);
+    $this->sendingQueuesRepository = ContainerWrapper::getInstance()->get(SendingQueuesRepository::class);
   }
 
   public function getNewsletterFromQueue(Sending $sendingTask): ?NewsletterEntity {
@@ -97,6 +104,7 @@ class Newsletter {
       is_null($newsletter)
       || $newsletter->getDeletedAt() !== null
       || !in_array($newsletter->getStatus(), [NewsletterEntity::STATUS_ACTIVE, NewsletterEntity::STATUS_SENDING])
+      || $newsletter->getStatus() === NewsletterEntity::STATUS_CORRUPT
     ) {
       return null;
     }
@@ -130,6 +138,8 @@ class Newsletter {
       ['newsletter_id' => $newsletter->getId(), 'task_id' => $sendingTask->taskId]
     );
 
+    $campaignId = null;
+
     // if tracking is enabled, do additional processing
     if ($this->trackingEnabled) {
       // hook to the newsletter post-processing filter and add tracking image
@@ -141,6 +151,9 @@ class Newsletter {
         $renderedNewsletter,
         $newsletter
       );
+      if (is_array($renderedNewsletter)) {
+        $campaignId = $this->calculateCampaignId($newsletter, $renderedNewsletter);
+      }
       $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletter);
       // hash and save all links
       $renderedNewsletter = $this->linksTask->process($renderedNewsletter, $newsletter, $sendingTask);
@@ -152,6 +165,9 @@ class Newsletter {
         $renderedNewsletter,
         $newsletter
       );
+      if (is_array($renderedNewsletter)) {
+        $campaignId = $this->calculateCampaignId($newsletter, $renderedNewsletter);
+      }
       $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletter);
     }
 
@@ -183,6 +199,10 @@ class Newsletter {
 
     $sendingQueueEntity = $sendingTask->getSendingQueueEntity();
 
+    if ($campaignId !== null) {
+      $this->sendingQueuesRepository->saveCampaignId($sendingQueueEntity, $campaignId);
+    }
+
     // update queue with the rendered and pre-processed newsletter
     $sendingTask->newsletterRenderedSubject = ShortcodesTask::process(
       $newsletter->getSubject(),
@@ -191,6 +211,7 @@ class Newsletter {
       null,
       $sendingQueueEntity
     );
+
     // if the rendered subject is empty, use a default subject,
     // having no subject in a newsletter is considered spammy
     if (empty(trim((string)$sendingTask->newsletterRenderedSubject))) {
@@ -277,5 +298,37 @@ class Newsletter {
       __('There was an error processing your newsletter during sending. If possible, please contact us and report this issue.', 'mailpoet'),
       $errorCode
     );
+  }
+
+  /**
+   * @param NewsletterEntity $newsletter
+   * @param array $renderedNewsletters - The pre-processed renderered newsletters, before link tracking has been added or shortcodes have been processed.
+   *
+   * @return string
+   */
+  public function calculateCampaignId(NewsletterEntity $newsletter, array $renderedNewsletters): string {
+    $relevantContent = [
+      $newsletter->getId(),
+      $newsletter->getSubject(),
+    ];
+
+    if (isset($renderedNewsletters['text'])) {
+      $relevantContent[] = $renderedNewsletters['text'];
+    }
+
+    // The text version of emails contains just the alt text of images, which could be the same for multiple images. In order to ensure
+    // campaign IDs change when images change, we should consider all image URLs.
+    if (isset($renderedNewsletters['html'])) {
+      $html = pQuery::parseStr($renderedNewsletters['html']);
+      if ($html instanceof DomNode) {
+        foreach ($html->query('img') as $imageNode) {
+          $src = $imageNode->getAttribute('src');
+          if (is_string($src)) {
+            $relevantContent[] = $src;
+          }
+        }
+      }
+    }
+    return substr(md5(implode('|', $relevantContent)), 0, 16);
   }
 }

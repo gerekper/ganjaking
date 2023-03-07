@@ -39,6 +39,14 @@ object-assign
  */
 
 /*!
+ * jQuery Mousewheel 3.1.13
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ */
+
+/*!
 * Parsley.js
 * Version 2.9.2 - built Tue, Dec 10th 2019, 6:18 pm
 * http://parsleyjs.org

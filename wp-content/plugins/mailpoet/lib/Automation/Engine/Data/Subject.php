@@ -5,6 +5,8 @@ namespace MailPoet\Automation\Engine\Data;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Utils\Json;
+
 class Subject {
   /** @var string */
   private $key;
@@ -28,14 +30,19 @@ class Subject {
     return $this->args;
   }
 
+  public function getHash(): string {
+    return md5($this->getKey() . serialize($this->getArgs()));
+  }
+
   public function toArray(): array {
     return [
       'key' => $this->getKey(),
-      'args' => $this->getArgs(),
+      'args' => Json::encode($this->getArgs()),
+      'hash' => $this->getHash(),
     ];
   }
 
   public static function fromArray(array $data): self {
-    return new self($data['key'], $data['args']);
+    return new self($data['key'], Json::decode($data['args']));
   }
 }

@@ -53,10 +53,12 @@ class __TwigTemplate_1114a669d366cd147bdad7cb9fbcaa0f2a72a035162ab08841589ba0a13
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Display options");
         echo "</a>
   </div>
-  <input type=\"button\" class=\"button button-primary mailpoet_settings_products_insert_selected\" value=\"";
-        // line 9
+  <div class=\"mailpoet_form_field\">
+    <input type=\"button\" class=\"button button-primary mailpoet_settings_products_insert_selected\" value=\"";
+        // line 10
         echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\I18n']->translate("Insert selected"), "html_attr");
         echo "\" />
+  </div>
 </div>
 ";
     }
@@ -73,7 +75,7 @@ class __TwigTemplate_1114a669d366cd147bdad7cb9fbcaa0f2a72a035162ab08841589ba0a13
 
     public function getDebugInfo()
     {
-        return array (  55 => 9,  50 => 7,  46 => 6,  37 => 1,);
+        return array (  56 => 10,  50 => 7,  46 => 6,  37 => 1,);
     }
 
     public function getSourceContext()

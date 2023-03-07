@@ -68,6 +68,9 @@ class PremiumAutomationTemplates {
           [
             'name' => __('Follow-up email', 'mailpoet-premium'),
           ],
+        ],
+        [
+          'mailpoet:run-once-per-subscriber' => true,
         ]
       ),
       AutomationTemplate::TYPE_DEFAULT
@@ -100,6 +103,9 @@ class PremiumAutomationTemplates {
           [
             'name' => __('Follow-up email', 'mailpoet-premium'),
           ],
+        ],
+        [
+          'mailpoet:run-once-per-subscriber' => true,
         ]
       ),
       AutomationTemplate::TYPE_DEFAULT

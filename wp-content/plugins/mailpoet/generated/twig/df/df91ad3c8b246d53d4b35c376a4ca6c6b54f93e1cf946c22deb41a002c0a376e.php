@@ -104,13 +104,15 @@ class __TwigTemplate_97885955d9a61cd687e4b5c17a9f999c888cf1faf1a92c3e61951df9645
         </label>
     </div>
 </div>
-<p class=\"mailpoet_settings_notice\">";
-        // line 43
+<div class=\"mailpoet_form_field\">
+  <p class=\"mailpoet_settings_notice\">";
+        // line 44
         echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("A [link]few email clients[/link] do not show background images. Make sure you have a good background color to fall back on if the image is not displayed.", "Editor > right sidebar for column block settings."), "https://kb.mailpoet.com/article/261-add-a-background-image-to-your-newsletter", ["target" => "_blank", "data-beacon-article" => "5bf5863104286304a71c7e1a"]);
         echo "</p>
+</div>
 <div class=\"mailpoet_form_field\">
     <input type=\"button\" class=\"button button-primary mailpoet_done_editing\" value=\"";
-        // line 45
+        // line 47
         echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\I18n']->translate("Done"), "html_attr");
         echo "\" />
 </div>
@@ -129,7 +131,7 @@ class __TwigTemplate_97885955d9a61cd687e4b5c17a9f999c888cf1faf1a92c3e61951df9645
 
     public function getDebugInfo()
     {
-        return array (  111 => 45,  106 => 43,  99 => 39,  90 => 33,  81 => 27,  74 => 23,  66 => 20,  56 => 13,  47 => 7,  37 => 1,);
+        return array (  113 => 47,  107 => 44,  99 => 39,  90 => 33,  81 => 27,  74 => 23,  66 => 20,  56 => 13,  47 => 7,  37 => 1,);
     }
 
     public function getSourceContext()

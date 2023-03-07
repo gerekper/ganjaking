@@ -18,6 +18,7 @@ use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WooCommerce\TransactionalEmailHooks;
 use MailPoet\WooCommerce\TransactionalEmails;
+use MailPoet\WP\AutocompletePostListLoader as WPPostListLoader;
 use MailPoet\WP\Functions as WPFunctions;
 
 class NewsletterEditor {
@@ -50,6 +51,9 @@ class NewsletterEditor {
   /** @var TransactionalEmailHooks */
   private $wooEmailHooks;
 
+  /** @var WPPostListLoader */
+  private $wpPostListLoader;
+
   /** @var CustomFonts  */
   private $customFonts;
 
@@ -63,6 +67,7 @@ class NewsletterEditor {
     ShortcodesHelper $shortcodesHelper,
     SubscribersRepository $subscribersRepository,
     TransactionalEmailHooks $wooEmailHooks,
+    WPPostListLoader $wpPostListLoader,
     CustomFonts $customFonts
   ) {
     $this->pageRenderer = $pageRenderer;
@@ -74,6 +79,7 @@ class NewsletterEditor {
     $this->shortcodesHelper = $shortcodesHelper;
     $this->subscribersRepository = $subscribersRepository;
     $this->wooEmailHooks = $wooEmailHooks;
+    $this->wpPostListLoader = $wpPostListLoader;
     $this->customFonts = $customFonts;
   }
 
@@ -111,7 +117,9 @@ class NewsletterEditor {
         'customizer_enabled' => (bool)$this->settings->get('woocommerce.use_mailpoet_editor'),
         'coupon' => [
           'config' => [
-            'discount_types' => $discountTypes,
+            'discount_types' => array_map(function($label, $value): array {
+              return ['label' => $label, 'value' => $value];
+            }, $discountTypes, array_keys($discountTypes)),
             'available_coupons' => $this->woocommerceHelper->getCouponList(),
             'code_placeholder' => Coupon::CODE_PLACEHOLDER,
             'price_decimal_separator' => $this->woocommerceHelper->wcGetPriceDecimalSeparator(),
@@ -139,6 +147,8 @@ class NewsletterEditor {
       'is_wc_transactional_email' => $newsletterId === $woocommerceTemplateId,
       'is_confirmation_email_template' => $newsletterId === $confirmationEmailTemplateId,
       'is_confirmation_email_customizer_enabled' => (bool)$this->settings->get('signup_confirmation.use_mailpoet_editor', false),
+      'product_categories' => $this->wpPostListLoader->getWooCommerceCategories(),
+      'products' => $this->wpPostListLoader->getProducts(),
     ];
     $this->wp->wpEnqueueMedia();
     $this->wp->wpEnqueueStyle('editor', $this->wp->includesUrl('css/editor.css'));
