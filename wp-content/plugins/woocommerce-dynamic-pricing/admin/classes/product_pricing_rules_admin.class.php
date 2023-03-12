@@ -501,7 +501,7 @@ class woocommerce_product_pricing_rules_admin {
 
                     var data = {
                         set_index: set_index,
-                        post:<?php echo isset( $_GET['post'] ) ? $_GET['post'] : 0; ?>,
+                        post:<?php echo intval($_GET['post'] ?? 0); ?>,
                         action: 'create_empty_ruleset'
                     };
 

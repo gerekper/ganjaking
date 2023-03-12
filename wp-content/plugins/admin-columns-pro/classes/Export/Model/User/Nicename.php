@@ -2,14 +2,14 @@
 
 namespace ACP\Export\Model\User;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-class Nicename extends Model {
+class Nicename implements Service {
 
 	public function get_value( $id ) {
 		$user = get_userdata( $id );
 
-		return isset( $user->user_nicename ) ? $user->user_nicename : '';
+		return $user->user_nicename ?? '';
 	}
 
 }

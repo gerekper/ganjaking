@@ -59,7 +59,7 @@ class Roles extends AC\Column\Meta
 	}
 
 	public function export() {
-		return new Export\Model\User\Role( $this, true );
+		return new Export\Model\User\Role( true );
 	}
 
 }

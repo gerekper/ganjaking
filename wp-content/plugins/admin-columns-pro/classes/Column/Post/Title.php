@@ -19,7 +19,7 @@ class Title extends AC\Column\Post\Title
 	}
 
 	public function export() {
-		return new Export\Model\Post\Title( $this );
+		return new Export\Model\Post\Title();
 	}
 
 	public function search() {

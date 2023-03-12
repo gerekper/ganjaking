@@ -2,18 +2,23 @@
 
 namespace ACA\EC\Export\Model\Event;
 
+use AC\Column;
 use ACP;
 
-/**
- * Export Model for AllDayEvent column
- * @since 1.0.2
- */
-class AllDayEvent extends ACP\Export\Model {
+class AllDayEvent implements ACP\Export\Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
 		$value = $this->column->get_raw_value( $id );
 
-		return $value ? 1 : '';
+		return $value
+			? '1'
+			: '';
 	}
 
 }

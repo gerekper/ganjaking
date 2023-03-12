@@ -95,18 +95,7 @@ if ( WCAM()->is_request( 'admin' ) ) {
 	WC_AM_SETTINGS_ADMIN();
 }
 
-/**
- * Returns the WC_AM_API_Requests class object.
- *
- * @since 2.0
- *
- * @param $request array
- *
- * @return \WC_AM_API_Requests
- */
-function WC_AM_API_REQUESTS( $request ) {
-	return WC_AM_API_Requests::instance( $request );
-}
+// Non Admin
 
 /**
  * Returns the WC_AM_API_Activation_Data_Store class object
@@ -120,6 +109,19 @@ function WC_AM_API_ACTIVATION_DATA_STORE() {
 }
 
 WC_AM_API_ACTIVATION_DATA_STORE();
+
+/**
+ * Returns the WC_AM_API_Requests class object.
+ *
+ * @since 2.0
+ *
+ * @param $request array
+ *
+ * @return \WC_AM_API_Requests
+ */
+function WC_AM_API_REQUESTS( $request ) {
+	return WC_AM_API_Requests::instance( $request );
+}
 
 /**
  * Returns the WC_AM_API_Resource_Data_Store class object
@@ -155,19 +157,6 @@ function WC_AM_ASSOCIATED_API_KEY_DATA_STORE() {
 }
 
 /**
- * Returns the WC_AM_Smart_Cache class object
- *
- * @since 2.0.12
- *
- * @return \WC_AM_Smart_Cache
- */
-function WC_AM_SMART_CACHE() {
-	return WC_AM_Smart_Cache::instance();
-}
-
-WC_AM_SMART_CACHE();
-
-/**
  * Returns the WC_AM_Download_Handler class object
  *
  * @since 2.0
@@ -190,6 +179,19 @@ WC_AM_DOWNLOAD_HANDLER();
 function WC_AM_ENCRYPTION() {
 	return WC_AM_Encryption::instance();
 }
+
+/**
+ * Returns the WC_AM_Background_Events class object.
+ *
+ * @since 2.5.5
+ *
+ * @return \WC_AM_Background_Events
+ */
+function WC_AM_BACKGROUND_EVENTS() {
+	return WC_AM_Background_Events::instance();
+}
+
+WC_AM_BACKGROUND_EVENTS();
 
 /**
  * Returns the WC_AM_Encryption class object
@@ -262,6 +264,19 @@ function WC_AM_PRODUCT_DATA_STORE() {
 }
 
 WC_AM_PRODUCT_DATA_STORE();
+
+/**
+ * Returns the WC_AM_Smart_Cache class object
+ *
+ * @since 2.0.12
+ *
+ * @return \WC_AM_Smart_Cache
+ */
+function WC_AM_SMART_CACHE() {
+	return WC_AM_Smart_Cache::instance();
+}
+
+WC_AM_SMART_CACHE();
 
 /**
  * Returns the WC_AM_Subscription class object

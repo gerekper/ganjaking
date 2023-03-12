@@ -37,8 +37,7 @@ $args = wp_parse_args( $post_args, $defaults );
 	<?php if ( $max_list_count === '*' || ( empty( $lists ) || count( $lists ) < $max_list_count ) ): ?>
         <div class="wl-form">
             <form action="" enctype="multipart/form-data" method="post">
-                <input type="hidden" name="wl_return_to"
-                       value="<?php echo( isset( $_GET['wl_return_to'] ) ? $_GET['wl_return_to'] : '' ); ?>"/>
+                <input type="hidden" name="wl_return_to" value="<?php esc_attr_e( $_GET['wl_return_to'] ?? '' ); ?>"/>
 				<?php echo WC_Wishlists_Plugin::action_field( 'create-list' ); ?>
 				<?php echo WC_Wishlists_Plugin::nonce_field( 'create-list' ); ?>
 

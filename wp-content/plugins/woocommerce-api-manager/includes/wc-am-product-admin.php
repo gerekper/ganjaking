@@ -1162,7 +1162,7 @@ class WC_AM_Product_Admin {
 				$api_orders_processed = WC_AM_PRODUCT_DATA_STORE()->get_meta( $post_id, '_api_orders_processed' );
 
 				if ( $api_orders_processed != 'yes' ) {
-					WC_AM_ORDER()->add_new_api_product_orders( $post_id );
+					WC_AM_BACKGROUND_EVENTS()->queue_add_new_api_product_orders( $post_id );
 					WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, '_api_orders_processed', 'yes' );
 				}
 			}
@@ -1203,7 +1203,7 @@ class WC_AM_Product_Admin {
 				 * @since 2.0.1
 				 */
 				if ( $update_product_orders ) {
-					WC_AM_ORDER()->update_api_resource_activations_for_product( $post_id );
+					WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_activations_for_product( $post_id );
 				}
 			}
 
@@ -1231,7 +1231,7 @@ class WC_AM_Product_Admin {
 			 * @since 2.4
 			 */
 			if ( $update_access_expires ) {
-				WC_AM_ORDER()->update_api_resource_access_expires_for_product( $post_id );
+				WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_access_expires_for_product( $post_id );
 			}
 
 			// Create the product_fields variable array
@@ -1333,7 +1333,7 @@ class WC_AM_Product_Admin {
 					$api_orders_processed = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_api_orders_processed' );
 
 					if ( $api_orders_processed != 'yes' ) {
-						WC_AM_ORDER()->add_new_api_product_orders( $variation_id );
+						WC_AM_BACKGROUND_EVENTS()->queue_add_new_api_product_orders( $variation_id );
 						WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, '_api_orders_processed', 'yes' );
 					}
 				}
@@ -1449,7 +1449,7 @@ class WC_AM_Product_Admin {
 					 * @since 2.0.1
 					 */
 					if ( $update_product_orders ) {
-						WC_AM_ORDER()->update_api_resource_activations_for_product( $variation_id );
+						WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_activations_for_product( $variation_id );
 					}
 
 					/**
@@ -1465,7 +1465,7 @@ class WC_AM_Product_Admin {
 					 * @since 2.4
 					 */
 					if ( $update_access_expires ) {
-						WC_AM_ORDER()->update_api_resource_access_expires_for_product( $variation_id );
+						WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_access_expires_for_product( $variation_id );
 					}
 				} else { // Use API Tab global settings for variable products, and data that is not on the API Tab or displayed with the "Set API options for this variable product only." checkbox.
 					/**
@@ -1491,7 +1491,7 @@ class WC_AM_Product_Admin {
 					 * @since 2.0.1
 					 */
 					if ( $update_product_orders ) {
-						WC_AM_ORDER()->update_api_resource_activations_for_product( $variation_id );
+						WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_activations_for_product( $variation_id );
 					}
 
 					/**
@@ -1522,7 +1522,7 @@ class WC_AM_Product_Admin {
 					 * @since 2.4
 					 */
 					if ( $update_access_expires ) {
-						WC_AM_ORDER()->update_api_resource_access_expires_for_product( $variation_id );
+						WC_AM_BACKGROUND_EVENTS()->queue_update_api_resource_access_expires_for_product( $variation_id );
 					}
 
 					// Values inherited from Parent API tab form fields.

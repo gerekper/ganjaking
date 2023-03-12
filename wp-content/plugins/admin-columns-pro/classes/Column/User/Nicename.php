@@ -20,7 +20,7 @@ class Nicename extends AC\Column\User\Nicename
 	}
 
 	public function export() {
-		return new Export\Model\User\Nicename( $this );
+		return new Export\Model\User\Nicename();
 	}
 
 	public function search() {

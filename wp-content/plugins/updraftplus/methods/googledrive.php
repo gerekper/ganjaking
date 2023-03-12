@@ -566,7 +566,10 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 				$quota_total = max($about->getQuotaBytesTotal(), 1);
 				$quota_used = $about->getQuotaBytesUsed();
 				$username = $about->getName();
+				$get_user = $about->getUser();
+				$email = is_object($get_user) ? $get_user->emailAddress : '';
 				$opts['ownername'] = $username;
+				$opts['owneremail'] = $email;
 
 				if (is_numeric($quota_total) && is_numeric($quota_used)) {
 					$available_quota = $quota_total - $quota_used;
@@ -1517,10 +1520,17 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 						{{/if}}
 					{{/if}}
 					{{#if is_ownername_display}}
+						{{#if owneremail}}
+						<br>
+						<?php
+							echo sprintf(__("Account holder's name: %s (%s).", 'updraftplus'), '{{ownername}}', '{{owneremail}}').' ';
+						?>
+						{{else}}
 						<br>
 						<?php
 							echo sprintf(__("Account holder's name: %s.", 'updraftplus'), '{{ownername}}').' ';
 						?>
+						{{/if}}
 					{{/if}}
 					<?php
 						$this->get_authentication_link();

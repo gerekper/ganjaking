@@ -12,6 +12,7 @@ use ACP\Editing\Ajax\TableRowsFactory;
 use ACP\Editing\Factory\BulkEditFactory;
 use ACP\Editing\Factory\InlineEditFactory;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 
 class Addon implements Registerable {
 
@@ -57,11 +58,11 @@ class Addon implements Registerable {
 
 	public function add_hide_on_screen( HideOnScreenCollection $collection, AC\ListScreen $list_screen ) {
 		if ( $list_screen instanceof ListScreen ) {
-			$collection->add( new HideOnScreen\InlineEdit() )
-			           ->add( new HideOnScreen\BulkEdit(), 20 );
+			$collection->add( new HideOnScreen\InlineEdit(), new Group( Group::FEATURE ) )
+			           ->add( new HideOnScreen\BulkEdit(), new Group( Group::FEATURE ), 20 );
 		}
 		if ( $list_screen instanceof BulkDelete\ListScreen ) {
-			$collection->add( new HideOnScreen\BulkDelete(), 30 );
+			$collection->add( new HideOnScreen\BulkDelete(), new Group( Group::FEATURE ), 30 );
 		}
 	}
 

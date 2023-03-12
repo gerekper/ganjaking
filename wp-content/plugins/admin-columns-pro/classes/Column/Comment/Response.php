@@ -23,7 +23,7 @@ class Response extends AC\Column\Comment\Response
 	}
 
 	public function export() {
-		return new Export\Model\Comment\Response( $this );
+		return new Export\Model\Comment\Response();
 	}
 
 	public function search() {

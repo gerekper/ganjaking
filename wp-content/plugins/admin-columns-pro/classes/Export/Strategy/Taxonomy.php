@@ -27,7 +27,7 @@ class Taxonomy extends Strategy {
 	 * Catch the terms query and run it with altered parameters for pagination. This should be
 	 * attached to the parse_term_query hook when an AJAX request is sent
 	 *
-	 * @param $query
+	 * @param WP_Term_Query $query
 	 *
 	 * @see   action:parse_term_query
 	 * @since 1.0

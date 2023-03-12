@@ -1,5 +1,9 @@
 <?php
 
+namespace ACA\WC\Filtering\Product;
+
+use ACP;
+
 class ProductParent extends ACP\Filtering\Model\Post\PostParent {
 
 	public function get_filtering_request_vars( $vars, $value ) {

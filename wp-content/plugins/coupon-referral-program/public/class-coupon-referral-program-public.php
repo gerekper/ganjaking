@@ -59,6 +59,8 @@ class Coupon_Referral_Program_Public {
 			add_shortcode( 'crp_popup_button', array( $this, 'mwb_crp_referral_button_shortcode' ) );
 		}
 		add_shortcode( 'crp_referral_link', array( $this, 'mwb_crp_referral_link_shortcode' ) );
+		add_shortcode( 'crp_referral_code', array( $this, 'mwb_crp_referral_code_shortcode' ) );
+		add_shortcode( 'crp_referral_tab', array( $this, 'mwb_crp_referral_tab_shortcode' ) );
 		// ===========Add Rewrite Rule============
 		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules
 		add_rewrite_endpoint( 'referral_coupons', EP_PAGES );
@@ -111,9 +113,7 @@ class Coupon_Referral_Program_Public {
 	public function mwb_crp_referral_link_shortcode() {
 		if ( $this->is_social_sharing_enabled() && is_user_logged_in() ) {
 			$user_ID           = get_current_user_ID();
-			$mwb_crp_link_html = '<fieldset><code>
-			' . $this->get_referral_link( $user_ID ) . '
-		     </code></fieldset>';
+			$mwb_crp_link_html = '<fieldset><code>' . $this->get_referral_link( $user_ID ) . '</code></fieldset>';
 			return $mwb_crp_link_html;
 		}
 	}
@@ -136,13 +136,14 @@ class Coupon_Referral_Program_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
+		global $post;
 		wp_enqueue_style( $this->plugin_name, COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/css/coupon-referral-program-public.css', array(), $this->version, 'all' );
 
 		if ( $this->is_selected_page() || $this->check_shortcode_is_enable() ) {
 			wp_enqueue_style( 'material_modal', COUPON_REFERRAL_PROGRAM_DIR_URL . 'modal/css/material-modal.css', array(), $this->version, 'all' );
 
 			wp_enqueue_style( 'modal_style', COUPON_REFERRAL_PROGRAM_DIR_URL . 'modal/css/style.css', array(), $this->version, 'all' );
-		} elseif ( is_account_page() ) {
+		} elseif ( is_account_page() || has_shortcode( $post->post_content, 'crp_referral_tab' ) ) {
 			wp_enqueue_style( 'account_page', COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/css/coupon-referral-program-public.css', array(), $this->version, 'all' );
 		}
 
@@ -154,7 +155,8 @@ class Coupon_Referral_Program_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		if ( $this->is_selected_page() || $this->check_shortcode_is_enable() || is_account_page() ) {
+		global $post;
+		if ( $this->is_selected_page() || $this->check_shortcode_is_enable() || is_account_page() || has_shortcode( $post->post_content, 'crp_referral_tab' ) ) {
 			$mwb_crp_animation = get_option( 'mwb_crp_animation', false );
 
 			$mwb_crp_arr = array(
@@ -175,6 +177,7 @@ class Coupon_Referral_Program_Public {
 				'apply'             => __( 'Apply', 'coupon-referral-program' ),
 				'empty_email'       => __( 'Email Field is empty', 'coupon-referral-program' ),
 				'invalid_email'     => __( 'Invalid Email', 'coupon-referral-program' ),
+				'is_shortcode_post' => has_shortcode( $post->post_content, 'crp_referral_tab' ),
 			);
 
 			wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array( 'jquery' ), $this->version, true );
@@ -472,7 +475,6 @@ class Coupon_Referral_Program_Public {
 			}
 			$customer_email = WC()->mailer()->emails['crp_refree_email'];
 			$email_status   = $customer_email->trigger( $user_id, $mwb_cpr_code, $coupon_amount_with_css, $expirydate );
-
 		}
 		return $mwb_cpr_code;
 	}
@@ -671,7 +673,7 @@ class Coupon_Referral_Program_Public {
 	 * Returns the array of the pages
 	 *
 	 * @since 1.0.0
-	 * @return selected pages
+	 * @return array mwb_selected_pages
 	 */
 	public function mwb_get_selected_pages() {
 		$mwb_selected_pages = array();
@@ -786,7 +788,7 @@ class Coupon_Referral_Program_Public {
 		 * @since 1.6.4
 		 * @param string $password
 		 */
-		$password              = apply_filters( 'mwb_cpr_coupons', $password );
+		$password = apply_filters( 'mwb_cpr_coupons', $password );
 		return $password;
 	}
 
@@ -847,7 +849,6 @@ class Coupon_Referral_Program_Public {
 			update_post_meta( $new_coupon_id, 'free_shipping', $coupon_freeshipping );
 			update_post_meta( $new_coupon_id, 'coupon_amount', $amount );
 			update_post_meta( $new_coupon_id, 'individual_use', $coupon_individual );
-			update_post_meta( $new_coupon_id, 'usage_limit', $coupon_usage );
 			update_post_meta( $new_coupon_id, 'usage_limit', $coupon_usage );
 
 			update_post_meta( $new_coupon_id, 'minimum_amount', $mwb_crp_get_min_spend );
@@ -1490,7 +1491,7 @@ class Coupon_Referral_Program_Public {
 				break;
 			case 'reffral-account-signup':
 				// translators: Point_label.
-				$event_description = sprintf( __( '%s earned for referral acount signup', 'woocommerce-points-and-rewards' ), $points_label );
+				$event_description = sprintf( __( '%s earned for referral account signup', 'woocommerce-points-and-rewards' ), $points_label );
 				break;
 			case 'reffree-account-on-referal-signup':
 				// translators: Point_label.
@@ -1526,8 +1527,13 @@ class Coupon_Referral_Program_Public {
 	public function crp_coupon_account_points() {
 		$user_ID = get_current_user_ID();
 		$user    = new WP_User( $user_ID );
-		require COUPON_REFERRAL_PROGRAM_DIR_PATH . 'public/partials/coupon-referral-program-public-display.php';
 
+		/**
+		 * This filter used to show the referral dashboard template.
+		 *
+		 * @since 1.6.6
+		 */
+		require apply_filters( 'crp_referral_dashboard_template', COUPON_REFERRAL_PROGRAM_DIR_PATH . 'public/partials/coupon-referral-program-public-display.php' );
 	}
 
 	/**
@@ -2068,7 +2074,7 @@ class Coupon_Referral_Program_Public {
 			if ( ( $coupon->get_date_expires() && time() > $coupon->get_date_expires()->getTimestamp() ) ) {
 				return false;
 			}
-			if ( 0 == $coupon_usage_limit || $coupon_usage_limit > $coupon_usage_count ) {
+			if ( empty( $coupon_usage_limit ) || $coupon_usage_limit > $coupon_usage_count ) {
 
 				return true;
 			}
@@ -2085,7 +2091,7 @@ class Coupon_Referral_Program_Public {
 	public function mwb_crp_send_referal_link_mail() {
 		check_ajax_referer( 'mwb-crp-verify-nonce', 'mwb_nonce' );
 		$reponse['result'] = false;
-		$reponse['msg']    = __( 'Mail not send, due to some error!', 'coupon-referral-program' );
+		$reponse['msg']    = __( 'Mail not sent, due to some error!', 'coupon-referral-program' );
 		$emal_id           = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 		$user_id           = get_current_user_id();
 
@@ -2101,7 +2107,7 @@ class Coupon_Referral_Program_Public {
 				$page_permalink     = apply_filters( 'mwb_crp_referral_link_url', site_url() );
 				$referral_link      = $page_permalink . '?ref=' . $user_reference_key;
 				$customer_email     = WC()->mailer()->emails['crp_share_via_email'];
-				$email_status       = $customer_email->trigger( $user_id, $referral_link, $emal_id );
+				$email_status       = $customer_email->trigger( $user_id, $referral_link, $emal_id, $user_reference_key );
 				$reponse['result']  = true;
 				$reponse['msg']     = __( 'Mail send successfully', 'coupon-referral-program' );
 			}
@@ -2187,8 +2193,7 @@ class Coupon_Referral_Program_Public {
 				?>
 			<div class="mwb_crp_referal_code_wrap">
 				<div class="mwb_cpr_logged_wrapper">
-					<span class="mwb_crp_addon_referral_code"><?php esc_html_e( 'Referral Code: ', 'coupon-referral-program' ); ?>
-				</span>
+					<span class="mwb_crp_addon_referral_code"><?php esc_html_e( 'Referral Code: ', 'coupon-referral-program' ); ?></span>
 					<div class="mwb_cpr_refrral_code_copy">
 						<p id="mwb_cpr_referal_code_copy">
 							<code id="mwb_cpr_referal_copyy_code" class="mwb_crp_referl_code"><?php echo esc_html( $referral_code ); ?></code>
@@ -2497,4 +2502,89 @@ class Coupon_Referral_Program_Public {
 
 	}
 
+	/**
+	 * Display referral code using shortcode.
+	 *
+	 * @since    1.6.5
+	 */
+	public function mwb_crp_referral_code_shortcode() {
+		if ( $this->is_social_sharing_enabled() && is_user_logged_in() ) {
+			$user_ID      = get_current_user_ID();
+			$referral_key = get_user_meta( $user_ID, 'referral_key', true );
+			if ( empty( $referral_key ) ) {
+				$referral_key = $this->set_referral_key( $user_ID );
+			}
+			$mwb_crp_code_html = '<fieldset><code>' . $referral_key . '</code></fieldset>';
+			return $mwb_crp_code_html;
+		}
+	}
+
+	/**
+	 * Used the prevent user for an specific domains.
+	 *
+	 * @since 1.6.5
+	 *
+	 * @param object $errors .
+	 * @param mixed  $sanitized_user_login .
+	 * @param string $user_email .
+	 */
+	public function mwb_crp_prevent_user_resgiration( $errors, $sanitized_user_login, $user_email ) {
+		$mwb_crp_saved_domains = get_option( 'mwb_crp_email_domains', false );
+		if ( $this->check_prevent_fraudlent_is_enable() && ( $this->check_signup_is_enable() || $this->check_reffral_signup_is_enable() ) && ! empty( $mwb_crp_saved_domains ) && ! empty( $user_email ) ) {
+			$user_email_split      = explode( '@', $user_email )[1];
+			$mwb_crp_saved_domains = explode( ',', $mwb_crp_saved_domains );
+			if ( ! in_array( $user_email_split, $mwb_crp_saved_domains, true ) ) {
+				$errors->add( 'blacklist_error', 'This email domain is not allowed to register on this site.' );
+			}
+		}
+		return $errors;
+
+	}
+
+	/**
+	 * Check whether the Prevent Fraudulent Feature is enable
+	 *
+	 * @since 1.0.0
+	 * @return bool value
+	 */
+	public function check_prevent_fraudlent_is_enable() {
+		$enable        = false;
+		$enable_signup = get_option( 'mwb_crp_email_domains_enable', false );
+		if ( ! empty( $enable_signup ) && 'yes' === $enable_signup ) {
+			$enable = true;
+		}
+		return $enable;
+	}
+
+	/** Add referral tab shortcode */
+	public function mwb_crp_referral_tab_shortcode() {
+		return include_once COUPON_REFERRAL_PROGRAM_DIR_PATH . 'public/partials/coupon-referral-program-public-display-shortcode.php';
+	}
+
+	/**
+	 * Add a custom Product tab for refer
+	 *
+	 * @param array() $tabs .
+	 * @return $tabs
+	 */
+	public function wps_crp_add_custom_tabs( $tabs ) {
+		$tabs['refer_a_friend'] = array(
+			'title'    => esc_attr__( 'Refer A Friend', 'coupon-referral-program' ),
+			'callback' => array( $this, 'wps_crp_refer_a_freind_template_callback' ),
+			'priority' => 50,
+		);
+		return $tabs;
+	}
+
+
+	/**
+	 * Shows the refer a freind content/
+	 *
+	 * @param string $slug .
+	 * @param array  $tab .
+	 * @return void
+	 */
+	public function wps_crp_refer_a_freind_template_callback( $slug, $tab ) {
+		include_once COUPON_REFERRAL_PROGRAM_DIR_PATH . 'public/partials/coupon-referral-program-public-referal-sharing-section.php';
+	}
 }

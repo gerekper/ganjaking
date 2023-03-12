@@ -8,7 +8,7 @@ use ACA\ACF\Value\Formatter;
 class DefaultFormatter extends Formatter {
 
 	public function format( $value, $id = null ) {
-		if ( empty( $value ) ) {
+		if ( empty( $value ) && ! is_numeric( $value ) ) {
 			return $this->column->get_empty_char();
 		}
 

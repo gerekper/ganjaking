@@ -5,16 +5,15 @@ namespace ACA\WC\Export\ShopCoupon;
 use ACP;
 use WC_Coupon;
 
-/**
- * WooCommerce coupon type (default column) exportability model
- * @since 2.2.1
- */
-class Type extends ACP\Export\Model {
+class Type implements ACP\Export\Service {
 
 	public function get_value( $id ) {
 		$coupon = new WC_Coupon( $id );
+		$type = $coupon->get_discount_type();
 
-		return wc_get_coupon_type( $coupon->get_discount_type() );
+		return $type
+			? wc_get_coupon_type( $type )
+			: '';
 	}
 
 }

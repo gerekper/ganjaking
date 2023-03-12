@@ -49,7 +49,7 @@ if ( ! class_exists( 'Coupon_ORDER_Referral_Email' ) ) {
 			$this->id             = 'crp_order_email';
 			$this->title          = __( 'Order discount coupon', 'coupon-referral-program' );
 			$this->customer_email = true;
-			$this->description    = __( 'This email will be sent to those customers through which another user visited & made a purchase on your site.', 'coupon-referral-program' );
+			$this->description    = __( 'This email will be sent to those customers through which another user visited & purchased on your site.', 'coupon-referral-program' );
 			$this->template_html  = 'crp-order-email-template.php';
 			$this->template_plain = 'plain/crp-order-email-template.php';
 			$this->template_base  = COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/templates/';

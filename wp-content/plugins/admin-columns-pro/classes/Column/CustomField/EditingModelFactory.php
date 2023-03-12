@@ -85,9 +85,15 @@ class EditingModelFactory {
 			default :
 				$type = self::get_editable_type( $column ) ?: 'textarea';
 
-				return $type === 'textarea'
-					? new Service\Basic( ( new View\TextArea() )->set_clear_button( true ), $storage )
-					: new Service\Basic( ( new View\Text() )->set_clear_button( true ), $storage );
+				switch ( $type ) {
+					case Settings\EditableType\Text::TYPE_WYSIWYG:
+						return new Service\Basic( ( new View\Wysiwyg() )->set_clear_button( true ), $storage );
+					case Settings\EditableType\Text::TYPE_TEXTAREA:
+						return new Service\Basic( ( new View\TextArea() )->set_clear_button( true ), $storage );
+					case Settings\EditableType\Text::TYPE_TEXT:
+					default:
+						return new Service\Basic( ( new View\Text() )->set_clear_button( true ), $storage );
+				}
 		}
 	}
 

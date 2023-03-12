@@ -13,7 +13,7 @@ class Username extends AC\Column\User\Username
 	implements Export\Exportable, Search\Searchable {
 
 	public function export() {
-		return new Export\Model\User\Login( $this );
+		return new Export\Model\User\Login();
 	}
 
 	public function search() {

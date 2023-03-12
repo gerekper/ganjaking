@@ -176,30 +176,30 @@ class WC_Subscription_Downloads_Products {
 	}
 
 	/**
-	 * Search orders from subscription ID.
+	 * Search orders from subscription product ID.
 	 *
-	 * @param  int   $subscription_id
+	 * @param  int   $subscription_product_id
 	 *
 	 * @return array
 	 */
-	protected function get_orders( $subscription_id ) {
+	protected function get_orders( $subscription_product_id ) {
 		global $wpdb;
 
 		$orders   = array();
 		$meta_key = '_product_id';
 
-		// Check if subscription has parent (i.e. is a variable subscription).
+		// Check if subscription product has parent (i.e. is a variable subscription product).
 		$parent_id = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT post_parent AS parent_id
 				FROM {$wpdb->prefix}posts
 				WHERE ID = %d;
 				",
-				$subscription_id
+				$subscription_product_id
 			)
 		);
 
-		// If the subscription is a variation, use variation meta key to find related orders.
+		// If the subscription product is a variation, use variation meta key to find related orders.
 		if ( ! empty( $parent_id ) ) {
 			$meta_key = '_variation_id';
 		}
@@ -213,7 +213,7 @@ class WC_Subscription_Downloads_Products {
 				AND itemmeta.meta_value = %d;
 				",
 				$meta_key,
-				$subscription_id
+				$subscription_product_id
 			)
 		);
 
@@ -221,7 +221,7 @@ class WC_Subscription_Downloads_Products {
 			$orders[] = $order->id;
 		}
 
-		$orders = apply_filters( 'woocommerce_subscription_downloads_get_orders', $orders, $subscription_id );
+		$orders = apply_filters( 'woocommerce_subscription_downloads_get_orders', $orders, $subscription_product_id );
 
 		return $orders;
 	}

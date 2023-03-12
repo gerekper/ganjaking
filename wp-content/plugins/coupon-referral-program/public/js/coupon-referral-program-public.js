@@ -68,7 +68,7 @@
 	    	$(this).addClass("mwb_copied");
 	    });
 	    /** Data Table for the Referral Coupons  **/
-	    if (mwb_crp.is_account_page) {
+	    if (mwb_crp.is_account_page || mwb_crp.is_shortcode_post ) {
 	    	$('#mwb-crp-referral-table').DataTable( {
 	    		"lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
 	    		"language": {

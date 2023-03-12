@@ -5,14 +5,12 @@ namespace ACA\WC\Export\Product;
 use ACA\WC\Column;
 use ACP;
 
-/**
- * @since 3.0
- * @property Column\Product\Sale $column
- */
-class Sale extends ACP\Export\Model {
+class Sale implements ACP\Export\Service {
+
+	protected $column;
 
 	public function __construct( Column\Product\Sale $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
 	public function get_value( $id ) {

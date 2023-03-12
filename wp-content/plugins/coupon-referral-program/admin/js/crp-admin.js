@@ -4,6 +4,14 @@
 		if(document.getElementById("mwb_crp_referral_link")) {
 
 			document.getElementById("mwb_crp_referral_link").setAttribute("readonly", true);
+		}
+		if(document.getElementById("mwb_crp_referral_code")) {
+
+			document.getElementById("mwb_crp_referral_code").setAttribute("readonly", true);
+		}
+		if(document.getElementById("mwb_crp_referral_tab")) {
+
+			document.getElementById("mwb_crp_referral_tab").setAttribute("readonly", true);
 
 		}
 
@@ -98,8 +106,7 @@
 				rows.style.display="";
 			}
 			
-		}
-		
+		}		
    	}
    	document.addEventListener( 'DOMContentLoaded', crp_init );
    }() );

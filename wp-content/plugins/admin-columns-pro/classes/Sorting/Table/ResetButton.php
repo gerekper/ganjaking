@@ -4,45 +4,33 @@ namespace ACP\Sorting\Table;
 
 use AC\ColumnRepository;
 use AC\Table;
+use ACP\Sorting;
 use ACP\Sorting\ApplyFilter;
-use ACP\Sorting\Settings;
 use ACP\Sorting\Type\SortType;
 
 class ResetButton {
 
-	/**
-	 * @var ColumnRepository
-	 */
 	private $column_repository;
 
-	/**
-	 * @var Settings\ListScreen\PreferredSort
-	 */
 	private $setting_sort_default;
 
-	/**
-	 * @var Settings\ListScreen\PreferredSegmentSort
-	 */
 	private $setting_segment_default;
 
-	/**
-	 * @var ApplyFilter\DefaultSort
-	 */
 	private $default_sort_filter;
 
-	public function __construct( ColumnRepository $column_repository, Settings\ListScreen\PreferredSort $setting_sort_default, Settings\ListScreen\PreferredSegmentSort $setting_segment_default, ApplyFilter\DefaultSort $default_sort_filter ) {
+	public function __construct(
+		ColumnRepository $column_repository,
+		Sorting\Settings\ListScreen\PreferredSort $setting_sort_default,
+		Sorting\Settings\ListScreen\PreferredSegmentSort $setting_segment_default,
+		ApplyFilter\DefaultSort $default_sort_filter
+	) {
 		$this->column_repository = $column_repository;
 		$this->setting_sort_default = $setting_sort_default;
 		$this->setting_segment_default = $setting_segment_default;
 		$this->default_sort_filter = $default_sort_filter;
 	}
 
-	/**
-	 * @param SortType $request_sort_type
-	 *
-	 * @return bool
-	 */
-	private function is_default( SortType $request_sort_type ) {
+	private function is_default( SortType $request_sort_type ): bool {
 		$sort_type = $this->setting_sort_default->get();
 
 		if ( ! $sort_type ) {
@@ -58,12 +46,7 @@ class ResetButton {
 		return $sort_type->equals( $request_sort_type );
 	}
 
-	/**
-	 * @param SortType $sort_type
-	 *
-	 * @return Table\Button|null
-	 */
-	public function get( SortType $sort_type ) {
+	public function get( SortType $sort_type ): ?Table\Button {
 		if ( $this->is_default( $sort_type ) ) {
 			return null;
 		}

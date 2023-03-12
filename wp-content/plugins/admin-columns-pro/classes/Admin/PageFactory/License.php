@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace ACP\Admin\PageFactory;
 
 use AC;
@@ -11,7 +13,6 @@ use ACP\Access\PermissionsStorage;
 use ACP\ActivationTokenFactory;
 use ACP\Admin\Page;
 use ACP\LicenseKeyRepository;
-use ACP\PluginRepository;
 use ACP\Type\SiteUrl;
 
 class License implements PageFactoryInterface {
@@ -52,16 +53,20 @@ class License implements PageFactoryInterface {
 	private $license_key_repository;
 
 	/**
-	 * @var PluginRepository
-	 */
-	private $plugin_repository;
-
-	/**
 	 * @var bool
 	 */
 	private $network_active;
 
-	public function __construct( Location\Absolute $location, MenuFactoryInterface $menu_factory, SiteUrl $site_url, ActivationTokenFactory $activation_token_factory, ActivationStorage $activation_storage, PermissionsStorage $permission_storage, LicenseKeyRepository $license_key_repository, PluginRepository $plugin_repository, $network_active ) {
+	public function __construct(
+		Location\Absolute $location,
+		MenuFactoryInterface $menu_factory,
+		SiteUrl $site_url,
+		ActivationTokenFactory $activation_token_factory,
+		ActivationStorage $activation_storage,
+		PermissionsStorage $permission_storage,
+		LicenseKeyRepository $license_key_repository,
+		bool $network_active
+	) {
 		$this->location = $location;
 		$this->menu_factory = $menu_factory;
 		$this->site_url = $site_url;
@@ -69,8 +74,7 @@ class License implements PageFactoryInterface {
 		$this->activation_storage = $activation_storage;
 		$this->permission_storage = $permission_storage;
 		$this->license_key_repository = $license_key_repository;
-		$this->plugin_repository = $plugin_repository;
-		$this->network_active = (bool) $network_active;
+		$this->network_active = $network_active;
 	}
 
 	public function create() {
@@ -82,7 +86,6 @@ class License implements PageFactoryInterface {
 			$this->activation_storage,
 			$this->permission_storage,
 			$this->license_key_repository,
-			$this->plugin_repository,
 			$this->network_active
 		);
 	}

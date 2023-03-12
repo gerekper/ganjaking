@@ -26,9 +26,7 @@ class PostType extends AC\Column implements Editing\Editable {
 	private function get_post_type_label( $post_type ) {
 		$post_type_object = get_post_type_object( $post_type );
 
-		return $post_type_object
-			? $post_type_object->label
-			: $post_type;
+		return $post_type_object->label ?? $post_type;
 	}
 
 	public function editing() {

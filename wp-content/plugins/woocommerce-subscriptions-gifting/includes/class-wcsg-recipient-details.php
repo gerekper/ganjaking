@@ -195,10 +195,16 @@ class WCSG_Recipient_Details {
 
 				if ( ! empty( $address ) ) {
 					$recipient_subscriptions = WCSG_Recipient_Management::get_recipient_subscriptions( $user->ID );
-
 					foreach ( $recipient_subscriptions as $subscription_id ) {
 						$subscription = wcs_get_subscription( $subscription_id );
-						$subscription->set_address( $address, 'shipping' );
+
+						foreach( $address as $key => $value ) {
+							if ( is_callable( array( $subscription, 'set_shipping_' . $key ) ) ) {
+								$subscription->{'set_shipping_' . $key}( $value );
+							}
+						}
+
+						$subscription->save();
 					}
 				}
 

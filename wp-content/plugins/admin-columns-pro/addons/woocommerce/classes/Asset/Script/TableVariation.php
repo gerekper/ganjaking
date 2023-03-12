@@ -6,13 +6,13 @@ use AC;
 
 class TableVariation extends AC\Asset\Script {
 
-	const TABLE = 'product_variation';
+	private const TABLE = 'product_variation';
 
-	public function __construct( $handle, AC\Asset\Location\Absolute $location ) {
+	public function __construct( string $handle, AC\Asset\Location\Absolute $location ) {
 		parent::__construct( $handle, $location->with_suffix( 'assets/js/table-variation.js' ), [ 'jquery' ] );
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
 		wp_localize_script( $this->handle, 'aca_wc_table_variation', [
@@ -21,10 +21,7 @@ class TableVariation extends AC\Asset\Script {
 		] );
 	}
 
-	/**
-	 * @return string
-	 */
-	private function get_referer_link() {
+	private function get_referer_link(): string {
 		$preference = new AC\Preferences\Site( 'referer' );
 
 		$referer = $this->check_referer( 'product' );

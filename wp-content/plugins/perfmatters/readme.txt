@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.1.1
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.0.7 - 03.10.2023 =
+* Fixed an issue that was introduced in the last update that was causing certain images that had their HTML modified by another tool not to lazy load correctly.
+* Translation updates.
 
 = 2.0.6 - 03.02.2023 =
 * Added new Minimal v4 script type option in local analytics.

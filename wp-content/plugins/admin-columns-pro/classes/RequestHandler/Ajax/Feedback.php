@@ -19,7 +19,7 @@ class Feedback implements RequestAjaxHandler {
 		$this->version = $version;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}

@@ -15,6 +15,7 @@ use ACA\WC\Settings\HideOnScreen\FilterSubscriptionPayment;
 use ACA\WC\Settings\HideOnScreen\FilterSubscriptionProduct;
 use ACA\WC\TableScreen\HideProductFilter;
 use ACA\WC\TableScreen\HideSubscriptionsFilter;
+use ACP\ListScreen\Taxonomy;
 use WC_Admin_List_Table_Orders;
 use WP_Post;
 
@@ -107,7 +108,8 @@ final class TableScreen implements Registerable {
 		       $list_screen instanceof ListScreen\Product ||
 		       $list_screen instanceof ListScreen\ProductVariation ||
 		       $list_screen instanceof ListScreen\Subscriptions ||
-		       $list_screen instanceof AC\ListScreen\User;
+		       $list_screen instanceof AC\ListScreen\User ||
+		       ( $list_screen instanceof Taxonomy && $list_screen->get_taxonomy() === 'product_cat' );
 	}
 
 	/**

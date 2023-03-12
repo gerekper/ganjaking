@@ -5,28 +5,20 @@ namespace ACA\WC\Export\Product;
 use ACA\WC\Column;
 use ACP;
 
-/**
- * @since 3.0
- * @property Column\Product\Attributes $column
- */
-class Attributes extends ACP\Export\Model {
+class Attributes implements ACP\Export\Service {
+
+	protected $column;
 
 	public function __construct( Column\Product\Attributes $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function get_delimiter() {
-		return defined( 'WC_DELIMITER' ) && WC_DELIMITER ? WC_DELIMITER : ' | ';
+	private function get_delimiter(): string {
+		return defined( 'WC_DELIMITER' ) && WC_DELIMITER
+			? (string) WC_DELIMITER
+			: ' | ';
 	}
 
-	/**
-	 * @param int $id
-	 *
-	 * @return string
-	 */
 	public function get_value( $id ) {
 		$values = [];
 

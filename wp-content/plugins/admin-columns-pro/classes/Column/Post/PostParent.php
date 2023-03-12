@@ -27,7 +27,7 @@ class PostParent extends AC\Column\Post\PostParent
 	}
 
 	public function export() {
-		return new Export\Model\PostTitleFromPostId( $this );
+		return new Export\Model\Post\PostParent();
 	}
 
 	public function search() {

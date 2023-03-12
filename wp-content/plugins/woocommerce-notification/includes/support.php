@@ -7,7 +7,7 @@ if ( ! class_exists( 'VillaTheme_Support_Pro' ) ) {
 
 	/**
 	 * Class VillaTheme_Support_Pro
-	 * 1.1.2
+	 * 1.1.4
 	 *
 	 */
 	class VillaTheme_Support_Pro {
@@ -68,6 +68,21 @@ if ( ! class_exists( 'VillaTheme_Support_Pro' ) ) {
 				wp_safe_redirect( remove_query_arg( array( '_villatheme_nonce' ) ) );
 				exit();
 			}
+			if ( wp_verify_nonce( sanitize_text_field( $_GET['_villatheme_nonce'] ), 'villatheme_show_toolbar' ) ) {
+				delete_option( 'villatheme_hide_admin_toolbar' );
+				wp_safe_redirect( remove_query_arg( array( '_villatheme_nonce' ) ) );
+				exit();
+			}
+			if ( wp_verify_nonce( sanitize_text_field( $_GET['_villatheme_nonce'] ), 'villatheme_hide_banner' ) ) {
+				update_option( 'villatheme_hide_dashboard_banner', time() );
+				wp_safe_redirect( remove_query_arg( array( '_villatheme_nonce' ) ) );
+				exit();
+			}
+			if ( wp_verify_nonce( sanitize_text_field( $_GET['_villatheme_nonce'] ), 'villatheme_show_banner' ) ) {
+				delete_option( 'villatheme_hide_dashboard_banner' );
+				wp_safe_redirect( remove_query_arg( array( '_villatheme_nonce' ) ) );
+				exit();
+			}
 			if ( wp_verify_nonce( $_GET['_villatheme_nonce'], 'hide_maybe' ) ) {
 				set_transient( $this->data['slug'] . $this->data['version'] . 'hide_maybe', 1, 2592000 );
 			}
@@ -76,7 +91,7 @@ if ( ! class_exists( 'VillaTheme_Support_Pro' ) ) {
 		/**
 		 * Add Extension page
 		 */
-		function admin_menu() {
+		public function admin_menu() {
 			add_submenu_page( $this->data['menu_slug'], esc_html__( 'Extensions', $this->data['slug'] ), esc_html__( 'Extensions', $this->data['slug'] ), 'manage_options', $this->data['slug'] . '-extensions', array(
 				$this,
 				'page_callback'
@@ -191,49 +206,83 @@ if ( ! class_exists( 'VillaTheme_Support_Pro' ) ) {
 		 *
 		 */
 		public function villatheme_support() {
+			$hide_banner = get_option( 'villatheme_hide_dashboard_banner' );
 			?>
             <div id="villatheme-support" class="vi-ui form segment">
                 <h3><?php echo esc_html__( 'MAYBE YOU LIKE', $this->data['slug'] ) ?>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="vi-ui button labeled icon" target="_blank"
+                    &nbsp;&nbsp;
+                    <a class="vi-ui button labeled icon tiny" target="_blank"
                        href="<?php echo esc_attr( esc_url( $this->data['docs'] ) ) ?>">
                         <i class="book icon"></i>
 						<?php esc_html_e( 'Documentation', $this->data['slug'] ) ?>
                     </a>
-                    <a class="vi-ui button inverted labeled icon orange" target="_blank"
+                    <a class="vi-ui button inverted labeled icon orange tiny" target="_blank"
                        href="<?php echo esc_attr( esc_url( $this->data['review'] ) ) ?>">
                         <i class="star icon"></i>
 						<?php esc_html_e( 'Review', $this->data['slug'] ) ?>
                     </a>
-                    <a class="vi-ui  button labeled icon green" target="_blank"
+                    <a class="vi-ui button labeled icon green tiny" target="_blank"
                        href="<?php echo esc_attr( esc_url( $this->data['support'] ) ) ?>">
                         <i class="users icon"></i>
 						<?php esc_html_e( 'Request Support', $this->data['slug'] ) ?>
                     </a>
-                </h3>
-                <div class="fields">
 					<?php
-					$items = $this->get_data( $this->data['slug'] );
-					if ( is_array( $items ) && count( $items ) ) {
-						shuffle( $items );
-						$items = array_slice( $items, 0, 12 );
-						foreach ( $items as $k => $item ) {
-							if ( $k % 4 == 0 && $k > 0 ) {
-								echo wp_kses_post( '</div><div class="fields">' );
-							}
-							?>
-                            <div class="four wide field">
-                                <div class="villatheme-item">
-                                    <a target="_blank" href="<?php echo esc_attr( esc_url( $item->link ) ) ?>">
-                                        <img src="<?php echo esc_attr( esc_url( $item->image ) ) ?>"/>
-                                    </a>
-                                </div>
-                            </div>
-							<?php
-						}
+					if ( get_option( 'villatheme_hide_admin_toolbar' ) ) {
+						?>
+                        <a class="vi-ui button labeled icon blue inverted tiny" target="_self"
+                           title="<?php echo esc_attr( 'VillaTheme toolbar helps you access all VillaTheme items quickly' ) ?>"
+                           href="<?php echo esc_url( add_query_arg( array( '_villatheme_nonce' => wp_create_nonce( 'villatheme_show_toolbar' ) ) ) ) ?>">
+                            <i class="toggle on icon"></i>
+							<?php echo esc_html( 'Show Toolbar' ) ?>
+                        </a>
+						<?php
+					}
+					if ( $hide_banner ) {
+						$nonce = wp_create_nonce( 'villatheme_show_banner' );
+						$icon  = 'on';
+						$text  = 'Show Banner';
+					} else {
+						$nonce = wp_create_nonce( 'villatheme_hide_banner' );
+						$icon  = 'off';
+						$text  = 'Hide Banner';
 					}
 					?>
-                </div>
+                    <a class="vi-ui button labeled icon green inverted tiny" target="_self"
+                       title="<?php echo esc_attr( 'Toggle recommended plugins from VillaTheme' ) ?>"
+                       href="<?php echo esc_url( add_query_arg( array( '_villatheme_nonce' => $nonce ) ) ) ?>">
+                        <i class="toggle <?php echo esc_attr( $icon ) ?> icon"></i>
+						<?php echo esc_html( $text ) ?>
+                    </a>
+                </h3>
+				<?php
+				if ( ! $hide_banner ) {
+					?>
+                    <div class="fields">
+						<?php
+						$items = $this->get_data( $this->data['slug'] );
+						if ( is_array( $items ) && count( $items ) ) {
+							shuffle( $items );
+							$items = array_slice( $items, 0, 12 );
+							foreach ( $items as $k => $item ) {
+								if ( $k % 4 == 0 && $k > 0 ) {
+									echo wp_kses_post( '</div><div class="fields">' );
+								}
+								?>
+                                <div class="four wide field">
+                                    <div class="villatheme-item">
+                                        <a target="_blank" href="<?php echo esc_attr( esc_url( $item->link ) ) ?>">
+                                            <img src="<?php echo esc_attr( esc_url( $item->image ) ) ?>"/>
+                                        </a>
+                                    </div>
+                                </div>
+								<?php
+							}
+						}
+						?>
+                    </div>
+					<?php
+				}
+				?>
             </div>
 			<?php
 		}
@@ -299,9 +348,7 @@ if ( ! class_exists( 'VillaTheme_Support_Pro' ) ) {
 					'id'    => 'villatheme',
 					'title' => '<span class="ab-icon dashicons-star-filled villatheme-rotating"></span>' . 'VillaTheme',
 					'href'  => '',
-					'meta'  => array(
-						'class' => 'villatheme-toolbar'
-					),
+					'meta'  => array( 'class' => 'villatheme-toolbar' ),
 				) );
 				add_action( 'admin_bar_menu', array( $this, 'hide_toolbar_button' ), 200 );
 			}

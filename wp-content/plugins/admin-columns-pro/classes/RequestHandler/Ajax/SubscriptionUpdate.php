@@ -69,7 +69,7 @@ class SubscriptionUpdate implements RequestAjaxHandler {
 		$this->plugin_repository = $plugin_repository;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}

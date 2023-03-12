@@ -12,12 +12,15 @@ class PluginUpdatesCheck extends Script {
 		parent::__construct( 'acp-plugins-update-check', $location );
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
-		$this->add_inline_variable( 'ACP_PLUGIN_UPDATES_CHECK', [
-			'nonce' => ( new Ajax() )->create(),
-		] );
+		$this->add_inline_variable(
+			'ACP_PLUGIN_UPDATES_CHECK',
+			[
+				'nonce' => ( new Ajax() )->create(),
+			]
+		);
 	}
 
 }

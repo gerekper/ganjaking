@@ -19,7 +19,7 @@ class Products extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopCoupon\Products( $this );
+		return new Export\ShopCoupon\Products();
 	}
 
 	public function search() {

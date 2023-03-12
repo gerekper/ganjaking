@@ -20,7 +20,7 @@ class Date extends AC\Column\Post\Date
 	}
 
 	public function export() {
-		return new Export\Model\Post\Date( $this );
+		return new Export\Model\Post\Date();
 	}
 
 	public function search() {

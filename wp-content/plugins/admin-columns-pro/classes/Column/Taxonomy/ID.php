@@ -16,16 +16,16 @@ class ID extends AC\Column
 	use ConditionalFormat\IntegerFormattableTrait;
 
 	public function __construct() {
-		$this->set_type( 'column-termid' );
-		$this->set_label( __( 'ID', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-termid' )
+		     ->set_label( __( 'ID', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $term_id ) {
-		return $this->get_raw_value( $term_id );
+	public function get_value( $id ) {
+		return (int) $id;
 	}
 
-	public function get_raw_value( $term_id ) {
-		return $term_id;
+	public function get_raw_value( $id ) {
+		return (int) $id;
 	}
 
 	public function sorting() {

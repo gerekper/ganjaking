@@ -47,7 +47,7 @@ class TwitterImage extends AC\Column\Meta
 	}
 
 	public function export() {
-		return new ACP\Export\Model\Post\Meta( $this, $this->get_meta_key_url() );
+		return new ACP\Export\Model\Post\Meta( $this->get_meta_key_url() );
 	}
 
 }

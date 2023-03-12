@@ -2,17 +2,16 @@
 
 namespace ACP\Table;
 
+use AC\Capabilities;
 use AC\Form\Element\Select;
 use AC\ListScreen;
-use AC\ListScreenRepository\Filter;
-use AC\ListScreenRepository\Sort;
+use AC\ListScreenRepository\Filter\ExcludeAdmin;
+use AC\ListScreenRepository\Sort\ManualOrder;
 use AC\ListScreenRepository\Storage;
-use AC\PermissionChecker;
 use AC\Registerable;
 
 class Switcher implements Registerable {
 
-	/** @var Storage */
 	private $storage;
 
 	public function __construct( Storage $storage ) {
@@ -23,7 +22,7 @@ class Switcher implements Registerable {
 		add_action( 'ac/admin_footer', [ $this, 'switcher' ] );
 	}
 
-	private function add_filter_args_to_url( $link ) {
+	private function add_filter_args_to_url( string $link ): string {
 		$post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		if ( $post_status ) {
@@ -39,18 +38,18 @@ class Switcher implements Registerable {
 		return $link;
 	}
 
-	public function switcher( ListScreen $list_screen ) {
+	public function switcher( ListScreen $list_screen ): void {
+		$user = wp_get_current_user();
 
-		$list_screens = $this->storage->find_all( [
-			Storage::KEY        => $list_screen->get_key(),
-			Storage::ARG_FILTER => [
-				new Filter\Permission( new PermissionChecker() ),
-			],
-			Storage::ARG_SORT   => new Sort\ManualOrder(),
-		] );
+		if ( ! $user ) {
+			return;
+		}
 
-		// When an admin visits the table for a hidden listscreen
-		if ( ! $list_screens->contains( $list_screen ) ) {
+		$list_screens = $this->storage->find_all_by_user( $list_screen->get_key(), $user, new ManualOrder() );
+		$list_screens = ( new ExcludeAdmin( $user ) )->filter( $list_screens );
+
+		// Add current list screeen for when an admin visits the table for a user or role specific listscreen
+		if ( current_user_can( Capabilities::MANAGE ) && ! $list_screens->contains( $list_screen ) ) {
 			$list_screens->add( $list_screen );
 		}
 

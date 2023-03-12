@@ -19,7 +19,7 @@ class UpdraftPlus_Search_Replace {
 	 */
 	public function __construct() {
 		add_action('updraftplus_restore_db_pre', array($this, 'updraftplus_restore_db_pre'));
-		$this->max_recursion = apply_filters('updraftplus_search_replace_max_recursion', 10);
+		$this->max_recursion = apply_filters('updraftplus_search_replace_max_recursion', 20);
 	}
 
 	/**

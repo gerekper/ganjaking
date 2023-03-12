@@ -5,24 +5,23 @@ namespace ACA\WC\Export\ShopOrder;
 use ACA\WC\Column;
 use ACP;
 
-/**
- * @property Column\ShopOrder\OrderDate $column
- */
-class OrderDate extends ACP\Export\Model {
+class OrderDate implements ACP\Export\Service {
+
+	protected $column;
 
 	public function __construct( Column\ShopOrder\OrderDate $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
 	public function get_value( $id ) {
 		if ( ! $this->column->get_field() ) {
-			return false;
+			return '';
 		}
 
 		$date = $this->column->get_field()->get_date( wc_get_order( $id ) );
 
 		if ( ! $date ) {
-			return false;
+			return '';
 		}
 
 		return $date->format( 'Y-m-d H:i' );

@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Associated_API_Key_Data_Store {
 
+	private $associated_api_key_table = '';
+
 	/**
 	 * @var null
 	 */
@@ -32,7 +34,9 @@ class WC_AM_Associated_API_Key_Data_Store {
 		return self::$_instance;
 	}
 
-	private function __construct() { }
+	private function __construct() {
+		$this->associated_api_key_table = WC_AM_USER()->get_associated_api_key_table_name();
+	}
 
 	/**
 	 * Returns true if the resource already has a matching order ID.
@@ -48,13 +52,13 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$sql = "
 			SELECT associated_api_key
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 			WHERE associated_api_key = %s
 		";
 
 		$api_key_exists = $wpdb->get_var( $wpdb->prepare( $sql, $api_key ) );
 
-		return ! empty( $api_key_exists ) ? true : false;
+		return ! empty( $api_key_exists );
 	}
 
 	/**
@@ -66,12 +70,12 @@ class WC_AM_Associated_API_Key_Data_Store {
 	 *
 	 * @return bool|int
 	 */
-	public function get_associated_api_key_id( $api_key ) {
+	public function get_associated_api_key_id_by_associated_api_key( $api_key ) {
 		global $wpdb;
 
 		$sql = "
 			SELECT associated_api_key_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 			WHERE associated_api_key = %s
 		";
 
@@ -81,7 +85,22 @@ class WC_AM_Associated_API_Key_Data_Store {
 	}
 
 	/**
-	 * Get row of resources for associated API Key.
+	 * Use the Associated API Key to return the Associated API Key ID.
+	 *
+	 * @since 2.0
+	 *
+	 * @param string $api_key
+	 *
+	 * @return bool
+	 */
+	public function get_associated_api_key_id( $api_key ) {
+		_deprecated_function( 'WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->get_associated_api_key_id()', '2.5.5', 'WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->get_associated_api_key_id_by_associated_api_key()' );
+
+		return $this->get_associated_api_key_id_by_associated_api_key( $api_key );
+	}
+
+	/**
+	 * Get row for the Associated API Key.
 	 *
 	 * @since 2.0
 	 *
@@ -94,7 +113,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 			WHERE associated_api_key = %s
 		";
 
@@ -119,7 +138,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+            FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
             WHERE associated_api_key = %s
         ";
 
@@ -150,34 +169,12 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$api_resource_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT api_resource_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 			WHERE associated_api_key = %s
 			LIMIT 1
 		", $associated_api_key ) );
 
 		return ! empty( $api_resource_id ) ? $api_resource_id : false;
-	}
-
-	/**
-	 * Use the Associated API Key to return the Associated API Key ID.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $associated_api_key
-	 *
-	 * @return bool
-	 */
-	public function get_associated_api_key_id_by_associated_api_key( $associated_api_key ) {
-		global $wpdb;
-
-		$associated_api_key_id = $wpdb->get_var( $wpdb->prepare( "
-			SELECT associated_api_key_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
-			WHERE associated_api_key = %s
-			LIMIT 1
-		", $associated_api_key ) );
-
-		return ! empty( $associated_api_key_id ) ? $associated_api_key_id : false;
 	}
 
 	/**
@@ -196,7 +193,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+            FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
             WHERE associated_api_key_id = %d
         ";
 
@@ -225,7 +222,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$associated_api_key_count = $wpdb->get_var( "
 			SELECT COUNT(associated_api_key_id)
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_associated_api_key_table_name() . "
+			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 		" );
 
 		return ! empty( $associated_api_key_count ) ? $associated_api_key_count : 0;
@@ -240,12 +237,12 @@ class WC_AM_Associated_API_Key_Data_Store {
 	 * @param int    $order_id
 	 * @param int    $product_id
 	 *
-	 * @return bool|int
+	 * @return bool
 	 */
 	public function add_associated_api_key( $api_key, $order_id, $product_id ) {
 		global $wpdb;
 
-		$result = false;
+		$update = false;
 
 		if ( ! $this->has_associated_api_key( $api_key ) ) {
 			$api_resource_id = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_id_by_order_id_and_product_id( $order_id, $product_id );
@@ -263,7 +260,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 					'%d'
 				);
 
-				$result = $wpdb->insert( $wpdb->prefix . WC_AM_USER()->get_associated_api_key_table_name(), $data, $format );
+				$result = $wpdb->insert( $wpdb->prefix . $this->associated_api_key_table, $data, $format );
 
 				if ( $result ) {
 					$associated_api_key_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_associated_api_key_ids_by_api_resource_id( $api_resource_id );
@@ -284,14 +281,12 @@ class WC_AM_Associated_API_Key_Data_Store {
 						'%d'
 					);
 
-					$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
-
-					return true;
+					$update = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
 				}
 			}
 		}
 
-		return ! empty( $result ) ? true : false;
+		return ! empty( $update );
 	}
 
 	/**
@@ -326,9 +321,9 @@ class WC_AM_Associated_API_Key_Data_Store {
 			'%s'
 		);
 
-		$result = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_associated_api_key_table_name(), $data, $where, $data_format, $where_format );
+		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
 
-		return ! empty( $result ) ? true : false;
+		return ! empty( $update );
 	}
 
 	/**
@@ -362,9 +357,9 @@ class WC_AM_Associated_API_Key_Data_Store {
 			'%d'
 		);
 
-		$update = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_associated_api_key_table_name(), $data, $where, $data_format, $where_format );
+		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
 
-		return ! empty( $update ) ? true : false;
+		return ! empty( $update );
 	}
 
 	/**
@@ -409,8 +404,39 @@ class WC_AM_Associated_API_Key_Data_Store {
 			'%d'
 		);
 
-		$update = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_associated_api_key_table_name(), $data, $where, $data_format, $where_format );
+		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
 
-		return ! empty( $update ) ? true : false;
+		return ! WC_AM_FORMAT()->empty( $update );
+	}
+
+	/**
+	 * Delete all Associated API Keys by api_resource_id.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return bool
+	 */
+	public function delete_associated_api_key_by_api_resource_id( $api_resource_id ) {
+		return $this->delete_by( array( 'api_resource_id' => $api_resource_id ), array( '%d' ) );
+	}
+
+	/**
+	 * Deletes all rows with $needle value(s).
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param array $needle What to delete. i.e. array( 'user_id' => $user_id ). ( 'string' => int|string )
+	 * @param array $format Either %s or %d. i.e. array( '%d' ). ( 'string' )
+	 *
+	 * @return bool
+	 */
+	public function delete_by( $needle, $format ) {
+		global $wpdb;
+
+		$result = $wpdb->delete( $wpdb->prefix . $this->associated_api_key_table, $needle, $format );
+
+		return ! WC_AM_FORMAT()->empty( $result );
 	}
 }

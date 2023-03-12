@@ -591,7 +591,7 @@ class WC_AM_Product_Data_Store {
 	 * @return bool
 	 */
 	public function is_product_grouped( $product ) {
-		return $this->get_product_type( $product ) == 'grouped' ? true : false;
+		return $this->get_product_type( $product ) == 'grouped';
 	}
 
 	/**
@@ -604,7 +604,7 @@ class WC_AM_Product_Data_Store {
 	 * @return bool
 	 */
 	public function is_product_external( $product ) {
-		return $this->get_product_type( $product ) == 'external' ? true : false;
+		return $this->get_product_type( $product ) == 'external';
 	}
 
 	/**
@@ -641,7 +641,7 @@ class WC_AM_Product_Data_Store {
 
 			$parent_id = $wpdb->get_var( $wpdb->prepare( $sql, 'product', 0 ) );
 
-			return ! empty( $parent_id ) && $parent_id == $product_id ? true : false;
+			return ! empty( $parent_id ) && $parent_id == $product_id;
 		}
 	}
 
@@ -715,7 +715,7 @@ class WC_AM_Product_Data_Store {
 	 * @return bool
 	 */
 	public function is_api_subscription_required_product( $product ) {
-		return ! empty( $this->get_meta( $product, '_api_is_subscription' ) ) == 'yes' ? true : false;
+		return ! empty( $this->get_meta( $product, '_api_is_subscription' ) ) == 'yes';
 	}
 
 	/**
@@ -766,7 +766,7 @@ class WC_AM_Product_Data_Store {
 
 		$result = $wpdb->get_row( $wpdb->prepare( $sql, $args ) );
 
-		return ! empty( $result ) ? true : false;
+		return ! empty( $result );
 	}
 
 	/**
@@ -795,12 +795,12 @@ class WC_AM_Product_Data_Store {
 	 *
 	 * @param int $product_id
 	 *
-	 * @return int
+	 * @return bool
 	 */
 	public function has_api_resource_product_id( $product_id ) {
 		$product_id = $this->get_meta( $product_id, '_api_resource_product_id' );
 
-		return ! empty( $product_id ) ? true : false;
+		return ! empty( $product_id );
 	}
 
 	/**

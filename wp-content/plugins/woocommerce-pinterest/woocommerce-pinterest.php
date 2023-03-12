@@ -9,7 +9,7 @@ use Premmerce\WooCommercePinterest\Installer\Installer;
  * Plugin Name:       Pinterest for WooCommerce
  * Plugin URI:        https://woocommerce.com/products/softblues-pinterest-for-woocommerce
  * Description:       Track Conversions, Rich Pins product data and bulk creation and editing of Pins
- * Version:           2.4.4
+ * Version:           2.4.6
  * Author:            Softblues
  * Author URI:        https://woocommerce.com/products/softblues-pinterest-for-woocommerce
  * License:           GPL-2.0+
@@ -18,7 +18,7 @@ use Premmerce\WooCommercePinterest\Installer\Installer;
  * Domain Path:       /languages
  *
  * WC requires at least: 3.5
- * WC tested up to: 6.7.0
+ * WC tested up to: 7.4.1
  *
  * Woo: 4596443:2d20474ebd307aae8c752b60a48c5b0c
  */

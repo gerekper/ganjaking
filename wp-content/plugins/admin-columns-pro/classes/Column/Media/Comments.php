@@ -18,7 +18,7 @@ class Comments extends AC\Column\Media\Comments
 	}
 
 	public function export() {
-		return new Export\Model\Post\Comments( $this );
+		return new Export\Model\Post\Comments();
 	}
 
 	public function search() {

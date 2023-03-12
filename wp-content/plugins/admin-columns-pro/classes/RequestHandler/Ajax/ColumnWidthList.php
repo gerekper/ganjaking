@@ -26,7 +26,7 @@ class ColumnWidthList implements RequestAjaxHandler {
 		$this->user_storage = $user_storage;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {
@@ -40,7 +40,7 @@ class ColumnWidthList implements RequestAjaxHandler {
 		}
 
 		foreach ( $this->user_storage->get_all( $id ) as $column_name => $width ) {
-			$this->list_storage->save( $id, $column_name, $width );
+			$this->list_storage->save( $id, (string) $column_name, $width );
 		}
 
 		$this->user_storage->delete_by_list_id( $id );

@@ -2,6 +2,7 @@
 
 namespace ACA\EC\Service;
 
+use AC;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\Registerable;
@@ -38,7 +39,7 @@ class TableScreen implements Registerable {
 		add_action( 'parse_query', [ $this, 'parse_query' ], 51 );
 	}
 
-	public function table_scripts() {
+	public function table_scripts(): void {
 		$script = new Style( 'aca-ec-table', $this->location->with_suffix( 'assets/css/table.css' ) );
 		$script->enqueue();
 	}
@@ -46,7 +47,7 @@ class TableScreen implements Registerable {
 	/**
 	 * @param WP_Query $query
 	 */
-	public function parse_query( WP_Query $query ) {
+	public function parse_query( WP_Query $query ): void {
 		if ( 'tribe_events' !== $query->get( 'post_type' ) ) {
 			return;
 		}
@@ -59,7 +60,7 @@ class TableScreen implements Registerable {
 		$query->tribe_is_event = false;
 	}
 
-	public function add_events_filter_vars( $list_screen ) {
+	public function add_events_filter_vars( $list_screen ): void {
 		if ( ! $list_screen instanceof ListScreen\Event ) {
 			return;
 		}
@@ -151,7 +152,7 @@ class TableScreen implements Registerable {
 	/**
 	 * @param WP_Query $wp_query
 	 */
-	public function events_query_callback( WP_Query $wp_query ) {
+	public function events_query_callback( WP_Query $wp_query ): void {
 		if ( ! $wp_query->is_main_query() ) {
 			return;
 		}
@@ -159,7 +160,7 @@ class TableScreen implements Registerable {
 		$wp_query->query_vars = array_merge( $wp_query->query_vars, $this->filter_vars );
 	}
 
-	public function display_notices() {
+	public function display_notices(): void {
 		foreach ( $this->notices as $notice ) : ?>
 			<div class="notice notice-<?php echo $notice['type']; ?> notice-aca-ec-filter">
 				<div class="info">
@@ -169,7 +170,7 @@ class TableScreen implements Registerable {
 		<?php endforeach;
 	}
 
-	private function filter_on_venue( $value ) {
+	private function filter_on_venue( $value ): void {
 		$column = new Column\Event\Venue();
 
 		$this->filter_vars['meta_query'][] = [
@@ -178,7 +179,7 @@ class TableScreen implements Registerable {
 		];
 	}
 
-	private function filter_on_organizer( $value ) {
+	private function filter_on_organizer( $value ): void {
 		$column = new Column\Event\Organizer();
 
 		$this->filter_vars['meta_query'][] = [
@@ -187,7 +188,7 @@ class TableScreen implements Registerable {
 		];
 	}
 
-	private function filter_on_past_events() {
+	private function filter_on_past_events(): void {
 		$column = new Column\Event\EndDate();
 
 		$this->filter_vars['meta_query'][] = [
@@ -197,7 +198,7 @@ class TableScreen implements Registerable {
 		];
 	}
 
-	private function filter_on_future_events() {
+	private function filter_on_future_events(): void {
 		$column = new Column\Event\StartDate();
 
 		$this->filter_vars['meta_query'][] = [
@@ -207,7 +208,7 @@ class TableScreen implements Registerable {
 		];
 	}
 
-	public function register_event_sorting_fix( \AC\ListScreen $list_screen ) {
+	public function register_event_sorting_fix( AC\ListScreen $list_screen ): void {
 		if ( $list_screen instanceof ListScreen\Event ) {
 			$service = new Sorting\EventSortingFix( $list_screen );
 			$service->register();

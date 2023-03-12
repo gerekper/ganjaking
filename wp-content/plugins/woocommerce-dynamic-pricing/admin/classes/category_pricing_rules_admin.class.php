@@ -95,8 +95,8 @@ class woocommerce_category_pricing_rules_admin {
 				<td>
 					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions_type]" value="all" />
 					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions][<?php echo $condition_index; ?>][type]" value="apply_to" />
-					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions][<?php echo $condition_index; ?>][args][applies_to]" value="everyone" /> 
-					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][collector][type]" value="cats" />  
+					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions][<?php echo $condition_index; ?>][args][applies_to]" value="everyone" />
+					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][collector][type]" value="cats" />
 					<input class="checkbox" <?php echo $checked; ?> type="checkbox" id="item_<?php echo $item->term_id; ?>" name="pricing_rules[<?php echo $name; ?>][collector][args][cats][]" value="<?php echo $item->term_id; ?>" />
 				</td>
 				<td>
@@ -123,7 +123,7 @@ class woocommerce_category_pricing_rules_admin {
 			<?php if ( !is_wp_error( $child_terms ) && !empty( $child_terms ) ) : ?>
 				<?php $this->basic_meta_box_term_group( $pricing_rules, $child_terms, $item, $indent + 1 ); ?>
 			<?php endif; ?>
-		<?php endforeach; ?>   
+		<?php endforeach; ?>
 		<?php
 	}
 
@@ -140,11 +140,11 @@ class woocommerce_category_pricing_rules_admin {
 					<?php $pricing_rule_sets = get_option( '_a_category_pricing_rules', array() ); ?>
 					<div id="woocommerce-pricing-rules-wrap" class="inside" data-setindex="<?php echo count( $pricing_rule_sets ); ?>">
 						<?php $this->meta_box_javascript(); ?>
-						<?php $this->meta_box_css(); ?>  
+						<?php $this->meta_box_css(); ?>
 						<?php if ( $pricing_rule_sets && is_array( $pricing_rule_sets ) && sizeof( $pricing_rule_sets ) > 0 ) : ?>
 							<?php $this->create_rulesets( $pricing_rule_sets ); ?>
-						<?php endif; ?>        
-					</div>   
+						<?php endif; ?>
+					</div>
 					<button id="woocommerce-pricing-add-ruleset" type="button" class="button button-secondary">+ <?php _e('Add Category Pricing', 'woocommerce-dynamic-pricing'); ?></button>
 					<p class="submit" style="float:right;">
 						<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'woocommerce-dynamic-pricing' ); ?>" />
@@ -413,7 +413,7 @@ class woocommerce_category_pricing_rules_admin {
                 </select>
 			</div>
 			<div id="woocommerce-pricing-collector-<?php echo $name; ?>_contributors" class="section" style="" >
-			<div class="cats">   
+			<div class="cats">
 				<label style="margin-top:10px;">Categories to Count:</label>
 
                 <select style="width: 90%;" name="pricing_rules[<?php echo $name; ?>][collector][args][cats][]" class="multiselect wc-enhanced-select" multiple="multiple">
@@ -433,7 +433,7 @@ class woocommerce_category_pricing_rules_admin {
 		private function create_target_selector( $targets, $name ) {
 			$terms = (array) get_terms( 'product_cat', array('get' => 'all') );
 			?>
-			<div class="cats">   
+			<div class="cats">
 				<label> <?php _e( 'Categories to Adjust:', 'woocommerce-dynamic-pricing' ); ?> <?php $this->get_description( 'target' ); ?></label>
 
                 <select style="width: 90%;" name="pricing_rules[<?php echo $name; ?>][targets][]" class="multiselect wc-enhanced-select" multiple="multiple">
@@ -465,14 +465,14 @@ class woocommerce_category_pricing_rules_admin {
 					</select>
 				</td>
 				<td>
-					<input class="float_rule_number" id="pricing_rule_amount_input_<?php echo $name . '_' . $index; ?>" type="text" name="pricing_rules[<?php echo $name; ?>][rules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" /> 
+					<input class="float_rule_number" id="pricing_rule_amount_input_<?php echo $name . '_' . $index; ?>" type="text" name="pricing_rules[<?php echo $name; ?>][rules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" />
 				</td>
-				<td><a class="add_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img 
-							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/add.png'; ?>" 
-							title="add another rule" alt="add another rule" 
-							style="cursor:pointer; margin:0 3px;" /></a><a <?php echo ($index > 1) ? '' : 'style="display:none;"'; ?> class="delete_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img 
-							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/remove.png'; ?>" 
-							title="add another rule" alt="add another rule" 
+				<td><a class="add_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img
+							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/add.png'; ?>"
+							title="add another rule" alt="add another rule"
+							style="cursor:pointer; margin:0 3px;" /></a><a <?php echo ($index > 1) ? '' : 'style="display:none;"'; ?> class="delete_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img
+							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/remove.png'; ?>"
+							title="add another rule" alt="add another rule"
 							style="cursor:pointer; margin:0 3px;" /></a>
 				</td>
 			</tr>
@@ -499,7 +499,7 @@ class woocommerce_category_pricing_rules_admin {
 
 				<td>
 					<input title="<?php _e( 'The value of the adjustment. Currency and percentage symbols are not required', 'woocommerce-dynamic-pricing' ); ?>" class="float_rule_number" id="pricing_blockrule_amount_input_<?php echo $name . '_' . $index; ?>" type="text"
-					       name="pricing_rules[<?php echo $name; ?>][blockrules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" /> 
+					       name="pricing_rules[<?php echo $name; ?>][blockrules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" />
 				</td>
 
 				<td>
@@ -537,7 +537,7 @@ class woocommerce_category_pricing_rules_admin {
 
 						var data = {
 							set_index: set_index,
-							post:<?php echo isset( $_GET['post'] ) ? $_GET['post'] : 0; ?>,
+							post:<?php echo intval($_GET['post'] ?? 0); ?>,
 							action: 'create_empty_category_ruleset'
 						}
 
@@ -595,13 +595,13 @@ class woocommerce_category_pricing_rules_admin {
 
 
 
-					//Remove Button                
+					//Remove Button
 					$('#woocommerce-pricing-rules-wrap').delegate('.delete_pricing_rule', 'click', function (event) {
 						event.preventDefault();
 						DeleteRule($(this).data('index'), $(this).data('name'));
 					});
 
-					//Remove Button                
+					//Remove Button
 					$('#woocommerce-pricing-rules-wrap').delegate('.delete_pricing_blockrule', 'click', function (event) {
 						event.preventDefault();
 						DeleteBlockRule($(this).closest('tr'), $(this).closest('table'));

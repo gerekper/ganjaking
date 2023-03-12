@@ -14,11 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Order {
 
-	private   $api_resource_table   = '';
-	private   $api_activation_table = '';
-	protected $api_product_updater;
-	protected $api_resource_activations_updater;
-	protected $api_resource_access_expires_updater;
+	private $api_resource_table   = '';
+	private $api_activation_table = '';
 
 	/**
 	 * @var null
@@ -40,15 +37,8 @@ class WC_AM_Order {
 
 	private function __construct() {
 		// Background API Product updater.
-		require_once( dirname( __FILE__ ) . '/wcam-background-api-product-updater.php' );
-		require_once( dirname( __FILE__ ) . '/wcam-background-api-resource-activations-updater.php' );
-		require_once( dirname( __FILE__ ) . '/wcam-background-api-resource-access-expires-updater.php' );
-		$this->api_resource_table                  = WC_AM_USER()->get_api_resource_table_name();
-		$this->api_activation_table                = WC_AM_USER()->get_api_activation_table_name();
-		$this->api_product_updater                 = new WCAM_Background_API_Product_Updater();
-		$this->api_resource_activations_updater    = new WCAM_Background_API_Resource_Activations_Updater();
-		$this->api_resource_access_expires_updater = new WCAM_Background_API_Resource_Access_Expires_Updater();
-
+		$this->api_resource_table   = WC_AM_USER()->get_api_resource_table_name();
+		$this->api_activation_table = WC_AM_USER()->get_api_activation_table_name();
 		/**
 		 * Use woocommerce_order_status_changed in lieu of woocommerce_order_status_completed,
 		 * otherwise checking if an item is on an active WooCommerce Subscription will fail.
@@ -500,154 +490,6 @@ class WC_AM_Order {
 	}
 
 	/**
-	 * Confirms the Product ID exists in an order, then adds or updates the order data to the API Resources via a background update process.
-	 * Should only be run when checking the API (is_api) checkbox for the first time on a product, so all orders containing that product are
-	 * added to the API Resources.
-	 *
-	 * @since 2.0
-	 *
-	 * @param int $product_id
-	 *
-	 * @throws \Exception
-	 */
-	public function add_new_api_product_orders( $product_id ) {
-		$order_ids = WC_AM_ORDER_DATA_STORE()->get_all_order_ids_by_meta_value( $product_id );
-
-		if ( ! empty( $order_ids ) ) {
-			foreach ( $order_ids as $key => $order_id ) {
-				$order_has_product = false;
-				$order             = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
-
-				if ( is_object( $order ) ) {
-					$user_id = WC_AM_ORDER_DATA_STORE()->get_customer_id( $order );
-					$items   = $order->get_items();
-
-					if ( ! empty( $user_id ) && WC_AM_FORMAT()->count( $items ) > 0 ) {
-						foreach ( $items as $item_id => $item ) {
-							$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item );
-							$variation_id      = $item->get_variation_id();
-							$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
-
-							if ( $is_api && ( WC_AM_ORDER_DATA_STORE()->has_status_completed( $order ) || ( WCAM()->get_grant_access_after_payment() && WC_AM_ORDER_DATA_STORE()->has_status_processing( $order ) ) ) ) {
-								$item_product_id = ! empty( $variation_id ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $variation_id ) ? $variation_id : $item->get_product_id();
-
-								if ( $item_product_id == $product_id ) {
-									$order_has_product = true;
-
-									break;
-								}
-							}
-						}
-					}
-
-					if ( $order_has_product ) {
-						$this->api_product_updater->push_to_queue( array(
-							                                           'product_order' => $order_id,
-							                                           'product_id'    => $product_id
-						                                           ) );
-					}
-
-					unset( $order_id );
-				}
-
-				unset( $order );
-			}
-
-			// Lets dispatch the queue to start processing.
-			$this->api_product_updater->save()->dispatch();
-		}
-
-		unset( $order_ids );
-	}
-
-	/**
-	 * Update the API Resource activations_purchased_total when the product activation limit increases.
-	 *
-	 * @since 2.0.1
-	 *
-	 * @param int $product_id
-	 */
-	public function update_api_resource_activations_for_product( $product_id ) {
-		$order_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
-		$queued    = false;
-
-		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
-			foreach ( $order_ids as $order_id ) {
-				if ( ! empty( $order_id ) ) {
-					$this->api_resource_activations_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id ) );
-
-					$queued = true;
-				}
-			}
-
-			if ( $queued ) {
-				// Lets dispatch the queue to start processing.
-				$this->api_resource_activations_updater->save()->dispatch();
-			}
-		}
-	}
-
-	/**
-	 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
-	 *
-	 * @since 2.4
-	 *
-	 * @param int $product_id
-	 */
-	public function update_api_resource_access_expires_for_product( $product_id ) {
-		// Value set on Product edit for API Access Expires.
-		$product_access_expires = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_access_expires' );
-		$order_ids              = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
-		$queued                 = false;
-
-		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
-			foreach ( $order_ids as $order_id ) {
-				if ( ! empty( $order_id ) ) {
-					$this->api_resource_access_expires_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id, 'product_access_expires' => $product_access_expires ) );
-
-					$queued = true;
-				}
-			}
-
-			if ( $queued ) {
-				// Lets dispatch the queue to start processing.
-				$this->api_resource_access_expires_updater->save()->dispatch();
-			}
-		}
-	}
-
-	/**
-	 * Show notice when job is running in background.
-	 *
-	 * @since 2.0
-	 */
-	public function api_products_notice() {
-		if ( $this->api_product_updater->is_updating() ) {
-			WC_AM_ADMIN_NOTICES()->add_notice( 'api_products_updating' );
-		} else {
-			WC_AM_ADMIN_NOTICES()->remove_notice( 'api_products_updating' );
-		}
-	}
-
-	/**
-	 * Dismiss notice and cancel jobs.
-	 *
-	 * @since 2.0
-	 */
-	public function dismiss_api_products_notice() {
-		if ( $this->api_product_updater ) {
-			$this->api_product_updater->is_updating();
-
-			$log = wc_get_logger();
-			$log->info( esc_html__( 'Cancelled API Products update job.', 'woocommerce-api-manager' ), array(
-				'source' => 'wc-am-api-products-updating'
-			) );
-		}
-
-		WC_AM_ADMIN_NOTICES()->remove_notice( 'api_products_updating' );
-	}
-
-	/**
 	 * Update the API resource order items for the order when an order is partially refunded.
 	 *
 	 * @since 2.0
@@ -804,20 +646,7 @@ class WC_AM_Order {
 		/**
 		 * Delete the activations assigned to resources that are assigned to this order_id.
 		 */
-		$activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activations_by_order_id( $order_id );
-
-		if ( $activation_ids ) {
-			foreach ( $activation_ids as $k => $activation_id ) {
-				$activation_resource = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resource_by_activation_id( $activation_id );
-
-				if ( ! empty( $activation_resource ) ) {
-					WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->delete_associated_api_key_activation_ids( $activation_resource->associated_api_key_id, $activation_id );
-				}
-
-				// Deletes all the API Key activations with the activation ID.
-				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
-			}
-		}
+		WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_order_id( $order_id );
 
 		/**
 		 * Delete order.

@@ -5,7 +5,7 @@ namespace ACA\WC\Export\ShopOrder;
 use ACP;
 use WC_Order_Item_Product;
 
-class ProductCount extends ACP\Export\Model {
+class ProductCount implements ACP\Export\Service {
 
 	public function get_value( $id ) {
 		$order = wc_get_order( $id );

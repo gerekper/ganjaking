@@ -82,13 +82,14 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
                 </tr>
 			<?php } ?>
             <tr>
-                <th class="td" scope="row" colspan="4" style="text-align:center; ?>;"><?php esc_html_e( 'Master API Key', 'woocommerce' ); ?></th>
+                <th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?></th>
             </tr>
             <tr>
                 <td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
             </tr>
             <tr>
-                <td class="td" scope="row" colspan="4" style="text-align:center; ?>;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce' ); ?></td>
+                <td class="td" scope="row" colspan="4"
+                    style="text-align:center;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?></td>
             </tr>
             </tfoot>
         </table>

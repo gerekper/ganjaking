@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 echo esc_html( $email_heading ) . "\n\n";
 ?>
-<p><?php esc_html_e( 'Congratulations! You have received referral link, Below is the Referral link. ', 'coupon-referral-program' ); ?></p>
-<p><?php esc_html_e( 'Referred By :- ', 'coupon-referral-program' ) . esc_html( $user_name ); ?></p>'
+<p><?php esc_html_e( 'Below is the Referral link. ', 'coupon-referral-program' ); ?></p>
+<p><?php echo esc_html__( 'Referred By :- ', 'coupon-referral-program' ) . esc_html( $user_name ); ?></p>'
 <?php
 if ( isset( $additional_content ) && '' !== $additional_content ) {
 		echo wp_kses_post( $additional_content );

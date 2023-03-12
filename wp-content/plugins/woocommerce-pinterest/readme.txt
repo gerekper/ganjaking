@@ -2,8 +2,8 @@
 Contributors: premmerce
 Tags: pinterest, woocommerce pinterest, pin products, social, social media
 Requires at least: 4.8
-Stable tag: 2.4.4
-Tested up to: 
+Stable tag: 2.4.6
+Tested up to: 6.1.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -261,3 +261,16 @@ Release Date: Jul 15, 2022
 
 * Update - WooCommerce compatibility version to 6.7.0
 * Update - Wordpress compatibility version to 6.0.1
+
+= 2.4.5 =
+
+Release Date: Nov 28, 2022
+
+* Update - WooCommerce compatibility version to 7.1.0
+* Update - Wordpress compatibility version to 6.1.1
+
+= 2.4.6 =
+
+Release Date: Mar 9, 2023
+
+* Update - WooCommerce compatibility version to 7.4.1

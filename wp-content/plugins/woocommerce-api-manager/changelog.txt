@@ -1,5 +1,25 @@
 *** WooCommerce API Manager Changelog ***
 
+2023.03.09 - version 2.5.5
+* New: Weekly cleanup of expired API Key activations that are associated with expired API Resources, or associated with API Resources that no longer exists.
+* New: Weekly cleanup of expired API Resources, and associated API Key activations.
+* New: Weekly cleanup of expired secure download URL hashes from the wc_am_secure_hash table.
+* New: Added WC_AM_Background_Events class.
+* Fix: Inline style block and Text Domain typos in templates/emails/api-keys-order-complete.php.
+* Fix: get_theme_overrides() used wrong path to /templates.
+* Tweak: Moved background processing events into the WC_AM_Background_Events class.
+* Tweak: Code optimizations.
+* Update: Added Amazon S3 regions:
+    - af-south-1
+    - ap-south-2
+    - ap-southeast-3
+    - ap-southeast-4
+    - eu-central-2
+    - eu-south-1
+    - eu-south-2
+    - me-central-1
+    - me-south-1
+
 2023.03.02 - version 2.5.4
 * Update: Refactored templates/emails/api-keys-order-complete.php to place data in a table, and to add more details.
 * Update: Refactored templates/emails/plain/api-keys-order-complete.php to add more details.

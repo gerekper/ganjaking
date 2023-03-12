@@ -2,16 +2,12 @@
 
 namespace ACP\Export\Model\Post;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Comments (default column) exportability model
- * @since 4.1
- */
-class Comments extends Model {
+class Comments implements Service {
 
 	public function get_value( $id ) {
-		return wp_count_comments( $id )->total_comments;
+		return (string) wp_count_comments( $id )->total_comments;
 	}
 
 }

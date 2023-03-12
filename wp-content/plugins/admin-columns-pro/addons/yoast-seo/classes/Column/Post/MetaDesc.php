@@ -28,7 +28,7 @@ class MetaDesc extends AC\Column
 	}
 
 	public function export() {
-		return new ACP\Export\Model\Post\Meta( $this, '_yoast_wpseo_metadesc' );
+		return new ACP\Export\Model\Post\Meta( '_yoast_wpseo_metadesc' );
 	}
 
 	public function search() {

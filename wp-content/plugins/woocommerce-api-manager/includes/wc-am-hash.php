@@ -194,6 +194,11 @@ class WC_AM_Hash {
 
 	/**
 	 * Deletes expired hashes.
+	 *
+	 *
+	 * @updated 2.5.5 to add return value.
+	 *
+	 * @return int
 	 */
 	public function cleanup_hash() {
 		global $wpdb;
@@ -203,7 +208,9 @@ class WC_AM_Hash {
 			WHERE hash_time < %d
 			";
 
-		$wpdb->query( $wpdb->prepare( $sql, WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) );
+		$result = $wpdb->query( $wpdb->prepare( $sql, WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) );
+
+		return ! WC_AM_FORMAT()->empty( $result ) ? absint( $result ) : 0;
 	}
 
 	/**
@@ -289,6 +296,27 @@ class WC_AM_Hash {
 	 */
 	public function generate_key( $length = 12 ) {
 		return trim( wp_generate_password( $length, false ) );
+	}
+
+	/**
+	 * Return total number of expired hashes.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @return int
+	 */
+	public function get_expired_hash_count() {
+		global $wpdb;
+
+		$sql = "
+			SELECT COUNT(hash_id)
+			FROM {$wpdb->prefix}wc_am_secure_hash
+			WHERE hash_time < %d
+		";
+
+		$expired_hash_count = $wpdb->get_var( $wpdb->prepare( $sql, WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) );
+
+		return ! empty( $expired_hash_count ) ? (int) $expired_hash_count : 0;
 	}
 
 }

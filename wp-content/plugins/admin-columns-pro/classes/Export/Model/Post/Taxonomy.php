@@ -2,22 +2,24 @@
 
 namespace ACP\Export\Model\Post;
 
-use AC;
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Taxonomy (default column) exportability model
- * @property AC\Column\Taxonomy $column
- * @since 4.1
- */
-class Taxonomy extends Model {
+class Taxonomy implements Service {
 
-	public function __construct( $column ) {
-		parent::__construct( $column );
+	private $taxonomy;
+
+	public function __construct( string $taxonomy ) {
+		$this->taxonomy = $taxonomy;
 	}
 
 	public function get_value( $id ) {
-		$terms = wp_get_post_terms( $id, $this->column->get_taxonomy(), [ 'fields' => 'names' ] );
+		$terms = wp_get_post_terms(
+			(int) $id,
+			$this->taxonomy,
+			[
+				'fields' => 'names',
+			]
+		);
 
 		if ( ! $terms || is_wp_error( $terms ) ) {
 			return '';

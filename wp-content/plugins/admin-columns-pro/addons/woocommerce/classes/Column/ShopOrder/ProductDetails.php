@@ -91,7 +91,7 @@ class ProductDetails extends AC\Column implements ACP\Export\Exportable, ACP\Sea
 	}
 
 	public function export() {
-		return new Export\ShopOrder\ProductCount( $this );
+		return new Export\ShopOrder\ProductCount();
 	}
 
 	public function search() {

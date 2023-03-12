@@ -12,11 +12,7 @@ abstract class Property extends AC\Column {
 		$site = get_site( $id );
 		$property = $this->get_site_property();
 
-		if ( ! isset( $site->{$property} ) ) {
-			return false;
-		}
-
-		return $site->{$property};
+		return $site->{$property} ?? false;
 	}
 
 }

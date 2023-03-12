@@ -2,12 +2,21 @@
 
 namespace ACP\Export\Model\CustomField;
 
-use ACP\Export\Model;
+use AC\Column;
+use ACP\Export\Service;
 
-class Date extends Model {
+class Date implements Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
-		$timestamp = ac_helper()->date->strtotime( $this->column->get_raw_value( $id ) );
+		$timestamp = ac_helper()->date->strtotime(
+			$this->column->get_raw_value( $id )
+		);
 
 		if ( ! $timestamp ) {
 			return false;

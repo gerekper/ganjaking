@@ -59,7 +59,7 @@ class AddonInstaller implements RequestAjaxHandler {
 		$this->is_network_active = (bool) $is_network_active;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {

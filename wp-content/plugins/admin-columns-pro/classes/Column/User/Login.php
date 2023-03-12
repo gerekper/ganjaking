@@ -3,7 +3,6 @@
 namespace ACP\Column\User;
 
 use AC;
-
 use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Search;
@@ -19,7 +18,7 @@ class Login extends AC\Column\User\Login
 	}
 
 	public function export() {
-		return new Export\Model\User\Login( $this );
+		return new Export\Model\User\Login();
 	}
 
 	public function search() {

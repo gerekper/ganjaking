@@ -41,6 +41,7 @@ class Totals extends AC\Settings\Column {
 			'refunded' => __( 'Refunds', 'codepress-admin-columns' ),
 			'discount' => __( 'Discounts', 'codepress-admin-columns' ),
 			'paid'     => __( 'Paid', 'codepress-admin-columns' ),
+			'fees'     => __( 'Fees', 'codepress-admin-columns' ),
 		];
 
 		natcasesort( $options );

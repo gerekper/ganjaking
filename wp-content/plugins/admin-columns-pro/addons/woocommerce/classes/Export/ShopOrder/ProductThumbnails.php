@@ -2,20 +2,24 @@
 
 namespace ACA\WC\Export\ShopOrder;
 
+use AC\Column;
 use ACP;
 
-/**
- * WooCommerce order shipping address (default column) exportability model
- * @since 2.2.1
- */
-class ProductThumbnails extends ACP\Export\Model {
+class ProductThumbnails implements ACP\Export\Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
-		$thumbnails_ids = $this->column->get_raw_value( $id );
 		$values = [];
 
+		$thumbnails_ids = $this->column->get_raw_value( $id );
+
 		foreach ( $thumbnails_ids as $thumbnail_id ) {
-			$values[] = wp_get_attachment_image_url( $thumbnail_id, 'full' );
+			$values[] = wp_get_attachment_image_url( (int) $thumbnail_id, 'full' );
 		}
 
 		return implode( ', ', $values );

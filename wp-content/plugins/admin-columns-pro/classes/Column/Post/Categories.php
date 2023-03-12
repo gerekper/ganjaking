@@ -35,7 +35,7 @@ class Categories extends AC\Column\Post\Categories
 	}
 
 	public function export() {
-		return new Export\Model\Post\Taxonomy( $this );
+		return new Export\Model\Post\Taxonomy( $this->get_taxonomy() );
 	}
 
 	public function search() {

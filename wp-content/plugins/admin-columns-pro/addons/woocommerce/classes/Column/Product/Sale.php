@@ -24,7 +24,7 @@ class Sale extends AC\Column
 
 	public function __construct() {
 		$this->set_type( 'column-wc-product_sale' )
-		     ->set_label( __( 'Sale', 'codepress-admin-columns' ) )
+		     ->set_label( __( 'Sale Price', 'codepress-admin-columns' ) )
 		     ->set_group( 'woocommerce' );
 	}
 

@@ -2,22 +2,23 @@
 
 namespace ACA\WC\Export\User;
 
-use ACP;
 use ACA\WC;
+use ACP;
 
-/**
- * @property WC\Column\User\Orders $column
- */
-class Orders extends ACP\Export\Model {
+class Orders implements ACP\Export\Service {
+
+	protected $column;
 
 	public function __construct( WC\Column\User\Orders $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
 	public function get_value( $id ) {
 		$result = [];
 
-		foreach ( $this->column->get_raw_value( $id ) as $order ) {
+		$orders = (array) $this->column->get_raw_value( $id );
+
+		foreach ( $orders as $order ) {
 			$result[] = $order->get_id();
 		}
 

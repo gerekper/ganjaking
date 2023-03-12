@@ -12,12 +12,15 @@ class LicenseCheck extends Script {
 		parent::__construct( 'acp-license-check', $location );
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
-		$this->add_inline_variable( 'ACP_LICENCE_CHECK', [
-			'nonce' => ( new Ajax() )->create(),
-		] );
+		$this->add_inline_variable(
+			'ACP_LICENCE_CHECK',
+			[
+				'nonce' => ( new Ajax() )->create(),
+			]
+		);
 	}
 
 }

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Subscription Downloads
  * Plugin URI: https://woocommerce.com/products/woocommerce-subscription-downloads/
  * Description: Associate downloadable products with a Subscription product in WooCommerce, and grant subscribers access to the associated downloads for the downloadable products.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-subscription-downloads
@@ -12,7 +12,7 @@
  * WC requires at least: 2.6
  * Tested up to: 6.0
  *
- * Copyright: © 2022 WooCommerce
+ * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.3.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.4.0' ); // WRCS: DEFINED_VERSION.
 
 if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 
@@ -223,5 +223,11 @@ if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 	 * Install plugin.
 	 */
 	register_activation_hook( __FILE__, array( 'WC_Subscription_Downloads', 'install' ) );
+
+	add_action( 'before_woocommerce_init', function() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	} );
 
 endif;

@@ -27,7 +27,7 @@ class Author extends AC\Column\Media\Author
 	}
 
 	public function export() {
-		return new Export\Model\Post\Author( $this );
+		return new Export\Model\Post\Author();
 	}
 
 }

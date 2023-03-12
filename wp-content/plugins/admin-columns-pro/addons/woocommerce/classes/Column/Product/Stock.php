@@ -24,7 +24,7 @@ class Stock extends AC\Column
 	}
 
 	public function export() {
-		return new Export\Product\Stock( $this );
+		return new Export\Product\Stock();
 	}
 
 	public function search() {

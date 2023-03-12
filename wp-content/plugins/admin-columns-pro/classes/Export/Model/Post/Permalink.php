@@ -2,9 +2,9 @@
 
 namespace ACP\Export\Model\Post;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-class Permalink extends Model {
+class Permalink implements Service {
 
 	public function get_value( $id ) {
 		return urldecode( get_permalink( $id ) );

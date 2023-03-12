@@ -95,7 +95,7 @@ if ( ! empty( $user_id ) ) {
 
 						if ( $download ) {
 							$product_title         = $resource->product_title;
-							$find_amazon_s3_in_url = ! empty( $download ) && WC_AM_URL()->find_amazon_s3_in_url( $download ) === true ? true : false;
+							$find_amazon_s3_in_url = ! empty( $download ) && WC_AM_URL()->find_amazon_s3_in_url( $download ) === true;
 							$secure_s3_url         = ! empty( $find_amazon_s3_in_url ) ? WC_AM_URL()->format_secure_s3_v4_url( $download ) : '';
 
 							$remote_url = WC_AM_URL()->is_download_external_url( $product_id );

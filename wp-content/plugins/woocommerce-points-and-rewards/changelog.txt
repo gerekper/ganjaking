@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-03-07 - version 1.7.28
+* Tweak - Hide redundant "Earn up to" message for variable products.
+
 2023-02-28 - version 1.7.27
 * Fix - Adds placeholder for minimum and maximum points discount field.
 * Fix - Changes Minimum Points Discount field type to number to avoid non-numeric characters.

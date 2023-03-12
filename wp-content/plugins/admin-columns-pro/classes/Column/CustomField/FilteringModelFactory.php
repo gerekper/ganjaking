@@ -8,28 +8,17 @@ use ACP\Filtering\Model;
 
 class FilteringModelFactory {
 
-	/**
-	 * @param string             $type
-	 * @param Column\CustomField $column
-	 *
-	 * @return Model
-	 */
-	public static function create( $type, Column\CustomField $column ) {
+	public static function create( string $type, Column\CustomField $column ): Model {
 
 		switch ( $type ) {
 
 			case CustomFieldType::TYPE_ARRAY :
+			case CustomFieldType::TYPE_COUNT :
 				return new Model\Disabled( $column );
 			case CustomFieldType::TYPE_BOOLEAN :
 				return new Model\CustomField\Checkmark( $column );
-			case CustomFieldType::TYPE_COLOR :
-				return new Model\CustomField( $column );
-			case CustomFieldType::TYPE_COUNT :
-				return new Model\Disabled( $column );
 			case CustomFieldType::TYPE_DATE :
 				return new Model\CustomField\Date( $column );
-			case CustomFieldType::TYPE_TEXT :
-				return new Model\CustomField( $column );
 			case CustomFieldType::TYPE_NON_EMPTY :
 				return new Model\CustomField\Hascontent( $column );
 			case CustomFieldType::TYPE_IMAGE :
@@ -44,6 +33,8 @@ class FilteringModelFactory {
 				return new Model\CustomField\Post( $column );
 			case CustomFieldType::TYPE_USER :
 				return new Model\CustomField\User( $column );
+			case CustomFieldType::TYPE_COLOR :
+			case CustomFieldType::TYPE_TEXT :
 			default :
 				return new Model\CustomField( $column );
 		}

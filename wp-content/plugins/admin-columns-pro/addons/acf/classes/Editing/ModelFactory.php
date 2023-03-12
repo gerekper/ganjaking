@@ -41,6 +41,7 @@ class ModelFactory implements EditingModelFactory {
 			case FieldType::TYPE_RADIO:
 			case FieldType::TYPE_RANGE:
 			case FieldType::TYPE_TEXT:
+			case FieldType::TYPE_TIME_PICKER:
 			case FieldType::TYPE_TEXTAREA:
 			case FieldType::TYPE_URL:
 			case FieldType::TYPE_OEMBED:
@@ -88,15 +89,23 @@ class ModelFactory implements EditingModelFactory {
 					: new ACP\Editing\Service\User( $view, $storage, $paginated );
 
 			case FieldType::TYPE_RELATIONSHIP:
+				$tax_query = $field instanceof Field\TaxonomyFilterable
+					? $this->get_related_tax_query( $field->get_taxonomies() )
+					: [];
+
 				return new ACP\Editing\Service\Posts(
 					$this->view_factory->create( $field ),
 					$this->storage_factory->create( $column ),
-					new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_type() : [ 'any' ] )
+					new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_type() : [ 'any' ], [ 'tax_query' => $tax_query ] )
 				);
 
 			case FieldType::TYPE_POST:
 			case FieldType::TYPE_PAGE_LINK:
-				$paginated = new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_type() : [ 'any' ] );
+				$tax_query = $field instanceof Field\TaxonomyFilterable
+					? $this->get_related_tax_query( $field->get_taxonomies() )
+					: [];
+
+				$paginated = new PaginatedOptions\Posts( $field instanceof Field\PostTypeFilterable ? $field->get_post_type() : [ 'any' ], [ 'tax_query' => $tax_query ] );
 				$view = $this->view_factory->create( $field );
 				$storage = $this->storage_factory->create( $column );
 
@@ -115,6 +124,20 @@ class ModelFactory implements EditingModelFactory {
 		}
 
 		return false;
+	}
+
+	private function get_related_tax_query( array $terms ): array {
+		$tax_query = [ 'relation' => 'OR' ];
+
+		foreach ( $terms as $term ) {
+			$tax_query[] = [
+				'taxonomy' => $term->taxonomy,
+				'field'    => 'slug',
+				'terms'    => $term->slug,
+			];
+		}
+
+		return $tax_query;
 	}
 
 }

@@ -77,7 +77,7 @@ class TableScreen implements Registerable {
 		$script->enqueue();
 
 		// CSS
-		$style = new Style( 'acp-editing-table', $this->location->with_suffix( 'assets/editing/css/table.css' ) );
+		$style = new Style( 'acp-editing-table', $this->location->with_suffix( 'assets/editing/css/table.css' ), [ 'ac-utilities' ] );
 		$style->enqueue();
 
 		// Select 2
@@ -115,7 +115,7 @@ class TableScreen implements Registerable {
 	}
 
 	public function is_export_enabled(): bool {
-		return $this->list_screen instanceof Export\ListScreen && $this->list_screen->export()->is_active();
+		return Export\TableScreen::is_exportable( $this->list_screen );
 	}
 
 	public function is_bulk_delete_enabled(): bool {

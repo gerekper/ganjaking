@@ -87,6 +87,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 			$only_these_file_entities_array = explode(',', $only_these_file_entities);
 			$backupable_entities = $updraftplus->get_backupable_file_entities(true, true);
 			foreach ($only_these_file_entities_array as $include_backup_entity) {
+				if ('' === $include_backup_entity) continue;
 				if (!isset($backupable_entities[$include_backup_entity])) {
 					WP_CLI::error(sprintf(__("The given value for the '%s' option is not valid", 'updraftplus'), 'include-files'), true);
 				}

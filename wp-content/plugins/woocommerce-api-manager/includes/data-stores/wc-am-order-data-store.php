@@ -552,7 +552,7 @@ class WC_AM_Order_Data_Store {
 	 * @return bool
 	 */
 	public function is_time_expired( $time ) {
-		return ! empty( $time ) && (int) $time < $this->get_current_time_stamp() ? true : false;
+		return ! empty( $time ) && (int) $time < $this->get_current_time_stamp();
 	}
 
 	/**
@@ -672,18 +672,18 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Get all Order Item IDs using Meta Value.
 	 *
-	 * @since 2.1.3
+	 * @since   2.1.3
+	 * @updated 2.5.5 Use DISTINCT to prevent duplicate order_item_ids.
 	 *
 	 * @param string $meta_value
 	 *
 	 * @return array|bool
 	 */
-
 	public function get_all_order_item_ids_by_meta_value( $meta_value ) {
 		global $wpdb;
 
 		$item_ids = $wpdb->get_results( $wpdb->prepare( "
-			SELECT 		order_item_id
+			SELECT DISTINCT order_item_id
 			FROM 		{$wpdb->prefix}woocommerce_order_itemmeta
 			WHERE 		meta_value = %s
 		", $meta_value ), ARRAY_A );
@@ -710,7 +710,8 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Get all Order IDs using Meta Value.
 	 *
-	 * @since 2.1.3
+	 * @since   2.1.3
+	 * @updated 2.5.5 Use array_unique() to prevent order_ids duplicates.
 	 *
 	 * @param string $meta_value
 	 *
@@ -727,7 +728,7 @@ class WC_AM_Order_Data_Store {
 			}
 		}
 
-		return ! empty( $order_ids ) ? $order_ids : false;
+		return ! empty( $order_ids ) ? array_unique( $order_ids ) : false;
 	}
 
 	/**

@@ -5,7 +5,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 2.22.25.26
+Version: 2.23.1.26
 Update URI: https://updraftplus.com/
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -16,7 +16,7 @@ Author URI: https://updraftplus.com
 // @codingStandardsIgnoreEnd
 
 /*
-Portions copyright 2011-22 David Anderson
+Portions copyright 2011-23 David Anderson
 Portions copyright 2010 Paul Kehrer
 Other portions copyright as indicated by authors in the relevant files
 
@@ -112,22 +112,63 @@ function updraft_try_include_file($path, $method = 'include') {
 // Load add-ons and files that may or may not be present, depending on where the plugin was distributed
 if (is_file(UPDRAFTPLUS_DIR.'/autoload.php')) updraft_try_include_file('autoload.php', 'require_once');
 
+/**
+ * Get cron schedules list of our own
+ * DEVELOPER NOTES: Intervals should be presented in chronological order of time because we also use this list for ordering purpose especially when merging WP default intervals to ours
+ *
+ * @return Boolean The list of our own schedules
+ */
+function updraftplus_list_cron_schedules() {
+	$every_particular_hour_label = __('Every %s hours', 'updraftplus');
+	return array(
+		'everyhour' => array(
+			'interval' => 3600,
+			'display' => apply_filters('updraftplus_cron_schedule_description', __('Every hour', 'updraftplus'), 'everyhour'),
+		),
+		'every2hours' => array(
+			'interval' => 7200,
+			'display' => apply_filters('updraftplus_cron_schedule_description', sprintf($every_particular_hour_label, '2'), 'every2hours'),
+		),
+		'every4hours' => array(
+			'interval' => 14400,
+			'display' => apply_filters('updraftplus_cron_schedule_description', sprintf($every_particular_hour_label, '4'), 'every4hours'),
+		),
+		'every8hours' => array(
+			'interval' => 28800,
+			'display' => apply_filters('updraftplus_cron_schedule_description', sprintf($every_particular_hour_label, '8'), 'every8hours'),
+		),
+		'twicedaily' => array(
+			'interval' => 43200,
+			'display'  => apply_filters('updraftplus_cron_schedule_description', sprintf($every_particular_hour_label, '12'), 'twicedaily'),
+		),
+		'daily' => array(
+			'interval' => 86400,
+			'display'  => apply_filters('updraftplus_cron_schedule_description', __('Daily'), 'daily'),
+		),
+		'weekly' => array(
+			'interval' => 604800,
+			'display' => apply_filters('updraftplus_cron_schedule_description', __('Weekly'), 'weekly'),
+		),
+		'fortnightly' => array(
+			'interval' => 1209600,
+			'display' => apply_filters('updraftplus_cron_schedule_description', __('Fortnightly'), 'fortnightly'),
+		),
+		'monthly' => array(
+			'interval' => 2592000,
+			'display' => apply_filters('updraftplus_cron_schedule_description', __('Monthly'), 'monthly'),
+		),
+	);
+}
+
 if (!function_exists('updraftplus_modify_cron_schedules')) :
 /**
  * wp-cron only has hourly, daily and twicedaily, so we need to add some of our own
  *
  * @param  array $schedules an array of schedule types
- * @return array
+ * @return array cron schedules which contains schedules of our own
  */
 function updraftplus_modify_cron_schedules($schedules) {
-		$schedules['weekly'] = array('interval' => 604800, 'display' => 'Once Weekly');
-		$schedules['fortnightly'] = array('interval' => 1209600, 'display' => 'Once Each Fortnight');
-		$schedules['monthly'] = array('interval' => 2592000, 'display' => 'Once Monthly');
-		$schedules['everyhour'] = array('interval' => 3600, 'display' => __('Every hour', 'updraftplus'));
-		$schedules['every2hours'] = array('interval' => 7200, 'display' => sprintf(__('Every %s hours', 'updraftplus'), 2));
-		$schedules['every4hours'] = array('interval' => 14400, 'display' => sprintf(__('Every %s hours', 'updraftplus'), 4));
-		$schedules['every8hours'] = array('interval' => 28800, 'display' => sprintf(__('Every %s hours', 'updraftplus'), 8));
-		return $schedules;
+	return array_merge($schedules, updraftplus_list_cron_schedules());
 }
 endif;
 // http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules. Raised priority because some plugins wrongly over-write all prior schedule changes (including BackupBuddy!)
@@ -169,6 +210,7 @@ if (is_dir(UPDRAFTPLUS_DIR.'/addons') && $dir_handle = opendir(UPDRAFTPLUS_DIR.'
 				if ($phpinclude) updraft_try_include_file(''.$phpinclude, 'include_once');
 				updraft_try_include_file('addons/'.$e, 'include_once');
 			}
+			unset($header);
 		}
 	}
 	@closedir($dir_handle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged

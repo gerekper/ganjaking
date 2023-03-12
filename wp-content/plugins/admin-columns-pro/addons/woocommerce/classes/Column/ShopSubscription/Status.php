@@ -23,7 +23,7 @@ class Status extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopSubscription\Status( $this );
+		return new Export\ShopSubscription\Status();
 	}
 
 }

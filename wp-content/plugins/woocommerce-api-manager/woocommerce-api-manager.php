@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.5.4
+ * Version: 2.5.5
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
  * Constants
  */
 if ( ! defined( 'WC_AM_VERSION' ) ) {
-	define( 'WC_AM_VERSION', '2.5.4' );
+	define( 'WC_AM_VERSION', '2.5.5' );
 }
 
 // Minimum WooCommerce version required.
@@ -110,15 +110,16 @@ final class WooCommerce_API_Manager {
 	/**
 	 * @var string
 	 */
-	private $db_cache                   = false;
-	private $db_cache_expires           = 5;
-	private $api_cache_expires          = 5;
-	private $wc_subs_exist              = false;
+	private $db_cache                                = false;
+	private $db_cache_expires                        = 5;
+	private $api_cache_expires                       = 5;
+	private $wc_subs_exist                           = false;
 	private $file;
 	private $plugin_file;
-	private $grant_access_after_payment = false;
-	private $unlimited_activation_limit = 0;
-	private $wc_hpos_active             = false;
+	private $grant_access_after_payment              = false;
+	private $unlimited_activation_limit              = 0;
+	private $wc_hpos_active                          = false;
+	private $is_wc_custom_order_tables_usage_enabled = false;
 
 	/**
 	 * @var null The single instance of the class
@@ -167,7 +168,7 @@ final class WooCommerce_API_Manager {
 		$this->wc_subs_exist              = $this->is_wc_subscriptions_active();
 		$this->file                       = plugin_basename( __FILE__ );
 		$this->plugin_file                = __FILE__;
-		$this->grant_access_after_payment = get_option( 'woocommerce_downloads_grant_access_after_payment' ) === 'yes' ? true : false;
+		$this->grant_access_after_payment = get_option( 'woocommerce_downloads_grant_access_after_payment' ) === 'yes';
 		$this->unlimited_activation_limit = apply_filters( 'wc_api_manager_unlimited_activation_limit', 100000 ); // since 2.2
 
 		// Include required files
@@ -458,6 +459,11 @@ final class WooCommerce_API_Manager {
 				if ( \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'custom_order_tables' ) ) {
 					$this->wc_hpos_active = true;
 				}
+
+				// Check if WooCommerce custom order tables usage is enabled.
+				if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) && $this->wc_hpos_active ) {
+					$this->is_wc_custom_order_tables_usage_enabled = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+				}
 			}
 		} );
 	}
@@ -661,7 +667,7 @@ final class WooCommerce_API_Manager {
 	 * @type string $title       The human-readable title of the plugin.
 	 * @type string $author_name Plugin author's name.
 	 * @type bool   $update      Whether there's an available update. Default null.
-	 * }
+	 *                           }
 	 *
 	 * @param array $response    {
 	 *                           An array of metadata about the available plugin update.
@@ -672,7 +678,7 @@ final class WooCommerce_API_Manager {
 	 * @type string $new_version New plugin version.
 	 * @type string $url         Plugin URL.
 	 * @type string $package     Plugin update package URL.
-	 * }
+	 *                           }
 	 *
 	 */
 	public function in_plugin_update_message( $plugin_data, $response ) {
@@ -719,7 +725,7 @@ final class WooCommerce_API_Manager {
 	 * @return bool
 	 */
 	public function is_woocommerce_pre( $version ) {
-		return ! empty( $this->get_wc_version() ) && version_compare( $this->get_wc_version(), $version, '<' ) ? true : false;
+		return ! empty( $this->get_wc_version() ) && version_compare( $this->get_wc_version(), $version, '<' );
 	}
 
 	/**
@@ -733,7 +739,7 @@ final class WooCommerce_API_Manager {
 		/**
 		 * A plugin can be removed without using the Plugins screen, so it remains listed as active, but the root plugin class will not exist.
 		 */
-		return $this->is_plugin_active( 'woocommerce-subscriptions/woocommerce-subscriptions.php' ) ? true : false;
+		return $this->is_plugin_active( 'woocommerce-subscriptions/woocommerce-subscriptions.php' );
 	}
 
 	/**
@@ -781,11 +787,7 @@ final class WooCommerce_API_Manager {
 	 * @return bool
 	 */
 	public function is_custom_order_tables_usage_enabled() {
-		if ( ! class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) || ! $this->wc_hpos_active ) {
-			return false;
-		}
-
-		return \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		return $this->is_wc_custom_order_tables_usage_enabled;
 	}
 
 } // End class

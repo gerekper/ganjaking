@@ -426,4 +426,92 @@ class UpdraftPlus_Manipulation_Functions {
 		}
 		return $random_string;
 	}
+
+	/**
+	 * Returns an anonymized IPv4 or IPv6 address.
+	 *
+	 * @param string $ip_addr The IPv4 or IPv6 address to be anonymized.
+	 * @return string  The anonymized IP address.
+	 */
+	public static function wp_privacy_anonymize_ip($ip_addr) {
+		if (empty($ip_addr)) {
+			return '0.0.0.0';
+		}
+	
+		$ip_prefix = '';
+		$is_ipv6   = substr_count($ip_addr, ':') > 1;
+		$is_ipv4   = (3 === substr_count($ip_addr, '.'));
+	
+		if ($is_ipv6 && $is_ipv4) {
+			$ip_prefix = '::ffff:';
+			$ip_addr   = preg_replace('/^\[?[0-9a-f:]*:/i', '', $ip_addr);
+			$ip_addr   = str_replace(']', '', $ip_addr);
+			$is_ipv6   = false;
+		}
+	
+		if ($is_ipv6) {
+			$percent       = strpos($ip_addr, '%');
+			$netmask       = 'ffff:ffff:ffff:ffff:0000:0000:0000:0000';
+	
+			if (preg_match('#\[(.*)\]#', $ip_addr, $matches)) $ip_addr = $matches[1];
+	
+			if (false !== $percent) {
+				$ip_addr = substr($ip_addr, 0, $percent);
+			}
+	
+			if (preg_match('/[^0-9a-f:]/i', $ip_addr)) {
+				return '::';
+			}
+	
+			if (function_exists('inet_pton') && function_exists('inet_ntop')) {
+				$ip_addr = inet_ntop(inet_pton($ip_addr) & inet_pton($netmask));
+				if (false === $ip_addr) {
+					return '::';
+				}
+			}
+		} elseif ($is_ipv4) {
+			$last_octet_position = strrpos($ip_addr, '.');
+			$ip_addr             = substr($ip_addr, 0, $last_octet_position) . '.0';
+		} else {
+			return '0.0.0.0';
+		}
+	
+		return $ip_prefix . $ip_addr;
+	}
+
+	/**
+	 * Returns uniform "anonymous" data by type.
+	 *
+	 * @param string $type The type of data to be anonymized.
+	 * @param string $data Optional The data to be anonymized.
+	 * @return string The anonymous data for the requested type.
+	 */
+	public static function anonymize_data($type, $data = '') {
+		switch ($type) {
+			case 'email':
+				$anonymous = 'invalid@example.com';
+				break;
+			case 'url':
+				$anonymous = 'https://invalid.example.com';
+				break;
+			case 'ip':
+				$anonymous = self::wp_privacy_anonymize_ip($data);
+				break;
+			case 'date':
+				$anonymous = '0000-00-00 00:00:00';
+				break;
+			case 'text':
+				/* translators: Deleted text. */
+				$anonymous = __('[deleted]', 'updraftplus');
+				break;
+			case 'longtext':
+				/* translators: Deleted long text. */
+				$anonymous = __('This content was deleted in order to anonymize it.', 'updraftplus');
+				break;
+			default:
+				$anonymous = '';
+				break;
+		}
+		return $anonymous;
+	}
 }

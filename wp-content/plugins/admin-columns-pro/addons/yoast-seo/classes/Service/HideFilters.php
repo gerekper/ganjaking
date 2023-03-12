@@ -9,6 +9,7 @@ use AC\Table\Screen;
 use ACA\YoastSeo\Settings\ListScreen\HideOnScreen\FilterReadabilityScore;
 use ACA\YoastSeo\Settings\ListScreen\HideOnScreen\FilterSeoScores;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 use WPSEO_Metabox_Analysis_Readability;
 use WPSEO_Metabox_Analysis_SEO;
 use WPSEO_Post_Type;
@@ -83,10 +84,10 @@ final class HideFilters implements Registerable {
 		}
 
 		if ( $this->is_analysis_enabled( $list_screen->get_post_type() ) ) {
-			$collection->add( $this->seo_scores, 38 );
+			$collection->add( $this->seo_scores, new Group( Group::ELEMENT ), 38 );
 		}
 		if ( $this->is_readability_enabled( $list_screen->get_post_type() ) ) {
-			$collection->add( $this->readability_score, 38 );
+			$collection->add( $this->readability_score, new Group( Group::ELEMENT ), 38 );
 		}
 	}
 

@@ -535,7 +535,7 @@ class WC_Report_Sales_By_Supplier extends WC_Admin_Report {
 
 	</div></div>';
 
-		echo $html;
+		echo __( $html );
 
 	}
 

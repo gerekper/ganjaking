@@ -8,6 +8,8 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No access.');
  */
 class UpdraftPlus_Backup_History {
 
+	private static $backup_history_on_restore = null;
+
 	/**
 	 * Get the backup history for an indicated timestamp, or the complete set of all backup histories
 	 *
@@ -176,8 +178,8 @@ class UpdraftPlus_Backup_History {
 
 					if (preg_match('/^backup_([\-0-9]{15})_.*_([0-9a-f]{12})-[\-a-z]+([0-9]+)?+(\.(zip|gz|gz\.crypt))?$/i', $filename, $matches)) {
 
-						$timestamp = strtotime($matches[1]);
-						
+						$timestamp = strtotime(get_gmt_from_date(date_format(DateTime::createFromFormat('Y-m-d-Hi', $matches[1]), 'Y-m-d H:i')));
+
 						if (!isset($incremental_sets[$timestamp])) $incremental_sets[$timestamp] = array();
 
 						if (!isset($incremental_sets[$timestamp][$entity])) $incremental_sets[$timestamp][$entity] = array();
@@ -865,5 +867,40 @@ class UpdraftPlus_Backup_History {
 		$backup_history[$backup_time] = isset($backup_history[$backup_time]) ? apply_filters('updraftplus_merge_backup_history', $backup_array, $backup_history[$backup_time]) : $backup_array;
 		
 		self::save_history($backup_history, false);
+	}
+
+	/**
+	 * Save backup history into a file
+	 *
+	 * @return void
+	 */
+	public static function preserve_backup_history() {
+		self::$backup_history_on_restore = get_site_option('updraft_backup_history');
+	}
+
+	/**
+	 * Update backup history label based on backup-history.txt
+	 *
+	 * @return void
+	 */
+	public static function restore_backup_history_label() {
+		$backup_history = get_site_option('updraft_backup_history');
+		$saved_backup_history = self::$backup_history_on_restore;
+		$is_backup_history_changed = false;
+
+		if (empty($saved_backup_history)) return;
+
+		foreach ($saved_backup_history as $backup) {
+			if (!isset($backup['label'])) continue;
+
+			foreach ($backup_history as $key => $value) {
+				if ($backup['nonce'] === $value['nonce'] && !empty($backup_history[$key]['label']) && $backup_history[$key]['label'] !== $backup['label']) {
+					$is_backup_history_changed = true;
+					$backup_history[$key]['label'] = $backup['label'];
+				}
+			}
+		}
+
+		if ($is_backup_history_changed) self::save_history($backup_history, false);
 	}
 }

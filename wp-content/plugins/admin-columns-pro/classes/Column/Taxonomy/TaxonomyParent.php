@@ -40,7 +40,7 @@ class TaxonomyParent extends AC\Column
 			return false;
 		}
 
-		return (int) $term->parent;
+		return $term->parent;
 	}
 
 	public function editing() {

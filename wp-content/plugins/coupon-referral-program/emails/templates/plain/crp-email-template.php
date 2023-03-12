@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 											<div style="padding-top: 4px;text-align: center;">
 												<p style="margin: 0;">
 												<?php
-												$exp_text = esc_html_e( 'Exp Date:', 'coupon-referral-program' );
+												$exp_date = esc_html__( 'Exp Date:', 'coupon-referral-program' );
 													echo esc_html( $exp_date ) . ' ' . esc_html( $coupon_expiry );
 												?>
 												</p>

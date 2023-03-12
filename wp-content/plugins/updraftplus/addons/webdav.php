@@ -27,6 +27,11 @@ if (!defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) define('STREAM_CRYPTO_METHO
 class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 	
 	/**
+	 * String to be written for credentials testing
+	 */
+	const CREDENTIALS_TEST_DATA = "test";
+
+	/**
 	 * The size of chunk upload
 	 *
 	 * @var    integer
@@ -138,12 +143,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 */
 	private $locktoken = false;
 
-	private $write_returned_recoverable_error = false;
-
-	private $write_final = false;
-	
-	private $write_returned_for_final_write = false;
-
 	private $error_404_should_be_logged = false;
 	
 	/**
@@ -156,6 +155,20 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		$this->method = 'webdav';
 		$this->desc = 'WebDAV';
 		$this->user_agent = 'UpdraftPlus/'.$updraftplus->version;
+	}
+
+	/**
+	 * Determine whether to use chunk for the backup operation based on a setting of a corresponding storage instance or a defined constant
+	 *
+	 * @return Boolean True if chunk is selected for the storage instance, false otherwise
+	 */
+	private function use_chunk() {
+		$options = $this->get_options(); // this ought to get options for a current instance being processed which has been specified via set_options before
+		// Prioritise constant to maintain backward compatibility.
+		if (defined('UPDRAFTPLUS_WEBDAV_NEVER_CHUNK') && UPDRAFTPLUS_WEBDAV_NEVER_CHUNK) {
+			return false;
+		}
+		return $options['enable_chunk'];
 	}
 
 	/**
@@ -186,7 +199,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 */
 	public function get_default_options() {
 		return array(
-			'url' => ''
+			'url' => '',
+			'enable_chunk' => 1,
 		);
 	}
 
@@ -278,6 +292,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 					}
 
 					$opts['settings'][$instance_id]['url'] = $storage_options['url'];
+
+					if (!isset($storage_options['enable_chunk'])) $storage_options['enable_chunk'] = 1; // force old instance settings from the old versions which don't have "enable_chunk" field to now use enable_chunk by default?
 
 					// Now we have constructed the URL we should loop over the options and save any extras, but we should ignore the options used to create the URL as they are no longer needed.
 					$skip_keys = array("url", "webdav", "user", "pass", "host", "port", "path");
@@ -380,6 +396,15 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 					<input type="text" id="{{get_template_input_attribute_value "id" "path"}}" name="{{get_template_input_attribute_value "name" "path"}}" class="updraft_webdav_settings updraft_input--wide udc-wd-600" value="{{path}}"/>
 				</td>
 			</tr>
+
+			<tr class="{{get_template_css_classes true}}">
+				<th>{{input_chunk_label}}:</th>
+				<td>
+				<input data-updraft_settings_test="enable_chunk" type="checkbox" id="{{get_template_input_attribute_value "id" "enable_chunk"}}" name="{{get_template_input_attribute_value "name" "enable_chunk"}}" value="1" {{#ifeq '1' enable_chunk}}checked="checked"{{/ifeq}}>
+				<label for="{{get_template_input_attribute_value "id" "enable_chunk"}}">{{input_chunk_title}}</label>
+				</td>
+			</tr>
+
 			{{{get_template_test_button_html "WebDav"}}}
 		<?php
 		return ob_get_clean();
@@ -405,6 +430,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			'input_port_label' => __('Port', 'updraftplus'),
 			'input_port_title' => __('Leave this blank to use the default (80 for webdav, 443 for webdavs)', 'updraftplus'),
 			'input_path_title' => __('Path', 'updraftplus'),
+			'input_chunk_label' => __('Split uploads into chunks', 'updraftplus'),
+			'input_chunk_title' => __('Yes', 'updraftplus'),
 			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 		);
 		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
@@ -418,7 +445,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 * @return array - Modified handerbar template options
 	 */
 	public function transform_options_for_template($opts) {
-		$url = isset($opts['url']) ? $opts['url'] : '';
+		$url = empty($opts['url']) ? '' : $opts['url'];
 		$parse_url = @parse_url($url);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		if (false === $parse_url) $url = '';
 		$opts['url'] = $url;
@@ -428,11 +455,12 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		} elseif ('webdavs' == $url_scheme) {
 			$opts['is_webdavs_protocol'] = true;
 		}
-		$opts['user'] = urldecode(@parse_url($url, PHP_URL_USER));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-		$opts['pass'] = urldecode(@parse_url($url, PHP_URL_PASS));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-		$opts['host'] = urldecode(@parse_url($url, PHP_URL_HOST));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$opts['user'] = urldecode((string) @parse_url($url, PHP_URL_USER));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$opts['pass'] = urldecode((string) @parse_url($url, PHP_URL_PASS));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$opts['host'] = urldecode((string) @parse_url($url, PHP_URL_HOST));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		$opts['port'] = @parse_url($url, PHP_URL_PORT);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		$opts['path'] = @parse_url($url, PHP_URL_PATH);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (!isset($opts['enable_chunk'])) $opts['enable_chunk'] = 1; // force old instance settings from the old versions which don't have "enable_chunk" field to now use enable_chunk by default?
 		return $opts;
 	}
 
@@ -454,19 +482,18 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		
 		$this->mkdir($url);
 		
-		// $updraftplus_webdav_filepath shold have readable file path when file is being send on the webdav filesystem
-		if ('webdav' == $this->method) {
-			global $updraftplus, $updraftplus_webdav_filepath;
-			$updraftplus_webdav_filepath = $updraftplus->backups_dir_location().'/index.html';
-		}
 		$testfile = $url.'/'.md5(time().rand());
 		$this->_parse_url($testfile);
-		if ($this->write('test')) {
-			_e("Success", 'updraftplus');
-			$this->unlink($testfile);
-		} else {
-			_e("Failed: We were not able to place a file in that directory - please check your credentials.", 'updraftplus');
+		$msg = __("Success", 'updraftplus');
+		$res = true;
+		try {
+			$res = $this->write(self::CREDENTIALS_TEST_DATA, $posted_settings['enable_chunk']);
+		} catch (Exception $e) {
+			$msg = $e->getMessage();
 		}
+		if (!$res) $msg = __("Failed: We were not able to place a file in that directory - please check your credentials.", 'updraftplus');
+		$this->unlink($testfile);
+		echo $msg;
 	}
 
 	/**
@@ -516,7 +543,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 *
 	 * @return Boolean - returns true on success or false on failure
 	 */
-	public function chunked_upload($file, $url) {
+	public function upload($file, $url) {
 
 		global $updraftplus;
 
@@ -539,32 +566,40 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		}
 		
 		$this->error_404_should_be_logged = true;
-		
-		$chunks = floor($orig_file_size / 2097152);
-		// There will be a remnant unless the file size was exactly on a 5MB boundary
-		if ($orig_file_size % 2097152 > 0) $chunks++;
 
 		if (!$rh = fopen($file, 'rb')) {
 			$this->log('Failed to open local file');
 			return false;
 		}
 
-		// A hack, to pass information to a modified version of the PEAR library
-		global $updraftplus_webdav_filepath;
-		$updraftplus_webdav_filepath = $file;
+		$this->log("Enable chunked upload: ".($this->use_chunk() ? 'yes' : 'no'));
+
+		$upload_chunk_size = $this->upload_chunk_size;
+
+		$chunks = floor($orig_file_size / $upload_chunk_size);
+		// There will be a remnant unless the file size was exactly on a 5MB boundary
+		if ($orig_file_size % $upload_chunk_size > 0) $chunks++;
+
 		
 		$read_buffer_size = 131072;
 
-		if (isset($this->upload_chunk_size)) {
-			$read_buffer_size = min($this->upload_chunk_size, 1048576);
-			$this->log(sprintf("Upload chunk size: successfully changed to %d bytes", $this->upload_chunk_size));
+		if ($this->use_chunk()) {
+			$read_buffer_size = min($upload_chunk_size, 1048576);
+			$this->log(sprintf("Upload chunk size: successfully changed to %d bytes", $upload_chunk_size));
 		}
 
+		if (!$this->use_chunk()) {
+			$chunks = 1;
+			$upload_chunk_size = $orig_file_size+1;
+			$read_buffer_size = $orig_file_size;
+		}
+
+		$res = true;
 		$last_time = time();
 		for ($i = 1; $i <= $chunks; $i++) {
 
-			$chunk_start = ($i-1)*2097152;
-			$chunk_end = min($i*2097152-1, $orig_file_size);
+			$chunk_start = ($i-1)*$upload_chunk_size;
+			$chunk_end = min($i*$upload_chunk_size-1, $orig_file_size);
 
 			if ($start_offset > $chunk_end) {
 				$this->log("Chunk $i: Already uploaded");
@@ -576,39 +611,54 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 				$bytes_left = $chunk_end - $chunk_start;
 				while ($bytes_left > 0) {
 					if ($buf = fread($rh, $read_buffer_size)) {
-						if ($this->write($buf)) {
+						$bytes_written = $this->write($buf, $this->use_chunk()); // first attempt to upload file
+						if ($bytes_written > 0) {
 							$bytes_left = $bytes_left - strlen($buf);
 							if (time()-$last_time > 15) {
 								$last_time = time();
 								touch($file);
 							}
+						} elseif (-1 === $bytes_written && $this->use_chunk()) { // "-1" for handling recoverable error especially when the error status/code is 400 or 501. It will be recovered only when failed uploading in chunks which means the chunk setting is enabled
+							$this->position = 0;
+							$res = $this->write(file_get_contents($file), false); // all-at-once upload (the second attempt), the chunk setting is enabled for the corresponding instance but since it's a recovery so we force to not use chunk
+							if (false === $res || -1 === $res) {
+								$res = false;
+								$this->log('WebDAV: All-in-one write failed');
+								// The return result is ignored; so, we throw an exception instead
+								throw new Exception('WebDAV: All-in-one write failed');
+							} else {
+								$this->log('WebDAV: All-in-one write succeeded');
+								$updraftplus->record_uploaded_chunk(100, "$i", $file);
+							}
+							break 2;
 						} else {
 							$this->log("Chunk $i: A write error occurred");
-							return false;
+							$res = false;
+							break 2;
 						}
 					} else {
 						$this->log("Chunk $i: A read error occurred");
-						return false;
+						$res = false;
+						break 2;
 					}
 				}
 			}
 
-			$updraftplus->record_uploaded_chunk(round(100*$i/$chunks, 1), "$i", $file);
-
+			if ($this->use_chunk()) $updraftplus->record_uploaded_chunk(round(100*$i/$chunks, 1), "$i", $file);
 		}
 
 		try {
 			if (!$this->connection_close()) {
-				$this->log('Upload failed (fclose error)');
-				return false;
+				$this->log('Upload failed (connection_close error)');
+				$res = false;
 			}
 		} catch (Exception $e) {
-			$this->log('Upload failed (fclose exception; class='.get_class($e).'): '.$e->getMessage());
-			return false;
+			$this->log('Upload failed (connection_close exception; class='.get_class($e).'): '.$e->getMessage());
+			$res = false;
 		}
-		fclose($rh);
+		if (!fclose($rh)) $this->log('Upload failed (fclose error)');
 
-		return true;
+		return $res;
 
 	}
 
@@ -617,7 +667,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 *
 	 * @param String $match - the string we want to match when searching for files
 	 *
-	 * @return Array - an array of files found
+	 * @return Array|WP_Error - an array of files found
 	 */
 	public function listfiles($match = 'backup_') {
 
@@ -671,7 +721,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 
 		foreach ($backup_array as $file) {
 			$this->log("upload: attempt: $file");
-			if ($this->chunked_upload($updraft_dir.'/'.$file, $url.'/'.$file)) {
+			if ($this->upload($updraft_dir.'/'.$file, $url.'/'.$file)) {
 				$updraftplus->uploaded_file($file);
 			} else {
 				$any_failures = true;
@@ -769,9 +819,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 *
 	 * @return bool   true on success
 	 */
-	public function connection_open($path, $mode = null) {
-		global $updraftplus;
-
+	private function connection_open($path, $mode) {
+		$this->stat = array();
 		// rewrite the request URL
 		if (!$this->_parse_url($path)) return false;
 
@@ -785,12 +834,12 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 				$this->url = dirname($this->url);
 				if (!$this->_check_options()) {
 					$this->url = $old_url;
-					$updraftplus->log('Failed to check WebDAV server options');
+					$this->log('Failed to check WebDAV server options');
 					return false;
 				}
 				$this->url = $old_url;
 			} else {
-				$updraftplus->log('Failed to check WebDAV server options');
+				$this->log('Failed to check WebDAV server options');
 				return false;
 			}
 		}
@@ -860,7 +909,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		// 'w' -> open for writing, truncate existing files
 		if (false !== strpos($mode, 'w')) {
 			try {
-				$req = $this->_startRequest(HTTP_Request2::METHOD_PUT);
+				$req = $this->_startRequest('PUT');
 
 				$req->setHeader('Content-length', 0);
 	
@@ -886,38 +935,16 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 * Method for close connection
 	 */
 	public function connection_close() {
-		global $updraftplus, $updraftplus_webdav_filepath;
-		if ((defined('UPDRAFTPLUS_WEBDAV_NEVER_CHUNK') && UPDRAFTPLUS_WEBDAV_NEVER_CHUNK && true === $this->write_returned_for_final_write) || $this->write_returned_recoverable_error) {
-			if (!empty($updraftplus_webdav_filepath) && is_readable($updraftplus_webdav_filepath)) {
-				$this->position = 0;
-				$this->write_returned_for_final_write = false;
-				$this->write_final = true;
-				if (false === $this->write(file_get_contents($updraftplus_webdav_filepath))) {
-					$this->write_final = false;
-					$updraftplus->log('WebDAV: All-in-one write failed');
-					// The return result is ignored; so, we throw an exception instead
-					throw new Exception('WebDAV: All-in-one write failed');
-					return false;
-				} else {
-					$updraftplus->log('WebDAV: All-in-one write succeeded');
-				}
-				$this->write_final = false;
-			} else {
-				$updraftplus->log("File not readable: $updraftplus_webdav_filepath");
-				throw new Exception("File not readable: $updraftplus_webdav_filepath");
-				return false;
-			}
-		}
-
-		// unlock?
-		if ($this->locktoken) {
-			$this->lock(LOCK_UN);
-		}
-
 		// closing is simple as HTTP is stateless
 		$this->url = $this->eof = false;
 		$this->position = 0;
+		$this->stat = array();
 		
+		// unlock?
+		if ($this->locktoken) {
+			return $this->lock(LOCK_UN);
+		}
+
 		return true;
 	}
 
@@ -944,7 +971,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 
 		try {
 			// create a GET request with a range
-			$req = $this->_startRequest(HTTP_Request2::METHOD_GET);
+			$req = $this->_startRequest('GET');
 			if (is_string($this->user)) {
 				$req->setAuth($this->user, $this->pass);
 			}
@@ -997,21 +1024,17 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for writing a file resource
 	 *
-	 * @param  string $buffer data to write
+	 * @param  string $buffer    data to write
+	 * @param  bool   $use_chunk whether to set Content-Range header for uploading file in chunks
 	 *
 	 * @return int    number of bytes actually written
 	 */
-	public function write($buffer) {
+	public function write($buffer, $use_chunk) {
 		// do some math
 		$start = $this->position;
 		$end   = $this->position + strlen($buffer) - 1;
-		
-		if (((defined('UPDRAFTPLUS_WEBDAV_NEVER_CHUNK') && UPDRAFTPLUS_WEBDAV_NEVER_CHUNK) || $this->write_returned_recoverable_error) && !$this->write_final) {
-			$this->position += strlen($buffer);
-			return 1 + $end - $start;
-		}
 
-		$method = ($start > 0 && defined('UPDRAFTPLUS_WEBDAV_USE_SABRE_APPEND') && UPDRAFTPLUS_WEBDAV_USE_SABRE_APPEND) ? 'PATCH' : HTTP_Request2::METHOD_PUT;
+		$method = ($use_chunk && defined('UPDRAFTPLUS_WEBDAV_USE_SABRE_APPEND') && UPDRAFTPLUS_WEBDAV_USE_SABRE_APPEND) ? 'PATCH' : 'PUT';
 
 		try {
 			// create a partial PUT request
@@ -1021,14 +1044,12 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			}
 
 			if (defined('UPDRAFTPLUS_WEBDAV_USE_SABRE_APPEND') && UPDRAFTPLUS_WEBDAV_USE_SABRE_APPEND) {
-
-			if ($start>0) {
-				$req->setHeader('Content-Type', 'application/x-sabredav-partialupdate');
-				$req->setHeader("X-Update-Range", "append");
-			}
+				if ($use_chunk) {
+					$req->setHeader('Content-Type', 'application/x-sabredav-partialupdate'); // this will replace the existing content-type that has been set via _startRequest() before
+					$req->setHeader("X-Update-Range", "append");
+				}
 			} else {
-			// Special hack to drop Content-Range header for the test file
-			if (($start>0 || $end>8) && !$this->write_final) $req->setHeader("Content-Range", "bytes $start-$end/*");
+				if ($use_chunk) $req->setHeader("Content-Range", "bytes $start-$end/*");
 			}
 			if ($this->locktoken) {
 				$req->setHeader("If", "(<{$this->locktoken}>)");
@@ -1044,8 +1065,9 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			throw $e;
 		}
 
+		$status = apply_filters('updraftplus_webdav_uploading_status', $result->getStatus(), $use_chunk);
 		// check result
-		switch ($result->getStatus()) {
+		switch ($status) {
 			case 200:
 			case 201:
 			case 204:
@@ -1061,34 +1083,28 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	<s:message>Content-Range on PUT requests are forbidden.</s:message>
 	</d:error>
 			*/
+				break;
 			case 400:
-				global $updraftplus, $updraftplus_webdav_filepath;
-				if (false !== strpos($result->getBody(), 'Content-Range') && !empty($updraftplus_webdav_filepath)) {
-					$updraftplus->log('WebDAV server returned 400 due to Content-Range issue; will try all-at-once method');
-					$this->write_returned_recoverable_error = true;
-					// You lie!
-					return 1 + $end - $start;
+				if (false !== strpos($result->getBody(), 'Content-Range')) {
+					$this->log('WebDAV server returned 400 due to Content-Range issue; will try all-at-once method');
+					if (self::CREDENTIALS_TEST_DATA === $buffer) throw new Exception(__('WebDAV server returned 400; probably does not support Content-Range (chunks)', 'updraftplus'));
+					return ($use_chunk) ? -1 : false; // "-1" recoverable error, false if chunks is in use
 				} else {
 					$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus());
 					$this->log(sprintf("Unexpected HTTP response code (%s): %s", $result->getStatus(), $msg));
+					if (self::CREDENTIALS_TEST_DATA === $buffer) throw new Exception(sprintf(__("Unexpected HTTP response code (%s): %s", "updraftplus"), $result->getStatus(), $msg));
 					return false;
 				}
-				
-
+				break;
 			case 501:
-				global $updraftplus, $updraftplus_webdav_filepath;
-				if (!empty($updraftplus_webdav_filepath)) {
-					$updraftplus->log('WebDAV server returned 501; probably does not support Content-Range; will try all-at-once method');
-					$this->write_returned_recoverable_error = true;
-					// You lie!
-					return 1 + $end - $start;
-				} else {
-					return false;
-				}
-				
+				$this->log('WebDAV server returned 501; probably does not support Content-Range; will try all-at-once method');
+				if (self::CREDENTIALS_TEST_DATA === $buffer) throw new Exception(__('WebDAV server returned 501; probably does not support Content-Range (chunks)', 'updraftplus'));
+				return ($use_chunk) ? -1 : false; // "-1" recoverable error, false if chunks is in use
+				break;
 			default:
 				$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus());
 				$this->log(sprintf("Unexpected HTTP response code (%s): %s", $result->getStatus(), $msg));
+				if (self::CREDENTIALS_TEST_DATA === $buffer) throw new Exception(sprintf(__("Unexpected HTTP response code (%s): %s", "updraftplus"), $result->getStatus(), $msg));
 				return false;
 		}
 
@@ -1313,12 +1329,12 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		if (!$this->_check_options())  return false;
 
 		// is DELETE supported?
-		if (!isset($this->dav_allow[HTTP_Request2::METHOD_DELETE])) {
+		if (!isset($this->dav_allow['DELETE'])) {
 			return false;
 		}
 
 		try {
-			$req = $this->_startRequest(HTTP_Request2::METHOD_DELETE);
+			$req = $this->_startRequest('DELETE');
 			if (is_string($this->user)) {
 				$req->setAuth($this->user, $this->pass);
 			}
@@ -1549,7 +1565,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	}
 
 	private function filesize($url) {
-		$this->connection_open($url);
+		$this->connection_open($url, 'r');
 
 		if (isset($this->stat['size'])) {
 			return intval($this->stat['size']);

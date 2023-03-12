@@ -15,7 +15,7 @@ class Title extends AC\Column\Media\Title
 	}
 
 	public function export() {
-		return new Export\Model\Media\Title( $this );
+		return new Export\Model\Media\Title();
 	}
 
 	public function search() {

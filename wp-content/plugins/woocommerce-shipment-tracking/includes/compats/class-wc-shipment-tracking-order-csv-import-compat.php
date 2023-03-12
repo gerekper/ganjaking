@@ -98,6 +98,11 @@ class WC_Shipment_Tracking_Order_CSV_Import_Compat {
 	 */
 	public function save_shipment_tracking_order_data( $order_id, $order_data ) {
 		$order = wc_get_order( $order_id );
+
+		if ( ! $order instanceof WC_Order ) {
+			return;
+		}
+
 		$order->update_meta_data( '_wc_shipment_tracking_items', $order_data['shipment_tracking'] );
 		$order->save();
 	}

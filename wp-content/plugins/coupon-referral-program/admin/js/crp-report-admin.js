@@ -13,7 +13,25 @@ jQuery(document).ready(function($){
             "paginate": {
                 "previous": mwb_crp_admin.previous,
                 "next"	  : mwb_crp_admin.next
-            }
+            },
         }
     });
+    jQuery( '.wps_crp_referral_reminder_email').on( 'click', function(e){
+        e.preventDefault();
+        const user_id = jQuery(this).data('user_id');
+        jQuery(this).append('<div id="preloader">Sending Please Wait...</div>');
+
+        $.ajax({
+			url:mwb_crp_admin.ajaxurl,
+			type:'POST',
+			data:{
+                action : 'wps_crp_send_reminder_email',
+                user_id : user_id,
+                nonce   : mwb_crp_admin.nonce
+            },
+			success:function(response){
+                jQuery("#preloader").remove();
+			}
+		});
+    })
 })

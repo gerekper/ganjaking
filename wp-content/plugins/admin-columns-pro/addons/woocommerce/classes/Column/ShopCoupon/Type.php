@@ -50,7 +50,7 @@ class Type extends ACP\Column\Meta
 	}
 
 	public function export() {
-		return new Export\ShopCoupon\Type( $this );
+		return new Export\ShopCoupon\Type();
 	}
 
 	public function get_coupon_types() {

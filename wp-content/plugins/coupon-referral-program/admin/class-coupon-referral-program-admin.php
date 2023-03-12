@@ -110,6 +110,8 @@ class Coupon_Referral_Program_Admin {
 				'search'         => __( 'Search', 'coupon-referral-program' ),
 				'previous'       => __( 'Previous', 'coupon-referral-program' ),
 				'next'           => __( 'Next', 'coupon-referral-program' ),
+				'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+				'nonce'          => wp_create_nonce( 'wps_crp_report_nonce' ),
 			);
 			wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array(), $this->version, true );
 			wp_register_script( $this->plugin_name . 'admin-report-js', COUPON_REFERRAL_PROGRAM_DIR_URL . 'admin/js/crp-report-admin.js', array(), $this->version, false );
@@ -354,7 +356,7 @@ class Coupon_Referral_Program_Admin {
 					'type'  => 'title',
 					'desc'  => __( 'The following options will be used for calculation of the referral purchase coupon amount.', 'coupon-referral-program' ) .
 					'<br><b>' . __( 'For Example:-', 'coupon-referral-program' ) . '</b><br>' .
-					__( '1- If you select ', 'coupon-referral-program' ) . '<b>' . __( ' “Referral purchase discount amount type” = Percentage', 'coupon-referral-program' ) . '</b>' . __( ' and “Referral Purchase Discount” = 20. Now, the Referred customer has place order of amount $200 then a referral coupon amount will be 40(200*20%) up to “Referral purchase discount amount upto” value.', 'coupon-referral-program' ) . '<br>' . __( '2- If you select ', 'coupon-referral-program' ) . '<b>' . __( '“Referral purchase discount amount type” = Fixed', 'coupon-referral-program' ) . '</b>' . __(
+					__( '1- If you select ', 'coupon-referral-program' ) . '<b>' . __( ' “Referral purchase discount amount type” = Percentage', 'coupon-referral-program' ) . '</b>' . __( ' and “Referral Purchase Discount” = 20. Now, the Referred customer has placed order of amount $200 then a referral coupon amount will be 40(200*20%) up to “Referral purchase discount amount upto” value.', 'coupon-referral-program' ) . '<br>' . __( '2- If you select ', 'coupon-referral-program' ) . '<b>' . __( '“Referral purchase discount amount type” = Fixed', 'coupon-referral-program' ) . '</b>' . __(
 						' and “Referral Purchase Discount” = 20. Then, no matter of order total, it will be 20.',
 						'coupon-referral-program'
 					),
@@ -381,7 +383,7 @@ class Coupon_Referral_Program_Admin {
 					'id'                => 'referral_discount_upto',
 					'custom_attributes' => array( 'min' => '0' ),
 					'desc_tip'          => __( 'Enter the maximum coupon amount limit when referral discount amount type is percentage,set 0 if you do not want to set limit.', 'coupon-referral-program' ),
-					'desc'              => __( 'Set the max referral coupon value (max coupon amount) you want to provide to your customers when the referral customer purchase from your store.', 'coupon-referral-program' ) . '<div>' . __( 'Note- If you don’t want to use “Referral discount amount upto” functionality then for this you have to set “Referral discount amount upto ” to 0.', 'coupon-referral-program' ) . '</div>',
+					'desc'              => __( 'Set the max referral coupon value (max coupon amount) you want to provide to your customers when the referral customer purchase from your store.', 'coupon-referral-program' ) . '<div>' . __( 'Note- If you do not want to use Referral discount amount upto functionality then for this you have to set Referral discount amount upto to 0.', 'coupon-referral-program' ) . '</div>',
 				),
 				array(
 					'title'             => __( 'Referral purchase discount', 'coupon-referral-program' ),
@@ -428,7 +430,7 @@ class Coupon_Referral_Program_Admin {
 					'custom_attributes' => array( 'min' => '0' ),
 					'id'                => 'mwb_crp_total_number_referred_users',
 					'class'             => 'mwb_crp_input_val',
-					'desc_tip'          => __( 'Enter how many time referee get coupon when new users signup using him/her referral link. By default it will be unlimited for blank field', 'coupon-referral-program' ),
+					'desc_tip'          => __( 'Enter how many time referee get coupon when new users signup using him/her referral link. By default, it will be unlimited for blank field', 'coupon-referral-program' ),
 				),
 				array(
 					'type' => 'sectionend',
@@ -526,6 +528,40 @@ class Coupon_Referral_Program_Admin {
 				),
 
 				array(
+					'title'    => __( 'Use this shortcode for the referral code', 'coupon-referral-program' ),
+					'type'     => 'text',
+					'desc_tip' => __( 'You can use the given shortcode anywhere you want, it will display the referral code of your customers', 'coupon-referral-program' ),
+					'default'  => '[crp_referral_code]',
+					'id'       => 'mwb_crp_referral_code',
+				),
+
+				array(
+					'title'    => __( 'Use this shortcode for the referral tab', 'coupon-referral-program' ),
+					'type'     => 'text',
+					'desc_tip' => __( 'You can use the given shortcode anywhere you want, it will display the referral tab', 'coupon-referral-program' ),
+					'default'  => '[crp_referral_tab]',
+					'id'       => 'mwb_crp_referral_tab',
+				),
+
+				array(
+					'title'    => __( 'Referral Tab Text', 'coupon-referral-program' ),
+					'type'     => 'textarea',
+					'id'       => 'referral_tab_text',
+					'class'    => 'mwb_crp_input_val',
+					'desc_tip' => __( 'Enter the text you want to show on the referral tab', 'coupon-referral-program' ),
+					'value'    => get_option( 'referral_tab_text' ) ? get_option( 'referral_tab_text' ) : esc_html__( 'Refer your friends and you’ll earn discounts on their purchases', 'coupon-referral-program' ),
+				),
+
+				array(
+					'title'    => __( 'Signup PopUp Text', 'coupon-referral-program' ),
+					'type'     => 'textarea',
+					'id'       => 'signup_popup_text',
+					'class'    => 'mwb_crp_input_val',
+					'desc_tip' => __( 'Enter the text you want to show in the sign up popup. The empty field value will allow to show default content. You can use {crp_referral_code}, {crp_referral_link} shortcodes.', 'coupon-referral-program' ),
+					'value'    => get_option( 'signup_popup_text' ),
+				),
+
+				array(
 					'type' => 'sectionend',
 				),
 			);
@@ -540,7 +576,7 @@ class Coupon_Referral_Program_Admin {
 				array(
 					'title'    => __( 'Enable/Disable discount', 'coupon-referral-program' ),
 					'desc'     => __( 'Enable/Disable discount coupon on sign up', 'coupon-referral-program' ),
-					'desc_tip' => __( 'Enable this settings to give discount coupon for new user signup.', 'coupon-referral-program' ),
+					'desc_tip' => __( 'Enable this setting to give discount coupon for new user signup.', 'coupon-referral-program' ),
 					'default'  => 'no',
 					'type'     => 'checkbox',
 					'id'       => 'mwb_crp_signup_enable',
@@ -624,15 +660,11 @@ class Coupon_Referral_Program_Admin {
 						'min' => 5,
 						'max' => 10,
 					),
-					'desc_tip'          => __(
-						'Set the coupon length excluding the prefix.
-				(The minimum length you can set is 5)',
-						'coupon-referral-program'
-					),
+					'desc_tip'          => __( 'Set the coupon length excluding the prefix.(The minimum length you can set is 5)', 'coupon-referral-program' ),
 				),
 
 				array(
-					'title'             => __( 'Coupon expire after days', 'coupon-referral-program' ),
+					'title'             => __( 'Coupon expires after days', 'coupon-referral-program' ),
 					'default'           => 0,
 					'type'              => 'number',
 					'id'                => 'coupon_expiry',
@@ -642,7 +674,7 @@ class Coupon_Referral_Program_Admin {
 				),
 
 				array(
-					'title'    => __( 'No of time coupon can be use', 'coupon-referral-program' ),
+					'title'    => __( 'No. of time coupon can be used', 'coupon-referral-program' ),
 					'default'  => 0,
 					'type'     => 'number',
 					'id'       => 'coupon_usage',
@@ -656,7 +688,7 @@ class Coupon_Referral_Program_Admin {
 					'type'     => 'text',
 					'id'       => 'coupon_prefix',
 					'class'    => 'mwb_crp_input_val',
-					'desc_tip' => __( 'If you desire to add a prefix to your coupon, you can add here.', 'coupon-referral-program' ),
+					'desc_tip' => __( 'If you desire to add a prefix to your coupon, you can add it here.', 'coupon-referral-program' ),
 				),
 				array(
 					'title'       => __( 'Minimum spend', 'coupon-referral-program' ),
@@ -664,7 +696,7 @@ class Coupon_Referral_Program_Admin {
 					'type'        => 'text',
 					'id'          => 'mwb_crp_coupon_min_val',
 					'class'       => 'mwb_crp_input_val wc_input_price',
-					'desc_tip'    => __( 'This field allows you set the minimum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
+					'desc_tip'    => __( 'This field allows you to set the minimum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
 					'placeholder' => __( 'No minimum', 'coupon-referral-program' ),
 				),
 				array(
@@ -673,7 +705,7 @@ class Coupon_Referral_Program_Admin {
 					'type'        => 'text',
 					'id'          => 'mwb_crp_coupon_max_val',
 					'class'       => 'mwb_crp_input_val wc_input_price',
-					'desc_tip'    => __( 'This field allows you set the maximum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
+					'desc_tip'    => __( 'This field allows you to set the maximum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
 					'placeholder' => __( 'No maximum', 'coupon-referral-program' ),
 				),
 				array(
@@ -783,12 +815,51 @@ class Coupon_Referral_Program_Admin {
 						<a class="mwb_crp_help_link" href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><?php esc_html_e( 'Documentation', 'coupon-referral-program' ); ?></a>
 						<a class="mwb_crp_help_link" href="https://wpswings.com/contact-us/" target="_blank"><?php esc_html_e( 'Contact us', 'coupon-referral-program' ); ?></a>
 					</p>
+					<p>
+						<?php esc_html_e( 'Please click', 'coupon-referral-program' ); ?> <a class="mwb_crp_help_link" href="https://join.skype.com/invite/xCmwbfxx8MCX" target="_blank"><?php esc_html_e( 'Here', 'coupon-referral-program' ); ?></a> <?php esc_html_e( 'to connect with our team members instantly on Skype', 'coupon-referral-program' ); ?>
+					</p>
 				</div>
 				<div class="mwb_crp_video_wrapper">
 					<iframe height="400px" width="60%" src="https://www.youtube.com/embed/YzE6cp6KSxo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 			</div>
 			<?php
+		}
+
+		if ( 'prevent_fraudulent' === $current_section ) {
+			$settings = array(
+				array(
+					'title' => __( 'Prevent Fraudulent', 'coupon-referral-program' ),
+					'type'  => 'title',
+				),
+				array(
+					'title'   => __( 'Enable/Disable ', 'coupon-referral-program' ),
+					'desc'    => __( 'Enable/Disable email restriction', 'coupon-referral-program' ),
+					'default' => 'no',
+					'type'    => 'checkbox',
+					'id'      => 'mwb_crp_email_domains_enable',
+				),
+				array(
+					'title'    => __( 'Add allowed email domains for signup', 'coupon-referral-program' ),
+					'type'     => 'text',
+					'desc_tip' => __( 'You can add the email domains to allow the signup for specific email domains. There will be no restriction for empty field', 'coupon-referral-program' ),
+					'default'  => '',
+					'id'       => 'mwb_crp_email_domains',
+				),
+				array(
+					'type' => 'sectionend',
+				),
+				array(
+					'title' => '',
+					'type'  => 'title',
+					'desc'  => '<br><b>' . __( 'For Example:-', 'coupon-referral-program' ) . '</b><br>' .
+					__( 'You can add the multiple domains separated by comma like this', 'coupon-referral-program' ) . ':<b> gmail.com, yahoo.com</b>',
+					'id'    => 'mwb_crp_email_domains_example',
+				),
+				array(
+					'type' => 'sectionend',
+				),
+			);
 		}
 		/**
 		 * Filter CRP section's settings .
@@ -903,12 +974,13 @@ class Coupon_Referral_Program_Admin {
 	public function crp_get_sections() {
 
 		$sections = array(
-			''               => __( 'General', 'coupon-referral-program' ),
-			'referal_config' => __( 'Referral configuration', 'coupon-referral-program' ),
-			'signup'         => __( 'Sign up discount', 'coupon-referral-program' ),
-			'coupon'         => __( 'Coupon configuration', 'coupon-referral-program' ),
-			'display'        => __( 'Display configuration', 'coupon-referral-program' ),
-			'reports'        => __( 'Reports', 'coupon-referral-program' ),
+			''                   => __( 'General', 'coupon-referral-program' ),
+			'referal_config'     => __( 'Referral configuration', 'coupon-referral-program' ),
+			'signup'             => __( 'Sign up discount', 'coupon-referral-program' ),
+			'coupon'             => __( 'Coupon configuration', 'coupon-referral-program' ),
+			'display'            => __( 'Display configuration', 'coupon-referral-program' ),
+			'prevent_fraudulent' => __( 'Prevent Fraudulent', 'coupon-referral-program' ),
+			'reports'            => __( 'Reports', 'coupon-referral-program' ),
 
 		);
 		if ( is_plugin_active( 'woocommerce-points-and-rewards/woocommerce-points-and-rewards.php' ) ) {
@@ -1043,24 +1115,6 @@ class Coupon_Referral_Program_Admin {
 	}
 
 	/**
-	 * This function is used to add referral tab under woocommerce menu.
-	 *
-	 * @name mwb_crp_addon_add_menu_link.
-	 * @since    1.0.0
-	 */
-	public function mwb_crp_add_menu_link() {
-
-		add_submenu_page(
-			'woocommerce',
-			__( 'Referrals', 'coupon-referral-program' ),
-			__( 'Referrals', 'coupon-referral-program' ),
-			'manage_woocommerce',
-			'wc-settings&tab=crp-referral_setting',
-			' '
-		);
-	}
-
-	/**
 	 * This function is used to compatibilty with WPML.
 	 *
 	 * @name mwb_crp_setting_compatibility_wpml.
@@ -1151,5 +1205,182 @@ class Coupon_Referral_Program_Admin {
 		</div>
 			<?php
 		endif;
+	}
+
+	/**
+	 * Used to generate report.
+	 *
+	 * @return void
+	 */
+	public function wps_crp_export_report_callback() {
+		if ( isset( $_GET['wps_crp_export_report'] ) && ! empty( $_GET['wps_crp_export_report'] ) ) { // phpcs:ignore
+			$upload_dir_path     = wp_upload_dir()['basedir'] . '/';
+			$log_referral_folder = 'wps_crp_csv_report/';
+			$import_referral_dir = $upload_dir_path . $log_referral_folder;
+			$filename            = 'wps_crp_referral_report.csv';
+			if ( ! is_dir( $import_referral_dir ) ) {
+				mkdir( $import_referral_dir, $permissions = 0777 );
+			}
+
+			$output = fopen( $import_referral_dir . $filename, 'w' );
+			$title = array(
+				'user_id'        => __( 'User ID', 'woocommerce-subscriptions-pro' ),
+				'username'       => __( 'User Name', 'woocommerce-subscriptions-pro' ),
+				'user_email'     => __( 'Email', 'woocommerce-subscriptions-pro' ),
+				'referred_users' => __( 'Referred Users', 'woocommerce-subscriptions-pro' ),
+				'utilize'        => __( 'Total Utilization', 'woocommerce-subscriptions-pro' ),
+				'no_of_coupons'  => __( 'Total no of Coupon', 'woocommerce-subscriptions-pro' ),
+				'coupon_data'    => __( 'Coupons Data', 'woocommerce-subscriptions-pro' ),
+			);	
+			fputcsv( $output, $title, ',' );
+
+			$users              = get_users( array( 'fields' => array( 'ID' ) ) );
+			$mwb_crp_data_array = array();
+			foreach ( $users as $user_id ) {
+				$user_id                   = $user_id->ID;
+				$crp_public_obj            = new Coupon_Referral_Program_Public( 'coupon-referral-program', '1.6.5' );
+				$users_crp_data            = $crp_public_obj->get_revenue( $user_id );
+				$mwb_crp_user_name         = get_userdata( $user_id )->data->display_name;
+				$mwb_crp_user_email        = get_userdata( $user_id )->data->user_email;
+				$get_utilize_coupon_amount = $crp_public_obj->get_utilize_coupon_amount( $user_id );
+				$mwb_crp_data              = array(
+					'id'             => $user_id,
+					'user_name'      => $mwb_crp_user_name,
+					'user_email'     => $mwb_crp_user_email,
+					'referred_users' => $users_crp_data['referred_users'],
+					'utilize'        => $get_utilize_coupon_amount,
+					'no_of_coupons'  => $users_crp_data['total_coupon'],
+					'coupon_data'    => wp_json_encode( $this->wps_crp_user_coupon_data( $user_id ) ),
+				);
+				if ( ! empty( $mwb_crp_data ) && is_array( $mwb_crp_data ) ) {
+					fputcsv( $output, $mwb_crp_data, ',' );
+					array_push( $mwb_crp_data_array, $mwb_crp_data );
+				}
+			}
+
+			$path_of_file_to_download = $import_referral_dir . $filename;
+			if ( file_exists( $path_of_file_to_download ) ) {
+				header( 'Content-Description: File Transfer' );
+				header( 'Content-Type: application/csv' );
+				header( 'Content-Disposition: attachment; filename="' . basename( $path_of_file_to_download ) . '"' );
+				header( 'Expires: 0' );
+				header( 'Cache-Control: must-revalidate' );
+				header( 'Pragma: public' );
+				header( 'Content-Length: ' . filesize( $path_of_file_to_download ) );
+				readfile( $path_of_file_to_download );
+				exit;
+			}
+		}
+	}
+
+	/**
+	 * Get all of user's coupon data
+	 *
+	 * @param integer $user_id .
+	 * @return user_coupon_data_all
+	 */
+	public function wps_crp_user_coupon_data( $user_id ) {
+		$user_coupon_data_all = array();
+		$crp_public_obj       = new Coupon_Referral_Program_Public( 'coupon-referral-program', '1.6.5' );
+		if ( ! empty( $crp_public_obj->get_signup_coupon( $user_id ) ) && is_array( $crp_public_obj->get_signup_coupon( $user_id ) ) ) {
+			$signup_coupon  = $crp_public_obj->get_signup_coupon( $user_id );
+			$coupon = new WC_Coupon( $signup_coupon['singup'] );
+			if ( 'publish' == get_post_status( $signup_coupon['singup'] ) ) {
+				$coupon_code   = esc_html( $coupon->get_code() );
+				$coupon_amount = $coupon->get_amount();
+				$usage_count   = $coupon->get_usage_count();
+				$event         = 'Signup Coupon';
+
+				$user_coupon_data['coupon_code']   = $coupon_code;
+				$user_coupon_data['coupon_amount'] = $coupon_amount;
+				$user_coupon_data['usage_count']   = $usage_count;
+				$user_coupon_data['event']         = $event;
+
+				$user_coupon_data_all[] = $user_coupon_data;
+			}
+		}
+		if ( ! empty( $crp_public_obj->mwb_crp_get_referal_signup_coupon( $user_id ) ) ) {
+			foreach ( $crp_public_obj->mwb_crp_get_referal_signup_coupon( $user_id ) as $coupon_code => $user_id_crp_coupon ) {
+				$user_id_crp_coupon = esc_html( $user_id_crp_coupon );
+				$coupon             = new WC_Coupon( $coupon_code );
+				$flag               = false;
+				if ( 'publish' === get_post_status( $coupon_code ) ) {
+					$coupon_code   = esc_html( $coupon->get_code() );
+					$coupon_amount = $coupon->get_amount();
+					$usage_count   = $coupon->get_usage_count();
+					$event         = 'Referral Signup';
+
+					$user_coupon_data['coupon_code']   = $coupon_code;
+					$user_coupon_data['coupon_amount'] = $coupon_amount;
+					$user_coupon_data['usage_count']   = $usage_count;
+					$user_coupon_data['event']         = $event;
+
+					$user_coupon_data_all[] = $user_coupon_data;
+				}
+			}
+		}
+		if ( ! empty( $crp_public_obj->get_referral_purchase_coupons( $user_id ) ) ) {
+			foreach ( $crp_public_obj->get_referral_purchase_coupons( $user_id ) as $coupon_code => $user_id_crp_coupon ) {
+				$coupon   = new WC_Coupon( $coupon_code );
+				$flag     = false;
+				$order_id = get_post_meta( $coupon->get_id(), 'coupon_created_to', true );
+				if ( 'publish' === get_post_status( $coupon_code ) ) {
+					$coupon_code   = esc_html( $coupon->get_code() );
+					$coupon_amount = $coupon->get_amount();
+					$usage_count   = $coupon->get_usage_count();
+					$event         = 'Referral Purchase For #' . esc_html( $order_id );
+
+					$user_coupon_data['coupon_code']   = $coupon_code;
+					$user_coupon_data['coupon_amount'] = $coupon_amount;
+					$user_coupon_data['usage_count']   = $usage_count;
+					$user_coupon_data['event']         = $event;
+
+					$user_coupon_data_all[] = $user_coupon_data;
+				}
+			}
+		}
+		if ( ! empty( $crp_public_obj->get_referral_purchase_coupons_on_guest( $user_id ) ) ) {
+			foreach ( $crp_public_obj->get_referral_purchase_coupons_on_guest( $user_id ) as $coupon_code => $email ) {
+				$coupon   = new WC_Coupon( $coupon_code );
+				$order_id = get_post_meta( $coupon->get_id(), 'coupon_created_to', true );
+				if ( 'publish' === get_post_status( $coupon_code ) ) {
+					$coupon_code   = esc_html( $coupon->get_code() );
+					$coupon_amount = $coupon->get_amount();
+					$usage_count   = $coupon->get_usage_count();
+					$event         = 'Referral Purchase Via Guest User For #' . esc_html( $order_id );
+
+					$user_coupon_data['coupon_code']   = $coupon_code;
+					$user_coupon_data['coupon_amount'] = $coupon_amount;
+					$user_coupon_data['usage_count']   = $usage_count;
+					$user_coupon_data['event']         = $event;
+
+					$user_coupon_data_all[] = $user_coupon_data;
+				}
+			}
+		}
+		return $user_coupon_data_all;
+	}
+
+	/** Function to send the referral reminder email */
+	public function wps_crp_send_reminder_email_callback() {
+		check_ajax_referer( 'wps_crp_report_nonce', 'nonce' );
+
+		$user_id = isset( $_POST['user_id'] ) ? sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : 0;
+
+		$user_reference_key = get_user_meta( $user_id, 'referral_key', true );
+		if ( ! empty( $user_id ) && ! empty( $user_reference_key ) ) {
+			$page_permalink  = apply_filters( 'mwb_crp_referral_link_url', site_url() );
+			$referral_link   = $page_permalink . '?ref=' . $user_reference_key;
+			$user            = get_user_by( 'ID', $user_id );
+			$recipient_email = $user->user_email;
+			$customer_email  = WC()->mailer()->emails['crp_referral_reminder_email'];
+			$customer_email->trigger( $user_id, $referral_link, $recipient_email, $user_reference_key );
+			$res = true;
+
+		} else {
+			$res = false;
+		}
+		echo esc_html( $res );
+		wp_die();
 	}
 }

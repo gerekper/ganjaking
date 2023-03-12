@@ -2,9 +2,9 @@
 
 namespace ACP;
 
-use AC\Integration\Filter\IsInstalled;
 use AC\IntegrationRepository;
 use AC\PluginInformation;
+use ACP\Integration\Filter\IsActive;
 
 class PluginRepository {
 
@@ -32,7 +32,7 @@ class PluginRepository {
 		];
 
 		$addons = $this->integration_repository->find_all( [
-			IntegrationRepository::ARG_FILTER => [ new IsInstalled() ],
+			IntegrationRepository::ARG_FILTER => [ new IsActive() ],
 		] );
 
 		foreach ( $addons as $addon ) {

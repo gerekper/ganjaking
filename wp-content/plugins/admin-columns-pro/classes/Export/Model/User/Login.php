@@ -2,17 +2,14 @@
 
 namespace ACP\Export\Model\User;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * @since 4.1
- */
-class Login extends Model {
+class Login implements Service {
 
 	public function get_value( $id ) {
 		$user = get_userdata( $id );
 
-		return isset( $user->user_login ) ? $user->user_login : '';
+		return $user->user_login ?? '';
 	}
 
 }

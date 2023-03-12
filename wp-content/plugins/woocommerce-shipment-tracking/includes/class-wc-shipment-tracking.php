@@ -589,6 +589,10 @@ class WC_Shipment_Tracking_Actions {
 	public function get_formatted_tracking_item( $order_id, $tracking_item ) {
 		$order = wc_get_order( $order_id );
 
+		if ( ! $order instanceof WC_Order ) {
+			return array();
+		}
+
 		$postcode = ! empty( $order->get_shipping_postcode() ) ? $order->get_shipping_postcode() : $order->get_billing_postcode();
 
 		$country_code = $order->get_shipping_country();
@@ -708,6 +712,10 @@ class WC_Shipment_Tracking_Actions {
 	public function save_tracking_items( $order_id, $tracking_items ) {
 		$order = wc_get_order( $order_id );
 
+		if ( ! $order instanceof WC_Order ) {
+			return;
+		}
+
 		// Always re-index the array
 		$tracking_items = array_values( $tracking_items );
 
@@ -752,6 +760,10 @@ class WC_Shipment_Tracking_Actions {
 	 */
 	public function get_tracking_items( $order_id, $formatted = false ) {
 		$order = wc_get_order( $order_id );
+
+		if ( ! $order instanceof WC_Order ) {
+			return array();
+		}
 
 		$tracking_items = $order->get_meta( '_wc_shipment_tracking_items' );
 

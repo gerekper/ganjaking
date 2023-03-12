@@ -34,7 +34,7 @@ final class WooCommerce implements Registerable {
 			new Service\ColumnGroups(),
 			new Service\ListScreenGroups(),
 			new Service\ListScreens( $this->use_product_variations() ),
-			new ACP\Service\Templates( $this->location->get_path() ),
+			new ACP\Service\Templates( $this->location->get_path() . '/' ),
 			new ACP\Service\IntegrationStatus( 'ac-addon-woocommerce' ),
 		];
 

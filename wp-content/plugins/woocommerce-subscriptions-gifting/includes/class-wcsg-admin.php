@@ -52,7 +52,10 @@ class WCSG_Admin {
 
 		// Filter for gifted subscriptions.
 		add_action( 'restrict_manage_posts', array( __CLASS__, 'add_gifted_subscriptions_filter' ), 50 );
+		add_action( 'woocommerce_order_list_table_restrict_manage_orders', array( __CLASS__, 'add_gifted_subscriptions_filter' ), 50 );
+
 		add_action( 'pre_get_posts', array( __CLASS__, 'maybe_filter_by_gifted_subscriptions' ) );
+		add_action( 'woocommerce_shop_subscription_list_table_prepare_items_query_args', array( __CLASS__, 'filter_subscription_list_table_by_gifted_subscriptions' ) );
 
 		// Add "Resend new recipient account email".
 		add_filter( 'woocommerce_order_actions', array( __CLASS__, 'add_resend_new_recipient_account_email_action' ), 10, 1 );
@@ -122,7 +125,7 @@ class WCSG_Admin {
 			$purchaser_name .= '</a>';
 
 			// translators: $1: is subscription order number,$2: is recipient user's name, $3: is the purchaser user's name.
-			$column_content = sprintf( _x( '%1$s for %2$s purchased by %3$s', 'Subscription title on admin table. (e.g.: #211 for John Doe Purchased by: Jane Doe)', 'woocommerce-subscriptions-gifting' ), '<a href="' . esc_url( get_edit_post_link( wcsg_get_objects_id( $subscription ) ) ) . '">#<strong>' . esc_attr( $subscription->get_order_number() ) . '</strong></a>', $recipient_name, $purchaser_name );
+			$column_content = sprintf( _x( '%1$s for %2$s purchased by %3$s', 'Subscription title on admin table. (e.g.: #211 for John Doe Purchased by: Jane Doe)', 'woocommerce-subscriptions-gifting' ), '<a href="' . esc_url( $subscription->get_edit_order_url() ) . '">#<strong>' . esc_attr( $subscription->get_order_number() ) . '</strong></a>', $recipient_name, $purchaser_name );
 
 			$column_content .= '</div>';
 		}
@@ -280,7 +283,7 @@ class WCSG_Admin {
 	 */
 	public static function save_subscription_recipient_meta( $post_id, $post ) {
 
-		if ( 'shop_subscription' !== $post->post_type || empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_meta_nonce'], 'woocommerce_save_data' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		if ( 'shop_subscription' !== WC_Data_Store::load( 'subscription' )->get_order_type( $post_id ) || empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_meta_nonce'], 'woocommerce_save_data' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			return;
 		}
 
@@ -432,6 +435,32 @@ class WCSG_Admin {
 		$query->set( 'meta_query', $meta_query );
 	}
 
+	/**
+	 * Filter the Subscriptions Admin Table to filter only gifted or non-gifted subscriptions.
+	 *
+	 * @param array $request_query The query args sent to wc_get_orders().
+	 */
+	public static function filter_subscription_list_table_by_gifted_subscriptions( $request_query ) {
+		/**
+		 * Note this request isn't nonced as we're only filtering a list table and not modifying data.
+		 */
+		if ( ! isset( $_GET['wcsg_is_gifted'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return $request_query;
+		}
+
+		$wcsg_is_gifted = trim( $_GET['wcsg_is_gifted'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
+		if ( ! in_array( $wcsg_is_gifted, array( 'true', 'false' ), true ) ) {
+			return $request_query;
+		}
+
+		$request_query['meta_query'][] = array(
+			'key'     => '_recipient_user',
+			'compare' => 'true' === $wcsg_is_gifted ? 'EXISTS' : 'NOT EXISTS',
+		);
+
+		return $request_query;
+	}
 
 	/**
 	 * Adds actions to the admin edit subscriptions page, if the subscription is a gifted one.

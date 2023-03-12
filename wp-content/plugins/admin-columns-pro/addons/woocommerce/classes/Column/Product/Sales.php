@@ -3,7 +3,9 @@
 namespace ACA\WC\Column\Product;
 
 use AC;
+use DateTime;
 use ACA\WC\Settings\OrderStatuses;
+use ACA\WC\Settings\Product\NumberOfDays;
 use ACP\ConditionalFormat\Formattable;
 use ACP\ConditionalFormat\IntegerFormattableTrait;
 
@@ -16,7 +18,7 @@ class Sales extends AC\Column implements Formattable {
 
 	public function __construct() {
 		$this->set_type( 'column-wc-product_sales' )
-		     ->set_label( __( 'Sales', 'codepress-admin-columns' ) )
+		     ->set_label( __( 'Products Sold', 'codepress-admin-columns' ) )
 		     ->set_group( 'woocommerce' );
 	}
 
@@ -59,7 +61,7 @@ class Sales extends AC\Column implements Formattable {
 			FROM 
 			    {$wpdb->prefix}woocommerce_order_itemmeta AS oim_pid
 			INNER JOIN {$wpdb->prefix}woocommerce_order_items oi ON oim_pid.order_item_id = oi.order_item_id
-			INNER JOIN {$wpdb->posts} AS p ON p.ID = oi.order_id
+			INNER JOIN $wpdb->posts AS p ON p.ID = oi.order_id
 				AND p.post_status IN( $status_in )
 			INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS oim_q ON oim_q.order_item_id = oi.order_item_id 
 				AND oim_q.meta_key = '_qty'

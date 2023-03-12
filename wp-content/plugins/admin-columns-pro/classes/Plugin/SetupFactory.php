@@ -36,6 +36,8 @@ class SetupFactory extends AC\Plugin\SetupFactory {
 					new Update\V5300(),
 					new Update\V5400(),
 					new Update\V5700(),
+					new Update\V6000(),
+					new Update\V6002(),
 				] );
 
 				break;

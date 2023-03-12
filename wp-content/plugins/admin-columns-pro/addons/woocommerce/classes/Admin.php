@@ -16,6 +16,7 @@ use ACA\WC\Settings\HideOnScreen\FilterSubscriptionPayment;
 use ACA\WC\Settings\HideOnScreen\FilterSubscriptionProduct;
 use ACP\Settings\ListScreen\HideOnScreen\FilterPostDate;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 
 class Admin implements Registerable {
 
@@ -42,21 +43,21 @@ class Admin implements Registerable {
 
 		switch ( true ) {
 			case $list_screen instanceof ShopOrder :
-				$collection->add( new FilterOrderCustomer(), 34 );
+				$collection->add( new FilterOrderCustomer(), new Group( Group::ELEMENT ), 34 );
 
 				break;
 			case $list_screen instanceof Product :
-				$collection->add( new FilterProductCategory(), 32 )
-				           ->add( new FilterProductStockStatus(), 32 )
-				           ->add( new FilterProductType(), 32 );
+				$collection->add( new FilterProductCategory(), new Group( Group::ELEMENT ), 32 )
+				           ->add( new FilterProductStockStatus(), new Group( Group::ELEMENT ), 32 )
+				           ->add( new FilterProductType(), new Group( Group::ELEMENT ), 32 );
 
 				$collection->remove( new FilterPostDate() );
 
 				break;
 			case $list_screen instanceof Subscriptions :
-				$collection->add( new FilterSubscriptionProduct(), 34 )
-				           ->add( new FilterSubscriptionPayment(), 34 )
-				           ->add( new FilterSubscriptionCustomer(), 34 );
+				$collection->add( new FilterSubscriptionProduct(), new Group( Group::ELEMENT ), 34 )
+				           ->add( new FilterSubscriptionPayment(), new Group( Group::ELEMENT ), 34 )
+				           ->add( new FilterSubscriptionCustomer(), new Group( Group::ELEMENT ), 34 );
 
 				break;
 		}

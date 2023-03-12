@@ -1689,11 +1689,11 @@ if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 
 					var db_anon_all = jQuery('#updraft-navtab-migrate-content #updraftplus_migration_backupnow_db_anon_all').is(':checked') ? 1 : 0;
 					var db_anon_non_staff = jQuery('#updraft-navtab-migrate-content #updraftplus_migration_backupnow_db_anon_non_staff').is(':checked') ? 1 : 0;
+					var db_anon_wc_orders = jQuery('#updraft-navtab-migrate-content #updraftplus_migration_backupnow_db_anon_wc_order_data').is(':checked') ? 1 : 0;
 
 					var extradata = {
 						services: 'remotesend/'+site_id,
-						db_anon_all: db_anon_all,
-						db_anon_non_staff: db_anon_non_staff,
+						db_anon: {all: db_anon_all, non_staff: db_anon_non_staff, wc_orders: db_anon_wc_orders}
 					};
 				
 					if (jQuery('#remotesend_backupnow_cloud').is(':checked')) { 

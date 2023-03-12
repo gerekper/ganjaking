@@ -528,22 +528,23 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 
 		// # is the root node if it's the root node then this is the first call so create a parent node otherwise it's a child node and we should get the path from the node id
 		if ('#' == $params['node']['id']) {
-				$path = ABSPATH;
-				
-				if (!empty($params['path'])) $path = $params['path'];
+			$path = ABSPATH;
+			
+			if (!empty($params['path']) && is_dir($params['path']) && is_readable($params['path'])) $path = $params['path'];
+			$one_dir_up = dirname($path);
 
-				if (!empty($params['drop_directory']) && true == $params['drop_directory']) $path = dirname($path);
-				if (empty($params['skip_root_node'])) {
-					$node_array[] = array(
-						'text' => basename($path),
-						'children' => true,
-						'id' => $path,
-						'icon' => 'jstree-folder',
-						'state' => array(
-							'opened' => true
-						)
-					);
-				}
+			if (!empty($params['drop_directory']) && true == $params['drop_directory'] && is_readable($one_dir_up)) $path = $one_dir_up;
+			if (empty($params['skip_root_node'])) {
+				$node_array[] = array(
+					'text' => basename($path),
+					'children' => true,
+					'id' => $path,
+					'icon' => 'jstree-folder',
+					'state' => array(
+						'opened' => true
+					)
+				);
+			}
 		} else {
 			$path = $params['node']['id'];
 		}
@@ -813,5 +814,55 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 	 */
 	public function reset_tour_status() {
 		return class_exists('UpdraftPlus_Tour') ? UpdraftPlus_Tour::get_instance()->reset_tour_status() : false;
+	}
+
+	/**
+	 * Return the database information
+	 *
+	 * @return array
+	 */
+	public function db_size() {
+		global $wpdb;
+		
+		$db_table_res = $wpdb->get_results('SHOW TABLE STATUS', ARRAY_A);
+		$db_table_size = 0;
+		$db_table_html = '';
+
+		if ($wpdb->num_rows > 0) {
+			$key_field_name = UpdraftPlus_Manipulation_Functions::backquote('Key');
+			
+			foreach ($db_table_res as $row) {
+				// Try search from transient
+				$rows_count = get_transient('wpo_'.$row['Name'].'_count');
+				if (false === $rows_count) {
+					// If not found, try search primary key first
+					$table_name = UpdraftPlus_Manipulation_Functions::backquote($row['Name']);
+					$primary_key = $wpdb->get_row("SHOW COLUMNS FROM $table_name WHERE $key_field_name = 'PRI'", ARRAY_A);
+
+					if ($primary_key) {
+						// Count rows by primary key
+						$primary_key_field = UpdraftPlus_Manipulation_Functions::backquote($primary_key['Field']);
+						$rows_count = $wpdb->get_var("SELECT COUNT($primary_key_field) FROM ".$table_name);
+					}
+
+					if (is_null($rows_count) || false === $rows_count) $rows_count = $wpdb->get_var("SELECT COUNT(*) FROM ".$table_name);
+				}
+
+				$db_table_html .= '<tr>';
+				$db_table_html .= sprintf('<td>%s</td>', esc_html($row['Name']));
+				$db_table_html .= sprintf('<td>%s</td>', esc_html($rows_count));
+				$db_table_html .= sprintf('<td>%s</td>', esc_html(size_format($row['Data_length'], 2)));
+				$db_table_html .= sprintf('<td>%s</td>', esc_html(size_format($row['Index_length'], 2)));
+				$db_table_html .= sprintf('<td>%s</td>', esc_html($row['Engine']));
+				$db_table_html .= '</tr>';
+
+				$db_table_size += $row['Data_length'] + $row['Index_length'];
+			}
+		}
+
+		return array(
+			'size' => size_format((int) $db_table_size, 2),
+			'html' => $db_table_html
+		);
 	}
 }

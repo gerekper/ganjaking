@@ -15,30 +15,22 @@ use LogicException;
 
 class RequestHandlerAjaxFactory {
 
-	const METHOD_BULK_DELETE = 'bulk-delete';
-	const METHOD_BULK_SAVE = 'bulk-save';
-	const METHOD_INLINE_SAVE = 'inline-save';
-	const METHOD_INLINE_VALUES = 'inline-values';
-	const METHOD_EDIT_STATE = 'edit-state';
-	const METHOD_INLINE_SELECT_VALUES = 'inline-select-values';
-	const METHOD_BULK_SELECT_VALUES = 'bulk-select-values';
-	const METHOD_USER_SELECT_VALUES = 'delete-user-select-values';
+	private const METHOD_BULK_DELETE = 'bulk-delete';
+	private const METHOD_BULK_SAVE = 'bulk-save';
+	private const METHOD_INLINE_SAVE = 'inline-save';
+	private const METHOD_INLINE_VALUES = 'inline-values';
+	private const METHOD_EDIT_STATE = 'edit-state';
+	private const METHOD_INLINE_SELECT_VALUES = 'inline-select-values';
+	private const METHOD_BULK_SELECT_VALUES = 'bulk-select-values';
+	private const METHOD_USER_SELECT_VALUES = 'delete-user-select-values';
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
 	public function __construct( Storage $storage ) {
 		$this->storage = $storage;
 	}
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return RequestHandler
-	 */
-	public function create( Request $request ) {
+	public function create( Request $request ): RequestHandler {
 		switch ( $request->get( 'method' ) ) {
 			case self::METHOD_BULK_DELETE :
 				return new BulkDelete( $this->storage );
@@ -54,7 +46,7 @@ class RequestHandlerAjaxFactory {
 			case self::METHOD_BULK_SELECT_VALUES :
 				return new SelectValues( $this->storage );
 			case self::METHOD_USER_SELECT_VALUES :
-				return new DeleteUserSelectValues( );
+				return new DeleteUserSelectValues();
 		}
 
 		throw new LogicException( 'Invalid request.' );

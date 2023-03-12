@@ -1,6 +1,31 @@
 *** Coupon Referal Program ***
+2022-03-03 - Version 1.6.7
+* New: Added a feature to Refer a friend from the product page
+* New: Admin can send a referral reminder email to the user
+* Enhancement: Remove the help and support section
+* Enhancement: Remove the external link in the plugin backend.
+* Enhancement: Remove the Nav menu from WooCommerce
+* New: Compatible with the latest WP (6.1.1) and WC(7.4.1)
 
-2022-06-06 - version 1.6.4
+2022-12-09 - Version 1.6.6
+* New: Latest WP and WC compatibility
+* New: Referral Report Export Feature
+* New: Add the Filter For Compatibility
+* New: Implementation of Skype or Chat Link 
+
+2022-08-19 - Version 1.6.5
+* New: Latest WP and WC compatibility
+* New: Add Referral Code shortcode 
+* New: Add Referral Tab shortcode 
+* New: Add the field to customize the referral tab text 
+* New: Add field to customize signup popup content 
+* New: Add fraudulent prevention functionality
+* New: Add referral code shortcode for referral via email
+* New: Add services link in the plugin
+* Fix: Search User Bug in the CRP report.
+* Fix: Referral share via email content issue.
+
+2022-31-05 - version 1.6.4
   * New: Compatibility with WooCommerce 6.5.1
   * New: Compatibility with WordPress 6.0
   * New: Limit the referee gets coupon on the new user signup using him/her referral link

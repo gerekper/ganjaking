@@ -1,5 +1,37 @@
 == Changelog ==
 
+= 6.1.2 =
+Release Date: March 7th, 2023
+
+* [Fixed] Some default or third-party columns did not export any value
+* [Fixed] Bulk Delete feedback did not tell correctly how many items were processed
+* [Improved] Uploaded media during Inline Edit has now the edited item as parent
+* [Updated] Admin Columns Core version 4.6.1
+
+= 6.1.1 =
+Release Date: February 22nd, 2023
+
+* [Fixed] Issue where the user preference for export was not displayed correctly
+* [Updated] Admin Columns Core version 4.6.1
+
+= 6.1 =
+Release Date: February 22nd, 2023
+
+* [Refactor] Refactor for Export models. Abstract model is deprecated
+* [Added] Editing support for the Comment 'In Reply To' column
+* [Fixed] Templates for WooCommerce logic were not loaded correctly
+* [Fixed] Fatal error when a Metabox Taxonomy column was added on a Taxonomy screen
+* [Improved] Export now stores the last export columns and order as a user preference
+* [MLA] New integration for Media Library Assistant implemented in Admin Columns Pro
+* [ACF] Editing for Relation fields now also takes filter Taxonomy setting into account
+* [ACF] Editing for Time picker implemented again
+* [ACF] Value formatter fix for Numeric fields, 0 values are now displayed
+* [ACF] Value formatter fix for Maps field
+* [ACF] Value formatter fix for Choice fields that use 0 for keys
+* [JetEngine] Repeater field gave an error when adding the column
+* [WooCommerce] Added Fees to the Totals column for the Order page
+* [Updated] Admin Columns Core version 4.6.1
+
 = 6.0.3 =
 Release Date: December 21st, 2022
 

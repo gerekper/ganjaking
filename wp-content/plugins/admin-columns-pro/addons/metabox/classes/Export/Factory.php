@@ -4,15 +4,15 @@ namespace ACA\MetaBox\Export;
 
 use ACA\MetaBox;
 use ACA\MetaBox\Column;
+use ACP\Export\Model\StrippedValue;
+use ACP\Export\Service;
 
-class Factory extends MetaBox\Factory {
+class Factory {
 
-	public function create( Column $column ) {
-		return $this->create_default( $column );
-	}
-
-	public function create_default( Column $column ) {
+	public function create( Column $column ): Service {
 		switch ( true ) {
+			case $column instanceof Column\TextList:
+				return new StrippedValue( $column );
 			case $column instanceof Column\File:
 			case $column instanceof Column\Image:
 			case $column instanceof Column\Video:
@@ -27,13 +27,9 @@ class Factory extends MetaBox\Factory {
 			case $column instanceof Column\Taxonomy:
 			case $column instanceof Column\User:
 				return new MetaBox\Export\Model\Formatted( $column );
+			default:
+				return new MetaBox\Export\Model\Raw( $column );
 		}
-
-		return new MetaBox\Export\Model\Raw( $column );
-	}
-
-	public function create_disabled( Column $column ) {
-		return false;
 	}
 
 }

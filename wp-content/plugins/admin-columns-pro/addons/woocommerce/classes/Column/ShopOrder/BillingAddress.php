@@ -15,7 +15,7 @@ class BillingAddress extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopOrder\BillingAddress( $this );
+		return new Export\ShopOrder\BillingAddress();
 	}
 
 }

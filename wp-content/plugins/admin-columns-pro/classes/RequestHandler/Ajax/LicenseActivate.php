@@ -59,7 +59,7 @@ class LicenseActivate implements RequestAjaxHandler {
 		$this->permission_checker = $permission_checker;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}

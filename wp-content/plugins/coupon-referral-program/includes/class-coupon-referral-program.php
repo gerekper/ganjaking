@@ -149,8 +149,7 @@ class Coupon_Referral_Program {
 		$this->loader->add_filter( 'woocommerce_admin_reports', $plugin_admin, 'mwb_crp_report', 10, 1 );
 		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'mwb_crp_report_button_link', 90 );
 
-		$this->loader->add_action( 'crp_get_sections', $plugin_admin, 'mwb_crp_help_section' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'mwb_crp_add_menu_link' );
+		// $this->loader->add_action( 'crp_get_sections', $plugin_admin, 'mwb_crp_help_section' );
 
 		/*Compatibility with WPML*/
 		$this->loader->add_action( 'init', $plugin_admin, 'mwb_crp_setting_compatibility_wpml' );
@@ -160,6 +159,12 @@ class Coupon_Referral_Program {
 
 		$this->loader->add_filter( 'mwb_deactivation_supported_slug', $plugin_admin, 'add_mwb_deactivation_screens' );
 		$this->loader->add_action( 'woocommerce_admin_order_data_after_order_details', $plugin_admin, 'mwb_crp_woocommerce_after_order_itemmeta', 20, 3 );
+
+		// generate csv report file.
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'wps_crp_export_report_callback' );
+
+		// send referral reminder email.
+		$this->loader->add_action( 'wp_ajax_wps_crp_send_reminder_email', $plugin_admin, 'wps_crp_send_reminder_email_callback' );
 	}
 
 	/**
@@ -209,6 +214,9 @@ class Coupon_Referral_Program {
 			$this->loader->add_filter( 'wcml_register_endpoints_query_vars', $plugin_public, 'mwb_crp_wpml_register_endpoint', 10, 3 );
 			$this->loader->add_filter( 'wcml_endpoint_permalink_filter', $plugin_public, 'mwb_crp_endpoint_permalink_filter', 10, 2 );
 
+			$this->loader->add_filter( 'woocommerce_registration_errors', $plugin_public, 'mwb_crp_prevent_user_resgiration', 10, 3 );
+
+			$this->loader->add_filter( 'woocommerce_product_tabs', $plugin_public, 'wps_crp_add_custom_tabs' );
 		}
 
 	}
@@ -218,11 +226,11 @@ class Coupon_Referral_Program {
 	 * @param array $emails .
 	 */
 	public function crp_woocommerce_email_classes( $emails ) {
-		$emails['crp_signup_email']    = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-emails.php';
-		$emails['crp_order_email']     = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-order-emails.php';
-		$emails['crp_refree_email']    = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-refree-discount-emails.php';
-		$emails['crp_share_via_email'] = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-share-via-emails.php';
-
+		$emails['crp_signup_email']            = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-emails.php';
+		$emails['crp_order_email']             = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-order-emails.php';
+		$emails['crp_refree_email']            = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-refree-discount-emails.php';
+		$emails['crp_share_via_email']         = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-share-via-emails.php';
+		$emails['crp_referral_reminder_email'] = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-referral-reminder-emails.php';
 		return $emails;
 	}
 

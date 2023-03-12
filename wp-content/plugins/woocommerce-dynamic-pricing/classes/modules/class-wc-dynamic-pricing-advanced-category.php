@@ -72,6 +72,11 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 				}
 
 				$rule = reset( $set->pricing_rules ); //block rules can only have one line item.
+
+				$rule['to'] = floatval( $rule['to'] ?? 0 );
+				$rule['from'] = floatval( $rule['from'] ?? 0 );
+				$rule['adjust'] = floatval( $rule['adjust'] ?? 0 );
+
 				if ( $q < $rule['from'] ) {
 					//continue;
 				}
@@ -378,6 +383,9 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 		if ( empty( $rule['to'] ) || $rule['to'] == '*' ) {
 			$rule['to'] = $q;
 		}
+
+		$rule['to'] = floatval( $rule['to'] );
+		$rule['from'] = floatval( $rule['from'] );
 
 		if ( $q >= $rule['from'] && $q <= $rule['to'] ) {
 			switch ( $rule['type'] ) {

@@ -12,7 +12,7 @@ $name = $_POST['wishlist_email_from'];
 ?>
 
 <p>
-	<?php printf( __( '%s has a wishlist to share on <a href="%s">%s</a>', 'wc_wishlist' ), $name, get_site_url(), get_bloginfo( 'name' ) ); ?>
+	<?php printf( __( '%s has a wishlist to share on <a href="%s">%s</a>', 'wc_wishlist' ), esc_html($name), get_site_url(), get_bloginfo( 'name' ) ); ?>
 </p>
 
 <?php $wishlist_items = WC_Wishlists_Wishlist_Item_Collection::get_items( $wishlist->id );
@@ -36,9 +36,7 @@ if ( sizeof( $wishlist_items ) > 0 ) : ?>
 
 
 <?php if ( $additional_content ): ?>
-    <p>
-		<?php echo esc_html( $additional_content ); ?>
-    </p>
+    <?php echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) ); ?>
 <?php endif; ?>
 <p>
 	<?php printf( __( 'You can view this list by clicking on the link or copy and pasting it into your browser. <br/>View List: <a href="%s">%s</a>', 'wc_wishlist' ), $wishlist->get_the_url_view( $wishlist->id, true ), $wishlist->get_the_url_view( $wishlist->id, true ) ); ?>

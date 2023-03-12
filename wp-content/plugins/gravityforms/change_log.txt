@@ -1,8 +1,12 @@
+### 2.7.2.2
+- Fixed an issue that prevents the template library stylesheet from loading in no-conflict mode and makes the template library unusable.
+
 ### 2.7.2.1
 - Fixed an error on the widgets page that prevents the Gravity Forms block from working as a widget.
 - Fixed an issue which prevents sorting by number in the total field.
 - Fixed an issue that removes some inputs' sublabels when forms are saved.
 - Removed the about page images from the codebase to reduce the codebase size.
+- Fixed an issue where the Radio and Card settings fields do not render choice IDs
 
 ### 2.7.2 | 2023-03-01
 - Fixed an issue where some Gravity Forms CSS files load in the WordPress admin when they aren't needed.

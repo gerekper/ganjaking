@@ -1,5 +1,8 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2023.03.08 - version 1.14.5
+* Fix - Removed deprecated call of 'WC_Subscriptions_Cart::get_calculated_shipping_for_package' to maintain compatibility with WooCommerce Subscriptions 4.9.1.
+
 2022.11.01 - version 1.14.4
 * Tweak - Declared compatibility with the new High-Performance Order Storage.
 

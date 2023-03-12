@@ -14,6 +14,9 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_API_Activation_Data_Store {
 
+	private $api_resource_table   = '';
+	private $api_activation_table = '';
+
 	/**
 	 * @var null
 	 */
@@ -33,6 +36,10 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	private function __construct() {
+		// Background API Activations cleanup.
+		$this->api_resource_table   = WC_AM_USER()->get_api_resource_table_name();
+		$this->api_activation_table = WC_AM_USER()->get_api_activation_table_name();
+
 		add_action( 'init', array( $this, 'delete_my_account_activation' ) );
 	}
 
@@ -52,7 +59,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_activation_table . "
 				WHERE ( master_api_key = %s OR product_order_api_key = %s )
 				AND ( assigned_product_id = %d OR product_id = %s )
 			";
@@ -76,7 +83,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_activation_table . "
 				WHERE user_id = %d
 				ORDER BY product_id
 			";
@@ -100,7 +107,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE order_id = %d
 			ORDER BY assigned_product_id
 		";
@@ -124,7 +131,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE sub_parent_id = %d
 			ORDER BY assigned_product_id
 		";
@@ -176,7 +183,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$api_resource_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT api_resource_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE activation_id = %d
 		", $activation_id ) );
 
@@ -197,7 +204,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$associated_api_key_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT associated_api_key_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE activation_id = %d
 		", $activation_id ) );
 
@@ -268,7 +275,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$activation_resource = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE instance = %s
 		", $instance_id ) );
 
@@ -289,7 +296,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$activation_resource = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE activation_id = %s
 		", $activation_id ) );
 
@@ -310,7 +317,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$activation_resource = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE sub_item_id = %s
 		", $sub_item_id ) );
 
@@ -331,7 +338,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$activations_count = $wpdb->get_var( $wpdb->prepare( "
 			SELECT COUNT(activation_id)
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE api_resource_id = %d
 		", $api_resource_id ) );
 
@@ -350,14 +357,14 @@ class WC_AM_API_Activation_Data_Store {
 
 		$activations_count = $wpdb->get_var( "
 			SELECT COUNT(activation_id)
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 		" );
 
 		return ! empty( $activations_count ) ? $activations_count : 0;
 	}
 
 	/**
-	 * Get array of activation IDs using an order ID.
+	 * Get array of activation IDs using an order ID from the api_resource_table.
 	 *
 	 * @since 2.0
 	 *
@@ -372,7 +379,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+            FROM {$wpdb->prefix}" . $this->api_resource_table . "
             WHERE order_id = %d
         ";
 
@@ -387,6 +394,31 @@ class WC_AM_API_Activation_Data_Store {
 		}
 
 		return ! empty( $activation_id_list ) ? $activation_id_list : false;
+	}
+
+	/**
+	 * Get array of activation IDs using an order ID from the api_activation_table.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
+	public function get_activations_by_order_id_from_api_activation_table( $order_id ) {
+		global $wpdb;
+
+		$activation_id_list = array();
+
+		$sql = "
+            SELECT activation_ids
+            FROM {$wpdb->prefix}" . $this->api_activation_table . "
+            WHERE order_id = %d
+        ";
+
+		$activation_ids = $wpdb->get_results( $wpdb->prepare( $sql, $order_id ), ARRAY_A );
+
+		return ! empty( $activation_ids ) ? $activation_ids : array();
 	}
 
 	/**
@@ -405,7 +437,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+            FROM {$wpdb->prefix}" . $this->api_resource_table . "
             WHERE sub_item_id = %d
         ";
 
@@ -438,7 +470,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+            FROM {$wpdb->prefix}" . $this->api_resource_table . "
             WHERE sub_id = %d
         ";
 
@@ -471,7 +503,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+            FROM {$wpdb->prefix}" . $this->api_resource_table . "
             WHERE order_item_id = %d
         ";
 
@@ -504,7 +536,7 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
             SELECT activation_ids
-            FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+            FROM {$wpdb->prefix}" . $this->api_resource_table . "
             WHERE api_resource_id = %d
         ";
 
@@ -535,11 +567,29 @@ class WC_AM_API_Activation_Data_Store {
 
 		$instance_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT instance
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE api_resource_id = %d
 		", $api_resource_id ) );
 
 		return ! empty( $instance_id ) ? $instance_id : false;
+	}
+
+	/**
+	 * Get all API Activation Order IDs.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @return array
+	 */
+	public function get_all_order_ids() {
+		global $wpdb;
+
+		$order_ids = $wpdb->get_col( "
+			SELECT DISTINCT order_id
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
+		" );
+
+		return ! empty( $order_ids ) ? $order_ids : array();
 	}
 
 	/**
@@ -556,14 +606,14 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
 			SELECT activation_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE order_id = %d
 			LIMIT 1
 		";
 
 		$has_activations = $wpdb->get_var( $wpdb->prepare( $sql, $order_id ) );
 
-		return ! empty( $has_activations ) ? true : false;
+		return ! empty( $has_activations );
 	}
 
 	/**
@@ -580,13 +630,13 @@ class WC_AM_API_Activation_Data_Store {
 
 		$sql = "
 			SELECT instance
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
 			WHERE instance = %s
 		";
 
 		$activation = $wpdb->get_var( $wpdb->prepare( $sql, $instance ) );
 
-		return ! empty( $activation ) ? true : false;
+		return ! empty( $activation );
 	}
 
 	/**
@@ -661,7 +711,7 @@ class WC_AM_API_Activation_Data_Store {
 				'%d'
 			);
 
-			$result = $wpdb->insert( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $data, $format ) ? true : false;
+			$result = $wpdb->insert( $wpdb->prefix . $this->api_activation_table, $data, $format );
 
 			if ( $result ) {
 				$activation_id = $wpdb->insert_id;
@@ -690,7 +740,7 @@ class WC_AM_API_Activation_Data_Store {
 					'%d'
 				);
 
-				$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+				$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 
 				return true;
 			}
@@ -727,7 +777,7 @@ class WC_AM_API_Activation_Data_Store {
 				'%s'
 			);
 
-			$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $data, $where, $data_format, $where_format );
+			$wpdb->update( $wpdb->prefix . $this->api_activation_table, $data, $where, $data_format, $where_format );
 		}
 	}
 
@@ -759,7 +809,7 @@ class WC_AM_API_Activation_Data_Store {
 				'%d'
 			);
 
-			$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $data, $where, $data_format, $where_format );
+			$wpdb->update( $wpdb->prefix . $this->api_activation_table, $data, $where, $data_format, $where_format );
 		}
 	}
 
@@ -794,7 +844,7 @@ class WC_AM_API_Activation_Data_Store {
 				if ( ! empty( $resource->activation_ids ) ) {
 					$api_resource_id_count = $wpdb->get_col( $wpdb->prepare( "
 						SELECT COUNT(api_resource_id)
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_activation_table . "
 						WHERE api_resource_id = %d
 					", $activation_resource->api_resource_id ) );
 
@@ -816,7 +866,7 @@ class WC_AM_API_Activation_Data_Store {
 							'%d'
 						);
 
-						$wpdb->delete( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $where, $where_format );
+						$wpdb->delete( $wpdb->prefix . $this->api_activation_table, $where, $where_format );
 
 						// Set activations to zero.
 						$data = array(
@@ -836,9 +886,9 @@ class WC_AM_API_Activation_Data_Store {
 							'%d'
 						);
 
-						$result = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+						$result = $wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 
-						return ! empty( $result ) ? true : false;
+						return ! empty( $result );
 					} elseif ( ! empty( $activation_ids ) && $resource->activations_total > 1 ) {
 						$key = array_search( $activation_resource->activation_id, $activation_ids );
 						// Remove the activation ID from the array.
@@ -869,7 +919,7 @@ class WC_AM_API_Activation_Data_Store {
 					'%d'
 				);
 
-				$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+				$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 
 				// Delete only the row for the activation ID removed from the array that also matches the instance ID.
 				if ( $activation_resource->activation_id ) {
@@ -883,7 +933,7 @@ class WC_AM_API_Activation_Data_Store {
 						'%d'
 					);
 
-					$result = $wpdb->delete( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $where, $where_format );
+					$result = $wpdb->delete( $wpdb->prefix . $this->api_activation_table, $where, $where_format );
 				} else { // Delete only the row that matches the instance ID.
 					$where = array(
 						'instance' => $instance_id
@@ -893,12 +943,12 @@ class WC_AM_API_Activation_Data_Store {
 						'%s'
 					);
 
-					$result = $wpdb->delete( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $where, $where_format );
+					$result = $wpdb->delete( $wpdb->prefix . $this->api_activation_table, $where, $where_format );
 				}
 			}
 		}
 
-		return ! empty( $result ) ? true : false;
+		return ! empty( $result );
 	}
 
 	/**
@@ -914,21 +964,21 @@ class WC_AM_API_Activation_Data_Store {
 
 			$result = $this->delete_api_key_activation_by_instance_id( wc_clean( $_GET[ 'instance' ] ) );
 
+			$to_delete = array(
+				'instance'      => $_GET[ 'instance' ],
+				'order_id'      => $_GET[ 'order_id' ],
+				'sub_parent_id' => $_GET[ 'sub_parent_id' ],
+				'api_key'       => $_GET[ 'api_key' ],
+				'product_id'    => $_GET[ 'product_id' ],
+				'user_id'       => $_GET[ 'user_id' ]
+			);
+
 			/**
 			 * Delete cache.
 			 *
 			 * @since 2.2.0
 			 */
-			WC_AM_SMART_CACHE()->delete_cache( wc_clean( array(
-				                                             'admin_resources' => array(
-					                                             'instance'      => $_GET[ 'instance' ],
-					                                             'order_id'      => $_GET[ 'order_id' ],
-					                                             'sub_parent_id' => $_GET[ 'sub_parent_id' ],
-					                                             'api_key'       => $_GET[ 'api_key' ],
-					                                             'product_id'    => $_GET[ 'product_id' ],
-					                                             'user_id'       => $_GET[ 'user_id' ]
-				                                             )
-			                                             ) ), true );
+			WC_AM_SMART_CACHE()->delete_cache( wc_clean( array( 'admin_resources' => $to_delete ) ), true );
 
 			if ( $result ) {
 				wp_safe_redirect( esc_url( $this->get_api_keys_url() ) );
@@ -941,7 +991,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Deletes all the API Key activations with the activation ID.
+	 * Deletes all API Key activations by activation ID.
 	 *
 	 * @since 2.0
 	 *
@@ -954,7 +1004,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Delete API Key activation by activation resource ID.
+	 * Delete all API Key activations by api_resource_id.
 	 *
 	 * @since 2.0
 	 *
@@ -967,7 +1017,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Delete API Key activation by sub_item_id.
+	 * Delete all API Key activations by sub_item_id.
 	 *
 	 * @since 2.1
 	 *
@@ -980,7 +1030,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Deletes all the API Key activations with the User ID.
+	 * Deletes all API Key activations with the User ID.
 	 *
 	 * @since 2.0
 	 *
@@ -993,7 +1043,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Delete API Key activation by order_id.
+	 * Delete all API Key activations by order_id.
 	 *
 	 * @since 2.0
 	 *
@@ -1006,7 +1056,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Deletes all of the $needle.
+	 * Deletes all rows with $needle value(s).
 	 *
 	 * @since 2.0
 	 *
@@ -1018,9 +1068,9 @@ class WC_AM_API_Activation_Data_Store {
 	public function delete_by( $needle, $format ) {
 		global $wpdb;
 
-		$result = $wpdb->delete( $wpdb->prefix . WC_AM_USER()->get_api_activation_table_name(), $needle, $format );
+		$result = $wpdb->delete( $wpdb->prefix . $this->api_activation_table, $needle, $format );
 
-		return ! empty( $result ) ? true : false;
+		return ! WC_AM_FORMAT()->empty( $result );
 	}
 
 	/**
@@ -1051,7 +1101,7 @@ class WC_AM_API_Activation_Data_Store {
 			'%d'
 		);
 
-		$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+		$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 	}
 
 	/**
@@ -1105,7 +1155,7 @@ class WC_AM_API_Activation_Data_Store {
 								'%d'
 							);
 
-							$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+							$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 						}
 
 						$this->delete_api_key_activation_by_activation_id( $activation_id );
@@ -1115,5 +1165,71 @@ class WC_AM_API_Activation_Data_Store {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Delete all API Key activations by api_resource_id.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param int $api_resource_id
+	 */
+	public function delete_all_api_key_activations_by_api_resource_id( $api_resource_id ) {
+		$activation_ids = $this->get_activation_ids_by_api_resource_id( $api_resource_id );
+
+		if ( ! WC_AM_FORMAT()->empty( $activation_ids ) ) {
+			foreach ( $activation_ids as $k => $activation_id ) {
+				$activation_resource = $this->get_activation_resource_by_activation_id( $activation_id );
+
+				if ( ! empty( $activation_resource ) ) {
+					WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->delete_associated_api_key_activation_ids( $activation_resource->associated_api_key_id, $activation_id );
+				}
+
+				// Deletes all the API Key activations with the activation ID.
+				$this->delete_api_key_activation_by_activation_id( $activation_id );
+			}
+		}
+	}
+
+	/**
+	 * Delete all API Key activations by order_id.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param int $order_id
+	 */
+	public function delete_all_api_key_activations_by_order_id( $order_id ) {
+		$activation_ids = $this->get_activations_by_order_id( $order_id );
+
+		if ( ! WC_AM_FORMAT()->empty( $activation_ids ) ) {
+			foreach ( $activation_ids as $k => $activation_id ) {
+				$activation_resource = $this->get_activation_resource_by_activation_id( $activation_id );
+
+				if ( ! empty( $activation_resource ) ) {
+					WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->delete_associated_api_key_activation_ids( $activation_resource->associated_api_key_id, $activation_id );
+				}
+
+				// Deletes all the API Key activations with the activation ID.
+				$this->delete_api_key_activation_by_activation_id( $activation_id );
+			}
+		}
+	}
+
+	/**
+	 * Return total number of API Activations.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @return int
+	 */
+	public function count_activations() {
+		global $wpdb;
+
+		$count = $wpdb->get_var( "
+			SELECT COUNT(activation_id)
+			FROM {$wpdb->prefix}" . $this->api_activation_table . "
+		" );
+
+		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
 	}
 }

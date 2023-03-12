@@ -22,7 +22,7 @@ class Author extends AC\Column\Comment\Author
 	}
 
 	public function export() {
-		return new Export\Model\Comment\Author( $this );
+		return new Export\Model\Comment\Author();
 	}
 
 }

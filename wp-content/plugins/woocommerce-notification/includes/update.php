@@ -9,19 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The main challange here is defining a dynamic dl link
- * for $updade_plugins_transient->response[ $plugin_slug ]->package;
+ * The main challenge here is defining a dynamic dl link
+ * for $update_plugins_transient->response[ $plugin_slug ]->package;
  *
- * Version 1.0.1
+ * Version 1.0.2
  */
 
-
-if ( ! class_exists( 'Plugin_Upgrader' ) ) {
-	require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-}
-
-
 if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
+
+	if ( ! class_exists( 'WP_Upgrader' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+	}
+	if ( ! class_exists( 'Plugin_Upgrader' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
+	}
 
 	class VillaTheme_Plugin_Updater extends Plugin_Upgrader {
 
@@ -42,8 +43,8 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 		/**
 		 * Set plugin info and add essential hooks
 		 *
-		 * @param string $plugin_slug      The name of directory and main file name of plugin
-		 * @param string $slug             Then slug name of plugin (optional)
+		 * @param string $plugin_slug The name of directory and main file name of plugin
+		 * @param string $slug Then slug name of plugin (optional)
 		 * @param string $setting_page_url URL of Setting page
 		 */
 		protected $setting_page_url;
@@ -52,6 +53,7 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 
 			parent::__construct();
 
+			$this->slug             = $slug;
 			$this->plugin_slug      = $plugin_slug;
 			$this->setting_page_url = $setting_page_url;
 
@@ -65,8 +67,8 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 		 *
 		 * @return void
 		 */
-		function custom_upgrade_plugin() {
-			$plugin = isset( $_REQUEST['plugin'] ) ? trim( $_REQUEST['plugin'] ) : '';
+		public function custom_upgrade_plugin() {
+			$plugin = isset( $_REQUEST['plugin'] ) ? trim( wc_clean($_REQUEST['plugin']) ) : '';
 
 			if ( ! current_user_can( 'update_plugins' ) ) {
 				wp_die( esc_html__( 'You do not have sufficient permissions to update plugins for this site.' ) );
@@ -85,11 +87,11 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 				do_action( $plugin . "_updated" );
 			}
 
-			// return to lugins page link
+			// return to plugins page link
 			?>
-			<a href="<?php echo esc_url( self_admin_url( 'plugins.php' ) ) ?>"
-			   title="<?php echo esc_attr( 'Go to plugins page' ) ?>"
-			   target="_parent"><?php esc_html_e( 'Return to Plugins page' ) ?></a>
+            <a href="<?php echo esc_url( self_admin_url( 'plugins.php' ) ) ?>"
+               title="<?php echo esc_attr( 'Go to plugins page' ) ?>"
+               target="_parent"><?php esc_html_e( 'Return to Plugins page' ) ?></a>
 			<?php
 
 			include( ABSPATH . 'wp-admin/admin-footer.php' );
@@ -116,7 +118,6 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 			$plugin = $this->plugin_slug;
 
 			$this->init();
-
 
 			$current = get_site_transient( 'update_plugins' );
 			if ( ! isset( $current->response[ $plugin ] ) ) {
@@ -165,8 +166,6 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 		 * Add hooks for modifying the plugin row context
 		 */
 		public function plugin_update_rows() {
-
-
 			remove_action( "after_plugin_row_{$this->plugin_slug}", 'wp_plugin_update_row', 10 );
 			add_action( "after_plugin_row_{$this->plugin_slug}", array( $this, 'plugin_update_row' ), 10, 2 );
 		}
@@ -174,20 +173,17 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 		/**
 		 * Override the plugin row context
 		 *
-		 * @param  string $file        The plugin file path
-		 * @param  array  $plugin_data Plugin information
+		 * @param string $file The plugin file path
+		 * @param array $plugin_data Plugin information
 		 *
 		 * @return void
 		 */
 		public function plugin_update_row( $file, $plugin_data ) {
-
 			$current = get_site_transient( 'update_plugins' );
 
-
 			if ( ! isset( $current->response[ $file ] ) ) {
-				return false;
+				return;
 			}
-
 
 			$r = $current->response[ $file ];
 
@@ -208,26 +204,33 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 			);
 
 			$plugin_name   = wp_kses( $plugin_data['Name'], $plugins_allowedtags );
-			$details_url   = $r->url;
+			$details_url   = add_query_arg( array(
+				'tab'       => 'plugin-information',
+				'plugin'    => $this->slug,
+				'section'   => 'changelog',
+				'TB_iframe' => 'true',
+				'width'     => '772',
+				'height'    => '909',
+			), admin_url( 'plugin-install.php' ) );
 			$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
 
 			if ( is_network_admin() || ! is_multisite() ) {
 				?>
-				<tr class="plugin-update-tr">
-					<td colspan="<?php echo esc_attr( $wp_list_table->get_column_count() ) ?>"
-						class="plugin-update colspanchange">
-						<div class="notice inline notice-warning notice-alt">
-							<p>
+                <tr class="plugin-update-tr">
+                    <td colspan="<?php echo esc_attr( $wp_list_table->get_column_count() ) ?>"
+                        class="plugin-update colspanchange">
+                        <div class="notice inline notice-warning notice-alt">
+                            <p>
 								<?php
-								printf( wp_kses_post( __( 'New version of %1$s available. You can download or <a href="%2$s" class="thickbox" title="%3$s">view version %4$s</a>. Please make sure that you fill your auto-update key in <a href="%5$s">Setting page</a>.' ) ),
+								printf( wp_kses_post( __( 'New version of %1$s available. You can download or <a href="%2$s" class="thickbox open-plugin-details-modal" title="%3$s">view version %4$s</a>. Please make sure that you fill your auto-update key in <a href="%5$s">Setting page</a>.' ) ),
 									$plugin_name, esc_url( $details_url ), esc_attr( $plugin_name ), $r->new_version, esc_url( $this->setting_page_url )
 								);
 								do_action( "in_plugin_update_message-{$file}", $plugin_data, $r );
 								?>
-							</p>
-						</div>
-					</td>
-				</tr>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
 				<?php
 			}
 		}

@@ -12,13 +12,13 @@ class AddNewInline extends Script {
 	 */
 	private $label;
 
-	public function __construct( $label, $handle, Location $location = null, array $dependencies = [] ) {
+	public function __construct( string $label, string $handle, Location $location = null, array $dependencies = [] ) {
 		parent::__construct( $handle, $location, $dependencies );
 
 		$this->label = $label;
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
 		wp_localize_script( $this->get_handle(), 'ACP_ADD_NEW_INLINE', [

@@ -26,7 +26,13 @@ final class Table extends Script {
 	 */
 	protected $segment;
 
-	public function __construct( $handle, Location $location, array $filters, Request $request, Segment $segment = null ) {
+	public function __construct(
+		string $handle,
+		Location $location,
+		array $filters,
+		Request $request,
+		Segment $segment = null
+	) {
 		parent::__construct( $handle, $location, [ 'aca-search-querybuilder', 'wp-pointer' ] );
 
 		$this->filters = $filters;
@@ -34,10 +40,7 @@ final class Table extends Script {
 		$this->segment = $segment;
 	}
 
-	/**
-	 * @return int|null
-	 */
-	private function get_current_segment() {
+	private function get_current_segment(): ?int {
 		$segment_id = $this->request->get( 'ac-segment' );
 
 		if ( ! $segment_id && $this->segment ) {
@@ -49,7 +52,7 @@ final class Table extends Script {
 			: null;
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
 		$rules = $this->request->get( 'ac-rules-raw' );
@@ -59,11 +62,11 @@ final class Table extends Script {
 			'rules'           => $rules ? json_decode( $rules ) : null,
 			'filters'         => $this->filters,
 			'sorting'         => [
-				'orderby' => isset( $_GET['orderby'] ) ? $_GET['orderby'] : null,
-				'order'   => isset( $_GET['order'] ) ? $_GET['order'] : null,
+				'orderby' => $_GET['orderby'] ?? null,
+				'order'   => $_GET['order'] ?? null,
 			],
-			'segments' => [
-				'can_manage' => current_user_can( AC\Capabilities::MANAGE )
+			'segments'        => [
+				'can_manage' => current_user_can( AC\Capabilities::MANAGE ),
 			],
 			'i18n'            => [
 				'select'         => _x( 'Select', 'select placeholder', 'codepress-admin-columns' ),
@@ -73,12 +76,12 @@ final class Table extends Script {
 				'shared_segment' => __( 'Available to all users', 'codepress-admin-columns' ),
 				'clear_filters'  => __( 'Clear filters', 'codepress-admin-columns' ),
 				'segments'       => [
-					'save_filters' => __( 'Save Filters', 'codepress-admin-columns' ),
+					'save_filters'   => __( 'Save Filters', 'codepress-admin-columns' ),
 					'public_filters' => __( 'Public', 'codepress-admin-columns' ),
-					'name' => __( 'Name', 'codepress-admin-columns' ),
-					'cancel' => __( 'Cancel', 'codepress-admin-columns' ),
-					'save' => __( 'Save', 'codepress-admin-columns' ),
-					'instructions' => __( 'Instructions', 'codepress-admin-columns' ),
+					'name'           => __( 'Name', 'codepress-admin-columns' ),
+					'cancel'         => __( 'Cancel', 'codepress-admin-columns' ),
+					'save'           => __( 'Save', 'codepress-admin-columns' ),
+					'instructions'   => __( 'Instructions', 'codepress-admin-columns' ),
 				],
 			],
 			'capabilities'    => [

@@ -56,10 +56,10 @@ class CustomField extends AC\Column\CustomField
 
 		$unsupported_field_types = EditingModelFactory::unsupported_field_types();
 
-		if ( ! in_array( $this->get_field_type(), $unsupported_field_types ) ) {
+		if ( ! in_array( $this->get_field_type(), $unsupported_field_types, true ) ) {
 			$setting = new Editing\Settings\CustomField( $this );
 
-			if ( in_array( $this->get_field_type(), [ Settings\Column\CustomFieldType::TYPE_DEFAULT, Settings\Column\CustomFieldType::TYPE_TEXT ] ) ) {
+			if ( in_array( $this->get_field_type(), [ Settings\Column\CustomFieldType::TYPE_DEFAULT, Settings\Column\CustomFieldType::TYPE_TEXT ], true ) ) {
 				$section = ( new EditableType\Text( $this, EditableType\Text::TYPE_TEXT ) );
 				$section->set_values( $this->get_options() );
 

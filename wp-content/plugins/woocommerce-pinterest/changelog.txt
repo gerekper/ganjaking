@@ -1,5 +1,14 @@
 *** WooCommerce Pinterest Changelog ***
 
+2022-03-09- version 2.4.6
+
+ * Update - WooCommerce compatibility version to 7.4.1
+
+2022-11-28- version 2.4.5
+
+ * Update - WooCommerce compatibility version to 7.1.0
+ * Update - Wordpress compatibility version to 6.1.1
+ 
 2022-07-15- version 2.4.4
 
  * Update - WooCommerce compatibility version to 6.7.0

@@ -54,7 +54,7 @@ class WC_AM_Download_Handler {
 		$product_id = absint( $_GET[ 'am_download_file' ] );
 		$order_id   = wc_clean( $_GET[ 'am_order' ] );
 		$product    = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $product_id );
-		$remote_url = $_GET[ 'remote_url' ] == 'yes' ? true : false;
+		$remote_url = $_GET[ 'remote_url' ] == 'yes';
 		$data_store = WC_Data_Store::load( 'customer-download' );
 
 		if ( ! is_object( $product ) || empty( $_GET[ 'hname' ] ) || empty( $_GET[ 'hkey' ] ) || empty( $_GET[ 'hexpires' ] ) ) {
@@ -320,7 +320,7 @@ class WC_AM_Download_Handler {
 	 * @type int  $length           Length of the requested file chunk in bytes. Optional.
 	 * @type bool $is_range_valid   Whether the requested range is a valid and supported range.
 	 * @type bool $is_range_request Whether the request is a range request.
-	 * }
+	 *                              }
 	 */
 	protected function get_download_range( $file_size ) {
 		$start          = 0;

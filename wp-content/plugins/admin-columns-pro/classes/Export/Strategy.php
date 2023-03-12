@@ -5,27 +5,22 @@ namespace ACP\Export;
 use AC;
 use AC\Column;
 use AC\ColumnRepository;
-use AC\ColumnRepository\Sort\ManualOrder;
 use AC\ListTable;
 use AC\ListTableFactory;
 use AC\Request;
 use ACP\Export\Asset\Script\Table;
-use ACP\Export\Repository\Filter\ExportableColumns;
-use ACP\Export\Repository\Filter\IncludeColumnNames;
-use ACP\Export\Repository\Sort\ColumnNames;
-use ACP\Export\UserPreference;
+use ACP\Export\ColumnRepository\Filter\ExportableColumns;
+use ACP\Export\ColumnRepository\Filter\IncludeColumnNames;
+use ACP\Export\ColumnRepository\Sort\ColumnNames;
 
 /**
  * Base class for governing exporting for a list screen that is exportable. This class should be
  * extended, generally, per list screen. Furthermore, each instance of this class should be linked
  * to an Admin Columns list screen object
- * @since 1.0
  */
 abstract class Strategy {
 
 	/**
-	 * Admin Columns list screen object this object is attached to
-	 * @since 1.0
 	 * @var ListScreen
 	 */
 	protected $list_screen;
@@ -50,17 +45,9 @@ abstract class Strategy {
 	 * class) will perform the necessary validation, and the inheriting class should implement
 	 * the actual functionality for setting up the items to be exported. The parent class's (this
 	 * class) `export` method can then be used to actually export the items
-	 * @since 1.0
 	 */
 	abstract protected function ajax_export(): void;
 
-	/**
-	 * Constructor
-	 *
-	 * @param AC\ListScreen $list_screen Associated Admin Columns list screen objec
-	 *
-	 * @since 1.0
-	 */
 	public function __construct( AC\ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
 		$this->list_table_factory = new ListTableFactory();
@@ -70,20 +57,6 @@ abstract class Strategy {
 
 	protected function get_list_table(): ?ListTable {
 		return $this->list_table_factory->create_from_globals();
-	}
-
-	public function is_active(): bool {
-		if ( ! $this->list_screen->has_id() ) {
-			return false;
-		}
-
-		if ( ! $this->get_exportable_columns() ) {
-			return false;
-		}
-
-		$is_active = ! ( new HideOnScreen\Export() )->is_hidden( $this->list_screen );
-
-		return ( new ApplyFilter\ListScreenActive( $this->list_screen ) )->apply_filters( $is_active );
 	}
 
 	/**
@@ -109,7 +82,7 @@ abstract class Strategy {
 			return;
 		}
 
-		if ( $this->get_export_counter() === false ) {
+		if ( $this->get_export_counter() === null ) {
 			wp_send_json_error( __( 'Invalid value supplied for export counter.', 'codepress-admin-columns' ) );
 		}
 
@@ -118,24 +91,19 @@ abstract class Strategy {
 		$this->ajax_export();
 	}
 
-	/**
-	 * Get the counter value passed for the AJAX export
-	 * @return int|false Counter value, or false if there is no valid counter value
-	 * @since 1.0
-	 */
-	protected function get_export_counter() {
-		$counter = (int) $this->request->filter( 'acp_export_counter', FILTER_SANITIZE_NUMBER_INT );
+	protected function get_export_counter(): ?int {
+		$counter = (int) $this->request->filter( 'acp_export_counter', 0, FILTER_SANITIZE_NUMBER_INT );
 
 		return $counter >= 0
 			? $counter
-			: false;
+			: null;
 	}
 
 	/**
 	 * @return int[]
 	 */
 	protected function get_requested_ids(): array {
-		$ids = $this->request->filter( 'acp_export_ids', null, FILTER_SANITIZE_STRING );
+		$ids = $this->request->get( 'acp_export_ids' );
 
 		if ( empty( $ids ) ) {
 			return [];
@@ -147,26 +115,8 @@ abstract class Strategy {
 	/**
 	 * @return Column[]
 	 */
-	public function get_exportable_columns(): array {
-		$user_preference = new UserPreference\ExportedColumns();
-
-		$sort = $user_preference->exists( $this->list_screen->get_id() )
-			? new ColumnNames( $user_preference->get( $this->list_screen->get_id() ) )
-			: new ManualOrder( $this->list_screen->get_id() );
-
-		return $this->column_repository->find_all( [
-			'filter' => [
-				new ExportableColumns(),
-			],
-			'sort'   => $sort,
-		] );
-	}
-
-	/**
-	 * @return Column[]
-	 */
 	public function get_requested_columns(): array {
-		$column_names = $this->request->filter( 'acp_export_columns', null, FILTER_SANITIZE_STRING );
+		$column_names = $this->request->get( 'acp_export_columns' );
 
 		if ( ! $column_names ) {
 			return [];
@@ -198,13 +148,9 @@ abstract class Strategy {
 	 * @since 1.0
 	 */
 	public function get_rows( array $ids, array $columns ): array {
-		$table = $this->get_list_table();
-
-		if ( ! $table ) {
-			return [];
-		}
-
 		$rows = [];
+
+		$table = $this->get_list_table();
 		$headers = $this->get_headers( $columns );
 
 		foreach ( $ids as $id ) {
@@ -217,17 +163,17 @@ abstract class Strategy {
 					continue;
 				}
 
-				$model = $column instanceof Exportable
+				$service = $column instanceof Exportable
 					? $column->export()
 					: new Model\RawValue( $column );
 
-				if ( ! $model ) {
+				if ( ! $service ) {
 					continue;
 				}
 
-				$value = $model->get_value( $id );
+				$value = $service->get_value( $id );
 
-				if ( null === $value && $column->is_original() ) {
+				if ( $table && in_array( $value, [ null, '' ], true ) && $column->is_original() ) {
 					$value = $table->get_column_value( $column->get_name(), $id );
 				}
 
@@ -293,21 +239,6 @@ abstract class Strategy {
 	}
 
 	/**
-	 * @param Column[] $columns
-	 *
-	 * @return void
-	 */
-	private function save_columns_as_user_preference( array $columns ): void {
-		$column_names = array_map(
-			static function ( Column $column ) {
-				return $column->get_name();
-			},
-			$columns );
-
-		( new UserPreference\ExportedColumns() )->save( $this->list_screen->get_id(), $column_names );
-	}
-
-	/**
 	 * Export a list of items, given the item IDs, and sends the output as JSON to the requesting
 	 * AJAX process
 	 *
@@ -323,8 +254,6 @@ abstract class Strategy {
 		if ( ! $columns ) {
 			wp_send_json_error( __( "No exportable columns found.", 'codepress-admin-columns' ) );
 		}
-
-		$this->save_columns_as_user_preference( $columns );
 
 		$rows = $this->get_rows( $ids, $columns );
 
@@ -366,9 +295,6 @@ abstract class Strategy {
 		return (int) apply_filters( 'ac/export/exportable_list_screen/num_items_per_iteration', 250, $this );
 	}
 
-	/**
-	 * @return int|null
-	 */
 	public function get_total_items(): ?int {
 		$table = $this->get_list_table();
 

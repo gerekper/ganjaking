@@ -2,9 +2,16 @@
 
 namespace ACP\Export\Model\CustomField;
 
-use ACP\Export\Model;
+use AC\Column;
+use ACP\Export\Service;
 
-class Image extends Model {
+class Image implements Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
 		$urls = [];

@@ -6,7 +6,7 @@ use WP_Term;
 
 trait TaxonomyFilterableTrait {
 
-	public function get_taxonomies() {
+	public function get_taxonomies(): array {
 		if ( empty( $this->settings['taxonomy'] ) ) {
 			return [];
 		}

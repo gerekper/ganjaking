@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace ACP\Admin\Page;
 
 use AC\Admin\RenderableHead;
@@ -16,13 +18,13 @@ use ACP\Access\ActivationStorage;
 use ACP\Access\PermissionsStorage;
 use ACP\ActivationTokenFactory;
 use ACP\LicenseKeyRepository;
-use ACP\PluginRepository;
 use ACP\Type\LicenseKey;
 use ACP\Type\SiteUrl;
+use ACP\Type\Url\Changelog;
 
 class License implements Asset\Enqueueables, Renderable, RenderableHead {
 
-	const NAME = 'license';
+	public const NAME = 'license';
 
 	/**
 	 * @var Location\Absolute
@@ -60,11 +62,6 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 	private $license_key_repository;
 
 	/**
-	 * @var PluginRepository
-	 */
-	private $plugin_repository;
-
-	/**
 	 * @var bool
 	 */
 	private $network_active;
@@ -77,8 +74,7 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 		ActivationStorage $activation_storage,
 		PermissionsStorage $permission_storage,
 		LicenseKeyRepository $license_key_repository,
-		PluginRepository $plugin_repository,
-		$network_active
+		bool $network_active
 	) {
 		$this->location = $location;
 		$this->head = $head;
@@ -87,8 +83,7 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 		$this->activation_storage = $activation_storage;
 		$this->permission_storage = $permission_storage;
 		$this->license_key_repository = $license_key_repository;
-		$this->plugin_repository = $plugin_repository;
-		$this->network_active = (bool) $network_active;
+		$this->network_active = $network_active;
 	}
 
 	public function render_head() {
@@ -105,13 +100,13 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 	/**
 	 * @param string $plugin_name
 	 *
-	 * @return ACP\Type\Url\Changelog
+	 * @return Changelog
 	 */
-	private function get_changelog_url( $plugin_name ) {
-		return new ACP\Type\Url\Changelog( $this->network_active, $plugin_name );
+	private function get_changelog_url( $plugin_name ): Changelog {
+		return new Changelog( $this->network_active, $plugin_name );
 	}
 
-	private function show_render_section_updates() {
+	private function show_render_section_updates(): bool {
 
 		// update section is hidden on subsites
 		if ( is_multisite() && ! is_network_admin() ) {
@@ -238,7 +233,7 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 		return $view->set_template( 'admin/page/settings-section' );
 	}
 
-	private function render_license_section() {
+	private function render_license_section(): View {
 		$account_url = new Url\UtmTags( new Url\Site( Url\Site::PAGE_ACCOUNT_SUBSCRIPTIONS ), 'license-activation' );
 
 		$license_key = $this->license_key_repository->find();

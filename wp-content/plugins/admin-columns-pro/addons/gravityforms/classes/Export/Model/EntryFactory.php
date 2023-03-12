@@ -9,10 +9,7 @@ use ACP;
 
 class EntryFactory {
 
-	/**
-	 * @return ACP\Export\Model
-	 */
-	public function create( Column\Entry $column, Field\Field $field ) {
+	public function create( Column\Entry $column, Field\Field $field ): ACP\Export\Service {
 
 		switch ( true ) {
 			case $field instanceof Field\Type\Address:

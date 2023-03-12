@@ -286,18 +286,31 @@ function warranty_get_warranty_duration_string( $warranty, $order ) {
  * @return array
  */
 function warranty_get_product_warranty( $product_id, $maybe_use_parent = true ) {
-	$product          = wc_get_product( $product_id );
-	$warranty         = $product->get_meta( '_warranty' );
+	$product  = wc_get_product( $product_id );
+	$warranty = false;
+
+	/**
+	 * If $product is a WC_Product, get the warranty meta.
+	 */
+	if ( $product instanceof WC_Product ) {
+		$warranty = $product->get_meta( '_warranty' );
+	}
+
 	$warranty_control = '';
 
 	if ( $maybe_use_parent && $product && $product->is_type( 'variation' ) ) {
 		$parent_product_id = $product->get_parent_id();
 		$parent_product    = wc_get_product( $parent_product_id );
 
-		$warranty_control = $parent_product->get_meta( '_warranty_control' );
+		/**
+		 * If $parent_product is a WC_Product, get the warranty meta.
+		 */
+		if ( $parent_product instanceof WC_Product ) {
+			$warranty_control = $parent_product->get_meta( '_warranty_control' );
 
-		if ( 'parent' === $warranty_control ) {
-			$warranty = $parent_product->get_meta( '_warranty' );
+			if ( 'parent' === $warranty_control ) {
+				$warranty = $parent_product->get_meta( '_warranty' );
+			}
 		}
 	}
 

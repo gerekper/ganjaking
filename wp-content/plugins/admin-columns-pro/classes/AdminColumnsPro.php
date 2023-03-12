@@ -126,25 +126,25 @@ final class AdminColumnsPro extends AC\Plugin {
 		$permission_storage = new PermissionsStorage( $option_factory );
 		$default_column_repository = new DefaultColumnsRepository();
 
-		$menu_factory = new MenuFactory( admin_url( 'options-general.php' ), $location_core, $activation_token_factory, $integration_repository );
+		$menu_factory = new MenuFactory( admin_url( 'options-general.php' ), $location_core, $activation_token_factory );
 
 		$page_handler = new PageRequestHandler();
 		$page_handler->add( 'columns', new PageFactory\Columns( $location_core, $storage, $default_column_repository, $menu_factory ) )
 		             ->add( 'settings', new PageFactory\Settings( $location_core, $menu_factory, true ) )
-		             ->add( 'addons', new PageFactory\Addons( $location_core, $integration_repository, $permission_storage, $menu_factory ) )
+		             ->add( 'addons', new PageFactory\Addons( $location_core, $integration_repository, $menu_factory ) )
 		             ->add( 'import-export', new PageFactory\Tools( $location, $storage, $menu_factory ) )
-		             ->add( 'license', new PageFactory\License( $location, $menu_factory, $site_url, $activation_token_factory, $activation_storage, $permission_storage, $license_key_storage, $plugin_repository, $is_network_active ) )
+		             ->add( 'license', new PageFactory\License( $location, $menu_factory, $site_url, $activation_token_factory, $activation_storage, $permission_storage, $license_key_storage, $is_network_active ) )
 		             ->add( 'help', new AC\Admin\PageFactory\Help( $location, $menu_factory ) );
 
 		PageRequestHandlers::add_handler( $page_handler );
 
-		$network_menu_factory = new Admin\MenuNetworkFactory( network_admin_url( 'settings.php' ), $location_core, $activation_token_factory, $integration_repository );
+		$network_menu_factory = new Admin\MenuNetworkFactory( network_admin_url( 'settings.php' ), $location_core, $activation_token_factory );
 
 		$page_network_handler = new PageNetworkRequestHandler();
 		$page_network_handler->add( 'columns', new Admin\NetworkPageFactory\Columns( $location_core, $default_column_repository, $storage, $network_menu_factory ) )
 		                     ->add( 'import-export', new Admin\NetworkPageFactory\Tools( $location, $storage, $network_menu_factory ) )
-		                     ->add( 'addons', new PageFactory\Addons( $location_core, $integration_repository, $permission_storage, $network_menu_factory ) )
-		                     ->add( 'license', new PageFactory\License( $location, $network_menu_factory, $site_url, $activation_token_factory, $activation_storage, $permission_storage, $license_key_storage, $plugin_repository, $is_network_active ) );
+		                     ->add( 'addons', new PageFactory\Addons( $location_core, $integration_repository, $network_menu_factory ) )
+		                     ->add( 'license', new PageFactory\License( $location, $network_menu_factory, $site_url, $activation_token_factory, $activation_storage, $permission_storage, $license_key_storage, $is_network_active ) );
 
 		PageNetworkRequestHandlers::add_handler( $page_network_handler );
 
@@ -301,14 +301,6 @@ final class AdminColumnsPro extends AC\Plugin {
 	 */
 	public function network_admin(): void {
 		_deprecated_function( __METHOD__, '5.5.2' );
-	}
-
-	/**
-	 * @since      4.0
-	 * @deprecated 5.0.0
-	 */
-	public function layouts(): void {
-		_deprecated_function( __METHOD__, '5.0.0' );
 	}
 
 }

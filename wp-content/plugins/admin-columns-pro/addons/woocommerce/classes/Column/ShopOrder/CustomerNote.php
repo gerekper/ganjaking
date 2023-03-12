@@ -35,7 +35,7 @@ class CustomerNote extends ACP\Column\Post\Excerpt {
 	}
 
 	public function export() {
-		return new Export\ShopOrder\CustomerMessage( $this );
+		return new Export\ShopOrder\CustomerMessage();
 	}
 
 }

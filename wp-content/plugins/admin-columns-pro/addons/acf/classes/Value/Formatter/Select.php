@@ -14,15 +14,13 @@ class Select extends Formatter {
 			? $this->field->get_choices()
 			: [];
 
-		if ( empty( $value ) ) {
-			return $this->column->get_empty_char();
-		}
-
 		$result = [];
 		foreach ( (array) $value as $v ) {
-			$result[] = isset( $labels[ $v ] )
-				? $labels[ $v ]
-				: $v;
+			$result[] = $labels[ $v ] ?? $v;
+		}
+
+		if ( empty( $result ) ) {
+			return $this->column->get_empty_char();
 		}
 
 		$separator = $this->column->get_separator();

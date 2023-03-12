@@ -6,7 +6,7 @@ use ACP\Settings\ListScreen\HideOnScreen;
 
 class SubMenu extends HideOnScreen {
 
-	public function __construct( $label ) {
+	public function __construct( string $label ) {
 		parent::__construct( 'hide_submenu', sprintf( '%s (Quick Links)', $label ) );
 	}
 

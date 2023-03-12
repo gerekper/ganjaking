@@ -8,6 +8,7 @@ use ACP\QuickAdd\Admin\HideOnScreen;
 use ACP\QuickAdd\Filter;
 use ACP\QuickAdd\Model\Factory;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 
 class Settings implements Registerable {
 
@@ -35,7 +36,7 @@ class Settings implements Registerable {
 			return;
 		}
 
-		$collection->add( new HideOnScreen\QuickAdd(), 60 );
+		$collection->add( new HideOnScreen\QuickAdd(), new Group( Group::FEATURE ), 60 );
 	}
 
 }

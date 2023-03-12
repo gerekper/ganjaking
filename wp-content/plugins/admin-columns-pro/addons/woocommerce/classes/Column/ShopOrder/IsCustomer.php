@@ -34,9 +34,6 @@ class IsCustomer extends AC\Column\Meta
 		return ac_helper()->icon->yes( $tooltip );
 	}
 
-	/**
-	 * @return ACP\Export\Model
-	 */
 	public function export() {
 		return new ACP\Export\Model\RawValue( $this );
 	}

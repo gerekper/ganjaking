@@ -16,9 +16,6 @@ use ACP\Editing\ServiceFactory;
 
 class SelectValues implements RequestHandler {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
 	public function __construct( Storage $storage ) {
@@ -61,19 +58,14 @@ class SelectValues implements RequestHandler {
 			->success();
 	}
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return Service|null
-	 */
-	private function get_service_from_request( Request $request ) {
+	private function get_service_from_request( Request $request ): ?Service {
 		$list_id = $request->get( 'layout' );
 
 		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
 			return null;
 		}
 
-		$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
+		$list_screen = $this->storage->find_by_user( new ListScreenId( $list_id ), wp_get_current_user() );
 
 		if ( ! $list_screen instanceof ListScreen ) {
 			return null;
@@ -85,7 +77,7 @@ class SelectValues implements RequestHandler {
 			return null;
 		}
 
-		$column = $list_screen->get_column_by_name( $request->get( 'column' ) );
+		$column = $list_screen->get_column_by_name( (string) $request->get( 'column' ) );
 
 		if ( ! $column ) {
 			return null;

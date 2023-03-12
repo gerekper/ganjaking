@@ -2,18 +2,14 @@
 
 namespace ACP\Export\Model\User;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Email (default column) exportability model
- * @since 4.1
- */
-class Email extends Model {
+class Email implements Service {
 
 	public function get_value( $id ) {
 		$user = get_userdata( $id );
 
-		return isset( $user->user_email ) ? $user->user_email : '';
+		return $user->user_email ?? '';
 	}
 
 }

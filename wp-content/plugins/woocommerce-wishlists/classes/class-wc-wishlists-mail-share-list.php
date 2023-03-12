@@ -35,7 +35,9 @@ if ( ! class_exists( 'WC_Wishlists_Mail_Share_List' ) ) :
 				'{list_title}'      => '',
 				'{list_url}'        => '',
 				'{list_first_name}' => '',
-				'{list_last_name}'  => ''
+				'{list_last_name}'  => '',
+				'{list_email}'      => '',
+				'{list_url}'        => '',
 			);
 
 			$this->template_base = WC_Wishlists_Plugin::plugin_path() . '/templates/';
@@ -84,6 +86,8 @@ if ( ! class_exists( 'WC_Wishlists_Mail_Share_List' ) ) :
 			$this->placeholders['{list_date}}']      = $this->object->post->post_date;
 			$this->placeholders['{list_first_name}'] = get_post_meta( $wishlist_id, '_wishlist_first_name', true );
 			$this->placeholders['{list_last_name}']  = get_post_meta( $wishlist_id, '_wishlist_last_name', true );
+			$this->placeholders['{list_email}']      = get_post_meta( $wishlist_id, '_wishlist_email', true );
+			$this->placeholders['{list_url}']        = get_permalink( $wishlist_id );
 
 			if ( $this->is_enabled() && $this->get_recipient() ) {
 				return $this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -99,9 +103,12 @@ if ( ! class_exists( 'WC_Wishlists_Mail_Share_List' ) ) :
 		 * @return string
 		 */
 		public function get_content_html() {
+
+			$additional_content = $this->get_additional_content();
+
 			return wc_get_template_html( $this->template_html, array(
 				'wishlist'           => $this->object,
-				'additional_content' => $this->additional_content,
+				'additional_content' => $this->additional_content . '<p>' .  $additional_content . '</p>',
 				'name'               => $this->from_name,
 				'email_heading'      => $this->get_heading(),
 				'sent_to_admin'      => false,
@@ -132,6 +139,7 @@ if ( ! class_exists( 'WC_Wishlists_Mail_Share_List' ) ) :
 		 * Initialise settings form fields.
 		 */
 		public function init_form_fields() {
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'    => array(
 					'title'   => __( 'Enable/Disable', 'woocommerce' ),
@@ -156,6 +164,15 @@ if ( ! class_exists( 'WC_Wishlists_Mail_Share_List' ) ) :
 					'description' => sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>{site_title}, {order_date}, {order_number}</code>' ),
 					'placeholder' => $this->get_default_heading(),
 					'default'     => '',
+				),
+				'additional_content' => array(
+					'title'       => __( 'Additional content', 'woocommerce' ),
+					'description' => __( 'Default content to appear below the users email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'css'         => 'width:400px; height: 75px;',
+					'placeholder' => __( '', 'woocommerce' ),
+					'type'        => 'textarea',
+					'default'     => $this->get_default_additional_content(),
+					'desc_tip'    => true,
 				),
 				'email_type' => array(
 					'title'       => __( 'Email type', 'woocommerce' ),

@@ -16,11 +16,6 @@ use DomainException;
 class Comparison extends Controller {
 
 	/**
-	 * @var Storage
-	 */
-	private $storage;
-
-	/**
 	 * @var AC\ListScreen;
 	 */
 	protected $list_screen;
@@ -28,12 +23,10 @@ class Comparison extends Controller {
 	public function __construct( Storage $storage, Request $request ) {
 		parent::__construct( $request );
 
-		$this->storage = $storage;
-
 		$id = $request->get( 'layout' );
 
-		if ( $id ) {
-			$this->list_screen = $this->storage->find( new ListScreenId( $id ) );
+		if ( ListScreenId::is_valid_id( $id ) ) {
+			$this->list_screen = $storage->find( new ListScreenId( $id ) );
 		} else {
 			$this->list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_screen' ) );
 		}

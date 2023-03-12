@@ -30,7 +30,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 		}
 
 		ob_start();
-		$keyword = isset($_GET['keyword'])? sanitize_text_field($_GET['keyword']):'';
+		$keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( $_GET['keyword'] ) : '';
 
 		if ( empty( $keyword ) ) {
 			die();
@@ -67,7 +67,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 
 		ob_start();
 
-		$keyword = isset($_GET['keyword'])? sanitize_text_field($_GET['keyword']):'';
+		$keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( $_GET['keyword'] ) : '';
 
 		if ( empty( $keyword ) ) {
 			die();
@@ -138,7 +138,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 
 		ob_start();
 
-		$keyword = isset($_GET['keyword'])? sanitize_text_field($_GET['keyword']):'';
+		$keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( $_GET['keyword'] ) : '';
 
 		if ( empty( $keyword ) ) {
 			die();
@@ -205,9 +205,8 @@ class VI_WNOTIFICATION_Admin_Settings {
 	/**
 	 * Save post meta
 	 *
-	 * @param $post
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
 	public function save_meta_boxes() {
 		global $woocommerce_notification_settings;
@@ -220,7 +219,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
-		$data                      = $_POST['wnotification_params'];
+		$data                      = ( $_POST['wnotification_params'] );
 		$data['message_purchased'] = $this->stripslashes_deep( $data['message_purchased'] );
 		$data['custom_shortcode']  = $this->stripslashes_deep( $data['custom_shortcode'] );
 		$data['conditional_tags']  = $this->stripslashes_deep( $data['conditional_tags'] );
@@ -228,25 +227,31 @@ class VI_WNOTIFICATION_Admin_Settings {
 		$data ['virtual_city']     = $this->stripslashes_deep( $data['virtual_city'] );
 		$data ['custom_css']       = $this->stripslashes_deep( $data['custom_css'] );
 		$data ['virtual_country']  = $this->stripslashes_deep( $data['virtual_country'] );
+		$data ['name_by_country']  = $this->stripslashes_deep( $data['name_by_country'] ?? [] );
+
 		update_option( '_woocommerce_notification_prefix', substr( md5( date( "YmdHis" ) ), 0, 10 ) );
+
 		if ( isset( $data['check_key'] ) ) {
 			unset( $data['check_key'] );
-			delete_transient( '_site_transient_update_plugins' );
+			delete_transient( 'update_plugins' );
 			delete_transient( 'villatheme_item_5846' );
 			delete_option( 'woocommerce-notification_messages' );
+			do_action( 'villatheme_save_and_check_key_woocommerce-notification', $data['key'] );
 		}
 		//delete
-		$data ['avartar_user_enable']  = $woocommerce_notification_settings['avartar_user_enable'] ?? '';
-		$data ['avartar_count_notify']  = $woocommerce_notification_settings['avartar_count_notify'] ?? '3';
-		$data ['avartar_message_title']  = $woocommerce_notification_settings['avartar_message_title'] ?? '';
-		$data ['avartar_message_in_single']  = $woocommerce_notification_settings['avartar_message_in_single'] ?? '';
-		$data ['avartar_message_in_archive_page']  = $woocommerce_notification_settings['avartar_message_in_archive_page'] ?? '';
+		$data ['avartar_user_enable']             = $woocommerce_notification_settings['avartar_user_enable'] ?? '';
+		$data ['avartar_count_notify']            = $woocommerce_notification_settings['avartar_count_notify'] ?? '3';
+		$data ['avartar_message_title']           = $woocommerce_notification_settings['avartar_message_title'] ?? '';
+		$data ['avartar_message_in_single']       = $woocommerce_notification_settings['avartar_message_in_single'] ?? '';
+		$data ['avartar_message_in_archive_page'] = $woocommerce_notification_settings['avartar_message_in_archive_page'] ?? '';
 		//delete
 		update_option( 'wnotification_params', $data );
+
 		if ( is_plugin_active( 'wp-fastest-cache/wpFastestCache.php' ) ) {
 			$cache = new WpFastestCache();
 			$cache->deleteCache( true );
 		}
+
 		$woocommerce_notification_settings = $data;
 	}
 
@@ -351,32 +356,32 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'enable' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable' ) ) ?>">
 									<?php esc_html_e( 'Enable', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'enable_mobile' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_mobile' ) ) ?>">
 									<?php esc_html_e( 'Mobile', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_mobile' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_mobile' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_mobile' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_mobile' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_mobile' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
@@ -387,9 +392,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                 <!--Products-->
                 <div class="vi-ui bottom attached tab segment" data-tab="products">
                     <!-- Tab Content !-->
-                    <?php
-                    $product_visibility = self::get_field('product_visibility',['visible','catalog','search']);
-                    ?>
+					<?php
+					$product_visibility = self::get_field( 'product_visibility', [ 'visible', 'catalog', 'search' ] );
+					?>
                     <table class="optiontable form-table">
                         <tbody>
                         <tr valign="top">
@@ -397,7 +402,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <label><?php esc_html_e( 'Show Products', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'archive_page' ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'archive_page' ) ) ?>"
                                         class="vi-ui fluid dropdown">
                                     <option <?php selected( self::get_field( 'archive_page' ), 0 ) ?>
                                             value="0"><?php esc_attr_e( 'Get from Billing', 'woocommerce-notification' ) ?></option>
@@ -411,34 +416,34 @@ class VI_WNOTIFICATION_Admin_Settings {
                                             value="4"><?php esc_attr_e( 'Recently Viewed Products', 'woocommerce-notification' ) ?></option>
                                 </select>
 
-                                <p class="description"><?php esc_html_e( 'You can arrange product order or special product which you want to up-sell.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Select a product type to display on Notification.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'enable_current_category' ) ?>"><?php esc_html_e( 'Current category', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_current_category' ) ) ?>"><?php esc_html_e( 'Current category', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_current_category' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_current_category' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_current_category' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_current_category' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_current_category' ) ) ?>"/>
                                     <label></label>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Notifications which are displayed on a category page are only related to the products of that category', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Display products in the same category with the being displayed product.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'enable_out_of_stock_product' ) ?>"><?php esc_html_e( 'Out-of-stock products', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_out_of_stock_product' ) ) ?>"><?php esc_html_e( 'Out-of-stock products', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_out_of_stock_product' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_out_of_stock_product' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_out_of_stock_product' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_out_of_stock_product' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_out_of_stock_product' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Turn on to show out-of-stock products on notifications.', 'woocommerce-notification' ) ?></p>
@@ -446,20 +451,22 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'product_visibility' ) ?>"><?php esc_html_e( 'Product visibility', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'product_visibility' ) ) ?>"><?php esc_html_e( 'Product visibility', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'product_visibility',true ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'product_visibility', true ) ) ?>"
                                         class="vi-ui fluid dropdown" multiple>
-                                    <option <?php selected( in_array('visible',$product_visibility), true ) ?>
+                                    <option <?php selected( in_array( 'visible', $product_visibility ), true ) ?>
                                             value="visible"><?php esc_attr_e( 'Shop and search results', 'woocommerce-notification' ) ?></option>
-                                    <option <?php selected( in_array('catalog',$product_visibility), true ) ?>
+                                    <option <?php selected( in_array( 'catalog', $product_visibility ), true ) ?>
                                             value="catalog"><?php esc_attr_e( 'Shop only', 'woocommerce-notification' ) ?></option>
-                                    <option <?php selected( in_array('search',$product_visibility), true ) ?>
+                                    <option <?php selected( in_array( 'search', $product_visibility ), true ) ?>
                                             value="search"><?php esc_attr_e( 'Search results only', 'woocommerce-notification' ) ?></option>
-                                    <option <?php selected( in_array('hidden',$product_visibility), true ) ?>
+                                    <option <?php selected( in_array( 'hidden', $product_visibility ), true ) ?>
                                             value="hidden"><?php esc_attr_e( 'Hidden', 'woocommerce-notification' ) ?></option>
                                 </select>
+                                <p class="description"><?php esc_html_e( 'Products which have this product visibility status will appear on Notification.', 'woocommerce-notification' ) ?></p>
+
                             </td>
                         </tr>
                         <!--	Select Categories-->
@@ -471,7 +478,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 								<?php
 								$cates = self::get_field( 'select_categories', array() ); ?>
                                 <select multiple="multiple"
-                                        name="<?php echo self::set_field( 'select_categories', true ) ?>"
+                                        name="<?php echo esc_attr( self::set_field( 'select_categories', true ) ) ?>"
                                         class="category-search"
                                         placeholder="<?php esc_attr_e( 'Please select category', 'woocommerce-notification' ) ?>">
 									<?php
@@ -500,7 +507,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
 								<?php $products = self::get_field( 'cate_exclude_products', array() ); ?>
                                 <select multiple="multiple"
-                                        name="<?php echo self::set_field( 'cate_exclude_products', true ) ?>"
+                                        name="<?php echo esc_attr( self::set_field( 'cate_exclude_products', true ) ) ?>"
                                         class="product-search-parent">
 									<?php if ( count( $products ) ) {
 										$args_p      = array(
@@ -560,12 +567,13 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <label><?php esc_html_e( 'Product limit', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <input id="<?php echo self::set_field( 'limit_product' ) ?>" type="number" tabindex="0"
+                                <input id="<?php echo esc_attr( self::set_field( 'limit_product' ) ) ?>" type="number"
+                                       tabindex="0"
                                        min="0"
-                                       value="<?php echo self::get_field( 'limit_product', 50 ) ?>"
-                                       name="<?php echo self::set_field( 'limit_product' ) ?>"/>
+                                       value="<?php echo esc_attr( self::get_field( 'limit_product', 50 ) ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'limit_product' ) ) ?>"/>
 
-                                <p class="description"><?php esc_html_e( 'Product quantity will be got in list latest products.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'The maximum number of product is displayed in Notification got from the list of latest products.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top" class="vi_hidden exclude_products">
@@ -575,7 +583,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
 								<?php $products = self::get_field( 'exclude_products', array() ); ?>
                                 <select multiple="multiple"
-                                        name="<?php echo self::set_field( 'exclude_products', true ) ?>"
+                                        name="<?php echo esc_attr( self::set_field( 'exclude_products', true ) ) ?>"
                                         class="product-search-parent">
 									<?php if ( count( $products ) ) {
 										$args_p      = array(
@@ -633,14 +641,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'product_link' ) ?>"><?php esc_html_e( 'External link', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'product_link' ) ) ?>"><?php esc_html_e( 'External link', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'product_link' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'product_link' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'product_link' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'product_link' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'product_link' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Working with  External/Affiliate product. Product link is product URL.', 'woocommerce-notification' ) ?></p>
@@ -654,11 +662,11 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <div class="fields">
                                     <div class="twelve wide field">
                                         <input type="number" min="0"
-                                               value="<?php echo self::get_field( 'order_threshold_num', 30 ) ?>"
-                                               name="<?php echo self::set_field( 'order_threshold_num' ) ?>"/>
+                                               value="<?php echo esc_attr( self::get_field( 'order_threshold_num', 30 ) ) ?>"
+                                               name="<?php echo esc_attr( self::set_field( 'order_threshold_num' ) ) ?>"/>
                                     </div>
                                     <div class="two wide field">
-                                        <select name="<?php echo self::set_field( 'order_threshold_time' ) ?>"
+                                        <select name="<?php echo esc_attr( self::set_field( 'order_threshold_time' ) ) ?>"
                                                 class="vi-ui fluid dropdown">
                                             <option <?php selected( self::get_field( 'order_threshold_time' ), 0 ) ?>
                                                     value="0"><?php esc_attr_e( 'Hours', 'woocommerce-notification' ) ?></option>
@@ -669,7 +677,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                                         </select>
                                     </div>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Products in this recently time will get from order.  ', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Actual products displayed on the notification will get from the orders placed within this period of time.  ', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top" class="get_from_billing vi_hidden">
@@ -683,7 +691,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 
 								?>
                                 <select multiple="multiple"
-                                        name="<?php echo self::set_field( 'order_statuses', true ) ?>"
+                                        name="<?php echo esc_attr( self::set_field( 'order_statuses', true ) ) ?>"
                                         class="vi-ui fluid dropdown">
 									<?php foreach ( $statuses as $k => $status ) {
 										$selected = '';
@@ -691,7 +699,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 											$selected = 'selected="selected"';
 										}
 										?>
-                                        <option <?php echo $selected; ?>
+                                        <option <?php echo esc_attr( $selected ); ?>
                                                 value="<?php echo esc_attr( $k ) ?>"><?php echo esc_html( $status ) ?></option>
 									<?php } ?>
                                 </select>
@@ -705,7 +713,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 								<?php
 								$products_ach = self::get_field( 'archive_products', array() ); ?>
                                 <select multiple="multiple"
-                                        name="<?php echo self::set_field( 'archive_products', true ) ?>"
+                                        name="<?php echo esc_attr( self::set_field( 'archive_products', true ) ) ?>"
                                         class="product-search"
                                         placeholder="<?php esc_attr_e( 'Please select products', 'woocommerce-notification' ) ?>">
 									<?php if ( count( $products_ach ) ) {
@@ -760,9 +768,9 @@ class VI_WNOTIFICATION_Admin_Settings {
 								$first_names = self::get_field( 'virtual_name' )
 								?>
                                 <textarea
-                                        name="<?php echo self::set_field( 'virtual_name' ) ?>"><?php echo $first_names ?></textarea>
+                                        name="<?php echo esc_attr( self::set_field( 'virtual_name' ) ) ?>"><?php echo esc_html( $first_names ) ?></textarea>
 
-                                <p class="description"><?php esc_html_e( 'Virtual first name what will show on notification. Each first name on a line.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Create virtual first names displayed on Notification. Each name in a row.', 'woocommerce-notification' ) ?></p>
 								<?php
 								/*WPML.org*/
 								if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
@@ -780,7 +788,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 											?>
                                             <h4><?php echo esc_html( $language['native_name'] ) ?></h4>
                                             <textarea
-                                                    name="<?php echo self::set_field( 'virtual_name_' . $key ) ?>"><?php echo $wpml_name ?></textarea>
+                                                    name="<?php echo esc_attr( self::set_field( 'virtual_name_' . $key ) ) ?>"><?php echo esc_html( $wpml_name ) ?></textarea>
 										<?php }
 									}
 								} /*Polylang*/
@@ -800,7 +808,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 										?>
                                         <h4><?php echo esc_html( $language ) ?></h4>
                                         <textarea
-                                                name="<?php echo self::set_field( 'virtual_name_' . $language ) ?>"><?php echo $wpml_name ?></textarea>
+                                                name="<?php echo esc_attr( self::set_field( 'virtual_name_' . $language ) ) ?>"><?php echo esc_html( $wpml_name ) ?></textarea>
 										<?php
 									}
 								}
@@ -813,35 +821,37 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
                                 <div class="vi-ui form">
                                     <div class="inline fields">
-                                        <input type="number" name="<?php echo self::set_field( 'virtual_time' ) ?>"
+                                        <input type="number"
+                                               name="<?php echo esc_attr( self::set_field( 'virtual_time' ) ) ?>"
                                                min="0"
-                                               value="<?php echo self::get_field( 'virtual_time', '10' ) ?>"/>
+                                               value="<?php echo esc_attr( self::get_field( 'virtual_time', '10' ) ) ?>"/>
                                         <label><?php esc_html_e( 'hours', 'woocommerce-notification' ) ?></label>
                                     </div>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Time will auto get random in this time threshold ago.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Virtual time will randomly get in this threshold.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'change_virtual_time_enable' ) ?>"><?php esc_html_e( 'Auto change Virtual Time', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'change_virtual_time_enable' ) ) ?>"><?php esc_html_e( 'Auto change Virtual Time', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'change_virtual_time_enable' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'change_virtual_time_enable' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'change_virtual_time_enable' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'change_virtual_time_enable' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'change_virtual_time_enable' ) ) ?>"/>
                                     <label></label>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Auto change Virtual Time for site Timezone', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Enable to change the virtual time matched your site’s timezone.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top" class="select_product vi_hidden">
                             <th scope="row">
                                 <label><?php esc_html_e( 'Address', 'woocommerce-notification' ) ?></label></th>
                             <td>
-                                <select name="<?php echo self::set_field( 'country' ) ?>" class="vi-ui fluid dropdown">
+                                <select name="<?php echo esc_attr( self::set_field( 'country' ) ) ?>"
+                                        class="vi-ui fluid dropdown">
                                     <option <?php selected( self::get_field( 'country' ), 0 ) ?>
                                             value="0"><?php esc_attr_e( 'Auto Detect', 'woocommerce-notification' ) ?></option>
                                     <option <?php selected( self::get_field( 'country' ), 2 ) ?>
@@ -853,6 +863,119 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <p class="description"><?php esc_html_e( 'You can use auto detect address or make virtual address of customer.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
+
+                        <tr valign="top" class="wn-name-by-country">
+                            <th scope="row">
+                                <label><?php esc_html_e( 'Name by country', 'woocommerce-notification' ) ?></label></th>
+                            <td>
+                                <table class="vi-ui table wn-name-by-country-list fluid">
+                                    <colgroup>
+                                        <col/>
+                                        <col/>
+                                        <col width="10%"/>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><?php esc_html_e( 'Names', 'woocommerce-notification' ) ?></th>
+                                        <th><?php esc_html_e( 'Countries', 'woocommerce-notification' ) ?></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+									<?php
+									$name_by_countries = self::get_field( 'name_by_country' );
+									if ( ! empty( $name_by_countries ) && is_array( $name_by_countries ) ) {
+										foreach ( $name_by_countries as $i => $name_by_country ) {
+											?>
+                                            <tr class="wn-name-by-country-row">
+                                                <td>
+                                                    <textarea rows="3" name="wnotification_params[name_by_country][<?php echo esc_attr( $i ) ?>][names]"
+                                                    ><?php echo esc_attr( $name_by_country['names'] ?? '' ) ?></textarea>
+                                                </td>
+                                                <td>
+                                                    <select class="wn-name-by-country-row-countries vi-ui dropdown fluid"
+                                                            name="wnotification_params[name_by_country][<?php echo esc_attr( $i ) ?>][countries][]" multiple>
+														<?php
+														$wc_countries = $countries = WC()->countries->get_countries();
+														if ( ! empty( $wc_countries ) ) {
+															foreach ( $wc_countries as $country_code => $country_name ) {
+																$saved_countries = (array) $name_by_country['countries'] ?? [];
+																$selected        = in_array( $country_code, $saved_countries ) ? 'selected' : '';
+																printf( '<option value="%s" %s>%s</option>',
+																	esc_attr( $country_code ), esc_attr( $selected ), esc_html( $country_name ) );
+															}
+														}
+														?>
+                                                    </select>
+                                                </td>
+                                                <td><span class="vi-ui icon button mini red wn-name-by-country-remove"><i class="icon x"> </i></span></td>
+                                            </tr>
+											<?php
+										}
+									}
+									?>
+                                    </tbody>
+                                </table>
+                                <span class="wn-add-name-by-country vi-ui icon button small"><i class="icon plus"> </i></span>
+
+                                <!--Modal-->
+                                <div class="vi-ui small wn-modal-generate-name-by-country modal transition visible">
+                                    <div class="header">
+										<?php esc_html_e( 'Generate name by country', 'woocommerce-notification' ); ?>
+                                    </div>
+                                    <div class="content vi-ui form">
+                                        <table class="form-table">
+                                            <tr>
+                                                <th><?php esc_html_e( 'Quantity', 'woocommerce-notification' ); ?></th>
+                                                <td>
+                                                    <input type="number" min="0" class="wn-generate-name-quantity vi-ui input fluid">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><?php esc_html_e( 'Gender', 'woocommerce-notification' ); ?></th>
+                                                <td>
+                                                    <select class="wn-generate-name-gender vi-ui dropdown fluid">
+                                                        <option value="both"><?php esc_html_e( 'Both of male and female', 'woocommerce-notification' ); ?></option>
+                                                        <option value="male"><?php esc_html_e( 'Male', 'woocommerce-notification' ); ?></option>
+                                                        <option value="female"><?php esc_html_e( 'Female', 'woocommerce-notification' ); ?></option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><?php esc_html_e( 'Language', 'woocommerce-notification' ); ?></th>
+                                                <td>
+                                                    <select class="wn-generate-name-language vi-ui dropdown fluid">
+
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><?php esc_html_e( 'Countries', 'woocommerce-notification' ); ?></th>
+                                                <td>
+                                                    <select class="wn-generate-name-countries vi-ui dropdown fluid" multiple>
+                                                        <option value=""><?php esc_html_e( 'Select countries', 'woocommerce-notification' ); ?></option>
+														<?php
+														$wc_countries = $countries = WC()->countries->get_countries();
+														if ( ! empty( $wc_countries ) ) {
+															foreach ( $wc_countries as $country_code => $country_name ) {
+																printf( '<option value="%s">%s</option>', esc_attr( $country_code ), esc_html( $country_name ) );
+															}
+														}
+														?>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="vi-ui positive button wn-do-generate">
+											<?php esc_html_e( 'Generate', 'woocommerce-notification' ); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
                         <tr valign="top" class="virtual_address vi_hidden">
                             <th scope="row">
                                 <label><?php esc_html_e( 'Virtual City', 'woocommerce-notification' ) ?></label></th>
@@ -861,9 +984,9 @@ class VI_WNOTIFICATION_Admin_Settings {
 								$virtual_city = self::get_field( 'virtual_city' );
 								?>
                                 <textarea
-                                        name="<?php echo self::set_field( 'virtual_city' ) ?>"><?php echo esc_attr( $virtual_city ) ?></textarea>
+                                        name="<?php echo esc_attr( self::set_field( 'virtual_city' ) ) ?>"><?php echo esc_attr( $virtual_city ) ?></textarea>
 
-                                <p class="description"><?php esc_html_e( 'Virtual city name what will show on notification. Each city name on a line.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Create virtual city names displayed on Notification. Each name in a row', 'woocommerce-notification' ) ?></p>
 								<?php
 								/*WPML.org*/
 								if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
@@ -881,7 +1004,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 											?>
                                             <h4><?php echo esc_html( $language['native_name'] ) ?></h4>
                                             <textarea
-                                                    name="<?php echo self::set_field( 'virtual_city_' . $key ) ?>"><?php echo $wpml_city ?></textarea>
+                                                    name="<?php echo esc_attr( self::set_field( 'virtual_city_' . $key ) ) ?>"><?php echo esc_html( $wpml_city ) ?></textarea>
 										<?php }
 									}
 								} /*Polylang*/
@@ -902,7 +1025,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 										?>
                                         <h4><?php echo esc_html( $language ) ?></h4>
                                         <textarea
-                                                name="<?php echo self::set_field( 'virtual_city_' . $language ) ?>"><?php echo $wpml_city ?></textarea>
+                                                name="<?php echo esc_attr( self::set_field( 'virtual_city_' . $language ) ) ?>"><?php echo esc_html( $wpml_city ) ?></textarea>
 										<?php
 									}
 								} ?>
@@ -913,10 +1036,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <label><?php esc_html_e( 'Virtual Country', 'woocommerce-notification' ) ?></label></th>
                             <td>
 								<?php $virtual_country = self::get_field( 'virtual_country' ) ?>
-                                <input type="text" name="<?php echo self::set_field( 'virtual_country' ) ?>"
+                                <input type="text" name="<?php echo esc_attr( self::set_field( 'virtual_country' ) ) ?>"
                                        value="<?php echo esc_attr( $virtual_country ) ?>"/>
 
-                                <p class="description"><?php esc_html_e( 'Virtual country name what will show on notification.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Display a virtual country name shown on notification.', 'woocommerce-notification' ) ?></p>
 								<?php /*WPML.org*/
 								if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 									$languages = $langs = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
@@ -933,7 +1056,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 											?>
                                             <label><?php echo esc_html( $language['native_name'] ) ?></label>
                                             <input type="text"
-                                                   name="<?php echo self::set_field( 'virtual_country_' . $key ) ?>"
+                                                   name="<?php echo esc_attr( self::set_field( 'virtual_country_' . $key ) ) ?>"
                                                    value="<?php echo esc_attr( $wpml_country ) ?>"/>
 										<?php }
 									}
@@ -955,7 +1078,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 										?>
                                         <h4><?php echo esc_html( $language ) ?></h4>
                                         <input type="text"
-                                               name="<?php echo self::set_field( 'virtual_country_' . $language ) ?>"
+                                               name="<?php echo esc_attr( self::set_field( 'virtual_country_' . $language ) ) ?>"
                                                value="<?php echo esc_attr( $wpml_country ) ?>"/>
 										<?php
 									}
@@ -969,7 +1092,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 
                             <td>
 								<?php global $_wp_additional_image_sizes; ?>
-                                <select name="<?php echo self::set_field( 'product_sizes' ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'product_sizes' ) ) ?>"
                                         class="vi-ui fluid dropdown">
                                     <option <?php selected( self::get_field( 'product_sizes' ), 'shop_thumbnail' ) ?>
                                             value="shop_thumbnail"><?php esc_attr_e( 'shop_thumbnail', 'woocommerce-notification' ) ?>
@@ -982,22 +1105,22 @@ class VI_WNOTIFICATION_Admin_Settings {
                                         - <?php echo isset( $_wp_additional_image_sizes['shop_single'] ) ? $_wp_additional_image_sizes['shop_single']['width'] . 'x' . $_wp_additional_image_sizes['shop_single']['height'] : ''; ?></option>
                                 </select>
 
-                                <p class="description"><?php esc_html_e( 'Image size will get form your WordPress site.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Choose a size for product images on the notification, get from one of these size source', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'non_ajax' ) ?>"><?php esc_html_e( 'Non Ajax', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'non_ajax' ) ) ?>"><?php esc_html_e( 'Non Ajax', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'non_ajax' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'non_ajax' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'non_ajax' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'non_ajax' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'non_ajax' ) ) ?>"/>
                                     <label></label>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Load popup will not use ajax. Your site will be load faster. It creates cache. It is not working with Get product from Billing feature and options of Product detail tab.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Enable to not load popup notification using Ajax, your site will load faster if cache is being used. This option will not apply for the “Get product from billing” feature and the options in Product detail tab.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         </tbody>
@@ -1010,26 +1133,26 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'enable_single_product' ) ?>"><?php esc_html_e( 'Run single product', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_single_product' ) ) ?>"><?php esc_html_e( 'Run single product', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_single_product' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_single_product' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_single_product' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_single_product' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_single_product' ) ) ?>"/>
                                     <label></label>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Notification will only display current product in product detail page that they are viewing.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Enable, the Notification will only display the currently viewed product or products in the same category on single product page.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'notification_product_show_type' ) ?>"><?php esc_html_e( 'Notification show', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'notification_product_show_type' ) ) ?>"><?php esc_html_e( 'Notification show', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
 
-                                <select name="<?php echo self::set_field( 'notification_product_show_type' ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'notification_product_show_type' ) ) ?>"
                                         class="vi-ui fluid dropdown">
                                     <option <?php selected( self::get_field( 'notification_product_show_type', 0 ), '0' ) ?>
                                             value="0"><?php echo esc_html__( 'Current product', 'woocommerce-notification' ) ?></option>
@@ -1042,14 +1165,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top" class="only_current_product vi_hidden">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'show_variation' ) ?>"><?php esc_html_e( 'Show variation', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'show_variation' ) ) ?>"><?php esc_html_e( 'Show variation', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'show_variation' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'show_variation' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'show_variation' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'show_variation' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'show_variation' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Show variation instead of product variable.', 'woocommerce-notification' ) ?></p>
@@ -1066,25 +1189,25 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label><?php esc_html_e( 'Highlight color', 'woocommerce-notification' ) ?></label>
+                                <label><?php esc_html_e( 'Text message colour ', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <input data-ele="highlight" type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'highlight_color' ) ?>"
-                                       value="<?php echo self::get_field( 'highlight_color', '#000000' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'highlight_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'highlight_color', '#000000' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'highlight_color', '#000000' ) ) ?>"/>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label><?php esc_html_e( 'Text color', 'woocommerce-notification' ) ?></label>
+                                <label><?php esc_html_e( 'Product name colour', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <input data-ele="textcolor"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'text_color', '#000000' ) ) ?>"
                                        type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'text_color' ) ?>"
-                                       value="<?php echo self::get_field( 'text_color', '#000000' ) ?>"/>
+                                       name="<?php echo esc_attr( self::set_field( 'text_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'text_color', '#000000' ) ) ?>"/>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -1094,8 +1217,8 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
                                 <input style="background-color: <?php echo esc_attr( self::get_field( 'background_color', '#ffffff' ) ) ?>"
                                        data-ele="backgroundcolor" type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'background_color' ) ?>"
-                                       value="<?php echo self::get_field( 'background_color', '#ffffff' ) ?>"/>
+                                       name="<?php echo esc_attr( self::set_field( 'background_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'background_color', '#ffffff' ) ) ?>"/>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -1105,8 +1228,8 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
                                 <div class="vi-ui fluid right labeled input">
                                     <input type="number" min="0" max="20"
-                                           name="<?php echo self::set_field( 'image_padding' ) ?>"
-                                           value="<?php echo self::get_field( 'image_padding', '0' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'image_padding' ) ) ?>"
+                                           value="<?php echo esc_attr( self::get_field( 'image_padding', '0' ) ) ?>"/>
                                     <label class="vi-ui label"><?php esc_html_e( 'px', 'woocommerce-notification' ) ?></label>
                                 </div>
                                 <p class="description"><?php echo esc_html__( 'Gap between product image and notification\'s border', 'woocommerce-notification' ) ?></p>
@@ -1120,10 +1243,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <div class="vi-ui grid">
                                     <div class="four wide column">
                                         <div class="vi-ui toggle checkbox center aligned segment">
-                                            <input id="<?php echo self::set_field( 'background_image' ) ?>"
+                                            <input id="<?php echo esc_attr( self::set_field( 'background_image' ) ) ?>"
                                                    type="radio" <?php checked( self::get_field( 'background_image', 0 ), 0 ) ?>
                                                    tabindex="0" class="vi_hidden" value="0"
-                                                   name="<?php echo self::set_field( 'background_image' ) ?>"/>
+                                                   name="<?php echo esc_attr( self::set_field( 'background_image' ) ) ?>"/>
                                             <label><?php esc_attr_e( 'None', 'woocommerce-notification' ) ?></label>
                                         </div>
 
@@ -1137,11 +1260,11 @@ class VI_WNOTIFICATION_Admin_Settings {
                                                  class="vi-ui centered medium  middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'background_image' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'background_image' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'background_image' ), $k ) ?>
                                                        tabindex="0" class="vi_hidden"
                                                        value="<?php echo esc_attr( $k ) ?>"
-                                                       name="<?php echo self::set_field( 'background_image' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'background_image' ) ) ?>"/>
                                                 <label><?php echo ucwords( str_replace( '_', ' ', esc_attr( $k ) ) ) ?></label>
                                             </div>
                                         </div>
@@ -1156,7 +1279,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <label><?php esc_html_e( 'Image Position', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'image_position' ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'image_position' ) ) ?>"
                                         class="vi-ui fluid dropdown">
                                     <option <?php selected( self::get_field( 'image_position' ), 0 ) ?>
                                             value="0"><?php esc_attr_e( 'Left', 'woocommerce-notification' ) ?></option>
@@ -1177,10 +1300,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                                  class="vi-ui centered medium image middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'position' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'position', 0 ), 0 ) ?>
                                                        tabindex="0" class="vi_hidden" value="0"
-                                                       name="<?php echo self::set_field( 'position' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"/>
                                                 <label><?php esc_attr_e( 'Bottom left', 'woocommerce-notification' ) ?></label>
                                             </div>
 
@@ -1190,10 +1313,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                                  class="vi-ui centered medium image middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'position' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'position' ), 1 ) ?>
                                                        tabindex="0" class="vi_hidden" value="1"
-                                                       name="<?php echo self::set_field( 'position' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"/>
                                                 <label><?php esc_attr_e( 'Bottom right', 'woocommerce-notification' ) ?></label>
                                             </div>
                                         </div>
@@ -1202,10 +1325,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                                  class="vi-ui centered medium image middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'position' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'position' ), 2 ) ?>
                                                        tabindex="0" class="vi_hidden" value="2"
-                                                       name="<?php echo self::set_field( 'position' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"/>
                                                 <label><?php esc_attr_e( 'Top left', 'woocommerce-notification' ) ?></label>
                                             </div>
                                         </div>
@@ -1214,10 +1337,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                                  class="vi-ui centered medium image middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'position' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'position' ), 3 ) ?>
                                                        tabindex="0" class="vi_hidden" value="3"
-                                                       name="<?php echo self::set_field( 'position' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'position' ) ) ?>"/>
                                                 <label><?php esc_attr_e( 'Top right', 'woocommerce-notification' ) ?></label>
                                             </div>
                                         </div>
@@ -1227,16 +1350,16 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'rounded_corner' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'rounded_corner' ) ) ?>">
 									<?php esc_html_e( 'Rounded corner style', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'rounded_corner' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'rounded_corner' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'rounded_corner' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'rounded_corner' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'rounded_corner' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php echo esc_html__( 'Message will be rounded and product image is round instead of square', 'woocommerce-notification' ) ?></p>
@@ -1248,8 +1371,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                             </th>
                             <td>
                                 <div class="vi-ui fluid right labeled input">
-                                    <input type="number" name="<?php echo self::set_field( 'border_radius' ) ?>" min="0"
-                                           value="<?php echo self::get_field( 'border_radius', '0' ) ?>"/>
+                                    <input type="number"
+                                           name="<?php echo esc_attr( self::set_field( 'border_radius' ) ) ?>" min="0"
+                                           value="<?php echo esc_attr( self::get_field( 'border_radius', '0' ) ) ?>"/>
                                     <label class="vi-ui label"><?php esc_html_e( 'px', 'woocommerce-notification' ) ?></label>
                                 </div>
                                 <p class="description"><?php echo esc_html__( 'This option is used only if you do not select any background templates', 'woocommerce-notification' ) ?></p>
@@ -1257,16 +1381,16 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'show_close_icon' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'show_close_icon' ) ) ?>">
 									<?php esc_html_e( 'Show Close Icon', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'show_close_icon' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'show_close_icon' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'show_close_icon' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'show_close_icon' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'show_close_icon' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
@@ -1278,8 +1402,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                             </th>
                             <td>
                                 <div class="vi-ui fluid right labeled input">
-                                    <input type="number" name="<?php echo self::set_field( 'time_close' ) ?>" min="0"
-                                           value="<?php echo self::get_field( 'time_close', '24' ) ?>"/>
+                                    <input type="number"
+                                           name="<?php echo esc_attr( self::set_field( 'time_close' ) ) ?>" min="0"
+                                           value="<?php echo esc_attr( self::get_field( 'time_close', '24' ) ) ?>"/>
                                     <label class="vi-ui label"><?php esc_html_e( 'hour', 'woocommerce-notification' ) ?></label>
                                 </div>
                             </td>
@@ -1292,22 +1417,22 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <input data-ele="close_icon_color"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'close_icon_color', '#000000' ) ) ?>"
                                        type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'close_icon_color' ) ?>"
-                                       value="<?php echo self::get_field( 'close_icon_color', '#000000' ) ?>"/>
+                                       name="<?php echo esc_attr( self::set_field( 'close_icon_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'close_icon_color', '#000000' ) ) ?>"/>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'image_redirect' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'image_redirect' ) ) ?>">
 									<?php esc_html_e( 'Image redirect', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'image_redirect' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'image_redirect' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'image_redirect' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'image_redirect' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'image_redirect' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php echo esc_html__( 'When click image, you will redirect to product single page.', 'woocommerce-notification' ) ?></p>
@@ -1315,16 +1440,16 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'image_redirect_target' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'image_redirect_target' ) ) ?>">
 									<?php esc_html_e( 'Link target', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'image_redirect_target' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'image_redirect_target' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'image_redirect_target' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'image_redirect_target' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'image_redirect_target' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php echo esc_html__( 'Open link on new tab.', 'woocommerce-notification' ) ?></p>
@@ -1333,14 +1458,14 @@ class VI_WNOTIFICATION_Admin_Settings {
 
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'message_display_effect' ) ?>">
-									<?php esc_html_e( 'Message display effect', 'woocommerce-notification' ) ?>
+                                <label for="<?php echo esc_attr( self::set_field( 'message_display_effect' ) ) ?>">
+									<?php esc_html_e( 'Show notification effect', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'message_display_effect' ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'message_display_effect' ) ) ?>"
                                         class="vi-ui fluid dropdown"
-                                        id="<?php echo self::set_field( 'message_display_effect' ) ?>">
+                                        id="<?php echo esc_attr( self::set_field( 'message_display_effect' ) ) ?>">
                                     <optgroup label="Bouncing Entrances">
                                         <option <?php selected( self::get_field( 'message_display_effect' ), 'bounceIn' ) ?>
                                                 value="bounceIn"><?php esc_attr_e( 'bounceIn', 'woocommerce-notification' ) ?></option>
@@ -1426,14 +1551,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'message_hidden_effect' ) ?>">
-									<?php esc_html_e( 'Message popup animation', 'woocommerce-notification' ) ?>
+                                <label for="<?php echo esc_attr( self::set_field( 'message_hidden_effect' ) ) ?>">
+									<?php esc_html_e( 'Hide notification effect', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'message_hidden_effect' ) ?>"
+                                <select name="<?php echo esc_attr( self::set_field( 'message_hidden_effect' ) ) ?>"
                                         class="vi-ui fluid dropdown"
-                                        id="<?php echo self::set_field( 'message_hidden_effect' ) ?>">
+                                        id="<?php echo esc_attr( self::set_field( 'message_hidden_effect' ) ) ?>">
                                     <optgroup label="Bouncing Exits">
                                         <option <?php selected( self::get_field( 'message_hidden_effect' ), 'bounceOut' ) ?>
                                                 value="bounceOut"><?php esc_attr_e( 'bounceOut', 'woocommerce-notification' ) ?></option>
@@ -1519,13 +1644,13 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'custom_css' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'custom_css' ) ) ?>">
 									<?php esc_html_e( 'Custom CSS', 'woocommerce-notification' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <textarea class=""
-                                          name="<?php echo self::set_field( 'custom_css' ) ?>"><?php echo self::get_field( 'custom_css' ) ?></textarea>
+                                          name="<?php echo esc_attr( self::set_field( 'custom_css' ) ) ?>"><?php echo wp_kses_post( self::get_field( 'custom_css' ) ) ?></textarea>
                             </td>
                         </tr>
                         </tbody>
@@ -1580,33 +1705,34 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'loop' ) ?>"><?php esc_html_e( 'Loop', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'loop' ) ) ?>"><?php esc_html_e( 'Loop', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'loop' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'loop' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'loop' ), 1 ) ?> tabindex="0"
-                                           class="vi_hidden" value="1" name="<?php echo self::set_field( 'loop' ) ?>"/>
+                                           class="vi_hidden" value="1"
+                                           name="<?php echo esc_attr( self::set_field( 'loop' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
                         </tr>
                         <tr valign="top" class="vi_hidden time_loop">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'loop_session' ) ?>"><?php esc_html_e( 'Loop by session', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'loop_session' ) ) ?>"><?php esc_html_e( 'Loop by session', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'loop_session' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'loop_session' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'loop_session' ), 1 ) ?>
                                            tabindex="0"
                                            class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'loop_session' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'loop_session' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( '"Next time display" applies for notifications of the whole site instead of each page', 'woocommerce-notification' ) ?></p>
                                 <p class="description"><?php esc_html_e( '"Initial time" is applied only for the first notification of a session', 'woocommerce-notification' ) ?></p>
-                                <p class="description"><?php esc_html_e( 'Count variable for "Notifications per page" is reset after a session expires', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Number of notifications on a page is reset after a session expires', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top" class="vi_hidden time_loop">
@@ -1614,9 +1740,10 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <label><?php esc_html_e( 'Notifications per session', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <input type="number" name="<?php echo self::set_field( 'loop_session_total' ) ?>"
+                                <input type="number"
+                                       name="<?php echo esc_attr( self::set_field( 'loop_session_total' ) ) ?>"
                                        min="0"
-                                       value="<?php echo self::get_field( 'loop_session_total', 60 ) ?>"/>
+                                       value="<?php echo esc_attr( self::get_field( 'loop_session_total', 60 ) ) ?>"/>
                                 <p class="description"><?php esc_html_e( 'Number of notifications in a session.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
@@ -1628,12 +1755,12 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <div class="vi-ui form">
                                     <div class="inline fields">
                                         <input type="number" min="0"
-                                               name="<?php echo self::set_field( 'loop_session_duration' ) ?>"
-                                               value="<?php echo self::get_field( 'loop_session_duration', 1 ) ?>"/>
+                                               name="<?php echo esc_attr( self::set_field( 'loop_session_duration' ) ) ?>"
+                                               value="<?php echo esc_attr( self::get_field( 'loop_session_duration', 1 ) ) ?>"/>
                                         <label></label>
                                         <div>
                                             <select class="vi-ui dropdown"
-                                                    name="<?php echo self::set_field( 'loop_session_duration_unit' ) ?>">
+                                                    name="<?php echo esc_attr( self::set_field( 'loop_session_duration_unit' ) ) ?>">
                                                 <option value="h" <?php selected( self::get_field( 'loop_session_duration_unit', 'h' ), 'h' ) ?>><?php esc_html_e( 'Hour', 'woocommerce-notification' ) ?></option>
                                                 <option value="m" <?php selected( self::get_field( 'loop_session_duration_unit', 'h' ), 'm' ) ?>><?php esc_html_e( 'Minute', 'woocommerce-notification' ) ?></option>
                                                 <option value="s" <?php selected( self::get_field( 'loop_session_duration_unit', 'h' ), 's' ) ?>><?php esc_html_e( 'Second', 'woocommerce-notification' ) ?></option>
@@ -1651,8 +1778,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
                                 <div class="vi-ui form">
                                     <div class="inline fields">
-                                        <input type="number" name="<?php echo self::set_field( 'next_time' ) ?>" min="0"
-                                               value="<?php echo self::get_field( 'next_time', 60 ) ?>"/>
+                                        <input type="number"
+                                               name="<?php echo esc_attr( self::set_field( 'next_time' ) ) ?>" min="0"
+                                               value="<?php echo esc_attr( self::get_field( 'next_time', 60 ) ) ?>"/>
                                         <label><?php esc_html_e( 'seconds', 'woocommerce-notification' ) ?></label>
                                     </div>
                                 </div>
@@ -1664,26 +1792,27 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <label><?php esc_html_e( 'Notifications per page', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <input type="number" name="<?php echo self::set_field( 'notification_per_page' ) ?>"
+                                <input type="number"
+                                       name="<?php echo esc_attr( self::set_field( 'notification_per_page' ) ) ?>"
                                        min="0"
-                                       value="<?php echo self::get_field( 'notification_per_page', 30 ) ?>"/>
+                                       value="<?php echo esc_attr( self::get_field( 'notification_per_page', 30 ) ) ?>"/>
 
                                 <p class="description"><?php esc_html_e( 'Number of notifications on a page.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'initial_delay_random' ) ?>"><?php esc_html_e( 'Initial time random', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'initial_delay_random' ) ) ?>"><?php esc_html_e( 'Initial time random', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'initial_delay_random' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'initial_delay_random' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'initial_delay_random' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'initial_delay_random' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'initial_delay_random' ) ) ?>"/>
                                     <label></label>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Initial time will be random from 0 to current value.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Make the initial time random.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top" class="vi_hidden initial_delay_random">
@@ -1693,13 +1822,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
                                 <div class="vi-ui form">
                                     <div class="inline fields">
-                                        <input type="number" name="<?php echo self::set_field( 'initial_delay_min' ) ?>"
+                                        <input type="number"
+                                               name="<?php echo esc_attr( self::set_field( 'initial_delay_min' ) ) ?>"
                                                min="0"
-                                               value="<?php echo self::get_field( 'initial_delay_min', 0 ) ?>"/>
+                                               value="<?php echo esc_attr( self::get_field( 'initial_delay_min', 0 ) ) ?>"/>
                                         <label><?php esc_html_e( 'seconds', 'woocommerce-notification' ) ?></label>
                                     </div>
                                 </div>
-                                <p class="description"><?php esc_html_e( 'Time will be random from Initial delay time min to Initial time.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Time will be random from Minimum initial delay time to Initial delay.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -1708,8 +1838,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                             </th>
                             <td>
                                 <div class="vi-ui fluid right labeled input">
-                                    <input type="number" name="<?php echo self::set_field( 'initial_delay' ) ?>" min="0"
-                                           value="<?php echo self::get_field( 'initial_delay', 0 ) ?>"/>
+                                    <input type="number"
+                                           name="<?php echo esc_attr( self::set_field( 'initial_delay' ) ) ?>" min="0"
+                                           value="<?php echo esc_attr( self::get_field( 'initial_delay', 0 ) ) ?>"/>
                                     <label class="vi-ui label"><?php esc_html_e( 'second', 'woocommerce-notification' ) ?></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'When your site loads, notifications will show after this amount of time', 'woocommerce-notification' ) ?></p>
@@ -1722,8 +1853,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                             </th>
                             <td>
                                 <div class="vi-ui fluid right labeled input">
-                                    <input type="number" name="<?php echo self::set_field( 'display_time' ) ?>"
-                                           value="<?php echo self::get_field( 'display_time', 5 ) ?>"/>
+                                    <input type="number"
+                                           name="<?php echo esc_attr( self::set_field( 'display_time' ) ) ?>"
+                                           value="<?php echo esc_attr( self::get_field( 'display_time', 5 ) ) ?>"/>
                                     <label class="vi-ui label"><?php esc_html_e( 'second', 'woocommerce-notification' ) ?></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Time your notification display.', 'woocommerce-notification' ) ?></p>
@@ -1739,17 +1871,17 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'sound_enable' ) ?>"><?php esc_html_e( 'Enable', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'sound_enable' ) ) ?>"><?php esc_html_e( 'Enable', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'sound_enable' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'sound_enable' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'sound_enable' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'sound_enable' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'sound_enable' ) ) ?>"/>
                                     <label></label>
                                 </div>
-                                <p class="description"><?php printf( __( 'Modern browsers recently changed their policy to let users able to disable auto play audio so this option is not working correctly now. More details at <a href="%s" target="_blank">%s</a>', 'woocommerce-notification' ), 'https://developers.google.com/web/updates/2017/09/autoplay-policy-changes', 'https://developers.google.com/web/updates/2017/09/autoplay-policy-changes' ) ?></p>
+                                <p class="description"><?php printf( __( 'Enable to play a sound when notification appears. More details at: <a href="%s" target="_blank">%s</a>', 'woocommerce-notification' ), 'https://developers.google.com/web/updates/2017/09/autoplay-policy-changes', 'https://developers.google.com/web/updates/2017/09/autoplay-policy-changes' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -1760,14 +1892,15 @@ class VI_WNOTIFICATION_Admin_Settings {
 								<?php
 								$sounds = self::scan_dir( VI_WNOTIFICATION_SOUNDS );
 								?>
-                                <select name="<?php echo self::set_field( 'sound' ) ?>" class="vi-ui fluid dropdown">
+                                <select name="<?php echo esc_attr( self::set_field( 'sound' ) ) ?>"
+                                        class="vi-ui fluid dropdown">
 									<?php foreach ( $sounds as $sound ) { ?>
                                         <option <?php selected( self::get_field( 'sound', 'cool' ), $sound ) ?>
                                                 value="<?php echo esc_attr( $sound ) ?>"><?php echo esc_html( $sound ) ?></option>
 									<?php } ?>
                                 </select>
 
-                                <p class="description"><?php echo esc_html__( 'Please select sound. Notification rings when show.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php echo esc_html__( 'Select a sound, notification will ring when it appears.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         </tbody>
@@ -1799,7 +1932,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                                                 <td width="90%">
 
                                                     <textarea
-                                                            name="<?php echo self::set_field( 'message_purchased', 1 ) ?>"><?php echo strip_tags( $message ) ?></textarea>
+                                                            name="<?php echo esc_attr( self::set_field( 'message_purchased', 1 ) ) ?>"><?php echo wp_kses_post( strip_tags( $message ) ) ?></textarea>
 
 													<?php
 													/*WPML.org*/
@@ -1820,7 +1953,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 																?>
                                                                 <h4><?php echo esc_html( $language['native_name'] ) ?></h4>
                                                                 <textarea
-                                                                        name="<?php echo self::set_field( 'message_purchased_' . $key, 1 ) ?>"><?php echo isset( $wpml_messages[ $k ] ) ? strip_tags( $wpml_messages[ $k ] ) : $message ?></textarea>
+                                                                        name="<?php echo esc_attr( self::set_field( 'message_purchased_' . $key, 1 ) ) ?>"><?php echo isset( $wpml_messages[ $k ] ) ? strip_tags( $wpml_messages[ $k ] ) : $message ?></textarea>
 															<?php }
 														}
 													} /*Polylang*/
@@ -1842,7 +1975,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 															?>
                                                             <h4><?php echo esc_html( $language ) ?></h4>
                                                             <textarea
-                                                                    name="<?php echo self::set_field( 'message_purchased_' . $language, 1 ) ?>"><?php echo isset( $wpml_messages[ $k ] ) ? strip_tags( $wpml_messages[ $k ] ) : $message ?></textarea>
+                                                                    name="<?php echo esc_attr( self::set_field( 'message_purchased_' . $language, 1 ) ) ?>"><?php echo isset( $wpml_messages[ $k ] ) ? strip_tags( $wpml_messages[ $k ] ) : $message ?></textarea>
 															<?php
 														}
 													}
@@ -1908,13 +2041,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <!--						</tr>-->
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'custom_shortcode' ) ?>"><?php esc_html_e( 'Custom', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'custom_shortcode' ) ) ?>"><?php esc_html_e( 'Custom', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
 								<?php $custom_shortcode = self::get_field( 'custom_shortcode', esc_attr( '{number} people seeing this product right now' ) ); ?>
-                                <input id="<?php echo self::set_field( 'custom_shortcode' ) ?>" type="text" tabindex="0"
-                                       value="<?php echo $custom_shortcode ?>"
-                                       name="<?php echo self::set_field( 'custom_shortcode' ) ?>"/>
+                                <input id="<?php echo esc_attr( self::set_field( 'custom_shortcode' ) ) ?>" type="text"
+                                       tabindex="0"
+                                       value="<?php echo esc_attr( $custom_shortcode ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'custom_shortcode' ) ) ?>"/>
 
                                 <p class="description"><?php esc_html_e( 'This is {custom} shortcode content.', 'woocommerce-notification' ) ?></p>
 								<?php
@@ -1933,11 +2067,11 @@ class VI_WNOTIFICATION_Admin_Settings {
 											}
 											?>
                                             <h4><?php echo esc_html( $language['native_name'] ) ?></h4>
-                                            <input id="<?php echo self::set_field( 'custom_shortcode_' . $key ) ?>"
+                                            <input id="<?php echo esc_attr( self::set_field( 'custom_shortcode_' . $key ) ) ?>"
                                                    type="text"
                                                    tabindex="0"
-                                                   value="<?php echo $wpml_custom_shortcode ?>"
-                                                   name="<?php echo self::set_field( 'custom_shortcode_' . $key ) ?>"/>
+                                                   value="<?php echo esc_attr( $wpml_custom_shortcode ) ?>"
+                                                   name="<?php echo esc_attr( self::set_field( 'custom_shortcode_' . $key ) ) ?>"/>
 										<?php }
 									}
 								} /*Polylang*/
@@ -1956,11 +2090,11 @@ class VI_WNOTIFICATION_Admin_Settings {
 										}
 										?>
                                         <h4><?php echo esc_html( $language ) ?></h4>
-                                        <input id="<?php echo self::set_field( 'custom_shortcode_' . $language ) ?>"
+                                        <input id="<?php echo esc_attr( self::set_field( 'custom_shortcode_' . $language ) ) ?>"
                                                type="text"
                                                tabindex="0"
-                                               value="<?php echo $wpml_custom_shortcode ?>"
-                                               name="<?php echo self::set_field( 'custom_shortcode_' . $language ) ?>"/>
+                                               value="<?php echo esc_attr( $wpml_custom_shortcode ) ?>"
+                                               name="<?php echo esc_attr( self::set_field( 'custom_shortcode_' . $language ) ) ?>"/>
 										<?php
 									}
 								}
@@ -1969,42 +2103,48 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'min_number' ) ?>"><?php esc_html_e( 'Min Number', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'min_number' ) ) ?>"><?php esc_html_e( 'Min Number', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <input id="<?php echo self::set_field( 'min_number' ) ?>" type="number" tabindex="0"
+                                <input id="<?php echo esc_attr( self::set_field( 'min_number' ) ) ?>" type="number"
+                                       tabindex="0"
                                        min="0"
-                                       value="<?php echo self::get_field( 'min_number', 100 ) ?>"
-                                       name="<?php echo self::set_field( 'min_number' ) ?>"/>
+                                       value="<?php echo esc_attr( self::get_field( 'min_number', 100 ) ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'min_number' ) ) ?>"/>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'max_number' ) ?>"><?php esc_html_e( 'Max number', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'max_number' ) ) ?>"><?php esc_html_e( 'Max number', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
-                                <input id="<?php echo self::set_field( 'max_number' ) ?>" type="number" tabindex="0"
+                                <input id="<?php echo esc_attr( self::set_field( 'max_number' ) ) ?>" type="number"
+                                       tabindex="0"
                                        min="0"
-                                       value="<?php echo self::get_field( 'max_number', 200 ) ?>"
-                                       name="<?php echo self::set_field( 'max_number' ) ?>"/>
+                                       value="<?php echo esc_attr( self::get_field( 'max_number', 200 ) ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'max_number' ) ) ?>"/>
 
                                 <p class="description"><?php esc_html_e( 'Number will random from Min number to Max number', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'change_message_number_enable' ) ?>"><?php esc_html_e( 'Change low number', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'change_message_number_enable' ) ) ?>">
+									<?php esc_html_e( 'Flexible number', 'woocommerce-notification' ) ?>
+                                </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'change_message_number_enable' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'change_message_number_enable' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'change_message_number_enable' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'change_message_number_enable' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'change_message_number_enable' ) ) ?>"/>
                                     <label></label>
                                 </div>
 
-                                <p class="description"><?php esc_html_e( 'Number will change in a reasonable way', 'woocommerce-notification' ) ?></p>
+                                <p class="description">
+									<?php esc_html_e( 'The number changes reasonably on the time in a day when there is supposedly more or less traffic', 'woocommerce-notification' ) ?>
+                                </p>
                             </td>
                         </tr>
                         </tbody>
@@ -2017,14 +2157,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'is_home' ) ?>"><?php esc_html_e( 'Home page', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'is_home' ) ) ?>"><?php esc_html_e( 'Home page', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'is_home' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'is_home' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'is_home' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'is_home' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'is_home' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Turn on to hide notification on Home page', 'woocommerce-notification' ) ?></p>
@@ -2032,14 +2172,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'is_checkout' ) ?>"><?php esc_html_e( 'Checkout page', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'is_checkout' ) ) ?>"><?php esc_html_e( 'Checkout page', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'is_checkout' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'is_checkout' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'is_checkout' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'is_checkout' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'is_checkout' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Turn on to hide notification on Checkout page', 'woocommerce-notification' ) ?></p>
@@ -2047,14 +2187,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'is_cart' ) ?>"><?php esc_html_e( 'Cart page', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'is_cart' ) ) ?>"><?php esc_html_e( 'Cart page', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'is_cart' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'is_cart' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'is_cart' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'is_cart' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'is_cart' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Turn on to hide notification on Cart page', 'woocommerce-notification' ) ?></p>
@@ -2068,9 +2208,9 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <input placeholder="<?php esc_html_e( 'eg: !is_page(array(34,98,73))', 'woocommerce-notification' ) ?>"
                                        type="text"
                                        value="<?php echo htmlentities( self::get_field( 'conditional_tags' ) ) ?>"
-                                       name="<?php echo self::set_field( 'conditional_tags' ) ?>"/>
+                                       name="<?php echo esc_attr( self::set_field( 'conditional_tags' ) ) ?>"/>
 
-                                <p class="description"><?php esc_html_e( 'Let you adjust which pages will appear using WP\'s conditional tags.', 'woocommerce-notification' ) ?></p>
+                                <p class="description"><?php esc_html_e( 'Using conditional tags to assign notification on certain pages.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
                         </tbody>
@@ -2083,14 +2223,14 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <label for="<?php echo self::set_field( 'save_logs' ) ?>"><?php esc_html_e( 'Save Logs', 'woocommerce-notification' ) ?></label>
+                                <label for="<?php echo esc_attr( self::set_field( 'save_logs' ) ) ?>"><?php esc_html_e( 'Save Logs', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'save_logs' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'save_logs' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'save_logs' ), 1 ) ?>
                                            tabindex="0" class="vi_hidden" value="1"
-                                           name="<?php echo self::set_field( 'save_logs' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'save_logs' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
@@ -2102,12 +2242,20 @@ class VI_WNOTIFICATION_Admin_Settings {
                             <td>
                                 <div class="vi-ui form">
                                     <div class="inline fields">
-                                        <input type="text" name="<?php echo self::set_field( 'history_time' ) ?>"
-                                               value="<?php echo self::get_field( 'history_time', 30 ) ?>"/>
+                                        <input type="text"
+                                               name="<?php echo esc_attr( self::set_field( 'history_time' ) ) ?>"
+                                               value="<?php echo esc_attr( self::get_field( 'history_time', 30 ) ) ?>"/>
                                         <label><?php esc_html_e( 'days', 'woocommerce-notification' ) ?></label>
                                     </div>
                                 </div>
-                                <p class="description"><?php echo esc_html__( 'Logs will be saved at ', 'woocommerce-notification' ) . VI_WNOTIFICATION_CACHE . esc_html__( ' in time', 'woocommerce-notification' ) ?></p>
+                                <p class="description">
+									<?php
+									printf( "%s %s %s",
+										esc_html__( 'Logs will be saved at', 'woocommerce-notification' ),
+										VI_WNOTIFICATION_CACHE,
+										esc_html__( 'during this time', 'woocommerce-notification' ) );
+									?>
+                                </p>
                             </td>
                         </tr>
                         </tbody>
@@ -2126,8 +2274,8 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <div class="fields">
                                     <div class="ten wide field">
                                         <input class="villatheme-autoupdate-key-field" type="text"
-                                               name="<?php echo self::set_field( 'key' ) ?>"
-                                               value="<?php echo self::get_field( 'key' ) ?>"/>
+                                               name="<?php echo esc_attr( self::set_field( 'key' ) ) ?>"
+                                               value="<?php echo esc_attr( self::get_field( 'key' ) ) ?>"/>
                                     </div>
                                     <div class="six wide field">
                                         <span class="vi-ui button green villatheme-get-key-button"
@@ -2136,7 +2284,15 @@ class VI_WNOTIFICATION_Admin_Settings {
                                     </div>
                                 </div>
 								<?php do_action( 'woocommerce-notification_key' ) ?>
-                                <p class="description"><?php echo esc_html__( 'Please fill your key what you get from ', 'woocommerce-notification' ) . '<a target="_blank" href="https://villatheme.com/my-download">https://villatheme.com/my-download</a>. ' . esc_html__( 'You can auto update WooCommerce Notification plugin. See guide ', 'woocommerce-notification' ) . '<a href="https://villatheme.com/knowledge-base/how-to-use-auto-update-feature/" target="_blank">https://villatheme.com/knowledge-base/how-to-use-auto-update-feature/</a>' ?></p>
+                                <p class="description">
+									<?php
+									printf( "%s <a target='_blank' href='https://villatheme.com/my-download'>https://villatheme.com/my-download</a>. %s <a href='https://villatheme.com/knowledge-base/how-to-use-auto-update-feature/' target='_blank'>%s</a>",
+										esc_html__( 'Please fill your key what you get from', 'woocommerce-notification' ),
+										esc_html__( 'You can auto update WooCommerce Notification plugin.', 'woocommerce-notification' ),
+										esc_html__( 'See guide', 'woocommerce-notification' )
+									);
+									?>
+                                </p>
                             </td>
                         </tr>
                         </tbody>
@@ -2147,7 +2303,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                         <i class="send icon"></i> <?php esc_html_e( 'Save', 'woocommerce-notification' ) ?>
                     </button>
                     <button class="vi-ui button labeled icon wn-submit"
-                            name="<?php echo self::set_field( 'check_key' ) ?>">
+                            name="<?php echo esc_attr( self::set_field( 'check_key' ) ) ?>">
                         <i class="send icon"></i> <?php esc_html_e( 'Save & Check Key', 'woocommerce-notification' ) ?>
                     </button>
                 </p>

@@ -15,7 +15,7 @@ class Events extends AC\Column implements ACP\Export\Exportable {
 	}
 
 	public function export() {
-		return new Export\Model\EventSeries\Events( $this );
+		return new Export\Model\EventSeries\Events( );
 	}
 
 }

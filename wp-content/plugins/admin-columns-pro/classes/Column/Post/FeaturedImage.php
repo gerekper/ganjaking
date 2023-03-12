@@ -37,7 +37,7 @@ class FeaturedImage extends AC\Column\Post\FeaturedImage
 	}
 
 	public function export() {
-		return new Export\Model\AttachmentURLFromAttachmentId( $this );
+		return new Export\Model\Post\FeaturedImage();
 	}
 
 	public function search() {

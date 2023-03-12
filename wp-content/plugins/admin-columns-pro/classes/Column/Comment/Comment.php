@@ -27,7 +27,7 @@ class Comment extends AC\Column\Comment\Comment
 	}
 
 	public function export() {
-		return new Export\Model\Comment\Comment( $this );
+		return new Export\Model\Comment\Comment();
 	}
 
 }

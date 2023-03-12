@@ -4,7 +4,7 @@
 <p>
 	<?= __( 'Fill in the key(s) of the nested element that you want to display.', 'codepress-admin-columns' ); ?>
 </p>
-<h4><?= __( 'Example' ); ?></h4>
+<h4><?= __( 'Example' ) ?></h4>
 <p>
 	<img src="<?= esc_url( ACP()->get_url() . 'assets/core/images/serialized-array.png' ); ?>" alt="Serialized Array" style="box-sizing: border-box; border:1px solid #ddd;padding: 8px 10px;max-width: 100%;margin: 5px 0;">
 </p>

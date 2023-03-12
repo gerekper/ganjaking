@@ -18,7 +18,7 @@ class Coupon extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopCoupon\Coupon( $this );
+		return new Export\ShopCoupon\Coupon();
 	}
 
 }

@@ -37,7 +37,7 @@ class ProductTag extends AC\Column
 	}
 
 	public function export() {
-		return new ACP\Export\Model\Post\Taxonomy( $this );
+		return new ACP\Export\Model\Post\Taxonomy( $this->get_taxonomy() );
 	}
 
 	public function search() {

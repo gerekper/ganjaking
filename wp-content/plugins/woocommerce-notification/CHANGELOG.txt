@@ -1,3 +1,15 @@
+/*1.5.0 - 2023.03.10**/
+- Fixed: Fixed conflict css with Theme Kinves and Plugin BoldGrid Inspirations
+- Update: Minify css
+- Added: Name by country option
+
+/*1.4.7 - 2022.06.06**/
+- Updated: Update support file
+- Update: Use passive listeners to improve scrolling performance
+- Fixed: Fixed grammar
+- Fixed: Fixed security
+- Update: Compatible with WC 6.5.0 and WP6.0
+
 /*1.4.6 - 2022.03.29**/
 - Updated: Update support file
 

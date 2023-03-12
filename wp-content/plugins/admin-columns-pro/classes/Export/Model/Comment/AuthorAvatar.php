@@ -2,12 +2,9 @@
 
 namespace ACP\Export\Model\Comment;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * @since 4.1
- */
-class AuthorAvatar extends Model {
+class AuthorAvatar implements Service {
 
 	public function get_value( $id ) {
 		return get_avatar_url( get_comment( $id ) );

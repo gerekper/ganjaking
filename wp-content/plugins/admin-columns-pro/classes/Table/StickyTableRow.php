@@ -8,9 +8,6 @@ use AC\Type\ListScreenId;
 
 class StickyTableRow implements AC\Registerable {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
 	public function __construct( Storage $storage ) {
@@ -23,7 +20,7 @@ class StickyTableRow implements AC\Registerable {
 		$this->ajax_handler()->register();
 	}
 
-	private function ajax_handler() {
+	private function ajax_handler(): AC\Ajax\Handler {
 		$handler = new AC\Ajax\Handler();
 
 		$handler
@@ -33,35 +30,37 @@ class StickyTableRow implements AC\Registerable {
 		return $handler;
 	}
 
-	public function preferences() {
+	public function preferences(): AC\Preferences\Site {
 		return new AC\Preferences\Site( 'show_sticky_table_row' );
 	}
 
-	public function is_sticky( $key ) {
-		return (bool) apply_filters( 'acp/sticky_header/enable', $this->preferences()->get( $key ) );
+	public function is_sticky( string $storage_key ): bool {
+		return (bool) apply_filters( 'acp/sticky_header/enable', $this->preferences()->get( $storage_key ) );
 	}
 
-	public function update_sticky_table() {
+	public function update_sticky_table(): void {
 		$this->ajax_handler()->verify_request();
 
-		$key = filter_input( INPUT_POST, 'list_screen' );
+		$list_id = filter_input( INPUT_POST, 'layout' );
 
-		$list_screen = ListScreenId::is_valid_id( filter_input( INPUT_POST, 'layout' ) )
-			? $this->storage->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) )
-			: null;
-
-		if ( $list_screen ) {
-			$key = $list_screen->get_storage_key();
+		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
+			wp_send_json_error();
 		}
 
-		$this->preferences()->set( $key, 'true' === filter_input( INPUT_POST, 'value' ) );
-		exit;
+		$list_screen = $this->storage->find_by_user( new ListScreenId( $list_id ), wp_get_current_user() );
+
+		if ( ! $list_screen ) {
+			wp_send_json_error();
+		}
+
+		$this->preferences()->set(
+			$list_screen->get_storage_key(),
+			'true' === filter_input( INPUT_POST, 'value' )
+		);
+		wp_send_json_success();
 	}
 
-	/**
-	 * @param AC\Table\Screen $table
-	 */
-	public function register_screen_option( $table ) {
+	public function register_screen_option( AC\Table\Screen $table ): void {
 		$list_screen = $table->get_list_screen();
 
 		if ( ! $list_screen->get_settings() ) {

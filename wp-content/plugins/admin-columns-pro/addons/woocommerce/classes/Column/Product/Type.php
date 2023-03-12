@@ -20,7 +20,7 @@ class Type extends AC\Column
 	}
 
 	public function export() {
-		return new Export\Product\Type( $this );
+		return new Export\Product\Type();
 	}
 
 }

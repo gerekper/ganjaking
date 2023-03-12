@@ -32,7 +32,7 @@ class UpdatePlugins implements RequestAjaxHandler {
 		$this->cache = $cache;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new AC\Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {

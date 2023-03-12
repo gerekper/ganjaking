@@ -373,7 +373,7 @@ class WC_AM_Admin_System_Status {
 	 * @return array
 	 */
 	private function get_theme_overrides() {
-		$wc_am_template_dir = dirname( WCAM()->get_file() ) . '/templates/';
+		$wc_am_template_dir = dirname( WCAM()->get_plugin_file() ) . '/templates/';
 		$wc_template_path   = trailingslashit( wc()->template_path() );
 		$theme_root         = trailingslashit( get_theme_root() );
 		$overridden         = array();
@@ -381,7 +381,7 @@ class WC_AM_Admin_System_Status {
 		$templates          = WC_Admin_Status::scan_template_files( $wc_am_template_dir );
 
 		foreach ( $templates as $file ) {
-			$theme_file = $is_outdated = false;
+			$theme_file = false;
 			$locations  = array(
 				get_stylesheet_directory() . "/{$file}",
 				get_stylesheet_directory() . "/{$wc_template_path}{$file}",
@@ -404,7 +404,12 @@ class WC_AM_Admin_System_Status {
 
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
 					$outdated                   = true;
-					$overridden_template_output .= sprintf( /* translators: %1$s is the file version, %2$s is the core version */ esc_html__( 'version %1$s is out of date. The core version is %2$s', 'woocommerce-api-manager' ), '<strong style="color:red">' . esc_html( $theme_version ) . '</strong>', '<strong>' . esc_html( $core_version ) . '</strong>' );
+					$overridden_template_output .= sprintf(
+						/* translators: %1$s is the file version, %2$s is the core version */
+						esc_html__( 'version %1$s is out of date. The core version is %2$s', 'woocommerce-api-manager' ),
+						'<strong style="color:red">' . esc_html( $theme_version ) . '</strong>',
+						'<strong>' . esc_html( $core_version ) . '</strong>'
+					);
 				}
 
 				$overridden[ 'overrides' ][] = $overridden_template_output;

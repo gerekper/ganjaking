@@ -125,7 +125,7 @@ class Column {
 	}
 
 	/**
-	 * @param string $label
+	 * @param string|null $label
 	 *
 	 * @return $this
 	 */

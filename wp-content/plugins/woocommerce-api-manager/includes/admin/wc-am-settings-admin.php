@@ -93,28 +93,38 @@ class WC_AM_Settings_Admin {
 	 * @return array Array of settings in the format required by the @see woocommerce_admin_fields() function.
 	 */
 	public function get_settings( $current_section ) {
-		$aws_s3_regions  = array(
+		$aws_s3_regions = array(
+			'af-south-1'     => 'af-south-1',
 			'ap-east-1'      => 'ap-east-1',
 			'ap-northeast-1' => 'ap-northeast-1',
 			'ap-northeast-2' => 'ap-northeast-2',
 			'ap-northeast-3' => 'ap-northeast-3',
 			'ap-south-1'     => 'ap-south-1',
+			'ap-south-2'     => 'ap-south-2',
 			'ap-southeast-1' => 'ap-southeast-1',
 			'ap-southeast-2' => 'ap-southeast-2',
+			'ap-southeast-3' => 'ap-southeast-3',
+			'ap-southeast-4' => 'ap-southeast-4',
 			'ca-central-1'   => 'ca-central-1',
 			'cn-north-1'     => 'cn-north-1',
 			'cn-northwest-1' => 'cn-northwest-1',
 			'eu-central-1'   => 'eu-central-1',
+			'eu-central-2'   => 'eu-central-2',
 			'eu-north-1'     => 'eu-north-1',
+			'eu-south-1'     => 'eu-south-1',
+			'eu-south-2'     => 'eu-south-2',
 			'eu-west-1'      => 'eu-west-1',
 			'eu-west-2'      => 'eu-west-2',
 			'eu-west-3'      => 'eu-west-3',
+			'me-central-1'   => 'me-central-1',
+			'me-south-1'     => 'me-south-1',
 			'sa-east-1'      => 'sa-east-1',
 			'us-east-1'      => 'us-east-1',
 			'us-east-2'      => 'us-east-2',
 			'us-west-1'      => 'us-west-1',
 			'us-west-2'      => 'us-west-2'
 		);
+
 		$current_section = 'api_manager';
 
 		$amazon_s3_title = array(
@@ -346,7 +356,7 @@ class WC_AM_Settings_Admin {
 
 				array(
 					'name' => __( 'API Manager Extensions', 'woocommerce-api-manager' ),
-					'desc' => sprintf( __( '%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP Library for Plugins and Themes%s.%s%sDisplay the Product API tab settings data automatically on the frontend product page with the %sWooCommerce API Manager Product Tabs%s extension is implemented.%s%s', 'woocommerce-api-manager' ), '<ul style="list-style-type:disc;padding-left:5em">','<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '</li>', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-product-tabs/' ) . '" target="blank">', '</a>', '</li>', '</ul>' ),
+					'desc' => sprintf( __( '%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP Library for Plugins and Themes%s.%s%sDisplay the Product API tab settings data automatically on the frontend product page with the %sWooCommerce API Manager Product Tabs%s extension is implemented.%s%s', 'woocommerce-api-manager' ), '<ul style="list-style-type:disc;padding-left:5em">', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '</li>', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-product-tabs/' ) . '" target="blank">', '</a>', '</li>', '</ul>' ),
 					'type' => 'title',
 					'id'   => $this->option_prefix . '_api_extensions_info'
 				),

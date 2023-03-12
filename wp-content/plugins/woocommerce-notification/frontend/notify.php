@@ -131,9 +131,11 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		if ( $this->settings->enable_rtl() ) {
 			$class[] = 'wn-rtl';
 		}
+
 		if ( $this->settings->rounded_corner() ) {
 			$class[] = 'wn-rounded-corner';
 		}
+
 		ob_start();
 
 		?>
@@ -141,7 +143,6 @@ class VI_WNOTIFICATION_Frontend_Notify {
 
         </div>
 		<?php
-
 
 		return ob_get_clean();
 	}
@@ -1162,7 +1163,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			$sound_enable = $this->settings->sound_enable();
 			$sound        = $this->settings->get_sound();
 
-			echo $this->show_product();
+			echo $this->show_product(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if ( $sound_enable ) {
 				?>
@@ -1179,9 +1180,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 	 */
 	public function wp_print_styles() {
 		?>
-        <link id="woocommerce-notification-fonts" rel="preload"
-              href="<?php echo esc_attr( esc_url( VI_WNOTIFICATION_FONT . 'icons-close.woff2' ) ) ?>" as="font"
-              crossorigin>
+        <link id="woocommerce-notification-fonts" rel="preload" href="<?php echo esc_attr( esc_url( VI_WNOTIFICATION_FONT . 'icons-close.woff2' ) ) ?>" as="font" crossorigin>
 		<?php
 	}
 
@@ -1193,12 +1192,12 @@ class VI_WNOTIFICATION_Frontend_Notify {
 
 		$enable_mobile = $this->settings->enable_mobile();
 		if ( ! $enable_mobile && wp_is_mobile() ) {
-			return;
+//			return;
 		}
 		// Any mobile device (phones or tablets).
 		$mobile_detect = new VillaTheme_Mobile_Detect;
 		if ( ! $enable_mobile && $mobile_detect->isMobile() ) {
-			return;
+//			return;
 		}
 		if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 			$this->lang = wpml_get_current_language();
@@ -1232,37 +1231,23 @@ class VI_WNOTIFICATION_Frontend_Notify {
 				return;
 			}
 		}
-		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
-		wp_enqueue_style( 'woocommerce-notification-icons-close',
-			VI_WNOTIFICATION_CSS . 'icons-close.css',
-			array(),
-			VI_WNOTIFICATION_VERSION );
-		if ( WP_DEBUG ) {
-			wp_enqueue_style( 'woocommerce-notification',
-				VI_WNOTIFICATION_CSS . 'woocommerce-notification.css',
-				array(),
-				VI_WNOTIFICATION_VERSION );
-			wp_enqueue_script( 'woocommerce-notification',
-				VI_WNOTIFICATION_JS . 'woocommerce-notification.js',
-				array( 'jquery' ),
-				VI_WNOTIFICATION_VERSION );
-		} else {
-			wp_enqueue_style( 'woocommerce-notification',
-				VI_WNOTIFICATION_CSS . 'woocommerce-notification.min.css',
-				array(),
-				VI_WNOTIFICATION_VERSION );
-			wp_enqueue_script( 'woocommerce-notification',
-				VI_WNOTIFICATION_JS . 'woocommerce-notification.min.js',
-				array( 'jquery' ),
-				VI_WNOTIFICATION_VERSION );
-		}
-		if ( $this->settings->get_background_image() ) {
-			wp_enqueue_style( 'woocommerce-notification-templates',
-				VI_WNOTIFICATION_CSS . 'woocommerce-notification-templates.css',
-				array(),
-				VI_WNOTIFICATION_VERSION );
 
+		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+
+		if ( WP_DEBUG ) {
+			wp_enqueue_style( 'woocommerce-notification-icons-close', VI_WNOTIFICATION_CSS . 'icons-close.css', array(), VI_WNOTIFICATION_VERSION );
+			wp_enqueue_style( 'woocommerce-notification', VI_WNOTIFICATION_CSS . 'woocommerce-notification.css', array(), VI_WNOTIFICATION_VERSION );
+			wp_enqueue_script( 'woocommerce-notification', VI_WNOTIFICATION_JS . 'woocommerce-notification.js', array( 'jquery' ), VI_WNOTIFICATION_VERSION );
+		} else {
+			wp_enqueue_style( 'woocommerce-notification-icons-close', VI_WNOTIFICATION_CSS . 'icons-close.min.css', array(), VI_WNOTIFICATION_VERSION );
+			wp_enqueue_style( 'woocommerce-notification', VI_WNOTIFICATION_CSS . 'woocommerce-notification.min.css', array(), VI_WNOTIFICATION_VERSION );
+			wp_enqueue_script( 'woocommerce-notification', VI_WNOTIFICATION_JS . 'woocommerce-notification.min.js', array( 'jquery' ), VI_WNOTIFICATION_VERSION );
 		}
+
+		if ( $this->settings->get_background_image() ) {
+			wp_enqueue_style( 'woocommerce-notification-templates', VI_WNOTIFICATION_CSS . 'woocommerce-notification-templates.css', array(), VI_WNOTIFICATION_VERSION );
+		}
+
 		$options_array                  = get_transient( $prefix . '_head' . $this->lang );
 		$non_ajax                       = $this->settings->non_ajax();
 		$archive                        = $this->settings->archive_page();
@@ -1322,6 +1307,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			/*Autodetect*/
 			$detect                  = $this->settings->country();
 			$options_array['detect'] = $detect;
+
 			/*Check get from billing*/
 			/*Current products*/
 			if ( $archive || ( $notification_product_show_type && is_product() && $enable_single_product ) ) {
@@ -1346,26 +1332,34 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			}
 			set_transient( $prefix . '_head' . $this->lang, $options_array, 86400 );
 		}
+
 		$options_array = array_merge( array(
-			'str_about'             => __( 'About', 'woocommerce-notification' ),
-			'str_ago'               => __( 'ago', 'woocommerce-notification' ),
-			'str_day'               => __( 'day', 'woocommerce-notification' ),
-			'str_days'              => __( 'days', 'woocommerce-notification' ),
-			'str_hour'              => __( 'hour', 'woocommerce-notification' ),
-			'str_hours'             => __( 'hours', 'woocommerce-notification' ),
-			'str_min'               => __( 'minute', 'woocommerce-notification' ),
-			'str_mins'              => __( 'minutes', 'woocommerce-notification' ),
-			'str_secs'              => __( 'secs', 'woocommerce-notification' ),
-			'str_few_sec'           => __( 'a few seconds', 'woocommerce-notification' ),
+			'str_about'             => esc_html__( 'About', 'woocommerce-notification' ),
+			'str_ago'               => esc_html__( 'ago', 'woocommerce-notification' ),
+			'str_day'               => esc_html__( 'day', 'woocommerce-notification' ),
+			'str_days'              => esc_html__( 'days', 'woocommerce-notification' ),
+			'str_hour'              => esc_html__( 'hour', 'woocommerce-notification' ),
+			'str_hours'             => esc_html__( 'hours', 'woocommerce-notification' ),
+			'str_min'               => esc_html__( 'minute', 'woocommerce-notification' ),
+			'str_mins'              => esc_html__( 'minutes', 'woocommerce-notification' ),
+			'str_secs'              => esc_html__( 'secs', 'woocommerce-notification' ),
+			'str_few_sec'           => esc_html__( 'a few seconds', 'woocommerce-notification' ),
 			'time_close'            => $this->settings->get_time_close(),
 			'show_close'            => $this->settings->show_close_icon(),
 			'change_virtual_time'   => $this->settings->change_virtual_time_enable(),
 			'change_message_number' => $this->settings->change_message_number_enable(),
-		),
-			$options_array );
+		), $options_array );
+
 		if ( $options_array['detect'] === '2' ) {
-			$ip                = new WC_Geolocation();
-			$geo_ip            = $ip->geolocate_ip( '', true, false );
+			$ip     = new WC_Geolocation();
+			$geo_ip = $ip->geolocate_ip( '', true, true );
+
+			$names = $this->get_name_by_country( $geo_ip['country'] ?? '' );
+
+			if ( ! empty( $names ) ) {
+				$options_array['names'] = $names;
+			}
+
 			$woo_countries     = new WC_Countries();
 			$woo_countries     = $woo_countries->__get( 'countries' );
 			$geo_ip['country'] = $woo_countries[ $geo_ip['country'] ] ?? $geo_ip['country'] ?? '';
@@ -1445,6 +1439,8 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		if ( is_array( $products ) && count( $products ) ) {
 			$options_array['products'] = $products;
 		}
+		$options_array['enableMobile'] = $enable_mobile;
+
 		wp_localize_script( 'woocommerce-notification', '_woocommerce_notification_params', $options_array );
 		/*Custom*/
 
@@ -1504,7 +1500,41 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		$custom_css = str_replace( "\t", '', $custom_css );
 		$custom_css = str_replace( "\l", '', $custom_css );
 		$custom_css = str_replace( "\0", '', $custom_css );
-		wp_add_inline_style( 'woocommerce-notification', $custom_css );
+		wp_add_inline_style( 'woocommerce-notification', wp_kses_post( $custom_css ) );
+	}
+
+	public function get_name_by_country( $country ) {
+		if ( ! $country ) {
+			return false;
+		}
+
+		$name_by_country = $this->settings->get_params( 'name_by_country' );
+		if ( empty( $name_by_country ) || ! is_array( $name_by_country ) ) {
+			return false;
+		}
+
+		$names = '';
+		foreach ( $name_by_country as $rule ) {
+			if ( empty( $rule['countries'] ) ) {
+				continue;
+			}
+
+			if ( in_array( $country, $rule['countries'] ) && ! empty( $rule['names'] ) ) {
+				$names = $rule['names'];
+				break;
+			}
+
+		}
+
+		if ( ! empty( $names ) ) {
+			$names = explode( "\n", $names );
+			$names = array_filter( $names );
+			shuffle( $names );
+			$names = array_slice( $names, 0, 50 );
+			$names = array_map( 'base64_encode', $names );
+		}
+
+		return $names;
 	}
 
 	public function get_start_virtual_time() {

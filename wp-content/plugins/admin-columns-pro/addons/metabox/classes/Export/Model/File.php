@@ -4,13 +4,10 @@ namespace ACA\MetaBox\Export\Model;
 
 use ACA\MetaBox\Column;
 
-/**
- * @property Column $column
- */
 class File extends Raw {
 
 	public function format_single_value( $value, $id = null ) {
-		if ( empty( $value ) ) {
+		if ( empty( $value ) || ! is_array( $value ) ) {
 			return '';
 		}
 

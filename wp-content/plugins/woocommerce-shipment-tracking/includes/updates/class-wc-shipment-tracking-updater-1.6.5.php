@@ -42,6 +42,10 @@ class WC_Shipment_Tracking_Updater_1_6_5 extends WC_Shipment_Tracking_Updater {
 
 		$order = wc_get_order( $order_id );
 
+		if ( ! $order instanceof WC_Order ) {
+			return;
+		}
+
 		$tracking_provider        = $order->get_meta( '_tracking_provider' );
 		$custom_tracking_provider = $order->get_meta( '_custom_tracking_provider' );
 		$tracking_number          = $order->get_meta( '_tracking_number' );

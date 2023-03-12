@@ -124,7 +124,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	/**
 	 * Proceed with the backup
 	 *
-	 * @param array $backup_array - Array of files ot be backed up.
+	 * @param Array $backup_array - Array of files to be backed up.
 	 *
 	 * @return false|void|null
 	 */
@@ -213,11 +213,13 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 					$prev_offset = $offset;
 
 					try {
-						$offset = $pcloud->chunked_upload($updraft_dir . '/' . $file, $pcl_upload_id, $offset);
+						$new_offset = $pcloud->chunked_upload($updraft_dir . '/' . $file, $pcl_upload_id, $offset);
 						
-						if (is_wp_error($offset)) {
-							throw new Exception($offset->get_error_message());
+						if (is_wp_error($new_offset)) {
+							throw new Exception($new_offset->get_error_message());
 						}
+						
+						$offset = $new_offset;
 
 						if ($prev_offset === $offset) { // Failed, will retry.
 							$retries++;
@@ -231,10 +233,12 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 
 					} catch (Exception $e) {
 
+						$this->log('chunked upload exception (' . get_class($e) . '): ' . $e->getMessage() . ' (line: ' . $e->getLine() . ', file: ' . $e->getFile() . ')');
+						
 						if ($upload_tick > 0 && time() - $upload_tick > 800) {
 
 							UpdraftPlus_Job_Scheduler::reschedule(60);
-							$this->log('chunked upload exception (' . get_class($e) . '): ' . $e->getMessage() . ' (line: ' . $e->getLine() . ', file: ' . $e->getFile() . ')');
+							
 							$this->log('Select/poll returned after a long time: scheduling a resumption and terminating for now');
 							UpdraftPlus_Job_Scheduler::record_still_alive();
 
@@ -247,10 +251,9 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 						$retries++;
 					}
 
-					if (10 < $retries) {
-
-						$this->log('chunked upload failed, too many failures.');
-
+					if (5 < $retries) {
+						$this->log('chunked upload failed: too many failures.');
+						$this->log(__('Chunked upload failed', 'updraftplus'), 'error');
 						break;
 					}
 				}
@@ -286,6 +289,8 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	public function listfiles($match = 'backup_') {
 
 		try {
+			$opts = $this->get_options();
+			if (!$this->options_exist($opts)) return new WP_Error('no_settings', sprintf(__('No %s settings were found', 'updraftplus'), $this->description));
 			$pcloud = $this->bootstrap();
 		} catch (Exception $e) {
 			$this->log($e->getMessage() . ' (line: ' . $e->getLine() . ', file: ' . $e->getFile() . ')');
@@ -449,7 +454,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 
 			try {
 				$offset = $pcloud->download($needed_file['fileid'], $fh, $headers, $offset);
-				
+
 				if (is_wp_error($offset)) throw new Exception($offset->get_error_message());
 
 				if ($offset >= ($needed_file['size'] - 1)) {
@@ -483,7 +488,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	public function get_pre_configuration_template() {
 
 		$classes = $this->get_css_classes(false);
-		
+
 		?>
 			<tr class="<?php echo $classes . ' ' . 'pcloud_pre_config_container';?>">
 				<td colspan="2">
@@ -580,7 +585,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	public function output_account_warning() {
 		return false;
 	}
-	
+
 	/**
 	 * Handles various URL actions, as indicated by the updraftplus_pcloudauth URL parameter
 	 *
@@ -701,9 +706,9 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 			$opts = $this->get_options();
 			$opts['ownername'] = $info['email'];
 			$this->set_options($opts, true);
-	
+
 			$message .= ". <br>".sprintf(__('Your %s account name: %s', 'updraftplus'), 'pCloud', htmlspecialchars($info['email']));
-	
+
 			$message .= ' <br>'.sprintf(__('Your %s quota usage: %s %% used, %s available', 'updraftplus'), 'pCloud', $used_perc, round($available_quota/1048576, 1).' MB');
 		} else {
 			$message .= " (".__('though part of the returned information was not as expected - whether this indicates a real problem cannot be determined', 'updraftplus').")";
@@ -729,6 +734,9 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 		if (!class_exists('UpdraftPlus_Pcloud_API')) {
 			include_once UPDRAFTPLUS_DIR . '/includes/pcloud/UpdraftPlus_Pcloud_API.php';
 		}
+
+		// if (false === $opts) $opts = $this->options;
+		// $opts = $this->get_options();
 
 		$storage = $this->get_storage();
 		if (!empty($storage) && !is_wp_error($storage)) {

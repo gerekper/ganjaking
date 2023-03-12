@@ -119,9 +119,12 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 					$rule['to'] = $q;
 				}
 
+				$rule['from'] = floatval( $rule['from']);
+				$rule['to'] = floatval( $rule['to']);
+				$rule['amount'] = floatval( $rule['amount']);
+
 				if ( $q >= $rule['from'] && $q <= $rule['to'] ) {
 					$this->discount_data['rule'] = $rule;
-
 
 					$amount       = apply_filters( 'woocommerce_dynamic_pricing_get_rule_amount', $rule['amount'], $rule, $cart_item, $this );
 					$num_decimals = apply_filters( 'woocommerce_dynamic_pricing_get_decimals', (int) get_option( 'woocommerce_price_num_decimals' ) );
@@ -172,6 +175,11 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 
 				$q  = $this->get_quantity_to_compare( $cart_item, $collector, $set );
 				$rq = 0; //required quantity to trigger the calculations
+
+				$rule['to'] = floatval( $rule['to'] ?? 0 );
+				$rule['from'] = floatval( $rule['from'] ?? 0 );
+				$rule['adjust'] = floatval( $rule['adjust'] ?? 0 );
+				$rule['amount'] = floatval( $rule['amount'] ?? 0 );
 
 				if ( $collector['type'] == 'cart_item' && $q <= $rule['from'] ) {
 					continue;

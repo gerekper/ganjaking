@@ -11,12 +11,6 @@ use ACP\Editing\RequestHandler;
 
 class BulkDelete implements RequestHandler {
 
-	const STATUS_FAILED = 'failed';
-	const STATUS_SUCCESS = 'success';
-
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
 	public function __construct( Storage $storage ) {
@@ -33,7 +27,10 @@ class BulkDelete implements RequestHandler {
 			         ->error();
 		}
 
-		$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
+		$list_screen = $this->storage->find_by_user(
+			new ListScreenId( $list_id ),
+			wp_get_current_user()
+		);
 
 		if ( ! $list_screen instanceof Editing\BulkDelete\ListScreen ) {
 			$response->set_message( __( 'Table does not support bulk delete.', 'codepress-admin-columns' ) )

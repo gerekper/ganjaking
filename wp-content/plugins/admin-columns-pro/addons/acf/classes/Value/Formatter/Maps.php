@@ -31,7 +31,7 @@ class Maps extends Formatter {
 		return add_query_arg(
 			[
 				'query' => implode( ',', $arguments ),
-				'zoom'  => $data['zoom'] ?: 15,
+				'zoom'  => $data['zoom'] ?? 15,
 			],
 			$base
 		);

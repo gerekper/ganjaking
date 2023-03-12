@@ -2,20 +2,25 @@
 
 namespace ACP\Export\Model\Post;
 
-use AC;
-use ACP\Export\Model;
+use ACP\Export\Service;
+use ACP\Column;
 
-/**
- * Last modified author column exportability model
- * @since 4.1
- */
-class LastModifiedAuthor extends Model\Value {
+class LastModifiedAuthor implements Service {
 
-	/**
-	 * @param AC\Column\Post\LastModifiedAuthor $column
-	 */
-	public function __construct( AC\Column\Post\LastModifiedAuthor $column ) {
-		parent::__construct( $column );
+	private $column;
+
+	public function __construct( Column\Post\LastModifiedAuthor $column ) {
+		$this->column = $column;
+	}
+
+	public function get_value( $id ) {
+		$value = $this->column->get_value( $id );
+
+		if ( $value === $this->column->get_empty_char() ) {
+			$value = '';
+		}
+
+		return $value;
 	}
 
 }

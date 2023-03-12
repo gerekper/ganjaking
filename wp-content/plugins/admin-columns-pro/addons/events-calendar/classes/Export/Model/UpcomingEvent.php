@@ -2,22 +2,23 @@
 
 namespace ACA\EC\Export\Model;
 
+use AC\Column;
 use ACP;
 
-/**
- * Export Model for Upcoming Event column
- * @since 1.0.2
- */
-class UpcomingEvent extends ACP\Export\Model {
+class UpcomingEvent implements ACP\Export\Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
 		$event_id = $this->column->get_raw_value( $id );
 
-		if ( ! $event_id ) {
-			return false;
-		}
-
-		return get_the_title( $event_id );
+		return $event_id
+			? get_the_title( (int) $event_id )
+			: '';
 	}
 
 }

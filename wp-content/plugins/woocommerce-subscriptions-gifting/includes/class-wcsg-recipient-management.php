@@ -77,7 +77,7 @@ class WCSG_Recipient_Management {
 					$order   = wc_get_order( $args[2] );
 
 					if ( $order ) {
-						if ( 'shop_subscription' == get_post_type( $args[2] ) && WCS_Gifting::get_recipient_user( $order ) == $user_id ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+						if ( 'shop_subscription' === WC_Data_Store::load( 'subscription' )->get_order_type( $args[2] ) && WCS_Gifting::get_recipient_user( $order ) == $user_id ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 							$allcaps['view_order'] = true;
 						} elseif ( wcs_order_contains_renewal( $order ) ) {
 							$subscriptions = wcs_get_subscriptions_for_renewal_order( $order );
@@ -326,29 +326,33 @@ class WCSG_Recipient_Management {
 	 *
 	 * @param int   $user_id  The user id of the recipient.
 	 * @param int   $order_id The Order ID which contains the subscription.
-	 * @param array $args   Array of arguments.
-	 * @return WP_Post[] An array of subscriptions gifted to the user
+	 * @param array $args     Array of arguments.
+	 *
+	 * @return int[] An array of subscription IDs gifted to the user
 	 */
 	public static function get_recipient_subscriptions( $user_id, $order_id = 0, $args = array() ) {
 		$args = wp_parse_args(
 			$args,
 			array(
-				'posts_per_page' => -1,
-				'post_status'    => 'any',
-				'post_type'      => 'shop_subscription',
-				'orderby'        => 'date',
-				'order'          => 'desc',
-				'meta_key'       => '_recipient_user', /* phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key */
-				'meta_value'     => $user_id, /* phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value */
-				'meta_compare'   => '=',
-				'fields'         => 'ids',
+				'subscriptions_per_page' => -1,
+				'subscription_status'    => 'any',
+				'orderby'                => 'start_date',
+				'order'                  => 'DESC',
+				'meta_query'             => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => '_recipient_user',
+						'value'   => $user_id,
+						'compare' => '=',
+					),
+				),
 			)
 		);
 
 		if ( 0 != $order_id ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-			$args['post_parent'] = $order_id;
+			$args['order_id'] = $order_id;
 		}
-		return get_posts( $args );
+
+		return array_keys( wcs_get_subscriptions( $args ) );
 	}
 
 	/**

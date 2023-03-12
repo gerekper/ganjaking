@@ -68,7 +68,7 @@ class RepeaterField extends Column {
 			}
 		}
 
-		return null;
+		return $this->field->get_repeated_fields()[0] ?? null;
 	}
 
 	protected function get_setting_field() {

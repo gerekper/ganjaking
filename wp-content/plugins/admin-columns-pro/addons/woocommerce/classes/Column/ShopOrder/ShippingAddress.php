@@ -18,7 +18,7 @@ class ShippingAddress extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopOrder\ShippingAddress( $this );
+		return new Export\ShopOrder\ShippingAddress();
 	}
 
 }

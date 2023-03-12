@@ -350,7 +350,7 @@ class WC_AM_User {
 
 		$status = $this->get_master_api_key_status( (int) $user_id );
 
-		return ! empty( $status ) && $status != 'disabled' ? true : false;
+		return ! empty( $status ) && $status != 'disabled';
 	}
 
 	/**
@@ -437,7 +437,7 @@ class WC_AM_User {
 	 * @return bool
 	 */
 	public function hide_product_order_api_keys() {
-		return $this->hide_product_order_api_keys == 'yes' ? true : false;
+		return $this->hide_product_order_api_keys == 'yes';
 	}
 
 }

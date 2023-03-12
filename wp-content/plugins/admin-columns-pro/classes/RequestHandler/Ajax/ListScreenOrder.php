@@ -18,7 +18,7 @@ class ListScreenOrder implements RequestAjaxHandler {
 		$this->list_screen_order = $order;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}

@@ -8,7 +8,7 @@ use ACP\Export;
 use ACP\Sorting;
 
 class AvailableSizes extends AC\Column\Media\AvailableSizes
-	implements Sorting\Sortable, ConditionalFormat\Formattable {
+	implements Sorting\Sortable, ConditionalFormat\Formattable, Export\Exportable {
 
 	use ConditionalFormat\ConditionalFormatTrait;
 
@@ -17,7 +17,7 @@ class AvailableSizes extends AC\Column\Media\AvailableSizes
 	}
 
 	public function export() {
-		return new Export\Model\Value( $this );
+		return new Export\Model\StrippedValue( $this );
 	}
 
 }

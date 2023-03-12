@@ -12,6 +12,12 @@
 
 	add_action( 'import_ali_product_in_woo', 'get_sku_in_woo' ); // Call SKU Function.
 	add_action( 'rest_api_init', 'import_ali_product_in_woo_callback' );
+
+
+function permission_callback_validation( $request ) {
+	return true;
+}
+
 function import_ali_product_in_woo_callback() {
 
 	register_rest_route(
@@ -21,7 +27,7 @@ function import_ali_product_in_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'import_ali_product_in_woo',
 
@@ -43,7 +49,7 @@ function import_image_base64() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'import_image_base64_in_woo',
 
@@ -65,7 +71,7 @@ function get_product_details_by_sku() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'get_product_details_by_sku_in_woo',
 
@@ -87,7 +93,7 @@ function get_list_of_product_category_from_woo_callback() {
 
 			'methods' => WP_REST_Server::READABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'get_product_category_from_woo',
 
@@ -109,7 +115,7 @@ function create_product_category_in_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'create_product_category_in_woo',
 
@@ -131,7 +137,7 @@ function get_order_details_from_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'get_order_detail_by_id',
 
@@ -153,7 +159,7 @@ function authentication_with_CBE_and_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'woo_authentication',
 
@@ -177,7 +183,7 @@ function update_ali_product_in_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'update_ali_product_in_woo',
 
@@ -199,7 +205,7 @@ function get_merchant_store_currency_code_in_woo_callback() {
 
 			'methods' => WP_REST_Server::READABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'get_merchant_store_currency_code_in_woo',
 
@@ -223,7 +229,7 @@ function get_product_sku_from_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'get_product_sku_from_woo',
 
@@ -245,7 +251,7 @@ function get_order_status_from_woo_callback() {
 
 			'methods' => WP_REST_Server::CREATABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'get_order_status_by_id',
 
@@ -273,7 +279,7 @@ function ali_cbe_price_rate() {
 
 			'methods' => WP_REST_Server::READABLE,
 
-			'permission_callback' => '__return_true',
+			'permission_callback' => 'permission_callback_validation',
 
 			'callback' => 'getPriceRate',
 

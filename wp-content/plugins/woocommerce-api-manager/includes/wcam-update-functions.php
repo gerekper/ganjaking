@@ -229,9 +229,9 @@ function wc_am_update_200_data_migrate_activations() {
 												'%d'
 											);
 
-											$result = $wpdb->insert( $wpdb->prefix . $wc_am_api_activation, $data, $format ) ? true : false;
+											$result = $wpdb->insert( $wpdb->prefix . $wc_am_api_activation, $data, $format );
 
-											if ( $result ) {
+											if ( ! empty( $result ) ) {
 												WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->update_associated_api_key_activation_ids_list( $api_key, $wpdb->insert_id );
 
 												$activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activations_by_order_id( $resource->order_id );
@@ -502,7 +502,7 @@ function wc_am_update_205_check_if_api_resources_table_is_empty() {
 
 			if ( ! empty( $product_ids ) ) {
 				foreach ( $product_ids as $key => $product_id ) {
-					WC_AM_ORDER()->add_new_api_product_orders( $product_id );
+					WC_AM_BACKGROUND_EVENTS()->queue_add_new_api_product_orders( $product_id );
 
 					unset( $key, $product_id );
 				}

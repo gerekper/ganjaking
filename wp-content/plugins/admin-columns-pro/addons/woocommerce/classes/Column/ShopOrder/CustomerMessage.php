@@ -39,7 +39,7 @@ class CustomerMessage extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopOrder\CustomerMessage( $this );
+		return new Export\ShopOrder\CustomerMessage();
 	}
 
 }

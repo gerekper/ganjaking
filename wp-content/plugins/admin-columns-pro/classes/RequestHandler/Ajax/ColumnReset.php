@@ -27,7 +27,7 @@ class ColumnReset implements RequestAjaxHandler {
 		$this->storage_size = $storage_size;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {

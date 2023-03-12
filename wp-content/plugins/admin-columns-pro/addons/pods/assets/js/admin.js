@@ -11,7 +11,7 @@ const isAddonColumn = result => {
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	let icon = aca_pods_admin.assets + 'images/pods.svg';
+	let icon = aca_pods_admin.assets + '/images/pods.svg';
 
 	AC_SERVICES.filters.addFilter( 'column_type_templates', ( value, pl ) => {
 		if ( pl.result.hasOwnProperty( 'id' ) && isAddonColumn( pl.result ) ) {

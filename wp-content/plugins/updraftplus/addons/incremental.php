@@ -74,7 +74,6 @@ class UpdraftPlus_Addons_Incremental {
 		// Check here that the backup set has the incremental set and that there is more than one set as we don't want the incremental backup UI showing for every user backup
 		if (!empty($incremental_sets) && 1 < count($incremental_sets)) {
 
-			// The timestamps here are already in the users local time (they come from the backup filenames) and don't need to be converted again as we will end up displaying the wrong time
 			$latest_increment = key(array_slice($incremental_sets, -1, 1, true));
 
 			if ($latest_increment > $backup_date) {
@@ -83,13 +82,15 @@ class UpdraftPlus_Addons_Incremental {
 
 				foreach ($incremental_sets as $inc_time => $entities) {
 					if ($increment_times) $increment_times .= '; ';
-					$increment_times .= gmdate('M d, Y G:i', $inc_time);
+					// Format the incremental backup time to users local time
+					$formatted_date = get_date_from_gmt(date('M d, Y G:i', $inc_time), 'M d, Y G:i');
+					$increment_times .= $formatted_date;
 				}
 
 				if ($simple_format) {
-					return $date.' '.sprintf(__('(latest increment: %s)', 'updraftplus'), gmdate('M d, Y G:i', $inc_time));
+					return $date.' '.sprintf(__('(latest increment: %s)', 'updraftplus'), $formatted_date);
 				} else {
-					return '<span title="'.sprintf(__('Increments exist at: %s', 'updraftplus'), $increment_times).'">'.$date.'<br>'.sprintf(__('(latest increment: %s)', 'updraftplus'), gmdate('M d, Y G:i', $latest_increment)).'</span>';
+					return '<span title="'.sprintf(__('Increments exist at: %s', 'updraftplus'), $increment_times).'">'.$date.'<br>'.sprintf(__('(latest increment: %s)', 'updraftplus'), $formatted_date).'</span>';
 				}
 			}
 		}

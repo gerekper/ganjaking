@@ -42,7 +42,7 @@ WordPress/Woocommerce plugin for creating Pinterest pins, catalogs and tracking 
 
 ## Legal
 ### Authors
-[Premmerce](https://premmerce.com)
+[Softblues]([https://premmerce.com](https://woocommerce.com/products/softblues-pinterest-for-woocommerce/))
 
 ### License
 This project is licensed under the [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) license.

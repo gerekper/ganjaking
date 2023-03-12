@@ -4,19 +4,14 @@ namespace ACP\QuickAdd\Controller;
 
 use AC;
 use AC\ListScreenRepository\Storage;
+use AC\Registerable;
 use AC\Type\ListScreenId;
 use ACP\QuickAdd\Table;
 
-class AjaxScreenOption implements AC\Registerable {
+class AjaxScreenOption implements Registerable {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
-	/**
-	 * @var Table\Preference\ShowButton
-	 */
 	private $preference_button;
 
 	public function __construct( Storage $storage, Table\Preference\ShowButton $preference_button ) {
@@ -28,7 +23,7 @@ class AjaxScreenOption implements AC\Registerable {
 		$this->get_ajax_handler()->register();
 	}
 
-	protected function get_ajax_handler() {
+	protected function get_ajax_handler(): AC\Ajax\Handler {
 		$handler = new AC\Ajax\Handler();
 		$handler->set_action( 'acp_new_inline_show_button' )
 		        ->set_callback( [ $this, 'update_table_option' ] );
@@ -36,10 +31,10 @@ class AjaxScreenOption implements AC\Registerable {
 		return $handler;
 	}
 
-	public function update_table_option() {
+	public function update_table_option(): void {
 		$this->get_ajax_handler()->verify_request();
 
-		$list_screen = $this->storage->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
+		$list_screen = $this->storage->find_by_user( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ), wp_get_current_user() );
 
 		if ( ! $list_screen ) {
 			exit;

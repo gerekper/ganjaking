@@ -28,18 +28,18 @@ class UpdraftPlusAddOns_Options2 {
 
 		// We are called in admin_menu
 		// $this->options_menu();
-		
+
 		// New actions to output the tab title and content
 // add_action('updraftplus_settings_afternavtabs', array($this, 'settings_afternavtabs'));
 		add_filter('updraftplus_addonstab_content', array($this, 'updraftplus_addonstab_content'));
 		add_filter('updraftplus_com_login_options', array($this, 'updraftplus_com_login_options'));
-		
+
 		add_action('admin_init', array($this, 'show_admin_notices'));
 		add_action('admin_init', array($this, 'options_init'));
 		register_activation_hook(UDADDONS2_SLUG, array($this, 'options_setdefaults'));
 
 		add_filter((is_multisite() ? 'network_admin_' : '').'plugin_action_links', array($this, 'action_links'), 10, 2);
-		
+
 		global $updraftplus_addons2;
 		$this->options = $updraftplus_addons2;
 
@@ -76,7 +76,7 @@ class UpdraftPlusAddOns_Options2 {
 			}
 		}
 	}
-	
+
 	/**
 	 * Echoes a div with a WP dashboard admin message in it
 	 *
@@ -215,7 +215,7 @@ class UpdraftPlusAddOns_Options2 {
 		$mother = $this->mother;
 
 		echo "\t<div class=\"wrap\">\n";
-		
+
 		global $updraftplus_addons2, $updraftplus_admin, $updraftplus;
 
 		$this->connected = !empty($options['email']) ? $updraftplus_addons2->connection_status() : false;
@@ -235,12 +235,12 @@ class UpdraftPlusAddOns_Options2 {
 		if ('updraftplus' != basename(dirname(dirname(__FILE__)))) {
 			echo '<div class="error below-h2" style="font-size: 120%;"><p><strong>'.__('Error', 'updraftplus').':</strong> '.sprintf(__("You have installed this plugin in your plugins folder (%s) with a non-default name %s which is different to %s. This is incompatible with WordPress's updates mechanism; you will not be able to receive updates.", 'updraftplus'), WP_PLUGIN_DIR, '<strong>'.basename(dirname(dirname(__FILE__))).'</strong>', '<strong>updraftplus</strong>').'</p></div>';
 		}
-		
+
 		if ($this->connected) {
 			echo '<div class="notice below-h2"><h3>'.__('You are presently <strong class="success">connected</strong> to an UpdraftPlus.Com account.', 'updraftplus').'</h3>';
 
 			echo '<p>';
-			
+
 			// Not translated; it's only seen in development
 			if (false === strpos($this->mother, '//updraftplus.com')) echo ' <strong>(Updates URL: '.$this->mother.')</strong>.';
 			
@@ -381,7 +381,7 @@ ENDHERE;
 			$file = $updraftplus_addons2->plug_updatechecker->pluginFile;
 			$this->plugin_update_url = wp_nonce_url(self_admin_url('update.php?action=upgrade-plugin&updraftplus_noautobackup=1&plugin=').$file, 'upgrade-plugin_'.$file);
 			$this->update_js = '<script>jQuery(function() { jQuery(\'#updraftaddons_updatewarning\').html(\''.esc_js(__('An update containing your addons is available for UpdraftPlus - please follow this link to get it.', 'updraftplus')).'\') });</script>';
-			
+
 		}
 
 		$first = '';
@@ -431,7 +431,7 @@ ENDHERE;
 
 		echo $first.$second.$third;
 
-echo <<<ENDHERE
+		echo <<<ENDHERE
 		</div>
 ENDHERE;
 
@@ -475,31 +475,31 @@ ENDHERE;
 		}
 		return $normalised_descrip_url;
 	}
-	
+
 	private function addonbox($key, $name, $shopurl, $description, $installedversion, $latestversion = false, $installed = false, $unclaimed = false, $is_assigned = false, $have_all = false) {
 		$urlbase = UPDRAFTPLUS_URL.'/images/addons-images';
 		$mother = $this->mother;
 		if ($installed && ($is_assigned || ($have_all && 'all' != $key))) {
-			$blurb="<p>";
-			$preblurb="<div style=\"float:right;padding-top:10px;\"><img title=\"".__('You\'ve got it', 'updraftplus')."\" src=\"$urlbase/$key.png\" width=\"100\" height=\"100\" alt=\"".__("You've got it", 'updraftplus')."\"></div>";
+			$blurb = "<p>";
+			$preblurb = "<div style=\"float:right;padding-top:10px;\"><img title=\"".__('You\'ve got it', 'updraftplus')."\" src=\"$urlbase/$key.png\" width=\"100\" height=\"100\" alt=\"".__("You've got it", 'updraftplus')."\"></div>";
 			if ('all' != $key) {
 				$blurb .= sprintf(__('Your version: %s', 'updraftplus'), $installedversion);
 				if (!empty($latestversion) && $latestversion == $installedversion) {
 					$blurb .= " (".__('latest', 'updraftplus').')';
 				} elseif (!empty($latestversion) && version_compare($latestversion, $installedversion, '>')) {
-					$blurb .=" (".__('latest', 'updraftplus').": $latestversion - <a href=\"".$this->plugin_update_url."\">update</a>)";
+					$blurb .= " (".__('latest', 'updraftplus').": $latestversion - <a href=\"".$this->plugin_update_url."\">update</a>)";
 				} else {
 					$blurb .= " ".__('(apparently a pre-release or withdrawn release)', 'updraftplus');
 				}
 			}
-			$blurb .="</p>";
+			$blurb .= "</p>";
 		} else {
 			if ($have_all && 'all' != $key) {
-				$blurb='<p><strong>'.__('Available for this site (via your all-addons purchase)', 'updraftplus').' - <a href="'.$this->plugin_update_url.'">'.__('please follow this link to update the plugin in order to get it', 'updraftplus').'</a></strong></p>';
-				$preblurb="";
+				$blurb = '<p><strong>'.__('Available for this site (via your all-addons purchase)', 'updraftplus').' - <a href="'.$this->plugin_update_url.'">'.__('please follow this link to update the plugin in order to get it', 'updraftplus').'</a></strong></p>';
+				$preblurb = "<div style=\"border: 2px solid #189c5f;padding: 10px;width: 72px;height: 72px;border-radius: 5px;position: relative;background: #1a9c5e0f;\"><img style=\"-webkit-filter: grayscale(100%);filter: grayscale(100%);width: 56px;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);\" src=\"$urlbase/$key.png\"></div>";
 			} elseif ($is_assigned) {
-				$blurb='<p><strong>'.__('Assigned to this site', 'updraftplus').' - <a href="'.$this->plugin_update_url.'">'.__('please  follow this link to update the plugin in order to activate it', 'updraftplus').'</a></strong></p>';
-				$preblurb="";
+				$blurb = '<p><strong>'.__('Assigned to this site', 'updraftplus').' - <a href="'.$this->plugin_update_url.'">'.__('please  follow this link to update the plugin in order to activate it', 'updraftplus').'</a></strong></p>';
+				$preblurb = "<div style=\"border: 2px solid #189c5f;padding: 10px;width: 72px;height: 72px;border-radius: 5px;position: relative;background: #1a9c5e0f;\"><img style=\"-webkit-filter: grayscale(100%);filter: grayscale(100%);width: 56px;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);\" src=\"$urlbase/$key.png\"></div>";
 			} elseif (is_array($unclaimed)) {
 				// Keys: eid = unique ID, status = available|reclaimable
 				// Value of $unclaimed is a unique id, though we won't particularly use it
@@ -508,19 +508,16 @@ ENDHERE;
 				} else {
 					$blurb ='<p><strong>'.__('You have an inactive purchase', 'updraftplus').' - <a href="#" onclick="return udm_claim(\''.$key.'\');">'.__('activate it on this site', 'updraftplus').'</a></strong></p>';
 				}
-					$preblurb ="";
+				$preblurb = "<div style=\"border: 2px solid #189c5f;padding: 10px;width: 72px;height: 72px;border-radius: 5px;position: relative;background: #1a9c5e0f;\"><img style=\"-webkit-filter: grayscale(100%);filter: grayscale(100%);width: 56px;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);\" src=\"$urlbase/$key.png\"></div>";
 			} else {
-				$blurb='<p><a aria-label="'.sprintf(__('Get %s from the UpdraftPlus.com Store', 'updraftplus'), $name).(($this->connected) ? '' : ' '.__('(or connect using the form on this page if you have already purchased it)', 'updraftplus')).'" target="_blank" href="'.$mother.$shopurl.'">'.__('Get it from the UpdraftPlus.Com Store', 'updraftplus').'</a>'.(($this->connected) ? '' : ' '.__('(or connect using the form on this page if you have already purchased it)', 'updraftplus')).'</p>';
-				$preblurb="<div style=\"float:right;padding-top:10px;\"><a href=\"${mother}${shopurl}\" title=\"".sprintf(__('Buy %s', 'updraftplus'), $name)."\"><img style=\"-webkit-filter: grayscale(100%);filter: grayscale(100%);\" src=\"$urlbase/$key.png\" width=\"100\" height=\"100\" alt=\"".__('Buy It', 'updraftplus')."\"></a></div>";
+				$blurb = '<p><a aria-label="'.sprintf(__('Get %s from the UpdraftPlus.com Store', 'updraftplus'), $name).(($this->connected) ? '' : ' '.__('(or connect using the form on this page if you have already purchased it)', 'updraftplus')).'" target="_blank" href="'.$mother.$shopurl.'">'.__('Get it from the UpdraftPlus.Com Store', 'updraftplus').'</a>'.(($this->connected) ? '' : ' '.__('(or connect using the form on this page if you have already purchased it)', 'updraftplus')).'</p>';
+				$preblurb = "<div style=\"border: 2px solid #8c8c8c;padding: 10px;width: 72px;height: 72px;border-radius: 5px;position: relative;background: #8c8c8c0f;\"><a href=\"".$mother.$shopurl."\" title=\"".sprintf(__('Buy %s', 'updraftplus'), $name)."\"><img style=\"-webkit-filter: grayscale(100%);filter: grayscale(100%);width: 56px;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);\" src=\"$urlbase/$key.png\" alt=\"".__('Buy It', 'updraftplus')."\"></a></div>";
 			}
 		}
 		return <<<ENDHERE
-			<div id="addon-$key" style="border: 1px solid; border-radius: 4px; padding: 0px 12px 0px; min-height: 110px; width: 680px; margin-bottom: 16px; background-color:#fff;">
-			$preblurb
-			<div style="width: 580px;"><h2 style="">$name</h2>
-			$description<br>
-			$blurb
-			</div>
+			<div id="addon-$key" style="border: 1px solid #d0d0d0;border-radius: 5px;padding: 12px;max-width: 680px;margin-bottom: 22px;background-color:#fff;box-shadow: 0 0 20px 5px rgb(0 0 0 / 7%);display: flex;justify-content: space-between;align-items: center;">
+				<div style="max-width: 80%;"><h2 style="">$name</h2><p>$description</p>$blurb</div>
+				$preblurb
 			</div>
 ENDHERE;
 	}

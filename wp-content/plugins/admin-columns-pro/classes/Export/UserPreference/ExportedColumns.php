@@ -4,6 +4,7 @@ namespace ACP\Export\UserPreference;
 
 use AC\Preferences\Site;
 use AC\Type\ListScreenId;
+use LogicException;
 
 class ExportedColumns {
 
@@ -16,10 +17,18 @@ class ExportedColumns {
 		$this->user_preference = new Site( 'export_columns' );
 	}
 
-	public function save( ListScreenId $id, array $column_names ): void {
+	private function validate_item( array $column_state ): void {
+		if ( ! isset( $column_state['column_name'], $column_state['active'] ) ) {
+			throw new LogicException( 'Invalid  item.' );
+		}
+	}
+
+	public function save( ListScreenId $id, array $column_states ): void {
+		array_map( [ $this, 'validate_item' ], $column_states );
+
 		$this->user_preference->set(
 			$id->get_id(),
-			$column_names
+			$column_states
 		);
 	}
 

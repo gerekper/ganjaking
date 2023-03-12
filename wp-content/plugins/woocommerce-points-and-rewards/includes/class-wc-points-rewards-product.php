@@ -150,6 +150,10 @@ class WC_Points_Rewards_Product {
 	 * Create the "Earn up to X" message
 	 *
 	 * @since 1.2.6
+	 *
+	 * @param float $points The number of points that can be earned.
+	 *
+	 * @return string The <p> element with the "Earn up to X" message.
 	 */
 	public function create_variation_message_to_product_summary( $points ) {
 		global $wc_points_rewards;
@@ -163,7 +167,15 @@ class WC_Points_Rewards_Product {
 
 		}
 
-		$message = '<p class="points">' . $message . '</p>';
+		/**
+		 * Modify the extra classes added to the p.points element
+		 *
+		 * @since 1.7.28
+		 * @param string classes classes to add to the p.points element (default "hide-on-price-available")
+		 */
+		$extra_class = apply_filters( 'wc_points_rewards_variable_product_earn_up_to_class', 'hide-on-price-available' );
+
+		$message = '<p class="points ' . esc_attr( $extra_class ) . '">' . $message . '</p>';
 		return $message;
 	}
 

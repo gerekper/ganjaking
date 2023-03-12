@@ -40,7 +40,7 @@ class Usage extends AC\Column\Meta
 	}
 
 	public function export() {
-		return new Export\ShopCoupon\Usage( $this );
+		return new Export\ShopCoupon\Usage();
 	}
 
 }

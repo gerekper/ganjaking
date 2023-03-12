@@ -5,21 +5,21 @@
  * Description: Allow customers to buy a subscription product for someone else, then share subscription management between the purchaser and recipient.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 2.5.1
+ * Version: 2.6.0
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text-Domain: woocommerce-subscriptions-gifting
  * Domain Path: /languages
- * Tested up to: 6.0
+ * Tested up to: 6.1
  *
  * Woo: 2866545:ac28f8f74457de42a18d32c3ec48b272
  * WC requires at least: 3.0
- * WC tested up to: 4.8
+ * WC tested up to: 7.4
  *
  * GitHub Plugin URI: woocommerce/woocommerce-subscriptions-gifting
  * GitHub Branch: trunk
  *
- * Copyright: © 2022 WooCommerce
+ * Copyright: © 2023 WooCommerce
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,6 +42,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+// Declare plugin incompatibility with WooCommerce HPOS.
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
+
 /**
  * Main class.
  */
@@ -59,7 +69,7 @@ class WCS_Gifting {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.5.1';
+	public static $version = '2.6.0'; // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Minimum WooCommerce version required.
@@ -100,10 +110,26 @@ class WCS_Gifting {
 
 		add_filter( 'woocommerce_get_formatted_subscription_total', __CLASS__ . '::get_formatted_recipient_total', 10, 2 );
 
-		add_filter( 'wcs_renewal_order_meta_query', __CLASS__ . '::remove_renewal_order_meta_query', 11 );
+		if ( ! class_exists( 'WC_Subscriptions_Data_Copier' ) ) {
+			add_filter( 'wcs_renewal_order_meta_query', __CLASS__ . '::remove_renewal_order_meta_query', 11 );
+		} else {
+			add_filter( 'wc_subscriptions_renewal_order_data', __CLASS__ . '::remove_renewal_order_meta', 11 );
+		}
 
 		// Handle "_is_gifted_subscription" argument in wc_get_orders().
 		add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( __CLASS__, 'handle_is_gifted_subscription_query_var' ), 10, 2 );
+	}
+
+	/**
+	 * Don't carry the _recipient_user meta data to renewal orders.
+	 *
+	 * @param array $order_meta Renewal order meta.
+	 *
+	 * @return array
+	 */
+	public static function remove_renewal_order_meta( $order_meta ) {
+		unset( $order_meta['_recipient_user'] );
+		return $order_meta;
 	}
 
 	/**
@@ -684,26 +710,13 @@ class WCS_Gifting {
 	 * @param int             $meta_id      The meta ID of existing meta data if you wish to overwrite an existing recipient meta value.
 	 */
 	public static function set_recipient_user( &$subscription, $user_id, $save = 'save', $meta_id = '' ) {
-		$current_user_id = absint( self::get_recipient_user( $subscription ) );
-
-		if ( function_exists( 'wcs_set_objects_property' ) && false === wcsg_is_woocommerce_pre( '3.0' ) ) { // Subscriptions 2.2.0+.
-
-			wcs_set_objects_property( $subscription, 'recipient_user', $user_id, $save, $meta_id );
-
-		} else {
-
-			$subscription->recipient_user = $user_id;
-
-			if ( 'save' === $save ) {
-				if ( ! empty( $meta_id ) ) {
-					update_metadata_by_mid( 'post', $meta_id, $user_id, '_recipient_user' );
-				} else {
-					update_post_meta( $subscription->id, '_recipient_user', $user_id );
-				}
-			}
-		}
+		$current_user_id              = absint( self::get_recipient_user( $subscription ) );
+		$subscription->recipient_user = $user_id;
 
 		if ( 'save' === $save ) {
+			$subscription->update_meta_data( '_recipient_user', $user_id, $meta_id );
+			$subscription->save();
+
 			do_action( 'woocommerce_subscriptions_gifting_recipient_changed', $subscription, $user_id, $current_user_id );
 		}
 	}
@@ -716,23 +729,17 @@ class WCS_Gifting {
 	 * @param int             $meta_id      The meta ID of existing recipient meta data if you wish to only delete a field specified by ID.
 	 */
 	public static function delete_recipient_user( &$subscription, $save = 'save', $meta_id = '' ) {
+		unset( $subscription->recipient_user );
 
-		if ( function_exists( 'wcs_delete_objects_property' ) && false === wcsg_is_woocommerce_pre( '3.0' ) ) { // Subscriptions 2.2.0+ and WC 3.0+.
-
-			wcs_delete_objects_property( $subscription, 'recipient_user', $save, $meta_id );
-
-		} else {
-
-			unset( $subscription->recipient_user );
-
-			// Save the data.
-			if ( 'save' === $save ) {
-				if ( ! empty( $meta_id ) ) {
-					delete_metadata_by_mid( 'post', $meta_id );
-				} else {
-					delete_post_meta( $subscription->id, '_recipient_user' );
-				}
+		// Save the data.
+		if ( 'save' === $save ) {
+			if ( ! empty( $meta_id ) ) {
+				$subscription->delete_meta_data_by_mid( $meta_id );
+			} else {
+				$subscription->delete_meta_data( '_recipient_user' );
 			}
+
+			$subscription->save();
 		}
 	}
 
@@ -742,7 +749,8 @@ class WCS_Gifting {
 	 * @see wc_get_orders()
 	 *
 	 * @param array $args Custom args for query, excluding 'type' and custom var 'is_gifted_subscription'.
-	 * @return stdClass|WC_Order[]|int[]
+	 *
+	 * @return WC_Order[]
 	 *
 	 * @since 2.0.3
 	 */
@@ -757,7 +765,19 @@ class WCS_Gifting {
 			)
 		);
 
-		$query_args['type']                   = 'shop_subscription';
+		$query_args['type'] = 'shop_subscription';
+
+		if ( function_exists( 'wcs_get_orders_with_meta_query' ) ) {
+			$query_args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'     => '_recipient_user',
+					'compare' => 'EXISTS',
+				),
+			);
+
+			return wcs_get_orders_with_meta_query( $query_args );
+		}
+
 		$query_args['is_gifted_subscription'] = true;
 
 		return wc_get_orders( $query_args );
@@ -803,15 +823,29 @@ class WCS_Gifting {
 	public static function get_gifted_subscriptions_count() {
 		global $wpdb;
 
-		$total = $wpdb->get_var(
-			"SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-			WHERE p.post_type = 'shop_subscription'
-			AND p.post_status NOT IN ( 'auto-draft', 'trash' )
-			AND pm.meta_key = '_recipient_user'"
-		);
+		if ( function_exists( 'wcs_is_custom_order_tables_usage_enabled' ) && wcs_is_custom_order_tables_usage_enabled() ) {
+			$count = $wpdb->get_var(
+				"
+				SELECT COUNT(DISTINCT o.id) FROM {$wpdb->prefix}wc_orders o
+				INNER JOIN {$wpdb->prefix}wc_orders_meta om ON (o.id = om.order_id)
+				WHERE o.type = 'shop_subscription'
+				AND o.status NOT IN ( 'auto-draft', 'trash' )
+				AND om.meta_key = '_recipient_user'
+				"
+			);
+		} else {
+			$count = $wpdb->get_var(
+				"
+				SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
+				WHERE p.post_type = 'shop_subscription'
+				AND p.post_status NOT IN ( 'auto-draft', 'trash' )
+				AND pm.meta_key = '_recipient_user'
+				"
+			);
+		}
 
-		return intval( $total );
+		return absint( $count );
 	}
 
 	/**

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace ACP\ListScreenRepository;
 
 use AC;
@@ -7,6 +9,9 @@ use AC\Exception\MissingListScreenIdException;
 use AC\Exception\SourceNotAvailableException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository\Filter;
+use AC\ListScreenRepository\ListScreenPermissionTrait;
+use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\SourceAware;
 use AC\OpCacheInvalidateTrait;
 use AC\Type\ListScreenId;
@@ -20,10 +25,12 @@ use ACP\Storage\ListScreen\Serializer;
 use ACP\Storage\ListScreen\Unserializer;
 use LogicException;
 use SplFileInfo;
+use WP_User;
 
 final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 
 	use OpCacheInvalidateTrait;
+	use ListScreenPermissionTrait;
 
 	/**
 	 * @var Directory
@@ -55,15 +62,14 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 	 */
 	private $serializer;
 
-	/**
-	 * @param Directory         $directory
-	 * @param string            $extension
-	 * @param Encoder           $encoder
-	 * @param DecoderFactory    $decoder_factory
-	 * @param Serializer        $serializer
-	 * @param Unserializer|null $unserializer
-	 */
-	public function __construct( Directory $directory, $extension, Encoder $encoder, DecoderFactory $decoder_factory, Serializer $serializer, Unserializer $unserializer = null ) {
+	public function __construct(
+		Directory $directory,
+		string $extension,
+		Encoder $encoder,
+		DecoderFactory $decoder_factory,
+		Serializer $serializer,
+		Unserializer $unserializer = null
+	) {
 		$this->directory = $directory;
 		$this->extension = $extension;
 		$this->encoder = $encoder;
@@ -74,47 +80,51 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 		$this->validate();
 	}
 
-	private function validate() {
+	private function validate(): void {
 		if ( $this->extension !== null && ! preg_match( '/^[a-z0-9]{2,4}$/', $this->extension ) ) {
 			throw new LogicException( 'Invalid extension found.' );
 		}
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return ListScreen|null
-	 */
-	public function find( ListScreenId $id ) {
-		foreach ( $this->find_all() as $list_screen ) {
-			if ( $id->equals( $list_screen->get_id() ) ) {
-				return $list_screen;
-			}
-		}
+	public function find_all( Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->find_all_from_files();
 
-		return null;
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return bool
-	 */
-	public function exists( ListScreenId $id ) {
-		foreach ( $this->find_all() as $list_screen ) {
-			if ( $id->equals( $list_screen->get_id() ) ) {
-				return true;
-			}
-		}
+	public function find( ListScreenId $id ): ?ListScreen {
+		$list_screens = ( new Filter\ListId( $id ) )->filter(
+			$this->find_all_from_files()
+		);
 
-		return false;
+		return $list_screens->get_first() ?: null;
 	}
 
-	public function find_all( array $args = [] ) {
-		$args = array_merge( [
-			self::KEY => null,
-		], $args );
+	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
+		$list_screen = $this->find( $id );
 
+		return $list_screen && $this->user_can_view_list_screen( $list_screen, $user )
+			? $list_screen
+			: null;
+	}
+
+	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection {
+		$list_screens = ( new Filter\ListKey( $key ) )->filter(
+			$this->find_all_from_files()
+		);
+
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
+	}
+
+	public function exists( ListScreenId $id ): bool {
+		return null !== $this->find( $id );
+	}
+
+	private function find_all_from_files(): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->get_files() as $file ) {
@@ -134,20 +144,19 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 
 			$list_screen = $decoder->decode( $encoded_list_screen );
 
-			if ( $args[ self::KEY ] && $list_screen->get_key() !== $args[ self::KEY ] ) {
-				continue;
-			}
-
 			$list_screens->add( $list_screen );
 		}
 
 		return $list_screens;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function save( ListScreen $list_screen ) {
+	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->find_all_by_key( $key, $sort );
+
+		return ( new Filter\User( $user ) )->filter( $list_screens );
+	}
+
+	public function save( ListScreen $list_screen ): void {
 		if ( ! $this->directory->exists() ) {
 			$this->directory->create();
 		}
@@ -177,10 +186,7 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 		$this->opcache_invalidate( $file );
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function delete( ListScreen $list_screen ) {
+	public function delete( ListScreen $list_screen ): void {
 		$file = $this->create_file_name(
 			$this->directory->get_path(),
 			$list_screen->get_id()
@@ -199,7 +205,7 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 	 * Get all files and do superficial checks on them
 	 * @return SplFileInfo[]
 	 */
-	private function get_files() {
+	private function get_files(): array {
 		$files = [];
 
 		if ( $this->directory->is_readable() ) {
@@ -219,24 +225,15 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 		return $files;
 	}
 
-	/**
-	 * @param string       $path
-	 * @param ListScreenId $id
-	 *
-	 * @return string
-	 */
-	private function create_file_name( $path, ListScreenId $id ) {
+	private function create_file_name( string $path, ListScreenId $id ): string {
 		return sprintf( '%s/%s.%s', $path, $id->get_id(), $this->extension );
 	}
 
-	/**
-	 * @return Directory
-	 */
-	public function get_directory() {
+	public function get_directory(): Directory {
 		return $this->directory;
 	}
 
-	public function get_source( ListScreenId $id ) {
+	public function get_source( ListScreenId $id ): string {
 		if ( ! $this->has_source( $id ) ) {
 			throw new SourceNotAvailableException();
 		}
@@ -247,7 +244,8 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 		);
 	}
 
-	public function has_source( ListScreenId $id ) {
+	public function has_source( ListScreenId $id ): bool {
 		return $this->exists( $id );
 	}
+
 }

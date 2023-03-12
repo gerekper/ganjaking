@@ -94,21 +94,22 @@ class VI_WNOTIFICATION_Data {
 			//new option
 			'change_virtual_time_enable'     => '',
 			'change_message_number_enable'   => '',
-			'product_visibility'   => array('visible','catalog','search'),
-			'enable_current_category'   =>0,
+			'product_visibility'             => array( 'visible', 'catalog', 'search' ),
+			'enable_current_category'        => 0,
+			'name_by_country'                => [],
 		);
 		$this->params = apply_filters( 'woonotification_settings_args', wp_parse_args( $this->params, $args ) );
 	}
 
-    public function get_params( $name = "" ) {
-        if ( ! $name ) {
-            return $this->params;
-        } elseif ( isset( $this->params[ $name ] ) ) {
-            return apply_filters( 'woonotification_' . $name, $this->params[ $name ] );
-        } else {
-            return false;
-        }
-    }
+	public function get_params( $name = "" ) {
+		if ( ! $name ) {
+			return $this->params;
+		} elseif ( isset( $this->params[ $name ] ) ) {
+			return apply_filters( 'woonotification_' . $name, $this->params[ $name ] );
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * @return mixed|void
@@ -343,7 +344,7 @@ class VI_WNOTIFICATION_Data {
 			if ( isset( $this->params[ 'custom_shortcode_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_custom_shortcode_' . $current_lang, $this->params[ 'custom_shortcode_' . $current_lang ] );
 			}
-		}elseif ( class_exists( 'Polylang' ) ) {
+		} elseif ( class_exists( 'Polylang' ) ) {
 			$current_lang = pll_current_language( 'slug' );
 			if ( isset( $this->params[ 'message_purchased_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_message_purchased_' . $current_lang, $this->params[ 'message_purchased_' . $current_lang ] );
@@ -459,7 +460,7 @@ class VI_WNOTIFICATION_Data {
 			if ( isset( $this->params[ 'virtual_name_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_virtual_name_' . $current_lang, $this->params[ 'virtual_name_' . $current_lang ] );
 			}
-		}elseif ( class_exists( 'Polylang' ) ) {
+		} elseif ( class_exists( 'Polylang' ) ) {
 			$current_lang = pll_current_language( 'slug' );
 			if ( isset( $this->params[ 'message_purchased_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_message_purchased_' . $current_lang, $this->params[ 'message_purchased_' . $current_lang ] );
@@ -487,7 +488,7 @@ class VI_WNOTIFICATION_Data {
 			if ( isset( $this->params[ 'virtual_city_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_virtual_city_' . $current_lang, $this->params[ 'virtual_city_' . $current_lang ] );
 			}
-		}elseif ( class_exists( 'Polylang' ) ) {
+		} elseif ( class_exists( 'Polylang' ) ) {
 			$current_lang = pll_current_language( 'slug' );
 			if ( isset( $this->params[ 'message_purchased_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_message_purchased_' . $current_lang, $this->params[ 'message_purchased_' . $current_lang ] );
@@ -507,7 +508,7 @@ class VI_WNOTIFICATION_Data {
 			if ( isset( $this->params[ 'virtual_country_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_virtual_country_' . $current_lang, $this->params[ 'virtual_country_' . $current_lang ] );
 			}
-		}elseif ( class_exists( 'Polylang' ) ) {
+		} elseif ( class_exists( 'Polylang' ) ) {
 			$current_lang = pll_current_language( 'slug' );
 			if ( isset( $this->params[ 'message_purchased_' . $current_lang ] ) ) {
 				return apply_filters( 'woonotification_get_message_purchased_' . $current_lang, $this->params[ 'message_purchased_' . $current_lang ] );
@@ -559,7 +560,7 @@ class VI_WNOTIFICATION_Data {
 	 * @return mixed|void
 	 */
 	public function show_variation() {
-		return apply_filters( 'woonotification_show_variation', $this->params['show_variation'] ??'' );
+		return apply_filters( 'woonotification_show_variation', $this->params['show_variation'] ?? '' );
 	}
 
 	/**

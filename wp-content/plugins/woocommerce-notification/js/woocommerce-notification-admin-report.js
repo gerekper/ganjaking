@@ -1,16 +1,17 @@
-'use strict';
-jQuery(document).ready(function () {
-	if (jQuery('.datepicker').length > 0) {
-		jQuery('.datepicker').datepicker({
+jQuery(document).ready(function ($) {
+	'use strict';
+
+	if ($('.datepicker').length > 0) {
+		$('.datepicker').datepicker({
 			inline         : true,
 			showOtherMonths: true,
 			maxDate        : '0'
 		}).datepicker('widget').wrap('<div class="ll-skin-latoja"/>');
 
 	}
-	if (jQuery('#myChart').length) {
-		var ctx = jQuery("#myChart");
-		var data = {
+	if ($('#myChart').length) {
+		let ctx = document.getElementById('myChart').getContext('2d');
+		let data = {
 			labels  : woo_notification_labels,
 			datasets: [
 				{
@@ -37,7 +38,8 @@ jQuery(document).ready(function () {
 			]
 
 		};
-		var myLineChart = new Chart(ctx, {
+
+		let myLineChart = new Chart(ctx, {
 			type: 'line',
 			data: data
 		});

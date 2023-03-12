@@ -1,5 +1,19 @@
 *** WooCommerce Subscriptions Gifting Changelog ***
 
+2023-03-07 - version 2.6.0
+ * Add: Declare compatibility with WooCommerce High-Performance Order Storage (HPOS). #418
+ * Fix: Purchasing a gift subscription via the checkout on stores that have HPOS enabled. #426
+ * Fix: Display the Subscriptions list table filter to filter by gifted and non-gifted subscriptions when HPOS is enabled. #428
+ * Fix: Filter the Subscription list table when the gifting filter is used on stores with HPOS enabled. #428
+ * Fix: Show the correct number of gifted subscriptions in the system status report when HPOS is enabled. #430
+ * Fix: Empty edit subscriptions link on the Subscriptions list table when HPOS is enabled. #431
+ * Fix: Grant view_order permissions to recipients when HPOS is enabled. #431
+ * Fix: Save and update the recipients address on the subscription when HPOS is enabled. #433
+ * Dev: Update `get_recipient_subscriptions()` to replace `get_posts()` with `wcs_get_subscriptions()`. #426
+ * Dev: Update `set_recipient_user()` and `delete_recipient_user` to use WC CRUD methods. #426
+ * Dev: Fixes deprecation warnings on the latest Subscriptions version. #431
+ * Dev: Update `$post->post_type` code to use subscriptions data store functions. #431
+
 2022-09-08 - version 2.5.1
  * Fix: Remove redundant password fields in new recipient account form. PR #414
  * Dev: Document supported versions of nodejs & npm. PR #412

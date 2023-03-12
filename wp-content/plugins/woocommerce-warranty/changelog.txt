@@ -1,5 +1,8 @@
-*** Warranty Requests Changelog ***		       	 	 	   
-	      	   	      	 	      
+*** Warranty Requests Changelog ***
+
+2023-03-08 - version 2.1.5
+* Fix    - Ensure product variables are WC_Product instances before calling get_meta().
+
 2023-02-14 - version 2.1.4
 * Fix    - Return Stock action doesn't return stock.
 

@@ -110,7 +110,7 @@ final class Storage implements Registerable {
 				SerializerTypes::PHP,
 				$directory
 			),
-			apply_filters( 'acp/storage/file/directory/writable', true )
+			(bool) apply_filters( 'acp/storage/file/directory/writable', true )
 		);
 
 		$repositories['acp-file'] = $file;

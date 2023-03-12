@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_API_Resource_Data_Store {
 
+	private $api_resource_table   = '';
+	private $api_activation_table = '';
 	/**
 	 * @var null
 	 */
@@ -32,7 +34,11 @@ class WC_AM_API_Resource_Data_Store {
 		return self::$_instance;
 	}
 
-	private function __construct() { }
+	private function __construct() {
+		// Background API Resource cleanup.
+		$this->api_resource_table   = WC_AM_USER()->get_api_resource_table_name();
+		$this->api_activation_table = WC_AM_USER()->get_api_activation_table_name();
+	}
 
 	/**
 	 * Return all API resource order item rows matching the order_id.
@@ -52,7 +58,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE order_id = %d
 				ORDER BY product_title
 			";
@@ -76,7 +82,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE order_id = %d
 						ORDER BY product_title
 					";
@@ -121,7 +127,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE order_id = %d
 				AND order_item_id > 0
 			";
@@ -145,7 +151,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE order_id = %d
 						AND order_item_id > 0
 					";
@@ -190,7 +196,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE sub_parent_id = %d
 			";
 
@@ -213,7 +219,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE sub_parent_id = %d
 					";
 
@@ -257,7 +263,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE user_id = %d
 			";
 
@@ -280,7 +286,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE user_id = %d
 					";
 
@@ -324,7 +330,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE user_id = %d
 				ORDER BY product_title
 			";
@@ -348,7 +354,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE user_id = %d
 						ORDER BY product_title
 					";
@@ -393,7 +399,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE master_api_key = %s
 			";
 
@@ -416,7 +422,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE master_api_key = %s
 					";
 
@@ -460,7 +466,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE master_api_key = %s
 				OR product_order_api_key = %s
 				ORDER BY product_id
@@ -482,7 +488,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE master_api_key = %s
 						OR product_order_api_key = %s
 						ORDER BY product_id
@@ -530,7 +536,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( ! WCAM()->get_db_cache() ) {
 			$sql = "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE product_order_api_key = %s
 				AND product_id = %d
 			";
@@ -554,7 +560,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( $resources_sql_trans === false ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE product_order_api_key = %s
 						AND product_id = %d
 					";
@@ -598,7 +604,7 @@ class WC_AM_API_Resource_Data_Store {
 
 			$sql = "
 				SELECT product_id
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE master_api_key = %s
 				OR product_order_api_key = %s
 			";
@@ -609,13 +615,93 @@ class WC_AM_API_Resource_Data_Store {
 			if ( empty( $product_ids ) ) {
 				$product_ids = $wpdb->get_col( $wpdb->prepare( "
 	                SELECT product_id
-	                FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+	                FROM {$wpdb->prefix}" . $this->api_resource_table . "
 	                WHERE api_resource_id = %d
 	                LIMIT 1
 		        ", WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->get_api_resource_id_by_associated_api_key( $api_key ) ) );
 			}
 
 			return $product_ids ? $product_ids : false;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return the product order api key.
+	 *
+	 * @since 2.0
+	 *
+	 * @param int $order_id
+	 * @param int $product_id
+	 *
+	 * @return bool|null|string
+	 */
+	public function get_api_resource_product_order_api_key( $order_id, $product_id ) {
+		if ( $order_id && $product_id ) {
+			global $wpdb;
+
+			$api_key = $wpdb->get_var( $wpdb->prepare( "
+				SELECT product_order_api_key
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
+				WHERE order_id = %d
+				AND product_id = %d
+				LIMIT 1
+			", $order_id, $product_id ) );
+
+			return $api_key ? (string) $api_key : false;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return the Parent ID of the Product ID.
+	 *
+	 * @since 2.0
+	 *
+	 * @param int $product_id
+	 *
+	 * @return bool|null|string
+	 */
+	public function get_api_resource_parent_id( $product_id ) {
+		if ( ! empty( $product_id ) ) {
+			global $wpdb;
+
+			$parent_id = $wpdb->get_var( $wpdb->prepare( "
+				SELECT 		parent_id
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
+				WHERE 		product_id = %d
+			", $product_id ) );
+
+			return ! empty( $parent_id ) ? (int) $parent_id : false;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return the API Resource ID.
+	 *
+	 * @since 2.0
+	 *
+	 * @param int $order_id
+	 * @param int $product_id
+	 *
+	 * @return bool|null|string
+	 */
+	public function get_api_resource_id_by_order_id_and_product_id( $order_id, $product_id ) {
+		if ( ! empty( $product_id ) ) {
+			global $wpdb;
+
+			$api_resource_id = $wpdb->get_var( $wpdb->prepare( "
+				SELECT 		api_resource_id
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
+				WHERE 		product_id = %d
+				AND 		order_id = %d
+			", $product_id, $order_id ) );
+
+			return ! empty( $api_resource_id ) ? (int) $api_resource_id : false;
 		}
 
 		return false;
@@ -629,7 +715,7 @@ class WC_AM_API_Resource_Data_Store {
 	 * @param string     $api_key    A Master API Key, a Product Order API Key, or an Associated API Key.
 	 * @param string|int $product_id String (Title) for pre 2.0, or an integer for post 2.0.
 	 *
-	 * @return array|bool
+	 * @return array
 	 * @throws \Exception
 	 */
 	public function get_api_resources_for_api_key_by_product_id( $api_key, $product_id ) {
@@ -659,7 +745,7 @@ class WC_AM_API_Resource_Data_Store {
 			if ( is_numeric( $product_id ) ) {
 				$sql = "
 					SELECT *
-					FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+					FROM {$wpdb->prefix}" . $this->api_resource_table . "
 					WHERE ( master_api_key = %s OR product_order_api_key = %s )
 					AND product_id = %d
 				";
@@ -671,16 +757,14 @@ class WC_AM_API_Resource_Data_Store {
 				if ( empty( $resources ) ) {
 					$resources = $wpdb->get_results( $wpdb->prepare( "
 		                SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE api_resource_id = %d
 						AND product_id = %d
 		            ", WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->get_api_resource_id_by_associated_api_key( $api_key ), $product_id ) );
 				}
 
 				// Only return the active API resources.
-				$resources = $this->get_active_resources( $resources );
-
-				return ! empty( $resources ) ? $resources : false;
+				return $this->get_active_resources( $resources );
 			} elseif ( ! empty( $ids ) && is_array( $ids ) ) {
 				// A product ID string was passed in. WooCommerce API Manager < 2.0, and API Manager PHP Library <= 1.2.
 
@@ -690,7 +774,7 @@ class WC_AM_API_Resource_Data_Store {
 				foreach ( $ids as $product_id ) {
 					$sql = "
 						SELECT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE master_api_key = %s
 					";
 
@@ -711,7 +795,7 @@ class WC_AM_API_Resource_Data_Store {
 				// Only return the active API resources.
 				$resources = $this->get_active_resources( $resources );
 
-				if ( $resources ) {
+				if ( ! WC_AM_FORMAT()->empty( $resources ) ) {
 					return $resources;
 				}
 
@@ -721,7 +805,7 @@ class WC_AM_API_Resource_Data_Store {
 				foreach ( $ids as $product_id ) {
 					$sql = "
 						SELECT DISTINCT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE product_order_api_key = %s
 					";
 
@@ -739,7 +823,7 @@ class WC_AM_API_Resource_Data_Store {
 				// Only return the active API resources.
 				$resources = $this->get_active_resources( $resources );
 
-				if ( $resources ) {
+				if ( ! WC_AM_FORMAT()->empty( $resources ) ) {
 					return $resources;
 				}
 
@@ -749,7 +833,7 @@ class WC_AM_API_Resource_Data_Store {
 				foreach ( $ids as $product_id ) {
 					$sql = "
 						SELECT DISTINCT *
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE api_resource_id = %d
 					";
 
@@ -767,93 +851,50 @@ class WC_AM_API_Resource_Data_Store {
 				// Only return the active API resources.
 				$resources = $this->get_active_resources( $resources );
 
-				if ( $resources ) {
+				if ( ! WC_AM_FORMAT()->empty( $resources ) ) {
 					return $resources;
 				}
 			}
 		}
 
-		return false;
+		return array();
 	}
 
 	/**
-	 * Return the product order api key.
+	 * Returns the original array with non-active API resources removed,
+	 * and only resources that match the product ID (integer) provided.
 	 *
 	 * @since 2.0
 	 *
-	 * @param int $order_id
+	 * @param int $user_id
 	 * @param int $product_id
 	 *
-	 * @return bool|null|string
+	 * @return array
+	 * @throws \Exception
 	 */
-	public function get_api_resource_product_order_api_key( $order_id, $product_id ) {
-		if ( $order_id && $product_id ) {
-			global $wpdb;
-
-			$api_key = $wpdb->get_var( $wpdb->prepare( "
-				SELECT product_order_api_key
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
-				WHERE order_id = %d
-				AND product_id = %d
-				LIMIT 1
-			", $order_id, $product_id ) );
-
-			return $api_key ? (string) $api_key : false;
-		}
-
-		return false;
+	public function get_active_api_resources_for_user_id_by_product_id_int( $user_id, $product_id ) {
+		return $this->get_active_api_resources_by_product_id( $this->get_api_resources_for_user_id( $user_id ), $product_id );
 	}
 
 	/**
-	 * Return the Parent ID of the Product ID.
+	 * Returns an array of active API resources.
 	 *
 	 * @since 2.0
 	 *
-	 * @param int $product_id
+	 * @param string     $api_key    Master API Key, or a Product Order API Key.
+	 * @param string|int $product_id String (Pre 2.0 Title), or an integer (Post 2.0 Integer).
 	 *
-	 * @return bool|null|string
+	 * @return array|bool
+	 * @throws \Exception
 	 */
-	public function get_api_resource_parent_id( $product_id ) {
-		if ( ! empty( $product_id ) ) {
-			global $wpdb;
+	public function get_active_api_resources( $api_key, $product_id ) {
+		$resources = $this->get_api_resources_for_api_key_by_product_id( $api_key, $product_id );
 
-			$parent_id = $wpdb->get_var( $wpdb->prepare( "
-				SELECT 		parent_id
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
-				WHERE 		product_id = %d
-			", $product_id ) );
-
-			return ! empty( $parent_id ) ? (int) $parent_id : false;
+		if ( ! is_numeric( $product_id ) && is_string( $product_id ) ) {
+			return $resources;
 		}
 
-		return false;
-	}
-
-	/**
-	 * Return the API Resource ID.
-	 *
-	 * @since 2.0
-	 *
-	 * @param int $order_id
-	 * @param int $product_id
-	 *
-	 * @return bool|null|string
-	 */
-	public function get_api_resource_id_by_order_id_and_product_id( $order_id, $product_id ) {
-		if ( ! empty( $product_id ) ) {
-			global $wpdb;
-
-			$api_resource_id = $wpdb->get_var( $wpdb->prepare( "
-				SELECT 		api_resource_id
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
-				WHERE 		product_id = %d
-				AND 		order_id = %d
-			", $product_id, $order_id ) );
-
-			return ! empty( $api_resource_id ) ? (int) $api_resource_id : false;
-		}
-
-		return false;
+		return $resources ? $this->get_active_api_resources_by_product_id( $resources, $product_id ) : false;
 	}
 
 	/**
@@ -869,65 +910,13 @@ class WC_AM_API_Resource_Data_Store {
 	 */
 	public function get_active_resources( $resources ) {
 		$active_resources = array();
-		$is_wc_sub        = false;
 
 		if ( ! WC_AM_FORMAT()->empty( $resources ) ) {
 			foreach ( $resources as $resource ) {
-				/**
-				 * Update activations_purchased_total if product is set for Unlimited Activations, then refresh the cache.
-				 *
-				 * @since 2.2.0
-				 */
-				$is_sub       = false;
-				$is_unlimited = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $resource->product_id );
-				$instance_id  = WC_AM_API_ACTIVATION_DATA_STORE()->get_instance_id_by_api_resource_id( $resource->api_resource_id );
+				$result = $this->get_active_resource( $resource );
 
-				if ( $is_unlimited && WCAM()->get_unlimited_activation_limit() > $resource->activations_purchased_total ) {
-					if ( ! empty( $resource->sub_item_id ) ) {
-						$item_id = $resource->sub_item_id;
-						$is_sub  = true;
-					} else {
-						$item_id = $resource->order_item_id;
-					}
-
-					$this->update_activations_purchased_and_activations_purchased_total( $resource->user_id, $resource->product_id, $item_id, $resource->item_qty, WCAM()->get_unlimited_activation_limit(), $is_sub );
-					$this->delete_inactive_resource_cache( $resource );
-				}
-
-				// If the _api_resource_product_id meta value is missing on the product, add it now.
-				WC_AM_PRODUCT_DATA_STORE()->update_missing_api_resource_product_id( $resource->product_id, $resource->parent_id );
-
-				// Refreshing cache here will also delete API cache for activations about to be deleted.
-				WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
-
-				// Delete excess API Key activations by activation resource ID.
-				WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
-
-				if ( WCAM()->get_wc_subs_exist() ) {
-					$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $resource->product_id );
-				}
-
-				$is_expired = $this->is_access_expired( $resource->access_expires );
-
-				// Delete activations for expired non-Subscription API Keys.
-				if ( $is_expired ) {
-					WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( $instance_id );
-					$this->delete_inactive_resource_cache( $resource );
-
-					continue;
-				} elseif ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) && $is_wc_sub ) {
-					$is_item_on_sub = WC_AM_SUBSCRIPTION()->is_subscription_line_item_on_subscription( $resource->sub_item_id, $resource->sub_id );
-					$is_active      = WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $resource->sub_id );
-
-					// Delete activations for expired Subscription API Keys, or removed line items.
-					if ( ! $is_item_on_sub || ! $is_active ) {
-						WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( $instance_id );
-						$this->delete_inactive_resource_cache( $resource );
-					} elseif ( $is_item_on_sub && $is_active ) {
-						$active_resources[] = $resource;
-					}
-				} elseif ( ! $is_expired ) {
-					$active_resources[] = $resource;
+				if ( ! WC_AM_FORMAT()->empty( $result ) ) {
+					$active_resources[] = $result;
 				}
 			}
 		}
@@ -944,116 +933,101 @@ class WC_AM_API_Resource_Data_Store {
 	 * @param array $resources Get the resources first, then passed it in.
 	 * @param int   $product_id
 	 *
-	 * @return array|bool
+	 * @return array
 	 * @throws \Exception
 	 *
 	 */
 	public function get_active_api_resources_by_product_id( $resources, $product_id ) {
 		$active_resources = array();
-		$is_wc_sub        = false;
 
 		if ( ! WC_AM_FORMAT()->empty( $resources ) && $product_id ) {
 			foreach ( $resources as $resource ) {
 				if ( $product_id == $resource->product_id ) {
-					/**
-					 * Update activations_purchased_total if product is set for Unlimited Activations, then refresh the cache.
-					 *
-					 * @since 2.2.0
-					 */
-					$is_sub       = false;
-					$is_unlimited = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $resource->product_id );
-					$instance_id  = WC_AM_API_ACTIVATION_DATA_STORE()->get_instance_id_by_api_resource_id( $resource->api_resource_id );
+					$result = $this->get_active_resource( $resource );
 
-					if ( $is_unlimited && WCAM()->get_unlimited_activation_limit() > $resource->activations_purchased_total ) {
-						if ( ! empty( $resource->sub_item_id ) ) {
-							$item_id = $resource->sub_item_id;
-							$is_sub  = true;
-						} else {
-							$item_id = $resource->order_item_id;
-						}
-
-						$this->update_activations_purchased_and_activations_purchased_total( $resource->user_id, $resource->product_id, $item_id, $resource->item_qty, WCAM()->get_unlimited_activation_limit(), $is_sub );
-						$this->delete_inactive_resource_cache( $resource );
-					}
-
-					// If the _api_resource_product_id meta value is missing on the product, add it now.
-					WC_AM_PRODUCT_DATA_STORE()->update_missing_api_resource_product_id( $resource->product_id, $resource->parent_id );
-
-					// Refreshing cache here will also delete API cache for activations about to be deleted.
-					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
-
-					// Delete excess API Key activations by activation resource ID.
-					WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
-
-					if ( WCAM()->get_wc_subs_exist() ) {
-						$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $resource->product_id );
-					}
-
-					$is_expired = $this->is_access_expired( $resource->access_expires );
-
-					if ( $is_expired ) {
-						WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( $instance_id );
-						$this->delete_inactive_resource_cache( $resource );
-
-						continue;
-					} elseif ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) && $is_wc_sub ) {
-						$is_item_on_sub = WC_AM_SUBSCRIPTION()->is_subscription_line_item_on_subscription( $resource->sub_item_id, $resource->sub_id );
-						$is_active      = WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $resource->sub_id );
-
-						// Delete activations for expired Subscription API Keys, or removed line items.
-						if ( ! $is_item_on_sub || ! $is_active ) {
-							WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( $instance_id );
-							$this->delete_inactive_resource_cache( $resource );
-						} elseif ( $is_item_on_sub && $is_active ) {
-							$active_resources[] = $resource;
-						}
-					} elseif ( ! $is_expired ) {
-						$active_resources[] = $resource;
+					if ( ! WC_AM_FORMAT()->empty( $result ) ) {
+						$active_resources[] = $result;
 					}
 				}
 			}
 		}
 
-		return ! empty( $active_resources ) ? $active_resources : false;
+		return ! empty( $active_resources ) ? $active_resources : array();
 	}
 
 	/**
-	 * Returns the original array with non-active API resources removed,
-	 * and only resources that match the product ID (integer) provided.
+	 * Returns the API Resource if and only if it is active.
 	 *
-	 * @since 2.0
+	 * @since 2.5.5
 	 *
-	 * @param int $user_id
-	 * @param int $product_id
+	 * @param array $resource
 	 *
-	 * @return array|bool
+	 * @return array
 	 * @throws \Exception
 	 */
-	public function get_active_api_resources_for_user_id_by_product_id_int( $user_id, $product_id ) {
-		$resources = $this->get_api_resources_for_user_id( $user_id );
+	private function get_active_resource( $resource ) {
+		$is_wc_sub = false;
 
-		return $resources ? $this->get_active_api_resources_by_product_id( $resources, $product_id ) : false;
-	}
+		/**
+		 * Update activations_purchased_total if product is set for Unlimited Activations, then refresh the cache.
+		 *
+		 * @since 2.2.0
+		 */
+		$is_sub       = false;
+		$is_unlimited = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $resource->product_id );
+		$instance_id  = WC_AM_API_ACTIVATION_DATA_STORE()->get_instance_id_by_api_resource_id( $resource->api_resource_id );
 
-	/**
-	 * Returns an array of active API resources.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string     $api_key    Master API Key, or a Product Order API Key.
-	 * @param string|int $product_id String (Title), or an integer.
-	 *
-	 * @return array|bool
-	 * @throws \Exception
-	 */
-	public function get_active_api_resources( $api_key, $product_id ) {
-		$resources = $this->get_api_resources_for_api_key_by_product_id( $api_key, $product_id );
+		if ( $is_unlimited && WCAM()->get_unlimited_activation_limit() > $resource->activations_purchased_total ) {
+			if ( ! empty( $resource->sub_item_id ) ) {
+				$item_id = $resource->sub_item_id;
+				$is_sub  = true;
+			} else {
+				$item_id = $resource->order_item_id;
+			}
 
-		if ( ! is_numeric( $product_id ) && is_string( $product_id ) ) {
-			return $resources;
+			$this->update_activations_purchased_and_activations_purchased_total( $resource->user_id, $resource->product_id, $item_id, $resource->item_qty, WCAM()->get_unlimited_activation_limit(), $is_sub );
+			$this->delete_inactive_resource_cache( $resource, true );
 		}
 
-		return $resources ? $this->get_active_api_resources_by_product_id( $resources, $product_id ) : false;
+		// If the _api_resource_product_id meta value is missing on the product, add it now.
+		WC_AM_PRODUCT_DATA_STORE()->update_missing_api_resource_product_id( $resource->product_id, $resource->parent_id );
+
+		// Refreshing cache here will also delete API cache for activations about to be deleted.
+		WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
+
+		// Delete excess API Key activations by activation resource ID.
+		WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
+
+		if ( WCAM()->get_wc_subs_exist() ) {
+			$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $resource->product_id );
+		}
+
+		$is_expired = $this->is_access_expired( $resource->access_expires );
+
+		// Delete activations for expired non-Subscription API Keys.
+		if ( $is_expired ) {
+			WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+			$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+			$this->delete_inactive_resource_cache( $resource );
+
+			return array();
+		} elseif ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) && $is_wc_sub ) {
+			$is_item_on_sub = WC_AM_SUBSCRIPTION()->is_subscription_line_item_on_subscription( $resource->sub_item_id, $resource->sub_id );
+			$is_active      = WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $resource->sub_id );
+
+			// Delete activations for expired Subscription API Keys, or removed line items.
+			if ( ! $is_item_on_sub || ! $is_active ) {
+				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+				$this->delete_inactive_resource_cache( $resource );
+			} elseif ( $is_item_on_sub && $is_active ) {
+				return $resource;
+			}
+		} elseif ( ! $is_expired ) {
+			return $resource;
+		}
+
+		return array();
 	}
 
 	/**
@@ -1082,7 +1056,7 @@ class WC_AM_API_Resource_Data_Store {
 			foreach ( $product_id_list as $pid ) {
 				$sql = "
 					SELECT activations_purchased_total
-					FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+					FROM {$wpdb->prefix}" . $this->api_resource_table . "
 					WHERE user_id = %s
 				";
 
@@ -1114,7 +1088,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$sql = "
 			SELECT DISTINCT product_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE user_id = %d
 		";
 
@@ -1139,7 +1113,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$sql = "
 			SELECT activations_purchased
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE order_id = %d
 			AND product_id = %d
 		";
@@ -1194,7 +1168,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$item_quantity = $wpdb->get_row( $wpdb->prepare( "
 			SELECT 		*
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE 		product_id = %d
 			AND 		order_id = %d
 		", $product_id, $order_id ) );
@@ -1308,7 +1282,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		return $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE api_resource_id = %d
 		", $api_resource_id ) );
 	}
@@ -1325,7 +1299,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$api_resource_count = $wpdb->get_var( "
 			SELECT COUNT(api_resource_id)
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 		" );
 
 		return ! empty( $api_resource_count ) ? $api_resource_count : 0;
@@ -1345,7 +1319,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$associated_api_key_ids = $wpdb->get_var( $wpdb->prepare( "
 			SELECT associated_api_key_ids
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE api_resource_id = %d
 		", $api_resource_id ) );
 
@@ -1371,7 +1345,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( is_numeric( $product_id ) ) {
 			$sql = "
 				SELECT product_id
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE product_id = %d
 				LIMIT 1
 			";
@@ -1411,7 +1385,7 @@ class WC_AM_API_Resource_Data_Store {
 				// Search using API Key, which could be any type in the Activation Table.
 				$sql = "
 					SELECT assigned_product_id
-					FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_activation_table_name() . "
+					FROM {$wpdb->prefix}" . $this->api_activation_table . "
 					WHERE product_id = %s
 					AND api_key = %s
 					LIMIT 1
@@ -1423,7 +1397,7 @@ class WC_AM_API_Resource_Data_Store {
 					// Search using Master API Key or Product Order API Key.
 					$sql = "
 						SELECT product_id
-						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						FROM {$wpdb->prefix}" . $this->api_resource_table . "
 						WHERE product_title = %s
 						AND ( product_order_api_key = %s OR master_api_key = %s )
 						LIMIT 1
@@ -1436,7 +1410,7 @@ class WC_AM_API_Resource_Data_Store {
 						// Search using Product Title in API Resource table.
 						$sql = "
 							SELECT product_id
-							FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+							FROM {$wpdb->prefix}" . $this->api_resource_table . "
 							WHERE product_title = %s
 							LIMIT 1
 						";
@@ -1477,7 +1451,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE product_id = %s
 			LIMIT 1
 		";
@@ -1503,7 +1477,7 @@ class WC_AM_API_Resource_Data_Store {
 		// Get data using the Master API Key, or the Product Order API Key.
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE product_id = %d
 			AND ( product_order_api_key = %s OR master_api_key = %s )
 			AND ( access_expires = %d OR access_expires > %d )
@@ -1516,7 +1490,7 @@ class WC_AM_API_Resource_Data_Store {
 		if ( empty( $row ) ) {
 			$row = $wpdb->get_row( $wpdb->prepare( "
 				SELECT *
-				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
 				WHERE api_resource_id = %d
 				AND product_id = %d
 				AND ( access_expires = %d OR access_expires > %d )
@@ -1548,7 +1522,7 @@ class WC_AM_API_Resource_Data_Store {
 
 				$sql = "
 	            SELECT user_id
-	            FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+	            FROM {$wpdb->prefix}" . $this->api_resource_table . "
 	            WHERE order_id = %d
 	            LIMIT 1
             ";
@@ -1567,17 +1541,17 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @since 2.1
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
 	public function get_all_order_ids() {
 		global $wpdb;
 
 		$order_ids = $wpdb->get_col( "
-			SELECT order_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			SELECT DISTINCT order_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 		" );
 
-		return ! empty( $order_ids ) ? $order_ids : false;
+		return ! empty( $order_ids ) ? $order_ids : array();
 	}
 
 	/**
@@ -1594,36 +1568,13 @@ class WC_AM_API_Resource_Data_Store {
 
 		$order_ids = $wpdb->get_col( $wpdb->prepare( "
 			SELECT order_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE product_id = %d
 			ORDER BY order_id
 			DESC
 		", $product_id ) );
 
 		return ! empty( $order_ids ) ? $order_ids : false;
-	}
-
-	/**
-	 * Return true if has Product ID and Order ID.
-	 *
-	 * @since 2.4.3
-	 *
-	 * @param $product_id
-	 * @param $order_id
-	 *
-	 * @return bool
-	 */
-	public function has_product_id_and_order_id( $product_id, $order_id ) {
-		global $wpdb;
-
-		$has_order_id = $wpdb->get_var( $wpdb->prepare( "
-			SELECT order_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
-			WHERE product_id = %d
-			AND order_id = %d
-		", $product_id, $order_id ) );
-
-		return ! empty( $has_order_id );
 	}
 
 	/**
@@ -1640,7 +1591,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$order_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT order_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE order_item_id = %d
 		", $order_item_id ) );
 
@@ -1661,7 +1612,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$order_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT order_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE sub_item_id = %d
 		", $sub_item_id ) );
 
@@ -1682,11 +1633,34 @@ class WC_AM_API_Resource_Data_Store {
 
 		$order_id = $wpdb->get_var( $wpdb->prepare( "
 			SELECT order_id
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE sub_id = %d
 		", $sub_id ) );
 
 		return ! empty( $order_id ) ? $order_id : false;
+	}
+
+	/**
+	 * Return true if has Product ID and Order ID.
+	 *
+	 * @since 2.4.3
+	 *
+	 * @param $product_id
+	 * @param $order_id
+	 *
+	 * @return bool
+	 */
+	public function has_product_id_and_order_id( $product_id, $order_id ) {
+		global $wpdb;
+
+		$has_order_id = $wpdb->get_var( $wpdb->prepare( "
+			SELECT order_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE product_id = %d
+			AND order_id = %d
+		", $product_id, $order_id ) );
+
+		return ! empty( $has_order_id );
 	}
 
 	/**
@@ -1704,7 +1678,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE order_id = %d
 			AND product_id = %d
 		";
@@ -1716,7 +1690,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$result = $wpdb->get_row( $wpdb->prepare( $sql, $args ) );
 
-		return ! empty( $result ) ? true : false;
+		return ! empty( $result );
 	}
 
 	/**
@@ -1735,7 +1709,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$sql = "
 			SELECT access_expires
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE order_id = %d
 			AND sub_id = %d
 		";
@@ -1762,7 +1736,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$sql = "
 			SELECT *
-			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			LIMIT 1
 		";
 
@@ -1782,7 +1756,7 @@ class WC_AM_API_Resource_Data_Store {
 	 * @return bool
 	 */
 	public function is_access_expires_set( $access_expires ) {
-		return ! empty( $access_expires ) && (int) $access_expires > 0 ? true : false;
+		return ! empty( $access_expires ) && (int) $access_expires > 0;
 	}
 
 	/**
@@ -1840,7 +1814,7 @@ class WC_AM_API_Resource_Data_Store {
 			'%d'
 		);
 
-		$update = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+		$update = $wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 
 		return ! empty( $update );
 	}
@@ -1851,8 +1825,9 @@ class WC_AM_API_Resource_Data_Store {
 	 * @since 2.2.8
 	 *
 	 * @param object $resource
+	 * @param bool   $refresh
 	 */
-	public function delete_inactive_resource_cache( $resource ) {
+	public function delete_inactive_resource_cache( $resource, $refresh = false ) {
 		$array = array(
 			'admin_resources' => array(
 				'order_id'      => $resource->order_id,
@@ -1863,7 +1838,7 @@ class WC_AM_API_Resource_Data_Store {
 			)
 		);
 
-		WC_AM_SMART_CACHE()->delete_cache( $array, true );
+		WC_AM_SMART_CACHE()->delete_cache( $array, $refresh );
 	}
 
 	/**
@@ -1894,7 +1869,7 @@ class WC_AM_API_Resource_Data_Store {
 				'%d'
 			);
 
-			$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+			$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 		}
 	}
 
@@ -1937,6 +1912,55 @@ class WC_AM_API_Resource_Data_Store {
 			'%d'
 		);
 
-		$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+		$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
+	}
+
+	/**
+	 * Delete all API Resources by api_resource_id.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return bool
+	 */
+	public function delete_api_resource_by_api_resource_id( $api_resource_id ) {
+		return $this->delete_by( array( 'api_resource_id' => $api_resource_id ), array( '%d' ) );
+	}
+
+	/**
+	 * Deletes all rows with $needle value(s).
+	 *
+	 * @since 2.5.5
+	 *
+	 * @param array $needle What to delete. i.e. array( 'user_id' => $user_id ). ( 'string' => int|string )
+	 * @param array $format Either %s or %d. i.e. array( '%d' ). ( 'string' )
+	 *
+	 * @return bool
+	 */
+	public function delete_by( $needle, $format ) {
+		global $wpdb;
+
+		$result = $wpdb->delete( $wpdb->prefix . $this->api_resource_table, $needle, $format );
+
+		return ! WC_AM_FORMAT()->empty( $result );
+	}
+
+	/**
+	 * Return total number of API Resources.
+	 *
+	 * @since 2.5.5
+	 *
+	 * @return int
+	 */
+	public function count_resources() {
+		global $wpdb;
+
+		$count = $wpdb->get_var( "
+			SELECT COUNT(api_resource_id)
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+		" );
+
+		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
 	}
 }

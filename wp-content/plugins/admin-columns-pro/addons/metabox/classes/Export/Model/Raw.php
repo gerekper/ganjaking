@@ -6,33 +6,42 @@ use AC;
 use ACA\MetaBox\Column;
 use ACP;
 
-/**
- * @property Column $column
- */
-class Raw extends ACP\Export\Model\RawValue {
+class Raw implements ACP\Export\Service {
+
+	protected $column;
 
 	public function __construct( Column $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
 	public function get_value( $id ) {
 		if ( $this->column->is_clonable() ) {
-			return $this->get_multiple_values( $id );
+			return (string) $this->get_multiple_values( $id );
 		}
 
-		return $this->format_single_value( rwmb_get_value( $this->column->get_meta_key(), [ 'object_type' => $this->column->get_meta_type() ], $id ), $id );
+		$single_value = $this->get_rmwb_value( (int) $id );
+
+		return $this->format_single_value( $single_value, $id );
+	}
+
+	private function get_rmwb_value( int $id ) {
+		return rwmb_get_value(
+			$this->column->get_meta_key(),
+			[
+				'object_type' => $this->column->get_meta_type(),
+			],
+			$id
+		);
 	}
 
 	public function format_single_value( $value, $id = null ) {
-		if ( ! $value ) {
-			return '';
-		}
-
-		return $value;
+		return $value
+			? (string) $value
+			: '';
 	}
 
 	public function get_multiple_values( $id ) {
-		$value = rwmb_get_value( $this->column->get_meta_key(), [ 'object_type' => $this->column->get_meta_type() ], $id );
+		$value = $this->get_rmwb_value( (int) $id );
 
 		if ( ! $value ) {
 			return null;

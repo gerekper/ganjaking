@@ -745,7 +745,7 @@ class WC_AM_Subscription {
 	 * @return bool
 	 */
 	public function is_user_subscription_active( $status ) {
-		return $status == 'Active' || $status == 'Pending Cancellation' ? true : false;
+		return $status == 'Active' || $status == 'Pending Cancellation';
 	}
 
 	/**
@@ -792,7 +792,7 @@ class WC_AM_Subscription {
 				return true;
 			}
 
-			return $subscription->has_status( array( 'active', 'pending-cancel' ) ) ? true : false;
+			return $subscription->has_status( array( 'active', 'pending-cancel' ) );
 		}
 
 		return false;
@@ -815,7 +815,7 @@ class WC_AM_Subscription {
 			                                                                'expired',
 			                                                                'trash',
 			                                                                'switched'
-		                                                                ) ) ? true : false;
+		                                                                ) );
 	}
 
 	/**
@@ -830,7 +830,7 @@ class WC_AM_Subscription {
 	public function is_subscription_switched_status( $subscription ) {
 		$subscription = $this->get_subscription_object( $subscription );
 
-		return is_object( $subscription ) && $subscription->has_status( 'switched' ) ? true : false;
+		return is_object( $subscription ) && $subscription->has_status( 'switched' );
 	}
 
 	/**
@@ -845,7 +845,7 @@ class WC_AM_Subscription {
 	public function is_subscription_switched( $subscription ) {
 		$subscription = $this->get_subscription_object( $subscription );
 
-		return is_object( $subscription ) && $subscription->has_status( 'switched' ) ? true : false;
+		return is_object( $subscription ) && $subscription->has_status( 'switched' );
 	}
 
 	/**

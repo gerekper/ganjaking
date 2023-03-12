@@ -52,17 +52,11 @@ final class Comment implements RequestHandler {
 		$response->success();
 	}
 
-	/**
-	 * @return int
-	 */
-	private function get_rows_per_iteration() {
+	private function get_rows_per_iteration(): int {
 		return ( new RowsPerIteration( $this->request ) )->apply_filters( 2000 );
 	}
 
-	/**
-	 * @return int
-	 */
-	protected function get_offset() {
+	protected function get_offset(): int {
 		$page = (int) $this->request->filter( 'ac_page', 1, FILTER_SANITIZE_NUMBER_INT );
 
 		return ( $page - 1 ) * $this->get_rows_per_iteration();

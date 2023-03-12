@@ -1,6 +1,7 @@
-.vi-wn-show{
+.vi-wn-show {
     display: flex !important;
 }
+
 .woocommerce-notification {
     position: relative;
 }
@@ -9,10 +10,12 @@
     color: rgba(0, 0, 0, .87);
     text-decoration: none;
 }
+
 body.toplevel_page_woocommerce-notification {
     overflow-x: hidden;
 }
-.woocommerce-notification .vi-ui.menu{
+
+.woocommerce-notification .vi-ui.menu {
     flex-wrap: wrap;
 }
 
@@ -1380,24 +1383,33 @@ table.message-purchased tr:nth-child(even) {
     animation-duration: 1.5s;
     animation-name: nslideOutUp;
 }
-.vi_hidden{
+
+.vi_hidden {
     display: none;
 }
 
-img+.vi-ui.toggle.checkbox.center.aligned.segment {
+img + .vi-ui.toggle.checkbox.center.aligned.segment {
     margin-top: 0;
 }
+
 img.vi-ui.centered.medium.middle.aligned {
     max-width: 100%;
 }
+
 .wn-extended .wn-notification-image,
-.wn-extended .message-purchase-main{
+.wn-extended .message-purchase-main {
     border-radius: 0 !important;
 }
-#message-purchased{
+
+#message-purchased {
     width: 380px;
     height: 96px;
 }
-#message-purchased img{
+
+#message-purchased img {
     max-width: 100% !important;
+}
+
+.vi-ui.modal .content {
+    box-sizing: border-box;
 }

@@ -17,6 +17,44 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	protected $provider_has_regions = true;
 
 	/**
+	 * Register backup-related hooks (filters and actions) that get called in the parent method for uploading backup archives
+	 *
+	 * @param Array $backup_array - a list of file names (basenames) (within UD's directory) to be uploaded
+	 *
+	 * @return Mixed - return (boolean)false to indicate failure, or anything else to have it passed back at the delete stage (most useful for a storage object).
+	 */
+	public function backup($backup_array) {
+		add_filter('updraft_updraftvault_storageclass', array($this, 'maybe_switch_to_ia_storage_class'));
+		return parent::backup($backup_array);
+	}
+
+	/**
+	 * Determine whether to switch to IA S3 storage class rather than use the existing one (WordPress filter updraft_updraftvault_storageclass)
+	 *
+	 * @param String $class Suggested storage class
+	 *
+	 * @return String Filtered value
+	 */
+	public function maybe_switch_to_ia_storage_class($class) {
+
+		$files_schedule = UpdraftPlus_Options::get_updraft_option('updraft_interval');
+		$db_schedule = UpdraftPlus_Options::get_updraft_option('updraft_interval_database');
+		$retain_files = max(1, (int) UpdraftPlus_Options::get_updraft_option('updraft_retain'));
+		$retain_db = max(1, (int) UpdraftPlus_Options::get_updraft_option('updraft_retain_db'));
+		$schedules = wp_get_schedules();
+		// $schedules will not contain the variable indexed by key named 'manual', so if it's a manual backup then the code below won't do anything
+		switch ($this->current_upload_entity) { // 1296000 = 15 days in seconds
+			case 'databases':
+				if ('' !== $db_schedule && isset($schedules[$db_schedule]) && $schedules[$db_schedule]['interval'] * $retain_db > 1296000) $class = 'STANDARD_IA';
+				break;
+			case 'files':
+				if ('' !== $files_schedule && isset($schedules[$files_schedule]) && $schedules[$files_schedule]['interval'] * $retain_files > 1296000) $class = 'STANDARD_IA';
+				break;
+		}
+		return $class;
+	}
+
+	/**
 	 * This function makes testing easier, rather than having to change the URLs in multiple places
 	 *
 	 * @param  Boolean|string $which_page specifies which page to get the URL for

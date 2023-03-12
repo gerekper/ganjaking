@@ -66,20 +66,17 @@ class WCSG_Checkout {
 			if ( is_numeric( $recipient_user_id ) ) {
 				WCS_Gifting::set_recipient_user( $subscription, $recipient_user_id );
 
-				$subscription->set_address(
-					array(
-						'first_name' => get_user_meta( $recipient_user_id, 'shipping_first_name', true ),
-						'last_name'  => get_user_meta( $recipient_user_id, 'shipping_last_name', true ),
-						'country'    => get_user_meta( $recipient_user_id, 'shipping_country', true ),
-						'company'    => get_user_meta( $recipient_user_id, 'shipping_company', true ),
-						'address_1'  => get_user_meta( $recipient_user_id, 'shipping_address_1', true ),
-						'address_2'  => get_user_meta( $recipient_user_id, 'shipping_address_2', true ),
-						'city'       => get_user_meta( $recipient_user_id, 'shipping_city', true ),
-						'state'      => get_user_meta( $recipient_user_id, 'shipping_state', true ),
-						'postcode'   => get_user_meta( $recipient_user_id, 'shipping_postcode', true ),
-					),
-					'shipping'
-				);
+				$subscription->set_shipping_first_name( get_user_meta( $recipient_user_id, 'shipping_first_name', true ) );
+				$subscription->set_shipping_last_name( get_user_meta( $recipient_user_id, 'shipping_last_name', true ) );
+				$subscription->set_shipping_company( get_user_meta( $recipient_user_id, 'shipping_company', true ) );
+				$subscription->set_shipping_address_1( get_user_meta( $recipient_user_id, 'shipping_address_1', true ) );
+				$subscription->set_shipping_address_2( get_user_meta( $recipient_user_id, 'shipping_address_2', true ) );
+				$subscription->set_shipping_city( get_user_meta( $recipient_user_id, 'shipping_city', true ) );
+				$subscription->set_shipping_state( get_user_meta( $recipient_user_id, 'shipping_state', true ) );
+				$subscription->set_shipping_postcode( get_user_meta( $recipient_user_id, 'shipping_postcode', true ) );
+				$subscription->set_shipping_country( get_user_meta( $recipient_user_id, 'shipping_country', true ) );
+
+				$subscription->save();
 			}
 		}
 	}

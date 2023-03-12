@@ -2,13 +2,16 @@
 
 namespace ACP\Export\Model\Post;
 
-use ACP\Export\Model;
+use ACP\Column;
+use ACP\Export\Service;
 
-/**
- * Shows Internal / External links in post content
- * @since 4.1
- */
-class LinkCount extends Model {
+class LinkCount implements Service {
+
+	private $column;
+
+	public function __construct( Column\Post\LinkCount $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
 		$links = $this->column->get_raw_value( $id );

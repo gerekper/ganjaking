@@ -2,10 +2,12 @@
 
 namespace ACP\Settings\ListScreen;
 
+use ACP\Type\HideOnScreen\Group;
+
 class HideOnScreenCollection {
 
-	const SORT_PRIORITY = 1;
-	const SORT_LABEL = 2;
+	public const SORT_PRIORITY = 1;
+	public const SORT_LABEL = 2;
 
 	/**
 	 * @var HideOnScreen[]
@@ -16,8 +18,9 @@ class HideOnScreenCollection {
 		array_map( [ $this, 'add' ], $items );
 	}
 
-	public function add( HideOnScreen $hide_on_screen, $priority = 10 ) {
+	public function add( HideOnScreen $hide_on_screen, Group $group, int $priority = 10 ): self {
 		$this->items[] = [
+			'group'    => $group,
 			'priority' => $priority,
 			'item'     => $hide_on_screen,
 		];
@@ -25,7 +28,7 @@ class HideOnScreenCollection {
 		return $this;
 	}
 
-	public function remove( HideOnScreen $hide_on_screen ) {
+	public function remove( HideOnScreen $hide_on_screen ): self {
 		foreach ( $this->items as $k => $item ) {
 			if ( $item['item']->get_name() === $hide_on_screen->get_name() ) {
 				unset( $this->items[ $k ] );
@@ -35,50 +38,69 @@ class HideOnScreenCollection {
 		return $this;
 	}
 
-	public function all( $sort_by = null ) {
+	/**
+	 * @param array $args
+	 *
+	 * @return HideOnScreen[]
+	 */
+	public function all( array $args = [] ): array {
+		$sort_by = $args['sort_by'] ?? self::SORT_PRIORITY;
+		$filter_by_group = $args['filter_by_group'] ?? null;
+
+		$items = $this->items;
+
+		if ( $filter_by_group instanceof Group ) {
+			$items = $this->filter( $items, $filter_by_group );
+		}
+
+		if ( $sort_by ) {
+			$items = $this->sort( $items, $sort_by );
+		}
+
+		return array_map( [ $this, 'pluck_item' ], $items );
+	}
+
+	private function pluck_item( array $item ) {
+		return $item['item'];
+	}
+
+	private function filter( array $items, Group $group ): array {
+		$_items = [];
+		foreach ( $items as $item ) {
+			if ( $group->equals( $item['group'] ) ) {
+				$_items[] = $item;
+			}
+		}
+
+		return $_items;
+	}
+
+	private function sort( array $items, string $sort_by ): array {
 		switch ( $sort_by ) {
 			case self::SORT_LABEL :
-				$sorted = $this->sort_by_label( $this->items );
-
-				break;
+				return $this->sort_by_label( $items );
 			default :
-				$sorted = $this->sort_by_priority( $this->items );
+				return $this->sort_by_priority( $items );
 		}
-
-		return $sorted;
 	}
 
-	/**
-	 * @param array $items
-	 *
-	 * @return array
-	 */
-	private function sort_by_priority( array $items ) {
-		$aggregated = $sorted = [];
+	private function sort_by_priority( array $items ): array {
+		$sorted = [];
 
 		foreach ( $items as $item ) {
-			$aggregated[ $item['priority'] ][] = $item['item'];
+			$sorted[ $item['priority'] ][] = $item;
 		}
 
-		ksort( $aggregated, SORT_NUMERIC );
+		ksort( $sorted, SORT_NUMERIC );
 
-		foreach ( $aggregated as $priority => $_items ) {
-			$sorted = array_merge( $sorted, $this->sort_by_label( $_items ) );
-		}
-
-		return $sorted;
+		return array_merge( ...$sorted );
 	}
 
-	/**
-	 * @param array $items
-	 *
-	 * @return array
-	 */
-	private function sort_by_label( array $items ) {
+	private function sort_by_label( array $items ): array {
 		$sorted = [];
 
 		foreach ( $items as $k => $item ) {
-			$sorted[ $k ] = $item->get_label();
+			$sorted[ $k ] = $item['item']->get_label();
 		}
 
 		natcasesort( $sorted );

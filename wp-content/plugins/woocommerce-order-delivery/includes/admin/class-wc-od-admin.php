@@ -20,15 +20,24 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		 * @since 1.5.0
 		 */
 		public function __construct() {
-			add_action( 'init', array( $this, 'includes' ) );
+			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-			add_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
-			add_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
 			add_action( 'load-woocommerce_page_wc-orders', array( $this, 'order_list_table' ), 5 );
 
 			add_filter( 'plugin_action_links_' . WC_OD_BASENAME, array( $this, 'plugin_action_links' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+		}
+
+		/**
+		 * Admin init.
+		 *
+		 * @since 2.4.3
+		 */
+		public function init() {
+			$this->includes();
+
+			add_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
+			add_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
 		}
 
 		/**
@@ -87,11 +96,6 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		 * @since 2.4.0
 		 */
 		public function setup_screen() {
-			// Not available in customizer.
-			if ( ! function_exists( 'wc_od_get_current_screen_id' ) ) {
-				include_once 'wc-od-admin-functions.php';
-			}
-
 			$screen_id = wc_od_get_current_screen_id();
 
 			if ( 'edit-shop_order' === $screen_id ) {

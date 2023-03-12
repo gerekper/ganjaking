@@ -759,6 +759,7 @@ class UpdraftPlus {
 			$load_classes['UpdraftPlus_Temporary_Clone_Restore'] = 'includes/updraftclone/temporary-clone-restore.php';
 			$load_classes['UpdraftPlus_Temporary_Clone_Auto_Login'] = 'includes/updraftclone/temporary-clone-auto-login.php';
 			$load_classes['UpdraftPlus_Temporary_Clone_Status'] = 'includes/updraftclone/temporary-clone-status.php';
+			add_filter('get_avatar_url', array($this, 'get_avatar_url'), 99);
 		}
 		
 		foreach ($load_classes as $class => $relative_path) {
@@ -3316,6 +3317,8 @@ class UpdraftPlus {
 			return false;
 		}
 
+		$enabled_storage_objects_and_ids = array();
+
 		// All scheduled backups will go through this condition (and some others may too)
 		// This section sets up default options, filters services/instances, and populates $options['remote_storage_instances']
 		if (!is_string($service) && !is_array($service)) {
@@ -3354,29 +3357,29 @@ class UpdraftPlus {
 		}
 		
 		$service = $this->just_one($service);
-		if (is_string($service)) $service = array($service);
-		if (!is_array($service)) $service = array();
+		$service = $this->get_canonical_service_list($service);
 
 		if (!empty($options['extradata']) && !empty($options['extradata']['services']) && preg_match('#remotesend/(\d+)#', $options['extradata']['services'])) {
-			if (array('none') === $service) $service = array();
 			$service[] = 'remotesend';
 		}
 
+		$canonised_storage_objects_and_ids = array_merge(array_flip($service), $enabled_storage_objects_and_ids);
 		$option_cache = array();
-
-		$service = $this->get_canonical_service_list($service);
 		
-		foreach ($service as $serv) {
-			updraft_try_include_file('methods/'.$serv.'.php', 'include_once');
-			$cclass = 'UpdraftPlus_BackupModule_'.$serv;
-			if (!class_exists($cclass)) {
-				error_log("UpdraftPlus: backup class does not exist: $cclass");
-				continue;
+		foreach ($canonised_storage_objects_and_ids as $method_id => $method_info) {
+			// Explained at updraftplus/-/merge_requests/1302#note_206636
+			if (!is_array($method_info)) $canonised_storage_objects_and_ids[$method_id] = $method_info = array();
+			if (!isset($method_info['object']) || !is_object($method_info['object'])) {
+				updraft_try_include_file('methods/'.$method_id.'.php', 'include_once');
+				$cclass = 'UpdraftPlus_BackupModule_'.$method_id;
+				if (class_exists($cclass)) {
+					$method_info['object'] = $canonised_storage_objects_and_ids[$method_id]['object'] = new $cclass;
+				} else {
+					error_log("UpdraftPlus: backup class does not exist: $cclass");
+				}
 			}
-			$obj = new $cclass;
-
-			if (is_callable(array($obj, 'get_credentials'))) {
-				$opts = $obj->get_credentials();
+			if (isset($method_info['object']) && is_object($method_info['object']) && is_callable(array($method_info['object'], 'get_credentials'))) {
+				$opts = $method_info['object']->get_credentials();
 				if (is_array($opts)) {
 					foreach ($opts as $opt) $option_cache[$opt] = UpdraftPlus_Options::get_updraft_option($opt);
 				}
@@ -3628,6 +3631,26 @@ class UpdraftPlus {
 		} else {
 			// There are errors, but a resumption will be attempted
 			$final_message = __('The backup has not finished; a resumption is scheduled', 'updraftplus');
+		}
+
+		if (0 == $this->error_count()) {
+			// delete manifest files
+			$updraft_dir = $this->backups_dir_location();
+			$backup_files_array = $this->jobdata_get('backup_files_array', array());
+
+			if (!empty($backup_files_array)) {
+				foreach ($backup_files_array as $entity => $files) {
+					if ('-size' === substr($entity, -5, 5) || !is_array($files)) continue;
+
+					foreach ($files as $file) {
+						$fullpath = $updraft_dir.'/'.$file;
+						if (file_exists($fullpath.'.list.tmp')) {
+							$this->log("Deleting zip manifest ({$file}.list.tmp)");
+							unlink($fullpath.'.list.tmp');
+						}
+					}
+				}
+			}
 		}
 
 		// Now over-ride the decision to send an email, if needed
@@ -6251,5 +6274,17 @@ class UpdraftPlus {
 	 */
 	private function get_site_name() {
 		return preg_replace('/^www\./i', '', strtolower(parse_url(network_site_url(), PHP_URL_HOST)));
+	}
+	
+	/**
+	 * Function to replace avatar with default image in UpdraftClone environment
+	 *
+	 * @param  String $url
+	 *
+	 * @return String $url
+	 */
+	public function get_avatar_url($url) {
+		if (preg_match('/gravatar.com/i', $url)) return UPDRAFTPLUS_URL.'/images/default-avatar.jpg';
+		return $url;
 	}
 }

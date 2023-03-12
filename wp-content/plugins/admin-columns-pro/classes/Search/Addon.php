@@ -10,6 +10,7 @@ use ACP;
 use ACP\Bookmark\SegmentRepository;
 use ACP\Bookmark\Setting\PreferredSegment;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 
 final class Addon implements Registerable {
 
@@ -85,8 +86,8 @@ final class Addon implements Registerable {
 			return;
 		}
 
-		$collection->add( $this->hide_smart_filters, 40 )
-		           ->add( new Settings\HideOnScreen\SavedFilters(), 41 );
+		$collection->add( $this->hide_smart_filters, new Group( Group::FEATURE ), 40 )
+		           ->add( new Settings\HideOnScreen\SavedFilters(), new Group( Group::FEATURE ), 41 );
 	}
 
 	public function comparison_request() {

@@ -9,9 +9,6 @@ use ACP\Editing\RequestHandler;
 
 class EditState implements RequestHandler {
 
-	/**
-	 * @var Preference\EditState
-	 */
 	private $edit_state;
 
 	public function __construct( Preference\EditState $edit_state ) {

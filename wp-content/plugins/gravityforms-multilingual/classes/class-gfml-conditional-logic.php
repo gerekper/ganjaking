@@ -73,10 +73,10 @@ class GFML_Conditional_Logic extends GFML_Form {
 	}
 
 	/**
-	 * @param array        $form
-	 * @param string       $st_context
-	 * @param object|array $rules
-	 * @param GF_Field     $current_field The field who's rules are being translated.
+	 * @param array          $form
+	 * @param string         $st_context
+	 * @param object|array   $rules
+	 * @param GF_Field|array $current_field The field who's rules are being translated.
 	 *
 	 * @return object|array
 	 */
@@ -97,7 +97,7 @@ class GFML_Conditional_Logic extends GFML_Form {
 						$rule['value'] = $this->translate_rule_value( $rule_field, $st_context, $key, $rule );
 					}
 				} elseif ( isset( $rule['value'] ) && $this->is_rule_translatable( $rule ) ) {
-					$rule_field = $current_field;
+					$rule_field = $current_field instanceof GF_Field ? $current_field : $rule_field;
 
 					$rule['value'] = $this->translate_rule_value( $rule_field, $st_context, $key, $rule );
 				}

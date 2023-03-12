@@ -717,6 +717,7 @@ class UpdraftPlus_Admin {
 	 * @return void
 	 */
 	public function updraft_ajaxrestore() {
+		if ('updraft_ajaxrestore' === $_REQUEST['action'] && (empty($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], 'updraftplus-credentialtest-nonce'))) die('Security Check');
 		$this->prepare_restore();
 		die();
 	}
@@ -1922,6 +1923,8 @@ class UpdraftPlus_Admin {
 	public function delete_set($opts) {
 		
 		global $updraftplus;
+
+		if (function_exists('set_time_limit')) @set_time_limit(UPDRAFTPLUS_SET_TIME_LIMIT);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		
 		$backups = UpdraftPlus_Backup_History::get_history();
 		$timestamps = (string) $opts['backup_timestamp'];
@@ -2225,6 +2228,8 @@ class UpdraftPlus_Admin {
 	public function get_history_status($rescan, $remotescan, $debug = false, $backup_count = 0) {
 	
 		global $updraftplus;
+
+		if (function_exists('set_time_limit')) @set_time_limit(UPDRAFTPLUS_SET_TIME_LIMIT); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 	
 		if ($rescan) $messages = UpdraftPlus_Backup_History::rebuild($remotescan, false, $debug);
 		$backup_history = UpdraftPlus_Backup_History::get_history();
@@ -3561,13 +3566,13 @@ class UpdraftPlus_Admin {
 			if ($include_div) {
 				echo '<div id="updraft_delete_old_dirs_pagediv" class="updated delete-old-directories">';
 			}
-			echo '<p>'.__('Your WordPress install has old directories from its state before you restored/migrated (technical information: these are suffixed with -old). You should press this button to delete them as soon as you have verified that the restoration worked.', 'updraftplus').'</p>';
+			echo '<p>'.__('Your WordPress install has old folders from its state before you restored/migrated (technical information: these are suffixed with -old). You should press this button to delete them as soon as you have verified that the restoration worked.', 'updraftplus').'</p>';
 		}
 		?>
 		<form method="post" action="<?php echo esc_url(add_query_arg(array('error' => false, 'updraft_restore_success' => false, 'action' => false, 'page' => 'updraftplus'), UpdraftPlus_Options::admin_page_url())); ?>">
 			<?php wp_nonce_field('updraftplus-credentialtest-nonce', 'updraft_delete_old_dirs_nonce'); ?>
 			<input type="hidden" name="action" value="updraft_delete_old_dirs">
-			<input type="submit" class="button-primary" value="<?php echo esc_attr(__('Delete Old Directories', 'updraftplus'));?>">
+			<input type="submit" class="button-primary" value="<?php echo esc_attr(__('Delete old folders', 'updraftplus'));?>">
 		</form>
 		<?php
 		if ($include_blurb && $include_div) echo '</div>';
@@ -3707,7 +3712,7 @@ class UpdraftPlus_Admin {
 					$p = min($jobdata['uploading_substatus']['p'], 1);
 					$pd = $i + $p/$t;
 					$stage = 'clouduploading' == $jobstatus ? $stage + $pd : $stage;
-					$curstage .= ' ('.floor(100*$pd).'%, '.sprintf(__('file %d of %d', 'updraftplus'), (int)$jobdata['uploading_substatus']['i']+1, $t).')';
+					$curstage .= ' ('.floor(100*$pd).'%, '.sprintf(__('file %d of %d', 'updraftplus'), (int) $jobdata['uploading_substatus']['i']+1, $t).')';
 				}
 				break;
 			case 'pruning':
@@ -3853,12 +3858,12 @@ class UpdraftPlus_Admin {
 	}
 
 	private function delete_old_dirs_go($show_return = true) {
-		echo $show_return ? '<h1>UpdraftPlus - '.__('Remove old directories', 'updraftplus').'</h1>' : '<h2>'.__('Remove old directories', 'updraftplus').'</h2>';
+		echo $show_return ? '<h1>UpdraftPlus - '.__('Remove old folders', 'updraftplus').'</h1>' : '<h2>'.__('Remove old directories', 'updraftplus').'</h2>';
 
 		if ($this->delete_old_dirs()) {
-			echo '<p>'.__('Old directories successfully removed.', 'updraftplus').'</p><br>';
+			echo '<p>'.__('Old folders successfully removed.', 'updraftplus').'</p><br>';
 		} else {
-			echo '<p>',__('Old directory removal failed for some reason. You may want to do this manually.', 'updraftplus').'</p><br>';
+			echo '<p>',__('Old folder removal failed for some reason. You may want to do this manually.', 'updraftplus').'</p><br>';
 		}
 		if ($show_return) echo '<b>'.__('Actions', 'updraftplus').':</b> <a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus">'.__('Return to UpdraftPlus configuration', 'updraftplus').'</a>';
 	}
@@ -4017,10 +4022,13 @@ class UpdraftPlus_Admin {
 		global $updraftplus;
 		$dirs = scandir(untrailingslashit(WP_CONTENT_DIR));
 		if (!is_array($dirs)) $dirs = array();
-		$dirs_u = @scandir($updraftplus->backups_dir_location());// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$backups_dir_location = $updraftplus->backups_dir_location();
+		$dirs_u = @scandir($backups_dir_location);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		if (!is_array($dirs_u)) $dirs_u = array();
 		foreach (array_merge($dirs, $dirs_u) as $dir) {
-			if (preg_match('/-old$/', $dir)) {
+			// is_dir() should be checked because scandir() occasionally returns a cached directory list.
+			$dir_path = $backups_dir_location.'/'.$dir;
+			if (preg_match('/-old$/', $dir) && is_dir($dir_path)) {
 				if ($print_as_comment) echo '<!--'.htmlspecialchars($dir).'-->';
 				return true;
 			}
@@ -4150,27 +4158,20 @@ class UpdraftPlus_Admin {
 	public function get_intervals($what_for = 'db') {
 		global $updraftplus;
 
+		$intervals = wp_get_schedules();
+
 		if ($updraftplus->is_restricted_hosting('only_one_backup_per_month')) {
-			$intervals = array(
-				'manual' => _x('Manual', 'i.e. Non-automatic', 'updraftplus'),
-				'monthly' => __('Monthly', 'updraftplus')
-			);
+			$intervals = array_intersect_key($intervals, array('monthly' => array()));
 		} else {
-			$intervals = array(
-				'manual' => _x('Manual', 'i.e. Non-automatic', 'updraftplus'),
-				'everyhour' => __('Every hour', 'updraftplus'),
-				'every2hours' => sprintf(__('Every %s hours', 'updraftplus'), '2'),
-				'every4hours' => sprintf(__('Every %s hours', 'updraftplus'), '4'),
-				'every8hours' => sprintf(__('Every %s hours', 'updraftplus'), '8'),
-				'twicedaily' => sprintf(__('Every %s hours', 'updraftplus'), '12'),
-				'daily' => __('Daily', 'updraftplus'),
-				'weekly' => __('Weekly', 'updraftplus'),
-				'fortnightly' => __('Fortnightly', 'updraftplus'),
-				'monthly' => __('Monthly', 'updraftplus'),
-			);
-			
-			if ('files' == $what_for) unset($intervals['everyhour']);
+			if ('db' != $what_for) unset($intervals['everyhour']);
 		}
+		$intervals = array_intersect_key(updraftplus_list_cron_schedules(), $intervals); // update schedule descriptions for the UI of the backup schedule drop-down and rearrange schedule order
+
+		foreach ($intervals as $interval => $data) {
+			$intervals[$interval] = $data['display'];
+		}
+
+		$intervals = array('manual' => _x('Manual', 'i.e. Non-automatic', 'updraftplus')) + $intervals;
 
 		return apply_filters('updraftplus_backup_intervals', $intervals, $what_for);
 	}
@@ -4807,7 +4808,7 @@ ENDHERE;
 		if (is_array($services)) {
 			foreach ($services as $storage_info) {
 				$selected_services[] = $storage_info['value'];
-			} 
+			}
 		} else {
 			$selected_services = array($services);
 		}
@@ -4864,6 +4865,11 @@ ENDHERE;
 		
 		if (false !== $restore_job_id && !preg_match('/^[0-9a-f]+$/', $restore_job_id)) die('Invalid request (restore_job_id).');
 
+		if (isset($_REQUEST['action']) && 'updraft_ajaxrestore_continue' === $_REQUEST['action']) { // unlike updraft_ajaxrestore which requires nonce to start a new restoration, updraft_ajaxrestore_continue doesn't require nonces at all so additional checks are required
+			$restore_in_progress = get_site_option('updraft_restore_in_progress');
+			if (empty($restore_in_progress) || !$restore_job_id || $restore_job_id !== $restore_in_progress) die; // continuation requires a job ID, and if it's not presented then just abort without showing anything
+		}
+
 		// Set up nonces, log files etc.
 		$updraftplus->initiate_restore_job($restore_job_id);
 		
@@ -4882,7 +4888,7 @@ ENDHERE;
 				$selective_restore_types = array(
 					'tables',
 					'plugins',
-					'themes'
+					'themes',
 				);
 
 				foreach ($selective_restore_types as $type) {
@@ -4897,7 +4903,7 @@ ENDHERE;
 						foreach ($restore_entities_options as $entity) {
 							if ('udp_all_other_'.$type == $entity) {
 								$include_unspecified_entities = true;
-							} elseif ('udp-skip-'.$type == substr($entity, 0, strlen('udp-skip-'.$type))) {
+							} elseif (substr($entity, 0, strlen('udp-skip-'.$type)) == 'udp-skip-'.$type) {
 								$entities_to_skip[] = substr($entity, strlen('udp-skip-'.$type) + 1);
 							} else {
 								$entities_to_restore[] = $entity;

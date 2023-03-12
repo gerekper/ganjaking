@@ -26,7 +26,11 @@ class Columns implements Registerable {
 	 */
 	private $relationship_repository;
 
-	public function __construct( ColumnFactory $column_factory, RelationColumnFactory $relation_column_factory, RelationshipRepository $relationship_repository ) {
+	public function __construct(
+		ColumnFactory $column_factory,
+		RelationColumnFactory $relation_column_factory,
+		RelationshipRepository $relationship_repository
+	) {
 		$this->column_factory = $column_factory;
 		$this->relation_column_factory = $relation_column_factory;
 		$this->relationship_repository = $relationship_repository;
@@ -103,7 +107,7 @@ class Columns implements Registerable {
 	}
 
 	public function add_relation_columns( AC\ListScreen $list_screen ) {
-		if ( ! class_exists( 'MB_Relationships_API', false ) ) {
+		if ( ! class_exists( 'MB_Relationships_API', false ) || ! method_exists( 'MB_Relationships_API', 'get_all_relationships' ) ) {
 			return;
 		}
 

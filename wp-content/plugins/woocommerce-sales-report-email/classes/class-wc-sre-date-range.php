@@ -6,6 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_SRE_Date_Range {
 
+	/**
+	 * Date range interval.
+	 *
+	 * @var string
+	 */
 	private $interval;
 
 	/**
@@ -23,32 +28,26 @@ class WC_SRE_Date_Range {
 	private $end_date;
 
 	/**
-	 * The constructor
+	 * Constructor.
 	 *
-	 * @param $interval
+	 * @since 1.0.0
 	 *
-	 * @access public
-	 * @since  1.0.0
+	 * @param string $interval Date range interval.
 	 */
 	public function __construct( $interval ) {
-
-		// Set the interval
 		$this->interval = $interval;
 
-		// Set the dates based on interval
 		$this->set_dates();
 	}
 
 	/**
 	 * Set the correct start and end dates.
 	 *
-	 * @access private
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
 	private function set_dates() {
-
 		// Set the end date.
-		$this->end_date = new DateTime( date( 'Y-m-d' ) . '00:00:00' );
+		$this->end_date = new DateTime( date_i18n( 'Y-m-d' ), new DateTimeZone( wc_timezone_string() ) );
 
 		// Clone end date into start date.
 		$this->start_date = clone $this->end_date;
@@ -75,8 +74,8 @@ class WC_SRE_Date_Range {
 	/**
 	 * Get the end date
 	 *
-	 * @access public
-	 * @since  1.0.0
+	 * @since 1.0.0
+	 *
 	 * @return DateTime
 	 */
 	public function get_end_date() {
@@ -86,10 +85,9 @@ class WC_SRE_Date_Range {
 	/**
 	 * Set the end date
 	 *
-	 * @param DateTime $end_date
+	 * @since 1.0.0
 	 *
-	 * @access public
-	 * @since  1.0.0
+	 * @param DateTime $end_date
 	 */
 	public function set_end_date( $end_date ) {
 		$this->end_date = $end_date;

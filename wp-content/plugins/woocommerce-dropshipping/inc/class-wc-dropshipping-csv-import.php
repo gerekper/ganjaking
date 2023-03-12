@@ -35,30 +35,35 @@ class WC_Dropshipping_CSV_Import {
 		$term_id = $_GET['term_id'];
 		$ds = wc_dropshipping_get_dropship_supplier( intval( $term_id ) );
 		// Inventory Upload window
-		echo '	<div id="CSVwindow" >
-					<form class="csvupload_form" action="' . admin_url( 'admin-ajax.php' ) . '" method="post" enctype="multipart/form-data" target="csvupload_iframe-' . $ds['slug'] . '" >
-						<input type="hidden" name="action" value="CSV_upload_form" />';
-						// wp_nonce_field( 'editedtag');
-						wp_nonce_field( 'CSV_upload_form' );
-		echo '			<p>If your supplier provides a spreadsheet in .CSV format indicating their inventory levels (Quantity on Hand) or whether or not their products are in stock (In-Stock Indicator) you can import the .CSV file here to update your inventory status.
-						Before uploading a .CSV file, please configure which columns to use on the spreadsheet by mousing over the supplier&apos;s name and select "Edit"</p>
-						<table>
-							<tr>
-									<th>CSV File Location:</th>
-							</tr>
-							<tr>
-								<td>
-									<input type="hidden" id="csv_upload_term_id" name="term_id" value="' . $term_id . '" />
-									<input type="file" name="csv_file" value="" />
-									<input type="hidden" value="' . $ds['slug'] . '" name="slug">
-									<input type="hidden" value="dropship_supplier" name="taxonomy">
-									<input type="hidden" value="product" name="post_type">
-								</td>
-								<td><input class="button-primary csvupload_submit_btn" type="submit" name="submit" value="Update" /></td>
-							</tr>
-						</table>
-					</form>
-					<iframe style="display:none;width: 100%;height: 340px" id="csvupload_iframe-' . $ds['slug'] . '" class="csv_upload_iframe" name="csvupload_iframe-' . $ds['slug'] . '" src="#" ></iframe>
+		echo '<div id="CSVwindow" >
+			<form class="csvupload_form" action="' . admin_url( 'admin-ajax.php' ) . '" method="post" enctype="multipart/form-data" target="csvupload_iframe-' . $ds['slug'] . '" >';
+
+		echo '<input type="hidden" name="action" value="CSV_upload_form" />';
+		// wp_nonce_field( 'editedtag');
+		wp_nonce_field( 'CSV_upload_form' );
+
+		echo '<p>If your supplier provides a spreadsheet in .CSV format indicating their inventory levels (Quantity on Hand) or whether or not their products are in stock (In-Stock Indicator) you can import the .CSV file here to update your inventory status.Before uploading a .CSV file, please configure which columns to use on the spreadsheet by mousing over the supplier&apos;s name and select "Edit"</p>';
+			
+		echo '<table>
+			<tr>
+				<th>CSV File Location:</th>
+			</tr>
+			<tr>
+				<td>';
+				echo '<input type="hidden" id="csv_upload_term_id" name="term_id" value="' . $term_id . '" />
+					<input type="file" name="csv_file" value="" />';
+
+				echo '<input type="hidden" value="' . $ds['slug'] . '" name="slug">';
+				echo '<input type="hidden" value="dropship_supplier" name="taxonomy">';
+				echo '<input type="hidden" value="product" name="post_type">
+						</td>
+						<td><input class="button-primary csvupload_submit_btn" type="submit" name="submit" value="Update" />
+						</td>
+					</tr>
+				</table>
+				</form>';
+
+				echo '<iframe style="display:none;width: 100%;height: 340px" id="csvupload_iframe-' . $ds['slug'] . '" class="csv_upload_iframe" name="csvupload_iframe-' . $ds['slug'] . '" src="#" ></iframe>
 				</div>';
 		wp_die();
 	}

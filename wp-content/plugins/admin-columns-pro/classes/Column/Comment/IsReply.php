@@ -14,7 +14,9 @@ class IsReply extends AC\Column
 	}
 
 	public function get_value( $id ) {
-		return $this->get_raw_value( $id ) ? ac_helper()->icon->yes() : ac_helper()->icon->no();
+		return $this->get_raw_value( $id )
+			? ac_helper()->icon->yes()
+			: ac_helper()->icon->no();
 	}
 
 	/**
@@ -23,7 +25,7 @@ class IsReply extends AC\Column
 	 * @return int
 	 */
 	public function get_raw_value( $id ) {
-		return get_comment( $id )->comment_parent;
+		return (int) get_comment( $id )->comment_parent;
 	}
 
 	public function search() {

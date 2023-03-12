@@ -9,14 +9,16 @@ class HasReplies extends AC\Column
 	implements Search\Searchable {
 
 	public function __construct() {
-		$this->set_type( 'column-has_replies' );
-		$this->set_label( __( 'Has Replies', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-has_replies' )
+		     ->set_label( __( 'Has Replies', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
 		$comments = $this->get_raw_value( $id );
 
-		return $comments ? ac_helper()->icon->yes() : ac_helper()->icon->no();
+		return $comments
+			? ac_helper()->icon->yes()
+			: ac_helper()->icon->no();
 	}
 
 	/**
@@ -27,11 +29,15 @@ class HasReplies extends AC\Column
 	public function get_raw_value( $id ) {
 		global $wpdb;
 
-		return (int) $wpdb->get_var( "
+		$sql = $wpdb->prepare( "
 			SELECT count(*)
-			FROM {$wpdb->comments}
-			WHERE comment_parent = {$id}
-		" );
+			FROM $wpdb->comments
+			WHERE comment_parent = %d
+		",
+			(int) $id
+		);
+
+		return (int) $wpdb->get_var( $sql );
 	}
 
 	public function search() {

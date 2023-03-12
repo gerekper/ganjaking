@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpml/gfml',
-        'pretty_version' => '1.7.1',
-        'version' => '1.7.1.0',
-        'reference' => '1e33e7143b9ad382cf1480a86500449aa098bd73',
+        'pretty_version' => '1.7.2',
+        'version' => '1.7.2.0',
+        'reference' => '64a794416ebeb9a2b464b30adeb68c72a2d7cff3',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'wpml/gfml' => array(
-            'pretty_version' => '1.7.1',
-            'version' => '1.7.1.0',
-            'reference' => '1e33e7143b9ad382cf1480a86500449aa098bd73',
+            'pretty_version' => '1.7.2',
+            'version' => '1.7.2.0',
+            'reference' => '64a794416ebeb9a2b464b30adeb68c72a2d7cff3',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

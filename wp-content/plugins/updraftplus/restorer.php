@@ -412,6 +412,9 @@ class Updraft_Restorer {
 				if ($browser_context) echo '</strong>';
 			}
 
+			// preserve labels when restoring (not yet ready)
+			// UpdraftPlus_Backup_History::restore_backup_history_label();
+
 			do_action('updraftplus_restore_completed');
 		}
 
@@ -674,6 +677,7 @@ class Updraft_Restorer {
 				$last_one = (1 == count($second_loop) && 1 == count($files));
 				$last_entity = (1 == count($files));
 				try {
+					do_action('updraftplus_pre_entity_restoration', $type, $fkey);
 					// Returns a boolean or WP_Error
 					$restore_result = $this->restore_backup($file, $type, $info, $last_one, $last_entity);
 				} catch (Exception $e) {
@@ -1529,7 +1533,7 @@ class Updraft_Restorer {
 
 			if (isset($this->continuation_data['updraftplus_ajax_restore']) && 'continue_ajax_restore' != $this->continuation_data['updraftplus_ajax_restore'] && (('plugins' == $type || 'uploads' == $type || 'themes' == $type || 'more' == $type) && (!is_multisite() || 0 !== $this->ud_backup_is_multisite || ('uploads' != $type || empty($updraftplus_addons_migrator->new_blogid))))) {
 				if (file_exists($updraft_dir.'/'.basename($wp_filesystem_dir)."-old")) {
-					$ret_val = new WP_Error('already_exists', sprintf(__('Existing unremoved folders from a previous restore exist (please use the "Delete Old Directories" button to delete them before trying again): %s', 'updraftplus'), $updraft_dir.'/'.basename($wp_filesystem_dir)."-old"));
+					$ret_val = new WP_Error('already_exists', sprintf(__('Existing unremoved folders from a previous restore exist (please use the "Delete old folders" button to delete them before trying again): %s', 'updraftplus'), $updraft_dir.'/'.basename($wp_filesystem_dir)."-old"));
 				}
 			}
 		}
@@ -1628,6 +1632,9 @@ class Updraft_Restorer {
 			$now_done = false;
 			$do_not_move_old = true;
 		}
+
+		// preserve labels when restoring (not yet correct)
+		// UpdraftPlus_Backup_History::preserve_backup_history();
 		
 		if (!$now_done) {
 		
@@ -3660,7 +3667,7 @@ class Updraft_Restorer {
 		$current_table_name = UpdraftPlus_Manipulation_Functions::backquote($current_table_name);
 		$new_table_name = UpdraftPlus_Manipulation_Functions::backquote($new_table_name);
 
-		return $this->sql_exec("ALTER TABLE $current_table_name RENAME TO $new_table_name;", 14);
+		return $this->sql_exec("ALTER TABLE $current_table_name RENAME TO $new_table_name;", 14, '', false);
 	}
 
 	private function lock_table($table) {

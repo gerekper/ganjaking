@@ -43,6 +43,21 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 						$mwb_crp_img = COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/background.jpg';
 						?>
 					<div class="mwb-pr-popup-body mwb_cpr_logged_wrapper">
+						<?php
+						$signup_text = get_option( 'signup_popup_text', false );
+						if ( ! empty( $signup_text ) ) {
+							$signup_text = str_replace( '{crp_referral_code}', do_shortcode( '[crp_referral_code]' ), $signup_text );
+							$signup_text = str_replace( '{crp_referral_link}', do_shortcode( '[crp_referral_link]' ), $signup_text );
+							/**
+							 * Filter to format the content.
+							 *
+							 * @since 1.6.5
+							 * @param string $signup_text .
+							 */
+							echo wp_kses_post( apply_filters( 'the_content', $signup_text ) );
+							return;
+						}
+						?>
 						<div class="mwb-popup-points-label" style="background-image: url('<?php echo esc_html( $mwb_crp_img ); ?>')">
 							<!-- Referal code -->
 							<?php $public_obj->get_referral_code_on_popup( $user_id ); ?>
@@ -186,14 +201,18 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 					} else {
 						$mwb_crp_bg_img = Coupon_Referral_Program_Admin::get_selected_image();
 						?>
-						<div class="mwb_cpr_guest" style="background-image: url('<?php echo esc_html( $mwb_crp_bg_img ); ?>');">
-						<div class="meb_cpr_guest__content">
-							<div class="meb_cpr_guest__content-text">
+						<div class="mwb_cpr_guest">
+
+						<div class="mwb_cpr_guest__content">
+							<div class="mwb_cpr_guest__content-text">
 								<?php esc_html_e( 'Signup to start sharing your link', 'coupon-referral-program' ); ?>
 							</div>
 							<span class="mwb_cpr_btn_wrapper">
 								<a href="<?php echo esc_html( wc_get_page_permalink( 'myaccount' ) ); ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-cpr-btn" style="background-color: <?php echo wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ); ?>"><?php esc_html_e( 'Signup', 'coupon-referral-program' ); ?></a>
 							</span>
+						</div>
+						<div class="mwb_cpr_guest_img">
+							<img src="<?php echo esc_html( $mwb_crp_bg_img ); ?>" alt="">
 						</div>
 						</div>
 						<?php } ?>
@@ -206,4 +225,3 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 		</div>
 	</div>
 <?php
-

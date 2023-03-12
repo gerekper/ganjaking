@@ -4,9 +4,6 @@ namespace ACA\ACF\Field;
 
 interface TaxonomyFilterable {
 
-	/**
-	 * @return array
-	 */
-	public function get_taxonomies();
+	public function get_taxonomies(): array;
 
 }

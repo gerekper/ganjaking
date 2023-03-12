@@ -9,13 +9,7 @@ use ACP;
 
 final class ModelFactory {
 
-	/**
-	 * @param Column\Meta $column
-	 * @param Field       $field
-	 *
-	 * @return ACP\Export\Model|false
-	 */
-	public function create( Column\Meta $column, Field $field ) {
+	public function create( Column\Meta $column, Field $field ): ?ACP\Export\Service {
 		switch ( true ) {
 			case $field instanceof Type\DateTime:
 			case $field instanceof Type\Date:
@@ -28,7 +22,7 @@ final class ModelFactory {
 				return new ACP\Export\Model\StrippedValue( $column );
 
 			case $field instanceof Type\Repeater:
-				return false;
+				return null;
 
 			default:
 				return new ACP\Export\Model\RawValue( $column );

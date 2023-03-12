@@ -3,7 +3,6 @@
 namespace ACP\Column\Post;
 
 use AC;
-use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Filtering;
@@ -29,7 +28,7 @@ class Tags extends AC\Column\Post\Tags
 	}
 
 	public function export() {
-		return new Export\Model\Post\Taxonomy( $this );
+		return new Export\Model\Post\Taxonomy( $this->get_taxonomy() );
 	}
 
 	public function search() {

@@ -6,46 +6,36 @@ use AC\ListScreen;
 
 class HideOnScreen {
 
-	/**
-	 * @var string
-	 */
 	protected $name;
 
-	/**
-	 * @var string
-	 */
 	protected $label;
 
-	public function __construct( $name, $label ) {
-		$this->name = (string) $name;
-		$this->label = (string) $label;
+	protected $dependent_on;
+
+	public function __construct( string $name, string $label, string $dependent_on = null ) {
+		$this->name = $name;
+		$this->label = $label;
+		$this->dependent_on = $dependent_on;
 	}
 
-	public function get_name() {
+	public function get_name(): string {
 		return $this->name;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_label() {
+	public function get_label(): string {
 		return $this->label;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return bool
-	 */
-	public function is_hidden( ListScreen $list_screen ) {
+	public function is_hidden( ListScreen $list_screen ): bool {
 		return 'on' === $list_screen->get_preference( $this->name );
 	}
 
-	/**
-	 * @return array
-	 */
-	public function get_dependent_on() {
-		return [];
+	public function has_dependent_on(): bool {
+		return null !== $this->dependent_on;
+	}
+
+	public function get_dependent_on(): string {
+		return $this->dependent_on;
 	}
 
 }

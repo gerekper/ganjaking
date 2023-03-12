@@ -5,6 +5,7 @@ namespace ACP\RequestHandler;
 use AC\Capabilities;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
+use AC\Message;
 use AC\Message\Notice;
 use AC\Request;
 use AC\Storage\ListScreenOrder;
@@ -14,9 +15,9 @@ use ACP\RequestHandler;
 
 class ListScreenCreate implements RequestHandler {
 
-	const PARAM_ACTION = 'action';
-	const PARAM_CREATE_LIST = 'create-layout';
-	const PARAM_DELETE_LIST = 'delete-layout';
+	public const PARAM_ACTION = 'action';
+	public const PARAM_CREATE_LIST = 'create-layout';
+	public const PARAM_DELETE_LIST = 'delete-layout';
 
 	/**
 	 * @var Storage
@@ -60,7 +61,7 @@ class ListScreenCreate implements RequestHandler {
 
 		if ( empty( $title ) ) {
 			$notice = new Notice( __( 'Name can not be empty.', 'codepress-admin-columns' ) );
-			$notice->set_type( Notice::ERROR )->register();
+			$notice->set_type( Message::ERROR )->register();
 
 			return;
 		}

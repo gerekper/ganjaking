@@ -4,8 +4,10 @@ const pmUserInteractions =["keydown","mousedown","mousemove","wheel","touchmove"
 const pmDelayedScripts = {normal: [], defer: [], async: []};
 const jQueriesArray = [];
 const pmInterceptedClicks = [];
+//const pmTrash = [];
 var pmDOMLoaded = false;
 var pmClickTarget = '';
+window.pmIsClickPending = false;
 
 //add pageshow listener
 window.addEventListener("pageshow", (e) => {
@@ -77,7 +79,12 @@ async function pmTriggerDelayedScripts() {
     });
 
     //start click replay event
-    window.dispatchEvent(new Event("perfmatters-allScriptsLoaded")), pmReplayClicks();    
+    window.dispatchEvent(new Event("perfmatters-allScriptsLoaded")), 
+        pmWaitForPendingClicks().then(() => {
+            pmReplayClicks();
+        });
+        //pmEmptyTrash();
+    //pmReplayClicks();    
 }
 
 //delay original page event listeners
@@ -398,13 +405,9 @@ async function pmNextFrame() {
     });   
 }
 
-function pmClickHandler(e) {
-    e.target.removeEventListener("click", pmClickHandler);
-    pmRenameDOMAttribute(e.target, "pm-onclick", "onclick");
-    pmInterceptedClicks.push(e), e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-}
+/*function pmEmptyTrash() {
+    window.pmTrash.forEach((t) => t.remove());
+}*/
 
 function pmReplayClicks() {
     window.removeEventListener("touchstart", pmTouchStartHandler, {passive: true});
@@ -414,6 +417,27 @@ function pmReplayClicks() {
             e.target.dispatchEvent(new MouseEvent("click", {view: e.view, bubbles: true, cancelable: true}));
         }
     });
+}
+
+function pmWaitForPendingClicks() {
+    return new Promise((t) => {
+        window.pmIsClickPending ? (pmPendingClickFinished = t) : t();
+    });
+}
+function pmPndingClickStarted() {
+    window.pmIsClickPending = true;
+}
+function pmPendingClickFinished() {
+    window.pmIsClickPending = false;
+}
+
+function pmClickHandler(e) {
+    e.target.removeEventListener("click", pmClickHandler);
+    pmRenameDOMAttribute(e.target, "pm-onclick", "onclick");
+    pmInterceptedClicks.push(e), e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    pmPendingClickFinished();
 }
 
 function pmTouchStartHandler(e) {
@@ -428,6 +452,7 @@ function pmTouchStartHandler(e) {
         window.addEventListener("mousemove", pmTouchMoveHandler);
         e.target.addEventListener("click", pmClickHandler);
         pmRenameDOMAttribute(e.target, "onclick", "pm-onclick");
+        pmPendingClickStarted();
     }     
 }
 
@@ -438,6 +463,7 @@ function pmTouchMoveHandler(e) {
     window.removeEventListener("mousemove", pmTouchMoveHandler);
     e.target.removeEventListener("click", pmClickHandler);
     pmRenameDOMAttribute(e.target, "pm-onclick", "onclick");
+    pmPendingClickFinished();
 }
 
 function pmTouchEndHandler(e) {

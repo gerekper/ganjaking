@@ -60,7 +60,7 @@ final class Table extends Script {
 			'add_rule'               => __( 'Add Rule', 'codepress-admin-columns' ),
 			'add_another_condition'  => __( 'Add condition', 'codepress-admin-columns' ),
 			'conditional_formatting' => __( 'Conditional Formatting', 'codepress-admin-columns' ),
-			'formatting'             => __( 'Formatting', 'codepress-admin-columns' ),
+			'formatting'             => __( 'Conditional Formatting', 'codepress-admin-columns' ),
 			'formatting_style'       => __( 'Formatting Style', 'codepress-admin-columns' ),
 			'documentation_link'     => $this->get_documentation_link(),
 		] );

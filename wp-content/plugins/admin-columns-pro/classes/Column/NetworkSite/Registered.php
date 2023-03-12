@@ -7,8 +7,8 @@ use AC;
 class Registered extends AC\Column {
 
 	public function __construct() {
-		$this->set_type( 'registered' );
-		$this->set_original( true );
+		$this->set_type( 'registered' )
+		     ->set_original( true );
 	}
 
 	public function register_settings() {

@@ -29,9 +29,6 @@ class Customer extends AC\Column\Meta
 		$this->add_setting( new Settings\ShopOrder\Customer( $this ) );
 	}
 
-	/**
-	 * @return ACP\Export\Model
-	 */
 	public function export() {
 		return new ACP\Export\Model\StrippedValue( $this );
 	}

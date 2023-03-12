@@ -2,13 +2,9 @@
 
 namespace ACP\Export\Model\Comment;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Response (default column) exportability model
- * @since 4.1
- */
-class Response extends Model {
+class Response implements Service {
 
 	public function get_value( $id ) {
 		$comment = get_comment( $id );

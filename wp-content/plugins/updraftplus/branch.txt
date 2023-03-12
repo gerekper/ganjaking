@@ -1,0 +1,9 @@
+commit 1c45a7c9eb3516cb6789bca6c29d23e7d650a928
+Author: David Anderson <DavidAnderson684@users.noreply.github.com>
+Date:   Wed Mar 8 22:31:52 2023 +0000
+
+    fix version
+
+src/readme.txt
+src/updraftplus.php
+branch:

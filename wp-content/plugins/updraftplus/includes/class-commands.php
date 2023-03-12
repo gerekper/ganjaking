@@ -120,7 +120,7 @@ class UpdraftPlus_Commands {
 			add_filter('updraftplus_initial_jobdata', array($updraftplus, 'updraftplus_clone_backup_jobdata'), 10, 3);
 		}
 
-		if (!empty($params['db_anon_all']) || !empty($params['db_anon_non_staff'])) {
+		if (!empty($params['db_anon_all']) || !empty($params['db_anon_non_staff']) || !empty($params['db_anon_wc_orders'])) {
 			if (!class_exists('UpdraftPlus_Anonymisation_Functions')) updraft_try_include_file('addons/anonymisation.php', 'include_once');
 
 			add_filter('updraft_backupnow_options', 'UpdraftPlus_Anonymisation_Functions::updraftplus_backup_anonymisation_options', 10, 2);

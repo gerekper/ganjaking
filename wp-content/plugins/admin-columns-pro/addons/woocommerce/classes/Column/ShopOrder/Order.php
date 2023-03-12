@@ -22,7 +22,7 @@ class Order extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopOrder\Order( $this );
+		return new Export\ShopOrder\Order();
 	}
 
 	public function search() {

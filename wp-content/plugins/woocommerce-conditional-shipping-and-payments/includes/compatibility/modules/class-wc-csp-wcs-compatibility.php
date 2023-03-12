@@ -3,7 +3,7 @@
  * WC_CSP_WCS_Compatibility class
  *
  * @package  WooCommerce Conditional Shipping and Payments
- * @since    1.4.0
+ * @since    1.14.5
  */
 
 // Exit if accessed directly.
@@ -112,7 +112,7 @@ class WC_CSP_WCS_Compatibility {
 
 			foreach ( $packages as $package_index => $base_package ) {
 
-				$package = WC_Subscriptions_Cart::get_calculated_shipping_for_package( $base_package );
+				$package = WC()->shipping->calculate_shipping_for_package( $base_package );
 
 				if ( isset( $package[ 'recurring_cart_key' ] ) ) {
 					$recurring_shipping_package_key = $package_index;

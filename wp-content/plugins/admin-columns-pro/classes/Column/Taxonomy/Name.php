@@ -22,7 +22,7 @@ class Name extends AC\Column
 	}
 
 	public function export() {
-		return new Export\Model\Term\Name( $this );
+		return new Export\Model\Term\Name();
 	}
 
 }

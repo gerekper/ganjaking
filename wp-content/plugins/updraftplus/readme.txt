@@ -1,9 +1,9 @@
 === UpdraftPlus WordPress Backup Plugin ===
-Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snightingale, bcrodua
+Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 6.1
-Stable tag: 1.22.25
+Stable tag: 1.23.1
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -168,6 +168,37 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
+
+= 1.23.1 - 08/March/2023 =
+
+* FEATURE: Support Cloudflare R2 as a generic S3 storage provider (always use v4 signature)
+* FEATURE: Added the ability to get an accurate row count for all tables in the advanced tools
+* FEATURE: Expose an option in the UI to disable chunked uploading when using WebDAV remote storage (previously required a constant)
+* FEATURE: Add the ability to anonymize WooCommerce order data when cloning a site
+* FIX: An over-ride enforcing use of V4 signatures on Aliyuncs S3 storage was no longer working
+* FIX: pCloud error handling in chunked uploading did not pass the error message up to the logging layer
+* FIX: Backups started under WP-CLI could not backup the database only without any files
+* FIX: Couldn't add any file/directory inclusion for "Other" entity due to access to one directory up from the current (ABSPATH) isn't permitted
+* FIX: Atomic restore is not renaming a few tables when not restoring specific tables by using the filter `updraftplus_restore_this_table`.
+* FIX: Sometimes the "delete old directories" notice displayed even though the actual `-old` directory didn't exist
+* FIX: The restore point date time was incorrect in the restore screen when restoring the incremental backup, and the WordPress site has a non-GMT timezone set.
+* TWEAK: Improve manual rescanning and deletion of backup sets by setting up a time limit to a value defined in UPDRAFTPLUS_SET_TIME_LIMIT constant to minimise chances of getting fatal error (maximum execution time exceeded)
+* TWEAK: Add a filter updraftplus_mysqldump_arguments to allow changing of arguments passed to the mysqldump binary when that is being used
+* TWEAK: Include PHP version in default S3 user agent to aid debugging
+* TWEAK: Disable Gravatar on UpdraftClone
+* TWEAK: Cleanup .list.tmp files when a cloud backup completes
+* TWEAK: Use the function that lists our own cron schedules to simplify the way backup intervals are prepared and to avoid schedules mismatch
+* TWEAK: Improve manual deletion of backup sets by setting up a time limit to a value defined in UPDRAFTPLUS_SET_TIME_LIMIT constant to minimise chances of getting fatal error (maximum execution time exceeded)
+* TWEAK: Improve the Handlebars template of the S3-Compatible (Generic) remote storage by taking PHP code out of it
+* TWEAK: Increase max_recursion value to 20 in class-search-replace.php
+* TWEAK: Add a new function that lists our own cron schedules so that it can later be used as schedules sorting purpose also as a main source from which our schedules list is originated
+* TWEAK: Display Google drive email address along with account holder name
+* TWEAK: Fixed WebDAV PHP 8.1+ deprecated warnings
+* TWEAK: Updated text message displayed on Web Server - Localhost UC Dashboard Key Creation.
+* TWEAK: Use nonce in every part of a restoration process to prevent direct access that has allows an unwanted log file to be begun. On sites running on end-of-lifed PHP versions (<8.0) it was possible to read the beginning of the log file, causing an unintended information disclosure about the server environment, e.g. Apache version, PHP version and available memory (but current PHP versions are not vulnerable).
+* TWEAK: Use nonce when starting a new restoration and strengthen the continuation process to prevent direct access that has the potential of being file and/or log abuse
+* TWEAK: Improve the WebDAV storage module API in regard to the way it handles uploading and writing files
+* TWEAK: Replace the word "Directory" with "Folder" in UI notices
 
 = 1.22.25 - 16/Dec/2022 =
 
@@ -1672,4 +1703,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.22.25: FIX: Resolves a fatal error that occurred in 2.22.24 (paid versions only) if a user had one specific add-on and not another A recommended update for all.
+* 1.23.1:  Over twenty-five tweaks, fixes and features - a recommended update for all.

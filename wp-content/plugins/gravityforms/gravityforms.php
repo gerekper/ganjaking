@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.7.2.1
+Version: 2.7.2.2
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -250,7 +250,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.7.2.1';
+	public static $version = '2.7.2.2';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -1087,6 +1087,7 @@ class GFForms {
 				'gform_chosen',
 				'gform_editor',
 				'gform_admin_theme',
+				'template_library_styles'
 			),
 			'gf_edit_forms_settings' => array(
 				'thickbox',
@@ -1095,7 +1096,7 @@ class GFForms {
 				'media-views',
 				'buttons',
 			),
-			'gf_new_form'                => array( 'thickbox' ),
+			'gf_new_form'                => array( 'thickbox', 'template_library_styles' ),
 			'gf_entries'                 => array( 'thickbox', 'gform_chosen', 'gform_admin_theme' ),
 			'gf_settings'                => array(),
 			'gf_export'                  => array(),

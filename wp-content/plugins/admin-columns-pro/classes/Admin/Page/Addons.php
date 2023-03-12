@@ -21,7 +21,7 @@ class Addons extends AC\Admin\Page\Addons {
 
 		$active = $this->integrations->find_all( [
 			IntegrationRepository::ARG_FILTER => [
-				new ACP\Integration\Filter\IsProActive(),
+				new ACP\Integration\Filter\IsActive(),
 			],
 		] );
 

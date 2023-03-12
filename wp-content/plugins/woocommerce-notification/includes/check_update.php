@@ -12,7 +12,7 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 
 	/**
 	 * Class VillaTheme_Plugin_Check_Update
-	 * 1.0.1
+	 * 1.0.4
 	 */
 	class VillaTheme_Plugin_Check_Update {
 		/**
@@ -73,17 +73,23 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 		 * @var
 		 */
 		public $item_id;
+		public $setting_url;
+		public $messages;
 
 		/**
 		 * Initialize a new instance of the WordPress Auto-Update class
 		 *
-		 * @param string $current_version
-		 * @param string $update_path
-		 * @param string $plugin_slug
-		 * @param string $slug
+		 * VillaTheme_Plugin_Check_Update constructor.
+		 *
+		 * @param $current_version
+		 * @param $update_path
+		 * @param $plugin_slug
+		 * @param $slug
+		 * @param $item_id
+		 * @param string $key
+		 * @param string $setting_url
 		 */
-		function __construct( $current_version, $update_path, $plugin_slug, $slug, $item_id, $key = '', $setting_url = '' ) {
-
+		public function __construct( $current_version, $update_path, $plugin_slug, $slug, $item_id, $key = '', $setting_url = '' ) {
 			// Set the class public variables
 			$this->current_version = $current_version;
 			$this->update_path     = $update_path;
@@ -100,17 +106,17 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 			if ( isset( $_GET[ $this->slug . '_hide' ] ) && $_GET[ $this->slug . '_hide' ] ) {
 				set_transient( $this->slug . '_hide', 1, 2592000 );
 			}
-			// define the alternative API for checking for updates
-			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
+			// define the alternative API for checking for updates, use priority 1 to not override plugin data of Envato market plugin
+			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ), 1 );
 
 			// Define the alternative response for information checking
-			add_filter( 'plugins_api', array( $this, 'check_info' ), 10, 3 );
+			add_filter( 'plugins_api', array( $this, 'check_info' ), 5, 3 );
+			$this->messages = get_option( $this->slug . '_messages', array() );
 			if ( ! get_option( $this->slug . '_' . $this->current_version . '_dismiss_notices' ) ) {
 				if ( ! get_transient( $this->slug . '_hide' ) ) {
 					if ( ! $this->key ) {
 						add_action( 'admin_notices', array( $this, 'update_key_notice' ) );
 					} else {
-						$this->messages = get_option( $this->slug . '_messages', array() );
 						if ( is_array( $this->messages ) && count( $this->messages ) ) {
 							if ( isset( $this->messages['update'] ) && $this->messages['update'] == 2 ) {
 								add_action( 'admin_notices', array( $this, 'renew_key_notice' ) );
@@ -119,21 +125,33 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 					}
 				}
 			}
+			add_action( 'villatheme_save_and_check_key_' . $this->slug, array( $this, 'save_and_check_key' ) );
 			add_action( $this->slug . '_key', array( $this, 'key_active' ) );
 		}
 
+		/**
+		 * This class must be initialized before a plugin saves its settings
+		 * $auto_update_key may be changed so we should pass it to the hook
+		 *
+		 * @param $auto_update_key
+		 */
+		public function save_and_check_key( $auto_update_key ) {
+			$this->key = $auto_update_key;
+
+			$this->get_remote_version();
+		}
 
 		/**
 		 * Show key is active
 		 */
 		public function key_active() {
-
-			if ( isset( $this->messages ) ) {
+			if ( $this->key && isset( $this->messages ) ) {
 				if ( count( $this->messages ) ) {
-					if ( isset( $this->messages['update'] ) ) {
+					if ( ! empty( $this->messages['message'] ) ) {
 						?>
-						<p class="villatheme-key-active"><?php esc_html_e( $this->messages['message'] ) ?></p>
-					<?php }
+                        <p class="villatheme-key-active"><?php echo esc_html( $this->messages['message'] ) ?></p>
+						<?php
+					}
 				}
 			}
 		}
@@ -144,21 +162,21 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 		public function renew_key_notice() {
 			$plugin = get_plugin_data( WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $this->plugin_slug );
 			?>
-			<div class="villatheme-dashboard notice notice-warning">
-				<div class="villatheme-content">
-					<p><?php echo esc_html__( 'Hello! Your ', $this->slug ) . '<strong>' . $plugin['Name'] . '</strong>' . esc_html__( ' is expired automatic update and support. Please go to renew now.', $this->plugin_slug ) ?>
-						<a class="button button-primary" target="_blank"
-						   href="https://codecanyon.net/downloads"><?php esc_html_e( 'Renew', $this->slug ) ?></a>
-						<a href="<?php esc_attr_e( add_query_arg( array( $this->slug . '_hide' => 1 ) ) ) ?>"
-						   class="button"><?php esc_html_e( 'Skip', $this->slug ) ?></a>
-					</p>
-					<a target="_self"
-					   href="<?php esc_attr_e( add_query_arg( array( $this->slug . '_dismiss_notices' => 1 ) ) ); ?>"
-					   class="button notice-dismiss vi-button-dismiss"><?php esc_html_e( 'Dismiss', $this->slug ) ?></a>
-				</div>
-
-			</div>
-		<?php }
+            <div class="villatheme-dashboard notice notice-warning">
+                <div class="villatheme-content">
+                    <p><?php echo esc_html( 'Hello! Your ' ) . '<strong>' . $plugin['Name'] . '</strong>' . esc_html( ' has expired so you no longer receive automatic updates as well as support. Please go to renew now.' ) ?>
+                        <a class="button button-primary" target="_blank"
+                           href="https://codecanyon.net/downloads"><?php echo esc_html( 'Renew' ) ?></a>
+                        <a href="<?php echo esc_url( add_query_arg( array( $this->slug . '_hide' => 1 ) ) ) ?>"
+                           class="button"><?php echo esc_html( 'Skip' ) ?></a>
+                    </p>
+                    <a target="_self"
+                       href="<?php echo esc_url( add_query_arg( array( $this->slug . '_dismiss_notices' => 1 ) ) ); ?>"
+                       class="button notice-dismiss vi-button-dismiss"><?php echo esc_html( 'Dismiss' ) ?></a>
+                </div>
+            </div>
+			<?php
+		}
 
 		/**
 		 * Show update key wordpress
@@ -166,22 +184,22 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 		public function update_key_notice() {
 			$plugin = get_plugin_data( WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $this->plugin_slug );
 			?>
-			<div class="villatheme-dashboard error">
-				<div class="villatheme-content">
-					<p><?php echo esc_html__( 'Hello! Would you like to receive automatic update? Please activate your copy of ', $this->slug ) . '<strong>' . $plugin['Name'] . '</strong>' ?></p>
-					<p>
-						<a href="<?php esc_attr_e( esc_url( $this->setting_url ) ) ?>#update"
-						   class="button button-primary"><?php esc_html_e( 'Activate', $this->slug ) ?></a>
-						<a href="<?php esc_attr_e( add_query_arg( array( $this->slug . '_hide' => 1 ) ) ) ?>"
-						   class="button"><?php esc_html_e( 'Hide', $this->slug ) ?></a>
-					</p>
-					<a target="_self"
-					   href="<?php esc_attr_e( add_query_arg( array( $this->slug . '_dismiss_notices' => 1 ) ) ); ?>"
-					   class="button notice-dismiss vi-button-dismiss"><?php esc_html_e( 'Dismiss', $this->slug ) ?></a>
-				</div>
-
-			</div>
-		<?php }
+            <div class="villatheme-dashboard error">
+                <div class="villatheme-content">
+                    <p><?php echo esc_html( 'Hello! Would you like to receive automatic update? Please activate your copy of ' ) . '<strong>' . $plugin['Name'] . '</strong>' ?></p>
+                    <p>
+                        <a href="<?php echo esc_url( $this->setting_url ) ?>#update"
+                           class="button button-primary"><?php echo esc_html( 'Activate' ) ?></a>
+                        <a href="<?php echo esc_url( add_query_arg( array( $this->slug . '_hide' => 1 ) ) ) ?>"
+                           class="button"><?php echo esc_html( 'Hide' ) ?></a>
+                    </p>
+                    <a target="_self"
+                       href="<?php echo esc_url( add_query_arg( array( $this->slug . '_dismiss_notices' => 1 ) ) ); ?>"
+                       class="button notice-dismiss vi-button-dismiss"><?php echo esc_html( 'Dismiss' ) ?></a>
+                </div>
+            </div>
+			<?php
+		}
 
 		/**
 		 * Add our self-hosted autoupdate plugin to the filter transient
@@ -191,23 +209,14 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 		 * @return object $ transient
 		 */
 		public function check_update( $transient ) {
-
 			// Get the remote version
 			$remote_version = $this->get_remote_version();
-
-			if ( is_array( $remote_version ) ) {
-				$version  = isset( $remote_version['version'] ) ? $remote_version['version'] : 0;
-				$url      = isset( $remote_version['url'] ) ? $remote_version['url'] : '';
-				$package  = isset( $remote_version['package'] ) ? $remote_version['package'] : '';
-				$messages = isset( $remote_version['message'] ) ? $remote_version['message'] : array();
-			} else {
+			if ( ! is_array( $remote_version ) ) {
 				return $transient;
 			}
-			/*Update message*/
-			if ( $messages ) {
-				$messages = json_decode( $messages, true );
-				update_option( $this->slug . '_messages', $messages );
-			}
+			$version = isset( $remote_version['version'] ) ? $remote_version['version'] : 0;
+			$url     = isset( $remote_version['url'] ) ? $remote_version['url'] : '';
+			$package = isset( $remote_version['package'] ) ? $remote_version['package'] : '';
 			// If a newer version is available, add the update info to update transient
 			if ( version_compare( $this->current_version, $version, '<' ) ) {
 				$obj                                       = new stdClass();
@@ -217,12 +226,9 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 				$obj->url                                  = $url;
 				$obj->package                              = $package;
 				$transient->response[ $this->plugin_slug ] = $obj;
-
 			} elseif ( isset( $transient->response[ $this->plugin_slug ] ) ) {
-
 				unset( $transient->response[ $this->plugin_slug ] );
 			}
-
 
 			return $transient;
 		}
@@ -247,13 +253,16 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 						)
 					)
 				);
-
 				if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
-					$request = json_decode( $request['body'], true );
-					set_transient( 'villatheme_item_' . $this->item_id, $request, 86400 );
+					$result = json_decode( $request['body'], true );
+					set_transient( 'villatheme_item_' . $this->item_id, $result, 86400 );
+					/*Update message*/
+					if ( isset( $result['message'] ) && $result['message'] ) {
+						$message = json_decode( $result['message'], true );
+						update_option( $this->slug . '_messages', $message );
+					}
 
-					return $request;
-
+					return $result;
 				}
 			}
 
@@ -265,24 +274,25 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 		 * Add our self-hosted description to the filter
 		 *
 		 * @param boolean $false
-		 * @param array   $action
-		 * @param object  $arg
+		 * @param array $action
+		 * @param object $arg
 		 *
 		 * @return bool|object
 		 */
 		public function check_info( $false, $action, $arg ) {
+			if ( isset( $arg->slug ) && $arg->slug === $this->slug ) {
+				$changelog = $this->get_changelog();
 
-
-			if ( ! isset( $arg->slug ) ) {
-				return $false;
-			}
-
-			if ( $arg->slug === $this->slug ) {
-				return true;
+				return new WP_Error( 'villatheme_premium_plugin', nl2br( $changelog ), 'changelog' );
 			}
 
 			return $false;
 		}
 
+		private function get_changelog() {
+			$item = get_transient( 'villatheme_item_' . $this->item_id );
+
+			return isset( $item['changelog'] ) ? $item['changelog'] : '';
+		}
 	}
 }

@@ -8,7 +8,7 @@ use ACP\Export;
 
 final class Table extends Script {
 
-	const NONCE_ACTION = 'acp_export_listscreen_export';
+	public const NONCE_ACTION = 'acp_export_listscreen_export';
 
 	/**
 	 * @var Export\Strategy
@@ -20,14 +20,14 @@ final class Table extends Script {
 	 */
 	private $columns;
 
-	public function __construct( $handle, Location $location, Export\Strategy $strategy, array $columns ) {
+	public function __construct( string $handle, Location $location, Export\Strategy $strategy, array $columns ) {
 		parent::__construct( $handle, $location, [ 'jquery' ] );
 
 		$this->strategy = $strategy;
 		$this->columns = $columns;
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
 		$this->add_inline_variable( 'ACP_Export', [

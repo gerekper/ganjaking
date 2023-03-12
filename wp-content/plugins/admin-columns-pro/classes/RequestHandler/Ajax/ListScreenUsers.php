@@ -10,7 +10,7 @@ use ACP\RequestAjaxHandler;
 
 class ListScreenUsers implements RequestAjaxHandler {
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {

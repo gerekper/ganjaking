@@ -8,12 +8,12 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\ColumnRepository;
 use ACP;
+use ACP\Sorting;
 use ACP\Sorting\ApplyFilter;
 use ACP\Sorting\Controller;
 use ACP\Sorting\ModelFactory;
 use ACP\Sorting\NativeSortable\NativeSortableRepository;
 use ACP\Sorting\Request;
-use ACP\Sorting\Settings;
 use ACP\Sorting\Type\SortType;
 use ACP\Sorting\UserPreference;
 
@@ -45,16 +45,24 @@ class Screen implements AC\Registerable {
 	private $column_respository;
 
 	/**
-	 * @var Settings\ListScreen\PreferredSort
+	 * @var Sorting\Settings\ListScreen\PreferredSort
 	 */
 	private $preferred_sort;
 
 	/**
-	 * @var Settings\ListScreen\PreferredSegmentSort
+	 * @var Sorting\Settings\ListScreen\PreferredSegmentSort
 	 */
 	private $preferred_segment_sort;
 
-	public function __construct( AC\ListScreen $list_screen, Location\Absolute $location, NativeSortableRepository $native_sortable_repository, ModelFactory $model_factory, ColumnRepository $column_respository, Settings\ListScreen\PreferredSort $preferred_sort, Settings\ListScreen\PreferredSegmentSort $preferred_segment_sort ) {
+	public function __construct(
+		AC\ListScreen $list_screen,
+		Location\Absolute $location,
+		NativeSortableRepository $native_sortable_repository,
+		ModelFactory $model_factory,
+		ColumnRepository $column_respository,
+		Sorting\Settings\ListScreen\PreferredSort $preferred_sort,
+		Sorting\Settings\ListScreen\PreferredSegmentSort $preferred_segment_sort
+	) {
 		$this->list_screen = $list_screen;
 		$this->location = $location;
 		$this->native_sortable_repository = $native_sortable_repository;
@@ -122,7 +130,7 @@ class Screen implements AC\Registerable {
 	 */
 	public function save_user_preference() {
 		$request = Request\Sort::create_from_globals();
-		$persist = apply_filters( 'acp/sorting/remember_last_sorting_preference', true, $this->list_screen );
+		$persist = (bool) apply_filters( 'acp/sorting/remember_last_sorting_preference', true, $this->list_screen );
 
 		if ( $persist && $request->get_order_by() ) {
 			$this->user_preference()->save( SortType::create_by_request( $request ) );

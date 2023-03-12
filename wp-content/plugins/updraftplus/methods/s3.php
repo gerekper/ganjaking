@@ -34,6 +34,8 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
 	protected $download_chunk_size = 10485760;
 
+	protected $current_upload_entity = 'files';
+
 	private $got_with;
 
 	/**
@@ -376,6 +378,11 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			$updraft_dir = trailingslashit($updraftplus->backups_dir_location());
 
 			foreach ($backup_array as $key => $file) {
+				if ('db' != substr($key, 0, 2)) {
+					$this->current_upload_entity = 'files';
+				} else {
+					$this->current_upload_entity = 'databases';
+				}
 
 				// We upload in 5MB chunks to allow more efficient resuming and hence uploading of larger files
 				// N.B.: 5MB is Amazon's minimum. So don't go lower or you'll break it.
@@ -917,7 +924,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
 	/**
 	 * Get pre configuration template engine for remote method which is S3 Compatible
-	 * DEVELOPER NOTE: Please don't use/call this method anymore as it is currently used by Amazon S3 and S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3 and S3-Compatible templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
+	 * DEVELOPER NOTE: Please don't use/call this method anymore as it was used by Amazon S3 and S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3 and S3-Compatible templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @param String $key             Remote storage method key which is unique
 	 * @param String $whoweare_short  Remote storage method short name which is prefix of field label generally
@@ -968,11 +975,15 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	public function get_configuration_template() {
 		// White: https://d36cz9buwru1tt.cloudfront.net/Powered-by-Amazon-Web-Services.jpg
 		// Black: https://awsmedia.s3.amazonaws.com/AWS_logo_poweredby_black_127px.png
-		// return $this->get_configuration_template_engine('s3', 'S3', 'Amazon S3', 'AWS', 'https://aws.amazon.com/console/', '<img src="'. UPDRAFTPLUS_URL .'/images/aws_logo.png" alt="Amazon Web Services">');
 		ob_start();
 		?>
-		{{#> s3_additional_configuration_top}}
-		{{/s3_additional_configuration_top}}
+		{{#ifeq "s3" method_id}}
+			{{#> s3_additional_configuration_top}}
+			{{/s3_additional_configuration_top}}
+		{{else}}
+			{{#> s3generic_additional_configuration_top}}
+			{{/s3generic_additional_configuration_top}}
+		{{/ifeq}}
 		<tr class="{{get_template_css_classes true}}">
 			<th>{{input_access_key_label}}:</th>
 			<td><input class="updraft_input--wide udc-wd-600" data-updraft_settings_test="accesskey" type="text" autocomplete="off" id="{{get_template_input_attribute_value "id" "accesskey"}}" name="{{get_template_input_attribute_value "name" "accesskey"}}" value="{{accesskey}}" /></td>
@@ -985,9 +996,14 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			<th>{{input_location_label}}:</th>
 			<td>{{method_id}}://<input class="updraft_input--wide udc-wd-600" data-updraft_settings_test="path" title="{{input_location_title}}" type="text" id="{{get_template_input_attribute_value "id" "path"}}" name="{{get_template_input_attribute_value "name" "path"}}" value="{{path}}" /></td>
 		</tr>
-		{{#> s3_additional_configuration_bottom}}
-		{{/s3_additional_configuration_bottom}}
-		{{{get_template_test_button_html "Amazon S3"}}}
+		{{#ifeq "s3" method_id}}
+			{{#> s3_additional_configuration_bottom}}
+			{{/s3_additional_configuration_bottom}}
+		{{else}}
+			{{#> s3generic_additional_configuration_bottom}}
+			{{/s3generic_additional_configuration_bottom}}
+		{{/ifeq}}
+		{{{get_template_test_button_html method_display_name}}}
 		<?php
 		return ob_get_clean();
 	}
@@ -1013,7 +1029,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	
 	/**
 	 * Get configuration template engine for remote method which is S3 Compatible
-	 * DEVELOPER NOTE: Please don't use/call this method anymore as it is currently used by Amazon S3 and S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3 and S3-Compatible templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
+	 * DEVELOPER NOTE: Please don't use/call this method anymore as it was used by Amazon S3 and S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3 and S3-Compatible templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @param String $key             Remote storage method key which is unique
 	 * @param String $whoweare_short  Remote storage method short name which is prefix of field label generally
@@ -1065,6 +1081,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
 	/**
 	 * Get handlebar partial template string for endpoint of s3 compatible remote storage method. Other child class can extend it.
+	 * DEVELOPER NOTE: Please don't use/call this method anymore as it was used by S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3-Compatible templates is CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @return String - the partial template
 	 */
@@ -1101,15 +1118,13 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	/**
 	 * Look at the config, and decide whether or not to call self::use_dns_bucket_name()
 	 *
-	 * @param Object $storage S3 Name
+	 * @param Object $storage - S3 Name
 	 * @param String $bucket  - storage path
+	 * @param Array  $config  - configuration - may not be complete at this stage, so be careful about which properties are used
 	 *
 	 * @return Boolean - whether or not DNS bucket naming will be used
 	 */
-	protected function maybe_use_dns_bucket_name($storage, $bucket) {
-		
-		// This gets saved configuration - so should not be used for anything other than what is immutable there, since the context may actually be a credentials test
-		$config = $this->get_config();
+	protected function maybe_use_dns_bucket_name($storage, $bucket, $config) {
 		
 		if ('s3' === $config['key'] && '' !== $bucket) {
 			
@@ -1179,7 +1194,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 		$bucket_exists = false;
 		
 		// If using Amazon S3, then always prefer using host-based access
-		$this->maybe_use_dns_bucket_name($storage, $bucket);
+		$this->maybe_use_dns_bucket_name($storage, $bucket, $config);
 		
 		if ($this->provider_has_regions) {
 

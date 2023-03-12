@@ -21,9 +21,9 @@ use RuntimeException;
 
 class BulkSave implements RequestHandler {
 
-	const SAVE_FAILED = 'failed';
-	const SAVE_SUCCESS = 'success';
-	const SAVE_NOTICE = 'not_editable';
+	private const SAVE_FAILED = 'failed';
+	private const SAVE_SUCCESS = 'success';
+	private const SAVE_NOTICE = 'not_editable';
 
 	/**
 	 * @var Storage
@@ -50,7 +50,10 @@ class BulkSave implements RequestHandler {
 			$response->error();
 		}
 
-		$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
+		$list_screen = $this->storage->find_by_user(
+			new ListScreenId( $list_id ),
+			wp_get_current_user()
+		);
 
 		if ( ! $list_screen instanceof ListScreen ) {
 			$response->error();

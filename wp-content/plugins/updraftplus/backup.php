@@ -2218,6 +2218,8 @@ class UpdraftPlus_Backup {
 			$exec .= "--host=".escapeshellarg($host)." ";
 		}
 		
+		$exec = apply_filters('updraftplus_mysqldump_arguments', $exec, $table_name, $potsql);
+		
 		$exec .= $this->dbinfo['name']." ".escapeshellarg($table_name);
 		
 		$ret = false;
@@ -4426,7 +4428,7 @@ class UpdraftPlus_Backup {
 				$updraftplus->log("Zip manifest file found, but reading failed: ".basename($manifest));
 			} elseif (!empty($manifest_contents['files'])) {
 				$this->existing_files = array_merge($this->existing_files, $manifest_contents['files'][0]);
-				$updraftplus->log("Successfully read zip manifest file contents");
+				$updraftplus->log('Successfully read zip manifest file contents ('.basename($manifest).')');
 				return;
 			} else {
 				$updraftplus->log("Zip manifest file found, but no files contents were found: ".basename($manifest));

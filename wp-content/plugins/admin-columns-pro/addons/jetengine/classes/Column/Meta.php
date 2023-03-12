@@ -38,7 +38,7 @@ class Meta extends AC\Column implements ACP\Export\Exportable {
 	}
 
 	public function export() {
-		return ( new Export\ModelFactory() )->create( $this, $this->field );
+		return ( new Export\ModelFactory() )->create( $this, $this->field ) ?: false;
 	}
 
 }

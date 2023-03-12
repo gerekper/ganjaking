@@ -6,6 +6,7 @@ use AC;
 use AC\Registerable;
 use ACP\Export\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 
 class Admin implements Registerable {
 
@@ -15,7 +16,7 @@ class Admin implements Registerable {
 
 	public function add_hide_on_screen( HideOnScreenCollection $collection, AC\ListScreen $list_screen ) {
 		if ( $list_screen instanceof ListScreen ) {
-			$collection->add( new HideOnScreen\Export(), 50 );
+			$collection->add( new HideOnScreen\Export(), new Group( Group::FEATURE ), 50 );
 		}
 	}
 

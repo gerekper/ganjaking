@@ -15,7 +15,7 @@ class VI_WNOTIFICATION_Admin_Report {
 	protected $end_date;
 
 	public function __construct() {
-		$current_time  = current_time( 'timestamp' );
+		$current_time     = current_time( 'timestamp' );
 		$this->start_date = date( 'M d, Y', ( $current_time - 30 * 86400 ) );
 		$this->end_date   = date( 'M d, Y', $current_time );
 		add_action( 'admin_menu', array( $this, 'menu_page' ) );
@@ -30,8 +30,8 @@ class VI_WNOTIFICATION_Admin_Report {
 	 * Custom script in WordPress lower 4.5
 	 */
 	public function custom_script() {
-		$id      = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : '';
-		$subpage = isset( $_GET['subpage'] ) ? $_GET['subpage'] : '';
+		$id      = isset( $_GET['id'] ) ? intval( wc_clean( $_GET['id'] ) ) : '';
+		$subpage = isset( $_GET['subpage'] ) ? wc_clean( $_GET['subpage'] ) : '';
 		if ( $id && $subpage ) {
 			$data = $this->get_data( $id );
 		} else {
@@ -65,20 +65,20 @@ class VI_WNOTIFICATION_Admin_Report {
 
 			/*Javascript*/
 			$script = '
-					var woo_notification_labels = [' . $labels . '];
-					var woo_notification_label = ["' . esc_js( __( 'Click', 'woocommerce-notification' ) ) . '"];
-					var woo_notification_data = [' . $counts . '];';
+					let woo_notification_labels = [' . $labels . '];
+					ley woo_notification_label = ["' . esc_js( esc_html__( 'Click', 'woocommerce-notification' ) ) . '"];
+					let woo_notification_data = [' . $counts . '];';
 
 		} else {
 
 			$script = '
-					var woo_notification_labels = [];
-					var woo_notification_label = ["' . esc_js( __( 'Click', 'woocommerce-notification' ) ) . '"];
-					var woo_notification_data = [];';
+					let woo_notification_labels = [];
+					let woo_notification_label = ["' . esc_js( esc_html__( 'Click', 'woocommerce-notification' ) ) . '"];
+					let woo_notification_data = [];';
 		}
 		?>
         <script type="text/javascript">
-			<?php echo $script; ?>
+			<?php echo wp_kses_post( $script ); ?>
         </script>
 	<?php }
 
@@ -86,9 +86,9 @@ class VI_WNOTIFICATION_Admin_Report {
 	 * Add script
 	 */
 	public function admin_enqueue_scripts() {
-		$page    = isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : '';
-		$id      = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : '';
-		$subpage = isset( $_GET['subpage'] ) ? $_GET['subpage'] : '';
+		$page    = isset( $_REQUEST['page'] ) ? wc_clean( $_REQUEST['page'] ) : '';
+		$id      = isset( $_GET['id'] ) ? intval( wc_clean( $_GET['id'] ) ) : '';
+		$subpage = isset( $_GET['subpage'] ) ? wc_clean( $_GET['subpage'] ) : '';
 		if ( $page == 'woocommerce-notification-report' ) {
 			wp_enqueue_style( 'jquery-ui-datepicker', VI_WNOTIFICATION_CSS . 'jquery-ui-1.10.1.css' );
 			wp_enqueue_style( 'jquery-ui-datepicker-latoja', VI_WNOTIFICATION_CSS . 'latoja.datepicker.css' );
@@ -138,18 +138,18 @@ class VI_WNOTIFICATION_Admin_Report {
 
 				/*Javascript*/
 				$script = '
-					var woo_notification_labels = [' . $labels . '];
-					var woo_notification_label = ["' . esc_js( __( 'Click', 'woocommerce-notification' ) ) . '"];
-					var woo_notification_data = [' . $counts . '];';
-				wp_add_inline_script( 'woocommerce-notification-report', $script );
+					let woo_notification_labels = [' . $labels . '];
+					let woo_notification_label = ["' . esc_js( esc_html__( 'Click', 'woocommerce-notification' ) ) . '"];
+					let woo_notification_data = [' . $counts . '];';
+				wp_add_inline_script( 'woocommerce-notification-report', wp_kses_post( $script ) );
 
 			} else {
 
 				$script = '
-					var woo_notification_labels = [];
-					var woo_notification_label = ["' . esc_js( __( 'Click', 'woocommerce-notification' ) ) . '"];
-					var woo_notification_data = [];';
-				wp_add_inline_script( 'woocommerce-notification-report', $script );
+					let woo_notification_labels = [];
+					let woo_notification_label = ["' . esc_js( esc_html__( 'Click', 'woocommerce-notification' ) ) . '"];
+					let woo_notification_data = [];';
+				wp_add_inline_script( 'woocommerce-notification-report', wp_kses_post( $script ) );
 			}
 		}
 	}
@@ -160,12 +160,12 @@ class VI_WNOTIFICATION_Admin_Report {
 	 * @return bool|stdClass
 	 */
 	private function get_data( $id = false ) {
-		$start_date    = '';
-		$end_date      = '';
+		$start_date = '';
+		$end_date   = '';
 		if ( isset( $_GET['_wpnonce'] ) ) {
 			if ( wp_verify_nonce( $_GET['_wpnonce'], 'woocommerce_notification_filter_date' ) ) {
-				$start_date       = isset( $_GET['start_date'] ) ? urldecode( $_GET['start_date'] ) : $this->start_date;
-				$end_date         = isset( $_GET['end_date'] ) ? urldecode( $_GET['end_date'] ) : $this->end_date;
+				$start_date = isset( $_GET['start_date'] ) ? urldecode( wc_clean( $_GET['start_date'] ) ) : $this->start_date;
+				$end_date   = isset( $_GET['end_date'] ) ? urldecode( wc_clean( $_GET['end_date'] ) ) : $this->end_date;
 				/*Convert to int*/
 				$start_date = strtotime( $start_date );
 				$end_date   = strtotime( $end_date );
@@ -283,8 +283,8 @@ class VI_WNOTIFICATION_Admin_Report {
 	 * HTML Reporting
 	 */
 	public function page_callback() {
-		$start_date       = isset( $_GET['start_date'] ) ? urldecode( $_GET['start_date'] ) : $this->start_date;
-		$end_date         = isset( $_GET['end_date'] ) ? urldecode( $_GET['end_date'] ) : $this->end_date;
+		$start_date = isset( $_GET['start_date'] ) ? urldecode( wc_clean( $_GET['start_date'] ) ) : $this->start_date;
+		$end_date   = isset( $_GET['end_date'] ) ? urldecode( wc_clean( $_GET['end_date'] ) ) : $this->end_date;
 		$active     = isset( $_GET['subpage'] ) ? 1 : 0;
 		?>
         <h2><?php esc_html_e( 'WooCommerce Notification Reporting', 'woocommerce-notification' ) ?></h2>

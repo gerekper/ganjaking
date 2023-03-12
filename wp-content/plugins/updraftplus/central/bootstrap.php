@@ -495,8 +495,10 @@ class UpdraftCentral_Main {
 				
 				$updraftcentral_host_plugin->register_wp_http_option_hooks(false);
 				
+				$connection_troubleshooting_url = 'https://updraftplus.com/troubleshooting-updraftcentral-connection-issues/';
 				if (is_wp_error($sent_key) || empty($sent_key)) {
-					$err_msg = sprintf($updraftcentral_host_plugin->retrieve_show_message('attempt_to_register_failed'), (string) $post_it_description);
+
+					$err_msg = sprintf($updraftcentral_host_plugin->retrieve_show_message('attempt_to_register_failed'), (string) $post_it_description, $connection_troubleshooting_url);
 					if (is_wp_error($sent_key)) $err_msg .= ' '.$sent_key->get_error_message().' ('.$sent_key->get_error_code().')';
 					return array(
 						'r' => $err_msg
@@ -507,7 +509,7 @@ class UpdraftCentral_Main {
 
 				if (!is_array($response) || !isset($response['key_id']) || !isset($response['key_public'])) {
 					return array(
-						'r' => sprintf($updraftcentral_host_plugin->retrieve_show_message('attempt_to_register_failed'), (string) $post_it_description),
+						'r' => sprintf($updraftcentral_host_plugin->retrieve_show_message('attempt_to_register_failed'), (string) $post_it_description, $connection_troubleshooting_url),
 						'raw' => wp_remote_retrieve_body($sent_key)
 					);
 				}

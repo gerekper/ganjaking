@@ -43,7 +43,7 @@ class CouponDescription extends AC\Column
 	}
 
 	public function export() {
-		return new Export\ShopCoupon\Description( $this );
+		return new Export\ShopCoupon\Description();
 	}
 
 }

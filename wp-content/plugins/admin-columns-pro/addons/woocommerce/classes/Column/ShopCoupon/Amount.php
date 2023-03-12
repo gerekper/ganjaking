@@ -50,7 +50,7 @@ class Amount extends ACP\Column\Meta
 	}
 
 	public function export() {
-		return new Export\ShopCoupon\Amount( $this );
+		return new Export\ShopCoupon\Amount();
 	}
 
 }

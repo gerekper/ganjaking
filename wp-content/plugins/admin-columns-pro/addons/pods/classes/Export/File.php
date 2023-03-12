@@ -2,14 +2,24 @@
 
 namespace ACA\Pods\Export;
 
+use AC\Column;
 use ACP;
 
-class File extends ACP\Export\Model {
+class File implements ACP\Export\Service {
 
-	public function get_value( $id ) {
+	/**
+	 * @var Column
+	 */
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
+
+	public function get_value( $id ): string {
 		$urls = [];
 
-		foreach ( (array) $this->get_column()->get_raw_value( $id ) as $attachment_id ) {
+		foreach ( (array) $this->column->get_raw_value( $id ) as $attachment_id ) {
 			if ( is_numeric( $attachment_id ) ) {
 				$urls[] = wp_get_attachment_url( $attachment_id );
 			}

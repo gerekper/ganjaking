@@ -1,5 +1,8 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2023-03-07 - version 4.9.1
+* Update: PLUGINS-1993 - Woo Review Issues.
+
 2023-03-01 - version 4.9.0
 * Feature: PLUGINS-1320 - Profit Calculator.
 

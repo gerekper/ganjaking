@@ -2,30 +2,23 @@
 
 namespace ACP\Export\Model;
 
-use ACP\Export\Model;
+use AC\Column;
+use ACP\Export\Service;
 
-/**
- * Exportability model for outputting the column's output value
- * @since 4.1
- */
-class Value extends Model {
+class Value implements Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
 		$value = $this->column->get_value( $id );
 
-		if ( $value === $this->column->get_empty_char() ) {
-			$value = $this->get_empty_char();
-		}
-
-		return $value;
-	}
-
-	/**
-	 * What to return for an empty char
-	 * @return string
-	 */
-	public function get_empty_char() {
-		return '';
+		return $value !== $this->column->get_empty_char()
+			? $value
+			: '';
 	}
 
 }

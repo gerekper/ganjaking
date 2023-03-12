@@ -133,7 +133,9 @@ class WC_AM_Install {
 	public function init_background_updater() {
 		require_once( dirname( __FILE__ ) . '/wcam-background-updater.php' );
 
-		$this->background_updater = new WCAM_Background_Updater();
+		if ( ! $this->background_updater ) {
+			$this->background_updater = new WCAM_Background_Updater();
+		}
 	}
 
 	/**
@@ -177,6 +179,7 @@ class WC_AM_Install {
 			$this->remove_admin_notices();
 			$this->create_options();
 			$this->create_tables();
+			$this->create_cron_jobs();
 			// $this->create_master_api_key();
 			$this->maybe_enable_setup_wizard();
 			$this->update_wc_am_version();
@@ -553,6 +556,15 @@ class WC_AM_Install {
 
 		if ( get_option( 'woocommerce_api_manager_db_cache_expire' ) !== false ) {
 			delete_option( 'woocommerce_api_manager_db_cache_expire' );
+		}
+	}
+
+	/**
+	 * @since 2.5.5
+	 */
+	private function create_cron_jobs() {
+		if ( ! wp_next_scheduled( 'wc_am_weekly_event' ) ) {
+			wp_schedule_event( time(), 'weekly', 'wc_am_weekly_event' );
 		}
 	}
 

@@ -36,19 +36,16 @@ class WC_AM_Order_Admin {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 		add_action( 'wp_ajax_wc_api_manager_delete_activation', array( $this, 'delete_activation' ) );
 		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'save' ), 10, 2 );
-
-		if ( WCAM()->is_custom_order_tables_usage_enabled() ) {
-			/**
-			 * For WooCommerce HPOS.
-			 *
-			 * @since 2.5
-			 */
-			add_filter( 'manage_edit-woocommerce_page_wc-orders_columns', array( $this, 'render_contains_api_product_column' ) );
-			add_action( 'manage_woocommerce_page_wc-orders_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
-		} else {
-			add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_contains_api_product_column' ) );
-			add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
-		}
+		/**
+		 * For WooCommerce HPOS.
+		 *
+		 * @since 2.5
+		 */
+		add_filter( 'manage_edit-woocommerce_page_wc-orders_columns', array( $this, 'render_contains_api_product_column' ) );
+		add_action( 'manage_woocommerce_page_wc-orders_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+		// Non HPOS.
+		add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_contains_api_product_column' ) );
+		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
 	}
 
 	/**

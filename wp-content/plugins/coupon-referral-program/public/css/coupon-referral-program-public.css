@@ -98,6 +98,7 @@
   background-color: transparent;
   border: none;
   font-weight: normal;
+  overflow: visible;
 }
 .mwb-crp-referral-table-wrapper .mwb-crp-referral-table .mwb-crp-coupon-code > p {
   margin: 0;
@@ -119,6 +120,12 @@
   visibility: hidden;
   width: 80px;
   z-index: 1;
+  padding: 5px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  top: 30px;
 }
 .mwb-crp-coupon-wrap .mwb-crp-coupon-btn-copy .mwb-crp-coupon-tooltiptext::after {
   content: "";
@@ -160,14 +167,16 @@
   margin: 10px 0;
 }
 .mwb-crp-referral-column-inner {
-  background-color: #4bbbce;
+  background-color: #27B2C5;
   padding: 5px;
   text-align: center;
   color: #ffffff;
   border-radius: 6px;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 .mwb-crp-referral-column .mwb-crp-referral-icon {
   font-size: 30px;
+  color: #ffffff;
 }
 .mwb-crp-referral-column-inner h4 {
   color: #ffffff;
@@ -185,7 +194,7 @@
 }
 .mwb-crp-referral-table-wrapper .mwb-crp-referral-table thead th {
   padding: 15px 8px;
-  background-color: #7794d8;
+  background-color: #6689CF;
   color: #ffffff;
 }
 .mwb-crp-referral-table-wrapper .mwb-crp-referral-table thead th, .mwb-crp-referral-table-wrapper .mwb-crp-referral-table tbody td {
@@ -232,7 +241,7 @@
   right: -4px;
   top: -5px;
   transform: rotate(180deg);
-  width: auto;
+  width: 20px;
   z-index: 1;
 }
 .mwb-crp-coupon-code .mwb-crp-coupon-copy-coupon {
@@ -352,27 +361,13 @@ outline: 0;
 /*=========================================
 =            Guest User Design            =
 =========================================*/
-.mwb_cpr_guest {
-  background-position: right top;
-  background-repeat: no-repeat;
-  background-size: 290px;
-  padding: 100px 15px;
-  text-align: center;
-}
-.mwb_cpr_guest:after {
-  content: "";
-  clear: both;
-  display: block;
-}
-.meb_cpr_guest__content {
-  float:left;
-  width: 50%;
-}
+
+
 .mwb_cpr_guest .mwb_cpr_btn_wrapper {
   display: block;
   margin-top: 20px;
 }
-.meb_cpr_guest__content-text {
+.mwb_cpr_guest__content-text {
   color: #333; 
   font-size: 20px;
   letter-spacing: 1px;
@@ -580,12 +575,8 @@ outline: 0;
 =            Media Query CSS            =
 =======================================*/
 @media screen and (max-width: 767px) {
-  .mwb_cpr_guest {
-    background-image: none !important;
-    border-top: 3px solid #E85E54;
-    padding: 40px 15px;
-  }
-  .mwb_cpr_guest .meb_cpr_guest__content {
+
+  .mwb_cpr_guest .mwb_cpr_guest__content {
     width: 100%;
   }
   .mwb-crp-referral-table-wrapper .mwb-crp-referral-table thead{
@@ -649,8 +640,9 @@ outline: 0;
 /*=====  End of Media Query CSS  ======*/
 /*Addede new css*/
 .mwb_crp_referal_section{
-  box-shadow: 0 0 10px -1px #d1d1d1;
   padding: 20px !important;
+  border: 1px solid #f2f2f2;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 .mwb_crp_whatsapp_button {
     background-color: #4FCE5D;
@@ -713,4 +705,285 @@ outline: 0;
 }
 .mwb_crp_hide_element{
   display: none;
+}
+
+/* fixing issues over multiple themes Start */
+
+.mwb_crp_referal_section_wrap #mwb_cpr_referal_code_copy {
+    position: relative;
+}
+
+.mwb_crp_referal_section_wrap .mwb_cpr_copy_btn_wrap {
+    position: absolute;
+    line-height: 0;
+    right: 5px;
+    top: 5px;
+}
+
+.mwb_crp_referal_section_wrap #mwb_cpr_copy_link {
+    position: relative;
+    margin: 0;
+}
+
+.mwb_crp_referal_section_wrap #mwb_cpr_copyy_link {
+    width: calc(100% - 18px);
+    padding: 5px 5px 5px 20px;
+    margin-right: 40px;
+    background-color: #dcdcdc;
+    white-space: normal;
+    font-size: 16px;
+}
+
+.mwb_crp_referal_section_wrap .mwb_cpr_logged_wrapper {
+    margin: 0 0 25px;
+}
+
+.mwb-crp-referral-wrapper .mwb-crp-referral-column-inner h4 {
+    color: #ffffff;
+}
+
+.mwb_crp_referal_section_wrap .mwb_cpr_refrral_code_copy .mwb_crp_referl_code {
+    width: calc(100% - 18px);
+    padding: 5px 5px 5px 20px;
+    margin-right: 40px;
+    background-color: #dcdcdc;
+    white-space: normal;
+    text-align: left!important;
+    font-size: 16px;
+}
+
+.mwb_crp_referal_section_wrap #mwb_cpr_referal_code_copy {
+    margin: 0;
+}
+
+.mwb_crp_referal_section_wrap .mwb_crp_wrapper_button {
+    align-items: center;
+    width: 100%;
+    padding: 15px 0 10px;
+}
+
+.mwb_crp_referal_section_wrap .mwb_cpr_btn_copy {
+    border: none;
+    line-height: 0;
+    margin: 0;
+    min-height: 24px;
+    overflow: visible;
+}
+
+.mwb_crp_referal_section_wrap .mwb_crp_common_class {
+    margin: 0;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.mwb_crp_referal_section_wrap .mwb_crp_common_class a {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.mwb_crp_wrapper_button #fb-root {
+    display: none;
+}
+
+
+.mwb-crp-referral-wrapper {
+    gap: 20px;
+    width: 100%;
+    margin: 60px 0;
+}
+
+.mwb-crp-referral-column {
+    width: 100%;
+    flex: 0 0 calc(33.3% - 24px);
+    display: flex;
+    padding: 0;
+}
+
+.mwb-crp-referral-column-inner {
+    flex: 1;
+    padding: 10px;
+}
+
+.mwb-crp-referral-table-wrapper input[type="search"] {
+    width: 100%;
+}
+
+#mwb-crp-referral-table_filter>label {
+    align-items: center;
+}
+
+#mwb-crp-referral-table_length>label {
+    align-items: center;
+}
+
+.mwb-crp-referral-wrapper .mwb-crp-referral-column-inner h4 .amount {
+    color: #ffffff;
+}
+
+#mwb-crp-referral-table_filter>label input[type="search"] {
+    margin: 0;
+}
+
+.mwb_cpr_logged_wrapper .mwb_tooltiptext {
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    top: 30px;
+}
+
+.mwb_crp_referal_section_wrap .mwb_cpr_btn_copy:not(:hover):not(:active):not(.has-background) {
+    background: transparent;
+}
+
+.mwb-crp-referral-table-wrapper #mwb-crp-referral-table_length > label {
+    font-size: 14px;
+    justify-content: flex-start;
+}
+
+.mwb-crp-referral-table-wrapper #mwb-crp-referral-table_filter > label {
+    font-size: 14px;
+}
+
+.mwb_crp_referal_section_wrap p.mwb_cpr_heading {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 20px 0;
+}
+
+/* Fixing Popup issues start */
+
+.mwb_cpr_logged_wrapper #mwb_cpr_copyy_code,
+.mwb_cpr_logged_wrapper #mwb_cpr_copyy {
+    flex: 1;
+    text-align: center;
+    color: #fff;
+    padding: 5px;
+    margin-right: 60px;
+    white-space: normal;
+}
+
+.mwb_cpr_logged_wrapper #mwb_cpr_copy {
+    padding: 0 0 0 0;
+    position: relative;
+}
+.mwb_cpr_copy_btn_wrap img:hover {
+  cursor: pointer;
+}
+.mwb_cpr_copy_btn_wrap img {
+  transition: 0.2s ease-in-out;
+}
+.mwb_cpr_copy_btn_wrap img:hover {
+  transform: scale(1.1);
+}
+.mwb_cpr_logged_wrapper #mwb_cpr_copy .mwb_cpr_copy_btn_wrap {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+}
+
+.mwb_cpr_logged_wrapper #mwb_cpr_copy .mwb_cpr_copy_btn_wrap .mwb_cpr_btn_copy {
+    border: none;
+    margin: 0;
+    overflow: visible;
+}
+
+.mwb_cpr_logged_wrapper #mwb_cpr_copy .mwb_cpr_copy_btn_wrap .mwb_cpr_btn_copy:focus {
+    outline: none;
+}
+
+.mwb_cpr_logged_wrapper .mwb_cpr_refrral_code_copy {
+    margin-top: 10px;
+}
+
+
+/* Fixing Popup issues ends */
+
+@media screen and (max-width: 1080px) {
+    .mwb-crp-referral-column {
+        width: 100%;
+        flex: 1 0 calc(50% - 5px);
+        margin: 0;
+    }
+
+    .mwb-crp-referral-wrapper {
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .mwb-crp-referral-wrapper {
+        margin: 0 -15px 20px -15px;
+    }
+
+    .mwb-crp-referral-column {
+        flex: 1 0 calc(50% - 10px);
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 576px) {
+
+    .mwb-crp-referral-column {
+        flex: 1 0 calc(100% - 20px);
+    }
+
+    .mwb-crp-referral-wrapper {
+        margin: 15px 0;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .mwb_crp_referal_section_wrap .mwb_crp_wrapper_button {
+        flex-direction: column;
+    }
+
+    .mwb_crp_referal_section_wrap .mwb_crp_wrapper_button a.mwb_crp_common_class {
+        margin: 0;
+    }
+}
+
+/* Fixing issues over multiple themes end */
+.mwb_cpr_guest {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mwb_cpr_guest__content {
+  padding: 30px;
+  flex: 0 0 calc(50% - 60px);
+  max-width: calc(50% - 60px);
+}
+.mwb_cpr_guest_img {
+  padding-right: 30px;
+  flex: 0 0 calc(50% - 30px);
+  max-width: calc(50% - 30px);
+}
+.mwb_cpr_guest_img img {
+  max-width: 100%;
+  object-fit: cover;
+  height: auto;
+}
+@media only screen and (max-width: 767px) {
+  .mwb_cpr_guest {
+    display: block;
+  }
+  .mwb_cpr_guest .mwb_cpr_guest__content {
+    padding: 30px 15px;
+    text-align: center;
+    width: auto;
+    max-width: 100%;
+  }
+  .mwb_cpr_guest_img {
+    display: none;
+  }
 }

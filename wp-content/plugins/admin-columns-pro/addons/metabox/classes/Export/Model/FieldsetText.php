@@ -2,11 +2,6 @@
 
 namespace ACA\MetaBox\Export\Model;
 
-use ACA\MetaBox\Column;
-
-/**
- * @property Column $column
- */
 class FieldsetText extends Raw {
 
 	public function format_single_value( $value, $id = null ) {

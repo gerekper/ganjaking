@@ -111,7 +111,7 @@ class Column extends AC\Column\Meta
 			case 'post':
 				return rwmb_get_object_fields( $this->get_post_type() );
 			case 'term':
-				return rwmb_get_object_fields( $this->get_taxonomy(), 'term' );
+				return rwmb_get_object_fields( $this->get_list_screen()->get_taxonomy(), 'term' );
 			default:
 				return [];
 		}
@@ -140,7 +140,7 @@ class Column extends AC\Column\Meta
 	}
 
 	public function export() {
-		return ( new Export\Factory )->create( $this );
+		return ( new Export\Factory() )->create( $this );
 	}
 
 }

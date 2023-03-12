@@ -2,16 +2,12 @@
 
 namespace ACP\Export\Model\Term;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Name (default column) exportability model
- * @since 4.1
- */
-class Posts extends Model {
+class Posts implements Service {
 
 	public function get_value( $id ) {
-		return get_term( $id )->count;
+		return (string) get_term( $id )->count;
 	}
 
 }

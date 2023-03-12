@@ -4,16 +4,14 @@ namespace ACP\Export\Model\Post;
 
 use AC\Collection;
 use ACP\Column;
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * @property Column\Post\Ancestors $column
- * @since 4.2
- */
-class Ancestors extends Model {
+class Ancestors implements Service {
+
+	private $column;
 
 	public function __construct( Column\Post\Ancestors $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
 	public function get_value( $id ) {

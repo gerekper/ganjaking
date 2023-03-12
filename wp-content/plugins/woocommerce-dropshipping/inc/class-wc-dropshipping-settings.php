@@ -2441,11 +2441,11 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 										                progress-bar-stripped progress-bar-animated" id="blue_progress"  role="progressbar" style="width:' . $blue . '%">
 										                ';
 
-										                if($options['profit_percent_value'] > 0 || $options['profit_doller_value'] > 0 ) {
-										                echo '<span id="profir_margin">Profit Margin </span>';
-										        		}
+				if ($options['profit_percent_value'] > 0 || $options['profit_doller_value'] > 0 ) {
+				echo '<span id="profir_margin">Profit Margin </span>';
+				}
 
-										              echo $blue . '%
+													  echo $blue . '%
 										            </div>
 										            <div id="percent_fee_bar" class="progress-bar
 										                progress-bar-stripped progress-bar-animated" role="progressbar" style="width: ' . $nevy_blue . '%; background: #007bff80;">
@@ -2629,7 +2629,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 								<legend class="screen-reader-text"><span>Dynamic Profit Margin: </span></legend>
 								<label for="dynamic_profit_margin" class="opmc-toggle-control">
 								
-								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, "yes"); ?> <?php echo '>
+								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, 'yes'); ?> <?php 
+								echo '>
 									<span class="opmc-control"></span>
 								</label> 
 							</fieldset>
@@ -2637,13 +2638,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					</tr>
 				</table>';
 										
-				if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
+								if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
 
-					$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+									$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
 							
-					if ($textAreaValue == '') { // i.e. no dynamic profit margin set yet
+									if ($textAreaValue == '') { // i.e. no dynamic profit margin set yet
 								
-						echo '<div class="dynamic_profit_margin_section">
+										echo '<div class="dynamic_profit_margin_section">
 									<textarea id="profit_margin_hidden" name="profit_margin_hidden_textarea" hidden="hidden"></textarea>
 
 									<table class="form-table" id="tr_clone" style="width:100%;">
@@ -2656,7 +2657,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 													<label id="title_dynamic" for="title_from" >From:</label>
 												
 													<fieldset>
-														<input name="dynamic_from_value[1]" class="dynamic_from_value clone_tds from_val" id="dynamic_from_value_1" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" />
+														<input name="dynamic_from_value[1]" class="dynamic_from_value clone_tds from_val" id="dynamic_from_value_1" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" required="required" />
 													</fieldset>
 												</td>
 
@@ -2665,7 +2666,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												
 													<fieldset>
 
-														<input name="dynamic_to_value[1]" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_1" type="number" data="vto" min="0" step="0.01" style="width:100px;"/>
+														<input name="dynamic_to_value[1]" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_1" type="number" data="vto" min="0" step="0.01" style="width:100px;" required="required" />
 													</fieldset>
 												</td>
 												<td>
@@ -2673,7 +2674,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												
 													<fieldset>
 
-														<input name="dynamic_profit_percent_value[1]" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_1" data="vpercent" type="number" min="0" step="0.01" style="width:100px;" />
+														<input name="dynamic_profit_percent_value[1]" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_1" data="vpercent" type="number" min="0" step="0.01" style="width:100px;" required="required" />
 													</fieldset>
 												</td>
 
@@ -2682,7 +2683,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												
 													<fieldset>
 
-														<input name="dynamic_profit_doller_value[1]" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_1" data="vfixed" type="number" min="0" step="0.01"  style="width:100px;" />
+														<input name="dynamic_profit_doller_value[1]" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_1" data="vfixed" type="number" min="0" step="0.01"  style="width:100px;" required="required" />
 													</fieldset>
 												</td>
 												</div>
@@ -2701,66 +2702,66 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 									<p id="amount_message" style="display:none">Change the range to lower value to add more rules.</p>
 								</div>';
 								
-					} else { // if($textAreaValue == "") // i.e. dynamic profit margin has already been set
+									} else { // if($textAreaValue == "") // i.e. dynamic profit margin has already been set
 								
-						$allElements = explode('~', $textAreaValue);
-						$nRows = count($allElements);
+										$allElements = explode('~', $textAreaValue);
+										$nRows = count($allElements);
 								
-						$elementsHtml = '
+										$elementsHtml = '
 								<div class="dynamic_profit_margin_section">
 									<textarea id="profit_margin_hidden" name="profit_margin_hidden_textarea" hidden="hidden">' . $textAreaValue . '</textarea>
 									<table class="form-table" id="tr_clone" style="width:100%;">
 										<tbody>
 										<p class="p_cost_range">Product Cost Range</p>';
-						$rowCount = 0;
-						foreach ($allElements as $row) {
-							$rowCount++;
+										$rowCount = 0;
+										foreach ($allElements as $row) {
+											$rowCount++;
 									
-							$elementsHtml .= '
+											$elementsHtml .= '
 									<tr valign="top" class="mappingBlocks field-close" data-index="1" data-max_rows="5" id="trs_clone">
 										<div class="rows">
 									';
 									
-							$allTds = explode('_', $row);
-							$tdCount = 0;
-							foreach ($allTds as $td) {
-								$tdCount++;
-								switch ($tdCount) {
-									case 1:
-										$elementsHtml .= '
-													<td><label id="title_dynamic" for="title_from" >From:</label><fieldset><input name="dynamic_from_value[' . $rowCount . ']" class="dynamic_from_value clone_tds from_val " id="dynamic_from_value_' . $rowCount . '" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" value="' . $td . '" /></fieldset></td>
+											$allTds = explode('_', $row);
+											$tdCount = 0;
+											foreach ($allTds as $td) {
+												$tdCount++;
+												switch ($tdCount) {
+													case 1:
+														$elementsHtml .= '
+													<td><label id="title_dynamic" for="title_from" >From:</label><fieldset><input name="dynamic_from_value[' . $rowCount . ']" class="dynamic_from_value clone_tds from_val " id="dynamic_from_value_' . $rowCount . '" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
 												';
-										break;
-									case 2:
-										$elementsHtml .= '
+														break;
+													case 2:
+														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_to" >To:</label>
-													<fieldset><input name="dynamic_to_value[' . $rowCount . ']" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_' . $rowCount . '" type="number" data="vto" min="0" step="0.01" style="width:100px;" value="' . $td . '" /></fieldset></td>
+													<fieldset><input name="dynamic_to_value[' . $rowCount . ']" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_' . $rowCount . '" type="number" data="vto" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
 												';
-										break;
-									case 3:
-										$elementsHtml .= '
+														break;
+													case 3:
+														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_profit_percent" >% Profit:</label>
-													<fieldset><input name="dynamic_profit_percent_value[' . $rowCount . ']" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_' . $rowCount . '" type="number" data="vpercent" min="0" step="0.01" style="width:100px;" value="' . $td . '" /></fieldset></td>
+													<fieldset><input name="dynamic_profit_percent_value[' . $rowCount . ']" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_' . $rowCount . '" type="number" data="vpercent" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
 												';
-										break;
-									case 4:
-										$elementsHtml .= '
+														break;
+													case 4:
+														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_profit_doller" >$ Profit:</label>
-													<fieldset><input name="dynamic_profit_doller_value[' . $rowCount . ']" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_' . $rowCount . '" type="number" min="0" step="0.01" data="vfixed" style="width:100px;" value="' . $td . '" /></fieldset></td>
+													<fieldset><input name="dynamic_profit_doller_value[' . $rowCount . ']" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_' . $rowCount . '" type="number" min="0" step="0.01" data="vfixed" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
 												';
-										break;
-								} // switch($tdCount)
+														break;
+												} // switch($tdCount)
 										
-							} // foreach($allTds as $td)
+											} // foreach($allTds as $td)
 									
-							$elementsHtml .= '
+											$elementsHtml .= '
 										</div>
 									</tr>
 									';
 									
-						} // foreach($allElements as $row)
+										} // foreach($allElements as $row)
 								
-						$elementsHtml .= '
+										$elementsHtml .= '
 											<tr class="add-rem-bttn" style="line-height: 4;">
 												<td class="forminp" >	
 													<input type="button" class="btn btn-primary" value="(-) Remove Rule" id="removeRows" style="width: 120px;padding: 4px 0px; font-size: 13px; border: 0;" />
@@ -2774,11 +2775,11 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 									<p id="amount_message" style="display:none">Change the range to lower value to add more rules.</p>
 								</div>';
 								
-						echo $elementsHtml;
+										echo $elementsHtml;
 								
-					} // else of if($textAreaValue == "")		
+									} // else of if($textAreaValue == "")		
 							
-				} // if ( $dynamic_profit_margin_setting == ' checked="checked" ' )
+								} // if ( $dynamic_profit_margin_setting == ' checked="checked" ' )
 										
 								echo '</td>
 								</tr>

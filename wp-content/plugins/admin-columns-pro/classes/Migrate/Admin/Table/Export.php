@@ -5,6 +5,8 @@ namespace ACP\Migrate\Admin\Table;
 use AC;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository\Filter;
+use AC\ListScreenRepository\Sort\Label;
 use AC\ListScreenRepository\Storage;
 
 class Export extends AC\Admin\Table {
@@ -24,25 +26,18 @@ class Export extends AC\Admin\Table {
 		$this->network_only = $network_only;
 	}
 
-	/**
-	 * @return ListScreenCollection
-	 */
-	public function get_rows() {
-		$args = [
-			Storage::ARG_SORT => new AC\ListScreenRepository\Sort\Label(),
-		];
+	public function get_rows(): ListScreenCollection {
+		$list_screens = $this->storage->find_all( new Label() );
 
 		if ( $this->network_only ) {
-			$args[ Storage::ARG_FILTER ][] = new AC\ListScreenRepository\Filter\Network();
+			$list_screens = ( new Filter\Network() )->filter( $list_screens );
 		}
 
-		$rows = $this->storage->find_all( $args );
-
-		if ( $rows->count() < 1 ) {
+		if ( $list_screens->count() < 1 ) {
 			$this->message = __( 'No column settings available.', 'codepress-admin-columns' );
 		}
 
-		return $rows;
+		return $list_screens;
 	}
 
 	/**
@@ -74,9 +69,7 @@ class Export extends AC\Admin\Table {
 			'acp-file'     => __( 'File', 'codepress-admin-columns' ),
 		];
 
-		return isset( $labels[ $repository_name ] )
-			? $labels[ $repository_name ]
-			: $repository_name;
+		return $labels[ $repository_name ] ?? $repository_name;
 	}
 
 	private function get_source( ListScreen $list_screen ) {

@@ -1,47 +1,23 @@
-'use strict';
 jQuery(document).ready(function ($) {
+    'use strict';
     jQuery('.vi-ui.tabular.menu .item').vi_tab({
         history: true,
         historyType: 'hash'
     });
 
-    /*Setup tab*/
-    var tabs,
-        tabEvent = false,
-        initialTab = 'general',
-        navSelector = '.vi-ui.menu',
-        panelSelector = '.vi-ui.tab',
-        panelFilter = function () {
-            jQuery(panelSelector + ' a').filter(function () {
-                return jQuery(navSelector + ' a[title=' + jQuery(this).attr('title') + ']').size() != 0;
-            }).each(function (event) {
-                jQuery(this).attr('href', '#' + $(this).attr('title').replace(/ /g, '_'));
-            });
-        };
-    // Initializes plugin features
-    jQuery.address.strict(false).wrap(true);
+    let nameModal = $('.wn-modal-generate-name-by-country');
+    let namesTable = $('.wn-name-by-country-list tbody');
+    let countriesDropdown = nameModal.find('.wn-generate-name-countries').clone().removeClass();
+    let fakerLocales = faker.locales,
+        languageDropdown = $('.wn-generate-name-language');
 
-    if (jQuery.address.value() == '') {
-        jQuery.address.history(false).value(initialTab).history(true);
+    for (let langCode in fakerLocales) {
+        let data = fakerLocales[langCode];
+        if (typeof data.name !== 'undefined') {
+            languageDropdown.append(`<option value="${langCode}">${data.title}</option>`);
+        }
     }
 
-    // Address handler
-    jQuery.address.init(function (event) {
-
-        // Adds the ID in a lazy manner to prevent scrolling
-        jQuery(panelSelector).attr('id', initialTab);
-
-        panelFilter();
-
-        // Tabs setup
-        tabs = jQuery('.vi-ui.menu')
-            .vi_tab({
-                history: true,
-                historyType: 'hash'
-            })
-
-    });
-    /*End setup tab*/
     jQuery('.vi-ui.checkbox').checkbox();
     jQuery('select.vi-ui.dropdown').dropdown();
     /*Search*/
@@ -212,6 +188,13 @@ jQuery(document).ready(function ($) {
             }
         });
     }
+
+    $('.wn-name-by-country').dependsOn({
+        'select[name="wnotification_params[country]"]': {
+            values: ['2']
+        }
+    });
+
     if (jQuery('select[name="wnotification_params[archive_page]').length > 0) {
         jQuery('select[name="wnotification_params[archive_page]"]').on('change', function () {
             var data = jQuery(this).val();
@@ -261,22 +244,22 @@ jQuery(document).ready(function ($) {
             } else if (ele == 'textcolor') {
                 jQuery('.message-purchase-main').css({'color': ui.color.toString()});
             } else if (ele == 'close_icon_color') {
-                jQuery('#woocommerce-notification-close-icon-color').html('#message-purchased #notify-close:before{color:'+ui.color.toString()+'}');
+                jQuery('#woocommerce-notification-close-icon-color').html('#message-purchased #notify-close:before{color:' + ui.color.toString() + '}');
             } else {
                 jQuery('.message-purchase-main').css({backgroundColor: ui.color.toString()});
             }
         },
         hide: true,
         border: true
-    }).on('click',function () {
+    }).on('click', function () {
         jQuery('.iris-picker').hide();
         jQuery(this).closest('td').find('.iris-picker').show();
     });
 
-    jQuery('body').on('click',function () {
+    jQuery('body').on('click', function () {
         jQuery('.iris-picker').hide();
     });
-    jQuery('.color-picker').on('click',function (event) {
+    jQuery('.color-picker').on('click', function (event) {
         event.stopPropagation();
     });
     jQuery('input[name="wnotification_params[position]"]').on('change', function () {
@@ -551,9 +534,9 @@ jQuery(document).ready(function ($) {
         var image_padding = parseInt(jQuery('input[name="wnotification_params[image_padding]"]').val());
         if (parseInt(data) == 0) {
             jQuery('.message-purchase-main').css({'border-radius': jQuery(this).val() + 'px'});
-            if(image_padding){
+            if (image_padding) {
                 jQuery('.wn-notification-image').css({'border-radius': jQuery(this).val() + 'px'});
-            }else{
+            } else {
                 jQuery('.wn-notification-image').css({'border-radius': '0'});
             }
         } else {
@@ -566,14 +549,14 @@ jQuery(document).ready(function ($) {
         var border_radius = parseInt(jQuery('input[name="wnotification_params[border_radius]"]').val());
         var p_padding = 20 - data;
         jQuery('.wn-notification-image-wrapper').css({'padding': data + 'px'});
-        if(jQuery('body').hasClass('rtl')){
+        if (jQuery('body').hasClass('rtl')) {
             jQuery('.wn-notification-message-container').css({'padding-right': p_padding + 'px'})
-        }else{
+        } else {
             jQuery('.wn-notification-message-container').css({'padding-left': p_padding + 'px'})
         }
-        if(data>0){
+        if (data > 0) {
             jQuery('.wn-notification-image').css({'border-radius': border_radius + 'px'});
-        }else{
+        } else {
             jQuery('.wn-notification-image').css({'border-radius': '0'});
         }
     });
@@ -693,14 +676,14 @@ jQuery(document).ready(function ($) {
         };
         if (parseInt(data) == 0) {
             jQuery('#message-purchased').removeClass('wn-extended');
-            jQuery('.message-purchase-main').css({'color': '#212121','background-color':'#ffffff'});
+            jQuery('.message-purchase-main').css({'color': '#212121', 'background-color': '#ffffff'});
             jQuery('input[name="wnotification_params[highlight_color]"]').val('#212121').trigger('change');
             jQuery('input[name="wnotification_params[text_color]"]').val('#212121').trigger('change');
             jQuery('input[name="wnotification_params[close_icon_color]"]').val('#212121').trigger('change');
             jQuery('input[name="wnotification_params[backgroundcolor]"]').val('#ffffff').trigger('change');
         } else {
             jQuery('#message-purchased').addClass('wn-extended');
-            jQuery('#woocommerce-notification-background-image').html('#message-purchased .message-purchase-main::before {background-image: url(../wp-content/plugins/woocommerce-notification/images/background/bg_'+data+'.png);');
+            jQuery('#woocommerce-notification-background-image').html('#message-purchased .message-purchase-main::before {background-image: url(../wp-content/plugins/woocommerce-notification/images/background/bg_' + data + '.png);');
             jQuery('input[name="wnotification_params[highlight_color]"]').val(init_data[data]['hightlight']).trigger('change');
             jQuery('input[name="wnotification_params[text_color]"]').val(init_data[data]['text']).trigger('change');
             jQuery('input[name="wnotification_params[close_icon_color]"]').val(init_data[data]['text']).trigger('change');
@@ -792,4 +775,48 @@ jQuery(document).ready(function ($) {
     /**
      * End get download key
      */
+
+
+    nameModal.modal();
+
+    $('body').on('click', '.wn-name-by-country-remove', function () {
+        $(this).closest('.wn-name-by-country-row').remove();
+    }).on('click', '.wn-add-name-by-country', function () {
+        nameModal.modal('show');
+    });
+
+    $('.wn-do-generate').on('click', function () {
+        let qty = nameModal.find('.wn-generate-name-quantity').val();
+        let gender = nameModal.find('.wn-generate-name-gender').dropdown('get value');
+        let countries = nameModal.find('.wn-generate-name-countries').dropdown('get value');
+        let lang = nameModal.find('.wn-generate-name-language').dropdown('get value');
+
+        if (!qty) return;
+
+        let names = [];
+
+        faker.locale = lang;
+
+        for (let i = 0; i < qty; i++) {
+            names.push(faker.name.firstName(gender));
+        }
+
+        names = names.join("\n");
+
+        let i = Date.now();
+        let row = $(`<tr class="wn-name-by-country-row">
+                        <td><textarea rows="3" name="wnotification_params[name_by_country][${i}][names]">${names}</textarea></td>
+                        <td>
+                            <select class="wn-name-by-country-row-countries vi-ui dropdown fluid" name="wnotification_params[name_by_country][${i}][countries][]" multiple>
+                                ${countriesDropdown.html()}
+                            </select>
+                        </td>
+                        <td><span class="vi-ui icon button mini red wn-name-by-country-remove"><i class="icon x"> </i></span></td>
+                    </tr>`);
+
+        row.find('.wn-name-by-country-row-countries').dropdown('set selected', countries);
+
+        namesTable.append(row);
+    });
+
 });

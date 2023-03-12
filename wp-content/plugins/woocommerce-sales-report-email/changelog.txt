@@ -1,5 +1,9 @@
 *** WooCommerce Sales Report Email ***
 
+2023-03-07 - version 1.2.1
+* Tweak - Tested compatibility up to WC 7.5.
+* Fix - The date range interval didn't include the site timezone offset.
+
 2023-02-01 - version 1.2.0
 * Feature - Added compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.

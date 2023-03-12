@@ -27,6 +27,7 @@ jQuery(function($) {
 
 		var xhttp = new XMLHttpRequest();
 		var xhttp_data = 'action=' + action + '&updraftplus_ajax_restore=do_ajax_restore&job_id=' + job_id;
+		if ('updraft_ajaxrestore' === action) xhttp_data += '&nonce=' + updraft_credentialtest_nonce;
 		var previous_data_length = 0;
 		var show_alert = true;
 		var debug = $('#updraftplus_ajax_restore_debug').length;

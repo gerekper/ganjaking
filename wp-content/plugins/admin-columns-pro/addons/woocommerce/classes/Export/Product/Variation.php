@@ -2,16 +2,19 @@
 
 namespace ACA\WC\Export\Product;
 
+use AC\Column;
 use ACP;
 
-/**
- * WooCommerce product variation (default column) exportability model
- * @since 2.2.1
- */
-class Variation extends ACP\Export\Model {
+class Variation implements ACP\Export\Service {
+
+	private $column;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
 
 	public function get_value( $id ) {
-		return count( $this->column->get_raw_value( $id ) );
+		return (string) count( $this->column->get_raw_value( $id ) );
 	}
 
 }

@@ -10,7 +10,7 @@ class Comments extends AC\Column\Post\Comments
 	implements Export\Exportable, Search\Searchable {
 
 	public function export() {
-		return new Export\Model\Post\Comments( $this );
+		return new Export\Model\Post\Comments();
 	}
 
 	public function search() {

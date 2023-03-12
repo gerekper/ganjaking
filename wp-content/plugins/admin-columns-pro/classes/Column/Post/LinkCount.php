@@ -26,7 +26,7 @@ class LinkCount extends AC\Column
 		);
 	}
 
-	private function get_internal_domains() {
+	private function get_internal_domains(): array {
 		return (array) apply_filters( 'ac/column/linkcount/domains', [ home_url() ] );
 	}
 

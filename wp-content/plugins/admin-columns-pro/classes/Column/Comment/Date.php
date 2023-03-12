@@ -18,7 +18,7 @@ class Date extends AC\Column\Comment\Date
 	}
 
 	public function export() {
-		return new Export\Model\Comment\Date( $this );
+		return new Export\Model\Comment\Date();
 	}
 
 	public function search() {

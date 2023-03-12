@@ -6,11 +6,11 @@ use AC;
 
 class Table extends AC\Asset\Script {
 
-	public function __construct( $handle, AC\Asset\Location\Absolute $location ) {
+	public function __construct( string $handle, AC\Asset\Location\Absolute $location ) {
 		parent::__construct( $handle, $location->with_suffix( 'assets/js/table.js' ), [ 'jquery' ] );
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
 		wp_localize_script( $this->handle, 'acp_wc_table', [

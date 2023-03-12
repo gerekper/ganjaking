@@ -9,7 +9,9 @@ use ACP\Export\Model\StrippedValue;
 class Unsupported extends Column {
 
 	public function get_value( $id ) {
-		return (string) get_field( $this->get_meta_key(), $id );
+		$value = get_field( $this->get_meta_key(), $id );
+
+		return is_scalar( $value ) ? (string) $value : __( 'Unsupported value format', 'codepress-admin-columns' );
 	}
 
 	public function export() {

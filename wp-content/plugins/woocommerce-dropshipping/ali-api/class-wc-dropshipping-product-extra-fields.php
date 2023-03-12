@@ -959,7 +959,7 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 
 				if (!empty($options['fee_doller_value'])) {
 
-			  		$fee_dolr_val = $options['fee_doller_value'];
+					$fee_dolr_val = $options['fee_doller_value'];
 				}
 
 				if ($options['dynamic_profit_margin'] != 1 ) {

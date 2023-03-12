@@ -1,5 +1,10 @@
 jQuery(document).ready(function ($) {
     'use strict';
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (!_woocommerce_notification_params.enableMobile) return;
+    }
+
     if ($('#message-purchased').length > 0) {
         var notify = woo_notification;
 
@@ -51,13 +56,14 @@ function viSwipeDetect(el, callback) {
     touchsurface.addEventListener(
         "touchstart",
         function (e) {
-            var touchobj = e.changedTouches[0];
+            e.preventDefault();
+            let touchobj = e.changedTouches[0];
             swipedir = "none";
             startX = touchobj.pageX;
             startY = touchobj.pageY;
             startTime = new Date().getTime(); // record time when finger first makes contact with surface
         },
-        false
+        {passive: true}
     );
 
     touchsurface.addEventListener(
@@ -65,12 +71,13 @@ function viSwipeDetect(el, callback) {
         function (e) {
             e.preventDefault(); // prevent scrolling when inside DIV
         },
-        false
+        {passive: true}
     );
 
     touchsurface.addEventListener(
         "touchend",
         function (e) {
+            e.preventDefault();
             var touchobj = e.changedTouches[0];
             distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
@@ -90,12 +97,17 @@ function viSwipeDetect(el, callback) {
             }
             handleswipe(swipedir);
         },
-        false
+        {passive: true}
     );
 }
 
-jQuery(window).on('load',function () {
+jQuery(window).on('load', function () {
     'use strict';
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (!_woocommerce_notification_params.enableMobile) return;
+    }
+
     var notify = woo_notification;
     notify.loop = _woocommerce_notification_params.loop;
     notify.id = _woocommerce_notification_params.viwn_pd_id || '';
@@ -108,7 +120,7 @@ jQuery(window).on('load',function () {
     notify.display_time = parseInt(_woocommerce_notification_params.display_time);
     notify.next_time = parseInt(_woocommerce_notification_params.next_time);
     notify.ajax_url = _woocommerce_notification_params.ajax_url;
-    notify.products = _woocommerce_notification_params.products ||'';
+    notify.products = _woocommerce_notification_params.products || '';
     notify.messages = _woocommerce_notification_params.messages;
     notify.image = _woocommerce_notification_params.image;
     notify.redirect_target = _woocommerce_notification_params.redirect_target;
@@ -135,7 +147,7 @@ jQuery(window).on('load',function () {
         notify.cities = [notify.getCookie('wn_city')];
         notify.country = [notify.getCookie('wn_country')];
         var check_ip = notify.getCookie('wn_ip');
-        if(!check_ip ){
+        if (!check_ip) {
             notify.detect_address();
             notify.cities = [notify.getCookie('wn_city')];
             notify.country = [notify.getCookie('wn_country')];
@@ -189,8 +201,8 @@ var woo_notification = {
     end_virtual_time: '',
     change_message_number: '',
     current_hour: '',
-    gmt_offset:'',
-    first_name_index:[],
+    gmt_offset: '',
+    first_name_index: [],
 
     shortcodes: ['{first_name}', '{city}', '{state}', '{country}', '{product}', '{product_with_link}', '{time_ago}', '{custom}'],
     init: function () {
@@ -236,12 +248,12 @@ var woo_notification = {
     },
     detect_address: function () {
         var ip_address = this.getCookie('wn_ip');
-        if (!ip_address ) {
+        if (!ip_address) {
             jQuery.getJSON('https://extreme-ip-lookup.com/json/', function (data) {
                 if (data.query) {
                     woo_notification.setCookie('wn_ip', data.query, 86400);
                 }
-                if(data.status === 'success'){
+                if (data.status === 'success') {
                     if (data.city) {
                         woo_notification.setCookie('wn_city', data.city, 86400);
                     }
@@ -254,7 +266,7 @@ var woo_notification = {
     },
     ajax_get_data: function () {
         if (this.ajax_url && !this.getCookie('woo_notification_close')) {
-            var str_data ='', start_time = (new Date()).getTime(), delay = woo_notification.init_delay * 1000;
+            var str_data = '', start_time = (new Date()).getTime(), delay = woo_notification.init_delay * 1000;
             if (this.id) {
                 str_data = '&viwn_pd_id=' + this.id;
             } else if (this.category_name) {
@@ -271,11 +283,11 @@ var woo_notification = {
                         // woo_notification.message_show();
                         let end_time = (new Date()).getTime();
                         delay = delay - (end_time - start_time);
-                        if (delay > 0){
+                        if (delay > 0) {
                             setTimeout(function () {
                                 woo_notification.get_product();
                             }, delay);
-                        }else {
+                        } else {
                             woo_notification.get_product();
                         }
                     }
@@ -357,25 +369,25 @@ var woo_notification = {
                 message_id.addClass('bounceOutLeft');
                 setTimeout(function (message_id) {
                     message_id.removeClass('bounceOutLeft');
-                },1001,message_id);
+                }, 1001, message_id);
                 break;
             case 'right':
                 message_id.addClass('bounceOutRight');
                 setTimeout(function (message_id) {
                     message_id.removeClass('bounceOutRight');
-                },1001,message_id);
+                }, 1001, message_id);
                 break;
             case 'up':
                 message_id.addClass('bounceOutUp');
                 setTimeout(function (message_id) {
                     message_id.removeClass('bounceOutUp');
-                },1001,message_id);
+                }, 1001, message_id);
                 break;
             case 'down':
                 message_id.addClass('bounceOutDown');
                 setTimeout(function (message_id) {
                     message_id.removeClass('bounceOutDown');
-                },1001,message_id);
+                }, 1001, message_id);
                 break;
             default:
                 message_id.addClass(this.hidden_effect);
@@ -551,7 +563,7 @@ var woo_notification = {
             let replaceArrayValue = [data_first_name, data_city, data_state, data_country, data_product, data_product_link, data_time, data_custom];
             let finalAns = string;
             for (var i = replaceArray.length - 1; i >= 0; i--) {
-                replace_regex = new RegExp(replaceArray[i],'g');
+                replace_regex = new RegExp(replaceArray[i], 'g');
 
                 finalAns = finalAns.replaceAll(replace_regex, replaceArrayValue[i]);
             }
@@ -572,9 +584,9 @@ var woo_notification = {
         if (this.current_hour < 7) {
             return this.message_number_min;
         }
-        let custom_numbers = woo_notification.getCookie('wn_data_custom_number'),custom_numbers_t=[], number, number_min, number_max;
-        custom_numbers = this.checkJson(custom_numbers)? JSON.parse(custom_numbers):{};
-        product_url = product_url.replace('&amp;','&');
+        let custom_numbers = woo_notification.getCookie('wn_data_custom_number'), custom_numbers_t = [], number, number_min, number_max;
+        custom_numbers = this.checkJson(custom_numbers) ? JSON.parse(custom_numbers) : {};
+        product_url = product_url.replace('&amp;', '&');
         if (custom_numbers[product_url]) {
             number_min = custom_numbers[product_url] - 3 > this.message_number_min ? custom_numbers[product_url] - 3 : this.message_number_min;
             number_max = custom_numbers[product_url] + 2 < this.message_number_max ? custom_numbers[product_url] + 2 : this.message_number_max;
@@ -595,7 +607,7 @@ var woo_notification = {
                 woo_notification.message_hide(true);
                 jQuery('#message-purchased').unbind();
                 woo_notification.setCookie('woo_notification_close', 1, 3600 * parseInt(woo_notification.time_close));
-            }else {
+            } else {
                 woo_notification.message_hide();
                 jQuery('#message-purchased').unbind();
             }
@@ -612,7 +624,7 @@ var woo_notification = {
                 });
                 document.removeEventListener('touchstart', initSound, false);
             };
-            document.addEventListener('touchstart', initSound, false);
+            document.addEventListener('touchstart', initSound, {passive: true});
             audio.play();
         }
     },
@@ -644,7 +656,7 @@ var woo_notification = {
 
     getCookie: function (cname) {
         var name = cname + "=";
-        var t = document.cookie.replace(/ppviewtimer=(.*?);/g,'');
+        var t = document.cookie.replace(/ppviewtimer=(.*?);/g, '');
         var decodedCookie = decodeURIComponent(t);
         var ca = decodedCookie.split(';');
         for (var i = 0; i < ca.length; i++) {
@@ -658,10 +670,10 @@ var woo_notification = {
         }
         return "";
     },
-    checkJson: function(str){
-        try{
+    checkJson: function (str) {
+        try {
             JSON.parse(str);
-        }catch(e){
+        } catch (e) {
             return false;
         }
         return true;

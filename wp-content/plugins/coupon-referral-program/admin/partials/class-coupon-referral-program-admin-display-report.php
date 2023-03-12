@@ -69,7 +69,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 
 			case 'user_name':
 				$nonce = wp_create_nonce( 'mwb_crp_nonce' );
-				$link  = '<div class="crp_view_details_log"><a href="' . admin_url( 'admin.php?page=wc-reports&tab=crp_report&user_id=' . $item['id'] . '&nonce=' . $nonce . '&action=view_details_log"' ) . '">' . __( 'View Coupon Details', 'coupon-referral-program' ) . '</a></div>';
+				$link  = '<div class="crp_view_details_log"><a href="' . admin_url( 'admin.php?page=wc-reports&tab=crp_report&user_id=' . $item['id'] . '&nonce=' . $nonce . '&action=view_details_log"' ) . '">' . __( 'View Coupon Details', 'coupon-referral-program' ) . '</a><br/><a href="" class="wps_crp_referral_reminder_email" data-user_id=' . $item['id'] . ' title="' . __( 'Send Referral Reminder Email', 'coupon-referral-program' ) . '">' . __( 'Send Email', 'coupon-referral-program' ) . '<a></div>';
 				return $item[ $column_name ] . $link;
 			case 'user_email':
 				return '<b>' . $item[ $column_name ] . '</b>';
@@ -111,7 +111,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 * @param int $user_id .
 	 */
 	public function get_user_report_data( $user_id ) {
-		$mwb_crp_data                  = array();
+			$mwb_crp_data                  = array();
 			$crp_public_obj            = new Coupon_Referral_Program_Public( 'coupon-referral-program', '1.0.0' );
 			$users_crp_data            = $crp_public_obj->get_revenue( $user_id );
 			$mwb_crp_user_name         = get_userdata( $user_id )->data->display_name;
@@ -138,7 +138,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 		$users              = get_users( array( 'fields' => array( 'ID' ) ) );
 		$mwb_crp_data_array = array();
 		$user_id            = '';
-		if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) && isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'mwb_crp_nonce' ) ) {
+		if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
 			$user_name      = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
 			$args['search'] = '*' . $user_name . '*';
 			$user_data      = get_user_by( 'email', $user_name );
@@ -412,6 +412,7 @@ if ( isset( $_GET['action'] ) && isset( $_GET['user_id'] ) ) {
 } else {
 	?>
 	<form method="post">
+		<a class="btn button" id="wps_crp_export_report" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-reports&tab=crp_report&wps_crp_export_report=wps_crp_csv_report' ) ); ?>"><?php esc_attr_e( 'Export CSV', 'coupon-referral-program' ); ?></a>
 		<?php
 		$my_list_table = new Coupon_Referral_Program_Admin_Display_Report();
 		$my_list_table->prepare_items();

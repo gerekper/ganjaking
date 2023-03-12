@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-03-08 - version 2.4.3
+* Tweak - Check the current screen when running the 'init' hook.
+* Fix - Fixed non-displayed delivery columns in the order list table when an AJAX request is verified before running the 'init' hook.
+
 2023-03-02 - version 2.4.2
 * Fix - Fixed the delivery date column content in the order list table when the order has no delivery date.
 

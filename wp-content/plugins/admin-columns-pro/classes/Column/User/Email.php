@@ -20,7 +20,7 @@ class Email extends AC\Column\User\Email
 	}
 
 	public function export() {
-		return new Export\Model\User\Email( $this );
+		return new Export\Model\User\Email();
 	}
 
 	public function search() {

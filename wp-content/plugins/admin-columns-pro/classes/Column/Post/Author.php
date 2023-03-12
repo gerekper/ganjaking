@@ -23,7 +23,7 @@ class Author extends AC\Column\Post\Author
 	}
 
 	public function export() {
-		return new Export\Model\Post\Author( $this );
+		return new Export\Model\Post\Author();
 	}
 
 	public function search() {

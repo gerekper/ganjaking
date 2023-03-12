@@ -2,16 +2,12 @@
 
 namespace ACP\Export\Model\Post;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Post title (default column) exportability model
- * @since 4.1
- */
-class Title extends Model {
+class Title implements Service {
 
 	public function get_value( $id ) {
-		return get_the_title( $id );
+		return get_the_title( (int) $id );
 	}
 
 }

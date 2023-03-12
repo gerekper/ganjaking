@@ -109,8 +109,8 @@ class woocommerce_taxonomy_pricing_rules_admin {
 				<td>
 					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions_type]" value="all" />
 					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions][<?php echo $condition_index; ?>][type]" value="apply_to" />
-					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions][<?php echo $condition_index; ?>][args][applies_to]" value="everyone" /> 
-					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][collector][type]" value="cats" />  
+					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][conditions][<?php echo $condition_index; ?>][args][applies_to]" value="everyone" />
+					<input type="hidden" name="pricing_rules[<?php echo $name; ?>][collector][type]" value="cats" />
 					<input class="checkbox" <?php echo $checked; ?> type="checkbox" id="item_<?php echo $item->term_id; ?>" name="pricing_rules[<?php echo $name; ?>][collector][args][cats][]" value="<?php echo $item->term_id; ?>" />
 				</td>
 				<td>
@@ -137,7 +137,7 @@ class woocommerce_taxonomy_pricing_rules_admin {
 			<?php if ( !is_wp_error( $child_terms ) && !empty( $child_terms ) ) : ?>
 				<?php $this->basic_meta_box_term_group( $pricing_rules, $child_terms, $item, $indent + 1 ); ?>
 			<?php endif; ?>
-		<?php endforeach; ?>   
+		<?php endforeach; ?>
 		<?php
 	}
 
@@ -155,11 +155,11 @@ class woocommerce_taxonomy_pricing_rules_admin {
 					<?php $pricing_rule_sets = get_option(  '_a_taxonomy_' . $this->taxonomy . '_pricing_rules', array() ); ?>
 					<div id="woocommerce-pricing-rules-wrap" class="inside" data-setindex="<?php echo count( $pricing_rule_sets ); ?>">
 						<?php $this->meta_box_javascript(); ?>
-						<?php $this->meta_box_css(); ?>  
+						<?php $this->meta_box_css(); ?>
 						<?php if ( $pricing_rule_sets && is_array( $pricing_rule_sets ) && sizeof( $pricing_rule_sets ) > 0 ) : ?>
 							<?php $this->create_rulesets( $pricing_rule_sets ); ?>
-						<?php endif; ?>        
-					</div>   
+						<?php endif; ?>
+					</div>
 					<button id="woocommerce-pricing-add-ruleset" type="button" class="button button-secondary">+ Add <?php echo esc_html($this->the_taxonomy->labels->singular_name); ?> Pricing</button>
 					<p class="submit" style="float:right;">
 						<input type="submit" class="button-primary" value="<?php _e( 'Save Changes' ) ?>" />
@@ -400,7 +400,7 @@ class woocommerce_taxonomy_pricing_rules_admin {
 				<div class="roles" style="<?php echo $div_style; ?>">
 					<?php $chunks = array_chunk( $all_roles, ceil( count( $all_roles ) / 3 ), true ); ?>
 					<?php foreach ( $chunks as $chunk ) : ?>
-						<ul class="list-column">        
+						<ul class="list-column">
 							<?php foreach ( $chunk as $role_id => $role ) : ?>
 								<?php $role_checked = (isset( $condition['args']['roles'] ) && is_array( $condition['args']['roles'] ) && in_array( $role_id, $condition['args']['roles'] )) ? 'checked="checked"' : ''; ?>
 								<li>
@@ -428,14 +428,14 @@ class woocommerce_taxonomy_pricing_rules_admin {
 				<option title="Calculate quantity based on cart item quantity" <?php selected( 'cat_product', $collector['type'] ); ?> value="cat_product"><?php _e( 'Cart Line Item Quantity', 'woocommerce-dynamic-pricing' ); ?></option>
 				<option title="Calculate quantity based on total sum of the <?php echo $this->the_taxonomy->labels->name; ?> in the cart" <?php selected( 'cat', $collector['type'] ); ?> value="cat"><?php printf(__( 'Sum of %s', 'woocommerce-dynamic-pricing' ), $this->the_taxonomy->labels->singular_name); ?></option>
 			</select>
-			<div class="cats">   
+			<div class="cats">
 				<label style="margin-top:10px;"><?php echo $this->the_taxonomy->labels->name; ?>:</label>
 
 				<?php $chunks = array_chunk( $terms, ceil( count( $terms ) / 3 ) ); ?>
 				<?php foreach ( $chunks as $chunk ) : ?>
-					<ul class="list-column">        
+					<ul class="list-column">
 						<?php foreach ( $chunk as $term ) : ?>
-							<?php $term_checked = (isset( $collector['args']['cats'] ) && is_array( $collector['args']['cats'] ) && in_array( $term->term_id, $collector['args']['cats'] )) ? 'checked="checked"' : ''; ?> 
+							<?php $term_checked = (isset( $collector['args']['cats'] ) && is_array( $collector['args']['cats'] ) && in_array( $term->term_id, $collector['args']['cats'] )) ? 'checked="checked"' : ''; ?>
 							<li>
 								<label for="<?php echo $name; ?>_term_<?php echo $term->term_id; ?>" class="selectit">
 									<input <?php echo $term_checked; ?> type="checkbox" id="<?php echo $name; ?>_term_<?php echo $term->term_id; ?>" name="pricing_rules[<?php echo $name; ?>][collector][args][cats][]" value="<?php echo $term->term_id; ?>" /><?php echo $term->name; ?>
@@ -454,14 +454,14 @@ class woocommerce_taxonomy_pricing_rules_admin {
 			?>
 			<br />
 			<br />
-			<div class="cats">   
+			<div class="cats">
 				<label> <?php printf(__( '%s to apply adjustment to:', 'woocommerce-dynamic-pricing' ), $this->the_taxonomy->labels->name); ?> <?php $this->get_description( 'target' ); ?></label>
 
 				<?php $chunks = array_chunk( $terms, ceil( count( $terms ) / 3 ) ); ?>
 				<?php foreach ( $chunks as $chunk ) : ?>
-					<ul class="list-column">        
+					<ul class="list-column">
 						<?php foreach ( $chunk as $term ) : ?>
-							<?php $term_checked = (isset( $targets ) && is_array( $targets ) && in_array( $term->term_id, $targets )) ? 'checked="checked"' : ''; ?> 
+							<?php $term_checked = (isset( $targets ) && is_array( $targets ) && in_array( $term->term_id, $targets )) ? 'checked="checked"' : ''; ?>
 							<li>
 								<label for="target_<?php echo $name; ?>_term_<?php echo $term->term_id; ?>" class="selectit">
 									<input <?php echo $term_checked; ?> type="checkbox" id="target_<?php echo $name; ?>_term_<?php echo $term->term_id; ?>" name="pricing_rules[<?php echo $name; ?>][targets][]" value="<?php echo $term->term_id; ?>" /><?php echo $term->name; ?>
@@ -492,14 +492,14 @@ class woocommerce_taxonomy_pricing_rules_admin {
 					</select>
 				</td>
 				<td>
-					<input class="float_rule_number" id="pricing_rule_amount_input_<?php echo $name . '_' . $index; ?>" type="text" name="pricing_rules[<?php echo $name; ?>][rules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" /> 
+					<input class="float_rule_number" id="pricing_rule_amount_input_<?php echo $name . '_' . $index; ?>" type="text" name="pricing_rules[<?php echo $name; ?>][rules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" />
 				</td>
-				<td><a class="add_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img 
-							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/add.png'; ?>" 
-							title="add another rule" alt="add another rule" 
-							style="cursor:pointer; margin:0 3px;" /></a><a <?php echo ($index > 1) ? '' : 'style="display:none;"'; ?> class="delete_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img 
-							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/remove.png'; ?>" 
-							title="add another rule" alt="add another rule" 
+				<td><a class="add_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img
+							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/add.png'; ?>"
+							title="add another rule" alt="add another rule"
+							style="cursor:pointer; margin:0 3px;" /></a><a <?php echo ($index > 1) ? '' : 'style="display:none;"'; ?> class="delete_pricing_rule" data-index="<?php echo $index; ?>" data-name="<?php echo $name; ?>"><img
+							src="<?php echo WC_Dynamic_Pricing::plugin_url() . '/assets/images/remove.png'; ?>"
+							title="add another rule" alt="add another rule"
 							style="cursor:pointer; margin:0 3px;" /></a>
 				</td>
 			</tr>
@@ -526,7 +526,7 @@ class woocommerce_taxonomy_pricing_rules_admin {
 
 				<td>
 					<input title="<?php _e( 'The value of the adjustment. Currency and percentage symbols are not required', 'woocommerce-dynamic-pricing' ); ?>" class="float_rule_number" id="pricing_blockrule_amount_input_<?php echo $name . '_' . $index; ?>" type="text"
-					       name="pricing_rules[<?php echo $name; ?>][blockrules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" /> 
+					       name="pricing_rules[<?php echo $name; ?>][blockrules][<?php echo $index; ?>][amount]" value="<?php echo $rule['amount']; ?>" />
 				</td>
 
 				<td>
@@ -564,7 +564,7 @@ class woocommerce_taxonomy_pricing_rules_admin {
 
 						var data = {
 							set_index: set_index,
-							post:<?php echo isset( $_GET['post'] ) ? $_GET['post'] : 0; ?>,
+							post:<?php echo intval($_GET['post'] ?? 0); ?>,
 							action: 'create_empty_taxonomy_ruleset',
 							taxonomy : '<?php echo $this->taxonomy; ?>'
 						}
@@ -623,13 +623,13 @@ class woocommerce_taxonomy_pricing_rules_admin {
 
 
 
-					//Remove Button                
+					//Remove Button
 					$('#woocommerce-pricing-rules-wrap').delegate('.delete_pricing_rule', 'click', function (event) {
 						event.preventDefault();
 						DeleteRule($(this).data('index'), $(this).data('name'));
 					});
 
-					//Remove Button                
+					//Remove Button
 					$('#woocommerce-pricing-rules-wrap').delegate('.delete_pricing_blockrule', 'click', function (event) {
 						event.preventDefault();
 						DeleteBlockRule($(this).closest('tr'), $(this).closest('table'));

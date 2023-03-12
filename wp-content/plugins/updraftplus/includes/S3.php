@@ -1833,7 +1833,7 @@ final class UpdraftPlus_S3Request extends UpdraftPlus_AWSRequest {
 		$curl = curl_init();
 		
 		global $updraftplus;
-		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/UpdraftPlus-'.$updraftplus->version);
+		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/UpdraftPlus-'.$updraftplus->version.' PHP/'.PHP_VERSION);
 
 		if ($this->s3->useSSL) {
 			// SSL Validation can now be optional for those with broken OpenSSL installations
@@ -2051,7 +2051,7 @@ final class UpdraftPlus_IAMRequest extends UpdraftPlus_AWSRequest {
 		$curl = curl_init();
 		
 		global $updraftplus;
-		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/UpdraftPlus-'.$updraftplus->version);
+		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/UpdraftPlus-'.$updraftplus->version.' PHP/'.PHP_VERSION);
 
 		if ($this->s3->useSSL) {
 			// SSL Validation can now be optional for those with broken OpenSSL installations

@@ -1,5 +1,7 @@
 <wpml-config>
 	<admin-texts>
 		<key name="referral_button_text" />
+		<key name="referral_tab_text" />
+		<key name="signup_popup_text" />
 	</admin-texts>
 </wpml-config>

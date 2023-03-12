@@ -2,18 +2,14 @@
 
 namespace ACP\Export\Model\Term;
 
-use ACP\Export\Model;
+use ACP\Export\Service;
 
-/**
- * Name (default column) exportability model
- * @since 4.1
- */
-class Slug extends Model {
+class Slug implements Service {
 
 	public function get_value( $id ) {
 		$term = get_term( $id );
 
-		return apply_filters( 'editable_slug', $term->slug, $term );
+		return (string) apply_filters( 'editable_slug', $term->slug, $term );
 	}
 
 }

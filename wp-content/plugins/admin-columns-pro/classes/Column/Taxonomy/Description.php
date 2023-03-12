@@ -25,7 +25,7 @@ class Description extends AC\Column
 	}
 
 	public function export() {
-		return new Export\Model\Term\Description( $this );
+		return new Export\Model\Term\Description();
 	}
 
 }

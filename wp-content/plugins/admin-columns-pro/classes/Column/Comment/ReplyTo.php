@@ -4,6 +4,7 @@ namespace ACP\Column\Comment;
 
 use AC;
 use ACP\ConditionalFormat;
+use ACP\Editing;
 use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
@@ -12,7 +13,7 @@ use ACP\Sorting;
  * @since 2.0
  */
 class ReplyTo extends AC\Column\Comment\ReplyTo
-	implements Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
+	implements Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable, Editing\Editable {
 
 	use ConditionalFormat\ConditionalFormatTrait;
 
@@ -26,6 +27,10 @@ class ReplyTo extends AC\Column\Comment\ReplyTo
 
 	public function search() {
 		return new Search\Comparison\Comment\ReplyTo();
+	}
+
+	public function editing() {
+		return new Editing\Service\Comment\CommentParent();
 	}
 
 }

@@ -13,14 +13,8 @@ use RuntimeException;
 
 final class FileFactory {
 
-	/**
-	 * @var Encoder
-	 */
 	private $encoder;
 
-	/**
-	 * @var DecoderFactory
-	 */
 	private $decoder_factory;
 
 	public function __construct( Encoder $encoder, DecoderFactory $decoder_factory ) {
@@ -28,13 +22,7 @@ final class FileFactory {
 		$this->decoder_factory = $decoder_factory;
 	}
 
-	/**
-	 * @param string    $type
-	 * @param Directory $directory
-	 *
-	 * @return File
-	 */
-	public function create( $type, Directory $directory ) {
+	public function create( string $type, Directory $directory ): File {
 		switch ( $type ) {
 			case SerializerTypes::PHP:
 				$serializer = new PhpSerializer\File();

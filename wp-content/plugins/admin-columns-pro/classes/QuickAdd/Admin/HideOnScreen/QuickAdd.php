@@ -18,7 +18,7 @@ class QuickAdd extends ACP\Settings\ListScreen\HideOnScreen {
 		);
 	}
 
-	public function is_hidden( ListScreen $list_screen ) {
+	public function is_hidden( ListScreen $list_screen ): bool {
 		return null === $list_screen->get_preference( $this->name ) || parent::is_hidden( $list_screen );
 	}
 

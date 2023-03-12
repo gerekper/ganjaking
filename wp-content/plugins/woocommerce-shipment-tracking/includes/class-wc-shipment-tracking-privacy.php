@@ -155,6 +155,10 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
+		if ( ! $order instanceof WC_Order ) {
+			return array( false, false, array() );
+		}
+
 		$tracking_items = $order->get_meta( '_wc_shipment_tracking_items' );
 
 		if ( empty( $tracking_items ) ) {

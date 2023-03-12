@@ -20,7 +20,7 @@ class WC_Subscription_Downloads_Ajax {
 	}
 
 	/**
-	 * Search subscriptions.
+	 * Search subscription products.
 	 *
 	 * @return string
 	 */
@@ -41,6 +41,7 @@ class WC_Subscription_Downloads_Ajax {
 
 		$term = apply_filters( 'woocommerce_subscription_downloads_json_search_order_number', $term );
 
+		// Find subscription products by title.
 		$query_subscriptions = $wpdb->get_results( $wpdb->prepare( "
 			SELECT ID
 			FROM $wpdb->posts AS posts

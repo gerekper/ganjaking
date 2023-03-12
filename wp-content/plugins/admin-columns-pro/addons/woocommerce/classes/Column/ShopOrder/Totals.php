@@ -65,6 +65,10 @@ class Totals extends AC\Column\Meta
 	public function get_raw_value( $id ) {
 
 		switch ( $this->get_setting_total_property() ) {
+			case 'fees' :
+				$value = $this->get_order( $id )->get_fees();
+
+				break;
 			case 'subtotal' :
 				$value = $this->get_order( $id )->get_subtotal();
 

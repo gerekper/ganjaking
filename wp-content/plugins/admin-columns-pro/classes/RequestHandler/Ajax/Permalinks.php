@@ -7,7 +7,7 @@ use ACP\RequestAjaxHandler;
 
 class Permalinks implements RequestAjaxHandler {
 
-	public function handle() {
+	public function handle(): void {
 		$request = new AC\Request();
 		$search = $request->get( 'search', '' );
 

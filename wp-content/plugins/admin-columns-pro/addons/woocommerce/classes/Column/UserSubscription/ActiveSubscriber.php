@@ -25,7 +25,7 @@ class ActiveSubscriber extends AC\Column
 	}
 
 	public function export() {
-		return new Export\UserSubscription\ActiveSubscriber( $this );
+		return new Export\UserSubscription\ActiveSubscriber();
 	}
 
 }

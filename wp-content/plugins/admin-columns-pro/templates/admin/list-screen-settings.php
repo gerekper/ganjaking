@@ -12,36 +12,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <section class="ac-setbox ac-ls-settings ac-section" data-section="ls-settings">
 	<header class="ac-section__header">
-		<div class="ac-setbox__header__title"><?= __( 'Settings', 'codepress-admin-columns' ); ?>
-			<small>(<?= __( 'optional', 'codepress-admin-columns' ); ?>)</small>
+		<div class="ac-setbox__header__title"><?= esc_html__( 'Settings', 'codepress-admin-columns' ) ?>
+			<small>(<?= esc_html__( 'optional', 'codepress-admin-columns' ) ?>)</small>
 		</div>
 	</header>
 	<form data-form-part="preferences">
 
 		<div class="ac-setbox__row">
 			<div class="ac-setbox__row__th">
-				<label><?= __( 'Conditionals', 'codepress-admin-columns' ); ?></label>
-				<small><?= __( 'Make this column set available only for specific users or roles.', 'codepress-admin-columns' ); ?></small>
+				<label><?= esc_html__( 'Conditionals', 'codepress-admin-columns' ) ?></label>
+				<small><?= esc_html__( 'Make this column set available only for specific users or roles.', 'codepress-admin-columns' ) ?></small>
 			</div>
 			<div class="ac-setbox__row__fields">
 				<div class="ac-setbox__row__fields__inner">
 					<fieldset>
 						<div class="row roles">
-							<label for="layout-roles-<?php echo $this->id; ?>" class="screen-reader-text">
-								<?php _e( 'Roles', 'codepress-admin-columns' ); ?>
-								<span>(<?php _e( 'optional', 'codepress-admin-columns' ); ?>)</span>
+							<label for="layout-roles-<?= esc_attr( $this->id ) ?>" class="screen-reader-text">
+								<?= esc_html__( 'Roles', 'codepress-admin-columns' ) ?>
+								<span>(<?= esc_html__( 'optional', 'codepress-admin-columns' ) ?>)</span>
 							</label>
 
 							<?php echo $this->select_roles; ?>
 
 						</div>
 						<div class="row users">
-							<label for="layout-users-<?php echo $this->id; ?>" class="screen-reader-text">
-								<?php _e( 'Users' ); ?>
-								<span>(<?php _e( 'optional', 'codepress-admin-columns' ); ?>)</span>
+							<label for="layout-users-<?= esc_attr( $this->id ) ?>" class="screen-reader-text">
+								<?= esc_html__( 'Users' ) ?>
+								<span>(<?= esc_html__( 'optional', 'codepress-admin-columns' ) ?>)</span>
 							</label>
 
-							<?php echo $this->select_users; ?>
+							<?= $this->select_users ?>
 						</div>
 					</fieldset>
 				</div>
@@ -50,14 +50,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="ac-setbox__row" id="hide-on-screen">
 			<div class="ac-setbox__row__th">
-				<label><?= __( 'Toggle Elements', 'codepress-admin-columns' ); ?></label>
-				<small><?= __( 'Show or hide elements from the table list screen.', 'codepress-admin-columns' ); ?></small>
+				<label><?= esc_html__( 'Table Elements', 'codepress-admin-columns' ) ?></label>
+				<small><?= esc_html__( 'Show or hide elements from the table list screen.', 'codepress-admin-columns' ) ?></small>
 			</div>
 			<div class="ac-setbox__row__fields">
 				<div class="ac-setbox__row__fields__inner">
 					<div class="checkbox-labels checkbox-labels vertical">
 
-						<?= $this->hide_on_screen; ?>
+						<div data-component="acp-table-elements"></div>
 
 					</div>
 				</div>
@@ -72,20 +72,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="ac-setbox__row">
 				<div class="ac-setbox__row__th">
-					<label><?= __( 'Preferences', 'codepress-admin-columns' ); ?></label>
-					<small><?= __( 'Set default settings that users will see when they visit the list table.', 'codepress-admin-columns' ); ?></small>
+					<label><?= esc_html__( 'Preferences', 'codepress-admin-columns' ) ?></label>
+					<small><?= esc_html__( 'Set default settings that users will see when they visit the list table.', 'codepress-admin-columns' ) ?></small>
 				</div>
 
-				<div class="ac-setbox__row__fields -has-subsettings -subsetting-total-<?= $number_of_preferences; ?>">
+				<div class="ac-setbox__row__fields -has-subsettings -subsetting-total-<?= $number_of_preferences ?>">
 					<?php if ( $this->can_horizontal_scroll ) : ?>
 						<?php
-						$pref_hs = isset( $this->preferences['horizontal_scrolling'] ) ? $this->preferences['horizontal_scrolling'] : 'off';
+						$pref_hs = $this->preferences['horizontal_scrolling'] ?? 'off';
 						?>
 						<div class="ac-setbox__row -sub -horizontal-scrolling">
 							<div class="ac-setbox__row__th">
-								<label><?= __( 'Horizontal Scrolling', 'codepress-admin-columns' ); ?></label>
-								<?php echo $this->tooltip_hs->get_label(); ?>
-								<?php echo $this->tooltip_hs->get_instructions(); ?>
+								<label><?= esc_html__( 'Horizontal Scrolling', 'codepress-admin-columns' ) ?></label>
+								<?= $this->tooltip_hs->get_label() ?>
+								<?= $this->tooltip_hs->get_instructions() ?>
 							</div>
 							<div class="ac-setbox__row__fields">
 
@@ -100,17 +100,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php endif; ?>
 					<?php if ( $this->can_sort ) : ?>
 						<?php
-						$selected_order_by = isset( $this->preferences[ PreferredSort::FIELD_SORTING ] )
-							? $this->preferences[ PreferredSort::FIELD_SORTING ]
-							: 0;
-
-						$selected_order = isset( $this->preferences[ PreferredSort::FIELD_SORTING_ORDER ] )
-							? $this->preferences[ PreferredSort::FIELD_SORTING_ORDER ]
-							: 'asc';
+						$selected_order_by = $this->preferences[ PreferredSort::FIELD_SORTING ] ?? 0;
+						$selected_order = $this->preferences[ PreferredSort::FIELD_SORTING_ORDER ] ?? 'asc';
 						?>
 						<div class="ac-setbox__row -sub -sorting" data-setting="sorting-preference">
 							<div class="ac-setbox__row__th">
-								<label><?= __( 'Sorting', 'codepress-admin-columns' ); ?></label>
+								<label><?= esc_html__( 'Sorting', 'codepress-admin-columns' ) ?></label>
 							</div>
 							<div class="ac-setbox__row__fields">
 								<div class="ac-setbox__row__fields__inner">
@@ -139,16 +134,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						$segments = $this->segments;
 
-						$selected_filter_segment = isset( $this->preferences[ PreferredSegment::FIELD_SEGMENT ] )
-							? $this->preferences[ PreferredSegment::FIELD_SEGMENT ]
-							: '';
+						$selected_filter_segment = $this->preferences[ PreferredSegment::FIELD_SEGMENT ] ?? '';
 						?>
 
 						<div class="ac-setbox__row -sub -predefinedfilters" data-setting="filter-segment-preference">
 							<div class="ac-setbox__row__th">
-								<label><?= __( 'Pre-applied Filters', 'codepress-admin-columns' ); ?></label>
-								<?php echo $this->tooltip_filters->get_label(); ?>
-								<?php echo $this->tooltip_filters->get_instructions(); ?>
+								<label><?= esc_html__( 'Pre-applied Filters', 'codepress-admin-columns' ) ?></label>
+								<?= $this->tooltip_filters->get_label() ?>
+								<?= $this->tooltip_filters->get_instructions() ?>
 							</div>
 							<div class="ac-setbox__row__fields">
 								<div class="ac-setbox__row__fields__inner">
@@ -159,7 +152,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										?>
 									<?php else: ?>
 										<p class="ac-setbox__descriptive">
-											<?php _e( "No public saved filters available.", 'codepress-admin-columns' ); ?>
+											<?= esc_html__( "No public saved filters available.", 'codepress-admin-columns' ) ?>
 										</p>
 									<?php endif; ?>
 								</div>
@@ -172,9 +165,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						<div class="ac-setbox__row -sub -primary-column">
 							<div class="ac-setbox__row__th">
-								<label><?= __( 'Primary Column', 'codepress-admin-columns' ); ?></label>
-								<?php echo $this->tooltip_primary_column->get_label(); ?>
-								<?php echo $this->tooltip_primary_column->get_instructions(); ?>
+								<label><?= esc_html__( 'Primary Column', 'codepress-admin-columns' ) ?></label>
+								<?= $this->tooltip_primary_column->get_label() ?>
+								<?= $this->tooltip_primary_column->get_instructions() ?>
 							</div>
 							<div class="ac-setbox__row__fields">
 								<div class="ac-setbox__row__fields__inner">
@@ -188,7 +181,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										</div>
 									<?php else : ?>
 										<p class="ac-setbox__descriptive">
-											<?php _e( "Remove actions column to change the primary column.", 'codepress-admin-columns' ); ?>
+											<?= esc_html__( "Remove actions column to change the primary column.", 'codepress-admin-columns' ) ?>
 										</p>
 									<?php endif; ?>
 								</div>

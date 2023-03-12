@@ -17,7 +17,7 @@ class Links extends AC\Column
 	}
 
 	public function export() {
-		return new Export\Model\Term\Posts( $this );
+		return new Export\Model\Term\Posts();
 	}
 
 }

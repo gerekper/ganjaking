@@ -5,23 +5,14 @@ namespace ACA\Types\Export;
 use ACA\Types\Column;
 use ACP;
 
-/**
- * @property Column $column
- */
-class Field extends ACP\Export\Model {
+class Field implements ACP\Export\Service {
 
-	/**
-	 * @param Column $column
-	 */
+	protected $column;
+
 	public function __construct( Column $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
-	/**
-	 * @param int $id
-	 *
-	 * @return string
-	 */
 	public function get_value( $id ) {
 		$raw_value = (array) $this->column->get_raw_value( $id );
 

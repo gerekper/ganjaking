@@ -23,7 +23,7 @@ return array(
 	'press_add_site_button' => __('At your UpdraftCentral dashboard you should press the "Add Site" button then paste the key in the input box.', 'updraftplus'),
 	'detailed_instructions' => __('Detailed instructions for this can be found at %s', 'updraftplus'),
 	'control_this_site' => __('You can now control this site via your UpdraftCentral dashboard at %s.', 'updraftplus'),
-	'attempt_to_register_failed' => __('A key was created, but the attempt to register it with %s was unsuccessful - please try again later.', 'updraftplus'),
+	'attempt_to_register_failed' => __('A key was created, but the attempt to register it with %1$s was unsuccessful. You can try again, or try using the alternative connection method if the problem persists. For more information visit %2$s', 'updraftplus'),
 	'key_created_successfully' => __('Key created successfully.', 'updraftplus'),
 	'copy_paste_key' => __('You must copy and paste this key now - it cannot be shown again.', 'updraftplus'),
 	'no_updraftcentral_dashboards' => __('There are no UpdraftCentral dashboards that can currently control this site.', 'updraftplus'),

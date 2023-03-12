@@ -9,14 +9,12 @@ use ACP;
 
 class ModelFactory {
 
-	public function create( $type, AC\Column $column ) {
+	public function create( string $type, AC\Column $column ): ACP\Export\Service {
 		switch ( $type ) {
 			case FieldType::TYPE_DATE_PICKER:
 				return new Model\Date( $column );
-
 			case FieldType::TYPE_LINK:
 				return new Model\Link( $column );
-
 			case FieldType::TYPE_BUTTON_GROUP:
 			case FieldType::TYPE_SELECT:
 			case FieldType::TYPE_RADIO:
@@ -31,7 +29,6 @@ class ModelFactory {
 			case FieldType::TYPE_GALLERY:
 			case FieldType::TYPE_IMAGE:
 				return new ACP\Export\Model\CustomField\Image( $column );
-
 			default:
 				return new ACP\Export\Model\RawValue( $column );
 		}

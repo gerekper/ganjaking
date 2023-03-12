@@ -21,7 +21,7 @@ class MediaParent extends AC\Column\Media\MediaParent
 	}
 
 	public function export() {
-		return new Export\Model\Post\PostParent( $this );
+		return new Export\Model\Post\PostParent();
 	}
 
 	public function search() {

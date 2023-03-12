@@ -5,6 +5,7 @@ namespace ACP\ConditionalFormat\Service;
 use AC\Registerable;
 use ACP\ConditionalFormat\Settings\ListScreen\HideOnScreenFactory;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Type\HideOnScreen\Group;
 
 final class ListScreenSettings implements Registerable {
 
@@ -22,7 +23,7 @@ final class ListScreenSettings implements Registerable {
 	}
 
 	public function add_hide_on_screen( HideOnScreenCollection $collection ): void {
-		$collection->add( $this->hide_on_screen_factory->create(), 55 );
+		$collection->add( $this->hide_on_screen_factory->create(), new Group( Group::FEATURE ), 55 );
 	}
 
 }

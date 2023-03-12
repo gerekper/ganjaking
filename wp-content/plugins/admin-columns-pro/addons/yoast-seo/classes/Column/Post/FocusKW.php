@@ -26,7 +26,7 @@ class FocusKW extends AC\Column
 	}
 
 	public function export() {
-		return new ACP\Export\Model\Post\Meta( $this, '_yoast_wpseo_focuskw' );
+		return new ACP\Export\Model\Post\Meta( '_yoast_wpseo_focuskw' );
 	}
 
 }

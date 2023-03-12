@@ -5,7 +5,7 @@
  * Description: Add multilingual support for Gravity Forms
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 1.7.1
+ * Version: 1.7.2
  * Plugin Slug: gravityforms-multilingual
  *
  * @package WPML\gfml
@@ -15,7 +15,7 @@ if ( defined( 'GRAVITYFORMS_MULTILINGUAL_VERSION' ) ) {
 	return;
 }
 
-define( 'GRAVITYFORMS_MULTILINGUAL_VERSION', '1.7.1' );
+define( 'GRAVITYFORMS_MULTILINGUAL_VERSION', '1.7.2' );
 define( 'GRAVITYFORMS_MULTILINGUAL_PATH', dirname( __FILE__ ) );
 
 require_once GRAVITYFORMS_MULTILINGUAL_PATH . '/classes/class-wpml-gfml-plugin-activation.php';

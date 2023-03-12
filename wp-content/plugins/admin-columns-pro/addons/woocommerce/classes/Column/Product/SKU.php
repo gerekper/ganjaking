@@ -31,7 +31,7 @@ class SKU extends AC\Column\Meta
 	}
 
 	public function export() {
-		return new Export\Product\SKU( $this );
+		return new Export\Product\SKU();
 	}
 
 	public function search() {

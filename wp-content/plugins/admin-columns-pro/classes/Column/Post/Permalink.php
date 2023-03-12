@@ -25,7 +25,7 @@ class Permalink extends AC\Column\Post\Permalink
 	}
 
 	public function export() {
-		return new Export\Model\Post\Permalink( $this );
+		return new Export\Model\Post\Permalink();
 	}
 
 }

@@ -51,7 +51,6 @@ final class Columns implements Registerable {
 			new Column\Post\TwitterDescription(),
 			new Column\Post\TwitterImage(),
 			new Column\Post\TwitterTitle(),
-			new Column\Post\TwitterTitle(),
 		];
 
 		foreach ( $classes as $class ) {

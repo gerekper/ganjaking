@@ -4,14 +4,14 @@ namespace ACA\WC\Export\Product;
 
 use ACP;
 
-/**
- * WooCommerce product SKU (default column) exportability model
- * @since 2.2.1
- */
-class SKU extends ACP\Export\Model {
+class SKU implements ACP\Export\Service {
 
 	public function get_value( $id ) {
-		return wc_get_product( $id )->get_sku();
+		$product = wc_get_product( $id );
+
+		return $product
+			? $product->get_sku()
+			: '';
 	}
 
 }

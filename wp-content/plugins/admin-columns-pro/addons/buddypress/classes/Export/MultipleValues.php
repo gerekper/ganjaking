@@ -8,10 +8,12 @@ use ACP;
 /**
  * @property Column\Profile $column
  */
-class MultipleValues extends ACP\Export\Model {
+class MultipleValues implements ACP\Export\Service {
+
+	private $column;
 
 	public function __construct( Column\Profile $column ) {
-		parent::__construct( $column );
+		$this->column = $column;
 	}
 
 	public function get_value( $id ) {

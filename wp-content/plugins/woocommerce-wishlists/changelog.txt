@@ -1,4 +1,12 @@
 *** WooCommerce Wishlist Changelog ***
+2023.03.08 - version 2.2.9
+    * Update: Only perform validation when moving from a list to the cart via the woocommerce_add_to_wishlist_validation filter.
+    * Update: Add additional content to the wishlist share email.
+    * Update: Add {wishlist_url} to the wishlist share email.
+    * Update: Add {wishlist_email} to the wishlist share email.
+    * Compatibility: Add compatibility with HPOS.
+    * Security: Updated reflected text in templates and emails to be escaped.
+
 2022.12.20 - version 2.2.8
     * Update: Correct spelling of filter, wc_wishlists_udpate_list_args
     * Update:  Added woocommerce_add_to_cart_validation before an item is added to the cart.

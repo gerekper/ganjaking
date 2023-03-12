@@ -265,7 +265,7 @@ class WC_AM_Format {
 	 * @return string
 	 */
 	public function unix_timestamp_to_date_i18n( $timestamp ) {
-		_deprecated_function( 'WC_AM_FORMAT()->unix_timestamp_to_date_i18n', 2.5, 'WC_AM_FORMAT()->unix_timestamp_to_date' );
+		_deprecated_function( 'WC_AM_FORMAT()->unix_timestamp_to_date_i18n()', '2.5', 'WC_AM_FORMAT()->unix_timestamp_to_date()' );
 
 		return $this->unix_timestamp_to_date( $timestamp );
 	}
@@ -296,7 +296,7 @@ class WC_AM_Format {
 	 * @return string
 	 */
 	public function unix_timestamp_to_calendar_date_i18n( $timestamp ) {
-		_deprecated_function( 'WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n', 2.5, 'WC_AM_FORMAT()->unix_timestamp_to_calendar_date' );
+		_deprecated_function( 'WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n()', '2.5', 'WC_AM_FORMAT()->unix_timestamp_to_calendar_date()' );
 
 		return $this->unix_timestamp_to_calendar_date( $timestamp );
 	}

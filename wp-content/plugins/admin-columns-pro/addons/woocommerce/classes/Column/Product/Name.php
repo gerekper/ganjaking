@@ -25,7 +25,7 @@ class Name extends AC\Column
 	}
 
 	public function export() {
-		return new ACP\Export\Model\Post\Title( $this );
+		return new ACP\Export\Model\Post\Title();
 	}
 
 	public function search() {

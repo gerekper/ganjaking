@@ -6,18 +6,13 @@ use AC;
 use AC\Asset;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
+use AC\Registerable;
 use AC\Type\ListScreenId;
 
-class HorizontalScrolling implements AC\Registerable {
+class HorizontalScrolling implements Registerable {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
-	/**
-	 * @var Asset\Location\Absolute
-	 */
 	private $location;
 
 	public function __construct( Storage $storage, Asset\Location\Absolute $location ) {
@@ -32,38 +27,34 @@ class HorizontalScrolling implements AC\Registerable {
 		add_action( 'wp_ajax_acp_update_table_option_overflow', [ $this, 'update_table_option_overflow' ] );
 	}
 
-	/**
-	 * @return AC\Preferences\Site
-	 */
-	public function preferences() {
+	public function preferences(): AC\Preferences\Site {
 		return new AC\Preferences\Site( 'show_overflow_table' );
 	}
 
-	/**
-	 * Handle ajax request
-	 */
-	public function update_table_option_overflow() {
+	public function update_table_option_overflow(): void {
 		check_ajax_referer( 'ac-ajax' );
 
-		$list_screen = filter_input( INPUT_POST, 'layout' )
-			? $this->storage->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) )
-			: null;
+		$list_id = filter_input( INPUT_POST, 'layout' );
 
-		$key = null !== $list_screen
-			? $list_screen->get_storage_key()
-			: filter_input( INPUT_POST, 'list_screen' );
+		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
+			wp_send_json_error( 'Invalid list id.' );
+		}
 
-		$this->preferences()->set( $key, 'true' === filter_input( INPUT_POST, 'value' ) );
-		exit;
+		$list_screen = $this->storage->find_by_user( new ListScreenId( $list_id ), wp_get_current_user() );
+
+		if ( ! $list_screen ) {
+			wp_send_json_error( 'Invalid listscreen.' );
+		}
+
+		$this->preferences()->set( $list_screen->get_storage_key(), 'true' === filter_input( INPUT_POST, 'value' ) );
+
+		wp_send_json_success();
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return bool
-	 */
-	private function is_overflow_table( ListScreen $list_screen ) {
-		$preference = $this->preferences()->get( $list_screen->get_storage_key() );
+	private function is_overflow_table( ListScreen $list_screen ): bool {
+		$preference = $this->preferences()->get(
+			$list_screen->get_storage_key()
+		);
 
 		// Load the list screen preference when user has not yet set their own preference.
 		if ( null === $preference ) {
@@ -73,17 +64,11 @@ class HorizontalScrolling implements AC\Registerable {
 		return (bool) apply_filters( 'acp/horizontal_scrolling/enable', $preference, $list_screen );
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function delete_overflow_preference( $list_screen ) {
+	public function delete_overflow_preference( ListScreen $list_screen ): void {
 		$this->preferences()->delete( $list_screen->get_storage_key() );
 	}
 
-	/**
-	 * @param AC\Table\Screen $table
-	 */
-	public function register_screen_option( $table ) {
+	public function register_screen_option( AC\Table\Screen $table ): void {
 		$list_screen = $table->get_list_screen();
 
 		if ( ! $list_screen->get_settings() ) {
@@ -107,7 +92,7 @@ class HorizontalScrolling implements AC\Registerable {
 		$table->register_screen_option( $check_box );
 	}
 
-	private function is_windows_browser() {
+	private function is_windows_browser(): bool {
 		if ( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
 			return false;
 		}
@@ -115,10 +100,7 @@ class HorizontalScrolling implements AC\Registerable {
 		return (bool) preg_match( '(win|microsoft)', strtolower( $_SERVER['HTTP_USER_AGENT'] ) );
 	}
 
-	/**
-	 * Load scripts
-	 */
-	public function scripts() {
+	public function scripts(): void {
 		$script = new Asset\Script( 'ac-horizontal-scrolling', $this->location->with_suffix( 'assets/core/js/horizontal-scrolling.js' ) );
 		$script->enqueue();
 

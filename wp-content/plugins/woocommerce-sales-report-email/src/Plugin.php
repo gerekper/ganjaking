@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 1.2.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_SALES_REPORT_EMAIL_VERSION', '1.2.0' );
+		$this->define( 'WC_SALES_REPORT_EMAIL_VERSION', '1.2.1' );
 		$this->define( 'WC_SALES_REPORT_EMAIL_PATH', plugin_dir_path( WC_SALES_REPORT_EMAIL_FILE ) );
 		$this->define( 'WC_SALES_REPORT_EMAIL_URL', plugin_dir_url( WC_SALES_REPORT_EMAIL_FILE ) );
 		$this->define( 'WC_SALES_REPORT_EMAIL_BASENAME', plugin_basename( WC_SALES_REPORT_EMAIL_FILE ) );

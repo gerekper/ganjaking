@@ -24,8 +24,18 @@ final class Table extends Script {
 	 */
 	private $active_states;
 
+	/**
+	 * @var EditableDataFactory
+	 */
+	private $editable_data_factory;
+
+	/**
+	 * @var Preference\EditState
+	 */
+	private $edit_state;
+
 	public function __construct(
-		$handle,
+		string $handle,
 		Location $location,
 		AC\ListScreen $list_screen,
 		EditableDataFactory $editable_data_factory,
@@ -40,7 +50,7 @@ final class Table extends Script {
 		$this->active_states = $active_states;
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
 		// Allow JS to access the column data for this list screen on the edit page
@@ -83,6 +93,7 @@ final class Table extends Script {
 					'unknown'        => __( 'Something went wrong.', 'codepress-admin-columns' ),
 				],
 				'inline_edit'    => __( 'Inline Edit', 'codepress-admin-columns' ),
+				'failed'         => __( 'Failed', 'codepress-admin-columns' ),
 				'media'          => __( 'Media', 'codepress-admin-columns' ),
 				'image'          => __( 'Image', 'codepress-admin-columns' ),
 				'audio'          => __( 'Audio', 'codepress-admin-columns' ),
@@ -240,15 +251,15 @@ final class Table extends Script {
 		}
 	}
 
-	private function is_persistent_editing() {
+	private function is_persistent_editing(): bool {
 		return (bool) apply_filters( 'acp/editing/persistent', false, $this->list_screen );
 	}
 
-	private function get_updated_rows_per_iteration() {
+	private function get_updated_rows_per_iteration(): int {
 		return (int) apply_filters( 'acp/editing/bulk/updated_rows_per_iteration', 250, $this->list_screen );
 	}
 
-	private function get_deleted_rows_per_iteration() {
+	private function get_deleted_rows_per_iteration(): int {
 		return (int) apply_filters( 'acp/delete/bulk/deleted_rows_per_iteration', 250, $this->list_screen );
 	}
 

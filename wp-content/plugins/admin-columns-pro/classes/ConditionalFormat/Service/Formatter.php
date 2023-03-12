@@ -48,22 +48,39 @@ final class Formatter implements Registerable {
 			return;
 		}
 
-		add_filter( 'ac/column/value', [ $this, 'format' ], 10, 3 );
+		add_filter( 'ac/column/value', [ $this, 'format_value' ], 10, 3 );
+	}
+
+	/**
+	 * We use this hook callback to ensure we can use te format method with correct property types
+	 *
+	 * @param string    $value
+	 * @param int       $id
+	 * @param AC\Column $column
+	 *
+	 * @return string
+	 */
+	public function format_value( $value, int $id, AC\Column $column ) {
+		if ( ! is_scalar( $value ) ) {
+			return $value;
+		}
+
+		return $this->format( (string) $value, $id, $column );
 	}
 
 	/**
 	 * Comparisons are done case-insensitive
 	 */
-	public function format( $value, int $id, AC\Column $column ): string {
+	public function format( string $value, int $id, AC\Column $column ): string {
+		if ( $column->get_empty_char() === $value ) {
+			return $value;
+		}
+
 		if ( ! $column->get_list_screen()->has_id() ) {
 			return $value;
 		}
 
 		if ( ! $column instanceof Formattable || ! $column->conditional_format() ) {
-			return $value;
-		}
-
-		if ( $column->get_empty_char() === $value ) {
 			return $value;
 		}
 

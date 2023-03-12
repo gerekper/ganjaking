@@ -38,11 +38,12 @@ class VI_WNOTIFICATION_Admin_Admin {
 			new VillaTheme_Plugin_Updater( 'woocommerce-notification/woocommerce-notification.php', 'woocommerce-notification', $setting_url );
 		}
 	}
-	public function admin_print_styles(){
-		$background_image   = $this->settings->get_background_image();
-		$custom_css='';
+
+	public function admin_print_styles() {
+		$background_image = $this->settings->get_background_image();
+		$custom_css       = '';
 		if ( $background_image ) {
-			$background_image_url  = woocommerce_notification_background_images( $background_image );
+			$background_image_url = woocommerce_notification_background_images( $background_image );
 
 			$custom_css .= "#message-purchased .message-purchase-main::before{
 				background-image: url('{$background_image_url}');  
@@ -50,16 +51,17 @@ class VI_WNOTIFICATION_Admin_Admin {
 			}";
 		}
 		?>
-		<style id="woocommerce-notification-close-icon-color"></style>
-		<style id="woocommerce-notification-background-image"><?php echo $custom_css?></style>
+        <style id="woocommerce-notification-close-icon-color"></style>
+        <style id="woocommerce-notification-background-image"><?php echo wp_kses_post( $custom_css ) ?></style>
 		<?php
 	}
+
 	/**
 	 * Init Script in Admin
 	 */
 	public function admin_enqueue_scripts() {
 		$this->settings = new VI_WNOTIFICATION_Data();
-		$page           = isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : '';
+		$page           = isset( $_REQUEST['page'] ) ? wc_clean( $_REQUEST['page'] ) : '';
 		if ( $page == 'woocommerce-notification' ) {
 			add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
 
@@ -82,8 +84,12 @@ class VI_WNOTIFICATION_Admin_Admin {
 					}
 				}
 			}
+			/*Compatibel with theme or plugin */
+			wp_dequeue_style( 'tmpmela_tab' ); /*Theme Kinves*/
+			wp_dequeue_style( 'base-admin-css' ); /*Plugin BoldGrid Inspirations*/
+
 			/*Stylesheet*/
-			wp_enqueue_style( 'woocommerce-notification-icons-close', VI_WNOTIFICATION_CSS . 'icons-close.css', array(), VI_WNOTIFICATION_VERSION );
+			wp_enqueue_style( 'woocommerce-notification-icons-close', VI_WNOTIFICATION_CSS . 'icons-close.min.css', array(), VI_WNOTIFICATION_VERSION );
 			wp_enqueue_style( 'woocommerce-notification-input', VI_WNOTIFICATION_CSS . 'input.min.css' );
 			wp_enqueue_style( 'woocommerce-notification-label', VI_WNOTIFICATION_CSS . 'label.min.css' );
 			wp_enqueue_style( 'woocommerce-notification-image', VI_WNOTIFICATION_CSS . 'image.min.css' );
@@ -97,22 +103,31 @@ class VI_WNOTIFICATION_Admin_Admin {
 			wp_enqueue_style( 'woocommerce-notification-tab', VI_WNOTIFICATION_CSS . 'tab.css' );
 			wp_enqueue_style( 'woocommerce-notification-button', VI_WNOTIFICATION_CSS . 'button.min.css' );
 			wp_enqueue_style( 'woocommerce-notification-grid', VI_WNOTIFICATION_CSS . 'grid.min.css' );
+			wp_enqueue_style( 'woocommerce-notification-dimmer', VI_WNOTIFICATION_CSS . 'dimmer.min.css' );
+			wp_enqueue_style( 'woocommerce-notification-modal', VI_WNOTIFICATION_CSS . 'modal.min.css' );
+			wp_enqueue_style( 'woocommerce-notification-table', VI_WNOTIFICATION_CSS . 'table.min.css' );
 			wp_enqueue_style( 'woocommerce-notification-front', VI_WNOTIFICATION_CSS . 'woocommerce-notification.css' );
 			wp_enqueue_style( 'woocommerce-notification-admin', VI_WNOTIFICATION_CSS . 'woocommerce-notification-admin.css' );
 			wp_enqueue_style( 'woocommerce-notification-admin-templates', VI_WNOTIFICATION_CSS . 'woocommerce-notification-templates.css' );
 			wp_enqueue_style( 'select2', VI_WNOTIFICATION_CSS . 'select2.min.css' );
-			if ( woocommerce_version_check( '3.0.0' ) ) {
-				wp_enqueue_script( 'select2' );
-			} else {
-				wp_enqueue_script( 'select2-v4', VI_WNOTIFICATION_JS . 'select2.js', array( 'jquery' ), '4.0.3' );
-			}
+
+//			if ( woocommerce_version_check( '3.0.0' ) ) {
+//				wp_enqueue_script( 'select2' );
+//			} else {
+//			    echo '<pre>'.print_r('ddddddddddddddddd',true).'</pre>';
+//				wp_enqueue_script( 'select2-v4', VI_WNOTIFICATION_JS . 'select2.js', array( 'jquery' ), '4.0.3' );
+//			}
 			/*Script*/
+			wp_enqueue_script( 'select2-v4', VI_WNOTIFICATION_JS . 'select2.js', array( 'jquery' ), '4.0.3' );
 			wp_enqueue_script( 'woocommerce-notification-dependsOn', VI_WNOTIFICATION_JS . 'dependsOn-1.0.2.min.js', array( 'jquery' ) );
 			wp_enqueue_script( 'woocommerce-notification-transition', VI_WNOTIFICATION_JS . 'transition.min.js', array( 'jquery' ) );
+			wp_enqueue_script( 'woocommerce-notification-faker', VI_WNOTIFICATION_JS . 'faker.min.js', array( 'jquery' ) );
 			wp_enqueue_script( 'woocommerce-notification-dropdown', VI_WNOTIFICATION_JS . 'dropdown.js', array( 'jquery' ) );
 			wp_enqueue_script( 'woocommerce-notification-checkbox', VI_WNOTIFICATION_JS . 'checkbox.js', array( 'jquery' ) );
 			wp_enqueue_script( 'woocommerce-notification-tab', VI_WNOTIFICATION_JS . 'tab.js', array( 'jquery' ) );
 			wp_enqueue_script( 'woocommerce-notification-address', VI_WNOTIFICATION_JS . 'jquery.address-1.6.min.js', array( 'jquery' ) );
+			wp_enqueue_script( 'woocommerce-notification-dimmer', VI_WNOTIFICATION_JS . 'dimmer.min.js', array( 'jquery' ) );
+			wp_enqueue_script( 'woocommerce-notification-modal', VI_WNOTIFICATION_JS . 'modal.min.js', array( 'jquery' ) );
 			wp_enqueue_script( 'woocommerce-notification-admin', VI_WNOTIFICATION_JS . 'woocommerce-notification-admin.js', array( 'jquery' ) );
 
 			/*Color picker*/
@@ -128,8 +143,8 @@ class VI_WNOTIFICATION_Admin_Admin {
 			$background_color = $this->settings->get_background_color();
 			$border_radius    = $this->settings->get_border_radius();
 			$image_padding    = $this->settings->image_padding();
-			$close_icon_color      = $this->settings->close_icon_color();
-			$custom_css       = '#notify-close:before{color:'.$close_icon_color.';}';
+			$close_icon_color = $this->settings->close_icon_color();
+			$custom_css       = '#notify-close:before{color:' . $close_icon_color . ';}';
 			$custom_css       .= "#message-purchased .message-purchase-main{
                 background-color: {$background_color};                       
                 color:{$text_color};
@@ -138,7 +153,7 @@ class VI_WNOTIFICATION_Admin_Admin {
                 .tab.segment #message-purchased img{border-radius:{$border_radius} 0 0 {$border_radius};}
                 .tab.segment #message-purchased a, #message-purchased p span{color:{$highlight_color};}";
 
-			$is_rtl             = is_rtl();
+			$is_rtl = is_rtl();
 			if ( $image_padding ) {
 				$padding_right = 20 - $image_padding;
 				$custom_css    .= "#message-purchased .wn-notification-image-wrapper{padding:{$image_padding}px;}";
@@ -157,7 +172,7 @@ class VI_WNOTIFICATION_Admin_Admin {
 				}
 			}
 
-			wp_add_inline_style( 'woocommerce-notification-admin', $custom_css );
+			wp_add_inline_style( 'woocommerce-notification-admin', wp_kses_post( $custom_css ) );
 		}
 	}
 
@@ -169,7 +184,7 @@ class VI_WNOTIFICATION_Admin_Admin {
 	 * @return mixed
 	 */
 	public function settings_link( $links ) {
-		$settings_link = '<a href="admin.php?page=woocommerce-notification" title="' . __( 'Settings', 'woocommerce-notification' ) . '">' . __( 'Settings', 'woocommerce-notification' ) . '</a>';
+		$settings_link = '<a href="admin.php?page=woocommerce-notification" title="' . esc_html__( 'Settings', 'woocommerce-notification' ) . '">' . esc_html__( 'Settings', 'woocommerce-notification' ) . '</a>';
 		array_unshift( $links, $settings_link );
 
 		return $links;

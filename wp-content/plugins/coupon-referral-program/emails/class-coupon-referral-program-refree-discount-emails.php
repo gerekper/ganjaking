@@ -49,7 +49,7 @@ if ( ! class_exists( 'Coupon_Referral_Signup_Email' ) ) {
 			$this->id             = 'crp_refree_email';
 			$this->title          = __( 'Signup discount for referee', 'coupon-referral-program' );
 			$this->customer_email = true;
-			$this->description    = __( 'This coupon is sent to the referee who shares the referral link to other and then referred user signup using this link.', 'coupon-referral-program' );
+			$this->description    = __( 'This coupon is sent to the referee who shares the referral link with others and then referred user signup using this link.', 'coupon-referral-program' );
 			$this->template_html  = 'crp-email-refree-template.php';
 			$this->template_plain = 'plain/crp-email-refree-template.php';
 			$this->template_base  = COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/templates/';

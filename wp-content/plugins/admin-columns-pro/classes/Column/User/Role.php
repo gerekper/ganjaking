@@ -32,7 +32,7 @@ class Role extends AC\Column\User\Role
 	}
 
 	public function export() {
-		return new Export\Model\User\Role( $this, false );
+		return new Export\Model\User\Role( false );
 	}
 
 }
