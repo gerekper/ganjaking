@@ -13,6 +13,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( is_multisite() ) {
+	$cta_url = '';
+}
+
 ?>
 
 <div class="sui-modal sui-modal-md">
@@ -31,9 +35,9 @@ if ( ! defined( 'WPINC' ) ) {
 						alt="<?php esc_attr_e( 'Smush Updated Modal', 'wp-smushit' ); ?>" class="sui-image sui-image-center">
 				</figure>
 
-				<a href="<?php echo is_multisite() ? 'javascript:void(0);' : esc_url( $cta_url ); ?>" class="sui-button-icon sui-button-float--right" onclick="WP_Smush.onboarding.hideUpgradeModal()">
+				<button class="sui-button-icon sui-button-float--right" onclick="WP_Smush.onboarding.hideUpgradeModal('<?php echo $cta_url ? esc_url( $cta_url ) : ''; ?>')">
 					<i class="sui-icon-close sui-md" aria-hidden="true"></i>
-				</a>
+				</button>
 			</div>
 
 			<div class="sui-box-body sui-content-center sui-spacing-sides--30 sui-spacing-top--0 sui-spacing-bottom--50">
@@ -45,9 +49,9 @@ if ( ! defined( 'WPINC' ) ) {
 					<?php esc_html_e( 'Exciting news! You no longer need to keep the Bulk Smush tab open to complete optimizing your images, as Smush now works on processing the images in the background. Once your images are smushed, you will receive a notification email.', 'wp-smushit' ); ?>
 				</p>
 
-				<a href="<?php echo is_multisite() ? 'javascript:void(0);' : esc_url( $cta_url ); ?>" class="sui-button" onclick="WP_Smush.onboarding.hideUpgradeModal()">
+				<button class="sui-button" onclick="WP_Smush.onboarding.hideUpgradeModal('<?php echo $cta_url ? esc_url( $cta_url ) : ''; ?>')">
 					<?php esc_html_e( 'Got it', 'wp-smushit' ); ?>
-				</a>
+				</button>
 			</div>
 		</div>
 	</div>

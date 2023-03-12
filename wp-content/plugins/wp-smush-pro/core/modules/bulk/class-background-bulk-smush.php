@@ -25,6 +25,10 @@ class Background_Bulk_Smush {
 		$this->mail               = new Mail( 'wp_smush_background' );
 		$this->logger             = Helper::logger();
 
+		if ( ! $this->should_use_background() ) {
+			return;
+		}
+
 		$this->register_ajax_handler( 'bulk_smush_start', array( $this, 'bulk_smush_start' ) );
 		$this->register_ajax_handler( 'bulk_smush_cancel', array( $this, 'bulk_smush_cancel' ) );
 		$this->register_ajax_handler( 'bulk_smush_get_status', array( $this, 'bulk_smush_get_status' ) );
@@ -276,6 +280,10 @@ class Background_Bulk_Smush {
 	}
 
 	public function is_background_enabled() {
+		if ( ! $this->can_use_background() ) {
+			return false;
+		}
+
 		return defined( 'WP_SMUSH_BACKGROUND' ) && WP_SMUSH_BACKGROUND;
 	}
 
@@ -286,6 +294,10 @@ class Background_Bulk_Smush {
 
 	public function is_background_supported() {
 		return $this->is_mysql_requirement_met();
+	}
+
+	public function can_use_background() {
+		return WP_Smush::is_pro() || ! empty( get_site_option( 'wp_smush_pre_3_12_6_site' ) );
 	}
 
 	/**

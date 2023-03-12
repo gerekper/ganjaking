@@ -88,6 +88,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 
 			// Add the error class to show/hide elements in the dialog.
 			dialog
+				.removeClass( 'wp-smush-exceed-limit' )
 				.addClass( 'wp-smush-scan-error' );
 
 			// Add the error status and description to the error message.
@@ -107,6 +108,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 		limitReached() {
 			const dialog = jQuery( '#wp-smush-progress-dialog' );
 
+			dialog.addClass( 'wp-smush-exceed-limit' );
 			dialog
 				.find( '#cancel-directory-smush' )
 				.attr( 'data-tooltip', window.wp_smush_msgs.bulk_resume );
@@ -123,6 +125,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 			const dialog = jQuery( '#wp-smush-progress-dialog' );
 			const resume = dialog.find( '#cancel-directory-smush-disabled' );
 
+			dialog.removeClass( 'wp-smush-exceed-limit' );
 			dialog
 				.find( '.sui-box-body .sui-icon-play' )
 				.removeClass( 'sui-icon-play' )

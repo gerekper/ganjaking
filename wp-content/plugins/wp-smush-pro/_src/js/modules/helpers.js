@@ -11,6 +11,7 @@
 	'use strict';
 
 	WP_Smush.helpers = {
+		cacheUpsellErrorCodes: [],
 		init: () => {},
 
 		/**
@@ -156,7 +157,7 @@
 				fileName;
 
 			let tableDiv =
-				'<div class="smush-bulk-error-row">' +
+				'<div class="smush-bulk-error-row" data-error-code="'+ errorCode + '">' +
 				'<div class="smush-bulk-image-data">' +
 				'<div class="smush-bulk-image-title">' +
 				thumbDiv +
@@ -196,17 +197,28 @@
 		 * Get upsell base on error code.
 		 * @param {string} errorCode Error code.
 		 * @returns {string}
+		 *
+		 * Do not use arrow function to use `this`.
 		 */
-		upsellWithError: (errorCode) => {
-			if (!errorCode || !window.wp_smush_msgs['error_' + errorCode]) {
+		upsellWithError: function (errorCode) {
+			if (!errorCode || !window.wp_smush_msgs['error_' + errorCode] || this.isUpsellRendered( errorCode )) {
 				return '';
 			}
+			this.cacheRenderedUpsell( errorCode );
 			return '<div class="smush-bulk-error-row smush-error-upsell">' +
 				'<div class="smush-bulk-image-title">' +
 				'<span class="smush-image-error">' +
 				window.wp_smush_msgs['error_' + errorCode] +
 				'</span>' +
 				'</div></div>';
+		},
+		// Do not use arrow function to use `this`.
+		isUpsellRendered: function( errorCode ) {
+			return this.cacheUpsellErrorCodes.includes( errorCode );
+		},
+		// Do not use arrow function to use `this`.
+		cacheRenderedUpsell: function ( errorCode ) {
+			this.cacheUpsellErrorCodes.push( errorCode );
 		},
 		/**
 		 * Get error message from Ajax response or Error. 
@@ -261,6 +273,21 @@
 			SUI.openNotice( 'wp-smush-ajax-notice', noticeMessage, noticeOptions );
 			return Promise.resolve( '#wp-smush-ajax-notice' );
 		},
+		renderActivationCDNNotice: function( noticeMessage ) {
+			const animatedNotice = document.getElementById('wp-smush-animated-upsell-notice');
+			if ( animatedNotice ) {
+				return;
+			}
+			const upsellHtml = `<div class="sui-notice sui-notice-info sui-margin-top" id="wp-smush-animated-upsell-notice">
+									<div class="sui-notice-content">
+										<div class="sui-notice-message">
+											<i class="sui-notice-icon sui-icon-info" aria-hidden="true"></i>
+											<p>${noticeMessage}</p>
+										</div>
+									</div>
+								</div>`;
+			document.querySelector( '#smush-box-bulk .wp-smush-bulk-wrapper' ).outerHTML += upsellHtml;
+		}
 	};
 
 	WP_Smush.helpers.init();

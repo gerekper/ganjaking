@@ -210,12 +210,11 @@ class Admin {
 				esc_url( 'https://wpmudev.com/project/wp-smush-pro/' )
 			);
 
-			$site_connected_to_tfh = $this->is_site_connected_to_tfh();
-			$using_free_version    = 'wp-smush-pro/wp-smush.php' !== WP_SMUSH_BASENAME;
+			$using_free_version = 'wp-smush-pro/wp-smush.php' !== WP_SMUSH_BASENAME;
 			if ( $using_free_version ) {
 				$label = __( 'Upgrade to Smush Pro', 'wp-smushit' );
 				$text  = __( 'Upgrade for 30% off', 'wp-smushit' );
-			} elseif ( ! $site_connected_to_tfh ) {
+			} else {
 				$label = __( 'Renew Membership', 'wp-smushit' );
 				$text  = __( 'Renew Membership', 'wp-smushit' );
 			}
@@ -239,20 +238,6 @@ class Admin {
 		}
 
 		return array_reverse( $links );
-	}
-
-	/**
-	 * Verify the site is connected to TFH.
-	 *
-	 * @since 3.12.0
-	 *
-	 * @return boolean
-	 */
-	private function is_site_connected_to_tfh() {
-		return isset( $_SERVER['WPMUDEV_HOSTED'] )
-			&& class_exists( '\WPMUDEV_Dashboard' ) && is_object( \WPMUDEV_Dashboard::$api )
-			&& method_exists( \WPMUDEV_Dashboard::$api, 'get_membership_status' )
-			&& 'free' === \WPMUDEV_Dashboard::$api->get_membership_status();
 	}
 
 	/**
@@ -380,7 +365,6 @@ class Admin {
 	 * Prints the Membership Validation issue notice
 	 */
 	public function media_library_membership_notice() {
-		return;
 		// No need to print it for free version.
 		if ( ! WP_Smush::is_pro() ) {
 			return;
@@ -553,13 +537,16 @@ class Admin {
 			);
 		}
 
+		$bulk_limit_free_message = $this->generate_bulk_limit_message_for_free( $remaining_count );
+
 		$image_count_description = sprintf(
 			/* translators: 1. username, 2. unsmushed images message, 3. 'and' text for when having both unsmushed and re-smush images, 4. re-smush images message. */
-			__( '%1$s, you have %2$s%3$s%4$s!', 'wp-smushit' ),
+			__( '%1$s, you have %2$s%3$s%4$s! %5$s', 'wp-smushit' ),
 			esc_html( Helper::get_user_name() ),
 			$unsmushed_message,
 			( $unsmushed_message && $resmush_message ? esc_html__( ' and ', 'wp-smushit' ) : '' ),
-			$resmush_message
+			$resmush_message,
+			$bulk_limit_free_message
 		);
 		?>
 		<span id="wp-smush-bulk-image-count"><?php echo esc_html( $remaining_count ); ?></span>
@@ -567,6 +554,35 @@ class Admin {
 			<?php echo wp_kses_post( $image_count_description ); ?>
 		</p>
 		<?php
+	}
+
+	private function generate_bulk_limit_message_for_free( $remaining_count ) {
+		$dont_limit = WP_Smush::get_instance()->core()->mod->bg_optimization->can_use_background();
+		if ( $dont_limit || $remaining_count < Core::MAX_FREE_BULK ) {
+			return '';
+		}
+
+		$upgrade_url   = add_query_arg(
+			array(
+				'coupon'       => 'SMUSH30OFF',
+				'checkout'     => 0,
+				'utm_source'   => 'smush',
+				'utm_medium'   => 'plugin',
+				'utm_campaign' => 'smush_bulk_smush_pre_smush_50_limit',
+			),
+			'https://wpmudev.com/project/wp-smush-pro/'
+		);
+		$batches       = ceil( $remaining_count / Core::MAX_FREE_BULK );
+		$discount_text = '<strong>'. esc_html__( '30% off welcome discount available.', 'wp-smushit' ) .'</strong>';
+		return sprintf(
+		/* translators: 1: max free bulk limit, 2: Total batches to smush, 3: opening a tag, 4: closing a tag. */
+			esc_html__( 'Free users can only Bulk Smush %1$d images at one time. Smush in %2$d batches or %3$sBulk Smush unlimited images with Pro%4$s. %5$s', 'wp-smushit' ),
+			Core::MAX_FREE_BULK,
+			$batches,
+			'<a class="smush-upsell-link" target="_blank" href="' . $upgrade_url . '">',
+			'</a>',
+			$discount_text
+		);
 	}
 
 	/**

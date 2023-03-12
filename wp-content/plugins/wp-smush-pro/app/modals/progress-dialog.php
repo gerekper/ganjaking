@@ -38,6 +38,10 @@ if ( ! defined( 'WPINC' ) ) {
 					<?php esc_html_e( 'Bulk smushing is in progress, you need to leave this tab open until the process completes.', 'wp-smushit' ); ?>
 				</p>
 
+				<?php
+					$this->view( 'bulk/limit-reached-notice' );
+				?>
+
 				<div class="sui-progress-block sui-progress-can-close">
 					<div class="sui-progress">
 						<span class="sui-progress-icon" aria-hidden="true">
@@ -94,14 +98,14 @@ if ( ! defined( 'WPINC' ) ) {
 				</div>
 			</div>
 
-			<div class="sui-box-footer sui-content-right">
-				<button class="sui-modal-close sui-button wp-smush-cancel-dir" data-modal-closez="">
+			<div class="sui-box-footer">
+				<button class="sui-modal-close sui-button sui-button-ghost wp-smush-cancel-dir" data-modal-closez="">
 					<span class="sui-loading-text"><?php esc_html_e( 'CANCEL', 'wp-smushit' ); ?></span>
 					<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
 				</button>
 
 				<button class="sui-button wp-smush-resume-scan">
-					<?php esc_html_e( 'RESUME', 'wp-smushit' ); ?>
+					<span class="sui-icon-play" aria-hidden="true"></span><?php esc_html_e( 'RESUME', 'wp-smushit' ); ?>
 				</button>
 			</div>
 		</div>

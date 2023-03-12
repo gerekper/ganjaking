@@ -874,6 +874,16 @@ class Ajax {
 			do_action( 'wp_smush_bulk_smush_start' );
 		}
 
+		// If the bulk smush needs to be stopped.
+		if ( ! WP_Smush::is_pro() && ! Core::check_bulk_limit() ) {
+			wp_send_json_error(
+				array(
+					'error'    => 'limit_exceeded',
+					'continue' => false,
+				)
+			);
+		}
+
 		$attachment_id = 0;
 		if ( ! empty( $_REQUEST['attachment_id'] ) ) {
 			$attachment_id = (int) $_REQUEST['attachment_id'];
@@ -941,6 +951,9 @@ class Ajax {
 
 		// Runs after a image is successfully smushed.
 		do_action( 'image_smushed', $attachment_id, $stats );
+
+		// Update the bulk Limit count.
+		Core::update_smush_count();
 
 		// Send ajax response.
 		wp_send_json_success(

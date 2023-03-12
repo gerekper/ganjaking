@@ -6,14 +6,16 @@
  * @package WP_Smush
  *
  * @var Smush\Core\Core $core                           Instance of Smush\Core\Core
- * @var bool            $is_pro                         Check if PRO user or not.
+ * @var bool            $can_use_background             Check if user can use BO.
  * @var integer         $unsmushed_count                Count of the images that need smushing.
  * @var integer         $resmush_count                  Count of the images that need re-smushing.
  * @var integer         $total_images_to_smush          Total count of all images to smush. Unsmushed images + images to re-smush.
  * @var string          $bulk_upgrade_url               Bulk Smush upgrade to PRO url.
+ * @var string          $upsell_cdn_url                 Upsell CDN URL.
  * @var bool            $background_processing_enabled  Background optimization is enabled.
  * @var bool            $background_in_processing       Background optimization in progressing or not.
  * @var string          $background_in_processing_notice
+ * @var string  		$in_processing_notice
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -36,6 +38,13 @@ if ( 0 === absint( $core->total_count ) ) {
 	$this->view( 'media-lib-empty', array(), 'views/bulk' );
 	return;
 }
+if ( ! $can_use_background ) {
+	$this->view(
+		'limit-reached-notice',
+		array(),
+		'views/bulk'
+	);
+}
 // Progress bar.
 $this->view(
 	'progress-bar',
@@ -43,6 +52,7 @@ $this->view(
 		'count'                           => $total_images_to_smush,
 		'background_in_processing_notice' => $background_in_processing_notice,
 		'background_processing_enabled'   => $background_processing_enabled,
+		'in_processing_notice'			  => $in_processing_notice,
 	),
 	'common'
 );
@@ -64,12 +74,23 @@ $this->view( 'list-errors', array(), 'views/bulk' );
 	</button>
 </div>
 <?php
-if ( ! $is_pro ) {
+if ( ! $can_use_background ) {
+	$global_upsell_desc = __( 'Process images 2x faster, leave this page while Bulk Smush runs in the background, and serve streamlined next-gen images via Smush’s 114-point CDN and Local WebP features.', 'wp-smushit' );
+
+	$this->view(
+		'global-upsell',
+		array(
+			'bulk_upgrade_url'   => $bulk_upgrade_url,
+			'global_upsell_desc' => $global_upsell_desc,
+		),
+		'views/bulk'
+	);
+} elseif ( ! WP_Smush::is_pro() ) {
 	$this->view(
 		'cdn-upsell',
 		array(
 			'background_in_processing' => $background_in_processing,
-			'bulk_upgrade_url'         => $bulk_upgrade_url,
+			'bulk_upgrade_url'         => $upsell_cdn_url,
 		),
 		'views/bulk'
 	);

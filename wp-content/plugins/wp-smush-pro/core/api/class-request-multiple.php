@@ -2,8 +2,6 @@
 
 namespace Smush\Core\Api;
 
-use Requests;
-use Requests_Exception;
 use WP_Error;
 
 class Request_Multiple {
@@ -11,8 +9,7 @@ class Request_Multiple {
 		$on_complete = ! empty( $options['complete'] )
 			? $options['complete']
 			: '__return_false';
-
-		Requests::request_multiple( $requests, array_merge(
+		self::request_multiple( $requests, array_merge(
 			$options,
 			array(
 				'complete' => function ( $response, $key ) use ( &$requests, $on_complete ) {
@@ -27,7 +24,7 @@ class Request_Multiple {
 	}
 
 	private function multi_to_singular_response( $multi_response ) {
-		if ( is_a( $multi_response, Requests_Exception::class ) ) {
+		if ( is_a( $multi_response, self::get_requests_exception_class_name() ) ) {
 			return new WP_Error(
 				$multi_response->getType(),
 				$multi_response->getMessage()
@@ -39,4 +36,19 @@ class Request_Multiple {
 			);
 		}
 	}
+
+	/** \Requests lib are deprecated on WP 6.2.0 */
+
+    private static function get_wp_requests_class_name() {
+        return class_exists('\WpOrg\Requests\Requests') ? '\WpOrg\Requests\Requests' : '\Requests';
+    }
+
+    private static function request_multiple( $requests, $options = array() ) {
+        $wp_requests_class_name = self::get_wp_requests_class_name();
+        return $wp_requests_class_name::request_multiple( $requests, $options );
+    }
+
+    private static function get_requests_exception_class_name() {
+        return class_exists('\WpOrg\Requests\Exception') ? '\WpOrg\Requests\Exception' : '\Requests_Exception';
+    }
 }

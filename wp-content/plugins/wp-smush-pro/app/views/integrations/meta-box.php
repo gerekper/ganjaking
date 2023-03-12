@@ -20,10 +20,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 foreach ( $integration_group as $name ) {
-	$disable = apply_filters( 'wp_smush_integration_status_' . $name, false ); // Disable setting.
-	$upsell  = ! in_array( $name, $basic_features, true ) && ! $is_pro; // Gray out row, disable setting.
-	$value   = $upsell || empty( $settings[ $name ] ) || $disable ? false : $settings[ $name ];
-	do_action( 'wp_smush_render_setting_row', $name, $value, $disable, $upsell );
+	$is_integration_disabled = apply_filters( 'wp_smush_integration_status_' . $name, false ); // Disable setting.
+	$is_pro_field            = $this->settings->is_pro_field( $name ); // Gray out row, disable setting.
+	$is_disabled_field       = $is_integration_disabled || ( $is_pro_field && ! $is_pro );
+	$value                   = $is_disabled_field || empty( $settings[ $name ] ) ? false : $settings[ $name ];
+	do_action( 'wp_smush_render_setting_row', $name, $value, $is_disabled_field );
 }
 ?>
 

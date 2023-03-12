@@ -281,6 +281,22 @@ class Dir extends Abstract_Module {
 			wp_send_json_error( $error_msg );
 		}
 
+		// Check smush limit for free users.
+		if ( ! WP_Smush::is_pro() ) {
+			// Free version bulk smush, check the transient counter value.
+			$should_continue = Core::check_bulk_limit( false, 'dir_sent_count' );
+
+			// Send a error for the limit.
+			if ( ! $should_continue ) {
+				wp_send_json_error(
+					array(
+						'error'    => 'dir_smush_limit_exceeded',
+						'continue' => false,
+					)
+				);
+			}
+		}
+
 		$scanned_images = $this->get_unsmushed_images();
 		$image          = $this->get_image( $id, '', $scanned_images );
 
@@ -351,6 +367,9 @@ class Dir extends Abstract_Module {
 				$id
 			)
 		); // Db call ok; no-cache ok.
+
+		// Update bulk limit transient.
+		Core::update_smush_count( 'dir_sent_count' );
 	}
 
 	/**

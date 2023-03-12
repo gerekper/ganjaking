@@ -546,13 +546,6 @@ class Smush {
 		// Enable the button.
 		this.enableButton();
 
-		// Show upsell cdn.
-		const upsellCdn = document.querySelector('.wp-smush-upsell-cdn');
-		if ( upsellCdn ) {
-			upsellCdn.querySelector('p').innerHTML = wp_smush_msgs.processed_cdn_for_free;
-			upsellCdn.classList.remove('sui-hidden');
-		}
-
 		// Show notice.
 		if ( 0 === this.ids.length ) {
 			jQuery('.bulk-smush-wrapper .wp-smush-all-done').removeClass( 'sui-hidden' );
@@ -563,6 +556,7 @@ class Smush {
 			// Reset the progress when we finish so the next smushing starts from zero.
 			this._updateProgress(0, 0);
 		} else {
+			// TODO: REMOVE "re-smush-notice" since no longer used. And maybe for "wp-smush-remaining" too.
 			const notice = jQuery(
 				'.bulk-smush-wrapper .wp-smush-resmush-notice'
 			);
@@ -578,6 +572,80 @@ class Smush {
 		jQuery( '.wp-resmush.wp-smush-action, .wp-smush-scan' ).removeProp(
 			'disabled'
 		);
+	}
+	
+	showAnimatedUpsellNotice() {
+		if ( ! this.errors.length  ) {
+			return;
+		}
+		// Only show animated upsell if exists an animated error in first 5 errors.
+		// Note, this.errors will be reset each we resume so let detect animated error from elements.
+		const bulkErrors = document.querySelector('.smush-bulk-errors');
+		if ( ! bulkErrors ) {
+			return;
+		}
+		const firstAnimatedError = bulkErrors.querySelector( '[data-error-code="animated"]' );
+		if ( ! firstAnimatedError ) {
+			return;
+		}
+		const first5Errors = Array.prototype.slice.call(bulkErrors.childNodes, 0, 5 );
+		return first5Errors.includes( firstAnimatedError );
+	}
+
+	maybeShowCDNActivationNotice() {
+		// Only for pro users.
+		if ( ! wp_smush_msgs.smush_cdn_activation_notice || ! this.showAnimatedUpsellNotice() ) {
+			return;
+		}
+		WP_Smush.helpers.renderActivationCDNNotice( wp_smush_msgs.smush_cdn_activation_notice );
+	}
+
+	maybeShowUnlimitedUpsellNotice() {
+		const unlimitedUpsellNotice = document.querySelector('.wp-smush-global-upsell');
+		if ( ! unlimitedUpsellNotice ) {
+			return;
+		}
+		unlimitedUpsellNotice.classList.remove( 'sui-hidden' );
+	}
+
+	/**
+	 * Free Smush limit exceeded.
+	 */
+	freeExceeded() {
+		const progress = jQuery( '.wp-smush-bulk-progress-bar-wrapper' );
+		progress.addClass( 'wp-smush-exceed-limit' );
+		progress
+			.find( '.sui-progress-block .wp-smush-cancel-bulk' )
+			.removeClass( 'sui-hidden' );
+		progress
+			.find( '.sui-progress-block .wp-smush-all' )
+			.addClass( 'sui-hidden' );
+
+		progress
+			.find( 'i.sui-icon-loader' )
+			.addClass( 'sui-icon-info' )
+			.removeClass( 'sui-icon-loader' )
+			.removeClass( 'sui-loading' );
+
+		document
+			.getElementById( 'bulk-smush-resume-button' )
+			.classList.remove( 'sui-hidden' );
+
+		this.showBulkFreeLimitReachedNotice();
+	}
+
+	showBulkFreeLimitReachedNotice() {
+		const bulkFreeLimitReachedNotice = document.getElementById( 'smush-limit-reached-notice' );
+		if ( bulkFreeLimitReachedNotice ) {
+			bulkFreeLimitReachedNotice.classList.remove( 'sui-hidden' );
+		}
+	}
+
+	hideBulkFreeLimitReachedNotice() {
+		const bulkFreeLimitReachedNotice = document.getElementById( 'smush-limit-reached-notice' );
+		if ( bulkFreeLimitReachedNotice ) {
+			bulkFreeLimitReachedNotice.classList.add( 'sui-hidden' );
+		}
 	}
 
 	/**
@@ -833,6 +901,7 @@ class Smush {
 			'undefined' !== typeof perf &&
 			10 > performance.now() - perf
 		) {
+			this.freeExceeded();
 			return this.deferred;
 		}
 
@@ -922,17 +991,14 @@ class Smush {
 					self.ids.unshift( self.current_id );
 
 					perf = performance.now();
+					self.freeExceeded();
 				} else if ( self.is_bulk ) {
 					self.updateProgress( res );
 					Smush.updateScoreProgress();
 				}
 
-				if (0 === self.ids.length && this.is_bulk ) {
-					const callback = self.is_bulk
-						? () => self.trackBulkSmushCompleted()
-						: () => false;
-
-					self.syncStats().done(callback);
+				if (0 === self.ids.length && self.is_bulk ) {
+					self.onBulkSmushCompleted();
 				}
 
 				self.singleDone();
@@ -948,6 +1014,33 @@ class Smush {
 
 		this.deferred.errors = this.errors;
 		return this.deferred;
+	}
+	
+	maybeShowCDNUpsellForPreSiteOnCompleted() {
+		// Show upsell cdn.
+		const upsellCdn = document.querySelector('.wp-smush-upsell-cdn');
+		if ( upsellCdn ) {
+			upsellCdn.querySelector('p').innerHTML = wp_smush_msgs.processed_cdn_for_free;
+			upsellCdn.classList.remove('sui-hidden');
+		}
+	}
+	
+	onBulkSmushCompleted() {
+		// Show upsell unlimited on completed.
+		this.maybeShowUnlimitedUpsellNotice();
+		// Show CDN activation notice for pro users.
+		this.maybeShowCDNActivationNotice();
+		// Show CDN upsell for old users.
+		this.maybeShowCDNUpsellForPreSiteOnCompleted();
+		
+		
+		
+		
+		const callback = this.is_bulk
+			? () => this.trackBulkSmushCompleted()
+			: () => false;
+
+		this.syncStats().done(callback);
 	}
 
 	getPercentOptimized(totalImages, totalImagesToSmush) {
@@ -1099,6 +1192,8 @@ class Smush {
 			jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).addClass( 'sui-hidden' );
 
 			self.mixPanel.trackBulkSmushCancel();
+
+			self.hideBulkFreeLimitReachedNotice();
 		} );
 	}
 

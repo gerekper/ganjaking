@@ -353,14 +353,19 @@
 		/**
 		 * Hide new features modal.
 		 *
+		 * @param {string} redirectUrl Redirect url after dismissing the new feature modal.
 		 * @since 3.7.0
+		 * @since 3.12.2 Add a new parameter redirectUrl
 		 */
-		hideUpgradeModal: () => {
+		hideUpgradeModal: ( redirectUrl ) => {
+			window.SUI.closeModal( 'smush-updated-dialog' );
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', ajaxurl + '?action=hide_new_features&_ajax_nonce=' + window.wp_smush_msgs.nonce );
 			xhr.onload = () => {
 				if ( 200 === xhr.status ) {
-					window.SUI.closeModal( 'smush-updated-dialog' );
+					if ( redirectUrl ) {
+						window.location.href = redirectUrl;
+					}
 				} else {
 					window.console.log(
 						'Request failed.  Returned status of ' + xhr.status

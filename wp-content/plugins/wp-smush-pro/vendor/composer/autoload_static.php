@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit15c9cd14aefc39668f80a5c309ab3be7
+class ComposerStaticInitcba2e941b604838b4eb719ba5f22e6fc
 {
     public static $files = array (
         '1f155afceeab454b94183cdd8d5248a6' => __DIR__ . '/..' . '/mixpanel/mixpanel-php/lib/Mixpanel.php',

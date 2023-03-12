@@ -9,6 +9,7 @@
  * @var string $upsell_url                    Upsell URL.
  * @var bool   $background_processing_enabled Whether background processing is enabled or not.
  * @var bool   $background_in_processing      Whether BO is in processing or not.
+ * @var int    $total_count                   Total count.
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -30,5 +31,5 @@ if ( $background_in_processing ) {
 } elseif ( 0 === $uncompressed ) {
 	$this->view( 'all-images-smushed-notice', array( 'all_done' => true ), 'common' );
 } else {
-	$this->view( 'exists-uncompressed', array( 'uncompressed' => $uncompressed ), 'views/dashboard/bulk' );
+	$this->view( 'exists-uncompressed', array( 'uncompressed' => $uncompressed, 'upsell_url' => $upsell_url ), 'views/dashboard/bulk' );
 }

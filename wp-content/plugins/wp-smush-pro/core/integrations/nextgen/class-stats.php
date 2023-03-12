@@ -42,7 +42,7 @@ class Stats extends NextGen {
 	 *
 	 * @var bool
 	 */
-	private $is_pro_user = true;
+	private $is_pro_user;
 
 	/**
 	 * Stats constructor.
@@ -618,6 +618,8 @@ class Stats extends NextGen {
 	 *
 	 * @param array  $size_stats  Size stats.
 	 * @param string $full_image  Full size image.
+	 *
+	 * TODO: Remove this method as no longer need.
 	 *
 	 * @return array
 	 */

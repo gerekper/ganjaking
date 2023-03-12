@@ -206,7 +206,7 @@ class Admin extends NextGen {
 		} else {
 			$error_in_bulk = sprintf(
 				/* translators: %1$s - opening link tag, %2$s - </a> */
-				esc_html__( '{{smushed}}/{{total}} images were successfully compressed, {{errors}} encountered issues. Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro for FREE%2$s to optimize unlimited image files.', 'wp-smushit' ),
+				esc_html__( '{{smushed}}/{{total}} images were successfully compressed, {{errors}} encountered issues. Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files.', 'wp-smushit' ),
 				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
 				'</a>'
 			);

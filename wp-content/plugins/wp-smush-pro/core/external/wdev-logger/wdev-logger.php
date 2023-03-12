@@ -903,7 +903,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 			// Try to connect Filesystem API again by using method direct to use the native Filesystem API.
 			if ( 'direct' !== $access_type && $this->get_module_option( 'use_native_filesystem_api' ) ) {
 				if ( $this->enabling_debug_log_mode() && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-					$error_msg = sprintf( 'Cannot connect to Filesystem API via %1$s: %2$s, trying to use the direct method!', strtoupper( $access_type ), $wp_filesystem->errors->get_error_message() );		  						 		  		 			
+					$error_msg = sprintf( 'Cannot connect to Filesystem API via %1$s: %2$s, trying to use the direct method!', strtoupper( $access_type ), $wp_filesystem->errors->get_error_message() );
 				}
 
 				add_filter( 'filesystem_method', array( $this, 'force_access_direct_method' ), 9999 );

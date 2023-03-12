@@ -87,6 +87,9 @@
 	}
 
 	.sui-wrap {
+		.sui-box-upsell-row .sui-toggle input[disabled] ~ .sui-description {
+			pointer-events: auto !important;
+		}
 		/**
 		 * Bulk smush meta boxes
 		 *
@@ -159,8 +162,15 @@
 		}
 
 		.sui-upgrade-page {
-			.sui-upgrade-page-cta__inner a.sui-button-purple:hover {
-				color: #fff !important;
+			.sui-upgrade-page-cta__inner {
+				a.sui-button-purple {
+					display: inline-block;
+					margin-top: 0;
+					margin-bottom: 5px;
+					&:hover {
+						color: #fff !important;
+					}
+				}
 			}
 
 			.smush-stats {
@@ -539,6 +549,9 @@
 						color: #888;
 					}
 				}
+				.sui-box-footer {
+					justify-content: space-between;
+				}
 			}
 
 			// When the request fails.
@@ -815,6 +828,37 @@
 		}
 
 		.bulk-smush-wrapper {
+			.wp-smush-upsell-on-completed {
+				&.sui-hidden{
+					display: none!important;
+				}
+				background: #F8F8F8;
+				padding:20px 15px;
+				border-radius: 4px;
+				.smush-box-image {
+					-webkit-box-flex: 0;
+					-ms-flex: 0 0 auto;
+					flex: 0 0 auto;
+					margin-right: 15px;
+					img {
+						max-width: 44px;
+					}
+				}
+				.sui-box-content {
+					p {
+						font-size:13px;
+						color:#333;
+						margin-bottom:0;
+						line-height: 22px;
+					}
+					a {
+						font-size:13px;
+					}
+				}
+				@media screen and (min-width: 361px) {
+					display:flex;
+				}
+			}
 			.wp-smush-upsell-cdn {
 				&.sui-hidden{
 					display: none!important;
@@ -856,45 +900,31 @@
 				@media screen and ( max-width: 480px ) {
 					margin-top: 5px;
 				}
-			}
-			.sui-box-content {
-				.sui-button{
-					background: transparent;
-					color:#17A8E3;
-					font-size: 12px;
-					letter-spacing: -0.25px;
-					border: 2px solid #E1F6FF;
-					border-radius: 4px;
-					&:hover{
-						color:#fff;
-						background-color:#17A8E3;
-						border-color:#17A8E3;
+				background: #F8F8F8;
+				padding:20px 15px;
+				border-radius: 4px;
+				.smush-box-image {
+					-webkit-box-flex: 0;
+					-ms-flex: 0 0 auto;
+					flex: 0 0 auto;
+					margin-right: 15px;
+					img {
+						max-width: 44px;
 					}
 				}
-				p {
-					font-size: 13px;
-					line-height: 22px;
-					margin-bottom: 19px;
-				}
-				&.smush-dismissible-notice {
-					position: static;
-				}
-				.smush-dismiss-notice-button{
-					outline:0;
-					box-shadow: none;
-					position: absolute;
-					width: 18px;
-					height: 18px;
-					top:35px;
-					right:35px;
-					@media screen and ( max-width:600px ) {
-						top:24px;
-						right:20px;
+				.sui-box-content {
+					p {
+						font-size:13px;
+						color:#333;
+						margin-bottom:0;
+						line-height: 22px;
 					}
-					@media screen and (max-width:480px) {
-						top:10px;
-						right:10px;
+					a {
+						font-size:13px;
 					}
+				}
+				@media screen and (min-width: 361px) {
+					display:flex;
 				}
 			}
 		}
@@ -976,78 +1006,6 @@
 
 		.sui-toggle + label {
 			font-weight: 500;
-		}
-
-		/** WPMUDEV Free modal */
-		#smush-wpmudev-free-dialog {
-			.sui-box-header {
-				background-color: #290E56;
-				border-top-left-radius: 4px;
-				border-top-right-radius: 4px;;
-				.sui-box-banner {
-					padding-top: 8px;
-					padding-bottom: 14px;
-					margin-bottom: 0;
-				}
-			}
-			.smush-box-description{
-				text-align: center;
-				margin-bottom: 35px;
-				p {
-					font-size: 13px;
-					margin-bottom: 10px;
-					line-height: 22px;
-				}
-			}
-			.sui-box-title{
-				font-size: 22px;
-				line-height: 30px;
-			}
-
-			.sui-box-body{
-				padding-bottom:0;
-			}
-
-			.smush-list-detail{
-				font-size: 14px;
-				max-width:490px;
-				margin:0 auto;
-				li{
-					position: relative;
-					padding-left:30px;
-					border-bottom:1px solid #E6E6E6;
-					padding-bottom:11px;
-					margin-bottom: 15px;
-					line-height: 24px;
-					font-weight: 500;
-					letter-spacing:0;
-					&:before{
-						content:"";
-						background:url( '../images/tick@2x.png' ) no-repeat 0 0;
-						position:absolute;
-						width:14px;
-						height:10px;
-						background-size: contain;
-						left: 0;
-						top:7px;
-					}
-				}
-			}
-
-			.sui-box-footer{
-				padding-bottom: 46px;
-				text-align: center;
-				p {
-					font-size: 13px;
-					line-height: 22px;
-
-					&:first-child {
-						line-height: 14px;
-						margin-top: -1px;
-						margin-bottom:31px;
-					}
-				}
-			}
 		}
 	}
 
@@ -1138,7 +1096,6 @@
 		line-height: 18px;
 		vertical-align: middle;
 	}
-	
 
 	/**
 	 * Fixes the headers and footers with .sui-actions-right on mobiles.

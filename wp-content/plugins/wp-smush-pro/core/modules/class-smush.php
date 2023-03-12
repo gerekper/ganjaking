@@ -18,7 +18,7 @@ use WP_Smush;
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-update_site_option( 'wpmudev_apikey', 'e2eb9ef2bc348ed239b4ad59974c6f51' );
+
 /**
  * Class Smush
  */
@@ -279,7 +279,7 @@ class Smush extends Abstract_Module {
 		$file_size = file_exists( $file_path ) ? filesize( $file_path ) : '';
 
 		// Check if premium user.
-		$max_size = WP_SMUSH_MAX_BYTES;
+		$max_size = WP_Smush::is_pro() ? WP_SMUSH_PREMIUM_MAX_BYTES : WP_SMUSH_MAX_BYTES;
 
 		// Check if file exists.
 		if ( 0 === (int) $file_size ) {

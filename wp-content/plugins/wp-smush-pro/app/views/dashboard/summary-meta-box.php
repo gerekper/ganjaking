@@ -80,7 +80,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<a href="<?php echo esc_url( $upsell_url_cdn ); ?>" target="_blank" class="smush-upgrade-text">
 						<?php esc_html_e( 'Upgrade', 'wp-smushit' ); ?>
 					</a>
-					<span class="sui-tooltip sui-tooltip-constrained sui-tooltip-top-right" style="--tooltip-width: 360px;" data-tooltip="<?php esc_attr_e( 'Multiply the speed and savings! Serve your images from our CDN from 45 blazing fast servers around the world.', 'wp-smushit' ); ?>">
+					<span class="sui-tooltip sui-tooltip-constrained sui-tooltip-top-right" style="--tooltip-width: 360px;" data-tooltip="<?php esc_attr_e( 'Multiply the speed and savings! Serve your images from our CDN from 114 blazing fast servers around the world.', 'wp-smushit' ); ?>">
 						<span class="sui-tag sui-tag-sm sui-tag-purple"><?php esc_html_e( 'Pro', 'wp-smushit' ); ?></span>
 					</span>
 				<?php elseif ( $is_cdn ) : ?>

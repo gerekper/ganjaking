@@ -143,9 +143,9 @@ class Core extends Stats {
 	 *
 	 * This is enforced at api level too.
 	 *
-	 * @var int $max_free_bulk
+	 * @var int
 	 */
-	public static $max_free_bulk = 50;
+	const MAX_FREE_BULK = 50;
 
 	/**
 	 * Initialize modules.
@@ -281,12 +281,12 @@ class Core extends Stats {
 			'all_smushed'             => esc_html__( 'All attachments have been smushed. Awesome!', 'wp-smushit' ),
 			'error_size_limit'        => WP_Smush::is_pro() ? '' : sprintf(
 			/* translators: %1$s - opening link tag, %2$s - </a> */
-				esc_html__( 'Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro for FREE%2$s to optimize unlimited image files up to 32Mb each.', 'wp-smushit' ),
+				esc_html__( 'Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files up to 32Mb each.', 'wp-smushit' ),
 				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
 				'</a>'
 			),
-			'processing_cdn_for_free' => esc_html__( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 45 servers worldwide.', 'wp-smushit' ),
-			'processed_cdn_for_free'  => esc_html__( 'Let images reach your audience faster no matter where your hosting servers are. Smush Pro’s global CDN serves images closer to site visitors via 45 worldwide server locations.', 'wp-smushit' ),
+			'processing_cdn_for_free' => esc_html__( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 114 servers worldwide.', 'wp-smushit' ),
+			'processed_cdn_for_free'  => esc_html__( 'Let images reach your audience faster no matter where your hosting servers are. Smush Pro’s global CDN serves images closer to site visitors via 114 worldwide server locations.', 'wp-smushit' ),
 			'restore'                 => esc_html__( 'Restoring image...', 'wp-smushit' ),
 			'smushing'                => esc_html__( 'Smushing image...', 'wp-smushit' ),
 			'btn_ignore'              => esc_html__( 'Ignore', 'wp-smushit' ),
@@ -320,6 +320,15 @@ class Core extends Stats {
 				'<a href=' . esc_url( menu_page_url( 'smush-tutorials', false ) ) . '>',
 				'</a>'
 			),
+			'smush_cdn_activation_notice'  => WP_Smush::is_pro() && ! $this->mod->cdn->is_active() ?
+				sprintf(
+					/* translators: %1$s - opening a tag, %2$s - closing a tag */
+					esc_html__( 'Activate Smush CDN to bulk smush and serve animated GIF’s via 114 worldwide locations. %1$sActivate CDN%2$s', 'wp-smushit' ),
+					'<a href="'. esc_url( network_admin_url( 'admin.php?page=smush-cdn' ) ) .'" />',
+					'</a>'
+				) :
+				''
+			,
 			// URLs.
 			'smush_url'               => network_admin_url( 'admin.php?page=smush' ),
 			'bulk_smush_url'          => network_admin_url( 'admin.php?page=smush-bulk' ),
@@ -428,6 +437,51 @@ class Core extends Stats {
 	}
 
 	/**
+	 * Check bulk sent count, whether to allow further smushing or not
+	 *
+	 * @param bool   $reset  To hard reset the transient.
+	 * @param string $key    Transient Key - bulk_sent_count/dir_sent_count.
+	 *
+	 * TODO: remove this (and all related code) because the limit has been lifted in 3.12.0
+	 *
+	 * @return bool
+	 */
+	public static function check_bulk_limit( $reset = false, $key = 'bulk_sent_count' ) {
+		$is_pre_3_12_6_site = get_site_option( 'wp_smush_pre_3_12_6_site' );
+		if ( $is_pre_3_12_6_site ) {
+			return true;
+		}
+
+		$transient_name = 'wp-smush-' . $key;
+
+		// If we JUST need to reset the transient.
+		if ( $reset ) {
+			set_transient( $transient_name, 0, 60 );
+			return false;
+		}
+
+		$bulk_sent_count = (int) get_transient( $transient_name );
+
+		// Check if bulk smush limit is less than limit.
+		if ( ! $bulk_sent_count || $bulk_sent_count < self::MAX_FREE_BULK ) {
+			$continue = true;
+		} elseif ( $bulk_sent_count === self::MAX_FREE_BULK ) {
+			// If user has reached the limit, reset the transient.
+			$continue = false;
+			$reset    = true;
+		} else {
+			$continue = false;
+		}
+
+		// If we need to reset the transient.
+		if ( $reset ) {
+			set_transient( $transient_name, 0, 60 );
+		}
+
+		return $continue;
+	}
+
+	/**
 	 * Get registered image sizes with dimension
 	 *
 	 * @return array
@@ -530,6 +584,26 @@ class Core extends Stats {
 			'width'  => $width,
 			'height' => $height,
 		);
+	}
+
+	/**
+	 * Update the image smushed count in transient
+	 *
+	 * @param string $key  Database key.
+	 */
+	public static function update_smush_count( $key = 'bulk_sent_count' ) {
+		$transient_name = 'wp-smush-' . $key;
+
+		$bulk_sent_count = get_transient( $transient_name );
+
+		// If bulk sent count is not set.
+		if ( false === $bulk_sent_count ) {
+			// Start transient at 0.
+			set_transient( $transient_name, 1, 200 );
+		} elseif ( $bulk_sent_count < self::MAX_FREE_BULK ) {
+			// If lte MAX_FREE_BULK images are sent, increment.
+			set_transient( $transient_name, $bulk_sent_count + 1, 200 );
+		}
 	}
 
 	/**

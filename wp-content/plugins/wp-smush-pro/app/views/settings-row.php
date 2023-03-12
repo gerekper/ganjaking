@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 ?>
 
-<div class="sui-box-settings-row <?php echo $upsell || $disable ? 'sui-disabled' : ''; ?> <?php echo esc_attr( $name ); ?>-settings-row" id="<?php echo esc_attr( $name ); ?>-settings-row">
+<div class="sui-box-settings-row <?php echo $upsell ? 'sui-box-upsell-row' : '';?> <?php echo $disable && ! $upsell ? 'sui-disabled' : ''; ?> <?php echo esc_attr( $name ); ?>-settings-row" id="<?php echo esc_attr( $name ); ?>-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label <?php echo 'gutenberg' === $name ? 'sui-settings-label-with-tag' : ''; ?>">
 			<?php echo esc_html( Settings::get_setting_data( $name, 'short-label' ) ); ?>

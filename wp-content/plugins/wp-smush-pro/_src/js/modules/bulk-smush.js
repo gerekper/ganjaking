@@ -42,6 +42,12 @@ import Fetcher from '../utils/fetcher';
 						.classList.add( 'sui-hidden' );
 				}
 
+				// remove smush-limit-reached-notice.
+				const limitReachedNotice = document.getElementById( 'smush-limit-reached-notice' );
+				if ( limitReachedNotice ) {
+					limitReachedNotice.classList.add( 'sui-hidden' );
+				}
+
 				// Disable re-Smush and scan button.
 				// TODO: refine what is disabled.
 				$(
@@ -60,11 +66,7 @@ import Fetcher from '../utils/fetcher';
 
 				$( '.wp-smush-remaining' ).addClass( 'sui-hidden' );
 
-				// Show upsell cdn.
-				const upsell_cdn = $('.wp-smush-upsell-cdn');
-				if ( upsell_cdn.length ) {
-					upsell_cdn.show();
-				}
+				WP_Smush.bulk.maybeShowCDNUpsellForPreSiteOnStart();
 
 				// Show loader.
 				progress
@@ -133,6 +135,13 @@ import Fetcher from '../utils/fetcher';
 				 }
 			 }
 		},
+		maybeShowCDNUpsellForPreSiteOnStart: () => {
+			// Show upsell cdn.
+			const upsell_cdn = document.querySelector('.wp-smush-upsell-cdn');
+			if ( upsell_cdn ) {
+				upsell_cdn.classList.remove('sui-hidden');
+			}
+		}
 	};
 
 	WP_Smush.bulk.init();

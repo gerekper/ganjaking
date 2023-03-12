@@ -4,11 +4,11 @@
  *
  * @package WP_Smush
  *
- * @var array $basic_features    Basic features list.
- * @var bool  $cdn_enabled       CDN status.
- * @var array $grouped_settings  Grouped settings that can be skipped.
- * @var array $settings          Settings values.
- * @var int   $backups_count     Number of attachments with backups.
+ * @var array $basic_features Basic features list.
+ * @var bool $cdn_enabled CDN status.
+ * @var array $grouped_settings Grouped settings that can be skipped.
+ * @var array $settings Settings values.
+ * @var int $backups_count Number of attachments with backups.
  */
 
 use Smush\Core\Settings;
@@ -37,15 +37,19 @@ foreach ( $grouped_settings as $name ) {
 		continue;
 	}
 
-	// Skip premium features if not a member.
-	if ( ! in_array( $name, $basic_features, true ) && ! WP_Smush::is_pro() ) {
+	$can_access_pro        = $this->settings->can_access_pro_field( $name );
+	$is_pro_field          = $this->settings->is_pro_field( $name );
+	$is_upsell_field       = $this->settings->is_upsell_field( $name );
+	$is_disabled_field     = ( $is_upsell_field || $is_pro_field ) && ! $can_access_pro;
+	$is_pro_but_not_upsell = $is_pro_field && ! $is_upsell_field;
+	// Only show pro upsell field on Bulk Smush page to avoid upselly UI.
+	if ( $is_pro_but_not_upsell && ! $can_access_pro ) {
 		continue;
 	}
-
-	$value = empty( $settings[ $name ] ) ? false : $settings[ $name ];
+	$value = $is_disabled_field || empty( $settings[ $name ] ) ? false : $settings[ $name ];
 
 	// Show settings option.
-	do_action( 'wp_smush_render_setting_row', $name, $value );
+	do_action( 'wp_smush_render_setting_row', $name, $value, $is_disabled_field, $is_upsell_field );
 }
 
 // Hook after general settings.

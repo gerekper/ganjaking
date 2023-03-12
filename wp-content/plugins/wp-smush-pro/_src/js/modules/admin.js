@@ -657,6 +657,7 @@ jQuery(function ($) {
 		e.preventDefault();
 
 		// Remove existing Re-Smush notices.
+		// TODO: REMOVE re-smush-notice since no longer used.
 		$('.wp-smush-resmush-notice').remove();
 
 		//Check for ids, if there is none (Unsmushed or lossless), don't call smush function

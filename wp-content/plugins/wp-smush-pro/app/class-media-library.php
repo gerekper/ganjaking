@@ -420,6 +420,8 @@ class Media_Library extends Abstract_Module {
 	 *
 	 * @param string $msg_id  Message ID.
 	 *
+	 * TODO: Remove this method as no longer need.
+	 *
 	 * @return bool
 	 */
 	public function skip_reason( $msg_id ) {
@@ -1034,6 +1036,8 @@ class Media_Library extends Abstract_Module {
 	 * @param array $size_stats           Stats array.
 	 * @param array $attachment_metadata  Attachment metadata.
 	 *
+	 * TODO: Remove this method as no longer need.
+	 *
 	 * @return array
 	 */
 	private function get_skipped_images( $image_id, $size_stats, $attachment_metadata ) {
@@ -1047,12 +1051,6 @@ class Media_Library extends Abstract_Module {
 
 		// If full image was not smushed, reason 1. Large Size logic, 2. Free and greater than 5Mb.
 		if ( ! array_key_exists( 'full', $size_stats ) && ! WP_Smush::is_pro() ) {
-			// For free version, Check the image size.
-			$skipped[] = array(
-				'size'   => 'full',
-				'reason' => 'large_size',
-			);
-
 			// For free version, check if full size is greater than 5 Mb, show the skipped status.
 			$file_size = file_exists( $full_image ) ? filesize( $full_image ) : '';
 			if ( empty( $skipped ) && ! empty( $file_size ) && ( $file_size / WP_SMUSH_MAX_BYTES ) > 1 ) {

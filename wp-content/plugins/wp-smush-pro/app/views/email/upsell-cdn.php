@@ -25,7 +25,7 @@
 			<tr>
 				<td border="0" cellpadding="0" cellspacing="0" colspan="2" style="border-collapse:collapse;border-spacing:0px;border:0;padding:4px 20px 0;">
 					<p style="color:#fff;font-size:13px;font-weight:400;margin:0;padding:0;font-family:Roboto, Arial, sans-serif;line-height:22px;text-decoration:none;">
-						<?php esc_html_e( 'Serve images closer to visitors and boost site speed with our 45-point CDN. Exclusive 30% welcome discount for Smush free users. Limited time only.', 'wp-smushit' ); ?>
+						<?php esc_html_e( 'Serve images closer to visitors and boost site speed with our 114-point CDN. Exclusive 30% welcome discount for Smush free users. Limited time only.', 'wp-smushit' ); ?>
 					</p>
 				</td>
 			</tr>

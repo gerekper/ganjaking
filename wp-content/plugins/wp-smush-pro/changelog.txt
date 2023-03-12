@@ -6,6 +6,10 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.12.6 ( 2023-09-22 ) =
+- Enhance: Compatibility with WordPress 6.2.
+- Fix: Upgrade modal reappears after closing
+
 = 3.12.5 ( 2023-01-18 ) =
 - Fix: CDN notice issue
 - Fix: PHP 8.2 compatibility warnings

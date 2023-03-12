@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.12.5
+ * Version:           3.12.6
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -46,9 +46,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-update_site_option( 'wdp_un_updates_available', 1 );
+
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.12.5' );
+	define( 'WP_SMUSH_VERSION', '3.12.6' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -353,6 +353,33 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 */
 		public static function is_pro() {
 			return self::$is_pro;
+		}
+
+		public static function is_expired() {
+			$used_wpmudev_dashboard = class_exists( '\WPMUDEV_Dashboard' ) || defined( 'WPMUDEV_APIKEY') && WPMUDEV_APIKEY;
+			return $used_wpmudev_dashboard && ! self::is_pro();
+		}
+
+		public static function is_new_user() {
+			return ! self::is_pro() && ! self::is_expired();
+		}
+
+		/**
+		 * Verify the site is connected to TFH.
+		 *
+		 * @since 3.12.0
+		 *
+		 * @return boolean
+		 */
+		public static function is_site_connected_to_tfh() {
+			return isset( $_SERVER['WPMUDEV_HOSTED'] )
+				&& class_exists( '\WPMUDEV_Dashboard' ) && is_object( \WPMUDEV_Dashboard::$api )
+				&& method_exists( \WPMUDEV_Dashboard::$api, 'get_membership_status' )
+				&& 'free' === \WPMUDEV_Dashboard::$api->get_membership_status();
+		}
+
+		public static function is_member() {
+			return self::is_pro() || self::is_site_connected_to_tfh();
 		}
 
 		/**

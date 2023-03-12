@@ -91,7 +91,7 @@ class Settings {
 	 *
 	 * @var array $basic_features
 	 */
-	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'gform', 'lazy_load', 'lossy', 'background_email' );
+	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'gform', 'lazy_load', 'lossy' );
 
 	/**
 	 * List of fields in bulk smush form.
@@ -101,6 +101,13 @@ class Settings {
 	 * @var array
 	 */
 	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg', 'no_scale', 'background_email' );
+
+	/**
+	 * @since 3.12.6
+	 *
+	 * Upsell fields.
+	 */
+	private $upsell_fields = array( 'background_email' );
 
 	/**
 	 * List of fields in integration form.
@@ -220,7 +227,21 @@ class Settings {
 	 * @return string
 	 */
 	public static function get_setting_data( $id, $type = '' ) {
+		$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
+		if ( $bg_optimization->can_use_background() ) {
+			$bg_email_desc = esc_html__( 'Be notified via email about the bulk smush status when the process has completed.', 'wp-smushit' );
+		} else {
+			$bg_email_desc = sprintf(
+				esc_html__( "Be notified via email about the bulk smush status when the process has completed. You'll receive an email at %s.", 'wp-smushit' ),
+				'<strong>'. $bg_optimization->get_mail_recipient() .'</strong>'
+			);
+		}
 		$settings = array(
+			'background_email'  => array(
+				'label'       => esc_html__( 'Enable email notification', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Email Notification', 'wp-smushit' ),
+				'desc'        => $bg_email_desc,
+			),
 			'bulk'              => array(
 				'short_label' => esc_html__( 'Image Sizes', 'wp-smushit' ),
 				'desc'        => esc_html__( 'WordPress generates multiple image thumbnails for each image you upload. Choose which of those thumbnail sizes you want to include when bulk smushing.', 'wp-smushit' ),
@@ -280,11 +301,6 @@ class Settings {
 				'short_label' => esc_html__( 'Usage Tracking', 'wp-smushit' ),
 				'desc'        => esc_html__( 'Help make Smush better by letting our designers learn how you’re using the plugin.', 'wp-smushit' ),
 			),
-			'background_email'  => array(
-				'label'       => esc_html__( 'Enable email notification', 'wp-smushit' ),
-				'short_label' => esc_html__( 'Email Notification', 'wp-smushit' ),
-				'desc'        => esc_html__( 'Be notified via email about the bulk smush status when the process has completed.', 'wp-smushit' ),
-			),
 		);
 
 		/**
@@ -341,6 +357,23 @@ class Settings {
 	 */
 	public function get_cdn_fields() {
 		return $this->cdn_fields;
+	}
+
+	public function is_upsell_field( $field ) {
+		return in_array( $field, $this->upsell_fields, true );
+	}
+
+	public function is_pro_field( $field ) {
+		return ! in_array( $field, self::$basic_features, true );
+	}
+
+	public function can_access_pro_field( $field ) {
+		if ( WP_Smush::is_pro() ) {
+			return true;
+		}
+
+		$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
+		return 'background_email' === $field && $bg_optimization->can_use_background();
 	}
 
 	/**

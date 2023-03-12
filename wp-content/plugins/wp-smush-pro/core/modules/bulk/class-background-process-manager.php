@@ -2,7 +2,6 @@
 
 namespace Smush\Core\Modules\Bulk;
 
-use Smush\Core\Modules\Background\Background_Process;
 use Smush\Core\Modules\Background\Mutex;
 
 class Background_Process_Manager {
@@ -21,7 +20,10 @@ class Background_Process_Manager {
 	public function create_process() {
 		$identifier         = $this->make_process_identifier();
 		$background_process = new Bulk_Smush_Background_Process( $identifier );
-		$background_process->set_tasks_per_request( $this->calculate_tasks_per_request() );
+		$tasks_per_request  = $this->calculate_tasks_per_request();
+		if ( $tasks_per_request ) {
+			$background_process->set_tasks_per_request( $tasks_per_request );
+		}
 
 		$this->register( $identifier );
 
@@ -91,9 +93,8 @@ class Background_Process_Manager {
 	private function calculate_tasks_per_request() {
 		$active_processes_count = count( $this->get_active_processes() );
 		$should_limit           = $this->is_multisite && $active_processes_count > 1;
-
 		if ( ! $should_limit ) {
-			return Background_Process::TASKS_PER_REQUEST_UNLIMITED;
+			return false;
 		}
 
 		// Divide the available slots between the active processes

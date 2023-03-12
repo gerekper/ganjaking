@@ -548,7 +548,7 @@ abstract class Abstract_Page {
 	 */
 	public function get_doc_url() {
 		$doc = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/';
-		if ( WP_Smush::is_pro() ) {
+		if ( ! WP_Smush::is_pro() ) {
 			$doc = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs';
 		}
 
@@ -892,10 +892,11 @@ abstract class Abstract_Page {
 				'hideBranding' => apply_filters( 'wpmudev_branding_hide_branding', false ),
 				'isPro'        => WP_Smush::is_pro(),
 				'links'        => array(
-					'configsPage'  => network_admin_url( 'admin.php?page=smush-settings&view=configs' ),
-					'accordionImg' => WP_SMUSH_URL . 'app/assets/images/smush-config-icon@2x.png',
-					'hubConfigs'   => 'https://wpmudev.com/hub2/configs/my-configs',
-					'hubWelcome'   => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
+					'configsPage'   => network_admin_url( 'admin.php?page=smush-settings&view=configs' ),
+					'accordionImg'  => WP_SMUSH_URL . 'app/assets/images/smush-config-icon@2x.png',
+					'hubConfigs'    => 'https://wpmudev.com/hub2/configs/my-configs',
+					'hubWelcome'    => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
+					'freeNoticeHub' => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
 				),
 				'requestsData' => array(
 					'root'           => esc_url_raw( rest_url( 'wp-smush/v1/preset_configs' ) ),
@@ -945,5 +946,15 @@ abstract class Abstract_Page {
 		}
 
 		return $locale;
+	}
+
+	protected function get_utm_link( $args = array() ) {
+		$default = array(
+			'utm_source' => 'smush',
+			'utm_medium' => 'plugin',
+		);
+		$args    = wp_parse_args( $args, $default );
+
+		return add_query_arg( $args, $this->upgrade_url );
 	}
 }

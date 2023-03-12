@@ -68,28 +68,9 @@ import MixPanel from "../mixpanel";
         const summarySmush = $('.sui-summary-smush');
         const logBulk = $('.smush-final-log .smush-bulk-errors');
         const btnCancel = $('.wp-smush-bo-cancel-bulk');
-        const unlimitedMetabox = $('.bulk-smush-unlimited');
-        const btnDismissBulkUnlimitedNotice = unlimitedMetabox && unlimitedMetabox.querySelector('.smush-dismiss-notice-button');
-        const btnTryFree = $('.smush-try-wpmudev-free');
         let intervalHandle  = 0;
         let allErrors = [];
         let cancellationInProgress = false;
-
-        const toggleUpsellUnlimited = () => {
-            if ( ! unlimitedMetabox ) {
-                // Dismissed the upsell, return.
-                return;
-            }
-            let remainingCount = globalStats.remaining_count;
-            if ( boStats.in_processing ) {
-                remainingCount = boStats.total_items - boStats.processed_items;
-            }
-            if ( remainingCount > NO_FREE_LIMITED  ) {
-                unlimitedMetabox.classList.remove( 'sui-hidden' );
-            } else {
-                unlimitedMetabox.classList.add( 'sui-hidden' );
-            }
-        };
 
         /**
          * For globalStats, we will need to update it on reload and after re-checking images,
@@ -109,8 +90,6 @@ import MixPanel from "../mixpanel";
                 }
                 return newStats;
             }, {});
-
-            toggleUpsellUnlimited();
         };
         // Update global stats on reload.
         updateGlobalStats();
@@ -426,11 +405,7 @@ import MixPanel from "../mixpanel";
                 $('.wp-smush-scan').setAttribute('disabled', '');
                 $('.wp-smush-restore').setAttribute('disabled', '');
                 // Show upsell cdn.
-                const upsellCdn = $('.wp-smush-upsell-cdn');
-                if ( upsellCdn ) {
-                    upsellCdn.querySelector('p').innerHTML = wp_smush_msgs.processing_cdn_for_free;
-                    upsellCdn.classList.remove('sui-hidden');
-                }
+                this.maybeShowCDNUpsellForPreSiteOnStart();
 
 				this.setCancelButtonStateToInitial();
             },
@@ -451,11 +426,7 @@ import MixPanel from "../mixpanel";
                 $('.wp-smush-restore').removeAttribute('disabled', '');
 
                 // Show upsell cdn.
-                const upsellCdn = $('.wp-smush-upsell-cdn');
-                if ( upsellCdn ) {
-                    upsellCdn.querySelector('p').innerHTML = wp_smush_msgs.processed_cdn_for_free;
-                    upsellCdn.classList.remove('sui-hidden');
-                }
+                this.maybeShowCDNUpsellForPreSiteOnCompleted();
             },
             /**
              * Circle progress bar.
@@ -508,8 +479,12 @@ import MixPanel from "../mixpanel";
                 const errorKeys = Object.keys( allErrors );
                 // Cache error code to avoid double upsell notice.
                 const cacheUpsellErrorCodes = {};
-                errorKeys.map( ( image_id ) => {
+                let showAnimatedUpsell = false;
+                errorKeys.map( ( image_id, index ) => {
                         let upsellErrorCode = allErrors[ image_id ].error_code;
+                        if ( index < 5 && 'animated' === upsellErrorCode ) {
+                            showAnimatedUpsell = true;
+                        }
                         if ( ! ( upsellErrorCode in cacheUpsellErrorCodes ) ) {
                             cacheUpsellErrorCodes[ upsellErrorCode ] = upsellErrorCode;
                         } else {
@@ -532,15 +507,17 @@ import MixPanel from "../mixpanel";
                 if ( errorKeys.length > 1 ) {
                     $('.smush-bulk-errors-actions').classList.remove('sui-hidden');
                 }
+                
+                // Show animated upsell CDN if user disabled CDN and found an animated error in first 5 errors.
+                if ( showAnimatedUpsell ) {
+                    this.maybeShowCDNActivationNotice();
+                }
             },
             renderStats() {
                 // Render Smush box summary.
                 this.renderBoxSummary();
                 // Render Errors.
                 this.renderErrors();
-
-                // Toggle unlimitedMetabox.
-                toggleUpsellUnlimited();
             },
             init() {
                 if (!startBtn) {
@@ -554,16 +531,6 @@ import MixPanel from "../mixpanel";
                 this.initState();
 
 				this.setCancelButtonStateToInitial();
-
-                // Dismiss upsell free.
-                if( btnDismissBulkUnlimitedNotice ) {
-                    btnDismissBulkUnlimitedNotice.onclick = this.dismissBulkUnlimitedNotice.bind(this);
-                }
-
-                // close modal and dimiss the upsell notice try free.
-                if ( btnTryFree && unlimitedMetabox ) {
-                    btnTryFree.onclick = this.closeFreeModalAndDimissBulkUnlimitedNotice.bind(this);
-                }
             },
 			setCancelButtonStateToInitial() {
 				btnCancel.textContent = wp_smush_msgs.cancel;
@@ -573,25 +540,25 @@ import MixPanel from "../mixpanel";
 				btnCancel.textContent = wp_smush_msgs.cancelling;
 				btnCancel.onclick = () => false;
 			},
-            dismissBulkUnlimitedNotice(event) {
-                event && event.preventDefault();
-                Fetcher.common.dismissNotice('bulk-unlimited')
-                    .then( (res) => {
-                        if ( res.success ) {
-                            unlimitedMetabox.remove();
-                        }
-                    } );
-            },
-            closeFreeModalAndDimissBulkUnlimitedNotice(e) {
-                const freeModal = e.target.closest('.smush-wpmudev-free-dialog');
-                if ( ! freeModal || ! unlimitedMetabox ) {
+            maybeShowCDNActivationNotice () {
+                if ( ! wp_smush_msgs.smush_cdn_activation_notice ) {
                     return;
                 }
-
-                // Hide modal.
-                freeModal.querySelector('.sui-icon-close').click();
-                // Dismss upsell.
-                this.dismissBulkUnlimitedNotice();
+                WP_Smush.helpers.renderActivationCDNNotice( wp_smush_msgs.smush_cdn_activation_notice );
+            },
+            maybeShowCDNUpsellForPreSiteOnStart() {
+                const upsellCdn = document.querySelector('.wp-smush-upsell-cdn');
+                if ( upsellCdn ) {
+                    upsellCdn.querySelector('p').innerHTML = wp_smush_msgs.processing_cdn_for_free;
+                    upsellCdn.classList.remove('sui-hidden');
+                }
+            },
+            maybeShowCDNUpsellForPreSiteOnCompleted() {
+                const upsellCdn = document.querySelector('.wp-smush-upsell-cdn');
+                if ( upsellCdn ) {
+                    upsellCdn.querySelector('p').innerHTML = wp_smush_msgs.processed_cdn_for_free;
+                    upsellCdn.classList.remove('sui-hidden');
+                }
             }
         }
     })();

@@ -6,6 +6,7 @@
  *
  * @var int    $errors       Number of errors during directory scan.
  * @var array  $images       Array of images with errors.
+ * @var string $upgrade_url  Upgrade URL.
  *
  * @var Smush\App\Pages\Directory $this  Dashboard page.
  */
@@ -30,6 +31,24 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 	<!-- Notices -->
 	<?php $this->smush_result_notice(); ?>
+	<div class="sui-notice sui-notice-info wp-smush-dir-limit sui-hidden">
+		<div class="sui-notice-content">
+			<div class="sui-notice-message">
+				<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
+				<p>
+					<?php
+					printf(
+					/* translators: %1$s: a tag start, %2$s: closing a tag, %3$d: free image limit */
+						esc_html__( '%1$sUpgrade to pro%2$s to bulk smush all your directory images with one click. Free users can smush %3$d images with each click.', 'wp-smushit' ),
+						'<a href="' . esc_url( $upgrade_url ) . '" target="_blank" title="' . esc_html__( 'Smush Pro', 'wp-smushit' ) . '">',
+						'</a>',
+						absint( \Smush\Core\Core::MAX_FREE_BULK )
+					);
+					?>
+				</p>
+			</div>
+		</div>
+	</div>
 
 	<?php if ( ! empty( $images ) ) : ?>
 		<div class="smush-final-log">
