@@ -72,7 +72,7 @@ class WC_XR_Settings {
 				'default'     => '',
 				'type'        => 'oauth',
 				'description' => __( 'Use this button to authenticate your Xero integration', 'woocommerce-xero' ),
-			)
+			),
 		);
 
 		if ( ! WC_XR_OAuth20::can_use_oauth20() && $this->oauth10_setup_params_exist() ) {
@@ -84,7 +84,7 @@ class WC_XR_Settings {
 						'title'       => __( 'Consumer Key', 'woocommerce-xero' ),
 						'default'     => '',
 						'type'        => 'text',
-						'description' => __(  'OAuth Credential retrieved from <a href="http://api.xero.com" target="_blank">Xero Developer Centre</a>.', 'woocommerce-xero' ),
+						'description' => __( 'OAuth Credential retrieved from <a href="http://api.xero.com" target="_blank">Xero Developer Centre</a>.', 'woocommerce-xero' ),
 					),
 					'consumer_secret'     => array(
 						'title'       => __( 'Consumer Secret', 'woocommerce-xero' ),
@@ -106,7 +106,7 @@ class WC_XR_Settings {
 						'default'     => '',
 						'type'        => 'key_file',
 						'key_type'    => 'private',
-						'file_ext'     => '.pem',
+						'file_ext'    => '.pem',
 						'description' => __( 'Private key file created to authenticate this site with Xero.', 'woocommerce-xero' ),
 					),
 				)
@@ -309,10 +309,10 @@ class WC_XR_Settings {
 	 */
 	public function migrate_existing_keys() {
 		foreach ( array( 'private_key', 'public_key' ) as $key_postfix ) {
-			$old_key_name = self::OPTION_PREFIX . $key_postfix;
+			$old_key_name     = self::OPTION_PREFIX . $key_postfix;
 			$content_key_name = $old_key_name . '_content';
-			$new_key_content = get_option( $content_key_name );
-			$key_file_path = get_option( $old_key_name );
+			$new_key_content  = get_option( $content_key_name );
+			$key_file_path    = get_option( $old_key_name );
 
 			if ( false !== $key_file_path ) {
 				if ( file_exists( $key_file_path ) ) {
@@ -348,10 +348,13 @@ class WC_XR_Settings {
 	public function set_upload_info( $content_key_name, $filename ) {
 		$upload_info_key = $content_key_name . self::UPLOAD_INFO_POSTFIX;
 
-		update_option( $upload_info_key, array(
-			'upload_timestamp' => current_time( 'timestamp' ),
-			'upload_filename' => $filename,
-		) );
+		update_option(
+			$upload_info_key,
+			array(
+				'upload_timestamp' => current_time( 'timestamp' ),
+				'upload_filename'  => $filename,
+			)
+		);
 	}
 
 	/**
@@ -367,12 +370,12 @@ class WC_XR_Settings {
 	 */
 	public function get_upload_info_string( $content_key_name ) {
 		$upload_info_key = $content_key_name . self::UPLOAD_INFO_POSTFIX;
-		$upload_info = get_option( $upload_info_key );
+		$upload_info     = get_option( $upload_info_key );
 
-		if ( ! empty ( $upload_info ) ) {
-			$format = get_option( 'time_format' ) . ', ' . get_option( 'date_format' );
-			$upload_date_time =  date_i18n( $format, $upload_info['upload_timestamp'] );
-			return sprintf( __( 'Using %s uploaded at %s', 'woocommerce-xero' ), $upload_info['upload_filename'], $upload_date_time );
+		if ( ! empty( $upload_info ) ) {
+			$format           = get_option( 'time_format' ) . ', ' . get_option( 'date_format' );
+			$upload_date_time = date_i18n( $format, $upload_info['upload_timestamp'] );
+			return sprintf( __( 'Using %1$s uploaded at %2$s', 'woocommerce-xero' ), $upload_info['upload_filename'], $upload_date_time );
 		}
 		return '';
 	}
@@ -395,9 +398,9 @@ class WC_XR_Settings {
 	 */
 	public function delete_old_key_file() {
 		$key_file_path = '';
-		$result = '';
+		$result        = '';
 		if ( isset( $_POST['delete_key_file'] ) && current_user_can( 'manage_options' ) ) {
-			$key_name = sanitize_text_field( $_POST['delete_key_file'] );
+			$key_name      = sanitize_text_field( $_POST['delete_key_file'] );
 			$key_file_path = get_option( $key_name );
 			if ( ! empty( $key_file_path ) ) {
 				$delete_result = unlink( $key_file_path );
@@ -442,7 +445,7 @@ class WC_XR_Settings {
 	 * @return string Key content.
 	 */
 	public function read_key_file( $file_path ) {
-		$fp = fopen( $file_path,'r' );
+		$fp            = fopen( $file_path, 'r' );
 		$file_contents = fread( $fp, 8192 );
 		fclose( $fp );
 		return $file_contents;
@@ -499,22 +502,37 @@ class WC_XR_Settings {
 	public function register_settings() {
 
 		// Add section
-		add_settings_section( 'wc_xero_settings', __( 'Xero Settings', 'woocommerce-xero' ), array(
-			$this,
-			'settings_intro'
-		), 'woocommerce_xero' );
+		add_settings_section(
+			'wc_xero_settings',
+			__( 'Xero Settings', 'woocommerce-xero' ),
+			array(
+				$this,
+				'settings_intro',
+			),
+			'woocommerce_xero'
+		);
 
 		// Add setting fields
 		foreach ( $this->settings as $key => $option ) {
 
 			// Add setting fields
-			add_settings_field( self::OPTION_PREFIX . $key, $option['title'], array(
-				$this,
-				'input_' . $option['type']
-			), 'woocommerce_xero', 'wc_xero_settings', array( 'key' => $key, 'option' => $option ) );
+			add_settings_field(
+				self::OPTION_PREFIX . $key,
+				$option['title'],
+				array(
+					$this,
+					'input_' . $option['type'],
+				),
+				'woocommerce_xero',
+				'wc_xero_settings',
+				array(
+					'key'    => $key,
+					'option' => $option,
+				)
+			);
 
 			if ( 'key_file' === $option['type'] ) {
-				add_filter( 'pre_update_option_' . self::OPTION_PREFIX . $key , array( $this, 'handle_key_file_upload' ), 10, 3 );
+				add_filter( 'pre_update_option_' . self::OPTION_PREFIX . $key, array( $this, 'handle_key_file_upload' ), 10, 3 );
 			}
 
 			// Register setting
@@ -564,10 +582,17 @@ class WC_XR_Settings {
 	 * @return void
 	 */
 	public function add_menu_item() {
-		$sub_menu_page = add_submenu_page( 'woocommerce', __( 'Xero', 'woocommerce-xero' ), __( 'Xero', 'woocommerce-xero' ), 'manage_woocommerce', 'woocommerce_xero', array(
-			$this,
-			'options_page'
-		) );
+		$sub_menu_page = add_submenu_page(
+			'woocommerce',
+			__( 'Xero', 'woocommerce-xero' ),
+			__( 'Xero', 'woocommerce-xero' ),
+			'manage_woocommerce',
+			'woocommerce_xero',
+			array(
+				$this,
+				'options_page',
+			)
+		);
 
 		add_action( 'load-' . $sub_menu_page, array( $this, 'enqueue_style' ) );
 		add_action( 'load-' . $sub_menu_page, array( $this, 'enqueue_xero_style_style' ) );
@@ -632,7 +657,7 @@ class WC_XR_Settings {
 	 * Implement redirect page.
 	 */
 	public function oauth_redirect() {
-		require_once( 'class-wc-xr-oauth20.php' );
+		require_once 'class-wc-xr-oauth20.php';
 
 		$client_id       = $this->get_option( 'client_id' );
 		$client_secret   = $this->get_option( 'client_secret' );
@@ -714,7 +739,7 @@ class WC_XR_Settings {
 							</p>
 						</div>';
 					}
-				} else if ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == 'false' ) ) {
+				} elseif ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == 'false' ) ) {
 					echo '<div id="message" class="error fade"><p><strong>' . __( 'There was an error saving your settings.', 'woocommerce-xero' ) . '</strong></p></div>';
 				}
 				?>
@@ -750,11 +775,11 @@ class WC_XR_Settings {
 	 * @param $args
 	 */
 	public function input_key_file( $args ) {
-		$input_name = self::OPTION_PREFIX . $args['key'] ;
-		$file_ext = $args['option']['file_ext'];
+		$input_name = self::OPTION_PREFIX . $args['key'];
+		$file_ext   = $args['option']['file_ext'];
 
 		// File input field.
-		echo '<input type="file" name="' .  esc_attr( $input_name ) . '" id="' . esc_attr( $input_name ) . '" accept="' . esc_attr( $file_ext ) . '"/>';
+		echo '<input type="file" name="' . esc_attr( $input_name ) . '" id="' . esc_attr( $input_name ) . '" accept="' . esc_attr( $file_ext ) . '"/>';
 
 		echo '<p class="description">' . esc_html( $args['option']['description'] ) . '</p>';
 
@@ -774,17 +799,17 @@ class WC_XR_Settings {
 	 * @param $args
 	 */
 	public function input_oauth( $args ) {
-		require_once( __DIR__ . '/../vendor/autoload_packages.php' );
-		require_once( 'class-wc-xr-oauth20.php' );
+		require_once __DIR__ . '/../lib/packages/autoload.php';
+		require_once 'class-wc-xr-oauth20.php';
 
 		$client_id     = $this->get_option( 'client_id' );
 		$client_secret = $this->get_option( 'client_secret' );
 		$xero_oauth    = WC_XR_OAuth20::get_instance( $client_id, $client_secret );
 		$data_complete = (bool) $client_id && (bool) $client_secret;
 
-		$options = [
-			'scope' => [ 'openid email profile offline_access accounting.settings accounting.transactions accounting.contacts accounting.journals.read accounting.reports.read accounting.attachments' ],
-		];
+		$options = array(
+			'scope' => array( 'openid email profile offline_access accounting.settings accounting.transactions accounting.contacts accounting.journals.read accounting.reports.read accounting.attachments' ),
+		);
 
 		// Fetch the authorization URL from the provider; this returns the urlAuthorize option and generates and applies any necessary parameters (e.g. state).
 		$authorization_url = $data_complete ? WC_XR_OAuth20::get_authorization_url( $options ) : '#';
@@ -837,7 +862,7 @@ class WC_XR_Settings {
 	 * @param array $args Field arguments.
 	 */
 	public function input_text_oauth( $args ) {
-		require_once( 'class-wc-xr-oauth20.php' );
+		require_once 'class-wc-xr-oauth20.php';
 		$this->input_text( $args );
 		echo '<p>' . _e( 'Please use the following url as your redirect url when creating a Xero application:', 'woocommerce-xero' ) . '</p>';
 		echo WC_XR_OAuth20::build_redirect_uri();
@@ -864,13 +889,13 @@ class WC_XR_Settings {
 		$option = $this->get_option( $args['key'] );
 
 		$name = esc_attr( self::OPTION_PREFIX . $args['key'] );
-		$id = esc_attr( self::OPTION_PREFIX . $args['key'] );
+		$id   = esc_attr( self::OPTION_PREFIX . $args['key'] );
 		echo "<select name='$name' id='$id'>";
 
-		foreach( $args['option']['options'] as $key => $value ) {
+		foreach ( $args['option']['options'] as $key => $value ) {
 			$selected = selected( $option, $key, false );
-			$text = esc_html( $value );
-			$val = esc_attr( $key );
+			$text     = esc_html( $value );
+			$val      = esc_attr( $key );
 			echo "<option value='$val' $selected>$text</option>";
 		}
 
@@ -963,12 +988,12 @@ class WC_XR_Settings {
 		}
 		add_filter( 'upload_mimes', array( $this, 'override_upload_mimes' ), 10, 1 );
 
-		$overrides       = array(
+		$overrides = array(
 			'test_form' => false,
 			'mimes'     => $this->valid_filetypes,
 		);
-		$import          = $_FILES[ $option_name ];
-		$upload          = wp_handle_upload( $import, $overrides );
+		$import    = $_FILES[ $option_name ];
+		$upload    = wp_handle_upload( $import, $overrides );
 
 		if ( isset( $upload['error'] ) ) {
 			return $old_value;
@@ -1020,7 +1045,7 @@ class WC_XR_Settings {
 						</p>
 					</div>
 					<?php
-				} else if ( 'success' === $this->key_file_delete_result['result'] ) {
+				} elseif ( 'success' === $this->key_file_delete_result['result'] ) {
 					?>
 					<div class="updated">
 						<p>

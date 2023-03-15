@@ -1158,7 +1158,6 @@
 		 */
 		Totals.prototype.reset = function() {
 			this.$totals.empty();
-			this.$totals.data( 'price_data', [] );
 			this.$totals.html( '' );
 			this.$form.trigger( 'updated_addons' );
 		}

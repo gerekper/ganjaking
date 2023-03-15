@@ -26,9 +26,6 @@ class WC_OD_Subscriptions {
 		add_action( 'woocommerce_subscription_date_deleted', array( $this, 'subscription_date_deleted' ), 10, 2 );
 		add_action( 'wc_od_subscription_delivery_date_not_found', array( $this, 'delivery_date_not_found' ) );
 
-		add_filter( 'wcs_subscription_meta', array( $this, 'copy_order_meta' ), 10, 3 );
-		add_filter( 'wcs_renewal_order_meta', array( $this, 'copy_order_meta' ), 10, 3 );
-		add_filter( 'wcs_resubscribe_order_meta', array( $this, 'copy_order_meta' ), 10, 3 );
 		add_filter( 'wcs_new_order_created', array( $this, 'order_created' ), 10, 2 );
 
 		// Priority 5. Before send the emails.
@@ -44,6 +41,7 @@ class WC_OD_Subscriptions {
 	public function includes() {
 		include_once 'wc-od-subscriptions-functions.php';
 		include_once 'class-wc-od-subscription-delivery-details.php';
+		include_once 'class-wc-od-subscriptions-data-copier.php';
 		include_once 'class-wc-od-subscriptions-checkout.php';
 		include_once 'class-wc-od-subscriptions-emails.php';
 		include_once 'class-wc-od-subscriptions-settings.php';
@@ -161,6 +159,7 @@ class WC_OD_Subscriptions {
 	 *
 	 * @since 1.3.0
 	 * @since 1.5.5 Also supports the copy from an order to a subscription.
+	 * @deprecated 2.5.0
 	 *
 	 * @param array    $meta       The metadata to copy to the order.
 	 * @param WC_Order $to_order   The order to copy the metadata.
@@ -168,45 +167,9 @@ class WC_OD_Subscriptions {
 	 * @return array An array with the order metadata.
 	 */
 	public function copy_order_meta( $meta, $to_order, $from_order ) {
-		$type          = str_replace( array( 'wcs_', '_meta' ), '', current_filter() );
-		$exclude_metas = array( '_delivery_days', '_shipping_date' );
+		wc_deprecated_function( __FUNCTION__, '2.5.0', 'WC_OD_Subscriptions_Data_Copier::copy_meta_filter()' );
 
-		// Use the checkout form fields values.
-		if ( 'renewal_order' === $type && wcs_cart_contains_renewal() ) {
-			$exclude_metas[] = '_delivery_date';
-			$exclude_metas[] = '_delivery_time_frame';
-		}
-
-		/**
-		 * Filters the metadata that will be excluded from the copy of a subscription to an order.
-		 *
-		 * @since 1.5.0
-		 * @since 1.5.5 Added `$type` parameter.
-		 *              Also supports the copy from an order to a subscription.
-		 *
-		 * @param array    $meta       The meta keys to exclude.
-		 * @param WC_Order $to_order   The order to copy the metadata.
-		 * @param WC_Order $from_order The order from which the metadata is copied.
-		 * @param string   $type       The type of copy.
-		 */
-		$exclude_metas = apply_filters( 'wc_od_exclude_order_meta', $exclude_metas, $to_order, $from_order, $type );
-
-		if ( empty( $exclude_metas ) ) {
-			return $meta;
-		}
-
-		$meta_keys = wp_list_pluck( $meta, 'meta_key' );
-
-		// Exclude the meta keys from the copy.
-		foreach ( $exclude_metas as $exclude_meta ) {
-			$index = array_search( $exclude_meta, $meta_keys, true );
-
-			if ( false !== $index ) {
-				unset( $meta[ $index ] );
-			}
-		}
-
-		return $meta;
+		return WC_OD_Subscriptions_Data_Copier::copy_meta_filter( $meta, $to_order, $from_order );
 	}
 
 	/**

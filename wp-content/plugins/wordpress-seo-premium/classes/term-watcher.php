@@ -102,6 +102,8 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * Set old URL when the quick edit is used for taxonomies.
 	 */
 	public function set_old_url_quick_edit() {
+		check_ajax_referer( 'taxinlineeditnonce', '_inline_edit' );
+
 		$permalink = $this->get_taxonomy_permalink();
 
 		if ( ! is_wp_error( $permalink ) ) {
@@ -244,7 +246,13 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return string|WP_Error
 	 */
 	protected function get_taxonomy_permalink() {
-		return get_term_link( get_term( filter_input( INPUT_POST, 'tax_ID' ), filter_input( INPUT_POST, 'taxonomy' ) ), filter_input( INPUT_POST, 'taxonomy' ) );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Reason: We verify the nonce before coming here.
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We do sanitize by casting to int.
+		$term_id  = isset( $_POST['tax_ID'] ) ? (int) wp_unslash( $_POST['tax_ID'] ) : 0;
+		$taxonomy = isset( $_POST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_POST['taxonomy'] ) ) : null;
+		// phpcs:enable
+
+		return get_term_link( get_term( $term_id, $taxonomy ), $taxonomy );
 	}
 
 	/**
@@ -253,7 +261,10 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return bool|string
 	 */
 	protected function get_old_url() {
-		$wpseo_old_term_url = filter_input( INPUT_POST, 'wpseo_old_term_url' );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Reason: This is used while hooked in an action thus we don't control the nonce creation.
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: This data looks like it's being used only with WP functions later on.
+		$wpseo_old_term_url = isset( $_POST['wpseo_old_term_url'] ) ? wp_unslash( $_POST['wpseo_old_term_url'] ) : null;
+		// phpcs:enable
 
 		if ( empty( $wpseo_old_term_url ) ) {
 			if ( ! empty( $this->old_url ) ) {
@@ -319,7 +330,13 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return bool True when in an AJAX-request and the action is inline-save.
 	 */
 	protected function is_action_inline_save_tax() {
-		return ( wp_doing_ajax() && filter_input( INPUT_POST, 'action' ) === 'inline-save-tax' );
+		if ( ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reason: We don't control the nonce creation.
+		$action = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : null;
+		return $action === 'inline-save-tax';
 	}
 
 	/**
@@ -328,6 +345,12 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return bool True when in an AJAX-request and the action is delete-tag.
 	 */
 	protected function is_action_delete_tag() {
-		return ( wp_doing_ajax() && filter_input( INPUT_POST, 'action' ) === 'delete-tag' );
+		if ( ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reason: We don't control the nonce creation.
+		$action = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : null;
+		return $action === 'delete-tag';
 	}
 }

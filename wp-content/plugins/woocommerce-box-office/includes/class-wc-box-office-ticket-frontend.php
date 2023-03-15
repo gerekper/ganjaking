@@ -27,11 +27,7 @@ class WC_Box_Office_Ticket_Frontend {
 	 * @since 1.0.2
 	 */
 	public function my_tickets() {
-		if ( version_compare( WC()->version, '2.6', '>=' ) ) {
-			$this->my_tickets_query();
-		} else {
-			add_action( 'woocommerce_before_my_account', array( $this, 'account_ticket_list' ) );
-		}
+		$this->my_tickets_query();
 	}
 
 	/**

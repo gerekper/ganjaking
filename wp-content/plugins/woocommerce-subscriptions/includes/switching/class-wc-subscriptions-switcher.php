@@ -1189,8 +1189,18 @@ class WC_Subscriptions_Switcher {
 	 * @param WC_Subscription $subscription The original subscription
 	 */
 	public static function maybe_update_subscription_address( $order, $subscription ) {
-		$subscription->set_address( array_diff_assoc( $order->get_address( 'billing' ), $subscription->get_address( 'billing' ) ), 'billing' );
-		$subscription->set_address( array_diff_assoc( $order->get_address( 'shipping' ), $subscription->get_address( 'shipping' ) ), 'shipping' );
+		$billing_address_changes  = array_diff_assoc( $order->get_address( 'billing' ), $subscription->get_address( 'billing' ) );
+		$shipping_address_changes = array_diff_assoc( $order->get_address( 'shipping' ), $subscription->get_address( 'shipping' ) );
+
+		if ( wcs_is_woocommerce_pre( '7.1' ) ) {
+			$subscription->set_address( $billing_address_changes, 'billing' );
+			$subscription->set_address( $shipping_address_changes, 'shipping' );
+		} else {
+			$subscription->set_billing_address( $billing_address_changes );
+			$subscription->set_shipping_address( $shipping_address_changes );
+
+			$subscription->save();
+		}
 	}
 
 	/**

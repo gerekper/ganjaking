@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -536,7 +536,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		}
 
 		/**
-		 * Funtion to show content on the Coupon CSV Importer page
+		 * Function to show content on the Coupon CSV Importer page
 		 */
 		public function admin_page() {
 			global $store_credit_label;
@@ -855,11 +855,9 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 								FROM $wpdb->posts AS p
 									LEFT JOIN $wpdb->postmeta AS pm
 										ON (p.ID = pm.post_id)
-								WHERE post_status = %s
-									AND post_type = %s
+								WHERE post_type = %s
 									AND ( pm.meta_key = %s AND pm.meta_value = %s )
 								LIMIT 1",
-						'publish',
 						'shop_coupon',
 						'discount_type',
 						'smart_coupon'
@@ -867,6 +865,26 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				);
 				wp_cache_set( 'wc_sc_any_coupon_code', $coupon_code, 'woocommerce_smart_coupons' );
 				$this->maybe_add_cache_key( 'wc_sc_any_coupon_code' );
+			}
+			if ( empty( $coupon_code ) ) {
+				$args        = array(
+					'return'             => 'code',
+					'discount_type'      => 'smart_coupon',
+					'amount'             => 1.99,
+					'description'        => __( 'This is a sample coupon', 'woocommerce_smart_coupons' ),
+					'date_expires'       => strtotime( '+20 years' ),
+					'email_restrictions' => array( get_option( 'admin_email' ) ),
+				);
+				$coupon_code = $this->generate_coupon( $args );
+				$coupon      = new WC_Coupon( $coupon_code );
+				$coupon_id   = $this->is_callable( $coupon, 'get_id' ) ? $coupon->get_id() : 0;
+				if ( ! empty( $coupon_id ) ) {
+					$args = array(
+						'ID'          => $coupon_id,
+						'post_status' => 'auto-draft',
+					);
+					wp_update_post( $args ); // Because $coupon->set_status( 'auto-draft' ) not working.
+				}
 			}
 			return $coupon_code;
 		}
@@ -882,6 +900,16 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				<div class="sc-email-content">
 					<?php
 					if ( ! empty( $coupon_code ) ) {
+						$post   = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $coupon_code, OBJECT, 'shop_coupon' ) : get_page_by_title( $coupon_code, OBJECT, 'shop_coupon' ); // phpcs:ignore
+						$revert = false;
+						if ( 'publish' !== $post->post_status ) {
+							$args = array(
+								'ID'          => $post->ID,
+								'post_status' => 'publish',
+							);
+							wp_update_post( $args );
+							$revert = true;
+						}
 						WC()->mailer();
 						if ( class_exists( 'WC_SC_Email_Coupon' ) ) {
 							$email_coupon             = new WC_SC_Email_Coupon();
@@ -896,6 +924,15 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 							$email_content = $email_coupon->get_content();
 							// Replace placeholders with values in the email content.
 							$email_content = ( is_callable( array( $email_coupon, 'format_string' ) ) ) ? $email_coupon->format_string( $email_content ) : $email_content;
+
+							if ( true === $revert ) {
+								$args = array(
+									'ID'          => $post->ID,
+									'post_status' => 'auto-draft',
+								);
+								wp_update_post( $args );
+								$revert = false;
+							}
 
 							ob_start();
 							wc_get_template( 'emails/email-styles.php' );
@@ -1337,10 +1374,11 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						}
 					}
 					jQuery('#sc-preview-email').on('click', function(){
-						jQuery('body #wc-sc-email-style').remove();
 						setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 1000);
 						tinymce_apply_changes();
 						if ( ! jQuery('.sc-preview-email-container').is(':visible') ) {
+							jQuery('body #wc-sc-email-style').remove();
+							jQuery('.sc-email-content').css('opacity', 1);
 							let email_css = jQuery('#wc-sc-preview-email-template-css').data('css');
 								email_css = email_css.replace( 'body', '#sc-body-ignore' );
 							if( '' !== email_css ) {
@@ -1350,6 +1388,8 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 							jQuery('.sc-preview-email-container').slideDown();
 							jQuery('html, body').animate( { scrollTop: jQuery('#sc-preview-email').offset().top }, 'slow' );
 						} else {
+							jQuery('.sc-email-content').css('opacity', 0);
+							jQuery('body #wc-sc-email-style').remove();
 							jQuery('.sc-preview-email-container').slideUp();
 						}
 					});

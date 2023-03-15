@@ -44,7 +44,10 @@ class WC_XR_Line_Item {
 	/**
 	 * @var array
 	 */
-	private $tax_rate = array();
+	private $tax_rate = array(
+		'rate'  => 0,
+		'label' => '',
+	);
 
 	/**
 	 * @var bool

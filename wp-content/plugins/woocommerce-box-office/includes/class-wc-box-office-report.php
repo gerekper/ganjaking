@@ -70,24 +70,20 @@ class WC_Box_Office_Report {
 				$stock = '<mark class="outofstock">' . __( 'Out of stock', 'woocommerce-box-office' ) . '</mark>';
 			}
 			if ( $product->managing_stock() ) {
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) { 
-					$stock .= ' &times; ' . $product->get_total_stock();
-				} else {
-					if ( sizeof( $product->get_children() ) > 0 ) {
-						$total_stock = max( 0, $product->get_stock_quantity() );
+				if ( sizeof( $product->get_children() ) > 0 ) {
+					$total_stock = max( 0, $product->get_stock_quantity() );
 
-						foreach ( $product->get_children() as $child_id ) {
-							if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
-								$stock = get_post_meta( $child_id, '_stock', true );
-								$total_stock += max( 0, wc_stock_amount( $stock ) );
-							}
+					foreach ( $product->get_children() as $child_id ) {
+						if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
+							$stock = get_post_meta( $child_id, '_stock', true );
+							$total_stock += max( 0, wc_stock_amount( $stock ) );
 						}
-					} else {
-						$total_stock = $product->get_stock_quantity();
 					}
-
-					$stock .= ' &times; ' . wc_stock_amount( $total_stock );
+				} else {
+					$total_stock = $product->get_stock_quantity();
 				}
+
+				$stock .= ' &times; ' . wc_stock_amount( $total_stock );
 			}
 
 			$total_sales = $this->get_product_total_sales( $product->get_id() );

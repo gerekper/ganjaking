@@ -209,10 +209,6 @@ class WC_Box_Office_Ticket_Create_Admin {
 			$base_tax_rates = WC_Tax::get_base_tax_rates( $product->get_tax_class() );
 			$base_taxes     = WC_Tax::calc_tax( $total, $base_tax_rates, true );
 			$total          = $total - array_sum( $base_taxes );
-
-			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-				$total = round( $total, absint( get_option( 'woocommerce_price_num_decimals' ) ) );
-			}
 		}
 
 		switch ( $this->_clean_data['create_order_method'] ) {
@@ -220,7 +216,7 @@ class WC_Box_Office_Ticket_Create_Admin {
 				$order_id = $this->_create_order( $this->_clean_data['customer_id'], $total );
 				break;
 			case 'existing':
-				$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $this->_current_order->id : $this->_current_order->get_id();
+				$order_id = $this->_current_order->get_id();
 				$this->_current_order->set_total( $this->_current_order->get_total() + $total );
 				break;
 			default:
@@ -279,16 +275,12 @@ class WC_Box_Office_Ticket_Create_Admin {
 	 * @return int Order ID.
 	 */
 	private function _create_order( $customer_id, $total ) {
-		$is_pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-
 		$order = wc_create_order( array(
 			'customer_id' => $customer_id,
 		) );
 
 		$order->set_total( $total );
-		if ( ! $is_pre_wc_30 ) {
-			$order->save();
-		}
+		$order->save();
 
 		// Set order address.
 		if ( $customer_id ) {
@@ -308,9 +300,7 @@ class WC_Box_Office_Ticket_Create_Admin {
 			foreach ( array( 'shipping', 'billing' ) as $type ) {
 				$address = array();
 				foreach ( $keys as $key ) {
-					$address[ $key ] = $is_pre_wc_30
-						? (string) get_user_meta( $customer_id, $type . '_' . $key, true )
-						: ( is_callable( array( $customer, 'get_' . $type . '_' . $key ) ) ? $customer->{'get_' . $type . '_' . $key}() : '' );
+					$address[ $key ] = ( is_callable( array( $customer, 'get_' . $type . '_' . $key ) ) ? $customer->{'get_' . $type . '_' . $key}() : '' );
 				}
 				$order->set_address( $address, $type );
 			}
@@ -319,7 +309,7 @@ class WC_Box_Office_Ticket_Create_Admin {
 		// Cache order.
 		$this->_current_order = $order;
 
-		return $is_pre_wc_30 ? $order->id : $order->get_id();
+		return $order->get_id();
 	}
 
 	/**
@@ -626,12 +616,8 @@ class WC_Box_Office_Ticket_Create_Admin {
 			return $variation_id;
 		}
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$variation_id = $product->get_matching_variation( $data );
-		} else {
-			$data_store = WC_Data_Store::load( 'product' );
-			$variation_id = $data_store->find_matching_product_variation( $product, $data );
-		}
+		$data_store = WC_Data_Store::load( 'product' );
+		$variation_id = $data_store->find_matching_product_variation( $product, $data );
 
 		if ( ! $variation_id ) {
 			throw new Exception( __( 'Please select the product options.', 'woocommerce-box-office' ) );

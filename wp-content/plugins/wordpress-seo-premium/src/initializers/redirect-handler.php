@@ -82,15 +82,15 @@ class Redirect_Handler implements Initializer_Interface {
 			return;
 		}
 
-		// Set the requested URL.
-		$this->set_request_url();
-
-		// Check the normal redirects.
-		$this->handle_normal_redirects( $this->request_url );
-
-		// Check the regex redirects.
-		if ( $this->is_redirected() === false ) {
-			$this->handle_regex_redirects();
+		if ( ! \function_exists( 'is_plugin_active_for_network' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		// If the plugin is network activated, we wait for the plugins to be loaded before initializing.
+		if ( \is_plugin_active_for_network( \WPSEO_PREMIUM_BASENAME ) ) {
+			\add_action( 'plugins_loaded', [ $this, 'handle_redirects' ], 16 );
+		}
+		else {
+			$this->handle_redirects();
 		}
 	}
 
@@ -357,23 +357,19 @@ class Redirect_Handler implements Initializer_Interface {
 	}
 
 	/**
-	 * Gets the request URI, with fallback for super global.
+	 * Gets the request URI.
 	 *
 	 * @return string
 	 */
 	protected function get_request_uri() {
-		$options     = [ 'options' => [ 'default' => '' ] ];
-		$request_uri = \filter_input( \INPUT_SERVER, 'REQUEST_URI', \FILTER_SANITIZE_URL, $options );
+		$request_uri = '';
 
-		// Because there isn't an usable value, try the fallback.
-		if ( empty( $request_uri ) && isset( $_SERVER['REQUEST_URI'] ) ) {
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- this value is compared. I don't want to change the behavior.
-			$request_uri = \filter_var( $_SERVER['REQUEST_URI'], \FILTER_SANITIZE_URL, $options );
+		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We sanitize after decoding.
+			$request_uri = \sanitize_text_field( \rawurldecode( \wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 		}
 
-		$request_uri = $this->strip_subdirectory( $request_uri );
-
-		return \rawurldecode( $request_uri );
+		return $this->strip_subdirectory( $request_uri );
 	}
 
 	/**
@@ -691,5 +687,23 @@ class Redirect_Handler implements Initializer_Interface {
 	 */
 	protected function get_query_template( $filename ) {
 		return \get_query_template( $filename );
+	}
+
+	/**
+	 * Actually handles redirects.
+	 *
+	 * @return void
+	 */
+	public function handle_redirects() {
+		// Set the requested URL.
+		$this->set_request_url();
+
+		// Check the normal redirects.
+		$this->handle_normal_redirects( $this->request_url );
+
+		// Check the regex redirects.
+		if ( $this->is_redirected() === false ) {
+			$this->handle_regex_redirects();
+		}
 	}
 }

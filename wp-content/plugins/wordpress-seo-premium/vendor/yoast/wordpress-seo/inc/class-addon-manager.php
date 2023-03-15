@@ -672,7 +672,12 @@ class WPSEO_Addon_Manager {
 		global $pagenow;
 
 		// Force re-check on license & dashboard pages.
-		$current_page = $this->get_current_page();
+		$current_page = null;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We are not processing form information.
+		if ( isset( $_GET['page'] ) && is_string( $_GET['page'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are not processing form information, We are only strictly comparing and thus no need to sanitize.
+			$current_page = wp_unslash( $_GET['page'] );
+		}
 
 		// Check whether the licenses are valid or whether we need to show notifications.
 		$quick = ( $current_page === 'wpseo_licenses' || $current_page === 'wpseo_dashboard' );
@@ -686,17 +691,6 @@ class WPSEO_Addon_Manager {
 		}
 
 		return get_transient( self::SITE_INFORMATION_TRANSIENT );
-	}
-
-	/**
-	 * Returns the current page.
-	 *
-	 * @codeCoverageIgnore
-	 *
-	 * @return string The current page.
-	 */
-	protected function get_current_page() {
-		return filter_input( INPUT_GET, 'page' );
 	}
 
 	/**
@@ -780,12 +774,12 @@ class WPSEO_Addon_Manager {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Not our properties.
 		return (object) [
 			'renewal_url' => 'yoast.com',
-			'expiry_date' => '02/03/2027',
+			'expiry_date' => '14/03/2027',
 			'product'     => (object) [
-				'version'      => '20.2.1',
+				'version'      => '20.3',
 				'name'         => 'Yoast SEO Premium',
 				'slug'         => 'wordpress-seo-premium',
-				'last_updated' => '02/03/2023',
+				'last_updated' => '14/03/2023',
 				'store_url'    => 'yoast.com',
 				// Ternary operator is necessary because download can be undefined.
 				'download'     => 'yoast.com',

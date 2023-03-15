@@ -84,23 +84,16 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 	 * Output the meta box.
 	 *
 	 * @since 1.5.0
+	 * @since 2.5.0 The first argument is required and accepts a subscription object.
 	 *
-	 * @global int $thepostid The post ID.
-	 *
-	 * @param WP_Post $post Optional. The post instance.
+	 * @param mixed $object Subscription or post object.
 	 */
-	public static function output( $post = null ) {
-		global $thepostid;
+	public static function output( $object ) {
+		$subscription = ( $object instanceof WC_Subscription ? $object : wcs_get_subscription( $object->ID ) );
 
-		$the_subscription = ( isset( $_POST['post_id'] ) ? wc_clean( wp_unslash( $_POST['post_id'] ) ) : $post->ID ); // phpcs:ignore WordPress.Security.NonceVerification
+		self::init_fields( $subscription );
 
-		// Set the global variable for AJAX requests.
-		$thepostid = $the_subscription;
-
-		self::init_fields( $the_subscription );
-
-		$fields       = self::$fields;
-		$subscription = wcs_get_subscription( $the_subscription );
+		$fields = self::$fields;
 
 		include 'views/html-subscription-delivery.php';
 	}
@@ -109,29 +102,28 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 	 * Save meta box data.
 	 *
 	 * @since 1.5.0
+	 * @since 2.5.0 The second argument always is a subscription object.
 	 *
-	 * @param int     $post_id Post ID.
-	 * @param WP_Post $post    The post instance.
+	 * @param int             $subscription_id Subscription ID.
+	 * @param WC_Subscription $subscription    Subscription object.
 	 */
-	public static function save( $post_id, $post ) {
-		if ( 'shop_subscription' !== $post->post_type ) {
-			return;
-		}
-
+	public static function save( $subscription_id, $subscription ) {
 		$delivery_date = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		if ( $delivery_date ) {
-			wc_od_update_order_meta( $post_id, '_delivery_date', $delivery_date, true );
+			$subscription->update_meta_data( '_delivery_date', $delivery_date );
 		} else {
-			wc_od_delete_order_meta( $post_id, '_delivery_date', true );
+			$subscription->delete_meta_data( '_delivery_date' );
 		}
 
 		$delivery_time_frame = ( isset( $_POST['_delivery_time_frame'] ) ? wc_clean( wp_unslash( $_POST['_delivery_time_frame'] ) ) : '' ); // phpcs:ignore: WordPress.Security.NonceVerification
 
 		if ( $delivery_date && ! empty( $delivery_time_frame ) ) {
-			wc_od_update_order_meta( $post_id, '_delivery_time_frame', $delivery_time_frame, true );
+			$subscription->update_meta_data( '_delivery_time_frame', $delivery_time_frame );
 		} else {
-			wc_od_delete_order_meta( $post_id, '_delivery_time_frame', true );
+			$subscription->delete_meta_data( '_delivery_time_frame' );
 		}
+
+		$subscription->save();
 	}
 }

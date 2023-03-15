@@ -177,14 +177,20 @@ class WPSEO_Redirect_Ajax {
 	 * @return WPSEO_Redirect
 	 */
 	private function get_redirect_from_post( $post_value ) {
-		$post_values = filter_input( INPUT_POST, $post_value, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		// phpcs:ignore WordPress.Security.NonceVerification -- Reason: nonce is verified in ajax_update_redirect and ajax_add_redirect.
+		if ( isset( $_POST[ $post_value ] ) && is_array( $_POST[ $post_value ] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification -- Reason: we want to stick to sanitize_url function, while the nonce has been already checked.
+			$post_values = wp_unslash( $_POST[ $post_value ] );
 
-		return new WPSEO_Redirect(
-			$this->sanitize_url( $post_values['origin'] ),
-			$this->sanitize_url( $post_values['target'] ),
-			urldecode( $post_values['type'] ),
-			$this->redirect_format
-		);
+			return new WPSEO_Redirect(
+				$this->sanitize_url( $post_values['origin'] ),
+				$this->sanitize_url( $post_values['target'] ),
+				urldecode( $post_values['type'] ),
+				$this->redirect_format
+			);
+		}
+
+		return new WPSEO_Redirect( '', '', '', '' );
 	}
 
 	/**

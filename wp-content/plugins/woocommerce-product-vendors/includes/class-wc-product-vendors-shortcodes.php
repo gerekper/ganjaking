@@ -69,7 +69,23 @@ class WC_Product_Vendors_Shortcodes {
 
 		// no need to show vendor this form
 		if ( WC_Product_Vendors_Utils::is_vendor() ) {
-			return sprintf( '<p class="woocommerce-message">' . __( 'Great! You\'re already a vendor! Perhaps you want to go to the %1$sVendor Dashboard?%2$s', 'woocommerce-product-vendors' ) . '</p>', '<a href="' . esc_url( admin_url() ) . '">', '</a>' );
+			/**
+			 * Triggers before the registration shortcode is rendered to a registered vendor.
+			 *
+			 * @since 2.1.75
+			 */
+			do_action( 'wcpv_render_registration_shortcode_to_registered_vendor' );
+
+			$message = sprintf( '<p class="woocommerce-message">' . __( 'Great! You\'re already a vendor! Perhaps you want to go to the %1$sVendor Dashboard?%2$s', 'woocommerce-product-vendors' ) . '</p>', '<a href="' . esc_url( admin_url() ) . '">', '</a>' );
+
+			/**
+			 * Filters the message displayed to registered vendors.
+			 *
+			 * @param string $message The message to display.
+			 *
+			 * @since 2.1.75
+			 */
+			return apply_filters( 'wcpv_render_registration_shortcode_message_to_registered_vendor', $message );
 		}
 
 		ob_start();

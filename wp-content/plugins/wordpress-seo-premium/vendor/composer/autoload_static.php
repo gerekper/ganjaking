@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8abcc6ef8f0a7fe7ba5838c86d87c87a
+class ComposerStaticInit85404b582cd69e793f554de33ada3b1f
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -44,7 +44,7 @@ class ComposerStaticInit8abcc6ef8f0a7fe7ba5838c86d87c87a
         'WPSEO_Export_Keywords_Query' => __DIR__ . '/../..' . '/classes/export/export-keywords-query-interface.php',
         'WPSEO_Export_Keywords_Term_Presenter' => __DIR__ . '/../..' . '/classes/export/export-keywords-term-presenter.php',
         'WPSEO_Export_Keywords_Term_Query' => __DIR__ . '/../..' . '/classes/export/export-keywords-term-query.php',
-        'WPSEO_Facebook_Profile' => __DIR__ . '/../..' . '/classes/facebook-profile.php',
+        'WPSEO_Facebook_Profile' => __DIR__ . '/../..' . '/src/deprecated/classes/facebook-profile.php',
         'WPSEO_Metabox_Link_Suggestions' => __DIR__ . '/../..' . '/classes/metabox-link-suggestions.php',
         'WPSEO_Multi_Keyword' => __DIR__ . '/../..' . '/classes/multi-keyword.php',
         'WPSEO_Post_Watcher' => __DIR__ . '/../..' . '/classes/post-watcher.php',
@@ -220,9 +220,9 @@ class ComposerStaticInit8abcc6ef8f0a7fe7ba5838c86d87c87a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8abcc6ef8f0a7fe7ba5838c86d87c87a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8abcc6ef8f0a7fe7ba5838c86d87c87a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8abcc6ef8f0a7fe7ba5838c86d87c87a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit85404b582cd69e793f554de33ada3b1f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit85404b582cd69e793f554de33ada3b1f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit85404b582cd69e793f554de33ada3b1f::$classMap;
 
         }, null, ClassLoader::class);
     }

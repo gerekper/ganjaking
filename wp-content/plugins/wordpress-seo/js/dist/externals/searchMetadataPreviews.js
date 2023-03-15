@@ -174,7 +174,7 @@ justify-content: center;
 background: #f1f3f4;
 min-width: 28px;
 `;ce.displayName="SnippetPreview__BaseUrlOverflowContainer";const de=a.a.div`
-	color: ${e=>e.isDescriptionPlaceholder?"4d5156":"#4d5156"};
+	color: ${e=>(e.isDescriptionPlaceholder,"#4d5156")};
 	cursor: pointer;
 	position: relative;
 	max-width: ${600}px;
@@ -186,6 +186,7 @@ min-width: 28px;
 	font-size: 14px;
 	cursor: pointer;
 	position: relative;
+	line-height: 1.4;
 	max-width: ${600}px;
 
 	/* Clearing pseudo element to contain the floated image. */

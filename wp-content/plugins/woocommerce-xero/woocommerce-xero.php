@@ -5,14 +5,14 @@
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.7.55
+ * Version: 1.7.56
  * Text Domain: woocommerce-xero
  * Domain Path: /languages/
  * Requires at least: 5.7
  * Tested up to: 6.1
- * Requires PHP: 7.0
- * WC tested up to: 7.3.0
- * WC requires at least: 6.0
+ * Requires PHP: 7.2
+ * WC tested up to: 7.4
+ * WC requires at least: 6.8
  *
  * Copyright 2019 WooCommerce
  *
@@ -41,7 +41,17 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.7.55' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.7.56' ); // WRCS: DEFINED_VERSION.
+
+// ActionScheduler group.
+define( 'WC_XERO_AS_GROUP', 'wc_xero' );
+
+/**
+ * Rate limit HTTP response code.
+ *
+ * @see https://developer.xero.com/documentation/api/accounting/responsecodes
+ */
+define( 'WC_XERO_RATE_LIMIT_ERROR', 429 );
 
 /**
  * Main plugin class.

@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.9.0
+ * @version     2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -196,7 +196,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 			foreach ( $applied_coupons as $coupon_code ) {
 
 				$coupon = new WC_Coupon( $coupon_code );
-				if ( ! $coupon->is_valid() ) {
+				if ( ! $this->is_valid( $coupon ) ) {
 					continue;
 				}
 				if ( $this->is_wc_gte_30() ) {

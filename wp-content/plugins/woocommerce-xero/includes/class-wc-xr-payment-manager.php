@@ -45,6 +45,36 @@ class WC_XR_Payment_Manager {
 		}
 
 		add_filter( 'woocommerce_xero_order_payment_date', array( $this, 'cod_payment_set_payment_date_as_current_date' ), 10, 2 );
+
+		// Cron events for invoice.
+		add_action( 'woocommerce_xero_schedule_send_payment', array( $this, 'maybe_queue_send_payment' ), 10, 1 );
+	}
+
+	/**
+	 * Perform instant payment send or schedule it if rate limit has been exceeded.
+	 *
+	 * @param int $order_id Order ID.
+	 * @return bool|WP_Error
+	 */
+	public function maybe_queue_send_payment( $order_id ) {
+
+		// Try to perform instant API request.
+		$result = $this->send_payment( $order_id );
+
+		$delay_in_seconds = apply_filters( 'woocommerce_xero_api_queue_delay', 1 * MINUTE_IN_SECONDS );
+
+		// Schedule for later if rate limit error received.
+		if ( is_wp_error( $result ) && WC_XERO_RATE_LIMIT_ERROR === $result->get_error_code() ) {
+			$order = wc_get_order( $order_id );
+
+			$timestamp = time() + $delay_in_seconds;
+			$format    = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+			// translators: schedule time.
+			$order->add_order_note( sprintf( __( 'Schedule the next Xero Payment request for %s', 'woocommerce-xero' ), wp_date( $format, $timestamp ) ) );
+			return as_schedule_single_action( time() + $delay_in_seconds, 'woocommerce_xero_schedule_send_payment', array( $order_id ), WC_XERO_AS_GROUP );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -89,7 +119,7 @@ class WC_XR_Payment_Manager {
 	 *
 	 * @param int $order_id Order ID.
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
 	public function send_payment( $order_id ) {
 		do_action( 'wc_xero_send_payment', $order_id );
@@ -164,6 +194,10 @@ class WC_XR_Payment_Manager {
 			$order->add_order_note( $e->getMessage() );
 
 			$logger->write( $e->getMessage() );
+
+			if ( WC_XERO_RATE_LIMIT_ERROR === $e->getCode() ) {
+				return new WP_Error( WC_XERO_RATE_LIMIT_ERROR, __( 'API Rate limit exceeded.', 'woocommerce-xero' ) );
+			}
 
 			return false;
 		}

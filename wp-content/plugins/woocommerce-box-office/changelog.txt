@@ -1,5 +1,10 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-03-13 - version 1.1.49
+* Dev - Set PHP minimum supported version to 7.2.
+* Tweak - Bump WooCommerce "tested up to" version 7.4.
+* Tweak - Bump WooCommerce minimum supported version from 6.0 to 6.8.
+
 2023-02-20 - version 1.1.48
 * Fix - Error when exporting a ticket which was created without an order.
 * Fix - Placeholder `{ticket_id}` and `{barcode}` links do not add placeholder to editor.

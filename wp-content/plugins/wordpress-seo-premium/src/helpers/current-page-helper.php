@@ -35,6 +35,23 @@ class Current_Page_Helper {
 	}
 
 	/**
+	 * Retrieves the current post id.
+	 * Returns 0 if no post id is found.
+	 *
+	 * @codeCoverageIgnore It depends on external request input.
+	 *
+	 * @return integer The post id.
+	 */
+	public function get_current_post_id() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are not processing form information, We are casting to an integer.
+		if ( isset( $_GET['post'] ) && \is_string( $_GET['post'] ) && (int) \wp_unslash( $_GET['post'] ) > 0 ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are not processing form information, We are casting to an integer, also this is a helper function.
+			return (int) \wp_unslash( $_GET['post'] );
+		}
+		return 0;
+	}
+
+	/**
 	 * Retrieves the current post type.
 	 *
 	 * @codeCoverageIgnore It depends on external request input.
@@ -42,23 +59,19 @@ class Current_Page_Helper {
 	 * @return string The post type.
 	 */
 	public function get_current_post_type() {
-		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-		$post = \filter_input( \INPUT_GET, 'post', @\FILTER_SANITIZE_STRING );
-
-		if ( $post ) {
-			return \get_post_type( \get_post( $post ) );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We are not processing form information.
+		if ( isset( $_GET['post_type'] ) && \is_string( $_GET['post_type'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We are not processing form information.
+			return \sanitize_text_field( \wp_unslash( $_GET['post_type'] ) );
 		}
 
-		return \filter_input(
-			\INPUT_GET,
-			'post_type',
-			@\FILTER_SANITIZE_STRING, // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-			[
-				'options' => [
-					'default' => 'post',
-				],
-			]
-		);
+		$post_id = $this->get_current_post_id();
+
+		if ( $post_id ) {
+			return \get_post_type( $post_id );
+		}
+
+		return 'post';
 	}
 
 	/**
@@ -74,18 +87,22 @@ class Current_Page_Helper {
 			return '';
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification -- Reason: We are not processing form information.
 		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-			return (string) \filter_input(
-				\INPUT_POST,
-				'taxonomy',
-				@\FILTER_SANITIZE_STRING // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-			);
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reason: should be done outside the helper function.
+			if ( isset( $_POST['taxonomy'] ) && \is_string( $_POST['taxonomy'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reason: should be done outside the helper function.
+				return \sanitize_text_field( \wp_unslash( $_POST['taxonomy'] ) );
+			}
+			return '';
 		}
 
-		return (string) \filter_input(
-			\INPUT_GET,
-			'taxonomy',
-			@\FILTER_SANITIZE_STRING // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-		);
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We are not processing form information.
+		if ( isset( $_GET['taxonomy'] ) && \is_string( $_GET['taxonomy'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We are not processing form information.
+			return \sanitize_text_field( \wp_unslash( $_GET['taxonomy'] ) );
+		}
+
+		return '';
 	}
 }

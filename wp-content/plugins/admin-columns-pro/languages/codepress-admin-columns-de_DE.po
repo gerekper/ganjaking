@@ -5,12 +5,12 @@
 # Lukas Huggenberg, 2019
 # Mark Howells-Mead <permanent.tourist@gmail.com>, 2020
 # Steffen Dressler <steffen@gourami.de>, 2021
-# Tobias Schutter <info@codepress.nl>, 2016,2021
+# Tobias Schutter <info@codepress.nl>, 2016,2021,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
 "PO-Revision-Date: 2014-05-22 15:53+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>, 2016,2021\n"
+"Last-Translator: Tobias Schutter <info@codepress.nl>, 2016,2021,2023\n"
 "Language-Team: German (Germany) (http://www.transifex.com/codepress/admin-columns-pro/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -574,7 +574,7 @@ msgstr "WooCommerce"
 #: admin-columns-pro/addons/woocommerce/classes/TableScreen.php262,
 #: admin-columns-pro/addons/woocommerce/classes/TableScreen.php:287
 msgid "View Variations"
-msgstr "Abweichungen ansehen"
+msgstr "Varianten ansehen"
 
 #: admin-columns-pro/classes/Admin/Page/Addons.php30,
 #: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php137,

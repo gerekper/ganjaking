@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.2.0
+ * @version     2.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -35,6 +35,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'smart_coupon_shortcode_button_init' ), 20 );    // Use 'admin_enqueue_scripts' instead of 'init' // Credit: Jonathan Desrosiers <jdesrosiers@linchpinagency.com>.
 			add_action( 'init', array( $this, 'register_smart_coupon_shortcode' ) );
 			add_action( 'after_wp_tiny_mce', array( $this, 'smart_coupons_after_wp_tiny_mce' ) );
+			add_filter( 'wc_sc_available_coupon_ids', array( $this, 'filter_coupon_ids' ), 10, 2 );
 
 		}
 
@@ -626,13 +627,17 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 			$shortcode = shortcode_atts(
 				array(
-					'title' => get_option( 'smart_coupon_cart_page_text' ),
+					'title'      => get_option( 'smart_coupon_cart_page_text' ),
+					'categories' => '', // expecting comma-separated term ids.
 				),
-				$atts
+				$atts,
+				'wc_sc_available_coupons'
 			);
+			// To override shortcode attributes use filter 'shortcode_atts_wc_sc_available_coupons'. For more details refer this https://developer.wordpress.org/reference/functions/shortcode_atts/.
 
 			$title = $shortcode['title'];
-			$title = ( ! empty( $title ) ) ? $title : __( 'Available Coupons (click on a coupon to use it)', 'woocommerce-smart-coupons' );
+
+			$shortcode['categories'] = ( ! empty( $shortcode['categories'] ) && is_string( $shortcode['categories'] ) ) ? explode( ',', $shortcode['categories'] ) : array();
 
 			if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				include_once 'class-wc-sc-display-coupons.php';
@@ -644,8 +649,28 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			}
 
 			ob_start();
-			$wc_sc_display_coupons->show_available_coupons( $title, get_the_title() );
-			return ob_get_clean();
+			$wc_sc_display_coupons->show_available_coupons(
+				$title,
+				get_the_title(),
+				array(
+					'source'         => $this,
+					'shortcode_atts' => $shortcode,
+				)
+			);
+			$output          = ob_get_clean();
+			$stripped_output = wp_strip_all_tags( $output, true );
+			if ( ( ! empty( $title ) && $stripped_output === $title ) || empty( $stripped_output ) ) {
+				$no_output_text = apply_filters(
+					'wc_sc_shortcode_no_coupon_found_text',
+					$this->sc_get_option( 'wc_sc_shortcode_no_coupon_found_text', '' ),
+					array(
+						'source'         => $this,
+						'shortcode_atts' => $shortcode,
+					)
+				);
+				return ( ! empty( $no_output_text ) ) ? '<p id="wc-sc-shortcode-no-coupon-found-text">' . $no_output_text . '</p>' : '';
+			}
+			return $output;
 		}
 
 		/**
@@ -911,6 +936,20 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 				</form>
 			</div>
 			<?php
+		}
+
+		/**
+		 * Filter coupon ids.
+		 *
+		 * @param array $coupon_ids The coupon ids to filter.
+		 * @param array $args Additional arguments.
+		 * @return array $coupon_ids
+		 */
+		public function filter_coupon_ids( $coupon_ids = array(), $args = array() ) {
+			if ( ! empty( $args['shortcode_atts']['categories'] ) ) {
+				$coupon_ids = get_objects_in_term( $args['shortcode_atts']['categories'], 'sc_coupon_category' );
+			}
+			return $coupon_ids;
 		}
 
 	}

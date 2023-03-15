@@ -19,16 +19,26 @@ class WC_Store_Credit_Admin {
 	 * @since 3.0.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'includes' ) );
+		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'add_notices' ), 30 );
-		add_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
-		add_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		add_filter( 'woocommerce_screen_ids', array( $this, 'wc_screen_ids' ) );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
 		add_filter( 'plugin_action_links_' . WC_STORE_CREDIT_BASENAME, array( $this, 'action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+	}
+
+	/**
+	 * Admin init.
+	 *
+	 * @since 4.3.1
+	 */
+	public function init() {
+		$this->includes();
+
+		add_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
+		add_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
 	}
 
 	/**
@@ -68,26 +78,19 @@ class WC_Store_Credit_Admin {
 	 * @since 3.1.0
 	 */
 	public function setup_screen() {
-		// Not available in customizer.
-		if ( ! function_exists( 'wc_store_credit_get_current_screen_id' ) ) {
-			include_once 'wc-store-credit-admin-functions.php';
-		}
-
 		$screen_id = wc_store_credit_get_current_screen_id();
 
-		switch ( $screen_id ) {
-			case 'edit-shop_coupon':
-				include_once 'list-tables/class-wc-store-credit-admin-list-table-coupons.php';
-				new WC_Store_Credit_Admin_List_Table_Coupons();
-				break;
+		if ( 'edit-shop_coupon' === $screen_id ) {
+			include_once 'list-tables/class-wc-store-credit-admin-list-table-coupons.php';
+			new WC_Store_Credit_Admin_List_Table_Coupons();
 		}
 
 		/*
 		 * Ensure the table handler is only loaded once.
 		 * Prevents multiple loads if a plugin calls check_ajax_referer many times.
 		 */
-		remove_action( 'current_screen', array( $this, 'setup_screen' ) );
-		remove_action( 'check_ajax_referer', array( $this, 'setup_screen' ) );
+		remove_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
+		remove_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
 	}
 
 	/**

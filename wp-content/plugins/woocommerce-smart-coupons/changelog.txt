@@ -1,5 +1,24 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.03.13 - version 7.3.0
+* New: Columns 'Allowed emails' and 'Excluded emails' in Coupon's admin dashboard
+* New: Shortcode attribute 'categories' for shortcode 'wc_sc_available_coupons' for filtering coupon list by coupon categories
+* New: Wrapper function for using 'WC_Discounts->is_coupon_valid' for validating coupons
+* Fix: 'Preview email' button not showing under Send store credit tab when the store is not having a single coupon
+* Fix: Uncaught TypeError: Unsupported operand types: string + string
+* Fix: 2 coupon URLs are not working when clicked back to back
+* Developer: Moved code for showing coupon category column in appropriate class file
+* Developer: Pass coupon object as an additional arguments to methods used for rendering the respective columns
+* Developer: Filter 'wc_sc_available_coupon_ids' for filtering coupon ids to search for displaying available coupons
+* Developer: Filter 'shortcode_atts_wc_sc_available_coupons' for modifying shortcode attributes
+* Developer: Filter 'wc_sc_shortcode_no_coupon_found_text' for adding text when no coupon found to be displayed via shortcode 'wc_sc_available_coupons'
+* Tweak: Default value in wrapper function for 'get_option'
+* Update: POT file
+
+2023.02.24 - version 7.2.1
+* Fix: Error: Something went wrong. For details, check 'woocommerce-smart-coupons...' log under WooCommerce > Status > Logs
+* Update: POT file
+
 2023.02.20 - version 7.2.0
 * New: Use of CRUD functions throughout plugin
 * Fix: Missing 3rd argument causing issues when using filter 'woocommerce_payment_complete_order_status'

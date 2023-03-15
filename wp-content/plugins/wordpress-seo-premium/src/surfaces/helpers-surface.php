@@ -11,6 +11,7 @@ use YoastSEO_Vendor\Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * Surface for the helpers.
  *
+ * @property Helpers\Current_Page_Helper    $current_page
  * @property Helpers\Prominent_Words_Helper $prominent_words
  * @property Helpers\Zapier_Helper          $zapier
  */

@@ -7,10 +7,10 @@
  */
 
 // Load helper class.
-require_once( __DIR__ . '/../vendor/autoload_packages.php' );
-require_once( 'class-wc-xr-oauth20-storage.php' );
-
-use Automattic\WooCommerce\Xero\Vendor\GuzzleHttp\Client as Client;
+use Automattic\WooCommerce\Xero\Vendor\GuzzleHttp\Client;
+use Automattic\WooCommerce\Xero\Vendor\XeroAPI\XeroPHP\Api\IdentityApi;
+use Automattic\WooCommerce\Xero\Vendor\XeroAPI\XeroPHP\Configuration;
+use Automattic\WooCommerce\Xero\Vendor\XeroAPI\XeroPHP\Api\AccountingApi;
 
 /**
  * OAuth2.0 Class for WooCommerce Xero implementation file.
@@ -61,9 +61,11 @@ class WC_XR_OAuth20 {
 	 * @param string $client_id Xero OAugh2.0 clieng id.
 	 * @param string $client_secret Xero OAugh2.0 clieng secret.
 	 */
-	function __construct( $client_id, $client_secret ) {
-		static::$storage = new WC_XR_OAuth20_Storage_Class( $client_id, $client_secret );
+	public function __construct( $client_id, $client_secret ) {
+		require_once __DIR__ . '/../lib/packages/autoload.php';
+		require_once 'class-wc-xr-oauth20-storage.php';
 
+		static::$storage = new WC_XR_OAuth20_Storage_Class( $client_id, $client_secret );
 	}
 
 	/**
@@ -129,13 +131,10 @@ class WC_XR_OAuth20 {
 		}
 
 		try {
-			$config = XeroAPI\XeroPHP\Configuration::getDefaultConfiguration()->setAccessToken( (string) static::$storage->get_token() );
+			$config = Configuration::getDefaultConfiguration()->setAccessToken( (string) static::$storage->get_token() );
 			$config->setHost( 'https://api.xero.com/api.xro/2.0' );
 
-			$api_instance = new XeroAPI\XeroPHP\Api\AccountingApi(
-				new Client(),
-				$config
-			);
+			$api_instance = new AccountingApi( new Client(), $config );
 
 			// Get Organisation details.
 			$xero_tenant_id = (string) static::$storage->get_xero_tenant_id();
@@ -182,13 +181,10 @@ class WC_XR_OAuth20 {
 			[ 'code' => $_GET['code'] ] // phpcs:ignore
 		);
 
-		$config = XeroAPI\XeroPHP\Configuration::getDefaultConfiguration()->setAccessToken( (string) $access_token->getToken() );
+		$config = Configuration::getDefaultConfiguration()->setAccessToken( (string) $access_token->getToken() );
 
 		$config->setHost( 'https://api.xero.com' );
-		$identity_instance = new XeroAPI\XeroPHP\Api\IdentityApi(
-			new Client(),
-			$config
-		);
+		$identity_instance = new IdentityApi( new Client(), $config );
 
 		$result = $identity_instance->getConnections();
 

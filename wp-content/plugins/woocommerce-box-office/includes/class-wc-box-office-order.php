@@ -11,11 +11,7 @@ class WC_Box_Office_Order {
 	 */
 	public function __construct() {
 		// Add ticket info to order item meta.
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			add_action( 'woocommerce_new_order_item', array( $this, 'add_order_item_meta' ), 50, 3 );
-		} else {
-			add_action( 'woocommerce_add_order_item_meta', array( $this, 'add_order_item_meta' ), 50, 2 );
-		}
+		add_action( 'woocommerce_new_order_item', array( $this, 'add_order_item_meta' ), 50, 3 );
 
 		add_filter( 'woocommerce_attribute_label', array( $this, 'filter_order_item_meta_ticket' ), 10, 2 );
 
@@ -247,16 +243,15 @@ class WC_Box_Office_Order {
 
 		$updated = false;
 
-		$is_pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
 		foreach ( $order->get_items() as $item_id => $item ) {
-			$item_product_id = $is_pre_wc_30 ? $item['product_id'] : $item->get_product_id();
+			$item_product_id = $item->get_product_id();
 			if ( (int) $product_id !== (int) $item_product_id ) {
 				continue;
 			}
 
-			$meta_data = $is_pre_wc_30 ? $item['item_meta'] : $item->get_meta_data();
+			$meta_data = $item->get_meta_data();
 			foreach ( $meta_data as $key => $meta_value ) {
-				$meta_key = $is_pre_wc_30 ? $key : $meta_value->key;
+				$meta_key = $meta_value->key;
 				if ( strpos( $meta_key, 'order-item-meta-ticket ticket-id-' . $ticket_id ) !== false ) {
 					$updated = wc_update_order_item_meta(
 						$item_id,
@@ -462,7 +457,7 @@ class WC_Box_Office_Order {
 		if ( ! $order ) {
 			return;
 		}
-		echo do_shortcode( '[order_tickets order_id="' . esc_attr( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id() ) . '" fields_format="list"]' );
+		echo do_shortcode( '[order_tickets order_id="' . esc_attr( $order->get_id() ) . '" fields_format="list"]' );
 	}
 
 	/**
@@ -528,7 +523,7 @@ class WC_Box_Office_Order {
 		}
 
 		$new_order_ticket_fields = array();
-		$original_order_tickets = $this->get_tickets_by_order( version_compare( WC_VERSION, '3.0', '<' ) ? $original_order->id : $original_order->get_id() );
+		$original_order_tickets = $this->get_tickets_by_order( $original_order->get_id() );
 
 		foreach ( $original_order_tickets as $ticket ) {
 			//add custom ticket related fields

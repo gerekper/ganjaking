@@ -1,5 +1,11 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-03-13 - version 2.5.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Tested compatibility with WC 7.5.
+* Tweak - Tested compatibility with WP 6.2.
+* Dev - Use the new hooks for copying the subscription data introduced in WC Subscriptions 4.7.
+
 2023-03-08 - version 2.4.3
 * Tweak - Check the current screen when running the 'init' hook.
 * Fix - Fixed non-displayed delivery columns in the order list table when an AJAX request is verified before running the 'init' hook.

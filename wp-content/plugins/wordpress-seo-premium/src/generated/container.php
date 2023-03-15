@@ -1280,7 +1280,7 @@ class Cached_Container extends Container
      */
     protected function getElementorPremiumService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper'] : ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper'] = new \Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper())) && false ?: '_'});
     }
 
     /**

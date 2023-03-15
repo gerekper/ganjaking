@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.8.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -52,7 +52,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 			add_filter( 'manage_edit-sc_coupon_category_columns', array( $this, 'wc_sc_coupon_category_id_column' ) );
 			add_filter( 'manage_sc_coupon_category_custom_column', array( $this, 'wc_sc_coupon_category_id_column_content' ), 10, 3 );
 			add_filter( 'manage_edit-sc_coupon_category_sortable_columns', array( $this, 'wc_sc_define_sortable_id_columns' ) );
-
+			add_filter( 'manage_shop_coupon_posts_columns', array( $this, 'define_columns' ), 11 );
+			add_action( 'manage_shop_coupon_posts_custom_column', array( $this, 'render_columns' ), 10, 2 );
 		}
 
 		/**
@@ -118,9 +119,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 		/**
 		 * Function to render coupon category column on coupons dashboard.
 		 *
-		 * @param int $post_id The coupon ID.
+		 * @param int       $post_id The coupon ID.
+		 * @param WC_Coupon $coupon The coupon object.
 		 */
-		public function render_coupon_category_column( $post_id ) {
+		public function render_coupon_category_column( $post_id = 0, $coupon = null ) {
 			$terms = get_the_terms( $post_id, 'sc_coupon_category' );
 			if ( ! empty( $terms ) ) {
 				foreach ( $terms as $term ) {
@@ -206,6 +208,41 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 		public function wc_sc_define_sortable_id_columns( $columns = array() ) {
 			$columns['id'] = 'id';
 			return $columns;
+		}
+
+		/**
+		 * Define which columns to show on this screen.
+		 *
+		 * @param array $columns Existing columns.
+		 * @return array
+		 */
+		public function define_columns( $columns = array() ) {
+
+			if ( ! is_array( $columns ) || empty( $columns ) ) {
+				$columns = array();
+			}
+
+			$columns['wc_sc_coupon_category'] = __( 'Coupon categories', 'woocommerce-smart-coupons' );
+
+			return $columns;
+		}
+
+		/**
+		 * Render individual columns.
+		 *
+		 * @param string $column Column ID to render.
+		 * @param int    $post_id Post ID being shown.
+		 */
+		public function render_columns( $column = '', $post_id = 0 ) {
+
+			if ( empty( $post_id ) || empty( $column ) || 'wc_sc_coupon_category' !== $column ) {
+				return;
+			}
+
+			$coupon = new WC_Coupon( $post_id );
+
+			$this->render_coupon_category_column( $post_id, $coupon );
+
 		}
 
 

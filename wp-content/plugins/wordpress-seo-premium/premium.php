@@ -8,6 +8,7 @@
 use Yoast\WP\SEO\Integrations\Blocks\Siblings_Block;
 use Yoast\WP\SEO\Integrations\Blocks\Subpages_Block;
 use Yoast\WP\SEO\Premium\Addon_Installer;
+use Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Presenters\Admin\Help_Link_Presenter;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
@@ -29,7 +30,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '20.2.1';
+	const PLUGIN_VERSION_NAME = '20.3';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -71,7 +72,9 @@ class WPSEO_Premium {
 		// Enable tracking.
 		if ( class_exists( WPSEO_Options::class ) ) {
 			WPSEO_Premium_Option::register_option();
-			WPSEO_Options::set( 'tracking', true );
+			if ( WPSEO_Options::get( 'toggled_tracking' ) !== true ) {
+				WPSEO_Options::set( 'tracking', true );
+			}
 			WPSEO_Options::set( 'should_redirect_after_install', true );
 		}
 
@@ -85,7 +88,8 @@ class WPSEO_Premium {
 	public function __construct() {
 		$this->integrations = [
 			'premium-metabox'              => new WPSEO_Premium_Metabox(
-				YoastSEOPremium()->classes->get( Prominent_Words_Helper::class )
+				YoastSEOPremium()->helpers->prominent_words,
+				YoastSEOPremium()->helpers->current_page
 			),
 			'premium-assets'               => new WPSEO_Premium_Assets(),
 			'link-suggestions'             => new WPSEO_Metabox_Link_Suggestions(),
@@ -169,10 +173,6 @@ class WPSEO_Premium {
 
 		add_action( 'wpseo_premium_indicator_classes', [ $this, 'change_premium_indicator' ] );
 		add_action( 'wpseo_premium_indicator_text', [ $this, 'change_premium_indicator_text' ] );
-
-		// Only initialize the AJAX for all tabs except settings.
-		$facebook_name = new WPSEO_Facebook_Profile();
-		$facebook_name->set_hooks();
 
 		foreach ( $this->integrations as $integration ) {
 			$integration->register_hooks();
@@ -270,7 +270,7 @@ class WPSEO_Premium {
 		$node = [
 			'id'    => 'wpseo-premium-create-redirect',
 			'title' => __( 'Create Redirect', 'wordpress-seo-premium' ),
-			'href'  => admin_url( 'admin.php?page=wpseo_redirects&old_url=' . $old_url ),
+			'href'  => wp_nonce_url( admin_url( 'admin.php?page=wpseo_redirects&old_url=' . $old_url ), 'wpseo_redirects-old-url', 'wpseo_premium_redirects_nonce' ),
 		];
 		$wp_admin_bar->add_menu( $node );
 	}

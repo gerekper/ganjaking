@@ -1,18 +1,27 @@
 == Changelog ==
 
+= 6.1.3 =
+Release Date: March 14th, 2023
+
+* [YoastSEO] Editing the Primary Taxonomy column gave an error during saving
+* [GravityForms] Export button did not appear for some specific Language installations
+* [WooCommerce] New 'Fees' column for the Order list view
+* [Updated] Admin Columns Core version 4.6.1
+
+
 = 6.1.2 =
 Release Date: March 7th, 2023
 
 * [Fixed] Some default or third-party columns did not export any value
 * [Fixed] Bulk Delete feedback did not tell correctly how many items were processed
 * [Improved] Uploaded media during Inline Edit has now the edited item as parent
-* [Updated] Admin Columns Core version 4.6.1
+* [Core] Admin Columns Core version 4.6.1
 
 = 6.1.1 =
 Release Date: February 22nd, 2023
 
 * [Fixed] Issue where the user preference for export was not displayed correctly
-* [Updated] Admin Columns Core version 4.6.1
+* [Core] Admin Columns Core version 4.6.1
 
 = 6.1 =
 Release Date: February 22nd, 2023

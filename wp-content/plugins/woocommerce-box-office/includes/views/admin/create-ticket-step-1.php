@@ -27,13 +27,9 @@ $data['ticket_order_id']     = ( ! empty( $data['ticket_order_id'] ) ) ? $data['
 					<label for="customer_id"><?php _e( 'Customer', 'woocommerce-box-office' ); ?></label>
 				</th>
 				<td>
-					<?php if ( version_compare( WC_VERSION, '3.0', '>=' ) ) : ?>
 					<select id="customer_id" class="wc-customer-search" name="customer_id" style="width:300px" data-placeholder="<?php esc_attr_e( 'Guest', 'woocommerce-box-office' ) ?>">
-							<option value=""><?php _e( 'Guest', 'woocommerce-box-office' ) ?></option>
-						</select>
-					<?php else : ?>
-						<input type="hidden" class="wc-customer-search" id="customer_id" name="customer_id" data-placeholder="<?php _e( 'Guest', 'woocommerce-box-office' ); ?>" data-allow_clear="true" />
-					<?php endif; ?>
+						<option value=""><?php _e( 'Guest', 'woocommerce-box-office' ) ?></option>
+					</select>
 				</td>
 			</tr>
 
@@ -99,32 +95,3 @@ $data['ticket_order_id']     = ( ! empty( $data['ticket_order_id'] ) ) ? $data['
 		</table>
 	</form>
 </div>
-
-<?php
-if ( version_compare( WOOCOMMERCE_VERSION, '2.3', '<' ) ) {
-	// Ajax Chosen Customer Selectors JS
-	wc_enqueue_js( "
-		jQuery('select#customer_id').ajaxChosen({
-			method: 		'GET',
-			url: 			'" . admin_url('admin-ajax.php') . "',
-			dataType: 		'json',
-			afterTypeDelay: 100,
-			minTermLength: 	1,
-			data:		{
-				action: 	'woocommerce_json_search_customers',
-				security: 	'" . wp_create_nonce("search-customers") . "'
-			}
-		}, function (data) {
-
-			var terms = {};
-
-			$.each(data, function (i, val) {
-				terms[i] = val;
-			});
-
-			return terms;
-		});
-
-		jQuery('select.chosen_select').chosen();
-	" );
-}

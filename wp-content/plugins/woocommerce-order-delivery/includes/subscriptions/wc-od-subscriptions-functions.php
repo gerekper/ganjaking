@@ -547,8 +547,9 @@ function wc_od_setup_subscription_delivery_preferences( $the_subscription ) {
 	}
 
 	// Set up the 'delivery_days' based on the order time frame.
-	wc_od_update_order_meta( $subscription, '_delivery_days', $preferred_days, true );
-	wc_od_delete_order_meta( $subscription, '_delivery_time_frame', true );
+	$subscription->update_meta_data( '_delivery_days', $preferred_days );
+	$subscription->delete_meta_data( '_delivery_time_frame' );
+	$subscription->save();
 }
 
 /**

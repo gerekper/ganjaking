@@ -20,6 +20,7 @@ use WPSEO_Utils;
 use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
 
@@ -27,6 +28,13 @@ use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
  * Elementor integration class for Yoast SEO Premium.
  */
 class Elementor_Premium implements Integration_Interface {
+
+	/**
+	 * Holds the Current_Page_Helper.
+	 *
+	 * @var Current_Page_Helper
+	 */
+	protected $current_page_helper;
 
 	/**
 	 * Holds the script handle.
@@ -69,10 +77,12 @@ class Elementor_Premium implements Integration_Interface {
 	 * Constructs the class.
 	 *
 	 * @param Prominent_Words_Helper $prominent_words_helper The prominent words helper.
+	 * @param Current_Page_Helper    $current_page_helper The Current_Page_Helper.
 	 */
-	public function __construct( Prominent_Words_Helper $prominent_words_helper ) {
+	public function __construct( Prominent_Words_Helper $prominent_words_helper, Current_Page_Helper $current_page_helper ) {
 		$this->prominent_words_helper = $prominent_words_helper;
 		$this->post_watcher           = new WPSEO_Post_Watcher();
+		$this->current_page_helper    = $current_page_helper;
 	}
 
 	/**
@@ -242,9 +252,9 @@ class Elementor_Premium implements Integration_Interface {
 			return $this->post;
 		}
 
-		$post = \filter_input( \INPUT_GET, 'post' );
-		if ( ! empty( $post ) ) {
-			$post_id = (int) WPSEO_Utils::validate_int( $post );
+		$post_id = $this->current_page_helper->get_current_post_id();
+
+		if ( $post_id ) {
 
 			$this->post = \get_post( $post_id );
 
@@ -268,38 +278,11 @@ class Elementor_Premium implements Integration_Interface {
 	protected function load_metabox() {
 		// When the current page isn't a post related one.
 		if ( WPSEO_Metabox::is_post_edit( $this->get_current_page() ) ) {
-			return WPSEO_Post_Type::has_metabox_enabled( $this->get_current_post_type() );
+			return WPSEO_Post_Type::has_metabox_enabled( $this->current_page_helper->get_current_post_type() );
 		}
 
 		// Make sure ajax integrations are loaded.
 		return \wp_doing_ajax();
-	}
-
-	/**
-	 * Retrieves the current post type.
-	 *
-	 * @codeCoverageIgnore It depends on external request input.
-	 *
-	 * @return string The post type.
-	 */
-	protected function get_current_post_type() {
-		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-		$post = \filter_input( \INPUT_GET, 'post', @\FILTER_SANITIZE_STRING );
-
-		if ( $post ) {
-			return \get_post_type( \get_post( $post ) );
-		}
-
-		return \filter_input(
-			\INPUT_GET,
-			'post_type',
-			@\FILTER_SANITIZE_STRING, // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-			[
-				'options' => [
-					'default' => 'post',
-				],
-			]
-		);
 	}
 
 	/**

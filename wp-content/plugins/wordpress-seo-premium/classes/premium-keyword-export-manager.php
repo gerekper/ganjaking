@@ -91,9 +91,12 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 	 * @return bool True if this is a valid CSV export request.
 	 */
 	protected function is_valid_csv_export_request() {
-		return filter_input( INPUT_GET, 'page' ) === 'wpseo_tools'
-			&& filter_input( INPUT_GET, 'tool' ) === 'import-export'
-			&& filter_input( INPUT_POST, 'export-posts' );
+		// phpcs:disable WordPress.Security.NonceVerification -- Reason: Nonce is checked in export.
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are strictly comparing only or ignoring the value.
+		return ( isset( $_GET['page'] ) && is_string( $_GET['page'] ) && wp_unslash( $_GET['page'] ) === 'wpseo_tools' )
+			&& ( isset( $_GET['tool'] ) && is_string( $_GET['tool'] ) && wp_unslash( $_GET['tool'] ) === 'import-export' )
+			&& ( isset( $_POST['export-posts'] ) && ! empty( $_POST['export-posts'] ) );
+		// phpcs:enable
 	}
 
 	/**

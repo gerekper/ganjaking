@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.5.2
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -125,8 +125,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 				$columns = array();
 			}
 
-			$columns['wc_sc_view_orders']     = __( 'Used in orders', 'woocommerce-smart-coupons' );
-			$columns['wc_sc_coupon_category'] = __( 'Coupon categories', 'woocommerce-smart-coupons' );
+			$columns['wc_sc_view_orders'] = __( 'Used in orders', 'woocommerce-smart-coupons' );
 
 			return $columns;
 		}
@@ -148,10 +147,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 			if ( ! empty( $column ) ) {
 				switch ( $column ) {
 					case 'wc_sc_view_orders':
-						$this->render_view_orders_column();
-						break;
-					case 'wc_sc_coupon_category':
-						WC_SC_Coupon_Categories::get_instance()->render_coupon_category_column( $post_id );
+						$this->render_view_orders_column( $post_id, $this->object );
 						break;
 				}
 			}
@@ -159,11 +155,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 		}
 
 		/**
-		 * Render column: view_orders.
+		 * Render column: View orders.
+		 *
+		 * @param integer   $coupon_id The coupon id.
+		 * @param WC_Coupon $coupon The coupon object.
 		 */
-		public function render_view_orders_column() {
-
-			$coupon = $this->object;
+		public function render_view_orders_column( $coupon_id = 0, $coupon = null ) {
 
 			if ( $this->is_wc_gte_30() ) {
 				$usage_count = ( ! empty( $coupon ) && is_callable( array( $coupon, 'get_usage_count' ) ) ) ? $coupon->get_usage_count() : 0;

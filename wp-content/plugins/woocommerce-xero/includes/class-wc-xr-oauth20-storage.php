@@ -1,10 +1,12 @@
-<?php
+<?php // phpcs:disable WordPress.Files.FileName.InvalidClassFileName
 /**
  * OAuth2.0 Storage helper classfor WooCommerce Xero implementation.
  *
  * @package    WooCommerce Xero
  * @since      1.7.24
  */
+
+use Automattic\WooCommerce\Xero\Vendor\League\OAuth2\Client\Provider\GenericProvider;
 
 /**
  * OAuth2.0 Storage Class.
@@ -30,7 +32,7 @@ class WC_XR_OAuth20_Storage_Class {
 	/**
 	 * Generic OAuth2.0 provider.
 	 *
-	 * @var \League\OAuth2\Client\Provider\GenericProvider
+	 * @var GenericProvider
 	 */
 	private static $provider;
 
@@ -216,7 +218,7 @@ class WC_XR_OAuth20_Storage_Class {
 	 * Create provider using League implementaion.
 	 */
 	private static function create_provider() {
-		return new \League\OAuth2\Client\Provider\GenericProvider(
+		return new GenericProvider(
 			[ // phpcs:ignore
 				'clientId'                => static::$client_id,
 				'clientSecret'            => static::$client_secret,

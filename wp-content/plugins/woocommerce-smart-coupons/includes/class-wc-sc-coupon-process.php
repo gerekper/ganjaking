@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.2.0
+ * @version     3.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1523,11 +1523,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						continue;
 					}
 
-					$discount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $item['discount_amount'];
-					$discount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? $item->get_discount_tax() : $item['discount_amount_tax'];
+					$discount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? (float) $item->get_discount() : (float) $item['discount_amount'];
+					$discount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? (float) $item->get_discount_tax() : (float) $item['discount_amount_tax'];
 
-					$sc_refunded_discount     = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-					$sc_refunded_discount_tax = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
+					$sc_refunded_discount     = (float) $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
+					$sc_refunded_discount_tax = (float) $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
 					$sc_refunded_coupon_id    = $this->get_order_item_meta( $item_id, 'sc_refunded_coupon_id', true );
 
 					if ( absint( $coupon_id ) === absint( $sc_refunded_coupon_id ) ) {

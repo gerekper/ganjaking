@@ -1,5 +1,9 @@
 *** WooCommerce API Manager Changelog ***
 
+2023.03.13 - version 2.5.6
+* New: Cleanup API Resource and API Key activations if WooCommerce Subscription goes into on-hold status from active status.
+* New: Rebuild API Resource if WooCommerce Subscription goes into active status from on-hold status.
+
 2023.03.09 - version 2.5.5
 * New: Weekly cleanup of expired API Key activations that are associated with expired API Resources, or associated with API Resources that no longer exists.
 * New: Weekly cleanup of expired API Resources, and associated API Key activations.

@@ -29,6 +29,7 @@ class ShopOrder extends ACP\ListScreen\Post {
 			Column\ShopOrder\Date::class,
 			Column\ShopOrder\Discount::class,
 			Column\ShopOrder\Downloads::class,
+			Column\ShopOrder\Fees::class,
 			Column\ShopOrder\IP::class,
 			Column\ShopOrder\IsCustomer::class,
 			Column\ShopOrder\Notes::class,

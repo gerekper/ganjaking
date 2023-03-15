@@ -5,8 +5,8 @@
  * @since   1.5.0
  */
 
-/* global ajaxurl */
-(function( $ ) {
+/* global woocommerce_admin_meta_boxes */
+(function( $, wc_meta_boxes_params ) {
 
 	'use strict';
 
@@ -39,12 +39,12 @@
 			updateDelivery: function() {
 				var data = {
 					action : 'wc_od_refresh_subscription_delivery_meta_box',
-					post_id: $( '#post_ID' ).val(),
+					post_id: wc_meta_boxes_params.post_id,
 					delivery_date: $( '#woocommerce-subscription-delivery [name="_delivery_date"]' ).val(),
 					delivery_time_frame: $( '#woocommerce-subscription-delivery [name="_delivery_time_frame"]' ).val()
 				};
 
-				$.post( ajaxurl, data, function( response ) {
+				$.post( wc_meta_boxes_params.ajax_url, data, function( response ) {
 					if ( response && response.content ) {
 						$( '#woocommerce-subscription-delivery .inside' ).html( response.content );
 					}
@@ -56,4 +56,4 @@
 
 		wc_od_meta_boxes_subscription_delivery.init();
 	});
-})( jQuery );
+})( jQuery, woocommerce_admin_meta_boxes );

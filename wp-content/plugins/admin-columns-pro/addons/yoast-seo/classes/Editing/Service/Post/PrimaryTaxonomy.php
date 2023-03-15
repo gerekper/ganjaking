@@ -43,7 +43,7 @@ class PrimaryTaxonomy implements Editing\Service, Editing\PaginatedOptions {
 	}
 
 	public function update( int $id, $data ): void {
-		$this->storage->update( $id, $data->get_value() );
+		$this->storage->update( $id, $data );
 	}
 
 	public function get_view( string $context ): ?View {

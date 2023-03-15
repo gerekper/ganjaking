@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.3.0
+ * @version     1.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -176,6 +176,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 				$coupon_id   = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 				$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 			}
+
+			if ( empty( $coupon_id ) ) {
+				return $valid;
+			}
+
 			$payment_method_ids   = $this->get_post_meta( $coupon_id, 'wc_sc_payment_method_ids', true );
 			$cart_or_order_object = is_callable( array( $discounts, 'get_object' ) ) ? $discounts->get_object() : null;
 			$is_wc_session        = is_a( $cart_or_order_object, 'WC_Cart' ) && function_exists( 'WC' ) && isset( WC()->session ) && is_object( WC()->session );

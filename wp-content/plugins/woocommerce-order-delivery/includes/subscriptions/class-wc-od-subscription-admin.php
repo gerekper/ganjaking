@@ -21,14 +21,10 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-			add_action( 'woocommerce_process_shop_order_meta', 'WC_OD_Meta_Box_Subscription_Delivery::save', 20, 2 );
-
+			add_action( 'woocommerce_process_shop_subscription_meta', 'WC_OD_Meta_Box_Subscription_Delivery::save', 10, 2 );
 			add_action( 'wp_ajax_wc_od_refresh_subscription_delivery_meta_box', array( $this, 'refresh_delivery_meta_box' ) );
-
 			add_action( 'woocommerce_subscription_date_updated', array( $this, 'subscription_date_updated' ), 10, 2 );
-
 			add_action( 'wc_od_admin_subscription_delivery_preferences', 'wc_od_admin_subscription_delivery_preferences' );
 		}
 
@@ -38,14 +34,14 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @since 1.5.0
 		 */
 		public function admin_scripts() {
-			if ( 'shop_subscription' !== wc_od_get_current_screen_id() ) {
+			if ( wcs_get_page_screen_id( 'shop_subscription' ) !== wc_od_get_current_screen_id() ) {
 				return;
 			}
 
 			$suffix = wc_od_get_scripts_suffix();
 
 			wp_enqueue_style( 'wc-od-admin', WC_OD_URL . 'assets/css/wc-od-admin.css', array( 'woocommerce_admin_styles' ), WC_OD_VERSION );
-			wp_enqueue_script( 'wc-od-admin-meta-boxes-subscription', WC_OD_URL . "assets/js/admin/meta-boxes-subscription{$suffix}.js", array(), WC_OD_VERSION, true );
+			wp_enqueue_script( 'wc-od-admin-meta-boxes-subscription', WC_OD_URL . "assets/js/admin/meta-boxes-subscription{$suffix}.js", array( 'wc-admin-meta-boxes' ), WC_OD_VERSION, true );
 		}
 
 		/**
@@ -54,7 +50,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @since 1.5.0
 		 */
 		public function add_meta_boxes() {
-			add_meta_box( 'woocommerce-subscription-delivery', _x( 'Next order delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Subscription_Delivery::output', 'shop_subscription', 'side', 'default' );
+			add_meta_box( 'woocommerce-subscription-delivery', _x( 'Next order delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Subscription_Delivery::output', wcs_get_page_screen_id( 'shop_subscription' ), 'side', 'core' );
 		}
 
 		/**
@@ -64,7 +60,12 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 */
 		public function refresh_delivery_meta_box() {
 			ob_start();
-			WC_OD_Meta_Box_Subscription_Delivery::output();
+
+			$subscription_id = ( ! empty( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0 ); // phpcs:ignore WordPress.Security.NonceVerification
+			$subscription    = wcs_get_subscription( $subscription_id );
+
+			WC_OD_Meta_Box_Subscription_Delivery::output( $subscription );
+
 			$result = ob_get_clean();
 
 			wp_send_json(

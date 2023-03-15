@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       6.7.0
- * @version     1.2.0
+ * @version     1.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +41,8 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 			add_filter( 'sc_generate_coupon_meta', array( $this, 'generate_coupon_meta' ), 10, 2 );
 			add_filter( 'wc_sc_process_coupon_meta_value_for_import', array( $this, 'import_coupon_meta' ), 10, 2 );
 			add_action( 'wc_sc_new_coupon_generated', array( $this, 'copy_coupon_meta' ) );
+			add_filter( 'manage_shop_coupon_posts_columns', array( $this, 'define_columns' ), 12 );
+			add_action( 'manage_shop_coupon_posts_custom_column', array( $this, 'render_columns' ), 10, 2 );
 		}
 
 		/**
@@ -161,7 +163,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 						foreach ( $applied_coupons as $code ) {
 							$coupon = new WC_Coupon( $code );
 
-							if ( is_object( $coupon ) && is_callable( array( $coupon, 'is_valid' ) ) && $coupon->is_valid() ) {
+							if ( $this->is_valid( $coupon ) ) {
 
 								// Get user and posted emails to compare.
 								$current_user  = wp_get_current_user();
@@ -337,6 +339,121 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 			}
 
 		}
+
+		/**
+		 * Define which columns to show on this screen.
+		 *
+		 * @param array $columns Existing columns.
+		 * @return array
+		 */
+		public function define_columns( $columns = array() ) {
+
+			if ( ! is_array( $columns ) || empty( $columns ) ) {
+				$columns = array();
+			}
+
+			$columns['wc_sc_coupon_allowed_emails']  = __( 'Allowed emails', 'woocommerce-smart-coupons' );
+			$columns['wc_sc_coupon_excluded_emails'] = __( 'Excluded emails', 'woocommerce-smart-coupons' );
+
+			return $columns;
+		}
+
+		/**
+		 * Render individual columns.
+		 *
+		 * @param string $column Column ID to render.
+		 * @param int    $post_id Post ID being shown.
+		 */
+		public function render_columns( $column = '', $post_id = 0 ) {
+
+			if ( empty( $post_id ) || empty( $column ) || ! in_array( $column, array( 'wc_sc_coupon_allowed_emails', 'wc_sc_coupon_excluded_emails' ), true ) ) {
+				return;
+			}
+
+			$coupon = new WC_Coupon( $post_id );
+
+			switch ( $column ) {
+				case 'wc_sc_coupon_allowed_emails':
+					$this->render_allowed_emails_column( $post_id, $coupon );
+					break;
+				case 'wc_sc_coupon_excluded_emails':
+					$this->render_excluded_emails_column( $post_id, $coupon );
+					break;
+			}
+
+		}
+
+		/**
+		 * Function to render allowed emails column on coupons dashboard.
+		 *
+		 * @param int       $post_id The coupon ID.
+		 * @param WC_Coupon $coupon The coupon object.
+		 */
+		public function render_allowed_emails_column( $post_id = 0, $coupon = null ) {
+			$emails = ( $this->is_callable( $coupon, 'get_email_restrictions' ) ) ? $coupon->get_email_restrictions() : $this->get_post_meta( $post_id, 'customer_email', true );
+			echo wp_kses_post(
+				$this->email_column_value(
+					$emails,
+					array(
+						'coupon_id'  => $post_id,
+						'coupon_obj' => $coupon,
+						'filter'     => true, // Allow filtering coupon list by selected "allowed email".
+					)
+				)
+			);
+		}
+
+		/**
+		 * Function to render excluded emails column on coupons dashboard.
+		 *
+		 * @param int       $post_id The coupon ID.
+		 * @param WC_Coupon $coupon The coupon object.
+		 */
+		public function render_excluded_emails_column( $post_id = 0, $coupon = null ) {
+			$emails = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_excluded_customer_email' ) : $this->get_post_meta( $post_id, 'wc_sc_excluded_customer_email', true );
+			echo wp_kses_post(
+				$this->email_column_value(
+					$emails,
+					array(
+						'coupon_id'  => $post_id,
+						'coupon_obj' => $coupon,
+					)
+				)
+			);
+		}
+
+		/**
+		 * Get value for email columns.
+		 *
+		 * @param array $emails The list of email addresses.
+		 * @param array $args Additional arguments.
+		 * @return string $value
+		 */
+		public function email_column_value( $emails = array(), $args = array() ) {
+			$coupon_id = ( ! empty( $args['coupon_id'] ) ) ? absint( $args['coupon_id'] ) : 0;
+			$coupon    = ( ! empty( $args['coupon_obj'] ) ) ? $args['coupon_obj'] : null;
+			$filter    = ( ! empty( $args['filter'] ) ) ? $args['filter'] : false;
+			$value     = '<span class="na">&ndash;</span>';
+			if ( ! empty( $emails ) ) {
+				$email_count    = apply_filters(
+					'wc_sc_email_column_max_count',
+					$this->sc_get_option( 'wc_sc_email_column_max_count', 5 ),
+					array(
+						'source'     => $this,
+						'coupon_id'  => $coupon_id,
+						'coupon_obj' => $coupon,
+						'filter'     => $filter,
+					)
+				);
+				$visible_emails = ( ! empty( $email_count ) ) ? array_slice( $emails, 0, $email_count ) : array();
+				if ( ! empty( $visible_emails ) ) {
+					$mapped_emails = ( true === $filter ) ? array_map( array( $this, 'filter_by_email_link' ), $visible_emails ) : $visible_emails;
+					$value         = implode( ', ', $mapped_emails );
+				}
+			}
+			return $value;
+		}
+
 	}
 }
 

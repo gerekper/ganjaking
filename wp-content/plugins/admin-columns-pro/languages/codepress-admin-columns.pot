@@ -254,11 +254,11 @@ msgstr ""
 msgid "Past dates"
 msgstr ""
 
-#: admin-columns-pro/classes/Filtering/Model.php:215, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:12, admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php:13, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php:22
+#: admin-columns-pro/classes/Filtering/Model.php:215, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:12, admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php:13, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php:23, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php:22
 msgid "Without %s"
 msgstr ""
 
-#: admin-columns-pro/classes/Filtering/Model.php:216, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:13, admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php:14, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php:23
+#: admin-columns-pro/classes/Filtering/Model.php:216, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:13, admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php:14, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php:24, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php:23
 msgid "Has %s"
 msgstr ""
 
@@ -2515,6 +2515,10 @@ msgstr ""
 msgid "Order Discount"
 msgstr ""
 
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Fees.php:15, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php:23, admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php:24, admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:44
+msgid "Fees"
+msgstr ""
+
 #: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/IP.php:20
 msgid "Customer IP address"
 msgstr ""
@@ -2892,10 +2896,6 @@ msgstr ""
 
 #: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:43, admin-columns-pro/addons/woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:17
 msgid "Paid"
-msgstr ""
-
-#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:44
-msgid "Fees"
 msgstr ""
 
 #: admin-columns-pro/addons/woocommerce/classes/Settings/User/AddressType.php:58, admin-columns-pro/addons/woocommerce/classes/Settings/User/Country.php:37

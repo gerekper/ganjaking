@@ -46,6 +46,27 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	private $primary_column = 'type';
 
 	/**
+	 * Caches the WPSEO_Redirect_Types::get() result.
+	 *
+	 * @var string[]
+	 */
+	private $redirect_types;
+
+	/**
+	 * Holds the orderby.
+	 *
+	 * @var string
+	 */
+	private $orderby = 'old';
+
+	/**
+	 * Holds the order.
+	 *
+	 * @var string
+	 */
+	private $order = 'asc';
+
+	/**
 	 * WPSEO_Redirect_Table constructor.
 	 *
 	 * @param array|string     $type           Type of the redirects that is opened.
@@ -56,6 +77,10 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		parent::__construct( [ 'plural' => $type ] );
 
 		$this->current_column = $current_column;
+
+		// Cache used in filter_items and extra_tablenav.
+		$wpseo_redirect_types = new WPSEO_Redirect_Types();
+		$this->redirect_types = $wpseo_redirect_types->get();
 
 		$this->set_items( $redirects );
 
@@ -74,20 +99,17 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 			return;
 		}
 
-		$selected = filter_input( INPUT_GET, 'redirect-type' );
-		if ( ! $selected ) {
+		$selected = $this->filter['redirect_type'];
+		if ( $selected === null ) {
 			$selected = 0;
 		}
-
 		?>
 		<div class="alignleft actions">
 			<label for="filter-by-redirect" class="screen-reader-text"><?php esc_html_e( 'Filter by redirect type', 'wordpress-seo-premium' ); ?></label>
 			<select name="redirect-type" id="filter-by-redirect">
 				<option<?php selected( $selected, 0 ); ?> value="0"><?php esc_html_e( 'All redirect types', 'wordpress-seo-premium' ); ?></option>
 				<?php
-				$redirect_types = new WPSEO_Redirect_Types();
-
-				foreach ( $redirect_types->get() as $http_code => $redirect_type ) {
+				foreach ( $this->redirect_types as $http_code => $redirect_type ) {
 					printf(
 						"<option %s value='%s'>%s</option>\n",
 						selected( $selected, $http_code, false ),
@@ -163,8 +185,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		// Set pagination.
 		$this->set_pagination_args( $pagination_args );
 
-		$paged        = filter_input( INPUT_GET, 'paged' );
-		$current_page = (int) ( ( isset( $paged ) && $paged !== false ) ? $paged : 0 );
+		$current_page = $this->get_pagenum();
 
 		// Setting the starting point. If starting point is below 1, overwrite it with value 0, otherwise it will be sliced of at the back.
 		$slice_start = ( $current_page - 1 );
@@ -201,37 +222,11 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	 * @return int The order that should be used.
 	 */
 	public function do_reorder( $a, $b ) {
-		// If no sort, default to title.
-		$orderby = filter_input(
-			INPUT_GET,
-			'orderby',
-			FILTER_VALIDATE_REGEXP,
-			[
-				'options' => [
-					'default' => 'old',
-					'regexp'  => '/^(old|new|type)$/',
-				],
-			]
-		);
-
-		// If no order, default to asc.
-		$order = filter_input(
-			INPUT_GET,
-			'order',
-			FILTER_VALIDATE_REGEXP,
-			[
-				'options' => [
-					'default' => 'asc',
-					'regexp'  => '/^(asc|desc)$/',
-				],
-			]
-		);
-
 		// Determine sort order.
-		$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
+		$result = strcmp( $a[ $this->orderby ], $b[ $this->orderby ] );
 
 		// Send final sort direction to usort.
-		return ( $order === 'asc' ) ? $result : ( -$result );
+		return ( $this->order === 'asc' ) ? $result : ( -$result );
 	}
 
 	/**
@@ -260,14 +255,15 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	 */
 	public function column_default( $item, $column_name ) {
 
-		$is_regex    = ( filter_input( INPUT_GET, 'tab' ) === 'regex' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We are not processing form information.
+		$is_regex    = isset( $_GET['tab'] ) && is_string( $_GET['tab'] ) && sanitize_text_field( wp_unslash( $_GET['tab'] ) ) === 'regex';
 		$row_actions = $this->get_row_actions( $column_name );
 
 		switch ( $column_name ) {
 			case 'new':
-				$classes = [ 'val' ];
-				$new_url = $item['new'];
-
+				$classes      = [ 'val' ];
+				$new_url      = $item['new'];
+				$new_full_url = ( $new_url && $new_url[0] === '/' ) ? site_url() . $new_url : site_url() . '/' . $new_url;
 				if ( ! $is_regex && WPSEO_Redirect_Util::requires_trailing_slash( $new_url ) ) {
 					$classes[] = 'has-trailing-slash';
 				}
@@ -280,15 +276,19 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 					$classes[] = 'remove-slashes';
 				}
 
-				return "<div class='" . esc_attr( implode( ' ', $classes ) ) . "'>" . esc_html( $new_url ) . '</div>' . $row_actions;
+				if ( $new_url ) {
+					return '<a class="' . esc_attr( implode( ' ', $classes ) ) . '" href="' . esc_url( $new_full_url ) . '" target="_blank">' . esc_html( $new_url ) . '</a>' . $row_actions;
+				}
+				return '<div class="val remove-slashes"></div>' . $row_actions;
 
 			case 'old':
-				$classes = '';
+				$classes      = '';
+				$old_full_url = ( $item['old'][0] === '/' ) ? site_url() . $item['old'] : site_url() . '/' . $item['old'];
 				if ( $is_regex === true ) {
-					$classes = ' remove-slashes';
+					return '<div class="val remove-slashes">' . esc_html( $item['old'] ) . '</div>' . $row_actions;
 				}
 
-				return "<div class='val" . $classes . "'>" . esc_html( $item['old'] ) . '</div>' . $row_actions;
+				return '<a class="val' . $classes . '" href="' . esc_url( $old_full_url ) . '" target="_blank">' . esc_html( $item['old'] ) . '</a>' . $row_actions;
 
 			case 'type':
 				return '<div class="val type">' . esc_html( $item['type'] ) . '</div>' . $row_actions;
@@ -324,6 +324,8 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 
 		// Sort the results.
 		if ( count( $this->items ) > 0 ) {
+			$this->orderby = $this->get_orderby();
+			$this->order   = $this->get_order();
 			usort( $this->items, [ $this, 'do_reorder' ] );
 		}
 	}
@@ -336,15 +338,26 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	 * @return array The filtered items.
 	 */
 	private function filter_items( array $items ) {
-		$search_string = filter_input( INPUT_GET, 's', FILTER_DEFAULT, [ 'options' => [ 'default' => '' ] ] );
+		$search_string = '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We come from our own redirect in a simple search form, let's not overcomplicate.
+		if ( isset( $_GET['s'] ) && is_string( $_GET['s'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: Same as above.
+			$search_string = trim( sanitize_text_field( wp_unslash( $_GET['s'] ) ), '/' );
+		}
 		if ( $search_string !== '' ) {
-			$this->filter['search_string'] = trim( $search_string, '/' );
+			$this->filter['search_string'] = $search_string;
 
 			$items = array_filter( $items, [ $this, 'filter_by_search_string' ] );
 		}
 
-		$redirect_type = (int) filter_input( INPUT_GET, 'redirect-type' );
-		if ( ! empty( $redirect_type ) ) {
+		$redirect_type = 0;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: We come from our own redirect in a simple filter form, let's not overcomplicate.
+		if ( isset( $_GET['redirect-type'] ) && is_string( $_GET['redirect-type'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: Cast to an integer and strictly compared against known keys.
+			$redirect_type = (int) wp_unslash( $_GET['redirect-type'] );
+			$redirect_type = in_array( $redirect_type, array_keys( $this->redirect_types ), true ) ? $redirect_type : 0;
+		}
+		if ( $redirect_type !== 0 ) {
 			$this->filter['redirect_type'] = $redirect_type;
 
 			$items = array_filter( $items, [ $this, 'filter_by_type' ] );
@@ -426,9 +439,46 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	 * @param object $item        The item being acted upon.
 	 * @param string $column_name Current column name.
 	 * @param string $primary     Primary column name.
+	 *
 	 * @return string Empty string.
 	 */
 	protected function handle_row_actions( $item, $column_name, $primary ) {
 		return '';
+	}
+
+	/**
+	 * Retrieves the orderby from the request.
+	 *
+	 * @return string The orderby value.
+	 */
+	private function get_orderby() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: WP list table is not using a nonce.
+		if ( isset( $_GET['orderby'] ) && is_string( $_GET['orderby'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
+			$orderby = wp_unslash( $_GET['orderby'] );
+			if ( in_array( $orderby, array_keys( $this->get_sortable_columns() ), true ) ) {
+				return $orderby;
+			}
+		}
+
+		return 'old';
+	}
+
+	/**
+	 * Retrieves the order from the request.
+	 *
+	 * @return string The order value.
+	 */
+	private function get_order() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reason: WP list table is not using a nonce.
+		if ( isset( $_GET['order'] ) && is_string( $_GET['order'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
+			$order = wp_unslash( $_GET['order'] );
+			if ( in_array( $order, [ 'asc', 'desc' ], true ) ) {
+				return $order;
+			}
+		}
+
+		return 'asc';
 	}
 }

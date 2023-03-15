@@ -1,5 +1,13 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2023-03-10 - version 5.0.0
+* Fix: When a customer changes their address during a subscription switch, don't save their new address in the postmeta table when HPOS is enabled. #4489
+* Fix: When HPOS is enabled, changing your address while paying for a renewal order will update the address on the subscription. #4491
+* Fix: Prevent admin error notices being shown for the "subscription trial end" event that was caused by no callbacks being attached to this scheduled action. #4491
+* Fix: Prevent fatal error when copying the `_shipping_address` meta data where the value is not an array. #4495
+* Update: Use the WC installed version to determine if Subscription dependencies are met rather than the database version.
+* Dev: Update subscriptions-core to 5.5.0. #4491
+
 2023-02-22 - version 4.9.1
 * Fix: Revert minimum required version of WooCommerce to 6.5 due to fatal errors on some sites.
 

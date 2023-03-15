@@ -1,5 +1,17 @@
 *** Xero Integration ***
 
+2023-03-13 - version 1.7.56
+* Add - Support for Xero's Ultimate plan.
+* Add - Support for caching API requests for 60 seconds.
+* Add - Support for queuing API requests to avoid Rate Limit errors.
+* Dev - Bump PHP minimum supported version from 7.0 to 7.2.
+* Dev - Bump WooCommerce "tested up to" version 7.4.
+* Dev - Bump WooCommerce minimum supported version from 6.0 to 6.8.
+* Dev - Bump `xeroapi/xero-php-oauth2` from 1.0 to 2.20.
+* Dev - Implement `brianhenryie/strauss` v0.13.0 to prefix namespace in `xeroapi/xero-php-oauth2` package.
+* Fix - Filter accumulation for sequential Invoice requests.
+* Fix - PHP Warnings when sending an invoice to Xero.
+
 2023-01-27 - version 1.7.55
 * Dev - Bump `clean-css-cli` from 5.6.1 to 5.6.2.
 * Tweak - Bump WooCommerce tested up to 7.3.

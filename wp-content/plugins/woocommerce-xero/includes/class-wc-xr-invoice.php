@@ -84,8 +84,6 @@ class WC_XR_Invoice {
 		$this->currency_code  = $currency_code;
 		$this->total_tax      = $total_tax;
 		$this->total          = $total;
-
-		add_filter( 'woocommerce_xero_invoice_due_date', array( $this, 'set_org_default_due_date' ), 10, 2 );
 	}
 
 	/**
@@ -134,7 +132,10 @@ class WC_XR_Invoice {
 	 * @return string
 	 */
 	public function get_due_date() {
-		return apply_filters( 'woocommerce_xero_invoice_due_date', $this->due_date, $this );
+		add_filter( 'woocommerce_xero_invoice_due_date', array( $this, 'set_org_default_due_date' ), 10, 2 );
+		$due_date = apply_filters( 'woocommerce_xero_invoice_due_date', $this->due_date, $this );
+		remove_filter( 'woocommerce_xero_invoice_due_date', array( $this, 'set_org_default_due_date' ) );
+		return $due_date;
 	}
 
 	/**

@@ -57,7 +57,9 @@ class WC_AM_Subscription {
 			add_action( 'woocommerce_subscription_deleted', array( $this, 'delete_subscription' ) );
 			add_action( 'woocommerce_api_delete_subscription', array( $this, 'delete_subscription' ) );
 			add_action( 'woocommerce_subscription_item_switched', array( $this, 'update_order' ), 10, 4 );
-			add_action( 'woocommerce_subscription_status_changed', array( $this, 'refresh_cache' ) );
+			add_action( 'woocommerce_subscription_status_changed', array( $this, 'refresh_cache' ), 10, 1 );
+			add_action( 'woocommerce_subscription_status_changed', array( $this, 'active_to_on_hold' ), 10, 3 );
+			add_action( 'woocommerce_subscription_status_changed', array( $this, 'on_hold_to_active' ), 10, 3 );
 		}
 	}
 
@@ -186,6 +188,9 @@ class WC_AM_Subscription {
 		if ( is_object( $subscription ) ) {
 			$parent = $subscription->get_parent_id();
 
+			/**
+			 * @deprecated 2.5.5 Due to HPOS. Backup for older versions of Subscriptions before WC 7.4.
+			 */
 			if ( empty( $parent ) ) {
 				$parent = $this->get_subscription_parent_order_id( $order_id );
 			}
@@ -197,7 +202,10 @@ class WC_AM_Subscription {
 	/**
 	 * Returns a parent Order ID for renewal, resubscribe, and/or switch orders of a subscription.
 	 *
-	 * @since 1.5
+	 * @deprecated 2.5.5 Due to HPOS. Backup for older versions of Subscriptions before WC 7.4.
+	 *
+	 * @see        $this->get_parent_id()
+	 * @since      1.5
 	 *
 	 * @param int $post_id Subscription order ID.
 	 *
@@ -621,6 +629,26 @@ class WC_AM_Subscription {
 	 */
 	public function get_susubscription_id_by_order_item_id( $item_id ) {
 		return WC_AM_ORDER_DATA_STORE()->get_order_id_by_order_item_id( $item_id );
+	}
+
+	/**
+	 * Gets the order_id from the subscription_id.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @param int $subscription_id
+	 *
+	 * @return int
+	 */
+	public function get_order_id( $subscription_id ) {
+		$order_id     = 0;
+		$subscription = $this->get_subscription_object( $subscription_id );
+
+		if ( is_object( $subscription ) ) {
+			$order_id = $subscription->get_parent_id();
+		}
+
+		return ! empty( $order_id ) ? $order_id : 0;
 	}
 
 	/**
@@ -1172,9 +1200,54 @@ class WC_AM_Subscription {
 
 		WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 
-		if ( $activation_ids ) {
+		if ( ! empty( $activation_ids ) ) {
 			foreach ( $activation_ids as $k => $activation_id ) {
 				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
+			}
+		}
+	}
+
+	/**
+	 * Deletes API Resources and API Key activations if the subscription status transitions from 'active' to 'on-hold'.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @param int    $subscription_id
+	 * @param String $status_transition_from
+	 * @param String $status_transition_to
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
+	public function active_to_on_hold( $subscription_id, $status_transition_from, $status_transition_to ) {
+		if ( $status_transition_from === 'active' && $status_transition_to === 'on-hold' ) {
+			$order_id = $this->get_order_id( $subscription_id );
+
+			if ( ! empty( $order_id ) ) {
+				WC_AM_BACKGROUND_EVENTS()->cleanup_expired_api_resources( $order_id );
+				WC_AM_BACKGROUND_EVENTS()->cleanup_expired_api_activations( $order_id );
+			}
+		}
+	}
+
+	/**
+	 * Rebuilds the API Resource if the subscription status transitions from 'on-hold' to 'active', and the order has status of 'completed' or 'processing'.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @param int    $subscription_id
+	 * @param String $status_transition_from
+	 * @param String $status_transition_to
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
+	public function on_hold_to_active( $subscription_id, $status_transition_from, $status_transition_to ) {
+		if ( $status_transition_from === 'on-hold' && $status_transition_to === 'active' ) {
+			$order_id = $this->get_order_id( $subscription_id );
+
+			if ( ! empty( $order_id ) ) {
+				WC_AM_ORDER()->update_order( $order_id );
 			}
 		}
 	}

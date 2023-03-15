@@ -25,7 +25,7 @@ return array(
     'WPSEO_Export_Keywords_Query' => $baseDir . '/classes/export/export-keywords-query-interface.php',
     'WPSEO_Export_Keywords_Term_Presenter' => $baseDir . '/classes/export/export-keywords-term-presenter.php',
     'WPSEO_Export_Keywords_Term_Query' => $baseDir . '/classes/export/export-keywords-term-query.php',
-    'WPSEO_Facebook_Profile' => $baseDir . '/classes/facebook-profile.php',
+    'WPSEO_Facebook_Profile' => $baseDir . '/src/deprecated/classes/facebook-profile.php',
     'WPSEO_Metabox_Link_Suggestions' => $baseDir . '/classes/metabox-link-suggestions.php',
     'WPSEO_Multi_Keyword' => $baseDir . '/classes/multi-keyword.php',
     'WPSEO_Post_Watcher' => $baseDir . '/classes/post-watcher.php',

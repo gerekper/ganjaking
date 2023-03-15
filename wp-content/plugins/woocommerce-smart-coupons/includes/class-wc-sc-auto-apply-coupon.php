@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -442,7 +442,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 				$valid = 'smart_coupon' !== $discount_type
 							&& 'yes' !== $is_auto_generate_coupon
 							&& ( ! $is_auto_applied || 'yes' !== $is_removable )
-							&& $coupon->is_valid();
+							&& $this->is_valid( $coupon );
 			}
 
 			return apply_filters(

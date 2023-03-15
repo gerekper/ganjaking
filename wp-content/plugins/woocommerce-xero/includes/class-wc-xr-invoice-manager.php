@@ -39,7 +39,66 @@ class WC_XR_Invoice_Manager {
 		// Invoice must be sent before payment can send.
 		add_action( 'wc_xero_send_payment', array( $this, 'send_invoice_if_no_changes' ) );
 		// Automatically set unpaid invoice to VOIDED if order is totally refunded.
-		add_action( 'woocommerce_order_fully_refunded', array( $this, 'maybe_void_invoice' ) );
+		add_action( 'woocommerce_order_fully_refunded', array( $this, 'maybe_queue_void_invoice' ) );
+
+		// Cron events for invoice.
+		add_action( 'woocommerce_xero_schedule_invoice', array( $this, 'maybe_queue_invoice' ), 10, 2 );
+		add_action( 'woocommerce_xero_schedule_void_invoice', array( $this, 'maybe_queue_void_invoice' ), 10, 1 );
+	}
+
+	/**
+	 * Perform instant invoice update or schedule it if rate limit has been exceeded.
+	 *
+	 * @param int  $order_id Id of the order to send an invoice to.
+	 * @param bool $force If false, the invoice won't be sent if there are no changes since the last time it was sent.
+	 * @return bool|WP_Error
+	 */
+	public function maybe_queue_invoice( $order_id, $force = true ) {
+
+		// Try to perform instant API request.
+		$result = $this->send_invoice_core( $order_id, $force );
+
+		$delay_in_seconds = apply_filters( 'woocommerce_xero_api_queue_delay', 1 * MINUTE_IN_SECONDS );
+
+		// Schedule for later if rate limit error received.
+		if ( is_wp_error( $result ) && WC_XERO_RATE_LIMIT_ERROR === $result->get_error_code() ) {
+			$order = wc_get_order( $order_id );
+
+			$timestamp = time() + $delay_in_seconds;
+			$format    = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+			// translators: schedule time.
+			$order->add_order_note( sprintf( __( 'Schedule the next Xero Invoice request for %s', 'woocommerce-xero' ), wp_date( $format, $timestamp ) ) );
+			return as_schedule_single_action( $timestamp, 'woocommerce_xero_schedule_invoice', array( $order_id, $force ), WC_XERO_AS_GROUP );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Instantly void invoice or schedule it if rate limit has been exceeded.
+	 *
+	 * @param int $order_id Id of the order to void an invoice to.
+	 * @return bool|WP_Error
+	 */
+	public function maybe_queue_void_invoice( $order_id ) {
+
+		// Try to perform instant API request.
+		$result = $this->maybe_void_invoice( $order_id );
+
+		$delay_in_seconds = apply_filters( 'woocommerce_xero_api_queue_delay', 1 * MINUTE_IN_SECONDS );
+
+		// Schedule for later if rate limit error received.
+		if ( is_wp_error( $result ) && WC_XERO_RATE_LIMIT_ERROR === $result->get_error_code() ) {
+			$order = wc_get_order( $order_id );
+
+			$timestamp = time() + $delay_in_seconds;
+			$format    = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+			// translators: schedule time.
+			$order->add_order_note( sprintf( __( 'Schedule the next Xero Void Invoice request for %s', 'woocommerce-xero' ), wp_date( $format, $timestamp ) ) );
+			return as_schedule_single_action( time() + $delay_in_seconds, 'woocommerce_xero_schedule_void_invoice', array( $order_id ), WC_XERO_AS_GROUP );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -50,7 +109,7 @@ class WC_XR_Invoice_Manager {
 	 * @return bool
 	 */
     public function send_invoice( $order_id ) {
-        return $this->send_invoice_core( $order_id, true );
+        return $this->maybe_queue_invoice( $order_id, true );
     }
 
     /**
@@ -60,7 +119,7 @@ class WC_XR_Invoice_Manager {
      * @return bool
      */
     public function send_invoice_if_no_changes( $order_id ) {
-        return $this->send_invoice_core( $order_id, false );
+        return $this->maybe_queue_invoice( $order_id, false );
     }
 
     /**
@@ -69,7 +128,7 @@ class WC_XR_Invoice_Manager {
      *
      * @param int $order_id Id of the order to send an invoice to.
      * @param bool $force If false, the invoice won't be sent if there are no changes since the last time it was sent.
-     * @return bool
+     * @return bool|WP_Error
      */
 	private function send_invoice_core( $order_id, $force = true ) {
 		// Get the order
@@ -163,6 +222,10 @@ class WC_XR_Invoice_Manager {
 
 			$logger->write( $e->getMessage() );
 
+			if ( WC_XERO_RATE_LIMIT_ERROR === $e->getCode() ) {
+				return new WP_Error( WC_XERO_RATE_LIMIT_ERROR, __( 'API Rate limit exceeded.', 'woocommerce-xero' ) );
+			}
+
 			return false;
 		}
 		if( $xero_invoice_id ) {
@@ -179,7 +242,7 @@ class WC_XR_Invoice_Manager {
 	 *
 	 * @since 1.7.20
 	 * @param int $order_id
-	 * @return string
+	 * @return bool|WP_Error
 	 */
 	public function maybe_void_invoice( $order_id ) {
 
@@ -239,6 +302,10 @@ class WC_XR_Invoice_Manager {
 			$order->add_order_note( $e->getMessage() );
 
 			$logger->write( $e->getMessage() );
+
+			if ( WC_XERO_RATE_LIMIT_ERROR === $e->getCode() ) {
+				return new WP_Error( WC_XERO_RATE_LIMIT_ERROR, __( 'API Rate limit exceeded.', 'woocommerce-xero' ) );
+			}
 
 			return false;
 		}

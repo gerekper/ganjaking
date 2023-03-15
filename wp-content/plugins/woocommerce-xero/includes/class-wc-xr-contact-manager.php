@@ -276,7 +276,7 @@ class WC_XR_Contact_Manager {
 				return get_transient( $transient_key );
 			}
 			// Update a contact if we pulled info from a previous thing.
-			$contact_request_update = new WC_XR_Request_Update_Contact( $this->settings, $contact_id, $contact );
+			$contact_request_update = new WC_XR_Request_Update_Contact( $this->settings, $xero_contact['id'], $contact );
 			$contact_request_update->do_request();
 
 			set_transient( $transient_key, $contact_id_only, 31 * DAY_IN_SECONDS );

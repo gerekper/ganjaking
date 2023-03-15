@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2023-03-13 - version 4.3.1
+* Tweak - Check the current screen when running the 'init' hook.
+* Tweak - Tested compatibility with WC 7.5.
+* Tweak - Tested compatibility with WP 6.2.
+
 2023-02-27 - version 4.3.0
 * Feature - Added the 'Store Credit' section to the 'My Account' page menu.
 * Feature - Display the 'Initial' and the 'Total used' amounts in the 'Store credit usage' meta box.

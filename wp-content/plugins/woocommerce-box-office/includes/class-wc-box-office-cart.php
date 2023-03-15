@@ -26,11 +26,7 @@ class WC_Box_Office_Cart {
 		add_filter( 'woocommerce_cart_item_quantity', array( $this, 'make_qty_in_cart_immutable' ), 10, 3 );
 
 		// Cart message when ticket is added.
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			add_filter( 'wc_add_to_cart_message_html', array( $this, 'filter_cart_message' ), 10, 2 );
-		} else {
-			add_filter( 'wc_add_to_cart_message', array( $this, 'filter_cart_message' ), 10, 2 );
-		}
+		add_filter( 'wc_add_to_cart_message_html', array( $this, 'filter_cart_message' ), 10, 2 );
 
 		add_filter( 'woocommerce_add_to_cart_sold_individually_found_in_cart', array( $this, 'filter_sold_individually_found_in_cart' ), 10, 5 );
 

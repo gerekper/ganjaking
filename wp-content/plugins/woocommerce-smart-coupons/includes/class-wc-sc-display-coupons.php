@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.0.0
+ * @version     3.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -116,8 +116,9 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		 *
 		 * @param string $available_coupons_heading Existing heading.
 		 * @param string $page The page.
+		 * @param array  $args Additional arguments.
 		 */
-		public function show_available_coupons( $available_coupons_heading = '', $page = 'checkout' ) {
+		public function show_available_coupons( $available_coupons_heading = '', $page = 'checkout', $args = array() ) {
 
 			$max_coupon_to_show = get_option( 'wc_sc_setting_max_coupon_to_show', 5 );
 			$max_coupon_to_show = apply_filters( 'wc_sc_max_coupon_to_show', $max_coupon_to_show, array( 'source' => $this ) );
@@ -125,7 +126,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 			$coupons = array();
 			if ( $max_coupon_to_show > 0 ) {
-				$coupons = $this->sc_get_available_coupons_list( array() );
+				$coupons = $this->sc_get_available_coupons_list( array(), $args );
 			}
 
 			if ( empty( $coupons ) ) {
@@ -199,7 +200,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 					$coupon = new WC_Coupon( $code->post_title );
 
-					if ( 'woocommerce_before_my_account' !== current_filter() && ! $coupon->is_valid() ) {
+					if ( 'woocommerce_before_my_account' !== current_filter() && ! $this->is_valid( $coupon ) ) {
 
 						// Filter to allow third party developers to show coupons which are invalid due to cart requirements like minimum order total or products.
 						$wc_sc_force_show_coupon = apply_filters( 'wc_sc_force_show_invalid_coupon', false, array( 'coupon' => $coupon ) );
@@ -1080,7 +1081,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					$block_data['expiry_date'] = '';
 				}
 
-				$show_as_valid = apply_filters( 'wc_sc_show_as_valid', $coupon->is_valid(), array( 'coupon_obj' => $coupon ) );
+				$show_as_valid = apply_filters( 'wc_sc_show_as_valid', $this->is_valid( $coupon ), array( 'coupon_obj' => $coupon ) );
 
 				if ( true === $show_as_valid ) {
 					$coupons_to_print[] = $block_data['coupon_code'];
@@ -1290,9 +1291,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		 * Function to get available coupons list
 		 *
 		 * @param array $coupons The coupons.
+		 * @param array $args Additional arguments.
 		 * @return array Modified coupons.
 		 */
-		public function sc_get_available_coupons_list( $coupons = array() ) {
+		public function sc_get_available_coupons_list( $coupons = array(), $args = array() ) {
 
 			global $wpdb;
 
@@ -1327,6 +1329,8 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 			$global_coupons = apply_filters( 'wc_smart_coupons_global_coupons', $global_coupons );
 
+			$args['global_coupons'] = $global_coupons;
+
 			if ( is_user_logged_in() ) {
 
 				global $current_user;
@@ -1356,29 +1360,44 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						$count_option_current_user = 1;
 					}
 
+					$coupon_ids = array();
+					$coupon_ids = apply_filters( 'wc_sc_available_coupon_ids', $coupon_ids, $args );
+
 					$option_nm = 'sc_display_custom_credit_' . $current_user->ID . '_' . $count_option_current_user;
 					$wpdb->query( $wpdb->prepare( 'SET SESSION group_concat_max_len=%d', 999999 ) ); // phpcs:ignore
 					$wpdb->delete( $wpdb->prefix . 'options', array( 'option_name' => $option_nm ) ); // WPCS: db call ok.
+					$query_string = "REPLACE INTO {$wpdb->prefix}options (option_name, option_value, autoload)
+										SELECT %s,
+											IFNULL(GROUP_CONCAT(DISTINCT p.id SEPARATOR ','), ''),
+											%s
+										FROM {$wpdb->prefix}posts AS p
+											JOIN {$wpdb->prefix}postmeta AS pm
+												ON(pm.post_id = p.ID
+													AND p.post_type = %s
+													AND p.post_status = %s
+													AND pm.meta_key = %s
+													AND pm.meta_value LIKE %s";
+
+					$query_args = array(
+						$option_nm,
+						'no',
+						'shop_coupon',
+						'publish',
+						'customer_email',
+						'%' . $wpdb->esc_like( $current_user->user_email ) . '%',
+					);
+
+					if ( ! empty( $coupon_ids ) ) {
+						$how_many      = count( $coupon_ids );
+						$placeholders  = array_fill( 0, $how_many, '%d' );
+						$query_string .= ' AND p.ID IN (' . implode( ',', $placeholders ) . ')';
+						$query_args    = array_merge( $query_args, $coupon_ids );
+					}
+
+					$query_string .= ')';
+
 					$wpdb->query( // phpcs:ignore
-						$wpdb->prepare(
-							"REPLACE INTO {$wpdb->prefix}options (option_name, option_value, autoload)
-								SELECT %s,
-									IFNULL(GROUP_CONCAT(DISTINCT p.id SEPARATOR ','), ''),
-									%s
-								FROM {$wpdb->prefix}posts AS p
-									JOIN {$wpdb->prefix}postmeta AS pm
-										ON(pm.post_id = p.ID
-											AND p.post_type = %s
-											AND p.post_status = %s
-											AND pm.meta_key = %s
-											AND pm.meta_value LIKE %s)",
-							$option_nm,
-							'no',
-							'shop_coupon',
-							'publish',
-							'customer_email',
-							'%' . $wpdb->esc_like( $current_user->user_email ) . '%'
-						)
+						$wpdb->prepare( $query_string, $query_args ) // phpcs:ignore
 					);
 
 					$customer_coupon_ids = get_option( $option_nm );

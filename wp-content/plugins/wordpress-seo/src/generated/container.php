@@ -207,7 +207,6 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\helpers\\indexable_to_postmeta_helper' => 'Yoast\\WP\\SEO\\Helpers\\Indexable_To_Postmeta_Helper',
             'yoast\\wp\\seo\\helpers\\indexables_page_helper' => 'Yoast\\WP\\SEO\\Helpers\\Indexables_Page_Helper',
             'yoast\\wp\\seo\\helpers\\indexing_helper' => 'Yoast\\WP\\SEO\\Helpers\\Indexing_Helper',
-            'yoast\\wp\\seo\\helpers\\input_helper' => 'Yoast\\WP\\SEO\\Helpers\\Input_Helper',
             'yoast\\wp\\seo\\helpers\\language_helper' => 'Yoast\\WP\\SEO\\Helpers\\Language_Helper',
             'yoast\\wp\\seo\\helpers\\meta_helper' => 'Yoast\\WP\\SEO\\Helpers\\Meta_Helper',
             'yoast\\wp\\seo\\helpers\\notification_helper' => 'Yoast\\WP\\SEO\\Helpers\\Notification_Helper',
@@ -609,7 +608,6 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Indexable_To_Postmeta_Helper' => 'getIndexableToPostmetaHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Indexables_Page_Helper' => 'getIndexablesPageHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Indexing_Helper' => 'getIndexingHelperService',
-            'Yoast\\WP\\SEO\\Helpers\\Input_Helper' => 'getInputHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Language_Helper' => 'getLanguageHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Meta_Helper' => 'getMetaHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Notification_Helper' => 'getNotificationHelperService',
@@ -1644,7 +1642,7 @@ class Cached_Container extends Container
      */
     protected function getEstimatedReadingTimeConditionalService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Estimated_Reading_Time_Conditional'] = new \Yoast\WP\SEO\Conditionals\Admin\Estimated_Reading_Time_Conditional(${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional'] = new \Yoast\WP\SEO\Conditionals\Admin\Post_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Input_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Input_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Input_Helper'] = new \Yoast\WP\SEO\Helpers\Input_Helper())) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Estimated_Reading_Time_Conditional'] = new \Yoast\WP\SEO\Conditionals\Admin\Estimated_Reading_Time_Conditional(${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional'] = new \Yoast\WP\SEO\Conditionals\Admin\Post_Conditional())) && false ?: '_'});
     }
 
     /**
@@ -2953,16 +2951,6 @@ class Cached_Container extends Container
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Helpers\Input_Helper' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Helpers\Input_Helper
-     */
-    protected function getInputHelperService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Helpers\\Input_Helper'] = new \Yoast\WP\SEO\Helpers\Input_Helper();
-    }
-
-    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Language_Helper' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Helpers\Language_Helper
@@ -3672,9 +3660,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Admin\Social_Templates_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Admin\Social_Templates_Integration
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Admin\Social_Templates_Integration is deprecated since version 20.3!
      */
     protected function getSocialTemplatesIntegrationService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Templates_Integration is deprecated since version 20.3!', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Templates_Integration'] = new \Yoast\WP\SEO\Integrations\Admin\Social_Templates_Integration();
     }
 
@@ -4039,7 +4031,7 @@ class Cached_Container extends Container
      */
     protected function getElementorService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor'] = new \Yoast\WP\SEO\Integrations\Third_Party\Elementor(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] = new \Yoast\WP\SEO\Helpers\Capability_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Estimated_Reading_Time_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Admin\\Estimated_Reading_Time_Conditional'] : $this->getEstimatedReadingTimeConditionalService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor'] = new \Yoast\WP\SEO\Integrations\Third_Party\Elementor(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] = new \Yoast\WP\SEO\Helpers\Capability_Helper())) && false ?: '_'});
     }
 
     /**
@@ -4531,7 +4523,6 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Redirect_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Redirect_Old_Features_Tab_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Redirects_Page_Integration');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Templates_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Unsupported_PHP_Version');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Workouts_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Alerts\\Webinar_Promo_Notification');

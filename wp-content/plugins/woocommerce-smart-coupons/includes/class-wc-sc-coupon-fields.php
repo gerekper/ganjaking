@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     1.9.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -684,12 +684,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 				}
 
 				if ( isset( $_POST['wc_sc_max_discount'] ) ) { // phpcs:ignore
-		$max_discount = wc_clean( wp_unslash( $_POST['wc_sc_max_discount'] ) ); // phpcs:ignore
+					$max_discount = wc_clean( wp_unslash( $_POST['wc_sc_max_discount'] ) ); // phpcs:ignore
 					update_post_meta( $post_id, 'wc_sc_max_discount', $max_discount );
 				}
 
 				if ( isset( $_POST['wc_sc_expiry_time'] ) ) { // phpcs:ignore
-		$expiry_time = wc_clean( wp_unslash( $_POST['wc_sc_expiry_time'] ) ); // phpcs:ignore
+					$expiry_time = wc_clean( wp_unslash( $_POST['wc_sc_expiry_time'] ) ); // phpcs:ignore
 					update_post_meta( $post_id, 'wc_sc_expiry_time', $expiry_time );
 				}
 

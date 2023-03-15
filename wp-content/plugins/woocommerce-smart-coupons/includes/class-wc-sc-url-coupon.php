@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -106,9 +106,11 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 
 				$cart = ( is_object( WC() ) && isset( WC()->cart ) ) ? WC()->cart : null;
 
+				$max_url_coupons_limit = apply_filters( 'wc_sc_max_url_coupons_limit', 5 );
+
 				foreach ( $coupon_codes as $coupon_index => $coupon_code ) {
 					// Process only first five coupons to avoid GET request parameter limit.
-					if ( apply_filters( 'wc_sc_max_url_coupons_limit', 5 ) === $coupon_index ) {
+					if ( $max_url_coupons_limit === $coupon_index ) {
 						break;
 					}
 
@@ -140,7 +142,8 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 				} else {
 					foreach ( $coupons_data as $coupon_data ) {
 						$coupon_code = $coupon_data['coupon-code'];
-						if ( ! WC()->cart->has_discount( $coupon_code ) ) {
+						$coupon      = new WC_Coupon( $coupon_code );
+						if ( ! WC()->cart->has_discount( $coupon_code ) && $this->is_valid( $coupon ) ) {
 							WC()->cart->add_discount( trim( $coupon_code ) );
 						}
 					}
@@ -215,6 +218,27 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
             parse_str( wp_unslash( $_SERVER['QUERY_STRING'] ), $coupon_args ); // phpcs:ignore
 			$coupon_args = wc_clean( $coupon_args );
 
+			$cart          = ( is_object( WC() ) && isset( WC()->cart ) ) ? WC()->cart : null;
+			$is_cart_empty = is_a( $cart, 'WC_Cart' ) && is_callable( array( $cart, 'is_empty' ) ) && $cart->is_empty();
+
+			if ( false === $is_cart_empty && ! empty( $coupon_args['coupon-code'] ) ) {
+				$coupon_args['coupon-code'] = urldecode( $coupon_args['coupon-code'] );
+
+				$coupon_codes = explode( ',', $coupon_args['coupon-code'] );
+				$coupon_codes = array_filter( $coupon_codes ); // Remove empty coupon codes if any.
+
+				if ( ! empty( $coupon_codes ) ) {
+					$max_url_coupons_limit = apply_filters( 'wc_sc_max_url_coupons_limit', 5 );
+					$coupon_codes          = ( ! empty( $max_url_coupons_limit ) ) ? array_slice( $coupon_codes, 0, $max_url_coupons_limit ) : array();
+					foreach ( $coupon_codes as $coupon_code ) {
+						$coupon = new WC_Coupon( $coupon_code );
+						if ( ! WC()->cart->has_discount( $coupon_code ) && $this->is_valid( $coupon ) ) {
+							WC()->cart->add_discount( trim( $coupon_code ) );
+						}
+					}
+				}
+			}
+
 			if ( ! empty( $coupon_args['sc-page'] ) ) {
 				return $this->get_sc_redirect_url( $coupon_args );
 			}
@@ -248,7 +272,7 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 
 			foreach ( $applied_coupon_from_url as $index => $coupon_code ) {
 				$coupon = new WC_Coupon( $coupon_code );
-				if ( $coupon->is_valid() && ! WC()->cart->has_discount( $coupon_code ) ) {
+				if ( $this->is_valid( $coupon ) && ! WC()->cart->has_discount( $coupon_code ) ) {
 					WC()->cart->add_discount( trim( $coupon_code ) );
 					unset( $applied_coupon_from_url[ $index ] );
 				}

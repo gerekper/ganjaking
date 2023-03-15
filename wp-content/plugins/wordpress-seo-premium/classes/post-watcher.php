@@ -526,7 +526,10 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return bool True when the current page is nested pages.
 	 */
 	protected function is_nested_pages( $current_page ) {
-		return ( $current_page === 'admin.php' && filter_input( INPUT_GET, 'page' ) === 'nestedpages' );
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Reason: We are not controlling the request.
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are strictly comparing only.
+		return ( $current_page === 'admin.php' && isset( $_GET['page'] ) && is_string( $_GET['page'] ) && wp_unslash( $_GET['page'] ) === 'nestedpages' );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended.
 	}
 
 	/**
@@ -535,7 +538,12 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return mixed
 	 */
 	protected function get_post_old_post_url() {
-		return filter_input( INPUT_POST, 'wpseo_old_post_url' );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Reason: Seems to be only used in tests.
+		if ( isset( $_POST['wpseo_old_post_url'] ) && is_string( $_POST['wpseo_old_post_url'] ) ) {
+			return sanitize_text_field( wp_unslash( $_POST['wpseo_old_post_url'] ) );
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing.
+		return false;
 	}
 
 	/**
@@ -544,7 +552,12 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 * @return mixed
 	 */
 	protected function get_post_action() {
-		return filter_input( INPUT_POST, 'action' );
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Reason: We are not controlling the request.
+		if ( isset( $_POST['action'] ) && is_string( $_POST['action'] ) ) {
+			return sanitize_text_field( wp_unslash( $_POST['action'] ) );
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended.
+		return false;
 	}
 
 	/**
