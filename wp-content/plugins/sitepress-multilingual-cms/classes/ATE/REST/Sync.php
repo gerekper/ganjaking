@@ -3,29 +3,19 @@
 namespace WPML\TM\ATE\REST;
 
 use WP_REST_Request;
-use WPML\Collect\Support\Collection;
 use WPML\FP\Cast;
 use WPML\FP\Fns;
 use WPML\FP\Logic;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
 use WPML\FP\Relation;
-use WPML\Rest\Adaptor;
-use WPML\TM\API\Jobs;
-use WPML\TM\ATE\Download\Job;
-use WPML\TM\ATE\Review\PreviewLink;
-use WPML\TM\ATE\Review\ReviewStatus;
-use WPML\TM\ATE\Review\StatusIcons;
 use WPML\TM\ATE\Sync\Arguments;
-use WPML\TM\ATE\Sync\Factory;
 use WPML\TM\ATE\Sync\Process;
 use WPML\TM\ATE\Sync\Result;
 use WPML\TM\ATE\SyncLock;
 use WPML\TM\REST\Base;
-use WPML\Utilities\KeyedLock;
 use WPML_TM_ATE_AMS_Endpoints;
 use function WPML\Container\make;
-use function WPML\FP\pipe;
 
 class Sync extends Base {
 	/**
@@ -102,7 +92,7 @@ class Sync extends Base {
 
 		$ids = wpml_prepare_in( $wpmlJobIds, '%d' );
 		$sql = "
-			SELECT jobs.job_id as jobId, statuses.status as status, jobs.editor_job_id as ateJobId FROM {$wpdb->prefix}icl_translate_job as jobs 
+			SELECT jobs.job_id as jobId, statuses.status as status, jobs.editor_job_id as ateJobId, jobs.automatic FROM {$wpdb->prefix}icl_translate_job as jobs
 		    INNER JOIN {$wpdb->prefix}icl_translation_status as statuses ON statuses.rid = jobs.rid
 			WHERE jobs.job_id IN ( {$ids} ) AND 1 = %d
 	    "; // I need additional AND condition to utilize prepare function  which is required to make writing unit tests easier. It's not perfect but saves a lot of time now

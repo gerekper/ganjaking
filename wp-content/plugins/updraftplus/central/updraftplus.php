@@ -57,6 +57,15 @@ class UpdraftPlus_Host extends UpdraftCentral_Host {
 	}
 
 	/**
+	 * Whether the current user can perform key control AJAX actions
+	 *
+	 * @return Boolean
+	 */
+	public function current_user_can_ajax() {
+		return UpdraftPlus_Options::user_can_manage();
+	}
+	
+	/**
 	 * Below are interface methods' implementations that are required by UpdraftCentral to function properly. Please
 	 * see the "interface.php" to check all the required interface methods.
 	 */

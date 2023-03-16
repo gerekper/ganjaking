@@ -52,7 +52,7 @@ class GF_License_Statuses {
 				'<a href="https://www.gravityforms.com/my-account/licenses/?utm_source=gf-admin&utm_medium=account-link-revoked&utm_campaign=license-enforcement" target="_blank">',
 				'</a>'
 			),
-			self::MAX_SITES_EXCEEDED    => __( 'This license key has already been activated on its maximum number of sites; please upgrade your license.', 'gravityforms' ),
+			self::MAX_SITES_EXCEEDED    => __( 'Your license key has been successfully validated.', 'gravityforms' ),
 			self::MULTISITE_NOT_ALLOWED => __( 'This license key does not support multisite installations. Please use a different license.', 'gravityforms' ),
 			self::EXPIRED_LICENSE_KEY   => sprintf(
 				/* translators: %1s and %2s are link tag markup */

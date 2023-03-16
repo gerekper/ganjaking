@@ -3,8 +3,18 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "en"
          },
+         "hide the translations instead.": [
+            "masquer les traductions à la place."
+         ],
+         "Error happened! Please try again.": [
+            "Une erreur est survenue ! Veuillez réessayer."
+         ],
+         "Cancel": [
+            "Annuler"
+         ],
          "Choose Content to Automatically Translate into": [
             "Choisir des contenus à traduire automatiquement en"
          ],
@@ -17,9 +27,6 @@
          "Save": [
             "Appliquer"
          ],
-         "Choose Content to Automatically Translate into New Language": [
-            "Choisir un contenu à traduire automatiquement dans une nouvelle langue"
-         ],
          "Add languages and start translating": [
             "Ajouter des langues et démarrer la traduction"
          ],
@@ -31,6 +38,9 @@
          ],
          "Never mind. Don't add new language": [
             "C'est sans importance. N'ajoutez pas de nouvelle langue"
+         ],
+         "Choose Content to Automatically Translate into New Language": [
+            "Choisir un contenu à traduire automatiquement dans une nouvelle langue"
          ],
          "Automatically translate all of my existing posts and pages right now, plus new content as I create it.": [
             "Traduire automatiquement toutes mes publications et pages actuelles immédiatement, ainsi que les nouveaux contenus au fur et à mesure que je les crée."

@@ -23,6 +23,8 @@ class WC_Booking_Cart_Manager {
 		add_filter( 'woocommerce_get_item_data', array( $this, 'get_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 10, 3 );
+		add_action( 'woocommerce_after_checkout_validation', array( $this, 'validate_booking_order_legacy_checkout' ), 999, 2 );
+		add_action( 'woocommerce_store_api_cart_errors', array( $this, 'validate_booking_order_checkout_block_support' ), 999, 2 );
 
 		add_action( 'woocommerce_new_order_item', array( $this, 'order_item_meta' ), 50, 2 );
 
@@ -85,6 +87,104 @@ class WC_Booking_Cart_Manager {
 		}
 
 		return $passed;
+	}
+
+	/**
+	 * Should validate booking product order for booking for checkout block.
+	 *
+	 * @since x.x.x
+	 *
+	 * @param WP_Error $errors
+	 * @param WC_Cart  $cart
+	 *
+	 * @return void
+	 */
+	public function validate_booking_order_checkout_block_support( \WP_Error $errors, \WC_Cart $cart ) {
+		// Existing checkout validation if rest api request generates from gutenberg editor.
+		if ( is_admin() ) {
+			return;
+		}
+
+		$this->validate_booking_order( $errors, $cart );
+	}
+
+	/**
+	 * Should validate booking product order for booking for legacy checkout.
+	 *
+	 * @since x.x.x
+	 *
+	 * @param WP_Error $errors
+	 * @param WC_Cart  $cart
+	 *
+	 * @return void
+	 */
+	public function validate_booking_order_legacy_checkout( array $data, \WP_Error $errors ) {
+		$this->validate_booking_order( $errors, WC()->cart );
+	}
+
+	/**
+	 * Should validate booking order items.
+	 *
+	 * Booking availability validates without in-cart bookings.
+	 * This helps to reduce race condition: https://github.com/woocommerce/woocommerce-bookings/issues/3324
+	 *
+	 * @since x.x.x
+	 *
+	 * @return void
+	 */
+	public function validate_booking_order( \WP_Error $errors, \WC_Cart $cart ) {
+		// Do not need to validate if cart is empty.
+		if ( $cart->is_empty() ) {
+			return;
+		}
+
+		$cart_items = $cart->get_cart();
+		$temporary_confirmed_order_bookings = [];
+
+		$booking_errors = [];
+
+		foreach ( $cart_items as $product_data ) {
+			/* @var WC_Product_Booking $product */
+			$product = $product_data['data'];
+
+			if ( ! is_wc_booking_product( $product ) ) {
+				continue;
+			}
+
+			$booking = new WC_Booking( $product_data['booking']['_booking_id'] );
+
+			// Unique key to store temporary confirmed bookings in array.
+			// Each booking has following unique key: booking_id + resource_id + start_date + end_date.
+			$temporary_confirmed_checkout_bookings_array_key = "{$booking->get_product_id()}_{$booking->get_resource_id()}_{$booking->get_start()}_{$booking->get_end()}";
+
+			if ( array_key_exists( $temporary_confirmed_checkout_bookings_array_key,
+				$temporary_confirmed_order_bookings ) ) {
+				$product->confirmed_order_bookings[] = $temporary_confirmed_order_bookings[ $temporary_confirmed_checkout_bookings_array_key ];
+			}
+
+			$product->check_in_cart = false;
+			$validate               = $product->is_bookable( $product_data['booking'] );
+
+			if ( is_wp_error( $validate ) ) {
+				/* translators: 1: Booking product name */
+				$booking_errors["booking-order-item-error-{$booking->get_product_id()}"] = sprintf(
+					esc_html__(
+						'Sorry, the selected block is no longer available for %1$s. Please choose another block.',
+						'woocommerce-bookings' ),
+					$product->get_name()
+				);
+			}
+
+			// Flag booking as temporary confirmed for availability check.
+			$temporary_confirmed_order_bookings[ $temporary_confirmed_checkout_bookings_array_key ] = $booking;
+		}
+
+		// Add booking checkout errors.
+		if ( ! empty( $booking_errors ) ) {
+			foreach ( $booking_errors as $error_code => $error_message ) {
+				$errors->add( $error_code, $error_message );
+			}
+		}
 	}
 
 	/**

@@ -295,13 +295,9 @@ if ( ! class_exists( 'TranslationProxy_Basket' ) ) {
 		 */
 		public static function add_posts_to_basket( $data ) {
 			self::get_basket();
-			global $sitepress, $iclTranslationManagement;
-
-			$wpml_translation_job_factory = wpml_tm_load_job_factory();
+			global $sitepress;
 
 			extract( $data, EXTR_OVERWRITE );
-
-			ICL_AdminNotifier::remove_message( 'the_basket_items_notification' );
 
 			self::$translation_action = null;
 			if ( isset( $data['tr_action'] ) ) { // adapt new format
@@ -339,10 +335,6 @@ if ( ! class_exists( 'TranslationProxy_Basket' ) ) {
 					foreach ( self::$posts_ids as $id ) {
 						if ( isset( self::$basket[ $basket_item_type ][ $id ]['to_langs'][ $language_code ] ) ) {
 							unset( self::$basket[ $basket_item_type ][ $id ]['to_langs'][ $language_code ] );
-						}
-						// if user want to duplicate this post, lets do this
-						if ( $status == 2 ) {
-							$iclTranslationManagement->make_duplicate( $id, $language_code );
 						}
 					}
 				} elseif ( $status == 1 ) {
@@ -412,7 +404,6 @@ if ( ! class_exists( 'TranslationProxy_Basket' ) ) {
 			global $wpdb, $sitepress;
 
 			self::get_basket();
-			ICL_AdminNotifier::remove_message( 'the_basket_items_notification' );
 
 			/*
 			 structure of cart in get_option:

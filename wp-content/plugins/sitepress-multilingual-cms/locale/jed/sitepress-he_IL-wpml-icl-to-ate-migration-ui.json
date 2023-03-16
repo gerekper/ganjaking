@@ -1,0 +1,23 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Flags must be:": [
+            "דגלים חייבים להיות:"
+         ],
+         "PNG, SVG, or JPG files": [
+            "קובצי PNG, SVG או JPG"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 פיקסלים"
+         ],
+         "Read more about ": [
+            "קרא עוד אודות"
+         ]
+      }
+   }
+}

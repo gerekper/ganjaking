@@ -1,0 +1,4 @@
+<?php
+
+HelperHtmlUC::putHtmlAdminNotices();
+

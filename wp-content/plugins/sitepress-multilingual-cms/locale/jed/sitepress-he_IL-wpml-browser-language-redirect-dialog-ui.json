@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "en"
          },
          "How Browser Language Redirect Affects Google Indexing": [
             "כיצד ניתוב מחדש של שפת הדפדפן משפיע על יצירת האינדקסים של Google"
@@ -18,7 +19,7 @@
             "הבנתי, הפעל בכל זאת"
          ],
          "Cancel": [
-            "בטל"
+            "ביטול"
          ],
          "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
             "כאשר אתה מנתב אורחים מחדש בהתאם לשפה שלהם, אתה גם מנתב מחדש את Google. Google רוצה לראות את האתר שלך בדיוק כפי שאורחים רואים אותו, כולל כל ניתוב מחדש שאתה מחיל."

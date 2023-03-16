@@ -9,6 +9,7 @@ namespace Themesquad\WC_Currency_Converter\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
+use Exception;
 use Themesquad\WC_Currency_Converter\Internal\Admin\Settings\Abstracts\Settings_API;
 
 /**
@@ -44,31 +45,60 @@ class General extends Settings_API {
 	 * @since 1.8.0
 	 */
 	public function init_form_fields() {
-		$this->form_fields = array(
+		$form_fields = array(
 			'app_id' => array(
-				'type'        => 'text',
-				'title'       => __( 'App ID', 'woocommerce-currency-converter-widget' ),
-				'description' => sprintf(
+				'type'              => 'text',
+				'title'             => __( 'App ID', 'woocommerce-currency-converter-widget' ),
+				'description'       => sprintf(
 					/* translators: %s: Open Exchange signup link */
 					__( 'Enter your Open Exchange Rates App ID or create a new one <a href="%s" target="_blank">here</a>.', 'woocommerce-currency-converter-widget' ),
 					'https://openexchangerates.org/signup'
 				),
+				'custom_attributes' => array(
+					'pattern' => '[0-9A-Fa-f]+',
+				),
 			),
 		);
+
+		if ( get_option( $this->get_option_key( 'app_id' ) ) ) {
+			$form_fields['rates_refresh_period'] = array(
+				'type'              => 'number',
+				'title'             => __( 'Rates refresh period', 'woocommerce-currency-converter-widget' ),
+				'description'       => __( 'Set the rates refresh period in hours.', 'woocommerce-currency-converter-widget' ),
+				'css'               => 'width:65px;',
+				'default'           => 12,
+				'custom_attributes' => array(
+					'min' => '1',
+					'max' => '24',
+				),
+			);
+		}
+
+		$this->form_fields = $form_fields;
 	}
 
 	/**
-	 * Processes and saves options.
+	 * Validates the App ID.
 	 *
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 *
-	 * @return bool was anything saved?
+	 * @throws Exception When the field value is invalid.
+	 *
+	 * @param  string $key   Field key.
+	 * @param  string $value Posted Value.
+	 * @return string
 	 */
-	public function process_admin_options() {
-		$saved = parent::process_admin_options();
+	public function validate_app_id_field( $key, $value ) {
+		$value = sanitize_text_field( $value );
 
-		delete_transient( 'woocommerce_currency_converter_rates' );
+		if ( $value ) {
+			$api = new \Themesquad\WC_Currency_Converter\Open_Exchange\API( $value );
 
-		return $saved;
+			if ( ! $api->validate_credentials() ) {
+				throw new Exception( __( 'Invalid App ID.', 'woocommerce-currency-converter-widget' ) );
+			}
+		}
+
+		return $value;
 	}
 }

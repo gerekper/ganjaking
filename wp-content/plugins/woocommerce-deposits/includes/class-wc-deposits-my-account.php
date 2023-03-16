@@ -24,6 +24,11 @@ class WC_Deposits_My_Account {
 	 * Plugin actions.
 	 */
 	public function __construct() {
+		/**
+		 * Filters the endpoint name.
+		 *
+		 * @since 1.3.0
+		 */
 		self::$endpoint = apply_filters( 'woocoommerce_deposits_my_account_end_point', 'scheduled-orders' );
 
 		// Actions used to insert a new endpoint in the WordPress.
@@ -47,6 +52,12 @@ class WC_Deposits_My_Account {
 	 */
 	public function add_endpoints() {
 		add_rewrite_endpoint( self::$endpoint, EP_ROOT | EP_PAGES );
+
+		// Flush rewrite rules.
+		if ( false === get_option( 'woocommerce_deposits_flush_rewrite_rules', false ) ) {
+			flush_rewrite_rules();
+			update_option( 'woocommerce_deposits_flush_rewrite_rules', 1 );
+		}
 	}
 
 	/**

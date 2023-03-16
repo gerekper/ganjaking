@@ -87,4 +87,5 @@ return array(
 	'unexpectedresponse' => __('Unexpected response:', 'updraftplus'),
 	'updraftcentral_wizard_empty_url' => __('Please enter the URL where your UpdraftCentral dashboard is hosted.', 'updraftplus'),
 	'updraftcentral_wizard_invalid_url' => __('Please enter a valid URL e.g http://example.com', 'updraftplus'),
+	'insufficient_privilege' => __('Sorry, you do not have enough privilege to execute the requested action.', 'updraftplus'),
 );

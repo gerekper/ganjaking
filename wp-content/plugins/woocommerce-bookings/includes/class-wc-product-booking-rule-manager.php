@@ -1,5 +1,7 @@
 <?php
 
+use Automattic\WooCommerce\Bookings\Vendor\RRule\RSet;
+
 /**
  * Class that parses and returns rules for bookable products.
  */
@@ -806,7 +808,7 @@ class WC_Product_Booking_Rule_Manager {
 		);
 
 		try {
-			$rset = new \RRule\RSet( $rule['range']['rrule'], $is_all_day ? $start->format( $date_format ) : $start );
+			$rset = new RSet( $rule['range']['rrule'], $is_all_day ? $start->format( $date_format ) : $start );
 		} catch ( Exception $e ) {
 			return $minutes;
 		}
@@ -1452,7 +1454,7 @@ class WC_Product_Booking_Rule_Manager {
 
 				$duration = $start->diff( $end, true );
 
-				$rrule = new \RRule\RSet( $range['rrule'], $is_all_day ? $start->format( 'Y-m-d' ) : $start );
+				$rrule = new RSet( $range['rrule'], $is_all_day ? $start->format( 'Y-m-d' ) : $start );
 
 				$rrule_cache[ $rrule_cache_key ] = array(
 					'rrule_object' => $rrule,

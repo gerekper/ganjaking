@@ -1,0 +1,14 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            ""
+         ]
+      }
+   }
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<fields>
+			<fieldset name="general" label="General Settings">
+			
+				<field name="addon_icon" 
+					type="icon"
+					default="" 
+					icons_type = "elementor"
+					label="Icon"
+					description="The Icon that will be shown on Elementor Panel. If not set, it will show category default icon">
+				</field>
+								
+				<field name="addon_icon_svg"
+					type="custom"
+					custom_type="widget_svg_icon"					
+					label="SVG Icon">
+				</field>
+				
+				<field type="hr"></field>
+				
+				<field name="dynamic_addon" 
+					type="boolean"
+					default="false" 
+					label="&lt;b&gt; Use Current Post Data &lt;/b&gt;"
+					description="This widget will use current post fields or the current post custom fields">
+				</field>
+		
+				<field type="bulk_control_start" parent="dynamic_addon" ctype="show" value="true" />
+				
+				<field name="dynamic_post" 
+					type="post"
+					default="" 
+					label="&amp;nbsp; Demo Post"
+					description="Select the post for the test addon and for pulling the fields from it">
+				</field>
+				
+				<field name="dynamic_post_enable_customfields" 
+					type="boolean"
+					default="false" 
+					label="&amp;nbsp; Use Custom Fields"
+					description="Add post custom fields to post variables, choose YES if you will use custom fields in the addon">
+				</field>
+
+				<field name="dynamic_post_enable_category" 
+					type="boolean"
+					default="false" 
+					label="&amp;nbsp; Use Post Category"
+					description="Add post category fields to post variables.">
+				</field>
+
+				
+				<field type="bulk_control_end" />
+				
+				<field name="hr_dynamic" type="hr"></field>
+				
+				<field name="description" 
+					   type="textarea" 
+					   default="" 
+					   label="Description" 
+					   style="height:80px;"
+					   description="">
+				</field>
+				
+				<field name="link_resource"
+					   type="text"
+					   default="" 
+					   class="unite-input-link"
+					   label="Link - Help" 
+					   description="Link to widget demo and documentation.&lt;br&gt; Will be shown inside of Elementor under the widget settings as (Need Help?).">
+				</field>
+				<field name="link_preview"
+					   type="text"
+					   default="" 
+					   class="unite-input-link"
+					   label="Link - Preview" 
+					   description="Link to widget preview on the developer site">
+				</field>
+				
+				<field name="show_small_icon" 
+					type="boolean"
+					default="true" 
+					label="Show Small Icon"
+					description="Show small addon icon in addons browser: icon_addon.png in assets folder">	
+				</field>
+				
+				<field name="text_preview"
+					type="statictext"
+					label="Preview Tooltip &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span class='description'&gt;For the preview tooltip put preview_addon.jpg/png/gif file in the assets folder&lt;/span&gt;">
+				</field>
+				<field type="hr"></field>
+				
+				<field name="preview_size" 
+					type="list"
+					default="full" 
+					label="Preview Size"
+					description="The way how the addon will be shown on internal preview">
+						<option value="full" text="Full Size"></option>
+						<option value="column" text="Column Size"></option>
+						<option value="custom" text="Custom Size"></option>
+				</field>
+					
+				<field name="preview_custom_width" 
+					type="text"
+					default="" 
+					unit="px"
+					label="Preview Custom Width"
+					description="">
+				</field>
+				
+				<field type="control" 
+					parent="preview_size"
+					ctype="show" 
+					child="preview_custom_width"
+					value="custom"
+				/>
+				
+				<field name="preview_bgcol" 
+					type="color"
+					default="#ffffff" 
+					label="Preview Background Color"
+					description="">  
+				</field>
+	
+				<field name="hr_special" type="hr"></field>
+				
+				<field name="special" 
+					type="text"
+					default="" 
+					label="Special Behaviour"
+					description="Some special behaviour field. Used in our various widgets">
+				</field>
+				
+				<field name="special_data" 
+					type="text"
+					default="" 
+					label="Additional Data"
+					description="Some additional data if needed for internal use">
+				</field>
+				
+			</fieldset>
+			
+			
+		</fields>

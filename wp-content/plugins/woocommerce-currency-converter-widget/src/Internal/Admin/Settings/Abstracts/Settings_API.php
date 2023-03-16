@@ -74,6 +74,8 @@ abstract class Settings_API extends \WC_Settings_API {
 	 * @return array
 	 */
 	public function get_form_fields() {
+		$hook_name = rtrim( $this->plugin_id . 'settings_api_form_fields_' . $this->id, '_' );
+
 		/**
 		 * Filters the Settings API form fields.
 		 *
@@ -83,7 +85,7 @@ abstract class Settings_API extends \WC_Settings_API {
 		 *
 		 * @param array $form_fields An array with the form fields data.
 		 */
-		return apply_filters( $this->plugin_id . 'settings_api_form_fields_' . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
+		return apply_filters( $hook_name, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
 	}
 
 	/**
@@ -223,14 +225,8 @@ abstract class Settings_API extends \WC_Settings_API {
 	 * @since 1.8.0
 	 */
 	public function admin_options() {
-		if ( empty( $this->form_fields ) ) {
-			$this->init_form_fields();
-		}
-
-		if ( empty( $this->settings ) ) {
-			$this->init_settings();
-		}
-
+		$this->init_form_fields();
+		$this->init_settings();
 		$this->output_heading();
 
 		parent::admin_options();

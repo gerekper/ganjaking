@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Currency Converter 1.9.1\n"
+"Project-Id-Version: WooCommerce Currency Converter 2.0.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-19T11:33:53+00:00\n"
+"POT-Creation-Date: 2023-03-15T12:17:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-currency-converter-widget\n"
@@ -25,7 +25,7 @@ msgid "https://woocommerce.com/products/currency-converter-widget/"
 msgstr ""
 
 #. Description of the plugin
-msgid "Adds a currency selection widget - when the user chooses a currency, the stores prices are displayed in the chosen currency dynamically. This does not affect the currency in which you take payment. Conversions are estimated based on data from the Open Source Exchange Rates API with no guarantee whatsoever of accuracy."
+msgid "Provides a currency selection widget for displaying product prices and totals in different currencies. Conversions are estimated based on data from the Open Exchange Rates API with no guarantee whatsoever of accuracy."
 msgstr ""
 
 #. Author of the plugin
@@ -36,20 +36,16 @@ msgstr ""
 msgid "https://themesquad.com/"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:109
-msgid "WooCommerce Currency Converter: Incorrect key entered!"
-msgstr ""
-
-#: includes/class-wc-currency-converter.php:231
+#: includes/class-wc-currency-converter.php:185
 msgid "Choose a Currency"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:242
-#: includes/class-wc-currency-converter.php:256
+#: includes/class-wc-currency-converter.php:196
+#: includes/class-wc-currency-converter.php:210
 msgid "Reset"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:396
+#: includes/class-wc-currency-converter.php:346
 msgid "Original price:"
 msgstr ""
 
@@ -88,33 +84,40 @@ msgctxt "plugin row link"
 msgid "Support"
 msgstr ""
 
-#: src/Admin/Settings/General.php:27
+#: src/Admin/Settings/General.php:28
 #: src/Admin/Settings/Integration.php:32
 msgctxt "settings page title"
 msgid "Open Exchange Rates"
 msgstr ""
 
-#: src/Admin/Settings/General.php:38
+#: src/Admin/Settings/General.php:39
 msgctxt "settings page description"
 msgid "An integration for utilizing Open Exchange Rates to convert the product prices to different currencies."
 msgstr ""
 
-#: src/Admin/Settings/General.php:50
+#: src/Admin/Settings/General.php:51
 msgid "App ID"
 msgstr ""
 
 #. translators: %s: Open Exchange signup link
-#: src/Admin/Settings/General.php:53
+#: src/Admin/Settings/General.php:54
 msgid "Enter your Open Exchange Rates App ID or create a new one <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr ""
 
-#. translators: %s: WooCommerce link
-#: src/Deprecated/functions.php:17
-msgid "WooCommerce Currency Converter requires %s to be installed and active."
+#: src/Admin/Settings/General.php:66
+msgid "Rates refresh period"
+msgstr ""
+
+#: src/Admin/Settings/General.php:67
+msgid "Set the rates refresh period in hours."
+msgstr ""
+
+#: src/Admin/Settings/General.php:98
+msgid "Invalid App ID."
 msgstr ""
 
 #. translators: %s the form field title
-#: src/Internal/Admin/Settings/Abstracts/Settings_API.php:371
+#: src/Internal/Admin/Settings/Abstracts/Settings_API.php:367
 msgctxt "settings error"
 msgid "The field \"%s\" is required."
 msgstr ""

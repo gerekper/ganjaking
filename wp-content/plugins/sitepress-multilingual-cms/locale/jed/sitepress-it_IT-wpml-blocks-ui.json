@@ -1,0 +1,152 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Advanced": [
+            "Avanzato"
+         ],
+         "HTML anchor": [
+            "Ancora HTML"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Aggiungi una scorciatoia a questo blocco quando si carica una pagina usando l'URL “#anchor”."
+         ],
+         "Additional CSS class(es)": [
+            "Classi aggiuntive CSS"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Separa più classi con spazi."
+         ],
+         "Color": [
+            "Colore"
+         ],
+         "Dimensions": [
+            "Dimensioni"
+         ],
+         "BLOCK": [
+            "A blocchi"
+         ],
+         "Block margin": [
+            "Margine blocco"
+         ],
+         "Block padding": [
+            "Padding blocco"
+         ],
+         "LANGUAGE": [
+            "Lingua"
+         ],
+         "Language spacing": [
+            "Spaziatura lingua"
+         ],
+         "Language padding": [
+            "Padding lingua"
+         ],
+         "Display": [
+            "Mostra"
+         ],
+         "Show flag": [
+            "Mostra bandiera"
+         ],
+         "Show language name": [
+            "Mostra nome lingua"
+         ],
+         "Display language name in": [
+            "Mostra nome lingua in"
+         ],
+         "Style": [
+            "Stile"
+         ],
+         "Flag settings": [
+            "Impostazioni bandiera"
+         ],
+         "Width": [
+            "Larghezza"
+         ],
+         "Height": [
+            "Altezza"
+         ],
+         "Spacing": [
+            "Spaziatura"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Consenti il wrapping su più linee"
+         ],
+         "Open on click": [
+            "Apri al clic"
+         ],
+         "Show arrow": [
+            "Mostra freccia"
+         ],
+         "Layout": [
+            "layout"
+         ],
+         "Justification": [
+            "Allineamento"
+         ],
+         "Orientation": [
+            "Orientamento"
+         ],
+         "Typography": [
+            "Tipografia"
+         ],
+         "Background": [
+            "Sfondo"
+         ],
+         "Language Text": [
+            "Testo lingua"
+         ],
+         "Language Background": [
+            "Sfondo lingua"
+         ],
+         "Current language text": [
+            "Testo lingua corrente"
+         ],
+         "Current language background": [
+            "Sfondo lingua corrente"
+         ],
+         "Small": [
+            "Piccolo"
+         ],
+         "Normal": [
+            "Normale"
+         ],
+         "Medium": [
+            "Media"
+         ],
+         "Large": [
+            "Grande"
+         ],
+         "X-Large": [
+            "Extra large"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Mostra il selettore lingua WPML."
+         ],
+         "Language Switcher": [
+            "Selettore della lingua"
+         ],
+         "displays the WPML Language Switcher": [
+            "mostra il selettore lingua WPML"
+         ],
+         "Navigation Language Switcher": [
+            "Selettore lingua di navigazione"
+         ],
+         "Reset all": [
+            "Azzera tutto"
+         ],
+         "Minimum value is : ": [
+            "Il valore minimo è:"
+         ],
+         "Maximum value is : ": [
+            "Il valore massimo è:"
+         ],
+         "Value must be a number!": [
+            "Il valore deve essere un numero!"
+         ]
+      }
+   }
+}

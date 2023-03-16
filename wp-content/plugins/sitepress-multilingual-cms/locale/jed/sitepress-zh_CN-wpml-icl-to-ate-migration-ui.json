@@ -1,0 +1,23 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Flags must be:": [
+            "旗标必须是:"
+         ],
+         "PNG, SVG, or JPG files": [
+            "PNG、SVG 或 JPG 文件"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 像素"
+         ],
+         "Read more about ": [
+            "进一步了解"
+         ]
+      }
+   }
+}

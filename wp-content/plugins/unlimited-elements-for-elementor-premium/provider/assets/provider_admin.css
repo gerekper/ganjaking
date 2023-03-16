@@ -1,0 +1,262 @@
+
+
+.______________REMOVE_ELEMENTS____________{}
+
+.unite-view-addons_elementor{
+	position:relative;
+}
+
+.unite-view-addons_elementor .content_wrapper{
+	xposition:fixed;
+	xtop:50px;
+}
+
+.unite-view-addons_elementor .unite_header_wrapper{
+	xposition:fixed;
+}
+
+.toplevel_page_unlimitedelements .update-nag{
+	display:none;
+}
+
+.unite-plugin-version-line.unite-view-addons_elementor{
+	xdisplay:none;
+}
+
+body.unite-view-addons_elementor #footer-thankyou,
+body.unite-view-addons_elementor #footer-upgrade{
+	xdisplay:none;
+}
+
+body.unite-view-addons_elementor .ui-widget-overlay{
+	background-color:#000000 !important;
+	opacity:0.7;
+}
+
+
+.______________GENERAL_LINKS____________{}
+	
+a[href="admin.php?page=blox_page_builder"]{
+	color:#F04C40 !important;
+}
+
+a[href="admin.php?page=blox_page_builder"]:hover{
+	color:#F2665C !important;
+}
+
+/*
+a.uc-link-gounlimited{
+	color:#128F0F !important;
+	font-weight:bold;
+}
+
+a.uc-link-gounlimited:hover{
+	color:#1BD317 !important;
+}
+*/
+
+.______________GENERAL____________{}
+
+.unite-div-debug{
+	padding-left:180px;
+}
+
+.unite-view-wrapper{
+	margin-top:15px;
+}
+
+body.uc-blank-preview .unite-view-wrapper{
+	margin-top:0px;	
+}
+
+body.uc-blank-preview .unite-div-debug{
+	padding-left:0px;
+}
+
+body.post-type-page .unite-div-debug{
+	padding-left:0px;
+	position:fixed;
+	top:50px;
+	left:180px;
+	width:600px;
+	height:200px;
+	overflow:auto;
+	background-color:#EEEEEE;
+	border:1px solid lightgray;
+	padding:5px;
+	z-index:999999;
+}
+
+.uc-update-plugin-wrapper{
+	text-align:right;
+	padding-top:10px;
+}
+
+.______________DIALOG_IMAGE_SELECT____________{}
+
+.uc-dialog-image-select-inner{
+	height:350px;
+	overflow:auto;
+}
+
+.uc-dialog-image-select-bottom{
+	text-align:center;
+	margin-top:10px;
+}
+
+#uc_dialog_image_select_button{
+	margin-top:15px;
+	margin-bottom:10px;
+	font-size:16px;
+	font-weight:bold;
+	height:34px;
+	line-height:35px;
+	padding-left:12px;
+	padding-right:12px;
+}
+
+
+.______________LAYOUTS_LIST____________{}
+
+.wrap .page-title-action.uc-button-catalog,
+.wrap .page-title-action.uc-button-import{
+	margin-left:30px;
+	color:#515151;
+}
+
+.wrap .page-title-action.uc-button-catalog{
+	margin-left:10px;
+}
+
+
+.wrap .page-title-action.uc-button-catalog:hover,
+.wrap .page-title-action.uc-button-import:hover{
+	background-color:#DEDEDE;
+	border-color:#CDCDCD;
+}
+
+.row-actions .loader_text,
+.row-actions .blox_edit_page_visual .uc-button-visualedit{
+	color:#000000;
+}
+
+.row-actions .blox_edit_page_visual .uc-button-visualedit:hover{
+	text-decoration:underline;
+}
+
+body.edit-php .unite_error_message,
+body.edit-php .unite_success_message{
+	position:fixed;
+	bottom:5px;
+	right:5px;
+	width:auto;
+	max-width:500px;
+	min-width:200px;
+}
+
+.______________POSTS_PAGE____________{}
+
+body.uc-blox-page #postdivrich,
+body.uc-blox-page .editor-block-list__layout{
+	visibility:hidden;
+	opacity:0;
+	display:none;
+}
+
+
+.uc-edit-post-blox-page-wrapper{
+	display:none;
+	margin-bottom:30px;
+	padding-bottom:30px;
+	border-bottom:1px dashed gray;
+	margin-top:20px;
+}
+
+body.gutenberg-editor-page .uc-edit-post-blox-page-wrapper{
+	padding-left:20px;
+	padding-top:100px;
+}
+
+.uc-edit-post-blox-page-wrapper .uc-blox-title{
+	padding-bottom:20px;
+	font-size:18px;
+	font-weight:bold;
+}
+
+.uc-edit-post-blox-page-wrapper .uc-blox-title .uc-blox-subtitle{
+	font-size:14px;
+	font-weight:normal;
+	padding-top:8px;
+}
+
+.uc-edit-post-blox-page-wrapper .uc-blox-title.uc-title-blox-landing-page{
+	display:none;
+}
+
+body.uc-blox-landing-page .uc-blox-title.uc-title-blox-landing-page{
+	display:block;
+}
+
+body.uc-blox-landing-page .uc-blox-title.uc-title-bloxpage{
+	display:none;
+}
+
+
+body.uc-blox-page .uc-edit-post-button-to-blox{
+	display:none !important;
+}
+
+body.uc-blox-page .uc-edit-post-blox-page-wrapper{ 
+	display:block;
+}
+
+.uc-edit-post-blox-page-wrapper.uc-hidden{
+	display:none !important;
+}
+
+.uc-edit-post-button-return-to-wp{
+	display:none !important;
+}
+
+body.uc-blox-page .uc-edit-post-button-return-to-wp{
+	display:inline-block !important;
+}
+
+
+
+.______________LAYOUTS_IMPORT_METABOX____________{}
+
+.uc-metabox-import-layout{
+	padding-top:10px;
+	height:40px;
+}
+
+.______________EDITOR_SETTING____________{}
+
+.unite-editor-setting-wrapper.unite-editor-wp{
+	min-width:500px;
+}
+
+.unite-settings-sidebar .unite-editor-wp{
+	min-width:0px !important;
+}
+
+.______________DASHBOARD_WIDGET____________{}
+
+.blox-dashboard-widget-wrapper .uc-dashboard-section{
+	margin-top:10px;
+}
+
+.uc-dashboard-widget-release-iframe{
+	margin-top:5px;
+	width:100%;
+	min-height:300px;
+	border:1px solid lightgray;
+}
+
+.uc-dashboard-widget-release-log{
+	margin-top:10px;
+}
+
+
+

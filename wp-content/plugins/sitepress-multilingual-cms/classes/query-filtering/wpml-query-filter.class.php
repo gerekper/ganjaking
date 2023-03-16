@@ -423,7 +423,16 @@ class WPML_Query_Filter extends  WPML_Full_Translation_API {
 			}
 		}
 
-		return apply_filters( 'wpml_is_comment_query_filtered', $filtered, $post_id );
+		/**
+		 * Override when a WP_Comment_Query should be filtered by language.
+		 *
+		 * @param bool             $filtered
+		 * @param int              $post_id
+		 * @param WP_Comment_Query $comment_query
+		 *
+		 * @return bool
+		 */
+		return apply_filters( 'wpml_is_comment_query_filtered', $filtered, $post_id, $comment_query );
 	}
 
 	/**

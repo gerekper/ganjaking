@@ -1260,6 +1260,7 @@ class SitePress extends WPML_WPDB_User implements
 					'empty_post_title'        => __( '(No title for this post yet)', 'sitepress' ),
 					'ok_button_label'         => __( 'OK', 'sitepress' ),
 					'cancel_button_label'     => __( 'Cancel', 'sitepress' ),
+					'_get_default_lang_nonce' => wp_create_nonce( 'wpml_get_default_lang' ),
 				);
 				wp_localize_script( 'sitepress-post-edit-tags', 'icl_post_edit_messages', $post_edit_messages );
 				wp_enqueue_script( 'sitepress-post-edit-tags' );
@@ -1293,14 +1294,17 @@ class SitePress extends WPML_WPDB_User implements
 						$localization    = array(
 							'object_name' => 'troubleshooting_strings',
 							'strings'     => array(
-								'success_1'         => __( 'Post type and source language assignment have been fixed for ', 'sitepress' ),
-								'success_2'         => __( ' elements', 'sitepress' ),
-								'no_problems'       => __( 'No errors were found in the assignment of post types.' ),
-								'suffixesRemoved'   => __( 'Language suffixes were removed from the selected terms.' ),
-								'done'              => __( 'Done', 'sitepress' ),
-								'termNamesNonce'    => wp_create_nonce( 'update_term_names_nonce' ),
-								'cacheClearNonce'   => wp_create_nonce( 'cache_clear' ),
-								'syncPostsTaxNonce' => wp_create_nonce( WPML_Troubleshoot_Action::SYNC_POSTS_TAXONOMIES_SLUG ),
+								'success_1'					=> __( 'Post type and source language assignment have been fixed for ', 'sitepress' ),
+								'success_2'                 => __( ' elements', 'sitepress' ),
+								'no_problems'               => __( 'No errors were found in the assignment of post types.', 'sitepress' ),
+								'suffixesRemoved'           => __( 'Language suffixes were removed from the selected terms.', 'sitepress' ),
+								'done'                      => __( 'Done', 'sitepress' ),
+								'termNamesNonce'            => wp_create_nonce( 'update_term_names_nonce' ),
+								'cacheClearNonce'           => wp_create_nonce( 'cache_clear' ),
+								'brokenTypeNonce'		    => wp_create_nonce( 'broken_type_nonce' ),
+								'syncPostsTaxNonce'         => wp_create_nonce( WPML_Troubleshoot_Action::SYNC_POSTS_TAXONOMIES_SLUG ),
+								'removeNotificationsNonce'  => wp_create_nonce( 'icl_remove_notifications' ),
+								'restoreNotificationsNonce' => wp_create_nonce( 'icl_restore_notifications' ),
 							),
 						);
 						wp_enqueue_style( 'wp-jquery-ui-dialog' );
@@ -1312,6 +1316,7 @@ class SitePress extends WPML_WPDB_User implements
 								'text1' => esc_html__( "Your menu includes custom items, which you need to translate using WPML's String Translation.", 'sitepress' ),
 								'text2' => esc_html__( '1. Translate these strings: ', 'sitepress' ),
 								'text3' => esc_html__( "2. When you're done translating, return here and run the menu synchronization again. This will use the strings that you translated to update the menus.", 'sitepress' ),
+								'menusSyncNonce' => wp_create_nonce( 'wpml_get_links_for_menu_strings_translation' ),
 							),
 						);
 						break;
@@ -3420,24 +3425,15 @@ class SitePress extends WPML_WPDB_User implements
 	}
 
 	function language_attributes( $output ) {
-		// Convert the output into an associative array
-		$original_attributes = explode( ' ', $output );
-		$output_as_query     = implode( '&', $original_attributes );
-		parse_str( $output_as_query, $attributes );
-
-		foreach ( $attributes as $key => $val ) {
-			// sanitize each attribute to make sure it only contains letters, numbers, underscores and dashes
-			$attributes[ $key ] = preg_replace( '/[^-a-zA-Z0-9_]/', '', $val );
-		}
-
-		// Adds or update the language attribute (no need to check if it exists)
-		$attributes['lang'] = '"' . esc_attr( $this->this_lang ) . '"';
-
-
-		// Convert the array back into the space separated atrributes
-		$new_output = http_build_query( $attributes, '', ' ' );
-
-		return urldecode( $new_output );
+		// This has been implemented to be a safe hotfix for a security issue.
+		// This is not a proper fix, since there is another filter in WPML_Locale, and it sometimes contains different
+		// value for the current locale.
+		// We have a ticket (wpmldev-1640) to fix it.
+		return preg_replace(
+			'#lang="(.*?)"#',
+			'lang="' . str_replace( '_', '-', $this->this_lang ) . '"',
+			$output
+		);
 	}
 
 	// Localization

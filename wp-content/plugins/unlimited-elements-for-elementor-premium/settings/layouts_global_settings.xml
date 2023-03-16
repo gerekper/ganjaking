@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+			<fieldset name="grid_editor" label="General">
+
+				<field name="row_container_width" 
+					type="text"
+					default="1170"
+					label="Container Width"
+					unit="px or %"
+					description="The row container width">
+				</field>
+								
+				<field name="col_gutter" 
+					type="text"
+					default="15" 
+					label="Column Gutter"
+					unit="px"
+					description="The padding left and right of the column">
+				</field>
+								
+				<field name="row_padding_top" 
+					type="text"
+					default="30"
+					label="Row Padding Top"
+					unit="px"
+					description="The padding top of the rows">
+				</field>
+				<field name="row_padding_bottom" 
+					type="text"
+					default="30"
+					label="Row Padding Bottom"
+					unit="px"
+					description="The padding bottom of the rows">
+				</field>
+				
+				<field name="space_between_addons" 
+					type="text"
+					default="10"
+					label="Space Between Addons"
+					unit="px"
+					description="The vertical space between addons">
+				</field>
+				
+			</fieldset>
+			
+			<fieldset name="html_additions" label="HTML Additions">
+
+				<field name="html_head" 
+					type="textarea"
+					default=""
+					label="HTML Addition before head tag end"
+					description="Put html addition before head tag end tab to every layout. Good for some special header meta tags">
+				</field>
+				
+				<field name="html_body" 
+					type="textarea"
+					default=""
+					label="HTML Addition before body tag end"
+					description="Put html addition before body tag end tab to every layout. Good for google analytics, facebook pixel etc.">
+				</field>
+				
+				
+			</fieldset>			
+			
+	</fields>

@@ -2,6 +2,7 @@
 
 use WPML\LIB\WP\Cache;
 use \WPML\Collect\Support\Traits\Macroable;
+use WPML\FP\Logic;
 use WPML\FP\Str;
 use function \WPML\FP\System\sanitizeString;
 use function \WPML\FP\pipe;
@@ -270,8 +271,10 @@ WPML_Translation_Basket::macro(
 	'get_batch_id_from_name',
 	curryN(
 		1,
-		Cache::memorize(
+		Cache::memorizeWithCheck(
 			'get_batch_id_from_name',
+			Logic::isNotEmpty(),
+			0,
 			pipe(
 				Str::replace( '"', '\\"' ),
 				sanitizeString(),

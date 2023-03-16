@@ -68,11 +68,20 @@ class WPML_TM_ATE_API {
 	}
 
 	/**
-	 * @param array $params
+	 * On success, it returns the map: wpmlJobId => ateJobId inside the 'jobs' key.
 	 *
+	 * @param array $params
 	 * @see https://bitbucket.org/emartini_crossover/ate/wiki/API/V1/jobs/create
 	 *
-	 * @return mixed
+	 * @return {
+	 *  code: int,
+	 *  status: string,
+	 *  message: string,
+	 *  jobs: {
+	 *    int: int
+	 *  }
+	 * } | WP_Error
+	 *
 	 * @throws \InvalidArgumentException
 	 */
 	public function create_jobs( array $params ) {

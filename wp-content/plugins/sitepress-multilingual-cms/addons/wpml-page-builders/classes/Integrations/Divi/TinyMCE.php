@@ -7,7 +7,9 @@ use WPML\FP\Obj;
 class TinyMCE implements \IWPML_Backend_Action {
 
 	public function add_hooks() {
-		add_filter( 'tiny_mce_before_init', [ $this, 'filterEditorAutoTags' ] );
+		if ( defined( 'WPML_TM_FOLDER' ) ) {
+			add_filter( 'tiny_mce_before_init', [ $this, 'filterEditorAutoTags' ] );
+		}
 	}
 
 	/**

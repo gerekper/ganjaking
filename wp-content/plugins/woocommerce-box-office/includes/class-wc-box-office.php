@@ -132,6 +132,9 @@ class WC_Box_Office {
 		// Check updates.
 		add_action( 'init', array( $this, 'check_updates' ) );
 
+		// Register custom emails.
+		add_filter( 'woocommerce_email_classes', array( $this, 'register_email' ), 10, 1 );
+
 		// Declare compatibility with High-Performance Order Storage.
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
@@ -262,6 +265,20 @@ class WC_Box_Office {
 	 */
 	public function check_updates() {
 		$this->components->updater->update_check( $this->_version );
+	}
+
+	/**
+	 * Register Box Office email class to WooCommerce emails
+	 *
+	 * @param WC_Email[] $emails WooCommerce registered email classes.
+	 * @return WC_Email[]
+	 */
+	public function register_email( $emails = array() ) {
+		require_once $this->dir . 'includes/class-wc-box-office-email.php';
+
+		$emails['WC_Box_Office_Email'] = new WC_Box_Office_Email();
+
+		return $emails;
 	}
 
 	/**

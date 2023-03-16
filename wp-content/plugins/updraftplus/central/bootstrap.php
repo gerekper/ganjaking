@@ -20,9 +20,7 @@ class UpdraftCentral_Main {
 	 * Class constructor
 	 */
 	public function __construct() {
-
-		add_action('admin_enqueue_scripts', array($this, 'enqueue_central_scripts'));
-
+		
 		add_action('udrpc_log', array($this, 'udrpc_log'), 10, 3);
 		
 		add_action('wp_ajax_updraftcentral_receivepublickey', array($this, 'wp_ajax_updraftcentral_receivepublickey'));
@@ -73,6 +71,10 @@ class UpdraftCentral_Main {
 	 * @return void
 	 */
 	public function enqueue_central_scripts() {
+		
+		// This is an additional check; the caller is assumed to have already run checks before painting its page in general
+		if (!current_user_can('manage_options')) return;
+
 		global $updraftcentral_host_plugin;
 		$version = $updraftcentral_host_plugin->get_version();
 
@@ -91,7 +93,7 @@ class UpdraftCentral_Main {
 			array(
 				'central_url' => UPDRAFTCENTRAL_CLIENT_URL,
 				'plugin_name' => $updraftcentral_host_plugin->get_plugin_name(),
-				'updraftcentral_credentialtest_nonce' => wp_create_nonce('updraftcentral-credentialtest-nonce'),
+				'updraftcentral_request_nonce' => wp_create_nonce('updraftcentral-request-nonce'),
 			),
 			$updraftcentral_host_plugin->translations
 		);
@@ -143,9 +145,9 @@ class UpdraftCentral_Main {
 	 *
 	 * @return Mixed
 	 */
-	public function get_central_localkeys($default = null) {
-		$option = 'updraft_central_localkeys';
+	private function get_central_localkeys($default = null) {
 
+		$option = 'updraft_central_localkeys';
 		$ret = get_option($option, $default);
 		return apply_filters('updraftcentral_get_option', $ret, $option, $default);
 	}
@@ -159,7 +161,7 @@ class UpdraftCentral_Main {
 	 *
 	 * @return bool
 	 */
-	public function update_central_localkeys($value, $use_cache = true, $autoload = 'yes') {
+	private function update_central_localkeys($value, $use_cache = true, $autoload = 'yes') {
 		$option = 'updraft_central_localkeys';
 
 		return update_option($option, apply_filters('updraftcentral_update_option', $value, $option, $use_cache), $autoload);
@@ -199,6 +201,9 @@ class UpdraftCentral_Main {
 				case 'already_have':
 					$updraftcentral_host_plugin->retrieve_show_message('connection_already_made', true);
 					break;
+				case 'insufficient_privilege':
+					$updraftcentral_host_plugin->retrieve_show_message('insufficient_privilege', true);
+					break;
 				default:
 					echo htmlspecialchars(print_r($result, true));
 					break;
@@ -219,7 +224,7 @@ class UpdraftCentral_Main {
 		if (!is_user_logged_in()) {
 			return array('responsetype' => 'error', 'code' => 'not_logged_in');
 		}
-		
+
 		if (!wp_verify_nonce($_GET['_wpnonce'], 'updraftcentral_receivepublickey')) return array('responsetype' => 'error', 'code' => 'nonce_failure');
 		
 		$updraft_key_index = $_GET['updraft_key_index'];
@@ -249,6 +254,7 @@ class UpdraftCentral_Main {
 	 * @param  string $key_name_indicator This indicates the key name
 	 */
 	public function udrpc_log($message, $level, $key_name_indicator) {
+
 		$udrpc_log = get_site_option('updraftcentral_client_log');
 		if (!is_array($udrpc_log)) $udrpc_log = array();
 		
@@ -280,9 +286,11 @@ class UpdraftCentral_Main {
 	 * Delete UpdraftCentral Key
 	 *
 	 * @param array $key_id key_id of UpdraftCentral
+	 *
 	 * @return array which contains deleted flag and key table. If error, Returns array which contains fatal_error flag and fatal_error_message
 	 */
 	public function delete_key($key_id) {
+		
 		$our_keys = $this->get_central_localkeys();
 		if (is_array($key_id) && isset($key_id['key_id'])) {
 			$key_id = $key_id['key_id'];
@@ -302,6 +310,7 @@ class UpdraftCentral_Main {
 	 * @return array which contains log_contents. If error, Returns array which contains fatal_error flag and fatal_error_message
 	 */
 	public function get_log() {
+
 		global $updraftcentral_host_plugin;
 	
 		$udrpc_log = get_site_option('updraftcentral_client_log');
@@ -338,10 +347,15 @@ class UpdraftCentral_Main {
 	}
 	
 	public function create_key($params) {
+
 		global $updraftcentral_host_plugin;
 
 		// Use the site URL - this means that if the site URL changes, communication ends; which is the case anyway
 		$user = wp_get_current_user();
+		
+		if (!is_object($user) || empty($user->ID)) return array('error' => $updraftcentral_host_plugin->retrieve_show_message('insufficient_privilege'));
+		
+		if (!current_user_can('manage_options')) return array('error' => $updraftcentral_host_plugin->retrieve_show_message('insufficient_privilege'));
 		
 		$where_send = empty($params['where_send']) ? '' : (string) $params['where_send'];
 		
@@ -408,9 +422,11 @@ class UpdraftCentral_Main {
 	 * Gets an RPC object, and sets some defaults on it that we always want
 	 *
 	 * @param  string $indicator_name indicator name
+	 *
 	 * @return array
 	 */
 	public function get_udrpc($indicator_name = 'migrator.updraftplus.com') {
+
 		global $updraftcentral_host_plugin;
 		
 		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once($updraftcentral_host_plugin->get_host_dir().'/vendor/team-updraft/common-libs/src/updraft-rpc/class-udrpc.php');
@@ -566,6 +582,10 @@ class UpdraftCentral_Main {
 	 * @return String
 	 */
 	public function get_keys_table() {
+		
+		// This is an additional check - it implies requirement for a dashboard context
+		if (!current_user_can('manage_options')) return;
+
 		global $updraftcentral_host_plugin;
 	
 		$ret = '';
@@ -758,6 +778,9 @@ class UpdraftCentral_Main {
 	 * Echo the debug-tools dashboard HTML. Called by the WP action updraftplus_debugtools_dashboard.
 	 */
 	public function debugtools_dashboard() {
+		
+		$this->enqueue_central_scripts();
+
 		global $updraftcentral_host_plugin;
 
 		$including_desc = '';

@@ -1,5 +1,7 @@
 <?php
 
+use WPML\LIB\WP\Nonce;
+
 class WPML_Media_Settings {
 	const ID = 'ml-content-setup-sec-media';
 
@@ -16,7 +18,32 @@ class WPML_Media_Settings {
 	}
 
 	public function enqueue_script() {
-		wp_enqueue_script( 'wpml-media-settings', ICL_PLUGIN_URL . '/res/js/media/settings.js', array(), ICL_SITEPRESS_VERSION, true );
+		$handle = 'wpml-media-settings';
+
+		wp_register_script(
+			$handle,
+			ICL_PLUGIN_URL . '/res/js/media/settings.js',
+			[],
+			ICL_SITEPRESS_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			$handle,
+			'wpml_media_settings_data',
+			[
+				'nonce_wpml_media_scan_prepare'         => wp_create_nonce( 'wpml_media_scan_prepare' ),
+				'nonce_wpml_media_set_initial_language' => wp_create_nonce( 'wpml_media_set_initial_language' ),
+				'nonce_wpml_media_translate_media'      => wp_create_nonce( 'wpml_media_translate_media' ),
+				'nonce_wpml_media_duplicate_featured_images' => wp_create_nonce( 'wpml_media_duplicate_featured_images' ),
+				'nonce_wpml_media_set_content_prepare'  => wp_create_nonce( 'wpml_media_set_content_prepare' ),
+				'nonce_wpml_media_set_content_defaults' => wp_create_nonce( 'wpml_media_set_content_defaults' ),
+				'nonce_wpml_media_duplicate_media'      => wp_create_nonce( 'wpml_media_duplicate_media' ),
+				'nonce_wpml_media_mark_processed'       => wp_create_nonce( 'wpml_media_mark_processed' ),
+            ]
+        );
+
+		wp_enqueue_script( $handle );
 	}
 
 	public function render() {
@@ -59,7 +86,7 @@ class WPML_Media_Settings {
 						<tr>
 							<td colspan="2">
 								<ul class="wpml_media_options_language">
-									<li><label><input type="checkbox" id="set_language_info" name="set_language_info" value="1" 
+									<li><label><input type="checkbox" id="set_language_info" name="set_language_info" value="1"
 									<?php
 									if ( ! empty( $orphan_attachments ) ) :
 										?>
@@ -78,7 +105,6 @@ class WPML_Media_Settings {
 						<tr>
 							<td><a href="https://wpml.org/documentation/getting-started-guide/media-translation/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore" target="_blank"><?php esc_html_e( 'Media Translation Documentation', 'sitepress' ); ?></a></td>
 							<td align="right">
-								<?php wp_nonce_field( 'wpml_media_settings_actions', 'wpml_media_settings_nonce' ); ?>
 								<input class="button-primary" name="start" type="submit" value="<?php esc_attr_e( 'Start', 'sitepress' ); ?> &raquo;"/>
 							</td>
 
@@ -138,8 +164,8 @@ class WPML_Media_Settings {
 							<td colspan="2">
 								<ul class="wpml_media_options_media_library_texts">
 									<?php
-									$settings         = get_option( '_wpml_media' );
-									$translateMediaLibraryTexts = \WPML\FP\Obj::propOr(false, 'translate_media_library_texts', $settings) ? 'checked="checked"' : '';
+									$settings                   = get_option( '_wpml_media' );
+									$translateMediaLibraryTexts = \WPML\FP\Obj::propOr( false, 'translate_media_library_texts', $settings ) ? 'checked="checked"' : '';
 									?>
 									<li>
 										<label><input type="checkbox" name="translate_media_library_texts"

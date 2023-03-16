@@ -837,6 +837,7 @@ if ( $shared ) {
 
 		<?php do_action( 'wpml_troubleshooting_after_setup_complete_cleanup_end' ); ?>
 		<?php do_action( 'after_setup_complete_troubleshooting_functions' ); ?>
+		<?php ICL_AdminNotifier::troubleshooting(); ?>
 
 	<?php } ?>
 

@@ -486,20 +486,16 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		$classes = $this->get_css_classes(false);
-
 		?>
-			<tr class="<?php echo $classes . ' ' . 'pcloud_pre_config_container';?>">
+			<tr class="{{get_template_css_classes false}} {{method_id}}_pre_config_container">
 				<td colspan="2">
-					<img alt="<?php _e(sprintf(__('%s logo', 'updraftplus'), 'pCloud')); ?>" src="<?php echo UPDRAFTPLUS_URL.'/images/pcloud-logo.png'; ?>" width="250px">
+					<img alt="{{storage_image_title}}" src="{{storage_image_url}}" width="250px">
 					<br>
 					<p>
-						<?php echo sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-pcloud-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'pCloud');?>
+						{{{storage_long_description}}}
 					</p>
 				</td>
 			</tr>
-
 		<?php
 	}
 
@@ -510,39 +506,53 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	 */
 	public function get_configuration_template() {
 		ob_start();
-		$classes = $this->get_css_classes();
-
 		?>
-			<tr class="<?php echo $classes; ?>">
+			<tr class="{{get_template_css_classes true}}">
 				<th><?php _e('Store at', 'updraftplus');?>:</th>
 				<td>
-					{{folder_path}}<input type="text" style="width: 292px" <?php echo $this->output_settings_field_name_and_id('folder'); ?> value="{{folder}}">
+					{{folder_path}}<input type="text" style="width: 292px" id="{{get_template_input_attribute_value "id" "folder"}}" name="{{get_template_input_attribute_value "name" "folder"}}" value="{{folder}}">
 				</td>
 			</tr>
-			<tr class="<?php echo $classes;?>">
-				<th><?php echo sprintf(__('Authenticate with %s', 'updraftplus'), 'pCloud');?>:</th>
+			<tr class="{{get_template_css_classes true}}">
+				<th>{{authentication_label}}:</th>
 				<td>
 					{{#if is_authenticated}}
-					<?php
-						echo "<p><strong>".__('(You are already authenticated).', 'updraftplus')."</strong>";
-						$this->get_deauthentication_link();
-						echo '</p>';
-					?>
+					<p>
+						<strong>{{already_authenticated_label}}</strong>
+						<a class="updraft_deauthlink" href="{{admin_page_url}}?action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=deauth&nonce={{deauthentication_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{deauthentication_link_text}}</a>
+					</p>
 					{{/if}}
 					{{#if ownername_sentence}}
 						<br>
 						{{ownername_sentence}}
 					{{/if}}
-					<?php
-						echo '<p>';
-						$this->get_authentication_link();
-						echo '</p>';
-					?>
+					<p><a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a></p>
 				</td>
-				<input type="hidden" <?php $this->output_settings_field_name_and_id('pcllocation'); ?> value="{{pcllocation}}">
+				<input type="hidden" id="{{get_template_input_attribute_value "id" "pcllocation"}}" name="{{get_template_input_attribute_value "name" "pcllocation"}}" value="{{pcllocation}}">
 			</tr>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/pcloud-logo.png',
+			'storage_image_title' => __(sprintf(__('%s logo', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()])),
+			'storage_long_description' => wp_kses(sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-pcloud-app/">'.__('this privacy policy', 'updraftplus').'</a>', $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'authentication_label' => sprintf(__('Authenticate with %s', 'updraftplus'),  $updraftplus->backup_methods[$this->get_id()]),
+			'already_authenticated_label' => __('(You are already authenticated).', 'updraftplus'),
+			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'authentication_link_text' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 
 	/**

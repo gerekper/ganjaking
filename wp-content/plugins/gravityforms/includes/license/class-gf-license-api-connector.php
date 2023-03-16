@@ -99,7 +99,7 @@ class GF_License_API_Connector extends GF_API_Connector {
 			if ( $license_info ) {
 				return $license_info;
 			} else {
-				return $license_info;
+				$this->clear_cache_for_key( $key );
 			}
 		}
 
@@ -123,7 +123,9 @@ class GF_License_API_Connector extends GF_API_Connector {
 	 * @return true|WP_Error
 	 */
 	public function is_valid_license() {
-		return true;
+		$license_info = $this->check_license();
+
+		return $license_info->is_valid();
 	}
 
 	/**
@@ -148,7 +150,7 @@ class GF_License_API_Connector extends GF_API_Connector {
 		} else {
 
 			// Invalid key, do not change site registration.
-			$error = new WP_Error( GF_License_Statuses::INVALID_LICENSE_KEY, GF_License_Statuses::get_message_for_code( GF_License_Statuses::VALID_LICENSE_KEY ) );
+			$error = new WP_Error( GF_License_Statuses::INVALID_LICENSE_KEY, GF_License_Statuses::get_message_for_code( GF_License_Statuses::INVALID_LICENSE_KEY ) );
 			GFCommon::log_error( 'Invalid license. Site cannot be registered' );
 
 			$result = $this->response_factory->create( $error );

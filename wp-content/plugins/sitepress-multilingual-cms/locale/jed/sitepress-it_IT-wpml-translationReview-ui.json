@@ -19,19 +19,16 @@
             "Indietro"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Disattiva per non caricare automaticamente la traduzione successiva al termine di questa revisione."
+            "Disattiva questa opzione per non caricare automaticamente la traduzione successiva dopo aver terminato questa revisione."
          ],
-         "Turn on to automatically load the next translation after finishing this review.": [
-            "Attiva per caricare automaticamente la traduzione successiva al termine di questa revisione."
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Attiva per caricare automaticamente la traduzione successiva dopo il termine di questa."
          ],
          "Edit": [
             "Modifica"
          ],
          "Edit translation": [
             "Modifica la traduzione"
-         ],
-         "There was an error in applying translation.": [
-            "Si è verificato un errore durante l'applicazione della traduzione."
          ],
          "Please wait, applying translation..": [
             "Attendi, applicazione della traduzione in corso..."
@@ -48,8 +45,11 @@
          "Published!": [
             "Pubblicata!"
          ],
-         "Reviewing the next translation...": [
-            "Revisione della prossima traduzione..."
+         "Someone is already reviewing this translation. Please try again later.": [
+            "Qualcuno sta già revisionando questa traduzione. Riprova più tardi."
+         ],
+         "There was an error in applying translation.": [
+            "Si è verificato un errore durante l'applicazione della traduzione."
          ]
       }
    }

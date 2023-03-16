@@ -1,9 +1,9 @@
-=== WooCommerce Gateway Purchase Order ===		       	 	       
-Contributors:    	      	 	 	       	       	     	  
-Donate link: 
+=== WooCommerce Gateway Purchase Order ===
+Contributors:
+Donate link:
 Tags:
 Requires at least: 5.6
-Requires PHP: 7.0
+Requires PHP: 7.2
 Tested up to: 6.1
 Stable tag: 1.1.3
 License: GPLv3 or later

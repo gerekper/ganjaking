@@ -1,0 +1,32 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Preparing...": [
+            "מכין..."
+         ],
+         "All jobs have been cancelled": [
+            "כל העבודות בוטלו."
+         ],
+         "There is no more jobs to cancel": [
+            "אין עוד עבודות לביטול."
+         ],
+         "The jobs cancellation has failed": [
+            "ביטול העבודות נכשל."
+         ],
+         "Cancel in-progress automatic jobs": [
+            "בטל עבודות אוטומטיות שנמצאות בביצוע."
+         ],
+         "Refresh license data to recognise license update": [
+            "רענו נתוני רישיון כדי לזהות את עדכון הרישיון"
+         ],
+         "WPML License has been refreshed": [
+            "הרישיון של WPML עבר ריענון"
+         ]
+      }
+   }
+}

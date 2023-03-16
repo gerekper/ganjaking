@@ -1,0 +1,32 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Preparing...": [
+            "Preparando..."
+         ],
+         "All jobs have been cancelled": [
+            "Se han cancelado todos los trabajos"
+         ],
+         "There is no more jobs to cancel": [
+            "No hay más trabajos para cancelar"
+         ],
+         "The jobs cancellation has failed": [
+            "La cancelación de trabajos ha fallado"
+         ],
+         "Cancel in-progress automatic jobs": [
+            "Cancelar los trabajos automáticos en curso"
+         ],
+         "Refresh license data to recognise license update": [
+            "Actualice los datos de la licencia para reconocer la actualización de la licencia"
+         ],
+         "WPML License has been refreshed": [
+            "Se ha actualizado la licencia de WPML"
+         ]
+      }
+   }
+}

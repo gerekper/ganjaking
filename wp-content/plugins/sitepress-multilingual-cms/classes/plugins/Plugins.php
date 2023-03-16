@@ -45,7 +45,9 @@ class Plugins {
 	}
 
 	public static function updateTMAllowedOption() {
-		Option::setTMAllowed( self::isTMAllowed() );
+		$isTMAllowed = self::isTMAllowed();
+		Option::setTMAllowed( $isTMAllowed );
+		return $isTMAllowed;
 	}
 
 	public static function updateTMAllowedAndTranslateEverythingOnSubscriptionChange() {

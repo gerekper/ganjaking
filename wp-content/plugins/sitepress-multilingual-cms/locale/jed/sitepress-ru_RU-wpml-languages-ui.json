@@ -3,8 +3,18 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "en"
          },
+         "hide the translations instead.": [
+            "вместо этого скрыть переводы."
+         ],
+         "Error happened! Please try again.": [
+            "Произошла ошибка! Пожалуйста, попробуйте еще раз."
+         ],
+         "Cancel": [
+            "Отмена"
+         ],
          "Choose Content to Automatically Translate into": [
             "Выбрать контент для автоматического перевода на"
          ],
@@ -17,9 +27,6 @@
          "Save": [
             "Сохранить"
          ],
-         "Choose Content to Automatically Translate into New Language": [
-            "Выбрать контент для автоматического перевода на новый язык"
-         ],
          "Add languages and start translating": [
             "Добавить языки и начать переводить"
          ],
@@ -31,6 +38,9 @@
          ],
          "Never mind. Don't add new language": [
             "Не надо. Не добавлять новый язык"
+         ],
+         "Choose Content to Automatically Translate into New Language": [
+            "Выбрать контент для автоматического перевода на новый язык"
          ],
          "Automatically translate all of my existing posts and pages right now, plus new content as I create it.": [
             "Автоматически перевести все существующие записи и страницы прямо сейчас, а также новый контент по мере его создания."

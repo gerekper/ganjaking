@@ -1,8 +1,12 @@
 <?php
 
+use WPML\FP\Fns;
+use WPML\FP\Logic;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
+use WPML\FP\Str;
 use WPML\LIB\WP\Hooks;
+use function WPML\FP\pipe;
 
 /**
  * Class WPML_TM_Dashboard
@@ -32,6 +36,11 @@ class WPML_TM_Dashboard {
 	private $found_documents = 0;
 
 	/**
+	 * @var int|null
+	 */
+	private $limit_retrieved_posts_value = null;
+
+	/**
 	 * WPML_TM_Dashboard constructor.
 	 *
 	 * @param wpdb      $wpdb
@@ -41,6 +50,24 @@ class WPML_TM_Dashboard {
 		$this->wpdb      = $wpdb;
 		$this->sitepress = $sitepress;
 		add_filter( 'posts_where', array( $this, 'add_dashboard_filter_conditions' ), 10, 2 );
+	}
+
+	/**
+	 * @return int|null
+	 */
+	private function get_limit_retrieved_posts_value() {
+		return ( is_null( $this->limit_retrieved_posts_value ) )
+			? self::LIMIT_RETRIEVED_POSTS_VALUE
+			: $this->limit_retrieved_posts_value;
+	}
+
+	/**
+	 * Required for integration test to set smaller limit for test performance
+	 *
+	 * @param int|null $limit_retrieved_posts_value
+	 */
+	public function set_limit_retrieved_posts_value( $limit_retrieved_posts_value ) {
+		$this->limit_retrieved_posts_value = $limit_retrieved_posts_value;
 	}
 
 	/**
@@ -81,12 +108,35 @@ class WPML_TM_Dashboard {
 		 *
 		 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-616
 		 */
-		$filtered_documents = Lst::slice( $args['page'] * $args['limit_no'], $args['limit_no'], $filtered_documents );
+		$filtered_documents = wpml_collect( Lst::slice( $args['page'] * $args['limit_no'], $args['limit_no'], $filtered_documents ) );
 
-		$results['documents']       = $filtered_documents;
+		$results['documents']       = $this->addBlockedPostParameterToDocuments( $filtered_documents );
 		$results['found_documents'] = $this->found_documents - $countAfterFilter;
 
 		return $results;
+	}
+
+	/**
+	 * @param \WPML\Collect\Support\Collection $filtered_documents
+	 *
+	 * @return array
+	 */
+	private function addBlockedPostParameterToDocuments( $filtered_documents ) {
+		$documentIds = $filtered_documents
+			->filter( pipe( Obj::prop( 'translation_element_type' ), Str::includes( 'post_', Fns::__ ) ) )
+			->pluck( 'ID' )->toArray();
+
+		$blockedDocuments = WPML_TM_Post_Edit_TM_Editor_Mode::get_blocked_posts( $documentIds );
+
+		$filterBlockedPostDocument = function ( $document ) use ( $blockedDocuments ) {
+			if ( Str::includes( 'post_', Obj::prop( 'translation_element_type', $document ) ) ) {
+				return isset( $blockedDocuments[ $document->ID ] );
+			}
+
+			return false;
+		};
+
+		return $filtered_documents->map( Obj::addProp( 'is_blocked_by_filter', $filterBlockedPostDocument ) )->toArray();
 	}
 
 	/**
@@ -103,6 +153,15 @@ class WPML_TM_Dashboard {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return bool
+	 */
+	private function has_filter_selected( $args ) {
+		return ( strlen( $args['type'] ) > 0 );
 	}
 
 	/**
@@ -205,8 +264,9 @@ class WPML_TM_Dashboard {
 			$this->sitepress->switch_lang( $lang );
 
 			if ( ! empty( $query->posts ) ) {
+				$posts = wpml_collect( $query->posts );
 
-				foreach ( $query->posts as $post ) {
+				$posts = $posts->map( function ( $post ) {
 					$language_details                   = $this->sitepress->get_element_language_details( $post->ID, 'post_' . $post->post_type );
 					$post_obj                           = new stdClass();
 					$post_obj->ID                       = $post->ID;
@@ -216,21 +276,24 @@ class WPML_TM_Dashboard {
 					$post_obj->language_code            = $language_details->language_code;
 					$post_obj->trid                     = $language_details->trid;
 
-					$results[] = $post_obj;
-				}
-			}
+					return $post_obj;
+				} )->toArray();
 
-			/**
-			 * Setting value of found documents depending on actual number of posts retrieved from database.
-			 *
-			 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-616
-			 */
-			$this->found_documents += $query->getPostCount();
+				/**
+				 * Setting value of found documents depending on actual number of posts retrieved from database.
+				 *
+				 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-616
+				 */
+				$this->found_documents += $query->getPostCount();
+				$results               = array_merge( $results, $posts );
+			}
 
 			return $results;
 		};
 
-		$dashboardPagination->setPostsLimitValue( self::LIMIT_RETRIEVED_POSTS_VALUE );
+		if ( ! $this->has_filter_selected( $args ) ) {
+			$dashboardPagination->setPostsLimitValue( $this->get_limit_retrieved_posts_value() );
+		}
 		$results = Hooks::callWithFilter( $preparePosts, 'post_limits', [
 			$dashboardPagination,
 			'getPostsLimitQueryValue'
@@ -271,6 +334,44 @@ class WPML_TM_Dashboard {
 	}
 
 	/**
+	 * Finds if each post is translated without ATE with wordpress default editor.
+	 *
+	 * @param array $post_ids
+	 *
+	 * @return array
+	 */
+	private function get_is_translation_editor_mode_native_by_post_id( $post_ids ) {
+		$sql  = '';
+		$sql .= 'SELECT post_id FROM ' . $this->wpdb->postmeta . ' postmeta ';
+		$sql .= 'WHERE postmeta.post_id IN (' . wpml_prepare_in( $post_ids, '%d' ) . ') ';
+		$sql .= 'AND postmeta.meta_key = %s AND postmeta.meta_value = "yes"';
+
+		/* phpcs:disable WordPress.DB.PreparedSQL.NotPrepared */
+		$results = $this->wpdb->get_results(
+			$this->wpdb->prepare(
+				$sql,
+				\WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE
+			)
+		);
+
+		$is_native_by_post_id = array();
+		foreach ( $post_ids as $post_id ) {
+			$has_native = false;
+
+			foreach ( $results as $result ) {
+				if ( (int) $result->post_id === $post_id ) {
+					$has_native = true;
+					break;
+				}
+			}
+
+			$is_native_by_post_id[ $post_id ] = $has_native;
+		}
+
+		return $is_native_by_post_id;
+	}
+
+	/**
 	 * Add string packages to translation dashboard.
 	 *
 	 * @param array $results
@@ -296,7 +397,7 @@ class WPML_TM_Dashboard {
 		}
 
 		$where = $this->create_string_packages_where( $args );
-		$postsLimit = self::LIMIT_RETRIEVED_POSTS_VALUE;
+		$postsLimit = $this->get_limit_retrieved_posts_value();
 
 		$sql      = "SELECT DISTINCT
 				 st_table.ID, 

@@ -1,0 +1,30 @@
+.uc-section-paste-popup{
+	
+	position:fixed;
+	bottom:0px;
+	right:0px;
+	padding:10px;
+	background-color:yellow;
+	border:1px solid black;
+}
+
+.uc-section-paste-button{
+	margin:10px;
+	padding:10px;
+	background-color:green;
+	color:white;
+	display:inline-block;
+}
+.uc-section-paste-button:hover{
+	color:white;
+	background-color:black;	
+}
+
+.uc-section-paste-debug{
+	background-color:white;
+	max-width:600px;
+	padding:10px;
+	border:1px solid gray;
+	max-height:300px;
+	overflow:auto;
+}

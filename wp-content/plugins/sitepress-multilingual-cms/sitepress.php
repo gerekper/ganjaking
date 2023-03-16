@@ -2,10 +2,10 @@
 /**
  * Plugin Name: WPML Multilingual CMS
  * Plugin URI: https://wpml.org/
- * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-5-9/">WPML 4.5.9 release notes</a>
+ * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-1/">WPML 4.6.1 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 4.5.9
+ * Version: 4.6.1
  * Plugin Slug: sitepress-multilingual-cms
  *
  * @package WPML\Core
@@ -15,17 +15,6 @@ use WPML\Container\Config;
 use function WPML\Container\share;
 use function WPML\FP\partial;
 
-$wpml_setup = get_option( 'WPML(setup)', [] );
-if ( isset( $wpml_setup['current-step'] ) ) {
-	if ( $wpml_setup['current-step'] == 'license' ) {
-		$wpml_setup['current-step'] = 'translation';
-		update_option( 'WPML(setup)', $wpml_setup );
-	}
-	if ( $wpml_setup['current-step'] == 'support' ) {
-		$wpml_setup['current-step'] = 'plugins';
-		update_option( 'WPML(setup)', $wpml_setup );
-	}
-}
 if ( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
@@ -40,7 +29,7 @@ if ( ! \WPML\Requirements\WordPress::checkMinimumRequiredVersion() ) {
 	return;
 }
 
-define( 'ICL_SITEPRESS_VERSION', '4.5.9' );
+define( 'ICL_SITEPRESS_VERSION', '4.6.1' );
 
 // Do not uncomment the following line!
 // If you need to use this constant, use it in the wp-config.php file
@@ -182,7 +171,6 @@ $action_filter_loader = new WPML_Action_Filter_Loader();
 $action_filter_loader->load( [
 	\WPML\Ajax\Factory::class,
 	\WPML\Installer\AddSiteUrl::class,
-	\WPML\Core\BackgroundTask::class,
 ] );
 
 if ( $sitepress->is_setup_complete() ) {
@@ -236,6 +224,9 @@ if ( $sitepress->is_setup_complete() ) {
 		\WPML\AdminLanguageSwitcher\AdminLanguageSwitcher::class,
 		\WPML\TM\Troubleshooting\Loader::class,
 		\WPML\TaxonomyTermTranslation\Hooks::class,
+		\WPML\BlockEditor\Loader::class,
+		\WPML\TM\ATE\Hooks\LanguageMappingCache::class,
+		\WPML\BackgroundTask\BackgroundTaskLoader::class,
 	];
 	$action_filter_loader->load( $actions );
 

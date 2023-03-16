@@ -5,7 +5,7 @@
  */
 class WPML_TM_Dashboard_Pagination {
 
-	private $postLimitNumber = 0;
+	private $post_limit_number = 0;
 
 	public function add_hooks() {
 		add_action( 'wpml_tm_dashboard_pagination', array( $this, 'add_tm_dashboard_pagination' ), 10, 2 );
@@ -26,7 +26,7 @@ class WPML_TM_Dashboard_Pagination {
 	 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-616
 	 */
 	public function setPostsLimitValue( $value ) {
-		$this->postLimitNumber = ( is_int( $value ) && $value > 0 ) ? $value : $this->postLimitNumber;
+		$this->post_limit_number = ( is_int( $value ) && $value > 0 ) ? $value : $this->post_limit_number;
 	}
 
 	/**
@@ -35,7 +35,7 @@ class WPML_TM_Dashboard_Pagination {
 	 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-616
 	 */
 	public function resetPostsLimitValue() {
-		$this->postLimitNumber = 0;
+		$this->post_limit_number = 0;
 	}
 
 	/**
@@ -46,7 +46,7 @@ class WPML_TM_Dashboard_Pagination {
 	 * @return string
 	 */
 	public function getPostsLimitQueryValue() {
-		return 'LIMIT ' . $this->postLimitNumber;
+		return ( 0 === $this->post_limit_number ) ? '' : 'LIMIT ' . $this->post_limit_number;
 	}
 
 

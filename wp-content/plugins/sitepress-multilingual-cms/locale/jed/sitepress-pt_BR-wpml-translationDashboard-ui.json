@@ -1,0 +1,68 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
+            "Ocorreu um erro ao tentar pausar sua tradução automática. Tente novamente mais tarde ou entre em contato com nosso suporte."
+         ],
+         "There was an error when trying to resume your Automatic Translation. Please try again later or contact our support.": [
+            "Ocorreu um erro ao tentar retomar sua tradução automática. Tente novamente mais tarde ou entre em contato com nosso suporte."
+         ],
+         "Error": [
+            "Erro"
+         ],
+         "Draft — Pending review": [
+            "Rascunho — Revisão pendente"
+         ],
+         "Complete": [
+            "Concluído"
+         ],
+         "Insufficient funds": [
+            "Recursos insuficientes"
+         ],
+         "Your pending automatic translations will be canceled.": [
+            "Suas traduções automáticas pendentes serão canceladas."
+         ],
+         "Save": [
+            "Salvar"
+         ],
+         "Go to the <a>Translation Management Dashboard</a> to translate your content.": [
+            "Acesse o <a>painel do Translation Management</a> para traduzir seu conteúdo."
+         ],
+         "Review the translations before publishing": [
+            "Revisar as traduções antes de publicar"
+         ],
+         "Publish translations and review them later": [
+            "Publicar as traduções e revisá-las depois"
+         ],
+         "Publish translations without reviewing": [
+            "Publicar traduções sem revisar"
+         ],
+         "Translate Everything": [
+            "Traduzir tudo"
+         ],
+         "WPML will automatically translate content that you publish or update": [
+            "O WPML traduzirá automaticamente o conteúdo que você publicar ou atualizar"
+         ],
+         "How do you want to translate this site?": [
+            "Como você quer traduzir este site?"
+         ],
+         "Translate Some": [
+            "Traduzir parte"
+         ],
+         "I want to choose which content to translate": [
+            "Eu quero escolher qual conteúdo traduzir"
+         ],
+         "Save settings": [
+            "Salvar configurações"
+         ],
+         "Translate": [
+            "Traduzir"
+         ]
+      }
+   }
+}

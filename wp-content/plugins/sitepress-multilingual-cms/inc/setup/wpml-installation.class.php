@@ -422,11 +422,9 @@ class WPML_Installation extends WPML_WPDB_And_SP_User {
 			) {
 				continue;
 			}
-			if ( ! file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code . '.png' ) ) {
-				$file = 'nil.png';
-			} else {
-				$file = $code . '.png';
-			}
+
+			$file = wpml_get_flag_file_name( $code );
+
 			$this->wpdb->insert(
 				$this->wpdb->prefix . 'icl_flags',
 				array( 'lang_code' => $code, 'flag' => $file, 'from_template' => 0 )

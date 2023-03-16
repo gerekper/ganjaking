@@ -1,0 +1,35 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "WPML Translation Editor": [
+            "Editor di traduzione di WPML "
+         ],
+         "WordPress Editor": [
+            "Editor di WordPress"
+         ],
+         "Use the editor to translate:": [
+            "Usa l'editor per tradurre:"
+         ],
+         "Apply": [
+            "Applica"
+         ],
+         "Cancel": [
+            "Annulla"
+         ],
+         "This %s": [
+            "Questo %s"
+         ],
+         "All %s": [
+            "Tutto %s"
+         ],
+         "All the site's content": [
+            "Tutto il contenuto del sito"
+         ]
+      }
+   }
+}

@@ -69,13 +69,17 @@ jQuery(function ($) {
         });
     }
 
-		jQuery('#login_page_translation').click(function() {
-			jQuery('#show_login_page_language_switcher_sub_section').toggle();
-		})
+    var showLangSwitcher = jQuery('#show_login_page_language_switcher_sub_section');
+    var showLangSwitcherCheckbox = showLangSwitcher.find('[name="show_login_page_language_switcher"]');
+    jQuery('#login_page_translation').click(function() {
+        showLangSwitcher.toggle();
+        var isVisible = (showLangSwitcher.is(':visible'));
+        showLangSwitcherCheckbox.prop('checked', isVisible);
+    });
 
-		if (jQuery('#icl_login_page_translation').length) {
-			jQuery('#icl_login_page_translation').submit(iclSaveForm);
-		}
+    if (jQuery('#icl_login_page_translation').length) {
+        jQuery('#icl_login_page_translation').submit(iclSaveForm);
+    }
 
     jQuery('.icl_sync_custom_posts').change(function(){
         var val = WPML_core.sanitize( jQuery(this).val() );

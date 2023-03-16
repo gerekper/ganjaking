@@ -1,0 +1,1629 @@
+
+
+
+version 1.5.56:
+
+feature: added option authors by dynamic field in post query
+bug fix: fixed get posts by terms meta field - add taxonomy
+bug fix: fixed responsive css in dynamic loop
+bug fix: fixed dynamic loop with jet engine acf fields
+bug fix: fixed slider control units for vh, vx and % 
+change: the uc_id will not change now when page refresh
+feature: done some integration with flycart discounts
+bug fix: added "before today" for past year in date qury
+feature: added option to show post type and post type title in posts fields
+
+
+
+version 1.5.55:
+
+-bug fix: fixed wpml integrate fields
+-bug fix: fixed some write file error, will not crash if happend
+-bug fix: fixed entrance animation js on popup
+-bug fix: fixed strip tags in intro from content
+-change: do_action function is working now in free version
+-bug fix: fixed some php 8.1 issues
+-bug fix: fixed some post intro with html tags issues
+
+
+version 1.5.54:
+
+-change: added some define variable that indicate the under ajax search
+-change: added "collect", and "output" to schema types in content accordion widget for example
+-feature: added wpml auto translate integration
+-feature: added option to select "all taxonomies" in exclude terms in terms selection
+-bug fix: preserve tags when truncate
+-bug fix: fixed load more with second meta add in post query
+-feature: added option - only direct children to terms select include by
+-feature: added option to post select to get posts by terms from curent meta field
+
+
+version 1.5.53:
+
+-bug fix: keep exclude terms in grid when filtering with "override terms" mode
+-bug fix: fixed get_terms() not found php error from 1.5.52 version
+
+
+version 1.5.52:
+
+-change: done some protection agains infinite loops in templates
+-bug fix: fixed popup button type conditions
+-bug fix: fixed term meta fields in multisource
+-bug fix: fixed exclude term not found in post select
+
+
+version 1.5.51:
+
+-feature: added version to js comment output
+-feature: connected the galleies to remote play / stop like the carousels
+-feature: added some error message when image size attribute is missing in multisource
+-bug fix: fixed title source and description source in multisource gallery for products.
+-bug fix: added supress filtres to ajax search query
+-feature: added dynamic popup special attribute type
+
+
+version 1.5.50:
+
+-feature: added "media" to post types select in advanced post query
+-feature: improved the date time attribute
+
+
+version 1.5.49:
+
+-bug fix: fixed some js optimization issues 
+-bug fix: fixed filters related small js bug
+-bug fix: fixed lord icon
+
+
+version 1.5.48:
+
+-bug fix: fixed popular posts plugin integration multiple post types
+-feature: added gallery to multisource
+-bug fix: fixed background widgets some problematic attribute names
+-bug fix: fixed include terms by current post terms in some cases.
+-bug fix: fixed default url_assets value in multisoure
+-bug fix: fixed dark mode svg icons
+-feature: added post type override selectin current post query options
+-bug fix: fixed remote play with carousel
+-bug fix: fixed some multisource and ajax related bugs
+
+
+
+version 1.5.47:
+
+-feature: added more units to slider attribute
+-bug fix: fixed dynamic template render css for dynamic popup
+-feature: added "any" post type to post types select
+-feature: added include and exclude current post terms in terms selection
+-feature: added option to carousel - scroll to head - force
+-feature: allow import widgets with theme activate
+-bug fix: fixed users list select by manual
+
+
+
+version 1.5.46:
+
+-feature: set the items image size chooser work for certain image
+-change: updated the multisource that it works better with items images
+-feature: made option to put js script in saparate tags with id's for optimization plugins like wprocket
+-bug fix: fixed filters with sync multiple grid issues
+-feature: enriched the uc_lang variable. now it's always showing the current language
+-feature: added user_login variable to the users list output
+-bug fix: fixed the exclude users list with similar names
+-feature: has put the preview link always as a help link in widget edit panel.
+-change: allow html tags in post intro (excerpt) in widgets
+
+
+
+version 1.5.45:
+
+-bug fix: fixed entrance animation on ajax refresh
+-bug fix: done sync pause / play between carousels
+-feature: added json decode filter to twig
+-feature: added catalog images from shortpixel for speed loading
+-feature: done multisource group setting
+
+
+
+version 1.5.44:
+
+-change: updated freemius to the latest version
+-bug fix: fixed remote play / pause button
+-bug fix: fixed search filter unicode phrase
+-bug fix: fixed entrance animation appear on scroll
+-feature: added video gallery responsive options
+-bug fix: fixed some owl carousel size on init bug
+-bug fix: fixed js widgets under the dynamic grid template like flipbox
+
+
+
+version 1.5.43:
+
+-bug fix: fixed pods multiple image data
+-feature: add settings output to dynamic grid fields debug
+-bug fix: fixed url terms in filter with dynamic grid
+-change: updated twig engine to the latest version
+-bug fix: fixed users and menu not found bug in front	
+
+
+version 1.5.42:
+
+-feature: added functionality for time ago in posts widgets
+-feature: added woo variables to woo fields - woo_price_withtax, woo_price_notax
+-feature: added option for term child filter role
+-optimization: reduced number of queries in post related widgets and dynamic template widgets
+
+
+
+version 1.5.41:
+
+-bug fix: fixed post select in post query
+
+
+version 1.5.40:
+
+-feature: added integration to woocommerce multicourancy plugins
+-feature: made some integration with translate press plugin
+-feature: added select post and select term attribute
+-bug fix: fixed dynamic loop css backgrounds with containers
+-bug fix: fixed mousewheel event in the carousel
+-bug fix: fixed some rare php error with filters
+
+
+
+version 1.5.39:
+
+-bug fix: fixed small bug with zip extract
+-update: updated black friday sale banners
+
+
+version 1.5.38:
+
+-bug fix: fixed galleries default sizes with post filters
+-bug fix: fixed hidden option in select filter in safari browser
+-bug fix: fixed non ssl assets url
+-feature: added "schema" special attribute
+-bug fix: fixed false autoplay in carousel
+
+
+
+version 1.5.37:
+
+-bug fix: fixed 1px glitch bug in the carousel, on 1 item (slide mode)
+-feature: prepared the filters to work with ajax search
+
+
+version 1.5.36:
+
+-feature: added function that outputs items schema
+-feature: improved include by meta in posts selection, added option for multiple values
+-bug fix: fixed count posts in post query summary
+-bug fix: fixed entrance animation blur type
+-addition: validate number of post list attributes, allow only one when creating widget
+-bug fix: fixed avoid duplicates with random order while posts load more
+-bug fix: the timeout now reset after slide change in owl carousel
+-bug fix: fixed terms selection taxonomies with idetical post type title
+-bug fix: added protection against inifinite loop in putElementorTemplate twig function
+-feature: added option to get current user with meta in twig
+-bug fix: fixed acf field unaccessable in some cases with elementor pro 3.8
+
+
+
+version 1.5.35:
+
+-bug fix: fixed include by id's from dynamic field, and terms from dynamic field in post selection
+
+
+
+version 1.5.34:
+
+-feature: added items image size attribute (special type)
+-bug fix: fixed show backgrounds in elementor editor
+
+
+
+version 1.5.33:
+
+-bug fix: fixed avoid duplicates with filters
+-feature: added avoid duplicates option to manual posts selection
+-bug fix: fixed select dropdown filter js
+
+
+version 1.5.32:
+
+-bug fix: fixed some ajax pagination issues
+-bug fix: fixed pagination widget appearance on archive ajax pages with filters
+-feature: added twig functionality to put product attributes text
+-bug fix: fixed export with images not worked in some cases
+-bug fix: made some protection with ezcache plugin integration and filtering
+-bug fix: fixed some small php bug with this month post selection
+-bug fix: fixed some visible and hidden filters collision
+-feature: added multiple taxonomy terms in term selection
+-feature: added query id in terms selection
+-bug fix: fixed terms select in terms filter on history back click in filters
+-bug fix: set child filter always first unselected
+-bug fix: set option for the tabs filter to be unselected
+-bug fix: fixed the pagination numbers if exclude offset chosen
+
+
+
+version 1.5.31:
+
+-bug fix: fixed thumbs gallery
+
+version 1.5.30:
+
+-bug fix: fixed multiple post filters and grid connection
+-bug fix: fixed various small php errors
+-bug fix: fixed wordpress popular posts integration small bug
+-feature: added terms from dynamic post selection option
+-feature: added option for limiting terms show in post list
+-change: updated once more unitegallery graphics, changed assets to svg
+-bug fix: fixed thumbnail gallery arrows
+
+
+version 1.5.29:
+
+-bug fix: fixed a small issue with search page and load more
+-bug fix: fix vimeo videos stoppped playing bug
+
+
+version 1.5.28:
+
+-bug fix: fixed some small js bug with filters
+-feature: added support for the select filter
+-bug fix: fixed some post filters related popup error
+-change: changed the way that galleries srolls by mouseover
+
+
+version 1.5.27:
+
+-bug fix: fixed popular posts plugin integration
+-bug fix: removed some console logs in filter.js file
+-change: renamed field - "use dynamic fields" to "use current post data" in widget editor
+-change: updated freemius sdk to: 2.4.5
+-bug fix: fixed ajax pagination jump
+-bug fix: fixed unitegallery strict standards bugs
+
+
+version 1.5.26:
+
+-feature: added debug to remote elements
+-bug fix: made some protection against wrong animation names in carousel
+-bug fix: added some small fixes to carousel and remote sync js libraries
+-bug fix: done a better find closest section in remote
+-bug fix: fixed not showing values in elementor editor post selectors
+
+
+version 1.5.25:
+
+-bug fix: fixed some more lazy load related protections in galleries
+-feature: added option to set title field in items
+-bug fix: Fixed some Elementor 3.7 deprecation issues
+
+
+version 1.5.24:
+
+-bug fix: fixed some Elementor 3.7 related js bug in editor
+
+
+version 1.5.23:
+
+-feature: added date format to date meta field post selection
+-bug fix: fixed some unitegallery strict related scripts
+-bug fix: fixed sequance entrance animation attribute
+-feature: added more units to padding and margin attribute
+-feature: added option to set selected tab number in tabs filter widget
+-bug fix: fixed some text with pagination edit mode in elementor editor
+-bug fix: fixed ajax pagination didn't get back to first page
+-change: prepare the right way dates should work in post list
+-bug fix: fixed tabs filter and taxonomy terms in one page
+
+
+version 1.5.22:
+
+-feature: added option to connect to another parent in remote arrows
+-bug fix: fixed doubly plugin integration import bg widgets
+-feature: added change url and back button in ajax filers behaviour
+-bug fix: fixed remote next/prev directions in carousels
+-bug fix: added some more protection against infinite loops from post content processing
+
+
+version 1.5.21:
+
+-change: end of birthday sale message update
+-feature: added docstart and docend template in widget js
+-change: added warning message in case of twig collision with other plugins
+
+
+version 1.5.20:
+
+-bug fix: fixed ajax pagination in some cases
+-bug fix: fixed small php bug with hover animations control
+-bug fix: fixed lity lightbox with vimeo autoplay
+-feature: added more widget debug type - current post fields
+-bug fix: fixed item index after shuffle
+-feature: updated admin title on edit widget view
+-bug fix: fixed some seleted tab filters related issues
+-bug fix: fixed load more filter doubly ajax request in some cases
+-feature: added option to carousel: scroll to head
+-change: changed gallery arrows to svg
+-bug fix: fixed woo scedualed sale price output
+-feature: added query data attributes into filtering grid
+-bug fix: in filters replace url with pagination as well
+
+
+
+
+version 1.5.19:
+
+-feature: added max posts to current query
+-bug fix: fixed controls conditions for elementor template control
+-feature: added more fields to dynamic grid loop (was only title)
+-change: added birthday sale banner and text
+
+
+version 1.5.18:
+
+-change: updated fancybox version
+-bug fix: Fixed bug with ajax load more and ajax pagination
+
+
+version 1.5.17:
+
+-feature: fixed entrance animation attribute
+-bug fix: fixed uc_inside_editor variable inside background widget
+-bug fix: fixed empty default value of radio boolean control
+-bug fix: fixed double filtering issues in archive pages
+
+
+
+version 1.5.16:
+
+-bug fix: fixed double plugin versions in pro version
+-bug fix: fixed 1 size gap in one item owl carousel
+-bug fix: fixed the dissapearing options bug in mobile
+
+
+
+version 1.5.15:
+
+-change: set cache folder inside wp-uploads
+-feature: added option to get terms last level only - for post list / grid
+-feature: added twig function - get_current_user
+-feature: disabled right click on html5 galleries (unite gallery)
+-bug fix: the image and video repeater was missing default items
+-bug fix: fixed load more and filters on a search page
+-bug fix: fixed carousel stage padding issues
+-bug fix: fixed carousel 1 item one pixel issues
+-bug fix: fixed default values in responsive selectors
+
+
+
+version 1.5.14:
+
+-bug fix: fixed responsive default values with selectors in number and dropdown and slider controls
+-bug fix: fixed a bug in run_code_once functionality
+
+
+version 1.5.13:
+
+-bug fix: fixed sync bug between two similar elements
+-bug fix: fixed filters loading with wp-rocket lazy load scripts
+-bug fix: fixed put_hide_ids_css function small bug
+-bug fix: fixed fetch 2 and more widgets within one section for filtering
+-bug fix: fixed slider control js empty output bug
+-feature: added integration with "sticky posts switch" plugin
+-feature: added special attribute type - entrance animation
+-bug fix: fixed gallery title as number js bug
+-bug fix: fixed gallery images from meta fields source as array 
+
+
+
+version 1.5.12:
+
+-feature: added integration for wpml media change
+-feature: bug fix: fixed hover animations setting don't work on front in some cases
+-bug fix: fixed blank window opened by a link
+-bug fix: fixed acf boolean value present
+-bug fix: fixed another gallery related lazy load issues
+-feature: in post selection by date added options for "future from today", and "future from tomorrow".
+-feature: added new function: "put_hide_ids_css" to hide some css comma saparated id's from css tab.
+-feature: added support for ajax refresh for multiple synced grids together
+-feature: added option to test instagram data
+-feature: added phpinfo view in settings - troubleshooting 
+
+
+
+version 1.5.11:
+
+-feature: made option to put elementor post_content inside post widget if the post made by elementor
+-feature: added additional fields to getPostAuthor function like avatar url and author meta
+-bug fix: set prices display in woocommerce widgets including tax
+-bug fix: fixed editor js files didn't loaded bug
+-bug fix: fixed css output with dynamic template and inline css mode
+-feature: done option to get post parent with the posts in posts selection
+-bug fix: fixed the ajax pagination that now works with post based gallery widget
+-bug fix: fixed filters scripts loading before jquery in js
+-change: set default values of responsive number / slider / dropdown controls to desktop default values
+-bug fix: allow to select empty terms in term selection control
+-feature: show the "no posts" message with filters in post list / grid
+-feature: add background location (back/front) to background widgets
+
+
+
+
+version 1.5.10:
+
+-bug fix: fixed title and description source in gallery source selection
+-bug fix: fixed the dropdown attribute php filter for elementor
+-feature: added "menu_id" for variouse uses as menu attribute output
+-feature: added option for side offset in owl carousel
+-feature: added option for second items html refresh in ajax filters
+
+
+version 1.5.9:
+
+-bug fix: fixed simple meta output for post list
+-feature: made dynamic grid work with filters
+-feature: the background widgets works for the new container objects as well
+-feature: added include by another meta field in post query
+
+
+
+version 1.5.8:
+
+-feature: set special behaviour for more then one filters on the page
+-feature: added option to load video item from posts in a gallery
+-change: set up galleries common default items
+-bug fix: fixed unclosable gallery lightbox with youtube videos
+-bug fix: fixed elementor 3.6.0 compatability
+
+
+
+version 1.5.7:
+
+-feature: added option to modify dropdown items in php
+-bug fix: fixed gallery default items preview and init
+-bug fix: fixed remote counter js error
+
+
+
+version 1.5.6:
+
+-bug fix: fixed dissapearing items in remote related widgets
+
+
+version 1.5.5:
+
+-bug fix: fixed query debug in manual posts selection
+-bug fix: fixed posts_per_page in manual posts selection
+-feature: added woocommerce sorting options in posts selection by number of sales and rating
+-feature: added option to get related products on checkout page
+-feature: done manual posts and terms selections sort by drag and drop
+-bug fix: fixed jquery include for remote widgets
+-feature: done option to custom refresh filters html (for carousels, galleries etc)
+-feature: made the attributes dialog support multi controls
+-feature: prepared the galleries and dynamic loops to use filters and load more
+
+
+
+version 1.5.4:
+
+-feature: added roles to post filter: single, main and child
+-bug fix: fixed some pagination widget buttons related issues
+-bug fix: fixed non clickable items in some widgets
+-feature: added option "placeholder" and "disable dynamic" for text field control
+-feature: added option for debug meta fields in post list, post grid
+-bug fix: fixed put_items(0) - first item output in twig
+
+
+version 1.5.3:
+
+-feature: added functionality to put image inside taxonomy terms widget
+-bug fix: fixed load more on archive page with orderby=xxx filter in url
+-change: updated freemius sdk
+-bug fix: made support for woocommerce special order by in load more
+-change: updated freemius sdk to 2.4.3 version (Security fix)
+
+
+version 1.5.2:
+
+-bug fix: fixed load more for current query posts
+-bug fix: fixed background js based widgets with elementor popups
+-bug fix: fixed unitegallery unclosed tag issue
+-bug fix: fixed replace mode in tabs filters
+-feature: set up remote and sync functionality for the galleries
+
+
+
+version 1.5.1:
+
+-feature: improved post pagination debug and added force options
+-feature: added code for the button filters
+-feature: added option to shuffle owl carousel
+-feature: added option for general "shuffle" in items
+-change: changed the "choose template" setting text to attirbute title
+-feature: made option for text modify, and get the current page url and current page title
+-bug fix: fixed load more if offset turned on in the grid
+-bug fix: fixed link control attributes parsing
+-feature: get feature image of a product from a first gallery image if featured image not exists
+-feature: added function "one_random" and "first" to get_items twig function
+-feature: added support for jet listing item
+-bug fix: fixed sync general api related bugs in elementor editor
+
+
+
+version 1.5.0:
+
+-feature: added tabs in items controls
+-feature: added functionality for ajax taxonomies terms filter
+-change: added some accessability to owl carousel buttons
+
+
+version 1.4.99:
+
+-feature: added option for disable content filtering in general settings->troubleshooting
+-feature: added taxonomies in widget debug output
+-bug fix: fixed some gallery lazy load related js bugs
+
+
+version 1.4.98:
+
+-feature: modified remote general js api to fit more types of widgets
+-bug fix: fixed some small php notices output in post query
+-feature: added support for put meta field in post list
+
+
+version 1.4.97:
+
+-feature: add code base for the taxonomy filter
+-feature: added option to highlight all carousel items
+-bug fix: added support for acf fields styles in dynamic grid
+-bug fix: fixed some wp-rocket and filters related bug
+-feature: added active class to new owl carousel
+-feature: added scroll on click functionality to new owl carousel
+
+
+version 1.4.96:
+
+-bug fix: fixed some filters related issue
+-feature: use yoast main category feature to determine post main category
+-feature: added get woocommerce product gallery functionality to twig
+-feature: added support for multiple attribute conditoins values
+-feature: added menu order in advanced widget debug type
+-bug fix: added custom attributes to link attributes output
+-feature: added WooCommerce endpoints links code to twig
+-feature: added option to disable font awesome in general settings
+
+
+version 1.4.95:
+
+-bug fix: fixed db table not found php bug in some cases
+
+version 1.4.94:
+
+-bug fix: fixed some small pagination related bug
+-feature: added meta value2 and meta value3 in include by meta value post selection
+-feature: added error notice if no api connectivity
+-bug fix: fixed remote connection parent detection in some cases
+-feature: made posible multiple includes condition values per assets
+-bug fix: added content filtering by filter widget_text_content for all the embed and other content modifications
+-feature: added attributes section conditions
+-bug fix: fixed edit defaulsin widget settings
+-bug fix: fixed some polylang issues with the template in dynamic template widgets
+-security fix: remove the "duplicate layout" functionality (not used in the plugin) that had some security issues 
+-feature: prepared code base for the new galleries
+
+
+version 1.4.93:
+
+-bug fix: fixed some connected widgets bugs when there is many of them in the page
+-change: removed the black friday sale banner
+-feature: added general remote API for various widgets connections
+-feature: add some code base for the new gallery output
+
+
+version 1.4.92:
+
+-bug fix: fixed similar post content in post list
+-change: saparated remote and sync options in connected widgets settings
+
+
+version 1.4.91:
+
+- bug fix: fixed the wrong post intro in editor mode
+
+
+version 1.4.90:
+
+-addition: added black friday banner discount banner and link
+-change: improved "sync widgets" editor experience
+-bug fix: fixed depricated "post" attribute bug
+-bug fix: modified zip extracting error messages
+
+
+version 1.4.89:
+
+-bug fix: fixed error message on remote widgets
+-bug fix: fixed css in post content in editor
+-bug fix: use better strip tags for post intro
+-feature: done the functionality for sync widgets
+-feature: done the functionality remote widgets
+
+
+version 1.4.88:
+
+-bug fix: fixed gutenberg support in widgets
+-bug fix: fixed all the pagination issues in archive page
+
+version 1.4.87:
+
+-bug fix: fixed some load more last issues
+-feature: added code for taxonomy terms filter
+-feature: added code for checkbox filter
+
+
+version 1.4.86:
+
+-feature: improved current query debug - full type
+-feature: added dropdown responsive placeholders
+-feature: added radio boolean attribute responsive controls
+
+-bug fix: fixed controls tabs functionality
+-bug fix: fixed load more custom image bug
+-bug fix: fixed double load more in a page mishmash bug
+-bug fix: fixed all load more issues
+
+
+version 1.4.85:
+
+-bug fix: fixed headers already started bug
+
+version 1.4.84:
+
+-bug fix: fixed conflicting wordpress codemirror script
+-feature: added taxonomy terms full query debug option
+-feature: improved full debug type in posts query
+-bug fix: fixed avoid duplicates related bug
+-feature: added items support in editor->background switcher
+-addition: added %,px to slider units
+-feature: added support for remote controls
+-bug fix: fixed post selection values init from editor
+-bug fix: fixed post selection values init from editor
+-bug fix: fixed pagination on front page
+-bug fix: fixed some polylang related bugs
+-feature: functionality to posts load more
+-feature: added second condition
+-feature: added tabs functionality to attributes
+-feature: added functionality for connected widgets
+
+
+version 1.4.83:
+
+-bug fix: fixed styles mishmash inside elementor editor navigator
+-bug fix: fixed dissapearing carousels after refresh bug
+-bug fix: fixed dynamic grid pagination not changed
+
+
+version 1.4.82:
+
+-feature: added troubleshooting setting - show php error message
+-bug fix: fixed mb_string absence php bug
+-bug fix: fixed heading attribute label
+-bug fix: fixed responsive elementor controls in widget items
+-feature: added px, vh, % options for slider attribute
+-feature: added dynamic group attributes for galleries, including image and video
+-feature: added option to convert one date string to another with ucdate filter
+-feature: added option to use items in background widgets
+-feature: added ucfunc("set") and ucfunc("get") functions in twig for remember and retrieve variables
+-feature: added include by option: "children of current term" to category selection options
+-feature: added option to pull woo product variations in twig
+-bug fix: fixed error when exists dynamic link in dynamic loop widgets
+-bug fix: enabled pagination in a single type in dynamic template grid
+-feature: added placeholder: link_withprefix, link_noprefix for link attribute
+-bug fix: the "not equal" attributes condition now works
+-bug fix: fixed not editable empty dropdown attribute in widget editor
+
+
+
+
+version 1.4.81:
+
+-feature: added json select (lottie) for image attribute type 
+-feature: made option for ajax in widgets with post list attribute
+-feature: made the ajax pagination work with pagination widget
+-change: added more types of debug for pagination widget
+-bug fix: fixed import with template button dissapear in the new bar
+-bug fix: fixed widgets icons
+-change: changed widget icons chooser for elementor icon instead of font awesome icon
+-feature: added dynamic options for number and slider attribute types
+-feature: added new owl carousel sources in assets chooser
+-feature: added heading attribute
+
+
+
+version 1.4.80:
+
+-bug fix: fixed some test widgets output relate bugs
+-feature: added option to change items section label
+-feature: added js snippet with code that works in elementor popup
+-bug fix: conditions settings was not affected typography controls
+-feature: added option to add {current_user_id} keyword in post meta query
+-feature: added option for block label inside each attribute
+-feature: added heading text option for items section
+-change: added some instructions for api connectivity test in general settings - troubleshooting
+-feature: added extra fields to image base gallery options
+-feature: added php filter option for variable
+-feature: added twig functions "get_post_term" and "is_post_has_term". The examples visible when you click on item.posts.putPostTerm placeholder
+-feature: added current_user_id to include by meta field in post query selector
+-bug fix: fixed template dynamic background image didn't displayed bug in dynamic loops
+
+
+version 1.4.79:
+
+-bug fix: fixed scripts output in preview widget page
+
+
+version 1.4.78:
+
+-change:  added birthday sale promotions
+-feature: added woo commerce products to dynamic loop items source
+
+
+version 1.4.77
+
+-bug fix: fixed the is_ajax() error function from the admin area
+
+
+version 1.4.76
+
+-feature: added option to show post last modified date
+-feature: added function: get_from_sql in widget editor that allow to pull any custom records from DB
+-feature: added function: run_code_once in widget editor, that allow to run the code only once. Good for many similar widgets on the same page
+-bug fix: fixed no key_thumb field in images inside widget
+-bug fix: fixed no condition in image sizes widget setting
+-bug fix: fixed javascript based backgrounds
+-change: added some max length for a widget category, now it's 60
+-bug fix: fixed brocken svg icon on catalog widget box in some of the cases
+-feature: added option for load widget js as module
+-bug fix: fixed collision with rankmath in ajax actions
+
+
+
+version 1.4.75
+
+-feature: added category image to products list
+-feature: added option to include as module widget js include
+-feature: added option to write custom handle to widget js and css include
+-feature: added options - avoid duplicate posts to post query exclude
+-feature: added option to include or exclude posts by dynamic field to posts selection
+-feature: added option to include or exclude posts by logged in user, in posts selection
+-bug fix: fixed background widget condition functionality
+-change: changed template picker to simple select2 list
+
+
+version 1.4.74
+
+-feature: added function put_date_range to twig functions. good for events widgets
+-feature: added integration with google map
+-feature: added function: "run_code_once" for twig
+-feature: added grouped options for the gallery
+-feature: added option to get posts by date from custom ACF field
+-change: improved dynamic settings attribute
+-feature: added gallery settings options for dynamic settings attribute
+-feature: added pagination to dynamic loop
+
+
+version 1.4.73
+
+-bug fix: fixed acf group field output
+-feature: added twig function: "put_attributes_json" that available in js tab in widget editor
+-feature: added constant - uc_inside_editor - for distinquish between editor and site front
+-bug fix: fixed "request too long" message on a widget preview - shortened preview url
+-bug fix: fixed several bugs with condition field in widgets editor
+-bug fix: fixed hidden image size select on item attributes
+-feature: added multiple select attribute
+-feature: added dynamic settings attribute support
+-bug fix: fixed elementor template in items, changed to specific function
+
+
+version 1.4.72
+
+-feature: added rating stars helper placeholder for woocommerce
+-feature: added option to include js file after elementor-frontend
+-bug fix: fixed new typography deprecation message
+
+
+version 1.4.71
+
+-change: added option for woocommerce categories in terms selection
+-feature: added option to take post id's from php function in post selection
+-bug fix: fixed price issues in woocommerce related grids
+-feature: added option for get posts by meta field that located in current or different post
+-feature: added twig filter: wc_price for native price filtering
+-feature: added post terms titles to post data debug
+-bug fix: fixed include and exclude terms mismatch with nested tax query
+-bug fix: fixed pagination on search pages
+
+
+
+version 1.4.70
+
+-bug fix: when bulk moving attribute it now always goes to general category
+-bug fix: fixed filter posts by status
+-bug fix: fixed instagram media albom
+-feature: added show widget data debug options
+-feature: added option for filter post by post meta
+-feature: added option for simple condition for attributes
+-feature: added integration with wordpress popular post plugin for most viewed posts selection
+-feature: added post list variables for data debug
+-feature: added image sizes selector for post list
+-feature: get thumbnailID from content in case that it's missing in post
+
+
+version 1.4.69
+
+-Bug fix: fixed border radius attribute from width to radius
+-Change: added default values select to hover animations attribute
+-feature: added extra query debug options for custom post types selector
+-feature: added choose image size select option to image attribute
+-bug fix: added missing thumb sizes for image select
+-feature: added "image_attributes" placeholder for image output in widget editor
+-change: changed button "add to cart" to "select options" for variable products in woocommerce list widgets
+
+
+
+version 1.4.68
+
+-feature: added include recently viewed products in woocommerce
+-feature: added option for default max posts in post selector
+-feature: added attribute type: Border Dimensions
+-feature: added attribute type: CSS Filters
+-feature: added attribute type: Hover Animations
+-bug fix: removed max posts from archive type post query selection, because has no control over pagination.
+-bug fix: fixed bug when instagram video images didn't show up
+-bug fix: done some small css changes to the editor
+
+
+version 1.4.67
+
+-bug fix: fixed woo product price format for decimal prices
+-bug fix: fixed context menu cut from bottom inside the widgets manager
+-bug fix: fixed show item data in widgets items repeater
+-feature: added api connectivity to troubleshooting section
+-feature: added options in terms selection fields
+-bug fix: fixed floot to round in woocommerce discount percents
+-feature: added order by meta key for woo categories select
+
+
+version 1.4.66
+
+-feature: added "box shadow" attribute type
+-feature: added url_posts and num_posts to users output
+-bug fix: load js include file in editor even if no js code
+-feature: added option for selector 2 and selector 3 in several attributes
+-feature: added copy / paste attributes sections in widget editor
+-bug fix: fixed some php notice with exclude terms posts selection
+-bug fix: fixed small bug in getListingItemData function with no object returned
+-feature: added option for get default object to getListingItemData function
+-feature: added support for wpml site language inside a widget
+-bug fix: fixed post selection manual select no posts shown at init
+-bug fix: fixed bug when private posts not fetched on manual posts selection
+-feature: added acf image and thumbnails widths and heights to placeholders list
+-change: updated codemirror to latest version, added code search feature
+-change: updated freemius sdk to 2.4.2
+
+
+version 1.4.65
+
+-bug fix: fixed php sanitize array bug
+-feature: added option to fetch custom meta fields in users list
+-feature: added function to twig: getByPHPFunction()
+-feature: added function to twig: getUserMeta()
+-feature: added function to twig: getListingItemData() - working inside any plugin listing
+-bug fix: fixed post type in related posts post selection
+
+
+version 1.4.64
+
+-change: moved "edit widget html" button to advanced section in general tab
+-feature: added option to exclude products on sale in products query section in widget settings
+-feature: added option to exclude specific posts in post selection widget settings
+-feature: added woocommerce related products select in post selection
+-feature: added include/exclude posts by author in widget posts selection
+-feature: added include/exclude posts by date in widget posts selection
+-feature: added date/time picker to widget attributes types
+-feature: added post status to widget posts selection
+-feature: added offset setting to widget posts selection
+-feature: added author url and author post count to users fields
+-feature: added max number of users to user selection attribute
+-feature: added "elementor template" attribute
+-bug fix: fixed small php bug in post selection control
+-bug fix: fixed js bug in items repeater
+-bug fix: fixed exclude role not worked in user selection attribute
+-bug fix: fixed get products on sale selection with variations
+
+
+
+version 1.4.63
+
+-feature: added acf link array and attributes
+-feature: added ordering features to post selection related and manual
+-feature: added option for showing only sticky posts
+-feature: added exclude by term setting in widget post selection
+-change: moved debug data from advaned to general folder in elementor widget settings
+-bug fix: fixed woo commerce prices number format
+-bug fix: fixed refresh posts on "post query" section open in widget post settings
+-bug fix: fixed manual posts selection default order
+
+
+
+version 1.4.62
+
+-bug fix: fixed image size thumb name with "-" sign inside
+-change: show woo commerce placeholders if selected "for woocommerce products" checkbox in post list attribute
+-change: improved woo category output placeholder help, added getTermCustomFields function
+-bug fix: fixed some php warning related to array to string conversion, happening in php 8
+-feature: added text shadow field
+-feature: added "manual selection" in posts query
+
+
+version 1.4.61
+
+-feature: added max posts and order by options to current query posts selection
+-bug fix: fixed adding widgets to a db table that is not auto incriment
+-change: changed buy pro version link from the catalog widgets to inside of the plugin
+-bug fix: fixed svg preview from widget builder interface
+-feature: added manual selection for woocommerce categories select
+-feature: added selector and responsive to drop down attribute in widget builder
+-bug fix: fixed manual memory check when registering widgets
+
+
+version 1.4.60
+
+-feature: added option for third party integration for woocommerce grid
+-feature: added integration for "advanced labels for woocommerce" plugin
+-feature: added view file button in assets manager
+-feature: added svg icon option together with font icon for elementor panel widget box
+-feature: added preview image on mouseover inside elementor panel widget box
+-feature: added option for disabling "edit widget html" from widget settings
+
+-bug fix: fixed empty settings when there are gallery item setting only
+-bug fix: added "no settings" heading in case that no attributes in the widget
+-bug fix: fixed some php warnings for php 8.0
+
+
+version 1.4.59
+
+-bug fix: fixed import template redirect
+-feature: added option to include sticky posts for post query
+-feature: added post pagination for single page
+-feature: added number of items for instagram widget
+-feature: added background image to background attribute
+
+version 1.4.58
+
+-feature: make the plugin translatable for wordpress.org
+
+version 1.4.57
+
+-feature: done post pagination widget for archive posts
+-feature: added option to truncate the post list
+-bug fix: fixed show debug query on current post query
+
+
+version 1.4.56
+
+-update: relesed cyber monday deal admin notice
+
+version 1.4.55
+
+-feature: added option to sort by sale price
+-feature: added option to debug query
+-feature: added option debug widget data
+-feature: added option to filter posts with child categories
+-feature: added option to include only products on sale
+
+-bug fix: fixed no widget shown in some cases
+-bug fix: fixed woocommerce prices placeholders prefix
+
+version 1.4.54
+
+-update: updated freemius sdk to newest version
+-bug fix: fixed comma saparated selector
+
+version 1.4.53
+
+-feature: added background widgets and section backgrounds
+-change: removed global colors from template export
+
+
+version 1.4.52
+
+-bug fix: fixed bug with regular and sale price in woocommerce
+
+version 1.4.51
+
+-feature: added svg output in icon library attribute
+-feature: added woocommerce checkbox to post list
+-feature: added product out of stock filter for product selection
+-bug fix: fixed woocommerce category in post list attribute
+-feature: added discount_percent field in post list attribute woocommerce product type
+-feature: added woocommerce post list order by price option
+
+version 1.4.50
+
+-bug fix: removed display errors setting
+
+version 1.4.49
+
+bug fix: fixed small bug with non existing controls
+bug fix: fixed general settings error when turning off plugin
+
+version 1.4.48
+
+-feature: added border attribute
+-bug fix: page break in some versions of elementor
+-bug fix: fixed bulk move attributes with categories
+-bug fix: fixed default items image field not match
+
+version 1.4.47
+
+-update: remove russian translation
+-feature: added function: get_items for twig
+-bug fix: fixed switch content and style tab
+-bug fix: fixed slider control tablet/mobile default value
+-bug fix: fixed non ordered widget categories
+
+
+version 1.4.46
+
+-feature: added function put_items_json for js items output
+-bug fix: returned widgets from uncategorized category
+
+version 1.4.45
+
+-bug fix: fixed template import with custom widgets
+
+
+version 1.4.44
+
+-feature: added flexible content type attribute
+-update: optimized db queries
+
+version 1.4.43
+
+-feature: added option to group attributes into sections
+-feature: done instagram access token auto renew
+-feature: added "selector" to color picker attribute
+-bug fix: improved consolidate widgets option protection
+-bug fix: fixed select default widget images
+-bug fix: fixed default items in gallery item (image base fields)
+-bug fix: fixed image display in default item selector
+-bug fix: global colors was absent from color selection
+
+
+version 1.4.42
+
+-feature: added option to get grouped woocomerce products
+-feature: added instagram connect to official API
+-feature: added function: getUserData(), added into "twig code examples" panel
+-feature: added "printVar" and "showDebug" functions "twig code examples" panel
+-feature: done "login with instagram" in general settings, and get data from instgram API
+-bug fix: sorted "overwrite widgets" issue on import
+-bug fix: fixed dropdown attribute when work with html data
+
+version 1.4.41
+
+-feature: added additional controls to "number" attribute
+-feature: added "exclude uncategorized category" to woocommerce categories select 
+-feature: added responsive controls to slider attribute
+
+-bug fix: fixed template type variable issues in elementor integration
+-bug fix: show pagination only when "current query" is available
+-bug fix: fixed select2 field min width in posts query
+
+
+version 1.4.40
+
+-change: hided "consolidate widgets" general setting
+-feature: added "show/hide wrapping html comments" to general settings
+-bug fix: fixed export template filename
+
+
+version 1.4.39
+
+-bug fix: fixed save widgets from editor with large config limitation.
+-bug fix: fixed export template with page settings bug.
+-bug fix: removed extra fields from items editor, leaved only supported fields
+-change: updated freemius SDK to latest version
+
+
+version 1.4.38
+
+-bug fix: fixed some update related bugs from 1.4.36
+
+version 1.4.36
+
+-feature: added support for pods panda repeater
+-bug fix: done some solution for max_execution_time issues when installing template
+-bug fix: fixed rtl on templates dialog popup
+-bug fix: corrected the naming near the "number" field
+-bug fix: cleared "twig" library from some not needed files.
+-change: removed "image view" file from framework.
+
+
+version 1.4.35
+
+-feature: added term custom fields support
+-feature: added term meta fields support
+-change: moved composer vendor folder to plugin root
+-change: fixed empty templates list bug when "show only installed widget" checkbox checked
+-bug fix: sorted out some of the templates import bugs
+
+
+version 1.4.34
+
+-bug fix: removed category ations from templates section
+-bug fix: show "putPostMeta" function even if no example post available
+-bug fix: fixed finally all the DB not installed issues on elementor and admin pages
+
+
+version 1.4.33
+
+-bug fix: fixed double twig collision by another plugin
+
+version 1.4.32
+
+-update: updated to newest twig 1.x version
+-bug fix: fixed no space between placeholders in php 7.4 bug
+
+version 1.4.31
+
+-bug fix: fixed dissapearing widget issue
+
+version 1.4.30
+
+-bug fix: fixed but with uncategorized
+-bug fix: fixed couple of bugs related to templates
+
+version 1.4.29
+
+-feature: released the templates catalog
+
+version 1.4.28
+
+-feature: added woocommerce categories field
+-bug fix: fixed export / import with images feature
+-bug fix: fixed error message on front on some cases when the db tables not installed yet.
+
+version 1.4.27
+
+-bug fix: fixed widget default icon in manager
+-feature: added "getPostMeta, putPostMeta, printPostMeta" functions
+-feature: added "getPostData" function for acf related posts, that get's all the data from the related post including custom fields
+
+
+version 1.4.26
+
+-change: changed to new api address
+-bug fix: fixed links not included bug in theme builder posts
+-bug fix: fixed link to buy pro version
+-bug fix: fixed free version remain activated bug
+-bug fix: simpleXML validation made the site down
+
+
+version 1.4.25
+
+-feature: added "responsive controls" to margin and padding setting
+-feature: made "refresh catalog" button
+-feature: added "num_items" variable to the widget editor
+-change: removed the "default fonts" from widget defaults screen
+-bug fix: fixed some php bug in "implode" function
+-bug fix: fixed posts from sub categories in post list
+
+
+version 1.4.24
+
+-feature: made "export with images" option in templates
+-bug fix: fixed import category widgets
+-bug fix: fixed icon html output placeholder
+
+
+version 1.4.23
+
+-feature: improved the slider attribute
+-feature: added "menu" attribute
+
+version 1.4.22
+
+-feature: added users meta data and profile url 
+-feature: added woo currency symbol
+-feature: added woo add to cart button
+-feature: added slider attribute
+-new widget: logo grid
+-new widget: logo carousel
+-new widget: logo marquee
+-new widget: image tooltip
+-new widget: content toggle
+-new widget: circle number
+-new widget: post list
+
+
+
+version 1.4.21
+
+-feature: added users attribute
+-feature: done multiple post type selector
+-feature: added background attribute
+-feature: added icon library html output
+-feature: added woo commerce support in posts list
+-bug fix: fixed icons not shown bug in widget settings
+
+
+version 1.4.20
+
+-bug fix: fixed font awesome icon output
+-bug fix: fixed instagram not loading bug
+-change: updated font awesome css version
+-change: changed the way that instagram was loaded on the page
+
+
+version 1.4.19
+
+-change: changed the font awesome attribute to fa5
+-feature: added filter by slug to terms attribute
+-feature: changed repeater items titles to the ones from "title" field instead of "Item1", "Item2" etc.
+-feature: added automated styling for date field, added "ucdate" filter for that.
+-feature: done functionality for display post author
+-change: added strip html tags from truncate function
+
+
+version 1.4.18
+
+-feature: added all image sizes to posts
+-feature: added "putPostTerms" function to posts
+-feature: added wpautop filter to twig
+-feature: added option for custom twig PHP functinoality for PRO version
+-bug fix: fixed pagination output
+-feature: hide "edit widget html" button for user that don't have capability to see the plugin 
+-feature: added wpml compatablity
+-feature: added related posts in posts list
+-feature: added padding and margin controls (pro)
+
+
+version 1.4.17
+
+-change: changed to more flexible catalog api
+
+version 1.4.16
+
+-feature: added post query relation (and, or) chooser
+-change: update to freemius sdk 2.3.1
+-feature: added "trancate" filter
+-bug fix: fixed editor permissions PHP Error
+
+version 1.4.15
+
+-change: remove the old deprecated codecanyon activation
+-bug fix: fixed bug when both plugins are installed together
+-bug fix: fixed empty widget content when put a lot of content in the widget html/js
+-feature: added option for fonts for post list for intro and content
+-feature: added custom filter query ID in posts list query (pro)
+-feature: added labels to typography fields
+-feature: added description option for elementor controls
+-feature: added option to add help links to widgets from the widget editor
+
+version 1.4.14
+
+-bug fix: fixed js not included in the page bug
+
+version 1.4.13
+
+-bug fix: fixed terms attribute selector bugs in elementor
+-bug fix: fixed post selection was not showing post types without taxonomies
+-bug fix: fixed rtl visibility issues in admin
+
+version 1.4.12
+
+-feature: added exclude posts by current post
+-feature: added post category addition custom taxonomy support
+-bug fix: fixed some bug in post list selector elementor
+
+version 1.4.11
+
+-feature: added link param html attributes placeholder
+-feature: added category link to post list params
+-bug fix: fixed post list category not displayed bug
+
+
+version 1.4.10
+
+-change: added instructions to download pro version.
+
+
+version 1.4.9
+
+-bug fix: added some front end protection against db not installed bug
+-feature(pro): added do_action for custom wp actions run
+-feature(pro): added apply_filters for custom wp actions run
+-bug fix: fixed export widget with assets path
+
+version 1.4.8
+
+-bug fix: fixed tables install
+
+version 1.4.7
+
+-bug fix: fixed dynamic variables in repeater
+-bug fix: fixed post category selection in post list
+
+version 1.4.6
+
+-feature(pro) - made taxonomies list attribute
+-bug fix: fixed admin body class external
+-feature: make support for categories list
+-bug fix: fixed current posts fetch in archive type
+
+
+version 1.4.5
+
+-change: improved widgets manager design
+
+version 1.4.3
+
+-change: updated the activation link from plugins
+-change: small UI improvements 
+
+version 1.4.2
+
+-feature: add post category to dynamic fields
+-feature: added toolset integration
+
+version 1.4.1
+
+-feature: added search widget
+-feature: the plugin is now fully translatable, added russian translation
+
+
+version 1.4
+
+-change: moved to new payment system (freemius), changed pricing plans
+
+version 1.3.39
+
+-feature: add alt tags to image attribute
+-feature: add automatic name from title on add attribute
+-feature: redesign categories
+
+-bug fix:  removed autop filter change code from front end
+-bug fix: allow to import widget when stand on category from catalog
+-bug fix: fixed instagram widgets typography bug
+
+
+version 1.3.38
+
+-feature: added code examples / js snippets
+-feature: added widget preview
+
+version 1.3.37
+
+-feature: add support for archive pages
+-feature: added archive pages pagination
+-change: changed fonts design controls
+
+
+version 1.3.36
+
+-bug fix: fixed multiple similar js includes in one page
+
+version 1.3.35
+
+-feature: add support for acf gallery field
+
+version 1.3.34
+
+-feature: improved the post list filtering and ordering
+
+
+version 1.3.33
+
+-feature: added ordering posts by meta value
+-bug fix: fixed site crash by db error
+
+version 1.3.32
+
+-bug fix: fixed pods together with acf fileds
+-bug fix: fixed catalog delete was showlike non activated
+-bug fix: added all categories to post list
+
+version 1.3.31
+
+-feature: added LINK attribute
+
+version 1.3.30
+
+-feature: made PODS integration
+
+version 1.3.29
+
+-feature: added set widget icon functionality, with presence in catalog
+-feature: added preview widget button from the catalog
+
+version 1.3.28
+
+-feature: make plugin translatable
+-bug fix: fixed font override attribute bug
+
+version 1.3.26
+
+-feature: added typography attribute
+
+version 1.3.25
+
+-change: added support for dynamic fields in image field
+
+version 1.3.24
+
+-bug fix: fixed dynamic fields from elementor 
+-change: make some text in empty repeater acf field
+
+version 1.3.23
+
+-feature: added dynamic fields to all text controls
+-feature: added "edit html" button to all widgets
+-bug fix: fixed consolidated addons render bugs
+
+version 1.3.22
+
+-feature: made all acf fields integration including the pro like repeater and clone
+
+version 1.3.21
+
+-bug fix: fixed current post bug
+
+version 1.3.20
+
+-feature: done all acf fields
+
+version 1.3.19
+
+-feature: added acf in dynamic post
+
+version 1.3.18
+
+-change: update post child vars when change post
+
+version 1.3.17
+
+- feature: add dynamic fields to addon editor
+
+version 1.3.16
+
+-bug fixed: fixed the switchers again
+-bug fix: fixed the upload file
+-bug fix: fixed checkbox in assets tab
+-bug fix: fixed upload in assets tab
+
+version 1.3.15
+
+-bug fix: fixed some visual bugs
+-bug fix: fixed radio boolean attribute (switcher)
+
+version 1.3.14
+
+-bug fix: fixed addon assets tab bugs
+
+version 1.3.13
+
+-feature: done export/import template with addons
+
+version 1.3.12
+
+-feature: added fedback on deactivate
+
+version 1.3.11
+
+-bug fix: fixed export import layout stuff
+
+version 1.3.10
+
+-bug fix: fixed assets tab issues
+-bug fix: fixed post to articles category rename on install
+
+version 1.3.9
+
+-bug fix: fixed test addon jquery include
+-change: added purchase link to license page
+
+version 1.3.8
+
+-bug fix: fixed settings text output
+
+version 1.3.7
+
+-bug fix: fixed font manager bug
+
+version 1.3.6
+
+-bug fix: fixed taxonomy issues
+
+version 1.3.5
+
+-bug fix: fixed add addon functionality
+
+version 1.3.4
+
+-improved post types category selection
+
+version 1.3.3
+
+-modifications: made some more modifications to fulfil envato team requirements
+
+
+version 1.3.2
+
+-modifications: made some more modifications to fulfil envato team requirements
+
+
+version 1.3.1
+
+-modifications: made some modifications to fulfil envato team requirements
+
+version 1.3
+
+-bug fix: fixed js in editor when addins widget
+
+version 1.2
+
+-done pro version with a catalog
+
+version 1.0.12
+
+-bug fix: fixed instagram widgets
+
+version 1.0.11
+
+-bug fix: fixed some wordpress galleries related bug
+
+version 1.0.10
+
+-bug fix: fixed export category
+
+version 1.0.9
+
+-change: made global setting for consolidata addons or not.
+-change: updated some memory text in general settings
+
+version 1.0.8
+
+-bug fix: fixed all notices related bugs
+
+version 1.0.7
+
+-bug fixed with default data types
+
+version 1.0.6
+
+-bug fix: fixed js includes consolidated
+
+version 1.0.5
+
+-bug fix: fixed js includes more deeply
+
+version 1.0.4
+
+-bug fix: fixed js in widgets
+
+version 1.0.3
+
+-bug fix: fixed empty category issues
+
+version 1.0.2
+
+-bug fix: fixed bug with some unit values in render output
+
+version 1.0
+
+first plugin release

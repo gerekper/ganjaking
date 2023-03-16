@@ -2,9 +2,8 @@
 /*
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
-Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.7.2.2
+Version: 2.7.3
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -64,11 +63,7 @@ $gf_recaptcha_public_key  = '';
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gf_site_secret', true);
-update_option( 'gform_upgrade_status', false );
+
 if ( ! defined( 'RG_CURRENT_PAGE' ) ) {
 	/**
 	 * Defines the current page.
@@ -250,7 +245,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.7.2.2';
+	public static $version = '2.7.3';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -1076,7 +1071,7 @@ class GFForms {
 		global $wp_styles;
 		$wp_required_styles = array( 'admin-bar', 'colors', 'ie', 'wp-admin', 'editor-style' );
 		$gf_required_styles = array(
-			'common'                     => array( 'gform_tooltip', 'gform_font_awesome', 'gform_admin', 'gform_settings' ),
+			'common'                     => array( 'gform_tooltip', 'gform_font_awesome', 'gform_admin', 'gform_settings', 'setup_wizard_styles' ),
 			'gf_edit_forms'              => array(
 				'thickbox',
 				'editor-buttons',
@@ -2378,7 +2373,12 @@ class GFForms {
 
 		if ( ! $valid_key ) {
 			return;
-			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
+			$unregistered_license_message_env = GFCommon::get_environment_setting( 'unregistered_license_message' );
+			if ( $unregistered_license_message_env ) {
+				$message .= $unregistered_license_message_env;
+			} else {
+				$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
+			}
 		}
 
 		if ( ! empty( $message ) ) {
@@ -7117,5 +7117,3 @@ if ( ! function_exists( 'gf_has_action' ) ) {
 		return gf_has_filters( $action, $function_to_check );
 	}
 }
-/* Anti-Leecher Indentifier */
-/* Credited By BABIATO-FORUM */

@@ -17,7 +17,30 @@ class WC_Box_Office_Settings {
 		add_action( 'woocommerce_settings_tabs_array', array( $this, 'add_woocommerce_settings_tab' ), 50 );
 		add_action( 'woocommerce_settings_tabs_' . $this->settings_tab_id, array( $this, 'woocommerce_settings_tab_action' ), 10 );
 		add_action( 'woocommerce_update_options_' . $this->settings_tab_id, array( $this, 'woocommerce_settings_save' ), 10 );
+	}
 
+	/**
+	 * Display admin warning if Box Office emails enabled but the corresponding WC_Email is disabled
+	 *
+	 * @param string $inline Whether to keep notice inline if the string equals 'inline'.
+	 * @return void
+	 */
+	public static function display_warning( $inline = '' ) {
+		$inline = 'inline' === $inline ? 'inline' : '';
+
+		?>
+		<div class="notice notice-warning <?php echo $inline; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Strict assignment ?>">
+			<p>
+				<?php
+				printf(
+					/* translators: link to email settings page */
+					wp_kses_post( __( '<strong>WooCommerce Box Office</strong><br />Warning: E-mails won\'t be sent because Box Office e-mails are disabled. Go to <a href="%s">WooCommerce > Settings > Emails > Box Office Emails</a> to enable them.', 'woocommerce-box-office' ) ),
+					esc_url( admin_url( 'admin.php?page=wc-settings&tab=email&section=wc_box_office_email' ) )
+				);
+				?>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
@@ -32,6 +55,14 @@ class WC_Box_Office_Settings {
 	 * Do this when viewing our custom settings tab(s). One function for all tabs.
 	 */
 	public function woocommerce_settings_tab_action() {
+		$email_settings    = get_option( 'woocommerce_wc_box_office_email_settings', array( 'enabled' => 'no' ) );
+		$wc_emails_enabled = 'yes' === $email_settings['enabled'];
+		$bo_emails_enabled = 'yes' === get_option( 'box_office_enable_ticket_emails', 'no' );
+
+		if ( $bo_emails_enabled && ! $wc_emails_enabled ) {
+			self::display_warning();
+		}
+
 		woocommerce_admin_fields( $this->get_settings() );
 	}
 

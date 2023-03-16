@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/js/postEditTranslationEditor/components/PostTranslationEditorSettings.js:59
+msgid "WPML Translation Editor"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/PostTranslationEditorSettings.js:68
+msgid "WordPress Editor"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/SaveModal.js:10
+msgid "Use the editor to translate:"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/SaveModal.js:12
+msgid "Apply"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/SaveModal.js:13
+msgid "Cancel"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/SaveModal.js:19
+msgid "This %s"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/SaveModal.js:20
+msgid "All %s"
+msgstr ""
+
+#: src/js/postEditTranslationEditor/components/SaveModal.js:21
+msgid "All the site's content"
+msgstr ""

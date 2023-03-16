@@ -54,7 +54,7 @@ class WPML_LS_Templates {
 		if ( null === $in_array ) {
 			$ret = $this->templates;
 		} else {
-			// PHP 5.3 Bug https://bugs.php.net/bug.php?id=34857
+			// PHP 5.3 Bug https://bugs.php.net/bug.php?id=34857º
 			$in_array = $in_array ? array_combine( $in_array, $in_array ) : $in_array;
 			$ret      = array_intersect_key( $this->templates, $in_array );
 		}
@@ -68,7 +68,7 @@ class WPML_LS_Templates {
 	 */
 	public function get_template( $template_slug ) {
 		$ret = new WPML_LS_Template( array() );
-		if ( array_key_exists( $template_slug, $this->templates ) ) {
+		if ( $this->templates && array_key_exists( $template_slug, $this->templates ) ) {
 			$ret = $this->templates[ $template_slug ];
 		}
 

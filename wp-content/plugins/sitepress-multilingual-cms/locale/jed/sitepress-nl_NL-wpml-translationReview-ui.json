@@ -19,10 +19,10 @@
             "Terug"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Schakel deze optie uit om niet automatisch de volgende vertaling te laden na het voltooien van deze review."
+            "Uitzetten om niet automatisch de volgende vertaling te laden na het beëindigen van deze controle."
          ],
-         "Turn on to automatically load the next translation after finishing this review.": [
-            "Schakel deze optie in om automatisch de volgende vertaling te laden na het voltooien van deze review."
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Zet automatisch de volgende vertaling te laden aan, na het beëindigen van deze."
          ],
          "Edit": [
             "Bewerken"
@@ -30,14 +30,11 @@
          "Edit translation": [
             "Vertaling bewerken"
          ],
-         "There was an error in applying translation.": [
-            "Er was een fout bij het aanvragen van de vertaling."
-         ],
          "Please wait, applying translation..": [
             "Even geduld, vertaling aanvragen..."
          ],
          "Next review": [
-            "Volgende review"
+            "Volgende controle."
          ],
          "Publish this translation": [
             "Publiceer deze vertaling"
@@ -48,8 +45,11 @@
          "Published!": [
             "Gepubliceerd!"
          ],
-         "Reviewing the next translation...": [
-            "De volgende vertaling controleren..."
+         "Someone is already reviewing this translation. Please try again later.": [
+            "Iemand beoordeelt deze vertaling al. Probeer het later nog eens."
+         ],
+         "There was an error in applying translation.": [
+            "Er was een fout bij het aanvragen van de vertaling."
          ]
       }
    }

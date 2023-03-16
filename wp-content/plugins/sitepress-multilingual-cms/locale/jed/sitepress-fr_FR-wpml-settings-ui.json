@@ -16,13 +16,13 @@
             "Non, je souhaite traduire certaines de ces publications, mais pas toutes"
          ],
          "You must use the Advanced Translation Editor if you want to translate your content automatically.": [
-            "Vous devez utiliser l’Éditeur de traduction avancé si vous souhaitez traduire votre contenu automatiquement."
+            "Vous devez utiliser l'Éditeur de traduction avancé si vous souhaitez traduire vos contenus automatiquement."
          ],
          "Synchronize translators and translation managers with ATE": [
-            "Synchronisez les traducteurs et les gestionnaires de traduction avec l’Éditeur de traduction avancé"
+            "Synchronisez les traducteurs et les gestionnaires de traduction avec l'ETA"
          ],
          "Please try again in a few minutes. If the problem persists, please contact %sWPML support%s.": [
-            "Veuillez réessayer dans quelques minutes. Si le problème persiste, veuillez contacter l’%sassistance WPML%s."
+            "Veuillez réessayer dans quelques minutes. Si le problème persiste, veuillez contacter l'%sassistance WPML%s."
          ],
          "Save": [
             "Appliquer"

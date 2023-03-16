@@ -5,6 +5,8 @@
  * @package WooCommerce/Bookings
  */
 
+use Automattic\WooCommerce\Bookings\Vendor\RRule\RSet;
+
 /**
  * Class WC_Global_Availability
  */
@@ -527,7 +529,7 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 			 * This is required to see events which already started in the past but
 			 * not yet finished.
 			 */
-			$rrule = new \RRule\RSet(
+			$rrule = new RSet(
 				$this->get_rrule(),
 				$is_all_day ? $start->format( $date_format ) : $end
 			);

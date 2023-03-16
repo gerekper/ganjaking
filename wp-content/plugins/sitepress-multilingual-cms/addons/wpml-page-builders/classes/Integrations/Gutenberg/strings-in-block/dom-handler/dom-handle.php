@@ -45,6 +45,50 @@ abstract class DOMHandle {
 	}
 
 	/**
+	 * This is required when a block has innerBlocks and translatable content at the root.
+	 * Unfortunately we cannot use the DOM because we have only HTML extracts which
+	 * are not valid taken independently.
+	 *
+	 * {@internal
+	 *          innerContent => [
+	 *              '<div><p>The title</p>',
+	 *              null,
+	 *              '\n\n',
+	 *              null,
+	 *              '</div>'
+	 *          ]}
+	 *
+	 * @param \WP_Block_Parser_Block $block
+	 * @param \DOMNode               $element
+	 * @param string                 $translation
+	 * @param string|null            $originalValue
+	 *
+	 * @return \WP_Block_Parser_Block
+	 */
+	public function applyStringTranslations( \WP_Block_Parser_Block $block, \DOMNode $element, $translation, $originalValue = null ) {
+		if ( empty( $block->innerContent ) || empty( $element->nodeValue ) ) {
+			return $block;
+		}
+
+		if ( $element instanceof \DOMAttr ) {
+			$search_value = preg_quote( esc_attr( $element->nodeValue ), '/' );
+			$search       = '/(")(' . $search_value . ')(")/';
+			$translation  = esc_attr( $translation );
+		} else {
+			$search_value = preg_quote( $element->nodeValue, '/' );
+			$search       = '/(>)(' . $search_value . ')(<)/';
+		}
+
+		foreach ( $block->innerContent as &$inner_content ) {
+			if ( $inner_content ) {
+				$inner_content = preg_replace( $search, '${1}' . $translation . '${3}', $inner_content );
+			}
+		}
+
+		return $block;
+	}
+
+	/**
 	 * @param \DOMNode $element
 	 * @param string   $context
 	 *

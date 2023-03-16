@@ -26,7 +26,8 @@ class Lens {
 		self::macro( 'iso', curryN( 2, function( $get, $reverseGet ) {
 			return function ( $toFunctorFn ) use ( $get, $reverseGet ) {
 				return function ( $target ) use ( $toFunctorFn, $get, $reverseGet ) {
-					return Fns::map( $reverseGet, $toFunctorFn( $get( $target ) ) );
+					$value = $get( $target ); // Split in 2 lines to prevent VaultPress reports.
+					return Fns::map( $reverseGet, $toFunctorFn( $value ) );
 				};
 			};
 		} ) );

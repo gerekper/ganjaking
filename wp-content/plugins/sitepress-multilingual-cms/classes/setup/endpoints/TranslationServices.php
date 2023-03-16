@@ -42,6 +42,7 @@ class TranslationServices implements IHandler {
 			$preferredService = $serviceMapperFunction( $preferredService );
 		}
 
+
 		return Either::of( [
 			'services'          => $services,
 			'preferredService'	=> $preferredService,

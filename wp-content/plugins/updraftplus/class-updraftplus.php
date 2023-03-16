@@ -5829,6 +5829,9 @@ class UpdraftPlus {
 			case 'shop_vault_50':
 				return apply_filters('updraftplus_com_shop_vault_50', 'https://updraftplus.com/shop/updraftplus-vault-storage-50-gb/');
 				break;
+			case 'shop_vault_250':
+				return apply_filters('updraftplus_com_shop_vault_250', 'https://updraftplus.com/shop/updraftplus-vault-storage-250-gb/');
+				break;
 			case 'anon_backups':
 				return apply_filters('updraftplus_com_anon_backups', 'https://updraftplus.com/upcoming-updraftplus-feature-clone-data-anonymisation/');
 				break;

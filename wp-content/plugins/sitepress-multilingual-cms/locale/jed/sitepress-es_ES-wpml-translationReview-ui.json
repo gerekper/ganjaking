@@ -19,10 +19,10 @@
             "Atrás"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Desactive esta función si no quiere que se cargue automáticamente la siguiente traducción cuando termine de revisar."
+            "Desactive esta opción para no cargar la siguiente traducción automáticamente después de finalizar esta revisión."
          ],
-         "Turn on to automatically load the next translation after finishing this review.": [
-            "Active esta función si quiere que se cargue automáticamente la siguiente traducción cuando termine de revisar."
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Activar para cargar la siguiente traducción después de finalizar esta"
          ],
          "Edit": [
             "Editar"
@@ -30,14 +30,11 @@
          "Edit translation": [
             "Editar traducción"
          ],
-         "There was an error in applying translation.": [
-            "Ocurrió un error al aplicar la traducción."
-         ],
          "Please wait, applying translation..": [
             "Espere, por favor. Aplicando traducción..."
          ],
          "Next review": [
-            "Próxima revisión"
+            "Siguiente revisión"
          ],
          "Publish this translation": [
             "Publicar esta traducción"
@@ -46,10 +43,13 @@
             "Aceptar esta traducción"
          ],
          "Published!": [
-            "¡Se ha publicado!"
+            "¡Publicado!"
          ],
-         "Reviewing the next translation...": [
-            "Revisión de la próxima traducción..."
+         "Someone is already reviewing this translation. Please try again later.": [
+            "Ya hay alguien revisando esta traducción. Inténtelo de nuevo más tarde."
+         ],
+         "There was an error in applying translation.": [
+            "Ocurrió un error al aplicar la traducción."
          ]
       }
    }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fields>
+
+	<fieldset name="general" label="General Settings">
+				
+		<field name="color_picker_type" 
+			type="list"
+			default="spectrum"
+			label="Color Picker Type"
+			description="The type of the color picker">  
+				<option value="spectrum" text="Spectrum"></option>
+				<option value="farbtastic" text="Farbtastic"></option>
+		</field>
+		
+		<field type="hr"></field>
+				
+		<field name="edit_permission" 
+			type="list"
+			default="admin" 
+			label="Edit Permission"
+			description="The addon/assets edit will be visible to the selected user categories">  
+				<option value="admin" text="Admin"></option>
+				<option value="editor" text="Editor / Author"></option>
+		</field>
+		
+		<field name="disable_autop_filters" 
+			type="boolean"
+			default="false" 
+			label="Disable Autop Filters"
+			description="Wordpress has some filters that can modify output html. disabling those filters will make the output exactly like in the addons demo">	
+		</field>
+		
+		<field type="hr"></field>
+		
+
+		<field name="post_types"
+			type="multiselect"
+			default="page" 
+			label="Enable Blox On Post Types"
+			description="Choose the post types that could be editable with blox">  
+				<option value="page" text="Page"></option>
+				<option value="post" text="Post"></option>
+		</field>
+		
+		<field type="hr"></field>
+		
+		<field name="enable_dashboard_widgets" 
+			type="boolean"
+			default="true" 
+			label="Enable Dashboard Widgets"
+			description="If turned on, blox dashboard widgets will be shown">	
+		</field>
+		
+	</fieldset>
+	<fieldset name="white_label" label="White Label">
+			
+		<field name="activate_white_label" 
+			type="boolean"
+			default="false" 
+			label="Activate White Label"
+			description="this option will rename Unlimited Elements to other name you like and change it everywhere in the plugin">	
+		</field>
+		
+	<field type="bulk_control_start" parent="activate_white_label" ctype="show" value="true" />
+	
+			<field name="white_label_page_builder" 
+				type="text"
+				default="My Page Builder" 
+				label="Page Builder Title"
+				description="Enter new title that will replace Unlimited Elements ">  
+			</field>
+	
+			<field name="white_label_single" 
+				type="text"
+				default="My Builder" 
+				label="Single Word Title"
+				description="Will replace single word Blox with this word.">  
+			</field>
+	
+	<field type="bulk_control_end" />
+					
+			
+	</fieldset>	
+	
+	<fieldset name="fields_settings" label="Special Addons Settings">
+
+		<field name="form_settings" 
+			type="statictext"
+			label="&lt;b&gt;Form Addons&lt;/b&gt;">
+		</field>
+		
+		<field name="form_admin_email" 
+			type="text"
+			default="" 
+			label="Admin Email - Send To"
+			placeholder="youraddress@mail.com"
+			description="The email of the admins that the form send the client filled information">  
+		</field>
+		
+		<field name="form_admin_email_prefix" 
+			type="text"
+			default="The client info is:" 
+			label="Admin Email Prefix Text"
+			description="The text of the admin email before the fields data">  
+		</field>
+		
+		<field type="hr"></field>
+		
+		<field name="google_map_settings" 
+			type="statictext"
+			label="&lt;b&gt;Google Map Addon&lt;/b&gt;">
+		</field>
+ 		
+		<field name="google_map_key" 
+			type="text"
+			default="" 
+			label="Google Map Key"
+			placeholder="google map key"
+			description="According google policy, for being able to display the google map, you must register and get a key. Type your key in this text box. &lt;br&gt; You can create your API key in &lt;a href=&quot;https://developers.google.com/maps/documentation/javascript/&quot; target=&quot;_blank&quot;&gt;google map developes page&lt;/a&gt;">  
+		</field>
+		
+		
+	</fieldset>
+
+	
+</fields>

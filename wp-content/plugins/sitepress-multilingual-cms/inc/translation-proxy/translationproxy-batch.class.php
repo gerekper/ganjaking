@@ -29,10 +29,10 @@ class TranslationProxy_Batch {
 		$getBatchId = function( $batch_name, $tp_id ) {
 			$batch_id = self::getBatchId( $batch_name );
 
-			return $batch_id ? $batch_id : self::createBatchRecord( $batch_name, $tp_id );
+			return $batch_id ?: self::createBatchRecord( $batch_name, $tp_id );
 		};
 
-		$cache = Cache::memorizeWithCheck( 'update_translation_batch', Logic::isNotNull(), $getBatchId );
+		$cache = Cache::memorizeWithCheck( 'update_translation_batch', Logic::isNotNull(), 0, $getBatchId );
 		return $cache( $batch_name, $tp_id );
 	}
 

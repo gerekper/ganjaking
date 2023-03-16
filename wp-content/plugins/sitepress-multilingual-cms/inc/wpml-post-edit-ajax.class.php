@@ -270,6 +270,12 @@ class WPML_Post_Edit_Ajax {
 
 	public static function wpml_get_default_lang() {
 		global $sitepress;
+		$nonce = isset( $_POST['_icl_nonce'] ) ? sanitize_text_field( $_POST['_icl_nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_get_default_lang' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ), 400 );
+		}
+
 		wp_send_json_success( $sitepress->get_default_language() );
 	}
 

@@ -2,6 +2,8 @@
 	/* var WPML_Language_Switcher $wpml_language_switcher */
 	global $sitepress, $sitepress_settings, $wpdb, $wpml_language_switcher;
 
+use WPML\Core\WP\App\Resources;
+
 if ( ! is_plugin_active( WPML_PLUGIN_BASENAME ) ) {
 	?>
 		<h2><?php esc_html_e( 'Setup WPML', 'sitepress' ); ?></h2>
@@ -92,6 +94,20 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
 
 $theme_wpml_config_file = WPML_Config::get_theme_wpml_config_file();
 
+$resource = Resources::enqueueApp( 'wpmlLanguageSettings' );
+$resource( [
+	'name' => 'wpmlLanguageSettings',
+	'data' => [
+		'endpoints'        => [
+			'setFileType' => \WPML\TM\Settings\Flags\Endpoints\SetFormat::class,
+		],
+		'loaderImage'      => esc_url( ICL_PLUGIN_URL ) . '/res/img/ajax-loader.gif',
+		'flagsDefaultType' => [
+			'selectedFormat' => \WPML\TM\Settings\Flags\Options::getFormat(),
+			'allowedFormats' => \WPML\TM\Settings\Flags\Options::getAllowedFormats(),
+		],
+	],
+] );
 
 ?>
 <?php $sitepress->noscript_notice(); ?>
@@ -533,6 +549,14 @@ $theme_wpml_config_file = WPML_Config::get_theme_wpml_config_file();
 					</div>
 				</div> <!-- .wpml-section-url-format -->
 			<?php endif; ?>
+
+		<div class="wpml-section wpml-section-url-format" id="lang-sec-2-1" style="margin-top: 0">
+			<div class="wpml-section-header">
+				<h3><?php esc_html_e( 'Default flag format', 'sitepress' ); ?></h3>
+			</div>
+			<div class="wpml-section-content" id="wpml-default-flag-format">
+			</div>
+		</div>
 
 		<?php do_action( 'wpml_admin_after_languages_url_format' ); ?>
 

@@ -31,7 +31,7 @@
                     ]
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -75,7 +75,7 @@
             },
             "time": "2012-12-13T23:48:10+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Eher\\OAuth": "src"
@@ -98,7 +98,7 @@
             "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:DavidAnderson684/guzzle3.git",
+                "url": "https://github.com/DavidAnderson684/guzzle3.git",
                 "reference": "33e727db47ca87262814f3ced23642261452c2f0"
             },
             "dist": {
@@ -156,7 +156,7 @@
                     "dev-master": "3.9-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Guzzle": "src/",
@@ -193,6 +193,9 @@
                 "rest",
                 "web service"
             ],
+            "support": {
+                "source": "https://github.com/DavidAnderson684/guzzle3/tree/master"
+            },
             "install-path": "../guzzle/guzzle"
         },
         {
@@ -232,7 +235,7 @@
                     "dev-master": "6.5-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -341,7 +344,7 @@
                     "dev-master": "1.5-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -437,7 +440,7 @@
                     "dev-master": "1.9-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -530,7 +533,7 @@
             },
             "time": "2015-01-05T21:19:54+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "mikemccabe\\JsonPatch\\": "src"
@@ -573,7 +576,7 @@
             },
             "time": "2022-02-16T17:07:03+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "lib/random.php"
@@ -634,7 +637,7 @@
             },
             "time": "2021-12-28T06:26:23+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "phpseclib/bootstrap.php",
@@ -748,7 +751,7 @@
                     "dev-master": "1.0.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\Http\\Message\\": "src/"
@@ -804,7 +807,7 @@
                     "dev-master": "1.1.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\Log\\": "Psr/Log/"
@@ -838,7 +841,7 @@
             "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:DavidAnderson684/php-opencloud.git",
+                "url": "https://github.com/DavidAnderson684/php-opencloud.git",
                 "reference": "062bf8bb3432c6e0f68e21a2f6dd5f02f2fc19d7"
             },
             "dist": {
@@ -863,7 +866,7 @@
             },
             "time": "2016-01-29T14:18:21+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "OpenCloud": [
@@ -896,6 +899,9 @@
                 "rackspace",
                 "swift"
             ],
+            "support": {
+                "source": "https://github.com/DavidAnderson684/php-opencloud/tree/master"
+            },
             "install-path": "../rackspace/php-opencloud"
         },
         {
@@ -922,7 +928,7 @@
             },
             "time": "2016-02-11T07:05:27+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/getallheaders.php"
@@ -981,7 +987,7 @@
                     "dev-master": "2.8-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\EventDispatcher\\": ""
@@ -1046,7 +1052,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1134,7 +1140,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1221,7 +1227,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1302,7 +1308,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1384,7 +1390,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"

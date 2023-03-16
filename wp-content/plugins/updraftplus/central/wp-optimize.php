@@ -45,6 +45,15 @@ class WP_Optimize_Host extends UpdraftCentral_Host {
 	}
 
 	/**
+	 * Whether the current user can perform key control AJAX actions
+	 *
+	 * @return Boolean
+	 */
+	public function current_user_can_ajax() {
+		return current_user_can(WP_Optimize()->capability_required());
+	}
+	
+	/**
 	 * Loads the UpdraftCentral_Main instance
 	 *
 	 * @return void

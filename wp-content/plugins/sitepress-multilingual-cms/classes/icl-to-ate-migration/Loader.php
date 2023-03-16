@@ -11,7 +11,7 @@ use WPML\ICLToATEMigration\Endpoints\TranslationMemory\StartMigration;
 use WPML\ICLToATEMigration\Endpoints\Translators\GetFromICL;
 use WPML\ICLToATEMigration\Endpoints\Translators\Save;
 use WPML\LIB\WP\Hooks;
-use WPML\TM\WP\App\Resources;
+use WPML\Core\WP\App\Resources;
 use WPML\UIPage;
 use function WPML\Container\make;
 

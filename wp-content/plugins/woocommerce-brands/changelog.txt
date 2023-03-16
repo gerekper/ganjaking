@@ -1,5 +1,9 @@
-*** Brands Changelog ***		       	 	       	    	      
- 	 	       	       	     	  	 
+*** Brands Changelog ***
+
+2023-03-14 - version 1.6.44
+* Tweak - WC 7.5 compatibility.
+* Tweak - WP 6.2 compatibility.
+
 2023-02-07 - version 1.6.43
 * Dev - Replace deprecated `node-sass` package with `sass`.
 * Fix - Add automation.

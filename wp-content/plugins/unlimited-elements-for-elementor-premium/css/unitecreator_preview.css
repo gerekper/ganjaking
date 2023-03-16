@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+html,body{
+	width:100%;
+	margin:0px;
+	padding:0px;	
+}html{	height:100%;	min-height: 100% !important;}
+body{	height:100%;	min-height: 100% !important;
+	background-color:transparent;
+	background-image:url('../images/trans_tile.png');
+	background-repeat:repeat;}
+
+.uc-preview-wrapper{
+	margin:0px auto;
+	padding:10px;
+	box-sizing:border-box;	min-height: 100% !important;
+}

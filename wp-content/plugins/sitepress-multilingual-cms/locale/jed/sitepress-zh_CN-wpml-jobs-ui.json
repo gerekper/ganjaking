@@ -7,7 +7,7 @@
             "lang": "en"
          },
          "Draft — Pending review": [
-            "草稿 — 待审核"
+            "草稿 — 等候审阅"
          ],
          "Complete": [
             "完成"
@@ -49,19 +49,19 @@
             "删除翻译"
          ],
          "Keep Translations as Draft": [
-            "将翻译保留为草稿"
+            "将译文保留为草稿"
          ],
          "Never mind. I want to review these translations.": [
-            "没关系。我想审核这些翻译。"
+            "没关系。我会审阅这些翻译。"
          ],
          "Cancel": [
             "取消"
          ],
          "This will remove the selected jobs from the Translations Queue without publishing them. What would you like to do with the translations?": [
-            "这将从翻译队列中删除选定的工作而不发布它们。您想如何处理这些翻译？"
+            "这将从翻译队列中删除选定的工作，而不会发布它们。您想如何处理这些翻译？"
          ],
          "Cancel Translation Review": [
-            "取消翻译审核"
+            "取消翻译审阅"
          ],
          "Bulk actions": [
             "批量操作"
@@ -117,6 +117,9 @@
          "Filter": [
             "过滤器"
          ],
+         "ID (%s)": [
+            "ID (%s)"
+         ],
          "Title (%s)": [
             "标题 (%s)"
          ],
@@ -150,9 +153,6 @@
          "Any WordPress Translator": [
             "任何WordPress译员"
          ],
-         "ID (%s)": [
-            "ID (%s)"
-         ],
          "From": [
             "从"
          ],
@@ -170,6 +170,12 @@
          ],
          "Select visible columns": [
             "选择可见列"
+         ],
+         "Sort descending": [
+            "降序"
+         ],
+         "Sort ascending": [
+            "升序"
          ],
          "The bulk action is running...": [
             "批量操作正在运行..."
@@ -236,9 +242,6 @@
          ],
          "This action does not apply to any of the selected translation jobs": [
             "此操作不适用于任何选定的翻译工作"
-         ],
-         "Translations has been downloaded": [
-            "翻译已下载"
          ],
          "Translation has been downloaded": [
             "翻译已下载"
@@ -360,17 +363,11 @@
          "Failed to resign from jobs": [
             "未能退出工作"
          ],
-         "The Advanced Editor jobs synchronization": [
-            "高级编辑器工作同步"
-         ],
          "The Advanced Editor jobs synchronization has failed": [
             "高级编辑器工作同步失败"
          ],
          "Synchronization with the Professional Translation service has failed": [
             "与专业翻译服务同步失败"
-         ],
-         "The Professional Translations jobs synchronization": [
-            "专业翻译工作同步"
          ],
          "Batch sync finished successfully!": [
             "批量同步成功完成！"

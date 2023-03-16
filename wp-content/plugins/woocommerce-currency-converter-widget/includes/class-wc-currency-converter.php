@@ -15,25 +15,11 @@ use Themesquad\WC_Currency_Converter\Utilities\L10n_Utils;
 class WC_Currency_Converter extends Plugin {
 
 	/**
-	 * Base Currency
-	 *
-	 * @var string
-	 */
-	public $base;
-
-	/**
 	 * Current Currency
 	 *
 	 * @var string
 	 */
 	public $currency;
-
-	/**
-	 * Rates
-	 *
-	 * @var array
-	 */
-	public $rates;
 
 	/**
 	 * Widget object
@@ -49,48 +35,36 @@ class WC_Currency_Converter extends Plugin {
 	 */
 	private $currencies_in_page = array();
 
-
 	/**
 	 * Constructor.
 	 */
 	protected function __construct() {
 		parent::__construct();
 
-		$rates = get_transient( 'woocommerce_currency_converter_rates' );
-
-		if ( false === $rates ) {
-			$app_id      = get_option( 'wc_currency_converter_app_id' );
-			$app_id      = $app_id ? $app_id : 'e65018798d4a4585a8e2c41359cc7f3c';
-			$rates       = wp_remote_retrieve_body( wp_safe_remote_get( 'http://openexchangerates.org/api/latest.json?app_id=' . $app_id ) );
-			$check_rates = json_decode( $rates );
-
-			// Check for error.
-			if ( is_wp_error( $rates ) || ! empty( $check_rates->error ) || empty( $rates ) ) {
-
-				if ( 401 === $check_rates->status ) {
-					add_action( 'admin_notices', array( $this, 'admin_notice_wrong_key' ) );
-				}
-			} else {
-				set_transient( 'woocommerce_currency_converter_rates', $rates, HOUR_IN_SECONDS * 12 );
-			}
-		}
-
-		$rates = json_decode( $rates );
-
-		if ( $rates && ! empty( $rates->base ) && ! empty( $rates->rates ) ) {
-			$this->base  = $rates->base;
-			$this->rates = $rates->rates;
-
-			// Actions.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-			add_action( 'widgets_init', array( $this, 'widgets' ) );
-
-			// Shortcode.
-			add_shortcode( 'woocommerce_currency_converter', array( $this, 'shortcode' ) );
-			add_action( 'woocommerce_currency_converter', array( $this, 'get_converter_form' ), 10, 2 );
-		}
-
 		add_action( 'init', array( $this, 'includes' ) );
+		add_action( 'widgets_init', array( $this, 'widgets' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		add_action( 'woocommerce_currency_converter', array( $this, 'get_converter_form' ), 10, 2 );
+		add_shortcode( 'woocommerce_currency_converter', array( $this, 'shortcode' ) );
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param mixed $key Key name.
+	 * @return mixed
+	 */
+	public function __get( $key ) {
+		switch ( $key ) {
+			case 'base':
+				_doing_it_wrong( 'WC_Currency_Converter->base', 'This property is deprecated and will be removed in future versions.', '2.0.0' );
+				return 'USD';
+			case 'rates':
+				_doing_it_wrong( 'WC_Currency_Converter->rates', 'This property is deprecated and will be removed in future versions.', '2.0.0' );
+				return ( new \Themesquad\WC_Currency_Converter\Open_Exchange\Rates() )->get_all();
+		}
 	}
 
 	/**
@@ -101,32 +75,12 @@ class WC_Currency_Converter extends Plugin {
 	}
 
 	/**
-	 * Display admin notices
+	 * Display admin notices.
+	 *
+	 * @deprecated 2.0.0
 	 */
 	public function admin_notice_wrong_key() {
-		?>
-		<div class="error">
-			<p><?php esc_html_e( 'WooCommerce Currency Converter: Incorrect key entered!', 'woocommerce-currency-converter-widget' ); ?></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Show Admin Settings.
-	 *
-	 * @deprecated 1.8.0
-	 */
-	public function admin_settings() {
-		wc_deprecated_function( __FUNCTION__, '1.8.0' );
-	}
-
-	/**
-	 * Save Admin Settings.
-	 *
-	 * @deprecated 1.8.0
-	 */
-	public function save_admin_settings() {
-		wc_deprecated_function( __FUNCTION__, '1.8.0' );
+		wc_deprecated_function( __FUNCTION__, '2.0.0' );
 	}
 
 	/**
@@ -324,8 +278,6 @@ class WC_Currency_Converter extends Plugin {
 	 * Init Widgets
 	 */
 	public function widgets() {
-		include_once __DIR__ . '/currency-converter-widget.php'; // Deprecated.
-
 		$this->widget = new \Themesquad\WC_Currency_Converter\Widget();
 
 		register_widget( $this->widget );
@@ -335,10 +287,6 @@ class WC_Currency_Converter extends Plugin {
 	 * Enqueue Styles and scripts
 	 */
 	public function enqueue_assets() {
-		if ( is_admin() ) {
-			return;
-		}
-
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Styles.
@@ -381,11 +329,13 @@ class WC_Currency_Converter extends Plugin {
 			)
 		);
 
+		$rates = new \Themesquad\WC_Currency_Converter\Open_Exchange\Rates();
+
 		$wc_currency_converter_params = array(
 			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
 			'currencies'             => wp_json_encode( $this->get_symbols( $currencies ) ),
-			'rates'                  => $this->get_currencies_rates( $currencies ),
-			'base'                   => $this->base,
+			'rates'                  => $rates->get_rates( $currencies ),
+			'base'                   => $rates->get_base(),
 			'currency_format_symbol' => get_woocommerce_currency_symbol(),
 			'currency'               => get_woocommerce_currency(),
 			'currency_pos'           => get_option( 'woocommerce_currency_pos' ),
@@ -438,18 +388,17 @@ class WC_Currency_Converter extends Plugin {
 	/**
 	 * Returns an array of rates for the given currencies
 	 *
-	 * @param $currencies
+	 * @deprecated 2.0.0
 	 *
+	 * @param array $currencies A list of currency codes.
 	 * @return array of rates
 	 */
 	private function get_currencies_rates( $currencies ) {
-		$rates = array();
+		wc_deprecated_function( __FUNCTION__, '2.0.0' );
 
-		foreach ( $currencies as $currency ) {
-			$rates[ $currency ] = ( (array) $this->rates )[ $currency ];
-		}
+		$rates = ( new \Themesquad\WC_Currency_Converter\Open_Exchange\Rates() )->get_all();
 
-		return $rates;
+		return $rates->get_rates( $currencies );
 	}
 
 	/**
@@ -492,17 +441,6 @@ class WC_Currency_Converter extends Plugin {
 	}
 
 	/**
-	 * Update order meta with currency information
-	 *
-	 * @deprecated 1.8.0
-	 *
-	 * @param int $order_id Order ID.
-	 */
-	public function update_order_meta( $order_id ) {
-		wc_deprecated_function( __FUNCTION__, '1.8.0', '\Themesquad\WC_Currency_Converter\Checkout::init()' );
-	}
-
-	/**
 	 * Function to return a the users default currency code
 	 *
 	 * @since  1.4.1
@@ -517,20 +455,5 @@ class WC_Currency_Converter extends Plugin {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Function to return a currency code based on a country code
-	 *
-	 * @since 1.4.1
-	 * @deprecated 1.9.0
-	 *
-	 * @param string $country_code Country code.
-	 * @return string|false
-	 */
-	public static function get_currency_from_country_code( $country_code ) {
-		wc_deprecated_function( __FUNCTION__, '1.9.0', '\Themesquad\WC_Currency_Converter\Utilities\Currency_Utils::get_by_country()' );
-
-		return Currency_Utils::get_by_country( $country_code );
 	}
 }

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+			<fieldset name="grid_editor" label="Grid Settings">
+
+				<field name="row_container_width" 
+					type="text"
+					default="960"
+					label="Section Rows Width"
+					unit="px or %"
+					description="The width of the rows inside section">
+				</field>
+						
+				<field name="col_gutter" 
+					type="text"
+					default="15" 
+					label="Column Gutter"
+					unit="px"
+					description="The padding left and right of the row columns">
+				</field>
+					
+				<field name="row_padding_top" 
+					type="text"
+					default="70"
+					label="Section Padding Top"
+					unit="px"
+					description="The padding top of the sections">
+				</field>
+				
+				<field name="row_padding_bottom" 
+					type="text"
+					default="70"
+					label="Section Padding Bottom"
+					unit="px"
+					description="The padding bottom of the sections">
+				</field>
+				
+				<field name="space_between_addons" 
+					type="text"
+					default="10"
+					label="Space Between Addons"
+					unit="px"
+					description="The vertical space between addons">
+				</field>
+								
+			</fieldset>
+			
+			<fieldset name="background" label="Background" loadfrom="background"></fieldset>						
+			
+			<fieldset name="tablet" label="Tablet">
+								
+				<field name="row_padding_top_tablet" 
+					type="text"
+					default=""
+					label="Section Tablet Padding Top"
+					unit="px"
+					description="The padding top of the sections in tablet page size (768)">
+				</field>
+				
+				<field name="row_padding_bottom_tablet" 
+					type="text"
+					default=""
+					label="Section Tablet Padding Bottom"
+					unit="px"
+					description="The padding bottom of the sections in tablet page size (768)">
+				</field>
+				
+				<field name="col_gutter_tablet" 
+					type="text"
+					default="" 
+					label="Column Gutter Tablet"
+					unit="px"
+					description="The padding left and right of the row columns in tablet page size (768)">
+				</field>
+
+				<field name="space_between_addons_tablet" 
+					type="text"
+					default=""
+					label="Space Between Addons Tablet"
+					unit="px"
+					description="The vertical space between addons in tablet page size (768)">
+				</field>
+				
+				<field name="page_css_tablet" 
+					type="textarea"
+					default=""
+					label="Page Tablet Add CSS"
+					description="Any css styles you want to add to the page, will be visible only in tablet view">
+				</field>
+				
+										
+			</fieldset>
+			
+			<fieldset name="mobile" label="Mobile">
+								
+				<field name="row_padding_top_mobile" 
+					type="text"
+					default=""
+					label="Section Mobile Padding Top"
+					unit="px"
+					description="The padding top of the sections in mobile page size (480)">
+				</field>
+				
+				<field name="row_padding_bottom_mobile" 
+					type="text"
+					default=""
+					label="Section Mobile Padding Bottom"
+					unit="px"
+					description="The padding bottom of the sections in mobile page size (480)">
+				</field>
+				
+				<field name="col_gutter_mobile" 
+					type="text"
+					default="" 
+					label="Column Gutter Mobile"
+					unit="px"
+					description="The padding left and right of the row columns in mobile page size (480)">
+				</field>
+
+				<field name="space_between_addons_mobile" 
+					type="text"
+					default=""
+					label="Space Between Addons Mobile"
+					unit="px"
+					description="The vertical space between addons in mobile page size (480)">
+				</field>
+				
+				<field name="page_css_mobile" 
+					type="textarea"
+					default=""
+					label="Page Mobile Add CSS"
+					description="Any css styles you want to add to the page, will be visible only in mobile view">
+				</field>
+										
+			</fieldset>
+			
+			
+			<fieldset name="page_fonts" label="Fonts">
+				
+				<field name="page_fonts" 
+					type="fonts_panel"
+					default=""
+					label="Page Fonts Panel"
+					description="">
+				</field>
+				
+			</fieldset>
+			<fieldset name="advanced" label="Advanced">
+			
+				<field name="enable_smooth_scroll"
+					type="boolean"
+					default="false"
+					label="Enable Smooth Scroll"
+					special_design="true"
+					description="Enable smooth scrolling to the link anchors, it adds js file to the grid">  
+				</field>
+				
+				<!-- 
+				<field name="enable_sticky_menu" 
+					type="boolean"
+					default="false"
+					label="Enable Sticky Menu"
+					description="Turn the first row to sticky menu">
+				</field>
+				-->
+				
+				<field name="page_css" 
+					type="textarea"
+					default=""
+					label="Page Add CSS"
+					description="Any css styles you want to add to the page">
+				</field>
+								
+			</fieldset>
+
+	</fields>

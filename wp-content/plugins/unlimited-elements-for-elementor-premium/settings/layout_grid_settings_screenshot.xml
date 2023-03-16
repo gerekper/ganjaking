@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+	
+			<fieldset name="grid_editor" label="Grid Settings">
+				
+				<field name="auto_generate_thumb"
+					type="boolean"
+					default="true"
+					label="Auto Generate Thumbnail"
+					description="Choose if auto generate thumb on save">  
+				</field>
+				
+				<field name="custom_preview_image"
+					type="image"
+					default=""
+					label="Choose Thumbnail"
+					description="Choose the thumbnail for the layout">  
+				</field>
+					
+				<field type="control" parent="auto_generate_thumb" child="custom_preview_image" ctype="show" value="false" />
+				
+					
+			</fieldset>
+			
+	</fields>

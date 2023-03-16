@@ -48,7 +48,7 @@ class ResetPreferredTranslationService implements \IWPML_Backend_Action {
 				self::ACTION_ID,
 				WPML_TM_URL . '/res/js/reset-preferred-ts.js',
 				[ 'jquery' ],
-				WPML_TM_VERSION
+				ICL_SITEPRESS_VERSION
 			);
 		}
 	}

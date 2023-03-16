@@ -3,41 +3,53 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/js/languages/components/ConfirmEditLanguageSave.js:35
+#: src/js/languages/components/ConfirmDeleteTranslatedContentModal.js:22
+msgid "hide the translations instead."
+msgstr ""
+
+#: src/js/languages/components/ConfirmDeleteTranslatedContentModal.js:84
+msgid "Error happened! Please try again."
+msgstr ""
+
+#: src/js/languages/components/ConfirmDeleteTranslatedContentModal.js:92
+msgid "Cancel"
+msgstr ""
+
+#: src/js/languages/components/ConfirmEditLanguageSave.js:34
 msgid "Choose Content to Automatically Translate into"
 msgstr ""
 
-#: src/js/languages/components/ConfirmEditLanguageSave.js:38
+#: src/js/languages/components/ConfirmEditLanguageSave.js:37
 msgid "Save Changes and Enable Automatic Translation"
 msgstr ""
 
-#: src/js/languages/components/ConfirmEditLanguageSave.js:39
+#: src/js/languages/components/ConfirmEditLanguageSave.js:38
 msgid "Cancel Language Changes"
 msgstr ""
 
-#: src/js/languages/components/ConfirmEditLanguageSave.js:43
-#: src/js/languages/components/ConfirmNewLanguage.js:96
+#: src/js/languages/components/ConfirmEditLanguageSave.js:42
+#: src/js/languages/components/ConfirmNewLanguage.js:114
 msgid "Save"
 msgstr ""
 
-#: src/js/languages/components/ConfirmNewLanguage.js:80
-msgid "Choose Content to Automatically Translate into New Language"
-msgstr ""
-
-#: src/js/languages/components/ConfirmNewLanguage.js:83
+#: src/js/languages/components/ConfirmNewLanguage.js:101
 msgid "Add languages and start translating"
 msgstr ""
 
-#: src/js/languages/components/ConfirmNewLanguage.js:84
+#: src/js/languages/components/ConfirmNewLanguage.js:102
 msgid "Add language and start translating"
 msgstr ""
 
-#: src/js/languages/components/ConfirmNewLanguage.js:87
+#: src/js/languages/components/ConfirmNewLanguage.js:105
 msgid "Never mind. Don't add new languages"
 msgstr ""
 
-#: src/js/languages/components/ConfirmNewLanguage.js:88
+#: src/js/languages/components/ConfirmNewLanguage.js:106
 msgid "Never mind. Don't add new language"
+msgstr ""
+
+#: src/js/languages/components/ConfirmNewLanguage.js:98
+msgid "Choose Content to Automatically Translate into New Language"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguageDialog.js:23

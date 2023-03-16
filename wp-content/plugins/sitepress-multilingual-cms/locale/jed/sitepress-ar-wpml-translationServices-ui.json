@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "en"
          },
          "Connect this site to your %s account": [
             "ربط هذا الموقع بحساب %s الخاص بك"
@@ -24,7 +25,7 @@
             "بحث"
          ],
          "Settings": [
-            "إعدادات"
+            "الإعدادات"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
             "من غير الممكن حاليًا الربط مع خدمة ترجمة بينما قد تم ضبط WPML على ترجمة محتوى موقعك آليًا. لاستخدام إحدى خدمات الترجمة، يُرجى تغيير وضع الترجمة الخاص بك من صفحة <LinkToSettingsPage />."
@@ -39,7 +40,7 @@
             "الاسم"
          ],
          "Description": [
-            "وصف"
+            "الوصف"
          ],
          "Ranking": [
             "الترتيب"

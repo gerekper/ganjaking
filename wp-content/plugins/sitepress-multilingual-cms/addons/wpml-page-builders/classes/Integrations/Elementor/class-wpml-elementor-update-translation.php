@@ -1,6 +1,6 @@
 <?php
 
-use WPML\FP\Str;
+use WPML\PB\Elementor\Helper\Node;
 use WPML\PB\Elementor\Helper\StringFormat;
 
 class WPML_Elementor_Update_Translation extends WPML_Page_Builders_Update_Translation {
@@ -8,9 +8,11 @@ class WPML_Elementor_Update_Translation extends WPML_Page_Builders_Update_Transl
 	/** @param array $data_array */
 	protected function update_strings_in_modules( array &$data_array ) {
 		foreach ( $data_array as &$element ) {
-			if ( $element['elements'] ) {
+			if ( Node::hasChildren( $element ) ) {
 				$this->update_strings_in_modules( $element['elements'] );
-			} elseif ( 'widget' === $element['elType'] ) {
+			}
+
+			if ( Node::isTranslatable( $element ) ) {
 				$element = $this->update_strings_in_node( $element[ $this->data_settings->get_node_id_field() ], $element );
 			}
 		}

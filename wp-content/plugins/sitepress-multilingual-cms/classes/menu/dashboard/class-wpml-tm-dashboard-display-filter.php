@@ -292,6 +292,7 @@ class WPML_TM_Dashboard_Display_Filter {
 				'page'          => WPML_TM_FOLDER . '/menu/main.php',
 				'sm'            => 'dashboard',
 				'icl_tm_action' => 'reset_dashboard_filters',
+				'nonce'         => wp_create_nonce( 'reset_dashboard_filters' ),
 			)
 		);
 		?>
@@ -331,6 +332,7 @@ class WPML_TM_Dashboard_Display_Filter {
 
 		<form method="post" name="translation-dashboard-filter" class="wpml-tm-dashboard-filter" action="<?php echo esc_url( $form_url ); ?>">
 			<input type="hidden" name="icl_tm_action" value="dashboard_filter"/>
+			<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'dashboard_filter' ) ); ?>"/>
 
 			<?php
 

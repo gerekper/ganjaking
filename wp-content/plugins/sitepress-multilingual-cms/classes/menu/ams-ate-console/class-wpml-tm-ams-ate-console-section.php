@@ -5,6 +5,8 @@ use WPML\Element\API\Languages;
 use WPML\FP\Fns;
 use WPML\FP\Obj;
 use WPML\ATE\Proxies\Widget;
+use WPML\TM\ATE\NoCreditPopup;
+use function WPML\Container\make;
 
 /**
  * It handles the TM section responsible for displaying the AMS/ATE console.
@@ -98,7 +100,7 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 	 * @return string
 	 */
 	public function get_caption() {
-		return __( 'Automatic Translation', 'wpml-translation-management' );
+		return __( 'Tools', 'wpml-translation-management' );
 	}
 
 	/**
@@ -167,7 +169,7 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 				\trailingslashit( \site_url() )
 			);
 
-			\wp_enqueue_script( self::ATE_APP_ID, $script_url, [], WPML_TM_VERSION, true );
+			\wp_enqueue_script( self::ATE_APP_ID, $script_url, [], ICL_SITEPRESS_VERSION, true );
 		}
 	}
 
@@ -222,7 +224,8 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 	public function get_widget_constructor() {
 		$registration_data = $this->ams_api->get_registration_data();
 
-		$language_fields = [ 'code', 'english_name', 'native_name', 'default_locale', 'encode_url', 'tag', 'flag_url' ];
+		/** @var NoCreditPopup $noCreditPopup */
+		$noCreditPopup = make( NoCreditPopup::class );
 
 		$app_constructor = [
 			'host'         => esc_js( $this->endpoints->get_base_url( WPML_TM_ATE_AMS_Endpoints::SERVICE_AMS ) ),
@@ -234,6 +237,11 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 			'tm_email'     => esc_js( wp_get_current_user()->user_email ),
 			'website_uuid' => esc_js( $this->auth->get_site_id() ),
 			'site_key'     => esc_js( apply_filters( 'otgs_installer_get_sitekey_wpml', null ) ),
+			'dependencies' => [
+				'sitepress-multilingual-cms' => [
+					'version' => ICL_SITEPRESS_VERSION,
+				],
+			],
 			'tab'          => self::TAB_SELECTOR,
 			'container'    => self::CONTAINER_SELECTOR,
 			'post_types'   => $this->get_post_types_data(),
@@ -243,7 +251,7 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 				'name'  => LOGGED_IN_COOKIE,
 				'value' => $_COOKIE[ LOGGED_IN_COOKIE ],
 			],
-			'languages'    => Fns::map( Obj::pick( $language_fields ), Languages::withFlags( Languages::getActive() ) ),
+			'languages'    => $noCreditPopup->getLanguagesData(),
 		];
 
 		return $app_constructor;

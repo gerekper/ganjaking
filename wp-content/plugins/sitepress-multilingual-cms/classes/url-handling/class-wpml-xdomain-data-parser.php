@@ -48,6 +48,7 @@ class WPML_XDomain_Data_Parser {
 				'css_selector' => $ls_parameters['css_prefix'] . 'item',
 				'ajax_url'     => admin_url( 'admin-ajax.php' ),
 				'current_lang' => apply_filters( 'wpml_current_language', '' ),
+				'_nonce'       => wp_create_nonce( 'wp_ajax_switching_language' ),
 			);
 
 			wp_enqueue_script( self::SCRIPT_HANDLER, ICL_PLUGIN_URL . '/res/js/xdomain-data.js', array( 'jquery' ), ICL_SITEPRESS_VERSION );
@@ -76,6 +77,12 @@ class WPML_XDomain_Data_Parser {
 	}
 
 	public function send_xdomain_language_data() {
+		$nonce = isset( $_POST['_nonce'] ) ? sanitize_text_field( $_POST['_nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wp_ajax_switching_language' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ), 400 );
+			return;
+		}
 
 		$data = $this->set_up_xdomain_language_data();
 

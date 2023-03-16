@@ -14,9 +14,9 @@ use WPML\FP\Wrapper;
 use WPML\LIB\WP\Option as WPOption;
 use WPML\LIB\WP\User;
 use WPML\Setup\Endpoint\CheckTMAllowed;
-use WPML\Setup\Endpoint\TranslationServices;
-use WPML\TM\Menu\TranslationServices\Endpoints\Activate;
-use WPML\TM\Menu\TranslationServices\Endpoints\Deactivate;
+use WPML\TM\ATE\TranslateEverything\Pause\View as PauseTranslateEverything;
+
+use WPML\TM\Menu\TranslationMethod\TranslationMethodSettings;
 use WPML\TranslationMode\Endpoint\SetTranslateEverything;
 use WPML\TranslationRoles\UI\Initializer as TranslationRolesInitializer;
 use WPML\UIPage;
@@ -32,8 +32,6 @@ class Initializer {
 
 		$siteUrl = self::getSiteUrl();
 
-		$defaultServiceName = self::getDefaultTranslationServiceName();
-		Option::setDefaultTranslationMode( ! empty( $defaultServiceName ) );
 
 		$defaultLang  = self::getDefaultLang();
 		$originalLang = Option::getOriginalLang();
@@ -48,10 +46,6 @@ class Initializer {
 			self::savePredefinedSiteKey( OTGS_INSTALLER_SITE_KEY_WPML );
 		}
 
-		$translationMethod = Option::shouldTranslateEverything( Option::getTranslateEverythingDefaultInSetup( ! empty( $defaultServiceName ) ) )
-			? 'automatic'
-			: 'manual';
-
 		return [
 			'name' => 'wpml_wizard',
 			'data' => [
@@ -65,21 +59,20 @@ class Initializer {
 					'licenseStep'            => Endpoint\LicenseStep::class,
 					'translationStep'        => Endpoint\TranslationStep::class,
 					'setTranslateEverything' => SetTranslateEverything::class,
+					'pauseTranslateEverything' => PauseTranslateEverything::class,
 					'recommendedPlugins'     => Endpoint\RecommendedPlugins::class,
 					'finishStep'             => Endpoint\FinishStep::class,
 					'addLanguages'           => Endpoint\AddLanguages::class,
 					'upload'                 => Upload::class,
-					'getTranslationServices' => TranslationServices::class,
-					'activateService'        => Activate::class,
-					'deactivateService'      => Deactivate::class,
 					'checkTMAllowed'         => CheckTMAllowed::class,
 				], TranslationRolesInitializer::getEndPoints() ),
 				'languages'            => [
-					'list'               => Obj::values( Languages::withFlags( Languages::getAll( $userLang ) ) ),
-					'secondaries'        => Fns::map( Languages::getLanguageDetails(), Option::getTranslationLangs() ),
-					'original'           => Languages::getLanguageDetails( $originalLang ),
-					'customFlagsDir'     => self::getCustomFlagsDir(),
-					'predefinedFlagsDir' => \WPML_Flags::get_wpml_flags_url(),
+					'list'                  => Obj::values( Languages::withFlags( Languages::getAll( $userLang ) ) ),
+					'secondaries'           => Fns::map( Languages::getLanguageDetails(), Option::getTranslationLangs() ),
+					'original'              => Languages::getLanguageDetails( $originalLang ),
+					'customFlagsDir'        => self::getCustomFlagsDir(),
+					'predefinedFlagsDir'    => \WPML_Flags::get_wpml_flags_url(),
+					'flagsByLocalesFileUrl' => \WPML_Flags::get_wpml_flags_by_locales_url(),
 				],
 				'siteAddUrl'           => 'https://wpml.org/account/sites/?add=' . urlencode( $siteUrl ) . '&wpml_version=' . self::getWPMLVersion(),
 				'siteKey'              => self::getSiteKey(),
@@ -100,28 +93,11 @@ class Initializer {
 				'languagesMenuUrl'         => admin_url( UIPage::getLanguages() ),
 				'adminUserName'            => User::getCurrent()->display_name,
 				'translation'              => Lst::concat(
-					[
-						'whoModes'           => Option::getTranslationMode(),
-						'defaultServiceName' => $defaultServiceName,
-						'method'             => $translationMethod,
-						'reviewMode'         => Option::getReviewMode(),
-					],
+					TranslationMethodSettings::getModeSettingsData(),
 					TranslationRolesInitializer::getTranslationData()
 				),
 			],
 		];
-	}
-
-	/**
-	 * Get the actual service name, or empty string if there's no default service.
-	 *
-	 * @return string
-	 */
-	private static function getDefaultTranslationServiceName() {
-		return Maybe::fromNullable( \TranslationProxy::get_tp_default_suid() )
-			->map( [ \TranslationProxy_Service::class, 'get_service_by_suid'] )
-			->map( Obj::prop('name') )
-			->getOrElse('');
 	}
 
 	/**

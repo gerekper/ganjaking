@@ -1,5 +1,16 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-03-15 - version 1.15.76
+* Add - Check booking availability on checkout validation to reduce over-booking.
+* Dev - Added a 'state' parameter to the custom Google Calendar connection.
+* Dev - Migrate end-to-end tests to Playwright.
+* Dev - Prefix composer `google/apiclient` package with `brianhenryie/strauss`.
+* Dev - Resolve PHP deprecated warning `usort(): Returning bool from comparison function`.
+* Dev - Update PHP dependency to 7.2.
+* Fix - "Confirm Booking" link not working from email and shows "The link you followed has expired.".
+* Fix - Ensures that labels on Bookings page in My Account are able to be translated.
+* Tweak - WC 7.5.0 compatibility.
+
 2023-02-01 - version 1.15.75
 * Fix - Display booking calendar on Add Booking page.
 * Fix - The availability check for Min-Max days is fixed for products without resources.

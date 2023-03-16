@@ -23,11 +23,16 @@ class LicenseStep implements IHandler {
 			];
 			$r    = OTGS_Installer()->save_site_key( $args );
 			if ( ! empty( $r['error'] ) ) {
-				return Either::left( strip_tags( $r['error'] ) );
+				return Either::left( [ 'msg' => strip_tags( $r['error'] ) ] );
 			} else {
 				icl_set_setting( 'site_key', $site_key, true );
-				Plugins::updateTMAllowedOption();
-				return Right::of( __( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' ) );
+				$isTMAllowed = Plugins::updateTMAllowedOption();
+				return Right::of(
+					[
+						'isTMAllowed' => $isTMAllowed,
+						'msg'         => __( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' ),
+					]
+				);
 			}
 		}
 

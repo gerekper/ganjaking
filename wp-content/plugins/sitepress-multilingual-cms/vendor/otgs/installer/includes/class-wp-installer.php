@@ -1687,7 +1687,7 @@ class WP_Installer {
 			} else {
 				$this->api_debug_log( $datas );
 				throw new Exception(
-				        sprintf('Unable to parse response form server %1$s for URL: %2$s. Data: %3$s', $repository_id, $installer_site_url, $datas)
+				        sprintf('Unable to parse response from server %1$s for URL: %2$s. Data: %3$s', $repository_id, $installer_site_url, $datas)
                 );
 			}
 

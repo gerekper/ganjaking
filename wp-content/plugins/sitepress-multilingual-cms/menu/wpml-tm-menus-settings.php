@@ -138,17 +138,21 @@ class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 		$translate_link_targets = new WPML_Translate_Link_Target_Global_State( $sitepress );
 		if ( $translate_link_targets->is_rescan_required() ) {
 			?>
-			<div class="update-nag">
-				<p>
-					<i class="otgs-ico-warning"></i>
-					<?php
-					echo esc_html__(
-						'There is new translated content on this site. You can scan posts and strings to adjust links to point to translated content.',
-						'wpml-translation-management'
-					);
-					?>
-				</p>
-				<p><?php echo $this->get_navigation_link( $this->get_translate_link_targets_ui()->get_id() ); ?></p>
+			<div class="update-nag ant-alert ant-alert-info ant-alert-with-description" role="alert">
+				<span role="img" aria-label="info-circle" class="anticon anticon-info-circle ant-alert-icon">
+					<svg viewBox="64 64 896 896" focusable="false" data-icon="info-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"></path></svg>
+				</span>
+				<div class="ant-alert-content">
+					<p class="ant-alert-message">
+						<?php
+						echo esc_html__(
+							'There is new translated content on this site. You can scan posts and strings to adjust links to point to translated content.',
+							'wpml-translation-management'
+						);
+						?>
+					</p>
+					<span class="ant-alert-description"><?php echo $this->get_navigation_link( $this->get_translate_link_targets_ui()->get_id() ); ?></span>
+				</div>
 			</div>
 			<?php
 		}
@@ -156,20 +160,8 @@ class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 		$this->render_mcsetup_navigation_links();
 
 		if ( $this->should_show_mcsetup_section( 'ml-content-setup-sec-1' ) ) : ?>
-			<div class="wpml-section">
-				<div class="wpml-section-header">
-					<h3>
-						<?php echo esc_html__( 'Translation Mode', 'wpml-translation-management' ); ?>
-					</h3>
-					<a href="<?php echo DocPage::getTranslateAutomatically(); ?>" target="_blank" rel="noopener" class="wpml-external-link">
-						<?php esc_html_e( "How to translate your site's content", 'wpml-translation-management' ); ?>
-					</a>
-				</div>
+			<?php TranslationMethodSettings::render(); ?>
 
-				<div class="wpml-section-content">
-					<?php TranslationMethodSettings::render(); ?>
-				</div>
-			</div>
 
 			<div class="wpml-section" id="ml-content-setup-sec-1">
 				<?php

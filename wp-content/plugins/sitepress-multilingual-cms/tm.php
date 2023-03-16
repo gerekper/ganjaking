@@ -159,6 +159,7 @@ function wpml_tm_load( $sitepress = null ) {
 			\WPML\TM\Settings\CustomFieldChangeDetector::class,
 			\WPML\MediaTranslation\AddMediaDataToTranslationPackageFactory::class,
 			\WPML\MediaTranslation\MediaTranslationEditorLayoutFactory::class,
+			\WPML\MediaTranslation\MediaTranslationStatusFactory::class,
 		];
 		$action_filter_loader->load( $actions );
 
@@ -270,5 +271,6 @@ if ( is_admin() ) {
 }
 
 if ( is_admin() && !wpml_is_ajax() ) {
-	CustomFieldChangeDetector::processNewFields();
+	$customFieldChangeDetector = \WPML\Container\make( CustomFieldChangeDetector::class );
+	$customFieldChangeDetector->processNewFields();
 }

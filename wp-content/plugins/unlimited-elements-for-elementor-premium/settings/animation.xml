@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fields>
+			<fieldset name="animation" label="Entrance Animation">
+				
+				<field name="animation_type" 
+					type="list"
+					default=""
+					label="Animation Type"
+					classAdd="uc-select-animation-type"
+					description="Choose the animation type">  
+						<option value="" text="---No Animation---"></option>
+						<option value="bounce" text="Bounce"></option>
+						<option value="flash" text="Flash"></option>
+						<option value="pulse" text="Pulse"></option>
+						<option value="rubberBand" text="Rubber Band"></option>
+						<option value="shake" text="Shake"></option>
+						<option value="swing" text="Swing"></option>
+						<option value="tada" text="Tada"></option>
+						<option value="jello" text="Jello"></option>
+						
+						 <option value="bounceIn" text="---Bouncing Entrances---"></option>
+						 
+					    <option value="bounceIn" text="Bounce In"></option>
+			            <option value="bounceInDown" text="bounceInDown"></option>
+			            <option value="bounceInLeft" text="bounceInLeft"></option>
+			            <option value="bounceInRight" text="bounceInRight"></option>
+			            <option value="bounceInUp" text="bounceInUp"></option>						
+						
+						
+						 <option value="" text="---Bouncing Exits---"></option>
+						 <option value="bounceOut" text="bounceOut"></option>
+				          <option value="bounceOutDown" text="bounceOutDown"></option>
+				          <option value="bounceOutLeft" text="bounceOutLeft"></option>
+				          <option value="bounceOutRight" text="bounceOutRight"></option>
+				          <option value="bounceOutUp" text="bounceOutUp"></option>	
+						
+						<option value="" text="---Fading Entrances---"></option>
+						
+						 <option value="fadeIn" text="fadeIn"></option>
+				          <option value="fadeInDown" text="fadeInDown"></option>
+				          <option value="fadeInDownBig" text="fadeInDownBig"></option>
+				          <option value="fadeInLeft" text="fadeInLeft"></option>
+				          <option value="fadeInLeftBig" text="fadeInLeftBig"></option>
+				          <option value="fadeInRight" text="fadeInRight"></option>
+				          <option value="fadeInRightBig" text="fadeInRightBig"></option>
+				          <option value="fadeInUp" text="fadeInUp"></option>
+				          <option value="fadeInUpBig" text="fadeInUpBig"></option>
+          				
+          				<option value="" text="----Fading Exits---"></option>
+          				
+          				<option value="fadeOut" text="fadeOut"></option>
+			          <option value="fadeOutDown" text="fadeOutDown"></option>
+			          <option value="fadeOutDownBig" text="fadeOutDownBig"></option>
+			          <option value="fadeOutLeft" text="fadeOutLeft"></option>
+			          <option value="fadeOutLeftBig" text="fadeOutLeftBig"></option>
+			          <option value="fadeOutRight" text="fadeOutRight"></option>
+			          <option value="fadeOutRightBig" text="fadeOutRightBig"></option>
+			          <option value="fadeOutUp" text="fadeOutUp"></option>
+			          <option value="fadeOutUpBig" text="fadeOutUpBig"></option>
+          				
+          				
+          				 <option value="flip" text="Flippers"></option>
+          				 <option value="flip" text="flip"></option>
+			          <option value="flipInX" text="flipInX"></option>
+			          <option value="flipInY" text="flipInY"></option>
+			          <option value="flipOutX" text="flipOutX"></option>
+			          <option value="flipOutY" text="flipOutY"></option>
+          				
+          				
+          				<option value="lightSpeedIn" text="Lightspeed"></option>
+          				 <option value="lightSpeedIn" text="lightSpeedIn"></option>
+			          <option value="lightSpeedOut" text="lightSpeedOut"></option>
+          				
+          				
+ 			<option value="" text="---Rotating Entrances---"></option>
+ 			 <option value="rotateIn" text="rotateIn"></option>
+          <option value="rotateInDownLeft" text="rotateInDownLeft"></option>
+          <option value="rotateInDownRight" text="rotateInDownRight"></option>
+          <option value="rotateInUpLeft" text="rotateInUpLeft"></option>
+          <option value="rotateInUpRight" text="rotateInUpRight"></option>          				
+          				
+          				
+          				<option value="" text="---Rotating Exits---"></option>
+          				 <option value="rotateOut" text="rotateOut"></option>
+          <option value="rotateOutDownLeft" text="rotateOutDownLeft"></option>
+          <option value="rotateOutDownRight" text="rotateOutDownRight"></option>
+          <option value="rotateOutUpLeft" text="rotateOutUpLeft"></option>
+          <option value="rotateOutUpRight" text="rotateOutUpRight"></option>
+          				
+          				
+          				<option value="" text="---Sliding Entrances---"></option>
+          				 <option value="slideInUp" text="slideInUp"></option>
+          <option value="slideInDown" text="slideInDown"></option>
+          <option value="slideInLeft" text="slideInLeft"></option>
+          <option value="slideInRight" text="slideInRight"></option>
+          
+          
+          				<option value="" text="---Sliding Exits---"></option>
+          				 <option value="slideOutUp" text="slideOutUp"></option>
+          <option value="slideOutDown" text="slideOutDown"></option>
+          <option value="slideOutLeft" text="slideOutLeft"></option>
+          <option value="slideOutRight" text="slideOutRight"></option>
+          
+          
+          <option value="" text="---Zoom Exits---"></option>
+          <option value="zoomIn" text="zoomIn"></option>
+          <option value="zoomInDown" text="zoomInDown"></option>
+          <option value="zoomInLeft" text="zoomInLeft"></option>
+          <option value="zoomInRight" text="zoomInRight"></option>
+          <option value="zoomInUp" text="zoomInUp"></option>
+          			
+          			
+          			 <option value="hinge" text="---Specials---"></option>
+          			 <option value="hinge" text="hinge"></option>
+          <option value="jackInTheBox" text="jackInTheBox"></option>
+          <option value="rollIn" text="rollIn"></option>
+          <option value="rollOut" text="rollOut"></option>
+          				
+				</field>
+				<field type="statictext"
+					name="animation_demo"
+					text="&lt;span&gt;This is animation demo text&lt;/span&gt;"
+					label=" "
+					classAdd="uc-animation-demo"
+				></field>
+				
+				<field name="animation_delay" 
+					type="text"
+					default=""
+					label="Delay"
+					unit="sec"
+					placeholder="0"
+					description="Animation Delay">
+				</field>
+				
+				<field name="animation_duration" 
+					type="text"
+					default=""
+					label="Duration"
+					unit="sec"
+					placeholder="1"
+					description="Animation Duration">
+				</field>
+				
+				<field name="animation_play" 
+					type="custom"
+					custom_type="grid_panel_button"
+					action="play_panelobject_animation"
+					label="unite_setting_notext"
+					button_text="Play Animation">
+				</field>
+				
+				<field name="section_animation_play" 
+					type="custom"
+					custom_type="grid_panel_button"
+					action="play_panelobject_section_animation"
+					label="unite_setting_notext"
+					button_text="Play Section Animation">
+				</field>
+			
+				
+			</fieldset>						
+
+</fields>

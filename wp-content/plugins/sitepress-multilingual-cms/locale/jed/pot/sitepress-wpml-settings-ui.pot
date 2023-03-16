@@ -33,29 +33,29 @@ msgid ""
 "%sWPML support%s."
 msgstr ""
 
-#: src/js/settings/components/ConfirmNewTranslatablePostType.js:105
+#: src/js/settings/components/ConfirmNewTranslatablePostType.js:107
 msgid "Save"
 msgstr ""
 
-#: src/js/settings/components/ConfirmNewTranslatablePostType.js:79
+#: src/js/settings/components/ConfirmNewTranslatablePostType.js:81
 msgid "Please confirm this translation setting"
 msgstr ""
 
-#: src/js/settings/components/ConfirmNewTranslatablePostType.js:82
+#: src/js/settings/components/ConfirmNewTranslatablePostType.js:84
 msgid ""
 "Your site is set to translate all content automatically. When you make "
 "<PostTypesNames /> translatable, WPML will automatically translate the "
 "<NumberOfItems /> existing items."
 msgstr ""
 
-#: src/js/settings/components/ConfirmNewTranslatablePostType.js:89
+#: src/js/settings/components/ConfirmNewTranslatablePostType.js:91
 msgid "Are you OK with paying for this?"
 msgstr ""
 
-#: src/js/settings/components/ConfirmNewTranslatablePostType.js:91
+#: src/js/settings/components/ConfirmNewTranslatablePostType.js:93
 msgid "Cancel"
 msgstr ""
 
-#: src/js/settings/components/ConfirmNewTranslatablePostType.js:92
+#: src/js/settings/components/ConfirmNewTranslatablePostType.js:94
 msgid "Make translatable"
 msgstr ""

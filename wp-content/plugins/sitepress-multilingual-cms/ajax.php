@@ -69,19 +69,16 @@ switch ( $request ) {
 		break;
 	case 'icl_login_page_translation':
 		$translateLoginPageIsEnabled = get_option( WPLoginUrlConverter::SETTINGS_KEY );
-
-		if ( $translateLoginPageIsEnabled ) {
-			AdminLanguageSwitcher::saveState(
-				(bool) filter_input( INPUT_POST, 'show_login_page_language_switcher', FILTER_VALIDATE_INT )
-			);
-		}
-
 		if ( ! $translateLoginPageIsEnabled && filter_input( INPUT_POST, 'login_page_translation', FILTER_VALIDATE_BOOLEAN ) ) {
 			AdminLanguageSwitcher::enable();
 		}
 
 		WPLoginUrlConverter::saveState(
 			(bool) filter_input( INPUT_POST, 'login_page_translation', FILTER_VALIDATE_INT )
+		);
+
+		AdminLanguageSwitcher::saveState(
+			(bool) filter_input( INPUT_POST, 'show_login_page_language_switcher', FILTER_VALIDATE_INT )
 		);
 
 		echo 1;

@@ -1,0 +1,32 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Preparing...": [
+            "準備しています..."
+         ],
+         "All jobs have been cancelled": [
+            "すべてのジョブがキャンセルされました"
+         ],
+         "There is no more jobs to cancel": [
+            "これ以上キャンセルするジョブはありません"
+         ],
+         "The jobs cancellation has failed": [
+            "ジョブのキャンセルが失敗しました"
+         ],
+         "Cancel in-progress automatic jobs": [
+            "進行中の自動ジョブをキャンセルする"
+         ],
+         "Refresh license data to recognise license update": [
+            "ライセンス データを最新の状態に更新し、ライセンス アップデートを認識する"
+         ],
+         "WPML License has been refreshed": [
+            "WPML ライセンスが最新の状態に更新されました"
+         ]
+      }
+   }
+}

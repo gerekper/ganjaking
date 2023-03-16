@@ -15,7 +15,6 @@ class WC_MS_Front {
 		// WCMS Front
 		add_filter( 'body_class', array( $this, 'output_body_class' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ), 11 );
-		add_action( 'woocommerce_view_order', array( $this, 'show_multiple_addresses_notice' ) );
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_order_item_addresses' ), 10, 4 );
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'list_order_item_addresses' ) );
 
@@ -231,33 +230,6 @@ class WC_MS_Front {
 
 		// allow other providers to load JS
 		do_action( 'wc_address_validation_load_js', $provider, $handler, $suffix );
-	}
-
-	/**
-	 * Display a note if the order ships to multiple addresses
-	 *
-	 * @param int $order_id
-	 */
-	public function show_multiple_addresses_notice($order_id) {
-		$order = wc_get_order( $order_id );
-
-		if ( ! $order ) {
-			return;
-		}
-
-		$packages = $order->get_meta( '_wcms_packages' );
-
-		if ( empty( $packages ) || count( $packages ) <= 1 ) {
-			return;
-		}
-
-		$page_id    = wc_get_page_id( 'multiple_addresses' );
-		$url        = add_query_arg( 'order_id', $order_id, get_permalink( $page_id ) );
-	?>
-		<div class="woocommerce_message woocommerce-message">
-			<?php printf( __( 'This order ships to multiple addresses.  <a class="button" href="%s">View Addresses</a>', 'wc_shipping_multiple_address' ), $url ); ?>
-		</div>
-	<?php
 	}
 
 	/**

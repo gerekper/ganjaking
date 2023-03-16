@@ -29,7 +29,8 @@ function icl_plugin_upgrade() {
 	delete_option( \WPML_LS_Templates::OPTION_NAME );
 
 	if ( get_option( 'icl_sitepress_version' ) && version_compare( get_option( 'icl_sitepress_version' ), '1.7.2', '<' ) ) {
-		$wpdb->update( $wpdb->prefix . 'icl_flags', array( 'flag' => 'ku.png' ), array( 'lang_code' => 'ku' ) );
+		$kuFlag = wpml_get_flag_file_name('ku');
+		$wpdb->update( $wpdb->prefix . 'icl_flags', array( 'flag' => $kuFlag ), array( 'lang_code' => 'ku' ) );
 		$wpdb->update(
 			$wpdb->prefix . 'icl_languages_translations',
 			array( 'name' => 'Magyar' ),

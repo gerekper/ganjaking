@@ -28,11 +28,9 @@ function icl_reset_language_data() {
 		) {
 			continue;
 		}
-		if ( ! file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code . '.png' ) ) {
-			$file = 'nil.png';
-		} else {
-			$file = $code . '.png';
-		}
+
+		$file = wpml_get_flag_file_name( $code );
+
 		$wpdb->insert(
 			$wpdb->prefix . 'icl_flags',
 			array(

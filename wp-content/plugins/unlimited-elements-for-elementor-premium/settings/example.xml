@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+	<field name="text_fonts" 
+		type="statictext"
+		label="Those fonts will be added to fonts panel list">
+	</field>
+
+	<!-- hr -->		
+	
+	<field type="hr"></field>
+
+	<!-- text -->		
+			<field name="max" 
+				type="text"
+				default="" 
+				label="Label"
+				description="">  
+			</field>
+			
+	<!-- range -->		
+			<field name="max" 
+				type="range"
+				default="10" 
+				min="1"
+				max="200"
+				step="1"
+				label="Label"
+				description="">  
+			</field>
+
+	<!-- bulk -->		
+
+	<field type="control" parent="bg_type" child="aaa" ctype="show" value="val" />
+
+	
+	<field type="bulk_control_start" parent="parent" ctype="hide" value="none" />
+	<field type="bulk_control_end" />
+	
+	<!-- select -->
+	
+			<field name="max" 
+				type="list"
+				default="val" 
+				label="Label"
+				description="desc">
+					<option value="val" text="Text1"></option>
+					<option value="val2" text="Text2"></option>
+					<option value="val3" text="Text3"></option>
+			</field>
+
+			<field name="max" 
+				type="radio"
+				default="val" 
+				label="Label"
+				description="desc">
+					<option value="val" text="Text1"></option>
+					<option value="val2" text="Text2"></option>
+					<option value="val3" text="Text3"></option>
+			</field>
+			
+	<!-- boolean -->
+	
+		<field name="name"
+			type="boolean"
+			default="true"
+			label="Label"
+			description="desc">  
+		</field>
+			
+	<!-- in the text additions -->
+			
+	" &lt;br&gt; "
+	&amp;nbsp;
+	&lt;b&gt; text &lt;/b&gt;
+	
+	
+				<field name="bg_color"
+					type="color"
+					default=""
+					label="Background Color"
+					description="Choose the background color">  
+				</field>
+	
+	<!-- grid panel button -->
+	
+	<field name="bg_addon_configure"
+		type="custom"
+		custom_type="grid_panel_button"
+		action="play_panelobject_section_animation"
+		label="unite_setting_notext"
+		button_text="Play Section Animation">					
+	</field>
+	
+	

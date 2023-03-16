@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fields>
+		<fieldset name="general" label="General Settings">
+		</fieldset>
+				
+		<fieldset name="google_fonts" label="Google Fonts">
+			
+			<field name="text_fonts" 
+				type="statictext"
+				label="Those fonts will be added to fonts panel list. The link should be without HTML Tags!">
+			</field>
+			
+			<field name="google_font1_name" 
+				type="text"
+				default="" 
+				label="Google Font 1 Name"
+				description="">  
+			</field>
+			
+			<field name="google_font1_link" 
+				type="text"
+				default=""
+				label="Google Font 1 Link"
+				datatype="link"
+				description="">  
+			</field>
+			
+			<field type="hr"></field>
+			
+			<field name="google_font2_name" 
+				type="text"
+				default="" 
+				label="Google Font 2 Name"
+				description="">  
+			</field>
+			
+			<field name="google_font2_link" 
+				type="text"
+				default=""
+				label="Google Font 2 Link"
+				datatype="link"
+				description="">  
+			</field>
+			
+			<field type="hr"></field>
+			
+			<field name="google_font3_name" 
+				type="text"
+				default="" 
+				label="Google Font 3 Name"
+				description="">  
+			</field>
+			
+			<field name="google_font3_link" 
+				type="text"
+				default=""
+				label="Google Font 3 Link"
+				datatype="link"
+				description="">  
+			</field>
+			
+			<field type="hr"></field>
+			
+			<field name="google_font4_name" 
+				type="text"
+				default="" 
+				label="Google Font 4 Name"
+				description="">  
+			</field>
+			
+			<field name="google_font4_link" 
+				type="text"
+				default=""
+				label="Google Font 4 Link"
+				datatype="link"
+				description="">  
+			</field>
+			
+			
+		</fieldset>
+		
+</fields>

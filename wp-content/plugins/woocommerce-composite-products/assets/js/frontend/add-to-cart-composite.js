@@ -8326,25 +8326,28 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 						if ( typeof window.WC_PAO !== 'undefined' ) {
 							// Initialize component-level addons.
 							if ( self.has_addons()  ) {
-								self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content ) );
-							}
 
-							// Initialize bundled item addon forms.
-							if ( 'bundle' === self.get_selected_product_type() ) {
+								// Initialize bundled item addon forms.
+								if ( 'bundle' === self.get_selected_product_type() ) {
 
-								var bundle = self.get_bundle_script( this.component_id );
+									self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content.find( '.bundle_data.cart' ) ) );
 
-								if ( bundle ) {
+									var bundle = self.get_bundle_script( this.component_id );
 
-									$.each( bundle.bundled_items, function( index, bundled_item ) {
+									if ( bundle ) {
 
-										if ( bundled_item.has_addons() ) {
-											new window.WC_PAO.Form( bundled_item.$bundled_item_cart );
-										}
+										$.each( bundle.bundled_items, function( index, bundled_item ) {
 
-									} );
+											if ( bundled_item.has_addons() ) {
+												new window.WC_PAO.Form( bundled_item.$bundled_item_cart );
+											}
 
-									bundle.match_bundled_items_addons_forms();
+										} );
+
+										bundle.match_bundled_items_addons_forms();
+									}
+								} else {
+									self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content ) );
 								}
 							}
 						}

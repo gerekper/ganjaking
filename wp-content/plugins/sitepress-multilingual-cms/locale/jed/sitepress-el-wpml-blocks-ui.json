@@ -1,0 +1,161 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Advanced": [
+            "Για προχωρημένους"
+         ],
+         "HTML anchor": [
+            "Αγκύρωση HTML"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Προσθέστε μια συντόμευση σε αυτό το τμήμα κατά τη φόρτωση της σελίδας με τη χρήση του “#anchor” URL."
+         ],
+         "Additional CSS class(es)": [
+            "Επιπλέον κλάση(-εις) CSS"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Διαχωρίστε πολλαπλές κλάσεις με διαστήματα."
+         ],
+         "Color": [
+            "Χρώμα"
+         ],
+         "Dimensions": [
+            "Διαστάσεις"
+         ],
+         "BLOCK": [
+            "ΤΜΗΜΑ"
+         ],
+         "Block margin": [
+            "Περιθώριο τμήματος"
+         ],
+         "Block padding": [
+            "Αναπλήρωση τμήματος"
+         ],
+         "LANGUAGE": [
+            "ΓΛΩΣΣΑ"
+         ],
+         "Language spacing": [
+            "Διάστιχο γλώσσας"
+         ],
+         "Language padding": [
+            "Αναπλήρωση γλώσσας"
+         ],
+         "Display": [
+            "Προβολή"
+         ],
+         "Show flag": [
+            "Εμφάνιση σημαίας"
+         ],
+         "Show language name": [
+            "Εμφάνιση ονόματος γλώσσας"
+         ],
+         "Display language name in": [
+            "Προβολή ονόματος γλώσσας σε"
+         ],
+         "Style": [
+            "Στιλ"
+         ],
+         "Flag settings": [
+            "Ρυθμίσεις σημαίας"
+         ],
+         "Width": [
+            "Πλάτος"
+         ],
+         "Height": [
+            "Ύψος"
+         ],
+         "Spacing": [
+            "Διάστιχο"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Να επιτρέπεται η αναδίπλωση σε πολλαπλές γραμμές"
+         ],
+         "Open on click": [
+            "Άνοιγμα με το πάτημα ποντικιού"
+         ],
+         "Show arrow": [
+            "Εμφάνιση βέλους"
+         ],
+         "Layout": [
+            "Διάταξη"
+         ],
+         "Justification": [
+            "Στοίχιση"
+         ],
+         "Orientation": [
+            "Προσανατολισμός"
+         ],
+         "Typography": [
+            "Τυπογραφία"
+         ],
+         "Background": [
+            "Φόντο"
+         ],
+         "Language Text": [
+            "Κείμενο γλώσσας"
+         ],
+         "Language Background": [
+            "Φόντο γλώσσας"
+         ],
+         "Current language text": [
+            "Τρέχον κείμενο γλώσσας"
+         ],
+         "Current language background": [
+            "Τρέχον φόντο γλώσσας"
+         ],
+         "Small": [
+            "Μικρό"
+         ],
+         "Normal": [
+            "Κανονικό"
+         ],
+         "Medium": [
+            "Μεσαίο"
+         ],
+         "Large": [
+            "Μεγάλο"
+         ],
+         "X-Large": [
+            "Πολύ μεγάλο"
+         ],
+         "Ab": [
+            "Αβ"
+         ],
+         "AB": [
+            "ΑΒ"
+         ],
+         "ab": [
+            "αβ"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Προβάλλει την Εναλλαγή Γλώσσας WPML."
+         ],
+         "Language Switcher": [
+            "Εναλλαγή Γλώσσας"
+         ],
+         "displays the WPML Language Switcher": [
+            "προβάλλει την Εναλλαγή Γλώσσας WPML"
+         ],
+         "Navigation Language Switcher": [
+            "Εναλλαγή Γλώσσας Πλοήγησης"
+         ],
+         "Reset all": [
+            "Επαναφορά όλων"
+         ],
+         "Minimum value is : ": [
+            "Η ελάχιστη τιμή είναι :"
+         ],
+         "Maximum value is : ": [
+            "Η μέγιστη τιμή είναι :"
+         ],
+         "Value must be a number!": [
+            "Η τιμή πρέπει να είναι αριθμός!"
+         ]
+      }
+   }
+}

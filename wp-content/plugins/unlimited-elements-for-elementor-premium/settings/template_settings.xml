@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fields>
+		<fieldset name="general" label="General">
+			
+			<field name="title" 
+				type="text"
+				default="" 
+				label="Template Title"
+				description="Choose template title">
+					<option value="" text="---Not Selected---"></option>
+			</field>
+			
+			<field type="hr"></field>
+
+			<field name="header_addon" 
+				type="list"
+				default="" 
+				label="Header Addon"
+				description="Choose header addon">
+					<option value="" text="---Not Selected---"></option>
+			</field>
+			
+			<field name="footer_addon" 
+				type="list"
+				default="" 
+				label="Footer Addon"
+				description="choose footer addon">
+					<option value="" text="---Not Selected---"></option>
+			</field>
+
+			<field type="hr"></field>
+			
+			<field name="bg_color" 
+				type="color"
+				default=""
+				label="Background Color"
+				description="Template background color">
+			</field>
+								
+				
+			</fieldset>
+			
+</fields>

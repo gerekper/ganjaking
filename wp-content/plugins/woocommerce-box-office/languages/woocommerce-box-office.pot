@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Box Office 1.1.49\n"
+"Project-Id-Version: WooCommerce Box Office 1.1.50\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-box-office\n"
-"POT-Creation-Date: 2023-03-13 00:52:58+00:00\n"
+"POT-Creation-Date: 2023-03-15 23:16:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,12 +19,12 @@ msgid "Product is not selected or email body is empty. Please fill it."
 msgstr ""
 
 #: includes/class-wc-box-office-cart.php:185
-#: includes/class-wc-box-office-settings.php:80
+#: includes/class-wc-box-office-settings.php:111
 msgid "Ticket Detail"
 msgstr ""
 
 #: includes/class-wc-box-office-cart.php:233
-#: includes/class-wc-box-office-settings.php:96
+#: includes/class-wc-box-office-settings.php:127
 #: includes/class-wc-box-office-ticket-form.php:207
 msgid "Buy Ticket Now"
 msgstr ""
@@ -60,6 +60,65 @@ msgstr ""
 msgid "Your link to view %s"
 msgstr ""
 
+#: includes/class-wc-box-office-email.php:38
+msgid "Box Office Email"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:56
+msgid "Box Office Purchase Information"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:65
+msgid "Ticket Details"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:164
+msgid "Enabled"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:164
+msgid "Disabled"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:168
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:173
+#. translators: link to Box Office settings page.
+msgid "This enables Box Office emails globally."
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:179
+msgid "Email Subject"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:182
+#. translators: default email subject
+msgid ""
+"This controls the subject line. Will be used if email subject for the "
+"ticket product is empty. Leave blank to use the default subject: "
+"<code>%s</code>."
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:187
+msgid "Email Heading"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:190
+msgid ""
+"This controls the main heading contained within the email notification. "
+"Leave blank to skip."
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:195
+msgid "Email type"
+msgstr ""
+
+#: includes/class-wc-box-office-email.php:197
+msgid "Choose which format of email to send."
+msgstr ""
+
 #: includes/class-wc-box-office-post-types.php:62
 #: includes/class-wc-box-office-privacy.php:64
 #: includes/class-wc-box-office-report.php:30
@@ -85,7 +144,7 @@ msgid "Email"
 msgstr ""
 
 #: includes/class-wc-box-office-privacy.php:12
-#: includes/class-wc-box-office-settings.php:27
+#: includes/class-wc-box-office-settings.php:50
 msgid "Box Office"
 msgstr ""
 
@@ -143,109 +202,118 @@ msgstr ""
 msgid "Out of stock"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:53
+#: includes/class-wc-box-office-settings.php:37
+#. translators: link to email settings page
+msgid ""
+"<strong>WooCommerce Box Office</strong><br />Warning: E-mails won't be sent "
+"because Box Office e-mails are disabled. Go to <a href=\"%s\">WooCommerce > "
+"Settings > Emails > Box Office Emails</a> to enable them."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:84
 msgid "Ticket Pages"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:59
+#: includes/class-wc-box-office-settings.php:90
 msgid "My Ticket Page"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:60
+#: includes/class-wc-box-office-settings.php:91
 msgid "Page contents:"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:71
+#: includes/class-wc-box-office-settings.php:102
 msgid "Display Options"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:77
+#: includes/class-wc-box-office-settings.php:108
 msgid "Add to Cart Button Text"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:82
+#: includes/class-wc-box-office-settings.php:113
 msgid "Define text inside add to cart button in products archive."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:85
+#: includes/class-wc-box-office-settings.php:116
 msgid "Ticket Title Prefix"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:88 includes/wcbo-functions.php:849
+#: includes/class-wc-box-office-settings.php:119
+#: includes/wcbo-functions.php:841
 msgid "Ticket #"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:90
+#: includes/class-wc-box-office-settings.php:121
 msgid "Define title prefix to show for each ticket to buy in a single product page."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:93
+#: includes/class-wc-box-office-settings.php:124
 msgid "Buy Ticket Button Text Singular"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:98
+#: includes/class-wc-box-office-settings.php:129
 msgid "Define text inside buy ticket button when qty of ticket to buy is one."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:101
+#: includes/class-wc-box-office-settings.php:132
 msgid "Buy Ticket Button Button Text Plural"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:104
+#: includes/class-wc-box-office-settings.php:135
 #: includes/class-wc-box-office-ticket-form.php:212
 msgid "Buy Tickets Now"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:106
+#: includes/class-wc-box-office-settings.php:137
 msgid ""
 "Define text inside buy ticket button when qty of ticket to buy is more than "
 "one."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:111
+#: includes/class-wc-box-office-settings.php:142
 msgid "Default Product Settings"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:117
+#: includes/class-wc-box-office-settings.php:148
 msgid "Enable Ticket Printing"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:121
+#: includes/class-wc-box-office-settings.php:152
 #: includes/views/admin/product-ticket-panel.php:73
 msgid "This will enable the 'Print ticket' button on the ticket edit page."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:124
+#: includes/class-wc-box-office-settings.php:155
 msgid "Enable Ticket Emails"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:127
+#: includes/class-wc-box-office-settings.php:158
 msgid ""
 "This will send an email to the contact address for each ticket whenever it "
 "is changed."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:131
+#: includes/class-wc-box-office-settings.php:162
 msgid "Disable Ticket Editing"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:134
+#: includes/class-wc-box-office-settings.php:165
 msgid "This will prevent customers from editing their purchased tickets."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:140
+#: includes/class-wc-box-office-settings.php:171
 msgid "Logging"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:146
+#: includes/class-wc-box-office-settings.php:177
 msgid "Enable Logging"
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:149
+#: includes/class-wc-box-office-settings.php:180
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/class-wc-box-office-settings.php:150
+#: includes/class-wc-box-office-settings.php:181
 msgid ""
 "Note: this may log personal information. We recommend using this for "
 "debugging purposes only and deleting the logs when finished."
@@ -610,7 +678,7 @@ msgstr ""
 msgid "Sending email job is successfully queued."
 msgstr ""
 
-#: includes/class-wc-box-office.php:246 includes/class-wc-box-office.php:255
+#: includes/class-wc-box-office.php:249 includes/class-wc-box-office.php:258
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
@@ -866,58 +934,58 @@ msgid "This is the content that will be shown on each printed ticket."
 msgstr ""
 
 #: includes/views/admin/product-ticket-panel.php:86
-#: includes/views/admin/product-ticket-panel.php:140
+#: includes/views/admin/product-ticket-panel.php:144
 msgid "Add ticket fields to the content by using following labels: "
 msgstr ""
 
 #: includes/views/admin/product-ticket-panel.php:90
-#: includes/views/admin/product-ticket-panel.php:150
+#: includes/views/admin/product-ticket-panel.php:154
 msgid "To insert ticket ID use: "
 msgstr ""
 
 #: includes/views/admin/product-ticket-panel.php:96
-#: includes/views/admin/product-ticket-panel.php:176
+#: includes/views/admin/product-ticket-panel.php:180
 msgid "You can also use this ticket product variables: "
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:125
+#: includes/views/admin/product-ticket-panel.php:129
 msgid "Enable ticket emails"
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:125
+#: includes/views/admin/product-ticket-panel.php:129
 msgid ""
 "This will send an email to the contact address for each ticket whenever it "
 "is purchased or updated."
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:130
+#: includes/views/admin/product-ticket-panel.php:134
 msgid "Your ticket has been purchased successfully!"
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:133
-#: includes/views/admin/tools-email.php:43
+#: includes/views/admin/product-ticket-panel.php:137
+#: includes/views/admin/tools-email.php:54
 msgid "Email subject"
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:133
+#: includes/views/admin/product-ticket-panel.php:137
 msgid ""
 "Add ticket fields to the subject by inserting the field label like this: "
 "%1$s<br>e.g. %2$s"
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:137
+#: includes/views/admin/product-ticket-panel.php:141
 msgid "This is the content that will make up each email."
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:144
+#: includes/views/admin/product-ticket-panel.php:148
 msgid "To insert ticket link use: "
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:160
+#: includes/views/admin/product-ticket-panel.php:164
 msgid "To insert barcode use: "
 msgstr ""
 
-#: includes/views/admin/product-ticket-panel.php:169
+#: includes/views/admin/product-ticket-panel.php:173
 msgid "To insert ticket token use: "
 msgstr ""
 
@@ -1066,25 +1134,25 @@ msgstr ""
 msgid "No emails have been sent yet."
 msgstr ""
 
-#: includes/views/admin/tools-email.php:9
+#: includes/views/admin/tools-email.php:20
 msgid "Send an email to all individuals who have booked the following ticket:"
 msgstr ""
 
-#: includes/views/admin/tools-email.php:12
+#: includes/views/admin/tools-email.php:23
 msgid "Select ticket product"
 msgstr ""
 
-#: includes/views/admin/tools-email.php:34
+#: includes/views/admin/tools-email.php:45
 msgid ""
 "Add ticket fields to your email subject or content by inserting the field "
 "label like this: %1$s - e.g. %2$s. Use %3$s for the ticket edit link."
 msgstr ""
 
-#: includes/views/admin/tools-email.php:68
+#: includes/views/admin/tools-email.php:79
 msgid "Preview email"
 msgstr ""
 
-#: includes/views/admin/tools-email.php:69
+#: includes/views/admin/tools-email.php:80
 msgid "Send to all ticket holders"
 msgstr ""
 
@@ -1104,63 +1172,63 @@ msgstr ""
 msgid "Export"
 msgstr ""
 
-#: includes/wcbo-functions.php:646 includes/wcbo-functions.php:669
+#: includes/wcbo-functions.php:638 includes/wcbo-functions.php:661
 msgid "First name"
 msgstr ""
 
-#: includes/wcbo-functions.php:647 includes/wcbo-functions.php:670
+#: includes/wcbo-functions.php:639 includes/wcbo-functions.php:662
 msgid "Last name"
 msgstr ""
 
-#: includes/wcbo-functions.php:648 includes/wcbo-functions.php:671
+#: includes/wcbo-functions.php:640 includes/wcbo-functions.php:663
 msgid "Email address"
 msgstr ""
 
-#: includes/wcbo-functions.php:649
+#: includes/wcbo-functions.php:641
 msgid "URL"
 msgstr ""
 
-#: includes/wcbo-functions.php:650
+#: includes/wcbo-functions.php:642
 msgid "Twitter"
 msgstr ""
 
-#: includes/wcbo-functions.php:651
+#: includes/wcbo-functions.php:643
 msgid "Text"
 msgstr ""
 
-#: includes/wcbo-functions.php:652
+#: includes/wcbo-functions.php:644
 msgid "Drop down menu"
 msgstr ""
 
-#: includes/wcbo-functions.php:653
+#: includes/wcbo-functions.php:645
 msgid "Radio buttons"
 msgstr ""
 
-#: includes/wcbo-functions.php:654
+#: includes/wcbo-functions.php:646
 msgid "Checkbox(es)"
 msgstr ""
 
-#: includes/wcbo-functions.php:672
+#: includes/wcbo-functions.php:664
 msgid "Phone"
 msgstr ""
 
-#: includes/wcbo-functions.php:673
+#: includes/wcbo-functions.php:665
 msgid "Company"
 msgstr ""
 
-#: includes/wcbo-functions.php:674
+#: includes/wcbo-functions.php:666
 msgid "Country"
 msgstr ""
 
-#: includes/wcbo-functions.php:675
+#: includes/wcbo-functions.php:667
 msgid "Town / City"
 msgstr ""
 
-#: includes/wcbo-functions.php:676
+#: includes/wcbo-functions.php:668
 msgid "State"
 msgstr ""
 
-#: includes/wcbo-functions.php:677
+#: includes/wcbo-functions.php:669
 msgid "Postcode / Zip"
 msgstr ""
 

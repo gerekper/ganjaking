@@ -885,46 +885,71 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				}
 
 				/* Pricing and Profit Calculation staeted here */
-				//$Fee = [ {100+ (8.5% *100) + 0.5 + 0.30} x 100 / (100 - 2.9 ) ] - {100+ (8.5% * 100) + 0.5 + 0.30}; 
+				//$Fee = [ {100+ (8.5% *100) + 0.5 + 0.30} x 100 / (100 - 2.9 ) ] - {100+ (8.5% * 100) + 0.5 + 0.30};
 				// $prft_prcnt_val = $options['profit_percent_value'];
 				// $prft_dolr_val = $options['profit_doller_value'];
 				// $fee_prcnt_val = $options['fee_percent_value'];
 				// $fee_dolr_val = $options['fee_doller_value'];
 
-				if (!empty($options['profit_percent_value']) || $options['profit_percent_value'] != '') {
+				if ( isset ( $options['profit_percent_value'] ) ) {
+					$profit_percent_value = $options['profit_percent_value'];
+				} else {
+					$profit_percent_value = '';
+				}
 
-					$prft_prcnt_val = $options['profit_percent_value'];
+				if( !empty ( $profit_percent_value ) || '' != $profit_percent_value) {
+
+					$prft_prcnt_val = $profit_percent_value;
 				} else {
 
 					$prft_prcnt_val = 0;
 				}
 
-				if (!empty($options['profit_doller_value']) || $options['profit_doller_value'] != '') {
+				if( isset ( $options[ 'profit_doller_value' ] ) ) {
+					$profit_doller_value = $options['profit_doller_value'];
+				} else {
+					$profit_doller_value = '';
+				}
 
-					$prft_dolr_val = $options['profit_doller_value'];
+				if( !empty ( $profit_doller_value ) || '' != $profit_doller_value) {
+
+					$prft_dolr_val = $profit_doller_value;
 				} else {
 
 					$prft_dolr_val = 0;
 				}
 
-				if (!empty($options['fee_percent_value']) || $options['fee_percent_value'] != '') {
 
-					$fee_prcnt_val = $options['fee_percent_value'];
+				if( isset ( $options[ 'fee_percent_value' ] ) ) {
+					$fee_percent_value = $options['fee_percent_value'];
+				} else {
+					$fee_percent_value = '';
+				}
+
+				if( !empty ( $fee_percent_value ) || '' != $fee_percent_value ) {
+
+					$fee_prcnt_val = $fee_percent_value;
 				} else {
 
 					$fee_prcnt_val = 0;
 				}
 
-				if (!empty($options['fee_doller_value']) || $options['fee_doller_value'] != '') {
+				if( isset ( $options[ 'fee_doller_value' ] ) ) {
+					$fee_doller_value = $options['fee_doller_value'];
+				} else {
+					$fee_doller_value = '';
+				}
 
-					$fee_dolr_val = $options['fee_doller_value'];
+				if( !empty ( $fee_doller_value ) || '' != $fee_doller_value ) {
+
+					$fee_dolr_val = $fee_doller_value;
 				} else {
 
 					$fee_dolr_val = 0;
 				}
 
 				$pcnt_profit = $prft_prcnt_val / 100 * 100;
-				
+
 				$all_prft_some = 100 + $pcnt_profit + $prft_dolr_val + $fee_dolr_val;
 				$final_some = $all_prft_some / 100 * 100;
 
@@ -2365,7 +2390,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					echo '<div class="drop-setting-section" id="price_calculator_options" style="margin-left:20px;margin-right:20px;">';
 
 						echo '<h3>Price Calculator</h3>';
-						
+
 						/* Progress Bar */
 
 						$green = 100 - $prft_prcnt_val;
@@ -2378,7 +2403,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				                <td>
 				                    <div class="packing-slip-sections">
 				        				<h4>Pricing and Profit Calculator : </h4>
-				    					
+
 				    					<table id="packing_t" style="background: #f8f8f8;width:100%;">
 				    						<tbody>
 				    							<tr hidden="hidden">
@@ -2407,7 +2432,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				    							<tr>
 
 				    							<tr>
-					    							<td id="cog_val" style="text-align: left; position: relative; top: 15px; padding: 0px 0px 0px 10px;" rowspan="2"> 
+					    							<td id="cog_val" style="text-align: left; position: relative; top: 15px; padding: 0px 0px 0px 10px;" rowspan="2">
 					    							</td>
 
 					    							<td colspan="2" id="profit_val" style="text-align: inherit; position: relative; top: 15px;" rowspan="2">
@@ -2426,16 +2451,16 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					    								<p style="margin-bottom: 0.2rem;">Total Price</p>
 					    							</td>
 				    							<tr>
-				    							
+
 				    							<tr>
 				    								<td colspan="2" id="progress_bar_td" style="padding: 0 0 15px 10px;">
 				    									<div class="progress" style="max-width: 100%">
-										         
 
-										            <div class="progress-bar bg-success progress-bar-animated" id="green_progress" role="progressbar" 
+
+										            <div class="progress-bar bg-success progress-bar-animated" id="green_progress" role="progressbar"
 										                style="width:' . $green . '%"><span id="cost_of_product">Cost Of Product </span>
 										                $100
-										                
+
 										            </div>
 										            <div class="progress-bar
 										                progress-bar-stripped progress-bar-animated" id="blue_progress"  role="progressbar" style="width:' . $blue . '%">
@@ -2483,8 +2508,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					    							</td>
 
 				    							</tr>
-				    							
-				    							
+
+
 				    						</tbody>
 				    					</table>
 				                    </div>
@@ -2498,7 +2523,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				                <td>
 				                    <div class="packing-slip-sections">
 				        				<h4>Break Even Values : </h4>
-				    					
+
 				    					<table>
 				    						<tr>
 				                            	<td>
@@ -2531,15 +2556,15 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				                    </div>
 				                </td>
 				            </tr>
-				       	</table>'; 
-						 
+				       	</table>';
+
 						 echo '<table class="w-ful" style="width:80%; margin-top: 34px;">
 				            <p></p>
 				            <tr>
 				                <td>
 				                    <div class="packing-slip-sections">
 				        				<h4>Profit Margin : </h4>';
-										
+
 				if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
 				echo '<table>
 						<tr>
@@ -2555,7 +2580,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                         		<input name="profit_percent_value" id="profit_percent_value" class="bar_cal" type="number" value="' . @$options['profit_percent_value'] . '" min="0" step="0.01" style="width:150px;" disabled/>
                         	</td>
                         </tr>
-                         
+
                         <tr>
                         	<td>
                         		<label for="title_profit_doller" >$ Profit:</label>
@@ -2588,7 +2613,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                     		<input name="profit_percent_value" class="bar_cal" type="number" id="profit_percent_value" value="' . @$options['profit_percent_value'] . '" min="0" step="0.01" style="width:140px;" />
                     	</td>
                     </tr>
-                     
+
                     <tr>
                     	<td>
                     		<label for="title_profit_doller" >$ Profit:</label>
@@ -2605,12 +2630,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 					</table>';
 				}
-					
+
 				if ($dynamic_profit_margin_setting == ' checked="checked" ') {
 					$dynamic_profit = 'yes';
 				} else {
 					$dynamic_profit = 'no';
-				}	
+				}
 
 				echo '<table style="margin-top: 10px;">
 
@@ -2618,32 +2643,32 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 						<th scope="row" class="titledesc">
 						<label for="dynamic_profit_margin">
 							Dynamic Profit Margin:
-							
+
 						</label></th>
 						<th>
 	                		<img class="help_tip" data-tip="If you enable this then do not forget to save settings. After it is saved then you will be able to add multiple rules." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">
 	                	</th>
-						
+
 						<td  class="forminp forminp-checkbox">
 							<fieldset>
 								<legend class="screen-reader-text"><span>Dynamic Profit Margin: </span></legend>
 								<label for="dynamic_profit_margin" class="opmc-toggle-control">
-								
-								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, 'yes'); ?> <?php 
+
+								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, 'yes'); ?> <?php
 								echo '>
 									<span class="opmc-control"></span>
-								</label> 
+								</label>
 							</fieldset>
 						</td>
 					</tr>
 				</table>';
-										
+
 								if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
 
 									$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
-							
+
 									if ($textAreaValue == '') { // i.e. no dynamic profit margin set yet
-								
+
 										echo '<div class="dynamic_profit_margin_section">
 									<textarea id="profit_margin_hidden" name="profit_margin_hidden_textarea" hidden="hidden"></textarea>
 
@@ -2655,7 +2680,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 											<div class="rows">
 												<td>
 													<label id="title_dynamic" for="title_from" >From:</label>
-												
+
 													<fieldset>
 														<input name="dynamic_from_value[1]" class="dynamic_from_value clone_tds from_val" id="dynamic_from_value_1" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" required="required" />
 													</fieldset>
@@ -2663,7 +2688,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 												<td>
 													<label id="title_dynamic" for="title_to" >To:</label>
-												
+
 													<fieldset>
 
 														<input name="dynamic_to_value[1]" class="dynamic_to_value clone_tds to_val" id="dynamic_to_value_1" type="number" data="vto" min="0" step="0.01" style="width:100px;" required="required" />
@@ -2671,7 +2696,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												</td>
 												<td>
 													<label id="title_dynamic" for="title_profit_percent" >% Profit:</label>
-												
+
 													<fieldset>
 
 														<input name="dynamic_profit_percent_value[1]" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_1" data="vpercent" type="number" min="0" step="0.01" style="width:100px;" required="required" />
@@ -2680,7 +2705,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 												<td>
 													<label id="title_dynamic" for="title_profit_doller" >$ Profit:</label>
-												
+
 													<fieldset>
 
 														<input name="dynamic_profit_doller_value[1]" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_1" data="vfixed" type="number" min="0" step="0.01"  style="width:100px;" required="required" />
@@ -2689,24 +2714,24 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												</div>
 											</tr>
 											<tr class="add-rem-bttn" style="line-height: 4;">
-												<td class="forminp" >	
+												<td class="forminp" >
 													<input type="button" class="btn btn-primary" value="(-) Remove Rule" id="removeRows" style="width: 120px;padding: 4px 0px;  font-size: 13px; border: 0;"/>
 												</td>
-												<td colspan="3">	
+												<td colspan="3">
 													<input type="button" class="btn btn-primary" value="(+) Add Rule" id="addMoreRows" style="width: 120px;padding: 4px 0px;  font-size: 13px; border: 0;"/>
 												</td>
 											</tr>
-											
+
 										</tbody>
 									</table>
 									<p id="amount_message" style="display:none">Change the range to lower value to add more rules.</p>
 								</div>';
-								
+
 									} else { // if($textAreaValue == "") // i.e. dynamic profit margin has already been set
-								
+
 										$allElements = explode('~', $textAreaValue);
 										$nRows = count($allElements);
-								
+
 										$elementsHtml = '
 								<div class="dynamic_profit_margin_section">
 									<textarea id="profit_margin_hidden" name="profit_margin_hidden_textarea" hidden="hidden">' . $textAreaValue . '</textarea>
@@ -2716,12 +2741,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 										$rowCount = 0;
 										foreach ($allElements as $row) {
 											$rowCount++;
-									
+
 											$elementsHtml .= '
 									<tr valign="top" class="mappingBlocks field-close" data-index="1" data-max_rows="5" id="trs_clone">
 										<div class="rows">
 									';
-									
+
 											$allTds = explode('_', $row);
 											$tdCount = 0;
 											foreach ($allTds as $td) {
@@ -2751,22 +2776,22 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												';
 														break;
 												} // switch($tdCount)
-										
+
 											} // foreach($allTds as $td)
-									
+
 											$elementsHtml .= '
 										</div>
 									</tr>
 									';
-									
+
 										} // foreach($allElements as $row)
-								
+
 										$elementsHtml .= '
 											<tr class="add-rem-bttn" style="line-height: 4;">
-												<td class="forminp" >	
+												<td class="forminp" >
 													<input type="button" class="btn btn-primary" value="(-) Remove Rule" id="removeRows" style="width: 120px;padding: 4px 0px; font-size: 13px; border: 0;" />
 												</td>
-												<td colspan="3">	
+												<td colspan="3">
 													<input type="button" class="btn btn-primary" value="(+) Add Rule" id="addMoreRows" style="width: 120px;padding: 4px 0px; font-size: 13px; border: 0;" />
 												</td>
 											</tr>
@@ -2774,17 +2799,17 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 									</table>
 									<p id="amount_message" style="display:none">Change the range to lower value to add more rules.</p>
 								</div>';
-								
+
 										echo $elementsHtml;
-								
-									} // else of if($textAreaValue == "")		
-							
+
+									} // else of if($textAreaValue == "")
+
 								} // if ( $dynamic_profit_margin_setting == ' checked="checked" ' )
-										
+
 								echo '</td>
 								</tr>
 				            </tr>
-				       	</table>            	
+				       	</table>
 				    </div>';
 				/* Price Calculator End */
 

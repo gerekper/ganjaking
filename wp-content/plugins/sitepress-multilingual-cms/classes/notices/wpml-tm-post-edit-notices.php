@@ -93,7 +93,7 @@ class WPML_TM_Post_Edit_Notices {
 			'wpml-tm-post-edit-alert',
 			WPML_TM_URL . '/res/js/post-edit-alert.js',
 			array( 'jquery', 'jquery-ui-dialog' ),
-			WPML_TM_VERSION
+			ICL_SITEPRESS_VERSION
 		);
 	}
 
@@ -321,8 +321,12 @@ class WPML_TM_Post_Edit_Notices {
 		// Sort languages by language name (as usual).
 		usort(
 			$translations,
-			function( $a, $b ) {
-				return $a['to_language'] > $b['to_language'];
+			function ( $a, $b ) {
+				if ( $a['to_language'] == $b['to_language'] ) {
+					return 0;
+				}
+
+				return $a['to_language'] > $b['to_language'] ? 1 : - 1;
 			}
 		);
 

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+	<fields>
+			<fieldset name="elementor" label="Widgets for Elementor">
+				
+				<field name="el_enable" 
+					type="boolean"
+					default="true"
+					label="&lt;b&gt;Enable Unlimited Elements&lt;/b&gt;"
+					description="If disabled, the Unlimited Elements will not appear in the Elementor Page Builder">	
+				</field>
+				
+				<field type="bulk_control_start" 
+					parent="el_enable"
+					ctype="show" 
+					value="true"
+				/>
+
+				<field name="consolidate_addons"
+					type="boolean"
+					default="false"
+					hidden="true"
+					label="		Consolidate Widgets"
+					description="Consolidate widgets, category into one addon. If consolidated, the initial design may not look as in demo, but it save memory">  
+				</field>
+				
+				<field name="js_in_footer" 
+					type="boolean"
+					default="true" 
+					label="		Js Always in Footer"
+					description="Put addon javascript always in the footer of the page. If no, it will be put right after the body">	
+				</field>
+
+				<field name="js_saparate" 
+					type="boolean"
+					default="false" 
+					label="		Each JS in saparate tag"
+					description="if yes, each js will be put in saparate tag with it's own id. good for optimization plugins">	
+				</field>
+	
+				<field type="control" parent="js_in_footer" child="js_saparate" ctype="show" value="true" />
+				
+				<field name="css_includes_to" 
+					type="list"
+					default="body"
+					label="		Include Css Files To"
+					description="Choose where to include css files">  
+						<option value="body" text="Body Before Widget HTML"></option>
+						<option value="footer" text="Footer"></option>
+				</field>
+				
+				<field name="output_wrapping_comments" 
+					type="boolean"
+					default="true" 
+					label="		Output Wrapping HTML Comments"
+					description="Output comments before and after widgets in source html output">	
+				</field>
+
+
+				<field name="enable_import_export" 
+					type="boolean"
+					default="true" 
+					label="		Show Import and Export Buttons In Templates"
+					description="Show special import and export buttons (import and export with images) in elementor saved templates screen">	
+				</field>
+
+				<field name="enable_backgrounds" 
+					type="boolean"
+					default="true" 
+					label="		Enable Background Widgets"
+					description="Enable background widgets for elementor sections">	
+				</field>
+				
+				<field name="enable_panel_previews" 
+					type="boolean"
+					default="true" 
+					label="		Show Elementor Panel Widgets Previews"
+					description="Show preview images of widget boxes in elementor editor side panel">	
+				</field>
+				
+				<field name="show_edit_html_button" 
+					type="boolean"
+					default="true" 
+					label="		Show &quot;Edit HTML&quot; Button in Widget Settings"
+					description="Show &quot;Edit HTML&quot; button in elementor panel widget settings">	
+				</field>
+				
+				<field name="enable_dynamic_visibility" 
+					type="boolean"
+					default="false" 
+					label="		Enable Dynamic Visibility"
+					hidden="true"
+					description="">	
+				</field>
+				
+				<field name="force_disable_font_awesome" 
+					type="list"
+					default="enable" 
+					label="		Force Disable Font Awesome"
+					description="Disable font awesome from loading from the plugin in all widgets. Sometimes good for optimization.">
+						<option value="enable" text="Load Normally"></option>
+						<option value="disable" text="Force Disable"></option>
+				</field>
+			
+				<field name="alphabetic_attributes" 
+					type="boolean"
+					default="false" 
+					label="Sort Attributes in Widgets Editor by A-Z"
+					description="Sort the order of the attributes in widgets editor alphabetically">
+				</field>
+			
+				
+				<field type="bulk_control_end"/>
+								
+			</fieldset>
+			
+		<fieldset name="general" label="General">
+		
+			<field name="edit_permission" 
+				type="list"
+				default="admin" 
+				label="Edit Permission"
+				description="The addon/assets edit will be visible to the selected user categories">  
+					<option value="admin" text="Admin"></option>
+					<option value="editor" text="Editor"></option>
+			</field>
+					
+		</fieldset>	
+		<fieldset name="instagram" label="Instagram">
+			
+			<field name="instagram_integration"
+				type="custom"
+				custom_type="instagram_connect"
+				label="unite_setting_notext">
+			</field>
+			
+			<field name="instagram_access_token" 
+				type="text"
+				label="Instagram Access Token"
+				default="">
+			</field>
+			
+			<field name="instagram_user_id" 
+				type="text"
+				label="Instagram User ID"
+				default="">
+			</field>
+			
+			<field name="instagram_username" 
+				type="text"
+				label="Instagram Username"
+				default="">
+			</field>
+			
+			<field name="instagram_expires" 
+				type="hidden"
+				label="Instagram Expires"
+				default="">
+			</field>
+			
+		</fieldset>		
+		<fieldset name="integrations" label="Integrations">
+			
+			<field name="google_map_heading" 
+				type="statictext"
+				label="&lt;b&gt;---- Google Maps ----&lt;/b&gt;">
+			</field>
+	
+			<field name="google_map_key" 
+				type="text"
+				label="Google Map API Key"
+				description="Used to output a map in google maps related widget. &lt;a href='https://unlimited-elements.com/docs/google-map-api-key/' target='_blank'&gt;Read this article&lt;/a&gt; for instructions: "
+				default="">
+			</field>
+			
+			<field name="wpml_heading" 
+				type="statictext"
+				hidden="true"
+				label="&lt;b&gt;---- WPML Automatic Translation ----&lt;/b&gt;">
+			</field>
+		
+			<field name="wpml_button" 
+				type="button"
+				value="Check Widgets Fields"
+				hidden="true"
+				gotoview="wpml-fields"
+				label="Check widgets fields that are ready for wpml automatic translation."
+			></field>
+		
+		</fieldset>
+		<fieldset name="troubleshooting" label="Troubleshooting">
+			
+			<field name="memory_limit_text" 
+				type="statictext"
+				label="WP Memory Limit: [memory_limit]">
+			</field>
+		
+			<field name="memory_limit_text_desc" 
+				type="statictext"
+				label="In case of insufficient memory, you can increase WordPress memory limit wp config file (wp-config.php)">
+			</field>
+			
+			<field name="enable_memory_usage_test"
+				type="boolean"
+				default="false"
+				label="Enable Memory Usage Test"
+				description="Use it when you have some memory crash. &lt;br&gt; When enabling it it will log every addon and field register operation &lt;br&gt; and sugniffically slow down the editor work. Use it only for testing and turn it off after.">  
+			</field>
+			
+			<field name="memory_usage_button" 
+				type="button"
+				value="Show Memory Usage Log"
+				gotoview="troubleshooting-memory-usage"
+				label="Show last memory usage log &lt;br&gt; Run it after the editor run with the memory test"
+			>
+			</field>
+			
+			<field name="before_disable_post_content_filters" 
+				type="hr">
+			</field>
+			
+			<field name="disable_post_content_filters"
+				type="boolean"
+				default="false"
+				label="Disable post content output filters"
+				description="Sometimes post content filters causing memory errors. Disabling them can make the page load in case stucked pages">  
+			</field>
+			
+			<field name="before_show_php_message" 
+				type="hr">
+			</field>
+				
+			<field name="show_php_error"
+				type="boolean"
+				default="false"
+				label="Show PHP Error Message"
+				description="Use it when you see some text about php error and want to see it.">  
+			</field>
+						
+			<field type="control" parent="enable_memory_usage_test" child="memory_usage_button" ctype="show" value="true" />
+			
+			<field name="troubleshooting-hr1" 
+				type="hr">
+			</field>
+			
+			<field name="text_overload" 
+				type="statictext"
+				label="Overload Bug Test">
+			</field>
+			
+			<field name="text_overload_button" 
+				type="button"
+				value="Run Test"
+				gotoview="troubleshooting-overload"
+				label="Test the server for overload bug, &lt;br&gt; run this test when the edit page get stuck for any reason &lt;br&gt; when the unlimited elements plugin is on."
+			>
+			</field>
+			<field name="api-connectivity" 
+				type="hr">
+			</field>
+			<field name="text_api_connectivity" 
+				type="statictext"
+				label="API Connectivity Test">
+			</field>
+			
+			<field name="text_connectivity_button" 
+				type="button"
+				value="Run Test"
+				gotoview="troubleshooting-connectivity"
+				label="Test the api connectivity. Run it if you don't see any widgets inside the widgets catalog"
+			>
+			</field>
+			
+		<field name="phpinfo" 
+				type="hr">
+			</field>
+			<field name="text_phpinfo" 
+				type="statictext"
+				label="Show PHP Info">
+			</field>
+			
+			<field name="text_phpinfo_button" 
+				type="button"
+				value="Show PHP Info"
+				gotoview="troubleshooting-phpinfo"
+				label="Show the phpinfo - php server configuration table"
+			>
+			</field>
+					
+		</fieldset>
+		
+						
+	</fields>

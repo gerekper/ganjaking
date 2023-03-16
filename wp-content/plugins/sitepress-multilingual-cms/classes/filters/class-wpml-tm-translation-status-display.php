@@ -1,11 +1,13 @@
 <?php
 
+use WPML\FP\Fns;
 use WPML\FP\Maybe;
 use WPML\Settings\PostType\Automatic;
 use WPML\Setup\Option;
 use WPML\TM\ATE\TranslateEverything;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
+use WPML\FP\Logic;
 use WPML\TM\API\ATE\CachedLanguageMappings;
 use WPML\Element\API\Languages;
 use WPML\LIB\WP\Post;
@@ -129,7 +131,8 @@ class WPML_TM_Translation_Status_Display {
        				translation_status.needs_update,
        				translations.trid,
        			    translate_job.job_id,
-       				translate_job.editor
+       				translate_job.editor,
+       				translate_job.automatic
 				FROM {$this->wpdb->prefix}icl_languages languages
 				LEFT JOIN {$this->wpdb->prefix}icl_translations translations
 					ON languages.code = translations.language_code
@@ -164,7 +167,7 @@ class WPML_TM_Translation_Status_Display {
 			$css_class .= ' otgs-ico-add-disabled';
 		}
 
-		if ( ( $this->isTranslateEverythingInProgress( $post_id, $lang ) && ( 'draft' !== $post_status || $this->is_in_progress( $trid, $lang ) ) ) ) {
+		if ( ( $this->isTranslateEverythingInProgress( $trid, $post_id, $lang ) && ( 'draft' !== $post_status || $this->is_in_progress( $trid, $lang ) ) ) ) {
 			$css_class .= ' otgs-ico-waiting';
 		}
 
@@ -200,7 +203,7 @@ class WPML_TM_Translation_Status_Display {
 		} elseif ( $this->is_lang_pair_allowed( $lang, null, $original_post_id ) && $this->is_in_progress( $trid, $lang ) ) {
 			$language = $this->sitepress->get_language_details( $lang );
 
-			if ( $this->shouldAutoTranslate( $original_post_id, $lang ) ) {
+			if ( $this->shouldAutoTranslate( $trid, $original_post_id, $lang ) ) {
 				$text = sprintf( __( '%s: Waiting for automatic translation', 'wpml-translation-management' ), $language['display_name'] );
 			} else {
 				$text = sprintf( __( 'Edit the %s translation', 'wpml-translation-management' ), $language['display_name'] );
@@ -215,11 +218,47 @@ class WPML_TM_Translation_Status_Display {
 			);
 		}
 
-		if ( $this->isTranslateEverythingInProgress( $original_post_id, $lang ) ) {
+		if ( $this->isTranslateEverythingInProgress( $trid, $original_post_id, $lang ) ) {
 			$text = __( 'WPML is translating your content automatically. You can monitor the progress in the admin bar.', 'wpml-translation-management' );
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Determine if there is no manual translation for the given trid
+	 * and language.
+	 *
+	 * @param int    $trid
+	 * @param string $lang
+	 *
+	 * @return bool
+	 */
+	private function has_no_manual_translation( $trid, $lang ) {
+		if (
+			! array_key_exists( $trid, $this->statuses ) ||
+			! array_key_exists( $lang, $this->statuses[ $trid ] )
+		) {
+			// There is no job yet for this language.
+			return true;
+		}
+
+		// The ICL_TM_NOT_TRANSLATED flag is used for jobs which were canceled.
+		// I.e. Job created on post update while a Translation Service is
+		// active, but before that service has been able to translate the post,
+		// the user switched to Translate Everything.
+		$job_is_canceled =
+			Obj::assocPath( [ $trid, $lang, 'status' ], ICL_TM_NOT_TRANSLATED );
+
+		$job_is_automatic = Obj::path( [ $trid, $lang, 'automatic' ] );
+
+		return Logic::anyPass(
+			[
+				$job_is_canceled,
+				$job_is_automatic,
+			],
+			$this->statuses
+		);
 	}
 
 	/**
@@ -247,8 +286,8 @@ class WPML_TM_Translation_Status_Display {
 		$is_remote        = $this->is_remote( $trid, $lang );
 		$is_in_progress   = $this->is_in_progress( $trid, $lang );
 		$does_need_update = (bool) Obj::pathOr( false, [ $trid, $lang, 'needs_update' ], $this->statuses );
-		$use_tm_editor    = WPML_TM_Post_Edit_TM_Editor_Mode::is_using_tm_editor( $this->sitepress, $post_id );
-		$use_tm_editor    = apply_filters( 'wpml_use_tm_editor', $use_tm_editor );
+		$use_tm_editor    = $this->shouldUseTMEditor( $post_id );
+
 		$source_lang_code = $this->post_translations->get_element_lang_code( $post_id );
 
 		$is_local_job_in_progress  = $is_in_progress && ! $is_remote;
@@ -279,7 +318,7 @@ class WPML_TM_Translation_Status_Display {
 			}
 
 			if ( $job_id ) {
-				if ( $does_need_update && $this->shouldAutoTranslate( $post_id, $lang ) ) {
+				if ( $does_need_update && $this->shouldAutoTranslate( $trid, $post_id, $lang ) ) {
 					$tm_editor_link = '#';
 				} else {
 					$tm_editor_link = $this->get_link_for_existing_job( $job_id );
@@ -296,6 +335,18 @@ class WPML_TM_Translation_Status_Display {
 		$this->tm_editor_links[ $post_id ][ $lang ][ $trid ] = $tm_editor_link;
 
 		return $link;
+	}
+
+	private function shouldUseTMEditor( $postId ) {
+		static $fn;
+		if ( ! $fn ) {
+			$fn = Fns::memorize( function ( $postId ) {
+				list( $useTmEditor, $isWpmlEditorBlocked, $reason ) = \WPML_TM_Post_Edit_TM_Editor_Mode::get_editor_settings( $this->sitepress, $postId );
+				return $useTmEditor && ! $isWpmlEditorBlocked;
+			} );
+		}
+
+		return $fn( $postId );
 	}
 
 	/**
@@ -315,10 +366,12 @@ class WPML_TM_Translation_Status_Display {
 			return $html;
 		}
 
+		$this->maybe_load_stats( $trid );
+
 		$Attributes = [
 			'original-link'      => $this->original_links[ $post_id ][ $lang ][ $trid ],
 			'tm-editor-link'     => $this->tm_editor_links[ $post_id ][ $lang ][ $trid ],
-			'auto-translate'     => $this->shouldAutoTranslate( $post_id, $lang ),
+			'auto-translate'     => $this->shouldAutoTranslate( $trid, $post_id, $lang ),
 			'trid'               => $trid,
 			'language'           => $lang,
 			'user-can-translate' => $this->is_lang_pair_allowed( $lang, null, $post_id ) ? 'yes' : 'no',
@@ -340,7 +393,7 @@ class WPML_TM_Translation_Status_Display {
 	}
 
 	private function get_link_for_new_job( $post_id, $trid, $lang, $source_lang_code ) {
-		if ( $this->shouldAutoTranslate( $post_id, $lang ) ) {
+		if ( $this->shouldAutoTranslate( $trid, $post_id, $lang ) ) {
 			return '#';
 		} else {
 			$args = array(
@@ -459,26 +512,30 @@ class WPML_TM_Translation_Status_Display {
 	}
 
 	/**
-	 * @param int $postId
+	 * @param int    $trid
+	 * @param int    $postId
 	 * @param string $language
 	 *
 	 * @return bool
 	 */
-	private function isTranslateEverythingInProgress( $postId , $language ) {
+	private function isTranslateEverythingInProgress( $trid, $postId, $language ) {
 		return Option::shouldTranslateEverything()
-		       && $this->shouldAutoTranslate( $postId, $language )
+		       && ! Option::isPausedTranslateEverything()
+		       && $this->shouldAutoTranslate( $trid, $postId, $language )
 		       && ! TranslateEverything::isEverythingProcessedForPostTypeAndLanguage( Post::getType( $postId ), $language )
 		       && Lst::includes( Post::getType( $postId ), PostTypes::getAutomaticTranslatable() );
 	}
 
-	private function shouldAutoTranslate( $postId, $targetLang ) {
+	private function shouldAutoTranslate( $trid, $postId, $targetLang ) {
 		$isOriginalPost = ! (bool) $this->post_translations->get_source_lang_code( $postId );
 		$postLanguage   = $this->post_translations->get_element_lang_code( $postId );
 
 		return $isOriginalPost &&
 		       $postLanguage === Languages::getDefaultCode() &&
+		       $this->shouldUseTMEditor( $postId ) &&
 		       Automatic::shouldTranslate( get_post_type( $postId ) ) &&
-		       CachedLanguageMappings::isCodeEligibleForAutomaticTranslations( $targetLang );
+		       CachedLanguageMappings::isCodeEligibleForAutomaticTranslations( $targetLang ) &&
+			   $this->has_no_manual_translation( $trid, $targetLang );
 	}
 
 	/**

@@ -7,10 +7,10 @@
             "lang": "en"
          },
          "Draft — Pending review": [
-            "Revisão pendente"
+            "Rascunho — Revisão pendente"
          ],
          "Complete": [
-            "Concluída"
+            "Concluído"
          ],
          "Insufficient funds": [
             "Recursos insuficientes"
@@ -52,7 +52,7 @@
             "Manter traduções como rascunho"
          ],
          "Never mind. I want to review these translations.": [
-            "Deixa para lá. Quero rever essas traduções."
+            "Mudei de ideia. Eu quero revisar essas traduções."
          ],
          "Cancel": [
             "Cancelar"
@@ -117,6 +117,9 @@
          "Filter": [
             "Filtrar"
          ],
+         "ID (%s)": [
+            "EU IRIA (%s)"
+         ],
          "Title (%s)": [
             "Título"
          ],
@@ -150,9 +153,6 @@
          "Any WordPress Translator": [
             "Qualquer tradutor do WordPress"
          ],
-         "ID (%s)": [
-            "EU IRIA (%s)"
-         ],
          "From": [
             "De"
          ],
@@ -170,6 +170,12 @@
          ],
          "Select visible columns": [
             "Selecione colunas visíveis"
+         ],
+         "Sort descending": [
+            "Classificar em ordem decrescente"
+         ],
+         "Sort ascending": [
+            "Classificar em ordem crescente"
          ],
          "The bulk action is running...": [
             "A ação em massa está em execução..."
@@ -236,9 +242,6 @@
          ],
          "This action does not apply to any of the selected translation jobs": [
             "Esta ação não se aplica a nenhum dos trabalhos de tradução selecionados"
-         ],
-         "Translations has been downloaded": [
-            "As traduções foram baixadas"
          ],
          "Translation has been downloaded": [
             "A tradução foi baixada"
@@ -360,17 +363,11 @@
          "Failed to resign from jobs": [
             "Não se demitiu dos empregos"
          ],
-         "The Advanced Editor jobs synchronization": [
-            "A sincronização de trabalhos do Editor Avançado"
-         ],
          "The Advanced Editor jobs synchronization has failed": [
             "A sincronização de trabalhos do Editor Avançado falhou"
          ],
          "Synchronization with the Professional Translation service has failed": [
             "A sincronização com o serviço de tradução profissional falhou"
-         ],
-         "The Professional Translations jobs synchronization": [
-            "A sincronização de trabalhos de traduções profissionais"
          ],
          "Batch sync finished successfully!": [
             "Sincronização em lote concluída com sucesso!"

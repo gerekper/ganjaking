@@ -25,7 +25,8 @@
 					dataType: 'json',
 					data:     {
 						action:        'switching_language',
-						from_language: wpml_xdomain_data.current_language
+						from_language: wpml_xdomain_data.current_language,
+						_nonce:        wpml_xdomain_data._nonce,
 					},
 					success:  function (response) {
 						var argsGlue;

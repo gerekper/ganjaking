@@ -609,12 +609,13 @@ class UpdraftPlus_Admin {
 			UpdraftPlus_Options::update_updraft_option('updraftplus_version', $updraftplus->version);
 		}
 		
-		// Next, the actions that only come on the UpdraftPlus page
 		if (UpdraftPlus_Options::admin_page() != $pagenow || empty($_REQUEST['page']) || 'updraftplus' != $_REQUEST['page']) {
 			// autobackup addon may enqueue admin-common.js and load the same script, so for the javascript we just need to make sure we call stopImmediatePropagation() to prevent other listeners of the same event from being called
-			add_action('admin_print_footer_scripts', array($this, 'print_phpseclib_notice_scripts'));
+			if (UpdraftPlus_Options::user_can_manage()) add_action('admin_print_footer_scripts', array($this, 'print_phpseclib_notice_scripts'));
 			return;
 		}
+
+		// Next, the actions that only come on the UpdraftPlus page
 		$this->setup_all_admin_notices_udonly($service);
 
 		global $updraftplus_checkout_embed;
@@ -1493,10 +1494,13 @@ class UpdraftPlus_Admin {
 	 * Start a download of a backup. This method is called via the AJAX action updraft_download_backup. May die instead of returning depending upon the mode in which it is called.
 	 */
 	public function updraft_download_backup() {
+		
+		if (!UpdraftPlus_Options::user_can_manage()) die('Unauthorised.');
+		
 		try {
-			if (empty($_REQUEST['_wpnonce']) || !wp_verify_nonce($_REQUEST['_wpnonce'], 'updraftplus_download')) die;
+			if (empty($_REQUEST['_wpnonce']) || !wp_verify_nonce($_REQUEST['_wpnonce'], 'updraftplus_download')) die('Unauthorised.');
 	
-			if (empty($_REQUEST['timestamp']) || !is_numeric($_REQUEST['timestamp']) || empty($_REQUEST['type'])) exit;
+			if (empty($_REQUEST['timestamp']) || !is_numeric($_REQUEST['timestamp']) || empty($_REQUEST['type'])) die;
 	
 			$findexes = empty($_REQUEST['findex']) ? array(0) : $_REQUEST['findex'];
 			$stage = empty($_REQUEST['stage']) ? '' : $_REQUEST['stage'];

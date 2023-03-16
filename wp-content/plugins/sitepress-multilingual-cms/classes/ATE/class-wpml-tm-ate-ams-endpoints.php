@@ -29,6 +29,7 @@ class WPML_TM_ATE_AMS_Endpoints {
 	const ENDPOINTS_CREDITS             = '/api/wpml/credits';
 	const ENDPOINTS_RESUME_ALL          = '/api/wpml/jobs/resume/all';
 	const ENDPOINTS_SEND_SITEKEY        = '/api/wpml/websites/assign_key';
+	const ENDPOINTS_TRANSLATION_ENGINES = '/api/wpml/engines';
 
 	/**
 	 * AMS CLONED SITES
@@ -257,6 +258,10 @@ class WPML_TM_ATE_AMS_Endpoints {
 		$job_id_part = $this->parse_job_params( $job_params );
 
 		return $this->get_endpoint_url( self::SERVICE_ATE, self::ENDPOINTS_CONFIRM . $job_id_part );
+	}
+
+	public function get_translation_engines() {
+		return $this->get_endpoint_url( self::SERVICE_AMS, self::ENDPOINTS_TRANSLATION_ENGINES );
 	}
 
 	/**

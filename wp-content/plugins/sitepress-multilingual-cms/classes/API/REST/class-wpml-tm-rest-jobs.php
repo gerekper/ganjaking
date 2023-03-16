@@ -213,7 +213,8 @@ class WPML_TM_REST_Jobs extends WPML_REST_Base {
 
 			$model = $this->view_model->build(
 				$this->jobs_repository->get( $criteria ),
-				$this->jobs_repository->get_count( $criteria )
+				$this->jobs_repository->get_count( $criteria ),
+				$criteria
 			);
 
 			$model['last_picked_up_date'] = $this->wpml_tm_last_picked_up->get();

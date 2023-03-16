@@ -319,9 +319,17 @@ class SitePress_Setup {
 			}
 			$code_parts = explode( '-', $code );
 
-			$file = 'nil.png';
+			if ( file_exists( WPML_PLUGIN_PATH . '/res/flags/nil.svg' ) ) {
+				$file = 'nil.svg';
+			} else {
+				$file = 'nil.png';
+			}
 
-			if ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code . '.png' ) ) {
+			if ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code . '.svg' ) ) {
+				$file = $code . '.svg';
+			} elseif ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code_parts[0] . '.svg' ) ) {
+				$file = $code_parts[0] . '.svg';
+			} elseif ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code . '.png' ) ) {
 				$file = $code . '.png';
 			} elseif ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $code_parts[0] . '.png' ) ) {
 				$file = $code_parts[0] . '.png';

@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'v1.23.1',
-        'version' => '1.23.1.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1c45a7c9eb3516cb6789bca6c29d23e7d650a928',
+        'reference' => 'c80267a9cbab019e6c558ee2a05107f301b681e0',
         'name' => 'updraftplus/updraftplus',
         'dev' => false,
     ),
@@ -353,12 +353,12 @@
             'dev_requirement' => false,
         ),
         'updraftplus/updraftplus' => array(
-            'pretty_version' => 'v1.23.1',
-            'version' => '1.23.1.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1c45a7c9eb3516cb6789bca6c29d23e7d650a928',
+            'reference' => 'c80267a9cbab019e6c558ee2a05107f301b681e0',
             'dev_requirement' => false,
         ),
         'vakata/jstree' => array(

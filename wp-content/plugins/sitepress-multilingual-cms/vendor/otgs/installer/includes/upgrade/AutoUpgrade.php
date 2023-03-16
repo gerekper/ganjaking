@@ -35,9 +35,18 @@ class AutoUpgrade {
 		add_filter( 'plugin_auto_update_setting_html', [ $this, 'modifyAutoUpdateSettingHtml' ], 10, 3 );
 	}
 
+	/**
+	 * @param array $value
+	 * @param array $oldValue
+	 *
+	 * @return array
+	 */
 	public function modifyAutoUpdatePluginsOption( $value, $oldValue ) {
-		$enabled  = array_diff( $value, $oldValue );
-		$disabled = array_diff( $oldValue, $value );
+		$sanitizedOldValue = is_array( $oldValue ) ? $oldValue : [];
+		$sanitizedValue    = is_array( $value ) ? $value : [];
+
+		$enabled  = array_diff( $sanitizedValue, $sanitizedOldValue );
+		$disabled = array_diff( $sanitizedOldValue, $sanitizedValue );
 
 		$pluginFile = reset( $enabled ) ?: reset( $disabled );
 		foreach ( $this->installerPlugins->getFilteredInstallerPlugins() as $repositoryId => $installedRepositoryPlugins ) {
@@ -56,10 +65,10 @@ class AutoUpgrade {
 
 				if ( array_intersect( $enabled, $installedRepositoryPluginIds ) ) {
 					$this->updateInstallerAutoUpdateSetting( $repositoryId, true );
-					$value = array_unique( array_merge( $value, $installedRepositoryPluginIds ) );
+					$value = array_unique( array_merge( $sanitizedValue, $installedRepositoryPluginIds ) );
 				} elseif ( array_intersect( $disabled, $installedRepositoryPluginIds ) ) {
 					$this->updateInstallerAutoUpdateSetting( $repositoryId, false );
-					$value = array_diff( $value, $installedRepositoryPluginIds );
+					$value = array_diff( $sanitizedValue, $installedRepositoryPluginIds );
 				}
 			}
 		}

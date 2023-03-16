@@ -9,6 +9,7 @@ use WPML\TM\Jobs\Query\PostQuery;
 use WPML\TM\Jobs\Query\QueryBuilder;
 use WPML\TM\Jobs\Query\StringQuery;
 use WPML\TM\Jobs\Query\StringsBatchQuery;
+use WPML\FP\Obj;
 use function WPML\Container\make;
 use \WPML\Setup\Option as SetupOptions;
 
@@ -317,7 +318,7 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 
 		if ( ! isset( $wpml_tm_dashboard_ajax ) ) {
 			require_once WPML_TM_PATH . '/menu/dashboard/wpml-tm-dashboard-ajax.class.php';
-			$wpml_tm_dashboard_ajax = new WPML_Dashboard_Ajax( new WPML_Super_Globals_Validation() );
+			$wpml_tm_dashboard_ajax = new WPML_Dashboard_Ajax( );
 
 			if ( defined( 'OTG_TRANSLATION_PROXY_URL' ) && defined( 'ICL_SITEPRESS_VERSION' ) ) {
 				$wpml_tp_api = wpml_tm_get_tp_project_api();
@@ -339,8 +340,7 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 	function wpml_tm_load_and_intialize_dashboard_ajax() {
 		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
 			if ( defined( 'DOING_AJAX' ) ) {
-				$wpml_tm_dashboard_ajax = wpml_tm_load_tm_dashboard_ajax();
-				add_action( 'init', array( $wpml_tm_dashboard_ajax, 'init_ajax_actions' ) );
+				wpml_tm_load_tm_dashboard_ajax();
 			} elseif (
 				defined( 'WPML_TM_FOLDER' ) && is_admin() && isset( $_GET['page'] ) && WPML_TM_FOLDER . '/menu/main.php' === $_GET['page'] && ( ! isset( $_GET['sm'] ) || $_GET['sm'] === 'dashboard' )
 			) {
@@ -464,10 +464,11 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 	 * It returns an instance of the class.
 	 *
 	 * @param int $job_id The ID of the job.
+	 * @param bool $applyTranslationMemoryForCompletedJobs
 	 *
 	 * @return WPML_TM_ATE_Models_Job_Create
 	 */
-	function wpml_tm_create_ATE_job_creation_model( $job_id ) {
+	function wpml_tm_create_ATE_job_creation_model( $job_id, $applyTranslationMemoryForCompletedJobs = true ) {
 		$job_factory     = wpml_tm_load_job_factory();
 		$translation_job = $job_factory->get_translation_job( $job_id, false, 0, true );
 
@@ -478,16 +479,26 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 		$job->source_id = $rid;
 
 		$previousStatus = \WPML_TM_ICL_Translation_Status::makeByRid( $rid )->previous();
-		if ( $previousStatus->map( \WPML\FP\Obj::prop( 'status' ) )->getOrElse( null ) === (string) ICL_TM_ATE_CANCELLED ) {
+		if ( $previousStatus->map( Obj::prop( 'status' ) )->getOrElse( null ) === (string) ICL_TM_ATE_CANCELLED ) {
 			wpml_tm_load_job_factory()->update_job_data( $job_id, array( 'editor' => WPML_TM_Editors::ATE ) );
 			$job->existing_ate_id = make( \WPML\TM\ATE\JobRecords::class )->get_ate_job_id( $job_id );
 		} else {
+			/**
+			 * We have to use the previous state because in this place the job has already changed its status from COMPLETED to IN PROGRESS.
+			 */
+			$apply_memory = (bool) $previousStatus->map( function ( $job ) use ( $applyTranslationMemoryForCompletedJobs ) {
+				$result = (int) Obj::prop( 'status', $job ) === ICL_TM_COMPLETE && ! Obj::prop( 'needs_update', $job ) ? $applyTranslationMemoryForCompletedJobs : true;
+
+				// I have to cast it to int because if I return bool FALSE, Maybe internal mechanism treats it as nullable and default value from `getOrElse` is returned instead of $result.
+				return (int) $result;
+			} )->getOrElse( $applyTranslationMemoryForCompletedJobs );
 
 			$job->source_language->code = $translation_job->get_source_language_code();
 			$job->source_language->name = $translation_job->get_source_language_code( true );
 			$job->target_language->code = $translation_job->get_language_code();
 			$job->target_language->name = $translation_job->get_language_code( true );
 			$job->deadline              = strtotime( $translation_job->get_deadline_date() );
+			$job->apply_memory          = $apply_memory;
 
 			$job->permalink = '#';
 			if ( 'Post' === $translation_job->get_type() ) {
@@ -499,7 +510,7 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 
 			$job->site_identifier = wpml_get_site_id( WPML_TM_ATE::SITE_ID_SCOPE );
 
-			$encoded_xliff = base64_encode( wpml_tm_get_job_xliff( $job_id ) );
+			$encoded_xliff = base64_encode( wpml_tm_get_job_xliff( $job_id, $apply_memory ) );
 
 			$job->file->type = 'data:application/x-xliff;base64';
 			$job->file->name = $translation_job->get_title();
@@ -513,11 +524,12 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 	/**
 	 * It returns a single instance of the class.
 	 *
-	 * @param int $job_id The ID of the job.
+	 * @param int   $job_id The ID of the job.
+	 * @param bool  $apply_memory
 	 *
 	 * @return string
 	 */
-	function wpml_tm_get_job_xliff( $job_id ) {
+	function wpml_tm_get_job_xliff( $job_id, $apply_memory = true ) {
 		static $xliff_writer;
 
 		if ( ! $xliff_writer ) {
@@ -525,7 +537,7 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 			$xliff_writer = new WPML_TM_Xliff_Writer( $job_factory );
 		}
 
-		return $xliff_writer->generate_job_xliff( $job_id );
+		return $xliff_writer->generate_job_xliff( $job_id, $apply_memory );
 	}
 
 	/**

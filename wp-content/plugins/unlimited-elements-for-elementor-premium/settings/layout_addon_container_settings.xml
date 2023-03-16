@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+			<fieldset name="basic" label="Basic">
+				
+				<field name="padding" 
+					type="custom"
+					custom_type="fourinputs"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Addon Container Padding"
+					label_tablet="Addon Container - Tablet"
+					label_mobile="Addon Container - Mobile"
+					description_desktop="The padding or the Addon Container"
+					description_tablet="The padding or the Addon Container in tablet screen size (768px and less)"
+					description_mobile="The padding or the Addon Container in mobile screen size (less then 480)"
+					>
+				</field>
+
+
+				<field name="margin" 
+					type="custom"
+					custom_type="fourinputs"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Addon Container Margin"
+					label_tablet="Addon Container - Tablet"
+					label_mobile="Addon Container - Mobile"
+					description_desktop="The margin or the Addon Container"
+					description_tablet="The margin or the Addon Container in tablet screen size (768px and less)"
+					description_mobile="The margin or the Addon Container in mobile screen size (less then 480)"
+					>
+				</field>
+				
+				
+				<field name="text_align" 
+					type="list"
+					default=""
+					label="Addon Container Text Align"
+					description="The text align of the addon container, it influence on some of the addons">
+					
+						<option value="" text="[Default]"></option>
+						<option value="left" text="Left"></option>
+						<option value="center" text="Center"></option>
+						<option value="right" text="Right"></option>
+				</field>
+				
+				<field type="hr"></field> 
+				
+				<field name="hide_in_desktop" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"
+					text_near="Hide In Desktop"
+					description="Hide the addon in desktop (width more then 768px)"
+					>
+				</field>
+				
+				<field name="hide_in_tablet" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"
+					text_near="Hide In Tablet"
+					description="Hide the addon In Tablet (width less then 768px and more then 480px)"
+					>
+				</field>
+
+				<field name="hide_in_mobile" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"
+					text_near="Hide In Mobile"
+					description="Hide the addon In Mobile (width less then 480px)"
+					>
+				</field>
+				
+			</fieldset>
+			
+			<fieldset name="background" label="Background" loadfrom="background"></fieldset>						
+						
+			<fieldset name="common_hidden" loadfrom="common_hidden"></fieldset>		
+			
+			<fieldset name="advanced_settings" label="Advanced">
+				
+				<field name="addon_class" 
+					type="text"
+					default=""
+					label="Addon Container Css Class"
+					description="additional css class of the container">
+				</field>
+									
+				<field name="addon_css" 
+					type="textarea"
+					default=""
+					label="Addon Container Add Css"
+					description="Any css you want to add to addon container div">
+				</field>
+				
+				<field name="addon_css_tablet" 
+					type="textarea"
+					default=""
+					label="Addon Container Tablet Add Css"
+					showin="tablet"
+					description="Any css you want to add to addon container div in tablet page size (768px and less)">
+				</field>
+				
+				<field name="addon_css_mobile" 
+					type="textarea"
+					default=""
+					label="Addon Container Mobile Add Css"
+					showin="mobile"
+					description="Any css you want to add to addon container div in mobile page size (less then 480)">
+				</field>
+				
+				
+			</fieldset>
+			
+			<fieldset name="animation" label="Animation" loadfrom="animation"></fieldset>
+					
+	</fields>

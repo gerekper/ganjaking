@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<item name="jquery" title="jQuery">
+		<js>
+			<include handle="jquery" local="jquery-1.11.1.min.js"></include>
+		</js>
+	</item>
+	<item name="mootools" title="Mootools" hidden="true">
+		<js>
+			<include handle="mootools" hidden="true" local="MooTools-Core-1.5.2.js"></include>
+		</js>
+	</item>
+	<item name="font-awsome" title="Font Awesome">
+		<css>
+			<include handle="font-awesome" local="font-awsome/css/font-awesome.min.css" condition="fa4"></include>
+			<include handle="font-awesome" local="font-awesome5/css/fontawesome-all.min.css" condition="fa5"></include>
+			<include handle="font-awesome-4-shim" local="font-awesome5/css/fontawesome-v4-shims.css" condition="fa5"></include>
+		</css>
+	</item>
+	<item name="owl-carousel" title="Owl Carousel">
+		<css>
+			<include handle="owl-carousel" local="owl-carousel/assets/owl.carousel.css"></include>
+		</css>
+		<js>
+			<include handle="jquery-migrate" local="jquery-migrate.js"></include>		
+			<include handle="owl-carousel" local="owl-carousel/owl.carousel.min.js"></include>
+		</js>
+	</item>
+	<item name="owl-carousel-new" title="Owl Carousel New">
+		<css>
+			<include handle="owl-carousel" local="owl-carousel-new/assets/owl.carousel.css"></include>
+		</css>
+		<js>
+			<include handle="owl-carousel" local="owl-carousel-new/owl.carousel.min.js"></include>
+		</js>
+	</item>
+	<item name="bxslider" title="BX-Slider">
+		<css>
+			<include handle="bx-slider" local="bxslider/jquery.bxslider.min.css"></include>
+		</css>
+		<js>
+			<include handle="bx-slider" local="bxslider/jquery.bxslider.min.js"></include>
+		</js>
+	</item>
+	<item name="lity" title="Lity Lightbox">
+		<css>
+			<include handle="lity" local="lity/lity.min.css"></include>
+		</css>
+		<js>
+			<include handle="lity" local="lity/lity.min.js"></include>
+		</js>
+	</item>
+	<item name="unitegallery" title="Unite Gallery">
+		<js>
+			<include handle="unitegallery" local="unitegallery/js/unitegallery.min.js"></include>
+			<!-- <include handle="unitegallery" local="unitegallery/js/unitegallery.js"></include>-->
+		</js>
+		<css>
+			<include handle="unitegallery" local="unitegallery/css/unite-gallery.css"></include>
+		</css>		
+	</item>
+	<item name="countdown" title="Countdown">
+		<js>
+			<include handle="countdown" local="countdown/jquery.countdown.js"></include>
+		</js>		
+	</item>
+	<item name="fancybox" title="Fancybox">
+		<js>
+			<include handle="fancybox" local="fancybox3/jquery.fancybox.min.js"></include>
+		</js>		
+		<css>
+			<include handle="fancybox" local="fancybox3/jquery.fancybox.min.css"></include>
+		</css>
+	</item>
+	
+</library>

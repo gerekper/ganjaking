@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+.unlimited-elements-background-overlay{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:0;
+}
+
+.unlimited-elements-background-overlay.uc-bg-front{
+	z-index:999;
+}

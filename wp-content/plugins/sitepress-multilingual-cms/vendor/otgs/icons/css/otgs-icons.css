@@ -1,9 +1,9 @@
 @font-face {
     font-family: "otgs-icons";
-    src: url("../fonts/otgs-icons.eot?16575179b57ec55d963f4c764ec29a4e#iefix") format("embedded-opentype"),
-url("../fonts/otgs-icons.ttf?16575179b57ec55d963f4c764ec29a4e") format("truetype"),
-url("../fonts/otgs-icons.woff?16575179b57ec55d963f4c764ec29a4e") format("woff"),
-url("../fonts/otgs-icons.woff2?16575179b57ec55d963f4c764ec29a4e") format("woff2");
+    src: url("../fonts/otgs-icons.eot?31fff84f6fbeb0cd4b57253c17283420#iefix") format("embedded-opentype"),
+url("../fonts/otgs-icons.ttf?31fff84f6fbeb0cd4b57253c17283420") format("truetype"),
+url("../fonts/otgs-icons.woff?31fff84f6fbeb0cd4b57253c17283420") format("woff"),
+url("../fonts/otgs-icons.woff2?31fff84f6fbeb0cd4b57253c17283420") format("woff2");
 }
 
 [class*="otgs-ico"] {
@@ -424,6 +424,87 @@ url("../fonts/otgs-icons.woff2?16575179b57ec55d963f4c764ec29a4e") format("woff2"
 }
 .otgs-ico-lightning-o:before {
     content: "\f650";
+}
+.otgs-ico-card:before {
+    content: "\f651";
+}
+.otgs-ico-code:before {
+    content: "\f652";
+}
+.otgs-ico-coin:before {
+    content: "\f653";
+}
+.otgs-ico-connection:before {
+    content: "\f654";
+}
+.otgs-ico-discount:before {
+    content: "\f655";
+}
+.otgs-ico-funnel-o:before {
+    content: "\f656";
+}
+.otgs-ico-funnel:before {
+    content: "\f657";
+}
+.otgs-ico-guarantee:before {
+    content: "\f658";
+}
+.otgs-ico-infinity:before {
+    content: "\f659";
+}
+.otgs-ico-invoice:before {
+    content: "\f65a";
+}
+.otgs-ico-login:before {
+    content: "\f65b";
+}
+.otgs-ico-pause-circle-o:before {
+    content: "\f65c";
+}
+.otgs-ico-pause-circle:before {
+    content: "\f65d";
+}
+.otgs-ico-pause:before {
+    content: "\f65e";
+}
+.otgs-ico-play-circle-o:before {
+    content: "\f65f";
+}
+.otgs-ico-play-circle:before {
+    content: "\f660";
+}
+.otgs-ico-play:before {
+    content: "\f661";
+}
+.otgs-ico-settings:before {
+    content: "\f662";
+}
+.otgs-ico-statistics:before {
+    content: "\f663";
+}
+.otgs-ico-table:before {
+    content: "\f664";
+}
+.otgs-ico-youtube:before {
+    content: "\f665";
+}
+.otgs-ico-fast:before {
+    content: "\f666";
+}
+.otgs-ico-generated:before {
+    content: "\f667";
+}
+.otgs-ico-guarantee-warning:before {
+    content: "\f668";
+}
+.otgs-ico-merge:before {
+    content: "\f669";
+}
+.otgs-ico-stop-circle-o:before {
+    content: "\f66a";
+}
+.otgs-ico-stop-circle:before {
+    content: "\f66b";
 }
 .otgs-ico-external-link:before {
     content: "\f101";

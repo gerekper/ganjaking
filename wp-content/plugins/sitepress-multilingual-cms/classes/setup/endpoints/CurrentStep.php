@@ -14,7 +14,7 @@ use WPML\Setup\Option;
 
 class CurrentStep implements IHandler {
 
-	const STEPS = [ 'languages', 'address', 'license', 'translation', 'support', 'plugins', 'finished' ];
+	const STEPS = [ 'languages', 'address', 'license', 'translation', 'translationSettings', 'pauseTranslateEverything', 'support', 'plugins', 'finished' ];
 
 	public function run( Collection $data ) {
 		$isValid = Logic::allPass( [

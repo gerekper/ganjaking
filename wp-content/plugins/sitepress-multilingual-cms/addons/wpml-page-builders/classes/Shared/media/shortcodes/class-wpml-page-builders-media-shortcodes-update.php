@@ -40,5 +40,22 @@ class WPML_Page_Builders_Media_Shortcodes_Update implements IWPML_PB_Media_Updat
 			->translate( $post->post_content );
 
 		$this->media_usage->update( $element->get_source_element()->get_id() );
+
+		/**
+		 * The function wp_update_post() can modify post tag.
+		 * The code below sends tags by IDs to prevent this.
+		 *
+		 * @see wpmlcore-5947
+		 * @see https://core.trac.wordpress.org/ticket/45121
+		 */
+		$tag_ids = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
+		$postarr = array(
+			'ID'           => $post->ID,
+			'post_content' => $post->post_content,
+			'tags_input'   => $tag_ids,
+		);
+		kses_remove_filters();
+		wpml_update_escaped_post( $postarr );
+		kses_init();
 	}
 }

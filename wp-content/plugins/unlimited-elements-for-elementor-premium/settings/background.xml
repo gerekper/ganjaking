@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fields>
+	<fieldset name="background" label="Background">
+			
+			<field name="bg_enable"
+				type="boolean"
+				default="true"
+				label="Enable Background"
+				special_design="true"
+				special_design_color="primary"
+				description="Enable background for this element. You can combine several background types">  
+			</field>
+			
+			<field type="bulk_control_start" parent="bg_enable" ctype="show" value="true" />
+			
+			<field name="bg_type" 
+				type="radio"
+				default="solid" 
+				label="Background Type"
+				mode_transparent="true"
+				special_design="true"
+				modifytype="choose_background"
+				description="Choose Backgruond Type. You can combine several background types">
+					<option value="solid" text="Color"></option>
+					<option value="image" text="Image"></option>
+					<option value="gradient" text="Gradient"></option>
+					<option value="more" text="More"></option>
+			</field>
+			
+			<field type="bulk_control_start" parent="bg_type" ctype="show" value="solid" />
+				
+				<field name="bg_color"
+					type="color"
+					default=""
+					label="Background Color"
+					description="Choose the background color">  
+				</field>
+				
+			<field type="bulk_control_end" />
+			
+			<field type="bulk_control_start" parent="bg_type" ctype="show" value="image" />
+				
+				<field name="bg_image_url"
+					type="image"
+					default=""
+					label="Background Image"
+					description="Choose the background Image">  
+				</field>
+				
+				<field name="bg_image_size" 
+					type="list"
+					default="cover" 
+					label="Background Image Size"
+					description="The size of the image int the html element">
+						<option value="cover" text="Cover"></option>
+						<option value="contain" text="Fit"></option>
+						<option value="auto" text="Original Size"></option>
+				</field>
+				
+				<field name="bg_image_position" 
+					type="list"
+					default="center" 
+					label="Background Image Position"
+					description="The position of the image inside the html element">
+						<option value="center" text="Center"></option>
+						<option value="center left" text="Center Left"></option>
+						<option value="center right" text="Center Right"></option>
+						<option value="top left" text="Top Left"></option>
+						<option value="top center" text="Top Center"></option>
+						<option value="top right" text="Top Right"></option>
+						<option value="bottom left" text="Bottom Left"></option>
+						<option value="bottom center" text="Bottom Center"></option>
+						<option value="bottom right" text="Bottom Right"></option>
+				</field>
+				
+				<field name="bg_image_repeat"
+					type="list"
+					default="no-repeat" 
+					label="Background Image Repeat"
+					description="The repeat of the image inside html element">
+						<option value="no-repeat" text="No Repeat"></option>
+						<option value="repeat" text="Repeat"></option>
+						<option value="repeat-x" text="Repeat X"></option>
+						<option value="repeat-y" text="Repeat Y"></option>
+						<option value="space" text="Space"></option>
+						<option value="round" text="Round"></option>
+				</field>
+				
+				<field name="bg_image_blend"
+					type="list"
+					default="normal" 
+					label="Background Image Blend Mode"
+					description="The blend mode of the background image (not supported by IE)">
+						<option value="normal" text="Normal"></option>
+						<option value="multiply" text="multiply"></option>
+						<option value="screen" text="screen"></option>
+						<option value="overlay" text="overlay"></option>
+						<option value="darken" text="darken"></option>
+						<option value="lighten" text="lighten"></option>
+						<option value="color-dodge" text="color-dodge"></option>
+						<option value="saturation" text="saturation"></option>
+						<option value="color" text="color"></option>
+						<option value="luminosity" text="luminosity"></option>
+				</field>
+				
+				<field name="bg_image_parallax"
+					type="boolean"
+					default="false"
+					label="Background Image Parallax"
+					special_design="true"
+					description="Parallax css effect of the background image">  
+				</field>
+				
+			<field type="bulk_control_end" />
+
+			<field type="bulk_control_start" parent="bg_type" ctype="show" value="gradient" />
+			
+				<field name="bg_gradient_enable"
+					type="boolean"
+					default="false"
+					label="Enable Gradient"
+					special_design="true"
+					description="Enable background gradient">  
+				</field>
+	
+				<field type="bulk_control_start" parent="bg_gradient_enable" ctype="show" value="true" />
+				
+					<field name="bg_gradient_color1" 
+							type="color"
+							default="#b2e1ff" 
+							label="Gradient Color1"
+							description="First Color">  
+					</field>
+					
+					<field name="bg_gradient_color2" 
+							type="color"
+							default="#66fcfa" 
+							label="Gradient Color2"
+							description="Second Color">  
+					</field>
+					
+					<field name="bg_gradient_reverse"
+						type="boolean"
+						default="false"
+						label="Reverse Colors"
+						special_design="true"
+						description="Reverse gradient colors">  
+					</field>
+					
+					<field name="bg_gradient_type" 
+						type="list"
+						default="linear" 
+						label="Gradient Type"
+						description="Background gradient type">
+							<option value="linear" text="Linear"></option>
+							<option value="radial" text="Radial"></option>
+					</field>
+					
+					<field name="bg_gradient_linear_direction" 
+						type="text"
+						default="180" 
+						label="Gradient Direction"
+						unit="deg"
+						description="Background gradient direction (0-360)">
+					</field>
+					
+					<field type="control" parent="bg_gradient_type" child="bg_gradient_linear_direction" ctype="show" value="linear" />
+					
+					<field name="bg_gradient_radial_direction" 
+						type="list"
+						default="center" 
+						label="Gradient Radial Direction"
+						description="Background gradient radial direction">
+							<option value="center" text="Center"></option>
+							<option value="top left" text="Top Left"></option>
+							<option value="top" text="Top"></option>
+							<option value="top right" text="Top Right"></option>
+							<option value="right" text="Right"></option>
+							<option value="bottom right" text="Bottom Right"></option>
+							<option value="bottom" text="Bottom"></option>
+							<option value="bottom left" text="Bottom Left"></option>
+							<option value="left" text="Left"></option>
+					</field>
+					
+					<field type="control" parent="bg_gradient_type" child="bg_gradient_radial_direction" ctype="show" value="radial" />
+					
+					
+					<field name="bg_gradient_start_pos" 
+						type="text"
+						default="0"
+						label="Gradient Start Position"
+						unit="%"
+						description="Background gradient start position (0-100)">
+					</field>
+					
+					<field name="bg_gradient_end_pos" 
+						type="text"
+						default="100"
+						label="Gradient End Position"
+						unit="%"
+						description="Background gradient end position (0-100)">
+					</field>
+					
+				<field type="bulk_control_end" />
+			
+				<field type="bulk_control_start" parent="bg_type" ctype="show" value="more" />
+				
+					<field name="bg_addon_single_enable"
+						type="boolean"
+						default="false"
+						label="Enable BG Addon"
+						special_design="true"
+						description="Enable background addon">  
+					</field>
+				
+					<field type="bulk_control_start" parent="bg_addon_single_enable" ctype="show" value="true" />
+									
+						<field name="bg_addon_single"
+							type="addon"
+							addontype="bg_addon"
+							default=""
+							xnoaddontitle="true"
+							add_data_holder="true"
+							add_configure_button="true"
+							configure_button_action="configure_bg_addon"
+							add_clear_button="true"
+							label="unite_setting_notext"					
+							description="Choose BG Addon">
+						</field>
+						
+						<!-- 
+						<field name="bg_addon_configure"
+							type="custom"
+							custom_type="grid_panel_button"
+							action="configure_bg_addon"
+							action_param="bg_addon_single"
+							label="unite_setting_notext"
+							button_text="Configure">					
+						</field>
+						-->
+						
+					<field type="bulk_control_end" />	<!-- bg addon enable -->
+									
+				<field type="bulk_control_end" />	<!-- bg type more -->
+			
+			
+			<field type="bulk_control_end" />	<!-- enable bg -->
+						
+	</fieldset>						
+</fields>

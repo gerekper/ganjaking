@@ -1,0 +1,17 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Apply": [
+            "应用"
+         ],
+         "Cancel": [
+            "取消"
+         ]
+      }
+   }
+}

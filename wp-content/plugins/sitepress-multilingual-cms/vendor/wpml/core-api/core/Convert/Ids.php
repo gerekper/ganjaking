@@ -123,7 +123,7 @@ class Ids {
 		preg_match_all( '/[^0-9]+/', $string, $matches );
 		$uniqueGlues = array_unique( $matches[0] );
 
-		if ( count( $uniqueGlues ) > 1 ) {
+		if ( count( $uniqueGlues ) !== 1 ) {
 			return false;
 		}
 

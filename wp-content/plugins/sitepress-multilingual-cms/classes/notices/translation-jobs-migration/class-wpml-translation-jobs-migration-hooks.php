@@ -70,7 +70,7 @@ class WPML_Translation_Jobs_Migration_Hooks {
 			'wpml-tm-translation-jobs-migration',
 			WPML_TM_URL . '/dist/js/translationJobsMigration/app.js',
 			array(),
-			WPML_TM_VERSION
+			ICL_SITEPRESS_VERSION
 		);
 	}
 

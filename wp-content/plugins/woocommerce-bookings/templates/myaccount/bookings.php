@@ -58,25 +58,25 @@ if ( ! empty( $tables ) ) : ?>
 				$cancellable = 'cancelled' !== $booking->get_status() && 'completed' !== $booking->get_status() && ! $booking->passed_cancel_day();
 				?>
 				<tr>
-					<td data-title="ID" class="booking-id"><?php echo esc_html( $booking->get_id() ); ?></td>
-					<td data-title="Booked" class="booked-product">
+					<td data-title="<?php esc_html_e( 'ID', 'woocommerce-bookings' ); ?>" class="booking-id"><?php echo esc_html( $booking->get_id() ); ?></td>
+					<td data-title="<?php esc_html_e( 'Booked', 'woocommerce-bookings' ); ?>" class="booked-product">
 						<?php if ( $booking->get_product() && $booking->get_product()->is_type( 'booking' ) ) : ?>
 							<a href="<?php echo esc_url( get_permalink( $booking->get_product()->get_id() ) ); ?>">
 								<?php echo esc_html( $booking->get_product()->get_title() ); ?>
 							</a>
 						<?php endif; ?>
 					</td>
-					<td data-title="Order" class="order-number">
+					<td data-title="<?php esc_html_e( 'Order', 'woocommerce-bookings' ); ?>" class="order-number">
 						<?php if ( $booking->get_order() ) : ?>
 							<a href="<?php echo esc_url( $booking->get_order()->get_view_order_url() ); ?>">
 								<?php echo esc_html( $booking->get_order()->get_order_number() ); ?>
 							</a>
 						<?php endif; ?>
 					</td>
-					<td data-title="Start Date" class="booking-start-date" data-all-day="<?php echo esc_attr( $booking->is_all_day() ? 'yes' : 'no' ); ?>" data-timezone="<?php echo esc_attr( $booking->get_booking_timezone() ); ?>"><?php echo esc_html( $booking->get_start_date( null, null, wc_should_convert_timezone( $booking ) ) ); ?></td>
-					<td data-title="End Date" class="booking-end-date" data-all-day="<?php echo esc_attr( $booking->is_all_day() ? 'yes' : 'no' ); ?>" data-timezone="<?php echo esc_attr( $booking->get_booking_timezone() ); ?>"><?php echo esc_html( $booking->get_end_date( null, null, wc_should_convert_timezone( $booking ) ) ); ?></td>
-					<td data-title="Status" class="booking-status"><?php echo esc_html( wc_bookings_get_status_label( $booking->get_status() ) ); ?></td>
-					<td data-title="Cancel" class="booking-cancel <?php echo $cancellable ? 'cancellable' : 'not-cancellable'; ?>">
+					<td data-title="<?php esc_html_e( 'Start Date', 'woocommerce-bookings' ); ?>" class="booking-start-date" data-all-day="<?php echo esc_attr( $booking->is_all_day() ? 'yes' : 'no' ); ?>" data-timezone="<?php echo esc_attr( $booking->get_booking_timezone() ); ?>"><?php echo esc_html( $booking->get_start_date( null, null, wc_should_convert_timezone( $booking ) ) ); ?></td>
+					<td data-title="<?php esc_html_e( 'End Date', 'woocommerce-bookings' ); ?>" class="booking-end-date" data-all-day="<?php echo esc_attr( $booking->is_all_day() ? 'yes' : 'no' ); ?>" data-timezone="<?php echo esc_attr( $booking->get_booking_timezone() ); ?>"><?php echo esc_html( $booking->get_end_date( null, null, wc_should_convert_timezone( $booking ) ) ); ?></td>
+					<td data-title="<?php esc_html_e( 'Status', 'woocommerce-bookings' ); ?>" class="booking-status"><?php echo esc_html( wc_bookings_get_status_label( $booking->get_status() ) ); ?></td>
+					<td data-title="<?php esc_html_e( 'Cancel', 'woocommerce-bookings' ); ?>" class="booking-cancel <?php echo $cancellable ? 'cancellable' : 'not-cancellable'; ?>">
 						<?php if ( $cancellable ) : ?>
 							<a href="<?php echo esc_url( $booking->get_cancel_url() ); ?>" class="button cancel"><?php esc_html_e( 'Cancel', 'woocommerce-bookings' ); ?></a>
 						<?php endif; ?>

@@ -1,5 +1,9 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2023-03-14 - version 4.9.2
+* Update: PLUGINS-1946 - Email and PDF formatting adjustments
+* Fix: PLUGINS-2006 - Fix edit supplier and packing slip errors. Add missing field on the packing slip.
+
 2023-03-07 - version 4.9.1
 * Update: PLUGINS-1993 - Woo Review Issues.
 

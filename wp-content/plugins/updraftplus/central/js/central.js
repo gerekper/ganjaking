@@ -27,8 +27,8 @@ function updraftcentral_send_command(action, data, callback, options) {
 		type: 'POST'
 	}
 
-	if ('undefined' !== typeof uclion.updraftcentral_credentialtest_nonce && uclion.updraftcentral_credentialtest_nonce) {
-		default_options.nonce = uclion.updraftcentral_credentialtest_nonce;
+	if ('undefined' !== typeof uclion.updraftcentral_request_nonce && uclion.updraftcentral_request_nonce) {
+		default_options.nonce = uclion.updraftcentral_request_nonce;
 	}
 	
 	if ('undefined' === typeof options) options = {};

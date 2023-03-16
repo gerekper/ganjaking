@@ -1,0 +1,17 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Flags must be:": [
+            "Οι σημαίες πρέπει να:"
+         ],
+         "Read more about ": [
+            "Διαβάστε περισσότερα για"
+         ]
+      }
+   }
+}

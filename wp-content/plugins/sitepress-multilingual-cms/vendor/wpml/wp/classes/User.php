@@ -7,6 +7,8 @@ use function WPML\FP\partialRight;
 use WPML\FP\Fns;
 
 class User {
+	const CAP_MANAGE_TRANSLATIONS = 'manage_translations';
+	const CAP_MANAGE_OPTIONS = 'manage_options';
 
 	/**
 	 * @return int
@@ -129,4 +131,35 @@ class User {
 		return call_user_func_array( curryN( 1, $withEditLink ), func_get_args() );
 	}
 
+	/**
+	 * Checks if the given user has the requested capability.
+	 * The current user is used if no user is defined.
+	 *
+	 * @param string $capability Capability to check for.
+	 * @param ?\WP_User $user User to check. Using current user if not defined.
+	 */
+	public static function hasCap( $capabilitiy, \WP_User $user = null ) {
+		$user = $user ?: self::getCurrent();
+		return $user->has_cap( $capabilitiy );
+	}
+
+	/**
+	 * Check if user can manage translations (Translation Manager).
+	 * Alias for self::hasCap( User::CAP_MANAGE_TRANSLATIONS ).
+	 *
+	 * @param ?\WP_User $user User to check. Using current user if not defined.
+	 */
+	public static function canManageTranslations( \WP_User $user = null ) {
+		return self::hasCap( self::CAP_MANAGE_TRANSLATIONS, $user );
+	}
+
+	/**
+	 * Check if user can manage options (Administrator).
+	 * Alias for self::hasCap( User::CAP_MANAGE_OPTIONS ).
+	 *
+	 * @param ?\WP_User $user User to check. Using current user if not defined.
+	 */
+	public static function canManageOptions( \WP_User $user = null ) {
+		return self::hasCap( self::CAP_MANAGE_OPTIONS, $user );
+	}
 }

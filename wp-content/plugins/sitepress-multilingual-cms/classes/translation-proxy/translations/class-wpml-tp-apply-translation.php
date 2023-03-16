@@ -40,7 +40,7 @@ class WPML_TP_Apply_Translations {
 		$cancelled_jobs = $jobs->filter_by_status( ICL_TM_NOT_TRANSLATED );
 
 		$downloaded_jobs = new WPML_TM_Jobs_Collection(
-			$jobs->filter_by_status( ICL_TM_TRANSLATION_READY_TO_DOWNLOAD )
+			$jobs->filter_by_status( [ ICL_TM_TRANSLATION_READY_TO_DOWNLOAD, ICL_TM_COMPLETE ] )
 				 ->map( array( $this->apply_single_job, 'apply' ) )
 		);
 

@@ -47,7 +47,7 @@ class WPML_Nav_Menu {
 		add_action( 'init', array( $this, 'init' ) );
 		add_filter( 'wp_nav_menu_args', array( $this, 'wp_nav_menu_args_filter' ) );
 		add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items_filter' ) );
-		add_filter( 'nav_menu_meta_box_object', array( $this, '_enable_sitepress_query_filters' ) );
+		add_filter( 'nav_menu_meta_box_object', array( $this, '_enable_sitepress_query_filters' ), 11 );
 	}
 
 	/**
@@ -158,6 +158,18 @@ class WPML_Nav_Menu {
 
 	public function get_links_for_menu_strings_translation_ajax() {
 		global $icl_menus_sync, $wpml_post_translations, $wpml_term_translations;
+		$nonce = isset( $_GET['_nonce'] ) ? sanitize_text_field( $_GET['_nonce'] ) : '';
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'Unauthorized', 'sitepress' ), 401 );
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_get_links_for_menu_strings_translation' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ), 400 );
+			return;
+		}
+
 		include_once WPML_PLUGIN_PATH . '/inc/wp-nav-menus/menus-sync.php';
 		$icl_menus_sync = new ICLMenusSync( $this->sitepress, $this->wpdb, $wpml_post_translations, $wpml_term_translations );
 		wp_send_json_success( $icl_menus_sync->get_links_for_menu_strings_translation() );

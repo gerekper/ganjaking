@@ -26,6 +26,13 @@ class WPML_TP_Sync_Ajax_Handler {
 	}
 
 	public function handle() {
+
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'sync-job-states' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!' ) );
+		}
+
 		try {
 			if ( isset( $_REQUEST['update_last_picked_up'] ) ) {
 				$this->wpml_tm_last_picked_up->set();

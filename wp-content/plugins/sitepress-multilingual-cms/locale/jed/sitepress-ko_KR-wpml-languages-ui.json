@@ -3,8 +3,18 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "en"
          },
+         "hide the translations instead.": [
+            "대신 번역을 숨깁니다."
+         ],
+         "Error happened! Please try again.": [
+            "오류가 발생했습니다! 다시 시도하세요."
+         ],
+         "Cancel": [
+            "취소"
+         ],
          "Choose Content to Automatically Translate into": [
             "다음 언어로 자동 번역할 컨텐츠 선택:"
          ],
@@ -17,9 +27,6 @@
          "Save": [
             "저장"
          ],
-         "Choose Content to Automatically Translate into New Language": [
-            "새 언어로 자동 번역할 컨텐츠 선택"
-         ],
          "Add languages and start translating": [
             "언어 추가 및 번역 시작"
          ],
@@ -31,6 +38,9 @@
          ],
          "Never mind. Don't add new language": [
             "괜찮습니다. 새 언어를 추가하지 마세요."
+         ],
+         "Choose Content to Automatically Translate into New Language": [
+            "새 언어로 자동 번역할 컨텐츠 선택"
          ],
          "Automatically translate all of my existing posts and pages right now, plus new content as I create it.": [
             "지금 바로 기존의 모든 글과 페이지를 자동으로 번역하고 컨텐츠를 새로 생성할 때 자동으로 번역합니다."

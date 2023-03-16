@@ -1,0 +1,23 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Flags must be:": [
+            "Флаги должны быть:"
+         ],
+         "PNG, SVG, or JPG files": [
+            "Файлы PNG, SVG, или JPG"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 пикселей"
+         ],
+         "Read more about ": [
+            "Подробнее о"
+         ]
+      }
+   }
+}

@@ -113,7 +113,7 @@ $wp_installer_instance = dirname( __FILE__ ) . '/installer.php';
 global $wp_installer_instances;
 $wp_installer_instances[ $wp_installer_instance ] = [
 	'bootfile' => $wp_installer_instance,
-	'version'  => '3.0.4'
+	'version'  => '3.0.5'
 ];
 
 /**

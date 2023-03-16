@@ -102,7 +102,7 @@ class WC_Box_Office_Cron {
 			);
 
 			if ( $deleted > 0) {
-				$sent = wc_box_office_send_ticket_email( $meta->meta_value, '', $job->post_title, $job->post_content );
+				$sent = wc_box_office_send_ticket_email( $meta->meta_value, '', $job->post_title, $job->post_content, $job->post_title );
 
 				if ( $sent ) {
 					$log_data = array(

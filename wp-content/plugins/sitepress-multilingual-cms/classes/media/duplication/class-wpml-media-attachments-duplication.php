@@ -1,6 +1,8 @@
 <?php
 
 use WPML\FP\Obj;
+use WPML\LIB\WP\Nonce;
+use WPML\LIB\WP\User;
 use WPML\Media\Option;
 
 class WPML_Media_Attachments_Duplication {
@@ -55,15 +57,25 @@ class WPML_Media_Attachments_Duplication {
 		add_action( 'wpml_pro_translation_completed', array( $this, 'sync_on_translation_complete' ), 10, 3 );
 
 		add_action( 'wp_ajax_wpml_media_set_initial_language', array( $this, 'batch_set_initial_language' ) );
-		add_action( 'wp_ajax_wpml_media_translate_media', array( $this, 'batch_translate_media' ), 10, 0 );
-		add_action( 'wp_ajax_wpml_media_duplicate_media', array( $this, 'batch_duplicate_media' ), 10, 0 );
+		add_action( 'wp_ajax_wpml_media_translate_media', array( $this, 'ajax_batch_translate_media' ), 10, 0 );
+		add_action( 'wp_ajax_wpml_media_duplicate_media', array( $this, 'ajax_batch_duplicate_media' ), 10, 0 );
 		add_action( 'wp_ajax_wpml_media_duplicate_featured_images', array( $this, 'ajax_batch_duplicate_featured_images' ), 10, 0 );
 
-		add_action( 'wp_ajax_wpml_media_mark_processed', array( $this, 'batch_mark_processed' ), 10, 0 );
-		add_action( 'wp_ajax_wpml_media_scan_prepare', array( $this, 'batch_scan_prepare' ), 10, 0 );
+		add_action( 'wp_ajax_wpml_media_mark_processed', array( $this, 'ajax_batch_mark_processed' ), 10, 0 );
+		add_action( 'wp_ajax_wpml_media_scan_prepare', array( $this, 'ajax_batch_scan_prepare' ), 10, 0 );
 
 		add_action( 'wp_ajax_wpml_media_set_content_prepare', array( $this, 'set_content_defaults_prepare' ) );
-		add_action( 'wp_ajax_wpml_media_set_content_defaults', array( $this, 'set_content_defaults' ) );
+		add_action( 'wpml_loaded', array( $this, 'add_settings_hooks' ) );
+	}
+
+	public function add_settings_hooks() {
+		if ( User::getCurrent() && (
+			User::getCurrent()->has_cap( 'wpml_manage_media_translation' )
+			|| User::getCurrent()->has_cap( WPML_Manage_Translations_Role::CAPABILITY )
+			)
+		) {
+			add_action('wp_ajax_wpml_media_set_content_defaults', array($this, 'wpml_media_set_content_defaults') );
+		}
 	}
 
 	private function add_postmeta_hooks() {
@@ -915,11 +927,11 @@ class WPML_Media_Attachments_Duplication {
 	}
 
 	public function ajax_batch_duplicate_featured_images() {
-		if (
-			! isset( $_POST['nonce'] )
-			|| ! wp_verify_nonce( $_POST['nonce'], 'wpml_media_settings_actions' )
-		) {
-			wp_nonce_ays( '' );
+
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_duplicate_featured_images' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
 		}
 
 		$featured_images_left = array_key_exists( 'featured_images_left', $_POST ) && is_numeric( $_POST['featured_images_left'] )
@@ -973,6 +985,16 @@ class WPML_Media_Attachments_Duplication {
 		);
 	}
 
+	public function ajax_batch_duplicate_media() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_duplicate_media' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
+		return $this->batch_duplicate_media();
+	}
+
 	public function batch_duplicate_media( $outputResult = true ) {
 		$limit = 10;
 
@@ -1020,6 +1042,16 @@ class WPML_Media_Attachments_Duplication {
 		$limit = $limit ?: ceil( 100 / max( $activeLanguagesCount - 1, 1 ) );
 
 		return max( $limit, 1 );
+	}
+
+	public function ajax_batch_translate_media() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_translate_media' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
+		return $this->batch_translate_media();
 	}
 
 	public function batch_translate_media( $outputResult = true ) {
@@ -1074,6 +1106,13 @@ class WPML_Media_Attachments_Duplication {
 	}
 
 	public function batch_set_initial_language() {
+
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_set_initial_language' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
 		$default_language = $this->sitepress->get_default_language();
 		$limit            = 10;
 
@@ -1106,7 +1145,17 @@ class WPML_Media_Attachments_Duplication {
 		exit;
 	}
 
-	function batch_scan_prepare( $outputResult = true ) {
+	public function ajax_batch_scan_prepare() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_scan_prepare' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
+		$this->batch_scan_prepare();
+	}
+
+	public function batch_scan_prepare( $outputResult = true ) {
 		$response = array();
 		$this->wpdb->delete( $this->wpdb->postmeta, array( 'meta_key' => 'wpml_media_processed' ) );
 
@@ -1119,7 +1168,18 @@ class WPML_Media_Attachments_Duplication {
 		}
 	}
 
+	public function ajax_batch_mark_processed() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_mark_processed' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
+		$this->batch_mark_processed();
+	}
+
 	public function batch_mark_processed( $outputResult = true ) {
+
 		$response                    = [];
 		$wpmlMediaProcessedMetaValue = 1;
 		$limit                       = 300;
@@ -1347,12 +1407,32 @@ class WPML_Media_Attachments_Duplication {
 	}
 
 	function set_content_defaults_prepare() {
+
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_set_content_prepare' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
 		$response = array( 'message' => __( 'Started...', 'sitepress' ) );
 		echo wp_json_encode( $response );
 		exit;
 	}
 
-	function set_content_defaults() {
+	public function wpml_media_set_content_defaults() {
+
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wpml_media_set_content_defaults' ) ) {
+			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
+		}
+
+		$this->set_content_defaults();
+
+	}
+
+	private function set_content_defaults() {
+
 		$always_translate_media = $_POST['always_translate_media'];
 		$duplicate_media        = $_POST['duplicate_media'];
 		$duplicate_featured     = $_POST['duplicate_featured'];
@@ -1405,4 +1485,5 @@ class WPML_Media_Attachments_Duplication {
 			);
 		}
 	}
+
 }

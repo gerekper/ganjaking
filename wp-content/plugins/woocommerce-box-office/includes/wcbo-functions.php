@@ -409,15 +409,16 @@ function wc_box_office_get_all_ticket_products( $include_variation = false ) {
 /**
  * Send email to ticket holder.
  *
- * @param integer      $ticket_id  Ticket ID
+ * @param integer      $ticket_id  Ticket ID.
  * @param string|array $address    Email address(es). If empty, uses email in ticket
- *                                 ticket field which sets as email contact
- * @param string       $subject    Email subject
- * @param string       $message    Email body
+ *                                 ticket field which sets as email contact.
+ * @param string       $subject    Email subject.
+ * @param string       $message    Email body.
+ * @param string       $heading    Email heading.
  *
  * @return bool
  */
-function wc_box_office_send_ticket_email( $ticket_id = 0, $address = '', $subject = '', $message = '' ) {
+function wc_box_office_send_ticket_email( $ticket_id = 0, $address = '', $subject = '', $message = '', $heading = '' ) {
 	if ( ! $ticket_id ) {
 		return;
 	}
@@ -459,39 +460,30 @@ function wc_box_office_send_ticket_email( $ticket_id = 0, $address = '', $subjec
 	$message = wc_box_office_get_parsed_ticket_content( $ticket_id, $message );
 	$subject = wc_box_office_get_parsed_ticket_content( $ticket_id, $subject );
 
-	return wc_box_office_send_mail( $to, $subject, $message );
+	return wc_box_office_send_mail( $to, $subject, $message, $heading );
 }
 
 /**
  * Send mail.
  *
- * @param string|array $to      Email address(es)
- * @param string       $subject Email subject
- * @param string       $message Email body
+ * @param string|array $to      Email address(es).
+ * @param string       $subject Email subject.
+ * @param string       $message Email body.
+ * @param string       $heading Email heading.
  *
  * @return bool
  */
-function wc_box_office_send_mail( $to, $subject, $message ) {
-	// Set email headers.
-	$headers = array(
-		'Content-Type:text/html',
-		'Reply-To:' . wc_box_office_get_email_from_address(),
-	);
+function wc_box_office_send_mail( $to, $subject, $message, $heading = '' ) {
 
-	$header_string = implode( "\n", $headers ) . "\n";
-
-	// Filters for the email.
-	add_filter( 'wp_mail_from', 'wc_box_office_get_email_from_address' );
-	add_filter( 'wp_mail_from_name', 'wc_box_office_get_email_from_name' );
-	add_filter( 'wp_mail_content_type', 'wc_box_office_get_email_content_type' );
+	/**
+	 * Box Office Email
+	 *
+	 * @var WC_Box_Office_Email
+	 */
+	$box_office_email = \WC_Emails::instance()->emails['WC_Box_Office_Email'];
 
 	// Send email.
-	$result = wp_mail( $to, $subject, $message, $header_string );
-
-	// Unhook filters.
-	remove_filter( 'wp_mail_from', 'wc_box_office_get_email_from_address' );
-	remove_filter( 'wp_mail_from_name', 'wc_box_office_get_email_from_name' );
-	remove_filter( 'wp_mail_content_type', 'wc_box_office_get_email_content_type' );
+	$result = $box_office_email->trigger( $to, $subject, $message, $heading );
 
 	return $result;
 }

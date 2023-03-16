@@ -1888,14 +1888,15 @@ function updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_noclo
 	params.incremental = (typeof extradata.incremental !== 'undefined') ? extradata.incremental : 0;
 	delete extradata.incremental;
 
-	params.db_anon_all = (typeof extradata.db_anon.all !== 'undefined') ? extradata.db_anon.all : 0;
-	delete extradata.db_anon.all;
+	params.db_anon_all = (typeof extradata.db_anon !== 'undefined' && typeof extradata.db_anon.all !== 'undefined') ? extradata.db_anon.all : 0;
+	params.db_anon_non_staff = (typeof extradata.db_anon !== 'undefined' && typeof extradata.db_anon.non_staff !== 'undefined') ? extradata.db_anon.non_staff : 0;
+	params.db_anon_wc_orders = (typeof extradata.db_anon !== 'undefined' && typeof extradata.db_anon.wc_orders !== 'undefined') ? extradata.db_anon.wc_orders : 0;
+	if ('undefined' !== typeof extradata.db_anon) {
+		delete extradata.db_anon.all;
+		delete extradata.db_anon.non_staff;
+		delete extradata.db_anon.wc_orders;
+	}
 
-	params.db_anon_non_staff = (typeof extradata.db_anon.non_staff !== 'undefined') ? extradata.db_anon.non_staff : 0;
-	delete extradata.db_anon.non_staff;
-
-	params.db_anon_wc_orders = (typeof extradata.db_anon.wc_orders !== 'undefined') ? extradata.db_anon.wc_orders : 0;
-	delete extradata.db_anon.wc_orders;
 
 	// Display Request start message
 	if (!jQuery('.updraft_requeststart').length) {

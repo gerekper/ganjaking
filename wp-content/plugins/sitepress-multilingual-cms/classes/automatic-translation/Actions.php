@@ -15,6 +15,8 @@ use WPML\TM\API\ATE\LanguageMappings;
 use WPML\TM\API\Job\Map;
 use function WPML\FP\invoke;
 use WPML\LIB\WP\User;
+use WPML\Setup\Option;
+
 use function WPML\FP\partial;
 use WPML\TM\API\Jobs;
 use function WPML\FP\pipe;
@@ -40,11 +42,18 @@ class Actions implements \IWPML_Action {
 	}
 
 	/**
-	 * @param int $postId
+	 * @param int           $postId
+	 * @param callable|null $onComplete
 	 *
 	 * @throws \WPML\Auryn\InjectionException
 	 */
-	public function sendToTranslation( $postId ) {
+	public function sendToTranslation( $postId, $onComplete = null ) {
+		$execOnComplete = function() use ( $postId, $onComplete ) {
+			if ( is_callable( $onComplete ) ) {
+				$onComplete( $postId );
+			}
+		};
+
 		if ( empty( $_POST['icl_minor_edit'] ) ) {
 			$postElement = $this->translationElementFactory->create_post( $postId );
 			if (
@@ -53,7 +62,7 @@ class Actions implements \IWPML_Action {
 				&& Automatic::isAutomatic( $postElement->get_type() )
 			) {
 				Hooks::onAction( 'shutdown', self::PRIORITY_AFTER_PB_PROCESS )
-				     ->then( function() use ( $postId ) {
+				     ->then( function() use ( $postId, $execOnComplete ) {
 					     $postElement = $this->translationElementFactory->create_post( $postId );
 					     if (
 						     $postElement->get_wp_object()->post_status === 'publish'
@@ -64,8 +73,14 @@ class Actions implements \IWPML_Action {
 						     $this->cancelExistingTranslationJobs( $postElement, $secondaryLanguageCodes );
 						     $this->createTranslationJobs( $postElement, $secondaryLanguageCodes );
 					     }
+
+						 $execOnComplete();
 				     } );
+			} else {
+				$execOnComplete();
 			}
+		} else {
+			$execOnComplete();
 		}
 	}
 
@@ -102,6 +117,10 @@ class Actions implements \IWPML_Action {
 	}
 
 	public function createTranslationJobs( \WPML_Post_Element $postElement, $targetLanguages ) {
+		if ( Option::isPausedTranslateEverything() ) {
+			return;
+		}
+
 		$isNotCompleteAndUpToDate = Logic::complement( self::isCompleteAndUpToDateJob() );
 
 		$sendToTranslation = function ( $language ) use ( $postElement, $isNotCompleteAndUpToDate ) {

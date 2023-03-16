@@ -1,5 +1,6 @@
 <?php
 
+use WPML\FP\Obj;
 use WPML\TM\Menu\Dashboard\PostJobsRepository;
 use WPML\TM\API\Jobs;
 
@@ -54,7 +55,7 @@ class WPML_TM_Dashboard_Document_Row {
 	}
 
 	public function get_title() {
-		return $this->data->title ? $this->data->title : __( '(missing title)', 'wpml-translation-management' );
+		return $this->data->title ? $this->data->title : __( '(missing title)', 'sitepress' );
 	}
 
 	private function is_external_type() {
@@ -99,18 +100,18 @@ class WPML_TM_Dashboard_Document_Row {
 		$post_edit_link = '';
 		if ( ! $this->is_external_type() ) {
 			$post_link_factory = new WPML_TM_Post_Link_Factory( $this->sitepress );
-			$post_edit_link    = $post_link_factory->edit_link_anchor( $current_document->ID, __( 'Edit', 'wpml-translation-management' ) );
-			$post_view_link    = $post_link_factory->view_link_anchor( $current_document->ID, __( 'View', 'wpml-translation-management' ) );
+			$post_edit_link    = $post_link_factory->edit_link_anchor( $current_document->ID, __( 'Edit', 'sitepress' ) );
+			$post_view_link    = $post_link_factory->view_link_anchor( $current_document->ID, __( 'View', 'sitepress' ) );
 		}
 
 		$jobs = ( new PostJobsRepository() )->getJobsGroupedByLang( $current_document->ID, $element_type );
 
-		$post_edit_link = apply_filters( 'wpml_document_edit_item_link', $post_edit_link, __( 'Edit', 'wpml-translation-management' ), $current_document, $element_type, $this->get_type() );
+		$post_edit_link = apply_filters( 'wpml_document_edit_item_link', $post_edit_link, __( 'Edit', 'sitepress' ), $current_document, $element_type, $this->get_type() );
 		if ( $post_edit_link ) {
 			$post_actions[] = "<span class='edit'>" . $post_edit_link . '</span>';
 		}
 
-		$post_view_link = apply_filters( 'wpml_document_view_item_link', $post_view_link, __( 'View', 'wpml-translation-management' ), $current_document, $element_type, $this->get_type() );
+		$post_view_link = apply_filters( 'wpml_document_view_item_link', $post_view_link, __( 'View', 'sitepress' ), $current_document, $element_type, $this->get_type() );
 		if ( $post_view_link ) {
 			$post_actions[] = "<span class='view'>" . $post_view_link . '</span>';
 		}
@@ -128,9 +129,28 @@ class WPML_TM_Dashboard_Document_Row {
 		<tr id="row_<?php echo sanitize_html_class( $current_document->ID ); ?>" <?php echo $row_data_str; ?>>
 			<td scope="row">
 				<?php
-				$checked = checked( true, isset( $_GET['post_id'] ) || $this->selected, false );
+				$checked      = checked( true, isset( $_GET['post_id'] ) || $this->selected, false );
+				$tooltip_link = 'https://wpml.org/documentation/translating-your-contents/using-different-translation-editors-for-different-pages/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmltm';
+
+				/* translators: %1$s: opening <a> tag, %2$s: closing </a> tag. */
+				$tooltip_content = sprintf( __( 'This page is set to be %1$stranslated manually%2$s using the WordPress Editor', 'sitepress' ), '<a href="' . $tooltip_link . '">', '</a>' );
+
+				$name  = $check_field_name . '[' . $current_document->ID . '][checked]';
+				$value = $current_document->ID;
 				?>
-				<input type="checkbox" value="<?php echo $current_document->ID; ?>" name="<?php echo $check_field_name; ?>[<?php echo $current_document->ID; ?>][checked]" <?php echo $checked; ?> />
+				<?php
+				if ( Obj::propOr(false, 'is_blocked_by_filter', $current_document) ) {
+					?>
+					<div class="js-otgs-popover-tooltip" data-tippy-content="<?php echo esc_attr( $tooltip_content ); ?>">
+						<input type="checkbox" disabled="disabled" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */echo $checked; ?> />
+					</div>
+					<?php
+				} else {
+					?>
+					<input type="checkbox" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */echo $checked; ?> />
+					<?php
+				}
+				?>
 				<input type="hidden" value="<?php echo $element_type; ?>" name="<?php echo $check_field_name; ?>[<?php echo $current_document->ID; ?>][type]"/>
 			</td>
 			<td scope="row" class="post-title column-title">
@@ -146,26 +166,26 @@ class WPML_TM_Dashboard_Document_Row {
 						$note            = WPML_TM_Translator_Note::get( $current_document->ID );
 						$this->note_text = '';
 						if ( $note ) {
-							$this->note_text       = __( 'Edit note for the translators', 'wpml-translation-management' );
+							$this->note_text       = __( 'Edit note for the translators', 'sitepress' );
 							$this->note_icon_class = 'otgs-ico-note-edit-o';
 						} else {
-							$this->note_text       = __( 'Add note for the translators', 'wpml-translation-management' );
+							$this->note_text       = __( 'Add note for the translators', 'sitepress' );
 							$this->note_icon_class = 'otgs-ico-note-add-o';
 						}
 					}
 					?>
 					<label for="post_note_<?php echo $current_document->ID; ?>">
-						<?php _e( 'Note for the translators', 'wpml-translation-management' ); ?>
+						<?php _e( 'Note for the translators', 'sitepress' ); ?>
 					</label>
 					<textarea id="post_note_<?php echo $current_document->ID; ?>" rows="5"><?php echo $note; ?></textarea>
 					<table width="100%">
 						<tr>
 							<td style="border-bottom:none">
-								<input type="button" class="icl_tn_cancel button" value="<?php _e( 'Cancel', 'wpml-translation-management' ); ?>" />
+								<input type="button" class="icl_tn_cancel button" value="<?php _e( 'Cancel', 'sitepress' ); ?>" />
 								<input class="icl_tn_post_id" type="hidden" value="<?php echo $current_document->ID; ?>"/>
 							</td>
 							<td align="right" style="border-bottom:none">
-								<input type="button" class="icl_tn_save button-primary" value="<?php _e( 'Save', 'wpml-translation-management' ); ?>"/>
+								<input type="button" class="icl_tn_save button-primary" value="<?php _e( 'Save', 'sitepress' ); ?>"/>
 							</td>
 						</tr>
 					</table>
@@ -196,60 +216,69 @@ class WPML_TM_Dashboard_Document_Row {
 
 					$needsReview = false;
 					if ( isset( $jobs[ $code ] ) ) {
-						$job           = $jobs[ $code ];
-						$status        = $job['status'] ?: $this->get_status_in_lang( $code );
-						$job_entity_id = $job['entity_id'];
-						$job_id        = $job['job_id'];
-						$needsReview   = $job['needsReview'];
-						$automatic     = $job['automatic'];
+						$job            = $jobs[ $code ];
+						$status         = $job['status'] ?: $this->get_status_in_lang( $code );
+						$job_entity_id  = $job['entity_id'];
+						$job_id         = $job['job_id'];
+						$needsReview    = $job['needsReview'];
+						$automatic      = $job['automatic'];
+						$isLocal        = $job['isLocal'];
 						$shouldBeSynced = Jobs::shouldBeATESynced( $job );
 					} else {
-						$status        = $this->get_status_in_lang( $code );
-						$job_entity_id = 0;
-						$job_id        = 0;
-						$automatic     = false;
+						$status         = $this->get_status_in_lang( $code );
+						$job_entity_id  = 0;
+						$job_id         = 0;
+						$automatic      = false;
 						$shouldBeSynced = false;
+						$isLocal        = true;
 					}
 
 					if ( $needsReview ) {
-						$translation_status_text = esc_attr( __( 'Needs review', 'wpml-translation-management' ) );
+						$translation_status_text = esc_attr( __( 'Needs review', 'sitepress' ) );
 					} else {
 						switch ( $status ) {
 							case ICL_TM_NOT_TRANSLATED:
-								$translation_status_text = esc_attr( __( 'Not translated', 'wpml-translation-management' ) );
+								$translation_status_text = esc_attr( __( 'Not translated', 'sitepress' ) );
 								break;
 							case ICL_TM_WAITING_FOR_TRANSLATOR:
 								$translation_status_text = $automatic
-									? esc_attr( __( 'Waiting for automatic translation', 'wpml-translation-management' ) )
-									: esc_attr( __( 'Waiting for translator', 'wpml-translation-management' ) );
+									? esc_attr( __( 'Waiting for automatic translation', 'sitepress' ) )
+									: esc_attr( __( 'Waiting for translator', 'sitepress' ) );
 								break;
 							case ICL_TM_IN_BASKET:
-								$translation_status_text = esc_attr( __( 'In basket', 'wpml-translation-management' ) );
+								$translation_status_text = esc_attr( __( 'In basket', 'sitepress' ) );
 								break;
 							case ICL_TM_IN_PROGRESS:
-								$translation_status_text = esc_attr( __( 'Waiting for translation service', 'wpml-translation-management' ) );
-								$has_jobs_in_progress    = true;
+								if ( $automatic ) {
+									$translation_status_text = esc_attr( __( 'Waiting for automatic translation', 'sitepress' ) );
+								} elseif ( $isLocal ) {
+									$translation_status_text = esc_attr( __( 'Waiting for translator', 'sitepress' ) );
+								} else {
+									$translation_status_text = esc_attr( __( 'Waiting for translation service', 'sitepress' ) );
+								}
+
+								$has_jobs_in_progress = true;
 								break;
 							case ICL_TM_TRANSLATION_READY_TO_DOWNLOAD:
 								$translation_status_text = esc_attr(
 									__(
 										'Translation ready to download',
-										'wpml-translation-management'
+										'sitepress'
 									)
 								);
 								$has_jobs_in_progress    = true;
 								break;
 							case ICL_TM_DUPLICATE:
-								$translation_status_text = esc_attr( __( 'Duplicate of default language', 'wpml-translation-management' ) );
+								$translation_status_text = esc_attr( __( 'Duplicate of default language', 'sitepress' ) );
 								break;
 							case ICL_TM_COMPLETE:
-								$translation_status_text = esc_attr( __( 'Translation completed', 'wpml-translation-management' ) );
+								$translation_status_text = esc_attr( __( 'Translation completed', 'sitepress' ) );
 								break;
 							case ICL_TM_NEEDS_UPDATE:
-								$translation_status_text = esc_attr( __( 'Needs update', 'wpml-translation-management' ) );
+								$translation_status_text = esc_attr( __( 'Needs update', 'sitepress' ) );
 								break;
 							case ICL_TM_ATE_NEEDS_RETRY:
-								$translation_status_text =  esc_attr( __( 'In progress', 'wpml-translation-management' ) ) . ' - ' . esc_attr( __( 'needs retry', 'wpml-translation-management' ) );
+								$translation_status_text = esc_attr( __( 'In progress', 'sitepress' ) ) . ' - ' . esc_attr( __( 'needs retry', 'sitepress' ) );
 								break;
 							default:
 								$translation_status_text = '';
@@ -315,7 +344,7 @@ class WPML_TM_Dashboard_Document_Row {
 							)
 							?>
 						   "
-						   title="<?php esc_attr_e( 'Check status and get translations', 'wpml-translation-management' ); ?>"
+						   title="<?php esc_attr_e( 'Check status and get translations', 'sitepress' ); ?>"
 						</a>
 						<?php
 					}

@@ -121,6 +121,10 @@
 	</div>
 
 	<div id="ticket_email_data" class="panel woocommerce_options_panel">
+		<?php $wcbo_email = WC()->mailer()->emails['WC_Box_Office_Email'] ?? false; ?>
+
+		<?php if ( $wcbo_email instanceof WC_Email && $wcbo_email->is_enabled() ) : ?>
+
 		<div class="options_group show_if_ticket">
 			<?php woocommerce_wp_checkbox( array( 'id' => '_email_tickets', 'wrapper_class' => 'show_if_ticket', 'label' => __( 'Enable ticket emails', 'woocommerce-box-office' ), 'description' => __( 'This will send an email to the contact address for each ticket whenever it is purchased or updated.', 'woocommerce-box-office' ) ) ); ?>
 
@@ -198,4 +202,16 @@
 			wp_editor( $ticket_email_html, 'ticket-email-editor', $settings );
 			?>
 		</div>
+
+		<?php else : ?>
+
+		<div class="options_group show_if_ticket">
+			<div class="wcbo-toolbar">
+			<?php
+			WC_Box_Office_Settings::display_warning( 'inline' );
+			?>
+			</div>
+		</div>
+
+		<?php endif; ?>
 	</div>

@@ -33,7 +33,7 @@ class TagAttributes extends Base {
 				/** @var \DOMNode $node */
 				$ids = self::convertIds( $node->nodeValue, $getConfig( 'slug' ), $getConfig( 'type' ) );
 				$blockObject = \WPML_Gutenberg_Integration::sanitize_block( $block );
-				$block = (array) HTML::update_string_in_innerContent( $blockObject, $node, $ids );
+				$block = (array) $domHandler->applyStringTranslations( $blockObject, $node, $ids, null );
 				$domHandler->setElementValue( $node, $ids );
 			}
 		}

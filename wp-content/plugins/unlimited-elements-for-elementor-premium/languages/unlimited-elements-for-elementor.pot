@@ -1,0 +1,4172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: yyyy-mm-dd hh:mm+0000\n"
+"PO-Revision-Date: 2020-12-07 16:02+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Eazy Po 0.9.5.3\n"
+
+#: inc_php/unitecreator_actions.class.php:117
+msgid "The category deleted successfully"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:121
+msgid "Category updated"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:125
+msgid "Order updated"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:165
+msgid "Updated."
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:178
+msgid "The addon deleted successfully"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:191
+msgid "Addon added successfully"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:196
+msgid "Addon updated successfully"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:201
+msgid "Addons updated successfully"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:206
+msgid "Addons Removed"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:211
+#: inc_php/unitecreator_actions.class.php:216
+msgid "Order Saved"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:221
+msgid "Done Operation"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:225
+msgid "Duplicated Successfully"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:258
+#: inc_php/unitecreator_actions.class.php:262
+msgid "Saved"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:270
+msgid "Test data deleted"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:283
+msgid "Addons Imported"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:313
+#: inc_php/unitecreator_actions.class.php:319
+#: inc_php/unitecreator_actions.class.php:422
+msgid "Settings Saved"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:329
+#: inc_php/manager/unitecreator_manager.class.php:227
+#: inc_php/manager/unitecreator_manager_addons.class.php:1214
+#: views/objects/layouts_view.class.php:237
+msgid "Category Updated"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:335
+#: inc_php/unitecreator_client_text.php:29
+msgid "Layout Updated"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:363
+msgid "Product Activated"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:383
+msgid "Addon Installed"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:387
+msgid "Template Installed"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:391
+msgid "Addon Updated"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:402
+msgid "Screenshot Saved"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:408
+#: inc_php/unitecreator_settings_output.class.php:129
+msgid "Section Saved"
+msgstr ""
+
+#: inc_php/unitecreator_actions.class.php:442
+msgid "Template Imported"
+msgstr ""
+
+#: inc_php/unitecreator_addon.class.php:107
+#: views/objects/addon_view.class.php:767
+msgid "Widget Name"
+msgstr ""
+
+#: inc_php/unitecreator_addon.class.php:344
+msgid "Double Name, please remove"
+msgstr ""
+
+#: inc_php/unitecreator_addon.class.php:1317
+#: inc_php/unitecreator_params_processor.class.php:520
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:399
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1854
+msgid "Items"
+msgstr ""
+
+#: inc_php/unitecreator_addon.class.php:1641
+#: inc_php/unitecreator_params_editor.class.php:105
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1425
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1896
+#: views/objects/addon_view.class.php:410
+msgid "General"
+msgstr ""
+
+#: inc_php/unitecreator_addon.class.php:1681
+msgid "Fonts"
+msgstr ""
+
+#: inc_php/unitecreator_addon.class.php:1697
+msgid "no settings for this widget"
+msgstr ""
+
+#: inc_php/unitecreator_addon_config.class.php:135
+msgid "Addon Title"
+msgstr ""
+
+#: inc_php/unitecreator_addon_config.class.php:140
+msgid "Config"
+msgstr ""
+
+#: inc_php/unitecreator_addon_validator.class.php:163
+msgid "Missing Preview Link"
+msgstr ""
+
+#: inc_php/unitecreator_addon_validator.class.php:214
+msgid "Missing Default Items!"
+msgstr ""
+
+#: inc_php/unitecreator_addon_validator.class.php:219
+msgid "Missing Default Image!"
+msgstr ""
+
+#: inc_php/unitecreator_addon_validator.class.php:223
+msgid "Not existing include file!"
+msgstr ""
+
+#: inc_php/unitecreator_addon_validator.class.php:243
+msgid "Not valid fill color!"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:607
+msgid "empty folder"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1032
+msgid "Upload Files"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1037
+msgid "Upload to folder: "
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1079
+#: inc_php/unitecreator_assets.class.php:1088
+#: inc_php/unitecreator_assets.class.php:1250
+msgid "Create Folder"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1082
+msgid "Folder Name"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1089
+msgid "Creating Folder..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1090
+msgid "Folder Created"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1107
+#: inc_php/unitecreator_assets.class.php:1116
+#: inc_php/unitecreator_assets.class.php:1251
+msgid "Create File"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1110
+msgid "File Name"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1117
+msgid "Creating File..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1118
+msgid "File Created"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1133
+msgid "Rename File / Folder"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1135
+msgid "Rename this file/folder to"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1140
+#: inc_php/unitecreator_assets.class.php:1258
+msgid "Rename"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1141
+msgid "Renaming..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1142
+msgid "File/Dir Renamed"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1156
+#: inc_php/unitecreator_client_text.php:107
+msgid "Edit File"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1160 views/master_view.php:67
+msgid "Loading..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1165
+msgid "Saving File..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1166
+msgid "File Saved..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1186
+#: inc_php/unitecreator_assets.class.php:1202
+msgid "Move Files"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1190
+msgid "Move %1 files to"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1203
+msgid "Moving Files..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1204
+msgid "Files Moved"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1214
+msgid "Overwrite"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1215
+msgid "Skip"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1216
+#: inc_php/unitecreator_client_text.php:49
+#: inc_php/manager/unitecreator_manager_addons.class.php:2053
+msgid "Cancel"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1248
+msgid "Upload"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1249
+#: inc_php/manager/unitecreator_manager_addons.class.php:1573
+#: inc_php/manager/unitecreator_manager_inline.class.php:114
+#: inc_php/manager/unitecreator_manager_inline.class.php:152
+msgid "Select All"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1249
+#: inc_php/manager/unitecreator_manager_inline.class.php:152
+msgid "Unselect All"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1253
+#: inc_php/unitecreator_client_text.php:109
+#: inc_php/unitecreator_helperhtml.class.php:106
+#: inc_php/manager/unitecreator_manager_addons.class.php:1547
+#: inc_php/manager/unitecreator_manager_addons.class.php:1587
+#: inc_php/manager/unitecreator_manager_addons.class.php:2137
+#: inc_php/manager/unitecreator_manager_addons.class.php:2182
+#: inc_php/manager/unitecreator_manager_addons.class.php:2366
+#: inc_php/manager/unitecreator_manager_inline.class.php:91
+#: inc_php/manager/unitecreator_manager_inline.class.php:102
+#: inc_php/manager/unitecreator_manager_inline.class.php:154
+#: views/objects/layouts_view.class.php:510
+#: views/objects/objects_list_view.class.php:183
+msgid "Delete"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1254
+#: views/templates/test_addon.php:52
+msgid "deleting..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1256
+#: inc_php/unitecreator_client_text.php:55
+#: inc_php/unitecreator_helperhtml.class.php:105
+#: views/objects/layouts_view.class.php:57
+#: views/objects/objects_list_view.class.php:181
+msgid "Edit"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1260
+msgid "Move"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1262
+msgid "Unzip"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1263
+msgid "unzipping..."
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1282
+msgid "Active Path"
+msgstr ""
+
+#: inc_php/unitecreator_assets.class.php:1360
+msgid "Loading File list..."
+msgstr ""
+
+#: inc_php/unitecreator_assets_work.class.php:333
+msgid "files moved successfully"
+msgstr ""
+
+#: inc_php/unitecreator_assets_work.class.php:430
+msgid "File Saved"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:45
+msgid "Buy PRO"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:46
+msgid "This addon is available<br>for Blox PRO users only."
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:242
+msgid "Blox"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:243
+msgid "Show All"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:244
+msgid "Installed"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:245
+#: inc_php/unitecreator_browser.class.php:613
+msgid "Free"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:246
+#: inc_php/unitecreator_browser.class.php:627
+msgid "Pro"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:250
+msgid "Already bought Blox PRO?"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:251
+msgid "The product is Active!"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:252
+#: inc_php/manager/unitecreator_manager_addons.class.php:2143
+#: inc_php/manager/unitecreator_manager_addons.class.php:2203
+msgid "Deactivate"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:253
+msgid "Check Catalog Update"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:254
+#: inc_php/unitecreator_settings_output.class.php:502
+#: inc_php/framework/settings_output.class.php:476
+#: inc_php/framework/settings_output.class.php:645
+#: inc_php/framework/table.class.php:551
+#: views/objects/objects_list_view.class.php:84
+#: views/templates/test_addon.php:58
+msgid "Clear"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:363
+#: inc_php/unitecreator_globals.class.php:251
+#: views/objects/layouts_view.class.php:458
+#: views/objects/objects_list_view.class.php:146
+msgid "Category"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:381
+#: inc_php/manager/unitecreator_manager.class.php:186
+msgid "Categories"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:440
+msgid "No addons in this category"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:442
+msgid "No pages in this category"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:593
+msgid "widget"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:603
+#: inc_php/unitecreator_output.class.php:880
+#: inc_php/manager/unitecreator_manager_addons.class.php:1532
+#: inc_php/manager/unitecreator_manager_addons.class.php:2184
+#: inc_php/manager/unitecreator_manager_addons.class.php:2196
+#: views/objects/layouts_view.class.php:462
+#: views/objects/layouts_view.class.php:518
+#: views/objects/objects_list_view.class.php:150
+#: views/objects/objects_list_view.class.php:195
+msgid "Preview"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:614
+msgid "This "
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:614
+msgid " Is Free"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:614
+#: inc_php/unitecreator_browser.class.php:620
+msgid "To use it click install"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:619
+msgid "Web"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:620
+msgid "You can install this "
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:691
+msgid "Installing"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:838
+#: inc_php/unitecreator_client_text.php:117
+#: provider/wpml_integrate.class.php:50
+msgid "Not Selected"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:1203
+msgid "Check And Update Catalog"
+msgstr ""
+
+#: inc_php/unitecreator_browser.class.php:1207
+msgid "Checking Update"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:219
+#: inc_php/unitecreator_client_text.php:11
+msgid "Uncategorized"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:387
+#: provider/provider_layouts.class.php:266
+msgid "[Not Selected]"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:390
+msgid "[Add New Category]"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:393
+msgid "[From Gallery Settings]"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:757
+msgid "This category not installed yet in your catalog"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:767
+msgid "This category is installed"
+msgstr ""
+
+#: inc_php/unitecreator_categories.class.php:982
+#: inc_php/manager/unitecreator_manager.class.php:254
+msgid "Category Added"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:12
+msgid "All Items"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:13
+msgid "New Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:14
+msgid "Import Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:15
+msgid "Import Layouts"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:16
+msgid "Layouts Global Settings"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:17
+msgid "Save Layout Settings"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:18
+msgid "No Layouts Found"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:19
+msgid "Layout Title"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:20
+msgid "Edit Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:21
+msgid "Back to layouts list"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:22
+msgid "My Layouts"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:23
+msgid "Layout Deleted"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:24
+msgid "Layout Duplicated"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:25
+msgid "All Layouts"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:26
+msgid "Layouts Added Successfully"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:27
+msgid "Uploading Layouts file..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:28
+msgid "Layout Created"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:30
+msgid "Layout Imported"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:31
+msgid "Layout Saved"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:32
+msgid "Preview Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:33
+msgid "Manage Layout Categories"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:34
+msgid "Set Category To Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:35
+msgid "Select layouts export file"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:36
+msgid "Are you sure to delete this layout?"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:37
+msgid "Addon Library"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:38
+msgid "Search Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:43
+msgid "Empty"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:44
+#: views/objects/layouts_view.class.php:60
+msgid "New"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:45
+#: inc_php/unitecreator_dialog_param.class.php:851
+#: inc_php/framework/settings_output.class.php:940
+#: inc_php/manager/unitecreator_manager_inline.class.php:113
+#: inc_php/manager/unitecreator_manager_inline.class.php:136
+msgid "Add Item"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:46
+msgid "Update Item"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:47
+#: inc_php/manager/unitecreator_manager_inline.class.php:90
+#: inc_php/manager/unitecreator_manager_inline.class.php:155
+#: inc_php/manager/unitecreator_manager_inline.class.php:177
+msgid "Edit Item"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:48
+msgid "Close"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:50
+#: views/objects/addon_view.class.php:1057
+msgid "Update"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:51
+msgid "Restore"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:52
+#: inc_php/unitecreator_client_text.php:67
+#: inc_php/manager/unitecreator_manager_addons.class.php:1247
+#: views/objects/addon_view.class.php:1061
+#: views/objects/addon_view.class.php:1082
+msgid "Updating..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:53
+msgid "Restoring..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:54
+msgid "Import"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:56
+msgid "Edit Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:57
+msgid "Addon Container Settings"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:58
+msgid "Delete Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:59
+msgid "Duplicate Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:60
+msgid "Updating Categories Order..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:61
+msgid "Set Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:62
+msgid "Add Addon To Column"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:63
+msgid "Removing..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:64
+msgid "Updating Title..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:65
+msgid "Duplicating..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:66
+msgid "Updating Order..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:68
+msgid "Copying..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:69
+msgid "Moving..."
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:70
+msgid "Are you sure you want to delete these addons?"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:71
+#: inc_php/unitecreator_dialog_param.class.php:157
+msgid "Text Field"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:72
+#: inc_php/unitecreator_dialog_param.class.php:160
+msgid "Text Area"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:73
+#: inc_php/unitecreator_dialog_param.class.php:162
+msgid "Checkbox"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:74
+#: inc_php/unitecreator_dialog_param.class.php:163
+msgid "Dropdown"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:75
+#: inc_php/unitecreator_dialog_param.class.php:159
+msgid "Radio Boolean"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:76
+#: inc_php/unitecreator_dialog_param.class.php:193
+msgid "Typography"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:77
+#: inc_php/unitecreator_dialog_param.class.php:165
+msgid "Link"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:78
+#: inc_php/unitecreator_dialog_param.class.php:158
+msgid "Number"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:79
+#: inc_php/unitecreator_dialog_param.class.php:164
+msgid "Color Picker"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:80
+#: inc_php/unitecreator_dialog_param.class.php:161
+msgid "Editor"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:81
+msgid "Icon Picker"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:82
+#: inc_php/unitecreator_dialog_param.class.php:173
+msgid "Icon Library"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:83
+msgid "Shape Picker"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:84
+#: inc_php/unitecreator_dialog_param.class.php:169
+msgid "Addon Picker"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:85
+msgid "Google Map Picker"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:86
+#: inc_php/unitecreator_dialog_param.class.php:166
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:224
+msgid "Image"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:87
+#: inc_php/unitecreator_dialog_param.class.php:171
+msgid "Audio"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:88
+#: inc_php/unitecreator_dialog_param.class.php:176
+msgid "Post"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:89
+#: inc_php/unitecreator_dialog_param.class.php:177
+msgid "Posts List"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:90
+#: inc_php/unitecreator_dialog_param.class.php:195
+msgid "Padding"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:91
+msgid "Margin"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:92
+msgid "Post Terms"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:93
+#: inc_php/unitecreator_dialog_param.class.php:180
+msgid "Users List"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:94
+#: inc_php/unitecreator_dialog_param.class.php:168
+msgid "Font Override"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:95
+msgid "Image Fields"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:96
+#: inc_php/unitecreator_dialog_param.class.php:181
+msgid "Menu"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:98
+#: inc_php/unitecreator_dialog_param.class.php:201
+msgid "Slider"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:99
+msgid "Backgound"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:100
+#: inc_php/unitecreator_dialog_param.class.php:198
+msgid "Border"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:101
+#: inc_php/unitecreator_dialog_param.class.php:202
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:509
+msgid "Date Time"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:102
+#: inc_php/unitecreator_dialog_param.class.php:200
+msgid "Text Shadow"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:103
+#: inc_php/unitecreator_dialog_param.class.php:199
+msgid "Box Shadow"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:105
+msgid "Choose Image"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:106
+#: provider/core/plugins/unlimited_elements/elementor/controls/control_audio.php:40
+msgid "Choose Audio"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:108
+msgid "Save"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:110
+#: inc_php/unitecreator_helperhtml.class.php:108
+#: inc_php/manager/unitecreator_manager_addons.class.php:2138
+#: inc_php/manager/unitecreator_manager_inline.class.php:92
+#: inc_php/manager/unitecreator_manager_inline.class.php:103
+#: inc_php/manager/unitecreator_manager_inline.class.php:153
+#: provider/core/plugins/create_addons/plugin.php:49
+#: provider/core/plugins/create_addons/plugin.php:69
+#: provider/core/plugins/create_addons/plugin.php:114
+#: views/objects/layouts_view.class.php:512
+#: views/objects/objects_list_view.class.php:187
+msgid "Duplicate"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:111
+msgid "Bulk"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:112
+msgid "Delete Include"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:113
+msgid "Add Include"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:114
+#: views/objects/addon_view.class.php:582
+msgid "Include Settings"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:115
+msgid "Always"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:116
+msgid "Never Include"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:118
+msgid "Choose Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:120
+msgid "Delete Row"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:121
+msgid "Duplicate Row"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:122
+msgid "Copy Row"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:123
+#: inc_php/unitecreator_client_text.php:149
+msgid "Delete Section"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:124
+msgid "Duplicate Section"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:125
+#: inc_php/unitecreator_client_text.php:148
+msgid "Copy Section"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:126
+msgid "Paste Section"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:127
+#: inc_php/unitecreator_helperhtml.class.php:110
+msgid "Save To Library"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:128
+msgid "In Buffer"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:129
+msgid "Delete Column"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:130
+msgid "Duplicate Column"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:131
+msgid "Column Settings"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:132
+msgid "Add Column"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:133
+msgid "Move Row"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:134
+msgid "Move Section"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:135
+msgid "Move Column"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:136
+msgid "Move Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:137
+#: provider/provider_admin.class.php:623
+msgid "Settings"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:138
+msgid "Row"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:139
+#: inc_php/addontypes/unitecreator_addontype_layout_section.class.php:23
+msgid "Section"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:140
+msgid "Row Layout"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:141
+msgid "More Actions"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:142
+msgid "Less Actions"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:143
+msgid "Hidden Row"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:144
+msgid "Hidden Column"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:145
+msgid "Hidden Addon"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:146
+msgid "Section Anchor"
+msgstr ""
+
+#: inc_php/unitecreator_client_text.php:147
+#: inc_php/unitecreator_params_editor.class.php:42
+#: inc_php/unitecreator_params_editor.class.php:109
+msgid "Edit Section"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:167
+msgid "HR Line"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:172
+msgid "Icon (deprecated)"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:174
+#: inc_php/addontypes/unitecreator_addontype_shape.class.php:20
+msgid "Shape"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:175
+#: inc_php/unitecreator_params_editor.class.php:97
+#: provider/core/plugins/unlimited_elements/elementor/control_example.php:26
+msgid "Content"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:178
+msgid "Posts Terms"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:179
+msgid "WooCommerce Categories"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:183
+msgid "Form"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:184
+msgid "Instagram"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:185
+msgid "Google Map"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:186
+msgid "Dataset"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:189
+msgid "Simple Variable"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:190
+msgid "Attribute Related"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:191
+msgid "Item Attribute Related"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:192
+msgid "GET Param"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:194
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:646
+msgid "Margins"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:197
+msgid "Background"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:240
+msgid "Max Items"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:246
+msgid "Put number of items (1-12), or empty for all the items (12)"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:263
+msgid "Defaults for google map"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:276
+msgid "Form Params Goes Here"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:287
+msgid "No default value for this attribute"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:316
+msgid "Allow Font Edit"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:319
+msgid ""
+"Allow edit font for this field in font style tab. Must be put with the "
+"{{fieldname|raw}} in html"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:338
+msgid "Field Required"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:369
+#: inc_php/unitecreator_dialog_param.class.php:905
+#: inc_php/unitecreator_dialog_param.class.php:1008
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:204
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:340
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:353
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:546
+msgid "Default Value"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:384
+msgid "To allow html tags, use"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:384
+msgid "filter"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:385
+#: views/system/video_dialog.php:62 views/system/video_dialog.php:85
+#: views/system/video_dialog.php:135
+msgid "example"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:412
+#: inc_php/unitecreator_dialog_param.class.php:1151
+msgid "Use this font override in css tab using special function"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:474
+msgid "(text near)"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:492
+#: inc_php/unitecreator_dialog_param.class.php:839
+msgid "Item Text"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:493
+#: inc_php/unitecreator_dialog_param.class.php:840
+msgid "Item Value"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:501
+#: inc_php/unitecreator_dialog_param.class.php:508
+#: inc_php/unitecreator_dialog_param.class.php:852
+msgid "Default Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:546
+msgid "Default Image"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:607
+msgid "Default Audio File Url"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:633
+msgid "Choose Dataset Type"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:651
+msgid "Choose Query"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:675
+msgid "Choose Addon Type"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:697
+msgid ""
+"Post terms are post categories / tags and other custom types. Also called as "
+"taxonomies "
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:706
+#: inc_php/unitecreator_dialog_param.class.php:743
+msgid "Use Custom Fields"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:735
+msgid ""
+"Choose some post for the custom fields to appear in attributes list in the "
+"right"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:737
+msgid "Post Example For Custom Fields"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:747
+msgid "Use Post Category"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:756
+msgid "For WooCommerce Products"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:850
+#: inc_php/framework/settings_output.class.php:975
+msgid "Delete Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:867
+msgid "Attribute Value"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:868
+msgid "Html Output"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:910
+#: inc_php/unitecreator_dialog_param.class.php:925
+#: inc_php/unitecreator_dialog_param.class.php:942
+msgid "Add Numitem"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:917
+msgid "Value for First Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:934
+msgid "Value for Last Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:947
+msgid "The %numitem% is 1,2,3,4... numbers serials"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:960
+msgid "Select Main Attribute"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:964
+msgid "Select Item Attribute"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:995
+msgid "This parameter will go from GET query string"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1007
+msgid "Sanitize Type"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1097
+msgid "Checked By Default"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1217
+#: inc_php/unitecreator_dialog_param.class.php:1218
+#: inc_php/manager/unitecreator_manager_inline.class.php:146
+msgid "Add Form Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1219
+msgid "Edit Form Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1220
+msgid "Update Form Item"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1223
+#: inc_php/unitecreator_dialog_param.class.php:1224
+#: inc_php/unitecreator_params_editor.class.php:212
+msgid "Add Attribute"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1225
+msgid "Edit Attribute"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1226
+msgid "Update Attribute"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1265
+msgid "Attribute Type: "
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1295
+msgid "client panel"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1296
+msgid "PRO version"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1320
+#: inc_php/unitecreator_params_editor.class.php:188
+#: inc_php/manager/unitecreator_manager_addons.class.php:1156
+#: provider/functions_wordpress.class.php:820
+#: provider/core/plugins/unlimited_elements/elementor/control_example.php:32
+#: views/objects/layouts_view.class.php:54
+#: views/objects/objects_list_view.class.php:142
+#: views/system/video_dialog.php:180
+msgid "Title"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1331
+#: inc_php/unitecreator_params_editor.class.php:191
+#: inc_php/manager/unitecreator_manager_addons.class.php:1164
+#: provider/functions_wordpress.class.php:861
+msgid "Name"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1339
+#: inc_php/unitecreator_settings.class.php:463
+#: inc_php/manager/unitecreator_manager_addons.class.php:1177
+#: provider/functions_wordpress.class.php:865
+#: views/system/video_dialog.php:188
+msgid "Description"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1351
+msgid "Admin Label"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1354
+msgid "Show attribute content on admin side"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1361
+msgid "This attribute is available only in the ."
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1365
+msgid ""
+"The PRO version (unlimited-elements-pro) is available for download in the "
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1367
+msgid " under \"downloads\" section."
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1511
+msgid "Add Item Variable"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1512
+#: views/objects/addon_view.class.php:722
+msgid "Add Variable"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1513
+msgid "Update Variable"
+msgstr ""
+
+#: inc_php/unitecreator_dialog_param.class.php:1514
+msgid "Edit Variable"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:69
+#: inc_php/unitecreator_settings.class.php:296
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:118
+#: provider/core/plugins/unlimited_elements/views/settingselementor.php:54
+#: views/settings.php:52 views/objects/mappicker_view.class.php:192
+msgid "General Settings"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:74
+msgid "Please fill admin email in"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:76
+msgid "Admin Email"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:76
+msgid "you can change it in"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:81
+msgid "Send Button Text"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:84
+msgid "Loading Text"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:87
+msgid "Thank you text"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:133
+msgid "Send"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:311
+msgid "Please fill"
+msgstr ""
+
+#: inc_php/unitecreator_form.class.php:311
+msgid " field"
+msgstr ""
+
+#: inc_php/unitecreator_globals.class.php:250
+#: inc_php/addontypes/unitecreator_addontype.class.php:54
+msgid "Addon"
+msgstr ""
+
+#: inc_php/unitecreator_globals.class.php:252
+msgid "Page"
+msgstr ""
+
+#: inc_php/unitecreator_helper.class.php:1648
+msgid "Template part"
+msgstr ""
+
+#: inc_php/unitecreator_helper.class.php:1648
+msgid " not found. Please create one in template parts page"
+msgstr ""
+
+#: inc_php/unitecreator_helperhtml.class.php:62
+msgid "not chosen"
+msgstr ""
+
+#: inc_php/unitecreator_helperhtml.class.php:107
+#: views/objects/layouts_view.class.php:511
+#: views/objects/objects_list_view.class.php:184
+msgid "Deleting"
+msgstr ""
+
+#: inc_php/unitecreator_helperhtml.class.php:109
+#: views/objects/layouts_view.class.php:513
+#: views/objects/objects_list_view.class.php:188
+msgid "Duplicating"
+msgstr ""
+
+#: inc_php/unitecreator_helperhtml.class.php:111
+msgid "Saving to library"
+msgstr ""
+
+#: inc_php/unitecreator_helperhtml.class.php:469
+msgid ""
+"only dropdown and radio boolean field types are used for conditional inputs"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:41
+#: inc_php/unitecreator_params_editor.class.php:43
+#: inc_php/unitecreator_params_editor.class.php:44
+#: inc_php/unitecreator_params_editor.class.php:60
+#: inc_php/unitecreator_params_editor.class.php:99
+#: inc_php/unitecreator_params_editor.class.php:121
+msgid "Add Section"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:45
+msgid "Update Section"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:52
+msgid "Section Title"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:62
+msgid "Please fill the section title"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:111
+#: inc_php/manager/unitecreator_manager.class.php:566
+#: inc_php/manager/unitecreator_manager_addons.class.php:2052
+msgid "Move Here"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:119
+#: views/objects/mappicker_view.class.php:103
+msgid "Style"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:129
+msgid "Move Mode"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:131
+msgid "Stop Move Mode"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:137
+#: views/objects/addon_view.class.php:1663
+msgid "selected"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:139
+msgid "Clear Selected Attributes"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:140
+msgid "clear"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:150
+msgid "section copied"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:156
+msgid "Paste section in content tab"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:157
+msgid "to content"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:160
+msgid "Paste section in style tab"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:161
+msgid "to style"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:166
+msgid "Clear the copied section"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:167
+msgid "clear copied"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:182
+msgid "Select / Deselect All"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:194
+#: provider/core/plugins/unlimited_elements/addontype_cpt.class.php:27
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:755
+msgid "Type"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:197
+msgid "Attribute"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:200
+msgid "Operations"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:209
+msgid "No Attributes Found"
+msgstr ""
+
+#: inc_php/unitecreator_params_editor.class.php:216
+msgid "Add Image Base Fields"
+msgstr ""
+
+#: inc_php/unitecreator_params_processor.class.php:885
+msgid "Instagram Gallery Error: "
+msgstr ""
+
+#: inc_php/unitecreator_params_processor.class.php:1167
+msgid "No menu selected"
+msgstr ""
+
+#: inc_php/unitecreator_params_processor.class.php:1201
+msgid "No items in "
+msgstr ""
+
+#: inc_php/unitecreator_params_processor.class.php:1201
+msgid " menu"
+msgstr ""
+
+#: inc_php/unitecreator_settings.class.php:286
+msgid "Get data from instagram user: "
+msgstr ""
+
+#: inc_php/unitecreator_settings.class.php:305
+msgid ""
+"Type instagram user (@username). This method is deprecated. Please connect "
+"with your instagram user from general settings"
+msgstr ""
+
+#: inc_php/unitecreator_settings.class.php:313
+msgid "Instagram User"
+msgstr ""
+
+#: inc_php/unitecreator_settings.class.php:818
+msgid "New Category"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:127
+msgid "Save Section"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:128
+#: views/objects/settings_view.class.php:55
+msgid "Saving..."
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:156
+msgid "Click Me"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:296
+#: inc_php/unitecreator_settings_output.class.php:307
+#: inc_php/unitecreator_settings_output.class.php:658
+#: inc_php/framework/settings_advances.class.php:206
+#: inc_php/framework/settings_advances.class.php:224
+msgid "Top"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:297
+#: inc_php/unitecreator_settings_output.class.php:661
+#: inc_php/framework/settings_advances.class.php:194
+#: inc_php/framework/settings_advances.class.php:223
+msgid "Right"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:298
+#: inc_php/unitecreator_settings_output.class.php:308
+#: inc_php/unitecreator_settings_output.class.php:664
+#: inc_php/framework/settings_advances.class.php:208
+#: inc_php/framework/settings_advances.class.php:226
+msgid "Bottom"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:299
+#: inc_php/unitecreator_settings_output.class.php:667
+#: inc_php/framework/settings_advances.class.php:192
+#: inc_php/framework/settings_advances.class.php:221
+msgid "Left"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:487
+#: inc_php/framework/settings_output.class.php:456
+msgid "Image Url"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:498
+#: inc_php/framework/settings_output.class.php:472
+#: provider/views/master_view.php:46
+msgid "Select Image"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:503
+#: inc_php/framework/settings_output.class.php:477
+msgid "Change"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:510
+#: inc_php/unitecreator_settings_output.class.php:560
+msgid "Please select assets path"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:559
+#: inc_php/framework/settings_output.class.php:514
+msgid "Choose"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:672
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:345
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:394
+msgid "Units"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:895
+msgid "---- Select Page Font----"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:897
+msgid "Select Font Family"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:899
+#: inc_php/unitecreator_settings_output.class.php:901
+#: inc_php/unitecreator_settings_output.class.php:904
+msgid "Select"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:902
+msgid "Select Text Decoration"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:927
+msgid "From Page Font"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:933
+msgid "Font Family"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:938
+msgid "Font Weight"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:950
+msgid "Font Size (px)"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:953
+msgid "Font Size - Tablet (px)"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:956
+msgid "Font Size - Mobile (px)"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:962
+msgid "Line Height"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:971
+msgid "Text Decoration"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:976
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:766
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:189
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:209
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:229
+msgid "Color"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:990
+msgid "Font Style"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:995
+#: inc_php/unitecreator_settings_output.class.php:1155
+msgid "Custom Styles"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:1121
+msgid "Enable Styles"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:1187
+msgid "Edit Fonts"
+msgstr ""
+
+#: inc_php/unitecreator_settings_output.class.php:1228
+#: inc_php/unitecreator_settings_output.class.php:1230
+msgid "Edit Addon Items"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype.class.php:55
+msgid "Addons"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype.class.php:56
+msgid "Regular Addon"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype.class.php:57
+#: provider/core/plugins/unlimited_elements/addontype_elementor_template.class.php:36
+#: views/objects/addon_view.class.php:715
+msgid "Main"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_bgaddon.class.php:18
+msgid "Background Widget"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_bgaddon.class.php:19
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:103
+msgid "Background Widgets"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_bgaddon.class.php:29
+#: provider/provider_admin.class.php:627
+#: provider/core/plugins/unlimited_elements/addontype_elementor.class.php:32
+msgid "Go Pro"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_bgaddon.class.php:30
+#: provider/core/plugins/unlimited_elements/addontype_elementor.class.php:33
+msgid "Upgrade to PRO version <br> to use this widget"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_layout.class.php:44
+#: inc_php/addontypes/unitecreator_addontype_layout_general.class.php:42
+#: inc_php/addontypes/unitecreator_addontype_layout_section.class.php:42
+msgid "Preview Image Settings"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_layout_general.class.php:23
+msgid "Layout"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_layout_general.class.php:24
+msgid "General Layouts"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_layout_section.class.php:24
+#: views/library.php:44 views/objects/views_chooser.class.php:54
+msgid "Sections"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_shape.class.php:21
+#: views/library.php:43 views/objects/views_chooser.class.php:53
+msgid "Shapes"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_shape_devider.class.php:19
+msgid "Divider"
+msgstr ""
+
+#: inc_php/addontypes/unitecreator_addontype_shape_devider.class.php:20
+#: views/library.php:42 views/objects/views_chooser.class.php:52
+msgid "Dividers"
+msgstr ""
+
+#: inc_php/framework/db.class.php:516
+msgid "Record"
+msgstr ""
+
+#: inc_php/framework/db.class.php:518
+msgid "not found"
+msgstr ""
+
+#: inc_php/framework/functions.class.php:834
+msgid "Sanitize ID"
+msgstr ""
+
+#: inc_php/framework/functions.class.php:835
+msgid "Sanitize KEY"
+msgstr ""
+
+#: inc_php/framework/functions.class.php:836
+msgid "Sanitize Text Field"
+msgstr ""
+
+#: inc_php/framework/functions.class.php:837
+msgid "No Sanitize (not recomended)"
+msgstr ""
+
+#: inc_php/framework/settings_advances.class.php:193
+#: inc_php/framework/settings_advances.class.php:222
+msgid "Center"
+msgstr ""
+
+#: inc_php/framework/settings_advances.class.php:207
+#: inc_php/framework/settings_advances.class.php:225
+msgid "Middle"
+msgstr ""
+
+#: inc_php/framework/settings_advances.class.php:306
+msgid "&nbsp;Custom Content"
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:607
+#: inc_php/manager/unitecreator_manager_addons.class.php:1049
+#: views/objects/layouts_view.class.php:59
+msgid "Select "
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:649
+msgid "Configure"
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:672
+msgid "Select Map"
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:946
+msgid "No Items Found"
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:968
+#: views/objects/addon_view.class.php:714
+msgid "Item"
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:979
+msgid "Duplicate Item"
+msgstr ""
+
+#: inc_php/framework/settings_output.class.php:1390
+msgid "The typography setting will be visible in Elementor Page Builder"
+msgstr ""
+
+#: inc_php/framework/table.class.php:409
+msgid "Filter Category"
+msgstr ""
+
+#: inc_php/framework/table.class.php:448
+msgid "First"
+msgstr ""
+
+#: inc_php/framework/table.class.php:449
+msgid "Previous"
+msgstr ""
+
+#: inc_php/framework/table.class.php:492
+msgid "Next Page"
+msgstr ""
+
+#: inc_php/framework/table.class.php:493
+msgid "Last Page"
+msgstr ""
+
+#: inc_php/framework/table.class.php:548
+#: views/objects/layouts_view.class.php:53
+msgid "Search"
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:103
+msgid "The token has expired "
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:103
+msgid " ago"
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:106
+msgid "The token will expire in "
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:106
+msgid " days. Don't worry, it should auto renew."
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:135
+msgid "Connect With Instagram"
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:151
+msgid "The instagram access token are already set up"
+msgstr ""
+
+#: inc_php/framework/instagram/helper.class.php:152
+msgid "Clear Access Data"
+msgstr ""
+
+#: inc_php/layouts/unitecreator_layout.class.php:99
+#: inc_php/manager/unitecreator_manager_addons.class.php:1285
+#: views/objects/addon_view.class.php:331
+msgid " Name"
+msgstr ""
+
+#: inc_php/layouts/unitecreator_layout.class.php:1605
+msgid "empty layout"
+msgstr ""
+
+#: inc_php/layouts/unitecreator_layout.class.php:1621
+msgid "layout with"
+msgstr ""
+
+#: inc_php/layouts/unitecreator_layout.class.php:1621
+msgid "sections"
+msgstr ""
+
+#: inc_php/layouts/unitecreator_layout.class.php:1763
+msgid "Error in "
+msgstr ""
+
+#: inc_php/layouts/unitecreator_layouts.class.php:534
+msgid "Title Saved"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:118
+#: inc_php/manager/unitecreator_manager.class.php:129
+#: inc_php/manager/unitecreator_manager.class.php:299
+#: inc_php/manager/unitecreator_manager.class.php:360
+#: inc_php/manager/unitecreator_manager.class.php:594
+#: inc_php/manager/unitecreator_manager_addons.class.php:1611
+msgid "No Action"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:148
+msgid "No Items"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:212
+#: inc_php/manager/unitecreator_manager_addons.class.php:1200
+#: inc_php/manager/unitecreator_manager_addons.class.php:1604
+msgid "Edit Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:216
+msgid "Category ID"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:220
+msgid "Edit Title"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:225
+#: inc_php/manager/unitecreator_manager_addons.class.php:1212
+msgid "Update Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:226
+#: inc_php/manager/unitecreator_manager_addons.class.php:1213
+#: views/objects/layouts_view.class.php:236
+msgid "Updating Category..."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:243
+#: views/objects/layouts_view.class.php:227
+msgid "Add New Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:246
+msgid "Enter Category Name"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:252
+#: views/objects/layouts_view.class.php:230
+msgid "Create Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:253
+msgid "Adding Category..."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:269
+#: inc_php/manager/unitecreator_manager.class.php:281
+#: inc_php/manager/unitecreator_manager_addons.class.php:1605
+msgid "Delete Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:273
+msgid "Are you sure you want to delete the: "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:277
+msgid " category and all it's widgets?"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:282
+msgid "Deleting Category..."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:283
+msgid "Category and it's addons Deleted"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:356
+msgid "Add Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:504
+msgid "Move To"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:545
+msgid "Show Debug Data"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:551
+msgid "Update Catalog"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:852
+msgid "Getting Items"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager.class.php:853
+msgid "items selected"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:181
+msgid "Getting "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:182
+msgid " selected"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:274
+msgid "Add "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:690
+#: inc_php/manager/unitecreator_manager_addons.class.php:2030
+msgid "Template Kit"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:708
+msgid "Imported"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:823
+#: views/objects/addon_view.class.php:1033
+msgid "Preview "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:824
+#: inc_php/manager/unitecreator_manager_addons.class.php:1522
+#: inc_php/manager/unitecreator_manager_addons.class.php:1525
+#: inc_php/manager/unitecreator_manager_addons.class.php:2160
+#: views/objects/addon_view.class.php:224
+msgid "Edit "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:827
+msgid "Preview Template Kit"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:828
+#: inc_php/manager/unitecreator_manager_addons.class.php:1529
+#: inc_php/manager/unitecreator_manager_addons.class.php:2353
+msgid "Edit Template Kit"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:831
+msgid "Duplicate "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1048
+#: inc_php/manager/unitecreator_manager_addons.class.php:2159
+#: views/objects/layouts_view.class.php:48
+#: views/objects/layouts_view.class.php:49
+msgid "Import "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1049
+msgid " export zip file (or files)"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1050
+#: views/objects/layouts_view.class.php:50
+msgid "Uploading "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1050
+msgid " file..."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1051
+#: inc_php/manager/unitecreator_manager_addons.class.php:1320
+#: views/objects/layouts_view.class.php:51
+msgid " Added Successfully"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1057
+msgid "Overwrite Existing "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1059
+msgid "Overwrite Widgets"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1095
+msgid "Import to Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1098
+msgid "[Autodetect]"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1099
+msgid "Current Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1121
+msgid " Log"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1151
+#: inc_php/manager/unitecreator_manager_addons.class.php:1541
+#: inc_php/manager/unitecreator_manager_addons.class.php:2361
+msgid "Quick Edit"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1205
+#: inc_php/manager/unitecreator_manager_inline.class.php:188
+msgid "Loading Settings"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1230
+msgid " Properties"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1239
+msgid "Loading Properties"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1246
+#: provider/provider_functions.class.php:694
+#: provider/provider_functions.class.php:697
+msgid "Update "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1248
+msgid " Updated"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1276
+#: views/objects/addon_view.class.php:321
+msgid " Title"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1309
+msgid " Description"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1319
+msgid "Adding "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1372
+msgid "Preview Template"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1373
+msgid "This import will overwrite the existing imported template. Continue?"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1395
+msgid "To Previous Template"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1397
+msgid "To Next Template"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1399
+msgid "Back To Catalog"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1409
+#: inc_php/manager/unitecreator_manager_addons.class.php:1418
+msgid "Import Template"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1412
+msgid "To get started click the \"Import Template\" button."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1413
+msgid ""
+"After import is completed the template will show under Elementor Saved "
+"Templates list for future use."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1419
+msgid "Import Template Again"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1442
+msgid "Template Imported Successfully"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1443
+msgid "Template Already Imported"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1447
+msgid "View Page"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1447
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:34
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:35
+msgid "View Template"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1448
+msgid "Edit With Elementor"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1454
+msgid "Create Page From Template"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1458
+msgid "Enter Page Name"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1459
+msgid "Create Page"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1487
+msgid ""
+"This template is available only for the PRO version users of Unlimited "
+"Elements plugin."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1491
+msgid "You can purchase a pro version here"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1523
+#: inc_php/manager/unitecreator_manager_addons.class.php:2350
+msgid "Edit In New Tab"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1535
+#: inc_php/manager/unitecreator_manager_addons.class.php:2356
+msgid "View Thumbnail"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1538
+#: inc_php/manager/unitecreator_manager_addons.class.php:2359
+msgid "Make Thumbnail"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1544
+#: inc_php/manager/unitecreator_manager_addons.class.php:2364
+msgid "Copy"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1550
+#: inc_php/manager/unitecreator_manager_addons.class.php:2369
+#: views/testaddon.php:38 views/objects/addon_view.class.php:1034
+msgid "Test "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1551
+#: inc_php/manager/unitecreator_manager_addons.class.php:2370
+msgid "Test In New Tab"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1554
+#: inc_php/manager/unitecreator_manager_addons.class.php:2373
+#: provider/core/plugins/create_addons/plugin.php:53
+#: provider/core/plugins/create_addons/plugin.php:124
+#: views/objects/addon_view.class.php:1038
+msgid "Export "
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1590
+msgid "Make Thumbnails"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1771
+msgid "All"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1834
+msgid "Category Title"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1835
+msgid "Category Name"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1836
+msgid "Category Icon"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1875
+msgid "Show Only Installed"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1887
+msgid "Search..."
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1894
+msgid "Search Widget"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1896
+msgid "Clear Search"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1922
+msgid "Show all states"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1923
+msgid "Active state only"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:1924
+msgid "Not active state only"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:2028
+msgid "Back To Category"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:2050
+msgid "Copied"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:2142
+#: inc_php/manager/unitecreator_manager_addons.class.php:2202
+msgid "Activate"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:2209
+msgid "Make Thumb"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:2210
+msgid "Make Thumbs"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_addons.class.php:2240
+#: views/objects/layouts_view.class.php:454
+msgid "Shortcode"
+msgstr ""
+
+#: inc_php/manager/unitecreator_manager_inline.class.php:141
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1268
+msgid "Add Images"
+msgstr ""
+
+#: provider/admin_notices.class.php:77
+msgid "Dismiss"
+msgstr ""
+
+#: provider/admin_notices.class.php:78
+msgid "Dismiss unlimited elements message"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:670
+msgid "[All Categories]"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:818
+msgid "Post ID"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:819
+msgid "Date"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:823
+msgid "Price (WooCommerce)"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:824
+msgid "Sale Price (WooCommerce)"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:827
+#: provider/functions_wordpress.class.php:862
+msgid "Slug"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:828
+msgid "Author"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:829
+msgid "Last Modified"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:830
+msgid "Number Of Comments"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:831
+msgid "Random"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:832
+msgid "Unsorted"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:833
+msgid "Menu Order"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:834
+msgid "Parent Post"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:835
+msgid "Custom Field Value"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:836
+msgid "Custom Field Value (numeric)"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:849
+msgid "Descending"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:850
+msgid "Ascending"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:863
+msgid "Term Group"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:864
+msgid "Term ID"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:866
+msgid "Parent"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:1908
+msgid "Big"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:1921
+msgid "Large (max width 1024)"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:1922
+msgid "Full"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:2223
+msgid "[All Roles]"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:2465
+#, php-format
+msgid "Network Admin: %s"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:2468
+#, php-format
+msgid "User Dashboard: %s"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:2475
+#, php-format
+msgid "%1$s &#8212; WordPress"
+msgstr ""
+
+#: provider/functions_wordpress.class.php:2478
+#, php-format
+msgid "%1$s &lsaquo; %2$s &#8212; WordPress"
+msgstr ""
+
+#: provider/provider_actions.class.php:31
+msgid "Layout Created, redirecting..."
+msgstr ""
+
+#: provider/provider_actions.class.php:36
+msgid "Updated"
+msgstr ""
+
+#: provider/provider_admin.class.php:299
+msgid "this view not allowed in the plugin"
+msgstr ""
+
+#: provider/provider_browser.class.php:21
+msgid "Activate Blox"
+msgstr ""
+
+#: provider/provider_browser.class.php:22
+msgid "This addon is available<br>when blox is activated."
+msgstr ""
+
+#: provider/provider_client_text.php:10
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:21
+msgid "Unlimited Elements"
+msgstr ""
+
+#: provider/provider_functions.class.php:456
+msgid "All rights reserved"
+msgstr ""
+
+#: provider/provider_functions.class.php:679
+msgid "Unlimited Elements Plugin"
+msgstr ""
+
+#: provider/provider_functions.class.php:689
+#: provider/provider_functions.class.php:731
+msgid "Update Plugin"
+msgstr ""
+
+#: provider/provider_functions.class.php:701
+msgid "To update the plugin please select the plugin install package."
+msgstr ""
+
+#: provider/provider_functions.class.php:704
+msgid "The files will be overwriten"
+msgstr ""
+
+#: provider/provider_functions.class.php:706
+msgid "File example: unlimited-elements0.x.x.zip"
+msgstr ""
+
+#: provider/provider_functions.class.php:710
+msgid "Post Max Size"
+msgstr ""
+
+#: provider/provider_functions.class.php:712
+msgid "Max Upload Size"
+msgstr ""
+
+#: provider/provider_functions.class.php:714
+msgid ""
+"You can change those settings in php.ini or contact your hosting provider"
+msgstr ""
+
+#: provider/provider_functions.class.php:724
+msgid "Choose the update file:"
+msgstr ""
+
+#: provider/provider_helper.class.php:329
+msgid "Page Name"
+msgstr ""
+
+#: provider/provider_operations.class.php:62
+msgid "[please select post]"
+msgstr ""
+
+#: provider/provider_params_processor.class.php:1041
+msgid "menu not selected"
+msgstr ""
+
+#: provider/provider_settings.class.php:66
+msgid "All Categories"
+msgstr ""
+
+#: provider/provider_settings.class.php:168
+msgid "All Roles"
+msgstr ""
+
+#: provider/provider_settings.class.php:171
+msgid "Select Roles"
+msgstr ""
+
+#: provider/provider_settings.class.php:188
+msgid "Exclude Roles"
+msgstr ""
+
+#: provider/provider_settings.class.php:211
+msgid "Select Menu"
+msgstr ""
+
+#: provider/provider_settings.class.php:215
+msgid "All Depths"
+msgstr ""
+
+#: provider/provider_settings.class.php:216
+msgid "1"
+msgstr ""
+
+#: provider/provider_settings.class.php:217
+msgid "2"
+msgstr ""
+
+#: provider/provider_settings.class.php:218
+msgid "3"
+msgstr ""
+
+#: provider/provider_settings.class.php:223
+msgid "Max Depth"
+msgstr ""
+
+#: provider/provider_settings.class.php:268
+msgid "Select Post Type"
+msgstr ""
+
+#: provider/provider_settings.class.php:286
+msgid "Select Taxonomy"
+msgstr ""
+
+#: provider/provider_settings.class.php:292
+msgid "Example: cat1,cat2"
+msgstr ""
+
+#: provider/provider_settings.class.php:293
+msgid "To exclude, enter comma saparated term slugs"
+msgstr ""
+
+#: provider/provider_settings.class.php:297
+msgid "Exclude Terms"
+msgstr ""
+
+#: provider/provider_settings.class.php:309
+#: provider/provider_settings.class.php:422
+#: provider/provider_settings.class.php:831
+msgid "Order By"
+msgstr ""
+
+#: provider/provider_settings.class.php:322
+#: provider/provider_settings.class.php:435
+msgid "Order Direction"
+msgstr ""
+
+#: provider/provider_settings.class.php:337
+#: provider/provider_settings.class.php:450
+msgid "Hide Empty"
+msgstr ""
+
+#: provider/provider_settings.class.php:357
+msgid "Example: cat1"
+msgstr ""
+
+#: provider/provider_settings.class.php:358
+msgid "Write parent category slug, if no parent leave empty"
+msgstr ""
+
+#: provider/provider_settings.class.php:362
+msgid "Parent Category"
+msgstr ""
+
+#: provider/provider_settings.class.php:369
+msgid "Don't Include"
+msgstr ""
+
+#: provider/provider_settings.class.php:370
+msgid "Include"
+msgstr ""
+
+#: provider/provider_settings.class.php:376
+msgid "Include Children"
+msgstr ""
+
+#: provider/provider_settings.class.php:388
+msgid "Exclude Category"
+msgstr ""
+
+#: provider/provider_settings.class.php:396
+msgid "Exclude"
+msgstr ""
+
+#: provider/provider_settings.class.php:397
+msgid "Don't Exclude"
+msgstr ""
+
+#: provider/provider_settings.class.php:403
+msgid "Exclude Uncategorized Category"
+msgstr ""
+
+#: provider/provider_settings.class.php:467
+msgid "No Background"
+msgstr ""
+
+#: provider/provider_settings.class.php:468
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:445
+msgid "Solid"
+msgstr ""
+
+#: provider/provider_settings.class.php:469
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:450
+msgid "Gradient"
+msgstr ""
+
+#: provider/provider_settings.class.php:486
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:465
+msgid "Solid Color"
+msgstr ""
+
+#: provider/provider_settings.class.php:493
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:477
+msgid "Gradient Color1"
+msgstr ""
+
+#: provider/provider_settings.class.php:494
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:483
+msgid "Gradient Color2"
+msgstr ""
+
+#: provider/provider_settings.class.php:592
+msgid "Current Query Posts"
+msgstr ""
+
+#: provider/provider_settings.class.php:593
+msgid "Custom Posts"
+msgstr ""
+
+#: provider/provider_settings.class.php:594
+msgid "Related Posts"
+msgstr ""
+
+#: provider/provider_settings.class.php:597
+msgid "Posts Source"
+msgstr ""
+
+#: provider/provider_settings.class.php:603
+msgid "Choose the source of the posts list"
+msgstr ""
+
+#: provider/provider_settings.class.php:645
+msgid "Post Types"
+msgstr ""
+
+#: provider/provider_settings.class.php:658
+msgid "Produts On Sale"
+msgstr ""
+
+#: provider/provider_settings.class.php:674
+msgid "Include By"
+msgstr ""
+
+#: provider/provider_settings.class.php:725
+msgid "Include By Terms"
+msgstr ""
+
+#: provider/provider_settings.class.php:742
+msgid "Include By Terms Relation"
+msgstr ""
+
+#: provider/provider_settings.class.php:751
+msgid "Include Terms Children"
+msgstr ""
+
+#: provider/provider_settings.class.php:764
+msgid "Current Post"
+msgstr ""
+
+#: provider/provider_settings.class.php:767
+msgid "Out Of Stock Products"
+msgstr ""
+
+#: provider/provider_settings.class.php:785
+msgid "Exclude By"
+msgstr ""
+
+#: provider/provider_settings.class.php:800
+msgid "100 posts if empty"
+msgstr ""
+
+#: provider/provider_settings.class.php:807
+msgid "Max Posts"
+msgstr ""
+
+#: provider/provider_settings.class.php:846
+msgid "&nbsp;&nbsp;Custom Field Name"
+msgstr ""
+
+#: provider/provider_settings.class.php:860
+msgid "&nbsp;&nbsp;Order By Direction"
+msgstr ""
+
+#: provider/provider_settings.class.php:875
+msgid "Query ID"
+msgstr ""
+
+#: provider/provider_settings.class.php:876
+msgid ""
+"Give your Query unique ID to been able to filter it in server side using "
+"add_filter() function"
+msgstr ""
+
+#: provider/provider_settings.class.php:880
+msgid ""
+"Give your Query unique ID to been able to filter it in server side using "
+"add_filter() function. This feature exists in a PRO Version only"
+msgstr ""
+
+#: provider/provider_settings.class.php:881
+msgid "Query ID (pro)"
+msgstr ""
+
+#: provider/provider_settings.class.php:893
+msgid ""
+"Show the query for debugging purposes. Don't forget to turn it off before "
+"page release"
+msgstr ""
+
+#: provider/provider_settings.class.php:895
+msgid "Show Query Debug"
+msgstr ""
+
+#: provider/provider_settings_output.class.php:74
+msgid "Please type post title"
+msgstr ""
+
+#: provider/provider_web_api.class.php:225
+msgid "Please enter page name"
+msgstr ""
+
+#: provider/woocommerce_integrate.class.php:368
+msgid "Product Name"
+msgstr ""
+
+#: provider/woocommerce_integrate.class.php:369
+msgid "Price"
+msgstr ""
+
+#: provider/core/plugins/create_addons/plugin.php:85
+msgid "Add Widget"
+msgstr ""
+
+#: provider/core/plugins/create_addons/plugin.php:99
+msgid "Export Category "
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_cpt.class.php:26
+msgid "Custom Post Types"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_cpt.class.php:28
+msgid "Custom Post Type"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor.class.php:28
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:97
+msgid "Widgets"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor.class.php:29
+#: views/objects/addon_view.class.php:1601
+msgid "Widget"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor.class.php:30
+msgid "Elementor Widget"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor_template.class.php:45
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:116
+msgid "Templates"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor_template.class.php:46
+msgid "Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor_template.class.php:47
+msgid "Elementor Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor_template.class.php:49
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:16
+msgid "Activate Plugin"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/addontype_elementor_template.class.php:50
+msgid "This template is available<br>when the plugin is activated."
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:24
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:57
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:727
+msgid "CSS Selector"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:27
+msgid "Example"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:31
+msgid ""
+"* This attribute generate css only within the css selectors, it don't have "
+"placeholder in the widget editor"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:44
+msgid "Example .my-price"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:51
+msgid "* You can use those placeholders: "
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:65
+msgid "CSS Selector Value"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:95
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:668
+msgid "Responsive Control"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:108
+msgid "Default Value - Tablet"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:115
+msgid "Default Value - Mobile"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:154
+msgid "Information about menu classes you can find here"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:156
+msgid "WP Menu Reference"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:171
+msgid "Use this attribute to get the WP Users List"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:179
+msgid "Include User Meta Data"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:186
+msgid "Include Avatar"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:214
+msgid "Enable SVG Select"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:221
+msgid "Put SVG as"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:225
+msgid "SVG Output"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:250
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:272
+msgid "Border Type"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:280
+msgid "Border Color"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:288
+msgid "Border Width"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:296
+msgid "Border Width - Tablet"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:304
+msgid "Border Width - Mobile"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:327
+msgid "VH"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:328
+msgid "PX, %"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:329
+msgid "PX, %, EM"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:330
+msgid "VH, PX"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:341
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:365
+msgid "Min"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:342
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:375
+msgid "Max"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:343
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:385
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:607
+msgid "Step"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:440
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:44
+msgid "None"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:516
+msgid "* The default value can be empty as well"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:555
+msgid "Example: .my-box"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:571
+msgid "Suffix"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:597
+msgid "Min Value"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:602
+msgid "Max Value"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:611
+msgid "* Those settings are for the attribute up and down arrows only."
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:631
+msgid "* You can use those placeholders: {{VALUE}} &nbsp; {{CURRENT_ITEM}}"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:674
+msgid " Default Values"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:680
+msgid "Desktop"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:693
+msgid "Tablet"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:703
+msgid "Mobile"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:738
+msgid "CSS Selector 2 (optional)"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:749
+msgid "CSS Selector 3 (optional)"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/dialog_param_elementor.class.php:755
+msgid ""
+"The selector that the typography field will be related to. Can be related to "
+"several html tags."
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:48
+msgid "I don't need the plugin anymore"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:52
+msgid "I found a better plugin that has the same features"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:53
+msgid ""
+"Do you mind writing us the name of the diffrent plugin you intend to use?"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:56
+msgid "It's a temporary deactivation"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:60
+msgid "I couldn't get the plugin to work"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:64
+msgid "I found to many bugs"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:69
+msgid "Other"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/feedback.class.php:70
+msgid "Please describe the reason you are deactivating the plugin"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:29
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:30
+msgid "Unlimited Elements Library"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:31
+msgid "Add New Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:32
+msgid "Edit Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:33
+msgid "New Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:36
+msgid "Search Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:37
+msgid "No Template Found"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:38
+msgid "No Template found in trash"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:39
+msgid "All Templates"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/helper_provider_core.class.php:63
+msgid "Unlimited Elements Template"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/plugin.php:32
+msgid "Unlimited Elements for Elementor"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:61
+msgid ""
+"The category name is unchangable, because of the addons consolidation, if "
+"changed it could break the layout."
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/provider_core_admin.class.php:125
+msgid "Upress License"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_background_widget.class.php:66
+msgid "No settings for this background"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:716
+msgid "[Not Background]"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:732
+msgid "Unlimited Background"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:739
+msgid "Background Type"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:748
+msgid "To install more backgrounds"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:749
+#: views/objects/addon_view.class.php:799
+msgid "click here"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:827
+msgid "Import Unlimited Elements Layout to Elementor"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:836
+msgid "Select vc layout export file (zip)"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:850
+#: views/objects/layouts_view.class.php:279
+msgid "Overwrite Addons"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:860
+msgid "Import VC Layout"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:861
+msgid "Uploading layout file..."
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:862
+msgid "Layout Imported Successfully"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:906
+msgid "Import Template With Images"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:909
+msgid ""
+"Choose an Elementor template .zip file, that you exported using \"export "
+"with images\" button"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:915
+msgid "Import Now"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_integrate.class.php:1132
+msgid "Export With Images"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_layout_exporter.class.php:417
+msgid "templates import failed"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_layout_exporter.class.php:423
+msgid "Imported Template: "
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:357
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1817
+msgid "Styles"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:538
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1376
+msgid "Yes"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:539
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1377
+#: views/objects/layouts_view.class.php:55
+#: views/objects/objects_list_view.class.php:132
+msgid "No"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:791
+msgid "Width"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1368
+msgid "Unlimited Elements Features"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1374
+msgid "Show Widget Data For Debug"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1380
+msgid ""
+"Show widget data for debugging purposes. Please remove this option when you "
+"releasing the widget"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1429
+msgid "Section "
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1539
+msgid "Products Query"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1541
+msgid "Posts Query"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/elementor_widget.class.php:1596
+msgid "Select Style"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:23
+msgid "Posts Pagination"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:30
+msgid ""
+"When turned on, the pagination will appear in archive pages only, and only "
+"if post source set to \"current query\" type"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:40
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:151
+msgid "Pagination"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:45
+msgid "Numbers"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:171
+msgid "Colors"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:182
+msgid "Normal"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:202
+msgid "Hover"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:222
+msgid "Active"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/pagination.class.php:244
+msgid "Space Between"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/elementor/controls/control_shape.php:50
+msgid "Choose Shape"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/addons_elementor.php:22
+msgid "Manage Widgets for Elementor"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/backgrounds.php:22
+msgid "Manage Background Widgets"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/custom_posttypes.php:22
+msgid "Manage Custom Post Types"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:22
+msgid "Activate Unlimited Elements Plugin UPress version"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:24
+msgid "Activate In UPress"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:42
+msgid "Paste your envato activation key here"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:50
+msgid ""
+"The activation key (product key) is located in <br> downloads section in "
+"CodeCanyon."
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:105
+msgid "Activate Unlimited Elements"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:109
+#: provider/views/provider_activation_view.class.php:25
+msgid "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:111
+msgid "Unleash access to +700 widgets for Elementor"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:141
+msgid "Unlimited Elements is activated lifetime for this site!"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:151
+#: views/license.php:22
+msgid " License"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:180
+msgid "The Unlimited Elements UPress license is active"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:185
+msgid "The Unlimited Elements UPress license is not active"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/licenseelementor.php:226
+msgid "Change License"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/svg_shapes.php:22
+msgid "Manage SVG Shapes"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/templates_elementor.php:22
+msgid "Manage Templates for Elementor"
+msgstr ""
+
+#: provider/core/plugins/unlimited_elements/views/templates_elementor.php:37
+msgid "Elementor Templates"
+msgstr ""
+
+#: provider/views/general_settings.php:15
+msgid "Theme Developers"
+msgstr ""
+
+#: provider/views/layout_outer.php:12
+msgid "New Page"
+msgstr ""
+
+#: provider/views/layout_outer.php:15
+msgid "Edit Page"
+msgstr ""
+
+#: provider/views/master_view.php:40
+msgid "Selected Image: "
+msgstr ""
+
+#: provider/views/master_view.php:77
+msgid "Selected Audio: "
+msgstr ""
+
+#: provider/views/master_view.php:83
+msgid "Select Audio"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:19
+#: provider/views/provider_activation_view.class.php:72
+#: views/objects/activation_view.class.php:39
+msgid "Activate Blox Pro"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:22
+msgid "Activate Blox Pro - Envato"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:24
+msgid "Paste your envato purchase code here <br> from the pro version item"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:30
+msgid ""
+"We used to sell this product in codecanyon.net <br> Activate from this "
+"screen only if you bought it there."
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:32
+msgid "You probably got your purchase code wrong"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:40
+msgid "Activate With Blox Key"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:42
+msgid "Don't have Envato Activation Key? "
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:56
+msgid "Activate With Envato Key"
+msgstr ""
+
+#: provider/views/provider_activation_view.class.php:59
+msgid "Have Envato Market Activation Key? "
+msgstr ""
+
+#: views/addondefaults.php:37
+msgid "Widget Defaults"
+msgstr ""
+
+#: views/assets.php:11
+msgid "Assets Manager"
+msgstr ""
+
+#: views/library.php:41 views/library.php:92
+#: views/objects/layouts_view.class.php:317
+#: views/objects/views_chooser.class.php:51
+msgid "My Addons"
+msgstr ""
+
+#: views/library.php:45 views/objects/views_chooser.class.php:55
+msgid "Page Templates"
+msgstr ""
+
+#: views/library.php:46
+msgid "Background Addons"
+msgstr ""
+
+#: views/library.php:65
+msgid "My Library"
+msgstr ""
+
+#: views/master_view.php:64
+msgid "Version Release Log. Current Version: "
+msgstr ""
+
+#: views/master_view.php:76
+msgid "Plugin version"
+msgstr ""
+
+#: views/master_view.php:78
+msgid "upress"
+msgstr ""
+
+#: views/master_view.php:82
+msgid "view change log"
+msgstr ""
+
+#: views/settings.php:21
+msgid "Change Log"
+msgstr ""
+
+#: views/objects/activation_view.class.php:41
+msgid "GO PRO"
+msgstr ""
+
+#: views/objects/activation_view.class.php:42
+msgid "Unleash access to +700 addons,"
+msgstr ""
+
+#: views/objects/activation_view.class.php:44
+msgid "+100 page templates and +50 section designs"
+msgstr ""
+
+#: views/objects/activation_view.class.php:46
+msgid "Paste your activation key here"
+msgstr ""
+
+#: views/objects/activation_view.class.php:49
+msgid "View our pricing plans"
+msgstr ""
+
+#: views/objects/activation_view.class.php:51
+msgid "Don't have a pro activation key?"
+msgstr ""
+
+#: views/objects/activation_view.class.php:53
+msgid "If you already purchased, get the key from my account?"
+msgstr ""
+
+#: views/objects/activation_view.class.php:54
+msgid "Go to My Account"
+msgstr ""
+
+#: views/objects/activation_view.class.php:57
+msgid "You probably got your activation code wrong"
+msgstr ""
+
+#: views/objects/activation_view.class.php:59
+#: views/objects/activation_view.class.php:188
+msgid "Your pro account is activated lifetime for this site"
+msgstr ""
+
+#: views/objects/activation_view.class.php:99
+msgid "Activating"
+msgstr ""
+
+#: views/objects/activation_view.class.php:161
+msgid "Ooops"
+msgstr ""
+
+#: views/objects/activation_view.class.php:161
+msgid "Activation Failed"
+msgstr ""
+
+#: views/objects/activation_view.class.php:164
+msgid "or contact our"
+msgstr ""
+
+#: views/objects/activation_view.class.php:164
+msgid "support center"
+msgstr ""
+
+#: views/objects/activation_view.class.php:174
+msgid "Hi Five"
+msgstr ""
+
+#: views/objects/activation_view.class.php:179
+msgid "DAYS"
+msgstr ""
+
+#: views/objects/activation_view.class.php:183
+msgid "Refresh page to View Your Pro Catalog"
+msgstr ""
+
+#: views/objects/activation_view.class.php:190
+msgid "Thank you for purchasing from us and good luck"
+msgstr ""
+
+#: views/objects/activation_view.class.php:208
+msgid "This pro version is active!"
+msgstr ""
+
+#: views/objects/activation_view.class.php:210
+msgid "Deactivate Pro Version"
+msgstr ""
+
+#: views/objects/activation_view.class.php:244
+msgid "Activate Your Pro Account"
+msgstr ""
+
+#: views/objects/addons_view.class.php:66
+msgid "Manage"
+msgstr ""
+
+#: views/objects/addon_view.class.php:103
+msgid "Enable Items"
+msgstr ""
+
+#: views/objects/addon_view.class.php:341
+msgid "Widget Type"
+msgstr ""
+
+#: views/objects/addon_view.class.php:394
+msgid "HTML"
+msgstr ""
+
+#: views/objects/addon_view.class.php:396
+#: views/objects/addon_view.class.php:889
+msgid "SVG Content"
+msgstr ""
+
+#: views/objects/addon_view.class.php:416
+msgid "Attributes"
+msgstr ""
+
+#: views/objects/addon_view.class.php:422
+msgid "Item Attributes"
+msgstr ""
+
+#: views/objects/addon_view.class.php:434
+msgid "CSS"
+msgstr ""
+
+#: views/objects/addon_view.class.php:440
+msgid "Javascript"
+msgstr ""
+
+#: views/objects/addon_view.class.php:446
+msgid "js/css Includes"
+msgstr ""
+
+#: views/objects/addon_view.class.php:452
+msgid "Assets"
+msgstr ""
+
+#: views/objects/addon_view.class.php:539
+msgid "Choose From Browser"
+msgstr ""
+
+#: views/objects/addon_view.class.php:544
+msgid "JS / Css Includes"
+msgstr ""
+
+#: views/objects/addon_view.class.php:558
+msgid "Libraries"
+msgstr ""
+
+#: views/objects/addon_view.class.php:585
+msgid "Include When:"
+msgstr ""
+
+#: views/objects/addon_view.class.php:595
+msgid "equals"
+msgstr ""
+
+#: views/objects/addon_view.class.php:621
+msgid "[not set]"
+msgstr ""
+
+#: views/objects/addon_view.class.php:634
+msgid " Assets Path: "
+msgstr ""
+
+#: views/objects/addon_view.class.php:636
+msgid "Set"
+msgstr ""
+
+#: views/objects/addon_view.class.php:637
+msgid "Unset"
+msgstr ""
+
+#: views/objects/addon_view.class.php:653
+msgid "expand"
+msgstr ""
+
+#: views/objects/addon_view.class.php:766
+#: views/objects/addon_view.class.php:1615
+msgid "Widget Title"
+msgstr ""
+
+#: views/objects/addon_view.class.php:769
+msgid "Widget Description"
+msgstr ""
+
+#: views/objects/addon_view.class.php:775
+msgid "Link to resource"
+msgstr ""
+
+#: views/objects/addon_view.class.php:777
+msgid "Widget Icon"
+msgstr ""
+
+#: views/objects/addon_view.class.php:795
+msgid "Powered by Twig Template Engine. "
+msgstr ""
+
+#: views/objects/addon_view.class.php:796
+msgid "show documentation"
+msgstr ""
+
+#: views/objects/addon_view.class.php:797
+msgid "To show code examples in right panel "
+msgstr ""
+
+#: views/objects/addon_view.class.php:886
+msgid " HTML"
+msgstr ""
+
+#: views/objects/addon_view.class.php:892
+msgid " Content"
+msgstr ""
+
+#: views/objects/addon_view.class.php:913
+msgid "Item HTML"
+msgstr ""
+
+#: views/objects/addon_view.class.php:926
+msgid "Item HTML 2"
+msgstr ""
+
+#: views/objects/addon_view.class.php:951
+msgid " CSS"
+msgstr ""
+
+#: views/objects/addon_view.class.php:960
+msgid "Item CSS"
+msgstr ""
+
+#: views/objects/addon_view.class.php:981
+msgid " Javascript"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1035 views/templates/test_addon.php:30
+msgid "Back To "
+msgstr ""
+
+#: views/objects/addon_view.class.php:1035 views/templates/test_addon.php:30
+msgid " List"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1036
+msgid " Defaults"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1081
+msgid "Update From Catalog"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1554
+msgid "Bulk Operations"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1599
+msgid "attribute"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1607
+msgid "Updating Addons"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1613
+msgid "Select All Addons"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1616
+msgid "Status"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1634
+msgid "not exists"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1636
+msgid "exists"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1668
+msgid "Add / Update in Widgets"
+msgstr ""
+
+#: views/objects/addon_view.class.php:1672
+msgid "Delete From Widgets"
+msgstr ""
+
+#: views/objects/addon_view_childparams.class.php:794
+msgid "Thumb (max width 300)"
+msgstr ""
+
+#: views/objects/addon_view_childparams.class.php:801
+msgid "Large (max width 780)"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:50
+msgid "  file..."
+msgstr ""
+
+#: views/objects/layouts_view.class.php:52
+msgid "My "
+msgstr ""
+
+#: views/objects/layouts_view.class.php:55
+#: views/objects/objects_list_view.class.php:132
+msgid "Found"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:56
+msgid "Are you sure to delete this ?"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:58
+msgid "Manage "
+msgstr ""
+
+#: views/objects/layouts_view.class.php:58
+msgid " Categories"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:59
+msgid " export file"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:210
+msgid "Filter"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:211
+msgid "Clear Filter"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:215
+msgid "Sort: "
+msgstr ""
+
+#: views/objects/layouts_view.class.php:235
+msgid "Set Category to Page"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:244
+msgid "Categories Message"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:461
+#: views/objects/objects_list_view.class.php:149
+msgid "Actions"
+msgstr ""
+
+#: views/objects/layouts_view.class.php:514
+#: views/objects/objects_list_view.class.php:190
+msgid "Export"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:71
+msgid "Size and Location"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:73
+msgid "Map Width"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:74
+msgid "Map Height"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:81
+msgid "Goto My Location"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:85
+msgid "Marker"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:99
+msgid "Marker Image"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:138
+msgid "Language and Controls"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:141
+msgid "Language"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:201
+msgid "For edit the map, please enter your google map API Key in"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:394
+msgid "No Map Chosen"
+msgstr ""
+
+#: views/objects/mappicker_view.class.php:405
+msgid "Choose Map"
+msgstr ""
+
+#: views/objects/objects_list_view.class.php:121
+#: views/objects/objects_list_view.class.php:237
+msgid "Are you sure you want to delete this"
+msgstr ""
+
+#: views/objects/settings_view.class.php:41
+msgid "Save Settings"
+msgstr ""
+
+#: views/system/video_dialog.php:11
+msgid "Add Media"
+msgstr ""
+
+#: views/system/video_dialog.php:16
+msgid "Loading Item Data..."
+msgstr ""
+
+#: views/system/video_dialog.php:23
+msgid "Choose video type"
+msgstr ""
+
+#: views/system/video_dialog.php:26
+msgid "Youtube"
+msgstr ""
+
+#: views/system/video_dialog.php:29
+msgid "Vimeo"
+msgstr ""
+
+#: views/system/video_dialog.php:32
+msgid "HTML5"
+msgstr ""
+
+#: views/system/video_dialog.php:35
+msgid "Wistia"
+msgstr ""
+
+#: views/system/video_dialog.php:50
+msgid "Enter Youtube ID or URL"
+msgstr ""
+
+#: views/system/video_dialog.php:73
+msgid "Enter Vimeo ID or URL"
+msgstr ""
+
+#: views/system/video_dialog.php:97
+msgid "Video MP4 Url"
+msgstr ""
+
+#: views/system/video_dialog.php:98 views/system/video_dialog.php:106
+#: views/system/video_dialog.php:113
+msgid "put example"
+msgstr ""
+
+#: views/system/video_dialog.php:105
+msgid "Video WEBM Url"
+msgstr ""
+
+#: views/system/video_dialog.php:112
+msgid "Video OGV Url"
+msgstr ""
+
+#: views/system/video_dialog.php:123
+msgid "Enter Wistia ID"
+msgstr ""
+
+#: views/system/video_dialog.php:150
+msgid "Preview Image Url"
+msgstr ""
+
+#: views/system/video_dialog.php:152
+msgid "Select new preview image"
+msgstr ""
+
+#: views/system/video_dialog.php:152 views/system/video_dialog.php:161
+msgid "change"
+msgstr ""
+
+#: views/system/video_dialog.php:159
+msgid "Thumb Image Url"
+msgstr ""
+
+#: views/system/video_dialog.php:161
+msgid "Select new thumb image"
+msgstr ""
+
+#: views/system/video_dialog.php:173
+msgid "Add Video"
+msgstr ""
+
+#: views/system/video_dialog.php:173
+msgid "Update Video"
+msgstr ""
+
+#: views/system/video_dialog.php:197
+msgid "Video not found or error occured. Please search again."
+msgstr ""
+
+#: views/templates/addon_defaults.php:39
+msgid "Save Defaults"
+msgstr ""
+
+#: views/templates/addon_defaults.php:40 views/templates/test_addon.php:56
+msgid "saving..."
+msgstr ""
+
+#: views/templates/addon_defaults.php:43 views/templates/test_addon.php:43
+msgid "To Preview"
+msgstr ""
+
+#: views/templates/addon_defaults.php:44 views/templates/test_addon.php:44
+msgid "Hide Preview"
+msgstr ""
+
+#: views/templates/addon_defaults.php:47 views/templates/test_addon.php:46
+msgid "Preview New Tab"
+msgstr ""
+
+#: views/templates/addon_defaults.php:51
+msgid "Edit This Widget"
+msgstr ""
+
+#: views/templates/addon_defaults.php:54
+msgid "Back to Widgets List"
+msgstr ""
+
+#: views/templates/test_addon.php:28
+msgid "Edit This "
+msgstr ""
+
+#: views/templates/test_addon.php:49
+msgid "Restore Data"
+msgstr ""
+
+#: views/templates/test_addon.php:50
+msgid "loading..."
+msgstr ""
+
+#: views/templates/test_addon.php:51
+msgid "Delete Data"
+msgstr ""
+
+#: views/templates/test_addon.php:55
+msgid "Save Data"
+msgstr ""

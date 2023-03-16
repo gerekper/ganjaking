@@ -27,7 +27,7 @@ class AteLockNotice implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 				'wpml-tm-ate-lock',
 				WPML_TM_URL . '/res/js/ate-api-lock-notification.js',
 				[],
-				WPML_TM_VERSION,
+				ICL_SITEPRESS_VERSION,
 				true
 			);
 		}

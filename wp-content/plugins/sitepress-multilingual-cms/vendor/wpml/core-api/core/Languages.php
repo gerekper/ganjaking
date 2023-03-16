@@ -16,6 +16,7 @@ use WPML\LIB\WP\User;
 use function WPML\FP\curryN;
 use function WPML\FP\pipe;
 use WPML\API\Settings;
+use WPML\FP\Invoker\BeforeAfter;
 
 /**
  * @method static callable|string getCodeByName( ...$name ) - Curried :: string->string
@@ -103,11 +104,11 @@ use WPML\API\Settings;
  * ]
  *```
  *
- * @method static array getDefaultCode()
+ * @method static string getDefaultCode()
  *
  * It returns a default language code.
  *
- * @method static array getCurrentCode()
+ * @method static string getCurrentCode()
  *
  * It returns a current language code.
  *
@@ -210,10 +211,17 @@ class Languages {
 
 		self::macro(
 			'getSecondaries',
-			pipe( [ self::class, 'getActive' ], Fns::reject( function( $lang ) { return Relation::propEq( 'code', self::getDefaultCode(), $lang ); } ) )
+			function() {
+				$activeLanguages = self::getActive();
+
+				return array_filter(
+					$activeLanguages,
+					Logic::complement( Relation::propEq( 'code', self::getDefaultCode() ) )
+				);
+			}
 		);
 
-		self::macro( 'getSecondaryCodes', pipe( [ self::class, 'getSecondaries' ], Lst::pluck( 'code' ) ) );
+		self::macro( 'getSecondaryCodes', pipe( [ self::class, 'getSecondaries' ], Lst::pluck( 'code' ), Obj::values() ) );
 
 		self::macro( 'getAll', function ( $userLang = false ) {
 			global $sitepress;
@@ -444,6 +452,32 @@ class Languages {
 		} else {
 			return $language;
 		}
+	}
+
+	/**
+	 * It lets you run a function in a specific language.
+	 *
+	 * ```php
+	 *  $result = Languages::whileInLanguage( 'de' )
+	 *		->invoke( 'my_function' )
+	 *		->runWith( 1, 2, 'some' );
+	 * ```
+	 *
+	 * @param string $lang
+	 *
+	 * @return BeforeAfter
+	 */
+	public static function whileInLanguage( $lang ) {
+		global $sitepress;
+		$old_lang = null;
+		$before = function() use ( &$old_lang, $sitepress, $lang ) {
+			$old_lang = $sitepress->get_current_language();
+			$sitepress->switch_lang( $lang );
+		};
+		$after = function() use ( $sitepress, &$old_lang ) {
+			$sitepress->switch_lang( $old_lang );
+		};
+		return BeforeAfter::of( $before, $after );
 	}
 }
 

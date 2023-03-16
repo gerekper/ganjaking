@@ -38,6 +38,8 @@ class WC_MS_Order {
 
 		// WC PIP
 		add_filter( 'woocommerce_pip_template_body', array( $this, 'pip_template_body' ), 10, 3 );
+
+		add_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'manipulate_needs_shipping' ), 10, 3 );
 	}
 
 	public function update_package_status() {
@@ -369,7 +371,7 @@ class WC_MS_Order {
 		}
 		?>
 
-		<p><strong><?php esc_html_e( 'This order ships to multiple addresses.', 'wc_shipping_multiple_address' ); ?></strong></p>
+		<h2><strong><?php esc_html_e( 'Shipping Addresses', 'wc_shipping_multiple_address' ); ?></strong></h2>
 		<table class="shop_table shipping_packages" cellspacing="0" cellpadding="6" style="<?php echo esc_attr( $table_style ); ?>">
 			<thead>
 				<tr>
@@ -395,9 +397,9 @@ class WC_MS_Order {
 			foreach ( $product_infos as $i => $info ) {
 				$info_text = $info['name'] . ' &times; ' . $info['qty'];
 
-				if ( ! empty( $info['meta'] ) ) {
-					$info_text .= '<br />' . $info['meta'];
-				}
+			if ( ! empty( $info['meta'] ) ) {
+				$info_text .= '<br />' . $info['meta'];
+			}
 
 				echo '<li>' . wp_kses( $info_text, $allowed_html ) . '</li>';
 			}
@@ -405,7 +407,14 @@ class WC_MS_Order {
 			echo '</ul></td>';
 
 			// Address.
-			echo '<td style="' . esc_attr( $td_style ) . '">' . wp_kses( $address, $allowed_html ) . '<br/><em>(' . esc_html( $method ) . ')</em></td>';
+			echo '<td style="' . esc_attr( $td_style ) . '">';
+				echo wp_kses( $address, $allowed_html ) . '<br/>';
+
+				if ( ! empty( $method ) ) {
+					echo '<em>(' . esc_html( $method ) . ')</em>';
+				}
+
+			echo '</td>';
 
 			do_action( 'wc_ms_shop_table_row', $package, $order_id );
 
@@ -1157,4 +1166,26 @@ class WC_MS_Order {
 		return array_merge( $hidden, array( '_wcms_cart_key' ) );
 	}
 
+	/**
+	 * Hide shipping address if order has multiple address.
+	 *
+	 * @param Boolean  $needs_shipping Whether the order need shipping or not.
+	 * @param Array    $hide List of shipping method that will hide the shipping address.
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return Boolean.
+	 */
+	public function manipulate_needs_shipping( $needs_shipping, $hide, $order ) {
+		if ( ! $order || ! is_view_order_page() ) {
+			return $needs_shipping;
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
+
+		if ( ! empty( $packages ) && 1 < count( $packages ) ) {
+			return false;
+		}
+
+		return $needs_shipping;
+	}
 }

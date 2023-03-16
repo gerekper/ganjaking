@@ -22,6 +22,7 @@ class Option {
 	const WHO_MODE = 'who-mode';
 	const TRANSLATE_EVERYTHING = 'translate-everything';
 	const TRANSLATE_EVERYTHING_COMPLETED = 'translate-everything-completed';
+	const TRANSLATE_EVERYTHING_IS_PAUSED = 'translate-everything-is-paused';
 	const TM_ALLOWED = 'is-tm-allowed';
 	const REVIEW_MODE = 'review-mode';
 
@@ -99,6 +100,18 @@ class Option {
 	/**
 	 * @return bool
 	 */
+	public static function isPausedTranslateEverything() {
+		return self::get( self::TRANSLATE_EVERYTHING_IS_PAUSED, false );
+	}
+
+	/** @param bool $state */
+	public static function setIsPausedTranslateEverything( $state ) {
+		self::set( self::TRANSLATE_EVERYTHING_IS_PAUSED, (bool) $state );
+	}
+
+	/**
+	 * @return bool
+	 */
 	public static function getTranslateEverything() {
 		return self::get( self::TRANSLATE_EVERYTHING, false );
 	}
@@ -144,7 +157,7 @@ class Option {
 	}
 
 	public static function shouldBeReviewed() {
-		return self::shouldTranslateEverything() && self::getReviewMode() !== self::NO_REVIEW;
+		return self::getReviewMode() !== self::NO_REVIEW;
 	}
 
 	/**

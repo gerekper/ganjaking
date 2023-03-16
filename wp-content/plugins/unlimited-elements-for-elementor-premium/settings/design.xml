@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fields>
+
+			<fieldset name="design" label="Design">
+				
+				<field name="shape_devider_chooser" 
+					type="radio"
+					default="top" 
+					label="unite_setting_notext"
+					special_design="true"
+					special_design_color="chooser">
+						<option value="top" text="Top Divider"></option>
+						<option value="bottom" text="Bottom Divider"></option>
+				</field>
+				
+				<field type="hr"></field>
+					  									
+					<field name="shape_devider_top_type" 
+						type="addon"
+						addontype="shape_devider"
+						default=""
+						label="unite_setting_notext"
+						noaddontitle="true"
+						description="Select The Divider">
+					</field>
+				    <field type="control" parent="shape_devider_chooser" child="shape_devider_top_type" ctype="show" value="top" />
+					
+				 	<field type="bulk_control_start" parent="shape_devider_top_type" ctype="hide" value="" />
+						
+						<field name="shape_devider_top_height" 
+							
+							type="range"
+							default="150"
+							min="20"
+							max="500"
+							step="1"
+							
+							label="Divider Top Height (px)"
+							showin="desktop"
+							description="The height of shape divider top">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_top_height" ctype="show" value="top" />
+						
+						<field name="shape_devider_top_height_tablet" 
+							
+							type="range"
+							default=""
+							min="20"
+							max="500"
+							step="1"
+					
+							label="Divider Top Height - Tablet"
+							showin="tablet"
+							unit="px" 
+							description="The height of shape divider top in tablet mode">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_top_height_tablet" ctype="show" value="top" />
+						
+						<field name="shape_devider_top_height_mobile" 
+							
+							type="range"
+							default=""
+							min="20"
+							max="500"
+							step="1"
+							
+							label="Divider Top Height - Mobile"
+							showin="mobile"
+							unit="px"
+							description="The height of shape divider top in mobile mode">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_top_height_mobile" ctype="show" value="top" />
+		
+						<field name="shape_devider_top_repeat" 
+							
+							type="range"
+							default="1"
+							min="1"
+							max="27"
+							step="1"
+					
+							label="Divider Top Repeat"
+							unit="X" 
+							description="The repeat of the top divider">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_top_repeat" ctype="show" value="top" />
+						
+						
+						<field name="shape_devider_top_autodetect_color"
+							type="boolean"
+							default="true"
+							label="Autodetect Color"
+							special_design="true"						
+							description="Autodetect color from background color from the interchanging elements">  
+						</field>
+				    	<field type="control" parent="shape_devider_chooser" child="shape_devider_top_autodetect_color" ctype="show" value="top" />
+						
+							
+						<field name="shape_devider_top_color"
+							type="color"
+							default=""
+							label="Divider Top Color"
+							description="Select the color of shape divider top">  
+						</field>
+				    	<field type="control" parent="shape_devider_chooser" child="shape_devider_top_color" ctype="show" value="top" />
+						<field type="control" parent="shape_devider_top_autodetect_color" child="shape_devider_top_color" ctype="show" value="false" />
+						
+						
+						<field name="shape_devider_top_flip"
+							type="boolean"
+							default="false"
+							label="Flip Horizontally"
+							special_design="true"							
+							description="Flip The Top Shape Horizontally">
+						</field>
+				    	<field type="control" parent="shape_devider_chooser" child="shape_devider_top_flip" ctype="show" value="top" />
+						
+						<field name="shape_devider_top_placement"
+							type="list"
+							default="beneath"
+							label="Divider Placement"
+							description="Choose if the devider will be above or beneath the content">
+								<option value="beneath" text="Under"></option>
+								<option value="above" text="Above"></option>
+						</field>
+				    	<field type="control" parent="shape_devider_chooser" child="shape_devider_top_placement" ctype="show" value="top" />
+				
+					<field type="bulk_control_end" />
+					
+			<!-- bottom shape devier -->
+				
+					<field name="shape_devider_bottom_type" 
+						type="addon"
+						addontype="shape_devider"
+						default="" 
+						label="unite_setting_notext"
+						noaddontitle="true"
+						description="Select The Divider">
+					</field>
+					<field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_type" ctype="show" value="bottom" />
+	
+				 	<field type="bulk_control_start" parent="shape_devider_bottom_type" ctype="hide" value="" />
+						
+						<field name="shape_devider_bottom_height" 
+						
+							type="range"
+							default="150"
+							min="20"
+							max="500"
+							step="1"
+							
+							label="Divider Bottom Height (px)"
+							showin="desktop"
+							description="The height of shape divider bottom">  
+						</field>
+						<field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_height" ctype="show" value="bottom" />
+
+						<field name="shape_devider_bottom_height_tablet" 
+							
+							type="range"
+							default=""
+							min="20"
+							max="500"
+							step="1"
+													
+							label="Divider Bottom Height - Tablet"
+							showin="tablet"
+							unit="px" 
+							description="The height of shape divider bottom in tablet mode">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_height_tablet" ctype="show" value="bottom" />
+						
+						<field name="shape_devider_bottom_height_mobile" 
+							
+							type="range"
+							default=""
+							min="20"
+							max="500"
+							step="1"
+							
+							label="Divider Bottom Height - Mobile"
+							showin="mobile"
+							unit="px"
+							description="The height of shape divider bottom in mobile mode">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_height_mobile" ctype="show" value="bottom" />
+
+						<field name="shape_devider_bottom_repeat" 
+							
+							type="range"
+							default="1"
+							min="1"
+							max="27"
+							step="1"
+					
+							label="Divider Bottom Repeat"
+							unit="X" 
+							description="The repeat of the bottom devider">  
+						</field>
+					    <field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_repeat" ctype="show" value="bottom" />
+						
+						
+						<field name="shape_devider_bottom_autodetect_color"
+							type="boolean"
+							default="true"
+							label="Autodetect Color"
+							special_design="true"
+							description="Autodetect color from background color from the interchanging elements">  
+						</field>
+						<field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_autodetect_color" ctype="show" value="bottom" />
+						
+						<field name="shape_devider_bottom_color"
+							type="color"
+							default=""
+							label="Divider Bottom Color"
+							description="Select the color of shape divider bottom">  
+						</field>
+						<field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_color" ctype="show" value="bottom" />
+						<field type="control" parent="shape_devider_bottom_autodetect_color" child="shape_devider_bottom_color" ctype="show" value="false" />
+						
+						
+						<field name="shape_devider_bottom_flip"
+							type="boolean"
+							default="false"
+							label="Flip Horizontally"
+							special_design="true"
+							description="Flip The Bottom Shape Horizontally">
+						</field>
+						<field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_flip" ctype="show" value="bottom" />
+	
+						<field name="shape_devider_bottom_placement"
+							type="list"
+							default="beneath"
+							label="Devider Placement"
+							description="Choose if the devider will be above or beneath the content">
+								<option value="beneath" text="Under"></option>
+								<option value="above" text="Above"></option>
+						</field>
+				    	<field type="control" parent="shape_devider_chooser" child="shape_devider_bottom_placement" ctype="show" value="bottom" />
+
+				<field type="bulk_control_end" />
+								
+				
+			</fieldset>
+			
+</fields>
+			

@@ -883,3 +883,28 @@ if ( ! function_exists( 'wpml_is_ajax' ) ) {
 		return ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && wpml_mb_strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest' ) ? true : false;
 	}
 }
+
+if ( ! function_exists( 'wpml_get_flag_file_name' ) ) {
+	/**
+	 * wpml_get_flag_file_name - Returns the SVG or PNG flag file name based on language code if it exists in '/res/flags/' dir.
+	 *
+	 * @param $lang_code
+	 *
+	 * @return string
+	 * @since 4.6.0
+	 *
+	 */
+	function wpml_get_flag_file_name( $lang_code ) {
+		if ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $lang_code . '.svg' ) ) {
+			$file = $lang_code . '.svg';
+		} elseif ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $lang_code . '.png' ) ) {
+			$file = $lang_code . '.png';
+		} elseif ( file_exists( WPML_PLUGIN_PATH . '/res/flags/nil.svg' ) ) {
+			$file = 'nil.svg';
+		} else {
+			$file = 'nil.png';
+		}
+
+		return $file;
+	}
+}

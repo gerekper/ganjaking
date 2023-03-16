@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -84,12 +84,12 @@ class WC_PIP_Print {
 			}
 
 			// Get the requested document type and order(s).
-			$type     = str_replace( '_', '-', $_GET['wc_pip_document'] );
+			$type     = str_replace( '_', '-', sanitize_text_field( $_GET['wc_pip_document'] ) );
 			$order_id = isset( $_GET['order_id'] ) ? (int) $_GET['order_id'] : 0;
 
 			// Get order IDs temporary option.
-			$order_ids_hash = isset( $_GET['order_ids'] ) ? $_GET['order_ids'] : '';
-			$order_ids      = empty( $order_ids_hash )    ? array()            : $this->get_print_order_ids( $order_ids_hash );
+			$order_ids_hash = isset( $_GET['order_ids'] ) ? sanitize_text_field( $_GET['order_ids'] ) : '';
+			$order_ids      = empty( $order_ids_hash ) ? array() : $this->get_print_order_ids( $order_ids_hash );
 
 			// Since this is not a transient, we delete it manually.
 			delete_option( "wc_pip_order_ids_{$order_ids_hash}" );

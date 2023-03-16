@@ -355,136 +355,186 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	 * @return String - the template, ready for substitutions to be carried out
 	 */
 	public function get_configuration_template() {
-		global $updraftplus, $updraftplus_checkout_embed;
 		
-		$checkout_embed_5gb_attribute = '';
-		$checkout_embed_15gb_attribute = '';
-		$checkout_embed_50gb_attribute = '';
-		$checkout_embed_250gb_attribute = '';
-		
-		if ($updraftplus_checkout_embed) {
-			$checkout_embed_5gb_attribute = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-5-gb') ? 'data-embed-checkout="'.apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-5-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings')).'"' : '';
-			$checkout_embed_15gb_attribute = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-15-gb') ? 'data-embed-checkout="'.apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-15-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings')).'"' : '';
-			$checkout_embed_50gb_attribute = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-50-gb') ? 'data-embed-checkout="'.apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-50-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings')).'"' : '';
-			$checkout_embed_250gb_attribute = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-250-gb') ? 'data-embed-checkout="'.apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-250-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings')).'"' : '';
-		}
-		
-		// Used to decide whether we can afford HTTP calls or not, or would prefer to rely on cached data
-		$this->vault_in_config_print = true;
-
-		$classes = $this->get_css_classes();
-		$template_str = '
-			<tr class="'.$classes.'">
-				<th><img id="vaultlogo" src="'.esc_attr(UPDRAFTPLUS_URL.'/images/updraftvault-150.png').'" alt="UpdraftPlus Vault" width="150" height="116"></th>
-				<td valign="top" id="updraftvault_settings_cell">';
-					global $updraftplus_admin;
-						
-					if (!class_exists('SimpleXMLElement')) {
-						$template_str .= $updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftPlus Vault', 'SimpleXMLElement'), 'updraftvault', false);
-					}
-					$template_str .= $updraftplus_admin->curl_check('UpdraftPlus Vault', false, 'updraftvault', false).'
+		ob_start();
+		?>
+			<tr class="{{get_template_css_classes true}}">
+				<th><img id="vaultlogo" src="{{storage_image_url}}" alt="{{method_display_name}}" width="150" height="116"></th>
+				<td valign="top" id="updraftvault_settings_cell">
+					{{{simplexmlelement_existence_label}}}
+					{{{curl_existence_label}}}
 					<div id="updraftvault_settings_default"{{#if is_connected}} style="display:none;" class="updraft-hidden"{{/if}}>
 						<p>
-							'.__('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus').'
+							{{{storage_long_description}}}
 						</p>
 						<div class="vault_primary_option clear-left">
-							<div><strong>'.__('Need to get space?', 'updraftplus').'</strong></div>
-							<button aria-label="'.__('Need to get space?', 'updraftplus').__('Show the options', 'updraftplus').'"id="updraftvault_showoptions" class="button-primary">'.__('Show the options', 'updraftplus').'</button>
+							<div><strong>{{storage_package_options_label1}}</strong></div>
+							<button aria-label="{{storage_package_options_label1}} {{storage_package_options_label2}}" id="updraftvault_showoptions" class="button-primary">{{storage_package_options_label2}}</button>
 						</div>
 						<div class="vault_primary_option">
-							<div><strong>'.__('Already got space?', 'updraftplus').'</strong></div>
-							<button aria-label="'.sprintf(__('Connect to your %s account', 'updraftplus'), 'UpdraftPlus Vault').'" id="updraftvault_connect" class="button-primary">'.__('Connect', 'updraftplus').'</button>
+							<div><strong>{{storage_already_registered_label1}}</strong></div>
+							<button aria-label="{{storage_already_registered_label2}}" id="updraftvault_connect" class="button-primary">{{storage_already_registered_label3}}</button>
 						</div>
 						<p>
-							<em>'.__("UpdraftPlus Vault is built on top of Amazon's world-leading data-centres, with redundant data storage to achieve 99.999999999% reliability.", 'updraftplus').'<a target="_blank" href="'.esc_attr($this->get_url('more_vault_info_landing')).'">'.sprintf(__('Read more about %s here.', 'updraftplus'), 'UpdraftPlus Vault').'</a> <a target="_blank" href="'.esc_attr($this->get_url('more_vault_info_faqs')).'">'.sprintf(__('Read the %s FAQs here.', 'updraftplus'), 'Vault').'</a></em>
+							<em>{{storage_long_description2}}<a target="_blank" href="{{more_vault_info_landing_url}}">{{storage_readmore_label}}</a> <a target="_blank" href="{{more_vault_info_faqs_url}}">{{storage_read_faq_label}}</a></em>
 						</p>
 					</div>
-				
-				<div id="updraftvault_settings_showoptions" style="display:none;" class="updraft-hidden">
-					<p>
-						'. __('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus').'</p>
-					<div class="vault-purchase-option-container">
-						<div class="vault-purchase-option">
-							<div class="vault-purchase-option-size">5 GB</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per year', 'updraftplus'), '$35').'</b></div>
-							<div class="vault-purchase-option-or">'.__('with the option of', 'updraftplus').'</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s month %s trial', 'updraftplus'), '1', '$1').'</b></div>
-							<div class="vault-purchase-option-link"><a target="_blank" title="'.sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '5GB').'" href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_5')).'" '.$checkout_embed_5gb_attribute.'><button aria-label="'.sprintf(__('Start %s Trial', 'updraftplus'), '5GB').'" class="button-primary">'.__('Start Trial', 'updraftplus').'</button></a></div>
+					<div id="updraftvault_settings_showoptions" style="display:none;" class="updraft-hidden">
+						<p>{{{storage_package_options_label3}}}</p>
+						<div class="vault-purchase-option-container">
+							<div class="vault-purchase-option">
+								<div class="vault-purchase-option-size">5 GB</div>
+								<div class="vault-purchase-option-link"><b>{{price_5gb_package_label}}</b></div>
+								<div class="vault-purchase-option-or">{{start_trial_option_label}}</div>
+								<div class="vault-purchase-option-link"><b>{{discounted_price_5gb_package_label}}</b></div>
+								<div class="vault-purchase-option-link"><a target="_blank" title="{{start_5gb_package_subscription_title}}" href="{{start_5gb_package_subscription_link}}" {{{checkout_embed_5gb_attribute}}}><button aria-label="{{start_trial_button_title}}" class="button-primary">{{start_trial_button_label}}</button></a></div>
+							</div>
+							<div class="vault-purchase-option">
+								<div class="vault-purchase-option-size">15 GB</div>
+								<div class="vault-purchase-option-link"><b>{{price_15gb_package_label}}</b></div>
+								<div class="vault-purchase-option-or">{{discount_period_label}}</div>
+								<div class="vault-purchase-option-link"><b>{{discounted_price_15gb_package_label}}</b></div>
+								<div class="vault-purchase-option-link"><a target="_blank" title="{{start_15gb_package_subscription_title}}" href="{{start_15gb_package_subscription_link}}" {{{checkout_embed_15gb_attribute}}}><button aria-label="{{start_15gb_subscription_button_title}}" class="button-primary">{{start_subscription_button_label}}</button></a></div>
+							</div>
+							<div class="vault-purchase-option">
+								<div class="vault-purchase-option-size">50 GB</div>
+								<div class="vault-purchase-option-link"><b>{{price_50gb_package_label}}</b></div>
+								<div class="vault-purchase-option-or">{{discount_period_label}}</div>
+								<div class="vault-purchase-option-link"><b>{{discounted_price_50gb_package_label}}</b></div>
+								<div class="vault-purchase-option-link"><a target="_blank" title="{{start_50gb_package_subscription_title}}" href="{{start_50gb_package_subscription_link}}" {{{checkout_embed_50gb_attribute}}}><button aria-label="{{start_50gb_subscription_button_title}}" class="button-primary">{{start_subscription_button_label}}</button></a></div>
+							</div>
+							<div class="vault-purchase-option">
+								<div class="vault-purchase-option-size">250 GB</div>
+								<div class="vault-purchase-option-link"><b>{{price_250gb_package_label}}</b></div>
+								<div class="vault-purchase-option-or">{{discount_period_label}}</div>
+								<div class="vault-purchase-option-link"><b>{{discounted_price_250gb_package_label}}</b></div>
+								<div class="vault-purchase-option-link"><a target="_blank" title="{{start_250gb_package_subscription_title}}" href="{{start_250gb_package_subscription_link}}" {{{checkout_embed_250gb_attribute}}}><button aria-label="{{start_250gb_subscription_button_title}}" class="button-primary">{{start_subscription_button_label}}</button></a></div>
+							</div>
 						</div>
-						<div class="vault-purchase-option">
-							<div class="vault-purchase-option-size">15 GB</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per quarter', 'updraftplus'), '$20').'</b></div>
-							<div class="vault-purchase-option-or">'.__('or (annual discount)', 'updraftplus').'</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per year', 'updraftplus'), '$70').'</b></div>
-							<div class="vault-purchase-option-link"><a target="_blank" title="'.sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '15GB').'" href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_15')).'" '.$checkout_embed_15gb_attribute.'><button aria-label="'.sprintf(__('Start %s Subscription', 'updraftplus'), '15GB').'" class="button-primary">'.__('Start Subscription', 'updraftplus').'</button></a></div>
-						</div>
-						<div class="vault-purchase-option">
-							<div class="vault-purchase-option-size">50 GB</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per quarter', 'updraftplus'), '$50').'</b></div>
-							<div class="vault-purchase-option-or">'.__('or (annual discount)', 'updraftplus').'</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per year', 'updraftplus'), '$175').'</b></div>
-							<div class="vault-purchase-option-link"><a target="_blank" title="'.sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '50GB').'" href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_50')).'" '.$checkout_embed_50gb_attribute.'><button aria-label="'.sprintf(__('Start %s Subscription', 'updraftplus'), '50GB').'" class="button-primary">'.__('Start Subscription', 'updraftplus').'</button></a></div>
-						</div>
-						<div class="vault-purchase-option">
-							<div class="vault-purchase-option-size">250 GB</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per quarter', 'updraftplus'), '$125').'</b></div>
-							<div class="vault-purchase-option-or">'.__('or (annual discount)', 'updraftplus').'</div>
-							<div class="vault-purchase-option-link"><b>'.sprintf(__('%s per year', 'updraftplus'), '$450').'</b></div>
-							<div class="vault-purchase-option-link"><a target="_blank" title="'.sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '250GB').'" href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_250')).'" '.$checkout_embed_250gb_attribute.'><button aria-label="'.sprintf(__('Start %s Subscription', 'updraftplus'), '250GB').'" class="button-primary">'.__('Start Subscription', 'updraftplus').'</button></a></div>
-						</div>
+						<p class="clear-left padding-top-20px">
+							{{subscription_payment_details_label}}
+						</p>
+						<p class="clear-left padding-top-20px">
+							<em>{{storage_long_description2}} <a target="_blank" href="{{more_vault_info_landing_url}}">{{storage_readmore_label}}</a> <a target="_blank" href="{{more_vault_info_faqs_url}}">{{storage_read_faq_label}}</a></em>
+						</p>
+						<p>
+							<a aria-label="{{go_back_link_label}}" href="{{current_clean_url}}" class="updraftvault_backtostart">{{go_back_link_text}}</a>
+						</p>
 					</div>
-					<p class="clear-left padding-top-20px">
-						'.__('Payments can be made in US dollars, euros or GB pounds sterling, via card or PayPal.', 'updraftplus').' '. __('Subscriptions can be cancelled at any time.', 'updraftplus').'
-					</p>
-					<p class="clear-left padding-top-20px">
-						<em>'.__("UpdraftPlus Vault is built on top of Amazon's world-leading data-centres, with redundant data storage to achieve 99.999999999% reliability.", 'updraftplus').' <a target="_blank" href="'.esc_attr($this->get_url('more_vault_info_landing')).'">'.sprintf(__('Read more about %s here.', 'updraftplus'), 'UpdraftPlus Vault').'</a> <a target="_blank" href="'.esc_attr($this->get_url('more_vault_info_faqs')).'">'.sprintf(__('Read the %s FAQs here.', 'updraftplus'), 'Vault').'</a></em>
-					</p>
-					<p>
-						<a aria-label="'.sprintf(__('Back to other %s options'), 'Vault').'" href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="updraftvault_backtostart">'.__('Back...', 'updraftplus').'</a>
-					</p>
-				</div>
-				<div id="updraftvault_settings_connect" data-instance_id="{{instance_id}}" style="display:none;" class="updraft-hidden">
-					<p>'.__('Enter your UpdraftPlus.Com email / password here to connect:', 'updraftplus').'</p>
-					<p>
-						<input title="'.sprintf(__('Please enter your %s email address', 'updraftplus'), 'UpdraftPlus.com').'" id="updraftvault_email" class="udignorechange" type="text" placeholder="'.esc_attr__('Email', 'updraftplus').'">
-						<input title="'.sprintf(__('Please enter your %s password', 'updraftplus'), 'UpdraftPlus.com').'" id="updraftvault_pass" class="udignorechange" type="password" placeholder="'.esc_attr__('Password', 'updraftplus').'">
-						<button title="'.sprintf(__('Connect to your %s'), 'Vault').'" id="updraftvault_connect_go" class="button-primary">'.__('Connect', 'updraftplus').'</button>
-					</p>
-					<p class="padding-top-14px">
-						<em>'.__("Don't know your email address, or forgotten your password?", 'updraftplus').' <a aria-label="'.__("Don't know your email address, or forgotten your password?", 'updraftplus').__('Follow this link for help', 'updraftplus').'" href="'.esc_attr($this->get_url('vault_forgotten_credentials_links')).'">'.__('Go here for help', 'updraftplus').'</a></em>
-					</p>
-					<p class="padding-top-14px">
-						<em><a aria-label="'.sprintf(__('Back to other %s options'), 'Vault').'" href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="updraftvault_backtostart">'.__('Back...', 'updraftplus').'</a></em>
-					</p>
-				</div>
-				<div id="updraftvault_settings_connected"{{#unless is_connected}} style="display:none;" class="updraft-hidden"{{/unless}}>
-					'.$this->get_connected_configuration_template().'
-				</div>
-			</td>
-		</tr>';
-		$this->vault_in_config_print = false;
-		return $template_str;
-	}
-
-	/**
-	 * Get the partial configuration template for connected html
-	 *
-	 * @return String - the partial template, ready for substitutions to be carried out
-	 */
-	public function get_connected_configuration_template() {
-		$ret = '{{#if is_connected}}
-					<p id="vault-is-connected">';
-			$ret .= __('This site is <strong>connected</strong> to UpdraftPlus Vault.', 'updraftplus').' '.__("Well done - there's nothing more needed to set up.", 'updraftplus').'</p><p><strong>'.__('Vault owner', 'updraftplus').':</strong> {{email}}';
-			$ret .= '<br><strong>'.__('Quota:', 'updraftplus').'</strong> ';
-			$ret .= '{{{quota_text}}}';
-			$ret .= '</p>';
-			$ret .= '<p><button id="updraftvault_disconnect" class="button-primary">'.__('Disconnect', 'updraftplus').'</button></p>';
-		$ret .= '{{else}}
-					<p>'.__('You are <strong>not connected</strong> to UpdraftPlus Vault.', 'updraftplus').'</p>	
-				{{/if}}';
-		return $ret;
+					<div id="updraftvault_settings_connect" data-instance_id="{{instance_id}}" style="display:none;" class="updraft-hidden">
+						<p>{{connect_to_updraftplus_label}}</p>
+						<p>
+							<input title="{{input_email_title}}" id="updraftvault_email" class="udignorechange" type="text" placeholder="{{input_email_placeholder}}">
+							<input title="{{input_password_title}}" id="updraftvault_pass" class="udignorechange" type="password" placeholder="{{input_password_placeholder}}">
+							<button title="{{button_connect_title}}" id="updraftvault_connect_go" class="button-primary">{{button_connect_label}}</button>
+						</p>
+						<p class="padding-top-14px">
+							<em>{{forgotten_password_label}} <a aria-label="{{forgotten_password_link_label}}" href="{{forgotten_password_link_url}}">{{forgotten_password_link_text}}</a></em>
+						</p>
+						<p class="padding-top-14px">
+							<em><a aria-label="{{go_back_link_label}}" href="{{current_clean_url}}" class="updraftvault_backtostart">{{go_back_link_text}}</a></em>
+						</p>
+					</div>
+					<div id="updraftvault_settings_connected"{{#unless is_connected}} style="display:none;" class="updraft-hidden"{{/unless}}>
+						{{#if is_connected}}
+							<p id="vault-is-connected">{{{site_is_already_connected_label}}}</p>
+							<p>
+								<strong>{{vault_owner_label}}:</strong> {{email}}
+								<br><strong>{{vault_quota_label}}</strong>
+								{{{quota_text}}}
+							</p>
+							<p><button id="updraftvault_disconnect" class="button-primary">{{button_disconnect_label}}</button></p>
+						{{else}}
+							<p>{{{vault_is_not_connected_label}}}</p>
+						{{/if}}
+					</div>
+				</td>
+			</tr>
+		<?php
+		return ob_get_clean();
 	}
 	
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus, $updraftplus_admin, $updraftplus_checkout_embed;
+		// Used to decide whether we can afford HTTP calls or not, or would prefer to rely on cached data
+		$this->vault_in_config_print = true;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/updraftvault-150.png',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftPlus Vault', 'SimpleXMLElement'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], false, $this->get_id().' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
+			'storage_long_description' => wp_kses(__('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'storage_package_options_label1' => __('Need to get space?', 'updraftplus'),
+			'storage_package_options_label2' => __('Show the options', 'updraftplus'),
+			'storage_already_registered_label1' => __('Already got space?', 'updraftplus'),
+			'storage_already_registered_label2' => sprintf(__('Connect to your %s account', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'storage_already_registered_label3' => __('Connect', 'updraftplus'),
+			'storage_long_description2' => __("UpdraftPlus Vault is built on top of Amazon's world-leading data-centres, with redundant data storage to achieve 99.999999999% reliability.", 'updraftplus'),
+			'storage_readmore_label' => sprintf(__('Read more about %s here.', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'storage_read_faq_label' => sprintf(__('Read the %s FAQs here.', 'updraftplus'), 'Vault'),
+			'more_vault_info_landing_url' => $this->get_url('more_vault_info_landing'),
+			'more_vault_info_faqs_url' => $this->get_url('more_vault_info_faqs'),
+			'storage_package_options_label3' => wp_kses(__('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'start_subscription_button_label' => __('Start Subscription', 'updraftplus'),
+			'start_15gb_subscription_button_title' => sprintf(__('Start %s Subscription', 'updraftplus'), '15GB'),
+			'start_50gb_subscription_button_title' => sprintf(__('Start %s Subscription', 'updraftplus'), '50GB'),
+			'start_250gb_subscription_button_title' => sprintf(__('Start %s Subscription', 'updraftplus'), '250GB'),
+			'start_trial_button_label' => __('Start Trial', 'updraftplus'),
+			'start_trial_button_title' => sprintf(__('Start %s Trial', 'updraftplus'), '5GB'),
+			'discount_period_label' => __('or (annual discount)', 'updraftplus'),
+			'start_trial_option_label' => __('with the option of', 'updraftplus'),
+			'price_5gb_package_label' => sprintf(__('%s per year', 'updraftplus'), '$35'),
+			'price_15gb_package_label' => sprintf(__('%s per quarter', 'updraftplus'), '$20'),
+			'price_50gb_package_label' => sprintf(__('%s per quarter', 'updraftplus'), '$50'),
+			'price_250gb_package_label' => sprintf(__('%s per quarter', 'updraftplus'), '$125'),
+			'discounted_price_5gb_package_label' => sprintf(__('%s month %s trial', 'updraftplus'), '1', '$1'),
+			'discounted_price_15gb_package_label' => sprintf(__('%s per year', 'updraftplus'), '$70'),
+			'discounted_price_50gb_package_label' => sprintf(__('%s per year', 'updraftplus'), '$175'),
+			'discounted_price_250gb_package_label' => sprintf(__('%s per year', 'updraftplus'), '$450'),
+			'start_5gb_package_subscription_title' => sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '5GB'),
+			'start_15gb_package_subscription_title' => sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '15GB'),
+			'start_50gb_package_subscription_title' => sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '50GB'),
+			'start_250gb_package_subscription_title' => sprintf(__('Start a %s UpdraftVault Subscription', 'updraftplus'), '250GB'),
+			'start_5gb_package_subscription_link' => apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_5')),
+			'start_15gb_package_subscription_link' => apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_15')),
+			'start_50gb_package_subscription_link' => apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_50')),
+			'start_250gb_package_subscription_link' => apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_250')),
+			'go_back_link_text' => __('Back...', 'updraftplus'),
+			'go_back_link_label' => sprintf(__('Back to other %s options'), 'Vault'),
+			'current_clean_url' => UpdraftPlus::get_current_clean_url(),
+			'subscription_payment_details_label' => __('Payments can be made in US dollars, euros or GB pounds sterling, via card or PayPal.', 'updraftplus').' '. __('Subscriptions can be cancelled at any time.', 'updraftplus'),
+			'connect_to_updraftplus_label' => __('Enter your UpdraftPlus.Com email / password here to connect:', 'updraftplus'),
+			'input_email_title' => sprintf(__('Please enter your %s email address', 'updraftplus'), 'UpdraftPlus.com'),
+			'input_email_placeholder' => __('Email', 'updraftplus'),
+			'input_password_title' => sprintf(__('Please enter your %s password', 'updraftplus'), 'UpdraftPlus.com'),
+			'input_password_placeholder' => __('Password', 'updraftplus'),
+			'button_connect_title' => sprintf(__('Connect to your %s'), 'Vault'),
+			'button_connect_label' => __('Connect', 'updraftplus'),
+			'forgotten_password_label' => __("Don't know your email address, or forgotten your password?", 'updraftplus'),
+			'forgotten_password_link_label' => __("Don't know your email address, or forgotten your password?", 'updraftplus').__('Follow this link for help', 'updraftplus'),
+			'forgotten_password_link_url' => $this->get_url('vault_forgotten_credentials_links'),
+			'forgotten_password_link_text' => __('Go here for help', 'updraftplus'),
+			'site_is_already_connected_label' => wp_kses(__('This site is <strong>connected</strong> to UpdraftPlus Vault.', 'updraftplus').' '.__("Well done - there's nothing more needed to set up.", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'vault_owner_label' => __('Vault owner', 'updraftplus'),
+			'vault_quota_label' => __('Quota:', 'updraftplus'),
+			'button_disconnect_label' => __('Disconnect', 'updraftplus'),
+			'vault_is_not_connected_label' => wp_kses(__('You are <strong>not connected</strong> to UpdraftPlus Vault.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+		);
+		if ($updraftplus_checkout_embed) {
+			$properties['checkout_embed_5gb_attribute'] = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-5-gb') ? 'data-embed-checkout="'.esc_attr(apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-5-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings'))).'"' : '';
+			$properties['checkout_embed_15gb_attribute'] = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-15-gb') ? 'data-embed-checkout="'.esc_attr(apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-15-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings'))).'"' : '';
+			$properties['checkout_embed_50gb_attribute'] = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-50-gb') ? 'data-embed-checkout="'.esc_attr(apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-50-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings'))).'"' : '';
+			$properties['checkout_embed_250gb_attribute'] = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-250-gb') ? 'data-embed-checkout="'.esc_attr(apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-250-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings'))).'"' : '';
+		}
+		$this->vault_in_config_print = false;
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
+	}
+
 	/**
 	 * Modifies handerbar template options
 	 *

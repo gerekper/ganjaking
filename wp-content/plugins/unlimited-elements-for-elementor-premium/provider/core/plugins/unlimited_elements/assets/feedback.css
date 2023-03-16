@@ -1,0 +1,33 @@
+.unlimited-elements--modal-open{overflow:hidden}
+.unlimited-elements--modal-open .unlimited-elements__collection-header,.unlimited-elements--modal-open .unlimited-elements__collection-content,.unlimited-elements--modal-open .unlimited-elements__collections-header,.unlimited-elements--modal-open .unlimited-elements__collections-content{-webkit-filter:blur(2px);filter:blur(2px)}
+.unlimited-elements__modal{position:fixed;top:0;left:0;right:0;height:100vh;background:rgba(14,14,14,0.79);z-index:900000}
+.unlimited-elements__modal-inner{position:fixed;left:400px;right:200px;margin-top:20vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;text-align:center}
+.unlimited-elements__modal-header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-top:-30px;width:100%;-webkit-align-content:space-between;-ms-flex-line-pack:justify;align-content:space-between}
+.unlimited-elements__modal-close{margin-left:auto;margin-right:0;width:40px;border:0;box-shadow:none;background:transparent;position:relative;cursor:pointer}
+.unlimited-elements__modal-close:before{font-family:dashicons;font-size:20px;content:"\f335"}
+.unlimited-elements__modal-inner-bg{border:1px solid #ccc;width:600px;border-radius:5px;background:#FFF;padding:40px 20px}
+.unlimited-elements__feedback-question{text-align:center;width:100%}
+.unlimited-elements__feedback-answers-wrap{width:344px;margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}
+.unlimited-elements__feedback-answer{margin:5px;display:inline-block;width:150px;height:150px;border:1px solid #ccc;text-align:center;text-decoration:none;font-size:20px;color:#777;border-radius:5px}
+.unlimited-elements__feedback-answer span{font-size:80px;display:block;margin-top:38px;margin-bottom:4px}
+.unlimited-elements__feedback-answer span img{width:45px;height:45px}
+.unlimited-elements__feedback-answer--yes:hover{background:#6ca12b;color:#FFF}
+.unlimited-elements__feedback-answer--no:hover{background:#b42f2c;color:#FFF}
+.unlimited-elements__modal--plugin-feedback *{box-sizing:border-box}
+.unlimited-elements__modal--plugin-feedback .unlimited-elements__modal-inner-bg{padding:0}
+.unlimited-elements__modal--plugin-feedback .unlimited-elements__modal-header{margin-top:0;padding:5px 30px;border-bottom:2px solid #efefef}
+.unlimited-elements__modal--plugin-feedback .unlimited-elements__modal-content{text-align:left;padding:5px 30px 20px}
+.unlimited-elements__modal--plugin-feedback .unlimited-elements-notice{padding:0;border:0;text-align:left}
+.unlimited-elements__modal--plugin-feedback h2{font-size:15px;font-weight:normal}
+.unlimited-elements__modal--plugin-feedback .elements-deact-text{display:none;padding:5px 0}
+.unlimited-elements__modal--plugin-feedback .elements-deact-text input{padding:5px;width:100%}
+.unlimited-elements__modal--plugin-feedback li{padding:3px 0}
+.unlimited-elements__modal--plugin-feedback [type="radio"]:checked ~ .elements-deact-text{display:block}
+.unlimited-elements__modal--plugin-feedback .unlimited-elements__disaable-buttons{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
+.unlimited-elements__modal--plugin-feedback .unlimited-elements__disable-submit{background-color:#7aac41;border-radius:3px;border:0;color:#fff;line-height:1;padding:12px 20px;font-size:13px;width:180px;height:38px;cursor:pointer !important}
+
+.unlimited-elements__modal--plugin-feedback .unlimited-elements__disable-skip{text-decoration:none;color:#a4afb7;padding-right:20px}
+
+@media screen and (max-width:782px){
+.unlimited-elements__modal-inner{left:10px;right:10px}
+}

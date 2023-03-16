@@ -14,11 +14,14 @@ use WPML\TM\API\Basket;
 use WPML\TM\API\Translators;
 use WPML\Element\API\Languages;
 use function WPML\FP\pipe;
+use function WPML\FP\System\sanitizeString;
 
 class WPML_TM_Jobs_List_Script_Data {
 
 	const TM_JOBS_PAGE = 'tm-jobs';
 	const TRANSLATION_QUEUE_PAGE = 'translation-queue';
+
+	private $exportAllToXLIFFLimit;
 
 	/** @var WPML_TM_Rest_Jobs_Language_Names */
 	private $language_names;
@@ -70,6 +73,12 @@ class WPML_TM_Jobs_List_Script_Data {
 			$translated_by_filters = new WPML_TM_Jobs_List_Translated_By_Filters( $services, $translators );
 		}
 
+		if ( ! defined( 'WPML_EXPORT_ALL_TO_XLIFF_LIMIT' ) ) {
+			define( 'WPML_EXPORT_ALL_TO_XLIFF_LIMIT', 1700 );
+		}
+
+		$this->exportAllToXLIFFLimit = WPML_EXPORT_ALL_TO_XLIFF_LIMIT;
+
 		$this->translated_by_filter = $translated_by_filters;
 		$this->translators          = $translators;
 		$this->services             = $services;
@@ -120,6 +129,7 @@ class WPML_TM_Jobs_List_Script_Data {
 				'nonce'               => wp_create_nonce( 'xliff-export' ),
 				'translationQueueURL' => UIPage::getTranslationQueue(),
 				'xliffDefaultVersion' => $tmXliffVersion > 0 ? $tmXliffVersion : 12,
+				'xliffExportAllLimit' => $this->exportAllToXLIFFLimit,
 			];
 
 			$data['hasTranslationServiceJobs'] = $this->hasTranslationServiceJobs();
@@ -196,9 +206,29 @@ class WPML_TM_Jobs_List_Script_Data {
 
 	private function getFiltersFromUrl() {
 		$filters = [];
+		$getProp = sanitizeString();
+
+		if ( Obj::propOr( false, 'element_type', $_GET ) ) {
+			$filters['element_type'] = $getProp( Obj::prop( 'element_type', $_GET ) );
+		}
+
+		if ( Obj::propOr( false, 'targetLanguages', $_GET ) ) {
+			$filters['targetLanguages'] = explode(
+				',',
+				urldecode(
+					$getProp(
+						Obj::prop( 'targetLanguages', $_GET )
+					)
+				)
+			);
+		}
 
 		if ( Obj::propOr( false, 'status', $_GET ) ) {
-			$filters['status'] = [ Obj::prop( 'status', $_GET ) ];
+			$filters['status'] = [ $getProp( Obj::prop( 'status', $_GET ) ) ];
+		}
+
+		if ( Obj::propOr( false, 'only_automatic', $_GET ) ) {
+			$filters['translated_by'] = 'automatic';
 		}
 
 		return $filters;

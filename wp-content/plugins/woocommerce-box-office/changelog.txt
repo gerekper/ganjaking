@@ -1,5 +1,9 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-03-15 - version 1.1.50
+* Add - Support for WooCommerce email templates for Ticket notifications.
+* Tweak - WC 7.5.0 compatibility.
+
 2023-03-13 - version 1.1.49
 * Dev - Set PHP minimum supported version to 7.2.
 * Tweak - Bump WooCommerce "tested up to" version 7.4.

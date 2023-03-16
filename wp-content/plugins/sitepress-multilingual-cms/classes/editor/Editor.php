@@ -181,7 +181,7 @@ class Editor {
 	 */
 	private function maybeSetReviewStatus( $jobObject ) {
 		if ( Relation::propEq( 'review_status', ReviewStatus::NEEDS_REVIEW, $jobObject->to_array() ) ) {
-			Jobs::setReviewStatus( $jobObject->get_id(), SetupOption::shouldTranslateEverything() ? ReviewStatus::EDITING : null );
+			Jobs::setReviewStatus( $jobObject->get_id(), SetupOption::shouldBeReviewed() ? ReviewStatus::EDITING : null );
 		}
 	}
 

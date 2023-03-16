@@ -19,19 +19,16 @@
             "Zurück"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Deaktivieren, um nach Abschluss der Überprüfung nicht automatisch die nächste Übersetzung zu laden."
+            "Schalten Sie dies aus, um nach Beenden dieser Überprüfung nicht automatisch die nächste Übersetzung zu laden."
          ],
-         "Turn on to automatically load the next translation after finishing this review.": [
-            "Aktivieren, um nach Abschluss der Überprüfung automatisch die nächste Übersetzung zu laden."
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Aktivieren Sie diese Option, um nach Abschluss dieser Übersetzung automatisch die nächste Übersetzung zu laden."
          ],
          "Edit": [
             "Bearbeiten"
          ],
          "Edit translation": [
             "Übersetzung bearbeiten"
-         ],
-         "There was an error in applying translation.": [
-            "Beim Übernehmen der Übersetzung ist ein Fehler aufgetreten."
          ],
          "Please wait, applying translation..": [
             "Bitte warten Sie, die Übersetzung wird übernommen ..."
@@ -48,8 +45,11 @@
          "Published!": [
             "Veröffentlicht!"
          ],
-         "Reviewing the next translation...": [
-            "Überprüfung der nächsten Übersetzung ..."
+         "Someone is already reviewing this translation. Please try again later.": [
+            "Jemand überprüft diese Übersetzung bereits. Bitte versuchen Sie es später erneut."
+         ],
+         "There was an error in applying translation.": [
+            "Beim Übernehmen der Übersetzung ist ein Fehler aufgetreten."
          ]
       }
    }

@@ -1,0 +1,23 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Flags must be:": [
+            "Os sinalizadores devem ser:"
+         ],
+         "PNG, SVG, or JPG files": [
+            "Arquivos PNG, SVG ou JPG"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 pixels"
+         ],
+         "Read more about ": [
+            "Leia mais sobre"
+         ]
+      }
+   }
+}

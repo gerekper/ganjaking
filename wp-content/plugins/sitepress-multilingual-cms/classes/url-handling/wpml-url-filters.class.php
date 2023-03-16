@@ -1,5 +1,6 @@
 <?php
 
+use WPML\FP\Relation;
 use \WPML\FP\Str;
 use \WPML\SuperGlobals\Server;
 
@@ -62,6 +63,8 @@ class WPML_URL_Filters {
 		if ( $this->has_wp_get_canonical_url() ) {
 			add_filter( 'get_canonical_url', array( $this, 'get_canonical_url_filter' ), 1, 2 );
 		}
+
+		add_action( 'current_screen', [ $this, 'permalink_options_home_url' ] );
 	}
 
 	public function add_global_hooks() {
@@ -262,6 +265,15 @@ class WPML_URL_Filters {
 	 */
 	public function get_canonical_url_filter( $canonical_url, $post ) {
 		return $this->canonicals->get_canonical_url( $canonical_url, $post, $this->get_request_language() );
+	}
+
+	/**
+	 * @param WP_Screen $current_screen
+	 */
+	public function permalink_options_home_url( $current_screen ) {
+		if ( Relation::propEq( 'id', 'options-permalink', $current_screen ) ) {
+			add_filter( 'wpml_get_home_url', 'untrailingslashit' );
+		}
 	}
 
 	/**

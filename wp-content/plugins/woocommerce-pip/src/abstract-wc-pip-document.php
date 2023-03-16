@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -1385,8 +1385,12 @@ abstract class WC_PIP_Document {
 		$item_taxes_html = [];
 
 		foreach ( array_keys( $this->get_line_tax_headers() ) as $tax_id ) {
-			$tax_value = wc_round_tax_total( $item_taxes[ $tax_id ], $round_at_subtotal ? wc_get_rounding_precision() : null );
-			$item_taxes_html[ $tax_id ] = isset( $item_taxes[ $tax_id ] ) ? '<span class="tax">' . wc_price( $tax_value, [ 'currency' => $this->order->get_currency() ] ) . '</span>' : '';
+			if ( ! isset( $item_taxes[ $tax_id ] ) ) {
+				$item_taxes_html[ $tax_id ] = '';
+			} else {
+				$tax_value = wc_round_tax_total( $item_taxes[ $tax_id ], $round_at_subtotal ? wc_get_rounding_precision() : null );
+				$item_taxes_html[ $tax_id ] = '<span class="tax">' . wc_price( $tax_value, [ 'currency' => $this->order->get_currency() ] ) . '</span>';
+			}
 		}
 
 		return $item_taxes_html;

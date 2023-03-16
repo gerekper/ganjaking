@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.7.1
+ * @version  8.7.4
  */
 class WC_CP_Compatibility {
 
@@ -303,6 +303,10 @@ class WC_CP_Compatibility {
 
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.
 		$module_paths[ 'taws_variation_swatches' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-taws-variation-swatches-compatibility.php';
+
+		if ( class_exists( 'AutomateWoo' ) ) {
+			$module_paths[ 'automatewoo' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-automatewoo-compatibility.php';
+		}
 
 		/**
 		 * 'woocommerce_composites_compatibility_modules' filter.

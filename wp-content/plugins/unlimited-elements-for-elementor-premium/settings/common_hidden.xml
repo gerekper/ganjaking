@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fields>
+	<fieldset name="common" label="Common Hidden" nodraw="true">
+
+				<field name="padding_top" 
+					type="text"
+					default=""
+					label="Row Padding Top"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="padding_bottom" 
+					type="text"
+					default=""
+					label="Row Padding Bottom"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="padding_left" 
+					type="text"
+					default=""
+					label="Row Padding Left"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="padding_right" 
+					type="text"
+					default=""
+					label="Row Padding Right"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="margin_top" 
+					type="text"
+					default=""
+					label="Margin Top"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="margin_bottom" 
+					type="text"
+					default=""
+					label="Margin Bottom"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_left" 
+					type="text"
+					default=""
+					label="Margin Left"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_right" 
+					type="text"
+					default=""
+					label="Margin Right"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<!-- *** TABLET SETTINGS *** -->
+
+				<field name="padding_top_tablet" 
+					type="text"
+					default=""
+					label="Row Tablet Padding Top"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="padding_bottom_tablet" 
+					type="text"
+					default=""
+					label="Row Tablet Padding Bottom"
+					nodraw="true"
+					unit="px"
+					placeholder="0">
+				</field>
+
+				<field name="padding_left_tablet" 
+					type="text"
+					default=""
+					label="Row Tablet Padding Left"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="padding_right_tablet" 
+					type="text"
+					default=""
+					label="Row Tablet Padding Right"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_top_tablet" 
+					type="text"
+					default=""
+					label="Margin Top - Tablet"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="margin_bottom_tablet" 
+					type="text"
+					default=""
+					label="Margin Bottom - Tablet"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_left_tablet" 
+					type="text"
+					default=""
+					label="Margin Left - Tablet"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_right_tablet" 
+					type="text"
+					default=""
+					label="Margin Right - Tablet"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<!-- *** MOBILE SETTINGS *** -->
+
+
+				<field name="padding_top_mobile" 
+					type="text"
+					default=""
+					label="Row Mobile Padding Top"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="padding_bottom_mobile" 
+					type="text"
+					default=""
+					label="Row Mobile Padding Bottom"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="padding_left_mobile" 
+					type="text"
+					default=""
+					label="Row Mobile Padding Left"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="padding_right_mobile" 
+					type="text"
+					default=""
+					label="Row Mobile Padding Right"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="margin_top_mobile" 
+					type="text"
+					default=""
+					label="Margin Top - Mobile"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+
+				<field name="margin_bottom_mobile" 
+					type="text"
+					default=""
+					label="Margin Bottom - Mobile"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_left_mobile" 
+					type="text"
+					default=""
+					label="Margin Left - Mobile"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+				<field name="margin_right_mobile" 
+					type="text"
+					default=""
+					label="Margin Right - Mobile"
+					unit="px"
+					nodraw="true"
+					placeholder="0">
+				</field>
+				
+						
+	</fieldset>						
+</fields>

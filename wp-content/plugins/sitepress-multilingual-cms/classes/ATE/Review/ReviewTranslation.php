@@ -7,12 +7,13 @@ use WPML\FP\Fns;
 use WPML\FP\Logic;
 use WPML\FP\Lst;
 use WPML\FP\Relation;
+use WPML\FP\Str;
 use WPML\LIB\WP\Hooks;
 use WPML\LIB\WP\Post;
 use WPML\Element\API\Post as WPMLPost;
 use WPML\TM\API\Jobs;
 use WPML\TM\API\Translators;
-use WPML\TM\WP\App\Resources;
+use WPML\Core\WP\App\Resources;
 use WPML\FP\Obj;
 use function WPML\FP\pipe;
 use function WPML\FP\spreadArgs;
@@ -92,6 +93,10 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 		return function ( $data ) {
 			$post  = Obj::prop( 'post', $data );
 			$jobId = filter_input( INPUT_GET, 'jobId', FILTER_SANITIZE_NUMBER_INT );
+			$filterTargetLanguages = Sanitize::stringProp('targetLanguages', $_GET)
+				? Str::split( ',', Sanitize::stringProp('targetLanguages', $_GET) ) : null;
+
+
 			if ( $jobId ) {
 				/**
 				 * This hooks is fired as soon as a translation review is about to be displayed.
@@ -115,7 +120,7 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 				show_admin_bar( false );
 
 				$enqueue = Resources::enqueueApp( 'translationReview' );
-				$enqueue( $this->getData( $jobId, $post ) );
+				$enqueue( $this->getData( $jobId, $post, $filterTargetLanguages ) );
 			}
 
 			return $post;
@@ -152,21 +157,21 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 	}
 
 
-	public function getData( $jobId, $post ) {
+	public function getData( $jobId, $post, $filterTargetLanguages ) {
 		$job = Jobs::get( $jobId );
-
-		$editUrl = \add_query_arg( [ 'preview' => 1 ], Jobs::getEditUrl( Jobs::getCurrentUrl(), $jobId ) );
 
 		return [
 			'name' => 'reviewTranslation',
 			'data' => [
-				'jobEditUrl'          => $editUrl,
-				'nextJobUrl'          => NextTranslationLink::get( $job ),
+				'jobEditUrl'          => $this->getEditUrl( $jobId ),
+				'nextJobUrl'          => NextTranslationLink::get( $job, $filterTargetLanguages ),
 				'jobId'               => (int) $jobId,
 				'postId'              => $post->ID,
 				'isPublished'         => Relation::propEq( 'post_status', 'publish', $post ) ? 1 : 0,
 				'needsReview'         => ReviewStatus::doesJobNeedReview( $job ),
 				'completedInATE'      => $this->isCompletedInATE( $_GET ),
+				'isReturningFromATE'  => (bool) Obj::prop( 'editFromReviewPage', $_GET ),
+				'clickedBackInATE'    => (bool) Obj::prop( 'back', $_GET ),
 				'needsUpdate'         => Relation::propEq( 'review_status', ReviewStatus::EDITING, $job ),
 				'previousTranslation' => Sanitize::stringProp( 'previousTranslation', $_GET ),
 				'backUrl'             => Obj::prop( 'returnUrl', $_GET ),
@@ -178,6 +183,11 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 		];
 	}
 
+	/**
+	 * @param array{complete_no_changes: string|null} $params
+	 *
+	 * @return string
+	 */
 	public function isCompletedInATE( $params ) {
 		$completedInATE = pipe(
 			Obj::prop( 'complete_no_changes' ),
@@ -190,5 +200,45 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 		);
 
 		return $completedInATE( $params );
+	}
+
+	/**
+	 * @param int $jobId
+	 *
+	 * @return string
+	 */
+	private function getEditUrl( $jobId ) {
+		return \add_query_arg( [ 'preview' => 1 ], Jobs::getEditUrl( $this->getReturnParamInEditUrl(), $jobId ) );
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getReturnParamInEditUrl() {
+		/**
+		 * Those are GET params which ATE may send when we return to the review page.
+		 * We don't want to include them in subsequent edit link.
+		 */
+		$ateParams = [
+			'back',
+			'complete_no_changes',
+			'ate_status',
+			'complete',
+			'in_progress',
+			'ate_original_id',
+			'ate_status',
+			'editFromReviewPage',
+		];
+
+		$returnParam = Jobs::getCurrentUrl();
+		$returnParam = \remove_query_arg( $ateParams, $returnParam );
+
+		/**
+		 * We need to add the `editFromReviewPage` param to the return URL to be able to detect that we are returning from ATE to the review page.
+		 * It is used to repeat the sync on "in-progress" status.
+		 */
+		$returnParam = \add_query_arg( [ 'editFromReviewPage' => 1 ], $returnParam );
+
+		return $returnParam;
 	}
 }

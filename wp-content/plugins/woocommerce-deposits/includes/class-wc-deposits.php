@@ -119,8 +119,6 @@ class WC_Deposits {
 
 			WC_Admin_Notices::add_custom_notice( 'woocommerce_deposits_activation', $notice_html );
 		}
-
-		flush_rewrite_rules();
 	}
 
 	/**
@@ -130,6 +128,8 @@ class WC_Deposits {
 	 */
 	public function deactivate() {
 		WC_Admin_Notices::remove_notice( 'woocommerce_deposits_activation' );
+		// Delete flush rewrite rules option to force a rewrite rules flush on next activation.
+		delete_option( 'woocommerce_deposits_flush_rewrite_rules' );
 	}
 
 	/**

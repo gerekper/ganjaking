@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+			<fieldset name="basic" label="Basic">
+				
+				<field name="section_title" 
+					type="text"
+					default=""
+					label="Section Title"
+					description="Give the title of the section">
+				</field>
+				
+				<field name="section_data" 
+					type="hidden"
+					label="Section Data"
+					default="">
+				</field>
+				
+				<field name="section_library_category" 
+					type="list"
+					default="new"
+					label="Save To Category"
+					modifytype="library_sections_categories"
+					description="The category in the library to save to">
+						<option value="new" text="[New Category]"></option>
+				</field>
+				
+				<field name="section_category_new" 
+					type="text"
+					default="New Category"
+					label="Create New Category"
+					description="Type the category to create">  
+				</field>
+				
+				<field type="hr"></field>
+				
+				<field name="section_create_thumbnail" 
+					type="checkbox"
+					default="true"
+					label="unite_setting_notext"					
+					text_near="Create Thumbnail"
+					description="Create thumbnail of the section after save">  
+				</field>
+				
+				<field name="section_overwrite" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"					
+					text_near="Overwrite If Exists"
+					description="Ovrwrite another section with same title if exists">  
+				</field>
+				
+				<field type="control" parent="section_library_category" child="section_category_new" ctype="show" value="new" />
+
+				<field name="save_section" 
+					type="custom"
+					custom_type="save_settings_tolibrary"
+					label="unite_setting_notext"
+					value=""
+					>  
+				</field>
+				
+				
+			</fieldset>
+			
+	</fields>

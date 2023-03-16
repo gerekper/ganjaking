@@ -19,10 +19,10 @@
             "رجوع"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "أوقف التشغيل لعدم تحميل الترجمة التالية تلقائيًا بعد الانتهاء من هذه المراجعة."
+            "أوقف تشغيل الخيار كي لا يتم تحميل الترجمة التالية تلقائيًا بعد استكمال هذه المراجعة."
          ],
-         "Turn on to automatically load the next translation after finishing this review.": [
-            "قم بتشغيل لتحميل الترجمة التالية تلقائيًا بعد الانتهاء من هذه المراجعة."
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "قم بتفعيل هذا الخيار لتحميل الترجمة التالية تلقائيًا بعد الانتهاء من هذه الترجمة."
          ],
          "Edit": [
             "تحرير"
@@ -30,14 +30,11 @@
          "Edit translation": [
             "تحرير الترجمة"
          ],
-         "There was an error in applying translation.": [
-            "حدث خطأ أثناء تطبيق الترجمة."
-         ],
          "Please wait, applying translation..": [
             "يُرجى الانتظار، جارٍ تطبيق الترجمة..."
          ],
          "Next review": [
-            "المراجعة القادمة"
+            "المراجعة التالية"
          ],
          "Publish this translation": [
             "نشر هذه الترجمة"
@@ -48,8 +45,11 @@
          "Published!": [
             "تم النشر!"
          ],
-         "Reviewing the next translation...": [
-            "جارٍ مراجعة الترجمة التالية..."
+         "Someone is already reviewing this translation. Please try again later.": [
+            "يقوم شخص ما بمراجعة هذه الترجمة بالفعل. يُرجى إعادة المحاولة لاحقًا."
+         ],
+         "There was an error in applying translation.": [
+            "حدث خطأ أثناء تطبيق الترجمة."
          ]
       }
    }

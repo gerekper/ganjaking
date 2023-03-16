@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+			<fieldset name="basic" label="Basic">
+
+				<field name="row_container_width" 
+					type="text"
+					default=""
+					label="Row Width"
+					unit="px / %"
+					description="The container width, could be number like 800 or percent like 100%">
+				</field>
+				
+				<field name="padding" 
+					type="custom"
+					custom_type="fourinputs"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Row Padding"
+					label_tablet="Row Padding - Tablet"
+					label_mobile="Row Padding - Mobile"
+					description_desktop="The padding or the row"
+					description_tablet="The padding or the row in tablet screen size (768px and less)"
+					description_mobile="The padding or the row in mobile screen size (less then 480)"
+					>
+				</field>
+
+				<field name="margin" 
+					type="custom"
+					custom_type="fourinputs"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Row Margin"
+					label_tablet="Row Margin - Tablet"
+					label_mobile="Row Margin - Mobile"
+					description_desktop="The margin or the row"
+					description_tablet="The margin or the row in tablet screen size (768px and less)"
+					description_mobile="The margin or the row in mobile screen size (less then 480)"
+					>
+				</field>
+
+				
+				<field name="col_gutter_draw" 
+					type="custom"
+					custom_type="inputwithsize"
+					prefix="col_gutter"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Column Gutter"
+					label_tablet="Column Gutter - Tablet"
+					label_mobile="Column Gutter - Mobile"
+					description_desktop="The padding left and right of the column"
+					description_tablet="The padding left and right of the column in tablet screen size (768px and less)"
+					description_mobile="The padding left and right of the column in mobile screen size (less then 480)"
+					>
+				</field>
+				
+				<field name="space_between_addons_draw" 
+					type="custom"
+					custom_type="inputwithsize"
+					prefix="space_between_addons"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Space Between Addons"
+					label_tablet="Space Between Addons - Tablet"
+					label_mobile="Space Between Addons - Mobile"
+					description_desktop="The vertical space between addons of the row"
+					description_tablet="The vertical space between addons of the row in tablet screen size (768px and less)"
+					description_mobile="The vertical space between addons of the row in mobile screen size (less then 480)"
+					>
+				</field>
+				
+				<field name="col_gutter" 
+					type="text"
+					default="" 
+					label="Column Gutter"
+					unit="px"
+					nodraw="true"
+					type_number="true"
+					description="The padding left and right of the column">
+				</field>
+				
+				<field name="space_between_addons" 
+					type="text"
+					default=""
+					label="Space Between Addons"
+					nodraw="true"
+					unit="px"
+					type_number="true"
+					description="The vertical space between addons of the row">
+				</field>
+				
+				<!-- *** TABLET SETTINGS *** -->
+				
+				<field name="col_gutter_tablet" 
+					type="text"
+					default="" 
+					label="Column Gutter Tablet"
+					unit="px"
+					nodraw="true"
+					type_number="true"
+					description="The padding left and right of the column in tablet page size">
+				</field>
+				
+				<field name="space_between_addons_tablet" 
+					type="text"
+					default=""
+					label="Space Between Addons Tablet"
+					unit="px"
+					nodraw="true"
+					type_number="true"
+					description="The vertical space between addons of the row in tablet screen size (768px and less)">
+				</field>
+				
+				<!-- *** MOBILE SETTINGS *** -->
+							
+				<field name="col_gutter_mobile" 
+					type="text"
+					default="" 
+					label="Column Gutter Mobile"
+					unit="px"
+					nodraw="true"
+					type_number="true"
+					description="The padding left and right of the column in mobile page size">
+				</field>
+				
+				<field name="space_between_addons_mobile" 
+					type="text"
+					default=""
+					label="Space Between Addons Mobile"
+					unit="px"
+					nodraw="true"
+					type_number="true"
+					description="The vertical space between addons of the row in mobile screen size (less then 480)">
+				</field>
+								
+								
+			</fieldset>
+		
+			<fieldset name="columns_layout" label="Columns Layout">
+				
+				<field name="col_layout" 
+					   type="custom"
+					   custom_type="cols-layout"
+					   default=""
+					   label="unite_setting_notext">
+				</field>
+						
+			</fieldset>						
+			
+			<fieldset name="background" label="Background" loadfrom="background" ></fieldset>						
+			
+			<fieldset name="common_hidden" loadfrom="common_hidden"></fieldset>		
+			
+			<fieldset name="advanced_settings" label="Advanced">
+				
+				<field name="container_class" 
+					type="text"
+					default=""
+					label="Row Css Class"
+					description="additional css class of the row">
+				</field>
+				
+				<field name="container_css" 
+					type="textarea"
+					default=""
+					label="Row Add Css"
+					description="Any css you want to add to row div">
+				</field>
+				
+				<field name="container_css_tablet" 
+					type="textarea"
+					default=""
+					showin="tablet"
+					label="Row Add Css - Tablet Only"
+					description="Any css you want to add to row div in tablet screen size">
+				</field>
+				
+				<field name="container_css_mobile" 
+					type="textarea"
+					default=""
+					label="Row Add Css - Mobile Only"
+					showin="mobile"
+					description="Any css you want to add to row div in mobile screen size">
+				</field>
+				
+				
+			</fieldset>
+			
+			<fieldset name="animation" label="Animation" loadfrom="animation"></fieldset>
+					
+</fields>

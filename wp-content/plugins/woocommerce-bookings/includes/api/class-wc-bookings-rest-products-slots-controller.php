@@ -300,9 +300,12 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 		}, $booked_data ) );
 
 		// Sort by date.
-		usort( $cached_availabilities, function( $a, $b ) {
-			return $a[self::DATE] > $b[self::DATE];
-		} );
+		usort(
+			$cached_availabilities,
+			function( $a, $b ) {
+				return $a[ self::DATE ] <=> $b[ self::DATE ];
+			}
+		);
 
 		// This transient should be cleared when booking or products are added or updated but keep it short just in case.
 		WC_Bookings_Cache::set( $transient_name, $cached_availabilities, HOUR_IN_SECONDS );

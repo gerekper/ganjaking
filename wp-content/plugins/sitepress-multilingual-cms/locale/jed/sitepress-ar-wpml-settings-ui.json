@@ -16,13 +16,13 @@
             "لا، أرغب في ترجمة بعض هذه المقالات، وليس جميعها"
          ],
          "You must use the Advanced Translation Editor if you want to translate your content automatically.": [
-            "يجب عليك استخدام محرر الترجمة المتقدم إذا كنت تريد ترجمة المحتوى الخاص بك تلقائيًا."
+            "يجب عليك استخدام محرر الترجمة المتقدم إذا كنت ترغب في ترجمة محتواك آليًا."
          ],
          "Synchronize translators and translation managers with ATE": [
-            "مزامنة المترجمين ومديري الترجمة مع ATE"
+            "مزامنة المترجمين ومديري الترجمة مع محرر الترجمة المتقدم"
          ],
          "Please try again in a few minutes. If the problem persists, please contact %sWPML support%s.": [
-            "يرجى المحاولة مرة أخرى خلال بضع دقائق. إذا استمرت المشكلة، يرجى الاتصال بـ %sدعم WPML%s."
+            "يُرجى إعادة المحاولة بعد عدة دقائق. إذا استمرت المشكلة، يُرجى التواصل مع %sدعم WPML%s."
          ],
          "Save": [
             "حفظ"
@@ -37,7 +37,7 @@
             "هل أنت موافق على الدفع للحصول على هذا؟"
          ],
          "Cancel": [
-            "الغ"
+            "إلغاء"
          ],
          "Make translatable": [
             "جعله قابلًا للترجمة"

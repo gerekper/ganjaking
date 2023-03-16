@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<fields>
+			<fieldset name="basic" label="Basic">
+				
+				<field name="row_container_width" 
+					type="text"
+					default=""
+					label="Section Rows Width"
+					unit="px / %"
+					description="The width of the rows inside the section">
+				</field>
+				
+				<field name="col_gutter_draw" 
+					type="custom"
+					custom_type="inputwithsize"
+					prefix="col_gutter"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Column Gutter"
+					label_tablet="Column Gutter - Tablet"
+					label_mobile="Column Gutter - Mobile"
+					description_desktop="The padding left and right of the column"
+					description_tablet="The padding left and right of the column in tablet screen size (768px and less)"
+					description_mobile="The padding left and right of the column in mobile screen size (less then 480)"
+					>
+				</field>
+				
+				<field name="col_gutter" 
+					type="text"
+					default="" 
+					label="Column Gutter"
+					unit="px"
+					nodraw="true"
+					description="The padding left and right of the column">
+				</field>
+	
+				
+				<field name="row_padding"
+					type="custom"
+					prefixmobile="padding"
+					custom_type="fourinputs"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Section Padding"
+					label_tablet="Section Padding - Tablet"
+					label_mobile="Section Padding - Mobile"
+					description_desktop="The padding or the section"
+					description_tablet="The padding or the section in tablet screen size (768px and less)"
+					description_mobile="The padding or the section in mobile screen size (less then 480)"
+					>
+				</field>
+
+				<field name="row_margin"
+					type="custom"
+					prefixmobile="margin"
+					custom_type="fourinputs"
+					onlytopbottom="true"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Section Margin"
+					label_tablet="Section Margin - Tablet"
+					label_mobile="Section Margin - Mobile"
+					description_desktop="The margin or the section"
+					description_tablet="The margin or the section in tablet screen size (768px and less)"
+					description_mobile="The margin or the section in mobile screen size (less then 480)"
+					>
+				</field>
+				
+				<field name="space_between_addons_draw" 
+					type="custom"
+					custom_type="inputwithsize"
+					prefix="space_between_addons"
+					default=""
+					sizes="all"
+					label="unite_setting_notext"
+					label_desktop="Space Between Addons"
+					label_tablet="Space Between Addons - Tablet"
+					label_mobile="Space Between Addons - Mobile"
+					description_desktop="The vertical space between addons of the section"
+					description_tablet="The vertical space between addons of the section in tablet screen size (768px and less)"
+					description_mobile="The vertical space between addons of the section in mobile screen size (less then 480)"
+					>
+				</field>
+				
+				<field name="space_between_addons" 
+					type="text"
+					default=""
+					label="Space Between Addons"
+					unit="px"
+					nodraw="true"
+					description="The vertical space between addons of the section">
+				</field>
+				
+				<field type="hr"></field> 
+				
+				<field name="hide_in_desktop" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"
+					text_near="Hide In Desktop"
+					description="Hide the row in desktop (width more then 768px)"
+					>
+				</field>
+				
+				<field name="hide_in_tablet" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"
+					text_near="Hide In Tablet"
+					description="Hide In Tablet (width less then 768px and more then 480px)"
+					>
+				</field>
+
+				<field name="hide_in_mobile" 
+					type="checkbox"
+					default="false"
+					label="unite_setting_notext"
+					text_near="Hide In Mobile"
+					description="Hide In Mobile (width less then 480px)"
+					>
+				</field>
+				
+				
+				<!-- Size related settings - showin in the complex draw -->
+				
+				<field name="col_gutter_tablet" 
+					type="text"
+					default="" 
+					label="Column Gutter Tablet"
+					unit="px"
+					nodraw="true"
+					description="The padding left and right of the column in tablet page size">
+				</field>
+				
+				<field name="space_between_addons_tablet" 
+					type="text"
+					default=""
+					label="Space Between Addons Tablet"
+					unit="px"
+					nodraw="true"
+					description="The vertical space between addons of the row in tablet page size">
+				</field>
+				
+				<field name="col_gutter_mobile" 
+					type="text"
+					default="" 
+					label="Column Gutter Mobile"
+					unit="px"
+					nodraw="true"					
+					description="The padding left and right of the column in mobile page size">
+				</field>
+				
+				<field name="space_between_addons_mobile" 
+					type="text"
+					default=""
+					label="Space Between Addons Mobile"
+					unit="px"
+					nodraw="true"					
+					description="The vertical space between addons of the row in mobile page size">
+				</field>
+				
+			</fieldset>
+			
+			<fieldset name="design" label="Design" loadfrom="design"></fieldset>						
+			
+			<fieldset name="background" label="Background" loadfrom="background" loadtype="row_bg"></fieldset>						
+						
+			<fieldset name="common_hidden" loadfrom="common_hidden" loadparam="layout_row"></fieldset>		
+			
+			
+			<fieldset name="advanced_settings" label="Advanced">
+	
+				<field name="row_id" 
+					type="text"
+					default=""
+					label="Section ID For Anchor"
+					description="If this option set up, the ID will be added to row in the front end, and you could connect with your custom site menu system">
+				</field>
+			
+				<field name="row_class" 
+					type="text"
+					default=""
+					label="Section Css Class"
+					description="additional css class of the row">
+				</field>
+										
+				<field name="row_css" 
+					type="textarea"
+					default=""
+					label="Section Additional CSS"
+					description="Any css you want to add to row div">
+				</field>
+				
+				<field name="row_css_tablet" 
+					type="textarea"
+					default=""
+					showin="tablet"
+					label="Section Additional CSS - Tablet"
+					description="Any css you want to add to row div in the tablet size only">
+				</field>
+				
+				<field name="row_css_mobile" 
+					type="textarea"
+					default=""
+					showin="mobile"
+					label="Section Additional CSS - Mobile"
+					description="Any css you want to add to row div in the mobile size only">
+				</field>
+				
+				<field name="row_container_css" 
+					type="textarea"
+					default=""
+					label="Section Row Css"
+					description="Any css you want to add to rows inside the section div">
+				</field>
+				
+									
+			</fieldset>
+			
+			<fieldset name="animation" label="Animation" loadfrom="animation"></fieldset>						
+	</fields>

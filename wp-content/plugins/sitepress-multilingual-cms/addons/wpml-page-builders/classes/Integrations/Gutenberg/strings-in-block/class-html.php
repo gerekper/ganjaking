@@ -8,12 +8,14 @@ use WPML\PB\Gutenberg\StringsInBlock\DOMHandler\DOMHandle;
 use WPML\PB\Gutenberg\StringsInBlock\DOMHandler\HtmlBlock;
 use WPML\PB\Gutenberg\StringsInBlock\DOMHandler\StandardBlock;
 use WPML\PB\Gutenberg\StringsInBlock\DOMHandler\ListBlock;
+use WPML\PB\Gutenberg\StringsInBlock\DOMHandler\ListItemBlock;
 use WPML\PB\Gutenberg\XPath;
 
 class HTML extends Base {
 
-	const LIST_BLOCK_NAME = 'core/list';
-	const HTML_BLOCK_NAME = 'core/html';
+	const LIST_BLOCK_NAME      = 'core/list';
+	const LIST_ITEM_BLOCK_NAME = 'core/list-item';
+	const HTML_BLOCK_NAME      = 'core/html';
 
 	/**
 	 * @param \WP_Block_Parser_Block $block
@@ -107,49 +109,6 @@ class HTML extends Base {
 	}
 
 	/**
-	 * This is required when a block has innerBlocks and translatable content at the root.
-	 * Unfortunately we cannot use the DOM because we have only HTML extracts which
-	 * are not valid taken independently.
-	 *
-	 * {@internal
-	 *          innerContent => [
-	 *              '<div><p>The title</p>',
-	 *              null,
-	 *              '\n\n',
-	 *              null,
-	 *              '</div>'
-	 *          ]}
-	 *
-	 * @param \WP_Block_Parser_Block $block
-	 * @param \DOMNode               $element
-	 * @param string                 $translation
-	 *
-	 * @return \WP_Block_Parser_Block
-	 */
-	public static function update_string_in_innerContent( \WP_Block_Parser_Block $block, \DOMNode $element, $translation ) {
-		if ( empty( $block->innerContent ) || empty( $element->nodeValue ) ) {
-			return $block;
-		}
-
-		if ( $element instanceof \DOMAttr ) {
-			$search_value = preg_quote( esc_attr( $element->nodeValue ), '/' );
-			$search       = '/(")(' . $search_value . ')(")/';
-			$translation  = esc_attr( $translation );
-		} else {
-			$search_value = preg_quote( $element->nodeValue, '/' );
-			$search       = '/(>)(' . $search_value . ')(<)/';
-		}
-
-		foreach ( $block->innerContent as &$inner_content ) {
-			if ( $inner_content ) {
-				$inner_content = preg_replace( $search, '${1}' . $translation . '${3}', $inner_content );
-			}
-		}
-
-		return $block;
-	}
-
-	/**
 	 * @param \WP_Block_Parser_Block $block
 	 *
 	 * @return null|string
@@ -179,8 +138,9 @@ class HTML extends Base {
 	private function get_dom_handler( \WP_Block_Parser_Block $block ) {
 		$class = wpml_collect(
 			[
-				self::LIST_BLOCK_NAME => ListBlock::class,
-				self::HTML_BLOCK_NAME => HtmlBlock::class,
+				self::LIST_BLOCK_NAME      => ListBlock::class,
+				self::HTML_BLOCK_NAME      => HtmlBlock::class,
+				self::LIST_ITEM_BLOCK_NAME => ListItemBlock::class,
 			]
 		)->get( $block->blockName, StandardBlock::class );
 
@@ -200,7 +160,7 @@ class HTML extends Base {
 	private function updateTranslationInBlock( $text, $lang, \WP_Block_Parser_Block $block, array $string_translations, $element, $dom_handle ) {
 		$translation = $this->getTranslation( $text, $lang, $block, $string_translations );
 		if ( $translation ) {
-			$block = self::update_string_in_innerContent( $block, $element, $translation );
+			$block = $dom_handle->applyStringTranslations( $block, $element, $translation, $text );
 			$dom_handle->setElementValue( $element, $translation );
 		}
 

@@ -6,6 +6,7 @@ use WPML\FP\Curryable;
 use WPML\FP\Fns;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
+use WPML\FP\Relation;
 use WPML\FP\Str;
 use function WPML\FP\pipe;
 

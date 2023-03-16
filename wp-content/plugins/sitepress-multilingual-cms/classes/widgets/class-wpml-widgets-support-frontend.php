@@ -14,6 +14,11 @@ use WPML\LIB\WP\Hooks;
  */
 class WPML_Widgets_Support_Frontend implements IWPML_Action {
 
+	/**
+	 * @see \WPML\PB\Gutenberg\Widgets\Block\DisplayTranslation::PRIORITY_BEFORE_REMOVE_BLOCK_MARKUP
+	 */
+	const PRIORITY_AFTER_TRANSLATION_APPLIED = 0;
+
 	/** @var array $displayFor */
 	private $displayFor;
 
@@ -27,7 +32,8 @@ class WPML_Widgets_Support_Frontend implements IWPML_Action {
 	}
 
 	public function add_hooks() {
-		add_filter( 'widget_block_content', [ $this, 'filterByLanguage' ], - PHP_INT_MAX, 1 );
+		add_filter( 'widget_block_content', [ $this, 'filterByLanguage' ], self::PRIORITY_AFTER_TRANSLATION_APPLIED );
+		add_filter( 'widget_display_callback', [ $this, 'display' ], - PHP_INT_MAX );
 	}
 
 	/**
@@ -50,11 +56,37 @@ class WPML_Widgets_Support_Frontend implements IWPML_Action {
 	 * Returning an empty string will stop the block from being rendered.
 	 *
 	 * @param string|null $pre_render The pre-rendered content. Default null.
-	 * @param array       $block      The block being rendered.
+	 * @param array $block The block being rendered.
 	 *
 	 * @return string|null
 	 */
 	public function shouldRender( $pre_render, $block ) {
 		return Lst::includes( Obj::path( [ 'attrs', 'wpml_language' ], $block ), $this->displayFor ) ? $pre_render : '';
+	}
+
+	/**
+	 * Get display status of the widget.
+	 *
+	 * @param array|bool $instance
+	 *
+	 * @return array|bool
+	 */
+	public function display( $instance ) {
+		if ( ! $instance || $this->it_must_display( $instance ) ) {
+			return $instance;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns display status of the widget as boolean.
+	 *
+	 * @param array $instance
+	 *
+	 * @return bool
+	 */
+	private function it_must_display( $instance ) {
+		return Lst::includes( Obj::propOr( null, 'wpml_language', $instance ), $this->displayFor );
 	}
 }

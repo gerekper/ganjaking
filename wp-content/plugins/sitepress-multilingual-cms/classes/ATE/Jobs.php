@@ -35,20 +35,23 @@ class Jobs {
 		$languages = \wpml_prepare_in( Lst::pluck( 'code', Languages::getActive() ) );
 
 		$sql = "
-			SELECT jobs.rid, MAX(jobs.job_id) as jobId, jobs.editor_job_id as ateJobId, jobs.automatic , translation_status.status,
+			SELECT jobs.rid, jobs.job_id as jobId, jobs.editor_job_id as ateJobId, jobs.automatic , translation_status.status,
 				translation_status.review_status, jobs.ate_sync_count > " . static::LONGSTANDING_AT_ATE_SYNC_COUNT . " as isLongstanding
 			FROM {$wpdb->prefix}icl_translate_job as jobs
 			INNER JOIN {$wpdb->prefix}icl_translation_status translation_status ON translation_status.rid = jobs.rid
 			INNER JOIN {$wpdb->prefix}icl_translations translations ON translation_status.translation_id = translations.translation_id
 			INNER JOIN {$wpdb->prefix}icl_translations parent_translations ON translations.trid = parent_translations.trid
 			AND parent_translations.source_language_code IS NULL
-			INNER JOIN {$wpdb->prefix}posts posts ON parent_translations.element_id = posts.ID 
+			LEFT JOIN {$wpdb->prefix}posts posts ON parent_translations.element_id = posts.ID 
 			WHERE 
-				jobs.editor = %s 
+			    jobs.job_id IN  (
+			        SELECT MAX(job_id) FROM {$wpdb->prefix}icl_translate_job 
+			        GROUP BY rid
+			    )
+				AND jobs.editor = %s 
 				AND ( translation_status.status IN ({$statuses}) OR $needsReviewCondition )
 				AND translations.language_code IN ({$languages})
-				AND posts.post_status <> 'trash'											
-			GROUP BY jobs.rid;
+				AND ( posts.post_status IS NULL OR posts.post_status <> 'trash' )
 		";
 
 		return Fns::map( Obj::evolve( [
@@ -69,13 +72,6 @@ class Jobs {
 	}
 
 	/**
-	 * @return array
-	 */
-	public static function getJobsToRetry() {
-		return self::getJobsWithStatus( [ ICL_TM_ATE_NEEDS_RETRY ] );
-	}
-
-	/**
 	 * @return int
 	 */
 	public static function getTotal() {
@@ -88,6 +84,23 @@ class Jobs {
 		";
 
 		return (int) $wpdb->get_var( $wpdb->prepare( $sql, \WPML_TM_Editors::ATE ) );
+	}
+
+	/**
+	 * @return int
+	 */
+	public static function getCountOfAutomaticInProgress() {
+		global $wpdb;
+
+		$sql = "
+			SELECT COUNT(jobs.job_id) 
+			FROM {$wpdb->prefix}icl_translate_job jobs		
+			INNER JOIN {$wpdb->prefix}icl_translation_status translation_status ON translation_status.rid = jobs.rid
+			INNER JOIN wp_icl_translations translations ON translations.translation_id = translation_status.translation_id
+			WHERE jobs.editor = %s AND jobs.automatic = 1 AND translation_status.status = %d AND translations.source_language_code = %s
+		";
+
+		return (int) $wpdb->get_var( $wpdb->prepare( $sql, \WPML_TM_Editors::ATE, ICL_TM_IN_PROGRESS, Languages::getDefaultCode() ) );
 	}
 
 	/**

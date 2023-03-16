@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="13px" viewBox="0 0 16 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Catalog-Master" transform="translate(-200.000000, -553.000000)" stroke="#949494">
+            <g id="Group-7" transform="translate(200.000000, 553.000000)">
+                <path d="M12.4453,5.545 C12.4663,5.364 12.5003,5.187 12.5003,5 C12.5003,2.515 10.4853,0.5 8.0003,0.5 C5.6413,0.5 3.7293,2.321 3.5373,4.63 C1.7963,5.063 0.5003,6.625 0.5003,8.5 C0.5003,10.709 2.2913,12.5 4.5003,12.5 L12.0003,12.5 C13.9323,12.5 15.5003,10.933 15.5003,9 C15.5003,7.219 14.1653,5.766 12.4453,5.545 Z" id="Stroke-1"></path>
+                <polyline id="Stroke-3" points="6 8.0001 8.5 10.5001 11 8.0001"></polyline>
+                <path d="M8.5,10.5001 L8.5,4.5001" id="Stroke-5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

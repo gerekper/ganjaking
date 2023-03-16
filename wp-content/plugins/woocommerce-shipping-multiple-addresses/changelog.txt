@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2023-03-14 - version 3.8.3
+* Fix - Remove duplicate multiple address information.
+
 2023-01-16 - version 3.8.2
 * Add - Reset button in checkout page to reset the multiple addresses.
 

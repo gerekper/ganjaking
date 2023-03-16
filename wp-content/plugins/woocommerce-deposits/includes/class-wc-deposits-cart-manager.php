@@ -264,7 +264,7 @@ class WC_Deposits_Cart_Manager {
 		$_search_key   = $get_all_items ? null : self::generate_cart_id( $_cart_item );
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
 			$should_fetch = $get_all_items ? true : ( self::generate_cart_id( $cart_item ) === $_search_key );
-			if ( $should_fetch && ( ! empty( $cart_item['is_deposit'] ) ) ) {
+			if ( $should_fetch && ( ! empty( $cart_item['is_deposit'] ) ) && isset( $cart_item['full_amount'] ) ) {
 				$quantity    = $cart_item['quantity'];
 				$full_amount = $cart_item['full_amount'];
 				// We need to apply this filter to the deposit amount, as it may have been affected by Memberships.
@@ -383,15 +383,15 @@ class WC_Deposits_Cart_Manager {
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
 			$should_fetch = $get_all_items || self::generate_cart_id( $cart_item ) === $_search_key;
 			if ( $should_fetch && ( ! empty( $cart_item['is_deposit'] ) && empty( $cart_item['payment_plan'] ) ) ) {
-				$_product    = $cart_item['data'];
-				$quantity    = $cart_item['quantity'];
-				$full_amount = $cart_item['full_amount'];
-				// We need to apply this filter to the deposit amount, as it may have been affected by Memberships.
-				$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $_product );
-				$discount       = $after_discount ? $this->get_deferred_discount_amount( null, $cart_item ) : 0;
-				$discount      /= $quantity;
-
 				if ( isset( $cart_item['full_amount'] ) ) {
+					$_product    = $cart_item['data'];
+					$quantity    = $cart_item['quantity'];
+					$full_amount = $cart_item['full_amount'];
+					// We need to apply this filter to the deposit amount, as it may have been affected by Memberships.
+					$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $_product );
+					$discount       = $after_discount ? $this->get_deferred_discount_amount( null, $cart_item ) : 0;
+					$discount      /= $quantity;
+
 					if ( WC()->customer->is_vat_exempt() || ( ! $include_tax && 'excl' === WC()->cart->get_tax_price_display_mode() ) ) {
 						$credit_amount += $this->get_price_excluding_tax(
 							$_product,
@@ -433,6 +433,10 @@ class WC_Deposits_Cart_Manager {
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
 			$should_fetch = $get_all_items || self::generate_cart_id( $cart_item ) === $_search_key;
 			if ( ! $should_fetch || empty( $cart_item['is_deposit'] ) || empty( $cart_item['payment_plan'] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $cart_item['full_amount'] ) ) {
 				continue;
 			}
 
@@ -684,7 +688,7 @@ class WC_Deposits_Cart_Manager {
 	 * @return float Amount this coupon has discounted
 	 */
 	public function get_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
-		if ( ! empty( $cart_item['is_deposit'] ) && 0 < intval( $discount ) ) {
+		if ( ! empty( $cart_item['is_deposit'] ) && 0 < intval( $discount ) && isset( $cart_item['full_amount'] ) ) {
 			$coupon_type        = $coupon->get_discount_type(); // fixed_cart or fixed_product or percent or percent_product.
 			$coupon_id          = $coupon->get_id();
 			$discounting_amount = $cart_item['deposit_amount'] * $cart_item['quantity'];
@@ -928,6 +932,11 @@ class WC_Deposits_Cart_Manager {
 
 				$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] );
 				if ( ! in_array( $deposit_type, array( 'plan', 'percent', 'fixed' ), true ) ) {
+					continue;
+				}
+
+				// Skip deferring taxes if no deposit.
+				if ( ! isset( $cart_item['full_amount'] ) ) {
 					continue;
 				}
 
@@ -1429,6 +1438,10 @@ class WC_Deposits_Cart_Manager {
 	public function add_order_item_meta( $item, $cart_item_key, $values ) {
 		$cart      = WC()->cart->get_cart();
 		$cart_item = $cart[ $cart_item_key ];
+
+		if ( ! isset( $cart_item['full_amount'] ) ) {
+			return $item;
+		}
 
 		if ( ! empty( $cart_item['is_deposit'] ) ) {
 			// First, calculate the full amount (before deposits/payments)

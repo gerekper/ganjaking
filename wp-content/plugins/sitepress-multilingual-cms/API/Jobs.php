@@ -50,6 +50,7 @@ class Jobs {
 	const SENT_AUTOMATICALLY = 3;
 	const SENT_FROM_REVIEW   = 4;
 	const SENT_RETRY         = 5;
+	const SENT_VIA_DASHBOARD = 6;
 
 	public static function init() {
 
@@ -195,6 +196,22 @@ class Jobs {
 		       Obj::prop( 'editor', $job ) === \WPML_TM_Editors::ATE;
 	}
 
+	/**
+	 * @param int $jobId
+	 * @param bool $isAutomatic
+	 *
+	 * @return void
+	 */
+	public static function setAutomaticStatus( $jobId, $isAutomatic ) {
+		self::updateTranslateJobField( $jobId, 'automatic', $isAutomatic ? 1 : 0 );
+
+		if ( $isAutomatic ) {
+			self::updateTranslateJobField( $jobId, 'translator_id', 0 );
+			self::updateTranslationStatusField( $jobId, 'translator_id', 0 );
+			self::setStatus( $jobId, ICL_TM_IN_PROGRESS );
+		}
+	}
+	
 	private static function updateTranslationStatusField( $jobId, $fieldName, $newValue, $fieldType = '%d' ) {
 		global $wpdb;
 

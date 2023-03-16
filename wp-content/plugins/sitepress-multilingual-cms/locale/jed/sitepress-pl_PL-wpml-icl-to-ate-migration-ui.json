@@ -1,0 +1,23 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Flags must be:": [
+            "Flagi muszą być:"
+         ],
+         "PNG, SVG, or JPG files": [
+            "pliki PNG, SVG lub JPG"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 pixeli"
+         ],
+         "Read more about ": [
+            "Przeczytaj więcej o"
+         ]
+      }
+   }
+}

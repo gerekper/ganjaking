@@ -93,6 +93,10 @@ class WPML_TM_Rest_Jobs_Criteria_Parser {
 			$params->set_needs_update( new WPML_TM_Jobs_Needs_Update_Param( $request->get_param( 'needs_update' ) ) );
 		}
 
+		if ( $request->get_param( 'only_automatic' ) ) {
+			$params->set_exclude_manual( true );
+		}
+
 		$date_range_values = array( 'sent', 'deadline' );
 		foreach ( $date_range_values as $date_range_value ) {
 			$from = $request->get_param( $date_range_value . '_from' );
@@ -112,7 +116,19 @@ class WPML_TM_Rest_Jobs_Criteria_Parser {
 
 		if ( $request->get_param( 'pageName' ) === \WPML_TM_Jobs_List_Script_Data::TRANSLATION_QUEUE_PAGE ) {
 			global $wpdb;
-			$where[] = $wpdb->prepare( '(translate_job.translator_id = %d OR translate_job.translator_id = 0 OR translate_job.translator_id IS NULL)', User::getCurrentId() );
+
+			/**
+			 * On Translation Queue page, in general, you should only see the jobs assigned to you or unassigned.
+			 * Although, we want to make an exception for automatic jobs which require review. Those jobs shall not have assigned translator,
+			 * but due to some old bugs, a user can have corrupted data in the database. We want him to be able to see them even if due to the bug,
+			 * they are assigned to somebody else.
+			 */
+			$translatorCond = "(
+				(translate_job.translator_id = %d OR translate_job.translator_id = 0 OR translate_job.translator_id IS NULL) 
+				OR (automatic = 1 OR review_status = 'NEEDS_REVIEW') 
+			)";
+			$where[] = $wpdb->prepare( $translatorCond, User::getCurrentId() );
+
 			if ( ! $request->get_param( 'includeTranslationServiceJobs' ) ) {
 				$where[] = 'translation_status.translation_service = "local"';
 			}

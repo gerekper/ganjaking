@@ -1,5 +1,7 @@
 <?php
 
+use WPML\LIB\WP\Cache;
+
 abstract class WPML_Translation_Roles_Records {
 
 	const USERS_WITH_CAPABILITY    = 'LIKE';
@@ -73,13 +75,15 @@ abstract class WPML_Translation_Roles_Records {
 	 * @return bool
 	 */
 	public function does_user_have_capability( $user_id ) {
-		$users = $this->get_users_with_capability();
-		foreach ( $users as $user ) {
-			if ( (int) $user->ID === (int) $user_id ) {
-				return true;
+		$fn = Cache::memorize(
+			self::CACHE_GROUP . '_does_user_have_capability',
+			3600,
+			function ( $user_id ) {
+				return $this->fetch_user_capability( $user_id );
 			}
-		}
-		return false;
+		);
+
+		return $fn( $user_id );
 	}
 
 	/**
@@ -243,6 +247,24 @@ abstract class WPML_Translation_Roles_Records {
 
 		return $user_query->get_results();
 
+	}
+
+	/**
+	 * Fetches the capability for the user from DB
+	 *
+	 * @param int $user_id
+	 */
+	private function fetch_user_capability( $user_id ) {
+		$sql = "
+			   SELECT user_id
+			   FROM {$this->wpdb->usermeta}
+			   WHERE user_id = %d AND meta_key = %s AND meta_value LIKE %s 
+			   LIMIT 1
+			";
+
+		$sql = $this->wpdb->prepare( $sql, $user_id, $this->wpdb->prefix . 'capabilities', '%' . $this->get_capability() . '%' );
+
+		return (bool) $this->wpdb->get_var( $sql );
 	}
 
 	/**

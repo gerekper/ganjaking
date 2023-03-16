@@ -1,5 +1,9 @@
 *** WooCommerce Composite Products ***
 
+2023.03.14 - version 8.7.4
+* New - Introduced compatibility with AutomateWoo - Abandoned Carts.
+* Fix - Fixed an issue that prevented component options from loading when a composited Bundle had addons both on the container and on bundled item level. 
+
 2023.03.06 - version 8.7.3
 * Fix - Resolved a JavaScript error that showed up when rendering composited bundled items and Product Add-Ons was inactive.
 

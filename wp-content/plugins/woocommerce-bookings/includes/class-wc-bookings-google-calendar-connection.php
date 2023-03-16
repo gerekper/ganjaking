@@ -9,6 +9,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Google\Client as GoogleClient;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar as GoogleServiceCalendar;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar\Event as GoogleServiceCalendarEvent;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar\EventDateTime as GoogleServiceCalendarEventDateTime;
+use Automattic\WooCommerce\Bookings\Vendor\RRule\RRule;
 
 /**
  * Google Calendar Connection.
@@ -546,6 +547,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$refresh_token = get_option( 'wc_bookings_gcalendar_refresh_token' );
 
 		$client->setAccessType( 'offline' );
+		$client->setState( wp_create_nonce( 'wc_bookings_google_calendar_wooconnect' ) );
 
 		do_action( 'woocommerce_bookings_update_google_client', $client );
 
@@ -861,7 +863,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			'testing'         => array(
 				'title'       => __( 'Connect with a custom Google Calendar App', 'woocommerce-bookings' ),
 				'type'        => 'title',
-				'description' => 'Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.',
+				// translators: %1$s - line breaks, %2$s - URL to use as authorised redirect URI
+				'description' => sprintf( __( 'Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.%1$sAdd %2$s to the Authorized redirect URIs of your Google Cloud App.', 'woocommerce-bookings' ), '<br /><br />', '<code>' . WC()->api_request_url( 'wc_bookings_google_calendar' ) . '</code>' ),
 			),
 			'client_id'       => array(
 				'title'       => __( 'Client ID', 'woocommerce-bookings' ),
@@ -1094,7 +1097,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			<td class="forminp">
 				<?php if ( ! $refresh_token || ( $refresh_token && ! $access_token ) || $custom_oauth_active ) : ?>
 					<p class="submit">
-						<a class="button button-primary" <?php echo $custom_oauth_active ? ' disabled' : ''; ?>  href="<?php echo $custom_oauth_active ? '' : esc_attr( $this->get_google_auth_url() ); ?>">
+						<a class="button button-primary" <?php echo $custom_oauth_active ? ' disabled' : ''; ?>  href="<?php echo $custom_oauth_active ? '' : esc_url( $this->get_google_auth_url() ); ?>">
 							<?php esc_html_e( 'Connect with Google', 'woocommerce-bookings' ); ?>
 						</a>
 					</p>
@@ -1300,6 +1303,11 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 		// OAuth.
 		if ( isset( $_GET['code'] ) ) {
+			// Check for the state returned by OAuth service to match the request nonce.
+			if ( empty( $_GET['state'] ) || ! wp_verify_nonce( $_GET['state'], 'wc_bookings_google_calendar_wooconnect' ) ) {
+				wp_die( esc_html__( 'Permission denied!', 'woocommerce-bookings' ) );
+			}
+
 			update_option( 'wc_bookings_google_calendar_custom_connection', true );
 			$code   = sanitize_text_field( $_GET['code'] );
 			$client = $this->get_client();
@@ -1869,7 +1877,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 					2
 				);
 
-				$all_days     = join( ',', array_keys( \RRule\RRule::$week_days ) );
+				$all_days     = join( ',', array_keys( RRule::$week_days ) );
 				$week_numbers = join( ',', range( $availability->get_from_range(), $availability->get_to_range() ) );
 				$rrule        = "RRULE:FREQ=YEARLY;BYWEEKNO=$week_numbers;BYDAY=$all_days";
 
@@ -1989,9 +1997,15 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		if ( $client->getClientId() ) {
 			return $client->createAuthUrl();
 		}
+
 		return add_query_arg(
 			array(
-				'redirect' => WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' ) . '?nonce=' . wp_create_nonce( 'wc_bookings_google_calendar_wooconnect' ),
+				'redirect' => urlencode(
+					add_query_arg(
+						[ 'nonce' => wp_create_nonce( 'wc_bookings_google_calendar_wooconnect' ) ],
+						WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' )
+					)
+				)
 			),
 			self::CONNECT_WOOCOMMERCE_URL . '/login/google'
 		);

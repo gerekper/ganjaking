@@ -1,5 +1,8 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2023.03.15 - version 3.12.1
+ * Fix - Fix issue causing PHP warnings when Avatax is enabled
+
 2022.11.29 - version 3.12.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

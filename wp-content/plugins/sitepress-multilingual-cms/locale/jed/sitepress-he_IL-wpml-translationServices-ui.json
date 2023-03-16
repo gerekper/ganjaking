@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "en"
          },
          "Connect this site to your %s account": [
             "חבר אתר זה לחשבון %s שלך"
@@ -21,7 +22,7 @@
             "בקר ב-<link_to_service /> כדילבקש אסימון API. אסימון זה יאפשר ל-WPML להתחבר ל-. <service_name /> כדי לשלוח משימות ולקבל אותן."
          ],
          "Search": [
-            "חפש"
+            "חיפוש"
          ],
          "Settings": [
             "הגדרות"

@@ -1,3 +1,14 @@
+<?php
+
+
+$email_settings    = get_option( 'woocommerce_wc_box_office_email_settings', array( 'enabled' => 'no' ) );
+$wc_emails_enabled = 'yes' === $email_settings['enabled'];
+
+if ( ! $wc_emails_enabled ) {
+	WC_Box_Office_Settings::display_warning();
+}
+?>
+
 <form action="" method="post">
 
 	<?php wp_nonce_field( 'woocommerce_box_office_tools_send_emails', 'tools_send_emails_nonce' ); ?>

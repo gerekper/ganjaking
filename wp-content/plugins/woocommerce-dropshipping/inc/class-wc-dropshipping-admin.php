@@ -317,7 +317,6 @@ class WC_Dropshipping_Admin {
 	public function display_add_form_fields( $data ) {
 		// print_r($data);
 		$options = get_option( 'wc_dropship_manager' );
-		// $specific_delivery_location = $data['specific_delivery_location'];
 
 		if ( $data['specific_delivery_location'] = '1' ) {
 
@@ -416,15 +415,25 @@ class WC_Dropshipping_Admin {
 	//
 
 	public function display_edit_form_fields( $data ) {
-		wc_dropshipping_get_dropship_supplier( $id );
+		// wc_dropshipping_get_dropship_supplier( $id );
 			$options = get_option( 'wc_dropship_manager' );
+			$speci_del_style_disply = 'style="display:none"';
 
-			// $specific_delivery_location = $data['specific_delivery_location'];
+			if (isset($data['specific_delivery_location'])) {
+				$specific_delivery_location = $data['specific_delivery_location'];
+			} else {
+				$specific_delivery_location = '';
+			}
 
 		$csv_types = array(
 			'quantity' => 'Quantity on Hand',
 			'indicator' => 'In-Stock Indicator',
 		);
+
+		if ( $data['address_line1'] != '' ) {
+			$data['specific_delivery_location'] = 'checked';
+			$spec_deli_loc = 'style="display:table-row"';
+		}
 
 		echo '
 		<style>
@@ -447,7 +456,7 @@ class WC_Dropshipping_Admin {
 
 					echo '<tr class="term_specific_delivery_location_wrap">
 						<td>
-							<input name="specific_delivery_location" id="specific_delivery_location" data-id="specific_delivery_location" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" value="' . $data['specific_delivery_location'] . '" ' . $data['specific_delivery_location'] . ' />
+							<input name="specific_delivery_location" id="specific_delivery_location" data-id="specific_delivery_location" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" value="' . $specific_delivery_location . '" ' . $specific_delivery_location . ' />
 						</td>
 						<th>
 							<label for="specific_delivery_location" > Enable specific delivery location for the supplier.</label>
@@ -456,40 +465,37 @@ class WC_Dropshipping_Admin {
 					</tr>';
 					// print_r($data['specific_delivery_location']);
 
-					echo '<tr class="inner-toggle specific_delivery_location" ' . $spec_deli_loc . '>
+					echo '
+					<div class="hide_show_div_spe_del" style="display:none">
+						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
 
-						<th><label for="address_line1" >Address line 1</label></th>
-						<td><input type="text" class="td_address" size="40" name="address_line1" value="' . $data['address_line1'] . '"  /></td></br></br>
-					</tr>
+							<th><label for="address_line1" >Address line 1</label></th>
+							<td><input type="text" class="td_address" size="40" name="address_line1" value="' . $data['address_line1'] . '"  /></td></br></br>
+						</tr>
 
-					<tr class="inner-toggle specific_delivery_location" ' . $spec_deli_loc . '>
-						<th><label for="address_line2" >Address line 2</label></th>
-						<td><input type="text" class="td_address" size="40" name="address_line2" value="' . $data['address_line2'] . '"  /></td></br></br>
-					</tr>
+						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
+							<th><label for="address_line2" >Address line 2</label></th>
+							<td><input type="text" class="td_address" size="40" name="address_line2" value="' . $data['address_line2'] . '"  /></td></br></br>
+						</tr>
 
-					<tr class="inner-toggle specific_delivery_location" ' . $spec_deli_loc . '>
-						<th><label for="supplier_city" >City</label></th>
-						<td><input type="text" class="td_address" size="40" name="supplier_city" value="' . $data['supplier_city'] . '"  /></td></br></br>
-					</tr>
+						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
+							<th><label for="supplier_city" >City</label></th>
+							<td><input type="text" class="td_address" size="40" name="supplier_city" value="' . $data['supplier_city'] . '"  /></td></br></br>
+						</tr>
 
-					<tr class="inner-toggle specific_delivery_location" ' . $spec_deli_loc . '>
-						<th><label for="country_state" >Country/State</label></th>
-						<td><input type="text" class="td_address" size="40" name="country_state" value="' . $data['country_state'] . '"   /></td></br></br>
-					</tr>
+						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
+							<th><label for="country_state" >Country/State</label></th>
+							<td><input type="text" class="td_address" size="40" name="country_state" value="' . $data['country_state'] . '"   /></td></br></br>
+						</tr>
 
-					<tr class="inner-toggle specific_delivery_location" ' . $spec_deli_loc . '>
-						<th><label for="postcode_zip" >Postcode/ZIP</label></th>
-						<td><input type="number" class="td_address" size="40" name="postcode_zip" value="' . $data['postcode_zip'] . '"  /></td></br></br>
+						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
+							<th><label for="postcode_zip" >Postcode/ZIP</label></th>
+							<td><input type="number" class="td_address" size="40" name="postcode_zip" value="' . $data['postcode_zip'] . '"  /></td></br></br>
 
-					</tr>';
-		if ( $data['specific_delivery_location'] = ' 1 ' ) {
+						</tr>';
 
-			if ( $data['address_line1'] != '' ) {
-				$data['specific_delivery_location'] = '1';
 
-			}
-			$spec_deli_loc = 'style="display:table-row"';
-		}
+
 
 				echo '</table>
 

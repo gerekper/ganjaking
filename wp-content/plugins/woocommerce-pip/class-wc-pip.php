@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.12.0';
+	const VERSION = '3.12.1';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;

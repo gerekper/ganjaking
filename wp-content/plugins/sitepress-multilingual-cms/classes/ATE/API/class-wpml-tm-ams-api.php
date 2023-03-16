@@ -21,6 +21,8 @@ class WPML_TM_AMS_API {
 	const HTTP_ERROR_CODE_400 = 400;
 
 	private $auth;
+
+	/** @var WPML_TM_ATE_AMS_Endpoints */
 	private $endpoints;
 	private $wp_http;
 
@@ -143,6 +145,45 @@ class WPML_TM_AMS_API {
 					}
 					$result = $response_body;
 				}
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @return WP_Error|null
+	 */
+	public function get_translation_engines() {
+		$result = null;
+
+		$url = $this->endpoints->get_translation_engines();
+		$response = $this->signed_request( 'GET', $url );
+		if ( $this->response_has_body( $response ) ) {
+			$result = $this->get_errors( $response );
+			if ( ! is_wp_error( $result ) ) {
+				$result = json_decode( $response['body'], true );
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * @param $engine_settings
+	 *
+	 * @return bool
+	 */
+	public function update_translation_engines( $engine_settings ) {
+		$result = false;
+
+		$url      = $this->endpoints->get_translation_engines();
+		$response = $this->signed_request( 'POST', $url, [ 'list' => $engine_settings ] );
+		if ( $this->response_has_body( $response ) ) {
+			$result = $this->get_errors( $response );
+			if ( ! is_wp_error( $result ) ) {
+				$result = json_decode( $response['body'], true );
+
+				return \WPML\FP\Obj::propOr( false, 'success', $result );
 			}
 		}
 

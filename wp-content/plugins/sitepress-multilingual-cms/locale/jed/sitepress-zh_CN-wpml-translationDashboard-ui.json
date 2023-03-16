@@ -1,0 +1,68 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
+            "尝试暂停自动翻译时出错。请稍后再试或联系支持人员。"
+         ],
+         "There was an error when trying to resume your Automatic Translation. Please try again later or contact our support.": [
+            "尝试恢复自动翻译时出错。请稍后再试或联系支持人员。"
+         ],
+         "Error": [
+            "错误"
+         ],
+         "Draft — Pending review": [
+            "草稿 — 等候审阅"
+         ],
+         "Complete": [
+            "完成"
+         ],
+         "Insufficient funds": [
+            "资金不足"
+         ],
+         "Your pending automatic translations will be canceled.": [
+            "您挂起的自动翻译将被取消。"
+         ],
+         "Save": [
+            "保存"
+         ],
+         "Go to the <a>Translation Management Dashboard</a> to translate your content.": [
+            "转到<a>翻译管理仪表板</a>，翻译您的内容。"
+         ],
+         "Review the translations before publishing": [
+            "在发布之前审阅翻译"
+         ],
+         "Publish translations and review them later": [
+            "发布翻译并在以后审阅"
+         ],
+         "Publish translations without reviewing": [
+            "不审阅就发布翻译"
+         ],
+         "Translate Everything": [
+            "全部翻译"
+         ],
+         "WPML will automatically translate content that you publish or update": [
+            "WPML将自动翻译您发布或更新的内容"
+         ],
+         "How do you want to translate this site?": [
+            "您想如何翻译这个网站？"
+         ],
+         "Translate Some": [
+            "翻译一些"
+         ],
+         "I want to choose which content to translate": [
+            "我想选择要翻译的内容"
+         ],
+         "Save settings": [
+            "保存设置"
+         ],
+         "Translate": [
+            "翻译"
+         ]
+      }
+   }
+}

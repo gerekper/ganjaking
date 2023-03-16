@@ -65,11 +65,23 @@ class Str {
 			return $a . $b;
 		} ) );
 
-		self::macro( 'sub', curryN( 2, flip( function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr' ) ) );
+		self::macro( 'sub', curryN( 2, function( $start, $string ) {
+			if ( function_exists( 'mb_substr' ) ) {
+				return mb_substr( $string, $start );
+			}
+
+			return substr( $string, $start );
+		} ) );
 
 		self::macro( 'tail', self::sub( 1 ) );
 
-		self::macro( 'pos', curryN( 2, flip( function_exists( 'mb_strpos' ) ? 'mb_strpos' : 'strpos' ) ) );
+		self::macro( 'pos', curryN( 2, function( $needle, $haystack ) {
+			if ( function_exists( 'mb_strpos' ) ) {
+				return mb_strpos( $haystack, $needle );
+			}
+
+			return strpos( $haystack, $needle );
+		} ) );
 
 		self::macro( 'startsWith', curryN( 2, pipe( self::pos(), Relation::equals( 0 ) ) ) );
 

@@ -1,5 +1,6 @@
 <?php
 use WPML\FP\Obj;
+use WPML\TM\Settings\Flags\Options;
 
 /**
  * Class WPML_Flags
@@ -142,6 +143,20 @@ class WPML_Flags {
 	 */
 	final public static function get_wpml_flags_url() {
 		return ICL_PLUGIN_URL . '/res/flags/';
+	}
+
+	/**
+	 * @return string
+	 */
+	final public static function get_wpml_flags_by_locales_url() {
+		return ICL_PLUGIN_URL . '/res/flags_by_locales.json';
+	}
+
+	/**
+	 * @return string
+	 */
+	final public static function get_wpml_flag_image_ext() {
+		return Options::getFormat();
 	}
 
 	/**

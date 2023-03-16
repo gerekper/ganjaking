@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.15.75
+ * Version: 1.15.76
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
  * Tested up to: 6.1
  * Requires at least: 5.6
- * WC tested up to: 7.3
+ * WC tested up to: 7.5.0
  * WC requires at least: 6.0
- * Requires PHP: 7.0
+ * Requires PHP: 7.2
  *
  * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
@@ -45,12 +45,6 @@ function woocommerce_bookings_missing_wc_notice() {
 
 if ( ! defined( 'WC_BOOKINGS_ABSPATH' ) ) {
 	define( 'WC_BOOKINGS_ABSPATH', dirname( __FILE__ ) . '/' );
-}
-// Action scheduler must be included before 'plugins_loaded' priority 0, the recommended way to included here as soon as the plugin file is loaded. https://actionscheduler.org/usage/.
-$action_scheduler_exists = include WC_BOOKINGS_ABSPATH . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
-
-if ( false === $action_scheduler_exists ) {
-	throw new Exception( 'vendor/woocommerce/action-scheduler/action-scheduler.php missing please run `composer install`' );
 }
 
 /**
@@ -94,7 +88,7 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.15.75' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '1.15.76' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 	define( 'WC_BOOKINGS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -326,7 +320,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 		 * @throws Exception When composer install hasn't been ran.
 		 */
 		public function includes() {
-			$loader = include_once WC_BOOKINGS_ABSPATH . 'vendor/autoload.php';
+			$loader = require WC_BOOKINGS_ABSPATH . 'lib/packages/autoload.php';
 
 			if ( ! $loader ) {
 				throw new Exception( 'vendor/autoload.php missing please run `composer install`' );

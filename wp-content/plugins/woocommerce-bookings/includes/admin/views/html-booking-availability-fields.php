@@ -7,6 +7,8 @@
  * @var boolean $show_google_event
  */
 
+use Automattic\WooCommerce\Bookings\Vendor\RRule\RSet;
+
 $intervals = array();
 
 $intervals['months'] = array(
@@ -125,7 +127,7 @@ $is_rrule           = 'rrule' === $availability['type'];
 					}
 
 					try {
-						$rset = new \RRule\RSet( $availability['rrule'], $is_all_day ? $from_date->format( $date_format ) : $from_date );
+						$rset = new RSet( $availability['rrule'], $is_all_day ? $from_date->format( $date_format ) : $from_date );
 						?>
 						<strong>
 							<?php echo esc_html( $from_date->format( $date_format ) ); ?>
