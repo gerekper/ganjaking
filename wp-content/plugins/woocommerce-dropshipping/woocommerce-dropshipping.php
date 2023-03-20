@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.9.2
+ * Version: 4.9.3
 
  * Author: OPMC Australia Pty Ltd
 
@@ -87,34 +87,49 @@ function is_dropshipping_pro_active() {
 }
 
 /**
+* Function
+*/
+add_action( 'admin_notices', 'dropshipping_pro_admin_notice' );
 
- * Function dropshipping_pro_admin_notice
-
+/**
+ * Function for dropshipping_pro_admin_notice
  */
-function dropshipping_pro_admin_notice(){
-    global $pagenow;
-    if ( 'index.php' == $pagenow  &&  false ==  is_dropshipping_pro_active()) {
-         echo '<div class="notice notice-info is-dismissible">
-             <p>Pro Add-on for WooCommerce Dropshipping - Now Released!</p>
-			 <p>Add marketing and customization features to the WooCommerce Dropshipping Plugin with Pro Add-on for WooCommerce Dropshipping.  <a href="https://woocommerce.com/products/pro-add-on-for-woocommerce-dropshipping/" target="_blank">Find out more!</a></p>
-         </div>';
-    }
+function dropshipping_pro_admin_notice() {
+	global $current_user;
+	global $pagenow;
+	$user_id = $current_user->ID;
+	$notice_id = 'dropshipping_pro_admin_notice';
+	if ( ! get_user_meta( $user_id, 'dropshipping_ignore_notice' ) ) {
+		$dismiss_url = add_query_arg( 'dropshipping_nag_ignore', '0' );
+		if ( 'index.php' == $pagenow && false == is_dropshipping_pro_active() ) {
+			echo '<div class="updated notice notice-info" id="' . esc_attr( $notice_id ) . '">
+				<p>Pro Add-on for WooCommerce Dropshipping - Now Released!</p>
+				<p>Add marketing and customization features to the WooCommerce Dropshipping Plugin with Pro Add-on for WooCommerce Dropshipping.  <a href="https://woocommerce.com/products/pro-add-on-for-woocommerce-dropshipping/" target="_blank">Find out more!</a> <a href="' . esc_url( $dismiss_url ) . '"><button type="button" class="notice-dismiss  hidecbe" style="position: relative; border: none; margin: 0; padding: 0px; background: 0 0;		color: #787c82; cursor: pointer; float: right;"><span class="screen-reader-text"></span></button>
+
+					</a></p>
+        	</div>';
+		}
+	}
 }
 
-add_action('admin_notices', 'dropshipping_pro_admin_notice');
+add_action( 'admin_init', 'dropshipping_nag_ignore' );
 
 /**
-
+ * Function for dropshipping_nag_ignore
+ */
+function dropshipping_nag_ignore() {
+	global $current_user;
+	$user_id = $current_user->ID;
+	if ( isset( $_GET['dropshipping_nag_ignore'] ) && '0' == $_GET['dropshipping_nag_ignore'] ) {
+		add_user_meta( $user_id, 'dropshipping_ignore_notice', 'true', true );
+	}
+}
+/**
  * End
-
  */
 
-
-
 /**
-
  * Dropshipping allow_url_fopen Missing Notice
-
  */
 
 if (!ini_get('allow_url_fopen') == 1)

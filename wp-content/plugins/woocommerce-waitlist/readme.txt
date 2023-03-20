@@ -45,6 +45,9 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2023.03.16 - Version 2.3.8
+* Fix: Update to translations template file
+
 2023.01.31 - Version 2.3.7
 * Fix: Waitlist mailouts not always sending for variations when setting stock status
 

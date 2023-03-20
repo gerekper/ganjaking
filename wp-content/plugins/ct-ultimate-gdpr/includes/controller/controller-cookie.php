@@ -70,6 +70,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		add_filter( 'ct_ultimate_gdpr_controller_cookie_group_level', array( $this, 'get_group_level' ) );
 		add_action( 'ct_ultimate_gdpr_controller_cookie_check', array( $this, 'scan_cookies' ) );
         add_filter('ct_ultimate_gdpr_controller_cookie_get_cookie_check_api_url', array($this, 'get_cookie_check_api_url'), 10, 2);
+		add_filter( 'cron_schedules', array( $this, 'add_cron_schedules' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'cookie_check_cron' ) );
 
 		if ( is_admin() ) {
@@ -332,7 +333,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
 			$user_ip = ct_ultimate_gdpr_get_user_ip();
 			try {
-                $reader       = new \IP2Location\Database(ct_ultimate_gdpr_path('vendor/GeoIP/IP2LOCATION-LITE-DB3.BIN'));
+                $reader       = new \IP2Location\Database(ct_ultimate_gdpr_path('vendor/GeoIP/IP2LOCATION-LITE-DB3.BIN'),\IP2Location\Database::FILE_IO);                
                 $country_code = $reader->lookup($user_ip, \IP2Location\Database::COUNTRY_CODE);
 			} catch (Exception $e) {
 				$country_code = '';
@@ -4587,8 +4588,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	 *
 	 */
 	public function cookie_check_cron() {
-		add_filter( 'cron_schedules', array( $this, 'add_cron_schedules' ) );
-		if ( ! wp_get_schedule( 'ct_ultimate_gdpr_controller_cookie_check' ) ) {
+		if ( ! wp_next_scheduled( 'ct_ultimate_gdpr_controller_cookie_check' ) ) {
 			$admin       = CT_Ultimate_GDPR::instance()->get_admin_controller();
 			$field_name  = $admin->get_field_name( 'render_field_cookie_scan_period' );
 			$field_value = $admin->get_option_value( $field_name, false, self::ID );
@@ -4635,7 +4635,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			// get response from cookie scanner api
 			$api_response = $this->get_cookie_scanner_response();
 			$this->process_scanned_cookies( $api_response );
-
+			if( wp_doing_cron() ) $this->check_last_cookies_scan();
 		}
 	}
 

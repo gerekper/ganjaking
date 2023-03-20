@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-03-08 21:01-0800\n"
-"PO-Revision-Date: 2023-03-08 21:01-0800\n"
+"POT-Creation-Date: 2023-03-17 21:03-0700\n"
+"PO-Revision-Date: 2023-03-17 21:04-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -30,14 +30,14 @@ msgid "API Key Used"
 msgstr "Vous n'avez pas de clés API."
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:17
-#: includes/wc-am-product-admin.php:310 templates/myaccount/api-keys.php:83
+#: includes/wc-am-product-admin.php:310 templates/myaccount/api-keys.php:85
 #, fuzzy
 msgid "Product ID"
 msgstr "Produit"
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:18
 #: includes/wc-am-product-admin.php:317
-#: templates/myaccount/api-downloads.php:49
+#: templates/myaccount/api-downloads.php:51
 #, fuzzy
 msgid "Version"
 msgstr "Le numéro de version du logiciel."
@@ -52,14 +52,14 @@ msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:32
 #: includes/wc-am-order-admin.php:69
-#: templates/emails/api-keys-order-complete.php:85
-#: templates/myaccount/api-keys.php:53
+#: templates/emails/api-keys-order-complete.php:89
+#: templates/myaccount/api-keys.php:55
 #, fuzzy
 msgid "Master API Key"
 msgstr "Clé de licence API"
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:34
-#: templates/myaccount/api-keys.php:87
+#: templates/myaccount/api-keys.php:89
 #, fuzzy
 msgid "Product Order API Key"
 msgstr "Clés de licence API"
@@ -70,80 +70,86 @@ msgid "Associated API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:63
-#: templates/myaccount/api-keys.php:245
+#: templates/myaccount/api-keys.php:246
 #, fuzzy
 msgid "Delete"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:17
-#: includes/admin/meta-boxes/html-order-api-resources.php:23
-#: templates/emails/api-keys-order-complete.php:57
-#: templates/emails/plain/api-keys-order-complete.php:33
-#: templates/myaccount/api-keys.php:205
+#: templates/emails/api-keys-order-complete.php:58
+#: templates/emails/plain/api-keys-order-complete.php:34
+#: templates/myaccount/api-keys.php:204
+msgid "Expired"
+msgstr ""
+
+#: includes/admin/meta-boxes/html-order-api-resources.php:19
+#: templates/emails/api-keys-order-complete.php:60
+#: templates/emails/plain/api-keys-order-complete.php:36
+#: templates/myaccount/api-keys.php:206
 msgid "never"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:45
+#: includes/admin/meta-boxes/html-order-api-resources.php:41
 #, fuzzy
 msgid "Click to toggle"
 msgstr "Cliquez pour basculer"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:46
+#: includes/admin/meta-boxes/html-order-api-resources.php:42
 #, php-format
 msgid ""
 "Product ID: %s | Product Title: %s | Activations: %s out of %s | Current "
 "Version: %s | Expires: %s"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:52
+#: includes/admin/meta-boxes/html-order-api-resources.php:48
 #, fuzzy
 msgid "Product Order API Key:"
 msgstr "Clé de licence API"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:57
+#: includes/admin/meta-boxes/html-order-api-resources.php:53
 #, fuzzy
 msgid "Activation Limit Total:"
 msgstr "Limit d'activation"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:59
+#: includes/admin/meta-boxes/html-order-api-resources.php:55
 msgid "A value less than the current Activation Limit Total is not valid."
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:67
+#: includes/admin/meta-boxes/html-order-api-resources.php:63
 #: includes/wc-am-product-admin.php:443 includes/wc-am-product-admin.php:791
 msgid "1"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:73
+#: includes/admin/meta-boxes/html-order-api-resources.php:69
 #, fuzzy
 msgid "Current Version:"
 msgstr "Version du logiciel"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:76
-#: includes/admin/meta-boxes/html-order-api-resources.php:84
-#: includes/admin/meta-boxes/html-order-api-resources.php:92
-#: includes/admin/meta-boxes/html-order-api-resources.php:113
+#: includes/admin/meta-boxes/html-order-api-resources.php:72
+#: includes/admin/meta-boxes/html-order-api-resources.php:80
+#: includes/admin/meta-boxes/html-order-api-resources.php:88
+#: includes/admin/meta-boxes/html-order-api-resources.php:109
 #, fuzzy
 msgid "Required"
 msgstr "Version WP requise"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:81
+#: includes/admin/meta-boxes/html-order-api-resources.php:77
 #, fuzzy
 msgid "Resource Title:"
 msgstr "Titre du logiciel"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:87
+#: includes/admin/meta-boxes/html-order-api-resources.php:83
 #: includes/wc-am-product-admin.php:795
 #, fuzzy
 msgid "Product ID:"
 msgstr "Produit"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:102
+#: includes/admin/meta-boxes/html-order-api-resources.php:98
 #, fuzzy
 msgid "Access Expires:"
 msgstr "Permission d'accès API"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:106
+#: includes/admin/meta-boxes/html-order-api-resources.php:102
 msgid "A date in the future can be chosen to extend the Access Expires value."
 msgstr ""
 
@@ -943,42 +949,46 @@ msgid "API Resource Activations"
 msgstr "Activations"
 
 #: includes/wc-am-order-admin.php:91 includes/wc-am-order-admin.php:132
-#: includes/wc-am-order-admin.php:274
+#: includes/wc-am-order-admin.php:285
 #, fuzzy
 msgid "Contains no API Product."
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:114 includes/wc-am-order-admin.php:221
-#: includes/wc-am-order-admin.php:255
+#: includes/wc-am-order-admin.php:114 includes/wc-am-order-admin.php:266
 msgid "No API resources for this order."
 msgstr ""
 
-#: includes/wc-am-order-admin.php:285 includes/wc-am-order-admin.php:353
+#: includes/wc-am-order-admin.php:261 includes/wc-am-order-admin.php:263
+#, php-format
+msgid "%sSee Parent Order%s"
+msgstr ""
+
+#: includes/wc-am-order-admin.php:296 includes/wc-am-order-admin.php:364
 #, fuzzy
 msgid "No activations yet."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:297
+#: includes/wc-am-order-admin.php:308
 #, fuzzy
 msgid "Are you sure you want to delete this activation?"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
-#: includes/wc-am-order-admin.php:497
+#: includes/wc-am-order-admin.php:508
 #, fuzzy
 msgid "Contains API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:497
+#: includes/wc-am-order-admin.php:508
 #, fuzzy
 msgid "API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:517
+#: includes/wc-am-order-admin.php:528
 #, fuzzy
 msgid "Has activations."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:519
+#: includes/wc-am-order-admin.php:530
 #, fuzzy
 msgid "No activations."
 msgstr "Activations"
@@ -1172,9 +1182,9 @@ msgid ""
 msgstr ""
 
 #: includes/wc-am-product-admin.php:508
-#: templates/myaccount/api-downloads.php:51
-#: templates/myaccount/api-downloads.php:166
-#: templates/myaccount/api-downloads.php:266
+#: templates/myaccount/api-downloads.php:53
+#: templates/myaccount/api-downloads.php:159
+#: templates/myaccount/api-downloads.php:256
 msgid "Documentation"
 msgstr ""
 
@@ -1196,8 +1206,8 @@ msgid "A description of the software."
 msgstr "Une description du logiciel."
 
 #: includes/wc-am-product-admin.php:546 includes/wc-am-product-admin.php:927
-#: templates/myaccount/api-downloads.php:155
-#: templates/myaccount/api-downloads.php:255
+#: templates/myaccount/api-downloads.php:148
+#: templates/myaccount/api-downloads.php:245
 #, fuzzy
 msgid "Changelog"
 msgstr "Modifications"
@@ -1424,7 +1434,7 @@ msgid ""
 "get_api_resources_for_user_id_sort_by_product_title() error."
 msgstr ""
 
-#: includes/wc-am-smart-cache.php:399 includes/wc-am-smart-cache.php:455
+#: includes/wc-am-smart-cache.php:400 includes/wc-am-smart-cache.php:457
 msgid "Details from delete_cache() method, random_int() error."
 msgstr ""
 
@@ -1483,154 +1493,148 @@ msgid "ID"
 msgstr ""
 
 #: templates/emails/api-keys-order-complete.php:34
-#: templates/myaccount/api-keys.php:92
+#: templates/myaccount/api-keys.php:94
 #, fuzzy
 msgid "Activations"
 msgstr "Activations"
 
 #: templates/emails/api-keys-order-complete.php:35
-#: templates/myaccount/api-keys.php:90
+#: templates/myaccount/api-keys.php:92
 msgid "Expires"
 msgstr ""
 
-#: templates/emails/api-keys-order-complete.php:55
-#: templates/emails/plain/api-keys-order-complete.php:31
-#: templates/myaccount/api-keys.php:203
-msgid "Expired"
-msgstr ""
-
-#: templates/emails/api-keys-order-complete.php:67
+#: templates/emails/api-keys-order-complete.php:71
 #, fuzzy
 msgid "Product Order API Key(s):"
 msgstr "Clé de licence API"
 
-#: templates/emails/api-keys-order-complete.php:81
+#: templates/emails/api-keys-order-complete.php:85
 msgid "Click here to login and download your file(s)"
 msgstr ""
 
-#: templates/emails/api-keys-order-complete.php:92
-#: templates/emails/plain/api-keys-order-complete.php:57
+#: templates/emails/api-keys-order-complete.php:96
+#: templates/emails/plain/api-keys-order-complete.php:61
 msgid "A Master API Key can be used to activate any and all products."
 msgstr ""
 
-#: templates/emails/plain/api-keys-order-complete.php:37
+#: templates/emails/plain/api-keys-order-complete.php:41
 #, fuzzy, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Product: %s"
 msgstr "Produit"
 
-#: templates/emails/plain/api-keys-order-complete.php:41
+#: templates/emails/plain/api-keys-order-complete.php:45
 #, fuzzy, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Product Order API Key(s): %s"
 msgstr "Clé de licence API"
 
-#: templates/emails/plain/api-keys-order-complete.php:45
+#: templates/emails/plain/api-keys-order-complete.php:49
 #, fuzzy, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Product ID: %s"
 msgstr "Produit"
 
-#: templates/emails/plain/api-keys-order-complete.php:47
+#: templates/emails/plain/api-keys-order-complete.php:51
 #, fuzzy, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Activations: %s"
 msgstr "Activations"
 
-#: templates/emails/plain/api-keys-order-complete.php:49
+#: templates/emails/plain/api-keys-order-complete.php:53
 #, fuzzy, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Expires: %s"
 msgstr "Permission d'accès API"
 
-#: templates/emails/plain/api-keys-order-complete.php:55
+#: templates/emails/plain/api-keys-order-complete.php:59
 #, fuzzy, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Master API Key: %s"
 msgstr "Clé de licence API"
 
-#: templates/emails/plain/api-keys-order-complete.php:61
+#: templates/emails/plain/api-keys-order-complete.php:65
 #, php-format
 msgctxt "in plain emails for API Product information"
 msgid "Click here to login and download your file(s): %s"
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:48 templates/myaccount/api-keys.php:81
+#: templates/myaccount/api-downloads.php:50 templates/myaccount/api-keys.php:83
 #, fuzzy
 msgid "Product Title"
 msgstr "Clés de licence API"
 
-#: templates/myaccount/api-downloads.php:50
+#: templates/myaccount/api-downloads.php:52
 #, fuzzy
 msgid "Release Date"
 msgstr "Date &amp; Heure"
 
-#: templates/myaccount/api-downloads.php:52
-#: templates/myaccount/api-downloads.php:176
-#: templates/myaccount/api-downloads.php:179
-#: templates/myaccount/api-downloads.php:276
-#: templates/myaccount/api-downloads.php:280
+#: templates/myaccount/api-downloads.php:54
+#: templates/myaccount/api-downloads.php:169
+#: templates/myaccount/api-downloads.php:172
+#: templates/myaccount/api-downloads.php:266
+#: templates/myaccount/api-downloads.php:270
 #, fuzzy
 msgid "Download"
 msgstr "Désolé, ce téléchargement a expiré"
 
-#: templates/myaccount/api-downloads.php:145
-#: templates/myaccount/api-downloads.php:245
+#: templates/myaccount/api-downloads.php:138
+#: templates/myaccount/api-downloads.php:235
 #, fuzzy
 msgid "No Date"
 msgstr ""
 "Une liste de changements du logiciel qui doivent être groupés par jour."
 
-#: templates/myaccount/api-downloads.php:181
-#: templates/myaccount/api-downloads.php:199
-#: templates/myaccount/api-downloads.php:283
-#: templates/myaccount/api-downloads.php:301
+#: templates/myaccount/api-downloads.php:174
+#: templates/myaccount/api-downloads.php:192
+#: templates/myaccount/api-downloads.php:273
+#: templates/myaccount/api-downloads.php:291
 msgid "Disabled"
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:319
-#: templates/myaccount/api-keys.php:276
+#: templates/myaccount/api-downloads.php:309
+#: templates/myaccount/api-keys.php:277
 msgid "Go shop"
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:321
+#: templates/myaccount/api-downloads.php:311
 msgid "No API downloads available yet."
 msgstr ""
 
-#: templates/myaccount/api-downloads.php:327
-#: templates/myaccount/api-keys.php:284
+#: templates/myaccount/api-downloads.php:317
+#: templates/myaccount/api-keys.php:285
 msgid "This account has been disabled."
 msgstr ""
 
-#: templates/myaccount/api-keys.php:53
+#: templates/myaccount/api-keys.php:55
 msgid " - Can be used to activate any product."
 msgstr ""
 
-#: templates/myaccount/api-keys.php:71
+#: templates/myaccount/api-keys.php:73
 msgid ""
 "A Product Order API Key is used to activate a single product from a single "
 "order."
 msgstr ""
 
-#: templates/myaccount/api-keys.php:174 templates/myaccount/api-keys.php:176
-#: templates/myaccount/api-keys.php:214 templates/myaccount/api-keys.php:216
+#: templates/myaccount/api-keys.php:176 templates/myaccount/api-keys.php:178
+#: templates/myaccount/api-keys.php:215 templates/myaccount/api-keys.php:217
 #, fuzzy
 msgid " out of "
 msgstr "%s sur %s activations restantes"
 
-#: templates/myaccount/api-keys.php:278
+#: templates/myaccount/api-keys.php:279
 msgid "No API products available yet."
 msgstr ""
 
-#: woocommerce-api-manager.php:152
+#: woocommerce-api-manager.php:161
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:161
+#: woocommerce-api-manager.php:170
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:563
+#: woocommerce-api-manager.php:572
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must "
@@ -1638,7 +1642,7 @@ msgid ""
 "WooCommerce on the %splugin page%s once it is installed."
 msgstr ""
 
-#: woocommerce-api-manager.php:581
+#: woocommerce-api-manager.php:590
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s is inactive because it requires PHP version "
@@ -1646,7 +1650,7 @@ msgid ""
 "upgrade your version of PHP."
 msgstr ""
 
-#: woocommerce-api-manager.php:618
+#: woocommerce-api-manager.php:627
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, "
@@ -1655,7 +1659,7 @@ msgid ""
 "%s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:638
+#: woocommerce-api-manager.php:647
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version "
@@ -1663,7 +1667,7 @@ msgid ""
 "installed. Please upgrade WooCommerce Subscriptions to version %s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:693
+#: woocommerce-api-manager.php:702
 #, php-format
 msgid ""
 "Warning! Version 2.0 is a major update to the WooCommerce API Manager "

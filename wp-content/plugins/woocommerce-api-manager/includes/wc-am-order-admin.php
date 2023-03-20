@@ -132,9 +132,11 @@ class WC_AM_Order_Admin {
             <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 			<?php
 		} else {
-			$resources     = array();
-			$sub_parent_id = 0;
-			$sub_resources = array();
+			$resources           = array();
+			$sub_parent_id       = 0;
+			$sub_parent_order_id = 0;
+			$sub_resources       = array();
+			$order_screen_id     = WCAM()->get_wc_page_screen_id( 'shop_order' );
 
 			/**
 			 * Subscription resources should be displayed on the Subscription parent order only.
@@ -217,8 +219,6 @@ class WC_AM_Order_Admin {
 							}
 
 							$i ++;
-						} else {
-							?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
 						}
 					}
 					?>
@@ -252,8 +252,19 @@ class WC_AM_Order_Admin {
 				$javascript = ob_get_clean();
 				WCAM()->wc_am_print_js( $javascript );
 			} else {
-				?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
-				return;
+				if ( WCAM()->get_wc_subs_exist() ) {
+					$sub_parent_order_id = WC_AM_SUBSCRIPTION()->get_sub_parent_order_id_for_related_order( $order, array( 'renewal' ) );
+				}
+
+				if ( ! empty( $sub_parent_order_id ) ) {
+					if ( $order_screen_id == 'woocommerce_page_wc-orders' ) {
+						printf( __( '%sSee Parent Order%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+					} else {
+						printf( __( '%sSee Parent Order%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+					}
+				} else {
+					?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+				}
 			}
 		}
 	}

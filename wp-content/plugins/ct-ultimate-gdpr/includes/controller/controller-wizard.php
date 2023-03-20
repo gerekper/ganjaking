@@ -87,8 +87,9 @@ class CT_Ultimate_GDPR_Controller_Wizard extends CT_Ultimate_GDPR_Controller_Abs
 
         add_action( 'admin_init', function() {
             if ( current_user_can( 'manage_options' ) && ( ! wp_doing_ajax() ) ) {
-                // $_REQUEST['step'] == step8b 
-                if(in_array($_REQUEST['step'], array('step8b', 'step2b')) ){
+                // $_REQUEST['step'] == step8b
+                $step = $_REQUEST['step'] ?? '';
+                if(in_array($step, array('step8b', 'step2b')) ){
                     $cookie_key = 'ct-ultimate-gdpr-cookie';
                     if (isset($_COOKIE[$cookie_key])) {
                         unset($_COOKIE[$cookie_key]);

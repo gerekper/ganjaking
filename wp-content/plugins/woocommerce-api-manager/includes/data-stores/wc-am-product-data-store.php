@@ -188,6 +188,8 @@ class WC_AM_Product_Data_Store {
 	/**
 	 * Return only the first/latest download URL for a product download.
 	 *
+	 * @see     get_all_download_urls() to allow more download URLs.
+	 *
 	 * @since   2.0
 	 * @updated 2.5 For WooCommerce HPOS.
 	 *
@@ -210,6 +212,32 @@ class WC_AM_Product_Data_Store {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return all download URLs for all product downloads.
+	 *
+	 * @since   2.5.7
+	 *
+	 * @param int|WC_Product $product
+	 *
+	 * @return string|bool
+	 */
+	public function get_all_download_urls( $product ) {
+		$product = $this->get_product_object( $product );
+		$urls    = array();
+
+		if ( is_object( $product ) ) {
+			$downloads = $this->get_downloads( $product );
+
+			if ( is_array( $downloads ) && ! empty( $downloads ) ) {
+				foreach ( $downloads as $download => $value ) {
+					$urls[] = $value[ 'file' ];
+				}
+			}
+		}
+
+		return $urls;
 	}
 
 	/**

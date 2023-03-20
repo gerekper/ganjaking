@@ -13,9 +13,11 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
+ * @since   2.0
+ *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.0
+ * @version 2.5.7
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -100,115 +102,103 @@ if ( ! empty( $user_id ) ) {
 
 							$remote_url = WC_AM_URL()->is_download_external_url( $product_id );
 
-							if ( WCAM()->get_wc_subs_exist() ) {
-								$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $product_id );
-							} else {
-								$is_wc_sub = false;
-							}
-
 							/**
 							 * WC Subscriptions Only
 							 */
-							if ( WCAM()->get_wc_subs_exist() ) {
-								if ( $is_wc_sub ) {
-									$sub_id                    = $resource->sub_id;
-									$sub_order_key             = $resource->sub_order_key;
-									$secure_order_download_url = $remote_url ? WC_AM_ORDER_DATA_STORE()->get_secure_order_download_url( $user_id, $sub_id, $product_id, $remote_url ) : WC_AM_ORDER_DATA_STORE()->get_secure_order_download_url( $user_id, $sub_id, $product_id );
-
-									if ( $sub_id ) {
-										?>
-                                        <tr class="order">
-                                            <td class="api-manager-downloads-product">
-												<?php
-												if ( ! empty( $product_permalink ) ) {
-													?>
-                                                    <a href="<?php echo esc_url( $product_permalink ) ?>"
-                                                       target="_blank"><?php echo esc_attr( $product_title ) ?></a> <?php echo esc_html( ' &rarr; ID # ' ) . absint( $product_id ) ?>
-													<?php
-												}
-												?>
-                                            </td>
-                                            <td class="api-manager-version">
-												<?php
-												$download_version = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_new_version' );
-												if ( ! empty( $download_version ) ) {
-													echo esc_attr( $download_version );
-												}
-												?>
-                                            </td>
-                                            <td class="api-manager-version-date">
-												<?php
-												$version_date = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_last_updated' );
-												if ( ! empty( $version_date ) ) {
-													echo esc_attr( date_i18n( $version_date ) );
-												} else {
-													esc_html_e( 'No Date', 'woocommerce-api-manager' );
-												}
-												?>
-                                            </td>
-                                            <td class="api-manager-changelog">
-												<?php
-												$changelog = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_changelog' );
-												if ( ! empty( $changelog ) ) {
-													?>
-                                                    <a href="<?php echo esc_url( get_permalink( absint( $changelog ) ) ); ?>"
-                                                       target="_blank"><?php esc_html_e( 'Changelog', 'woocommerce-api-manager' ); ?></a>
-													<?php
-												}
-												?>
-                                                <br>
-                                                <hr>
-												<?php
-												$documentation = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_product_documentation' );
-												if ( ! empty( $documentation ) ) {
-													?>
-                                                    <a href="<?php echo esc_url( get_permalink( absint( $documentation ) ) ); ?>"
-                                                       target="_blank"><?php esc_html_e( 'Documentation', 'woocommerce-api-manager' ); ?></a>
-													<?php
-												}
-												?>
-                                            </td>
-                                            <td class="api-manager-download">
-												<?php
-												if ( ! empty( $download ) && $find_amazon_s3_in_url ) {
-													?>
-                                                    <a href="<?php echo esc_url( $secure_s3_url ); ?>"
-                                                       target="_blank"><?php esc_html_e( 'Download', 'woocommerce-api-manager' ); ?></a>
-												<?php } elseif ( ! empty( $download ) && ! $find_amazon_s3_in_url ) { ?>
-                                                    <a href="<?php echo esc_url( $secure_order_download_url ); ?>"
-                                                       target="_blank"><?php esc_html_e( 'Download', 'woocommerce-api-manager' ); ?></a>
-												<?php } else {
-													esc_html_e( 'Disabled', 'woocommerce-api-manager' );
-												}
-												?>
-                                                <br>
-                                                <hr>
-												<?php
-												if ( ! empty( $dropbox_app_key ) && ! empty( $download ) && $find_amazon_s3_in_url ) {
-													?>
-                                                    <a href="<?php echo esc_url( $secure_s3_url ); ?>"
-                                                       class="dropbox-saver nobr"></a>
-													<?php
-												} elseif ( ! empty( $dropbox_app_key ) && ! empty( $download ) && ! $find_amazon_s3_in_url ) { ?>
-                                                    <a href="<?php echo esc_url( $secure_order_download_url ); ?>"
-                                                       class="dropbox-saver nobr"></a>
-													<?php
-												} elseif ( empty( $dropbox_app_key ) ) {
-													echo '&nbsp;';
-												} else {
-													esc_html_e( 'Disabled', 'woocommerce-api-manager' );
-												}
-												?>
-                                            </td>
-                                        </tr>
+							if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
+								$sub_id                    = $resource->sub_id;
+								$sub_order_key             = $resource->sub_order_key;
+								$secure_order_download_url = $remote_url ? WC_AM_ORDER_DATA_STORE()->get_secure_order_download_url( $user_id, $sub_id, $product_id, $remote_url ) : WC_AM_ORDER_DATA_STORE()->get_secure_order_download_url( $user_id, $sub_id, $product_id );
+								?>
+                                <tr class="order">
+                                    <td class="api-manager-downloads-product">
 										<?php
-									} // end if $sub_id
-								}
-							}
-							/**
-							 * Non WC Subscriptions
-							 */
-							if ( ! $is_wc_sub ) {
+										if ( ! empty( $product_permalink ) ) {
+											?>
+                                            <a href="<?php echo esc_url( $product_permalink ) ?>"
+                                               target="_blank"><?php echo esc_attr( $product_title ) ?></a> <?php echo esc_html( ' &rarr; ID # ' ) . absint( $product_id ) ?>
+											<?php
+										}
+										?>
+                                    </td>
+                                    <td class="api-manager-version">
+										<?php
+										$download_version = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_new_version' );
+										if ( ! empty( $download_version ) ) {
+											echo esc_attr( $download_version );
+										}
+										?>
+                                    </td>
+                                    <td class="api-manager-version-date">
+										<?php
+										$version_date = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_last_updated' );
+										if ( ! empty( $version_date ) ) {
+											echo esc_attr( date_i18n( $version_date ) );
+										} else {
+											esc_html_e( 'No Date', 'woocommerce-api-manager' );
+										}
+										?>
+                                    </td>
+                                    <td class="api-manager-changelog">
+										<?php
+										$changelog = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_changelog' );
+										if ( ! empty( $changelog ) ) {
+											?>
+                                            <a href="<?php echo esc_url( get_permalink( absint( $changelog ) ) ); ?>"
+                                               target="_blank"><?php esc_html_e( 'Changelog', 'woocommerce-api-manager' ); ?></a>
+											<?php
+										}
+										?>
+                                        <br>
+                                        <hr>
+										<?php
+										$documentation = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_product_documentation' );
+										if ( ! empty( $documentation ) ) {
+											?>
+                                            <a href="<?php echo esc_url( get_permalink( absint( $documentation ) ) ); ?>"
+                                               target="_blank"><?php esc_html_e( 'Documentation', 'woocommerce-api-manager' ); ?></a>
+											<?php
+										}
+										?>
+                                    </td>
+                                    <td class="api-manager-download">
+										<?php
+										if ( ! empty( $download ) && $find_amazon_s3_in_url ) {
+											?>
+                                            <a href="<?php echo esc_url( $secure_s3_url ); ?>"
+                                               target="_blank"><?php esc_html_e( 'Download', 'woocommerce-api-manager' ); ?></a>
+										<?php } elseif ( ! empty( $download ) && ! $find_amazon_s3_in_url ) { ?>
+                                            <a href="<?php echo esc_url( $secure_order_download_url ); ?>"
+                                               target="_blank"><?php esc_html_e( 'Download', 'woocommerce-api-manager' ); ?></a>
+										<?php } else {
+											esc_html_e( 'Disabled', 'woocommerce-api-manager' );
+										}
+										?>
+                                        <br>
+                                        <hr>
+										<?php
+										if ( ! empty( $dropbox_app_key ) && ! empty( $download ) && $find_amazon_s3_in_url ) {
+											?>
+                                            <a href="<?php echo esc_url( $secure_s3_url ); ?>"
+                                               class="dropbox-saver nobr"></a>
+											<?php
+										} elseif ( ! empty( $dropbox_app_key ) && ! empty( $download ) && ! $find_amazon_s3_in_url ) { ?>
+                                            <a href="<?php echo esc_url( $secure_order_download_url ); ?>"
+                                               class="dropbox-saver nobr"></a>
+											<?php
+										} elseif ( empty( $dropbox_app_key ) ) {
+											echo '&nbsp;';
+										} else {
+											esc_html_e( 'Disabled', 'woocommerce-api-manager' );
+										}
+										?>
+                                    </td>
+                                </tr>
+								<?php
+							} else {
+								/**
+								 * Non WC Subscriptions
+								 */
 								// If the API Key access is not expired.
 								$expired = WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires );
 
@@ -305,7 +295,7 @@ if ( ! empty( $user_id ) ) {
                                     </tr>
 									<?php
 								} // end  if not $expired
-							} // end if is WC Sub
+							}
 						} // end if $download
 					} // end if $is_api
 				}  // end user_orders

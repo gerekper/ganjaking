@@ -348,7 +348,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * Returns FALSE if var exists and has a non-empty, non-zero value. Otherwise returns TRUE.
+	 * Returns FALSE if var exists and has a non-empty, non-zero value.
 	 * Works with Objects, which the core empty() PHP function does not.
 	 *
 	 * @since   2.2.1

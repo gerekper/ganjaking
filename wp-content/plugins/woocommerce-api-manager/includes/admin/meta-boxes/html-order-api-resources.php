@@ -10,15 +10,11 @@ defined( 'ABSPATH' ) || exit;
 $expires = '';
 
 if ( ! empty( $resource ) ) {
-	if ( ! empty( $resource->sub_id ) ) {
-		if ( WCAM()->get_wc_subs_exist() ) {
-			$expires = WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $resource->order_id, $resource->product_id );
-		} else {
-			$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->get_human_time_diff( $resource->access_expires ) );
-		}
+	if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
+		$expires = WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $resource->order_id, $resource->product_id );
 	} else {
 		if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
-			$expires = 'Expired';
+			$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
 		} else {
 			$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
 		}

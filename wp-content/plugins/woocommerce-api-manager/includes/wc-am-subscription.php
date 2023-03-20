@@ -200,6 +200,45 @@ class WC_AM_Subscription {
 	}
 
 	/**
+	 * Return the parent order ID depending on the subscription order type, i.e. 'parent', 'renewal'.
+	 *
+	 * @since 2.5.7
+	 *
+	 * @param int|\WC_Order $order_id
+	 * @param Array         $order_type
+	 *
+	 * @return int
+	 */
+	public function get_sub_parent_order_id_for_related_order( $order_id, $order_type = array( 'parent', 'renewal' ) ) {
+		$order             = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+		$related_order_key = 'wc_am_get_sub_parent_order_id_for_related_order_' . $order->get_id();
+
+		if ( WCAM()->get_db_cache() ) {
+			$related_order_cached = WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key );
+
+			if ( $related_order_cached !== false ) {
+				return $related_order_cached;
+			}
+		}
+
+		$subscriptions = wcs_get_subscriptions_for_order( $order->get_id(), array( 'order_type' => $order_type ) );
+
+		if ( ! WC_AM_FORMAT()->empty( $subscriptions ) ) {
+			foreach ( $subscriptions as $subscription ) {
+				if ( ! WC_AM_FORMAT()->empty( $subscription->get_parent_id() ) ) {
+					if ( WCAM()->get_db_cache() ) {
+						WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key, $subscription->get_parent_id(), WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+					}
+
+					return $subscription->get_parent_id();
+				}
+			}
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Returns a parent Order ID for renewal, resubscribe, and/or switch orders of a subscription.
 	 *
 	 * @deprecated 2.5.5 Due to HPOS. Backup for older versions of Subscriptions before WC 7.4.

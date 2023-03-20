@@ -13,9 +13,11 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
+ * @since   2.0
+ *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.0
+ * @version 2.5.7
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -144,8 +146,8 @@ if ( ! empty( $user_id ) ) {
 							 * WC Subscriptions Only API Keys
 							 * Only display active subscriptions
 							 */
-							if ( WCAM()->get_wc_subs_exist() ) {
-								if ( $is_wc_sub ) {
+							if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
+								if ( ! empty( $resource->sub_id ) ) {
 									$sub_id        = $resource->sub_id;
 									$sub_order_key = $resource->sub_order_key;
 									?>
@@ -165,7 +167,7 @@ if ( ! empty( $user_id ) ) {
 										<?php } ?>
                                         <td class="api-manager-expire">
 											<?php
-											echo esc_html( WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $order, $product_id ) );
+											esc_html_e( WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $order, $product_id ) );
 											?>
                                         </td>
                                         <td class="api-manager-activations">
@@ -179,11 +181,10 @@ if ( ! empty( $user_id ) ) {
                                     </tr>
 									<?php
 								}
-							}
-							/**
-							 * Non WC Subscriptions API Keys
-							 */
-							if ( ! $is_wc_sub ) {
+							} else {
+								/**
+								 * Non WC Subscriptions API Keys
+								 */
 								?>
                                 <tr class="order">
                                     <td class="api-manager-product">

@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.5.6
+ * Version: 2.5.7
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -12,9 +12,11 @@
  * Text Domain: woocommerce-api-manager
  * Domain Path: /i18n/languages/
  * WC requires at least: 7.4
- * WC tested up to: 7.4.1
+ * WC tested up to: 7.5
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
  * Requires WP: 6.0
+ * Requires at least: 6.0
+ * Tested up to: 6.1.1
  * Requires PHP: 7.2
  *
  * Intellectual Property rights, and copyright, reserved by Todd Lahman, LLC as allowed by law include,
@@ -36,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
  * Constants
  */
 if ( ! defined( 'WC_AM_VERSION' ) ) {
-	define( 'WC_AM_VERSION', '2.5.6' );
+	define( 'WC_AM_VERSION', '2.5.7' );
 }
 
 // Minimum WooCommerce version required.
@@ -56,6 +58,13 @@ if ( ! defined( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION' ) ) {
 
 if ( ! defined( 'WC_AM_PLUGIN_FILE' ) ) {
 	define( 'WC_AM_PLUGIN_FILE', __FILE__ );
+}
+
+/**
+ * @since 2.5.7
+ */
+if ( ! defined( 'WC_AM_ENABLE_CACHE' ) ) {
+	define( 'WC_AM_ENABLE_CACHE', true );
 }
 
 /**
@@ -162,7 +171,7 @@ final class WooCommerce_API_Manager {
 	}
 
 	private function __construct() {
-		$this->db_cache                   = true;
+		$this->db_cache                   = WC_AM_ENABLE_CACHE;
 		$this->db_cache_expires           = 1440; // 24 hours.
 		$this->api_cache_expires          = 60; // 1 hour.
 		$this->wc_subs_exist              = $this->is_wc_subscriptions_active();

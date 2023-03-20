@@ -760,9 +760,9 @@ class WC_Dropshipping_Orders {
 			}
 			$order_status = $order->get_status();
 			if ( $order_status == 'completed' ) {
-				$hdrs['Subject'] = 'Order #' . $order_info['custom_order_number'] . ' is completed ';
+				$hdrs['Subject'] = sprintf( __( 'Order #%s is completed', 'woocommerce-dropshipping' ), $order_info['custom_order_number'] );
 			} else if ( $order_status == 'cancelled' ) {
-				$hdrs['Subject'] = 'Order #' . $order_info['custom_order_number'] . ' is cancelled ';
+				$hdrs['Subject'] = sprintf( __( 'Order #%s is cancelled', 'woocommerce-dropshipping' ), $order_info['custom_order_number'] );
 			} else {
 				$hdrs['Subject'] = sprintf( __( 'New Order #%1$s From %2$s', 'woocommerce-dropshipping' ), $order_info['id'], $from_name );
 			}

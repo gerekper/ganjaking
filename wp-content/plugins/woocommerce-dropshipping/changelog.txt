@@ -1,5 +1,9 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2023-03-20 - version 4.9.3
+* Fix: PLUGINS-2028 - Fix invalid string format for translation compatibility.
+* Fix: PLUGINS-2079 - Fix upsell notification keeps on showing even after closing.
+
 2023-03-14 - version 4.9.2
 * Update: PLUGINS-1946 - Email and PDF formatting adjustments
 * Fix: PLUGINS-2006 - Fix edit supplier and packing slip errors. Add missing field on the packing slip.

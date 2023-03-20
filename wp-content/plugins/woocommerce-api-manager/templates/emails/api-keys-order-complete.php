@@ -51,13 +51,17 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
                     </td>
                     <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
 						<?php
-						if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
-							$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
+						if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
+							esc_html_e( WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $order, $resource->product_id ) );
 						} else {
-							$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->get_human_time_diff( $resource->access_expires ) );
-						}
+							if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
+								$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
+							} else {
+								$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->get_human_time_diff( $resource->access_expires ) );
+							}
 
-						esc_html_e( $expires );
+							esc_html_e( $expires );
+						}
 						?>
                     </td>
                 </tr>
