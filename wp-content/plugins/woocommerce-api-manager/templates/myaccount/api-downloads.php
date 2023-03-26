@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.5.7
+ * @version 2.6.1
  */
 
 defined( 'ABSPATH' ) || exit;

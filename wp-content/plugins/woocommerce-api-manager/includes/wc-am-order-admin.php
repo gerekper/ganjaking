@@ -258,9 +258,9 @@ class WC_AM_Order_Admin {
 
 				if ( ! empty( $sub_parent_order_id ) ) {
 					if ( $order_screen_id == 'woocommerce_page_wc-orders' ) {
-						printf( __( '%sSee Parent Order%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+						printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
 					} else {
-						printf( __( '%sSee Parent Order%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+						printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
 					}
 				} else {
 					?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php

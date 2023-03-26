@@ -5,7 +5,7 @@
  * @license  MIT
  */
 
-/*! @license DOMPurify 2.3.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.8/LICENSE */
+/*! @license DOMPurify 2.4.5 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.5/LICENSE */
 
 //! Copyright (c) JS Foundation and other contributors
 
@@ -17,4 +17,6 @@
 
 //! moment-timezone.js
 
-//! version : 0.5.34
+//! version : 0.5.40
+
+//! version : 0.5.41

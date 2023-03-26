@@ -50,6 +50,9 @@ class WCAM_Events_Background_Process extends WC_AM_Background_Process {
 			case 'cleanup_expired_api_activations':
 				WC_AM_BACKGROUND_EVENTS()->cleanup_expired_api_activations( absint( $item[ 'order_id_api_activations' ] ) );
 				break;
+			case 'cleanup_expired_grace_periods':
+				WC_AM_BACKGROUND_EVENTS()->cleanup_expired_grace_periods( absint( $item[ 'api_resource_id_grace_periods' ] ) );
+				break;
 			case 'cleanup_hash':
 				WC_AM_HASH()->cleanup_hash();
 				break;

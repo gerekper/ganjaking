@@ -1,12 +1,23 @@
 <?php
-use Dompdf\Dompdf;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+use Dompdf\Dompdf;
+use Themesquad\WC_Store_Catalog_PDF_Download\Utilities\Template_Utils;
+
 class WC_Store_Catalog_PDF_Download_Ajax {
 	private static $_this;
+
+	/**
+	 * Accepted layouts.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var array
+	 */
+	private static $accepted_layouts = array( 'single', 'grid', 'list' );
 
 	/**
 	 * Init
@@ -47,7 +58,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wc_store_catalog_pdf_download_nonce' ) ) {
-			 die( 'error' );
+			die( 'error' );
 		}
 
 		global $wc_posts, $layout, $is_single;
@@ -64,10 +75,12 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 		$is_single = isset( $_POST['is_single'] ) ? sanitize_text_field( $_POST['is_single'] ) : '';
 
-		$layout = isset( $_POST['layout'] ) ? sanitize_text_field( $_POST['layout'] ) : '';
+		$layout = isset( $_POST['layout'] ) ? sanitize_text_field( wp_unslash( $_POST['layout'] ) ) : '';
 
 		// single template trumps others
 		$layout = ! empty( $is_single ) && $is_single === 'true' ? 'single' : $layout;
+
+		$layout = in_array( $layout, self::$accepted_layouts, true ) ? $layout : '';
 
 		// portrait, landscape
 		$orientation = apply_filters( 'wc_store_catalog_pdf_download_orientation', 'portrait' );
@@ -92,9 +105,9 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 			ob_start();
 
-			include self::get_header_template( $layout );
-			include self::get_body_template( $layout );
-			include self::get_footer_template( $layout );
+			Template_Utils::get_template( 'pdf-layout-header-html.php' );
+			Template_Utils::get_template( "pdf-layout-{$layout}-html.php" );
+			Template_Utils::get_template( 'pdf-layout-footer-html.php' );
 
 			$html = ob_get_clean();
 
@@ -154,107 +167,59 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 	}
 
 	/**
-	 * Get the product meta template
+	 * Gets the product meta template.
 	 *
 	 * @since 1.0.0
-	 * @return html template
+	 *
+	 * @param WC_Product $product Product object.
+	 * @return string
 	 */
 	public static function get_product_meta_template( $product ) {
-		global $product;
-
-		// check if template has been overriden
-		if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-product-meta-html.php' ) ) {
-
-			return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-product-meta-html.php';
-
-		} else {
-
-			return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-product-meta-html.php';
-		}
+		return Template_Utils::locate_template( 'pdf-layout-product-meta-html.php' );
 	}
 
 	/**
 	 * Get the body template
 	 *
 	 * @since 1.0.0
-	 * @param string $layout
-	 * @return html template
+	 * @since 2.1.0 Return an empty string if the template is not found.
+	 * @deprecated 2.1.0
+	 *
+	 * @param string $layout The layout to be included.
+	 * @return string
 	 */
 	public static function get_body_template( $layout ) {
+		wc_deprecated_function( __FUNCTION__, '2.1.0' );
 
-		if ( 'list' === $layout ) {
-
-			// check if template has been overriden
-			if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-list-html.php' ) ) {
-
-				return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-list-html.php';
-
-			} else {
-				return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-list-html.php';
-			}
-		}
-
-		if ( 'grid' === $layout ) {
-			// check if template has been overriden
-			if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-grid-html.php' ) ) {
-
-				return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-grid-html.php';
-
-			} else {
-				return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-grid-html.php';
-			}
-		}
-
-		if ( 'single' === $layout ) {
-			// check if template has been overriden
-			if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-single-html.php' ) ) {
-
-				return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-single-html.php';
-
-			} else {
-				return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-single-html.php';
-			}
-		}
-
-		return true;
+		return Template_Utils::locate_template( "pdf-layout-{$layout}-html.php" );
 	}
 
 	/**
-	 * Get the header template
+	 * Gets the header template.
 	 *
 	 * @since 1.0.0
-	 * @return html template
+	 * @deprecated 2.1.0
+	 *
+	 * @return string
 	 */
 	public static function get_header_template() {
+		wc_deprecated_function( __FUNCTION__, '2.1.0' );
 
-		// check if template has been overriden
-		if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-header-html.php' ) ) {
-
-			return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-header-html.php';
-
-		} else {
-
-			return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-header-html.php';
-		}
+		return Template_Utils::locate_template( 'pdf-layout-header-html.php' );
 	}
 
 	/**
-	 * Get the footer template
+	 * Gets the footer template.
 	 *
 	 * @since 1.0.0
-	 * @return html template
+	 * @deprecated 2.1.0
+	 *
+	 * @return string
 	 */
 	public static function get_footer_template() {
+		wc_deprecated_function( __FUNCTION__, '2.1.0' );
 
-		// check if template has been overriden
-		if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-footer-html.php' ) ) {
-
-			return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-footer-html.php';
-
-		} else {
-
-			return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-footer-html.php';
-		}
+		return Template_Utils::locate_template( 'pdf-layout-footer-html.php' );
 	}
 
 	/**

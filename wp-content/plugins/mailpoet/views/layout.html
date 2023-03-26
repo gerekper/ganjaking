@@ -120,22 +120,18 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
 <%= javascript(
   'runtime.js',
   'vendor.js',
-  'commons.js',
   'mailpoet.js'
 )%>
 
 <%= localize({
   'topBarLogoTitle': __('Back to section root'),
   'topBarUpdates': __('Updates'),
-  'topBarTutorial': __('Tutorial'),
   'whatsNew': __("What’s new"),
   'updateMailPoetNotice': __('[link]Update MailPoet[/link] to see the latest changes'),
   'ajaxFailedErrorMessage': __('An error has happened while performing a request, the server has responded with response code %d'),
   'ajaxTimeoutErrorMessage': __('An error has happened while performing a request, the server request has timed out after %d seconds'),
   'senderEmailAddressWarning1': _x('You might not reach the inbox of your subscribers if you use this email address.', 'In the last step, before sending a newsletter. URL: ?page=mailpoet-newsletters#/send/2'),
-  'senderEmailAddressWarning2': _x('Use an address like %1$s for the Sender and put %2$s in the <em>Reply-to</em> field below.', 'In the last step, before sending a newsletter. URL: ?page=mailpoet-newsletters#/send/2'),
   'senderEmailAddressWarning3': _x('Read more.'),
-  'mailerSendingResumedNotice': __('Sending has been resumed.'),
   'mailerSendingNotResumedUnauthorized': __('Failed to resume sending because the email address is unauthorized. Please authorize it and try again.'),
   'dismissNotice': __('Dismiss this notice.'),
 
@@ -146,34 +142,13 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   'youCanDisableWPUsersList': __('If you do not send emails to your WordPress Users list, you can [link]disable it[/link] to lower your number of subscribers.'),
   'upgradeNow': __('Upgrade Now'),
   'refreshMySubscribers': __('I’ve upgraded my subscription, refresh subscriber limit'),
-  'viewFilteredSubscribersMessage': __('View subscribers'),
 
   'emailVolumeLimitNoticeTitle': __('Congratulations, you sent more than [emailVolumeLimit] emails this month!'),
   'youReachedEmailVolumeLimit': __('You have sent more emails this month than your MailPoet plan includes ([emailVolumeLimit]), and sending has been temporarily paused.'),
   'toContinueUpgradeYourPlanOrWaitUntil': __('To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on <b>[date]</b>.'),
   'refreshMyEmailVolumeLimit': __('I’ve upgraded my subscription, refresh monthly email limit'),
 
-  'setFromAddressModalTitle': __('It’s time to set your default FROM address!', 'mailpoet'),
-  'setFromAddressModalDescription': __('Set one of [link]your authorized email addresses[/link] as the default FROM email for your MailPoet emails.', 'mailpoet'),
-  'setFromAddressModalSave': __('Save', 'mailpoet'),
-  'setFromAddressEmailSuccess': __('Excellent. Your authorized email was saved. You can change it in the [link]Basics tab of the MailPoet settings[/link].', 'mailpoet'),
-  'setFromAddressEmailNotAuthorized': __('Can’t use this email yet! [link]Please authorize it first[/link].', 'mailpoet'),
-  'setFromAddressEmailUnknownError': __('An error occured when saving FROM email address.', 'mailpoet'),
-
-  'manageSenderDomainHeaderTitle': __('Manage Sender Domain ', 'mailpoet'),
   'manageSenderDomainHeaderSubtitle': __('To help your audience and MailPoet authenticate you as the domain owner, please add the following DNS records to your domain’s DNS and click “Verify the DNS records”. Please note that it may take up to 24 hours for DNS changes to propagate after you make the change. [link]Read the guide[/link].', 'mailpoet'),
-  'manageSenderDomainTableHeaderType': __('Type', 'mailpoet'),
-  'manageSenderDomainTableHeaderHost': __('Host', 'mailpoet'),
-  'manageSenderDomainTableHeaderValue': __('Value', 'mailpoet'),
-  'manageSenderDomainTableHeaderStatus': __('Status', 'mailpoet'),
-  'manageSenderDomainVerifyButton': __('Verify the DNS records', 'mailpoet'),
-  'manageSenderDomainTooltipText': __('Click here to copy', 'mailpoet'),
-  'manageSenderDomainStatusPending': __('Pending', 'mailpoet'),
-  'manageSenderDomainStatusVerified': __('Verified', 'mailpoet'),
-  'manageSenderDomainStatusInvalid': __('Invalid', 'mailpoet'),
-  'authorizeSenderEmailAndDomainModalSenderEmailTabTitle': __('Authorized emails', 'mailpoet'),
-  'authorizeSenderEmailAndDomainModalSenderDomainTabTitle': __('Sender Domains', 'mailpoet'),
-  'authorizeSenderDomain': __('Email violates Sender Domain’s DMARC policy. Please set up [link]sender authentication[/link].'),
 
   'reviewRequestHeading': _x('Thank you! Time to tell the world?', 'After a user gives us positive feedback via the NPS poll, we ask them to review our plugin on WordPress.org.'),
   'reviewRequestDidYouKnow': __('[username], did you know that hundreds of WordPress users read the reviews on the plugin repository? They’re also a source of inspiration for our team.'),
@@ -181,11 +156,6 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   'reviewRequestUsingForMonths': _n('You’ve been using MailPoet for [months] month now, and we would love to read your own review.', 'You’ve been using MailPoet for [months] months now, and we would love to read your own review.', (installed_days_ago / 30) | round),
   'reviewRequestRateUsNow': _x('Rate us now', 'Review our plugin on WordPress.org.'),
   'reviewRequestNotNow': __('Not now'),
-
-  'authorizeSenderEmailModalTitle': __('Authorizing your email address: [senderEmail]', 'mailpoet'),
-  'authorizeSenderEmailModalDescription': __('Check your inbox now to confirm your email address. Please find the email with the subject: [bold]"email address to authorize"[/bold]', 'mailpoet'),
-  'authorizeSenderEmailMessageSuccess': __('The email address has been authorized. You can now send emails using this address with MailPoet.', 'mailpoet'),
-  'authorizeSenderEmailMessageError': __('An error occured when performing the request. Please try again later', 'mailpoet'),
 
   'sent': __('Sent'),
   'notSentYet': __('Not sent yet!'),
@@ -214,44 +184,6 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
 
   'close': __('Close'),
   'today': __('Today'),
-  'january': __('January'),
-  'february': __('February'),
-  'march': __('March'),
-  'april': __('April'),
-  'may': __('May'),
-  'june': __('June'),
-  'july': __('July'),
-  'august': __('August'),
-  'september': __('September'),
-  'october': __('October'),
-  'november': __('November'),
-  'december': __('December'),
-  'januaryShort': __('Jan'),
-  'februaryShort': __('Feb'),
-  'marchShort': __('Mar'),
-  'aprilShort': __('Apr'),
-  'mayShort': __('May'),
-  'juneShort': __('Jun'),
-  'julyShort': __('Jul'),
-  'augustShort': __('Aug'),
-  'septemberShort': __('Sep'),
-  'octoberShort': __('Oct'),
-  'novemberShort': __('Nov'),
-  'decemberShort': __('Dec'),
-  'sundayShort': __('Sun'),
-  'mondayShort': __('Mon'),
-  'tuesdayShort': __('Tue'),
-  'wednesdayShort': __('Wed'),
-  'thursdayShort': __('Thu'),
-  'fridayShort': __('Fri'),
-  'saturdayShort': __('Sat'),
-  'sundayMin': _x('S', 'Sunday - one letter abbreviation'),
-  'mondayMin': _x('M', 'Monday - one letter abbreviation'),
-  'tuesdayMin': _x('T', 'Tuesday - one letter abbreviation'),
-  'wednesdayMin': _x('W', 'Wednesday - one letter abbreviation'),
-  'thursdayMin': _x('T', 'Thursday - one letter abbreviation'),
-  'fridayMin': _x('F', 'Friday - one letter abbreviation'),
-  'saturdayMin': _x('S', 'Saturday - one letter abbreviation'),
 }) %>
 <% block translations %><% endblock %>
 
@@ -261,10 +193,6 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
 )%>
 
 <%= do_action('mailpoet_scripts_admin_before') %>
-
-<%= javascript(
-  'admin.js'
-)%>
 
 <%if is_loading_3rd_party_enabled() and not is_dotcom_ecommerce_plan() %>
   <%= javascript('lib/analytics.js') %>
@@ -307,6 +235,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
     }
   </script>
 <% endif %>
+
 <script>
   Parsley.addMessages('mailpoet', {
     defaultMessage: '<%= __("This value seems to be invalid.") %>',

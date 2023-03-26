@@ -78,7 +78,7 @@ class Subscribers {
     return (int)$this->settings->get(self::PREMIUM_EMAILS_SENT_SETTING_KEY);
   }
 
-  private function hasValidMssKey() {
+  public function hasValidMssKey() {
     return true;
     $state = $this->settings->get(self::MSS_KEY_STATE);
     return $state === Bridge::KEY_VALID || $state === Bridge::KEY_EXPIRING;

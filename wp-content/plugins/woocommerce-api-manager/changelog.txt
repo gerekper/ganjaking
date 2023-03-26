@@ -1,5 +1,14 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-03-22 - version 2.6.1
+* Fix: Typo on API Resources meta box Parent Order link had two # # instead of one #.
+
+2023-03-22 - version 2.6
+* New: Added Grace Period to WooCommerce > Settings > API Manager. Allows the customer more time to renew their API Resource before the API Resource and API Key activations are deleted.
+    - Note: Grace Period currently only applies to WooCommerce Subscriptions in on-hold/suspended status.
+* New: Weekly cleanup of orphaned grace periods.
+* Tweak: Display expiration dates more consistently.
+
 2023-03-18 - version 2.5.7
 * New: If an API Resource is a line item on a WC Subscriptions renewal order, a URL link is displayed leading to the parent order where API Resources are displayed.
 * Dev: Added the WC_AM_ENABLE_CACHE constant. To disable caching add define( 'WC_AM_ENABLE_CACHE', false ); to wp-config.php.

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add
- * @version  4.0.0
+ * @version  4.0.5
  */
 class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 
@@ -627,8 +627,11 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 				WC()->cart->empty_cart();
 			}
 
-			wp_safe_redirect( $redirect_url );
-			exit;
+			// Prevent redirections and early exits in AJAX requests -- these are handled by the AJAX handler.
+			if ( ! wp_doing_ajax() ) {
+				wp_safe_redirect( $redirect_url );
+				exit;
+			}
 		}
 	}
 }

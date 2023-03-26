@@ -74,8 +74,14 @@ class ActionScheduler_AdminView extends ActionScheduler_AdminView_Deprecated {
  # Set thresholds.
  $threshold_seconds = ( int ) apply_filters( 'action_scheduler_pastdue_actions_seconds', DAY_IN_SECONDS );
  $threshhold_min = ( int ) apply_filters( 'action_scheduler_pastdue_actions_min', 1 );
- # Allow third-parties to preempt the default check logic.
+ // Set fallback value for past-due actions count.
+ $num_pastdue_actions = 0;
+ // Allow third-parties to preempt the default check logic.
  $check = apply_filters( 'action_scheduler_pastdue_actions_check_pre', null );
+ // If no third-party preempted and there are no past-due actions, return early.
+ if ( ! is_null( $check ) ) {
+ return;
+ }
  # Scheduled actions query arguments.
  $query_args = array(
  'date' => as_get_datetime_object( time() - $threshold_seconds ),

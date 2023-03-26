@@ -17,7 +17,6 @@ class RequirementsChecker {
   public $displayErrorNotice;
   public $vendorClasses = [
     '\Cron\CronExpression',
-    '\Html2Text\Html2Text',
   ];
 
   public function __construct(

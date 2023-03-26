@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WooCommerce API Manager Order Data Store Class
  *
- * @see         WC_Data
  * @since       2.0
  *
  * @author      Todd Lahman LLC
@@ -532,7 +531,7 @@ class WC_AM_Order_Data_Store {
 	}
 
 	/**
-	 * Returns the current epoch timestamp in GMT timezone.
+	 * Returns the current epoch/unix timestamp.
 	 *
 	 * @since 2.0
 	 *

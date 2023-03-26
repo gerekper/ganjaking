@@ -317,6 +317,36 @@ class WC_AM_Format {
 	}
 
 	/**
+	 * Take a date in the form of a timestamp, MySQL date/time string or DateTime object (or perhaps
+	 * a WC_Datetime object when WC > 3.0 is active) and create a WC_DateTime object.
+	 *
+	 * @since  2.6
+	 *
+	 * @param string|integer|null $date UTC timestamp, or ISO 8601 DateTime. If the DateTime string has no timezone or offset, WordPress site timezone will be assumed. Null if their is no date.
+	 *
+	 * @return null|WC_DateTime in site's timezone
+	 */
+	public function get_datetime_from( $variable_date_type ) {
+
+		try {
+			if ( empty( $variable_date_type ) ) {
+				$datetime = null;
+			} elseif ( is_a( $variable_date_type, 'WC_DateTime' ) ) {
+				$datetime = $variable_date_type;
+			} elseif ( is_numeric( $variable_date_type ) ) {
+				$datetime = new WC_DateTime( "@{$variable_date_type}", new DateTimeZone( 'UTC' ) );
+				$datetime->setTimezone( new DateTimeZone( wc_timezone_string() ) );
+			} else {
+				$datetime = new WC_DateTime( $variable_date_type, new DateTimeZone( wc_timezone_string() ) );
+			}
+		} catch ( Exception $e ) {
+			$datetime = null;
+		}
+
+		return $datetime;
+	}
+
+	/**
 	 * Returns number of elements in an array or zero.
 	 * Wrapper for count() to fix PHP 7.2 requirement that parameter must be validated as array, object, or collection that implements Countable Interface.
 	 *

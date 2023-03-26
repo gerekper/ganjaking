@@ -5,10 +5,10 @@ namespace MailPoet\Mailer\WordPress;
 if (!defined('ABSPATH')) exit;
 
 
-use Html2Text\Html2Text;
 use MailPoet\Mailer\MailerFactory;
 use MailPoet\Mailer\MetaInfo;
 use MailPoet\Subscribers\SubscribersRepository;
+use MailPoetVendor\Html2Text\Html2Text;
 use PHPMailer\PHPMailer\Exception as PHPMailerException;
 use PHPMailer\PHPMailer\PHPMailer;
 

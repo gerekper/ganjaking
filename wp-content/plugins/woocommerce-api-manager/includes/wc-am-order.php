@@ -167,10 +167,10 @@ class WC_AM_Order {
 						'item_qty'                    => ! empty( $v[ 'item_qty' ] ) ? (int) $v[ 'item_qty' ] : 0,
 						'master_api_key'              => (string) WC_AM_USER()->get_master_api_key( $v[ 'user_id' ] ),
 						'order_id'                    => (int) $order_id,
-						'order_item_id'               => ! empty( $v[ 'order_item_id' ] ) ? (int) $v[ 'order_item_id' ] : 0,
+						'order_item_id'               => (int) $v[ 'order_item_id' ],
 						'order_key'                   => (string) $order->get_order_key(),
 						'parent_id'                   => ! empty( $v[ 'parent_id' ] ) ? (int) $v[ 'parent_id' ] : 0,
-						'product_id'                  => ! empty( $v[ 'product_id' ] ) ? (int) $v[ 'product_id' ] : 0,
+						'product_id'                  => (int) $v[ 'product_id' ],
 						'product_order_api_key'       => (string) apply_filters( 'wc_api_manager_custom_product_order_api_key', WC_AM_HASH()->rand_hash(), $v[ 'product_id' ], $order_id, $order ),
 						'product_title'               => (string) $v[ 'product_title' ],
 						'refund_qty'                  => ! empty( $v[ 'refund_qty' ] ) ? (int) $v[ 'refund_qty' ] : 0,
@@ -209,13 +209,14 @@ class WC_AM_Order {
 						'activations_purchased_total' => ! empty( $v[ 'activations_total' ] ) ? (int) $v[ 'activations_total' ] : 0,
 						'item_qty'                    => ! empty( $v[ 'item_qty' ] ) ? (int) $v[ 'item_qty' ] : 0,
 						'order_id'                    => (int) $order_id,
-						'order_item_id'               => ! empty( $v[ 'order_item_id' ] ) ? (int) $v[ 'order_item_id' ] : 0,
+						'order_item_id'               => (int) $v[ 'order_item_id' ],
 						'refund_qty'                  => ! empty( $v[ 'refund_qty' ] ) ? (int) $v[ 'refund_qty' ] : 0
 					);
 
 					$where = array(
-						'order_id'   => $order_id,
-						'product_id' => $v[ 'product_id' ]
+						'order_id'      => (int) $order_id,
+						'order_item_id' => (int) $v[ 'order_item_id' ],
+						'product_id'    => (int) $v[ 'product_id' ]
 					);
 
 					$data_format = array(
@@ -228,6 +229,7 @@ class WC_AM_Order {
 
 					$where_format = array(
 						'%d',
+						'%d',
 						'%d'
 					);
 
@@ -236,7 +238,7 @@ class WC_AM_Order {
 					 * other than Completed, the item was updated, then the order status was changed back to Completed status.
 					 *
 					 * The order cannot be edited once it has a Completed status, so API resource updates only happen when
-					 * the order status is changed back to Completed.
+					 * the order status is changed back to Completed status.
 					 */
 					$updated = $wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 				}
@@ -357,8 +359,8 @@ class WC_AM_Order {
 						'product_order_api_key'       => (string) apply_filters( 'wc_api_manager_custom_product_order_api_key', WC_AM_HASH()->rand_hash(), $v[ 'product_id' ], $order_id, $order ),
 						'product_title'               => (string) $v[ 'product_title' ],
 						'refund_qty'                  => ! empty( $v[ 'refund_qty' ] ) ? (int) $v[ 'refund_qty' ] : 0,
-						'sub_id'                      => ! empty( $v[ 'sub_id' ] ) ? (int) $v[ 'sub_id' ] : 0,
-						'sub_item_id'                 => ! empty( $v[ 'sub_item_id' ] ) ? (int) $v[ 'sub_item_id' ] : 0,
+						'sub_id'                      => (int) $v[ 'sub_id' ],
+						'sub_item_id'                 => (int) $v[ 'sub_item_id' ],
 						'sub_previous_order_id'       => ! empty( $v[ 'sub_previous_order_id' ] ) ? (int) $v[ 'sub_previous_order_id' ] : 0,
 						'sub_order_key'               => (string) $v[ 'sub_order_key' ],
 						'sub_parent_id'               => (int) $v[ 'sub_parent_id' ],
@@ -408,17 +410,17 @@ class WC_AM_Order {
 						'order_id'                    => (int) $order_id,
 						'order_item_id'               => 0,
 						'refund_qty'                  => ! empty( $v[ 'refund_qty' ] ) ? (int) $v[ 'refund_qty' ] : 0,
-						'sub_id'                      => ! empty( $v[ 'sub_id' ] ) ? (int) $v[ 'sub_id' ] : 0,
-						'sub_item_id'                 => ! empty( $v[ 'sub_item_id' ] ) ? (int) $v[ 'sub_item_id' ] : 0,
+						'sub_id'                      => (int) $v[ 'sub_id' ],
+						'sub_item_id'                 => (int) $v[ 'sub_item_id' ],
 						'sub_order_key'               => (string) $v[ 'sub_order_key' ],
 						'sub_parent_id'               => (int) $v[ 'sub_parent_id' ],
 						'sub_previous_order_id'       => ! empty( $v[ 'sub_previous_order_id' ] ) ? (int) $v[ 'sub_previous_order_id' ] : 0
 					);
 
 					$where = array(
-						'sub_id'      => $v[ 'sub_id' ],
-						'product_id'  => $v[ 'product_id' ],
-						'sub_item_id' => $v[ 'sub_item_id' ]
+						'sub_id'      => (int) $v[ 'sub_id' ],
+						'product_id'  => (int) $v[ 'product_id' ],
+						'sub_item_id' => (int) $v[ 'sub_item_id' ]
 					);
 
 					$data_format = array(
@@ -501,6 +503,8 @@ class WC_AM_Order {
 	 */
 	public function order_partially_refunded( $order_id, $refund_id ) {
 		do_action( 'wc_am_before_order_partially_refunded', $order_id, $refund_id );
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
 
 		$this->update_order( $order_id );
 
@@ -519,6 +523,8 @@ class WC_AM_Order {
 	 */
 	public function order_fully_refunded( $order_id, $refund_id ) {
 		do_action( 'wc_am_before_order_fully_refunded', $order_id, $refund_id );
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
 
 		$this->update_order( $order_id );
 
@@ -537,6 +543,8 @@ class WC_AM_Order {
 	 */
 	public function refund_deleted( $refund_id, $order_id ) {
 		do_action( 'wc_am_before_refund_deleted', $refund_id, $order_id );
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
 
 		$this->update_order( $order_id );
 
@@ -557,6 +565,8 @@ class WC_AM_Order {
 	public function remove_order( $order_id, $old_status, $new_status ) {
 		do_action( 'wc_am_before_remove_order', $order_id, $old_status, $new_status );
 
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
 		// Clear the Database Cache
 		$this->delete_cache( $order_id );
 
@@ -637,6 +647,8 @@ class WC_AM_Order {
 	 */
 	public function delete_order( $order_id ) {
 		do_action( 'wc_am_before_delete_order', $order_id );
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
 
 		global $wpdb;
 
@@ -694,6 +706,10 @@ class WC_AM_Order {
 	 */
 	public function delete_order_item( $item_id ) {
 		do_action( 'wc_am_before_delete_order_item', $item_id );
+
+		$api_resource_id = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_id_by_item_id( $item_id );
+		// Delete grace period.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $api_resource_id );
 
 		global $wpdb;
 
@@ -821,6 +837,9 @@ class WC_AM_Order {
 	public function trash_order( $order_id ) {
 		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
+
 		if ( is_object( $order ) && $order->get_type() === 'shop_order' ) {
 			$this->delete_order( $order_id );
 		}
@@ -855,6 +874,9 @@ class WC_AM_Order {
 	 */
 	public function untrashed_order( $order_id ) {
 		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
 
 		if ( is_object( $order ) && $order->get_type() === 'shop_order' ) {
 			$this->update_order( $order_id );

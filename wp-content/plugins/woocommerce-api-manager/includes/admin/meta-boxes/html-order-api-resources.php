@@ -11,12 +11,12 @@ $expires = '';
 
 if ( ! empty( $resource ) ) {
 	if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
-		$expires = WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $resource->order_id, $resource->product_id );
+		$expires = ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' );
 	} else {
 		if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
-			$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
+			$expires = __( 'Expired', 'woocommerce-api-manager' );
 		} else {
-			$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
+			$expires = $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
 		}
 	}
 
@@ -105,7 +105,7 @@ if ( ! empty( $resource ) ) {
 							?>
                         </label>
                         <input type="text" class="short" id="wc_am_access_expires_api_resources_<?php echo $i; ?>" name="access_expires[<?php echo $i; ?>]"
-                               value="<?php echo $expires ?>"
+                               value="<?php esc_html_e( $expires ) ?>"
                                placeholder="<?php esc_html_e( 'Required', 'woocommerce-api-manager' ); ?>" readonly/>
                     </td>
                 </tr>

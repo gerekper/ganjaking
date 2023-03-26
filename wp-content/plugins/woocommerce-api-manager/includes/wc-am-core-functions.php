@@ -216,6 +216,17 @@ function WC_AM_HASH() {
 }
 
 /**
+ * Returns the WC_AM_Grace_Period_Data_Store class object
+ *
+ * @since 2.6
+ *
+ * @return \WC_AM_Grace_Period_Data_Store
+ */
+function WC_AM_GRACE_PERIOD() {
+	return WC_AM_Grace_Period_Data_Store::instance();
+}
+
+/**
  * Returns the WC_AM_Log class object
  *
  * @since 2.0

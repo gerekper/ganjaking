@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WooCommerce API Manager Product Data Store Class
  *
- * @see         WC_Data
  * @since       2.0
  *
  * @author      Todd Lahman LLC

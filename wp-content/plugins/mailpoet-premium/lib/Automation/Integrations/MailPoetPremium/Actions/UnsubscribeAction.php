@@ -9,19 +9,17 @@ use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
 use MailPoet\Automation\Engine\Integration\Action;
 use MailPoet\Automation\Integrations\MailPoet\Payloads\SubscriberPayload;
+use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\InvalidStateException;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\Track\Unsubscribes;
-use MailPoet\Subscribers\SubscriberSegmentRepository;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Validator\Builder;
 use MailPoet\Validator\Schema\ObjectSchema;
 
 class UnsubscribeAction implements Action {
-  /** @var SubscriberSegmentRepository */
-  private $subscriberSegmentRepository;
 
   /** @var SubscribersRepository */
   private $subscribersRepository;
@@ -33,12 +31,10 @@ class UnsubscribeAction implements Action {
   private $unsubscribesTracker;
 
   public function __construct(
-    SubscriberSegmentRepository $subscriberSegmentRepository,
     SubscribersRepository $subscribersRepository,
     TrackingConfig $trackingConfig,
     Unsubscribes $unsubscribesTracker
   ) {
-    $this->subscriberSegmentRepository = $subscriberSegmentRepository;
     $this->subscribersRepository = $subscribersRepository;
     $this->trackingConfig = $trackingConfig;
     $this->unsubscribesTracker = $unsubscribesTracker;
@@ -57,7 +53,9 @@ class UnsubscribeAction implements Action {
   }
 
   public function getSubjectKeys(): array {
-    return ['mailpoet:subscriber'];
+    return [
+      SubscriberSubject::KEY,
+    ];
   }
 
   public function validate(StepValidationArgs $args): void {
@@ -68,11 +66,7 @@ class UnsubscribeAction implements Action {
     $subscriberId = $args->getSinglePayloadByClass(SubscriberPayload::class)->getId();
     $subscriber = $this->subscribersRepository->findOneById($subscriberId);
     if (!$subscriber) {
-      throw new InvalidStateException();
-    }
-
-    if ($subscriber->getStatus() !== SubscriberEntity::STATUS_SUBSCRIBED) {
-      throw InvalidStateException::create()->withMessage(sprintf("Cannot unsubscribe subscriber ID '%s' because their status is '%s'.", $subscriber->getId(), $subscriber->getStatus()));
+      throw InvalidStateException::create()->withMessage(sprintf("subscriber with ID '%s' not found", $subscriberId));
     }
 
     if ($this->trackingConfig->isEmailTrackingEnabled()) {
@@ -92,7 +86,5 @@ class UnsubscribeAction implements Action {
     $subscriber->setStatus(SubscriberEntity::STATUS_UNSUBSCRIBED);
     $this->subscribersRepository->persist($subscriber);
     $this->subscribersRepository->flush();
-
-    $this->subscriberSegmentRepository->unsubscribeFromSegments($subscriber);
   }
 }

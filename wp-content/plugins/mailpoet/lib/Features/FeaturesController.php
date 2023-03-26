@@ -8,13 +8,11 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Exception\TableNotFoundException;
 
 class FeaturesController {
-  const FEATURE_HOMEPAGE = 'homepage';
   const LANDINGPAGE_AB_TEST_DEBUGGER = 'landingpage_ab_test_debugger';
 
   // Define feature defaults in the array below in the following form:
   //   self::FEATURE_NAME_OF_FEATURE => true,
   private $defaults = [
-    self::FEATURE_HOMEPAGE => false,
     self::LANDINGPAGE_AB_TEST_DEBUGGER => false,
   ];
 

@@ -18,6 +18,7 @@ class WC_AM_User {
 	private $api_activation_table        = 'wc_am_api_activation';
 	private $associated_api_key_table    = 'wc_am_associated_api_key';
 	private $secure_hash_table           = 'wc_am_secure_hash';
+	private $grace_period_table          = 'wc_am_grace_period';
 	private $master_api_key_meta_key     = 'wc_am_master_api_key';
 	private $master_api_key_status       = 'wc_am_master_api_key_status';
 	private $hide_product_order_api_keys = false;
@@ -95,6 +96,17 @@ class WC_AM_User {
 	 */
 	public function get_secure_hash_table_name() {
 		return $this->secure_hash_table;
+	}
+
+	/**
+	 * Returns the string name of the Secure Hash database table.
+	 *
+	 * @since 2.6
+	 *
+	 * @return string
+	 */
+	public function get_grace_period_table_table_name() {
+		return $this->grace_period_table;
 	}
 
 	/**

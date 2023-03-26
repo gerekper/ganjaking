@@ -195,11 +195,10 @@ AND `group_id` = %d
  if ( ! in_array( $select_or_count, array( 'select', 'count' ), true ) ) {
  throw new InvalidArgumentException( __( 'Invalid value for select or count parameter. Cannot query actions.', 'action-scheduler' ) );
  }
- $query = wp_parse_args(
- $query,
- array(
+ $query = wp_parse_args( $query, array(
  'hook' => '',
  'args' => null,
+ 'partial_args_matching' => 'off', // can be 'like' or 'json'
  'date' => null,
  'date_compare' => '<=',
  'modified' => null,
@@ -211,27 +210,76 @@ AND `group_id` = %d
  'offset' => 0,
  'orderby' => 'date',
  'order' => 'ASC',
- )
- );
+ ) );
  global $wpdb;
+ $db_server_info = is_callable( array( $wpdb, 'db_server_info' ) ) ? $wpdb->db_server_info() : $wpdb->db_version();
+ if ( false !== strpos( $db_server_info, 'MariaDB' ) ) {
+ $supports_json = version_compare(
+ PHP_VERSION_ID >= 80016 ? $wpdb->db_version() : preg_replace( '/[^0-9.].*/', '', str_replace( '5.5.5-', '', $db_server_info ) ),
+ '10.2',
+ '>='
+ );
+ } else {
+ $supports_json = version_compare( $wpdb->db_version(), '5.7', '>=' );
+ }
  $sql = ( 'count' === $select_or_count ) ? 'SELECT count(a.action_id)' : 'SELECT a.action_id';
  $sql .= " FROM {$wpdb->actionscheduler_actions} a";
  $sql_params = array();
  if ( ! empty( $query['group'] ) || 'group' === $query['orderby'] ) {
  $sql .= " LEFT JOIN {$wpdb->actionscheduler_groups} g ON g.group_id=a.group_id";
  }
- $sql .= ' WHERE 1=1';
+ $sql .= " WHERE 1=1";
  if ( ! empty( $query['group'] ) ) {
- $sql .= ' AND g.slug=%s';
+ $sql .= " AND g.slug=%s";
  $sql_params[] = $query['group'];
  }
- if ( $query['hook'] ) {
- $sql .= ' AND a.hook=%s';
+ if ( ! empty( $query['hook'] ) ) {
+ $sql .= " AND a.hook=%s";
  $sql_params[] = $query['hook'];
  }
  if ( ! is_null( $query['args'] ) ) {
- $sql .= ' AND a.args=%s';
+ switch ( $query['partial_args_matching'] ) {
+ case 'json':
+ if ( ! $supports_json ) {
+ throw new \RuntimeException( __( 'JSON partial matching not supported in your environment. Please check your MySQL/MariaDB version.', 'action-scheduler' ) );
+ }
+ $supported_types = array(
+ 'integer' => '%d',
+ 'boolean' => '%s',
+ 'double' => '%f',
+ 'string' => '%s',
+ );
+ foreach ( $query['args'] as $key => $value ) {
+ $value_type = gettype( $value );
+ if ( 'boolean' === $value_type ) {
+ $value = $value ? 'true' : 'false';
+ }
+ $placeholder = isset( $supported_types[ $value_type ] ) ? $supported_types[ $value_type ] : false;
+ if ( ! $placeholder ) {
+ throw new \RuntimeException( sprintf(
+ __( 'The value type for the JSON partial matching is not supported. Must be either integer, boolean, double or string. %s type provided.', 'action-scheduler' ),
+ $value_type
+ ) );
+ }
+ $sql .= ' AND JSON_EXTRACT(a.args, %s)='.$placeholder;
+ $sql_params[] = '$.'.$key;
+ $sql_params[] = $value;
+ }
+ break;
+ case 'like':
+ foreach ( $query['args'] as $key => $value ) {
+ $sql .= ' AND a.args LIKE %s';
+ $json_partial = $wpdb->esc_like( trim( json_encode( array( $key => $value ) ), '{}' ) );
+ $sql_params[] = "%{$json_partial}%";
+ }
+ break;
+ case 'off':
+ $sql .= " AND a.args=%s";
  $sql_params[] = $this->get_args_for_query( $query['args'] );
+ break;
+ default:
+ throw new \RuntimeException( __( 'Unknown partial args matching value.', 'action-scheduler' ) );
+ }
  }
  if ( $query['status'] ) {
  $statuses = (array) $query['status'];
@@ -496,8 +544,21 @@ AND `group_id` = %d
  }
  public function release_claim( ActionScheduler_ActionClaim $claim ) {
  global $wpdb;
- $wpdb->update( $wpdb->actionscheduler_actions, array( 'claim_id' => 0 ), array( 'claim_id' => $claim->get_id() ), array( '%d' ), array( '%d' ) );
+ $action_ids = $wpdb->get_col( $wpdb->prepare( "SELECT action_id FROM {$wpdb->actionscheduler_actions} WHERE claim_id = %d", $claim->get_id() ) );
+ $row_updates = 0;
+ if ( count( $action_ids ) > 0 ) {
+ $action_id_string = implode( ',', array_map( 'absint', $action_ids ) );
+ $row_updates = $wpdb->query( "UPDATE {$wpdb->actionscheduler_actions} SET claim_id = 0 WHERE action_id IN ({$action_id_string})" ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+ }
  $wpdb->delete( $wpdb->actionscheduler_claims, array( 'claim_id' => $claim->get_id() ), array( '%d' ) );
+ if ( $row_updates < count( $action_ids ) ) {
+ throw new RuntimeException(
+ sprintf(
+ __( 'Unable to release actions from claim id %d.', 'woocommerce' ),
+ $claim->get_id()
+ )
+ );
+ }
  }
  public function unclaim_action( $action_id ) {
  global $wpdb;

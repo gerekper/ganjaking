@@ -1,5 +1,8 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2023.03.20 - version 4.0.5
+* Update - Added support for adding carts to existing subscriptions via the checkout page.
+
 2023.01.23 - version 4.0.4
 * Fix - Fixed an issue that prevented carts with one-time purchase products from being added to existing subscriptions. 
 * Fix - Fixed an issue that prevented plan discounts from applying when adding a cart to an existing subscription.

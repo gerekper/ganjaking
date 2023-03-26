@@ -36,7 +36,6 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	private function __construct() {
-		// Background API Activations cleanup.
 		$this->api_resource_table   = WC_AM_USER()->get_api_resource_table_name();
 		$this->api_activation_table = WC_AM_USER()->get_api_activation_table_name();
 

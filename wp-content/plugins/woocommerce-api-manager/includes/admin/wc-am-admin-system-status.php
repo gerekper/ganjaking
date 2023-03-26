@@ -74,6 +74,7 @@ class WC_AM_Admin_System_Status {
 		$this->set_api_manager_download_url_expires( $wc_api_manager_data );
 		$this->set_api_manager_hide_product_order_api_keys( $wc_api_manager_data );
 		$this->set_api_manager_secure_hash_count( $wc_api_manager_data );
+		$this->set_api_manager_grace_period( $wc_api_manager_data );
 		$this->set_theme_overrides( $wc_api_manager_data );
 
 		$system_status_sections = array(
@@ -339,6 +340,25 @@ class WC_AM_Admin_System_Status {
 	}
 
 	/**
+	 * Secure Download URL Hashes Count.
+	 *
+	 * @since 2.6.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_grace_period( &$debug_data ) {
+		$grace_period = get_option( 'woocommerce_api_manager_grace_period' );
+
+		$debug_data[ 'wc_api_manager_grace_period' ] = array(
+			'name'      => _x( 'Grace Period', 'Grace Period, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Grace Period',
+			'note'      => esc_attr( $grace_period[ 'number' ] . ' ' . $grace_period[ 'unit' ] ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
 	 * List WooCommerce API Manager template files that have been overridden.
 	 *
 	 * @since 2.1
@@ -404,12 +424,7 @@ class WC_AM_Admin_System_Status {
 
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
 					$outdated                   = true;
-					$overridden_template_output .= sprintf(
-						/* translators: %1$s is the file version, %2$s is the core version */
-						esc_html__( 'version %1$s is out of date. The core version is %2$s', 'woocommerce-api-manager' ),
-						'<strong style="color:red">' . esc_html( $theme_version ) . '</strong>',
-						'<strong>' . esc_html( $core_version ) . '</strong>'
-					);
+					$overridden_template_output .= sprintf( /* translators: %1$s is the file version, %2$s is the core version */ esc_html__( 'version %1$s is out of date. The core version is %2$s', 'woocommerce-api-manager' ), '<strong style="color:red">' . esc_html( $theme_version ) . '</strong>', '<strong>' . esc_html( $core_version ) . '</strong>' );
 				}
 
 				$overridden[ 'overrides' ][] = $overridden_template_output;

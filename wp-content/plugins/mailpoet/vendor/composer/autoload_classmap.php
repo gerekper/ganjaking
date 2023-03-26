@@ -689,6 +689,8 @@ return array(
  'MailPoetVendor\\Gregwar\\Captcha\\ImageFileHandler' => $baseDir . '/vendor-prefixed/gregwar/captcha/src/Gregwar/Captcha/ImageFileHandler.php',
  'MailPoetVendor\\Gregwar\\Captcha\\PhraseBuilder' => $baseDir . '/vendor-prefixed/gregwar/captcha/src/Gregwar/Captcha/PhraseBuilder.php',
  'MailPoetVendor\\Gregwar\\Captcha\\PhraseBuilderInterface' => $baseDir . '/vendor-prefixed/gregwar/captcha/src/Gregwar/Captcha/PhraseBuilderInterface.php',
+ 'MailPoetVendor\\Html2Text\\Html2Text' => $baseDir . '/vendor-prefixed/soundasleep/html2text/src/Html2Text.php',
+ 'MailPoetVendor\\Html2Text\\Html2TextException' => $baseDir . '/vendor-prefixed/soundasleep/html2text/src/Html2TextException.php',
  'MailPoetVendor\\Idiorm\\IdiormMethodMissingException' => $baseDir . '/lib-3rd-party/Idiorm/idiorm.php',
  'MailPoetVendor\\Idiorm\\IdiormResultSet' => $baseDir . '/lib-3rd-party/Idiorm/idiorm.php',
  'MailPoetVendor\\Idiorm\\IdiormString' => $baseDir . '/lib-3rd-party/Idiorm/idiorm.php',

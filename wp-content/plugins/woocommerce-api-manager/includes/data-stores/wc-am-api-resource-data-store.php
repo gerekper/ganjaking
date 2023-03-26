@@ -966,7 +966,9 @@ class WC_AM_API_Resource_Data_Store {
 	 * @throws \Exception
 	 */
 	private function get_active_resource( $resource ) {
-		$is_wc_sub = false;
+		$is_wc_sub            = false;
+		$is_expired           = $this->is_access_expired( $resource->access_expires );
+		$grace_period_expired = WC_AM_GRACE_PERIOD()->is_expired( $resource->api_resource_id );
 
 		/**
 		 * Update activations_purchased_total if product is set for Unlimited Activations, then refresh the cache.
@@ -975,7 +977,6 @@ class WC_AM_API_Resource_Data_Store {
 		 */
 		$is_sub       = false;
 		$is_unlimited = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $resource->product_id );
-		$instance_id  = WC_AM_API_ACTIVATION_DATA_STORE()->get_instance_id_by_api_resource_id( $resource->api_resource_id );
 
 		if ( $is_unlimited && WCAM()->get_unlimited_activation_limit() > $resource->activations_purchased_total ) {
 			if ( ! empty( $resource->sub_item_id ) ) {
@@ -1002,12 +1003,14 @@ class WC_AM_API_Resource_Data_Store {
 			$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $resource->product_id );
 		}
 
-		$is_expired = $this->is_access_expired( $resource->access_expires );
-
 		// Delete activations for expired non-Subscription API Keys.
 		if ( $is_expired ) {
-			WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
-			$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+			if ( $grace_period_expired ) {
+				WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
+				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+			}
+
 			$this->delete_inactive_resource_cache( $resource );
 
 			return array();
@@ -1017,8 +1020,12 @@ class WC_AM_API_Resource_Data_Store {
 
 			// Delete activations for expired Subscription API Keys, or removed line items.
 			if ( ! $is_item_on_sub || ! $is_active ) {
-				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
-				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+				if ( $grace_period_expired ) {
+					WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
+					WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+					$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+				}
+
 				$this->delete_inactive_resource_cache( $resource );
 			} elseif ( $is_item_on_sub && $is_active ) {
 				return $resource;
@@ -1193,16 +1200,16 @@ class WC_AM_API_Resource_Data_Store {
 		foreach ( $resources as $resource ) {
 			if ( $resource->sub_id == 0 ) {
 				$results[ 'non_wc_subs_resources' ][] = array(
-					'friendly_api_key_expiration_date' => ! empty( $resource->access_expires ) ? WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) : 'Not yet ended',
-					'number_of_expiring_activations'   => $unlimited_activations == false ? $resource->activations_purchased_total : 'Unlimited activations',
+					'friendly_api_key_expiration_date' => $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ),
+					'number_of_expiring_activations'   => ! $unlimited_activations ? $resource->activations_purchased_total : 'Unlimited activations',
 					'product_title'                    => $resource->product_title,
 					'order_id'                         => $resource->order_id,
 					'product_id'                       => $resource->product_id
 				);
 			} else {
 				$results[ 'wc_subs_resources' ][] = array(
-					'friendly_api_key_expiration_date' => WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $resource->order_id, $resource->product_id ),
-					'number_of_expiring_activations'   => $unlimited_activations == false ? $resource->activations_purchased_total : 'Unlimited activations',
+					'friendly_api_key_expiration_date' => ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ),
+					'number_of_expiring_activations'   => ! $unlimited_activations ? $resource->activations_purchased_total : 'Unlimited activations',
 					'product_title'                    => $resource->product_title,
 					'order_id'                         => $resource->order_id,
 					'sub_id'                           => $resource->sub_id,
@@ -1641,6 +1648,117 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
+	 * Return sub_id by api_resource_id.
+	 *
+	 * @since 2.2.8
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return int
+	 */
+	public function get_sub_id_by_api_resource_id( $api_resource_id ) {
+		global $wpdb;
+
+		$sub_id = $wpdb->get_var( $wpdb->prepare( "
+			SELECT sub_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE api_resource_id = %d
+		", $api_resource_id ) );
+
+		return ! WC_AM_FORMAT()->empty( $sub_id ) ? (int) $sub_id : 0;
+	}
+
+	/**
+	 * Return sub_id by api_resource_id.
+	 *
+	 * @since 2.2.8
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return int
+	 */
+	public function get_access_expires_by_api_resource_id( $api_resource_id ) {
+		global $wpdb;
+
+		$access_expires = $wpdb->get_var( $wpdb->prepare( "
+			SELECT access_expires
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE api_resource_id = %d
+		", $api_resource_id ) );
+
+		return ! WC_AM_FORMAT()->empty( $access_expires ) ? (int) $access_expires : 0;
+	}
+
+	/**
+	 * Returns an array of api_resource_ids.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int|object $order
+	 *
+	 * @return array|false
+	 */
+	public function get_api_resource_ids_by_order( $order ) {
+		global $wpdb;
+
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order );
+
+		$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
+			SELECT api_resource_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE order_id = %d
+		", $order->get_id() ) );
+
+		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+	}
+
+	/**
+	 * Returns api_resource_id.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int $item_id
+	 *
+	 * @return int|bool
+	 */
+	public function get_api_resource_id_by_item_id( $item_id ) {
+		global $wpdb;
+
+		$sql = "
+				SELECT api_resource_id
+				FROM {$wpdb->prefix}" . $this->api_resource_table . "
+				WHERE order_item_id = %d
+			";
+
+		$api_resource_id = $wpdb->get_var( $wpdb->prepare( $sql, $item_id ) );
+
+		return ! WC_AM_FORMAT()->empty( $api_resource_id ) ? (int) $api_resource_id : false;
+	}
+
+	/**
+	 * Returns an array of api_resource_ids.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int|object $subscription
+	 *
+	 * @return array|false
+	 */
+	public function get_api_resource_ids_by_subscription( $subscription ) {
+		global $wpdb;
+
+		$subscription = WC_AM_SUBSCRIPTION()->get_subscription_object( $subscription );
+
+		$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
+			SELECT api_resource_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE sub_id = %d
+		", $subscription->get_id() ) );
+
+		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+	}
+
+	/**
 	 * Return true if has Product ID and Order ID.
 	 *
 	 * @since 2.4.3
@@ -1698,7 +1816,7 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @since 2.4
 	 *
-	 * @param int $sub_id
+	 * @param int $order_id
 	 *
 	 * @return bool
 	 */
@@ -1770,6 +1888,27 @@ class WC_AM_API_Resource_Data_Store {
 	 */
 	public function is_access_expired( $access_expires ) {
 		return $this->is_access_expires_set( $access_expires ) ? WC_AM_ORDER_DATA_STORE()->is_time_expired( $access_expires ) : false;
+	}
+
+	/**
+	 * Returns true if 'active' is set to 1.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return bool
+	 */
+	public function is_api_resource_active_by_api_resource_id( $api_resource_id ) {
+		global $wpdb;
+
+		$active = $wpdb->get_var( $wpdb->prepare( "
+			SELECT active
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE api_resource_id = %d
+		", $api_resource_id ) );
+
+		return ! empty( $active );
 	}
 
 	/**
@@ -1962,5 +2101,27 @@ class WC_AM_API_Resource_Data_Store {
 		" );
 
 		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
+	}
+
+	/**
+	 * Returns true if the $api_resource_id exists in the table.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return bool
+	 */
+	public function api_resource_id_exists( $api_resource_id ) {
+		global $wpdb;
+
+		$id = $wpdb->get_var( $wpdb->prepare( "
+			SELECT 		api_resource_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE 		api_resource_id = %d
+			LIMIT 1
+			", (int) $api_resource_id ) );
+
+		return ! WC_AM_FORMAT()->empty( $id );
 	}
 }

@@ -67,7 +67,7 @@ class WC_Bookings_Cache {
 	 * @since 1.15.0
 	 * @param string $name Name of the cache.
 	 * @param mixed  $data The data to be cached.
-	 * @param int $expiration When to expire the cache.
+	 * @param int    $expiration When to expire the cache.
 	 * @return void
 	 */
 	public static function set( $name = '', $data = null, $expiration = YEAR_IN_SECONDS ) {
@@ -85,6 +85,12 @@ class WC_Bookings_Cache {
 		delete_transient( $name );
 	}
 
+	/**
+	 * Clears the cache transient from db.
+	 *
+	 * @since 1.15.0
+	 * @return void
+	 */
 	public static function clear_cache() {
 		WC_Cache_Helper::get_transient_version( 'bookings', true );
 
@@ -217,11 +223,20 @@ class WC_Bookings_Cache {
 	 *
 	 * @param  WC_Booking $booking
 	 * @since  1.15.18
+	 *
+	 * @throws Exception When a reource not found.
 	 */
 	public static function flush_all_booking_connected_transients( $booking ) {
 		if ( 0 !== $booking->get_resource_id() ) {
 			// We have a resource. Other booking products may be affected.
 			$resource = $booking->get_resource();
+
+			// An exception is thrown if the resource is not found, which could occur
+			// if the resource was detached from the backend after the product was added to the cart.
+			if ( ! $resource ) {
+				throw new Exception( __( 'Error: Resource not found, please try again', 'woocommerce-bookings' ) );
+			}
+
 			$resource->flush_resource_transients();
 			return;
 		}
@@ -248,25 +263,37 @@ class WC_Bookings_Cache {
 				return;
 			}
 
-			// Get a list of flushed transients
-			$flushed_transients = array_map( function( $transient_name ) {
-				self::delete( $transient_name );
-				return $transient_name;
-			}, $booking_slots_transient_keys[ $bookable_product_id ] );
+			// Get a list of flushed transients.
+			$flushed_transients = array_map(
+				function( $transient_name ) {
+					self::delete( $transient_name );
+					return $transient_name;
+				},
+				$booking_slots_transient_keys[ $bookable_product_id ]
+			);
 
-			// Remove the flushed transients referenced from other product ids (if there's such a cross-reference)
-			array_walk( $booking_slots_transient_keys, function( &$transients, $bookable_product_id ) use ( $flushed_transients ) {
-				$transients = array_values( array_diff( $transients, $flushed_transients ) );
-			} );
+			// Remove the flushed transients referenced from other product ids (if there's such a cross-reference).
+			array_walk(
+				$booking_slots_transient_keys,
+				function( &$transients, $bookable_product_id ) use ( $flushed_transients ) {
+					$transients = array_values( array_diff( $transients, $flushed_transients ) );
+				}
+			);
 
 			$booking_slots_transient_keys = array_filter( $booking_slots_transient_keys );
 
 			unset( $booking_slots_transient_keys[ $bookable_product_id ] );
 			self::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
 		} else {
-			$transients = array_unique( array_reduce( $booking_slots_transient_keys, function( $result, $item ) {
-				return array_merge( $result, $item );
-			}, array() ) );
+			$transients = array_unique(
+				array_reduce(
+					$booking_slots_transient_keys,
+					function( $result, $item ) {
+						return array_merge( $result, $item );
+					},
+					array()
+				)
+			);
 
 			foreach ( $transients as $transient_key ) {
 				self::delete( $transient_key );

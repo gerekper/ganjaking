@@ -652,16 +652,28 @@ class WC_Shipment_Tracking_Actions {
 	public function delete_tracking_item( $order_id, $tracking_id ) {
 		$tracking_items = $this->get_tracking_items( $order_id );
 
-		$is_deleted = false;
+		$is_deleted              = false;
+		$tracking_item_to_delete = array();
 
 		if ( count( $tracking_items ) > 0 ) {
 			foreach ( $tracking_items as $key => $item ) {
 				if ( $item['tracking_id'] == $tracking_id ) {
+					$tracking_item_to_delete = $item;
 					unset( $tracking_items[ $key ] );
 					$is_deleted = true;
 					break;
 				}
 			}
+
+			/**
+			 * Filter the tracking items before deleting it from order meta.
+			 *
+			 * @param array $tracking_items          List of tracking item.
+			 * @param array $tracking_item_to_delete New tracking item.
+			 * @param int   $order_id                Order ID.
+			 */
+			$tracking_items = apply_filters( 'wc_shipment_tracking_before_delete_tracking_items', $tracking_items, $tracking_item_to_delete, $order_id );
+
 			$this->save_tracking_items( $order_id, $tracking_items );
 		}
 
@@ -697,6 +709,15 @@ class WC_Shipment_Tracking_Actions {
 
 		$tracking_items   = $this->get_tracking_items( $order_id );
 		$tracking_items[] = $tracking_item;
+
+		/**
+		 * Filter the tracking items before adding it into order meta.
+		 *
+		 * @param array $tracking_items List of tracking item.
+		 * @param array $tracking_item  New tracking item.
+		 * @param int   $order_id       Order ID.
+		 */
+	    $tracking_items = apply_filters( 'wc_shipment_tracking_before_add_tracking_items', $tracking_items, $tracking_item, $order_id );
 
 		$this->save_tracking_items( $order_id, $tracking_items );
 

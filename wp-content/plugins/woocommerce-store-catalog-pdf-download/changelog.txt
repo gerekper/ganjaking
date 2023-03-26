@@ -1,5 +1,12 @@
 *** WooCommerce Store Catalog PDF Download Changelog ***
 
+2023-03-22 - version 2.1.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.5.
+* Tweak - Tested compatibility up to WP 6.2.
+* Dev - Improved the location and inclusion of the plugin templates.
+
 2022-10-03 - version 2.0.0
 * Tweak - Check the minimum requirements before initializing the plugin.
 * Tweak - Added links to the plugin settings, documentation and to get support in the plugin list.

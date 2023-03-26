@@ -240,7 +240,27 @@ class WC_AM_Settings_Admin {
 					'show_if_checked' => 'option'
 				),
 
-				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_doc_tabs' ),
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_keys_sec' ),
+
+				array(
+					'name' => __( 'Grace Period', 'woocommerce-api-manager' ),
+					'type' => 'title',
+					'desc' => '',
+					'id'   => $this->option_prefix . '_grace_period'
+				),
+
+				array(
+					'title'       => __( 'Grace Period', 'woocommerce' ),
+					'desc'        => __( 'Time interval before renewable API Resource(s) and API Key activations will be deleted. Currently for WC Subscriptions in on-hold status only.', 'woocommerce-api-manager' ),
+					'desc_tip'    => __( 'Allows the customer more time to renew their API Resource before the API Resource and API Key activations are deleted.', 'woocommerce-api-manager' ),
+					'id'          => $this->option_prefix . '_grace_period',
+					'type'        => 'relative_date_selector',
+					'placeholder' => __( 'N/A', 'woocommerce-api-manager' ),
+					'default'     => '',
+					'autoload'    => false,
+				),
+
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_grace_period_sec' ),
 
 				array(
 					'name' => __( 'API Doc Tabs', 'woocommerce-api-manager' ),
@@ -294,7 +314,7 @@ class WC_AM_Settings_Admin {
 					'show_if_checked' => 'option'
 				),
 
-				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_response_sec' ),
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_doc_tabs_sec' ),
 
 				array(
 					'name' => __( 'API Response', 'woocommerce-api-manager' ),
@@ -352,7 +372,7 @@ class WC_AM_Settings_Admin {
 					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
 				),
 
-				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_extensions' ),
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_response_sec' ),
 
 				array(
 					'name' => __( 'API Manager Extensions', 'woocommerce-api-manager' ),
@@ -361,7 +381,7 @@ class WC_AM_Settings_Admin {
 					'id'   => $this->option_prefix . '_api_extensions_info'
 				),
 
-				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_extensions' ),
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_extensions_sec' ),
 
 			) );
 		}

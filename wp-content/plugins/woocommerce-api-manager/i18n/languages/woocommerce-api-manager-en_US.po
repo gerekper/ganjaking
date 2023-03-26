@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-03-17 21:03-0700\n"
-"PO-Revision-Date: 2023-03-17 21:04-0700\n"
+"POT-Creation-Date: 2023-03-22 09:08-0700\n"
+"PO-Revision-Date: 2023-03-22 09:08-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -50,7 +50,7 @@ msgstr ""
 msgid "Object"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-activations.php:32
+#: includes/admin/meta-boxes/html-order-api-activations.php:43
 #: includes/wc-am-order-admin.php:69
 #: templates/emails/api-keys-order-complete.php:89
 #: templates/myaccount/api-keys.php:55
@@ -58,35 +58,48 @@ msgstr ""
 msgid "Master API Key"
 msgstr "Clé de licence API"
 
-#: includes/admin/meta-boxes/html-order-api-activations.php:34
+#: includes/admin/meta-boxes/html-order-api-activations.php:45
 #: templates/myaccount/api-keys.php:89
 #, fuzzy
 msgid "Product Order API Key"
 msgstr "Clés de licence API"
 
-#: includes/admin/meta-boxes/html-order-api-activations.php:36
+#: includes/admin/meta-boxes/html-order-api-activations.php:47
 #, fuzzy
 msgid "Associated API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/admin/meta-boxes/html-order-api-activations.php:63
+#: includes/admin/meta-boxes/html-order-api-activations.php:74
 #: templates/myaccount/api-keys.php:246
 #, fuzzy
 msgid "Delete"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
+
+#: includes/admin/meta-boxes/html-order-api-activations.php:90
+#: includes/wc-am-order-admin.php:296 includes/wc-am-order-admin.php:364
+#, fuzzy
+msgid "No activations yet."
+msgstr "Encore aucune activation"
+
+#: includes/admin/meta-boxes/html-order-api-resources.php:14
+#: includes/admin/meta-boxes/html-order-api-resources.php:19
+#: includes/data-stores/wc-am-api-resource-data-store.php:1203
+#: includes/data-stores/wc-am-api-resource-data-store.php:1211
+#: templates/emails/api-keys-order-complete.php:55
+#: templates/emails/api-keys-order-complete.php:60
+#: templates/emails/plain/api-keys-order-complete.php:31
+#: templates/emails/plain/api-keys-order-complete.php:36
+#: templates/myaccount/api-keys.php:170 templates/myaccount/api-keys.php:206
+#, fuzzy
+msgctxt "Used as end date for an indefinite subscription"
+msgid "When Cancelled"
+msgstr "Action"
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:17
 #: templates/emails/api-keys-order-complete.php:58
 #: templates/emails/plain/api-keys-order-complete.php:34
 #: templates/myaccount/api-keys.php:204
 msgid "Expired"
-msgstr ""
-
-#: includes/admin/meta-boxes/html-order-api-resources.php:19
-#: templates/emails/api-keys-order-complete.php:60
-#: templates/emails/plain/api-keys-order-complete.php:36
-#: templates/myaccount/api-keys.php:206
-msgid "never"
 msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:41
@@ -463,11 +476,32 @@ msgid ""
 msgstr ""
 
 #: includes/admin/wc-am-settings-admin.php:246
+#: includes/admin/wc-am-settings-admin.php:253
+msgid "Grace Period"
+msgstr ""
+
+#: includes/admin/wc-am-settings-admin.php:254
+msgid ""
+"Time interval before renewable API Resource(s) and API Key activations will "
+"be deleted. Currently for WC Subscriptions in on-hold status only."
+msgstr ""
+
+#: includes/admin/wc-am-settings-admin.php:255
+msgid ""
+"Allows the customer more time to renew their API Resource before the API "
+"Resource and API Key activations are deleted."
+msgstr ""
+
+#: includes/admin/wc-am-settings-admin.php:258
+msgid "N/A"
+msgstr ""
+
+#: includes/admin/wc-am-settings-admin.php:266
 #, fuzzy
 msgid "API Doc Tabs"
 msgstr "API"
 
-#: includes/admin/wc-am-settings-admin.php:247
+#: includes/admin/wc-am-settings-admin.php:267
 #, php-format
 msgid ""
 "Choose which tabs will display on the WordPress plugin information screen. "
@@ -475,101 +509,101 @@ msgid ""
 "%sScreenshot example%s."
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:253
+#: includes/admin/wc-am-settings-admin.php:273
 #: includes/wc-am-product-admin.php:527 includes/wc-am-product-admin.php:906
 #, fuzzy
 msgid "Description"
 msgstr "Description"
 
-#: includes/admin/wc-am-settings-admin.php:262
+#: includes/admin/wc-am-settings-admin.php:282
 #: includes/wc-am-product-admin.php:565 includes/wc-am-product-admin.php:948
 #, fuzzy
 msgid "Installation"
 msgstr "Installation"
 
-#: includes/admin/wc-am-settings-admin.php:271
+#: includes/admin/wc-am-settings-admin.php:291
 #: includes/wc-am-product-admin.php:584 includes/wc-am-product-admin.php:969
 #, fuzzy
 msgid "FAQ"
 msgstr "FAQ"
 
-#: includes/admin/wc-am-settings-admin.php:280
+#: includes/admin/wc-am-settings-admin.php:300
 #: includes/wc-am-product-admin.php:603 includes/wc-am-product-admin.php:990
 #, fuzzy
 msgid "Screenshots"
 msgstr "Copies d'écran"
 
-#: includes/admin/wc-am-settings-admin.php:289
+#: includes/admin/wc-am-settings-admin.php:309
 #: includes/wc-am-product-admin.php:622 includes/wc-am-product-admin.php:1011
 #, fuzzy
 msgid "Other Notes"
 msgstr "Autres notes"
 
-#: includes/admin/wc-am-settings-admin.php:300
+#: includes/admin/wc-am-settings-admin.php:320
 #, fuzzy
 msgid "API Response"
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/admin/wc-am-settings-admin.php:307
+#: includes/admin/wc-am-settings-admin.php:327
 msgid "Send API Resource Data"
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:308
+#: includes/admin/wc-am-settings-admin.php:328
 msgid ""
 "<br>Sending extended resource data in API responses is not required, and "
 "will slow down response time.<br>Recommended Off."
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:319
+#: includes/admin/wc-am-settings-admin.php:339
 msgid "Debug"
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:321
+#: includes/admin/wc-am-settings-admin.php:341
 #, php-format
 msgid "%sPostman%s is recommended for API testing."
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:326
+#: includes/admin/wc-am-settings-admin.php:346
 #, fuzzy
 msgid "API Request Log"
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/admin/wc-am-settings-admin.php:327
+#: includes/admin/wc-am-settings-admin.php:347
 #, php-format
 msgid ""
 "<br>Logs query events inside <code>%s</code><br> Log file size %s <a href="
 "\"%s\">View Log</a>"
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:336
+#: includes/admin/wc-am-settings-admin.php:356
 msgid "API Error Log"
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:337
+#: includes/admin/wc-am-settings-admin.php:357
 #, php-format
 msgid ""
 "<br>Logs error events inside <code>%s</code><br> Log file size %s <a href="
 "\"%s\">View Log</a>"
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:346
+#: includes/admin/wc-am-settings-admin.php:366
 #, fuzzy
 msgid "API Response Log"
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/admin/wc-am-settings-admin.php:347
+#: includes/admin/wc-am-settings-admin.php:367
 #, php-format
 msgid ""
 "<br>Logs response events inside <code>%s</code><br> Log file size %s <a href="
 "\"%s\">View Log</a>"
 msgstr ""
 
-#: includes/admin/wc-am-settings-admin.php:358
+#: includes/admin/wc-am-settings-admin.php:378
 #, fuzzy
 msgid "API Manager Extensions"
 msgstr "Options de l'API Manager"
 
-#: includes/admin/wc-am-settings-admin.php:359
+#: includes/admin/wc-am-settings-admin.php:379
 #, php-format
 msgid ""
 "%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP "
@@ -851,18 +885,18 @@ msgid ""
 "API:"
 msgstr ""
 
-#: includes/data-stores/wc-am-api-activation-data-store.php:962
-#: includes/data-stores/wc-am-api-activation-data-store.php:988
+#: includes/data-stores/wc-am-api-activation-data-store.php:961
+#: includes/data-stores/wc-am-api-activation-data-store.php:987
 #, fuzzy
 msgid "The activation could not be deleted."
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/wc-am-background-events.php:105
+#: includes/wc-am-background-events.php:106
 #, fuzzy
 msgid "Expired API Resources Cleanup ERROR for Order ID # "
 msgstr "Activations"
 
-#: includes/wc-am-background-events.php:174
+#: includes/wc-am-background-events.php:175
 msgid "Expired API Activations Cleanup ERROR for Order ID# "
 msgstr ""
 
@@ -960,13 +994,8 @@ msgstr ""
 
 #: includes/wc-am-order-admin.php:261 includes/wc-am-order-admin.php:263
 #, php-format
-msgid "%sSee Parent Order%s"
+msgid "See Parent Order %s#%s"
 msgstr ""
-
-#: includes/wc-am-order-admin.php:296 includes/wc-am-order-admin.php:364
-#, fuzzy
-msgid "No activations yet."
-msgstr "Encore aucune activation"
 
 #: includes/wc-am-order-admin.php:308
 #, fuzzy
@@ -1438,27 +1467,27 @@ msgstr ""
 msgid "Details from delete_cache() method, random_int() error."
 msgstr ""
 
-#: includes/wc-am-user.php:373
+#: includes/wc-am-user.php:385
 #, fuzzy
 msgid "API Manager API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/wc-am-user.php:379
+#: includes/wc-am-user.php:391
 #, fuzzy
 msgid "Generate Master API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/wc-am-user.php:381
+#: includes/wc-am-user.php:393
 #, fuzzy
 msgid "Master API Key:"
 msgstr "Clé de licence API"
 
-#: includes/wc-am-user.php:387
+#: includes/wc-am-user.php:399
 #, fuzzy
 msgid "Replace Master API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/wc-am-user.php:392
+#: includes/wc-am-user.php:404
 #, fuzzy
 msgid "Disable Master API Key"
 msgstr "Impossible d'activer la clé de licence API"
@@ -1634,7 +1663,7 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:572
+#: woocommerce-api-manager.php:573
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must "
@@ -1642,7 +1671,7 @@ msgid ""
 "WooCommerce on the %splugin page%s once it is installed."
 msgstr ""
 
-#: woocommerce-api-manager.php:590
+#: woocommerce-api-manager.php:591
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s is inactive because it requires PHP version "
@@ -1650,7 +1679,7 @@ msgid ""
 "upgrade your version of PHP."
 msgstr ""
 
-#: woocommerce-api-manager.php:627
+#: woocommerce-api-manager.php:628
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, "
@@ -1659,7 +1688,7 @@ msgid ""
 "%s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:647
+#: woocommerce-api-manager.php:648
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version "
@@ -1667,7 +1696,7 @@ msgid ""
 "installed. Please upgrade WooCommerce Subscriptions to version %s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:702
+#: woocommerce-api-manager.php:703
 #, php-format
 msgid ""
 "Warning! Version 2.0 is a major update to the WooCommerce API Manager "
@@ -1908,10 +1937,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "action created"
-#~ msgstr "Action"
-
-#, fuzzy
-#~ msgid "action canceled"
 #~ msgstr "Action"
 
 #, fuzzy

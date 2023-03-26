@@ -71,6 +71,7 @@ class BlockRendererHelper {
         $rules['error-message'] = __('Please specify a valid phone number.', 'mailpoet');
       } else {
         $rules['type'] = $this->wp->escAttr($block['params']['validate']);
+        $rules['error-message'] = $this->translateValidationErrorMessage($block['params']['validate']);
       }
     }
 
@@ -190,10 +191,10 @@ class BlockRendererHelper {
   public function renderFontStyle(array $formSettings, array $styles = []) {
     $rules = [];
     if (isset($formSettings['fontSize'])) {
-      $rules[] = 'font-size: ' . trim($formSettings['fontSize']) . 'px;';
-      $rules[] = 'line-height: ' . (float)trim($formSettings['fontSize']) * 1.2 . 'px";';
+      $rules[] = 'font-size: ' . $formSettings['fontSize'] . (is_numeric($formSettings['fontSize']) ? "px;" : ";");
+      $rules[] = 'line-height: 1.2;';
     }
-    if (isset($styles['bold'])) {
+    if (isset($styles['bold']) && $styles['bold']) {
       $rules[] = 'font-weight: bold;';
     }
     return $rules ? 'style="' . $this->wp->escAttr(implode("", $rules)) . '"' : '';
@@ -258,5 +259,24 @@ class BlockRendererHelper {
       $modifiers[] = 'disabled';
     }
     return join(' ', $modifiers);
+  }
+
+  private function translateValidationErrorMessage(string $validate): string {
+    switch ($validate) {
+      case 'email':
+        return __('This value should be a valid email.', 'mailpoet');
+      case 'url':
+        return __('This value should be a valid url.', 'mailpoet');
+      case 'number':
+        return __('This value should be a valid number.', 'mailpoet');
+      case 'integer':
+        return __('This value should be a valid integer.', 'mailpoet');
+      case 'digits':
+        return __('This value should be digits.', 'mailpoet');
+      case 'alphanum':
+        return __('This value should be alphanumeric.', 'mailpoet');
+      default:
+        return __('This value seems to be invalid.', 'mailpoet');
+    }
   }
 }

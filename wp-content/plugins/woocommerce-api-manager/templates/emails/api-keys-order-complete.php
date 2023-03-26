@@ -52,12 +52,12 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
                     <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
 						<?php
 						if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
-							esc_html_e( WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $order, $resource->product_id ) );
+							esc_html_e( ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) );
 						} else {
 							if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
-								$expires = esc_html__( 'Expired', 'woocommerce-api-manager' );
+								$expires = __( 'Expired', 'woocommerce-api-manager' );
 							} else {
-								$expires = $resource->access_expires == 0 ? esc_html__( 'never', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->get_human_time_diff( $resource->access_expires ) );
+								$expires = $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
 							}
 
 							esc_html_e( $expires );

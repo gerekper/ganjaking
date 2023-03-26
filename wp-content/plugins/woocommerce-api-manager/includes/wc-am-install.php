@@ -452,6 +452,22 @@ class WC_AM_Install {
 			";
 			dbDelta( $activation_table );
 		}
+
+		/**
+		 * @since 2.6
+		 */
+		if ( ! $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_grace_period';" ) ) {
+			$activation_table = "
+				CREATE TABLE {$wpdb->prefix}wc_am_grace_period (
+					grace_period_id BIGINT UNSIGNED NOT NULL auto_increment,
+					api_resource_id BIGINT UNSIGNED NOT NULL,
+					expires BIGINT UNSIGNED NOT NULL,
+					PRIMARY KEY (grace_period_id),
+					UNIQUE KEY api_resource_id (api_resource_id)
+				) $collate;
+			";
+			dbDelta( $activation_table );
+		}
 		/**
 		 * TODO
 		 * Collaborator table. Allows collaborators to be granted permission to access API resources. When a collaborator's email, name, etc.,
@@ -556,6 +572,13 @@ class WC_AM_Install {
 
 		if ( get_option( 'woocommerce_api_manager_db_cache_expire' ) !== false ) {
 			delete_option( 'woocommerce_api_manager_db_cache_expire' );
+		}
+
+		/**
+		 * @since 2.6
+		 */
+		if ( get_option( 'woocommerce_api_manager_grace_period' ) === false ) {
+			update_option( 'woocommerce_api_manager_grace_period', array( 'number' => 30, 'unit' => 'days' ) );
 		}
 	}
 

@@ -5,24 +5,21 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WooCommerce API Manager Autoloader Class
  *
- * @package     WooCommerce API Manager/Autoloader
- * @author      Todd Lahman LLC
- * @copyright   Copyright (c) Todd Lahman LLC
  * @since       1.5
  *
+ * @author      Todd Lahman LLC
+ * @copyright   Copyright (c) Todd Lahman LLC
+ * @package     WooCommerce API Manager/Autoloader
  */
 class WC_AM_Autoloader {
 
 	/**
-	 * @since 1.5
+	 * @since   1.5
+	 * @updated 2.6 __autoload removed and is deprecated as of 7.2.0, and removed as of PHP 8.0.0.
 	 *
 	 * WC_AM_Autoloader constructor.
 	 */
 	public function __construct() {
-		if ( function_exists( "__autoload" ) ) {
-			spl_autoload_register( "__autoload" );
-		}
-
 		spl_autoload_register( array( $this, 'autoload' ) );
 	}
 

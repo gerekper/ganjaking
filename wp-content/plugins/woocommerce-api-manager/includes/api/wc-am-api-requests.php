@@ -691,7 +691,7 @@ class WC_AM_API_Requests {
 		$data[ 'total_activations' ]           = $total_activations = WC_AM_API_RESOURCE_DATA_STORE()->get_total_activations( $this->resources );
 		$data[ 'activations_remaining' ]       = $total_activations_purchased - $total_activations;
 		$data[ 'activated' ]                   = $is_active;
-		$data[ 'api_key_expirations' ]         = WC_AM_API_RESOURCE_DATA_STORE()->get_access_api_key_expirations( $this->resources, $unlimited_activations );
+		$data[ 'api_key_expirations' ]         = wc_clean( WC_AM_API_RESOURCE_DATA_STORE()->get_access_api_key_expirations( $this->resources, $unlimited_activations ) );
 
 		// Legacy API Manager < 2.0, and API Manager PHP Library <= 1.2.
 		$top_level_data[ 'status_check' ] = $is_active ? 'active' : 'inactive';

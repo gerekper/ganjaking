@@ -54,6 +54,7 @@ class WC_AM_Background_Events {
 	public function queue_weekly_event() {
 		$this->queue_cleanup_expired_api_resources();
 		$this->queue_cleanup_expired_api_activations();
+		$this->queue_cleanup_expired_grace_periods();
 		$this->background_process->push_to_queue( array( 'task' => 'cleanup_hash' ) );
 		$this->background_process->save()->dispatch();
 	}
@@ -173,6 +174,40 @@ class WC_AM_Background_Events {
 			} catch ( Exception $e ) {
 				WC_AM_LOG()->log_info( esc_html__( 'Expired API Activations Cleanup ERROR for Order ID# ', 'woocommerce-api-manager' ) . $e, 'expired-api-activations-cleanup' );
 			}
+		}
+	}
+
+	/**
+	 * Queue cleanup_expired_grace_periods.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 2.6
+	 */
+	private function queue_cleanup_expired_grace_periods() {
+		$api_resource_ids = WC_AM_GRACE_PERIOD()->get_all_api_resource_ids();
+
+		if ( is_array( $api_resource_ids ) && ! empty( $api_resource_ids ) ) {
+			foreach ( $api_resource_ids as $key => $api_resource_id ) {
+				if ( ! empty( $api_resource_id ) ) {
+					$this->background_process->push_to_queue( array( 'task' => 'cleanup_expired_grace_periods', 'api_resource_id_grace_periods' => $api_resource_id ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Delete orphaned grace periods.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int $api_resource_id
+	 */
+	public function cleanup_expired_grace_periods( $api_resource_id ) {
+		if ( ! WC_AM_API_RESOURCE_DATA_STORE()->api_resource_id_exists( $api_resource_id ) ) {
+			WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $api_resource_id );
 		}
 	}
 

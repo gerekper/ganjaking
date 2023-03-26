@@ -394,33 +394,74 @@ class WC_AM_Subscription {
 	/**
 	 * Get the subscription expiration timestamp.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.6
 	 *
 	 * @param Object|int $order
-	 * @param int        $product_id
+	 * @param string     $date_type 'date_created', 'trial_end', 'next_payment', 'last_order_date_created', 'end' or 'end_of_prepaid_term'
+	 * @param string     $timezone  The timezone of the $datetime param. Default 'gmt'. Also 'site' for local timezone timestamp.
+	 *                              i.e. date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( 141740, 'end', 'site' ) ) for friendly MM/DD/YEAR
 	 *
 	 * @return bool|int|mixed
 	 */
-	public function get_subscription_expiration_timestamp( $order, $product_id ) {
-		$sub_id       = $this->get_subscription_id( $order );
+	public function get_subscription_time_by_order( $order, $date_type = 'end', $timezone = 'gmt' ) {
+		$sub_id = $this->get_subscription_id( $order );
+
+		return $this->get_time( $sub_id, $date_type, $timezone );
+	}
+
+	/**
+	 * Get the subscription expiration timestamp.
+	 *
+	 * @see     $this->get_time()
+	 *
+	 * @since   2.6
+	 *
+	 * @param Object|int $order
+	 * @param string     $date_type 'date_created', 'trial_end', 'next_payment', 'last_order_date_created', 'end' or 'end_of_prepaid_term'
+	 * @param string     $timezone  The timezone of the $datetime param. Default 'gmt'. Can also use 'site' for local timezone timestamp.
+	 *                              i.e. date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( 141740, 'end', 'site' ) ) for friendly MM/DD/YEAR
+	 *
+	 * @return bool|int|mixed
+	 */
+	public function get_subscription_time_by_sub_id( $sub_id, $date_type = 'end', $timezone = 'gmt' ) {
 		$subscription = $this->get_subscription_object( $sub_id );
 
-		return is_object( $subscription ) ? $subscription->get_time( 'next_payment' ) : false;
+		return $this->get_time( $subscription, $date_type, $timezone );
+	}
+
+	/**
+	 * Get the subscription expiration timestamp.
+	 *
+	 * @see     $this->get_time()
+	 *
+	 * @since   2.6
+	 *
+	 * @param Object|int $id_or_object Order object, order ID, subscription object, or subscription ID.
+	 * @param string     $date_type    'date_created', 'trial_end', 'next_payment', 'last_order_date_created', 'end' or 'end_of_prepaid_term'
+	 * @param string     $timezone     The timezone of the $datetime param. Default 'gmt'. Can also use 'site' for local timezone timestamp.
+	 *
+	 * @return bool|int|mixed
+	 */
+	public function get_time( $id_or_object, $date_type = 'end', $timezone = 'gmt' ) {
+		$subscription = $this->get_subscription_object( $id_or_object );
+
+		return is_object( $subscription ) ? $subscription->get_time( $date_type, $timezone ) : false;
 	}
 
 	/**
 	 * Get the subscription end date to display as human readable.
 	 *
-	 * @since   2.0
-	 * @updated 2.4.4
+	 * @since      2.0
+	 * @updated    2.4.4
+	 * @updated    2.6
 	 *
 	 * @param Object|int $order
-	 * @param int        $product_id
 	 * @param String     $date_type 'date_created', 'trial_end', 'next_payment', 'last_order_date_created', 'end' or 'end_of_prepaid_term'
 	 *
 	 * @return bool|mixed
 	 */
-	public function get_subscription_end_date_to_display( $order, $product_id, $date_type = 'end' ) {
+	public function get_subscription_end_date_to_display( $order, $date_type = 'end' ) {
 		$sub_id       = $this->get_subscription_id( $order );
 		$subscription = $this->get_subscription_object( $sub_id );
 
@@ -691,6 +732,36 @@ class WC_AM_Subscription {
 	}
 
 	/**
+	 * Return true if the subscription has a defined end date. All others never end, or end when cancelled.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int|object $order
+	 *
+	 * @return bool
+	 */
+	public function has_end_date_by_order( $order ) {
+		$time = $this->get_subscription_time_by_order( $order );
+
+		return is_numeric( $time ) && $time > 0;
+	}
+
+	/**
+	 * Return true if the subscription has a defined end date. All others never end, or end when cancelled.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int|object $sub
+	 *
+	 * @return bool
+	 */
+	public function has_end_date_by_sub( $sub ) {
+		$time = $this->get_subscription_time_by_sub_id( $sub );
+
+		return is_numeric( $time ) && $time > 0;
+	}
+
+	/**
 	 * Finds the subscription ID using the item ID, then confirms the it is a line_item on the subscription.
 	 * If not, return false.
 	 * This is useful if subscription status is not active or pending-cancel yet, such as when it is still
@@ -952,6 +1023,8 @@ class WC_AM_Subscription {
 		$order    = wc_get_order( $order );
 		$order_id = $order->get_id();
 
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $order_id );
 		// Refreshing cache here will also delete API cache for activations about to be deleted.
 		WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 
@@ -992,6 +1065,8 @@ class WC_AM_Subscription {
 			$sub_id   = $subscription->get_id();
 			$order_id = WC_AM_API_RESOURCE_DATA_STORE()->get_order_id_by_sub_id( $sub_id );
 
+			// Delete grace periods.
+			WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $sub_id );
 			// Refreshing cache here will also delete API cache for activations about to be deleted.
 			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 
@@ -1033,6 +1108,8 @@ class WC_AM_Subscription {
 	 * @throws \Exception
 	 */
 	public function update_order( $order, $subscription, $add_line_item_data, $remove_line_item_data ) {
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $subscription );
 		// Create the new API Resource.
 		WC_AM_ORDER()->update_order( $order->id );
 		// Delete the old API Resource.
@@ -1263,6 +1340,9 @@ class WC_AM_Subscription {
 			$order_id = $this->get_order_id( $subscription_id );
 
 			if ( ! empty( $order_id ) ) {
+				// Add grace period expiration.
+				WC_AM_GRACE_PERIOD()->add_wc_subscription_expiration_by_subscription( $subscription_id );
+				// Cleanup if grace period has expired.
 				WC_AM_BACKGROUND_EVENTS()->cleanup_expired_api_resources( $order_id );
 				WC_AM_BACKGROUND_EVENTS()->cleanup_expired_api_activations( $order_id );
 			}
@@ -1286,6 +1366,9 @@ class WC_AM_Subscription {
 			$order_id = $this->get_order_id( $subscription_id );
 
 			if ( ! empty( $order_id ) ) {
+				// Delete grace period expiration.
+				WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $subscription_id );
+				// Update order data.
 				WC_AM_ORDER()->update_order( $order_id );
 			}
 		}

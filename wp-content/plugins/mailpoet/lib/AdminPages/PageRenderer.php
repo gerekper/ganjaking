@@ -15,6 +15,7 @@ use MailPoet\Cron\Workers\SubscribersCountCacheRecalculation;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\TagEntity;
 use MailPoet\Features\FeaturesController;
+use MailPoet\Form\AssetsController;
 use MailPoet\Referrals\ReferralDetector;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Services\Bridge;
@@ -73,6 +74,9 @@ class PageRenderer {
   /** @var WPFunctions */
   private $wp;
 
+  /*** @var AssetsController */
+  private $assetsController;
+
   public function __construct(
     Bridge $bridge,
     Renderer $renderer,
@@ -87,7 +91,8 @@ class PageRenderer {
     SubscribersFeature $subscribersFeature,
     TrackingConfig $trackingConfig,
     TransientCache $transientCache,
-    WPFunctions $wp
+    WPFunctions $wp,
+    AssetsController $assetsController
   ) {
     $this->bridge = $bridge;
     $this->renderer = $renderer;
@@ -103,6 +108,7 @@ class PageRenderer {
     $this->trackingConfig = $trackingConfig;
     $this->transientCache = $transientCache;
     $this->wp = $wp;
+    $this->assetsController = $assetsController;
   }
 
   /**
@@ -127,7 +133,7 @@ class PageRenderer {
     $defaults = [
       'current_page' => sanitize_text_field(wp_unslash($_GET['page'] ?? '')),
       'site_name' => $this->wp->wpSpecialcharsDecode($this->wp->getOption('blogname'), ENT_QUOTES),
-      'main_page' => Menu::$mainPageSlug,
+      'main_page' => Menu::MAIN_PAGE_SLUG,
       'site_url' => $this->wp->siteUrl(),
       'site_address' => $this->wp->wpParseUrl($this->wp->homeUrl(), PHP_URL_HOST),
       'feature_flags' => $this->featuresController->getAllFlags(),
@@ -196,6 +202,7 @@ class PageRenderer {
         $this->subscribersCountCacheRecalculation->schedule();
       }
 
+      $this->assetsController->setupAdminPagesDependencies();
       // We are in control of the template and the data can be considered safe at this point
       // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
       echo $this->renderer->render($template, $data + $defaults);
