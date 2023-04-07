@@ -24,12 +24,12 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 <p>
 	<?php
 	/* translators: %s: availability date */
-	printf( esc_html__( 'Your pre-order release date has been changed. The new release date is %s. Your order details are shown below for your reference.', 'wc-pre-orders' ), esc_html( $availability_date ) );
+	printf( esc_html__( 'Your pre-order release date has been changed. The new release date is %s. Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), esc_html( $availability_date ) );
 	?>
 </p>
 <?php else : ?>
 	<p>
-	<?php esc_html_e( 'Your pre-order release date has been changed. Your order details are shown below for your reference.', 'wc-pre-orders' ); ?>
+	<?php esc_html_e( 'Your pre-order release date has been changed. Your order details are shown below for your reference.', 'woocommerce-pre-orders' ); ?>
 	</p>
 <?php endif; ?>
 

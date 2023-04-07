@@ -221,6 +221,46 @@ class WC_Dropshipping_Admin {
 		$options = get_option( 'wc_dropship_manager' );
 		// print_r($options['packing_slip_customer_service_email'] );
 
+		$address_line1 = '';
+
+		if (isset($ds["address_line1"])) {
+			$address_line1 = $ds["address_line1"];
+		}else{
+			$address_line1 = '';
+		}
+
+		$address_line2 = '';
+
+		if (isset($ds["address_line2"])) {
+			$address_line2 = $ds["address_line2"];
+		}else{
+			$address_line2 = '';
+		}
+
+		$supplier_city = '';
+
+		if (isset($ds["supplier_city"])) {
+			$supplier_city = $ds["supplier_city"];
+		}else{
+			$supplier_city = '';
+		}
+
+		$country_state = '';
+
+		if (isset($ds["country_state"])) {
+			$country_state = $ds["country_state"];
+		}else{
+			$country_state = '';
+		}
+
+		$postcode_zip = '';
+
+		if (isset($ds["postcode_zip"])) {
+			$postcode_zip = $ds["postcode_zip"];
+		}else{
+			$postcode_zip = '';
+		}
+
 		// print_r($ds);
 		switch ( $column_name ) {
 			case 'account_number':
@@ -249,23 +289,23 @@ class WC_Dropshipping_Admin {
 			// break;
 
 			case 'address_line1':
-				echo $ds['address_line1'];
+				echo $address_line1;
 				break;
 
 			case 'address_line2':
-				echo $ds['address_line2'];
+				echo $address_line2;
 				break;
 
 			case 'supplier_city':
-				echo $ds['supplier_city'];
+				echo $supplier_city;
 				break;
 
 			case 'country_state':
-				echo $ds['country_state'];
+				echo $country_state;
 				break;
 
 			case 'postcode_zip':
-				echo $ds['postcode_zip'];
+				echo $postcode_zip;
 				break;
 		}
 		// print_r($ds);
@@ -430,9 +470,18 @@ class WC_Dropshipping_Admin {
 			'indicator' => 'In-Stock Indicator',
 		);
 
+
 		if ( $data['address_line1'] != '' ) {
-			$data['specific_delivery_location'] = 'checked';
-			$spec_deli_loc = 'style="display:table-row"';
+			echo 'Hiii
+			<script>
+				window.onload = function() {
+				var checkbox = document.getElementById("specific_delivery_location");
+				checkbox.checked = true;
+
+			  }
+			</script>';
+			$speci_del_style_disply = 'style="display:table-row"';
+
 		}
 
 		echo '
@@ -463,10 +512,11 @@ class WC_Dropshipping_Admin {
 						</th>
 
 					</tr>';
+
 					// print_r($data['specific_delivery_location']);
 
 					echo '
-					<div class="hide_show_div_spe_del" style="display:none">
+					<div class="hide_show_div_spe_del" style="display:none; background-color:red;">
 						<tr class="inner-toggle specific_delivery_location" ' . $speci_del_style_disply . '>
 
 							<th><label for="address_line1" >Address line 1</label></th>

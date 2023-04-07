@@ -1,5 +1,9 @@
 *** Product Vendors Changelog ***
 
+2023-03-27 - version 2.1.76
+* Dev - Always return array in `get_vendor_data_by_id` even if there's no vendor.
+* Fix - Reporting stats for 'Last Month' are not accurate for logged-in vendor.
+
 2023-03-13 - version 2.1.75
 * Dev - Action and filter hooks to registration shortcode for existing vendors.
 

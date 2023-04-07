@@ -194,6 +194,21 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 				SEEDPROD_PRO_VERSION
 			);
 
+			// photoswipe css
+			wp_enqueue_style(
+				'seedprod-photoswipe-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/css/photoswipe/photoswipe.css',
+				false,
+				SEEDPROD_PRO_VERSION
+			);
+
+			wp_enqueue_style(
+				'seedprod-photoswipe-default-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/css/photoswipe/default-skin/photoswipe-default-skin.css',
+				false,
+				SEEDPROD_PRO_VERSION
+			);
+
 			wp_register_script(
 				'seedprod-animate-dynamic-css',
 				SEEDPROD_PRO_PLUGIN_URL . 'public/js/animate-dynamic.js',

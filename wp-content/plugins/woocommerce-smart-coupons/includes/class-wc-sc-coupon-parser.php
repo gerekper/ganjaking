@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.3.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -305,7 +305,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 		 * @return array $coupon
 		 */
 		public function parse_coupon( $item ) {
-			global $wc_csv_coupon_import, $wpdb;
+			global $wc_csv_coupon_import;
 
 			$this->row++;
 			$postmeta  = array();

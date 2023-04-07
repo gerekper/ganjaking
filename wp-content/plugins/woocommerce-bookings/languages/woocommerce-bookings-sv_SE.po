@@ -7,21 +7,25 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-21T20:49:07+00:00\n"
-"PO-Revision-Date: 2023-03-15 22:59:25+0000\n"
+"POT-Creation-Date: 2023-03-27T03:44:53+00:00\n"
+"PO-Revision-Date: 2023-03-22 18:55:37+0000\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/class-wc-bookings-cache.php:237
+msgid "Error: Resource not found, please try again"
+msgstr "Fel: Resurs hittades inte, försök igen"
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
 #: includes/class-wc-bookings-google-calendar-connection.php:867
 msgid "Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.%1$sAdd %2$s to the Authorized redirect URIs of your Google Cloud App."
-msgstr ""
+msgstr "Ange autentiseringsuppgifterna nedan för att använda en anpassad Google Kalender-API-app. Koppla från den befintliga anslutningen för att ange autentiseringsuppgifterna.%1$sLägg till %2$s i de auktoriserade omdirigerings-URI:erna för din Google Cloud-app."
 
 #: includes/class-wc-booking-cart-manager.php:171
 msgid "Sorry, the selected block is no longer available for %1$s. Please choose another block."
-msgstr ""
+msgstr "Det valda blocket är inte längre tillgängligt för %1$s. Välj annat block."
 
 #: includes/admin/views/html-calendar-nav.php:110
 #: includes/admin/views/html-calendar-nav.php:111
@@ -31,7 +35,7 @@ msgstr "Nästa månad"
 #: includes/admin/views/html-calendar-nav.php:78
 #: includes/admin/views/html-calendar-nav.php:79
 msgid "Previous Month"
-msgstr ""
+msgstr "Föregående månad"
 
 #: includes/booking-form/class-wc-booking-form.php:110
 msgid "Please wait, the latest available slots are being processed in the background."
@@ -54,17 +58,17 @@ msgid "No slots available."
 msgstr "Inga tidsluckor tillgängliga."
 
 #: includes/admin/class-wc-bookings-ajax.php:209
-#: templates/booking-form/month-picker.php:76
+#: templates/booking-form/month-picker.php:74
 msgid "This month is unavailable"
 msgstr "Denna månad är inte tillgänglig"
 
 #: includes/admin/class-wc-bookings-ajax.php:207
-#: templates/booking-form/month-picker.php:74
+#: templates/booking-form/month-picker.php:72
 msgid "This month is fully booked and unavailable"
 msgstr "Denna månad är fullbokad och otillgänglig"
 
 #: includes/admin/class-wc-bookings-ajax.php:205
-#: templates/booking-form/month-picker.php:72
+#: templates/booking-form/month-picker.php:70
 msgid "This month is available"
 msgstr "Denna månad är tillgänglig"
 

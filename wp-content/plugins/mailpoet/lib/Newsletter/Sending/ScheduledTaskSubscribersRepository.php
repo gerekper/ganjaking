@@ -109,6 +109,34 @@ class ScheduledTaskSubscribersRepository extends Repository {
     $this->checkCompleted($task);
   }
 
+  public function createSubscribersForBounceWorker(ScheduledTaskEntity $scheduledTaskEntity): void {
+    $scheduledTaskSubscribersTable = $this->entityManager->getClassMetadata(ScheduledTaskSubscriberEntity::class)->getTableName();
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+
+    $stmt = $this->entityManager->getConnection()->prepare("
+      INSERT IGNORE INTO " . $scheduledTaskSubscribersTable . "
+      (task_id, subscriber_id, processed)
+      SELECT :taskId AS task_id, s.`id` AS subscriber_id, :unprocessed AS processed
+      FROM " . $subscribersTable . " s
+      WHERE s.`deleted_at` IS NULL
+      AND s.`status` IN (:subscribed, :unconfirmed)
+    ");
+    $stmt->bindValue('taskId', $scheduledTaskEntity->getId());
+    $stmt->bindValue('unprocessed', ScheduledTaskSubscriberEntity::STATUS_UNPROCESSED);
+    $stmt->bindValue('subscribed', SubscriberEntity::STATUS_SUBSCRIBED);
+    $stmt->bindValue('unconfirmed', SubscriberEntity::STATUS_UNCONFIRMED);
+    $stmt->executeQuery();
+  }
+
+  public function deleteByScheduledTask(ScheduledTaskEntity $scheduledTask): void {
+    $this->entityManager->createQueryBuilder()
+      ->delete(ScheduledTaskSubscriberEntity::class, 'sts')
+      ->where('sts.task = :task')
+      ->setParameter('task', $scheduledTask)
+      ->getQuery()
+      ->execute();
+  }
+
   private function checkCompleted(ScheduledTaskEntity $task): void {
     $count = $this->countBy(['task' => $task, 'processed' => ScheduledTaskSubscriberEntity::STATUS_UNPROCESSED]);
     if ($count === 0) {

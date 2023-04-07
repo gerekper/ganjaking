@@ -21,7 +21,7 @@ class Template_Utils {
 	 * @param array  $args          Optional. The template arguments.
 	 */
 	public static function get_template( $template_name, $args = array() ) {
-		wc_get_template( $template_name, $args, '', WC_STORE_CATALOG_PDF_DOWNLOAD_PATH . 'templates/' );
+		wc_get_template( $template_name, $args, 'woocommerce-store-catalog-pdf-download/', WC_STORE_CATALOG_PDF_DOWNLOAD_PATH . 'templates/' );
 	}
 
 	/**
@@ -33,6 +33,6 @@ class Template_Utils {
 	 * @return string
 	 */
 	public static function locate_template( $template_name ) {
-		return wc_locate_template( $template_name, '', WC_STORE_CATALOG_PDF_DOWNLOAD_PATH . 'templates/' );
+		return wc_locate_template( $template_name, 'woocommerce-store-catalog-pdf-download/', WC_STORE_CATALOG_PDF_DOWNLOAD_PATH . 'templates/' );
 	}
 }

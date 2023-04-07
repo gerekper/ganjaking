@@ -76,6 +76,22 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 
 		$transient_name = 'wcpv_reports_store_leg_' . $this->vendor_id . '_' . $this->current_range;
 
+		$start_date = '';
+		$end_date   = '';
+		if ( ! empty( $_GET['start_date'] ) ) {
+			$start_date = sanitize_text_field( $_GET['start_date'] );
+			$start_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $start_date ) ? $start_date : '';
+		}
+
+		if ( ! empty( $_GET['end_date'] ) ) {
+			$end_date = sanitize_text_field( $_GET['end_date'] );
+			$end_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $end_date ) ? $end_date : '';
+		}
+
+		if ( 'custom' === $this->current_range ) {
+			$transient_name .= '_' . $start_date . '-' . $end_date;
+		}
+
 		$sql = "SELECT * FROM " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " AS commission";
 		$sql .= " WHERE 1=1";
 
@@ -84,35 +100,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		}
 
 		$sql .= " AND commission.commission_status != 'void'";
-
-		switch( $this->current_range ) {
-			case 'year' :
-				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
-				break;
-
-			case 'last_month' :
-				$sql .= " AND MONTH( commission.order_date ) = IF( MONTH( NOW() ) = 1, 12, MONTH( NOW() ) - 1 )";
-				$sql .= " AND YEAR( commission.order_date ) = IF( MONTH( NOW() ) = 1, YEAR( NOW() ) - 1, YEAR( NOW() ) )";
-				break;
-
-			case 'month' :
-				$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
-				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
-				break;
-
-			case 'custom' :
-				$start_date = ! empty( $_GET['start_date'] ) ? sanitize_text_field( $_GET['start_date'] ) : '';
-				$end_date   = ! empty( $_GET['end_date'] ) ? sanitize_text_field( $_GET['end_date'] ) : '';
-
-				$sql            .= " AND DATE( commission.order_date ) BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
-				$transient_name .= '_'. $start_date .'-'. $end_date;
-				break;
-
-			case 'default' :
-			case '7day' :
-				$sql .= " AND DATE( commission.order_date ) BETWEEN DATE_SUB( NOW(), INTERVAL 7 DAY ) AND NOW()";
-				break;
-		}
+		$sql .= WC_Product_Vendors_Utils::get_commission_date_sql_query_from_range( $this->current_range, $start_date, $end_date );
 
 		if ( false === ( $results = get_transient( $transient_name ) ) ) {
 			// Enable big selects for reports
@@ -305,7 +293,23 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			return $this->report_data;
 		}
 
+		$start_date = '';
+		$end_date   = '';
+		if ( ! empty( $_GET['start_date'] ) ) {
+			$start_date = sanitize_text_field( $_GET['start_date'] );
+			$start_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $start_date ) ? $start_date : '';
+		}
+
+		if ( ! empty( $_GET['end_date'] ) ) {
+			$end_date = sanitize_text_field( $_GET['end_date'] );
+			$end_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $end_date ) ? $end_date : '';
+		}
+
 		$transient_name = 'wcpv_reports_store_' . $this->vendor_id . '_' . $this->current_range;
+
+		if ( 'custom' === $this->current_range ) {
+			$transient_name .= '_' . $start_date . '-' . $end_date;
+		}
 
 		$select = "SELECT COUNT( DISTINCT commission.order_id ) AS count, COUNT( commission.order_id ) AS order_item_count, SUM( commission.product_amount + commission.product_shipping_amount + commission.product_tax_amount + commission.product_shipping_tax_amount ) AS total_sales, SUM( commission.product_shipping_amount ) AS total_shipping, SUM( commission.product_tax_amount ) AS total_tax, SUM( commission.product_shipping_tax_amount ) AS total_shipping_tax, SUM( commission.total_commission_amount ) AS total_commission, commission.order_date";
 
@@ -318,36 +322,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		}
 
 		$sql .= " AND commission.commission_status != 'void'";
-
-		switch( $this->current_range ) {
-			case 'year' :
-				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
-				break;
-
-			case 'last_month' :
-				$sql .= " AND MONTH( commission.order_date ) = IF( MONTH( NOW() ) = 1, 12, MONTH( NOW() ) - 1 )";
-				$sql .= " AND YEAR( commission.order_date ) = IF( MONTH( NOW() ) = 1, YEAR( NOW() ) - 1, YEAR( NOW() ) )";
-				break;
-
-			case 'month' :
-				$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
-				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
-				break;
-
-			case 'custom' :
-				$start_date = ! empty( $_GET['start_date'] ) ? sanitize_text_field( $_GET['start_date'] ) : '';
-				$end_date   = ! empty( $_GET['end_date'] ) ? sanitize_text_field( $_GET['end_date'] ) : '';
-
-				$sql            .= " AND DATE( commission.order_date ) BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
-				$transient_name .= '_'. $start_date .'-'. $end_date;
-				break;
-
-			case 'default' :
-			case '7day' :
-				$sql .= " AND DATE( commission.order_date ) BETWEEN DATE_SUB( NOW(), INTERVAL 7 DAY ) AND NOW()";
-				break;
-		}
-
+		$sql .= WC_Product_Vendors_Utils::get_commission_date_sql_query_from_range( $this->current_range, $start_date, $end_date );
 		$sql .= " GROUP BY DATE( commission.order_date )";
 
 		if ( false === ( $results = get_transient( $transient_name ) ) ) {

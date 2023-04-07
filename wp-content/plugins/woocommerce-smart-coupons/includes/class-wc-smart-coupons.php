@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.5.0
+ * @version     5.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -725,7 +725,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 */
 		public function process_published_scheduled_coupon( $coupon_id = 0 ) {
 
-			$post_type = get_post_type( $coupon_id );
+			$post_type = $this->get_post_type( $coupon_id );
 			if ( 'shop_coupon' !== $post_type ) {
 				return false;
 			}
@@ -1011,7 +1011,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			$order = null;
 
-			if ( ! empty( $post->post_type ) && 'shop_order' === $post->post_type && ! empty( $post->ID ) ) {
+			if ( ! empty( $post->ID ) && 'shop_order' === $this->get_post_type( $post->ID ) ) {
 				$order = wc_get_order( $post->ID );
 			}
 
@@ -1887,8 +1887,10 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			}
 			$order_actions = array( 'woocommerce_add_coupon_discount', 'woocommerce_calc_line_taxes', 'woocommerce_save_order_items' );
 
+			$order_id = ( $this->is_callable( $order, 'get_id' ) ) ? $order->get_id() : 0;
+
 			$post_action    = ( ! empty( $_POST['action'] ) ) ? wc_clean( wp_unslash( $_POST['action'] ) ) : ''; // phpcs:ignore
-			$post_post_type = ( ! empty( $_POST['post_type'] ) ) ? wc_clean( wp_unslash( $_POST['post_type'] ) ) : ''; // phpcs:ignore
+			$post_post_type = ( $this->is_hpos() ) ? $this->get_post_type( $order_id ) : ( ( ! empty( $_POST['post_type'] ) ) ? wc_clean( wp_unslash( $_POST['post_type'] ) ) : '' ); // phpcs:ignore
 
 			$order_created_via = ( is_callable( array( $order, 'get_created_via' ) ) ) ? $order->get_created_via() : '';
 
@@ -1896,7 +1898,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( ! is_callable( array( $order, 'get_id' ) ) ) {
 					return;
 				}
-				$order_id = $order->get_id();
+
 				if ( empty( $order_id ) ) {
 					return;
 				}
@@ -2803,25 +2805,41 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$order_id = wp_cache_get( 'wc_sc_order_id_by_billing_email_' . sanitize_key( $email ), 'woocommerce_smart_coupons' );
 
 					if ( false === $order_id ) {
-						$query = $wpdb->prepare(
-							"SELECT ID
-								FROM $wpdb->posts AS p
-								LEFT JOIN $wpdb->postmeta AS pm
-									ON ( p.ID = pm.post_id AND pm.meta_key = %s )
-								WHERE p.post_type = %s
-									AND pm.meta_value = %s",
-							'_billing_email',
-							'shop_order',
-							$email
-						);
+						if ( $this->is_hpos() ) {
+							$query = $wpdb->prepare(
+								"SELECT id
+									FROM {$wpdb->prefix}wc_orders
+									WHERE billing_email = %s",
+								$email
+							);
+						} else {
+							$query = $wpdb->prepare(
+								"SELECT ID
+									FROM $wpdb->posts AS p
+									LEFT JOIN $wpdb->postmeta AS pm
+										ON ( p.ID = pm.post_id AND pm.meta_key = %s )
+									WHERE p.post_type = %s
+										AND pm.meta_value = %s",
+								'_billing_email',
+								'shop_order',
+								$email
+							);
+						}
 
 						if ( ! empty( $valid_order_statuses ) && ! empty( $statuses_placeholder ) ) {
-                            // phpcs:disable
-							$query .= $wpdb->prepare(
-								' AND p.post_status IN (' . implode( ',', $statuses_placeholder ) . ')',
-								$valid_order_statuses
-							);
-                            // phpcs:enable
+							// phpcs:disable
+							if ( $this->is_hpos() ) {
+								$query .= $wpdb->prepare(
+									' AND status IN (' . implode( ',', $statuses_placeholder ) . ')',
+									$valid_order_statuses
+								);
+							} else {
+								$query .= $wpdb->prepare(
+									' AND p.post_status IN (' . implode( ',', $statuses_placeholder ) . ')',
+									$valid_order_statuses
+								);
+							}
+							// phpcs:enable
 						}
 
 						$order_id = $wpdb->get_var( $query ); // phpcs:ignore
@@ -2881,33 +2899,57 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$order_id = wp_cache_get( 'wc_sc_order_for_user_id_' . implode( '_', $unique_user_ids ), 'woocommerce_smart_coupons' );
 
 					if ( false === $order_id ) {
-						$query = $wpdb->prepare(
-							"SELECT ID
-								FROM $wpdb->posts AS p
-								LEFT JOIN $wpdb->postmeta AS pm
-									ON ( p.ID = pm.post_id AND pm.meta_key = %s )
-								WHERE p.post_type = %s",
-							'_customer_user',
-							'shop_order'
-						);
+						if ( $this->is_hpos() ) {
+							$query = $wpdb->prepare(
+								"SELECT id
+									FROM {$wpdb->prefix}wc_orders
+									WHERE %d",
+								1
+							);
+						} else {
+							$query = $wpdb->prepare(
+								"SELECT ID
+									FROM $wpdb->posts AS p
+									LEFT JOIN $wpdb->postmeta AS pm
+										ON ( p.ID = pm.post_id AND pm.meta_key = %s )
+									WHERE p.post_type = %s",
+								'_customer_user',
+								'shop_order'
+							);
+						}
 
 						if ( ! empty( $valid_order_statuses ) && ! empty( $statuses_placeholder ) ) {
 							// phpcs:disable
-							$query .= $wpdb->prepare(
-								' AND p.post_status IN (' . implode( ',', $statuses_placeholder ) . ')',
-								$valid_order_statuses
-							);
+							if ( $this->is_hpos() ) {
+								$query .= $wpdb->prepare(
+									' AND status IN (' . implode( ',', $statuses_placeholder ) . ')',
+									$valid_order_statuses
+								);
+							} else {
+								$query .= $wpdb->prepare(
+									' AND p.post_status IN (' . implode( ',', $statuses_placeholder ) . ')',
+									$valid_order_statuses
+								);
+							}
 							// phpcs:enable
 						}
 
 						$how_many_user_ids = count( $user_ids );
-						$id_placeholder    = array_fill( 0, $how_many_user_ids, '%s' );
 
 						// phpcs:disable
-						$query .= $wpdb->prepare(
-							' AND pm.meta_value IN (' . implode( ',', $id_placeholder ) . ')',
-							$user_ids
-						);
+						if ( $this->is_hpos() ) {
+							$id_placeholder    = array_fill( 0, $how_many_user_ids, '%d' );
+							$query .= $wpdb->prepare(
+								' AND customer_id IN (' . implode( ',', $id_placeholder ) . ')',
+								$user_ids
+							);
+						} else {
+							$id_placeholder    = array_fill( 0, $how_many_user_ids, '%s' );
+							$query .= $wpdb->prepare(
+								' AND pm.meta_value IN (' . implode( ',', $id_placeholder ) . ')',
+								$user_ids
+							);
+						}
 						// phpcs:enable
 
 						$order_id = $wpdb->get_var( $query ); // phpcs:ignore
@@ -4420,7 +4462,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			if ( ! empty( $pagenow ) ) {
 				$show_css_for_smart_coupon_tab = false;
-				$get_post_type                 = ( ! empty( $post->post_type ) ) ? $post->post_type : ( ( ! empty( $_GET['post_type'] ) ) ? wc_clean( wp_unslash( $_GET['post_type'] ) ) : '' ); // phpcs:ignore
+				$get_post_type                 = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : ( ( ! empty( $_GET['post_type'] ) ) ? wc_clean( wp_unslash( $_GET['post_type'] ) ) : '' ); // phpcs:ignore
 				$get_page                      = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 				if ( ( 'edit.php' === $pagenow || 'post.php' === $pagenow || 'post-new.php' === $pagenow ) && in_array( $get_post_type, array( 'shop_coupon', 'product', 'product-variation' ), true ) ) {
 					$show_css_for_smart_coupon_tab = true;
@@ -5376,7 +5418,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return null;
 			}
 			$meta_value = '';
-			$post_type  = ( function_exists( 'get_post_type' ) ) ? get_post_type( $post_id ) : '';
+			$post_type  = ( $this->is_callable( $this, 'get_post_type' ) ) ? $this->get_post_type( $post_id ) : '';
 			if ( in_array( $post_type, array( 'product', 'product_variation', 'shop_coupon', 'shop_order' ), true ) ) {
 				$object     = null;
 				$use_getter = false;
@@ -5491,7 +5533,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
-			$post_type = ( function_exists( 'get_post_type' ) ) ? get_post_type( $post_id ) : '';
+			$post_type = ( $this->is_callable( $this, 'get_post_type' ) ) ? $this->get_post_type( $post_id ) : '';
 			if ( in_array( $meta_key, array( 'coupon_amount', 'smart_coupons_contribution', 'wc_sc_max_discount', 'wc_sc_original_amount', 'sc_called_credit_details', '_order_discount', '_order_total' ), true ) ) {
 				$order_currency = null;
 
@@ -5607,7 +5649,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return false;
 			}
 			if ( is_null( $object ) || ! ( $this->is_callable( $object, 'delete_meta_data' ) && $this->is_callable( $object, 'save' ) ) ) {
-				$post_type = ( function_exists( 'get_post_type' ) ) ? get_post_type( $post_id ) : '';
+				$post_type = ( $this->is_callable( $this, 'get_post_type' ) ) ? $this->get_post_type( $post_id ) : '';
 				if ( in_array( $post_type, array( 'product', 'product_variation', 'shop_coupon', 'shop_order' ), true ) ) {
 					$post_id = absint( $post_id );
 					switch ( $post_type ) {
@@ -6316,11 +6358,49 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
+		 * Wrapper function to get post type
+		 *
+		 * @param integer $post_id The post id.
+		 * @return string|boolean
+		 */
+		public function get_post_type( $post_id = null ) {
+			if ( ! empty( $post_id ) && $this->is_hpos_order( $post_id ) ) {
+				return 'shop_order';
+			}
+			return get_post_type( $post_id );
+		}
+
+		/**
+		 * Function to check if the passed id is of an order or not
+		 *
+		 * @param integer $post_id The post id.
+		 * @return boolean
+		 */
+		public function is_hpos_order( $post_id = 0 ) {
+			if ( ! empty( $post_id ) && is_numeric( $post_id ) && $this->is_hpos() && $this->is_callable( '\Automattic\WooCommerce\Utilities\OrderUtil', 'is_order' ) ) {
+				return \Automattic\WooCommerce\Utilities\OrderUtil::is_order( $post_id, wc_get_order_types() );
+			}
+			return false;
+		}
+
+		/**
+		 * Wrapper function to check if HPOS is enabled or not
+		 *
+		 * @return boolean
+		 */
+		public function is_hpos() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) && $this->is_callable( '\Automattic\WooCommerce\Utilities\OrderUtil', 'custom_orders_table_usage_is_enabled' ) ) {
+				return \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+			}
+			return false;
+		}
+
+		/**
 		 * Function to declare WooCommerce HPOS related compatibility status
 		 */
 		public function hpos_compat_declaration() {
 			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-smart-coupons/woocommerce-smart-coupons.php', false );
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-smart-coupons/woocommerce-smart-coupons.php', true );
 			}
 		}
 

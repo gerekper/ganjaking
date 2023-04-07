@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.5.2
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -175,8 +175,15 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 				} else {
 					$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 				}
-				$coupon_usage_url = esc_url( admin_url( sprintf( 'edit.php?s=%s&post_status=all&post_type=shop_order&trigger=woocommerce-smart-coupons', esc_html( $coupon_code ) ) ) );
-				$column_content   = sprintf( '<a href="%s" target="_blank"><span class="dashicons dashicons-external"></span></a>', $coupon_usage_url );
+				$coupon_usage_url = add_query_arg(
+					array(
+						's'           => $coupon_code,
+						'post_status' => 'all',
+						'post_type'   => 'shop_order',
+					),
+					admin_url( 'edit.php' )
+				);
+				$column_content   = sprintf( '<a href="%s" target="_blank"><span class="dashicons dashicons-external"></span></a>', esc_url( $coupon_usage_url ) );
 			} else {
 				$column_content = '&ndash;';
 			}

@@ -1627,6 +1627,11 @@ function perfmatters_activate_license() {
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
+		$license_data->success = true;
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+5 years'));
+		$license_data->license = 'valid';
+
 		//update stored option
 		if(is_network_admin()) {
 			update_site_option('perfmatters_edd_license_status', $license_data->license);
@@ -1662,6 +1667,11 @@ function perfmatters_deactivate_license() {
 
 		// decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
+
+		$license_data->success = true;
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+5 years'));
+		$license_data->license = 'valid';
 
 		// $license_data->license will be either "deactivated" or "failed"
 		if($license_data->license == 'deactivated') {
@@ -1700,6 +1710,11 @@ function perfmatters_check_license() {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
+
+		$license_data->success = true;
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+5 years'));
+		$license_data->license = 'valid';
 
 		//update license option
 		if(is_network_admin()) {

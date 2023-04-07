@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.0.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -150,7 +150,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 			$valid_pagenow         = array( 'edit.php', 'post.php', 'plugins.php' );
 			$is_show_review_notice = get_option( 'wc_sc_is_show_review_notice' );
 			$is_coupon_enabled     = get_option( 'woocommerce_enable_coupons' );
-			$get_post_type         = ( ! empty( $post->post_type ) ) ? $post->post_type : '';
+			$get_post_type         = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : '';
 			$get_page              = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : '';  // phpcs:ignore
 			$get_tab               = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : '';    // phpcs:ignore
 			$design                = get_option( 'wc_sc_setting_coupon_design', 'basic' );
@@ -287,7 +287,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 			global $post, $pagenow;
 
 			if ( ! empty( $pagenow ) ) {
-				$get_post_type = ( ! empty( $post->post_type ) ) ? $post->post_type : '';
+				$get_post_type = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : '';
 	  			$get_page      = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 				$get_tab       = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore
 				$sc_pages      = array( 'wc-smart-coupons', 'sc-about', 'sc-faqs' );
@@ -320,7 +320,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 			global $post, $pagenow;
 
 			if ( ! empty( $pagenow ) ) {
-				$get_post_type = ( ! empty( $post->post_type ) ) ? $post->post_type : '';
+				$get_post_type = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : '';
 	  			$get_page      = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 	  			$get_tab       = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore
 				$sc_pages      = array( 'wc-smart-coupons', 'sc-about', 'sc-faqs' );

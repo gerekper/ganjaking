@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.8.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 		 */
 		public function add_footer_script() {
 			global $pagenow, $post;
-			$get_post_type = ( ! empty( $post->post_type ) ) ? $post->post_type : ( ( ! empty( $_GET['post_type'] ) ) ? wc_clean( wp_unslash( $_GET['post_type'] ) ) : '' ); // phpcs:ignore
+			$get_post_type = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : ( ( ! empty( $_GET['post_type'] ) ) ? wc_clean( wp_unslash( $_GET['post_type'] ) ) : '' ); // phpcs:ignore
 			if ( 'shop_coupon' === $get_post_type ) {
 				if ( 'post.php' === $pagenow || 'post-new.php' === $pagenow ) {
 					$manage_category_string = __( 'Manage coupon categories', 'woocommerce-smart-coupons' );

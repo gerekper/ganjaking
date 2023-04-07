@@ -14,10 +14,10 @@
 
 		<thead>
 			<tr>
-				<th class="pre-order-order-number"><span class="nobr"><?php echo esc_html__( 'Order', 'wc-pre-orders' ); ?></span></th>
-				<th class="pre-order-title"><span class="nobr"><?php echo esc_html__( 'Product', 'wc-pre-orders' ); ?></span></th>
-				<th class="pre-order-status"><span class="nobr"><?php echo esc_html__( 'Status', 'wc-pre-orders' ); ?></span></th>
-				<th class="pre-order-release-date"><span class="nobr"><?php echo esc_html__( 'Release date', 'wc-pre-orders' ); ?></span></th>
+				<th class="pre-order-order-number"><span class="nobr"><?php echo esc_html__( 'Order', 'woocommerce-pre-orders' ); ?></span></th>
+				<th class="pre-order-title"><span class="nobr"><?php echo esc_html__( 'Product', 'woocommerce-pre-orders' ); ?></span></th>
+				<th class="pre-order-status"><span class="nobr"><?php echo esc_html__( 'Status', 'woocommerce-pre-orders' ); ?></span></th>
+				<th class="pre-order-release-date"><span class="nobr"><?php echo esc_html__( 'Release date', 'woocommerce-pre-orders' ); ?></span></th>
 				<th class="pre-order-actions"></th>
 			</tr>
 		</thead>
@@ -30,7 +30,7 @@
 					$data     = $item['data'];
 				?>
 				<tr class="order">
-					<td class="order-number" data-title="<?php echo esc_attr__( 'Order', 'wc-pre-orders' ); ?>">
+					<td class="order-number" data-title="<?php echo esc_attr__( 'Order', 'woocommerce-pre-orders' ); ?>">
 						<?php if ( method_exists( $preorder, 'get_view_order_url' ) ) : ?>
 							<a href="<?php echo esc_url( $preorder->get_view_order_url() ); ?>">
 								#<?php echo esc_html( $preorder->get_order_number() ); ?>
@@ -41,19 +41,19 @@
 							</a>
 						<?php endif; ?>
 					</td>
-						<td class="pre-order-title" data-title="<?php echo esc_attr__( 'Product', 'wc-pre-orders' ); ?>">
+						<td class="pre-order-title" data-title="<?php echo esc_attr__( 'Product', 'woocommerce-pre-orders' ); ?>">
 						<a href="<?php echo esc_attr( get_post_permalink( $data['product_id'] ) ); ?>">
 							<?php echo wp_kses_post( $data['name'] ); ?>
 						</a>
 					</td>
-					<td class="pre-order-status" data-title="<?php echo esc_attr__( 'Status', 'wc-pre-orders' ); ?>">
+					<td class="pre-order-status" data-title="<?php echo esc_attr__( 'Status', 'woocommerce-pre-orders' ); ?>">
 						<?php
 						echo esc_html(
 							WC_Pre_Orders_Order::get_pre_order_status_to_display( $preorder )
 						);
 						?>
 					</td>
-					<td class="pre-order-release-date" data-title="<?php echo esc_attr__( 'Release date', 'wc-pre-orders' ); ?>">
+					<td class="pre-order-release-date" data-title="<?php echo esc_attr__( 'Release date', 'woocommerce-pre-orders' ); ?>">
 						<?php
 						echo esc_html(
 							WC_Pre_Orders_Product::get_localized_availability_date( $data['product_id'] )
@@ -73,7 +73,7 @@
 
 <?php else : ?>
 
-	<p><?php esc_html_e( 'You have no pre-orders.', 'wc-pre-orders' ); ?></p>
+	<p><?php esc_html_e( 'You have no pre-orders.', 'woocommerce-pre-orders' ); ?></p>
 
 	<?php
 endif;

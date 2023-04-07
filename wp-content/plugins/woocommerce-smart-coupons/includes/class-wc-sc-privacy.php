@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -475,19 +475,30 @@ if ( ! class_exists( 'WC_SC_Privacy' ) ) {
 			$order_ids = wp_cache_get( 'wc_sc_order_ids_for_' . sanitize_key( $email_address ), 'woocommerce_smart_coupons' );
 
 			if ( false === $order_ids ) {
-				$order_ids = $wpdb->get_col( // phpcs:ignore
-					$wpdb->prepare(
-						"SELECT pm.post_id
-							FROM {$wpdb->posts} AS p
-								LEFT JOIN {$wpdb->postmeta} AS pm
-									ON ( p.ID = pm.post_id AND p.post_type = %s )
-							WHERE pm.meta_key = %s
-								AND pm.meta_value = %d",
-						'shop_order',
-						'_customer_user',
-						$user->ID
-					)
-				);
+				if ( $this->is_hpos() ) {
+					$order_ids = $wpdb->get_col( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT id
+								FROM {$wpdb->prefix}wc_orders
+								WHERE customer_id = %d",
+							$user->ID
+						)
+					);
+				} else {
+					$order_ids = $wpdb->get_col( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT pm.post_id
+								FROM {$wpdb->posts} AS p
+									LEFT JOIN {$wpdb->postmeta} AS pm
+										ON ( p.ID = pm.post_id AND p.post_type = %s )
+								WHERE pm.meta_key = %s
+									AND pm.meta_value = %d",
+							'shop_order',
+							'_customer_user',
+							$user->ID
+						)
+					);
+				}
 				wp_cache_set( 'wc_sc_order_ids_for_' . sanitize_key( $email_address ), $order_ids, 'woocommerce_smart_coupons' );
 				$this->maybe_add_cache_key( 'wc_sc_order_ids_for_' . sanitize_key( $email_address ) );
 			}
@@ -499,24 +510,44 @@ if ( ! class_exists( 'WC_SC_Privacy' ) ) {
 			$how_many     = count( $order_ids );
 			$placeholders = array_fill( 0, $how_many, '%d' );
 
-			$query = $wpdb->prepare(
-				"SELECT p.ID, 
-					pm.meta_value AS sc_coupon_receiver_details
-					FROM $wpdb->posts AS p
-					LEFT JOIN $wpdb->postmeta AS pm
-						ON ( p.ID = pm.post_id AND p.post_type = %s AND pm.meta_key = %s )",
-				'shop_order',
-				'sc_coupon_receiver_details'
-			);
+			if ( $this->is_hpos() ) {
+				$query = $wpdb->prepare(
+					"SELECT o.id, 
+						om.meta_value AS sc_coupon_receiver_details
+						FROM {$wpdb->prefix}wc_orders AS o
+						LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om
+							ON ( o.id = om.id AND om.meta_key = %s )",
+					'sc_coupon_receiver_details'
+				);
 
-			$query .= $wpdb->prepare( 'WHERE p.ID IN (' . implode( ',', $placeholders ) . ') ', $order_ids ); // phpcs:ignore
+				$query .= $wpdb->prepare( 'WHERE o.id IN (' . implode( ',', $placeholders ) . ') ', $order_ids ); // phpcs:ignore
 
-			$query .= $wpdb->prepare(
-				'	AND pm.meta_value <> %s
-										GROUP BY p.ID
-										ORDER BY p.ID',
-				''
-			);
+				$query .= $wpdb->prepare(
+					'	AND om.meta_value <> %s
+											GROUP BY o.id
+											ORDER BY o.id',
+					''
+				);
+			} else {
+				$query = $wpdb->prepare(
+					"SELECT p.ID, 
+						pm.meta_value AS sc_coupon_receiver_details
+						FROM $wpdb->posts AS p
+						LEFT JOIN $wpdb->postmeta AS pm
+							ON ( p.ID = pm.post_id AND p.post_type = %s AND pm.meta_key = %s )",
+					'shop_order',
+					'sc_coupon_receiver_details'
+				);
+
+				$query .= $wpdb->prepare( 'WHERE p.ID IN (' . implode( ',', $placeholders ) . ') ', $order_ids ); // phpcs:ignore
+
+				$query .= $wpdb->prepare(
+					'	AND pm.meta_value <> %s
+											GROUP BY p.ID
+											ORDER BY p.ID',
+					''
+				);
+			}
 
 			$unique_order_ids = array_unique( $order_ids );
 
@@ -618,21 +649,34 @@ if ( ! class_exists( 'WC_SC_Privacy' ) ) {
 			$orders = wp_cache_get( 'wc_sc_order_by_email_for_' . $user->ID, 'woocommerce_smart_coupons' );
 
 			if ( false === $orders ) {
-				$orders = $wpdb->get_results( // phpcs:ignore
-					$wpdb->prepare(
-						"SELECT p.post_date AS created_date,
-								pm.post_id
-							FROM {$wpdb->posts} AS p
-								LEFT JOIN {$wpdb->postmeta} AS pm
-									ON ( p.ID = pm.post_id AND p.post_type = %s )
-							WHERE pm.meta_key = %s
-								AND pm.meta_value = %d",
-						'shop_order',
-						'_customer_user',
-						$user->ID
-					),
-					ARRAY_A
-				);
+				if ( $this->is_hpos() ) {
+					$orders = $wpdb->get_results( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT date_created_gmt AS created_date,
+									id
+								FROM {$wpdb->prefix}wc_orders
+								WHERE customer_id = %d",
+							$user->ID
+						),
+						ARRAY_A
+					);
+				} else {
+					$orders = $wpdb->get_results( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT p.post_date AS created_date,
+									pm.post_id
+								FROM {$wpdb->posts} AS p
+									LEFT JOIN {$wpdb->postmeta} AS pm
+										ON ( p.ID = pm.post_id AND p.post_type = %s )
+								WHERE pm.meta_key = %s
+									AND pm.meta_value = %d",
+							'shop_order',
+							'_customer_user',
+							$user->ID
+						),
+						ARRAY_A
+					);
+				}
 				wp_cache_set( 'wc_sc_order_by_email_for_' . $user->ID, $orders, 'woocommerce_smart_coupons' );
 				$this->maybe_add_cache_key( 'wc_sc_order_by_email_for_' . $user->ID );
 			}

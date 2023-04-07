@@ -816,6 +816,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				}
 
 				if ( isset( $options['ali_cbe_price_rate_name'] ) ) {
+					$ali_cbe_price_rate_selected_1 = '';
+					$ali_cbe_price_rate_selected_2 = '';
 
 					if ( $options['ali_cbe_price_rate_name'] == 'ali_cbe_price_rate_percent_offset' ) {
 
@@ -1404,13 +1406,28 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                     <span>
                                         <td>
-                                            <select name="ali_cbe_price_rate_name">
+                                            <select name="ali_cbe_price_rate_name">';
 
-                                            <option value="ali_cbe_price_rate_percent_offset" ' . @$ali_cbe_price_rate_selected_1 . '>Percentage Offset</option>
+						if ( isset( $options['ali_cbe_price_rate_name'] ) ) {
+							$ali_cbe_price_rate_selected_1 = '';
+							$ali_cbe_price_rate_selected_2 = '';
 
-                                            <option value="ali_cbe_fixed_price_offset"' . @$ali_cbe_price_rate_selected_2 . '>Fixed Amount Offset</option>
+							if ( 'ali_cbe_price_rate_percent_offset' == $options['ali_cbe_price_rate_name'] ) {
 
-                                            </select>
+								$ali_cbe_price_rate_selected_1 = 'selected';
+
+								$ali_cbe_price_rate_selected_2 = '';
+							} else {
+
+								$ali_cbe_price_rate_selected_1 = '';
+
+								$ali_cbe_price_rate_selected_2 = 'selected';
+							}
+											echo '<option value="ali_cbe_price_rate_percent_offset" ' . $ali_cbe_price_rate_selected_1 . '>Percentage Offset</option>
+
+                                            <option value="ali_cbe_fixed_price_offset"' . $ali_cbe_price_rate_selected_2 . '>Fixed Amount Offset</option>';
+						}
+                                    	echo '   </select>
                                         </td>
                                     </span>
                                 <td>

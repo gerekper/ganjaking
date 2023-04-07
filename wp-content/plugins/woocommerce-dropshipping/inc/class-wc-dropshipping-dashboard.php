@@ -55,13 +55,13 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 					  $dp_query->the_post();
 				 // Condition to check if Aliexpress Product Url exists in postmeta to confirm product is imported from Aliexpress
 					if (get_post_meta(get_the_id(), 'ali_product_url', true)) {
-			
+
 					// Declaring temp array to prepare data for publishing the product.
 					$temp_post_data = array();
-			
+
 					// Preparing data in array for publising
 					$temp_post_data = [ 'ID' => get_the_id(), 'post_status' => 'publish' ];
-		
+
 					// Publishing Products which is in Draft
 					wp_update_post( $temp_post_data );
 					}
@@ -1308,6 +1308,14 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$total_profit = 0;
 
+				$current_date = '';
+
+				if ( isset( $last_day_orders_data['current_date'] ) ) {
+					$current_date = $last_day_orders_data['current_date'];
+				} else {
+					$current_date = '';
+				}
+
 					$cost_of_goods = get_post_meta( $value->ID, 'cost_of_goods_total', true );
 
 				if ( empty( $cost_of_goods ) ) {
@@ -1386,4 +1394,4 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 	}
 
-endif; 
+endif;

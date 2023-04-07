@@ -1028,6 +1028,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				exit;
 			}
 			$authorisation_code = $id_trans;
+			$data               = array();
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'paygold', ' ' );
@@ -1037,7 +1038,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'paygold', ' ' );
 			}
 			if ( ! empty( $order1 ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $order1 );
+				$data['_payment_order_number_redsys'] = $order1;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_payment_order_number_redsys saved: ' . $order1 );
 				}
@@ -1049,7 +1050,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dsdate ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_date_redsys', $dsdate );
+				$data['_payment_date_redsys'] = $dsdate;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_payment_date_redsys saved: ' . $dsdate );
 				}
@@ -1061,7 +1062,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dsdate ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $dstermnal );
+				$data['_payment_terminal_redsys'] = $dstermnal;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_payment_terminal_redsys saved: ' . $dstermnal );
 				}
@@ -1073,7 +1074,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dshour ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_hour_redsys', $dshour );
+				$data['_payment_hour_redsys'] = $dshour;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_payment_hour_redsys saved: ' . $dshour );
 				}
@@ -1085,7 +1086,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $id_trans ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisation_code );
+				$data['_authorisation_code_redsys'] = $authorisation_code;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_authorisation_code_redsys saved: ' . $authorisation_code );
 				}
@@ -1097,7 +1098,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $currency_code ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+				$data['_corruncy_code_redsys'] = $currency_code;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_corruncy_code_redsys saved: ' . $currency_code );
 				}
@@ -1109,7 +1110,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dscardcountry ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_card_country_redsys', $dscardcountry );
+				$data['_card_country_redsys'] = $dscardcountry;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_card_country_redsys saved: ' . $dscardcountry );
 				}
@@ -1120,21 +1121,9 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'paygold', ' ' );
 				}
 			}
-			if ( ! empty( $dscargtype ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_card_type_redsys', 'C' === $dscargtype ? 'Credit' : 'Debit' );
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_card_type_redsys saved: ' . $dscargtype );
-				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_card_type_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
-			}
 			// This meta is essential for later use.
 			if ( ! empty( $secretsha256 ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+				$data['_redsys_secretsha256'] = $secretsha256;
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'paygold', '_redsys_secretsha256 saved: ' . $secretsha256 );
 				}
@@ -1145,6 +1134,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'paygold', ' ' );
 				}
 			}
+			WCRed()->update_order_meta( $order->get_id(), $data );
 			// Payment completed.
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisation_code );
@@ -1168,12 +1158,12 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 
 			if ( $ds_response_value ) {
 				$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_response_value );
-				WCRed()->update_order_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_response_value );
+				WCRed()->update_order_meta( $order->get_id(), '_redsys_error_payment_ds_response_value', $ds_response_value );
 			}
 
 			if ( $ds_error_value ) {
 				$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_error_value );
-				WCRed()->update_order_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_error_value );
+				WCRed()->update_order_meta( $order->get_id(), '_redsys_error_payment_ds_response_value', $ds_error_value );
 			}
 			if ( 'yes' === $this->debug ) {
 				if ( $ds_response_value ) {

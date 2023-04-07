@@ -1,5 +1,16 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.03.24 - version 7.4.0
+* New: Compatible with WooCommerce HPOS (High Performance Order Storage)
+* New: Tested upto WooCommerce 7.1.1, 7.2.3, 7.3.0, 7.4.1, 7.5.1
+* Fix: Unable to empty/update a few coupon's meta field like 'Products'
+* Fix: Importing only 1st value from multiple values from a few fields like 'product_ids' and 'exclude_product_ids'
+* Update: Replace use of 'add_post_meta' with CRUD function 'set_used_by'
+* Update: Replace string 'ARRAY_A' with constant ARRAY_A
+* Update: Removed global declaration of $wpdb form where it is not used
+* Update: Format coupon usage URL using add_query_arg instead of hard-coded URL
+* Update: POT file
+
 2023.03.13 - version 7.3.0
 * New: Columns 'Allowed emails' and 'Excluded emails' in Coupon's admin dashboard
 * New: Shortcode attribute 'categories' for shortcode 'wc_sc_available_coupons' for filtering coupon list by coupon categories

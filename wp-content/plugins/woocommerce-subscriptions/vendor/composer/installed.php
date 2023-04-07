@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-subscriptions',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => '4282f5cfc637b6e405378f25830f5d17e81aa4f0',
+        'reference' => 'bb89408ce8154899bdbde3ae296436f77abaed29',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -43,7 +43,7 @@
         'woocommerce/woocommerce-subscriptions' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => '4282f5cfc637b6e405378f25830f5d17e81aa4f0',
+            'reference' => 'bb89408ce8154899bdbde3ae296436f77abaed29',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

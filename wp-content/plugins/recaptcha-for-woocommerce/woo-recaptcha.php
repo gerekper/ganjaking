@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.42
+ * Version: 2.43
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 7.4
+ * WC tested up to: 7.5.1
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -339,9 +339,12 @@ class I13_Woo_Recpatcha {
 				$xpath = new DOMXPath($doc);
 
 				$contactFormHashObj = $xpath->query('//input[@name="contact-form-hash"]/@value');
-		if (is_object($contactFormHashObj) && !empty($contactFormHashObj) ) {
+		if (is_object($contactFormHashObj) && !empty($contactFormHashObj) && $contactFormHashObj->length>0) {
 					
-			$contactFormHash=esc_html($contactFormHashObj->item(0)->nodeValue);
+						
+							
+							$contactFormHash=esc_html($contactFormHashObj->item(0)->nodeValue);
+						
 		}
 			  
 				

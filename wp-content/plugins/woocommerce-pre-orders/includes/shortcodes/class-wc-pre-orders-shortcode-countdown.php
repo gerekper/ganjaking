@@ -121,12 +121,12 @@ class WC_Pre_Orders_Shortcode_Countdown {
 		// countdown javascript
 		ob_start();
 		?>
-		$('#woocommerce-pre-orders-countdown-<?php echo $until; ?>').countdown({
-		  until: new Date(<?php echo $until * 1000; ?>),
-		  layout: '<?php echo $layout; ?>',
-		  format: '<?php echo $format; ?>',
-		  compact: <?php echo $compact; ?>,
-		  expiryUrl: location.href,
+		$('#woocommerce-pre-orders-countdown-<?php echo esc_attr( $until ); ?>').countdown({
+			until: new Date(<?php echo esc_attr( $until ) * 1000; ?>),
+			layout: '<?php echo $layout; ?>',
+			format: '<?php echo esc_attr( $format ); ?>',
+			compact: <?php echo esc_attr( $compact ); ?>,
+			expiryUrl: location.href,
 		});
 		<?php
 		$javascript = ob_get_clean();

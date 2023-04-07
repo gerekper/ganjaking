@@ -557,7 +557,7 @@ class WC_AM_API_Activation_Data_Store {
 	 *
 	 * @since 2.2.8
 	 *
-	 * @param string $api_resource_id
+	 * @param int $api_resource_id
 	 *
 	 * @return bool|string
 	 */

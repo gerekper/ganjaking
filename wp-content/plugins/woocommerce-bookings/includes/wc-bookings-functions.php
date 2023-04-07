@@ -407,13 +407,35 @@ function wc_booking_get_product_resource( $product_id, $resource_id ) {
 }
 
 /**
- * get_wc_booking_priority_explanation.
+ * Output how priority rules work with full HTML.
+ */
+function wc_booking_rules_explanation_html() {
+?>
+	<p class="wc-booking-availability-description">
+		<span class="dashicons dashicons-info"></span>
+		<span>
+			<?php
+			$priority_rules = get_wc_booking_rules_explanation();
+			foreach ( $priority_rules as $priority_rule ) {
+				echo esc_html( $priority_rule ) . '<br>';
+			}
+			?>
+		</span>
+	</p>
+<?php
+}
+
+/**
+ * Get descriptive text on how priority rules work.
  *
  * @since 1.9.10
- * @return string
+ * @return array
  */
 function get_wc_booking_rules_explanation() {
-	return __( 'Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Ordering is only applied within the same priority and higher order overrides lower order.', 'woocommerce-bookings' );
+	return array(
+		esc_html__( 'A lower priority rule will always override a higher priority rule e.g. 9 overrides 10.', 'woocommerce-bookings' ),
+		esc_html__( 'If there are multiple rules with the same priority, then the order of the rules is considered. In this case the rule with the higher order will take precedence over the rule with the lower order.', 'woocommerce-bookings' ),
+	);
 }
 
 /**

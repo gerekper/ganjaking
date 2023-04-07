@@ -113,7 +113,7 @@ class WC_Bookable_Resource_Details_Meta_Box {
 										$html = ob_get_clean();
 										echo esc_attr( $html );
 										?>"><?php esc_html_e( 'Add Range', 'woocommerce-bookings' ); ?></a>
-										<span class="description"><?php echo esc_html( get_wc_booking_rules_explanation() ); ?></span>
+										<?php wc_booking_rules_explanation_html(); ?>
 									</th>
 								</tr>
 							</tfoot>

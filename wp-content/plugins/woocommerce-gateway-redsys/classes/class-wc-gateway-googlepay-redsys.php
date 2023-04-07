@@ -596,24 +596,23 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 				exit;
 			}
 			$authorisation_code = $id_trans;
+			$data               = array();
 			if ( ! empty( $order1 ) ) {
-				WCRed()->update_order_meta( $order->id, '_payment_order_number_googlepay', $order1 );
+				$data['_payment_order_number_googlepay'] = $order1;
 			}
 			if ( ! empty( $dsdate ) ) {
-				WCRed()->update_order_meta( $order->id, '_payment_date_redsys', $dsdate );
+				$data['_payment_date_redsys'] = $dsdate;
 			}
 			if ( ! empty( $dshour ) ) {
-				WCRed()->update_order_meta( $order->id, '_payment_hour_redsys', $dshour );
+				$data['_payment_hour_redsys'] = $dshour;
 			}
 			if ( ! empty( $id_trans ) ) {
-				WCRed()->update_order_meta( $order->id, '_authorisation_code_redsys', $authorisation_code );
+				$data['_authorisation_code_redsys'] = $authorisation_code;
 			}
 			if ( ! empty( $dscardcountry ) ) {
-				WCRed()->update_order_meta( $order->id, '_card_country_googlepay', $dscardcountry );
+				$data['_card_country_googlepay'] = $dscardcountry;
 			}
-			if ( ! empty( $dscargtype ) ) {
-				WCRed()->update_order_meta( $order->id, '_card_type_googlepay', $dscargtype == 'C' ? 'Credit' : 'Debit' );
-			}
+			WCRed()->update_order_meta( $order->get_id(), $data );
 
 			// Payment completed
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
@@ -631,26 +630,23 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 					if ( $ds_response === $response ) {
 						$ds_response_value = $value;
 						$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_response_value );
-						WCRed()->update_order_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_response_value );
+						WCRed()->update_order_meta( $order->get_id(), '_redsys_error_payment_ds_response_value', $ds_response_value );
 					}
 				}
 			}
-
 			if ( ! empty( $ds_errors ) ) {
 				foreach ( $ds_errors as $ds_error => $value ) {
 					if ( $ds_error === $dserrorcode ) {
 						$ds_error_value = $value;
 						$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_error_value );
-						WCRed()->update_order_meta( $order_id, '_redsys_error_payment_ds_error_value', $ds_error_value );
+						WCRed()->update_order_meta( $order->get_id(), '_redsys_error_payment_ds_error_value', $ds_error_value );
 					}
 				}
 			}
-
 			// Tarjeta caducada.
 			if ( 'yes' == $this->debug ) {
 				$this->log->add( 'googlepay', 'Pedido cancelado por GooglePay' );
 			}
-
 			if ( 'yes' === $this->debug ) {
 				if ( ! empty( $ds_responses ) ) {
 					$this->log->add( 'googlepay', 'Error: ' . $ds_response_value );
@@ -659,7 +655,6 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'googlepay', 'Error: ' . $ds_error_value );
 				}
 			}
-
 			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Cancelled by GooglePay', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Order canceled by GooglePay', 'woocommerce-redsys' ) );

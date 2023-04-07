@@ -870,4 +870,12 @@ class Functions {
   public function getPostMeta(int $postId, string $key, bool $single = false) {
     return get_post_meta($postId, $key, $single);
   }
+
+  public function getFileData(string $file, array $default_headers, string $context = 'plugin'): array {
+    return get_file_data($file, $default_headers, $context);
+  }
+
+  public function getPluginData(string $plugin_file, bool $markup = true, bool $translate = true): array {
+    return get_plugin_data($plugin_file, $markup, $translate);
+  }
 }

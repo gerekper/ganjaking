@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-03-22 09:08-0700\n"
-"PO-Revision-Date: 2023-03-22 09:08-0700\n"
+"POT-Creation-Date: 2023-03-24 21:30-0700\n"
+"PO-Revision-Date: 2023-03-24 21:30-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -75,7 +75,7 @@ msgstr "Impossible d'activer la clé de licence API"
 msgid "Delete"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
-#: includes/admin/meta-boxes/html-order-api-activations.php:90
+#: includes/admin/meta-boxes/html-order-api-activations.php:91
 #: includes/wc-am-order-admin.php:296 includes/wc-am-order-admin.php:364
 #, fuzzy
 msgid "No activations yet."
@@ -102,67 +102,67 @@ msgstr "Action"
 msgid "Expired"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:41
+#: includes/admin/meta-boxes/html-order-api-resources.php:43
 #, fuzzy
 msgid "Click to toggle"
 msgstr "Cliquez pour basculer"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:42
+#: includes/admin/meta-boxes/html-order-api-resources.php:44
 #, php-format
 msgid ""
 "Product ID: %s | Product Title: %s | Activations: %s out of %s | Current "
 "Version: %s | Expires: %s"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:48
+#: includes/admin/meta-boxes/html-order-api-resources.php:51
 #, fuzzy
 msgid "Product Order API Key:"
 msgstr "Clé de licence API"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:53
+#: includes/admin/meta-boxes/html-order-api-resources.php:56
 #, fuzzy
 msgid "Activation Limit Total:"
 msgstr "Limit d'activation"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:55
+#: includes/admin/meta-boxes/html-order-api-resources.php:58
 msgid "A value less than the current Activation Limit Total is not valid."
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:63
+#: includes/admin/meta-boxes/html-order-api-resources.php:66
 #: includes/wc-am-product-admin.php:443 includes/wc-am-product-admin.php:791
 msgid "1"
 msgstr ""
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:69
+#: includes/admin/meta-boxes/html-order-api-resources.php:72
 #, fuzzy
 msgid "Current Version:"
 msgstr "Version du logiciel"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:72
-#: includes/admin/meta-boxes/html-order-api-resources.php:80
-#: includes/admin/meta-boxes/html-order-api-resources.php:88
-#: includes/admin/meta-boxes/html-order-api-resources.php:109
+#: includes/admin/meta-boxes/html-order-api-resources.php:75
+#: includes/admin/meta-boxes/html-order-api-resources.php:83
+#: includes/admin/meta-boxes/html-order-api-resources.php:91
+#: includes/admin/meta-boxes/html-order-api-resources.php:112
 #, fuzzy
 msgid "Required"
 msgstr "Version WP requise"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:77
+#: includes/admin/meta-boxes/html-order-api-resources.php:80
 #, fuzzy
 msgid "Resource Title:"
 msgstr "Titre du logiciel"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:83
+#: includes/admin/meta-boxes/html-order-api-resources.php:86
 #: includes/wc-am-product-admin.php:795
 #, fuzzy
 msgid "Product ID:"
 msgstr "Produit"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:98
+#: includes/admin/meta-boxes/html-order-api-resources.php:101
 #, fuzzy
 msgid "Access Expires:"
 msgstr "Permission d'accès API"
 
-#: includes/admin/meta-boxes/html-order-api-resources.php:102
+#: includes/admin/meta-boxes/html-order-api-resources.php:105
 msgid "A date in the future can be chosen to extend the Access Expires value."
 msgstr ""
 
@@ -225,143 +225,153 @@ msgstr ""
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:81
+#: includes/admin/wc-am-admin-system-status.php:84
 #, fuzzy
 msgid "WooCommerce API Manager"
 msgstr "WooCommerce API Manager"
 
-#: includes/admin/wc-am-admin-system-status.php:82
+#: includes/admin/wc-am-admin-system-status.php:85
 msgid "This section shows information about the WooCommerce API Manager."
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:106
+#: includes/admin/wc-am-admin-system-status.php:109
+msgctxt "Cache Enabled, Label on WooCommerce -> System Status page"
+msgid "Cache Enabled"
+msgstr ""
+
+#: includes/admin/wc-am-admin-system-status.php:111
+#: includes/admin/wc-am-admin-system-status.php:163
+#: includes/admin/wc-am-admin-system-status.php:254
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/wc-am-admin-system-status.php:111
+#: includes/admin/wc-am-admin-system-status.php:163
+#: includes/admin/wc-am-admin-system-status.php:254
+msgid "No"
+msgstr ""
+
+#: includes/admin/wc-am-admin-system-status.php:125
 #, fuzzy
 msgctxt "WC API Manager Version, Label on WooCommerce -> System Status page"
 msgid "WC API Manager Version"
 msgstr "Options de l'API Manager"
 
-#: includes/admin/wc-am-admin-system-status.php:125
+#: includes/admin/wc-am-admin-system-status.php:144
 #, fuzzy
 msgctxt ""
 "WC API Manager Database Version, Label on WooCommerce -> System Status page"
 msgid "WC API Manager Database Version"
 msgstr "Options de l'API Manager"
 
-#: includes/admin/wc-am-admin-system-status.php:142
+#: includes/admin/wc-am-admin-system-status.php:161
 msgctxt "Amazon S3 Configured, Label on WooCommerce -> System Status page"
 msgid "Amazon S3 Configured"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:144
-#: includes/admin/wc-am-admin-system-status.php:247
-#: includes/admin/wc-am-admin-system-status.php:319
-msgid "Yes"
-msgstr ""
-
-#: includes/admin/wc-am-admin-system-status.php:144
-#: includes/admin/wc-am-admin-system-status.php:247
-#: includes/admin/wc-am-admin-system-status.php:319
-msgid "No"
-msgstr ""
-
-#: includes/admin/wc-am-admin-system-status.php:160
+#: includes/admin/wc-am-admin-system-status.php:179
 msgctxt "Amazon S3 Region, Label on WooCommerce -> System Status page"
 msgid "Amazon S3 Region"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:162
+#: includes/admin/wc-am-admin-system-status.php:181
 #, php-format
 msgid "%sPick a region.%s"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:177
-#, fuzzy
-msgctxt "API Key Activations Count, Label on WooCommerce -> System Status page"
-msgid "API Key Activations"
-msgstr "Activations"
-
-#: includes/admin/wc-am-admin-system-status.php:194
-#, fuzzy
-msgctxt "API Products Count, Label on WooCommerce -> System Status page"
-msgid "API Products"
-msgstr "Clé de licence API :"
-
-#: includes/admin/wc-am-admin-system-status.php:211
-#, fuzzy
-msgctxt "API Resources Count, Label on WooCommerce -> System Status page"
-msgid "API Resources"
-msgstr "Vous n'avez pas de clés API."
-
-#: includes/admin/wc-am-admin-system-status.php:228
-#, fuzzy
-msgctxt "Associated API Keys Count, Label on WooCommerce -> System Status page"
-msgid "Associated API Keys"
-msgstr "Impossible d'activer la clé de licence API"
-
-#: includes/admin/wc-am-admin-system-status.php:245
-msgctxt "Cache Enabled, Label on WooCommerce -> System Status page"
-msgid "Cache Enabled"
-msgstr ""
-
-#: includes/admin/wc-am-admin-system-status.php:261
+#: includes/admin/wc-am-admin-system-status.php:196
 #, fuzzy
 msgctxt "API Cache Expires, Label on WooCommerce -> System Status page"
 msgid "API Cache Expires"
 msgstr "Permission d'accès API"
 
-#: includes/admin/wc-am-admin-system-status.php:263
+#: includes/admin/wc-am-admin-system-status.php:198
 msgid " hour"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:278
+#: includes/admin/wc-am-admin-system-status.php:213
 #, fuzzy
 msgctxt "Database Cache Expires, Label on WooCommerce -> System Status page"
 msgid "Database Cache Expires"
 msgstr "Date &amp; Heure"
 
-#: includes/admin/wc-am-admin-system-status.php:280
+#: includes/admin/wc-am-admin-system-status.php:215
 msgid " hours"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:295
+#: includes/admin/wc-am-admin-system-status.php:230
 msgid " day"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:295
+#: includes/admin/wc-am-admin-system-status.php:230
 msgid " days"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:298
+#: includes/admin/wc-am-admin-system-status.php:233
 #, fuzzy
 msgctxt "Download URLs Expire, Label on WooCommerce -> System Status page"
 msgid "Download URLs Expire"
 msgstr "Date &amp; Heure"
 
-#: includes/admin/wc-am-admin-system-status.php:317
+#: includes/admin/wc-am-admin-system-status.php:252
 #, fuzzy
 msgctxt ""
 "Hide Product Order API Keys, Label on WooCommerce -> System Status page"
 msgid "Hide Product Order API Keys?"
 msgstr "Clés de licence API"
 
-#: includes/admin/wc-am-admin-system-status.php:333
+#: includes/admin/wc-am-admin-system-status.php:270
+msgctxt "Grace Period, Label on WooCommerce -> System Status page"
+msgid "Grace Period"
+msgstr ""
+
+#: includes/admin/wc-am-admin-system-status.php:287
+#, fuzzy
+msgctxt "API Key Activations Count, Label on WooCommerce -> System Status page"
+msgid "API Key Activations"
+msgstr "Activations"
+
+#: includes/admin/wc-am-admin-system-status.php:304
+#, fuzzy
+msgctxt "API Products Count, Label on WooCommerce -> System Status page"
+msgid "API Products"
+msgstr "Clé de licence API :"
+
+#: includes/admin/wc-am-admin-system-status.php:321
+#, fuzzy
+msgctxt "API Resources Count, Label on WooCommerce -> System Status page"
+msgid "API Resources"
+msgstr "Vous n'avez pas de clés API."
+
+#: includes/admin/wc-am-admin-system-status.php:338
+#, fuzzy
+msgctxt "Associated API Keys Count, Label on WooCommerce -> System Status page"
+msgid "Associated API Keys"
+msgstr "Impossible d'activer la clé de licence API"
+
+#: includes/admin/wc-am-admin-system-status.php:355
 msgctxt ""
 "Secure Download URL Hashes Count, Label on WooCommerce -> System Status page"
 msgid "Secure Download URL Hashes"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:353
+#: includes/admin/wc-am-admin-system-status.php:372
+msgctxt "Grace Periods Count, Label on WooCommerce -> System Status page"
+msgid "Grace Periods"
+msgstr ""
+
+#: includes/admin/wc-am-admin-system-status.php:392
 #, fuzzy
 msgctxt "label for the system status page"
 msgid "WooCommerce API Manager Template Theme Overrides"
 msgstr "WooCommerce API Manager"
 
-#: includes/admin/wc-am-admin-system-status.php:362
+#: includes/admin/wc-am-admin-system-status.php:401
 #, php-format
 msgid "%sLearn how to update%s"
 msgstr ""
 
-#: includes/admin/wc-am-admin-system-status.php:409
+#: includes/admin/wc-am-admin-system-status.php:446
 #, php-format
 msgid "version %1$s is out of date. The core version is %2$s"
 msgstr ""
@@ -891,6 +901,17 @@ msgstr ""
 msgid "The activation could not be deleted."
 msgstr "Impossible d'activer la clé de licence API"
 
+#: includes/queue/wc-am-queue.php:54
+msgid "This function should not be called before plugins_loaded."
+msgstr ""
+
+#: includes/queue/wc-am-queue.php:71
+#, php-format
+msgid ""
+"The class attached to the \"wc_am_queue_class\" does not implement the "
+"WCAM_Queue_Interface interface. The default %s class will be used instead."
+msgstr ""
+
 #: includes/wc-am-background-events.php:106
 #, fuzzy
 msgid "Expired API Resources Cleanup ERROR for Order ID # "
@@ -994,7 +1015,7 @@ msgstr ""
 
 #: includes/wc-am-order-admin.php:261 includes/wc-am-order-admin.php:263
 #, php-format
-msgid "See Parent Order %s#%s"
+msgid "See Parent Order %s%s"
 msgstr ""
 
 #: includes/wc-am-order-admin.php:308

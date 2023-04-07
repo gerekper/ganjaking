@@ -2802,19 +2802,23 @@ function custom_woo_columns_function( $columns ) {
 
 	unset( $new_columns['order_actions'] );
 
-	// all of your columns will be added before the actions column
+	// all of your columns will be added before the actions column.
 
 	$new_columns['status_of_aliexpress'] = 'AliExpress Status';
 
-	// stop editing
+	// stop editing.
 
-	@$new_columns['order_actions'] = @$columns['order_actions'];
+	if ( isset( $columns['order_actions'] ) ) {
+		$new_columns['order_actions'] = $columns['order_actions'];
+	}
+
+	// @$new_columns['order_actions'] = @$columns['order_actions'];.
 
 	return $new_columns;
 
 }
 
-		// Change order of columns (working)
+		// Change order of columns (working).
 
 function custom_woo_admin_value( $column ) {
 

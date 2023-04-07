@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Store Catalog PDF Download
  * Plugin URI: https://woocommerce.com/products/woocommerce-store-catalog-pdf-download/
  * Description: A WooCommerce plugin/extension that adds ability for users to download a PDF of your store catalog.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires PHP: 7.1

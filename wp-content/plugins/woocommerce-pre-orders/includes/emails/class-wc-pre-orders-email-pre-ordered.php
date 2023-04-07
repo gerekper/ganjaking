@@ -34,11 +34,11 @@ class WC_Pre_Orders_Email_Pre_Ordered extends WC_Email {
 		global $wc_pre_orders;
 
 		$this->id          = 'wc_pre_orders_pre_ordered';
-		$this->title       = __( 'Pre-ordered', 'wc-pre-orders' );
-		$this->description = __( 'This is an order notification sent to the customer after placing a pre-order and containing order details.', 'wc-pre-orders' );
+		$this->title       = __( 'Pre-ordered', 'woocommerce-pre-orders' );
+		$this->description = __( 'This is an order notification sent to the customer after placing a pre-order and containing order details.', 'woocommerce-pre-orders' );
 
-		$this->heading = __( 'Thank you for your pre-order', 'wc-pre-orders' );
-		$this->subject = __( 'Your {site_title} pre-order confirmation from {order_date}', 'wc-pre-orders' );
+		$this->heading = __( 'Thank you for your pre-order', 'woocommerce-pre-orders' );
+		$this->subject = __( 'Your {site_title} pre-order confirmation from {order_date}', 'woocommerce-pre-orders' );
 
 		$this->template_base  = $wc_pre_orders->get_plugin_path() . '/templates/';
 		$this->template_html  = 'emails/customer-pre-ordered.php';
@@ -62,7 +62,7 @@ class WC_Pre_Orders_Email_Pre_Ordered extends WC_Email {
 		if ( $order_id ) {
 			$this->object            = new WC_Order( $order_id );
 			$this->recipient         = $this->object->get_billing_email();
-			$this->availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ), __( 'a future date', 'wc-pre-orders' ) );
+			$this->availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ), __( 'a future date', 'woocommerce-pre-orders' ) );
 
 			$this->find[]    = '{order_date}';
 			$this->replace[] = date_i18n( wc_date_format(), strtotime( ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );

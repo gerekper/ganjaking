@@ -38,8 +38,11 @@ if ( ! empty( $resource ) ) {
     <div class="wc-metaboxes">
         <div class="wc-metabox closed">
             <h3 class="fixed">
-                <span class="handlediv" title="<?php esc_html_e( 'Click to toggle', 'woocommerce-api-manager' ); ?>"></span>
-                <strong><?php printf( __( 'Product ID: %s | Product Title: %s | Activations: %s out of %s | Current Version: %s | Expires: %s', 'woocommerce-api-manager' ), $resource->product_id, $resource->product_title, $resource->activations_total, $resource->activations_purchased_total, esc_attr( ! empty( $version ) ? $version : '' ), esc_html( $expires ) ); ?></strong>
+                <div style="padding: 1em; border-radius: 1em;" <?php if ( $i % 2 == 0 )
+					echo ' class="alternate"' ?>>
+                    <span class="handlediv" title="<?php esc_html_e( 'Click to toggle', 'woocommerce-api-manager' ); ?>"></span>
+                    <strong><?php printf( __( 'Product ID: %s | Product Title: %s | Activations: %s out of %s | Current Version: %s | Expires: %s', 'woocommerce-api-manager' ), $resource->product_id, $resource->product_title, $resource->activations_total, $resource->activations_purchased_total, esc_attr( ! empty( $version ) ? $version : '' ), esc_html( $expires ) ); ?></strong>
+                </div>
             </h3>
             <table cellpadding="0" cellspacing="0" class="wc-metabox-content">
                 <tbody>
@@ -89,7 +92,7 @@ if ( ! empty( $resource ) ) {
                         </div>
                         <div style="display: inline-block; vertical-align: middle;">
                             <span style="text-decoration: none;">
-                            <?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $resource->product_id ) . '&action=edit' ) . '" target="_blank">' ?>
+                            <?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $resource->product_id ) . '&action=edit' ) . '" title="' . WC_AM_API_RESOURCE_DATA_STORE()->get_title_by_api_resource_id( $resource->api_resource_id ) . '" target="_blank">' ?>
                         </span>
                             <span style="text-decoration: none;" class="dashicons dashicons-admin-links"></span></a>
                         </div>

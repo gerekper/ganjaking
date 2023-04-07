@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Handles the activation/installation of the plugin.
  *
- * @category Installation
- * @version  3.0.0
+ * @package  Installation
+ * @version  6.1.3
  */
 class WC_Product_Addons_Install {
 	/**
@@ -40,6 +40,7 @@ class WC_Product_Addons_Install {
 			}
 
 			self::update_plugin_version();
+			self::create_events();
 
 			if ( version_compare( $installed_version, '3.0', '<' ) ) {
 				self::migration_3_0();
@@ -76,6 +77,21 @@ class WC_Product_Addons_Install {
 	 */
 	private static function migration_3_0_product() {
 		require_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/updates/class-wc-product-addons-migration-3-0-product.php' );
+	}
+
+	/**
+	 * Schedule cron events.
+	 *
+	 * @since 6.1.3
+	 */
+	private static function create_events() {
+		if ( ! wp_next_scheduled( 'wc_pao_daily' ) ) {
+			wp_schedule_event( time() + 10, 'daily', 'wc_pao_daily' );
+		}
+
+		if ( ! wp_next_scheduled( 'wc_pao_hourly' ) ) {
+			wp_schedule_event( time() + 10, 'hourly', 'wc_pao_hourly' );
+		}
 	}
 }
 

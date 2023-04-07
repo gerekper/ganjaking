@@ -265,6 +265,11 @@
 				self.updateTotals();
 			});
 
+			// When a variation selection is cleared by selecting "Choose an option...", reset totals as the form becomes invalid.
+			self.$el.on( 'hide_variation', function ( event ) {
+				self.updateTotals();
+			});
+
 			self.$el.on( 'woocommerce-product-addons-update', function () {
 				self.validation.validate();
 				self.updateTotals();

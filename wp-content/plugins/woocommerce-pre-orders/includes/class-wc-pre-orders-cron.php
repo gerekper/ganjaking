@@ -52,7 +52,7 @@ class WC_Pre_Orders_Cron {
 
 		$schedules['wc_pre_orders_completion_check'] = array(
 			'interval' => $interval,
-			'display'  => sprintf( __( 'Every %d minutes', 'wc-pre-orders' ), $interval / 60 ),
+			'display'  => sprintf( __( 'Every %d minutes', 'woocommerce-pre-orders' ), $interval / 60 ),
 		);
 
 		return $schedules;

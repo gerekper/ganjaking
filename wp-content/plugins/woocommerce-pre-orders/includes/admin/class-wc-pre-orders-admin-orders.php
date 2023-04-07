@@ -66,7 +66,7 @@ class WC_Pre_Orders_Admin_Orders {
 		foreach ( $mails as $mail ) {
 			if ( in_array( $mail->id, $emails ) && 'no' !== $mail->enabled ) {
 				/* translators: %s: email title */
-				$new_emails[ 'send_email_' . esc_attr( $mail->id ) ] = sprintf( __( 'Resend %s', 'wc-pre-orders' ), esc_html( $mail->title ) );
+				$new_emails[ 'send_email_' . esc_attr( $mail->id ) ] = sprintf( __( 'Resend %s', 'woocommerce-pre-orders' ), esc_html( $mail->title ) );
 			}
 		}
 
@@ -171,35 +171,46 @@ class WC_Pre_Orders_Admin_Orders {
 		} else {
 			// Add dropdown to admin orders screen to filter on order type
 			add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_pre_order' ), 50 );
+
+			// Add dropdown to admin orders screen to filter on order type when HPOS is enabled.
+			add_action( 'woocommerce_order_list_table_restrict_manage_orders', array( $this, 'restrict_manage_pre_order' ) );
 		}
 
 		// Add filter to queries on admin orders screen to filter on order type. To avoid WC overriding our query args, we need to hook on after them on 10.
 		add_filter( 'request', array( $this, 'orders_by_type_query' ), 11 );
+
+		// Add filter to queries on admin orders screen to filter on order type when HPOS is enabled.
+		add_filter( 'woocommerce_shop_order_list_table_prepare_items_query_args', array( $this, 'orders_by_type_query' ) );
 	}
 
 	/**
 	 * Add an admin dropdown for order types to Woocommerce -> Orders screen
+	 *
+	 * @param string $order_type The type of order.
+	 *
 	 * @since 1.6.0
 	 */
-	public function restrict_manage_pre_order() {
-		global $typenow;
+	public function restrict_manage_pre_order( $order_type = '' ) {
+		if ( '' === $order_type ) {
+			$order_type = isset( $GLOBALS['typenow'] ) ? wc_clean( $GLOBALS['typenow'] ) : '';
+		}
 
-		if ( 'shop_order' !== $typenow ) {
+		if ( 'shop_order' !== $order_type ) {
 			return;
 		}?>
 		<select name='shop_order_subtype' id='dropdown_shop_order_pre_order_type'>
-			<option value=""><?php esc_html_e( 'All orders types', 'wc-pre-orders' ); ?></option>
+			<option value=""><?php esc_html_e( 'All orders types', 'woocommerce-pre-orders' ); ?></option>
 			<?php
 			$order_types = array(
-				'non-pre-orders'  => _x( 'Non Pre-Orders', 'An order type', 'wc-pre-orders' ),
-				'pre-orders-only' => _x( 'Pre-Orders Only', 'An order type', 'wc-pre-orders' ),
+				'non-pre-orders'  => _x( 'Non Pre-Orders', 'An order type', 'woocommerce-pre-orders' ),
+				'pre-orders-only' => _x( 'Pre-Orders Only', 'An order type', 'woocommerce-pre-orders' ),
 			);
 
 			foreach ( $order_types as $order_type_key => $order_type_description ) {
 				echo '<option value="' . esc_attr( $order_type_key ) . '"';
 
-				if ( isset( $_GET['shop_order_subtype'] ) && ! empty( $_GET['shop_order_subtype'] ) ) {
-					selected( $order_type_key, sanitize_text_field( wp_unslash( $_GET['shop_order_subtype'] ) ) );
+				if ( isset( $_GET['shop_order_subtype'] ) && ! empty( $_GET['shop_order_subtype'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					selected( $order_type_key, sanitize_text_field( wp_unslash( $_GET['shop_order_subtype'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				}
 
 				echo '>' . esc_html( $order_type_description ) . '</option>';
@@ -216,8 +227,8 @@ class WC_Pre_Orders_Admin_Orders {
 	 * @return array
 	 */
 	public function add_pre_order_filter( $order_types ) {
-		$order_types['non-pre-orders']  = _x( 'Non Pre-Orders', 'An order type', 'wc-pre-orders' );
-		$order_types['pre-orders-only'] = _x( 'Pre-Orders Only', 'An order type', 'wc-pre-orders' );
+		$order_types['non-pre-orders']  = _x( 'Non Pre-Orders', 'An order type', 'woocommerce-pre-orders' );
+		$order_types['pre-orders-only'] = _x( 'Pre-Orders Only', 'An order type', 'woocommerce-pre-orders' );
 
 		return $order_types;
 	}
@@ -233,10 +244,13 @@ class WC_Pre_Orders_Admin_Orders {
 	 * @return array wp_query args
 	 */
 	public function orders_by_type_query( $vars ) {
-		global $typenow;
+		$order_type = isset( $GLOBALS['typenow'] ) ? wc_clean( $GLOBALS['typenow'] ) : '';
+		if ( '' === $order_type ) {
+			$order_type = isset( $vars['type'] ) ? wc_clean( $vars['type'] ) : '';
+		}
 
-		if ( 'shop_order' === $typenow && ! empty( $_GET['shop_order_subtype'] ) ) {
-			switch ( $_GET['shop_order_subtype'] ) {
+		if ( 'shop_order' === $order_type && ! empty( $_GET['shop_order_subtype'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			switch ( $_GET['shop_order_subtype'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				case 'non-pre-orders':
 					$vars['meta_query'][] = array(
 						'key'     => '_wc_pre_orders_is_pre_order',

@@ -58,6 +58,8 @@ class WC_AM_Order {
 		add_action( 'woocommerce_order_fully_refunded', array( $this, 'order_fully_refunded' ), 10, 2 );
 		add_action( 'woocommerce_refund_deleted', array( $this, 'refund_deleted' ), 10, 2 );
 		add_action( 'woocommerce_delete_order_items', array( $this, 'delete_order' ) );
+		add_action( 'woocommerce_before_delete_order', array( $this, 'before_delete_order' ) );
+		add_action( 'woocommerce_before_trash_order', array( $this, 'before_delete_order' ) );
 		add_action( 'woocommerce_delete_order', array( $this, 'delete_order' ) );
 		add_action( 'woocommerce_trash_order', array( $this, 'delete_order' ) );
 		add_action( 'woocommerce_before_delete_order_item', array( $this, 'delete_order_item' ) );
@@ -95,6 +97,8 @@ class WC_AM_Order {
 				$non_sub_order_updated = $this->update_api_order( $order_id );
 
 				if ( ! empty( $non_sub_order_updated ) || ! empty( $sub_order_updated ) ) {
+					$this->delete_cache( $order_id );
+
 					/**
 					 * Returns the order_id for a new order or updated order.
 					 *
@@ -637,6 +641,23 @@ class WC_AM_Order {
 	}
 
 	/**
+	 * Tasks to complete before an order is deleted, and while the order still exists.
+	 *
+	 * @since 2.6.3
+	 *
+	 * @param int $order_id
+	 */
+	public function before_delete_order( $order_id ) {
+		do_action( 'wc_am_before_delete_order', $order_id );
+
+		// Clear the Database Cache
+		$this->delete_cache( $order_id );
+
+		// Delete grace periods.
+		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
+	}
+
+	/**
 	 * Delete API resource order items from the deleted order.
 	 *
 	 * @since 2.0
@@ -646,14 +667,7 @@ class WC_AM_Order {
 	 * @throws \Exception
 	 */
 	public function delete_order( $order_id ) {
-		do_action( 'wc_am_before_delete_order', $order_id );
-		// Delete grace periods.
-		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );
-
 		global $wpdb;
-
-		// Clear the Database Cache
-		$this->delete_cache( $order_id );
 
 		/**
 		 * Delete the activations assigned to resources that are assigned to this order_id.
@@ -836,6 +850,8 @@ class WC_AM_Order {
 	 */
 	public function trash_order( $order_id ) {
 		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+
+		$this->delete_cache( $order_id );
 
 		// Delete grace periods.
 		WC_AM_GRACE_PERIOD()->delete_expiration_by_order( $order_id );

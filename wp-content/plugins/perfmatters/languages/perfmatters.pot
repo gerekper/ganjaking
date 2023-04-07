@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Perfmatters\n"
-"POT-Creation-Date: 2023-03-02 13:21-0800\n"
-"PO-Revision-Date: 2023-03-02 13:20-0800\n"
+"POT-Creation-Date: 2023-03-29 14:20-0700\n"
+"PO-Revision-Date: 2023-03-29 14:20-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,40 +55,64 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: inc/admin.php:24
+#: inc/admin.php:40 perfmatters.php:171
+msgid "Network"
+msgstr ""
+
+#: inc/admin.php:45 perfmatters.php:174
+msgid "Options"
+msgstr ""
+
+#: inc/admin.php:48 inc/settings.php:14
 msgid "General"
 msgstr ""
 
-#: inc/admin.php:25 inc/settings.php:525
+#: inc/admin.php:49 inc/settings.php:525
 msgid "Assets"
 msgstr ""
 
-#: inc/admin.php:26 inc/settings.php:898
+#: inc/admin.php:50 inc/settings.php:898
 msgid "Preloading"
 msgstr ""
 
-#: inc/admin.php:27 inc/classes/Meta.php:135 inc/settings.php:984
+#: inc/admin.php:51 inc/classes/Meta.php:135 inc/settings.php:984
 msgid "Lazy Loading"
 msgstr ""
 
-#: inc/admin.php:28 inc/settings.php:1166
+#: inc/admin.php:52 inc/settings.php:1166
 msgid "Fonts"
 msgstr ""
 
-#: inc/admin.php:29
+#: inc/admin.php:53
 msgid "CDN"
 msgstr ""
 
-#: inc/admin.php:30
+#: inc/admin.php:54
 msgid "Analytics"
 msgstr ""
 
-#: inc/admin.php:80 inc/settings.php:1548
+#: inc/admin.php:58 perfmatters.php:175
+msgid "Tools"
+msgstr ""
+
+#: inc/admin.php:60 inc/settings.php:1548
 msgid "Plugin"
 msgstr ""
 
-#: inc/admin.php:81 inc/settings.php:1675
+#: inc/admin.php:61 inc/settings.php:1675
 msgid "Database"
+msgstr ""
+
+#: inc/admin.php:67 inc/license.php:64 perfmatters.php:179
+msgid "License"
+msgstr ""
+
+#: inc/admin.php:71 inc/support.php:5 perfmatters.php:143 perfmatters.php:182
+msgid "Support"
+msgstr ""
+
+#: inc/admin.php:80
+msgid "Version"
 msgstr ""
 
 #: inc/classes/CSS.php:605 inc/classes/Meta.php:84 inc/settings.php:828
@@ -254,6 +278,44 @@ msgstr ""
 msgid "Successfully imported Perfmatters settings."
 msgstr ""
 
+#: inc/functions_network.php:22
+msgid "Network Access"
+msgstr ""
+
+#: inc/functions_network.php:27
+msgid "Choose who has access to manage Perfmatters plugin settings."
+msgstr ""
+
+#: inc/functions_network.php:33
+msgid "Network Default"
+msgstr ""
+
+#: inc/functions_network.php:38
+msgid "Choose a subsite that you want to pull default settings from."
+msgstr ""
+
+#: inc/functions_network.php:45 inc/settings.php:1555
+msgid "Clean Uninstall"
+msgstr ""
+
+#: inc/functions_network.php:52 inc/settings.php:1562
+msgid ""
+"When enabled, this will cause all Perfmatters options data to be removed "
+"from your database when the plugin is uninstalled."
+msgstr ""
+
+#: inc/functions_network.php:66
+msgid "Site Admins (Default)"
+msgstr ""
+
+#: inc/functions_network.php:67
+msgid "Super Admins Only"
+msgstr ""
+
+#: inc/functions_network.php:83
+msgid "None"
+msgstr ""
+
 #: inc/functions_script_manager.php:49 inc/functions_script_manager.php:61
 #: inc/functions_script_manager.php:103 inc/script_manager.php:169
 #: inc/script_manager.php:215 inc/settings.php:530
@@ -408,10 +470,6 @@ msgstr ""
 msgid "MU plugin file not found."
 msgstr ""
 
-#: inc/license.php:64 perfmatters.php:175
-msgid "License"
-msgstr ""
-
 #: inc/license.php:71
 msgid "License Key"
 msgstr ""
@@ -470,93 +528,55 @@ msgstr ""
 msgid "Lifetime"
 msgstr ""
 
-#: inc/network.php:21
-msgid "Network Access"
-msgstr ""
-
-#: inc/network.php:26
-msgid "Choose who has access to manage Perfmatters plugin settings."
-msgstr ""
-
-#: inc/network.php:32
-msgid "Network Default"
-msgstr ""
-
-#: inc/network.php:37
-msgid "Choose a subsite that you want to pull default settings from."
-msgstr ""
-
-#: inc/network.php:44 inc/settings.php:1555
-msgid "Clean Uninstall"
-msgstr ""
-
-#: inc/network.php:51 inc/settings.php:1562
-msgid ""
-"When enabled, this will cause all Perfmatters options data to be removed "
-"from your database when the plugin is uninstalled."
-msgstr ""
-
-#: inc/network.php:65
-msgid "Site Admins (Default)"
-msgstr ""
-
-#: inc/network.php:66
-msgid "Super Admins Only"
-msgstr ""
-
-#: inc/network.php:82
-msgid "None"
-msgstr ""
-
-#: inc/network.php:132 inc/network.php:171
+#: inc/network.php:37 inc/network.php:76
 msgid "Default settings applied!"
 msgstr ""
 
-#: inc/network.php:136
+#: inc/network.php:41
 msgid "Select a site that is not already the Network Default."
 msgstr ""
 
-#: inc/network.php:141 inc/network.php:181
+#: inc/network.php:46 inc/network.php:86
 msgid "Network Default not set."
 msgstr ""
 
-#: inc/network.php:146
+#: inc/network.php:51
 msgid "Error: Blog Not Found."
 msgstr ""
 
-#: inc/network.php:176
+#: inc/network.php:81
 msgid "No available sites found."
 msgstr ""
 
-#: inc/network.php:187
+#: inc/network.php:92
 msgid "Options saved."
 msgstr ""
 
-#: inc/network.php:211 inc/network.php:226
+#: inc/network.php:103 inc/network.php:118
 msgid "Apply Default Settings"
 msgstr ""
 
-#: inc/network.php:214
+#: inc/network.php:106
 msgid ""
 "Select a site from the dropdown and click to apply the settings from your "
 "network default (above)."
 msgstr ""
 
-#: inc/network.php:219
+#: inc/network.php:111
 msgid "Select a Site"
 msgstr ""
 
-#: inc/network.php:230
+#: inc/network.php:122
 msgid ""
 "Apply the settings from your network default to all sites. Depending on the "
 "amount, this may take a while."
 msgstr ""
 
-#: inc/network.php:232
+#: inc/network.php:124
 msgid "Apply Default Settings to All Sites"
 msgstr ""
 
-#: inc/network.php:232
+#: inc/network.php:124
 msgid ""
 "Are you sure? This will permanently overwrite all Perfmatters options for "
 "all subsites."
@@ -566,7 +586,7 @@ msgstr ""
 msgid "Global View"
 msgstr ""
 
-#: inc/script_manager.php:171 inc/script_manager.php:285 perfmatters.php:194
+#: inc/script_manager.php:171 inc/script_manager.php:285 perfmatters.php:198
 msgid "Settings"
 msgstr ""
 
@@ -687,10 +707,6 @@ msgstr ""
 
 #: inc/script_manager_global.php:129
 msgid "You don't have any scripts disabled yet."
-msgstr ""
-
-#: inc/settings.php:14 perfmatters.php:170
-msgid "Options"
 msgstr ""
 
 #: inc/settings.php:19
@@ -1892,87 +1908,75 @@ msgid ""
 "immediately after saving your changes."
 msgstr ""
 
-#: inc/support.php:4 inc/support.php:7
+#: inc/support.php:9 inc/support.php:12
 msgid "Documentation"
 msgstr ""
 
-#: inc/support.php:6
+#: inc/support.php:11
 msgid ""
 "Need help? Check out our in-depth documentation. Every feature has a step-by-"
 "step walkthrough."
 msgstr ""
 
-#: inc/support.php:13 inc/support.php:16
+#: inc/support.php:18 inc/support.php:21
 msgid "Contact Us"
 msgstr ""
 
-#: inc/support.php:15
+#: inc/support.php:20
 msgid ""
 "If you have questions or problems, please send us a message. We’ll get back "
 "to you as soon as possible."
 msgstr ""
 
-#: inc/support.php:22
+#: inc/support.php:27
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: inc/support.php:26
+#: inc/support.php:31
 msgid "How do I license activate the plugin?"
 msgstr ""
 
-#: inc/support.php:27
+#: inc/support.php:32
 msgid "How do I update the plugin?"
 msgstr ""
 
-#: inc/support.php:28
+#: inc/support.php:33
 msgid "How do I upgrade my license?"
 msgstr ""
 
-#: inc/support.php:29
+#: inc/support.php:34
 msgid "Where can I view the changelog?"
 msgstr ""
 
-#: inc/support.php:30
+#: inc/support.php:35
 msgid "Where can I sign up for the affiliate program?"
 msgstr ""
 
-#: inc/support.php:33
+#: inc/support.php:38
 msgid "How do I disable scripts on a per post/page basis?"
 msgstr ""
 
-#: inc/support.php:34
+#: inc/support.php:39
 msgid "How do I delay JavaScript?"
 msgstr ""
 
-#: inc/support.php:35
+#: inc/support.php:40
 msgid "How do I remove unused CSS?"
 msgstr ""
 
-#: inc/support.php:36
+#: inc/support.php:41
 msgid "How do I lazy load images and videos?"
 msgstr ""
 
-#: inc/support.php:37
+#: inc/support.php:42
 msgid "How do I host Google Analytics locally?"
 msgstr ""
 
-#: perfmatters.php:139 perfmatters.php:178
-msgid "Support"
-msgstr ""
-
-#: perfmatters.php:167
-msgid "Network"
-msgstr ""
-
-#: perfmatters.php:171
-msgid "Tools"
-msgstr ""
-
-#: perfmatters.php:182
+#: perfmatters.php:186
 msgid "Speed Up Guide"
 msgstr ""
 
-#: perfmatters.php:207
+#: perfmatters.php:211
 msgid "Enter valid license key for automatic updates."
 msgstr ""
 

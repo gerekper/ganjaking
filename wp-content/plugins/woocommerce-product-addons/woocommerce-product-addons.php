@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Product Add-ons
  * Plugin URI: https://woocommerce.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 6.1.2
+ * Version: 6.1.3
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.8
@@ -46,6 +46,29 @@ register_activation_hook( __FILE__, 'woocommerce_product_addons_activation' );
 function woocommerce_product_addons_activation() {
 	set_transient( 'wc_pao_activation_notice', true, 60 );
 	set_transient( 'wc_pao_pre_wc_30_notice', true, 60 );
+
+	// Add daily maintenance process.
+	if ( ! wp_next_scheduled( 'wc_pao_daily' ) ) {
+		wp_schedule_event( time() + 10, 'daily', 'wc_pao_daily' );
+	}
+
+	// Add hourly maintenance process.
+	if ( ! wp_next_scheduled( 'wc_pao_hourly' ) ) {
+		wp_schedule_event( time() + 10, 'hourly', 'wc_pao_hourly' );
+	}
+}
+
+register_deactivation_hook( __FILE__, 'woocommerce_product_addons_deactivation' );
+
+/**
+ * Handle plugin deactivation process.
+ *
+ * @since 6.1.3
+ */
+function woocommerce_product_addons_deactivation() {
+	// Clear maintenance processes.
+	wp_clear_scheduled_hook( 'wc_pao_daily' );
+	wp_clear_scheduled_hook( 'wc_pao_hourly' );
 }
 
 // Subscribe to automated translations.
@@ -65,7 +88,7 @@ function woocommerce_product_addons_init() {
 	}
 
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
-		define( 'WC_PRODUCT_ADDONS_VERSION', '6.1.2' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '6.1.3' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -126,6 +149,9 @@ function woocommerce_product_addons_init() {
 				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-ajax.php';
 				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-notices.php';
 				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-compatibility.php';
+
+				// Tracker.
+				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-tracker.php';
 
 				WC_PAO_Compatibility::instance();
 

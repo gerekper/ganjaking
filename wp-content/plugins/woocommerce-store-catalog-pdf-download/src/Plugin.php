@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 2.0.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_VERSION', '2.1.0' );
+		$this->define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_VERSION', '2.1.1' );
 		$this->define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_PATH', plugin_dir_path( WC_STORE_CATALOG_PDF_DOWNLOAD_FILE ) );
 		$this->define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_URL', plugin_dir_url( WC_STORE_CATALOG_PDF_DOWNLOAD_FILE ) );
 		$this->define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_BASENAME', plugin_basename( WC_STORE_CATALOG_PDF_DOWNLOAD_FILE ) );

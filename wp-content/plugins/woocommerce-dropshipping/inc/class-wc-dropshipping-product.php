@@ -367,6 +367,7 @@ class WC_Dropshipping_Product {
 				$suppliers = array();
 				$meta_datas = array();
 		$result = $wpdb->get_results( "SELECT a.ID,a.post_type, b.post_id  FROM {$wpdb->posts} a, {$wpdb->postmeta} b WHERE a.ID=b.post_id AND a.post_type='product' GROUP BY a.ID" );
+
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $products ) {
 				if ( ! empty( get_post_meta( $products->ID, 'supplierid' ) ) ) {

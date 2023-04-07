@@ -164,6 +164,7 @@ class WC_Deposits_My_Account {
 				'current_page'    => absint( $current_page ),
 				'customer_orders' => $customer_orders,
 				'has_orders'      => 0 < $customer_orders->total,
+				'wp_button_class' => function_exists( 'wc_wp_theme_get_element_class_name' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '',
 			)
 		);
 		remove_filter( 'woocommerce_get_endpoint_url', array( __CLASS__, 'set_pagination_endpoint_url' ), 10, 3 );

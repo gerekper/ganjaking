@@ -11,7 +11,7 @@ function perfmatters_settings() {
 
     /* options primary section
     /**********************************************************/
-    add_settings_section('perfmatters_options', __('Options', 'perfmatters'), 'perfmatters_options_callback', 'perfmatters_options');
+    add_settings_section('perfmatters_options', __('General', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //disable emojis
     add_settings_field(
@@ -1906,11 +1906,11 @@ function perfmatters_network_defaults(&$defaults, $option) {
 }
 
 //print settings section
-function perfmatters_settings_section($page, $section) {
+function perfmatters_settings_section($page, $section, $dashicon = '', $class = '') {
     global $wp_settings_sections;
     if(!empty($wp_settings_sections[$page][$section])) {
         echo '<div class="perfmatters-settings-section">';
-            echo '<h2>' . __($wp_settings_sections[$page][$section]['title'], 'perfmatters') . '</h2>';
+            echo '<h2>' . ($dashicon ? '<span class="dashicons ' . $dashicon . '"></span>' : '') . __($wp_settings_sections[$page][$section]['title'], 'perfmatters') . '</h2>';
             echo '<table class="form-table">';
                 echo '<tbody>';
                     do_settings_fields($page, $section);

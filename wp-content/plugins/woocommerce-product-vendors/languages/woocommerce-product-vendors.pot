@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Product Vendors package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Vendors 2.1.75\n"
+"Project-Id-Version: WooCommerce Product Vendors 2.1.76\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-vendors\n"
-"POT-Creation-Date: 2023-03-13 01:07:59+00:00\n"
+"POT-Creation-Date: 2023-03-27 03:51:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1035,156 +1035,156 @@ msgstr ""
 msgid "%1$s %2$s: %3$s"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:175
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:169
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:163
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:159
 msgid "%s average daily sales"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:179
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:173
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:167
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:163
 msgid "%s average monthly sales"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:184
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:178
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:172
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:168
 msgid "%s gross sales in this period"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:185
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:179
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:173
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:169
 msgid ""
 "This is the sum of the order totals after any refunds and including "
 "shipping and taxes."
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:191
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:185
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:179
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:175
 msgid "%s net sales in this period"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:192
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:186
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:180
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:176
 msgid ""
 "This is the sum of the order totals after any refunds and excluding "
 "shipping and taxes."
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:206
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:200
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:194
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:190
 msgid "%s orders placed"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:212
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:206
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:200
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:196
 msgid "%s items purchased"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:218
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:212
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:206
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:202
 msgid "%s charged for shipping"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:224
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:212
 msgid "%s total commission (vendors)"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:225
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:213
 msgid ""
 "This is the sum of the commission including shipping and taxes if "
 "applicable."
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:238
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:239
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:226
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:229
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:136
 msgid "Year"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:239
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:240
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:227
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:230
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:137
 msgid "Last Month"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:240
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:241
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:228
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:231
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:138
 msgid "This Month"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:241
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:242
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:229
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:232
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:139
 msgid "Last 7 Days"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:271
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:273
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:259
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:263
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:360
 msgid "Date"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:277
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:279
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:265
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:269
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:363
 #: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-admin.php:168
 msgid "Export CSV"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:410
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:406
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:385
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:386
 msgid "Number of orders"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:418
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:414
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:393
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:394
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:478
 msgid "Number of items sold"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:426
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:422
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:401
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:402
 msgid "Shipping amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:436
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:432
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:411
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:412
 msgid "Average sales amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:446
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:442
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:421
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:422
 msgid "Gross Sales amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:456
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:452
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:431
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:432
 msgid "Net Sales amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:466
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:441
 msgid "Total Commission Amount (vendors)"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:565
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:540
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:167
 msgid "Showing reports for:"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:587
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:562
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:198
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:595
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:570
 msgid "Vendor Search"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:599
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:574
 msgid "Search for a vendor&hellip;"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:601
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:576
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:218
 msgid "Show"
 msgstr ""
@@ -1210,31 +1210,31 @@ msgstr ""
 msgid "No out of stock products found."
 msgstr ""
 
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:218
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:208
 msgid "%s total earned commission"
 msgstr ""
 
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:219
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:209
 msgid ""
 "This is the sum of the earned commission including shipping and taxes if "
 "applicable."
 msgstr ""
 
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:225
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:215
 msgid "%s total paid commission"
 msgstr ""
 
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:226
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:216
 msgid ""
 "This is the sum of the commission paid including shipping and taxes if "
 "applicable."
 msgstr ""
 
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:462
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:442
 msgid "Total Earned Commission Amount"
 msgstr ""
 
-#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:472
+#: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:452
 #: includes/class-wc-product-vendors-commission.php:544
 msgid "Total Commission Amount"
 msgstr ""

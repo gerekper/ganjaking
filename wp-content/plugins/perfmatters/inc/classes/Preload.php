@@ -6,6 +6,7 @@ class Preload
     private static $preloads;
     private static $critical_images;
     private static $preloads_ready = array();
+    private static $used_srcs = array();
 
     //initialize preload functions
     public static function init() 
@@ -148,7 +149,7 @@ class Preload
 
         if(!empty(self::$preloads_ready)) {
             $preloads_string = "";
-            foreach(self::$preloads_ready as $preload) {
+            foreach(apply_filters('perfmatters_preloads_ready', self::$preloads_ready) as $preload) {
                 $preloads_string.= $preload;
             }
             $pos = strpos($html, '</title>');
@@ -194,21 +195,23 @@ class Preload
                     preg_match('#<source([^>]+?image\/(webp|avif)[^>]+?)\/?>#is', $match[0], $source);
 
                     if(!empty($source)) {
-                        self::generate_critical_image_preload($source[1]);
-                        $new_picture = str_replace('<picture', '<picture data-perfmatters-preload', $match[0]);
-                        $new_picture = str_replace('<img', '<img data-perfmatters-preload', $new_picture);
-                        $html = str_replace($match[0], $new_picture, $html);
-                        $count++;
+                        if(self::generate_critical_image_preload($source[1])) {
+                            $new_picture = str_replace('<picture', '<picture data-perfmatters-preload', $match[0]);
+                            $new_picture = str_replace('<img', '<img data-perfmatters-preload', $new_picture);
+                            $html = str_replace($match[0], $new_picture, $html);
+                            $count++;
+                        }
                         continue;
                     }
                 }
 
                 //img tag
                 if(!empty($match[2])) {
-                    self::generate_critical_image_preload($match[2]);
-                    $new_image = str_replace('<img', '<img data-perfmatters-preload', $match[0]);
-                    $html = str_replace($match[0], $new_image, $html);
-                    $count++;
+                    if(self::generate_critical_image_preload($match[2])) {
+                        $new_image = str_replace('<img', '<img data-perfmatters-preload', $match[0]);
+                        $html = str_replace($match[0], $new_image, $html);
+                        $count++;
+                    }
                 }
             }
         }
@@ -223,7 +226,18 @@ class Preload
         if(!empty($att_string)) {
             $atts = Utilities::get_atts_array($att_string);
             $src = $atts['data-src'] ?? $atts['src'] ?? '';
+
+            //dont add if src was already used
+            if(in_array($src, self::$used_srcs)) {
+                return false;
+            }
+
+            //generate preload
             self::$preloads_ready[] = '<link rel="preload" href="' . $src . '" as="image"' . (!empty($atts['srcset']) ? ' imagesrcset="' . $atts['srcset'] . '"' : '') . (!empty($atts['sizes']) ? ' imagesizes="' . $atts['sizes'] . '"' : '') . ' />';
+
+            //mark src used and return
+            self::$used_srcs[] = $src;
+            return true;
         }
     }
 }

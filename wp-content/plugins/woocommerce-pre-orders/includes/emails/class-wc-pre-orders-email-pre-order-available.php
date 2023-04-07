@@ -33,11 +33,11 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 		global $wc_pre_orders;
 
 		$this->id          = 'wc_pre_orders_pre_order_available';
-		$this->title       = __( 'Pre-order available', 'wc-pre-orders' );
-		$this->description = __( 'This is an order notification sent to the customer once a pre-order is complete.', 'wc-pre-orders' );
+		$this->title       = __( 'Pre-order available', 'woocommerce-pre-orders' );
+		$this->description = __( 'This is an order notification sent to the customer once a pre-order is complete.', 'woocommerce-pre-orders' );
 
-		$this->heading = __( 'Pre-order available', 'wc-pre-orders' );
-		$this->subject = __( 'Your {site_title} pre-order from {order_date} is now available', 'wc-pre-orders' );
+		$this->heading = __( 'Pre-order available', 'woocommerce-pre-orders' );
+		$this->subject = __( 'Your {site_title} pre-order from {order_date} is now available', 'woocommerce-pre-orders' );
 
 		$this->template_base  = $wc_pre_orders->get_plugin_path() . '/templates/';
 		$this->template_html  = 'emails/customer-pre-order-available.php';

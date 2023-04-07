@@ -774,7 +774,8 @@ if(!defined('ABSPATH')) exit();
 						<option value="d"><?php _e('Default', 'revslider');?></option>									
 						<option value="z"><?php _e('z', 'revslider');?></option>
 						<option value="x"><?php _e('x', 'revslider');?></option>
-						<option value="r"><?php _e('Rotation', 'revslider');?></option>							
+						<option value="r"><?php _e('Rotation', 'revslider');?></option>
+						<option value="p"><?php _e('Perspective', 'revslider');?></option>					
 					</select>
 					
 				</div>

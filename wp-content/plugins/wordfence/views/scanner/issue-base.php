@@ -79,7 +79,9 @@ if (!isset($textOutput) || !is_array($textOutput)):
 				'br' => array(
 				),
 				'span' => array(
-					'class'=>array()
+					'class'=>array(),
+					'data-tooltip'=>array(),
+					'title'=>array(),
 				)
 			)); ?></li>
 		<?php

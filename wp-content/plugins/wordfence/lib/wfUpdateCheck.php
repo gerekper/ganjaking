@@ -1,6 +1,11 @@
 <?php
 
 class wfUpdateCheck {
+	const VULN_SEVERITY_CRITICAL = 90;
+	const VULN_SEVERITY_HIGH = 70;
+	const VULN_SEVERITY_MEDIUM = 40;
+	const VULN_SEVERITY_LOW = 1;
+	const VULN_SEVERITY_NONE = 0;
 
 	private $needs_core_update = false;
 	private $core_update_version = 0;
@@ -9,6 +14,36 @@ class wfUpdateCheck {
 	private $plugin_slugs = array();
 	private $theme_updates = array();
 	private $api = null;
+	
+	/**
+	 * This hook exists because some plugins override their own update check and can return invalid 
+	 * responses (e.g., null) due to logic errors or their update check server being unreachable. This
+	 * can interfere with our scan running the outdated plugins check. When scanning, we adjust the 
+	 * response in those cases to be `false`, which causes WP to fall back to the plugin repo data.
+	 */
+	public static function installPluginAPIFixer() {
+		add_filter('plugins_api', 'wfUpdateCheck::_pluginAPIFixer', 999, 3);
+	}
+	
+	public static function _pluginAPIFixer($result, $action, $args) {
+		if ($result === false || is_object($result) || is_array($result)) {
+			return $result;
+		}
+		
+		if (!wfScanEngine::isScanRunning(true)) { //Skip fixing if it's not the call the scanner made
+			return $result;
+		}
+		
+		$slug = null;
+		if (is_object($args) && isset($args->slug)) {
+			$slug = $args->slug;
+		}
+		else if (is_array($args) && isset($args['slug'])) {
+			$slug = $args['slug'];
+		}
+		wordfence::status(2, 'info', sprintf(/* translators: 1. Plugin slug. */ __('Outdated plugin scan adjusted invalid return value in plugins_api filter for %s', 'wordfence'), $slug));
+		return false;
+	}
 
 	public static function syncAllVersionInfo() {
 		// Load the core/plugin/theme versions into the WAF configuration.
@@ -45,7 +80,70 @@ class wfUpdateCheck {
 		wfConfig::set_ser('wordpressThemeVersions', $themeVersions);
 		wfWAFConfig::set('wordpressThemeVersions', $themeVersions, wfWAF::getInstance(), 'synced');
 	}
-
+	
+	public static function cvssScoreSeverity($score) {
+		$intScore = floor($score * 10);
+		if ($intScore >= self::VULN_SEVERITY_CRITICAL) {
+			return self::VULN_SEVERITY_CRITICAL;
+		}
+		else if ($intScore >= self::VULN_SEVERITY_HIGH) {
+			return self::VULN_SEVERITY_HIGH;
+		}
+		else if ($intScore >= self::VULN_SEVERITY_MEDIUM) {
+			return self::VULN_SEVERITY_MEDIUM;
+		}
+		else if ($intScore >= self::VULN_SEVERITY_LOW) {
+			return self::VULN_SEVERITY_LOW;
+		}
+		
+		return self::VULN_SEVERITY_NONE;
+	}
+	
+	public static function cvssScoreSeverityLabel($score) {
+		$severity = self::cvssScoreSeverity($score);
+		switch ($severity) {
+			case self::VULN_SEVERITY_CRITICAL:
+				return __('Critical', 'wordfence');
+			case self::VULN_SEVERITY_HIGH:
+				return __('High', 'wordfence');
+			case self::VULN_SEVERITY_MEDIUM:
+				return __('Medium', 'wordfence');
+			case self::VULN_SEVERITY_LOW:
+				return __('Low', 'wordfence');
+		}
+		return __('None', 'wordfence');
+	}
+	
+	public static function cvssScoreSeverityHexColor($score) {
+		$severity = self::cvssScoreSeverity($score);
+		switch ($severity) {
+			case self::VULN_SEVERITY_CRITICAL:
+				return '#cc0500';
+			case self::VULN_SEVERITY_HIGH:
+				return '#df3d03';
+			case self::VULN_SEVERITY_MEDIUM:
+				return '#f9a009';
+			case self::VULN_SEVERITY_LOW:
+				return '#ffcb0d';
+		}
+		return '#000000';
+	}
+	
+	public static function cvssScoreSeverityClass($score) {
+		$severity = self::cvssScoreSeverity($score);
+		switch ($severity) {
+			case self::VULN_SEVERITY_CRITICAL:
+				return 'wf-vulnerability-severity-critical';
+			case self::VULN_SEVERITY_HIGH:
+				return 'wf-vulnerability-severity-high';
+			case self::VULN_SEVERITY_MEDIUM:
+				return 'wf-vulnerability-severity-medium';
+			case self::VULN_SEVERITY_LOW:
+				return 'wf-vulnerability-severity-low';
+		}
+		return 'wf-vulnerability-severity-none';
+	}
+	
 	public function __construct() {
 		$this->api = new wfAPI(wfConfig::get('apiKey'), wfUtils::getWPVersion());
 	}
@@ -135,8 +233,16 @@ class wfUpdateCheck {
 		if ($slug !== null) {
 			$vulnerable = $checkVulnerabilities ? $this->isPluginVulnerable($slug, $data['Version']) : null;
 			$data['vulnerable'] = !empty($vulnerable);
-			if ($data['vulnerable'] && is_string($vulnerable))
-				$data['vulnerabilityLink'] = $vulnerable;
+			if ($data['vulnerable']) {
+				if (isset($vulnerable['link']) && is_string($vulnerable['link'])) { $data['vulnerabilityLink'] = $vulnerable['link']; }
+				if (isset($vulnerable['score'])) {
+					$data['cvssScore'] = number_format(floatval($vulnerable['score']), 1);
+					$data['severityColor'] = self::cvssScoreSeverityHexColor($data['cvssScore']);
+					$data['severityLabel'] = self::cvssScoreSeverityLabel($data['cvssScore']);
+					$data['severityClass'] = self::cvssScoreSeverityClass($data['cvssScore']);
+				}
+				if (isset($vulnerable['vector']) && is_string($vulnerable['vector'])) { $data['cvssVector'] = $vulnerable['vector']; }
+			}
 			$this->plugin_slugs[] = $slug;
 			$this->all_plugins[$slug] = $data;
 		}
@@ -268,7 +374,7 @@ class wfUpdateCheck {
 							$vulnerable = $this->isThemeVulnerable($theme, $themeData['Version']);
 						}
 						
-						$this->theme_updates[] = array(
+						$data = array(
 							'newVersion' => (isset($vals['new_version']) ? $vals['new_version'] : 'Unknown'),
 							'package'    => (isset($vals['package']) ? $vals['package'] : null),
 							'URL'        => (isset($vals['url']) ? $vals['url'] : null),
@@ -277,6 +383,20 @@ class wfUpdateCheck {
 							'version'    => $themeData['Version'],
 							'vulnerable' => $vulnerable
 						);
+						
+						$data['vulnerable'] = !empty($vulnerable);
+						if ($data['vulnerable']) {
+							if (isset($vulnerable['link']) && is_string($vulnerable['link'])) { $data['vulnerabilityLink'] = $vulnerable['link']; }
+							if (isset($vulnerable['score'])) {
+								$data['cvssScore'] = number_format(floatval($vulnerable['score']), 1);
+								$data['severityColor'] = self::cvssScoreSeverityHexColor($data['cvssScore']);
+								$data['severityLabel'] = self::cvssScoreSeverityLabel($data['cvssScore']);
+								$data['severityClass'] = self::cvssScoreSeverityClass($data['cvssScore']);
+							}
+							if (isset($vulnerable['vector']) && is_string($vulnerable['vector'])) { $data['cvssVector'] = $vulnerable['vector']; }
+						}
+						
+						$this->theme_updates[] = $data;
 					}
 				}
 			}
@@ -355,6 +475,12 @@ class wfUpdateCheck {
 							if (isset($r['link'])) {
 								$v['link'] = $r['link'];
 							}
+							if (isset($r['score'])) {
+								$v['score'] = $r['score'];
+							}
+							if (isset($r['vector'])) {
+								$v['vector'] = $r['vector'];
+							}
 							break;
 						}
 					}
@@ -411,6 +537,15 @@ class wfUpdateCheck {
 					foreach ($vulnerableList as $r) {
 						if ($r['slug'] == $v['slug']) {
 							$v['vulnerable'] = !!$r['vulnerable'];
+							if (isset($r['link'])) {
+								$v['link'] = $r['link'];
+							}
+							if (isset($r['score'])) {
+								$v['score'] = $r['score'];
+							}
+							if (isset($r['vector'])) {
+								$v['vector'] = $r['vector'];
+							}
 							break;
 						}
 					}
@@ -443,21 +578,14 @@ class wfUpdateCheck {
 		}
 		foreach ($vulnerabilities as $v) {
 			if ($v['slug'] == $slug) {
-				if ($v['fromVersion'] == 'Unknown' && $v['toVersion'] == 'Unknown') {
-					if ($v['vulnerable'] && isset($v['link']) && is_string($v['link'])) { return $v['link']; }
-					return $v['vulnerable'];
-				}
-				else if ((!isset($v['toVersion']) || $v['toVersion'] == 'Unknown') && version_compare($version, $v['fromVersion']) >= 0) {
-					if ($v['vulnerable'] && isset($v['link']) && is_string($v['link'])) { return $v['link']; }
-					return $v['vulnerable'];
-				}
-				else if ($v['fromVersion'] == 'Unknown' && isset($v['toVersion']) && version_compare($version, $v['toVersion']) < 0) {
-					if ($v['vulnerable'] && isset($v['link']) && is_string($v['link'])) { return $v['link']; }
-					return $v['vulnerable'];
-				}
-				else if (version_compare($version, $v['fromVersion']) >= 0 && isset($v['toVersion']) && version_compare($version, $v['toVersion']) < 0) {
-					if ($v['vulnerable'] && isset($v['link']) && is_string($v['link'])) { return $v['link']; }
-					return $v['vulnerable'];
+				if (
+					($v['fromVersion'] == 'Unknown' && $v['toVersion'] == 'Unknown') ||
+					((!isset($v['toVersion']) || $v['toVersion'] == 'Unknown') && version_compare($version, $v['fromVersion']) >= 0) ||
+					($v['fromVersion'] == 'Unknown' && isset($v['toVersion']) && version_compare($version, $v['toVersion']) < 0) ||
+					(version_compare($version, $v['fromVersion']) >= 0 && isset($v['toVersion']) && version_compare($version, $v['toVersion']) < 0)
+				) {
+					if ($v['vulnerable']) { return $v; }
+					return false;
 				}
 			}
 		}

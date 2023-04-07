@@ -1655,10 +1655,11 @@ class wfUtils {
 		return date('D jS F \@ h:i:sA', time() + (3600 * get_option('gmt_offset')));
 	}
 	public static function funcEnabled($func){
-		if(! function_exists($func)){ return false; }
+		if (!function_exists($func)){ return false; }
+		if (!is_callable($func)) { return false; }
 		$disabled = explode(',', ini_get('disable_functions'));
-		foreach($disabled as $f){
-			if($func == $f){ return false; }
+		if (in_array($func, $disabled)) {
+			return false;
 		}
 		return true;
 	}

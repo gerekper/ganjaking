@@ -7,19 +7,17 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
+use MailPoet\Entities\ScheduledTaskSubscriberEntity;
 use MailPoet\Entities\StatisticsBounceEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Mailer\Mailer;
-use MailPoet\Models\ScheduledTask;
-use MailPoet\Models\ScheduledTaskSubscriber;
+use MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository;
 use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Services\Bridge;
 use MailPoet\Services\Bridge\API;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\StatisticsBouncesRepository;
 use MailPoet\Subscribers\SubscribersRepository;
-use MailPoet\Tasks\Bounce as BounceTask;
-use MailPoet\Tasks\Subscribers as TaskSubscribers;
 use MailPoet\Tasks\Subscribers\BatchIterator;
 use MailPoetVendor\Carbon\Carbon;
 
@@ -48,11 +46,15 @@ class Bounce extends SimpleWorker {
   /** @var StatisticsBouncesRepository */
   private $statisticsBouncesRepository;
 
+  /** @var ScheduledTaskSubscribersRepository */
+  private $scheduledTaskSubscribersRepository;
+
   public function __construct(
     SettingsController $settings,
     SubscribersRepository $subscribersRepository,
     SendingQueuesRepository $sendingQueuesRepository,
     StatisticsBouncesRepository $statisticsBouncesRepository,
+    ScheduledTaskSubscribersRepository $scheduledTaskSubscribersRepository,
     Bridge $bridge
   ) {
     $this->settings = $settings;
@@ -61,6 +63,7 @@ class Bounce extends SimpleWorker {
     $this->subscribersRepository = $subscribersRepository;
     $this->sendingQueuesRepository = $sendingQueuesRepository;
     $this->statisticsBouncesRepository = $statisticsBouncesRepository;
+    $this->scheduledTaskSubscribersRepository = $scheduledTaskSubscribersRepository;
   }
 
   public function init() {
@@ -74,10 +77,10 @@ class Bounce extends SimpleWorker {
   }
 
   public function prepareTaskStrategy(ScheduledTaskEntity $task, $timer) {
-    BounceTask::prepareSubscribers($task);
+    $this->scheduledTaskSubscribersRepository->createSubscribersForBounceWorker($task);
 
-    if (!ScheduledTaskSubscriber::getUnprocessedCount($task->getId())) {
-      ScheduledTaskSubscriber::where('task_id', $task->getId())->deleteMany();
+    if (!$this->scheduledTaskSubscribersRepository->countBy(['task' => $task, 'processed' => ScheduledTaskSubscriberEntity::STATUS_UNPROCESSED])) {
+      $this->scheduledTaskSubscribersRepository->deleteByScheduledTask($task);
       return false;
     }
     return true;
@@ -87,27 +90,21 @@ class Bounce extends SimpleWorker {
     $subscriberBatches = new BatchIterator($task->getId(), self::BATCH_SIZE);
 
     if (count($subscriberBatches) === 0) {
-      ScheduledTaskSubscriber::where('task_id', $task->getId())->deleteMany();
+      $this->scheduledTaskSubscribersRepository->deleteByScheduledTask($task);
       return true; // mark completed
     }
 
-    $parisTask = ScheduledTask::findOne($task->getId());
+    /** @var int[] $subscribersToProcessIds - it's required for PHPStan */
+    foreach ($subscriberBatches as $subscribersToProcessIds) {
+      // abort if execution limit is reached
+      $this->cronHelper->enforceExecutionLimit($timer);
 
-    if ($parisTask instanceof ScheduledTask) {
-      $taskSubscribers = new TaskSubscribers($parisTask);
+      $subscriberEmails = $this->subscribersRepository->getUndeletedSubscribersEmailsByIds($subscribersToProcessIds);
+      $subscriberEmails = array_column($subscriberEmails, 'email');
 
-      /** @var int[] $subscribersToProcessIds - it's required for PHPStan */
-      foreach ($subscriberBatches as $subscribersToProcessIds) {
-        // abort if execution limit is reached
-        $this->cronHelper->enforceExecutionLimit($timer);
+      $this->processEmails($task, $subscriberEmails);
 
-        $subscriberEmails = $this->subscribersRepository->getUndeletedSubscribersEmailsByIds($subscribersToProcessIds);
-        $subscriberEmails = array_column($subscriberEmails, 'email');
-
-        $this->processEmails($task, $subscriberEmails);
-
-        $taskSubscribers->updateProcessedSubscribers($subscribersToProcessIds);
-      }
+      $this->scheduledTaskSubscribersRepository->updateProcessedSubscribers($task, $subscribersToProcessIds);
     }
 
     return true;

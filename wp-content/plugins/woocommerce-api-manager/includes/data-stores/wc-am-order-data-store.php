@@ -64,7 +64,7 @@ class WC_AM_Order_Data_Store {
 	public function get_meta( $order, $meta_key = '', $single = true ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
+		if ( is_object( $order ) ) {
 			if ( $single ) {
 				/**
 				 * @usage returns a single value for a single key. A single value for the single order.
@@ -96,7 +96,7 @@ class WC_AM_Order_Data_Store {
 	public function get_meta_data( $order ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
+		if ( is_object( $order ) ) {
 			$args = array(
 				'id'     => $order->get_id(),
 				'number' => $order->get_order_number(),
@@ -123,7 +123,7 @@ class WC_AM_Order_Data_Store {
 	public function get_items( $order_id, $types = 'line_item' ) {
 		$order = $this->get_order_object( $order_id );
 
-		return $order->get_items( $types );
+		return is_object( $order ) ? $order->get_items( $types ) : array();
 	}
 
 	/**
@@ -196,7 +196,7 @@ class WC_AM_Order_Data_Store {
 	public function get_order_data( $order ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
+		if ( is_object( $order ) ) {
 			return array_merge( array(
 				                    'id' => $order->get_id(),
 			                    ), $order->get_data(), array(
@@ -282,7 +282,7 @@ class WC_AM_Order_Data_Store {
 	public function get_order_number( $order ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
+		if ( is_object( $order ) ) {
 			// Pre 3.0 $order->id or $order->get_order_number()
 			return $order->get_order_number();
 		}
@@ -320,31 +320,34 @@ class WC_AM_Order_Data_Store {
 	 * @throws \Exception
 	 */
 	public function get_qty_refunded_for_product_id( $order, $product_id ) {
-		$count    = 0;
-		$refunds  = array();
-		$order    = $this->get_order_object( $order );
-		$item_ids = $this->get_order_item_ids( $order );
+		$count   = 0;
+		$refunds = array();
+		$order   = $this->get_order_object( $order );
 
-		foreach ( $order->get_refunds() as $refund ) {
-			foreach ( $item_ids as $item_id ) {
-				foreach ( $refund->get_items( array( 'line_item' ) ) as $refunded_item ) {
-					if ( absint( $refunded_item->get_meta( '_refunded_item_id' ) ) === $item_id ) {
-						$parent_id                   = wc_get_order_item_meta( $refunded_item->get_id(), '_product_id' );
-						$variation_id                = wc_get_order_item_meta( $refunded_item->get_id(), '_variation_id' );
-						$refunds[ $order->get_id() ] = array(
-							'order_id'   => $order->get_id(),
-							'item_id'    => $item_id,
-							'product_id' => empty( $variation_id ) ? $parent_id : $variation_id,
-							'count'      => $count += $this->get_refund_quantity_for_item( $refund, $item_id )
-						);
+		if ( is_object( $order ) ) {
+			$item_ids = $this->get_order_item_ids( $order );
+
+			foreach ( $order->get_refunds() as $refund ) {
+				foreach ( $item_ids as $item_id ) {
+					foreach ( $refund->get_items( array( 'line_item' ) ) as $refunded_item ) {
+						if ( absint( $refunded_item->get_meta( '_refunded_item_id' ) ) === $item_id ) {
+							$parent_id                   = wc_get_order_item_meta( $refunded_item->get_id(), '_product_id' );
+							$variation_id                = wc_get_order_item_meta( $refunded_item->get_id(), '_variation_id' );
+							$refunds[ $order->get_id() ] = array(
+								'order_id'   => $order->get_id(),
+								'item_id'    => $item_id,
+								'product_id' => empty( $variation_id ) ? $parent_id : $variation_id,
+								'count'      => $count += $this->get_refund_quantity_for_item( $refund, $item_id )
+							);
+						}
 					}
 				}
 			}
-		}
 
-		foreach ( $refunds as $refund ) {
-			if ( $refund[ 'product_id' ] == $product_id ) {
-				return $refund[ 'count' ];
+			foreach ( $refunds as $refund ) {
+				if ( $refund[ 'product_id' ] == $product_id ) {
+					return $refund[ 'count' ];
+				}
 			}
 		}
 
@@ -379,7 +382,8 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Builds a secure download URL.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.6.2 Replaced http_build_query() with add_query_arg().
 	 *
 	 * @param int    $user_id
 	 * @param int    $order_id
@@ -391,7 +395,8 @@ class WC_AM_Order_Data_Store {
 	public function get_secure_order_download_url( $user_id, $order_id, $product_id, $remote_url = '' ) {
 		// Cost value is between 4 and 31
 		$hash_data = WC_AM_HASH()->password_hash( $user_id, null, null, array( 'cost' => 4 ) );
-		$url_args  = array(
+
+		$url_args = array(
 			'user_id'          => $user_id,
 			'am_download_file' => $product_id,
 			'am_order'         => $order_id,
@@ -401,7 +406,7 @@ class WC_AM_Order_Data_Store {
 			'remote_url'       => ! empty( $remote_url ) ? 'yes' : 'no'
 		);
 
-		return home_url( '/?' ) . http_build_query( $url_args, '', '&' );
+		return add_query_arg( $url_args, home_url( '/' ) );
 	}
 
 	/**
@@ -450,7 +455,7 @@ class WC_AM_Order_Data_Store {
 	public function get_api_resource_items_for_order( $order ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
+		if ( is_object( $order ) ) {
 			global $wpdb;
 
 			$sql = "
@@ -564,63 +569,66 @@ class WC_AM_Order_Data_Store {
 	 * @return array
 	 */
 	public function get_line_item_data_from_order( $order_id ) {
-		$values    = array();
-		$items     = array();
-		$order     = $this->get_order_object( $order_id );
-		$get_items = $order->get_items();
+		$values = array();
+		$items  = array();
+		$order  = $this->get_order_object( $order_id );
 
-		if ( is_object( $order ) && WC_AM_FORMAT()->count( $get_items ) > 0 ) {
-			foreach ( $get_items as $item_id => $item ) {
-				/**
-				 * $item->get_id() is the order_item_id.
-				 */
-				$data              = $item->get_data();
-				$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item->get_product_id() );
-				$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( ! empty( $parent_product_id ) ? $parent_product_id : $data[ 'variation_id' ] );
+		if ( is_object( $order ) ) {
+			$get_items = $order->get_items();
 
-				// Only store API resource data for API products that have an order status of completed.
-				if ( $is_api ) {
-					$variation_id  = ! empty( $data[ 'variation_id' ] ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $data[ 'variation_id' ] ) ? $data[ 'variation_id' ] : 0;
-					$product_id    = ! empty( $variation_id ) ? $variation_id : $parent_product_id;
-					$valid_product = WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $product_id );
-
-					// Skip WC Subscriptions.
-					$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $parent_product_id );
+			if ( WC_AM_FORMAT()->count( $get_items ) > 0 ) {
+				foreach ( $get_items as $item_id => $item ) {
+					/**
+					 * $item->get_id() is the order_item_id.
+					 */
+					$data              = $item->get_data();
+					$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item->get_product_id() );
+					$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( ! empty( $parent_product_id ) ? $parent_product_id : $data[ 'variation_id' ] );
 
 					// Only store API resource data for API products that have an order status of completed.
-					if ( $valid_product && ! $is_wc_sub ) {
-						$item_qty               = ! empty( $item->get_quantity() ) ? $item->get_quantity() : 0;
-						$refund_qty             = $this->get_qty_refunded_for_item( $order_id, $item_id );
-						$values[ 'item_qty' ]   = $item_qty;
-						$values[ 'refund_qty' ] = absint( $refund_qty );
+					if ( $is_api ) {
+						$variation_id  = ! empty( $data[ 'variation_id' ] ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $data[ 'variation_id' ] ) ? $data[ 'variation_id' ] : 0;
+						$product_id    = ! empty( $variation_id ) ? $variation_id : $parent_product_id;
+						$valid_product = WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $product_id );
 
-						if ( $values[ 'refund_qty' ] >= $values[ 'item_qty' ] ) {
-							continue;
-						}
+						// Skip WC Subscriptions.
+						$is_wc_sub = WC_AM_SUBSCRIPTION()->is_wc_subscription( $parent_product_id );
 
-						$values[ 'user_id' ]           = $this->get_customer_id( $order );
-						$values[ 'order_item_id' ]     = ! empty( $item_id ) ? (int) $item_id : 0;
-						$values[ 'variation_id' ]      = $variation_id;
-						$values[ 'parent_id' ]         = $parent_product_id;
-						$values[ 'product_id' ]        = $product_id;
-						$values[ 'access_expires' ]    = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $values[ 'product_id' ] );
-						$api_product_activations       = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
-						$values[ 'api_activations' ]   = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
-						$product_object                = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
-						$values[ 'product_title' ]     = is_object( $product_object ) ? $product_object->get_title() : '';
-						$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
+						// Only store API resource data for API products that have an order status of completed.
+						if ( $valid_product && ! $is_wc_sub ) {
+							$item_qty               = ! empty( $item->get_quantity() ) ? $item->get_quantity() : 0;
+							$refund_qty             = $this->get_qty_refunded_for_item( $order_id, $item_id );
+							$values[ 'item_qty' ]   = $item_qty;
+							$values[ 'refund_qty' ] = absint( $refund_qty );
 
-						if ( empty( $values[ 'api_activations' ] ) ) {
-							$values[ 'api_activations' ]   = apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
+							if ( $values[ 'refund_qty' ] >= $values[ 'item_qty' ] ) {
+								continue;
+							}
+
+							$values[ 'user_id' ]           = $this->get_customer_id( $order );
+							$values[ 'order_item_id' ]     = ! empty( $item_id ) ? (int) $item_id : 0;
+							$values[ 'variation_id' ]      = $variation_id;
+							$values[ 'parent_id' ]         = $parent_product_id;
+							$values[ 'product_id' ]        = $product_id;
+							$values[ 'access_expires' ]    = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $values[ 'product_id' ] );
+							$api_product_activations       = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
+							$values[ 'api_activations' ]   = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
+							$product_object                = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
+							$values[ 'product_title' ]     = is_object( $product_object ) ? $product_object->get_title() : '';
 							$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
-						}
 
-						$items[] = $values;
+							if ( empty( $values[ 'api_activations' ] ) ) {
+								$values[ 'api_activations' ]   = apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
+								$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
+							}
+
+							$items[] = $values;
+						}
 					}
 				}
-			}
 
-			return $items;
+				return $items;
+			}
 		}
 
 		return array();

@@ -46,7 +46,7 @@ function redsys_return_languages() {
 		'440' => 'Lietuvių kalba - Lituano',
 		'470' => 'Malti - Maltés',
 		'642' => 'Română - Rumano',
-		'643' => 'ру́сский язы́к – Ruso',
+		'643' => 'ру́сский язы́к - Ruso',
 		'703' => 'Slovenský jazyk - Eslovaco',
 		'705' => 'Slovenski jezik - Esloveno',
 		'792' => 'Türkçe - Turco',

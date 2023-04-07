@@ -3,10 +3,10 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 20.2.1
+ * Version: 20.3.0
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
- * Tested up to: 6.2
+ * Tested up to: 6.3
  * WC requires at least: 7.1
  * WC tested up to: 7.4
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
@@ -24,7 +24,7 @@
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '20.2.1' );
+	define( 'REDSYS_VERSION', '20.3.0' );
 }
 if ( ! defined( 'REDSYS_LICENSE_SITE_ID' ) ) {
 	define( 'REDSYS_LICENSE_SITE_ID', 1 );
@@ -58,7 +58,7 @@ if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2023/02/27/woocommerce-redsys-gateway-20-2-x/' );
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2023/04/02/woocommerce-redsys-gateway-20-3-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -896,7 +896,7 @@ function woocommerce_gateway_redsys_premium_init() {
 				( function( $ ) {
 					var orderReviewSection = $('#order_review');
 					function toggleInsiteFields( display ) {
-						var fields = $('#redsys-submit,.new-card-data,#redsys_save_token');
+						var fields = $('#redsys-submit,.redsys-new-card-data,#redsys_save_token');
 						var paymentMethodInsiteCheckbox = $( '#payment_method_insite' );
 						var checkoutButton = $( '#place_order' );
 						if ( ! fields.length ) {

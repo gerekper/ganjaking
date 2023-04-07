@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -113,11 +113,17 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		public function order_calculate_discount_amount_before_tax( $and_taxes, $order ) {
 			$order_actions = array( 'woocommerce_add_coupon_discount', 'woocommerce_calc_line_taxes', 'woocommerce_save_order_items' );
 
-			if ( $order instanceof WC_Order && ! empty( $_POST['action'] ) && ( in_array( wp_unslash( $_POST['action'] ), $order_actions, true ) || ( ! empty( $_POST['post_type'] ) && 'shop_order' === wp_unslash( $_POST['post_type'] ) && 'editpost' === wp_unslash( $_POST['action'] ) ) ) ) { // phpcs:ignore
+			$order_id = ( $this->is_callable( $order, 'get_id' ) ) ? $order->get_id() : 0;
+
+			$post_post_type = ( ! empty( $_POST['post_type'] ) ) ? wc_clean( wp_unslash( $_POST['post_type'] ) ) : ''; // phpcs:ignore
+			$post_action = ( ! empty( $_POST['action'] ) ) ? wc_clean( wp_unslash( $_POST['action'] ) ) : ''; // phpcs:ignore
+
+			$post_type = ( ! empty( $order_id ) && $this->is_hpos() ) ? $this->get_post_type( $order_id ) : $post_post_type;
+
+			if ( $order instanceof WC_Order && ( in_array( $post_action, $order_actions, true ) || ( 'shop_order' === $post_type && 'editpost' === $post_action ) ) ) {
 				if ( ! is_object( $order ) || ! is_callable( array( $order, 'get_id' ) ) ) {
 					return;
 				}
-				$order_id = $order->get_id();
 				if ( empty( $order_id ) ) {
 					return;
 				}

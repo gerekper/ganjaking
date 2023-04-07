@@ -181,10 +181,11 @@ If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCo
  */
 function redsys_test_url_soap_test() {
 
+	$soap_client = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
 	try {
-		$soap_client = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
-	} catch ( Exception $e ) {
-		$exception_message = $e->getMessage();
+		$result = $soap_client->__soapCall( 'trataPeticion', array() );
+	} catch ( SoapFault $fault ) {
+		$exception_message = $fault->getMessage();
 	}
 	if ( ! $exception_message ) {
 		$result = array(
@@ -227,10 +228,11 @@ function redsys_test_url_soap_test() {
  */
 function redsys_real_url_soap_test() {
 
+	$soap_client = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
 	try {
-		$soap_client = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
-	} catch ( Exception $e ) {
-		$exception_message = $e->getMessage();
+		$result = $soap_client->__soapCall( 'trataPeticion', array() );
+	} catch ( SoapFault $fault ) {
+		$exception_message = $fault->getMessage();
 	}
 	if ( ! $exception_message ) {
 		$result = array(

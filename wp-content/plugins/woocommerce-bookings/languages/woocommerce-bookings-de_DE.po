@@ -7,21 +7,25 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-21T20:49:07+00:00\n"
-"PO-Revision-Date: 2023-03-15 22:59:25+0000\n"
+"POT-Creation-Date: 2023-03-27T03:44:53+00:00\n"
+"PO-Revision-Date: 2023-03-23 11:54:04+0000\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/class-wc-bookings-cache.php:237
+msgid "Error: Resource not found, please try again"
+msgstr ""
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
 #: includes/class-wc-bookings-google-calendar-connection.php:867
 msgid "Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.%1$sAdd %2$s to the Authorized redirect URIs of your Google Cloud App."
-msgstr ""
+msgstr "Gib unten die Anmeldedaten ein, um eine angepasste Google Kalender-API-App zu verwenden. Trenne die vorhandene Verbindung, um die Anmeldedaten einzugeben.%1$sFüge %2$s zu den autorisierten Weiterleitungs-URIs deiner Google Cloud-App hinzu."
 
 #: includes/class-wc-booking-cart-manager.php:171
 msgid "Sorry, the selected block is no longer available for %1$s. Please choose another block."
-msgstr ""
+msgstr "Leider ist der ausgewählte Block für %1$s nicht mehr verfügbar. Bitte wähle einen anderen Block."
 
 #: includes/admin/views/html-calendar-nav.php:110
 #: includes/admin/views/html-calendar-nav.php:111
@@ -31,7 +35,7 @@ msgstr "Nächster Monat "
 #: includes/admin/views/html-calendar-nav.php:78
 #: includes/admin/views/html-calendar-nav.php:79
 msgid "Previous Month"
-msgstr ""
+msgstr "Vorheriger Monat"
 
 #: includes/booking-form/class-wc-booking-form.php:110
 msgid "Please wait, the latest available slots are being processed in the background."
@@ -54,17 +58,17 @@ msgid "No slots available."
 msgstr "Keine Zeitfenster verfügbar."
 
 #: includes/admin/class-wc-bookings-ajax.php:209
-#: templates/booking-form/month-picker.php:76
+#: templates/booking-form/month-picker.php:74
 msgid "This month is unavailable"
 msgstr "Dieser Monat ist nicht mehr verfügbar"
 
 #: includes/admin/class-wc-bookings-ajax.php:207
-#: templates/booking-form/month-picker.php:74
+#: templates/booking-form/month-picker.php:72
 msgid "This month is fully booked and unavailable"
 msgstr "Dieser Monat ist bereits ausgebucht und nicht mehr verfügbar"
 
 #: includes/admin/class-wc-bookings-ajax.php:205
-#: templates/booking-form/month-picker.php:72
+#: templates/booking-form/month-picker.php:70
 msgid "This month is available"
 msgstr "Dieser Monat ist verfügbar"
 

@@ -231,7 +231,7 @@ class WC_Product_Vendors_Utils {
 			$vendor_data['count']            = $vendor_term->count;
 		}
 
-		return apply_filters( 'wcpv_get_vendor_data_by_id', $vendor_data, $vendor_id );
+		return apply_filters( 'wcpv_get_vendor_data_by_id', $vendor_data ?? array() , $vendor_id );
 	}
 
 	/**
@@ -1591,7 +1591,67 @@ class WC_Product_Vendors_Utils {
 	}
 
 	/**
-	 * Calculate the total tax refunded for a line item.
+	 * Should return date SQL query part from date range for commission table.
+	 *
+	 * @since 2.1.76
+	 *
+	 * @param string $range      Date range type: Valid values are: year, last_month, month, 7 day (default), custom.
+	 * @param string $start_date Optional. Date after which retrieve vendor commission data. Mysql formatted date.
+	 * @param string $end_date   Optional. Date before which retrieve vendor commission data. Mysql formatted date.
+	 *
+	 * @return string
+	 */
+	public static function get_commission_date_sql_query_from_range( $range, $start_date = '', $end_date = '' ) {
+		$sql = '';
+
+		switch ( $range ) {
+			case 'year' :
+				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
+				break;
+
+			case 'last_month' :
+				$sql .= " AND MONTH( commission.order_date ) = IF( MONTH( NOW() ) = 1, 12, MONTH( NOW() ) - 1 )";
+				$sql .= " AND YEAR( commission.order_date ) = IF( MONTH( NOW() ) = 1, YEAR( NOW() ) - 1, YEAR( NOW() ) )";
+				break;
+
+			case 'month' :
+				$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
+				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
+				break;
+
+			case 'custom' :
+				$sql .= " AND DATE( commission.order_date ) BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+				break;
+
+			case '7day' :
+			case 'default' :
+				$sql .= " AND DATE( commission.order_date ) BETWEEN DATE_SUB( NOW(), INTERVAL 7 DAY ) AND NOW()";
+				break;
+		}
+
+		return $sql;
+	}
+
+	/**
+	 * Should return boolean value for date validation result.
+	 *
+	 * @since 2.1.76
+	 *
+	 * @param string $date Mysql formatted date,
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_mysql_formatted_date( $date ) {
+		try {
+			$dateTime = new \DateTime( $date );
+		} catch ( \Exception $e ) {
+			return false;
+		}
+
+		return $dateTime->format( 'Y-m-d' ) === $date;
+	}
+
+	/* * Calculate the total tax refunded for a line item.
 	 *
 	 * @since x.x.x
 	 *

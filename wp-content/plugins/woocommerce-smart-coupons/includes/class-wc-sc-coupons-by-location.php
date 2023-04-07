@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.7.0
+ * @version     1.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -147,7 +147,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 
 			global $woocommerce_smart_coupon;
 
-			$post_type = get_post_type();
+			$post_type = $this->get_post_type();
 			$get_page  = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 
 			if ( 'shop_coupon' !== $post_type && 'wc-smart-coupons' !== $get_page ) {
@@ -273,9 +273,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$locations                            = ( ! empty( $_POST['locations'] ) ) ? wc_clean( wp_unslash( $_POST['locations'] ) ) : array(); // phpcs:ignore
 			$this->locations_lookup_in['address'] = ( ! empty( $_POST['sa_cbl_search_in']['address'] ) ) ? wc_clean( wp_unslash( $_POST['sa_cbl_search_in']['address'] ) ) : ''; // phpcs:ignore

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.1
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -472,9 +472,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$post_sc_restrict_to_new_user       = ( isset( $_POST['sc_restrict_to_new_user'] ) ) ? wc_clean( wp_unslash( $_POST['sc_restrict_to_new_user'] ) ) : 'no';               // phpcs:ignore
 			$post_auto_generate_coupon          = ( isset( $_POST['auto_generate_coupon'] ) ) ? wc_clean( wp_unslash( $_POST['auto_generate_coupon'] ) ) : 'no';                     // phpcs:ignore

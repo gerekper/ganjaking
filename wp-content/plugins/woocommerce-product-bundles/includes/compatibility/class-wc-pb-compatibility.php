@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.18.1
+ * @version  6.18.2
  */
 class WC_PB_Compatibility {
 
@@ -328,6 +328,10 @@ class WC_PB_Compatibility {
 		// WooCommerce Payments compatibility.
 		if ( class_exists( 'WC_Payments' ) ) {
 			$module_paths[ 'wcpay' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-wc-payments-compatibility.php';
+		}
+
+		if ( class_exists( 'AutomateWoo' ) ) {
+			$module_paths[ 'automatewoo' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-automatewoo-compatibility.php';
 		}
 
 		/**

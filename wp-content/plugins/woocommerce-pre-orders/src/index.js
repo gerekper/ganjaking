@@ -55,10 +55,10 @@ const getPreorderAdditionalInformation = ( cart ) => {
 	const charged_upon_release =
 		cart.cartItems[ 0 ].extensions.preorders.charged_upon_release;
 	if ( charged_upfront ) {
-		return __( 'charged upfront.', 'wc-pre-orders' );
+		return __( 'charged upfront.', 'woocommerce-pre-orders' );
 	} else if ( charged_upon_release ) {
 		const preorderDate = getPreorderDate( cart );
-		return sprintf( __( 'charged %1$s', 'wc-pre-orders' ), preorderDate );
+		return sprintf( __( 'charged %1$s', 'woocommerce-pre-orders' ), preorderDate );
 	} else {
 		return '';
 	}
@@ -82,7 +82,7 @@ __experimentalRegisterCheckoutFilters( 'woocommerce-pre-order', {
 				cart
 			);
 			return sprintf(
-				_x( '%1$s %2$s', 'label and additional info', 'wc-pre-orders' ),
+				_x( '%1$s %2$s', 'label and additional info', 'woocommerce-pre-orders' ),
 				label,
 				additionalInformation
 			);

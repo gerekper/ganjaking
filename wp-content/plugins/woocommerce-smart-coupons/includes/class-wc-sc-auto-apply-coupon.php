@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -141,9 +141,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$is_callable_coupon_update_meta = $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' );
 

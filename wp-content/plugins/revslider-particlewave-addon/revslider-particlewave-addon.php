@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Particle Wave Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Add Awesome Particle Wave Effects to your Layers
 Author: ThemePunch
-Version: 1.0.9
+Version: 1.1.0
 Author URI: http://themepunch.com
 */
 

@@ -18,6 +18,16 @@ class WC_Subscriptions_Dependency_Manager {
 	private $minimum_supported_wc_version;
 
 	/**
+	 * @var string|null The active WooCommerce version, or null if WooCommerce is not active.
+	 */
+	private $wc_active_version = null;
+
+	/**
+	 * @var bool Whether the active WooCommerce version has been cached.
+	 */
+	private $wc_version_cached = false;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct( $minimum_supported_wc_version ) {
@@ -31,7 +41,8 @@ class WC_Subscriptions_Dependency_Manager {
 	 * @return bool True if the required dependencies are met. Otherwise, false.
 	 */
 	public function has_valid_dependencies() {
-		return $this->is_woocommerce_active() && $this->is_woocommerce_version_supported();
+		// We don't need to check is_woocommerce_active() here because is_woocommerce_version_supported() will return false if WooCommerce is not active.
+		return $this->is_woocommerce_version_supported();
 	}
 
 	/**
@@ -45,27 +56,7 @@ class WC_Subscriptions_Dependency_Manager {
 			return true;
 		}
 
-		// Load plugin.php if it's not already loaded.
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		// Check if WC is installed at woocommerce/woocommerce.php.
-		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-			return true;
-		}
-
-		$wc_active = false;
-
-		// Check if WC is installed at any directory. eg xyz/woocommerce.php.
-		foreach ( get_plugins() as $plugin_slug => $plugin_data ) {
-			if ( $this->is_plugin_slug( 'woocommerce', $plugin_slug ) && is_plugin_active( $plugin_slug ) ) {
-				$wc_active = true;
-				break;
-			}
-		}
-
-		return $wc_active;
+		return $this->get_woocommerce_active_version() !== null;
 	}
 
 	/**
@@ -76,45 +67,58 @@ class WC_Subscriptions_Dependency_Manager {
 	 * @return bool true if the WooCommerce version is supported, false otherwise.
 	 */
 	public function is_woocommerce_version_supported() {
-		$wc_version = 0;
-
-		if ( defined( 'WC_VERSION' ) ) {
-			$wc_version = WC_VERSION;
-		} elseif ( function_exists( 'WC' ) ) {
-			$wc_version = WC()->version;
-		} else {
-			foreach ( get_plugins() as $plugin_slug => $plugin_data ) {
-				// We need to check that this is the active plugin, because get_plugins() returns all plugins (including inactive ones).
-				if ( $this->is_plugin_slug( 'woocommerce', $plugin_slug ) && is_plugin_active( $plugin_slug ) ) {
-					$wc_version = $plugin_data['Version'];
-					break;
-				}
-			}
-		}
-
-		if ( empty( $wc_version ) ) {
-			return false;
-		}
-
-		return version_compare( $wc_version, $this->minimum_supported_wc_version, '>=' );
+		return version_compare(
+			// In php8.2+ version_compare requires a string so ensure we always pass a string.
+			// version_compare treats an empty string as less than 0.
+			$this->get_woocommerce_active_version() ?? '',
+			$this->minimum_supported_wc_version,
+			'>='
+		);
 	}
 
 	/**
-	 * Checks if a given plugin slug is for a specific plugin.
+	 * This method detects the active version of WooCommerce.
 	 *
-	 * Helpful when the plugin is installed in a directory other than the plugin name.
-	 * eg works for situations like:
-	 * - woocommerce/woocommerce.php
-	 * - woocommerce-trunk/woocommerce.php
-	 * - woocommerce-7.1.0/woocommerce.php
+	 * The resulting version is based on the WooCommerce plugin data. The WooCommerce plugin is determined by this logic:
+	 * 1. Installed at 'woocommerce/woocommerce.php'
+	 * 2. Installed at any '{x}/woocommerce.php' where the plugin name is 'WooCommerce'
 	 *
-	 * @param string $plugin_name The plugin name. eg 'woocommerce'.
-	 * @param string $plugin_slug The plugin slug. eg 'woocommerce/woocommerce.php'.
-	 *
-	 * @return bool True if the plugin slug is for the given plugin name. Otherwise, false.
+	 * @return string|null The active WooCommerce version, or null if WooCommerce is not active.
 	 */
-	private function is_plugin_slug( $plugin_name, $plugin_slug ) {
-		return "/$plugin_name.php" === substr( $plugin_slug, -strlen( "/$plugin_name.php" ) );
+	private function get_woocommerce_active_version() {
+		// Use a cached value to avoid calling get_plugins() and looping multiple times.
+		if ( true === $this->wc_version_cached ) {
+			return $this->wc_active_version;
+		}
+
+		$this->wc_version_cached = true;
+
+		// Load plugin.php if it's not already loaded.
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		// Loop through all active plugins and check if WooCommerce is active.
+		foreach ( get_plugins() as $plugin_slug => $plugin_data ) {
+			$is_woocommerce = false;
+
+			/**
+			 * The WooCommerce plugin can be installed in two supported ways:
+			 *   1. Installed at 'woocommerce/woocommerce.php'
+			 *   2. Installed at any '{x}/woocommerce.php' where the plugin name is 'WooCommerce'
+			 */
+			if ( 'woocommerce/woocommerce.php' === $plugin_slug ) {
+				$is_woocommerce = true;
+			} elseif ( 'woocommerce.php' === basename( $plugin_slug ) && 'WooCommerce' === $plugin_data['Name'] ) {
+				$is_woocommerce = true;
+			}
+
+			if ( $is_woocommerce && is_plugin_active( $plugin_slug ) ) {
+				$this->wc_active_version = $plugin_data['Version'];
+			}
+		}
+
+		return $this->wc_active_version;
 	}
 
 	/**

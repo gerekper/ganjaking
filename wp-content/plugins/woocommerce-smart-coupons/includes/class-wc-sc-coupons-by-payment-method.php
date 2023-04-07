@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.3.1
+ * @version     1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -130,9 +130,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$payment_method_ids = ( isset( $_POST['wc_sc_payment_method_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_payment_method_ids'] ) ) : array(); // phpcs:ignore
 

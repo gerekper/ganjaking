@@ -85,19 +85,19 @@ class WC_Pre_Orders_Extend_Store_API {
 	public static function extend_cart_item_schema() {
 		return array(
 			'availability'      => array(
-				'description' => __( 'Availability date for product.', 'wc-pre-orders' ),
+				'description' => __( 'Availability date for product.', 'woocommerce-pre-orders' ),
 				'type'        => array( 'string', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'charged_upon_release'    => array(
-				'description' => __( 'Indicates if customer is going to be charged only when product is released.', 'wc-pre-orders' ),
+				'description' => __( 'Indicates if customer is going to be charged only when product is released.', 'woocommerce-pre-orders' ),
 				'type'        => array( 'boolean', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'charged_upfront'    => array(
-				'description' => __( 'Indicates if customer is going to be charged upfront.', 'wc-pre-orders' ),
+				'description' => __( 'Indicates if customer is going to be charged upfront.', 'woocommerce-pre-orders' ),
 				'type'        => array( 'boolean', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

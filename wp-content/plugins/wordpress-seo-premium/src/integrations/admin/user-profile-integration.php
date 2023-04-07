@@ -185,24 +185,6 @@ class User_Profile_Integration implements Integration_Interface {
 	}
 
 	/**
-	 * Builds the arguments for filter_var_array which makes sure we only get the fields that we've defined above.
-	 *
-	 * @return array Filter arguments.
-	 */
-	private function build_filter_args() {
-		$args = [];
-		foreach ( $this->fields as $key => $field ) {
-			if ( $field['type'] === 'group' ) {
-				continue;
-			}
-			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-			$args[ $key ] = @\FILTER_SANITIZE_STRING;
-		}
-
-		return $args;
-	}
-
-	/**
 	 * Gets the posted user fields and sanitizes them.
 	 *
 	 * As we output these values straight from the database both on frontend and backend, this sanitization is quite important.

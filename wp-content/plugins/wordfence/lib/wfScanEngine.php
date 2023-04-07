@@ -14,6 +14,8 @@ require_once(__DIR__ . '/wfCurlInterceptor.php');
 
 class wfScanEngine {
 	const SCAN_MANUALLY_KILLED = -999;
+	
+	private static $scanIsRunning = false; //Indicates that the scan is running in this specific process
 
 	public $api = false;
 	private $dictWords = array();
@@ -77,6 +79,21 @@ class wfScanEngine {
 	private $metrics = array();
 
 	private $checkHowGetIPsRequestTime = 0;
+	
+	/**
+	 * Returns whether or not the Wordfence scan is running. When $inThisProcessOnly is true, it returns true only
+	 * if the scan is running in this process. Otherwise it returns true if the scan is running at all.
+	 * 
+	 * @param bool $inThisProcessOnly
+	 * @return bool
+	 */
+	public static function isScanRunning($inThisProcessOnly = true) {
+		if ($inThisProcessOnly) {
+			return self::$scanIsRunning;
+		}
+		
+		return wfScanner::shared()->isRunning();
+	}
 
 	public static function testForFullPathDisclosure($url = null, $filePath = null) {
 		if ($url === null && $filePath === null) {
@@ -195,6 +212,7 @@ class wfScanEngine {
 	}
 
 	public function go() {
+		self::$scanIsRunning = true;
 		try {
 			self::checkForKill();
 			$this->doScan();
@@ -216,6 +234,7 @@ class wfScanEngine {
 			if (wfCentral::isConnected()) {
 				wfCentral::updateScanStatus();
 			}
+			self::$scanIsRunning = false;
 		} catch (wfScanEngineDurationLimitException $e) {
 			wfConfig::set('lastScanCompleted', $e->getMessage());
 			wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_DURATION_REACHED);
@@ -227,6 +246,7 @@ class wfScanEngine {
 			$this->submitMetrics();
 
 			wfScanEngine::refreshScanNotification($this->i);
+			self::$scanIsRunning = false;
 			throw $e;
 		} catch (wfScanEngineCoreVersionChangeException $e) {
 			wfConfig::set('lastScanCompleted', $e->getMessage());
@@ -240,6 +260,7 @@ class wfScanEngine {
 			$this->deleteNewIssues();
 
 			wfScanEngine::refreshScanNotification($this->i);
+			self::$scanIsRunning = false;
 			throw $e;
 		} catch (wfScanEngineTestCallbackFailedException $e) {
 			wfConfig::set('lastScanCompleted', $e->getMessage());
@@ -252,6 +273,7 @@ class wfScanEngine {
 			$this->submitMetrics();
 
 			wfScanEngine::refreshScanNotification($this->i);
+			self::$scanIsRunning = false;
 			throw $e;
 		} catch (Exception $e) {
 			if ($e->getCode() != wfScanEngine::SCAN_MANUALLY_KILLED) {
@@ -265,6 +287,7 @@ class wfScanEngine {
 			$this->submitMetrics();
 
 			wfScanEngine::refreshScanNotification($this->i);
+			self::$scanIsRunning = false;
 			throw $e;
 		}
 	}
@@ -2016,9 +2039,9 @@ class wfScanEngine {
 						if ($vulnerable) {
 							$severity = wfIssues::SEVERITY_CRITICAL;
 							$statusArray['vulnerable'] = true;
-							if (is_string($vulnerable)) {
-								$statusArray['vulnerabilityLink'] = $vulnerable;
-							}
+							if (is_array($vulnerable) && isset($vulnerable['vulnerabilityLink'])) { $statusArray['vulnerabilityLink'] = $vulnerable['vulnerabilityLink']; }
+							if (is_array($vulnerable) && isset($vulnerable['cvssScore'])) { $statusArray['cvssScore'] = $vulnerable['cvssScore']; }
+							if (is_array($vulnerable) && isset($vulnerable['cvssVector'])) { $statusArray['cvssVector'] = $vulnerable['cvssVector']; }
 						}
 
 						if (isset($allPlugins[$slug]) && isset($allPlugins[$slug]['wpURL'])) {
@@ -2084,9 +2107,9 @@ class wfScanEngine {
 								$vulnerable = $this->updateCheck->isPluginVulnerable($slug, $pluginData['Version']);
 								if ($vulnerable) {
 									$pluginData['vulnerable'] = true;
-									if (is_string($vulnerable)) {
-										$pluginData['vulnerabilityLink'] = $vulnerable;
-									}
+									if (is_array($vulnerable) && isset($vulnerable['vulnerabilityLink'])) { $statusArray['vulnerabilityLink'] = $vulnerable['vulnerabilityLink']; }
+									if (is_array($vulnerable) && isset($vulnerable['cvssScore'])) { $statusArray['cvssScore'] = $vulnerable['cvssScore']; }
+									if (is_array($vulnerable) && isset($vulnerable['cvssVector'])) { $statusArray['cvssVector'] = $vulnerable['cvssVector']; }
 								}
 
 								$key = "wfPluginRemoved {$slug} {$pluginData['Version']}";
@@ -2137,8 +2160,9 @@ class wfScanEngine {
 						$plugin['Name'],
 						wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_PLUGIN_VULNERABLE)
 					);
-					if (is_string($plugin['vulnerable']))
-						$plugin['vulnerabilityLink'] = $plugin['vulnerable'];
+					if (is_array($plugin['vulnerable']) && isset($plugin['vulnerable']['vulnerabilityLink'])) { $statusArray['vulnerabilityLink'] = $plugin['vulnerable']['vulnerabilityLink']; }
+					if (is_array($plugin['vulnerable']) && isset($plugin['vulnerable']['cvssScore'])) { $statusArray['cvssScore'] = $plugin['vulnerable']['cvssScore']; }
+					if (is_array($plugin['vulnerable']) && isset($plugin['vulnerable']['cvssVector'])) { $statusArray['cvssVector'] = $plugin['vulnerable']['cvssVector']; }
 					$plugin['updatedAvailable'] = false;
 					$added = $this->addIssue('wfPluginVulnerable', wfIssues::SEVERITY_CRITICAL, $key, $key, $shortMsg, $longMsg, $plugin);
 					if ($added == wfIssues::ISSUE_ADDED || $added == wfIssues::ISSUE_UPDATED) { $haveIssues = wfIssues::STATUS_PROBLEM; }

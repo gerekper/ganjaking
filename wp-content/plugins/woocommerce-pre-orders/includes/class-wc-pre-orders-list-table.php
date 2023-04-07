@@ -43,8 +43,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		parent::__construct(
 			array(
-				'singular' => __( 'Pre-order', 'wc-pre-orders' ),
-				'plural'   => __( 'Pre-orders', 'wc-pre-orders' ),
+				'singular' => __( 'Pre-order', 'woocommerce-pre-orders' ),
+				'plural'   => __( 'Pre-orders', 'woocommerce-pre-orders' ),
 				'ajax'     => false,
 			)
 		);
@@ -61,9 +61,9 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	public function get_bulk_actions() {
 
 		$actions = array(
-			'cancel'   => __( 'Cancel', 'wc-pre-orders' ),
-			'complete' => __( 'Complete', 'wc-pre-orders' ),
-			'message'  => __( 'Customer message', 'wc-pre-orders' ),
+			'cancel'   => __( 'Cancel', 'woocommerce-pre-orders' ),
+			'complete' => __( 'Complete', 'woocommerce-pre-orders' ),
+			'message'  => __( 'Customer message', 'woocommerce-pre-orders' ),
 		);
 
 		return $actions;
@@ -117,7 +117,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			$counts      = array( 'all' => 0 );
 			$trash_count = 0;
 			foreach ( $results as $row ) {
-				if ( 'trash' == $row->status ) {
+				if ( 'trash' === $row->status ) {
 					$trash_count += $row->count;
 				} else {
 					$counts[ $row->status ] = $row->count;
@@ -137,9 +137,9 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 					$base_url = admin_url( 'admin.php?page=wc_pre_orders' );
 
-					// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( isset( $_REQUEST['s'] ) ) {
-						$base_url = add_query_arg( 's', wc_clean( wp_unslash( $_REQUEST['s'] ) ), $base_url );
+						$base_url = add_query_arg( 's', wc_clean( wp_unslash( $_REQUEST['s'] ) ), $base_url ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					}
 
 					$this->views[ $status ] = sprintf( '<a href="%s"%s>%s <span class="count">(%s)</span></a>', add_query_arg( 'pre_order_status', $status, $base_url ), $class, ucfirst( $status ), $count );
@@ -161,6 +161,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	 */
 	public function get_current_pre_order_status( $available_status = null ) {
 		// is there a status view selected?
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$status = isset( $_GET['pre_order_status'] ) ? sanitize_text_field( wp_unslash( $_GET['pre_order_status'] ) ) : 'all';
 
 		// verify the status exists, otherwise default to 'all'
@@ -183,13 +184,13 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		$columns = array(
 			'cb'                => '<input type="checkbox" />',
-			'status'            => '<span class="status_head tips" data-tip="' . wc_sanitize_tooltip( __( 'Status', 'wc-pre-orders' ) ) . '">' . __( 'Status', 'wc-pre-orders' ) . '</span>',
-			'customer'          => __( 'Customer', 'wc-pre-orders' ),
-			'product'           => __( 'Product', 'wc-pre-orders' ),
-			'order'             => __( 'Order', 'wc-pre-orders' ),
-			'order_status'      => __( 'Order status', 'wc-pre-orders' ),
-			'order_date'        => __( 'Order date', 'wc-pre-orders' ),
-			'availability_date' => __( 'Availability date', 'wc-pre-orders' ),
+			'status'            => '<span class="status_head tips" data-tip="' . wc_sanitize_tooltip( __( 'Status', 'woocommerce-pre-orders' ) ) . '">' . __( 'Status', 'woocommerce-pre-orders' ) . '</span>',
+			'customer'          => __( 'Customer', 'woocommerce-pre-orders' ),
+			'product'           => __( 'Product', 'woocommerce-pre-orders' ),
+			'order'             => __( 'Order', 'woocommerce-pre-orders' ),
+			'order_status'      => __( 'Order status', 'woocommerce-pre-orders' ),
+			'order_date'        => __( 'Order date', 'woocommerce-pre-orders' ),
+			'availability_date' => __( 'Availability date', 'woocommerce-pre-orders' ),
 		);
 
 		return $columns;
@@ -253,7 +254,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 					);
 					$cancel_url = wp_nonce_url( $cancel_url, 'cancel_pre_order', 'cancel_pre_order_nonce' );
 
-					$actions['cancel'] = sprintf( '<a href="%s">%s</a>', esc_url( $cancel_url ), esc_html__( 'Cancel', 'wc-pre-orders' ) );
+					$actions['cancel'] = sprintf( '<a href="%s">%s</a>', esc_url( $cancel_url ), esc_html__( 'Cancel', 'woocommerce-pre-orders' ) );
 				}
 
 				$column_content  = sprintf( '<mark class="%s tips" data-tip="%s">%s</mark>', WC_Pre_Orders_Order::get_pre_order_status( $order ), wc_sanitize_tooltip( WC_Pre_Orders_Order::get_pre_order_status_to_display( $order ) ), WC_Pre_Orders_Order::get_pre_order_status_to_display( $order ) );
@@ -287,7 +288,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				break;
 
 			case 'order':
-				$column_content = sprintf( '<a href="%s">%s</a>', $order->get_edit_order_url(), sprintf( __( 'Order %s', 'wc-pre-orders' ), $order->get_order_number() ) );
+				/* translators: %s: order number */
+				$column_content = sprintf( '<a href="%s">%s</a>', $order->get_edit_order_url(), sprintf( __( 'Order %s', 'woocommerce-pre-orders' ), $order->get_order_number() ) );
 				break;
 
 			case 'order_date':
@@ -317,16 +319,17 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	 * @since 1.0
 	 */
 	public function render_messages() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['message'] ) ) {
 
-			$memo = get_transient( $this->message_transient_prefix . $_GET['message'] );
+			$memo = get_transient( $this->message_transient_prefix . wp_kses_post( wp_unslash( $_GET['message'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if ( ! empty( $memo ) ) {
 
-				delete_transient( $this->message_transient_prefix . $_GET['message'] );
+				delete_transient( $this->message_transient_prefix . wp_kses_post( wp_unslash( $_GET['message'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 				if ( ! empty( $memo['messages'] ) ) {
-					echo '<div id="moderated" class="updated"><p>' . $memo['messages'] . '</p></div>';
+					echo '<div id="moderated" class="updated"><p>' . esc_html( $memo['messages'] ) . '</p></div>';
 				}
 			}
 		}
@@ -336,14 +339,16 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	 * Gets the current orderby, defaulting to 'date' if none is selected
 	 */
 	private function get_current_orderby() {
-		return isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'date';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : 'date';
 	}
 
 	/**
 	 * Gets the current orderby, defaulting to 'DESC' if none is selected
 	 */
 	private function get_current_order() {
-		return isset( $_GET['order'] ) ? $_GET['order'] : 'DESC';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return isset( $_GET['order'] ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : 'DESC';
 	}
 
 	/**
@@ -421,12 +426,14 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	 * @return array associative array of WP_Query arguments used to query and populate the list table
 	 */
 	private function add_filter_args( $args ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+
 		global $wpdb;
 
 		// filter by customer
 		if ( isset( $_GET['_customer_user'] ) && $_GET['_customer_user'] > 0 ) {
 			if ( WC_Pre_Orders::is_hpos_enabled() ) {
-				$args['customer_id'] =  (int) $_GET['_customer_user'];
+				$args['customer_id'] = (int) $_GET['_customer_user'];
 			} else {
 				$args['meta_query'][] = array(
 					'key'   => '_customer_user',
@@ -438,24 +445,24 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		$product_ids = array();
 
 		// filter by product
-		if ( isset( $_GET['_product'] ) && $_GET['_product'] > 0 ) {
+		if ( isset( $_GET['_product'] ) && absint( wp_unslash( $_GET['_product'] ) > 0 ) ) {
 			$product_ids[] = absint( $_GET['_product'] );
 		}
 
 		// filter by availability months (find the corresponding products since availability date is set per product)
-		if ( isset( $_GET['availability_date'] ) && $_GET['availability_date'] ) {
+		if ( isset( $_GET['availability_date'] ) && absint( wp_unslash( $_GET['availability_date'] ) ) ) {
 
-			$year  = substr( $_GET['availability_date'], 0, 4 );
-			$month = ltrim( substr( $_GET['availability_date'], 4, 2 ), '0' );
+			$year  = substr( absint( wp_unslash( $_GET['availability_date'] ) ), 0, 4 );
+			$month = ltrim( substr( absint( wp_unslash( $_GET['availability_date'] ) ), 4, 2 ), '0' );
 
 			$products = $wpdb->get_col(
 				$wpdb->prepare(
 					"
-				SELECT DISTINCT post_id
-				FROM {$wpdb->postmeta}
-				WHERE meta_key = '_wc_pre_orders_availability_datetime'
-					AND YEAR( FROM_UNIXTIME( meta_value ) ) = %s AND MONTH( FROM_UNIXTIME( meta_value ) ) = %s
-			",
+					SELECT DISTINCT post_id
+					FROM {$wpdb->postmeta}
+					WHERE meta_key = '_wc_pre_orders_availability_datetime'
+						AND YEAR( FROM_UNIXTIME( meta_value ) ) = %s AND MONTH( FROM_UNIXTIME( meta_value ) ) = %s
+					",
 					$year,
 					$month
 				)
@@ -496,7 +503,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	private function add_view_args( $args ) {
 		$pre_order_status = $this->get_current_pre_order_status();
 
-		if ( 'all' != $pre_order_status ) {
+		if ( 'all' !== $pre_order_status ) {
 			if ( ! isset( $args['meta_query'] ) ) {
 				$args['meta_query'] = array();
 			}
@@ -555,7 +562,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						AND ( meta0.meta_key = '_wc_pre_orders_is_pre_order' AND meta0.meta_value = '1' )
 						AND ( ( orders.billing_email LIKE '%%%1\$s%%' )
 						OR ( meta1.meta_key = '_wc_pre_orders_status' AND meta1.meta_value LIKE '%%%1\$s%%' )
-						OR ( operational_data.order_key LIKE '%%%1\$s%%' ) )",
+						OR ( operational_data.order_key LIKE '%%%1\$s%%' ) )
+						",
 						esc_attr( $search_query ),
 						esc_attr( $search_query ),
 						esc_attr( $search_query )
@@ -568,7 +576,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						SELECT post_id
 						FROM {$wpdb->postmeta}
 						WHERE meta_key IN ('" . implode( "','", $search_fields ) . "')
-						AND meta_value LIKE '%%%s%%'",
+						AND meta_value LIKE '%%%s%%'
+						",
 						esc_attr( $search_query )
 					)
 				);
@@ -663,11 +672,21 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	public function no_items() {
 
 		if ( isset( $_REQUEST['s'] ) ) : ?>
-			<p><?php _e( 'No pre-orders found', 'wc-pre-orders' ); ?></p>
+			<p><?php esc_html_e( 'No pre-orders found', 'woocommerce-pre-orders' ); ?></p>
 		<?php else : ?>
-			<p><?php _e( 'Pre-orders will appear here for you to view and manage once purchased by a customer.', 'wc-pre-orders' ); ?></p>
-			<p><?php printf( __( '%1$sLearn more about managing pre-orders%2$s', 'wc-pre-orders' ), '<a href="http://docs.woothemes.com/document/pre-orders/#section-6" target="_blank">', ' &raquo;</a>' ); ?></p>
-			<p><?php printf( __( '%1$sSetup a product to allow pre-orders%2$s', 'wc-pre-orders' ), '<a href="' . admin_url( 'post-new.php?post_type=product' ) . '">', ' &raquo;</a>' ); ?></p>
+			<p><?php esc_html_e( 'Pre-orders will appear here for you to view and manage once purchased by a customer.', 'woocommerce-pre-orders' ); ?></p>
+			<p>
+				<?php
+					// translators: %1$s = Opening anchor tag for WooCommerce Pre-Orders documentation on WooCommerce.com, %2$s = closing anchor tag
+					printf( esc_html__( '%1$sLearn more about managing pre-orders%2$s', 'woocommerce-pre-orders' ), '<a href="http://docs.woothemes.com/document/pre-orders/#section-6" target="_blank">', ' &raquo;</a>' );
+				?>
+			</p>
+			<p>
+				<?php
+					// translators: %1$s = Opening anchor tag for adding new product, %2$s = closing anchor tag
+					printf( esc_html__( '%1$sSetup a product to allow pre-orders%2$s', 'woocommerce-pre-orders' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=product' ) ) . '">', ' &raquo;</a>' );
+				?>
+			</p>
 			<?php
 		endif;
 	}
@@ -683,7 +702,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	public function extra_tablenav( $which ) {
 		global $woocommerce;
 
-		if ( 'top' == $which ) {
+		if ( 'top' === $which ) {
 			echo '<div class="alignleft actions">';
 
 			$user_string = '';
@@ -703,7 +722,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			}
 			?>
 
-			<select id="dropdown_customers" style="width: 250px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'wc-pre-orders' ); ?>">
+			<select id="dropdown_customers" style="width: 250px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'woocommerce-pre-orders' ); ?>">
 				<?php
 				if ( ! empty( $_GET['_customer_user'] ) ) {
 					echo '<option value="' . esc_attr( $user_id ) . '">' . wp_kses_post( $user_string ) . '</option>';
@@ -711,7 +730,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				?>
 			</select>
 
-			<select id="dropdown_products" class="wc-product-search" style="width: 250px;" name="_product" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc-pre-orders' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+			<select id="dropdown_products" class="wc-product-search" style="width: 250px;" name="_product" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-pre-orders' ); ?>" data-action="woocommerce_json_search_products_and_variations">
 				<?php
 				if ( ! empty( $_GET['_product'] ) ) {
 					echo '<option value="' . esc_attr( $product_id ) . '">' . wp_kses_post( $product_name ) . '</option>';
@@ -722,12 +741,12 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 			$this->render_availability_dates_dropdown();
 
-			submit_button( __( 'Filter', 'wc-pre-orders' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
+			submit_button( esc_html__( 'Filter', 'woocommerce-pre-orders' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
 			echo '</div>';
 
 			// Bulk action fields
 			echo '<div id="bulk-action-fields" style="clear:left;padding-top:10px;display:none;">';
-			echo '<textarea cols="62" rows="3" name="customer_message" placeholder="' . __( 'Optional message to include in the email to the customer', 'wc-pre-orders' ) . '"></textarea>';
+			echo '<textarea cols="62" rows="3" name="customer_message" placeholder="' . esc_html__( 'Optional message to include in the email to the customer', 'woocommerce-pre-orders' ) . '"></textarea>';
 			echo '</div>';
 
 			$javascript = "
@@ -748,7 +767,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				}).trigger( 'change' );
 
 				$( 'span.cancel' ).on( 'click', function( e ) {
-					if ( ! window.confirm( '" . __( 'Are you sure you want to cancel this pre-order?', 'wc-pre-orders' ) . "' ) ) {
+					if ( ! window.confirm( '" . __( 'Are you sure you want to cancel this pre-order?', 'woocommerce-pre-orders' ) . "' ) ) {
 						e.preventDefault();
 					}
 				});
@@ -759,10 +778,10 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			} else {
 				$woocommerce->add_inline_js( $javascript );
 			}
-		} elseif ( 'bottom' == $which ) {
+		} elseif ( 'bottom' === $which ) {
 			// Bulk action fields
 			echo '<div id="bulk-action-fields2" style="clear:left;padding-top:10px;display:none;">';
-			echo '<textarea cols="62" rows="3" name="customer_message2" placeholder="' . __( 'Optional message to include in the email to the customer', 'wc-pre-orders' ) . '"></textarea>';
+			echo '<textarea cols="62" rows="3" name="customer_message2" placeholder="' . esc_html__( 'Optional message to include in the email to the customer', 'woocommerce-pre-orders' ) . '"></textarea>';
 			echo '</div>';
 		}
 	}
@@ -788,17 +807,17 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		$month_count = count( $months );
 
-		if ( ! $month_count || ( 1 == $month_count && 0 == $months[0]->month ) ) {
+		if ( ! $month_count || ( 1 === $month_count && 0 === $months[0]->month ) ) {
 			return;
 		}
 
 		$availability_date = isset( $_GET['availability_date'] ) ? (int) $_GET['availability_date'] : 0;
 		?>
 		<select id="dropdown_availability_dates" name="availability_date" class="wc-enhanced-select" style="width: 250px;">
-			<option<?php selected( $availability_date, 0 ); ?> value='0'><?php esc_html_e( 'Show all availability dates', 'wc-pre-orders' ); ?></option>
+			<option<?php selected( $availability_date, 0 ); ?> value='0'><?php esc_html_e( 'Show all availability dates', 'woocommerce-pre-orders' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
-				if ( 0 == $arc_row->year ) {
+				if ( 0 === $arc_row->year ) {
 					continue;
 				}
 
@@ -810,7 +829,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 					selected( $availability_date, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: %1$s month, %2$d year */
-					esc_html( sprintf( __( '%1$s %2$d', 'wc-pre-orders' ), $wp_locale->get_month( $month ), $year ) )
+					esc_html( sprintf( __( '%1$s %2$d', 'woocommerce-pre-orders' ), $wp_locale->get_month( $month ), $year ) )
 				);
 			}
 			?>

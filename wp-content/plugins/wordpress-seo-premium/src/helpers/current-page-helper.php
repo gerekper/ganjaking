@@ -38,8 +38,6 @@ class Current_Page_Helper {
 	 * Retrieves the current post id.
 	 * Returns 0 if no post id is found.
 	 *
-	 * @codeCoverageIgnore It depends on external request input.
-	 *
 	 * @return integer The post id.
 	 */
 	public function get_current_post_id() {
@@ -53,8 +51,6 @@ class Current_Page_Helper {
 
 	/**
 	 * Retrieves the current post type.
-	 *
-	 * @codeCoverageIgnore It depends on external request input.
 	 *
 	 * @return string The post type.
 	 */
@@ -76,8 +72,6 @@ class Current_Page_Helper {
 
 	/**
 	 * Retrieves the current taxonomy.
-	 *
-	 * @codeCoverageIgnore This function depends on external request input.
 	 *
 	 * @return string The taxonomy.
 	 */

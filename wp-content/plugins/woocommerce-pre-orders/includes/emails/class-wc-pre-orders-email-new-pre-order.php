@@ -28,11 +28,11 @@ class WC_Pre_Orders_Email_New_Pre_Order extends WC_Email {
 		global $wc_pre_orders;
 
 		$this->id          = 'wc_pre_orders_new_pre_order';
-		$this->title       = __( 'New pre-order', 'wc-pre-orders' );
-		$this->description = __( 'New pre-order emails are sent when a pre-order is received.', 'wc-pre-orders' );
+		$this->title       = __( 'New pre-order', 'woocommerce-pre-orders' );
+		$this->description = __( 'New pre-order emails are sent when a pre-order is received.', 'woocommerce-pre-orders' );
 
-		$this->heading = __( 'New pre-order: #{order_number}', 'wc-pre-orders' );
-		$this->subject = __( '[{site_title}] New customer pre-order ({order_number}) - {order_date}', 'wc-pre-orders' );
+		$this->heading = __( 'New pre-order: #{order_number}', 'woocommerce-pre-orders' );
+		$this->subject = __( '[{site_title}] New customer pre-order ({order_number}) - {order_date}', 'woocommerce-pre-orders' );
 
 		$this->template_base  = $wc_pre_orders->get_plugin_path() . '/templates/';
 		$this->template_html  = 'emails/admin-new-pre-order.php';
@@ -134,45 +134,45 @@ class WC_Pre_Orders_Email_New_Pre_Order extends WC_Email {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'    => array(
-				'title'   => __( 'Enable/Disable', 'wc-pre-orders' ),
+				'title'   => __( 'Enable/Disable', 'woocommerce-pre-orders' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable this email notification', 'wc-pre-orders' ),
+				'label'   => __( 'Enable this email notification', 'woocommerce-pre-orders' ),
 				'default' => 'yes',
 			),
 			'recipient'  => array(
-				'title'       => __( 'Recipient(s)', 'wc-pre-orders' ),
+				'title'       => __( 'Recipient(s)', 'woocommerce-pre-orders' ),
 				'type'        => 'text',
 				/* translators: %s: admin email address */
-				'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to <code>%s</code>.', 'wc-pre-orders' ), esc_attr( get_option( 'admin_email' ) ) ),
+				'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to <code>%s</code>.', 'woocommerce-pre-orders' ), esc_attr( get_option( 'admin_email' ) ) ),
 				'placeholder' => '',
 				'default'     => '',
 			),
 			'subject'    => array(
-				'title'       => __( 'Subject', 'wc-pre-orders' ),
+				'title'       => __( 'Subject', 'woocommerce-pre-orders' ),
 				'type'        => 'text',
 				/* translators: %s: email subject */
-				'description' => sprintf( __( 'This controls the email subject line. Leave blank to use the default subject: <code>%s</code>.', 'wc-pre-orders' ), $this->subject ),
+				'description' => sprintf( __( 'This controls the email subject line. Leave blank to use the default subject: <code>%s</code>.', 'woocommerce-pre-orders' ), $this->subject ),
 				'placeholder' => '',
 				'default'     => '',
 			),
 			'heading'    => array(
-				'title'       => __( 'Email heading', 'wc-pre-orders' ),
+				'title'       => __( 'Email heading', 'woocommerce-pre-orders' ),
 				'type'        => 'text',
 				/* translators: %s: email heading */
-				'description' => sprintf( __( 'This controls the main heading contained within the email notification. Leave blank to use the default heading: <code>%s</code>.', 'wc-pre-orders' ), $this->heading ),
+				'description' => sprintf( __( 'This controls the main heading contained within the email notification. Leave blank to use the default heading: <code>%s</code>.', 'woocommerce-pre-orders' ), $this->heading ),
 				'placeholder' => '',
 				'default'     => '',
 			),
 			'email_type' => array(
-				'title'       => __( 'Email type', 'wc-pre-orders' ),
+				'title'       => __( 'Email type', 'woocommerce-pre-orders' ),
 				'type'        => 'select',
-				'description' => __( 'Choose which format of email to send.', 'wc-pre-orders' ),
+				'description' => __( 'Choose which format of email to send.', 'woocommerce-pre-orders' ),
 				'default'     => 'html',
 				'class'       => 'email_type',
 				'options'     => array(
-					'plain'     => __( 'Plain text', 'wc-pre-orders' ),
-					'html'      => __( 'HTML', 'wc-pre-orders' ),
-					'multipart' => __( 'Multipart', 'wc-pre-orders' ),
+					'plain'     => __( 'Plain text', 'woocommerce-pre-orders' ),
+					'html'      => __( 'HTML', 'woocommerce-pre-orders' ),
+					'multipart' => __( 'Multipart', 'woocommerce-pre-orders' ),
 				),
 			),
 		);

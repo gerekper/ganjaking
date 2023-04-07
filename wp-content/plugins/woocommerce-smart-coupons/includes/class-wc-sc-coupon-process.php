@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.3.0
+ * @version     3.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -381,7 +381,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		 */
 		public function update_smart_coupon_balance( $order_id ) {
 
-			if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] ) // phpcs:ignore
+			$post_type = ( $this->is_hpos() && ! empty( $order_id ) ) ? $this->get_post_type( $order_id ) : ( ( ! empty( $_POST['post_type'] ) ) ? wc_clean( wp_unslash( $_POST['post_type'] ) ) : '' ); // phpcs:ignore
+
+			if ( ( 'shop_order' === $post_type && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] ) // phpcs:ignore
 				|| ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) ) // phpcs:ignore
 			) {
 				return;
@@ -464,7 +466,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				return;
 			}
 
-			if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] )// phpcs:ignore
+			$post_type = ( $this->is_hpos() && ! empty( $order_id ) ) ? $this->get_post_type( $order_id ) : ( ( ! empty( $_POST['post_type'] ) ) ? wc_clean( wp_unslash( $_POST['post_type'] ) ) : '' ); // phpcs:ignore
+
+			if ( ( 'shop_order' === $post_type && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] )// phpcs:ignore
 				|| ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) )// phpcs:ignore
 			) {
 				return;

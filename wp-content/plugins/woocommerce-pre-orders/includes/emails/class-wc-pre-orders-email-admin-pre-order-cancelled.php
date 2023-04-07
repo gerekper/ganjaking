@@ -28,11 +28,11 @@ class WC_Pre_Orders_Email_Admin_Pre_Order_Cancelled extends WC_Email {
 		global $wc_pre_orders;
 
 		$this->id          = 'wc_pre_orders_admin_pre_order_cancelled';
-		$this->title       = __( 'Pre-order Cancelled (Admin)', 'wc-pre-orders' );
-		$this->description = __( 'This is an order notification sent to the admin after a pre-order is cancelled.', 'wc-pre-orders' );
+		$this->title       = __( 'Pre-order Cancelled (Admin)', 'woocommerce-pre-orders' );
+		$this->description = __( 'This is an order notification sent to the admin after a pre-order is cancelled.', 'woocommerce-pre-orders' );
 
-		$this->heading = __( 'Pre-order Cancelled', 'wc-pre-orders' );
-		$this->subject = __( '[{site_title}] pre-order from {order_date} has been cancelled', 'wc-pre-orders' );
+		$this->heading = __( 'Pre-order Cancelled', 'woocommerce-pre-orders' );
+		$this->subject = __( '[{site_title}] pre-order from {order_date} has been cancelled', 'woocommerce-pre-orders' );
 
 		$this->template_base  = $wc_pre_orders->get_plugin_path() . '/templates/';
 		$this->template_html  = 'emails/admin-pre-order-cancelled.php';

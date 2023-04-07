@@ -130,7 +130,7 @@ class WC_Pre_Orders_Cart {
 
 				$woocommerce->cart->empty_cart();
 
-				$string = __( 'Your previous cart was emptied because pre-orders must be purchased separately.', 'wc-pre-orders' );
+				$string = __( 'Your previous cart was emptied because pre-orders must be purchased separately.', 'woocommerce-pre-orders' );
 
 				// Backwards compatible (pre 2.1) for outputting notice
 				if ( function_exists( 'wc_add_notice' ) ) {
@@ -152,10 +152,10 @@ class WC_Pre_Orders_Cart {
 			if ( $this->cart_contains_pre_order() ) {
 
 				if ( function_exists( 'wc_add_notice' ) ) {
-					wc_add_notice( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'wc-pre-orders' ), 'error' );
+					wc_add_notice( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'woocommerce-pre-orders' ), 'error' );
 				} else {
 					// Backwards compatible (pre 2.1) for outputting notice.
-					$woocommerce->add_error( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'wc-pre-orders' ) );
+					$woocommerce->add_error( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'woocommerce-pre-orders' ) );
 				}
 
 				$valid = false;
@@ -212,7 +212,7 @@ class WC_Pre_Orders_Cart {
 		return apply_filters(
 			'wc_pre_orders_fee',
 			array(
-				'label'      => __( 'Pre-order fee', 'wc-pre-orders' ),
+				'label'      => __( 'Pre-order fee', 'woocommerce-pre-orders' ),
 				'amount'     => $amount,
 				'tax_status' => WC_Pre_Orders_Product::get_pre_order_fee_tax_status( $product ), // pre order fee inherits tax status of product
 			)

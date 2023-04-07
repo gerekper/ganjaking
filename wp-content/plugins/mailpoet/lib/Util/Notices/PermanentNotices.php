@@ -54,6 +54,9 @@ class PermanentNotices {
   /** @var PendingApprovalNotice */
   private $pendingApprovalNotice;
 
+  /** @var WooCommerceVersionWarning */
+  private $woocommerceVersionWarning;
+
   public function __construct(
     WPFunctions $wp,
     TrackingConfig $trackingConfig,
@@ -75,6 +78,7 @@ class PermanentNotices {
     $this->deprecatedFilterNotice = new DeprecatedFilterNotice($wp);
     $this->disabledMailFunctionNotice = new DisabledMailFunctionNotice($wp, $settings, $subscribersFeature, $mailerFactory);
     $this->pendingApprovalNotice = new PendingApprovalNotice($settings);
+    $this->woocommerceVersionWarning = new WooCommerceVersionWarning($wp);
   }
 
   public function init() {
@@ -125,6 +129,9 @@ class PermanentNotices {
     $this->pendingApprovalNotice->init(
       Menu::isOnMailPoetAdminPage($excludeSetupWizard)
     );
+    $this->woocommerceVersionWarning->init(
+      Menu::isOnMailPoetAdminPage($excludeSetupWizard)
+    );
   }
 
   public function ajaxDismissNoticeHandler() {
@@ -153,6 +160,9 @@ class PermanentNotices {
         break;
       case (DeprecatedFilterNotice::OPTION_NAME):
         $this->deprecatedFilterNotice->disable();
+        break;
+      case (WooCommerceVersionWarning::OPTION_NAME):
+        $this->woocommerceVersionWarning->disable();
         break;
     }
   }

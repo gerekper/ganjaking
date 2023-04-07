@@ -86,32 +86,34 @@ class WC_AM_Order_Admin {
 	public function master_api_key_meta_box( $post_or_order_object ) {
 		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
-			?>
-            <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
-			<?php
-		} else {
-			$user_id = WC_AM_API_RESOURCE_DATA_STORE()->get_user_id_by_order_id( $order->get_id() );
-
-			/**
-			 * Every customer must have a Master API Key, and it is missing, so create it now.
-			 */
-			if ( empty( WC_AM_USER()->get_master_api_key( $user_id ) ) ) {
-				WC_AM_USER()->set_registration_master_key_and_status( $user_id );
-			}
-
-			$mak = WC_AM_USER()->get_master_api_key( $user_id );
-
-			if ( ! empty( $mak ) ) {
+		if ( is_object( $order ) ) {
+			if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 				?>
-                <div class="api_order_licence_keys wc-metaboxes-wrapper">
-					<?php
-					include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-master-api-key.php' );
-					?>
-                </div>
+                <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
 			} else {
-				?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+				$user_id = WC_AM_API_RESOURCE_DATA_STORE()->get_user_id_by_order_id( $order->get_id() );
+
+				/**
+				 * Every customer must have a Master API Key, and it is missing, so create it now.
+				 */
+				if ( empty( WC_AM_USER()->get_master_api_key( $user_id ) ) ) {
+					WC_AM_USER()->set_registration_master_key_and_status( $user_id );
+				}
+
+				$mak = WC_AM_USER()->get_master_api_key( $user_id );
+
+				if ( ! empty( $mak ) ) {
+					?>
+                    <div class="api_order_licence_keys wc-metaboxes-wrapper">
+						<?php
+						include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-master-api-key.php' );
+						?>
+                    </div>
+					<?php
+				} else {
+					?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+				}
 			}
 		}
 	}
@@ -127,143 +129,146 @@ class WC_AM_Order_Admin {
 	public function api_resource_meta_box( $post_or_order_object ) {
 		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
-			?>
-            <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
-			<?php
-		} else {
-			$resources           = array();
-			$sub_parent_id       = 0;
-			$sub_parent_order_id = 0;
-			$sub_resources       = array();
-			$order_screen_id     = WCAM()->get_wc_page_screen_id( 'shop_order' );
-
-			/**
-			 * Subscription resources should be displayed on the Subscription parent order only.
-			 */
-			if ( WCAM()->get_wc_subs_exist() ) {
-				$sub_parent_id = WC_AM_SUBSCRIPTION()->get_parent_id( $order->get_id() );
-
-				if ( (int) $sub_parent_id == (int) $order->get_id() ) {
-					// Use $sub_parent_id, since $post_id would get results only for the current post, not the parent.
-					$sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_id );
-				}
-			}
-
-			if ( ! empty( $sub_resources ) ) {
-				$non_sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_non_wc_subscription_resources_for_order_id( $order->get_id() );
-				$resources         = array_merge( $non_sub_resources, $sub_resources );
-			} else {
-				// If WC Subs exist, but WC Subs is deactvated, the Expires field will display required.
-				$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $order->get_id() );
-			}
-
-			if ( ! empty( $resources ) ) {
+		if ( is_object( $order ) ) {
+			if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 				?>
-                <div class="api_order_licence_keys wc-metaboxes-wrapper">
-					<?php
-					$i = 0;
-
-					foreach ( $resources as $resource ) {
-						// Refreshing cache here will also delete API cache for activations about to be deleted.
-						WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
-
-						// Delete excess API Key activations by activation resource ID.
-						WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
-
-						// This prevents Subscription orders that were switched away from, from displaying API Resources meant for the new Switched order.
-						if ( $order->get_id() == $resource->order_id ) {
-							include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-resources.php' );
-
-							// Update Access Expires
-							if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
-								?>
-                                <input type="hidden" id="current_access_expires[<?php echo $i; ?>]" name="current_access_expires[<?php echo $i; ?>]" value="<?php echo $resource->access_expires ?>">
-								<?php
-								ob_start();
-								?>
-                                /* Datepicker for Access Expires */
-                                jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
-                                showOn: "button",
-                                buttonImage: '<?php echo WCAM()->plugin_url() . 'includes/assets/images/calendar.gif' ?>',
-                                buttonImageOnly: true,
-                                buttonText: "Add More Time",
-                                dateFormat: 'yy-mm-dd',
-                                numberOfMonths: 1,
-                                showButtonPanel: true,
-                                minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date( $resource->access_expires ) ?>',
-                                onSelect: function(datetext) {
-                                var d = new Date(); // for now
-
-                                var h = d.getHours();
-                                h = (h < 10) ? ("0" + h) : h ;
-
-                                var m = d.getMinutes();
-                                m = (m < 10) ? ("0" + m) : m ;
-
-                                var s = d.getSeconds();
-                                s = (s < 10) ? ("0" + s) : s ;
-
-                                datetext = datetext + " " + h + ":" + m + ":" + s;
-
-                                jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).val(datetext);
-                                }
-                                });
-								<?php
-								/*
-								 * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
-								 * }).datepicker( "setDate", '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ); ?>');
-								 * */
-								$javascript = ob_get_clean();
-								WCAM()->wc_am_print_js( $javascript );
-							}
-
-							$i ++;
-						}
-					}
-					?>
-                </div>
+                <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
+			} else {
+				$resources           = array();
+				$sub_parent_id       = 0;
+				$sub_parent_order_id = 0;
+				$sub_resources       = array();
+				$order_screen_id     = WCAM()->get_wc_page_screen_id( 'shop_order' );
+
 				/**
-				 * Javascript
+				 * Subscription resources should be displayed on the Subscription parent order only.
 				 */
-				ob_start();
-				?>
-                /**
-                * Expand API Key Text Input on mouseover
-                */
-                jQuery('.am_expand_text_box').mouseenter(function(){
-                var $this = jQuery(this);
-                if (!$this.data('expand')) {
-                $this.data('expand', true);
-                $this.animate({width:'+=140',left:'-=6px'}, 'linear');
-                $this.siblings('.s').animate({width:'-=140',left:'+=6px'}, 'linear')
-                }
-                $this.focus();
-                $this.select();
-                }).mouseleave(function(){
-                var $this = jQuery(this);
-                $this.data('expand', false);
-                $this.animate({width:'-=140',left:'+=6px'}, 'linear');
-                $this.siblings('.s').animate({width:'+=140',left:'-=6px'}, 'linear')
-                });
-
-				<?php
-				$javascript = ob_get_clean();
-				WCAM()->wc_am_print_js( $javascript );
-			} else {
 				if ( WCAM()->get_wc_subs_exist() ) {
-					$sub_parent_order_id = WC_AM_SUBSCRIPTION()->get_sub_parent_order_id_for_related_order( $order, array( 'renewal' ) );
+					$sub_parent_id = WC_AM_SUBSCRIPTION()->get_parent_id( $order->get_id() );
+
+					if ( (int) $sub_parent_id == (int) $order->get_id() ) {
+						// Use $sub_parent_id, since $post_id would get results only for the current post, not the parent.
+						$sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_id );
+					}
 				}
 
-				if ( ! empty( $sub_parent_order_id ) ) {
-					if ( $order_screen_id == 'woocommerce_page_wc-orders' ) {
-						printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
-					} else {
-						printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
-					}
+				if ( ! empty( $sub_resources ) ) {
+					$non_sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_non_wc_subscription_resources_for_order_id( $order->get_id() );
+					$resources         = array_merge( $non_sub_resources, $sub_resources );
 				} else {
-					?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+					// If WC Subs exist, but WC Subs is deactvated, the Expires field will display required.
+					$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $order->get_id() );
+				}
+
+				if ( ! empty( $resources ) ) {
+					?>
+                    <div class="api_order_licence_keys wc-metaboxes-wrapper">
+						<?php
+						$i = 0;
+
+						foreach ( $resources as $resource ) {
+							// Refreshing cache here will also delete API cache for activations about to be deleted.
+							WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
+
+							// Delete excess API Key activations by activation resource ID.
+							WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
+
+							// This prevents Subscription orders that were switched away from, from displaying API Resources meant for the new Switched order.
+							if ( $order->get_id() == $resource->order_id ) {
+								include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-resources.php' );
+
+								// Update Access Expires
+								if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
+									?>
+                                    <input type="hidden" id="current_access_expires[<?php echo $i; ?>]" name="current_access_expires[<?php echo $i; ?>]"
+                                           value="<?php echo $resource->access_expires ?>">
+									<?php
+									ob_start();
+									?>
+                                    /* Datepicker for Access Expires */
+                                    jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
+                                    showOn: "button",
+                                    buttonImage: '<?php echo WCAM()->plugin_url() . 'includes/assets/images/calendar.gif' ?>',
+                                    buttonImageOnly: true,
+                                    buttonText: "Add More Time",
+                                    dateFormat: 'yy-mm-dd',
+                                    numberOfMonths: 1,
+                                    showButtonPanel: true,
+                                    minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date( $resource->access_expires ) ?>',
+                                    onSelect: function(datetext) {
+                                    var d = new Date(); // for now
+
+                                    var h = d.getHours();
+                                    h = (h < 10) ? ("0" + h) : h ;
+
+                                    var m = d.getMinutes();
+                                    m = (m < 10) ? ("0" + m) : m ;
+
+                                    var s = d.getSeconds();
+                                    s = (s < 10) ? ("0" + s) : s ;
+
+                                    datetext = datetext + " " + h + ":" + m + ":" + s;
+
+                                    jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).val(datetext);
+                                    }
+                                    });
+									<?php
+									/*
+									 * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
+									 * }).datepicker( "setDate", '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ); ?>');
+									 * */
+									$javascript = ob_get_clean();
+									WCAM()->wc_am_print_js( $javascript );
+								}
+
+								$i ++;
+							}
+						}
+						?>
+                    </div>
+					<?php
+					/**
+					 * Javascript
+					 */
+					ob_start();
+					?>
+                    /**
+                    * Expand API Key Text Input on mouseover
+                    */
+                    jQuery('.am_expand_text_box').mouseenter(function(){
+                    var $this = jQuery(this);
+                    if (!$this.data('expand')) {
+                    $this.data('expand', true);
+                    $this.animate({width:'+=140',left:'-=6px'}, 'linear');
+                    $this.siblings('.s').animate({width:'-=140',left:'+=6px'}, 'linear')
+                    }
+                    $this.focus();
+                    $this.select();
+                    }).mouseleave(function(){
+                    var $this = jQuery(this);
+                    $this.data('expand', false);
+                    $this.animate({width:'-=140',left:'+=6px'}, 'linear');
+                    $this.siblings('.s').animate({width:'+=140',left:'-=6px'}, 'linear')
+                    });
+
+					<?php
+					$javascript = ob_get_clean();
+					WCAM()->wc_am_print_js( $javascript );
+				} else {
+					if ( WCAM()->get_wc_subs_exist() ) {
+						$sub_parent_order_id = WC_AM_SUBSCRIPTION()->get_sub_parent_order_id_for_related_order( $order, array( 'renewal' ) );
+					}
+
+					if ( ! empty( $sub_parent_order_id ) ) {
+						if ( $order_screen_id == 'woocommerce_page_wc-orders' ) {
+							printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+						} else {
+							printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+						}
+					} else {
+						?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+					}
 				}
 			}
 		}
@@ -280,89 +285,91 @@ class WC_AM_Order_Admin {
 	public function api_resource_activation_meta_box( $post_or_order_object ) {
 		$order = ( $post_or_order_object instanceof WP_Post ) ? WC_AM_ORDER_DATA_STORE()->get_order_object( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
-			?>
-            <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
-			<?php
-		} else {
-			$activation_resources  = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order->get_id() );
-			$order_contains_switch = ! empty( $activation_resources[ 0 ]->sub_item_id ) && WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $order->get_id() );
-
-			/**
-			 * Subscription activations should be displayed on the Subscription parent, or Switched Subscription, order only.
-			 */
-			if ( ! empty( $activation_resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $activation_resources[ 0 ]->sub_parent_id != $order->get_id() ) {
+		if ( is_object( $order ) ) {
+			if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 				?>
-                <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
+                <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
-			} elseif ( ! empty( $activation_resources ) ) {
-				include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-activations.php' );
-				/**
-				 * Delete Activation Javascript
-				 */
-				ob_start();
-				?>
-                jQuery( '#activations-table' ).on( 'click', 'button.delete_api_key', function( e ){
-                e.preventDefault();
-
-                var answer = confirm('<?php echo esc_js( __( 'Are you sure you want to delete this activation?', 'woocommerce-api-manager' ) ); ?>');
-
-                if ( answer ){
-                var el              = jQuery( this ).parent().parent();
-                var instance        = jQuery( this ).attr( 'instance' );
-                var order_id        = jQuery( this ).attr( 'order_id' );
-                var sub_parent_id   = jQuery( this ).attr( 'sub_parent_id' );
-                var api_key         = jQuery( this ).attr( 'api_key' );
-                var product_id      = jQuery( this ).attr( 'product_id' );
-                var user_id         = jQuery( this ).attr( 'user_id' );
-
-                if ( instance ) {
-                jQuery(el).block({
-                message: null,
-                overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-                }
-                });
-
-                var data = {
-                action:         'wc_api_manager_delete_activation',
-                instance:       instance,
-                order_id:       order_id,
-                sub_parent_id:  sub_parent_id,
-                api_key:        api_key,
-                product_id:     product_id,
-                user_id:        user_id,
-                security:       '<?php echo wp_create_nonce( "am-delete-activation" ); ?>'
-                };
-
-                jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function( response ) {
-                // Success
-                jQuery(el).fadeOut('300', function(){
-                jQuery(el).remove();
-                });
-
-                location.reload(true);
-                });
-
-                } else {
-                jQuery( el ).fadeOut('300', function(){
-                jQuery( el ).remove();
-                });
-                }
-
-                }
-
-                return false;
-                });
-
-				<?php
-				$javascript = ob_get_clean();
-				WCAM()->wc_am_print_js( $javascript );
 			} else {
-				?>
-                <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
-				<?php
+				$activation_resources  = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order->get_id() );
+				$order_contains_switch = ! empty( $activation_resources[ 0 ]->sub_item_id ) && WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $order->get_id() );
+
+				/**
+				 * Subscription activations should be displayed on the Subscription parent, or Switched Subscription, order only.
+				 */
+				if ( ! empty( $activation_resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $activation_resources[ 0 ]->sub_parent_id != $order->get_id() ) {
+					?>
+                    <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
+					<?php
+				} elseif ( ! empty( $activation_resources ) ) {
+					include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-activations.php' );
+					/**
+					 * Delete Activation Javascript
+					 */
+					ob_start();
+					?>
+                    jQuery( '#activations-table' ).on( 'click', 'button.delete_api_key', function( e ){
+                    e.preventDefault();
+
+                    var answer = confirm('<?php echo esc_js( __( 'Are you sure you want to delete this activation?', 'woocommerce-api-manager' ) ); ?>');
+
+                    if ( answer ){
+                    var el              = jQuery( this ).parent().parent();
+                    var instance        = jQuery( this ).attr( 'instance' );
+                    var order_id        = jQuery( this ).attr( 'order_id' );
+                    var sub_parent_id   = jQuery( this ).attr( 'sub_parent_id' );
+                    var api_key         = jQuery( this ).attr( 'api_key' );
+                    var product_id      = jQuery( this ).attr( 'product_id' );
+                    var user_id         = jQuery( this ).attr( 'user_id' );
+
+                    if ( instance ) {
+                    jQuery(el).block({
+                    message: null,
+                    overlayCSS: {
+                    background: '#fff',
+                    opacity: 0.6
+                    }
+                    });
+
+                    var data = {
+                    action:         'wc_api_manager_delete_activation',
+                    instance:       instance,
+                    order_id:       order_id,
+                    sub_parent_id:  sub_parent_id,
+                    api_key:        api_key,
+                    product_id:     product_id,
+                    user_id:        user_id,
+                    security:       '<?php echo wp_create_nonce( "am-delete-activation" ); ?>'
+                    };
+
+                    jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function( response ) {
+                    // Success
+                    jQuery(el).fadeOut('300', function(){
+                    jQuery(el).remove();
+                    });
+
+                    location.reload(true);
+                    });
+
+                    } else {
+                    jQuery( el ).fadeOut('300', function(){
+                    jQuery( el ).remove();
+                    });
+                    }
+
+                    }
+
+                    return false;
+                    });
+
+					<?php
+					$javascript = ob_get_clean();
+					WCAM()->wc_am_print_js( $javascript );
+				} else {
+					?>
+                    <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
+					<?php
+				}
 			}
 		}
 	}

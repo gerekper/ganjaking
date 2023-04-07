@@ -89,7 +89,7 @@ class Redsys_Pay_One_Clic {
 		$order->set_payment_method( $gateways['redsys'] );
 		$order->calculate_totals();
 		// Update the status and add a note.
-		$order->update_status( 'pending’', 'Redsys Pay with 1clic!', true );
+		$order->update_status( 'pending', 'Redsys Pay with 1clic!', true );
 		// Save.
 		$order->save();
 

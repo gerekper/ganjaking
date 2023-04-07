@@ -8,7 +8,7 @@
 <body>
 <?php 
 ob_start();
-phpinfo(INFO_ALL); 
+if (wfUtils::funcEnabled('phpinfo')) { phpinfo(INFO_ALL); } else { echo '<center><strong>' . esc_html__('Unable to output phpinfo content because it is disabled', 'wordfence') . "</strong></center>\n"; }
 $out = ob_get_clean();
 $out = str_replace('width="600"','width="900"', $out);
 // $out = preg_replace('/<hr.*?PHP Credits.*?<\/h1>/s', '', $out);

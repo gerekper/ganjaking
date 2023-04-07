@@ -20,20 +20,20 @@ echo esc_html( wp_strip_all_tags( $email_heading ) );
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
 /* translators: %s: availability date */
-$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'wc-pre-orders' ), $availability_date ) : '.';
+$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'woocommerce-pre-orders' ), $availability_date ) : '.';
 
 if ( WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) ) :
 
 	if ( WC_Pre_Orders_Order::order_has_payment_token( $order ) ) {
 		/* translators: %s: availability date */
-		echo sprintf( esc_html__( 'Your pre-order has been received. You will be automatically charged for your order via your selected payment method when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), esc_html( $availability_date_text ) ) . "\n\n";
+		echo sprintf( esc_html__( 'Your pre-order has been received. You will be automatically charged for your order via your selected payment method when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), esc_html( $availability_date_text ) ) . "\n\n";
 	} else {      /* translators: %s: availability date */
-		echo sprintf( esc_html__( 'Your pre-order has been received. You will be prompted for payment for your order when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), esc_html( $availability_date_text ) ) . "\n\n";
+		echo sprintf( esc_html__( 'Your pre-order has been received. You will be prompted for payment for your order when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), esc_html( $availability_date_text ) ) . "\n\n";
 
 	} else :
 
 		/* translators: %s: availability date */
-		echo sprintf( esc_html__( 'Your pre-order has been received. You will be notified when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), esc_html( $availability_date_text ) ) . "\n\n";
+		echo sprintf( esc_html__( 'Your pre-order has been received. You will be notified when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), esc_html( $availability_date_text ) ) . "\n\n";
 
 endif;
 

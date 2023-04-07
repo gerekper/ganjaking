@@ -41,7 +41,7 @@ function rocket_export_options() {
  * @since 2.7
  *
  * @param  string $key    The option name.
- * @param  string $value  The value of the option.
+ * @param  mixed  $value  The value of the option.
  * @return void
  */
 function update_rocket_option( $key, $value ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
@@ -408,6 +408,7 @@ function get_rocket_cache_query_string() { // phpcs:ignore WordPress.NamingConve
  */
 function rocket_valid_key() {
 	return true;
+
 }
 
 /**

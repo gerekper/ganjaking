@@ -7,11 +7,13 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\API\JSON\ResponseBuilders\SubscribersResponseBuilder;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Listing\ListingDefinition;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
 use MailPoet\Subscribers\RequiredCustomFieldValidator;
@@ -65,6 +67,9 @@ class Subscribers {
   /** @var SubscriberListingRepository */
   private $subscriberListingRepository;
 
+  /** @var Unsubscribes */
+  private $unsubscribesTracker;
+
   public function __construct (
     ConfirmationEmailMailer $confirmationEmailMailer,
     NewSubscriberNotificationMailer $newSubscriberNotificationMailer,
@@ -77,7 +82,8 @@ class Subscribers {
     WelcomeScheduler $welcomeScheduler,
     RequiredCustomFieldValidator $requiredCustomFieldsValidator,
     SubscriberListingRepository $subscriberListingRepository,
-    WPFunctions $wp
+    WPFunctions $wp,
+    Unsubscribes $unsubscribesTracker
   ) {
     $this->confirmationEmailMailer = $confirmationEmailMailer;
     $this->newSubscriberNotificationMailer = $newSubscriberNotificationMailer;
@@ -91,6 +97,7 @@ class Subscribers {
     $this->requiredCustomFieldsValidator = $requiredCustomFieldsValidator;
     $this->wp = $wp;
     $this->subscriberListingRepository = $subscriberListingRepository;
+    $this->unsubscribesTracker = $unsubscribesTracker;
   }
 
   public function getSubscriber($subscriberIdOrEmail): array {
@@ -232,6 +239,28 @@ class Subscribers {
     return $this->subscribersResponseBuilder->build($subscriber);
   }
 
+  public function unsubscribe($subscriberIdOrEmail): array {
+    $this->checkSubscriberParam($subscriberIdOrEmail);
+    $subscriber = $this->findSubscriber($subscriberIdOrEmail);
+
+    if ($subscriber->getStatus() === SubscriberEntity::STATUS_UNSUBSCRIBED) {
+      throw new APIException(__('This subscriber is already unsubscribed.', 'mailpoet'), APIException::SUBSCRIBER_ALREADY_UNSUBSCRIBED);
+    }
+
+    $this->unsubscribesTracker->track(
+      (int)$subscriber->getId(),
+      StatisticsUnsubscribeEntity::SOURCE_MP_API
+    );
+
+    $subscriber->setStatus(SubscriberEntity::STATUS_UNSUBSCRIBED);
+    $this->subscribersRepository->persist($subscriber);
+    $this->subscribersRepository->flush();
+
+    $this->subscribersSegmentRepository->unsubscribeFromSegments($subscriber);
+
+    return $this->subscribersResponseBuilder->build($subscriber);
+  }
+
   public function unsubscribeFromLists($subscriberIdOrEmail, array $listIds): array {
     $this->checkSubscriberAndListParams($subscriberIdOrEmail, $listIds);
     $subscriber = $this->findSubscriber($subscriberIdOrEmail);
@@ -324,6 +353,13 @@ class Subscribers {
     if (empty($listIds)) {
       throw new APIException(__('At least one segment ID is required.', 'mailpoet'), APIException::SEGMENT_REQUIRED);
     }
+    $this->checkSubscriberParam($subscriberIdOrEmail);
+  }
+
+  /**
+   * @throws APIException
+   */
+  private function checkSubscriberParam($subscriberIdOrEmail): void {
     if (empty($subscriberIdOrEmail)) {
       throw new APIException(__('A subscriber is required.', 'mailpoet'), APIException::SUBSCRIBER_NOT_EXISTS);
     }

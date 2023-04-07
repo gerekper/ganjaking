@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -217,21 +217,19 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		/**
 		 * Function to update list of global coupons
 		 *
-		 * @param int      $post_id The post id.
-		 * @param string   $action Action.
-		 * @param WC_Coupn $coupon The coupon object.
+		 * @param int       $post_id The post id.
+		 * @param string    $action Action.
+		 * @param WC_Coupon $coupon The coupon object.
 		 */
 		public function sc_update_global_coupons( $post_id, $action = 'add', $coupon = null ) {
 			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( 'shop_coupon' !== get_post_type( $post_id ) ) {
+			if ( 'shop_coupon' !== $this->get_post_type( $post_id ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $post_id );
 
 			$coupon_status = ( $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $post_id );
 
@@ -282,7 +280,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( 'shop_coupon' !== get_post_type( $post_id ) ) {
+			if ( 'shop_coupon' !== $this->get_post_type( $post_id ) ) {
 				return;
 			}
 
@@ -298,7 +296,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 			if ( empty( $post_id ) ) {
 				return;
 			}
-			if ( 'shop_coupon' !== get_post_type( $post_id ) ) {
+			if ( 'shop_coupon' !== $this->get_post_type( $post_id ) ) {
 				return;
 			}
 

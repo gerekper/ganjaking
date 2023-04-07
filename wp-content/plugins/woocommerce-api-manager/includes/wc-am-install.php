@@ -184,7 +184,7 @@ class WC_AM_Install {
 			$this->maybe_enable_setup_wizard();
 			$this->update_wc_am_version();
 			$this->maybe_update_db_version();
-			WC_AM_SMART_CACHE()->queue_delete_transient( 'wc_am_installing' );
+			WC_AM_SMART_CACHE()->delete_transients( 'wc_am_installing' );
 
 			flush_rewrite_rules();
 			do_action( 'wc_api_manager_flush_rewrite_rules' );

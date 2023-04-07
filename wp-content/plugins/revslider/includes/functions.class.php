@@ -1290,11 +1290,11 @@ class RevSliderFunctions extends RevSliderData {
 		if (!preg_match_all($pattern, $u_agent, $matches)){ /* */ }
 		// see how many we have
 		$i			= count($matches['browser']);
-		$version	= $matches['version'][0];
+		$version	= $this->get_val($matches, array('version', 0));
 		if ($i != 1) {
 			//we will have two since we are not using the 'other' argument yet
 			//see if the version is before or after the name
-			$version = (strripos($u_agent, 'Version') < strripos($u_agent,$ub)) ? $matches['version'][0] : $matches['version'][1];
+			$version = (strripos($u_agent, 'Version') < strripos($u_agent,$ub)) ? $version : $this->get_val($matches, array('version', 1));
 		}
 
 		// check if we have a number
@@ -1759,28 +1759,28 @@ class RevSliderFunctions extends RevSliderData {
 
 		$gs = $this->get_global_settings();
 
-		if(in_array($this->get_val($gs, 'fontdownload', 'off'), array('preload', 'off'))){
-					$font_face = "@font-face {
+		if($this->get_val($gs, 'fontdownload', 'off') === 'off'){
+			$font_face = "@font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;  
   src: url(//fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
 }";
-				}else{
-					$font_face = "@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;  
-  
-  src: local('Material Icons'),
-    	local('MaterialIcons-Regular'),
-  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
-  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
-		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
-}";
-				}
+		}else{
+			$font_face = "@font-face {
+font-family: 'Material Icons';
+font-style: normal;
+font-weight: 400;  
 
-				$rs_material_icons_css = "/* 
+src: local('Material Icons'),
+local('MaterialIcons-Regular'),
+  url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+  url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
+url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}";
+		}
+
+		$rs_material_icons_css = "/* 
 ICON SET 
 */
 ".$font_face."

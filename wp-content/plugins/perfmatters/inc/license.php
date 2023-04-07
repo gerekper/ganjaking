@@ -61,7 +61,7 @@ echo "<form method='post' action=''>";
 	echo '<div class="perfmatters-settings-section">';
 
 		//tab header
-		echo "<h2>" . __('License', 'perfmatters') . "</h2>";
+		echo "<h2><span class='dashicons dashicons-admin-network'></span>" . __('License', 'perfmatters') . "</h2>";
 
 		echo "<table class='form-table'>";
 			echo "<tbody>";

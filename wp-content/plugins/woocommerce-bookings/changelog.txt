@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-03-27 - version 1.15.78
+* Fix - Update availability rule helper text.
+
 2023-03-21 - version 1.15.77
 * Fix - Product-level Quantities are ignored when a Resource is removed after a Booking.
 * Tweak - WC 7.5.0 compatibility.

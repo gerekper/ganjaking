@@ -127,7 +127,6 @@ class wfDiagnostic
 			'Connectivity' => array(
 				'description' => __('Ability to connect to the Wordfence servers and your own site.', 'wordfence'),
 				'tests' => array(
-					'connectToServer1' => __('Connecting to Wordfence servers (http)', 'wordfence'),
 					'connectToServer2' => __('Connecting to Wordfence servers (https)', 'wordfence'),
 					'connectToSelf' => __('Connecting back to this site', 'wordfence'),
 					'connectToSelfIpv6' => array('raw' => true, 'value' => wp_kses(sprintf(__('Connecting back to this site via IPv6 (not required; failure to connect may not be an issue on some sites) <a href="%s" target="_blank" rel="noopener noreferrer" class="wfhelp"><span class="screen-reader-text"> (opens in new tab)</span></a>', 'wordfence'), wfSupportController::esc_supportURL(wfSupportController::ITEM_DIAGNOSTICS_IPV6)), array('a'=>array('href'=>array(), 'target'=>array(), 'rel'=>array(), 'class'=>array()), 'span'=>array('class'=>array())))),
@@ -596,10 +595,6 @@ class wfDiagnostic
 			'message'  => $isOn ? __('On', 'wordfence') : __('Off', 'wordfence'),
 			'infoOnly' => true,
 		);
-	}
-
-	public function connectToServer1() {
-		return $this->_connectToServer('http');
 	}
 
 	public function connectToServer2() {

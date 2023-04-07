@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.6.0
+ * @version     1.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -228,9 +228,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$is_callable_coupon_update_meta = $this->is_callable( $coupon, 'update_meta_data' );
 

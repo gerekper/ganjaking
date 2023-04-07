@@ -1,8 +1,17 @@
 *** Redsys Gateway Change Log ***
 
+2023.04.02 - version 20.3.0
+
+* UPDATE: Improved InSite with authenticators.
+* UPDATE: Added more non-english caracters to sanitization.
+* UPDATE: Now if the customer language is not in plugin array, the plugin use English language.
+* UPDATE: Improved redirection with modal. Now the modal is closed when the customer press cancel bitton in Redsys.
+* FIX: Fixed an error when Pay with 1click is not active in InSite.
+* FIX: Fixed many Notices and some Warnings.
+
 2023.03.01 - version 20.2.1
 
-* FIX: Temp disabled function for hiding Bizum. I have to check what changed in WooCommerce.
+* FIX: Temp disabled function for hide Bizum. I have to check what changed in WooCommerce.
 
 2023.02.27 - version 20.2.0
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  6.17.1
+ * @version  6.18.3
  */
 class WC_PB_Install {
 
@@ -335,6 +335,10 @@ class WC_PB_Install {
 	public static function create_events() {
 		if ( ! wp_next_scheduled( 'wc_pb_daily' ) ) {
 			wp_schedule_event( time() + 10, 'daily', 'wc_pb_daily' );
+		}
+
+		if ( ! wp_next_scheduled( 'wc_pb_hourly' ) ) {
+			wp_schedule_event( time() + 10, 'hourly', 'wc_pb_hourly' );
 		}
 	}
 

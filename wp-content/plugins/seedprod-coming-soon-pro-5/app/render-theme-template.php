@@ -651,7 +651,7 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 				$is_edited_with_seedprod = get_post_meta( $current_post_id, '_seedprod_edited_with_seedprod', true );
 				if ( 'page' === $current_post_type && ! empty( $is_edited_with_seedprod ) && ! is_search() ) {
 					// Check if page content is password protected.
-					if ( post_password_required( $current_post_id  ) ) {
+					if ( post_password_required( $current_post_id ) ) {
 						$code            = get_the_password_form( $page->ID );
 						$current_post_id = get_the_ID();
 					} else {
@@ -1158,7 +1158,7 @@ function seedprod_pro_render_template_tags_shortcode( $atts ) {
 			global $withcomments;
 			$withcomments = 1; 
 			$output       = comments_template();
-			echo $output; 
+			echo $output;
 		} elseif ( $a['tag'] == 'the_content' && $a['loop'] == 'true' ) {
 			if ( have_posts() ) {
 				while ( have_posts() ) {

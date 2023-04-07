@@ -143,7 +143,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode' ) );
 		add_action( 'ywsbs_pay_renew_order_with_' . $this->id, array( $this, 'renew_yith_subscription' ), 10, 1 );
-		add_action( 'woocommerce_after_checkout_form',  array( $this, 'custom_jquery_checkout' ) );
+		add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );
 
 		// WooCommerce Subscriptions.
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
@@ -277,40 +277,79 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 		$this->form_fields = array(
-			'enabled'              => array(
-				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Enable Servired/RedSys', 'woocommerce-redsys' ),
-				'default' => 'no',
+			'esencial' => array( // Customizations.
+				'title'       => __( 'Essential', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'This is the essential configuration, everything must be filled in. If something is not filled in or is filled in incorrectly, the payment will fail.', 'woocommerce-redsys' ),
 			),
-			'multisitesttings'     => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
+			'enabled'               => array(
+				'title'       => __( 'Enable/Disable', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
+				'label'       => __( 'Enable Servired/RedSys', 'woocommerce-redsys' ),
+				'description' => __( 'Enable this payment method in checkout.', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'hideownsetting'       => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
+			'title'                 => array(
+				'title'       => __( 'Title', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Here add the title which the user sees during checkout. Ex: "Pay with Credit Card', 'woocommerce-redsys' ),
+				'default'     => __( 'Redsys', 'woocommerce-redsys' ),
 			),
-			'ownsetting'           => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
+			'description'           => array(
+				'title'       => __( 'Description', 'woocommerce-redsys' ),
+				'type'        => 'textarea',
+				'description' => __( 'Add here a text or explanation of what this payment method is. It will be displayed at Checkout when the customer selects this payment method.', 'woocommerce-redsys' ),
+				'default'     => __( 'Pay via RedSys; you can pay with your credit card.', 'woocommerce-redsys' ),
 			),
-			'hidegatewaychckout'   => array(
-				'title'   => __( 'Hide in Checkout', 'woocommerce-redsys' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Checking this option, the payment method will be shown only in the user account "Add method"', 'woocommerce-redsys' ),
-				'default' => 'no',
+			'customer'              => array(
+				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Commerce number (FUC) provided by your bank.', 'woocommerce-redsys' ),
 			),
-			'bankingnetwork'       => array(
+			'commercename'          => array(
+				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add here the name of your store. This name is what your customers will normally see when they come to Redsys.', 'woocommerce-redsys' ),
+			),
+			'terminal'              => array(
+				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add here the Terminal Number provided by your bank. If, for example, the number you have been given is "001", enter "1".', 'woocommerce-redsys' ),
+			),
+			'secretsha256'          => array(
+				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank for production.', 'woocommerce-redsys' ),
+			),
+			'customtestsha256'      => array(
+				'title'       => __( 'TEST MODE: Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank for testing.', 'woocommerce-redsys' ),
+			),
+			// *******************************************/
+			'esencial_extra' => array( // Customizations.
+				'title'       => __( 'Essential Extra', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'In some cases, these fields may also be essential, depending on your needs, but if you do not touch them, the gateway will work perfectly.', 'woocommerce-redsys' ),
+			),
+			'merchantgroup'         => array(
+				'title'       => __( 'Merchant Group Number', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'It is an identifier for sharing tokens between websites of the same company. You will not usually have this number, so unless you have expressly requested it from your bank, you should never fill it in.', 'woocommerce-redsys' ),
+			),
+			'descripredsys'         => array(
+				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
+				'type'        => 'select',
+				'description' => __( 'Select what will be displayed in Redsys as the order description. You have, by default, different possibilities, but you can customize them by using a filter. If you are interested in the filter, open a ticket.', 'woocommerce-redsys' ),
+				'default'     => 'order',
+				'options'     => array(
+					'order' => __( 'Order ID', 'woocommerce-redsys' ),
+					'id'    => __( 'List of products ID', 'woocommerce-redsys' ),
+					'name'  => __( 'List of products name', 'woocommerce-redsys' ),
+					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
+				),
+			),
+			'bankingnetwork'        => array(
 				'title'       => __( 'When show redirection', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Select Show when is NOT Banking network, Spain & Portugal or Show to all countries.', 'woocommerce-redsys' ),
@@ -320,7 +359,39 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'showallcountries'   => __( 'Show to all countries', 'woocommerce-redsys' ),
 				),
 			),
-			'usebrowserreceipt'    => array(
+			'multisitesttings'      => array(
+				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'hideownsetting'        => array(
+				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'ownsetting'            => array(
+				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			// *******************************************/
+			'customization_details' => array( // Customizations.
+				'title'       => __( 'Customization', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'Here you can customize how the payment method is displayed at checkout..', 'woocommerce-redsys' ),
+			),
+			'logo'                  => array(
+				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
+			),
+			'usebrowserreceipt'     => array(
 				'title'       => __( 'How to show Redsys', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Select how do you want to show Redsys payment page.', 'woocommerce-redsys' ),
@@ -330,251 +401,227 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'iframe'      => __( 'Modal in the checkout.', 'woocommerce-redsys' ),
 				),
 			),
-			'redirectiontime'      => array(
-				'title'       => __( 'Redirection time', 'woocommerce-redsys' ),
+			'buttoncheckout'        => array(
+				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
-				'description' => __( 'If you want users to be immediately redirected to the payment gateway when they press the pay button, don\'t add anything. If you want to give them time to think about it, add the seconds in milliseconds, for example, 5 seconds are 5000 milliseconds.', 'woocommerce-redsys' ),
+				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
 			),
-			'showthankyourecipe'   => array(
-				'title'       => __( 'Show Redsys Authorization Code at the Thank You Page', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'description' => __( 'If you have asked the bank to redirect customers to your site after payment without them having to click on "continue", you must activate this option so that the authorization number requested by Redsys is displayed.', 'woocommerce-redsys' ),
-				'label'       => __( 'Enable Show Authorization Code', 'woocommerce-redsys' ),
-				'default'     => 'no',
-			),
-			'usetokens'            => array(
-				'title'       => __( 'Pay with One Click', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'description' => __( 'With Pay with one Click, users who have bought before in your store should not fill the credit card number in Redsys again. Make sure you have activated in Redsys that he send to your store the credit card number.', 'woocommerce-redsys' ),
-				'label'       => __( 'Enable Pay with One Click', 'woocommerce-redsys' ),
-				'default'     => 'no',
-			),
-			'deletetoken'          => array(
-				'title'   => __( 'Delete expired tokens', 'woocommerce-redsys' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Enable automatically delete tokens if the asociated credit card has expired. WARNING: If your bank is not sending you the expiration dates, and fake dates are being saved, you can delete valid tokens.', 'woocommerce-redsys' ),
-				'default' => 'no',
-			),
-			'lwvactive'            => array(
-				'title'   => __( 'Enable LWV', 'woocommerce-redsys' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Enable LWV. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
-				'default' => 'no',
-			),
-			'traactive'            => array(
-				'title'   => __( 'Enable TRA', 'woocommerce-redsys' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Enable TRA. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
-				'default' => 'no',
-			),
-			'traamount'            => array(
-				'title'       => __( 'Limit import for TRA', 'woocommerce-redsys' ),
+			'butonbgcolor'          => array(
+				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
 				'type'        => 'text',
-				'description' => __( 'TRA will be sent when the amount is inferior to what you specify here. Write the amount without the currency sign, i.e. if it is 250€, ONLY write 250', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
+				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
 			),
-			'notiemail'            => array(
-				'title'       => __( 'Notification email', 'woocommerce-redsys' ),
+			'butontextcolor'        => array(
+				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
 				'type'        => 'text',
-				'description' => __( 'Email errors will arrive to this email', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
+				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
 			),
-			'subsusetokensdisable' => array(
-				'title'       => __( 'Disable Subscription token', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'description' => __( 'Tokenization is enabled by default (Enable Pay with One Click is not needed). Here you can disable tokenization for WooCommerce Subscriptions.', 'woocommerce-redsys' ),
-				'label'       => __( 'Disable Subscription token, it is enabled by default', 'woocommerce-redsys' ),
-				'default'     => 'no',
+			// *******************************************/
+
+			'buls_actions'          => array( // Bulk Actions.
+				'title'       => __( 'Bulk Actions', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'Configure Bulk Actions. By default, they are disabled for security, but you can enable the ones you need. Be aware that they can be dangerous if you use them unintentionally.', 'woocommerce-redsys' ),
 			),
-			'disablesubscrippaid'  => array(
-				'title'       => __( 'Disable mark as paid Subscriptions by plugin', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'description' => __( 'You should only check this option if subscription renewals are marked twice as paid.', 'woocommerce-redsys' ),
-				'label'       => __( 'Disable Subscription paid, it is enabled by default', 'woocommerce-redsys' ),
-				'default'     => 'no',
-			),
-			'usetokensdirect'      => array(
-				'title'       => __( 'One Click in page?', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'description' => __( 'ATTENTION: Pay with one Click has to be active before mark this option. With this option, users to whom you have already collected Tokens for previous purchases, they do not leave the page after pressing the payment button. Your terminal must be unsafe, or it will not work. ', 'woocommerce-redsys' ),
-				'label'       => __( 'Enable One Click in page', 'woocommerce-redsys' ),
-				'default'     => 'no',
-			),
-			'bulkcharge'           => array(
+			'bulkcharge'            => array(
 				'title'       => __( 'Add Bulk Action Immediate Charge', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'ATTENTION: Pay with one Click has to be active before mark this option and terminal has to be NOT SECURE. With this option, you can charge many orders using users cart tokens', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Bulk Action Immediate Charge', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'bulkrefund'           => array(
+			'bulkrefund'            => array(
 				'title'       => __( 'Add Bulk Action Refunds', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'This option adds the bulk action Refunds. For security reasons, do not activate it if not needed', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Bulk Action Refunds', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'checkoutredirect'     => array(
+			// *******************************************/
+
+			'subscriptions_details' => array( // Subscriptions Settings.
+				'title'       => __( 'Subscriptions Settings', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'Configure certain functionalities for subscriptions. You must read well what each one is for. Even if you use subscriptions, you may never need to touch any of the following features.', 'woocommerce-redsys' ),
+			),
+			'subsusetokensdisable'  => array(
+				'title'       => __( 'Disable Subscription token', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'Tokenization is enabled by default (Enable Pay with One Click is not needed). Here you can disable tokenization for WooCommerce Subscriptions. This is a unique feature that triggers a subscription token NOT to be captured. This means that the customer must always make payments manually. Payments can NOT be made automatically if this option is enabled.', 'woocommerce-redsys' ),
+				'label'       => __( 'Disable Subscription token, it is enabled by default', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'disablesubscrippaid'   => array(
+				'title'       => __( 'Disable mark as paid Subscriptions by plugin', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'In some installations, Subscriptions mark orders as paid, while in others, it does not. This causes that in some installations the orders are marked as paid twice, once by the Subscriptions plugin and once by the Redsys plugin. If, in your installation, the orders are marked as paid twice, activate this option so that the Redsys plugin does not mark it as paid.', 'woocommerce-redsys' ),
+				'label'       => __( 'Disable mark Subscription as paid by Redsys plugin', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+
+			'advenced_details'      => array( // Advenced Settings.
+				'title'       => __( 'Advanced', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'Enter your PayPal API credentials to process refunds via PayPal. Learn how to access your.', 'woocommerce-redsys' ),
+			),
+			// *******************************************/
+
+			'csa_details'           => array( // SCs Settings.
+				'title'       => __( 'SCAs', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'SCAs are options that require less customer authentication at the time of payment. You must ask Redsys to activate them before using them, never activate them if they are not active in the terminal or you may be penalized for it.', 'woocommerce-redsys' ),
+			),
+			'lwvactive'             => array(
+				'title'       => __( 'Enable LWV', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Enable SCA LWV.', 'woocommerce-redsys' ),
+				'description' => __( 'Enable SCA LWV. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'traactive'             => array(
+				'title'       => __( 'Enable TRA', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Enable SCA TRA.', 'woocommerce-redsys' ),
+				'description' => __( 'Enable SCA TRA. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'traamount'             => array(
+				'title'       => __( 'Limit import for TRA', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'TRA will be sent when the amount is inferior to what you specify here. Write the amount without the currency sign, i.e. if it is 250€, ONLY write 250', 'woocommerce-redsys' ),
+			),
+			// *******************************************/
+
+			'hidegatewaychckout'    => array(
+				'title'   => __( 'Hide in Checkout', 'woocommerce-redsys' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Checking this option, the payment method will be shown only in the user account "Add method"', 'woocommerce-redsys' ),
+				'default' => 'no',
+			),
+			'redirectiontime'       => array(
+				'title'       => __( 'Redirection time', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'If you want users to be immediately redirected to the payment gateway when they press the pay button, don\'t add anything. If you want to give them time to think about it, add the seconds in milliseconds, for example, 5 seconds are 5000 milliseconds.', 'woocommerce-redsys' ),
+			),
+			'showthankyourecipe'    => array(
+				'title'       => __( 'Show Redsys Authorization Code at the Thank You Page', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'If you have asked the bank to redirect customers to your site after payment without them having to click on "continue", you must activate this option so that the authorization number requested by Redsys is displayed.', 'woocommerce-redsys' ),
+				'label'       => __( 'Enable Show Authorization Code', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'usetokens'             => array(
+				'title'       => __( 'Pay with One Click', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'With Pay with one Click, users who have bought before in your store should not fill the credit card number in Redsys again. Make sure you have activated in Redsys that he send to your store the credit card number.', 'woocommerce-redsys' ),
+				'label'       => __( 'Enable Pay with One Click', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'deletetoken'           => array(
+				'title'   => __( 'Delete expired tokens', 'woocommerce-redsys' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Enable automatically delete tokens if the asociated credit card has expired. WARNING: If your bank is not sending you the expiration dates, and fake dates are being saved, you can delete valid tokens.', 'woocommerce-redsys' ),
+				'default' => 'no',
+			),
+			'notiemail'             => array(
+				'title'       => __( 'Notification email', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Email errors will arrive to this email', 'woocommerce-redsys' ),
+			),
+			'usetokensdirect'       => array(
+				'title'       => __( 'One Click in page?', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'ATTENTION: Pay with one Click has to be active before mark this option. With this option, users to whom you have already collected Tokens for previous purchases, they do not leave the page after pressing the payment button. Your terminal must be unsafe, or it will not work. ', 'woocommerce-redsys' ),
+				'label'       => __( 'Enable One Click in page', 'woocommerce-redsys' ),
+				'default'     => 'no',
+			),
+			'checkoutredirect'      => array(
 				'title'       => __( 'One Click to Checkout', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'ATTENTION: This option can break your website under some circunstances, check your website and checkout before and after enable this option. With this option, the customer is redirected to checkout after add a product to the card. Only activate this option if your customers ONLY buy ONE product every time.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable One Click to Checkout', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'sendemails'           => array(
+			'sendemails'            => array(
 				'title'       => __( 'Send emails', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'Every time that a users fails to pay in Redsys, and email will be send to you with the problem, amount and link to the order details.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Send emails when payment fails', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'sendemailsdscard'     => array(
+			'sendemailsdscard'      => array(
 				'title'       => __( 'Send emails Ds_Card_Number problem', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'If tokenization is used, the filed Ds_Card_number can be a very interesting information. If Redsys isn\'t sending this field and this options is active, and email will be sent to the website administrator.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Send emails Ds_Card_number problem', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'sentemailscustomers'  => array(
+			'sentemailscustomers'   => array(
 				'title'       => __( 'Send emails to customers', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'Every time that a users fails to pay in Redsys, and email will be send to the customer with the problem, This can increase cart recovery.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Send emails to customers when payment fails', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'sendemailthankyou'    => array(
+			'sendemailthankyou'     => array(
 				'title'       => __( 'Notice Thank you problem', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'Every time that a users arrive to Thank you page from Redsys, and the order is not marked as paid, and email will be send to adminsitrator for to warn the administrator to check Redsys to see if payment has been made and a notice will be shown to customer at Thank you Page.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Send email Thank you problem for be noticed', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'sendemailthankyoutxt' => array(
+			'sendemailthankyoutxt'  => array(
 				'title'       => __( 'Text on the thank you page', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the text that will be show to customers that arrive to the Thank You page if their order is not marked as paid.', 'woocommerce-redsys' ),
 				'default'     => __( '<p><b>ATTENTION:</b> You have used Redsys for the payment. We have detected that there may have been a problem with your payment and it has not been marked as paid.  Do not worry, we have detected it and we have received an email with the notice, so we let\'s check it to make sure it has.</p>', 'woocommerce-redsys' ), // phpcs:ignore WordPress.WP.I18n.NoHtmlWrappedStrings
-				'desc_tip'    => true,
 			),
-			'redsyspreauthall'     => array(
+			'redsyspreauthall'      => array(
 				'title'       => __( 'Preauthorization for all payments', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'This option will make all payments as preauthorization. You can capture the payment later in the order details.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Preauthorization for all payments', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'title'                => array(
-				'title'       => __( 'Title', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-redsys' ),
-				'default'     => __( 'Servired/RedSys', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'description'          => array(
-				'title'       => __( 'Description', 'woocommerce-redsys' ),
-				'type'        => 'textarea',
-				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
-				'default'     => __( 'Pay via Servired/RedSys; you can pay with your credit card.', 'woocommerce-redsys' ),
-			),
-			'logo'                 => array(
-				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'buttoncheckout'       => array(
-				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
-			),
-			'butonbgcolor'         => array(
-				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
-				'class'       => 'colorpick',
-			),
-			'butontextcolor'       => array(
-				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
-				'class'       => 'colorpick',
-			),
-			'customer'             => array(
-				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Commerce number (FUC) provided by your bank.', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'merchantgroup'        => array(
-				'title'       => __( 'Merchant Group Number', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'It is an identifier for sharing tokens between websites of the same company', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'commercename'         => array(
-				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Commerce Name', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'terminal'             => array(
-				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'descripredsys'        => array(
-				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
-				'type'        => 'select',
-				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
-				'default'     => 'order',
-				'options'     => array(
-					'order' => __( 'Order ID', 'woocommerce-redsys' ),
-					'id'    => __( 'List of products ID', 'woocommerce-redsys' ),
-					'name'  => __( 'List of products name', 'woocommerce-redsys' ),
-					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
-				),
-			),
-			'useterminal2'         => array(
+			'useterminal2'          => array(
 				'title'       => __( 'Activate Second Terminal', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Activate Second Terminal.', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'If you use a second terminal, you need to add it in the field above and activate it here. You will need to set when use the Second Terminal in the field below.', 'woocommerce-redsys' ) ),
 			),
-			'terminal2'            => array(
+			'terminal2'             => array(
 				'title'       => __( 'Second Terminal', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'If you use a second Terminal number, you need to add here the second terminal provided by your bank', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
 			),
-			'toamount'             => array(
+			'toamount'              => array(
 				'title'       => __( 'Use the Second Terminal from 0 to (Don\'t use Currency Symbol)', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'When will the Second Terminal used? from 0 to...? Add the amount. Ex. Add 100 and the Second Terminal will be used when the amount be from 0 to 100', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
 			),
-			'not_use_https'        => array(
+			'not_use_https'         => array(
 				'title'       => __( 'HTTPS SNI Compatibility', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Activate SNI Compatibility (only activate it if José Conti indicate you).', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'Only use it if José Conti indicate you. WARNING: If you are forcing redirection to HTTPS with htaccess, you need to add an exception for notification URL', 'woocommerce-redsys' ) ),
 			),
-			'redsysordertype'      => array(
+			'redsysordertype'       => array(
 				'title'       => __( 'Order Number Format', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Choose the Order Number Format send to Redsys', 'woocommerce-redsys' ),
 				'default'     => 'threepluszeros',
 				'options'     => array(),
 			),
-			'subfix'               => array(
+			'subfix'                => array(
 				'title'       => __( 'Add a Sufix', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'If you want to add a subfix to your Order number, add it here.', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
 			),
-			'markpending'          => array(
+			'markpending'           => array(
 				'title'       => __( 'Before Pay', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Which status has an order before being paid?', 'woocommerce-redsys' ),
@@ -584,7 +631,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'redsyspending' => __( 'Mark as Pending Redsys Payment', 'woocommerce-redsys' ),
 				),
 			),
-			'orderdo'              => array(
+			'orderdo'               => array(
 				'title'       => __( 'What to do after payment?', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Chose what to do after the customer pay the order.', 'woocommerce-redsys' ),
@@ -594,26 +641,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'completed'  => __( 'Mark as Complete', 'woocommerce-redsys' ),
 				),
 			),
-			'secretsha256'         => array(
-				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank.', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'customtestsha256'     => array(
-				'title'       => __( 'TEST MODE: Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
-				'type'        => 'text',
-				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank for test mode.', 'woocommerce-redsys' ),
-				'desc_tip'    => true,
-			),
-			'redsyslanguage'       => array(
+			'redsyslanguage'        => array(
 				'title'       => __( 'Language Gateway', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Choose the language for the Gateway. Not all Banks accept all languages', 'woocommerce-redsys' ),
 				'default'     => '001',
 				'options'     => array(),
 			),
-			'wooredsysurlko'       => array(
+			'wooredsysurlko'        => array(
 				'title'       => __( 'Return URL (Redsys Error button)', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'When the user press the return button at Redsys Gateway (Ex: The user type an incorrect credit card), you can redirect the user to My Cart page canceling the order, or you can redirect the user to Checkput page without cancel the order.', 'woocommerce-redsys' ),
@@ -623,21 +658,27 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'returnnocancel' => __( 'Don\'t cancel the order and return to Checkout page', 'woocommerce-redsys' ),
 				),
 			),
-			'privateproduct'       => array(
+			'privateproduct'        => array(
 				'title'       => __( 'Private Products', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'Activate Private Products if you need to create products visible per customer', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Private Products', 'woocommerce-redsys' ),
 				'default'     => 'no',
 			),
-			'testmode'             => array(
+			// *******************************************/
+			'test_details'          => array( // Test Settings.
+				'title'       => __( 'Test & Debug', 'woocommerce-redsys' ),
+				'type'        => 'title',
+				'description' => __( 'When you need to perform tests and debug, you can configure everything here. Read what each option is for to configure everything as you need.', 'woocommerce-redsys' ),
+			),
+			'testmode'              => array(
 				'title'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'default'     => 'yes',
-				'description' => sprintf( __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ) ),
+				'description' => __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ),
 			),
-			'testshowgateway'      => array(
+			'testshowgateway'       => array(
 				'title'       => __( 'Show to this users', 'woocommerce-redsys' ),
 				'type'        => 'multiselect',
 				'label'       => __( 'Show the gateway in the chcekout when it is in test mode', 'woocommerce-redsys' ),
@@ -647,14 +688,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'default'     => '',
 				'description' => sprintf( __( 'Select users that will see the gateway when it is in test mode. If no users are selected, will be shown to all users', 'woocommerce-redsys' ) ),
 			),
-			'testforuser'          => array(
+			'testforuser'           => array(
 				'title'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'default'     => 'yes',
 				'description' => sprintf( __( 'The user selected below will use the terminal in test mode. Other users will continue to use live mode unless you have the "Running in test mode" option checked.', 'woocommerce-redsys' ) ),
 			),
-			'testforuserid'        => array(
+			'testforuserid'         => array(
 				'title'       => __( 'Users', 'woocommerce-redsys' ),
 				'type'        => 'multiselect',
 				'label'       => __( 'Users running in test mode', 'woocommerce-redsys' ),
@@ -664,7 +705,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'default'     => '',
 				'description' => sprintf( __( 'Select users running in test mode', 'woocommerce-redsys' ) ),
 			),
-			'debug'                => array(
+			'debug'                 => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
@@ -752,6 +793,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				delete_transient( $order_id . '_iframe' );
 				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized
 				echo '<script>window.top.location.href = "' . esc_url( $actual_link ) . '"</script>';
+				exit();
 			}
 		}
 	}
@@ -1501,14 +1543,33 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		} else {
 			$gatewaylanguage = '001';
 		}
+
+		if ( 'yes' === $redsys->not_use_https ) {
+			$final_notify_url = $redsys->notify_url_not_https;
+		} else {
+			$final_notify_url = $redsys->notify_url;
+		}
+
 		if ( $redsys->wooredsysurlko ) {
 			if ( 'returncancel' === $redsys->wooredsysurlko ) {
-				$returnfromredsys = $order->get_cancel_order_url();
+				if ( 'iframe' === $redsys->usebrowserreceipt ) {
+					$returnfromredsys = $final_notify_url . '&order_id=' . $order->get_id() . '&redsys-step=cancel';
+				} else {
+					$returnfromredsys = $order->get_cancel_order_url();
+				}
 			} else {
-				$returnfromredsys = wc_get_checkout_url();
+				if ( 'iframe' === $redsys->usebrowserreceipt ) {
+					$returnfromredsys = $final_notify_url . '&order_id=' . $order->get_id() . '&redsys-step=cancel';
+				} else {
+					$returnfromredsys = wc_get_checkout_url();
+				}
 			}
 		} else {
-			$returnfromredsys = $order->get_cancel_order_url();
+			if ( 'iframe' === $redsys->usebrowserreceipt ) {
+				$returnfromredsys = $final_notify_url . '&order_id=' . $order->get_id() . '&redsys-step=cancel';
+			} else {
+				$returnfromredsys = $order->get_cancel_order_url();
+			}
 		}
 		if ( 'yes' === $redsys->useterminal2 ) {
 			$toamount  = number_format( $redsys->toamount, 2, '', '' );
@@ -1521,12 +1582,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		} else {
 			$ds_merchant_terminal = $redsys->terminal;
-		}
-
-		if ( 'yes' === $redsys->not_use_https ) {
-			$final_notify_url = $redsys->notify_url_not_https;
-		} else {
-			$final_notify_url = $redsys->notify_url;
 		}
 
 		$psd2 = WCPSD2()->get_acctinfo( $order );
@@ -2655,9 +2710,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$redsys_done = WCRed()->get_order_meta( $order_id, '_redsys_done', true );
 
 		if ( 'yes' === $this->debug ) {
-			if ( ! $result ) {
-				$this->log->add( 'redsys', 'No llega el subscriptions ID' );
-			}
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '/****************************/' );
 			$this->log->add( 'redsys', '       Once upon a time       ' );
@@ -2929,7 +2981,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '          The XML 2            ' );
 				$this->log->add( 'redsys', '/****************************/' );
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', 'iniciaPeticion 1' . $xml );
+				$this->log->add( 'redsys', 'iniciaPeticion 1: ' . $xml );
 				$this->log->add( 'redsys', ' ' );
 			}
 			$cliente    = new SoapClient( $redsys_adr );
@@ -2945,40 +2997,48 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
-			$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$ds_emv3ds                = json_decode( $ds_emv3ds_json ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-				$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-				$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
-				$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
+			if ( isset( $xml_retorno->INFOTARJETA->Ds_EMV3DS ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '/****************************/' );
+					$this->log->add( 'redsys', ' Llega $xml_retorno->INFOTARJETA->Ds_EMV3DS' );
+					$this->log->add( 'redsys', '/****************************/' );
+				}
+				$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$ds_emv3ds                = json_decode( $ds_emv3ds_json ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
+					$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
+					$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
+				}
+			} else {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '/**********************************************/' );
+					$this->log->add( 'redsys', ' NO llega $xml_retorno->INFOTARJETA->Ds_EMV3DS' );
+					$this->log->add( 'redsys', '/**********************************************/' );
+				}
+				$ds_emv3ds_json           = '';
+				$ds_emv3ds                = array( 'none' );
+				$protocol_version         = '';
+				$three_ds_server_trans_id = '';
+				$three_ds_info            = '';
 			}
 
 			if ( '2.1.0' === $protocol_version || '2.2.0' === $protocol_version ) {
 
-				$datos_usuario  = array(
-					'threeDSInfo'               => 'AuthenticationData',
-					'$three_ds_server_trans_id' => $three_ds_server_trans_id,
-					'protocolVersion'           => $protocol_version,
-					'browserAcceptHeader'       => WCPSD2()->get_accept_headers_user( $user_id ),
-					'browserColorDepth'         => WCPSD2()->get_profundidad_color_user( $user_id ),
-					'browserIP'                 => '86.0.4240.111',
-					'browserJavaEnabled'        => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-					'browserLanguage'           => WCPSD2()->get_idioma_navegador_user( $user_id ),
-					'browserScreenHeight'       => WCPSD2()->get_altura_pantalla_user( $user_id ),
-					'browserScreenWidth'        => WCPSD2()->get_anchura_pantalla_user( $user_id ),
-					'browserTZ'                 => WCPSD2()->get_diferencia_horaria_user( $user_id ),
-					'browserUserAgent'          => WCPSD2()->get_agente_navegador_user( $user_id ),
-					'notificationURL'           => $final_notify_url,
-					'threeDSCompInd'            => 'N',
-				);
-				$need           = wp_json_encode( $data );
-				$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '/****************************/' );
+					$this->log->add( 'redsys', '  $protocol_version = ' . $protocol_version );
+					$this->log->add( 'redsys', '/****************************/' );
+				}
+
 				$datos_entrada  = '<DATOSENTRADA>';
 				$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 				$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -3029,7 +3089,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
 				}
 				if ( $authorisationcode ) {
-					WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
+					$data = array();
+					$data['_redsys_done'] = 'yes';
 					if ( 'yes' !== $this->disablesubscrippaid ) {
 						$order->payment_complete();
 					}
@@ -3045,7 +3106,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					}
 
 					if ( ! empty( $redsys_order ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
+						$data['_payment_order_number_redsys'] = $redsys_order;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
 						}
@@ -3057,7 +3118,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $terminal ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
+						$data['_payment_terminal_redsys'] = $terminal;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
 						}
@@ -3069,7 +3130,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $authorisationcode ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+						$data['_authorisation_code_redsys'] = $authorisationcode;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
 						}
@@ -3081,7 +3142,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $currency_code ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+						$data['_corruncy_code_redsys'] = $currency_code;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
 						}
@@ -3093,7 +3154,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $secretsha256 ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+						$data['_redsys_secretsha256'] = $secretsha256;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 						}
@@ -3109,6 +3170,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
 						$this->log->add( 'redsys', '/******************************************/' );
 					}
+					WCRed()->update_order_meta( $order->get_id(), $data );
 					do_action( 'redsys_post_payment_complete', $order->get_id() );
 					return true;
 				} else {
@@ -3123,8 +3185,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			} else {
 				$protocol_version = '1.0.2';
 
-				$need           = wp_json_encode( $data );
-				$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '/****************************/' );
+					$this->log->add( 'redsys', '  $protocol_version = "1.0.2" ' );
+					$this->log->add( 'redsys', '/****************************/' );
+				}
+
 				$datos_entrada  = '<DATOSENTRADA>';
 				$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 				$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -3140,8 +3207,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
 				$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
 				$datos_entrada .= '<DS_MERCHANT_MERCHANTURL>' . $final_notify_url . '</DS_MERCHANT_MERCHANTURL>';
-				// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
-				// $datos_entrada .= "<DS_MERCHANT_MERCHANTURL>" . $final_notify_url . "</DS_MERCHANT_MERCHANTURL>";
 				$datos_entrada .= '<DS_MERCHANT_TITULAR>' . WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) . '</DS_MERCHANT_TITULAR>';
 				$datos_entrada .= '</DATOSENTRADA>';
 				$xml            = '<REQUEST>';
@@ -3179,7 +3244,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$response          = (string) $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 				if ( $authorisationcode ) {
-					WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
+					$data = array();
+					$data['_redsys_done'] =  'yes';
 					if ( 'yes' !== $this->disablesubscrippaid ) {
 						$order->payment_complete();
 					}
@@ -3196,7 +3262,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
 
 					if ( ! empty( $redsys_order ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
+						$data['_payment_order_number_redsys'] =  $redsys_order;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
 						}
@@ -3208,7 +3274,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $terminal ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
+						$data['_payment_terminal_redsys'] =  $terminal;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
 						}
@@ -3220,7 +3286,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $authorisationcode ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+						$data['_authorisation_code_redsys'] =  $authorisationcode;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
 						}
@@ -3232,7 +3298,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $currency_code ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+						$data['_corruncy_code_redsys'] =  $currency_code;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
 						}
@@ -3244,7 +3310,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $secretsha256 ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+						$data['_redsys_secretsha256'] =  $secretsha256;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 						}
@@ -3255,6 +3321,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$this->log->add( 'redsys', ' ' );
 						}
 					}
+					WCRed()->update_order_meta( $order->get_id(), $data );
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', '/******************************************/' );
 						$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
@@ -3472,6 +3539,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$txnid             = WCRed()->get_txnid( $customer_token_id );
 
 			if ( ! $customer_token ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', 'NO Customer Token' );
+					$this->log->add( 'redsys', ' ' );
+				}
 				if ( function_exists( 'ywsbs_register_failed_payment' ) ) {
 					ywsbs_register_failed_payment( $renewal_order, 'Error: No user token' );
 				}
@@ -6421,7 +6493,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					}
 					?>
 					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype = "application/xwww-form-urlencoded">
-						<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
+						<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 					</form>
 					<script type="text/javascript">
@@ -6513,7 +6585,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				?>
 				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
+					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
 				<script type="text/javascript">
@@ -6564,7 +6636,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					}
 					?>
 				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
+					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
 				<script type="text/javascript">
@@ -6934,6 +7006,22 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
+
+		if ( isset( $_GET['redsys-step'] ) && 'cancel' === $_GET['redsys-step'] ) {
+			$order_id  = sanitize_text_field( wp_unslash( $_GET['order_id'] ) );
+			$order     = wc_get_order( $order_id );
+			$transient = get_transient( $order_id . '_iframe' );
+			if ( 'returncancel' === $this->wooredsysurlko ) {
+				$redirect = $order->get_cancel_order_url();
+			} else {
+				$redirect = wc_get_checkout_url();
+			}
+			if ( 'yes' === $transient ) {
+				delete_transient( $order_id . '_iframe' );
+				echo '<script>window.top.location.href = "' . esc_url( $redirect ) . '"</script>';
+				exit();
+			}
+		}
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -8403,7 +8491,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', 'Ds_MerchantData: ' . $dsmechandata );
 			$this->log->add( 'redsys', 'Ds_ErrorCode: ' . $dserrorcode );
 			$this->log->add( 'redsys', 'Ds_PayMethod: ' . $dpaymethod );
-			$this->log->add( 'redsys', 'Ds_Merchant_Cof_Txnid: ' . $redsys_txnid );
+			if ( $redsys_txnid ) {
+				$this->log->add( 'redsys', 'Ds_Merchant_Cof_Txnid: ' . $redsys_txnid );
+			}
 			$this->log->add( 'redsys', '$token_type: R' );
 		}
 
@@ -11220,7 +11310,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$response = 'partially_refunded';
 						}
 					} catch ( Exception $e ) {
-						$response = 'error' . $e->getMessage();
+						$response = 'error ' . $e->getMessage();
 					}
 
 					if ( 'fully_refunded' === $response ) {
@@ -11592,50 +11682,50 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 */
 	public function save_field_update_order_meta( $order_id ) {
 
-		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) ) {
+		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) && 'redsys' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
 			$order   = WCRed()->get_order( $order_id );
 			$user_id = $order->get_user_id();
+			$data    = array();
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
-
 			if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
 				$headers = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_http_accept_headers'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-				WCRed()->update_order_meta( $order_id, '_accept_haders', sanitize_text_field( $headers ) );
+				$data['_accept_haders'] = sanitize_text_field( $headers );
 				update_user_meta( $user_id, '_accept_haders', sanitize_text_field( $headers ) );
 			}
 			if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
 				$agente = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_agente_navegador'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-				WCRed()->update_order_meta( $order_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
+				$data['_billing_agente_navegador_field'] = sanitize_text_field( $agente );
 				update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
 			}
 			if ( ! empty( $_POST['billing_idioma_navegador'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
+				$data['_billing_idioma_navegador_field'] = sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) );
 				update_user_meta( $user_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_altura_pantalla'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
+				$data['_billing_altura_pantalla_field'] = sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) );
 				update_user_meta( $user_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_anchura_pantalla'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
+				$data['_billing_anchura_pantalla_field'] = sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) );
 				update_user_meta( $user_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_profundidad_color'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
+				$data['_billing_profundidad_color_field'] = sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) );
 				update_user_meta( $user_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_diferencia_horaria'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
+				$data['_billing_diferencia_horaria_field'] = sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) );
 				update_user_meta( $user_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_tz_horaria'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
+				$data['_billing_tz_horaria_field'] = sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) );
 				update_user_meta( $user_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_js_enabled_navegador'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
+				$data['_billing_js_enabled_navegador_field'] = sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) );
 				update_user_meta( $user_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
 			}
 			if ( ! empty( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
@@ -11653,6 +11743,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			} else {
 				set_transient( $order_id . '_redsys_save_token', 'no', 36000 );
 			}
+			WCRed()->update_order_meta( $order_id, $data );
 			do_action( 'save_field_update_order_meta', $_POST );
 		}
 	}
@@ -11745,6 +11836,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					width: 100%;
 					height: 100%;
 				}
+				#close-popup {
+					background-color: #2C3E50;
+					color: #fff;
+				}
 				@media only screen and (min-width: 280px) {
 					.popup-content {
 						width: 270px;
@@ -11788,37 +11883,34 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				</div>
 			</div>
 			<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$.urlParam = function(name){
-					var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-					if (results==null){
-					return null;
+				jQuery(document).ready(function($) {
+					$.urlParam = function(name) {
+						var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+						if (results == null) {
+							return null;
+						} else {
+							console.log('order_id = ' + results[1] || 0 + '');
+							return results[1] || 0;
+						}
 					}
-					else{
-					console.log('order_id = ' + results[1] || 0 + '');
-					return results[1] || 0;
-					}
-				}
-				$(document).ready(function() {
-					if ( $( '#payment_method_redsys' ).is( ':checked' ) ) {
+
+					if ($('#payment_method_redsys').is(':checked')) {
 						var order_id = $.urlParam('order_id');
-						var domain   = '<?php echo $final_notify_url; ?>';
+						var domain = '<?php echo esc_url( $final_notify_url ); ?>';
 						var url = domain + '&redsys-order-id=' + order_id + '&redsys-iframe=yes';
-						if ( order_id != null ) {
-							console.log('order_id = ' + order_id );
-							$('#redsys-iframe').attr('src', url );
+						if (order_id != null) {
+							console.log('order_id = ' + order_id);
+							$('#redsys-iframe').attr('src', url);
 							$('#open-popup').fadeIn();
 						}
 					}
-				});
-				$(document).ready(function() {
-					$( 'body' ).on( 'click', '#close-popup', function() {
+
+					$('body').on('click', '#close-popup', function() {
 						var url = '<?php echo esc_url( $current_page ); ?>';
 						$('#open-popup').fadeOut();
 						window.location.href = url;
 					});
 				});
-			});
 			</script>
 			<?php
 		}

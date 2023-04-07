@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.1.0
+ * @version     3.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1853,12 +1853,21 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 			if ( ! empty( $user_ids ) ) {
 
-				$user_order_ids_query = $wpdb->prepare(
-					"SELECT DISTINCT postmeta.post_id FROM {$wpdb->prefix}postmeta AS postmeta
-						WHERE postmeta.meta_key = %s
-						AND postmeta.meta_value",
-					'_customer_user'
-				);
+				if ( $this->is_hpos() ) {
+					$user_order_ids_query = $wpdb->prepare(
+						"SELECT DISTINCT id FROM {$wpdb->prefix}wc_orders
+							WHERE %d
+								AND customer_id",
+						1
+					);
+				} else {
+					$user_order_ids_query = $wpdb->prepare(
+						"SELECT DISTINCT postmeta.post_id FROM {$wpdb->prefix}postmeta AS postmeta
+							WHERE postmeta.meta_key = %s
+							AND postmeta.meta_value",
+						'_customer_user'
+					);
+				}
 
 				if ( count( $user_ids ) === 1 ) {
 					$user_order_ids_query .= $wpdb->prepare( ' = %d', current( $user_ids ) );
@@ -2371,11 +2380,15 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		public function add_generated_coupon_details() {
 			global $post;
 
-			if ( empty( $post->post_type ) || 'shop_order' !== $post->post_type ) {
+			$post_type = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : $this->get_post_type();
+
+			if ( empty( $post_type ) || 'shop_order' !== $post_type ) {
 				return;
 			}
 
-			add_meta_box( 'sc-generated-coupon-data', __( 'Generated coupons', 'woocommerce-smart-coupons' ), array( $this, 'sc_generated_coupon_data_metabox' ), 'shop_order', 'normal' );
+			$screen = ( $this->is_hpos() ) ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order';
+
+			add_meta_box( 'sc-generated-coupon-data', __( 'Generated coupons', 'woocommerce-smart-coupons' ), array( $this, 'sc_generated_coupon_data_metabox' ), $screen, 'normal' );
 		}
 
 		/**

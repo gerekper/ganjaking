@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 $full_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
 /* translators: %s: billing first name and last name */
-printf( esc_html__( 'You have received a pre-order from %s. Their pre-order is as follows:', 'wc-pre-orders' ), $full_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+printf( esc_html__( 'You have received a pre-order from %s. Their pre-order is as follows:', 'woocommerce-pre-orders' ), $full_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>
 </p>
 

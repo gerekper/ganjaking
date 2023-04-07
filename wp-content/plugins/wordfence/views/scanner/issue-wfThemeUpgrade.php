@@ -17,6 +17,7 @@ echo wfView::create('scanner/issue-base', array(
 		null,
 		__('Theme URL', 'wordfence') => '<a href="${data.URL}" target="_blank" rel="noopener noreferrer"><span class="wf-hidden-xs wf-split-word">${data.URL}</span><span class="wf-visible-xs">' . __('View', 'wordfence') . '</span><span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>',
 		__('Vulnerability Information', 'wordfence') => array('data.vulnerabilityLink', '<a href="${data.vulnerabilityLink}" target="_blank" rel="noopener noreferrer"><span class="wf-hidden-xs wf-split-word">${data.vulnerabilityLink}</span><span class="wf-visible-xs">' . __('View', 'wordfence') . '</span><span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>'),
+		__('Vulnerability Severity', 'wordfence') => array('data.cvssScore', '${data.cvssScore}/10.0 (<span class="${data.severityClass}" data-tooltip="test" title="This is the severity of the vulnerability itself, which can differ from the scan result severity. Some lower-severity vulnerabilities may still be important to address depending on your site\'s configuration and user base, so they are still important for you to review.">${data.severityLabel}</span>)'),
 		),
 	'detailControls' => array(
 		'<a href="#" class="wf-btn wf-btn-default wf-btn-callout-subtle wf-issue-control-mark-fixed" role="button">' . __('Mark as Fixed', 'wordfence') . '</a>',
@@ -33,5 +34,6 @@ echo wfView::create('scanner/issue-base', array(
 		null,
 		__('Theme URL', 'wordfence') => '$data.URL',
 		__('Vulnerability Information', 'wordfence') => '$data.vulnerabilityLink',
+		__('Vulnerability Severity', 'wordfence') => '${data.cvssScore}/10.0 (${data.severityLabel})',
 	),
 ))->render();

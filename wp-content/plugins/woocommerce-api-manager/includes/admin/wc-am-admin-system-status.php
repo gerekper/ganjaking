@@ -52,6 +52,7 @@ class WC_AM_Admin_System_Status {
 	public function render_system_status_items() {
 		$wc_api_manager_data = array();
 
+		$this->set_api_manager_cache( $wc_api_manager_data );
 		$this->set_api_manager_version( $wc_api_manager_data );
 		$this->set_api_manager_database_version( $wc_api_manager_data );
 		$this->set_api_manager_amazon_s3_configured( $wc_api_manager_data );
@@ -60,12 +61,6 @@ class WC_AM_Admin_System_Status {
 			$this->set_api_manager_amazon_s3_region( $wc_api_manager_data );
 		}
 
-		$this->set_api_manager_api_key_activations( $wc_api_manager_data );
-		$this->set_api_manager_products_count( $wc_api_manager_data );
-		$this->set_api_manager_api_resources( $wc_api_manager_data );
-		$this->set_api_manager_associated_api_keys( $wc_api_manager_data );
-		$this->set_api_manager_cache( $wc_api_manager_data );
-
 		if ( WCAM()->get_db_cache() ) {
 			$this->set_api_manager_api_cache_expires( $wc_api_manager_data );
 			$this->set_api_manager_database_cache_expires( $wc_api_manager_data );
@@ -73,8 +68,15 @@ class WC_AM_Admin_System_Status {
 
 		$this->set_api_manager_download_url_expires( $wc_api_manager_data );
 		$this->set_api_manager_hide_product_order_api_keys( $wc_api_manager_data );
-		$this->set_api_manager_secure_hash_count( $wc_api_manager_data );
 		$this->set_api_manager_grace_period( $wc_api_manager_data );
+
+		$this->set_api_manager_api_key_activations( $wc_api_manager_data );
+		$this->set_api_manager_products_count( $wc_api_manager_data );
+		$this->set_api_manager_api_resources( $wc_api_manager_data );
+		$this->set_api_manager_associated_api_keys( $wc_api_manager_data );
+		$this->set_api_manager_secure_hash_count( $wc_api_manager_data );
+		$this->set_api_manager_grace_period_count( $wc_api_manager_data );
+
 		$this->set_theme_overrides( $wc_api_manager_data );
 
 		$system_status_sections = array(
@@ -93,6 +95,22 @@ class WC_AM_Admin_System_Status {
 
 			include_once __DIR__ . '/status.php';
 		}
+	}
+
+	/**
+	 * Database Cache on or off.
+	 *
+	 * @since 2.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_cache( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_cache' ] = array(
+			'name'    => _x( 'Cache Enabled', 'Cache Enabled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'   => 'Cache Enabled',
+			'note'    => WCAM()->get_db_cache() ? esc_attr__( 'Yes', 'woocommerce-api-manager' ) : esc_attr__( 'No', 'woocommerce-api-manager' ),
+			'success' => WCAM()->get_db_cache() ? 1 : 0,
+		);
 	}
 
 	/**
@@ -163,90 +181,6 @@ class WC_AM_Admin_System_Status {
 			'note'      => ! empty( $aws_s3_region ) ? esc_attr( $aws_s3_region ) : sprintf( __( '%sPick a region.%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) ) . '">', '</a>' ),
 			'mark'      => '',
 			'mark_icon' => '',
-		);
-	}
-
-	/**
-	 * API Key Activations.
-	 *
-	 * @since 2.1
-	 *
-	 * @param $debug_data
-	 */
-	private function set_api_manager_api_key_activations( &$debug_data ) {
-		$debug_data[ 'wc_api_manager_api_key_activations' ] = array(
-			'name'      => _x( 'API Key Activations', 'API Key Activations Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'     => 'API Key Activations',
-			'note'      => esc_attr( WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_count() ),
-			'mark'      => '',
-			'mark_icon' => '',
-		);
-	}
-
-	/**
-	 * API Products Count.
-	 *
-	 * @since 2.1
-	 *
-	 * @param $debug_data
-	 */
-	private function set_api_manager_products_count( &$debug_data ) {
-		$debug_data[ 'wc_api_manager_products_count' ] = array(
-			'name'      => _x( 'API Products', 'API Products Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'     => 'API Products',
-			'note'      => esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_api_products_count() ),
-			'mark'      => '',
-			'mark_icon' => '',
-		);
-	}
-
-	/**
-	 * API Resources.
-	 *
-	 * @since 2.1
-	 *
-	 * @param $debug_data
-	 */
-	private function set_api_manager_api_resources( &$debug_data ) {
-		$debug_data[ 'wc_api_manager_api_resources' ] = array(
-			'name'      => _x( 'API Resources', 'API Resources Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'     => 'API Resources',
-			'note'      => esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_count() ),
-			'mark'      => '',
-			'mark_icon' => '',
-		);
-	}
-
-	/**
-	 * Associated API Keys.
-	 *
-	 * @since 2.1
-	 *
-	 * @param $debug_data
-	 */
-	private function set_api_manager_associated_api_keys( &$debug_data ) {
-		$debug_data[ 'wc_api_manager_associated_api_keys' ] = array(
-			'name'      => _x( 'Associated API Keys', 'Associated API Keys Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'     => 'Associated API Keys',
-			'note'      => esc_attr( WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->get_associated_api_key_count() ),
-			'mark'      => '',
-			'mark_icon' => '',
-		);
-	}
-
-	/**
-	 * Database Cache on or off.
-	 *
-	 * @since 2.1
-	 *
-	 * @param $debug_data
-	 */
-	private function set_api_manager_cache( &$debug_data ) {
-		$debug_data[ 'wc_api_manager_cache' ] = array(
-			'name'    => _x( 'Cache Enabled', 'Cache Enabled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'   => 'Cache Enabled',
-			'note'    => WCAM()->get_db_cache() ? esc_attr__( 'Yes', 'woocommerce-api-manager' ) : esc_attr__( 'No', 'woocommerce-api-manager' ),
-			'success' => WCAM()->get_db_cache() ? 1 : 0,
 		);
 	}
 
@@ -325,6 +259,93 @@ class WC_AM_Admin_System_Status {
 	/**
 	 * Secure Download URL Hashes Count.
 	 *
+	 * @since 2.6.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_grace_period( &$debug_data ) {
+		$grace_period = get_option( 'woocommerce_api_manager_grace_period' );
+
+		$debug_data[ 'wc_api_manager_grace_period' ] = array(
+			'name'      => _x( 'Grace Period', 'Grace Period, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Grace Period',
+			'note'      => esc_attr( $grace_period[ 'number' ] . ' ' . $grace_period[ 'unit' ] ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * API Key Activations.
+	 *
+	 * @since 2.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_api_key_activations( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_api_key_activations' ] = array(
+			'name'      => _x( 'API Key Activations', 'API Key Activations Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'API Key Activations',
+			'note'      => esc_attr( WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_count() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * API Products Count.
+	 *
+	 * @since 2.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_products_count( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_products_count' ] = array(
+			'name'      => _x( 'API Products', 'API Products Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'API Products',
+			'note'      => esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_api_products_count() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * API Resources.
+	 *
+	 * @since 2.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_api_resources( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_api_resources' ] = array(
+			'name'      => _x( 'API Resources', 'API Resources Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'API Resources',
+			'note'      => esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_count() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * Associated API Keys.
+	 *
+	 * @since 2.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_associated_api_keys( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_associated_api_keys' ] = array(
+			'name'      => _x( 'Associated API Keys', 'Associated API Keys Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Associated API Keys',
+			'note'      => esc_attr( WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->get_associated_api_key_count() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * Secure Download URL Hashes Count.
+	 *
 	 * @since 2.1
 	 *
 	 * @param $debug_data
@@ -340,19 +361,17 @@ class WC_AM_Admin_System_Status {
 	}
 
 	/**
-	 * Secure Download URL Hashes Count.
+	 * Grace Periods Count.
 	 *
-	 * @since 2.6.1
+	 * @since 2.6.2
 	 *
 	 * @param $debug_data
 	 */
-	private function set_api_manager_grace_period( &$debug_data ) {
-		$grace_period = get_option( 'woocommerce_api_manager_grace_period' );
-
-		$debug_data[ 'wc_api_manager_grace_period' ] = array(
-			'name'      => _x( 'Grace Period', 'Grace Period, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'     => 'Grace Period',
-			'note'      => esc_attr( $grace_period[ 'number' ] . ' ' . $grace_period[ 'unit' ] ),
+	private function set_api_manager_grace_period_count( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_grace_period_count' ] = array(
+			'name'      => _x( 'Grace Periods', 'Grace Periods Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Grace Periods',
+			'note'      => esc_attr( WC_AM_GRACE_PERIOD()->count() ),
 			'mark'      => '',
 			'mark_icon' => '',
 		);

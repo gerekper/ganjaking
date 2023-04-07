@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       4.13.0
- * @version     1.4.0
+ * @version     1.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -490,9 +490,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$taxonomy_restrictions = ( isset( $_POST['wc_sc_taxonomy_restrictions'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_taxonomy_restrictions'] ) ) : array(); // phpcs:ignore
 			if ( ! empty( $taxonomy_restrictions ) ) {

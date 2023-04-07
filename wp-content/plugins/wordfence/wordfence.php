@@ -5,7 +5,7 @@ Plugin URI: http://www.wordfence.com/
 Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Wordfence Security - Anti-virus, Firewall and Malware Scan
 Author: Wordfence
-Version: 7.9.1
+Version: 7.9.2
 Author URI: http://www.wordfence.com/
 Text Domain: wordfence
 Domain Path: /languages
@@ -39,8 +39,8 @@ if(defined('WP_INSTALLING') && WP_INSTALLING){
 if (!defined('ABSPATH')) {
 	exit;
 }
-define('WORDFENCE_VERSION', '7.9.1');
-define('WORDFENCE_BUILD_NUMBER', '1677680064');
+define('WORDFENCE_VERSION', '7.9.2');
+define('WORDFENCE_BUILD_NUMBER', '1679934025');
 define('WORDFENCE_BASENAME', function_exists('plugin_basename') ? plugin_basename(__FILE__) :
 	basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 
@@ -119,5 +119,17 @@ if(! defined('WORDFENCE_VERSIONONLY_MODE')){ //Used to get version from file.
 	require_once(dirname(__FILE__) . '/lib/wordfenceClass.php');
 	wordfence::install_actions();
 }
+
+add_action(
+	'plugin_loaded',
+	function() {
+		wfConfig::set( 'onboardingAttempt1', 'skipped' );
+		wfConfig::set( 'onboardingAttempt3', 'license' );
+
+		if ( '' === wfConfig::get( 'apiKey' ) ) {
+			wordfence::ajax_downgradeLicense_callback();
+		}
+	}
+);
 /* Anti-Leecher Indentifier */
 /* Credited By BABIATO-FORUM */

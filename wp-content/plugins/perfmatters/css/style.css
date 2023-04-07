@@ -1,107 +1,116 @@
-.settings_page_perfmatters .notice {
-  margin: 10px 0px;
-}
-.settings_page_perfmatters .update-nag {
+/* wp ui */
+.settings_page_perfmatters #wpbody-content {
   margin-top: 5px;
 }
-#setting-error-perfmatters-hidden-notice {
+.settings_page_perfmatters #wpbody-content>.notice {
+  margin: 15px auto 15px 2px;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+.settings_page_perfmatters #wpbody-content>.update-nag {
+  margin-bottom: 0px;
+}
+#perfmatters-admin-container .notice {
   display: none;
 }
+#perfmatters-admin-container a {
+  color: #4A89DD;
+}
 
-/* Header */
+/* admin wrappers */
+#perfmatters-admin {
+  max-width: 1200px;
+  margin-top: 15px;
+}
+#perfmatters-admin-container {
+  display: flex; 
+  gap: 20px;
+}
+#perfmatters-admin .perfmatters-admin-block {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e2e4e7;
+  border-radius: 5px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+/* header */
 #perfmatters-admin-header {
+  margin-bottom: 10px;
+  width: 227px;
+}
+#perfmatters-logo-bar {
   display: flex;
   align-items: center;
-  background: #282E34;
-  margin: 0px 0px 0px -20px;
-  padding: 0px 20px 0px 22px;
-  overflow: hidden;
 }
 #perfmatters-logo {
-  height: 24px;
-  margin-right: 10px;
-}
-#perfmatters-page-title {
-  font-size: 24px;
-  color: #fff;
-}
-#perfmatters-admin-header #perfmatters-admin-header-buttons {
-  line-height: 60px;
-  height: 60px;
   display: flex;
-  flex-grow: 1;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 0px 0px 0px 20px;
+  height: 30px; 
+  margin: 10px auto;
+  overflow: visible;
 }
-#perfmatters-admin-header #perfmatters-admin-header-buttons a {
-  padding: 8px 10px;
-  color: white;
+#perfmatters-menu-toggle {
+  display: none;
   text-decoration: none;
-  margin: 0px 0px 0px 10px;
-  line-height: normal;
-  font-size: 13px;
-  border-radius: 3px;
 }
-#perfmatters-admin-header #perfmatters-admin-header-buttons a:hover, #perfmatters-admin-header #perfmatters-admin-header-buttons a.perfmatters-active {
-  background: rgba(0,0,0,0.25);
+#perfmatters-menu-toggle .dashicons {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
 }
-#perfmatters-admin-header #perfmatters-admin-header-buttons a i {
-  width: auto;
-  height: auto;
-  font-size: 14px;
-  margin: 0px 4px 0px 0px;
+#perfmatters-menu {
+  margin-top: 15px;
 }
-
-#perfmatters-admin-header #perfmatters-admin-header-notice {
-  float: right;
-  color: #ffffff;
-  line-height: 60px;
-}
-#perfmatters-admin-header #perfmatters-admin-header-notice a {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-/* Navigation */
-#perfmatters-admin .perfmatters-subnav {
+#perfmatters-menu a {
   display: flex;
-  background: #fff;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  overflow: hidden;
-  border: 1px solid #e2e4e7;
-}
-#perfmatters-admin .perfmatters-subnav a {
-  display: inline-flex;
   align-items: center;
-  font-size: 14px; 
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
   padding: 10px;
   text-decoration: none;
   box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  border-bottom: 2px solid transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
   transition: none;
+  margin-top: 2px;
 }
-#perfmatters-admin .perfmatters-subnav a.active {
-  color: #333333;
-  border-bottom: 2px solid #333333;
+#perfmatters-menu a:hover {
+  color: #4A89DD;
 }
-#perfmatters-admin .perfmatters-subnav a span.dashicons {
-  margin-right: 3px;
-  font-size: 13px;
-  width: 13px;
-  height: 13px;
+#perfmatters-menu a.active {
+  color: #4A89DD;
+  border-color: #4A89DD;
+  background: #e8f1ff;
+}
+#perfmatters-menu a .dashicons {
+  margin-right: 8px;
+  font-size: 23px;
+  width: 23px;
+  height: 23px;
+}
+#perfmatters-menu .perfmatters-subnav {
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  padding: 9px 0px;
+  margin-bottom: 10px;
+}
+#perfmatters-menu .perfmatters-subnav a {
+  font-size: 14px;
+  padding: 8px 10px;
+  margin: 1px 0px;
+  font-weight: 500;
+}
+#perfmatters-menu .perfmatters-subnav a .dashicons {
+  font-size: 16px;
+  height: 16px;
 }
 
-/* General UI */
+/* general ui */
 .perfmatters-settings-section {
-  background: #fff;
-  padding: 15px;
   margin-bottom: 20px;
-  border: 1px solid #e2e4e7;
-  border-radius: 3px;
+  border-bottom: 1px solid #f2f2f2;
+  padding-bottom: 20px;
 }
 #perfmatters-admin .section-content {
   display: none;
@@ -109,27 +118,50 @@
 #perfmatters-admin .section-content.active {
   display: block;
 }
-
 #perfmatters-admin h2 {
 	font-size: 18px;
+  font-weight: 500;
   line-height: normal;
-  margin: 0px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #e2e4e7;
+  margin: 0px auto 10px auto;
 }
-
+#perfmatters-admin .perfmatters-settings-section:first-of-type h2:first-of-type {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  margin: -20px -20px 20px -20px;
+  padding: 20px;
+  font-weight: 500;
+  background: #282E34;
+  border-radius: 5px 5px 0px 0px;
+  color: #fff;
+}
+#perfmatters-admin .perfmatters-settings-section:first-of-type h2:first-of-type .dashicons {
+  font-size:23px;
+  width: 23px;
+  height: 23px;
+  margin-right: 8px;
+  color: #fff;
+}
+#perfmatters-admin .perfmatters-settings-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
 #perfmatters-admin p.perfmatters-warning {
   background: #ffffff;
   color: #dc3232;
   padding: 10px;
   font-weight: bold;
 }
+#perfmatters-admin .form-table {
+  margin: 0px;
+}
 #perfmatters-admin .form-table th {
   padding: 15px 10px 15px 0px;
   font-size: 13px;
   font-weight: normal;
+  min-width: 200px;
 }
-
 #perfmatters-admin .form-table td {
   position: relative;
   padding: 10px;
@@ -141,7 +173,6 @@
   height: 28px;
   font-size: 1px;
 }
-
 #perfmatters-admin .perfmatters-switch input {
   display: block;
   margin: 0px;
@@ -149,15 +180,13 @@
   outline: none;
   box-shadow: none;
 }
-
 #perfmatters-admin .perfmatters-slider {
   position: absolute;
   inset: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 3px;
+  border-radius: 50px;
 }
-
 #perfmatters-admin .perfmatters-slider:before {
   position: absolute;
   content: "";
@@ -167,32 +196,26 @@
   bottom: 4px;
   background-color: #fff;
   transition: .4s;
-  border-radius: 3px;
+  border-radius: 50%;
 }
-
 #perfmatters-admin input:checked + .perfmatters-slider {
-  background-color: #007cba;
+  background-color: #4A89DD;
 }
-
 #perfmatters-admin input:focus + .perfmatters-slider {
-  box-shadow: 0 0 1px #007cba;
+  box-shadow: 0 0 1px #4A89DD;
 }
-
 #perfmatters-admin input:checked + .perfmatters-slider:before {
   transform: translateX(20px);
 }
-
 #perfmatters-admin input[type="text"], #perfmatters-admin select, #perfmatters-admin input[type="file"] {
   min-width: 300px;
   margin: 0px;
 }
-
 #perfmatters-admin input[type="file"] {
   margin-bottom: 5px;
 }
-
 #perfmatters-admin textarea {
-  min-width: 600px;
+  width: 100%;
   resize: both;
   min-height: 150px;
 }
@@ -304,10 +327,19 @@
   margin-left: 3px;
 }
 
-#perfmatters-admin p.submit, #perfmatter-admin #perfmatters-restore {
-  margin: 0px;
+#perfmatters-admin .button-primary {
+  padding: 2px 10px;
+  border-radius: 5px;
+  background: #4A89DD;
+  border-color: #4A89DD;
+}
+#perfmatters-admin .button-secondary {
+  border-color: #4A89DD;
+  color: #4A89DD;
+}
+#perfmatters-admin p.submit {
+  margin: 20px 0px 0px 0px;
   padding: 0px;
-  float: left;
 }
 
 #perfmatters-admin .perfmatters-button-warning {
@@ -421,19 +453,34 @@ a.perfmatters-add-input-row {
   color: #ccc;
 }
 
-@media all and (max-width: 1240px) {
-  #perfmatters-admin-header #perfmatters-admin-header-notice {
+/* media queries */
+@media all and (max-width: 1024px) {
+  #perfmatters-admin {
+    margin-top: 10px;
+  }
+  #perfmatters-admin-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  #perfmatters-admin-header {
+    width: 100%;
+    margin: 0px;
+  }
+  #perfmatters-logo {
+    margin: 0px auto;
+  }
+  #perfmatters-menu-toggle {
+    display: flex;
+  }
+  #perfmatters-menu {
     display: none;
+  }
+  #perfmatters-menu.perfmatters-menu-expanded {
+    display: block;
   }
 }
 
 @media all and (max-width: 782px) {
-  #perfmatters-admin-header #perfmatters-admin-header-buttons a:first-child {
-    margin-left: 0px;
-  }
-  #perfmatters-admin .perfmatters-subnav {
-    flex-direction: column;
-  }
   .perfmatters-mobile-hide {
     display: none !important;
   }

@@ -23,7 +23,7 @@ $populated = $existing && $email && $license;
 	</p>
 	<div class="wf-onboarding-install-new wf-onboarding-install-type"<?php if ($existing): ?> style="display: none;"<?php endif ?>>
 		<div>
-			<a class="wf-btn wf-btn-primary wf-onboardng-register" href="<?php esc_attr_e($registrationLink) ?>"><?php esc_html_e('Get Your Wordfence License', 'wordfence') ?></a>	
+			<a class="wf-btn wf-btn-primary wf-onboardng-register" href="<?php esc_attr_e($registrationLink) ?>" target="_blank"><?php esc_html_e('Get Your Wordfence License', 'wordfence') ?></a>	
 		</div>
 		<div>
 			<a class="wf-onboarding-install-type-toggle" href="#"><?php esc_html_e('Install an existing license', 'wordfence') ?></a>
@@ -56,7 +56,7 @@ $populated = $existing && $email && $license;
 		</form>
 		<?php if (!$populated): ?>
 			<div>
-				<a class="wf-onboarding-link" href="<?php esc_attr_e($registrationLink) ?>"><?php esc_html_e('Get a new license', 'wordfence') ?></a>
+				<a class="wf-onboarding-link" href="<?php esc_attr_e($registrationLink) ?>" target="_blank"><?php esc_html_e('Get a new license', 'wordfence') ?></a>
 			</div>
 		<?php endif ?>
 	</div>

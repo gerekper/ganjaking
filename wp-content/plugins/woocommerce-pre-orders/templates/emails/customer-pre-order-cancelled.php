@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 <?php
 
-esc_html_e( 'Your pre-order has been cancelled. Your order details are shown below for your reference.', 'wc-pre-orders' );
+esc_html_e( 'Your pre-order has been cancelled. Your order details are shown below for your reference.', 'woocommerce-pre-orders' );
 ?>
 </p>
 

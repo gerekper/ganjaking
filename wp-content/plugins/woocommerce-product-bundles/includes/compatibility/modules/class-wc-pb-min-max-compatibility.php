@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  6.16.1
+ * @version  6.18.2
  */
 class WC_PB_Min_Max_Compatibility {
 
@@ -529,6 +529,10 @@ class WC_PB_Min_Max_Compatibility {
 
 			if ( is_null( $product ) ) {
 				$product = wc_get_product( $product_id );
+
+				if ( ! $product ) {
+					return 0; // Default Group of quantity when product doesn't exist or has been deleted.
+				}
 
 				// If the individual variation doesn't have Min/Max rules, fall back to parent Min/Max rules.
 				if ( $product->is_type( 'variation' ) ) {

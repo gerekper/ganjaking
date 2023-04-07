@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       6.7.0
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -127,9 +127,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
             $excluded_emails = ( isset( $_POST['wc_sc_excluded_customer_email'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_excluded_customer_email'] ) ) : ''; // phpcs:ignore
 			$excluded_emails = explode( ',', $excluded_emails );

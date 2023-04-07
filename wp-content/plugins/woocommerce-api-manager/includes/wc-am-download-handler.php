@@ -148,10 +148,10 @@ class WC_AM_Download_Handler {
 	 * @param WC_Customer_Download $download
 	 */
 	private function check_order_is_valid( $download ) {
-		if ( $download->get_order_id() ) {
-			$order = wc_get_order( $download->get_order_id() );
+		if ( is_object( $download ) && $download->get_order_id() ) {
+			$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $download->get_order_id() );
 
-			if ( $order && ! $order->is_download_permitted() ) {
+			if ( is_object( $order ) && ! $order->is_download_permitted() ) {
 				$this->download_error( esc_html__( 'Invalid order.', 'woocommerce-api-manager' ), '', 403 );
 			}
 		}

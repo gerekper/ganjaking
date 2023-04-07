@@ -93,7 +93,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -103,7 +103,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -162,7 +162,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -172,7 +172,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -229,7 +229,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -239,7 +239,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -296,7 +296,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -306,7 +306,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -365,7 +365,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -375,7 +375,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -432,7 +432,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -442,7 +442,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -501,7 +501,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -511,7 +511,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -571,7 +571,7 @@ class WC_AM_API_Resource_Data_Store {
 					if ( ! empty( $resources_sql ) ) {
 						set_transient( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 					} else {
-						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+						WC_AM_SMART_CACHE()->delete_transients( $trans_name_sql );
 					}
 				}
 
@@ -581,7 +581,7 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $resources ) ) {
 					set_transient( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
 				} else {
-					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+					WC_AM_SMART_CACHE()->delete_transients( $trans_name_active_resources );
 				}
 			}
 
@@ -1204,7 +1204,9 @@ class WC_AM_API_Resource_Data_Store {
 					'number_of_expiring_activations'   => ! $unlimited_activations ? $resource->activations_purchased_total : 'Unlimited activations',
 					'product_title'                    => $resource->product_title,
 					'order_id'                         => $resource->order_id,
-					'product_id'                       => $resource->product_id
+					'product_id'                       => $resource->product_id,
+					'api_resource_id'                  => $resource->api_resource_id,
+					'activations_purchased_total'      => $resource->activations_purchased_total
 				);
 			} else {
 				$results[ 'wc_subs_resources' ][] = array(
@@ -1213,7 +1215,9 @@ class WC_AM_API_Resource_Data_Store {
 					'product_title'                    => $resource->product_title,
 					'order_id'                         => $resource->order_id,
 					'sub_id'                           => $resource->sub_id,
-					'product_id'                       => $resource->product_id
+					'product_id'                       => $resource->product_id,
+					'api_resource_id'                  => $resource->api_resource_id,
+					'activations_purchased_total'      => $resource->activations_purchased_total
 				);
 			}
 		}
@@ -1244,6 +1248,7 @@ class WC_AM_API_Resource_Data_Store {
 			if ( $resource->master_api_key == $api_key || $resource->product_order_api_key == $api_key ) {
 				/**
 				 * Skip duplicate Product IDs.
+				 * Returns distinct Products.
 				 */
 				$product_ids[]     = $resource->product_id;
 				$total_product_ids = array_count_values( $product_ids );
@@ -1254,16 +1259,20 @@ class WC_AM_API_Resource_Data_Store {
 
 				if ( $resource->sub_id == 0 ) {
 					$results[ 'non_wc_subs_resources' ][] = array(
-						'product_title' => $resource->product_title,
-						'order_id'      => $resource->order_id,
-						'product_id'    => $resource->product_id,
+						'product_title'               => $resource->product_title,
+						'order_id'                    => $resource->order_id,
+						'product_id'                  => $resource->product_id,
+						'api_resource_id'             => $resource->api_resource_id,
+						'activations_purchased_total' => $resource->activations_purchased_total
 					);
 				} else {
 					$results[ 'wc_subs_resources' ][] = array(
-						'product_title' => $resource->product_title,
-						'order_id'      => $resource->order_id,
-						'sub_id'        => $resource->sub_id,
-						'product_id'    => $resource->product_id,
+						'product_title'               => $resource->product_title,
+						'order_id'                    => $resource->order_id,
+						'sub_id'                      => $resource->sub_id,
+						'product_id'                  => $resource->product_id,
+						'api_resource_id'             => $resource->api_resource_id,
+						'activations_purchased_total' => $resource->activations_purchased_total
 					);
 				}
 			}
@@ -1701,13 +1710,17 @@ class WC_AM_API_Resource_Data_Store {
 	public function get_api_resource_ids_by_order( $order ) {
 		global $wpdb;
 
+		$api_resource_ids = array();
+
 		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order );
 
-		$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
+		if ( is_object( $order ) ) {
+			$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
 			SELECT api_resource_id
 			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE order_id = %d
 		", $order->get_id() ) );
+		}
 
 		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
 	}
@@ -1756,6 +1769,27 @@ class WC_AM_API_Resource_Data_Store {
 		", $subscription->get_id() ) );
 
 		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+	}
+
+	/**
+	 * Returns the Product title.
+	 *
+	 * @since 2.6.2
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return string
+	 */
+	public function get_title_by_api_resource_id( $api_resource_id ) {
+		global $wpdb;
+
+		$product_title = $wpdb->get_var( $wpdb->prepare( "
+			SELECT product_title
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE api_resource_id = %d
+		", $api_resource_id ) );
+
+		return ! empty( $product_title ) ? $product_title : '';
 	}
 
 	/**

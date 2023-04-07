@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '2.1.0',
-        'version' => '2.1.0.0',
+        'pretty_version' => '2.1.1',
+        'version' => '2.1.1.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '807b6f764e68ba5aee2e89f3bb8c27045279246d',
+        'reference' => '19918fc01edb84b2f4952ed1c38e852d0de20b69',
         'name' => 'koilabcode/woocommerce-store-catalog-pdf-download',
         'dev' => false,
     ),
@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'koilabcode/woocommerce-store-catalog-pdf-download' => array(
-            'pretty_version' => '2.1.0',
-            'version' => '2.1.0.0',
+            'pretty_version' => '2.1.1',
+            'version' => '2.1.1.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '807b6f764e68ba5aee2e89f3bb8c27045279246d',
+            'reference' => '19918fc01edb84b2f4952ed1c38e852d0de20b69',
             'dev_requirement' => false,
         ),
         'masterminds/html5' => array(

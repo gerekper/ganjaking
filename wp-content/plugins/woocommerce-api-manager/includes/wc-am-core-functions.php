@@ -325,3 +325,14 @@ function WC_AM_USER() {
 }
 
 WC_AM_USER();
+
+/**
+ * Get queue instance.
+ *
+ * @since 2.6.2
+ *
+ * @return WCAM_Queue_Interface
+ */
+function WC_AM_QUEUE() {
+	return WC_AM_Queue::instance();
+}

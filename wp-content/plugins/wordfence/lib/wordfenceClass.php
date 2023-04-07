@@ -1389,6 +1389,7 @@ SQL
 		}
 
 		wfScanMonitor::registerActions();
+		wfUpdateCheck::installPluginAPIFixer();
 	}
 
 	public static function registerDeactivationPrompt() {
@@ -4021,7 +4022,7 @@ SQL
 		$content .= "\n\n";
 
 		ob_start();
-		phpinfo();
+		if (wfUtils::funcEnabled('phpinfo')) { phpinfo(); } else { echo "\n\n" . __('Unable to output phpinfo content because it is disabled', 'wordfence') . "\n\n"; }
 		$phpinfo = ob_get_contents();
 		ob_get_clean();
 

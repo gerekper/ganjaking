@@ -1,5 +1,9 @@
 *** Product Addons Changelog ***
 
+2023-04-04 - version 6.1.3
+* Fix - Fixed an issue that prevented addons totals from showing up if required Addons were selected before variations.
+* Tweak - Introduced basic telemetry to collect data on extension usage when tracking is enabled.
+
 2023-03-13 - version 6.1.2
 * Update - Improved performance when calculating addons totals between validation runs.
 

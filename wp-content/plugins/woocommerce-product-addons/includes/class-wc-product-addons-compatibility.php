@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_PAO_Compatibility
- * @version  6.0.0
+ * @version  6.1.3
  */
 class WC_PAO_Compatibility {
 
@@ -98,6 +98,15 @@ class WC_PAO_Compatibility {
 
 	}
 
+	/**
+	 * Core compatibility functions.
+	 *
+	 * @since  6.1.3
+	 * @return void
+	 */
+	public static function core_includes() {
+		require_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/core/class-wc-product-addons-core-compatibility.php' );
+	}
 
 	/**
 	 * Get min module version.
@@ -144,3 +153,5 @@ class WC_PAO_Compatibility {
 		}
 	}
 }
+
+WC_PAO_Compatibility::core_includes();

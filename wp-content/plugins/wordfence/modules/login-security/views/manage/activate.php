@@ -67,6 +67,12 @@ $recovery = $initializationData->get_recovery_codes();
 				e.preventDefault();
 				e.stopPropagation();
 				
+				if (WFLS.userIsActivating) { //Likely a double-click
+					return;
+				}
+				
+				WFLS.userIsActivating = true;
+				
 				var payload = {
 					secret: '<?php echo bin2hex($initializationData->get_raw_secret()); ?>',
 					recovery: ['<?php echo implode('\', \'', array_map(function($c) { return bin2hex($c); }, $recovery)); ?>'],
@@ -106,10 +112,12 @@ $recovery = $initializationData->get_recovery_codes();
 								}});
 							}
 							WFLS.savedRecoveryCodes = false;
+							WFLS.userIsActivating = false;
 						}
 					},
 					function(error) {
 						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Activating 2FA', 'wordfence-2fa')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to activate two-factor authentication. Please try again.', 'wordfence-2fa')); ?>');
+						WFLS.userIsActivating = false;
 					}
 				);
 			});

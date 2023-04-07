@@ -1,5 +1,19 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-04-02 - version 2.6.4
+* Tweak: Clear cache when order updated.
+* Tweak: Clear database cache faster when API Resource no longer exists.
+
+2023-03-28 - version 2.6.3
+* Fix: Check if order object exists before accessing order object methods.
+* Fix: Perform some tasks that require an order object before the order is deleted.
+
+2023-03-25 - version 2.6.2
+* Fix: Only display "No activations yet." message once on API Resource Activations meta box when subs are in a grace period interval.
+* Dev: Added api_resource_id and activations_purchased_total to the status API endpoint.
+* Dev: Added api_resource_id and activations_purchased_total to the product_list API endpoint.
+* Dev: Added WC_AM_Queue and WCAM_Action_Queue classes for upcoming features.
+
 2023-03-22 - version 2.6.1
 * Fix: Typo on API Resources meta box Parent Order link had two # # instead of one #.
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     1.9.1
  * @package     WooCommerce Smart Coupons
  */
 
@@ -323,7 +323,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				);
 				// @codingStandardsIgnoreEnd.
 
-				$product_ids_results = $wpdb->get_results( $query_to_fetch_product_ids, 'ARRAY_A' ); // phpcs:ignore
+				$product_ids_results = $wpdb->get_results( $query_to_fetch_product_ids, ARRAY_A ); // phpcs:ignore
 
 				if ( ! is_wp_error( $product_ids_results ) && ! empty( $product_ids_results ) ) {
 					$product_to_old_item = array();
@@ -349,7 +349,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 						$renewal_order_id
 					);
 
-					$new_order_item_ids_result = $wpdb->get_results( $query_to_fetch_new_order_item_ids, 'ARRAY_A' ); // phpcs:ignore
+					$new_order_item_ids_result = $wpdb->get_results( $query_to_fetch_new_order_item_ids, ARRAY_A ); // phpcs:ignore
 
 					if ( ! is_wp_error( $new_order_item_ids_result ) && ! empty( $new_order_item_ids_result ) ) {
 						$product_to_new_item = array();

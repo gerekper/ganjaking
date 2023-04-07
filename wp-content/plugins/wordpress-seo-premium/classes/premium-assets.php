@@ -344,14 +344,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					WPSEO_Admin_Asset_Manager::PREFIX . 'schema-blocks-package',
 				],
 			],
-			[
-				'name'         => 'wp-seo-premium-crawl-settings',
-				'path'         => 'assets/js/dist/',
-				'filename'     => 'crawl-settings-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-				'dependencies' => [
-					'jquery',
-				],
-			],
 		];
 	}
 

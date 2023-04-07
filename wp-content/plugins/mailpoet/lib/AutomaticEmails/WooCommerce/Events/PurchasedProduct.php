@@ -85,6 +85,10 @@ class PurchasedProduct {
           'text' => __('immediately', 'mailpoet'),
           'displayAfterTimeNumberField' => false,
         ],
+        'minutes' => [
+          'text' => __('minute(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
         'hours' => [
           'text' => __('hour(s)', 'mailpoet'),
           'displayAfterTimeNumberField' => true,

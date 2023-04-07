@@ -774,12 +774,12 @@ class WPSEO_Addon_Manager {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Not our properties.
 		return (object) [
 			'renewal_url' => 'yoast.com',
-			'expiry_date' => '14/03/2027',
+			'expiry_date' => '28/03/2027',
 			'product'     => (object) [
-				'version'      => '20.3',
+				'version'      => '20.4',
 				'name'         => 'Yoast SEO Premium',
 				'slug'         => 'wordpress-seo-premium',
-				'last_updated' => '14/03/2023',
+				'last_updated' => '28/03/2023',
 				'store_url'    => 'yoast.com',
 				// Ternary operator is necessary because download can be undefined.
 				'download'     => 'yoast.com',

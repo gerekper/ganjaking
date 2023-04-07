@@ -7,11 +7,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-21T20:49:07+00:00\n"
+"POT-Creation-Date: 2023-03-27T03:44:53+00:00\n"
 "PO-Revision-Date: 2023-03-15 22:59:25+0000\n"
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/class-wc-bookings-cache.php:237
+msgid "Error: Resource not found, please try again"
+msgstr ""
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
@@ -54,17 +58,17 @@ msgid "No slots available."
 msgstr ""
 
 #: includes/admin/class-wc-bookings-ajax.php:209
-#: templates/booking-form/month-picker.php:76
+#: templates/booking-form/month-picker.php:74
 msgid "This month is unavailable"
 msgstr ""
 
 #: includes/admin/class-wc-bookings-ajax.php:207
-#: templates/booking-form/month-picker.php:74
+#: templates/booking-form/month-picker.php:72
 msgid "This month is fully booked and unavailable"
 msgstr ""
 
 #: includes/admin/class-wc-bookings-ajax.php:205
-#: templates/booking-form/month-picker.php:72
+#: templates/booking-form/month-picker.php:70
 msgid "This month is available"
 msgstr ""
 

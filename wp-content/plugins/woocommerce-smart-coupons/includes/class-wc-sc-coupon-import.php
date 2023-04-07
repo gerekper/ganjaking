@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.0
+ * @version     2.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -460,8 +460,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 							if ( ! empty( $meta_value ) ) {
 								$used_by = explode( '|', $meta_value );
 								if ( ! empty( $used_by ) && is_array( $used_by ) ) {
+									$is_callable_set_used_by = $this->is_callable( $_coupon, 'set_used_by' );
 									foreach ( $used_by as $_used_by ) {
-										add_post_meta( $post_id, $meta_key, $_used_by );
+										if ( true === $is_callable_set_used_by ) {
+											$_coupon->set_used_by( $_used_by );
+										} else {
+											add_post_meta( $post_id, $meta_key, $_used_by );
+										}
 									}
 								}
 							}
@@ -547,7 +552,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 									$function   = 'set_' . $key;
 									$has_setter = $this->is_callable( $_coupon, $function );
 									if ( true === $has_setter ) {
-										$value = in_array( $key, array( 'individual_use', 'free_shipping', 'exclude_sale_items' ), true ) ? $this->wc_string_to_bool( maybe_unserialize( $meta_value ) ) : maybe_unserialize( $meta_value );
+										if ( in_array( $key, array( 'individual_use', 'free_shipping', 'exclude_sale_items' ), true ) ) {
+											$value = $this->wc_string_to_bool( maybe_unserialize( $meta_value ) );
+										} elseif ( in_array( $key, array( 'product_ids', 'exclude_product_ids' ), true ) ) {
+											$value = maybe_unserialize( $meta_value );
+											if ( ! is_array( $value ) ) {
+												if ( false !== strpos( $value, ',' ) ) {
+													$value = explode( ',', $value );
+													$value = array_filter( array_map( 'intval', $value ) );
+												} else {
+													$value = array( $value );
+												}
+											}
+										} else {
+											$value = maybe_unserialize( $meta_value );
+										}
 										$_coupon->{$function}( $value );
 									} elseif ( true === $is_callable_update_meta_data ) {
 										$_coupon->update_meta_data( $meta_key, maybe_unserialize( $meta_value ) );

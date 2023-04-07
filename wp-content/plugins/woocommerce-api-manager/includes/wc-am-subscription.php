@@ -163,7 +163,7 @@ class WC_AM_Subscription {
 			 */
 			$subscription = $this->get_last_subscription_for_order( $order_id );
 
-			if ( $subscription ) {
+			if ( is_object( $subscription ) ) {
 				return $subscription->get_id();
 			}
 		}
@@ -210,27 +210,30 @@ class WC_AM_Subscription {
 	 * @return int
 	 */
 	public function get_sub_parent_order_id_for_related_order( $order_id, $order_type = array( 'parent', 'renewal' ) ) {
-		$order             = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
-		$related_order_key = 'wc_am_get_sub_parent_order_id_for_related_order_' . $order->get_id();
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 
-		if ( WCAM()->get_db_cache() ) {
-			$related_order_cached = WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key );
+		if ( is_object( $order ) ) {
+			$related_order_key = 'wc_am_get_sub_parent_order_id_for_related_order_' . $order->get_id();
 
-			if ( $related_order_cached !== false ) {
-				return $related_order_cached;
+			if ( WCAM()->get_db_cache() ) {
+				$related_order_cached = WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key );
+
+				if ( $related_order_cached !== false ) {
+					return $related_order_cached;
+				}
 			}
-		}
 
-		$subscriptions = wcs_get_subscriptions_for_order( $order->get_id(), array( 'order_type' => $order_type ) );
+			$subscriptions = wcs_get_subscriptions_for_order( $order->get_id(), array( 'order_type' => $order_type ) );
 
-		if ( ! WC_AM_FORMAT()->empty( $subscriptions ) ) {
-			foreach ( $subscriptions as $subscription ) {
-				if ( ! WC_AM_FORMAT()->empty( $subscription->get_parent_id() ) ) {
-					if ( WCAM()->get_db_cache() ) {
-						WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key, $subscription->get_parent_id(), WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+			if ( ! WC_AM_FORMAT()->empty( $subscriptions ) ) {
+				foreach ( $subscriptions as $subscription ) {
+					if ( ! WC_AM_FORMAT()->empty( $subscription->get_parent_id() ) ) {
+						if ( WCAM()->get_db_cache() ) {
+							WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key, $subscription->get_parent_id(), WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+						}
+
+						return $subscription->get_parent_id();
 					}
-
-					return $subscription->get_parent_id();
 				}
 			}
 		}
@@ -309,7 +312,7 @@ class WC_AM_Subscription {
 	 *
 	 * @param int|WC_Order $order_id The post_id of a shop_order post or an instance of a WC_Order object
 	 *
-	 * @return mixed An array containing an object.
+	 * @return \WC_Subscription[]|null An array containing an object.
 	 */
 	public function get_last_subscription_for_order( $order_id ) {
 		/**
@@ -1020,31 +1023,35 @@ class WC_AM_Subscription {
 	public function delete_expired_subscription_and_activations( $order ) {
 		global $wpdb;
 
-		$order    = wc_get_order( $order );
-		$order_id = $order->get_id();
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order );
 
-		// Delete grace periods.
-		WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $order_id );
-		// Refreshing cache here will also delete API cache for activations about to be deleted.
-		WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
+		if ( is_object( $order ) ) {
+			$order_id = $order->get_id();
+			$sub_id   = $this->get_subscription_id( $order_id );
 
-		// Delete API Key activations for on-hold status Subscriptions
-		$this->delete_api_key_activations_by_sub_id( $order_id );
+			// Delete grace periods.
+			WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $sub_id );
+			// Refreshing cache here will also delete API cache for activations about to be deleted.
+			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 
-		/**
-		 * Delete the subscription API resource.
-		 */
-		$where = array(
-			'sub_id' => $order_id
-		);
+			// Delete API Key activations for on-hold status Subscriptions
+			$this->delete_api_key_activations_by_sub_id( $sub_id );
 
-		$where_format = array(
-			'%d'
-		);
+			/**
+			 * Delete the subscription API resource.
+			 */
+			$where = array(
+				'sub_id' => $sub_id
+			);
 
-		$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
+			$where_format = array(
+				'%d'
+			);
 
-		WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+			$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
+
+			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+		}
 	}
 
 	/**
@@ -1173,21 +1180,25 @@ class WC_AM_Subscription {
 	 * @throws \Exception
 	 */
 	public function subscriptions_switch_completed( $order ) {
-		$order_id              = $order->get_id();
-		$sub_previous_order_id = $this->get_previous_order_id( $order_id );
-		$sub_previous_order_id = $sub_previous_order_id ? $sub_previous_order_id : $order_id;
-		$sub_ids               = $this->get_all_subscription_ids_for_order( $sub_previous_order_id );
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order );
 
-		if ( ! empty( $sub_ids ) ) {
-			foreach ( $sub_ids as $k => $subscription_id ) {
-				$subscription = WC_AM_ORDER_DATA_STORE()->get_order_object( $subscription_id );
+		if ( is_object( $order ) ) {
+			$order_id              = $order->get_id();
+			$sub_previous_order_id = $this->get_previous_order_id( $order_id );
+			$sub_previous_order_id = $sub_previous_order_id ? $sub_previous_order_id : $order_id;
+			$sub_ids               = $this->get_all_subscription_ids_for_order( $sub_previous_order_id );
 
-				if ( is_object( $subscription ) && WC_AM_FORMAT()->count( $subscription->get_items() ) > 0 ) {
-					foreach ( $subscription->get_items() as $item_id => $item ) {
-						$is_item_on_sub = $this->is_subscription_line_item_on_subscription( $item_id, $order_id );
+			if ( ! empty( $sub_ids ) ) {
+				foreach ( $sub_ids as $k => $subscription_id ) {
+					$subscription = WC_AM_ORDER_DATA_STORE()->get_order_object( $subscription_id );
 
-						if ( ! $is_item_on_sub ) {
-							WC_AM_ORDER()->delete_sub_order_item( $item_id );
+					if ( is_object( $subscription ) && WC_AM_FORMAT()->count( $subscription->get_items() ) > 0 ) {
+						foreach ( $subscription->get_items() as $item_id => $item ) {
+							$is_item_on_sub = $this->is_subscription_line_item_on_subscription( $item_id, $order_id );
+
+							if ( ! $is_item_on_sub ) {
+								WC_AM_ORDER()->delete_sub_order_item( $item_id );
+							}
 						}
 					}
 				}
@@ -1223,64 +1234,67 @@ class WC_AM_Subscription {
 	public function renewal_payment_complete( $renewal_order, $subscription ) {
 		global $wpdb;
 
-		$order                 = WC_AM_ORDER_DATA_STORE()->get_order_object( $renewal_order );
-		$order_id              = $order->get_id();
-		$sub_id                = $subscription->get_id();
-		$sub_previous_order_id = $this->get_previous_order_id( $order_id );
-		$sub_previous_order_id = $sub_previous_order_id ? $sub_previous_order_id : $order_id;
-		$sub_parent_id         = $this->get_parent_id( $order_id );
-		$items                 = $order->get_items();
+		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $renewal_order );
 
-		if ( is_object( $order ) && WC_AM_FORMAT()->count( $items ) > 0 ) {
-			foreach ( $items as $item_id => $item ) {
-				$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item );
-				$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
+		if ( is_object( $order ) ) {
+			$order_id              = $order->get_id();
+			$sub_id                = $subscription->get_id();
+			$sub_previous_order_id = $this->get_previous_order_id( $order_id );
+			$sub_previous_order_id = $sub_previous_order_id ? $sub_previous_order_id : $order_id;
+			$sub_parent_id         = $this->get_parent_id( $order_id );
+			$items                 = $order->get_items();
 
-				// Only store API resource data for API products that have an order status of completed.
-				if ( $is_api ) {
-					$variation_id = ! empty( $item->get_variation_id() ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $item->get_variation_id() ) ? $item->get_variation_id() : 0;
-					$product_id   = ! empty( $variation_id ) ? $variation_id : $item->get_product_id();
+			if ( is_object( $order ) && WC_AM_FORMAT()->count( $items ) > 0 ) {
+				foreach ( $items as $item_id => $item ) {
+					$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item );
+					$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
 
-					$data = array(
-						'order_id'      => (int) $order_id,
-						'order_item_id' => (int) $item_id
-					);
+					// Only store API resource data for API products that have an order status of completed.
+					if ( $is_api ) {
+						$variation_id = ! empty( $item->get_variation_id() ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $item->get_variation_id() ) ? $item->get_variation_id() : 0;
+						$product_id   = ! empty( $variation_id ) ? $variation_id : $item->get_product_id();
 
-					$where = array(
-						'order_id'   => ! empty( $sub_previous_order_id ) ? $sub_previous_order_id : $sub_parent_id,
-						'product_id' => $product_id,
-						'sub_id'     => $sub_id
-					);
+						$data = array(
+							'order_id'      => (int) $order_id,
+							'order_item_id' => (int) $item_id
+						);
 
-					$data_format = array(
-						'%d',
-						'%d'
-					);
+						$where = array(
+							'order_id'   => ! empty( $sub_previous_order_id ) ? $sub_previous_order_id : $sub_parent_id,
+							'product_id' => $product_id,
+							'sub_id'     => $sub_id
+						);
 
-					$where_format = array(
-						'%d',
-						'%d',
-						'%d'
-					);
+						$data_format = array(
+							'%d',
+							'%d'
+						);
 
-					/**
-					 * Update an existing API resource for this order item if the order status changed from Completed to something
-					 * other than Completed, the item was updated, then the order status was changed back to Completed status.
-					 *
-					 * The order cannot be edited once it has a Completed status, so API resource updates only happen when
-					 * the order status is changed back to Completed.
-					 */
-					$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
+						$where_format = array(
+							'%d',
+							'%d',
+							'%d'
+						);
+
+						/**
+						 * Update an existing API resource for this order item if the order status changed from Completed to something
+						 * other than Completed, the item was updated, then the order status was changed back to Completed status.
+						 *
+						 * The order cannot be edited once it has a Completed status, so API resource updates only happen when
+						 * the order status is changed back to Completed.
+						 */
+						$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
+					}
 				}
-			}
 
-			//if ( is_object( $renewal_order ) ) {
-			//	WC_AM_ORDER()->update_wc_subscription_order( $renewal_order->get_id() );
-			//} else {
-			//	$order_obj = WC_AM_ORDER_DATA_STORE()->get_order_object( $renewal_order );
-			//
-			//	WC_AM_ORDER()->update_wc_subscription_order( $order_obj );
-			//}
+				//if ( is_object( $renewal_order ) ) {
+				//	WC_AM_ORDER()->update_wc_subscription_order( $renewal_order->get_id() );
+				//} else {
+				//	$order_obj = WC_AM_ORDER_DATA_STORE()->get_order_object( $renewal_order );
+				//
+				//	WC_AM_ORDER()->update_wc_subscription_order( $order_obj );
+				//}
+			}
 		}
 	}
 

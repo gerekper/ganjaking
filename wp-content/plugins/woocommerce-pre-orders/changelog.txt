@@ -1,6 +1,17 @@
 *** WooCommerce Pre-Orders Plugin ***
 
 
+2023-04-04 - version 2.0.0
+* Add - Order types filter in the order list when HPOS is enabled.
+* Add - Implement support for automatic translation files delivery.
+* Fix - Improve failed pre-order status transition logic.
+* Fix - Countdown timer output issue.
+* Dev - Bump PHP minimum supported version from 7.0 to 7.2.
+* Dev - Bump WooCommerce minimum supported version from 6.0 to 6.8.
+* Dev - Bump WooCommerce "tested up to" version 7.4.
+* Dev - Export  _wc_pre_orders_availability_datetime metadata in human readable date format (mysql format).
+* Dev - Resolve linting issues.
+
 2023-01-24 - version 1.9.0
 * Add - Support for High-performance Order Storage ("HPOS") (formerly known as Custom Order Tables, "COT").
 * Add - Declare compatibility with High-Performance Order Storage ("HPOS").

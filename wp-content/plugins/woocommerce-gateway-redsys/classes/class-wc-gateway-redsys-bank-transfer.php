@@ -627,24 +627,23 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				exit;
 			}
 			$authorisation_code = $id_trans;
+			$data               = array();
 			if ( ! empty( $order1 ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $order1 );
+				$data['_payment_order_number_redsys'] = $order1;
 			}
 			if ( ! empty( $dsdate ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_date_redsys', $dsdate );
+				$data['_payment_date_redsys'] = $dsdate;
 			}
 			if ( ! empty( $dshour ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_payment_hour_redsys', $dshour );
+				$data['_payment_hour_redsys'] = $dshour;
 			}
 			if ( ! empty( $id_trans ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisation_code );
+				$data['_authorisation_code_redsys'] = $authorisation_code;
 			}
 			if ( ! empty( $dscardcountry ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_card_country_redsys', $dscardcountry );
+				$data['_card_country_redsys'] = $dscardcountry;
 			}
-			if ( ! empty( $dscargtype ) ) {
-				WCRed()->update_order_meta( $order->get_id(), '_card_type_redsys', 'C' === $dscargtype ? 'Credit' : 'Debit' );
-			}
+			WCRed()->update_order_meta( $order->get_id(), $data );
 			// Payment completed.
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisation_code );

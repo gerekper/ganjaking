@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.18.1\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.18.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-16T10:04:47+00:00\n"
+"POT-Creation-Date: 2023-04-04T08:07:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -1638,11 +1638,11 @@ msgstr ""
 msgid "Product bundle"
 msgstr ""
 
-#: includes/class-wc-pb-install.php:618
+#: includes/class-wc-pb-install.php:622
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wc-pb-install.php:619
+#: includes/class-wc-pb-install.php:623
 msgid "Support"
 msgstr ""
 
@@ -1697,7 +1697,7 @@ msgid_plural "%1$s is low in stock (%2$d left). Please restock its contents."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-pb-tracker.php:854
+#: includes/class-wc-pb-tracker.php:1049
 msgid "Invalid key &quot;%1$s&quot; passed to get_reusable_data."
 msgstr ""
 
@@ -1760,70 +1760,70 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:387
+#: includes/compatibility/class-wc-pb-compatibility.php:391
 msgid "Composite Products"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:388
+#: includes/compatibility/class-wc-pb-compatibility.php:392
 msgid "WooCommerce Composite Products"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/compatibility/class-wc-pb-compatibility.php:391
-#: includes/compatibility/class-wc-pb-compatibility.php:406
-#: includes/compatibility/class-wc-pb-compatibility.php:465
-#: includes/compatibility/class-wc-pb-compatibility.php:479
+#: includes/compatibility/class-wc-pb-compatibility.php:395
+#: includes/compatibility/class-wc-pb-compatibility.php:410
+#: includes/compatibility/class-wc-pb-compatibility.php:469
+#: includes/compatibility/class-wc-pb-compatibility.php:483
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:402
+#: includes/compatibility/class-wc-pb-compatibility.php:406
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:403
+#: includes/compatibility/class-wc-pb-compatibility.php:407
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:417
+#: includes/compatibility/class-wc-pb-compatibility.php:421
 msgid "WooCommerce Blocks"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
-#: includes/compatibility/class-wc-pb-compatibility.php:420
+#: includes/compatibility/class-wc-pb-compatibility.php:424
 msgid "The installed version of <strong>%1$s</strong> does not support <strong>Product Bundles</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:428
+#: includes/compatibility/class-wc-pb-compatibility.php:432
 msgid "The <strong>Tabular Layout</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Tabular Layout</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:434
+#: includes/compatibility/class-wc-pb-compatibility.php:438
 msgid "The <strong>Bundle-Sells</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Bundle-Sells</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:440
+#: includes/compatibility/class-wc-pb-compatibility.php:444
 msgid "The <strong>Min/Max Items</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Min/Max Items</strong> feature plugin. If you have localized Min/Max Items in your language, please be aware that all localizable strings have been moved into the Product Bundles text domain."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:449
+#: includes/compatibility/class-wc-pb-compatibility.php:453
 msgid "Product Bundles - Top Add to Cart Button"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin name full, %3$s: Plugin version
-#: includes/compatibility/class-wc-pb-compatibility.php:451
+#: includes/compatibility/class-wc-pb-compatibility.php:455
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <strong>%1$s</strong> to version <strong>%2$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:462
+#: includes/compatibility/class-wc-pb-compatibility.php:466
 msgid "Product Bundles - Bulk Discounts"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:475
+#: includes/compatibility/class-wc-pb-compatibility.php:479
 msgid "Min/Max Quantities"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:476
+#: includes/compatibility/class-wc-pb-compatibility.php:480
 msgid "WooCommerce Min/Max Quantities"
 msgstr ""
 

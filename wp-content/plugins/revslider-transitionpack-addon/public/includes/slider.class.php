@@ -224,6 +224,8 @@ class RsTransitionpackSliderFront extends RevSliderFunctions {
 			}
 		}
 		
+		if(empty($add_shaders)) $add_shaders['fade'] = 'fade';
+
 		if(!empty($add_shaders)){
 			foreach($add_shaders as $_shader){
 				$b = "\t\t\t\t\t\t window.TP_SHDRS.".$_shader." =    window.TP_SHDRS.".$_shader." || ";

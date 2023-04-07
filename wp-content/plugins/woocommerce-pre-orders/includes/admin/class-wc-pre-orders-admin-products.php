@@ -58,7 +58,7 @@ class WC_Pre_Orders_Admin_Products {
 		}
 
 		$tabs['pre_orders'] = array(
-			'label'  => __( 'Pre-orders', 'wc-pre-orders' ),
+			'label'  => __( 'Pre-orders', 'woocommerce-pre-orders' ),
 			'target' => 'wc_pre_orders_data',
 			'class'  => $classes,
 		);
@@ -79,6 +79,7 @@ class WC_Pre_Orders_Admin_Products {
 	 * @param int $post_id The ID of the product being saved.
 	 */
 	public function save_product_tab_options( $post_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		// Don't save any settings if there are active pre-orders.
 		if ( WC_Pre_Orders_Product::product_has_active_pre_orders( $post_id ) ) {
 			return;
@@ -101,7 +102,7 @@ class WC_Pre_Orders_Admin_Products {
 			try {
 
 				// Get datetime object from site timezone.
-				$datetime = new DateTime( $_POST['_wc_pre_orders_availability_datetime'], new DateTimeZone( wc_timezone_string() ) );
+				$datetime = new DateTime( wp_unslash( $_POST['_wc_pre_orders_availability_datetime'] ), new DateTimeZone( wc_timezone_string() ) );
 
 				// Get the unix timestamp (adjusted for the site's timezone already).
 				$timestamp = $datetime->format( 'U' );
@@ -125,7 +126,7 @@ class WC_Pre_Orders_Admin_Products {
 
 		// Pre-order fee.
 		if ( isset( $_POST['_wc_pre_orders_fee'] ) && is_numeric( $_POST['_wc_pre_orders_fee'] ) ) {
-			update_post_meta( $post_id, '_wc_pre_orders_fee', $_POST['_wc_pre_orders_fee'] );
+			update_post_meta( $post_id, '_wc_pre_orders_fee', floatval( wp_unslash( $_POST['_wc_pre_orders_fee'] ) ) );
 		} else {
 			update_post_meta( $post_id, '_wc_pre_orders_fee', '' );
 		}

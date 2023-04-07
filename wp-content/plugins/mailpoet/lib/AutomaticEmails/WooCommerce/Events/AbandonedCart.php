@@ -65,8 +65,8 @@ class AbandonedCart {
       ],
       'timeDelayValues' => [
         'minutes' => [
-          'text' => _x('30 minutes', 'This is a trigger setting. It means that we will send an automatic email to a visitor 30 minutes after this visitor had left the website.', 'mailpoet'),
-          'displayAfterTimeNumberField' => false,
+          'text' => __('minute(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
         ],
         'hours' => [
           'text' => __('hour(s)', 'mailpoet'),

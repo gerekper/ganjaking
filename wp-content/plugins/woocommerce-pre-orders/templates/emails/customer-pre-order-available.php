@@ -26,14 +26,14 @@ if ( 'pending' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost
 	<p>
 	<?php
 	/* translators: %1$s: href link for checkout payment url %2$s: closing href link */
-	printf( esc_html__( 'Your pre-order is now available, but requires payment. %1$sPlease pay for your pre-order now.%2$s', 'wc-pre-orders' ), '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '">', '</a>' );
+	printf( esc_html__( 'Your pre-order is now available, but requires payment. %1$sPlease pay for your pre-order now.%2$s', 'woocommerce-pre-orders' ), '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '">', '</a>' );
 	?>
 	</p>
 
 <?php elseif ( 'on-hold' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost_order( $order ) ) : ?>
 
 	<p>
-		<?php esc_html_e( "Your pre-order is now available, but is waiting for the payment to be confirmed. Please wait until it's confirmed. Optionally, make sure the related payment has been sent to avoid delays on your order.", 'wc-pre-orders' ) . "\n\n"; ?>
+		<?php esc_html_e( "Your pre-order is now available, but is waiting for the payment to be confirmed. Please wait until it's confirmed. Optionally, make sure the related payment has been sent to avoid delays on your order.", 'woocommerce-pre-orders' ) . "\n\n"; ?>
 	</p>
 
 <?php elseif ( 'failed' === $order->get_status() ) : ?>
@@ -41,13 +41,13 @@ if ( 'pending' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost
 	<p>
 	<?php
 	/* translators: %1$s: href link for checkout payment url %2$s: closing href link */
-	printf( esc_html__( 'Your pre-order is now available, but automatic payment failed. %1$sPlease update your payment information now.%2$s', 'wc-pre-orders' ), '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '">', '</a>' );
+	printf( esc_html__( 'Your pre-order is now available, but automatic payment failed. %1$sPlease update your payment information now.%2$s', 'woocommerce-pre-orders' ), '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '">', '</a>' );
 	?>
 	</p>
 
 <?php else : ?>
 
-<p><?php esc_html_e( 'Your pre-order is now available. Your order details are shown below for your reference.', 'wc-pre-orders' ); ?></p>
+<p><?php esc_html_e( 'Your pre-order is now available. Your order details are shown below for your reference.', 'woocommerce-pre-orders' ); ?></p>
 
 <?php endif; ?>
 
@@ -88,7 +88,7 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
 if ( $additional_content ) {
 	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
 } else {
-	esc_html_e( 'Thanks for shopping with us.', 'wc-pre-orders' );
+	esc_html_e( 'Thanks for shopping with us.', 'woocommerce-pre-orders' );
 }
 ?>
 </p>

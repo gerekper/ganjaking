@@ -988,8 +988,22 @@ function counter(blockId) {
   jQuery("#sp-counter-number-".concat(blockId)).numerator(options);
 }
 
+function postcomments(blockId) {
+  // Get comment policy content.
+  var commentPolicyElement = "#sp-".concat(blockId, " .sp-postcomments-content-policy-").concat(blockId);
+  var commentPolicyContent = jQuery(commentPolicyElement).html(); // Create comment policy element, add class & append content.
+
+  var commentPolicyHtml = jQuery('<p class="commentpolicy"></p>').html(commentPolicyContent); // Find commentform on current block & append comment policy
+
+  var currentBlock = "#sp-".concat(blockId, " #commentform");
+  var currentBlockHtml = document.querySelector(currentBlock);
+
+  if (currentBlockHtml) {
+    jQuery(currentBlock).prepend(commentPolicyHtml);
+  }
+}
+
 function beforeafterslider(blockId, options) {
-  console.log(options);
   /*
   let options1 = {
   	default_offset_pct: 0.5,
@@ -1002,7 +1016,6 @@ function beforeafterslider(blockId, options) {
   	click_to_move: true
   };
   */
-
   jQuery("#sp-toggle-".concat(blockId, " .twentytwenty-container")).twentytwenty(options);
 }
 
@@ -1027,6 +1040,26 @@ function hotspotTooltips(blockId, items) {
       contentCloning: true,
       contentAsHTML: true
     });
+  });
+}
+
+function seedprod_add_content_toggle_js(blockId) {
+  if (jQuery(this).is(":checked") == false) {
+    jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections1").removeClass("sp-hidden");
+    jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections2").addClass("sp-hidden");
+  } else {
+    jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections1").addClass("sp-hidden");
+    jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections2").removeClass("sp-hidden");
+  }
+
+  jQuery("#sp-contenttoggle-" + blockId + " .sp-content-toggle-area .sp-toggle-switch").change(function () {
+    if (jQuery(this).is(":checked") == false) {
+      jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections1").removeClass("sp-hidden");
+      jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections2").addClass("sp-hidden");
+    } else {
+      jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections1").addClass("sp-hidden");
+      jQuery("#sp-contenttoggle-" + blockId + " .sp-toggle-sections .sp-toggle-sections2").removeClass("sp-hidden");
+    }
   });
 }
 

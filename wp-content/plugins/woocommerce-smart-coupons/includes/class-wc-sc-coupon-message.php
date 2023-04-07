@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     2.0.0
+ * @version     2.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -154,9 +154,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
 				if ( isset( $_POST['wc_coupon_message'] ) ) { // phpcs:ignore

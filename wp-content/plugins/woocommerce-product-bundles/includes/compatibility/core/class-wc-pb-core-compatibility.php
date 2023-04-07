@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions for WC core back-compatibility.
  *
  * @class    WC_PB_Core_Compatibility
- * @version  6.15.3
+ * @version  6.18.3
  */
 class WC_PB_Core_Compatibility {
 
@@ -63,6 +63,15 @@ class WC_PB_Core_Compatibility {
 	 * @var WP_REST_Request
 	 */
 	private static $request;
+
+	/**
+	 * Cache HPOS status.
+	 *
+	 * @since  6.18.3
+	 *
+	 * @var bool
+	 */
+	private static $is_hpos_enabled = null;
 
 	/**
 	 * Constructor.
@@ -691,6 +700,23 @@ class WC_PB_Core_Compatibility {
 
 		return false;
 	}
+
+	/**
+	 * Check if the usage of the custom orders table is enabled.
+	 *
+	 * @since  6.18.3
+	 *
+	 * @return bool
+	 */
+	public static function is_hpos_enabled() {
+
+		if ( ! isset( self::$is_hpos_enabled ) ) {
+			self::$is_hpos_enabled = class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		}
+
+		return self::$is_hpos_enabled;
+	}
+
 }
 
 WC_PB_Core_Compatibility::init();

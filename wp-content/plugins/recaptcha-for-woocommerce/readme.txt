@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
-Tested up to:6.1
-Version:2.42
-Stable tag:2.42
+Tested up to:6.2
+Version:2.43
+Stable tag:2.43
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,11 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.43 =
+
+* Fixed JetPack reCaptcha throw error after successfully sent email. Attempt to read property nodeValue on null
+
 
 = 2.42 =
 

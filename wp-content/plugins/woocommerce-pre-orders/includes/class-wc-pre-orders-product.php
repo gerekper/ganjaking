@@ -183,44 +183,44 @@ class WC_Pre_Orders_Product {
 				if ( $product->is_in_stock() && $product_total_stock > get_option( 'woocommerce_notify_no_stock_amount' ) ) {
 					switch ( get_option( 'woocommerce_stock_format' ) ) {
 						case 'no_amount':
-							$availability = __( 'Available for pre-ordering', 'wc-pre-orders' );
+							$availability = __( 'Available for pre-ordering', 'woocommerce-pre-orders' );
 							break;
 						case 'low_amount':
 							if ( $product_total_stock <= get_option( 'woocommerce_notify_low_stock_amount' ) ) {
 								/* translators: 1: product total stock */
-								$availability = sprintf( __( 'Only %s left available for pre-ordering', 'wc-pre-orders' ), $product_total_stock );
+								$availability = sprintf( __( 'Only %s left available for pre-ordering', 'woocommerce-pre-orders' ), $product_total_stock );
 
 								if ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
-									$availability .= ' ' . __( '(can be backordered)', 'wc-pre-orders' );
+									$availability .= ' ' . __( '(can be backordered)', 'woocommerce-pre-orders' );
 								}
 							} else {
-								$availability = __( 'Available for pre-ordering', 'wc-pre-orders' );
+								$availability = __( 'Available for pre-ordering', 'woocommerce-pre-orders' );
 							}
 							break;
 
 						default:
 							/* translators: 1: product total stock */
-							$availability = sprintf( __( '%s available for pre-ordering', 'wc-pre-orders' ), $product_total_stock );
+							$availability = sprintf( __( '%s available for pre-ordering', 'woocommerce-pre-orders' ), $product_total_stock );
 
 							if ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
-								$availability .= ' ' . __( '(can be backordered)', 'wc-pre-orders' );
+								$availability .= ' ' . __( '(can be backordered)', 'woocommerce-pre-orders' );
 							}
 							break;
 					}
 
 					$class = 'in-stock';
 				} elseif ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
-					$availability = __( 'Available on backorder', 'wc-pre-orders' );
+					$availability = __( 'Available on backorder', 'woocommerce-pre-orders' );
 					$class        = 'available-on-backorder';
 				} elseif ( $product->backorders_allowed() ) {
-					$availability = __( 'Available for pre-ordering', 'wc-pre-orders' );
+					$availability = __( 'Available for pre-ordering', 'woocommerce-pre-orders' );
 					$class        = 'in-stock';
 				} else {
-					$availability = __( 'No longer available for pre-ordering', 'wc-pre-orders' );
+					$availability = __( 'No longer available for pre-ordering', 'woocommerce-pre-orders' );
 					$class        = 'out-of-stock';
 				}
 			} elseif ( ! $product->is_in_stock() ) {
-				$availability = __( 'No longer available for pre-ordering', 'wc-pre-orders' );
+				$availability = __( 'No longer available for pre-ordering', 'woocommerce-pre-orders' );
 				$class        = 'out-of-stock';
 			}
 
@@ -404,7 +404,7 @@ class WC_Pre_Orders_Product {
 	 */
 	public static function get_localized_availability_date( $product, $none_text = '' ) {
 		if ( '' === $none_text ) {
-			$none_text = __( 'at a future date', 'wc-pre-orders' );
+			$none_text = __( 'at a future date', 'woocommerce-pre-orders' );
 		}
 
 		if ( ! is_object( $product ) ) {

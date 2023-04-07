@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -224,7 +224,7 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 			$valid_post_types     = array( 'shop_coupon', 'shop_order', 'product' );
 			$valid_pagenow        = array( 'edit.php', 'post.php', 'plugins.php' );
 			$is_show_terms_notice = get_option( 'wc_sc_is_show_terms_notice', false );
-			$get_post_type        = ( ! empty( $post->post_type ) ) ? $post->post_type : '';
+			$get_post_type        = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : '';
 			$get_page             = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 			$get_tab              = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore
 

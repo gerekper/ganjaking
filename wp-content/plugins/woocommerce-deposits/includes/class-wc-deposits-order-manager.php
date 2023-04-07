@@ -85,9 +85,6 @@ class WC_Deposits_Order_Manager {
 		// Send WooCommerce emails on custom status transitions.
 		add_filter( 'woocommerce_email_actions', array( $this, 'register_status_transitions_for_core_emails' ), 10, 1 );
 		add_action( 'woocommerce_email', array( $this, 'send_core_emails_on_status_changes' ), 10, 1 );
-
-		// Fix order tax location for local pickup orders.
-		add_filter( 'woocommerce_order_get_tax_location', array( $this, 'order_tax_location' ), 10, 2 );
 	}
 
 	/**
@@ -793,34 +790,6 @@ class WC_Deposits_Order_Manager {
 			return $paid;
 		}
 		return false;
-	}
-
-	/**
-	 * Update tax location for order to store base in case of local pickup shipping method
-	 *
-	 * @param array    $args Tax location array.
-	 * @param WC_Order $order Current order.
-	 * @return array
-	 */
-	public function order_tax_location( $args, $order ) {
-		/**
-		 * Apply Woocommerce core filter to override Base tax for Local Pickup
-		 *
-		 * @see WC_Customer::get_taxable_address()
-		 */
-		$apply_base_tax = true === apply_filters( 'woocommerce_apply_base_tax_for_local_pickup', true );
-
-		$is_local_pickup = self::is_local_pickup( $order );
-
-		// Change tax location to store base address for Local Pickup and Deposits (main or follow up order).
-		if ( $is_local_pickup && $apply_base_tax && ( self::has_deposit( $order ) || self::is_follow_up_order( $order ) ) ) {
-			$args['country']  = WC()->countries->get_base_country();
-			$args['state']    = WC()->countries->get_base_state();
-			$args['postcode'] = WC()->countries->get_base_postcode();
-			$args['city']     = WC()->countries->get_base_city();
-		}
-
-		return $args;
 	}
 
 	/**

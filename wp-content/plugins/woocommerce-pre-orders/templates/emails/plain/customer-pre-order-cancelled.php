@@ -19,7 +19,7 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
 echo esc_html( wp_strip_all_tags( $email_heading ) );
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-echo esc_html__( 'Your pre-order has been cancelled. Your order details are shown below for your reference.', 'wc-pre-orders' ) . "\n\n";
+echo esc_html__( 'Your pre-order has been cancelled. Your order details are shown below for your reference.', 'woocommerce-pre-orders' ) . "\n\n";
 
 if ( $message ) :
 

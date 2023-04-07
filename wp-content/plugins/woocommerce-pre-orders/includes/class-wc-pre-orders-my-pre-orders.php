@@ -71,7 +71,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 	 */
 	public function endpoint_title( $title ) {
 		if ( $this->is_pre_orders_endpoint() ) {
-			$title = __( 'Pre-orders', 'wc-pre-orders' );
+			$title = __( 'Pre-orders', 'woocommerce-pre-orders' );
 			remove_filter( 'the_title', array( $this, 'endpoint_title' ) );
 		}
 
@@ -108,7 +108,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 	public function menu_items( $items ) {
 		// Insert Pre-Orders menu.
 		$new_items               = array();
-		$new_items['pre-orders'] = __( 'Pre-orders', 'wc-pre-orders' );
+		$new_items['pre-orders'] = __( 'Pre-orders', 'woocommerce-pre-orders' );
 
 		return $this->_insert_new_items_after( $items, $new_items, 'dashboard' );
 	}
@@ -165,7 +165,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 			if ( WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'cancelled', $order ) ) {
 				$_actions['cancel'] = array(
 					'url'  => WC_Pre_Orders_Manager::get_users_change_status_link( 'cancelled', $order ),
-					'name' => __( 'Cancel', 'wc-pre-orders' ),
+					'name' => __( 'Cancel', 'woocommerce-pre-orders' ),
 				);
 			}
 

@@ -5,15 +5,11 @@ use WP_Rocket\Event_Management\Subscriber_Interface;
 
 /**
  * Subscriber for the Cache Config
- *
- * @since 3.4
  */
 class Subscriber implements Subscriber_Interface {
 
 	/**
 	 * Return an array of events that this subscriber wants to listen to.
-	 *
-	 * @since  3.4
 	 *
 	 * @return array
 	 */

@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
 /* translators: %s: availability date */
-$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'wc-pre-orders' ), $availability_date ) : '.';
+$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'woocommerce-pre-orders' ), $availability_date ) : '.';
 ?>
 
 <?php if ( WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) ) : ?>
@@ -28,10 +28,10 @@ $availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on 
 	<?php
 	if ( WC_Pre_Orders_Order::order_has_payment_token( $order ) ) {
 		/* translators: %s: availability date */
-		echo '<p>' . sprintf( esc_html__( 'Your pre-order has been received. You will be automatically charged for your order via your selected payment method when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), $availability_date_text ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<p>' . sprintf( esc_html__( 'Your pre-order has been received. You will be automatically charged for your order via your selected payment method when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), $availability_date_text ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} else {
 		/* translators: %s: availability date */
-		echo '<p>' . sprintf( esc_html__( 'Your pre-order has been received. You will be prompted for payment for your order when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), $availability_date_text ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<p>' . sprintf( esc_html__( 'Your pre-order has been received. You will be prompted for payment for your order when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), $availability_date_text ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 	?>
 <?php else : ?>
@@ -39,7 +39,7 @@ $availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on 
 <p>
 	<?php
 	/* translators: %s: availability date */
-	printf( esc_html__( 'Your pre-order has been received. You will be notified when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), $availability_date_text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	printf( esc_html__( 'Your pre-order has been received. You will be notified when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), $availability_date_text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
 </p>
 

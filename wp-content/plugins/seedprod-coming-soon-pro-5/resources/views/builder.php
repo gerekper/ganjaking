@@ -616,6 +616,21 @@ $seedprod_data = array(
 
 		}
 	});
+
+	function setxdLocalStorageKeyValue (key,value) {
+
+		xdLocalStorage.setItem(key, value);
+		seedprod_store.seedprod_copy_paste_enabled= true;
+
+	}
+
+	function getxdLocalStorageKeyValue(key){
+		
+		xdLocalStorage.getItem(key, function (data) {
+			seedprod_section_data = JSON.parse(data.value);
+		});
+
+	}
 	
 	function getxdLocalStorageValue(){
 		

@@ -652,6 +652,7 @@ function redsys_return_dserrors() {
 		'SIS0694'  => 'No ha podido realizarse el pago con SamsungPay',
 		'SIS0700'  => 'PayPal a devuelto un KO',
 		'SIS0801'  => 'Denegada por iUPAY',
+		'SIS0883'  => 'Problema con MIT, probablemnte no activo en el terminal',
 		'SIS0899'  => 'No están correctamente firmados los datos que nos envían en el Ds_Merchant_Data.',
 		'SIS0900'  => 'SafetyPay ha devuelto un KO',
 		'SIS0909'  => 'Error interno',

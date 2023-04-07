@@ -2,7 +2,7 @@
 Contributors: toddlahman
 Tags: woocommerce, api manager, ecommerce, e-commerce, commerce, wordpress ecommerce, subscriptions
 Requires at least: 6.0
-Tested up to: 6.1.1
+Tested up to: 6.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 7.4

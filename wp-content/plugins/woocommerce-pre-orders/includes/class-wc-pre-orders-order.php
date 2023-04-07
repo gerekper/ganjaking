@@ -68,13 +68,13 @@ class WC_Pre_Orders_Order {
 		register_post_status(
 			'wc-pre-ordered',
 			array(
-				'label'                     => _x( 'Pre-ordered', 'Order status', 'wc-pre-orders' ),
+				'label'                     => _x( 'Pre-ordered', 'Order status', 'woocommerce-pre-orders' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				/* translators: %s: number of pre-orders */
-				'label_count'               => _n_noop( 'Pre-ordered <span class="count">(%s)</span>', 'Pre-ordered <span class="count">(%s)</span>', 'wc-pre-orders' ),
+				'label_count'               => _n_noop( 'Pre-ordered <span class="count">(%s)</span>', 'Pre-ordered <span class="count">(%s)</span>', 'woocommerce-pre-orders' ),
 			)
 		);
 	}
@@ -86,7 +86,7 @@ class WC_Pre_Orders_Order {
 	 * @return array
 	 */
 	public function order_statuses( $order_statuses ) {
-		$order_statuses['wc-pre-ordered'] = _x( 'Pre-ordered', 'Order status', 'wc-pre-orders' );
+		$order_statuses['wc-pre-ordered'] = _x( 'Pre-ordered', 'Order status', 'woocommerce-pre-orders' );
 
 		return $order_statuses;
 	}
@@ -330,13 +330,13 @@ class WC_Pre_Orders_Order {
 
 		switch ( $status ) {
 			case 'active':
-				$status_string = __( 'Active', 'wc-pre-orders' );
+				$status_string = __( 'Active', 'woocommerce-pre-orders' );
 				break;
 			case 'completed':
-				$status_string = __( 'Completed', 'wc-pre-orders' );
+				$status_string = __( 'Completed', 'woocommerce-pre-orders' );
 				break;
 			case 'cancelled':
-				$status_string = __( 'Cancelled', 'wc-pre-orders' );
+				$status_string = __( 'Cancelled', 'woocommerce-pre-orders' );
 				break;
 			default:
 				$status_string = apply_filters( 'wc_pre_orders_custom_status_string', ucfirst( $status ), $order );
@@ -430,7 +430,7 @@ class WC_Pre_Orders_Order {
 
 		// add order note
 		/* translators: %1$s: old pre-order status %2$s: new pre-order status */
-		$order->add_order_note( $message . sprintf( __( 'Pre-order status changed from %1$s to %2$s.', 'wc-pre-orders' ), $old_status, $new_status ) );
+		$order->add_order_note( $message . sprintf( __( 'Pre-order status changed from %1$s to %2$s.', 'woocommerce-pre-orders' ), $old_status, $new_status ) );
 
 		// Save order data
 		$order->save();

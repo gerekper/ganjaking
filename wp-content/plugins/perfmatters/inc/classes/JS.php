@@ -11,10 +11,6 @@ class JS
 		}
 
 		add_action('wp', array('Perfmatters\JS', 'queue'));
-
-		if(!empty(Config::$options['assets']['fastclick'])) {
-			add_filter('wp_head', array('Perfmatters\JS', 'print_fastclick'));
-		}
 	}
 
 	//queue functions
@@ -27,6 +23,11 @@ class JS
 
 			//actions + filters
 			add_filter('perfmatters_output_buffer_template_redirect', array('Perfmatters\JS', 'optimize'));
+
+			//fastclick
+			if($delay_check && !empty(Config::$options['assets']['fastclick'])) {
+				add_filter('wp_head', array('Perfmatters\JS', 'print_fastclick'));
+			}
 		}
 	}
 
@@ -108,6 +109,7 @@ class JS
 				    			else {
 				    				$atts_array['data-pmdelayedscript'] = "data:text/javascript;base64," . base64_encode($matches[3][$i]);
 				    			}
+				    			break;
 							}
 						}
 					}

@@ -29,7 +29,7 @@ $pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
 $full_name = $pre_wc_30 ? $order->billing_first_name . ' ' . $order->billing_last_name : $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
 
 /* Translators: %s Full name of the customer */
-printf( esc_html__( 'A pre-order from %s has been cancelled. The order details are shown below for your reference.', 'wc-pre-orders' ), esc_html( $full_name ) );
+printf( esc_html__( 'A pre-order from %s has been cancelled. The order details are shown below for your reference.', 'woocommerce-pre-orders' ), esc_html( $full_name ) );
 ?>
 </p>
 

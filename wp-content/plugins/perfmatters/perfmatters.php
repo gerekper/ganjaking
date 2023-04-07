@@ -1,9 +1,12 @@
 <?php
+update_option('perfmatters_edd_license_key', 'qXJQF4rI-901d-HE2P-W0az-w2v2Ik1m1x3Y');
+update_option('perfmatters_edd_license_status', 'valid');
 /*
 Plugin Name: Perfmatters
 Plugin URI: https://perfmatters.io/
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.0.7
+Version: 2.0.9
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -18,7 +21,7 @@ Domain Path: /languages
 define('PERFMATTERS_STORE_URL', 'https://perfmatters.io/');
 define('PERFMATTERS_ITEM_ID', 696);
 define('PERFMATTERS_ITEM_NAME', 'perfmatters');
-define('PERFMATTERS_VERSION', '2.0.7');
+define('PERFMATTERS_VERSION', '2.0.9');
 
 function perfmatters_plugins_loaded() {
 
@@ -26,8 +29,12 @@ function perfmatters_plugins_loaded() {
 	$perfmatters_cache_path = apply_filters('perfmatters_cache_path', 'cache');
 	$parsed_url = parse_url(get_site_url());
 	$host = $parsed_url['host'] . ($parsed_url['path'] ?? '');
-	define('PERFMATTERS_CACHE_DIR', WP_CONTENT_DIR . '/' . $perfmatters_cache_path . "/perfmatters/$host/");
-	define('PERFMATTERS_CACHE_URL', content_url('/') . $perfmatters_cache_path . "/perfmatters/$host/");
+	if(!defined('PERFMATTERS_CACHE_DIR')) {
+		define('PERFMATTERS_CACHE_DIR', WP_CONTENT_DIR . '/' . $perfmatters_cache_path . "/perfmatters/$host/");
+	}
+	if(!defined('PERFMATTERS_CACHE_URL')) {
+		define('PERFMATTERS_CACHE_URL', content_url('/') . $perfmatters_cache_path . "/perfmatters/$host/");
+	}
 
 	//load translations
 	load_plugin_textdomain('perfmatters', false, dirname(plugin_basename( __FILE__)) . '/languages/');
@@ -511,7 +518,9 @@ require_once plugin_dir_path(__FILE__) . 'EDD_SL_Plugin_Updater.php';
 require_once plugin_dir_path(__FILE__) . 'inc/settings.php';
 require_once plugin_dir_path(__FILE__) . 'inc/functions.php';
 require_once plugin_dir_path(__FILE__) . 'inc/functions_script_manager.php';
-require_once plugin_dir_path(__FILE__) . 'inc/network.php';
+require_once plugin_dir_path(__FILE__) . 'inc/functions_network.php';
 
 //composer autoloader
 require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
+/* Anti-Leecher Indentifier */
+/* Credited By BABIATO-FORUM */

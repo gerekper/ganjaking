@@ -749,7 +749,7 @@ if (!isset($sendingDiagnosticEmail)) {
 	?>
 
 	<?php if (!empty($inEmail)): ?>
-		<?php phpinfo(); ?>
+		<?php if (wfUtils::funcEnabled('phpinfo')) { phpinfo(); } else { echo '<strong>' . esc_html__('Unable to output phpinfo content because it is disabled', 'wordfence') . "</strong>\n"; } ?>
 	<?php endif ?>
 
 	<?php if (!empty($emailForm)): ?>

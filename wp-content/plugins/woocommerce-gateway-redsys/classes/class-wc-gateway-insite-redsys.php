@@ -182,35 +182,37 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			}
 			if ( class_exists( 'SOAPClient' ) ) {
 				$exception_message = false;
+				$soap_client       = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
 				try {
-					$soap_client = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
-				} catch ( Exception $e ) {
-					$exception_message = $e->getMessage();
+					$result = $soap_client->__soapCall( 'trataPeticion', array() );
+				} catch ( SoapFault $fault ) {
+					$exception_message = $fault->getMessage();
 				}
 				if ( $exception_message ) {
 					?>
-							<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
-								<p><?php esc_html_e( 'InSite will not work in Test Mode, Normally this happens because your hosting is blocking the Port 25443 for SOAP, please talk to your hosting and tell them to open port 25443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in test mode..', 'woocommerce-redsys' ); ?></p>
-							</div>
-						<?PHP
+					<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
+						<p><?php esc_html_e( 'InSite will not work in Test Mode, Normally this happens because your hosting is blocking the Port 25443 for SOAP, please talk to your hosting and tell them to open port 25443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in test mode..', 'woocommerce-redsys' ); ?></p>
+					</div>
+					<?php
 				}
+				$soap_client = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
 				try {
-					$soap_client = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
-				} catch ( Exception $e ) {
-					$exception_message = $e->getMessage();
+					$result = $soap_client->__soapCall( 'trataPeticion', array() );
+				} catch ( SoapFault $fault ) {
+					$exception_message = $fault->getMessage();
 				}
 				if ( $exception_message ) {
 					?>
-							<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
-								<p><?php esc_html_e( 'InSite will not work in Real Mode, Normally this happens because your hosting is blocking SOAP, please talk to your hosting and tell them to open port 443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in real mode.', 'woocommerce-redsys' ); ?></p>
-							</div>
-						<?PHP
+					<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
+						<p><?php esc_html_e( 'InSite will not work in Real Mode, Normally this happens because your hosting is blocking SOAP, please talk to your hosting and tell them to open port 443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in real mode.', 'woocommerce-redsys' ); ?></p>
+					</div>
+					<?php
 				}
 			} else {
 				?>
-					<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
+				<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
 					<?php esc_html_e( 'SOAP is needed for Pay with InSite. Ask to your hosting to enable it. Without active SOAP on the server, the functionality of the plugin is very limited.', 'woocommerce-redsys' ); ?>
-					</div>
+				</div>
 				<?php
 			}
 			WCRed()->return_help_notice();
@@ -633,35 +635,37 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	public function get_js_header( $user_id = false ) {
 
-		if ( 'yes' === $this->testmode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', '          URL Test        ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', ' ' );
-			}
-			echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
-		} else {
-			$user_test = $this->check_user_test_mode( $user_id );
-			if ( $user_test ) {
+		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {
+			if ( 'yes' === $this->testmode ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
 					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', '          URL Test WD         ' );
+					$this->log->add( 'insite', '          URL Test        ' );
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
 				}
 				echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', ' ' );
-					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', '          URL Live WD         ' );
-					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', ' ' );
+				$user_test = $this->check_user_test_mode( $user_id );
+				if ( $user_test ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '          URL Test WD         ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+					echo '<script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+				} else {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '          URL Live WD         ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+					echo '<script src="https://sis.redsys.es/sis/NC/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 				}
-				echo '<script src="https://sis.redsys.es/sis/NC/redsysV3.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 			}
 		}
 	}
@@ -672,38 +676,40 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	public function get_redsys_url_gateway( $user_id = false ) {
 
-		if ( 'yes' === $this->testmode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', '          URL Test        ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', ' ' );
-			}
-			$url = $this->testurlws;
-		} else {
-			$user_test = $this->check_user_test_mode( $user_id );
-			if ( $user_test ) {
+		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {
+			if ( 'yes' === $this->testmode ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
 					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', '          URL Test RD         ' );
+					$this->log->add( 'insite', '          URL Test        ' );
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
 				}
 				$url = $this->testurlws;
 			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', ' ' );
-					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', '          URL Live RD         ' );
-					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', ' ' );
+				$user_test = $this->check_user_test_mode( $user_id );
+				if ( $user_test ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '          URL Test RD         ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+					$url = $this->testurlws;
+				} else {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '          URL Live RD         ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+					$url = $this->liveurlws;
 				}
-				$url = $this->liveurlws;
 			}
+			return $url;
 		}
-		return $url;
 	}
 	/**
 	 * Get Redsys URL Gateway WS
@@ -712,38 +718,40 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	public function get_redsys_url_gateway_ws( $user_id = false ) {
 
-		if ( 'yes' === $this->testmode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', '          URL Test        ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', ' ' );
-			}
-			$url = $this->testurlws2;
-		} else {
-			$user_test = $this->check_user_test_mode( $user_id );
-			if ( $user_test ) {
+		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {
+			if ( 'yes' === $this->testmode ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
 					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', '          URL Test RD         ' );
+					$this->log->add( 'insite', '          URL Test        ' );
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
 				}
 				$url = $this->testurlws2;
 			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', ' ' );
-					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', '          URL Live RD         ' );
-					$this->log->add( 'insite', '/****************************/' );
-					$this->log->add( 'insite', ' ' );
+				$user_test = $this->check_user_test_mode( $user_id );
+				if ( $user_test ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '          URL Test RD         ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+					$url = $this->testurlws2;
+				} else {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '          URL Live RD         ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+					$url = $this->liveurlws2;
 				}
-				$url = $this->liveurlws2;
 			}
+			return $url;
 		}
-		return $url;
 	}
 	/**
 	 * Check if user is in test mode
@@ -1047,9 +1055,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$redsys_done = WCRed()->get_order_meta( $order_id, '_redsys_done', true );
 
 		if ( 'yes' === $this->debug ) {
-			if ( ! $result ) {
-				$this->log->add( 'insite', 'No llega el subscriptions ID' );
-			}
 			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', '/****************************/' );
 			$this->log->add( 'insite', '       Once upon a time       ' );
@@ -1058,10 +1063,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'insite', '/***************************************/' );
 			$this->log->add( 'insite', '  Doing scheduled_subscription_payment   ' );
 			$this->log->add( 'insite', '/***************************************/' );
-			$this->log->add( 'insite', ' ' );
-		}
-
-		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', '/***************************************/' );
 			$this->log->add( 'insite', '      $order_id = ' . $order_id . '      ' );
@@ -4132,7 +4133,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$description                     = WCRed()->product_description( $order, $order_id );
 		$merchan_name                    = $order->get_billing_first_name();
 		$merchant_lastnme                = $order->get_billing_last_name();
-
+		if ( ! $tokennum ) {
+			$tokennum = 'no';
+			set_transient( $order_id . '_insite_use_token', 'no', 3600 );
+		}
 		set_transient( $order_id . '_insite_token_redsys', $tokennum, 3600 );
 		set_transient( $order_id . '_insite_token', $insite_redsys_token, 3600 );
 		set_transient( $order_id . '_ds_merchant_cof_ini', $insite_ds_merchant_cof_ini, 3600 );
@@ -5001,7 +5005,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$redsys_insite->log->add( 'insite', '$currency: ' . $currency );
 		}
 
-		if ( 'yes' === $redsys_insite->pay1clic && ( 'yes' === $save || 'yes' === $need_token ) ) {
+		if ( ( 'yes' === $redsys_insite->pay1clic || 'yes' === $save ) || 'yes' === $need_token ) {
 			if ( 'R' === $token_type_needed ) {
 				$merchant_data = '<DS_MERCHANT_MERCHANTDATA>0</DS_MERCHANT_MERCHANTDATA>';
 				$identifier    = '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER>';
@@ -5141,7 +5145,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			set_transient( $order_id . '_insite_needs_payment', 'yes', 46000 );
 		}
 
-		if ( 'yes' === $redsys_insite->pay1clic && ( 'yes' === $save || 'yes' === $need_token ) ) {
+		if ( ( 'yes' === $redsys_insite->pay1clic || 'yes' === $save ) || 'yes' === $need_token ) {
 			if ( 'R' === $token_type_needed ) {
 				set_transient( $order_id . '_insite_Ds_Merchant_MerchantData', '0', 46000 );
 				set_transient( $order_id . '_insite_Ds_MERCHANT_IDENTIFIER', 'REQUIRED', 46000 );
@@ -5534,7 +5538,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				if ( $creq ) {
 					?>
 					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype = "application/xwww-form-urlencoded">
-						<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
+						<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 					</form>
 					<script type="text/javascript">
@@ -5621,7 +5625,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 				?>
 				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype = "application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
+					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
 				<script type="text/javascript">
@@ -5668,7 +5672,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 					?>
 				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype = "application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
+					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
 				<script type="text/javascript">
@@ -7429,7 +7433,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	public function save_field_update_order_meta( $order_id ) {
 
-		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) ) {
+		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) && 'insite' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
 			$order   = WCRed()->get_order( $order_id );
 			$user_id = $order->get_user_id();
 

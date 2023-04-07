@@ -15,7 +15,7 @@ class RsTransitionpackBase extends RsAddOnTransitionpackBase {
 					 $_PluginUrl     = RS_TRANSITIONPACK_PLUGIN_URL,
 					 $_PluginTitle   = 'transitionpack',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '1.0.5';
+				     $_Version       = '1.0.6';
 	
 	public function __construct() {
 		

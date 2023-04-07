@@ -135,7 +135,16 @@ $global_availability_rule_per_page = $show_google_event ? 250 : count( $global_a
 	<div id="poststuff">
 		<div class="postbox">
 			<div class="inside">
-				<p><?php esc_html_e( 'This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store\'s availability.', 'woocommerce-bookings' ); ?></p>
+				<p><?php esc_html_e( 'This section will set the availability of your store (e.g. open and closed hours). All bookable products will adopt your store\'s availability.', 'woocommerce-bookings' ); ?></p>
+				<p>
+					<?php
+					/* translators: %1$s is replaced with the opening anchor tag; %2$s with the closing */
+					printf(
+						esc_html__( 'For more information on setting up store availability rules, please see our %1$sdocumentation%2$s.', 'woocommerce-bookings' ),
+						'<a href="https://woocommerce.com/document/booking-settings/#section-1" target="_blank" rel="noopener">',
+						'</a>'
+					); ?>
+				</p>
 
 				<ul class="subsubsub">
 					<?php if ( $global_availabilities_data_store->has_google_event() ) : ?>
@@ -192,7 +201,7 @@ $global_availability_rule_per_page = $show_google_event ? 250 : count( $global_a
 										?>">
 										<?php esc_html_e( 'Add Range', 'woocommerce-bookings' ); ?>
 									</a>
-									<span class="description"><?php echo esc_html( get_wc_booking_rules_explanation() ); ?></span>
+									<?php wc_booking_rules_explanation_html(); ?>
 								</th>
 							</tr>
 							</tfoot>

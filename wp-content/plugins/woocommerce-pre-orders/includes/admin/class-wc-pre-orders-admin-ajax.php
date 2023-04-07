@@ -49,12 +49,12 @@ class WC_Pre_Orders_Admin_Ajax {
 			}
 
 			if ( $item->get_product()->get_id() === $product->get_id() ) {
-				$validation_error->add( 'multiple-pre-order-products', __( "You can't add multiple products on a pre-order. Change the quantity of the item instead of adding more items.", 'wc-pre-orders' ) );
+				$validation_error->add( 'multiple-pre-order-products', __( "You can't add multiple products on a pre-order. Change the quantity of the item instead of adding more items.", 'woocommerce-pre-orders' ) );
 				break;
 			}
 
 			if ( $item->get_product()->get_id() !== $product->get_id() ) {
-				$validation_error->add( 'multiple-pre-order-products', __( "You can't add multiple products on a pre-order", 'wc-pre-orders' ) );
+				$validation_error->add( 'multiple-pre-order-products', __( "You can't add multiple products on a pre-order", 'woocommerce-pre-orders' ) );
 				break;
 			}
 		}

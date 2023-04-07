@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.18.1
+* Version: 6.18.4
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.18.1
+ * @version  6.18.4
  */
 class WC_Bundles {
 
-	public $version  = '6.18.1';
+	public $version  = '6.18.4';
 	public $required = '3.9.0';
 
 	/**
@@ -443,6 +443,11 @@ class WC_Bundles {
 		if ( ! wp_next_scheduled( 'wc_pb_daily' ) ) {
 			wp_schedule_event( time() + 10, 'daily', 'wc_pb_daily' );
 		}
+
+		// Add hourly maintenance process.
+		if ( ! wp_next_scheduled( 'wc_pb_hourly' ) ) {
+			wp_schedule_event( time() + 10, 'hourly', 'wc_pb_hourly' );
+		}
 	}
 
 	/**
@@ -455,6 +460,7 @@ class WC_Bundles {
 	public function on_deactivation() {
 		// Clear daily maintenance process.
 		wp_clear_scheduled_hook( 'wc_pb_daily' );
+		wp_clear_scheduled_hook( 'wc_pb_hourly' );
 	}
 
 	/*

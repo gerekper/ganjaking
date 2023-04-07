@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.0
- * @version     1.4.0
+ * @version     1.4.1
  * @package     WooCommerce Smart Coupons
  */
 
@@ -162,7 +162,6 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 		 * @param string $post_type Post type being duplicated.
 		 */
 		public function woocommerce_duplicate_coupon_post_taxonomies( $id, $new_id, $post_type ) {
-			global $wpdb;
 			$taxonomies = get_object_taxonomies( $post_type );
 
 			foreach ( $taxonomies as $taxonomy ) {

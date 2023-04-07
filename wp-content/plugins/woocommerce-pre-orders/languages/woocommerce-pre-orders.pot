@@ -1,21 +1,36 @@
-# Copyright (C) 2020 WooCommerce
+# Copyright (C) 2023 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Pre-Orders 1.5.29\n"
+"Project-Id-Version: WooCommerce Pre-Orders 2.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-pre-orders\n"
-"POT-Creation-Date: 2020-09-30 03:50:52+00:00\n"
+"POT-Creation-Date: 2023-04-04 15:08:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"X-Generator: node-wp-i18n 1.2.6\n"
 
-#: includes/admin/class-wc-pre-orders-admin-orders.php:67
+#: includes/admin/class-wc-pre-orders-admin-ajax.php:52
+msgid ""
+"You can't add multiple products on a pre-order. Change the quantity of the "
+"item instead of adding more items."
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-ajax.php:57
+msgid "You can't add multiple products on a pre-order"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-orders.php:69
+#. translators: %s: email title
 msgid "Resend %s"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-orders.php:202
+msgid "All orders types"
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:53
@@ -28,285 +43,296 @@ msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:65
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:66
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:145
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:146
 #: includes/admin/class-wc-pre-orders-admin-products.php:61
-#: includes/admin/class-wc-pre-orders-admin-settings.php:49
-#: includes/class-wc-pre-orders-list-table.php:50
-#: includes/class-wc-pre-orders-my-pre-orders.php:77
-#: includes/class-wc-pre-orders-my-pre-orders.php:114
+#: includes/class-wc-pre-orders-list-table.php:47
+#: includes/class-wc-pre-orders-my-pre-orders.php:74
+#: includes/class-wc-pre-orders-my-pre-orders.php:111
 #: includes/class-wc-pre-orders-privacy.php:12
-msgid "Pre-Orders"
+msgid "Pre-orders"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:105
-msgid "Pre-Order customers emailed successfully"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:106
+msgid "Pre-order customers emailed successfully"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:109
-msgid "Pre-Order Date Changed"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:110
+msgid "Pre-order date changed"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:113
-msgid "Pre-Orders completed"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:114
+msgid "Pre-orders completed"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:117
-msgid "Pre-Orders cancelled"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:118
+msgid "Pre-orders cancelled"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:166
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:193
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:167
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:196
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:171
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:198
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:172
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:202
 msgid "You do not have the correct permissions to do this."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:178
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:179
+#. translators: %s = order id
 msgid "Pre-order #%s cancelled."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:333
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:346
+#. translators: %d = success count
 msgid "%d pre-order cancelled."
-msgid_plural "%s pre-orders cancelled."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:336
-msgid "%d pre-order could not be cancelled."
-msgid_plural "%s pre-orders could not be cancelled."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:342
-msgid "%d pre-order completed."
-msgid_plural "%s pre-orders completed."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:345
-msgid "%d pre-order could not be completed."
-msgid_plural "%s pre-orders could not be completed."
+msgid_plural "%d pre-orders cancelled."
 msgstr[0] ""
 msgstr[1] ""
 
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:350
-msgid "%d email dispatched."
-msgid_plural "%s emails dispatched."
+#. translators: %d = error count
+msgid "%d pre-order could not be cancelled."
+msgid_plural "%d pre-orders could not be cancelled."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:407
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:494
-#: includes/class-wc-pre-orders-list-table.php:67
-#: includes/class-wc-pre-orders-list-table.php:242
-#: includes/class-wc-pre-orders-my-pre-orders.php:171
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:357
+#. translators: %d = success count
+msgid "%d pre-order completed."
+msgid_plural "%d pre-orders completed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:361
+#. translators: %d = error count
+msgid "%d pre-order could not be completed."
+msgid_plural "%d pre-orders could not be completed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:367
+#. translators: %d = The count of emails dispatched
+msgid "%d email dispatched."
+msgid_plural "%d emails dispatched."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:424
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:513
+#: includes/class-wc-pre-orders-list-table.php:64
+#: includes/class-wc-pre-orders-list-table.php:257
+#: includes/class-wc-pre-orders-my-pre-orders.php:168
 msgid "Cancel"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:408
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:493
-#: includes/class-wc-pre-orders-list-table.php:68
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:425
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:512
+#: includes/class-wc-pre-orders-list-table.php:65
 msgid "Complete"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:409
-#: includes/class-wc-pre-orders-list-table.php:69
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:128
-msgid "Customer Message"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:426
+#: includes/class-wc-pre-orders-list-table.php:66
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:124
+msgid "Customer message"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:480
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:498
 msgid ""
 "There is no pre-order product currently. List of pre-order products will "
 "appear in the drop-down Product below."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:491
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:510
 msgid "Email"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:492
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:652
-msgid "Change Release Date"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:511
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:677
+msgid "Change release date"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:520
-#: woocommerce-pre-orders.php:314
-msgid "Manage Pre-Orders"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:539
+#: includes/class-wc-pre-orders.php:316
+msgid "Manage pre-orders"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:522
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:543
+#. translators: %s = The search query
 msgid "Search results for \"%s\""
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:531
-msgid "Search Pre-Orders"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:552
+msgid "Search pre-orders"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:553
-msgid "Select a Product"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:577
+msgid "Select a product"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:564
-msgid "Email Pre-Order Customers"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:588
+msgid "Email pre-order customers"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:565
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:590
+#. translators: %1$s = Opening anchor tag for WooCommerce email customer note,
+#. %2$s = Closing anchor tag
 msgid ""
 "You may send an email message to all customers who have pre-ordered a "
 "specific product. This will use the default template specified for the "
-"%sCustomer Note%s Email."
+"%1$sCustomer Note%2$s Email."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:571
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:611
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:667
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:711
-#: includes/class-wc-pre-orders-list-table.php:172
-#: templates/emails/admin-new-pre-order.php:41
-#: templates/emails/customer-pre-order-cancelled.php:39
-#: templates/emails/customer-pre-order-date-changed.php:44
-#: templates/emails/customer-pre-ordered.php:49
-#: templates/myaccount/my-pre-orders.php:23
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:596
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:636
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:692
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:736
+#: includes/class-wc-pre-orders-list-table.php:189
+#: templates/myaccount/my-pre-orders.php:18
+#: templates/myaccount/my-pre-orders.php:44
 msgid "Product"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:572
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:597
 msgid "Select which product to email all pre-ordered customers."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:583
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:642
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:687
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:731
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:608
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:667
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:712
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:756
 msgid "Message"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:584
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:609
 msgid ""
 "Enter a message to include in the email notification to customer. Limited "
 "HTML allowed."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:596
-msgid "Send Emails"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:621
+msgid "Send emails"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:604
-msgid "Change the Pre-Order Release Date"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:629
+msgid "Change the pre-order release date"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:605
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:630
 msgid ""
 "You may change the release date for all pre-orders of a specific product. "
 "This will send an email notification to each customer informing them that "
 "the pre-order release date was changed, along with the new release date."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:612
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:637
 msgid "Select which product to change the release date for."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:623
-msgid "New Availability Date"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:648
+msgid "New availability date"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:624
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:649
 msgid ""
 "The new availability date for the product. This must be later than the "
 "current availability date."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:634
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:679
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:723
-msgid "Send Email Notification"
-msgstr ""
-
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:635
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:680
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:724
-msgid "Uncheck this to prevent email notifications from being sent to customers."
-msgstr ""
-
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:643
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:688
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:732
-msgid "Enter a message to include in the email notification to customer."
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:659
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:704
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:748
+msgid "Send email notification"
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:660
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:697
-msgid "Complete Pre-Orders"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:705
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:749
+msgid "Uncheck this to prevent email notifications from being sent to customers."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:661
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:668
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:713
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:757
+msgid "Enter a message to include in the email notification to customer."
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:685
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:722
+msgid "Complete pre-orders"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:686
 msgid ""
 "You may complete all pre-orders for a specific product. This will charge "
 "the customer's card the pre-ordered amount, change their order status to "
 "completed, and send them an email notification."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:668
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:693
 msgid "Select which product to complete all pre-orders for."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:704
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:741
-msgid "Cancel Pre-Orders"
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:729
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:766
+msgid "Cancel pre-orders"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:705
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:730
 msgid ""
 "You may cancel all pre-orders for a specific product. This will mark the "
 "order as cancelled and send the customer an email notification. If "
 "pre-orders were charged upfront, you must manually refund the orders."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:712
+#: includes/admin/class-wc-pre-orders-admin-pre-orders.php:737
 msgid "Select which product to cancel all pre-orders for."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:77
-msgid "Button Text"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:46
+msgid "Pre-Orders"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-settings.php:76
+msgid "Button text"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-settings.php:81
+msgid "Add to cart button text"
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-settings.php:82
-msgid "Add to Cart Button Text"
-msgstr ""
-
-#: includes/admin/class-wc-pre-orders-admin-settings.php:83
 msgid ""
 "This controls the add to cart button text on single product pages for "
 "products that have pre-orders enabled."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:86
-msgid "Pre-Order Now"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:85
+msgid "Pre-order now"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:91
+#: includes/admin/class-wc-pre-orders-admin-settings.php:90
 msgid "Place Order Button Text"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:92
+#: includes/admin/class-wc-pre-orders-admin-settings.php:91
 msgid ""
 "This controls the place order button text on the checkout when an order "
 "contains a pre-orders."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:95
-msgid "Place Pre-Order Now"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:94
+#: includes/blocks/class-wc-pre-orders-blocks-gateway.php:135
+msgid "Place pre-order now"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:102
-msgid "Product Message"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:101
+msgid "Product message"
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-settings.php:103
+#. translators: %1$s: Availability Time %2$s: Availability Date
 msgid ""
 "Adjust the message by using %1$s{availability_date}%2$s and "
 "%1$s{availability_time}%2$s to represent the product's availability date "
@@ -314,7 +340,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-settings.php:108
-msgid "Single Product Page Message"
+msgid "Single product page message"
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-settings.php:109
@@ -325,15 +351,16 @@ msgid ""
 "blank to disable."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:112
+#: includes/admin/class-wc-pre-orders-admin-settings.php:113
+#. translators: %s: Availability Date
 msgid "This item will be released %s."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:117
-msgid "Shop Loop Product Message"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:118
+msgid "Shop loop product message"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:118
+#: includes/admin/class-wc-pre-orders-admin-settings.php:119
 msgid ""
 "Add an optional message to each pre-order enabled product on the shop loop "
 "page above the add to cart button. Use this to announce when the pre-order "
@@ -341,126 +368,143 @@ msgid ""
 "Limited HTML is allowed. Leave blank to disable."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:121
+#: includes/admin/class-wc-pre-orders-admin-settings.php:123
+#. translators: %s: Availability Date
 msgid "Available %s."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:128
-msgid "Cart / Checkout Display Text"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:130
+msgid "Cart / Checkout display text"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:129
+#: includes/admin/class-wc-pre-orders-admin-settings.php:132
+#. translators: %1$s: Order Total %2$s: Availability Date
 msgid ""
 "Adjust the display of the order total by using %1$s{order_total}%2$s to "
 "represent the order total and %1$s{availability_date}%2$s to represent the "
 "product's availability date."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:134
-msgid "Availability Date Title Text"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:137
+msgid "Availability date title text"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:135
+#: includes/admin/class-wc-pre-orders-admin-settings.php:138
 msgid ""
 "This controls the title of the availability date section on the "
 "cart/checkout page. Leave blank to disable display of the availability date "
 "in the cart."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:138
+#: includes/admin/class-wc-pre-orders-admin-settings.php:141
 msgid "Available"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:143
-msgid "Charged Upon Release Order Total Format"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:146
+msgid "Charged upon release order total format"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:144
+#: includes/admin/class-wc-pre-orders-admin-settings.php:147
 msgid ""
 "This controls the order total format when the cart contains a pre-order "
 "charged upon release. Use this to indicate when the customer will be "
 "charged for their pre-order by using {availability_date} and {order_total}."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:147
-msgid "%s charged %s"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:151
+#. translators: %1$s: Order Total %2$s: Availability Date
+msgid "%1$s charged %2$s"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:153
-msgid "Charged Upfront Order Total Format"
+#: includes/admin/class-wc-pre-orders-admin-settings.php:157
+msgid "Charged upfront order total format"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:154
+#: includes/admin/class-wc-pre-orders-admin-settings.php:158
 msgid ""
 "This controls the order total format when the cart contains a pre-order "
 "charged upfront. Use this to indicate how the customer is charged for their "
 "pre-order by using {availability_date} and {order_total}."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:157
+#: includes/admin/class-wc-pre-orders-admin-settings.php:162
+#. translators: %s: Order Total
 msgid "%s charged upfront"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:165
+#: includes/admin/class-wc-pre-orders-admin-settings.php:170
+msgid "Out of stock"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-settings.php:174
+msgid "Enable pre-orders for products that get out of stock"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-settings.php:175
+msgid ""
+"When a product becomes out of stock customers will be able to pre-order it. "
+"Variable products need to have all variations out of stock."
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-settings.php:184
 msgid "Staging/Test"
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:170
-msgid "Disable automated pre order processing."
+#: includes/admin/class-wc-pre-orders-admin-settings.php:189
+msgid "Disable automated pre-order processing."
 msgstr ""
 
-#: includes/admin/class-wc-pre-orders-admin-settings.php:171
+#: includes/admin/class-wc-pre-orders-admin-settings.php:190
 msgid ""
-" This is used for when you're on a staging/testing site and don't want any "
+"This is used for when you're on a staging/testing site and don't want any "
 "pre orders to be processed automatically."
-msgstr ""
-
-#: includes/admin/views/html-product-tab-options.php:15
-msgid ""
-"There are active pre-orders for this product. To change the release date, "
-"%suse the Actions menu%s."
 msgstr ""
 
 #: includes/admin/views/html-product-tab-options.php:17
 msgid ""
-"To change other settings, please %scomplete or cancel the active "
-"pre-orders%s first."
+"There are active pre-orders for this product. To change the release date, "
+"%1$suse the Actions menu%2$s."
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:26
-msgid "Enable Pre-Orders"
+#: includes/admin/views/html-product-tab-options.php:20
+msgid ""
+"To change other settings, please %1$scomplete or cancel the active "
+"pre-orders%2$s first."
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:27
+#: includes/admin/views/html-product-tab-options.php:29
+msgid "Enable pre-orders"
+msgstr ""
+
+#: includes/admin/views/html-product-tab-options.php:30
 msgid "Enable pre-orders for this product."
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:34
-msgid "Availability Date/Time"
+#: includes/admin/views/html-product-tab-options.php:38
+msgid "Availability date/time"
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:36
+#: includes/admin/views/html-product-tab-options.php:40
 msgid ""
-"Set the date %s time that this pre-order will be available. The product "
-"will behave as a normal product when this date/time is reached."
+"Set the date & time that this pre-order will be available. The product will "
+"behave as a normal product when this date/time is reached."
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:44
-#: includes/class-wc-pre-orders-cart.php:176
-msgid "Pre-Order Fee"
+#: includes/admin/views/html-product-tab-options.php:48
+msgid "Pre-order Fee"
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:45
+#: includes/admin/views/html-product-tab-options.php:49
 msgid ""
 "Set a fee to be charged when a pre-order is placed. Leave blank to not "
 "charge a pre-order fee."
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:53
+#: includes/admin/views/html-product-tab-options.php:57
 msgid "When to Charge"
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:54
+#: includes/admin/views/html-product-tab-options.php:58
 msgid ""
 "Select \"Upon Release\" to charge the entire pre-order amount (the product "
 "price + pre-order fee if applicable) when the pre-order becomes available. "
@@ -468,183 +512,218 @@ msgid ""
 "checkout."
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:58
-msgid "Upon Release"
+#: includes/admin/views/html-product-tab-options.php:62
+msgid "Upon release"
 msgstr ""
 
-#: includes/admin/views/html-product-tab-options.php:59
+#: includes/admin/views/html-product-tab-options.php:63
 msgid "Upfront"
 msgstr ""
 
-#: includes/class-wc-pre-orders-cart.php:115
+#: includes/blocks/class-wc-pre-orders-blocks-gateway.php:133
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:120
+msgid "Pay later"
+msgstr ""
+
+#: includes/blocks/class-wc-pre-orders-blocks-gateway.php:134
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:127
+msgid ""
+"You will receive an email when the pre-order is available along with "
+"instructions on how to complete your order."
+msgstr ""
+
+#: includes/blocks/class-wc-pre-orders-extend-store-api.php:88
+msgid "Availability date for product."
+msgstr ""
+
+#: includes/blocks/class-wc-pre-orders-extend-store-api.php:94
+msgid "Indicates if customer is going to be charged only when product is released."
+msgstr ""
+
+#: includes/blocks/class-wc-pre-orders-extend-store-api.php:100
+msgid "Indicates if customer is going to be charged upfront."
+msgstr ""
+
+#: includes/class-wc-pre-orders-cart.php:133
 msgid ""
 "Your previous cart was emptied because pre-orders must be purchased "
 "separately."
 msgstr ""
 
-#: includes/class-wc-pre-orders-cart.php:135
-#: includes/class-wc-pre-orders-cart.php:137
+#: includes/class-wc-pre-orders-cart.php:155
+#: includes/class-wc-pre-orders-cart.php:158
 msgid ""
 "This product cannot be added to your cart because it already contains a "
 "pre-order, which must be purchased separately."
 msgstr ""
 
-#: includes/class-wc-pre-orders-checkout.php:77
-#: templates/emails/customer-pre-ordered.php:25
-#: templates/emails/plain/customer-pre-ordered.php:26
-#. translators: 1: availability date
+#: includes/class-wc-pre-orders-cart.php:215
+msgid "Pre-order fee"
+msgstr ""
+
+#: includes/class-wc-pre-orders-checkout.php:86
+#: templates/emails/customer-pre-ordered.php:23
+#: templates/emails/plain/customer-pre-ordered.php:23
+#. translators: %s: availability date
 msgid " on %s."
 msgstr ""
 
-#: includes/class-wc-pre-orders-checkout.php:80
-#: templates/emails/customer-pre-ordered.php:32
-#: templates/emails/plain/customer-pre-ordered.php:35
+#: includes/class-wc-pre-orders-checkout.php:89
+#: templates/emails/customer-pre-ordered.php:34
+#: templates/emails/plain/customer-pre-ordered.php:31
 #. translators: 1: availability date
+#. translators: %s: availability date
 msgid ""
 "Your pre-order has been received. You will be prompted for payment for your "
 "order when your pre-order is released%s Your order details are shown below "
 "for your reference."
 msgstr ""
 
-#: includes/class-wc-pre-orders-checkout.php:84
-#: templates/emails/customer-pre-ordered.php:30
-#: templates/emails/plain/customer-pre-ordered.php:32
+#: includes/class-wc-pre-orders-checkout.php:93
+#: templates/emails/customer-pre-ordered.php:31
+#: templates/emails/plain/customer-pre-ordered.php:29
 #. translators: 1: availability date
+#. translators: %s: availability date
 msgid ""
 "Your pre-order has been received. You will be automatically charged for "
 "your order via your selected payment method when your pre-order is "
 "released%s Your order details are shown below for your reference."
 msgstr ""
 
-#: includes/class-wc-pre-orders-cron.php:53
+#: includes/class-wc-pre-orders-cron.php:55
 msgid "Every %d minutes"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:49
-msgid "Pre-Order"
+#: includes/class-wc-pre-orders-list-table.php:46
+msgid "Pre-order"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:170
-#: templates/myaccount/my-pre-orders.php:24
+#: includes/class-wc-pre-orders-list-table.php:187
+#: templates/myaccount/my-pre-orders.php:19
+#: templates/myaccount/my-pre-orders.php:49
 msgid "Status"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:171
+#: includes/class-wc-pre-orders-list-table.php:188
 msgid "Customer"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:173
-#: templates/myaccount/my-pre-orders.php:22
+#: includes/class-wc-pre-orders-list-table.php:190
+#: templates/myaccount/my-pre-orders.php:17
+#: templates/myaccount/my-pre-orders.php:33
 msgid "Order"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:174
-msgid "Order Date"
+#: includes/class-wc-pre-orders-list-table.php:191
+msgid "Order status"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:175
-msgid "Availability Date"
+#: includes/class-wc-pre-orders-list-table.php:192
+msgid "Order date"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:268
+#: includes/class-wc-pre-orders-list-table.php:193
+msgid "Availability date"
+msgstr ""
+
+#: includes/class-wc-pre-orders-list-table.php:292
+#. translators: %s: order number
 msgid "Order %s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:547
+#: includes/class-wc-pre-orders-list-table.php:675
 msgid "No pre-orders found"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:549
+#: includes/class-wc-pre-orders-list-table.php:677
 msgid ""
-"Pre-Orders will appear here for you to view and manage once purchased by a "
+"Pre-orders will appear here for you to view and manage once purchased by a "
 "customer."
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:550
-msgid "%sLearn more about managing pre-orders%s"
+#: includes/class-wc-pre-orders-list-table.php:681
+#. translators: %1$s = Opening anchor tag for WooCommerce Pre-Orders
+#. documentation on WooCommerce.com, %2$s = closing anchor tag
+msgid "%1$sLearn more about managing pre-orders%2$s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:551
-msgid "%sSetup a product to allow pre-orders%s"
+#: includes/class-wc-pre-orders-list-table.php:687
+#. translators: %1$s = Opening anchor tag for adding new product, %2$s =
+#. closing anchor tag
+msgid "%1$sSetup a product to allow pre-orders%2$s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:573
-#: includes/class-wc-pre-orders-list-table.php:691
-msgid "Show all customers"
-msgstr ""
-
-#: includes/class-wc-pre-orders-list-table.php:585
-msgid "Show all Products"
-msgstr ""
-
-#: includes/class-wc-pre-orders-list-table.php:617
-#: includes/class-wc-pre-orders-list-table.php:625
+#: includes/class-wc-pre-orders-list-table.php:725
 msgid "Search for a customer&hellip;"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:629
-#: includes/class-wc-pre-orders-list-table.php:637
+#: includes/class-wc-pre-orders-list-table.php:733
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:645
+#: includes/class-wc-pre-orders-list-table.php:744
 msgid "Filter"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:650
-#: includes/class-wc-pre-orders-list-table.php:737
+#: includes/class-wc-pre-orders-list-table.php:749
+#: includes/class-wc-pre-orders-list-table.php:784
 msgid "Optional message to include in the email to the customer"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:671
+#: includes/class-wc-pre-orders-list-table.php:770
 msgid "Are you sure you want to cancel this pre-order?"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:768
-msgid "Show all Availability Dates"
+#: includes/class-wc-pre-orders-list-table.php:817
+msgid "Show all availability dates"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:782
+#: includes/class-wc-pre-orders-list-table.php:832
 #. translators: %1$s month, %2$d year
 msgid "%1$s %2$d"
 msgstr ""
 
-#: includes/class-wc-pre-orders-manager.php:545
-msgid "Pre-Order Release Date Changed to %s"
+#: includes/class-wc-pre-orders-manager.php:631
+#. translators: %s: Availability date
+msgid "Pre-order release date changed to %s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-manager.php:545
+#: includes/class-wc-pre-orders-manager.php:631
 msgid "N/A"
 msgstr ""
 
-#: includes/class-wc-pre-orders-manager.php:714
-msgid "Pre-Order Cancelled"
+#: includes/class-wc-pre-orders-manager.php:836
+#: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:35
+#: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:38
+msgid "Pre-order cancelled"
 msgstr ""
 
-#: includes/class-wc-pre-orders-manager.php:828
+#: includes/class-wc-pre-orders-manager.php:954
 msgid "Your pre-order has been cancelled."
 msgstr ""
 
-#: includes/class-wc-pre-orders-order.php:82
-msgid "Pre ordered <span class=\"count\">(%s)</span>"
-msgid_plural "Pre ordered <span class=\"count\">(%s)</span>"
+#: includes/class-wc-pre-orders-order.php:77
+#. translators: %s: number of pre-orders
+msgid "Pre-ordered <span class=\"count\">(%s)</span>"
+msgid_plural "Pre-ordered <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-pre-orders-order.php:342
+#: includes/class-wc-pre-orders-order.php:333
 msgid "Active"
 msgstr ""
 
-#: includes/class-wc-pre-orders-order.php:345
+#: includes/class-wc-pre-orders-order.php:336
 msgid "Completed"
 msgstr ""
 
-#: includes/class-wc-pre-orders-order.php:348
+#: includes/class-wc-pre-orders-order.php:339
 msgid "Cancelled"
 msgstr ""
 
-#: includes/class-wc-pre-orders-order.php:430
-msgid "Pre-Order status changed from %s to %s."
+#: includes/class-wc-pre-orders-order.php:433
+#. translators: %1$s: old pre-order status %2$s: new pre-order status
+msgid "Pre-order status changed from %1$s to %2$s."
 msgstr ""
 
 #: includes/class-wc-pre-orders-privacy.php:20
@@ -655,58 +734,93 @@ msgid ""
 "policy.</a>"
 msgstr ""
 
-#: includes/class-wc-pre-orders-product.php:190
-#: includes/class-wc-pre-orders-product.php:201
-#: includes/class-wc-pre-orders-product.php:220
+#: includes/class-wc-pre-orders-product.php:186
+#: includes/class-wc-pre-orders-product.php:197
+#: includes/class-wc-pre-orders-product.php:216
 msgid "Available for pre-ordering"
 msgstr ""
 
-#: includes/class-wc-pre-orders-product.php:195
+#: includes/class-wc-pre-orders-product.php:191
 #. translators: 1: product total stock
 msgid "Only %s left available for pre-ordering"
 msgstr ""
 
-#: includes/class-wc-pre-orders-product.php:198
-#: includes/class-wc-pre-orders-product.php:210
+#: includes/class-wc-pre-orders-product.php:194
+#: includes/class-wc-pre-orders-product.php:206
 msgid "(can be backordered)"
 msgstr ""
 
-#: includes/class-wc-pre-orders-product.php:207
+#: includes/class-wc-pre-orders-product.php:203
 #. translators: 1: product total stock
 msgid "%s available for pre-ordering"
 msgstr ""
 
-#: includes/class-wc-pre-orders-product.php:217
+#: includes/class-wc-pre-orders-product.php:213
 msgid "Available on backorder"
 msgstr ""
 
+#: includes/class-wc-pre-orders-product.php:219
 #: includes/class-wc-pre-orders-product.php:223
-#: includes/class-wc-pre-orders-product.php:227
 msgid "No longer available for pre-ordering"
 msgstr ""
 
-#: includes/class-wc-pre-orders-product.php:359
+#: includes/class-wc-pre-orders-product.php:407
 msgid "at a future date"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:32
+#: includes/class-wc-pre-orders.php:128
+#. translators: %s: email title
+msgid "%s email notification manually sent."
+msgstr ""
+
+#: includes/class-wc-pre-orders.php:315
+msgid "Settings"
+msgstr ""
+
+#: includes/class-wc-pre-orders.php:317
+msgid "Support"
+msgstr ""
+
+#: includes/class-wc-pre-orders.php:318
+msgid "Docs"
+msgstr ""
+
+#: includes/emails/class-wc-pre-orders-email-admin-pre-order-cancelled.php:31
+msgid "Pre-order Cancelled (Admin)"
+msgstr ""
+
+#: includes/emails/class-wc-pre-orders-email-admin-pre-order-cancelled.php:32
+msgid ""
+"This is an order notification sent to the admin after a pre-order is "
+"cancelled."
+msgstr ""
+
+#: includes/emails/class-wc-pre-orders-email-admin-pre-order-cancelled.php:34
+msgid "Pre-order Cancelled"
+msgstr ""
+
+#: includes/emails/class-wc-pre-orders-email-admin-pre-order-cancelled.php:35
+msgid "[{site_title}] pre-order from {order_date} has been cancelled"
+msgstr ""
+
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:31
 msgid "New pre-order"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:33
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:32
 msgid "New pre-order emails are sent when a pre-order is received."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:35
-msgid "New customer pre-order"
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:34
+msgid "New pre-order: #{order_number}"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:36
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:35
 msgid "[{site_title}] New customer pre-order ({order_number}) - {order_date}"
 msgstr ""
 
 #: includes/emails/class-wc-pre-orders-email-new-pre-order.php:137
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:114
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:110
 msgid "Enable/Disable"
 msgstr ""
 
@@ -718,348 +832,256 @@ msgstr ""
 msgid "Recipient(s)"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:145
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:146
+#. translators: %s: admin email address
 msgid ""
 "Enter recipients (comma separated) for this email. Defaults to "
 "<code>%s</code>."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:150
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:151
 msgid "Subject"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:152
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:154
+#. translators: %s: email subject
 msgid ""
 "This controls the email subject line. Leave blank to use the default "
 "subject: <code>%s</code>."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:157
-msgid "Email Heading"
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:159
+msgid "Email heading"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:159
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:162
+#. translators: %s: email heading
 msgid ""
 "This controls the main heading contained within the email notification. "
 "Leave blank to use the default heading: <code>%s</code>."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:164
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:167
 msgid "Email type"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:166
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:169
 msgid "Choose which format of email to send."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:170
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:173
 msgid "Plain text"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:171
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:174
 msgid "HTML"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:172
+#: includes/emails/class-wc-pre-orders-email-new-pre-order.php:175
 msgid "Multipart"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:37
-#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:40
-msgid "Pre-order Available"
+#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:36
+#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:39
+msgid "Pre-order available"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:38
+#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:37
 msgid ""
 "This is an order notification sent to the customer once a pre-order is "
 "complete."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:41
+#: includes/emails/class-wc-pre-orders-email-pre-order-available.php:40
 msgid "Your {site_title} pre-order from {order_date} is now available"
 msgstr ""
 
 #: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:36
-#: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:39
-msgid "Pre-order Cancelled"
-msgstr ""
-
-#: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:37
 msgid ""
 "This is an order notification sent to the customer after a pre-order is "
 "cancelled."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:40
+#: includes/emails/class-wc-pre-orders-email-pre-order-cancelled.php:39
 msgid "Your {site_title} pre-order from {order_date} has been cancelled"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:40
-#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:43
-msgid "Pre-order Release Date Changed"
+#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:39
+#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:42
+msgid "Pre-order release date changed"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:41
+#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:40
 msgid ""
 "This is an order notification sent to the customer after a pre-order "
 "release date is changed."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:44
+#: includes/emails/class-wc-pre-orders-email-pre-order-date-changed.php:43
 msgid ""
 "The release date for your {site_title} pre-order from {order_date} has been "
 "changed"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:38
+#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:37
 msgid "Pre-ordered"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:39
+#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:38
 msgid ""
 "This is an order notification sent to the customer after placing a "
 "pre-order and containing order details."
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:41
+#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:40
 msgid "Thank you for your pre-order"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:42
+#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:41
 msgid "Your {site_title} pre-order confirmation from {order_date}"
 msgstr ""
 
-#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:68
+#: includes/emails/class-wc-pre-orders-email-pre-ordered.php:65
 msgid "a future date"
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:35
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:124
-msgid "Pay Later"
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:32
+msgid "pay later"
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:36
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:33
 msgid ""
 "This payment method replaces all other methods that do not support "
 "pre-orders when the pre-order is charged upon release."
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:115
-msgid "Enable Pay Later"
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:111
+msgid "Enable pay later"
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:121
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:117
 msgid "Title"
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:123
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:119
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:130
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:126
 msgid "Let the customer know how they will be able to pay for their pre-order."
 msgstr ""
 
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:131
-msgid ""
-"You will receive an email when the pre-order is available along with "
-"instructions on how to complete your order."
-msgstr ""
-
-#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:181
+#: includes/gateways/class-wc-pre-orders-gateway-pay-later.php:172
 msgid "Thank you for your order."
 msgstr ""
 
-#: templates/emails/admin-new-pre-order.php:28
-#: templates/emails/plain/admin-new-pre-order.php:27
-#. translators: 1: billing first name and last name
-#. translators: 1: first name and last name
+#: templates/emails/admin-new-pre-order.php:25
+#: templates/emails/plain/admin-new-pre-order.php:24
+#. translators: %s: billing first name and last name
+#. translators: %s: first name and last name
 msgid "You have received a pre-order from %s. Their pre-order is as follows:"
 msgstr ""
 
-#: templates/emails/admin-new-pre-order.php:36
-#. translators: 1: order number
-msgid "Order: %s"
-msgstr ""
-
-#: templates/emails/admin-new-pre-order.php:42
-#: templates/emails/customer-pre-order-cancelled.php:40
-#: templates/emails/customer-pre-order-date-changed.php:45
-#: templates/emails/customer-pre-ordered.php:50
-msgid "Quantity"
-msgstr ""
-
-#: templates/emails/admin-new-pre-order.php:43
-#: templates/emails/customer-pre-order-cancelled.php:41
-#: templates/emails/customer-pre-order-date-changed.php:46
-#: templates/emails/customer-pre-ordered.php:51
-msgid "Price"
-msgstr ""
-
-#: templates/emails/admin-new-pre-order.php:69
-#: templates/emails/customer-pre-order-cancelled.php:67
-#: templates/emails/customer-pre-order-date-changed.php:72
-#: templates/emails/customer-pre-ordered.php:77
-#: templates/emails/plain/admin-new-pre-order.php:54
-msgid "Customer details"
-msgstr ""
-
-#: templates/emails/admin-new-pre-order.php:72
-#: templates/emails/customer-pre-order-cancelled.php:70
-#: templates/emails/customer-pre-order-date-changed.php:75
-#: templates/emails/customer-pre-ordered.php:80
-#: templates/emails/plain/admin-new-pre-order.php:57
-#: templates/emails/plain/customer-pre-order-cancelled.php:63
-#: templates/emails/plain/customer-pre-order-date-changed.php:67
-#: templates/emails/plain/customer-pre-ordered.php:72
-msgid "Email:"
-msgstr ""
-
-#: templates/emails/admin-new-pre-order.php:75
-#: templates/emails/customer-pre-order-cancelled.php:73
-#: templates/emails/customer-pre-order-date-changed.php:78
-#: templates/emails/customer-pre-ordered.php:83
-#: templates/emails/plain/admin-new-pre-order.php:61
-#: templates/emails/plain/customer-pre-order-cancelled.php:67
-#: templates/emails/plain/customer-pre-order-date-changed.php:71
-#: templates/emails/plain/customer-pre-ordered.php:76
-msgid "Tel:"
-msgstr ""
-
-#: templates/emails/customer-pre-order-available.php:31
-#. translators: 1: href link for checkout payment url 2: closing href link
+#: templates/emails/admin-pre-order-cancelled.php:32
+#: templates/emails/plain/admin-pre-order-cancelled.php:22
+#. Translators: %s Full name of the customer
 msgid ""
-"Your pre-order is now available, but requires payment. %sPlease pay for "
-"your pre-order now.%s"
+"A pre-order from %s has been cancelled. The order details are shown below "
+"for your reference."
 msgstr ""
 
-#: templates/emails/customer-pre-order-available.php:37
-#. translators: 1: href link for checkout payment url 2: closing href link
+#: templates/emails/customer-pre-order-available.php:29
+#. translators: %1$s: href link for checkout payment url %2$s: closing href
+#. link
 msgid ""
-"Your pre-order is now available, but automatic payment failed. %sPlease "
-"update your payment information now.%s"
+"Your pre-order is now available, but requires payment. %1$sPlease pay for "
+"your pre-order now.%2$s"
 msgstr ""
 
-#: templates/emails/customer-pre-order-available.php:41
-#: templates/emails/plain/customer-pre-order-available.php:36
+#: templates/emails/customer-pre-order-available.php:36
+#: templates/emails/plain/customer-pre-order-available.php:29
+msgid ""
+"Your pre-order is now available, but is waiting for the payment to be "
+"confirmed. Please wait until it's confirmed. Optionally, make sure the "
+"related payment has been sent to avoid delays on your order."
+msgstr ""
+
+#: templates/emails/customer-pre-order-available.php:44
+#. translators: %1$s: href link for checkout payment url %2$s: closing href
+#. link
+msgid ""
+"Your pre-order is now available, but automatic payment failed. %1$sPlease "
+"update your payment information now.%2$s"
+msgstr ""
+
+#: templates/emails/customer-pre-order-available.php:50
+#: templates/emails/plain/customer-pre-order-available.php:37
 msgid ""
 "Your pre-order is now available. Your order details are shown below for "
 "your reference."
 msgstr ""
 
-#: templates/emails/customer-pre-order-available.php:82
-#: templates/emails/plain/customer-pre-order-available.php:77
+#: templates/emails/customer-pre-order-available.php:91
+#: templates/emails/plain/customer-pre-order-available.php:78
 msgid "Thanks for shopping with us."
 msgstr ""
 
-#: templates/emails/customer-pre-order-cancelled.php:26
-#: templates/emails/plain/customer-pre-order-cancelled.php:25
+#: templates/emails/customer-pre-order-cancelled.php:24
+#: templates/emails/plain/customer-pre-order-cancelled.php:22
 msgid ""
 "Your pre-order has been cancelled. Your order details are shown below for "
 "your reference."
 msgstr ""
 
-#: templates/emails/customer-pre-order-cancelled.php:34
-#: templates/emails/customer-pre-order-date-changed.php:39
-#: templates/emails/customer-pre-ordered.php:44
-msgid "Order:"
-msgstr ""
-
-#: templates/emails/customer-pre-order-date-changed.php:28
-#: templates/emails/plain/customer-pre-order-date-changed.php:26
-#. translators: 1: availability date
+#: templates/emails/customer-pre-order-date-changed.php:27
+#: templates/emails/plain/customer-pre-order-date-changed.php:24
+#. translators: %s: availability date
 msgid ""
 "Your pre-order release date has been changed. The new release date is %s. "
 "Your order details are shown below for your reference."
 msgstr ""
 
-#: templates/emails/customer-pre-order-date-changed.php:30
-#: templates/emails/plain/customer-pre-order-date-changed.php:28
+#: templates/emails/customer-pre-order-date-changed.php:32
+#: templates/emails/plain/customer-pre-order-date-changed.php:26
 msgid ""
 "Your pre-order release date has been changed. Your order details are shown "
 "below for your reference."
 msgstr ""
 
-#: templates/emails/customer-pre-ordered.php:38
-#: templates/emails/plain/customer-pre-ordered.php:40
-#. translators: 1: availability date
+#: templates/emails/customer-pre-ordered.php:42
+#: templates/emails/plain/customer-pre-ordered.php:36
+#. translators: %s: availability date
 msgid ""
 "Your pre-order has been received. You will be notified when your pre-order "
 "is released%s Your order details are shown below for your reference."
 msgstr ""
 
-#: templates/emails/plain/admin-new-pre-order.php:34
-#: templates/emails/plain/customer-pre-order-cancelled.php:40
-#: templates/emails/plain/customer-pre-order-date-changed.php:44
-#: templates/emails/plain/customer-pre-ordered.php:49
-#. translators: 1: order number
-msgid "Order number: %s"
-msgstr ""
-
-#: templates/emails/plain/admin-new-pre-order.php:36
-#: templates/emails/plain/customer-pre-order-cancelled.php:42
-#: templates/emails/plain/customer-pre-order-date-changed.php:46
-#: templates/emails/plain/customer-pre-ordered.php:51
-#. translators: 1: order date
-msgid "Order date: %s"
-msgstr ""
-
-#: templates/emails/plain/admin-new-pre-order.php:36
-msgid "jS F Y"
-msgstr ""
-
-#: templates/emails/plain/customer-pre-order-available.php:28
+#: templates/emails/plain/customer-pre-order-available.php:25
 msgid ""
 "Your pre-order is now available, but requires payment. Please pay for your "
 "pre-order now: "
 msgstr ""
 
-#: templates/emails/plain/customer-pre-order-available.php:32
+#: templates/emails/plain/customer-pre-order-available.php:33
 msgid ""
 "Your pre-order is now available, but automatic payment failed. Please "
 "update your payment information now : "
 msgstr ""
 
-#: templates/emails/plain/customer-pre-order-cancelled.php:60
-#: templates/emails/plain/customer-pre-order-date-changed.php:64
-#: templates/emails/plain/customer-pre-ordered.php:69
-msgid "Your details"
+#: templates/myaccount/my-pre-orders.php:20
+#: templates/myaccount/my-pre-orders.php:56
+msgid "Release date"
 msgstr ""
 
-#: templates/myaccount/my-pre-orders.php:14
-msgid "My Pre-Orders"
-msgstr ""
-
-#: templates/myaccount/my-pre-orders.php:25
-msgid "Release Date"
-msgstr ""
-
-#: templates/myaccount/my-pre-orders.php:72
+#: templates/myaccount/my-pre-orders.php:76
 msgid "You have no pre-orders."
 msgstr ""
 
-#: woocommerce-pre-orders.php:36
+#: woocommerce-pre-orders.php:38
 #. translators: %s WC download URL link.
 msgid ""
-"Pre Orders requires WooCommerce to be installed and active. You can "
-"download %s here."
-msgstr ""
-
-#: woocommerce-pre-orders.php:167
-#. translators: %s: email title
-msgid "%s email notification manually sent."
-msgstr ""
-
-#: woocommerce-pre-orders.php:313
-msgid "Settings"
-msgstr ""
-
-#: woocommerce-pre-orders.php:315
-msgid "Support"
-msgstr ""
-
-#: woocommerce-pre-orders.php:316
-msgid "Docs"
+"Pre-orders require WooCommerce to be installed and active. You can download "
+"%s here."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -1082,8 +1104,20 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-wc-pre-orders-order.php:77
-#: includes/class-wc-pre-orders-order.php:93
+#: includes/admin/class-wc-pre-orders-admin-orders.php:205
+#: includes/admin/class-wc-pre-orders-admin-orders.php:230
+msgctxt "An order type"
+msgid "Non Pre-Orders"
+msgstr ""
+
+#: includes/admin/class-wc-pre-orders-admin-orders.php:206
+#: includes/admin/class-wc-pre-orders-admin-orders.php:231
+msgctxt "An order type"
+msgid "Pre-Orders Only"
+msgstr ""
+
+#: includes/class-wc-pre-orders-order.php:71
+#: includes/class-wc-pre-orders-order.php:89
 msgctxt "Order status"
-msgid "Pre ordered"
+msgid "Pre-ordered"
 msgstr ""

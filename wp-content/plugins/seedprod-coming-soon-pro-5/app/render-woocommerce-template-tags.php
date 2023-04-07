@@ -381,6 +381,69 @@ function seedprod_pro_woocommerce_template_tags_product_data_tabs_shortcode( $at
 	return $render;
 }
 
+// Add [sp_product_gallery_images] shortcode.
+add_shortcode( 'sp_product_gallery_images', 'seedprod_pro_woocommerce_template_tags_product_gallery_images_shortcode' );
+
+/**
+ * Product Gallery Images Shortcode function.
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string|void $render Html render.
+ */
+function seedprod_pro_woocommerce_template_tags_product_gallery_images_shortcode( $atts ) {
+	// Set default shortcode args.
+	$shortcode_args = shortcode_atts(
+		array(),
+		$atts
+	);
+
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
+	// Get current product.
+	$render = '';
+
+	global $product;
+
+	// If the WC_product Object is not defined globally
+	if ( ! is_a( $product, 'WC_Product' ) ) {
+		$product = wc_get_product( get_the_id() );
+	}
+
+	if ( ! $product ) {
+		return;
+	}
+
+	// Enqueue scripts.
+	wp_enqueue_script( 'woocommerce' );
+
+	// Load gallery scripts on product pages only if supported.
+	if ( $product ) {
+		if ( current_theme_supports( 'wc-product-gallery-zoom' ) ) {
+			wp_enqueue_script( 'zoom' );
+		}
+		if ( current_theme_supports( 'wc-product-gallery-slider' ) ) {
+			wp_enqueue_script( 'flexslider' );
+		}
+		if ( current_theme_supports( 'wc-product-gallery-lightbox' ) ) {
+			wp_enqueue_script( 'photoswipe-ui-default' );
+			wp_enqueue_script( 'photoswipe-default-skin' );
+			add_action( 'wp_footer', 'woocommerce_photoswipe' );
+		}
+		wp_enqueue_script( 'wc-single-product' );
+	}
+
+	ob_start();
+	setup_postdata( $product->get_id() );
+	// Output the product image.
+	wc_get_template( 'single-product/product-image.php' );
+	$render = ob_get_clean();
+
+	return $render;
+}
+
 // Add [sp_additional_info] shortcode.
 add_shortcode( 'sp_additional_info', 'seedprod_pro_woocommerce_template_tags_additional_information_shortcode' );
 

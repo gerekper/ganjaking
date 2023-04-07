@@ -526,7 +526,7 @@ else {
 
 <?php
 ob_start();
-phpinfo();
+if (wfUtils::funcEnabled('phpinfo')) { phpinfo(); } else { echo "\n\n" . __('Unable to output phpinfo content because it is disabled', 'wordfence') . "\n\n"; }
 $phpinfo = ob_get_clean();
 
 if (preg_match_all('#(?:<h2>(.*?)</h2>\s*)?<table[^>]*>(.*?)</table>#is', $phpinfo, $tableMatches)) {

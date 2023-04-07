@@ -88,7 +88,7 @@ class RevSliderTracking extends RevSliderFunctions {
 	 **/
 	public function _run($deactivation = 'default'){
 		if(!$this->is_enabled()) return false;
-
+		
 		$sl			= new RevSliderSlide();
 		$data		= $this->get_tracking_data();
 		$pages		= $this->get_all_shortcode_pages();
@@ -147,7 +147,8 @@ class RevSliderTracking extends RevSliderFunctions {
 
 		if(!empty($shortcodes)){
 			foreach($shortcodes as $alias){
-				$sldr		= new RevSliderSlider();
+				wp_cache_flush();
+				$sldr = new RevSliderSlider();
 				$sldr->init_by_alias($alias);
 				if($sldr->inited === false) continue;
 				$premium	= $sldr->get_param('pakps', false);
@@ -166,6 +167,7 @@ class RevSliderTracking extends RevSliderFunctions {
 					if($msl->get_id() !== ''){
 						$static_slide = $msl;
 					}
+					$msl = null;
 				}
 
 				$wc				= false;
@@ -200,7 +202,7 @@ class RevSliderTracking extends RevSliderFunctions {
 				}
 
 				if($sldr->get_param(array('parallax', 'set'), false) === true || $sldr->get_param(array('parallax', 'setDDD'), false) === true) $data['slider']['parallax']++;
-				if($sldr->get_param(array('scrolleffects', 'set'), false) === true)	$data['slider']['scrolleffects']++;
+				if($sldr->get_param(array('scrolleffects', 'set'), false) === true)		$data['slider']['scrolleffects']++;
 				if($sldr->get_param(array('scrolltimeline', 'set'), false) === true)	$data['slider']['timeline_scroll']++;
 				if($sldr->get_param(array('skins', 'colors'), array()) > 0)				$data['slider']['color_skins']++;
 
@@ -280,9 +282,15 @@ class RevSliderTracking extends RevSliderFunctions {
 								if($this->get_val($layer, array('layerLibSrc'), false) !== false) $data['layer']['library']++;
 								if($this->get_val($layer, array('timeline', 'loop', 'use'), false) === true) $data['layer']['loop']++;
 							}
+							$layers = null;
+							unset($layers);
 						}
 					}
+					$slides = null;
+					unset($slides);
 				}
+				$sldr = null;
+				unset($sldr);
 			}
 		}
 

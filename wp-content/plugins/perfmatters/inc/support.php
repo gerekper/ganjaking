@@ -1,6 +1,11 @@
 <?php
-//documentation
 echo '<div class="perfmatters-settings-section">';
+
+	//page title
+	echo '<h2><span class="dashicons dashicons-editor-help"></span>' . __("Support", "novashare") . '</h2>';
+	echo '<div style="margin-bottom: 20px;"></div>'; //spacer
+	
+	//documentation
 	echo '<h2>' . __('Documentation', 'perfmatters') . '</h2>';
 	echo '<div class="form-table">';
 		echo '<div style="margin: 1em auto;">' . __('Need help? Check out our in-depth documentation. Every feature has a step-by-step walkthrough.', 'perfmatters') . '</div>';

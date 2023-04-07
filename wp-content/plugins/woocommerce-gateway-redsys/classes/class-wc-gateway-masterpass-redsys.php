@@ -657,24 +657,23 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				exit;
 			}
 			$authorisation_code = $id_trans;
+			$data               = array();
 			if ( ! empty( $order1 ) ) {
-				WCRed()->update_order_meta( $order->id, '_payment_order_number_masterpass', $order1 );
+				$data['_payment_order_number_masterpass'] = $order1;
 			}
 			if ( ! empty( $dsdate ) ) {
-				WCRed()->update_order_meta( $order->id, '_payment_date_redsys', $dsdate );
+				$data['_payment_date_redsys'] = $dsdate;
 			}
 			if ( ! empty( $dshour ) ) {
-				WCRed()->update_order_meta( $order->id, '_payment_hour_redsys', $dshour );
+				$data['_payment_hour_redsys'] = $dshour;
 			}
 			if ( ! empty( $id_trans ) ) {
-				WCRed()->update_order_meta( $order->id, '_authorisation_code_redsys', $authorisation_code );
+				$data['_authorisation_code_redsys'] = $authorisation_code;
 			}
 			if ( ! empty( $dscardcountry ) ) {
-				WCRed()->update_order_meta( $order->id, '_card_country_masterpass', $dscardcountry );
+				$data['_card_country_masterpass'] = $dscardcountry;
 			}
-			if ( ! empty( $dscargtype ) ) {
-				WCRed()->update_order_meta( $order->id, '_card_type_masterpass', 'C' === $dscargtype ? 'Credit' : 'Debit' );
-			}
+			WCRed()->update_order_meta( $order->id, $data );
 
 			// Payment completed.
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );

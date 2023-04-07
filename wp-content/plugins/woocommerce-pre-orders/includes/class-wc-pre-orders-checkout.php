@@ -83,14 +83,14 @@ class WC_Pre_Orders_Checkout {
 		$availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $order ) );
 
 		/* translators: %s: availability date */
-		$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'wc-pre-orders' ), $availability_date ) : '.';
+		$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'woocommerce-pre-orders' ), $availability_date ) : '.';
 
 		/* translators: 1: availability date */
-		$message = sprintf( __( 'Your pre-order has been received. You will be prompted for payment for your order when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), $availability_date_text ) . "\n\n";
+		$message = sprintf( __( 'Your pre-order has been received. You will be prompted for payment for your order when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), $availability_date_text ) . "\n\n";
 
 		if ( WC_Pre_Orders_Order::order_has_payment_token( $order ) ) {
 			/* translators: 1: availability date */
-			$message = sprintf( __( 'Your pre-order has been received. You will be automatically charged for your order via your selected payment method when your pre-order is released%s Your order details are shown below for your reference.', 'wc-pre-orders' ), $availability_date_text ) . "\n\n";
+			$message = sprintf( __( 'Your pre-order has been received. You will be automatically charged for your order via your selected payment method when your pre-order is released%s Your order details are shown below for your reference.', 'woocommerce-pre-orders' ), $availability_date_text ) . "\n\n";
 		}
 
 		return $message;
@@ -239,6 +239,7 @@ class WC_Pre_Orders_Checkout {
 	 * updates order status to pre-ordered for orders that are charged upfront. This handles gateways that don't call
 	 * payment_complete(). Unfortunately status changes show like pending->processing/completed->pre-ordered
 	 *
+	 * @since 1.9.1 Improve support for "Failed" orders.
 	 * @since 1.9.0 Check whether the order item was pre-ordered to process failed pre-ordered order.
 	 * @since 1.0
 	 * @param int $order_id the post ID of the order
@@ -248,11 +249,19 @@ class WC_Pre_Orders_Checkout {
 
 		$order = new WC_Order( $order_id );
 
-		// Don't update status for non pre-order orders.
 		// Failed order does not have "_wc_pre_orders_is_pre_order" meta key.
 		// We remove this meta key to hide failed orders from the "Pre-orders" page.
 		// For this reason, we need to check whether order has a pre-ordered item.
-		if ( ! ( WC_Pre_Orders_Order::get_pre_order_item( $order ) instanceof WC_Order_Item  ) ) {
+		$action_hooks = [
+			'woocommerce_order_status_failed_to_processing',
+			'woocommerce_order_status_failed_to_completed'
+		];
+		$is_failed_pre_order = in_array( current_action(), $action_hooks ) &&
+			( WC_Pre_Orders_Order::get_pre_order_item( $order ) instanceof WC_Order_Item );
+
+
+		// don't update status for non pre-order orders
+		if ( ! $is_failed_pre_order && ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
 			return;
 		}
 

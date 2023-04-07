@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1267,7 +1267,14 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 									</span>
 								</h3>
 								<div class="sc_bulk_description">
-									<?php $admin_post_types->edit_form_after_title( $post ); ?>
+									<?php
+									if ( ! empty( $post->ID ) && $this->is_hpos_order( $post->ID ) ) {
+										$post_or_order = wc_get_order( $post->ID );
+									} else {
+										$post_or_order = $post;
+									}
+										$admin_post_types->edit_form_after_title( $post_or_order );
+									?>
 								</div>
 							</div>
 							<div class="sc-bulk-generate-coupon-data-main">

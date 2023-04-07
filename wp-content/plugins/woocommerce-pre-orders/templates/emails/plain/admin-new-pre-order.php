@@ -21,7 +21,7 @@ echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
 $full_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
 /* translators: %s: first name and last name */
-echo sprintf( esc_html__( 'You have received a pre-order from %s. Their pre-order is as follows:', 'wc-pre-orders' ), esc_html( $full_name ) ) . "\n\n";
+echo sprintf( esc_html__( 'You have received a pre-order from %s. Their pre-order is as follows:', 'woocommerce-pre-orders' ), esc_html( $full_name ) ) . "\n\n";
 
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.

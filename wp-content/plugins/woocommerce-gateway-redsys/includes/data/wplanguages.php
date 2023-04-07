@@ -59,6 +59,7 @@ function redsys_return_all_languages_code() {
 		'gb'    => '2',
 		'us'    => '2',
 		'ca'    => '3',
+		'va'    => '3',
 		'bal'   => '3',
 		'fr_BE' => '4',
 		'fr_CA' => '4',

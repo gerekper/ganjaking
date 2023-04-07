@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.5.0
+ * @version     1.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -130,9 +130,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 				return;
 			}
 
-			if ( is_null( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
-				$coupon = new WC_Coupon( $post_id );
-			}
+			$coupon = new WC_Coupon( $coupon );
 
 			$shipping_method_ids = ( isset( $_POST['wc_sc_shipping_method_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_shipping_method_ids'] ) ) : array(); // phpcs:ignore
 

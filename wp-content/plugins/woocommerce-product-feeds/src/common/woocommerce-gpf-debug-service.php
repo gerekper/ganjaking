@@ -89,7 +89,7 @@ class WoocommerceGpfDebugService {
 		} elseif ( 'xml' === $this->destination ) {
 			echo '<!-- ';
 			echo $log_msg;
-			echo ' -->';
+			echo ' -->' . PHP_EOL;
 		}
 
 	}

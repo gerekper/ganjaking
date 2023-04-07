@@ -36,11 +36,11 @@ class WC_Pre_Orders_Email_Pre_Order_Date_Changed extends WC_Email {
 		global $wc_pre_orders;
 
 		$this->id          = 'wc_pre_orders_pre_order_date_changed';
-		$this->title       = __( 'Pre-order release date changed', 'wc-pre-orders' );
-		$this->description = __( 'This is an order notification sent to the customer after a pre-order release date is changed.', 'wc-pre-orders' );
+		$this->title       = __( 'Pre-order release date changed', 'woocommerce-pre-orders' );
+		$this->description = __( 'This is an order notification sent to the customer after a pre-order release date is changed.', 'woocommerce-pre-orders' );
 
-		$this->heading = __( 'Pre-order release date changed', 'wc-pre-orders' );
-		$this->subject = __( 'The release date for your {site_title} pre-order from {order_date} has been changed', 'wc-pre-orders' );
+		$this->heading = __( 'Pre-order release date changed', 'woocommerce-pre-orders' );
+		$this->subject = __( 'The release date for your {site_title} pre-order from {order_date} has been changed', 'woocommerce-pre-orders' );
 
 		$this->template_base  = $wc_pre_orders->get_plugin_path() . '/templates/';
 		$this->template_html  = 'emails/customer-pre-order-date-changed.php';

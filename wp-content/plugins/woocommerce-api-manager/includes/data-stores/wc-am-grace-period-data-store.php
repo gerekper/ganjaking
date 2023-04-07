@@ -459,4 +459,23 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : array();
 	}
 
+	/**
+	 * Return total number of graces periods.
+	 * COUNT(expr) only counts non-null values, whereas COUNT(*) also counts null values.
+	 *
+	 * @since 2.6.2
+	 *
+	 * @return int
+	 */
+	public function count() {
+		global $wpdb;
+
+		$count = $wpdb->get_var( "
+			SELECT COUNT(api_resource_id)
+			FROM {$wpdb->prefix}" . $this->grace_period_table . "
+		" );
+
+		return ! empty( $count ) ? (int) $count : 0;
+	}
+
 }

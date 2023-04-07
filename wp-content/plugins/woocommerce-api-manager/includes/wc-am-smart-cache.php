@@ -583,11 +583,14 @@ class WC_AM_Smart_Cache {
 	/**
 	 * Delete transients immediately.
 	 *
-	 * @since 2.4.1
+	 * @since   2.4.1
+	 * @updated 2.6.4
 	 *
 	 * @param array $array
 	 */
-	private function delete_transients( $array ) {
+	public function delete_transients( $array ) {
+		$array = is_array( $array ) ? $array : array( $array );
+
 		if ( ! empty( $array ) ) {
 			foreach ( $array as $key ) {
 				delete_transient( $key );
@@ -600,7 +603,7 @@ class WC_AM_Smart_Cache {
 	 *
 	 * @since 2.0.12
 	 */
-	function nocache_headers() {
+	public function nocache_headers() {
 		$this->set_nocache_constants();
 		nocache_headers();
 	}

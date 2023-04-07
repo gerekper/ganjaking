@@ -29,8 +29,8 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 
 		// Load defaults
 		$this->id                 = 'pre_orders_pay_later';
-		$this->method_title       = __( 'pay later', 'wc-pre-orders' );
-		$this->method_description = __( 'This payment method replaces all other methods that do not support pre-orders when the pre-order is charged upon release.', 'wc-pre-orders' );
+		$this->method_title       = __( 'pay later', 'woocommerce-pre-orders' );
+		$this->method_description = __( 'This payment method replaces all other methods that do not support pre-orders when the pre-order is charged upon release.', 'woocommerce-pre-orders' );
 		$this->icon               = apply_filters( 'wc_pre_orders_pay_later_icon', '' );
 		$this->has_fields         = false;
 
@@ -107,24 +107,24 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'     => array(
-				'title'       => __( 'Enable/Disable', 'wc-pre-orders' ),
-				'label'       => __( 'Enable pay later', 'wc-pre-orders' ),
+				'title'       => __( 'Enable/Disable', 'woocommerce-pre-orders' ),
+				'label'       => __( 'Enable pay later', 'woocommerce-pre-orders' ),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'yes',
 			),
 			'title'       => array(
-				'title'       => __( 'Title', 'wc-pre-orders' ),
+				'title'       => __( 'Title', 'woocommerce-pre-orders' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'wc-pre-orders' ),
-				'default'     => __( 'Pay later', 'wc-pre-orders' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-pre-orders' ),
+				'default'     => __( 'Pay later', 'woocommerce-pre-orders' ),
 				'desc_tip'    => true,
 			),
 			'description' => array(
-				'title'       => __( 'Customer message', 'wc-pre-orders' ),
+				'title'       => __( 'Customer message', 'woocommerce-pre-orders' ),
 				'type'        => 'textarea',
-				'description' => __( 'Let the customer know how they will be able to pay for their pre-order.', 'wc-pre-orders' ),
-				'default'     => __( 'You will receive an email when the pre-order is available along with instructions on how to complete your order.', 'wc-pre-orders' ),
+				'description' => __( 'Let the customer know how they will be able to pay for their pre-order.', 'woocommerce-pre-orders' ),
+				'default'     => __( 'You will receive an email when the pre-order is available along with instructions on how to complete your order.', 'woocommerce-pre-orders' ),
 			),
 		);
 	}
@@ -169,7 +169,7 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function receipt_page( $order ) {
-		echo '<p>' . esc_html__( 'Thank you for your order.', 'wc-pre-orders' ) . '</p>';
+		echo '<p>' . esc_html__( 'Thank you for your order.', 'woocommerce-pre-orders' ) . '</p>';
 	}
 
 } // end \WC_Pre_Orders_Gateway_Pay_Later class

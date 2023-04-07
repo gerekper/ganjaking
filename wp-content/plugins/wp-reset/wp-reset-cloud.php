@@ -158,11 +158,11 @@ class WP_Reset_Cloud
      * Query Cloud Endpoint
      *
      * @param array $parameters, send via request headers
-     * @param string $body, send as raw data, if not false, Content-Type header will be set to application/octet-stream
+     * @param string $body, send as raw data, if not empty string, Content-Type header will be set to application/octet-stream
      * 
      * @return string authorize URL 
      */
-    function query_cloud_server($parameters, $body = false, $return_raw = false)
+    function query_cloud_server($parameters, $body = '', $return_raw = false)
     {
         global $wp_reset, $wp_reset_licensing;
 
@@ -180,7 +180,7 @@ class WP_Reset_Cloud
 
         $headers = array_merge($headers, $parameters);
 
-        if ($body !== false) {
+        if ($body !== '') {
             $headers['content-type'] = 'application/octet-stream';
         }
 
@@ -711,7 +711,7 @@ class WP_Reset_Cloud
                 'snapshot_uid' => $uid,
                 'stream_size' => $this->stream_size
             ),
-            false,
+            '',
             true
         );
 

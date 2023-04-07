@@ -2709,6 +2709,7 @@ div.wp-link-input input::placeholder{color:rgba(255,255,255,0.5)}
 .sp-add-to-cart-wrapper .sp-add-to-cart-shortcode{display:none !important}
 .sp-product-meta-wrapper .sp-product-meta-shortcode{display:none !important}
 .sp-product-data-tabs-wrapper .sp-product-data-tabs-shortcode{display:none !important}
+.sp-product-gallery-images-wrapper .sp-product-gallery-images-shortcode{display:none !important}
 .sp-additional-information-wrapper .sp-additional-information-shortcode{display:none !important}
 .sp-upsells-wrapper .sp-upsells-shortcode{display:none !important}
 .sp-product-related-wrapper .sp-product-related-shortcode{display:none !important}
@@ -3118,6 +3119,7 @@ to{opacity:0;-webkit-transform:translate3d(100%,0,0) rotate3d(0,0,1,120deg);tran
 .sp-postcomments-wrapper .comments-area .comment-form textarea{height:130px;max-width:100%}
 .sp-postcomments-wrapper .comments-area .comment-form input:not:[type="submit"],.sp-postcomments-wrapper .comments-area .comment-form textarea{font-size:16px;padding:12px 15px;width:100%;border-radius:3px;margin-bottom:16px}
 .sp-postcomments-wrapper .comments-area .comment-form .form-submit .submit{margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;touch-action:manipulation;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:6px 12px;font-size:15px;line-height:1.8;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;transition:all .2s ease;display:inline-block;width:auto;height:auto}
+.sp-postcomments-wrapper .sp-postcomments-no-display{display:none}
 .sp-postcomments-wrapper .comment-form .commentpolicy{font-size:13px;margin-bottom:10px}
 #reply-title{margin-bottom:20px}
 .sp-postnavigation-wrapper .sp-postnavigation-previous-next.sp-post-nav-desktop-view{display:flex;justify-content:space-between}
@@ -3472,6 +3474,35 @@ to{-webkit-transform:scale(1);transform:scale(1);opacity:.7}
 .sp-section-popup>span svg{margin-right:.5rem}
 .sp-section-popup>span>span{padding:5px;border-bottom:1px solid #d3ced2}
 .sp-section-popup>span>span:last-child{border-bottom:0}
+.sp-content-toggle-area input[type="checkbox"]{position:relative;width:80px;height:40px;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:silver;outline:0;border-radius:2rem;cursor:pointer;box-shadow:inset 0 0 5px rgb(0 0 0 / 50%)}
+.sp-content-toggle-area input[type="checkbox"]::before{content:"";width:40px;height:40px;border-radius:50%;background:#fff;position:absolute;top:0;left:0;transition:.5s}
+.sp-contenttoggle-size-large .sp-content-toggle-area input[type="checkbox"]{width:100px;height:50px}
+.sp-contenttoggle-size-large .sp-content-toggle-area input[type="checkbox"]::before{width:50px;height:50px}
+.sp-contenttoggle-size-small .sp-content-toggle-area input[type="checkbox"]{width:60px;height:30px}
+.sp-contenttoggle-size-small .sp-content-toggle-area input[type="checkbox"]::before{width:30px;height:30px}
+.sp-contenttoggle-size-small .sp-content-toggle-area.sp-label input[type="checkbox"]::before{font-size:12px}
+.sp-contenttoggle-size-mini .sp-content-toggle-area input[type="checkbox"]{width:40px;height:20px}
+.sp-contenttoggle-size-mini .sp-content-toggle-area input[type="checkbox"]::before{width:20px;height:20px}
+.sp-contenttoggle-size-mini .sp-content-toggle-area.sp-label input[type="checkbox"]::before{font-size:10px}
+.sp-content-toggle-area.sp-square input[type="checkbox"]{border-radius:0}
+.sp-content-toggle-area.sp-square input[type="checkbox"]::before{border-radius:0}
+.sp-content-toggle-area.sp-label input[type="checkbox"]{border-radius:0}
+.sp-content-toggle-area.sp-label input[type="checkbox"]:checked::before{content:"ON";display:flex;justify-content:center;align-items:center}
+.sp-content-toggle-area.sp-label input[type="checkbox"]::before{border-radius:0;content:"OFF";display:flex;justify-content:center;align-items:center}
+.sp-content-toggle-area input[type="checkbox"]:checked::before{-webkit-transform:translateX(100%);transform:translateX(100%);background:#fff}
+.sp-content-toggle-area input[type="checkbox"]:checked{background:#696969}
+.woocommerce-product-gallery .woocommerce-product-gallery__trigger{position:absolute;top:.875em;right:.875em;display:block;height:2em;width:2em;border-radius:3px;z-index:1;text-align:center;text-indent:-999px;overflow:hidden;text-decoration:none}
+.woocommerce-product-gallery .woocommerce-product-gallery__trigger::before{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:inline-block;font-style:normal;font-variant:normal;font-weight:normal;line-height:1;font-family:"Font Awesome 5 Free";font-weight:900;line-height:inherit;vertical-align:baseline;content:"";display:block;line-height:2;text-indent:0;text-decoration:none}
+.woocommerce-product-gallery .flex-control-thumbs{margin:0;padding:0;list-style:decimal}
+.woocommerce-product-gallery .flex-viewport{margin-bottom:1.618em}
+.woocommerce-product-gallery .zoomImg{background-color:#fff}
+.woocommerce-product-gallery img{width:100%;height:auto;box-shadow:none;margin:0}
+.woocommerce-product-gallery .flex-control-thumbs{margin:0;padding:0;display:flow-root}
+.woocommerce-product-gallery.woocommerce-product-gallery--columns-4 .flex-control-thumbs li:nth-child(4n){margin-right:0}
+.woocommerce-product-gallery .flex-control-thumbs::before,.woocommerce-product-gallery .flex-control-thumbs::after{content:"";display:table}
+.woocommerce-product-gallery .flex-control-thumbs li img{opacity:.5;transition:all,ease,.2s}
+.woocommerce-product-gallery .flex-control-thumbs li img.flex-active{opacity:1}
+.woocommerce-product-gallery .flex-control-thumbs li{list-style:none;margin-bottom:10px;cursor:pointer;width:14.2857142857%;float:left;margin-right:14.2857142857%}
 @media(min-width:640px){.sm\:sp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 .sm\:sp-not-sr-only{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}
 .sm\:focus\:sp-sr-only:focus{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
