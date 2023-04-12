@@ -166,7 +166,7 @@ class WC_AM_Order {
 						'activations_total'           => 0,
 						'activations_purchased'       => ! empty( $v[ 'api_activations' ] ) ? (int) $v[ 'api_activations' ] : 0,
 						'activations_purchased_total' => ! empty( $v[ 'activations_total' ] ) ? (int) $v[ 'activations_total' ] : 0,
-						'access_expires'              => ! empty( $v[ 'access_expires' ] ) ? (int) ( $v[ 'access_expires' ] * DAY_IN_SECONDS ) + (int) $order_created_time : 0,
+						'access_expires'              => ! empty( $v[ 'access_expires' ] ) ? (int) ( $v[ 'access_expires' ] * DAY_IN_SECONDS + DAY_IN_SECONDS ) + (int) $order_created_time : 0,
 						'access_granted'              => (int) $order_created_time,
 						'item_qty'                    => ! empty( $v[ 'item_qty' ] ) ? (int) $v[ 'item_qty' ] : 0,
 						'master_api_key'              => (string) WC_AM_USER()->get_master_api_key( $v[ 'user_id' ] ),

@@ -1,5 +1,17 @@
 *** WC Coupon Campaigns ***
 
+2023-04-05 - version 1.2.1
+* Fix - Coupon Campaign Filter does not work due to incorrect column name.
+* Tweak - WC 7.6 compatibility.
+
+2023-03-28 - version 1.2.0
+* Add - Analytics for Coupon Campaigns.
+* Add - HPOS Compatibility.
+
+2023-03-14 - version 1.1.32
+* Tweak - WC 7.5 compatibility.
+* Tweak - WP 6.2 compatibility.
+
 2023-02-07 - version 1.1.31
 * Fix - Add automation.
 * Fix - Undefined variable error in Order Details.

@@ -199,6 +199,7 @@
 				currentAttributes.product_id = parseInt( form.$form.data( 'product_id' ), 10 );
 				currentAttributes.discount = cpfElement.attr( 'data-discount' );
 				currentAttributes.discount_type = cpfElement.attr( 'data-discount-type' );
+				currentAttributes.discount_exclude_addons = cpfElement.attr( 'data-discount-exclude-addons' );
 
 				form.xhr = $.ajax( {
 					url: wc_add_to_cart_variation_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'get_variation' ),
@@ -358,7 +359,6 @@
 		var field = form.field;
 
 		form.variationId.val( '' ).trigger( 'change' );
-		//form.$form.trigger( 'update_field', [] );
 		form.$form.find( '.wc-no-matching-variations' ).remove();
 
 		if ( form.useAjax ) {

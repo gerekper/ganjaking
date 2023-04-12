@@ -158,20 +158,23 @@ class WC_AM_Format {
 	 *                            DateTime().
 	 *
 	 * @return int Unix timestamp representation of the timestamp passed in without any changes for timezones
-	 * @throws \Exception
 	 */
 	public function date_to_time( $date, $offset = true ) {
 		if ( $date == 0 ) {
 			return 0;
 		}
 
-		$date_time = new WC_DateTime( $date, new DateTimeZone( 'UTC' ) );
+		try {
+			$date_time = new WC_DateTime( $date, new DateTimeZone( 'UTC' ) );
 
-		return ( $offset ) ? intval( $date_time->getOffsetTimestamp() ) : intval( $date_time->getTimestamp() );
+			return ( $offset ) ? intval( $date_time->getOffsetTimestamp() ) : intval( $date_time->getTimestamp() );
+		} catch ( Exception $e ) {
+			return 0;
+		}
 	}
 
 	/**
-	 * WooCommerce API Manager Date Format - Allows to change date format for everything WooCommerce.
+	 * WooCommerce API Manager Date Format - Allows the date format to be changed for everything in WooCommerce API Manager.
 	 *
 	 * @since 2.0
 	 *
@@ -182,7 +185,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * WooCommerce API Manager Time Format - Allows to change time format for everything WooCommerce.
+	 * WooCommerce API Manager Time Format - Allows the time format to be changed for everything in WooCommerce API Manager.
 	 *
 	 * @since 2.0
 	 *
@@ -280,9 +283,7 @@ class WC_AM_Format {
 	 * @return string
 	 */
 	public function unix_timestamp_to_date( $timestamp ) {
-		$timestamp_localized = $this->date_to_time( gmdate( $this->date_format() . ' ' . $this->time_format(), $timestamp ) );
-
-		return date_i18n( $this->date_format() . ' ' . $this->time_format(), $timestamp_localized );
+		return date_i18n( $this->date_format() . ' ' . $this->time_format(), $this->localized_datetime_timestamp( $timestamp ) );
 	}
 
 	/**
@@ -344,6 +345,19 @@ class WC_AM_Format {
 		}
 
 		return $datetime;
+	}
+
+	/**
+	 * Return timestamp formatted with the localized date and time.
+	 *
+	 * @since 2.6.5
+	 *
+	 * @param int $timestamp
+	 *
+	 * @return int
+	 */
+	public function localized_datetime_timestamp( $timestamp ) {
+		return $this->date_to_time( get_date_from_gmt( gmdate( $this->date_format() . ' ' . $this->time_format(), $timestamp ) ) );
 	}
 
 	/**

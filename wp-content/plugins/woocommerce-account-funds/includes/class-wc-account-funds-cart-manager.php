@@ -251,12 +251,24 @@ class WC_Account_Funds_Cart_Manager {
 	 */
 	public function display_used_funds() {
 		if ( self::using_funds() ) {
-			$funds_amount = self::used_funds_amount();
-			if ( $funds_amount > 0 ) {
+			$funds_used = self::used_funds_amount();
+
+			if ( $funds_used > 0 ) {
 				?>
 				<tr class="order-discount account-funds-discount">
-					<th><?php _e( 'Account Funds', 'woocommerce-account-funds' ); ?></th>
-					<td>-<?php echo wc_price( $funds_amount ); ?> <a href="<?php echo esc_url( add_query_arg( 'remove_account_funds', true, get_permalink( is_cart() ? wc_get_page_id( 'cart' ) : wc_get_page_id( 'checkout' ) ) ) ); ?>"><?php _e( '[Remove]', 'woocommerce-account-funds' ); ?></a></td>
+					<th><?php echo esc_html( wc_get_account_funds_name() ); ?></th>
+					<td>
+						<?php
+						echo wp_kses_post(
+							sprintf(
+								'-%1$s <a href="%2$s">%3$s</a>',
+								wc_price( $funds_used ),
+								esc_url( add_query_arg( 'remove_account_funds', true, wc_get_page_permalink( is_cart() ? 'cart' : 'checkout' ) ) ),
+								__( '[Remove]', 'woocommerce' ) // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+							)
+						);
+						?>
+					</td>
 				</tr>
 				<?php
 			}
@@ -267,21 +279,23 @@ class WC_Account_Funds_Cart_Manager {
 				$discount_amount = get_option( 'account_funds_discount_amount', 0 );
 
 				$label = sprintf(
-					/* translators: 1: funds available 2: discount */
-					__( 'Use <strong>%1$s</strong> from your funds and get a %2$s discount.', 'woocommerce-account-funds' ),
+					/* translators: 1: funds amount, 2: funds name, 3: discount */
+					__( 'Use <strong>%1$s</strong> from your %2$s and get a %3$s discount.', 'woocommerce-account-funds' ),
 					wc_price( $funds ),
+					wc_get_account_funds_name(),
 					( 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $discount_amount ) : $discount_amount . '%' )
 				);
 			} else {
 				$label = sprintf(
-					/* translators: %s: funds available */
-					__( 'Use <strong>%s</strong> from your funds.', 'woocommerce-account-funds' ),
-					wc_price( $funds )
+					/* translators: 1: funds amount, 2: funds name */
+					__( 'Use <strong>%1$s</strong> from your %2$s.', 'woocommerce-account-funds' ),
+					wc_price( $funds ),
+					wc_get_account_funds_name()
 				);
 			}
 			?>
 			<tr class="account-funds">
-				<th><?php esc_html_e( 'Account funds', 'woocommerce-account-funds' ); ?></th>
+				<th><?php echo esc_html( wc_get_account_funds_name() ); ?></th>
 				<td>
 					<input id="apply_account_funds" name="apply_account_funds" type="checkbox" value="1" />
 					<label for="apply_account_funds"><?php echo wp_kses_post( $label ); ?></label>
@@ -362,7 +376,11 @@ class WC_Account_Funds_Cart_Manager {
 		}
 
 		if ( WC_Coupon::WC_COUPON_SUCCESS === $message_code && $this->get_discount_code() === $coupon->get_code() ) {
-			return __( 'Discount applied for using account funds!', 'woocommerce-account-funds' );
+			return sprintf(
+				/* translators: %s: Funds name */
+				__( 'Discount applied for using %s!', 'woocommerce-account-funds' ),
+				wc_get_account_funds_name()
+			);
 		} else {
 			return $message;
 		}
@@ -529,8 +547,10 @@ class WC_Account_Funds_Cart_Manager {
 			$val = $paypal_args[ $key ];
 
 			$paypal_args[ $key ] = sprintf(
-				__( '%s (with tax, discount, and account funds applied)', 'woocommerce-account-funds' ),
-				$val
+				/* translators: 1: Cart item, 2: Funds name */
+				__( '%1$s (with tax, discount, and %2$s applied)', 'woocommerce-account-funds' ),
+				$val,
+				wc_get_account_funds_name()
 			);
 		}
 

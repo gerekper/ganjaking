@@ -19,7 +19,7 @@
 		var subscription_sign_up_fee;
 		var formatted_final_total;
 		var nativeProductPriceSelector;
-		var tcAPI = $.tcAPI() || false;
+		var tcAPI = $.tcAPI ? $.tcAPI() : null;
 		var tc_totals_ob;
 		var args;
 

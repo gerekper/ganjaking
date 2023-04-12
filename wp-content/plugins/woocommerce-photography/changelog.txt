@@ -1,5 +1,13 @@
 *** WooCommerce Photography Changelog ***
 
+2023-03-30 - version 1.2.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Moved the Docs and Support links on the plugin screen.
+* Tweak - Check the minimum requirements before initializing the extension.
+* Tweak - Tested compatibility up to WC 7.5.
+* Tweak - Tested compatibility with WP 6.2.
+* Dev - Initialize the plugin when the main file is loaded.
+
 2023-01-12 - version 1.1.1
 * Tweak - Prevent image resizing on bulk upload.
 * Tweak - Tested compatibility with WC 7.3.

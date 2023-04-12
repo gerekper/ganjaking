@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Coupon Campaigns & Tracking package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Coupon Campaigns & Tracking 1.1.31\n"
+"Project-Id-Version: WooCommerce Coupon Campaigns & Tracking 1.2.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-coupon-campaigns\n"
-"POT-Creation-Date: 2023-02-07 14:52:07+00:00\n"
+"POT-Creation-Date: 2023-04-05 16:42:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,11 +14,15 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
+#: includes/class-wc-coupon-campaign-filter.php:99
+msgid "All Coupon Campaigns"
+msgstr ""
+
 #: includes/class-wc-coupon-campaigns-privacy.php:11
-#: includes/class-wc-coupon-campaigns.php:72
-#: includes/class-wc-coupon-campaigns.php:82
-#: includes/class-wc-coupon-campaigns.php:274
-#: woocommerce-coupon-campaigns.php:50 woocommerce-coupon-campaigns.php:53
+#: includes/class-wc-coupon-campaigns.php:117
+#: includes/class-wc-coupon-campaigns.php:127
+#: includes/class-wc-coupon-campaigns.php:328
+#: woocommerce-coupon-campaigns.php:55 woocommerce-coupon-campaigns.php:58
 msgid "Coupon Campaigns"
 msgstr ""
 
@@ -31,7 +35,8 @@ msgstr ""
 msgid "WooCommerce Coupon Notes Data"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns-privacy.php:93
+#: includes/class-wc-coupon-campaigns-privacy.php:99
+#. translators: %s - marketplace link
 msgid ""
 "By using this extension, you may be storing personal data or sharing data "
 "with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
@@ -39,160 +44,166 @@ msgid ""
 "policy.</a>"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns-privacy.php:162
-#: includes/class-wc-coupon-campaigns-privacy.php:237
+#: includes/class-wc-coupon-campaigns-privacy.php:171
+#: includes/class-wc-coupon-campaigns-privacy.php:246
 msgid "Coupon Campaigns Order Data Erased."
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns-privacy.php:188
+#: includes/class-wc-coupon-campaigns-privacy.php:197
 msgid "Coupon Campaigns Notes"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns-privacy.php:192
+#: includes/class-wc-coupon-campaigns-privacy.php:201
 msgid "Coupons comment ID"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns-privacy.php:196
+#: includes/class-wc-coupon-campaigns-privacy.php:205
 msgid "Coupons comment content"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns-privacy.php:200
+#: includes/class-wc-coupon-campaigns-privacy.php:209
 msgid "Coupons comment IP"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:73
+#: includes/class-wc-coupon-campaigns.php:118
 msgid "Campaign"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:74
+#: includes/class-wc-coupon-campaigns.php:119
 msgid "Search Campaigns"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:75
+#: includes/class-wc-coupon-campaigns.php:120
 msgid "All Campaigns"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:76
+#: includes/class-wc-coupon-campaigns.php:121
 msgid "Parent Campaign"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:77
+#: includes/class-wc-coupon-campaigns.php:122
 msgid "Parent Campaign:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:78
+#: includes/class-wc-coupon-campaigns.php:123
 msgid "Edit Campaign"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:79
+#: includes/class-wc-coupon-campaigns.php:124
 msgid "Update Campaign"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:80
+#: includes/class-wc-coupon-campaigns.php:125
 msgid "Add New Campaign"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:81
+#: includes/class-wc-coupon-campaigns.php:126
 msgid "New Term Campaign"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:108
+#: includes/class-wc-coupon-campaigns.php:153
 msgid "Count"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:109
+#: includes/class-wc-coupon-campaigns.php:154
 msgid "Reports"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:147
+#: includes/class-wc-coupon-campaigns.php:195
 msgid "View Reports"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:164
+#: includes/class-wc-coupon-campaigns.php:213
 msgid "Campaigns"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:214
+#: includes/class-wc-coupon-campaigns.php:265
 msgid "Show all campaigns"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:265
+#: includes/class-wc-coupon-campaigns.php:318
 msgid "Coupon Notes"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:302
+#: includes/class-wc-coupon-campaigns.php:358
 msgid "Usage:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:305
-msgid "%s / %s"
+#: includes/class-wc-coupon-campaigns.php:362
+#. translators: %1$s - usage count, %2$s - usage limit
+msgid "%1$s / %2$s"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:307
+#: includes/class-wc-coupon-campaigns.php:365
+#. translators: %s - usage count
 msgid "%s / &infin;"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:314
+#: includes/class-wc-coupon-campaigns.php:372
 msgid "Total discount:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:315
+#: includes/class-wc-coupon-campaigns.php:373
 msgid "Total revenue:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:463
+#: includes/class-wc-coupon-campaigns.php:512
 msgid "Order"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:464
+#: includes/class-wc-coupon-campaigns.php:513
 msgid "Customer:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:465
+#: includes/class-wc-coupon-campaigns.php:514
 msgid "Discount:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:466
+#: includes/class-wc-coupon-campaigns.php:515
 msgid "Revenue:"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:526
+#: includes/class-wc-coupon-campaigns.php:577
+#. translators: %s - time ago
 msgid "added %s ago"
 msgstr ""
 
-#: includes/class-wc-coupon-campaigns.php:582
+#: includes/class-wc-coupon-campaigns.php:635
 msgid "Coupon code"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:74
+#: includes/class-wc-report-coupon-campaign.php:69
+#. translators: %s: orders count
 msgid "%s total orders in campaign"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:79
+#: includes/class-wc-report-coupon-campaign.php:75
+#. translators: %s: discount amount
 msgid "%s total campaign discount"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:84
+#: includes/class-wc-report-coupon-campaign.php:81
+#. translators: %s: order revenue amount
 msgid "%s total revenue from campaign"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:144
+#: includes/class-wc-report-coupon-campaign.php:142
 msgid "Year"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:145
+#: includes/class-wc-report-coupon-campaign.php:143
 msgid "Last Month"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:146
+#: includes/class-wc-report-coupon-campaign.php:144
 msgid "This Month"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:147
+#: includes/class-wc-report-coupon-campaign.php:145
 msgid "Last 7 Days"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:175
+#: includes/class-wc-report-coupon-campaign.php:174
 msgid "Filter by campaign"
 msgstr ""
 
@@ -204,39 +215,39 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:208
+#: includes/class-wc-report-coupon-campaign.php:209
 msgid "No campaigns found"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:229
+#: includes/class-wc-report-coupon-campaign.php:231
 msgid "No campaign selected"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:248
+#: includes/class-wc-report-coupon-campaign.php:250
 msgid "Date"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:251
+#: includes/class-wc-report-coupon-campaign.php:253
 msgid "Export CSV"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:279
+#: includes/class-wc-report-coupon-campaign.php:283
 msgid "&larr; Choose a campaign to view stats"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:285
+#: includes/class-wc-report-coupon-campaign.php:289
 msgid "This coupon hasn&apos;t been used"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:309
+#: includes/class-wc-report-coupon-campaign.php:315
 msgid "Number of orders"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:317
+#: includes/class-wc-report-coupon-campaign.php:323
 msgid "Revenue amount"
 msgstr ""
 
-#: includes/class-wc-report-coupon-campaign.php:326
+#: includes/class-wc-report-coupon-campaign.php:332
 msgid "Discount amount"
 msgstr ""
 

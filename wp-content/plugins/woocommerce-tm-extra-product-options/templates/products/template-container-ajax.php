@@ -24,6 +24,7 @@ if ( isset( $_REQUEST['discount'] ) && isset( $_REQUEST['discount_type'] ) && ! 
 	$current_price = apply_filters( 'wc_epo_remove_current_currency_price', $current_price );
 	$current_product->set_sale_price( $current_price );
 	$current_product->set_price( $current_price );
+	$discount_applied = true;
 }
 
 require apply_filters( 'wc_epo_template_path_product_element', THEMECOMPLETE_EPO_TEMPLATE_PATH ) . apply_filters( 'wc_epo_template_element', 'products/' . $template . '.php', 'product', [] );

@@ -54,7 +54,6 @@ function wc_am_get_human_time_diff( $timestamp_gmt ) {
  *                            DateTime().
  *
  * @return int Unix timestamp representation of the timestamp passed in without any changes for timezones
- * @throws \Exception
  */
 function wc_am_date_to_time( $date, $offset = true ) {
 	return WC_AM_FORMAT()->date_to_time( $date, $offset );

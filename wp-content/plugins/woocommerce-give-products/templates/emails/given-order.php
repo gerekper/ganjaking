@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-$billing_email = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
-$billing_phone = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_phone : $order->get_billing_phone();
+$billing_email = $order->get_billing_email();
+$billing_phone = $order->get_billing_phone();
 
 ?>
 
@@ -36,11 +36,8 @@ $billing_phone = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_pho
 		$args = array(
 			'show_sku' => true,
 		);
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			echo $order->email_order_items_table( $args );
-		} else {
-			echo wc_get_email_order_items( $order, $args );
-		}
+
+		echo wc_get_email_order_items( $order, $args );
 
 		?>
 	</tbody>

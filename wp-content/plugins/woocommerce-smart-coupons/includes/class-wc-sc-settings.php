@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -833,7 +833,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				if ( ! empty( $post_storewide_offer_coupon_code ) ) {
 					$coupon_id     = wc_get_coupon_id_by_code( $post_storewide_offer_coupon_code );
 					$coupon        = new WC_Coupon( $coupon_id );
-					$coupon_status = ( $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $coupon_id );
+					$coupon_status = ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $coupon_id );
 					if ( 'publish' === $coupon_status ) {
 						update_option( 'woocommerce_demo_store', 'yes' );
 					} else {

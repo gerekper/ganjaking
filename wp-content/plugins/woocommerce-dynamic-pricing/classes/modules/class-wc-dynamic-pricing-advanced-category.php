@@ -336,7 +336,7 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 				break;
 			case 'percent_adjustment':
 				$amount     = $amount / 100;
-				$adjusted   = round( floatval( $price ) - ( floatval( $amount ) * $price ), (int) $num_decimals );
+				$adjusted   = round( floatval( $price ) - ( $amount * $price ), (int) $num_decimals );
 				$line_total = 0;
 
 				$full_price_quantity = $cart_item['available_quantity'] - $a;

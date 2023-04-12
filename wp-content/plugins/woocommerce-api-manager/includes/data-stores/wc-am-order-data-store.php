@@ -538,13 +538,14 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Returns the current epoch/unix timestamp.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.6.5 Changed default $gmt to true to allow it to return time() offeset by get_option( 'gmt_offset' ).
 	 *
-	 * @param int|bool $gmt Optional. Whether to use GMT timezone. Default false.
+	 * @param int|bool $gmt Optional. Whether to use GMT timezone. Default true.
 	 *
 	 * @return int
 	 */
-	public function get_current_time_stamp( $gmt = false ) {
+	public function get_current_time_stamp( $gmt = true ) {
 		return (int) current_time( 'timestamp', $gmt );
 	}
 
@@ -649,7 +650,7 @@ class WC_AM_Order_Data_Store {
 		$order = $this->get_order_object( $order_id );
 
 		if ( is_object( $order ) ) {
-			return $order->get_date_created()->getOffsetTimestamp();
+			return $order->get_date_created()->getTimestamp();
 		}
 
 		return $this->get_current_time_stamp();

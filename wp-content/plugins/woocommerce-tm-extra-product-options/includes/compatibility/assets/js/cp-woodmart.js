@@ -4,7 +4,7 @@
 	// document ready
 	$( function() {
 		$( window ).on( 'tcEpoMaybeChangePriceHtml', function( event, dataObject ) {
-			var tcAPI = $.tcAPI();
+			var tcAPI = $.tcAPI ? $.tcAPI() : null;
 			if ( event && dataObject && dataObject.epo ) {
 				$( '.woodmart-sticky-btn-cart .price' )
 					.html( $.epoAPI.util.decodeHTML( $.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, { price: dataObject.nativePrice } ) ) )

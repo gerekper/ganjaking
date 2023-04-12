@@ -20,22 +20,16 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 /* translators: 1: order number */
 echo sprintf( __( 'Order number: %s', 'woocommerce-give-products' ), $order->get_order_number() ) . "\n";
 
-$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d H:i:s' ) : '' );
+$order_date = ( $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d H:i:s' ) : '' );
 
 /* translators: 1: order date */
 echo sprintf( __( 'Order date: %s', 'woocommerce-give-products' ), date_i18n( wc_date_format(), strtotime( $order_date ) ) ) . "\n";
 
 do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email );
 
-if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-	$billing_email = $order->billing_email;
-	$billing_phone = $order->billing_phone;
-	echo "\n" . $order->email_order_items_table( $order->is_download_permitted(), true, $order->has_status( 'processing' ), '', '', true );
-} else {
-	$billing_email = $order->get_billing_email();
-	$billing_phone = $order->get_billing_phone();
-	echo "\n" . wc_get_email_order_items( $order );
-}
+$billing_email = $order->get_billing_email();
+$billing_phone = $order->get_billing_phone();
+echo "\n" . wc_get_email_order_items( $order );
 
 echo "----------\n\n";
 

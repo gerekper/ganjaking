@@ -723,6 +723,8 @@
 	font-weight: 700;
 	float: right;
 	margin-left: 0.5em;
+	position: static;
+	border: 0;
 }
 
 .woocommerce .tc-wrapper table.form-table .select2-container .select2-selection--multiple .select2-search__field {

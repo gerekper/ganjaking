@@ -569,14 +569,14 @@ class THEMECOMPLETE_EPO_MATH_DEPRECATED {
 			],
 			'=='   => [
 				static function( $a, $b ) {
-					return ( is_numeric( $a ) && is_numeric( $b ) ) ? sprintf( '%0.20f', $a ) === sprintf( '%0.20f', $b ) : ( is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
+					return ( is_numeric( $a ) && is_numeric( $b ) ) ? THEMECOMPLETE_EPO_HELPER()->convert_to_number( $a, true ) === THEMECOMPLETE_EPO_HELPER()->convert_to_number( $b, true ) : ( is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
 				},
 				140,
 				false,
 			],
 			'!='   => [
 				static function( $a, $b ) {
-					return ( is_numeric( $a ) && is_numeric( $b ) ) ? sprintf( '%0.20f', $a ) !== sprintf( '%0.20f', $b ) : ( is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
+					return ( is_numeric( $a ) && is_numeric( $b ) ) ? THEMECOMPLETE_EPO_HELPER()->convert_to_number( $a, true ) !== THEMECOMPLETE_EPO_HELPER()->convert_to_number( $b, true ) : ( is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
 				},
 				140,
 				false,
@@ -607,6 +607,13 @@ class THEMECOMPLETE_EPO_MATH_DEPRECATED {
 					return $a < $b;
 				},
 				150,
+				false,
+			],
+			'!'    => [
+				static function( $a ) {
+					return ! $a;
+				},
+				190,
 				false,
 			],
 		];
@@ -837,6 +844,12 @@ class THEMECOMPLETE_EPO_MATH_DEPRECATED {
 							$table = $table['data'];
 							$x     = (float) $x;
 							$y     = (float) $y;
+							if ( intval( $x ) != $x ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+								$x = strval( $x );
+							}
+							if ( intval( $y ) != $y ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+								$y = strval( $y );
+							}
 							$x_row = false;
 							if ( ! isset( $table[ $x ] ) ) {
 								if ( ( (int) 0 === (int) $x ) ) {

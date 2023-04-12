@@ -17,7 +17,7 @@
 	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
 		TMEPOMEASUREMENTJS = window.TMEPOMEASUREMENTJS || null;
-		tcAPI = $.tcAPI();
+		tcAPI = $.tcAPI ? $.tcAPI() : null;
 
 		if ( ! TMEPOJS || ! tcAPI || ! TMEPOMEASUREMENTJS ) {
 			return;

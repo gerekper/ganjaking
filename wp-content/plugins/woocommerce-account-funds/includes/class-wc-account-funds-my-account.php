@@ -69,11 +69,10 @@ class WC_Account_Funds_My_Account {
 	 *
 	 * @since 2.0.12
 	 *
-	 * @param string $title Endpoint title.
 	 * @return string
 	 */
-	public function change_endpoint_title( $title ) {
-		return __( 'Account Funds', 'woocommerce-account-funds' );
+	public function change_endpoint_title() {
+		return wc_get_account_funds_name();
 	}
 
 	/**
@@ -87,7 +86,7 @@ class WC_Account_Funds_My_Account {
 	public function add_menu_items( $menu_items ) {
 		// Try inserting after orders.
 		$key_to_add   = 'account-funds';
-		$value_to_add = __( 'Account Funds', 'woocommerce-account-funds' );
+		$value_to_add = wc_get_account_funds_name();
 
 		$index_for_adding = array_search( 'orders', array_keys( $menu_items ), true );
 

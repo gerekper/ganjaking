@@ -121,7 +121,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 		if ( ! self::compatible_version() ) {
 			deactivate_plugins( plugin_basename( THEMECOMPLETE_EPO_PLUGIN_FILE ) );
 			/* translators: %s WordPress version number */
-			wp_die( sprintf( esc_html__( 'WooCommerce TM Extra Product Options requires WordPress %s or later.', 'woocommerce-tm-extra-product-options' ), esc_html( THEMECOMPLETE_EPO_WP_VERSION ) ) );
+			wp_die( sprintf( esc_html__( 'Extra Product Options & Add-Ons for WooCommerce requires WordPress %s or later.', 'woocommerce-tm-extra-product-options' ), esc_html( THEMECOMPLETE_EPO_WP_VERSION ) ) );
 		}
 
 	}
@@ -175,7 +175,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 
 		echo '<div class="error fade"><p>';
 		/* translators: %s WooCommerce Extra Checkout Options version number */
-		echo sprintf( esc_html__( 'WooCommerce Extra Product Options requires WooCommerce Extra Checkout Options %s or later!.', 'woocommerce-tm-extra-product-options' ), esc_html( THEMECOMPLETE_SUPPORTED_ECO_VERSION ) );
+		echo sprintf( esc_html__( 'Extra Product Options & Add-Ons for WooCommerce requires WooCommerce Extra Checkout Options %s or later!.', 'woocommerce-tm-extra-product-options' ), esc_html( THEMECOMPLETE_SUPPORTED_ECO_VERSION ) );
 
 		if ( defined( 'THEMECOMPLETE_ECO_VERSION' ) && isset( $all_plugins['woocommerce-tm-extra-checkout-options-addon/tm-woo-extra-checkout-options.php'] ) ) {
 			echo ' ' . esc_html__( 'The installed version is', 'woocommerce-tm-extra-product-options' ) . ' ' . esc_html( THEMECOMPLETE_ECO_VERSION );
@@ -194,7 +194,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 	 */
 	public function eco_notice() {
 
-		echo '<div class="error fade"><h4>WooCommerce TM Extra Product Options</h4><p>';
+		echo '<div class="error fade"><h4>Extra Product Options & Add-Ons for WooCommerce</h4><p>';
 		echo sprintf(
 			/* translators: %1 open strong html tag %2 close strong html tag */
 			esc_html__( '%1$sImportant:%2$s Your version of WooCommerce Extra Checkout Options is not supported. Please update to the latest version.', 'woocommerce-tm-extra-product-options' ),
@@ -212,10 +212,10 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 	 */
 	public function eco_notice_deactivate() {
 
-		echo '<div class="error fade"><h4>WooCommerce TM Extra Product Options</h4><p>';
+		echo '<div class="error fade"><h4>Extra Product Options & Add-Ons for WooCommerce</h4><p>';
 		echo sprintf(
 			/* translators: %1 open strong html tag %2 close strong html tag */
-			esc_html__( '%1$sImportant:%2$s WooCommerce Extra Checkout Options has been deactivated because it is not compatible with the current version of WooCommerce Extra product Options.', 'woocommerce-tm-extra-product-options' ),
+			esc_html__( '%1$sImportant:%2$s Extra Product Options & Add-Ons for WooCommerce has been deactivated because it is not compatible with the current version of WooCommerce Extra product Options.', 'woocommerce-tm-extra-product-options' ),
 			'<strong>',
 			'</strong>'
 		);
@@ -268,7 +268,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 			echo sprintf(
 				/* translators: %1 open strong html tag %2 close strong html tag */
 				esc_html__(
-					'%1$sImportant:%2$s Please run WooCommerce updater before using WooCommerce TM Extra Product Options.',
+					'%1$sImportant:%2$s Please run WooCommerce updater before using Extra Product Options & Add-Ons for WooCommerce.',
 					'woocommerce-tm-extra-product-options'
 				),
 				'<strong>',
@@ -277,7 +277,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 		} else {
 			echo sprintf(
 				/* translators: %1 open strong html tag %2 close strong html tag %3 open a html tag %4 close a html tag */
-				esc_html__( '%1$sImportant:%2$s WooCommerce TM Extra Product Options requires %3$sWooCommerce%4$s %5$s or later.', 'woocommerce-tm-extra-product-options' ),
+				esc_html__( '%1$sImportant:%2$s Extra Product Options & Add-Ons for WooCommerce requires %3$sWooCommerce%4$s %5$s or later.', 'woocommerce-tm-extra-product-options' ),
 				'<strong>',
 				'</strong>',
 				'<a href="http://wordpress.org/extend/plugins/woocommerce/">',
@@ -337,7 +337,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 		echo '<div class="error fade"><p>';
 		echo sprintf(
 			/* translators: %1 open strong html tag %2 close strong html tag %3 WordPress version */
-			esc_html__( '%1$sImportant:%2$s WooCommerce TM Extra Product Options requires WordPress %3$s or later.', 'woocommerce-tm-extra-product-options' ),
+			esc_html__( '%1$sImportant:%2$s Extra Product Options & Add-Ons for WooCommerce requires WordPress %3$s or later.', 'woocommerce-tm-extra-product-options' ),
 			'<strong>',
 			'</strong>',
 			esc_html( THEMECOMPLETE_EPO_WP_VERSION )
@@ -357,7 +357,7 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 		echo '<div class="error fade"><p>';
 		echo sprintf(
 			/* translators: %1 open strong html tag %2 close strong html tag %3 WordPress version */
-			esc_html__( '%1$sImportant:%2$s WooCommerce TM Extra Product Options requires PHP version %3$s or later.', 'woocommerce-tm-extra-product-options' ),
+			esc_html__( '%1$sImportant:%2$s Extra Product Options & Add-Ons for WooCommerce requires PHP version %3$s or later.', 'woocommerce-tm-extra-product-options' ),
 			'<strong>',
 			'</strong>',
 			esc_html( THEMECOMPLETE_EPO_PHP_VERSION )

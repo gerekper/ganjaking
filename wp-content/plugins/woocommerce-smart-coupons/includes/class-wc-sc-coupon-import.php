@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.6.0
+ * @version     2.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -383,9 +383,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 
 			$_coupon = new WC_Coupon();
 			$_coupon->set_code( $postdata['post_title'] );
-			$_coupon->set_status( $postdata['post_status'] );
 			$_coupon->set_date_created( $postdata['post_date'] );
 			$_coupon->set_description( $postdata['post_excerpt'] );
+
+			if ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $_coupon, 'set_status' ) ) {
+				$_coupon->set_status( $postdata['post_status'] );
+			}
 
 			$post_id = $_coupon->save();
 
@@ -409,7 +412,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 
 			$coupon_code = strtolower( $post_title );
 
-			$_coupon = new WC_Coupon( $post_id );
+			$_coupon = new WC_Coupon( $_coupon );
 
 			// add/update post meta.
 			if ( ! empty( $post['postmeta'] ) && is_array( $post['postmeta'] ) ) {

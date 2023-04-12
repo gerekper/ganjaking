@@ -348,19 +348,20 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 	 */
 	public function display_field( $element = [], $args = [] ) {
 
-		$categoryids         = array_map( 'absint', (array) wp_unslash( $this->get_value( $element, 'categoryids', [] ) ) );
-		$productids          = array_map( 'absint', (array) wp_unslash( $this->get_value( $element, 'productids', [] ) ) );
-		$layout_mode         = $this->get_value( $element, 'layout_mode', '' );
-		$placeholder         = $this->get_value( $element, 'placeholder', '' );
-		$quantity_min        = $this->get_value( $element, 'quantity_min', 1 );
-		$quantity_max        = $this->get_value( $element, 'quantity_max', '' );
-		$mode                = $this->get_value( $element, 'mode', '' );
-		$uniqid              = $this->get_value( $element, 'uniqid', '' );
-		$priced_individually = $this->get_value( $element, 'priced_individually', '' );
-		$order               = $this->get_value( $element, 'order', '' );
-		$orderby             = $this->get_value( $element, 'orderby', '' );
-		$discount            = $this->get_value( $element, 'discount', '' );
-		$discount_type       = $this->get_value( $element, 'discount_type', '' );
+		$categoryids             = array_map( 'absint', (array) wp_unslash( $this->get_value( $element, 'categoryids', [] ) ) );
+		$productids              = array_map( 'absint', (array) wp_unslash( $this->get_value( $element, 'productids', [] ) ) );
+		$layout_mode             = $this->get_value( $element, 'layout_mode', '' );
+		$placeholder             = $this->get_value( $element, 'placeholder', '' );
+		$quantity_min            = $this->get_value( $element, 'quantity_min', 1 );
+		$quantity_max            = $this->get_value( $element, 'quantity_max', '' );
+		$mode                    = $this->get_value( $element, 'mode', '' );
+		$uniqid                  = $this->get_value( $element, 'uniqid', '' );
+		$priced_individually     = $this->get_value( $element, 'priced_individually', '' );
+		$order                   = $this->get_value( $element, 'order', '' );
+		$orderby                 = $this->get_value( $element, 'orderby', '' );
+		$discount                = $this->get_value( $element, 'discount', '' );
+		$discount_type           = $this->get_value( $element, 'discount_type', '' );
+		$discount_exclude_addons = $this->get_value( $element, 'discount_exclude_addons', '' );
 
 		if ( 'product' === $mode ) {
 			$layout_mode = 'hidden';
@@ -578,6 +579,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 						$title = wc_get_formatted_variation( $product, true, false );
 					}
 				}
+				$title = apply_filters( 'wc_epo_associated_product_name', $title, $product, $product_id );
 
 				if ( 'variable' === $type ) {
 					if ( ( $selected || 'hidden' === $layout_mode ) && is_callable( [ $product, 'get_variation_attributes' ] ) ) {
@@ -716,6 +718,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			'mode'                              => $mode,
 			'discount'                          => $discount,
 			'discount_type'                     => $discount_type,
+			'discount_exclude_addons'           => $discount_exclude_addons,
 			'priced_individually'               => $priced_individually,
 			'layout_mode'                       => $layout_mode,
 			'categoryids'                       => $categoryids,
@@ -789,38 +792,39 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			return apply_filters(
 				'wc_epo_add_cart_item_data_single',
 				[
-					'mode'                 => 'products',
-					'required'             => isset( $this->element['required'] ) ? $this->element['required'] : '',
-					'priced_individually'  => isset( $this->element['priced_individually'] ) ? $this->element['priced_individually'] : '',
-					'shipped_individually' => isset( $this->element['shipped_individually'] ) ? $this->element['shipped_individually'] : '',
-					'maintain_weight'      => isset( $this->element['maintain_weight'] ) ? $this->element['maintain_weight'] : '',
-					'discount'             => isset( $this->element['discount'] ) ? $this->element['discount'] : '',
-					'discount_type'        => isset( $this->element['discount_type'] ) ? $this->element['discount_type'] : '',
-					'product_id'           => $this->key,
-					'variation_id'         => $variation_id,
-					'attributes'           => $attributes,
-					'cssclass'             => $this->element['class'],
-					'hidelabelincart'      => $this->element['hide_element_label_in_cart'],
-					'hidevalueincart'      => $this->element['hide_element_value_in_cart'],
-					'hidelabelinorder'     => $this->element['hide_element_label_in_order'],
-					'hidevalueinorder'     => $this->element['hide_element_value_in_order'],
-					'element'              => $this->order_saved_element,
-					'name'                 => $this->element['label'],
-					'value'                => $this->key,
-					'section'              => $this->element['uniqid'],
-					'section_label'        => $this->element['label'],
-					'percentcurrenttotal'  => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
-					'fixedcurrenttotal'    => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
-					'currencies'           => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
-					'price_per_currency'   => $this->fill_currencies( 1 ),
-					'quantity'             => isset( $this->post_data[ $this->attribute . '_quantity' ] ) ? $this->post_data[ $this->attribute . '_quantity' ] : 1,
-					'initial_quantity'     => isset( $this->post_data[ $this->attribute . '_quantity' ] ) ? $this->post_data[ $this->attribute . '_quantity' ] : 1,
-					'no_change_quantity'   => $quantity_min === $quantity_max && $quantity_min && '' !== $quantity_max,
-					'quantity_min'         => $quantity_min,
-					'quantity_max'         => $quantity_max,
-					'form_prefix'          => ( isset( $this->post_data['tc_form_prefix_assoc'] ) && isset( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) ) ? wp_unslash( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) : '',
-					'form_prefix_counter'  => isset( $this->post_data[ $this->attribute . '_counter' ] ) ? $this->post_data[ $this->attribute . '_counter' ] : '',
-					'hiddenin'             => $this->element['hiddenin'],
+					'mode'                    => 'products',
+					'required'                => isset( $this->element['required'] ) ? $this->element['required'] : '',
+					'priced_individually'     => isset( $this->element['priced_individually'] ) ? $this->element['priced_individually'] : '',
+					'shipped_individually'    => isset( $this->element['shipped_individually'] ) ? $this->element['shipped_individually'] : '',
+					'maintain_weight'         => isset( $this->element['maintain_weight'] ) ? $this->element['maintain_weight'] : '',
+					'discount'                => isset( $this->element['discount'] ) ? $this->element['discount'] : '',
+					'discount_type'           => isset( $this->element['discount_type'] ) ? $this->element['discount_type'] : '',
+					'discount_exclude_addons' => isset( $this->element['discount_exclude_addons'] ) ? $this->element['discount_exclude_addons'] : '',
+					'product_id'              => $this->key,
+					'variation_id'            => $variation_id,
+					'attributes'              => $attributes,
+					'cssclass'                => $this->element['class'],
+					'hidelabelincart'         => $this->element['hide_element_label_in_cart'],
+					'hidevalueincart'         => $this->element['hide_element_value_in_cart'],
+					'hidelabelinorder'        => $this->element['hide_element_label_in_order'],
+					'hidevalueinorder'        => $this->element['hide_element_value_in_order'],
+					'element'                 => $this->order_saved_element,
+					'name'                    => $this->element['label'],
+					'value'                   => $this->key,
+					'section'                 => $this->element['uniqid'],
+					'section_label'           => $this->element['label'],
+					'percentcurrenttotal'     => isset( $this->post_data[ $this->attribute . '_hidden' ] ) ? 1 : 0,
+					'fixedcurrenttotal'       => isset( $this->post_data[ $this->attribute . '_hiddenfixed' ] ) ? 1 : 0,
+					'currencies'              => isset( $this->element['currencies'] ) ? $this->element['currencies'] : [],
+					'price_per_currency'      => $this->fill_currencies( 1 ),
+					'quantity'                => isset( $this->post_data[ $this->attribute . '_quantity' ] ) ? $this->post_data[ $this->attribute . '_quantity' ] : 1,
+					'initial_quantity'        => isset( $this->post_data[ $this->attribute . '_quantity' ] ) ? $this->post_data[ $this->attribute . '_quantity' ] : 1,
+					'no_change_quantity'      => $quantity_min === $quantity_max && $quantity_min && '' !== $quantity_max,
+					'quantity_min'            => $quantity_min,
+					'quantity_max'            => $quantity_max,
+					'form_prefix'             => ( isset( $this->post_data['tc_form_prefix_assoc'] ) && isset( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) ) ? wp_unslash( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) : '',
+					'form_prefix_counter'     => isset( $this->post_data[ $this->attribute . '_counter' ] ) ? $this->post_data[ $this->attribute . '_counter' ] : '',
+					'hiddenin'                => $this->element['hiddenin'],
 				],
 				$this
 			);

@@ -13,7 +13,7 @@
 
 	// document ready
 	$( function() {
-		tcAPI = $.tcAPI();
+		tcAPI = $.tcAPI ? $.tcAPI() : null;
 		if ( ! tcAPI ) {
 			return;
 		}

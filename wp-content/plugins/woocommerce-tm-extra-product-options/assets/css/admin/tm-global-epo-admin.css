@@ -4281,6 +4281,7 @@ li.tc-var-field:hover {
 	width: 1em !important;
 	min-height: 0 !important;
 	line-height: 1 !important;
+	background-image: none !important;
 }
 
 .select2-container--default .tc-dropdown .select2-results__option[aria-disabled="true"] {

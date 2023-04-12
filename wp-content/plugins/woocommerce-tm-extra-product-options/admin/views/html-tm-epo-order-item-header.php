@@ -2,8 +2,11 @@
 /**
  * Shows an order item header
  *
- * @var object $item    The item being displayed
- * @var int    $item_id The id of the item being displayed
+ * @var object $item The item being displayed.
+ * @var int    $item_id The id of the item being displayed.
+ * @var object $order The order object.
+ * @var string $header_title The header title.
+ * @var object $_product The productt object.
  *
  * @package Extra Product Options/Admin/Views
  * @version 4.8
@@ -41,7 +44,7 @@ $row_class = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $c
 		<?php esc_html_e( 'Total', 'woocommerce' ); ?>
 	</td>
 	<?php
-	if ( ! empty( $tax_data ) ) {
+	if ( ! empty( $tax_data ) && isset( $order_taxes ) && is_array( $order_taxes ) ) {
 		foreach ( $order_taxes as $tax_item ) {
 			$column_label = ! empty( $tax_item['label'] ) ? $tax_item['label'] : esc_attr__( 'Tax', 'woocommerce' );
 			?>

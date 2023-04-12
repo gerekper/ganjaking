@@ -3,18 +3,18 @@
  * Plugin Name: WooCommerce Stamps.com API integration
  * Plugin URI: https://woocommerce.com/products/woocommerce-shipping-stamps/
  * Description: Stamps.com API integration for label printing. Requires server SOAP support.
- * Version: 1.8.0
+ * Version: 1.9.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text Domain: woocommerce-shipping-stamps
  * Domain Path: /languages
  *
  * Woo: 538435:b0e7af51937d3cdbd6779283d482b6e4
- * WC tested up to: 6.8
+ * WC tested up to: 7.5
  * WC requires at least: 3.0
- * Tested up to: 6.0
+ * Tested up to: 6.1
  *
- * Copyright: © 2022 WooCommerce
+ * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -37,7 +37,7 @@ function woocommerce_shipping_stamps_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Stamps_Integration' ) ) :
-	define( 'WC_STAMPS_INTEGRATION_VERSION', '1.8.0' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_STAMPS_INTEGRATION_VERSION', '1.9.1' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WC_Stamps_Integration class.
@@ -73,9 +73,23 @@ if ( ! class_exists( 'WC_Stamps_Integration' ) ) :
 				include_once( 'includes/class-wc-stamps-settings.php' );
 			}
 
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 			add_action( 'admin_init', array( $this, 'activation_check' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
 			add_filter( 'woocommerce_translations_updates_for_woocommerce_shipping_stamps', '__return_true' );
+		}
+
+		/**
+		 * Declare High-Performance Order Storage (HPOS) compatibility
+		 *
+		 * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+		 *
+		 * @return void
+		 */
+		public function declare_hpos_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-shipping-stamps/woocommerce-shipping-stamps.php' );
+			}
 		}
 
 		/**

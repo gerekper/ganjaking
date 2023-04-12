@@ -29,7 +29,7 @@ class WC_Given_Order extends WC_Email {
 
         $this->template_html  = 'emails/given-order.php';
         $this->template_plain = 'emails/plain/given-new-order.php';
-        $this->template_base  = plugin_dir_path( WC_Give_Products::$plugin_file ) . 'templates/';
+        $this->template_base  = WC_GIVE_PRODUCTS_PATH . 'templates/';
 
         // Triggers for this email
         add_action( 'woocommerce_order_given', array( $this, 'trigger' ) );
@@ -49,13 +49,12 @@ class WC_Given_Order extends WC_Email {
 
         if ( $order_id ) {
             $this->object                  = wc_get_order( $order_id );
-            $pre_wc_30                     = version_compare( WC_VERSION, '3.0', '<' );
-            $this->recipient               = $pre_wc_30 ? $this->object->billing_email : $this->object->get_billing_email();
+            $this->recipient               = $this->object->get_billing_email();
 
             $this->find['order-date']      = '{order_date}';
             $this->find['order-number']    = '{order_number}';
 
-            $this->replace['order-date']   = date_i18n( wc_date_format(), strtotime( $pre_wc_30 ? $this->object->order_date : ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
+            $this->replace['order-date']   = date_i18n( wc_date_format(), strtotime( ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
             $this->replace['order-number'] = $this->object->get_order_number();
         }
 

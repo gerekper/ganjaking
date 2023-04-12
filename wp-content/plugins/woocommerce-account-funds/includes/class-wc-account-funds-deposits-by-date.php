@@ -121,12 +121,14 @@ class WC_Report_Deposits_By_Date extends WC_Admin_Report {
 	 * Output the report
 	 */
 	public function output_report() {
+		// phpcs:disable WordPress.WP.I18n.TextDomainMismatch
 		$ranges = array(
-			'year'       => __( 'Year', 'woocommerce-account-funds' ),
-			'last_month' => __( 'Last Month', 'woocommerce-account-funds' ),
-			'month'      => __( 'This Month', 'woocommerce-account-funds' ),
-			'7day'       => __( 'Last 7 Days', 'woocommerce-account-funds' ),
+			'year'       => __( 'Year', 'woocommerce' ),
+			'last_month' => __( 'Last month', 'woocommerce' ),
+			'month'      => __( 'This month', 'woocommerce' ),
+			'7day'       => __( 'Last 7 days', 'woocommerce' ),
 		);
+		// phpcs:enable WordPress.WP.I18n.TextDomainMismatch
 
 		$this->chart_colours = array(
 			'amount'  => '#b1d4ea',

@@ -4531,20 +4531,17 @@
 								separator.value = true;
 							}
 						} );
-
 						if ( separator.value && ! separator.title ) {
-							content
-								.find( '.options-wrap' )
-								.eq( ii ).addClass( 'separator' );
-							content
-								.find( '.options-wrap' )
-								.eq( ii ).find( '.tc-cell:not(.tm_cell_move,.tm_cell_title,.tm_cell_description,.tm_cell_delete)' ).addClass( 'tm-hidden' );
-							content
-								.find( '.options-wrap' )
-								.eq( ii ).find( '.tm_option_value' ).removeClass( 'tm_option_value' );
+							separator = content.find( '.options-wrap' ).eq( ii );
+							separator.first().addClass( 'separator' );
+							separator.find( '.tc-cell:not(.tm_cell_move,.tm_cell_title,.tm_cell_description,.tm_cell_delete)' ).addClass( 'tm-hidden' );
+							separator.find( '.tm_option_value' ).removeClass( 'tm_option_value' );
+						} else {
+							separator = content.find( '.options-wrap' ).eq( ii );
+							separator.first().removeClass( 'separator' );
+							separator.find( '.tc-cell:not(.tm_cell_move,.tm_cell_title,.tm_cell_description,.tm_cell_delete)' ).removeClass( 'tm-hidden' );
+							separator.find( '.tm_option_value' ).addClass( 'tm_option_value' );
 						}
-
-						options_wrap = content.find( '.options-wrap' ).eq( ii );
 					} );
 				} else {
 					name = builder[ i ].tags.name;
@@ -5704,7 +5701,7 @@
 			var perpage;
 			var total;
 
-			if ( pager.length === 0 ) {
+			if ( pager.length === 0 || TMEPOGLOBALADMINJS.tcAdminNoPagination ) {
 				return;
 			}
 			panels_wrap = obj.find( '.panels_wrap' );

@@ -42,7 +42,7 @@ class WC_Points_Rewards_Actions {
 		add_action( 'comment_post', array( $this, 'product_review_action' ), 10, 2 );
 		add_action( 'comment_unapproved_to_approved', array( $this, 'product_review_approve_action' ) );
 		add_action( 'user_register', array( $this, 'create_account_action' ) );
-
+		add_action( 'comment_unapproved_review', array( $this, 'product_review_unapproved_action' ), 10, 2 );
 	}
 
 
@@ -112,83 +112,116 @@ class WC_Points_Rewards_Actions {
 		return $event_description;
 	}
 
+	/**
+	 * Determine if a reward point can be applied to a review.
+	 *
+	 * A reward point can be applied to a review only if:
+	 * - reward points are enabled for review.
+	 * - it is a review and not a comment.
+	 * - it is the only approved review of the user for the product.
+	 *
+	 * @param WP_Comment|string|int $comment Comment to determine.
+	 * @return bool
+	 */
+	public function can_reward_review( $comment = null ) {
+		// Check if rewards are awared for reviews.
+		$points = get_option( 'wc_points_rewards_write_review_points' );
+		if ( empty( $points ) || ! is_numeric( $points ) ) {
+			return false;
+		}
+
+		// Check if the comment is of type review.
+		$comment = get_comment( $comment );
+		if ( is_null( $comment ) || ! is_a( $comment, WP_Comment::class ) || 'review' !== $comment->comment_type || empty( $comment->user_id ) ) {
+			return false;
+		}
+
+		// Check if there are no approved reviews for the customer already.
+		$can_reward    = false;
+		$args          = array(
+			'user_id' => $comment->user_id,
+			'count'   => true,
+		);
+		$reviews_count = get_approved_comments( $comment->comment_post_ID, $args );
+
+		// Points are rewarded after the review is approved. Hence there should be only one approved review.
+		if ( 1 === $reviews_count ) {
+			$can_reward = true;
+		}
+
+		return $can_reward;
+	}
 
 	/**
 	 * Add points to customer for posting a product review
 	 *
 	 * @since 1.0
+	 *
+	 * @param int        $comment_id The comment ID.
+	 * @param int|string $approved   1 if the comment is approved, 0 if not, 'spam' if spam.
 	 */
 	public function product_review_action( $comment_id, $approved = 0 ) {
-		if ( ! is_user_logged_in() || ! $approved )
+		if ( ! is_user_logged_in() || ! $approved ) {
 			return;
-
-		$comment   = get_comment( $comment_id );
-		$post_type = get_post_type( $comment->comment_post_ID );
-
-		if ( 'product' === $post_type ) {
-			$points = get_option( 'wc_points_rewards_write_review_points' );
 		}
 
-		if ( ! empty( $points ) ) {
+		$comment    = get_comment( $comment_id );
+		$can_reward = $this->can_reward_review( $comment );
 
-			/**
-			 * Filter the parameters for get_comments called on posting a review.
-			 *
-			 * @since 1.3.5-1
-			 * @param array $params existing parameters for the get_comments function
-			 */
-			$params = apply_filters( 'wc_points_rewards_review_post_comments_args', array( 'user_id' => get_current_user_id(), 'post_id' => $comment->comment_post_ID ) );
-
-			// only award points for the first comment placed on a particular product by a user
-			$comments = get_comments( $params );
-
-			/**
-			 * Filter if points should be added for this comment id on posting a review.
-			 *
-			 * @since 1.3.5-1
-			 * @param array $params existing parameters for the get_comments function
-			 */
-			if ( count( $comments ) <= 1 && apply_filters( 'wc_points_rewards_post_add_product_review_points', true, $comment_id ) ) {
-				WC_Points_Rewards_Manager::increase_points( get_current_user_id(), $points, 'product-review', array( 'product_id' => get_the_ID() ) );
-			}
+		if ( $can_reward ) {
+			$points = intval( get_option( 'wc_points_rewards_write_review_points' ) );
+			$this->reward_points_for_review( $comment_id, get_current_user_id(), $points, array( 'product_id' => get_the_ID() ) );
 		}
 	}
 
 	/**
 	 * Triggered when a comment is approved
+	 *
+	 * @param WP_Comment $comment Comment object.
 	 */
 	public function product_review_approve_action( $comment ) {
-		$post_type = get_post_type( $comment->comment_post_ID );
+		$can_reward = $this->can_reward_review( $comment );
 
-		if ( 'product' === $post_type ) {
-			$points = get_option( 'wc_points_rewards_write_review_points' );
-		}
-
-		if ( ! empty( $points ) && $comment->user_id ) {
-
-			/**
-			 * Filter the parameters for get_comments called when reviews are approved.
-			 *
-			 * @since 1.3.5-1
-			 * @param array $params existing parameters for the get_comments function
-			 */
-			$params = apply_filters( 'wc_points_rewards_review_approve_comments_args', array( 'user_id' => $comment->user_id, 'post_id' => $comment->comment_post_ID ) );
-
-			// only award points for the first comment placed on a particular product by a user
-			$comments = get_comments( $params );
-
-			/**
-			 * Filter if points should be added for this comment id when reviews are approved.
-			 *
-			 * @since 1.3.5-1
-			 * @param array $params existing parameters for the get_comments function
-			 */
-			if ( count( $comments ) <= 1 && apply_filters( 'wc_points_rewards_approve_add_product_review_points', true, $comment->comment_ID ) ) {
-				WC_Points_Rewards_Manager::increase_points( $comment->user_id, $points, 'product-review', array( 'product_id' => $comment->comment_post_ID ) );
-			}
+		if ( $can_reward ) {
+			$points = intval( get_option( 'wc_points_rewards_write_review_points' ) );
+			$this->reward_points_for_review( $comment->comment_ID, $comment->user_id, $points, array( 'product_id' => $comment->comment_post_ID ) );
 		}
 	}
 
+	/**
+	 * Reward points for a review.
+	 *
+	 * @param string $comment_id The comment ID as a numeric string.
+	 * @param string $user_id    The user ID as a numeric string.
+	 * @param int    $points     Number of points to award.
+	 * @param mixed  $data       Arbitrary data associated with the log.
+	 */
+	private function reward_points_for_review( $comment_id, $user_id, $points, $data ) {
+		$was_rewarded = WC_Points_Rewards_Manager::increase_points( $user_id, $points, 'product-review', $data );
+		// If points was rewarded, then add the awarded points to the review meta.
+		if ( $was_rewarded ) {
+			update_comment_meta( $comment_id, 'wc_points_reward_points_rewarded', $points );
+		}
+	}
+
+	/**
+	 * Triggered when a review is unapproved.
+	 *
+	 * @param string     $comment_id The comment ID as a numeric string.
+	 * @param WP_Comment $comment    Comment object.
+	 */
+	public function product_review_unapproved_action( $comment_id, $comment ) {
+		$points = intval( get_comment_meta( $comment_id, 'wc_points_reward_points_rewarded', true ) ); // Get the points rewarded for this review.
+		if ( $points <= 0 ) {
+			return;
+		}
+
+		$was_removed = WC_Points_Rewards_Manager::decrease_points( $comment->user_id, $points, 'product-review', array( 'product_id' => $comment->comment_post_ID ) );
+		// Update the awarded points to zero after removing the points.
+		if ( $was_removed ) {
+			update_comment_meta( $comment_id, 'wc_points_reward_points_rewarded', 0 );
+		}
+	}
 
 	/**
 	 * Add points to customer for creating an account

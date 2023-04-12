@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Extra Product Options TM CSV import/export class
+ * Extra Product Options CSV import/export class
  *
  * @package Extra Product Options/Classes
  * @version 6.0
@@ -117,6 +117,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			if ( false !== $handle ) {
 				$csv = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
 
+				$start_pos = 0;
 				while ( ( $header = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
 					$header = $this->remove_utf8_bom( $header );
 
@@ -287,9 +288,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				$message = esc_html__( 'No file found.', 'woocommerce-tm-extra-product-options' );
 			}
 			if ( $passed ) {
-
-				$start_pos = 0;
-				$enc       = mb_detect_encoding( $file['tmp_name'], 'UTF-8, ISO-8859-1', true );
+				$enc = mb_detect_encoding( $file['tmp_name'], 'UTF-8, ISO-8859-1', true );
 
 				if ( $enc ) {
 					setlocale( LC_ALL, 'en_US.' . $enc );
@@ -543,9 +542,9 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			&& isset( $_SERVER['CONTENT_LENGTH'] )
 			&& (float) $_SERVER['CONTENT_LENGTH'] > $post_max
 			&& (
-				! isset( $_GET ) ||
+				! isset( $_GET ) || // @phpstan-ignore-line
 				(
-					isset( $_GET ) &&
+					isset( $_GET ) && // @phpstan-ignore-line
 					isset( $_GET['post_type'] )
 					&& isset( $_GET['action'] )
 					&& ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ), 'ct_template' )
@@ -588,6 +587,11 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 						if ( $table ) {
 							$json_result['table'] = $table;
 						}
+					} else {
+						$json_result = [
+							'result'  => 0,
+							'message' => esc_html__( 'There was an error importing the CSV file.', 'woocommerce-tm-extra-product-options' ),
+						];
 					}
 					wp_send_json( $json_result );
 				}
@@ -659,6 +663,56 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	}
 
 	/**
+	 * Export lookup table csv
+	 *
+	 * @param string $var Variable to use.
+	 * @since 6.3
+	 */
+	public function export_lookuptable( $var = '' ) {
+
+		$this->check_if_active( 'export' );
+		check_ajax_referer( 'export-nonce', 'security' );
+
+		$tm_meta = '';
+		$json    = [];
+		if ( ! empty( $var ) && isset( $_REQUEST[ $var ] ) ) {
+
+			$tm_metas = json_decode( nl2br( wp_unslash( $_REQUEST[ $var ] ) ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+			if ( ! empty( $tm_metas )
+				&& is_array( $tm_metas )
+			) {
+
+				$csv      = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
+				$tm_meta  = $csv->convert_lookuptable( $tm_metas );
+				$sitename = sanitize_key( get_bloginfo( 'name' ) );
+				$sitename = ( ! empty( $sitename ) ) ? $sitename . '.' : $sitename;
+				$filename = $sitename . 'users.' . gmdate( 'Y-m-d-H-i-s' ) . '.csv';
+
+				set_transient( 'tc_export_' . $filename, $tm_meta, DAY_IN_SECONDS );
+
+				$sendback = esc_url_raw( add_query_arg( 'filename', $filename, admin_url( 'edit.php?post_type=product&page=' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK . '&action=download' ) ) );
+				$json     = [ 'result' => $sendback ];
+			} else {
+				$json = [
+					'error'   => 1,
+					'message' => esc_html__( 'Invalid data!', 'woocommerce-tm-extra-product-options' ),
+				];
+			}
+		} else {
+			$json = [
+				'error'   => 1,
+				'message' => esc_html__( 'Invalid request!', 'woocommerce-tm-extra-product-options' ),
+			];
+		}
+
+		wp_send_json(
+			$json
+		);
+
+	}
+
+	/**
 	 * Export csv
 	 *
 	 * @param string $var Variable to use.
@@ -711,9 +765,10 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	 *
 	 * @param array   $tm_meta Builder meta data.
 	 * @param boolean $recreate If the internal element ids should be recreated.
+	 * @param integer $post_id The post id.
 	 * @since 6.0
 	 */
-	private function export_builder( $tm_meta = [], $recreate = true ) {
+	private function export_builder( $tm_meta = [], $recreate = true, $post_id = 0 ) {
 
 		if ( ! empty( $tm_meta )
 			&& is_array( $tm_meta )
@@ -776,7 +831,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			}
 		}
 
-		$this->export_builder( $tm_meta, false );
+		$this->export_builder( $tm_meta, false, $post_id );
 
 	}
 
@@ -793,7 +848,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 
 		$tm_meta = themecomplete_get_post_meta( $post_id, 'tm_meta', true );
 
-		$this->export_builder( $tm_meta );
+		$this->export_builder( $tm_meta, true, $post_id );
 
 	}
 
@@ -967,6 +1022,69 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 			$csv .= implode( $this->delimiter, $value ) . $this->line_delimiter;
 		}
 		$csv = implode( $this->delimiter, $header ) . $this->line_delimiter . $csv;
+
+		return $csv;
+	}
+
+	/**
+	 * Converts the lookuptable data
+	 *
+	 * @param array $input Data array to convert.
+	 * @since 1.0
+	 */
+	public function convert_lookuptable( $input = [] ) {
+		$csv           = '';
+		$input_length  = count( $input );
+		$input_counter = 0;
+		foreach ( $input as $table_name => $table_data ) {
+			$input_counter++;
+
+			$lines  = [];
+			$y_axis = [];
+			$row    = [];
+
+			$lines[0] = [ $table_name ];
+			foreach ( $table_data as $x_axis => $y ) {
+				$lines[0][ count( $lines[0] ) ] = $x_axis;
+				foreach ( $y as $y_key => $y_value ) {
+					if ( ! isset( $y_axis[ $y_key ] ) ) {
+						$y_axis[ $y_key ] = [ $y_key ];
+					}
+					array_push( $y_axis[ $y_key ], $y_value );
+				}
+			}
+			$counter = 1;
+			foreach ( $y_axis as $y_data_key => $y_data ) {
+				$lines[ $counter ] = $y_data;
+				$counter ++;
+			}
+
+			foreach ( $lines as $key => $value ) {
+				// @phpstan-ignore-next-line
+				if ( ! empty( $value ) && is_array( $value ) ) {
+					foreach ( $value as $k => $v ) {
+						$v = $this->format_data( $v );
+						// Don't add text_separator for the table name.
+						if ( ! empty( $key ) || ! empty( $k ) ) {
+							$v = $this->replace_data( $v );
+						}
+
+						$row[ $key ][ $k ] = $v;
+					}
+				}
+			}
+
+			$result = [];
+			foreach ( $row as $sub_array ) {
+				$result[] = implode( $this->delimiter, $sub_array );
+			}
+			$csv_part = implode( $this->line_delimiter, $result );
+
+			$csv = $csv . $csv_part;
+			if ( $input_counter < $input_length ) {
+				$csv = $csv . $this->line_delimiter . $this->line_delimiter;
+			}
+		}
 
 		return $csv;
 	}

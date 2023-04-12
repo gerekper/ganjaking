@@ -625,6 +625,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'type'    => 'checkbox',
 			],
 			[
+				'title'   => esc_html__( 'Trim zeros in prices', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to globally trim zero in prices. This will be applied to native WooCommerce prices as well.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_trim_zeros',
+				'class'   => 'tcprice',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
 				'title'   => esc_html__( 'Hide element price html when hide price setting is enabled', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this if you use Google Merchant Center. It will hide the price html of the element when you enable its hide price setting.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_hide_price_html',

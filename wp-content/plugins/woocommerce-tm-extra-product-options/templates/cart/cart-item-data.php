@@ -24,44 +24,45 @@ $separator = THEMECOMPLETE_EPO()->tm_epo_separator_cart_text;
 ?>
 <dl class="tc-epo-metadata variation">
 	<?php
-	foreach ( $item_data as $data ) :
+	if ( isset( $item_data ) ) :
+		foreach ( $item_data as $data ) :
+			$is_epo      = false;
+			$show_dt     = true;
+			$show_dd     = true;
+			$class_name  = '';
+			$class_value = '';
+			if ( isset( $data['tm_label'] ) ) {
+				$is_epo      = true;
+				$class_name  = 'tc-name ';
+				$class_value = 'tc-value ';
+			}
 
-		$is_epo      = false;
-		$show_dt     = true;
-		$show_dd     = true;
-		$class_name  = '';
-		$class_value = '';
-		if ( isset( $data['tm_label'] ) ) {
-			$is_epo      = true;
-			$class_name  = 'tc-name ';
-			$class_value = 'tc-value ';
-		}
+			if ( ! isset( $data['display'] ) && isset( $data['value'] ) ) {
+				$data['display'] = $data['value'];
+			}
+			if ( $is_epo && '' === $data['key'] ) {
+				$show_dt = false;
+			}
+			if ( $is_epo && '' === $data['display'] ) {
+				$show_dd = false;
+			}
+			if ( ( 'link' === THEMECOMPLETE_EPO()->tm_epo_cart_field_display && isset( $data['popuplink'] ) ) || ! $show_dd ) {
+				$separator = '';
+			}
 
-		if ( ! isset( $data['display'] ) && isset( $data['value'] ) ) {
-			$data['display'] = $data['value'];
-		}
-		if ( $is_epo && '' === $data['key'] ) {
-			$show_dt = false;
-		}
-		if ( $is_epo && '' === $data['display'] ) {
-			$show_dd = false;
-		}
-		if ( ( 'link' === THEMECOMPLETE_EPO()->tm_epo_cart_field_display && isset( $data['popuplink'] ) ) || ! $show_dd ) {
-			$separator = '';
-		}
-
-		// $data['key'] and $data['display'] contians HTML code
-		// thus the use of wp_kses_post and not esc_html
-		?>
-		<?php if ( $show_dt ) : ?>
-		<dt class="<?php echo esc_attr( sanitize_html_class( $class_name ) ); ?> variation-<?php echo esc_attr( sanitize_html_class( $data['key'] ) ); ?>"><?php echo apply_filters( 'wc_epo_kses', wp_kses_post( $data['key'] ), $data['key'], false ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $separator ); ?></dt>
-	<?php else : ?>
-		<dt class="<?php echo esc_attr( sanitize_html_class( $class_name ) ); ?> tc-hidden-variation">&nbsp;</dt>
+			// $data['key'] and $data['display'] contians HTML code
+			// thus the use of wp_kses_post and not esc_html
+			?>
+			<?php if ( $show_dt ) : ?>
+			<dt class="<?php echo esc_attr( sanitize_html_class( $class_name ) ); ?> variation-<?php echo esc_attr( sanitize_html_class( $data['key'] ) ); ?>"><?php echo apply_filters( 'wc_epo_kses', wp_kses_post( $data['key'] ), $data['key'], false ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $separator ); ?></dt>
+			<?php else : ?>
+			<dt class="<?php echo esc_attr( sanitize_html_class( $class_name ) ); ?> tc-hidden-variation">&nbsp;</dt>
+			<?php endif; ?>
+			<?php if ( $show_dd ) : ?>
+			<dd class="<?php echo esc_attr( sanitize_html_class( $class_value ) ); ?> variation-<?php echo esc_attr( sanitize_html_class( $data['key'] ) ); ?>"><?php echo apply_filters( 'wc_epo_kses', wp_kses_post( wpautop( $data['display'] ) ), wpautop( $data['display'] ), false ); // phpcs:ignore WordPress.Security.EscapeOutput ?></dd>
+			<?php else : ?>
+			<dd class="<?php echo esc_attr( sanitize_html_class( $class_value ) ); ?> tc-hidden-variation">&nbsp;</dd>
+			<?php endif; ?>
+		<?php endforeach; ?>
 	<?php endif; ?>
-		<?php if ( $show_dd ) : ?>
-		<dd class="<?php echo esc_attr( sanitize_html_class( $class_value ) ); ?> variation-<?php echo esc_attr( sanitize_html_class( $data['key'] ) ); ?>"><?php echo apply_filters( 'wc_epo_kses', wp_kses_post( wpautop( $data['display'] ) ), wpautop( $data['display'] ), false ); // phpcs:ignore WordPress.Security.EscapeOutput ?></dd>
-	<?php else : ?>
-		<dd class="<?php echo esc_attr( sanitize_html_class( $class_value ) ); ?> tc-hidden-variation">&nbsp;</dd>
-	<?php endif; ?>
-	<?php endforeach; ?>
 </dl>

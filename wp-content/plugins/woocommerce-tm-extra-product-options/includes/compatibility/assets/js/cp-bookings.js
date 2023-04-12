@@ -63,15 +63,31 @@
 			var options_multiplier = 0;
 			var found = false;
 			var duration;
+			var hasPersons;
 
 			if ( TMEPOBOOKINGSJS.wc_booking_block_qty_multiplier === '1' ) {
 				duration = parseInt( $( 'input#wc_bookings_field_duration, input.wc_bookings_field_duration' ).first().val(), 10 );
 				if ( ! isNaN( duration ) && duration !== 0 ) {
-					options_multiplier = duration;
+					options_multiplier = options_multiplier + duration;
 					found = true;
 				}
 			}
 
+			if ( TMEPOBOOKINGSJS.wc_booking_person_qty_multiplier === '1' ) {
+				found = false;
+				hasPersons = $( '[id^=wc_bookings_field_persons]' );
+				if ( hasPersons.length ) {
+					options_multiplier = options_multiplier + hasPersons.toArray().reduce(
+						function( sum, element ) {
+							if ( isNaN( sum ) ) {
+								sum = 0;
+							}
+							return sum + Number( element.value );
+						}, 0
+					);
+					found = true;
+				}
+			}
 			if ( found ) {
 				total = total * options_multiplier;
 			}
@@ -117,6 +133,13 @@
 			}
 			return val;
 		}
+
+		function getCurrentQty( qty ) {
+			qty = 1;
+			return qty;
+		}
+
+		$.epoAPI.addFilter( 'tc_getCurrentQty', getCurrentQty, 10, 1 );
 		$.epoAPI.addFilter( 'tcAdjustTotal', adjustTotal, 10, 1 );
 		$.epoAPI.addFilter( 'tcAdjustOriginalTotal', adjustTotal, 10, 1 );
 		$.epoAPI.addFilter( 'tc_calculate_product_price', calculateProductPrice, 10, 2 );

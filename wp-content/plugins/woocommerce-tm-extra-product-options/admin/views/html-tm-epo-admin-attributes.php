@@ -38,7 +38,7 @@ if ( isset( $parent_data ) && isset( $tmcp_attribute_selected_value ) && isset( 
 					}
 				}
 			} else {
-				$options = array_map( 'trim', explode( WC_DELIMITER, $attribute['value'] ) );
+				$options = array_map( 'trim', explode( WC_DELIMITER, $attribute['value'] ) ); // @phpstan-ignore-line
 				foreach ( $options as $option ) {
 					?>
 					<option value="<?php echo esc_attr( sanitize_title( $option ) ); ?>"><?php echo esc_html( apply_filters( 'woocommerce_tm_epo_option_name', $option, null, null ) ); ?></option>

@@ -1,5 +1,10 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-04-08 - version 2.6.5
+* Tweak: Prevent API Resource > Access Expires value from regressing in time when Order screen updated.
+* Tweak: Revert unix_timestamp_to_date() back to use get_date_from_gmt() as part of the timestamp localization process.
+* Tweak: When updating Access Expires on Order screen, match access expires minutes and seconds to order created time minutes and seconds.
+
 2023-04-02 - version 2.6.4
 * Tweak: Clear cache when order updated.
 * Tweak: Clear database cache faster when API Resource no longer exists.

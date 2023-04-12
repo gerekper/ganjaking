@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -158,9 +158,18 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items( 'coupon' ) : array();
 			$i           = 1;
 			if ( ! empty( $order_items ) ) {
+				$item_titles = array_map(
+					function( $item ) {
+						return ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
+					},
+					$order_items
+				);
+				$posts       = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
 				foreach ( $order_items as $item_id => $item ) {
                     $order_discount_amount = $sc_refunded_discount = $sc_refunded_discount_tax = $order_discount_tax_amount = 0; // phpcs:ignore
-					$coupon_post_obj       = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' ) : get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' );// phpcs:ignore
+					$coupon_code           = ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
+					$sanitized_coupon_code = sanitize_title( $coupon_code ); // The generated string will be checked in an array key to locate post object.
+					$coupon_post_obj       = ( ! empty( $posts[ $sanitized_coupon_code ] ) ) ? $posts[ $sanitized_coupon_code ] : null;
 					$coupon_id             = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
 					$coupon_title          = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
 					$coupon                = new WC_Coupon( $coupon_id );
@@ -490,12 +499,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 
 			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items( 'coupon' ) : array();
 			if ( ! empty( $order_items ) ) {
+				$item_titles = array_map(
+					function( $item ) {
+						return $item->get_name();
+					},
+					$order_items
+				);
+				$posts       = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
 				foreach ( $order_items as $item_id => $item ) {
 					$sc_refunded_discount = $sc_refunded_discount_tax = $sc_refunded_user = $sc_refunded_timestamp = 0; // phpcs:ignore
-					$coupon_post_obj      = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' ) : get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' );// phpcs:ignore
-					$coupon_id            = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
-					$coupon_title         = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
-					$coupon               = new WC_Coupon( $coupon_id );
+					$coupon_code           = ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
+					$sanitized_coupon_code = sanitize_title( $coupon_code ); // The generated string will be checked in an array key to locate post object.
+					$coupon_post_obj       = ( ! empty( $posts[ $sanitized_coupon_code ] ) ) ? $posts[ $sanitized_coupon_code ] : null;
+					$coupon_id             = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
+					$coupon_title          = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
+					$coupon                = new WC_Coupon( $coupon_id );
 					if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
 						$sc_refunded_discount     = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
 						$sc_refunded_discount_tax = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
@@ -675,11 +693,20 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 			$order       = wc_get_order( $order_id );
 			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items( 'coupon' ) : array();
 			if ( ! empty( $order_items ) ) {
+				$item_titles = array_map(
+					function( $item ) {
+						return $item->get_name();
+					},
+					$order_items
+				);
+				$posts       = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
 				foreach ( $order_items as $item_id => $item ) {
 					$sc_refunded_discount = $sc_refunded_discount_tax = $order_discount_amount = $order_discount_tax_amount = 0; // phpcs:ignore
-					$coupon_post_obj      = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' ) : get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' );// phpcs:ignore
-					$coupon_id            = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
-					$coupon               = new WC_Coupon( $coupon_id );
+					$coupon_code           = ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
+					$sanitized_coupon_code = sanitize_title( $coupon_code ); // The generated string will be checked in an array key to locate post object.
+					$coupon_post_obj       = ( ! empty( $posts[ $sanitized_coupon_code ] ) ) ? $posts[ $sanitized_coupon_code ] : null;
+					$coupon_id             = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
+					$coupon                = new WC_Coupon( $coupon_id );
 					if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
 						$sc_refunded_discount      = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
 						$sc_refunded_discount_tax  = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );

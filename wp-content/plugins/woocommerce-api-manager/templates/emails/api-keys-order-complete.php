@@ -25,31 +25,31 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 
 	?><h2><?php esc_html_e( 'API Product Information', 'woocommerce-api-manager' ); ?></h2>
 
-    <div style="margin-bottom: 40px;">
-        <table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
-            <thead>
-            <tr>
-                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Product', 'woocommerce-api-manager' ); ?></th>
-                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'ID', 'woocommerce-api-manager' ); ?></th>
-                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></th>
-                <th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Expires', 'woocommerce-api-manager' ); ?></th>
-            </tr>
-            </thead>
-            <tbody>
+	<div style="margin-bottom: 40px;">
+		<table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
+			<thead>
+			<tr>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Product', 'woocommerce-api-manager' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'ID', 'woocommerce-api-manager' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Expires', 'woocommerce-api-manager' ); ?></th>
+			</tr>
+			</thead>
+			<tbody>
 			<?php foreach ( $resources as $resource ) {
 				$product_object = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
 				?>
-                <tr>
-                    <td class="td" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+				<tr>
+					<td class="td" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
 						<?php esc_attr_e( $product_object->get_title() ); ?>
-                    </td>
-                    <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+					</td>
+					<td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
 						<?php echo absint( $resource->product_id ) ?>
-                    </td>
-                    <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+					</td>
+					<td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
 						<?php esc_attr_e( $resource->activations_purchased_total ) ?>
-                    </td>
-                    <td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+					</td>
+					<td class="td" style="text-align:center; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
 						<?php
 						if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
 							esc_html_e( ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) );
@@ -63,39 +63,39 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 							esc_html_e( $expires );
 						}
 						?>
-                    </td>
-                </tr>
+					</td>
+				</tr>
 				<?php if ( ! $hide_product_order_api_keys ) { ?>
-                    <tr>
-                        <td class="td" colspan="4" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
-                            <strong><?php esc_html_e( 'Product Order API Key(s):', 'woocommerce-api-manager' ); ?></strong>
-                            <br><?php echo esc_attr( $resource->product_order_api_key ); ?>
-                        </td>
-                    </tr>
+					<tr>
+						<td class="td" colspan="4" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+							<strong><?php esc_html_e( 'Product Order API Key(s):', 'woocommerce-api-manager' ); ?></strong>
+							<br><?php echo esc_attr( $resource->product_order_api_key ); ?>
+						</td>
+					</tr>
 				<?php } ?>
 			<?php } ?>
-            </tbody>
-            <tfoot>
+			</tbody>
+			<tfoot>
 			<?php
 			if ( $order->has_downloadable_item() ) {
 				$my_account_url = wc_get_endpoint_url( 'api-downloads', '', wc_get_page_permalink( 'myaccount' ) );
 				?>
-                <tr>
-                    <td class="td" scope="row" colspan="4" style="text-align:center;"><a
-                                href="<?php echo esc_url( ( $my_account_url ) ); ?>"><?php echo esc_html__( 'Click here to login and download your file(s)', 'woocommerce-api-manager' ); ?></a></td>
-                </tr>
+				<tr>
+					<td class="td" scope="row" colspan="4" style="text-align:center;"><a
+							href="<?php echo esc_url( ( $my_account_url ) ); ?>"><?php echo esc_html__( 'Click here to login and download your file(s)', 'woocommerce-api-manager' ); ?></a></td>
+				</tr>
 			<?php } ?>
-            <tr>
-                <th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?></th>
-            </tr>
-            <tr>
-                <td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
-            </tr>
-            <tr>
-                <td class="td" scope="row" colspan="4"
-                    style="text-align:center;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?></td>
-            </tr>
-            </tfoot>
-        </table>
-    </div>
+			<tr>
+				<th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?></th>
+			</tr>
+			<tr>
+				<td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
+			</tr>
+			<tr>
+				<td class="td" scope="row" colspan="4"
+				    style="text-align:center;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?></td>
+			</tr>
+			</tfoot>
+		</table>
+	</div>
 <?php }

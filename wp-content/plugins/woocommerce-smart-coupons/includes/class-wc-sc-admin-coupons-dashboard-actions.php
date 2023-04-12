@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.0
- * @version     1.4.1
+ * @version     1.5.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -355,11 +355,14 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 			$duplicate->set_id( 0 );
 			/* translators: %s contains the code of the original coupon. */
 			$duplicate->set_code( sprintf( '%s-copy', $duplicate->get_code() ) );
-			$duplicate->set_status( 'draft' );
 			$duplicate->set_date_created( null );
 			$duplicate->set_usage_count( 0 );
 			$duplicate->set_used_by( array() );
 			$duplicate->set_date_expires( null );
+
+			if ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $duplicate, 'set_status' ) ) {
+				$duplicate->set_status( 'draft' );
+			}
 
 			foreach ( $meta_to_exclude as $meta_key ) {
 				$duplicate->delete_meta_data( $meta_key );
@@ -375,11 +378,17 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 			// Save parent coupon.
 			$duplicate_id = $duplicate->save();
 
-			$duplicate = new WC_Coupon( $duplicate_id );
+			$duplicate = new WC_Coupon( $duplicate );
 
 			$this->woocommerce_duplicate_coupon_post_taxonomies( $coupon->get_id(), $duplicate_id, 'shop_coupon' );
 
-			if ( ! empty( $duplicate_id ) && 'draft' !== $duplicate->get_status() ) {
+			if ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $duplicate, 'get_status' ) ) {
+				$coupon_status = $duplicate->get_status();
+			} else {
+				$coupon_status = get_post_status( $duplicate_id );
+			}
+
+			if ( ! empty( $duplicate_id ) && 'draft' !== $coupon_status ) {
 				$args = array(
 					'ID'          => $duplicate_id,
 					'post_status' => 'draft',

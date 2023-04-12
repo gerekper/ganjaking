@@ -1,5 +1,8 @@
 *** WooCommerce Composite Products ***
 
+2023.04.10 - version 8.7.5
+* Fix - Updated the REST API schema for default_option_id to support string or integer.
+
 2023.03.14 - version 8.7.4
 * New - Introduced compatibility with AutomateWoo - Abandoned Carts.
 * Fix - Fixed an issue that prevented component options from loading when a composited Bundle had addons both on the container and on bundled item level. 

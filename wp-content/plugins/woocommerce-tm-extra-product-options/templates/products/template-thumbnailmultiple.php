@@ -105,7 +105,9 @@ if ( is_array( $options ) ) :
 			echo '</span>';
 			echo '</span>';
 			$_product       = wc_get_product( $product_id );
-			$textafterprice = wp_kses_post( $_product->get_price_suffix() );
+			if ( '' !== $_product->get_price_suffix() ) {
+				$textafterprice = '&nbsp;' . wp_kses_post( $_product->get_price_suffix() );
+			}
 			unset( $_product );
 			include THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php';
 			include THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity-hidden.php';

@@ -36,6 +36,7 @@ if ( $can_show ) {
 			$current_price = apply_filters( 'wc_epo_remove_current_currency_price', $current_price );
 			$current_product->set_sale_price( $current_price );
 			$current_product->set_price( $current_price );
+			$discount_applied = true;
 		}
 
 		if ( ! isset( $option ) || ! isset( $option['_default_value_counter'] ) ) {

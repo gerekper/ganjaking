@@ -35,6 +35,7 @@ class WC_Account_Funds_Admin_System_Status {
 		$max_topup       = get_option( 'account_funds_max_topup' );
 
 		$data = array(
+			'name'                  => wc_get_account_funds_name(),
 			'partial_funds_payment' => get_option( 'account_funds_partial_payment', 'no' ),
 			'enable_topup'          => get_option( 'account_funds_enable_topup', 'no' ),
 			'min_topup'             => ( ! empty( $min_topup ) ? $min_topup : '1' ),

@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.7.3
+ * Version: 2.8.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires PHP: 5.6
  * Requires at least: 4.9
- * Tested up to: 6.1
+ * Tested up to: 6.2
  * Text Domain: woocommerce-account-funds
  * Domain Path: /languages/
  *
  * WC requires at least: 3.7
- * WC tested up to: 7.0
+ * WC tested up to: 7.5
  * Woo: 18728:a6fcf35d3297c328078dfe822e00bd06
  *
  * License: GNU General Public License v3.0
@@ -63,7 +63,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.7.3';
+	public $version = '2.8.0';
 
 	/**
 	 * Constructor.
@@ -124,6 +124,7 @@ class WC_Account_Funds {
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/wc-account-funds-functions.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-order-query.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-installer.php';
+		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-emails.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-my-account.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-integrations.php';
 
@@ -149,7 +150,6 @@ class WC_Account_Funds {
 		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'init', array( $this, 'init' ) );
 
-		add_filter( 'woocommerce_email_classes', array( $this, 'add_email_classes' ), 99 );
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'register_gateway' ) );
 		add_filter( 'woocommerce_data_stores', array( $this, 'add_data_stores' ) );
 
@@ -217,15 +217,6 @@ class WC_Account_Funds {
 	 */
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain( 'woocommerce-account-funds', false, dirname( WC_ACCOUNT_FUNDS_BASENAME ) . '/languages' );
-	}
-
-	/**
-	 *  Add email to the list of emails WooCommerce should load.
-	 */
-	public function add_email_classes( $email_classes ) {
-		include_once 'includes/class-wc-account-funds-email-account-funds-increase.php';
-		$email_classes['WC_Account_Funds_Email_Account_Funds_Increase'] = new WC_Account_Funds_Email_Account_Funds_Increase();
-		return $email_classes;
 	}
 
 	/**
@@ -387,6 +378,21 @@ class WC_Account_Funds {
 	 */
 	public function version_check() {
 		wc_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
+	}
+
+	/**
+	 * Registers custom emails classes.
+	 *
+	 * @since 2.0.0
+	 * @deprecated 2.8.0
+	 *
+	 * @param array $emails The email classes.
+	 * @return array
+	 */
+	public function add_email_classes( $emails ) {
+		wc_deprecated_function( __FUNCTION__, '2.8.0', 'WC_Account_Funds_Emails->email_classes()' );
+
+		return $emails;
 	}
 }
 

@@ -12,7 +12,6 @@ if ( isset( $post_type_object )
 	&& isset( $bulk_counts )
 	&& isset( $post_type )
 	&& isset( $general_messages )
-	&& isset( $post_type_object )
 ) {
 
 	?>
@@ -45,7 +44,7 @@ if ( isset( $post_type_object )
 				$tm_nonce = 'untrash-post_' . $ids;
 				$tm_bulk  = '';
 			}
-			if ( isset( $tm_nonce ) ) {
+			if ( isset( $tm_nonce ) && isset( $tm_bulk ) ) {
 				$messages[] = '<a href="' . esc_url( wp_nonce_url( 'edit.php?post_type=product&page=' . esc_attr( THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK ) . '&doaction=undo&action=untrash&ids=' . esc_attr( $ids ) . $tm_bulk, $tm_nonce ) ) . '">' . esc_html__( 'Undo', 'woocommerce-tm-extra-product-options' ) . '</a>';
 			}
 		}

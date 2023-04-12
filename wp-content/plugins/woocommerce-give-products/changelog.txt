@@ -1,5 +1,14 @@
 *** WooCommerce Give Products Changelog ***
 
+2023-04-10 - version 1.2.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Check the minimum requirements before initializing the extension.
+* Tweak - Added links to the plugin documentation page and to get support in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.6.
+* Tweak - Tested compatibility up to WP 6.2.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
 2022-09-02 - version 1.1.21
 * Dev - Add branch-labels GH workflow.
 * Dev - GH release config and the new PR template.

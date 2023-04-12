@@ -26,7 +26,7 @@ class WC_Account_Funds_Integrations {
 	 * @since 2.5.0
 	 */
 	public function __construct() {
-		add_action( 'plugin_loaded', array( $this, 'register_integrations' ) );
+		add_action( 'plugins_loaded', array( $this, 'register_integrations' ) );
 		add_action( 'init', array( $this, 'init_integrations' ) );
 	}
 

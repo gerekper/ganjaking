@@ -1,5 +1,21 @@
 *** WooCommerce Account Funds ***
 
+2023-03-28 - version 2.8.0
+* Feature - Use a different name to refer to the account funds.
+* Tweak - Register the increase funds email as a transactional email.
+* Tweak - Added setting for customizing the message of the increase funds email.
+* Tweak - Include the additional content in the increase funds email.
+* Tweak - Added placeholder {funds_amount} to the increase funds email.
+* Tweak - Use the store locale when sending customer emails.
+* Tweak - Added setting for customizing the payment gateway description displayed in the checkout form.
+* Tweak - Improved performance by initializing the payment gateway description only when needed.
+* Tweak - Register the plugin integrations when all plugins have been loaded.
+* Tweak - Reduced the plugin text strings by re-using strings from the WC core.
+* Tweak - Tested compatibility up to WC 7.5.
+* Tweak - Tested compatibility with WP 6.2.
+* Dev - Added the 'tax_status' value as the first argument of the filter `woocommerce_account_funds_topup_get_tax_status`.
+* Dev - Updated plugin templates.
+
 2022-11-16 - version 2.7.3
 * Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 

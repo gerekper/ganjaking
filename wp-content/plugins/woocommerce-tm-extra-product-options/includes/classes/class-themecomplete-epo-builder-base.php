@@ -691,11 +691,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			'required' => [
 				'.tm-pricetype-selector' => [
 					'operator' => 'isnot',
-					'value'    => 'currentstep',
-				],
-				'.tm-pricetype-selector' => [
-					'operator' => 'isnot',
-					'value'    => 'lookuptable',
+					'value'    => [ 'currentstep', 'lookuptable' ],
 				],
 			],
 		];
@@ -724,11 +720,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			'required' => [
 				'.tm-pricetype-selector' => [
 					'operator' => 'isnot',
-					'value'    => 'currentstep',
-				],
-				'.tm-pricetype-selector' => [
-					'operator' => 'isnot',
-					'value'    => 'lookuptable',
+					'value'    => [ 'currentstep', 'lookuptable' ],
 				],
 			],
 		];

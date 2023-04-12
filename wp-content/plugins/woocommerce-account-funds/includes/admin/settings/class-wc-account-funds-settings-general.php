@@ -68,17 +68,23 @@ class WC_Account_Funds_Settings_General extends WC_Account_Funds_Settings_API {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
+			'name'            => array(
+				'type'        => 'text',
+				'title'       => __( 'Funds name', 'woocommerce-account-funds' ),
+				'description' => __( 'Use a different name to refer to the account funds.', 'woocommerce-account-funds' ),
+				'placeholder' => __( 'Account Funds', 'woocommerce-account-funds' ),
+			),
 			'partial_payment' => array(
 				'type'        => 'checkbox',
-				'title'       => __( 'Partial Funds Payment', 'woocommerce-account-funds' ),
+				'title'       => __( 'Partial payment', 'woocommerce-account-funds' ),
 				'label'       => __( 'Allow customers to apply available funds and pay the difference via another gateway.', 'woocommerce-account-funds' ),
 				'description' => __( 'If disabled, users must pay for the entire order using the account funds payment gateway.', 'woocommerce-account-funds' ),
 			),
 			'add_on_register' => array(
 				'type'        => 'price',
-				'title'       => __( 'Funds on Register', 'woocommerce-account-funds' ),
+				'title'       => __( 'Funds on register', 'woocommerce-account-funds' ),
 				'description' => __( 'Add funds to the customer account on registration.', 'woocommerce-account-funds' ),
-				'placeholder' => __( 'n/a', 'woocommerce-account-funds' ),
+				'placeholder' => __( 'N/A', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'funding_title'   => array(
 				'type'  => 'title',
@@ -97,7 +103,7 @@ class WC_Account_Funds_Settings_General extends WC_Account_Funds_Settings_API {
 			'max_topup'       => array(
 				'type'        => 'price',
 				'title'       => __( 'Maximum Top-up', 'woocommerce-account-funds' ),
-				'placeholder' => __( 'n/a', 'woocommerce-account-funds' ),
+				'placeholder' => __( 'N/A', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'discount_title'  => array(
 				'type'  => 'title',
@@ -105,12 +111,12 @@ class WC_Account_Funds_Settings_General extends WC_Account_Funds_Settings_API {
 			),
 			'give_discount'   => array(
 				'type'  => 'checkbox',
-				'title' => __( 'Give Discount', 'woocommerce-account-funds' ),
+				'title' => __( 'Give discount', 'woocommerce-account-funds' ),
 				'label' => __( 'Apply a discount when account funds are used to purchase items', 'woocommerce-account-funds' ),
 			),
 			'discount_type'   => array(
 				'type'     => 'select',
-				'title'    => __( 'Discount Type', 'woocommerce-account-funds' ),
+				'title'    => __( 'Discount type', 'woocommerce-account-funds' ),
 				'desc_tip' => __( 'Percentage discounts will be based on the amount of funds used.', 'woocommerce-account-funds' ),
 				'options'  => array(
 					'fixed'      => __( 'Fixed Price', 'woocommerce-account-funds' ),
@@ -119,7 +125,7 @@ class WC_Account_Funds_Settings_General extends WC_Account_Funds_Settings_API {
 			),
 			'discount_amount' => array(
 				'type'     => 'price',
-				'title'    => __( 'Discount Amount', 'woocommerce-account-funds' ),
+				'title'    => __( 'Discount amount', 'woocommerce-account-funds' ),
 				'desc_tip' => __( 'Enter numbers only. Do not include the percentage sign.', 'woocommerce-account-funds' ),
 			),
 		);

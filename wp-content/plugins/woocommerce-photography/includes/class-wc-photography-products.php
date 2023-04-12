@@ -16,6 +16,7 @@ class WC_Photography_Products {
 	 * Initialize the products actions.
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'register_products' ) );
 		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup_image_sizes' ) );
 		add_action( 'template_redirect', array( $this, 'add_to_order' ), 100 );
@@ -25,6 +26,15 @@ class WC_Photography_Products {
 		add_filter( 'template_include', array( $this, 'collections_template' ), 20 );
 		add_filter( 'wc_get_template_part', array( $this, 'photography_templates' ), 10, 3 );
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_before_add_to_cart' ), 10, 2 );
+	}
+
+	/**
+	 * Registers product classes.
+	 *
+	 * @since 1.2.0
+	 */
+	public function register_products() {
+		include_once 'class-wc-product-photography.php';
 	}
 
 	/**

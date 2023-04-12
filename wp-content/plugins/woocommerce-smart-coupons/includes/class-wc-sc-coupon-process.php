@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.4.0
+ * @version     3.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -483,13 +483,20 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			$order_items = is_callable( array( $order, 'get_items' ) ) ? $order->get_items( 'coupon' ) : array();
 
 			if ( ! empty( $order_items ) ) {
-
+				$item_titles = array_map(
+					function( $item ) {
+						return ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
+					},
+					$order_items
+				);
+				$posts       = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
 				foreach ( $order_items as $item_id => $item ) {
-					$item_title      = ( is_object( $item ) && is_callable( array( $item, 'get_name' ) ) ) ? $item->get_name() : '';
-					$coupon_post_obj = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $item_title, OBJECT, 'shop_coupon' ) : get_page_by_title( $item_title, OBJECT, 'shop_coupon' );// phpcs:ignore
-					$coupon_id       = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : 0;
-					$coupon_code     = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
-					$smart_coupon    = new WC_Coupon( $coupon_id );
+					$coupon_code           = ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
+					$sanitized_coupon_code = sanitize_title( $coupon_code ); // The generated string will be checked in an array key to locate post object.
+					$coupon_post_obj       = ( ! empty( $posts[ $sanitized_coupon_code ] ) ) ? $posts[ $sanitized_coupon_code ] : null;
+					$coupon_id             = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : 0;
+					$coupon_code           = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
+					$smart_coupon          = new WC_Coupon( $coupon_id );
 					if ( is_a( $smart_coupon, 'WC_Coupon' ) ) {
 						$coupon_amount = $this->get_amount( $smart_coupon );
 						if ( $this->is_wc_gte_30() ) {

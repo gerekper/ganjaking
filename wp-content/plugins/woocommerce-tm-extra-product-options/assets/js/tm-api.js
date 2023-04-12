@@ -349,10 +349,15 @@ window.jQuery.jMaskGlobals = {
 		return path.replace( /.*\//, '' );
 	};
 
+	// https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 	// https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
 	$.epoAPI.util.deepCopyArray = function( inObject ) {
 		var outObject;
 		var value;
+
+		if ( window.structuredClone !== undefined ) {
+			return window.structuredClone( inObject );
+		}
 
 		if ( typeof inObject !== 'object' || inObject === null ) {
 			return inObject; // Return the value if inObject is not an object
@@ -376,7 +381,14 @@ window.jQuery.jMaskGlobals = {
 	$.epoAPI.locale.getSystemDecimalSeparator = function() {
 		var n = 1.1;
 
-		n = /^1(.+)1$/.exec( n.toLocaleString() )[ 1 ];
+		// This gets null on languages that don't return 1 in a number format.
+		n = /^1(.+)1$/.exec( n.toLocaleString() );
+
+		if ( n ) {
+			n = n[ 1 ];
+		} else {
+			n = ',';
+		}
 
 		return n;
 	};

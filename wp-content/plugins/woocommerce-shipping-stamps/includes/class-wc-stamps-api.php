@@ -412,6 +412,38 @@ class WC_Stamps_API {
 		return self::do_request( 'GetPurchaseStatus', $request );
 	}
 
+	public static function check_address( $request ) {
+		if ( empty( $request['From']['Address1'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping return address 1 is empty! Please set the address from WooCommerce >> Settings >> Stamps.com settings.' );
+		}
+
+		if ( empty( $request['From']['City'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping return city is empty! Please set the address from WooCommerce >> Settings >> Stamps.com settings.' );
+		}
+
+		if ( empty( $request['From']['State'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping return state is empty! Please set the address from WooCommerce >> Settings >> Stamps.com settings.' );
+		}
+
+		if ( empty( $request['From']['ZIPCode'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping return ZIP code is empty! Please set the address from WooCommerce >> Settings >> Stamps.com settings.' );
+		}
+
+		if ( empty( $request['To']['Address1'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping address 1 is empty!' );
+		}
+
+		if ( empty( $request['To']['City'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping city is empty!' );
+		}
+
+		if ( empty( $request['To']['Country'] ) ) {
+			return new WP_Error( 'stamps', 'Shipping country is empty!' );
+		}
+
+		return true;
+	}
+
 	/**
 	 * Get account info.
 	 *
@@ -700,6 +732,11 @@ class WC_Stamps_API {
 
 		if ( $customs ) {
 			$request['Customs'] = $customs;
+		}
+
+		$check_request = self::check_address( $request );
+		if ( is_wp_error( $check_request ) ) {
+			return $check_request;
 		}
 
 		$result = self::do_request( 'CreateIndicium', $request );

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_CP_REST_API
- * @version  8.4.0
+ * @version  8.7.5
  */
 class WC_CP_REST_API {
 
@@ -232,7 +232,7 @@ class WC_CP_REST_API {
 						),
 						'default_option_id'     => array(
 							'description' => __( 'The product ID of the default/pre-selected component option.', 'woocommerce-composite-products' ),
-							'type'        => 'integer',
+							'type'        => WC_CP_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
 							'context'     => array( 'view', 'edit' )
 						),
 						'thumbnail_id'          => array(

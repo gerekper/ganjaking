@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.6.1
+ * @version  8.7.5
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -1155,13 +1155,15 @@ class WC_Product_Composite extends WC_Product {
 					}
 				}
 
+				$default_option_id = $component->get_default_option();
+
 				$composite_data[ $component_id ] = array(
 					'id'                       => (string) $component->get_id(),
 					'title'                    => $component->get_title(),
 					'description'              => $component->get_description(),
 					'query_type'               => isset( $component[ 'query_type' ] ) ? $component[ 'query_type' ] : 'product_ids',
 					'query_ids'                => 'category_ids' === $component[ 'query_type' ] ? (array) $component[ 'assigned_category_ids' ] : (array) $component[ 'assigned_ids' ],
-					'default_option_id'        => $component->get_default_option(),
+					'default_option_id'        => ( '' !== $default_option_id ) ? absint( $default_option_id ) : '',
 					'thumbnail_id'             => $thumbnail_id,
 					'thumbnail_src'            => $thumbnail_src,
 					'quantity_min'             => $component->get_quantity( 'min' ),

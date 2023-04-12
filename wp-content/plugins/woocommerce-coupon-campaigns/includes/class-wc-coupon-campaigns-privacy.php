@@ -19,17 +19,17 @@ class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Returns a list of orders that have post meta in coupons by Coupon Campaigns.
 	 *
-	 * @param string  $email_address
-	 * @param int     $page
+	 * @param string $email_address
+	 * @param int    $page
 	 *
 	 * @return array WP_Post
 	 */
 	protected function get_orders_with_coupons( $email_address, $page ) {
 		$user = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
 
-		$order_query    = array(
-			'limit'          => 10,
-			'page'           => $page,
+		$order_query = array(
+			'limit' => 10,
+			'page'  => $page,
 		);
 
 		if ( $user instanceof WP_User ) {
@@ -40,30 +40,36 @@ class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 
 		$orders = wc_get_orders( $order_query );
 
-		return array_filter( $orders, function( $order ) {
-			$order_id   = $order->get_id();
+		return array_filter(
+			$orders,
+			function( $order ) {
+				$order_id = $order->get_id();
 
-			$coupon_ids = array_map( function( $coupon ) {
-				return $coupon->get_id();
-			}, $order->get_items( 'coupon' ) );
+				$coupon_ids = array_map(
+					function( $coupon ) {
+						return $coupon->get_id();
+					},
+					$order->get_items( 'coupon' )
+				);
 
-			foreach ( $coupon_ids as $coupon_id ) {
-				$coupon_orders = get_post_meta( $coupon_id, '_coupon_orders', true );
+				foreach ( $coupon_ids as $coupon_id ) {
+					$coupon_orders = get_post_meta( $coupon_id, '_coupon_orders', true );
 
-				if ( ! empty( $coupon_orders ) ) {
-					return true;
+					if ( ! empty( $coupon_orders ) ) {
+						return true;
+					}
 				}
-			}
 
-			return false;
-		} );
+				return false;
+			}
+		);
 	}
 
 	/**
 	 * Returns a list of orders that have post meta in coupons by Coupon Campaigns.
 	 *
-	 * @param string  $email_address
-	 * @param int     $page
+	 * @param string $email_address
+	 * @param int    $page
 	 *
 	 * @return array WP_Post
 	 */
@@ -87,9 +93,9 @@ class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 
 	/**
 	 * Gets the message of the privacy to display.
-	 *
 	 */
 	public function get_privacy_message() {
+		/* translators: %s - marketplace link */
 		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'wc_coupon_campaigns' ), 'https://docs.woocommerce.com/document/marketplace-privacy/#woocommerce-coupon-campaigns' ) );
 	}
 
@@ -112,12 +118,12 @@ class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 			$order = wc_get_order( $order->get_id() );
 
 			list( $removed, $retained, $msgs ) = $this->maybe_handle_order_coupons( $order );
-			$items_removed  |= $removed;
-			$items_retained |= $retained;
-			$messages        = array_merge( $messages, $msgs );
+			$items_removed                    |= $removed;
+			$items_retained                   |= $retained;
+			$messages                          = array_merge( $messages, $msgs );
 		}
 
-		// Tell core if we have more orders to work on still
+		// Tell core if we have more orders to work on still.
 		$done = count( $orders ) < 10;
 
 		return array(
@@ -135,11 +141,14 @@ class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order_coupons( $order ) {
-		$order_id   = $order->get_id();
+		$order_id = $order->get_id();
 
-		$coupon_ids = array_map( function( $coupon ) {
-			return $coupon->get_id();
-		}, $order->get_items( 'coupon' ) );
+		$coupon_ids = array_map(
+			function( $coupon ) {
+				return $coupon->get_id();
+			},
+			$order->get_items( 'coupon' )
+		);
 
 		// Assume no custom coupon data exists.
 		$coupon_data = false;
@@ -230,14 +239,14 @@ class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 
 		foreach ( (array) $notes as $note ) {
 			wp_delete_comment( $note->ID, true );
-			$items_removed  |= true;
+			$items_removed |= true;
 		}
 
 		if ( $items_removed ) {
 			$messages[] = __( 'Coupon Campaigns Order Data Erased.', 'wc_coupon_campaigns' );
 		}
 
-		// Tell core if we have more notes to work on still
+		// Tell core if we have more notes to work on still.
 		$done = count( $notes ) < 10;
 
 		return array(

@@ -43,7 +43,9 @@ $product_permalink = $current_product->is_visible() ? $current_product->get_perm
 			}
 			if ( $show_price && $priced_individually ) {
 				echo '<div class="product-price">';
-				echo '<span class="price">' . apply_filters( 'wc_epo_kses', wp_kses_post( THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_associated_price_html( $current_product, $args['discount'], $args['discount_type'] ) ), THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_associated_price_html( $current_product, $args['discount'], $args['discount_type'] ), false ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+				$discount_applied = isset( $discount_applied ) ? $discount_applied : false;
+				$discounted_price = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_associated_price_html( $current_product, $args['discount'], $args['discount_type'], $discount_applied );
+				echo '<span class="associated-price">' . apply_filters( 'wc_epo_kses', wp_kses_post( $discounted_price ), $discounted_price, false ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
 				echo '</div>';
 			}
 			if ( $show_description ) {
@@ -55,7 +57,7 @@ $product_permalink = $current_product->is_visible() ? $current_product->get_perm
 				echo '<div class="product-description">' . wpautop( themecomplete_do_shortcode( apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description, false ) ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 			require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variable.php';
-			do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'], isset( $tm_element_settings['disable_epo'] ) ? $tm_element_settings['disable_epo'] : '', $priced_individually, $args['discount'], $args['discount_type'], $option['counter'], $tm_element_settings['uniqid'] );
+			do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'], isset( $tm_element_settings['disable_epo'] ) ? $tm_element_settings['disable_epo'] : '', $priced_individually, $args['discount'], $args['discount_type'], $args['discount_exclude_addons'], $option['counter'], $tm_element_settings['uniqid'] );
 			require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-availability.php';
 			require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity.php';
 

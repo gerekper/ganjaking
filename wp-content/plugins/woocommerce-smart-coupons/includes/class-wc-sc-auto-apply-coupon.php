@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -48,7 +48,13 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
 
 			// Action to auto apply coupons.
-			add_action( 'wp_loaded', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_cart_is_empty', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_shortcode_before_product_cat_loop', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_before_shop_loop', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_before_single_product', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_before_cart', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_before_checkout_form', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_account_content', array( $this, 'auto_apply_coupons' ) );
 			add_action( 'woocommerce_cart_emptied', array( $this, 'reset_auto_applied_coupons_session' ) );
 
 			add_action( 'woocommerce_removed_coupon', array( $this, 'wc_sc_removed_coupon' ) );
@@ -473,9 +479,13 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 				if ( ! is_admin() ) {
 					$current_user = wp_get_current_user();
 					if ( ! empty( $current_user->ID ) ) {
-						$user_role = ( ! empty( $current_user->roles[0] ) ) ? $current_user->roles[0] : '';
-						$email     = get_user_meta( $current_user->ID, 'billing_email', true );
-						$email     = ( ! empty( $email ) ) ? $email : $current_user->user_email;
+						$max_user_roles_limit = apply_filters( 'wc_sc_max_user_roles_limit', 5 );
+						$user_roles           = ( ! empty( $current_user->roles ) ) ? $current_user->roles : array();
+						if ( count( $user_roles ) > $max_user_roles_limit ) {
+							$user_roles = array_slice( $user_roles, 0, $max_user_roles_limit );
+						}
+						$email = get_user_meta( $current_user->ID, 'billing_email', true );
+						$email = ( ! empty( $email ) ) ? $email : $current_user->user_email;
 					}
 				}
 				$query = $wpdb->prepare(
@@ -497,11 +507,13 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 					'wc_sc_auto_apply_coupon',
 					'yes'
 				);
-				if ( ! empty( $user_role ) ) {
-					$query .= $wpdb->prepare(
-						' OR pm2.meta_value LIKE %s',
-						'%' . $wpdb->esc_like( $user_role ) . '%'
-					);
+				if ( ! empty( $user_roles ) ) {
+					foreach ( $user_roles as $user_role ) {
+						$query .= $wpdb->prepare(
+							' OR pm2.meta_value LIKE %s',
+							'%' . $wpdb->esc_like( $user_role ) . '%'
+						);
+					}
 				}
 				if ( ! empty( $email ) ) {
 					$query .= $wpdb->prepare(

@@ -82,7 +82,7 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 			$selected = false;
 
 			if ( -1 === $selected_value ) {
-				if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ! isset( $this->post_data['quantity'] ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) && isset( $default_value ) ) {
+				if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ! isset( $this->post_data['quantity'] ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) ) {
 					if ( false !== $default_value ) {
 						$selected = true;
 					}
@@ -107,74 +107,11 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 
 			$image_variations = [];
 			if ( $changes_product_image ) {
-				$image_link        = '';
-				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-				$attachment_object = get_post( $attachment_id );
-				if ( ! $attachment_object && get_transient( 'get_attachment_id_' . $image_link ) ) {
-					delete_transient( 'get_attachment_id_' . $image_link );
-					$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-					$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-					$attachment_object = get_post( $attachment_id );
-				}
-				$full_src      = wp_get_attachment_image_src( $attachment_id, 'large' );
-				$image_title   = get_the_title( $attachment_id );
-				$image_alt     = wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
-				$image_srcset  = function_exists( 'wp_get_attachment_image_srcset' ) ? wp_get_attachment_image_srcset( $attachment_id, 'shop_single' ) : false;
-				$image_sizes   = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $attachment_id, 'shop_single' ) : false;
-				$image_caption = ( $attachment_object ) ? $attachment_object->post_excerpt : '';
+				$image_link       = '';
+				$image_variations = THEMECOMPLETE_EPO_HELPER()->generate_image_array( $image_variations, $image_link, 'image' );
 
-				if ( false === $full_src || ! is_array( $full_src ) ) {
-					$full_src = [ '', '', '' ];
-				}
-
-				$image_variations['image'] = [
-					'image_link'    => $image_link,
-					'image_title'   => $image_title,
-					'image_alt'     => $image_alt,
-					'image_srcset'  => $image_srcset,
-					'image_sizes'   => $image_sizes,
-					'image_caption' => $image_caption,
-					'image_id'      => $attachment_id,
-					'full_src'      => $full_src[0],
-					'full_src_w'    => $full_src[1],
-					'full_src_h'    => $full_src[2],
-				];
-
-				$image_link        = isset( $element['imagesp'][ $_default_value_counter ] ) ? $element['imagesp'][ $_default_value_counter ] : '';
-				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-				$attachment_object = get_post( $attachment_id );
-				if ( ! $attachment_object && get_transient( 'get_attachment_id_' . $image_link ) ) {
-					delete_transient( 'get_attachment_id_' . $image_link );
-					$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-					$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-					$attachment_object = get_post( $attachment_id );
-				}
-				$full_src      = wp_get_attachment_image_src( $attachment_id, 'large' );
-				$image_title   = get_the_title( $attachment_id );
-				$image_alt     = wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
-				$image_srcset  = function_exists( 'wp_get_attachment_image_srcset' ) ? wp_get_attachment_image_srcset( $attachment_id, 'shop_single' ) : false;
-				$image_sizes   = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $attachment_id, 'shop_single' ) : false;
-				$image_caption = ( $attachment_object ) ? $attachment_object->post_excerpt : '';
-
-				if ( false === $full_src || ! is_array( $full_src ) ) {
-					$full_src = [ '', '', '' ];
-				}
-
-				$image_variations['imagep'] = [
-					'image_link'    => $image_link,
-					'image_title'   => $image_title,
-					'image_alt'     => $image_alt,
-					'image_srcset'  => $image_srcset,
-					'image_sizes'   => $image_sizes,
-					'image_caption' => $image_caption,
-					'image_id'      => $attachment_id,
-					'full_src'      => $full_src[0],
-					'full_src_w'    => $full_src[1],
-					'full_src_h'    => $full_src[2],
-				];
-
+				$image_link       = isset( $element['imagesp'][ $_default_value_counter ] ) ? $element['imagesp'][ $_default_value_counter ] : '';
+				$image_variations = THEMECOMPLETE_EPO_HELPER()->generate_image_array( $image_variations, $image_link, 'imagep' );
 			}
 
 			$value_to_show = isset( $element['original_options'] ) && isset( $element['original_options'][ $value ] ) ? $element['original_options'][ $value ] : $value;

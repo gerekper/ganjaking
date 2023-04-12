@@ -350,6 +350,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		public function do_this_hourly() {
 
 			global $wpdb;
+			update_option('is_whitelisted_roles', 'false');
+			update_option('white_payment_methods', 'false');
+			update_option('not_whitelisted_email', false);
 			$pre_payment_fraud_check = get_option('wc_af_fraud_check_before_payment');
 			$statuses = array_keys(wc_get_order_statuses());
 			if (!$pre_payment_fraud_check) {
@@ -357,7 +360,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				$statuses = array_keys($statuses);
 			}
 
-			$date_range = strtotime ( '-7 day' );
+			$num_days = get_option('wc_settings_anti_fraud_auto_check_days');
+			$date_range = strtotime ( '-' . $num_days . 'day' );
+			
 			$orders = wc_get_orders(array(
 				'status' => $statuses,
 				'limit'=>-1,
@@ -377,28 +382,29 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			);
 
 			/* Auto order fraud check */
-			
 			$fraud_check = get_option('wc_af_start_auto_fraud_check');
 
 			if ('yes' == $fraud_check) {
 
 				if (!empty($orders)) {
-
+					//$score =0;
 					foreach ($orders as $value) {
 
 						$id = $value->get_id();
 						$score_points = get_post_meta( $id, 'wc_af_score', true );
+
+						$risk_waiting = get_post_meta( $id, '_wc_af_waiting', true );
 
 						if ('' != $score_points) {
 
 							continue;
 						}
 
-						$risk_waiting = get_post_meta( $id, '_wc_af_waiting', true );
-
 						if ('' == $score_points || '' != $risk_waiting) {
 
 							$score_helper = new WC_AF_Score_Helper();
+
+							//$score++;
 							$score_helper->schedule_fraud_check( $id );
 						}
 					}

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.2.0
+ * @version     3.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1240,8 +1240,36 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					?>
 					<br>
 					<div id='invalid_coupons_list'>
-						<h2><?php echo esc_html__( 'Invalid / Used Coupons', 'woocommerce-smart-coupons' ); ?></h2>
-						<p><?php echo esc_html__( 'List of coupons which can not be used. The reason can be based on its usage restrictions, usage limits, expiry date.', 'woocommerce-smart-coupons' ); ?></p>
+						<h2>
+						<?php
+						echo wp_kses(
+							apply_filters(
+								'wc_sc_invalid_coupons_list_title',
+								__( 'Invalid / Used Coupons', 'woocommerce-smart-coupons' ),
+								array(
+									'source'          => $this,
+									'all_coupon_data' => $coupon_block_data,
+								)
+							),
+							$allowed_html
+						);
+						?>
+							</h2>
+						<p>
+						<?php
+						echo wp_kses(
+							apply_filters(
+								'wc_sc_invalid_coupons_list_description',
+								__( 'List of coupons which can not be used. The reason can be based on its usage restrictions, usage limits, expiry date.', 'woocommerce-smart-coupons' ),
+								array(
+									'source'          => $this,
+									'all_coupon_data' => $coupon_block_data,
+								)
+							),
+							$allowed_html
+						);
+						?>
+							</p>
 						<div id="sc-cc">
 							<div id="all_coupon_container" class="sc-coupons-list">
 								<?php echo wp_kses( $invalid_coupons_block, $allowed_html ); // phpcs:ignore ?>
@@ -2148,7 +2176,9 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						$is_meta_box = true;
 					}
 					foreach ( $generated_coupon_data as $from => $data ) {
-						$order = null;
+						$order        = null;
+						$coupon_codes = wp_list_pluck( $data, 'code' );
+						$posts        = $this->get_post_by_title( $coupon_codes, ARRAY_A, 'shop_coupon' );
 						foreach ( $data as $coupon_data ) {
 
 							if ( ! is_admin() && ! empty( $coupon_data['email'] ) && ! empty( $email ) && $coupon_data['email'] !== $email ) {
@@ -2170,7 +2200,9 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								$coupon_id = $coupon->get_id();
 								if ( empty( $coupon_id ) ) {
 									if ( true === $is_meta_box ) {
-										$coupon_post = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $coupon_data['code'], ARRAY_A, 'shop_coupon' ) : get_page_by_title( $coupon_data['code'], ARRAY_A, 'shop_coupon' ); // phpcs:ignore
+										$coupon_code           = ( ! empty( $coupon_data['code'] ) ) ? $coupon_data['code'] : '';
+										$sanitized_coupon_code = sanitize_title( $coupon_code ); // The generated string will be checked in an array key to locate post object.
+										$coupon_post_obj       = ( ! empty( $posts[ $sanitized_coupon_code ] ) ) ? $posts[ $sanitized_coupon_code ] : null;
 										if ( ! empty( $coupon_post['ID'] ) ) {
 											$coupon    = new WC_Coupon( $coupon_post['ID'] );
 											$coupon_id = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
@@ -2446,7 +2478,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			if ( ! empty( $coupon_code ) ) {
 				$coupon_id     = wc_get_coupon_id_by_code( $coupon_code );
 				$coupon        = new WC_Coupon( $coupon_id );
-				$coupon_status = ( $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $coupon_id );
+				$coupon_status = ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $coupon_id );
 				if ( 'publish' === $coupon_status && ! is_store_notice_showing() ) {
 					update_option( 'woocommerce_demo_store', 'yes' );
 				} elseif ( 'publish' !== $coupon_status && is_store_notice_showing() ) {

@@ -359,8 +359,12 @@ class WC_Points_Rewards_Cart_Checkout {
 		$points_earned = $this->get_points_earned_for_purchase();
 		$message = $this->generate_earn_points_message();
 
-		// If message was null then return here, we don't need to continue.
-		if( null === $message ) {
+		/**
+		 * Filter to bypass rendering the earn points message.
+		 */
+		$should_render = apply_filters( 'wc_points_rewards_should_render_earn_points_message', true );
+		// If the render earn points message is bypassed or the message was null then return here, we don't need to continue.
+		if ( false === $should_render || null === $message ) {
 			return;
 		}
 
@@ -490,13 +494,18 @@ class WC_Points_Rewards_Cart_Checkout {
 	public function render_redeem_points_message() {
 		$existing_discount = WC_Points_Rewards_Discount::get_discount_code();
 
+		/**
+		 * Filter to bypass rendering the redeeem points message.
+		 */
+		$should_render = apply_filters( 'wc_points_rewards_should_render_redeem_points_message', true );
 		/*
 		 * Don't display a points message to the user if:
+		 * Rendering the message is bypassed through filters OR
 		 * The cart total is fully discounted OR
 		 * Coupons are disabled OR
 		 * Points have already been applied for a discount.
 		 */
-		if ( $this->is_fully_discounted() || ! wc_coupons_enabled() || ( ! empty( $existing_discount ) && WC()->cart->has_discount( $existing_discount ) ) ) {
+		if ( false === $should_render || $this->is_fully_discounted() || ! wc_coupons_enabled() || ( ! empty( $existing_discount ) && WC()->cart->has_discount( $existing_discount ) ) ) {
 			return;
 		}
 

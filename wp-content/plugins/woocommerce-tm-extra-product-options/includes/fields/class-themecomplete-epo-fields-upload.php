@@ -178,20 +178,23 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			$can_be_added = true;
 		} elseif ( ! empty( $files[ $this->attribute ] ) && ! empty( $files[ $this->attribute ]['name'] ) ) {
 			$upload = THEMECOMPLETE_EPO()->upload_file( $files[ $this->attribute ], $this->key_id, $this->keyvalue_id );
+			if ( false !== $upload ) {
+				if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
+					$value = wc_clean( $upload['url'] );
+					if ( empty( $upload['tc'] ) && THEMECOMPLETE_EPO()->tm_epo_upload_success_message === 'yes' ) {
+						wc_add_notice( esc_html__( 'Upload successful', 'woocommerce-tm-extra-product-options' ), 'success' );
+					}
+					$can_be_added = true;
 
-			if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
-				$value = wc_clean( $upload['url'] );
-				if ( empty( $upload['tc'] ) && THEMECOMPLETE_EPO()->tm_epo_upload_success_message === 'yes' ) {
-					wc_add_notice( esc_html__( 'Upload successful', 'woocommerce-tm-extra-product-options' ), 'success' );
+				} else {
+					wc_add_notice( $upload['error'], 'error' );
 				}
-				$can_be_added = true;
-
-			} else {
-				wc_add_notice( $upload['error'], 'error' );
 			}
 		}
 
-		$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
+		if ( isset( $value ) ) {
+			$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
+		}
 
 		if ( $can_be_added ) {
 			return apply_filters(

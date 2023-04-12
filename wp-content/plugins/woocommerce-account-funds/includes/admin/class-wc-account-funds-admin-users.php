@@ -40,7 +40,7 @@ class WC_Account_Funds_Admin_Users {
 	 */
 	public function add_columns( $columns ) {
 		if ( wc_account_funds_current_user_can( 'view_user_funds' ) ) {
-			$columns['account_funds'] = __( 'Account Funds', 'woocommerce-account-funds' );
+			$columns['account_funds'] = wc_get_account_funds_name();
 		}
 
 		return $columns;
@@ -96,17 +96,22 @@ class WC_Account_Funds_Admin_Users {
 			return;
 		}
 
-		$new_funds     = floatval( wc_clean( wp_unslash( $_POST['account_funds'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
-		$current_funds = WC_Account_Funds_Manager::get_user_funds( $user_id );
+		$new_funds      = floatval( wc_clean( wp_unslash( $_POST['account_funds'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
+		$previous_funds = WC_Account_Funds_Manager::get_user_funds( $user_id );
+		$funds_updated  = WC_Account_Funds_Manager::set_user_funds( $user_id, $new_funds );
 
-		$funds_updated = WC_Account_Funds_Manager::set_user_funds( $user_id, $new_funds );
-
-		// Send email to customer.
-		if ( $funds_updated && $current_funds < $new_funds ) {
-			$wc_emails = WC_Emails::instance();
-			$email     = $wc_emails->emails['WC_Account_Funds_Email_Account_Funds_Increase'];
-
-			$email->trigger( $user_id, $current_funds, $new_funds );
+		// Send email to the customer.
+		if ( $funds_updated && $previous_funds < $new_funds ) {
+			/**
+			 * Fires the action for notifying the customer about the funds' increase.
+			 *
+			 * @since 2.8.0
+			 *
+			 * @param int   $user_id        User ID.
+			 * @param float $previous_funds The previous funds amount.
+			 * @param float $new_funds      The new funds amount.
+			 */
+			do_action( 'wc_account_funds_customer_funds_increased', $user_id, $previous_funds, $new_funds );
 		}
 	}
 }

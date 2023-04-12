@@ -19,7 +19,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	/**
 	 * The class THEMECOMPLETE_EPO_ADMIN_Global_List_Table
 	 *
-	 * @var class THEMECOMPLETE_EPO_ADMIN_Global_List_Table
+	 * @var object THEMECOMPLETE_EPO_ADMIN_Global_List_Table
 	 */
 	public $tm_list_table;
 	/**
@@ -81,7 +81,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		add_filter( 'manage_' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE . '_posts_columns', [ $this, 'tm_list_columns' ] );
 		add_action( 'manage_' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE . '_posts_custom_column', [ $this, 'tm_list_column' ], 10, 2 );
 
-		// Export a form..
+		// Export a form.
 		add_action( 'wp_ajax_tm_export', [ $this, 'export' ] );
 
 		// Variations check.
@@ -620,7 +620,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		$message = esc_html__( 'Your settings have been reset.', 'woocommerce-tm-extra-product-options' );
 
 		$thissettings_options = THEMECOMPLETE_EPO_SETTINGS()->settings_options();
-
+		$thissettings_array   = [];
 		foreach ( $thissettings_options as $key => $value ) {
 			$thissettings_array[ $key ] = THEMECOMPLETE_EPO_SETTINGS()->create_setting( $key, $value );
 		}
@@ -668,7 +668,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		$message = esc_html__( 'Your settings have been saved.', 'woocommerce-tm-extra-product-options' );
 
 		$thissettings_options = THEMECOMPLETE_EPO_SETTINGS()->settings_options();
-
+		$thissettings_array   = [];
 		foreach ( $thissettings_options as $key => $value ) {
 			$thissettings_array[ $key ] = THEMECOMPLETE_EPO_SETTINGS()->create_setting( $key, $value );
 		}
@@ -820,8 +820,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 			if ( $product && is_object( $product ) && is_callable( [ $product, 'get_available_variations' ] ) ) {
 				$variations     = $this->get_available_variations( $product );
-				$attributes     = $product->get_variation_attributes();
-				$all_attributes = $product->get_attributes();
+				$attributes     = $product->get_variation_attributes(); // @phpstan-ignore-line
+				$all_attributes = $product->get_attributes(); // @phpstan-ignore-line
 				if ( $attributes ) {
 					foreach ( $attributes as $key => $value ) {
 						if ( ! $value ) {
@@ -1334,7 +1334,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	 */
 	public function tm_add_metaboxes() {
 		// only continue if we are are on add/edit screen.
-		if ( ! $this->tm_list_table || ! $this->tm_list_table->current_action() ) {
+		if ( ! $this->tm_list_table || ! $this->tm_list_table->current_action() ) { // @phpstan-ignore-line
 			return;
 		}
 
@@ -1356,7 +1356,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		if ( $this->tm_list_table ) {
 			THEMECOMPLETE_EPO_WPML()->remove_term_filters();
 
-			foreach ( get_object_taxonomies( $this->tm_list_table->screen->post_type ) as $tax_name ) {
+			foreach ( get_object_taxonomies( $this->tm_list_table->screen->post_type ) as $tax_name ) { // @phpstan-ignore-line
 				$taxonomy = get_taxonomy( $tax_name );
 				if ( ! $taxonomy->show_ui ) {
 					continue;
@@ -2130,7 +2130,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 					$force = ! EMPTY_TRASH_DAYS;
 					if ( 'attachment' === $post->post_type ) {
-						$force = ( $force || ! MEDIA_TRASH );
+						$force = ( $force || ( defined( 'MEDIA_TRASH' ) && ! MEDIA_TRASH ) );
 						if ( ! wp_delete_attachment( $post_id, $force ) ) {
 							wp_die( esc_html__( 'Error in deleting.', 'woocommerce-tm-extra-product-options' ) );
 						}
@@ -2388,7 +2388,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	 */
 	public function tm_add_option() {
 		// only continue if we are are on list screen.
-		if ( $this->tm_list_table && $this->tm_list_table->current_action() ) {
+		if ( $this->tm_list_table && $this->tm_list_table->current_action() ) { // @phpstan-ignore-line
 			return;
 		}
 		$option = 'per_page';
@@ -2627,6 +2627,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			'i18n_formula_field_quantity_tip'    => esc_html__( 'The total quantity of the targeted element', 'woocommerce-tm-extra-product-options' ),
 			'i18n_formula_field_count'           => esc_html__( 'Count', 'woocommerce-tm-extra-product-options' ),
 			'i18n_formula_field_count_tip'       => esc_html__( 'The number of options the user has selected on the targeted element', 'woocommerce-tm-extra-product-options' ),
+			'tcAdminNoPagination'                => apply_filters( 'wc_epo_admin_no_pagination', false ),
 
 		];
 		wp_localize_script( 'themecomplete-global-epo-admin', 'TMEPOGLOBALADMINJS', $params );
@@ -2640,9 +2641,11 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	 * @since 1.0
 	 */
 	public function script_templates() {
-
-		wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
-		wc_get_template( 'tc-js-admin-builder-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+		// The check is required in case other plugin do things that don't load the wc_get_template function.
+		if ( function_exists( 'wc_get_template' ) ) {
+			wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+			wc_get_template( 'tc-js-admin-builder-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+		}
 
 	}
 
@@ -2732,8 +2735,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	/**
 	 * Init List table class
 	 *
-	 * @param class|string $class The class object.
-	 * @param array        $args Array of arguments.
+	 * @param object|string $class The class object.
+	 * @param array         $args Array of arguments.
 	 * @since 1.0
 	 */
 	private function get_wp_list_table( $class = '', $args = [] ) {
@@ -2988,14 +2991,14 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	public function admin_screen() {
 		global $bulk_counts, $bulk_messages, $general_messages;
 
-		$post_type        = $this->tm_list_table->screen->post_type;
+		$post_type        = $this->tm_list_table->screen->post_type; // @phpstan-ignore-line
 		$post_type_object = get_post_type_object( $post_type );
 
 		$parent_file   = 'edit.php?post_type=product&page=' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK;
 		$submenu_file  = 'edit.php?post_type=product&page=' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK;
 		$post_new_file = 'edit.php?post_type=product&page=' . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK . '&action=add';
 
-		$doaction = $this->tm_list_table->current_action();
+		$doaction = $this->tm_list_table->current_action(); // @phpstan-ignore-line
 		if ( $doaction && in_array( $doaction, [ 'add', 'export', 'clone', 'trash', 'untrash', 'delete', 'editpost', 'edit', 'import', 'download' ], true ) ) {
 			$screen = get_current_screen();
 
@@ -3007,6 +3010,9 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 				} elseif ( isset( $_POST['post_ID'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 					$post_id = (int) $_POST['post_ID']; // phpcs:ignore WordPress.Security.NonceVerification
 					$post_ID = $post_id;
+				} else {
+					$post_id = 0;
+					$post_ID = 0;
 				}
 				if ( ! empty( $post_id ) ) {
 					$editing = true;
@@ -3052,7 +3058,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 				}
 				// add screen.
 			} elseif ( isset( $_REQUEST['action'] ) && 'add' === $_REQUEST['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$post_type        = $this->tm_list_table->screen->post_type;
+				$post_type        = $this->tm_list_table->screen->post_type; // @phpstan-ignore-line
 				$post_type_object = get_post_type_object( $post_type );
 
 				$parent_post_meta                     = [];
@@ -3100,7 +3106,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 					);
 					$meta        = [];
 					foreach ( $meta_fields as $key => $value ) {
-						$meta[ $key ] = isset( $_meta[0][ $key ] ) ? themecomplete_maybe_unserialize( $_meta[0][ $key ] ) : $value;
+						$meta[ $key ] = $value;
 					}
 					unset( $_meta );
 					$meta['product_ids']         = $parent_post_meta_product_ids;
@@ -3117,7 +3123,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			}
 			// list screen.
 		} else {
-			$this->tm_list_table->prepare_items();
+			$this->tm_list_table->prepare_items(); // @phpstan-ignore-line
 			wp_enqueue_script( 'inline-edit-post' );// list.
 			add_action( 'tm_list_table_action', [ $this, 'tm_list_table_action' ], 10, 2 );
 			include 'views/html-tm-epo-fields.php';
@@ -3137,18 +3143,18 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		}
 		switch ( $action ) {
 			case 'views':
-				$this->tm_list_table->views();
+				$this->tm_list_table->views(); // @phpstan-ignore-line
 				break;
 			case 'display':
-				$this->tm_list_table->display();
+				$this->tm_list_table->display(); // @phpstan-ignore-line
 				break;
 			case 'inline_edit':
-				if ( $this->tm_list_table->has_items() ) {
-					$this->tm_list_table->inline_edit();
+				if ( $this->tm_list_table->has_items() ) { // @phpstan-ignore-line
+					$this->tm_list_table->inline_edit(); // @phpstan-ignore-line
 				}
 				break;
 			case 'search_box':
-				$this->tm_list_table->search_box( $args['text'], $args['input_id'] );
+				$this->tm_list_table->search_box( $args['text'], $args['input_id'] ); // @phpstan-ignore-line
 				break;
 			default:
 				break;
@@ -3276,9 +3282,15 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		$duplicate['post_date'] = current_datetime()->format( 'Y-m-d H:i:s' );
 
 		// Remove some of the keys.
-		unset( $duplicate['ID'] );
-		unset( $duplicate['guid'] );
-		unset( $duplicate['comment_count'] );
+		if ( isset( $duplicate['ID'] ) ) {
+			unset( $duplicate['ID'] );
+		}
+		if ( isset( $duplicate['guid'] ) ) {
+			unset( $duplicate['guid'] );
+		}
+		if ( isset( $duplicate['comment_count'] ) ) {
+			unset( $duplicate['comment_count'] );
+		}
 
 		// Insert the post into the database.
 		$duplicate_id = wp_insert_post( $duplicate );

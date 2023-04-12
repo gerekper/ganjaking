@@ -57,7 +57,15 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 * @return int
 		 */
 		public static function invert_score( $score ) {
-			$score = ( $score < 0 ) ? 0 : $score;
+			
+			if ($score < 0) {
+
+				$score = 0;
+				
+			} else {
+				
+				$score = $score;
+			}
 
 			return 100 - $score;
 		}
@@ -167,7 +175,41 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$order = new WC_Order($order_id);
 			$order_email = $order->get_billing_email();
 			
-			if ($this->whitelistedEmail($order_email)) {
+			$wildcard = get_option('wildcard_whitelist_email');
+
+			if ($this->whitelistedEmail($order_email) || isset($wildcard) && 'true' == $wildcard) {
+				Af_Logger::debug('Fraud Check exited.');
+				update_post_meta($order_id, 'wc_af_score', 100);
+				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
+				return;
+			}
+
+			$is_whitelisted_roles = get_option('is_whitelisted_roles');
+			$payment_methods_whitelist = get_option('white_payment_methods');
+			$not_whitelisted_email = get_option('not_whitelisted_email');
+			
+			if (isset($is_whitelisted_roles) && 'true' == $is_whitelisted_roles ) {
+
+				Af_Logger::debug('Fraud Check exited.');
+				update_post_meta($order_id, 'wc_af_score', 100);
+				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				$order->add_order_note(__('Order fraud checks skipped due to whitelisted user role.', 'woocommerce-anti-fraud'));
+				return;
+
+			}
+
+			if (isset($payment_methods_whitelist) && 'true' == $payment_methods_whitelist ) {
+
+				Af_Logger::debug('Fraud Check exited.');
+				update_post_meta($order_id, 'wc_af_score', 100);
+				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				$order->add_order_note(__('Order fraud checks skipped due to whitelisted payment method.', 'woocommerce-anti-fraud'));
+				return;
+			}
+
+			if (isset($not_whitelisted_email) && true == $not_whitelisted_email ) {
+
 				Af_Logger::debug('Fraud Check exited.');
 				update_post_meta($order_id, 'wc_af_score', 100);
 				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
@@ -421,7 +463,9 @@ $loop->the_post();
 								
 								$is_whitelisted = true;
 								//don't change status, use the default status assigned by payment plugin
-								$new_status = '';					
+								$new_status = '';
+								$order->add_order_note( __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+								$order->add_order_note( __( 'Payment method ' . $payment_method . ' available in whitelist. Status will be used from payment method plugin', 'woocommerce-anti-fraud' ) );						
 								Af_Logger::debug('Payment method ' . $payment_method . ' available in whitelist. Status will be used from payment method plugin');
 							}							
 						}
@@ -451,7 +495,11 @@ $loop->the_post();
 					if (!in_array( $orderemail, $auto_blacklist_emails )) {
 						$existing_blacklist_emails .= ',' . $orderemail;
 						
-						update_option('wc_settings_anti_fraudblacklist_emails', $existing_blacklist_emails);
+						$wildcard = get_option('wildcard_whitelist_email');
+
+						if (isset($wildcard) && 'true' != $wildcard) {
+							update_option('wc_settings_anti_fraudblacklist_emails', $existing_blacklist_emails);
+						}
 					}
 				}
 				// Blacklist ip if enabled
@@ -472,7 +520,7 @@ $loop->the_post();
 
 				$max_order_per_ip =  new WC_AF_Rule_Velocities();
 				$is_max = $max_order_per_ip->is_risk($order);
-				if ( 'yes' === get_option('wc_af_attempt_count_check') && true === $is_max ) {
+				if ( 'yes' === get_option('wc_af_attempt_count_check') && true === $is_max && false === $is_whitelisted) {
 					$new_status = 'cancelled';
 					$order->add_order_note( __( 'Max order limit reched from same IP.', 'woocommerce-anti-fraud' ) );
 					Af_Logger::debug('Max Order Reched  and Order: ' . $new_status);

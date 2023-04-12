@@ -639,6 +639,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_enable_in_shop'                       => THEMECOMPLETE_EPO()->tm_epo_enable_in_shop,
 			'tm_epo_disable_error_scroll'                 => THEMECOMPLETE_EPO()->tm_epo_disable_error_scroll,
 			'tm_epo_global_options_price_sign'            => THEMECOMPLETE_EPO()->tm_epo_global_options_price_sign,
+			'tm_epo_trim_zeros'                           => THEMECOMPLETE_EPO()->tm_epo_trim_zeros,
 			'tm_epo_math'                                 => $constants,
 
 			'minus_sign'                                  => apply_filters( 'wc_epo_get_price_for_cart_minus_sign', "<span class='tc-minus-sign'>-</span>" ),

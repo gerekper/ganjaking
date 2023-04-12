@@ -10,12 +10,12 @@
  *
  * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 6.0
+ * @version 6.3
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<li class="tmcp-field-wrap<?php echo esc_attr( $grid_break . $li_class ); ?><?php echo esc_attr( ( ! empty( $label_mode ) ? ' tc-mode-' . $label_mode : '' ) ); ?>">
+<li class="tmcp-field-wrap<?php echo esc_attr( $li_class ); ?><?php echo esc_attr( ( ! empty( $label_mode ) ? ' tc-mode-' . $label_mode : '' ) ); ?>">
 <?php if ( isset( $is_separator ) && $is_separator ) : ?>
 	<?php
 	echo '<span class="tc-label-wrap tc-separator"><span class="tc-label tm-label">';

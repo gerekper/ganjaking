@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Photography
  * Plugin URI: https://woocommerce.com/
  * Description: Provide a user experience for photographers to offer batches of images for order.
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Themesquad
  * Author URI: https://themesquad.com
  * Text Domain: woocommerce-photography
  * Domain Path: /languages
  * Requires PHP: 5.4
  * Requires at least: 4.7
- * Tested up to: 6.1
+ * Tested up to: 6.2
  *
  * WC requires at least: 3.4
- * WC tested up to: 7.3
+ * WC tested up to: 7.5
  * Woo: 583602:ee76e8b9daf1d97ca4d3874cc9e35687
  *
  * License: GNU General Public License v3.0
@@ -26,67 +26,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * WooCommerce fallback notice.
- *
- * @since 1.0.22
- */
-function woocommerce_photography_wc_notice() {
-	/* translators: %s WC download URL link. */
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Photography requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-photography' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \Themesquad\WC_Photography\Autoloader::init() ) {
+	return;
 }
 
-/**
- * Install method.
- */
-function woocommerce_photography_install() {
-	include_once 'includes/class-wc-photography-taxonomies.php';
-	include_once 'includes/class-wc-photography-install.php';
+// Plugin requirements.
+\Themesquad\WC_Photography\Requirements::init();
 
-	WC_Photography_Install::install();
+if ( ! \Themesquad\WC_Photography\Requirements::are_satisfied() ) {
+	return;
 }
 
-register_activation_hook( __FILE__, 'woocommerce_photography_install' );
+// Define plugin file constant.
+if ( ! defined( 'WC_PHOTOGRAPHY_FILE' ) ) {
+	define( 'WC_PHOTOGRAPHY_FILE', __FILE__ );
+}
 
 if ( ! class_exists( 'WC_Photography' ) ) :
-	define( 'WC_PHOTOGRAPHY_VERSION', '1.1.1' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WooCommerce Photography main class.
 	 */
-	class WC_Photography {
-		/**
-		 * Instance of this class.
-		 *
-		 * @var object
-		 */
-		protected static $instance = null;
+	class WC_Photography extends \Themesquad\WC_Photography\Plugin {
 
 		/**
 		 * Initialize the plugin.
 		 */
-		private function __construct() {
+		protected function __construct() {
+			parent::__construct();
+
 			$this->includes();
 
 			if ( is_admin() ) {
 				$this->admin_includes();
-
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
 			}
-		}
-
-		/**
-		 * Return an instance of this class.
-		 *
-		 * @return object A single instance of this class.
-		 */
-		public static function get_instance() {
-			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
-				self::$instance = new self();
-			}
-
-			return self::$instance;
 		}
 
 		/**
@@ -95,7 +71,7 @@ if ( ! class_exists( 'WC_Photography' ) ) :
 		 * @return string
 		 */
 		public static function get_templates_path() {
-			return plugin_dir_path( __FILE__ ) . 'templates/';
+			return WC_PHOTOGRAPHY_PATH . 'templates/';
 		}
 
 		/**
@@ -104,7 +80,7 @@ if ( ! class_exists( 'WC_Photography' ) ) :
 		 * @return string
 		 */
 		public static function get_assets_url() {
-			return plugins_url( 'assets/', __FILE__ );
+			return WC_PHOTOGRAPHY_URL . 'assets/';
 		}
 
 		/**
@@ -115,12 +91,11 @@ if ( ! class_exists( 'WC_Photography' ) ) :
 		private function includes() {
 			// Classes.
 			include_once 'includes/class-wc-photography-taxonomies.php';
-			include_once 'includes/class-wc-product-photography.php';
+			include_once 'includes/class-wc-photography-install.php';
 			include_once 'includes/class-wc-photography-frontend.php';
 			include_once 'includes/class-wc-photography-products.php';
 			include_once 'includes/class-wc-photography-ajax.php';
 			include_once 'includes/class-wc-photography-emails.php';
-			include_once 'includes/class-wc-photography-install.php';
 			include_once 'includes/class-wc-photography-wc-compat.php';
 
 			// Integration with Products Add-ons.
@@ -140,7 +115,6 @@ if ( ! class_exists( 'WC_Photography' ) ) :
 		 */
 		private function admin_includes() {
 			include_once 'includes/admin/class-wc-photography-admin.php';
-			require_once dirname( __FILE__ ) . '/includes/admin/class-wc-photography-privacy.php';
 		}
 
 		/**
@@ -150,32 +124,32 @@ if ( ! class_exists( 'WC_Photography' ) ) :
 		 * @return array
 		 */
 		public function plugin_action_links( $links ) {
-			$plugin_links = array(
-				'settings' => '<a href="' . admin_url( 'admin.php?page=wc-photography-settings' ) . '">' . __( 'Settings', 'woocommerce-photography' ) . '</a>',
-				'support'  => '<a href="https://woocommerce.com/my-account/create-a-ticket?select=583602" target="_blank">' . __( 'Support', 'woocommerce-photography' ) . '</a>',
-				'docs'     => '<a href="https://woocommerce.com/document/getting-started-with-photography/" target="_blank">' . __( 'Docs', 'woocommerce-photography' ) . '</a>',
-			);
+			wc_deprecated_function( __FUNCTION__, '1.2.0' );
+			return $links;
+		}
 
-			return array_merge( $plugin_links, $links );
+		/**
+		 * Returns an instance of this class.
+		 *
+		 * @deprecated 1.2.0
+		 *
+		 * @return object A single instance of this class.
+		 */
+		public static function get_instance() {
+			wc_deprecated_function( __FUNCTION__, '1.2.0', 'WC_Photography::instance()' );
+
+			return self::instance();
 		}
 	}
 endif;
-
-add_action( 'plugins_loaded', 'woocommerce_photography_init' );
 
 /**
  * Initializes the extension.
  *
  * @since 1.0.22
- * @return Object Instance of the extension.
  */
 function woocommerce_photography_init() {
-	load_plugin_textdomain( 'woocommerce-photography', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		add_action( 'admin_notices', 'woocommerce_photography_wc_notice' );
-		return;
-	}
-
-	WC_Photography::get_instance();
+	WC_Photography::instance();
 }
+
+woocommerce_photography_init();

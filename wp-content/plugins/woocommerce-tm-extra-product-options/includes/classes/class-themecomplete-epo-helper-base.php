@@ -171,6 +171,62 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
+	 * Generate image array
+	 *
+	 * @param array  $image_variations The image array.
+	 * @param string $image_link The image link.
+	 * @param string $image_type the image type of the array.
+	 * @since 1.0
+	 */
+	public function generate_image_array( $image_variations = [], $image_link = '', $image_type = '' ) {
+		if ( THEMECOMPLETE_EPO()->tm_epo_global_retrieve_image_sizes === 'yes' ) {
+			$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
+			$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
+			$attachment_object = get_post( $attachment_id );
+			if ( ! $attachment_object && get_transient( 'get_attachment_id_' . $image_link ) ) {
+				delete_transient( 'get_attachment_id_' . $image_link );
+				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
+				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
+				$attachment_object = get_post( $attachment_id );
+			}
+			$full_src      = wp_get_attachment_image_src( $attachment_id, 'large' );
+			$image_title   = get_the_title( $attachment_id );
+			$image_alt     = wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
+			$image_srcset  = function_exists( 'wp_get_attachment_image_srcset' ) ? wp_get_attachment_image_srcset( $attachment_id, 'shop_single' ) : false;
+			$image_sizes   = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $attachment_id, 'shop_single' ) : false;
+			$image_caption = ( $attachment_object ) ? $attachment_object->post_excerpt : '';
+
+			if ( false === $full_src || ! is_array( $full_src ) ) {
+				$full_src = [ '', '', '' ];
+			}
+		} else {
+			$image_title   = '';
+			$image_alt     = '';
+			$image_srcset  = '';
+			$image_sizes   = '';
+			$image_caption = '';
+			$attachment_id = '';
+			$full_src      = [ '', '', '' ];
+		}
+
+		$image_variations[ $image_type ] = [
+			'image_link'    => $image_link,
+			'image_title'   => $image_title,
+			'image_alt'     => $image_alt,
+			'image_srcset'  => $image_srcset,
+			'image_sizes'   => $image_sizes,
+			'image_caption' => $image_caption,
+			'image_id'      => $attachment_id,
+			'full_src'      => $full_src[0],
+			'full_src_w'    => $full_src[1],
+			'full_src_h'    => $full_src[2],
+		];
+
+		return $image_variations;
+
+	}
+
+	/**
 	 * Convert an array to a key/pair value array
 	 *
 	 * This is used for the select box creation
@@ -1165,7 +1221,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			'post_status'    => get_post_stati(),
 		];
 
-		if ( THEMECOMPLETE_EPO_WPML()->is_active() && 'all' !== THEMECOMPLETE_EPO_WPML()->get_lang() && THEMECOMPLETE_EPO_WPML()->get_default_lang() === $_lang ) {
+		if ( THEMECOMPLETE_EPO_WPML()->is_active() && 'all' !== THEMECOMPLETE_EPO_WPML()->get_lang() ) {
 			$args['meta_query'] = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'AND', THEMECOMPLETE_EPO_WPML_LANG_META, $_lang, '=', 'EXISTS' ); // phpcs:ignore WordPress.DB.SlowDBQuery
 		}
 
@@ -1996,4 +2052,34 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		return false;
 	}
 
+	/**
+	 * Convert user input to number
+	 *
+	 * @param string  $val The value to convert.
+	 * @param boolean $noformat If a number should be returned for PHP calculations.
+	 * @since 6.3
+	 */
+	public function convert_to_number( $val = '', $noformat = false ) {
+		if ( function_exists( 'numfmt_create' ) ) {
+			$locale = get_locale();
+			if ( isset( $_SERVER ) && isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+				$locale = explode( ',', wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$locale = $locale[0];
+				$locale = str_replace( '-', '_', $locale );
+			}
+			$fmt = numfmt_create( $locale, NumberFormatter::DECIMAL );
+			// Set the maximum number of decimal places.
+			$fmt->setAttribute( NumberFormatter::MAX_FRACTION_DIGITS, 50 );
+			$val = numfmt_format( $fmt, $val );
+
+			if ( $noformat ) {
+				$thousand_separator_symbol = numfmt_get_symbol( $fmt, NumberFormatter::GROUPING_SEPARATOR_SYMBOL );
+				$decimal_separator_symbol  = numfmt_get_symbol( $fmt, NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
+
+				$val = str_replace( $thousand_separator_symbol, '', $val );
+				$val = str_replace( $decimal_separator_symbol, '.', $val );
+			}
+		}
+		return $val;
+	}
 }

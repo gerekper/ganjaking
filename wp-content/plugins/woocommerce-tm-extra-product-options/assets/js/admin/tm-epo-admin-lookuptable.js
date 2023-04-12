@@ -264,6 +264,62 @@
 				$( '#builder_import_file' ).trigger( 'click' );
 			} );
 
+			$( document ).on( 'click.cpf', '.tc-add-export-csv', function( e ) {
+				var $this = $( this );
+				var data;
+
+				e.preventDefault();
+				if ( $this.data( 'doing_export' ) ) {
+					return;
+				}
+
+				$this.data( 'doing_export', 1 ).prepend( '<i class="tm-icon tcfa tcfa-spin tcfa-spinner"></i>' );
+
+				data = {
+					action: 'tc_lookup_table_export',
+					metaserialized: JSON.stringify( changedLookupTable ),
+					security: TMEPOADMINLOOKUPJS.export_nonce
+				};
+
+				$.post(
+					TMEPOADMINLOOKUPJS.ajax_url,
+					data,
+					function( response ) {
+						var $_html;
+						var message;
+
+						if ( response && response.result && response.result !== '' ) {
+							window.location = response.result;
+						} else {
+							if ( response && response.error && response.message ) {
+								message = response.message;
+							} else {
+								message = TMEPOADMINLOOKUPJS.i18n_error_message;
+							}
+							$_html = $.tmEPOAdmin.builder_floatbox_template_import( {
+								id: 'tc-floatbox-content',
+								html: '<div class="tm-inner">' + message + '</div>',
+								title: TMEPOADMINLOOKUPJS.i18n_error_title
+							} );
+							$.tcFloatBox( {
+								closefadeouttime: 0,
+								animateOut: '',
+								fps: 1,
+								ismodal: true,
+								refresh: 'fixed',
+								width: '50%',
+								height: '300px',
+								classname: 'flasho tc-wrapper tm-error',
+								data: $_html
+							} );
+						}
+					},
+					'json'
+				).always( function() {
+					$this.data( 'doing_export', 0 ).find( '.tm-icon' ).remove();
+				} );
+			} );
+
 			// table
 			$( document ).on( 'mouseover', '.ltcell', function() {
 				var $this = $( this );
@@ -319,6 +375,7 @@
 					if ( h === '' ) {
 						$this.html( dataValue );
 					}
+					changedLookupTable = createTable();
 					return;
 				}
 				numRows = $this.closest( 'table' ).find( 'tr' ).length;
@@ -440,11 +497,13 @@
 				$( '.builder-selector' ).hide();
 				$( '.tc-welcome' ).show();
 				$( '.builder-layout' ).hide();
+				$( '.tc-add-export-csv' ).hide();
 			} else {
 				$( '.builder-add-section-action' ).show();
 				$( '.builder-selector' ).show();
 				$( '.tc-welcome' ).hide();
 				$( '.builder-layout' ).show();
+				$( '.tc-add-export-csv' ).show();
 			}
 		},
 		builder_floatbox_template: function( data, template ) {

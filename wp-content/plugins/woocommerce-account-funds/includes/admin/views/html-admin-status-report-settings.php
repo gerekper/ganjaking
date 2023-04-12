@@ -22,7 +22,12 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td data-export-label="Partial funds payment"><?php esc_html_e( 'Partial funds payment', 'woocommerce-account-funds' ); ?>:</td>
+			<td data-export-label="Funds name"><?php esc_html_e( 'Funds name', 'woocommerce-account-funds' ); ?>:</td>
+			<td class="help"></td>
+			<td><?php echo esc_html( $data['name'] ); ?></td>
+		</tr>
+		<tr>
+			<td data-export-label="Partial payment"><?php esc_html_e( 'Partial payment', 'woocommerce-account-funds' ); ?>:</td>
 			<td class="help"></td>
 			<td><?php WC_Account_Funds_Admin_System_Status::output_bool_html( wc_string_to_bool( $data['partial_funds_payment'] ) ); ?></td>
 		</tr>

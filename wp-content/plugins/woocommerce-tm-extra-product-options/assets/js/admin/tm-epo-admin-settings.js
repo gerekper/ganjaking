@@ -13,6 +13,7 @@
 
 		if ( tm_epo_consent_for_transmit.length && tm_epo_consent_for_transmit.is( ':checked' ) && ajaxCheck === 0 ) {
 			ajaxCheck = 1;
+			$( '.tm-license-result' ).html( '<div class="activated"><p>' + TMEPOADMINSETTINGSJS.i18n_sending_data + '</p></div>' );
 			$( '.tm-license-button' ).block( {
 				message: null
 			} );
@@ -56,6 +57,8 @@
 					}
 				}
 			} );
+		} else {
+			$( '.tm-license-result' ).html( '<div class="error"><p>' + TMEPOADMINSETTINGSJS.i18n_must_concent + '</p></div>' );
 		}
 	}
 

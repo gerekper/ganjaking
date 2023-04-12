@@ -173,12 +173,23 @@ if ( ! function_exists( 'themecomplete_get_id' ) ) {
 	function themecomplete_get_id( $product ) {
 		if ( is_callable( [ $product, 'get_id' ] ) && is_callable( [ $product, 'get_parent_id' ] ) ) {
 			if ( 'variation' === themecomplete_get_product_type( $product ) ) {
-				return $product->get_parent_id();
+				$id = $product->get_parent_id();
+				if ( ! $id ) {
+					$id = 0;
+				}
+				return $id;
 			}
-
+			$id = $product->get_id();
+			if ( ! $id ) {
+				$id = 0;
+			}
 			return $product->get_id();
 		}
 		if ( is_object( $product ) ) {
+			$id = $product->id;
+			if ( ! $id ) {
+				$id = 0;
+			}
 			return $product->id;
 		}
 
@@ -285,7 +296,7 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 	function themecomplete_get_post_meta( $post_id, $meta_key = '', $single = false ) {
 		$meta = false;
 
-		if ( $post_id instanceof WC_PRODUCT ) {
+		if ( $post_id instanceof WC_PRODUCT && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $meta_key, '_' ) ) {
 			return $post_id->get_meta( $meta_key, $single );
 		} elseif ( $post_id instanceof WP_Post || ( is_object( $post_id ) && isset( $post_id->ID ) && isset( $post_id->post_type ) && 'product' !== $post_id->post_type ) ) {
 			$meta = get_post_meta( $post_id->ID, $meta_key, $single );
@@ -303,7 +314,7 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 			}
 		} elseif ( did_action( 'woocommerce_init' ) && function_exists( 'wc_get_product' ) && is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
-			if ( is_object( $product ) ) {
+			if ( is_object( $product ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $meta_key, '_' ) ) {
 				$meta = $product->get_meta( $meta_key, $single );
 			} else {
 				$meta = get_post_meta( $post_id, $meta_key, $single );
@@ -577,6 +588,12 @@ if ( ! function_exists( 'themecomplete_order_get_price_excluding_tax' ) ) {
 		$tax_price = 0;
 		if ( ! empty( $tax_data ) && $prices_include_tax ) {
 			$tax_based_on = get_option( 'woocommerce_tax_based_on' );
+
+			$default  = '';
+			$country  = '';
+			$state    = '';
+			$postcode = '';
+			$city     = '';
 			if ( 'billing' === $tax_based_on ) {
 				$country  = $order->get_billing_country();
 				$state    = $order->get_billing_state();

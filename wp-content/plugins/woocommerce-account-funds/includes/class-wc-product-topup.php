@@ -14,7 +14,21 @@ class WC_Product_Topup extends WC_Product {
 	public function __construct( $product ) {
 		parent::__construct( $product );
 		$this->product_type = 'topup';
-		$this->tax_status   = '';
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param mixed $key Key name.
+	 * @return mixed
+	 */
+	public function __get( $key ) {
+		if ( 'tax_status' === $key ) {
+			wc_doing_it_wrong( 'WC_Product_Topup->tax_status', 'Accessing this property is deprecated. Use WC_Product_Topup->get_tax_status() instead', '2.8.0' );
+			return $this->get_tax_status();
+		}
 	}
 
 	/** Exists */
@@ -42,16 +56,29 @@ class WC_Product_Topup extends WC_Product {
 
 	/** Title */
 	public function get_title() {
-		return __( 'Account Funds Top-up', 'woocommerce-account-funds' );
+		return sprintf(
+			/* translators: %s: funds name */
+			__( '%s Top-up', 'woocommerce-account-funds' ),
+			wc_get_account_funds_name()
+		);
 	}
 
 	/**
 	 * Returns the tax status.
 	 *
+	 * @param string $context What the value is for. Valid values are view and edit.
 	 * @return string
 	 */
 	public function get_tax_status( $context = 'view' ) {
-		return apply_filters( 'woocommerce_account_funds_topup_get_tax_status', $context );
+		/**
+		 * Filters the tax status of a Top-up product.
+		 *
+		 * @since 2.1.2
+		 *
+		 * @param string $status The tax status.
+		 * @param string $context What the value is for. Valid values are view and edit.
+		 */
+		return apply_filters( 'woocommerce_account_funds_topup_get_tax_status', 'none', $context );
 	}
 
 	/**

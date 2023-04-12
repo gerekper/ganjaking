@@ -706,6 +706,15 @@
 						}
 					}
 					return price;
+				},
+				concat: function( $arg1, ...$args ) {
+					var $array;
+					if ( Array.isArray( $arg1 ) && 0 === $arg1.length ) {
+						return THEMECOMPLETE_EPO_MATH_Error.trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
+					}
+					$array = Array.isArray( $arg1 ) ? $arg1 : [ $arg1, ...$args ];
+
+					return $array.join( '' );
 				}
 			};
 		},

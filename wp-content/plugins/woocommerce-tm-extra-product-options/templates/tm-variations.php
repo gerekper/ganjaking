@@ -491,7 +491,6 @@ if (
 								'images'                 => $images,
 								'imagesp'                => $imagesp,
 								'url'                    => [],
-								'limit'                  => '',
 								'items_per_row'          => $variations_items_per_row,
 								'items_per_row_r'        => [
 									'desktop'        => $variations_items_per_row,

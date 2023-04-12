@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.1.0
+ * Version: 5.4.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 7.3
+ * WC tested up to: 7.5
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -214,7 +214,958 @@ class WooCommerce_Anti_Fraud {
 				}
 			}
 		}*/
+		/* Related to oder debug log details */
+		add_action( 'woocommerce_thankyou', array($this, 'create_log_file_before_submit'), 20 );
+		add_action( 'init', array($this, 'create_log_folder'), 20 );
+		register_activation_hook( __FILE__, array($this,'create_table_debuglog_file_downloads' ) );
+		/* debug log details end */
+
+		/* Related to Wildcard email */
+		add_action( 'woocommerce_after_checkout_validation', array($this, 'wildcard_email_validation'));
+
+		add_action('profile_update', array($this, 'sync_woocommerce_email'), 10, 2) ;
+		add_action( 'woocommerce_after_checkout_validation', array($this, 'misha_validate_fname_lname'), 10, 2);
+		add_action( 'woocommerce_after_checkout_validation', array($this, 'max_order_same_ip'), 10, 2 );
+		add_action( 'woocommerce_checkout_order_processed', array($this, 'wh_pre_paymentcall'), 10, 2);
 	}
+
+	/* Related to Wildcard email */
+
+	public function create_email_pattern( $setting_email, $customer_email) {
+		
+		if (isset($setting_email) && isset($customer_email)) {
+			$email = $customer_email;
+			$allowed_pattern_original = $setting_email;
+
+			//Convert pattern into regex If pattern conatins *
+			$allowed_pattern = str_replace('*', '.*', $allowed_pattern_original);
+
+			//Convert pattern into regex If pattern conatins ?
+			$question_mark_arr = [
+								  '????????????????????',
+								  '???????????????????',
+								  '??????????????????',
+								  '?????????????????',
+								  '????????????????',
+								  '???????????????',
+								  '??????????????',
+								  '?????????????',
+								  '????????????',
+								  '???????????',
+								  '??????????',
+								  '?????????',
+								  '????????',
+								  '???????',
+								  '??????',
+								  '?????',
+								  '????',
+								  '???',
+								  '??',
+								  '?'
+								];
+
+			$i = 20;
+			foreach ($question_mark_arr as  $question_mark) {
+				if (strpos($allowed_pattern, $question_mark) !== false) {
+					$allowed_pattern = str_replace($question_mark, '.{' . $i . '}', $allowed_pattern);
+				}
+				$i--;
+			}
+			//Finally convert pattern into regex
+			$allowed_pattern = '/^' . $allowed_pattern . '$/';
+			if (preg_match($allowed_pattern, $email)) {
+
+				return 'true';
+			}
+		}
+	}
+
+
+	public function wildcard_email_validation() {
+
+		$customer_email = '';
+		$whitelist_email = 'false';
+
+		if (!empty($_POST['billing_email'])) {
+			
+			if (wp_verify_nonce( isset($_REQUEST['_wpnonce']), 'my-nonce' ) ) {
+				return false;
+			}
+
+			$customer_email = sanitize_text_field($_POST['billing_email']);
+		}
+
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
+
+		if ('' != $get_whitelist_email ) {
+
+			$email_str_array = explode(PHP_EOL, $get_whitelist_email);
+			
+			if ( is_array( $email_str_array ) && count( $email_str_array ) > 0 ) {
+
+				if (!empty($email_str_array) && is_array($email_str_array)) {
+
+					foreach ($email_str_array as $setting_email) {
+
+						$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
+
+						if (isset($valid_customer) && 'true' == $valid_customer) {
+							
+							$whitelist_email = 'true';
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		// check whitelist user role
+		$user = wp_get_current_user();
+		$user_roles = $user->roles;
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		$is_whitelisted_roles = 'false';
+		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+		if ('yes' == $is_enable_whitelist_user_roles) {
+
+			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
+
+				$is_whitelisted_roles = 'true';
+			}
+		} // check whitelist user role end
+
+		// check whitelist payment method
+		$payment_methods = 'false';
+		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				
+				$payment_method = WC()->session->get('chosen_payment_method');
+				 
+				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
+					$payment_methods = 'true';
+				}
+			}
+		} // check whitelist payment method end
+		
+		// check whitelist specific email not wildcard type
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$whitelist = explode("\n", $get_whitelist_email);
+		$not_whitelisted_email = false;
+
+		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($whitelist_array, $whitelist)) {
+			$not_whitelisted_email = true;
+		} // check whitelist specific email not wildcard type end
+		
+		update_option('not_whitelisted_email', $not_whitelisted_email);
+		update_option('white_payment_methods', $payment_methods);
+		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+
+		$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
+		$get_blacklist_email = get_option('wc_settings_anti_fraudblacklist_emails');
+
+		if ('' != $get_blacklist_email && '' != $get_whitelist_email) {
+
+			$s_blacklist_email = explode(',', $get_blacklist_email);
+			$s_whitelist_email = explode(PHP_EOL, $get_whitelist_email);
+			
+			$email_str_array = array_diff($s_blacklist_email, $s_whitelist_email);
+
+			if ( is_array( $email_str_array ) && count( $email_str_array ) > 0 ) {
+
+				foreach ($email_str_array as $setting_email) {
+
+					$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
+
+					if (isset($valid_customer) && 'true' == $valid_customer && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods) {
+
+						$whitelist_email = 'false';
+						wc_add_notice( __( 'This email id is blocked.' ), 'error' );
+						break;
+					}
+				}
+			}
+		}
+		update_option('wildcard_whitelist_email', $whitelist_email);
+		//return $whitelist_email;
+
+	} /* Related to wildcard email end */
+
+	public function call_wildcard_email_validation() {
+
+		$customer_email = '';
+		$whitelist_email = 'false';
+
+		if (!empty($_POST['billing_email'])) {
+			
+			if (wp_verify_nonce( isset($_REQUEST['_wpnonce']), 'my-nonce' ) ) {
+				return false;
+			}
+
+			$customer_email = sanitize_text_field($_POST['billing_email']);
+		}
+
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
+
+		if ('' != $get_whitelist_email ) {
+
+			$email_str_array = explode(PHP_EOL, $get_whitelist_email);
+			
+			if ( is_array( $email_str_array ) && count( $email_str_array ) > 0 ) {
+
+				if (!empty($email_str_array) && is_array($email_str_array)) {
+
+					foreach ($email_str_array as $setting_email) {
+
+						$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
+
+						if (isset($valid_customer) && 'true' == $valid_customer) {
+							
+							$whitelist_email = 'true';
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		// check whitelist user role
+		$user = wp_get_current_user();
+		$user_roles = $user->roles;
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		$is_whitelisted_roles = 'false';
+		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+		if ('yes' == $is_enable_whitelist_user_roles) {
+
+			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
+
+				$is_whitelisted_roles = 'true';
+			}
+		} // check whitelist user role end
+
+		// check whitelist payment method
+		$payment_methods = 'false';
+		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				
+				$payment_method = WC()->session->get('chosen_payment_method');
+				 
+				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
+					$payment_methods = 'true';
+				}
+			}
+		} // check whitelist payment method end
+		
+		// check whitelist specific email not wildcard type
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$whitelist = explode("\n", $get_whitelist_email);
+		$not_whitelisted_email = false;
+
+		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($whitelist_array, $whitelist)) {
+			$not_whitelisted_email = true;
+		} // check whitelist specific email not wildcard type end
+		
+		update_option('not_whitelisted_email', $not_whitelisted_email);
+		update_option('white_payment_methods', $payment_methods);
+		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+
+		$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
+		$get_blacklist_email = get_option('wc_settings_anti_fraudblacklist_emails');
+
+		if ('' != $get_blacklist_email && '' != $get_whitelist_email) {
+
+			$s_blacklist_email = explode(',', $get_blacklist_email);
+			$s_whitelist_email = explode(PHP_EOL, $get_whitelist_email);
+			
+			$email_str_array = array_diff($s_blacklist_email, $s_whitelist_email);
+
+			if ( is_array( $email_str_array ) && count( $email_str_array ) > 0 ) {
+
+				foreach ($email_str_array as $setting_email) {
+
+					$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
+
+					if (isset($valid_customer) && 'true' == $valid_customer && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods) {
+
+						$whitelist_email = 'false';
+						//wc_add_notice( __( 'This email id is blocked.' ), 'error' );
+						break;
+					}
+				}
+			}
+		}
+		//update_option('wildcard_whitelist_email', $whitelist_email);
+		return $whitelist_email;
+
+	} /* Related to wildcard email end */
+
+	public function sync_woocommerce_email( $user_id, $old_user_data ) {
+
+		// wc_af_fraud_check_before_payment
+		$user = get_userdata( $user_id );
+		$new_user_email = $user->user_email;
+
+		if ($new_user_email != $old_user_data->user_email) {
+			wp_update_user( array ( 'ID' => $user->ID, 'billing_email' => $new_user_email ) ) ;
+		}
+	}
+	//custom code for block order if email or ip in blacklist.
+	
+	public function misha_validate_fname_lname( $fields, $errors ) {
+		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
+		$blocked_ipaddress = get_option('wc_settings_anti_fraudblacklist_ipaddress');
+		$array_mail = explode(',', $blocked_email);
+		
+		if (wp_verify_nonce('test', 'wc_none')) {
+			return true;
+		}
+		
+		/*$user = get_user_by('email', isset($_POST['billing_email']) ? sanitize_text_field( $_POST['billing_email'] ) : '');
+		if (isset($user->ID)) {
+			$userRole = $user->roles[0];
+		}*/
+		// Af_Logger::debug('users '. print_r($user->roles[0], true));
+		// $userRole = wp_get_current_user()->roles[0];
+
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$is_whitelisted = '';
+		
+		// check whitelist user role
+		$user = wp_get_current_user();
+		$user_roles = $user->roles;
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		$is_whitelisted_roles = 'false';
+		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+		if ('yes' == $is_enable_whitelist_user_roles) {
+
+			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
+
+				$is_whitelisted_roles = 'true';
+			}
+		} // check whitelist user role end
+
+		if ('' != $email_whitelist) {
+			$whitelist = explode( "\n", $email_whitelist );
+			if ( is_array( $whitelist ) && count( $whitelist ) > 0 ) {
+			// Trim items to be sure
+				foreach ( $whitelist as $k => $v ) {
+					$whitelist[$k] = trim( $v );
+				}
+				// Af_Logger::debug('email found : '. print_r($whitelist, true));
+			}
+			$is_whitelisted = array_intersect($whitelist, $array_mail);
+		}
+
+		// check whitelist payment method
+		$payment_methods = 'false';
+		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				
+				$payment_method = WC()->session->get('chosen_payment_method');
+				 
+				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
+					$payment_methods = 'true';
+				}
+			}
+		} // check whitelist payment method end
+
+		// check whitelist specific email not wildcard type
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$whitelist = explode("\n", $get_whitelist_email);
+		$not_whitelisted_email = false;
+
+		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($whitelist_array, $whitelist)) {
+			$not_whitelisted_email = true;
+		} // check whitelist specific email not wildcard type end
+
+		update_option('not_whitelisted_email', $not_whitelisted_email);
+		update_option('white_payment_methods', $payment_methods);
+		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+
+		$wild_whitelist_email = $this->call_wildcard_email_validation();
+
+		if ('' != $blocked_email) {
+			
+			if (empty($is_whitelisted) && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+				// Af_Logger::debug('blocked_email : '. print_r($array_mail,true));
+				foreach ($array_mail as $single) {
+					if ($_POST[ 'billing_email' ] == $single  && 'false' != $wild_whitelist_email) {
+						echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');
+						$errors->add( 'validation', __('This email id is blocked.', 'woocommerce-anti-fraud') );
+					}
+				}
+			}
+		}
+
+
+		if ('' != $blocked_ipaddress && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+
+			$userip = WC_Geolocation::get_ip_address();
+			$array_ipaddress = explode(',', $blocked_ipaddress);
+			foreach ($array_ipaddress as $singles) {
+				if ($userip == $singles) {
+					$errors->add( 'validation', __('This IP Address is blocked.', 'woocommerce-anti-fraud') );
+				}
+			}
+		}
+	}
+
+
+	public function max_order_same_ip( $fields, $errors) {
+		$is_enabled  =  get_option('wc_af_attempt_count_check');
+		$time_stamp  = get_option('wc_settings_anti_fraud_attempt_time_span');
+		$max_orders = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
+
+		// check whitelist user role
+		$user = wp_get_current_user();
+		$user_roles = $user->roles;
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		$is_whitelisted_roles = 'false';
+		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+		if ('yes' == $is_enable_whitelist_user_roles) {
+
+			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
+
+				$is_whitelisted_roles = 'true';
+			}
+		} // check whitelist user role end
+
+		// check whitelist payment method
+		$payment_methods = 'false';
+		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				
+				$payment_method = WC()->session->get('chosen_payment_method');
+				 
+				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
+					$payment_methods = 'true';
+				}
+			}
+		} // check whitelist payment method end
+		
+		// check whitelist specific email not wildcard type
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$whitelist = explode("\n", $get_whitelist_email);
+		$not_whitelisted_email = 'false';
+
+		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($whitelist_array, $whitelist)) {
+			$not_whitelisted_email = 'true';
+		} // check whitelist specific email not wildcard type end
+
+		update_option('not_whitelisted_email', $not_whitelisted_email);
+		update_option('white_payment_methods', $payment_methods);
+		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+
+		$wild_whitelist_email = $this->call_wildcard_email_validation();
+
+		if ('yes' == $is_enabled && 'true' != $not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+
+			// Calculate the new datetime
+			$dt = new DateTime('NOW', wp_timezone(  ));
+			$enddate = $dt;
+			$enddate = clone $dt;
+			
+			$dt->modify( '-' . $time_stamp . ' hours' );
+
+			// Set the start and send datetime strings
+			$start_datetime_string = $dt->format( 'Y-m-d H:i:s' );
+			$end_datetime_string   = $enddate->format( 'Y-m-d H:i:s' );
+			Af_Logger::debug('Start Date : ' . $start_datetime_string);
+			Af_Logger::debug('End Date : ' . $end_datetime_string);
+
+			$ip_address = WC_Geolocation::get_ip_address();
+			Af_Logger::debug('ip_address : ' . $ip_address);
+
+			if (wp_verify_nonce('test', 'wc_none')) {
+				return true;
+			}
+			$user = get_user_by('email', isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '' );
+			// if(isset($user->ID)){
+			// 	$meta['key'] = '_customer_user';
+			// 	$meta['value'] = $user->ID;
+			// } else {
+			// 	$meta['key'] = '_billing_email';
+			// 	$meta['value'] = $_POST[ 'billing_email' ];
+			// }
+			// Af_Logger::debug('User Meta : '. print_r($meta, true));
+
+			// Get the Same IP Orders
+			$orders_count_ip = wc_get_orders(
+				array(
+					'limit'               => -1,
+					//'meta_key'            => '_billing_email',
+					//'meta_value'          => isset($_POST[ 'billing_email' ]) ? sanitize_text_field($_POST['billing_email'] ) : '',
+					'customer_ip_address' => $ip_address,
+					'type'                => wc_get_order_types( 'order-count' ),
+					'date_after'          => $start_datetime_string,
+					'date_before'         => $end_datetime_string,
+				)
+			);
+
+			$orders_count_email = wc_get_orders(
+				array(
+					'limit'               => -1,
+
+					'meta_key'      => '_billing_email', // Postmeta key field
+					'meta_value'    => isset($_POST[ 'billing_email' ]) ? sanitize_text_field($_POST['billing_email'] ) : '', // Postmeta value field
+					'meta_compare'  => '=', 
+					'type'                => wc_get_order_types( 'order-count' ),
+					'date_after'          => $start_datetime_string,
+					'date_before'         => $end_datetime_string,
+				)
+			);
+
+			$orders_count_phone = wc_get_orders(
+				array(
+					'limit'               => -1,
+					'meta_key'      => '_billing_phone', // Postmeta key field
+					'meta_value'    => isset($_POST[ 'billing_phone' ]) ? sanitize_text_field($_POST['billing_phone'] ) : '', // Postmeta value field
+					'meta_compare'  => '=',
+					'type'                => wc_get_order_types( 'order-count' ),
+					'date_after'          => $start_datetime_string,
+					'date_before'         => $end_datetime_string,
+				)
+			);
+
+			$order_count_user = wc_get_orders(
+				array(
+					'limit'               => -1,
+					'meta_key'            => '_customer_user',
+					'meta_value'          => isset($user->ID) ? $user->ID : '',
+					'customer_ip_address' => $ip_address,
+					'type'                => wc_get_order_types( 'order-count' ),
+					'date_after'          => $start_datetime_string,
+					'date_before'         => $end_datetime_string,
+				)
+			);
+
+			// Af_Logger::debug('Orders : '. print_r($orders_count, true));
+			Af_Logger::debug('Order Count : ' . count($orders_count_ip));
+			if (count($orders_count_ip) >= $max_orders || count($orders_count_email) >= $max_orders ||count($orders_count_phone) >= $max_orders) {
+				$errors->add( 'validation',
+				/* translators: %s: order time span */
+				 sprintf( esc_html__('You have reached maximum number of allowed orders in %d hours. Please try again later.', 'woocommerce-anti-fraud'), $time_stamp )
+				 );
+			}
+		}
+	}
+
+
+	public function wh_pre_paymentcall( $order_id, $errors ) {
+
+		if ( !is_numeric($order_id) ) {
+			return;
+		}
+
+		$order = wc_get_order($order_id);
+
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+
+		$whitelist = explode("\n", $email_whitelist);
+
+		$not_whitelisted_email = false;
+		if (wp_verify_nonce('test', 'wc_none')) {
+			return true;
+		}
+
+		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($whitelist_array, $whitelist)) {
+			$not_whitelisted_email = true;
+			update_post_meta($order_id, 'wc_af_score', 100);
+			update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+			$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
+			return;
+		}
+
+		// check whitelist user role
+		$user = wp_get_current_user();
+		$user_roles = $user->roles;
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		$is_whitelisted_roles = 'false';
+		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+		if ('yes' == $is_enable_whitelist_user_roles) {
+
+			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
+
+				$is_whitelisted_roles = 'true';
+				update_post_meta($order_id, 'wc_af_score', 100);
+				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				$order->add_order_note(__('Order fraud checks skipped due to whitelisted user role.', 'woocommerce-anti-fraud'));
+				return;
+			}
+		} // check whitelist user role end
+
+		// check whitelist payment method
+		$payment_methods = 'false';
+		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				
+				$payment_method = WC()->session->get('chosen_payment_method');
+				 
+				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
+					$payment_methods = 'true';
+					update_post_meta($order_id, 'wc_af_score', 100);
+					update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+					$order->add_order_note(__('Order fraud checks skipped due to whitelisted payment method.', 'woocommerce-anti-fraud'));
+					return;
+				}
+			}
+		} // check whitelist payment method end
+
+
+		$check_before_payment = get_option('wc_af_fraud_check_before_payment');
+		// echo $check_before_payment;
+		$wild_whitelist_email = $this->call_wildcard_email_validation();
+
+		if ('yes' == $check_before_payment && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+
+			if ( null !== get_option('wc_af_pre_payment_message') ) {
+				$pre_payment_block_message = get_option('wc_af_pre_payment_message');
+			} else {
+				$pre_payment_block_message = __( 'Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.', 'woocommerce-anti-fraud' );
+			}
+
+			$high_risk = get_option('wc_settings_anti_fraud_higher_risk_threshold');
+			$score_helper = new WC_AF_Score_Helper();
+			$score_helper->schedule_fraud_check( $order_id, true );
+
+			$score_points = get_post_meta( $order_id, 'wc_af_score', true );
+			$circle_points = WC_AF_Score_Helper::invert_score( $score_points );
+
+			if ($high_risk <= $circle_points) {
+
+				$order->update_status( 'failed', 'Pre Payment Fraud Check: Calculated risk score is above High Risk Threshold.', true );
+
+				$return = array('result' => 'failure', 'messages' => "<ul class='woocommerce-error' role='alert'><li>" . $pre_payment_block_message . '</li></ul>');
+
+				wp_send_json($return);
+				wp_die();
+			}
+		}
+	}
+
+	/* Related to oder debug log details */
+	
+	public function create_table_debuglog_file_downloads() {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+		$table_name = $wpdb->prefix . 'af_download_url';
+		$sql = 'CREATE TABLE ' . $table_name . " (
+	        id int(12) NOT NULL AUTO_INCREMENT,
+	        download_url varchar(256) NOT NULL,
+	        created_at date NOT NULL,
+	        PRIMARY KEY id (id),
+	        INDEX created_at (created_at)
+	    ) $charset_collate;";
+
+		if ( ! function_exists('dbDelta') ) {
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		}
+
+		dbDelta( $sql );
+	}
+
+	public function create_log_folder() {
+		
+		$uploads_dir = trailingslashit( wp_upload_dir()['basedir']) . 'antifraud';
+		wp_mkdir_p( $uploads_dir, 777 );
+	}
+
+	public function insert_debuglog_download_data( $download_url) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'af_download_url'; // do not forget about tables prefix
+		if (!empty($download_url)) {
+				$wpdb->insert($table_name, array(
+				'download_url' => $download_url,
+				'created_at' => gmdate('Y-m-d')
+			));
+		}
+	}
+
+	public function create_log_file_before_submit( $order_id) {
+
+		$enable_log_check = get_option('wc_af_enable_log_check');
+		if (!empty($enable_log_check) &&  'no' != $enable_log_check) {
+			
+			/* General Settings */
+			$settings_anti_fraud_low_risk_threshold = get_option('wc_settings_anti_fraud_low_risk_threshold');
+			$settings_anti_fraud_higher_risk_threshold = get_option('wc_settings_anti_fraud_higher_risk_threshold');
+			$fraud_check_before_payment = get_option('wc_af_fraud_check_before_payment');
+			$pre_payment_block_message = get_option('wc_af_pre_payment_message');
+			$fraud_update_state = get_option('wc_af_fraud_update_state');
+			$settings_anti_fraud_cancel_score = get_option('wc_settings_anti_fraud_cancel_score');
+			$settings_anti_fraud_hold_score = get_option('wc_settings_anti_fraud_hold_score');
+			$enable_whitelist_payment_method = get_option('wc_af_enable_whitelist_payment_method');
+			$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+
+			if (!empty($whitelist_payment_method)) {
+				$whitelist_payment_method = implode (',', $whitelist_payment_method);  
+			} else {
+				$whitelist_payment_method = '';
+			}
+
+			$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+			$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+			if (!empty($wc_af_whitelist_user_roles)) {
+				$wc_af_whitelist_user_roles = implode (',', $wc_af_whitelist_user_roles);
+			} else {
+				$wc_af_whitelist_user_roles = '';
+			}
+
+			$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+			$start_auto_fraud_check = get_option('wc_af_start_auto_fraud_check');
+			$debuglog = 'no';
+			
+			/* General Rule */ 
+			$first_order = get_option('wc_af_first_order');
+			$fraud_first_order_weight = get_option('wc_settings_anti_fraud_first_order_weight');
+			$wc_af_first_order_custom = get_option('wc_af_first_order_custom');
+			$fraud_first_order_custom_weight = get_option('wc_settings_anti_fraud_first_order_custom_weight');
+			$ip_geolocation_order = get_option('wc_af_ip_geolocation_order');
+			$settings_anti_fraud_ip_geolocation_order_weight = get_option('wc_settings_anti_fraud_ip_geolocation_order_weight');
+			$bca_order = get_option('wc_af_bca_order');
+			$fraud_bca_order_weight = get_option('wc_settings_anti_fraud_bca_order_weight');
+			$geolocation_order = get_option('wc_af_geolocation_order');
+			$fraud_geolocation_order_weight = get_option('wc_settings_anti_fraud_geolocation_order_weight');
+			$billing_phone_number_order = get_option('wc_af_billing_phone_number_order');
+			$fraud_billing_phone_number_order_weight = get_option('wc_settings_anti_fraud_billing_phone_number_order_weight');
+			$proxy_order = get_option('wc_af_proxy_order');
+			$fraud_proxy_order_weight = get_option('wc_settings_anti_fraud_proxy_order_weight');
+			$ip_multiple_check = get_option('wc_af_ip_multiple_check');
+			$settings_anti_fraud_ip_multiple_weight = get_option('wc_settings_anti_fraud_ip_multiple_weight');
+			$fraud_ip_multiple_time_span = get_option('wc_settings_anti_fraud_ip_multiple_time_span');
+			$international_order = get_option('wc_af_international_order');
+			$settings_anti_fraud_international_order_weight = get_option('wc_settings_anti_fraud_international_order_weight');
+			$unsafe_countries = get_option('wc_af_unsafe_countries');
+			$settings_anti_fraud_unsafe_countries_weight = get_option('wc_settings_anti_fraud_unsafe_countries_weight');
+
+			$fraud_define_unsafe_countries_list = get_option('wc_settings_anti_fraud_define_unsafe_countries_list');
+			
+			if (!empty($fraud_define_unsafe_countries_list)) {
+				$fraud_define_unsafe_countries_list = implode (',', $fraud_define_unsafe_countries_list);  	
+			} else {
+				$fraud_define_unsafe_countries_list = '';
+			}
+			$suspecius_email = get_option('wc_af_suspecius_email');
+			$settings_anti_fraud_suspecious_email_weight = get_option('wc_settings_anti_fraud_suspecious_email_weight');
+			$settings_anti_fraud_suspecious_email_domains = get_option('wc_settings_anti_fraud_suspecious_email_domains');
+			$check_email_domain_api_key = get_option('check_email_domain_api_key');
+			$order_avg_amount_check = get_option('wc_af_order_avg_amount_check');
+			$fraud_order_avg_amount_weight = get_option('wc_settings_anti_fraud_order_avg_amount_weight');
+			$fraud_avg_amount_multiplier = get_option('wc_settings_anti_fraud_avg_amount_multiplier');
+			$order_amount_check = get_option('wc_af_order_amount_check');
+			$fraud_order_amount_weight = get_option('wc_settings_anti_fraud_order_amount_weight');
+			$fraud_amount_limit = get_option('wc_settings_anti_fraud_amount_limit');
+			$attempt_count_check = get_option('wc_af_attempt_count_check');
+			$fraud_order_attempt_weight = get_option('wc_settings_anti_fraud_order_attempt_weight');
+			$fraud_attempt_time_span = get_option('wc_settings_anti_fraud_attempt_time_span');
+			$fraud_max_order_attempt_time_span = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
+			$limit_order_count = get_option('wc_af_limit_order_count');
+			$limit_time_start = get_option('wc_af_limit_time_start');
+			$limit_time_end = get_option('wc_af_allowed_order_limit');
+			$allowed_order_limit = get_option('wc_af_limit_time_end');
+
+			/* Email Blacklisting */ 
+			$enable_automatic_email_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
+			$enable_automatic_blacklist = get_option('wc_settings_anti_fraudenable_automatic_blacklist');
+			$blacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails');
+			$is_enable_ip_blacklist = get_option('wc_settings_anti_fraudenable_automatic_ip_blacklist');
+			$blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress');
+			$email_notification = get_option('wc_af_email_notification');
+			$settings_anti_fraud_email_score = get_option('wc_settings_anti_fraud_email_score');
+
+			/* Paypal Settings */
+			$paypal_verification = get_option('wc_af_paypal_verification');
+			$paypal_prevent_downloads = get_option('wc_af_paypal_prevent_downloads');
+			$fraud_time_paypal_attempts = get_option('wc_settings_anti_fraud_time_paypal_attempts');
+			$fraud_day_deleting_paypal_order = get_option('wc_settings_anti_fraud_day_deleting_paypal_order');
+			$fraud_paypal_verified_address = get_option('wc_settings_anti_fraud_paypal_verified_address');
+
+			/* MaxMind minFraud Settings */
+			$enable_maxmind_minfraud = get_option( 'wc_af_maxmind_type' );
+			$device_trackin_settings = get_option( 'wc_af_maxmind_device_tracking' );
+			$maxmind_user = get_option( 'wc_af_maxmind_user' );
+			$maxmind_license_key = get_option( 'wc_af_maxmind_license_key' );
+			$fraud_minfraud_risk_score = get_option('wc_settings_anti_fraud_minfraud_risk_score');
+			$fraud_minfraud_order_weight = get_option('wc_settings_anti_fraud_minfraud_order_weight');
+			
+			/* MaxMind minFraud insights Settings */
+			$maxmind_insights_setting = get_option( 'wc_af_maxmind_insights' );
+			$fraud_minfraud_insights_risk_score = get_option( 'wc_settings_anti_fraud_minfraud_insights_risk_score' );
+			$fraud_minfraud_insights_order_weight = get_option( 'wc_settings_anti_fraud_minfraud_insights_order_weight' );
+
+			/* MaxMind minFraud factors Settings */
+
+			$wc_af_maxmind_factors_setting = get_option( 'wc_af_maxmind_factors' ); 
+			$fraud_minfraud_factors_risk_score = get_option( 'wc_settings_anti_fraud_minfraud_factors_risk_score' ); 
+			$fraud_minfraud_factors_order_weight = get_option( 'wc_settings_anti_fraud_minfraud_factors_order_weight' ); 
+
+			/* Google Re-Captcha Settings */
+			$enable_recaptcha_checkout = get_option( 'wc_af_enable_recaptcha_checkout' ); 
+			$enable_v2_recaptcha = get_option( 'wc_af_enable_v2_recaptcha' ); 
+			$v2_recaptcha_site_key = get_option( 'wc_af_recaptcha_site_key' ); 
+			$v2_recaptcha_secret_key = get_option( 'wc_af_recaptcha_secret_key' );
+
+			$enable_v3_recaptcha = get_option( 'wc_af_enable_v3_recaptcha' ); 
+			$v3_recaptcha_site_key = get_option( 'wc_af_v3_recaptcha_site_key' ); 
+			$v3_recaptcha_secret_key = get_option( 'wc_af_v3_recaptcha_secret_key' ); 
+
+			
+			$order = wc_get_order( $order_id );
+			$orderno = $order->get_id();
+			$order_date_time = $order->get_date_created();
+			$order_status = $order->get_status();
+			$customer_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+			$email = $order->get_billing_email();
+			$phone = $order->get_billing_phone();
+			$billing_address = $order->get_billing_address_1() . ' ' . $order->get_billing_address_2() . ', ' . $order->get_billing_city() . ', ' . $order->get_billing_state() . ', ' . $order->get_billing_postcode() . ', ' . $order->get_billing_country();
+			$shipping_address = $order->get_shipping_address_1() . ' ' . $order->get_shipping_address_2() . ', ' . $order->get_shipping_city() . ', ' . $order->get_shipping_state() . ', ' . $order->get_shipping_postcode() . ', ' . $order->get_shipping_country();
+			if (empty($shipping_address)) {
+				$shipping_address = $billing_address;
+			}
+			$payment_method = $order->get_payment_method_title();
+			$numer_of_items = $order->get_item_count();
+			$subtotal = $order->get_subtotal();
+			$shipping = $order->get_shipping_total();
+			$discount = $order->get_discount_total();
+			$tax_amount = $order->get_total_tax();
+			$total_amount = $order->get_total();
+
+			$csv_content = $this->headercontent();
+			$upload_dir = wp_get_upload_dir()['basedir'];
+			$file_path = $upload_dir . '/antifraud';
+			$files = glob("$file_path/*.csv");
+			
+			$rows = [ 
+						[	$orderno, $order_date_time, $order_status, $customer_name, $email, $phone, $billing_address, $shipping_address, $payment_method, $numer_of_items, $subtotal, $shipping, $discount, $tax_amount, $total_amount, $settings_anti_fraud_low_risk_threshold, $settings_anti_fraud_higher_risk_threshold, $fraud_check_before_payment, $fraud_update_state, $settings_anti_fraud_cancel_score, $settings_anti_fraud_hold_score, $enable_whitelist_payment_method, $whitelist_payment_method, $is_enable_whitelist_user_roles, $wc_af_whitelist_user_roles, $email_whitelist, $start_auto_fraud_check, $debuglog, $first_order, $fraud_first_order_weight, $wc_af_first_order_custom, $fraud_first_order_custom_weight, $ip_geolocation_order, $settings_anti_fraud_ip_geolocation_order_weight, $bca_order, $fraud_bca_order_weight, $geolocation_order, $fraud_geolocation_order_weight, $billing_phone_number_order, $fraud_billing_phone_number_order_weight, $proxy_order, $fraud_proxy_order_weight, $ip_multiple_check, $settings_anti_fraud_ip_multiple_weight, $fraud_ip_multiple_time_span, $international_order, $settings_anti_fraud_international_order_weight, $unsafe_countries, $settings_anti_fraud_unsafe_countries_weight, $fraud_define_unsafe_countries_list, $suspecius_email, $settings_anti_fraud_suspecious_email_weight, $settings_anti_fraud_suspecious_email_domains, $check_email_domain_api_key, $order_avg_amount_check, $fraud_order_avg_amount_weight, $fraud_avg_amount_multiplier, $order_amount_check, $fraud_order_amount_weight, $fraud_amount_limit, $attempt_count_check, $fraud_order_attempt_weight, $fraud_attempt_time_span, $fraud_max_order_attempt_time_span, $limit_order_count, $limit_time_start, $limit_time_end, $allowed_order_limit, $enable_automatic_email_blacklist, $enable_automatic_blacklist, $blacklist_emails, $is_enable_ip_blacklist, $blacklist_ip, $email_notification, $settings_anti_fraud_email_score,$paypal_verification, $paypal_prevent_downloads, $fraud_time_paypal_attempts, $fraud_day_deleting_paypal_order, $fraud_paypal_verified_address, $enable_maxmind_minfraud, $device_trackin_settings, $maxmind_user, $maxmind_license_key, $fraud_minfraud_risk_score, $fraud_minfraud_order_weight, $maxmind_insights_setting, $fraud_minfraud_insights_risk_score, $fraud_minfraud_insights_order_weight, $wc_af_maxmind_factors_setting, $fraud_minfraud_factors_risk_score, $fraud_minfraud_factors_order_weight, $enable_recaptcha_checkout, $enable_v2_recaptcha, $v2_recaptcha_site_key, $v2_recaptcha_secret_key, $enable_v3_recaptcha, $v3_recaptcha_site_key, $v3_recaptcha_secret_key,
+					],
+				];
+
+			$today = gmdate('Y-m-d');
+			if (!empty($files)) {
+				foreach ($files as $value) {
+					$val = $value;
+					$file_name = basename($val);
+					$created_file = str_split($file_name, 14);
+					$created_file_date[] = explode('.', $created_file[1]);
+
+				}
+				foreach ($created_file_date as $value) {
+					$new[] = $value[0];
+				}
+				
+				if (in_array($today, $new)) {
+					
+					$upload_dir = wp_get_upload_dir()['basedir'];
+
+					$file_path = $upload_dir . '/antifraud/antifraud-log-' . $today . '.csv';
+					
+					$fp = fopen($file_path, 'a'); // open in write only mode (with pointer at the end of the file)
+					
+					foreach ($rows as $row) {
+						fputcsv($fp, $row);
+					}
+					fclose($fp);
+
+				} else {
+
+					$upload_dir = wp_get_upload_dir()['basedir'];
+					$file_path = $upload_dir . '/antifraud/antifraud-log-' . gmdate('Y-m-d') . '.csv';
+					$csv_content_file = '';
+					file_put_contents( $file_path, $csv_content_file);
+					$fp = fopen($file_path, 'a'); // open in write only mode (with pointer at the end of the file)
+					foreach ($csv_content as $row) {
+						fputcsv($fp, $row);
+					}
+					fclose($fp);
+
+					$download_url = get_site_url() . '/wp-content/uploads/antifraud/antifraud-log-' . $today . '.csv';
+					
+					$this->insert_debuglog_download_data($download_url);
+
+					$fp = fopen($file_path, 'a'); // open in write only mode (with pointer at the end of the file)
+					foreach ($rows as $row) {
+						fputcsv($fp, $row);
+					}
+					fclose($fp);
+
+				}
+
+			} else {
+
+				$upload_dir = wp_get_upload_dir()['basedir'];
+				$file_path = $upload_dir . '/antifraud/antifraud-log-' . gmdate('Y-m-d') . '.csv';
+				$csv_content_file = '';
+				file_put_contents( $file_path, $csv_content_file);
+				$fp = fopen($file_path, 'a'); // open in write only mode (with pointer at the end of the file)
+				foreach ($csv_content as $row) {
+					fputcsv($fp, $row);
+				}
+				fclose($fp);
+				$download_url = get_site_url() . '/wp-content/uploads/antifraud/antifraud-log-' . $today . '.csv';
+					
+				$this->insert_debuglog_download_data($download_url);
+				$fp = fopen($file_path, 'a'); // open in write only mode (with pointer at the end of the file)	
+				foreach ($rows as $row) {
+					fputcsv($fp, $row);
+				}
+				fclose($fp);
+			}
+		}	
+	}
+
+	public function headercontent( $header_content = '') {
+		$header_content = [
+			[
+				'orderno', 'order-date-time', 'order-status', 'customer-name', 'email', 'phone', 'billing-address', 'shipping-address', 'payment-method', 'numer-of-items', 'subtotal', 'shipping','discount', 'tax-amount', 'total-amount', 'medium-risk-threshold', 'high-risk-threshold', 'pre-pay-check', 'update-status-based-fraudscore', 'weight-cancel-order', 'weight-order-onhold', 'whitelist-pay-method', 'select-whitelist-pay-methods', 'whitelist-of-user-role', 'select-user-role-whitelist', 'email-whitelist', 'autofraud-check', 'debuglog', 'first-purchase-check', 'first-purchase-value', 're-check-first-orders-in-process-state-check', 're-check-first-orders-in-process-state-value', 'ip-address-match-location-check', 'ip-address-match-location-value', 'billing-shipping-address-same-check', 'billing-shipping-address-same-value', 'geo-location-match-check', 'geo-location-match-value', 'phone-number-billing-country-check', 'phone-number-billing-country-value', 'customer-behind-proxy-vpn-check', 'customer-behind-proxy-vpn-value', 'purchased-from-same-ip-but-different-customer-address-check', 'purchased-from-same-ip-but-different-customer-address-value', 'past-number-of-days', 'it-international-order-check', 'it-international-order-value', 'order-high-risk-country-check', 'order-high-risk-country-value', 'mark-unsafe-countries', 'high-risk-email-domain-check', 'high-risk-email-domain-value', 'high-risk-domains', 'key-for-quickemailverification', 'order-amount-above-average-check', 'order-amount-above-average-value', 'average-multiplier', 'order-exceeds-max-amount-limit-check', 'order-exceeds-max-amount-limit-value', 'amount-limit, many-order-attempts-check', 'many-order-attempts-value', 'time-span-check-hours', 'max-allowed-number-of-orders-time-span', 'limit-number-orders-between-time-check', 'start-time, end-time', 'limit-number-orders-between-time', 'email-blacklist', 'automatic-blacklisting', 'blocked-email-addresses', 'ip-blacklist', 'blocked-ip-addresses', 'activate-email-alerts-for-admin', 'additional-address-notify', 'email-notification-score', 'enable-disable-paypal', 'block-downloads', 'verification-retry', 'auto-cancellation-days', 'paypal-verified-address', 'email-type', 'enable-disable-minfraud', 'device-tracking', 'maxmind-account-id', 'maxmind-license-key', 'threshold-minfraud-score', 'minfraud-rule-weight', 'enable-disable-minfraud-insights', 'threshold-minfraud-insights-score', 'minfraud-insights-rule-weight', 'enable-disable-minfraud-factors', 'threshold-minFraud-factors-score', 'minfraud-factors-rule-weight', 'enable-re-captcha', 'enable-v2-re-captcha', 'v2-site-key', 'v2-secret-key', 'enable-v3-re-captcha', 'v3-site-key', 'v3-secret-key' 
+			],
+		]; 
+		return $header_content;
+	}
+	/* Debug log end*/
 
 	public function my_admin_notice() {
 		
@@ -846,6 +1797,7 @@ $loop->the_post();
 
 	public function save_default_settings() {
 		// For Minfraud
+		update_option('wc_settings_anti_fraud_auto_check_days', 7);
 		update_option('wc_af_fraud_check_before_payment', 'no');
 		update_option('wc_af_fraud_update_state', 'yes');
 
@@ -1114,238 +2066,5 @@ $loop->the_post();
 	}
 	
 }
-	add_action('profile_update', 'sync_woocommerce_email', 10, 2) ;
-
-function sync_woocommerce_email( $user_id, $old_user_data ) {
-
-	// wc_af_fraud_check_before_payment
-	$user = get_userdata( $user_id );
-	$new_user_email = $user->user_email;
-
-	if ($new_user_email != $old_user_data->user_email) {
-		wp_update_user( array ( 'ID' => $user->ID, 'billing_email' => $new_user_email ) ) ;
-	}
-}
-	//custom code for block order if email or ip in blacklist.
-	add_action( 'woocommerce_after_checkout_validation', 'misha_validate_fname_lname', 10, 2);
-function misha_validate_fname_lname( $fields, $errors ) {
-	$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
-	$blocked_ipaddress = get_option('wc_settings_anti_fraudblacklist_ipaddress');
-	$array_mail = explode(',', $blocked_email);
-	$userRole = '';
-	if (wp_verify_nonce('test', 'wc_none')) {
-		return true;
-	}
-	$user = get_user_by('email', isset($_POST['billing_email']) ? sanitize_text_field( $_POST['billing_email'] ) : '');
-	if (isset($user->ID)) {
-		$userRole = $user->roles[0];
-	}
-	// Af_Logger::debug('users '. print_r($user->roles[0], true));
-	// $userRole = wp_get_current_user()->roles[0];
-	if ('' != $blocked_email) {
-
-		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
-		$is_whitelisted = '';
-		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
-		if ( empty($wc_af_whitelist_user_roles) ) {
-			$wc_af_whitelist_user_roles = array();
-		}
-
-		$is_whitelisted_roles = false;
-
-		if ('' != $email_whitelist) {
-			$whitelist = explode( "\n", $email_whitelist );
-			if ( is_array( $whitelist ) && count( $whitelist ) > 0 ) {
-			// Trim items to be sure
-				foreach ( $whitelist as $k => $v ) {
-					$whitelist[$k] = trim( $v );
-				}
-				// Af_Logger::debug('email found : '. print_r($whitelist, true));
-			}
-			$is_whitelisted = array_intersect($whitelist, $array_mail);
-			$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
-			if ('yes' == $is_enable_whitelist_user_roles) {
-				$is_whitelisted_roles = in_array($userRole, $wc_af_whitelist_user_roles);
-			} else {
-				$is_whitelisted_roles = false;
-			}
-		}
-		
-		if (empty($is_whitelisted) && false == $is_whitelisted_roles) {
-			// Af_Logger::debug('blocked_email : '. print_r($array_mail,true));
-			foreach ($array_mail as $single) {
-				if ($_POST[ 'billing_email' ] == $single) {
-					echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');
-					$errors->add( 'validation', __('This email id is blocked.', 'woocommerce-anti-fraud') );
-				}
-			}
-		}
-	}
-	if ('' != $blocked_ipaddress) {
-		$userip = WC_Geolocation::get_ip_address();
-		$array_ipaddress = explode(',', $blocked_ipaddress);
-		foreach ($array_ipaddress as $singles) {
-			if ($userip == $singles) {
-				$errors->add( 'validation', __('This IP Address is blocked.', 'woocommerce-anti-fraud') );
-			}
-		}
-	}
-}
-
-add_action( 'woocommerce_after_checkout_validation', 'max_order_same_ip', 10, 2 );
-function max_order_same_ip( $fields, $errors) {
-	$is_enabled  =  get_option('wc_af_attempt_count_check');
-	$time_stamp  = get_option('wc_settings_anti_fraud_attempt_time_span');
-	$max_orders = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
-
-	if ('yes' == $is_enabled) {
-		// Calculate the new datetime
-		$dt = new DateTime('NOW', wp_timezone(  ));
-		$enddate = $dt;
-		$enddate = clone $dt;
-		
-		$dt->modify( '-' . $time_stamp . ' hours' );
-
-		// Set the start and send datetime strings
-		$start_datetime_string = $dt->format( 'Y-m-d H:i:s' );
-		$end_datetime_string   = $enddate->format( 'Y-m-d H:i:s' );
-		Af_Logger::debug('Start Date : ' . $start_datetime_string);
-		Af_Logger::debug('End Date : ' . $end_datetime_string);
-
-		$ip_address = WC_Geolocation::get_ip_address();
-		Af_Logger::debug('ip_address : ' . $ip_address);
-
-		if (wp_verify_nonce('test', 'wc_none')) {
-			return true;
-		}
-		$user = get_user_by('email', isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '' );
-		// if(isset($user->ID)){
-		// 	$meta['key'] = '_customer_user';
-		// 	$meta['value'] = $user->ID;
-		// } else {
-		// 	$meta['key'] = '_billing_email';
-		// 	$meta['value'] = $_POST[ 'billing_email' ];
-		// }
-		// Af_Logger::debug('User Meta : '. print_r($meta, true));
-
-		// Get the Same IP Orders
-		$orders_count_ip = wc_get_orders(
-			array(
-				'limit'               => -1,
-				'meta_key'            => '_billing_email',
-				'meta_value'          => isset($_POST[ 'billing_email' ]) ? sanitize_text_field($_POST['billing_email'] ) : '',
-				'customer_ip_address' => $ip_address,
-				'type'                => wc_get_order_types( 'order-count' ),
-				'date_after'          => $start_datetime_string,
-				'date_before'         => $end_datetime_string,
-			)
-		);
-
-		$orders_count_email = wc_get_orders(
-			array(
-				'limit'               => -1,
-
-				'meta_key'      => '_billing_email', // Postmeta key field
-				'meta_value'    => isset($_POST[ 'billing_email' ]) ? sanitize_text_field($_POST['billing_email'] ) : '', // Postmeta value field
-				'meta_compare'  => '=', 
-				'type'                => wc_get_order_types( 'order-count' ),
-				'date_after'          => $start_datetime_string,
-				'date_before'         => $end_datetime_string,
-			)
-		);
-
-		$orders_count_phone = wc_get_orders(
-			array(
-				'limit'               => -1,
-				'meta_key'      => '_billing_phone', // Postmeta key field
-				'meta_value'    => isset($_POST[ 'billing_phone' ]) ? sanitize_text_field($_POST['billing_phone'] ) : '', // Postmeta value field
-				'meta_compare'  => '=',
-				'type'                => wc_get_order_types( 'order-count' ),
-				'date_after'          => $start_datetime_string,
-				'date_before'         => $end_datetime_string,
-			)
-		);
-
-		$order_count_user = wc_get_orders(
-			array(
-				'limit'               => -1,
-				'meta_key'            => '_customer_user',
-				'meta_value'          => isset($user->ID) ? $user->ID : '',
-				'customer_ip_address' => $ip_address,
-				'type'                => wc_get_order_types( 'order-count' ),
-				'date_after'          => $start_datetime_string,
-				'date_before'         => $end_datetime_string,
-			)
-		);
-
-		// Af_Logger::debug('Orders : '. print_r($orders_count, true));
-		Af_Logger::debug('Order Count : ' . count($orders_count_ip));
-		if (count($orders_count_ip) >= $max_orders || count($orders_count_email) >= $max_orders ||count($orders_count_phone) >= $max_orders) {
-			$errors->add( 'validation',
-			/* translators: %s: order time span */
-			 sprintf( esc_html__('You have reached maximum number of allowed orders in %d hours. Please try again later.', 'woocommerce-anti-fraud'), $time_stamp )
-			 );
-		}
-	}
-}
-
-
-add_action( 'woocommerce_checkout_order_processed', 'wh_pre_paymentcall', 10, 2);
-function wh_pre_paymentcall( $order_id, $errors ) {
-
-	if ( !is_numeric($order_id) ) {
-		return;
-	}
-
-	$order = wc_get_order($order_id);
-
-	$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
-
-	$whitelist = explode("\n", $email_whitelist);
-
-	$not_whitelisted_email = false;
-	if (wp_verify_nonce('test', 'wc_none')) {
-		return true;
-	}
-
-	$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
-	if (in_array($whitelist_array, $whitelist)) {
-		$not_whitelisted_email = true;
-		update_post_meta($order_id, 'wc_af_score', 100);
-		update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
-		$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
-	}
-
-
-	$check_before_payment = get_option('wc_af_fraud_check_before_payment');
-	// echo $check_before_payment;
-
-	if ('yes' == $check_before_payment && !$not_whitelisted_email) {
-
-		if ( null !== get_option('wc_af_pre_payment_message') ) {
-			$pre_payment_block_message = get_option('wc_af_pre_payment_message');
-		} else {
-			$pre_payment_block_message = __( 'Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.', 'woocommerce-anti-fraud' );
-		}
-
-		$high_risk = get_option('wc_settings_anti_fraud_higher_risk_threshold');
-		$score_helper = new WC_AF_Score_Helper();
-		$score_helper->schedule_fraud_check( $order_id, true );
-
-		$score_points = get_post_meta( $order_id, 'wc_af_score', true );
-		$circle_points = WC_AF_Score_Helper::invert_score( $score_points );
-
-		if ($high_risk <= $circle_points) {
-
-			$order->update_status( 'failed', 'Pre Payment Fraud Check: Calculated risk score is above High Risk Threshold.', true );
-
-			$return = array('result' => 'failure', 'messages' => "<ul class='woocommerce-error' role='alert'><li>" . $pre_payment_block_message . '</li></ul>');
-
-			wp_send_json($return);
-			wp_die();
-		}
-	}
-}
-
 //echo get_option('wc_af_paypal_verification');die;
 new WooCommerce_Anti_Fraud();

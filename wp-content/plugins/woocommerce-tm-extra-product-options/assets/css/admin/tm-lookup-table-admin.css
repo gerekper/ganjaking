@@ -6,6 +6,10 @@
 	position: absolute;
 }
 
+.tc-add-export-csv {
+	display: none;
+}
+
 .container-lookup-table {
 	width: 100%;
 	display: -webkit-box;

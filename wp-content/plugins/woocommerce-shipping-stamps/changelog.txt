@@ -1,5 +1,11 @@
 *** WooCommerce Stamps.com shipping and API integration ***
 
+2023-03-29 - version 1.9.1
+* Fix - XML Error when purchasing label without shipping return address information.
+
+2022-10-25 - version 1.9.0
+* Add - Declared HPOS compatibility.
+
 2022-09-15 - version 1.8.0
 * Tweak - WC Custom Order Tables compatibility.
 

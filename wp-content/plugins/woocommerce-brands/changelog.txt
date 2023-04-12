@@ -1,5 +1,8 @@
 *** Brands Changelog ***
 
+2023-04-05 - version 1.6.45
+* Tweak - WC 7.6 compatibility.
+
 2023-03-14 - version 1.6.44
 * Tweak - WC 7.5 compatibility.
 * Tweak - WP 6.2 compatibility.

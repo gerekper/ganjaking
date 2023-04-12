@@ -1,5 +1,18 @@
 *** WooCommerce Anti Fraud ***
 
+2023-03-28 - version 5.4.0
+* Feature: PLUGINS-2022 - Historical Order settings.
+* Fix: PLUGINS-2029 - Fix whitelisting of payment, email not properly working.
+
+2023-03-14 - version 5.3.0
+* New: PLUGINS-2037 - Wildcards for Email Blacklist and Whitelist.
+* Update: PLUGINS-2039 - Spelling mistakes in Settings.
+* Update: PLUGINS-2043 - reCAPTCHA settings page wording update.
+* Fix: PLUGINS-2064 - Investigate issue about orders being cancelled.
+
+2023-03-08 - version 5.2.0
+* New: PLUGINS-2013 - Detailed Logging of Orders.
+
 2023-02-15 - version 5.1.0
 * Update: PLUGINS-1938 - Improve Too Many Order Attempts rule by checking other customer order details.
 * Add: PLUGINS-2003 - Add support for reCAPTCHA v3.
@@ -155,7 +168,7 @@
 
 2019-08-20 - version 2.3.0
 * New Feature Added — User can update verification email content.
-* Added option HTML <br> tag for message formating.
+* Added option HTML br tag for message formating.
 
 2019-08-05 - version 2.2.0
 * Fix international order issue

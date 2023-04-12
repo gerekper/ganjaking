@@ -1,8 +1,8 @@
 <?php
 /**
- * My Account > Top-up in cart notice
+ * My Account > Top-up in cart notice.
  *
- * @package WC_Account_Funds
+ * @package WC_Account_Funds/Templates/My_Account
  * @version 2.2.0
  */
 

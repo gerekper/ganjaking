@@ -1,4 +1,9 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2023.04.01 - version 3.4.3
+    * Fix: Fix for Nested Forms by toggling AJAX only when the parent form is rendered.
+    * Fix: Resolve warnings regarding $err_level
+    * Update:  Add Product SKU to the exportable fields list from Gravity Forms Entries.
+
 2023.03.06 - version 3.4.2
     * Compatibility:  Add support for WooCommerce HPOS.
     * Fix: Fix issue with the multi-file uploader not working on the last page of a multi-page form.

@@ -321,7 +321,7 @@ if ( ! function_exists( 'themecomplete_price' ) ) {
 		/**
 		 * Filter formatted price.
 		 *
-		 * @param float        $formatted_price    Formatted price.
+		 * @param float|string $formatted_price    Formatted price.
 		 * @param float        $price              Unformatted price.
 		 * @param integer      $decimals           Number of decimals.
 		 * @param string       $decimal_separator  Decimal separator.

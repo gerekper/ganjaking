@@ -460,6 +460,19 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_PRODUCT extends THEMECOMPLETE_EPO_BUILDE
 										],
 									],
 								],
+								[
+									'id'          => 'product_discount_exclude_addons',
+									'wpmldisable' => 1,
+									'default'     => '',
+									'type'        => 'checkbox',
+									'tags'        => [
+										'value' => '1',
+										'id'    => 'builder_product_discount_exclude_addons',
+										'name'  => 'tm_meta[tmfbuilder][product_discount_exclude_addons][]',
+									],
+									'label'       => esc_html__( 'Exlude Addon prices from the discount', 'woocommerce-tm-extra-product-options' ),
+									'desc'        => esc_html__( 'If this is enabled the discount will not be applied to the product addons.', 'woocommerce-tm-extra-product-options' ),
+								],
 
 								[
 									'id'          => 'product_hiddenin',

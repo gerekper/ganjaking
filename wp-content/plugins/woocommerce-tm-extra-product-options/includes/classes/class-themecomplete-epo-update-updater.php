@@ -30,7 +30,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 	 *
 	 * @var string
 	 */
-	public $title = 'WooCommerce TM Extra Product Options';
+	public $title = 'Extra Product Options & Add-Ons for WooCommerce';
 
 	/**
 	 * The api URL

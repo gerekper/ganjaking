@@ -163,6 +163,8 @@ final class THEMECOMPLETE_EPO_API_Base {
 		$all_epos = [];
 		$epos     = themecomplete_maybe_unserialize( $epos );
 
+		$wpml_translation_by_id = []; // no translation possible at this function.
+
 		if ( $epos && is_array( $epos ) ) {
 
 			foreach ( $epos as $key => $epo ) {
@@ -308,8 +310,9 @@ final class THEMECOMPLETE_EPO_API_Base {
 	 * @param string $option_id  The option unique id or 'all'.
 	 * @param mixed  $_product The product object.
 	 * @param string $mt_prefix The order currency.
+	 * @param array  $wpml_translation_by_id The translated options values.
 	 */
-	public function get_epos_data( $item = [], $item_meta = [], $option_id = 'all', $_product = false, $mt_prefix = '' ) {
+	public function get_epos_data( $item = [], $item_meta = [], $option_id = 'all', $_product = false, $mt_prefix = '', $wpml_translation_by_id = [] ) {
 
 		$all_epos = [];
 		$epos     = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
@@ -473,6 +476,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 					&& isset( $item_meta['_tmcartfee_data'] )
 					&& isset( $item_meta['_tmcartfee_data'][0] );
 
+			$wpml_translation_by_id = [];
 			if ( $has_epo || $has_fee ) {
 				$current_product_id  = $item['product_id'];
 				$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $current_product_id, 'product' ) );
@@ -483,7 +487,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 			}
 
 			if ( $has_epo ) {
-				$all_epos[ $item_id ] = $this->get_epos_data( $item, $item_meta, $option_id, $_product, $mt_prefix );
+				$all_epos[ $item_id ] = $this->get_epos_data( $item, $item_meta, $option_id, $_product, $mt_prefix, $wpml_translation_by_id );
 			}
 
 			if ( $has_fee ) {

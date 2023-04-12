@@ -18,6 +18,41 @@ defined( 'ABSPATH' ) || exit;
 class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 
 	/**
+	 * The number of columns
+	 *
+	 * @var float
+	 */
+	public $items_per_row;
+
+	/**
+	 * The number of columns for responisve devices
+	 *
+	 * @var float
+	 */
+	public $items_per_row_r;
+
+	/**
+	 * The percentage of the item width
+	 *
+	 * @var float
+	 */
+	public $percent;
+
+	/**
+	 * The number of columns
+	 *
+	 * @var float
+	 */
+	public $columns;
+
+	/**
+	 * The choice counter
+	 *
+	 * @var float
+	 */
+	public $default_value_counter;
+
+	/**
 	 * Pre display field array
 	 *
 	 * @param array $element The element array.
@@ -27,9 +62,8 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 	public function display_field_pre( $element = [], $args = [] ) {
 		$this->items_per_row   = $element['items_per_row'];
 		$this->items_per_row_r = isset( $element['items_per_row_r'] ) ? $element['items_per_row_r'] : [];
-		$this->grid_break      = '';
-		$this->_percent        = 100;
-		$this->_columns        = 0;
+		$this->percent         = 100;
+		$this->columns         = 0;
 		$container_css_id      = 'element_';
 		if ( isset( $element['container_css_id'] ) ) {
 			$container_css_id = $element['container_css_id'];
@@ -43,8 +77,8 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 				$this->items_per_row = 0;
 			} else {
 				$this->items_per_row = (float) $this->items_per_row;
-				$this->_percent      = (float) ( 100 / $this->items_per_row );
-				$css_string          = '.tm-product-id-' . $args['product_id'] . ' .' . $container_css_id . $args['element_counter'] . $args['form_prefix'] . ' li{-ms-flex: 0 0 ' . $this->_percent . '% !important;flex: 0 0 ' . $this->_percent . '% !important;max-width:' . $this->_percent . '% !important;}';
+				$this->percent       = (float) ( 100 / $this->items_per_row );
+				$css_string          = '.tm-product-id-' . $args['product_id'] . ' .' . $container_css_id . $args['element_counter'] . $args['form_prefix'] . ' li{-ms-flex: 0 0 ' . $this->percent . '% !important;flex: 0 0 ' . $this->percent . '% !important;max-width:' . $this->percent . '% !important;}';
 			}
 
 			$css_string = str_replace( [ "\r", "\n" ], '', $css_string );
@@ -97,7 +131,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			}
 		}
 
-		$this->_default_value_counter = 0;
+		$this->default_value_counter = 0;
 	}
 
 	/**
@@ -108,12 +142,11 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 	 * @since 1.0
 	 */
 	public function display_field( $element = [], $args = [] ) {
-		$this->_columns ++;
-		$this->grid_break = '';
-		$default_value    = isset( $element['default_value'] ) ? ( ( '' !== $element['default_value'] ) ? ( (int) $element['default_value'] === (int) $this->_default_value_counter ) : false ) : false;
+		$this->columns ++;
+		$default_value = isset( $element['default_value'] ) ? ( ( '' !== $element['default_value'] ) ? ( (int) $element['default_value'] === (int) $this->default_value_counter ) : false ) : false;
 
-		if ( (float) $this->_columns > (float) $this->items_per_row && $this->items_per_row > 0 ) {
-			$this->_columns = 1;
+		if ( (float) $this->columns > (float) $this->items_per_row && $this->items_per_row > 0 ) {
+			$this->columns = 1;
 		}
 
 		$hexclass         = '';
@@ -123,8 +156,8 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			if ( ! is_array( $element['color'] ) ) {
 				$search_for_color = $element['color'];
 			} else {
-				if ( isset( $element['color'][ $this->_default_value_counter ] ) ) {
-					$search_for_color = $element['color'][ $this->_default_value_counter ];
+				if ( isset( $element['color'][ $this->default_value_counter ] ) ) {
+					$search_for_color = $element['color'][ $this->default_value_counter ];
 				}
 			}
 			if ( empty( $search_for_color ) ) {
@@ -165,7 +198,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		}
 
 		$_css_class = ! empty( $element['class'] ) ? $element['class'] . ' ' . $hexclass : '' . $hexclass;
-		$css_class  = apply_filters( 'wc_epo_multiple_options_css_class', '', $element, $this->_default_value_counter );
+		$css_class  = apply_filters( 'wc_epo_multiple_options_css_class', '', $element, $this->default_value_counter );
 		if ( '' !== $css_class ) {
 			$css_class = ' ' . $css_class;
 		}
@@ -181,7 +214,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$imagec                = isset( $element['imagesc'][ $args['field_counter'] ] ) ? $element['imagesc'][ $args['field_counter'] ] : '';
 		$imagep                = isset( $element['imagesp'][ $args['field_counter'] ] ) ? $element['imagesp'][ $args['field_counter'] ] : '';
 		$imagel                = isset( $element['imagesl'][ $args['field_counter'] ] ) ? $element['imagesl'][ $args['field_counter'] ] : '';
-		$label                 = wptexturize( apply_filters( 'woocommerce_tm_epo_option_name', $args['label'], $element, $this->_default_value_counter ) );
+		$label                 = wptexturize( apply_filters( 'woocommerce_tm_epo_option_name', $args['label'], $element, $this->default_value_counter ) );
 		$label_mode            = '';
 		$changes_product_image = empty( $element['changes_product_image'] ) ? '' : $element['changes_product_image'];
 
@@ -263,7 +296,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$swatch_position     = $element['swatch_position'];
 		$showtooltip         = empty( $element['show_tooltip'] ) || ( 'image' !== $replacement_mode && 'color' !== $replacement_mode ) ? '' : $element['show_tooltip'];
 		$use_lightbox        = isset( $element['use_lightbox'] ) ? $element['use_lightbox'] : '';
-		$choice_counter      = $this->_default_value_counter;
+		$choice_counter      = $this->default_value_counter;
 		$show_label          = empty( $element['show_label'] ) ? '' : $element['show_label'];
 		$tm_epo_no_lazy_load = THEMECOMPLETE_EPO()->tm_epo_no_lazy_load;
 		if ( isset( $element['color'] ) ) {
@@ -445,78 +478,11 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 
 		$image_variations = [];
 		if ( ! empty( $changes_product_image ) ) {
-			$image_link        = $image;
-			$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-			$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-			$attachment_object = get_post( $attachment_id );
-			if ( ! $attachment_object && get_transient( 'get_attachment_id_' . $image_link ) ) {
-				delete_transient( 'get_attachment_id_' . $image_link );
-				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-				$attachment_object = get_post( $attachment_id );
-			}
+			$image_link       = $image;
+			$image_variations = THEMECOMPLETE_EPO_HELPER()->generate_image_array( $image_variations, $image_link, 'image' );
 
-			if ( $attachment_object ) {
-				$full_src      = wp_get_attachment_image_src( $attachment_id, 'large' );
-				$image_title   = get_the_title( $attachment_id );
-				$image_alt     = wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
-				$image_srcset  = function_exists( 'wp_get_attachment_image_srcset' ) ? wp_get_attachment_image_srcset( $attachment_id, 'shop_single' ) : false;
-				$image_sizes   = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $attachment_id, 'shop_single' ) : false;
-				$image_caption = $attachment_object->post_excerpt;
-
-				if ( false === $full_src || ! is_array( $full_src ) ) {
-					$full_src = [ '', '', '' ];
-				}
-
-				$image_variations['image'] = [
-					'image_link'    => $image_link,
-					'image_title'   => $image_title,
-					'image_alt'     => $image_alt,
-					'image_srcset'  => $image_srcset,
-					'image_sizes'   => $image_sizes,
-					'image_caption' => $image_caption,
-					'image_id'      => $attachment_id,
-					'full_src'      => $full_src[0],
-					'full_src_w'    => $full_src[1],
-					'full_src_h'    => $full_src[2],
-				];
-			}
-
-			$image_link        = $imagep;
-			$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-			$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-			$attachment_object = get_post( $attachment_id );
-			if ( ! $attachment_object && get_transient( 'get_attachment_id_' . $image_link ) ) {
-				delete_transient( 'get_attachment_id_' . $image_link );
-				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image_link );
-				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
-				$attachment_object = get_post( $attachment_id );
-			}
-			if ( $attachment_object ) {
-				$full_src      = wp_get_attachment_image_src( $attachment_id, 'large' );
-				$image_title   = get_the_title( $attachment_id );
-				$image_alt     = wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
-				$image_srcset  = function_exists( 'wp_get_attachment_image_srcset' ) ? wp_get_attachment_image_srcset( $attachment_id, 'shop_single' ) : false;
-				$image_sizes   = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $attachment_id, 'shop_single' ) : false;
-				$image_caption = $attachment_object->post_excerpt;
-
-				if ( false === $full_src || ! is_array( $full_src ) ) {
-					$full_src = [ '', '', '' ];
-				}
-
-				$image_variations['imagep'] = [
-					'image_link'    => $image_link,
-					'image_title'   => $image_title,
-					'image_alt'     => $image_alt,
-					'image_srcset'  => $image_srcset,
-					'image_sizes'   => $image_sizes,
-					'image_caption' => $image_caption,
-					'image_id'      => $attachment_id,
-					'full_src'      => $full_src[0],
-					'full_src_w'    => $full_src[1],
-					'full_src_h'    => $full_src[2],
-				];
-			}
+			$image_link       = $imagep;
+			$image_variations = THEMECOMPLETE_EPO_HELPER()->generate_image_array( $image_variations, $image_link, 'imagep' );
 		}
 
 		$labelclass       = '';
@@ -558,10 +524,9 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			'swatch_position'       => $swatch_position,
 			'use_lightbox'          => $use_lightbox,
 			'use_url'               => $element['use_url'],
-			'grid_break'            => $this->grid_break,
 			'items_per_row'         => $this->items_per_row,
 			'items_per_row_r'       => $this->items_per_row_r,
-			'percent'               => $this->_percent,
+			'percent'               => $this->percent,
 			'image'                 => $image,
 			'imagec'                => $imagec,
 			'imagep'                => $imagep,
@@ -577,7 +542,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			'changes_product_image' => $changes_product_image,
 			'default_value'         => $default_value,
 			'quantity'              => isset( $element['quantity'] ) ? $element['quantity'] : '',
-			'choice_counter'        => $this->_default_value_counter,
+			'choice_counter'        => $this->default_value_counter,
 		];
 
 		if ( isset( $color ) ) {
@@ -598,7 +563,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			$display['element_data_attr'] = [];
 		}
 
-		$this->_default_value_counter ++;
+		$this->default_value_counter ++;
 
 		return apply_filters( 'wc_epo_display_field_radio', $display, $this, $element, $args );
 

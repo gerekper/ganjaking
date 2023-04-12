@@ -68,7 +68,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		// Save Extra Product Options meta data.
 		add_action( 'woocommerce_process_product_meta', [ $this, 'save_meta' ], 50 );
 
-		// Duplicate TM Extra Product Options.
+		// Duplicate Extra Product Options.
 		add_action( 'woocommerce_product_duplicate', [ $this, 'duplicate_product' ], 50, 2 );
 
 		// Show action links on the plugin screen.
@@ -208,6 +208,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			return;
 		}
 
+		// @phpstan-ignore-next-line
 		if ( isset( $_POST ) && isset( $_POST['order_status'] ) && 'wc-refunded' === $_POST['order_status'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return;
 		}
@@ -283,6 +284,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 								$line_subtotal       = $line_subtotal - ( $option_price_before * $qty );
 								$tax_price           = $this->order_get_tax_price( $option_price_before, false, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
 
+								$saved_epos_price_of_one = (float) $saved_epos[ $key ]['price'];
 								if ( ! empty( $saved_epos[ $key ]['quantity'] ) ) {
 									$saved_epos_price_of_one = (float) $saved_epos[ $key ]['price'] / (float) $saved_epos[ $key ]['quantity'];
 								}
@@ -459,6 +461,11 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			$tax_based_on = get_option( 'woocommerce_tax_based_on' );
 
+			$default  = '';
+			$country  = '';
+			$state    = '';
+			$postcode = '';
+			$city     = '';
 			if ( 'billing' === $tax_based_on ) {
 				$country  = $order->get_billing_country();
 				$state    = $order->get_billing_state();
@@ -514,7 +521,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 * @param array   $item The item array.
 	 * @since 1.0
 	 */
-	public function tm_woocommerce_order_item_line_item_html( $item_id = '', $item = [] ) {
+	public function tm_woocommerce_order_item_line_item_html( $item_id = 0, $item = [] ) {
 		$get_post_type = get_post_type();
 		if ( ! $get_post_type && isset( $_REQUEST['order_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$get_post_type = get_post_type( absint( wp_unslash( $_REQUEST['order_id'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
@@ -668,7 +675,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 							$epo_value = wpautop( $epo_value );
 						}
 
-						$epo_quantity = ( $epo['quantity'] * (float) $item_meta['_qty'][0] ) . ' <small>(' . $epo['quantity'] . '&times;' . (float) $item_meta['_qty'][0] . ')</small>';
+						$epo_quantity = sprintf( '%s <small>(%s &times; %s)</small>', $epo['quantity'] * (float) $item_meta['_qty'][0], $epo['quantity'], (float) $item_meta['_qty'][0] );
 						$epo_quantity = apply_filters( 'wc_epo_html_tm_epo_order_item_epo_quantity', $epo_quantity, $epo['quantity'], $item, $_product );
 
 						if ( apply_filters( 'wc_epo_html_tm_epo_order_item_is_other_fee', false, $type ) ) {
@@ -702,7 +709,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				$epos = false;
 			}
 
-			if ( $epos && is_array( $epos ) && ! empty( $epos[0] ) ) {
+			if ( $epos && ! empty( $epos[0] ) && is_array( $epos ) ) {
 
 				$header_title = esc_html__( 'Extra Product Options Fees', 'woocommerce-tm-extra-product-options' );
 				include 'views/html-tm-epo-order-item-header.php';
@@ -780,12 +787,12 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		if ( THEMECOMPLETE_EPO_PLUGIN_NAME_HOOK === $file ) {
 
-			$plugin_name = esc_html__( 'WooCommerce TM Extra Product Options', 'woocommerce-tm-extra-product-options' );
+			$plugin_name = esc_html__( 'Extra Product Options & Add-Ons for WooCommerce', 'woocommerce-tm-extra-product-options' );
 			$row_meta    = [
 				'view-details' => sprintf(
 					'<a href="%s" class="thickbox open-plugin-details-modal" aria-label="%s" data-title="%s">%s</a>',
 					esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&plugin=' . THEMECOMPLETE_EPO_FILE_SLUG . '&TB_iframe=true&width=772&height=717' ) ),
-					/* translators: %s: Plugin name - WooCommerce TM Extra Product Options. */
+					/* translators: %s: Plugin name - Extra Product Options & Add-Ons for WooCommerce. */
 					esc_attr( sprintf( esc_html__( 'More information about %s', 'woocommerce-tm-extra-product-options' ), $plugin_name ) ),
 					esc_attr( $plugin_name ),
 					esc_html__( 'View details', 'woocommerce-tm-extra-product-options' )
@@ -828,7 +835,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		$post = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID=%d", $id ) );
 
 		if ( isset( $post->post_type ) && 'revision' === $post->post_type ) {
-			$id   = $post->post_parent;
+			$id   = iseet( $post->post_parent ) ? $post->post_parent : 0;
 			$post = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID=%d", $id ) );
 		}
 
@@ -1352,6 +1359,8 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				'i18n_cancel'           => esc_html__( 'Cancel', 'woocommerce-tm-extra-product-options' ),
 				'i18n_constant_name'    => esc_html__( 'Constant name', 'woocommerce-tm-extra-product-options' ),
 				'i18n_constant_value'   => esc_html__( 'Constant value', 'woocommerce-tm-extra-product-options' ),
+				'i18n_must_concent'     => esc_html__( 'Please check the consent checkbox to give your permission to send your data to the server and try again.', 'woocommerce-tm-extra-product-options' ),
+				'i18n_sending_data'     => esc_html__( 'Connecting to activation server ...', 'woocommerce-tm-extra-product-options' ),
 			];
 			wp_localize_script( 'themecomplete-epo-admin-settings', 'TMEPOADMINSETTINGSJS', $params );
 			wp_enqueue_script( 'themecomplete-epo-admin-settings' );
@@ -1673,7 +1682,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 						// Generate a useful post title.
 						/* translators: %1 option id # option title */
-						$post_title = sprintf( esc_html__( 'TM Extra Product Option #%1$s of %2$s', 'woocommerce-tm-extra-product-options' ), absint( $tmcp_id ), esc_html( get_the_title( $post_id ) ) );
+						$post_title = sprintf( esc_html__( 'Extra Product Option #%1$s of %2$s', 'woocommerce-tm-extra-product-options' ), absint( $tmcp_id ), esc_html( get_the_title( $post_id ) ) );
 
 						$data  = wp_slash(
 							[

@@ -569,14 +569,14 @@ class THEMECOMPLETE_EPO_MATH {
 			],
 			'=='   => [
 				static function( $a, $b ) {
-					return ( is_numeric( $a ) && is_numeric( $b ) ) ? sprintf( '%0.20f', $a ) === sprintf( '%0.20f', $b ) : ( is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
+					return ( is_numeric( $a ) && is_numeric( $b ) ) ? THEMECOMPLETE_EPO_HELPER()->convert_to_number( $a, true ) === THEMECOMPLETE_EPO_HELPER()->convert_to_number( $b, true ) : ( is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
 				},
 				140,
 				false,
 			],
 			'!='   => [
 				static function( $a, $b ) {
-					return ( is_numeric( $a ) && is_numeric( $b ) ) ? sprintf( '%0.20f', $a ) !== sprintf( '%0.20f', $b ) : ( is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
+					return ( is_numeric( $a ) && is_numeric( $b ) ) ? THEMECOMPLETE_EPO_HELPER()->convert_to_number( $a, true ) !== THEMECOMPLETE_EPO_HELPER()->convert_to_number( $b, true ) : ( is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
 				},
 				140,
 				false,
@@ -803,6 +803,23 @@ class THEMECOMPLETE_EPO_MATH {
 
 				return min( $array );
 			},
+			'median'      => static function( $arg1, ...$args ) {
+				if ( is_array( $arg1 ) ) {
+					if ( 0 === count( $arg1 ) ) {
+						return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
+					}
+
+					$final_args = $arg1;
+				} else {
+					$final_args = [ $arg1, ...$args ];
+				}
+
+				$count = count( $final_args );
+				sort( $final_args );
+				$index = floor( $count / 2 );
+
+				return ( $count & 1 ) ? $final_args[ $index ] : ( $final_args[ $index - 1 ] + $final_args[ $index ] ) / 2;
+			},
 			'octdec'      => static function( $arg ) {
 				return octdec( $arg );
 			},
@@ -871,6 +888,12 @@ class THEMECOMPLETE_EPO_MATH {
 							$table = $table['data'];
 							$x     = (float) $x;
 							$y     = (float) $y;
+							if ( intval( $x ) != $x ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+								$x = strval( $x );
+							}
+							if ( intval( $y ) != $y ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+								$y = strval( $y );
+							}
 							$x_row = false;
 							if ( ! isset( $table[ $x ] ) ) {
 								if ( ( (int) 0 === (int) $x ) ) {
@@ -902,6 +925,14 @@ class THEMECOMPLETE_EPO_MATH {
 					}
 				}
 				return $price;
+			},
+			'concat'      => static function( $arg1, ...$args ) {
+				if ( is_array( $arg1 ) && 0 === count( $arg1 ) ) {
+					return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
+				}
+				$array = is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ];
+
+				return join( '', $array );
 			},
 		];
 	}
@@ -1153,7 +1184,7 @@ class THEMECOMPLETE_EPO_MATH_Tokenizer {
 					break;
 
 				case 'e' === strtolower( $ch ):
-					if ( strlen( $this->number_buffer ) && false !== strpos( $this->number_buffer, '.' ) ) {
+					if ( strlen( $this->number_buffer ) && str_contains( $this->number_buffer, '.' ) ) {
 						$this->number_buffer .= 'e';
 						$this->allow_negative = false;
 

@@ -49,6 +49,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 		add_action( 'admin_footer', [ $this, 'script_templates' ] );
 
 		add_action( 'wp_ajax_tc_lookup_table_import', [ $this, 'import' ] );
+		add_action( 'wp_ajax_tc_lookup_table_export', [ $this, 'export' ] );
 
 		// save meta data.
 		add_action( 'save_post', [ $this, 'tm_save_postdata' ], 1, 2 );
@@ -117,13 +118,27 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	}
 
 	/**
+	 * Export a lookup table.
+	 *
+	 * @since 6.3
+	 */
+	public function export() {
+
+		$csv = new THEMECOMPLETE_EPO_ADMIN_CSV();
+		$csv->export_lookuptable( 'metaserialized' );
+
+	}
+
+	/**
 	 * Print script templates
 	 *
 	 * @since 6.1
 	 */
 	public function script_templates() {
-
-		wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+		// The check is required in case other plugin do things that don't load the wc_get_template function.
+		if ( function_exists( 'wc_get_template' ) ) {
+			wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+		}
 
 	}
 
@@ -184,6 +199,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 		$params  = [
 			'post_id'                                   => sprintf( '%d', $post_id ),
 			'import_nonce'                              => wp_create_nonce( 'import-nonce' ),
+			'export_nonce'                              => wp_create_nonce( 'export-nonce' ),
 			'tm_epo_global_displayed_decimal_separator' => get_option( 'tm_epo_global_displayed_decimal_separator' ),
 			'currency_format_decimal_sep'               => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) ) ),
 
@@ -197,6 +213,8 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 			'i18n_update'                               => esc_html__( 'Update', 'woocommerce-tm-extra-product-options' ),
 			'i18n_cancel'                               => esc_html__( 'Cancel', 'woocommerce-tm-extra-product-options' ),
 			'i18n_invalid_csv'                          => esc_html__( 'Invalid CSV table!', 'woocommerce-tm-extra-product-options' ),
+			'i18n_error_title'                          => esc_html__( 'Error', 'woocommerce-tm-extra-product-options' ),
+			'i18n_error_message'                        => esc_html__( 'An error has occurred!', 'woocommerce-tm-extra-product-options' ),
 			'i18n_overwrite_existing_tables'            => esc_html__( 'Overwrite existing tables', 'woocommerce-tm-extra-product-options' ),
 			'lookuptable'                               => $meta,
 		];
@@ -222,8 +240,6 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 	 */
 	public function tm_lookup_tables_meta_box( $post ) {
 
-		// used in scripts template.
-		$this->post = $post;
 		?>
 		<div id="tmformfieldsbuilderwrap" class="tc-wrapper">
 			<?php
@@ -240,7 +256,8 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				. '</small></div>';
 			echo '</div>';
 			echo '<div class="tc-buttons">';
-			echo '<button type="button" class="tm-animated tc-add-import-csv tc tc-button large" title="' . esc_html__( 'Import CSV', 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label"><i class="ddd"></i>' . esc_html__( 'Import CSV', 'woocommerce-tm-extra-product-options' ) . '</span></button>';
+			echo '<button type="button" class="tm-animated tc-add-import-csv tc tc-button large" title="' . esc_html__( 'Import CSV', 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label">' . esc_html__( 'Import CSV', 'woocommerce-tm-extra-product-options' ) . '</span></button>';
+			echo '<button type="button" class="tm-animated tc-add-export-csv tc tc-button large" title="' . esc_html__( 'Export CSV', 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label">' . esc_html__( 'Export CSV', 'woocommerce-tm-extra-product-options' ) . '</span></button>';
 			echo '</div>';
 			?>
 		</div>

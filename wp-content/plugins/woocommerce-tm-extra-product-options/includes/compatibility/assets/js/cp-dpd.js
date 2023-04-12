@@ -2,6 +2,7 @@
 	'use strict';
 
 	var TMEPOJS;
+	var tcAPI;
 
 	function tc_round( value, precision, mode ) {
 		return $.epoAPI.math.round( value, precision, mode );
@@ -174,8 +175,8 @@
 				}
 			}
 
-			if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'yes' && mainCart.is( $.tcAPI().associatedEpoCart ) ) {
-				mainQty = parseFloat( $( '.tc-epo-totals[data-epo-id=' + mainCart.closest( $.tcAPI().epoSelector ).data( 'epoId' ) + ']' ).data( 'qty_element' ).val() );
+			if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'yes' && mainCart.is( tcAPI.associatedEpoCart ) ) {
+				mainQty = parseFloat( $( '.tc-epo-totals[data-epo-id=' + mainCart.closest( tcAPI.epoSelector ).data( 'epoId' ) + ']' ).data( 'qty_element' ).val() );
 				if ( ! Number.isFinite( mainQty ) ) {
 					mainQty = 1;
 				}
@@ -564,8 +565,8 @@
 				}
 			}
 
-			if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'yes' && mainCart.is( $.tcAPI().associatedEpoCart ) ) {
-				mainQty = parseFloat( $( '.tc-epo-totals[data-epo-id=' + mainCart.closest( $.tcAPI().epoSelector ).data( 'epoId' ) + ']' ).data( 'qty_element' ).val() );
+			if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'yes' && mainCart.is( tcAPI.associatedEpoCart ) ) {
+				mainQty = parseFloat( $( '.tc-epo-totals[data-epo-id=' + mainCart.closest( tcAPI.epoSelector ).data( 'epoId' ) + ']' ).data( 'qty_element' ).val() );
 				if ( ! Number.isFinite( mainQty ) ) {
 					mainQty = 1;
 				}
@@ -648,8 +649,9 @@
 	// document ready
 	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
+		tcAPI = $.tcAPI ? $.tcAPI() : null;
 
-		if ( ! TMEPOJS ) {
+		if ( ! TMEPOJS || ! tcAPI ) {
 			return;
 		}
 

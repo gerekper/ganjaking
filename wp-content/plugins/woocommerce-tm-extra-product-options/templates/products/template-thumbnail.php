@@ -112,7 +112,9 @@ if ( is_array( $options ) ) :
 
 			$_product = wc_get_product( $product_id );
 			do_action( 'wc_epo_product_thumbnail_before_price', $_product, $product_id );
-			$textafterprice = wp_kses_post( $_product->get_price_suffix() );
+			if ( '' !== $_product->get_price_suffix() ) {
+				$textafterprice = '&nbsp;' . wp_kses_post( $_product->get_price_suffix() );
+			}
 			include THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php';
 			do_action( 'wc_epo_product_thumbnail_before_quantity', $_product, $product_id );
 			include THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity-hidden.php';

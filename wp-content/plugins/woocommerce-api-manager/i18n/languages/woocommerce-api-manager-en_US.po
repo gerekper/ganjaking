@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-03-24 21:30-0700\n"
-"PO-Revision-Date: 2023-03-24 21:30-0700\n"
+"POT-Creation-Date: 2023-04-07 23:41-0700\n"
+"PO-Revision-Date: 2023-04-07 23:41-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -76,7 +76,7 @@ msgid "Delete"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:91
-#: includes/wc-am-order-admin.php:296 includes/wc-am-order-admin.php:364
+#: includes/wc-am-order-admin.php:302 includes/wc-am-order-admin.php:370
 #, fuzzy
 msgid "No activations yet."
 msgstr "Encore aucune activation"
@@ -84,7 +84,7 @@ msgstr "Encore aucune activation"
 #: includes/admin/meta-boxes/html-order-api-resources.php:14
 #: includes/admin/meta-boxes/html-order-api-resources.php:19
 #: includes/data-stores/wc-am-api-resource-data-store.php:1203
-#: includes/data-stores/wc-am-api-resource-data-store.php:1211
+#: includes/data-stores/wc-am-api-resource-data-store.php:1213
 #: templates/emails/api-keys-order-complete.php:55
 #: templates/emails/api-keys-order-complete.php:60
 #: templates/emails/plain/api-keys-order-complete.php:31
@@ -373,7 +373,7 @@ msgstr ""
 
 #: includes/admin/wc-am-admin-system-status.php:446
 #, php-format
-msgid "version %1$s is out of date. The core version is %2$s"
+msgid " version %1$s is out of date. The core version is %2$s"
 msgstr ""
 
 #: includes/admin/wc-am-settings-admin.php:68
@@ -1003,42 +1003,42 @@ msgstr "Vous n'avez pas de clés API."
 msgid "API Resource Activations"
 msgstr "Activations"
 
-#: includes/wc-am-order-admin.php:91 includes/wc-am-order-admin.php:132
-#: includes/wc-am-order-admin.php:285
+#: includes/wc-am-order-admin.php:92 includes/wc-am-order-admin.php:135
+#: includes/wc-am-order-admin.php:291
 #, fuzzy
 msgid "Contains no API Product."
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:114 includes/wc-am-order-admin.php:266
+#: includes/wc-am-order-admin.php:115 includes/wc-am-order-admin.php:270
 msgid "No API resources for this order."
 msgstr ""
 
-#: includes/wc-am-order-admin.php:261 includes/wc-am-order-admin.php:263
+#: includes/wc-am-order-admin.php:265 includes/wc-am-order-admin.php:267
 #, php-format
 msgid "See Parent Order %s%s"
 msgstr ""
 
-#: includes/wc-am-order-admin.php:308
+#: includes/wc-am-order-admin.php:314
 #, fuzzy
 msgid "Are you sure you want to delete this activation?"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
-#: includes/wc-am-order-admin.php:508
+#: includes/wc-am-order-admin.php:517
 #, fuzzy
 msgid "Contains API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:508
+#: includes/wc-am-order-admin.php:517
 #, fuzzy
 msgid "API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:528
+#: includes/wc-am-order-admin.php:537
 #, fuzzy
 msgid "Has activations."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:530
+#: includes/wc-am-order-admin.php:539
 #, fuzzy
 msgid "No activations."
 msgstr "Activations"
@@ -1643,7 +1643,7 @@ msgid "Disabled"
 msgstr ""
 
 #: templates/myaccount/api-downloads.php:309
-#: templates/myaccount/api-keys.php:277
+#: templates/myaccount/api-keys.php:278
 msgid "Go shop"
 msgstr ""
 
@@ -1652,7 +1652,7 @@ msgid "No API downloads available yet."
 msgstr ""
 
 #: templates/myaccount/api-downloads.php:317
-#: templates/myaccount/api-keys.php:285
+#: templates/myaccount/api-keys.php:286
 msgid "This account has been disabled."
 msgstr ""
 
@@ -1672,7 +1672,7 @@ msgstr ""
 msgid " out of "
 msgstr "%s sur %s activations restantes"
 
-#: templates/myaccount/api-keys.php:279
+#: templates/myaccount/api-keys.php:280
 msgid "No API products available yet."
 msgstr ""
 

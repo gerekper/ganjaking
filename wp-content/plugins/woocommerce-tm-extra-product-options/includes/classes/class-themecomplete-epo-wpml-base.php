@@ -180,7 +180,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * @param string  $lang The language code.
 	 * @param integer $echo If to return or print the result.
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 	public function get_flag( $lang = 'all', $echo = 0 ) {
 		ob_start();

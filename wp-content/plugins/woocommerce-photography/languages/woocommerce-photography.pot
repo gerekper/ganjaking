@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Photography 1.1.1\n"
+"Project-Id-Version: WooCommerce Photography 1.2.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-12T16:02:48+00:00\n"
+"POT-Creation-Date: 2023-03-30T11:46:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-photography\n"
@@ -166,7 +166,6 @@ msgid "Photography Settings"
 msgstr ""
 
 #: includes/admin/class-wc-photography-admin.php:77
-#: woocommerce-photography.php:154
 msgid "Settings"
 msgstr ""
 
@@ -330,15 +329,15 @@ msgid_plural "Collections:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-photography-products.php:38
+#: includes/class-wc-photography-products.php:48
 msgid "Photograph"
 msgstr ""
 
-#: includes/class-wc-photography-products.php:361
+#: includes/class-wc-photography-products.php:371
 msgid "Please choose the quantity of items you wish to add to your order&hellip;"
 msgstr ""
 
-#: includes/class-wc-photography-products.php:426
+#: includes/class-wc-photography-products.php:436
 msgid "You don't have permission to purchase this photo!"
 msgstr ""
 
@@ -471,6 +470,64 @@ msgstr ""
 msgid "Photography #%d"
 msgstr ""
 
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Photography settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Photography documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#. translators: %s WC download URL link.
+#: src/Deprecated/functions.php:18
+msgid "Photography requires WooCommerce to be installed and active. You can download %s here."
+msgstr ""
+
+#. translators: 1: Minimum PHP version 2: Current PHP version
+#: src/Requirements.php:59
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Photography</strong> requires PHP %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#. translators: 1: Minimum WordPress version 2: Current WordPress version
+#: src/Requirements.php:66
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Photography</strong> requires WordPress %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: src/Requirements.php:71
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Photography</strong> requires WooCommerce to be activated to work."
+msgstr ""
+
+#. translators: 1: Minimum WooCommerce version 2: Current WooCommerce version
+#: src/Requirements.php:75
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Photography</strong> requires WooCommerce %1$s or higher. You are using version %2$s"
+msgstr ""
+
 #: templates/emails/photography-new-collection.php:17
 #: templates/emails/plain/photography-new-collection.php:16
 msgid "The following photo collection(s) has been added to your account:"
@@ -533,17 +590,4 @@ msgstr ""
 
 #: templates/myaccount/my-collections.php:67
 msgid "View Photographs"
-msgstr ""
-
-#. translators: %s WC download URL link.
-#: woocommerce-photography.php:36
-msgid "Photography requires WooCommerce to be installed and active. You can download %s here."
-msgstr ""
-
-#: woocommerce-photography.php:155
-msgid "Support"
-msgstr ""
-
-#: woocommerce-photography.php:156
-msgid "Docs"
 msgstr ""

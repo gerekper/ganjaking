@@ -75,34 +75,6 @@ class woocommerce_gravityforms_product_form {
 			$field_values = [];
 			$field_values = apply_filters( 'woocommerce_gravityforms_field_values', $field_values, $this->form_id );
 
-			/* If the form was submitted, has multiple pages and is invalid, set the current page to the first page with an invalid field. */
-			/*
-            if ( $has_pages && $is_postback && ! $is_valid ) {
-				self::set_current_page( $form_id, GFFormDisplay::get_first_page_with_error( $form ) );
-			}
-            */
-			/*
-			$form_object  = GFAPI::get_form( $this->form_id );
-			$field_values = GFForms::post( 'gform_field_values' );
-
-			$current_page = GFFormDisplay::get_current_page( $this->form_id );
-			$source_page_number = GFFormDisplay::get_source_page( $this->form_id );
-
-			$has_pages    = GFCommon::has_pages( $form_object );
-			if ( $has_pages ) {
-				$target_page  = GFFormDisplay::get_target_page( $form_object, $current_page, $field_values );
-				GFFormDisplay::set_current_page( $this->form_id, $target_page );
-			}
-
-			$this->set_submission_if_null( $this->form_id, 'page_number', $current_page );
-			$this->set_submission_if_null( $this->form_id, 'source_page_number', $source_page_number );
-			$this->set_submission_if_null( $this->form_id, 'form_id', $this->form_id );;
-			$this->set_submission_if_null( $this->form_id, 'form', $form_object );
-			$this->set_submission_if_null( $this->form_id, 'lead', [] );
-			$this->set_submission_if_null( $this->form_id, 'confirmation_message', false );
-			$this->set_submission_if_null( $this->form_id, 'is_valid', true );
-			*/
-
 			$form = GFForms::get_form( $this->form_id, $display_title, $display_description, $display_inactive, $field_values, $ajax, $tabindex );
 
 			unset( $_POST['gform_submit'] );

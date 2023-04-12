@@ -65,6 +65,16 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 			return false;
 		}
 
+		$is_subscriptions_order = false;
+
+		if (class_exists('WC_Subscriptions_Plugin')) {
+			$is_subscriptions_order = wcs_order_contains_subscription($order, 'renewal');
+		}
+		Af_Logger::debug('is_subscriptions_renewal_order : ' . print_r($is_subscriptions_order, true));
+		if ($is_subscriptions_order) {
+			return false;
+		}
+
 		// Calculate the new datetime
 		$dt = new DateTime( $order_date );
 		$dt->modify( '-' . $this->time_stamp . ' hours' );
@@ -95,7 +105,7 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 			array(
 				'limit'               => -1,
 				'exclude'             => array( $order_id ),
-				'_billing_email' => $email,
+				'billing_email' => $email,
 				'type'                => wc_get_order_types( 'order-count' ),
 				'date_after'          => $this->start_datetime_string,
 				'date_before'         => $this->end_datetime_string,
@@ -106,7 +116,7 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 			array(
 				'limit'               => -1,
 				'exclude'             => array( $order_id ),
-				'_billing_phone' => $phone,
+				'billing_phone' => $phone,
 				'type'                => wc_get_order_types( 'order-count' ),
 				'date_after'          => $this->start_datetime_string,
 				'date_before'         => $this->end_datetime_string,

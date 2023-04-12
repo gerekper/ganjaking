@@ -69,13 +69,11 @@ class THEMECOMPLETE_EPO_Order {
 		add_filter( 'woocommerce_admin_order_item_thumbnail', [ $this, 'woocommerce_admin_order_item_thumbnail' ], 50, 3 );
 
 		if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_legacy_meta_data ) {
-
 			// Adds options to the array of items/products of an order.
 			add_filter( 'woocommerce_order_get_items', [ $this, 'woocommerce_order_get_items' ], 10, 2 );
 			add_filter( 'woocommerce_order_item_get_formatted_meta_data', [ $this, 'woocommerce_order_item_get_formatted_meta_data' ], 10, 2 );
 
 		} else {
-
 			// Adds options to the array of items/products of an order.
 			add_filter( 'woocommerce_order_item_get_formatted_meta_data', [ $this, 'woocommerce_order_item_get_formatted_meta_data' ], 10, 2 );
 			add_action( 'woocommerce_order_item_meta_start', [ $this, 'woocommerce_order_item_meta_start' ] );
@@ -1191,17 +1189,34 @@ class THEMECOMPLETE_EPO_Order {
 			foreach ( $value as $k => $v ) {
 				if ( is_array( $v ) ) {
 					foreach ( $v as $k2 => $v2 ) {
-						$original_value = $v2;
-						$found          = ( strpos( $v2, THEMECOMPLETE_EPO()->upload_dir ) !== false );
-						if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
-							if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $v2, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
-								$v2 = mb_basename( $v2 );
+						if ( is_array( $v2 ) ) {
+							// There maybe cases where $v2 is an array.
+							foreach ( $v2 as $k3 => $v3 ) {
+								$original_value = $v3;
+								$found          = ( strpos( $v3, THEMECOMPLETE_EPO()->upload_dir ) !== false );
+								if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
+									if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $v3, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
+										$v3 = mb_basename( $v3 );
+									}
+								}
+								if ( ! empty( $override ) && $canbeallowed ) {
+									$v3 = '<a href="' . esc_url( $original_value ) . '">' . $v3 . '</a>';
+								}
+								$v[ $k2 ][ $k3 ] = $v3;
 							}
+						} else {
+							$original_value = $v2;
+							$found          = ( strpos( $v2, THEMECOMPLETE_EPO()->upload_dir ) !== false );
+							if ( ( $found && empty( $override ) ) || ! empty( $override ) ) {
+								if ( 'no' !== THEMECOMPLETE_EPO()->tm_epo_hide_upload_file_path && filter_var( filter_var( $v2, FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH ), FILTER_VALIDATE_URL ) ) {
+									$v2 = mb_basename( $v2 );
+								}
+							}
+							if ( ! empty( $override ) && $canbeallowed ) {
+								$v2 = '<a href="' . esc_url( $original_value ) . '">' . $v2 . '</a>';
+							}
+							$v[ $k2 ] = $v2;
 						}
-						if ( ! empty( $override ) && $canbeallowed ) {
-							$v2 = '<a href="' . esc_url( $original_value ) . '">' . $v2 . '</a>';
-						}
-						$v[ $k2 ] = $v2;
 					}
 				} else {
 
@@ -1231,7 +1246,7 @@ class THEMECOMPLETE_EPO_Order {
 			}
 		}
 		if ( is_array( $value ) ) {
-			$value = implode( ',', $value );
+			$value = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $value, ',' );
 		}
 
 		return $value;
@@ -1285,6 +1300,7 @@ class THEMECOMPLETE_EPO_Order {
 				$base_url        = str_replace( $param['subdir'], $main_path, $param['url'] );
 
 			}
+			$base_url = THEMECOMPLETE_EPO_HELPER()->to_ssl( $base_url );
 			foreach ( $items as $item_id => $item ) {
 
 				$item_meta = function_exists( 'wc_get_order_item_meta' ) ? wc_get_order_item_meta( $item_id, '', false ) : $order->get_item_meta( $item_id );
@@ -1297,9 +1313,15 @@ class THEMECOMPLETE_EPO_Order {
 						foreach ( $epos as $key => $epo ) {
 							if ( $epo && is_array( $epo ) && isset( $epo['section'] ) ) {
 
-								if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && in_array( $epo['element']['type'], apply_filters( 'wc_epo_upload_file_type_array', [ 'upload' ] ), true ) ) {
-
-									$attachments[] = $param['path'] . str_replace( $base_url, '', $epo['value'] );
+								if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && in_array( $epo['element']['type'], apply_filters( 'wc_epo_upload_file_type_array', [ 'upload', 'multiple_file_upload' ] ), true ) ) {
+									if ( false !== strpos( $epo['value'], '|' ) ) {
+										$links = explode( '|', $epo['value'] );
+										foreach ( $links as $link ) {
+											$attachments[] = $param['path'] . str_replace( $base_url, '', $link );
+										}
+									} else {
+										$attachments[] = $param['path'] . str_replace( $base_url, '', $epo['value'] );
+									}
 								}
 							}
 						}
@@ -1315,8 +1337,15 @@ class THEMECOMPLETE_EPO_Order {
 						foreach ( $epos as $key => $epo ) {
 							if ( $epo && is_array( $epo ) && isset( $epo['section'] ) ) {
 
-								if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && in_array( $epo['element']['type'], apply_filters( 'wc_epo_upload_file_type_array', [ 'upload' ] ), true ) ) {
-									$attachments[] = $param['path'] . str_replace( $base_url, '', $epo['value'] );
+								if ( isset( $epo['element'] ) && isset( $epo['element']['type'] ) && in_array( $epo['element']['type'], apply_filters( 'wc_epo_upload_file_type_array', [ 'upload', 'multiple_file_upload' ] ), true ) ) {
+									if ( false !== strpos( $epo['value'], '|' ) ) {
+										$links = explode( '|', $epo['value'] );
+										foreach ( $links as $link ) {
+											$attachments[] = $param['path'] . str_replace( $base_url, '', $link );
+										}
+									} else {
+										$attachments[] = $param['path'] . str_replace( $base_url, '', $epo['value'] );
+									}
 								}
 							}
 						}

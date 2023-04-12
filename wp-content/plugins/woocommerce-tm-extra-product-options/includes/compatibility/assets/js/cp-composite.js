@@ -673,7 +673,7 @@
 	// document ready
 	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
-		tcAPI = $.tcAPI();
+		tcAPI = $.tcAPI ? $.tcAPI() : null;
 
 		if ( ! TMEPOJS || ! tcAPI ) {
 			return;

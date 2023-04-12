@@ -21,6 +21,13 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 	class THEMECOMPLETE_EPO_ADMIN_SETTINGS extends WC_Settings_Page {
 
 		/**
+		 * The admin settings internal id
+		 *
+		 * @var string
+		 */
+		public $id = '';
+
+		/**
 		 * Options
 		 *
 		 * @var array
@@ -72,7 +79,7 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		public function __construct() {
 
 			$this->id               = THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID;
-			$this->label            = esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' );
+			$this->label            = esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-checkout-options' );
 			$this->tab_count        = 0;
 			$this->settings_options = THEMECOMPLETE_EPO_SETTINGS()->settings_options();
 
@@ -105,8 +112,10 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		 * @since 1.0
 		 */
 		public function script_templates() {
-
-			wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+			// The check is required in case other plugin do things that don't load the wc_get_template function.
+			if ( function_exists( 'wc_get_template' ) ) {
+				wc_get_template( 'tc-js-admin-templates.php', [], null, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+			}
 
 		}
 
@@ -130,7 +139,7 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		 * Prints a tab header
 		 *
 		 * @param integer $counter the counter.
-		 * @param array   $label the label array.
+		 * @param string  $label the label array.
 		 * @since 1.0
 		 */
 		public function tm_echo_header( $counter = 0, $label = '' ) { ?>

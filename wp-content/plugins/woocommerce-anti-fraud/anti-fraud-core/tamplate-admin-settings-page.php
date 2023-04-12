@@ -285,9 +285,89 @@ if ( '' === $current_section ) : ?>
 						</fieldset>
 					</td>
 				</tr>
+				
+				<tr valign="top">
+					<th scope="row" class="titledesc">
+						<label for="wc_settings_anti_fraud_auto_check_days">
+						<?php 
+						echo wp_kses_post($settings_fileds['wc_settings_anti_fraud_auto_check_days']['name']); 
+						$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraud_auto_check_days'] ); 
+						echo wp_kses_post($description['tooltip_html']);
+						?>
+						</label>
+					</th>
+					<td class="forminp forminp-number">
+						<input name="wc_settings_anti_fraud_auto_check_days" id="wc_settings_anti_fraud_auto_check_days" type="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_auto_check_days']['type']); ?>" style="display: block; width: 5em;" value="<?php echo esc_attr(get_option('wc_settings_anti_fraud_auto_check_days')); ?>" min="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_auto_check_days']['custom_attributes']['min']); ?>" step="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_auto_check_days']['custom_attributes']['step']); ?>" max="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_auto_check_days']['custom_attributes']['max']); ?>">
+					</td>
+				</tr>
 			</tbody>
 		</table>
 
+		<!-- Debug log check settings -->
+		<?php $this->opmc_add_admin_field_section($settings_fileds[$this->id . '_enable_debug_log_check']); ?>
+
+		<table class="form-table opmc_wc_af_table">
+			<tbody>
+				<tr valign="top" class="">
+					<th scope="row" class="titledesc">
+						<label for="wc_af_enable_debug_log_check">
+							<?php echo wp_kses_post($settings_fileds['wc_af_enable_log_check']['title']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_enable_log_check']['desc_tip']); ?>"></span>
+						</label>
+					</th>
+					<td class="forminp forminp-checkbox">
+						<fieldset>
+							<legend class="screen-reader-text"><span><?php echo wp_kses_post($settings_fileds['wc_af_enable_log_check']['title']); ?></span></legend>
+							<label for="wc_af_enable_log_check" class="opmc-toggle-control">
+								<input name="wc_af_enable_log_check" id="wc_af_enable_log_check" type="checkbox" value="1" <?php checked( get_option( 'wc_af_enable_log_check' ), 'yes' ); ?> >
+								<span class="opmc-control"></span>
+							</label>
+						</fieldset>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="main-debug-log-tbl" id="debug_log_tbl" style="width:90%;overflow:auto; max-height:100px;    margin-left: 5%; position: inherit;">
+		   <table id="debug_t" style="width:100%;" >
+				   <thead style="font-size: 14px;">
+					<tr id="debug_tr">
+						 <th id="debug_th" width="10%">Sr No</th>
+						 <th id="debug_th" width="30%">Name</th>
+						  <th id="debug_th" width="30%">Date</th>
+						  <th id="debug_th" width="30%">Action</th>
+					 </tr>
+				 </thead>
+				 <tbody style="line-height: 2.4em; font-size: 14px;"> 
+				<?php
+					global $wpdb;
+					$dailyCapLimit = 500;
+					$table_name = $wpdb->prefix . 'af_download_url';
+					$api_limits = 0;
+					$created_at='';
+
+					// Check if API limits exceeded
+				if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table_name)) == $table_name) {
+					$results = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'af_download_url');
+					//$results = $wpdb->get_results($wpdb->prepare('SELECT download_url, created_at FROM ' . $wpdb->prefix . 'af_download_url WHERE created_at = %s', gmdate('Y-m-d')));
+				}
+					$resultss = (array) $results;
+				if (is_array($resultss)) {
+					foreach ($resultss as $result) {
+							
+						?>
+					<tr id="debug_tr">
+						 <td id="debug_td" width="10%"><?php echo esc_html($result->id); ?></td>
+						<td id="debug_td" width="30%">antifraud-log-<?php echo esc_html($result->created_at); ?>.csv</td>
+						<td id="debug_td" width="30%"><?php echo esc_html($result->created_at); ?></td>
+						<td id="debug_td" width="30%">
+							   <a href="<?php echo esc_url($result->download_url); ?>" type="button" name="Download" class="download-button">Download </a>
+						   </td>
+					</tr>
+					<?php } } ?>
+				</tbody>
+			</table>
+		</div>
+		<!-- Debug log End -->
 	</section>
 
 <?php elseif ('rules' == $current_section) : ?>

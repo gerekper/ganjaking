@@ -4,7 +4,7 @@ Tags: woocommerce, photography
 Requires PHP: 5.4
 Requires at least: 4.7
 Tested up to: 6.1
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.4

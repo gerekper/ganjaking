@@ -1200,7 +1200,7 @@ class WC_AM_API_Resource_Data_Store {
 		foreach ( $resources as $resource ) {
 			if ( $resource->sub_id == 0 ) {
 				$results[ 'non_wc_subs_resources' ][] = array(
-					'friendly_api_key_expiration_date' => $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ),
+					'friendly_api_key_expiration_date' => $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) ),
 					'number_of_expiring_activations'   => ! $unlimited_activations ? $resource->activations_purchased_total : 'Unlimited activations',
 					'product_title'                    => $resource->product_title,
 					'order_id'                         => $resource->order_id,

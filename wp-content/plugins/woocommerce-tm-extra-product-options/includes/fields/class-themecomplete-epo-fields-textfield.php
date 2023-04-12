@@ -104,11 +104,17 @@ class THEMECOMPLETE_EPO_FIELDS_textfield extends THEMECOMPLETE_EPO_FIELDS {
 					$val = $this->epo_post_fields[ $attribute ];
 					$val = preg_replace( "/\r\n/", "\n", $val );
 				}
-				if ( '' !== $val && ( false !== $val && strlen( $val ) < (int) $this->element['min_chars'] ) ) {
-					$passed = false;
-					/* translators: %1 number of characters %2 element label. */
-					$message[] = sprintf( esc_html__( 'You must enter at least %1$s characters for "%2$s".', 'woocommerce-tm-extra-product-options' ), (int) $this->element['min_chars'], $this->element['label'] );
-					break;
+				if ( ! is_array( $val ) ) {
+					$val = [ $val ];
+				}
+
+				foreach ( $val as $val_value ) {
+					if ( '' !== $val_value && ( false !== $val_value && strlen( $val_value ) < (int) $this->element['min_chars'] ) ) {
+						$passed = false;
+						/* translators: %1 number of characters %2 element label. */
+						$message[] = sprintf( esc_html__( 'You must enter at least %1$s characters for "%2$s".', 'woocommerce-tm-extra-product-options' ), (int) $this->element['min_chars'], $this->element['label'] );
+						break;
+					}
 				}
 			}
 			if ( $this->element['max_chars'] ) {
@@ -117,11 +123,17 @@ class THEMECOMPLETE_EPO_FIELDS_textfield extends THEMECOMPLETE_EPO_FIELDS {
 					$val = $this->epo_post_fields[ $attribute ];
 					$val = preg_replace( "/\r\n/", "\n", $val );
 				}
-				if ( '' !== $val && ( false !== $val && strlen( utf8_decode( $val ) ) > (int) $this->element['max_chars'] ) ) {
-					$passed = false;
-					/* translators: %1 number of characters %2 element label. */
-					$message[] = sprintf( esc_html__( 'You cannot enter more than %1$s characters for "%2$s".', 'woocommerce-tm-extra-product-options' ), (int) $this->element['max_chars'], $this->element['label'] );
-					break;
+				if ( ! is_array( $val ) ) {
+					$val = [ $val ];
+				}
+
+				foreach ( $val as $val_value ) {
+					if ( '' !== $val_value && ( false !== $val_value && strlen( utf8_decode( $val_value ) ) > (int) $this->element['max_chars'] ) ) {
+						$passed = false;
+						/* translators: %1 number of characters %2 element label. */
+						$message[] = sprintf( esc_html__( 'You cannot enter more than %1$s characters for "%2$s".', 'woocommerce-tm-extra-product-options' ), (int) $this->element['max_chars'], $this->element['label'] );
+						break;
+					}
 				}
 			}
 		}

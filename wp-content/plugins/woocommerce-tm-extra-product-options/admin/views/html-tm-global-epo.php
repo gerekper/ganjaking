@@ -1,6 +1,6 @@
 <?php
 /**
- * View for displaying saved TM Global EPOs
+ * View for displaying saved Global EPOs
  *
  * @package Extra Product Options/Admin/Views
  * @version 6.0

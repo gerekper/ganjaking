@@ -114,9 +114,10 @@ class WC_Account_Funds_Order_Manager {
 
 		$order->add_order_note(
 			sprintf(
-				/* translators: 1: Funds amount, 2: Customer ID */
-				__( 'Removed %1$s funds from user %2$s', 'woocommerce-account-funds' ),
+				/* translators: 1: funds amount, 2: funds name, 3: customer ID */
+				_x( 'Removed %1$s of %2$s from user #%3$s', 'order note', 'woocommerce-account-funds' ),
 				wc_account_funds_format_order_price( $order, $funds ),
+				wc_get_account_funds_name(),
 				$customer_id
 			)
 		);
@@ -146,9 +147,10 @@ class WC_Account_Funds_Order_Manager {
 
 				$order->add_order_note(
 					sprintf(
-						/* translators: 1: Funds amount, 2: Customer ID */
-						__( 'Removed %1$s funds from user #%2$s', 'woocommerce-account-funds' ),
+						/* translators: 1: funds amount, 2: funds name, 3: customer ID */
+						_x( 'Removed %1$s of %2$s from user #%3$s', 'order note', 'woocommerce-account-funds' ),
 						wc_account_funds_format_order_price( $order, $funds_used ),
+						wc_get_account_funds_name(),
 						$customer_id
 					)
 				);
@@ -231,9 +233,10 @@ class WC_Account_Funds_Order_Manager {
 
 				$order->add_order_note(
 					sprintf(
-						/* translators: 1: Funds amount, 2: Customer ID */
-						__( 'Restored %1$s funds to user #%2$s', 'woocommerce-account-funds' ),
+						/* translators: 1: funds amount, 2: funds name, 3: customer ID */
+						_x( 'Restored %1$s of %2$s to user #%3$s', 'order note', 'woocommerce-account-funds' ),
 						wc_account_funds_format_order_price( $order, $funds ),
+						wc_get_account_funds_name(),
 						$customer_id
 					)
 				);
@@ -295,9 +298,10 @@ class WC_Account_Funds_Order_Manager {
 
 			$order->add_order_note(
 				sprintf(
-					/* translators: 1: Funds amount, 2: Customer ID */
-					__( 'Added %1$s funds to user #%2$s', 'woocommerce-account-funds' ),
+					/* translators: 1: funds amount, 2: funds name, 3: customer ID */
+					_x( 'Added %1$s of %2$s to user #%3$s', 'order note', 'woocommerce-account-funds' ),
 					wc_account_funds_format_order_price( $order, $funds ),
+					wc_get_account_funds_name(),
 					$customer_id
 				)
 			);
@@ -326,7 +330,7 @@ class WC_Account_Funds_Order_Manager {
 				array_slice( $rows, 0, $index ),
 				array(
 					'funds_used' => array(
-						'label' => __( 'Funds Used:', 'woocommerce-account-funds' ),
+						'label' => wc_get_account_funds_name() . ':',
 						'value' => '-' . wc_account_funds_format_order_price( $order, $funds_used ),
 					),
 				),
@@ -430,7 +434,7 @@ class WC_Account_Funds_Order_Manager {
 		}
 		?>
 		<tr>
-			<td class="label"><?php _e( 'Funds Used', 'woocommerce-account-funds' ); ?>:</td>
+			<td class="label"><?php echo esc_html( wc_get_account_funds_name() ); ?>:</td>
 			<td width="1%"></td>
 			<td class="total"><?php echo '-' . wc_account_funds_format_order_price( $order, $funds_used ); ?></td>
 		</tr>

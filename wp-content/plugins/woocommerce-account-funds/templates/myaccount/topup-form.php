@@ -1,16 +1,35 @@
 <?php
 /**
- * My Account > Top-Up form
+ * My Account > Top-Up form.
  *
- * @package WC_Account_Funds
- * @version 2.2.0
+ * @package WC_Account_Funds/Templates/My_Account
+ * @version 2.8.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Template vars.
+ *
+ * @var float $min_topup Minimum top-up amount.
+ * @var float $max_topup Maximum top-up amount.
+ */
 ?>
 <form method="post">
-	<h3><label for="topup_amount"><?php esc_html_e( 'Top-up Account Funds', 'woocommerce-account-funds' ); ?></label></h3>
+	<h3>
+		<label for="topup_amount">
+			<?php
+			echo esc_html(
+				sprintf(
+				/* translators: %s: funds name */
+					__( 'Top-up %s', 'woocommerce-account-funds' ),
+					wc_get_account_funds_name()
+				)
+			);
+			?>
+		</label>
+	</h3>
+
 	<p class="form-row form-row-first">
 		<input type="number" class="input-text" name="topup_amount" id="topup_amount" step="0.01" value="<?php echo esc_attr( $min_topup ); ?>" min="<?php echo esc_attr( $min_topup ); ?>" max="<?php echo esc_attr( $max_topup ); ?>" />
 		<?php if ( $min_topup || $max_topup ) : ?>

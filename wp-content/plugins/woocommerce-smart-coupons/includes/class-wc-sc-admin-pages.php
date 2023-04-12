@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.2.0
+ * @version     2.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -900,9 +900,14 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				<div class="sc-email-content">
 					<?php
 					if ( ! empty( $coupon_code ) ) {
-						$post   = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $coupon_code, OBJECT, 'shop_coupon' ) : get_page_by_title( $coupon_code, OBJECT, 'shop_coupon' ); // phpcs:ignore
+						$posts   = $this->get_post_by_title( $coupon_code, OBJECT, 'shop_coupon' ); // phpcs:ignore
+						$sanitized_coupon_code = sanitize_title( $coupon_code ); // The generated string will be checked in an array key to locate post object.
+						if ( empty( $posts ) || ! array_key_exists( $sanitized_coupon_code, $posts ) ) {
+							return;
+						}
+						$post   = ( ! empty( $posts[ $sanitized_coupon_code ] ) ) ? $posts[ $sanitized_coupon_code ] : null;
 						$revert = false;
-						if ( 'publish' !== $post->post_status ) {
+						if ( ! empty( $post->post_status ) && 'publish' !== $post->post_status ) {
 							$args = array(
 								'ID'          => $post->ID,
 								'post_status' => 'publish',

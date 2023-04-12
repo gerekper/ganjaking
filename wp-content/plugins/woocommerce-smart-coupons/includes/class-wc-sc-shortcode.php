@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.3.0
+ * @version     2.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -365,7 +365,10 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 						$new_coupon = new WC_Coupon();
 						$new_coupon->set_code( $coupon_args['post_title'] );
-						$new_coupon->set_status( $coupon_args['post_status'] );
+
+						if ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $new_coupon, 'set_status' ) ) {
+							$new_coupon->set_status( $coupon_args['post_status'] );
+						}
 
 						$new_coupon_id = $new_coupon->save();
 
@@ -377,7 +380,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 						$new_coupon_id = absint( $new_coupon_id );
 
-						$new_coupon = new WC_Coupon( $new_coupon_id );
+						$new_coupon = new WC_Coupon( $new_coupon );
 
 						$is_callable_new_coupon_update_meta = $this->is_callable( $new_coupon, 'update_meta_data' );
 

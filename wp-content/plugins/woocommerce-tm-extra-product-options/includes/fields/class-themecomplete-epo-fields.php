@@ -464,6 +464,8 @@ class THEMECOMPLETE_EPO_FIELDS {
 		$this->attribute          = $attribute;
 		$this->attribute_quantity = $attribute . '_quantity';
 		$this->key                = $key;
+
+		$ret = false;
 		if ( 'single' === $this->holder_cart_fees ) {
 			$ret = $this->add_cart_item_data_cart_fees_single();
 		} elseif ( 'multiple' === $this->holder_cart_fees ) {
@@ -629,7 +631,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 				'price_per_currency'    => $this->fill_currencies( $attribute_quantity ),
 				'quantity'              => $attribute_quantity,
 				'multiple'              => '1',
-				'key'                   => $thiskey,
+				'key'                   => isset( $thiskey ) ? $thiskey : '',
 				'use_images'            => $use_images,
 				'use_colors'            => $use_colors,
 				'changes_product_image' => $changes_product_image,

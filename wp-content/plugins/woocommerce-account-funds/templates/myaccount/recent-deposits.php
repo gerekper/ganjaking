@@ -1,22 +1,29 @@
 <?php
 /**
- * My Account > Recent deposits
+ * My Account > Recent deposits.
  *
- * @package WC_Account_Funds
- * @version 2.2.0
+ * @package WC_Account_Funds/Templates/My_Account
+ * @version 2.8.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
+// phpcs:disable WordPress.WP.I18n.TextDomainMismatch
+$deposit_columns = array(
+	'order-number' => __( 'Order', 'woocommerce' ),
+	'order-date'   => __( 'Date', 'woocommerce' ),
+	'order-status' => __( 'Status', 'woocommerce' ),
+	'order-total'  => wc_get_account_funds_name(),
+);
+// phpcs:enable WordPress.WP.I18n.TextDomainMismatch
 ?>
 <h2><?php esc_html_e( 'Recent Deposits', 'woocommerce-account-funds' ); ?></h2>
 <table class="shop_table shop_table_responsive my_account_deposits">
 	<thead>
 		<tr>
-			<th class="order-number"><span class="nobr"><?php esc_html_e( 'Order', 'woocommerce-account-funds' ); ?></span></th>
-			<th class="order-date"><span class="nobr"><?php esc_html_e( 'Date', 'woocommerce-account-funds' ); ?></span></th>
-			<th class="order-total"><span class="nobr"><?php esc_html_e( 'Status', 'woocommerce-account-funds' ); ?></span></th>
-			<th class="order-status"><span class="nobr"><?php esc_html_e( 'Amount Funded', 'woocommerce-account-funds' ); ?></span></th>
+			<?php foreach ( $deposit_columns as $column_id => $column_name ) : ?>
+				<th class="<?php echo esc_attr( $column_id ); ?>"><span class="nobr"><?php echo esc_html( $column_name ); ?></span></th>
+			<?php endforeach; ?>
 		</tr>
 	</thead>
 	<tbody>

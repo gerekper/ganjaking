@@ -77,6 +77,7 @@ class THEMECOMPLETE_EPO_Widget_Action extends WP_Widget {
 	 * Outputs the settings update form
 	 *
 	 * @param array $instance Current settings.
+	 * @return string Default return is 'noform'.
 	 */
 	public function form( $instance ) {
 		$title  = isset( $instance['title'] ) ? $instance['title'] : '';
@@ -93,5 +94,7 @@ class THEMECOMPLETE_EPO_Widget_Action extends WP_Widget {
 		</p>
 
 		<?php
+
+		return 'noform';
 	}
 }

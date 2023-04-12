@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce Gravity Forms Product Add-Ons
  * Plugin URI: http://woothemes.com/products/gravity-forms-add-ons/
  * Description: Allows you to use Gravity Forms on individual WooCommerce products. Requires the Gravity Forms plugin to work.
- * Version: 3.4.2
+ * Version: 3.4.3
  * Author: Element Stark
  * Author URI: https://www.elementstark.com/
  * Developer: Lucas Stark
@@ -17,7 +17,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * WC requires at least: 6.0
- * WC tested up to: 7.4
+ * WC tested up to: 7.5
  * Woo: 18633:a6ac0ab1a1536e3a357ccf24c0650ed0
  */
 
@@ -26,12 +26,6 @@
  */
 if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
-}
-
-add_filter('gform_form_args', 'no_ajax_on_all_forms', 9999, 1);
-function no_ajax_on_all_forms($args){
-	$args['ajax'] = false;
-	return $args;
 }
 
 if ( is_woocommerce_active() ) {

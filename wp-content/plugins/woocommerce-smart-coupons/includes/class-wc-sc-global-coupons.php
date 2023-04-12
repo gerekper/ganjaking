@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -231,7 +231,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 
 			$coupon = new WC_Coupon( $post_id );
 
-			$coupon_status = ( $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $post_id );
+			$coupon_status = ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $post_id );
 
 			if ( $this->is_callable( $coupon, 'get_meta' ) ) {
 				$customer_email          = $coupon->get_email_restrictions();

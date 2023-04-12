@@ -133,7 +133,16 @@ final class THEMECOMPLETE_EPO_CP_Aelia_Currency_Switcher {
 			$type = '';
 		}
 		// Check if the price should be processed only once.
-		if ( in_array( (string) $type, [ '', 'math', 'fixedcurrenttotal', 'word', 'wordnon', 'char', 'step', 'intervalstep', 'charnofirst', 'charnospaces', 'charnon', 'charnonnospaces', 'fee', 'stepfee', 'subscriptionfee' ], true ) ) {
+		if ( 'math' === $type ) {
+			// Replaces any number between curly braces with the current currency.
+			$price = preg_replace_callback(
+				'/\{(\d+)\}/',
+				function( $matches ) {
+					return apply_filters( 'wc_epo_get_currency_price', $matches[1], false, '' );
+				},
+				$price
+			);
+		} elseif ( in_array( (string) $type, [ '', 'fixedcurrenttotal', 'word', 'wordnon', 'char', 'step', 'intervalstep', 'charnofirst', 'charnospaces', 'charnon', 'charnonnospaces', 'fee', 'stepfee', 'subscriptionfee' ], true ) ) {
 
 			$price = $this->get_price_in_currency( $price, $currency, null, $currencies, $type );
 

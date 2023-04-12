@@ -1,20 +1,23 @@
 <?php
 /**
  * Plugin Name: WooCommerce Give Products
+ * Plugin URI: https://woocommerce.com/products/woocommerce-give-products/
  * Description: Allow shop owners to freely gift products to users.
- * Version: 1.1.21
- * Author: WooCommerce
- * Author URI: https://woocommerce.com/
+ * Version: 1.2.0
+ * Author: Themesquad
+ * Author URI: https://themesquad.com/
  * Text Domain: woocommerce-give-products
- * Requires at least: 4.0.0
- * Tested up to: 6.0
- * WC tested up to: 6.9
- * WC requires at least: 2.6
+ * Domain Path: /languages
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.2
  *
- * Copyright: © 2022 WooCommerce
+ * WC requires at least: 3.5
+ * WC tested up to: 7.6
+ * Woo: 521947:c76e4d6a4935f9d2ba635d2c459e813e
+ *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Woo: 521947:c76e4d6a4935f9d2ba635d2c459e813e
  *
  * @package woocommerce-give-products
  */
@@ -23,65 +26,76 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \Themesquad\WC_Give_Products\Autoloader::init() ) {
+	return;
+}
+
+// Plugin requirements.
+\Themesquad\WC_Give_Products\Requirements::init();
+
+if ( ! \Themesquad\WC_Give_Products\Requirements::are_satisfied() ) {
+	return;
+}
+
+// Define plugin file constant.
+if ( ! defined( 'WC_GIVE_PRODUCTS_FILE' ) ) {
+	define( 'WC_GIVE_PRODUCTS_FILE', __FILE__ );
+}
+
 if ( ! class_exists( 'WC_Give_Products' ) ) {
-
-	define( 'WC_GIVE_PRODUCTS_VERSION', '1.1.21' ); // WRCS: DEFINED_VERSION.
-
 	/**
 	 * Main plugin class.
 	 */
-	class WC_Give_Products {
-
-		/**
-		 * Class instance.
-		 *
-		 * @var object
-		 */
-		protected static $instance = null;
+	class WC_Give_Products extends \Themesquad\WC_Give_Products\Plugin {
 
 		/**
 		 * Main plugin file.
 		 *
+		 * @deprecated 1.2.0
+		 *
 		 * @var string
 		 */
-		public static $plugin_file = __FILE__;
+		public static $plugin_file = WC_GIVE_PRODUCTS_FILE;
 
 		/**
 		 * Initialize the plugin.
 		 *
 		 * @since 1.0
 		 */
-		private function __construct() {
-			if ( class_exists( 'WooCommerce' ) ) {
-				add_action( 'admin_init', array( $this, 'init' ), 20 );
+		protected function __construct() {
+			parent::__construct();
 
-				// Load chosen scripts.
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_chosen_scripts' ), 20 );
+			add_action( 'admin_init', array( $this, 'init' ), 20 );
 
-				// Update menu.
-				add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
+			// Load chosen scripts.
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_chosen_scripts' ), 20 );
 
-				// Admin notices.
-				add_action( 'admin_notices', array( $this, 'admin_notice' ) );
+			// Update menu.
+			add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
 
-				// Notice on customers order screen.
-				add_action( 'woocommerce_view_order', array( $this, 'display_given_status' ) );
+			// Admin notices.
+			add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 
-				// Notice on edit order screen.
-				add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'display_given_status_admin' ) );
+			// Notice on customers order screen.
+			add_action( 'woocommerce_view_order', array( $this, 'display_given_status' ) );
 
-				// Add AJAX functionality.
-				add_action( 'wp_ajax_give_products_json_search_products_and_variations', array( $this, 'json_search_products_and_variations' ) );
+			// Notice on edit order screen.
+			add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'display_given_status_admin' ) );
 
-				// Add Given Order email.
-				add_action( 'woocommerce_email_classes', array( $this, 'add_emails' ), 20, 1 );
+			// Add AJAX functionality.
+			add_action( 'wp_ajax_give_products_json_search_products_and_variations', array( $this, 'json_search_products_and_variations' ) );
 
-				// Add screen id.
-				add_filter( 'woocommerce_screen_ids', array( $this, 'woocommerce_screen_ids' ) );
+			// Add Given Order email.
+			add_action( 'woocommerce_email_classes', array( $this, 'add_emails' ), 20, 1 );
 
-				// Includes.
-				add_action( 'init', array( $this, 'includes' ) );
-			}
+			// Add screen id.
+			add_filter( 'woocommerce_screen_ids', array( $this, 'woocommerce_screen_ids' ) );
+
+			// Includes.
+			add_action( 'init', array( $this, 'includes' ) );
 		}
 
 		/**
@@ -175,80 +189,49 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 				wp_kses_post( __( '<b>Select a user</b> by typing their display name, email address or user ID here:', 'woocommerce-give-products' ) )
 			);
 
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-				?>
-				<select id="user_id" style="width: 50%;" class="wc-customer-search" name="user_id" data-allow_clear="true" data-placeholder="<?php esc_attr_e( 'Search for a user', 'woocommerce-give-products' ); ?>">
+			?>
+			<select id="user_id" style="width: 50%;" class="wc-customer-search" name="user_id" data-allow_clear="true" data-placeholder="<?php esc_attr_e( 'Search for a user', 'woocommerce-give-products' ); ?>">
 				<?php
-					if ( isset( $_GET['user_id'] ) ) {
-						$user = get_user_by( 'ID', intval( $_GET['user_id'] ) );
-						if ( $user ) {
-							echo '<option value="' . esc_attr( intval( $user->data->ID ) ) . '" selected="selected">' . esc_html( $user->data->display_name ) . '</option>' . "\n";
-						}
+				if ( isset( $_GET['user_id'] ) ) {
+					$user = get_user_by( 'ID', intval( $_GET['user_id'] ) );
+					if ( $user ) {
+						echo '<option value="' . esc_attr( intval( $user->data->ID ) ) . '" selected="selected">' . esc_html( $user->data->display_name ) . '</option>' . "\n";
 					}
+				}
 				?>
-				</select>
-				<?php
-			} else {
-				?>
-				<input type="hidden" class="wc-customer-search" id="user_id" name="user_id" data-placeholder="<?php _e( 'Search for a user', 'woocommerce-give-products' ); ?>" value="" data-allow_clear="true" style="max-width: 400px;" />
-				<?php
-			}
+			</select>
+			<?php
 
 			echo '<p>' . wp_kses_post( __( '<b>Select products</b> by typing in their names, variation details or IDs here (you can select as many products as you like):', 'woocommerce-give-products' ) ) . '</p>';
 
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-				?>
-				<select class="wc-product-search" multiple="multiple" style="width: 50%;" name="products[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-give-products' ); ?>" data-allow_clear="true" data-action="woocommerce_json_search_products_and_variations">
+			?>
+			<select class="wc-product-search" multiple="multiple" style="width: 50%;" name="products[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-give-products' ); ?>" data-allow_clear="true" data-action="woocommerce_json_search_products_and_variations">
 				<?php
-					if ( isset( $_GET['products'] ) ) {
-						$product_ids = is_array( $_GET['products'] ) ? $_GET['products'] : explode( ',', $_GET['products'] );
-						$products    = array_map( 'intval', $product_ids );
-						foreach ( $products as $k => $product_id ) {
-							$product = wc_get_product( $product_id );
-							if ( is_object( $product ) ) {
-								echo '<option value="' . esc_attr( $product->get_id() ) . '" selected="selected">' . esc_html( $product->get_title() ) . '</option>' . "\n";
-							}
+				if ( isset( $_GET['products'] ) ) {
+					$product_ids = is_array( $_GET['products'] ) ? $_GET['products'] : explode( ',', $_GET['products'] );
+					$products    = array_map( 'intval', $product_ids );
+					foreach ( $products as $k => $product_id ) {
+						$product = wc_get_product( $product_id );
+						if ( is_object( $product ) ) {
+							echo '<option value="' . esc_attr( $product->get_id() ) . '" selected="selected">' . esc_html( $product->get_title() ) . '</option>' . "\n";
 						}
 					}
+				}
 				?>
-				</select>
-				<?php
-			} else {
-				?>
-				<input type="hidden" class="wc-product-search" id="product_list" name="products[]" data-multiple="true" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-give-products' ); ?>" value="" data-allow_clear="true" style="max-width: 400px;" />
-				<?php
-			}
+			</select>
+			<?php
 
 			wp_nonce_field( 'give_products', 'give_products_nonce' );
 
 			echo '<p><input type="submit" value="' . __( 'Give product(s)', 'woocommerce-give-products' ) . '" class="button-primary"/></p>
 				</form>
 			</div>';
-
-			if ( version_compare( WC_VERSION, '2.3', '<' ) ) {
-				$give_products_vars = array(
-					'admin_ajax_url' => admin_url( 'admin-ajax.php' ),
-					'nonce'          => wp_create_nonce( 'search-customers' ),
-				);
-
-				// Make sure we detect preset user and product IDs, and pass them through.
-				if ( isset( $_GET['user_id'] ) ) {
-					$give_products_vars['user_id'] = intval( $_GET['user_id'] );
-				}
-
-				if ( isset( $_GET['products'] ) ) {
-					$give_products_vars['products'] = implode( ',', array_map( 'intval', explode( ',', $_GET['products'] ) ) );
-				}
-
-				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-				wp_enqueue_script( 'give-products', plugins_url( 'assets/js/give-products' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_GIVE_PRODUCTS_VERSION, true );
-				wp_localize_script( 'give-products', 'giveProducts', $give_products_vars );
-			}
 		}
 
 		/**
-		 * Set order address details, for use with the WooCommerce 2.6 compatibility.
+		 * Set order address details.
+		 *
+		 * @since 1.2.0 Removed backwards compatibility with WooCommerce 2.6.
 		 *
 		 * @param object $order
 		 * @param int $user_id
@@ -280,44 +263,13 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 
 			$meta_values = get_user_meta( intval( $user_id ) );
 
-			/*
-			 * Backwards compatibility for WooCommerce 2.6. Note: This method works with 3.0
-			 * and higher as well, yet should not be used, in favour of the CRUD helpers in the "else" clause.
-			 */
-			if ( version_compare( '3.0', WC_VERSION, '<' ) ) {
-				$billing_address = array();
-				$shipping_address = array();
-
-				foreach ( $keys as $k ) {
-					if (
-						isset( $meta_values[ $k ] ) &&
-						false !== strpos( $k, 'billing_' )
-					) {
-						$index = str_replace( 'billing_', '', $k );
-						$billing_address[ $index ] = $meta_values[ $k ][0];
-					}
-
-					if (
-						isset( $meta_values[ $k ] ) &&
-						false !== strpos( $k, 'shipping_' )
-					) {
-						$index = str_replace( 'shipping_', '', $k );
-						$shipping_address[ $index ] = $meta_values[ $k ][0];
-					}
+			foreach ( $keys as $k ) {
+				if ( isset( $meta_values[ $k ] ) && method_exists( $order, 'set_' . $k ) ) {
+					call_user_func_array( array( $order, 'set_' . $k ), array( $meta_values[ $k ][0] ) );
 				}
-
-				$order->set_address( $billing_address, 'billing' );
-				$order->set_address( $shipping_address, 'shipping' );
-			} else {
-				// WooCommerce 3.0 and beyond, using CRUD helpers.
-				foreach ( $keys as $k ) {
-					if ( isset( $meta_values[ $k ] ) && method_exists( $order, 'set_' . $k ) ) {
-						call_user_func_array( array( $order, 'set_' . $k ), array( $meta_values[ $k ][0] ) );
-					}
-				}
-
-				$order->save();
 			}
+
+			$order->save();
 		}
 
 		/**
@@ -330,30 +282,23 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 		public function create_order( $user_id, $products ) {
 			global $woocommerce;
 
-			// Get customer info.
-			$user = get_userdata( $user_id );
-
 			if ( ! empty( $products ) ) {
 
 				// Create new order.
-				$args = array(
-					'customer_id'   => $user_id,
+				$order = wc_create_order(
+					array(
+						'customer_id' => $user_id,
+					)
 				);
-				$order = wc_create_order( $args );
 
-				if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-					$order_id = $order->get_id();
-					$products = ! empty( $products ) ? $products : array();
-				} else {
-					$order_id = $order->id;
-					$products = isset( $products[0] ) ? explode( ',', $products[0] ) : array();
-				}
+				$order_id = $order->get_id();
 
 				// Set the billing and shipping address details, if they exist for the selected customer.
 				$this->maybe_set_order_address_details( $order, $user_id );
 
-				// Set _given_order post meta to true.
-				update_post_meta( $order_id, '_wcgp_given_order', 'yes' );
+				// Set _given_order order meta to true.
+				$order->update_meta_data( '_wcgp_given_order', 'yes' );
+				$order->save();
 
 				// Track the order status - if we have products that need to be shipped we should change this to processing.
 				$order_status = 'completed';
@@ -371,7 +316,7 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 							'order_item_name' => $product->get_title(),
 						);
 						$item_id           = wc_add_order_item( $order_id, $item );
-						$price_without_tax = version_compare( WC_VERSION, '3.0', '<' ) ? $product->get_price_excluding_tax() : wc_get_price_excluding_tax( $product );
+						$price_without_tax = wc_get_price_excluding_tax( $product );
 
 						$product_id = $product->get_id();
 						if ( is_callable( array( $product, 'get_type' ) ) && $product->get_type() === 'variation' ) {
@@ -382,7 +327,7 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 						wc_add_order_item_meta( $item_id, '_qty', 1 );
 						wc_add_order_item_meta( $item_id, '_tax_class', $product->get_tax_class() );
 						wc_add_order_item_meta( $item_id, '_product_id', $product_id );
-						wc_add_order_item_meta( $item_id, '_variation_id', ( version_compare( WC_VERSION, '3.0', '<' ) && isset( $product->variation_id ) ) ? $product->variation_id : $product->get_id() );
+						wc_add_order_item_meta( $item_id, '_variation_id', $product->get_id() );
 						wc_add_order_item_meta( $item_id, '_line_subtotal', wc_format_decimal( $price_without_tax ) );
 						wc_add_order_item_meta( $item_id, '_line_subtotal_tax', '' );
 						wc_add_order_item_meta( $item_id, '_line_total', wc_format_decimal( 0 ) );
@@ -418,11 +363,7 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 				// Add a note that this product was gifted.
 				$order->add_order_note( __( 'This order was gifted.', 'woocommerce-give-products' ) );
 
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$order->reduce_order_stock();
-				} else {
-					wc_reduce_stock_levels( $order->get_id() );
-				}
+				wc_reduce_stock_levels( $order->get_id() );
 
 				// Give download permissions.
 				wc_downloadable_product_permissions( $order_id );
@@ -509,7 +450,8 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 		 */
 		public function display_given_status( $order_id ) {
 			if ( $order_id ) {
-				if ( 'yes' === get_post_meta( $order_id, '_wcgp_given_order', true ) ) {
+				$order = wc_get_order( $order_id );
+				if ( 'yes' === $order->get_meta( '_wcgp_given_order' ) ) {
 					/* translators: 1: blog info name */
 					echo "<div class='given_order'>" . sprintf( esc_html__( 'The products in this order were given to you by %s.', 'woocommerce-give-products' ), get_bloginfo( 'name' ) ) . '</div>';
 				}
@@ -525,13 +467,7 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 		 */
 		public function display_given_status_admin( $order ) {
 			if ( $order ) {
-				if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-					$order_id = $order->get_id();
-				} else {
-					$order_id = $order->id;
-				}
-
-				if ( 'yes' === get_post_meta( $order_id, '_wcgp_given_order', true ) ) {
+				if ( 'yes' === $order->get_meta( '_wcgp_given_order' ) ) {
 					echo "<p class='form-field form-field-wide'>" . esc_html__( 'This order was given free of charge', 'woocommerce-give-products' ) . '</p>';
 				}
 			}
@@ -655,20 +591,19 @@ if ( ! class_exists( 'WC_Give_Products' ) ) {
 		}
 
 		/**
-		 * Return an instance of this class.
+		 * Returns the instance of this class.
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.2.0
 		 *
 		 * @return object A single instance of this class.
-		 * @since  1.0
 		 */
 		public static function get_instance() {
-			// If the single instance hasn't been set, set it now.
-			if ( null === self::$instance ) {
-				self::$instance = new self();
-			}
+			wc_deprecated_function( __FUNCTION__, '1.2.0', 'WC_Give_Products::instance()' );
 
-			return self::$instance;
+			return self::instance();
 		}
 	}
 } // End if.
 
-add_action( 'plugins_loaded', array( 'WC_Give_Products', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'WC_Give_Products', 'instance' ) );

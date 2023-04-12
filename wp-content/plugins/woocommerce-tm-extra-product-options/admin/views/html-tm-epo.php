@@ -43,18 +43,18 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 		];
 
 		if ( ! isset( $tmepos ) ) {
-				$args   = [
-					'post_type'   => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
-					'post_status' => [ 'private', 'publish' ],
-					'numberposts' => -1,
-					'orderby'     => 'menu_order',
-					'order'       => 'asc',
-					'post_parent' => $post_id,
-				];
-				$tmepos = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
+			$args   = [
+				'post_type'   => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
+				'post_status' => [ 'private', 'publish' ],
+				'numberposts' => -1,
+				'orderby'     => 'menu_order',
+				'order'       => 'asc',
+				'post_parent' => $post_id,
+			];
+			$tmepos = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 		}
 
-		if ( isset( $tmepos ) && $tmepos ) {
+		if ( $tmepos ) {
 			// Get variations.
 			$args       = [
 				'post_type'   => 'product_variation',

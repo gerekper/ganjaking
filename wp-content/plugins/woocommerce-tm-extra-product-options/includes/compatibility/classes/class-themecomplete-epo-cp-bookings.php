@@ -180,6 +180,8 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 
 			wp_enqueue_script( 'themecomplete-comp-bookings', THEMECOMPLETE_EPO_COMPATIBILITY_URL . 'assets/js/cp-bookings.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			$args = [
+				'booking_person_qty_multiplier'        => $booking_has_person_cost_multiplier,
+				'booking_block_qty_multiplier'         => $booking_has_person_qty_multiplier,
 				'wc_booking_person_qty_multiplier'     => $tm_epo_bookings_person,
 				'wc_booking_block_qty_multiplier'      => $tm_epo_bookings_block,
 				'wc_bookings_add_options_display_cost' => THEMECOMPLETE_EPO()->tm_epo_bookings_add_options_display_cost,
@@ -390,7 +392,13 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 		$person   = ( ! empty( $cart_item['booking']['_persons'] ) && array_sum( $cart_item['booking']['_persons'] ) ) ? array_sum( $cart_item['booking']['_persons'] ) : 0;
 		$duration = ! empty( $cart_item['booking']['_duration'] ) ? $cart_item['booking']['_duration'] : 0;
 
-		$c = $person + $duration;
+		$c = 0;
+		if ( $wc_booking_person_qty_multiplier ) {
+			$c = $person + $c;
+		}
+		if ( $wc_booking_block_qty_multiplier ) {
+			$c = $duration + $c;
+		}
 		if ( ! empty( $c ) ) {
 			$price = $c * $price;
 		}
@@ -416,30 +424,10 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 			if ( isset( $_POST['form'] ) ) {
 				$posted = [];
 				parse_str( wp_unslash( $_POST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				if ( isset( $cart_item_meta['associated_uniqid'] ) ) {
-					$associated_formprefix = $cart_item_meta['associated_formprefix'];
-					if ( isset( $cart_item_meta['associated_element_name'] ) && isset( $_POST[ $cart_item_meta['associated_element_name'] . '_counter' ] ) ) {
-						$associated_formprefix = $cart_item_meta['associated_formprefix'] . wp_unslash( $_POST[ $cart_item_meta['associated_element_name'] . '_counter' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					}
-					if ( isset( $_POST[ 'cpf_product_price' . $associated_formprefix ] ) ) {
-						$posted[ 'cpf_product_price' . $associated_formprefix ] = $booking_cost;
-					}
-				} else {
-					$posted['cpf_product_price'] = $booking_cost;
-				}
+				$posted['cpf_product_price'] = $booking_cost;
 			} else {
-				if ( isset( $cart_item_meta['associated_uniqid'] ) ) {
-					$associated_formprefix = $cart_item_meta['associated_formprefix'];
-					if ( isset( $cart_item_meta['associated_element_name'] ) && isset( $_POST[ $cart_item_meta['associated_element_name'] . '_counter' ] ) ) {
-						$associated_formprefix = $cart_item_meta['associated_formprefix'] . wp_unslash( $_POST[ $cart_item_meta['associated_element_name'] . '_counter' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					}
-					if ( isset( $_POST[ 'cpf_product_price' . $associated_formprefix ] ) ) {
-						$_POST[ 'cpf_product_price' . $associated_formprefix ] = $booking_cost;
-					}
-				} else {
-					$_POST['cpf_product_price'] = $booking_cost;
-				}
-				$posted = $_POST;
+				$_POST['cpf_product_price'] = $booking_cost;
+				$posted                     = $_POST;
 			}
 		}
 

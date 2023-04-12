@@ -34,9 +34,20 @@ class WC_Account_Funds_Widget extends WP_Widget {
 		}
 		?>
 		<div class="woocommerce woocommerce-account-funds">
-			<p><?php printf( __( 'You currently have <strong>%s</strong> worth of funds in your account.', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() ); ?></p>
+			<p>
+				<?php
+				echo wp_kses_post(
+					sprintf(
+						/* translators: 1: funds amount, 2: funds name */
+						__( 'You currently have <strong>%1$s</strong> worth of %2$s in your account.', 'woocommerce-account-funds' ),
+						WC_Account_Funds::get_account_funds(),
+						wc_get_account_funds_name()
+					)
+				);
+				?>
+			</p>
 
-			<p><a class="button" href="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ) . '/' . get_option( 'woocommerce_myaccount_account_funds_endpoint', 'account-funds' ); ?>"><?php _e( 'Deposit Funds', 'woocommerce-account-funds' ); ?></a></p>
+			<p><a class="button" href="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ) . '/' . get_option( 'woocommerce_myaccount_account_funds_endpoint', 'account-funds' ); ?>"><?php _e( 'View deposits', 'woocommerce-account-funds' ); ?></a></p>
 		</div>
 		<?php
 		echo $after_widget;
@@ -58,7 +69,11 @@ class WC_Account_Funds_Widget extends WP_Widget {
 		if ( isset( $instance['title'] ) ) {
 			$title = $instance['title'];
 		} else {
-			$title = __( 'My Account Funds', 'woocommerce-account-funds' );
+			$title = sprintf(
+				/* translators: %s: funds name */
+				__( 'My %s', 'woocommerce-account-funds' ),
+				wc_get_account_funds_name()
+			);
 		}
 		?>
 		<p>

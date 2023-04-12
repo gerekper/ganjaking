@@ -113,7 +113,7 @@ if ( isset( $variations )
 							* $key_variation = variation
 							* $price = price
 							*/
-							if ( ! is_array( $_regular_price_type ) ) {
+							if ( ! isset( $_regular_price_type ) || ! is_array( $_regular_price_type ) ) {
 								$_regular_price_type = [];
 							}
 							foreach ( $_regular_price as $key_attribute => $value ) {
@@ -181,7 +181,7 @@ if ( isset( $variations )
 						* $key_variation = variation
 						* $price = price
 						*/
-						if ( ! is_array( $_regular_price_type ) ) {
+						if ( ! isset( $_regular_price_type ) || ! is_array( $_regular_price_type ) ) {
 							$_regular_price_type = [];
 						}
 						foreach ( $_regular_price as $key_attribute => $value ) {

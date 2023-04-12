@@ -89,7 +89,7 @@ class WC_AM_Order_Admin {
 		if ( is_object( $order ) ) {
 			if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 				?>
-                <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
+				<p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
 			} else {
 				$user_id = WC_AM_API_RESOURCE_DATA_STORE()->get_user_id_by_order_id( $order->get_id() );
@@ -105,11 +105,11 @@ class WC_AM_Order_Admin {
 
 				if ( ! empty( $mak ) ) {
 					?>
-                    <div class="api_order_licence_keys wc-metaboxes-wrapper">
+					<div class="api_order_licence_keys wc-metaboxes-wrapper">
 						<?php
 						include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-master-api-key.php' );
 						?>
-                    </div>
+					</div>
 					<?php
 				} else {
 					?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
@@ -132,7 +132,7 @@ class WC_AM_Order_Admin {
 		if ( is_object( $order ) ) {
 			if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 				?>
-                <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
+				<p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
 			} else {
 				$resources           = array();
@@ -163,7 +163,7 @@ class WC_AM_Order_Admin {
 
 				if ( ! empty( $resources ) ) {
 					?>
-                    <div class="api_order_licence_keys wc-metaboxes-wrapper">
+					<div class="api_order_licence_keys wc-metaboxes-wrapper">
 						<?php
 						$i = 0;
 
@@ -181,38 +181,38 @@ class WC_AM_Order_Admin {
 								// Update Access Expires
 								if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
 									?>
-                                    <input type="hidden" id="current_access_expires[<?php echo $i; ?>]" name="current_access_expires[<?php echo $i; ?>]"
-                                           value="<?php echo $resource->access_expires ?>">
+									<input type="hidden" id="current_access_expires[<?php echo $i; ?>]" name="current_access_expires[<?php echo $i; ?>]"
+									       value="<?php echo $resource->access_expires ?>">
 									<?php
 									ob_start();
 									?>
-                                    /* Datepicker for Access Expires */
-                                    jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
-                                    showOn: "button",
-                                    buttonImage: '<?php echo WCAM()->plugin_url() . 'includes/assets/images/calendar.gif' ?>',
-                                    buttonImageOnly: true,
-                                    buttonText: "Add More Time",
-                                    dateFormat: 'yy-mm-dd',
-                                    numberOfMonths: 1,
-                                    showButtonPanel: true,
-                                    minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date( $resource->access_expires ) ?>',
-                                    onSelect: function(datetext) {
-                                    var d = new Date(); // for now
+									/* Datepicker for Access Expires */
+									jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
+									showOn: "button",
+									buttonImage: '<?php echo WCAM()->plugin_url() . 'includes/assets/images/calendar.gif' ?>',
+									buttonImageOnly: true,
+									buttonText: "Add More Time",
+									dateFormat: 'yy-mm-dd',
+									numberOfMonths: 1,
+									showButtonPanel: true,
+									minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date( $resource->access_expires ) ?>',
+									onSelect: function(datetext) {
+									var d = new Date(); // for now
 
-                                    var h = d.getHours();
-                                    h = (h < 10) ? ("0" + h) : h ;
+									var h = d.getHours();
+									h = (h < 10) ? ("0" + h) : h ;
 
-                                    var m = d.getMinutes();
-                                    m = (m < 10) ? ("0" + m) : m ;
+									var m = d.getMinutes();
+									m = (m < 10) ? ("0" + m) : m ;
 
-                                    var s = d.getSeconds();
-                                    s = (s < 10) ? ("0" + s) : s ;
+									var s = d.getSeconds();
+									s = (s < 10) ? ("0" + s) : s ;
 
-                                    datetext = datetext + " " + h + ":" + m + ":" + s;
+									datetext = datetext + " " + h + ":" + m + ":" + s;
 
-                                    jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).val(datetext);
-                                    }
-                                    });
+									jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).val(datetext);
+									}
+									});
 									<?php
 									/*
 									 * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
@@ -226,31 +226,31 @@ class WC_AM_Order_Admin {
 							}
 						}
 						?>
-                    </div>
+					</div>
 					<?php
 					/**
 					 * Javascript
 					 */
 					ob_start();
 					?>
-                    /**
-                    * Expand API Key Text Input on mouseover
-                    */
-                    jQuery('.am_expand_text_box').mouseenter(function(){
-                    var $this = jQuery(this);
-                    if (!$this.data('expand')) {
-                    $this.data('expand', true);
-                    $this.animate({width:'+=140',left:'-=6px'}, 'linear');
-                    $this.siblings('.s').animate({width:'-=140',left:'+=6px'}, 'linear')
-                    }
-                    $this.focus();
-                    $this.select();
-                    }).mouseleave(function(){
-                    var $this = jQuery(this);
-                    $this.data('expand', false);
-                    $this.animate({width:'-=140',left:'+=6px'}, 'linear');
-                    $this.siblings('.s').animate({width:'+=140',left:'-=6px'}, 'linear')
-                    });
+					/**
+					* Expand API Key Text Input on mouseover
+					*/
+					jQuery('.am_expand_text_box').mouseenter(function(){
+					var $this = jQuery(this);
+					if (!$this.data('expand')) {
+					$this.data('expand', true);
+					$this.animate({width:'+=140',left:'-=6px'}, 'linear');
+					$this.siblings('.s').animate({width:'-=140',left:'+=6px'}, 'linear')
+					}
+					$this.focus();
+					$this.select();
+					}).mouseleave(function(){
+					var $this = jQuery(this);
+					$this.data('expand', false);
+					$this.animate({width:'-=140',left:'+=6px'}, 'linear');
+					$this.siblings('.s').animate({width:'+=140',left:'-=6px'}, 'linear')
+					});
 
 					<?php
 					$javascript = ob_get_clean();
@@ -288,7 +288,7 @@ class WC_AM_Order_Admin {
 		if ( is_object( $order ) ) {
 			if ( ! WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 				?>
-                <p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
+				<p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
 			} else {
 				$activation_resources  = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order->get_id() );
@@ -299,7 +299,7 @@ class WC_AM_Order_Admin {
 				 */
 				if ( ! empty( $activation_resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $activation_resources[ 0 ]->sub_parent_id != $order->get_id() ) {
 					?>
-                    <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
+					<p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
 					<?php
 				} elseif ( ! empty( $activation_resources ) ) {
 					include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-activations.php' );
@@ -308,66 +308,66 @@ class WC_AM_Order_Admin {
 					 */
 					ob_start();
 					?>
-                    jQuery( '#activations-table' ).on( 'click', 'button.delete_api_key', function( e ){
-                    e.preventDefault();
+					jQuery( '#activations-table' ).on( 'click', 'button.delete_api_key', function( e ){
+					e.preventDefault();
 
-                    var answer = confirm('<?php echo esc_js( __( 'Are you sure you want to delete this activation?', 'woocommerce-api-manager' ) ); ?>');
+					var answer = confirm('<?php echo esc_js( __( 'Are you sure you want to delete this activation?', 'woocommerce-api-manager' ) ); ?>');
 
-                    if ( answer ){
-                    var el              = jQuery( this ).parent().parent();
-                    var instance        = jQuery( this ).attr( 'instance' );
-                    var order_id        = jQuery( this ).attr( 'order_id' );
-                    var sub_parent_id   = jQuery( this ).attr( 'sub_parent_id' );
-                    var api_key         = jQuery( this ).attr( 'api_key' );
-                    var product_id      = jQuery( this ).attr( 'product_id' );
-                    var user_id         = jQuery( this ).attr( 'user_id' );
+					if ( answer ){
+					var el              = jQuery( this ).parent().parent();
+					var instance        = jQuery( this ).attr( 'instance' );
+					var order_id        = jQuery( this ).attr( 'order_id' );
+					var sub_parent_id   = jQuery( this ).attr( 'sub_parent_id' );
+					var api_key         = jQuery( this ).attr( 'api_key' );
+					var product_id      = jQuery( this ).attr( 'product_id' );
+					var user_id         = jQuery( this ).attr( 'user_id' );
 
-                    if ( instance ) {
-                    jQuery(el).block({
-                    message: null,
-                    overlayCSS: {
-                    background: '#fff',
-                    opacity: 0.6
-                    }
-                    });
+					if ( instance ) {
+					jQuery(el).block({
+					message: null,
+					overlayCSS: {
+					background: '#fff',
+					opacity: 0.6
+					}
+					});
 
-                    var data = {
-                    action:         'wc_api_manager_delete_activation',
-                    instance:       instance,
-                    order_id:       order_id,
-                    sub_parent_id:  sub_parent_id,
-                    api_key:        api_key,
-                    product_id:     product_id,
-                    user_id:        user_id,
-                    security:       '<?php echo wp_create_nonce( "am-delete-activation" ); ?>'
-                    };
+					var data = {
+					action:         'wc_api_manager_delete_activation',
+					instance:       instance,
+					order_id:       order_id,
+					sub_parent_id:  sub_parent_id,
+					api_key:        api_key,
+					product_id:     product_id,
+					user_id:        user_id,
+					security:       '<?php echo wp_create_nonce( "am-delete-activation" ); ?>'
+					};
 
-                    jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function( response ) {
-                    // Success
-                    jQuery(el).fadeOut('300', function(){
-                    jQuery(el).remove();
-                    });
+					jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function( response ) {
+					// Success
+					jQuery(el).fadeOut('300', function(){
+					jQuery(el).remove();
+					});
 
-                    location.reload(true);
-                    });
+					location.reload(true);
+					});
 
-                    } else {
-                    jQuery( el ).fadeOut('300', function(){
-                    jQuery( el ).remove();
-                    });
-                    }
+					} else {
+					jQuery( el ).fadeOut('300', function(){
+					jQuery( el ).remove();
+					});
+					}
 
-                    }
+					}
 
-                    return false;
-                    });
+					return false;
+					});
 
 					<?php
 					$javascript = ob_get_clean();
 					WCAM()->wc_am_print_js( $javascript );
 				} else {
 					?>
-                    <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
+					<p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
 					<?php
 				}
 			}
@@ -465,15 +465,17 @@ class WC_AM_Order_Admin {
 				 * Update access_expires
 				 *
 				 * @since 2.4
+				 * @update 2.6.5 to calculate new access expires according to minutes and seconds that match order created time.
 				 */
 				if ( isset( $_POST[ 'access_expires' ] ) && isset( $_POST[ 'current_access_expires' ] ) && ! empty( $_POST[ 'current_access_expires' ][ $i ] ) ) {
-					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_no_timezone_offset( $_POST[ 'access_expires' ][ $i ] );
+					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( $_POST[ 'access_expires' ][ $i ] );
 					$current_access_expires_timestamp = $_POST[ 'current_access_expires' ][ $i ];
 					$order_created_time               = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $post_id );
 
-					if ( $current_access_expires_timestamp != $order_created_time && $new_access_expires != $current_access_expires_timestamp ) {
+					if ( $current_access_expires_timestamp != $order_created_time && $new_access_expires > $current_access_expires_timestamp ) {
+
 						$data = array(
-							'access_expires' => $new_access_expires
+							'access_expires' => ( ( absint( $new_access_expires / DAY_IN_SECONDS ) - absint( $order_created_time / DAY_IN_SECONDS ) ) * DAY_IN_SECONDS ) + $order_created_time
 						);
 
 						$where = array(

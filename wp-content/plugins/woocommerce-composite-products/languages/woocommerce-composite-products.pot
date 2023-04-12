@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.7.4\n"
+"Project-Id-Version: WooCommerce Composite Products 8.7.5\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-14T12:48:17+00:00\n"
+"POT-Creation-Date: 2023-04-10T08:44:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -2229,75 +2229,75 @@ msgstr ""
 msgid "Update Cart"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2419
+#: includes/class-wc-product-composite.php:2421
 msgid "Use defaults"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2420
+#: includes/class-wc-product-composite.php:2422
 msgid "Displays the price of the default configuration. Requires <strong>Default Option</strong> to be set in all non-optional Components."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2423
+#: includes/class-wc-product-composite.php:2425
 msgid "Calculate from/to"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2424
+#: includes/class-wc-product-composite.php:2426
 msgid "Builds a price string based on the configuration with the lowest/highest price."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2427
+#: includes/class-wc-product-composite.php:2429
 msgid "Hide"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2428
+#: includes/class-wc-product-composite.php:2430
 msgid "Hides the catalog price."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2446
+#: includes/class-wc-product-composite.php:2448
 msgid "Default"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2447
+#: includes/class-wc-product-composite.php:2449
 msgid "The add-to-cart form is displayed inside the single-product summary."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2450
+#: includes/class-wc-product-composite.php:2452
 msgid "Before Tabs"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2451
+#: includes/class-wc-product-composite.php:2453
 msgid "The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2469
+#: includes/class-wc-product-composite.php:2471
 msgid "Stacked"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2470
+#: includes/class-wc-product-composite.php:2472
 msgid "Components are stacked."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2474
+#: includes/class-wc-product-composite.php:2476
 msgid "Progressive"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2475
+#: includes/class-wc-product-composite.php:2477
 msgid "Components are stacked, wrapped in toggle-boxes and configured in sequence."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2479
+#: includes/class-wc-product-composite.php:2481
 msgid "Stepped"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2480
+#: includes/class-wc-product-composite.php:2482
 msgid "Components are viewed and configured step-by-step. The configuration is summarized in a final Review step."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2487
+#: includes/class-wc-product-composite.php:2489
 msgid "Componentized"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2488
+#: includes/class-wc-product-composite.php:2490
 msgid "A variation of the Stepped layout that starts with a configuration Summary. Components can be configured in any sequence."
 msgstr ""
 

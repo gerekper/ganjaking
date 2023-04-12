@@ -15,9 +15,14 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 		$this->id                 = 'accountfunds';
-		$this->method_title       = __( 'Account Funds', 'woocommerce-account-funds' );
-		$this->method_description = __( 'This gateway takes full payment using a logged in user\'s account funds.', 'woocommerce-account-funds' );
-		$this->supports           = array(
+		$this->method_title       = wc_get_account_funds_name();
+		$this->method_description = sprintf(
+			/* translators: %s: Payment gateway title */
+			__( 'This gateway takes full payment using a logged-in user\'s %s.', 'woocommerce-account-funds' ),
+			$this->method_title
+		);
+
+		$this->supports = array(
 			'products',
 			'refunds',
 			'subscriptions',
@@ -31,23 +36,12 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			'subscription_payment_method_change_admin',
 		);
 
-		// Load the form fields.
-		$this->init_form_fields();
-
 		// Load the settings.
+		$this->init_form_fields();
 		$this->init_settings();
 
-		$this->title = $this->settings['title'];
-
-		$description = sprintf( __( 'Available balance: %s', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() );
-
-		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-			$amount       = get_option( 'account_funds_discount_amount', 0 );
-			$amount       = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) : $amount . '%';
-			$description .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $amount ) . '</em>';
-		}
-
-		$this->description = $description;
+		// Define user set variables.
+		$this->title = $this->get_method_title();
 
 		// Subscriptions.
 		add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'process_subscription_payment' ), 10, 2 );
@@ -58,6 +52,109 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 
 		// Make sure this class is loaded before using any methods that depend on it.
 		include_once __DIR__ . '/class-wc-account-funds-cart-manager.php';
+	}
+
+	/**
+	 * Gets the default gateway's description.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return string
+	 */
+	public function get_default_description() {
+		return _x( 'Available balance: {funds_amount}', 'payment gateway description', 'woocommerce-account-funds' );
+	}
+
+	/**
+	 * Gets the gateway's description.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return string
+	 */
+	public function get_description() {
+		// Initialize the description on demand.
+		if ( ! $this->description ) {
+			$description = $this->get_option( 'description', $this->get_default_description() );
+
+			// Replace placeholder by the real value.
+			$description = str_replace( '{funds_amount}', WC_Account_Funds::get_account_funds(), $description );
+
+			if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
+				$amount = get_option( 'account_funds_discount_amount', 0 );
+				$amount = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) : $amount . '%';
+
+				$description .= '<br/><em>';
+				$description .= sprintf(
+					/* translators: 1: funds name, 2: funds amount */
+					_x( 'Use your %1$s and get a %2$s discount on your order.', 'payment gateway description', 'woocommerce-account-funds' ),
+					wc_get_account_funds_name(),
+					$amount
+				);
+				$description .= '</em>';
+			}
+
+			$this->description = $description;
+		}
+
+		return parent::get_description();
+	}
+
+	/**
+	 * Init form fields.
+	 *
+	 * @since 2.0.0
+	 */
+	public function init_form_fields() {
+		// phpcs:disable WordPress.WP.I18n.TextDomainMismatch
+		$this->form_fields = array(
+			'enabled'     => array(
+				'title'   => __( 'Enable/Disable', 'woocommerce' ),
+				'type'    => 'checkbox',
+				'default' => 'yes',
+				'label'   => sprintf(
+					/* translators: %s: Payment gateway title */
+					__( 'Enable %s', 'woocommerce-account-funds' ),
+					$this->get_method_title()
+				),
+			),
+			'title'       => array(
+				'title'             => __( 'Title', 'woocommerce' ),
+				'type'              => 'text',
+				'desc_tip'          => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
+				'description'       => sprintf(
+					/* translators: %s: Funds name */
+					__( 'This value is defined by the %s setting.', 'woocommerce-account-funds' ),
+					'<strong>' . __( 'Funds name', 'woocommerce-account-funds' ) . '</strong>'
+				),
+				'custom_attributes' => array(
+					'disabled' => 'disabled',
+				),
+			),
+			'description' => array(
+				'title'       => __( 'Description', 'woocommerce' ),
+				'type'        => 'textarea',
+				'description' => sprintf(
+					'%1$s %2$s',
+					__( 'Payment method description that the customer will see on your checkout.', 'woocommerce' ),
+					wc_account_funds_get_placeholder_text( array( '{funds_amount}' ) )
+				),
+				'placeholder' => $this->get_default_description(),
+				'desc_tip'    => true,
+			),
+		);
+		// phpcs:enable WordPress.WP.I18n.TextDomainMismatch
+	}
+
+	/**
+	 * Init settings.
+	 *
+	 * @since 2.8.0
+	 */
+	public function init_settings() {
+		parent::init_settings();
+
+		$this->settings['title'] = $this->method_title;
 	}
 
 	/**
@@ -114,26 +211,6 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Settings
-	 */
-	public function init_form_fields() {
-		$this->form_fields = array(
-			'enabled' => array(
-				'title'   => __( 'Enable/Disable', 'woocommerce-account-funds' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Enable', 'woocommerce-account-funds' ),
-				'default' => 'yes',
-			),
-			'title'   => array(
-				'title'       => __( 'Title', 'woocommerce-account-funds' ),
-				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-account-funds' ),
-				'default'     => __( 'Account Funds', 'woocommerce-account-funds' ),
-			),
-		);
-	}
-
-	/**
 	 * Process Payment.
 	 *
 	 * @param int $order_id Order ID.
@@ -159,7 +236,13 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		$available_funds = WC_Account_Funds::get_account_funds( $order->get_customer_id(), false, $order_id );
 
 		if ( $available_funds < $order_total ) {
-			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . __( 'Insufficient account balance', 'woocommerce-account-funds' ), 'error' );
+			$message = sprintf(
+				/* translators: %s funds name */
+				_x( 'Insufficient %s amount.', 'payment error', 'woocommerce-account-funds' ),
+				wc_get_account_funds_name()
+			);
+
+			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . $message, 'error' );
 			return array( 'result' => 'error' );
 		}
 
@@ -205,7 +288,9 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			if ( $order_total > $funds ) {
 				throw new Exception(
 					sprintf(
-						__( 'Insufficient funds (amount to pay = %1$s; available funds = %2$s).', 'woocommerce-account-funds' ),
+						/* translators: 1: funds name, 2: amount required, 3: amount available */
+						_x( 'Insufficient %1$s amount. Required: %2$s; Available: %3$s).', 'payment error', 'woocommerce-account-funds' ),
+						wc_get_account_funds_name(),
 						wc_account_funds_format_order_price( $order, $order_total ),
 						wc_account_funds_format_order_price( $order, $funds )
 					)
@@ -219,8 +304,15 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			$order->update_meta_data( '_funds_version', WC_ACCOUNT_FUNDS_VERSION );
 			$order->save_meta_data();
 
-			/* translators: %s: funds used */
-			$order->add_order_note( sprintf( __( 'Account funds payment applied: %s', 'woocommerce-account-funds' ), wc_account_funds_format_order_price( $order, $order_total ) ) );
+			$order->add_order_note(
+				sprintf(
+					/* translators: 1: Payment gateway title, 2: Funds used */
+					_x( '%1$s payment applied: %2$s', 'order note', 'woocommerce-account-funds' ),
+					$this->get_method_title(),
+					wc_account_funds_format_order_price( $order, $order_total )
+				)
+			);
+
 			$order->payment_complete();
 		} catch ( Exception $e ) {
 			$order->add_order_note( $e->getMessage() );
@@ -255,9 +347,9 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		$order->add_order_note(
 			sprintf(
 				/* translators: 1: Refund amount, 2: Payment gateway title */
-				__( 'Refunded %1$s via %2$s.', 'woocommerce-account-funds' ),
+				_x( 'Refunded %1$s via %2$s.', 'order note', 'woocommerce-account-funds' ),
 				wc_account_funds_format_order_price( $order, $amount ),
-				$this->method_title
+				$this->get_method_title()
 			)
 		);
 
@@ -316,7 +408,11 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			return $payment_method_to_display;
 		}
 
-		return sprintf( __( 'Via %s', 'woocommerce-account-funds' ), $this->method_title );
+		return sprintf(
+			/* translators: %s: Payment gateway title */
+			__( 'Via %s', 'woocommerce-account-funds' ),
+			$this->get_method_title()
+		);
 	}
 
 	/**

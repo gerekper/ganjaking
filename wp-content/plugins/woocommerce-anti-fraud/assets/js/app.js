@@ -214,6 +214,25 @@ jQuery(document).ready(function(){
         }
     })
 
+    /* Related to debug log */ 
+    if(jQuery('#wc_af_enable_log_check').is(':checked')){
+
+        jQuery('#debug_log_tbl').show();
+    } else {
+        jQuery('#debug_log_tbl').hide();
+    }
+
+    jQuery('#wc_af_enable_log_check').click(function (){
+       if(jQuery('#wc_af_enable_log_check').is(':checked')){
+           
+            jQuery('#debug_log_tbl').show();
+       } else {
+            jQuery('#debug_log_tbl').hide();
+       }
+
+    });
+    /* end to debug log */ 
+    
     /* Related to reCaptcha */
 
     var url = new URL(document.URL).searchParams;

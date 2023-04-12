@@ -93,7 +93,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				'minfraud_settings' => __( 'MinFraud Settings', 'woocommerce-anti-fraud' ),
 				'minfraud_insights_settings' => __( 'MinFraud Insights Settings', 'woocommerce-anti-fraud' ),
 				'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'woocommerce-anti-fraud' ),
-				'minfraud_recaptcha_settings' => __( 'Re-Captcha', 'woocommerce-anti-fraud' ),
+				'minfraud_recaptcha_settings' => __( 'reCAPTCHA', 'woocommerce-anti-fraud' ),
 				'need_support' => __('Need Support?', 'woocommerce-anti-fraud'),
 				);
 
@@ -422,7 +422,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'title'    => __('Facing an Issue with the plugin?', 'woocommerce-anti-fraud'),
 							'name' => __('Contact Our Support', 'woocommerce-anti-fraud'),
 							'type' => 'button',
-							'desc' => __('If you have any issues or feedback about Anti-Fraud plugin, we would loveo here from you!', 'woocommerce-anti-fraud'),
+							'desc' => __('If you have any issues or feedback about Anti-Fraud plugin, we would love to here from you!', 'woocommerce-anti-fraud'),
 							'class' => 'button-secondary',
 							'href'  => 'https://woocommerce.com/my-account/create-a-ticket/',
 							'id'	=> 'wc_af_contact_support',
@@ -454,37 +454,38 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					*/
 					$settings = apply_filters( 'myplugin_recaptcha_settings', array(
 						array(
-							'name'     => __( 'Google Re-Captcha Settings', 'woocommerce-anti-fraud' ),
+							'name'     => __( 'Google reCAPTCHA Settings', 'woocommerce-anti-fraud' ),
 							'type'     => 'title',
-							'desc'     => __( 'Click <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a> to know more.<hr/>', 'woocommerce-anti-fraud' ),
+							'desc'     => __( 'Click <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a> to register.
+								Activating reCAPTCHA will enable the service on your Checkout page, which is an effective means of reducing spam orders, particularly from velocity attacks ie. where spammers try multiple credit cards to test their validity.   If you continue to experience a high volume of spam orders after enabling this setting, please contact our Support team (<a href="mailto:support@opmc.biz" target="_top">support@opmc.biz</a>) .<hr/>', 'woocommerce-anti-fraud' ),
 							'id'       => 'wc_af_recaptch_settings',
 						),
 
 						array(
-							'title'       => __( 'Enable Re-Captcha', 'woocommerce-anti-fraud' ),
+							'title'       => __( 'Enable reCAPTCHA', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
 							'label'       => '',
 							'default'     => 'no',
-							'desc'        => __( 'Enable Re-Captcha on checkout page<br/>', 'woocommerce-anti-fraud' ),
+							'desc'        => __( 'Enable reCAPTCHA on checkout page<br/>', 'woocommerce-anti-fraud' ),
 							'id'          => 'wc_af_enable_recaptcha_checkout',
 						),
 
 						array(
-							'title'       => __( 'Enable v2 Re-Captcha', 'woocommerce-anti-fraud' ),
+							'title'       => __( 'Enable v2 reCAPTCHA', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
 							'label'       => '',
 							'default'     => 'no',
-							'desc'        => __( 'Enable v2 Re-Captcha<br/>', 'woocommerce-anti-fraud' ),
+							'desc'        => __( 'Enable v2 reCAPTCHA<br/>', 'woocommerce-anti-fraud' ),
 							'id'          => 'wc_af_enable_v2_recaptcha',
 							'class' => 'enable_recaptcha'
 						),
 
 						array(
-							'title'       => __( 'Enable v3 Re-Captcha', 'woocommerce-anti-fraud' ),
+							'title'       => __( 'Enable v3 reCAPTCHA', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
 							'label'       => '',
 							'default'     => 'no',
-							'desc'        => __( 'Enable v3 Re-Captcha<br/>', 'woocommerce-anti-fraud' ),
+							'desc'        => __( 'Enable v3 reCAPTCHA<br/>', 'woocommerce-anti-fraud' ),
 							'id'          => 'wc_af_enable_v3_recaptcha',
 							'class' => 'enable_recaptcha'
 						),
@@ -527,11 +528,11 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						),
 
 						/* array(
-							'title'       => __( 'Enable Re-Captcha', 'woocommerce-anti-fraud' ),
+							'title'       => __( 'Enable reCAPTCHA', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
 							'label'       => '',
 							'default'     => 'no',
-							'desc'        => __( 'Enable Re-Captcha on checkout page<br/>', 'woocommerce-anti-fraud' ),
+							'desc'        => __( 'Enable reCAPTCHA on checkout page<br/>', 'woocommerce-anti-fraud' ),
 							'id'          => 'wc_af_enable_recaptcha_checkout',
 						), */
 
@@ -555,7 +556,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						array(
 							'name'     => __( 'Alerts', 'woocommerce-anti-fraud' ),
 							'type'     => 'title',
-							'desc'     => __( 'Get alerts about suspeted fradulent activites <hr/>', 'woocommerce-anti-fraud' ),
+							'desc'     => __( 'Get alerts about suspected fraudulent activities <hr/>', 'woocommerce-anti-fraud' ),
 							'id'       => 'wc_af_email_alert_settings',
 						),
 						array(
@@ -673,7 +674,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						),
 						//Block these email addresses
 						array(
-							'name'        => __( 'Blocked IP Adresses', 'woocommerce-anti-fraud' ),
+							'name'        => __( 'Blocked IP Addresses', 'woocommerce-anti-fraud' ),
 							'type'        => 'textarea',
 							'desc'        => '',
 							'desc_tip'    => __( 'The IP addresses listed in the text area will be considered unsafe.  You can also add or remove IP addresses manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
@@ -868,7 +869,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						),
 						//thresholds settings
 						array(
-							'name' => __( 'Pre-Purchase Assesment', 'woocommerce-anti-fraud' ),
+							'name' => __( 'Pre-Purchase Assessment', 'woocommerce-anti-fraud' ),
 							'type' => 'section',
 							'desc'  => '',
 							'desc_tip' => __( 'Evaluate customers before making the actual payment.  If the fraud score reaches a high-risk order range before making payment, the customer order will be denied in advance, and a custom message appears on the checkout page explaining buyer the reason for denial.' ),
@@ -1058,8 +1059,49 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						),
 
 						array(
+							'name'     => __( 'No Of Days For Historical Orders Checks', 'woocommerce-anti-fraud' ),
+							'type'     => 'number',
+							'desc'  => '',
+							'desc_tip'  => 'The Merchant can enter the number of days for historical orders check. The default number of days is 7 days.',
+							'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_auto_check_days',
+							'css'         => 'display: block; width: 5em;',
+							'default' => '7',
+							'custom_attributes' => array(
+								'min'  => 0,
+								'step' => 1,
+								'max'  => 365
+							),
+						),
+
+						array(
 							'type' => 'sectionend',
 							'id' => 'wc_af_enable_start_auto_fraud_check'
+						),
+						/* End */
+
+						/* Debug Log check */
+						array(
+							'name' => __( 'Enable Debug Logging', 'woocommerce-anti-fraud' ),
+							'type' => 'section',
+							'desc'  => '',
+							'desc_tip' => __( 'In this section, customers can enable this setting to create log file and it can seen from WooCommerce >> Status >> Log.' ),
+							'id'   => 'wc_af_enable_debug_log_check',
+							'class' => 'wc_af_sub-section',
+							'css'   => 'display: block;'
+						),
+						array(
+							'title'       => __( 'Enable Debug Log', 'woocommerce-anti-fraud' ),
+							'type'        => 'checkbox',
+							'label'       => '',
+							'desc'        => '',
+							'desc_tip'    => __('Enable it to record the debugging data.'),
+							'default'     => 'no',
+							'id'    => 'wc_af_enable_log_check'
+						),
+
+						array(
+							'type' => 'sectionend',
+							'id' => 'wc_af_enable_debug_log_check'
 						),
 						/* End */
 						

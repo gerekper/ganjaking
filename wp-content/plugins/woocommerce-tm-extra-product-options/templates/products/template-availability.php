@@ -15,6 +15,10 @@ if ( ! isset( $current_product ) || ! $current_product || $current_product->is_t
 
 $availability = [];
 
+if ( ! isset( $quantity_min ) ) {
+	$quantity_min = '';
+}
+
 if ( ! $current_product->is_in_stock() ) {
 	$availability['class'] = 'out-of-stock';
 } elseif ( $current_product->managing_stock() && $current_product->is_on_backorder( $quantity_min ) && $current_product->backorders_require_notification() ) {
