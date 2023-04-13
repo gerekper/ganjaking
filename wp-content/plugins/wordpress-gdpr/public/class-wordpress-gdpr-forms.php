@@ -11,7 +11,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
@@ -26,7 +26,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -82,7 +82,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function get_form()
@@ -193,7 +193,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
             $this->errors[] = __('Email missing.', 'wordpress-gdpr');
         }
 
-        if(!isset($data['gdpr_terms']) || empty($data['gdpr_terms'])) {
+        if(!$this->get_option('hideTermsConditionsCheckbox') && ( !isset($data['gdpr_terms']) || empty($data['gdpr_terms']) ) ) {
             $this->errors[] = __('Terms not accepted.', 'wordpress-gdpr');
         }
 
@@ -336,7 +336,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     private function get_firstname_field()
@@ -352,7 +352,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     private function get_lastname_field()
@@ -368,7 +368,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     private function get_email_field()
@@ -384,7 +384,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     private function get_message_field()
@@ -402,15 +402,19 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     private function get_accept_conditions_field()
     {
         echo '<div class="form-group">';
             echo '<label for="gdpr_terms">';
-                echo '<input id="gdpr_terms" class="form-control" type="checkbox" name="gdpr_terms" value="' . ( isset($_POST["gdpr_terms"]) ? esc_attr($_POST["gdpr_terms"]) : 1 ) . '" required />';
-                echo '<span class="gdpr-accept-conditiones-text">' . __('I agree to the privacy policy and that my data will be stored for this GDPR request .', 'wordpress-gdpr') . '</span>';
+
+                if(!$this->get_option('hideTermsConditionsCheckbox')) {
+                    echo '<input id="gdpr_terms" class="form-control" type="checkbox" name="gdpr_terms" value="' . ( isset($_POST["gdpr_terms"]) ? esc_attr($_POST["gdpr_terms"]) : 1 ) . '" required />';
+                }
+
+                echo '<span class="gdpr-accept-conditiones-text">' . $this->get_option('textsFormsTerms') . '</span>';
             echo '</label>';
         echo '</div>';
     }
@@ -420,7 +424,7 @@ class WordPress_GDPR_Forms extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     private function get_submit_button()

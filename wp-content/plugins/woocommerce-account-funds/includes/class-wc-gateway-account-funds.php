@@ -81,8 +81,9 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			$description = str_replace( '{funds_amount}', WC_Account_Funds::get_account_funds(), $description );
 
 			if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-				$amount = get_option( 'account_funds_discount_amount', 0 );
-				$amount = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) : $amount . '%';
+				$discount = wc_get_account_funds_discount_data();
+
+				$amount = ( 'fixed' === $discount['type'] ? wc_price( $discount['amount'] ) : $discount['amount'] . '%' );
 
 				$description .= '<br/><em>';
 				$description .= sprintf(

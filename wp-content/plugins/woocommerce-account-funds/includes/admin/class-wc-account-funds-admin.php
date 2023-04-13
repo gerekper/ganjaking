@@ -36,6 +36,7 @@ class WC_Account_Funds_Admin {
 		include_once 'class-wc-account-funds-admin-notices.php';
 		include_once 'class-wc-account-funds-admin-system-status.php';
 		include_once 'class-wc-account-funds-admin-users.php';
+		include_once 'class-wc-account-funds-admin-refunds.php';
 	}
 
 	/**

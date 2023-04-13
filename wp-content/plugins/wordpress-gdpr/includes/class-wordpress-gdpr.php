@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       http://plugins.db-dzine.com
+ * @link       http://www.welaunch.io
  * @since      1.0.0
  */
 
@@ -104,7 +104,6 @@ class WordPress_GDPR
         require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-gdpr-policy-update.php';
         require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-gdpr-requests.php';
         require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-gdpr-term-order.php';
-        require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-gdpr-users.php';
         require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-gdpr-services.php';
 
         /**
@@ -187,6 +186,7 @@ class WordPress_GDPR
         $this->loader->add_action('wp_login', $this->data_retention, 'update_last_logged_in', 20);
 
         $this->consent_log = new WordPress_GDPR_Consent_Log($this->get_plugin_name(), $this->get_version());
+        $this->loader->add_action('init', $this->consent_log, 'init', 10);
         $this->loader->add_action('wordpress_gdpr_allow_cookies', $this->consent_log, 'update_consent_log', 10);
         $this->loader->add_action('wordpress_gdpr_decline_cookies', $this->consent_log, 'update_consent_log', 10);
         $this->loader->add_action('wordpress_gdpr_update_cookie', $this->consent_log, 'update_consent_log', 10);
@@ -199,10 +199,6 @@ class WordPress_GDPR
         $this->loader->add_action( 'add_meta_boxes', $this->services_post_type, 'add_custom_metaboxes', 40, 2);
         $this->loader->add_action( 'save_post', $this->services_post_type, 'save_custom_metaboxes', 1, 2);
         $this->loader->add_action( 'admin_menu', $this->services_post_type, 'add_taxonomy_submenu', 1, 30);
-
-        $this->users = new WordPress_GDPR_Users($this->get_plugin_name(), $this->get_version());
-        $this->loader->add_action('init', $this->users, 'init', 10);
-        // $this->loader->add_action('admin_menu', $this->users, 'add_users_menu', 1, 40);
 
         $this->migrate_services = new WordPress_GDPR_Migrate_Services($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action('init', $this->migrate_services, 'init', 30);
@@ -234,7 +230,7 @@ class WordPress_GDPR
         $this->loader->add_action('wp_footer', $this->cookie_popup, 'add_popup', 10);
 
         // Cookie / Service Management
-        $this->cookie_service_management = new WordPress_GDPR_Cookie_Services_Management($this->get_plugin_name(), $this->get_version());
+        $this->cookie_service_management = new WordPress_GDPR_Cookie_Services_Management($this->get_plugin_name(), $this->get_version(), $this->consent_log);
         $this->loader->add_action('init', $this->cookie_service_management, 'init', 10);
         $this->loader->add_action('wp_ajax_check_privacy_setting', $this->cookie_service_management, 'check_privacy_setting', 10);
         $this->loader->add_action('wp_ajax_nopriv_check_privacy_setting', $this->cookie_service_management, 'check_privacy_setting', 10);
@@ -268,7 +264,7 @@ class WordPress_GDPR
         add_shortcode( 'wordpress_gdpr_data_rectification', array($this->forms, 'get_data_rectification_form'));
         
         // Integrations
-        $this->integrations = new WordPress_GDPR_Integrations($this->get_plugin_name(), $this->get_version());
+        $this->integrations = new WordPress_GDPR_Integrations($this->get_plugin_name(), $this->get_version(), $this->consent_log);
         $this->loader->add_action('init', $this->integrations, 'init', 100);
 
         // WooCommerce
@@ -344,7 +340,7 @@ class WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   mixed                         $option The option key
      * @return  mixed                                 The option value
      */

@@ -1,0 +1,230 @@
+// Functions
+@mixin vertical_gradient($from: #000, $to: #FFF) {
+	background: $from;
+	background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+	background: -webkit-linear-gradient($from, $to);
+	background: -moz-linear-gradient(center top, $from 0%, $to 100%);
+	background: -moz-gradient(center top, $from 0%, $to 100%);
+}
+
+@mixin button() {
+	display: inline-block;
+	border-radius: 100%;
+	line-height: 1.25;
+	text-align: center;
+	height: 16px;
+	width: 16px;
+	color: #fff !important;
+
+	@include vertical_gradient(#96c311,#84ac0f);
+	border: 1px solid #72940d;
+	font-size: 12px !important;
+	font-family: verdana !important;
+	text-shadow: 0 -1px 0 #72940d;
+	font-weight: 700;
+	box-shadow:
+		inset 0 -1px 0 rgba(0, 0, 0, 0.065),
+		inset 0 1px 0 rgba(255, 255, 255, 0.15),
+		0 1px 3px rgba(0, 0, 0, 0.15);
+
+	&:hover {
+
+		@include vertical_gradient(#a8da13,#84ac0f);
+	}
+}
+
+@mixin button_remove() {
+	display: inline-block;
+	border-radius: 100%;
+	line-height: 1.25;
+	text-align: center;
+	height: 16px;
+	width: 16px;
+
+	@include vertical_gradient(#d21212, #ba1010);
+	border: 1px solid #a30e0e;
+	color: #fff !important;
+	font-size: 12px !important;
+	font-family: verdana !important;
+	text-shadow: 0 -1px 0 #a30e0e;
+	font-weight: 700;
+	box-shadow:
+		inset 0 -1px 0 rgba(0, 0, 0, 0.065),
+		inset 0 1px 0 rgba(255, 255, 255, 0.15),
+		0 1px 2px rgba(0, 0, 0, 0.25);
+
+	&:hover {
+
+		@include vertical_gradient(#e91414, #ba1010);
+	}
+}
+
+.clear {
+	clear: both;
+}
+
+.nobr {
+	white-space: nowrap;
+}
+
+#wc_product_finder {
+	// General styles
+	select {
+		width: auto;
+	}
+
+	fieldset {
+		border: 1px solid #ddd;
+		background: #fff;
+		border-radius: 3px;
+
+		legend {
+			display: none;
+		}
+	}
+
+	.search-intro {
+		margin: 0;
+		background: #fff;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.search-intro,
+	.form-row {
+		padding: 1em;
+		box-sizing: border-box;
+	}
+
+	.form-row-first,
+	.form-row-last {
+		box-sizing: border-box;
+		width: 50%;
+	}
+
+	.form-row {
+		margin: 0;
+		display: inline-block;
+	}
+
+	// Search row
+	.search_row {
+		display: block;
+		margin: 0;
+		border-top: 1px dotted #ddd;
+		background: #f8f8f8;
+
+		select {
+			margin-right: 0.5em;
+		}
+
+		&:first-child {
+			border-top: 0;
+		}
+	}
+
+	// Add / remove rows
+	.add_row,
+	.remove_row {
+
+		.text {
+			display: none;
+		}
+
+		.plus {
+
+			@include button;
+		}
+
+		.minus {
+
+			@include button_remove;
+		}
+	}
+
+	.add_row {
+		display: none;
+		padding: 0.5em 1em;
+		border-bottom: 1px solid #ddd;
+		border-top: 1px solid #ddd;
+
+		@include vertical_gradient(#fefefe,#f1f1f1);
+		text-align: center;
+		color: #666;
+		clear: both;
+		text-decoration: none;
+
+		&:hover {
+
+			@include vertical_gradient(#fff,#f1f1f1);
+
+			.plus {
+
+				@include vertical_gradient(#a8da13,#84ac0f);
+			}
+		}
+
+		.loader {
+			background: url(../images/ajax-loader.gif) center center no-repeat;
+			padding: 0.5em 1em;
+			text-decoration: none;
+			display: none;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	.remove_row {
+
+		.minus {
+			float: right;
+		}
+	}
+
+
+	// Search input
+	.keywords {
+
+		label {
+			display: none;
+		}
+
+		input {
+			width: 100%;
+			box-sizing: border-box;
+			margin: 0;
+		}
+	}
+
+	// Price filter
+	.widget_price_filter {
+		margin: 2px 0 0 0;
+
+		.price_slider_amount {
+			text-align: left;
+			line-height: 1;
+			margin-top: 0.618em;
+		}
+
+		.price_slider {
+			margin-bottom: 0;
+		}
+
+		.price_label {
+			margin-bottom: 0.5em;
+		}
+	}
+
+	// Submit
+	.form-row-submit {
+		padding-top: 0;
+
+		.button {
+			display: block;
+			width: 100%;
+			box-sizing: border-box;
+			margin: 0;
+		}
+	}
+}

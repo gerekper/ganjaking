@@ -28,3 +28,25 @@ function wc_account_funds_format_order_price( $order, $price, $args = array() ) 
 
 	return wc_price( $price, $args );
 }
+
+/**
+ * Gets if the order contains deposit products.
+ *
+ * @since 2.9.0
+ *
+ * @param WC_Order $order Order object.
+ * @return bool
+ */
+function wc_account_funds_order_contains_deposit( $order ) {
+	$items = $order->get_items();
+
+	foreach ( $items as $item ) {
+		$product = $item->get_product();
+
+		if ( $product && $product->is_type( array( 'deposit', 'topup' ) ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}

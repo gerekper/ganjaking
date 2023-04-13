@@ -1568,7 +1568,7 @@
 					message  = woocommerce_addons_params.i18n_validation_min_number.replace( '%c', min );
 				}
 
-			} else if ( 'text' === $element.attr( 'type' ) ) {
+			} else if ( 'text' === $element.attr( 'type' ) || $element.is( 'textarea' ) ) {
 
 				if ( $element.val().length < min ) {
 					validity = false;
@@ -1614,7 +1614,7 @@
 					message  = woocommerce_addons_params.i18n_validation_max_number.replace( '%c', max );
 				}
 
-			} else if ( 'text' === $element.attr( 'type' ) ) {
+			} else if ( 'text' === $element.attr( 'type' ) || $element.is( 'textarea' ) ) {
 				if ( $element.val().length > max ) {
 					validity = false;
 					message  = woocommerce_addons_params.i18n_validation_max_characters.replace( '%c', max );

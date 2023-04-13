@@ -1,69 +1,77 @@
-# Copyright (C) 2022 WooCommerce
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Finder 1.2.26\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-product-finder\n"
-"POT-Creation-Date: 2022-09-02 10:54:58+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Product Finder 1.3.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-04-12T11:19:37+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-product-finder\n"
+
+#. Plugin Name of the plugin
+#: classes/class-woocommerce-product-finder-widget.php:42
+msgid "WooCommerce Product Finder"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/product-finder/"
+msgstr ""
+
+#. Description of the plugin
+msgid "An advanced search for WooCommerce that helps your customers find your products more easily."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com/"
+msgstr ""
 
 #: classes/class-woocommerce-product-finder-admin.php:20
-#: classes/class-woocommerce-product-finder-widget.php:164
-#: classes/class-woocommerce-product-finder.php:116
-msgid "Product Finder"
+msgid "Select which product criteria (category/attributes) will be included in your site's Product Finder and which one will be selected by default."
 msgstr ""
 
-#: classes/class-woocommerce-product-finder-admin.php:22
-msgid ""
-"Select which product criteria (category/attributes) will be included in "
-"your site's Product Finder and which one will be selected by default."
-msgstr ""
-
-#: classes/class-woocommerce-product-finder-admin.php:27
+#: classes/class-woocommerce-product-finder-admin.php:25
 msgid "Attrbutes to be included:"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder-admin.php:28
-#: classes/class-woocommerce-product-finder-admin.php:37
-#: classes/class-woocommerce-product-finder-widget.php:193
-#: classes/class-woocommerce-product-finder.php:330
+#: classes/class-woocommerce-product-finder-admin.php:26
+#: classes/class-woocommerce-product-finder-admin.php:35
+#: classes/class-woocommerce-product-finder-widget.php:170
+#: classes/class-woocommerce-product-finder.php:322
 msgid "Product Category"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder-admin.php:36
-msgid "None"
-msgstr ""
-
-#: classes/class-woocommerce-product-finder-admin.php:79
+#: classes/class-woocommerce-product-finder-admin.php:64
 msgid "Attribute selected by default:"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder-admin.php:83
-msgid ""
-"The attribute chosen here will be selected by default on the Product Finder "
-"form."
+#: classes/class-woocommerce-product-finder-admin.php:68
+msgid "The attribute chosen here will be selected by default on the Product Finder form."
 msgstr ""
 
 #: classes/class-woocommerce-product-finder-widget.php:40
 msgid "Customisable Product Finder widget."
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Product Finder"
+#: classes/class-woocommerce-product-finder-widget.php:147
+#: classes/class-woocommerce-product-finder.php:116
+msgid "Product Finder"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder-widget.php:187
+#: classes/class-woocommerce-product-finder-widget.php:164
 msgid "Title (optional):"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder-widget.php:190
+#: classes/class-woocommerce-product-finder-widget.php:167
 msgid "Select which criteria to include:"
 msgstr ""
 
@@ -83,67 +91,81 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:264
+#: classes/class-woocommerce-product-finder.php:256
 msgid "Min price"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:265
+#: classes/class-woocommerce-product-finder.php:257
 msgid "Max price"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:267
+#: classes/class-woocommerce-product-finder.php:259
 msgid "Price:"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:283
+#: classes/class-woocommerce-product-finder.php:275
 msgid "All"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:284
+#: classes/class-woocommerce-product-finder.php:276
 msgid "Any"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:287
+#: classes/class-woocommerce-product-finder.php:279
 msgid "Search for products that match %s of these criteria:"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:299
+#: classes/class-woocommerce-product-finder.php:291
 msgid "Is"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:300
+#: classes/class-woocommerce-product-finder.php:292
 msgid "Is not"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:319
+#: classes/class-woocommerce-product-finder.php:311
 msgid "Select criteria"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:378
+#: classes/class-woocommerce-product-finder.php:363
 msgid "Select criteria first"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:445
+#: classes/class-woocommerce-product-finder.php:430
 msgid "Remove row"
 msgstr ""
 
-#: woocommerce-product-finder.php:30
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Product Finder settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Product Finder documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
 #. translators: %s WC download URL link.
-msgid ""
-"Product Finder requires WooCommerce to be installed and active. You can "
-"download %s here."
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"An advanced search for WooCommerce that helps your customers find your "
-"products more easily."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com"
+#: woocommerce-product-finder.php:48
+msgid "Product Finder requires WooCommerce to be installed and active. You can download %s here."
 msgstr ""

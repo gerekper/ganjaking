@@ -19,6 +19,9 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 	<div><?php esc_html_e( 'Set up add-ons that apply to all products or specific product categories.', 'woocommerce-product-addons' ); ?></div><br />
 
 	<form method="POST" action="">
+
+		<?php wp_nonce_field( 'wc_pao_global_addons_edit' ); ?>
+
 		<table class="form-table global-addons-form meta-box-sortables">
 			<tr>
 				<th>
@@ -98,6 +101,6 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 			}
 
 			$( '.wc-enhanced-select' ).val( values ).trigger( 'change.select2' );
-		} ); 
+		} );
 	} );
 </script>

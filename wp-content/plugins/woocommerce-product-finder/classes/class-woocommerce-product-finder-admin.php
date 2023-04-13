@@ -14,8 +14,6 @@ class WooCommerce_Product_Finder_Admin {
 	}
 
 	public static function settings( $settings ) {
-		global $woocommerce;
-
 		$settings[] = array(
 			'name' => __( 'Product Finder', 'woocommerce' ),
 			'type' => 'title',
@@ -37,11 +35,7 @@ class WooCommerce_Product_Finder_Admin {
 			'product_cat' => __( 'Product Category' , 'woocommerce-product-finder' ),
 		);
 
-		if ( version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-			$att_list = wc_get_attribute_taxonomies();
-		} else {
-			$att_list = $woocommerce->get_attribute_taxonomies();
-		}
+		$att_list = wc_get_attribute_taxonomies();
 
 		if ( $att_list && is_array( $att_list ) && count( $att_list ) > 0 ) {
 
@@ -49,17 +43,8 @@ class WooCommerce_Product_Finder_Admin {
 
 				if ( isset( $att->attribute_name ) && strlen( $att->attribute_name ) > 0 ) {
 
-					if ( version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-						$tax_name = wc_attribute_taxonomy_name( $att->attribute_name );
-					} else {
-						$tax_name = $woocommerce->attribute_taxonomy_name( $att->attribute_name );
-					}
-
-					if ( version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-						$tax_label = wc_attribute_label( $tax_name );
-					} else {
-						$tax_label = $woocommerce->attribute_label( $tax_name );
-					}
+					$tax_name  = wc_attribute_taxonomy_name( $att->attribute_name );
+					$tax_label = wc_attribute_label( $tax_name );
 
 					$settings[] = array(
 						'title' => '',

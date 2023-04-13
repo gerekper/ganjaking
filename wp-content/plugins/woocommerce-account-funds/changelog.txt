@@ -1,5 +1,13 @@
 *** WooCommerce Account Funds ***
 
+2023-04-12 - version 2.9.1
+* Tweak - Display the "Refund via Account Funds" button for orders paid with a different payment gateway only on WC 6.8+.
+
+2023-04-12 - version 2.9.0
+* Feature - Added automatic refunds via 'Account Funds' for any payment method.
+* Tweak - Tested compatibility with WC 7.6.
+* Dev - Allow filtering of the funds' discount data before applying the discount.
+
 2023-03-28 - version 2.8.0
 * Feature - Use a different name to refer to the account funds.
 * Tweak - Register the increase funds email as a transactional email.

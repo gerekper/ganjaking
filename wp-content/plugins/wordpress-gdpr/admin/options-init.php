@@ -25,7 +25,7 @@
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.24',
+        'display_version' => '1.9.31',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -113,6 +113,14 @@
                 'title'    => __('Domain Name', 'wordpress-gdpr'),
                 'subtitle' => __('Important for Cookie unsettings. E.g. ".yourdomain.com". Dot before important for GA-Cookies.', 'wordpress-gdpr'),
                 'default'  => $default_domain,
+                'required' => array('enable','equals','1'),
+            ),
+            array(
+                'id'       => 'consentLogLoggedOut',
+                'type'     => 'checkbox',
+                'title'    => __('Log Consents for Logged Out users', 'wordpress-gdpr'),
+                'subtitle'    => __('This will save consents for logged out users by a masked ip in a own database table wp_gdpr_consent_log.', 'wordpress-gdpr'),
+                'default'  => '1',
                 'required' => array('enable','equals','1'),
             ),
             array(
@@ -345,7 +353,7 @@
                 'type' => 'color',
                 'title' => __('Accept Button Background Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
-                'default' => '#4CAF50',
+                'default' => '#000000',
                 'required' => array('popupEnable','equals','1'),
             ),
             array(
@@ -361,7 +369,7 @@
                 'type' => 'color',
                 'title' => __('Decline Button Background Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
-                'default' => '#777777',
+                'default' => '#000000',
                 'required' => array('popupEnable','equals','1'),
             ),
             array(
@@ -517,6 +525,13 @@
                 'default'  => __('Decline all Services', 'wordpress-gdpr')
             ),
             array(
+                'id'       => 'privacySettingsPopupSaveText',
+                'type'     => 'text',
+                'title'    => __('Popup Save services', 'wordpress-gdpr'),
+                'subtitle' => __('Leave Empty if not needed', 'wordpress-gdpr'),
+                'default'  => __('Save', 'wordpress-gdpr')
+            ),
+            array(
                 'id'       => 'privacySettingsPopupAcceptText',
                 'type'     => 'text',
                 'title'    => __('Popup Accept all services', 'wordpress-gdpr'),
@@ -529,13 +544,6 @@
                'title' => __('Privacy Settings Shortcode', 'wordpress-gdpr'),
                'subtitle' => __('Use Shortcode instead of popup.', 'wordpress-gdpr'),
                'indent' => false 
-            ),
-            array(
-                'id'       => 'privacySettingsPopupBackdropDisableClick',
-                'type'     => 'checkbox',
-                'title'    => __('Disable Popup Backdrop Click', 'wordpress-gdpr'),
-                'subtitle' => __('When enabled users can not click on the backdrop to close the privacy settings popup.', 'wordpress-gdpr'),
-                'default'  => '0',
             ),
             array(
                 'id'       => 'privacySettingsUseShortcode',
@@ -568,6 +576,14 @@
                 'default'  => '1',
             ),
             array(
+                'id'       => 'privacySettingsPopupBackdropDisableClick',
+                'type'     => 'checkbox',
+                'title'    => __('Disable Popup Backdrop Click', 'wordpress-gdpr'),
+                'subtitle' => __('When enabled users can not click on the backdrop to close the privacy settings popup.', 'wordpress-gdpr'),
+                'default'  => '0',
+                'required' => array('privacySettingsPopupEnable','equals','1'),
+            ),
+            array(
                 'id'     =>'privacySettingsPopupBackgroundColor',
                 'type' => 'color',
                 'title' => __('Background Color', 'wordpress-gdpr'), 
@@ -596,7 +612,23 @@
                 'type' => 'color',
                 'title' => __('Accept Button Background Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
-                'default' => '#4CAF50',
+                'default' => '#000000',
+                'required' => array('privacySettingsPopupEnable','equals','1'),
+            ),
+            array(
+                'id'     =>'privacySettingsPopupSaveColor',
+                'type' => 'color',
+                'title' => __('Save Button Text Color', 'wordpress-gdpr'), 
+                'validate' => 'color',
+                'default' => '#FFFFFF',
+                'required' => array('privacySettingsPopupEnable','equals','1'),
+            ),
+            array(
+                'id'     =>'privacySettingsPopupSaveBackgroundColor',
+                'type' => 'color',
+                'title' => __('Save Button Background Color', 'wordpress-gdpr'), 
+                'validate' => 'color',
+                'default' => '#000000',
                 'required' => array('privacySettingsPopupEnable','equals','1'),
             ),
             array(
@@ -612,7 +644,7 @@
                 'type' => 'color',
                 'title' => __('Decline Button Background Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
-                'default' => '#777777',
+                'default' => '#000000',
                 'required' => array('privacySettingsPopupEnable','equals','1'),
             ),
             array(
@@ -1203,7 +1235,7 @@
                 'id'       => 'integrationsFlamingoDB',
                 'type'     => 'switch',
                 'title'    => __('Enable Flamingo DB (Deprecated)', 'wordpress-gdpr'),
-                'subtitle' => __('No longer needed with CF7 Version 5.0.3 - <a target="_blank" href="https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/">see here</a>. This will depending on the opt-in checkbox setting save data or not.', 'wordpress-gdpr'),
+                'subtitle' => __('No longer needed with CF7 Version 5.0.3 - <a target="_blank" href="https://www.welaunch.io/wordpress-gdpr/documentation/faq/cf7/">see here</a>. This will depending on the opt-in checkbox setting save data or not.', 'wordpress-gdpr'),
                 'default'  => '0',
             ),
             array(
@@ -1435,7 +1467,7 @@
                 'id'       => 'pseudonymizationEnable',
                 'type'     => 'info',
                 'title'    => __('Pseudonymization', 'wordpress-gdpr'),
-                'desc' => __('Pseudonymization is not mandatory by GDPR. It might be a good improvement, but also can risk in data loss. <a href="https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/pseudonymization/" target="_blank">Please read more here</a>.', 'wordpress-gdpr'),
+                'desc' => __('Pseudonymization is not mandatory by GDPR. It might be a good improvement, but also can risk in data loss. <a href="https://www.welaunch.io/wordpress-gdpr/documentation/faq/pseudonymization/" target="_blank">Please read more here</a>.', 'wordpress-gdpr'),
             ),
         )
     ));
@@ -1751,6 +1783,21 @@
         )
     ));
 
+
+    $framework::setSection($opt_name, array(
+        'title'      => __('Texts', 'wordpress-gdpr'),
+        'id'         => 'texts',
+        'subsection' => true,
+        'fields'     => array(
+            array(
+                'id'       => 'textsFormsTerms',
+                'type'     => 'editor',
+                'title'    => __('Accept Terms & Conditions', 'wordpress-gdpr'),
+                'default'  => __('I agree to the privacy policy and that my data will be stored for this GDPR request .', 'wordpress-gdpr'),
+            ),
+        )
+    ));
+#
     $framework::setSection($opt_name, array(
         'title'      => __('Expert', 'wordpress-gdpr'),
         'desc'       => __('Expert Settings.', 'wordpress-gdpr'),
@@ -1776,6 +1823,13 @@
                 'type'     => 'switch',
                 'title'    => __('Use Cookie Whitelist', 'wordpress-gdpr'),
                 'subtitle'    => __('If enabled our plugin will remove all cookies, that are not allowed by a certain service. If disabled all cookies will only be removed on decline.', 'wordpress-gdpr'),
+                'default'  => '0',
+            ),
+            array(
+                'id'       => 'hideTermsConditionsCheckbox',
+                'type'     => 'switch',
+                'title'    => __('Hide Terms & Conditions Checkbox', 'wordpress-gdpr'),
+                'subtitle'    => __('If enabled the user does not have to accept the terms & conditions as the checkbox is removed.', 'wordpress-gdpr'),
                 'default'  => '0',
             ),
             array(

@@ -113,28 +113,17 @@ class WC_Product_Finder_Widget extends WP_Widget {
 	 * @return array               Updated settings.
 	 */
 	public function update ( $new_instance, $old_instance ) {
-		global $woocommerce;
-
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title']        = wp_strip_all_tags( $new_instance['title'] );
 		$instance['use_category'] = (bool) esc_attr( $new_instance['use_category'] );
-
-		if ( function_exists( 'wc_get_attribute_taxonomies' ) ) {
-			$att_list = wc_get_attribute_taxonomies();
-		} else {
-			$att_list = $woocommerce->get_attribute_taxonomies();
-		}
+		$att_list                 = wc_get_attribute_taxonomies();
 
 		if ( $att_list && is_array( $att_list ) && count( $att_list ) > 0 ) {
 			foreach ( $att_list as $att ) {
 				if ( isset( $att->attribute_name ) && strlen( $att->attribute_name ) > 0 ) {
-					if ( function_exists( 'wc_attribute_taxonomy_name' ) ) {
-						$tax_name = wc_attribute_taxonomy_name( $att->attribute_name );
-					} else {
-						$tax_name = $woocommerce->attribute_taxonomy_name( $att->attribute_name );
-					}
-					$field_id = 'use_att_' . $tax_name;
+					$tax_name              = wc_attribute_taxonomy_name( $att->attribute_name );
+					$field_id              = 'use_att_' . $tax_name;
 					$instance[ $field_id ] = isset( $new_instance[ $field_id ] ) ? (bool) esc_attr( $new_instance[ $field_id ] ) : false;
 				}
 			}
@@ -151,13 +140,7 @@ class WC_Product_Finder_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function form( $instance ) {
-		global $woocommerce;
-
-		if ( function_exists( 'wc_get_attribute_taxonomies' ) ) {
-			$att_list = wc_get_attribute_taxonomies();
-		} else {
-			$att_list = $woocommerce->get_attribute_taxonomies();
-		}
+		$att_list = wc_get_attribute_taxonomies();
 
 		/* Set up some default widget settings. */
 		$defaults = array(
@@ -168,14 +151,8 @@ class WC_Product_Finder_Widget extends WP_Widget {
 		if ( $att_list && is_array( $att_list ) && count( $att_list ) > 0 ) {
 			foreach ( $att_list as $att ) {
 				if ( isset( $att->attribute_name ) && strlen( $att->attribute_name ) > 0 ) {
-
-					if ( function_exists( 'wc_attribute_taxonomy_name' ) ) {
-						$tax_name = wc_attribute_taxonomy_name( $att->attribute_name );
-					} else {
-						$tax_name = $woocommerce->attribute_taxonomy_name( $att->attribute_name );
-					}
-
-					$field_id = 'use_att_' . $tax_name;
+					$tax_name              = wc_attribute_taxonomy_name( $att->attribute_name );
+					$field_id              = 'use_att_' . $tax_name;
 					$defaults[ $field_id ] = 1;
 				}
 			}
@@ -198,19 +175,9 @@ class WC_Product_Finder_Widget extends WP_Widget {
 			foreach ( $att_list as $att ) {
 
 				if ( isset( $att->attribute_name ) && strlen( $att->attribute_name ) > 0 ) {
-
-					if ( function_exists( 'wc_attribute_taxonomy_name' ) ) {
-						$tax_name = wc_attribute_taxonomy_name( $att->attribute_name );
-					} else {
-						$tax_name = $woocommerce->attribute_taxonomy_name( $att->attribute_name );
-					}
-
-					if ( function_exists( 'wc_attribute_label' ) ) {
-						$tax_label = wc_attribute_label( $tax_name );
-					} else {
-						$tax_label = $woocommerce->attribute_label( $tax_name );
-					}
-					$field_id = 'use_att_' . $tax_name;
+					$tax_name  = wc_attribute_taxonomy_name( $att->attribute_name );
+					$tax_label = wc_attribute_label( $tax_name );
+					$field_id  = 'use_att_' . $tax_name;
 					?>
 					<p>
 						<input id="<?php echo $this->get_field_id( $field_id ); ?>" name="<?php echo $this->get_field_name( $field_id ); ?>" type="checkbox"<?php checked( $instance[ $field_id ], 1 ); ?> />

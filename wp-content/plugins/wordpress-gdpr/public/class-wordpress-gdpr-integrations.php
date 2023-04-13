@@ -11,14 +11,15 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
-    public function __construct($plugin_name, $version)
+    public function __construct($plugin_name, $version, $consent_log)
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+        $this->consent_log = $consent_log;
     }
 
     /**
@@ -26,7 +27,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -45,7 +46,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_policy_checkbox_to_checkout()
     {
@@ -71,7 +72,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_policy_checkbox_to_registration()
     {
@@ -97,7 +98,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_policy_checkbox_to_review_form($comment_form)
     {
@@ -128,7 +129,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_policy_checkbox_to_comment_form($submit_field)
     {
@@ -161,7 +162,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_policy_checkbox_to_buddypress_registration()
     {
@@ -193,7 +194,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function maybe_override_comment_registration($value, $option)
     {
@@ -210,7 +211,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function maybe_disable_woocommerce_guest_checkout($value, $option)
     {
@@ -227,7 +228,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function validate_privacy_policy_checkbox($data, $errors)
     {
@@ -238,6 +239,8 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
         if(!isset($_POST['privacy_policy'])) {
             $errors->add( 'terms', __( 'You must accept our Privacy Policy.', 'wordpress-gdpr' ) );
         }
+
+        $this->consent_log->update_consent_log(array( 'wordpress_gdpr_privacy_policy_accepted' => 'true' ));
     }
 
     /**
@@ -247,7 +250,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_center_to_my_account_page( $items ) 
     {
@@ -282,7 +285,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function flamingo_save_data_check($form)
     {
@@ -337,7 +340,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_privacy_policy_checkbox_to_mailster_registration($fields, $ID, $form)
     {
@@ -369,7 +372,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function maybe_disable_pixelyoursite()
     {
@@ -413,7 +416,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_cpt_to_pll( $post_types, $is_settings ) {
         $post_types['gdpr_service'] = 'gdpr_service';
@@ -428,7 +431,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function add_tax_to_pll( $taxonomies, $is_settings ) {
         $taxonomies['gdpr_service_categories'] = 'gdpr_service_categories';
@@ -442,7 +445,7 @@ class WordPress_GDPR_Integrations extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $ip [description]
      * @return  [type]                           [description]
      */

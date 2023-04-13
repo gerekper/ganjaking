@@ -11,14 +11,15 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
-    public function __construct($plugin_name, $version)
+    public function __construct($plugin_name, $version, $consent_log)
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+        $this->consent_log = $consent_log;
     }
 
     /**
@@ -26,7 +27,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -47,7 +48,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function get_services()
@@ -83,7 +84,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function allow_cookies($firstTime = false)
@@ -94,7 +95,10 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
         $cookieLifetime = time() + (60*60*24*$cookieLifetime);
 
         $services = $this->get_services();
-        $allowed_service_cookies = array();
+        $allowed_service_cookies = array(
+            'wordpress_gdpr_cookies_declined' => 'false',
+            'wordpress_gdpr_cookies_allowed' => 'true',
+        );
         foreach ($services as $serviceID => $service) {
             $allowed_service_cookies[$serviceID] = "true";
         }
@@ -107,7 +111,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
 
         $_COOKIE['wordpress_gdpr_cookies_declined'] = 'false';
 
-        do_action('wordpress_gdpr_allow_cookies');
+        do_action('wordpress_gdpr_allow_cookies', $allowed_service_cookies);
     }
 
     /**
@@ -115,7 +119,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function decline_cookies()
@@ -146,11 +150,17 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
             'wordpress_gdpr_first_time_url'
         );
 
-        foreach ($services as $service) {
+        $cookiesToSave = array(
+            'wordpress_gdpr_cookies_declined' => 'true',
+            'wordpress_gdpr_cookies_allowed' => 'false',
+        );
+        foreach ($services as $serviceID => $service) {
             if($service['deactivatable'] !== "0" || empty($service['cookies'])) {
+                $cookiesToSave[$serviceID] = 'true';
                 continue;
             }
 
+            $cookiesToSave[$serviceID] = 'false';
             $cookies = explode(',', $service['cookies']);
             $allowed_cookies =  array_merge($allowed_cookies, $cookies);
         }
@@ -158,7 +168,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
         $allowed_cookies = apply_filters('wordpress_gdpr_necessary_cookies', $allowed_cookies);
         $this->delete_non_allowed_cookies($allowed_cookies);
         
-        do_action('wordpress_gdpr_decline_cookies', array('wordpress_gdpr_cookies_declined' => 'true') );
+        do_action('wordpress_gdpr_decline_cookies', $cookiesToSave );
     }
 
     /**
@@ -166,11 +176,12 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function check_privacy_setting() 
     {
+
         $setting = $_POST['setting'];
         $allowed = isset($_COOKIE[$setting]);
         $declined = false;
@@ -269,6 +280,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
         $hadDefault = false;
         foreach ($settings as $setting) {
             
+            $setting = intval($setting);
             $service = $services[$setting];
             $allowed = isset($allowed_service_cookies[$setting]) ? true : false;
 
@@ -407,6 +419,8 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
         if($setting !== "wordpress_gdpr_terms_conditions_accepted" && $setting !== "wordpress_gdpr_privacy_policy_accepted") {
             return false;
         }
+
+        $this->consent_log->update_consent_log(array( $setting => 'true' ));
 
         $cookieLifetime = $this->get_option('cookieLifetime'); 
         $cookieLifetime = time() + (60*60*24*$cookieLifetime);

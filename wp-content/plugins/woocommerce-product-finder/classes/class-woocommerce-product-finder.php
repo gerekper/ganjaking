@@ -199,7 +199,7 @@ class WooCommerce_Product_Finder {
 	}
 
 	private static function price_slider() {
-		global $wpdb, $woocommerce;
+		global $woocommerce;
 
 		// Make sure the price slider script is registered already before trying to enqueue it here
 		if ( ! wp_script_is( 'wc-price-slider', 'registered' ) ) {
@@ -223,17 +223,9 @@ class WooCommerce_Product_Finder {
 			'currency_format'              => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ),
 		) );
 
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$min = $max = 0;
-			$max = ceil( $wpdb->get_var( "SELECT max( meta_value + 0 )
-				FROM $wpdb->posts
-				LEFT JOIN $wpdb->postmeta ON $wpdb->posts.ID = $wpdb->postmeta.post_id
-				WHERE meta_key = '_price'" ) );
-		} else {
-			$min = 0;
-			$prices = self::get_filtered_price();
-			$max    = ceil( $prices->max_price );
-		}
+		$min    = 0;
+		$prices = self::get_filtered_price();
+		$max    = ceil( $prices->max_price );
 
 		if ( $min == $max ) {
 			return;
@@ -304,7 +296,7 @@ class WooCommerce_Product_Finder {
 	}
 
 	private static function taxonomy_select_dropdown( $row = 0, $atts = false, $show_cat = false ) {
-		global $woocommerce, $product_finder_default;
+		global $product_finder_default;
 
 		$selected = '';
 		if ( ( isset( $_GET['adv_search'] ) && 'wc' === $_GET['adv_search'] ) && isset( $_GET['tax'][ $row ] ) ) {
@@ -334,18 +326,11 @@ class WooCommerce_Product_Finder {
 
 			foreach ( $att_list as $att ) {
 				if ( isset( $att->name ) && strlen( $att->name ) > 0 ) {
-					if ( version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-						$tax_name = wc_attribute_taxonomy_name( trim( $att->name ) );
-					} else {
-						$tax_name = $woocommerce->attribute_taxonomy_name( trim( $att->name ) );
-					}
+					$tax_name = wc_attribute_taxonomy_name( trim( $att->name ) );
 
 					if ( taxonomy_exists( $tax_name ) ) {
-						if ( version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-							$tax_label = wc_attribute_label( $tax_name );
-						} else {
-							$tax_label = $woocommerce->attribute_label( $tax_name );
-						}
+						$tax_label = wc_attribute_label( $tax_name );
+
 						$html .= '<option value="' . $tax_name . '" ' . selected( $selected , $tax_name , false ) . '>' . $tax_label . '</option>';
 					}
 				}

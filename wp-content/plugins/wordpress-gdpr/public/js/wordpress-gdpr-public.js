@@ -40,6 +40,8 @@
             this.elements.privacySettingsPopupAgreeLink = $('.wordpress-gdpr-privacy-settings-popup-agree');
             this.elements.privacySettingsPopupDeclineLink = $('.wordpress-gdpr-privacy-settings-popup-decline');
             this.elements.privacySettingsPopupCloseLink = $('.wordpress-gdpr-privacy-settings-popup-close');
+            this.elements.privacySettingsPopupSaveLink = $('.wordpress-gdpr-privacy-settings-popup-services-save');
+            
             this.elements.privacySettingsPopupBackdrop = $('.wordpress-gdpr-privacy-settings-popup-backdrop');
 
             if(this.settings.geoIP == "1") {
@@ -278,7 +280,8 @@
         },
         popUpPrivacySettingsClose : function () {
             var that = this;
-            
+                
+            console.log(that.elements.privacySettingsPopupSaveLink);
             $(that.elements.privacySettingsPopupCloseLink).on('click', function(e) {
                 e.preventDefault();
                 if(that.elements.privacySettingsPopupBackdrop.length > 0) {
@@ -287,7 +290,15 @@
                 that.elements.privacySettingsPopup.fadeOut();
             });
 
-            if(!that.settings.privacySettingsPopupBackdropDisableClick) {
+            $(that.elements.privacySettingsPopupSaveLink).on('click', function(e) {
+                e.preventDefault();
+                if(that.elements.privacySettingsPopupBackdrop.length > 0) {
+                    that.elements.privacySettingsPopupBackdrop.fadeOut();
+                }
+                that.elements.privacySettingsPopup.fadeOut();
+            });
+
+            if(that.settings.privacySettingsPopupBackdropDisableClick == "0") {
                 $(that.elements.privacySettingsPopupBackdrop).on('click', function(e) {
                     e.preventDefault();
                     if(that.elements.privacySettingsPopupBackdrop.length > 0) {
@@ -301,6 +312,10 @@
 
             $('.wordpress-gdpr-popup-privacy-settings-open-service-category').on('click', function(e) {
                 e.preventDefault();
+
+                $('.wordpress-gdpr-popup-privacy-settings-open-service-category').removeClass('wordpress-gdpr-popup-privacy-settings-service-category-active');
+
+                $(this).addClass('wordpress-gdpr-popup-privacy-settings-service-category-active');
 
                 var id = $(this).data('id');
                 $('.wordpress-gdpr-popup-privacy-settings-services-content:not(#wordpress-gdpr-popup-privacy-settings-services-content-' + id + ')').hide(0, function() {
@@ -342,7 +357,7 @@
                 dataType : 'json',
                 data : {
                     action : 'check_privacy_settings',
-                    settings : settings
+                    settings : settings,
                 },
                 success : function( response ) {
 
@@ -484,11 +499,11 @@
             var that = this;
 
             $.ajax({
-                url: "https://extreme-ip-lookup.com/json/",
+                url: "https://get.geojs.io/v1/ip/geo.json",
                 type: 'get',
                 dataType: 'json',
                 success : function( response ) {
-                    callback(response.countryCode);
+                    callback(response.country_code);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -563,10 +578,10 @@
                 var name = $(this).prop('name');
                 var checked = $(this).prop('checked');
 
-                if(!checked) {
-                    alert(that.settings.termsAcceptanceText);
-                    return false;
-                }
+                // if(!checked) {
+                //     alert(that.settings.termsAcceptanceText);
+                //     return false;
+                // }
                 
                 $.ajax({
                     type : 'post',

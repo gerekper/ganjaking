@@ -10,7 +10,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param [type] $plugin_name [description]
      * @param [type] $version     [description]
      */
@@ -25,7 +25,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return [type] [description]
      */
     public function init()
@@ -42,7 +42,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function register_service_post_type()
@@ -84,7 +84,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function register_service_taxonomy()
@@ -141,7 +141,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @version 1.0.0
      *
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      *
      * @param string $columns Columnd
      *
@@ -170,7 +170,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @version 1.0.0
      *
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      *
      * @param string $column_name Column Name
      *
@@ -194,7 +194,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $post_type [description]
      * @param   [type]                       $post      [description]
      */
@@ -208,7 +208,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function meta_fields()
@@ -292,7 +292,7 @@ class WordPress_GDPR_Services extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $post_id [description]
      * @param   [type]                       $post    [description]
      * @return  [type]                                [description]

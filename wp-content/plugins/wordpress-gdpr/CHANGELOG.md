@@ -1,5 +1,54 @@
 # Changelog
 ======
+1.9.31
+======
+- NEW:	Save privacy Settings
+		https://imgur.com/a/wgCNcH1
+- FIX:	Privacy settings backdrop not clickable
+- FIX:	Accesibility errors
+
+======
+1.9.30
+======
+- NEW:	Export guest user consent logs
+		https://imgur.com/a/dTpUEYe
+- NEW:	Added class "wordpress-gdpr-popup-privacy-settings-service-category-active"
+		when clicked on service category in popup
+- FIX:	PHP notice
+
+======
+1.9.29
+======
+- FIX:	Caching plugin caused nonce issue
+
+======
+1.9.28
+======
+- NEW:	Consent log for logged out users by masekd IP
+		https://imgur.com/a/Erun5ZA
+		You may need to disable & activate our plugin again
+		to create the table
+
+======
+1.9.27
+======
+- FIX:	Only EU Visitors Popup not working
+
+======
+1.9.26
+======
+- NEW:	Added an editor field for the terms & conditions on each form text
+- NEW: 	Added an option to disable the terms & conditions check
+- FIX:	XSS security issue
+
+======
+1.9.25
+======
+- NEW:	Support for TTDSG law
+- NEW:	Button background color is now black for
+		all button types (accept / decline)
+
+======
 1.9.24
 ======
 - NEW:	Disable Privacy Settings Backdrop Click
@@ -280,7 +329,7 @@
 ======
 - NEW:	Gravity Forms now also do not store the IP
 - FIX:	Flamingo DB integration deprecated, version 5.0.3 adds a new option
-		for consent storage, please see here: https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/
+		for consent storage, please see here: https://www.welaunch.io/wordpress-gdpr/documentation/faq/cf7/
 
 ======
 1.6.2
@@ -625,7 +674,7 @@
 ======
 - NEW:	You can now add as many custom integrations as you want
 		See Settings > Integrations > Custom Integrations (at the bottom)
-		FAQ: https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/custom-integrations/
+		FAQ: https://www.welaunch.io/wordpress-gdpr/documentation/faq/custom-integrations/
 - FIX:	PHP notice after send export
 - FIX:	Responsive issues on Mobile
 - FIX:	Updates Translation POT file
@@ -706,7 +755,7 @@
 		Data (Form entries, Comments, Orders) can now be removed by Email
 - NEW:	Added Gravity Forms support for Export & Deletion
 - NEW:	Option to use a Cookie Whitelist
-		Read more: https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cookie-whitelist/
+		Read more: https://www.welaunch.io/wordpress-gdpr/documentation/faq/cookie-whitelist/
 - NEW:	Added Romanian Translations
 		Big Thanks to Leo Diaconu
 - NEW:	Added Swedish Translations
@@ -744,7 +793,7 @@
 ======
 - NEW:	Genernal > Domain text option.
 		For GA cookies to be stopped / allowed you need to 
-		pass your domain you set in GA there. E.g. ".db-dzine.com"
+		pass your domain you set in GA there. E.g. ".welaunch.io"
 - NEW:	When click on accepted or declines the checkboxes will be
 		checked / unchecked without page refreshing
 - NEW:	Formidable support 
@@ -789,7 +838,7 @@
 ======
 - NEW:	Added Support for WP 4.9.6
 		Some comment & info about WP 4.9.6 & GDPR:
-		https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/wordpress-4-9-6-gdpr/
+		https://www.welaunch.io/wordpress-gdpr/documentation/faq/wordpress-4-9-6-gdpr/
 - NEW:	Added an option to allow all cookies when a user is logged in
 - FIX:	Call to undefined function wp_delete_user
 - FIX:	Testing WP 4.9.6
@@ -810,7 +859,7 @@
 		See settings > General
 - NEW:	Added Slowenian Translations
 - NEW:	Added FAQ for Quforms
-		https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/quform/
+		https://www.welaunch.io/wordpress-gdpr/documentation/faq/quform/
 - FIX:	Fixed an issue where Privacy Center was no more available when
 		WooCommerce integration activated
 
@@ -824,14 +873,14 @@
 1.0.7
 ======
 - NEW:	Added Flamingo DB Support
-		https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/
+		https://www.welaunch.io/wordpress-gdpr/documentation/faq/cf7/
 - NEW:	Added Mailster Support
-		https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/mailster/
+		https://www.welaunch.io/wordpress-gdpr/documentation/faq/mailster/
 - NEW:	Added WooCommerce to Privacy Settings
 		explaining that 2 cookies are neccessary 
 		for order processing
 - NEW:	Integrations Tutorials: 
-		https://plugins.db-dzine.com/wordpress-gdpr/documentation/topics/integrations/
+		https://www.welaunch.io/wordpress-gdpr/documentation/topics/integrations/
 - NEW:	Filter for Neccessary Cookies: wordpress_gdpr_necessary_cookies
 - FIX:	Updated Translations template
 

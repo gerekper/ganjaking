@@ -215,9 +215,9 @@ class WC_Account_Funds_Cart_Manager {
 	 * get discount amount
 	 */
 	public function display_discount_amount() {
-		$amount = get_option( 'account_funds_discount_amount', 0 );
-		$amount = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) . ' ' : '';
-		return $amount;
+		$discount = wc_get_account_funds_discount_data();
+
+		return ( 'fixed' === $discount['type'] ? wc_price( $discount['amount'] ) . ' ' : '' );
 	}
 
 	/**
@@ -276,14 +276,14 @@ class WC_Account_Funds_Cart_Manager {
 			$funds = min( WC()->cart->get_total( 'edit' ), WC_Account_Funds::get_account_funds( null, false ) );
 
 			if ( 'yes' === $this->give_discount ) {
-				$discount_amount = get_option( 'account_funds_discount_amount', 0 );
+				$discount = wc_get_account_funds_discount_data();
 
 				$label = sprintf(
 					/* translators: 1: funds amount, 2: funds name, 3: discount */
 					__( 'Use <strong>%1$s</strong> from your %2$s and get a %3$s discount.', 'woocommerce-account-funds' ),
 					wc_price( $funds ),
 					wc_get_account_funds_name(),
-					( 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $discount_amount ) : $discount_amount . '%' )
+					( 'fixed' === $discount['type'] ? wc_price( $discount['amount'] ) : $discount['amount'] . '%' )
 				);
 			} else {
 				$label = sprintf(
@@ -319,8 +319,10 @@ class WC_Account_Funds_Cart_Manager {
 			return $data;
 		}
 
-		// note: we make our points discount "greedy" so as many points as possible are
-		// applied to the order.  However we also want to play nice with other discounts
+		$discount = wc_get_account_funds_discount_data();
+
+		// We make our points discount "greedy" so as many points as possible are
+		// applied to the order. However, we also want to play nice with other discounts
 		// so if another coupon is applied we want to use less points than otherwise.
 		// The solution is to make this discount apply post-tax so that both pre-tax
 		// and post-tax discounts can be considered.  At the same time we use the cart
@@ -328,8 +330,8 @@ class WC_Account_Funds_Cart_Manager {
 		// functions like a pre-tax discount in that sense.
 		return array(
 			'id'            => true,
-			'discount_type' => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
-			'amount'        => get_option( 'account_funds_discount_amount', 0 ),
+			'discount_type' => ( 'fixed' === $discount['type'] ? 'fixed_cart' : 'percent' ),
+			'amount'        => $discount['amount'],
 		);
 	}
 
@@ -348,7 +350,9 @@ class WC_Account_Funds_Cart_Manager {
 			return $discount;
 		}
 
-		if ( 'percentage' === get_option( 'account_funds_discount_type' ) ) {
+		$discount_data = wc_get_account_funds_discount_data();
+
+		if ( 'percentage' === $discount_data['type'] ) {
 			if ( WC_Account_Funds::get_account_funds( get_current_user_id(), false ) < WC()->cart->get_subtotal() ) {
 				$discount_percent = WC_Account_Funds::get_account_funds( get_current_user_id(), false ) / WC()->cart->get_subtotal();
 			} else {

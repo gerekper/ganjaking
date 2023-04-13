@@ -32,7 +32,7 @@ class SetCookie
         foreach ($pieces as $part) {
             $cookieParts = \explode('=', $part, 2);
             $key = \trim($cookieParts[0]);
-            $value = isset($cookieParts[1]) ? \trim($cookieParts[1], " \n\r\t\0\v") : \true;
+            $value = isset($cookieParts[1]) ? \trim($cookieParts[1], " \n\r\t\x00\v") : \true;
             // Only check for non-cookies when cookies have been found
             if (empty($data['Name'])) {
                 $data['Name'] = $key;

@@ -11,7 +11,7 @@ class WordPress_GDPR_Data_Retention extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
@@ -25,7 +25,7 @@ class WordPress_GDPR_Data_Retention extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -46,7 +46,7 @@ class WordPress_GDPR_Data_Retention extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $login [description]
      * @param   [type]                       $user  [description]
      * @return  [type]                              [description]
@@ -65,7 +65,7 @@ class WordPress_GDPR_Data_Retention extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $login [description]
      * @param   [type]                       $user  [description]
      * @return  [type]                              [description]
@@ -81,7 +81,7 @@ class WordPress_GDPR_Data_Retention extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
 	public function maybe_delete_old_users()
@@ -155,7 +155,7 @@ class WordPress_GDPR_Data_Retention extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function check_action()

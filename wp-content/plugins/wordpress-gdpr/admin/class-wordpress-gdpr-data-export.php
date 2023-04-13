@@ -11,7 +11,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
@@ -25,7 +25,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -46,16 +46,18 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function check_action()
     {
     	$by_email = false;
+
     	if(isset($_POST['wordpress_gdpr_btn_form']) && $_POST['wordpress_gdpr_btn_form'] == "request-data") {
     		$user_id = get_current_user_id();
     		$action = 'request-data';
     	} else {
+
     		if(!isset($_GET['wordpress_gdpr']) || !is_admin()) {
     			return false;
 			}
@@ -183,7 +185,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $user_id [description]
      * @return  [type]                                [description]
      */
@@ -192,32 +194,84 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
 		global $wpdb;
 
 		$export_data = array();
-		$export_data['user_data'] 		= get_userdata($user_id);
-		$export_data['user_meta'] 		= get_user_meta( $user_id );
-		$export_data['user_comments'] 	= get_comments( array('author__in' => array($user_id) ) );
 
-		if($this->get_option('integrationsQuform')) {
-			$export_data['quform'] = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}quform_entries WHERE created_by = '" . $user_id . "'", OBJECT );
-		}
+		$user_data = get_userdata($user_id);
 
-        if($this->get_option('integrationsFormidable')) {
-			$export_data['formidable'] = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}frm_items WHERE user_id = '" . $user_id . "'", OBJECT );
-        }
+		// try by IP
+		if(!$user_data && $this->get_option('consentLogLoggedOut')) {
 
-        if($this->get_option('integrationsGravityForms')) {
-			$export_data['gravityforms'] = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}gf_entry WHERE created_by = '" . $user_id . "'", OBJECT );
-        }
+            global $wpdb;
 
-		$export_data = apply_filters('wordpress_gdpr_export_data', $export_data);
+            $table_name = $wpdb->prefix . "gdpr_consent_log";
 
-		if(class_exists('WooCommerce')) {
-			$export_data['user_orders'] = get_posts( array(
-									        'numberposts' => -1,
-									        'meta_key'    => '_customer_user',
-									        'meta_value'  => $user_id,
-									        'post_type'   => wc_get_order_types(),
-									        'post_status' => array_keys( wc_get_order_statuses() ),
-									    ) );
+            $ipConsents = 
+            	$wpdb->get_results( 
+                	$wpdb->prepare( "SELECT * FROM $table_name WHERE ip = %s", esc_sql($user_id) ) 
+            	);
+
+        	if(empty($ipConsents)) {
+        		return false;
+        	}
+
+			$export_data = (array) $ipConsents[0];
+			$export_data['consents'] = maybe_unserialize( $export_data['consents'] );
+
+            $args = array(
+                'post_type' => 'gdpr_service',
+                'posts_per_page' => -1,
+            );
+
+            $services = get_posts($args);
+            $tmp = array();
+            foreach ($services as $service) {
+                $tmp[$service->ID] = array(
+                    'id' => $service->ID,
+                    'name' => $service->post_title,
+                );
+            }
+
+            $services = $tmp;
+
+            $tmp = array();
+            foreach ($export_data['consents'] as $key => $value) {
+                $serviceKey = str_replace(array('wordpress_gdpr_', '_'), array('', ' '), $key);
+
+                if(isset($services[$serviceKey])) {
+                    $tmp[$services[$serviceKey]['name']] = $value;
+                } else {
+                    $tmp[$serviceKey] = $value;
+                }
+            }
+            $export_data['consents'] = $tmp;
+
+		} else {
+			$export_data['user_data'] 		= $user_data;
+			$export_data['user_meta'] 		= get_user_meta( $user_id );
+			$export_data['user_comments'] 	= get_comments( array('author__in' => array($user_id) ) );
+
+			if($this->get_option('integrationsQuform')) {
+				$export_data['quform'] = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}quform_entries WHERE created_by = '" . $user_id . "'", OBJECT );
+			}
+
+	        if($this->get_option('integrationsFormidable')) {
+				$export_data['formidable'] = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}frm_items WHERE user_id = '" . $user_id . "'", OBJECT );
+	        }
+
+	        if($this->get_option('integrationsGravityForms')) {
+				$export_data['gravityforms'] = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}gf_entry WHERE created_by = '" . $user_id . "'", OBJECT );
+	        }
+
+			$export_data = apply_filters('wordpress_gdpr_export_data', $export_data);
+
+			if(class_exists('WooCommerce')) {
+				$export_data['user_orders'] = get_posts( array(
+										        'numberposts' => -1,
+										        'meta_key'    => '_customer_user',
+										        'meta_value'  => $user_id,
+										        'post_type'   => wc_get_order_types(),
+										        'post_status' => array_keys( wc_get_order_statuses() ),
+										    ) );
+			}
 		}
 
 		return $export_data;
@@ -228,7 +282,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @param   [type]                       $user_id [description]
      * @return  [type]                                [description]
      */
@@ -318,7 +372,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
 	 * @author Daniel Barenkamp
 	 * @version 1.0.0
 	 * @since   1.0.0
-	 * @link    https://plugins.db-dzine.com
+	 * @link    https://www.welaunch.io
 	 * @param   string                       $jsonText [description]
 	 * @return  [type]                                 [description]
 	 */
@@ -337,7 +391,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
 	 * @author Daniel Barenkamp
 	 * @version 1.0.0
 	 * @since   1.0.0
-	 * @link    https://plugins.db-dzine.com
+	 * @link    https://www.welaunch.io
 	 * @param   [type]                       $arr [description]
 	 * @return  [type]                            [description]
 	 */
@@ -367,7 +421,7 @@ class WordPress_GDPR_Data_Export extends WordPress_GDPR
 	 * @author Daniel Barenkamp
 	 * @version 1.0.0
 	 * @since   1.0.0
-	 * @link    https://plugins.db-dzine.com
+	 * @link    https://www.welaunch.io
 	 * @param   [type]                       $InputVariable [description]
 	 * @return  boolean                                     [description]
 	 */

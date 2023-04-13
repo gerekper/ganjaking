@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-15 05:18+0000\n"
+"POT-Creation-Date: 2022-09-27 19:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: admin/options-init.php:1506
+#: admin/options-init.php:1524
 msgid ""
 "!! DEPRECATED !! The Services you find below are deprecated in our plugin "
 "settings and they should be moved into our new Services section (see menu "
@@ -26,43 +26,47 @@ msgstr ""
 msgid "\">register your License here</a>."
 msgstr ""
 
-#: admin/options-init.php:431
+#: admin/options-init.php:440
 msgid "<i class=\"fa fa-lg fa-user-secret\"></i>"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:305
+#: public/class-wordpress-gdpr-public.php:306
 #: public/class-wordpress-gdpr-public-deprecated.php:434
 msgid "A new GDPR Request is available."
 msgstr ""
 
-#: admin/options-init.php:523
+#: admin/options-init.php:532
 msgid "Accept all Services"
 msgstr ""
 
-#: admin/options-init.php:338 admin/options-init.php:589
+#: admin/options-init.php:354 admin/options-init.php:606
 msgid "Accept Button Background Color"
 msgstr ""
 
-#: admin/options-init.php:330 admin/options-init.php:581
+#: admin/options-init.php:346 admin/options-init.php:598
 msgid "Accept Button Text Color"
 msgstr ""
 
+#: admin/options-init.php:1772
+msgid "Accept Terms & Conditions"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-consent-log.php:187
 #: admin/class-wordpress-gdpr-requests.php:129
-#: admin/class-wordpress-gdpr-users.php:109
 msgid "Actions"
 msgstr ""
 
-#: admin/options-init.php:1265
+#: admin/options-init.php:1283
 msgid "Activate our Mailster Integration."
 msgstr ""
 
-#: admin/options-init.php:1075
+#: admin/options-init.php:1093
 msgid ""
 "Activated this will add a checkbox to comment form to accept your privay "
 "policy."
 msgstr ""
 
-#: admin/options-init.php:1108
+#: admin/options-init.php:1126
 msgid ""
 "Activated this will add a checkbox to the checkout, registration and product "
 "review form to accept your privay policy. It also adds a menu item to the my "
@@ -71,7 +75,7 @@ msgid ""
 "Version 3.4. you may not need this anymore"
 msgstr ""
 
-#: admin/options-init.php:1670
+#: admin/options-init.php:1688
 msgid "Add custom Integrations here."
 msgstr ""
 
@@ -82,23 +86,23 @@ msgstr ""
 msgid "Add New %s"
 msgstr ""
 
-#: admin/options-init.php:1777
+#: admin/options-init.php:1817
 msgid "Add some stylesheet if you want."
 msgstr ""
 
-#: admin/options-init.php:758
+#: admin/options-init.php:776
 msgid "Add your Cookie Policy here."
 msgstr ""
 
-#: admin/options-init.php:1053
+#: admin/options-init.php:1071
 msgid "Add your Imprint here."
 msgstr ""
 
-#: admin/options-init.php:1345
+#: admin/options-init.php:1363
 msgid "Add your privacy policy to this page!"
 msgstr ""
 
-#: admin/options-init.php:1736
+#: admin/options-init.php:1754
 msgid ""
 "Add your unsubscribe Form here! For <a target=\"_blank\" href=\"https://kb."
 "mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list\">"
@@ -106,11 +110,11 @@ msgid ""
 "embedded via iFrame."
 msgstr ""
 
-#: admin/options-init.php:1123
+#: admin/options-init.php:1141
 msgid "Adds a privacy acceptance checkbox on checkout."
 msgstr ""
 
-#: admin/options-init.php:1131
+#: admin/options-init.php:1149
 msgid "Adds a privacy acceptance checkbox on Registration."
 msgstr ""
 
@@ -118,11 +122,11 @@ msgstr ""
 msgid "AdSense"
 msgstr ""
 
-#: admin/options-init.php:1647
+#: admin/options-init.php:1665
 msgid "Adsense Code"
 msgstr ""
 
-#: admin/options-init.php:1564
+#: admin/options-init.php:1582
 msgid "Adwords Code"
 msgstr ""
 
@@ -131,15 +135,15 @@ msgstr ""
 msgid "All %s"
 msgstr ""
 
-#: admin/options-init.php:129
+#: admin/options-init.php:137
 msgid "Allow all Cookies for all users visiting first time"
 msgstr ""
 
-#: admin/options-init.php:145
+#: admin/options-init.php:153
 msgid "Allow all Cookies for logged in users"
 msgstr ""
 
-#: admin/options-init.php:137
+#: admin/options-init.php:145
 msgid "Allow all Cookies for users continue visiting your site"
 msgstr ""
 
@@ -147,36 +151,36 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: admin/options-init.php:1541
+#: admin/options-init.php:1559
 msgid "Analytics Code"
 msgstr ""
 
-#: admin/options-init.php:1172
+#: admin/options-init.php:1190
 msgid ""
 "Assign your privacy policy page here. You could also use a custom one for "
 "BuddyPress"
 msgstr ""
 
-#: admin/options-init.php:1090
+#: admin/options-init.php:1108
 msgid ""
 "Assign your privacy policy page here. You could also use a custom one for "
 "Comments"
 msgstr ""
 
-#: admin/options-init.php:1287
+#: admin/options-init.php:1305
 msgid ""
 "Assign your privacy policy page here. You could also use a custom one for "
 "Mailster"
 msgstr ""
 
-#: admin/options-init.php:1147
+#: admin/options-init.php:1165
 msgid ""
 "Assign your privacy policy page here. You could also use a custom one for "
 "WooCommerce"
 msgstr ""
 
-#: admin/options-init.php:314 admin/options-init.php:437
-#: admin/options-init.php:565 admin/options-init.php:620
+#: admin/options-init.php:330 admin/options-init.php:446
+#: admin/options-init.php:582 admin/options-init.php:638
 msgid "Background Color"
 msgstr ""
 
@@ -184,27 +188,27 @@ msgstr ""
 msgid "Body Script Tag"
 msgstr ""
 
-#: admin/options-init.php:306
+#: admin/options-init.php:322
 msgid "Bottom"
 msgstr ""
 
-#: admin/options-init.php:455
+#: admin/options-init.php:464
 msgid "Bottom Left"
 msgstr ""
 
-#: admin/options-init.php:456
+#: admin/options-init.php:465
 msgid "Bottom Right"
 msgstr ""
 
-#: admin/options-init.php:1171
+#: admin/options-init.php:1189
 msgid "BuddyPress Privacy Policy Page"
 msgstr ""
 
-#: admin/options-init.php:1183
+#: admin/options-init.php:1201
 msgid "By registering an Account I have read and accept the privacy policy."
 msgstr ""
 
-#: admin/options-init.php:1298
+#: admin/options-init.php:1316
 msgid ""
 "By subscribing to this newsletter I have read and accept the privacy policy."
 msgstr ""
@@ -221,20 +225,24 @@ msgstr ""
 msgid "Check if you have accepted our terms & conditions."
 msgstr ""
 
-#: admin/options-init.php:162
+#: admin/options-init.php:170
 msgid "Choose fas if you use free, otherwise you can use fal or far"
 msgstr ""
 
-#: admin/options-init.php:386
+#: admin/options-init.php:290
 msgid "Close Icon"
 msgstr ""
 
-#: admin/options-init.php:393
+#: admin/options-init.php:402
 msgid "Close Icon Background Color"
 msgstr ""
 
-#: admin/options-init.php:401
+#: admin/options-init.php:410
 msgid "Close Icon Color"
+msgstr ""
+
+#: public/class-wordpress-gdpr-privacy-settings.php:386
+msgid "Close Popup"
 msgstr ""
 
 #: admin/class-wordpress-gdpr-migrate-services.php:113
@@ -242,15 +250,15 @@ msgstr ""
 msgid "Cloudflare"
 msgstr ""
 
-#: admin/options-init.php:1673
+#: admin/options-init.php:1691
 msgid "Code (script tag)"
 msgstr ""
 
-#: admin/options-init.php:1089
+#: admin/options-init.php:1107
 msgid "Comments Privacy Policy Page"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:190
+#: public/class-wordpress-gdpr-public.php:191
 #: public/class-wordpress-gdpr-public-deprecated.php:345
 msgid "Configure your personal privacy settings here."
 msgstr ""
@@ -259,24 +267,24 @@ msgstr ""
 msgid "Confirm Request"
 msgstr ""
 
-#: admin/options-init.php:662
+#: admin/options-init.php:680
 msgid "Confirmation Email"
 msgstr ""
 
-#: admin/options-init.php:675
+#: admin/options-init.php:693
 msgid "Confirmation Email Subject"
 msgstr ""
 
-#: admin/options-init.php:683
+#: admin/options-init.php:701
 msgid "Confirmation Email Text"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-users.php:62
-#: admin/class-wordpress-gdpr-users.php:63
+#: admin/class-wordpress-gdpr-consent-log.php:140
+#: admin/class-wordpress-gdpr-consent-log.php:141
 msgid "Consent Log"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-users.php:108
+#: admin/class-wordpress-gdpr-consent-log.php:186
 msgid "Consents"
 msgstr ""
 
@@ -284,42 +292,42 @@ msgstr ""
 msgid "Contact DMCA"
 msgstr ""
 
-#: admin/options-init.php:694 admin/class-wordpress-gdpr-install-pages.php:65
-#: public/class-wordpress-gdpr-public.php:139
+#: admin/options-init.php:712 admin/class-wordpress-gdpr-install-pages.php:65
+#: public/class-wordpress-gdpr-public.php:140
 #: public/class-wordpress-gdpr-public-deprecated.php:294
 msgid "Contact DPO"
 msgstr ""
 
-#: admin/options-init.php:708
+#: admin/options-init.php:726
 msgid "Contact DPO Page"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:140
+#: public/class-wordpress-gdpr-public.php:141
 #: public/class-wordpress-gdpr-public-deprecated.php:295
 msgid "Contact our Data Protection Officer."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:155
+#: public/class-wordpress-gdpr-public.php:156
 #: public/class-wordpress-gdpr-public-deprecated.php:310
 msgid "Contact us for data change request."
 msgstr ""
 
-#: admin/options-init.php:177
+#: admin/options-init.php:185
 msgid "Cookie Lifetime."
 msgstr ""
 
-#: admin/options-init.php:276 admin/options-init.php:509
-#: admin/options-init.php:743 admin/class-wordpress-gdpr-install-pages.php:72
-#: public/class-wordpress-gdpr-public.php:144
+#: admin/options-init.php:284 admin/options-init.php:518
+#: admin/options-init.php:761 admin/class-wordpress-gdpr-install-pages.php:72
+#: public/class-wordpress-gdpr-public.php:145
 #: public/class-wordpress-gdpr-public-deprecated.php:299
 msgid "Cookie Policy"
 msgstr ""
 
-#: admin/options-init.php:757
+#: admin/options-init.php:775
 msgid "Cookie Policy Page"
 msgstr ""
 
-#: admin/options-init.php:203
+#: admin/options-init.php:211
 msgid "Cookie Popup"
 msgstr ""
 
@@ -349,35 +357,35 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: admin/options-init.php:1519
+#: admin/options-init.php:1537
 msgid "Custom Allowed Cookies"
 msgstr ""
 
-#: admin/options-init.php:1662
+#: admin/options-init.php:1680
 msgid "Custom Code"
 msgstr ""
 
-#: admin/options-init.php:1776
+#: admin/options-init.php:1816
 msgid "Custom CSS"
 msgstr ""
 
-#: admin/options-init.php:1669
+#: admin/options-init.php:1687
 msgid "Custom Integrations"
 msgstr ""
 
-#: admin/options-init.php:768
+#: admin/options-init.php:786
 msgid "Data Breach"
 msgstr ""
 
-#: admin/options-init.php:790
+#: admin/options-init.php:808
 msgid "Data Breach Email Subject"
 msgstr ""
 
-#: admin/options-init.php:798
+#: admin/options-init.php:816
 msgid "Data Breach Email Text"
 msgstr ""
 
-#: admin/options-init.php:782
+#: admin/options-init.php:800
 msgid "Data Breach from Email"
 msgstr ""
 
@@ -385,27 +393,27 @@ msgstr ""
 msgid "Data Deleted"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-data-export.php:98
+#: admin/class-wordpress-gdpr-data-export.php:100
 msgid "Data Exported Manually"
 msgstr ""
 
-#: admin/options-init.php:821 admin/class-wordpress-gdpr-install-pages.php:101
+#: admin/options-init.php:839 admin/class-wordpress-gdpr-install-pages.php:101
 #: admin/class-wordpress-gdpr-install-pages.php:129
-#: public/class-wordpress-gdpr-public.php:154
+#: public/class-wordpress-gdpr-public.php:155
 #: public/class-wordpress-gdpr-public-deprecated.php:309
 #: public/class-wordpress-gdpr-forms.php:65
 msgid "Data Rectification"
 msgstr ""
 
-#: admin/options-init.php:853
+#: admin/options-init.php:871
 msgid "Data Rectification Email"
 msgstr ""
 
-#: admin/options-init.php:861
+#: admin/options-init.php:879
 msgid "Data Rectification Email Subject"
 msgstr ""
 
-#: admin/options-init.php:835
+#: admin/options-init.php:853
 msgid "Data Rectification Page"
 msgstr ""
 
@@ -413,7 +421,7 @@ msgstr ""
 msgid "Data Request"
 msgstr ""
 
-#: admin/options-init.php:870
+#: admin/options-init.php:888
 msgid "Data Retention"
 msgstr ""
 
@@ -421,11 +429,11 @@ msgstr ""
 msgid "Data Retention disabled"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-data-export.php:169
+#: admin/class-wordpress-gdpr-data-export.php:171
 msgid "Data Sent"
 msgstr ""
 
-#: admin/options-init.php:178
+#: admin/options-init.php:186
 msgid "Days before the Cookie expires."
 msgstr ""
 
@@ -433,7 +441,7 @@ msgstr ""
 msgid "Deactivatable"
 msgstr ""
 
-#: admin/options-init.php:1404
+#: admin/options-init.php:1422
 #, php-format
 msgid ""
 "Dear %s,\n"
@@ -442,7 +450,7 @@ msgid ""
 "read more here: INSERT YOUR LINK."
 msgstr ""
 
-#: admin/options-init.php:685
+#: admin/options-init.php:703
 #, php-format
 msgid ""
 "Dear %s,\n"
@@ -451,7 +459,7 @@ msgid ""
 " please click on the link below. Otherwise ignore this email!"
 msgstr ""
 
-#: admin/options-init.php:1029
+#: admin/options-init.php:1047
 #, php-format
 msgid ""
 "Dear %s,\n"
@@ -460,7 +468,7 @@ msgid ""
 "personal data from our Website."
 msgstr ""
 
-#: admin/options-init.php:800
+#: admin/options-init.php:818
 #, php-format
 msgid ""
 "Dear %s,\n"
@@ -475,96 +483,100 @@ msgid ""
 "access to our data."
 msgstr ""
 
-#: admin/options-init.php:1496
+#: admin/options-init.php:1514
 #, php-format
 msgid "Dear %s, <br><br>attached you find an export of your user data."
 msgstr ""
 
-#: admin/options-init.php:516
+#: admin/options-init.php:525
 msgid "Decline all Services"
 msgstr ""
 
-#: admin/options-init.php:354 admin/options-init.php:605
+#: admin/options-init.php:370 admin/options-init.php:622
 msgid "Decline Button Background Color"
 msgstr ""
 
-#: admin/options-init.php:346 admin/options-init.php:597
+#: admin/options-init.php:362 admin/options-init.php:614
 msgid "Decline Button Text Color"
 msgstr ""
 
-#: admin/options-init.php:1005
+#: admin/options-init.php:1023
 msgid "Delete Comments"
 msgstr ""
 
+#: admin/class-wordpress-gdpr-consent-log.php:260
 #: admin/class-wordpress-gdpr-requests.php:189
-#: admin/class-wordpress-gdpr-users.php:154
 msgid "Delete Data"
 msgstr ""
 
-#: admin/options-init.php:1211
+#: admin/options-init.php:1229
 msgid "Delete Flamingo DB Records"
 msgstr ""
 
-#: admin/options-init.php:1241
+#: admin/options-init.php:1259
 msgid "Delete Formidable Records"
 msgstr ""
 
-#: admin/options-init.php:1256
+#: admin/options-init.php:1274
 msgid "Delete GravityForms Records"
 msgstr ""
 
-#: public/class-wordpress-gdpr-forms.php:438
+#: public/class-wordpress-gdpr-forms.php:442
 msgid "Delete my Data"
 msgstr ""
 
-#: admin/options-init.php:998
+#: admin/options-init.php:1016
 msgid "Delete Posts & Pages (& all other post types)"
 msgstr ""
 
-#: admin/options-init.php:1226
+#: admin/options-init.php:1244
 msgid "Delete Quform Records"
 msgstr ""
 
-#: admin/options-init.php:884
+#: admin/options-init.php:902
 msgid "Delete User after X Days."
 msgstr ""
 
-#: admin/options-init.php:1114
+#: admin/options-init.php:1132
 msgid "Delete WooCommerce Orders"
 msgstr ""
 
-#: admin/options-init.php:1138
+#: admin/options-init.php:1156
 msgid "Disable Guest Checkout"
 msgstr ""
 
-#: admin/options-init.php:1280
+#: admin/options-init.php:1298
 msgid ""
 "Disable PixelYourSite Loading if no service found. Make sure you add a "
 "service and check the pixelyoursite checkbox. This does not work with "
 "caching due to PixelYourSite plugin."
 msgstr ""
 
-#: admin/options-init.php:718 admin/options-init.php:845
-#: admin/options-init.php:987 admin/options-init.php:1475
+#: admin/options-init.php:574
+msgid "Disable Popup Backdrop Click"
+msgstr ""
+
+#: admin/options-init.php:736 admin/options-init.php:863
+#: admin/options-init.php:1005 admin/options-init.php:1493
 msgid "Disable User Exists Check"
 msgstr ""
 
-#: admin/options-init.php:904 admin/class-wordpress-gdpr-install-pages.php:108
-#: public/class-wordpress-gdpr-public.php:159
+#: admin/options-init.php:922 admin/class-wordpress-gdpr-install-pages.php:108
+#: public/class-wordpress-gdpr-public.php:160
 #: public/class-wordpress-gdpr-public-deprecated.php:314
 msgid "Disclaimer"
 msgstr ""
 
-#: admin/options-init.php:918
+#: admin/options-init.php:936
 msgid "Disclaimer Page"
 msgstr ""
 
-#: admin/options-init.php:929 public/class-wordpress-gdpr-public.php:149
+#: admin/options-init.php:947 public/class-wordpress-gdpr-public.php:150
 #: public/class-wordpress-gdpr-public-deprecated.php:304
 msgid "DMCA"
 msgstr ""
 
-#: admin/options-init.php:943
+#: admin/options-init.php:961
 msgid "DMCA Page"
 msgstr ""
 
@@ -580,11 +592,11 @@ msgstr ""
 msgid "DPO Contact Request"
 msgstr ""
 
-#: admin/options-init.php:726
+#: admin/options-init.php:744
 msgid "DPO Email"
 msgstr ""
 
-#: admin/options-init.php:734
+#: admin/options-init.php:752
 msgid "DPO Email Subject"
 msgstr ""
 
@@ -595,31 +607,31 @@ msgstr ""
 msgid "Edit %s"
 msgstr ""
 
-#: admin/options-init.php:1082
+#: admin/options-init.php:1100
 msgid ""
 "Either you go to settings > discussions and check \"Users must be "
 "registered\" or you activate this setting here. If you do not do this, user "
 "deletion & export will not work, because no accounts are created!"
 msgstr ""
 
-#: admin/options-init.php:1139
+#: admin/options-init.php:1157
 msgid ""
 "Either you go to WooCommerce > Settings > Checkout and disable Guest "
 "Checkout or you activate this setting here. If you do not do this, user "
 "deletion & export will not work, because no accounts are created!"
 msgstr ""
 
+#: admin/class-wordpress-gdpr-consent-log.php:184
 #: admin/class-wordpress-gdpr-requests.php:271
-#: admin/class-wordpress-gdpr-users.php:106
 msgid "Email"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:308
+#: public/class-wordpress-gdpr-public.php:309
 #: public/class-wordpress-gdpr-public-deprecated.php:437
 msgid "Email Address confirmed and your request is in process now."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:312
+#: public/class-wordpress-gdpr-public.php:313
 #: public/class-wordpress-gdpr-public-deprecated.php:441
 msgid "Email Address could not be confirmed. Please send individual request."
 msgstr ""
@@ -637,7 +649,7 @@ msgstr ""
 msgid "Email: %s"
 msgstr ""
 
-#: admin/options-init.php:727 admin/options-init.php:854
+#: admin/options-init.php:745 admin/options-init.php:872
 msgid "Emails will be sent there."
 msgstr ""
 
@@ -645,245 +657,245 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: admin/options-init.php:1639
+#: admin/options-init.php:1657
 msgid "Enable Adsense"
 msgstr ""
 
-#: admin/options-init.php:1640
+#: admin/options-init.php:1658
 msgid "Enable Adsense Loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1557
+#: admin/options-init.php:1575
 msgid "Enable Adwords Loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1534
+#: admin/options-init.php:1552
 msgid "Enable Analytics Loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1164
+#: admin/options-init.php:1182
 msgid "Enable BuddyPress"
 msgstr ""
 
-#: admin/options-init.php:1189
+#: admin/options-init.php:1207
 msgid "Enable CF7"
 msgstr ""
 
-#: admin/options-init.php:1526
+#: admin/options-init.php:1544
 msgid "Enable Cloudlfare"
 msgstr ""
 
-#: admin/options-init.php:1074
+#: admin/options-init.php:1092
 msgid "Enable Comments"
 msgstr ""
 
-#: admin/options-init.php:701
+#: admin/options-init.php:719
 msgid "Enable Contact DPO"
 msgstr ""
 
-#: admin/options-init.php:750
+#: admin/options-init.php:768
 msgid "Enable Cookie Policy"
 msgstr ""
 
-#: admin/options-init.php:751
+#: admin/options-init.php:769
 msgid "Enable Cookie Policy Page"
 msgstr ""
 
-#: admin/options-init.php:1654
+#: admin/options-init.php:1672
 msgid "Enable Custom"
 msgstr ""
 
-#: admin/options-init.php:775
+#: admin/options-init.php:793
 msgid "Enable Data Breach"
 msgstr ""
 
-#: admin/options-init.php:776
+#: admin/options-init.php:794
 msgid "Enable Data Breach form."
 msgstr ""
 
-#: admin/options-init.php:702
+#: admin/options-init.php:720
 msgid "Enable Data Privacy Officer Contact form."
 msgstr ""
 
-#: admin/options-init.php:828
+#: admin/options-init.php:846
 msgid "Enable Data Rectification"
 msgstr ""
 
-#: admin/options-init.php:829
+#: admin/options-init.php:847
 msgid "Enable Data Rectification form."
 msgstr ""
 
-#: admin/options-init.php:877
+#: admin/options-init.php:895
 msgid "Enable Data Retention"
 msgstr ""
 
-#: admin/options-init.php:878
+#: admin/options-init.php:896
 msgid "Enable Data Retention."
 msgstr ""
 
-#: admin/options-init.php:911
+#: admin/options-init.php:929
 msgid "Enable Disclaimer"
 msgstr ""
 
-#: admin/options-init.php:912
+#: admin/options-init.php:930
 msgid "Enable Disclaimer form."
 msgstr ""
 
-#: admin/options-init.php:936
+#: admin/options-init.php:954
 msgid "Enable DMCA"
 msgstr ""
 
-#: admin/options-init.php:937
+#: admin/options-init.php:955
 msgid "Enable DMCA form."
 msgstr ""
 
-#: admin/options-init.php:1609
+#: admin/options-init.php:1627
 msgid "Enable Facebook"
 msgstr ""
 
-#: admin/options-init.php:1610
+#: admin/options-init.php:1628
 msgid "Enable Facebook pixel loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1196
+#: admin/options-init.php:1214
 msgid "Enable Flamingo DB (Deprecated)"
 msgstr ""
 
-#: admin/options-init.php:962
+#: admin/options-init.php:980
 msgid "Enable Forget Me"
 msgstr ""
 
-#: admin/options-init.php:963
+#: admin/options-init.php:981
 msgid "Enable Forget Me form."
 msgstr ""
 
-#: admin/options-init.php:1234
+#: admin/options-init.php:1252
 msgid "Enable Formidable"
 msgstr ""
 
-#: admin/options-init.php:1556
+#: admin/options-init.php:1574
 msgid "Enable Google Adwords"
 msgstr ""
 
-#: admin/options-init.php:1533
+#: admin/options-init.php:1551
 msgid "Enable Google Analytics"
 msgstr ""
 
-#: admin/options-init.php:1571
+#: admin/options-init.php:1589
 msgid "Enable Google Tag Manager"
 msgstr ""
 
-#: admin/options-init.php:1249
+#: admin/options-init.php:1267
 msgid "Enable GravityForms"
 msgstr ""
 
-#: admin/options-init.php:1594
+#: admin/options-init.php:1612
 msgid "Enable Hot Jar"
 msgstr ""
 
-#: admin/options-init.php:1595
+#: admin/options-init.php:1613
 msgid "Enable Hot Jar Loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1045
+#: admin/options-init.php:1063
 msgid "Enable Imprint"
 msgstr ""
 
-#: admin/options-init.php:1046
+#: admin/options-init.php:1064
 msgid "Enable Imprint Page"
 msgstr ""
 
-#: admin/options-init.php:1264
+#: admin/options-init.php:1282
 msgid "Enable Mailster"
 msgstr ""
 
-#: admin/options-init.php:1271
+#: admin/options-init.php:1289
 msgid "Enable Mailster Checkbox"
 msgstr ""
 
-#: admin/options-init.php:1312
+#: admin/options-init.php:1330
 msgid "Enable Media Credits"
 msgstr ""
 
-#: admin/options-init.php:1313
+#: admin/options-init.php:1331
 msgid ""
 "Enable Media Credits page where you can inform about image + author + "
 "license etc."
 msgstr ""
 
-#: admin/options-init.php:1624
+#: admin/options-init.php:1642
 msgid "Enable Piwik"
 msgstr ""
 
-#: admin/options-init.php:1625
+#: admin/options-init.php:1643
 msgid "Enable Piwik Loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1279
+#: admin/options-init.php:1297
 msgid "Enable PixelYourSite"
 msgstr ""
 
-#: admin/options-init.php:210
+#: admin/options-init.php:218
 msgid "Enable Popup"
 msgstr ""
 
-#: admin/options-init.php:644 admin/options-init.php:645
+#: admin/options-init.php:662 admin/options-init.php:663
 msgid "Enable Privacy Center"
 msgstr ""
 
-#: admin/options-init.php:1337 admin/options-init.php:1338
+#: admin/options-init.php:1355 admin/options-init.php:1356
 msgid "Enable Privacy Policy"
 msgstr ""
 
-#: admin/options-init.php:1379
+#: admin/options-init.php:1397
 msgid "Enable Privacy Policy Update"
 msgstr ""
 
-#: admin/options-init.php:1380
+#: admin/options-init.php:1398
 msgid "Enable Privacy Policy Update form."
 msgstr ""
 
-#: admin/options-init.php:1219
+#: admin/options-init.php:1237
 msgid "Enable Quform"
 msgstr ""
 
-#: admin/options-init.php:121
+#: admin/options-init.php:129
 msgid "Enable Recaptcha for Forms"
 msgstr ""
 
-#: admin/options-init.php:1443
+#: admin/options-init.php:1461
 msgid "Enable Request Data"
 msgstr ""
 
-#: admin/options-init.php:1444
+#: admin/options-init.php:1462
 msgid "Enable Request Data form."
 msgstr ""
 
-#: admin/options-init.php:1572
+#: admin/options-init.php:1590
 msgid "Enable Tag Manager Loading only if allowed."
 msgstr ""
 
-#: admin/options-init.php:1688
+#: admin/options-init.php:1706
 msgid "Enable Terms & Conditions"
 msgstr ""
 
-#: admin/options-init.php:1689
+#: admin/options-init.php:1707
 msgid "Enable Terms & Conditions form."
 msgstr ""
 
-#: admin/options-init.php:559
+#: admin/options-init.php:568
 msgid "Enable the Privacy Settings Popup"
 msgstr ""
 
-#: admin/options-init.php:424
+#: admin/options-init.php:433
 msgid "Enable the Privacy Settings Trigger"
 msgstr ""
 
-#: admin/options-init.php:1728 admin/options-init.php:1729
+#: admin/options-init.php:1746 admin/options-init.php:1747
 msgid "Enable Unsubscribe"
 msgstr ""
 
-#: admin/options-init.php:1107
+#: admin/options-init.php:1125
 msgid "Enable WooCommerce"
 msgstr ""
 
@@ -897,7 +909,7 @@ msgstr ""
 msgid "Enabled by Default"
 msgstr ""
 
-#: admin/options-init.php:1204
+#: admin/options-init.php:1222
 msgid "Enter the field name for the opt in checkbox here."
 msgstr ""
 
@@ -905,32 +917,33 @@ msgstr ""
 msgid "EU-DSVGO, GDPR Compliance Plugin"
 msgstr ""
 
-#: admin/options-init.php:216
+#: admin/options-init.php:224
 msgid "Exclude Pages"
 msgstr ""
 
-#: admin/options-init.php:1746
+#: admin/options-init.php:1779
 msgid "Expert"
 msgstr ""
 
-#: admin/options-init.php:1747
+#: admin/options-init.php:1780
 msgid "Expert Settings."
 msgstr ""
 
+#: admin/class-wordpress-gdpr-consent-log.php:265
+#: admin/class-wordpress-gdpr-consent-log.php:318
 #: admin/class-wordpress-gdpr-requests.php:198
-#: admin/class-wordpress-gdpr-users.php:159
 msgid "Export Data"
 msgstr ""
 
-#: admin/options-init.php:1468
+#: admin/options-init.php:1486
 msgid "Export Data as HTML Table"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-data-export.php:172
+#: admin/class-wordpress-gdpr-data-export.php:174
 msgid "Export Data could not be mailed to user"
 msgstr ""
 
-#: public/class-wordpress-gdpr-forms.php:440
+#: public/class-wordpress-gdpr-forms.php:444
 msgid "Export my Data"
 msgstr ""
 
@@ -938,7 +951,7 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: admin/options-init.php:1617
+#: admin/options-init.php:1635
 msgid "Facebook Code"
 msgstr ""
 
@@ -959,7 +972,7 @@ msgstr ""
 msgid "Firstname"
 msgstr ""
 
-#: admin/options-init.php:161
+#: admin/options-init.php:169
 msgid "Font Awesome Prefix"
 msgstr ""
 
@@ -972,21 +985,21 @@ msgid ""
 "be turned off."
 msgstr ""
 
-#: admin/options-init.php:955 admin/class-wordpress-gdpr-install-pages.php:115
-#: public/class-wordpress-gdpr-public.php:164
+#: admin/options-init.php:973 admin/class-wordpress-gdpr-install-pages.php:115
+#: public/class-wordpress-gdpr-public.php:165
 #: public/class-wordpress-gdpr-public-deprecated.php:319
 msgid "Forget Me"
 msgstr ""
 
-#: admin/options-init.php:1019
+#: admin/options-init.php:1037
 msgid "Forget me Deleted Email Subject"
 msgstr ""
 
-#: admin/options-init.php:1027
+#: admin/options-init.php:1045
 msgid "Forget me Deleted Email Text"
 msgstr ""
 
-#: admin/options-init.php:969
+#: admin/options-init.php:987
 msgid "Forget Me Page"
 msgstr ""
 
@@ -994,11 +1007,11 @@ msgstr ""
 msgid "Forget Me Request"
 msgstr ""
 
-#: admin/options-init.php:284
+#: admin/options-init.php:300
 msgid "Full Width"
 msgstr ""
 
-#: admin/options-init.php:285
+#: admin/options-init.php:301
 msgid "Full Width Buttons Right"
 msgstr ""
 
@@ -1006,31 +1019,31 @@ msgstr ""
 msgid "GDPR"
 msgstr ""
 
-#: admin/options-init.php:677
+#: admin/options-init.php:695
 msgid "GDPR - Confirm your Request"
 msgstr ""
 
-#: admin/options-init.php:792
+#: admin/options-init.php:810
 msgid "GDPR - Data Breach"
 msgstr ""
 
-#: admin/options-init.php:863
+#: admin/options-init.php:881
 msgid "GDPR - New Request for Data Rectification"
 msgstr ""
 
-#: admin/options-init.php:736
+#: admin/options-init.php:754
 msgid "GDPR - New Request for DPO"
 msgstr ""
 
-#: admin/options-init.php:1396
+#: admin/options-init.php:1414
 msgid "GDPR - Privacy Policy Updated"
 msgstr ""
 
-#: admin/options-init.php:1021
+#: admin/options-init.php:1039
 msgid "GDPR - Your Data has been Deleted"
 msgstr ""
 
-#: admin/options-init.php:1488
+#: admin/options-init.php:1506
 msgid "GDPR - Your User Data is Ready"
 msgstr ""
 
@@ -1038,7 +1051,7 @@ msgstr ""
 msgid "GDPR Request"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:305
+#: public/class-wordpress-gdpr-public.php:306
 #: public/class-wordpress-gdpr-public-deprecated.php:434
 msgid "GDPR Request - "
 msgstr ""
@@ -1067,7 +1080,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:175
+#: public/class-wordpress-gdpr-public.php:176
 #: public/class-wordpress-gdpr-public-deprecated.php:330
 msgid "Get to know the Credits of our Media."
 msgstr ""
@@ -1095,12 +1108,16 @@ msgstr ""
 msgid "Head Script Tag"
 msgstr ""
 
+#: admin/options-init.php:1808
+msgid "Hide Terms & Conditions Checkbox"
+msgstr ""
+
 #: admin/class-wordpress-gdpr-migrate-services.php:185
 #: public/class-wordpress-gdpr-public-deprecated.php:637
 msgid "Hot Jar"
 msgstr ""
 
-#: admin/options-init.php:1602
+#: admin/options-init.php:1620
 msgid "Hot Jar Code"
 msgstr ""
 
@@ -1112,50 +1129,56 @@ msgstr ""
 msgid "https://welaunch.io/plugins/wordpress-gdpr/"
 msgstr ""
 
-#: admin/options-init.php:236
+#: admin/options-init.php:244
 msgid "I accept"
 msgstr ""
 
-#: public/class-wordpress-gdpr-forms.php:413
+#: admin/options-init.php:1773
 msgid ""
 "I agree to the privacy policy and that my data will be stored for this GDPR "
 "request ."
 msgstr ""
 
-#: admin/options-init.php:628
+#: admin/options-init.php:646
 msgid "Icon Color"
 msgstr ""
 
-#: admin/options-init.php:1769
+#: admin/options-init.php:1802
 msgid ""
 "If enabled our plugin will remove all cookies, that are not allowed by a "
 "certain service. If disabled all cookies will only be removed on decline."
 msgstr ""
 
-#: admin/options-init.php:1115
+#: admin/options-init.php:1809
+msgid ""
+"If enabled the user does not have to accept the terms & conditions as the "
+"checkbox is removed."
+msgstr ""
+
+#: admin/options-init.php:1133
 msgid "If enabled WooCommerce Orders will be deleted on Forget Me Request."
 msgstr ""
 
-#: admin/options-init.php:536
+#: admin/options-init.php:545
 msgid ""
 "If enabled you need to add the following shortcode to a new page: "
 "[wordpress_gdpr_privacy_settings]."
 msgstr ""
 
-#: admin/options-init.php:670
+#: admin/options-init.php:688
 msgid ""
 "If you have enabled to use WP Core Functions in advanced settings this is no "
 "longer needed."
 msgstr ""
 
-#: admin/options-init.php:1527
+#: admin/options-init.php:1545
 msgid ""
 "If you use Cloudlfare enable this. <a href=\"https://support.cloudflare."
 "com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">"
 "See here about __cfduid cookie</a>."
 msgstr ""
 
-#: admin/options-init.php:170
+#: admin/options-init.php:178
 msgid "If your theme does not load it, our plugin will load it when checked."
 msgstr ""
 
@@ -1165,13 +1188,13 @@ msgid ""
 "important for GA-Cookies."
 msgstr ""
 
-#: admin/options-init.php:1038 admin/class-wordpress-gdpr-install-pages.php:122
-#: public/class-wordpress-gdpr-public.php:169
+#: admin/options-init.php:1056 admin/class-wordpress-gdpr-install-pages.php:122
+#: public/class-wordpress-gdpr-public.php:170
 #: public/class-wordpress-gdpr-public-deprecated.php:324
 msgid "Imprint"
 msgstr ""
 
-#: admin/options-init.php:1052
+#: admin/options-init.php:1070
 msgid "Imprint Page"
 msgstr ""
 
@@ -1188,26 +1211,26 @@ msgid ""
 "cookies: %s."
 msgstr ""
 
-#: admin/options-init.php:669
+#: admin/options-init.php:687
 msgid "Info"
 msgstr ""
 
-#: admin/options-init.php:122
+#: admin/options-init.php:130
 msgid ""
 "Install & Setup the <a href=\"https://wordpress.org/plugins/invisible-"
 "recaptcha/\" target=\"_blank\">invisible recaptcha plugin from here</a>. "
 "Then check this option."
 msgstr ""
 
-#: admin/options-init.php:189
+#: admin/options-init.php:197
 msgid "Install all Pages"
 msgstr ""
 
-#: admin/options-init.php:1469
+#: admin/options-init.php:1487
 msgid "Instead of JSON data will be exported as html table."
 msgstr ""
 
-#: admin/options-init.php:1067
+#: admin/options-init.php:1085
 msgid "Integrations"
 msgstr ""
 
@@ -1219,16 +1242,16 @@ msgstr ""
 msgid "Is PixelYourSite Service?"
 msgstr ""
 
-#: admin/options-init.php:1101 admin/options-init.php:1158
-#: admin/options-init.php:1364
+#: admin/options-init.php:1119 admin/options-init.php:1176
+#: admin/options-init.php:1382
 msgid "I’ve read and accept the privacy policy."
 msgstr ""
 
-#: admin/options-init.php:1714
+#: admin/options-init.php:1732
 msgid "I’ve read and accept the Terms & Conditions."
 msgstr ""
 
-#: admin/class-wordpress-gdpr-users.php:107
+#: admin/class-wordpress-gdpr-consent-log.php:185
 msgid "Last Login"
 msgstr ""
 
@@ -1245,43 +1268,51 @@ msgstr ""
 msgid "Last Name: %s"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:170
+#: public/class-wordpress-gdpr-public.php:171
 #: public/class-wordpress-gdpr-public-deprecated.php:325
 msgid "Learn about our ownership and authorship."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:121
+#: public/class-wordpress-gdpr-public.php:122
 #: public/class-wordpress-gdpr-public-deprecated.php:282
 msgid "Learn More"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:160
+#: public/class-wordpress-gdpr-public.php:161
 #: public/class-wordpress-gdpr-public-deprecated.php:315
 msgid "Learn more about our liabilities."
 msgstr ""
 
-#: admin/options-init.php:235 admin/options-init.php:243
-#: admin/options-init.php:251 admin/options-init.php:259
-#: admin/options-init.php:267 admin/options-init.php:275
-#: admin/options-init.php:494 admin/options-init.php:501
-#: admin/options-init.php:508 admin/options-init.php:515
-#: admin/options-init.php:522
+#: admin/options-init.php:243 admin/options-init.php:251
+#: admin/options-init.php:259 admin/options-init.php:267
+#: admin/options-init.php:275 admin/options-init.php:283
+#: admin/options-init.php:503 admin/options-init.php:510
+#: admin/options-init.php:517 admin/options-init.php:524
+#: admin/options-init.php:531
 msgid "Leave Empty if not needed"
 msgstr ""
 
-#: admin/options-init.php:378
+#: admin/options-init.php:291 admin/options-init.php:631
+msgid "Leave empty to hide the close icon. Default: fa fa-times"
+msgstr ""
+
+#: admin/options-init.php:394
 msgid "Link Color"
 msgstr ""
 
-#: admin/options-init.php:169
+#: admin/options-init.php:177
 msgid "Load Font Awesome 5 Free"
 msgstr ""
 
-#: admin/options-init.php:1286
+#: admin/options-init.php:121
+msgid "Log Consents for Logged Out users"
+msgstr ""
+
+#: admin/options-init.php:1304
 msgid "Mailster Privacy Policy Page"
 msgstr ""
 
-#: admin/options-init.php:1190
+#: admin/options-init.php:1208
 msgid "Make sure you add a checkbox to your forms to accept privacy policy."
 msgstr ""
 
@@ -1293,13 +1324,13 @@ msgstr ""
 msgid "Marketing"
 msgstr ""
 
-#: admin/options-init.php:1305 admin/class-wordpress-gdpr-install-pages.php:136
-#: public/class-wordpress-gdpr-public.php:174
+#: admin/options-init.php:1323 admin/class-wordpress-gdpr-install-pages.php:136
+#: public/class-wordpress-gdpr-public.php:175
 #: public/class-wordpress-gdpr-public-deprecated.php:329
 msgid "Media Credits"
 msgstr ""
 
-#: admin/options-init.php:1319
+#: admin/options-init.php:1337
 msgid "Media Credits Page"
 msgstr ""
 
@@ -1312,15 +1343,15 @@ msgstr ""
 msgid "Message: %s"
 msgstr ""
 
-#: admin/options-init.php:196 admin/options-init.php:1513
+#: admin/options-init.php:204 admin/options-init.php:1531
 msgid "Migrate Services"
 msgstr ""
 
-#: admin/options-init.php:244
+#: admin/options-init.php:252
 msgid "My Preferences"
 msgstr ""
 
-#: admin/options-init.php:1672 admin/class-wordpress-gdpr-users.php:105
+#: admin/options-init.php:1690 admin/class-wordpress-gdpr-consent-log.php:183
 #: public/class-wordpress-gdpr-public-deprecated.php:197
 #: public/class-wordpress-gdpr-public-deprecated.php:258
 #: public/class-wordpress-gdpr-public-deprecated.php:548
@@ -1364,23 +1395,24 @@ msgstr ""
 msgid "No %s found in trash"
 msgstr ""
 
-#: admin/options-init.php:1197
+#: admin/options-init.php:1215
 msgid ""
 "No longer needed with CF7 Version 5.0.3 - <a target=\"_blank\" href=\"https:"
-"//plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/\">see here</a>. "
-"This will depending on the opt-in checkbox setting save data or not."
+"//www.welaunch.io/wordpress-gdpr/documentation/faq/cf7/\">see here</a>. This "
+"will depending on the opt-in checkbox setting save data or not."
 msgstr ""
 
-#: admin/class-wordpress-gdpr-data-export.php:82
+#: admin/class-wordpress-gdpr-data-export.php:84
 #: admin/class-wordpress-gdpr-data-delete.php:65
 msgid "No User ID set."
 msgstr ""
 
-#: admin/class-wordpress-gdpr-users.php:116
+#: admin/class-wordpress-gdpr-consent-log.php:216
 msgid "No users found"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-users.php:134
+#: admin/class-wordpress-gdpr-consent-log.php:234
+#: admin/class-wordpress-gdpr-consent-log.php:292
 msgid "None logged"
 msgstr ""
 
@@ -1388,30 +1420,30 @@ msgstr ""
 msgid "Not Needed"
 msgstr ""
 
-#: admin/options-init.php:1212
+#: admin/options-init.php:1230
 msgid "On Forget Me Request, delete Flamingo DB records."
 msgstr ""
 
-#: admin/options-init.php:1242
+#: admin/options-init.php:1260
 msgid "On Forget Me Request, delete Formidable records."
 msgstr ""
 
-#: admin/options-init.php:1257
+#: admin/options-init.php:1275
 msgid "On Forget Me Request, delete Gravity Forms records."
 msgstr ""
 
-#: admin/options-init.php:1227
+#: admin/options-init.php:1245
 msgid "On Forget Me Request, delete Quform records."
 msgstr ""
 
-#: admin/options-init.php:1762
+#: admin/options-init.php:1795
 msgid ""
 "Only check this option, if you are on WP 4.9.6 or later. We will then use "
 "the WP Core functions for Data Export & Erasing. Our built-in GDPR Requests "
 "Menu will be removed."
 msgstr ""
 
-#: admin/options-init.php:1081
+#: admin/options-init.php:1099
 msgid "Only registered users can comment"
 msgstr ""
 
@@ -1419,15 +1451,19 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: admin/options-init.php:1205
+#: public/class-wordpress-gdpr-privacy-settings.php:81
+msgid "Open Privacy settings"
+msgstr ""
+
+#: admin/options-init.php:1223
 msgid "opt-in"
 msgstr ""
 
-#: admin/options-init.php:1203
+#: admin/options-init.php:1221
 msgid "Opt-In Field name"
 msgstr ""
 
-#: admin/options-init.php:287
+#: admin/options-init.php:303
 msgid "Overlay"
 msgstr ""
 
@@ -1446,103 +1482,103 @@ msgstr ""
 msgid "Piwik"
 msgstr ""
 
-#: admin/options-init.php:1632
+#: admin/options-init.php:1650
 msgid "Piwik Code"
 msgstr ""
 
-#: admin/options-init.php:1355
+#: admin/options-init.php:1373
 msgid ""
 "Place the following Shortcode at the bottom of your privacy policy: "
 "[wordpress_gdpr_privacy_policy_accept]"
 msgstr ""
 
-#: admin/options-init.php:1706
+#: admin/options-init.php:1724
 msgid ""
 "Place the following Shortcode at the bottom of your Terms & Conditions: "
 "[wordpress_gdpr_terms_conditions_accept]"
 msgstr ""
 
-#: admin/options-init.php:944
+#: admin/options-init.php:962
 msgid "Place your DMCA Contact form on this page."
 msgstr ""
 
-#: admin/options-init.php:1320
+#: admin/options-init.php:1338
 msgid "Place your Media Credits there."
 msgstr ""
 
-#: admin/options-init.php:1696
+#: admin/options-init.php:1714
 msgid "Place your Terms & Conditions Page here:"
 msgstr ""
 
-#: admin/options-init.php:521
+#: admin/options-init.php:530
 msgid "Popup Accept all services"
 msgstr ""
 
-#: admin/options-init.php:234
+#: admin/options-init.php:242
 msgid "Popup Agree Text"
 msgstr ""
 
-#: admin/options-init.php:613
+#: admin/options-init.php:630
 msgid "Popup Close Icon"
 msgstr ""
 
-#: admin/options-init.php:274
+#: admin/options-init.php:282
 msgid "Popup Cookie Policy Link Text"
 msgstr ""
 
-#: admin/options-init.php:507
+#: admin/options-init.php:516
 msgid "Popup Cookie Policy Text"
 msgstr ""
 
-#: admin/options-init.php:514
+#: admin/options-init.php:523
 msgid "Popup Decline all services"
 msgstr ""
 
-#: admin/options-init.php:250
+#: admin/options-init.php:258
 msgid "Popup Decline Text"
 msgstr ""
 
-#: admin/options-init.php:487
+#: admin/options-init.php:496
 msgid "Popup Description"
 msgstr ""
 
-#: admin/options-init.php:242
+#: admin/options-init.php:250
 msgid "Popup My Preferences Button"
 msgstr ""
 
-#: admin/options-init.php:303
+#: admin/options-init.php:319
 msgid "Popup Position"
 msgstr ""
 
-#: admin/options-init.php:258
+#: admin/options-init.php:266
 msgid "Popup Privacy Center Link Text"
 msgstr ""
 
-#: admin/options-init.php:493
+#: admin/options-init.php:502
 msgid "Popup Privacy Center Text"
 msgstr ""
 
-#: admin/options-init.php:500
+#: admin/options-init.php:509
 msgid "Popup Privacy Policy Text"
 msgstr ""
 
-#: admin/options-init.php:266
+#: admin/options-init.php:274
 msgid "Popup Privacy Settings Link Text"
 msgstr ""
 
-#: admin/options-init.php:282
+#: admin/options-init.php:298
 msgid "Popup Style"
 msgstr ""
 
-#: admin/options-init.php:227
+#: admin/options-init.php:235
 msgid "Popup Text"
 msgstr ""
 
-#: admin/options-init.php:481
+#: admin/options-init.php:490
 msgid "Popup Title"
 msgstr ""
 
-#: admin/options-init.php:217
+#: admin/options-init.php:225
 msgid "Popup will not show in these pages:"
 msgstr ""
 
@@ -1561,109 +1597,109 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
-#: admin/options-init.php:370
+#: admin/options-init.php:386
 msgid "Preferences Button Background Color"
 msgstr ""
 
-#: admin/options-init.php:362
+#: admin/options-init.php:378
 msgid "Preferences Button Text Color"
 msgstr ""
 
-#: admin/options-init.php:1122
+#: admin/options-init.php:1140
 msgid "Privacy Acceptance Checkbox on Checkout"
 msgstr ""
 
-#: admin/options-init.php:1130
+#: admin/options-init.php:1148
 msgid "Privacy Acceptance Checkbox on Registration"
 msgstr ""
 
-#: admin/options-init.php:260 admin/options-init.php:495
-#: admin/options-init.php:637 admin/class-wordpress-gdpr-install-pages.php:58
-#: public/class-wordpress-gdpr-integrations.php:270
+#: admin/options-init.php:268 admin/options-init.php:504
+#: admin/options-init.php:655 admin/class-wordpress-gdpr-install-pages.php:58
+#: public/class-wordpress-gdpr-integrations.php:273
 msgid "Privacy Center"
 msgstr ""
 
-#: admin/options-init.php:651
+#: admin/options-init.php:669
 msgid "Privacy Center Page"
 msgstr ""
 
-#: admin/options-init.php:502 admin/options-init.php:1330
+#: admin/options-init.php:511 admin/options-init.php:1348
 #: admin/class-wordpress-gdpr-install-pages.php:150
-#: public/class-wordpress-gdpr-public.php:184
+#: public/class-wordpress-gdpr-public.php:185
 #: public/class-wordpress-gdpr-public-deprecated.php:339
 #: public/class-wordpress-gdpr-public-deprecated.php:588
 msgid "Privacy Policy"
 msgstr ""
 
-#: admin/options-init.php:1099 admin/options-init.php:1156
-#: admin/options-init.php:1181 admin/options-init.php:1296
-#: admin/options-init.php:1362
+#: admin/options-init.php:1117 admin/options-init.php:1174
+#: admin/options-init.php:1199 admin/options-init.php:1314
+#: admin/options-init.php:1380
 msgid "Privacy Policy Accept text"
 msgstr ""
 
-#: admin/options-init.php:1344
+#: admin/options-init.php:1362
 msgid "Privacy Policy Page"
 msgstr ""
 
-#: admin/options-init.php:1372
+#: admin/options-init.php:1390
 msgid "Privacy Policy Update"
 msgstr ""
 
-#: admin/options-init.php:1394
+#: admin/options-init.php:1412
 msgid "Privacy Policy Update Email Subject"
 msgstr ""
 
-#: admin/options-init.php:1402
+#: admin/options-init.php:1420
 msgid "Privacy Policy Update Email Text"
 msgstr ""
 
-#: admin/options-init.php:1386
+#: admin/options-init.php:1404
 msgid "Privacy Policy Update from Email"
 msgstr ""
 
-#: admin/options-init.php:410 admin/options-init.php:482
-#: public/class-wordpress-gdpr-public.php:189
+#: admin/options-init.php:419 admin/options-init.php:491
+#: public/class-wordpress-gdpr-public.php:190
 #: public/class-wordpress-gdpr-public-deprecated.php:344
 msgid "Privacy Settings"
 msgstr ""
 
-#: admin/options-init.php:552
+#: admin/options-init.php:561
 msgid "Privacy Settings Modal"
 msgstr ""
 
-#: admin/options-init.php:542
+#: admin/options-init.php:551
 msgid "Privacy Settings Page"
 msgstr ""
 
-#: public/class-wordpress-gdpr-privacy-settings.php:205
+#: public/class-wordpress-gdpr-privacy-settings.php:214
 msgid "Privacy Settings saved!"
 msgstr ""
 
-#: admin/options-init.php:528
+#: admin/options-init.php:537
 msgid "Privacy Settings Shortcode"
 msgstr ""
 
-#: admin/options-init.php:464
+#: admin/options-init.php:473
 msgid "Privacy Settings texts"
 msgstr ""
 
-#: admin/options-init.php:417
+#: admin/options-init.php:426
 msgid "Privacy Settings Trigger"
 msgstr ""
 
-#: admin/options-init.php:1421 admin/options-init.php:1428
+#: admin/options-init.php:1439 admin/options-init.php:1446
 msgid "Pseudonymization"
 msgstr ""
 
-#: admin/options-init.php:1429
+#: admin/options-init.php:1447
 msgid ""
 "Pseudonymization is not mandatory by GDPR. It might be a good improvement, "
-"but also can risk in data loss. <a href=\"https://plugins.db-dzine."
-"com/wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">"
-"Please read more here</a>."
+"but also can risk in data loss. <a href=\"https://www.welaunch.io/wordpress-"
+"gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">Please read "
+"more here</a>."
 msgstr ""
 
-#: admin/options-init.php:1520
+#: admin/options-init.php:1538
 msgid "Put your technically required cookies here - separated by COMMA (,)."
 msgstr ""
 
@@ -1671,22 +1707,22 @@ msgstr ""
 msgid "Quform"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:185
+#: public/class-wordpress-gdpr-public.php:186
 #: public/class-wordpress-gdpr-public-deprecated.php:340
 msgid "Read about our Privacy Policy here."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:145
+#: public/class-wordpress-gdpr-public.php:146
 #: public/class-wordpress-gdpr-public-deprecated.php:300
 msgid "Read more about our Cookie Policy."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:195
+#: public/class-wordpress-gdpr-public.php:196
 #: public/class-wordpress-gdpr-public-deprecated.php:350
 msgid "Read more about the Terms & Conditions of our website."
 msgstr ""
 
-#: admin/options-init.php:1674
+#: admin/options-init.php:1692
 #: public/class-wordpress-gdpr-public-deprecated.php:198
 #: public/class-wordpress-gdpr-public-deprecated.php:259
 #: public/class-wordpress-gdpr-public-deprecated.php:549
@@ -1697,30 +1733,30 @@ msgstr ""
 msgid "Recaptcha not passed!"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:150
+#: public/class-wordpress-gdpr-public.php:151
 #: public/class-wordpress-gdpr-public-deprecated.php:305
 msgid "Report a Copyright violation."
 msgstr ""
 
 #: admin/class-wordpress-gdpr-install-pages.php:143
-#: public/class-wordpress-gdpr-public.php:179
+#: public/class-wordpress-gdpr-public.php:180
 #: public/class-wordpress-gdpr-public-deprecated.php:334
 msgid "Request Data"
 msgstr ""
 
-#: admin/options-init.php:1436
+#: admin/options-init.php:1454
 msgid "Request Data Archive"
 msgstr ""
 
-#: admin/options-init.php:1450
+#: admin/options-init.php:1468
 msgid "Request Data Archive Page"
 msgstr ""
 
-#: admin/options-init.php:1486
+#: admin/options-init.php:1504
 msgid "Request Data Export Email Subject"
 msgstr ""
 
-#: admin/options-init.php:1494
+#: admin/options-init.php:1512
 msgid "Request Data Export Email Text"
 msgstr ""
 
@@ -1750,16 +1786,16 @@ msgstr ""
 msgid "Search %s"
 msgstr ""
 
+#: admin/class-wordpress-gdpr-consent-log.php:270
 #: admin/class-wordpress-gdpr-requests.php:207
-#: admin/class-wordpress-gdpr-users.php:164
 msgid "Send Data"
 msgstr ""
 
-#: admin/options-init.php:813
+#: admin/options-init.php:831
 msgid "Send Data Breach Email"
 msgstr ""
 
-#: admin/options-init.php:1413
+#: admin/options-init.php:1431
 msgid "Send Privacy Update Email"
 msgstr ""
 
@@ -1768,25 +1804,25 @@ msgstr ""
 msgid "Service Categories"
 msgstr ""
 
-#: admin/options-init.php:1504 admin/class-wordpress-gdpr-services.php:55
+#: admin/options-init.php:1522 admin/class-wordpress-gdpr-services.php:55
 msgid "Services"
 msgstr ""
 
-#: admin/options-init.php:543
+#: admin/options-init.php:552
 msgid ""
 "Set the page you created with the shortcode above here. Trigger and Privacy "
 "center will link there."
 msgstr ""
 
-#: admin/options-init.php:553
+#: admin/options-init.php:562
 msgid "Set up your privacy settings modal here."
 msgstr ""
 
-#: admin/options-init.php:465
+#: admin/options-init.php:474
 msgid "Set up your privacy settings texts here."
 msgstr ""
 
-#: admin/options-init.php:919
+#: admin/options-init.php:937
 msgid "Set your Disclaimer Page here."
 msgstr ""
 
@@ -1794,45 +1830,45 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: admin/options-init.php:709
+#: admin/options-init.php:727
 msgid "Shortcode: [wordpress_gdpr_contact_dpo]"
 msgstr ""
 
-#: admin/options-init.php:836
+#: admin/options-init.php:854
 msgid "Shortcode: [wordpress_gdpr_data_rectification]"
 msgstr ""
 
-#: admin/options-init.php:970
+#: admin/options-init.php:988
 msgid "Shortcode: [wordpress_gdpr_forget_me]"
 msgstr ""
 
-#: admin/options-init.php:652
+#: admin/options-init.php:670
 msgid ""
 "Shortcode: [wordpress_gdpr_privacy_center] This will be the page, where the "
 "privacy center will be shown."
 msgstr ""
 
-#: admin/options-init.php:1451
+#: admin/options-init.php:1469
 msgid "Shortcode: [wordpress_gdpr_request_data]"
 msgstr ""
 
-#: admin/options-init.php:1354 admin/options-init.php:1705
+#: admin/options-init.php:1372 admin/options-init.php:1723
 msgid "Show Accept Checkbox"
 msgstr ""
 
-#: admin/options-init.php:295
+#: admin/options-init.php:311
 msgid "Show Backdrop"
 msgstr ""
 
-#: admin/options-init.php:979
+#: admin/options-init.php:997
 msgid "Show Delete Data Button for Logged in"
 msgstr ""
 
-#: admin/options-init.php:1460
+#: admin/options-init.php:1478
 msgid "Show Export Data Button for Logged in"
 msgstr ""
 
-#: admin/options-init.php:286
+#: admin/options-init.php:302
 msgid "Small Width"
 msgstr ""
 
@@ -1840,46 +1876,46 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: admin/options-init.php:676
+#: admin/options-init.php:694
 msgid "Subject of the confirmation Email."
 msgstr ""
 
-#: admin/options-init.php:862
+#: admin/options-init.php:880
 msgid "Subject of the Data Rectification contact Email."
 msgstr ""
 
-#: admin/options-init.php:735
+#: admin/options-init.php:753
 msgid "Subject of the DPO contact Email."
 msgstr ""
 
-#: admin/options-init.php:1487
+#: admin/options-init.php:1505
 msgid "Subject of the Email notification."
 msgstr ""
 
-#: admin/options-init.php:791 admin/options-init.php:1020
-#: admin/options-init.php:1395
+#: admin/options-init.php:809 admin/options-init.php:1038
+#: admin/options-init.php:1413
 msgid "Subject of the Email."
 msgstr ""
 
-#: public/class-wordpress-gdpr-forms.php:428
+#: public/class-wordpress-gdpr-forms.php:432
 msgid "Submit"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:165
+#: public/class-wordpress-gdpr-public.php:166
 #: public/class-wordpress-gdpr-public-deprecated.php:320
 msgid "Submit a request to erase your private data."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:180
+#: public/class-wordpress-gdpr-public.php:181
 #: public/class-wordpress-gdpr-public-deprecated.php:335
 msgid "Submit a request to get a copy of all your data stored."
 msgstr ""
 
-#: admin/options-init.php:1587
+#: admin/options-init.php:1605
 msgid "Tag Manager Body Code"
 msgstr ""
 
-#: admin/options-init.php:1579
+#: admin/options-init.php:1597
 msgid "Tag Manager Head Code"
 msgstr ""
 
@@ -1888,17 +1924,17 @@ msgstr ""
 msgid "Technical Cookies"
 msgstr ""
 
-#: admin/options-init.php:1681 public/class-wordpress-gdpr-public.php:194
+#: admin/options-init.php:1699 public/class-wordpress-gdpr-public.php:195
 #: public/class-wordpress-gdpr-public-deprecated.php:349
 #: public/class-wordpress-gdpr-public-deprecated.php:595
 msgid "Terms & Conditions"
 msgstr ""
 
-#: admin/options-init.php:1712
+#: admin/options-init.php:1730
 msgid "Terms & Conditions Accept text"
 msgstr ""
 
-#: admin/options-init.php:1695
+#: admin/options-init.php:1713
 msgid "Terms & Conditions Page"
 msgstr ""
 
@@ -1915,60 +1951,64 @@ msgstr ""
 msgid "Terms not accepted."
 msgstr ""
 
-#: admin/options-init.php:322 admin/options-init.php:445
-#: admin/options-init.php:573
+#: admin/options-init.php:338 admin/options-init.php:454
+#: admin/options-init.php:590
 msgid "Text Color"
 msgstr ""
 
-#: admin/options-init.php:1182
+#: admin/options-init.php:1200
 msgid ""
 "Text for users to agree on privacy policy on BuddyPress Registration page."
 msgstr ""
 
-#: admin/options-init.php:1100 admin/options-init.php:1157
+#: admin/options-init.php:1118 admin/options-init.php:1175
 msgid "Text for users to agree on privacy policy on checkout page."
 msgstr ""
 
-#: admin/options-init.php:1297
+#: admin/options-init.php:1315
 msgid ""
 "Text for users to agree on privacy policy on Mailster Registration page."
 msgstr ""
 
-#: admin/options-init.php:1363
+#: admin/options-init.php:1381
 msgid "Text for users to agree on privacy policy."
 msgstr ""
 
-#: admin/options-init.php:1713
+#: admin/options-init.php:1731
 msgid "Text for users to agree on Terms & Conditions."
 msgstr ""
 
-#: admin/options-init.php:1495
+#: admin/options-init.php:1513
 msgid "Text of the Email data export."
 msgstr ""
 
-#: admin/options-init.php:1028
+#: admin/options-init.php:1046
 msgid "Text of the Email informing the user, that his data has been deleted."
 msgstr ""
 
-#: admin/options-init.php:799
+#: admin/options-init.php:817
 msgid "Text of the Email regarding a data breach.."
 msgstr ""
 
-#: admin/options-init.php:1403
+#: admin/options-init.php:1421
 msgid "Text of the Email regarding a Privacy Policy Update."
 msgstr ""
 
-#: admin/options-init.php:684
+#: admin/options-init.php:702
 msgid ""
 "Text of the Email send out to the user to confirm his email to create a new "
 "request."
 msgstr ""
 
-#: admin/options-init.php:783
+#: admin/options-init.php:1765
+msgid "Texts"
+msgstr ""
+
+#: admin/options-init.php:801
 msgid "The FROM Email used for data breach issues."
 msgstr ""
 
-#: admin/options-init.php:1387
+#: admin/options-init.php:1405
 msgid "The FROM Email used for Privacy Policy Updates."
 msgstr ""
 
@@ -1988,86 +2028,92 @@ msgstr ""
 msgid "These cookies are set through our site by our advertising partners."
 msgstr ""
 
-#: admin/options-init.php:130
+#: admin/options-init.php:138
 msgid "This allows all cookies until a user opts out himself."
 msgstr ""
 
-#: admin/options-init.php:719 admin/options-init.php:846
-#: admin/options-init.php:988 admin/options-init.php:1476
+#: admin/options-init.php:737 admin/options-init.php:864
+#: admin/options-init.php:1006 admin/options-init.php:1494
 msgid "This allows all users to create requests for manually processing."
 msgstr ""
 
-#: admin/options-init.php:146
+#: admin/options-init.php:154
 msgid "This disables cookie check consents for logged in users."
 msgstr ""
 
-#: admin/options-init.php:418
+#: admin/options-init.php:427
 msgid ""
 "This is the fixed button on bottom right for example to open the privacy "
 "settings popup."
 msgstr ""
 
-#: admin/options-init.php:1165
+#: admin/options-init.php:1183
 msgid "This will add checkbox to BuddyPress Account registration form."
 msgstr ""
 
-#: admin/options-init.php:1272
+#: admin/options-init.php:1290
 msgid "This will add checkbox to Mailster Subscribe form."
 msgstr ""
 
-#: admin/options-init.php:1235
+#: admin/options-init.php:1253
 msgid ""
 "This will add Formidable entries to data export. Checkbox needs to be added "
 "to each form manually."
 msgstr ""
 
-#: admin/options-init.php:1250
+#: admin/options-init.php:1268
 msgid ""
 "This will add Gravity Forms entries to data export & removes IP saving. "
 "Checkbox needs to be added to each form manually."
 msgstr ""
 
-#: admin/options-init.php:1220
+#: admin/options-init.php:1238
 msgid ""
 "This will add Quform entries to data export. Checkbox needs to be added to "
 "each form manually."
 msgstr ""
 
-#: admin/options-init.php:188
+#: admin/options-init.php:196
 msgid "This will create all pages, where no current assigned pages were found."
 msgstr ""
 
-#: admin/options-init.php:154
+#: admin/options-init.php:162
 msgid "This will disable font awesome 4 to load."
 msgstr ""
 
-#: admin/options-init.php:195 admin/options-init.php:1512
+#: admin/options-init.php:203 admin/options-init.php:1530
 msgid ""
 "This will migrate all Service like Google Analytics etc to our new services "
 "section."
 msgstr ""
 
-#: admin/options-init.php:980
+#: admin/options-init.php:122
+msgid ""
+"This will save consents for logged out users by a masked ip in a own "
+"database table wp_gdpr_consent_log."
+msgstr ""
+
+#: admin/options-init.php:998
 msgid ""
 "This will show logged in users a button where they can delete data "
 "theirselves."
 msgstr ""
 
-#: admin/options-init.php:1461
+#: admin/options-init.php:1479
 msgid ""
 "This will show logged in users a button where they can export data "
 "theirselves."
 msgstr ""
 
-#: admin/options-init.php:305
+#: admin/options-init.php:321
 msgid "Top"
 msgstr ""
 
-#: admin/options-init.php:430
+#: admin/options-init.php:439
 msgid "Trigger Icon HTML"
 msgstr ""
 
-#: admin/options-init.php:453
+#: admin/options-init.php:462
 msgid "Trigger Position"
 msgstr ""
 
@@ -2085,17 +2131,17 @@ msgstr ""
 msgid "Unscribe"
 msgstr ""
 
-#: admin/options-init.php:1721 public/class-wordpress-gdpr-public.php:199
+#: admin/options-init.php:1739 public/class-wordpress-gdpr-public.php:200
 #: public/class-wordpress-gdpr-public-deprecated.php:354
 msgid "Unsubscribe"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:200
+#: public/class-wordpress-gdpr-public.php:201
 #: public/class-wordpress-gdpr-public-deprecated.php:355
 msgid "Unsubscribe from our Newsletters."
 msgstr ""
 
-#: admin/options-init.php:1735
+#: admin/options-init.php:1753
 msgid "Unsubscribe Page"
 msgstr ""
 
@@ -2104,21 +2150,21 @@ msgstr ""
 msgid "Update %s"
 msgstr ""
 
-#: admin/options-init.php:896
+#: admin/options-init.php:914
 msgid ""
 "Update the \"last logged in\"-Meta with Todays Time for Users without an "
 "existing value."
 msgstr ""
 
-#: admin/options-init.php:1768
+#: admin/options-init.php:1801
 msgid "Use Cookie Whitelist"
 msgstr ""
 
-#: admin/options-init.php:153
+#: admin/options-init.php:161
 msgid "Use Font Awesome 5"
 msgstr ""
 
-#: admin/options-init.php:1754
+#: admin/options-init.php:1787
 msgid "Use GEO IP to show Popup only for EU"
 msgstr ""
 
@@ -2127,25 +2173,25 @@ msgstr ""
 msgid "Use Loco Translate to change Text for custom Code"
 msgstr ""
 
-#: admin/options-init.php:535
+#: admin/options-init.php:544
 msgid "Use Privacy Settings Shortcode"
 msgstr ""
 
-#: admin/options-init.php:529
+#: admin/options-init.php:538
 msgid "Use Shortcode instead of popup."
 msgstr ""
 
-#: admin/options-init.php:1655
+#: admin/options-init.php:1673
 msgid ""
 "Use this for custom JS Code to be executed if allowed. Use Loco Translate to "
 "adjust frontend text."
 msgstr ""
 
-#: admin/options-init.php:1755
+#: admin/options-init.php:1788
 msgid "Use with caution - users surfing with a proxy might be wrong targeted."
 msgstr ""
 
-#: admin/options-init.php:1761
+#: admin/options-init.php:1794
 msgid "Use WP Core Functions (req. WP 4.9.6 or Higher!)"
 msgstr ""
 
@@ -2169,7 +2215,7 @@ msgstr ""
 msgid "User Identifier"
 msgstr ""
 
-#: admin/class-wordpress-gdpr-users.php:104
+#: admin/class-wordpress-gdpr-consent-log.php:182
 msgid "Username"
 msgstr ""
 
@@ -2193,7 +2239,7 @@ msgstr ""
 msgid "We use Cookies to give you a better website experience."
 msgstr ""
 
-#: admin/options-init.php:228
+#: admin/options-init.php:236
 msgid ""
 "We use cookies to give you the best online experience. By agreeing you "
 "accept the use of cookies in accordance with our cookie policy."
@@ -2259,17 +2305,23 @@ msgstr ""
 msgid "weLaunch"
 msgstr ""
 
-#: admin/options-init.php:138
+#: admin/options-init.php:146
 msgid ""
 "When a user makes no decision, but continues to browse on your site all "
 "cookies will be enabled."
 msgstr ""
 
-#: admin/options-init.php:885
+#: admin/options-init.php:575
+msgid ""
+"When enabled users can not click on the backdrop to close the privacy "
+"settings popup."
+msgstr ""
+
+#: admin/options-init.php:903
 msgid "When user has not logged in since X days, all his data will be deleted."
 msgstr ""
 
-#: admin/options-init.php:488
+#: admin/options-init.php:497
 msgid ""
 "When you visit any web site, it may store or retrieve information on your "
 "browser, mostly in the form of cookies. Control your personal Cookie "
@@ -2281,7 +2333,7 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: admin/options-init.php:1146
+#: admin/options-init.php:1164
 msgid "WooCommerce Privacy Policy Page"
 msgstr ""
 
@@ -2296,17 +2348,17 @@ msgid ""
 "before: https://www.welaunch.io/updates/welaunch-framework.zip"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:297
+#: public/class-wordpress-gdpr-public.php:298
 #: public/class-wordpress-gdpr-public-deprecated.php:426
 msgid "Yes"
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:80
-#: public/class-wordpress-gdpr-integrations.php:239
+#: public/class-wordpress-gdpr-public.php:81
+#: public/class-wordpress-gdpr-integrations.php:240
 msgid "You must accept our Privacy Policy."
 msgstr ""
 
-#: public/class-wordpress-gdpr-public.php:81
+#: public/class-wordpress-gdpr-public.php:82
 msgid "You must accept our Terms and Conditions."
 msgstr ""
 

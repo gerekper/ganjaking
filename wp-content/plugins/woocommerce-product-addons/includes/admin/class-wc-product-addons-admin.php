@@ -16,6 +16,12 @@ use Automattic\WooCommerce\Admin\Features\Features;
 /**
  * Product_Addon_Admin class.
  */
+/**
+ * Product Add-Ons admin.
+ *
+ * @class    WC_Product_Addons_Admin
+ * @version  6.2.0
+ */
 class WC_Product_Addons_Admin {
 
 	/**
@@ -247,8 +253,8 @@ class WC_Product_Addons_Admin {
 				$edit_id      = absint( $_GET['edit'] );
 				$global_addon = get_post( $edit_id );
 
-				if ( ! $global_addon ) {
-					echo '<div class="error">' . esc_html__( 'Error: Add-on not found', 'woocommerce-product-addons' ) . '</div>';
+				if ( ! $global_addon || 'global_product_addon' !== $global_addon->post_type ) {
+					echo '<div class="error"><p>' . esc_html__( 'Error: Add-on not found', 'woocommerce-product-addons' ) . '</p></div>';
 					return;
 				}
 
@@ -262,7 +268,13 @@ class WC_Product_Addons_Admin {
 				}
 			} elseif ( ! empty( $edit_id ) ) {
 
-				$global_addon   = get_post( $edit_id );
+				$global_addon = get_post( $edit_id );
+
+				if ( ! $global_addon || 'global_product_addon' !== $global_addon->post_type ) {
+					echo '<div class="error"><p>' . esc_html__( 'Error: Add-on not found', 'woocommerce-product-addons' ) . '</p></div>';
+					return;
+				}
+
 				$reference      = $global_addon->post_title;
 				$priority       = get_post_meta( $global_addon->ID, '_priority', true );
 				$objects        = (array) wp_get_post_terms( $global_addon->ID, apply_filters( 'woocommerce_product_addons_global_post_terms', array( 'product_cat' ) ), array( 'fields' => 'ids' ) );
@@ -338,6 +350,9 @@ class WC_Product_Addons_Admin {
 	 * @return bool success or failure
 	 */
 	public function save_global_addons() {
+
+		check_admin_referer( 'wc_pao_global_addons_edit' );
+
 		$edit_id        = ! empty( $_POST['edit_id'] ) ? absint( $_POST['edit_id'] ) : '';
 		$reference      = ! empty( $_POST['addon-reference'] ) ? wc_clean( wp_unslash( $_POST['addon-reference'] ) ) : '';
 		$priority       = ! empty( $_POST['addon-priority'] ) ? absint( $_POST['addon-priority'] ) : 0;
@@ -354,10 +369,15 @@ class WC_Product_Addons_Admin {
 		}
 
 		if ( $edit_id ) {
+			$post_type = get_post_type( $edit_id );
+			if ( 'global_product_addon' !== $post_type ) {
+				return false;
+			}
 
 			$edit_post               = array();
 			$edit_post['ID']         = $edit_id;
 			$edit_post['post_title'] = $reference;
+			$edit_post['post_type']  = 'global_product_addon';
 
 			wp_update_post( $edit_post );
 			wp_set_post_terms( $edit_id, $objects, 'product_cat', false );
@@ -557,9 +577,14 @@ class WC_Product_Addons_Admin {
 
 		if ( ! empty( $_POST['import_product_addon'] ) ) {
 
-			$import_addons = maybe_unserialize( trim( wp_unslash( $_POST['import_product_addon'] ) ) );
+			$import_addons = trim( wp_unslash( $_POST[ 'import_product_addon' ] ) );
 
-			if ( is_array( $import_addons ) && count( $import_addons ) > 0 ) {
+			// maybe_unserialize does not support additional options, to set allowed_classes to false.
+			if ( is_serialized( $import_addons ) ) { // Don't attempt to unserialize data that wasn't serialized going in.
+				$import_addons =  @unserialize( $import_addons, array( 'allowed_classes' => false ) );
+			}
+
+			if ( is_array( $import_addons ) && ! empty( $import_addons ) ) {
 				$valid = true;
 
 				foreach ( $import_addons as $key => $addon ) {

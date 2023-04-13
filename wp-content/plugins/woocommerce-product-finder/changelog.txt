@@ -1,5 +1,15 @@
 *** Product Finder Changelog ***
 
+2023-04-12 - version 1.3.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.6.
+* Tweak - Tested compatibility up to WP 6.2.
+* Dev - Use SASS instead of LESS for generating the CSS styles.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
 2022-09-02 - version 1.2.26
 * Dev - Add branch-labels GH workflow.
 * Dev - GH release config and the new PR template.

@@ -11,7 +11,7 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
@@ -26,7 +26,7 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -47,7 +47,7 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      */
     public function get_privacy_settings_trigger()
     {
@@ -78,6 +78,7 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
             <div class="wordpress-gdpr-privacy-settings-trigger">
                 <?php echo $text ?>
             </div>
+            <span class="wordpress-gdpr-hidden"><?php esc_html_e('Open Privacy settings', 'wordpress-gdpr') ?></span>
         </a>
         <?php
     }
@@ -104,8 +105,13 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
 
         $privacySettingsPopupStyle = $this->get_option('privacySettingsPopupStyle');
         $privacySettingsPopupPosition = $this->get_option('privacySettingsPopupPosition');
+
         $privacySettingsPopupAcceptColor = $this->get_option('privacySettingsPopupAcceptColor');
         $privacySettingsPopupAcceptBackgroundColor = $this->get_option('privacySettingsPopupAcceptBackgroundColor');
+
+        $privacySettingsPopupSaveColor = $this->get_option('privacySettingsPopupSaveColor');
+        $privacySettingsPopupSaveBackgroundColor = $this->get_option('privacySettingsPopupSaveBackgroundColor');
+
         $privacySettingsPopupDeclineColor = $this->get_option('privacySettingsPopupDeclineColor');
         $privacySettingsPopupDeclineBackgroundColor = $this->get_option('privacySettingsPopupDeclineBackgroundColor');
 
@@ -113,7 +119,9 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
         $privacySettingsPopupDescription = $this->get_option('privacySettingsPopupDescription');
 
         $privacySettingsPopupDeclineText = $this->get_option('privacySettingsPopupDeclineText');
+        $privacySettingsPopupSaveText = $this->get_option('privacySettingsPopupSaveText');
         $privacySettingsPopupAcceptText = $this->get_option('privacySettingsPopupAcceptText');
+        
 
         $useFontAwesome5 = $this->get_option('useFontAwesome5');
         $fontAwesomePrefix = 'fa';
@@ -137,10 +145,17 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
 
         foreach ($service_categories as $service_category) {
 
-            $category_html .= 
+            if($first) {
+                $category_html .= 
+                '<a href="#" data-id="' . $service_category->term_id . '" class="wordpress-gdpr-popup-privacy-settings-service-category wordpress-gdpr-popup-privacy-settings-open-service-category wordpress-gdpr-popup-privacy-settings-service-category-active">
+                    ' . $service_category->name . '
+                </a>';
+            } else {
+                $category_html .= 
                 '<a href="#" data-id="' . $service_category->term_id . '" class="wordpress-gdpr-popup-privacy-settings-service-category wordpress-gdpr-popup-privacy-settings-open-service-category">
                     ' . $service_category->name . '
                 </a>';
+            }
 
             $display = '';
             if($first) {
@@ -181,7 +196,8 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
 
                 $service_html .= '<div class="wordpress-gdpr-popup-privacy-settings-services-content-title-box">';
                     $service_html .= '<a href="#" data-id="' . $service->ID . '" class="wordpress-gdpr-popup-privacy-settings-services-content-title"><i class="' . $fontAwesomePrefix . ' fa-caret-right"></i> ' . $service->post_title . '</a>';
-                    $service_html .= '<input name="' . $service->ID . '" data-id="' . $service->ID . '" ' . $switch_disabled . $checked .' class="gdpr-service-switch" type="checkbox">';
+                    $service_html .= '<label for="gdpr-service-' . $service->ID . '" class="wordpress-gdpr-hidden">' . $service->post_title . '</label>';
+                    $service_html .= '<input name="' . $service->ID . '" id="gdpr-service-' . $service->ID . '" data-id="' . $service->ID . '" ' . $switch_disabled . $checked .' class="gdpr-service-switch" type="checkbox">';
                     $service_html .= '<div class="gdpr-clear"></div>';
                 $service_html .= '</div>';
                 $service_html .= '<div id="wordpress-gdpr-popup-privacy-settings-services-content-description-' . $service->ID . '" class="wordpress-gdpr-popup-privacy-settings-services-content-description">';
@@ -255,6 +271,15 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
                 </div>
                 <?php } ?>
 
+                <?php if(!empty($privacySettingsPopupSaveText)) { ?>
+                <div class="wordpress-gdpr-popup-save wordpress-gdpr-privacy-settings-popup-services-save button btn button-secondary theme-btn" style="background-color: <?php echo $privacySettingsPopupSaveBackgroundColor ?>;color: <?php echo $privacySettingsPopupSaveColor ?>;">
+                    <?php echo $privacySettingsPopupSaveText ?>
+                </div>
+                <?php } ?>
+
+
+
+
                 <?php if(!empty($privacySettingsPopupAcceptText)) { ?>
                 <div class="wordpress-gdpr-popup-agree wordpress-gdpr-privacy-settings-popup-services-accept-all button btn button-secondary theme-btn" style="background-color: <?php echo $privacySettingsPopupAcceptBackgroundColor ?>;color: <?php echo $privacySettingsPopupAcceptColor ?>;">
                     <?php echo $privacySettingsPopupAcceptText ?>
@@ -271,7 +296,7 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    https://plugins.db-dzine.com
+     * @link    https://www.welaunch.io
      * @return  [type]                       [description]
      */
     public function get_privacy_policy_accept()
@@ -374,6 +399,7 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
                 style="background-color: <?php echo $privacySettingsPopupBackgroundColor ?>; color: <?php echo $privacySettingsPopupTextColor ?>;">
                 <a href="#" id="wordpress-gdpr-privacy-settings-popup-close" title="close" class="wordpress-gdpr-privacy-settings-popup-close" style="background-color: <?php echo $privacySettingsPopupCloseIconBackgroundColor ?>;">
                     <i style="color: <?php echo $privacySettingsPopupCloseIconColor ?>;" class="<?php echo $privacySettingsPopupCloseIcon ?>"></i>
+                    <span class="wordpress-gdpr-hidden"><?php esc_html_e('Close Popup', 'wordpress-gdpr') ?></span>
                 </a>
                 <?php $this->get_privacy_settings() ?>
             </div>

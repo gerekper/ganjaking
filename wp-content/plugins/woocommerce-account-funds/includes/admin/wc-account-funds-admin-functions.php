@@ -33,6 +33,21 @@ function wc_account_funds_get_current_screen_id() {
 }
 
 /**
+ * Gets the screen name of orders page in wp-admin.
+ *
+ * @since 2.9.0
+ *
+ * @return string
+ */
+function wc_account_funds_get_order_admin_screen() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+		return \Automattic\WooCommerce\Utilities\OrderUtil::get_order_admin_screen();
+	}
+
+	return 'shop_order';
+}
+
+/**
  * Gets if we are in the plugin settings page or not.
  *
  * @since 2.6.0

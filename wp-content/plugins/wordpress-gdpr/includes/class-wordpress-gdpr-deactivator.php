@@ -3,7 +3,7 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       http://plugins.db-dzine.com
+ * @link       http://www.welaunch.io
  * @since      1.0.0
  *
  * @package    WordPress_GDPR
@@ -27,7 +27,7 @@ class WordPress_GDPR_Deactivator {
 	 * @author Daniel Barenkamp
 	 * @version 1.0.0
 	 * @since   1.0.0
-	 * @link    https://plugins.db-dzine.com
+	 * @link    https://www.welaunch.io
 	 * @return  [type]                       [description]
 	 */
 	public static function deactivate() {

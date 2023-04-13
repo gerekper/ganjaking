@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://plugins.db-dzine.com
+ * @link       http://www.welaunch.io
  * @since      1.0.0
  *
  * @package    WordPress_GDPR

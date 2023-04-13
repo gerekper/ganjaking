@@ -1032,7 +1032,7 @@ msgid ""
 msgstr ""
 "Pseudonimisering is niet verplicht door GDPR. Het is misschien een goede "
 "verbetering, maar kan ook het risico lopen op gegevensverlies. <a "
-"href=\"https://plugins.db-dzine.com/wordpress-"
+"href=\"https://plugins.welaunch.io/wordpress-"
 "gdpr/documentation/faq/pseudonymization/\" target=\"_blank\"> Lees hier meer "
 "</a>."
 
@@ -1657,8 +1657,8 @@ msgid "EU-DSVGO, GDPR Compliance Plugin"
 msgstr "EU-DSVGO, GDPR Compliance Plugin"
 
 #. URI of the plugin
-msgid "https://plugins.db-dzine.com"
-msgstr "https://plugins.db-dzine.com"
+msgid "https://plugins.welaunch.io"
+msgstr "https://plugins.welaunch.io"
 
 #. Author of the plugin
 msgid "DB-Dzine"

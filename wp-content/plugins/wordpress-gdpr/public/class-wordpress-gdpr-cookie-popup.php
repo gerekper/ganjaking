@@ -11,7 +11,7 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @param   string                         $plugin_name
      * @param   string                         $version
      */
@@ -26,7 +26,7 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
      * @author Daniel Barenkamp
      * @version 1.0.0
      * @since   1.0.0
-     * @link    http://plugins.db-dzine.com
+     * @link    http://www.welaunch.io
      * @return  boolean
      */
     public function init()
@@ -106,6 +106,7 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
                 <?php if(!empty($popupCloseIcon)) { ?>
                 <a href="#" id="wordpress-gdpr-popup-close" class="wordpress-gdpr-popup-close" style="background-color: <?php echo $popupCloseIconBackgroundColor ?>;">
                     <i style="color: <?php echo $popupCloseIconColor ?>;" class="<?php echo $popupCloseIcon ?>"></i>
+                    <span class="wordpress-gdpr-hidden"><?php esc_html_e('Close Popup', 'wordpress-gdpr') ?></span>
                 </a>
                 <?php } ?>
 

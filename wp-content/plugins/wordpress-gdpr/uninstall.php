@@ -19,7 +19,7 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       http://plugins.db-dzine.com
+ * @link       http://www.welaunch.io
  * @since      1.0.0
  *
  * @package    WordPress_GDPR

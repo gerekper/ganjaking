@@ -1,0 +1,1649 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wordpress-gdpr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-24 09:08+0000\n"
+"PO-Revision-Date: 2018-06-27 22:07+0200\n"
+"Language-Team: Swedish\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: Mikael Svensson <info@eastmedia.se>\n"
+"Language: sv_SE\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: wordpress-gdpr.php:89
+msgid ""
+"WordPress GDPR requires the Redux Framework Please install or activate it "
+"before!"
+msgstr ""
+"WordPress GDPR kräver Redux Framework installera eller aktivera det innan!"
+
+#: admin/options-init.php:28 admin/options-init.php:30
+msgid "WordPress GDPR"
+msgstr "WordPress GDPR"
+
+#: admin/options-init.php:37
+msgid "GDPR Settings"
+msgstr "GDPR Inställningar"
+
+#: admin/options-init.php:91
+msgid "Information"
+msgstr "Information"
+
+#: admin/options-init.php:92
+msgid "<p>Need support? Please use the comment function on codecanyon.</p>"
+msgstr "<p>Behöver du stöd? Använd kommentarfunktionen på codecanyon.</p>"
+
+#: admin/options-init.php:119
+msgid "GDPR"
+msgstr "GDPR"
+
+#: admin/options-init.php:121
+msgid "Need support? Please use the comment function on codecanyon."
+msgstr "Behöver du stöd? Använd kommentarfunktionen på codecanyon."
+
+#: admin/options-init.php:126
+msgid "General"
+msgstr "Generellt"
+
+#: admin/options-init.php:133
+msgid "Enable"
+msgstr "Aktivera"
+
+#: admin/options-init.php:139
+msgid "Domain Name"
+msgstr "Domännamn"
+
+#: admin/options-init.php:140
+msgid ""
+"Important for Cookie unsettings. E.g. \".yourdomain.com\". Dot before "
+"important for GA-Cookies."
+msgstr ""
+"Viktigt för urkoppling av kakor. T.ex. \".dindoman.se\". Punkt innan det är "
+"viktigt för GA-Cookies."
+
+#: admin/options-init.php:147
+msgid "Use WP Core Functions (req. WP 4.9.6 or Higher!)"
+msgstr "Använd WP-Core funktioner (req. WP 4.9.6 eller högre!)"
+
+#: admin/options-init.php:148
+msgid ""
+"Only check this option, if you are on WP 4.9.6 or later. We will then use "
+"the WP Core functions for Data Export & Erasing. Our built-in GDPR Requests "
+"Menu will be removed."
+msgstr ""
+"Kontrollera bara det här alternativet om du är på WP 4.9.6 eller senare. Vi "
+"använder sedan WP Core-funktionerna för Data Export & Erasing. Vår inbyggda "
+"GDPR-begäran-meny kommer att tas bort."
+
+#: admin/options-init.php:154
+msgid "Enable Recaptcha for Forms"
+msgstr "Aktivera Recaptcha för formulär"
+
+#: admin/options-init.php:155
+msgid ""
+"Install & Setup the <a href=\"https://wordpress.org/plugins/invisible-"
+"recaptcha/\" target=\"_blank\">invisible recaptcha plugin from here</a>. "
+"Then check this option."
+msgstr ""
+"Installera och konfigurera <a href=\"https://wordpress.org/plugins/invisible-"
+"recaptcha/\" target=\"_blank\">osynliga recaptcha-plugin härifrån</a>. "
+"Kontrollera sedan det här alternativet."
+
+#: admin/options-init.php:161
+msgid "Allow all Cookies for logged in users"
+msgstr "Tillåt alla cookies för inloggade användare"
+
+#: admin/options-init.php:162
+msgid "This disables cookie check consents for logged in users."
+msgstr "Detta inaktiverar godkännanden för cookies för inloggade användare."
+
+#: admin/options-init.php:168
+msgid "Cookie Lifetime."
+msgstr "Cache livstid."
+
+#: admin/options-init.php:169
+msgid "Days before the Cookie expires."
+msgstr "Dagar innan cookien löper ut."
+
+#: admin/options-init.php:180
+msgid "Popup"
+msgstr "Popup"
+
+#: admin/options-init.php:187
+msgid "Enable Popup"
+msgstr "Aktivera popup"
+
+#: admin/options-init.php:193
+msgid "Popup Text"
+msgstr "Popup text"
+
+#: admin/options-init.php:194
+msgid ""
+"We use cookies to give you the best online experience. By agreeing you "
+"accept the use of cookies in accordance with our cookie policy."
+msgstr ""
+"Vi använder cookies för att ge dig den bästa online-upplevelsen. Genom att "
+"godkänna accepterar du användningen av cookies i enlighet med vår cookie "
+"policy."
+
+#: admin/options-init.php:200
+msgid "Popup Agree Text"
+msgstr "Popup godkännande text"
+
+#: admin/options-init.php:201 admin/options-init.php:209
+#: admin/options-init.php:217 admin/options-init.php:225
+#: admin/options-init.php:233
+msgid "Leave Empty if not needed"
+msgstr "Lämna tomt om du inte behöver detta"
+
+#: admin/options-init.php:202
+msgid "I accept"
+msgstr "Jag godkänner"
+
+#: admin/options-init.php:208
+msgid "Popup Decline Text"
+msgstr "Popup avvisa text"
+
+#: admin/options-init.php:210
+msgid "I decline"
+msgstr "Jag avvisar"
+
+#: admin/options-init.php:216
+msgid "Popup Privacy Center Text"
+msgstr "Popup integritetspanel text"
+
+#: admin/options-init.php:218 admin/options-init.php:279
+#: public/class-wordpress-gdpr-integrations.php:155
+msgid "Privacy Center"
+msgstr "Integritetspanel"
+
+#: admin/options-init.php:224
+msgid "Popup Privacy Settings Text"
+msgstr "Inställningar för integritets text popup"
+
+#: admin/options-init.php:226 admin/options-init.php:1021
+#: public/class-wordpress-gdpr-public.php:304
+msgid "Privacy Settings"
+msgstr "Din integritet"
+
+#: admin/options-init.php:232
+msgid "Popup Cookie Policy Text"
+msgstr "Popup cookiepolicy text"
+
+#: admin/options-init.php:234
+msgid "Learn More about our Cookie Policy"
+msgstr "Läs mer om vår cookiepolicy"
+
+#: admin/options-init.php:240
+msgid "Popup Style"
+msgstr "Popup stil"
+
+#: admin/options-init.php:242
+msgid "Full Width"
+msgstr "Full bredd"
+
+#: admin/options-init.php:243
+msgid "Small Width"
+msgstr "Liten bredd"
+
+#: admin/options-init.php:251
+msgid "Popup Position"
+msgstr "Position för popup"
+
+#: admin/options-init.php:253
+msgid "Top"
+msgstr "Toppen"
+
+#: admin/options-init.php:254
+msgid "Bottom"
+msgstr "Botten"
+
+#: admin/options-init.php:262
+msgid "Background Color"
+msgstr "Bakgrundsfärg"
+
+#: admin/options-init.php:270
+msgid "Text Color"
+msgstr "Textfärg"
+
+#: admin/options-init.php:286 admin/options-init.php:287
+msgid "Enable Privacy Center"
+msgstr "Aktivera integritetspanel"
+
+#: admin/options-init.php:293
+msgid "Privacy Center Page"
+msgstr "Popup integritetspanelsida"
+
+#: admin/options-init.php:294
+msgid ""
+"Shortcode: [wordpress_gdpr_privacy_center] This will be the page, where the "
+"privacy center will be shown."
+msgstr ""
+"Kortkod: [wordpress_gdpr_privacy_center] Detta kommer vara sidan, där "
+"iIntegritetspanel visas."
+
+#: admin/options-init.php:302
+msgid "Confirmation Email"
+msgstr "Bekräftelsemejl"
+
+#: admin/options-init.php:309
+msgid "Info"
+msgstr "Info"
+
+#: admin/options-init.php:310
+msgid "If you use WP 4.9.6 this is no longer needed."
+msgstr "Om du använder WP 4.9.6 behöver du inte längre."
+
+#: admin/options-init.php:315
+msgid "Confirmation Email Subject"
+msgstr "Ämne bekräftelsemejl"
+
+#: admin/options-init.php:316
+msgid "Subject of the confirmation Email."
+msgstr "Ämne för bekräftelsemejl."
+
+#: admin/options-init.php:317
+msgid "GDPR - Confirm your Request"
+msgstr "GDPR - Bekräfta din begäran"
+
+#: admin/options-init.php:323
+msgid "Confirmation Email Text"
+msgstr "Text bekräftelsemejl"
+
+#: admin/options-init.php:324
+msgid ""
+"Text of the Email send out to the user to confirm his email to create a new "
+"request."
+msgstr ""
+"Text av e-postmeddelandet skickas ut till användaren för att bekräfta sitt e-"
+"postmeddelande för att skapa en ny förfrågan."
+
+#: admin/options-init.php:325
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                we have received your %s. If this is "
+"correct, please click on the link below. Otherwise ignore this email!"
+msgstr ""
+"Hej %s,\n"
+"                                 <br><br>\n"
+"                                 vi har fått din %s. Om det här är korrekt, "
+"vänligen klicka på länken nedan. Annars ignorera det här e-postmeddelandet!"
+
+#: admin/options-init.php:334 public/class-wordpress-gdpr-public.php:205
+msgid "Contact DPO"
+msgstr "Kontakt DSO"
+
+#: admin/options-init.php:341
+msgid "Enable Contact DPO"
+msgstr "Aktivera kontakt DSO"
+
+#: admin/options-init.php:342
+msgid "Enable Data Privacy Officer Contact form."
+msgstr "Aktivera kontaktformulär för dataskyddsombud."
+
+#: admin/options-init.php:348
+msgid "Contact DPO Page"
+msgstr "Kontakt DSO sida"
+
+#: admin/options-init.php:349
+msgid "Shortcode: [wordpress_gdpr_contact_dpo]"
+msgstr "Kortkod: [wordpress_gdpr_contact_dpo]"
+
+#: admin/options-init.php:356 admin/options-init.php:511
+#: admin/options-init.php:1096
+msgid "Disable User Exists Check"
+msgstr "Inaktivera användaren existerar kontroll"
+
+#: admin/options-init.php:357 admin/options-init.php:512
+#: admin/options-init.php:1097
+msgid "This allows all users to create requests for manually processing."
+msgstr ""
+"Detta gör det möjligt för alla användare att skapa förfrågningar om manuellt "
+"behandling."
+
+#: admin/options-init.php:364
+msgid "DPO Email"
+msgstr "DSO e-post"
+
+#: admin/options-init.php:365
+msgid "Emails will be sent there."
+msgstr "E-postmeddelanden kommer skickas dit."
+
+#: admin/options-init.php:372
+msgid "DPO Email Subject"
+msgstr "DSO e-post ämne"
+
+#: admin/options-init.php:373
+msgid "Subject of the DPO contact Email."
+msgstr "Ämne för DSO kontakt e-post."
+
+#: admin/options-init.php:374
+msgid "GDPR - New Request for DPO"
+msgstr "GDPR - Ny begäran för dataskyddsansvarig"
+
+#: admin/options-init.php:381 public/class-wordpress-gdpr-public.php:219
+msgid "Cookie Policy"
+msgstr "Cookiepolicy"
+
+#: admin/options-init.php:388
+msgid "Enable Cookie Policy"
+msgstr "Aktivera cookiepolicy"
+
+#: admin/options-init.php:389
+msgid "Enable Cookie Policy Page"
+msgstr "Aktivera cookiepolicy sida"
+
+#: admin/options-init.php:395
+msgid "Cookie Policy Page"
+msgstr "Cookiepolicy sida"
+
+#: admin/options-init.php:396
+msgid "Add your Cookie Policy here."
+msgstr "Lägg till din cookiepolicy här."
+
+#: admin/options-init.php:404
+msgid "Data Breach"
+msgstr "Dataintrång"
+
+#: admin/options-init.php:411
+msgid "Enable Data Breach"
+msgstr "Aktivera dataintrång"
+
+#: admin/options-init.php:412
+msgid "Enable Data Breach form."
+msgstr "Aktivera Dataintrångs-formulär."
+
+#: admin/options-init.php:418
+msgid "Data Breach from Email"
+msgstr "Dataintrång från e-post"
+
+#: admin/options-init.php:419
+msgid "The FROM Email used for data breach issues."
+msgstr "FRÅN e-post som används för dataintrångs frågor."
+
+#: admin/options-init.php:426
+msgid "Data Breach Email Subject"
+msgstr "Dataintrång e-post ämne"
+
+#: admin/options-init.php:427 admin/options-init.php:544
+#: admin/options-init.php:995
+msgid "Subject of the Email."
+msgstr "Ämne för e-post."
+
+#: admin/options-init.php:428
+msgid "GDPR - Data Breach"
+msgstr "GDPR - Dataintrång"
+
+#: admin/options-init.php:434
+msgid "Data Breach Email Text"
+msgstr "Dataintrång e-post text"
+
+#: admin/options-init.php:435
+msgid "Text of the Email regarding a data breach.."
+msgstr "E-postens text om ett dataintrång."
+
+#: admin/options-init.php:436
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                We value your business and respect the "
+"privacy of your information, which is why, as a\n"
+"                                precautionary measure, we are writing to let "
+"you know about a data security incident that may\n"
+"                                involve/involves your personal information.\n"
+"                                <br><br>\n"
+"                                Between XX and XX we discovered a foreign "
+"access to our data."
+msgstr ""
+"Hej %s,\n"
+"                                 <br><br>\n"
+"                                 Vi värdesätter ditt företag och respekterar "
+"din informations integritet, vilket är anledningen till, som en\n"
+"                                 försiktighetsåtgärd, skriver vi för att "
+"informera dig om en datasäkerhetshändelse som kan\n"
+"                                 involvera / involverar din personliga "
+"information."
+
+#: admin/options-init.php:449
+msgid "Send Data Breach Email"
+msgstr "Skicka dataintrång e-post"
+
+#: admin/options-init.php:457 public/class-wordpress-gdpr-public.php:233
+msgid "Disclaimer"
+msgstr "Friskrivning"
+
+#: admin/options-init.php:464
+msgid "Enable Disclaimer"
+msgstr "Aktivera ansvarsfriskrivning"
+
+#: admin/options-init.php:465
+msgid "Enable Disclaimer form."
+msgstr "Aktivera ansvarsfriskrivnings sida."
+
+#: admin/options-init.php:471
+msgid "Disclaimer Page"
+msgstr "Friskrivnings sida"
+
+#: admin/options-init.php:472 admin/options-init.php:1139
+msgid "Place your "
+msgstr "Placera din sida här "
+
+#: admin/options-init.php:481 public/class-wordpress-gdpr-public.php:248
+msgid "Forget Me"
+msgstr "Glöm mig"
+
+#: admin/options-init.php:488
+msgid "Enable Forget Me"
+msgstr "Aktivera glöm mig"
+
+#: admin/options-init.php:489
+msgid "Enable Forget Me form."
+msgstr "Aktivera glöm mig formulär."
+
+#: admin/options-init.php:495
+msgid "Forget Me Page"
+msgstr "Glöm mig sida"
+
+#: admin/options-init.php:496
+msgid "Shortcode: [wordpress_gdpr_forget_me]"
+msgstr "Kortkod: [wordpress_gdpr_forget_me]"
+
+#: admin/options-init.php:503
+msgid "Show Delete Data Button for Logged in"
+msgstr "Visa radera data-knappen för inloggad"
+
+#: admin/options-init.php:504
+msgid ""
+"This will show logged in users a button where they can delete data "
+"theirselves."
+msgstr ""
+"Detta kommer att visa inloggade användare en knapp där de kan radera data "
+"själva."
+
+#: admin/options-init.php:522
+msgid "Delete Posts & Pages (& all other post types)"
+msgstr "Ta bort inlägg och sidor (och alla andra posttyper)"
+
+#: admin/options-init.php:529
+msgid "Delete Comments"
+msgstr "Radera kommentarer"
+
+#: admin/options-init.php:543
+msgid "Forget me Deleted Email Subject"
+msgstr "Glöm mig raderade e-post ämne"
+
+#: admin/options-init.php:545
+msgid "GDPR - Your Data has been Deleted"
+msgstr "GDPR - Din data har blivit raderad"
+
+#: admin/options-init.php:551
+msgid "Forget me Deleted Email Text"
+msgstr "Glöm mig raderade e-post text"
+
+#: admin/options-init.php:552
+msgid "Text of the Email informing the user, that his data has been deleted."
+msgstr ""
+"Text i e-postmeddelandet som informerar användaren om att hans data har "
+"tagits bort."
+
+#: admin/options-init.php:553
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                we have successfully deleted all your "
+"personal data from our Website."
+msgstr ""
+"Hej %s,\n"
+"                                 <br><br>\n"
+"                                 Vi har framgångsrikt raderat alla dina "
+"personuppgifter från vår webbsida."
+
+#: admin/options-init.php:562 public/class-wordpress-gdpr-public.php:262
+msgid "Imprint"
+msgstr "Imprint"
+
+#: admin/options-init.php:569
+msgid "Enable Imprint"
+msgstr "Aktivera Imprint"
+
+#: admin/options-init.php:570
+msgid "Enable Imprint Page"
+msgstr "Aktivera imprint sida"
+
+#: admin/options-init.php:576
+msgid "Imprint Page"
+msgstr "Imprint sida"
+
+#: admin/options-init.php:577
+msgid "Add your Imprint here."
+msgstr "Lägg till dina imprint här."
+
+#: admin/options-init.php:589
+msgid "Integrations"
+msgstr "Integrationer"
+
+#: admin/options-init.php:596 admin/options-init.php:603
+msgid "Enable Comments"
+msgstr "Aktivera kommentarer"
+
+#: admin/options-init.php:597
+msgid ""
+"Activated this will add a checkbox to comment form to accept your privay "
+"policy."
+msgstr ""
+"Aktiverad detta lägger till en kryssruta i kommentarfältet för att acceptera "
+"din integritetspolicy."
+
+#: admin/options-init.php:604
+msgid ""
+"Either you go to settings > discussions and check \"Users must be registered"
+"\" or you activate this setting here. If you do not do this, user deletion & "
+"export will not work, because no accounts are created!"
+msgstr ""
+"Antingen går du till inställningar > diskussioner och kontroller \"Användare "
+"måste vara registrerade\" eller aktivera den här inställningen här. Om du "
+"inte gör det, kommer borttagning och export av användare inte att fungera, "
+"eftersom inga konton skapas!"
+
+#: admin/options-init.php:611
+msgid "Comments Privacy Policy Page"
+msgstr "Kommentarer integritetspolicy sidan"
+
+#: admin/options-init.php:612
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"Comments"
+msgstr ""
+"Tilldela din integritetspolicy sida här. Du kan också använda en anpassad "
+"för kommentarer"
+
+#: admin/options-init.php:619 admin/options-init.php:658
+#: admin/options-init.php:688 admin/options-init.php:794
+msgid "Privacy Policy Accept text"
+msgstr "Integritetspolicy acceptera text"
+
+#: admin/options-init.php:620 admin/options-init.php:659
+msgid "Text for users to agree on privacy policy on checkout page."
+msgstr "Text för användare att acceptera integritetspolicy på kassan."
+
+#: admin/options-init.php:621 admin/options-init.php:660
+msgid "I’ve read and accept the privacy policy."
+msgstr " Jag har läst och accepterat integritetspolicyen."
+
+#: admin/options-init.php:627
+msgid "Enable WooCommerce"
+msgstr "Aktivera WooCommerce"
+
+#: admin/options-init.php:628
+msgid ""
+"Activated this will add a checkbox to the checkout, registration and product "
+"review form to accept your privay policy. It also adds a menu item to the my "
+"account page for the privacy center. In addtion to this make sure you have "
+"setup a terms and conditions page in WooCommerce settings. With WooCommerce "
+"Version 3.4. you may not need this anymore"
+msgstr ""
+"Aktiverad detta lägger till en kryssruta i kassan, registrerings- och "
+"produktgranskningsformuläret för att acceptera din integritetspolicy. Det "
+"lägger också till ett menyalternativ på min kontosida för privat center. "
+"Utöver detta måste du se till att du har en inställningssida i WooCommerce-"
+"inställningarna. Med WooCommerce Version 3.4. du kanske inte behöver det här "
+"längre"
+
+#: admin/options-init.php:634
+msgid "Delete WooCommerce Orders"
+msgstr "Radera WooCommerce beställningar"
+
+#: admin/options-init.php:635
+msgid "If enabled WooCommerce Orders will be deleted on Forget Me Request."
+msgstr ""
+"Om aktiverade kommer WooCommerce beställningar att raderas på Glöm mig "
+"begäran."
+
+#: admin/options-init.php:642
+msgid "Disable Guest Checkout"
+msgstr "Inaktivera gäst kassa"
+
+#: admin/options-init.php:643
+msgid ""
+"Either you go to WooCommerce > Settings > Checkout and disable Guest "
+"Checkout or you activate this setting here. If you do not do this, user "
+"deletion & export will not work, because no accounts are created!"
+msgstr ""
+"Du går antingen till WooCommerce > Inställningar> Kassa och inaktivera "
+"gästkassa eller aktiverar den här inställningen här. Om du inte gör det, "
+"kommer borttagning och export av användare inte att fungera, eftersom inga "
+"konton skapas!"
+
+#: admin/options-init.php:650
+msgid "WooCommerce Privacy Policy Page"
+msgstr "WooCommerce integritetspolicy sidan"
+
+#: admin/options-init.php:651
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"WooCommerce"
+msgstr ""
+"Tilldela din integritetspolicy sida här. Du kan också använda en anpassad "
+"för WooCommerce"
+
+#: admin/options-init.php:666
+msgid "Enable Cloudlfare"
+msgstr "Aktivera Cloudlfare"
+
+#: admin/options-init.php:667
+msgid ""
+"If you use Cloudlfare enable this. <a href=\"https://support.cloudflare.com/"
+"hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">See "
+"here about __cfduid cookie</a>."
+msgstr ""
+"Om du använder Cloduflare aktivera detta. <a href=\"https://support."
+"cloudflare.com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-"
+"cookie-do-\">Se här om __cfduid cookie</a>."
+
+#: admin/options-init.php:673
+msgid "Enable BuddyPress"
+msgstr "Aktivera BuddyPress"
+
+#: admin/options-init.php:674
+msgid "This will add checkbox to BuddyPress Account registration form."
+msgstr ""
+"Detta lägger till kryssrutan i BuddyPress-kontoregistreringsformuläret."
+
+#: admin/options-init.php:680
+msgid "BuddyPress Privacy Policy Page"
+msgstr "BuddyPress integritetspolicy sidan"
+
+#: admin/options-init.php:681
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"BuddyPress"
+msgstr ""
+"Tilldela din sekretesspolicy sida här. Du kan också använda en anpassad för "
+"BuddyPress"
+
+#: admin/options-init.php:689
+msgid ""
+"Text for users to agree on privacy policy on BuddyPress Registration page."
+msgstr ""
+"Text för användare att acceptera integritetspolicy på BuddyPress "
+"registrerings sidan."
+
+#: admin/options-init.php:690
+msgid "By registering an Account I have read and accept the privacy policy."
+msgstr ""
+"Genom att registrera ett konto har jag läst och accepterat integritetspolicy."
+
+#: admin/options-init.php:696
+msgid "Enable CF7"
+msgstr "Aktivera CF7"
+
+#: admin/options-init.php:697
+msgid "Make sure you add a checkbox to your forms to accept privacy policy."
+msgstr ""
+"Se till att du lägger till en kryssruta i dina formulär för att acceptera "
+"integritetspolicy."
+
+#: admin/options-init.php:703
+msgid "Enable Flamingo DB"
+msgstr "Aktivera Flamingo DB"
+
+#: admin/options-init.php:704
+msgid "This will depending on the opt-in checkbox setting save data or not."
+msgstr ""
+"Detta kommer att bero på opt-in kryssrutans inställningar för spara data "
+"eller inte."
+
+#: admin/options-init.php:710
+msgid "Opt-In Field name"
+msgstr "Opt-In fältnamn"
+
+#: admin/options-init.php:711
+msgid "Enter the field name for the opt in checkbox here."
+msgstr "Ange fältnamnet för kryssrutan opt-in här."
+
+#: admin/options-init.php:712
+msgid "opt-in"
+msgstr "opt-in"
+
+#: admin/options-init.php:718
+msgid "Delete Flamingo DB Records"
+msgstr "Ta bort Flamingo DB uppgifter"
+
+#: admin/options-init.php:719
+msgid "On Forget Me Request, delete Flamingo DB records."
+msgstr "På glöm mig begäran, ta bort Flamingo DB uppgifter."
+
+#: admin/options-init.php:726
+msgid "Enable Quform"
+msgstr "Aktivera Quform"
+
+#: admin/options-init.php:727
+msgid ""
+"This will add Quform entries to data export. Checkbox needs to be added to "
+"each form manually."
+msgstr ""
+"Detta lägger till Quform-poster till dataexport. Kryssrutan måste läggas "
+"till i varje formulär manuellt."
+
+#: admin/options-init.php:733
+msgid "Delete Quform Records"
+msgstr "Ta bort Quform uppgifter"
+
+#: admin/options-init.php:734
+msgid "On Forget Me Request, delete Quform records."
+msgstr "På glöm mig begäran, ta bort Quform uppgifter."
+
+#: admin/options-init.php:741
+msgid "Enable Formidable"
+msgstr "Aktivera Formidable"
+
+#: admin/options-init.php:742
+msgid ""
+"This will add quform entries to data export. Checkbox needs to be added to "
+"each form manually."
+msgstr ""
+"Detta lägger till quform poster till dataexport. Kryssrutan måste läggas "
+"till i varje formulär manuellt."
+
+#: admin/options-init.php:748
+msgid "Delete Formidable Records"
+msgstr "Radera Formidable uppgifter"
+
+#: admin/options-init.php:749
+msgid "On Forget Me Request, delete Formidable records."
+msgstr "På glöm mig begäran, radera Formidabel uppgifter."
+
+#: admin/options-init.php:756
+msgid "Enable GravityForms"
+msgstr "Aktivera GravityForms"
+
+#: admin/options-init.php:757
+msgid ""
+"This will add Gravity Forms entries to data export. Checkbox needs to be "
+"added to each form manually."
+msgstr ""
+"Detta lägger till Gravity Forms poster till dataexport. Kryssrutan måste "
+"läggas till i varje formulär manuellt."
+
+#: admin/options-init.php:763
+msgid "Delete GravityForms Records"
+msgstr "Radera GravityForms uppgifter"
+
+#: admin/options-init.php:764
+msgid "On Forget Me Request, delete Gravity Forms records."
+msgstr "På glöm mig begäran, radera Gravity Forms uppgifter."
+
+#: admin/options-init.php:771
+msgid "Enable Mailster"
+msgstr "Aktivera Mailster"
+
+#: admin/options-init.php:772
+msgid "Activate our Mailster Integration."
+msgstr "Aktivera vår Mailster integration."
+
+#: admin/options-init.php:778
+msgid "Enable Mailster Checkbox"
+msgstr "Aktivera Mailster kryssruta"
+
+#: admin/options-init.php:779
+msgid "This will add checkbox to Mailster Subscribe form."
+msgstr "Detta lägger till kryssrutan i Mailster prenumerations formulär."
+
+#: admin/options-init.php:786
+msgid "Mailster Privacy Policy Page"
+msgstr "Mailster integritetspolicy sidan"
+
+#: admin/options-init.php:787
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"Mailster"
+msgstr ""
+"Tilldela din integritetspolicy sida här. Du kan också använda en anpassad "
+"för Mailster"
+
+#: admin/options-init.php:795
+msgid ""
+"Text for users to agree on privacy policy on Mailster Registration page."
+msgstr ""
+"Text för användare att acceptera integritetspolicy på Mailster registrerings "
+"sidan."
+
+#: admin/options-init.php:796
+msgid ""
+"By subscribing to this newsletter I have read and accept the privacy policy."
+msgstr ""
+" Genom att bli prenumerant på detta nyhetsbrev, har jag läst och accepterat "
+"integritetspolicy."
+
+#: admin/options-init.php:802
+msgid "Enable Google Analytics"
+msgstr "Aktivera Google Analytik"
+
+#: admin/options-init.php:803
+msgid "Enable Analytics Loading only if allowed."
+msgstr "Aktivera Analytics \"Laddas enbart\" om det är tillåtet."
+
+#: admin/options-init.php:810
+msgid "Analytics Code"
+msgstr "Analytisk kod"
+
+#: admin/options-init.php:825
+msgid "Enable Google Adwords"
+msgstr "Aktivera Google Adwords"
+
+#: admin/options-init.php:826
+msgid "Enable Adwords Loading only if allowed."
+msgstr "Aktivera Adwords \"Laddas enbart\" om det är tillåtet."
+
+#: admin/options-init.php:833
+msgid "Adwords Code"
+msgstr "Adwords kod"
+
+#: admin/options-init.php:840
+msgid "Enable Google Tag Manager"
+msgstr "Aktivera Google Tag Manager"
+
+#: admin/options-init.php:841
+msgid "Enable Tag Manager Loading only if allowed."
+msgstr "Aktivera Tag Manager \"Laddas enbart\"om det är tillåtet."
+
+#: admin/options-init.php:848
+msgid "Tag Manager Head Code"
+msgstr "Tagg hanterare huvud kod"
+
+#: admin/options-init.php:856
+msgid "Tag Manager Body Code"
+msgstr "Tagg hanterare body kod"
+
+#: admin/options-init.php:863
+msgid "Enable Hot Jar"
+msgstr "Aktivera Hot Jar"
+
+#: admin/options-init.php:864
+msgid "Enable Hot Jar Loading only if allowed."
+msgstr "Aktivera Hot Jar \"Laddas enbart\" om det är tillåtet."
+
+#: admin/options-init.php:871
+msgid "Hot Jar Code"
+msgstr "Hot Jar kod"
+
+#: admin/options-init.php:878
+msgid "Enable Facebook"
+msgstr "Aktivera Facebook"
+
+#: admin/options-init.php:879
+msgid "Enable Facebook Loading only if allowed."
+msgstr "Aktivera Facebook \"Laddas enbart\" om det är tillåtet."
+
+#: admin/options-init.php:886
+msgid "Facebook Code"
+msgstr "Facebook kod"
+
+#: admin/options-init.php:893
+msgid "Enable Piwik"
+msgstr "Aktivera Piwik"
+
+#: admin/options-init.php:894
+msgid "Enable Piwik Loading only if allowed."
+msgstr "Aktivera Piwik \"Laddas enbart\" om det är tillåtet."
+
+#: admin/options-init.php:901
+msgid "Piwik Code"
+msgstr "Piwik kod"
+
+#: admin/options-init.php:908
+msgid "Enable Adsense"
+msgstr "Aktivera Adsense"
+
+#: admin/options-init.php:909
+msgid "Enable Adsense Loading only if allowed."
+msgstr "Aktivera Adsense \"Laddar bara\" om tillåtet."
+
+#: admin/options-init.php:916
+msgid "Adsense Code"
+msgstr "Adsense kod"
+
+#: admin/options-init.php:923
+msgid "Enable Custom"
+msgstr "Aktivera anpassad"
+
+#: admin/options-init.php:924
+msgid ""
+"Use this for custom JS Code to be executed if allowed. Use Loco Translate to "
+"adjust frontend text."
+msgstr ""
+"Använd detta för anpassad JS-kod som ska utföras om det är tillåtet. Använd "
+"Loco Translate för att justera frontendtexten."
+
+#: admin/options-init.php:931
+msgid "Custom Code"
+msgstr "Anpassad kod"
+
+#: admin/options-init.php:941 public/class-wordpress-gdpr-public.php:290
+msgid "Privacy Policy"
+msgstr "Integritetsspolicy"
+
+#: admin/options-init.php:948 admin/options-init.php:949
+msgid "Enable Privacy Policy"
+msgstr "Aktivera integritetsspolicy"
+
+#: admin/options-init.php:955
+msgid "Privacy Policy Page"
+msgstr "Integritetsspolicysida"
+
+#: admin/options-init.php:956
+msgid "Add your privacy policy to this page!"
+msgstr "Lägg till din integritetspolicy till denna sida!"
+
+#: admin/options-init.php:972
+msgid "Privacy Policy Update"
+msgstr "Uppdatera integritetsspolicy"
+
+#: admin/options-init.php:979
+msgid "Enable Privacy Policy Update"
+msgstr "Aktivera integritetspolicy uppdatering"
+
+#: admin/options-init.php:980
+msgid "Enable Privacy Policy Update form."
+msgstr "Aktivera integritetspolicy uppdaterings formulär."
+
+#: admin/options-init.php:986
+msgid "Privacy Policy Update from Email"
+msgstr "Integritetspolicy uppdatering från e-post"
+
+#: admin/options-init.php:987
+msgid "The FROM Email used for Privacy Policy Updates."
+msgstr "FRÅN e-post som används för integritetspolicy uppdateringar."
+
+#: admin/options-init.php:994
+msgid "Privacy Policy Update Email Subject"
+msgstr "Integritetspolicy uppdatering e-post ämne"
+
+#: admin/options-init.php:996
+msgid "GDPR - Privacy Policy Updated"
+msgstr "GDPR - Integritetspolicy uppdatering"
+
+#: admin/options-init.php:1002
+msgid "Privacy Policy Update Email Text"
+msgstr "Integritetspolicy uppdatering e-post text"
+
+#: admin/options-init.php:1003
+msgid "Text of the Email regarding a Privacy Policy Update."
+msgstr "Text av e-post om en uppdatering av integritetspolicyen."
+
+#: admin/options-init.php:1004
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br>\n"
+"                                We have updated our privacy policy. Please "
+"read more here: INSERT YOUR LINK."
+msgstr ""
+"Kära %s,\n"
+"                                 <br><br>\n"
+"                                 Vi har uppdaterat vår integritetspolicy. "
+"Läs mer här: INFOGA DIN LÄNK."
+
+#: admin/options-init.php:1013
+msgid "Send Privacy Update Email"
+msgstr "Skicka integritetspolicy uppdaterings e-post"
+
+#: admin/options-init.php:1028 admin/options-init.php:1029
+msgid "Enable Privacy Settings"
+msgstr "Aktivera integritet inställningar"
+
+#: admin/options-init.php:1035
+msgid "privacy Settings Page"
+msgstr "integritet inställnings sida"
+
+#: admin/options-init.php:1036
+msgid "Shortcode: [wordpress_gdpr_privacy_settings]"
+msgstr "Kortkod: [wordpress_gdpr_privacy_settings]"
+
+#: admin/options-init.php:1044 admin/options-init.php:1051
+msgid "Pseudonymization"
+msgstr "Pseudonymization"
+
+#: admin/options-init.php:1052
+msgid ""
+"Pseudonymization is not mandatory by GDPR. It might be a good improvement, "
+"but also can risk in data loss. <a href=\"https://plugins.db-dzine.com/"
+"wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank"
+"\">Please read more here</a>."
+msgstr ""
+"Pseudonymisering är inte obligatorisk av GDPR. Det kan vara en bra "
+"förbättring, men det kan också riskera dataförlust. <a href=\"https://"
+"plugins.db-dzine.com/wordpress-gdpr/documentation/faq/pseudonymization/\" "
+"target=\"_blank\">Läs mer här</a>."
+
+#: admin/options-init.php:1059
+msgid "Request Data Archive"
+msgstr "Begär data arkiv"
+
+#: admin/options-init.php:1066
+msgid "Enable Request Data"
+msgstr "Aktivera begär data"
+
+#: admin/options-init.php:1067
+msgid "Enable Request Data form."
+msgstr "Aktivera begär data formulär."
+
+#: admin/options-init.php:1073
+msgid "Request Data Archive Page"
+msgstr "Begär data arkivsida"
+
+#: admin/options-init.php:1074
+msgid "Shortcode: [wordpress_gdpr_request_data]"
+msgstr "Kortkod:  [wordpress_gdpr_request_data]"
+
+#: admin/options-init.php:1081
+msgid "Show Export Data Button for Logged in"
+msgstr "Visa kopia dataknapp för inloggad"
+
+#: admin/options-init.php:1082
+msgid ""
+"This will show logged in users a button where they can export data "
+"theirselves."
+msgstr ""
+"Detta visar inloggade användare en knapp där de kan hämta en kopia på sin "
+"data själva."
+
+#: admin/options-init.php:1089
+msgid "Export Data as HTML Table"
+msgstr "Exportera data som HTML tabell"
+
+#: admin/options-init.php:1090
+msgid "Instead of JSON data will be exported as html table."
+msgstr "I stället för JSON kommer data exporteras som html-tabell."
+
+#: admin/options-init.php:1107
+msgid "Request Data Export Email Subject"
+msgstr "Begär data kopia e-post ämne"
+
+#: admin/options-init.php:1108
+msgid "Subject of the Email notification."
+msgstr "Ämne för e-post underrättelse."
+
+#: admin/options-init.php:1109
+msgid "GDPR - Your User Data is Ready"
+msgstr "GDPR - Din användardata är klar"
+
+#: admin/options-init.php:1115
+msgid "Request Data Export Email Text"
+msgstr "Begär data kopia e-post text"
+
+#: admin/options-init.php:1116
+msgid "Text of the Email data export."
+msgstr "Text för e-post data kopia."
+
+#: admin/options-init.php:1117
+#, php-format
+msgid "Dear %s, <br><br>attached you find an export of your user data."
+msgstr "Hej %s, <br><br>bifogat dig en kopia på din användardata."
+
+#: admin/options-init.php:1124 public/class-wordpress-gdpr-public.php:318
+msgid "Terms & Conditions"
+msgstr "Regler & Villkor"
+
+#: admin/options-init.php:1131
+msgid "Enable Terms & Conditions"
+msgstr "Aktivera Regler & Villkor"
+
+#: admin/options-init.php:1132
+msgid "Enable Terms & Conditions form."
+msgstr "Aktivera Regler & Villkor formulär."
+
+#: admin/options-init.php:1138
+msgid "Terms & Conditions Page"
+msgstr "Regler & Villkors sida"
+
+#: admin/options-init.php:1147 public/class-wordpress-gdpr-public.php:341
+msgid "Unsubscribe"
+msgstr "Avregistrera"
+
+#: admin/options-init.php:1154 admin/options-init.php:1155
+msgid "Enable Unsubscribe"
+msgstr "Aktivera Avregistrera"
+
+#: admin/options-init.php:1161
+msgid "Unsubscribe Page"
+msgstr "Avregistrering sida"
+
+#: admin/options-init.php:1162
+msgid ""
+"Add your unsubscribe Form here! For <a target=\"_blank\" href=\"https://kb."
+"mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list"
+"\">Mailchimp see here how to setup a Mailchimp Unsuscribe form</a>. This can "
+"be embedded via iFrame."
+msgstr ""
+"Lägg till ditt prenumerationsformulär här! För <a target=\"_blank\" href="
+"\"https://kb.mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-"
+"your-list\">Mailchimp se här hur du konfigurerar ett Mailchimp "
+"avregistrerings formulär </a>. Detta kan inbäddas via iFrame."
+
+#: admin/options-init.php:1170
+msgid "Expert"
+msgstr "Expert"
+
+#: admin/options-init.php:1171
+msgid "Expert Settings."
+msgstr "Expert inställningar."
+
+#: admin/options-init.php:1178
+msgid "Use Cookie Whitelist"
+msgstr "Använd Cookie Whitelist"
+
+#: admin/options-init.php:1179
+msgid ""
+"Enabled this will remove all cookies that are not on the whitelist for "
+"services. You should enable allow cookies for logged in users too. Only use "
+"this when you are sure what you do!"
+msgstr ""
+"Aktiverad här tar bort alla cookies som inte finns på whitelist för "
+"tjänster. Du bör aktivera tillåta cookies för inloggade användare också. "
+"Använd bara detta när du är säker på vad du gör!"
+
+#: admin/options-init.php:1186
+msgid "Custom CSS"
+msgstr "Anpassad CSS"
+
+#: admin/options-init.php:1187
+msgid "Add some stylesheet if you want."
+msgstr "Lägg till som stylesheet om du vill."
+
+#: admin/class-wordpress-gdpr-data-export.php:82
+#: admin/class-wordpress-gdpr-data-delete.php:65
+msgid "No User ID set."
+msgstr "Användare ID hittades inte."
+
+#: admin/class-wordpress-gdpr-data-export.php:94
+msgid "Data Exported Manually"
+msgstr "Data skickad manuellt"
+
+#: admin/class-wordpress-gdpr-data-export.php:155
+msgid "Export Data successfully mailed to user"
+msgstr "Lyckades skicka data till användaren"
+
+#: admin/class-wordpress-gdpr-data-export.php:157
+msgid "Data Sent"
+msgstr "Data skickad"
+
+#: admin/class-wordpress-gdpr-data-export.php:160
+msgid "Export Data could not be mailed to user"
+msgstr "Kunde inte skicka användardata till användaren"
+
+#: admin/class-wordpress-gdpr-data-delete.php:163
+msgid "User Data Not Deleted"
+msgstr "Användardata inte raderad"
+
+#: admin/class-wordpress-gdpr-data-delete.php:192
+msgid "User Data Notification sent"
+msgstr "Notering av användardata skickad"
+
+#: admin/class-wordpress-gdpr-data-delete.php:194
+msgid "Data Deleted"
+msgstr "Data raderad"
+
+#: admin/class-wordpress-gdpr-data-delete.php:197
+msgid "User Data Notification not sent"
+msgstr "Notering av användardata inte skickad"
+
+#: admin/class-wordpress-gdpr-requests.php:71
+msgid "GDPR Request"
+msgstr "GDPR begäran"
+
+#: admin/class-wordpress-gdpr-requests.php:72
+msgid "GDPR Requests"
+msgstr "GDPR begäranden"
+
+#: admin/class-wordpress-gdpr-requests.php:76
+#, php-format
+msgid "All %s"
+msgstr "Alla %s"
+
+#: admin/class-wordpress-gdpr-requests.php:78
+#: admin/class-wordpress-gdpr-requests.php:81
+#, php-format
+msgid "New %s"
+msgstr "Ny %s"
+
+#: admin/class-wordpress-gdpr-requests.php:79
+#, php-format
+msgid "Add New %s"
+msgstr "Lägg till ny %s"
+
+#: admin/class-wordpress-gdpr-requests.php:80
+#, php-format
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#: admin/class-wordpress-gdpr-requests.php:82
+#, php-format
+msgid "View %s"
+msgstr "Visa %s"
+
+#: admin/class-wordpress-gdpr-requests.php:83
+#, php-format
+msgid "Search %s"
+msgstr "Sök %s"
+
+#: admin/class-wordpress-gdpr-requests.php:84
+#, php-format
+msgid "No %s found"
+msgstr "Inga %s hittade"
+
+#: admin/class-wordpress-gdpr-requests.php:85
+#, php-format
+msgid "No %s found in trash"
+msgstr "Inga %s hittade i papperskorgen"
+
+#: admin/class-wordpress-gdpr-requests.php:124
+msgid "User"
+msgstr "Användare"
+
+#: admin/class-wordpress-gdpr-requests.php:125
+msgid "Email confirmed"
+msgstr "E-post bekräftad"
+
+#: admin/class-wordpress-gdpr-requests.php:126
+msgid "Status"
+msgstr "Status"
+
+#: admin/class-wordpress-gdpr-requests.php:127
+msgid "User Identifier"
+msgstr "Användaridentifierare"
+
+#: admin/class-wordpress-gdpr-requests.php:128
+msgid "Actions"
+msgstr "Val"
+
+#: admin/class-wordpress-gdpr-requests.php:188
+#: admin/class-wordpress-gdpr-users.php:130
+msgid "Delete Data"
+msgstr "Radera data"
+
+#: admin/class-wordpress-gdpr-requests.php:197
+#: admin/class-wordpress-gdpr-users.php:135
+msgid "Export Data"
+msgstr "Data kopia"
+
+#: admin/class-wordpress-gdpr-requests.php:206
+#: admin/class-wordpress-gdpr-users.php:140
+msgid "Send Data"
+msgstr "Skicka data"
+
+#: admin/class-wordpress-gdpr-requests.php:213
+msgid "Manually Done"
+msgstr "Manuellt klart"
+
+#: admin/class-wordpress-gdpr-requests.php:260
+msgid "Firstname"
+msgstr "Förnamn"
+
+#: admin/class-wordpress-gdpr-requests.php:265
+msgid "Last name"
+msgstr "Efternamn"
+
+#: admin/class-wordpress-gdpr-requests.php:270
+msgid "Email"
+msgstr "E-post"
+
+#: admin/class-wordpress-gdpr-users.php:114
+msgid "No users found"
+msgstr "Ingen användare hittad"
+
+#: includes/class-wordpress-gdpr-activator.php:183
+msgid "GDPR Agent"
+msgstr "GDPR Ombud"
+
+#: includes/class-wordpress-gdpr-activator.php:205
+msgid "GDPR Reporter"
+msgstr "GDPR Reporter"
+
+#: public/class-wordpress-gdpr-public.php:189
+msgid "Learn More"
+msgstr "Gå vidare"
+
+#: public/class-wordpress-gdpr-public.php:206
+msgid "Contact our Data Protection Officer."
+msgstr "Kontakta dataskyddsombud."
+
+#: public/class-wordpress-gdpr-public.php:220
+msgid "Read more about our Cookie Policy."
+msgstr "Läs mer om cookiepolicy."
+
+#: public/class-wordpress-gdpr-public.php:234
+msgid "Learn more about our liabilities."
+msgstr "Läs mer om våra förpliktelser."
+
+#: public/class-wordpress-gdpr-public.php:249
+msgid "Submit a request to erase your private data."
+msgstr "Förfrågan om att radera din data."
+
+#: public/class-wordpress-gdpr-public.php:263
+msgid "Learn about our ownership and authorship."
+msgstr "Lär dig om vårt ägande och författarskap."
+
+#: public/class-wordpress-gdpr-public.php:276
+msgid "Request Data"
+msgstr "Begär ut din data"
+
+#: public/class-wordpress-gdpr-public.php:277
+msgid "Submit a request to get a copy of all your data stored."
+msgstr "Förfrågan om en kopia på din data."
+
+#: public/class-wordpress-gdpr-public.php:291
+msgid "Read about our Privacy Policy here."
+msgstr "Läs om integritetspolicy här."
+
+#: public/class-wordpress-gdpr-public.php:305
+msgid "Configure your personal privacy settings here."
+msgstr "Personliga inställningar."
+
+#: public/class-wordpress-gdpr-public.php:319
+msgid "Read more about the Terms & Conditions of our website."
+msgstr "Läs mer om regler och villkor på webbsida."
+
+#: public/class-wordpress-gdpr-public.php:342
+msgid "Unsubscribe from our Newsletters."
+msgstr "Avsluta prenumerationen på mina utskick."
+
+#: public/class-wordpress-gdpr-public.php:378
+msgid "GDPR Request - "
+msgstr "GDPR Begäran - "
+
+#: public/class-wordpress-gdpr-public.php:378
+msgid "A new GDPR Request is available."
+msgstr "En ny GDPR begäran är tillgänglig."
+
+#: public/class-wordpress-gdpr-public.php:381
+msgid "Email Address confirmed and your request is in process now."
+msgstr "E-postadressen bekräftad och din förfrågan är igång nu."
+
+#: public/class-wordpress-gdpr-public.php:385
+msgid "Email Address could not be confirmed. Please send individual request."
+msgstr "E-postadressen kunde inte bekräftas. Vänligen skicka enskild begäran."
+
+#: public/class-wordpress-gdpr-public.php:445
+msgid "Cookies"
+msgstr "Cookies"
+
+#: public/class-wordpress-gdpr-public.php:446
+msgid "We use Cookies to give you a better website experience."
+msgstr "Vi använder cookies för att ge dig en bättre webbplatsupplevelse."
+
+#: public/class-wordpress-gdpr-public.php:451
+msgid "Cloudflare"
+msgstr "Cloudflare"
+
+#: public/class-wordpress-gdpr-public.php:452
+msgid ""
+"For perfomance reasons we use Cloudflare as a CDN network. This saves a "
+"cookie \"__cfduid\" to apply security settings on a per-client basis. This "
+"cookie is strictly necessary for Cloudflare's security features and cannot "
+"be turned off."
+msgstr ""
+"Av perfekta skäl använder vi Cloudflare som ett CDN-nätverk. Detta sparar en "
+"cookie \"__cfduid\" för att tillämpa säkerhetsinställningar per kund. Denna "
+"cookie är absolut nödvändig för Cloudflares säkerhetsfunktioner och kan inte "
+"stängas av."
+
+#: public/class-wordpress-gdpr-public.php:458
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: public/class-wordpress-gdpr-public.php:459
+msgid ""
+"We use WooCommerce as a shopping system. For cart and order processing 2 "
+"cookies will be stored: woocommerce_cart_hash & woocommerce_items_in_cart. "
+"This cookies are strictly necessary and can not be turned off."
+msgstr ""
+"Vi använder WooCommerce som ett inköpssystem. För kundvagn och "
+"orderbehandling 2 cookies lagras: woocommerce_cart_hash & "
+"woocommerce_items_in_cart. Dessa cookies är absolut nödvändiga och kan inte "
+"stängas av."
+
+#: public/class-wordpress-gdpr-public.php:465
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: public/class-wordpress-gdpr-public.php:466
+msgid "We track anonymized user information to improve our website."
+msgstr ""
+"Vi spårar anonymiserad användarinformation för att förbättra vår webbplats."
+
+#: public/class-wordpress-gdpr-public.php:472
+msgid "Google Adwords"
+msgstr "Google Adwords"
+
+#: public/class-wordpress-gdpr-public.php:473
+msgid "We use Adwords to track our Conversions through Google Clicks."
+msgstr ""
+"Vi använder AdWords för att spåra våra konverteringar via Google-klick."
+
+#: public/class-wordpress-gdpr-public.php:479
+msgid "Google Tag Manager"
+msgstr "Google Tag Manager"
+
+#: public/class-wordpress-gdpr-public.php:480
+msgid ""
+"We use Google Tag Manager to monitor our traffic and to help us AB test new "
+"features    "
+msgstr ""
+"Vi använder Google Tag Manager för att övervaka vår trafik och för att "
+"hjälpa oss att AB testa nya funktioner   "
+
+#: public/class-wordpress-gdpr-public.php:486
+msgid "Hot Jar"
+msgstr "Hot Jar"
+
+#: public/class-wordpress-gdpr-public.php:487
+msgid ""
+"We use HotJar to track what users click on and engage with on this site "
+msgstr ""
+"Vi använder HotJar för att spåra vilka användare som klickar på och engagera "
+"sig på den här sidan "
+
+#: public/class-wordpress-gdpr-public.php:493
+msgid "Facebook"
+msgstr "Facebook Pixel"
+
+#: public/class-wordpress-gdpr-public.php:494
+msgid "We use Facebook to track connections to social media channels."
+msgstr ""
+"Vi använder Facebook Pixel för att spåra anslutningar till sociala medier."
+
+#: public/class-wordpress-gdpr-public.php:500
+msgid "Piwik"
+msgstr "Piwik"
+
+#: public/class-wordpress-gdpr-public.php:501
+msgid "We use Piwik to track user information to improve our website."
+msgstr ""
+"Vi använder Piwik för att spåra användarinformation för att förbättra vår "
+"webbplats."
+
+#: public/class-wordpress-gdpr-public.php:508
+msgid "AdSense"
+msgstr "AdSense"
+
+#: public/class-wordpress-gdpr-public.php:509
+msgid "We use Google AdSense to show online advertisements on our website."
+msgstr "Vi använder Google AdSense för att visa onlineannonser på vår hemsida."
+
+#: public/class-wordpress-gdpr-public.php:516
+msgid "Custom"
+msgstr "Anpassad"
+
+#: public/class-wordpress-gdpr-public.php:517
+msgid "Use Loco Translate to change Text for custom Code"
+msgstr "Använd Loco Translate för att ändra text för anpassad kod"
+
+#: public/class-wordpress-gdpr-public.php:527
+#: public/class-wordpress-gdpr-forms.php:87
+msgid "Return to Privacy Center"
+msgstr "Återgå till Integritetspanelen"
+
+#: public/class-wordpress-gdpr-public.php:534
+msgid "Name"
+msgstr "Namn"
+
+#: public/class-wordpress-gdpr-public.php:535
+msgid "Reason"
+msgstr "Anledning"
+
+#: public/class-wordpress-gdpr-public.php:536
+msgid "Enabled"
+msgstr "Aktiverat"
+
+#: public/class-wordpress-gdpr-forms.php:49
+msgid "Forget Me Request"
+msgstr "Glöm mig begäran"
+
+#: public/class-wordpress-gdpr-forms.php:57
+msgid "DPO Contact Request"
+msgstr "DSA Kontakt begäran"
+
+#: public/class-wordpress-gdpr-forms.php:65
+msgid "Data Request"
+msgstr "Data begäran"
+
+#: public/class-wordpress-gdpr-forms.php:97
+msgid "Request sent successfully. Our DPO will answer you soon."
+msgstr ""
+"Förfrågan skickades framgångsrikt. Vår dataskyddsansvarig svarar dig snart."
+
+#: public/class-wordpress-gdpr-forms.php:99
+msgid ""
+"Request received. We have sent you a confirmation email to validate your "
+"email address for this type of request."
+msgstr ""
+"Förfrågan mottagen. Vi har skickat dig ett bekräftelsemail för att validera "
+"din e-postadress för denna typ av förfrågan."
+
+#: public/class-wordpress-gdpr-forms.php:105
+msgid "Could not send your request!"
+msgstr "Kunde inte skicka din begäran!"
+
+#: public/class-wordpress-gdpr-forms.php:175
+msgid "First Name missing."
+msgstr "Förnamn saknas."
+
+#: public/class-wordpress-gdpr-forms.php:179
+msgid "Last Name missing."
+msgstr "Efternamn saknas."
+
+#: public/class-wordpress-gdpr-forms.php:183
+msgid "Email missing."
+msgstr "E-postadressen saknas."
+
+#: public/class-wordpress-gdpr-forms.php:187
+msgid "Terms not accepted."
+msgstr "Villkor inte accepterade."
+
+#: public/class-wordpress-gdpr-forms.php:192
+msgid "Message missing."
+msgstr "Meddelande saknas."
+
+#: public/class-wordpress-gdpr-forms.php:200
+msgid "Could not find a user with this email. Please contact our DPO directly."
+msgstr ""
+"Det gick inte att hitta en användare med det här e-postadress. Kontakta vår "
+"DSO direkt."
+
+#: public/class-wordpress-gdpr-forms.php:240
+msgid "Could not create your GDPR request."
+msgstr "Kunde inte skapa din GDPR begäran."
+
+#: public/class-wordpress-gdpr-forms.php:257
+#, php-format
+msgid "First Name: %s"
+msgstr "Förnamn: %s"
+
+#: public/class-wordpress-gdpr-forms.php:258
+#, php-format
+msgid "Last Name: %s"
+msgstr "Efternamn: %s"
+
+#: public/class-wordpress-gdpr-forms.php:259
+#, php-format
+msgid "Email: %s"
+msgstr "E-post: %s"
+
+#: public/class-wordpress-gdpr-forms.php:260
+#, php-format
+msgid "Terms Accepted: %s"
+msgstr "Villkor accepterade: %s"
+
+#: public/class-wordpress-gdpr-forms.php:263
+#, php-format
+msgid "Message: %s"
+msgstr "Meddelande: %s"
+
+#: public/class-wordpress-gdpr-forms.php:275
+msgid "Confirm Request"
+msgstr "Bekräfta begäran"
+
+#: public/class-wordpress-gdpr-forms.php:335
+msgid "Your First Name (*)"
+msgstr "Ditt förnamn (*)"
+
+#: public/class-wordpress-gdpr-forms.php:351
+msgid "Your Last Name (*)"
+msgstr "Ditt efternamn (*)"
+
+#: public/class-wordpress-gdpr-forms.php:367
+msgid "Your Email (*)"
+msgstr "Din e-post (*)"
+
+#: public/class-wordpress-gdpr-forms.php:383
+msgid "Your message (*)"
+msgstr "Ditt meddelande (*)"
+
+#: public/class-wordpress-gdpr-forms.php:403
+msgid ""
+"I agree to the privacy policy and that my data will be stored for this GDPR "
+"request ."
+msgstr ""
+" Jag godkänner integritetspolicy och att mina data lagras för denna GDPR-"
+"förfrågan."
+
+#: public/class-wordpress-gdpr-forms.php:418
+msgid "Submit"
+msgstr "Skicka"
+
+#: public/class-wordpress-gdpr-forms.php:428
+msgid "Delete my Data"
+msgstr "Radera min data"
+
+#: public/class-wordpress-gdpr-forms.php:430
+msgid "Export my Data"
+msgstr "Exportera min data"
+
+#: public/class-wordpress-gdpr-integrations.php:137
+msgid "You must accept our Privacy Policy."
+msgstr "Du måste acceptera vår integritetspolicy."
+
+#. Description of the plugin
+msgid "EU-DSVGO, GDPR Compliance Plugin"
+msgstr "EU-DSVGO, GDPR Compliance Plugin"
+
+#. URI of the plugin
+msgid "https://plugins.db-dzine.com"
+msgstr "https://plugins.db-dzine.com"
+
+#. Author of the plugin
+msgid "DB-Dzine"
+msgstr "DB-Dzine"
+
+#. Author URI of the plugin
+msgid "http://www.db-dzine.de"
+msgstr "http://www.db-dzine.de"

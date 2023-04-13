@@ -1,0 +1,1669 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress GDPR\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-24 09:08+0000\n"
+"PO-Revision-Date: 2018-06-08 15:00+0000\n"
+"Last-Translator: Wendy <info@anders-paardrijden.be>\n"
+"Language-Team: Nederlands (België)\n"
+"Language: nl-BE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: wordpress-gdpr.php:89
+msgid ""
+"WordPress GDPR requires the Redux Framework Please install or activate it "
+"before!"
+msgstr ""
+"WordPress AVG (GDRP) vereist Redux Framework Installeer of activeer het "
+"voordien!"
+
+#: admin/options-init.php:28 admin/options-init.php:30
+msgid "WordPress GDPR"
+msgstr "WordPress AVG (GDRP)"
+
+#: admin/options-init.php:37
+msgid "GDPR Settings"
+msgstr "AVG (GDRP) instelling"
+
+#: admin/options-init.php:91
+msgid "Information"
+msgstr "Informatie"
+
+#: admin/options-init.php:92
+msgid "<p>Need support? Please use the comment function on codecanyon.</p>"
+msgstr ""
+"<p> Ondersteuning nodig? Gebruik de commentaarfuncties op codecanon. </ P>"
+
+#: admin/options-init.php:119
+msgid "GDPR"
+msgstr "AVG (GDRP)"
+
+#: admin/options-init.php:121
+msgid "Need support? Please use the comment function on codecanyon."
+msgstr "Ondersteuning nodig? Gebruik de commentaarfuncties op codecanon."
+
+#: admin/options-init.php:126
+msgid "General"
+msgstr "Algemeen"
+
+#: admin/options-init.php:133
+msgid "Enable"
+msgstr "Inschakelen"
+
+#: admin/options-init.php:139
+msgid "Domain Name"
+msgstr "Domeinnaam"
+
+#: admin/options-init.php:140
+msgid ""
+"Important for Cookie unsettings. E.g. \".yourdomain.com\". Dot before "
+"important for GA-Cookies."
+msgstr ""
+"Belangrijk voor cookie-instellingen. Bijv. \".uwdomein.com\". Punt voor "
+"domeinnaam belangrijk voor GA-cookies."
+
+#: admin/options-init.php:147
+msgid "Use WP Core Functions (req. WP 4.9.6 or Higher!)"
+msgstr "Gebruik WP Core-functies (eis WP 4.9.6 of hoger!)"
+
+#: admin/options-init.php:148
+msgid ""
+"Only check this option, if you are on WP 4.9.6 or later. We will then use "
+"the WP Core functions for Data Export & Erasing. Our built-in GDPR Requests "
+"Menu will be removed."
+msgstr ""
+"Schakel deze optie alleen in als u op WP 4.9.6 of hoger bent. We zullen dan "
+"de WP Core-functies gebruiken voor Data Export & Erasing. Ons ingebouwde "
+"GDPR-verzoekmenu wordt verwijderd."
+
+#: admin/options-init.php:154
+msgid "Enable Recaptcha for Forms"
+msgstr "Schakel Recaptcha in voor formulieren"
+
+#: admin/options-init.php:155
+msgid ""
+"Install & Setup the <a href=\"https://wordpress.org/plugins/invisible-"
+"recaptcha/\" target=\"_blank\">invisible recaptcha plugin from here</a>. "
+"Then check this option."
+msgstr ""
+"Installeer & Setup de <a href=\"https://wordpress.org/plugins/invisible-"
+"recaptcha/\" target=\"_blank\"> onzichtbaar recaptcha plugin vanuit hier </a>"
+". Schakel vervolgens deze optie in."
+
+#: admin/options-init.php:161
+msgid "Allow all Cookies for logged in users"
+msgstr "Alle cookies toestaan voor ingelogde gebruikers"
+
+#: admin/options-init.php:162
+msgid "This disables cookie check consents for logged in users."
+msgstr ""
+"Hierdoor worden cookie-bevestigingstoestemmingen voor ingelogde gebruikers "
+"uitgeschakeld."
+
+#: admin/options-init.php:168
+msgid "Cookie Lifetime."
+msgstr "Levensduur Cookies"
+
+#: admin/options-init.php:169
+msgid "Days before the Cookie expires."
+msgstr "Dagen voordat de cookie verloopt."
+
+#: admin/options-init.php:180
+msgid "Popup"
+msgstr "Popup"
+
+#: admin/options-init.php:187
+msgid "Enable Popup"
+msgstr "Popup inschakelen"
+
+#: admin/options-init.php:193
+msgid "Popup Text"
+msgstr "Popuptekst"
+
+#: admin/options-init.php:194
+msgid ""
+"We use cookies to give you the best online experience. By agreeing you "
+"accept the use of cookies in accordance with our cookie policy."
+msgstr ""
+"Wij gebruiken cookies om u de beste online ervaring te bieden. Door akkoord "
+"te gaan, accepteert u het gebruik van cookies in overeenstemming met ons "
+"cookiebeleid."
+
+#: admin/options-init.php:200
+msgid "Popup Agree Text"
+msgstr "Popup gaat akkoord met tekst"
+
+#: admin/options-init.php:201 admin/options-init.php:209 
+#: admin/options-init.php:217 admin/options-init.php:225 
+#: admin/options-init.php:233
+msgid "Leave Empty if not needed"
+msgstr "Laat leeg als dit niet nodig is"
+
+#: admin/options-init.php:202
+msgid "I accept"
+msgstr "Ik accepteer"
+
+#: admin/options-init.php:208
+msgid "Popup Decline Text"
+msgstr "Popup Weiger tekst"
+
+#: admin/options-init.php:210
+msgid "I decline"
+msgstr "Ik weiger"
+
+#: admin/options-init.php:216
+msgid "Popup Privacy Center Text"
+msgstr "Popup Privacycentrum-tekst"
+
+#: admin/options-init.php:218 admin/options-init.php:279 
+#: public/class-wordpress-gdpr-integrations.php:155
+msgid "Privacy Center"
+msgstr "Privacycentrum"
+
+#: admin/options-init.php:224
+msgid "Popup Privacy Settings Text"
+msgstr "Pop-up  Privacy-instelleningen tekst"
+
+#: admin/options-init.php:226 admin/options-init.php:1021 
+#: public/class-wordpress-gdpr-public.php:304
+msgid "Privacy Settings"
+msgstr "Privacy-instellingen"
+
+#: admin/options-init.php:232
+msgid "Popup Cookie Policy Text"
+msgstr "Popup Cookiebeleid tekst"
+
+#: admin/options-init.php:234
+msgid "Learn More about our Cookie Policy"
+msgstr "Meer informatie over ons cookiebeleid"
+
+#: admin/options-init.php:240
+msgid "Popup Style"
+msgstr "Popupstijl"
+
+#: admin/options-init.php:242
+msgid "Full Width"
+msgstr "Volledige breedte"
+
+#: admin/options-init.php:243
+msgid "Small Width"
+msgstr "Beperkte breedte"
+
+#: admin/options-init.php:251
+msgid "Popup Position"
+msgstr "Popup positie"
+
+#: admin/options-init.php:253
+msgid "Top"
+msgstr "Boven"
+
+#: admin/options-init.php:254
+msgid "Bottom"
+msgstr "Onder"
+
+#: admin/options-init.php:262
+msgid "Background Color"
+msgstr "Achtergrondkleur"
+
+#: admin/options-init.php:270
+msgid "Text Color"
+msgstr "tekstkleur"
+
+#: admin/options-init.php:286 admin/options-init.php:287
+msgid "Enable Privacy Center"
+msgstr "Schakel Privacycentrum in"
+
+#: admin/options-init.php:293
+msgid "Privacy Center Page"
+msgstr "Privacycentrum-pagina"
+
+#: admin/options-init.php:294
+msgid ""
+"Shortcode: [wordpress_gdpr_privacy_center] This will be the page, where the "
+"privacy center will be shown."
+msgstr ""
+"Shortcode: [wordpress_gdpr_privacy_center] Dit is de pagina, waar het "
+"privacycentrum wordt getoond."
+
+#: admin/options-init.php:302
+msgid "Confirmation Email"
+msgstr "Bevestiging e-mail"
+
+#: admin/options-init.php:309
+msgid "Info"
+msgstr "Informatie"
+
+#: admin/options-init.php:310
+msgid "If you use WP 4.9.6 this is no longer needed."
+msgstr "Als u WP 4.9.6 gebruikt, is dit niet langer nodig."
+
+#: admin/options-init.php:315
+msgid "Confirmation Email Subject"
+msgstr "Onderwerp bevestigingsmail"
+
+#: admin/options-init.php:316
+msgid "Subject of the confirmation Email."
+msgstr "Onderwerp van de bevestigingsmail."
+
+#: admin/options-init.php:317
+msgid "GDPR - Confirm your Request"
+msgstr "AVG (GDRP) - Bevestig uw verzoek"
+
+#: admin/options-init.php:323
+msgid "Confirmation Email Text"
+msgstr "Bevestiging e-mailtekst"
+
+#: admin/options-init.php:324
+msgid ""
+"Text of the Email send out to the user to confirm his email to create a new "
+"request."
+msgstr ""
+"Tekst van de e-mail die naar de gebruiker wordt gestuurd om zijn e-mail te "
+"bevestigen om een ​​nieuw verzoek te maken."
+
+#: admin/options-init.php:325
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                we have received your %s. If this is correct,"
+" please click on the link below. Otherwise ignore this email!"
+msgstr ""
+"Beste %s,\n"
+"                               <br> <br>\n"
+"                               we hebben je %s. Als dit correct is, klik dan "
+"op de onderstaande link. Negeer anders deze e-mail!"
+
+#: admin/options-init.php:334 public/class-wordpress-gdpr-public.php:205
+msgid "Contact DPO"
+msgstr "Contacteer DPO-manager"
+
+#: admin/options-init.php:341
+msgid "Enable Contact DPO"
+msgstr "Schakel Contact met DPO in"
+
+#: admin/options-init.php:342
+msgid "Enable Data Privacy Officer Contact form."
+msgstr "Contactformulier voor gegevens privacyfunctionaris inschakelen."
+
+#: admin/options-init.php:348
+msgid "Contact DPO Page"
+msgstr "Neem contact op via DPO-pagina"
+
+#: admin/options-init.php:349
+msgid "Shortcode: [wordpress_gdpr_contact_dpo]"
+msgstr "Shortcode: [wordpress_gdpr_contact_dpo]"
+
+#: admin/options-init.php:356 admin/options-init.php:511 
+#: admin/options-init.php:1096
+msgid "Disable User Exists Check"
+msgstr "Uitschakelen gebruiker bestaat check"
+
+#: admin/options-init.php:357 admin/options-init.php:512 
+#: admin/options-init.php:1097
+msgid "This allows all users to create requests for manually processing."
+msgstr ""
+"Hierdoor kunnen alle gebruikers verzoeken indienen voor handmatige "
+"verwerking."
+
+#: admin/options-init.php:364
+msgid "DPO Email"
+msgstr "DPO Email"
+
+#: admin/options-init.php:365
+msgid "Emails will be sent there."
+msgstr "E-mails worden daar naartoe gestuurd."
+
+#: admin/options-init.php:372
+msgid "DPO Email Subject"
+msgstr "DPO e-mailonderwerp"
+
+#: admin/options-init.php:373
+msgid "Subject of the DPO contact Email."
+msgstr "Onderwerp van de DPO contact E-mail."
+
+#: admin/options-init.php:374
+msgid "GDPR - New Request for DPO"
+msgstr "AVG (GDRP) - Nieuwe aanvraag voor DPO"
+
+#: admin/options-init.php:381 public/class-wordpress-gdpr-public.php:219
+msgid "Cookie Policy"
+msgstr "Cookiebeleid"
+
+#: admin/options-init.php:388
+msgid "Enable Cookie Policy"
+msgstr "Cookiebeleid inschakelen"
+
+#: admin/options-init.php:389
+msgid "Enable Cookie Policy Page"
+msgstr "Schakel Cookiebeleid-pagina in"
+
+#: admin/options-init.php:395
+msgid "Cookie Policy Page"
+msgstr "Cookiebeleid-pagina"
+
+#: admin/options-init.php:396
+msgid "Add your Cookie Policy here."
+msgstr "Voeg hier uw cookiebeleid toe."
+
+#: admin/options-init.php:404
+msgid "Data Breach"
+msgstr "Gegevensinbreuk"
+
+#: admin/options-init.php:411
+msgid "Enable Data Breach"
+msgstr "Schakel datainbreuk in"
+
+#: admin/options-init.php:412
+msgid "Enable Data Breach form."
+msgstr "Schakel datainbreukformuier in."
+
+#: admin/options-init.php:418
+msgid "Data Breach from Email"
+msgstr "Gegevensinbreuk 'Van' e-mail"
+
+#: admin/options-init.php:419
+msgid "The FROM Email used for data breach issues."
+msgstr "De VAN Email gebruikt voor problemen met datainbreuken."
+
+#: admin/options-init.php:426
+msgid "Data Breach Email Subject"
+msgstr "Gegevensinbreuk Emailonderwerp"
+
+#: admin/options-init.php:427 admin/options-init.php:544 
+#: admin/options-init.php:995
+msgid "Subject of the Email."
+msgstr "Onderwerp van de e-mail."
+
+#: admin/options-init.php:428
+msgid "GDPR - Data Breach"
+msgstr "AVG (GDRP) - Datainbreuk"
+
+#: admin/options-init.php:434
+msgid "Data Breach Email Text"
+msgstr "Gegevensinbreuk Email Text"
+
+#: admin/options-init.php:435
+msgid "Text of the Email regarding a data breach.."
+msgstr "Tekst van de e-mail met betrekking tot een datalek .."
+
+#: admin/options-init.php:436
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                We value your business and respect the "
+"privacy of your information, which is why, as a\n"
+"                                precautionary measure, we are writing to let "
+"you know about a data security incident that may\n"
+"                                involve/involves your personal information.\n"
+"                                <br><br>\n"
+"                                Between XX and XX we discovered a foreign "
+"access to our data."
+msgstr ""
+"Geachte %s,\n"
+" <br> <br>\n"
+" Wij waarderen uw bedrijf en respecteren de privacy van uw gegevens. Daarom "
+"schrijven wij u als  n een voorzorgsmaatregel om u te informeren over een "
+"incident met gegevensbeveiliging dat kan  n uw persoonlijke informatie "
+"betrekken / betrekken.\n"
+" <br> <br>\n"
+" Tussen XX en XX hebben we een buitenlandse toegang tot onze gegevens "
+"ontdekt."
+
+#: admin/options-init.php:449
+msgid "Send Data Breach Email"
+msgstr "Verstrek data-e-mail"
+
+#: admin/options-init.php:457 public/class-wordpress-gdpr-public.php:233
+msgid "Disclaimer"
+msgstr "Disclaimer"
+
+#: admin/options-init.php:464
+msgid "Enable Disclaimer"
+msgstr "Schakel Disclaimer in"
+
+#: admin/options-init.php:465
+msgid "Enable Disclaimer form."
+msgstr "Schakel het Disclaimer-formulier in."
+
+#: admin/options-init.php:471
+msgid "Disclaimer Page"
+msgstr "Disclaimer pagina"
+
+#: admin/options-init.php:472 admin/options-init.php:1139
+msgid "Place your "
+msgstr "Plaats je"
+
+#: admin/options-init.php:481 public/class-wordpress-gdpr-public.php:248
+msgid "Forget Me"
+msgstr "Vergeet me"
+
+#: admin/options-init.php:488
+msgid "Enable Forget Me"
+msgstr "Schakel 'Vergeet mij' in"
+
+#: admin/options-init.php:489
+msgid "Enable Forget Me form."
+msgstr "Activeer het formulier 'Vergeet mij'."
+
+#: admin/options-init.php:495
+msgid "Forget Me Page"
+msgstr "Vergeet mij pagina"
+
+#: admin/options-init.php:496
+msgid "Shortcode: [wordpress_gdpr_forget_me]"
+msgstr "Shortcode: [wordpress_gdpr_forget_me]"
+
+#: admin/options-init.php:503
+msgid "Show Delete Data Button for Logged in"
+msgstr "Toon knop Gegevens verwijderen. Voor ingelogde gebruikers."
+
+#: admin/options-init.php:504
+msgid ""
+"This will show logged in users a button where they can delete data "
+"theirselves."
+msgstr ""
+"Hiermee worden ingelogde gebruikers een knop getoond waarop ze zelf gegevens "
+"kunnen verwijderen."
+
+#: admin/options-init.php:522
+msgid "Delete Posts & Pages (& all other post types)"
+msgstr "Verwijder berichten en pagina's (en alle andere berichttypen)"
+
+#: admin/options-init.php:529
+msgid "Delete Comments"
+msgstr "Reacties verwijderen"
+
+#: admin/options-init.php:543
+msgid "Forget me Deleted Email Subject"
+msgstr "Vergeet me: Verwijderde emailonderwerp"
+
+#: admin/options-init.php:545
+msgid "GDPR - Your Data has been Deleted"
+msgstr "GDPR - Je gegevens zijn verwijderd"
+
+#: admin/options-init.php:551
+msgid "Forget me Deleted Email Text"
+msgstr "Vergeet me verwijderde e-mailtekst"
+
+#: admin/options-init.php:552
+msgid "Text of the Email informing the user, that his data has been deleted."
+msgstr ""
+"Tekst van de e-mail waarin de gebruiker wordt geïnformeerd dat zijn gegevens "
+"zijn verwijderd."
+
+#: admin/options-init.php:553
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                we have successfully deleted all your "
+"personal data from our Website."
+msgstr ""
+"Beste %s,\n"
+"                               <br> <br>\n"
+"                               we hebben met succes al uw persoonlijke "
+"gegevens van onze website verwijderd."
+
+#: admin/options-init.php:562 public/class-wordpress-gdpr-public.php:262
+msgid "Imprint"
+msgstr "Afdruk"
+
+#: admin/options-init.php:569
+msgid "Enable Imprint"
+msgstr "Schakel afdrukken in"
+
+#: admin/options-init.php:570
+msgid "Enable Imprint Page"
+msgstr "Schakel afdrukpagina in"
+
+#: admin/options-init.php:576
+msgid "Imprint Page"
+msgstr "Afdrukpagina"
+
+#: admin/options-init.php:577
+msgid "Add your Imprint here."
+msgstr "Voeg hier uw afdruk toe."
+
+#: admin/options-init.php:589
+msgid "Integrations"
+msgstr "Integraties"
+
+#: admin/options-init.php:596 admin/options-init.php:603
+msgid "Enable Comments"
+msgstr "Reacties inschakelen"
+
+#: admin/options-init.php:597
+msgid ""
+"Activated this will add a checkbox to comment form to accept your privay "
+"policy."
+msgstr ""
+"Geactiveerd zal dit een aankruis vakje toevoegen aan commentaar formulier om "
+"uw privacy-beleid te accepteren."
+
+#: admin/options-init.php:604
+msgid ""
+"Either you go to settings > discussions and check \"Users must be "
+"registered\" or you activate this setting here. If you do not do this, user "
+"deletion & export will not work, because no accounts are created!"
+msgstr ""
+"Of u gaat naar instellingen> discussies en vinkt aan  \"Gebruikers moeten "
+"geregistreerd zijn\" of u activeert deze instelling hier. Als u dit niet "
+"doet, zal het verwijderen en exporteren van gebruikers niet werken, omdat er "
+"geen accounts zijn aangemaakt!"
+
+#: admin/options-init.php:611
+msgid "Comments Privacy Policy Page"
+msgstr "Opmerkingen Privacyverklaring pagina"
+
+#: admin/options-init.php:612
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"Comments"
+msgstr ""
+"Wijs hier uw privacyverklaring pagina toe. U kunt ook een aangepaste voor "
+"opmerkingen gebruiken"
+
+#: admin/options-init.php:619 admin/options-init.php:658 
+#: admin/options-init.php:688 admin/options-init.php:794
+msgid "Privacy Policy Accept text"
+msgstr "Privacyverklaring Tekst accepteren"
+
+#: admin/options-init.php:620 admin/options-init.php:659
+msgid "Text for users to agree on privacy policy on checkout page."
+msgstr ""
+"Tekst voor gebruikers om overeenstemming te bereiken over privacyverklaring "
+"op de afrekenpagina."
+
+#: admin/options-init.php:621 admin/options-init.php:660
+msgid "I’ve read and accept the privacy policy."
+msgstr "Ik heb de privacyverklaring gelezen en ga hiermee akkoord."
+
+#: admin/options-init.php:627
+msgid "Enable WooCommerce"
+msgstr "Schakel WooCommerce in"
+
+#: admin/options-init.php:628
+msgid ""
+"Activated this will add a checkbox to the checkout, registration and product "
+"review form to accept your privay policy. It also adds a menu item to the my "
+"account page for the privacy center. In addtion to this make sure you have "
+"setup a terms and conditions page in WooCommerce settings. With WooCommerce "
+"Version 3.4. you may not need this anymore"
+msgstr ""
+"Geactiveerd zal een selectievakje toevoegen aan het afreken-, registratie- "
+"en productbeoordelingsformulier om uw privay-beleid te accepteren. Het voegt "
+"ook een menu-item toe aan de mijn accountpagina voor het privacycentrum. "
+"Zorg er daarnaast voor dat u een algemene voorwaardenpagina in de "
+"WooCommerce-instellingen hebt ingesteld. Met WooCommerce versie 3.4. je hebt "
+"dit mogelijk niet meer nodig"
+
+#: admin/options-init.php:634
+msgid "Delete WooCommerce Orders"
+msgstr "WooCommerce-bestellingen verwijderen"
+
+#: admin/options-init.php:635
+msgid "If enabled WooCommerce Orders will be deleted on Forget Me Request."
+msgstr ""
+"Indien ingeschakeld, worden WooCommerce-bestellingen verwijderd op Vergeet "
+"Me-verzoek."
+
+#: admin/options-init.php:642
+msgid "Disable Guest Checkout"
+msgstr "Schakel Guest Checkout uit"
+
+#: admin/options-init.php:643
+msgid ""
+"Either you go to WooCommerce > Settings > Checkout and disable Guest "
+"Checkout or you activate this setting here. If you do not do this, user "
+"deletion & export will not work, because no accounts are created!"
+msgstr ""
+"Ofwel ga je naar WooCommerce> Instellingen> Afrekenen en Guest Checkout "
+"uitschakelen of activeer je deze instelling hier. Als u dit niet doet, zal "
+"het verwijderen en exporteren van gebruikers niet werken, omdat er geen "
+"accounts zijn aangemaakt!"
+
+#: admin/options-init.php:650
+msgid "WooCommerce Privacy Policy Page"
+msgstr "WooCommerce Privacybeleidpagina"
+
+#: admin/options-init.php:651
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"WooCommerce"
+msgstr ""
+"Wijs hier uw privacyverklaring pagina toe. U kunt ook een aangepaste versie "
+"gebruiken voor WooCommerce"
+
+#: admin/options-init.php:666
+msgid "Enable Cloudlfare"
+msgstr "Cloudflare inschakelen"
+
+#: admin/options-init.php:667
+msgid ""
+"If you use Cloudlfare enable this. <a href=\"https://support.cloudflare."
+"com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">"
+"See here about __cfduid cookie</a>."
+msgstr ""
+"Als je Cloudlfare gebruikt, schakel dit dan in. <a href=\"https://support."
+"cloudflare.com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-"
+"cookie-do-\"> LEES hier meer over de CloudFlare-cookie </a> ."
+
+#: admin/options-init.php:673
+msgid "Enable BuddyPress"
+msgstr "Schakel BuddyPress in"
+
+#: admin/options-init.php:674
+msgid "This will add checkbox to BuddyPress Account registration form."
+msgstr ""
+"Dit zal een checkbox toevoegen aan de BuddyPress Account "
+"registratieformulier."
+
+#: admin/options-init.php:680
+msgid "BuddyPress Privacy Policy Page"
+msgstr "BuddyPress Privacybeleid-pagina"
+
+#: admin/options-init.php:681
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"BuddyPress"
+msgstr ""
+"Wijs hier uw privacyverklaring toe. Je kunt ook een aangepaste versie "
+"gebruiken voor BuddyPress"
+
+#: admin/options-init.php:689
+msgid ""
+"Text for users to agree on privacy policy on BuddyPress Registration page."
+msgstr ""
+"Tekst voor gebruikers om overeenstemming te bereiken over privacyverklaring "
+"op BuddyPress registratie-pagina."
+
+#: admin/options-init.php:690
+msgid "By registering an Account I have read and accept the privacy policy."
+msgstr ""
+"Door een account te registreren, heb je de privacyverklaring gelezen en "
+"aanvaard."
+
+#: admin/options-init.php:696
+msgid "Enable CF7"
+msgstr "Schakel CF7 in"
+
+#: admin/options-init.php:697
+msgid "Make sure you add a checkbox to your forms to accept privacy policy."
+msgstr ""
+"Zorg ervoor dat u een selectievakje aan uw formulieren toevoegt om het "
+"privacyverklaring te accepteren."
+
+#: admin/options-init.php:703
+msgid "Enable Flamingo DB"
+msgstr "Flamingo DB Inschakelen"
+
+#: admin/options-init.php:704
+msgid "This will depending on the opt-in checkbox setting save data or not."
+msgstr ""
+"Dit zal afhankelijk van de opt-in checkbox instelling, gegevens opslaan of "
+"niet."
+
+#: admin/options-init.php:710
+msgid "Opt-In Field name"
+msgstr "Opt-In veldnaam"
+
+#: admin/options-init.php:711
+msgid "Enter the field name for the opt in checkbox here."
+msgstr "Voer hier de veldnaam in voor het checkbox opt-in."
+
+#: admin/options-init.php:712
+msgid "opt-in"
+msgstr "opt-in"
+
+#: admin/options-init.php:718
+msgid "Delete Flamingo DB Records"
+msgstr "Flamingo DB Records verwijderen"
+
+#: admin/options-init.php:719
+msgid "On Forget Me Request, delete Flamingo DB records."
+msgstr "Na Vergeet Me aanvraag, verwijder de Flamingo DB-records."
+
+#: admin/options-init.php:726
+msgid "Enable Quform"
+msgstr "Quform Inschakelen"
+
+#: admin/options-init.php:727
+msgid ""
+"This will add Quform entries to data export. Checkbox needs to be added to "
+"each form manually."
+msgstr ""
+"Hiermee worden Quform-items aan gegevensuitvoer toegevoegd. Checkbox moet "
+"handmatig aan elk formulier worden toegevoegd."
+
+#: admin/options-init.php:733
+msgid "Delete Quform Records"
+msgstr "Verwijder Quform-records"
+
+#: admin/options-init.php:734
+msgid "On Forget Me Request, delete Quform records."
+msgstr "Na Vergeet Me aanvraag, verwijder de Quform-records."
+
+#: admin/options-init.php:741
+msgid "Enable Formidable"
+msgstr "Formidable Inschakelen "
+
+#: admin/options-init.php:742
+msgid ""
+"This will add quform entries to data export. Checkbox needs to be added to "
+"each form manually."
+msgstr ""
+"Hiermee worden Quform-items aan gegevensuitvoer toegevoegd. Checkbox moet "
+"handmatig aan elk formulier worden toegevoegd."
+
+#: admin/options-init.php:748
+msgid "Delete Formidable Records"
+msgstr "Formidable Records verwijderen"
+
+#: admin/options-init.php:749
+msgid "On Forget Me Request, delete Formidable records."
+msgstr "Na Vergeet Me aanvraag, verwijder de Formidable-records."
+
+#: admin/options-init.php:756
+msgid "Enable GravityForms"
+msgstr "Gravityforms Inschakelen "
+
+#: admin/options-init.php:757
+msgid ""
+"This will add Gravity Forms entries to data export. Checkbox needs to be "
+"added to each form manually."
+msgstr ""
+"Hiermee worden Gravityforms-items aan gegevensuitvoer toegevoegd. Checkbox "
+"moet handmatig aan elk formulier worden toegevoegd."
+
+#: admin/options-init.php:763
+msgid "Delete GravityForms Records"
+msgstr "Gravity Forms Records verwijderen"
+
+#: admin/options-init.php:764
+msgid "On Forget Me Request, delete Gravity Forms records."
+msgstr "Na Vergeet Me aanvraag, verwijder de Gravity Forms-records."
+
+#: admin/options-init.php:771
+msgid "Enable Mailster"
+msgstr "Mailster Inschakelen "
+
+#: admin/options-init.php:772
+msgid "Activate our Mailster Integration."
+msgstr "Activeer onze Mailster-integratie."
+
+#: admin/options-init.php:778
+msgid "Enable Mailster Checkbox"
+msgstr "Inschakelen Mailster Checkbox"
+
+#: admin/options-init.php:779
+msgid "This will add checkbox to Mailster Subscribe form."
+msgstr ""
+"Dit zal het selectievakje toevoegen aan het Mailster aanmeldingsformulier."
+
+#: admin/options-init.php:786
+msgid "Mailster Privacy Policy Page"
+msgstr "Mailster Privacyverklaring pagina"
+
+#: admin/options-init.php:787
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"Mailster"
+msgstr ""
+"Wijs hier uw privacyverklaring pagina toe. U kunt ook een aangepaste versie "
+"gebruiken voor Mailster"
+
+#: admin/options-init.php:795
+msgid ""
+"Text for users to agree on privacy policy on Mailster Registration page."
+msgstr ""
+"Tekst voor gebruikers om overeenstemming te bereiken over het "
+"privacyverklaring op de Mailsterregistratie pagina."
+
+#: admin/options-init.php:796
+msgid ""
+"By subscribing to this newsletter I have read and accept the privacy policy."
+msgstr ""
+"Door me te abonneren op deze nieuwsbrief, heb ik de privacyverklaring "
+"gelezen en ga ik akkoord."
+
+#: admin/options-init.php:802
+msgid "Enable Google Analytics"
+msgstr "Schakel Google Analytics in"
+
+#: admin/options-init.php:803
+msgid "Enable Analytics Loading only if allowed."
+msgstr "Schakel Analytics in laden alleen als toegestaan."
+
+#: admin/options-init.php:810
+msgid "Analytics Code"
+msgstr "Analytics-code"
+
+#: admin/options-init.php:825
+msgid "Enable Google Adwords"
+msgstr "Schakel Google Adwords in"
+
+#: admin/options-init.php:826
+msgid "Enable Adwords Loading only if allowed."
+msgstr "Activeer Adwords Loading alleen als toegestaan."
+
+#: admin/options-init.php:833
+msgid "Adwords Code"
+msgstr "AdWords-code"
+
+#: admin/options-init.php:840
+msgid "Enable Google Tag Manager"
+msgstr "Schakel Google Tag Manager in"
+
+#: admin/options-init.php:841
+msgid "Enable Tag Manager Loading only if allowed."
+msgstr "Tagbeheer inschakelen Alleen laden indien toegestaan."
+
+#: admin/options-init.php:848
+msgid "Tag Manager Head Code"
+msgstr "Tag Manager Head Code"
+
+#: admin/options-init.php:856
+msgid "Tag Manager Body Code"
+msgstr "Tag Manager Body Code"
+
+#: admin/options-init.php:863
+msgid "Enable Hot Jar"
+msgstr "Hot Jar inschakelen"
+
+#: admin/options-init.php:864
+msgid "Enable Hot Jar Loading only if allowed."
+msgstr "Hot Jar laden inschakelen alleen als toegestaan."
+
+#: admin/options-init.php:871
+msgid "Hot Jar Code"
+msgstr "Hot Jar Code"
+
+#: admin/options-init.php:878
+msgid "Enable Facebook"
+msgstr "Facebook inschakelen"
+
+#: admin/options-init.php:879
+msgid "Enable Facebook Loading only if allowed."
+msgstr "Facebook inschakelen. Alleen laden indien toegestaan."
+
+#: admin/options-init.php:886
+msgid "Facebook Code"
+msgstr "Facebook Code"
+
+#: admin/options-init.php:893
+msgid "Enable Piwik"
+msgstr "Biwik Inschakelen"
+
+#: admin/options-init.php:894
+msgid "Enable Piwik Loading only if allowed."
+msgstr "Schakel alleen Piwik Loading indien toegestaan."
+
+#: admin/options-init.php:901
+msgid "Piwik Code"
+msgstr "Piwik Code"
+
+#: admin/options-init.php:908
+msgid "Enable Adsense"
+msgstr "Adsense inschakelen"
+
+#: admin/options-init.php:909
+msgid "Enable Adsense Loading only if allowed."
+msgstr "Adsense inschakelen. Alleen laden indien toegestaan."
+
+#: admin/options-init.php:916
+msgid "Adsense Code"
+msgstr "Adsense Code"
+
+#: admin/options-init.php:923
+msgid "Enable Custom"
+msgstr "Aangepast inschakelen"
+
+#: admin/options-init.php:924
+msgid ""
+"Use this for custom JS Code to be executed if allowed. Use Loco Translate to "
+"adjust frontend text."
+msgstr ""
+"Gebruik dit voor aangepaste JS-code die moet worden uitgevoerd als dit is "
+"toegestaan. Gebruik Loco Vertalen om frontend-tekst aan te passen."
+
+#: admin/options-init.php:931
+msgid "Custom Code"
+msgstr "Aangepaste code"
+
+#: admin/options-init.php:941 public/class-wordpress-gdpr-public.php:290
+msgid "Privacy Policy"
+msgstr "Privacyverklaring"
+
+#: admin/options-init.php:948 admin/options-init.php:949
+msgid "Enable Privacy Policy"
+msgstr "Schakel privacyverklaring in"
+
+#: admin/options-init.php:955
+msgid "Privacy Policy Page"
+msgstr "Privacyverklaring pagina"
+
+#: admin/options-init.php:956
+msgid "Add your privacy policy to this page!"
+msgstr "Voeg uw privacyverklaring toe aan deze pagina!"
+
+#: admin/options-init.php:972
+msgid "Privacy Policy Update"
+msgstr "Privacyverklaring-update"
+
+#: admin/options-init.php:979
+msgid "Enable Privacy Policy Update"
+msgstr "Update voor privacyverklaring inschakelen"
+
+#: admin/options-init.php:980
+msgid "Enable Privacy Policy Update form."
+msgstr "Schakel het formulier voor het bijwerken van de privacyverklaring in."
+
+#: admin/options-init.php:986
+msgid "Privacy Policy Update from Email"
+msgstr "Privacyverklaring Update VAN e-mail"
+
+#: admin/options-init.php:987
+msgid "The FROM Email used for Privacy Policy Updates."
+msgstr ""
+"De VAN-e-mail die wordt gebruikt voor updates van de Privacyverklaring."
+
+#: admin/options-init.php:994
+msgid "Privacy Policy Update Email Subject"
+msgstr "Privacyverklaring Update Email onderwerp"
+
+#: admin/options-init.php:996
+msgid "GDPR - Privacy Policy Updated"
+msgstr "AVG (GDPR) - Privacyverklaring bijgewerkt"
+
+#: admin/options-init.php:1002
+msgid "Privacy Policy Update Email Text"
+msgstr "Privacyverklaring Update Email tekst"
+
+#: admin/options-init.php:1003
+msgid "Text of the Email regarding a Privacy Policy Update."
+msgstr ""
+"Tekst van de e-mail met betrekking tot een update van het privacyverklaring."
+
+#: admin/options-init.php:1004
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br>\n"
+"                                We have updated our privacy policy. Please "
+"read more here: INSERT YOUR LINK."
+msgstr ""
+"Beste% s,\n"
+"                                 <br>\n"
+"                                 We hebben onze privacyverklaring bijgewerkt."
+" Lees hier meer over: PLAATS UW LINK."
+
+#: admin/options-init.php:1013
+msgid "Send Privacy Update Email"
+msgstr "Verzend Privacyverklaring Update Email"
+
+#: admin/options-init.php:1028 admin/options-init.php:1029
+msgid "Enable Privacy Settings"
+msgstr "Schakel privacyinstellingen in"
+
+#: admin/options-init.php:1035
+msgid "privacy Settings Page"
+msgstr "pagina met privacyinstellingen"
+
+#: admin/options-init.php:1036
+msgid "Shortcode: [wordpress_gdpr_privacy_settings]"
+msgstr "Shortcode: [wordpress_gdpr_privacy_settings]"
+
+#: admin/options-init.php:1044 admin/options-init.php:1051
+msgid "Pseudonymization"
+msgstr "Pseudonymisering"
+
+#: admin/options-init.php:1052
+msgid ""
+"Pseudonymization is not mandatory by GDPR. It might be a good improvement, "
+"but also can risk in data loss. <a href=\"https://plugins.db-dzine."
+"com/wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">"
+"Please read more here</a>."
+msgstr ""
+"Pseudonimisering is niet verplicht door GDPR. Het is misschien een goede "
+"verbetering, maar kan ook het risico lopen op gegevensverlies. <a "
+"href=\"https://plugins.db-dzine.com/wordpress-"
+"gdpr/documentation/faq/pseudonymization/\" target=\"_blank\"> Lees hier meer "
+"</a>."
+
+#: admin/options-init.php:1059
+msgid "Request Data Archive"
+msgstr "Verzoek om gegevensarchief"
+
+#: admin/options-init.php:1066
+msgid "Enable Request Data"
+msgstr "Gegevensverzoek inschakelen"
+
+#: admin/options-init.php:1067
+msgid "Enable Request Data form."
+msgstr "Aanvraaggegevensformulier inschakelen."
+
+#: admin/options-init.php:1073
+msgid "Request Data Archive Page"
+msgstr "Verzoek om gegevensarchief-pagina"
+
+#: admin/options-init.php:1074
+msgid "Shortcode: [wordpress_gdpr_request_data]"
+msgstr "Shortcode: [wordpress_gdpr_request_data]"
+
+#: admin/options-init.php:1081
+msgid "Show Export Data Button for Logged in"
+msgstr "Toon knop Gegevens exporteren. Voor ingelogde gebruikers."
+
+#: admin/options-init.php:1082
+msgid ""
+"This will show logged in users a button where they can export data "
+"theirselves."
+msgstr ""
+"Hiermee wordt een EXPORT knop getoond waarmee de ingelogde gebruikers zelf "
+"hun gegevens kunnen exporteren."
+
+#: admin/options-init.php:1089
+msgid "Export Data as HTML Table"
+msgstr "Gegevens exporteren als HTML-tabel"
+
+#: admin/options-init.php:1090
+msgid "Instead of JSON data will be exported as html table."
+msgstr "In plaats van JSON worden gegevens als html-tabel geëxporteerd."
+
+#: admin/options-init.php:1107
+msgid "Request Data Export Email Subject"
+msgstr "Onderwerp e-mail vraag om gegevens te exporteren"
+
+#: admin/options-init.php:1108
+msgid "Subject of the Email notification."
+msgstr "Onderwerp van de e-mailmelding."
+
+#: admin/options-init.php:1109
+msgid "GDPR - Your User Data is Ready"
+msgstr "AVG (GDPR) - Uw gebruikersgegevens zijn gereed"
+
+#: admin/options-init.php:1115
+msgid "Request Data Export Email Text"
+msgstr "Tekst e-mail vraag om gegevens te exporteren"
+
+#: admin/options-init.php:1116
+msgid "Text of the Email data export."
+msgstr "Tekst van de export van e-mailgegevens."
+
+#: admin/options-init.php:1117
+#, php-format
+msgid "Dear %s, <br><br>attached you find an export of your user data."
+msgstr ""
+"Beste %s, <br> <br> bijgevoegd vindt u een export van uw gebruikersgegevens."
+
+#: admin/options-init.php:1124 public/class-wordpress-gdpr-public.php:318
+msgid "Terms & Conditions"
+msgstr "Algemene voorwaarden"
+
+#: admin/options-init.php:1131
+msgid "Enable Terms & Conditions"
+msgstr "Algemene voorwaarden inschakelen"
+
+#: admin/options-init.php:1132
+msgid "Enable Terms & Conditions form."
+msgstr "Algemene voorwaarden formulier inschakelen"
+
+#: admin/options-init.php:1138
+msgid "Terms & Conditions Page"
+msgstr "Algemene voorwaarden pagina"
+
+#: admin/options-init.php:1147 public/class-wordpress-gdpr-public.php:341
+msgid "Unsubscribe"
+msgstr "Uitschrijven"
+
+#: admin/options-init.php:1154 admin/options-init.php:1155
+msgid "Enable Unsubscribe"
+msgstr "Uitschrijven inschakelen"
+
+#: admin/options-init.php:1161
+msgid "Unsubscribe Page"
+msgstr "Afmeldingspagina"
+
+#: admin/options-init.php:1162
+msgid ""
+"Add your unsubscribe Form here! For <a target=\"_blank\" href=\"https://kb."
+"mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list\">"
+"Mailchimp see here how to setup a Mailchimp Unsuscribe form</a>. This can be "
+"embedded via iFrame."
+msgstr ""
+"Voeg hier uw afmeldingsformulier toe! Voor <a target=\"_blank\" href=\"https:"
+"//kb.mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-"
+"list\"> Mailchimp zie hier hoe om een ​​Mailchimp Unsuscribe-formulier in te "
+"stellen </a>. Dit kan worden ingesloten via iFrame."
+
+#: admin/options-init.php:1170
+msgid "Expert"
+msgstr "Geavanceerd"
+
+#: admin/options-init.php:1171
+msgid "Expert Settings."
+msgstr "Geavanceerde instellingen."
+
+#: admin/options-init.php:1178
+msgid "Use Cookie Whitelist"
+msgstr "Gebruik Cookie Whitelist"
+
+#: admin/options-init.php:1179
+msgid ""
+"Enabled this will remove all cookies that are not on the whitelist for "
+"services. You should enable allow cookies for logged in users too. Only use "
+"this when you are sure what you do!"
+msgstr ""
+"Ingeschakeld worden alle cookies verwijderd die niet op de whitelist staan "
+"voor services. U moet ook cookies toestaan voor ingelogde gebruikers. "
+"Gebruik dit alleen als u zeker weet wat u doet!"
+
+#: admin/options-init.php:1186
+msgid "Custom CSS"
+msgstr "Custom CSS"
+
+#: admin/options-init.php:1187
+msgid "Add some stylesheet if you want."
+msgstr "Voeg een aantal stylesheets toe als je dat wilt."
+
+#: admin/class-wordpress-gdpr-data-export.php:82 
+#: admin/class-wordpress-gdpr-data-delete.php:65
+msgid "No User ID set."
+msgstr "Geen gebruikers-ID ingesteld."
+
+#: admin/class-wordpress-gdpr-data-export.php:94
+msgid "Data Exported Manually"
+msgstr "Gegevens handmatig geëxporteerd"
+
+#: admin/class-wordpress-gdpr-data-export.php:155
+msgid "Export Data successfully mailed to user"
+msgstr "Gegevens exporteren met succes gemaild naar gebruiker"
+
+#: admin/class-wordpress-gdpr-data-export.php:157
+msgid "Data Sent"
+msgstr "Gegevens verzonden"
+
+#: admin/class-wordpress-gdpr-data-export.php:160
+msgid "Export Data could not be mailed to user"
+msgstr "Exportgegevens konden niet naar de gebruiker worden gemaild"
+
+#: admin/class-wordpress-gdpr-data-delete.php:163
+msgid "User Data Not Deleted"
+msgstr "Gebruikersgegevens niet verwijderd"
+
+#: admin/class-wordpress-gdpr-data-delete.php:192
+msgid "User Data Notification sent"
+msgstr "Verzonden gebruikersgegevensmelding"
+
+#: admin/class-wordpress-gdpr-data-delete.php:194
+msgid "Data Deleted"
+msgstr "Gegevens verwijderd"
+
+#: admin/class-wordpress-gdpr-data-delete.php:197
+msgid "User Data Notification not sent"
+msgstr "Gebruikersgegevensmelding niet verzonden"
+
+#: admin/class-wordpress-gdpr-requests.php:71
+msgid "GDPR Request"
+msgstr "AVG (GDPR)-verzoek"
+
+#: admin/class-wordpress-gdpr-requests.php:72
+msgid "GDPR Requests"
+msgstr "AVG (GDPR-verzoeken"
+
+#: admin/class-wordpress-gdpr-requests.php:76
+#, php-format
+msgid "All %s"
+msgstr "Alle %s"
+
+#: admin/class-wordpress-gdpr-requests.php:78 
+#: admin/class-wordpress-gdpr-requests.php:81
+#, php-format
+msgid "New %s"
+msgstr "Nieuw %s"
+
+#: admin/class-wordpress-gdpr-requests.php:79
+#, php-format
+msgid "Add New %s"
+msgstr "Voeg nieuwe %s toe"
+
+#: admin/class-wordpress-gdpr-requests.php:80
+#, php-format
+msgid "Edit %s"
+msgstr "Bewerk %s"
+
+#: admin/class-wordpress-gdpr-requests.php:82
+#, php-format
+msgid "View %s"
+msgstr "Bekijk %s"
+
+#: admin/class-wordpress-gdpr-requests.php:83
+#, php-format
+msgid "Search %s"
+msgstr "Zoeken %s"
+
+#: admin/class-wordpress-gdpr-requests.php:84
+#, php-format
+msgid "No %s found"
+msgstr "Geen %s gevonden"
+
+#: admin/class-wordpress-gdpr-requests.php:85
+#, php-format
+msgid "No %s found in trash"
+msgstr "Geen %s gevonden in de prullenbak"
+
+#: admin/class-wordpress-gdpr-requests.php:124
+msgid "User"
+msgstr "Gebruiker"
+
+#: admin/class-wordpress-gdpr-requests.php:125
+msgid "Email confirmed"
+msgstr "Email bevestigd"
+
+#: admin/class-wordpress-gdpr-requests.php:126
+msgid "Status"
+msgstr "Staat"
+
+#: admin/class-wordpress-gdpr-requests.php:127
+msgid "User Identifier"
+msgstr "Gebruikers-ID"
+
+#: admin/class-wordpress-gdpr-requests.php:128
+msgid "Actions"
+msgstr "Acties"
+
+#: admin/class-wordpress-gdpr-requests.php:188 
+#: admin/class-wordpress-gdpr-users.php:130
+msgid "Delete Data"
+msgstr "Verwijder Gegevens"
+
+#: admin/class-wordpress-gdpr-requests.php:197 
+#: admin/class-wordpress-gdpr-users.php:135
+msgid "Export Data"
+msgstr "Gegevens Export"
+
+#: admin/class-wordpress-gdpr-requests.php:206 
+#: admin/class-wordpress-gdpr-users.php:140
+msgid "Send Data"
+msgstr "Verstuur data"
+
+#: admin/class-wordpress-gdpr-requests.php:213
+msgid "Manually Done"
+msgstr "Handmatig uitgevoerd"
+
+#: admin/class-wordpress-gdpr-requests.php:260
+msgid "Firstname"
+msgstr "Voornaam"
+
+#: admin/class-wordpress-gdpr-requests.php:265
+msgid "Last name"
+msgstr "Achternaam"
+
+#: admin/class-wordpress-gdpr-requests.php:270
+msgid "Email"
+msgstr "Email"
+
+#: admin/class-wordpress-gdpr-users.php:114
+msgid "No users found"
+msgstr "Geen gebruikers gevonden"
+
+#: includes/class-wordpress-gdpr-activator.php:183
+msgid "GDPR Agent"
+msgstr "AVG (GDRP)  agent"
+
+#: includes/class-wordpress-gdpr-activator.php:205
+msgid "GDPR Reporter"
+msgstr "AVG (GDRP) Reporter"
+
+#: public/class-wordpress-gdpr-public.php:189
+msgid "Learn More"
+msgstr "Meer informatie"
+
+#: public/class-wordpress-gdpr-public.php:206
+msgid "Contact our Data Protection Officer."
+msgstr "Contacteer onze DPO-functionaris"
+
+#: public/class-wordpress-gdpr-public.php:220
+msgid "Read more about our Cookie Policy."
+msgstr "Lees meer over ons Cookiebeleid."
+
+#: public/class-wordpress-gdpr-public.php:234
+msgid "Learn more about our liabilities."
+msgstr "Meer informatie over onze verplichtingen."
+
+#: public/class-wordpress-gdpr-public.php:249
+msgid "Submit a request to erase your private data."
+msgstr ""
+"Dien een verzoek in om jouw privé gegevens te wissen en je account te "
+"verwijderen."
+
+#: public/class-wordpress-gdpr-public.php:263
+msgid "Learn about our ownership and authorship."
+msgstr "Meer informatie over ons eigendom en auteurschap."
+
+#: public/class-wordpress-gdpr-public.php:276
+msgid "Request Data"
+msgstr "Uw gegevens opvragen"
+
+#: public/class-wordpress-gdpr-public.php:277
+msgid "Submit a request to get a copy of all your data stored."
+msgstr ""
+"Dien een verzoek in om een ​​kopie van al je opgeslagen gegevens te "
+"ontvangen."
+
+#: public/class-wordpress-gdpr-public.php:291
+msgid "Read about our Privacy Policy here."
+msgstr "Lees hier meer over onze privacyverklaring."
+
+#: public/class-wordpress-gdpr-public.php:305
+msgid "Configure your personal privacy settings here."
+msgstr "Configureer hier jouw persoonlijke privacy-instellingen."
+
+#: public/class-wordpress-gdpr-public.php:319
+msgid "Read more about the Terms & Conditions of our website."
+msgstr "Lees meer over de algemene voorwaarden van onze website."
+
+#: public/class-wordpress-gdpr-public.php:342
+msgid "Unsubscribe from our Newsletters."
+msgstr "Uitschrijven voor onze nieuwsbrieven."
+
+#: public/class-wordpress-gdpr-public.php:378
+msgid "GDPR Request - "
+msgstr "AVG (GDPR)-aanvraag - "
+
+#: public/class-wordpress-gdpr-public.php:378
+msgid "A new GDPR Request is available."
+msgstr "Er is een nieuw AVG (GDPR)-verzoek beschikbaar."
+
+#: public/class-wordpress-gdpr-public.php:381
+msgid "Email Address confirmed and your request is in process now."
+msgstr "E-mailadres bevestigd en uw aanvraag is in behandeling."
+
+#: public/class-wordpress-gdpr-public.php:385
+msgid "Email Address could not be confirmed. Please send individual request."
+msgstr ""
+"E-mailadres kan niet worden bevestigd. Stuur alstublieft een individueel "
+"verzoek."
+
+#: public/class-wordpress-gdpr-public.php:445
+msgid "Cookies"
+msgstr "Cookies"
+
+#: public/class-wordpress-gdpr-public.php:446
+msgid "We use Cookies to give you a better website experience."
+msgstr "We gebruiken cookies om u een betere website-ervaring te bieden."
+
+#: public/class-wordpress-gdpr-public.php:451
+msgid "Cloudflare"
+msgstr "CloudFlare"
+
+#: public/class-wordpress-gdpr-public.php:452
+msgid ""
+"For perfomance reasons we use Cloudflare as a CDN network. This saves a "
+"cookie \"__cfduid\" to apply security settings on a per-client basis. This "
+"cookie is strictly necessary for Cloudflare's security features and cannot "
+"be turned off."
+msgstr ""
+"Omwille van de prestaties gebruiken we Cloudflare als een CDN-netwerk. "
+"Hiermee wordt een cookie \"__cfduid\" opgeslagen om beveiligingsinstellingen "
+"per client toe te passen. Deze cookie is strikt noodzakelijk voor de "
+"beveiligingsfuncties van Cloudflare en kan niet worden uitgeschakeld."
+
+#: public/class-wordpress-gdpr-public.php:458
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: public/class-wordpress-gdpr-public.php:459
+msgid ""
+"We use WooCommerce as a shopping system. For cart and order processing 2 "
+"cookies will be stored: woocommerce_cart_hash & woocommerce_items_in_cart. "
+"This cookies are strictly necessary and can not be turned off."
+msgstr ""
+"We gebruiken WooCommerce als een winkel-systeem. Voor het verwerken van de "
+"winkelwagen en de bestelling worden 2 cookies opgeslagen: "
+"'woocommerce_cart_hash' & 'woocommerce_items_in_cart'. Deze cookies zijn "
+"strikt noodzakelijk en kunnen niet worden uitgeschakeld."
+
+#: public/class-wordpress-gdpr-public.php:465
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: public/class-wordpress-gdpr-public.php:466
+msgid "We track anonymized user information to improve our website."
+msgstr ""
+"We volgen geanonimiseerde gebruikersinformatie om onze website te verbeteren."
+
+#: public/class-wordpress-gdpr-public.php:472
+msgid "Google Adwords"
+msgstr "Google Adwords"
+
+#: public/class-wordpress-gdpr-public.php:473
+msgid "We use Adwords to track our Conversions through Google Clicks."
+msgstr ""
+"We gebruiken Adwords om onze conversies bij te houden via Google Clicks."
+
+#: public/class-wordpress-gdpr-public.php:479
+msgid "Google Tag Manager"
+msgstr "Google Tag Manager"
+
+#: public/class-wordpress-gdpr-public.php:480
+msgid ""
+"We use Google Tag Manager to monitor our traffic and to help us AB test new "
+"features    "
+msgstr ""
+"We gebruiken Google Tag Manager om ons verkeer te controleren en ons te "
+"helpen bij het testen van nieuwe functies    "
+
+#: public/class-wordpress-gdpr-public.php:486
+msgid "Hot Jar"
+msgstr "Hot Jar"
+
+#: public/class-wordpress-gdpr-public.php:487
+msgid ""
+"We use HotJar to track what users click on and engage with on this site "
+msgstr ""
+"We gebruiken HotJar om bij te houden waar gebruikers op klikken en wat ze "
+"mee doen op deze site "
+
+#: public/class-wordpress-gdpr-public.php:493
+msgid "Facebook"
+msgstr "Facebook"
+
+#: public/class-wordpress-gdpr-public.php:494
+msgid "We use Facebook to track connections to social media channels."
+msgstr ""
+"We gebruiken Facebook om verbindingen met sociale mediakanalen bij te houden."
+
+#: public/class-wordpress-gdpr-public.php:500
+msgid "Piwik"
+msgstr "Piwik"
+
+#: public/class-wordpress-gdpr-public.php:501
+msgid "We use Piwik to track user information to improve our website."
+msgstr ""
+"We gebruiken Piwik om gebruikersinformatie bij te houden om onze website te "
+"verbeteren."
+
+#: public/class-wordpress-gdpr-public.php:508
+msgid "AdSense"
+msgstr "AdSense (google adverts)"
+
+#: public/class-wordpress-gdpr-public.php:509
+msgid "We use Google AdSense to show online advertisements on our website."
+msgstr ""
+"We gebruiken Google AdSense om online advertenties op onze website te tonen."
+
+#: public/class-wordpress-gdpr-public.php:516
+msgid "Custom"
+msgstr "Aangepaste"
+
+#: public/class-wordpress-gdpr-public.php:517
+msgid "Use Loco Translate to change Text for custom Code"
+msgstr "Gebruik de 'Loco Translate' plugin om teksten te wijzigen"
+
+#: public/class-wordpress-gdpr-public.php:527 
+#: public/class-wordpress-gdpr-forms.php:87
+msgid "Return to Privacy Center"
+msgstr "Terug naar Privacycentrum"
+
+#: public/class-wordpress-gdpr-public.php:534
+msgid "Name"
+msgstr "Naam"
+
+#: public/class-wordpress-gdpr-public.php:535
+msgid "Reason"
+msgstr "Reden"
+
+#: public/class-wordpress-gdpr-public.php:536
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: public/class-wordpress-gdpr-forms.php:49
+msgid "Forget Me Request"
+msgstr "Vergeet mij verzoek"
+
+#: public/class-wordpress-gdpr-forms.php:57
+msgid "DPO Contact Request"
+msgstr "DPO-contactaanvraag"
+
+#: public/class-wordpress-gdpr-forms.php:65
+msgid "Data Request"
+msgstr "Dataverzoek"
+
+#: public/class-wordpress-gdpr-forms.php:97
+msgid "Request sent successfully. Our DPO will answer you soon."
+msgstr ""
+"Verzoek met succes verzonden. Onze DPO zal je vraag z.s.m. beantwoorden."
+
+#: public/class-wordpress-gdpr-forms.php:99
+msgid ""
+"Request received. We have sent you a confirmation email to validate your "
+"email address for this type of request."
+msgstr ""
+"Verzoek ontvangen. We hebben u een bevestigingsmail gestuurd om uw e-"
+"mailadres voor dit type aanvraag te valideren."
+
+#: public/class-wordpress-gdpr-forms.php:105
+msgid "Could not send your request!"
+msgstr "Kon je verzoek niet verzenden!"
+
+#: public/class-wordpress-gdpr-forms.php:175
+msgid "First Name missing."
+msgstr "Voornaam ontbreekt."
+
+#: public/class-wordpress-gdpr-forms.php:179
+msgid "Last Name missing."
+msgstr "Achternaam ontbreekt."
+
+#: public/class-wordpress-gdpr-forms.php:183
+msgid "Email missing."
+msgstr "E-mail ontbreekt."
+
+#: public/class-wordpress-gdpr-forms.php:187
+msgid "Terms not accepted."
+msgstr "Voorwaarden zijn niet geaccepteerd."
+
+#: public/class-wordpress-gdpr-forms.php:192
+msgid "Message missing."
+msgstr "Bericht ontbreekt."
+
+#: public/class-wordpress-gdpr-forms.php:200
+msgid "Could not find a user with this email. Please contact our DPO directly."
+msgstr ""
+"Kon geen gebruiker vinden met deze e-mail. Neem rechtstreeks contact op met "
+"onze DPO-manager."
+
+#: public/class-wordpress-gdpr-forms.php:240
+msgid "Could not create your GDPR request."
+msgstr "Kon uw AVG (GDPR)-aanvraag niet maken."
+
+#: public/class-wordpress-gdpr-forms.php:257
+#, php-format
+msgid "First Name: %s"
+msgstr "Voornaam: %s"
+
+#: public/class-wordpress-gdpr-forms.php:258
+#, php-format
+msgid "Last Name: %s"
+msgstr "Achternaam: %s"
+
+#: public/class-wordpress-gdpr-forms.php:259
+#, php-format
+msgid "Email: %s"
+msgstr "E-mail: %s"
+
+#: public/class-wordpress-gdpr-forms.php:260
+#, php-format
+msgid "Terms Accepted: %s"
+msgstr "Toegelaten voorwaarden: %s"
+
+#: public/class-wordpress-gdpr-forms.php:263
+#, php-format
+msgid "Message: %s"
+msgstr "Bericht: %s"
+
+#: public/class-wordpress-gdpr-forms.php:275
+msgid "Confirm Request"
+msgstr "Bevestig aanvraag"
+
+#: public/class-wordpress-gdpr-forms.php:335
+msgid "Your First Name (*)"
+msgstr "Uw voornaam (*)"
+
+#: public/class-wordpress-gdpr-forms.php:351
+msgid "Your Last Name (*)"
+msgstr "Uw achternaam (*)"
+
+#: public/class-wordpress-gdpr-forms.php:367
+msgid "Your Email (*)"
+msgstr "Uw emailadres (*)"
+
+#: public/class-wordpress-gdpr-forms.php:383
+msgid "Your message (*)"
+msgstr "Uw bericht: (*)"
+
+#: public/class-wordpress-gdpr-forms.php:403
+msgid ""
+"I agree to the privacy policy and that my data will be stored for this GDPR "
+"request ."
+msgstr ""
+"Ik ga akkoord met de privacyverklaring en dat mijn gegevens worden "
+"opgeslagen voor dit AVG (GDPR)-verzoek."
+
+#: public/class-wordpress-gdpr-forms.php:418
+msgid "Submit"
+msgstr "Verzenden"
+
+#: public/class-wordpress-gdpr-forms.php:428
+msgid "Delete my Data"
+msgstr "Mijn gegevens verwijderen"
+
+#: public/class-wordpress-gdpr-forms.php:430
+msgid "Export my Data"
+msgstr "Mijn gegevens exporteren"
+
+#: public/class-wordpress-gdpr-integrations.php:137
+msgid "You must accept our Privacy Policy."
+msgstr "U moet onze Privacyverklaring accepteren."
+
+#. Description of the plugin
+msgid "EU-DSVGO, GDPR Compliance Plugin"
+msgstr "EU-DSVGO, GDPR Compliance Plugin"
+
+#. URI of the plugin
+msgid "https://plugins.db-dzine.com"
+msgstr "https://plugins.db-dzine.com"
+
+#. Author of the plugin
+msgid "DB-Dzine"
+msgstr "DB-Dzine"
+
+#. Author URI of the plugin
+msgid "http://www.db-dzine.de"
+msgstr "http://www.db-dzine.de"

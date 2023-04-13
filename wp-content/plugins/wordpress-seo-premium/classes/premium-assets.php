@@ -336,14 +336,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 				'footer'       => true,
 			],
-			[
-				'name'         => 'wp-seo-premium-schema-blocks',
-				'path'         => 'assets/js/dist/',
-				'filename'     => 'wp-seo-premium-schema-blocks-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-				'dependencies' => [
-					WPSEO_Admin_Asset_Manager::PREFIX . 'schema-blocks-package',
-				],
-			],
 		];
 	}
 
@@ -375,13 +367,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'source'       => 'assets/css/dist/premium-elementor-' . $version . '.css',
 				'dependencies' => [
 					WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox',
-				],
-			],
-			[
-				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-schema-blocks',
-				'source'       => 'assets/css/dist/premium-schema-blocks-' . $version . '.css',
-				'dependencies' => [
-					WPSEO_Admin_Asset_Manager::PREFIX . 'schema-blocks',
 				],
 			],
 			[

@@ -1211,7 +1211,7 @@ msgstr ""
 #: admin/options-init.php:1150
 msgid ""
 "No longer needed with CF7 Version 5.0.3 - <a target=\"_blank\" href=\"https:"
-"//plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/\">see here</a>. "
+"//www.welaunch.io/wordpress-gdpr/documentation/faq/cf7/\">see here</a>. "
 "This will depending on the opt-in checkbox setting save data or not."
 msgstr ""
 
@@ -1460,7 +1460,7 @@ msgid ""
 msgstr ""
 "Pseudonymisering är inte obligatorisk av GDPR. Det kan vara en bra "
 "förbättring, men det kan också riskera dataförlust. <a href=\"https:"
-"//plugins.db-dzine.com/wordpress-gdpr/documentation/faq/pseudonymization/\" "
+"//www.welaunch.io/wordpress-gdpr/documentation/faq/pseudonymization/\" "
 "target=\"_blank\">Läs mer här</a>."
 
 #: admin/options-init.php:1382

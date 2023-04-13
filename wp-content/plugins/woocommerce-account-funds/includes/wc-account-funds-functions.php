@@ -118,6 +118,29 @@ function wc_get_account_funds_name() {
 }
 
 /**
+ * Gets the discount data for using funds.
+ *
+ * @since 2.9.0
+ *
+ * @return array
+ */
+function wc_get_account_funds_discount_data() {
+	$discount = array(
+		'type'   => get_option( 'account_funds_discount_type', 'fixed' ),
+		'amount' => get_option( 'account_funds_discount_amount', 0 ),
+	);
+
+	/**
+	 * Filters the discount data for using funds.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param array $discount An array with the discount data.
+	 */
+	return apply_filters( 'wc_account_funds_discount_data', $discount );
+}
+
+/**
  * Gets the placeholder text.
  *
  * @since 2.8.0

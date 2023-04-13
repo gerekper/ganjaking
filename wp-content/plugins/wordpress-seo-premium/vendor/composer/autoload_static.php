@@ -4,12 +4,8 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit45266308c19a184df26ade96d7396bf3
+class ComposerStaticInitae9509692aa46c4f0a13ea40ffc225a1
 {
-    public static $files = array (
-        '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'C' => 
         array (
@@ -128,8 +124,8 @@ class ComposerStaticInit45266308c19a184df26ade96d7396bf3
         'WPSEO_Validation_Warning' => __DIR__ . '/../..' . '/classes/validation-warning.php',
         'WPSEO_Watcher' => __DIR__ . '/../..' . '/classes/watcher.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking' => __DIR__ . '/../..' . '/src/config/migrations/20190715101200_WpYoastPremiumImprovedInternalLinking.php',
-        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns' => __DIR__ . '/../..' . '/src/integrations/blocks/block-patterns.php',
-        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/job-posting-block.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns' => __DIR__ . '/../..' . '/src/deprecated/integrations/blocks/block-patterns.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block' => __DIR__ . '/../..' . '/src/deprecated/integrations/blocks/job-posting-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Siblings_Block' => __DIR__ . '/../..' . '/classes/blocks/siblings-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Subpages_Block' => __DIR__ . '/../..' . '/classes/blocks/subpages-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\TranslationsPress' => __DIR__ . '/../..' . '/src/integrations/third-party/translationspress.php',
@@ -175,7 +171,7 @@ class ComposerStaticInit45266308c19a184df26ade96d7396bf3
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/workouts-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/estimated-reading-time-block.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/related-links-block.php',
-        'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks' => __DIR__ . '/../..' . '/src/integrations/blocks/schema-blocks.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks' => __DIR__ . '/../..' . '/src/deprecated/integrations/blocks/schema-blocks.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration' => __DIR__ . '/../..' . '/src/integrations/cleanup-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Basic' => __DIR__ . '/../..' . '/src/deprecated/integrations/front-end/crawl-cleanup-basic.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Rss' => __DIR__ . '/../..' . '/src/deprecated/integrations/front-end/crawl-cleanup-rss.php',
@@ -200,7 +196,7 @@ class ComposerStaticInit45266308c19a184df26ade96d7396bf3
         'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Premium_Option_Wpseo_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/premium-option-wpseo-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Prominent_Words_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/prominent-words-watcher.php',
-        'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/zapier-apikey-reset-watcher.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => __DIR__ . '/../..' . '/src/deprecated/integrations/watchers/zapier-apikey-reset-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Main' => __DIR__ . '/../..' . '/src/main.php',
         'Yoast\\WP\\SEO\\Premium\\Presenters\\Mastodon_Link_Presenter' => __DIR__ . '/../..' . '/src/presenters/mastodon-link-presenter.php',
         'Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository' => __DIR__ . '/../..' . '/src/repositories/prominent-words-repository.php',
@@ -210,20 +206,20 @@ class ComposerStaticInit45266308c19a184df26ade96d7396bf3
         'Yoast\\WP\\SEO\\Premium\\Routes\\Zapier_Route' => __DIR__ . '/../..' . '/src/routes/zapier-route.php',
         'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface' => __DIR__ . '/../..' . '/src/surfaces/helpers-surface.php',
         'Yoast\\WP\\SEO\\Premium\\WordPress\\Wrapper' => __DIR__ . '/../..' . '/src/wordpress/wrapper.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/block-pattern.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/block-pattern-categories.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/block-pattern-keywords.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Base_Pattern' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-base-pattern.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-one-column.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-two-columns.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/block-pattern.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/block-pattern-categories.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/block-pattern-keywords.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Base_Pattern' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/job-posting-base-pattern.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/job-posting-one-column.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/job-posting-two-columns.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit45266308c19a184df26ade96d7396bf3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit45266308c19a184df26ade96d7396bf3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit45266308c19a184df26ade96d7396bf3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitae9509692aa46c4f0a13ea40ffc225a1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitae9509692aa46c4f0a13ea40ffc225a1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitae9509692aa46c4f0a13ea40ffc225a1::$classMap;
 
         }, null, ClassLoader::class);
     }
