@@ -24,7 +24,7 @@
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -440,6 +440,8 @@ class BigInteger implements \JsonSerializable
      * JSON Serialize
      *
      * Will be called, automatically, when json_encode() is called on a BigInteger object.
+     *
+     * @return array{hex: string, precision?: int]
      */
     #[\ReturnTypeWillChange]
     public function jsonSerialize()

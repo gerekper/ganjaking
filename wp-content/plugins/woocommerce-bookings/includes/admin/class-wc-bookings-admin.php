@@ -626,7 +626,7 @@ class WC_Bookings_Admin {
 		}
 
 		if ( 'wc_booking' === $screen->id ) {
-			wp_enqueue_script( 'wc_bookings_admin_edit_booking_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-booking.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
+			wp_enqueue_script( 'wc_bookings_admin_edit_booking_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-booking.js', array( 'jquery', 'wp-i18n' ), WC_BOOKINGS_VERSION, true );
 		}
 
 		if ( 'product' === $screen->id ) {

@@ -165,7 +165,7 @@ if ( ! class_exists( 'NS_MCF_Inventory' ) ) {
 			if ( ! $current_product ) {
 				$this->ns_fba->logger->add_entry(
 					"Invalid product<br />\n",
-					'info',
+					'debug',
 					$this->ns_fba->inv_log_path
 				);
 				return;
@@ -197,7 +197,7 @@ if ( ! class_exists( 'NS_MCF_Inventory' ) ) {
 				$this->ns_fba->logger->add_entry( $log_entry_prefix . ' Updated ' . $sku . ' stock to ' . $stock . $reason, 'wc', '_inventory' );
 				$this->ns_fba->logger->add_entry(
 					$log_entry_prefix . ' Updated ' . $sku . ' stock to ' . $stock . $reason . "<br />\n",
-					'info',
+					'debug',
 					$this->ns_fba->inv_log_path
 				);
 			} else {

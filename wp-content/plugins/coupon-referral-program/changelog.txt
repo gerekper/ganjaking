@@ -1,4 +1,13 @@
 *** Coupon Referal Program ***
+
+2022-04-13 - version 1.6.8
+* New: Allow coupon configuration setting applicable for the referral code
+* New: Allow the customer to send the referral email to multiple users.
+* New: Discount on the nth referral sign-up
+* New: Add shortcodes for emails
+* New: Referral code regeneration
+* New: Compatible with the latest WP (6.2.0) and WC(7.5.1)
+
 2022-03-03 - Version 1.6.7
 * New: Added a feature to Refer a friend from the product page
 * New: Admin can send a referral reminder email to the user

@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Cache;
 
-use Psr\Cache\CacheItemInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Cache\CacheItemInterface;
 
 /**
  * A cache item.

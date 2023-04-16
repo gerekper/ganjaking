@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -26,8 +26,8 @@ use Automattic\WooCommerce\Bookings\Vendor\Google\Task\Runner;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
 
 /**
  * This class implements the RESTful transport of apiServiceRequest()'s

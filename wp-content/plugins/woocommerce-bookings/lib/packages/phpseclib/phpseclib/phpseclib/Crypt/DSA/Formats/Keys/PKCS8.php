@@ -20,13 +20,12 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
-use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Common\Functions\Strings;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\File\ASN1;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\File\ASN1\Maps;
@@ -69,22 +68,9 @@ abstract class PKCS8 extends Progenitor
      */
     public static function load($key, $password = '')
     {
-        if (!Strings::is_stringable($key)) {
-            throw new \UnexpectedValueException('Key should be a string - not a ' . gettype($key));
-        }
-
-        $isPublic = strpos($key, 'PUBLIC') !== false;
-
         $key = parent::load($key, $password);
 
         $type = isset($key['privateKey']) ? 'privateKey' : 'publicKey';
-
-        switch (true) {
-            case !$isPublic && $type == 'publicKey':
-                throw new \UnexpectedValueException('Human readable string claims non-public key but DER encoded string claims public key');
-            case $isPublic && $type == 'privateKey':
-                throw new \UnexpectedValueException('Human readable string claims public key but DER encoded string claims private key');
-        }
 
         $decoded = ASN1::decodeBER($key[$type . 'Algorithm']['parameters']->element);
         if (!$decoded) {

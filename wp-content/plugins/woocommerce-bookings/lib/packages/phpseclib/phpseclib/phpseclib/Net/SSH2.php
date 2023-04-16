@@ -42,7 +42,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -2665,6 +2665,16 @@ class SSH2
 
         $this->disconnect_helper(NET_SSH2_DISCONNECT_BY_APPLICATION);
         throw new ConnectionClosedException('Unexpected response to publickey authentication pt 2');
+    }
+
+    /**
+     * Return the currently configured timeout
+     *
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
     }
 
     /**

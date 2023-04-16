@@ -254,9 +254,9 @@ class Page {
 	public function customer_data() {
 		$user = $this->user_client->get_user_data();
 		$data = [
-			'license_type'       => __( 'WP Rocket', 'rocket' ),
-			'license_expiration' => __( 'Lifetime', 'rocket' ),
-			'license_class'      => 'wpr-isValid',
+			'license_type'        => __( 'Unavailable', 'rocket' ),
+			'license_expiration'  => __( 'Unavailable', 'rocket' ),
+			'license_class'       => 'wpr-isInvalid',
 			'is_from_one_dot_com' => false,
 		];
 
@@ -581,6 +581,21 @@ class Page {
 		$disable_combine_css = $this->disable_combine_css();
 		$disable_ocd         = 'local' === wp_get_environment_type();
 
+		/**
+		 * Filters the status of the RUCSS option.
+		 *
+		 * @param array $should_disable will return array with disable status and text.
+		 */
+		$rucss_status = apply_filters(
+			'rocket_disable_rucss_setting',
+			[
+				'disable' => false,
+				'text'    => '',
+			]
+		);
+
+		$invalid_license = get_transient( 'wp_rocket_no_licence' );
+
 		$this->settings->add_page_section(
 			'file_optimization',
 			[
@@ -712,7 +727,7 @@ class Page {
 						$disable_ocd ? 'wpr-isDisabled' : '',
 						'wpr-isParent',
 					],
-					'description'       => __( 'Optimize CSS delivery eliminates render-blocking CSS on your website. Only one method can be selected. Remove Unused CSS is recommended for optimal performance.', 'rocket' ),
+					'description'       => $invalid_license ? __( 'Optimize CSS delivery eliminates render-blocking CSS on your website. Only one method can be selected. Remove Unused CSS is recommended for optimal performance, but limited only to the users with active license.', 'rocket' ) : __( 'Optimize CSS delivery eliminates render-blocking CSS on your website. Only one method can be selected. Remove Unused CSS is recommended for optimal performance.', 'rocket' ),
 					'section'           => 'css',
 					'page'              => 'file_optimization',
 					'default'           => 0,
@@ -743,14 +758,15 @@ class Page {
 					'options'                 => [
 						'remove_unused_css' => [
 							'label'       => __( 'Remove Unused CSS', 'rocket' ),
+							'disabled'    => $invalid_license || $rucss_status['disable'] ? 'disabled' : false,
 							// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
 							'description' => sprintf( __( 'Removes unused CSS per page and helps to reduce page size and HTTP requests. Recommended for best performance. Test thoroughly! %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $rucss_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $rucss_beacon['id'] ) . '" target="_blank">', '</a>' ),
-							'warning'     => [
+							'warning'     => $invalid_license ? [] : [
 								'title'        => __( 'This could break things!', 'rocket' ),
 								'description'  => __( 'If you notice any errors on your website after having activated this setting, just deactivate it again, and your site will be back to normal.', 'rocket' ),
 								'button_label' => __( 'Activate Remove Unused CSS', 'rocket' ),
 							],
-							'sub_fields'  => [
+							'sub_fields'  => $invalid_license ? [] : [
 								'remove_unused_css_safelist' =>
 								[
 									'type'              => 'textarea',

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -10,10 +10,10 @@ namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception;
 
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\BodySummarizer;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\BodySummarizerInterface;
-use Psr\Http\Client\RequestExceptionInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Client\RequestExceptionInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
 
 /**
  * HTTP Request exception

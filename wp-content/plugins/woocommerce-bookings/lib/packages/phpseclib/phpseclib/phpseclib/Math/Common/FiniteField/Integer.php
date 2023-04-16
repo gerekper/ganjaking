@@ -9,7 +9,7 @@
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -29,6 +29,8 @@ abstract class Integer implements \JsonSerializable
      *
      * PHP Serialize isn't supported because unserializing would require the factory be
      * serialized as well and that just sounds like too much
+     *
+     * @return array{hex: string}
      */
     #[\ReturnTypeWillChange]
     public function jsonSerialize()

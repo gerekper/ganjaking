@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -24,14 +24,12 @@ class CreateConferenceRequest extends \Automattic\WooCommerce\Bookings\Vendor\Go
 {
   protected $conferenceSolutionKeyType = ConferenceSolutionKey::class;
   protected $conferenceSolutionKeyDataType = '';
-  public $conferenceSolutionKey;
   /**
    * @var string
    */
   public $requestId;
   protected $statusType = ConferenceRequestStatus::class;
   protected $statusDataType = '';
-  public $status;
 
   /**
    * @param ConferenceSolutionKey

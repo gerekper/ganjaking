@@ -27,7 +27,7 @@ class Permalink_Manager_Pro_Functions {
 		add_action( 'permalink_manager_updated_term_uri', array( $this, 'save_redirects' ), 9, 5 );
 
 		// Check for updates
-	//	add_action( 'plugins_loaded', array( $this, 'check_for_updates' ), 10 );
+		add_action( 'plugins_loaded', array( $this, 'check_for_updates' ), 10 );
 		add_action( 'admin_init', array( $this, 'reload_license_key' ), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array( $this, 'get_expiration_date' ), 9 );
 
@@ -43,6 +43,7 @@ class Permalink_Manager_Pro_Functions {
 	 * @return string The license key.
 	 */
 	public static function get_license_key( $load_from_db = false ) {
+		return true;
 		$permalink_manager_options = get_option( 'permalink-manager', array() );
 
 		// Key defined in wp-config.php
@@ -50,13 +51,25 @@ class Permalink_Manager_Pro_Functions {
 			$license_key = defined( 'PMP_LICENCE_KEY' ) ? PMP_LICENCE_KEY : PMP_LICENSE_KEY;
 		} // Network licence key (multisite)
 		else if ( is_multisite() ) {
+			$site_licence_key = get_site_option( 'permalink-manager-licence-key' );
+
 			// A. Move the license key to site options
-			if ( ! empty( $_POST['licence']['licence_key'] ) ) {
-				$site_licence_key = sanitize_text_field( $_POST['licence']['licence_key'] );
+			if ( ! empty( $site_licence_key ) && ! is_array( $site_licence_key ) ) {
+				$new_license_key = $site_licence_key;
+			} // B. Save the new license key in the plugin settings
+			else if ( ! empty( $_POST['licence']['licence_key'] ) ) {
+				$new_license_key = $_POST['licence']['licence_key'];
+			}
+
+			if ( ! empty( $new_license_key ) ) {
+				$site_licence_key = array(
+					'licence_key' => sanitize_text_field( $new_license_key )
+				);
+
 				update_site_option( 'permalink-manager-licence-key', $site_licence_key );
 			}
 
-			$license_key = get_site_option( 'permalink-manager-licence-key' );
+			$license_key = ( ! empty( $site_licence_key['licence_key'] ) ) ? $site_licence_key['licence_key'] : '';
 		} // Single website licence key
 		else if ( ! empty( $_POST['licence']['licence_key'] ) ) {
 			$license_key = sanitize_text_field( $_POST['licence']['licence_key'] );
@@ -86,15 +99,15 @@ class Permalink_Manager_Pro_Functions {
 	 */
 	public function reload_license_key() {
 		if ( ! empty( $_POST['licence']['licence_key'] ) || ( ! empty( $_REQUEST['action'] ) && $_REQUEST['action'] == 'pm_get_exp_date' ) || ( ! empty( $_REQUEST['puc_slug'] ) && $_REQUEST['puc_slug'] == 'permalink-manager-pro' ) ) {
-			//delete_transient( 'permalink_manager_active' );
-			//$this->update_checker->requestInfo();
+			delete_site_transient( 'permalink_manager_active' );
+			$this->update_checker->requestInfo();
 		} // Sync the license data saved in DB after license key was set in wp-config.php file
 		else if ( defined( 'PMP_LICENCE_KEY' ) || defined( 'PMP_LICENSE_KEY' ) ) {
 			$db_license_key = self::get_license_key( true );
 			$license_key    = self::get_license_key();
 
 			if ( ! empty( $db_license_key ) && ! empty( $license_key ) && $db_license_key !== $license_key ) {
-				delete_transient( 'permalink_manager_active' );
+				delete_site_transient( 'permalink_manager_active' );
 				$this->update_checker->requestInfo();
 			}
 		}
@@ -110,7 +123,7 @@ class Permalink_Manager_Pro_Functions {
 	 */
 	public function update_pro_info( $raw, $result ) {
 		$license_key              = self::get_license_key();
-		$permalink_manager_active = ( empty( $_POST['licence']['licence_key'] ) ) ? get_transient( 'permalink_manager_active' ) : '';
+		$permalink_manager_active = ( empty( $_POST['licence']['licence_key'] ) ) ? get_site_transient( 'permalink_manager_active' ) : '';
 
 		// A. Do not do anything - the license info was saved before
 		if ( ! empty( $license_key ) && ( $permalink_manager_active == $license_key ) ) {
@@ -123,13 +136,19 @@ class Permalink_Manager_Pro_Functions {
 				$exp_date = ( ! empty( $plugin_info->expiration_date ) && strlen( $plugin_info->expiration_date ) > 6 ) ? strtotime( $plugin_info->expiration_date ) : '-';
 				$websites = ( ! empty( $plugin_info->websites ) ) ? $plugin_info->websites : '';
 
-				Permalink_Manager_Actions::save_settings( 'licence', array(
+				$license_info = array(
 					'licence_key'     => $license_key,
 					'expiration_date' => $exp_date,
 					'websites'        => $websites
-				), false );
+				);
 
-				set_transient( 'permalink_manager_active', $license_key, 12 * HOUR_IN_SECONDS );
+				if ( is_multisite() ) {
+					update_site_option( 'permalink-manager-licence-key', $license_info );
+				} else {
+					Permalink_Manager_Actions::save_settings( 'licence', $license_info, false );
+				}
+
+				set_site_transient( 'permalink_manager_active', $license_key, 12 * HOUR_IN_SECONDS );
 			}
 		}
 
@@ -147,23 +166,19 @@ class Permalink_Manager_Pro_Functions {
 	 */
 	public static function get_expiration_date( $basic_check = false, $empty_if_valid = false, $update_available = true ) {
 		global $permalink_manager_options;
-		set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
-		$expired = 0;
-		$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
-		if($basic_check || ($empty_if_valid && $expired == 0)) {
-		return $expired;
-		}
-		if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
-		echo $expiration_info;
-		die();
-		} else {
-		return $expiration_info;
-		}
 
 		// Get expiration info & the licence key
-		$exp_date    = ( ! empty( $permalink_manager_options['licence']['expiration_date'] ) ) ? $permalink_manager_options['licence']['expiration_date'] : false;
-		$license_key = ( ! empty( $permalink_manager_options['licence']['licence_key'] ) ) ? $permalink_manager_options['licence']['licence_key'] : "";
-		$websites    = ( ! empty( $permalink_manager_options['licence']['websites'] ) ) ? $permalink_manager_options['licence']['websites'] : "";
+		if ( is_multisite() ) {
+			$site_licence_key = get_site_option( 'permalink-manager-licence-key' );
+
+			$exp_date    = ( ! empty( $site_licence_key['expiration_date'] ) ) ? $site_licence_key['expiration_date'] : false;
+			$license_key = ( ! empty( $site_licence_key['licence_key'] ) ) ? $site_licence_key['licence_key'] : "";
+			$websites    = ( ! empty( $site_licence_key['websites'] ) ) ? $site_licence_key['websites'] : "";
+		} else {
+			$exp_date    = ( ! empty( $permalink_manager_options['licence']['expiration_date'] ) ) ? $permalink_manager_options['licence']['expiration_date'] : false;
+			$license_key = ( ! empty( $permalink_manager_options['licence']['licence_key'] ) ) ? $permalink_manager_options['licence']['licence_key'] : "";
+			$websites    = ( ! empty( $permalink_manager_options['licence']['websites'] ) ) ? $permalink_manager_options['licence']['websites'] : "";
+		}
 
 		$license_info_page = ( ! empty( $license_key ) ) ? sprintf( "https://permalinkmanager.pro/license-info/%s", trim( $license_key ) ) : "";
 
@@ -171,20 +186,20 @@ class Permalink_Manager_Pro_Functions {
 		if ( empty( $license_key ) ) {
 			$settings_page_url = Permalink_Manager_Admin_Functions::get_admin_url( "&section=settings" );
 			$expiration_info   = sprintf( __( 'Please paste the licence key to access all Permalink Manager Pro updates & features <a href="%s" target="_blank">on this page</a>.', 'permalink-manager' ), $settings_page_url );
-			$expired           = 2;
+			$expired           = 3;
 		} // License key is invalid
 		else if ( $exp_date == '-' ) {
 			$expiration_info = __( 'Your Permalink Manager Pro licence key is invalid!', 'permalink-manager' );
-			$expired         = 0;
+			$expired         = 3;
 		} // Key expired
 		else if ( ! empty( $exp_date ) && $exp_date < time() ) {
 			$expiration_info = sprintf( __( 'Your Permalink Manager Pro licence key expired! Please renew your license key using <a href="%s" target="_blank">this link</a> to regain access to plugin updates and technical support.', 'permalink-manager' ), $license_info_page );
-			$expired         = 1;
+			$expired         = 2;
 		} // License key is abused
 		else if ( ! empty( $exp_date ) && ! empty( $websites ) && $update_available === false ) {
 			$expiration_info = sprintf( __( 'Your Permalink Manager Pro license is already in use on another website and cannot be used to request automatic update for this domain.', 'permalink-manager' ), $license_info_page ) . " ";
 			$expiration_info .= sprintf( __( 'For further information, visit the <a href="%s" target="_blank"> License info</a> page.' ), $license_info_page );
-			$expired         = 1;
+			$expired         = 2;
 		} // Valid lifetime license key
 		else if ( date( "Y", intval( $exp_date ) ) > 2028 ) {
 			$expiration_info = __( 'You own a lifetime licence key.', 'permalink-manager' );
@@ -371,14 +386,11 @@ class Permalink_Manager_Pro_Functions {
 					}
 				}
 
-				// 1. Use WooCommerce fields
-				if ( class_exists( 'WooCommerce' ) && in_array( $custom_field, array( 'sku' ) ) && ! empty( $element->ID ) ) {
+				// 1. Use WooCommerce fields (SKU)
+				if ( class_exists( 'WooCommerce' ) && $custom_field == 'sku' && ! empty( $element->ID ) ) {
 					$product = wc_get_product( $element->ID );
 
-					// 1A. SKU
-					if ( $custom_field == 'sku' ) {
-						$custom_field_value = $product->get_sku();
-					}
+					$custom_field_value = ( is_a( $product, 'WC_Product' ) ) ? $product->get_sku() : '';
 				} // 2. Try to get value using ACF API
 				else if ( function_exists( 'get_field_object' ) ) {
 					$acf_element_id = ( ! empty( $element->ID ) ) ? $element->ID : "{$element->taxonomy}_{$element->term_id}";

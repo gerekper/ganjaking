@@ -694,18 +694,13 @@ class Permalink_Manager_URI_Functions_Post {
 	 * @return string
 	 */
 	function edit_uri_box( $html, $id, $new_title, $new_slug, $post ) {
-		global $permalink_manager_uris, $permalink_manager_options;
+		global $permalink_manager_uris;
 
 		// Detect auto drafts
 		$autosave = ( ! empty( $new_title ) && empty( $new_slug ) ) ? true : false;
 
 		// Check if the post is excluded
-		if ( empty( $post->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post ) ) {
-			return $html;
-		}
-
-		// Ignore drafts
-		if ( ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) && ! empty( $post->post_status ) && $post->post_status == 'draft' ) {
+		if ( empty( $post->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post, true ) ) {
 			return $html;
 		}
 
@@ -856,12 +851,7 @@ class Permalink_Manager_URI_Functions_Post {
 		$post_object = get_post( $post_id );
 
 		// Check if post is allowed
-		if ( empty( $post_object->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true ) ) {
-			return;
-		}
-
-		// Ignore auto-drafts, revisions, removed posts and posts without title
-		if ( in_array( $post_object->post_status, array( 'auto-draft', 'trash' ) ) || ( strpos( $post_object->post_name, 'revision-v1' ) !== false ) || empty( $post_object->post_title ) || ( ! empty( $post_object->post_name ) && $post_object->post_name == 'auto-draft' ) ) {
+		if ( empty( $post_object->post_type ) || empty( $post_object->post_title ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true ) ) {
 			return;
 		}
 
@@ -899,13 +889,8 @@ class Permalink_Manager_URI_Functions_Post {
 			return;
 		}
 
-		// Do not do anything if the field with URI or element ID are not present
-		if ( ! isset( $_POST['custom_uri'] ) || empty( $_POST['permalink-manager-edit-uri-element-id'] ) ) {
-			return;
-		}
-
-		// Hotfix
-		if ( $_POST['permalink-manager-edit-uri-element-id'] != $post_id ) {
+		// Do not do anything if the field with URI or element ID are not present or different from the provided post ID
+		if ( ! isset( $_POST['custom_uri'] ) || empty( $_POST['permalink-manager-edit-uri-element-id'] ) || $_POST['permalink-manager-edit-uri-element-id'] != $post_id ) {
 			return;
 		}
 
@@ -926,11 +911,6 @@ class Permalink_Manager_URI_Functions_Post {
 
 		// Check if post is allowed
 		if ( empty( $post->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post, true ) ) {
-			return;
-		}
-
-		// Ignore auto-drafts, removed posts and posts without title
-		if ( in_array( $post->post_status, array( 'auto-draft', 'trash' ) ) || empty( $post->post_title ) ) {
 			return;
 		}
 

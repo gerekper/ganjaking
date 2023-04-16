@@ -22,13 +22,12 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Crypt\RSA\Formats\Keys;
 
-use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Common\Functions\Strings;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\File\ASN1;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Math\BigInteger;
@@ -70,29 +69,13 @@ abstract class PKCS8 extends Progenitor
      */
     public static function load($key, $password = '')
     {
-        if (!Strings::is_stringable($key)) {
-            throw new \UnexpectedValueException('Key should be a string - not a ' . gettype($key));
-        }
-
-        if (strpos($key, 'PUBLIC') !== false) {
-            $components = ['isPublicKey' => true];
-        } elseif (strpos($key, 'PRIVATE') !== false) {
-            $components = ['isPublicKey' => false];
-        } else {
-            $components = [];
-        }
-
         $key = parent::load($key, $password);
 
         if (isset($key['privateKey'])) {
-            if (!isset($components['isPublicKey'])) {
-                $components['isPublicKey'] = false;
-            }
+            $components['isPublicKey'] = false;
             $type = 'private';
         } else {
-            if (!isset($components['isPublicKey'])) {
-                $components['isPublicKey'] = true;
-            }
+            $components['isPublicKey'] = true;
             $type = 'public';
         }
 

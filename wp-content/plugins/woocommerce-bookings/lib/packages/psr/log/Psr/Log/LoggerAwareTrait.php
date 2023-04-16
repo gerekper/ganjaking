@@ -1,6 +1,12 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Log;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Log;
 
 /**
  * Basic Implementation of LoggerAwareInterface.

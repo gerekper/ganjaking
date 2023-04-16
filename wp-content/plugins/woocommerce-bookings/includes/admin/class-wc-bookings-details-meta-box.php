@@ -1,4 +1,9 @@
 <?php
+/**
+ * A WC_Bookings_Details_Meta_Box class file.
+ *
+ * @package WooCommerce Bookings
+ */
 
 /**
  * WC_Bookings_Details_Meta_Box.
@@ -35,6 +40,7 @@ class WC_Bookings_Details_Meta_Box {
 
 	/**
 	 * Meta box post types.
+	 *
 	 * @var array
 	 */
 	public $post_types;
@@ -60,6 +66,9 @@ class WC_Bookings_Details_Meta_Box {
 
 	/**
 	 * Check data and output warnings.
+	 *
+	 * @param WC_Bookings        $booking
+	 * @param WC_Product_Booking $product
 	 */
 	private function sanity_check_notices( $booking, $product ) {
 		if ( $booking->get_start() && $booking->get_start() > strtotime( '+ 2 year', current_time( 'timestamp' ) ) ) {
@@ -141,7 +150,7 @@ class WC_Bookings_Details_Meta_Box {
 				<?php
 				if ( $order ) {
 					/* translators: 1: href to order id */
-					printf( ' ' . esc_html__( 'Linked to order %s.', 'woocommerce-bookings' ), '<a href="' . $order->get_edit_order_url() . '">#' . esc_html( $order->get_order_number() ) . '</a>' );
+					printf( ' ' . esc_html__( 'Linked to order %s.', 'woocommerce-bookings' ), '<a href="' . esc_url( $order->get_edit_order_url() ) . '">#' . esc_html( $order->get_order_number() ) . '</a>' );
 				}
 
 				if ( $product && is_callable( array( $product, 'is_bookings_addon' ) ) && $product->is_bookings_addon() ) {
@@ -183,7 +192,7 @@ class WC_Bookings_Details_Meta_Box {
 						<p class="form-field form-field-wide">
 							<label for="_booking_customer_id"><?php esc_html_e( 'Customer:', 'woocommerce-bookings' ); ?></label>
 							<?php
-							$name = ! empty( $customer->name ) ? ' &ndash; ' . $customer->name : '';
+							$name              = ! empty( $customer->name ) ? ' &ndash; ' . $customer->name : '';
 							$guest_placeholder = __( 'Guest', 'woocommerce-bookings' );
 							if ( 'Guest' === $name ) {
 								/* translators: 1: guest name */
@@ -226,30 +235,44 @@ class WC_Bookings_Details_Meta_Box {
 							<?php endforeach; ?>
 							</table>
 						</p>
-						<?php do_action( 'woocommerce_admin_booking_data_after_booking_details', $post->ID ); ?>
+						<?php
+						/**
+						 * A woocommerce_admin_booking_data_after_booking_details action hook.
+						 * Triggers when the booking edit page has finished loading the "General details" section.
+						 *
+						 * @param int $post->ID
+						 *
+						 * @since 1.15.79
+						 */
+						do_action( 'woocommerce_admin_booking_data_after_booking_details', $post->ID );
+						?>
 
 					</div>
 					<div class="booking_data_column">
 						<h4><?php esc_html_e( 'Booking specification', 'woocommerce-bookings' ); ?></h4>
 
 						<?php
-						woocommerce_wp_select( array(
-							'id'            => 'product_or_resource_id',
-							'class'         => 'wc-enhanced-select',
-							'wrapper_class' => 'form-field form-field-wide',
-							'label'         => __( 'Booked product:', 'woocommerce-bookings' ),
-							'options'       => $bookable_products,
-							'value'         => $resource_id ? $product_id . '=>' . $resource_id : $product_id,
-						) );
+						woocommerce_wp_select(
+							array(
+								'id'            => 'product_or_resource_id',
+								'class'         => 'wc-enhanced-select',
+								'wrapper_class' => 'form-field form-field-wide',
+								'label'         => __( 'Booked product:', 'woocommerce-bookings' ),
+								'options'       => $bookable_products,
+								'value'         => $resource_id ? $product_id . '=>' . $resource_id : $product_id,
+							)
+						);
 
-						woocommerce_wp_text_input( array(
-							'id'            => '_booking_parent_id',
-							'label'         => __( 'Parent booking ID:', 'woocommerce-bookings' ),
-							'wrapper_class' => 'form-field form-field-wide',
-							'placeholder'   => 'N/A',
-							'class'         => '',
-							'value'         => $booking->get_parent_id() ? $booking->get_parent_id() : '',
-						) );
+						woocommerce_wp_text_input(
+							array(
+								'id'            => '_booking_parent_id',
+								'label'         => __( 'Parent booking ID:', 'woocommerce-bookings' ),
+								'wrapper_class' => 'form-field form-field-wide',
+								'placeholder'   => 'N/A',
+								'class'         => '',
+								'value'         => $booking->get_parent_id() ? $booking->get_parent_id() : '',
+							)
+						);
 
 						$person_counts = $booking->get_person_counts();
 
@@ -273,14 +296,16 @@ class WC_Bookings_Details_Meta_Box {
 								}
 
 								if ( $person_type ) {
-									woocommerce_wp_text_input( array(
-										'id'            => '_booking_person_' . $person_id,
-										'label'         => $person_type->get_name(),
-										'type'          => 'number',
-										'placeholder'   => '0',
-										'value'         => $person_count,
-										'wrapper_class' => 'booking-person',
-									) );
+									woocommerce_wp_text_input(
+										array(
+											'id'          => '_booking_person_' . $person_id,
+											'label'       => $person_type->get_name(),
+											'type'        => 'number',
+											'placeholder' => '0',
+											'value'       => $person_count,
+											'wrapper_class' => 'booking-person',
+										)
+									);
 								}
 							}
 
@@ -293,90 +318,108 @@ class WC_Bookings_Details_Meta_Box {
 
 							foreach ( $product_booking_diff as $id ) {
 								$person_type = $person_types[ $id ];
-								woocommerce_wp_text_input( array(
-									'id'            => '_booking_person_' . $person_type->get_id(),
-									'label'         => $person_type->get_name(),
-									'type'          => 'number',
-									'placeholder'   => '0',
-									'value'         => '0',
-									'wrapper_class' => 'booking-person',
-								) );
+								woocommerce_wp_text_input(
+									array(
+										'id'            => '_booking_person_' . $person_type->get_id(),
+										'label'         => $person_type->get_name(),
+										'type'          => 'number',
+										'placeholder'   => '0',
+										'value'         => '0',
+										'wrapper_class' => 'booking-person',
+									)
+								);
 							}
 						} else {
 							$person_counts = $booking->get_person_counts();
 							$person_type   = new WC_Product_Booking_Person_Type( 0 );
 
-							woocommerce_wp_text_input( array(
-								'id'            => '_booking_person_0',
-								'label'         => $person_type->get_name(),
-								'type'          => 'number',
-								'placeholder'   => '0',
-								'value'         => ! empty( $person_counts[0] ) ? $person_counts[0] : 0,
-								'wrapper_class' => 'booking-person',
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'            => '_booking_person_0',
+									'label'         => $person_type->get_name(),
+									'type'          => 'number',
+									'placeholder'   => '0',
+									'value'         => ! empty( $person_counts[0] ) ? $person_counts[0] : 0,
+									'wrapper_class' => 'booking-person',
+								)
+							);
 						}
 						?>
 					</div>
 					<div class="booking_data_column">
 						<h4><?php esc_html_e( 'Booking date &amp; time', 'woocommerce-bookings' ); ?></h4>
 						<?php
-							woocommerce_wp_text_input( array(
-								'id'          => 'booking_start_date',
-								'label'       => __( 'Start date:', 'woocommerce-bookings' ),
-								'placeholder' => 'yyyy-mm-dd',
-								'value'       => date( 'Y-m-d', $booking->get_start( 'edit' ) ),
-								'class'       => 'date-picker-field',
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'          => 'booking_start_date',
+									'label'       => __( 'Start date:', 'woocommerce-bookings' ),
+									'placeholder' => 'yyyy-mm-dd',
+									'value'       => date( 'Y-m-d', $booking->get_start( 'edit' ) ),
+									'class'       => 'date-picker-field',
+								)
+							);
 
-							woocommerce_wp_text_input( array(
-								'id'          => 'booking_end_date',
-								'label'       => __( 'End date:', 'woocommerce-bookings' ),
-								'placeholder' => 'yyyy-mm-dd',
-								'value'       => date( 'Y-m-d', $booking->get_end( 'edit' ) ),
-								'class'       => 'date-picker-field',
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'          => 'booking_end_date',
+									'label'       => __( 'End date:', 'woocommerce-bookings' ),
+									'placeholder' => 'yyyy-mm-dd',
+									'value'       => date( 'Y-m-d', $booking->get_end( 'edit' ) ),
+									'class'       => 'date-picker-field',
+								)
+							);
 
-							woocommerce_wp_checkbox( array(
-								'id'          => '_booking_all_day',
-								'label'       => __( 'All day booking:', 'woocommerce-bookings' ),
-								'description' => __( 'Check this box if the booking is for all day.', 'woocommerce-bookings' ),
-								'value'       => $booking->get_all_day( 'edit' ) ? 'yes' : 'no',
-							) );
+							woocommerce_wp_checkbox(
+								array(
+									'id'          => '_booking_all_day',
+									'label'       => __( 'All day booking:', 'woocommerce-bookings' ),
+									'description' => __( 'Check this box if the booking is for all day.', 'woocommerce-bookings' ),
+									'value'       => $booking->get_all_day( 'edit' ) ? 'yes' : 'no',
+								)
+							);
 
-							woocommerce_wp_text_input( array(
-								'id'          => 'booking_start_time',
-								'label'       => __( 'Start time:', 'woocommerce-bookings' ),
-								'placeholder' => 'hh:mm',
-								'value'       => date( 'H:i', $booking->get_start( 'edit' ) ),
-								'type'        => 'time',
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'          => 'booking_start_time',
+									'label'       => __( 'Start time:', 'woocommerce-bookings' ),
+									'placeholder' => 'hh:mm',
+									'value'       => date( 'H:i', $booking->get_start( 'edit' ) ),
+									'type'        => 'time',
+								)
+							);
 
-							woocommerce_wp_text_input( array(
-								'id'          => 'booking_end_time',
-								'label'       => __( 'End time:', 'woocommerce-bookings' ),
-								'placeholder' => 'hh:mm',
-								'value'       => date( 'H:i', $booking->get_end( 'edit' ) ),
-								'type'        => 'time',
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'          => 'booking_end_time',
+									'label'       => __( 'End time:', 'woocommerce-bookings' ),
+									'placeholder' => 'hh:mm',
+									'value'       => date( 'H:i', $booking->get_end( 'edit' ) ),
+									'type'        => 'time',
+								)
+							);
 
 						if ( wc_should_convert_timezone( $booking ) ) {
-							woocommerce_wp_text_input( array(
-								'id'                => 'booking_start_time',
-								'label'             => __( 'Start time (local timezone):', 'woocommerce-bookings' ),
-								'placeholder'       => 'hh:mm',
-								'value'             => date( 'H:i', $booking->get_start( 'edit', true ) ),
-								'type'              => 'time',
-								'custom_attributes' => array( 'disabled' => 'disabled' ),
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'                => 'booking_start_time',
+									'label'             => __( 'Start time (local timezone):', 'woocommerce-bookings' ),
+									'placeholder'       => 'hh:mm',
+									'value'             => date( 'H:i', $booking->get_start( 'edit', true ) ),
+									'type'              => 'time',
+									'custom_attributes' => array( 'disabled' => 'disabled' ),
+								)
+							);
 
-							woocommerce_wp_text_input( array(
-								'id'                => 'booking_end_time',
-								'label'             => __( 'End time (local timezone):', 'woocommerce-bookings' ),
-								'placeholder'       => 'hh:mm',
-								'value'             => date( 'H:i', $booking->get_end( 'edit', true ) ),
-								'type'              => 'time',
-								'custom_attributes' => array( 'disabled' => 'disabled' ),
-							) );
+							woocommerce_wp_text_input(
+								array(
+									'id'                => 'booking_end_time',
+									'label'             => __( 'End time (local timezone):', 'woocommerce-bookings' ),
+									'placeholder'       => 'hh:mm',
+									'value'             => date( 'H:i', $booking->get_end( 'edit', true ) ),
+									'type'              => 'time',
+									'custom_attributes' => array( 'disabled' => 'disabled' ),
+								)
+							);
 						}
 						?>
 					</div>
@@ -386,7 +429,8 @@ class WC_Bookings_Details_Meta_Box {
 		</div>
 
 		<?php
-		wc_enqueue_js( "
+		wc_enqueue_js(
+			"
 			$( '#_booking_all_day' ).change( function () {
 				if ( $( this ).is( ':checked' ) ) {
 					$( '#booking_start_time, #booking_end_time' ).closest( 'p' ).hide();
@@ -397,14 +441,16 @@ class WC_Bookings_Details_Meta_Box {
 
 			$( '.date-picker-field' ).datepicker({
 				dateFormat: 'yy-mm-dd',
-				firstDay: ". get_option( 'start_of_week' ) .",
+				firstDay: " . get_option( 'start_of_week' ) . ',
 				numberOfMonths: 1,
 				showButtonPanel: true,
 			});
-		" );
+		'
+		);
 
-		// Select2 handling
-		wc_enqueue_js( "
+		// Select2 handling.
+		wc_enqueue_js(
+			"
 			$( '#_booking_order_id' ).filter( ':not(.enhanced)' ).each( function() {
 				var select2_args = {
 					allowClear:  true,
@@ -444,12 +490,14 @@ class WC_Bookings_Details_Meta_Box {
 				};
 				$( this ).select2( select2_args ).addClass( 'enhanced' );
 			});
-		" );
+		"
+		);
 	}
 
 	/**
 	 * Returns an array of labels (statuses wrapped in gettext)
-	 * @param  array  $statuses
+	 *
+	 * @param  array $statuses
 	 * @deprecated since 1.9.13. $this->get_wc_booking_statuses now also comes with globalised strings.
 	 * @return array
 	 */
@@ -468,6 +516,8 @@ class WC_Bookings_Details_Meta_Box {
 	 *
 	 * @param  int     $post_id Post ID.
 	 * @param  WP_Post $post    Post object.
+	 *
+	 * @throws Exception If error occurs, show it.
 	 */
 	public function meta_box_save( $post_id, $post ) {
 		if ( ! isset( $_POST['wc_bookings_details_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['wc_bookings_details_meta_box_nonce'], 'wc_bookings_details_meta_box' ) ) {
@@ -478,12 +528,12 @@ class WC_Bookings_Details_Meta_Box {
 			return $post_id;
 		}
 
-		// Check the post being saved == the $post_id to prevent triggering this call for other save_post events
+		// Check the post being saved == the $post_id to prevent triggering this call for other save_post events.
 		if ( empty( $_POST['post_ID'] ) || intval( $_POST['post_ID'] ) !== $post_id ) {
 			return $post_id;
 		}
 
-		if ( ! in_array( $post->post_type, $this->post_types ) ) {
+		if ( ! in_array( $post->post_type, $this->post_types, true ) ) {
 			return $post_id;
 		}
 
@@ -493,7 +543,7 @@ class WC_Bookings_Details_Meta_Box {
 
 		// Get booking object.
 		$booking    = new WC_Booking( $post_id );
-		$product_id = wc_clean( $_POST['product_or_resource_id'] ) ?: $booking->get_product_id();
+		$product_id = isset( $_POST['product_or_resource_id'] ) ? wc_clean( $_POST['product_or_resource_id'] ) : $booking->get_product_id();
 		if ( ! $product_id ) {
 			return $post_id;
 		}
@@ -501,11 +551,11 @@ class WC_Bookings_Details_Meta_Box {
 		// We need this save event to run once to avoid potential endless loops. This would have been perfect:
 		// remove_action( current_filter(), __METHOD__ );
 		// But cannot be used due to https://github.com/woocommerce/woocommerce/issues/6485
-		// When that is patched in core we can use the above. For now:
+		// When that is patched in core we can use the above.
 		self::$saved_meta_box = true;
 
-		$start_date = wc_clean( $_POST['booking_start_date'] );
-		$end_date   = wc_clean( $_POST['booking_end_date'] );
+		$start_date = isset( $_POST['booking_start_date'] ) ? wc_clean( $_POST['booking_start_date'] ) : null;
+		$end_date   = isset( $_POST['booking_end_date'] ) ? wc_clean( $_POST['booking_end_date'] ) : null;
 
 		if ( strtotime( $end_date ) < strtotime( $start_date ) ) {
 			WC_Admin_Notices::add_custom_notice(
@@ -539,8 +589,8 @@ class WC_Bookings_Details_Meta_Box {
 			WC_Admin_Notices::remove_notice( 'bookings_invalid_date_range' );
 		}
 
-		$booking_start_time = wc_clean( $_POST['booking_start_time'] );
-		$booking_end_time   = wc_clean( $_POST['booking_end_time'] );
+		$booking_start_time = isset( $_POST['booking_start_time'] ) ? wc_clean( $_POST['booking_start_time'] ) : null;
+		$booking_end_time   = isset( $_POST['booking_end_time'] ) ? wc_clean( $_POST['booking_end_time'] ) : null;
 
 		if ( empty( $booking_start_time ) ) {
 			$booking_start_time = '00:00';
@@ -571,23 +621,33 @@ class WC_Bookings_Details_Meta_Box {
 		$booking_persons   = array();
 
 		foreach ( array_unique( array_merge( $booking_types_ids, $product_types_ids ) ) as $person_id ) {
-			$booking_persons[ $person_id ] = absint( $_POST[ '_booking_person_' . $person_id ] );
+			$booking_persons[ $person_id ] = isset( $_POST[ '_booking_person_' . $person_id ] ) ? absint( $_POST[ '_booking_person_' . $person_id ] ) : 0;
 		}
 
-		$booking->set_props( array(
-			'all_day'       => isset( $_POST['_booking_all_day'] ),
-			'customer_id'   => isset( $_POST['_booking_customer_id'] ) ? absint( $_POST['_booking_customer_id'] ) : '',
-			'date_created'  => empty( $_POST['booking_date'] ) ? current_time( 'timestamp' ) : strtotime( $_POST['booking_date'] . ' ' . (int) $_POST['booking_date_hour'] . ':' . (int) $_POST['booking_date_minute'] . ':00' ),
-			'end'           => $end,
-			'order_id'      => $booking_order_id,
-			'parent_id'     => absint( $_POST['_booking_parent_id'] ),
-			'person_counts' => $booking_persons,
-			'product_id'    => absint( $product_id ),
-			'resource_id'   => absint( $resource_id ),
-			'start'         => $start,
-			'status'        => wc_clean( $_POST['_booking_status'] ),
-		) );
+		$booking->set_props(
+			array(
+				'all_day'       => isset( $_POST['_booking_all_day'] ),
+				'customer_id'   => isset( $_POST['_booking_customer_id'] ) ? absint( $_POST['_booking_customer_id'] ) : '',
+				'date_created'  => empty( $_POST['booking_date'] ) ? current_time( 'timestamp' ) : strtotime( $_POST['booking_date'] . ' ' . (int) $_POST['booking_date_hour'] . ':' . (int) $_POST['booking_date_minute'] . ':00' ), // phpcs:ignore
+				'end'           => $end,
+				'order_id'      => $booking_order_id,
+				'parent_id'     => isset( $_POST['_booking_parent_id'] ) ? absint( $_POST['_booking_parent_id'] ) : 0,
+				'person_counts' => $booking_persons,
+				'product_id'    => absint( $product_id ),
+				'resource_id'   => absint( $resource_id ),
+				'start'         => $start,
+				'status'        => isset( $_POST['_booking_status'] ) ? wc_clean( $_POST['_booking_status'] ) : '',
+			)
+		);
 
+		/**
+		 * A woocommerce_admin_process_booking_object action hook.
+		 * Triggers before the booking is saved.
+		 *
+		 * @param WC_Booking $booking
+		 *
+		 * @since 1.15.79
+		 */
 		do_action( 'woocommerce_admin_process_booking_object', $booking );
 
 		// Link booking with an order item.
@@ -601,9 +661,8 @@ class WC_Bookings_Details_Meta_Box {
 					throw new Exception( __( 'Error: Could not create item', 'woocommerce-bookings' ) );
 				}
 
-				// Link only if the booking doesn't have an existing order or product of order item does not match with booking's product.
-				$order_item_product_id = (int) wc_get_order_item_meta( $order_item_id, '_product_id' );
-				if ( empty( $booking->get_order_item_id( $order_item_id ) ) || absint( $product_id ) !== $order_item_product_id ) {
+				// Link only if the booking doesn't have an existing order item.
+				if ( 0 === $booking->get_order_item_id() ) {
 					$booking->set_order_item_id( $order_item_id );
 				}
 			}
@@ -611,6 +670,14 @@ class WC_Bookings_Details_Meta_Box {
 
 		$booking->save();
 
+		/**
+		 * A woocommerce_booking_process_meta action hook.
+		 * Triggers after the booking is saved.
+		 *
+		 * @param int $post_id
+		 *
+		 * @since 1.15.79
+		 */
 		do_action( 'woocommerce_booking_process_meta', $post_id );
 	}
 }

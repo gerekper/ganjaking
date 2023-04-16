@@ -7,11 +7,27 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-27T03:44:53+00:00\n"
+"POT-Creation-Date: 2023-04-12T18:21:28+00:00\n"
 "PO-Revision-Date: 2023-03-15 22:59:25+0000\n"
 "Language: hr\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/wc-bookings-functions.php:437
+msgid "If there are multiple rules with the same priority, then the order of the rules is considered. In this case the rule with the higher order will take precedence over the rule with the lower order."
+msgstr ""
+
+#: includes/wc-bookings-functions.php:436
+msgid "A lower priority rule will always override a higher priority rule e.g. 9 overrides 10."
+msgstr ""
+
+#: includes/admin/views/html-classic-availability-settings.php:143
+msgid "For more information on setting up store availability rules, please see our %1$sdocumentation%2$s."
+msgstr ""
+
+#: includes/admin/views/html-classic-availability-settings.php:138
+msgid "This section will set the availability of your store (e.g. open and closed hours). All bookable products will adopt your store's availability."
+msgstr ""
 
 #: includes/class-wc-bookings-cache.php:237
 msgid "Error: Resource not found, please try again"
@@ -41,11 +57,11 @@ msgstr ""
 msgid "Please wait, the latest available slots are being processed in the background."
 msgstr ""
 
-#: includes/admin/views/html-classic-availability-settings.php:151
+#: includes/admin/views/html-classic-availability-settings.php:160
 msgid "Google Events"
 msgstr ""
 
-#: includes/admin/views/html-classic-availability-settings.php:145
+#: includes/admin/views/html-classic-availability-settings.php:154
 msgid "Availability Rules"
 msgstr ""
 
@@ -607,7 +623,7 @@ msgstr "Početak"
 msgid "F j, Y"
 msgstr "j. F Y."
 
-#: includes/wc-bookings-functions.php:1261
+#: includes/wc-bookings-functions.php:1283
 msgid "night"
 msgid_plural "nights"
 msgstr[0] ""
@@ -617,7 +633,7 @@ msgstr[2] ""
 #: includes/booking-form/class-wc-booking-form.php:311
 #: includes/data-objects/class-wc-product-booking.php:2413
 #: includes/data-objects/class-wc-product-booking.php:2428
-#: includes/wc-bookings-functions.php:1258
+#: includes/wc-bookings-functions.php:1280
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
@@ -627,14 +643,14 @@ msgstr[2] ""
 #: includes/booking-form/class-wc-booking-form.php:313
 #: includes/data-objects/class-wc-product-booking.php:2415
 #: includes/data-objects/class-wc-product-booking.php:2430
-#: includes/wc-bookings-functions.php:1255
+#: includes/wc-bookings-functions.php:1277
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/wc-bookings-functions.php:1251
+#: includes/wc-bookings-functions.php:1273
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] ""
@@ -644,19 +660,15 @@ msgstr[2] ""
 #: includes/booking-form/class-wc-booking-form.php:317
 #: includes/data-objects/class-wc-product-booking.php:2419
 #: includes/data-objects/class-wc-product-booking.php:2434
-#: includes/wc-bookings-functions.php:1244
+#: includes/wc-bookings-functions.php:1266
 msgid "month"
 msgid_plural "months"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/wc-bookings-functions.php:425
+#: includes/wc-bookings-functions.php:447
 msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Global rules take priority over product rules which take priority over resource rules. By using priority numbers you can execute rules in different orders."
-msgstr ""
-
-#: includes/wc-bookings-functions.php:416
-msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Ordering is only applied within the same priority and higher order overrides lower order."
 msgstr ""
 
 #: includes/wc-bookings-functions.php:146
@@ -1689,7 +1701,7 @@ msgstr ""
 #: includes/booking-form/class-wc-booking-form.php:315
 #: includes/data-objects/class-wc-product-booking.php:2417
 #: includes/data-objects/class-wc-product-booking.php:2432
-#: includes/wc-bookings-functions.php:1248
+#: includes/wc-bookings-functions.php:1270
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
@@ -2161,21 +2173,20 @@ msgstr ""
 msgid "Booking Data"
 msgstr ""
 
-#: includes/admin/views/html-classic-availability-settings.php:238
+#: includes/admin/views/html-classic-availability-settings.php:247
 #: includes/class-wc-bookings-google-calendar-connection.php:346
 #: includes/class-wc-bookings-timezone-settings.php:213
 msgid "Save Changes"
 msgstr "Spremi promjene"
 
-#: includes/admin/views/html-classic-availability-settings.php:236
+#: includes/admin/views/html-classic-availability-settings.php:245
 msgid "Past availability are hidden from this list."
 msgstr ""
 
-#: includes/admin/views/html-classic-availability-settings.php:175
+#: includes/admin/views/html-classic-availability-settings.php:184
 msgid "Title"
 msgstr "Naslov"
 
-#: includes/admin/views/html-classic-availability-settings.php:138
 #: includes/admin/views/html-store-availability-settings.php:70
 msgid "This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store's availability."
 msgstr ""
@@ -2286,7 +2297,7 @@ msgstr "Etiketa"
 
 #: includes/admin/views/html-booking-resources.php:8
 #: includes/booking-form/class-wc-booking-form.php:345
-#: includes/wc-bookings-functions.php:959
+#: includes/wc-bookings-functions.php:981
 #: templates/emails/plain/admin-booking-display.php:55
 #: templates/emails/plain/customer-booking-display.php:54
 msgid "Type"
@@ -3627,7 +3638,7 @@ msgstr ""
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:275
 #: includes/class-wc-bookings-google-calendar-connection.php:1432
-#: includes/wc-bookings-functions.php:1221
+#: includes/wc-bookings-functions.php:1243
 msgid "Persons"
 msgstr ""
 
@@ -3686,39 +3697,39 @@ msgstr ""
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:115
 #: includes/admin/views/html-booking-availability.php:167
 #: includes/admin/views/html-booking-pricing.php:78
-#: includes/admin/views/html-classic-availability-settings.php:193
+#: includes/admin/views/html-classic-availability-settings.php:202
 msgid "Add Range"
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:103
 #: includes/admin/views/html-booking-availability.php:155
-#: includes/admin/views/html-classic-availability-settings.php:176
+#: includes/admin/views/html-classic-availability-settings.php:185
 msgid "Priority"
 msgstr "Prioritet"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:102
 #: includes/admin/views/html-booking-availability.php:154
-#: includes/admin/views/html-classic-availability-settings.php:174
+#: includes/admin/views/html-classic-availability-settings.php:183
 msgid "If not bookable, users won't be able to choose this block for their booking."
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:102
 #: includes/admin/views/html-booking-availability.php:154
-#: includes/admin/views/html-classic-availability-settings.php:174
+#: includes/admin/views/html-classic-availability-settings.php:183
 msgid "Bookable"
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:99
 #: includes/admin/views/html-booking-availability.php:151
 #: includes/admin/views/html-booking-pricing.php:62
-#: includes/admin/views/html-classic-availability-settings.php:171
+#: includes/admin/views/html-classic-availability-settings.php:180
 msgid "Range"
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:98
 #: includes/admin/views/html-booking-availability.php:150
 #: includes/admin/views/html-booking-pricing.php:61
-#: includes/admin/views/html-classic-availability-settings.php:170
+#: includes/admin/views/html-classic-availability-settings.php:179
 msgid "Range type"
 msgstr ""
 

@@ -232,6 +232,13 @@ class Coupon_Referral_Program_Admin {
 					'desc_tip'          => __( 'Enter the discount amount.', 'coupon-referral-program' ),
 				),
 				array(
+					'title'   => __( 'Enable/Disable', 'coupon-referral-program' ),
+					'desc'    => __( 'Allow coupon configuration setting applicable for the referral code', 'coupon-referral-program' ),
+					'default' => 'no',
+					'type'    => 'checkbox',
+					'id'      => 'mwb_crp_referal_code_restriction',
+				),
+				array(
 					'type' => 'sectionend',
 				),
 
@@ -317,6 +324,15 @@ class Coupon_Referral_Program_Admin {
 					),
 					'desc_tip' => __( 'Select the type for your signup discount coupon for referee when referred user signup using referred link.' ),
 					'desc'     => __( 'The referee will get the selected coupon type on the referral signup.', 'coupon-referral-program' ),
+				),
+				array(
+					'title'             => __( 'Discount on the nth referral sign-up', 'coupon-referral-program' ),
+					'default'           => '',
+					'type'              => 'number',
+					'desc_tip'          => __( 'The value you enter will be set as the nth sign-up coupon for the Referee. If it is blank then on every referral, the referee will get the coupon', 'coupon-referral-program' ),
+					'id'                => 'nth_signup_discount_value',
+					'desc'     => __( 'Referee gets a coupon for every nth sign-up only.', 'coupon-referral-program' ),
+					'class'             => 'mwb_crp_input_val',
 				),
 				array(
 					'type' => 'sectionend',
@@ -517,7 +533,7 @@ class Coupon_Referral_Program_Admin {
 					'default'  => self::get_selected_image(),
 					'id'       => 'mwb_cpr_image',
 					'desc_tip' => __( 'Select the background image for your popup', 'coupon-referral-program' ),
-					'desc'     => '<div class="mwb_crp_image"><button class="mwb_crp_image_button button ">' . __( 'Upload', 'coupon-referral-program' ) . '</button><button class="mwb_crp_image_resetbtn button">' . __( 'Reset', 'coupon-referral-program' ) . '</button></div><div class="mwb_cpr_image_display"><img id="mwb_cpr_image_display" width="100" height="100" src="' . self::get_selected_image() . '"></div>',
+					'desc'     => '<div class="mwb_crp_image"><button class="mwb_crp_image_button button ">' . __( 'Upload', 'coupon-referral-program' ) . '</button><button class="mwb_crp_image_resetbtn button">' . __( 'Reset', 'coupon-referral-program' ) . '</button></div><div class="mwb_cpr_image_display"><img id="mwb_cpr_image_display" alt="color image" width="100" height="100" src="' . self::get_selected_image() . '"></div>',
 				),
 				array(
 					'title'    => __( 'Use this shortcode for the referral link', 'coupon-referral-program' ),
@@ -988,7 +1004,7 @@ class Coupon_Referral_Program_Admin {
 			$sections['points_rewards'] = __( 'Points & Rewards', 'coupon-referral-program' );
 		}
 		if ( is_plugin_active( 'woocommerce-subscriptions/woocommerce-subscriptions.php' ) ) {
-
+ 
 			$sections['woocommerce_subscription'] = __( 'Woocommerce subscriptions', 'coupon-referral-program' );
 		}
 		/**
@@ -1149,7 +1165,7 @@ class Coupon_Referral_Program_Admin {
 	 * This function is used to sanitize referral length key.
 	 *
 	 * @param int $value value of settings.
-	 * @param int $option value of settings.
+	 * @param int $option value of settings. 
 	 * @param int $raw_value value of settings.
 	 * @name mwb_crp_referral_length_sanitize_option.
 	 * @since    1.6.0
@@ -1231,7 +1247,7 @@ class Coupon_Referral_Program_Admin {
 				'utilize'        => __( 'Total Utilization', 'woocommerce-subscriptions-pro' ),
 				'no_of_coupons'  => __( 'Total no of Coupon', 'woocommerce-subscriptions-pro' ),
 				'coupon_data'    => __( 'Coupons Data', 'woocommerce-subscriptions-pro' ),
-			);	
+			);
 			fputcsv( $output, $title, ',' );
 
 			$users              = get_users( array( 'fields' => array( 'ID' ) ) );
@@ -1369,6 +1385,12 @@ class Coupon_Referral_Program_Admin {
 
 		$user_reference_key = get_user_meta( $user_id, 'referral_key', true );
 		if ( ! empty( $user_id ) && ! empty( $user_reference_key ) ) {
+			/**
+			 * Filter for the site url link
+			 *
+			 * @since 1.6.4
+			 * @param string site_url() .
+			 */
 			$page_permalink  = apply_filters( 'mwb_crp_referral_link_url', site_url() );
 			$referral_link   = $page_permalink . '?ref=' . $user_reference_key;
 			$user            = get_user_by( 'ID', $user_id );

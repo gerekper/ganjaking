@@ -7,15 +7,31 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-27T03:44:53+00:00\n"
-"PO-Revision-Date: 2023-03-22 16:54:04+0000\n"
+"POT-Creation-Date: 2023-04-12T18:21:28+00:00\n"
+"PO-Revision-Date: 2023-04-06 14:54:03+0000\n"
 "Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
+#: includes/wc-bookings-functions.php:437
+msgid "If there are multiple rules with the same priority, then the order of the rules is considered. In this case the rule with the higher order will take precedence over the rule with the lower order."
+msgstr "우선순위가 동일한 규칙이 여러 개 있으면 규칙의 순서를 고려합니다. 이 경우에는 순서가 높은 규칙이 순서가 낮은 규칙보다 우선합니다."
+
+#: includes/wc-bookings-functions.php:436
+msgid "A lower priority rule will always override a higher priority rule e.g. 9 overrides 10."
+msgstr "우선순위가 낮은 규칙이 항상 우선순위가 높은 규칙보다 우선합니다(예: 10보다 9가 우선)."
+
+#: includes/admin/views/html-classic-availability-settings.php:143
+msgid "For more information on setting up store availability rules, please see our %1$sdocumentation%2$s."
+msgstr "스토어 이용 가능 여부 설정에 대한 자세한 내용은 %1$s설명서%2$s를 참조하세요."
+
+#: includes/admin/views/html-classic-availability-settings.php:138
+msgid "This section will set the availability of your store (e.g. open and closed hours). All bookable products will adopt your store's availability."
+msgstr "이 섹션에서는 스토어의 이용 가능 여부를 설정합니다(예: 영업 및 마감 시간). 모든 예약 가능 상품에 스토어의 이용 가능 여부가 적용됩니다."
+
 #: includes/class-wc-bookings-cache.php:237
 msgid "Error: Resource not found, please try again"
-msgstr ""
+msgstr "오류: 리소스를 찾을 수 없습니다. 다시 시도하세요."
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
@@ -41,11 +57,11 @@ msgstr "이전 달"
 msgid "Please wait, the latest available slots are being processed in the background."
 msgstr "기다려 주세요. 사용 가능한 최신 슬롯이 백그라운드에서 처리되고 있습니다."
 
-#: includes/admin/views/html-classic-availability-settings.php:151
+#: includes/admin/views/html-classic-availability-settings.php:160
 msgid "Google Events"
 msgstr "Google 이벤트"
 
-#: includes/admin/views/html-classic-availability-settings.php:145
+#: includes/admin/views/html-classic-availability-settings.php:154
 msgid "Availability Rules"
 msgstr "이용 가능 여부 규칙"
 
@@ -607,7 +623,7 @@ msgstr "시작"
 msgid "F j, Y"
 msgstr "Y년 F j일"
 
-#: includes/wc-bookings-functions.php:1261
+#: includes/wc-bookings-functions.php:1283
 msgid "night"
 msgid_plural "nights"
 msgstr[0] "밤"
@@ -615,7 +631,7 @@ msgstr[0] "밤"
 #: includes/booking-form/class-wc-booking-form.php:311
 #: includes/data-objects/class-wc-product-booking.php:2413
 #: includes/data-objects/class-wc-product-booking.php:2428
-#: includes/wc-bookings-functions.php:1258
+#: includes/wc-bookings-functions.php:1280
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "분"
@@ -623,12 +639,12 @@ msgstr[0] "분"
 #: includes/booking-form/class-wc-booking-form.php:313
 #: includes/data-objects/class-wc-product-booking.php:2415
 #: includes/data-objects/class-wc-product-booking.php:2430
-#: includes/wc-bookings-functions.php:1255
+#: includes/wc-bookings-functions.php:1277
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "시간"
 
-#: includes/wc-bookings-functions.php:1251
+#: includes/wc-bookings-functions.php:1273
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] "주"
@@ -636,18 +652,14 @@ msgstr[0] "주"
 #: includes/booking-form/class-wc-booking-form.php:317
 #: includes/data-objects/class-wc-product-booking.php:2419
 #: includes/data-objects/class-wc-product-booking.php:2434
-#: includes/wc-bookings-functions.php:1244
+#: includes/wc-bookings-functions.php:1266
 msgid "month"
 msgid_plural "months"
 msgstr[0] "mes"
 
-#: includes/wc-bookings-functions.php:425
+#: includes/wc-bookings-functions.php:447
 msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Global rules take priority over product rules which take priority over resource rules. By using priority numbers you can execute rules in different orders."
 msgstr "우선순위 번호가 낮은 규칙이 우선순위 번호가 높은 규칙보다 우선 적용됩니다(예: 9번이 10번보다 우선 적용됨). 글로벌 규칙이 상품 규칙보다 우선하며, 상품 규칙이 리소스 규칙보다 우선합니다. 우선순위 번호를 사용하여 규칙을 여러 다른 순서로 실행할 수 있습니다."
-
-#: includes/wc-bookings-functions.php:416
-msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Ordering is only applied within the same priority and higher order overrides lower order."
-msgstr "우선순위 번호가 낮은 규칙이 우선순위 번호가 높은 규칙보다 우선 적용됩니다(예: 9번이 10번보다 우선 적용됨). 순서 지정은 동일한 우선순위 내에서만 적용되며 높은 순서에서 낮을 순서를 재정의합니다."
 
 #: includes/wc-bookings-functions.php:146
 msgid "In Cart"
@@ -1653,7 +1665,7 @@ msgstr "%2$2s당 +%1$1s"
 #: includes/booking-form/class-wc-booking-form.php:315
 #: includes/data-objects/class-wc-product-booking.php:2417
 #: includes/data-objects/class-wc-product-booking.php:2432
-#: includes/wc-bookings-functions.php:1248
+#: includes/wc-bookings-functions.php:1270
 msgid "day"
 msgid_plural "days"
 msgstr[0] "일"
@@ -2121,21 +2133,20 @@ msgstr "여기에서 고객을 위한 새 예약을 생성할 수 있습니다. 
 msgid "Booking Data"
 msgstr "예약 데이터"
 
-#: includes/admin/views/html-classic-availability-settings.php:238
+#: includes/admin/views/html-classic-availability-settings.php:247
 #: includes/class-wc-bookings-google-calendar-connection.php:346
 #: includes/class-wc-bookings-timezone-settings.php:213
 msgid "Save Changes"
 msgstr "변경 사항 저장"
 
-#: includes/admin/views/html-classic-availability-settings.php:236
+#: includes/admin/views/html-classic-availability-settings.php:245
 msgid "Past availability are hidden from this list."
 msgstr "과거의 이용 가능 항목은 이 목록에서 숨겨집니다."
 
-#: includes/admin/views/html-classic-availability-settings.php:175
+#: includes/admin/views/html-classic-availability-settings.php:184
 msgid "Title"
 msgstr "타이틀"
 
-#: includes/admin/views/html-classic-availability-settings.php:138
 #: includes/admin/views/html-store-availability-settings.php:70
 msgid "This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store's availability."
 msgstr "이 섹션은 스토어의 이용 가능 여부(영업 시간, 휴일 등)를 설정합니다. 모든 예약 가능 상품에 스토어의 이용 가능 여부가 적용됩니다."
@@ -2246,7 +2257,7 @@ msgstr "라벨"
 
 #: includes/admin/views/html-booking-resources.php:8
 #: includes/booking-form/class-wc-booking-form.php:345
-#: includes/wc-bookings-functions.php:959
+#: includes/wc-bookings-functions.php:981
 #: templates/emails/plain/admin-booking-display.php:55
 #: templates/emails/plain/customer-booking-display.php:54
 msgid "Type"
@@ -3581,7 +3592,7 @@ msgstr "예약이 업데이트되었습니다."
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:275
 #: includes/class-wc-bookings-google-calendar-connection.php:1432
-#: includes/wc-bookings-functions.php:1221
+#: includes/wc-bookings-functions.php:1243
 msgid "Persons"
 msgstr "인원"
 
@@ -3640,39 +3651,39 @@ msgstr "bookings-extensions"
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:115
 #: includes/admin/views/html-booking-availability.php:167
 #: includes/admin/views/html-booking-pricing.php:78
-#: includes/admin/views/html-classic-availability-settings.php:193
+#: includes/admin/views/html-classic-availability-settings.php:202
 msgid "Add Range"
 msgstr "범위 추가"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:103
 #: includes/admin/views/html-booking-availability.php:155
-#: includes/admin/views/html-classic-availability-settings.php:176
+#: includes/admin/views/html-classic-availability-settings.php:185
 msgid "Priority"
 msgstr "우선순위"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:102
 #: includes/admin/views/html-booking-availability.php:154
-#: includes/admin/views/html-classic-availability-settings.php:174
+#: includes/admin/views/html-classic-availability-settings.php:183
 msgid "If not bookable, users won't be able to choose this block for their booking."
 msgstr "예약할 수 없는 경우 사용자는 예약에 이 블록을 선택할 수 없습니다."
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:102
 #: includes/admin/views/html-booking-availability.php:154
-#: includes/admin/views/html-classic-availability-settings.php:174
+#: includes/admin/views/html-classic-availability-settings.php:183
 msgid "Bookable"
 msgstr "예약 가능"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:99
 #: includes/admin/views/html-booking-availability.php:151
 #: includes/admin/views/html-booking-pricing.php:62
-#: includes/admin/views/html-classic-availability-settings.php:171
+#: includes/admin/views/html-classic-availability-settings.php:180
 msgid "Range"
 msgstr "범위"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:98
 #: includes/admin/views/html-booking-availability.php:150
 #: includes/admin/views/html-booking-pricing.php:61
-#: includes/admin/views/html-classic-availability-settings.php:170
+#: includes/admin/views/html-classic-availability-settings.php:179
 msgid "Range type"
 msgstr "범위 유형"
 

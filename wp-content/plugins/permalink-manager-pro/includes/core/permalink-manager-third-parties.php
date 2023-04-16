@@ -66,7 +66,7 @@ class Permalink_Manager_Third_Parties {
 
 		// 5. Theme My Login
 		if ( class_exists( 'Theme_My_Login' ) ) {
-			add_action( 'wp', array( $this, 'tml_ignore_custom_permalinks'), 10 );
+			add_action( 'wp', array( $this, 'tml_ignore_custom_permalinks' ), 10 );
 		}
 
 		// 6. Yoast SEO
@@ -182,6 +182,7 @@ class Permalink_Manager_Third_Parties {
 		// Woocommerce
 		if ( class_exists( 'WooCommerce' ) ) {
 			add_filter( 'woocommerce_get_endpoint_url', array( 'Permalink_Manager_Core_Functions', 'control_trailing_slashes' ), 9 );
+			add_action( 'before_woocommerce_init', array( $this, 'woocommerce_cot_compatibility' ) );
 		}
 	}
 
@@ -370,7 +371,14 @@ class Permalink_Manager_Third_Parties {
 
 		if ( ! empty( $custom_permalinks_uris ) && count( $custom_permalinks_uris ) > 0 ) {
 			foreach ( $custom_permalinks_uris as $item ) {
-				$permalink_manager_uris[ $item['id'] ] = Permalink_Manager_Helper_Functions::sanitize_title( $item['uri'] );
+				$item_uri = $item['uri'];
+
+				// Decode custom permalink if contains percent-encoded characters
+				if ( preg_match( '/%[0-9A-F]{2}/i', $item_uri ) ) {
+					$item_uri = urldecode( $item_uri );
+				}
+
+				$permalink_manager_uris[ $item['id'] ] = Permalink_Manager_Helper_Functions::sanitize_title( $item_uri );
 			}
 
 			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message( __( '"Custom Permalinks" URIs were imported!', 'permalink-manager' ), 'updated' );
@@ -603,6 +611,16 @@ class Permalink_Manager_Third_Parties {
 	}
 
 	/**
+	 * 4G. Declare support for 'High-Performance order storage (COT)' in WooCommerce
+	 */
+	function woocommerce_cot_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) && method_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil', 'declare_compatibility' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'permalink-manager' );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'permalink-manager-pro' );
+		}
+	}
+
+	/**
 	 * 5. Do not use custom permalinks if any action is triggered inside Theme My Login plugin
 	 */
 	function tml_ignore_custom_permalinks() {
@@ -760,8 +778,20 @@ class Permalink_Manager_Third_Parties {
 		// Get Yoast Meta (the breadcrumbs titles can be changed in Yoast metabox)
 		$yoast_meta_terms = get_option( 'wpseo_taxonomy_meta' );
 
-		// Check if the hook is called by AIOSEO plugin
-		$is_aioseo = ( $current_filter == 'aioseo_breadcrumbs_trail' ) ? true : false;
+		// Check what array keys should be used for breadcrumbs ("All In One SEO" uses a more complicated schema)
+		if ( $current_filter == 'aioseo_breadcrumbs_trail' ) {
+			$breadcrumb_key_text = 'label';
+			$breadcrumb_key_url  = 'link';
+			$is_aioseo           = true;
+		} else if ( in_array( $current_filter, array( 'wpseo_breadcrumb_links', 'slim_seo_breadcrumbs_links' ) ) ) {
+			$breadcrumb_key_text = 'text';
+			$breadcrumb_key_url  = 'url';
+			$is_aioseo           = false;
+		} else {
+			$breadcrumb_key_text = 0;
+			$breadcrumb_key_url  = 1;
+			$is_aioseo           = false;
+		}
 
 		// Get internal breadcrumb elements
 		foreach ( $custom_uri_parts as $slug ) {
@@ -805,7 +835,7 @@ class Permalink_Manager_Third_Parties {
 			// 2A. When the term is found, we can add it to the breadcrumbs
 			if ( ! empty( $element->term_id ) ) {
 				$term_id = apply_filters( 'wpml_object_id', $element->term_id, $element->taxonomy, true );
-				$term    = ( ( $element->term_id !== $term_id) || $is_aioseo ) ? get_term( $term_id ) : $element;
+				$term    = ( ( $element->term_id !== $term_id ) || $is_aioseo ) ? get_term( $term_id ) : $element;
 
 				// Alternative title
 				if ( $current_filter == 'wpseo_breadcrumb_links' ) {
@@ -820,22 +850,22 @@ class Permalink_Manager_Third_Parties {
 
 				if ( $is_aioseo ) {
 					$breadcrumbs[] = array(
-						'label'     => wp_strip_all_tags( $title ),
-						'link'      => get_term_link( (int) $term->term_id, $term->taxonomy ),
-						'type'      => 'taxonomy',
-						'subType'   => 'parent',
-						'reference' => $term,
+						$breadcrumb_key_text => wp_strip_all_tags( $title ),
+						$breadcrumb_key_url  => get_term_link( (int) $term->term_id, $term->taxonomy ),
+						'type'               => 'taxonomy',
+						'subType'            => 'parent',
+						'reference'          => $term,
 					);
 				} else {
 					$breadcrumbs[] = array(
-						'text' => wp_strip_all_tags( $title ),
-						'url'  => get_term_link( (int) $term->term_id, $term->taxonomy )
+						$breadcrumb_key_text => wp_strip_all_tags( $title ),
+						$breadcrumb_key_url  => get_term_link( (int) $term->term_id, $term->taxonomy )
 					);
 				}
 			} // 2B. When the post/page is found, we can add it to the breadcrumbs
 			else if ( ! empty( $element->ID ) ) {
 				$page_id = apply_filters( 'wpml_object_id', $element->ID, $element->post_type, true );
-				$page    = ( ($element->ID !== $page_id) || $is_aioseo ) ? get_post( $page_id ) : $element;
+				$page    = ( ( $element->ID !== $page_id ) || $is_aioseo ) ? get_post( $page_id ) : $element;
 
 				// Alternative title
 				if ( $current_filter == 'wpseo_breadcrumb_links' ) {
@@ -850,32 +880,32 @@ class Permalink_Manager_Third_Parties {
 
 				if ( $is_aioseo ) {
 					$breadcrumbs[] = array(
-						'label'     => wp_strip_all_tags( $title ),
-						'link'      => get_permalink( $page->ID ),
-						'type'      => 'single',
-						'subType'   => '',
-						'reference' => $page
+						$breadcrumb_key_text => wp_strip_all_tags( $title ),
+						$breadcrumb_key_url  => get_permalink( $page->ID ),
+						'type'               => 'single',
+						'subType'            => '',
+						'reference'          => $page
 					);
 				} else {
 					$breadcrumbs[] = array(
-						'text' => wp_strip_all_tags( $title ),
-						'url'  => get_permalink( $page->ID )
+						$breadcrumb_key_text => wp_strip_all_tags( $title ),
+						$breadcrumb_key_url  => get_permalink( $page->ID )
 					);
 				}
 			} // 2C. When the post archive is found, we can add it to the breadcrumbs
 			else if ( ! empty( $element->rewrite ) && ( ! empty( $element->labels->name ) ) ) {
 				if ( $is_aioseo ) {
 					$breadcrumbs[] = array(
-						'label'     => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
-						'link'      => get_post_type_archive_link( $element->name ),
-						'type'      => 'postTypeArchive',
-						'subType'   => '',
-						'reference' => $element
+						$breadcrumb_key_text => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
+						$breadcrumb_key_url  => get_post_type_archive_link( $element->name ),
+						'type'               => 'postTypeArchive',
+						'subType'            => '',
+						'reference'          => $element
 					);
 				} else {
 					$breadcrumbs[] = array(
-						'text' => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
-						'url'  => get_post_type_archive_link( $element->name )
+						$breadcrumb_key_text => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
+						$breadcrumb_key_url  => get_post_type_archive_link( $element->name )
 					);
 				}
 			}
@@ -883,36 +913,30 @@ class Permalink_Manager_Third_Parties {
 
 		// Add new links to current breadcrumbs array
 		if ( ! empty( $links ) && is_array( $links ) ) {
-			$first_element = reset( $links );
-			$last_element  = end( $links );
-			$breadcrumbs   = ( ! empty( $breadcrumbs ) ) ? $breadcrumbs : array();
+			$first_element  = reset( $links );
+			$last_element   = end( $links );
+			$b_last_element = prev( $links );
+			$breadcrumbs    = ( ! empty( $breadcrumbs ) ) ? $breadcrumbs : array();
 
 			// Support RankMath/SEOPress/WooCommerce/Slim SEO/AIOSEO breadcrumbs
 			if ( in_array( $current_filter, array( 'wpseo_breadcrumb_links', 'rank_math/frontend/breadcrumb/items', 'seopress_pro_breadcrumbs_crumbs', 'woocommerce_get_breadcrumb', 'slim_seo_breadcrumbs_links', 'aioseo_breadcrumbs_trail' ) ) ) {
-				foreach ( $breadcrumbs as &$breadcrumb ) {
-					if ( isset( $breadcrumb['text'] ) ) {
-						$breadcrumb[0] = $breadcrumb['text'];
-						$breadcrumb[1] = $breadcrumb['url'];
-					}
-				}
-
 				if ( $current_filter == 'slim_seo_breadcrumbs_links' ) {
 					$links = array_merge( array( $first_element ), $breadcrumbs );
+				} // Append the element before the last element if the last breadcrumb does not have a URL set (e.g. if the /page/ endpoint is used)
+				else if ( ! in_array( $current_filter, array( 'aioseo_breadcrumbs_trail', 'slim_seo_breadcrumbs_links' ) ) && ! empty( $wp->query_vars['paged'] ) && $wp->query_vars['paged'] > 1 && ! empty( $b_last_element[ $breadcrumb_key_url ] ) ) {
+					$links = array_merge( array( $first_element ), $breadcrumbs, array( $b_last_element ), array( $last_element ) );
 				} else {
 					$links = array_merge( array( $first_element ), $breadcrumbs, array( $last_element ) );
 				}
 			} // Support Avia/Enfold breadcrumbs
 			else if ( $current_filter == 'avia_breadcrumbs_trail' ) {
 				foreach ( $breadcrumbs as &$breadcrumb ) {
-					if ( isset( $breadcrumb['text'] ) ) {
-						$breadcrumb = sprintf( '<a href="%s" title="%2$s">%2$s</a>', esc_attr( $breadcrumb['url'] ), esc_attr( $breadcrumb['text'] ) );
+					if ( isset( $breadcrumb[ $breadcrumb_key_text ] ) ) {
+						$breadcrumb = sprintf( '<a href="%s" title="%2$s">%2$s</a>', esc_attr( $breadcrumb[ $breadcrumb_key_url ] ), esc_attr( $breadcrumb[ $breadcrumb_key_text ] ) );
 					}
 				}
 
-				if ( ! empty( $breadcrumbs ) ) {
-					$links              = $breadcrumbs;
-					$links['trail_end'] = $last_element;
-				}
+				$links = array_merge( array( $first_element ), $breadcrumbs, array( 'trail_end' => $last_element ) );
 			}
 		}
 
@@ -1212,7 +1236,7 @@ class Permalink_Manager_Third_Parties {
 			}
 
 			$default_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri( $id );
-			Permalink_Manager_URI_Functions::save_single_uri( $id, $default_uri, false, false );
+			Permalink_Manager_URI_Functions::save_single_uri( $id, $default_uri );
 		}
 
 		Permalink_Manager_URI_Functions::save_all_uris();

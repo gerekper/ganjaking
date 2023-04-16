@@ -1,5 +1,19 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-04-12 - version 1.15.79
+* Add - Encryption to stored access, refresh, and sync keys for Google Calendar.
+* Add - Support for the Accommodation Booking extension's Check-in and Check-out days.
+* Dev - Bump WooCommerce "tested up to" version 7.5.
+* Dev - Bump WooCommerce minimum supported version from 6.0 to 6.8.
+* Dev - Bump WordPress "tested up to" version 6.2.
+* Dev - Bump WordPress minimum supported version from 5.6 to 5.8.
+* Dev - Bump `google/apiclient` from 2.9.1 to 2.13.
+* Dev - Project maintenance automation via GitHub Actions.
+* Fix - 'View all orders' link label in new Bookings emails now correctly labeled as `View Booking Calendar`.
+* Fix - Avoid Error Log on new Bookings.
+* Fix - Cancelled and manually added bookings under the correct line items.
+* Fix - Show notice if booking is invalid.
+
 2023-03-27 - version 1.15.78
 * Fix - Update availability rule helper text.
 

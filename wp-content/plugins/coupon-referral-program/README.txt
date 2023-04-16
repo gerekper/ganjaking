@@ -2,10 +2,10 @@
 Contributors: WP Swings
 Tags: coupon, coupon referral program, loyalty Program, loyalty, referral program, customer rewards, referral marketing
 Requires at least: 5.5.0
-Tested up to: 6.1.1
+Tested up to: 6.2.0
 WC requires at least: 5.5.0
-WC tested up to: 7.4.1
-Stable tag: 1.6.7
+WC tested up to: 7.5.1
+Stable tag: 1.6.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,8 +31,8 @@ The referral system also allows users to share their referral links on social ne
 
 == BENEFITS ==
 * **Builds Strong Customer Base:** The referral coupons offer lucrative deals to attract more and more customers.
-* **Improves Interaction & Engagement Rate:**Using coupons and referral marketing together elevate engagement and interaction rate between your business and customers.
-* **Strong Customer Loyalty:** This WordPress referral plugin helps you create  loyal customers as the referral coupon offers to keep your customers close and connected.
+* **Improves Interaction & Engagement Rate:**Using coupons and referral marketing together elevates engagement and interaction rate between your business and customers.
+* **Strong Customer Loyalty:** This WordPress referral plugin helps you create loyal customers as the referral coupon offers to keep your customers close and connected.
 * **Enhances Brand Awareness:** The referral marketing approach with coupons helps you to increase your brand awareness among the potential audience.
 * **Improves Customer Lifetime Value:** The coupon deals keep your customers satisfied and promote their shopping interests. Thus, it helps in improving your customer lifetime value score. 
 * **Leverages Referral Marketing:** It provides the option to share the referral link on Facebook, Twitter, and email. This plugin promotes referral marketing tactics by collaborating with coupon marketing.
@@ -46,7 +46,7 @@ Reward your referrers and turn them into repeat customers by providing referral 
 **2. Add Referral Tab Using Shortcode:**
 Using the given shortcode in the latest update of our Coupon Referral Program plugin, you can now display all your referral codes in the dedicated WooCommerce referrals tab on any page. You can also customize the text for the same referral tab.
 
-**3. Place Referral Code Anywhere On the Page:**
+**3. Place the Referral Code Anywhere On the Page:**
 Using the WooCommerce Referral Code plugin, you can place and display the referral promotion code for your customers anywhere on the pages of your website.
 
 **4. Customize Text in Popup Referral Window::**
@@ -71,13 +71,13 @@ Decide the coupon type you want to provide on sign-up and referral purchases.
 It generates a referral link that can be easily copied to your clipboard & shared on social platforms (like Facebook and Twitter) and email inboxes.
 
 **11. Customizable Referral Button**
-Apply animation and custom CSS to make the referral button look more captivating. It can also be customized using the predefined option present in the Display Configuration (i.e. button text, color, position, and background image of the button that will be visible to guest users.)
+The WooCommerce referral plugin enables you to apply animation and custom CSS to make the referral button look more captivating. It can also be customized using the predefined option present in the Display Configuration (i.e. button text, color, position, and background image of the button that will be visible to guest users.)
 
 **12. Coupon Reporting**
-Coupon Reporting can be performed from the admin and customer end to acquire coupon information. Through Coupon Reporting, it’s easy to analyze coupon utilization and its effectiveness for users. Businesses can further use this report to better strategize their promotional strategies.
+Coupon Reporting can be performed from the admin and customer end to acquire coupon information. Through Coupon Reporting, it’s easy to analyze coupon utilization and its effectiveness for users. Businesses can further use this report to strategize their promotional strategies better.
 
 **13. Coupon Expiration Time**
-You can set the number of days until when the coupon remains valid. Set ‘0’ if you want your coupon to be redeemable forever. [Note- The referral link can be used even after the inserted date has gone but the referred user won’t get any discount coupon for the same.]
+You can set the number of days until when the coupon remains valid by using this referral system. Set ‘0’ if you want your coupon to be redeemable forever. [Note- The referral link can be used even after the inserted date has gone but the referred user won’t get any discount coupon for the same.]
 
 **14. Offer Points to All**
 Enable points setting from the backend to leverage points instead of coupons in your referral marketing campaign.
@@ -89,7 +89,7 @@ Subscribers can use the coupons earned by referring others to renew their subscr
 Select the products on which the customers will get to earn discount coupons or points and also select the products that you want to exclude from your coupon referral program.
 
 **17. Maximum and Minimum Amount For Coupon Use**
-Admin can decide the minimum and maximum amount spent on which customers will be able to redeem their referral discount coupons. The customers’ cart subtotal should be in between the maximum and minimum spend value for the discount coupon to be applicable.
+With this eCommerce referral plugin admin can decide the minimum and maximum amount spent on which customers will be able to redeem their referral discount coupons. The customers’ cart subtotal should be in between the maximum and minimum spend value for the discount coupon to be applicable.
 
 **18. Referral via Coupon Code**
 Admin can allow customers (referrers) to refer via referrer code and reward referrers after the referred user uses the coupon referral code to make a purchase.
@@ -98,13 +98,13 @@ Admin can allow customers (referrers) to refer via referrer code and reward refe
 Admin can now display the number of times a coupon code is used for easy tracking and reporting purposes. 
 
 **20. Hide Coupon Referral** 
-The admin can enable this setting to hide the coupon referral when the WooCommerce Points and Rewards setting is enabled. 
+By using this WooCommerce referral program the admin can enable this setting to hide the coupon referral when the WooCommerce Points and Rewards setting is enabled. 
 
 **21. Give Special First Purchase Discount**
 With this WooCommerce referral plugin configuration feature of the Coupon Referral Program plugin, the admin can now allow additional discounts on the first referral purchase. 
 
 **22. Customize the Referral Template**
- The admin can customize the referral template by adding the custom email template under the Display Configuration Setting.
+ The WooCommerce referral plugin allows the admin to customize the referral template by adding the custom email template under the Display Configuration Setting.
 
 **23. Add the Referral Use Detail on the Order Edit Page**
 With this feature of the coupon referral program plugin, the admin can also display the name of the “referred by” user on the order edit page while making a referral purchase.
@@ -113,10 +113,19 @@ With this feature of the coupon referral program plugin, the admin can also disp
 With this latest feature update of our Coupon Referral Program plugin, you can get an option to export and download all the data in a CSV file. The option is available in the referral tab of the report section.
 
 **25. Refer a Friend From the Product Page**
-By using this feature you can refer a friend to the product from the page itself. On the product page, there is the option of referring a friend. By clicking on it you can share the referral link of the page with your friend on social media platforms. 
+This eCommerce referral plugin gives you a feature that allows you to By using this feature you can refer a friend to the product from the page itself. On the product page, there is the option of referring a friend. By clicking on it you can share the referral link of the page with your friend on social media platforms. 
 
 **26. Referral Reminder Email to the User**
-The admin can send an email reminder to the user by using this feature. The option is available in the referral tab of the report section.
+The admin can send an email reminder to the user by using this referral system feature. feature. The option is available in the referral tab of the report section.
+
+**27. Allow Coupon Configuration Setting Applicable for the Referral Code**
+The admin has the option to limit the number of coupons a referee can share by using the referral code. By enabling this setting you can limit the number of coupons a user can share for getting a discount on their purchases.
+
+**28. Discount on the nth Referral Sign-up**
+The admin can send an email reminder to the user by using this referral system feature. feature. The option is available in the referral tab of the report section.
+
+**29. Send the Referral Email to Multiple Users**
+The eCommerce referral plugin allows the admin to send multiple emails to users by using this feature. The referee can now send multiple emails at a time by adding the emails by using this option. 
 
 **Some More Popular Features**
 
@@ -159,6 +168,16 @@ The manual installation method involves downloading our Coupon Referral Program 
 
 
 == Changelog ==
+
+**2023-04-013 - Version 1.6.8**
+
+* New: Allow coupon configuration setting applicable for the referral code
+* New: Allow the customer to send the referral email to multiple users.
+* New: Discount on the nth referral sign-up
+* New: Add shortcodes for emails
+* New: Referral code regeneration
+* New: Compatible with the latest WP (6.2.0) and WC(7.5.1)
+
 
 **2023-03-03 - Version 1.6.7**
 

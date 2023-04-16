@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -169,7 +169,7 @@ abstract class Engine implements \JsonSerializable
                     $x = substr($x, 1);
                 }
 
-                $x = preg_replace('#^(?:0x)?([A-Fa-f0-9]*).*#', '$1', $x);
+                $x = preg_replace('#^(?:0x)?([A-Fa-f0-9]*).*#s', '$1', $x);
 
                 $is_negative = false;
                 if ($base < 0 && hexdec($x[0]) >= 8) {
@@ -190,7 +190,7 @@ abstract class Engine implements \JsonSerializable
                 // (?<!^)(?:-).*: find any -'s that aren't at the beginning and then any characters that follow that
                 // (?<=^|-)0*: find any 0's that are preceded by the start of the string or by a - (ie. octals)
                 // [^-0-9].*: find any non-numeric characters and then any characters that follow that
-                $this->value = preg_replace('#(?<!^)(?:-).*|(?<=^|-)0*|[^-0-9].*#', '', $x);
+                $this->value = preg_replace('#(?<!^)(?:-).*|(?<=^|-)0*|[^-0-9].*#s', '', $x);
                 if (!strlen($this->value) || $this->value == '-') {
                     $this->value = '0';
                 }
@@ -203,7 +203,7 @@ abstract class Engine implements \JsonSerializable
                     $x = substr($x, 1);
                 }
 
-                $x = preg_replace('#^([01]*).*#', '$1', $x);
+                $x = preg_replace('#^([01]*).*#s', '$1', $x);
 
                 $temp = new static(Strings::bits2bin($x), 128 * $base); // ie. either -16 or +16
                 $this->value = $temp->value;
@@ -373,6 +373,8 @@ abstract class Engine implements \JsonSerializable
      * JSON Serialize
      *
      * Will be called, automatically, when json_encode() is called on a BigInteger object.
+     *
+     * @return array{hex: string, precision?: int]
      */
     #[\ReturnTypeWillChange]
     public function jsonSerialize()

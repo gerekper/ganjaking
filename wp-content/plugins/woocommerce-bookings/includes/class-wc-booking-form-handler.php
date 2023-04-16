@@ -20,12 +20,20 @@ class WC_Booking_Form_Handler {
 
 			$booking_id         = absint( $_GET['booking_id'] );
 			$booking            = get_wc_booking( $booking_id );
+
+			if ( ! $booking ) {
+				wc_add_notice( __( 'Invalid booking.', 'woocommerce-bookings' ), 'error' );
+				return;
+			}
+
 			$booking_can_cancel = $booking->has_status( get_wc_booking_statuses( 'cancel' ) );
 			$redirect           = $_GET['redirect'];
 
-			if ( $booking->has_status( 'cancelled' ) ) {
+			if ( $booking->get_customer_id() !== get_current_user_id() ) {
+				wc_add_notice( __( 'Invalid booking.', 'woocommerce-bookings' ), 'error' );
+			} elseif ( $booking->has_status( 'cancelled' ) ) {
 				// Already cancelled - take no action
-			} elseif ( $booking_can_cancel && $booking->get_id() == $booking_id && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'woocommerce-bookings-cancel_booking' ) ) {
+			} elseif ( $booking_can_cancel && $booking->get_id() == $booking_id && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], "woocommerce-bookings-cancel_booking_{$booking->get_id()}" ) ) {
 				// Cancel the booking
 				$booking->update_status( 'cancelled' );
 				WC_Cache_Helper::get_transient_version( 'bookings', true );

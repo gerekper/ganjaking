@@ -30,7 +30,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -718,7 +718,7 @@ class SFTP extends SSH2
             if (!$this->canonicalize_paths) {
                 throw $e;
             }
-            $this->$this->canonicalize_paths = false;
+            $this->canonicalize_paths = false;
             $this->reset_connection(NET_SSH2_DISCONNECT_CONNECTION_LOST);
         }
 

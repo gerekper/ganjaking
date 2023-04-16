@@ -422,8 +422,10 @@ class Coupon_Referral_Program_Public {
 							$total_allowed_referral = get_option( 'mwb_crp_total_number_referred_users', 0 );
 							if ( empty( $total_allowed_referral ) || ( $this->mwb_crp_get_total_referred_users( $retrive_data ) <= $total_allowed_referral ) ) {
 								if ( ! self::check_is_points_rewards_enable() ) {
-									$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
-									$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
+									if ( $this->wps_crp_allow_referee_signup_discount( $retrive_data ) ) {
+										$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
+										$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
+									}
 								} elseif ( $check_par_enable ) {
 									/**
 									 * Add points for referee after user signup.
@@ -1030,14 +1032,14 @@ class Coupon_Referral_Program_Public {
 		$content        = '';
 		$content        = $content . '<div class="mwb_crp_wrapper_button">';
 
-		$twitter_button = '<div class="mwb_crp_btn mwb_crp_common_class"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=' . $page_permalink . '?ref=' . $user_reference_key . '" target="_blank"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . '/public/images/twitter.png">' . esc_html__( 'Tweet', 'coupon-referral-program' ) . '</a></div>';
+		$twitter_button = '<div class="mwb_crp_btn mwb_crp_common_class"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=' . $page_permalink . '?ref=' . $user_reference_key . '" target="_blank"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . '/public/images/twitter.png" alt="twitter icon">' . esc_html__( 'Tweet', 'coupon-referral-program' ) . '</a></div>';
 
 		$fb_button = '<div id="fb-root"></div>
 		<div class="fb-share-button mwb_crp_common_class" data-href="' . $page_permalink . '?ref=' . $user_reference_key . '" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=' . $page_permalink . '?ref=' . $user_reference_key . '">' . __( 'Share', 'coupon-referral-program' ) . '</a></div>';
 
-		$mail = '<a class="mwb_wpr_mail_button mwb_crp_common_class" href="#" rel="nofollow"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/email.png"></a>';
+		$mail = '<a class="mwb_wpr_mail_button mwb_crp_common_class" href="#" rel="nofollow"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/email.png" alt="email icon"></a>';
 
-		$whtsapp = '<a target="_blank" href=https://web.whatsapp.com/send?text=' . $referral_link . ' class="mwb_crp_common_class mwb_crp_whatsapp_button"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/watsap.png"></a>';
+		$whtsapp = '<a target="_blank" href=https://web.whatsapp.com/send?text=' . $referral_link . ' class="mwb_crp_common_class mwb_crp_whatsapp_button"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/watsap.png" alt="whatsapp icon"></a>';
 
 		if ( 'yes' === get_option( 'mwb_cpr_facebook', 'no' ) ) {
 
@@ -1664,7 +1666,7 @@ class Coupon_Referral_Program_Public {
 		if ( ! $this->mwb_crp_is_enable_multiple_apply_coupons() && $this->mwb_crp_is_enable_subscription() ) {
 			?>
 			<div id="mwb_crp_loader" class="mwb_crp_hide_element">
-				<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif">
+				<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif" alt="loading gif">
 			</div>
 			<a href="javascript:;" data-id="<?php echo esc_html( $subscription->get_id() ); ?>"class="button view mwb-coupon-view-btn mwb_crp_default"><?php echo esc_html_x( 'Apply Coupon', 'view a subscription', 'coupon-referral-program' ); ?></a>
 			<?php
@@ -1861,7 +1863,7 @@ class Coupon_Referral_Program_Public {
 	  				<div class="mwb-coupon-value">' . $mwb_coupon_amount . '</div>
 	  				<div class="mwb-coupon-ex-date">' . $expiry_date . '</div>
 	  			</div>
-	  			<div class="mwb-coupon-scissor"><img src="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/scissors.png" alt="">';
+	  			<div class="mwb-coupon-scissor"><img src="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/scissors.png" alt="scissors gif">';
 		if ( empty( $assinged_coupon ) ) {
 			$mwb_crp_html .= '</div>
 	  		<div class="mwb-coupon-apply-btn"><a class="mwb_crp_apply_button" id="' . $coupon->get_id() . '"data-subscription = "' . $subscription_id . '"data-id="' . $coupon->get_id() . '" href="#">' . __( 'Apply', 'coupon-referral-program' ) . '</a></div>
@@ -1941,7 +1943,7 @@ class Coupon_Referral_Program_Public {
 		if ( ! $this->mwb_crp_is_enable_multiple_apply_coupons() && $this->mwb_crp_is_enable_subscription() ) {
 			?>
 			<div id="mwb_crp_loader" class="mwb_crp_hide_element">
-				<img src="<?php echo esc_url( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif">
+				<img src="<?php echo esc_url( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif" alt="loading gif">
 			</div>
 			<a href="javascript:;" data-id="<?php echo esc_html( $subscription->get_id() ); ?>"class="button view mwb-coupon-view-btn mwb_crp_default"><?php echo esc_html_x( 'Apply Coupon', 'view a subscription', 'coupon-referral-program' ); ?></a>
 			<?php
@@ -2092,27 +2094,31 @@ class Coupon_Referral_Program_Public {
 		check_ajax_referer( 'mwb-crp-verify-nonce', 'mwb_nonce' );
 		$reponse['result'] = false;
 		$reponse['msg']    = __( 'Mail not sent, due to some error!', 'coupon-referral-program' );
-		$emal_id           = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
-		$user_id           = get_current_user_id();
+		$emal_ids          = isset( $_POST['email'] ) ? map_deep( wp_unslash( $_POST['email'] ), 'sanitize_text_field' ) : '';
 
-		if ( filter_var( $emal_id, FILTER_VALIDATE_EMAIL ) ) {
-			if ( isset( $user_id ) && ! empty( $user_id ) ) {
-				$user_reference_key = get_user_meta( $user_id, 'referral_key', true );
-				/**
-				 * Filter referral site url.
-				 *
-				 * @since 1.6.4
-				 * @param string site url() .
-				 */
-				$page_permalink     = apply_filters( 'mwb_crp_referral_link_url', site_url() );
-				$referral_link      = $page_permalink . '?ref=' . $user_reference_key;
-				$customer_email     = WC()->mailer()->emails['crp_share_via_email'];
-				$email_status       = $customer_email->trigger( $user_id, $referral_link, $emal_id, $user_reference_key );
-				$reponse['result']  = true;
-				$reponse['msg']     = __( 'Mail send successfully', 'coupon-referral-program' );
+		$user_id            = get_current_user_id();
+		$user_reference_key = get_user_meta( $user_id, 'referral_key', true );
+		/**
+		 * Filter referral site url.
+		 *
+		 * @since 1.6.4
+		 * @param string site url() .
+		 */
+		$page_permalink     = apply_filters( 'mwb_crp_referral_link_url', site_url() );
+		$referral_link      = $page_permalink . '?ref=' . $user_reference_key;
+		if ( is_array( $emal_ids ) && ! empty( $emal_ids ) ) {
+			foreach( $emal_ids as $emal_id ) {
+				if ( filter_var( $emal_id, FILTER_VALIDATE_EMAIL ) ) {
+					if ( isset( $user_id ) && ! empty( $user_id ) ) {
+						$customer_email     = WC()->mailer()->emails['crp_share_via_email'];
+						$email_status       = $customer_email->trigger( $user_id, $referral_link, $emal_id, $user_reference_key );
+						$reponse['result']  = true;
+						$reponse['msg']     = __( 'Mail send successfully', 'coupon-referral-program' );
+					}
+				} 
 			}
 		} else {
-			$reponse['msg'] = __( 'Invalid Email', 'coupon-referral-program' );
+			$reponse['msg'] = __( 'Invalid Emails', 'coupon-referral-program' );
 		}
 
 		wp_send_json( $reponse );
@@ -2128,6 +2134,7 @@ class Coupon_Referral_Program_Public {
 	 * @param int    $user_id user id .
 	 */
 	public function mwb_crp_generate_referral_coupon_callback( $coupon_code, $user_id ) {
+
 		$woo_ver       = WC()->version;
 		$amount        = get_option( 'mwb_crp_referral_user_coupon_amount', 1 );
 		$discount_type = get_option( 'mwb_crp_user_referral_coupon_type', 'mwb_cpr_referral_user_coupon_percent' );
@@ -2157,6 +2164,51 @@ class Coupon_Referral_Program_Public {
 		update_post_meta( $new_coupon_id, 'usage_limit_per_user', 1 );
 		update_post_meta( $new_coupon_id, 'mwb_crp_coupon_user_id', $user_id );
 		update_user_meta( $user_id, 'mwb_crp_previous_key', $coupon_code );
+
+		$apply_coupon_config = get_option( 'mwb_crp_referal_code_restriction' );
+		if ( 'yes' === $apply_coupon_config  ) {
+			$coupon_individual           = get_option( 'coupon_individual', 'no' );
+			$coupon_freeshipping         = get_option( 'coupon_freeshipping', 'no' );
+			$mwb_crp_sales_item          = $this->mwb_crp_exclude_sales_item();
+
+			$coupon_expiry = get_option( 'coupon_expiry', '' );
+			$todaydate     = date_i18n( 'Y-m-d' );
+			if ( 0 < $coupon_expiry || 0 === $coupon_expiry ) {
+				$expirydate_save = date_i18n( 'Y-m-d', strtotime( "$todaydate +$coupon_expiry day" ) );
+			} else {
+				$expirydate_save = '';
+			}
+
+			$coupon_usage                = get_option( 'coupon_usage', '' );
+			$mwb_crp_get_min_spend       = $this->mwb_crp_get_min_spend();
+			$mwb_crp_get_max_spend       = $this->mwb_crp_get_max_spend();
+			$mwb_crp_get_include_product = $this->mwb_crp_get_include_product();
+			if ( isset( $mwb_crp_get_include_product ) && ! empty( $mwb_crp_get_include_product ) ) {
+				$mwb_crp_get_include_product = implode( ',', $mwb_crp_get_include_product );
+			}
+			$mwb_crp_get_exclude_pro = $this->mwb_crp_get_exclude_pro();
+			if ( isset( $mwb_crp_get_exclude_pro ) && ! empty( $mwb_crp_get_exclude_pro ) ) {
+				$mwb_crp_get_exclude_pro = implode( ',', $mwb_crp_get_exclude_pro );
+			}
+
+
+			update_post_meta( $new_coupon_id, 'individual_use', $coupon_individual );
+			update_post_meta( $new_coupon_id, 'free_shipping', $coupon_freeshipping );
+			update_post_meta( $new_coupon_id, 'exclude_sale_items', $mwb_crp_sales_item );
+			update_post_meta( $new_coupon_id, 'date_expires', $expirydate_save );
+			update_post_meta( $new_coupon_id, 'usage_limit', $coupon_usage );
+			update_post_meta( $new_coupon_id, 'minimum_amount', $mwb_crp_get_min_spend );
+			update_post_meta( $new_coupon_id, 'maximum_amount', $mwb_crp_get_max_spend );
+
+			if ( isset( $mwb_crp_get_include_product ) && ! empty( $mwb_crp_get_include_product ) ) {
+
+			update_post_meta( $new_coupon_id, 'product_ids', $mwb_crp_get_include_product );
+			}
+			if ( isset( $mwb_crp_get_exclude_pro ) && ! empty( $mwb_crp_get_exclude_pro ) ) {
+
+			update_post_meta( $new_coupon_id, 'exclude_product_ids', $mwb_crp_get_exclude_pro );
+			}
+		}
 		return $coupon_code;
 	}
 
@@ -2201,7 +2253,7 @@ class Coupon_Referral_Program_Public {
 								<button class="mwb_cpr_btn_copy mwb_tooltip" data-clipboard-target="#mwb_cpr_referal_copyy_code" aria-label="copied">
 								<span class="mwb_tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 								<span class="mwb_tooltiptext_copied mwb_tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 								</button>
 							</span>
 						</p>
@@ -2373,7 +2425,7 @@ class Coupon_Referral_Program_Public {
 					<button class="mwb_cpr_btn_copy mwb_tooltip" data-clipboard-target="#mwb_cpr_copyy_code" aria-label="copied">
 						<span class="mwb_tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 						<span class="mwb_tooltiptext_copied mwb_tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-						<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+						<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 					</button>
 					</span>
 				</p>
@@ -2586,5 +2638,25 @@ class Coupon_Referral_Program_Public {
 	 */
 	public function wps_crp_refer_a_freind_template_callback( $slug, $tab ) {
 		include_once COUPON_REFERRAL_PROGRAM_DIR_PATH . 'public/partials/coupon-referral-program-public-referal-sharing-section.php';
+	}
+
+	/**
+	 *  Allow the nth singup discount for referee.
+	 * 
+	 * @param string $referee_key .
+	 */
+	public function wps_crp_allow_referee_signup_discount( $referee_key ) {
+		$nth_signup_discount = get_option( 'nth_signup_discount_value' );
+		$allow = false;
+		if ( ! empty( $nth_signup_discount ) ) {
+			$total_referred_user = $this->mwb_crp_get_total_referred_users( $referee_key );
+			$reminder = $total_referred_user % $nth_signup_discount;
+			if ( 0 === $reminder && ! empty( $total_referred_user ) ) {			
+				$allow = true;
+			}
+		} else {
+			$allow = true;
+		}
+		return $allow;
 	}
 }

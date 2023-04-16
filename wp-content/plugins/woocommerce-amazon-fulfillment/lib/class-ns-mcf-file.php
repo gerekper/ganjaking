@@ -128,6 +128,21 @@ if ( ! class_exists( 'NS_MCF_File' ) ) {
 		}
 
 		/**
+		 * Delete a file.
+		 *
+		 * @param string $path The full file path.
+		 *
+		 * @return bool
+		 */
+		public function delete( $path ) {
+			if ( $this->has_permission ) {
+				global $wp_filesystem;
+				return $wp_filesystem->delete( $path );
+			}
+			return false;
+		}
+
+		/**
 		 * Check and set permissions.
 		 * This checks that the file system is ready to be written
 		 */

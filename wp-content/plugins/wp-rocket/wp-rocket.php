@@ -2,9 +2,8 @@
 /**
  * Plugin Name: WP Rocket
  * Plugin URI: https://wp-rocket.me
- * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: The best WordPress performance plugin.
- * Version: 3.13.0.1
+ * Version: 3.13.0.2
  * Requires at least: 5.7
  * Requires PHP: 7.2
  * Code Name: Iego
@@ -51,7 +50,7 @@ add_filter( 'pre_http_request', function( $pre, $parsed_args, $url ) {
 defined( 'ABSPATH' ) || exit;
 
 // Rocket defines.
-define( 'WP_ROCKET_VERSION',               '3.13.0.1' );
+define( 'WP_ROCKET_VERSION',               '3.13.0.2' );
 define( 'WP_ROCKET_WP_VERSION',            '5.7' );
 define( 'WP_ROCKET_WP_VERSION_TESTED',     '5.9' );
 define( 'WP_ROCKET_PHP_VERSION',           '7.2' );
@@ -162,5 +161,3 @@ if ( $wp_rocket_requirement_checks->check() ) {
 }
 
 unset( $wp_rocket_requirement_checks );
-/* Anti-Leecher Identifier */
-/* Credited By BABIATO-FORUM */

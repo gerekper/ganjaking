@@ -68,6 +68,12 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2023-04-12 - version 4.1.5
+* New Filter `ns_fba_skip_post_fulfillment_order` to allow skipping orders for fulfilment.
+* Fixed background tasks not firing after the first time.
+* Fixed issue of inventory log size growing too large.
+
+
 ### 2023-03-02 - version 4.1.4
 * Added setting option to only sync products that fulfil with Amazon.
 * Added API timeout default duration to allow for adequate API request time.

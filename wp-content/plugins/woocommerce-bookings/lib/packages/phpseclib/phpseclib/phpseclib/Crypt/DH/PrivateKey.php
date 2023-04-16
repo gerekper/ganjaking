@@ -8,7 +8,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -22,7 +22,7 @@ use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Crypt\DH;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class PrivateKey extends DH
+final class PrivateKey extends DH
 {
     use Common\Traits\PasswordProtected;
 

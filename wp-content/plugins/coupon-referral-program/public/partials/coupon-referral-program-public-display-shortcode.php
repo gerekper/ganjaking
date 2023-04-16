@@ -50,7 +50,7 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
 								<button class="mwb_cpr_btn_copy mwb_tooltip" data-clipboard-target="#mwb_cpr_referal_copyy_code" aria-label="copied">
 								<span class="mwb_tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
 								<span class="mwb_tooltiptext_copied mwb_tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
-								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="">
+								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
 								</button>
 							</span>
 						</p>
@@ -72,7 +72,7 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
                                 <button class="mwb_cpr_btn_copy mwb_tooltip" data-clipboard-target="#mwb_cpr_copyy_link" aria-label="copied">
                                 <span class="mwb_tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
                                 <span class="mwb_tooltiptext_copied mwb_tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
-                                <img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="">
+                                <img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
                                 </button>
                             </span>
                         </p>
@@ -158,12 +158,12 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
 						$html .= esc_html( $coupon->get_amount() ) . '%';
 			}
 							$html .= '</span> 
-						<img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt=""> 
+						<img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt="scissor icon"> 
 						<span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb' . esc_html( $signup_coupon['singup'] ) . '" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
-								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="">
+								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
 							</button>
 						</span>
 					</div>
@@ -191,11 +191,11 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
 				} else {
 					$html .= esc_html( $coupon->get_amount() ) . '%';
 				}
-					$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt=""><span class="mwb-crp-coupon-wrap">
+					$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt="scissor icon"><span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb' . esc_html( $coupon_code ) . '" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
-								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="">
+								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
 							</button>
 						</span>
 					</div>
@@ -231,11 +231,11 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
 				} else {
 					$html .= esc_html( $coupon->get_amount() ) . '%';
 				}
-				$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt=""> <span class="mwb-crp-coupon-wrap">
+				$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt="scissor icon"> <span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb' . esc_html( $coupon_code ) . '" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
-								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="">
+								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
 							</button>
 						</span>
 					</div>
@@ -271,11 +271,11 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
 				} else {
 					$html .= esc_html( $coupon->get_amount() ) . '%';
 				}
-				$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt=""> <span class="mwb-crp-coupon-wrap">
+				$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt="scissor icon"> <span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb' . esc_html( $coupon_code ) . '" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
-								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="">
+								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
 							</button>
 						</span>
 					</div>

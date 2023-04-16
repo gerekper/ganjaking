@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -12,7 +12,7 @@ use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise as P;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\EachPromise;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromisorInterface;
-use Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
 
 /**
  * Sends an iterator of requests concurrently using a capped pool size.

@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -29,7 +29,6 @@ class CalendarList extends \Automattic\WooCommerce\Bookings\Vendor\Google\Collec
   public $etag;
   protected $itemsType = CalendarListEntry::class;
   protected $itemsDataType = 'array';
-  public $items;
   /**
    * @var string
    */

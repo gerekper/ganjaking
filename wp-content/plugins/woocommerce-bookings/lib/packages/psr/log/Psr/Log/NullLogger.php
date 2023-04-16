@@ -1,6 +1,12 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Log;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Log;
 
 /**
  * This Logger can be used to avoid conditional log calls.
@@ -21,7 +27,7 @@ class NullLogger extends AbstractLogger
      *
      * @return void
      *
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \Automattic\WooCommerce\Bookings\Vendor\Psr\Log\InvalidArgumentException
      */
     public function log($level, $message, array $context = array())
     {

@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -24,10 +24,8 @@ class FreeBusyResponse extends \Automattic\WooCommerce\Bookings\Vendor\Google\Mo
 {
   protected $calendarsType = FreeBusyCalendar::class;
   protected $calendarsDataType = 'map';
-  public $calendars;
   protected $groupsType = FreeBusyGroup::class;
   protected $groupsDataType = 'map';
-  public $groups;
   /**
    * @var string
    */

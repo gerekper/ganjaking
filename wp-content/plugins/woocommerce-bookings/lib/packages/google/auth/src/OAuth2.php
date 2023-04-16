@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -28,9 +28,9 @@ use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Query;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Utils;
 use InvalidArgumentException;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
 
 /**
  * OAuth2 supports authentication by OAuth2 2-legged flows.

@@ -72,7 +72,7 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 								<button class="mwb_cpr_btn_copy mwb_tooltip" data-clipboard-target="#mwb_cpr_copyy" aria-label="copied">
 									<span class="mwb_tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 									<span class="mwb_tooltiptext_copied mwb_tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-									<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+									<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon image">
 								</button>
 								</span>
 							</p>
@@ -212,7 +212,7 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 							</span>
 						</div>
 						<div class="mwb_cpr_guest_img">
-							<img src="<?php echo esc_html( $mwb_crp_bg_img ); ?>" alt="">
+							<img src="<?php echo esc_html( $mwb_crp_bg_img ); ?>" alt="background banner image">
 						</div>
 						</div>
 						<?php } ?>

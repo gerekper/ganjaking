@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -12,9 +12,9 @@ use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Cookie\CookieJarInterface;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise as P;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Log\LoggerInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LoggerInterface;
 
 /**
  * Functions used to create and wrap handlers with handler middleware.

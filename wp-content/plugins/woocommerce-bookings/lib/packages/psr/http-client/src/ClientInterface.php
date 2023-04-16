@@ -1,9 +1,15 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Http\Client;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Client;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
 
 interface ClientInterface
 {
@@ -14,7 +20,7 @@ interface ClientInterface
      *
      * @return ResponseInterface
      *
-     * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens while processing the request.
+     * @throws \Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Client\ClientExceptionInterface If an error happens while processing the request.
      */
     public function sendRequest(RequestInterface $request): ResponseInterface;
 }

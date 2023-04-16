@@ -28,7 +28,7 @@ $user_id        = get_current_user_ID();
 						<button class="mwb_cpr_btn_copy mwb_tooltip" data-clipboard-target="#mwb_cpr_copyy_link" aria-label="copied">
 						<span class="mwb_tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 						<span class="mwb_tooltiptext_copied mwb_tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-						<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+						<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 						</button>
 					</span>
 				</p>
@@ -54,8 +54,11 @@ $user_id        = get_current_user_ID();
 			?>
 			<div class="mwb_crp_email_wrap">
 				<p id="mwb_crp_notice"></p>
-				<input type="email" name="mwb_crp_email_id" id="mwb_crp_email_id" placeholder="Enter Email Id.." />
-				<button id="mwb_crp_email_send" class="button alt"><?php esc_html_e( 'Send', 'coupon-referral-program' ); ?></button>
+				<input type="email" name="mwb_crp_email_id[]" class="mwb_crp_email_id" placeholder="Enter Email Id.." />
+			</div>
+			<div class="wps_crp_email_buttons">
+				<button id="mwb_crp_add_more" class="button alt wps_crp_email_button"><?php esc_html_e( 'Add More', 'coupon-referral-program' ); ?></button>
+				<button id="mwb_crp_email_send" class="button alt wps_crp_email_button"><?php esc_html_e( 'Send', 'coupon-referral-program' ); ?></button>
 			</div>
 			<?php
 

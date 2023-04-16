@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -37,10 +37,8 @@ class CalendarListEntry extends \Automattic\WooCommerce\Bookings\Vendor\Google\C
   public $colorId;
   protected $conferencePropertiesType = ConferenceProperties::class;
   protected $conferencePropertiesDataType = '';
-  public $conferenceProperties;
   protected $defaultRemindersType = EventReminder::class;
   protected $defaultRemindersDataType = 'array';
-  public $defaultReminders;
   /**
    * @var bool
    */
@@ -75,7 +73,6 @@ class CalendarListEntry extends \Automattic\WooCommerce\Bookings\Vendor\Google\C
   public $location;
   protected $notificationSettingsType = CalendarListEntryNotificationSettings::class;
   protected $notificationSettingsDataType = '';
-  public $notificationSettings;
   /**
    * @var bool
    */

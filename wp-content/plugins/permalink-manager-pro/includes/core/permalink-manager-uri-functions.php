@@ -31,6 +31,36 @@ class Permalink_Manager_URI_Functions {
 	}
 
 	/**
+	 * Get the single custom permalink
+	 *
+	 * @param WP_Post|WP_Term|int $element
+	 * @param bool $native_uri
+	 * @param bool $no_fallback
+	 */
+	public static function get_single_uri( $element, $native_uri = false, $no_fallback = false, $is_tax = false ) {
+		if ( ! empty( $element->term_id ) ) {
+			$element_id = $element->term_id;
+			$is_term    = true;
+		} else if ( ! empty( $element->ID ) ) {
+			$element_id = $element->ID;
+			$is_term    = false;
+		} else if ( is_numeric( $element ) ) {
+			$element_id = $element;
+			$is_term    = $is_tax;
+		} else {
+			return '';
+		}
+
+		if ( $is_term ) {
+			$final_uri = ( class_exists( 'Permalink_Manager_URI_Functions_Tax' ) ) ? Permalink_Manager_URI_Functions_Tax::get_term_uri( $element_id, $native_uri, $no_fallback ) : '';
+		} else {
+			$final_uri = Permalink_Manager_URI_Functions_Post::get_post_uri( $element_id, $native_uri, $no_fallback );
+		}
+
+		return $final_uri;
+	}
+
+	/**
 	 * Save single custom permalink to the custom permalinks array
 	 *
 	 * @param int|string $element

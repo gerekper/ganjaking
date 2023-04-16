@@ -2,7 +2,7 @@
 /**
  * @license Apache-2.0
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -16,7 +16,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware\ScopedAccessTo
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware\SimpleMiddleware;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
-use Psr\Cache\CacheItemPoolInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Cache\CacheItemPoolInterface;
 
 /**
  * This supports Guzzle 6

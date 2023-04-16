@@ -415,8 +415,39 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				if ( ! empty( $_POST['woocommerce_fba_ns_fba_service_url'] ) ) {
 					as_unschedule_all_actions( 'sp_api_sync_inventory' );
 				}
+
+				// Set up the cron schedules if its missing.
+				$this->init_scheduled_actions();
 			}
 			// phpcs:enable WordPress.Security.NonceVerification.Missing
+		}
+
+		/**
+		 * Schedule background actions.
+		 * This is used to check and set the background actions.
+		 * Most times there is an issue where an action runs once and is not scheduled again.
+		 *
+		 * @return void
+		 */
+		public function init_scheduled_actions() {
+
+			$sync_status      = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sp_api_sync_inventory_interval_enabled' ) );
+			$sync_ship_status = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sync_ship_status' ) );
+			$sync_value       = (int) $this->get_option( 'ns_fba_sp_api_sync_inventory_interval' );
+			$action_scheduled = as_has_scheduled_action( 'sp_api_sync_inventory' );
+
+			if ( ( ! $sync_status && ! $sync_ship_status ) || ! $this->is_configured ) {
+				if ( true === $action_scheduled ) {
+					as_unschedule_all_actions( 'sp_api_sync_inventory' );
+				}
+				return;
+			}
+
+			if ( false === $action_scheduled ) {
+				$interval = $sync_value * 60;
+				$start    = time() + $interval;
+				as_schedule_recurring_action( $start, $interval, 'sp_api_sync_inventory' );
+			}
 		}
 
 		/**

@@ -1,6 +1,12 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Log\Test;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Log\Test;
 
 /**
  * This class is internal and does not follow the BC promise.

@@ -325,8 +325,6 @@ class Permalink_Manager_Helper_Functions {
 	 * @return bool
 	 */
 	public static function is_post_excluded( $post = null, $draft_check = false ) {
-		global $permalink_manager_options;
-
 		$post = ( is_integer( $post ) ) ? get_post( $post ) : $post;
 
 		// A. Check if post type is disabled
@@ -341,9 +339,39 @@ class Permalink_Manager_Helper_Functions {
 			return true;
 		}
 
-		// C. Check if post is a draft
-		if ( $draft_check && ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) && ! empty( $post->post_status ) && $post->post_status == 'draft' ) {
-			return true;
+		// C. Check if post is a "draft", "pending", removed
+		if ( $draft_check ) {
+			return self::is_draft_excluded( $post );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if specific post is a draft (or pending)
+	 *
+	 * @param WP_Post|int $post
+	 *
+	 * @return bool
+	 */
+	public static function is_draft_excluded( $post = null ) {
+		global $permalink_manager_options;
+
+		$post = ( is_integer( $post ) ) ? get_post( $post ) : $post;
+
+		// Check if post is a "draft", "pending" or moved to trash
+		if ( ! empty( $post->post_status ) ) {
+			if ( ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) ) {
+				$post_statuses = ( $permalink_manager_options["general"]["ignore_drafts"] == 2 ) ? array( 'draft', 'pending' ) : array( 'draft' );
+
+				if ( in_array( $post->post_status, $post_statuses ) ) {
+					return true;
+				}
+			}
+
+			if ( in_array( $post->post_status, array( 'auto-draft', 'trash' ) ) || ( strpos( $post->post_name, 'revision-v1' ) !== false ) || ( ! empty( $post->post_name ) && $post->post_name == 'auto-draft' ) ) {
+				return true;
+			}
 		}
 
 		return false;
@@ -593,6 +621,19 @@ class Permalink_Manager_Helper_Functions {
 		$bool          = ( ! empty( $front_page_id ) && $page_id == $front_page_id ) ? true : false;
 
 		return apply_filters( 'permalink_manager_is_front_page', $bool, $page_id, $front_page_id );
+	}
+
+	/**
+	 * Check if the advanced mode is turned on
+	 *
+	 * @return bool
+	 */
+	static function is_advanced_mode_on() {
+		global $permalink_manager_options;
+
+		$bool = ( ! empty( $permalink_manager_options["general"]["advanced_mode"] ) && $permalink_manager_options["general"]["advanced_mode"] == 1 ) ? true : false;
+
+		return apply_filters( 'permalink_manager_advanced_mode_on', $bool );
 	}
 
 	/**

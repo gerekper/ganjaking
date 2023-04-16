@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -11,10 +11,10 @@ declare(strict_types=1);
 namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 
 use InvalidArgumentException;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UploadedFileInterface;
-use Psr\Http\Message\UriInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ServerRequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\StreamInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UploadedFileInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
 
 /**
  * Server-side HTTP request

@@ -9,7 +9,7 @@
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -266,13 +266,13 @@ class Integer extends Base
         $r = $this->value->powMod($temp, static::$modulo[$this->instanceID]);
 
         while (!$t->equals($one)) {
-            $i = clone $one;
-
-            while (!$t->powMod($two->pow($i), static::$modulo[$this->instanceID])->equals($one)) {
-                $i = $i->add($one);
+            for ($i == clone $one; $i->compare($m) < 0; $i = $i->add($one)) {
+                if ($t->powMod($two->pow($i), static::$modulo[$this->instanceID])->equals($one)) {
+                    break;
+                }
             }
 
-            if ($i->compare($m) >= 0) {
+            if ($i->compare($m) == 0) {
                 return false;
             }
             $b = $c->powMod($two->pow($m->subtract($i)->subtract($one)), static::$modulo[$this->instanceID]);

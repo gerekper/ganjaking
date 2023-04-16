@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -42,10 +42,10 @@ use LogicException;
 use Automattic\WooCommerce\Bookings\Vendor\Monolog\Handler\StreamHandler as MonologStreamHandler;
 use Automattic\WooCommerce\Bookings\Vendor\Monolog\Handler\SyslogHandler as MonologSyslogHandler;
 use Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger;
-use Psr\Cache\CacheItemPoolInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Log\LoggerInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Cache\CacheItemPoolInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LoggerInterface;
 use UnexpectedValueException;
 
 /**

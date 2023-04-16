@@ -41,13 +41,13 @@ class Permalink_Manager_Settings {
 				'section_name' => __( 'General settings', 'permalink-manager' ),
 				'container'    => 'row',
 				'name'         => 'general',
-				'fields'       => array(
+				'fields' => array(
 					'auto_update_uris'   => array(
 						'type'        => 'select',
 						'label'       => __( 'URI update mode', 'permalink-manager' ),
 						'input_class' => '',
-						'choices'     => array( 0 => __( 'Don\'t auto-update permalinks (default mode)', 'permalink-manager' ), 1 => __( 'Auto-update permalinks', 'permalink-manager' ), 2 => __( 'Disable URI Editor to disallow permalink changes', 'permalink-manager' ) ),
-						'description' => sprintf( '%s<br />%s<br />%s', __( '<strong>Permalink Manager can automatically update the custom permalink after post or term is saved/updated.</strong>', 'permalink-manager' ), __( 'If enabled, Permalink Manager will always force the default custom permalink format (based on current <strong>Permastructure</strong> settings).', 'permalink-manager' ), __( 'Use the last option if you want to to customize only specific permalinks and keep the rest of URLs in their original format.', 'permalink-manager' ) )
+						'choices'     => array( 0 => __( 'Don\'t auto-update permalinks (default mode)', 'permalink-manager' ), 1 => __( 'Auto-update permalinks', 'permalink-manager' ), 2 => __( 'Don\'t save/generate custom permalinks for new items', 'permalink-manager' ) ),
+						'description' => sprintf( '<strong>%s</strong><br />%s<br />%s', __( 'After a post/term is updated, Permalink Manager can automatically update its custom permalink to follow the default format set in Permastructure settings.', 'permalink-manager' ), __( 'Choose the last option if you wish to use the native permalinks rather than generate custom permalinks whenever a new post or term is added.', 'permalink-manager' ), __( 'You may override the global settings in the URI Editor by selecting a different setting for each post or term individually.', 'permalink-manager' ) )
 					),
 					'force_custom_slugs' => array(
 						'type'        => 'select',
@@ -70,9 +70,10 @@ class Permalink_Manager_Settings {
 						'description' => __( 'Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager' )
 					),
 					'ignore_drafts'      => array(
-						'type'        => 'single_checkbox',
-						'label'       => __( 'Exclude drafts', 'permalink-manager' ),
-						'description' => __( 'If enabled, the custom permalinks for post drafts will not be saved.', 'permalink-manager' )
+						'type'        => 'select',
+						'label'       => __( 'Exclude drafts & pending posts', 'permalink-manager' ),
+						'choices'     => array( 0 => __( 'Do not exclude', 'permalink-manager' ), 1 => __( 'Exclude drafts', 'permalink-manager' ), 2 => __( 'Exclude drafts & pending posts', 'permalink-manager' ) ),
+						'description' => __( 'If enabled, custom permalinks for posts marked as "draft" or "pending" will not be created.', 'permalink-manager' )
 					)
 				)
 			),
@@ -149,11 +150,12 @@ class Permalink_Manager_Settings {
 				'name'         => 'general',
 				'fields'       => array(
 					'fix_language_mismatch' => array(
-						'type'         => 'single_checkbox',
-						'label'        => __( 'WPML/Polylang language mismatch', 'permalink-manager' ),
+						'type'         => 'select',
+						'label'        => __( 'WPML/Polylang fix language mismatch', 'permalink-manager' ),
 						'input_class'  => '',
+						'choices'      => array( 0 => __( 'Disable', 'permalink-manager' ), 1 => __( 'Load the language variant of the requested page', 'permalink-manager' ), 2 => __( 'Redirect to the language variant of the requested page', 'permalink-manager' ) ),
 						'class_exists' => array( 'SitePress', 'Polylang' ),
-						'description'  => __( 'If enabled, the plugin will load the adjacent translation of post when the custom permalink is detected, but the language code in the URL does not match the language code assigned to the post/term.', 'permalink-manager' )
+						'description'  => __( 'The plugin may load the relevant translation or trigger the canonical redirect when a custom permalink is detected, but the URL language code does not match the detected item\'s language code. ', 'permalink-manager' )
 					),
 					'wpml_support'          => array(
 						'type'         => 'single_checkbox',

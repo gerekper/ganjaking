@@ -893,6 +893,9 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		 * @return bool
 		 */
 		public function sync_inventory( $force = false ): bool {
+			// Clear inventory logs.
+			$this->ns_fba->file_utils->delete( $this->ns_fba->inv_log_path );
+
 			$success = true;
 
 			$sync_enabled = $this->ns_fba->wc_integration->get_option( 'ns_fba_sp_api_sync_inventory_interval_enabled' );

@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.4
+ * Version: 4.1.5
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
- * Tested up to: 6.1
+ * Tested up to: 6.2
  * WC requires at least: 5.0.0
- * WC tested up to: 7.4.0
+ * WC tested up to: 7.5.0
  * Woo: 669839:b73d2c19a6ff0f06485e0f11eb4bf922
  *
  * Text Domain: ns-fba-for-woocommerce
@@ -71,7 +71,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.4';
+			public $version = '4.1.5';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -623,6 +623,21 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			public function create_fulfillment_order( int $order_id ) {
 
 				$order = wc_get_order( $order_id );
+
+				/**
+				 * `ns_fba_skip_post_fulfillment_order` filter
+				 * Allow overriding sending to FBA from an external plugin or script.
+				 *
+				 * @param bool     $skip Defaults to false to not skip. Set to true to skip.
+				 * @param WC_Order $order The order object to be fullfiled.
+				 *
+				 * @return void
+				 */
+				if ( apply_filters( 'ns_fba_skip_post_fulfillment_order', false, $order ) ) {
+					$this->write_debug_log( $log_tag, 'Skipping fulfillment' );
+					$order->add_order_note( __( 'Order was not sent to Amazon because it has been overriden by another plugin.', $this->ns_fba->text_domain ) );
+					return;
+				}
 
 				$response = $this->fulfill->post_fulfillment_order( $order );
 

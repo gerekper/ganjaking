@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -25,7 +25,6 @@ class CalendarListEntryNotificationSettings extends \Automattic\WooCommerce\Book
   protected $collection_key = 'notifications';
   protected $notificationsType = CalendarNotification::class;
   protected $notificationsDataType = 'array';
-  public $notifications;
 
   /**
    * @param CalendarNotification[]

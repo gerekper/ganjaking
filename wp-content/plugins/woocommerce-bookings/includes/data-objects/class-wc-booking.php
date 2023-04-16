@@ -1088,7 +1088,7 @@ class WC_Booking extends WC_Bookings_Data {
 				'booking_id' => $this->get_id(),
 				'redirect' => $redirect,
 			),
-		$cancel_page ), 'woocommerce-bookings-cancel_booking' ) );
+		$cancel_page ), "woocommerce-bookings-cancel_booking_{$this->get_id()}" ) );
 	}
 
 	/*

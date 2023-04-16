@@ -19,63 +19,7 @@ class Permalink_Manager_Pro_Addons {
 		add_action( 'admin_init', array( $this, 'save_stop_words' ), 9 );
 
 		add_filter( 'permalink_manager_tools_fields', array( $this, 'filter_tools_fields' ), 9, 2 );
-		add_filter( 'permalink_manager_permastructs_fields', array( $this, 'filter_permastructure_fields' ), 9 );
-
 		add_filter( 'permalink_manager_settings_fields', array( $this, 'filter_settings_fields' ), 9 );
-	}
-
-	/**
-	 * Rearrange the Permastructures section
-	 *
-	 * @param $fields
-	 *
-	 * @return array
-	 */
-	public function filter_permastructure_fields( $fields ) {
-		$taxonomies = Permalink_Manager_Helper_Functions::get_taxonomies_array( 'full' );
-
-		foreach ( $taxonomies as $taxonomy ) {
-			$taxonomy_name = $taxonomy['name'];
-
-			// Check if taxonomy exists
-			if ( ! taxonomy_exists( $taxonomy_name ) ) {
-				continue;
-			}
-
-			$fields["taxonomies"]["fields"][ $taxonomy_name ] = array(
-				'label'       => $taxonomy['label'],
-				'container'   => 'row',
-				'input_class' => 'permastruct-field',
-				'taxonomy'    => $taxonomy,
-				'type'        => 'permastruct'
-			);
-		}
-
-		// Separate WooCommerce CPT & custom taxonomies
-		if ( class_exists( 'WooCommerce' ) ) {
-			$woocommerce_fields     = array( 'product' => 'post_types', 'product_tag' => 'taxonomies', 'product_cat' => 'taxonomies' );
-			$woocommerce_attributes = wc_get_attribute_taxonomies();
-
-			foreach ( $woocommerce_attributes as $woocommerce_attribute ) {
-				$woocommerce_fields["pa_{$woocommerce_attribute->attribute_name}"] = 'taxonomies';
-			}
-
-			foreach ( $woocommerce_fields as $field => $field_type ) {
-				if ( empty( $fields[ $field_type ]["fields"][ $field ] ) ) {
-					continue;
-				}
-
-				$fields["woocommerce"]["fields"][ $field ]         = $fields[ $field_type ]["fields"][ $field ];
-				$fields["woocommerce"]["fields"][ $field ]["name"] = "{$field_type}[{$field}]";
-				unset( $fields[ $field_type ]["fields"][ $field ] );
-			}
-		}
-
-		// Remove alert from "Permalink Manager Lite" version
-		unset( $fields["taxonomies"]['append_content'] );
-		unset( $fields["woocommerce"]['append_content'] );
-
-		return $fields;
 	}
 
 	/**

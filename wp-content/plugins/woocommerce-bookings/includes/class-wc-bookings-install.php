@@ -362,10 +362,10 @@ class WC_Bookings_Install {
 			set_transient(
 				'wc_bookings_gcalendar_access_token',
 				array(
-					'access_token' => $access_token,
+					'access_token' => WC_Bookings_Encryption::instance()->encrypt( $access_token ),
 					'expires_in'   => 3600,
 				),
-				YEAR_IN_SECONDS
+				HOUR_IN_SECONDS
 			);
 		}
 	}

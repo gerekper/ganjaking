@@ -832,7 +832,7 @@ class WC_Booking_Order_Manager {
 				<div class="wc-booking-summary-actions" style="margin-bottom: 30px;">
 					<a href="<?php echo esc_url( $order->get_edit_order_url() ); ?>"><?php esc_html_e( 'View order &rarr;', 'woocommerce-bookings' ); ?></a>
 					<br/>
-					<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=booking_calendar&view=month' ) ); ?>"><?php esc_html_e( 'View all orders &rarr;', 'woocommerce-bookings' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=booking_calendar&view=month' ) ); ?>"><?php esc_html_e( 'View Booking Calendar &rarr;', 'woocommerce-bookings' ); ?></a>
 				</div>
 				<?php
 			} elseif ( function_exists( 'wc_get_endpoint_url' ) && wc_get_page_id( 'myaccount' ) && $order->get_customer_id() ) {

@@ -1,8 +1,14 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Http\Client;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Client;
 
-use Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
 
 /**
  * Thrown when the request cannot be completed because of network issues.

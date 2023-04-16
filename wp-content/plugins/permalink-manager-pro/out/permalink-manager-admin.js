@@ -607,7 +607,8 @@ jQuery(document).ready(function() {
 		let item_type = '';
 		let item_row = '';
 
-		if(typeof(item) == 'object') {
+		// Get the ID
+		if(typeof(inlineEdit) == 'object') {
 			item_id = parseInt(inlineEdit.getId(item));
 			item_type = inlineEdit.type;
 		} else {
@@ -621,7 +622,7 @@ jQuery(document).ready(function() {
 		if(item_type === 'tag') {
 			item_row = jQuery('#tag-' + item_id);
 			item_uri_id = "tax-" + item_id;
-		} else if(item_type === 'post') {
+		} else if(item_type === 'post' || item_type === 'page') {
 			item_row = jQuery('#post-' + item_id);
 			item_uri_id = item_id;
 		} else {

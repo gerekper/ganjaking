@@ -12,7 +12,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -47,9 +47,9 @@ class PrimeField extends FiniteField
      */
     public function __construct(BigInteger $modulo)
     {
-        //if (!$modulo->isPrime()) {
-        //    throw new \UnexpectedValueException('PrimeField requires a prime number be passed to the constructor');
-        //}
+        if (!$modulo->isPrime()) {
+            throw new \UnexpectedValueException('PrimeField requires a prime number be passed to the constructor');
+        }
 
         $this->instanceID = self::$instanceCounter++;
         Integer::setModulo($this->instanceID, $modulo);

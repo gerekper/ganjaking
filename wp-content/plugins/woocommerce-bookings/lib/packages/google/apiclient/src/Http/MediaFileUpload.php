@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -25,7 +25,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Google\Exception as GoogleException;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
 
 /**
  * Manage large file uploads, which may be media but can be any type

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
@@ -19,9 +19,9 @@ namespace Automattic\WooCommerce\Bookings\Vendor\Monolog;
 
 use DateTimeZone;
 use Automattic\WooCommerce\Bookings\Vendor\Monolog\Handler\HandlerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\LogLevel;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LoggerInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\InvalidArgumentException;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LogLevel;
 use Throwable;
 use Stringable;
 
@@ -480,7 +480,7 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Gets the name of the logging level.
      *
-     * @throws \Psr\Log\InvalidArgumentException If level is not defined
+     * @throws \Automattic\WooCommerce\Bookings\Vendor\Psr\Log\InvalidArgumentException If level is not defined
      *
      * @phpstan-param  Level     $level
      * @phpstan-return LevelName
@@ -498,7 +498,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * Converts PSR-3 levels to Monolog ones if necessary
      *
      * @param  string|int                        $level Level number (monolog) or name (PSR-3)
-     * @throws \Psr\Log\InvalidArgumentException If level is not defined
+     * @throws \Automattic\WooCommerce\Bookings\Vendor\Psr\Log\InvalidArgumentException If level is not defined
      *
      * @phpstan-param  Level|LevelName|LogLevel::* $level
      * @phpstan-return Level

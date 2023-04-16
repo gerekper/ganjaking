@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -10,18 +10,18 @@ declare(strict_types=1);
 
 namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UploadedFileFactoryInterface;
-use Psr\Http\Message\UploadedFileInterface;
-use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ServerRequestFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ServerRequestInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\StreamFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\StreamInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UploadedFileFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UploadedFileInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
 
 /**
  * Implements all of the PSR-17 interfaces.

@@ -31,8 +31,14 @@ class Permalink_Manager_Permastructs {
 	 * @return array
 	 */
 	public function get_fields() {
-		$all_post_types   = Permalink_Manager_Helper_Functions::get_post_types_array( 'full' );
-		$woocommerce_icon = "<i class=\"woocommerce-icon woocommerce-cart\"></i>";
+		$post_types = Permalink_Manager_Helper_Functions::get_post_types_array( 'full' );
+		$taxonomies = Permalink_Manager_Helper_Functions::get_taxonomies_array( 'full' );
+
+		// Display additional information in Permalink Manager Lite
+		if ( ! Permalink_Manager_Admin_Functions::is_pro_active() && ! class_exists( 'Permalink_Manager_URI_Functions_Tax' ) ) {
+			$pro_text = sprintf( __( 'To edit taxonomy permalinks, <a href="%s" target="_blank">Permalink Manager Pro</a> is required.', 'permalink-manager' ), PERMALINK_MANAGER_WEBSITE );
+			$pro_text = sprintf( '<div class="alert info">%s</div>', $pro_text );
+		}
 
 		// 1. Get fields
 		$fields = array(
@@ -44,23 +50,23 @@ class Permalink_Manager_Permastructs {
 			'taxonomies' => array(
 				'section_name'   => __( 'Taxonomies', 'permalink-manager' ),
 				'container'      => 'row',
-				'append_content' => Permalink_Manager_Admin_Functions::pro_text(),
+				'append_content' => ( ! empty( $pro_text ) ) ? $pro_text : '',
 				'fields'         => array()
 			)
 		);
 
-		// 2. Woocommerce support
+		// 2. Add a separate section for WooCommerce content types
 		if ( class_exists( 'WooCommerce' ) ) {
 			$fields['woocommerce'] = array(
-				'section_name'   => "{$woocommerce_icon} " . __( 'WooCommerce', 'permalink-manager' ),
+				'section_name'   => "<i class=\"woocommerce-icon woocommerce-cart\"></i> " . __( 'WooCommerce', 'permalink-manager' ),
 				'container'      => 'row',
-				'append_content' => Permalink_Manager_Admin_Functions::pro_text(),
+				'append_content' => ( ! empty( $pro_text ) ) ? $pro_text : '',
 				'fields'         => array()
 			);
 		}
 
-		// 3. Append fields for all post types
-		foreach ( $all_post_types as $post_type ) {
+		// 3A. Add permastructure fields for post types
+		foreach ( $post_types as $post_type ) {
 			if ( $post_type['name'] == 'shop_coupon' ) {
 				continue;
 			}
@@ -72,6 +78,44 @@ class Permalink_Manager_Permastructs {
 				'post_type'   => $post_type,
 				'type'        => 'permastruct'
 			);
+		}
+
+		// 3B. Add permastructure fields for taxonomies
+		foreach ( $taxonomies as $taxonomy ) {
+			$taxonomy_name = $taxonomy['name'];
+
+			// Check if taxonomy exists
+			if ( ! taxonomy_exists( $taxonomy_name ) ) {
+				continue;
+			}
+
+			$fields["taxonomies"]["fields"][ $taxonomy_name ] = array(
+				'label'       => $taxonomy['label'],
+				'container'   => 'row',
+				'input_class' => 'permastruct-field',
+				'taxonomy'    => $taxonomy,
+				'type'        => 'permastruct'
+			);
+		}
+
+		// 4. Separate WooCommerce CPT & custom taxonomies
+		if ( class_exists( 'WooCommerce' ) ) {
+			$woocommerce_fields     = array( 'product' => 'post_types', 'product_tag' => 'taxonomies', 'product_cat' => 'taxonomies' );
+			$woocommerce_attributes = wc_get_attribute_taxonomies();
+
+			foreach ( $woocommerce_attributes as $woocommerce_attribute ) {
+				$woocommerce_fields["pa_{$woocommerce_attribute->attribute_name}"] = 'taxonomies';
+			}
+
+			foreach ( $woocommerce_fields as $field => $field_type ) {
+				if ( empty( $fields[ $field_type ]["fields"][ $field ] ) ) {
+					continue;
+				}
+
+				$fields["woocommerce"]["fields"][ $field ]         = $fields[ $field_type ]["fields"][ $field ];
+				$fields["woocommerce"]["fields"][ $field ]["name"] = "{$field_type}[{$field}]";
+				unset( $fields[ $field_type ]["fields"][ $field ] );
+			}
 		}
 
 		return apply_filters( 'permalink_manager_permastructs_fields', $fields );

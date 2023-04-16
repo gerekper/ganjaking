@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Exception\MalformedUriException;
-use Psr\Http\Message\UriInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
 
 /**
  * PSR-7 URI implementation.

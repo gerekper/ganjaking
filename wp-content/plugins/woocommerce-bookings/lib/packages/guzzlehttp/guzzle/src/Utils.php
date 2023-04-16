@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -13,7 +13,7 @@ use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\CurlHandler;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\CurlMultiHandler;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\Proxy;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\StreamHandler;
-use Psr\Http\Message\UriInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\UriInterface;
 
 final class Utils
 {
@@ -87,7 +87,7 @@ final class Utils
      *
      * @throws \RuntimeException if no viable Handler is available.
      *
-     * @return callable(\Psr\Http\Message\RequestInterface, array): \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface Returns the best handler for the given system.
+     * @return callable(\Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface, array): \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface Returns the best handler for the given system.
      */
     public static function chooseHandler(): callable
     {

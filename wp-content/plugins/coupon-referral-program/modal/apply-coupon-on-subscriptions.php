@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div id="mwb_crp_loader" class="mwb_crp_hide_element">
-	<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif">
+	<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif" alt="loading gif">
 </div>
 <div class="mwb-coupon-popup-wrapper mwb_crp_hide_element">
 	<div class="mwb-coupon-popup-content">

@@ -680,8 +680,9 @@ outline: 0;
 .mwb_crp_mail_succes{
    color: #008000;
 }
-#mwb_crp_email_id{
-  width: 50%;
+.mwb_crp_email_id{
+  width: 60%;
+  margin-top: 5px;
 }
 .mwb_crp_referl_code{
   width: 55%;
@@ -986,4 +987,11 @@ outline: 0;
   .mwb_cpr_guest_img {
     display: none;
   }
+}
+.wps_crp_email_buttons{
+  display: none;
+  margin-top: 5px;
+}
+.wps_crp_email_button{
+  border-radius: 3px !important;
 }

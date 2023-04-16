@@ -2,7 +2,7 @@
 /**
  * @license BSD-3-Clause
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -61,6 +61,7 @@ class JWT
     public static $supported_algs = [
         'ES384' => ['openssl', 'SHA384'],
         'ES256' => ['openssl', 'SHA256'],
+        'ES256K' => ['openssl', 'SHA256'],
         'HS256' => ['hash_hmac', 'SHA256'],
         'HS384' => ['hash_hmac', 'SHA384'],
         'HS512' => ['hash_hmac', 'SHA512'],
@@ -138,8 +139,8 @@ class JWT
             // See issue #351
             throw new UnexpectedValueException('Incorrect key for this algorithm');
         }
-        if ($header->alg === 'ES256' || $header->alg === 'ES384') {
-            // OpenSSL expects an ASN.1 DER sequence for ES256/ES384 signatures
+        if (\in_array($header->alg, ['ES256', 'ES256K', 'ES384'], true)) {
+            // OpenSSL expects an ASN.1 DER sequence for ES256/ES256K/ES384 signatures
             $sig = self::signatureToDER($sig);
         }
         if (!self::verify("{$headb64}.{$bodyb64}", $sig, $key->getKeyMaterial(), $header->alg)) {
@@ -176,8 +177,8 @@ class JWT
      *
      * @param array<mixed>          $payload PHP array
      * @param string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate $key The secret key.
-     * @param string                $alg     Supported algorithms are 'ES384','ES256', 'HS256', 'HS384',
-     *                                       'HS512', 'RS256', 'RS384', and 'RS512'
+     * @param string                $alg     Supported algorithms are 'ES384','ES256', 'ES256K', 'HS256',
+     *                                       'HS384', 'HS512', 'RS256', 'RS384', and 'RS512'
      * @param string                $keyId
      * @param array<string, string> $head    An array with header elements to attach
      *
@@ -216,8 +217,8 @@ class JWT
      *
      * @param string $msg  The message to sign
      * @param string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate  $key  The secret key.
-     * @param string $alg  Supported algorithms are 'ES384','ES256', 'HS256', 'HS384',
-     *                    'HS512', 'RS256', 'RS384', and 'RS512'
+     * @param string $alg  Supported algorithms are 'ES384','ES256', 'ES256K', 'HS256',
+     *                    'HS384', 'HS512', 'RS256', 'RS384', and 'RS512'
      *
      * @return string An encrypted message
      *
@@ -244,7 +245,7 @@ class JWT
                 if (!$success) {
                     throw new DomainException('OpenSSL unable to sign data');
                 }
-                if ($alg === 'ES256') {
+                if ($alg === 'ES256' || $alg === 'ES256K') {
                     $signature = self::signatureFromDER($signature, 256);
                 } elseif ($alg === 'ES384') {
                     $signature = self::signatureFromDER($signature, 384);
@@ -261,6 +262,9 @@ class JWT
                     // The last non-empty line is used as the key.
                     $lines = array_filter(explode("\n", $key));
                     $key = base64_decode((string) end($lines));
+                    if (\strlen($key) === 0) {
+                        throw new DomainException('Key cannot be empty string');
+                    }
                     return sodium_crypto_sign_detached($msg, $key);
                 } catch (Exception $e) {
                     throw new DomainException($e->getMessage(), 0, $e);
@@ -318,6 +322,12 @@ class JWT
                     // The last non-empty line is used as the key.
                     $lines = array_filter(explode("\n", $keyMaterial));
                     $key = base64_decode((string) end($lines));
+                    if (\strlen($key) === 0) {
+                        throw new DomainException('Key cannot be empty string');
+                    }
+                    if (\strlen($signature) === 0) {
+                        throw new DomainException('Signature cannot be empty string');
+                    }
                     return sodium_crypto_sign_verify_detached($signature, $msg, $key);
                 } catch (Exception $e) {
                     throw new DomainException($e->getMessage(), 0, $e);

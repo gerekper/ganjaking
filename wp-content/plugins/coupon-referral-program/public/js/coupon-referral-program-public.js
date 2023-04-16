@@ -90,34 +90,43 @@
 	    $(document).on('click','.mwb_wpr_mail_button',function(e){
 	    	e.preventDefault();
 	    	$('.mwb_crp_email_wrap').toggle();
+	    	$('.wps_crp_email_buttons').toggle();
 	    });
 
 	    //send mail.
 	    $(document).on('click','#mwb_crp_email_send',function(e) {
 	    	e.preventDefault();
-	    	var email = $('#mwb_crp_email_id').val();
+
 	    	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
 	    	var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
 	    	var error = false;
 			var send_html = $(this).html();
 			var html = "<ul>";
+			var email_arr = [];
 
-			if( email == null || email == "" ) {
+			$('.mwb_crp_email_id').map(function () {
+				var email = $(this).val();
+				email_arr.push(email);
+				if( email != "" && !email.match( mailformat ) ) {
+					error = true;
+					html+="<li><b>";
+					html+=mwb_crp.invalid_email;
+					html+="</li>";
+				}
+				else if( email != "" && !pattern.test( email ) ) {
+					error = true;
+					html+="<li><b>";
+					html+=mwb_crp.invalid_email;
+					html+="</li>";
+				}
+				return $(this).val();
+			});
+
+
+			if( email_arr == null || email_arr == "" ) {
 				error = true;
 				html+="<li><b>";
 				html+=mwb_crp.empty_email;
-				html+="</li>";
-			}
-			else if( email != "" && !email.match( mailformat ) ) {
-				error = true;
-				html+="<li><b>";
-				html+=mwb_crp.invalid_email;
-				html+="</li>";
-			}
-			else if( email != "" && !pattern.test( email ) ) {
-				error = true;
-				html+="<li><b>";
-				html+=mwb_crp.invalid_email;
 				html+="</li>";
 			}
 			html +='</ul>';
@@ -132,7 +141,7 @@
 				jQuery(this).html(spinner);
 				var data = {
 					action:'mwb_crp_send_referal_link_mail',
-					email:email,
+					email:email_arr,
 					mwb_nonce:mwb_crp.mwb_crp_nonce,
 				}
 				$.ajax({
@@ -165,6 +174,16 @@
 				});
 			}
 	    });
+
+		//add more field 
+		$(document).on('click', '#mwb_crp_add_more', function(e){
+			var html = '<div class="add_email_input_div"><input type="email" class="mwb_crp_email_id" name="mwb_crp_email_id[]" placeholder="Enter Email Id.."><span class="wps_crp_delete_email">X</span></div>';
+			$( '.mwb_crp_email_wrap' ).append( html );
+		});
+		$(document).on('click', '.wps_crp_delete_email', function(e){
+			$(this).parent( '.add_email_input_div' ).remove();
+		});
+
  	});
  	/*Display popup in the coupon referral program*/
  	$(document).on('click','.mwb_crp_default',function(e) {

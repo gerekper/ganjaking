@@ -1,6 +1,12 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Http\Message;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message;
 
 /**
  * Representation of an incoming, server-side HTTP request.

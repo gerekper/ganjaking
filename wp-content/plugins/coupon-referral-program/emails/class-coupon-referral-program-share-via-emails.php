@@ -49,7 +49,7 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 			$this->id             = 'crp_share_via_email';
 			$this->title          = __( 'Referral Link', 'coupon-referral-program' );
 			$this->customer_email = true;
-			$this->description    = __( 'This is the referral link which is used to register on the site and get the discount coupon.', 'coupon-referral-program' );
+			$this->description    = __( 'This is the referral link which is used to register on the site and get the discount coupon. These are shorcodes available for the email.', 'coupon-referral-program' ) . '<span><code>{site_title}, {refferal_link}, {refferal_code}, {user_name}, {first_name}, {last_name}</code></span>';
 			$this->template_html  = 'crp-share-via-email-template.php';
 			$this->template_plain = 'plain/crp-share-via-email-template.php';
 			$this->template_base  = COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/templates/';
@@ -58,6 +58,8 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 				'{refferal_link}' => '',
 				'{user_name}'     => '',
 				'{refferal_code}' => '',
+				'{first_name}'    => '',
+				'{last_name}'     => '',
 			);
 
 			// Call parent constructor.
@@ -97,6 +99,9 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 				$this->setup_locale();
 				$user = new WP_User( $user_id );
 				if ( is_a( $user, 'WP_User' ) ) {
+					$user_data  = get_user_meta( $user_id );
+					$first_name = $user_data['first_name'];
+					$last_name  = $user_data['last_name'];
 					$this->object                          = $user;
 					$this->refferal_link                   = $refferal_link;
 					$this->refferal_code                   = $refferal_code;
@@ -105,6 +110,8 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 					$this->placeholders['{refferal_link}'] = $refferal_link;
 					$this->placeholders['{user_name}']     = $user->display_name;
 					$this->placeholders['{refferal_code}'] = $refferal_code;
+					$this->placeholders['{first_name}']    = $first_name[0];
+					$this->placeholders['{last_name}']     = $last_name[0];
 					if ( $this->is_enabled() && $this->get_recipient() ) {
 						$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 					}
@@ -132,6 +139,8 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 					'email'              => $this,
 					'additional_content' => $this->get_additional_content(),
 					'refferal_code'      => $this->refferal_code,
+					'first_name'         => $this->first_name,
+					'last_name'          => $this->last_name,
 				),
 				'',
 				$this->template_base
@@ -156,6 +165,8 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 					'email'              => $this,
 					'additional_content' => $this->get_additional_content(),
 					'refferal_code'      => $this->refferal_code,
+					'first_name'         => $this->first_name,
+					'last_name'          => $this->last_name,
 				),
 				'',
 				$this->template_base
@@ -178,7 +189,7 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 					'type'        => 'text',
 					'desc_tip'    => true,
 					/* translators: %s: list of placeholders */
-					'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {refferal_code}</code>' ),
+					'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {refferal_code}, {user_name}, {first_name}, {last_name}</code>' ),
 					'placeholder' => $this->get_default_subject(),
 					'default'     => '',
 				),
@@ -187,14 +198,14 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 					'type'        => 'text',
 					'desc_tip'    => true,
 					/* translators: %s: list of placeholders */
-					'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {refferal_code}</code>' ),
+					'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {refferal_code}, {user_name}, {first_name}, {last_name}</code>' ),
 					'placeholder' => $this->get_default_heading(),
 					'default'     => '',
 				),
 				'additional_content' => array(
 					'title'       => esc_html__( 'Custom Email', 'coupon-referral-program' ),
 					/* translators: %s: list of placeholders */
-					'description' => sprintf( __( 'If N/A then default email will send. Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {user_name}, {refferal_code}</code>' ),
+					'description' => sprintf( __( 'If N/A then default email will send. Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {user_name}, {refferal_code}, {user_name}, {first_name}, {last_name}</code>' ),
 					'css'         => 'width:400px; height: 75px;',
 					'placeholder' => esc_html__( 'N/A', 'coupon-referral-program' ),
 					'type'        => 'textarea',

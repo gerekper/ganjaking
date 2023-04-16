@@ -159,7 +159,7 @@ class Permalink_Manager_Actions {
 	 * @return array
 	 */
 	public static function clear_single_element_uris_and_redirects( $element_id, $count_removed = false ) {
-		global $wpdb, $permalink_manager_uris, $permalink_manager_redirects;
+		global $wpdb, $permalink_manager_uris, $permalink_manager_redirects, $permalink_manager_options;
 
 		// Count removed URIs & redirects
 		$removed_uris      = 0;
@@ -167,6 +167,16 @@ class Permalink_Manager_Actions {
 
 		// Only admin users can remove the broken URIs for removed post types & taxonomies
 		$check_if_admin = is_admin();
+
+		// Check if the advanced mode is turned on
+		$advanced_mode = Permalink_Manager_Helper_Functions::is_advanced_mode_on();
+
+		// If "Disable URI Editor to disallow Permalink changes" is set globally, the pages that follow the global settings should also be removed
+		if ( $advanced_mode && ! empty( $permalink_manager_options["general"]["auto_update_uris"] ) && $permalink_manager_options["general"]["auto_update_uris"] == 2 ) {
+			$strict_mode = true;
+		} else {
+			$strict_mode = false;
+		}
 
 		// 1. Check if element exists
 		if ( strpos( $element_id, 'tax-' ) !== false ) {
@@ -177,8 +187,11 @@ class Permalink_Manager_Actions {
 			$remove = ( ! empty( $term_info->taxonomy ) ) ? Permalink_Manager_Helper_Functions::is_taxonomy_disabled( $term_info->taxonomy, $check_if_admin ) : true;
 
 			// Remove custom URIs for URIs disabled in URI Editor
-			$remove = ( ! empty( $term_info->meta_value ) && $term_info->meta_value == 2 ) ? true : $remove;
-
+			if ( $strict_mode ) {
+				$remove = ( empty( $term_info->meta_value ) || $term_info->meta_value == 2 ) ? true : $remove;
+			} else {
+				$remove = ( ! empty( $term_info->meta_value ) && $term_info->meta_value == 2 ) ? true : $remove;
+			}
 		} else if ( is_numeric( $element_id ) ) {
 			$post_info = $wpdb->get_row( $wpdb->prepare( "SELECT post_type, meta_value FROM {$wpdb->posts} AS p LEFT JOIN {$wpdb->postmeta} AS pm ON pm.post_ID = p.ID AND pm.meta_key = 'auto_update_uri' WHERE ID = %d AND post_status NOT IN ('auto-draft', 'trash') AND post_type != 'nav_menu_item'", $element_id ) );
 
@@ -186,7 +199,11 @@ class Permalink_Manager_Actions {
 			$remove = ( ! empty( $post_info->post_type ) ) ? Permalink_Manager_Helper_Functions::is_post_type_disabled( $post_info->post_type, $check_if_admin ) : true;
 
 			// Remove custom URIs for URIs disabled in URI Editor
-			$remove = ( ! empty( $post_info->meta_value ) && $post_info->meta_value == 2 ) ? true : $remove;
+			if ( $strict_mode ) {
+				$remove = ( empty( $post_info->meta_value ) || $post_info->meta_value == 2 ) ? true : $remove;
+			} else {
+				$remove = ( ! empty( $post_info->meta_value ) && $post_info->meta_value == 2 ) ? true : $remove;
+			}
 
 			// Remove custom URIs for attachments redirected with Yoast's SEO Premium
 			$yoast_permalink_options = ( class_exists( 'WPSEO_Premium' ) ) ? get_option( 'wpseo_permalinks' ) : array();

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
@@ -19,7 +19,7 @@ namespace Automattic\WooCommerce\Bookings\Vendor\Monolog\Handler;
 
 use Automattic\WooCommerce\Bookings\Vendor\Monolog\Logger;
 use Automattic\WooCommerce\Bookings\Vendor\Monolog\Utils;
-use Psr\Log\LogLevel;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LogLevel;
 
 /**
  * Sends notifications through the pushover api to mobile phones

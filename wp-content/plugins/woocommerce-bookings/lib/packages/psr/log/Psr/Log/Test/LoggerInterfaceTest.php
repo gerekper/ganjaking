@@ -1,9 +1,15 @@
 <?php
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
 
-namespace Psr\Log\Test;
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Log\Test;
 
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LoggerInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LogLevel;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,7 +38,7 @@ abstract class LoggerInterfaceTest extends TestCase
 
     public function testImplements()
     {
-        $this->assertInstanceOf('Psr\Log\LoggerInterface', $this->getLogger());
+        $this->assertInstanceOf('Automattic\WooCommerce\Bookings\Vendor\Psr\Log\LoggerInterface', $this->getLogger());
     }
 
     /**
@@ -66,7 +72,7 @@ abstract class LoggerInterfaceTest extends TestCase
     }
 
     /**
-     * @expectedException \Psr\Log\InvalidArgumentException
+     * @expectedException \Automattic\WooCommerce\Bookings\Vendor\Psr\Log\InvalidArgumentException
      */
     public function testThrowsOnInvalidLevel()
     {
@@ -86,9 +92,9 @@ abstract class LoggerInterfaceTest extends TestCase
     public function testObjectCastToString()
     {
         if (method_exists($this, 'createPartialMock')) {
-            $dummy = $this->createPartialMock('Psr\Log\Test\DummyTest', array('__toString'));
+            $dummy = $this->createPartialMock('Automattic\WooCommerce\Bookings\Vendor\Psr\Log\Test\DummyTest', array('__toString'));
         } else {
-            $dummy = $this->getMock('Psr\Log\Test\DummyTest', array('__toString'));
+            $dummy = $this->getMock('Automattic\WooCommerce\Bookings\Vendor\Psr\Log\Test\DummyTest', array('__toString'));
         }
         $dummy->expects($this->once())
             ->method('__toString')

@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -24,10 +24,8 @@ class Colors extends \Automattic\WooCommerce\Bookings\Vendor\Google\Model
 {
   protected $calendarType = ColorDefinition::class;
   protected $calendarDataType = 'map';
-  public $calendar;
   protected $eventType = ColorDefinition::class;
   protected $eventDataType = 'map';
-  public $event;
   /**
    * @var string
    */

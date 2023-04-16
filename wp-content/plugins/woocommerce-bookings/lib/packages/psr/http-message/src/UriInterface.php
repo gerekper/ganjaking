@@ -1,5 +1,11 @@
 <?php
-namespace Psr\Http\Message;
+/**
+ * @license MIT
+ *
+ * Modified by woocommerce on 12-April-2023 using Strauss.
+ * @see https://github.com/BrianHenryIE/strauss
+ */
+namespace Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message;
 
 /**
  * Value object representing a URI.

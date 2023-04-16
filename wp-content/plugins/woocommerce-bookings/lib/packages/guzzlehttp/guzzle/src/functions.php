@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -58,7 +58,7 @@ function debug_resource($value = null)
  *
  * @throws \RuntimeException if no viable Handler is available.
  *
- * @return callable(\Psr\Http\Message\RequestInterface, array): \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface Returns the best handler for the given system.
+ * @return callable(\Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestInterface, array): \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface Returns the best handler for the given system.
  *
  * @deprecated choose_handler will be removed in guzzlehttp/guzzle:8.0. Use Utils::chooseHandler instead.
  */

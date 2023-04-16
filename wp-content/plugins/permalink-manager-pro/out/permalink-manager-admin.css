@@ -34,12 +34,13 @@
 #permalink-manager th#count a{display:inline-block}
 #permalink-manager .post_permalink{margin-top:5px;display:block}
 #permalink-manager .post_permalink a,#permalink-manager .post_permalink .dashicons,#permalink-manager .uri_locked .dashicons{font-size:13px;color:#aaa;line-height:1.5em;height:auto;width:auto}
+#permalink-manager .post_permalink .dashicons,#permalink-manager .uri_locked .dashicons{font-size:1em}
 #permalink-manager .column-count,#permalink-manager .column-post_lang{width:1%}
 #permalink-manager .column-count,#permalink-manager .column-post_lang,#permalink-manager th#count{text-align:right}
-#permalink-manager .column-item_uri .uri_locked{font-weight:bold}
+#permalink-manager .column-item_uri .uri_locked,#permalink-manager .column-item_uri .duplicated_uri_alert{font-weight:bold;margin-top:5px;font-size:80%}
 #permalink-manager .extra-info span{white-space:nowrap}
 
-#permalink-manager .info{box-shadow:0 1px 1px 0 rgba(0,0,0,.1);display:block;overflow:hidden;clear:both;font-weight:bold;border-left:4px solid #dc3232;}
+#permalink-manager .info{box-shadow:0 1px 1px 0 rgba(0,0,0,.1);display:block;overflow:hidden;clear:both;border-left:4px solid #dc3232;}
 #permalink-manager .alert,#permalink-manager .info{line-height:19px;padding:11px 15px;margin:15px 0}
 #permalink-manager .alert p,#permalink-manager .info p{margin-top:0;line-height:200%}
 #permalink-manager .alert ul,#permalink-manager .alert ol{margin-top:0;margin-bottom:0}
@@ -70,7 +71,7 @@
 #permalink-manager .extra-links a:first-child:before,.permalink-manager-screen-options .extra-links a:first-child:before{content:""}
 .permalink-manager-screen-options{margin-bottom:15px}
 #permalink-manager .checkboxes{margin-left:-15px;margin-right:15px;overflow:hidden;display:block}
-#permalink-manager .checkboxes > label{display:inline-block;width:33%;float:left;padding:0 15px;box-sizing:border-box;padding-bottom:5px;overflow:hidden}
+#permalink-manager .checkboxes > label{display:inline-block;width:33%;float:left;padding:0 15px 5px;box-sizing:border-box;overflow:hidden}
 #permalink-manager .checkboxes > label:nth-of-type(3n+1){clear:both}
 #permalink-manager .checkboxes > p{font-weight:bold;margin-left:15px;display:block;clear:both;margin-bottom:5px}
 #permalink-manager .checkboxes > label + p{padding-top:15px}
@@ -115,7 +116,8 @@
 .permalink-manager-edit-uri-box .close-button{float:right;width:36px;height:36px;padding:0;cursor:pointer;display:block}
 .permalink-manager-edit-uri-box .close-icon{margin-top:4px;-webkit-border-radius:50%;border-radius:50%;text-indent:-1px;color:#72777c;line-height:36px;display:block;text-align:center}
 .permalink-manager-edit-uri-box .close-icon:before{content:"\f158";display:inline-block;font:400 20px/1 dashicons;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-decoration:none!important}
-.permalink-manager-edit-uri-box .uri_locked{color:#aaa;font-size:13px;margin-top:8px;font-size:90%}
+.permalink-manager-edit-uri-box .uri_locked{color:#aaa;margin-top:8px;font-size:80%}
+.permalink-manager-edit-uri-box > .uri_locked{font-size:1em;padding:0 10px;color:inherit}
 .permalink-manager-edit-uri-box .default-permalink-row,.permalink-manager-edit-uri-box .redirects-row{border-top:1px solid #eee;padding-top:15px}
 .permalink-manager-edit-uri-box .default-permalink-row,.permalink-manager-edit-uri-box .default-permastruct-row,.permalink-manager-edit-uri-box .redirects-row{color:#aaa;font-size:90%}
 
@@ -140,7 +142,9 @@
 .permalink-manager.postbox .heading{border-bottom:3px double #eee}
 .permalink-manager.postbox a{color:#444;text-decoration:none;white-space:nowrap}
 
-#permalink-manager .permalink-manager-gutenberg > div{margin-top:15px;}
+.edit-post-meta-boxes-area #permalink-manager.postbox .inside{padding:0 24px 24px}
+#permalink-manager .permalink-manager-gutenberg .uri_locked{margin-top:1em}
+#permalink-manager .permalink-manager-gutenberg > div{margin-top:15px}
 #permalink-manager .permalink-manager-gutenberg .default-permalink-row > *{width:100%;float:none}
 #permalink-manager .permalink-manager-gutenberg .restore-default{text-align:left;margin-top:15px}
 #permalink-manager .permalink-manager-gutenberg .redirects-row{padding-top:15px}
@@ -185,6 +189,7 @@
 #permalink-manager .all-permastruct-container p{font-size:13px}
 #permalink-manager .all-permastruct-container p.default-permastruct-row{margin-top:15px}
 #permalink-manager .all-permastruct-container label{font-weight:600;margin-top:15px!important;font-size:13px;margin-bottom:5px!important;display:block;clear:both}
+#permalink-manager .all-permastruct-container .permastruct-field:disabled{cursor:not-allowed}
 #permalink-manager .all-permastruct-container .settings-container label{font-weight:400}
 #permalink-manager .permastruct-toggle-button a{font-size:90%;font-weight:bold}
 

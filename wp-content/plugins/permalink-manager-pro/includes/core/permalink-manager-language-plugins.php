@@ -162,7 +162,7 @@ class Permalink_Manager_Language_Plugins {
 
 				$fallback_lang_on = ( $is_wpml_compatible ) ? $sitepress->is_display_as_translated_post_type( $element_type ) : false;
 			} else if ( isset( $element->taxonomy ) ) {
-				$element_id   = $element->term_taxonomy_id;
+				$element_id   = $element->term_id;
 				$element_type = $element->taxonomy;
 
 				$fallback_lang_on = ( $is_wpml_compatible ) ? $sitepress->is_display_as_translated_taxonomy( $element_type ) : false;
@@ -299,7 +299,7 @@ class Permalink_Manager_Language_Plugins {
 	 * @return false|int
 	 */
 	function fix_language_mismatch( $item_id, $uri_parts, $is_term = false ) {
-		global $polylang, $permalink_manager_options, $icl_adjust_id_url_filter_off;
+		global $permalink_manager_options, $permalink_manager_uris, $pm_query, $polylang, $icl_adjust_id_url_filter_off;
 
 		$mode = ( ! empty( $permalink_manager_options['general']['fix_language_mismatch'] ) ) ? $permalink_manager_options['general']['fix_language_mismatch'] : 0;
 
@@ -310,7 +310,7 @@ class Permalink_Manager_Language_Plugins {
 		if ( $is_term ) {
 			$element = get_term( $item_id );
 			if ( ! empty( $element ) && ! is_wp_error( $element ) ) {
-				$element_id   = $element->term_taxonomy_id;
+				$element_id   = $element->term_id;
 				$element_type = $element->taxonomy;
 			} else {
 				return false;
@@ -343,7 +343,8 @@ class Permalink_Manager_Language_Plugins {
 
 		if ( $detected_language_code !== $element_language_code ) {
 			// A. Display the content in requested language
-			if ( $mode == 1 ) {
+			// B. Allow the canonical redirect
+			if ( $mode == 1 || $mode == 2 ) {
 				if ( ! empty( $polylang ) ) {
 					if ( function_exists( 'pll_get_post' ) && ! $is_term ) {
 						$translated_item_id = pll_get_post( $element_id, $detected_language_code );
@@ -355,7 +356,18 @@ class Permalink_Manager_Language_Plugins {
 				} else {
 					$item_id = apply_filters( 'wpml_object_id', $element_id, $element_type );
 				}
-			} // C. Display "404 error"
+
+				// Compare the URIs to prevent the redirect loop
+				if ( $mode == 2 && $item_id !== $element_id ) {
+					$detected_element_uri   = Permalink_Manager_URI_Functions::get_single_uri( $element_id, false, false, $is_term );
+					$translated_element_uri = Permalink_Manager_URI_Functions::get_single_uri( $item_id, false, false, $is_term );
+
+					if ( ! empty( $detected_element_uri ) && ! empty( $translated_element_uri ) && $detected_element_uri !== $translated_element_uri ) {
+						$pm_query['flag'] = 'language_mismatch';
+					}
+				}
+			}
+			 // C. Display "404 error"
 			else {
 				$item_id = 0;
 			}

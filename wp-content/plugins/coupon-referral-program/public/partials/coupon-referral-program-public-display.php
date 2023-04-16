@@ -80,12 +80,12 @@ if ( self::mwb_crp_points_rewards_hide_referal() ) {
 							wp_kses_post( wc_price( $coupon->get_amount() ) ) : esc_html( $coupon->get_amount() ) . '%';
 						?>
 						</span> 
-						<img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt=""> 
+						<img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt="scissor png"> 
 						<span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb<?php echo esc_html( $signup_coupon['singup'] ); ?>" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 							</button>
 						</span>
 					</div>
@@ -113,11 +113,11 @@ if ( self::mwb_crp_points_rewards_hide_referal() ) {
 						echo ( 'fixed_cart' === $coupon->get_discount_type() ) ?
 							wp_kses_post( wc_price( $coupon->get_amount() ) ) : esc_html( $coupon->get_amount() ) . '%';
 						?>
-							</span> <img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt=""> <span class="mwb-crp-coupon-wrap">
+							</span> <img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt="scissor icon"> <span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb<?php echo esc_html( $coupon_code ); ?>" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 							</button>
 						</span>
 					</div>
@@ -150,11 +150,11 @@ if ( self::mwb_crp_points_rewards_hide_referal() ) {
 						echo ( 'fixed_cart' === $coupon->get_discount_type() ) ?
 							wp_kses_post( wc_price( $coupon->get_amount() ) ) : esc_html( $coupon->get_amount() ) . '%';
 						?>
-							</span> <img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt=""> <span class="mwb-crp-coupon-wrap">
+							</span> <img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt="scissor icon"> <span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb<?php echo esc_html( $coupon_code ); ?>" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 							</button>
 						</span>
 					</div>
@@ -187,11 +187,11 @@ if ( self::mwb_crp_points_rewards_hide_referal() ) {
 						echo ( 'fixed_cart' === $coupon->get_discount_type() ) ?
 							wp_kses_post( wc_price( $coupon->get_amount() ) ) : esc_html( $coupon->get_amount() ) . '%';
 						?>
-							</span> <img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt=""> <span class="mwb-crp-coupon-wrap">
+							</span> <img class="mwb-crp-coupon-scissors" src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png'; ?>" alt="scissor icon"> <span class="mwb-crp-coupon-wrap">
 							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb<?php echo esc_html( $coupon_code ); ?>" aria-label="copied">
 								<span class="mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copy', 'coupon-referral-program' ); ?></span>
 								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext"><?php esc_html_e( 'Copied', 'coupon-referral-program' ); ?></span>
-								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="">
+								<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png'; ?>" alt="copy icon">
 							</button>
 						</span>
 					</div>

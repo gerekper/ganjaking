@@ -1,4 +1,9 @@
 <?php
+/**
+ * This class handle ajax callbacks for Bookings.
+ *
+ * @package WooCommerce Bookings
+ */
 
 /**
  * Bookings WC ajax callbacks.
@@ -30,16 +35,18 @@ class WC_Bookings_WC_Ajax {
 
 		check_ajax_referer( 'find-booking-slots', 'security' );
 
-		$product_ids  = ! empty( $_GET['product_ids'] ) ? array_map( 'absint', explode( ',', $_GET['product_ids'] ) ) : array();
-		$category_ids = ! empty( $_GET['category_ids'] ) ? array_map( 'absint', explode( ',', $_GET['category_ids'] ) ) : array();
-		$resource_ids = ! empty( $_GET['resource_ids'] ) ? array_map( 'absint', explode( ',', $_GET['resource_ids'] ) ) : array();
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$product_ids  = ! empty( $_GET['product_ids'] ) ? array_map( 'absint', explode( ',', wp_unslash( $_GET['product_ids'] ) ) ) : array();
+		$category_ids = ! empty( $_GET['category_ids'] ) ? array_map( 'absint', explode( ',', wp_unslash( $_GET['category_ids'] ) ) ) : array();
+		$resource_ids = ! empty( $_GET['resource_ids'] ) ? array_map( 'absint', explode( ',', wp_unslash( $_GET['resource_ids'] ) ) ) : array();
 
-		$min_date     = isset( $_GET['min_date'] ) ? strtotime( urldecode( $_GET['min_date'] ) ) : 0;
-		$max_date     = isset( $_GET['max_date'] ) ? strtotime( urldecode( $_GET['max_date'] ) ) : 0;
+		$min_date = isset( $_GET['min_date'] ) ? strtotime( sanitize_text_field( urldecode( wp_unslash( $_GET['min_date'] ) ) ) ) : 0;
+		$max_date = isset( $_GET['max_date'] ) ? strtotime( sanitize_text_field( urldecode( wp_unslash( $_GET['max_date'] ) ) ) ) : 0;
 
-		$intervals    = isset( $_GET['intervals'] ) ? array_slice( array_map( 'absint', explode( ',', $_GET['intervals'] ) ), 0, 2 ) : array();
+		$intervals = isset( $_GET['intervals'] ) ? array_slice( array_map( 'absint', explode( ',', wp_unslash( $_GET['intervals'] ) ) ), 0, 2 ) : array();
 
-		$timezone_offset = isset( $_GET['timezone_offset'] ) ? absint( $_GET['timezone_offset'] ) : 0;
+		$timezone_offset = isset( $_GET['timezone_offset'] ) ? absint( wp_unslash( $_GET['timezone_offset'] ) ) : 0;
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$page                         = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : false;
 		$records_per_page             = 10;
@@ -49,7 +56,7 @@ class WC_Bookings_WC_Ajax {
 		$cached_availabilities = WC_Bookings_Cache::get( $transient_name );
 
 		if ( $cached_availabilities ) {
-			wp_send_json( wc_bookings_paginated_availability( $cached_availabilities, $page, $records_per_page  ) );
+			wp_send_json( wc_bookings_paginated_availability( $cached_availabilities, $page, $records_per_page ) );
 		}
 
 		// If no product ids are specified, just use all products.
@@ -64,9 +71,9 @@ class WC_Bookings_WC_Ajax {
 			}
 
 			// Don't store in cache if it already exists there.
-			if ( ! in_array( $transient_name, $booking_slots_transient_keys[ $product_id ] ) ) {
+			if ( ! in_array( $transient_name, $booking_slots_transient_keys[ $product_id ], true ) ) {
 				$booking_slots_transient_keys[ $product_id ][] = $transient_name;
-				$needs_cache_set = true;
+				$needs_cache_set                               = true;
 			}
 		}
 
@@ -75,82 +82,111 @@ class WC_Bookings_WC_Ajax {
 			WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
 		}
 
-		$products = array_filter( array_map( function( $product_id ) {
-			return get_wc_product_booking( $product_id );
-		}, $product_ids ) );
+		$products = array_filter(
+			array_map(
+				function( $product_id ) {
+					return get_wc_product_booking( $product_id );
+				},
+				$product_ids
+			)
+		);
 
 		// If category ids are specified filter the product ids.
 		if ( ! empty( $category_ids ) ) {
-			$products = array_filter( $products, function( $product ) use ( $category_ids ) {
-				$product_id = $product->get_id();
+			$products = array_filter(
+				$products,
+				function( $product ) use ( $category_ids ) {
+					$product_id = $product->get_id();
 
-				return array_reduce( $category_ids, function( $is_in_category, $category_id ) use ( $product_id ) {
-					$term = get_term_by( 'id', $category_id, 'product_cat' );
+					return array_reduce(
+						$category_ids,
+						function( $is_in_category, $category_id ) use ( $product_id ) {
+							$term = get_term_by( 'id', $category_id, 'product_cat' );
 
-					if ( ! $term ) {
-						return $is_in_category;
-					}
+							if ( ! $term ) {
+								return $is_in_category;
+							}
 
-					return $is_in_category || has_term( $term, 'product_cat', $product_id );
-				}, false );
-			} );
+							return $is_in_category || has_term( $term, 'product_cat', $product_id );
+						},
+						false
+					);
+				}
+			);
 		}
 
 		// Calculate partially booked/fully booked/unavailable days for each product.
-		$booked_data = array_values( array_map( function( $bookable_product ) use ( $min_date, $max_date, $timezone_offset, $resource_ids, $intervals ) {
-			if ( empty( $min_date ) ) {
-				// Determine a min and max date
-				$min_date = strtotime( 'today' );
-			}
+		$booked_data = array_values(
+			array_map(
+				function( $bookable_product ) use ( $min_date, $max_date, $timezone_offset, $resource_ids, $intervals ) {
+					if ( empty( $min_date ) ) {
+						// Determine a min and max date.
+						$min_date = strtotime( 'today' );
+					}
 
-			if ( empty( $max_date ) ) {
-				$max_date = strtotime( 'tomorrow' );
-			}
+					if ( empty( $max_date ) ) {
+						$max_date = strtotime( 'tomorrow' );
+					}
 
-			if ( empty( $intervals ) ) {
-				$default_interval = 'hour' === $bookable_product->get_duration_unit() ? $bookable_product->get_duration() * 60 : $bookable_product->get_duration();
-				$intervals        = array( $default_interval, $default_interval );
-			}
+					if ( empty( $intervals ) ) {
+						$default_interval = 'hour' === $bookable_product->get_duration_unit() ? $bookable_product->get_duration() * 60 : $bookable_product->get_duration();
+						$intervals        = array( $default_interval, $default_interval );
+					}
 
-			$product_resources = $bookable_product->get_resource_ids() ?: array();
-			$availability      = array();
+					// phpcs:ignore WordPress.PHP.DisallowShortTernary.Found
+					$product_resources = $bookable_product->get_resource_ids() ?: array();
+					$availability      = array();
 
-			$resources = empty( $product_resources ) ? array( 0 ) : $product_resources;
-			if ( ! empty( $resource_ids ) ) {
-				$resources = array_intersect( $resources, $resource_ids );
-			}
+					$resources = empty( $product_resources ) ? array( 0 ) : $product_resources;
+					if ( ! empty( $resource_ids ) ) {
+						$resources = array_intersect( $resources, $resource_ids );
+					}
 
-			foreach ( $resources as $resource_id ) {
-				$blocks           = $bookable_product->get_blocks_in_range( $min_date, $max_date );
-				$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals, $resource_id, $min_date, $max_date );
-				foreach ( $available_blocks as $timestamp => $data ) {
-					$data['resources'] = (object) $data['resources'];
-					$availability[] = array_merge( array(
-						'date'          => get_time_as_iso8601( $timestamp ),
-						'duration'      => $bookable_product->get_duration(),
-						'duration_unit' => $bookable_product->get_duration_unit(),
-					), $data );
-				}
-			}
+					foreach ( $resources as $resource_id ) {
+						$blocks           = $bookable_product->get_blocks_in_range( $min_date, $max_date );
+						$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals, $resource_id, $min_date, $max_date );
+						foreach ( $available_blocks as $timestamp => $data ) {
+							$data['resources'] = (object) $data['resources'];
+							$availability[]    = array_merge(
+								array(
+									'date'          => get_time_as_iso8601( $timestamp ),
+									'duration'      => $bookable_product->get_duration(),
+									'duration_unit' => $bookable_product->get_duration_unit(),
+								),
+								$data
+							);
+						}
+					}
 
-			$data = array(
-				'product_id'   => $bookable_product->get_id(),
-				'availability' => $availability,
-				'title'        => $bookable_product->get_title(),
-				'cost'         => wc_price( $bookable_product->get_cost() ),
-			);
+					$data = array(
+						'product_id'   => $bookable_product->get_id(),
+						'availability' => $availability,
+						'title'        => $bookable_product->get_title(),
+						'cost'         => wc_price( $bookable_product->get_cost() ),
+					);
 
-			return $data;
-		}, $products ) );
+					return $data;
+				},
+				$products
+			)
+		);
 
-		$cached_availabilities = array_merge( ...array_map( function( $value ) {
-			return array_map( function( $availability ) use ( $value ) {
-				$availability['product_id'] = $value['product_id'];
-				$availability['title'] = $value['title'];
-				$availability['cost'] = $value['cost'];
-				return $availability;
-			}, $value['availability'] );
-		}, $booked_data ) );
+		$cached_availabilities = array_merge(
+			...array_map(
+				function( $value ) {
+					return array_map(
+						function( $availability ) use ( $value ) {
+							$availability['product_id'] = $value['product_id'];
+							$availability['title']      = $value['title'];
+							$availability['cost']       = $value['cost'];
+							return $availability;
+						},
+						$value['availability']
+					);
+				},
+				$booked_data
+			)
+		);
 
 		WC_Bookings_Cache::set( $transient_name, $cached_availabilities, HOUR_IN_SECONDS );
 
@@ -165,7 +201,8 @@ class WC_Bookings_WC_Ajax {
 	public function find_booked_day_blocks() {
 		check_ajax_referer( 'find-booked-day-blocks', 'security' );
 
-		$product_id  = absint( $_GET['product_id'] );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$product_id  = ! empty( $_GET['product_id'] ) ? absint( $_GET['product_id'] ) : null;
 		$resource_id = ! empty( $_GET['resource_id'] ) ? absint( $_GET['resource_id'] ) : null;
 
 		if ( empty( $product_id ) ) {
@@ -183,19 +220,23 @@ class WC_Bookings_WC_Ajax {
 			$get_min_date = $product->get_min_date();
 			$get_max_date = $product->get_max_date();
 
+			// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 			$min_date_bookable = strtotime( "+{$get_min_date['value']} {$get_min_date['unit']}", current_time( 'timestamp' ) );
+			// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 			$max_date_bookable = strtotime( "+{$get_max_date['value']} {$get_max_date['unit']}", current_time( 'timestamp' ) );
 
 			// If the date is provided, use it only if it is a valid Unix timestamp, and it is after/before the min/max bookable time.
+			// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.Found
 			$min_date = $args['min_date'] = isset( $_GET['min_date'] )
-			                                && false !== strtotime( $_GET['min_date'] )
-			                                && strtotime( $_GET['min_date'] ) > $min_date_bookable ? strtotime( $_GET['min_date'] ) : $min_date_bookable;
+											&& false !== strtotime( sanitize_text_field( wp_unslash( $_GET['min_date'] ) ) )
+											&& strtotime( sanitize_text_field( wp_unslash( $_GET['min_date'] ) ) ) > $min_date_bookable ? strtotime( sanitize_text_field( wp_unslash( $_GET['min_date'] ) ) ) : $min_date_bookable;
 
+			// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.Found
 			$max_date = $args['max_date'] = isset( $_GET['max_date'] )
-			                                && false !== strtotime( $_GET['max_date'] )
-			                                && strtotime( $_GET['max_date'] ) < $max_date_bookable ? strtotime( $_GET['max_date'] ) : $max_date_bookable;
+											&& false !== strtotime( sanitize_text_field( wp_unslash( $_GET['max_date'] ) ) )
+											&& strtotime( sanitize_text_field( wp_unslash( $_GET['max_date'] ) ) ) < $max_date_bookable ? strtotime( sanitize_text_field( wp_unslash( $_GET['max_date'] ) ) ) : $max_date_bookable;
 
-			$timezone_offset = isset( $_GET['timezone_offset'] ) ? $_GET['timezone_offset'] : 0;
+			$timezone_offset = isset( $_GET['timezone_offset'] ) ? sanitize_text_field( wp_unslash( $_GET['timezone_offset'] ) ) : 0;
 
 			if ( $product->has_resources() ) {
 				foreach ( $product->get_resources() as $resource ) {
@@ -219,11 +260,23 @@ class WC_Bookings_WC_Ajax {
 			$args['old_availability']      = isset( $booked['old_availability'] ) && true === $booked['old_availability'];
 
 			$buffer_days = array();
-			if ( ! in_array( $product->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
+			if ( ! in_array( $product->get_duration_unit(), array( 'minute', 'hour' ), true ) ) {
 				$buffer_days = WC_Bookings_Controller::get_buffer_day_blocks_for_booked_days( $product, $args['fully_booked_days'] );
 			}
 
-			$args['buffer_days']           = $buffer_days;
+			$args['buffer_days'] = $buffer_days;
+
+			/**
+			 * Filter the find booked day blocks results.
+			 *
+			 * @since 1.15.79
+			 *
+			 * @param array              $args        Result.
+			 * @param array              $booked      Booked blocks.
+			 * @param WC_Product_Booking $product     Product.
+			 * @param int                $resource_id Resource ID.
+			 */
+			$args = apply_filters( 'woocommerce_bookings_find_booked_day_blocks', $args, $booked, $product, $resource_id );
 
 			wp_send_json( $args );
 
@@ -235,10 +288,11 @@ class WC_Bookings_WC_Ajax {
 	}
 
 	/**
-	 * Gets all the bookable products.
+	 * Ajax request controller.
+	 *
+	 * This function should return all the bookable products.
 	 *
 	 * @since 1.13.0
-	 * @return JSON $payload
 	 */
 	public function get_all_bookable_products() {
 		wc_deprecated_function( __METHOD__, self::AJAX_DEPRECATION_VERSION, 'REST endpoint /wp-json/wc-bookings/v1/products' );
@@ -246,19 +300,30 @@ class WC_Bookings_WC_Ajax {
 		check_ajax_referer( 'get-all-bookable-products', 'security' );
 
 		try {
-			$args = apply_filters( 'get_booking_products_args', array(
-				'post_status'      => 'publish',
-				'post_type'        => 'product',
-				'posts_per_page'   => -1,
-				'tax_query'        => array(
-					array(
-						'taxonomy' => 'product_type',
-						'field'    => 'slug',
-						'terms'    => 'booking',
+			/**
+			 * Filter the arguments used to get all bookable products.
+			 *
+			 * @since 1.13.0
+			 *
+			 * @param array $args Arguments used to get all bookable products.
+			 */
+			$args = apply_filters(
+				'get_booking_products_args',
+				array(
+					'post_status'      => 'publish',
+					'post_type'        => 'product',
+					'posts_per_page'   => -1,
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					'tax_query'        => array(
+						array(
+							'taxonomy' => 'product_type',
+							'field'    => 'slug',
+							'terms'    => 'booking',
+						),
 					),
-				),
-				'suppress_filters' => true,
-			) );
+					'suppress_filters' => true,
+				)
+			);
 
 			$payload = new WP_Query( $args );
 
@@ -269,9 +334,11 @@ class WC_Bookings_WC_Ajax {
 	}
 
 	/**
-	 * Gets all categories that contain bookable products.
+	 * Ajax request controller.
 	 *
-	 * @return JSON $payload
+	 * This function should return all categories that contain bookable products.
+	 *
+	 * @since 1.13.0
 	 */
 	public function get_all_categories_with_bookable_products() {
 		wc_deprecated_function( __METHOD__, self::AJAX_DEPRECATION_VERSION, 'REST endpoint /wp-json/wc-bookings/v1/products/categories' );
@@ -287,23 +354,35 @@ class WC_Bookings_WC_Ajax {
 			}
 
 			foreach ( $product_categories as $product_category ) {
-				$args = apply_filters( 'get_categories_booking_products_args', array(
-					'posts_per_page' => -1,
-					'post_type'      => 'product',
-					'tax_query'      => array(
-						'relation'     => 'AND',
-						array(
-							'taxonomy' => 'product_cat',
-							'field'    => 'slug',
-							'terms'    => $product_category->slug,
-						),
-						array(
-							'taxonomy' => 'product_type',
-							'field'    => 'slug',
-							'terms'    => 'booking',
+				/**
+				 * Filter the get categories booking products args.
+				 *
+				 * @since 1.13.0
+				 *
+				 * @param array $args Query args.
+				 */
+				$args = apply_filters(
+					'get_categories_booking_products_args',
+					array(
+						'posts_per_page' => -1,
+						'post_type'      => 'product',
+						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+						'tax_query'      => array(
+							'relation' => 'AND',
+							array(
+								'taxonomy' => 'product_cat',
+								'field'    => 'slug',
+								'terms'    => $product_category->slug,
+							),
+							array(
+								'taxonomy' => 'product_type',
+								'field'    => 'slug',
+								'terms'    => 'booking',
+							),
 						),
 					),
-				), $product_category );
+					$product_category
+				);
 
 				$products = new WP_Query( $args );
 
@@ -322,10 +401,11 @@ class WC_Bookings_WC_Ajax {
 	}
 
 	/**
-	 * Gets all resources.
+	 * Ajax request controller.
+	 *
+	 * This function should return product resources.
 	 *
 	 * @since 1.13.0
-	 * @return JSON $payload
 	 */
 	public function get_all_resources() {
 		wc_deprecated_function( __METHOD__, self::AJAX_DEPRECATION_VERSION, 'REST endpoint /wp-json/wc-bookings/v1/resources' );
@@ -333,21 +413,34 @@ class WC_Bookings_WC_Ajax {
 		check_ajax_referer( 'get-all-resources', 'security' );
 
 		try {
-			$args = apply_filters( 'get_all_resources_args', array(
-				'post_status'      => 'publish',
-				'post_type'        => 'bookable_resource',
-				'posts_per_page'   => -1,
-				'suppress_filters' => true,
-			) );
+			/**
+			 * Filter the get all resources args.
+			 *
+			 * @since 1.13.0
+			 *
+			 * @param array $args Query arguments.
+			 */
+			$args = apply_filters(
+				'get_all_resources_args',
+				array(
+					'post_status'      => 'publish',
+					'post_type'        => 'bookable_resource',
+					'posts_per_page'   => -1,
+					'suppress_filters' => true,
+				)
+			);
 
 			$payload = get_posts( $args );
 
-			$payload = array_map( function( $post ) {
-				return array(
-					'id'   => $post->ID,
-					'name' => $post->post_title,
-				);
-			}, $payload );
+			$payload = array_map(
+				function( $post ) {
+					return array(
+						'id'   => $post->ID,
+						'name' => $post->post_title,
+					);
+				},
+				$payload
+			);
 
 			wp_send_json( $payload );
 		} catch ( Exception $e ) {
@@ -363,7 +456,7 @@ class WC_Bookings_WC_Ajax {
 	public function add_booking_to_cart() {
 		check_ajax_referer( 'add-booking-to-cart', 'security' );
 
-		$date = isset( $_GET['date'] ) ? $_GET['date'] : '';
+		$date = isset( $_GET['date'] ) ? sanitize_text_field( wp_unslash( $_GET['date'] ) ) : '';
 
 		if ( empty( $_GET['product_id'] ) || empty( $date ) ) {
 			wp_die();
@@ -375,6 +468,14 @@ class WC_Bookings_WC_Ajax {
 			wp_die();
 		}
 
+		/**
+		 * Filter the link to the product page.
+		 *
+		 * @since 1.13.13
+		 *
+		 * @param string             $link    The product link.
+		 * @param WC_Product_Booking $product The product object.
+		 */
 		$link = apply_filters( 'woocommerce_loop_product_link', $product->get_permalink(), $product );
 
 		try {

@@ -2,20 +2,22 @@
 /**
  * @license BSD-3-Clause
  *
- * Modified by woocommerce on 27-March-2023 using Strauss.
+ * Modified by woocommerce on 12-April-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\Firebase\JWT;
 
 use ArrayAccess;
+use InvalidArgumentException;
 use LogicException;
 use OutOfBoundsException;
-use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Cache\CacheItemInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Cache\CacheItemPoolInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Client\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\RequestFactoryInterface;
 use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * @implements ArrayAccess<string, Key>
@@ -47,7 +49,7 @@ class CachedKeySet implements ArrayAccess
      */
     private $cacheItem;
     /**
-     * @var array<string, Key>
+     * @var array<string, array<mixed>>
      */
     private $keySet;
     /**
@@ -107,7 +109,7 @@ class CachedKeySet implements ArrayAccess
         if (!$this->keyIdExists($keyId)) {
             throw new OutOfBoundsException('Key ID not found');
         }
-        return $this->keySet[$keyId];
+        return JWK::parseKey($this->keySet[$keyId], $this->defaultAlg);
     }
 
     /**
@@ -136,15 +138,43 @@ class CachedKeySet implements ArrayAccess
         throw new LogicException('Method not implemented');
     }
 
+    /**
+     * @return array<mixed>
+     */
+    private function formatJwksForCache(string $jwks): array
+    {
+        $jwks = json_decode($jwks, true);
+
+        if (!isset($jwks['keys'])) {
+            throw new UnexpectedValueException('"keys" member must exist in the JWK Set');
+        }
+
+        if (empty($jwks['keys'])) {
+            throw new InvalidArgumentException('JWK Set did not contain any keys');
+        }
+
+        $keys = [];
+        foreach ($jwks['keys'] as $k => $v) {
+            $kid = isset($v['kid']) ? $v['kid'] : $k;
+            $keys[(string) $kid] = $v;
+        }
+
+        return $keys;
+    }
+
     private function keyIdExists(string $keyId): bool
     {
         if (null === $this->keySet) {
             $item = $this->getCacheItem();
             // Try to load keys from cache
             if ($item->isHit()) {
-                // item found! Return it
-                $jwks = $item->get();
-                $this->keySet = JWK::parseKeySet(json_decode($jwks, true), $this->defaultAlg);
+                // item found! retrieve it
+                $this->keySet = $item->get();
+                // If the cached item is a string, the JWKS response was cached (previous behavior).
+                // Parse this into expected format array<kid, jwk> instead.
+                if (\is_string($this->keySet)) {
+                    $this->keySet = $this->formatJwksForCache($this->keySet);
+                }
             }
         }
 
@@ -154,15 +184,14 @@ class CachedKeySet implements ArrayAccess
             }
             $request = $this->httpFactory->createRequest('GET', $this->jwksUri);
             $jwksResponse = $this->httpClient->sendRequest($request);
-            $jwks = (string) $jwksResponse->getBody();
-            $this->keySet = JWK::parseKeySet(json_decode($jwks, true), $this->defaultAlg);
+            $this->keySet = $this->formatJwksForCache((string) $jwksResponse->getBody());
 
             if (!isset($this->keySet[$keyId])) {
                 return false;
             }
 
             $item = $this->getCacheItem();
-            $item->set($jwks);
+            $item->set($this->keySet);
             if ($this->expiresAfter) {
                 $item->expiresAfter($this->expiresAfter);
             }
