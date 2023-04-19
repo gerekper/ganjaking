@@ -36,7 +36,7 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 	 * @since 1.0
 	 */
 	public function display_pricing_table( $template, $shortcode_atts ) {
-		if ( $this->template_key == $template && isset( $shortcode_atts['easy_pricing_table_id'] ) ) {
+		if ( $this->template_key === $template && isset( $shortcode_atts['easy_pricing_table_id'] ) ) {
 			echo '<div id="opc-product-selection" data-opc_id="' . esc_attr( PP_One_Page_Checkout::$shortcode_page_id ) . '"class="wcopc">';
 			echo do_shortcode( '[easy-pricing-table id="' . esc_attr( $shortcode_atts['easy_pricing_table_id'] ) . '"]' );
 			echo '</div>';

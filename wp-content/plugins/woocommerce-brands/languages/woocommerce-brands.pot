@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Brands package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Brands 1.6.45\n"
+"Project-Id-Version: WooCommerce Brands 1.6.47\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-brands\n"
-"POT-Creation-Date: 2023-04-05 16:53:23+00:00\n"
+"POT-Creation-Date: 2023-04-18 11:04:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-wc-brands-admin.php:33 includes/class-wc-brands-admin.php:559
-#: includes/class-wc-brands-admin.php:570 includes/class-wc-brands.php:208
+#: includes/class-wc-brands-admin.php:33 includes/class-wc-brands-admin.php:565
+#: includes/class-wc-brands-admin.php:576 includes/class-wc-brands.php:208
 #: includes/class-wc-brands.php:210
 #: includes/widgets/class-wc-widget-brand-nav.php:150
 msgid "Brands"
@@ -67,45 +67,45 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-brands-admin.php:230
-#: includes/class-wc-brands-admin.php:307
+#: includes/class-wc-brands-admin.php:313
 msgid "Thumbnail"
 msgstr ""
 
 #: includes/class-wc-brands-admin.php:234
-#: includes/class-wc-brands-admin.php:312
+#: includes/class-wc-brands-admin.php:318
 msgid "Upload/Add image"
 msgstr ""
 
 #: includes/class-wc-brands-admin.php:235
-#: includes/class-wc-brands-admin.php:313
+#: includes/class-wc-brands-admin.php:319
 msgid "Remove image"
 msgstr ""
 
 #: includes/class-wc-brands-admin.php:260
-#: includes/class-wc-brands-admin.php:338
+#: includes/class-wc-brands-admin.php:344
 msgid "Choose an image"
 msgstr ""
 
 #: includes/class-wc-brands-admin.php:262
-#: includes/class-wc-brands-admin.php:340
+#: includes/class-wc-brands-admin.php:346
 msgid "Use image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:383
+#: includes/class-wc-brands-admin.php:389
 msgid ""
 "Brands be added and managed from this screen. You can optionally upload a "
 "brand image to display in brand widgets and on brand archives"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:432
+#: includes/class-wc-brands-admin.php:438
 msgid "Image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:483
+#: includes/class-wc-brands-admin.php:489
 msgid "Select a brand"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:506
+#: includes/class-wc-brands-admin.php:512
 msgid "Product brand base"
 msgstr ""
 
@@ -184,27 +184,28 @@ msgstr ""
 msgid "No Brands Found"
 msgstr ""
 
-#: includes/class-wc-brands.php:345
-msgid "%1$s: "
-msgid_plural "%2$s: "
+#: includes/class-wc-brands.php:346
+#. translators: %s - Label name
+msgid "%s: "
+msgid_plural "%s: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-brands.php:802
+#: includes/class-wc-brands.php:813
 msgid "Limit result set to products assigned a specific brand ID."
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-description.php:24
+#: includes/widgets/class-wc-widget-brand-description.php:23
 msgid "WooCommerce Brand Description"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-description.php:25
+#: includes/widgets/class-wc-widget-brand-description.php:24
 msgid "When viewing a brand archive, show the current brands description."
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-description.php:71
+#: includes/widgets/class-wc-widget-brand-description.php:82
 #: includes/widgets/class-wc-widget-brand-nav.php:172
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:133
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:144
 msgid "Title:"
 msgstr ""
 
@@ -234,63 +235,63 @@ msgstr ""
 msgid "Any Brand"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:24
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:23
 msgid "WooCommerce Brand Thumbnails"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:25
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:24
 msgid "Show a grid of brand thumbnails."
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:138
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:149
 msgid "Columns:"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:143
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:154
 msgid "Fluid columns:"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:148
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:159
 msgid "Number:"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:149
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:160
 msgid "All"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:153
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:164
 msgid "Exclude:"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:154
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:165
 msgid "None"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:158
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:169
 msgid "Hide empty brands:"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:160
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:171
 msgid "Yes"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:161
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:172
 msgid "No"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:166
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:177
 msgid "Order by:"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:168
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:179
 msgid "Name"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-brand-thumbnails.php:169
+#: includes/widgets/class-wc-widget-brand-thumbnails.php:180
 msgid "Count"
 msgstr ""
 
-#: templates/shortcodes/brands-a-z.php:35
+#: templates/shortcodes/brands-a-z.php:39
 msgid "&uarr; Top"
 msgstr ""
 
@@ -333,12 +334,12 @@ msgstr ""
 msgid "https://woocommerce.com/"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:521
+#: includes/class-wc-brands-admin.php:527
 msgctxt "slug"
 msgid "brand"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:546
+#: includes/class-wc-brands-admin.php:552
 msgctxt "slug"
 msgid "product"
 msgstr ""

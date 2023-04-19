@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.7.0
+ * @version     5.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1580,7 +1580,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 														FROM $wpdb->posts
 														WHERE post_type = %s)",
 								'customer_email',
-								'%' . $wpdb->esc_like( $old_customers_email_id ) . '%',
+								'%' . $wpdb->esc_like( '"' . $old_customers_email_id . '"' ) . '%',
 								'shop_coupon'
 							)
 						);
@@ -3280,8 +3280,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$smart_coupon_args['post_date_gmt'] = gmdate( 'Y-m-d H:i:s', $sending_timestamp );
 				}
 
-				$smart_coupon = new WC_Coupon();
-				$smart_coupon->set_code( $smart_coupon_args['post_title'] );
+				$smart_coupon = new WC_Coupon( $smart_coupon_args['post_title'] );
 				$smart_coupon->set_description( $smart_coupon_args['post_excerpt'] );
 
 				if ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $smart_coupon, 'set_status' ) ) {
@@ -4120,8 +4119,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			if ( is_null( $coupon ) ) {
 				if ( ! empty( $args['discount_type'] ) && ! empty( $args['amount'] ) ) {
 					$new_code   = $this->generate_unique_code( $email_restrictions );
-					$new_coupon = new WC_Coupon();
-					$new_coupon->set_code( $new_code );
+					$new_coupon = new WC_Coupon( $new_code );
 					foreach ( $args as $key => $value ) {
 						switch ( $key ) {
 							case 'code':
@@ -4156,8 +4154,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					return ( 'code' === $return_type ) ? $code : $coupon;
 				} else {
 					$new_code   = $this->generate_unique_code( $email_restrictions );
-					$new_coupon = new WC_Coupon();
-					$new_coupon->set_code( $new_code );
+					$new_coupon = new WC_Coupon( $new_code );
 					foreach ( $internal_keys as $key ) {
 						if ( ! is_object( $coupon ) ) {
 							continue;
@@ -5314,7 +5311,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$error = __( '$coupon is not an object of WC_Coupon', 'woocommerce-smart-coupons' );
 				ob_start();
 				esc_html_e( '$coupon is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $coupon ) ) ? var_dump( $coupon ) : print_r( gettype( $coupon ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return floatval( 0 );
 			}
 			if ( $this->is_wc_gte_30() ) {
@@ -5415,7 +5412,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$post_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $post_id ) ) ? var_dump( $post_id ) : print_r( gettype( $post_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$meta_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $meta_key ) ) ? var_dump( $meta_key ) : print_r( gettype( $meta_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return null;
 			}
 			$meta_value = '';
@@ -5530,7 +5527,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$post_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $post_id ) ) ? var_dump( $post_id ) : print_r( gettype( $post_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$meta_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $meta_key ) ) ? var_dump( $meta_key ) : print_r( gettype( $meta_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
 			$post_type = ( $this->is_callable( $this, 'get_post_type' ) ) ? $this->get_post_type( $post_id ) : '';
@@ -5644,7 +5641,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$post_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $post_id ) ) ? var_dump( $post_id ) : print_r( gettype( $post_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$meta_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $meta_key ) ) ? var_dump( $meta_key ) : print_r( gettype( $meta_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
 			if ( is_null( $object ) || ! ( $this->is_callable( $object, 'delete_meta_data' ) && $this->is_callable( $object, 'save' ) ) ) {
@@ -5687,7 +5684,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$error = __( '$key is required', 'woocommerce-smart-coupons' );
 				ob_start();
 				esc_html_e( '$key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $key ) ) ? var_dump( $key ) : print_r( gettype( $key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return null;
 			}
 			if ( ! is_callable( 'WC' ) || ! is_object( WC() ) || ! is_object( WC()->session ) || ! is_callable( array( WC()->session, 'get' ) ) ) {
@@ -5742,7 +5739,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$error = __( '$key is required', 'woocommerce-smart-coupons' );
 				ob_start();
 				esc_html_e( '$key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $key ) ) ? var_dump( $key ) : print_r( gettype( $key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
 			if ( ! is_callable( 'WC' ) || ! is_object( WC() ) || ! is_object( WC()->session ) || ! is_callable( array( WC()->session, 'set' ) ) ) {
@@ -5800,7 +5797,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return null;
 			}
 			$item_value = wc_get_order_item_meta( $item_id, $item_key, $single );
@@ -5854,7 +5851,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return 0;
 			}
 			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
@@ -5883,7 +5880,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
 			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
@@ -5907,7 +5904,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				ob_start();
 				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
 				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
 			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
@@ -5934,7 +5931,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$error = __( '$item is not an object of WC_Order_Item', 'woocommerce-smart-coupons' );
 				ob_start();
 				esc_html_e( '$item is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item ) ) ? var_dump( $item ) : print_r( gettype( $item ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return null;
 			}
 			$item_value = ( is_callable( array( $item, 'get_meta' ) ) ) ? $item->get_meta( $item_key ) : ( ( ! empty( $item[ $item_key ] ) ) ? $item[ $item_key ] : '' );
@@ -5982,7 +5979,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$error = __( '$item is not an object of WC_Order_Item', 'woocommerce-smart-coupons' );
 				ob_start();
 				esc_html_e( '$item is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item ) ) ? var_dump( $item ) : print_r( gettype( $item ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return false;
 			}
 			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
@@ -6045,7 +6042,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$error = __( '$item_id is required', 'woocommerce-smart-coupons' );
 				ob_start();
 				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
-				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				$this->log( 'notice', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
 				return null;
 			}
 			if ( $this->is_wc_gte_30() ) {

@@ -293,6 +293,7 @@ class Vc_Base {
 			delete_metadata( 'post', $id, '_wpb_shortcodes_custom_css' );
 		} else {
 			update_metadata( 'post', $id, '_wpb_shortcodes_custom_css', $css );
+			update_metadata( 'post', $id, '_wpb_shortcodes_custom_css_updated', true );
 		}
 	}
 
@@ -328,8 +329,18 @@ class Vc_Base {
 				}
 			}
 		}
+
+		$css_lib = [];
 		foreach ( $shortcodes[5] as $shortcode_content ) {
-			$css .= $this->parseShortcodesCustomCss( $shortcode_content );
+			$shortcode_css = $this->parseShortcodesCustomCss( $shortcode_content );
+
+			if ( in_array( $shortcode_css, $css_lib ) ) {
+				continue;
+			}
+
+			$css .= $shortcode_css;
+
+			$css_lib[] = $shortcode_css;
 		}
 
 		return $css;
@@ -395,23 +406,46 @@ class Vc_Base {
 			$id = get_option( 'woocommerce_shop_page_id' );
 		}
 
-		if ( $id ) {
-			if ( 'true' === vc_get_param( 'preview' ) && wp_revisions_enabled( get_post( $id ) ) ) {
-				$latest_revision = wp_get_post_revisions( $id );
-				if ( ! empty( $latest_revision ) ) {
-					$array_values = array_values( $latest_revision );
-					$id = $array_values[0]->ID;
-				}
-			}
-			$shortcodes_custom_css = get_metadata( 'post', $id, '_wpb_shortcodes_custom_css', true );
-			$shortcodes_custom_css = apply_filters( 'vc_shortcodes_custom_css', $shortcodes_custom_css, $id );
-			if ( ! empty( $shortcodes_custom_css ) ) {
-				$shortcodes_custom_css = wp_strip_all_tags( $shortcodes_custom_css );
-				echo '<style type="text/css" data-type="vc_shortcodes-custom-css">';
-				echo $shortcodes_custom_css;
-				echo '</style>';
+		if ( ! $id ) {
+			return;
+		}
+
+		if ( 'true' === vc_get_param( 'preview' ) && wp_revisions_enabled( get_post( $id ) ) ) {
+			$latest_revision = wp_get_post_revisions( $id );
+			if ( ! empty( $latest_revision ) ) {
+				$array_values = array_values( $latest_revision );
+				$id = $array_values[0]->ID;
 			}
 		}
+
+		$shortcodes_custom_css = $this->get_shortcodes_custom_css( $id );
+		if ( ! empty( $shortcodes_custom_css ) ) {
+			$shortcodes_custom_css = wp_strip_all_tags( $shortcodes_custom_css );
+			echo '<style type="text/css" data-type="vc_shortcodes-custom-css">';
+			echo $shortcodes_custom_css;
+			echo '</style>';
+		}
+	}
+
+	/**
+	 * Get custom css of all shortcodes for particular post.
+	 *
+	 * @param int $id
+	 * @return mixed
+	 *
+	 * @since  6.2
+	 * @access public
+	 */
+	public function get_shortcodes_custom_css( $id ) {
+		$is_updated = get_metadata( 'post', $id, '_wpb_shortcodes_custom_css_updated', true );
+
+		if ( empty( $is_updated ) ) {
+			$this->buildShortcodesCustomCss( $id );
+		}
+
+		$shortcodes_custom_css = get_metadata( 'post', $id, '_wpb_shortcodes_custom_css', true );
+
+		return apply_filters( 'vc_shortcodes_custom_css', $shortcodes_custom_css, $id );
 	}
 
 	/**
@@ -671,10 +705,13 @@ class Vc_Base {
 			);
 			$content = preg_replace( $s, $r, $content );
 
-			// if content contains [vc_row then wrap with '<div>'
-			if ( preg_match( '/vc_row/', $content ) ) {
+			// if content contains vc_row for a page view or
+			// vc_welcome for a frontend editor
+			// then wrap with '<div>'
+			if ( preg_match( '/vc_row/', $content ) || preg_match( '/vc_welcome/', $content ) ) {
 				$content = '<section class="wpb-content-wrapper">' . $content . '</section>';
 			}
+
 			return $content;
 		}
 

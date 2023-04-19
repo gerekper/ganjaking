@@ -130,7 +130,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 		if ( ! $found ) {
 			ob_end_clean();
 		} else {
-			echo ob_get_clean();
+			echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 	}
 
@@ -169,13 +169,13 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 		if ( ! isset( $instance['display_type'] ) )
 			$instance['display_type'] = 'list';
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'woocommerce-brands' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'woocommerce-brands' ); ?></label>
 		<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php if ( isset( $instance['title'] ) ) echo esc_attr( $instance['title'] ); ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'display_type' ); ?>"><?php _e( 'Display Type:', 'woocommerce-brands' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'display_type' ) ); ?>"><?php esc_html_e( 'Display Type:', 'woocommerce-brands' ); ?></label>
 		<select id="<?php echo esc_attr( $this->get_field_id( 'display_type' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'display_type' ) ); ?>">
-			<option value="list" <?php selected( $instance['display_type'], 'list' ); ?>><?php _e( 'List', 'woocommerce-brands' ); ?></option>
-			<option value="dropdown" <?php selected( $instance['display_type'], 'dropdown' ); ?>><?php _e( 'Dropdown', 'woocommerce-brands' ); ?></option>
+			<option value="list" <?php selected( $instance['display_type'], 'list' ); ?>><?php esc_html_e( 'List', 'woocommerce-brands' ); ?></option>
+			<option value="dropdown" <?php selected( $instance['display_type'], 'dropdown' ); ?>><?php esc_html_e( 'Dropdown', 'woocommerce-brands' ); ?></option>
 		</select></p>
 		<?php
 	}
@@ -277,7 +277,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 			if ( 0 == $depth ) {
 				echo '<select class="wc-brand-dropdown-layered-nav-' . esc_attr( $taxonomy ) . '">';
-				echo '<option value="">' . __( 'Any Brand', 'woocommerce-brands' ) . '</option>';
+				echo '<option value="">' . esc_html__( 'Any Brand', 'woocommerce-brands' ) . '</option>';
 			}
 
 			foreach ( $terms as $term ) {
@@ -298,7 +298,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 					continue;
 				}
 
-				echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( $option_is_set, true, false ) . '>' . str_repeat( '&nbsp;', 2 * $depth ) . esc_html( $term->name ) . '</option>';
+				echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( $option_is_set, true, false ) . '>' . esc_html( str_repeat( '&nbsp;', 2 * $depth ) . $term->name ) . '</option>';
 
 				$child_terms = get_terms( $taxonomy, array(
 					'hide_empty' => 1,
@@ -328,10 +328,11 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 	/**
 	 * Show list based layered nav.
-	 * @param  array $terms
+	 *
+	 * @param  array  $terms
 	 * @param  string $taxonomy
 	 * @param  int    $depth
-	 * @return bool Will nav display?
+	 * @return bool   Will nav display?
 	 */
 	protected function layered_nav_list( $terms, $taxonomy, $depth = 0 ) {
 		// List display
@@ -394,7 +395,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 			echo ( $count > 0 || $option_is_set ) ? '</a> ' : '</span> ';
 
-			echo apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
+			echo wp_kses_post( apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term ) );
 
 			$child_terms = get_terms( $taxonomy, array(
 				'hide_empty' => 1,

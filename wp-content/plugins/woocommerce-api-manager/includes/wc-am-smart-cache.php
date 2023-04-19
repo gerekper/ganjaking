@@ -615,7 +615,7 @@ class WC_AM_Smart_Cache {
 	 */
 	public function prevent_caching() {
 		// Prevent caching on the root/home URL where the API Manager listens for requests.
-		if ( WC_AM_URL()->is_home() ) {
+		if ( WC_AM_DISABLE_HOMEPAGE_CACHE && WC_AM_URL()->is_home() ) {
 			$this->nocache_headers();
 		}
 	}

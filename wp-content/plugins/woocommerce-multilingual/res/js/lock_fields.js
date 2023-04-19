@@ -28,8 +28,12 @@ jQuery(function($){
     $('.wcml_prod_hidden_notice').prependTo('#woocommerce-product-data');
 
     for (i = 0; i < ids.length; i++) {
-        $('#'+ids[i]).prop('disabled', true);
-        $('#'+ids[i]).after($('.wcml_lock_img').clone().removeClass('wcml_lock_img').show());
+        $el = $('#'+ids[i]);
+        if (!$el.length) {
+            $el = $('*[name='+ids[i]+']');
+        }
+        $el.prop('disabled', true);
+        $el.after($('.wcml_lock_img').clone().removeClass('wcml_lock_img').show());
     }
 
     var buttons = [

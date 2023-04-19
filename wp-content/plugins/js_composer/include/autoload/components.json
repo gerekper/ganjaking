@@ -17,6 +17,7 @@
   "vendors/wpml.php": "",
   "vendors/rankmath-seo.php": "",
   "vendors/gutenberg.php": "",
+  "vendors/wordpress-com.php": "",
   "hook-vc-grid.php": "Logic for shortcode vc_grid",
   "hook-vc-iconpicker-param.php": "Logic for shortcode param iconpicker",
   "hook-vc-message.php": "Logic for shortcode vc_message",

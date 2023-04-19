@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Pre-Orders 2.0.0\n"
+"Project-Id-Version: WooCommerce Pre-Orders 2.0.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-pre-orders\n"
-"POT-Creation-Date: 2023-04-04 15:08:03+00:00\n"
+"POT-Creation-Date: 2023-04-14 20:49:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -363,9 +363,9 @@ msgstr ""
 #: includes/admin/class-wc-pre-orders-admin-settings.php:119
 msgid ""
 "Add an optional message to each pre-order enabled product on the shop loop "
-"page above the add to cart button. Use this to announce when the pre-order "
-"will be available by using {availability_date} and {availability_time}. "
-"Limited HTML is allowed. Leave blank to disable."
+"page below the product title. Use this to announce when the pre-order will "
+"be available by using {availability_date} and {availability_time}. Limited "
+"HTML is allowed. Leave blank to disable."
 msgstr ""
 
 #: includes/admin/class-wc-pre-orders-admin-settings.php:123

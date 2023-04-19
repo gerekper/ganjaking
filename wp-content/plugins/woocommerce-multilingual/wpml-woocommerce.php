@@ -7,11 +7,11 @@
  * Author URI: http://www.onthegosystems.com/
  * Text Domain: woocommerce-multilingual
  * Requires at least: 4.7
- * Tested up to: 6.1.1
- * Version: 5.1.2
+ * Tested up to: 6.2
+ * Version: 5.1.3
  * Plugin Slug: woocommerce-multilingual
  * WC requires at least: 3.9
- * WC tested up to: 7.2.2
+ * WC tested up to: 7.6
  *
  * @package WCML
  * @author  OnTheGoSystems
@@ -37,7 +37,7 @@ if ( ! $wpml_php_version_check->is_ok() ) {
 	return;
 }
 
-define( 'WCML_VERSION', '5.1.2' );
+define( 'WCML_VERSION', '5.1.3' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -121,7 +121,7 @@ function wcml_loader() {
 		\WCML\Attributes\LookupFiltersFactory::class,
 		\WCML\HomeScreen\Factory::class,
 		\WCML\Terms\Count\Hooks::class,
-		\WCML\Rest\Store\Hooks::class,
+		\WCML\Rest\Store\HooksFactory::class,
 		\WCML\Importer\Products::class,
 	];
 

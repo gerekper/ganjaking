@@ -1,16 +1,16 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
 /**
  * WooCommerce One Page Checkout Template class
  *
  * Extended by individual payment gateways to handle payments.
  *
- * @class 		WCOPC_Template
- * @version		1.0
- * @package		WooCommerce One Page Checkout
- * @category	Abstract Class
+ * @package WooCommerce One Page Checkout
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * WCOPC_Template class
  */
 abstract class WCOPC_Template {
 
@@ -52,7 +52,7 @@ abstract class WCOPC_Template {
 
 	public function maybe_set_template( $template, $shortcode_attributes ) {
 
-		if ( $this->template_key == $shortcode_attributes['template'] ) {
+		if ( $this->template_key === $shortcode_attributes['template'] ) {
 			$template = $this->template_key;
 		}
 

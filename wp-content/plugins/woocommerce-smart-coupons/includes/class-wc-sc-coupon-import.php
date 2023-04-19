@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.7.0
+ * @version     2.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -381,8 +381,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				'comment_status' => $post['comment_status'],
 			);
 
-			$_coupon = new WC_Coupon();
-			$_coupon->set_code( $postdata['post_title'] );
+			$_coupon = new WC_Coupon( $postdata['post_title'] );
 			$_coupon->set_date_created( $postdata['post_date'] );
 			$_coupon->set_description( $postdata['post_excerpt'] );
 

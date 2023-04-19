@@ -342,7 +342,8 @@ class WC_Brands {
 			$taxonomy = get_taxonomy( 'product_brand' );
 			$labels   = $taxonomy->labels;
 
-			echo get_brands( $post->ID, ', ', ' <span class="posted_in">' . sprintf( _n( '%1$s: ', '%2$s: ', $brand_count ), $labels->singular_name, $labels->name ), '</span>' );
+			/* translators: %s - Label name */
+			echo get_brands( $post->ID, ', ', ' <span class="posted_in">' . sprintf( _n( '%s: ', '%s: ', $brand_count, 'woocommerce-brands' ), $labels->singular_name, $labels->name ), '</span>' ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 	}
 
@@ -392,66 +393,74 @@ class WC_Brands {
 	 * output_product_brand function.
 	 *
 	 * @access public
+	 *
+	 * @param array $atts Attributes from the shortcode.
+	 *
+	 * @return string The generated output.
 	 */
 	public function output_product_brand( $atts ) {
 		global $post;
 
-		extract( shortcode_atts( array(
-			'width'   => '',
-			'height'  => '',
-			'class'   => 'aligncenter',
-			'post_id' => ''
-		), $atts ) );
+		$args = shortcode_atts(
+			[
+				'width'   => '',
+				'height'  => '',
+				'class'   => 'aligncenter',
+				'post_id' => '',
+			],
+			$atts
+		);
 
-		if ( ! $post_id && ! $post )
-			return;
-
-		if ( ! $post_id )
-			$post_id = $post->ID;
-
-		$brands = wp_get_post_terms( $post_id, 'product_brand', array( "fields" => "ids" ) );
-
-		$output = null;
-
-		if ( count( $brands ) > 0 ) {
-
-			ob_start();
-
-			foreach( $brands as $brand ) {
-
-				$thumbnail = get_brand_thumbnail_url( $brand );
-
-				if ( $thumbnail ) {
-
-					$term = get_term_by( 'id', $brand, 'product_brand' );
-
-					if ( $width || $height ) {
-						$width = $width ? $width : 'auto';
-						$height = $height ? $height : 'auto';
-					}
-
-
-					wc_get_template( 'shortcodes/single-brand.php', array(
-						'term'      => $term,
-						'width'     => $width,
-						'height'    => $height,
-						'thumbnail' => $thumbnail,
-						'class'     => $class
-					), 'woocommerce-brands', untrailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) . '/templates/' );
-
-				}
-			}
-			$output = ob_get_clean();
+		if ( ! $args['post_id'] && ! $post ) {
+			return '';
 		}
 
-		return $output;
+		if ( ! $args['post_id'] ) {
+			$args['post_id'] = $post->ID;
+		}
+
+		$brands = wp_get_post_terms( $args['post_id'], 'product_brand', [ 'fields' => 'ids' ] );
+
+		// Bail early if we don't have any brands registered.
+		if ( 0 === count( $brands ) ) {
+			return '';
+		}
+
+		ob_start();
+
+		foreach ( $brands as $brand ) {
+			$thumbnail = get_brand_thumbnail_url( $brand );
+			if ( empty( $thumbnail ) ) {
+				continue;
+			}
+
+			$args['thumbnail'] = $thumbnail;
+			$args['term']      = get_term_by( 'id', $brand, 'product_brand' );
+
+			if ( $args['width'] || $args['height'] ) {
+				$args['width']  ??= 'auto';
+				$args['height'] ??= 'auto';
+			}
+
+			wc_get_template(
+				'shortcodes/single-brand.php',
+				$args,
+				'woocommerce-brands',
+				untrailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) . '/templates/'
+			);
+		}
+
+		return ob_get_clean();
 	}
 
 	/**
 	 * output_product_brand_list function.
 	 *
 	 * @access public
-	 * @return void
+	 *
+	 * @param array $atts Attributes from the shortcode.
+	 *
+	 * @return string
 	 */
 	public function output_product_brand_list( $atts ) {
 
@@ -461,23 +470,25 @@ class WC_Brands {
 			'show_empty_brands' => false
 		), $atts ) );
 
-		if ( $show_top_links === "false" )
+		if ( $show_top_links === 'false' ) {
 			$show_top_links = false;
+		}
 
-		if ( $show_empty === "false" )
+		if ( $show_empty === 'false' ) {
 			$show_empty = false;
+		}
 
-		if ( $show_empty_brands === "false" )
+		if ( $show_empty_brands === 'false' ) {
 			$show_empty_brands = false;
+		}
 
-		$product_brands = array();
-		$terms          = get_terms( 'product_brand', array( 'hide_empty' => ( $show_empty_brands ? false : true ) ) );
+		$product_brands = [];
+		$terms          = get_terms( 'product_brand', [ 'hide_empty' => ( $show_empty_brands ? false : true ) ] );
+		$alphabet       = apply_filters( 'woocommerce_brands_list_alphabet', range( 'a', 'z' ) );
+		$numbers        = apply_filters( 'woocommerce_brands_list_numbers', '0-9' );
 
 		foreach ( $terms as $term ) {
-
 			$term_letter = $this->get_brand_name_first_character( $term->name );
-			$alphabet    = apply_filters( 'woocommerce_brands_list_alphabet', range( 'a', 'z' ) );
-			$numbers     = apply_filters( 'woocommerce_brands_list_numbers', '0-9' );
 
 			// Allow a locale to be set for ctype_alpha()
 			if ( has_filter( 'woocommerce_brands_list_locale' ) ) {

@@ -1,5 +1,8 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2023-04-14 - version 2.0.1
+* Fix - Layout attribute in the countdown timer.
+* Fix - Improve the "Shop loop product message" description.
 
 2023-04-04 - version 2.0.0
 * Add - Order types filter in the order list when HPOS is enabled.

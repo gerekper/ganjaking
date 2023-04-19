@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce One Page Checkout package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce One Page Checkout 2.2.0\n"
+"Project-Id-Version: WooCommerce One Page Checkout 2.3.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-one-page-checkout\n"
-"POT-Creation-Date: 2023-02-08 17:28:38+00:00\n"
+"POT-Creation-Date: 2023-04-18 16:41:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,32 +14,32 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.6\n"
 
-#: classes/class-wcopc-admin-editor.php:216
+#: classes/class-wcopc-admin-editor.php:204
 msgid "Products:"
 msgstr ""
 
-#: classes/class-wcopc-admin-editor.php:218
-#: classes/class-wcopc-admin-editor.php:220
+#: classes/class-wcopc-admin-editor.php:206
+#: classes/class-wcopc-admin-editor.php:208
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: classes/class-wcopc-admin-editor.php:226
+#: classes/class-wcopc-admin-editor.php:214
 msgid "Categories:"
 msgstr ""
 
-#: classes/class-wcopc-admin-editor.php:232
+#: classes/class-wcopc-admin-editor.php:220
 msgid "Search for a category&hellip;"
 msgstr ""
 
-#: classes/class-wcopc-admin-editor.php:236
+#: classes/class-wcopc-admin-editor.php:224
 msgid "Template:"
 msgstr ""
 
-#: classes/class-wcopc-admin-editor.php:250
+#: classes/class-wcopc-admin-editor.php:238
 msgid "Create Shortcode"
 msgstr ""
 
-#: classes/class-wcopc-admin-editor.php:251
+#: classes/class-wcopc-admin-editor.php:239
 msgid "Cancel"
 msgstr ""
 
@@ -62,7 +62,7 @@ msgid "No pricing tables available."
 msgstr ""
 
 #: classes/class-wcopc-settings.php:41 js/admin/editor_plugin_lang.php:5
-#: woocommerce-one-page-checkout.php:1806
+#: woocommerce-one-page-checkout.php:1802
 msgid "One Page Checkout"
 msgstr ""
 
@@ -90,12 +90,12 @@ msgid "Remove"
 msgstr ""
 
 #: templates/checkout/add-to-cart/button.php:16
-#: woocommerce-one-page-checkout.php:648
+#: woocommerce-one-page-checkout.php:644
 msgid "Add to order"
 msgstr ""
 
 #: templates/checkout/add-to-cart/button.php:18
-#: woocommerce-one-page-checkout.php:1350
+#: woocommerce-one-page-checkout.php:1344
 msgid "Modify &amp; complete order below"
 msgstr ""
 
@@ -170,102 +170,102 @@ msgstr ""
 msgid "Dimensions"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:179
+#: woocommerce-one-page-checkout.php:175
 msgid "Product Table"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:180
+#: woocommerce-one-page-checkout.php:176
 msgid ""
 "Display a row for each product containing its thumbnail, title and price. "
 "Best for a few simple products where the thumbnails are helpful, e.g. a set "
 "of halloween masks."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:184
+#: woocommerce-one-page-checkout.php:180
 msgid "Product List"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:185
+#: woocommerce-one-page-checkout.php:181
 msgid ""
 "Display a list of products with a radio button for selection. Useful when "
 "the customer does not need a description or photograph to choose, e.g. "
 "versions of an eBook."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:189
+#: woocommerce-one-page-checkout.php:185
 msgid "Single Product"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:190
+#: woocommerce-one-page-checkout.php:186
 msgid ""
 "Display the single product template for each product. Useful when the "
 "description, images, gallery and other meta data will help the customer "
 "choose, e.g. evening gowns."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:194
+#: woocommerce-one-page-checkout.php:190
 msgid "Pricing Table"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:195
+#: woocommerce-one-page-checkout.php:191
 msgid ""
 "Display a simple pricing table with each product's attributes, weight and "
 "dimensions. Useful to allow customers to compare different, but related "
 "products, e.g. membership subscriptions."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:618
+#: woocommerce-one-page-checkout.php:614
 msgid "View Cart"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:638
+#: woocommerce-one-page-checkout.php:634
 msgid "%s&quot; added to your order. Complete your order below."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1011
+#: woocommerce-one-page-checkout.php:1005
 msgid "&quot;%s&quot; was successfully removed from your order."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1018
+#: woocommerce-one-page-checkout.php:1012
 msgid "&quot;%s&quot; could not be removed from your order."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1127
-#: woocommerce-one-page-checkout.php:1186
+#: woocommerce-one-page-checkout.php:1121
+#: woocommerce-one-page-checkout.php:1180
 msgid "Please choose product options&hellip;"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1351
+#: woocommerce-one-page-checkout.php:1345
 msgid ""
 "Error processing your request. Please try refreshing the page. Contact us "
 "if you continue to have issues."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1624
+#: woocommerce-one-page-checkout.php:1622
 msgid ""
 "Sorry, your session has expired. <a href=\"%s\">Return to homepage "
 "&rarr;</a>"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1625
+#: woocommerce-one-page-checkout.php:1623
 msgid "You must select a product."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1695
+#: woocommerce-one-page-checkout.php:1693
 msgid ""
 "%1$sWooCommerce One Page Checkout is inactive.%2$s The %3$sWooCommerce "
 "plugin%4$s must be active for WooCommerce One Page Checkout to work. Please "
 "%5$sinstall & activate WooCommerce%6$s"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1699
+#: woocommerce-one-page-checkout.php:1697
 msgid ""
 "%1$sWooCommerce One Page Checkout is inactive.%2$s This plugin requires "
 "WooCommerce 2.5 or newer. Please %3$supdate WooCommerce to version 2.5 or "
 "newer%4$s"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1807
+#: woocommerce-one-page-checkout.php:1803
 msgid "Add checkout to product page."
 msgstr ""
 

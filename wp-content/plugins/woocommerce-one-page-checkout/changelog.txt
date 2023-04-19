@@ -1,5 +1,8 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2023-04-18 - version 2.3.0
+* Fix - Improved coding standards and escaping.
+
 2023-02-08 - version 2.2.0
 * Fix - Enter a summary of all changes on this Pull Request. This will appear in the changelog if accepted.
 * Fix - Fix an issue when determining whether the currently displayed page is a One Page Checkout.

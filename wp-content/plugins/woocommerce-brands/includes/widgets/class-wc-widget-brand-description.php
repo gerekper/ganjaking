@@ -8,7 +8,6 @@
  * @category	Widgets
  * @author		WooThemes
  */
-
 class WC_Widget_Brand_Description extends WP_Widget {
 
 	/** Variables to setup the widget. */
@@ -33,7 +32,15 @@ class WC_Widget_Brand_Description extends WP_Widget {
 		parent::__construct( $this->woo_widget_idbase, $this->woo_widget_name, $widget_ops );
 	}
 
-	/** @see WP_Widget */
+	/**
+	 * Echoes the widget content.
+	 *
+	 * @see WP_Widget
+	 *
+	 * @param array $args     Display arguments including 'before_title', 'after_title',
+	 *                        'before_widget', and 'after_widget'.
+	 * @param array $instance The settings for the particular instance of the widget.
+	 */
 	function widget( $args, $instance ) {
 		extract( $args );
 
@@ -48,14 +55,14 @@ class WC_Widget_Brand_Description extends WP_Widget {
 
 		$thumbnail = get_brand_thumbnail_url( $term->term_id, 'large' );
 
-		echo $before_widget . $before_title . $term->name . $after_title;
+		echo $before_widget . $before_title . $term->name . $after_title; // phpcs:ignore WordPress.Security.EscapeOutput
 
 		wc_get_template( 'widgets/brand-description.php', array(
 			'thumbnail' => $thumbnail,
 			'brand' => $term
 		), 'woocommerce-brands', untrailingslashit( plugin_dir_path( dirname( dirname( __FILE__ ) ) ) ) . '/templates/' );
 
-		echo $after_widget;
+		echo $after_widget; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/** @see WP_Widget->update */
@@ -64,11 +71,15 @@ class WC_Widget_Brand_Description extends WP_Widget {
 		return $instance;
 	}
 
-	/** @see WP_Widget->form */
+	/**
+	 * Outputs the settings update form.
+	 *
+	 * @param array $instance Current settings.
+	 */
 	function form( $instance ) {
 		?>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'woocommerce-brands') ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'woocommerce-brands' ); ?></label>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php if ( isset ( $instance['title'] ) ) echo esc_attr( $instance['title'] ); ?>" />
 			</p>
 		<?php

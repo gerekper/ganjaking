@@ -135,21 +135,27 @@ class WC_AM_Order_Admin {
 				<p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
 			} else {
-				$resources           = array();
-				$sub_parent_id       = 0;
-				$sub_parent_order_id = 0;
-				$sub_resources       = array();
-				$order_screen_id     = WCAM()->get_wc_page_screen_id( 'shop_order' );
+				$resources             = array();
+				$sub_parent_id         = 0;
+				$sub_parent_order_id   = 0;
+				$switched_order_id     = 0;
+				$sub_resources         = array();
+				$order_contains_switch = false;
+				$order_screen_id       = WCAM()->get_wc_page_screen_id( 'shop_order' );
 
 				/**
 				 * Subscription resources should be displayed on the Subscription parent order only.
 				 */
 				if ( WCAM()->get_wc_subs_exist() ) {
-					$sub_parent_id = WC_AM_SUBSCRIPTION()->get_parent_id( $order->get_id() );
+					$sub_parent_id         = WC_AM_SUBSCRIPTION()->get_parent_id( $order->get_id() );
+					$order_contains_switch = WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $order->get_id() );
 
-					if ( (int) $sub_parent_id == (int) $order->get_id() ) {
+					if ( ! empty( $sub_parent_id ) && (int) $sub_parent_id == (int) $order->get_id() ) {
 						// Use $sub_parent_id, since $post_id would get results only for the current post, not the parent.
 						$sub_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_id );
+					} elseif ( $order_contains_switch ) {
+						$sub_parent_order_id = WC_AM_SUBSCRIPTION()->get_sub_parent_order_id_for_related_order( $order, array( 'switch' ) );
+						$sub_resources       = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_order_id );
 					}
 				}
 
@@ -175,7 +181,7 @@ class WC_AM_Order_Admin {
 							WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
 
 							// This prevents Subscription orders that were switched away from, from displaying API Resources meant for the new Switched order.
-							if ( $order->get_id() == $resource->order_id ) {
+							if ( ( $order->get_id() == $resource->order_id ) || $order_contains_switch ) {
 								include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-resources.php' );
 
 								// Update Access Expires
@@ -258,13 +264,15 @@ class WC_AM_Order_Admin {
 				} else {
 					if ( WCAM()->get_wc_subs_exist() ) {
 						$sub_parent_order_id = WC_AM_SUBSCRIPTION()->get_sub_parent_order_id_for_related_order( $order, array( 'renewal' ) );
+						$switched_order_id   = WC_AM_SUBSCRIPTION()->get_last_swtiched_subscription_order_id( WC_AM_SUBSCRIPTION()->get_subscription_id( $sub_parent_order_id ) );
+						$url_id              = ! empty( $switched_order_id ) ? $switched_order_id : $sub_parent_order_id;
 					}
 
 					if ( ! empty( $sub_parent_order_id ) ) {
 						if ( $order_screen_id == 'woocommerce_page_wc-orders' ) {
-							printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+							printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-orders&action=edit&id=' . $url_id ) . '">', ' #' . esc_attr( $url_id ) . '</a>' );
 						} else {
-							printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $sub_parent_order_id ) . '">', ' #' . esc_attr( $sub_parent_order_id ) . '</a>' );
+							printf( __( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $url_id ) . '">', ' #' . esc_attr( $url_id ) . '</a>' );
 						}
 					} else {
 						?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php

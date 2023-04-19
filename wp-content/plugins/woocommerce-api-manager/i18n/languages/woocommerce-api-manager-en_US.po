@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-04-07 23:41-0700\n"
-"PO-Revision-Date: 2023-04-07 23:41-0700\n"
+"POT-Creation-Date: 2023-04-16 18:45-0700\n"
+"PO-Revision-Date: 2023-04-16 18:45-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -76,7 +76,7 @@ msgid "Delete"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:91
-#: includes/wc-am-order-admin.php:302 includes/wc-am-order-admin.php:370
+#: includes/wc-am-order-admin.php:310 includes/wc-am-order-admin.php:378
 #, fuzzy
 msgid "No activations yet."
 msgstr "Encore aucune activation"
@@ -368,7 +368,7 @@ msgstr "WooCommerce API Manager"
 
 #: includes/admin/wc-am-admin-system-status.php:401
 #, php-format
-msgid "%sLearn how to update%s"
+msgid "%s%sLearn how to update%s"
 msgstr ""
 
 #: includes/admin/wc-am-admin-system-status.php:446
@@ -1004,41 +1004,41 @@ msgid "API Resource Activations"
 msgstr "Activations"
 
 #: includes/wc-am-order-admin.php:92 includes/wc-am-order-admin.php:135
-#: includes/wc-am-order-admin.php:291
+#: includes/wc-am-order-admin.php:299
 #, fuzzy
 msgid "Contains no API Product."
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:115 includes/wc-am-order-admin.php:270
+#: includes/wc-am-order-admin.php:115 includes/wc-am-order-admin.php:278
 msgid "No API resources for this order."
 msgstr ""
 
-#: includes/wc-am-order-admin.php:265 includes/wc-am-order-admin.php:267
+#: includes/wc-am-order-admin.php:273 includes/wc-am-order-admin.php:275
 #, php-format
 msgid "See Parent Order %s%s"
 msgstr ""
 
-#: includes/wc-am-order-admin.php:314
+#: includes/wc-am-order-admin.php:322
 #, fuzzy
 msgid "Are you sure you want to delete this activation?"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
-#: includes/wc-am-order-admin.php:517
+#: includes/wc-am-order-admin.php:525
 #, fuzzy
 msgid "Contains API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:517
+#: includes/wc-am-order-admin.php:525
 #, fuzzy
 msgid "API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:537
+#: includes/wc-am-order-admin.php:545
 #, fuzzy
 msgid "Has activations."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:539
+#: includes/wc-am-order-admin.php:547
 #, fuzzy
 msgid "No activations."
 msgstr "Activations"

@@ -18,7 +18,7 @@ class Vc_Modifications {
 		if ( self::$modified ) {
 			// output script
 			$tag = 'script';
-			echo '<' . $tag . ' type="text/html" id="wpb-modifications"></' . $tag . '>';
+			echo '<' . $tag . ' type="text/html" id="wpb-modifications"> window.wpbCustomElement = 1; </' . $tag . '>';
 		}
 	}
 }

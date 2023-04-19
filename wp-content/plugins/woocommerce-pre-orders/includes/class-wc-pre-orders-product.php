@@ -31,7 +31,7 @@ class WC_Pre_Orders_Product {
 		// Add an optional pre-order product message after single product price on the single product page
 		add_action( 'woocommerce_single_product_summary', array( $this, 'add_pre_order_product_message' ), 11 );
 
-		// Add an optional pre-order product message before the 'add to cart' button on the product shop loop page
+		// Add an optional pre-order product message after the product title on the product shop loop page
 		add_action( 'woocommerce_after_shop_loop_item_title', array( $this, 'add_pre_order_product_message' ), 11 );
 
 		// WooCommerce Blocks does not use `woocommerce_after_shop_loop_item_title` so we need to add the message with the blocks filter.

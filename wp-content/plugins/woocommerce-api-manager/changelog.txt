@@ -1,5 +1,14 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-04-18 - version 2.6.7
+* Tweak: Don't delete Grace Period in the is_expired() method, handle deletions separately.
+* Tweak: Handle cleanup of API Resources with and without a Grace Period separately.
+
+2023-04-17 - version 2.6.6
+* Fix: In get_api_resource_ids_by_subscription( $subscription ) check if $subscription is an object before accessing object method.
+* New: If an API Resource is a line item on a WC Subscriptions switched order, a URL link is displayed leading to the switched parent order where API Resources are displayed.
+* Dev: Added WC_AM_DISABLE_HOMEPAGE_CACHE constant to allow caching of the homepage. By default homepage caching is prevented whenever possible to avoid breaking the API endpoints. Never cache query strings on the homepage URL.
+
 2023-04-08 - version 2.6.5
 * Tweak: Prevent API Resource > Access Expires value from regressing in time when Order screen updated.
 * Tweak: Revert unix_timestamp_to_date() back to use get_date_from_gmt() as part of the timestamp localization process.

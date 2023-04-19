@@ -2,13 +2,15 @@
 /**
  * Plugin Name: WPBakery Page Builder
  * Plugin URI: http://wpbakery.com
+ * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
- * Version: 6.10.0
+ * Version: 6.11.0
  * Author: Michael M - WPBakery.com
  * Author URI: http://wpbakery.com
  * Text Domain: js_composer
  * Domain Path: /locale/
  * Requires at least: 4.9
+ * Woo: 18734001738633:249bdd2d5fc84782b12368a238115991
  *
  * @package WPBakery Page Builder
  */
@@ -24,7 +26,7 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
 	/**
 	 *
 	 */
-	define( 'WPB_VC_VERSION', '6.10.0' );
+	define( 'WPB_VC_VERSION', '6.11.0' );
 }
 
 $dir = dirname( __FILE__ );
@@ -43,3 +45,5 @@ if ( ! $vc_manager ) {
 	// Load components
 	$vc_manager->loadComponents();
 }
+/* Anti-Leecher Identifier */
+/* Credited By the_truth on BABIATO-FORUM */

@@ -149,10 +149,9 @@ class WCML_Orders {
 
 			if ( $item instanceof WC_Order_Item_Product ) {
 				if ( 'line_item' === $item->get_type() ) {
-					if ( 'product_variation' === get_post_type( $item->get_product_id() ) ) {
+					$item_was_adjusted = $this->adjust_product_item_if_translated( $item, $language_to_filter );
+					if ( $item->get_variation_id() ) {
 						$item_was_adjusted = $this->adjust_variation_item_if_translated( $item, $language_to_filter );
-					} else {
-						$item_was_adjusted = $this->adjust_product_item_if_translated( $item, $language_to_filter );
 					}
 					if ( $item_was_adjusted && $save_adjusted_item ) {
 						$item->save();
@@ -208,6 +207,7 @@ class WCML_Orders {
 	 * @return bool
 	 */
 	private function adjust_variation_item_if_translated( $item, $language_to_filter ) {
+
 		$variation_id            = $item->get_variation_id();
 		$translated_variation_id = apply_filters( 'translate_object_id', $variation_id, 'product_variation', true, $language_to_filter );
 		if ( $variation_id && $variation_id !== $translated_variation_id ) {

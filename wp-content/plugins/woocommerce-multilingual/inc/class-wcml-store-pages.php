@@ -205,7 +205,7 @@ class WCML_Store_Pages {
 
 			// $addFilter :: string -> void
 			$addFilter = function( $slug ) use ( $convertPageId ) {
-				add_filter( 'woocommerce_get_' . $slug . '_page_id', $convertPageId );
+				add_filter( 'option_woocommerce_' . $slug . '_page_id', $convertPageId );
 			};
 
 			wpml_collect( $slugs )->map( $addFilter );

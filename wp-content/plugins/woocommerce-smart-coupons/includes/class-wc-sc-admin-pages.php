@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.3.0
+ * @version     2.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -965,7 +965,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 			$empty_reference_coupon = get_option( 'empty_reference_smart_coupons' );
 
 			if ( false === $empty_reference_coupon ) {
-				$coupon            = new WC_Coupon();
+				$coupon            = new WC_Coupon( $this->generate_unique_code() );
 				$reference_post_id = ( $this->is_callable( $coupon, 'save' ) ) ? $coupon->save() : 0;
 				if ( ! empty( $reference_post_id ) ) {
 					$args = array(
@@ -982,7 +982,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 			$post = get_post( $reference_post_id ); // phpcs:ignore
 
 			if ( empty( $post ) ) {
-				$coupon            = new WC_Coupon();
+				$coupon            = new WC_Coupon( $this->generate_unique_code() );
 				$reference_post_id = ( $this->is_callable( $coupon, 'save' ) ) ? $coupon->save() : 0;
 				if ( ! empty( $reference_post_id ) ) {
 					$args = array(

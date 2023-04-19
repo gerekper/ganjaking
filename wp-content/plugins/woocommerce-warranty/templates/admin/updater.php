@@ -64,16 +64,18 @@ if ( isset( $args ) ) {
 	<div id="log"></div>
 </div>
 <script>
-	var return_url            = '<?php echo $args['return_url']; ?>',
-		ajax_endpoint         = '<?php echo $args['ajax_endpoint']; ?>',
+	var return_url            = '<?php echo esc_js( $args['return_url'] ); ?>',
+		ajax_endpoint         = '<?php echo esc_js( $args['ajax_endpoint'] ); ?>',
 		ajax_params           = {},
-		entity_label_singular = '<?php echo addslashes( $args['entity_label_singular'] ); ?>',
-		entity_label_plural   = '<?php echo addslashes( $args['entity_label_plural'] ); ?>',
-		action_label          = '<?php echo addslashes( $args['action_label'] ); ?>';
+		entity_label_singular = '<?php echo esc_js( $args['entity_label_singular'] ); ?>',
+		entity_label_plural   = '<?php echo esc_js( $args['entity_label_plural'] ); ?>',
+		action_label          = '<?php echo esc_js( $args['action_label'] ); ?>';
 	<?php
 	if ( ! empty( $_GET['params'] ) ) {
-		foreach ( $_GET['params'] as $key => $value ) {
-			echo "ajax_params.$key = '$value'\n";
+		$params = wc_clean( wp_unslash( $_GET['params'] ) );
+
+		foreach ( $params as $key => $value ) {
+			echo 'ajax_params.' . esc_js( $key ) . ' = "' . esc_js( $value ) . '";';
 		}
 	}
 	?>

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2ccdc3c594a752aa877d8aefa5a3d7ac
+class ComposerStaticInitb7f32083228a1a54510835a7a36c65d1
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -180,6 +180,8 @@ class ComposerStaticInit2ccdc3c594a752aa877d8aefa5a3d7ac
         'WCML\\Rest\\Language\\Set' => __DIR__ . '/../..' . '/classes/Rest/Language/Set.php',
         'WCML\\Rest\\ProductSaveActions' => __DIR__ . '/../..' . '/classes/Rest/ProductSaveActions.php',
         'WCML\\Rest\\Store\\Hooks' => __DIR__ . '/../..' . '/classes/Rest/Store/Hooks.php',
+        'WCML\\Rest\\Store\\HooksFactory' => __DIR__ . '/../..' . '/classes/Rest/Store/HooksFactory.php',
+        'WCML\\Rest\\Store\\PriceRangeHooks' => __DIR__ . '/../..' . '/classes/Rest/Store/PriceRangeHooks.php',
         'WCML\\Rest\\Wrapper\\Composite' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Composite.php',
         'WCML\\Rest\\Wrapper\\Factory' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Factory.php',
         'WCML\\Rest\\Wrapper\\Handler' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Handler.php',
@@ -403,9 +405,9 @@ class ComposerStaticInit2ccdc3c594a752aa877d8aefa5a3d7ac
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2ccdc3c594a752aa877d8aefa5a3d7ac::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2ccdc3c594a752aa877d8aefa5a3d7ac::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2ccdc3c594a752aa877d8aefa5a3d7ac::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb7f32083228a1a54510835a7a36c65d1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb7f32083228a1a54510835a7a36c65d1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb7f32083228a1a54510835a7a36c65d1::$classMap;
 
         }, null, ClassLoader::class);
     }

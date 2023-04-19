@@ -10,14 +10,11 @@ class WCOPC_Admin_Editor {
 	 * Constructor
 	 */
 	public function __construct() {
-
 		add_action( 'admin_head', array( $this, 'add_shortcode_button' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 99 );
 		add_filter( 'tiny_mce_version', array( $this, 'refresh_mce' ), 20 );
 		add_filter( 'mce_external_languages', array( $this, 'add_tinymce_lang' ), 20, 1 );
-
 		add_action( 'wp_ajax_one_page_checkout_shortcode_iframe', array( $this, 'one_page_checkout_shortcode_iframe' ), 9 );
-
 	}
 
 	/**
@@ -27,11 +24,11 @@ class WCOPC_Admin_Editor {
 
 		$screen = get_current_screen();
 
-		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) || $screen->post_type == 'product' ) {
+		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) || $screen->post_type === 'product' ) {
 			return;
 		}
 
-		if ( 'true' == get_user_option( 'rich_editing' ) ) {
+		if ( wc_string_to_bool( get_user_option( 'rich_editing' ) ) ) {
 			add_filter( 'mce_external_plugins', array( $this, 'add_shortcode_tinymce_plugin' ), 20 );
 			add_filter( 'mce_buttons', array( $this, 'register_shortcode_button' ), 20 );
 		}
@@ -41,18 +38,14 @@ class WCOPC_Admin_Editor {
 	 * Enqueue scripts
 	 */
 	public static function enqueue_scripts() {
-
-		global $pagenow, $typenow;
+		global $pagenow;
 
 		/**
 		 * Enqueue on post edit screens for all post types
 		 */
-		if ( $pagenow=='post-new.php' OR $pagenow=='post.php' ) {
-
+		if ( $pagenow === 'post-new.php' || $pagenow === 'post.php' ) {
 			wp_enqueue_script( 'iframe-resizer', PP_One_Page_Checkout::$plugin_url . '/js/admin/iframeResizer.min.js', array(), '2.8.5' );
-
 		}
-
 	}
 
 	/**
@@ -84,11 +77,7 @@ class WCOPC_Admin_Editor {
 	 * @return array
 	 */
 	public function add_shortcode_tinymce_plugin( $plugin_array ) {
-		$wp_version = get_bloginfo( 'version' );
-		$suffix     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 		$plugin_array['wcopc_shortcode_button'] = PP_One_Page_Checkout::$plugin_url . '/js/admin/editor_plugin.js';
-
 		return $plugin_array;
 	}
 
@@ -102,7 +91,6 @@ class WCOPC_Admin_Editor {
 		$ver += 3;
 		return $ver;
 	}
-
 
 	/**
 	 * Display the contents of the iframe used when the One Page Checkout

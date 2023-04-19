@@ -6,7 +6,7 @@ Tested up to: 6.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 7.4
-WC tested up to: 7.5.1
+WC tested up to: 7.6
 Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
 Requires WP: 6.0
 Requires PHP: 7.2

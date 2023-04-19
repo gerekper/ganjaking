@@ -1,5 +1,14 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.04.15 - version 7.6.0
+* New: Tested up to WooCommerce 7.6.0
+* Fix: Product attribute restriction not validating correctly in case of variable products
+* Fix: Sometimes a few meta fields of coupons are missing (coupon code, original amount) when it is auto-generated
+* Fix: Incorrectly displaying coupons of another user whose email address is similar to the email address of the current user
+* Fix: Uncaught wc_data_exception: invalid discount amount when the Smart Coupon balance is going below 0
+* Update: Change log type from 'error' to 'notice'
+* Update: POT file
+
 2023.04.07 - version 7.5.0
 * New: Tested up to WordPress 6.2
 * Fix: 'get_page_by_title' is deprecated since WordPress 6.2

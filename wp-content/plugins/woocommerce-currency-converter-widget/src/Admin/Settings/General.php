@@ -47,7 +47,7 @@ class General extends Settings_API {
 	public function init_form_fields() {
 		$form_fields = array(
 			'app_id' => array(
-				'type'              => 'text',
+				'type'              => 'password',
 				'title'             => __( 'App ID', 'woocommerce-currency-converter-widget' ),
 				'description'       => sprintf(
 					/* translators: %s: Open Exchange signup link */

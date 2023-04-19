@@ -21,12 +21,12 @@
 
 		$width = floor( ( ( 100 - ( ( $columns - 1 ) * 2 ) ) / $columns ) * 100 ) / 100;
 		?>
-		<li class="<?php echo $class; ?>" style="width: <?php echo $width; ?>%;">
-			<a href="<?php echo get_term_link( $brand->slug, 'product_brand' ); ?>" title="<?php echo $brand->name; ?>" class="term-thumbnail">
-				<img src="<?php echo $thumbnail; ?>" alt="<?php echo $brand->name; ?>" />
+		<li class="<?php echo esc_attr( $class ); ?>" style="width: <?php echo esc_attr( $width ); ?>%;">
+			<a href="<?php echo esc_url( get_term_link( $brand->slug, 'product_brand' ) ); ?>" title="<?php echo esc_attr( $brand->name ); ?>" class="term-thumbnail">
+				<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $brand->name ); ?>" />
 			</a>
-			<div id="term-<?php echo $brand->term_id; ?>" class="term-description">
-				<?php echo wpautop( wptexturize( $brand->description ) ); ?>
+			<div id="term-<?php echo esc_attr( $brand->term_id ); ?>" class="term-description">
+				<?php echo wp_kses_post( wpautop( wptexturize( $brand->description ) ) ); ?>
 			</div>
 		</li>
 

@@ -156,22 +156,18 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	/**
 	 * Returns true if the Grace Period is not greater than current time (now).
 	 *
-	 * @since 2.6
+	 * @since   2.6
+	 * @updated 2.6.7 Do not delete expired Grace Period here.
 	 *
 	 * @param int $api_resource_id
 	 *
 	 * @return bool
 	 */
 	public function is_expired( $api_resource_id ) {
-		$expired = true;
-		$exists  = $this->exists( $api_resource_id );
+		$expired = false;
 
-		if ( $exists ) {
+		if ( $this->exists( $api_resource_id ) ) {
 			$expired = WC_AM_ORDER_DATA_STORE()->is_time_expired( $this->get_expiration( $api_resource_id ) );
-		}
-
-		if ( $expired ) {
-			$this->delete_expiration( $api_resource_id );
 		}
 
 		return $expired;
@@ -283,7 +279,7 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @return bool
 	 */
-	private function add_non_wc_subscription_expiration_by_api_resource_id( $api_resource_id ) {
+	public function add_non_wc_subscription_expiration_by_api_resource_id( $api_resource_id ) {
 		return $this->add_non_wc_subscription_expiration( $api_resource_id );
 	}
 
@@ -296,7 +292,7 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @return bool
 	 */
-	private function add_non_wc_subscription_expiration_by_order( $order ) {
+	public function add_non_wc_subscription_expiration_by_order( $order ) {
 		$api_resource_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_ids_by_order( $order );
 
 		return $this->add_non_wc_subscription_expiration( $api_resource_ids );
@@ -396,15 +392,17 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @return bool
 	 */
-	public function delete_expiration( $api_resource_ids ) {
+	private function delete_expiration( $api_resource_ids ) {
 		$result = false;
 
-		if ( ! empty( $api_resource_ids ) && ( is_array( $api_resource_ids ) || is_object( $api_resource_ids ) ) ) {
-			foreach ( $api_resource_ids as $resource ) {
-				$result = $this->delete( (int) $resource->api_resource_id );
+		if ( ! WC_AM_FORMAT()->empty( $api_resource_ids ) ) {
+			if ( is_array( $api_resource_ids ) || is_object( $api_resource_ids ) ) {
+				foreach ( $api_resource_ids as $resource ) {
+					$result = $this->delete( (int) $resource->api_resource_id );
+				}
+			} else {
+				$result = $this->delete( (int) $api_resource_ids );
 			}
-		} else {
-			$result = $this->delete( (int) $api_resource_ids );
 		}
 
 		return $result;

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.3.0
+ * @version     3.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1412,7 +1412,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						'shop_coupon',
 						'publish',
 						'customer_email',
-						'%' . $wpdb->esc_like( $current_user->user_email ) . '%',
+						'%' . $wpdb->esc_like( '"' . $current_user->user_email . '"' ) . '%',
 					);
 
 					if ( ! empty( $coupon_ids ) ) {

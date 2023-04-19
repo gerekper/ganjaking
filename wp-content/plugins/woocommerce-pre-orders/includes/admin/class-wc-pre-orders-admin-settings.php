@@ -116,7 +116,7 @@ class WC_Pre_Orders_Admin_Settings {
 
 				array(
 					'title'    => __( 'Shop loop product message', 'woocommerce-pre-orders' ),
-					'desc'     => __( 'Add an optional message to each pre-order enabled product on the shop loop page above the add to cart button. Use this to announce when the pre-order will be available by using {availability_date} and {availability_time}. Limited HTML is allowed. Leave blank to disable.', 'woocommerce-pre-orders' ),
+					'desc'     => __( 'Add an optional message to each pre-order enabled product on the shop loop page below the product title. Use this to announce when the pre-order will be available by using {availability_date} and {availability_time}. Limited HTML is allowed. Leave blank to disable.', 'woocommerce-pre-orders' ),
 					'desc_tip' => true,
 					'id'       => 'wc_pre_orders_shop_loop_product_message',
 					/* translators: %s: Availability Date */

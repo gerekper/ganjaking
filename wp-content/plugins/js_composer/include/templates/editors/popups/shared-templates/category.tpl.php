@@ -32,6 +32,7 @@ $custom_tag = 'script';
 				</a>
 			</div>
 		<?php endif; ?>
+		<div class="vc_ui-panel-message vc_ui-panel-message--error vc_ui-hidden" id="vc_template-library-panel-error-message"></div>
 		<div class="vc_ui-search-box vc_ui-panel-search-box">
 			<div class="vc_ui-search-box-input vc_ui-panel-search">
 				<input type="search" id="vc_template_lib_name_filter" data-vc-template-lib-name-filter="" placeholder="<?php esc_attr_e( 'Search template by name', 'js_composer' ); ?>">

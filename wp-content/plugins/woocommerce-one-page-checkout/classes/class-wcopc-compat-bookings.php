@@ -20,7 +20,7 @@ class WCOPC_Compat_Bookings {
 		add_action( 'wcopc_booking_add_to_cart', array( __CLASS__, 'opc_single_add_to_cart_booking' ) );
 
 		// Unhook 'WC_Bookings_Cart::add_to_cart_redirect' from 'add_to_cart_redirect' in OPC pages, to prevent redirection to the default cart when checking booking availability
-		if ( isset( $_POST['is_opc'] ) && ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'woocommerce_checkout' ) || ( isset( $_REQUEST['wc-ajax'] ) && 'checkout' == $_REQUEST['wc-ajax'] ) ) ) { // PHPCS:Ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_POST['is_opc'] ) && ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'woocommerce_checkout' ) || ( isset( $_REQUEST['wc-ajax'] ) && 'checkout' === $_REQUEST['wc-ajax'] ) ) ) { // PHPCS:Ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
 			remove_action( 'add_to_cart_redirect', 'WC_Bookings_Cart::add_to_cart_redirect' );
 		}
 

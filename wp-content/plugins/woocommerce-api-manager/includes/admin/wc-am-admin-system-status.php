@@ -398,7 +398,7 @@ class WC_AM_Admin_System_Status {
 			if ( ! empty( $theme_overrides[ 'has_outdated_templates' ] ) && true === $theme_overrides[ 'has_outdated_templates' ] ) {
 				$debug_data[ 'wc_am_theme_overrides' ] += array(
 					'mark_icon' => 'warning',
-					'note'      => sprintf( __( '%sLearn how to update%s', 'woocommerce-api-manager' ), '<a href="https://docs.woocommerce.com/document/fix-outdated-templates-woocommerce/" target="_blank">', '</a>' ),
+					'note'      => sprintf( __( '%s%sLearn how to update%s', 'woocommerce-api-manager' ), '<br>', '<a href="https://docs.woocommerce.com/document/fix-outdated-templates-woocommerce/" target="_blank">', '</a>' ),
 				);
 			}
 		}
@@ -439,7 +439,7 @@ class WC_AM_Admin_System_Status {
 				$core_version  = WC_Admin_Status::get_file_version( $wc_am_template_dir . $file );
 				$theme_version = WC_Admin_Status::get_file_version( $theme_file );
 
-				$overridden_template_output = sprintf( '<code>%s</code>', esc_html( str_replace( $theme_root, '', $theme_file ) ) );
+				$overridden_template_output = sprintf( '<br><code>%s</code>', esc_html( str_replace( $theme_root, '', $theme_file ) ) );
 
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
 					$outdated                   = true;

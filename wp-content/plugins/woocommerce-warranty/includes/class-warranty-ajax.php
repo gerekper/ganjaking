@@ -136,26 +136,45 @@ class Warranty_Ajax {
 	 */
 	public static function search_for_email() {
 		global $wpdb;
-		$get_data   = warranty_request_get_data();
-		$term       = isset( $get_data['term'] ) ? $get_data['term'] : false;
-		$results    = array();
-		$all_emails = array();
+		$get_data            = warranty_request_get_data();
+		$term                = isset( $get_data['term'] ) ? $get_data['term'] : false;
+		$results             = array();
+		$all_emails          = array();
+		$wp_capabilities_key = 1 === get_current_blog_id() ? 'wp_capabilities' : 'wp_' . get_current_blog_id() . '_capabilities';
 
 		// Registered users.
 		$email_term = $term . '%';
 		$name_term  = '%' . $term . '%';
 
-		$email_results = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT DISTINCT u.ID, u.display_name, u.user_email
-				FROM {$wpdb->prefix}users u
-				WHERE (
-					user_email LIKE %s OR display_name LIKE %s
-				)",
-				$email_term,
-				$name_term
-			)
+		// Build the email query.
+		$email_query = $wpdb->prepare(
+			"SELECT DISTINCT u.ID, u.display_name, u.user_email
+			FROM {$wpdb->prefix}users u
+			WHERE (
+				user_email LIKE %s OR display_name LIKE %s
+			)",
+			$email_term,
+			$name_term
 		);
+
+		// If multisite, adjust the email query to only include users with a role on this site.
+		if ( is_multisite() ) {
+			$email_query = $wpdb->prepare(
+				"SELECT DISTINCT u.ID, u.display_name, u.user_email
+		        FROM {$wpdb->base_prefix}users u
+		        INNER JOIN {$wpdb->base_prefix}usermeta um ON u.ID = um.user_id
+		        WHERE (
+		            user_email LIKE %s OR display_name LIKE %s
+		        )
+		        AND um.meta_key = %s",
+				$email_term,
+				$name_term,
+				$wp_capabilities_key
+			);
+		}
+
+		// Get email results.
+		$email_results = $wpdb->get_results( $email_query );
 
 		if ( $email_results ) {
 			foreach ( $email_results as $result ) {
@@ -172,19 +191,33 @@ class Warranty_Ajax {
 			}
 		}
 
-		// Full name (First Last format).
-		$name_results = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT DISTINCT m1.user_id, u.user_email, m1.meta_value AS first_name, m2.meta_value AS last_name
-				FROM {$wpdb->prefix}users u, {$wpdb->prefix}usermeta m1, {$wpdb->prefix}usermeta m2
-				WHERE u.ID = m1.user_id
-				AND m1.user_id = m2.user_id
-				AND m1.meta_key =  'first_name'
-				AND m2.meta_key =  'last_name'
-				AND CONCAT_WS(  ' ', m1.meta_value, m2.meta_value ) LIKE %s",
-				'%' . $wpdb->esc_like( $term ) . '%'
-			)
+		// Build name query.
+		$name_query = $wpdb->prepare(
+			"SELECT DISTINCT u.ID AS user_id, u.user_email, m1.meta_value AS first_name, m2.meta_value AS last_name
+			FROM {$wpdb->prefix}users u
+			INNER JOIN {$wpdb->prefix}usermeta m1 ON u.ID = m1.user_id AND m1.meta_key = 'first_name'
+			INNER JOIN {$wpdb->prefix}usermeta m2 ON u.ID = m2.user_id AND m2.meta_key = 'last_name'
+			WHERE CONCAT_WS(' ', m1.meta_value, m2.meta_value) LIKE %s",
+			'%' . $wpdb->esc_like( $term ) . '%'
 		);
+
+		// If multisite, adjust the name query to only include users with a role on this site.
+		if ( is_multisite() ) {
+			$name_query = $wpdb->prepare(
+				"SELECT DISTINCT u.ID AS user_id, u.user_email, m1.meta_value AS first_name, m2.meta_value AS last_name
+		        FROM {$wpdb->base_prefix}users u
+		        INNER JOIN {$wpdb->base_prefix}usermeta m1 ON u.ID = m1.user_id AND m1.meta_key = 'first_name'
+		        INNER JOIN {$wpdb->base_prefix}usermeta m2 ON u.ID = m2.user_id AND m2.meta_key = 'last_name'
+		        INNER JOIN {$wpdb->base_prefix}usermeta m3 ON u.ID = m3.user_id
+		        WHERE CONCAT_WS(' ', m1.meta_value, m2.meta_value) LIKE %s
+		        AND m3.meta_key = %s",
+				'%' . $wpdb->esc_like( $term ) . '%',
+				$wp_capabilities_key,
+			);
+		}
+
+		// Full name (First Last format).
+		$name_results = $wpdb->get_results( $name_query );
 
 		if ( $name_results ) {
 			foreach ( $name_results as $result ) {
@@ -514,7 +547,7 @@ class Warranty_Ajax {
 	 * Update a product's warranty details and return the new warranty string/description
 	 */
 	public function product_warranty_update() {
-		$post_data     = warranty_request_post_data();
+		$post_data = warranty_request_post_data();
 
 		// Make sure we have an integer for the product ID.
 		$product_id = ! empty( $post_data['id'] ) ? absint( $post_data['id'] ) : false;

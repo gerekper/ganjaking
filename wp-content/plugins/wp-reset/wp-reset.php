@@ -3,7 +3,7 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 6.10
+  Version: 6.11
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
@@ -145,7 +145,7 @@ class WP_Reset
             'plugin_file' => __FILE__,
             'skip_hooks' => false,
             'debug' => false,
-            'js_folder' => plugin_dir_url(__FILE__) . '/js/'
+            'js_folder' => trailingslashit(plugin_dir_url(__FILE__)) . 'js/'
         ));
 
         if ($this->get_rebranding() !== false) {

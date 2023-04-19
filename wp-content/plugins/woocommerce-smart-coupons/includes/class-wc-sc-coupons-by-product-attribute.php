@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.7.0
+ * @version     1.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -388,7 +388,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 				} else {
 					$product_id = ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) ) ? $product->get_id() : 0;
 					if ( ! empty( $product_id ) ) {
+						$is_variable = $product->is_type( 'variable' );
 						foreach ( $product_attributes as $attribute ) {
+							if ( true === $is_variable && isset( $attribute['is_variation'] ) && ! empty( $attribute['is_variation'] ) ) {
+								continue;
+							}
 							if ( isset( $attribute['is_taxonomy'] ) && ! empty( $attribute['is_taxonomy'] ) ) {
 								$attribute_taxonomy_name = $attribute['name'];
 								$product_term_ids        = wc_get_product_terms( $product_id, $attribute_taxonomy_name, array( 'fields' => 'ids' ) );

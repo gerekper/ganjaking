@@ -338,6 +338,29 @@ class WC_AM_Subscription {
 	}
 
 	/**
+	 * Returns the last switched subscription Order ID.
+	 *
+	 * @since 2.6.6
+	 *
+	 * @param int|object $subscription Subscription order ID.
+	 *
+	 * @return int|false
+	 */
+	public function get_last_swtiched_subscription_order_id( $subscription ) {
+		$sub = $this->get_subscription_object( $subscription );
+
+		if ( is_object( $sub ) ) {
+			$last_switch_order = $sub->get_last_order( 'all', array( 'switch' ) );
+
+			if ( is_object( $last_switch_order ) ) {
+				return $last_switch_order->id;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get all subscription IDs for an order. Could be one or more depending on the line items.
 	 *
 	 * @since 2.0

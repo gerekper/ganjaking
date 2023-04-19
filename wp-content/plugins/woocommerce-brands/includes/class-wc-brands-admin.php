@@ -103,8 +103,8 @@ class WC_Brands_Admin {
 		global $post;
 		// Brands
 		?>
-		<p class="form-field"><label for="product_brands"><?php _e( 'Product brands', 'woocommerce-brands' ); ?></label>
-		<select id="product_brands" name="product_brands[]" style="width: 50%;"  class="wc-enhanced-select" multiple="multiple" data-placeholder="<?php _e( 'Any brand', 'woocommerce-brands' ); ?>">
+		<p class="form-field"><label for="product_brands"><?php esc_html_e( 'Product brands', 'woocommerce-brands' ); ?></label>
+		<select id="product_brands" name="product_brands[]" style="width: 50%;"  class="wc-enhanced-select" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Any brand', 'woocommerce-brands' ); ?>">
 			<?php
 				$category_ids = (array) get_post_meta( $post->ID, 'product_brands', true );
 				$categories   = get_terms( 'product_brand', 'orderby=name&hide_empty=0' );
@@ -113,7 +113,7 @@ class WC_Brands_Admin {
 					echo '<option value="' . esc_attr( $cat->term_id ) . '"' . selected( in_array( $cat->term_id, $category_ids ), true, false ) . '>' . esc_html( $cat->name ) . '</option>';
 				}
 			?>
-		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'A product must be associated with this brand for the coupon to remain valid or, for "Product Discounts", products with these brands will be discounted.', 'woocommerce-brands' ) ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
+		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'A product must be associated with this brand for the coupon to remain valid or, for "Product Discounts", products with these brands will be discounted.', 'woocommerce-brands' ) ); ?>' src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" /></p>
 		<?php
 
 		// Exclude Brands
@@ -128,7 +128,7 @@ class WC_Brands_Admin {
 					echo '<option value="' . esc_attr( $cat->term_id ) . '"' . selected( in_array( $cat->term_id, $category_ids ), true, false ) . '>' . esc_html( $cat->name ) . '</option>';
 				}
 			?>
-		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'Product must not be associated with these brands for the coupon to remain valid or, for "Product Discounts", products associated with these brands will not be discounted.', 'woocommerce-brands' ) ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
+		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'Product must not be associated with these brands for the coupon to remain valid or, for "Product Discounts", products associated with these brands will not be discounted.', 'woocommerce-brands' ) ); ?>' src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" /></p>
 		<?php
 	} // End add_coupon_brands_fields()
 
@@ -227,12 +227,12 @@ class WC_Brands_Admin {
 		global $woocommerce;
 		?>
 		<div class="form-field">
-			<label><?php _e( 'Thumbnail', 'woocommerce-brands' ); ?></label>
-			<div id="product_cat_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo wc_placeholder_img_src(); ?>" width="60px" height="60px" /></div>
+			<label><?php esc_html_e( 'Thumbnail', 'woocommerce-brands' ); ?></label>
+			<div id="product_cat_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( wc_placeholder_img_src() ); ?>" width="60px" height="60px" /></div>
 			<div style="line-height:60px;">
 				<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" />
-				<button type="button" class="upload_image_button button"><?php _e('Upload/Add image', 'woocommerce-brands'); ?></button>
-				<button type="button" class="remove_image_button button"><?php _e('Remove image', 'woocommerce-brands'); ?></button>
+				<button type="button" class="upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'woocommerce-brands' ); ?></button>
+				<button type="button" class="remove_image_button button"><?php esc_html_e( 'Remove image', 'woocommerce-brands' ); ?></button>
 			</div>
 			<script type="text/javascript">
 
@@ -257,9 +257,9 @@ class WC_Brands_Admin {
 
 						// Create the media frame.
 						file_frame = wp.media.frames.downloadable_file = wp.media({
-							title: '<?php _e( 'Choose an image', 'woocommerce-brands' ); ?>',
+							title: '<?php echo esc_js( __( 'Choose an image', 'woocommerce-brands' ) ); ?>',
 							button: {
-								text: '<?php _e( 'Use image', 'woocommerce-brands' ); ?>',
+								text: '<?php echo esc_js( __( 'Use image', 'woocommerce-brands' ) ); ?>',
 							},
 							multiple: false
 						});
@@ -278,7 +278,7 @@ class WC_Brands_Admin {
 					});
 
 					jQuery(document).on( 'click', '.remove_image_button', function( event ){
-						jQuery('#product_cat_thumbnail img').attr('src', '<?php echo wc_placeholder_img_src(); ?>');
+						jQuery('#product_cat_thumbnail img').attr('src', '<?php echo esc_js( wc_placeholder_img_src() ); ?>');
 						jQuery('#product_cat_thumbnail_id').val('');
 						jQuery('.remove_image_button').hide();
 						return false;
@@ -291,6 +291,12 @@ class WC_Brands_Admin {
 		<?php
 	}
 
+	/**
+	 * Edit thumbnail field row.
+	 *
+	 * @param WP_Term $term     Current taxonomy term object.
+	 * @param string  $taxonomy Current taxonomy slug.
+	 */
 	function edit_thumbnail_field( $term, $taxonomy ) {
 		global $woocommerce;
 
@@ -304,13 +310,13 @@ class WC_Brands_Admin {
 		};
 		?>
 		<tr class="form-field">
-			<th scope="row" valign="top"><label><?php _e('Thumbnail', 'woocommerce-brands'); ?></label></th>
+			<th scope="row" valign="top"><label><?php esc_html_e( 'Thumbnail', 'woocommerce-brands' ); ?></label></th>
 			<td>
-				<div id="product_cat_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo $image; ?>" width="60px" height="60px" /></div>
+				<div id="product_cat_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" width="60px" height="60px" /></div>
 				<div style="line-height:60px;">
-					<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" value="<?php echo $thumbnail_id; ?>" />
-					<button type="button" class="upload_image_button button"><?php _e('Upload/Add image', 'woocommerce-brands'); ?></button>
-					<button type="button" class="remove_image_button button"><?php _e('Remove image', 'woocommerce-brands'); ?></button>
+					<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>" />
+					<button type="button" class="upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'woocommerce-brands' ); ?></button>
+					<button type="button" class="remove_image_button button"><?php esc_html_e( 'Remove image', 'woocommerce-brands' ); ?></button>
 				</div>
 				<script type="text/javascript">
 
@@ -335,9 +341,9 @@ class WC_Brands_Admin {
 
 							// Create the media frame.
 							file_frame = wp.media.frames.downloadable_file = wp.media({
-								title: '<?php _e( 'Choose an image', 'woocommerce-brands' ); ?>',
+								title: '<?php echo esc_js( __( 'Choose an image', 'woocommerce-brands' ) ); ?>',
 								button: {
-									text: '<?php _e( 'Use image', 'woocommerce-brands' ); ?>',
+									text: '<?php echo esc_js( __( 'Use image', 'woocommerce-brands' ) ); ?>',
 								},
 								multiple: false
 							});
@@ -356,7 +362,7 @@ class WC_Brands_Admin {
 						});
 
 						jQuery(document).on( 'click', '.remove_image_button', function( event ){
-							jQuery('#product_cat_thumbnail img').attr('src', '<?php echo wc_placeholder_img_src(); ?>');
+							jQuery('#product_cat_thumbnail img').attr('src', '<?php echo esc_js( wc_placeholder_img_src() ); ?>');
 							jQuery('#product_cat_thumbnail_id').val('');
 							jQuery('.remove_image_button').hide();
 							return false;
@@ -380,7 +386,7 @@ class WC_Brands_Admin {
 	 * Description for brand page
 	 */
 	function taxonomy_description() {
-		echo wpautop( __( 'Brands be added and managed from this screen. You can optionally upload a brand image to display in brand widgets and on brand archives', 'woocommerce-brands' ) );
+		echo wp_kses_post( wpautop( __( 'Brands be added and managed from this screen. You can optionally upload a brand image to display in brand widgets and on brand archives', 'woocommerce-brands' ) ) );
 	}
 
 	/**

@@ -539,7 +539,7 @@ class WC_AM_Order_Data_Store {
 	 * Returns the current epoch/unix timestamp.
 	 *
 	 * @since   2.0
-	 * @updated 2.6.5 Changed default $gmt to true to allow it to return time() offeset by get_option( 'gmt_offset' ).
+	 * @updated 2.6.5 Changed default $gmt to true to allow it to return time() offset by get_option( 'gmt_offset' ).
 	 *
 	 * @param int|bool $gmt Optional. Whether to use GMT timezone. Default true.
 	 *
@@ -551,6 +551,8 @@ class WC_AM_Order_Data_Store {
 
 	/**
 	 * Return true if $time is older than the current time.
+	 *
+	 * @since 2.0
 	 *
 	 * @param int $time
 	 *

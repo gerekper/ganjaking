@@ -7,8 +7,10 @@
 
 <?php if ( $thumbnail ) : ?>
 
-	<?php echo get_brand_thumbnail_image( $brand ) ?>
+	<?php echo get_brand_thumbnail_image( $brand ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
-<?php endif; ?>
+	<?php
 
-<?php echo wpautop( wptexturize( term_description() ) ); ?>
+endif;
+
+echo wp_kses_post( wpautop( wptexturize( term_description() ) ) );

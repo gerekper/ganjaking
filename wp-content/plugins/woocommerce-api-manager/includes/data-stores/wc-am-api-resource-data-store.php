@@ -968,6 +968,7 @@ class WC_AM_API_Resource_Data_Store {
 	private function get_active_resource( $resource ) {
 		$is_wc_sub            = false;
 		$is_expired           = $this->is_access_expired( $resource->access_expires );
+		$grace_period_exists  = WC_AM_GRACE_PERIOD()->exists( $resource->api_resource_id );
 		$grace_period_expired = WC_AM_GRACE_PERIOD()->is_expired( $resource->api_resource_id );
 
 		/**
@@ -1005,8 +1006,11 @@ class WC_AM_API_Resource_Data_Store {
 
 		// Delete activations for expired non-Subscription API Keys.
 		if ( $is_expired ) {
-			if ( $grace_period_expired ) {
+			if ( $grace_period_exists && $grace_period_expired ) {
 				WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
+				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+			} elseif ( ! $grace_period_exists ) {
 				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
 				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
 			}
@@ -1020,8 +1024,11 @@ class WC_AM_API_Resource_Data_Store {
 
 			// Delete activations for expired Subscription API Keys, or removed line items.
 			if ( ! $is_item_on_sub || ! $is_active ) {
-				if ( $grace_period_expired ) {
+				if ( $grace_period_exists && $grace_period_expired ) {
 					WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
+					WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+					$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+				} elseif ( ! $grace_period_exists ) {
 					WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
 					$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
 				}
@@ -1762,13 +1769,17 @@ class WC_AM_API_Resource_Data_Store {
 
 		$subscription = WC_AM_SUBSCRIPTION()->get_subscription_object( $subscription );
 
-		$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
+		if ( is_object( $subscription ) ) {
+			$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
 			SELECT api_resource_id
 			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE sub_id = %d
 		", $subscription->get_id() ) );
 
-		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+			return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+		}
+
+		return false;
 	}
 
 	/**

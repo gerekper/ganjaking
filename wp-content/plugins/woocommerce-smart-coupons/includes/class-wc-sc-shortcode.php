@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.4.0
+ * @version     2.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -227,7 +227,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							'shop_coupon',
 							'publish',
 							'customer_email',
-							'%' . $wpdb->esc_like( $customer_email ) . '%'
+							'%' . $wpdb->esc_like( '"' . $customer_email . '"' ) . '%'
 						)
 					);
 					wp_cache_set( 'wc_sc_shortcode_coupon_id_' . sanitize_key( $customer_email ), $coupon_exists, 'woocommerce_smart_coupons' );
@@ -363,8 +363,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							'post_parent'  => ! empty( $coupon_id ) ? absint( $coupon_id ) : 0,
 						);
 
-						$new_coupon = new WC_Coupon();
-						$new_coupon->set_code( $coupon_args['post_title'] );
+						$new_coupon = new WC_Coupon( $coupon_args['post_title'] );
 
 						if ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $new_coupon, 'set_status' ) ) {
 							$new_coupon->set_status( $coupon_args['post_status'] );

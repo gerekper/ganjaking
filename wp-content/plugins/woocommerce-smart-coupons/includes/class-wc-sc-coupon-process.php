@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.5.0
+ * @version     3.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -442,6 +442,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 								)
 							);
 
+							$credit_remaining = ( $credit_remaining < 0 ) ? 0 : $credit_remaining;
+
 							if ( $credit_remaining <= 0 && get_option( 'woocommerce_delete_smart_coupon_after_usage' ) === 'yes' ) {
 								$this->update_post_meta( $coupon_id, 'coupon_amount', 0, true, $order );
 								wp_trash_post( $coupon_id );
@@ -538,6 +540,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 									'coupon_obj' => $smart_coupon,
 								)
 							);
+
+							$credit_remaining = ( $credit_remaining < 0 ) ? 0 : $credit_remaining;
 
 							if ( $credit_remaining <= 0 && get_option( 'woocommerce_delete_smart_coupon_after_usage' ) === 'yes' ) {
 								$this->update_post_meta( $coupon_id, 'coupon_amount', 0 );

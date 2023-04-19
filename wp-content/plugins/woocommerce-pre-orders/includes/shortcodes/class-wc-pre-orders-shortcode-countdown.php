@@ -32,6 +32,38 @@ class WC_Pre_Orders_Shortcode_Countdown {
 		return $woocommerce->shortcode_wrapper( array( __CLASS__, 'output' ), $atts, array( 'class' => 'woocommerce-pre-orders' ) );
 	}
 
+	/**
+	 * Sanitize the layout content.
+	 *
+	 * @param string $content Layout content
+	 * @return string
+	 */
+	private static function sanitize_layout( $content ) {
+		$content = wp_kses_no_null( $content, array( 'slash_zero' => 'keep' ) );
+		$content = wp_kses_normalize_entities( $content );
+		$content = preg_replace_callback( '%(<!--.*?(-->|$))|(<(?!})[^>]*(>|$))%', array( __CLASS__, 'sanitize_layout_callback' ), $content );
+
+		// This sanitization comes from the `esc_js` function in WordPress.
+		// The same sanitization is used except for `_wp_specialchars` which removes characters needed for HTML.
+		// https://core.trac.wordpress.org/browser/tags/6.2/src/wp-includes/formatting.php#L4548
+		$content = wp_check_invalid_utf8( $content );
+		$content = preg_replace( '/&#(x)?0*(?(1)27|39);?/i', "'", stripslashes( $content ) );
+		$content = str_replace( "\r", '', $content );
+		return str_replace( "\n", '\\n', addslashes( $content ) );
+	}
+
+	/**
+	 * Callback for `sanitize_layout()`.
+	 *
+	 * @param array $matches preg_replace regexp matches
+	 * @return string
+	 */
+	public static function sanitize_layout_callback( $matches ) {
+		$allowed_html      = wp_kses_allowed_html( 'post' );
+		$allowed_protocols = wp_allowed_protocols();
+
+		return wp_kses_split2( $matches[0], $allowed_html, $allowed_protocols );
+	}
 
 	/**
 	 * Output the countdown timer.  This defaults to the following format, where
@@ -112,7 +144,7 @@ class WC_Pre_Orders_Shortcode_Countdown {
 
 		// if a layout is being used, prepend/append the before/after text
 		if ( $layout ) {
-			$layout = esc_js( $before ) . $layout . esc_js( $after );
+			$layout = esc_js( $before ) . self::sanitize_layout( $layout ) . esc_js( $after );
 		}
 
 		// enqueue the required javascripts
@@ -122,10 +154,10 @@ class WC_Pre_Orders_Shortcode_Countdown {
 		ob_start();
 		?>
 		$('#woocommerce-pre-orders-countdown-<?php echo esc_attr( $until ); ?>').countdown({
-			until: new Date(<?php echo esc_attr( $until ) * 1000; ?>),
-			layout: '<?php echo $layout; ?>',
-			format: '<?php echo esc_attr( $format ); ?>',
-			compact: <?php echo esc_attr( $compact ); ?>,
+			until: new Date(<?php echo (int) $until * 1000; ?>),
+			layout: '<?php echo $layout; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>',
+			format: '<?php echo esc_js( $format ); ?>',
+			compact: <?php echo filter_var( $compact, FILTER_VALIDATE_BOOL ) ? 'true' : 'false'; ?>,
 			expiryUrl: location.href,
 		});
 		<?php

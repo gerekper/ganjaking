@@ -3,8 +3,11 @@
 namespace WCML\Rest;
 
 use WPML\FP\Obj;
+use WPML\FP\Str;
 
 class Functions {
+
+	const STORE_NAMESPACE = 'wc/store/v1';
 
 	/**
 	 * Check if we are requesting a WooCommerce Analytics page.
@@ -12,11 +15,11 @@ class Functions {
 	 * @return bool
 	 */
 	public static function isAnalyticsPage() {
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended,WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 		return is_admin()
 			&& 'wc-admin' === Obj::prop( 'page', $_GET )
 			&& 0 === strpos( sanitize_text_field( wp_unslash( Obj::prop( 'path', $_GET ) ) ), '/analytics/' );
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended,WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 	}
 
 	/**
@@ -47,8 +50,9 @@ class Functions {
 	}
 
 	/**
-	 * @return int
 	 * Returns the version number of the API used for the current request
+	 *
+	 * @return int
 	 */
 	public static function getApiRequestVersion() {
 
@@ -78,6 +82,21 @@ class Functions {
 
 		$rest_prefix = trailingslashit( rest_get_url_prefix() );
 		return ( false !== stripos( $_SERVER['REQUEST_URI'], $rest_prefix . $endpoint ) );
+	}
+
+	/**
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return string|null
+	 */
+	public static function getStoreStrippedEndpoint( $request ) {
+		$route = trim( $request->get_route(), '/' );
+
+		if ( Str::startsWith( self::STORE_NAMESPACE, $route ) ) {
+			return Str::sub( Str::len( trailingslashit( self::STORE_NAMESPACE ) ), $route );
+		}
+
+		return null;
 	}
 
 }

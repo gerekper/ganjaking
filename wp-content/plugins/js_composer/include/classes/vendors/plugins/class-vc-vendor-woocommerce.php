@@ -422,7 +422,7 @@ class Vc_Vendor_Woocommerce {
 					 'base' => 'add_to_cart',
 					 'icon' => 'icon-wpb-woocommerce',
 					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Show multiple products by ID or SKU', 'js_composer' ),
+					 'description' => esc_html__( 'Show product by ID or SKU', 'js_composer' ),
 					 'params' => array(
 						 array(
 							 'type' => 'autocomplete',
