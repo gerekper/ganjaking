@@ -1,0 +1,15 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="copy">auto_generate_coupon</custom-field>
+		<custom-field action="copy">coupon_title_prefix</custom-field>
+		<custom-field action="copy">coupon_title_suffix</custom-field>
+		<custom-field action="copy">sc_coupon_validity</custom-field>
+		<custom-field action="copy">validity_suffix</custom-field>
+		<custom-field action="copy">sc_is_visible_storewide</custom-field>
+		<custom-field action="copy">sc_disable_email_restriction</custom-field>
+		<custom-field action="copy">is_pick_price_of_product</custom-field>
+		<custom-field action="copy">_coupon_title</custom-field>
+		<custom-field action="copy">send_coupons_on_renewals</custom-field>
+		<custom-field action="copy">generated_from_order_id</custom-field>
+	</custom-fields>
+</wpml-config>

@@ -1,0 +1,118 @@
+{
+    "require": {
+        "woocommerce/action-scheduler": "*",
+        "pimple/pimple": "^3.4",
+	"psr/container": "^1",
+        "php": ">7.2",
+	"leewillis77/dismissible-wp-notices": "dev-main"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4.33"
+        },
+        "platform-check": false,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "autoload": {
+        "classmap": [
+            "./src/woocommerce-product-feeds-main.php",
+
+            "./src/common/gamajo-template-loader.class.php",
+            "./src/common/woocommerce-gpf-debug-service.php",
+            "./src/common/woocommerce-gpf-import-export-integration.php",
+            "./src/common/woocommerce-gpf-rest-api.php",
+            "./src/common/woocommerce-gpf-status-report.php",
+            "./src/common/woocommerce-gpf-template-loader.class.php",
+            "./src/common/woocommerce-product-feeds-admin-notices.php",
+            "./src/common/woocommerce-product-feeds-db-manager.php",
+            "./src/common/woocommerce-product-feeds-expanded-structured-data.php",
+            "./src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php",
+            "./src/common/woocommerce-product-feeds-feed-config.php",
+            "./src/common/woocommerce-product-feeds-feed-config-repository.php",
+            "./src/common/woocommerce-product-feeds-feed-image-manager.php",
+            "./src/common/woocommerce-product-feeds-feed-item-factory.php",
+            "./src/common/woocommerce-product-feeds-feed-manager.php",
+            "./src/common/woocommerce-product-feeds-feed-manager-list-table.php",
+            "./src/common/woocommerce-product-feeds-feed-config-factory.php",
+            "./src/common/woocommerce-product-feeds-field-options.php",
+            "./src/common/woocommerce-product-feeds-integration-manager.php",
+            "./src/common/woocommerce-product-feeds-term-depth-repository.php",
+            "./src/common/woocommerce-product-feeds-woocommerce-admin-integration.php",
+
+            "./src/cache/woocommerce-gpf-cache.php",
+            "./src/cache/woocommerce-gpf-abstract-cache-rebuild-job.php",
+            "./src/cache/woocommerce-gpf-abstract-cache-rebuild-batch-job.php",
+            "./src/cache/woocommerce-gpf-cache-clear-all-job.php",
+            "./src/cache/woocommerce-gpf-cache-clear-product-job.php",
+            "./src/cache/woocommerce-gpf-cache-invalidator.php",
+            "./src/cache/woocommerce-gpf-cache-rebuild-complex-job.php",
+            "./src/cache/woocommerce-gpf-cache-rebuild-product-job.php",
+            "./src/cache/woocommerce-gpf-cache-rebuild-simple-job.php",
+            "./src/cache/woocommerce-gpf-cache-status.php",
+
+            "./src/gpf/woocommerce-gpf-admin.php",
+            "./src/gpf/woocommerce-gpf-common.php",
+            "./src/gpf/woocommerce-gpf-feed.php",
+            "./src/gpf/woocommerce-gpf-feed-bing.php",
+            "./src/gpf/woocommerce-gpf-feed-google.php",
+            "./src/gpf/woocommerce-gpf-feed-google-inventory.php",
+            "./src/gpf/woocommerce-gpf-feed-google-local-products.php",
+            "./src/gpf/woocommerce-gpf-feed-google-local-product-inventory.php",
+            "./src/gpf/woocommerce-gpf-feed-item.php",
+            "./src/gpf/woocommerce-gpf-frontend.php",
+            "./src/gpf/woocommerce-gpf-structured-data.php",
+            "./src/gpf/woocommerce-gpf-template-tags.php",
+
+            "./src/jobs/abstract-woocommerce-product-feeds-job.php",
+            "./src/jobs/woocommerce-product-feeds-job-manager.php",
+
+            "./src/jobs/woocommerce-product-feeds-clear-google-taxonomy-job.php",
+            "./src/jobs/woocommerce-product-feeds-maybe-refresh-google-taxonomies-job.php",
+            "./src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php",
+
+            "./src/prf/woocommerce-prf-admin.php",
+            "./src/prf/woocommerce-prf-google.php",
+            "./src/prf/woocommerce-prf-google-review-feed.php",
+            "./src/prf/woocommerce-prf-google-review-product-info.php",
+
+            "./src/integrations/pwbe-woocommerce-gpf.php",
+            "./src/integrations/woocommerce-cost-of-goods.php",
+            "./src/integrations/woocommerce-gpf-currency-switcher-for-woocommerce.php",
+            "./src/integrations/woocommerce-gpf-multicurrency.php",
+            "./src/integrations/woocommerce-gpf-price-by-country.php",
+            "./src/integrations/woocommerce-gpf-product-brands-for-woocommerce.php",
+            "./src/integrations/woocommerce-gpf-pw-bulk-edit.php",
+            "./src/integrations/woocommerce-gpf-the-content-protection.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-composite-products.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-mix-and-match-products.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-multilingual.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-product-bundles.php",
+            "./src/integrations/woocommerce-min-max-quantities.php",
+            "./src/integrations/woocommerce-product-feeds-advanced-custom-fields.php",
+            "./src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php",
+            "./src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php",
+            "./src/integrations/woocommerce-product-feeds-woocommerce-germanized.php",
+            "./src/integrations/woocommerce-product-feeds-measurement-price-calculator.php",
+            "./src/integrations/woocommerce-product-vendors.php",
+            "./src/integrations/woocommerce-product-feeds-woocommerce-additional-variation-images.php",
+            "./src/integrations/yoast-woocommerce-seo.php"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0",
+        "10up/wp_mock": "0.4.0",
+        "squizlabs/php_codesniffer": "^3.5",
+        "wp-coding-standards/wpcs": "^2.3.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpmd/phpmd": "^2.8"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:leewillis77/dismissible-wp-notices.git"
+        }
+    ]
+}

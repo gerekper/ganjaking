@@ -1,0 +1,1221 @@
+# Copyright (C) 2023 Themesquad
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Order Delivery 2.5.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-04-24T13:56:50+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-order-delivery\n"
+
+#. Plugin Name of the plugin
+#: includes/admin/notices/update.php:19
+#: includes/admin/notices/updating.php:20
+msgid "WooCommerce Order Delivery"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-order-delivery/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Choose a delivery date during checkout for the order."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com/"
+msgstr ""
+
+#: includes/abstracts/abstract-class-wc-od-settings-api.php:541
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:56
+#: includes/traits/trait-wc-od-settings-lockout.php:26
+msgid "Number of orders"
+msgstr ""
+
+#: includes/abstracts/abstract-class-wc-od-settings-api.php:542
+#: includes/traits/trait-wc-od-settings-lockout.php:27
+msgid "0 means that there is no limit of orders."
+msgstr ""
+
+#: includes/abstracts/abstract-class-wc-od-settings-api.php:543
+#: includes/traits/trait-wc-od-settings-lockout.php:28
+msgid "Maximum number of orders that can be delivered on the day."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-meta-boxes.php:34
+msgctxt "meta box title"
+msgid "Delivery"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:260
+msgid "Add event"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:261
+msgid "Edit event"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:262
+msgid "Are you sure you want to delete this event?"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:290
+msgid "Shipping & Delivery"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:307
+#: includes/admin/class-wc-od-admin-settings.php:507
+msgid "Shipping Calendar"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:308
+#: includes/admin/class-wc-od-admin-settings.php:531
+msgid "Delivery Calendar"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:375
+#: includes/admin/class-wc-od-admin-system-status.php:86
+msgid "Minimum working days"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:376
+msgid "The minimum number of days it takes you to process an order."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:389
+msgid "Shipping days"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:390
+msgid "Choose the shipping days and their time limit to ship orders. You can set the time limit to process an order on the same day."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:403
+msgid "Delivery Options"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:409
+msgid "Delivery ranges"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:410
+msgid "Define different delivery ranges."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:418
+#: includes/admin/class-wc-od-admin-system-status.php:91
+msgid "Checkout location"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:419
+msgid "Choose the location in the checkout form where to display the delivery details."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:428
+#: includes/admin/class-wc-od-admin-system-status.php:96
+msgid "Checkout options"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:429
+msgid "Choose what kind of content to display in the checkout form."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:434
+msgid "A text block with information about shipping and delivery"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:435
+msgid "A calendar to let the customer choose a delivery date"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:441
+msgid "Checkout text"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:442
+msgid "Add a description of the shipping & delivery during checkout."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:452
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:59
+#: includes/subscriptions/wc-od-subscriptions-functions.php:771
+msgid "Delivery days"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:453
+msgid "Choose the available days to deliver orders."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:460
+#: includes/admin/class-wc-od-admin-system-status.php:101
+msgid "Maximum delivery range"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:461
+msgid "Maximum days that the customer can choose from, starting on the current date, to receive the order."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:474
+#: includes/admin/class-wc-od-admin-system-status.php:106
+msgid "Delivery fields"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:475
+msgid "Choose the option to determine the behavior of the delivery fields in the checkout form."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:480
+msgid "The fields are optional"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:481
+msgid "The fields are required"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:487
+#: includes/admin/class-wc-od-admin-system-status.php:111
+msgid "Enable for Local Pickup"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:488
+msgid "Display the 'Shipping & Delivery' section on the checkout page when the shipping method is 'Local Pickup'"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:489
+msgid "Recommended if you only provide local pickup and you want to use the delivery calendar for the pickup date."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:509
+msgid "This calendar is used to overwrite the default <em>Shipping days</em> setting. Use it for example to define your non working days or holidays periods."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:533
+msgid "This calendar is used to overwrite the default <em>Delivery days</em> setting. Use it to disable specific delivery days."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:706
+msgid "You must check at least one shipping day."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin-settings.php:707
+msgid "You must check at least one delivery day."
+msgstr ""
+
+#: includes/admin/class-wc-od-admin.php:132
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Order Delivery settings"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin.php:133
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin.php:158
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Order Delivery documentation"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin.php:159
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin.php:165
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: includes/admin/class-wc-od-admin.php:166
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:34
+msgid "Delivery day"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:37
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:41
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:53
+msgid "Description"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:92
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:92
+msgid "No"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:139
+msgid "Time frames:"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:146
+msgid "Number of orders:"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:154
+msgid "Fee:"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:161
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:191
+msgid "All shipping methods, except:"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:163
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:193
+msgid "Shipping methods:"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:185
+msgid "Manage"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:185
+msgid "Set Up"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:208
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:117
+msgid "Add time frame"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:41
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:50
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:79
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:75
+#: includes/admin/wc-od-admin-calendars-settings.php:39
+msgid "Title"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:44
+msgid "Range (days)"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:47
+msgid "Shipping method(s)"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:167
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:150
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:174
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:154
+#: includes/admin/wc-od-admin-calendars-settings.php:68
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:222
+msgid "The shipping methods that are not included in any other delivery range."
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:233
+msgid "All, except:"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:253
+msgid "Add delivery range"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:59
+msgid "Fee"
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:130
+msgid "You can split this delivery day into multiple intervals of time called \"time frames\"."
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:131
+msgid "This allows the customers to select one of these time frames in addition to the delivery date during checkout."
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:132
+msgid "Each time frame has its own configuration."
+msgstr ""
+
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:133
+msgid "Once you define a time frame, some settings of this delivery day, like the \"Shipping methods\", will be ignored and the time frame settings will take preference."
+msgstr ""
+
+#: includes/admin/list-table/abstract-class-wc-od-admin-list-table.php:163
+msgctxt "list table date filter"
+msgid "Today"
+msgstr ""
+
+#: includes/admin/list-table/abstract-class-wc-od-admin-list-table.php:167
+msgctxt "list table date filter"
+msgid "Tomorrow"
+msgstr ""
+
+#: includes/admin/list-table/abstract-class-wc-od-admin-list-table.php:171
+msgctxt "list table date filter"
+msgid "Next week"
+msgstr ""
+
+#: includes/admin/list-table/abstract-class-wc-od-admin-list-table.php:175
+msgctxt "list table date filter"
+msgid "Next 2 weeks"
+msgstr ""
+
+#. translators: 1: month name, 2: 4-digit year
+#: includes/admin/list-table/abstract-class-wc-od-admin-list-table.php:208
+msgctxt "filter orders by date range"
+msgid "%1$s %2$d"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:40
+msgid "Calculate shipping date"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:82
+msgid "Shipping Date"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:83
+msgid "Delivery Date"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:226
+msgctxt "shop order filter"
+msgid "Filter by shipping date"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:227
+msgctxt "shop order filter"
+msgid "All shipping dates"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:232
+msgctxt "shop order filter"
+msgid "Filter by delivery date"
+msgstr ""
+
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:233
+msgctxt "shop order filter"
+msgid "All delivery dates"
+msgstr ""
+
+#. translators: %d number of orders
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:348
+msgid "Updated the shipping date for %d order."
+msgid_plural "Updated the shipping date for %d orders."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/meta-boxes/class-wc-od-meta-box-order-delivery.php:38
+msgid "Shipping date:"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-od-meta-box-order-delivery.php:48
+#: includes/admin/meta-boxes/class-wc-od-meta-box-subscription-delivery.php:39
+#: templates/pip/content/delivery-date.php:21
+msgid "Delivery date:"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-od-meta-box-order-delivery.php:58
+#: includes/admin/meta-boxes/class-wc-od-meta-box-subscription-delivery.php:64
+#: templates/pip/content/delivery-date.php:28
+msgid "Time frame:"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-od-meta-box-order-delivery.php:160
+msgid "The shipping date have been updated according to the new delivery date."
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-od-meta-box-order-delivery.php:162
+msgid "We couldn't find a shipping date according to the delivery date."
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-subscription-delivery.php:29
+msgid "Customer preferences"
+msgstr ""
+
+#: includes/admin/notices/update.php:19
+msgctxt "admin notice"
+msgid "We need to update your store database to the latest version."
+msgstr ""
+
+#: includes/admin/notices/update.php:22
+msgid "Run the updater"
+msgstr ""
+
+#: includes/admin/notices/update.php:28
+msgctxt "admin notice"
+msgid "It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?"
+msgstr ""
+
+#: includes/admin/notices/updating.php:20
+msgctxt "admin notice"
+msgid "Your database is being updated in the background."
+msgstr ""
+
+#: includes/admin/notices/updating.php:22
+msgid "Taking a while? Click here to run it now."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:143
+msgid "Add Time Frame"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:145
+msgctxt "time frame settings page title"
+msgid "Delivery days > [delivery_day] > [time_frame]"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:157
+msgctxt "settings page description"
+msgid "Edit the time frame settings."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:167
+msgid "Return to the delivery day settings"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:86
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:88
+msgid "Enable this day for delivery"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:102
+msgid "Choose the available shipping methods for this delivery day."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:106
+msgid "Time frames"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:108
+msgid "Define the time frames for this delivery day."
+msgstr ""
+
+#. translators: %s: weekday name
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:123
+msgctxt "delivery day settings page title"
+msgid "Delivery days > %s"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:136
+msgctxt "settings page description"
+msgid "Edit the delivery day settings."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:145
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:111
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:200
+msgctxt "settings back link label"
+msgid "Return to the shipping options"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:63
+msgid "Choose the delivery days in which this time frame is available."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:69
+msgid "Select delivery days"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:91
+msgctxt "time frame settings page title"
+msgid "Delivery days > Add Time Frame"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:102
+msgctxt "settings page description"
+msgid "Add time frames to multiple delivery days at once."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:143
+msgid "Select a least one delivery day."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:81
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:77
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:89
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:254
+msgid "From (days)"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:91
+msgid "The minimum days to deliver the order."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:99
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:253
+msgid "To (days)"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:101
+msgid "The maximum days to deliver the order."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:119
+msgid "Choose the available shipping methods for this delivery range."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:162
+msgid "The “All shipping methods” option is reserved for the default delivery range. Consider moving these values to the default delivery range and delete this one."
+msgstr ""
+
+#. translators: %s: delivery range title
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:178
+msgctxt "settings page title"
+msgid "Delivery ranges > %s"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:179
+msgid "Add Delivery Range"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:191
+msgctxt "settings page description"
+msgid "Edit the delivery range settings."
+msgstr ""
+
+#. translators: 1: field title 2: field title
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:252
+msgid "The field \"%1$s\" must be higher or equal than the field \"%2$s\"."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-range.php:261
+msgid "No shipping methods provided."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:84
+msgid "Time from"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:86
+msgid "The starting time of this time frame."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:94
+msgid "Time to"
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:96
+msgid "The ending time of this time frame."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:111
+msgid "Choose the available shipping methods for this time frame."
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:19
+msgid "Delivery Days"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:19
+msgid "This section shows the delivery days defined with WooCommerce Order Delivery."
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:23
+msgctxt "delivery days: table column"
+msgid "Day"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:25
+msgctxt "delivery days: table column"
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:26
+msgctxt "delivery days: table column"
+msgid "Nº of orders"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:27
+msgctxt "delivery days: table column"
+msgid "Shipping methods"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-days.php:28
+msgctxt "delivery days: table column"
+msgid "Time frames"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-ranges.php:19
+msgid "Delivery Ranges"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-ranges.php:19
+msgid "This section shows the delivery ranges defined with WooCommerce Order Delivery."
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-ranges.php:23
+msgctxt "delivery ranges: table column"
+msgid "Title"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-ranges.php:25
+msgctxt "delivery ranges: table column"
+msgid "Range"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-delivery-ranges.php:26
+msgctxt "delivery ranges: table column"
+msgid "Shipping methods"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-settings.php:21
+msgid "Order Delivery"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-settings.php:21
+msgid "This section shows information about WooCommerce Order Delivery."
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-settings.php:47
+msgid "-"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-shipping-days.php:19
+msgid "Shipping Days"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-shipping-days.php:19
+msgid "This section shows the shipping days defined with WooCommerce Order Delivery."
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-shipping-days.php:23
+msgctxt "shipping days: table column"
+msgid "Day"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-shipping-days.php:25
+msgctxt "shipping days: table column"
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-shipping-days.php:26
+msgctxt "shipping days: table column"
+msgid "Cut-off time"
+msgstr ""
+
+#: includes/admin/wc-od-admin-ajax-functions.php:61
+#: includes/admin/wc-od-admin-ajax-functions.php:100
+#: includes/admin/wc-od-admin-ajax-functions.php:138
+msgid "Invalid event type."
+msgstr ""
+
+#: includes/admin/wc-od-admin-ajax-functions.php:94
+#: includes/admin/wc-od-admin-ajax-functions.php:132
+msgid "Invalid event ID."
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:40
+msgid "Enter the event title"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:48
+#: includes/admin/wc-od-admin-calendars-settings.php:95
+msgid "Start"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:54
+#: includes/admin/wc-od-admin-calendars-settings.php:100
+msgid "End"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:66
+msgid "Save"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:67
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:128
+#: includes/admin/wc-od-admin-calendars-settings.php:163
+msgid "Country"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:129
+msgid "Select a country&hellip;"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:139
+#: includes/admin/wc-od-admin-calendars-settings.php:168
+msgid "States"
+msgstr ""
+
+#: includes/admin/wc-od-admin-calendars-settings.php:140
+msgid "Select the states&hellip;"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:127
+msgid "time from"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:135
+msgid "time to"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:160
+msgid "Before customer details"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:161
+msgid "Before billing details"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:162
+msgid "After billing details"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:163
+msgid "Before order notes"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:164
+msgid "After order notes"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:165
+msgid "After additional fields"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:166
+msgid "Between order review and payments"
+msgstr ""
+
+#: includes/admin/wc-od-admin-functions.php:167
+msgid "After customer details"
+msgstr ""
+
+#: includes/admin/wc-od-admin-general-settings.php:91
+msgid "limit:"
+msgstr ""
+
+#: includes/class-wc-od-cart-fees.php:173
+#: includes/traits/trait-wc-od-settings-fee.php:37
+msgid "Delivery fee"
+msgstr ""
+
+#: includes/class-wc-od-checkout.php:281
+#: includes/subscriptions/wc-od-subscriptions-functions.php:749
+msgctxt "checkout field label"
+msgid "Time frame"
+msgstr ""
+
+#: includes/class-wc-od-checkout.php:485
+#: includes/wc-od-functions.php:315
+msgid "Shipping and delivery"
+msgstr ""
+
+#. translators: %s: field label
+#: includes/class-wc-od-checkout.php:660
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:388
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:408
+msgid "%s is not valid."
+msgstr ""
+
+#: includes/class-wc-od-emails.php:158
+#: includes/class-wc-od-order-details.php:49
+msgid "Delivery details"
+msgstr ""
+
+#: includes/class-wc-od-install.php:326
+msgctxt "admin notice"
+msgid "WooCommerce Order Delivery update complete. Thank you for updating to the latest version!"
+msgstr ""
+
+#. translators: 1: Minimum PHP version 2: Current PHP version
+#: includes/class-wc-od-requirements.php:56
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Order Delivery</strong> requires PHP %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#. translators: 1: Minimum WordPress version 2: Current WordPress version
+#: includes/class-wc-od-requirements.php:63
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Order Delivery</strong> requires WordPress %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: includes/class-wc-od-requirements.php:68
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Order Delivery</strong> requires WooCommerce to be activated to work."
+msgstr ""
+
+#. translators: 1: Minimum WooCommerce version 2: Current WooCommerce version
+#: includes/class-wc-od-requirements.php:72
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Order Delivery</strong> requires WooCommerce %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: includes/class-wc-od-shipping-methods-selector.php:180
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:32
+msgid "All shipping methods"
+msgstr ""
+
+#: includes/class-wc-od-shipping-methods-selector.php:211
+msgid "All rates"
+msgstr ""
+
+#: includes/class-wc-od-shipping-methods-selector.php:227
+msgctxt "label for the default shipping zone"
+msgid "Other locations"
+msgstr ""
+
+#: includes/data-stores/class-wc-od-data-store-delivery-range.php:100
+msgctxt "default delivery range title"
+msgid "Default"
+msgstr ""
+
+#: includes/data-stores/class-wc-od-data-store-delivery-range.php:110
+msgid "Invalid delivery range."
+msgstr ""
+
+#: includes/emails/class-wc-od-email-order-delivery-note.php:28
+msgid "Order Delivery Note"
+msgstr ""
+
+#: includes/emails/class-wc-od-email-order-delivery-note.php:29
+msgid "Order Delivery Note emails are sent to chosen recipient(s) when a note related with the delivery preferences is added to an order."
+msgstr ""
+
+#: includes/emails/class-wc-od-email-order-delivery-note.php:30
+msgid "[{site_title}] New order delivery note ({order_number}) - {order_date}"
+msgstr ""
+
+#: includes/emails/class-wc-od-email-order-delivery-note.php:31
+msgid "New order delivery note"
+msgstr ""
+
+#: includes/emails/class-wc-od-email-order-note.php:147
+msgid "Recipient(s)"
+msgstr ""
+
+#. translators: %s: WP admin email
+#: includes/emails/class-wc-od-email-order-note.php:150
+msgid "Enter recipients (comma separated) for this email. Defaults to %s."
+msgstr ""
+
+#: includes/emails/class-wc-od-email-subscription-delivery-note.php:28
+msgid "Subscription Delivery Note"
+msgstr ""
+
+#: includes/emails/class-wc-od-email-subscription-delivery-note.php:29
+msgid "Subscription Delivery Note emails are sent to chosen recipient(s) when a note related with the delivery preferences is added to a subscription."
+msgstr ""
+
+#: includes/emails/class-wc-od-email-subscription-delivery-note.php:30
+msgid "[{site_title}] New subscription delivery note ({order_number})"
+msgstr ""
+
+#: includes/emails/class-wc-od-email-subscription-delivery-note.php:31
+msgid "New subscription delivery note"
+msgstr ""
+
+#. translators: %s: woocommerce subscription version
+#: includes/integrations/class-wc-od-integration-subscriptions.php:59
+msgid "<strong>WooCommerce Order Delivery</strong> requires WooCommerce Subscriptions %s or higher."
+msgstr ""
+
+#. translators: %d: Rate ID of the table rate shipping
+#: includes/integrations/class-wc-od-integration-table-rate-shipping.php:71
+msgctxt "table rate shipping label"
+msgid "Rate %d"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscription-admin.php:53
+msgctxt "meta box title"
+msgid "Next order delivery"
+msgstr ""
+
+#. translators: %s: delivery details
+#: includes/subscriptions/class-wc-od-subscription-admin.php:139
+msgid "Due to a change in the next payment date, the delivery details of the next order have been updated to %s."
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:128
+msgid "Change Delivery"
+msgstr ""
+
+#. translators: %s: subscription ID.
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:213
+msgctxt "edit subscription delivery title"
+msgid "Subscription delivery #%s"
+msgstr ""
+
+#. translators: %s: field name
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:287
+msgid "%s is a required field."
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:366
+msgid "Delivery preferences changed successfully."
+msgstr ""
+
+#. translators: %s: delivery details
+#: includes/subscriptions/class-wc-od-subscription-delivery.php:485
+msgid "The customer changed the delivery details for the next order to: %s"
+msgstr ""
+
+#. translators: %s: subscription links
+#: includes/subscriptions/class-wc-od-subscriptions-emails.php:114
+msgid "Edit the delivery preferences for the subscription: %s"
+msgid_plural "Edit the delivery preferences for the subscriptions: %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:72
+msgid "Subscription Options"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:73
+msgid "Set up the delivery of the subscriptions and their renewals."
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:78
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:128
+msgid "Limit to billing interval"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:79
+msgid "Limit the delivery dates according to the subscription's billing interval"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:80
+msgid "It will prevent the customer from moving the order delivery to the next renewal."
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:86
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:134
+msgid "On order renewal"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:87
+msgid "Choose the option to assign the delivery details on order renewal."
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:91
+msgid "Assign the first available delivery date"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:92
+msgid "Keep the subscription's billing interval between delivery dates"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:97
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:139
+msgid "Same weekday"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions-settings.php:98
+msgid "Assign the same weekday as the previous order delivery date"
+msgstr ""
+
+#: includes/subscriptions/class-wc-od-subscriptions.php:154
+msgid "Delivery date not found for the next order."
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:730
+msgid "Next order"
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:731
+msgid "This will be the delivery details for the next order."
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:764
+msgid "Delivery preferences"
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:765
+msgid "We will try to adapt the delivery details of the future orders to your preferences."
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:892
+msgid "required"
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:903
+#: includes/subscriptions/wc-od-subscriptions-functions.php:1033
+msgctxt "Subscription delivery: column name"
+msgid "Delivery day"
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:904
+msgctxt "Subscription delivery: column name"
+msgid "Enabled"
+msgstr ""
+
+#: includes/subscriptions/wc-od-subscriptions-functions.php:905
+#: includes/subscriptions/wc-od-subscriptions-functions.php:1034
+msgctxt "Subscription delivery: column name"
+msgid "Time frame"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:26
+msgid "Fee amount"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:28
+msgid "Enter a fixed amount to apply as a fee."
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:33
+msgid "Fee label"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:35
+msgid "The fee label to use in the order details."
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:46
+msgid "Fee tax status"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:48
+msgid "Define whether the fee is taxable."
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:57
+msgid "Fee tax class"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-fee.php:59
+msgid "Choose a tax class for the fee. Tax classes are used to apply different tax rates."
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:26
+msgid "Shipping methods"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:33
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:38
+msgid "All shipping methods, except&hellip;"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:34
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:42
+msgid "Only specific shipping methods"
+msgstr ""
+
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:65
+msgid "Select shipping methods"
+msgstr ""
+
+#: includes/wc-od-datetime-functions.php:198
+msgctxt "Use the WordPress date format for this language? Set to 'no' to use a custom format"
+msgid "yes"
+msgstr ""
+
+#: includes/wc-od-datetime-functions.php:203
+msgctxt "Custom PHP date format for this language"
+msgid "Y-m-d"
+msgstr ""
+
+#: includes/wc-od-functions.php:399
+msgctxt "field label"
+msgid "Delivery Date"
+msgstr ""
+
+#: includes/wc-od-time-frames-functions.php:67
+msgctxt "Time Frame option label. Allowed tags: [title], [time_from], [time_to], [fee_amount]"
+msgid "[time_from] &ndash; [time_to] (+ [fee_amount])"
+msgstr ""
+
+#: includes/wc-od-time-frames-functions.php:69
+msgctxt "Time Frame. Allowed tags: [time_from], [time_to], [title]"
+msgid "[time_from] &ndash; [time_to]"
+msgstr ""
+
+#: includes/wc-od-time-frames-functions.php:346
+msgid "Choose a time frame"
+msgstr ""
+
+#: includes/wc-od-update-functions.php:206
+msgid "We will try our best to deliver your order on the specified date."
+msgstr ""
+
+#. translators: %s: shipping date
+#: templates/checkout/form-delivery-date.php:45
+#: templates/order/delivery-date.php:50
+msgid "We estimate that your order will be shipped on %s."
+msgstr ""
+
+#: templates/emails/admin-order-delivery-note.php:16
+#: templates/emails/plain/admin-order-delivery-note.php:13
+msgid "A delivery note has been added to the order:"
+msgstr ""
+
+#: templates/emails/admin-order-delivery-note.php:20
+#: templates/emails/plain/admin-order-delivery-note.php:21
+msgid "For your reference, the order details are shown below."
+msgstr ""
+
+#: templates/emails/admin-subscription-delivery-note.php:16
+#: templates/emails/plain/admin-subscription-delivery-note.php:13
+msgid "A delivery note has been added to the subscription:"
+msgstr ""
+
+#: templates/emails/admin-subscription-delivery-note.php:20
+#: templates/emails/plain/admin-subscription-delivery-note.php:21
+msgid "For your reference, the subscription details are shown below."
+msgstr ""
+
+#. translators: %s: delivery date
+#: templates/emails/email-delivery-date.php:26
+#: templates/emails/plain/email-delivery-date.php:23
+#: templates/order/delivery-date.php:32
+msgid "We will try our best to deliver your order on %s."
+msgstr ""
+
+#. translators: %s: delivery time frame
+#: templates/emails/email-delivery-date.php:34
+#: templates/emails/plain/email-delivery-date.php:27
+#: templates/order/delivery-date.php:40
+msgid "Time frame: %s"
+msgstr ""
+
+#. translators: %s: URL to the 'My Account' page
+#: templates/myaccount/edit-delivery.php:21
+msgid "Invalid Subscription. <a href=\"%s\" class=\"wc-forward\">My Account</a>"
+msgstr ""
+
+#. translators: %s: view subscription URL
+#: templates/myaccount/edit-delivery.php:44
+msgid "Here you can change the delivery preferences for the subscription: %s"
+msgstr ""
+
+#: templates/myaccount/edit-delivery.php:53
+msgid "There is no preferences for this subscription."
+msgstr ""
+
+#: templates/myaccount/edit-delivery.php:69
+msgid "Save Preferences"
+msgstr ""
+
+#: templates/Simple/delivery-date.php:21
+msgid "Delivery Date:"
+msgstr ""
+
+#: templates/Simple/delivery-date.php:27
+msgid "Time Frame:"
+msgstr ""

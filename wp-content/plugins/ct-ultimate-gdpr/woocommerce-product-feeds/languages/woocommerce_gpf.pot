@@ -1,0 +1,3049 @@
+# Copyright (C) 2017 Ademti Software Ltd.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Google Product Feed 10.10.0\n"
+"Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
+"POT-Creation-Date: 2023-04-19 12:16:14+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \"Ademti Software WooCommerce Support\" "
+"<wcsupport@ademti-software.co.uk>\n"
+"Language-Team: \"Ademti Software WooCommerce Support\" "
+"<wcsupport@ademti-software.co.uk>\n"
+"Poedit: \n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: src/cache/woocommerce-gpf-cache-status.php:111
+#. Translators: Placeholders represent the number of items processed, and the
+#. total to be generated, e.g. 5 / 10
+msgid "<strong>%1$d</strong> / <strong>%2$d</strong> generated"
+msgstr ""
+
+#: src/cache/woocommerce-gpf-cache-status.php:140
+msgid "** Cache rebuild scheduled **"
+msgstr ""
+
+#: src/common/woocommerce-gpf-import-export-integration.php:86
+#: src/common/woocommerce-gpf-rest-api.php:112
+#. Translators: Placeholder is the name of the feed field
+#. Translators: Placeholder is the name of a specific data field.
+msgid "Google product feed: %s"
+msgstr ""
+
+#: src/common/woocommerce-gpf-import-export-integration.php:89
+#: src/common/woocommerce-gpf-rest-api.php:114
+msgid "Google product feed: Hide product from feed (Y/N)"
+msgstr ""
+
+#: src/common/woocommerce-gpf-rest-api.php:36
+msgid "Google product feed data"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:70
+#: src/common/woocommerce-gpf-status-report.php:71
+msgid "WooCommerce Google Product Feed fields"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:83
+#. Translators: Placeholder is the "default value" for this field
+msgid "Defaults to &quot;%s&quot;. "
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:97
+#. Translators: Placeholder is a description of the pre-population rule for
+#. this field.
+msgid "Pre-populates from %s."
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:120
+#: src/common/woocommerce-gpf-status-report.php:125
+#: src/common/woocommerce-gpf-status-report.php:130
+msgid "Enabled"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:122
+#: src/common/woocommerce-gpf-status-report.php:127
+#: src/common/woocommerce-gpf-status-report.php:132
+msgid "-"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:134
+msgid "Not set"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:143
+#: src/common/woocommerce-gpf-status-report.php:144
+msgid "WooCommerce Google Product Feed feeds"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:161
+#: src/common/woocommerce-gpf-status-report.php:162
+msgid "WooCommerce Google Product Feed options"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:169
+#: src/common/woocommerce-gpf-status-report.php:170
+msgid "Include variations in feed"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:178
+#: src/common/woocommerce-gpf-status-report.php:179
+msgid "Send &quot;item group ID&quot;"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:187
+#: src/common/woocommerce-gpf-status-report.php:188
+msgid "Expanded schema markup"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:197
+#: src/common/woocommerce-gpf-status-report.php:198
+msgid "Debug key"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:217
+#: src/common/woocommerce-gpf-status-report.php:218
+msgid "WooCommerce Google Product Feed DB status"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:229
+#: src/common/woocommerce-gpf-status-report.php:230
+msgid "Database version"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:238
+#: src/common/woocommerce-gpf-status-report.php:239
+msgid "Active database version"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:240
+msgid "Unknown"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:256
+#: src/common/woocommerce-gpf-status-report.php:304
+#. Translators: %d is the number of items.
+#. Translators: %d is the number of items
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/common/woocommerce-gpf-status-report.php:276
+#: src/common/woocommerce-gpf-status-report.php:324
+msgid "Empty"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:287
+#: src/common/woocommerce-gpf-status-report.php:334
+msgid "MISSING"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:376
+#. Translators: Placeholder is the name of the taxonomy
+msgid "%s taxonomy"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:382
+#. Translators: Placeholder is the name of the taxonomy
+msgid "%s taxonomy (full hierarchy)"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:388
+#. Translators: Placeholder is the name of the product field
+msgid "product %s"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:394
+#. Translators: Placeholder is the key of the meta field
+msgid "%s meta field"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-config-factory.php:46
+msgid "Invalid feed requested"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-config.php:174
+msgid "Unknown category"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:165
+msgid "Set as product image"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:170
+msgid "Added via product gallery"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:175
+msgid "Attached as media to product"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:180
+msgid "Added via filters"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:42
+msgid "No feeds configured yet."
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:52
+msgid "Name"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:53
+msgid "Type"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:54
+#: templates/woo-gpf-admin-feed-edit.php:21
+msgid "Category filtering"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:161
+msgid "(Reviews in the last 7 days)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:164
+msgid "(Reviews yesterday)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:167
+msgid "(All reviews)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:184
+msgid "<em>Only</em>:"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:188
+msgid "All <em>except</em>:"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:192
+msgid "All"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:221
+msgid "Edit"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager-list-table.php:237
+msgid "Delete"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager.php:67
+#: templates/woo-gpf-admin-feed-list-header.php:2
+msgid "Manage product feeds"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager.php:68
+#: src/gpf/woocommerce-gpf-admin.php:1483
+msgid "Product Feeds"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager.php:151
+msgid "Edit feed"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager.php:152
+msgid "Add feed"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-manager.php:253
+#. Translators: %s is the feed "name".
+msgid "Delete %s"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:154
+msgid "Afghanistan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:155
+msgid "Albania"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:156
+msgid "Algeria"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:157
+msgid "American Samoa"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:158
+msgid "Andorra"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:159
+msgid "Angola"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:160
+msgid "Anguilla"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:161
+msgid "Antarctica"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:162
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:163
+msgid "Argentina"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:164
+msgid "Armenia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:165
+msgid "Aruba"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:166
+msgid "Australia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:167
+msgid "Austria"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:168
+msgid "Azerbaijan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:169
+msgid "Bahamas"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:170
+msgid "Bahrain"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:171
+msgid "Bangladesh"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:172
+msgid "Barbados"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:173
+msgid "Belarus"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:174
+msgid "Belgium"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:175
+msgid "Belize"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:176
+msgid "Benin"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:177
+msgid "Bermuda"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:178
+msgid "Bhutan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:179
+msgid "Bolivia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:180
+msgid "Bonaire, Sint Eustatius and Saba"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:181
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:182
+msgid "Botswana"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:183
+msgid "Bouvet Island"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:184
+msgid "Brazil"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:185
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:186
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:187
+msgid "Bulgaria"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:188
+msgid "Burkina Faso"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:189
+msgid "Burundi"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:190
+msgid "Cambodia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:191
+msgid "Cameroon"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:192
+msgid "Canada"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:193
+msgid "Cape Verde"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:194
+msgid "Cayman Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:195
+msgid "Central African Republic"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:196
+msgid "Chad"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:197
+msgid "Chile"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:198
+msgid "China"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:199
+msgid "Christmas Island"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:200
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:201
+msgid "Colombia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:202
+msgid "Comoros"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:203
+msgid "Congo"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:204
+msgid "Congo, Democratic Republic"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:205
+msgid "Cook Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:206
+msgid "Costa Rica"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:207
+msgid "Cote d'Ivoire"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:208
+msgid "Croatia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:209
+msgid "Cuba"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:210
+msgid "Curaçao"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:211
+msgid "Cyprus"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:212
+msgid "Czechia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:213
+msgid "Denmark"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:214
+msgid "Djibouti"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:215
+msgid "Dominica"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:216
+msgid "Dominican Republic"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:217
+msgid "East Timor"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:218
+msgid "Ecuador"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:219
+msgid "Egypt"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:220
+msgid "El Salvador"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:221
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:222
+msgid "Eritrea"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:223
+msgid "Estonia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:224
+msgid "Ethiopia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:225
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:226
+msgid "Faroe Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:227
+msgid "Fiji"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:228
+msgid "Finland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:229
+msgid "France"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:230
+msgid "French Guiana"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:231
+msgid "French Polynesia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:232
+msgid "French Southern Territories"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:233
+msgid "Gabon"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:234
+msgid "Gambia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:235
+msgid "Georgia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:236
+msgid "Germany"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:237
+msgid "Ghana"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:238
+msgid "Gibraltar"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:239
+msgid "Greece"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:240
+msgid "Greenland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:241
+msgid "Grenada"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:242
+msgid "Guadeloupe"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:243
+msgid "Guam"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:244
+msgid "Guatemala"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:245
+msgid "Guernsey"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:246
+msgid "Guinea"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:247
+msgid "Guinea - Bissau"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:248
+msgid "Guyana"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:249
+msgid "Haiti"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:250
+msgid "Heard and McDonald Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:251
+msgid "Honduras"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:252
+msgid "Hong Kong"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:253
+msgid "Hungary"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:254
+msgid "Iceland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:255
+msgid "India"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:256
+msgid "Indonesia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:257
+msgid "Iran"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:258
+msgid "Iraq"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:259
+msgid "Ireland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:260
+msgid "Israel"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:261
+msgid "Italy"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:262
+msgid "Jamaica"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:263
+msgid "Japan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:264
+msgid "Jersey"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:265
+msgid "Jordan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:266
+msgid "Kazakhstan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:267
+msgid "Kenya"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:268
+msgid "Kiribati"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:269
+msgid "Kuwait"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:270
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:271
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:272
+msgid "Latvia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:273
+msgid "Lebanon"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:274
+msgid "Lesotho"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:275
+msgid "Liberia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:276
+msgid "Libya"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:277
+msgid "Liechtenstein"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:278
+msgid "Lithuania"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:279
+msgid "Luxembourg"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:280
+msgid "Macau"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:281
+msgid "Macedonia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:282
+msgid "Madagascar"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:283
+msgid "Malawi"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:284
+msgid "Malaysia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:285
+msgid "Maldives"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:286
+msgid "Mali"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:287
+msgid "Malta"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:288
+msgid "Marshall Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:289
+msgid "Martinique"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:290
+msgid "Mauritania"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:291
+msgid "Mauritius"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:292
+msgid "Mayotte"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:293
+msgid "Mexico"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:294
+msgid "Micronesia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:295
+msgid "Moldova"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:296
+msgid "Monaco"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:297
+msgid "Mongolia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:298
+msgid "Montenegro"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:299
+msgid "Montserrat"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:300
+msgid "Morocco"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:301
+msgid "Mozambique"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:302
+msgid "Myanmar"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:303
+msgid "Namibia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:304
+msgid "Nauru"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:305
+msgid "Nepal"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:306
+msgid "Netherlands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:307
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:308
+msgid "new Caledonia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:309
+msgid "new Zealand"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:310
+msgid "Nicaragua"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:311
+msgid "Niger"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:312
+msgid "Nigeria"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:313
+msgid "Niue"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:314
+msgid "Norfolk Island"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:315
+msgid "North Korea"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:316
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:317
+msgid "Norway"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:318
+msgid "Oman"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:319
+msgid "Pakistan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:320
+msgid "Palau"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:321
+msgid "Palestinian Territory"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:322
+msgid "Panama"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:323
+msgid "Papua new Guinea"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:324
+msgid "Paraguay"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:325
+msgid "Peru"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:326
+msgid "Philippines"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:327
+msgid "Pitcairn"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:328
+msgid "Poland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:329
+msgid "Portugal"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:330
+msgid "Puerto Rico"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:331
+msgid "Qatar"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:332
+msgid "Republic of Kosovo"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:333
+msgid "Reunion"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:334
+msgid "Romania"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:335
+msgid "Russian Federation"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:336
+msgid "Rwanda"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:337
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:338
+msgid "Saint Lucia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:339
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:340
+msgid "Samoa"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:341
+msgid "San Marino"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:342
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:343
+msgid "Saudi Arabia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:344
+msgid "Senegal"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:345
+msgid "Serbia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:346
+msgid "Seychelles"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:347
+msgid "Sierra Leone"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:348
+msgid "Singapore"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:349
+msgid "Sint Maarten (Dutch part)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:350
+msgid "Slovakia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:351
+msgid "Slovenia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:352
+msgid "Solomon Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:353
+msgid "Somalia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:354
+msgid "South Africa"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:355
+msgid "South Georgia and The South Sandwich Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:356
+msgid "South Korea"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:357
+msgid "Spain"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:358
+msgid "Sri Lanka"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:359
+msgid "St . Helena"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:360
+msgid "St . Pierre and Miquelon"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:361
+msgid "Sudan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:362
+msgid "Suriname"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:363
+msgid "Svalbard and Jan Mayen Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:364
+msgid "Swaziland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:365
+msgid "Sweden"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:366
+msgid "Switzerland"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:367
+msgid "Syria"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:368
+msgid "Taiwan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:369
+msgid "Tajikistan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:370
+msgid "Tanzania"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:371
+msgid "Thailand"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:372
+msgid "Togo"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:373
+msgid "Tokelau"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:374
+msgid "Tonga"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:375
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:376
+msgid "Tunisia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:377
+msgid "Turkey"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:378
+msgid "Turkmenistan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:379
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:380
+msgid "Tuvalu"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:381
+msgid "Uganda"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:382
+msgid "Ukraine"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:383
+msgid "United Arab Emirates"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:384
+msgid "United Kingdom"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:385
+msgid "United States"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:386
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:387
+msgid "Uruguay"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:388
+msgid "Uzbekistan"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:389
+msgid "Vanuatu"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:390
+msgid "Vatican"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:391
+msgid "Venezuela"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:392
+msgid "Viet Nam"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:393
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:394
+msgid "Virgin Islands (US)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:395
+msgid "Wallis and Futuna Islands"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:396
+msgid "Western Sahara"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:397
+msgid "Yemen"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:398
+msgid "Zambia"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:399
+msgid "Zimbabwe"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:217
+msgid "Review"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:224 templates/woo-gpf-admin-intro.php:13
+msgid "Feature requests"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:231
+msgid "Troubleshooting"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:238
+msgid "Docs"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:246
+msgid "Settings"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:263 src/gpf/woocommerce-gpf-admin.php:602
+#: templates/woo-gpf-categories-edit-intro.php:2
+#: templates/woo-gpf-category-edit-intro.php:3
+msgid "Product Feed Information"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:530 src/gpf/woocommerce-gpf-admin.php:792
+msgid "Default: "
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:533 src/gpf/woocommerce-gpf-admin.php:673
+#: src/gpf/woocommerce-gpf-admin.php:795 src/gpf/woocommerce-gpf-admin.php:936
+#: src/integrations/woocommerce-gpf-pw-bulk-edit.php:135
+msgid "Use default"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:606
+msgid ""
+"Set values here if you want to override the information for this specific "
+"variation. If information should apply to all variations, then set it "
+"against the main product."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:938
+msgid "No default"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:983
+msgid "Hide this product from the feed"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1415
+msgid "Arabic"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1416
+msgid "Czech"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1417
+msgid "Danish"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1418
+msgid "German"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1419
+msgid "English (Australian)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1420
+msgid "English (British)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1421
+msgid "English (US)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1422
+msgid "Spanish"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1423
+msgid "Finnish"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1424
+msgid "French"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1425
+msgid "Italian"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1426
+msgid "Japanese"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1427
+msgid "Dutch"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1428
+msgid "Norwegian"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1429
+msgid "Polish"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1430
+msgid "Portuguese"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1431
+msgid "Russian"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1432
+msgid "Swedish"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1433
+msgid "Turkish"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1434
+msgid "Vietnamese"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1435
+msgid "Chinese"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1533
+msgid "Use value from existing product field: "
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1538
+msgid "No"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1610
+#. Translators: %s is the name of the taxonomy
+msgid "<em>%s</em> taxonomy"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1617
+#. Translators: %s is the name of the taxonomy
+msgid "<em>%s</em> taxonomy (full hierarchy)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1623
+#. Translators: %s is the name of the field
+msgid "<em>%s</em> field"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1628
+#. Translators: %1$s is the name of the meta field, %2$s is the raw meta key
+msgid "<em>%1$s</em> meta (%2$s)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1640
+#. Translators: %s is the description of where the data will be pulled from.
+msgid "Uses value from %s if set."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1733
+msgid "Store default: <br>"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1900
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:70
+msgid "Title"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:71
+msgid "What to send as the title for this product in the feed."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:81
+msgid "Product description"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:82
+msgid "Which description text to send in the feed for products."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:92
+msgid "Availability (in stock products)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:93
+msgid "What status to send for in stock items."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:102
+msgid "Availability (backordered products)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:103
+msgid "What status to send for items on backorder."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:112
+msgid "Availability (out of stock products)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:113
+msgid "What status to send for out of stock items."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:122
+msgid "Bundle indicator (is_bundle)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:123
+msgid "Allows you to indicate whether a product is a \"bundle\" of products."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:130
+msgid "Availability date"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:131
+msgid ""
+"If you are accepting orders for products that are available for preorder or "
+"are on backorder, use this attribute to indicate when the product becomes "
+"available for delivery."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:137
+msgid "Condition"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:138
+msgid "Condition or state of items"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:146
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:23
+msgid "Brand"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:147
+msgid "Brand of the items"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:156
+msgid "Manufacturer Part Number (MPN)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:157
+msgid "This code uniquely identifies the product to its manufacturer"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:165
+msgid "Product Type"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:166
+msgid "Your category of the items"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:176
+msgid "Google Product Category"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:177
+msgid "Google's category of the item"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:185
+msgid "Tax Category (US stores only)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:186
+msgid ""
+"The tax_category attribute allows you to organize your products according "
+"to custom tax rules."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:194
+msgid "Global Trade Item Number (GTIN)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:195
+msgid ""
+"Global Trade Item Numbers (GTINs) for your items. These identifiers include "
+"UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for "
+"books)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:203
+msgid "Short title"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:204
+msgid ""
+"Use this to briefly and clearly identify the product you’re selling. In "
+"contrast to the title attribute, the value you submit for the short title "
+"should be concise and will only be used in certain contexts where a short "
+"title is more user-frinedly, such as Discovery campaigns."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:213
+msgid "Gender"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:214
+msgid "Target gender for the item"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:222
+msgid "Age Group"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:223
+msgid "Target age group for the item"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:231
+msgid "Colour"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:232
+msgid "Item's Colour"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:240
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:27
+msgid "Size"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:241
+msgid "Size of the items"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:248
+msgid "Size type"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:249
+msgid "Size type of the items"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:257
+#: src/gpf/woocommerce-gpf-common.php:258
+msgid "Size system"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:266
+msgid "Unit pricing measure"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:267
+msgid "Use this to define the measure and dimension of your product."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:275
+msgid "Unit pricing base measure"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:276
+msgid ""
+"Use this to include the denominator for your unit price. For example, you "
+"might be selling 150ml of perfume, but users are interested in seeing the "
+"price per 100ml."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:284
+msgid "Multipack"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:285
+msgid ""
+"Use the multipack attribute to indicate that you've grouped multiple "
+"identical products for sale as one item."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:293
+msgid "Instalment"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:294
+msgid ""
+"Use this to tell users the details of a monthly instalment plan that you "
+"offer to pay for your product."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:302
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:25
+msgid "Material"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:303
+msgid "Item's material"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:311
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:26
+msgid "Pattern"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:312
+msgid "Item's pattern"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:319
+msgid "Adult content"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:320
+msgid "Whether the product contains nudity or sexually suggestive content"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:328
+msgid "Identifier exists flag"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:329
+msgid ""
+"Whether to include 'Identifier exists - false' when products don't have the "
+"relevant identifiers"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:337
+msgid "Adwords grouping filter"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:338
+msgid ""
+"Used to group products in an arbitrary way. It can be used for Product "
+"Filters to limit a campaign to a group of products or Product Targets, to "
+"bid differently for a group of products. This is a required field if the "
+"advertiser wants to bid differently to different sub-sets of products in "
+"the CPC or CPA % version. It can only hold one value."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:344
+msgid "Adwords labels"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:345
+msgid ""
+"Very similar to adwords_grouping, but it will only work on CPC. You can "
+"enter multiple values here, separating them with a comma (,). e.g. "
+"\"widget,box\"."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:353
+msgid "Bing Category"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:354
+msgid "Bing's category of the item"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:362
+msgid "Delivery label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:363
+msgid ""
+"You can use this to control which shipping rules from your Merchant Centre "
+"account are applied to this product."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:372
+msgid "Disclosure date"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:373
+msgid ""
+"Use the disclosure date attribute to tell Google when a product should "
+"become visible in search results across Google’s YouTube surfaces only."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:382
+msgid "Expiration date"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:383
+msgid ""
+"Use the expiry date attribute to stop showing a product on a specific date. "
+"For example, you can use this attribute for limited stock or seasonal "
+"products."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:392
+msgid "Ships from country"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:393
+msgid ""
+"You can use this to indicate which country products will typically be "
+"shipped from."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:402
+msgid "Shopping ads excluded countries"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:403
+msgid ""
+"Use this attribute to stop a product from showing in certain countries, "
+"while still allowing it to show in a primary country."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:412
+msgid "Transit time label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:413
+msgid ""
+"Label that you assign to a product to help assign different transit times "
+"in Merchant Center account settings."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:422
+msgid "Minimum handling time"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:423
+msgid ""
+"The minimum handling time is the shortest amount of time (in days) between "
+"when an order is placed and when the product is dispatched."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:431
+msgid "Maximum handling time"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:432
+msgid ""
+"The maximum handling time is the longest amount of time (in days) between "
+"when an order is placed and when the product is dispatched."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:440
+msgid "Energy efficiency class"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:441
+msgid "Your product's energy label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:448
+msgid "Minimum energy efficiency class"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:449
+msgid "Your product's minimum energy efficiency label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:456
+msgid "Maximum energy efficiency class"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:457
+msgid "Your product's maximum energy efficiency label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:464
+msgid "Energy label image link"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:465
+msgid ""
+"Image displayed when users click on the energy efficiency class, this image "
+"will be displayed [for Shopping Actions integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:475
+msgid "Cost of goods sold"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:476
+msgid ""
+"Use this when reporting conversions with basket data to get additional "
+"reporting on gross profit. You should enter a value and currency, e.g. "
+"\"8.08 USD\""
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:485
+msgid "Included destination"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:486
+msgid ""
+"Use the included destination attribute to control the type of ads your "
+"products participate in. "
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:496
+msgid "Excluded destination"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:497
+msgid ""
+"Use the excluded destination attribute to control the type of ads your "
+"products participate in."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:507
+msgid "Consumer notice(s)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:508
+msgid ""
+"Provide legally required warnings or disclosures [for Shopping Actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:516
+msgid "Product highlight(s)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:517
+msgid ""
+"The most relevant highlights of your products [for Shopping Actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:525
+msgid "Product detail(s)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:526
+msgid ""
+"Technical specifications or additional details of your product [for "
+"Shopping Actions integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:534
+msgid "Consumer datasheet"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:535
+msgid ""
+"Use this attribute to provide regulatory product data [for Shopping Actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:543
+msgid "Product fee"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:544
+msgid ""
+"Use this attribute to provide additional fees that must be paid when "
+"purchasing your product, for example government-imposed recycling fees or "
+"copyright fees [for Shopping Actions integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:552
+msgid "Sell On Google Quantity"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:553
+msgid ""
+"The total number of items available to sell on Google [for Shopping Actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:563
+msgid "Pause"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:564
+msgid ""
+"Use to tell Google when you want to temporarily stop products from showing "
+"in all ads or Shopping destinations for up to 14 days."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:577
+msgid "Purchase quantity limit"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:578
+msgid ""
+"The limit on the number of items your customers can buy in a single order\n"
+"\n"
+" [for Shopping Actions integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:593
+msgid "Google-funded promotion eligibility"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:594
+msgid ""
+"Eligibility for participating in Google's promotions. [for shopping actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:602
+msgid "Return address label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:603
+msgid ""
+"Specify the identifier of a specific return address [for Shopping Actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:613
+msgid "Return policy label"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:614
+msgid ""
+"Specify the identifier of a specific return policy [for Shopping Actions "
+"integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:624
+msgid "Pickup method"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:625
+msgid "Specify the store pickup option for items [for Local Product integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:634
+msgid "Pickup SLA"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:635
+msgid ""
+"When will an order be ready for pickup, relative to when the order is "
+"placed [for Local Product integration]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:644
+msgid "Custom label 0"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:645
+#: src/gpf/woocommerce-gpf-common.php:656
+#: src/gpf/woocommerce-gpf-common.php:667
+#: src/gpf/woocommerce-gpf-common.php:678
+#: src/gpf/woocommerce-gpf-common.php:689
+msgid ""
+"Can be used to segment your products when setting up shopping campaigns in "
+"Adwords."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:655
+msgid "Custom label 1"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:666
+msgid "Custom label 2"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:677
+msgid "Custom label 3"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:688
+msgid "Custom label 4"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:699
+msgid "Promotion ID"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:700
+#: src/gpf/woocommerce-gpf-common.php:709
+msgid "The unique ID of a promotion."
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:708
+msgid "Promotion ID [Bing]"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:717
+msgid "Bing shipping info (price only)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:718
+msgid ""
+"The shipping field is required for Bing feed for Germany only. The format "
+"of the value is &quot;price&quot;, for example : 6.49"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:726
+msgid "Bing shipping info (country and price)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:727
+msgid ""
+"The shipping field is required for Bing feed for Germany only. The format "
+"of the value is &quot;country:price&quot;, for example : DE:6.49"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:735
+msgid "Bing shipping info (country, service and price)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:736
+msgid ""
+"The shipping field is required for Bing feed for Germany only. The format "
+"of the value is &quot;country:service:price&quot;, for example : "
+"DE:Standard:6.49"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:754
+#: woocommerce-product-feeds-install.php:96
+msgid "Google merchant centre product feed"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:755
+msgid "Google merchant centre product feeds"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:763
+msgid "Google merchant centre product review feed"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:764
+msgid "Google merchant centre product review feeds"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:772
+msgid "Bing merchant centre feed"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:773
+msgid "Bing merchant centre feeds"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:783
+msgid "Google merchant centre local product inventory feed"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:784
+msgid "Google merchant centre local product inventory feeds"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:792
+msgid "Google merchant centre local products feed (legacy)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:793
+msgid "Google merchant centre local products feed (legacy)s"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:801
+msgid "Google merchant centre product inventory feed (legacy)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:802
+msgid "Google merchant centre product inventory feed (legacy)s"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1016
+msgid "\"Allow backorders\" setting"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1017
+msgid "Product title"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1018
+msgid "SKU"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1019
+msgid "Stock Qty"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1020
+msgid "Stock Status"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1021
+msgid "Tax class"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1022
+msgid "Weight (raw value, no units)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1023
+msgid "Weight (with units)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1024
+msgid "Variation title"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1030
+msgid "- Product fields -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1054
+#. Translators: %s is a taxonomy name
+msgid "%s (full hierarchy)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1065
+msgid "- Global attributes -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1069
+msgid "- Taxonomies -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1090
+msgid "- Custom attributes -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1125
+msgid "- Custom fields -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1144
+msgid "- Descriptions -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1146
+msgid "Main product description (full preferred) plus variation description"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1148
+msgid "Main product description (short preferred) plus variation description"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1150
+msgid "Main product description only (full preferred)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1152
+msgid "Main product description only (short preferred)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1154
+msgid "Variation description only, fallback to main description (full preferred)"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1156
+msgid "Variation description only, fallback to main description (short preferred)"
+msgstr ""
+
+#: src/integrations/woocommerce-cost-of-goods.php:20
+msgid "Cost price from Cost of Goods extension"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-currency-switcher-for-woocommerce.php:70
+#: src/integrations/woocommerce-gpf-multicurrency.php:113
+#: templates/woo-gpf-admin-feed-edit-woocommerce-multicurrency.php:2
+msgid "Currency"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-product-brands-for-woocommerce.php:24
+msgid "Brand (from \"Product Brands for WooCommerce\")"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-pw-bulk-edit.php:69
+msgid "GPF: Hide from the feed"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-pw-bulk-edit.php:226
+#. Translators: %s is the name of the Google Product Feed field
+msgid "GPF: %s"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php:55
+#. Translators: This is the pattern for modifying a title to include a minimum
+#. purchase quantity. %1$d is the minimum purchase quantity, and %2$d is the
+#. product title.
+msgid "%1$d x %2$s"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:90
+#. Translators: %s is the name of the ACF field
+msgid "ACF. Unknown field (%s)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:98
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:134
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:308
+msgid "Unknown group"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:102
+#. Translators: %1$s is field group title, %2$s is field name, %3$s is the
+#. internal field ID
+msgid "ACF. %1$s, %2$s (%3$s)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:127
+#. Translators: %s is the name of the ACF field
+msgid "ACF field (%s)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:138
+#. Translators: %1$s is field group title, %2$s is field name, %3$s is the
+#. internal field ID
+msgid "ACF field %1$s: %2$s (%3$s)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:305
+#. Translators: This is a field group heading in the list of available
+#. prepopulations. %s is the field group title
+msgid "- %s (ACF) -"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:316
+#. Translators: %s is the field name.
+msgid "%s (filename)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:322
+#. Translators: %s is the field name.
+msgid "%s (URL)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:21
+msgid "-- Fields from Facebook for WooCommerce --"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:24
+msgid "Color"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-woocommerce-germanized.php:30
+msgid "-- Fields from \"WooCommerce Germanized\" --"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:9
+msgid "Any of GTIN fields"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:10
+msgid "GTIN 8 field"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:11
+msgid "GTIN 12 field"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:12
+msgid "GTIN 13 field"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:13
+msgid "GTIN 14 field"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:14
+msgid "ISBN field"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:15
+msgid "MPN field"
+msgstr ""
+
+#: src/integrations/yoast-woocommerce-seo.php:48
+#. Translators: %s is the field name.
+msgid "%s from Yoast WooCommerce SEO"
+msgstr ""
+
+#: src/prf/woocommerce-prf-admin.php:37
+msgid "Product Review feed settings"
+msgstr ""
+
+#: templates/woo-gpf-admin-cache-status.php:2
+msgid "Feed status"
+msgstr ""
+
+#: templates/woo-gpf-admin-expanded-schema.php:12
+msgid ""
+"<strong>[BETA]</strong> Include expanded schema markup on product "
+"pages</strong>."
+msgstr ""
+
+#: templates/woo-gpf-admin-expanded-schema.php:14
+msgid ""
+"<br><strong>Note:</strong> Before enabling this option, please see <a "
+"href=\"https://woocommerce.com/document/google-product-feed-expanded-"
+"structured-data/\" target=\"_blank\" rel=\"nofollow noopener\">this "
+"article</a> about the status of the feature, and the potential consequences "
+"of using this pre-release feature."
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-delete-ask.php:13
+msgid "No, keep it"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-delete-ask.php:14
+msgid "Yes, I'm sure. DELETE this feed"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:7
+msgid "Your name for this feed"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:9
+msgid "Enter a name for this feed (for your use only)"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:13
+msgid "Feed type"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:23
+msgid "Include products from ALL categories"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:24
+msgid "Include products ONLY from&hellip;"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:25
+msgid "Include all products EXCEPT from&hellip;"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:32
+msgid "Which reviews to include"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:34
+msgid "All reviews"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:35
+msgid "Reviews in the last 7 days"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:36
+msgid "Reviews yesterday"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:41
+msgid "Save"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-edit.php:83
+msgid "Choose one or more categories"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-fields-intro.php:1
+msgid "Fields to enable"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-fields-intro.php:2
+msgid ""
+"Choose which fields you want in your feed for each product, and set "
+"store-wide defaults below where necessary: "
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-list-header.php:3
+msgid "Add New"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-list-header.php:6
+msgid ""
+"Use this page to manage your feed URLs, including the types of feeds you "
+"want to generate, and any restrictions on those feeds."
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-list-header.php:10
+msgid ""
+"To control how data is populated into feeds, use the <a href='%s'>main "
+"extension settings</a> page."
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-list-msg-1.php:2
+msgid "Feed updated"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-list-msg-2.php:2
+msgid "Feed deleted"
+msgstr ""
+
+#: templates/woo-gpf-admin-feed-list-msg-3.php:2
+msgid "Feed created"
+msgstr ""
+
+#: templates/woo-gpf-admin-feeds-footer.php:2
+msgid "Manage feeds"
+msgstr ""
+
+#: templates/woo-gpf-admin-feeds-intro.php:1
+msgid "Active feeds"
+msgstr ""
+
+#: templates/woo-gpf-admin-include-variations.php:9
+msgid "Other settings"
+msgstr ""
+
+#: templates/woo-gpf-admin-include-variations.php:13
+msgid "Include variations in your feed."
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:2
+msgid "Settings for your store"
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:8
+msgid "Set up guide"
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:9
+msgid "Setting product data"
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:11
+msgid "Feed generation options"
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:12
+msgid "Customizations"
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:24
+msgid "This page allows you to control what data is added to your product feeds."
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:25
+msgid ""
+"Choose the fields you want to include here, and also set store-wide "
+"defaults. You can also set defaults against categories, or provide "
+"information on each product page. You can choose to have the product feed "
+"data prepopulated from existing taxonomies, or fields. If you add a new "
+"custom field then you may need to <a href=\"{refresh_fields_url}\">refresh "
+"the field list</a> before it will be available for selection."
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:26
+msgid "Notes about Google"
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:27
+msgid ""
+"Depending on what you sell, and where you are selling it to Google apply "
+"different rules as to which information you should supply. You can find "
+"Google's list of what information is required on "
+msgstr ""
+
+#: templates/woo-gpf-admin-intro.php:27
+msgid "this page"
+msgstr ""
+
+#: templates/woo-gpf-admin-notices-feedback.php:6
+msgid ""
+"It looks like you've been using the <strong>Google Product Feed "
+"extension</strong> for a while now. We'd love to know how you're finding it?"
+msgstr ""
+
+#: templates/woo-gpf-admin-notices-feedback.php:7
+msgid "Please help us out by letting us know how you're getting on."
+msgstr ""
+
+#: templates/woo-gpf-admin-notices-feedback.php:12
+msgid "Like it? Leave a review!"
+msgstr ""
+
+#: templates/woo-gpf-admin-notices-feedback.php:16
+msgid "Having problems? Get in touch&hellip;"
+msgstr ""
+
+#: templates/woo-gpf-admin-notices-feedback.php:19
+msgid "Remind me later"
+msgstr ""
+
+#: templates/woo-gpf-admin-notices-feedback.php:25
+msgid "Don't ask again"
+msgstr ""
+
+#: templates/woo-gpf-admin-review-metabox.php:3
+msgid "Exclude from feed"
+msgstr ""
+
+#: templates/woo-gpf-admin-review-metabox.php:7
+msgid "Anonymise reviewer in feed"
+msgstr ""
+
+#: templates/woo-gpf-admin-send-item-group-id.php:4
+msgid "Send &ldquo;item_group_id&rdquo; in Google feed for variable products"
+msgstr ""
+
+#: templates/woo-gpf-admin-shop-code.php:10
+msgid "Store code (for local product inventory feed)."
+msgstr ""
+
+#: templates/woo-gpf-categories-edit-intro.php:3
+msgid ""
+"Only enter values here if you want to over-ride the store defaults for "
+"products in this category. You can still override the values here against "
+"individual products if you want to."
+msgstr ""
+
+#: templates/woo-gpf-category-edit-intro.php:4
+msgid ""
+"Only enter values here if you want to override the store defaults for "
+"products in this category. You can still override the values here against "
+"individual products if you want to."
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-datasheet.php:1
+#: templates/woo-gpf-field-row-default-product-detail.php:5
+msgid "Attribute name:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-datasheet.php:3
+#: templates/woo-gpf-field-row-default-product-detail.php:9
+#: templates/woo-gpf-field-row-default-product-fee.php:3
+msgid "Attribute value:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-notice.php:1
+msgid "Notice type:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-notice.php:3
+msgid "-- Select notice type --"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-notice.php:5
+msgid "Safety warning"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-notice.php:6
+msgid "Legal disclaimer"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-consumer-notice.php:8
+msgid "Notice message:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-iexists.php:3
+#: templates/woo-gpf-meta-field-image-info-exclude-action.php:2
+msgid "Included"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-iexists.php:4
+msgid "Not included"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-installment.php:1
+msgid "Number of monthly instalments:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-installment.php:5
+msgid "Amount of each payment, including 3-digit currency code, e.g. \"50 USD\":"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-product-detail.php:1
+msgid "Section name:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-product-fee.php:1
+msgid "Fee type:"
+msgstr ""
+
+#: templates/woo-gpf-field-row-default-product-type.php:2
+msgid "Start typing to see suggestions from the official Google taxonomy"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-header.php:3
+msgid "Images"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-header.php:6
+msgid ""
+"For simple products, the first image (below) will be used as the primary "
+"image unless a primary image is specifically chosen. For variable products, "
+"the primary image will be the variation image if available."
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-include-action.php:2
+msgid "Excluded"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Google Product Feed"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/google-product-feed/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WooCommerce extension that allows you to more easily populate advanced "
+"attributes into the Google Merchant Centre feed"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Ademti Software Ltd."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.ademti-software.co.uk/"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:12
+msgctxt "Option for \"adult\" field"
+msgid "Yes"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:13
+msgctxt "Option for \"adult\" field"
+msgid "No"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:19
+msgctxt "Option for \"pause\" field"
+msgid ""
+"[Ads] Pause for all ad locations (including Shopping Ads, Display Ads, and "
+"local inventory ads)"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:24
+msgctxt "Option for \"pause\" field"
+msgid ""
+"[All] Pause for all Shopping locations (including Shopping Ads, Display "
+"Ads, local inventory ads, Buy on Google, and free listings)."
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:34
+msgctxt "Option for \"age group\" field"
+msgid "Newborn"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:35
+msgctxt "Option for \"age group\" field"
+msgid "Infant"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:36
+msgctxt "Option for \"age group\" field"
+msgid "Toddler"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:37
+msgctxt "Option for \"age group\" field"
+msgid "Kids"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:38
+msgctxt "Option for \"age group\" field"
+msgid "Adult"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:44
+msgctxt "Option for \"availability\" field"
+msgid "In stock"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:45
+msgctxt "Option for \"availability\" field"
+msgid "Pre-order"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:46
+msgctxt "Option for \"availability\" field"
+msgid "Backorder"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:47
+msgctxt "Option for \"availability\" field"
+msgid "Out of stock"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:53
+msgctxt "Option for \"condition\" field"
+msgid "New"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:54
+msgctxt "Option for \"condition\" field"
+msgid "Refurbished"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:55
+msgctxt "Option for \"condition\" field"
+msgid "Used"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:61
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "A+++"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:62
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "A++"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:63
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "A+"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:64
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "A"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:65
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "B"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:66
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "C"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:67
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "D"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:68
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "E"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:69
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "F"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:70
+msgctxt "Option for \"energy efficiency class\" field"
+msgid "G"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:76
+msgctxt "Option for \"gender\" field"
+msgid "Male"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:77
+msgctxt "Option for \"gender\" field"
+msgid "Female"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:78
+msgctxt "Option for \"gender\" field"
+msgid "Unisex"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:84
+msgctxt "Option for \"Google funded promotion eligibility\" fiield"
+msgid "All"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:85
+msgctxt "Option for \"Google funded promotion eligibility\" fiield"
+msgid "None"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:91
+msgctxt "Option for \"is bundle\" field"
+msgid "Yes"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:97
+msgctxt "Option for \"pickup method\" field"
+msgid "Buy"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:98
+msgctxt "Option for \"pickup method\" field"
+msgid "Reserve"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:99
+msgctxt "Option for \"pickup method\" field"
+msgid "Ship to store"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:100
+msgctxt "Option for \"pickup method\" field"
+msgid "Not supported"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:106
+msgctxt "Option for \"pickup SLA\" field"
+msgid "Same day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:107
+msgctxt "Option for \"pickup SLA\" field"
+msgid "Next day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:108
+msgctxt "Option for \"pickup SLA\" field"
+msgid "1-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:109
+msgctxt "Option for \"pickup SLA\" field"
+msgid "2-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:110
+msgctxt "Option for \"pickup SLA\" field"
+msgid "3-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:111
+msgctxt "Option for \"pickup SLA\" field"
+msgid "4-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:112
+msgctxt "Option for \"pickup SLA\" field"
+msgid "5-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:113
+msgctxt "Option for \"pickup SLA\" field"
+msgid "6-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:114
+msgctxt "Option for \"pickup SLA\" field"
+msgid "7-day"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:115
+msgctxt "Option for \"pickup SLA\" field"
+msgid "Multi-week"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:121
+msgctxt "Option for \"size system\" field"
+msgid "US"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:122
+msgctxt "Option for \"size system\" field"
+msgid "UK"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:123
+msgctxt "Option for \"size system\" field"
+msgid "EU"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:124
+msgctxt "Option for \"size system\" field"
+msgid "AU"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:125
+msgctxt "Option for \"size system\" field"
+msgid "BR"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:126
+msgctxt "Option for \"size system\" field"
+msgid "CN"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:127
+msgctxt "Option for \"size system\" field"
+msgid "FR"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:128
+msgctxt "Option for \"size system\" field"
+msgid "DE"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:129
+msgctxt "Option for \"size system\" field"
+msgid "IT"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:130
+msgctxt "Option for \"size system\" field"
+msgid "JP"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:131
+msgctxt "Option for \"size system\" field"
+msgid "MEX"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:137
+msgctxt "Option for \"size type\" field"
+msgid "Regular"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:138
+msgctxt "Option for \"size type\" field"
+msgid "Petite"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:139
+msgctxt "Option for \"size type\" field"
+msgid "Plus"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:140
+msgctxt "Option for \"size type\" field"
+msgid "Big and tall"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-field-options.php:141
+msgctxt "Option for \"size type\" field"
+msgid "Maternity"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-term-depth-repository.php:74
+msgctxt "Term name to use when passed an invalid term ID"
+msgid "Unknown"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1260
+msgctxt "Grouping header for settings"
+msgid "Common fields"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:1263
+msgctxt "Grouping header for settings"
+msgid "Advanced fields"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-feed-item.php:459
+#. Translators: %s is the list of variation attributes to be added to the
+#. product title to identify this particular variation.
+msgctxt "Variation product suffix wrapper"
+msgid " (%s)"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-pw-bulk-edit.php:117
+msgctxt "Option for whether to hide product from feed"
+msgid "No"
+msgstr ""
+
+#: src/integrations/woocommerce-gpf-pw-bulk-edit.php:121
+msgctxt "Option for whether to hide product from feed"
+msgid "Yes"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-woocommerce-germanized.php:35
+msgctxt "Name of field from WooCommerce Germanized extension"
+msgid "GTIN field"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-woocommerce-germanized.php:41
+msgctxt "Name of field from WooCommerce Germanized extension"
+msgid "MPN field"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-woocommerce-germanized.php:47
+msgctxt "Name of field from WooCommerce Germanized extension"
+msgid "Product units"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-woocommerce-germanized.php:53
+msgctxt "Name of field from WooCommerce Germanized extension"
+msgid "Unit price units"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-exclude-action.php:4
+msgctxt "Button to exclude an image from being sent for a product in the feed"
+msgid "Exclude"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-footer.php:2
+msgctxt "Button to manage which images are used for items in the feed"
+msgid "Manage images"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-footer.php:3
+msgctxt "Button to collapse the area in which images are used for items in the feed"
+msgid "Collapse"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-include-action.php:4
+msgctxt "Button to include a specific image for a product in the feed"
+msgid "Include"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-set-lifestyle-action.php:3
+msgctxt ""
+"Button to set a specific image as the lifestyle image for a product in the "
+"feed"
+msgid "Mark as lifestyle image"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-set-primary-action.php:3
+msgctxt ""
+"Button to set a specific image as the primary image for a product in the "
+"feed"
+msgid "Make primary"
+msgstr ""

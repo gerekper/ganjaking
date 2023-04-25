@@ -1,0 +1,3 @@
+                        <skus>
+{skus}
+                        </skus>

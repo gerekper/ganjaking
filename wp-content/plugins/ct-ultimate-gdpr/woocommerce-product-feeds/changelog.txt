@@ -1,0 +1,879 @@
+*** WooCommerce Google Product Feed Changelog ***
+
+2023.04.24 - version 10.10.0
+* New: Add support for 'pause' attribute
+* New: Add support for 'lifestyle_image_link' attribute
+* New: Add support for 'expiration date' attribute
+* New: Add support for 'disclosure date' attribute
+* Change: Re-organise fields in settings into groups to make it easier to manage standard settings
+
+2023.04.05 - version 10.9.1
+* New: WooCommerce compatibility up to 7.6
+* Change: Improvements to feed debug output
+
+2023.03.06 - version 10.9.0
+* New: Support for High Performance Order Storage
+* Change: Improve information about category restrictions in status report
+* Change: Improve information available on product queries in debug mode
+* Fix: No longer throw warnings if Currency Switcher integration is active
+* Fix: Resolve issue where Currency Switcher integration could be incorrectly triggered by presence of some other extensions
+* Fix: Resolve issue where some structured data elements weren't added for Bundled products
+
+2023.01.30 - version 10.8.3
+* New: WooCommerce 7.4 compatibility
+* Fix: Product Type could send more values than Google expects. It now limits down to the allowed amount of values.
+* Change: Styling changes to some settings forms for wider compatibility
+* Change: PHP 8.2 compatibility
+* Change: "Condition" is no longer forcibly included in the feed
+* Change: Enable "condition" by default on new installs
+
+2023.01.05 - version 10.8.2
+* Change: WooCommerce 7.3 compatibility
+* Fix: Resolve issue where multiple short titles could be output against spec
+* Fix: Resolve issue where warnings could be generated with certain ACF taxonomy mappings
+* Fix: Resolve issue where some analytics multicurrency reports would error
+
+2022.11.30 - version 10.8.1
+* Change: WooCommerce 7.2 compatibility
+* Fix: Resolve issue where PHP warning could be produced when generating product review feeds
+
+2022.11.21 - version 10.8.0
+* New: Integration with Measurement Price Calculator extension
+
+2022.10.20 - version 10.7.7
+* Change: Add additional elements to expanded schem following new validation by Google
+* Fix: Resolve issue where some items could be excluded from the feed in rare configurations
+
+2022.09.28 - version 10.7.6
+* Change: Disable query monitor during feed generation if it is active
+* Change: WooCommerce 7.0 compatibility
+
+2022.08.24 - version 10.7.5
+* Change: WooCommerce 6.9 compatibility
+* Change: Internal IDs are only added to the product review feed if there are no other identifiers
+* Fix: Resolve some minor layout quirks and excess spacing on admin screens
+* Fix: Admin screen didn't show default value when set to a taxonomy full-hierarchy pre-population
+
+2022.08.01 - version 10.7.4
+* New: WooCommerce 6.8 compatibility
+* New: Submit feature requests from the extension pages
+* Changes: Improved support links
+
+2022.07.04 - version 10.7.3
+* New: Support for per-variation product identifiers from Yoast WooCommerce SEO
+
+2022.06.16 - version 10.7.2
+* New: WooCommerce 6.6 compatibility
+
+2022.05.10 - version 10.7.1
+* New: WooCommerce 6.5 compatibility
+
+2022-04-20 - version 10.7.0
+* New: Integration with WooCommerce Additional Variation Images extension
+* New: Additional filter to allow easy disabling of integrations
+
+2022.04.13 - version 10.6.1
+* New: WooCommerce 6.4 compatibility
+
+2022.03.23 - version 10.6.0
+* New: Support for "Short title" field
+* New: Support for "Shopping ads excluded country" field
+* New: Support for "Ships from country" field
+* Change: Add filters in Bing feed generation
+* Fix: Condition sometimes mapped incorrectly in Bing feed
+
+2022.02.22 - version 10.5.3
+* New: Support unit pricing fields from Germanized for WooCommerce
+* Change: Protect against invalid metadata breaking image management
+* Fix: Correctly populate table names in status report
+
+2022.02.08 - version 10.5.2
+* New: Support for product weight with & without units as pre-population options
+* New: Include overview of database in status report for improved debugging
+* Change: Internal changes to taxonomy freshness checking
+* Change: Responsiveness improvements to taxonomy autocomplete performance
+
+2022.01.29 - version 10.5.1
+* Fix: Resolve issue where taxonomy cache table could grow beyond expected size and cause performance issues
+
+2022.01.25 - version 10.5.0
+* New: Allow Google Product Category to be populated from multiple locales
+* New: Support 'promotion ID' in the Bing feed
+* New: Prompt for feedback
+* Fix: Resolve warning thrown when multicurrency integration active
+* Fix: Resolve issue where availability field could be missing in Bing feed
+
+2022.01.05 - version 10.4.0
+* Change: Update documentation links to reflect docs.woocommerce.com migration
+* Change: WooCommerce 6.1 Compatibility
+* Change: Update WooCommerce Action Scheduler library to latest release
+* Fix: Improve structured data for Brand
+
+2021.12.09 - version 10.3.1
+* Fix: Variation images not always pulled through properly
+
+2021.12.06 - version 10.3.0
+* New: Allow fields from WooCommerce Germanized to be used for prepopulations
+* Change: WooCommerce 5.9 compatibility
+* Change: WooCommerce 6.0 compatibility
+
+2021.09.28 - version 10.2.1
+* Fix: Revert Action Scheduler to v3.2.1 due to conflicts
+
+2021.09.12 - version 10.2.0
+* New: WooCommerce 5.7, 5.8 compatibility
+* New: Allow Custom Attributes to be registered for pre-population options via filter
+* New: Allow the_content filtering of descriptions to be disabled via filter
+* Change: List global attribute taxonomies as "Global Attributes" in settings, not mixed in with Taxonomies
+* Change: Improvements when broken "empty" prices are returned
+* Change: Update Action Scheduler to 3.3.x
+* Change: Tolerate broken term hierarchy structures without failing
+
+2021.08.16 - version 10.1.6
+* New: WooCommerce 5.6 compatibility
+
+2021.08.11 - version 10.1.5
+* Fix: Resolve issue where primary image setting could be overwritten on product save
+* Change: Introduce additional debug output when debug active
+
+2021.07.20 - version 10.1.4
+* Change: Amend cache-blocking headers to no-store
+* Change: Allow excluded catalogue visibilities to be modified via filter
+* Change: Additional logging in debug mode
+* Change: Tweaks to XML self reference headers for clearer support
+* Fix: Resolve issue where exclude checkbox on variations was not generated correctly
+* Fix: Category selection on feed manage page should not be available for review feeds
+* Fix: Resolve issue where "No default" displayed in stead of "Use default" when creating products
+
+2021.07.09 - version 10.1.3
+* Fix: Availability fields didn't always allow "Use default" to be set 
+* Change: Updates to bundled libraries
+
+2021.06.24 - version 10.1.2
+* Fix: Database upgrades didn't always run when upgrading between versions
+* Fix: Correct currency not always applied with recent versions of WooCommerce Multicurrency
+* Change: Updates to bundled libraries
+* Change: "Send item group ID" defaults on for new installs
+* Change: Remove legacy update code
+
+2021.06.16 - version 10.1.1
+* Fix: Resolve issue where availability not always sent in feed.
+
+2021.06.15 - version 10.1.0
+* New: Support "backorder" as a possible value for "Availability"
+* New: Support different Availability values for in-stock/backorder/out of stock products
+* New: Support "yesterday" and "week" as review feed generation options
+* New: Support currency choices for supported extensions when building feed URLs
+* Change: Availability is now mandatory
+* Change: Improved debug logging for support purposes
+* Change: Bundle latest version of action scheduler. Provides performance improvements for feed item cache
+* Fix: Resolve issue where feed item filters not invoked when generating structured data
+
+2021.06.03 - version 10.0.4
+* Fix: Resolve conflict with some plugins due to psr/container versions
+* Re-roll release to get back in sync with deployment tool
+
+2021.06.03 - version 10.0.3
+* Change: Compatibility with out-of-date PHP installs
+
+2021.06.02 - version 10.0.2
+* Fix: Resolve issue where variations sometimes not included
+* Change: WooCommerce 5.4 compatibility
+
+2021.06.02 - version 10.0.0
+* New: Support for flattened hierarchy strings as prepopulations, e.g. (Parent > Child > Sub-child)
+* New: Support for "allow backorders" as a prepopulation value
+* New: URL builder to create custom URLs for specific feed configurations
+* Change: Hide reviews from review feed if corresponding product is excluded
+* Change: Remove support for action=woocommerce_gpf style URLs
+* Fix: Tax sometimes not calculated correctly in Bing feed
+
+2021.05.04 - version 9.6.7
+* Fix: Empty values could appear in the feed in some circumstances
+* Fix: product_highlights were output in an incorrect format
+
+2021.04.28 - version 9.6.6
+* New: WooCommerce 5.3 compatibility
+* Fix: Values couldn't be set as "0" in some fields
+
+2021.04.07 - version 9.6.5
+* New: WooCommerce 5.2 compatibility
+* Fix: Resolve issue where duplicate description tags could be rendered
+
+2021.03.23 - version 9.6.4
+* Fix: Syntax error with older PHP versions
+
+2021.03.23 - version 9.6.3
+* New: Add store management links to WooCommerce homepage
+* Fix: Solve conflict when bulk-editing variations if some are hidden from the feed
+* Fix: Do not include disabled variations in the feed
+
+2021.03.16 - version 9.6.2
+* Fix: Workaround error in WooCommerce admin when WooCommerce admin is disabled via filters.
+
+2021.03.08 - version 9.6.1
+* New: Add setup tasks to WooCommerce homepage
+* Change: Make variation suffix wrapper translatable
+
+2021.02.16 - version 9.6.0
+* New: Integration with PW Bulk Edit
+* Change: Additional documentation links next to plugin on Plugins screen
+* Change: Lowercase ID tag in Google feed. Improves 3rd party feed compatibility
+* Change: Re-work of tag stripping / length calculations to increase content sendable in Google feed.
+* Fix: Under rare circumstances descriptions could arrive empty due to issues with XML escaping
+
+2021.02.02 - version 9.5.0
+* Change: Tweaks to action scheduler queries run when cache is active 
+* Change: When pre-populating from a taxonomy, the results will be ordered deepest first
+* Change: WooCommerce 5.0 compatibility
+* Change: Enable protection against the_content filter corruption when SiteOrigin Builder is active
+* Fix: Resolve issues where stock status in expanded structured data could be incorrect
+* Fix: PHP 8 compatibility
+
+2021.01.11 - version 9.4.1
+* New: Add additional information in Status Report for easier debugging of potential issues
+* New: Add logging for review feed into debug log
+* Fix: Do not throw errors if WooCommerce passes invalid variation IDs
+* Fix: Resolve issue where 'composer' errors could be thrown when running on older PHP versions
+* Change: WooCommerce 4.9 compatibility
+
+2020.12.04 - version 9.4.0
+* New: WooCommerce Multilingual currency integration
+* Change: Allow variation suffixes to be removed entirely via filter
+* Change: Allow tax exclusion in Google feed to be overridden by filter
+* Change: WooCommerce 4.8 compatibility
+
+2020.11.11 - version 9.3.2
+* Change: WooCommerce 4.7 compatibility
+
+2020.11.02 - version 9.3.1
+* Fix: Resolve issue where out of stock variations would be excluded if "Hide out of stock items from the catalog" was enabled.
+* Fix: Make sure shipping dimensions are sent in a Google-supported unit-of-measure
+
+2020.10.23 - version 9.3.0
+* New: Integration with "WooCommerce Min Max Quantity & Step Control Single" extension
+* Change: Improvements to Composite product support to avoid issues with 3rd party extensions that register the same product types
+* Change: Internal refactoring of product bundles support
+* Fix: Resolve issue where descriptions were sometimes incorrect with page builder plugins active
+
+2020.10.19 - version 9.2.0
+* New: Support for "Currency Switcher for WooCommerce" extension
+* New: Support for title pre-population & custom titles
+* Change: Shipping dimensions & weights are sent as-is and not rounded or converted unless requested via filtering the units
+* Fix: Product IDs in review feed are no longer missing
+
+2020.10.05 - version 9.1.2
+* New: Ability to choose primary image for products from available images
+* Change: Use WordPress' esc_xml() when available
+* Change: WooCommerce 4.6 compatibility
+
+2020.09.29 - version 9.1.0
+* New: Initial support for managing images included in the feed
+* Fix: Protect against bogus data from WC's product query when cache active
+
+2020.09.17 - version 9.0.4
+* New: Integration with the "Price by Country" extension
+* New: Integration with the "Mix and Match Products" extension
+* Change: Support for other description fields
+* Fix: Improvements to how "color" is sent in the feed where multiple colors exist
+
+2020.09.09 - version 9.0.3
+* Change: Do not throw warnings for invalid product gallery data
+* New: Product Brands for WooCommerce integration
+
+2020.08.12 - version 9.0.2
+* Change: Be more conservative about the number of background jobs raised when feed item caching is enabled
+* Fix: Fix issue where exported columns could be blank
+* Fix: Avoid error if wc_get_logger is unavailable
+
+2020.07.30 - version 9.0.1
+* Fix: Fix issue where "Hide product from feed" didn't save correctly
+
+2020.07.27 - version 9.0.0
+* New: Support for pickup_method and pickup_sla in product feed for Local Product Ads
+* Change: Feed item caching uses WooCommerce's action scheduler for background processing
+* Change: Prefer more specific categories when calculating category-based values
+* Change: Improved remote debug capabilities
+* Change: Improvements to when sale prices are sent to take account of different effective date scenarios
+* Change: Add setting link to WordPress plugins page for easier discovery
+* Change: Strip HTML comments from product descriptions in the feed
+* Change: Add list of enabled feeds to the status report
+* Change: Mark Google Local Product Feed as legacy (standard Product Feed can be used in its place)
+* Fix: PHP warning sometimes generated when saving category data
+
+2020.07.09 - version 8.1.4
+* New: Various new filters
+
+2020.06.23 - version 8.1.3
+* New: WooCommerce 4.3 compatibility
+
+2020.06.12 - version 8.1.2
+* New: WooCommerce 4.2 compatibility
+
+2020.04.28 - version 8.1.1
+* New: WooCommerce 4.1 compatibility
+* Change: Order Google Product Feed fields in CSV import integration for ease of use.
+* Fix: Do not advertise a non-functional description field in import/export UI
+
+2020.03.02 - version 8.1.0
+* New: Integrates with Yoast WooCommerce SEO extension for product identifiers
+* Change: No longer supports WooCommerce prior to v3.0 
+
+2020.02.24 - version 8.0.0
+* New: Support for Local Product Feed & Local Product Inventory feed for Google's Local Inventory Ads programme.
+* Change: WooCommerce 4.0 compatibility
+
+2020.01.06 - version 7.9.5
+* New: Support for Tax Category element in product feed
+* Change: WooCommerce 3.9 compatibility
+* Change: Change structured data filters to work around bug in Yoast SEO for WooCommerce extension
+* Change: Change order of elements output in product feed
+* Fix: Fix incorrect schema version reference in review feed
+
+2019.11.12 - version 7.9.4
+* New: Support for "stock status" as a prepopulation option
+* Fix: Product Feed specific data wasn't saved correctly when creating product through REST API
+* Fix: Do not throw errors if WooCommerce not active
+* Fix: Do not send blank elements in feed if a meta prepopulation returns an empty string
+* Fix: GTIN sometimes not included in structured data depending on format
+* Fix: Meta box contents not always hidden when product was excluded
+
+2019.08.29 - version 7.9.3
+* Fix: Show prepopulation rules correctly in status report when pre-population is a meta field
+* Fix: Wrap GTIN/MPN/SKU & Brand in Review feed to avoid XML errors
+
+2019.08.06 - version 7.9.2
+* Fix: Cache sometimes did not reflect the correct currency in multicurrency setups
+* Fix: woocommerce_gpf_include_variations filter wasn't called when using cache
+* Fix: Material values should be sent as '/' separated, not multiple elements
+
+2019.06.19 - version 7.9.1
+* Change: Allow UTF-8 characters in relevant fields in Bing feed
+* Change: Improve compatibility with page builders that use the_content filter incorrectly
+* Change: Allow more granular shipping weights in line with updated specification
+
+2019.06.10 - version 7.9.0
+* Fix: International characters no longer produce invalid UTF errors when anonymised in the review feed. 
+* Fix: Taxable pricing could be incorrect where feed item caching in use
+* New: Confirm WooCommerce 2.x support status
+
+2019.06.03 - version 7.8.9
+* New: Support for per-product shipping price rules from Product Vendors
+* New: Add support for transit time label
+* Fix: SKU fix for simple product structured data
+* Fix: Silence warning caused by incorrect return types in Cost Of Goods integration
+
+2019.05.15 - version 7.8.8
+* New: Support for additional Google Shopping Actions fields
+
+2019.05.07 - version 7.8.7
+* Fix: Make sure prices for feeds targetting India include taxes
+* Fix: Make sure products updated via REST API refresh the feed cache properly
+* Fix: Setting a field to prepopulate from stock quantity could result in empty elements being output
+* New: Support for some feed elements required for Google Shopping Actions
+
+2019.03.19 - version 7.8.6
+* Fix: 12-digit GTINs were sometimes not added to structured data
+* Change: Avoid deprecated functions (WooCommerce 3.6 compatibility)
+
+2019.03.11 - version 7.8.5
+* Change: Add version tag to Google Review feed
+* Change: Output product brand in schema for variable products if set against product or higher
+* Fix: Resolve issue where some settings were reported incorrectly in system status report
+* Fix: Structured data for "condition" didn't use Schema properties on simple products
+ 
+2019.03.06 - version 7.8.4
+* New: Introduce woocommerce_gpf_exclude_variation filter
+* New: Introduce "Stock quantity" as a pre-population option
+* New: Structured data support for gtin12
+* New: Include product feed GUID in review feed as a SKU for better ID matching
+* Fix: No not show unnecessary desription headers in variation product feed information block
+* Fix: Better product ID support when variable products have IDs set at product & variation level
+* Change: Structured data for "condition" uses Schema properties not raw value
+
+2019.02.11 - version 7.8.3
+* Fix: Hide non-description related configuration when choosing description type
+
+2019.02.07 - version 7.8.2
+* New: Honour "group of" settings in WooCommerce Min/Max quantities extension if no minimum set
+
+2019.02.06 - version 7.8.1
+* Fix: Resolve issue with products that have sale dates & min/max quantities
+
+2019.02.05 - version 7.8.0
+* New: Support for included_destination feed element
+* New: Support for excluded_destination feed element
+* New: Support for multipack feed element
+* New: Integration with WooCommerce Min/Max Quantities
+* New: Ability to choose from various description formats to include in the feed
+* Fix: Do not include an empty additional_images element when there are no images at all
+
+2019.01.08 - version 7.7.0
+* Change: Product Review Feed is no longer "Experimental"
+
+2019.01.07 - version 7.6.7
+* Fix: Ensure contents of SCRIPT / STYLE tags are stripped out of product feed.
+* New: Introduce woocommerce_gpf_review_feed_item_excluded filter to allow reviews to be excluded via filter
+
+2018.11.26 - version 7.6.6
+* Change: Attempt to anonymise reviewer names when generating product review feed
+* Change: Allow reviews to be anonymised completely for inclusion in product review feed.
+* Change: Cleaner implementation of data saving on product edit screens
+* Fix: Improve detection of images for inclusion, particularly where variation-specific images are available
+* Fix: Sale price effective dates could be displayed incorrectly in inventory feeds
+
+2018.10.29 - version 7.6.5
+* New: Mark compatible with WooCommerce 3.5
+* New: Process product descriptions to remove unsupported HTML tags
+* Change: Update some internal APIs for compatibility with future custom tables product storage
+
+2018.10.16 - version 7.6.4
+* New: Add support for WooCommerce Multicurrency extension
+
+2018.09.24 - version 7.6.3
+* New: Add support for WooCommerce Cost of Goods extension
+
+2018.09.10 - version 7.6.2
+* New: Add support for "cost of goods sold" element
+* New: Allow variation inclusion to be filtered on a per-product basis (woocommerce_gpf_include_variations)
+* Fix: Do not calculate prices when instantiating a WooCommerceGpfFeedItem for structured data purposes. Improves performance of structured data generation
+* Fix: Correctly report meta-based prepopulations in system status report
+* Fix: Use wc() instead of global $woocommerce variable
+* Fix: Send shipping weight as an integer. Send as grams to increase accurancy
+
+2018.07.02 - version 7.6.1
+* New: Add "product title" as a prepopulation choice
+* New: Add "variant title" as a prepopulation choice
+* Fix: Be more efficient about internal data storage
+* Fix: Issue where imports via the WooCommerce importer could cause products to be marked as hidden from the feed incorrectly
+* Fix: Improvements in internal data storage for variable products
+
+2018.04.17 - version 7.6.0
+* New: Experimental support for Product Review feeds : https://developers.google.com/product-review-feeds/
+* Fix: Make sure wc_get_products args are filtered consistently every time they're used.
+
+2018.03.16 - version 7.5.0
+* New: Variation products now pick up additional images from product gallery.
+
+2018.02.26 - version 7.4.4
+* Fix: List of custom fields available for pre-population is now filterable via woocommerce_gpf_custom_field_list
+* Fix: Custom fields that were only used on variations weren't available for selection
+* New: Introduce filter to exclude attribute labels from variation titles (woocommerce_gpf_include_attribute_labels_in_title)
+* New: Add support for energy_efficiency_class, min_energy_efficiency_class, and max_energy_efficiency_class in Google feed
+
+2018.01.30 - version 7.4.3
+* New: Allow items with no image to be excluded from the Google feed via filter (woocommerce_gpf_hide_if_no_images_google)
+* Fix: Do not output multiple values in Bing feed if set otherwise Bing cannot parse
+* New: Tested with WooCommerce 3.3
+
+2017.12.18 - version 7.4.2
+* Fix: Addresses a security issue affecting v7.2.0 through to 7.4.1
+
+2017.11.20 - version 7.4.1
+* Fix: Make sure wc_get_products() args filtered when rebuilding cache
+* Fix: Allow unknown product types to be treated as "simple" products" when processing
+* Fix: Ensure WC_Product consistently passed to filters
+* Fix: Resolve syntax issues when running on PHP < 5.4
+
+2017.11.07 - version 7.4.0
+* Fix: Layout issues with product feed information box for variations with some other extensions active.
+* Fix: Resolve issue which caused a warning to be raised on PHP versions prior to 5.5
+* Fix: Resolve issue where WC_Product was not passed to woocommerce_gpf_feed_item filters when background rebuilding the cache
+* Fix: Do not generate warning in importer if CSV doesn't include "hide product from feed" column
+* New: Allow data to be pre-populated from custom fields through the UI
+* New: Allow feed types to be turned on/off
+* New: Block access to feeds that aren't enabled
+* New: Do not pre-generate cache for feeds that aren't enabled
+* New: Introduce woocommerce_gpf_render_item_output_{feed_type} filter for filtering rendered output data
+
+2017.10.10 - version 7.3.0
+* New: Ship .POT file for easier translations
+* New: Template tags now support individual variations
+* New: Add performance stats to XML footer if WP_DEBUG enabled
+* Fix: Avoid unnecessary output-buffering conflicting with WP Rocket's "remove query strings" functionality
+* Fix: Speed & memory optimisations for stores with heavily-variable products
+
+**NOTE** If you have custom code using the WoocommerceGpfFeedItem class, it's definition changes in this release, and your code will need updating.
+
+2017.09.28 - version 7.2.1
+* New: Introduce template tags for outputting product feed elements on product pages
+* New: Support for Bing shipping tags (required in Germany only)
+
+2017.09.18 - version 7.2
+* New: Support for WooCommerce REST API v2
+* New: Add plugin version number to generator tag in Google feed for debugging
+* New: Add details of the plugin configuration to the WooCommerce system report
+* New: Add documentation links to plugin settings page
+* New: Improvement in pricing details for bundle products (requires Product Bundles > 5.4.3)
+* Fix: Avoid PHP warning if pre-population settings aren't initialised
+* Fix: initialise pre-population settings array on fresh installs
+* Fix: Resolve issue where some elements could be lost if corrupt product metadata present
+* Fix: Fix issue where the price in the feed for composite products wasn't always the minimum price of that product (requires Composite Products > 3.11.3)
+* Change: Improved unit tests for key classes
+
+2017.08.30 - version 7.1.10
+* Fix: Pass missing second argument to woocommerce_gpf_feed_item{*} filters when processing a variation product
+* Fix: Product Bundle prices could be incorrect under some tax setups
+* Fix: Issue where variations could send all possible attributes, not just those set on that variation
+* Change: Product bundles on sale will only show current price in feed, not regular & sale
+* New: Support import/export of "hide product from feed" settings
+* New: Add "tested up to" headers for future WooCommerce compatibility
+
+2017.08.22 - version 7.1.9
+* Fix: Minor fix to list of Bing categories
+* New: Add filter to allow short description to be used instead of full
+
+2017.08.16 - version 7.1.8
+* New: Add support for min_handling_time and max_handling_time
+* Fix: Inherit values set against parent product correctly when preopulation rules set.
+
+2017.07.25 - version 7.1.7
+* New: Add support for unit_pricing_measure and unit_pricing_base_measure
+* New: Add Woo header for compatability with new updater
+* New: Support for "installment" elements
+* New: Support for adding 2-level tags via the plugin filters
+* Fix: Take the active price as a sale price if it is lower than the regular price. Fixes issues with dynamic pricing extension.
+* Fix: Avoid PHP warning on variable products when display of variations is turned off
+* Fix: Shipping dimensions are rounded up to the nearest whole number to meet Google's specifications
+* Change: Shipping dimensions are sent as cm, not inches
+
+2017.07.18 - version 7.1.6
+* Fix: Ensure background cache processing happens when ALTERNATE_WP_CRON is defined
+* Fix: Disarm some third party plugins that run during feed generation and cause performance issues
+* Fix: Performance optimisation, clear down queues when doing a full cache rebuild
+* Fix: Workaround WooCommerce bug where old prices could be shown for simple products that have been converted to variable products
+* New: Support for including item_group_id automatically
+
+2017.06.27 - version 7.1.5
+* New: Support for product import / export in WooCommerce 3.1+
+* Fix: When feed item caching is enabled healthchecks do not always run
+* Fix: When feed item caching is enabled, be more consistent about the order in which products are rebuilt
+* Fix: When feed item caching is enabled, clear the 'rebuild all' queue before adding a rebuild all job
+
+2017.06.15 - version 7.1.4
+* Change: Allow private properties on the WooCommerceGpfFeedItem object to be accessed read-only.
+* Change: Pass WC_Product to woocommerce_gpf_feed_item filter
+* Fix: GTIN in Bing feed was always blank
+* Fix: Structured data contains incorrect SKU value
+* Fix: Upgrade feed item cache bucket size to fix 'Opening and ending tag mismatch' errors with large variation output
+
+2017.06.05 - version 7.1.3
+* Allow Bing Category to be pre-populated from product fields
+* Add support for "adult" attribute in Google feeds
+* Improve efficiency of background cache generation
+* Avoid race-condition where not all changes were picked up on cache rebuilds
+* Correctly honour variation setting when rebuilding cache
+
+2017.05.17 - version 7.1.2
+* Fix issue where saving a variation caused on error on WooCommerce 2.6.x
+
+2017.05.09 - version 7.1.1
+* Fix issue where some files missing from packaged release
+* Add basic support for bundle products
+
+2017.05.03 - version 7.1.0
+* Fix issue where Composite products weren't included
+* Fix issue where External products were incorrectly included
+* Fix issue where definition of constant could conflict with other plugins
+* Introduce render cache for feeds, disabled by default pending testing, see https://woocommerce.com/document/google-product-feed-feed-item-caching/ for information on how to test this
+
+2017.04.25 - version 7.0.8
+* Fix issue where variation ID not passed to woocommerce_gpf_elements filters
+* Fix issue where incorrect product ID passed to woocommerce_gpf_elements filters
+* Fix issue where is_bundle checkbox could not be unticked on a product edit screen
+* Fix issue where sale price effective dates weren't output correctly on WooCommerce 3.x
+* Fix warning shown generated when products have sale prices on WooCommerce 3.x
+* Update identifier_exists logic. Identifiers are now required for all countries
+
+2017.03.30 - version 7.0.7
+* Fix issue with "identifier exists" option not showing selected value correctly on settings form
+* Change mime-type of bing feed to fix issues when running behind CloudFlare
+* Fix issues where variation options were missing from variation titles in the feed
+
+2017.03.06 - version 7.0.6
+* Fix issue where descriptions weren't always passed through the_content filter
+* Fix issue where URL-based category filtering didn't work with permalink-style feed URLs
+* Remove some unused code
+
+2017.03.06 - version 7.0.5
+* Further compatibility changes in preparation for WooCommerce 2.7
+
+2017.02.27 - version 7.0.4
+* Fix error triggered on PHP releases < 5.4.
+
+2017.02.20 - version 7.0.3
+* Fix issue where incorrect variation price was picked when not including all variations in the feed
+* Update Bing feed to apply tax in relevant countries
+* Remove shipping dimension attributes from Google Inventory feed
+
+2017.02.06 - version 7.0.2
+* Fix issue where PHP warning could be generated.
+
+2017.01.20 - version 7.0.1
+* Fix issue where partial (chunked) feed settings were not always applied.
+
+2017.01.17 - version 7.0.0
+* Internal rewrites, including some performance improvements
+* Allow the shipping dimension unit types to be overridden
+* Allow feed to be generated for a specific category / set of categories via URL string
+Avoid warnings if taxonomies are removed after being set to be used for preopulation
+* WooCommerce 2.7 related updates. Take advantage of new APIs for fetching products if available.
+* Adds on-page structured data when running on WooCommerce 2.7+ (sku, itemCondition, gtin and mpn)
+
+2016.10.31 - version 6.8.1
+* Change plugin URL to WooCommerce domain
+* Ensure plugin links always go to WooCommerce, not WordPress.org
+
+2016.10.11 - version 6.8.0
+* More accurate image support. Fixes issues where non-attached product gallery images weren't included.
+
+2016.08.31 - version 6.7.8
+* Various performance improvements to feed generation
+* Introduce woocommerce_gpf_is_generating_feed() so other plugins / filters can tell if this request is for a feed
+
+2016.08.02 - version 6.7.7
+* Replace tabs with spaces when generating the Bing feed
+* Allow the g:link element to be filtered
+
+2016.07.21 - version 6.7.6
+* Fix issues where not all elements included in Bing feed
+* Robustness fix for deciding whether to send prices inc, or ex. taxes
+* Use WooCommerce standard functions for generating variation titles / URLs
+
+2016.06.20 - version 6.7.5
+* Send custom_label fields in the Bing feed
+* Fix warnings thrown for category settings on WooCommerce 2.6
+
+2016.06.06 - version 6.7.4
+* Make sure non-printable UTF characters are removed in product titles as well as descriptions.
+* Avoid issue where product titles occasionally get generated with a "()"" suffix.
+* Clean up product URLs for attributes with no values set (E.g. "all colours").
+* Allow multiple GTINs to be entered against products.
+
+2016.05.16 - version 6.7.3
+* Do not hardcode guid in Google Inventory feed. Make it filterable in the same way as in the main product feed
+* Update unique identifier checks to match Google specifications
+* Make sure variation descriptions are more reliable where content includes product shortcodes
+* Consistent use of image size across main image, and additional images
+* Make image style filterable. Default to "full"
+* Send empty sale price effective date in inventory feed if none is set
+* Fix translat-ability of "include variations" option in the admin area
+
+2016.04.30 - version 6.7.2
+* Do not send any shipping dimensions unless all are available
+* Fix issues with some elements not coming through into feeds
+
+2016.04.29 - version 6.7.1
+* Avoid warning generated when saving a product after editing variations.
+
+2016.04.26 - version 6.7
+* Allow entry of feed values against individual variations
+* Variations support is no-long "experimental"
+* Fix issue where prepopulation sometimes used the parent value, not the variation value
+* Use guid from feed_item, not raw ID when creating product ID for Bing feed
+* Product type taxonomy autocompletion now pulls relevant language version based on store base country, not always American (en-US).
+
+2016.04.20 - version 6.6
+* Improvements to Bing feed elements, remove unused items, and rename to match latest specification
+* Better availability reporting for out of stock products when a default availability value is set
+* Support for "material" in feed.
+
+2016.04.05 - version 6.5
+* Support for pattern attribute
+* Fixes to variation support
+
+2016.03.29 - version 6.4
+* Allow delivery label field to be prepopulated from other product fields.
+
+2016.03.18 - version 6.3
+* Repackage to fix version inconsistency
+
+2016.03.17 - version 6.2
+* Extend the list of countries whose feeds should be supplied exclusive of taxes.
+
+2016.02.24 - version 6.1
+* Add support for is_bundle
+
+2015.01.25 - version 6.0
+* Experimental variation support
+* Fix undefined constant warning
+
+2016.01.07 - version 5.2.2
+* Use base country pricing / tax for feed ignoring geolocation. Requires WC 2.5
+* Support image links with query parameters
+
+2015.12.02 - version 5.2.1
+* Add sale price effective dates to the Google Inventory feed.
+
+2015.12.01 - version 5.2
+* Support for sale price effective dates.
+* Fix issues with multibyte strings getting truncated mid-character
+* Allow size to be prepopulated from attributes (15 seconds ago) <Lee Willis>
+* Change to the base URL indicated in the feed.
+
+2015.09.20 - version 5.1
+* Fix markup error in admin area
+* Increase feed generation performance
+
+2015.06.03 - version 5.0
+* Provides support for Product Inventory feeds for Google Merchant Centre.
+* Provides support for populating feed information product attributes without having to use code snippets.
+* Item GUIDs are now filterable via woocommerce_gpf_feed_item_ filters.
+* Fix Bing link in admin area to satisfy URL suffix validation.
+* Admin markup and accessibility fixes.
+
+2015.04.30 - version 4.0.3
+* Fix issue with size system not showing the currently selected value properly
+
+2015.04.23 - version 4.0.2
+* Fix issue with alt text on feed type icons on settings page
+
+2015.04.20 - version 4.0.1
+* Security release
+
+2015.02.03 - version 4.0
+* Support for sale_price element
+* Avoid errors when products have child posts that aren't WooCommerce products
+* Support for shipping_length, shipping_width and shipping_height
+* woocommerce_gpf_exclude_product filter can be used to include products that would normally be excluded.
+
+2015.01.14 - version 3.9
+* Support for delivery_label attribute.
+
+2014.12.29 - version 3.8
+* Revert previous variation pricing change since it causes feed disapproval in some cases.
+
+2014.12.21 - version 3.7
+* Always use the maximum price for variable products in line with Google's guidelines.
+
+2014.12.16 - version 3.6
+* Add support for Promotion ID in the feed
+* Improvements to product identifier supports to make identifier_exists work more reliably
+
+2014.11.17 - version 3.5
+* Fix compatiblity with WC 2.0.x and variable products
+
+2014.11.10 - version 3.4
+* Calculate tax status for variable products on tax exclusive setups.
+
+2014.10.21 - version 3.3
+* Do not use invisible child products when calculating the price
+
+2014.09.22 - version 3.2
+* Support for Google feed specification changes
+	* Support max lengths in the Google feed
+	* Support for availability_date
+	* Merge "available for order" availability with "in stock" in the Google feed
+	* Support for size_system
+	* Add support for size_type
+	* Extra options for age_group
+
+2014.09.03 - version 3.1
+* Don't show duplicated settings updated messages in the admin area
+
+2014.08.25 - version 3.0
+* Make fields filterable
+* WooCommerce 2.2 compatibility
+
+2014.07.28 - version 2.9.1
+* Fixes for custom_label elements
+
+2014.07.18 - version 2.9
+* Support for custom_label attributes
+* Trim out non-printable UTF-8 characters
+
+2014.06.13 - version 2.8
+* Fix issue where disabled fields could still be included in the feed
+* Avoid PHP warning when saving categories. Fixes #1
+* More robustly transliterate in Bing feed generation
+
+2014.05.12 - version 2.7
+* Correctly calculate taxable status for some configs
+* Performance improvements fetching Google product taxonomy on admin pages
+
+2014.05.01 - version 2.6
+* Fixes for complex characters in the Bing feed
+* Correctly calculate taxes inclusive of tax under some configs
+
+2014.03.16 - version 2.5.5
+* Avoid warning if data contains elements not defined in the current release
+* Avoid warning if invalid feed format is requested
+* Block WordPress Gzip Compression for feed requests
+* Fix out of stock products in Bing feed
+
+2014.01.17 - version 2.5.4
+* Fix out of stock products in Bing feed
+
+2014.01.12 - version 2.5.3
+* Squash a few warnings
+
+2014.01.02 - version 2.5.2
+* Additional filters for feed items, and store info
+
+2013.11.27 - version 2.5.1
+* Documentation fix on settings page
+
+2013.11.07 - version 2.5
+* More robust permalink handling
+* Fix limited feeds where individual feeds exclude products
+
+2013.11.06 - version 2.4
+* Allow gpf_start and gpf_limit to be passed to generate a part-feed
+
+2013.09.14 - version 2.3
+* Bing now require a tab separated file
+
+2013.07.17 - version 2.2.2
+* Support for adwords_grouping and adwords_label tags for more detailed ad targetting
+
+2013.07.03 - version 2.2.1
+* Allow additional images to be excluded from Google feed via a filter
+
+2013.07.02 - version 2.2
+* Support for "identifier_exists" attribute
+
+2013.01.03 - version 2.1.1
+* Updater fix
+
+2013.01.03 - version 2.1
+* Availability also accepts "out of stock" as a valid value
+
+2012.11.07 - version 2.0
+* Refactor, adds support for bing.com feeds
+
+2012.06.28 - version 1.5.5
+* Don't include hidden products in the feed
+
+2012.06.20 - version 1.5.4
+* Avoid issues when WordPress is running in a sub-folder
+
+2012.05.30 - version 1.5.3
+* Google limit text to 10,000 characters, trim to fit
+
+2012.05.17 - version 1.5.2
+* Avoid over-escaping some strings
+
+2012.03.22 - version 1.5.1
+* Fix JS/CSS urls
+
+2012.03.22 - version 1.5
+* Allow products to be excluded from the feed
+* Added woo updater
+
+2012.03.19 - version 1.4
+* Support for product stock status
+
+2012.02.04 - version 1.3
+* Support for multiple product images using g:additional_image_link
+
+2011.01.05 - version 1.2
+* Optimisations for large stores
+* Better handling of products with no images
+* Price formatting changes
+* US tax handling changes in line with Google's product feed guidelines
+
+2011.11.27 - version 1.1
+ * Allow feed to be downloaded from admin page
+
+2011.11.17 - version 1.0
+ * First Release

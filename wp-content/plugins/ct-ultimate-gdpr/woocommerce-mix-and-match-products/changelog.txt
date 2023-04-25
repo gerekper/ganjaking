@@ -1,0 +1,566 @@
+*** WooCommerce Mix and Match Products Changelog***
+
+2023.04.24 - version 2.4.4
+* New: Add `wc_mnm_child_item_rest_response` filter to customize REST response of child items.
+* Fix: Change front end script event listeners to catch pur Javascript events on the quantity inputs.
+
+2023.03.02 - version 2.4.3
+* Fix: Vertical alignment of quantity inputs in grid mode (for most themes).
+* Fix: Tweak WoodMart theme module to support different column numbers.
+
+2023.03.01 - version 2.4.2
+* Fix: Previous quantity is not correctly calculated when it's 0. #495.
+* Fix: Declare table display for table element.
+
+2023.02.10 - version 2.4.1
+* New: Add string to prompt users to change configuration when editing container.
+* Fix: Switch admin notes check to a daily schedule.
+
+2023.02.09 - version 2.4.0
+* New: Optional mobile-optimized layout for small screens, see settings in Customizer.
+* New: Optional plus/minus buttons, see settings in Customizer.
+* New: Display category description when listing child products by category.
+* Fix: Reapply discounts/coupons after editing a Mix and Match product in order admin.
+* Dev: Move category title text to a template.
+* Dev: Move template includes from after_setup_theme to template_redirect hook for better compat with Customzier.
+* Dev: Refactor WC_Mix_and_Match_Stock_Manager and WC_MNM_Child_Item classes. Eliminate need to re-instantiate product objects and easier extensibility for validating in other contexts (such as weight). But extreme caution if you were using these classes for any custom purposes.
+
+2023.01.19 - version 2.3.1
+* Fix - Fixed double subscription discount on container cart prices when using per-item pricing. #434.
+
+2023.01.16 - version 2.3.0
+* IMPORTANT: PHP 7.2 is required.
+* Update: Tested up to WooCommerce 7.3.0.
+* New: Separate out "X in stock" remaining text and display in child item details, updated single-product/mnm/mnm-product-quantity.php template.
+* Fix: Correctly parse hierarchical child category IDs. Closes #470.
+* Fix: Add static className to item data for better blocks compat. Closes #468.
+* Fix: Missing export data for layout override and weight calculation.
+* Fix: Flatsome compatibility for equal-height product images.
+* Fix: Disable per-product overrides when viewing customizer.
+* Fix: Default value of customizer settings for show thumbnails/short-description.
+* Fix: Fixed a fatal error that was triggered when using PHP v8 and using Cart/Checkout Blocks.
+* Fix: Rename tabular layout 'product-name' header cell to 'product-details'.
+* Tweak: Audit CSS styles to remove as much explicit padding/margin as possible.
+* Tweak: Add a close icon to font family for use by mini-extensions.
+* Tweak: Add woocommerce_product_loop_title_classes filter for parity with core.
+* Tweak: Adjust front-end styles for mobile first.
+* Tweak: Center align quantity inputs in Storefront theme.
+* Tweak: container.child_items in script is now an ARRAY. Please check if doing very advanced custom Javascript modifications.
+* Dev: Rename WC_MNM_Container.validation_context property to validation_mode.
+* Dev: Re-key wc_mnm_child_item_data_attributes to not use 'data-' prefix. It will be auto-added.
+* Dev: Introduce wc_mnm_center_align_quantity filter.
+
+2022.11.07 - version 2.2.2
+* Fix: Double-charging for child items when ordering again. #466.
+* Fix: Front-end validation allow overfilled container to be reduced. #461.
+* Fix: Child Category IDs are not imported. #467. 
+* Tweak: Make get_child_item_by_product_id() method public.
+
+2022.10.24 - version 2.2.1
+* Tweak: Use core cart functions for detecting parent/child relationships in cart item filters.
+* Tweak: Add wrapping <span> when doing wc_ajax_mnm_update_container_order_item. For compat with mini-extensions.
+* Tweak: Admin edit orders, handle updates with no changes.
+
+2022.10.24 - version 2.2.0
+* Important: mnm-add-to-cart-wrap.php template is deprecated.
+* Update: Tested up to WooCommerce 7.0.0.
+* Update - Declared compatibility with the new Custom Order Tables.
+* New: Convert container order item editing to use reuasable ajax callbacks and templates. Fixes display issues in admin and allows for extensibility.
+* New: Add get_permalink() and get_title() methods/filters to WC_MNM_Child_Item class.
+* New: 2nd parameter to WC_Product_MNM_Data_Store_CPT::query_child_items_by_container() to optionally change format of returned data.
+* New: Add `wc_mnm_category_caption` hook for displaying info about the category titles when using category contents.
+* Fix: Invalid array_key_exists() syntax in custom db 2.0 upgrade function.
+* Fix: Flatsome theme grid classes.
+* Fix: Stop saving duplicate meta keys. Upgrade routine to clean up duplicate data.
+* Fix: Restore photoSwipe modal for themes that support it.
+* Fix: Thumbnail and short description live previews in Customizer.
+* Fix - Prevent child item stock from being reduced when editing Mix and Match products in configurable orders.
+* Tweak: Change CoCart validation to use built-in validation methods. NB: This means the loss of CoCart specific-filters/error codes, please test accordingly.
+* Tweak: Remove quantity inputs for child items in cart block (show per container quantity in title).
+* Tweak: Change selections config to per-container quantity in checkout block.
+* Tweak: Add styles to order edit modal.
+* Dev: Modify $.wc_mnm_form() script to 1. not require passing objects to initialize, 2. define properties in intialize() method so they can be reattached. 3. return the current element for script chaining.
+* Dev: Introduce `wc_mnm_product_container_types` filter for testing if product is Mix and Match type. For future extensibilty.
+* Dev: Admin functions for generating enhanced searches and toggle fields.
+* Dev: Admin Simplify relational hide/show fields in metabox via classnames.
+* Dev: Introduce wc_mnm_form_classes filter for <form> element classes.
+
+2022.09.05 - version 2.1.3
+* Fix: Fatal error in update cart validation via CoCart
+* Tweak: Add check that product still exists in update cart validation.
+
+2022.08.31 - version 2.1.2
+* New: Child item step validation on the front-end.
+* Fix: Quantity input should default to child minimum if one exists.
+* Fix: Add aria-live="polite" on status message.
+* Fix: Apply Flatsome compatibility classes only in grid layout.
+* Tweak: Animate toast-style error notices for individual child items.
+* Tweak: Add query_id parameter to wc_get_products() params when querying child items by category.
+
+2022.08.09 - version 2.1.1
+* Fix: Double-application of taxes in front-end status price display.
+* Fix: Replace deprecated jQuery.isFunction()
+
+2022.07.25 - version 2.1.0
+* Update: Tested up to WooCommerce 6.7.0.
+* New: Filter woocommerce_subscriptions_switch_link_text in Subs 4.5.0
+* New: Add `wc_mnm_editing_container_in_order_configuration` filter.
+* Fix: Add validation to editing container configuration in order admin.
+* Fix: Only apply switch link changes to Mix and Match products.
+* Fix: Quantity input display when min=max. #438.
+* Fix: Fatal error in admin notices - WC_MNM_Install does not exist when WooCommerce is not active.
+* Fix: One Page Checkout compatibility with full-width display. #441.
+* Tweak: Make reset link behaves more like "clear".
+* Tweak: Remove duplicate value attribute from add to cart button.
+* Tweak: Add alt class to reset button.
+* Dev: Add support for changing frontend validation messages based on context.
+
+2022.07.12 - version 2.0.10
+* Fix: Fatal error in cart, undefined function esc_html__x().
+* Fix: version_compare() with null as first param is deprecated in php 8.1 #436
+* Fix: Metabox link to run upgrade, will actually run upgrade and not scroll to top. #435
+* Fix: Do not prompt upgrade routine on new installs.
+
+2022.07.06 - version 2.0.9
+* New: Introduce subscription switching text string setting for customizing text of subscription switch link for Mix and Match products.
+* Fix: Support displaying SVG icons directly in metabox, better support for alternative layouts.
+* Fix: Reorder validation so max messages are used when min=0 and max=X.
+* Fix: Magic getter passthrough for product methods on child item object.
+
+2022.06.27 - version 2.0.8
+* Fix: Limit loop classes in OceanWP theme compat to grid layout.
+
+2022.06.15 - version 2.0.7
+* Important: Slight spacing tweaks in a few strings. Double-check translations.
+* New: Introduce Flatsome theme compat module. Closes #350.
+* Fix: Min/Max Quantities compat - unset group by quantity as minimum. Closes #316.
+* Fix: Don't run foreign key ALTER sql when updating if foreign keys already exist. Removes DB error in log. Closes #426.
+* Fix: Update foreign keys to use database prefix.
+* Tweak: Add [Frontend] context to customer-facing translatable strings.
+
+2022.06.13 - version 2.0.6
+* Fix: When discounting from sale price, use regular price to calculate discounted price if product has empty sale price. Restores strikethrough discount html.
+* Fix: PHP notice for undefined $price variable in sale price filter.
+* Fix: Support grid styles in quickview modal in Storefront theme.
+* Tweak: Change strings and buttons to use "edit|reset selections" instead of "configuration"
+* Tweak: Astra support for mobile grids.
+* Tweak: Use h4 headings for child product titles.
+* Tweak: Remove styles from reset button, inherit from theme button styles.
+* Tweak: Refine Mix and Match configuration display in cart block.
+
+2022.06.10 - version 2.0.5
+* Fix - Load order/dependencies for the Cart and Checkout blocks scripts.
+* New - Display container config in mini cart.
+
+2022.06.09 - version 2.0.4
+* Fix: Missing child item configuration in ShipStation.
+* Fix: Incorrect cumulative package weight calculation when packed together.
+
+2022.06.08 - version 2.0.3
+* Fix: Fatal error with All Products for WooCommerce Subscriptions < 3.2.
+* Tweak: Apply style rules by class only and not by list elements.
+* Tweak: Add compatibility module for WoodMart theme.
+* Tweak: Remove wrapping div from add to cart button.
+* Tweak: Change success class to woocommerce-message.
+* Dev: Add wc_mnm_grid_has_flex_layout filter.
+
+2022.06.06 - version 2.0.2
+* Fix: Fatal error not enough parameters sent to woocommerce_paypal_payments_product_supports_payment_request_button callback.
+* Fix: Update zip build routine to always include the block scripts!
+
+2022.06.06 - version 2.0.1
+* Fix: Fatal error WC_MNM_PayPal_Compatibility class not found.
+
+2022.06.06 - version 2.0.0
+* IMPORTANT: Allowed contents/child items are stored in their own table. - This is a major change to data storage. Please backup your database before upgrading.
+* Required: WordPress 4.7 is required.
+* Required: WooCommerce 3.6 is required.
+* Update: Tested up to WooCommerce 6.5.0.
+* New: Support for WooCommerce Cart/Checkout blocks.
+* New: Support for selecting allowed contents by category.
+* New: Compatibility with All Products for Subscriptions.
+* New: Set global styles for Mix and Match products in the Customizer.
+* New: Separate template for the add to cart button.
+* New: Updated mix and match shipping interface in admin metabox.
+* New: Add theme support modules for Astra, Avada, OceanWP, X themes.
+* Dev: Add wc_mnm_loop_classes filter to add custom classes to mix and match loop.
+* Dev: Add wc_mnm_child_item_classes filter to add custom CSS to child items.
+* Dev: Add wc_mnm_child_item_data_attributes filter to add custom data attributes to child items.
+* Dev: Deprecated mix and match product class methods - get_children(), get_available_children(), get_contents(), set_contents(), has_children(), has_available_children(), get_child_quantity(), get_child_availability_html(), maybe_apply_discount_to_child()
+* Dev: BREAKING! formatting change for results of WC_Product_Mix_and_Match::get_layout_options() and WC_Product_Mix_and_Match::get_add_to_cart_form_location_options()
+* Dev: Rename all action hooks with wc_mnm_ prefix. woocommerce_mnm_ hooks are deprecated but should still work.
+* Dev: Rename all filters with wc_mnm_ prefix. woocommerce_mnm_ filters are deprecated but should still work.
+
+2022.05.02 - version 1.12.1
+* Update: Tested up to WooCommerce 6.5.0.
+* Fix: Import/export of child variations.
+* Dev: Add update warning notice for when 2.0 is released.
+
+2022.01.28 - version 1.12.0
+* Update: Tested up to WooCommerce 6.1.0.
+* Note: This release is largely targeted towards improved compatibility with mini-extensions. If you are using any mini-extensions, please look to see if there's an update.
+* Dev: Frontend refactor container config to be array of objects. container.api.get_container_config( 'v2' ) to fetch new array[]{ product_id: 99, product_qty: 3 } .
+* Dev: Add parameter to wc_mnm_template_add_to_cart() to optionally call add to cart template for a specific product. Improved compatibility with mini-extensions, ie: Grouped MNM.
+* Dev: Revamp frontend price/rounding formatting functions to accept custom args.
+* Dev: Frontend calculate totals and subtotals from config instead of HTML inputs. This will allow for compat with custom layouts, ie: Select Layouts.
+* Dev: Pass false to 'wc-mnm-reset-configuration' triggerHandler to disable update_container(). Also related to compat for custom layouts.
+
+2021.12.16 - version 1.11.6
+* Fix: Missing action parameter in add to cart form element.
+* Fix: Completely remove WooCommerce Payments payment request buttons for Mix and Match products.
+
+2021.11.19 - version 1.11.5
+* Fix: Load RTL stylesheets when not in SCRIPT_DEBUG mode.
+* Fix: Load correct stylesheet when in QuickView Modal.
+* Tweak: Moved 'add-to-cart' input value to button.
+
+2021.11.11 - version 1.11.4
+* Update: Tested up to WooCommerce 5.9.0.
+* Fix: Hide PayPal Payments payment request buttons for Mix and Match products.
+* Fix: Hide WooCommerce Payments payment request buttons for Mix and Match products.
+* Tweak: Display quantity in child product title if min and max allowed quantities are the same.
+* Tweak: Wrap main quantity input and add to cart button in div element.
+
+2021.09.21 - version 1.11.3
+* Update: Tested up to WooCommerce 5.6.0.
+* Fix: Add woocommerce_product_has_options core filter to WC_Product_Mix_and_Match class.
+* Fix: Only validate container stock if config is still valid. Resolves issue with empty containers getting added to cart via ajax.
+* Fix: Quick view support for products with "after summary" forms.
+* New: Add wc_mnm_show_edit_it_cart_link filter. Return false to hide "edit" link in cart. Requires Quick View 1.5.0.
+
+2021.06.11 - version 1.11.2
+* Update: Tested up to WooCommerce 5.4.0.
+* New: Enable support for Stripe payment requests in carts that contain a Mix and Match product.
+* Fix: Compatibility with PayPal Express Smart buttons. Requires WooCommerce PayPal Express gateway plugin v1.6.21.
+
+2021.04.28 - version 1.11.1
+* Fix: 1.10.0 database upgrade routine failures when updating 20+ Mix and Match products.
+
+22021.03.23 - version 1.11.0
+* New: Use _prime_post_caches() to boost speed of fetching child products.
+* Fix: Only add indent wrapping div to product name if it doesn't already exist. Prevent multiple sub-arrows from displaying when coupons fail.
+* Fix: Php 8 compat: Required parameter follows optional parameter.
+* Fix: Fixed PHP warnings about admin notices.
+* Fix: Add margin reset to <figure> in single product page.
+* Dev: Add get_props_to_meta_keys() getter to data store class.
+
+2020-12.07 - version 1.10.6
+* Fix - Grand total calculations for containers + Product Addons.
+* Fix - Prevent double discounts when discounting from sale price.
+* Fix - Harden calls to init gallery on child product images to prevent Uncaught TypeError: .wc_product_gallery is not a function.
+* Fix - Use wc_product_class() for opening child item divs/rows. Restores compat with filters mini-extension.
+* Fix - Min/Max Quantities compatibility - ignore rules on variations too.
+* Fix - Add RTL Language style data.
+
+2020.11.18 - version 1.10.5
+* Update: Tested up to WooCommerce 4.7.0.
+* Fix: Support Min/Max Quantities Variation level min/max rules.
+* Fix: CoCart integration configuration support for variation IDs in container.
+* Fix: Fix compatibility with Validate by Weight mini-extension.
+
+2020.10.16 - version 1.10.4
+* Update: Tested up to WooCommerce 4.6.0.
+* Fix: Restore compatibility with One Page Check single product template.
+* Fix: Harden is_child_supported_product_type() helper in case $product is false (ie, product no longer exists,etc)
+* Fix: pass container object to wc-mnm-container-quantities-updated trigger in front end script
+
+2020.09.29 - version 1.10.3
+* New: Add ability to configure the contents of a Mix and Match container in editable/manually-created subscriptions.
+* Fix: PHP notice when adding to cart with any child products out of stock.
+
+2020.09.09 - version 1.10.2
+* Update: Tested up to WooCommerce 4.5.0.
+* New: add has_options() method to product class for better compat with blocks.
+* Fix: Elementor style rule, force Elementor to display MNM form as a block instead of flex layout.
+* Fix: Fix incorrect shipping state on child items in manually created orders.
+* Tweak: Add confirm alert to clear selections button.
+* Tweak: Change "Clear selection" to "Clear selections".
+
+2020.08.25 - version 1.10.1
+* Fix: Validate stock against quantity already in the cart.
+
+2020.07.24 - version 1.10.0
+* IMPORTANT: Includes a Database update so please make a database backup before proceeding.
+* New: REST API support for Mix and Match properties in product and order responses.
+* New: Compatibility with CoCart plugin. Props @seb86!
+* Dev: Change boot method so that `class_exists('WC_Mix_and_Match')` reliably determines if the plugin is active.
+* Dev: Deprecate woocommerce_mnm_order_item_part_of_meta_name filter
+* Dev: Change "Container size", "Part of", and "Purchased with" order item meta keys to "mnm_container_size", "mnm_part_of", and "mnm_purchased_with"
+* Fix: Repair mnm_data meta data save routine.
+
+2020.07.09 - version 1.9.13
+* Fix: Update plugin header with tested up to WooCommerce 4.3.0.
+
+2020.07.09 - version 1.9.12
+* Update: Tested up to WooCommerce 4.3.0.
+* Fix: Fatal error in cart subtotals for Mix and Match container and child products with WC 4.3.0.
+
+2020.06.25 - version 1.9.11
+* Fix: Delete accidental logging when container is not purchasable.
+
+2020.06.24 - version 1.9.10
+* Fix: Add parameter to wc_mnm_price_format() to return string without HTML. Resolves html in dropdown for All Products with Subscriptions (with bridge plugin).
+
+2020.06.20 - version 1.9.9
+* Fix: Make reset button work when editing quantities in cart/after add to cart.
+* Tweak: Deprecate maybe_sync() method. Check handled by sync().
+
+2020.06.15 - version 1.9.8
+* Fix: Exclude build tools from zip file. Reducing zip file size.
+* Fix: Force saving the base price if it doesn't exist.
+
+2020.06.07 - version 1.9.7
+* Fix: Stray comma causing parse error in thumbnail template.
+
+2020.06.06 - version 1.9.6
+* Update: Tested up to WooCommerce 4.2.0.
+* Fix: Add product ID as value attribute to add to cart button. Better compatibility with some ajax add to cart theme scripts.
+* Fix: Incorrect display in cart price column for products with per-item pricing.
+* New: Add wc_mnm_product_thumbnail_link_classes filter for changing lightbox trigger classes.
+
+2020.05.21 - version 1.9.5
+* Fix: Incorrect initialization of the photoSwipe scripts!
+* Fix: Prevent linking to thumbnails if theme does not support `wc-product-gallery-lightbox`.
+* Fix: Inherit thumbnail of variable product when variation does not have a thumbnail.
+
+2020.05.16 - version 1.9.4
+* New: Add lightbox on thumbnails if theme supports wc-product-gallery-lightbox.
+* Fix: Remove orphaned child products from cart if parent container is removed.
+* Fix: Update Product Addons totals when quantity config changes.
+
+* Tweak: Switch mnm-quantity class to <input> itself.
+
+2020.05.08 - version 1.9.3
+* Update: Tested up to WooCommerce 4.1.0.
+* Fix: Child products losing style indent when cart it updated.
+* Tweak: Stop center-aligning product details. Inherit styles from theme.
+
+2020.04.23 - version 1.9.2
+* Fix: Check if cart is set before trying to access cart_contents.
+* Fix: Use native functions to get parent container versus searching cart directly.
+* Tweak: Add product_id as data attribute to add to cart button, to help some themes that add ajax add to cart.
+* Tweak: Auto load certain properties if not defined.
+* Tweak: Instead of resetting to minium quantity value, set to original value attribute.
+* Tweak: Add broader support for checkbox/dropdown input types. 
+
+2020.04.11 - version 1.9.1
+* New: add wc_mnm_before_sync hook
+* New: Prepare for compatibility with PayPal Express Smart buttons when PayPal Express gateway plugin updates.
+* Fix: Fix broken woocommerce_product_add_to_cart_text core filter.
+* Tweak: Simplify error message HTML markup in mnm-add-to-cart-wrap.php template.
+* Tweak: Hide error message on load if JS is enabled.
+* Dev: Add configuration to add to cart button as data attribute for potential ajax add to cart usage.
+
+2020.03.20 - version 1.9.0
+* Update: Tested up to WooCommerce 4.0.0.
+* Fix: Script errors when multiple forms are on the same page.
+* New: Quantity inputs are empty by default, use WC4 placeholders.
+* New: Filter for getting the posted configuration.
+* New: Dynamic filter for validating container based on context. 
+* New: Script supports passing custom configuration when triggering container update.
+* New: Filter the child item's configuration data.
+* Fix: Check child cart item is set in cart before accessing.
+
+2020.01.06 - version 1.8.0
+* Update: Tested up to WooCommerce 3.9.0.
+* Fix: Add min/max size keys to WPML config.
+* Fix: Fatal error when all child contents are out of stock and out of stock products are hidden.
+* Fix: Fatal error calculating prices when all child contents are out of stock.
+* Fix: Do not show add to cart button when no contents are available.
+* Fix: Hide quantity inputs when the parent container is not available.
+* New: Introduce woocommerce_mnm_content_loop hook.
+
+2019.12.03 - version 1.7.2
+* Fix min/max compat. Only restore original values when "ignore min/max" rules is set.
+
+2019.11.19 - version 1.7.1
+* Fix - Fatal error from incorrectly named Wishlists compatibility module.
+* Update: Tested up to WooCommerce 3.7.0.
+
+2019.10.23 - version 1.7.0
+* New - Add ability to configure the contents of a Mix and Match container in editable/manually-created orders.
+
+2019.08.06 - version 1.6.0
+* Important - Added support for WooCommerce 3.7+.
+* Important - PHP 5.6.20+ is now required.
+* Fix: Incorrect error message when 1 quantity is selected.
+* Fix: Manually trigger product type change event in metabox on load.
+* Tweak - Ignore 'woocommerce_before_cart_item_quantity_zero' action under WC 3.7+.
+
+2019.06.19 - version 1.5.1
+* Fix: Print Invoice Compatibility - Do not remove bulk "Order #" headlines.
+* Tweak: Limit Name Your Price checkbox display control via "per-item pricing" to only Mix and Match products.
+
+2019.04.15 - version 1.5.0
+* Important: Dropped support for WooCommerce 3.0.
+* Important: Added support for WooCommerce 3.6+.
+* Tweak: Removed old WooCommerce Helper dependencies.
+* New: Stop saving "Part of" meta key. Use `add_filter( 'woocommerce_mnm_order_item_legacy_part_of_meta', '__return_true' );` to continue saving.
+* Fix: Correct discount calculations when not discounting product from regular price.
+
+2019.03.22 - version 1.4.2
+* Fix: Incorrect display in WooCommerce Print Invoices & Packing Lists
+
+2019.02.26 - version 1.4.1
+* New: Script auto-support any quantity type input
+* Fix: Script errors for custom quantity config
+* Fix: Script error for left/right space currency settings
+
+2019.02.22 - version 1.4.0
+* NOTICE: Add to cart script heavily refactored. If extending, please test integrations in staging environment before updating.
+* New: Support a percentage container discount when in per-item pricing mode.
+* New: Ability to edit a container's configruation from the cart.
+* New: WooCommerce Print Invoices & Packing Lists compatibility.
+* New: Scripts support handling of price suffix with front-end calculation of taxes.
+* New: Filter woocommerce_mnm_child_quantity_input_args to change args for only Mix and Matched item quantity selector.
+* Fix: Order Again support for WooCommerce 3.5 .
+* Fix: Add discount, layout, form location fields to import/export.
+* Fix: Handling of Mix and Match content data during import/export.
+* Fix: Incorrect price strings in certain instances
+* Tweak: Vertical alignment of quantity inputs
+
+2018.11.04 - version 1.3.4
+* Fix: Fatal error with Product Addons 3.0, insufficient arguments passed to woocommerce_add_cart_item_data
+* Fix: Fatal call to undefined method error on product save when updating constant is defined.
+* Fix: Hide reset link when item has not been configured
+
+2018.07.09 - version 1.3.3
+* New: Cache calculated prices at runtime
+* New: Add content in WP Privacy Policy Guide
+* Fix: Replace deprecated WC()->cart->get_cart_url()
+* Fix: Explicitly declare grid style inputs as block elements for theme's that don't
+* Fix: Add missing parameters to 'woocommerce_get_price_suffix' filter
+* Fix: Mobile cart styles
+* Tweak: Change thumbnail size to woocommerce_thumbnail.
+
+2018.05.04 - version 1.3.2
+* Fix: Replace deprecated WC()->cart->get_cart_url()
+
+2018.05.02 - version 1.3.1
+* New: Added woocommerce_mnm_tabular_column_headers filter to control table column headers
+
+2018.04.09 - version 1.3.0
+* Important - WooCommerce 2.X support dropped
+* New: New layout option, Grid layout!
+* New: New option for changing location of add to cart form.
+* New: Add support for WooCommerce product import/export.
+* Fix: wc_get_product() should include Mix and Match products
+* Fix: Shipstation integration.
+* Fix: Add blog ID to background updater to resolbve issues with DB updating in a WP MultiSite environment - see https://github.com/woocommerce/woocommerce/pull/18060
+* Fix: Remove <label> from MNM product title
+
+2017.08.17 - version 1.2.5
+* New: Add support for new WooCommerce updater.
+* Fix: PHP 7.1 warnings in cart/checkout.
+* Fix: Chrome change event bug.
+* Fix: Load plugin textdomain on init hook as recommended by Codex.
+* Fix: Re-ordering logic.
+* Fix: PHP Warning for illegal offset type in isset or empty in class-wc-product-mix-and-match.php.
+* Tweak: Middle-align MNM table cells.
+
+2017.06.19 - version 1.2.4
+* Fix: Sanitize NaN child quantity inputs.
+* Fix: Return product title when multi-ship items aren't MNM
+
+2017.05.05 - version 1.2.3
+* Fix: Incorrect MnM sale price strings.
+* Fix: Missing contents data of MnM containers and missing child product attributes when importing orders in Shipstation (Shipstation Integration v4.1.13 required).
+
+2017.04.08 - version 1.2.2
+* Fix: Infinite loop when exporting order data to Shipstation/Shipwire under WC 3.0. Triggered when 'WC_Mix_and_Match_Order::get_order_items' is used as a 'woocommerce_order_get_items' filter callback.
+
+2017.04.07 - version 1.2.1
+* Fix: Parse error on activation.
+* Fix: Fatal error calling method on undefined variable in legacy files
+
+2017.04.02 - version 1.2.0
+* Important: WooCommerce 3.0 support added.
+* Important: WooCommerce 2.3 support dropped.
+* Dev Feature - New global functions for establishing MnM parent/child cart/order item relationships.
+* Feature: Container size may now vary between a minimum/maximum value (feature previously available with the "WooCommerce Mix and Match Min/Max" mini-extension).
+* Feature: It is now possible to save MnM containers as virtual or physical at will. Child items can be shipped individually without being coupled to the "Virtual" status of their container.
+* Feature: It is now possible to save MnM containers as downloadable.
+* Important: Data exported to Shipstation is now physically accurate, based on the shipping configuration of MnM products. Child items are no longer exported as individual items to Shipstation when "Per-Item Shipping" is enabled. Instead, their value (and optionally, weight) is aggregated with the value of their container (assuming it is shipped/non-virtual). Fixes issues with incorrect shipping rate calculations.
+* Tweak: MnM child products that are physically packaged in their container now show up as individual list/option items grouped under their parent in Shipstation packing slips.
+
+2016.11.29 - version 1.1.8
+* Fix: "Fatal error: Function name must be a string in /includes/class-wc-mnm-cart.php on line 879"
+
+2016.09.06 - version 1.1.7
+* Fix: Container quantity validation when ordering multiple quantities of same container
+* Tweak: Add minimum attribute to admin quantity input
+
+2016.08.10 - version 1.1.6
+* Dev: Filter the product types that are allowed in a container
+* Dev: Javascript trigger for price updates
+
+2016.06.28 - version 1.1.5
+* Fix: calculate min/max price/regular_price meta for per-item priced products based on raw, unfiltered prices
+* Tweak: rename Non-Bundled Shipping to Per-Item Shipping
+
+2016.06.02 - version 1.1.4
+* Fix: Shipstation import issues due to PHP warnings in XML file.
+
+2016.04.02 - version 1.1.3
+* Fix: NaN if casting to int when qty input doesn't exist
+* Fix: unified handling of non-purchasable children (display with temporarily unavailable message)
+* Tweak: prevent total quantity from ever being higher than container limit
+
+2016.03.23 - version 1.1.2
+* Tweak: extra JS validation for sold-individually items to prevent inputs from accepting quantities higher than 1
+
+2016.03.11 - version 1.1.1
+* Fix: incorrect error message for containers
+
+201602.17 - version 1.1.0
+* Dev Feature: add filter for error quantity validation message
+* Fix: numerical agreement in error messages
+
+2015.12.16 - version 1.0.9
+* Tweak: leave class "quantity" in place on quantiy input wrapper <div> for better compatibility with themes
+
+2015.12.08 - version 1.0.8
+* Fix: quantity validation with no JS
+* Tweak: better compatibility with Product Addons for per-item pricing MNM products
+
+2015.11.18 - version 1.0.7
+* Fix: Parent containers are sold individually, if contain a product that is sold individually
+* Dev Feature: add meta fields via hook for better extending via satellite plugins
+* Dev Feature: add filter for container size in order item meta
+
+2015.11.09 - version 1.0.6
+* Feature: Ability to define a base price.
+* Fix - Validate quantities on update cart if container includes any items sold individually.
+* Fix - Limit quantity input max to container size.
+* Fix - MnM product prices incl/excl tax according to the 'Display Prices in the Shop' option state.
+
+2015.10.13 - version 1.0.5
+* Feature: - Unlimited Size Containers. Set the container quantity to 0 to allow customers to purchase as many items as they want.
+* Fix: Cart fatal error when a MnM product in the cart is changed to another product type.
+* Fix: Shipstation integration.
+* Dev: Add filters for container and child item validation.
+
+2015.08.21 - version 1.0.4
+* Fix: Quantity formatting in order-details templates.
+* Fix: Ignore `is_purchasable()` for child items in container with static pricing.
+* Tweak: better animation of WooCommerce messages.
+* Tweak: better formatting of attribute labels.
+
+2015.07.23 - version 1.0.3
+* Fix: `get_price_suffix()` strict standards error with WC 2.4.
+* Tweak: add `woocommerce-info` class to `mnm_message` div that communicates quantity and totals required.
+* Tweak: add `cart_group` class to `form.cart` for better Product Addons support.
+
+2015.06.11 - version 1.0.2
+* Fix: Correct template version numbers.
+* Fix: Revised indentation of bundled items in cart/orders, etc.
+* Fix: Improved compatibility with weight/value-based shipping methods.
+* Fix: ShipStation compatibility.
+* Dev Feature: When "Non-Bundled Shipping" is unchecked, allow mixed products' weights to be added to the container weight by using the 'woocommerce_mnm_item_has_bundled_weight' filter.
+* Fix: Price Filter widget range now takes into account MnM prices correctly.
+
+2015.04.29 - version 1.0.1
+* Fix: PHP 5.2 compatibility.
+
+ 2015.04.20 - version 1.0.0
+* Initial Release.
