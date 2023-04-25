@@ -22,7 +22,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
@@ -68,18 +67,8 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         // in the parent class as needed and in the context of the parent it's the parent
         // one that's called
         self::initialize_static_variables();
-        if (!\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::is_stringable($key)) {
-            throw new \UnexpectedValueException('Key should be a string - not a ' . \gettype($key));
-        }
-        $isPublic = \strpos($key, 'PUBLIC') !== \false;
         $key = parent::load($key, $password);
         $type = isset($key['privateKey']) ? 'privateKey' : 'publicKey';
-        switch (\true) {
-            case !$isPublic && $type == 'publicKey':
-                throw new \UnexpectedValueException('Human readable string claims non-public key but DER encoded string claims public key');
-            case $isPublic && $type == 'privateKey':
-                throw new \UnexpectedValueException('Human readable string claims public key but DER encoded string claims private key');
-        }
         switch ($key[$type . 'Algorithm']['algorithm']) {
             case 'id-Ed25519':
             case 'id-Ed448':
@@ -95,7 +84,7 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         }
         $components = [];
         $components['curve'] = self::loadCurveByParam($params);
-        if ($isPublic) {
+        if ($type == 'publicKey') {
             $components['QA'] = self::extractPoint("\0" . $key['publicKey'], $components['curve']);
             return $components;
         }

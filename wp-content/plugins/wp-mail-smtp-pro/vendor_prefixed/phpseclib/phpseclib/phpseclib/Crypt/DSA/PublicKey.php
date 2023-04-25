@@ -18,7 +18,7 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Signature\ASN1 as ASN1Signatu
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DSA implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PublicKey
+final class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DSA implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PublicKey
 {
     use Common\Traits\Fingerprint;
     /**

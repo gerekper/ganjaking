@@ -3,6 +3,8 @@
 namespace WPMailSMTP\Pro\Emails\Logs;
 
 use WPMailSMTP\WP;
+use Exception;
+use DateTime;
 
 /**
  * Class Email represents single email log entry.
@@ -443,8 +445,9 @@ class Email {
 	 *
 	 * @since 1.5.0
 	 * @since 2.6.0 Added UTC timezone.
+	 * @since 3.8.0 Handle cases where `$this->date_sent` is a `DateTime` object.
 	 *
-	 * @return \DateTime
+	 * @return DateTime
 	 * @throws \Exception Emits exception on incorrect date.
 	 */
 	public function get_date_sent() {
@@ -453,7 +456,8 @@ class Email {
 		$date     = false;
 
 		if ( ! empty( $this->date_sent ) ) {
-			$date = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_sent, $timezone );
+			$date_sent_string = is_a( $this->date_sent, DateTime::class ) ? $this->date_sent->format( WP::datetime_mysql_format() ) : $this->date_sent;
+			$date             = DateTime::createFromFormat( WP::datetime_mysql_format(), $date_sent_string, $timezone );
 		}
 
 		if ( $date === false ) {
@@ -855,6 +859,22 @@ class Email {
 		}
 
 		$this->initiator_name = $initiator->get_name();
+
+		return $this;
+	}
+
+	/**
+	 * Set the initiator name.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param string $name Initiator name.
+	 *
+	 * @return Email
+	 */
+	public function set_initiator_name( $name ) {
+
+		$this->initiator_name = $name;
 
 		return $this;
 	}

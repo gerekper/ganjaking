@@ -108,7 +108,7 @@ class SignatureProvider
                 case 'v4':
                     return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region);
                 case 'v4a':
-                    return new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['use_v4a' => \true]);
+                    return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region, ['use_v4a' => \true]) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['use_v4a' => \true]);
                 case 'v4-unsigned-body':
                     return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region, ['unsigned-body' => 'true']) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['unsigned-body' => 'true']);
                 case 'bearer':

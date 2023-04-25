@@ -77,7 +77,7 @@ abstract class PuTTY extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         }
         $public = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('iiii', $p, $q, $g, $y);
         $private = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('i', $x);
-        return self::wrapPrivateKey($public, $private, 'ssh-dsa', $password, $options);
+        return self::wrapPrivateKey($public, $private, 'ssh-dss', $password, $options);
     }
     /**
      * Convert a public key to the appropriate format
@@ -93,6 +93,6 @@ abstract class PuTTY extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         if ($q->getLength() != 160) {
             throw new \InvalidArgumentException('SSH only supports keys with an N (length of Group Order q) of 160');
         }
-        return self::wrapPublicKey(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('iiii', $p, $q, $g, $y), 'ssh-dsa');
+        return self::wrapPublicKey(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('iiii', $p, $q, $g, $y), 'ssh-dss');
     }
 }

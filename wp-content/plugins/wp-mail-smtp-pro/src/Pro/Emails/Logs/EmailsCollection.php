@@ -41,6 +41,8 @@ class EmailsCollection implements \Countable, \Iterator {
 		'people',
 		'headers',
 		'content',
+		'error_text',
+		'source',
 	];
 
 	/**
@@ -94,6 +96,24 @@ class EmailsCollection implements \Countable, \Iterator {
 
 		$this->set_per_page();
 		$this->params = $this->process_params( $params );
+	}
+
+	/**
+	 * Returns an array of allowed search conditions for email logs.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return array
+	 */
+	public static function get_search_conditions() {
+
+		return [
+			'people'     => esc_html__( 'Email Addresses', 'wp-mail-smtp-pro' ),
+			'headers'    => esc_html__( 'Subject & Headers', 'wp-mail-smtp-pro' ),
+			'content'    => esc_html__( 'Content', 'wp-mail-smtp-pro' ),
+			'error_text' => esc_html__( 'Error Message', 'wp-mail-smtp-pro' ),
+			'source'     => esc_html__( 'Source', 'wp-mail-smtp-pro' ),
+		];
 	}
 
 	/**
@@ -331,6 +351,14 @@ class EmailsCollection implements \Countable, \Iterator {
 						           '%' . $wpdb->esc_like( $this->params['search']['term'] ) . '%'
 					           )
 					           . ')';
+					break;
+
+				case 'error_text':
+					$where[] = $wpdb->prepare( 'error_text LIKE %s', '%' . $wpdb->esc_like( $this->params['search']['term'] ) . '%' );
+					break;
+
+				case 'source':
+					$where[] = $wpdb->prepare( 'initiator_name LIKE %s', '%' . $wpdb->esc_like( $this->params['search']['term'] ) . '%' );
 					break;
 			}
 		}

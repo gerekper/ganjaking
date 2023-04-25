@@ -3,7 +3,7 @@
 Plugin Name: SeedProd Pro
 Plugin URI: https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=plugin-uri-link
 Description: The Easiest WordPress Drag & Drop Page Builder that allows you to build your webiste, create Landing Pages, Coming Soon Pages, Maintenance Mode Pages and more.
-Version:  6.15.11
+Version:  6.15.12
 Author: SeedProd
 Author URI: https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=author-uri-link
 Text Domain: seedprod-pro
@@ -17,7 +17,7 @@ License: GPLv2 or later
 
 define( 'SEEDPROD_PRO_BUILD', 'pro' );
 define( 'SEEDPROD_PRO_SLUG', 'seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php' );
-define( 'SEEDPROD_PRO_VERSION', '6.15.11' );
+define( 'SEEDPROD_PRO_VERSION', '6.15.12' );
 define( 'SEEDPROD_PRO_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 // Example output: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/seedprod/
 define( 'SEEDPROD_PRO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

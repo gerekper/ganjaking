@@ -190,7 +190,7 @@ class RulesetStandardLibrary
         }
         $arn = [];
         $parts = \explode(':', $arnString, 6);
-        if (\sizeof($parts) > 6) {
+        if (\sizeof($parts) < 6) {
             return null;
         }
         $arn['partition'] = isset($parts[1]) ? $parts[1] : null;
@@ -202,8 +202,7 @@ class RulesetStandardLibrary
             return null;
         }
         $resource = $arn['resourceId'];
-        $delimiter = \strpos($resource, ':') !== \false ? ':' : '/';
-        $arn['resourceId'] = \explode($delimiter, $resource);
+        $arn['resourceId'] = \preg_split("/[:\\/]/", $resource);
         return $arn;
     }
     /**

@@ -90,7 +90,7 @@ abstract class EvalBarrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger
                 $lhs = new ' . $class . '();
                 $rhs = new ' . $class . '();
                 $lhs->value = $n;
-                $rhs->value = [' . \implode(',', \array_map('self::float2string', $m)) . '];
+                $rhs->value = [' . \implode(',', \array_map(self::class . '::float2string', $m)) . '];
                 list(, $temp) = $lhs->divide($rhs);
                 return $temp->value;
             }

@@ -36,6 +36,7 @@ class Options extends OptionsAbstract {
 		'in'     => 'India (IN)',
 		'com.cn' => 'China (CN)',
 		'com.au' => 'Australia (AU)',
+		'jp'     => 'Japan (JP)',
 	];
 
 	/**

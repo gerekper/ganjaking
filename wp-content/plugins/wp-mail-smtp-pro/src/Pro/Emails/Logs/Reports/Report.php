@@ -168,8 +168,8 @@ class Report {
 	private function get_default_params() {
 
 		return [
-			'order'   => 'ASC',
-			'orderby' => 'subject',
+			'order'   => 'DESC',
+			'orderby' => 'total',
 		];
 	}
 
@@ -479,6 +479,62 @@ class Report {
 	}
 
 	/**
+	 * Get sent emails percent.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param array $item Stats item.
+	 *
+	 * @return int
+	 */
+	public function get_sent_percent_count( $item ) {
+
+		return $this->get_percentage( $this->get_sent_count( $item ), $item['total'] );
+	}
+
+	/**
+	 * Get confirmed emails percent.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param array $item Stats item.
+	 *
+	 * @return int
+	 */
+	public function get_confirmed_percent_count( $item ) {
+
+		return $this->get_percentage( $this->get_confirmed_count( $item ), $item['total'] );
+	}
+
+	/**
+	 * Get unconfirmed emails percent.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param array $item Stats item.
+	 *
+	 * @return int
+	 */
+	public function get_unconfirmed_percent_count( $item ) {
+
+		return $this->get_percentage( $this->get_unconfirmed_count( $item ), $item['total'] );
+	}
+
+	/**
+	 * Get failed emails percent.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param array $item Stats item.
+	 *
+	 * @return int
+	 */
+	public function get_unsent_percent_count( $item ) {
+
+		return $this->get_percentage( $this->get_unsent_count( $item ), $item['total'] );
+	}
+
+	/**
 	 * Get opened emails percent.
 	 *
 	 * @since 3.0.0
@@ -489,7 +545,7 @@ class Report {
 	 */
 	public function get_open_percent_count( $item ) {
 
-		return ! empty( $item['total'] ) ? intval( $item['open_count'] / $item['total'] * 100 ) : 0;
+		return $this->get_percentage( $this->get_open_count( $item ), $item['total'] );
 	}
 
 	/**
@@ -503,7 +559,22 @@ class Report {
 	 */
 	public function get_click_percent_count( $item ) {
 
-		return ! empty( $item['total'] ) ? intval( $item['click_count'] / $item['total'] * 100 ) : 0;
+		return $this->get_percentage( $this->get_click_count( $item ), $item['total'] );
+	}
+
+	/**
+	 * Get the percent of a count relative to the total.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param int $count Count to get the percent of.
+	 * @param int $total Total count.
+	 *
+	 * @return int
+	 */
+	private function get_percentage( $count, $total ) {
+
+		return ! empty( $total ) ? intval( $count / $total * 100 ) : 0;
 	}
 
 	/**

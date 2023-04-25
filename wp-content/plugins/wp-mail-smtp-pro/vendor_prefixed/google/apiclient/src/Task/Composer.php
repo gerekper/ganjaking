@@ -18,9 +18,9 @@
 namespace WPMailSMTP\Vendor\Google\Task;
 
 use WPMailSMTP\Vendor\Composer\Script\Event;
+use InvalidArgumentException;
 use WPMailSMTP\Vendor\Symfony\Component\Filesystem\Filesystem;
 use WPMailSMTP\Vendor\Symfony\Component\Finder\Finder;
-use InvalidArgumentException;
 class Composer
 {
     /**

@@ -21,6 +21,7 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 		$timespanSelect: $( '.wp-mail-smtp-filter-date select[name="timespan"]' ),
 		$dateInput: $( '.wp-mail-smtp-filter-date input[name="date"]' ),
 		$reportsTitle: $( '.wp-mail-smtp-email-reports__title' ),
+		$spinner: $( '.wp-mail-smtp-email-reports .spinner' ),
 	};
 
 	/**
@@ -460,7 +461,14 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 				timespan = el.$timespanSelect.val(),
 				date = el.$dateInput.val();
 
-			$icon.addClass( 'wp-mail-smtp-loading-spin' );
+			// Display spinnner in graph.
+			el.$spinner.removeClass( 'wp-mail-smtp-hide' );
+
+			// Update table state.
+			$tableRow.addClass( 'wp-mail-smtp-active-row' );
+
+			$toggleButton.addClass( 'dismiss-single-stats' );
+			$icon.removeClass( 'dashicons-chart-line' ).addClass( 'dashicons-dismiss' );
 
 			app.loadSingleStats( subject, timespan, date ).done( function( data ) {
 
@@ -472,18 +480,8 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 				app.updateTotalsUI( data.totals );
 				chart.updateUI( data.by_date_chart_data );
 
-				// Update table state.
-				$tableRow.addClass( 'wp-mail-smtp-active-row' );
-
-				$toggleButton.addClass( 'dismiss-single-stats' );
-				$icon.removeClass( 'dashicons-chart-line' ).addClass( 'dashicons-dismiss' );
-
-				// Scroll to top.
-				$( 'html, body' ).animate( {
-					scrollTop: $( '.wp-mail-smtp-email-reports' ).offset().top - 50
-				}, 500 );
-			} ).always( function() {
-				$icon.removeClass( 'wp-mail-smtp-loading-spin' );
+				// Hide the spinner.
+				el.$spinner.addClass( 'wp-mail-smtp-hide' );
 			} );
 		},
 

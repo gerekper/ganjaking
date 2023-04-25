@@ -16,7 +16,7 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class Parameters extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
+final class Parameters extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
 {
     /**
      * Returns the parameters

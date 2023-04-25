@@ -250,6 +250,19 @@ class Webhooks {
 			$options = Options::init();
 			$mailer  = $provider->get_mailer_name();
 
+			if ( isset( $data[ $mailer ] ) ) {
+				$non_settings_keys = [
+					'webhooks_setup',
+					'additional_message_streams', // postmark.
+				];
+
+				foreach ( $non_settings_keys as $key ) {
+					if ( isset( $data[ $mailer ][ $key ] ) ) {
+						unset( $data[ $mailer ][ $key ] );
+					}
+				}
+			}
+
 			if (
 				(
 					$page_slug === 'settings' || $page_slug === 'setup-wizard' &&

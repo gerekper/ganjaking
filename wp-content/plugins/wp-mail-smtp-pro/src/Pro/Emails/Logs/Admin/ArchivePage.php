@@ -219,6 +219,16 @@ class ArchivePage extends PageAbstract {
 				$place = esc_html__( 'Content', 'wp-mail-smtp-pro' );
 				$verb  = esc_html__( 'contains', 'wp-mail-smtp-pro' );
 				break;
+
+			case 'error_text':
+				$place = esc_html__( 'Error Message', 'wp-mail-smtp-pro' );
+				$verb  = esc_html__( 'contains', 'wp-mail-smtp-pro' );
+				break;
+
+			case 'source':
+				$place = esc_html__( 'Source', 'wp-mail-smtp-pro' );
+				$verb  = esc_html__( 'contains', 'wp-mail-smtp-pro' );
+				break;
 		}
 
 		return sprintf( /* translators: %1$s - field name; %2$s - verb; %3$s - term. */

@@ -91,6 +91,25 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			app.multisite.bindActions();
 			app.webhooks.bindActions();
 			app.additionalConnections.bindActions();
+
+			// Email Log Importer dismiss admin notice.
+			$( document ).on( 'click', '.notice-wp_mail_logging_importer .notice-dismiss', function( e ) {
+				e.preventDefault();
+
+				var $notice = $( this ).parent( '.notice' );
+
+				if ( $notice.length <= 0 || ! $notice.data( 'nonce' ) ) {
+					return;
+				}
+
+				$.post(
+					ajaxurl,
+					{
+						action: 'wp_mail_smtp_wp_mail_logging_importer_notice_dismiss',
+						nonce: $notice.data( 'nonce' )
+					}
+				);
+			} );
 		},
 
 		/**

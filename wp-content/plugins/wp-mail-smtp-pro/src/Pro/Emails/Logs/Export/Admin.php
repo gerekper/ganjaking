@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Export;
 
+use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\WP;
 use WPMailSMTP\Admin\Pages\ExportTab;
 
@@ -242,15 +243,15 @@ class Admin extends ExportTab {
 		$search = $this->request->get_arg( 'search' );
 		?>
 		<select name="search[place]" class="wp-mail-smtp-search-box-field">
-			<option value="people" <?php selected( 'people', $search['place'] ); ?>>
-				<?php esc_html_e( 'Email Addresses', 'wp-mail-smtp-pro' ); ?>
-			</option>
-			<option value="headers" <?php selected( 'headers', $search['place'] ); ?>>
-				<?php esc_html_e( 'Subject & Headers', 'wp-mail-smtp-pro' ); ?>
-			</option>
-			<option value="content" <?php selected( 'content', $search['place'] ); ?>>
-				<?php esc_html_e( 'Content', 'wp-mail-smtp-pro' ); ?>
-			</option>
+			<?php
+				foreach ( EmailsCollection::get_search_conditions() as $value => $label ) {
+					?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( esc_attr( $value ), $search['place'] ); ?>>
+						<?php echo esc_html( $label ); ?>
+					</option>
+					<?php
+				}
+			?>
 		</select>
 
 		<input type="text" name="search[term]" class="wp-mail-smtp-search-box-term" value="<?php echo esc_attr( $search['term'] ); ?>">

@@ -860,9 +860,13 @@ class Table extends \WP_List_Table {
 		<p class="search-box">
 			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 			<select name="search[place]">
-				<option value="people" <?php selected( 'people', $search_place ); ?>><?php esc_html_e( 'Email Addresses', 'wp-mail-smtp-pro' ); ?></option>
-				<option value="headers" <?php selected( 'headers', $search_place ); ?>><?php esc_html_e( 'Subject & Headers', 'wp-mail-smtp-pro' ); ?></option>
-				<option value="content" <?php selected( 'content', $search_place ); ?>><?php esc_html_e( 'Content', 'wp-mail-smtp-pro' ); ?></option>
+				<?php
+				foreach ( EmailsCollection::get_search_conditions() as $value => $label ) {
+					?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( esc_attr( $value ), $search_place ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php
+				}
+				?>
 			</select>
 			<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="search[term]" value="<?php echo esc_attr( $search_term ); ?>" />
 			<?php submit_button( $text, '', '', false, array( 'id' => 'search-submit' ) ); ?>

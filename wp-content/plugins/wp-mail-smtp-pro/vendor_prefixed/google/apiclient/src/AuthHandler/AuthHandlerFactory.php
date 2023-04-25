@@ -17,9 +17,8 @@
  */
 namespace WPMailSMTP\Vendor\Google\AuthHandler;
 
-use WPMailSMTP\Vendor\GuzzleHttp\Client;
-use WPMailSMTP\Vendor\GuzzleHttp\ClientInterface;
 use Exception;
+use WPMailSMTP\Vendor\GuzzleHttp\ClientInterface;
 class AuthHandlerFactory
 {
     /**

@@ -3,9 +3,9 @@
 namespace WPMailSMTP\Pro\Emails\Logs\Providers;
 
 use WPMailSMTP\MailCatcherInterface;
-use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\Email;
+use WP_Error;
 
 /**
  * Class SMTP to handle saving to log emails sent by "Other SMTP" mailer.
@@ -148,19 +148,24 @@ class SMTP {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param int       $email_id The Email ID.
-	 * @param \WP_Error $error    The WP Error thrown in WP core: `wp_mail_failed` hook.
+	 * @param int             $email_id The Email ID.
+	 * @param WP_Error|string $error    The WP Error or error message.
 	 */
 	public function failed( $email_id, $error ) {
 
-		if ( empty( $email_id ) || empty( $error ) || ! is_wp_error( $error ) ) {
+		if ( empty( $email_id ) || empty( $error ) ) {
 			return;
+		}
+
+		if ( is_wp_error( $error ) ) {
+			$error = $error->get_error_message();
 		}
 
 		try {
 			$email = new Email( $email_id );
+
 			$email
-				->set_error_text( $error->get_error_message() )
+				->set_error_text( $error )
 				->set_status( Email::STATUS_UNSENT )
 				->save();
 		} catch ( \Exception $e ) { //phpcs:ignore

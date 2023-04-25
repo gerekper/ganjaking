@@ -60,7 +60,8 @@ trait MailCatcherTrait {
 			! $is_sent &&
 			! self::$is_backup_connection &&
 			! $this->is_test_email() &&
-			! $this->is_setup_wizard_test_email()
+			! $this->is_setup_wizard_test_email() &&
+			! $this->is_emailing_blocked()
 		) {
 			$backup_connections = wp_mail_smtp()->get_pro()->get_backup_connections();
 

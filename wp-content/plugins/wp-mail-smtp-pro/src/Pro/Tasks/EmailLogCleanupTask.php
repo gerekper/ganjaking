@@ -6,6 +6,8 @@ use DateTime;
 use Exception;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Cleanup as TrackingCleanup;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Cleanup as AttachmentsCleanup;
 use WPMailSMTP\Tasks\Meta;
 use WPMailSMTP\Tasks\Task;
 use WPMailSMTP\Tasks\Tasks;
@@ -66,6 +68,7 @@ class EmailLogCleanupTask extends Task {
 	 * Perform the cleanup action: remove outdated email logs.
 	 *
 	 * @since 2.1.0
+	 * @since 3.8.0 Cleanup orphaned tracking data and attachments.
 	 *
 	 * @param int $meta_id The Meta ID with the stored task parameters.
 	 *
@@ -98,14 +101,49 @@ class EmailLogCleanupTask extends Task {
 			return;
 		}
 
-		$wpdb  = WP::wpdb();
-		$table = Logs::get_table_name();
-		$date  = ( new DateTime( "- $retention_period seconds" ) )->format( WP::datetime_mysql_format() );
+		// This cleanup could take longer depending on the number of orphaned data.
+		set_time_limit( 300 );
+
+		$wpdb = WP::wpdb();
+		$date = ( new DateTime( "- $retention_period seconds" ) )->format( WP::datetime_mysql_format() );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query(
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$wpdb->prepare( "DELETE FROM `$table` WHERE date_sent < %s", $date )
+			$wpdb->prepare(
+				'DELETE FROM `%1$s` WHERE date_sent < "%2$s"', // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
+				Logs::get_table_name(),
+				$date
+			)
 		);
+
+		$this->cleanup_tracking();
+		$this->cleanup_attachments();
+	}
+
+	/**
+	 * Cleanup orphaned tracking data.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return void
+	 */
+	private function cleanup_tracking() {
+
+		$tracking_cleanup = new TrackingCleanup();
+
+		$tracking_cleanup->cleanup_tracking_events();
+		$tracking_cleanup->cleanup_tracking_links();
+	}
+
+	/**
+	 * Cleanup orphaned attachments.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return void
+	 */
+	private function cleanup_attachments() {
+
+		( new AttachmentsCleanup() )->cleanup_attachments();
 	}
 }

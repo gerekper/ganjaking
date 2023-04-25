@@ -26,7 +26,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PublicKey
+final class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PublicKey
 {
     use Common\Traits\Fingerprint;
     /**

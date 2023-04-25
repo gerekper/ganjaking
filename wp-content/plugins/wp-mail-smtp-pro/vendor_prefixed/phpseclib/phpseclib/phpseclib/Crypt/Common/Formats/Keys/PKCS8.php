@@ -285,6 +285,11 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      */
     protected static function load($key, $password = '')
     {
+        if (!\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::is_stringable($key)) {
+            throw new \UnexpectedValueException('Key should be a string - not a ' . \gettype($key));
+        }
+        $isPublic = \strpos($key, 'PUBLIC') !== \false;
+        $isPrivate = \strpos($key, 'PRIVATE') !== \false;
         $decoded = self::preParse($key);
         $meta = [];
         $decrypted = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\EncryptedPrivateKeyInfo::MAP);
@@ -396,6 +401,9 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         }
         $private = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\OneAsymmetricKey::MAP);
         if (\is_array($private)) {
+            if ($isPublic) {
+                throw new \UnexpectedValueException('Human readable string claims public key but DER encoded string claims private key');
+            }
             if (isset($private['privateKeyAlgorithm']['parameters']) && !$private['privateKeyAlgorithm']['parameters'] instanceof \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Element && isset($decoded[0]['content'][1]['content'][1])) {
                 $temp = $decoded[0]['content'][1]['content'][1];
                 $private['privateKeyAlgorithm']['parameters'] = new \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Element(\substr($key, $temp['start'], $temp['length']));
@@ -423,6 +431,9 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         // bit strings wanting a non-zero amount of bits trimmed are not supported
         $public = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\PublicKeyInfo::MAP);
         if (\is_array($public)) {
+            if ($isPrivate) {
+                throw new \UnexpectedValueException('Human readable string claims private key but DER encoded string claims public key');
+            }
             if ($public['publicKey'][0] != "\0") {
                 throw new \UnexpectedValueException('The first byte of the public key should be null - not ' . \bin2hex($public['publicKey'][0]));
             }
@@ -536,9 +547,6 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     private static function preParse(&$key)
     {
         self::initialize_static_variables();
-        if (!\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::is_stringable($key)) {
-            throw new \UnexpectedValueException('Key should be a string - not a ' . \gettype($key));
-        }
         if (self::$format != self::MODE_DER) {
             $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::extractBER($key);
             if ($decoded !== \false) {
@@ -561,6 +569,9 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      */
     public static function extractEncryptionAlgorithm($key)
     {
+        if (!\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::is_stringable($key)) {
+            throw new \UnexpectedValueException('Key should be a string - not a ' . \gettype($key));
+        }
         $decoded = self::preParse($key);
         $r = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\EncryptedPrivateKeyInfo::MAP);
         if (!\is_array($r)) {

@@ -3,8 +3,8 @@
 namespace WPMailSMTP\Vendor\Google\AuthHandler;
 
 use WPMailSMTP\Vendor\Google\Auth\CredentialsLoader;
-use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use WPMailSMTP\Vendor\Google\Auth\FetchAuthTokenCache;
+use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use WPMailSMTP\Vendor\Google\Auth\Subscriber\AuthTokenSubscriber;
 use WPMailSMTP\Vendor\Google\Auth\Subscriber\ScopedAccessTokenSubscriber;
 use WPMailSMTP\Vendor\Google\Auth\Subscriber\SimpleSubscriber;
@@ -12,8 +12,8 @@ use WPMailSMTP\Vendor\GuzzleHttp\Client;
 use WPMailSMTP\Vendor\GuzzleHttp\ClientInterface;
 use WPMailSMTP\Vendor\Psr\Cache\CacheItemPoolInterface;
 /**
-*
-*/
+ * This supports Guzzle 5
+ */
 class Guzzle5AuthHandler
 {
     protected $cache;

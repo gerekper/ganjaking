@@ -16,7 +16,7 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\EC;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class Parameters extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC
+final class Parameters extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC
 {
     /**
      * Returns the parameters

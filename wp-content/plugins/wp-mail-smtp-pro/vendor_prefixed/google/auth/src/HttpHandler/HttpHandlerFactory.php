@@ -17,8 +17,11 @@
  */
 namespace WPMailSMTP\Vendor\Google\Auth\HttpHandler;
 
+use WPMailSMTP\Vendor\GuzzleHttp\BodySummarizer;
 use WPMailSMTP\Vendor\GuzzleHttp\Client;
 use WPMailSMTP\Vendor\GuzzleHttp\ClientInterface;
+use WPMailSMTP\Vendor\GuzzleHttp\HandlerStack;
+use WPMailSMTP\Vendor\GuzzleHttp\Middleware;
 class HttpHandlerFactory
 {
     /**
@@ -30,7 +33,17 @@ class HttpHandlerFactory
      */
     public static function build(\WPMailSMTP\Vendor\GuzzleHttp\ClientInterface $client = null)
     {
-        $client = $client ?: new \WPMailSMTP\Vendor\GuzzleHttp\Client();
+        if (\is_null($client)) {
+            $stack = null;
+            if (\class_exists(\WPMailSMTP\Vendor\GuzzleHttp\BodySummarizer::class)) {
+                // double the # of characters before truncation by default
+                $bodySummarizer = new \WPMailSMTP\Vendor\GuzzleHttp\BodySummarizer(240);
+                $stack = \WPMailSMTP\Vendor\GuzzleHttp\HandlerStack::create();
+                $stack->remove('http_errors');
+                $stack->unshift(\WPMailSMTP\Vendor\GuzzleHttp\Middleware::httpErrors($bodySummarizer), 'http_errors');
+            }
+            $client = new \WPMailSMTP\Vendor\GuzzleHttp\Client(['handler' => $stack]);
+        }
         $version = null;
         if (\defined('WPMailSMTP\\Vendor\\GuzzleHttp\\ClientInterface::MAJOR_VERSION')) {
             $version = \WPMailSMTP\Vendor\GuzzleHttp\ClientInterface::MAJOR_VERSION;

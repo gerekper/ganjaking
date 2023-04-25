@@ -10,6 +10,8 @@ use WPMailSMTP\Vendor\Psr\Http\Message\StreamInterface;
 class HashingStream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamInterface
 {
     use StreamDecoratorTrait;
+    /** @var StreamInterface */
+    private $stream;
     /** @var HashInterface */
     private $hash;
     /** @var callable|null */

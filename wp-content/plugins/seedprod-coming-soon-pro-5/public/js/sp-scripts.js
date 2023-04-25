@@ -1199,3 +1199,8 @@ jQuery(".sp-businessreview-wrapper").mouseleave(function () {
     }, speed);
   }
 });
+
+function seedprod_particlessectionjs(blockId, particlesconfig) {
+  var particlesJSON = particlesconfig;
+  particlesJS("tsparticles-preview-sp-" + blockId, particlesJSON);
+}

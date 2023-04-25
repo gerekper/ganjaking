@@ -15,11 +15,9 @@ class SsoTokenProvider implements \WPMailSMTP\Vendor\Aws\Token\RefreshableTokenP
     private $filename;
     private $ssoOidcClient;
     /**
-     * Constructs a new SSO token object, with the specified AWS
-     * token
-     *
-     * @param string $token   Security token to use
-     * @param int    $expires UNIX timestamp for when the token expires
+     * Constructs a new SsoTokenProvider object, which will fetch a token from an authenticated SSO profile
+     * @param string $ssoProfileName The name of the profile that contains the sso_session key
+     * @param int    $filename Name of the config file to sso profile from
      */
     public function __construct($ssoProfileName, $filename = null, $ssoOidcClient = null)
     {
@@ -37,7 +35,7 @@ class SsoTokenProvider implements \WPMailSMTP\Vendor\Aws\Token\RefreshableTokenP
     {
         return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
             if (!@\is_readable($this->filename)) {
-                throw new \WPMailSMTP\Vendor\Aws\Exception\TokenException("Cannot read token from {$this->filename}");
+                throw new \WPMailSMTP\Vendor\Aws\Exception\TokenException("Cannot read profiles from {$this->filename}");
             }
             $profiles = self::loadProfiles($this->filename);
             if (!isset($profiles[$this->ssoProfileName])) {
@@ -112,7 +110,7 @@ class SsoTokenProvider implements \WPMailSMTP\Vendor\Aws\Token\RefreshableTokenP
      */
     public static function getTokenLocation($sso_session)
     {
-        return self::getHomeDir() . '/.aws/sso/cache/' . \utf8_encode(\sha1($sso_session)) . ".json";
+        return self::getHomeDir() . '/.aws/sso/cache/' . \mb_convert_encoding(\sha1($sso_session), "UTF-8") . ".json";
     }
     /**
      * @param $tokenLocation

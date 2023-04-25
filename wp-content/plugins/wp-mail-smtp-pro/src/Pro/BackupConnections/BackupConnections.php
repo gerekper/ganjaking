@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\BackupConnections;
 
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\BackupConnections\Admin\SettingsTab;
 use WPMailSMTP\Pro\WPMailArgs;
@@ -21,6 +22,15 @@ class BackupConnections {
 	 * @var WPMailArgs
 	 */
 	private $current_wp_mail_args;
+
+	/**
+	 * Latest backup connection that was used for current email sending.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @var ConnectionInterface
+	 */
+	private $latest_backup_connection;
 
 	/**
 	 * Register hooks.
@@ -77,7 +87,21 @@ class BackupConnections {
 			}
 		}
 
+		$this->latest_backup_connection = $backup_connection;
+
 		return $args;
+	}
+
+	/**
+	 * Get the latest backup connection.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return ConnectionInterface|null
+	 */
+	public function get_latest_backup_connection() {
+
+		return $this->latest_backup_connection;
 	}
 
 	/**

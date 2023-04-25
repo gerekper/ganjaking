@@ -216,7 +216,7 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 				SEEDPROD_PRO_VERSION,
 				true
 			);
-			//wp_enqueue_script( 'seedprod-animate-dynamic-css' );
+			// wp_enqueue_script( 'seedprod-animate-dynamic-css' );
 
 			// Load WPForms CSS assets.
 			if ( function_exists( 'wpforms' ) ) {
@@ -275,9 +275,9 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 		}
 
 		$allow_google_fonts = apply_filters( 'seedprod_allow_google_fonts', true );
-		if( $allow_google_fonts ) {
-        	wp_enqueue_style('seedprod-google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&display=swap', false); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
-        }
+		if ( $allow_google_fonts ) {
+			wp_enqueue_style( 'seedprod-google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&display=swap', false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		}
 
 		wp_enqueue_style(
 			'seedprod-fontawesome',
@@ -300,7 +300,14 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 		wp_enqueue_editor();
 	}
 
-
+	wp_register_script(
+		'seedprod-tsparticles-js',
+		SEEDPROD_PRO_PLUGIN_URL . 'public/js/tsparticles.min.js',
+		array( 'jquery' ),
+		SEEDPROD_PRO_VERSION,
+		false
+	);
+	wp_enqueue_script( 'seedprod-tsparticles-js' );
 
 	wp_register_script(
 		'seedprod-xd-localstorage',

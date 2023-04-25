@@ -5,9 +5,6 @@ namespace WPMailSMTP\Vendor\Aws;
 use WPMailSMTP\Vendor\Aws\Api\ApiProvider;
 use WPMailSMTP\Vendor\Aws\Api\DocModel;
 use WPMailSMTP\Vendor\Aws\Api\Service;
-use WPMailSMTP\Vendor\Aws\ClientSideMonitoring\ApiCallAttemptMonitoringMiddleware;
-use WPMailSMTP\Vendor\Aws\ClientSideMonitoring\ApiCallMonitoringMiddleware;
-use WPMailSMTP\Vendor\Aws\ClientSideMonitoring\ConfigurationProvider;
 use WPMailSMTP\Vendor\Aws\EndpointDiscovery\EndpointDiscoveryMiddleware;
 use WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2;
 use WPMailSMTP\Vendor\Aws\Signature\SignatureProvider;
@@ -226,6 +223,9 @@ class AwsClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
         $this->addStreamRequestPayload();
         $this->addRecursionDetection();
         $this->addRequestBuilder();
+        if (!$config['suppress_php_deprecation_warning']) {
+            $this->emitDeprecationWarning();
+        }
         if (isset($args['with_resolved'])) {
             $args['with_resolved']($config);
         }
@@ -491,6 +491,14 @@ class AwsClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
     protected function isUseEndpointV2()
     {
         return $this->endpointProvider instanceof \WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2;
+    }
+    public static function emitDeprecationWarning()
+    {
+        $phpVersion = \PHP_VERSION_ID;
+        if ($phpVersion < 70205) {
+            $phpVersionString = \phpversion();
+            @\trigger_error("This installation of the SDK is using PHP version" . " {$phpVersionString}, which will be deprecated on August" . " 15th, 2023.  Please upgrade your PHP version to a minimum of" . " 7.2.5 before then to continue receiving updates to the AWS" . " SDK for PHP.  To disable this warning, set" . " suppress_php_deprecation_warning to true on the client constructor" . " or set the environment variable AWS_SUPPRESS_PHP_DEPRECATION_WARNING" . " to true.", \E_USER_DEPRECATED);
+        }
     }
     /**
      * Returns a service model and doc model with any necessary changes

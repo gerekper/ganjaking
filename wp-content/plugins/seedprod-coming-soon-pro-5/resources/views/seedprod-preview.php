@@ -71,6 +71,7 @@ $include_counter_sdk                 = false;
 $include_seedprod_image_lightbox_sdk = false;
 $include_beforeaftertoggle_sdk       = false;
 $include_hotspot_sdk                 = false;
+$include_particles_sdk      		 = false;
 
 
 
@@ -151,6 +152,11 @@ if ( strpos( $settings_str, 'counter' ) !== false ) {
 if ( strpos( $settings_str, 'hotspot' ) !== false ) {
 	$include_hotspot_sdk = true;
 }
+
+if ( strpos( $settings_str, 'particleBg' ) !== false ) {
+	$include_particles_sdk = true;
+}
+
 
 
 
@@ -473,6 +479,15 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 <script src="<?php echo esc_url( $plugin_url ); ?>public/js/dynamic-text.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 	<?php
 	
+	?>
+
+	<?php
+	if ( true === $include_particles_sdk ) {
+		?>
+<script src="<?php echo esc_url( $plugin_url ); ?>public/js/tsparticles.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+
+		<?php
+	}
 	?>
 
 

@@ -917,11 +917,11 @@ class Logs {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param WP_Error $error The WP Error thrown in WP core: `wp_mail_failed` hook.
+	 * @param WP_Error|string $error The WP Error or error message.
 	 */
 	public function process_smtp_fails( $error ) {
 
-		if ( ! $this->is_valid_db() || ! is_wp_error( $error ) ) {
+		if ( ! $this->is_valid_db() || empty( $error ) ) {
 			return;
 		}
 

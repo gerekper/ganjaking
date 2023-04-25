@@ -146,7 +146,11 @@ class Table extends \WP_List_Table {
 	 */
 	public function column_sent_count( $item ) {
 
-		return $this->report->get_sent_count( $item );
+		return sprintf(
+			'%1$d <span>(%2$d%%)</span>',
+			$this->report->get_sent_count( $item ),
+			$this->report->get_sent_percent_count( $item )
+		);
 	}
 
 	/**
@@ -160,7 +164,11 @@ class Table extends \WP_List_Table {
 	 */
 	public function column_confirmed_count( $item ) {
 
-		return $this->report->get_confirmed_count( $item );
+		return sprintf(
+			'%1$d <span>(%2$d%%)</span>',
+			$this->report->get_confirmed_count( $item ),
+			$this->report->get_confirmed_percent_count( $item )
+		);
 	}
 
 	/**
@@ -174,7 +182,11 @@ class Table extends \WP_List_Table {
 	 */
 	public function column_unconfirmed_count( $item ) {
 
-		return $this->report->get_unconfirmed_count( $item );
+		return sprintf(
+			'%1$d <span>(%2$d%%)</span>',
+			$this->report->get_unconfirmed_count( $item ),
+			$this->report->get_unconfirmed_percent_count( $item )
+		);
 	}
 
 	/**
@@ -188,7 +200,11 @@ class Table extends \WP_List_Table {
 	 */
 	public function column_unsent_count( $item ) {
 
-		return $this->report->get_unsent_count( $item );
+		return sprintf(
+			'%1$d <span>(%2$d%%)</span>',
+			$this->report->get_unsent_count( $item ),
+			$this->report->get_unsent_percent_count( $item )
+		);
 	}
 
 	/**
@@ -240,7 +256,7 @@ class Table extends \WP_List_Table {
 	public function column_graph( $item ) {
 
 		return sprintf(
-			'<button type="button" class="js-wp-mail-smtp-toggle-single-stats" data-subject="%s"><i class="dashicons dashicons-chart-line"></i></button>',
+			'<div class="wp-mail-smtp-toggle-single-stats-btn-container"><button type="button" class="js-wp-mail-smtp-toggle-single-stats" data-subject="%s"><i class="dashicons dashicons-chart-line"></i></button></div>',
 			esc_attr( $item['subject'] )
 		);
 	}

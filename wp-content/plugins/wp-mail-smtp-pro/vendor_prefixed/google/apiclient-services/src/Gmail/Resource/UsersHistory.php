@@ -23,7 +23,7 @@ use WPMailSMTP\Vendor\Google\Service\Gmail\ListHistoryResponse;
  * Typical usage is:
  *  <code>
  *   $gmailService = new Google\Service\Gmail(...);
- *   $history = $gmailService->history;
+ *   $history = $gmailService->users_history;
  *  </code>
  */
 class UsersHistory extends \WPMailSMTP\Vendor\Google\Service\Resource

@@ -40,9 +40,9 @@ class PrimeField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
      */
     public function __construct(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $modulo)
     {
-        //if (!$modulo->isPrime()) {
-        //    throw new \UnexpectedValueException('PrimeField requires a prime number be passed to the constructor');
-        //}
+        if (!$modulo->isPrime()) {
+            throw new \UnexpectedValueException('PrimeField requires a prime number be passed to the constructor');
+        }
         $this->instanceID = self::$instanceCounter++;
         \WPMailSMTP\Vendor\phpseclib3\Math\PrimeField\Integer::setModulo($this->instanceID, $modulo);
         \WPMailSMTP\Vendor\phpseclib3\Math\PrimeField\Integer::setRecurringModuloFunction($this->instanceID, $modulo->createRecurringModuloFunction());

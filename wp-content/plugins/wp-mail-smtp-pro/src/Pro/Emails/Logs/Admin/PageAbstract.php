@@ -78,6 +78,24 @@ abstract class PageAbstract extends \WPMailSMTP\Admin\PageAbstract {
 	public function display_logging_not_installed() {
 
 		$error_message = get_option( Migration::ERROR_OPTION_NAME );
+
+		$create_missing_tables_url = wp_nonce_url(
+			add_query_arg(
+				[
+					'create-missing-db-tables' => 1,
+				],
+				wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' )
+			),
+			Area::SLUG . '-create-missing-db-tables'
+		);
+
+		$contact_support_url = wp_mail_smtp()->get_utm_url(
+			'https://wpmailsmtp.com/account/support/',
+			[
+				'medium'  => 'email-logs',
+				'content' => 'Email Log not installed correctly',
+			]
+		);
 		?>
 
 		<div class="wp-mail-smtp-logs-note errored">
@@ -86,11 +104,37 @@ abstract class PageAbstract extends \WPMailSMTP\Admin\PageAbstract {
 			<p>
 				<?php
 				if ( ! empty( $error_message ) ) {
-					esc_html_e( 'The database table was not installed correctly. Please contact plugin support to diagnose and fix the issue. Provide them the error message below:', 'wp-mail-smtp-pro' );
+					echo wp_kses(
+						sprintf( /* translators: %1$s - create missing tables link; %2$s - contact support link. */
+							__( 'WP Mail SMTP is using custom database tables for some of its features. In order to work properly, the custom tables should be created, and it seems they are missing. Please try to <a href="%1$s">create the missing DB tables by clicking on this link</a>. If this issue persists, please <a href="%2$s" target="_blank" rel="noopener noreferrer">contact our support</a> and provide the error message bellow:', 'wp-mail-smtp-pro' ),
+							esc_url( $create_missing_tables_url ),
+							esc_url( $contact_support_url )
+						),
+						[
+							'a' => [
+								'href'   => [],
+								'target' => [],
+								'rel'    => [],
+							],
+						]
+					);
 					echo '<br><br>';
 					echo '<code>' . esc_html( $error_message ) . '</code>';
 				} else {
-					esc_html_e( 'For some reason the database table was not installed correctly. Please contact plugin support team to diagnose and fix the issue.', 'wp-mail-smtp-pro' );
+					echo wp_kses(
+						sprintf( /* translators: %1$s - create missing tables link; %2$s - contact support link. */
+							__( 'WP Mail SMTP is using custom database tables for some of its features. In order to work properly, the custom tables should be created, and it seems they are missing. Please try to <a href="%1$s">create the missing DB tables by clicking on this link</a>. If this issue persists, please <a href="%2$s" target="_blank" rel="noopener noreferrer">contact our support</a>.', 'wp-mail-smtp-pro' ),
+							esc_url( $create_missing_tables_url ),
+							esc_url( $contact_support_url )
+						),
+						[
+							'a' => [
+								'href'   => [],
+								'target' => [],
+								'rel'    => [],
+							],
+						]
+					);
 				}
 				?>
 				<br><br>

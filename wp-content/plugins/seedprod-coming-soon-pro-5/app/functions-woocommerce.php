@@ -87,7 +87,9 @@ function seedprod_pro_get_woocommerce_products() {
 		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 			// Fetch Products.
 			$args = array(
-				'status' => 'publish',
+				'status'   => 'publish',
+				'limit'    => -1,
+				'paginate' => false,
 			);
 
 			$p = wc_get_products( $args );

@@ -25,7 +25,7 @@ use WPMailSMTP\Vendor\Google\Service\Gmail\Message;
  * Typical usage is:
  *  <code>
  *   $gmailService = new Google\Service\Gmail(...);
- *   $drafts = $gmailService->drafts;
+ *   $drafts = $gmailService->users_drafts;
  *  </code>
  */
 class UsersDrafts extends \WPMailSMTP\Vendor\Google\Service\Resource

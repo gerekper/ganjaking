@@ -403,6 +403,17 @@ $seedprod_pro_block_templates = '
       "topfront":false
    },
    "section":{
+      "particleBg":false,
+      "particleStyle":"default",
+      "customParticlesJSON":"",
+      "particlesOpacity":"0.5",
+      "particlesFlowDirection":"left",
+      "particlesAdvanceSettings":false,
+      "particlesDotColor":"",
+      "numParticles":"",
+      "sizeParticles":"",
+      "moveParticlesSpeed":10,
+      "particlesHoverEffect":true,
       "bgStyle": "s",
       "bgGradient":{ "type": "linear","position": "center", "angle": 0,"color1":"","color1location":0,"color2":"","color2location":100 },
       "contentWidth":1,
@@ -2361,7 +2372,7 @@ $seedprod_pro_block_templates = '
     },
     "spacer": {
       "height": 60,
-      "height_mobile": 60
+      "height_mobile": 10
     },
     "accordion":{
       "spaceBetween":"24",
@@ -2984,6 +2995,7 @@ $seedprod_pro_block_templates = '
                 { "icon": "fab fa-twitter","txt": "Twitter", "txtlink":"#", "bgcolor":"", "color":"" }
                 ],
       "imagesrc": "",
+      "imgaltTxt":"",
       "imgwidth": "100",
       "height": "",
       "unit": "%",

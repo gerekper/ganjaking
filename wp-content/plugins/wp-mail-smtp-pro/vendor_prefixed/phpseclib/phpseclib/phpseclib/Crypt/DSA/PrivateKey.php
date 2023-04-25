@@ -19,7 +19,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DSA implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PrivateKey
+final class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DSA implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PrivateKey
 {
     use Common\Traits\PasswordProtected;
     /**

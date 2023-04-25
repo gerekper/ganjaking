@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Alerts;
 
 use WPMailSMTP\Admin\Area;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Tasks\NotifierTask;
@@ -104,6 +105,8 @@ class Alerts {
 	 * Handle failed email.
 	 *
 	 * @since 3.5.0
+	 * @since 3.8.0 Included `mailer` array containing the primary and backup mailer slugs in the data
+	 *                  passed to the notifier task.
 	 *
 	 * @param string               $error_message Error message.
 	 * @param MailCatcherInterface $mailcatcher   The MailCatcher object.
@@ -136,11 +139,17 @@ class Alerts {
 			$mailcatcher->getToAddresses()
 		);
 
+		$backup_connection = wp_mail_smtp()->get_pro()->get_backup_connections()->get_latest_backup_connection();
+
 		$data = [
 			'to_email_addresses' => implode( ',', $to_email_address ),
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			'subject'            => $mailcatcher->Subject,
 			'error_message'      => $error_message,
+			'mailers'            => [
+				'primary' => wp_mail_smtp()->get_connections_manager()->get_primary_connection()->get_mailer_slug(),
+				'backup'  => $backup_connection instanceof ConnectionInterface ? $backup_connection->get_mailer_slug() : null,
+			],
 		];
 
 		$debug_event_id = $mailcatcher->get_debug_event_id();

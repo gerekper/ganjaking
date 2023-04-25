@@ -22,7 +22,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
@@ -61,18 +60,8 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      */
     public static function load($key, $password = '')
     {
-        if (!\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::is_stringable($key)) {
-            throw new \UnexpectedValueException('Key should be a string - not a ' . \gettype($key));
-        }
-        $isPublic = \strpos($key, 'PUBLIC') !== \false;
         $key = parent::load($key, $password);
         $type = isset($key['privateKey']) ? 'privateKey' : 'publicKey';
-        switch (\true) {
-            case !$isPublic && $type == 'publicKey':
-                throw new \UnexpectedValueException('Human readable string claims non-public key but DER encoded string claims public key');
-            case $isPublic && $type == 'privateKey':
-                throw new \UnexpectedValueException('Human readable string claims public key but DER encoded string claims private key');
-        }
         $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::decodeBER($key[$type . 'Algorithm']['parameters']->element);
         if (!$decoded) {
             throw new \RuntimeException('Unable to decode BER of parameters');

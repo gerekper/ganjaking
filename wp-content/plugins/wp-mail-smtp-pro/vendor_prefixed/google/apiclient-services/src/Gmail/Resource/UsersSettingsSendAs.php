@@ -24,7 +24,7 @@ use WPMailSMTP\Vendor\Google\Service\Gmail\SendAs;
  * Typical usage is:
  *  <code>
  *   $gmailService = new Google\Service\Gmail(...);
- *   $sendAs = $gmailService->sendAs;
+ *   $sendAs = $gmailService->users_settings_sendAs;
  *  </code>
  */
 class UsersSettingsSendAs extends \WPMailSMTP\Vendor\Google\Service\Resource

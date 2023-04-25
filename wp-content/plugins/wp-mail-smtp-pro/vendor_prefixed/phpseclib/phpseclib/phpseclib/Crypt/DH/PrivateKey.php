@@ -17,7 +17,7 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
+final class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
 {
     use Common\Traits\PasswordProtected;
     /**

@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Emails\Logs;
 
 use WPMailSMTP\MigrationAbstract;
+use WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration11;
 use WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration4;
 use WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration5;
 use WPMailSMTP\Tasks\Tasks;
@@ -20,7 +21,7 @@ class Migration extends MigrationAbstract {
 	 *
 	 * @since 1.5.0
 	 */
-	const DB_VERSION = 10;
+	const DB_VERSION = 11;
 
 	/**
 	 * Option key where we save the current DB version for Logs functionality.
@@ -338,5 +339,53 @@ class Migration extends MigrationAbstract {
 		if ( $result !== false ) {
 			$this->update_db_ver( 10 );
 		}
+	}
+
+	/**
+	 * Delete orphaned Email Tracking Events, Email Tracking Links, and attachments.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return void
+	 */
+	protected function migrate_to_11() {
+
+		$this->maybe_required_older_migrations( 11 );
+
+		if ( ! Tasks::is_usable() || Tasks::is_scheduled( EmailLogMigration11::ACTION ) ) {
+			return;
+		}
+
+		( new EmailLogMigration11() )->recurring(
+			time() + MINUTE_IN_SECONDS,
+			$this->get_delete_orphaned_data_interval()
+		)->register();
+
+		// Save the current version to DB.
+		$this->update_db_ver( 11 );
+	}
+
+	/**
+	 * Get the recurring interval time for the delete orphaned data task.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return int
+	 */
+	private function get_delete_orphaned_data_interval() {
+
+		return absint(
+			/**
+			 * Filters recurring interval when performing the delete orphaned data task.
+			 *
+			 * @since 3.8.0
+			 *
+			 * @param int $recur_interval Default inteval when performing the delete orphaned data.
+			 */
+			apply_filters(
+				'wp_mail_smtp_pro_emails_logs_migration_get_delete_orphaned_data_interval',
+				MINUTE_IN_SECONDS * 10
+			)
+		);
 	}
 }

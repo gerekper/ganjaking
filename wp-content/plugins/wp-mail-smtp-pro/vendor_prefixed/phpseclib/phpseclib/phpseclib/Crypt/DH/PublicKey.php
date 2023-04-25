@@ -17,7 +17,7 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
+final class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
 {
     use Common\Traits\Fingerprint;
     /**

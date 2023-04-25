@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.8.0] - 2023-04-25
+### IMPORTANT
+- Support for PHP 5.6, 7.0, and 7.1 has been discontinued. If you are running one of those versions, you MUST upgrade PHP before installing or upgrading to WP Mail SMTP v3.8. Failure to do that will disable WP Mail SMTP functionality.
+
+### Added:
+- New Zoho region: Japan.
+- Email Log Importer for the WP Mail Logging plugin.
+- Ability to search email logs by specific error message or source.
+
+### Changed:
+- Email Reports default order. New default order by total.
+- Updated Moment.js library to 2.29.4.
+- Removed unneeded sodium_compat library.
+- Improved Email Reports page user experience.
+
+### Fixed:
+- Email Reports date dropdown style in Firefox browser.
+- Pro plugin deactivating on WP Multisite installation (network level) if lite plugin is active on a subsite.
+- Email address with apostrophes in the Email Test page.
+- License-related notices displayed for non-admin users.
+- Review request notice display on subsites admin area in WP Multisite installation.
+- Email logs attachments and tracking data remove on scheduled email logs cleanup.
+- Email Alerts sending when "Do Not Send" option is enabled.
+- Redirection to Setup Wizard on multisite installations with the global network-wide option enabled after plugin activation on the subsite.
+- Setup Wizard playing UA anthem for certain WP sites.
+
 ## [3.7.0] - 2022-12-13
 ### Added:
 - Backup Connection. Allows to set a Backup Connection which will send the email, if the Primary Connection fails.

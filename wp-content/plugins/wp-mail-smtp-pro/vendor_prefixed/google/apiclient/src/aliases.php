@@ -18,6 +18,7 @@ foreach ($classMap as $class => $alias) {
 class Google_Task_Composer extends \WPMailSMTP\Vendor\Google\Task\Composer
 {
 }
+/** @phpstan-ignore-next-line */
 if (\false) {
     class Google_AccessToken_Revoke extends \WPMailSMTP\Vendor\Google\AccessToken\Revoke
     {

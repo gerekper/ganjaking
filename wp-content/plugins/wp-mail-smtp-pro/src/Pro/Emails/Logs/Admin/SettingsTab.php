@@ -317,7 +317,7 @@ class SettingsTab extends PageAbstract {
 							<br><br>
 							<span style="color: red;">
 								<?php
-								esc_html_e( 'If you will need to change your constant\'s values, please perform "Unsubscribe" before doing that. After finishing your changes perform "Subscribe".', 'wp-mail-smtp-pro' );
+								esc_html_e( 'If you need to change the values of your constants, click the Unsubscribe button below. After completing your changes, return to this page and click the Subscribe button to re-enable the delivery verification webhooks.', 'wp-mail-smtp-pro' );
 								?>
 							</span>
 						<?php endif; ?>

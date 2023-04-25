@@ -232,11 +232,12 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
         list($temp) = $q->add($one)->divide($two);
         $r = $this->value->powMod($temp, static::$modulo[$this->instanceID]);
         while (!$t->equals($one)) {
-            $i = clone $one;
-            while (!$t->powMod($two->pow($i), static::$modulo[$this->instanceID])->equals($one)) {
-                $i = $i->add($one);
+            for ($i == clone $one; $i->compare($m) < 0; $i = $i->add($one)) {
+                if ($t->powMod($two->pow($i), static::$modulo[$this->instanceID])->equals($one)) {
+                    break;
+                }
             }
-            if ($i->compare($m) >= 0) {
+            if ($i->compare($m) == 0) {
                 return \false;
             }
             $b = $c->powMod($two->pow($m->subtract($i)->subtract($one)), static::$modulo[$this->instanceID]);

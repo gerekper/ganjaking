@@ -6,11 +6,13 @@ use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\AdditionalConnections\AdditionalConnections;
 use WPMailSMTP\Pro\Admin\DashboardWidget;
+use WPMailSMTP\Pro\Admin\PluginsList;
 use WPMailSMTP\Pro\Alerts\Alerts;
 use WPMailSMTP\Pro\Alerts\Loader as AlertsLoader;
 use WPMailSMTP\Pro\BackupConnections\BackupConnections;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
+use WPMailSMTP\Pro\Emails\Logs\Importers\Importers;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Pro\Emails\Logs\Reports\Reports;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
@@ -103,6 +105,7 @@ class Pro {
 		$this->get_site_health()->init();
 		$this->get_additional_connections();
 		$this->get_backup_connections();
+		$this->get_importers();
 
 		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
 			$this->get_logs_export()->init();
@@ -113,6 +116,9 @@ class Pro {
 
 		// Initialize smart routing.
 		( new SmartRouting() )->hooks();
+
+		// Initialize Plugins List.
+		( new PluginsList() )->hooks();
 
 		// Usage tracking hooks.
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );
@@ -401,6 +407,31 @@ class Pro {
 	}
 
 	/**
+	 * Load the Importers functionality.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return Importers
+	 */
+	public function get_importers() {
+
+		static $importers;
+
+		if ( ! isset( $importers ) ) {
+			/**
+			 * Filter the Importers object.
+			 *
+			 * @since 3.8.0
+			 *
+			 * @param Importers $importers The Importers object.
+			 */
+			$importers = apply_filters( 'wp_mail_smtp_pro_get_importers', new Importers() );
+		}
+
+		return $importers;
+	}
+
+	/**
 	 * Adds WP Mail SMTP (Lite) to the update checklist of installed plugins, to check for new translations.
 	 *
 	 * @since 1.6.0
@@ -519,12 +550,18 @@ class Pro {
 	 */
 	public function add_plugin_action_link( $links ) {
 
-		$custom['settings'] = sprintf(
-			'<a href="%s" aria-label="%s">%s</a>',
-			esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() ),
-			esc_attr__( 'Go to WP Mail SMTP Settings page', 'wp-mail-smtp-pro' ),
-			esc_html__( 'Settings', 'wp-mail-smtp-pro' )
-		);
+		/*
+		 * Add "Settings" links in almost all cases, except if in Multisite setup
+		 * and network-wide option is enabled.
+		 */
+		if ( ! WP::use_global_plugin_settings() ) {
+			$custom['settings'] = sprintf(
+				'<a href="%s" aria-label="%s">%s</a>',
+				esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() ),
+				esc_attr__( 'Go to WP Mail SMTP Settings page', 'wp-mail-smtp-pro' ),
+				esc_html__( 'Settings', 'wp-mail-smtp-pro' )
+			);
+		}
 
 		$custom['support'] = sprintf(
 			'<a href="%1$s" target="_blank" aria-label="%2$s" rel="noopener noreferrer">%3$s</a>',
@@ -551,6 +588,7 @@ class Pro {
 	 * @since 2.1.0
 	 * @since 2.1.2 Add EmailLogMigration4 task.
 	 * @since 2.2.0 Add EmailLogMigration5 task.
+	 * @since 3.8.0 Add EmailLogMigration11 task.
 	 *
 	 * @param array $tasks Action Scheduler tasks to be registered.
 	 *
@@ -565,6 +603,7 @@ class Pro {
 				\WPMailSMTP\Pro\Tasks\EmailLogCleanupTask::class,
 				\WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration4::class,
 				\WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration5::class,
+				\WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration11::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Sendlayer\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Mailgun\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask::class,

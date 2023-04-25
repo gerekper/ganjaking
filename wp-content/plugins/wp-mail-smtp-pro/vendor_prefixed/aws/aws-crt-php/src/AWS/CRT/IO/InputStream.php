@@ -14,6 +14,7 @@ final class InputStream extends \WPMailSMTP\Vendor\AWS\CRT\NativeResource
     const SEEK_END = 2;
     public function __construct($stream)
     {
+        parent::__construct();
         $this->stream = $stream;
         $options = self::$crt->input_stream_options_new();
         // The stream implementation in native just converts the PHP stream into
@@ -24,7 +25,7 @@ final class InputStream extends \WPMailSMTP\Vendor\AWS\CRT\NativeResource
     }
     public function __destruct()
     {
-        self::$crt->input_stream_release($this->release());
+        $this->release();
         parent::__destruct();
     }
     public function eof()
