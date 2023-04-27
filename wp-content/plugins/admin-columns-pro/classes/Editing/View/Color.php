@@ -10,4 +10,10 @@ class Color extends View {
 		parent::__construct( 'color' );
 	}
 
+	public function set_palletes( array $palletes ) {
+		$this->set( 'palettes', $palletes );
+
+		return $this;
+	}
+
 }

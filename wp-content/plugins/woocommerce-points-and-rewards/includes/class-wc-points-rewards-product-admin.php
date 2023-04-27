@@ -2,10 +2,7 @@
 /**
  * WooCommerce Points and Rewards
  *
- * @package     WC-Points-Rewards/Classes
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package WC-Points-Rewards/Classes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,7 +29,7 @@ class WC_Points_Rewards_Product_Admin {
 
 		/** Simple Subscription hooks */
 
-	    // save 'Points Earned' field for subscription products
+		// save 'Points Earned' field for subscription products
 		add_action( 'woocommerce_process_product_meta_subscription', array( $this, 'save_simple_product_fields' ) );
 
 		/** Simple Bookings hooks */
@@ -40,10 +37,10 @@ class WC_Points_Rewards_Product_Admin {
 		// Save 'Points Earned' field for bookable products.
 		add_action( 'woocommerce_process_product_meta_booking', array( $this, 'save_simple_product_fields' ) );
 
-	    /** Variable Subscription hooks */
+		/** Variable Subscription hooks */
 
-	    // save the 'Points Earned' field for variable subscription products
-	    add_action( 'woocommerce_save_product_subscription_variation', array( $this, 'save_variable_product_fields' ) );
+		// save the 'Points Earned' field for variable subscription products
+		add_action( 'woocommerce_save_product_subscription_variation', array( $this, 'save_variable_product_fields' ) );
 
 		/** Simple Product hooks */
 
@@ -162,32 +159,36 @@ class WC_Points_Rewards_Product_Admin {
 	 * Save the simple product points earned / maximum discount fields
 	 *
 	 * @since 1.0
+	 *
+	 * @param int $post_id Post ID.
 	 */
 	public function save_simple_product_fields( $post_id ) {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['_wc_points_earned'] ) && '' !== $_POST['_wc_points_earned'] ) {
-			update_post_meta( $post_id, '_wc_points_earned', stripslashes( $_POST['_wc_points_earned'] ) );
+			update_post_meta( $post_id, '_wc_points_earned', wc_clean( wp_unslash( $_POST['_wc_points_earned'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_wc_points_earned' );
 		}
 
 		if ( isset( $_POST['_wc_points_max_discount'] ) && '' !== $_POST['_wc_points_max_discount'] ) {
-			update_post_meta( $post_id, '_wc_points_max_discount', stripslashes( $_POST['_wc_points_max_discount'] ) );
+			update_post_meta( $post_id, '_wc_points_max_discount', wc_clean( wp_unslash( $_POST['_wc_points_max_discount'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_wc_points_max_discount' );
 		}
 
 		if ( isset( $_POST['_wc_points_renewal_points'] ) && '' !== $_POST['_wc_points_renewal_points'] ) {
-			update_post_meta( $post_id, '_wc_points_renewal_points', stripslashes( $_POST['_wc_points_renewal_points'] ) );
+			update_post_meta( $post_id, '_wc_points_renewal_points', wc_clean( wp_unslash( $_POST['_wc_points_renewal_points'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_wc_points_renewal_points' );
 		}
 
 		if ( isset( $_POST['_wc_points_include_bundled_product_points'] ) ) {
-			update_post_meta( $post_id, '_wc_points_include_bundled_product_points', stripslashes( $_POST['_wc_points_include_bundled_product_points'] ) );
+			update_post_meta( $post_id, '_wc_points_include_bundled_product_points', wc_clean( wp_unslash( $_POST['_wc_points_include_bundled_product_points'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_wc_points_include_bundled_product_points' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 
@@ -198,34 +199,38 @@ class WC_Points_Rewards_Product_Admin {
 	 * Add points earned / maximum discount to variable products under the 'Variations' tab after the shipping class dropdown
 	 *
 	 * @since 1.0
+	 *
+	 * @param int     $loop           Position in the loop.
+	 * @param array   $variation_data Variation data.
+	 * @param WP_Post $variation      Post data.
 	 */
 	public function render_variable_product_fields( $loop, $variation_data, $variation ) {
 		$points_earned  = get_post_meta( $variation->ID, '_wc_points_earned', true );
 		$max_discount   = get_post_meta( $variation->ID, '_wc_points_max_discount', true );
 		$renewal_points = get_post_meta( $variation->ID, '_wc_points_renewal_points', true );
 
-		$points_earned_description   = __( 'This can either be a fixed number of points earned for purchasing this variation, or a percentage which assigns points based on the price. For example, if you want to award points equal to double the the normal rate, enter 200%.  This setting modifies the global Points Conversion Rate and overrides any category value.  Use 0 to assign no points for this variation, and empty to use the global/category settings.', 'woocommerce-points-and-rewards' );
-		$max_discount_description    = __( 'Enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
+		$points_earned_description  = __( 'This can either be a fixed number of points earned for purchasing this variation, or a percentage which assigns points based on the price. For example, if you want to award points equal to double the the normal rate, enter 200%.  This setting modifies the global Points Conversion Rate and overrides any category value.  Use 0 to assign no points for this variation, and empty to use the global/category settings.', 'woocommerce-points-and-rewards' );
+		$max_discount_description   = __( 'Enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
 		$renewal_points_description = __( 'For Subscription renewals with a different point value than the signup, enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
 
 		?>
 			<p class="form-row form-row-first">
-				<label><?php _e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $points_earned_description ); ?>">: [?]</a></label>
-				<input type="text" size="5" name="variable_points_earned[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $points_earned ); ?>" step="any" min="0" placeholder="<?php _e( 'Variation Points Earned', 'woocommerce-points-and-rewards' ); ?>" />
+				<label><?php esc_html_e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $points_earned_description ); ?>">: [?]</a></label>
+				<input type="text" size="5" name="variable_points_earned[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $points_earned ); ?>" step="any" min="0" placeholder="<?php esc_attr_e( 'Variation Points Earned', 'woocommerce-points-and-rewards' ); ?>" />
 			</p>
 
 			<p class="form-row form-row-last">
-				<label><?php _e( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $max_discount_description ); ?>">: [?]</a></label>
-				<input type="text" size="5" name="variable_max_point_discount[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max_discount ); ?>" placeholder="<?php _e( 'Variation Max Points Discount', 'woocommerce-points-and-rewards' ); ?>" />
+				<label><?php esc_html_e( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $max_discount_description ); ?>">: [?]</a></label>
+				<input type="text" size="5" name="variable_max_point_discount[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max_discount ); ?>" placeholder="<?php esc_attr_e( 'Variation Max Points Discount', 'woocommerce-points-and-rewards' ); ?>" />
 			</p>
 		<?php
 		if ( WC_Points_Rewards::is_wc_subscriptions_present() ) {
-		?>
+			?>
 			<p class="form-row form-row-full">
-				<label><?php _e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $renewal_points_description ); ?>">: [?]</a></label>
-				<input type="text" size="5" name="variable_renewal_points[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $renewal_points ); ?>" placeholder="<?php _e( 'Variation Change Rewards Points', 'woocommerce-points-and-rewards' ); ?>" />
+				<label><?php esc_html_e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $renewal_points_description ); ?>">: [?]</a></label>
+				<input type="text" size="5" name="variable_renewal_points[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $renewal_points ); ?>" placeholder="<?php esc_attr_e( 'Variation Change Rewards Points', 'woocommerce-points-and-rewards' ); ?>" />
 			</p>
-		<?php
+			<?php
 		}
 
 		do_action( 'wc_points_rewards_after_variable_product_fields', $loop, $variation_data );
@@ -237,35 +242,43 @@ class WC_Points_Rewards_Product_Admin {
 	 * Save the variable product points earned / maximum discount fields
 	 *
 	 * @since 1.0
+	 *
+	 * @param int $variation_id The variation post ID.
 	 */
 	public function save_variable_product_fields( $variation_id ) {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		if ( ! isset( $_POST['variable_post_id'] ) ) {
+			return;
+		}
+
 		// find the index for the given variation ID and save the associated points earned
-		$index = array_search( $variation_id, $_POST['variable_post_id'] );
+		$index = array_search( $variation_id, $_POST['variable_post_id'] ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 
 		if ( false !== $index ) {
 
 			// points earned
-			if ( isset( $_POST['variable_points_earned'] ) && '' !== $_POST['variable_points_earned'][ $index ] ) {
-				update_post_meta( $variation_id, '_wc_points_earned', stripslashes( $_POST['variable_points_earned'][ $index ] ) );
+			if ( isset( $_POST['variable_points_earned'] ) && ! empty( $_POST['variable_points_earned'][ $index ] ) ) {
+				update_post_meta( $variation_id, '_wc_points_earned', wc_clean( wp_unslash( $_POST['variable_points_earned'][ $index ] ) ) );
 			} else {
 				delete_post_meta( $variation_id, '_wc_points_earned' );
 			}
 
 			// maximum points discount
-			if ( isset( $_POST['variable_max_point_discount'] ) && '' !== $_POST['variable_max_point_discount'][ $index ] ) {
-				update_post_meta( $variation_id, '_wc_points_max_discount', stripslashes( $_POST['variable_max_point_discount'][ $index ] ) );
+			if ( isset( $_POST['variable_max_point_discount'] ) && ! empty( $_POST['variable_max_point_discount'][ $index ] ) ) {
+				update_post_meta( $variation_id, '_wc_points_max_discount', wc_clean( wp_unslash( $_POST['variable_max_point_discount'][ $index ] ) ) );
 			} else {
 				delete_post_meta( $variation_id, '_wc_points_max_discount' );
 			}
 
 			// change points for renewal
-			if ( isset( $_POST['variable_renewal_points'] ) && '' !== $_POST['variable_renewal_points'][ $index ] ) {
-				update_post_meta( $variation_id, '_wc_points_renewal_points', stripslashes( $_POST['variable_renewal_points'][ $index ] ) );
+			if ( isset( $_POST['variable_renewal_points'] ) && ! empty( $_POST['variable_renewal_points'][ $index ] ) ) {
+				update_post_meta( $variation_id, '_wc_points_renewal_points', wc_clean( wp_unslash( $_POST['variable_renewal_points'][ $index ] ) ) );
 			} else {
 				delete_post_meta( $variation_id, '_wc_points_renewal_points' );
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 
@@ -276,13 +289,13 @@ class WC_Points_Rewards_Product_Admin {
 	 * @since 1.0
 	 */
 	public function add_variable_product_bulk_edit_points_action() {
-		echo '<option value="variable_points_earned">' . __( 'Points Earned', 'woocommerce-points-and-rewards' ) . '</option>';
+		echo '<option value="variable_points_earned">' . esc_html__( 'Points Earned', 'woocommerce-points-and-rewards' ) . '</option>';
 
 		add_action( 'admin_print_footer_scripts', array( $this, 'add_admin_bulk_action_script' ) );
 	}
 
 	public function add_admin_bulk_action_script() {
-	?>
+		?>
 		<script type="text/javascript">
 			jQuery( document ).ready( function( $ ) {
 				$( 'body' ).on( 'variable_points_earned', function( bulk_edit ) {
@@ -294,7 +307,7 @@ class WC_Points_Rewards_Product_Admin {
 				});
 			});
 		</script>
-	<?php
+		<?php
 	}
 
 	/** Product Bulk Edit methods ******************************************************/
@@ -310,7 +323,7 @@ class WC_Points_Rewards_Product_Admin {
 		?>
 			<div class="inline-edit-group">
 				<label class="alignleft">
-					<span class="title"><?php _e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?></span>
+					<span class="title"><?php esc_html_e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?></span>
 						<span class="input-text-wrap">
 							<select class="change_points_earned change_to" name="change_points_earned">
 								<?php
@@ -328,7 +341,7 @@ class WC_Points_Rewards_Product_Admin {
 						</span>
 				</label>
 				<label class="alignright">
-					<input type="text" name="_wc_points_earned" class="text points_earned" placeholder="<?php _e( 'Enter Points Earned', 'woocommerce-points-and-rewards' ); ?>" value="" />
+					<input type="text" name="_wc_points_earned" class="text points_earned" placeholder="<?php esc_attr_e( 'Enter Points Earned', 'woocommerce-points-and-rewards' ); ?>" value="" />
 				</label>
 			</div>
 		<?php
@@ -339,27 +352,30 @@ class WC_Points_Rewards_Product_Admin {
 	 * Save the 'Points Earned' bulk edit field
 	 *
 	 * @since 1.0
+	 *
+	 * @param WC_Product $product Product object.
 	 */
 	public function save_points_field_bulk_edit( $product ) {
 
-		if ( ! empty( $_REQUEST['change_points_earned'] ) ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_REQUEST['change_points_earned'] ) && ! empty( $_REQUEST['_wc_points_earned'] ) ) {
 
-			$option_selected                = absint( $_REQUEST['change_points_earned'] );
-			$requested_points_earned_change = stripslashes( $_REQUEST['_wc_points_earned'] );
+			$option_selected                = absint( wc_clean( wp_unslash( $_REQUEST['change_points_earned'] ) ) );
+			$requested_points_earned_change = wc_clean( wp_unslash( $_REQUEST['_wc_points_earned'] ) );
 			$current_points_earned          = get_post_meta( $product->get_id(), '_wc_points_earned', true );
 			$new_points_earned              = $current_points_earned;
 
 			switch ( $option_selected ) {
 
 				// change 'Points Earned' to fixed amount
-				case 1 :
+				case 1:
 					$new_points_earned = $requested_points_earned_change;
 					break;
 
 				// increase 'Points Earned' by fixed amount/percentage
-				case 2 :
+				case 2:
 					if ( false !== strpos( $requested_points_earned_change, '%' ) ) {
-						$percent = str_replace( '%', '', $requested_points_earned_change ) / 100;
+						$percent           = str_replace( '%', '', $requested_points_earned_change ) / 100;
 						$new_points_earned = $current_points_earned + ( $current_points_earned * $percent );
 					} else {
 						$new_points_earned = $current_points_earned + $requested_points_earned_change;
@@ -367,9 +383,9 @@ class WC_Points_Rewards_Product_Admin {
 					break;
 
 				// decrease 'Points Earned' by fixed amount/percentage
-				case 3 :
+				case 3:
 					if ( false !== strpos( $requested_points_earned_change, '%' ) ) {
-						$percent = str_replace( '%', '', $requested_points_earned_change ) / 100;
+						$percent           = str_replace( '%', '', $requested_points_earned_change ) / 100;
 						$new_points_earned = $current_points_earned - ( $current_points_earned * $percent );
 					} else {
 						$new_points_earned = $current_points_earned - $requested_points_earned_change;
@@ -378,10 +394,12 @@ class WC_Points_Rewards_Product_Admin {
 			}
 
 			// update to new Points Earned if different than current Points Earned
-			if ( is_numeric( $new_points_earned ) && $new_points_earned != $current_points_earned ) {
+			if ( is_numeric( $new_points_earned ) && $new_points_earned != $current_points_earned ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 				update_post_meta( $product->get_id(), '_wc_points_earned', $new_points_earned );
 			}
-		} // End if().
+		} // End if.
+
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 
@@ -424,19 +442,19 @@ class WC_Points_Rewards_Product_Admin {
 	 * @param string $max_discount the maximum points discount for the category, if set
 	 */
 	private function get_product_category_fields_html( $points = '', $max_discount = '' ) {
-		$points_earned_description   = __( 'This can either be a fixed number of points earned for the purchase of any product that belongs to this category, or a percentage which assigns points based on the price of the product. For example, if you want to award points equal to double the normal rate, enter 200%.  This setting modifies the global Points Conversion Rate, but can be overridden by a product/variation. Use 0 to assign no points for products belonging to this category, and empty to use the global setting.', 'woocommerce-points-and-rewards' );
-		$max_discount_description    = __( 'Enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the price of the product in this category. For example, if you want to restrict the discount on this category to a maximum of 50%, enter 50%, or enter $5 to restrict the maximum discount to $5.  This setting overrides the global default, but can be overridden by a product/variation. Use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
+		$points_earned_description  = __( 'This can either be a fixed number of points earned for the purchase of any product that belongs to this category, or a percentage which assigns points based on the price of the product. For example, if you want to award points equal to double the normal rate, enter 200%.  This setting modifies the global Points Conversion Rate, but can be overridden by a product/variation. Use 0 to assign no points for products belonging to this category, and empty to use the global setting.', 'woocommerce-points-and-rewards' );
+		$max_discount_description   = __( 'Enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the price of the product in this category. For example, if you want to restrict the discount on this category to a maximum of 50%, enter 50%, or enter $5 to restrict the maximum discount to $5.  This setting overrides the global default, but can be overridden by a product/variation. Use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
 		$renewal_points_description = __( 'For Subscription renewals with a different point value than the signup, enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
 		?>
 			<tr class="formfield">
-				<th scope="row" valign="top"><label><?php _e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?></label></th>
+				<th scope="row" valign="top"><label><?php esc_html_e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?></label></th>
 				<td>
-					<input type="text" size="5" name="_wc_points_earned" value="<?php echo esc_attr( $points ); ?>" step="any" min="0" placeholder="<?php _e( 'Category Points Earned', 'woocommerce-points-and-rewards' ); ?>" />
+					<input type="text" size="5" name="_wc_points_earned" value="<?php echo esc_attr( $points ); ?>" step="any" min="0" placeholder="<?php esc_attr_e( 'Category Points Earned', 'woocommerce-points-and-rewards' ); ?>" />
 					<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $points_earned_description ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
 				</td>
 			</tr>
 			<tr class="formfield">
-				<th scope="row" valign="top"><label><?php _e( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ); ?></label></th>
+				<th scope="row" valign="top"><label><?php esc_html_e( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ); ?></label></th>
 				<td>
 					<input type="text" size="5" name="_wc_points_max_discount" value="<?php echo esc_attr( $max_discount ); ?>" />
 					<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $max_discount_description ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
@@ -444,16 +462,17 @@ class WC_Points_Rewards_Product_Admin {
 			</tr>
 		<?php
 		if ( WC_Points_Rewards::is_wc_subscriptions_present() ) {
-		?>
+			?>
 			<tr class="formfield">
-				<th scope="row" valign="top"><label><?php _e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?></label></th>
+				<th scope="row" valign="top"><label><?php esc_html_e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?></label></th>
 				<td>
 					<input type="text" size="5" name="_wc_points_renewal_points" value="<?php echo esc_attr( $max_discount ); ?>" />
 					<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $renewal_points_description ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
 				</td>
 			</tr>
-		<?php
-		} // End if().
+			<?php
+		} // End if.
+
 		do_action( 'wc_points_rewards_after_category_fields' );
 
 	}
@@ -466,30 +485,33 @@ class WC_Points_Rewards_Product_Admin {
 	 * @param int $term_id term ID being saved
 	 */
 	public function save_product_category_points_field( $term_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		// points earned
 		if ( isset( $_POST['_wc_points_earned'] ) && '' !== $_POST['_wc_points_earned'] ) {
-			update_term_meta( $term_id, '_wc_points_earned', $_POST['_wc_points_earned'] );
+			update_term_meta( $term_id, '_wc_points_earned', wc_clean( wp_unslash( $_POST['_wc_points_earned'] ) ) );
 		} else {
 			delete_term_meta( $term_id, '_wc_points_earned' );
 		}
 
 		// max points discount
 		if ( isset( $_POST['_wc_points_max_discount'] ) && '' !== $_POST['_wc_points_max_discount'] ) {
-			update_term_meta( $term_id, '_wc_points_max_discount', $_POST['_wc_points_max_discount'] );
+			update_term_meta( $term_id, '_wc_points_max_discount', wc_clean( wp_unslash( $_POST['_wc_points_max_discount'] ) ) );
 		} else {
 			delete_term_meta( $term_id, '_wc_points_max_discount' );
 		}
 
 		// change rewewal points
 		if ( isset( $_POST['_wc_points_renewal_points'] ) && '' !== $_POST['_wc_points_renewal_points'] ) {
-			update_term_meta( $term_id, '_wc_points_renewal_points', $_POST['_wc_points_renewal_points'] );
+			update_term_meta( $term_id, '_wc_points_renewal_points', wc_clean( wp_unslash( $_POST['_wc_points_renewal_points'] ) ) );
 		} else {
 			delete_term_meta( $term_id, '_wc_points_renewal_points' );
 		}
 
 		// Clear all points transients
 		$this->clear_all_transients();
+
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -521,7 +543,7 @@ class WC_Points_Rewards_Product_Admin {
 			$new_columns[ $column_key ] = $column_title;
 
 			// add column header immediately after 'Slug'
-			if ( 'slug' == $column_key ) {
+			if ( 'slug' === $column_key ) {
 				$new_columns['points_earned'] = __( 'Points Earned', 'woocommerce-points-and-rewards' );
 			}
 		}
@@ -534,16 +556,16 @@ class WC_Points_Rewards_Product_Admin {
 	 * Add the 'Points Earned' column content to the product category list table
 	 *
 	 * @since 1.0
-	 * @param array $columns column content
+	 * @param array  $columns column content
 	 * @param string $column column ID
-	 * @param int $term_id the product category term ID
+	 * @param int    $term_id the product category term ID
 	 * @return array
 	 */
 	public function add_product_category_list_table_points_column( $columns, $column, $term_id ) {
 
 		$points_earned = get_term_meta( $term_id, '_wc_points_earned', true );
 
-		if ( 'points_earned' == $column ) {
+		if ( 'points_earned' === $column ) {
 			echo ( '' !== $points_earned ) ? esc_html( $points_earned ) : '&mdash;';
 		}
 

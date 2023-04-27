@@ -3,8 +3,8 @@
 namespace ACP\RequestHandler;
 
 use AC\Capabilities;
+use AC\ListScreenFactoryInterface;
 use AC\ListScreenRepository\Storage;
-use AC\ListScreenTypes;
 use AC\Message;
 use AC\Message\Notice;
 use AC\Request;
@@ -19,19 +19,20 @@ class ListScreenCreate implements RequestHandler {
 	public const PARAM_CREATE_LIST = 'create-layout';
 	public const PARAM_DELETE_LIST = 'delete-layout';
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
-	/**
-	 * @var ListScreenOrder
-	 */
 	private $order;
 
-	public function __construct( Storage $storage, ListScreenOrder $order ) {
+	private $list_screen_factory;
+
+	public function __construct(
+		Storage $storage,
+		ListScreenOrder $order,
+		ListScreenFactoryInterface $list_screen_factory
+	) {
 		$this->storage = $storage;
 		$this->order = $order;
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	public function handle( Request $request ) {
@@ -43,21 +44,14 @@ class ListScreenCreate implements RequestHandler {
 			return;
 		}
 
-		$list_id = ListScreenId::is_valid_id( $request->get( 'list_id' ) )
-			? new ListScreenId( $request->get( 'list_id' ) )
-			: null;
-
-		$current_list_screen = false;
-
-		if ( $list_id && $this->storage->exists( $list_id ) ) {
-			$current_list_screen = $this->storage->find( $list_id );
-		}
-
-		if ( ! $current_list_screen ) {
-			$current_list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_key' ) );
-		}
-
+		$list_id = (string) $request->get( 'list_id' );
+		$list_key = (string) $request->get( 'list_key' );
 		$title = trim( $request->get( 'title' ) );
+		$clone = '1' === $request->get( 'clone_current' );
+
+		$list_id = ListScreenId::is_valid_id( $list_id )
+			? new ListScreenId( $list_id )
+			: null;
 
 		if ( empty( $title ) ) {
 			$notice = new Notice( __( 'Name can not be empty.', 'codepress-admin-columns' ) );
@@ -66,27 +60,28 @@ class ListScreenCreate implements RequestHandler {
 			return;
 		}
 
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_key' ) );
-
-		if ( null === $list_screen ) {
+		if ( ! $this->list_screen_factory->can_create( $list_key ) ) {
 			return;
 		}
 
-		$settings = [];
-		$preferences = [];
+		$settings = [
+			'list_id' => ListScreenId::generate()->get_id(),
+			'title'   => $title,
+		];
 
-		if ( $request->get( 'clone_current' ) === '1' ) {
-			$settings = $current_list_screen->get_settings();
-			$preferences = $current_list_screen->get_preferences();
+		// Copy settings
+		if ( $clone && $list_id && $this->storage->exists( $list_id ) ) {
+			$clone_list_screen = $this->storage->find( $list_id );
+
+			if ( $clone_list_screen ) {
+				$settings['columns'] = $clone_list_screen->get_settings();
+				$settings['preferences'] = $clone_list_screen->get_settings();
+			}
 		}
 
-		$list_screen->set_layout_id( ListScreenId::generate()->get_id() )
-		            ->set_title( $title )
-		            ->set_settings( $settings )
-		            ->set_preferences( $preferences );
+		$list_screen = $this->list_screen_factory->create( $list_key, $settings );
 
 		$this->storage->save( $list_screen );
-
 		$this->order->add( $list_screen->get_key(), $list_screen->get_layout_id() );
 
 		wp_redirect( $list_screen->get_edit_link() );

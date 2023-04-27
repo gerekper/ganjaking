@@ -1,5 +1,8 @@
 *** WC Coupon Campaigns ***
 
+2023-04-26 - version 1.2.2
+* Fix - Confirm to `semgrep` standards.
+
 2023-04-05 - version 1.2.1
 * Fix - Coupon Campaign Filter does not work due to incorrect column name.
 * Tweak - WC 7.6 compatibility.

@@ -36,7 +36,7 @@ final class Columns implements AC\Registerable {
 	}
 
 	public function register_column_groups( AC\Groups $groups ) {
-		$groups->register_group( 'types', 'Toolset Types', 11 );
+		$groups->add( 'types', 'Toolset Types', 11 );
 	}
 
 }

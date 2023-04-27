@@ -530,3 +530,14 @@ function wc_am_update_205_db_version() {
 function wc_am_update_2_2_6_db_version() {
 	WC_AM_INSTALL()->update_db_version( '2.2.6' );
 }
+
+/**
+ * Repairs missing API Resources.
+ *
+ * @since 2.6.9
+ */
+function wc_am_update_2_6_9_missing_api_resources_repair() {
+	WC_AM_BACKGROUND_EVENTS()->queue_repair_event();
+	WC_AM_BACKGROUND_EVENTS()->queue_weekly_event();
+	WC_AM_INSTALL()->update_db_version( '2.6.9' );
+}

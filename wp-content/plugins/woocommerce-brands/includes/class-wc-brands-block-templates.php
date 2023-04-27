@@ -118,8 +118,8 @@ class WC_Brands_Block_Templates {
 	 * Add the Block template in the template query results needed by FSE
 	 * Triggered by get_block_templates action
 	 *
-	 * @param array $query_result The list of templates to render in the query
-	 * @param array $query The current query parameters
+	 * @param array  $query_result The list of templates to render in the query
+	 * @param array  $query The current query parameters
 	 * @param string $template_type The post_type for the template. Normally wp_template or wp_template_part
 	 *
 	 * @return WP_Block_Template[] Array of the matched Block Templates to render.
@@ -131,7 +131,7 @@ class WC_Brands_Block_Templates {
 			return $query_result;
 		}
 
-		$post_id = $_REQUEST['postId'] ?? null;
+		$post_id = isset( $_REQUEST['postId'] ) ? wc_clean( wp_unslash( $_REQUEST['postId'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$slugs   = $query['slug__in'] ?? array();
 
 		// Only add the template if  asking for Product Brands

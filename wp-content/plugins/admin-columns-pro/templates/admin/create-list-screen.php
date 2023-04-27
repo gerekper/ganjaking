@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="body">
 			<div class="row info">
-				<p><?php printf( __( "Create new sets to switch between different column views on the %s screen.", 'codepress-admin-columns' ), $this->list_screen->get_label() ); ?></p>
+				<p><?php printf( __( "Create a new view for the %s list table.", 'codepress-admin-columns' ), sprintf( "<strong>%s</strong>", $this->list_screen->get_label() ) ); ?></p>
 			</div>
 			<div class="row name">
 				<label for="new_listscreen_name">
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="row actions">
 
-				<a class="instructions ac-pointer" rel="layout-help" data-pos="left" data-width="305" >
+				<a class="instructions ac-pointer" rel="layout-help" data-pos="left" data-width="305">
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
 				</a>
 

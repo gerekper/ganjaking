@@ -22,7 +22,7 @@ class Media extends AC\ListScreen\Media
 	}
 
 	public function editing() {
-		return new Editing\Strategy\Post( $this->get_post_type() );
+		return new Editing\Strategy\Post( get_post_type_object( $this->get_post_type() ) );
 	}
 
 	public function filtering( $model ) {

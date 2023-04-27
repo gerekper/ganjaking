@@ -27,7 +27,7 @@ final class EventsCalendar implements Registerable {
 			new Service\Scripts( $this->location ),
 			new Service\TableScreen( $this->location ),
 			new ImportListscreens\Message( new ImportListscreens\ImportedSetting() ),
-			new ImportListscreens\Controller( new AC\Request(), AC()->get_storage(), new DecoderFactory( AC\ListScreenTypes::instance() ), $this->location ),
+			new ImportListscreens\Controller( new AC\Request(), AC()->get_storage(), new DecoderFactory( new AC\ListScreenFactory() ), $this->location ),
 			new IntegrationStatus( 'ac-addon-events-calendar' ),
 		];
 

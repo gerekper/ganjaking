@@ -17,7 +17,7 @@ class Columns implements Registerable {
 	}
 
 	public function register_column_groups( AC\Groups $groups ): void {
-		$groups->register_group( self::GROUP_NAME, 'Polylang', 25 );
+		$groups->add( self::GROUP_NAME, 'Polylang', 25 );
 	}
 
 	public function add_columns( AC\ListScreen $list_screen ): void {

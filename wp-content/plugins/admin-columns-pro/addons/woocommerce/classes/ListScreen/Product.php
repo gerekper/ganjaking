@@ -15,7 +15,7 @@ class Product extends ACP\ListScreen\Post {
 	}
 
 	public function editing() {
-		return new Editing\Strategy\Product( $this->get_post_type() );
+		return new Editing\Strategy\Product( get_post_type_object( $this->get_post_type() ) );
 	}
 
 	protected function register_column_types() {

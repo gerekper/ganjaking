@@ -1,5 +1,16 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-04-26 - version 2.6.9
+* Tweak: Enhance repair routine with API Resource check.
+
+2023-04-26 - version 2.6.8
+* Fix: Added background repair routine to check for any missing API Resources. Fixes edge cases from cleanup routine, or upgrades from pre 2.x to 2.x.
+* Fix: Warning: Undefined property: stdClass::$access_expires for PHP 8.x.
+* New: Add WooCommerce Subscriptions and WooCommerce API Manager subscription resource counts to status section.
+* New: Added WooCommerce account connected, and active product key to status section.
+* Update: Updated templates/emails/plain/api-keys-order-complete.php.
+* Update: Updated templates/emails/api-keys-order-complete.php.
+
 2023-04-18 - version 2.6.7
 * Tweak: Don't delete Grace Period in the is_expired() method, handle deletions separately.
 * Tweak: Handle cleanup of API Resources with and without a Grace Period separately.

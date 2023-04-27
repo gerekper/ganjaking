@@ -198,8 +198,18 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 		// get the set of users to operate on
 		$user_ids = isset( $_REQUEST['user_id'] ) ? array_map( 'absint', (array) $_REQUEST['user_id'] ): array();
 
+		// Verify wc_points_rewards_update nonce.
+		$verified_nonce_update = ! empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wc_points_rewards_update' );
+
+		// Verify bulk-points nonce.
+		$verified_nonce_bulk_points = ! empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'bulk-points' );
+
 		// no action, or invalid action
-		if ( false === $action || empty( $user_ids ) || ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'wc_points_rewards_update' ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-points' ) ) ) {
+		if (
+			false === $action ||
+			empty( $user_ids ) ||
+			( ! $verified_nonce_update && ! $verified_nonce_bulk_points )
+		) {
 			return;
 		}
 
@@ -252,7 +262,7 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 			echo '</strong></li></ul></div>';
 		}
 		if ( $wc_points_rewards->admin_message_handler->message_count() > 0 ) {
-			echo '<div id="moderated" class="updated"><ul><li><strong>' . implode( '</strong></li><li><strong>', $wc_points_rewards->admin_message_handler->get_messages() ) . '</strong></li></ul></div>';
+			echo wp_kses_post( '<div id="moderated" class="updated"><ul><li><strong>' . implode( '</strong></li><li><strong>', $wc_points_rewards->admin_message_handler->get_messages() ) . '</strong></li></ul></div>' );
 		}
 	}
 
@@ -263,7 +273,7 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 	 */
 	private function get_current_orderby() {
 
-		$orderby = ( isset( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'points';
+		$orderby = ( isset( $_GET['orderby'] ) ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : 'points'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		// order by points or default of user ID
 		switch ( $orderby ) {
@@ -278,7 +288,7 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 	 * @since 1.0
 	 */
 	private function get_current_order() {
-		return isset( $_GET['order'] ) ? $_GET['order'] : 'DESC';
+		return isset( $_GET['order'] ) ? wc_clean( wp_unslash( $_GET['order'] ) ) : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -358,8 +368,8 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 		global $wpdb;
 
 		// filter by customer
-		if ( isset( $_GET['_customer_user'] ) && $_GET['_customer_user'] > 0 ) {
-		$args['include'] = array( $_GET['_customer_user'] );
+		if ( isset( $_GET['_customer_user'] ) && absint( wc_clean( wp_unslash( $_GET['_customer_user'] ) ) ) > 0 ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$args['include'] = array( absint( wc_clean( wp_unslash( $_GET['_customer_user'] ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		return $args;
@@ -373,9 +383,9 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 	 */
 	public function no_items() {
 		if ( isset( $_REQUEST['s'] ) ) : ?>
-			<p><?php _e( 'No user points found', 'woocommerce-points-and-rewards' ); ?></p>
+			<p><?php esc_html_e( 'No user points found', 'woocommerce-points-and-rewards' ); ?></p>
 		<?php else : ?>
-			<p><?php _e( 'User points will appear here for you to view and manage once you have customers.', 'woocommerce-points-and-rewards' ); ?></p>
+			<p><?php esc_html_e( 'User points will appear here for you to view and manage once you have customers.', 'woocommerce-points-and-rewards' ); ?></p>
 		<?php endif;
 	}
 

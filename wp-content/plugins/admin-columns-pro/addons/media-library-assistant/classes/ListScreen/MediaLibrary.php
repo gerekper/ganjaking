@@ -17,7 +17,7 @@ class MediaLibrary extends AC\ThirdParty\MediaLibraryAssistant\ListScreen\MediaL
 	}
 
 	public function editing() {
-		return new Editing\Strategy( 'attachment' );
+		return new Editing\Strategy( get_post_type_object( 'attachment' ) );
 	}
 
 	public function register_column_types() {

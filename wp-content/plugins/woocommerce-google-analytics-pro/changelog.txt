@@ -1,5 +1,24 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.04.26 - version 2.0.1
+ * Fix - Address temporary bug with GA4 data stream creation during onboarding and upgrade from v1.x
+
+2023.04.25 - version 2.0.0
+ * Feature - Add support for GA4
+ * Tweak - Track login event for all users regardless of role & remove the `wc_google_analytics_pro_signed_in_user_roles` filter
+ * Tweak - Track "viewed sign up" event on WooCommerce My Account registration page
+ * Fix - Ensure "clicked product", "updated address", "changed password", "tracked order" events are tracked in Universal Analytics
+ * Fix - Ensure "signed up" event properly tracks user ID in Universal Analytics
+ * Fix - Ensure "subscription expiration" event is tracked
+ * Dev - Completely rewrite & restructure the plugin to use PSR-4 autoloading & namespaces
+ * Dev - Remove the `wc_google_analytics_pro_tracking_id` in favor of `wc_google_analytics_pro_ua_tracking_id`
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+ * Misc - Update the SkyVerge Plugin Framework to v5.11.0
+ * Misc - Remove MonsterInsights compatibility
+
+2022.11.22 - version 1.13.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.03.30 - version 1.12.0
  * Fix - Replace deprecated `is_ajax()` usages with `wp_doing_ajax()`
  * Dev - Make the tracking script URL filterable

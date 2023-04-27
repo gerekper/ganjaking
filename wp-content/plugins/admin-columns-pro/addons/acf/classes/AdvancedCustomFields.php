@@ -7,12 +7,10 @@ use AC\Registerable;
 use AC\Request;
 use ACA\ACF\ConditionalFormatting\FieldFormattableFactory;
 use ACA\ACF\FieldGroup;
+use ACA\ACF\ListScreenFactory\FieldGroupFactory;
 use ACA\ACF\RequestHandler\MapLegacyListScreen;
 use ACA\ACF\Search;
-use ACA\ACF\Service\AddColumns;
-use ACA\ACF\Service\ColumnSettings;
-use ACA\ACF\Service\InitColumn;
-use ACA\ACF\Service\Scripts;
+use ACA\ACF\Service;
 use ACA\ACF\Sorting;
 use ACP;
 use ACP\RequestHandlerFactory;
@@ -31,6 +29,8 @@ final class AdvancedCustomFields implements Registerable {
 			return;
 		}
 
+		AC\ListScreenFactory::add( new FieldGroupFactory() );
+
 		$column_initiator = new ColumnInstantiator(
 			new ConfigFactory( new FieldFactory() ),
 			new Search\ComparisonFactory(),
@@ -46,21 +46,22 @@ final class AdvancedCustomFields implements Registerable {
 		$services = [
 			new ACP\Service\IntegrationStatus( 'ac-addon-acf' ),
 			new ColumnGroup(),
+			new Service\ColumnSettings(),
 			new Service\EditingFix(),
 			new Service\LegacyColumnMapper(),
+			new Service\ListScreens(),
 			new Service\RemoveDeprecatedColumnFromTypeSelector(),
-			new AddColumns(
+			new Service\AddColumns(
 				new FieldRepository( new FieldGroup\QueryFactory() ),
 				new FieldsFactory(),
 				new ColumnFactory( $column_initiator )
 			),
-			new Scripts( $this->location ),
-			new InitColumn( $column_initiator ),
-			new ColumnSettings(),
+			new Service\Scripts( $this->location ),
+			new Service\InitColumn( $column_initiator ),
 			new RequestParser( $request_handler_factory ),
 		];
 
-		array_map( function ( Registerable $service ) {
+		array_map( static function ( Registerable $service ) {
 			$service->register();
 		}, $services );
 	}

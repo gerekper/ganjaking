@@ -143,7 +143,7 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 	 * Gets the current orderby, defaulting to 'date' if none is selected
 	 */
 	private function get_current_orderby() {
-		return isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'date';
+		return isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : 'date'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 
@@ -151,7 +151,7 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 	 * Gets the current orderby, defaulting to 'DESC' if none is selected
 	 */
 	private function get_current_order() {
-		return isset( $_GET['order'] ) ? $_GET['order'] : 'DESC';
+		return isset( $_GET['order'] ) ? wc_clean( wp_unslash( $_GET['order'] ) ) : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 
@@ -206,24 +206,28 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 	private function add_filter_args( $args ) {
 		global $wpdb;
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+
 		// filter by customer user
-		if ( isset( $_GET['_customer_user'] ) && $_GET['_customer_user'] > 0 ) {
-			$args['user'] = $_GET['_customer_user'];
+		if ( isset( $_GET['_customer_user'] ) && absint( $_GET['_customer_user'] ) > 0 ) {
+			$args['user'] = wc_clean( wp_unslash( $_GET['_customer_user'] ) );
 		}
 
 		// filter by event type
-		if ( isset( $_GET['_event_type'] ) && $_GET['_event_type'] ) {
-			$args['event_type'] = $_GET['_event_type'];
+		if ( isset( $_GET['_event_type'] ) && wc_clean( wp_unslash( $_GET['_event_type'] ) ) ) {
+			$args['event_type'] = wc_clean( wp_unslash( $_GET['_event_type'] ) );
 		}
 
 		// filter by event log date
-		if ( isset( $_GET['date'] ) && $_GET['date'] ) {
-
-			$year = substr( $_GET['date'], 0, 4 );
-			$month = ltrim( substr( $_GET['date'], 4, 2 ), '0' );
+		if ( isset( $_GET['date'] ) && wc_clean( wp_unslash( $_GET['date'] ) ) ) {
+			$date  = wc_clean( wp_unslash( $_GET['date'] ) );
+			$year  = substr( $date, 0, 4 );
+			$month = ltrim( substr( $date, 4, 2 ), '0' );
 
 			$args['where'][] = $wpdb->prepare( 'YEAR( date ) = %s AND MONTH( date ) = %s', $year, $month );
 		}
+
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return $args;
 	}
@@ -238,9 +242,9 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 	public function no_items() {
 
 		if ( isset( $_REQUEST['s'] ) ) : ?>
-			<p><?php _e( 'No log entries found', 'woocommerce-points-and-rewards' ); ?></p>
+			<p><?php esc_html_e( 'No log entries found', 'woocommerce-points-and-rewards' ); ?></p>
 		<?php else : ?>
-			<p><?php _e( 'Point log entries will appear here for you to view and manage.', 'woocommerce-points-and-rewards' ); ?></p>
+			<p><?php esc_html_e( 'Point log entries will appear here for you to view and manage.', 'woocommerce-points-and-rewards' ); ?></p>
 		<?php endif;
 	}
 
@@ -271,6 +275,7 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 					$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email );
 				}
 			}
+
 			?>
 			<select id="customer_user" style="width: 200px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Show All Customers', 'woocommerce-points-and-rewards' ); ?>">
 
@@ -284,11 +289,13 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 			<select id="dropdown_event_types" name="_event_type" class="wc-enhanced-select" style="width:200px">
 				<option value=""><?php esc_html_e( 'Show All Event Types', 'woocommerce-points-and-rewards' ); ?></option>
 				<?php
+				// phpcs:disable WordPress.Security.NonceVerification.Recommended
 				foreach ( WC_Points_Rewards_Points_Log::get_event_types() as $event_type ) :
 					echo '<option value="' . esc_attr( $event_type->type ) . '" ' .
-						selected( $event_type->type, isset( $_GET['_event_type'] ) ? $_GET['_event_type'] : null, false ) .
+						selected( $event_type->type, isset( $_GET['_event_type'] ) ? wc_clean( wp_unslash( $_GET['_event_type'] ) ) : null, false ) .
 						'>' . esc_html( sprintf( '%s (%d)', $event_type->name, $event_type->count ) ) . '</option>';
 				endforeach;
+				// phpcs:enable WordPress.Security.NonceVerification.Recommended
 				?>
 			</select>
 			<?php

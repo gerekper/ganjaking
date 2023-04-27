@@ -16,7 +16,7 @@ class Columns implements Registerable {
 	 * @param AC\Groups $groups
 	 */
 	public function register_column_group( AC\Groups $groups ) {
-		$groups->register_group( 'bbpress', __( 'bbPress' ), 25 );
+		$groups->add( 'bbpress', __( 'bbPress' ), 25 );
 	}
 
 }

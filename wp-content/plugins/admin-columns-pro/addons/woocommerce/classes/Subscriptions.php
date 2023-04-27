@@ -5,6 +5,8 @@ namespace ACA\WC;
 use AC;
 use ACA\WC\Column;
 use ACA\WC\ListScreen\Product;
+use ACA\WC\ListScreenFactory\ShopSubscriptionFactory;
+use ACA\WC\ListScreenFactory\WcSubscriptions;
 use WC_Subscriptions;
 
 /**
@@ -29,20 +31,14 @@ final class Subscriptions implements AC\Registerable {
 		}
 
 		add_action( 'ac/column_groups', [ $this, 'register_column_groups' ] );
-		add_action( 'ac/list_screens', [ $this, 'register_list_screens' ] );
 		add_action( 'ac/column_types', [ $this, 'add_product_columns' ] );
 		add_action( 'ac/column_types', [ $this, 'add_user_columns' ] );
+
+		AC\ListScreenFactory::add( new ShopSubscriptionFactory() );
 	}
 
-	public function register_list_screens( AC\ListScreens $list_screens ) {
-		$list_screens->register_list_screen( new ListScreen\Subscriptions() );
-	}
-
-	/**
-	 * @param AC\Groups $groups
-	 */
-	public function register_column_groups( $groups ) {
-		$groups->register_group( 'woocommerce_subscriptions', __( 'WooCommerce Subscriptions', 'codepress-admin-columns' ), 15 );
+	public function register_column_groups( AC\Groups $groups ): void {
+		$groups->add( 'woocommerce_subscriptions', __( 'WooCommerce Subscriptions', 'codepress-admin-columns' ), 15 );
 	}
 
 	public function add_product_columns( AC\ListScreen $list_screen ) {

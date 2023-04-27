@@ -39,7 +39,7 @@ class WC_Report_Campaigns extends WC_Admin_Report {
 		if ( isset( $_GET['coupon_codes'] ) && is_array( $_GET['coupon_codes'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$this->coupon_codes = array_filter( array_map( 'sanitize_text_field', wp_unslash( $_GET['coupon_codes'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		} elseif ( isset( $_GET['coupon_codes'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$this->coupon_codes = array_filter( array( sanitize_text_field( wp_unslash( $_GET['coupon_codes'] ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$this->coupon_codes = array_filter( array( sanitize_text_field( wp_unslash( $_GET['coupon_codes'] ) ) ), null ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		// the campaign we're currently looking at.

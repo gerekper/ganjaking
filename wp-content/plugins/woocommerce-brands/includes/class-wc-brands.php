@@ -102,8 +102,9 @@ class WC_Brands {
 	 * @return array
 	 */
 	public function update_product_query_tax_query( array $tax_query, WC_Query $wc_query ) {
-		if ( isset( $_GET['filter_product_brand'] ) ) { // WPCS: input var ok, CSRF ok.
-			$brands_filter = array_filter( array_map( 'absint', explode( ',', $_GET['filter_product_brand'] ) ) ); // WPCS: input var ok, CSRF ok, Sanitization ok.
+		if ( isset( $_GET['filter_product_brand'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$filter_product_brand = wc_clean( wp_unslash( $_GET['filter_product_brand'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$brands_filter        = array_filter( array_map( 'absint', explode( ',', $filter_product_brand ) ) );
 
 			if ( $brands_filter ) {
 				$tax_query[] = array(
@@ -438,8 +439,8 @@ class WC_Brands {
 			$args['term']      = get_term_by( 'id', $brand, 'product_brand' );
 
 			if ( $args['width'] || $args['height'] ) {
-				$args['width']  ??= 'auto';
-				$args['height'] ??= 'auto';
+				$args['width']  = ! empty( $args['width'] ) ? $args['width'] : 'auto';
+				$args['height'] = ! empty( $args['height'] ) ? $args['height'] : 'auto';
 			}
 
 			wc_get_template(
@@ -464,11 +465,18 @@ class WC_Brands {
 	 */
 	public function output_product_brand_list( $atts ) {
 
-		extract( shortcode_atts( array(
-			'show_top_links'    => true,
-			'show_empty'        => true,
-			'show_empty_brands' => false
-		), $atts ) );
+		$args = shortcode_atts(
+			array(
+				'show_top_links'    => true,
+				'show_empty'        => true,
+				'show_empty_brands' => false,
+			),
+			$atts
+		);
+
+		$show_top_links    = $args['show_top_links'];
+		$show_empty        = $args['show_empty'];
+		$show_empty_brands = $args['show_empty_brands'];
 
 		if ( $show_top_links === 'false' ) {
 			$show_top_links = false;
@@ -546,36 +554,49 @@ class WC_Brands {
 	 */
 	public function output_product_brand_thumbnails( $atts ) {
 
-		extract( shortcode_atts( array(
-			'show_empty'    => true,
-			'columns'       => 4,
-			'hide_empty'    => 0,
-			'orderby'       => 'name',
-			'exclude'       => '',
-			'number'        => '',
-			'fluid_columns' => false
-		 ), $atts ) );
+		$args = shortcode_atts(
+			array(
+				'show_empty'    => true,
+				'columns'       => 4,
+				'hide_empty'    => 0,
+				'orderby'       => 'name',
+				'exclude'       => '',
+				'number'        => '',
+				'fluid_columns' => false,
+			),
+			$atts
+		);
 
-		$exclude = array_map( 'intval', explode(',', $exclude) );
-		$order = $orderby == 'name' ? 'asc' : 'desc';
+		$exclude = array_map( 'intval', explode( ',', $args['exclude'] ) );
+		$order   = 'name' === $args['orderby'] ? 'asc' : 'desc';
 
-		if ( 'true' == $show_empty ) {
+		if ( 'true' === $args['show_empty'] ) {
 			$hide_empty = false;
 		} else {
 			$hide_empty = true;
 		}
 
-		$brands = get_terms( 'product_brand', array( 'hide_empty' => $hide_empty, 'orderby' => $orderby, 'exclude' => $exclude, 'number' => $number, 'order' => $order ) );
+		$brands = get_terms(
+			'product_brand',
+			array(
+				'hide_empty' => $hide_empty,
+				'orderby'    => $args['orderby'],
+				'exclude'    => $exclude,
+				'number'     => $args['number'],
+				'order'      => $order,
+			)
+		);
 
-		if ( ! $brands )
+		if ( ! $brands ) {
 			return;
+		}
 
 		ob_start();
 
 		wc_get_template( 'widgets/brand-thumbnails.php', array(
 			'brands'        => $brands,
-			'columns'       => is_numeric( $columns ) ? intval( $columns ) : 4,
-			'fluid_columns' => wp_validate_boolean( $fluid_columns )
+			'columns'       => is_numeric( $args['columns'] ) ? intval( $args['columns'] ) : 4,
+			'fluid_columns' => wp_validate_boolean( $args['fluid_columns'] ),
 		), 'woocommerce-brands', untrailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) . '/templates/' );
 
 		return ob_get_clean();
@@ -590,28 +611,41 @@ class WC_Brands {
 	 */
 	public function output_product_brand_thumbnails_description( $atts ) {
 
-		extract( shortcode_atts( array(
-			'show_empty' => true,
-			'columns'    => 1,
-			'hide_empty' => 0,
-			'orderby'    => 'name',
-			'exclude'    => '',
-			'number'     => ''
-		 ), $atts ) );
+		$args = shortcode_atts(
+			array(
+				'show_empty' => true,
+				'columns'    => 1,
+				'hide_empty' => 0,
+				'orderby'    => 'name',
+				'exclude'    => '',
+				'number'     => '',
+			),
+			$atts
+		);
 
-		$exclude = array_map( 'intval', explode(',', $exclude) );
-		$order = $orderby == 'name' ? 'asc' : 'desc';
+		$exclude = array_map( 'intval', explode( ',', $args['exclude'] ) );
+		$order   = 'name' === $args['orderby'] ? 'asc' : 'desc';
 
-		$brands = get_terms( 'product_brand', array( 'hide_empty' => $hide_empty, 'orderby' => $orderby, 'exclude' => $exclude, 'number' => $number, 'order' => $order ) );
+		$brands = get_terms(
+			'product_brand',
+			array(
+				'hide_empty' => $args['hide_empty'],
+				'orderby'    => $args['orderby'],
+				'exclude'    => $exclude,
+				'number'     => $args['number'],
+				'order'      => $order,
+			)
+		);
 
-		if ( ! $brands )
+		if ( ! $brands ) {
 			return;
+		}
 
 		ob_start();
 
 		wc_get_template( 'widgets/brand-thumbnails-description.php', array(
 			'brands'  => $brands,
-			'columns' => $columns
+			'columns' => $args['columns'],
 		), 'woocommerce-brands', untrailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) . '/templates/' );
 
 		return ob_get_clean();
@@ -822,26 +856,31 @@ class WC_Brands {
 	/**
 	 * Injects Brands filters into layered nav links.
 	 *
-	 * @param  string  $term_html Original link html.
-	 * @param  mixed   $term      Term that is currently added.
-	 * @param  string  $link      Original layered nav item link.
-	 * @param  number  $count     Number of items in that filter.
-	 * @return string             Term html.
+	 * @param  string $term_html Original link html.
+	 * @param  mixed  $term      Term that is currently added.
+	 * @param  string $link      Original layered nav item link.
+	 * @param  number $count     Number of items in that filter.
+	 * @return string            Term html.
 	 * @since 1.6.3
 	 * @version 1.6.3
 	 */
 	public function woocommerce_brands_update_layered_nav_link( $term_html, $term, $link, $count ) {
-		$filter_name = 'filter_product_brand';
-		if ( empty( $_GET[$filter_name] ) ) {
+		if ( empty( $_GET['filter_product_brand'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return $term_html;
 		}
 
-		$current_attributes = array_map( 'intval', explode( ',', $_GET['filter_product_brand'] ) );
-		$current_values     = ! empty( $current_attributes ) ? $current_attributes : array();
-		$link = add_query_arg( array( 'filtering' => '1', $filter_name => implode( ',', $current_values ) ), wp_specialchars_decode( $link ) );
-		$link = esc_url( $link );
-		$term_html = '<a rel="nofollow" href="' . $link . '">' . esc_html( $term->name ) . '</a>';
-		$term_html .= ' ' . apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
+		$filter_product_brand = wc_clean( wp_unslash( $_GET['filter_product_brand'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$current_attributes   = array_map( 'intval', explode( ',', $filter_product_brand ) );
+		$current_values       = ! empty( $current_attributes ) ? $current_attributes : array();
+		$link                 = add_query_arg(
+			array(
+				'filtering'            => '1',
+				'filter_product_brand' => implode( ',', $current_values ),
+			),
+			wp_specialchars_decode( $link )
+		);
+		$term_html            = '<a rel="nofollow" href="' . esc_url( $link ) . '">' . esc_html( $term->name ) . '</a>';
+		$term_html           .= ' ' . apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
 		return $term_html;
 	}
 

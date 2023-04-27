@@ -4,6 +4,7 @@ namespace ACP\Search\RequestHandler;
 
 use AC;
 use AC\Exception;
+use AC\ListScreenFactoryInterface;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\Response;
@@ -20,15 +21,16 @@ class Comparison extends Controller {
 	 */
 	protected $list_screen;
 
-	public function __construct( Storage $storage, Request $request ) {
+	public function __construct( Storage $storage, Request $request, ListScreenFactoryInterface $list_screen_factory ) {
 		parent::__construct( $request );
 
 		$id = $request->get( 'layout' );
+		$list_key = (string) $request->get( 'list_screen', '' );
 
 		if ( ListScreenId::is_valid_id( $id ) ) {
 			$this->list_screen = $storage->find( new ListScreenId( $id ) );
-		} else {
-			$this->list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_screen' ) );
+		} else if ( $list_key && $list_screen_factory->can_create( $list_key ) ) {
+			$this->list_screen = $list_screen_factory->create( $list_key );
 		}
 
 		if ( ! $this->list_screen instanceof AC\ListScreen ) {
@@ -37,11 +39,11 @@ class Comparison extends Controller {
 	}
 
 	public function get_options_action() {
-		$column = $this->list_screen->get_column_by_name(
-			$this->request->filter( 'column', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS )
-		);
-
 		$response = new Response\Json();
+
+		$column_name = (string) $this->request->filter( 'column', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+
+		$column = $this->list_screen->get_column_by_name( $column_name );
 
 		if ( ! $column instanceof Searchable ) {
 			$response->error();

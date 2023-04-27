@@ -4,6 +4,6 @@ namespace ACP;
 
 interface RequestAjaxHandler {
 
-	public function handle();
+	public function handle(): void;
 
 }

@@ -2,8 +2,8 @@
 
 namespace ACP\Export\Model\Post;
 
-use ACP\Export\Service;
 use ACP\Column;
+use ACP\Export\Service;
 
 class LastModifiedAuthor implements Service {
 

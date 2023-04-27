@@ -20,7 +20,7 @@ class SaveExportPreference implements RequestAjaxHandler {
 		$this->state_repository = new UserColumnStateRepository();
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {

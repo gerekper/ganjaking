@@ -2,8 +2,8 @@
 
 namespace ACP\Editing\Storage\User;
 
-use ACP\RolesFactory;
 use ACP\Editing\Storage;
+use ACP\RolesFactory;
 use WP_User;
 
 class Role implements Storage {

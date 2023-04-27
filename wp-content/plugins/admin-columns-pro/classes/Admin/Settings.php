@@ -26,7 +26,6 @@ use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 use ACP\Sorting;
 use ACP\Type\HideOnScreen\Group;
-use LogicException;
 use WP_User;
 
 class Settings implements Registerable {
@@ -70,7 +69,9 @@ class Settings implements Registerable {
 		ob_start();
 		foreach ( $list_screens as $list_screen ) : ?>
 			<li data-screen="<?= esc_attr( $list_screen->get_layout_id() ) ?>">
-				<a class="<?= $list_screen->get_layout_id() === $current_list_screen->get_layout_id() ? 'current' : '' ?>" href="<?= add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $current_list_screen->get_edit_link() ) ?>"><?php echo esc_html( $list_screen->get_title() ?: __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
+				<a class="<?= $list_screen->get_layout_id() === $current_list_screen->get_layout_id() ? 'current' : '' ?>" href="<?= add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $current_list_screen->get_edit_link() ) ?>">
+					<?php echo esc_html( $list_screen->get_title() ?: $list_screen->get_label() ); ?>
+				</a>
 			</li>
 		<?php endforeach;
 
@@ -122,8 +123,8 @@ class Settings implements Registerable {
 		echo $sidebar->render();
 	}
 
-	public function admin_scripts( $main ): void {
-		if ( ! $main instanceof Columns ) {
+	public function admin_scripts( $page ): void {
+		if ( ! $page instanceof Columns ) {
 			return;
 		}
 
@@ -136,11 +137,7 @@ class Settings implements Registerable {
 		wp_enqueue_style( 'ac-select2' );
 		wp_enqueue_script( 'ac-select2' );
 
-		$list_screen = $main->get_list_screen_from_request();
-
-		if ( ! $list_screen ) {
-			throw new LogicException( 'Missing list screen.' );
-		}
+		$list_screen = $page->get_list_screen();
 
 		$factory = new SettingsFactory(
 			$this->location,
@@ -305,13 +302,13 @@ class Settings implements Registerable {
 	public function render_sidebar_help(): void {
 		?>
 		<template id="layout-help" class="hidden">
-			<h3><?php _e( 'Sets', 'codepress-admin-columns' ); ?></h3>
+			<h3><?php _e( 'Table Views', 'codepress-admin-columns' ); ?></h3>
 
 			<p>
-				<?php _e( "Sets allow users to switch between different column views.", 'codepress-admin-columns' ); ?>
+				<?php _e( "Table views allow users to switch between different views on the list table.", 'codepress-admin-columns' ); ?>
 			</p>
 			<p>
-				<?php _e( "Available sets are selectable from the overview screen. Users can have their own column view preference.", 'codepress-admin-columns' ); ?>
+				<?php _e( "Available views are selectable from the list table.", 'codepress-admin-columns' ); ?>
 			<p>
 			<p>
 				<img src="<?= esc_url( $this->location->with_suffix( 'assets/core/images/layout-selector.png' )->get_url() ) ?>" alt=""/>

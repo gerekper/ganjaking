@@ -4,7 +4,6 @@ namespace ACP\Editing\Service;
 
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
-use ACP\Editing\Value\Data;
 use ACP\Editing\View;
 
 class Menu implements Service {

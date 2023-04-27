@@ -3,9 +3,9 @@
 namespace ACP\Column\User;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Search;
 use ACP\Sorting;
-use ACP\ConditionalFormat;
 
 /**
  * @since 4.0

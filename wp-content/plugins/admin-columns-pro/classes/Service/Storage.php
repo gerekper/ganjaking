@@ -47,10 +47,10 @@ final class Storage implements Registerable {
 	}
 
 	public function register() {
-		add_action( 'ac/list_screens', [ $this, 'configure' ], 20 );
+		add_action( 'acp/ready', [ $this, 'configure' ], 20 );
 	}
 
-	public function configure() {
+	public function configure(): void {
 		$repositories = $this->storage->get_repositories();
 
 		$this->configure_file_storage( $repositories );
@@ -65,7 +65,7 @@ final class Storage implements Registerable {
 		$this->storage->set_repositories( $repositories );
 	}
 
-	private function configure_api_storage( array &$repositories ) {
+	private function configure_api_storage( array &$repositories ): void {
 		$collection = new AC\ListScreenCollection();
 
 		foreach ( $this->encoded_list_screen_data_factory->create() as $data ) {
@@ -88,7 +88,7 @@ final class Storage implements Registerable {
 		);
 	}
 
-	private function configure_file_storage( array &$repositories ) {
+	private function configure_file_storage( array &$repositories ): void {
 		if ( apply_filters( 'acp/storage/file/enable_for_multisite', false ) && is_multisite() ) {
 			return;
 		}
@@ -132,14 +132,14 @@ final class Storage implements Registerable {
 		$repositories['acp-database'] = $database->with_writable( false );
 	}
 
-	private function run_migration( ListScreenRepository $from, ListScreenRepository $to ) {
+	private function run_migration( ListScreenRepository $from, ListScreenRepository $to ): void {
 		foreach ( $from->with_writable( true )->find_all() as $list_screen ) {
 			$to->save( $list_screen );
 			$from->delete( $list_screen );
 		}
 	}
 
-	private function run_copy( ListScreenRepository $from, ListScreenRepository $to ) {
+	private function run_copy( ListScreenRepository $from, ListScreenRepository $to ): void {
 		foreach ( $from->find_all() as $list_screen ) {
 			$to->save( $list_screen );
 		}

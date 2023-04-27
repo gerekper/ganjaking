@@ -3,6 +3,7 @@
 namespace ACP\Plugin;
 
 use AC;
+use AC\ListScreenFactory;
 use AC\Plugin\InstallCollection;
 use AC\Plugin\UpdateCollection;
 
@@ -31,7 +32,7 @@ class SetupFactory extends AC\Plugin\SetupFactory {
 					new Update\V4101(),
 					new Update\V4301(),
 					new Update\V5000(),
-					new Update\V5104(),
+					new Update\V5104( new ListScreenFactory() ),
 					new Update\V5201(),
 					new Update\V5300(),
 					new Update\V5400(),

@@ -617,7 +617,7 @@ class WC_AM_Subscription {
 							// Make sure WooCommerce Subscription product has an active subscription.
 
 							/**
-							 * Can only check this if woocommerce_order_status_changed is used in Order class, otherwise check will failed, since WooCommerce Subscription status is
+							 * Can only check this if woocommerce_order_status_changed is used in Order class, otherwise check will fail, since WooCommerce Subscription status is
 							 * set on that hook, but then it fires after the order completed emails are sent. :(
 							 */ //$is_active = $this->is_subscription_for_order_active( $data[ 'order_id' ] );
 

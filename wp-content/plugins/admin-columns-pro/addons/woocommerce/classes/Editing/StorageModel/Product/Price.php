@@ -36,8 +36,8 @@ class Price {
 	public function save() {
 		$price = $this->get_calculated_price();
 
-		if ( $price <= 0 ) {
-			return new WP_Error( 'invalid-price', __( 'Price can not be zero or lower.', 'codepress-admin-columns' ) );
+		if ( $price < 0 ) {
+			return new WP_Error( 'invalid-price', __( 'Price can not lower than zero.', 'codepress-admin-columns' ) );
 		}
 
 		if ( $this->value->is_rounded() || 'flat' !== $this->value->get_price_type() ) {

@@ -10,14 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div class="sidebox layouts" data-type="<?= $this->list_screen->get_key(); ?>">
+<div class="sidebox layouts" data-type="<?= $this->list_screen->get_key() ?>">
 
 	<div class="header">
 		<h3>
-			<span class="header-content"><?php _e( 'Column Sets', 'codepress-admin-columns' ); ?></span>
+			<span class="header-content"><?php _e( 'Table Views', 'codepress-admin-columns' ); ?></span>
 			<a class="button add-new">
-				<span class="add"><?= esc_html( __( '+ Add set', 'codepress-admin-columns' ) ); ?></span>
-				<span class="close"><?= esc_html( __( 'Cancel', 'codepress-admin-columns' ) ); ?></span>
+				<span class="add"><?= esc_html( __( '+ Add view', 'codepress-admin-columns' ) ) ?></span>
+				<span class="close"><?= esc_html( __( 'Cancel', 'codepress-admin-columns' ) ) ?></span>
 			</a>
 		</h3>
 	</div>
@@ -57,12 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="layouts__item__title">
 						<?php
 
-						$title = esc_html( $list_screen->get_title() );
-
-						if ( empty( $title ) ) {
-							$title = __( '(no name)', 'codepress-admin-coluns' );
-						}
-
+						$title = esc_html( $list_screen->get_title() ?: $list_screen->get_label() );
 						$title = sprintf( '<span data-label>%s</span>', $title );
 						if ( ! $is_current ) {
 							echo ac_helper()->html->link( $list_screen->get_edit_link(), $title, [ 'class' => 'select' ] );

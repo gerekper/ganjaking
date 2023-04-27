@@ -49,10 +49,6 @@ class Group extends AC\ListScreenWP
 		add_action( 'bp_groups_admin_get_group_custom_column', [ $this, 'manage_value' ], 100, 3 );
 	}
 
-	public function is_current_screen( $wp_screen ) {
-		return $wp_screen && $wp_screen->id === $this->get_screen_id() && 'edit' !== filter_input( INPUT_GET, 'action' );
-	}
-
 	public function get_screen_link() {
 		return add_query_arg( [ 'page' => $this->get_page(), 'layout' => $this->get_layout_id() ], $this->get_admin_url() );
 	}

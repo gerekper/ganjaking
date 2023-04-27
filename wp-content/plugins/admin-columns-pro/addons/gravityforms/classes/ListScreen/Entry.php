@@ -10,26 +10,18 @@ use ACP\Editing;
 use ACP\Export;
 use GF_Entry_List_Table;
 use GFAPI;
-use GFForms;
-use GFFormsModel;
 
 class Entry extends AC\ListScreenWP implements Editing\ListScreen, Export\ListScreen {
 
-	/**
-	 * @var int $form_id
-	 */
 	private $form_id;
 
-	/**
-	 * @var EntryConfigurator
-	 */
 	private $column_configurator;
 
-	public function __construct( $form_id, EntryConfigurator $column_configurator ) {
-		$this->form_id = (int) $form_id;
+	public function __construct( int $form_id, EntryConfigurator $column_configurator ) {
+		$this->form_id = $form_id;
 		$this->column_configurator = $column_configurator;
 
-		$this->set_group( GravityForms\GravityForms::GROUP )
+		$this->set_group( 'gravity_forms' )
 		     ->set_page( 'gf_entries' )
 		     ->set_screen_id( '_page_gf_entries' )
 		     ->set_screen_base( '_page_gf_entries' )
@@ -89,30 +81,6 @@ class Entry extends AC\ListScreenWP implements Editing\ListScreen, Export\ListSc
 	 */
 	public function get_form_id() {
 		return $this->form_id;
-	}
-
-	public function is_current_screen( $wp_screen ): bool {
-		return
-			strpos( $wp_screen->id, '_page_gf_entries' ) !== false &&
-			strpos( $wp_screen->base, '_page_gf_entries' ) !== false &&
-			$this->get_current_form_id() === $this->form_id;
-	}
-
-	/**
-	 * @return int
-	 */
-	private function get_current_form_id() {
-		$form_id = GFForms::get( 'id' );
-
-		if ( ! $form_id ) {
-			$forms = GFFormsModel::get_forms();
-
-			if ( $forms ) {
-				$form_id = $forms[0]->id;
-			}
-		}
-
-		return (int) $form_id;
 	}
 
 	protected function get_admin_url() {

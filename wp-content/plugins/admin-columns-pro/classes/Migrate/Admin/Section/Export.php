@@ -2,6 +2,7 @@
 
 namespace ACP\Migrate\Admin\Section;
 
+use AC\ListScreenCollection;
 use AC\ListScreenRepository\Storage;
 use AC\Renderable;
 use AC\View;
@@ -9,28 +10,22 @@ use ACP\Migrate\Admin\Table;
 
 class Export implements Renderable {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
-	/**
-	 * @var bool
-	 */
-	private $network_only;
+	private $list_screens;
 
-	public function __construct( Storage $storage, $network_only ) {
+	public function __construct( Storage $storage, ListScreenCollection $list_screens ) {
 		$this->storage = $storage;
-		$this->network_only = $network_only;
+		$this->list_screens = $list_screens;
 	}
 
 	public function render() {
 		$view = new View( [
-			'table' => new Table\Export( $this->storage, $this->network_only ),
+			'table' => new Table\Export( $this->storage, $this->list_screens ),
 		] );
-		$view->set_template( 'admin/section-export' );
 
-		return $view->render();
+		return $view->set_template( 'admin/section-export' )
+		            ->render();
 	}
 
 }

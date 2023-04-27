@@ -200,7 +200,7 @@ if ( ! empty( $user_id ) ) {
 									<?php } ?>
 									<td class="api-manager-expire">
 										<?php
-										if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ) ) {
+										if ( WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ?? false ) ) {
 											$expires = __( 'Expired', 'woocommerce-api-manager' );
 										} else {
 											$expires = $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );

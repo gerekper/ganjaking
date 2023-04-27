@@ -14,8 +14,8 @@ final class ColumnGroups implements AC\Registerable {
 	}
 
 	public function register_column_groups( AC\Groups $groups ) {
-		$groups->register_group( self::JET_ENGINE, __( 'JetEngine', 'codepress-admin-columns' ), 11 );
-		$groups->register_group( self::JET_ENGINE_RELATION, __( 'JetEngine Relationship', 'codepress-admin-columns' ), 11 );
+		$groups->add( self::JET_ENGINE, __( 'JetEngine', 'codepress-admin-columns' ), 11 );
+		$groups->add( self::JET_ENGINE_RELATION, __( 'JetEngine Relationship', 'codepress-admin-columns' ), 11 );
 	}
 
 }

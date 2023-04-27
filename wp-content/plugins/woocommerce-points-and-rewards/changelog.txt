@@ -1,5 +1,10 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-04-26 - version 1.7.31
+* Fix - Conforms to coding standards.
+* Fix - Hardcoded username in the points log.
+* Fix - Incorrect username in admin adjusted event data.
+
 2023-04-05 - version 1.7.30
 * Fix - Deduct awarded points when reviews are unapproved.
 * Tweak - WC 7.6 compatibility.

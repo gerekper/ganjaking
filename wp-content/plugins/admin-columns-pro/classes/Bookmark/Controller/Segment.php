@@ -132,7 +132,7 @@ class Segment extends Controller {
 		$segment = $this->segment_repository->create(
 			$this->list_screen->get_id(),
 			get_current_user_id(),
-			$data['name'],
+			(string) $data['name'],
 			$whitelisted_url_parameters,
 			$global
 		);

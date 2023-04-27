@@ -51,7 +51,7 @@ class InlineValues implements RequestHandler {
 		$strategy = $list_screen->editing();
 
 		foreach ( $ids as $k => $id ) {
-			if ( ! $strategy->user_can_edit_item( $id ) ) {
+			if ( ! $strategy->user_can_edit_item( (int) $id ) ) {
 				unset( $ids[ $k ] );
 			}
 		}

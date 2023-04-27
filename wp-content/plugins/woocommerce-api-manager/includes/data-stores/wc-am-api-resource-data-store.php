@@ -1311,24 +1311,6 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
-	 * Return total number of API Resources.
-	 *
-	 * @since 2.1
-	 *
-	 * @return int|string|null
-	 */
-	public function get_api_resource_count() {
-		global $wpdb;
-
-		$api_resource_count = $wpdb->get_var( "
-			SELECT COUNT(api_resource_id)
-			FROM {$wpdb->prefix}" . $this->api_resource_table . "
-		" );
-
-		return ! empty( $api_resource_count ) ? $api_resource_count : 0;
-	}
-
-	/**
 	 * Return array of Associated API Key IDs.
 	 *
 	 * @since 2.0
@@ -1572,6 +1554,32 @@ class WC_AM_API_Resource_Data_Store {
 		$order_ids = $wpdb->get_col( "
 			SELECT DISTINCT order_id
 			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+		" );
+
+		return ! empty( $order_ids ) ? $order_ids : array();
+	}
+
+	/**
+	 * Get all WooCommerce Order IDs that are in Completed status.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @return array
+	 */
+	public function get_all_woocommerce_order_ids() {
+		global $wpdb;
+
+		$is_hpos_in_use            = WCAM()->is_custom_order_tables_usage_enabled();
+		$orders_table_name         = $is_hpos_in_use ? 'wc_orders' : 'posts';
+		$orders_type_column_name   = $is_hpos_in_use ? 'type' : 'post_type';
+		$orders_status_column_name = $is_hpos_in_use ? 'status' : 'post_status';
+		$orders_id_column_name     = $is_hpos_in_use ? 'id' : 'ID';
+
+		$order_ids = $wpdb->get_col( "
+			SELECT {$orders_id_column_name}
+			FROM {$wpdb->prefix}{$orders_table_name}
+			WHERE {$orders_status_column_name} = 'wc-completed'
+			AND {$orders_type_column_name} = 'shop_order'
 		" );
 
 		return ! empty( $order_ids ) ? $order_ids : array();
@@ -2133,6 +2141,17 @@ class WC_AM_API_Resource_Data_Store {
 	/**
 	 * Return total number of API Resources.
 	 *
+	 * @since 2.1
+	 *
+	 * @return int
+	 */
+	public function get_api_resource_count() {
+		return $this->count_resources();
+	}
+
+	/**
+	 * Return total number of API Resources.
+	 *
 	 * @since 2.5.5
 	 *
 	 * @return int
@@ -2144,6 +2163,64 @@ class WC_AM_API_Resource_Data_Store {
 			SELECT COUNT(api_resource_id)
 			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 		" );
+
+		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
+	}
+
+	/**
+	 * Return total number of non-WC Subscriptions API Resources.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @param $distinct bool
+	 *
+	 * @return int
+	 */
+	public function count_non_sub_resources( $distinct = false ) {
+		global $wpdb;
+
+		if ( empty( $distinct ) ) {
+			$count = $wpdb->get_var( "
+			SELECT COUNT(order_id)
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE sub_id = 0
+		" );
+		} else {
+			$count = $wpdb->get_var( "
+			SELECT COUNT(DISTINCT order_id)
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE sub_id = 0
+		" );
+		}
+
+		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
+	}
+
+	/**
+	 * Return total number of WC Subscriptions API Resources.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @param $distinct bool
+	 *
+	 * @return int
+	 */
+	public function count_sub_resources( $distinct = false ) {
+		global $wpdb;
+
+		if ( empty( $distinct ) ) {
+			$count = $wpdb->get_var( "
+			SELECT COUNT(sub_id)
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE sub_id > 0
+		" );
+		} else {
+			$count = $wpdb->get_var( "
+			SELECT COUNT(DISTINCT sub_id)
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE sub_id > 0
+		" );
+		}
 
 		return ! WC_AM_FORMAT()->empty( $count ) ? (int) $count : 0;
 	}
@@ -2164,7 +2241,6 @@ class WC_AM_API_Resource_Data_Store {
 			SELECT 		api_resource_id
 			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE 		api_resource_id = %d
-			LIMIT 1
 			", (int) $api_resource_id ) );
 
 		return ! WC_AM_FORMAT()->empty( $id );

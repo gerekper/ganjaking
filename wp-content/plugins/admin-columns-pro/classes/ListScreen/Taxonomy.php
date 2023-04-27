@@ -16,20 +16,19 @@ use WP_Terms_List_Table;
 class Taxonomy extends AC\ListScreenWP
 	implements Editing\ListScreen, Export\ListScreen, Filtering\ListScreen, Sorting\ListScreen, Editing\BulkDelete\ListScreen {
 
+	public const KEY_PREFIX = 'wp-taxonomy_';
+
 	/**
 	 * @var string
 	 */
 	private $taxonomy;
 
-	/**
-	 * @param string $taxonomy
-	 */
-	public function __construct( $taxonomy ) {
+	public function __construct( string $taxonomy ) {
 		$this->set_taxonomy( $taxonomy )
 		     ->set_meta_type( AC\MetaType::TERM )
 		     ->set_screen_base( 'edit-tags' )
 		     ->set_screen_id( 'edit-' . $taxonomy )
-		     ->set_key( 'wp-taxonomy_' . $taxonomy )
+		     ->set_key( self::KEY_PREFIX . $taxonomy )
 		     ->set_group( 'taxonomy' );
 	}
 
@@ -94,16 +93,6 @@ class Taxonomy extends AC\ListScreenWP
 	}
 
 	/**
-	 * @param $wp_screen
-	 *
-	 * @return bool
-	 * @since 3.7.3
-	 */
-	public function is_current_screen( $wp_screen ) {
-		return parent::is_current_screen( $wp_screen ) && $this->get_taxonomy() === filter_input( INPUT_GET, 'taxonomy' );
-	}
-
-	/**
 	 * Get screen link
 	 * @return string Link
 	 * @since 1.2.0
@@ -111,13 +100,19 @@ class Taxonomy extends AC\ListScreenWP
 	public function get_screen_link() {
 		$post_type = null;
 
-		if ( $object_type = $this->get_taxonomy_var( 'object_type' ) ) {
-			if ( post_type_exists( reset( $object_type ) ) ) {
-				$post_type = $object_type[0];
-			}
+		$object_type = $this->get_taxonomy_var( 'object_type' );
+
+		if ( $object_type && post_type_exists( reset( $object_type ) ) ) {
+			$post_type = $object_type[0];
 		}
 
-		return add_query_arg( [ 'taxonomy' => $this->get_taxonomy(), 'post_type' => $post_type ], parent::get_screen_link() );
+		return add_query_arg(
+			[
+				'taxonomy'  => $this->get_taxonomy(),
+				'post_type' => $post_type,
+			],
+			parent::get_screen_link()
+		);
 	}
 
 	/**
@@ -171,7 +166,7 @@ class Taxonomy extends AC\ListScreenWP
 	}
 
 	public function editing() {
-		return new Editing\Strategy\Taxonomy( $this->taxonomy );
+		return new Editing\Strategy\Taxonomy();
 	}
 
 	public function filtering( $model ) {
@@ -179,7 +174,7 @@ class Taxonomy extends AC\ListScreenWP
 	}
 
 	public function sorting( $model ) {
-		return new Sorting\Strategy\Taxonomy( $model, $this->get_taxonomy() );
+		return new Sorting\Strategy\Taxonomy( $model, $this->taxonomy );
 	}
 
 	public function export() {

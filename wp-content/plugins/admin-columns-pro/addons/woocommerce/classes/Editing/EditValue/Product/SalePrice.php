@@ -36,6 +36,10 @@ class SalePrice extends Price {
 		if ( $this->scheduled ) {
 			$this->schedule_from = $value['schedule']['from'];
 			$this->schedule_to = $value['schedule']['to'];
+
+			if ( ! empty( $this->schedule_to ) ) {
+				$this->schedule_to = date( 'Y-m-d 23:59:59', strtotime( $this->schedule_to ) );
+			}
 		}
 	}
 

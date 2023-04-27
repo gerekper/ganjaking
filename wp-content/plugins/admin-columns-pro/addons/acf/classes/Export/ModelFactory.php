@@ -20,6 +20,7 @@ class ModelFactory {
 			case FieldType::TYPE_RADIO:
 			case FieldType::TYPE_CHECKBOX:
 			case FieldType::TYPE_POST:
+			case FieldType::TYPE_GOOGLE_MAP:
 			case FieldType::TYPE_RELATIONSHIP:
 			case FieldType::TYPE_USER:
 			case FieldType::TYPE_TAXONOMY:

@@ -14,7 +14,8 @@ defined( 'ABSPATH' ) || exit;
 
 class WC_AM_Admin_System_Status {
 
-	private $aws_s3_configured = '';
+	private $aws_s3_configured;
+	private $wc_am_product_id = 260110;
 
 	/**
 	 * @var null
@@ -53,8 +54,10 @@ class WC_AM_Admin_System_Status {
 		$wc_api_manager_data = array();
 
 		$this->set_api_manager_cache( $wc_api_manager_data );
+		$this->set_live_site_url( $wc_api_manager_data );
 		$this->set_api_manager_version( $wc_api_manager_data );
 		$this->set_api_manager_database_version( $wc_api_manager_data );
+		$this->set_woocommerce_account_data( $wc_api_manager_data );
 		$this->set_api_manager_amazon_s3_configured( $wc_api_manager_data );
 
 		if ( $this->aws_s3_configured ) {
@@ -73,6 +76,8 @@ class WC_AM_Admin_System_Status {
 		$this->set_api_manager_api_key_activations( $wc_api_manager_data );
 		$this->set_api_manager_products_count( $wc_api_manager_data );
 		$this->set_api_manager_api_resources( $wc_api_manager_data );
+		$this->set_api_manager_wc_am_subs_api_resources( $wc_api_manager_data );
+		$this->set_api_manager_wc_subs_api_resources( $wc_api_manager_data );
 		$this->set_api_manager_associated_api_keys( $wc_api_manager_data );
 		$this->set_api_manager_secure_hash_count( $wc_api_manager_data );
 		$this->set_api_manager_grace_period_count( $wc_api_manager_data );
@@ -114,6 +119,23 @@ class WC_AM_Admin_System_Status {
 	}
 
 	/**
+	 * Live site URL.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @param $debug_data
+	 */
+	private function set_live_site_url( &$debug_data ) {
+		$debug_data[ 'wcs_live_site_url' ] = array(
+			'name'      => _x( 'Live URL', 'Live URL, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Live URL',
+			'note'      => '<a href="' . esc_url( home_url() ) . '">' . esc_html( home_url() ) . '</a>',
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
 	 * WooCommerce API Manager Version.
 	 *
 	 * @since 2.1
@@ -146,6 +168,56 @@ class WC_AM_Admin_System_Status {
 			'note'      => ! empty( $wc_am_db_version ) ? esc_attr( $wc_am_db_version ) : 'Not yet upgraded.',
 			'mark'      => '',
 			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * Include information about whether the store is linked to a WooCommerce account and whether they have an active WCS product key.
+	 */
+	/**
+	 * WooCommerce API Manager Account Data.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @param $debug_data
+	 */
+	private function set_woocommerce_account_data( &$debug_data ) {
+
+		if ( ! class_exists( 'WC_Helper' ) ) {
+			return;
+		}
+
+		$woocommerce_account_auth      = WC_Helper_Options::get( 'auth' );
+		$woocommerce_account_connected = ! empty( $woocommerce_account_auth );
+
+		$debug_data[ 'wcs_woocommerce_account_connected' ] = array(
+			'name'    => _x( 'WooCommerce Account Connected', 'label for the system status page', 'woocommerce-api-manager' ),
+			'label'   => 'WooCommerce Account Connected',
+			'note'    => $woocommerce_account_connected ? 'Yes' : 'No',
+			'success' => $woocommerce_account_connected,
+		);
+
+		if ( ! $woocommerce_account_connected ) {
+			return;
+		}
+
+		// Check for an active WooCommerce Subscriptions product key
+		$woocommerce_account_api_manger = WC_Helper::get_subscriptions();
+		$site_id                        = absint( $woocommerce_account_auth[ 'site_id' ] );
+		$has_active_product_key         = false;
+
+		foreach ( $woocommerce_account_api_manger as $subscription ) {
+			if ( ! empty( $subscription[ 'product_id' ] ) && $this->wc_am_product_id === $subscription[ 'product_id' ] ) {
+				$has_active_product_key = in_array( $site_id, $subscription[ 'connections' ], false ); // phpcs:ignore WordPress.PHP.StrictInArray.FoundNonStrictFalse -- In case the value from $subscription['connections'] is a string.
+				break;
+			}
+		}
+
+		$debug_data[ 'wcs_active_product_key' ] = array(
+			'name'    => _x( 'Active Product Key', 'label for the system status page', 'woocommerce-api-manager' ),
+			'label'   => 'Active Product Key',
+			'note'    => $has_active_product_key ? 'Yes' : 'No',
+			'success' => $has_active_product_key,
 		);
 	}
 
@@ -310,7 +382,7 @@ class WC_AM_Admin_System_Status {
 	}
 
 	/**
-	 * API Resources.
+	 * All API Resources.
 	 *
 	 * @since 2.1
 	 *
@@ -318,9 +390,43 @@ class WC_AM_Admin_System_Status {
 	 */
 	private function set_api_manager_api_resources( &$debug_data ) {
 		$debug_data[ 'wc_api_manager_api_resources' ] = array(
-			'name'      => _x( 'API Resources', 'API Resources Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
-			'label'     => 'API Resources',
-			'note'      => esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_count() ),
+			'name'      => _x( 'All API Resources', 'All API Resources Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'All API Resources',
+			'note'      => esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->count_resources() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * WC Subscriptions API Resources.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_wc_am_subs_api_resources( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_wc_am_subs_api_resources' ] = array(
+			'name'      => _x( 'WC AM Subscription Resources', 'WC AM Subscription Resources Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'WC AM Subscription Resources',
+			'note'      => esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->count_non_sub_resources() ) . __( ' - (Grouped ', 'woocommerce-api-manager' ) . esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->count_non_sub_resources( true ) ) . ')',
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * WC Subscriptions API Resources.
+	 *
+	 * @since 2.6.8
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_wc_subs_api_resources( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_wc_subs_api_resources' ] = array(
+			'name'      => _x( 'WC Subscriptions Resources', 'WC Subscriptions Resources Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'WC Subscriptions Resources',
+			'note'      => esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->count_sub_resources() ) . __( ' - (Grouped ', 'woocommerce-api-manager' ) . esc_attr( WC_AM_API_RESOURCE_DATA_STORE()->count_sub_resources( true ) ) . ')',
 			'mark'      => '',
 			'mark_icon' => '',
 		);
@@ -398,7 +504,7 @@ class WC_AM_Admin_System_Status {
 			if ( ! empty( $theme_overrides[ 'has_outdated_templates' ] ) && true === $theme_overrides[ 'has_outdated_templates' ] ) {
 				$debug_data[ 'wc_am_theme_overrides' ] += array(
 					'mark_icon' => 'warning',
-					'note'      => sprintf( __( '%s%sLearn how to update%s', 'woocommerce-api-manager' ), '<br>', '<a href="https://docs.woocommerce.com/document/fix-outdated-templates-woocommerce/" target="_blank">', '</a>' ),
+					'note'      => sprintf( __( '%1$sLearn how to update%2$s', 'woocommerce-api-manager' ), '<a href="https://docs.woocommerce.com/document/fix-outdated-templates-woocommerce/" target="_blank">', '</a>' ),
 				);
 			}
 		}

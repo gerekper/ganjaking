@@ -1,33 +1,32 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '33aeab86f802e47a36160a53e304f48b92ffe510',
+        'name' => '__root__',
+        'dev' => false,
     ),
-    'reference' => '1ad87161a1edc4354813fb0c32336c84f8e12ba1',
-    'name' => '__root__',
-  ),
-  'versions' => 
-  array (
-    '__root__' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '1ad87161a1edc4354813fb0c32336c84f8e12ba1',
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '33aeab86f802e47a36160a53e304f48b92ffe510',
+            'dev_requirement' => false,
+        ),
+        'skyverge/wc-plugin-framework' => array(
+            'pretty_version' => '5.11.0',
+            'version' => '5.11.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../skyverge/wc-plugin-framework',
+            'aliases' => array(),
+            'reference' => '09b140afa3bffef8141fc72e5651d85021095dec',
+            'dev_requirement' => false,
+        ),
     ),
-    'skyverge/wc-plugin-framework' => 
-    array (
-      'pretty_version' => '5.10.2',
-      'version' => '5.10.2.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a8a94ec6cf6d41ab4e23692dd5dcaa4f3876810c',
-    ),
-  ),
 );

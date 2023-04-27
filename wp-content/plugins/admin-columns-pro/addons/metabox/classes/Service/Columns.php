@@ -43,8 +43,8 @@ class Columns implements Registerable {
 	}
 
 	public function register_column_groups( AC\Groups $groups ) {
-		$groups->register_group( 'metabox', 'MetaBox', 11 );
-		$groups->register_group( 'metabox_relation', 'MetaBox Relation', 11 );
+		$groups->add( 'metabox', 'MetaBox', 11 );
+		$groups->add( 'metabox_relation', 'MetaBox Relation', 11 );
 	}
 
 	public function add_columns( AC\ListScreen $list_screen ) {

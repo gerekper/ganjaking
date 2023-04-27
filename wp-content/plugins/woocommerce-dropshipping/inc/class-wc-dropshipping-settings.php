@@ -2148,7 +2148,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 									echo '
 
-                                    <td><label for="hide_client_info_Suppliers">Hide Client info in Suppliers Order list dashboard.</label></td>
+                                    <td><label for="hide_client_info_Suppliers">
+									Hide Customer info in the Packing Slip, Order emails and Suppliers dashboard.</label></td>
                                 </tr>
                             </table>';
 
@@ -2157,12 +2158,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 <tr>
                                     <td><input type="checkbox" name="hide_contact_info_Suppliers" id="hide_contact_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false"  value="1" tabIndex="1" onClick="ckChange(this)" ' . $hide_contact_info_Suppliers . '></td>
 
-                                    <td><label for="hide_contact_info_Suppliers">Hide Contact Info in Suppliers Order list dashboard.</label></td>
+                                    <td><label for="hide_contact_info_Suppliers">
+									Hide Customer Contact info in the Packing Slip, Order emails and Suppliers dashboard.</label></td>
                                 </tr>
                             </table>';
 
 				if ( $hide_client_info_Suppliers == ' checked="checked" ' ) {
-
 					echo '<p></p>
 								<table>
 									<tr>

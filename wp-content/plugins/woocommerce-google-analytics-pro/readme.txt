@@ -1,11 +1,11 @@
 === WooCommerce Google Analytics Pro ===
 Author: skyverge
 Tags: woocommerce
-Requires at least: 5.2
-Tested up to: 5.9.2
-Requires PHP: 7.0
+Requires at least: 5.6
+Tested up to: 6.2
+Requires PHP: 7.4
 
-Supercharge your Google Analytics tracking with enhanced eCommerce tracking and custom event tracking
+Measure your site's success using advanced eCommerce tracking via Google Analytics
 
 See https://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for full documentation.
 

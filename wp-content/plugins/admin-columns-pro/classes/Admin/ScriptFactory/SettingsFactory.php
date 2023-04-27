@@ -71,6 +71,7 @@ class SettingsFactory implements ScriptFactory {
 			}
 
 			$inline_vars['table_elements'][] = $group;
+			$inline_vars['read_only'] = $this->list_screen->is_read_only();
 		}
 
 		return $script->add_inline_variable( 'acp_settings', $inline_vars );

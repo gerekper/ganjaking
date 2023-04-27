@@ -3,7 +3,7 @@
 namespace ACP\Export;
 
 /**
- * Base class for exporters, which handle the construction of the file content for an an exported
+ * Base class for exporters, which handle the construction of the file content for an exported
  * list screen. Extending classes should generally implement exporting functionality for a specific
  * file format, such as CSV
  * @since 1.0

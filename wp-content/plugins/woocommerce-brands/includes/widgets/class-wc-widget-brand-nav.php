@@ -182,6 +182,8 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 	/**
 	 * Get current page URL for layered nav items.
+	 *
+	 * @param  string $taxonomy
 	 * @return string
 	 */
 	protected function get_page_base_url( $taxonomy ) {
@@ -196,19 +198,20 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 		} else {
 			$link = get_term_link( get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 		}
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 
 		// Min/Max
 		if ( isset( $_GET['min_price'] ) ) {
-			$link = add_query_arg( 'min_price', wc_clean( $_GET['min_price'] ), $link );
+			$link = add_query_arg( 'min_price', wc_clean( wp_unslash( $_GET['min_price'] ) ), $link );
 		}
 
 		if ( isset( $_GET['max_price'] ) ) {
-			$link = add_query_arg( 'max_price', wc_clean( $_GET['max_price'] ), $link );
+			$link = add_query_arg( 'max_price', wc_clean( wp_unslash( $_GET['max_price'] ) ), $link );
 		}
 
 		// Orderby
 		if ( isset( $_GET['orderby'] ) ) {
-			$link = add_query_arg( 'orderby', wc_clean( $_GET['orderby'] ), $link );
+			$link = add_query_arg( 'orderby', wc_clean( wp_unslash( $_GET['orderby'] ) ), $link );
 		}
 
 		/**
@@ -221,12 +224,12 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 		// Post Type Arg
 		if ( isset( $_GET['post_type'] ) ) {
-			$link = add_query_arg( 'post_type', wc_clean( $_GET['post_type'] ), $link );
+			$link = add_query_arg( 'post_type', wc_clean( wp_unslash( $_GET['post_type'] ) ), $link );
 		}
 
 		// Min Rating Arg
 		if ( isset( $_GET['min_rating'] ) ) {
-			$link = add_query_arg( 'min_rating', wc_clean( $_GET['min_rating'] ), $link );
+			$link = add_query_arg( 'min_rating', wc_clean( wp_unslash( $_GET['min_rating'] ) ), $link );
 		}
 
 		// All current filters
@@ -245,7 +248,9 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 			}
 		}
 
-		return $link;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+		return esc_url( $link );
 	}
 
 	/**
@@ -255,7 +260,8 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 	 */
 	public function get_chosen_attributes() {
 		if ( ! empty( $_GET['filter_product_brand'] ) ) {
-			return array_map( 'intval', explode( ',', $_GET['filter_product_brand'] ) );
+			$filter_product_brand = wc_clean( wp_unslash( $_GET['filter_product_brand'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return array_map( 'intval', explode( ',', $filter_product_brand ) );
 		}
 
 		return array();
@@ -361,7 +367,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 				continue;
 			}
 
-			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( $_GET[ $filter_name ] ) ) : array();
+			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( wp_unslash( $_GET[ $filter_name ] ) ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$current_filter = array_map( 'intval', $current_filter );
 
 			if ( ! in_array( $term->term_id, $current_filter ) ) {

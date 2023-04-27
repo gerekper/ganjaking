@@ -12,7 +12,7 @@ class ColumnGroups implements Registerable {
 	}
 
 	public function register_column_groups( Groups $groups ) {
-		$groups->register_group( 'woocommerce', __( 'WooCommerce', 'codepress-admin-columns' ), 15 );
+		$groups->add( 'woocommerce', __( 'WooCommerce', 'codepress-admin-columns' ), 15 );
 	}
 
 }

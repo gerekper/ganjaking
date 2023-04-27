@@ -6,22 +6,10 @@ use ACP;
 
 interface Strategy {
 
-	/**
-	 * @param int $id
-	 *
-	 * @return bool
-	 */
-	public function user_can_edit_item( $id );
+	public function user_can_edit_item( int $id ): bool;
 
-	/**
-	 * @return bool
-	 */
-	public function user_can_edit();
+	public function user_can_edit(): bool;
 
-	/**
-	 * Fetch rows
-	 * @return RequestHandler
-	 */
-	public function get_query_request_handler();
+	public function get_query_request_handler(): RequestHandler;
 
 }

@@ -107,7 +107,7 @@ class Activation
 					->set_type( Message::INFO )
 					->register();
 				break;
-			case $screen->get_list_screen() && $this->get_dismiss_option()->is_expired() && $this->show_message() :
+			case $screen->is_list_screen() && $this->get_dismiss_option()->is_expired() && $this->show_message() :
 
 				// Dismissible message on list table
 				$notice = new Message\Notice\Dismissible( $this->get_message(), $this->get_ajax_handler() );

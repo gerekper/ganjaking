@@ -15,7 +15,7 @@ class ColumnGroup implements Registerable {
 	}
 
 	public function register_column_group( AC\Groups $groups ) {
-		$groups->register_group( self::NAME, __( 'Media Library Assistant' ), 25 );
+		$groups->add( self::NAME, __( 'Media Library Assistant' ), 25 );
 	}
 
 }

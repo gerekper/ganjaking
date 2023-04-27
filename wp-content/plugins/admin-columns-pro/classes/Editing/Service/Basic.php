@@ -5,7 +5,7 @@ namespace ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class  Basic extends BasicStorage {
+class Basic extends BasicStorage {
 
 	/**
 	 * @var View

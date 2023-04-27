@@ -11,19 +11,14 @@ use RuntimeException;
 
 class SegmentRepository {
 
-	const FILTER_USER = 'user_id';
-	const FILTER_LIST_SCREEN = 'list_screen_id';
-	const FILTER_GLOBAL = 'global';
-	const ORDER_BY = 'orderby';
-	const ORDER = 'order';
-	const TABLE = 'ac_segments';
+	public const FILTER_USER = 'user_id';
+	public const FILTER_LIST_SCREEN = 'list_screen_id';
+	public const FILTER_GLOBAL = 'global';
+	public const ORDER_BY = 'orderby';
+	public const ORDER = 'order';
+	public const TABLE = 'ac_segments';
 
-	/**
-	 * @param SegmentId $id
-	 *
-	 * @return Segment|null
-	 */
-	public function find( SegmentId $id ) {
+	public function find( SegmentId $id ): ?Segment {
 		global $wpdb;
 
 		$sql = "
@@ -46,7 +41,7 @@ class SegmentRepository {
 	 *
 	 * @return Segment[]
 	 */
-	public function find_all( array $args = [] ) {
+	public function find_all( array $args = [] ): array {
 		global $wpdb;
 
 		$args = array_merge( [
@@ -100,23 +95,7 @@ class SegmentRepository {
 		return $segments;
 	}
 
-	/**
-	 * @param int $user_id
-	 *
-	 * @return Segment[]
-	 */
-	public function find_all_by_user( $user_id ) {
-		return $this->find_all( [
-			self::FILTER_USER => $user_id,
-		] );
-	}
-
-	/**
-	 * @param object $row
-	 *
-	 * @return Segment
-	 */
-	private function create_segment_from_row( $row ) {
+	private function create_segment_from_row( object $row ): Segment {
 		return new Segment(
 			new SegmentId( (int) $row->id ),
 			new ListScreenId( $row->list_screen_id ),
@@ -127,29 +106,14 @@ class SegmentRepository {
 		);
 	}
 
-	/**
-	 * @param ListScreenId $list_screen_id
-	 * @param int          $user_id
-	 * @param string       $name
-	 * @param array        $url_parameters
-	 * @param bool         $global
-	 *
-	 * @return Segment
-	 */
-	public function create( ListScreenId $list_screen_id, $user_id, $name, array $url_parameters, $global ) {
+	public function create(
+		ListScreenId $list_screen_id,
+		int $user_id,
+		string $name,
+		array $url_parameters,
+		bool $global
+	): Segment {
 		global $wpdb;
-
-		if ( ! is_string( $name ) ) {
-			throw new InvalidArgumentException( 'Expected a string for name.' );
-		}
-
-		if ( ! is_int( $user_id ) ) {
-			throw new InvalidArgumentException( 'Expected an integer for user id.' );
-		}
-
-		if ( ! is_bool( $global ) ) {
-			throw new InvalidArgumentException( 'Expected a boolean for global setting.' );
-		}
 
 		$inserted = $wpdb->insert(
 			$wpdb->prefix . self::TABLE,
@@ -185,10 +149,7 @@ class SegmentRepository {
 		);
 	}
 
-	/**
-	 * @param SegmentId $id
-	 */
-	public function delete( SegmentId $id ) {
+	public function delete( SegmentId $id ): void {
 		global $wpdb;
 
 		$wpdb->delete(

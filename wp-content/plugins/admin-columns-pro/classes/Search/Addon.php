@@ -4,6 +4,7 @@ namespace ACP\Search;
 
 use AC;
 use AC\Asset\Location;
+use AC\ListScreenFactoryInterface;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use ACP;
@@ -39,10 +40,16 @@ final class Addon implements Registerable {
 	 */
 	private $hide_smart_filters;
 
-	public function __construct( Storage $storage, Location $location, SegmentRepository $segment_repository ) {
+	/**
+	 * @var ListScreenFactoryInterface
+	 */
+	private $list_screen_factory;
+
+	public function __construct( Storage $storage, Location $location, SegmentRepository $segment_repository, ListScreenFactoryInterface $list_screen_factory ) {
 		$this->storage = $storage;
 		$this->location = $location;
 		$this->segment_repository = $segment_repository;
+		$this->list_screen_factory = $list_screen_factory;
 		$this->table_preference = new Preferences\SmartFiltering();
 		$this->hide_smart_filters = new Settings\HideOnScreen\SmartFilters();
 	}
@@ -97,7 +104,8 @@ final class Addon implements Registerable {
 
 		$comparison = new RequestHandler\Comparison(
 			$this->storage,
-			$request
+			$request,
+			$this->list_screen_factory
 		);
 
 		$comparison->dispatch( $request->get( 'method' ) );

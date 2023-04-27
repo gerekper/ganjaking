@@ -6,15 +6,12 @@
 class WC_Brands_Admin {
 
 	var $settings_tabs;
-	var $current_tab;
 	var $fields = array();
 
 	/**
 	 * __construct function.
 	 */
 	public function __construct() {
-
-		$this->current_tab = ( isset($_GET['tab'] ) ) ? $_GET['tab'] : 'general';
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_action( 'admin_enqueue_scripts', [ $this, 'styles' ] );
@@ -535,11 +532,11 @@ class WC_Brands_Admin {
 	 * settings api does not trigger save for the permalinks page.
 	 */
 	public function save_permalink_settings() {
-		if ( ! is_admin() || ! isset( $_POST['permalink_structure'] ) ) {
+		if ( ! is_admin() || ! isset( $_POST['permalink_structure'] ) || ! isset( $_POST['woocommerce_product_brand_slug'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			return;
 		}
 
-		update_option( 'woocommerce_brand_permalink', wc_sanitize_permalink( trim( $_POST['woocommerce_product_brand_slug'] ) ) );
+		update_option( 'woocommerce_brand_permalink', wc_sanitize_permalink( trim( wc_clean( wp_unslash( $_POST['woocommerce_product_brand_slug'] ) ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 
 	/**

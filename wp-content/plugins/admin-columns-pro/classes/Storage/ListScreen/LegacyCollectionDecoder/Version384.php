@@ -3,76 +3,55 @@
 namespace ACP\Storage\ListScreen\LegacyCollectionDecoder;
 
 use AC\ListScreenCollection;
-use AC\ListScreenTypes;
+use AC\ListScreenFactoryInterface;
 use ACP\Storage\ListScreen\LegacyCollectionDecoder;
-use DateTime;
 
 final class Version384 implements LegacyCollectionDecoder {
 
-	/**
-	 * @var ListScreenTypes
-	 */
-	private $types;
+	private $list_screen_factory;
 
-	public function __construct( ListScreenTypes $types ) {
-		$this->types = $types;
+	public function __construct( ListScreenFactoryInterface $list_screen_factory ) {
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
-	public function decode( array $data ) {
+	public function decode( array $data ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $data as $key => $encoded_list_screens ) {
+		foreach ( $data as $list_key => $encoded_list_screens ) {
 
 			foreach ( $encoded_list_screens as $encoded_list_screen ) {
-
-				$list_screen = $this->types->get_list_screen_by_key( $key );
-
-				if ( null === $list_screen ) {
+				if ( ! $this->list_screen_factory->can_create( (string) $list_key ) ) {
 					continue;
 				}
 
-				$id = sanitize_key( substr( md5( serialize( $encoded_list_screen ) . $key ), 0, 16 ) );
+				$settings = [
+					'list_id' => sanitize_key( substr( md5( serialize( $encoded_list_screen ) . $list_key ), 0, 16 ) ),
+					'columns' => $encoded_list_screen['columns'] ?? [],
+				];
 
-				$list_screen
-					->set_layout_id( $id )
-					->set_settings( $encoded_list_screen['columns'] )
-					->set_title( ucfirst( $list_screen->get_label() ) )
-					->set_updated( new DateTime() );
+				$layout = $encoded_list_screen['layout'] ?? null;
 
-				if ( isset( $encoded_list_screen['layout'] ) ) {
-
-					$layout = $encoded_list_screen['layout'];
-
+				if ( $layout ) {
 					if ( ! empty( $layout['name'] ) ) {
-						$list_screen->set_title( $layout['name'] );
+						$settings['title'] = (string) $layout['name'];
 					}
-
-					$settings = [];
-
 					if ( ! empty( $layout['users'] ) && is_array( $layout['users'] ) ) {
-						$settings['users'] = array_map( 'intval', $layout['users'] );
+						$settings['preferences']['users'] = array_map( 'intval', $layout['users'] );
 					}
 					if ( ! empty( $layout['roles'] ) && is_array( $layout['roles'] ) ) {
-						$settings['roles'] = array_map( 'strval', $layout['roles'] );
+						$settings['preferences']['roles'] = array_map( 'strval', $layout['roles'] );
 					}
-
-					$list_screen->set_preferences( $settings );
 				}
 
-				$list_screens->add( $list_screen );
+				$list_screens->add( $this->list_screen_factory->create( (string) $key, $settings ) );
 			}
 		}
 
 		return $list_screens;
 	}
 
-	/**
-	 * @param array $data
-	 *
-	 * @return bool
-	 */
-	public function can_decode( array $data ) {
-		foreach ( $data as $key => $list_screens_data ) {
+	public function can_decode( array $data ): bool {
+		foreach ( $data as $list_screens_data ) {
 			if ( ! is_array( $list_screens_data ) ) {
 				return false;
 			}

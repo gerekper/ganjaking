@@ -17,13 +17,7 @@ class PreferredFilter {
 		$this->segment_repository = $segment_repository;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 * @param string     $request_key
-	 *
-	 * @return array
-	 */
-	public function findFilters( ListScreen $list_screen, $request_key ) {
+	public function findFilters( ListScreen $list_screen, string $request_key ): array {
 		$preference = new Bookmark\Setting\PreferredSegment( $list_screen, $this->segment_repository );
 
 		$segment = $preference->get_segment();
@@ -34,9 +28,7 @@ class PreferredFilter {
 
 		$params = $segment->get_url_parameters();
 
-		return isset( $params[ $request_key ] )
-			? $params[ $request_key ]
-			: [];
+		return $params[ $request_key ] ?? [];
 	}
 
 }

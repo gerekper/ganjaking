@@ -4,6 +4,7 @@ namespace ACA\BP;
 
 use AC;
 use AC\Registerable;
+use ACA\BP\ListScreenFactory;
 use ACA\BP\Service;
 use ACP\Service\IntegrationStatus;
 
@@ -29,6 +30,9 @@ final class BuddyPress implements Registerable {
 		];
 
 		array_map( [ $this, 'register_service' ], $services );
+
+		AC\ListScreenFactory::add( new ListScreenFactory\Email() );
+		AC\ListScreenFactory::add( new ListScreenFactory\Group() );
 	}
 
 	private function register_service( $service ) {

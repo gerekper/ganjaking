@@ -82,7 +82,7 @@ class WC_Points_Rewards_Product {
 			$message = $this->replace_message_variables( $message, $product, $points_earned );
 		}
 
-		echo apply_filters( 'wc_points_rewards_single_product_message', $message, $this );
+		echo wp_kses_post( apply_filters( 'wc_points_rewards_single_product_message', $message, $this ) );
 	}
 
 	/**
@@ -107,7 +107,7 @@ class WC_Points_Rewards_Product {
 				$message = $this->create_variation_message_to_product_summary( $points );
 			}
 
-			echo $message;
+			echo wp_kses_post( $message );
 		}
 	}
 

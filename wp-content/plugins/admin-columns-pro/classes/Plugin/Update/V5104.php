@@ -2,15 +2,22 @@
 
 namespace ACP\Plugin\Update;
 
+use AC\ListScreenFactoryInterface;
 use AC\ListScreenRepository\Database;
-use AC\ListScreenTypes;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 
 class V5104 extends Update {
 
-	public function __construct() {
+	/**
+	 * @var ListScreenFactoryInterface
+	 */
+	private $list_screen_factory;
+
+	public function __construct( ListScreenFactoryInterface $list_screen_factory ) {
 		parent::__construct( new Version( '5.1.4' ) );
+
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	public function apply_update() {
@@ -18,7 +25,7 @@ class V5104 extends Update {
 	}
 
 	private function set_default_export_option() {
-		$repo = new Database( ListScreenTypes::instance() );
+		$repo = new Database( $this->list_screen_factory );
 
 		foreach ( $repo->find_all() as $list_screen ) {
 			$settings = $list_screen->get_settings();

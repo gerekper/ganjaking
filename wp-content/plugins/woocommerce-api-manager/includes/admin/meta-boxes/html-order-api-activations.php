@@ -23,8 +23,8 @@ defined( 'ABSPATH' ) || exit;
 	<tbody id="order_line_items">
 	<?php $i = 0;
 
-	if ( ! empty( $activation_resources ) ) {
-		foreach ( $activation_resources as $activation_resource ) {
+	if ( ! empty( $resources ) ) {
+		foreach ( $resources as $resource ) {
 			?>
 			<?php
 			/**
@@ -32,16 +32,16 @@ defined( 'ABSPATH' ) || exit;
 			 *
 			 * @since 2.6
 			 */
-			if ( $activation_resource->sub_id == 0 ) {
-				$is_expired = WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $activation_resource->access_expires );
+			if ( $resource->sub_id == 0 ) {
+				$is_expired = WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ?? false );
 			} else {
-				$is_expired = ! WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $activation_resource->sub_id );
+				$is_expired = ! WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $resource->sub_id );
 			}
 
 			if ( ! $is_expired ) {
-				if ( $activation_resource->api_key == $activation_resource->master_api_key ) {
+				if ( $resource->api_key == $resource->master_api_key ) {
 					$api_key_type = esc_html__( 'Master API Key', 'woocommerce-api-manager' );
-				} elseif ( $activation_resource->api_key == $activation_resource->product_order_api_key ) {
+				} elseif ( $resource->api_key == $resource->product_order_api_key ) {
 					$api_key_type = esc_html__( 'Product Order API Key', 'woocommerce-api-manager' );
 				} else {
 					$api_key_type = esc_html__( 'Associated API Key', 'woocommerce-api-manager' );
@@ -50,16 +50,16 @@ defined( 'ABSPATH' ) || exit;
 				<tr<?php if ( $i % 2 == 0 )
 					echo ' class="alternate"' ?>>
 					<td><?php echo $api_key_type; ?></td>
-					<td><?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $activation_resource->assigned_product_id ) ) . '&action=edit' ) . '" title="' . WC_AM_API_RESOURCE_DATA_STORE()->get_title_by_api_resource_id( $activation_resource->api_resource_id ) . '" target="_blank">' . esc_attr( $activation_resource->assigned_product_id ) . '</a>' ?></td>
-					<td style="padding-left: 1em; padding-right: 1em"><?php echo esc_attr( ! empty( $activation_resource->version ) ? $activation_resource->version : '' ); ?></td>
-					<td><?php echo esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_resource->activation_time ) ) ?></td>
+					<td><?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $resource->assigned_product_id ) ) . '&action=edit' ) . '" title="' . WC_AM_API_RESOURCE_DATA_STORE()->get_title_by_api_resource_id( $resource->api_resource_id ) . '" target="_blank">' . esc_attr( $resource->assigned_product_id ) . '</a>' ?></td>
+					<td style="padding-left: 1em; padding-right: 1em"><?php echo esc_attr( ! empty( $resource->version ) ? $resource->version : '' ); ?></td>
+					<td><?php echo esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->activation_time ) ) ?></td>
 					<td>
 						<?php
 						// Remove the trailing forward slash, if it exists.
-						$obj_length = strlen( $activation_resource->object );
-						$object     = ! empty( $activation_resource->object ) && substr( $activation_resource->object, $obj_length - 1, $obj_length ) == '/' ? substr( $activation_resource->object, 0, $obj_length - 1 ) : $activation_resource->object;
+						$obj_length = strlen( $resource->object );
+						$object     = ! empty( $resource->object ) && substr( $resource->object, $obj_length - 1, $obj_length ) == '/' ? substr( $resource->object, 0, $obj_length - 1 ) : $resource->object;
 
-						if ( filter_var( $activation_resource->object, FILTER_VALIDATE_URL ) ) {
+						if ( filter_var( $resource->object, FILTER_VALIDATE_URL ) ) {
 							// If $object is a URL, then remove the http(s)//: prefix.
 							echo '<a href="' . esc_url( $object ) . '" target="_blank">' . esc_attr( WC_AM_URL()->remove_url_prefix( $object ) ) . '</a>';
 						} else {
@@ -68,9 +68,9 @@ defined( 'ABSPATH' ) || exit;
 					</td>
 					<td>
 						<button type="button"
-						        instance="<?php echo $activation_resource->instance; ?>" order_id="<?php echo $activation_resource->order_id; ?>"
-						        sub_parent_id="<?php echo $activation_resource->sub_parent_id; ?>" api_key="<?php echo $activation_resource->api_key; ?>"
-						        product_id="<?php echo $activation_resource->product_id; ?>" user_id="<?php echo $activation_resource->user_id; ?>"
+						        instance="<?php echo $resource->instance; ?>" order_id="<?php echo $resource->order_id; ?>"
+						        sub_parent_id="<?php echo $resource->sub_parent_id; ?>" api_key="<?php echo $resource->api_key; ?>"
+						        product_id="<?php echo $resource->product_id; ?>" user_id="<?php echo $resource->user_id; ?>"
 						        class="delete_api_key button"><?php esc_html_e( 'Delete', 'woocommerce-api-manager' ); ?></button>
 					</td>
 				</tr>

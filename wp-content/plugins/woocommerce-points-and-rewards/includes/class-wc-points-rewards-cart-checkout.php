@@ -412,7 +412,7 @@ class WC_Points_Rewards_Cart_Checkout {
 
 		$message = '<p>' . $message . '</p>';
 
-		echo apply_filters( 'wc_points_rewards_thank_you_message', $message, $points, $total_points );
+		echo wp_kses_post( apply_filters( 'wc_points_rewards_thank_you_message', $message, $points, $total_points ) );
 	}
 
 	/**
@@ -526,7 +526,39 @@ class WC_Points_Rewards_Cart_Checkout {
 		// wrap with info div
 		$message = '<div class="woocommerce-info wc_points_redeem_earn_points">' . $message . '</div>';
 
-		echo apply_filters( 'wc_points_rewards_redeem_points_message', $message, $discount_available );
+		$allowed_tags = array(
+			'form'  => array(
+				'class'          => true,
+				'action'         => true,
+				'accept'         => true,
+				'accept-charset' => true,
+				'enctype'        => true,
+				'method'         => true,
+				'name'           => true,
+				'target'         => true,
+				'style'          => true,
+			),
+			'input' => array(
+				'type'  => true,
+				'name'  => true,
+				'class' => true,
+				'value' => true,
+			),
+			'div'   => array(
+				'class' => true,
+			),
+		);
+
+		// The 'display' style is not a safe style and hence would be stripped by wp_kses. Adding it to allow style="display:inline" style in the form.
+		add_filter(
+			'safe_style_css',
+			function( $styles ) {
+				$styles[] = 'display';
+				return $styles;
+			}
+		);
+
+		echo wp_kses( apply_filters( 'wc_points_rewards_redeem_points_message', $message, $discount_available ), $allowed_tags );
 	}
 
 	/**

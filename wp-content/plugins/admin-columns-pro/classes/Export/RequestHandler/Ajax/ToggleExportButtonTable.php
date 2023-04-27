@@ -16,7 +16,7 @@ class ToggleExportButtonTable implements RequestAjaxHandler {
 		$this->preference = new UserPreference\ShowExportButton();
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {

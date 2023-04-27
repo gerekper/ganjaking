@@ -18,7 +18,7 @@ final class Columns implements Registerable {
 	 * @param AC\Groups $groups
 	 */
 	public function register_column_groups( $groups ) {
-		$groups->register_group( 'pods', 'Pods', 11 );
+		$groups->add( 'pods', 'Pods', 11 );
 
 	}
 

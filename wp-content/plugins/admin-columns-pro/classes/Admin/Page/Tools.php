@@ -11,7 +11,7 @@ use ACP;
 
 class Tools implements Asset\Enqueueables, Renderable, RenderableHead {
 
-	const NAME = 'import-export';
+	public const NAME = 'import-export';
 
 	/**
 	 * @var Renderable[]

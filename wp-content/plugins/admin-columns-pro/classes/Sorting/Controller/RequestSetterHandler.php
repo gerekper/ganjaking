@@ -5,7 +5,8 @@ namespace ACP\Sorting\Controller;
 use AC;
 use ACP\Sorting\ApplyFilter;
 use ACP\Sorting\Request;
-use ACP\Sorting\Settings;
+use ACP\Sorting\Settings\ListScreen\PreferredSegmentSort;
+use ACP\Sorting\Settings\ListScreen\PreferredSort;
 use ACP\Sorting\Type\SortType;
 use ACP\Sorting\UserPreference;
 
@@ -22,12 +23,12 @@ class RequestSetterHandler {
 	private $user_preference;
 
 	/**
-	 * @var Settings\ListScreen\PreferredSort
+	 * @var PreferredSort
 	 */
 	private $setting_sort_default;
 
 	/**
-	 * @var Settings\ListScreen\PreferredSegmentSort
+	 * @var PreferredSegmentSort
 	 */
 	private $setting_segment_default;
 
@@ -36,7 +37,12 @@ class RequestSetterHandler {
 	 */
 	private $default_sort_filter;
 
-	public function __construct( UserPreference\SortType $user_preference, Settings\ListScreen\PreferredSort $setting_sort_default, Settings\ListScreen\PreferredSegmentSort $setting_segment_default, ApplyFilter\DefaultSort $default_sort_filter ) {
+	public function __construct(
+		UserPreference\SortType $user_preference,
+		PreferredSort $setting_sort_default,
+		PreferredSegmentSort $setting_segment_default,
+		ApplyFilter\DefaultSort $default_sort_filter
+	) {
 		$this->user_preference = $user_preference;
 		$this->setting_sort_default = $setting_sort_default;
 		$this->setting_segment_default = $setting_segment_default;

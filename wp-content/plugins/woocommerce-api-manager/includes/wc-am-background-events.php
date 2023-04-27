@@ -57,6 +57,19 @@ class WC_AM_Background_Events {
 		$this->queue_cleanup_expired_grace_periods();
 		$this->background_process->push_to_queue( array( 'task' => 'cleanup_hash' ) );
 		$this->background_process->save()->dispatch();
+		WC_AM_LOG()->log_info( esc_html__( 'Expired API Resources Cleanup event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'expired-api-resources-cleanup' );
+	}
+
+	/**
+	 * Run on-demand.
+	 *
+	 * @since 2.6.8
+	 */
+	public function queue_repair_event() {
+		$this->queue_repair_missing_api_resources();
+		$this->background_process->push_to_queue( array( 'task' => 'wc_am_repair_hash' ) );
+		$this->background_process->save()->dispatch();
+		WC_AM_LOG()->log_info( esc_html__( 'Missing API Resources Repair event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'missing-api-resources-repair' );
 	}
 
 	/**
@@ -172,7 +185,7 @@ class WC_AM_Background_Events {
 					}
 				}
 			} catch ( Exception $e ) {
-				WC_AM_LOG()->log_info( esc_html__( 'Expired API Activations Cleanup ERROR for Order ID# ', 'woocommerce-api-manager' ) . $e, 'expired-api-activations-cleanup' );
+				WC_AM_LOG()->log_info( esc_html__( 'Expired API Activations Cleanup ERROR for Order ID# ', 'woocommerce-api-manager' ) . $order_id . '. ' . $e, 'expired-api-activations-cleanup' );
 			}
 		}
 	}
@@ -427,6 +440,66 @@ class WC_AM_Background_Events {
 		if ( ! empty( $updated ) ) {
 			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+		}
+	}
+
+	/**
+	 * Queue repair_missing_api_resources().
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 2.6.8
+	 */
+	private function queue_repair_missing_api_resources() {
+		$am_order_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids();
+		$wc_order_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_all_woocommerce_order_ids();
+
+		if ( ! empty( $am_order_ids ) && ! empty( $wc_order_ids ) ) {
+			$order_ids = array_diff( $wc_order_ids, $am_order_ids );
+
+			if ( ! empty( $order_ids ) ) {
+				foreach ( $order_ids as $order_id ) {
+					$this->background_process->push_to_queue( array( 'task' => 'repair_missing_api_resources', 'repair_order_id_api_resources' => $order_id ) );
+				}
+
+				WC_AM_LOG()->log_info( esc_html__( 'Missing API Resources Repaired.', 'woocommerce-api-manager' ), 'missing-api-resources-repair' );
+			} else {
+				WC_AM_LOG()->log_info( esc_html__( 'There Were No Missing API Resources To Repair.', 'woocommerce-api-manager' ), 'missing-api-resources-repair' );
+			}
+		}
+	}
+
+	/**
+	 * Adds missing API Resources from the API Resources database table.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since   2.6.8
+	 *
+	 * @param int $order_id
+	 */
+	public function repair_missing_api_resources( $order_id ) {
+		global $wpdb;
+
+		if ( ! empty( $order_id ) ) {
+			try {
+				WC_AM_ORDER()->update_order( $order_id );
+
+				$sql = "
+					SELECT *
+					FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+					WHERE order_id = %d
+				";
+
+				// Get the API resource order items for this user.
+				$resources = $wpdb->get_results( $wpdb->prepare( $sql, $order_id ) );
+
+				if ( ! WC_AM_FORMAT()->empty( $resources ) ) {
+					WC_AM_API_RESOURCE_DATA_STORE()->get_active_resources( $resources );
+				}
+			} catch ( Exception $e ) {
+				WC_AM_LOG()->log_info( esc_html__( 'Missing API Resources Repair ERROR for Order ID # ', 'woocommerce-api-manager' ) . $order_id . '. ' . $e, 'missing-api-resources-repair' );
+			}
 		}
 	}
 }

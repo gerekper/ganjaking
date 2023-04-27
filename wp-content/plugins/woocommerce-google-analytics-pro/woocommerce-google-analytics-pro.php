@@ -3,26 +3,26 @@
  * Plugin Name: WooCommerce Google Analytics Pro
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-google-analytics-pro/
  * Documentation URI: https://docs.woocommerce.com/document/woocommerce-google-analytics-pro/
- * Description: Supercharge your Google Analytics tracking with enhanced eCommerce tracking and custom event tracking
+ * Description: Measure your site's success using advanced eCommerce tracking via Google Analytics
  * Author: SkyVerge
  * Author URI: http://www.skyverge.com
- * Version: 1.12.0
+ * Version: 2.0.1
  * Text Domain: woocommerce-google-analytics-pro
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2015-2022, SkyVerge, Inc.
+ * Copyright: (c) 2015-2023, SkyVerge, Inc.
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @author    SkyVerge
  * @category  Integration
- * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 1312497:d8aed8b7306b509eec1589e59abe319f
  * WC requires at least: 3.9.4
- * WC tested up to: 6.3.1
+ * WC tested up to: 7.6.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -36,16 +36,16 @@ class WC_Google_Analytics_Pro_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.0';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Google Analytics Pro';
@@ -116,8 +116,9 @@ class WC_Google_Analytics_Pro_Loader {
 
 			$this->load_framework();
 
-			// load the main plugin class
-			require_once( plugin_dir_path( __FILE__ ) . 'class-wc-google-analytics-pro.php' );
+			// autoload plugin and vendor files
+			require_once( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'src/Functions.php' );
 
 			// fire it up!
 			wc_google_analytics_pro();

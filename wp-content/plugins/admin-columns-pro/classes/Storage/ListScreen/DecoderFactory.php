@@ -2,29 +2,21 @@
 
 namespace ACP\Storage\ListScreen;
 
-use AC\ListScreenTypes;
+use AC\ListScreenFactoryInterface;
 use ACP\Exception\DecoderNotFoundException;
 use ACP\Storage\ListScreen\Decoder\Version510;
 
 final class DecoderFactory {
 
-	/**
-	 * @var ListScreenTypes
-	 */
-	private $list_screen_types;
+	private $list_screen_factory;
 
-	public function __construct( ListScreenTypes $list_screen_types ) {
-		$this->list_screen_types = $list_screen_types;
+	public function __construct( ListScreenFactoryInterface $list_screen_factory ) {
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
-	/**
-	 * @param array $data
-	 *
-	 * @return Decoder
-	 */
-	public function create( array $data ) {
+	public function create( array $data ): Decoder {
 		$decoders = [
-			new Version510( $this->list_screen_types ),
+			new Version510( $this->list_screen_factory ),
 		];
 
 		foreach ( $decoders as $decoder ) {

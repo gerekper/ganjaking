@@ -12,7 +12,7 @@ final class ColumnGroups implements Registerable {
 	}
 
 	public function register_column_groups( AC\Groups $groups ) {
-		$groups->register_group( 'yoast-seo', 'Yoast SEO', 25 );
+		$groups->add( 'yoast-seo', 'Yoast SEO', 25 );
 	}
 
 }

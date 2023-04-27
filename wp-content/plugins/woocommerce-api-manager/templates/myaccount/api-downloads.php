@@ -200,7 +200,7 @@ if ( ! empty( $user_id ) ) {
 								 * Non WC Subscriptions
 								 */
 								// If the API Key access is not expired.
-								$expired = WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires );
+								$expired = WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ?? false );
 
 								if ( ! $expired ) {
 									$order_key                 = WC_AM_ORDER_DATA_STORE()->get_order_key( $order_id );

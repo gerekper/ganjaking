@@ -10,9 +10,6 @@ use ACP\RequestAjaxHandler;
 
 class Feedback implements RequestAjaxHandler {
 
-	/**
-	 * @var Version
-	 */
 	private $version;
 
 	public function __construct( Version $version ) {
@@ -30,20 +27,20 @@ class Feedback implements RequestAjaxHandler {
 			wp_send_json_error( __( 'Invalid request', 'codepress-admin-columns' ) );
 		}
 
-		$email = $request->filter( 'email', null, FILTER_SANITIZE_EMAIL );
+		$email = trim( $request->filter( 'email', null, FILTER_SANITIZE_EMAIL ) );
 
 		if ( ! is_email( $email ) ) {
 			wp_send_json_error( __( 'Please insert a valid email so we can reply to your feedback.', 'codepress-admin-columns' ) );
 		}
 
-		$feedback = $request->filter( 'feedback', null, FILTER_SANITIZE_STRING );
+		$feedback = $request->get( 'feedback' );
 
 		if ( empty( $feedback ) ) {
 			wp_send_json_error( __( 'Your feedback form is empty.', 'codepress-admin-columns' ) );
 		}
 
 		$headers = [
-			sprintf( 'From: <%s>', trim( $email ) ),
+			sprintf( 'From: <%s>', $email ),
 			'Content-Type: text/html',
 		];
 
@@ -54,7 +51,7 @@ class Feedback implements RequestAjaxHandler {
 			$headers
 		);
 
-		wp_send_json_success( __( 'Thank you very much for your feedback!' ) );
+		wp_send_json_success( __( 'Thank you very much for your feedback!', 'codepress-admin-columns' ) );
 	}
 
 }

@@ -4,27 +4,44 @@ namespace ACA\EC\Service;
 
 use AC;
 use AC\Registerable;
-use ACA\EC\ListScreen;
+use ACA\EC\ListScreenFactory;
 
 final class ListScreens implements Registerable {
 
 	public function register() {
+		AC\ListScreenFactory::add( new ListScreenFactory\EventFactory() );
+		AC\ListScreenFactory::add( new ListScreenFactory\OrganizerFactory() );
+		AC\ListScreenFactory::add( new ListScreenFactory\VenueFactory() );
+
+		if ( post_type_exists( 'tribe_event_series' ) ) {
+			AC\ListScreenFactory::add( new ListScreenFactory\EventSeriesFactory() );
+		}
+
 		add_action( 'ac/list_screen_groups', [ $this, 'register_list_screen_groups' ] );
-		add_action( 'ac/list_screens', [ $this, 'register_list_screens' ] );
+		add_filter( 'ac/admin/menu_group', [ $this, 'update_menu_list_groups' ], 10, 2 );
 	}
 
 	public function register_list_screen_groups( AC\Groups $groups ): void {
-		$groups->register_group( 'events-calendar', 'Events Calendar', 7 );
+		$groups->add( 'events-calendar', 'Events Calendar', 7 );
 	}
 
-	public function register_list_screens( AC\ListScreens $list_screens ): void {
-		$list_screens->register_list_screen( new ListScreen\Event() )
-		             ->register_list_screen( new ListScreen\Venue() )
-		             ->register_list_screen( new ListScreen\Organizer() );
+	private function get_post_list_keys(): array {
+		return [
+			'tribe_organizer',
+			'tribe_events',
+			'tribe_event_series',
+			'tribe_venue',
+		];
+	}
 
-		if( post_type_exists( 'tribe_event_series' ) ){
-			$list_screens->register_list_screen( new ListScreen\EventSeries() );
+	public function update_menu_list_groups( string $group, AC\ListScreen $list_screen ): string {
+		$keys = $this->get_post_list_keys();
+
+		if ( in_array( $list_screen->get_key(), $keys, true ) ) {
+			return 'events-calendar';
 		}
+
+		return $group;
 	}
 
 }

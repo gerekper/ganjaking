@@ -19,7 +19,7 @@ class FileName implements RequestAjaxHandler {
 		$this->list_screen_repository = $list_screen_repository;
 	}
 
-	public function handle() {
+	public function handle(): void {
 		$request = new Request();
 
 		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {

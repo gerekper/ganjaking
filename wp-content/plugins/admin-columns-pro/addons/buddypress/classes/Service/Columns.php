@@ -44,7 +44,7 @@ class Columns implements Registerable {
 	 * @param AC\Groups $groups
 	 */
 	public function register_column_groups( AC\Groups $groups ) {
-		$groups->register_group( 'buddypress', 'BuddyPress', 11 );
+		$groups->add( 'buddypress', 'BuddyPress', 11 );
 	}
 
 }

@@ -2,39 +2,30 @@
 
 namespace ACA\WC\Service;
 
-use AC;
+use AC\ListScreenFactory;
 use AC\Registerable;
-use ACA\WC\ListScreen;
+use ACA\WC\ListScreenFactory\ProductCategoryFactory;
+use ACA\WC\ListScreenFactory\ProductFactory;
+use ACA\WC\ListScreenFactory\ProductVariationFactory;
+use ACA\WC\ListScreenFactory\ShopCouponFactory;
+use ACA\WC\ListScreenFactory\ShopOrderFactory;
 
 class ListScreens implements Registerable {
 
-	/**
-	 * @var bool
-	 */
 	private $use_product_variations;
 
-	public function __construct( $use_product_variations ) {
+	public function __construct( bool $use_product_variations ) {
 		$this->use_product_variations = $use_product_variations;
 	}
 
 	public function register() {
-		add_action( 'ac/list_screens', [ $this, 'register_list_screens' ] );
-	}
-
-	public function register_list_screens() {
-		$list_screens = [
-			new ListScreen\ShopOrder(),
-			new ListScreen\ShopCoupon(),
-			new ListScreen\Product(),
-			new ListScreen\ProductCategory(),
-		];
+		ListScreenFactory::add( new ProductFactory() );
+		ListScreenFactory::add( new ShopCouponFactory() );
+		ListScreenFactory::add( new ShopOrderFactory() );
+		ListScreenFactory::add( new ProductCategoryFactory() );
 
 		if ( $this->use_product_variations ) {
-			$list_screens[] = new ListScreen\ProductVariation;
-		}
-
-		foreach ( $list_screens as $list_screen ) {
-			AC\ListScreenTypes::instance()->register_list_screen( $list_screen );
+			ListScreenFactory::add( new ProductVariationFactory() );
 		}
 	}
 

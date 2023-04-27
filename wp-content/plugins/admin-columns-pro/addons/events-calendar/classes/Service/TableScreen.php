@@ -68,10 +68,7 @@ class TableScreen implements Registerable {
 		$prefix = 'ac_related_filter_';
 
 		$input = filter_input_array( INPUT_GET, [
-			$prefix . 'post_type'  => FILTER_SANITIZE_STRING,
-			$prefix . 'value'      => FILTER_SANITIZE_NUMBER_INT,
-			$prefix . 'date'       => FILTER_SANITIZE_STRING,
-			$prefix . 'return_url' => FILTER_SANITIZE_STRING,
+			$prefix . 'value' => FILTER_SANITIZE_NUMBER_INT,
 		] );
 
 		foreach ( $input as $k => $v ) {
@@ -81,7 +78,7 @@ class TableScreen implements Registerable {
 
 		$input = (object) $input;
 
-		switch ( $input->post_type ) {
+		switch ( $input->post_type ?? '') {
 			case 'tribe_venue':
 				$this->filter_on_venue( $input->value );
 

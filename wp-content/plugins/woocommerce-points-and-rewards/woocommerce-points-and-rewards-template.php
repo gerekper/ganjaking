@@ -2,10 +2,7 @@
 /**
  * WooCommerce Points and Rewards
  *
- * @package     WC-Points-Rewards/Templates
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package WC-Points-Rewards/Templates
  */
 
 /**
@@ -21,6 +18,8 @@ if ( ! function_exists( 'woocommerce_points_rewards_my_points' ) ) {
 	 * Template function to render the template
 	 *
 	 * @since 1.0
+	 *
+	 * @param string $current_page
 	 */
 	function woocommerce_points_rewards_my_points( $current_page ) {
 		global $wc_points_rewards;
@@ -31,19 +30,19 @@ if ( ! function_exists( 'woocommerce_points_rewards_my_points' ) ) {
 		$count        = apply_filters( 'wc_points_rewards_my_account_points_events', 5, get_current_user_id() );
 		$current_page = empty( $current_page ) ? 1 : absint( $current_page );
 
-		// get a set of points events, ordered newest to oldest
+		// Get a set of points events, ordered newest to oldest.
 		$args = array(
 			'calc_found_rows' => true,
-			'orderby' => array(
+			'orderby'         => array(
 				'field' => 'date',
 				'order' => 'DESC',
 			),
-			'per_page' => $count,
-			'paged'    => $current_page,
-			'user'     => get_current_user_id(),
+			'per_page'        => $count,
+			'paged'           => $current_page,
+			'user'            => get_current_user_id(),
 		);
 
-		$events = WC_Points_Rewards_Points_Log::get_points_log_entries( $args );
+		$events     = WC_Points_Rewards_Points_Log::get_points_log_entries( $args );
 		$total_rows = WC_Points_Rewards_Points_Log::$found_rows;
 
 		// load the template

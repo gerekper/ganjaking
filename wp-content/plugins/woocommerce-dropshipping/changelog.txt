@@ -1,5 +1,8 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2023-04-26 - version 4.9.5
+* Fix: PLUGINS-2115 - Fix invalid options under Packing slip.
+
 2023-03-31 - version 4.9.4
 * Fix: PLUGINS-2087 - Page Speed Issue. Fix query errors on order page.
 * Fix: PLUGINS-2091 - Fix errors related to price calculator and do regression testing for packing slip.

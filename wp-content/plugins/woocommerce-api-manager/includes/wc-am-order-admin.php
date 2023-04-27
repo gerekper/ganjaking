@@ -41,11 +41,14 @@ class WC_AM_Order_Admin {
 		 *
 		 * @since 2.5
 		 */
-		add_filter( 'manage_edit-woocommerce_page_wc-orders_columns', array( $this, 'render_contains_api_product_column' ) );
-		add_action( 'manage_woocommerce_page_wc-orders_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
-		// Non HPOS.
-		add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_contains_api_product_column' ) );
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+		if ( WCAM()->is_custom_order_tables_usage_enabled() ) {
+			add_filter( 'manage_edit-woocommerce_page_wc-orders_columns', array( $this, 'render_contains_api_product_column' ) );
+			add_action( 'manage_woocommerce_page_wc-orders_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+		} else {
+			// Non HPOS.
+			add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_contains_api_product_column' ) );
+			add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_contains_api_product_column_content' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -299,17 +302,17 @@ class WC_AM_Order_Admin {
 				<p style="padding:0 8px;"><?php esc_html_e( 'Contains no API Product.', 'woocommerce-api-manager' ) ?></p>
 				<?php
 			} else {
-				$activation_resources  = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order->get_id() );
-				$order_contains_switch = ! empty( $activation_resources[ 0 ]->sub_item_id ) && WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $order->get_id() );
+				$resources             = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order->get_id() );
+				$order_contains_switch = ! empty( $resources[ 0 ]->sub_item_id ) && WC_AM_SUBSCRIPTION()->is_subscription_switch_order( $order->get_id() );
 
 				/**
 				 * Subscription activations should be displayed on the Subscription parent, or Switched Subscription, order only.
 				 */
-				if ( ! empty( $activation_resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $activation_resources[ 0 ]->sub_parent_id != $order->get_id() ) {
+				if ( ! empty( $resources[ 0 ]->sub_parent_id ) && ! $order_contains_switch && $resources[ 0 ]->sub_parent_id != $order->get_id() ) {
 					?>
 					<p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>
 					<?php
-				} elseif ( ! empty( $activation_resources ) ) {
+				} elseif ( ! empty( $resources ) ) {
 					include( WCAM()->plugin_path() . '/includes/admin/meta-boxes/html-order-api-activations.php' );
 					/**
 					 * Delete Activation Javascript

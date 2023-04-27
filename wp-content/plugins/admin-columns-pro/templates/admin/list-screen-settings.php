@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="ac-setbox__row">
 			<div class="ac-setbox__row__th">
 				<label><?= esc_html__( 'Conditionals', 'codepress-admin-columns' ) ?></label>
-				<small><?= esc_html__( 'Make this column set available only for specific users or roles.', 'codepress-admin-columns' ) ?></small>
+				<small><?= esc_html__( 'Make this table view available only for specific users or roles.', 'codepress-admin-columns' ) ?></small>
 			</div>
 			<div class="ac-setbox__row__fields">
 				<div class="ac-setbox__row__fields__inner">

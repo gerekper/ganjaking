@@ -6,18 +6,8 @@ use AC\ListScreenCollection;
 
 interface LegacyCollectionDecoder {
 
-	/**
-	 * @param array $data
-	 *
-	 * @return ListScreenCollection
-	 */
-	public function decode( array $data );
+	public function decode( array $data ): ListScreenCollection;
 
-	/**
-	 * @param array $data
-	 *
-	 * @return bool
-	 */
-	public function can_decode( array $data );
+	public function can_decode( array $data ): bool;
 
 }

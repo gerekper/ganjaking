@@ -273,7 +273,7 @@ class WC_Points_Rewards_Admin {
 	 */
 	public function show_sub_menu_page() {
 
-		$current_tab = ( empty( $_GET['tab'] ) ) ? 'manage' : urldecode( $_GET['tab'] );
+		$current_tab = ( empty( $_GET['tab'] ) ) ? 'manage' : urldecode( wc_clean( wp_unslash( $_GET['tab'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		?>
 		<div class="wrap woocommerce">
@@ -288,7 +288,7 @@ class WC_Points_Rewards_Admin {
 					$class = ( $tab_id == $current_tab ) ? 'nav-tab nav-tab-active' : 'nav-tab';
 					$url   = add_query_arg( 'tab', $tab_id, admin_url( 'admin.php?page=woocommerce-points-and-rewards' ) );
 
-					printf( '<a href="%s" class="%s">%s</a>', $url, $class, $tab_title );
+					printf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), esc_attr( $class ), esc_html( $tab_title ) );
 				}
 
 			?> </h2> <?php
@@ -320,12 +320,14 @@ class WC_Points_Rewards_Admin {
 		?><form method="post" id="mainform" action="" enctype="multipart/form-data"><?php
 
 		// title/search result string.
-		echo '<h2>' . __( 'Manage Customer Points', 'woocommerce-points-and-rewards' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Manage Customer Points', 'woocommerce-points-and-rewards' ) . '</h2>';
 
 		// display any action messages.
 		$manage_table->render_messages();
 
-		echo '<input type="hidden" name="page" value="' . esc_attr( $_REQUEST['page'] ) . '" />';
+		$page = isset( $_REQUEST['page'] ) ? wc_clean( wp_unslash( $_REQUEST['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		echo '<input type="hidden" name="page" value="' . esc_attr( $page ) . '" />';
 
 		// display the list table.
 		$manage_table->display();
@@ -347,10 +349,13 @@ class WC_Points_Rewards_Admin {
 		?><form method="get" id="mainform" action="" enctype="multipart/form-data"><?php
 
 		// title/search result string.
-		echo '<h2>' . __( 'Points Log', 'woocommerce-points-and-rewards' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Points Log', 'woocommerce-points-and-rewards' ) . '</h2>';
 
-		echo '<input type="hidden" name="page" value="' . esc_attr( $_REQUEST['page'] ) . '" />';
-		echo '<input type="hidden" name="tab" value="' . esc_attr( $_REQUEST['tab'] ) . '" />';
+		$page = isset( $_REQUEST['page'] ) ? wc_clean( wp_unslash( $_REQUEST['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$tab  = isset( $_REQUEST['tab'] ) ? wc_clean( wp_unslash( $_REQUEST['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		echo '<input type="hidden" name="page" value="' . esc_attr( $page ) . '" />';
+		echo '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />';
 
 		// display the list table.
 		$log_table->display();
@@ -477,10 +482,10 @@ class WC_Points_Rewards_Admin {
 	 * Filters the save custom field type functions so they get sanitized correctly
 	 */
 	public function save_custom_field_types() {
-		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_earn_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 3 );
-		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_redeem_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 3 );
-		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_label', array( $this, 'save_singular_plural_field' ), 10, 3 );
-		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_expiry', array( $this, 'save_points_expiry' ), 10, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_earn_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 2 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_redeem_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 2 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_label', array( $this, 'save_singular_plural_field' ), 10, 2 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_expiry', array( $this, 'save_points_expiry' ), 10, 2 );
 	}
 
 	/**
@@ -740,7 +745,7 @@ class WC_Points_Rewards_Admin {
 					<td class="forminp forminp-text">
 						<fieldset>
 							<input name="<?php echo esc_attr( $field['id'] . '_points' ); ?>" id="<?php echo esc_attr( $field['id'] . '_points' ); ?>" type="number" style="max-width: 70px;" value="<?php echo esc_attr( $points ); ?>" min="0" step="0.01" />&nbsp;<?php esc_html_e( 'Points', 'woocommerce-points-and-rewards' ); ?>
-							<span>&nbsp;&#61;&nbsp;</span>&nbsp;<?php echo get_woocommerce_currency_symbol(); ?>
+							<span>&nbsp;&#61;&nbsp;</span>&nbsp;<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
 							<input class="wc_input_price" name="<?php echo esc_attr( $field['id'] . '_monetary_value' ); ?>" id="<?php echo esc_attr( $field['id'] . '_monetary_value' ); ?>" type="number" style="max-width: 70px;" value="<?php echo esc_attr( $monetary_value ); ?>" min="0" step="0.01" />
 						</fieldset>
 					</td>
@@ -788,38 +793,46 @@ class WC_Points_Rewards_Admin {
 	 * Save the points expiry field
 	 *
 	 * @since 1.4.2
-	 * @param array $field
+	 *
+	 * @param  string $value  Option value.
+	 * @param  array  $option Option name.
+	 * @return string
 	 */
-	public function save_points_expiry( $value, $option, $raw_value ) {
+	public function save_points_expiry( $value, $option ) {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST[ $option['id'] . '_number' ] ) && isset( $_POST[ $option['id'] . '_period' ] ) ) {
 			if ( is_numeric( $_POST[ $option['id'] . '_number' ] ) && in_array( $_POST[ $option['id'] . '_period' ], array( 'DAY', 'WEEK', 'MONTH', 'YEAR' ) ) ) {
 
 				// Check if expire points since has been set
-				if ( isset( $_POST[ 'expire_points_since' ] ) && DateTime::createFromFormat( 'Y-m-d', $_POST[ 'expire_points_since' ] ) ) {
-					update_option( 'wc_points_rewards_points_expire_points_since', wc_clean( $_POST[ 'expire_points_since' ] ) );
+				if ( isset( $_POST['expire_points_since'] ) && DateTime::createFromFormat( 'Y-m-d', wc_clean( wp_unslash( $_POST['expire_points_since'] ) ) ) ) {
+					update_option( 'wc_points_rewards_points_expire_points_since', wc_clean( wp_unslash( $_POST['expire_points_since'] ) ) );
 				}
 
-				return wc_clean( $_POST[ $option['id'] . '_number' ] ) . ':' . wc_clean( $_POST[ $option['id'] . '_period' ] );
+				return wc_clean( wp_unslash( $_POST[ $option['id'] . '_number' ] ) ) . ':' . wc_clean( wp_unslash( $_POST[ $option['id'] . '_period' ] ) );
 			}
 			else {
 				update_option( 'wc_points_rewards_points_expire_points_since', '' );
 				return '';
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
 	 * Save the Earn Points/Redeem Points Conversion Ratio field
 	 *
 	 * @since 1.0
-	 * @param array $field
+	 *
+	 * @param  string $value  Option value.
+	 * @param  array  $option Option name.
+	 * @return string
 	 */
-	public function save_conversion_ratio_field( $value, $option, $raw_value ) {
-
-		if ( isset( $_POST[ $option['id'] . '_points' ] ) && ! empty( $_POST[ $option['id'] . '_monetary_value' ] ) )
-			$points         = wc_clean( $_POST[ $option['id'] . '_points' ] );
-			$monetary_value = wc_clean( $_POST[ $option['id'] . '_monetary_value' ] );
+	public function save_conversion_ratio_field( $value, $option ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST[ $option['id'] . '_points' ] ) && ! empty( $_POST[ $option['id'] . '_monetary_value' ] ) ) {
+			$points         = wc_clean( wp_unslash( $_POST[ $option['id'] . '_points' ] ) );
+			$monetary_value = wc_clean( wp_unslash( $_POST[ $option['id'] . '_monetary_value' ] ) );
 			$monetary_value = str_replace( wc_get_price_decimal_separator(), '.', $monetary_value );
 
 			// Clear all points transients.
@@ -827,6 +840,8 @@ class WC_Points_Rewards_Admin {
 			$this->clear_all_transients();
 
 			return $points . ':' . $monetary_value;
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -845,12 +860,11 @@ class WC_Points_Rewards_Admin {
 	 * Save the singular-plural text fields
 	 *
 	 * @since 0.1
-	 * @param  string $value     Option value.
-	 * @param  array  $option    Option name.
-	 * @param  string $raw_value Raw value.
+	 * @param  string $value  Option value.
+	 * @param  array  $option Option name.
 	 * @return string
 	 */
-	public function save_singular_plural_field( $value, $option, $raw_value ) {
+	public function save_singular_plural_field( $value, $option ) {
 		$singular = '';
 		$plural   = '';
 
@@ -916,34 +930,23 @@ class WC_Points_Rewards_Admin {
 					<fieldset id="expire_points">
 						<select name="<?php echo esc_attr( $field[ 'id' ] . '_number' ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>_number">
 							<option value=""></option>
-							<?php
-								for ( $num = 1; $num < 100; $num++ ) :
-									$selected = '';
-									if ( $num == $number ) {
-										$selected = ' selected="selected" ';
-									}
-							?>
-								<option value="<?php echo esc_attr( $num ); ?>" <?php echo $selected; ?>><?php echo $num; ?></option>
+							<?php for ( $num = 1; $num < 100; $num++ ) : ?>
+								<option value="<?php echo esc_attr( $num ); ?>" <?php selected( $num, $number ); ?>><?php echo esc_html( $num ); ?></option>
 							<?php endfor; ?>
 						</select>
 						<select name="<?php echo esc_attr( $field[ 'id' ] . '_period' ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>_period">
 							<option value=""></option>
-							<?php
-								foreach ( $periods as $period_id => $period_text ) :
-									$selected = '';
-									if ( $period_id == $period ) {
-										$selected = ' selected="selected" ';
-									}
-							?>
-								<option value="<?php echo esc_attr( $period_id ); ?>" <?php echo $selected; ?>><?php _e( $period_text, 'woocommerce-points-and-rewards' ); ?></option>
+							<?php foreach ( $periods as $period_id => $period_text ) : ?>
+								<option value="<?php echo esc_attr( $period_id ); ?>" <?php selected( $period_id, $period ); ?>><?php echo esc_html( $period_text ); ?></option>
 							<?php endforeach; ?>
 						</select>
 
 						<fieldset>
 							<p class="form-field expire-points-since">
-								<label for="expire_points_since"><?php printf( __( '%sOnly apply to points earned since%s - %sOptional%s', 'woocommerce-points-and-rewards' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></label>
-								<input type="text" class="date-picker" style="width: 200px;" name="expire_points_since" id="expire_points_since" value="<?php echo esc_attr( $expire_since ); ?>" placeholder="<?php echo _x( 'YYYY-MM-DD', 'placeholder', 'woocommerce-points-and-rewards' ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
-								<p class="description"><?php _e( 'Leave blank to apply to all points', 'woocommerce-points-and-rewards' ); ?></p>
+								<?php /* translators: %1$s, %2$s - open and close strong tag, %3$s, %4$s - open and close em tag */ ?>
+								<label for="expire_points_since"><?php printf( esc_html__( '%1$sOnly apply to points earned since%2$s - %3$sOptional%4$s', 'woocommerce-points-and-rewards' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></label>
+								<input type="text" class="date-picker" style="width: 200px;" name="expire_points_since" id="expire_points_since" value="<?php echo esc_attr( $expire_since ); ?>" placeholder="<?php echo esc_attr_x( 'YYYY-MM-DD', 'placeholder', 'woocommerce-points-and-rewards' ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+								<p class="description"><?php esc_html_e( 'Leave blank to apply to all points', 'woocommerce-points-and-rewards' ); ?></p>
 							</p>
 						</fieldset>
 
@@ -978,8 +981,9 @@ class WC_Points_Rewards_Admin {
 				<td class="forminp forminp-text" style="width: 50%; float: left;">
 					<fieldset>
 						<p class="form-field apply_points_until_field">
-							<label for="apply_points_until_field"><?php printf( __( '%sUp Until%s - %sOptional%s: Leave blank to apply to all orders', 'woocommerce-points-and-rewards' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></label>
-							<input type="text" class="date-picker" name="apply_points_until" id="apply_points_until" value="" placeholder="<?php echo _x( 'YYYY-MM-DD', 'placeholder', 'woocommerce-points-and-rewards' ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+							<?php /* translators: %1$s, %2$s - open and close strong tag, %3$s, %4$s - open and close em tag */ ?>
+							<label for="apply_points_until_field"><?php printf( esc_html__( '%1$sUp Until%2$s - %3$sOptional%4$s: Leave blank to apply to all orders', 'woocommerce-points-and-rewards' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></label>
+							<input type="text" class="date-picker" name="apply_points_until" id="apply_points_until" value="" placeholder="<?php echo esc_attr_x( 'YYYY-MM-DD', 'placeholder', 'woocommerce-points-and-rewards' ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 						</p>
 					</fieldset>
 				</td>
@@ -1001,9 +1005,9 @@ class WC_Points_Rewards_Admin {
 
 		global $wc_points_rewards;
 
-		$current_tab     = ( empty( $_GET['tab'] ) )         ? null : sanitize_text_field( urldecode( $_GET['tab'] ) );
-		$current_action  = ( empty( $_REQUEST['action'] ) )  ? null : sanitize_text_field( urldecode( $_REQUEST['action'] ) );
-		$date           = empty( $_REQUEST['date'] ) ? '' : urldecode( sanitize_text_field( wp_unslash( $_REQUEST['date'] ) ) );
+		$current_tab    = ( empty( $_GET['tab'] ) ) ? null : urldecode( wc_clean( wp_unslash( $_GET['tab'] ) ) );
+		$current_action = ( empty( $_REQUEST['action'] ) ) ? null : urldecode( wc_clean( wp_unslash( $_REQUEST['action'] ) ) );
+		$date           = empty( $_REQUEST['date'] ) ? '' : urldecode( wc_clean( wp_unslash( $_REQUEST['date'] ) ) );
 		$date           = strtotime( $date );
 
 		if ( 'settings' !== $current_tab ) {
@@ -1121,15 +1125,15 @@ class WC_Points_Rewards_Admin {
 		$points_redeemed = $order->get_meta( '_wc_points_redeemed', true );
 
 		?>
-			<h4><?php _e( 'Points', 'woocommerce-points-and-rewards' ); ?></h4>
+			<h4><?php esc_html_e( 'Points', 'woocommerce-points-and-rewards' ); ?></h4>
 			<ul class="totals">
 				<li class="left">
-					<label><?php _e( 'Earned:', 'woocommerce-points-and-rewards' ); ?></label>
-					<input type="number" disabled="disabled" id="_wc_points_earned" name="_wc_points_earned" placeholder="<?php _e( 'None', 'woocommerce-points-and-rewards' ); ?>" value="<?php if ( ! empty( $points_earned ) ) echo esc_attr( $points_earned ); ?>" class="first" />
+					<label><?php esc_html_e( 'Earned:', 'woocommerce-points-and-rewards' ); ?></label>
+					<input type="number" disabled="disabled" id="_wc_points_earned" name="_wc_points_earned" placeholder="<?php esc_attr_e( 'None', 'woocommerce-points-and-rewards' ); ?>" value="<?php echo esc_attr( $points_earned ); ?>" class="first" />
 				</li>
 				<li class="right">
-					<label><?php _e( 'Redeemed:', 'woocommerce-points-and-rewards' ); ?></label>
-					<input type="number" disabled="disabled" id="_wc_points_redeemed" name="_wc_points_redeemed" placeholder="<?php _e( 'None', 'woocommerce-points-and-rewards' ); ?>" value="<?php if ( ! empty( $points_redeemed ) ) echo esc_attr( $points_redeemed ); ?>" class="first" />
+					<label><?php esc_html_e( 'Redeemed:', 'woocommerce-points-and-rewards' ); ?></label>
+					<input type="number" disabled="disabled" id="_wc_points_redeemed" name="_wc_points_redeemed" placeholder="<?php esc_attr_e( 'None', 'woocommerce-points-and-rewards' ); ?>" value="<?php echo esc_attr( $points_redeemed ); ?>" class="first" />
 				</li>
 			</ul>
 			<div class="clear"></div>
@@ -1167,7 +1171,7 @@ class WC_Points_Rewards_Admin {
 	public function save_coupon_points_modifier_field( $post_id ) {
 
 		if ( ! empty( $_POST['_wc_points_modifier'] ) )
-			update_post_meta( $post_id, '_wc_points_modifier', stripslashes( $_POST['_wc_points_modifier'] ) );
+			update_post_meta( $post_id, '_wc_points_modifier', wc_clean( wp_unslash( $_POST['_wc_points_modifier'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		else
 			delete_post_meta( $post_id, '_wc_points_modifier' );
 
@@ -1230,7 +1234,7 @@ class WC_Points_Rewards_Admin {
 		$wpdb->query( "TRUNCATE " . $wc_points_rewards->user_points_log_db_tablename );
 		$wpdb->query( "TRUNCATE " . $wc_points_rewards->user_points_db_tablename  );
 
-		echo '<div class="updated"><p>' . __( 'All points and rewards successfully deleted', 'woocommerce-points-and-rewards' ) . '</p></div>';
+		echo '<div class="updated"><p>' . esc_html__( 'All points and rewards successfully deleted', 'woocommerce-points-and-rewards' ) . '</p></div>';
 	}
 
 } // end \WC_Points_Rewards_Admin class

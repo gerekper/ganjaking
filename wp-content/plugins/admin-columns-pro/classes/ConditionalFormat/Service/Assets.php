@@ -5,11 +5,15 @@ namespace ACP\ConditionalFormat\Service;
 use AC;
 use AC\Asset\Location;
 use AC\Column;
+use AC\ColumnRepository;
 use AC\ListScreen;
 use AC\Registerable;
+use AC\Type\ListScreenId;
 use AC\Type\UserId;
 use ACP\ConditionalFormat;
+use ACP\ConditionalFormat\ColumnRepository\FilterByConditionalFormat;
 use ACP\ConditionalFormat\Operators;
+use ACP\ConditionalFormat\RuleCollection;
 use ACP\ConditionalFormat\RulesRepositoryFactory;
 use ACP\ConditionalFormat\Settings\ListScreen\HideOnScreenFactory;
 
@@ -51,14 +55,10 @@ final class Assets implements Registerable {
 		return ! $this->hide_on_screen_factory->create()->is_hidden( $list_screen );
 	}
 
-	private function get_columns( ListScreen $list_screen ): array {
+	private function get_column_labels( array $columns ): array {
 		$data = [];
 
-		foreach ( $list_screen->get_columns() as $column ) {
-			if ( ! $column instanceof ConditionalFormat\Formattable || ! $column->conditional_format() ) {
-				continue;
-			}
-
+		foreach ( $columns as $column ) {
 			$data[ $column->get_name() ] = [
 				'label'     => $this->get_column_label( $column ),
 				'operators' => [],
@@ -113,14 +113,16 @@ final class Assets implements Registerable {
 				return;
 			}
 
-			$rules_repository = $this->rules_repository_factory->create( $list_screen->get_id() );
+			$columns = ( new ColumnRepository( $list_screen ) )->find_all( [
+				'filter' => new FilterByConditionalFormat(),
+			] );
 
 			$assets = [
 				new ConditionalFormat\Asset\Table(
 					$this->location->with_suffix( 'assets/conditional-format/js/table.js' ),
 					$this->operators,
-					$rules_repository->find( new UserId( get_current_user_id() ) ),
-					$this->get_columns( $list_screen )
+					$this->get_rules( $list_screen->get_id(), array_keys( $columns ) ),
+					$this->get_column_labels( $columns )
 				),
 				new AC\Asset\Style( 'acp-cf-table', $this->location->with_suffix( 'assets/conditional-format/css/table.css' ) ),
 			];
@@ -129,7 +131,22 @@ final class Assets implements Registerable {
 				$asset->enqueue();
 			}
 		} );
+	}
 
+	private function get_rules( ListScreenId $list_id, array $column_names ): RuleCollection {
+		$filtered = new RuleCollection();
+
+		$rules = $this->rules_repository_factory
+			->create( $list_id )
+			->find( new UserId( get_current_user_id() ) );
+
+		foreach ( $rules as $rule ) {
+			if ( in_array( $rule->get_column_name(), $column_names, true ) ) {
+				$filtered->add( $rule );
+			}
+		}
+
+		return $filtered;
 	}
 
 }

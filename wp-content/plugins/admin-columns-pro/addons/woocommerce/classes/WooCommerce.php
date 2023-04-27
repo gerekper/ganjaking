@@ -50,20 +50,12 @@ final class WooCommerce implements Registerable {
 		);
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function use_product_variations() {
+	private function use_product_variations(): bool {
 		return apply_filters( 'acp/wc/show_product_variations', true ) && $this->is_wc_version_gte( '3.3' );
 	}
 
-	/**
-	 * @param string $version
-	 *
-	 * @return bool
-	 */
-	private function is_wc_version_gte( $version ) {
-		return version_compare( WC()->version, (string) $version, '>=' );
+	private function is_wc_version_gte( string $version ): bool {
+		return version_compare( WC()->version, $version, '>=' );
 	}
 
 }

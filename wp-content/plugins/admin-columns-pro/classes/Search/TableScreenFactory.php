@@ -25,17 +25,11 @@ class TableScreenFactory {
 	 * @param string $list_screen  ListScreen class (FQN)
 	 * @param string $table_screen TableScreen class (FQN)
 	 */
-	public static function register( $list_screen, $table_screen ) {
+	public static function register( string $list_screen, string $table_screen ): void {
 		self::$list_screens[ $list_screen ] = $table_screen;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 * @param array      $assets
-	 *
-	 * @return TableScreen|null
-	 */
-	public static function create( ListScreen $list_screen, array $assets ) {
+	public static function create( ListScreen $list_screen, array $assets ): ?TableScreen {
 		$table_screen_reference = self::get_table_screen_reference( $list_screen );
 
 		if ( ! $table_screen_reference ) {
@@ -49,12 +43,7 @@ class TableScreenFactory {
 			: null;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return string|null
-	 */
-	public static function get_table_screen_reference( ListScreen $list_screen ) {
+	public static function get_table_screen_reference( ListScreen $list_screen ): ?string {
 		foreach ( self::$list_screens as $list_screen_reference => $table_screen_reference ) {
 			if ( $list_screen instanceof $list_screen_reference ) {
 				return $table_screen_reference;

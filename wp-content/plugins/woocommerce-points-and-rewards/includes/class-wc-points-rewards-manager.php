@@ -73,7 +73,17 @@ class WC_Points_Rewards_Manager {
 		$points_label = $wc_points_rewards->get_points_label( $event ? $event->points : null );
 
 		switch ( $event_type ) {
-			case 'admin-adjustment': $event_description = sprintf( __( '%s adjusted by "admin"',          'woocommerce-points-and-rewards' ), $points_label ); break;
+			case 'admin-adjustment':
+				$user_name = 'admin';
+				$user_id   = $event->admin_user_id ?? false;
+				if ( is_admin() && $user_id ) {
+					$user_info = get_userdata( intval( $user_id ) );
+					$user_name = $user_info->display_name ?? "admin( id:$user_id )";
+				}
+
+				/* translators: %1$s - Points Label, %2$s - User's display name. */
+				$event_description = sprintf( __( '%1$s adjusted by %2$s', 'woocommerce-points-and-rewards' ), $points_label, $user_name );
+				break;
 			case 'order-placed':     $event_description = sprintf( __( '%s earned for purchase',          'woocommerce-points-and-rewards' ), $points_label ); break;
 			case 'order-cancelled':  $event_description = sprintf( __( '%s adjusted for cancelled order', 'woocommerce-points-and-rewards' ), $points_label ); break;
 			case 'order-refunded':   $event_description = sprintf( __( '%s adjusted for an order refund', 'woocommerce-points-and-rewards' ), $points_label ); break;

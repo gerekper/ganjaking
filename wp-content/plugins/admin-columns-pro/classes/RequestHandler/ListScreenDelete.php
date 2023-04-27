@@ -38,7 +38,7 @@ class ListScreenDelete implements RequestHandler {
 
 		$this->storage->delete( $list_screen );
 
-		$notice = new Notice( sprintf( __( 'Column set %s successfully deleted.', 'codepress-admin-columns' ), sprintf( '<strong>"%s"</strong>', esc_html( $list_screen->get_title() ) ) ) );
+		$notice = new Notice( sprintf( __( 'Table view %s successfully deleted.', 'codepress-admin-columns' ), sprintf( '<strong>"%s"</strong>', esc_html( $list_screen->get_title() ) ) ) );
 		$notice->register();
 
 		do_action( 'acp/list_screen/deleted', $list_screen );

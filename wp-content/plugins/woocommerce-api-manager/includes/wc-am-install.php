@@ -39,6 +39,9 @@ class WC_AM_Install {
 		'2.2.6' => array(
 			'wc_am_update_2_2_6_db_version',
 		),
+		'2.6.9' => array(
+			'wc_am_update_2_6_9_missing_api_resources_repair',
+		),
 	);
 
 	/**

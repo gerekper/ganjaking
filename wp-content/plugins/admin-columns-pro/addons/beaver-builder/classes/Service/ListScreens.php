@@ -2,37 +2,53 @@
 
 namespace ACA\BeaverBuilder\Service;
 
-use AC;
 use AC\Groups;
+use AC\ListScreen;
 use AC\Registerable;
-use ACA\BeaverBuilder\ListScreen;
+use AC\Table\ListKeyCollection;
+use AC\Type\ListKey;
+use ACA\BeaverBuilder\ListScreen\Template;
+use ACP\ListScreen\Taxonomy;
 
 class ListScreens implements Registerable {
 
 	public function register(): void {
 		add_action( 'ac/list_screen_groups', [ $this, 'register_beaver_builder_group' ] );
-		add_action( 'ac/list_screens', [ $this, 'register_list_screens' ] );
+		add_filter( 'ac/admin/menu_group', [ $this, 'update_menu_list_groups' ], 10, 2 );
+		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
+	}
+
+	public function add_list_keys( ListKeyCollection $list_keys ): void {
+		$templates = [
+			'column',
+			'module',
+			'row',
+			'layout',
+		];
+
+		foreach ( $templates as $template ) {
+			$list_keys->add( new ListKey( Template::POST_TYPE . $template ) );
+		}
 	}
 
 	public function register_beaver_builder_group( Groups $groups ): void {
-		$groups->register_group( 'beaver_builder', __( 'Beaver Builder', 'codepress-admin-columns' ), 6 );
+		$groups->add( 'beaver_builder', __( 'Beaver Builder', 'codepress-admin-columns' ), 6 );
 	}
 
-	public function register_list_screens( AC\ListScreens $list_screens ): void {
-		if ( ! post_type_exists( PostTypes::POST_TYPE_TEMPLATE ) ) {
-			return;
-		}
-
-		$bb_list_screens = [
-			new ListScreen\Template( 'layout', __( 'Templates', 'fl-builder' ) ),
-			new ListScreen\Template( 'row', __( 'Saved Rows', 'fl-builder' ) ),
-			new ListScreen\Template( 'column', __( 'Saved Columns', 'fl-builder' ) ),
-			new ListScreen\Template( 'module', __( 'Saved Modules', 'fl-builder' ) ),
+	public function update_menu_list_groups( string $group, ListScreen $list_screen ): string {
+		$keys = [
+			Template::POST_TYPE . 'column',
+			Template::POST_TYPE . 'module',
+			Template::POST_TYPE . 'row',
+			Template::POST_TYPE . 'layout',
+			Taxonomy::KEY_PREFIX . 'fl-builder-template-category',
 		];
 
-		foreach ( $bb_list_screens as $list_screen ) {
-			$list_screens->register_list_screen( $list_screen );
+		if ( in_array( $list_screen->get_key(), $keys, true ) ) {
+			$group = 'beaver_builder';
 		}
+
+		return $group;
 	}
 
 }

@@ -25,7 +25,7 @@ final class EntryConfigurator implements AC\Registerable {
 		add_action( 'ac/list_screen/column_created', [ $this, 'configure_column' ] );
 	}
 
-	public function configure_column( AC\Column $column ) {
+	public function configure_column( AC\Column $column ): void {
 		if ( ! $column instanceof Column\Entry ) {
 			return;
 		}

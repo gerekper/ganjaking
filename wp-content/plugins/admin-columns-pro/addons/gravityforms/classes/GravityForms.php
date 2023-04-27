@@ -5,21 +5,19 @@ namespace ACA\GravityForms;
 use AC;
 use AC\Asset\Script;
 use AC\Asset\Style;
+use AC\DefaultColumnsRepository;
 use AC\Registerable;
-use ACA\GravityForms\Column\EntryConfigurator;
-use ACA\GravityForms\Column\EntryFactory;
 use ACA\GravityForms\ListScreen;
 use ACA\GravityForms\Search\Query;
 use ACA\GravityForms\TableScreen;
 use ACP\Search\QueryFactory;
 use ACP\Search\TableScreenFactory;
 use ACP\Service\IntegrationStatus;
-use GFAPI;
 use GFCommon;
 
 final class GravityForms implements Registerable {
 
-	const GROUP = 'gravity_forms';
+	public const GROUP = 'gravity_forms';
 
 	private $location;
 
@@ -27,9 +25,6 @@ final class GravityForms implements Registerable {
 		$this->location = $location;
 	}
 
-	/**
-	 * Register hooks
-	 */
 	public function register() {
 		if ( ! class_exists( 'GFCommon', false ) ) {
 			return;
@@ -41,25 +36,22 @@ final class GravityForms implements Registerable {
 			return;
 		}
 
-		add_action( 'ac/list_screens', [ $this, 'register_list_screen' ] );
+		AC\ListScreenFactory::add( new ListScreenFactory\EntryFactory() );
 
-		// Group labels
 		add_action( 'ac/column_groups', [ $this, 'register_column_group' ] );
-		add_action( 'ac/list_screen_groups', [ $this, 'register_list_screen_group' ] );
-
 		add_action( 'ac/admin_scripts', [ $this, 'admin_scripts' ] );
 		add_action( 'ac/table_scripts', [ $this, 'table_scripts' ] );
-
 		add_filter( "gform_noconflict_styles", [ $this, 'allowed_acp_styles' ] );
 		add_filter( "gform_noconflict_scripts", [ $this, 'allowed_acp_scripts' ] );
 
 		$services = [
-			new TableScreen\Entry(),
+			new Service\ListScreens(),
+			new TableScreen\Entry( new AC\ListScreenFactory(), AC()->get_storage(), new DefaultColumnsRepository() ),
 			new Admin(),
 			new IntegrationStatus( 'ac-addon-gravityforms' ),
 		];
 
-		array_map( function ( Registerable $service ) {
+		array_map( static function ( Registerable $service ) {
 			$service->register();
 		}, $services );
 
@@ -68,32 +60,8 @@ final class GravityForms implements Registerable {
 		TableScreenFactory::register( ListScreen\Entry::class, Search\TableScreen\Entry::class );
 	}
 
-	public function register_list_screen() {
-		$list_screen_types = AC\ListScreenTypes::instance();
-
-		if ( ! $list_screen_types ) {
-			return;
-		}
-
-		$forms = array_merge( GFAPI::get_forms(), GFAPI::get_forms( [ 'active' => false ] ) );
-
-		foreach ( $forms as $form ) {
-			$fieldFactory = new FieldFactory();
-			$columnFactory = new EntryFactory( new FieldFactory() );
-
-			$configurator = new EntryConfigurator( (int) $form['id'], $columnFactory, $fieldFactory );
-			$configurator->register();
-
-			$list_screen_types->register_list_screen( new ListScreen\Entry( $form['id'], $configurator ) );
-		}
-	}
-
-	public function register_list_screen_group( AC\Groups $groups ) {
-		$groups->register_group( self::GROUP, __( 'Gravity Forms', 'codepress-admin-columns' ), 8 );
-	}
-
-	public function register_column_group( $groups ) {
-		$groups->register_group( self::GROUP, __( 'Gravity Forms', 'codepress-admin-columns' ), 11 );
+	public function register_column_group( AC\Groups $groups ): void {
+		$groups->add( 'gravity_forms', __( 'Gravity Forms', 'codepress-admin-columns' ), 14 );
 	}
 
 	/**
