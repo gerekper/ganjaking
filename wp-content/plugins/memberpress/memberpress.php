@@ -3,11 +3,10 @@
 Plugin Name: MemberPress Pro
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.10.5
+Version: 1.11.1
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
-Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Copyright: 2004-2021, Caseproof, LLC
 
 This program is free software; you can redistribute it and/or
@@ -65,16 +64,19 @@ define('MEPR_OPTIONS_SLUG', 'mepr_options');
 define('MEPR_EDITION', 'memberpress-pro-5');
 
 define('MEPR_MIN_PHP_VERSION', '5.6.20');
+
 update_option( 'mepr_activated', 1 );
+
 $mepr_options = get_option( 'mepr_options' );
 if ( empty( $mepr_options) || empty( $mepr_options['mothership_license'] ) ) {
-    $mepr_options['mothership_license'] = 'sgroHiRd-vRic-mwZP-mIIB-vrOEnqkiqHxU';
+    $mepr_options['mothership_license'] = '********-****-****-****-************';
     update_option( 'mepr_options', $mepr_options );
 }
+
 set_site_transient( 'mepr_license_info', [
     'license_key' => [
         'id' => 99999,
-        'license' => 'sgroHiRd-vRic-mwZP-mIIB-vrOEnqkiqHxU',
+        'license' => '********-****-****-****-************',
         'status' => 'enabled',
         'user_id' => 99999,
         'product_id' => 99,
@@ -85,11 +87,11 @@ set_site_transient( 'mepr_license_info', [
         'subscription' => 'mp-sub-99999',
     ],
     'product_name' => 'MemberPress Pro',
-    'product_slug' => 'memberpress-pro-5',
+    'product_slug' => 'memberpress-pro',
     'user' => [
         'id' => 99999,
-        'email' => 'activated@myownmemberpresspro.com',
-        'uuid' => 'sgroHiRd-vRic-mwZP-mIIB-vrOEnqkiqHxU',
+        'email' => 'email@email.com',
+        'uuid' => '********-****-****-****-************',
         'status' => 'enabled',
         'created_at' => '2021-01-01T00:00:00.000Z',
         'updated_at' => '2021-01-01T00:00:00.000Z'
@@ -102,6 +104,7 @@ set_site_transient( 'mepr_license_info', [
         'description' => 'MemberPress is the WordPress Membership Plugin of Champions',
     ]
 ] );
+
 set_site_transient( 'mepr_all_addons', json_encode( [
     'memberpress-activecampaign' => [
         'product_name' => 'MemberPress ActiveCampaign - Lists Version',
@@ -552,5 +555,3 @@ function mepr_account_link() {
 
 register_activation_hook( MEPR_PLUGIN_SLUG, function() { require_once( MEPR_LIB_PATH . "/activation.php"); });
 register_deactivation_hook( MEPR_PLUGIN_SLUG, function() { require_once( MEPR_LIB_PATH . "/deactivation.php"); });
-/* Anti-Leecher Identifier */
-/* Credited By BABIATO-FORUM */

@@ -1,5 +1,12 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-04-28 - version 2.5.2
+* Fix - Apply the timezone offset when calculating the weekday of the previous delivery date in a subscription renewal.
+
+2023-04-24 - version 2.5.1
+* Tweak - Tested compatibility with WC 7.6.
+* Fix - Use the first delivery date when it matches the same weekday of the previous subscription renewal.
+
 2023-03-13 - version 2.5.0
 * Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Tested compatibility with WC 7.5.

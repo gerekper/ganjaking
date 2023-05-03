@@ -1,12 +1,9 @@
 <?php
-update_option('perfmatters_edd_license_key', 'qXJQF4rI-901d-HE2P-W0az-w2v2Ik1m1x3Y');
-update_option('perfmatters_edd_license_status', 'valid');
 /*
 Plugin Name: Perfmatters
 Plugin URI: https://perfmatters.io/
-Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.0.9
+Version: 2.1.0
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -21,7 +18,7 @@ Domain Path: /languages
 define('PERFMATTERS_STORE_URL', 'https://perfmatters.io/');
 define('PERFMATTERS_ITEM_ID', 696);
 define('PERFMATTERS_ITEM_NAME', 'perfmatters');
-define('PERFMATTERS_VERSION', '2.0.9');
+define('PERFMATTERS_VERSION', '2.1.0');
 
 function perfmatters_plugins_loaded() {
 
@@ -150,48 +147,6 @@ function perfmatters_meta_links($links, $file) {
 	return $links;
 }
 add_filter('plugin_row_meta', 'perfmatters_meta_links', 10, 2);
-
-//plugin settings page header
-function perfmatters_admin_header() {
-
-	if(empty($_GET['page']) || $_GET['page'] !== 'perfmatters') {
-		return;
-	}
-
-	$tab = !empty($_GET['tab']) ? $_GET['tab'] : (is_network_admin() ? 'network' : 'options');
-
-	//header container
-	echo '<div id="perfmatters-admin-header">';
-
-		//logo
-		echo '<svg id="perfmatters-logo" viewBox="0 0 81 73"><g transform="matrix(0.588901,0,0,0.588901,-5.75373,-2.93862)"><path d="M62.676,55.56C59.095,53.461 57.851,48.842 59.956,45.23C63.289,39.477 72.058,40.543 73.756,47.07C75.498,53.601 68.388,58.895 62.676,55.56M76.266,32.07C61.162,23.444 43.184,37.345 47.576,54.02C49.947,62.939 57.949,68.58 66.416,68.58C79.28,68.58 88.629,56.414 85.366,44C84.026,38.96 80.816,34.73 76.266,32.07M122.906,69.76L131.086,86.64C107.098,88.172 101.495,86.06 91.506,104.08C88.899,108.793 84.498,117.69 73.486,115.53C69.306,114.72 65.836,112.22 63.686,108.48L23.756,38.73C21.126,34.17 21.136,28.74 23.776,24.2C26.406,19.68 31.086,16.99 36.316,16.99C36.346,16.99 36.386,17 36.426,17L116.826,17.24C126.204,17.24 137.022,26.92 126.856,43.35C122.916,49.75 117.516,58.52 122.906,69.76M145.776,89.45L133.716,64.54C131.286,59.47 133.196,55.94 137.076,49.64C139.186,46.23 141.356,42.7 142.406,38.62C144.546,30.81 142.816,22.19 137.766,15.58C132.756,9.01 125.126,5.24 116.846,5.24C116.301,5.238 36.306,4.99 36.306,4.99C15.903,4.99 3.167,27.071 13.356,44.71L53.276,114.44C61.324,128.487 79.672,131.925 92.136,122.57C96.511,119.894 100.376,112.826 101.996,109.91C105.546,103.51 107.656,100.16 113.206,99.81L140.766,98.05C145.01,97.772 147.638,93.28 145.776,89.45M72.986,52.8C71.966,54.55 70.326,55.8 68.376,56.32C66.436,56.84 64.406,56.57 62.676,55.56C60.936,54.54 59.696,52.91 59.186,50.95C58.666,49 58.936,46.98 59.956,45.23C62.036,41.64 66.676,40.42 70.266,42.47C72.006,43.48 73.246,45.11 73.756,47.07C74.276,49.02 74.006,51.05 72.986,52.8M85.366,44C84.026,38.96 80.816,34.73 76.266,32.07C66.916,26.73 54.946,29.94 49.586,39.2C46.956,43.7 46.246,48.97 47.576,54.02C48.246,56.54 49.386,58.86 50.916,60.88C52.446,62.89 54.386,64.6 56.636,65.92C59.646,67.68 63.006,68.58 66.416,68.58C68.096,68.58 69.776,68.36 71.446,67.92C76.506,66.58 80.746,63.35 83.356,58.83C85.986,54.32 86.696,49.06 85.366,44M72.986,52.8C71.966,54.55 64.406,56.57 62.676,55.56C60.936,54.54 59.696,52.91 59.186,50.95C58.666,49 58.936,46.98 59.956,45.23C62.036,41.64 66.676,40.42 70.266,42.47C72.006,43.48 73.246,45.11 73.756,47.07C74.276,49.02 74.006,51.05 72.986,52.8M85.366,44C84.026,38.96 80.816,34.73 76.266,32.07C66.916,26.73 54.946,29.94 49.586,39.2C46.956,43.7 46.246,48.97 47.576,54.02C48.246,56.54 49.386,58.86 50.916,60.88C52.446,62.89 54.386,64.6 56.636,65.92C59.646,67.68 63.006,68.58 66.416,68.58C68.096,68.58 69.776,68.36 71.446,67.92C76.506,66.58 80.746,63.35 83.356,58.83C85.986,54.32 86.696,49.06 85.366,44" style="fill:#4A89DD;"/></g></svg>';
-		echo '<div id="perfmatters-page-title">' . ucfirst($tab) . '</div>';
-
-		//callout buttons
-		echo '<div id="perfmatters-admin-header-buttons">';
-
-			if(is_network_admin()) {
-				echo '<a href="?page=perfmatters&tab=network" class="' . ($tab == 'network' || '' ? 'perfmatters-active' : '') . '" title="' . __('Network', 'perfmatters') . '">' . __('Network', 'perfmatters') . '</a>';
-			}
-			else {
-				echo '<a href="?page=perfmatters&tab=options" class="' . ($tab == 'options' || '' ? 'perfmatters-active' : '') . '" title="' . __('Options', 'perfmatters') . '">' . __('Options', 'perfmatters') . '</a>';
-				echo '<a href="?page=perfmatters&tab=tools" class="' . ($tab == 'tools' ? 'perfmatters-active' : '') . '" title="' . __('Tools', 'perfmatters') . '">' . __('Tools', 'perfmatters') . '</a>';
-			}
-
-			if(!is_plugin_active_for_network('perfmatters/perfmatters.php') || is_network_admin()) {
-				echo '<a href="?page=perfmatters&tab=license" class="' . ($tab == 'license' ? 'perfmatters-active' : '') . '" title="' . __('License', 'perfmatters') . '">' . __('License', 'perfmatters') . '</a>';
-			}
-
-			echo '<a href="?page=perfmatters&tab=support" class="' . ($tab == 'support' ? 'perfmatters-active' : '') . '" title="' . __('Support', 'perfmatters') . '">' . __('Support', 'perfmatters') . '</a>';
-
-			echo '<span style="color: rgba(255,255,255,0.5); margin: 0px 10px;" class="perfmatters-mobile-hide">v' . PERFMATTERS_VERSION . '</span>';
-
-			echo '<a href="https://woorkup.com/speed-up-wordpress/?utm_source=perfmatters&utm_medium=banner&utm_campaign=header-cta" target="_blank" title="' . __('Speed Up Guide', 'perfmatters') . '" style="background: #fff; color: #282E34;" class="perfmatters-mobile-hide"><i class="dashicons dashicons-performance"></i>' . __('Speed Up Guide', 'perfmatters') . '</a>';
-		echo '</div>';
-
-	echo '</div>';
-}
-add_action('in_admin_header', 'perfmatters_admin_header', 1);
 
 //settings link in plugins table
 function perfmatters_action_links($actions, $plugin_file) 
@@ -522,5 +477,3 @@ require_once plugin_dir_path(__FILE__) . 'inc/functions_network.php';
 
 //composer autoloader
 require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
-/* Anti-Leecher Indentifier */
-/* Credited By BABIATO-FORUM */

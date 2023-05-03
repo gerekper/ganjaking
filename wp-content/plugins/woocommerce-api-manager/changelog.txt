@@ -1,5 +1,8 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-05-01 - version 2.6.10
+* New: Added the next scheduled cleanup cron date to status page.
+
 2023-04-26 - version 2.6.9
 * Tweak: Enhance repair routine with API Resource check.
 

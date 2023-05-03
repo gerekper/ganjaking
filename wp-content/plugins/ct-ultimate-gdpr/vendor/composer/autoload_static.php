@@ -72,6 +72,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Formcraft' => __DIR__ . '/../..' . '/includes/service/service-formcraft.php',
         'CT_Ultimate_GDPR_Service_Formcraft_Form_Builder' => __DIR__ . '/../..' . '/includes/service/service-formcraft-form-builder.php',
         'CT_Ultimate_GDPR_Service_Formidable_Forms' => __DIR__ . '/../..' . '/includes/service/service-formidable-forms.php',
+        'CT_Ultimate_GDPR_Service_Fusion_Builder' => __DIR__ . '/../..' . '/includes/service/service-fusion-builder.php',
         'CT_Ultimate_GDPR_Service_GA_Google_Analytics' => __DIR__ . '/../..' . '/includes/service/service-ga-google-analytics.php',
         'CT_Ultimate_GDPR_Service_Google_Adsense' => __DIR__ . '/../..' . '/includes/service/service-google-adsense.php',
         'CT_Ultimate_GDPR_Service_Google_Analytics' => __DIR__ . '/../..' . '/includes/service/service-google-analytics.php',

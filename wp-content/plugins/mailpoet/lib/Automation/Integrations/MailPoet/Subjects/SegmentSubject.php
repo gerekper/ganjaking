@@ -57,6 +57,8 @@ class SegmentSubject implements Subject {
   /** @return Field[] */
   public function getFields(): array {
     return [
+      // phpcs:disable Squiz.PHP.CommentedOutCode.Found -- temporarily hide those fields
+      /*
       new Field(
         'mailpoet:segment:id',
         Field::TYPE_INTEGER,
@@ -73,6 +75,7 @@ class SegmentSubject implements Subject {
           return $payload->getName();
         }
       ),
+      */
     ];
   }
 }

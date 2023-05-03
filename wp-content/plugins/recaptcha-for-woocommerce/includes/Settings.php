@@ -185,6 +185,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 
 		public function get_settings( $current_section = '') {
 
+						$i13_recaptcha_fresh_install = get_option('i13_recaptcha_fresh_install');  
 			if ('signup' == $current_section) {
 
 				/**
@@ -296,7 +297,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																	'type' => 'checkbox',
 																	'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_signup',
 																	'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																	'default'=>'no'
+																	'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																),    
 												'i13_recapcha_using_ajax_registration_v3' => array(
 														'name' => __('Using ajax signup popup?', 'recaptcha-for-woocommerce'),
@@ -427,7 +428,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																		'type' => 'checkbox',
 																		'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_login',
 																		'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																		'default'=>'no'
+																		'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																),
 																																 'i13_recapcha_using_ajax_login_v3' => array(
 																																	'name' => __('Using ajax login popup?', 'recaptcha-for-woocommerce'),
@@ -532,7 +533,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																'type' => 'checkbox',
 																'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_fpass',
 																'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																'default'=>'no'
+																'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 															),
 
 						array(
@@ -711,7 +712,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																		'type' => 'checkbox',
 																		'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_checkout',
 																		'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																		'default'=>'no'
+																		'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																),   
 															'i13_recaptcha_v3_login_recpacha_for_req_btn' => array(
 																	'name' => __('Enable captcha for payment request buttons on product page', 'recaptcha-for-woocommerce'),
@@ -824,7 +825,8 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																							 'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
 																							 'type' => 'checkbox',
 																							  'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3',
-												  'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce')
+												  'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
+																								  'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 											   ),
 						array(
 						'type' => 'sectionend',
@@ -925,7 +927,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																											'type' => 'checkbox',
 																											'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_add_pay_method',
 																											'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																											'default'=>'no'
+																											'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																										),
 												   array(
 												   'type' => 'sectionend',
@@ -1028,7 +1030,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																											'type' => 'checkbox',
 																											'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_register',
 																											'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																											'default'=>'no'
+																											'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																										),
 												array(
 												'type' => 'sectionend',
@@ -1129,7 +1131,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																	'type' => 'checkbox',
 																	'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_fpass',
 																	'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																	'default'=>'no'
+																	'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																),    
 						array(
 						'type' => 'sectionend',
@@ -1231,7 +1233,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																	'type' => 'checkbox',
 																	'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_review',
 																	'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																	'default'=>'no'
+																	'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 																),    
 						array(
 						'type' => 'sectionend',
@@ -1333,7 +1335,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 														'type' => 'checkbox',
 														'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_tracking',
 														'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-														'default'=>'no'
+														'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 												),    
 						array(
 						'type' => 'sectionend',
@@ -1437,7 +1439,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 														'type' => 'checkbox',
 														'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_comment',
 														'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-														'default'=>'no'
+														'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 												),    
 						array(
 						'type' => 'sectionend',
@@ -1548,7 +1550,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																'type' => 'checkbox',
 																'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_jetpack',
 																'desc'=>__('Use only when there is problem with other plugin that use submit button. For example error like "Google reCAPTCHA token is missing" ', 'recaptcha-for-woocommerce'),
-																'default'=>'no'
+																'default'=>( 'yes'==$i13_recaptcha_fresh_install )?'yes':'no'
 												),    
 												'i13_recapcha_woo_jetpack_exclude' => array(
 													'name' => __('Do not show a captcha for the following forms', 'recaptcha-for-woocommerce'),
@@ -1575,6 +1577,11 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 				 * @since 1.0.0
 				 * @param array $settings Array of the plugin settings
 				 */
+								$reCapcha_version = get_option('i13_recapcha_version');  
+								$i13_recaptcha_fresh_install = get_option('i13_recaptcha_fresh_install');  
+				if (''==$reCapcha_version && ''==$i13_recaptcha_fresh_install) {
+					 add_option('i13_recaptcha_fresh_install', 'yes');
+				}
 				$settings = apply_filters(
 				'i13woocomm_general_settings', array(
 				'section_title' => array(

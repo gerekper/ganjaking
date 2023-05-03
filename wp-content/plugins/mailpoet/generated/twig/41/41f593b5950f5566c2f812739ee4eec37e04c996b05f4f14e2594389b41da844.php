@@ -40,7 +40,7 @@ class __TwigTemplate_e2b0804ea4690eeb975cc322cc1bf6bddd9f35d7b42b6e0119d98ce5d04
         echo "<div class=\"mailpoet_tools\"></div>
 <div class=\"mailpoet_content\" style=\"{{#ifCond model.styles.block.textAlign '==' 'left'}}margin: 0 auto 0 0; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'center'}}margin: auto; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'right'}}margin: 0 0 0 auto; {{/ifCond}}width: {{model.width}}\">
 \t<div class=\"mailpoet_image\">
-\t\t<a href=\"{{ model.link }}\" onClick=\"return false;\">
+\t\t<a href=\"{{escapeURL model.link }}\" onClick=\"return false;\">
 \t\t\t<img src=\"{{#ifCond model.src '!=' ''}}{{ model.src }}{{ else }}{{ imageMissingSrc }}{{/ifCond}}\" alt=\"{{ model.alt }}\" onerror=\"if(this.src != '{{ imageMissingSrc }}') {this.src = '{{ imageMissingSrc }}';}\" width=\"{{model.width}}\" />
 \t\t</a>
 \t\t<div class=\"mailpoet_image_resize_handle_container{{#ifCond model.styles.block.textAlign '==' 'right'}} mailpoet_image_resize_handle_container_left{{/ifCond}}\">

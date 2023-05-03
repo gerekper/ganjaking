@@ -78,6 +78,10 @@ class ConfirmationEmailMailer {
     return $this->sendConfirmationEmail($subscriber);
   }
 
+  public function clearSentEmailsCache(): void {
+    $this->sentEmails = [];
+  }
+
   public function buildEmailData(string $subject, string $html, string $text): array {
     return [
       'subject' => $subject,
@@ -112,7 +116,7 @@ class ConfirmationEmailMailer {
 
     //create a text version. @ is important here, Html2Text throws warnings
     $text = @Html2Text::convert(
-      (mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body),
+      (mb_detect_encoding($body, 'UTF-8', true)) ? $body : mb_convert_encoding($body, 'UTF-8', mb_list_encodings()),
       true
     );
 
@@ -135,7 +139,10 @@ class ConfirmationEmailMailer {
 
     // replace activation link
     $body = (string)str_replace(
-      '[activation_link]',
+      [
+        'http://[activation_link]', // See MAILPOET-5253
+        '[activation_link]',
+      ],
       $this->subscriptionUrlFactory->getConfirmationUrl($subscriber),
       $body
     );

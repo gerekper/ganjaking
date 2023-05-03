@@ -160,7 +160,8 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_Post_SMTP',
 				'CT_Ultimate_GDPR_Service_Akismet',
 				'CT_Ultimate_GDPR_Service_Sitepress_WPML',				
-				'CT_Ultimate_GDPR_Service_Siteorigin_Panels',				
+				'CT_Ultimate_GDPR_Service_Siteorigin_Panels',
+                'CT_Ultimate_GDPR_Service_Fusion_Builder',	
 			)
 		);
 

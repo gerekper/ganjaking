@@ -164,8 +164,8 @@ echo '<div id="perfmatters-admin" class="wrap">';
 				}
 
 				//display correct section based on URL anchor
-				echo '<script>!function(a){var t=a.trim(window.location.hash);if(t){a("#perfmatters-options-form").attr("action","options.php"+t);var e=a(".perfmatters-subnav > a.active");a(e).removeClass("active");var r=a(t+"-section");a(r).addClass("active"),a(a(e).attr("href")).removeClass("active"),a(a(r).attr("href")).addClass("active")}}(jQuery);</script>';
-
+				echo '<script>!function(t){var a=t.trim(window.location.hash);if(a){t("#perfmatters-options-form").attr("action","options.php"+a);var e=t(".perfmatters-subnav > a.active"),s=t(a+"-section");t(e).each(function(){t(this).removeClass("active"),t(t(this).attr("href")).removeClass("active")}),t(s).addClass("active"),t(t(s).attr("href")).addClass("active")}}(jQuery);</script>';
+				
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';

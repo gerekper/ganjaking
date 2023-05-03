@@ -6,8 +6,10 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AdminPages\PageRenderer;
+use MailPoet\Automation\Engine\Control\SubjectTransformerHandler;
 use MailPoet\Automation\Engine\Data\Automation;
 use MailPoet\Automation\Engine\Hooks;
+use MailPoet\Automation\Engine\Integration\Trigger;
 use MailPoet\Automation\Engine\Mappers\AutomationMapper;
 use MailPoet\Automation\Engine\Registry;
 use MailPoet\Automation\Engine\Storage\AutomationStorage;
@@ -34,13 +36,17 @@ class AutomationEditor {
   /** @var WPFunctions */
   private $wp;
 
+  /** @var SubjectTransformerHandler */
+  private $subjectTransformerHandler;
+
   public function __construct(
     AssetsController $assetsController,
     AutomationMapper $automationMapper,
     AutomationStorage $automationStorage,
     PageRenderer $pageRenderer,
     Registry $registry,
-    WPFunctions $wp
+    WPFunctions $wp,
+    SubjectTransformerHandler $subjectTransformerHandler
   ) {
     $this->assetsController = $assetsController;
     $this->automationMapper = $automationMapper;
@@ -48,6 +54,7 @@ class AutomationEditor {
     $this->pageRenderer = $pageRenderer;
     $this->registry = $registry;
     $this->wp = $wp;
+    $this->subjectTransformerHandler = $subjectTransformerHandler;
   }
 
   public function render() {
@@ -97,11 +104,55 @@ class AutomationEditor {
       $steps[$key] = [
         'key' => $step->getKey(),
         'name' => $step->getName(),
-        'subject_keys' => $step->getSubjectKeys(),
+        'subject_keys' => $step instanceof Trigger ? $this->subjectTransformerHandler->getSubjectKeysForTrigger($step) : $step->getSubjectKeys(),
         'args_schema' => $step->getArgsSchema()->toArray(),
       ];
     }
-    return ['steps' => $steps];
+
+    $subjects = [];
+    foreach ($this->registry->getSubjects() as $key => $subject) {
+      $subjects[$key] = [
+        'key' => $subject->getKey(),
+        'name' => $subject->getName(),
+        'args_schema' => $subject->getArgsSchema()->toArray(),
+        'field_keys' => array_map(function ($field) {
+          return $field->getKey();
+        }, $subject->getFields()),
+      ];
+    }
+
+    $fields = [];
+    foreach ($this->registry->getFields() as $key => $field) {
+      $fields[$key] = [
+        'key' => $field->getKey(),
+        'type' => $field->getType(),
+        'name' => $field->getName(),
+        'args' => $field->getArgs(),
+      ];
+    }
+
+    $filters = [];
+    foreach ($this->registry->getFilters() as $fieldType => $filter) {
+      $conditions = [];
+      foreach ($filter->getConditions() as $key => $label) {
+        $conditions[] = [
+          'key' => $key,
+          'label' => $label,
+        ];
+      }
+      $filters[$fieldType] = [
+        'field_type' => $filter->getFieldType(),
+        'conditions' => $conditions,
+        'args_schema' => $filter->getArgsSchema()->toArray(),
+      ];
+    }
+
+    return [
+      'steps' => $steps,
+      'subjects' => $subjects,
+      'fields' => $fields,
+      'filters' => $filters,
+    ];
   }
 
   private function buildContext(): array {

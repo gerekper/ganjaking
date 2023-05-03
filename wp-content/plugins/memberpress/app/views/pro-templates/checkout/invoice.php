@@ -2,10 +2,10 @@
   die( 'You are not allowed to call this page directly.' );}
 
   $mepr_coupon_code = $coupon && isset($coupon->ID) ? $coupon->post_title : '';
-  // $coupon_code = '';
-  // if($coupon && isset($coupon->ID)) {
-  //   $coupon_code = $coupon->post_title;
-  // }
+
+  if($mepr_coupon_code || ( is_object($tmpsub) && $tmpsub->prorated_trial ) ){
+    unset( $sub_price_str );
+  }
 ?>
 
 <div class="mp_wrapper mp_invoice">
@@ -25,7 +25,11 @@
         </td>
         <td>
           <p><?php echo str_replace(MeprProductsHelper::renewal_str($prd), '', $item['description']); ?></p>
-          <p class="desc"><?php MeprProductsHelper::display_invoice( $prd, $mepr_coupon_code ); ?></p>
+          <?php if(isset($txn, $sub) && !$txn->is_one_time_payment() && $sub instanceof MeprSubscription && $sub->id > 0) : ?>
+            <p class="desc"><?php echo MeprAppHelper::format_price_string($sub, $sub->price, true, $mepr_coupon_code); ?></p>
+          <?php elseif(!(isset($txn) && $txn->txn_type == 'sub_account')) : ?>
+            <p class="desc"><?php MeprProductsHelper::display_invoice( $prd, $mepr_coupon_code ); ?></p>
+          <?php endif; ?>
         </td>
         <?php if ( $show_quantity ) : ?>
         <td><?php echo $item['quantity']; ?></td>

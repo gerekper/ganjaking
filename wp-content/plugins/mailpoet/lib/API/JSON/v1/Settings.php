@@ -7,13 +7,16 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
+use MailPoet\API\JSON\ErrorResponse;
 use MailPoet\API\JSON\Response;
+use MailPoet\API\JSON\SuccessResponse;
 use MailPoet\Config\AccessControl;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Cron\Workers\SubscribersEngagementScore;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Form\FormMessageController;
+use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
@@ -495,5 +498,26 @@ class Settings extends APIEndpoint {
       'showNotice' => !!$draftReEngagementEmails,
       'action' => 'reactivate',
     ];
+  }
+
+  /**
+   * Prepares the settings to set up MSS with the given key and calls the set method.
+   *
+   * @param string $apiKey
+   * @return ErrorResponse|SuccessResponse
+   */
+  public function setKeyAndSetupMss(string $apiKey) {
+    $new_settings = [
+      'mta_group' => 'mailpoet',
+      'mta' => [
+        'method' => Mailer::METHOD_MAILPOET,
+        'mailpoet_api_key' => $apiKey,
+      ],
+      'signup_confirmation' => [
+        'enabled' => '1',
+      ],
+      'premium.premium_key' => $apiKey,
+    ];
+    return $this->set($new_settings);
   }
 }

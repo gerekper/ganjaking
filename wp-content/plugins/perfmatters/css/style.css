@@ -34,6 +34,7 @@
   padding: 20px;
   box-sizing: border-box;
 }
+
 /* header */
 #perfmatters-admin-header {
   margin-bottom: 10px;
@@ -147,12 +148,6 @@
   padding-bottom: 0px;
   margin-bottom: 0px;
 }
-#perfmatters-admin p.perfmatters-warning {
-  background: #ffffff;
-  color: #dc3232;
-  padding: 10px;
-  font-weight: bold;
-}
 #perfmatters-admin .form-table {
   margin: 0px;
 }
@@ -166,6 +161,24 @@
   position: relative;
   padding: 10px;
 }
+#perfmatters-admin .perfmatters-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+#perfmatters-admin .form-table th label {
+  vertical-align: top;
+  padding-right: 5px;
+}
+.perfmatters-beta {
+  background: #ED5464;
+  color: #ffffff;
+  padding: 5px;
+  vertical-align: middle;
+  font-size: 10px;
+  margin-left: 3px;
+}
+
+/* inputs */
 #perfmatters-admin .perfmatters-switch {
   position: relative;
   display: inline-block;
@@ -219,27 +232,19 @@
   resize: both;
   min-height: 150px;
 }
-
 #perfmatters-admin .CodeMirror {
   max-width: 700px;
   max-height: 200px;
   height: 100px;
 }
-
 #perfmatters-admin .CodeMirror.CodeMirror-focused {
-  height: 500px;
+  height: 200px;
+}
+#perfmatters-admin ::placeholder {
+  color: #ccc;
 }
 
-#perfmatters-admin .perfmatters-title-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-#perfmatters-admin .form-table th label {
-  vertical-align: top;
-  padding-right: 5px;
-}
-
+/* tooltips */
 #perfmatters-admin .perfmatters-tooltip-wrapper {
   position: relative;
   display: inline-block;
@@ -259,8 +264,6 @@
   background: #F0F0F1;
   color: #777;
   border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
   text-decoration: none;
 }
 #perfmatters-admin .perfmatters-tooltip-text {
@@ -314,72 +317,50 @@
   background: rgba(255,255,255,0.2);
   color: #bbbbbb;
   border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
 }
-
-.perfmatters-beta {
-  background: #ED5464;
+#perfmatters-admin .perfmatters-tooltip-table {
+  table-layout: fixed;
+  width: 100%;
+  margin-top: 3px;
+}
+#perfmatters-admin .perfmatters-tooltip-table th, #perfmatters-admin .perfmatters-tooltip-table td {
+  display: table-cell;
+  padding: 2px 5px;
+  padding-bottom: 0px;
   color: #ffffff;
-  padding: 5px;
-  vertical-align: middle;
-  font-size: 10px;
-  margin-left: 3px;
+  width: auto;
+  font-size: 12px;
+}
+#perfmatters-admin .perfmatters-tooltip-table td {
+  text-align: center;
 }
 
-#perfmatters-admin .button-primary {
+/* buttons */
+#perfmatters-admin-container .button-primary {
   padding: 2px 10px;
   border-radius: 5px;
   background: #4A89DD;
   border-color: #4A89DD;
 }
-#perfmatters-admin .button-secondary {
+#perfmatters-admin-container .button-secondary {
   border-color: #4A89DD;
   color: #4A89DD;
 }
-#perfmatters-admin p.submit {
+#perfmatters-admin-container p.submit {
   margin: 20px 0px 0px 0px;
   padding: 0px;
 }
-
-#perfmatters-admin .perfmatters-button-warning {
+#perfmatters-admin-container .perfmatters-button-warning {
   background: #ED5464;
   border-color: #ED5464;
   color: #ffffff;
 }
-#perfmatters-admin .perfmatters-button-warning:hover {
+#perfmatters-admin-container .perfmatters-button-warning:hover {
   background: #c14552;
   border-color: #c14552;
 }
 
-#perfmatters-admin #perfmatters-legend {
-  float: right;
-  padding-top: 20px;
-  font-size: 12px;
-  line-height: 15px;
-  font-style: italic;
-  color: #aaaaaa;
-}
-
-#perfmatters-admin #perfmatters-tooltip-legend span {
-  display: inline-block;
-  margin-right: 5px;
-  height: 15px;
-  width: 15px;
-  vertical-align: top;
-  text-align: center;
-  line-height: 15px;
-  font-size: 12px;
-  background: #e7e7e7;
-  color: #bbbbbb;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  text-decoration: none;
-  font-style: normal;
-  font-weight: bold;
-}
-
+/* custom input row ui */
 .perfmatters-input-row {
   position: relative;
   margin-bottom: 5px;
@@ -388,43 +369,34 @@
   align-items: center;
   max-width: 600px;
 }
-
 .perfmatters-input-row:not(:first-child) {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
 }
-
 .perfmatters-input-row input[type="text"] {
   flex-grow: 1;
 }
-
 .perfmatters-input-row label {
   margin: 0px 0px 0px 5px;
   font-size: 12px;
   white-space: nowrap;
 }
-
 .perfmatters-input-row input[type="checkbox"] {
   margin-right: 0px;
 }
-
 #perfmatters-admin .perfmatters-input-row select {
   min-width: auto;
 }
-
 a.perfmatters-delete-input-row {
   background: #aaa;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   margin-left: 5px;
 }
 a.perfmatters-delete-input-row span.dashicons-no {
   color: #fff;
   text-decoration: none;
 }
-
 a.perfmatters-add-input-row {
   white-space: nowrap;
   text-decoration: none;
@@ -445,12 +417,40 @@ a.perfmatters-add-input-row {
   display: inline-flex;
   align-items: center;
   border-radius: 4px 0px 0px 4px;
-  -webkit-border-radius: 4px 0px 0px 4px;
-  -moz-border-radius: 4px 0px 0px 4px;
 }
 
-#perfmatters-admin ::placeholder {
-  color: #ccc;
+/* quick exclusions ui */
+.perfmatters-quick-exclusion {
+  padding: 4px 8px;
+  margin-bottom: 10px;
+  border: 1px solid #8c8f94;
+  border-radius: 3px; 
+}
+.perfmatters-quick-exclusion:last-of-type {
+  margin-bottom: 0px;
+}
+.perfmatters-quick-exclusion .dashicons {
+  font-size: 16px;
+  line-height: 20px;
+  color: #555;
+}
+.perfmatters-quick-exclusion-toggle {
+  cursor: pointer;
+}
+.perfmatters-quick-exclusion-items {
+  display: none;
+  margin-top: 4px;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 4px;
+}
+.perfmatters-quick-exclusion:not(.perfmatters-opened) .dashicons-minus {
+  display: none;
+}
+.perfmatters-quick-exclusion.perfmatters-opened .dashicons-plus {
+  display: none;
+}
+.perfmatters-quick-exclusion.perfmatters-opened .perfmatters-quick-exclusion-items {
+  display: block;
 }
 
 /* media queries */

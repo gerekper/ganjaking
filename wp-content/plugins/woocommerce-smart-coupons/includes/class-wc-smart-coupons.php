@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.8.0
+ * @version     5.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -185,6 +185,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'compat/class-wc-sc-wmc-compatibility.php';
 			include_once 'compat/class-wc-sc-aelia-cs-compatibility.php';
 			include_once 'compat/class-wc-sc-kco-compatibility.php';
+			include_once 'compat/class-wc-sc-pnr-compatibility.php';
 
 			include_once 'class-wc-sc-admin-welcome.php';
 			include_once 'class-wc-sc-background-coupon-importer.php';
@@ -1625,6 +1626,10 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return false;
 			}
 
+			if ( ! is_array( $coupons ) && is_scalar( $coupons ) ) {
+				$coupons = array( $coupons );
+			}
+
 			foreach ( $coupons as $coupon_code ) {
 				$coupon = new WC_Coupon( $coupon_code );
 				if ( $this->is_wc_gte_30() ) {
@@ -2063,9 +2068,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			$smart_coupon_credit_used = ( is_object( WC()->cart ) && isset( WC()->cart->smart_coupon_credit_used ) ) ? WC()->cart->smart_coupon_credit_used : array();
 
 			if ( ! empty( $applied_coupons ) ) {
+				$request_wc_ajax    = ( ! empty( $_REQUEST['wc-ajax'] ) ) ? wc_clean( wp_unslash( $_REQUEST['wc-ajax'] ) ) : ''; // phpcs:ignore
+				$ignore_ajax_action = array( 'update_order_review', 'checkout' );
 				foreach ( $applied_coupons as $code ) {
-                    $request_wc_ajax    = ( ! empty( $_REQUEST['wc-ajax'] ) ) ? wc_clean( wp_unslash( $_REQUEST['wc-ajax'] ) ) : ''; // phpcs:ignore
-					$ignore_ajax_action = array( 'update_order_review', 'checkout' );
 					if ( ! empty( $request_wc_ajax ) && in_array( $request_wc_ajax, $ignore_ajax_action, true ) && array_key_exists( $code, $smart_coupon_credit_used ) && true !== $cart_contains_subscription && ! isset( WC()->session->reload_checkout ) ) {
 						continue;
 					}
@@ -3358,6 +3363,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				}
 
 				if ( true === $is_callable_smart_coupon_update_meta ) {
+					$product_ids         = ( ! is_array( $product_ids ) ) ? explode( ',', $product_ids ) : $product_ids; // set_product_ids expects an array.
+					$exclude_product_ids = ( ! is_array( $exclude_product_ids ) ) ? explode( ',', $exclude_product_ids ) : $exclude_product_ids; // set_excluded_product_ids expects an array.
+
 					$smart_coupon->set_amount( $amount );
 					$smart_coupon->set_excluded_product_ids( $exclude_product_ids );
 					$smart_coupon->set_excluded_product_categories( $exclude_product_categories );

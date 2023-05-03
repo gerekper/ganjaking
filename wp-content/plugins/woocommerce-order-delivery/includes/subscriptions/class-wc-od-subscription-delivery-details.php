@@ -153,11 +153,14 @@ class WC_OD_Subscription_Delivery_Details {
 		$max_date        = $this->get_max_delivery_date();
 		$first_timestamp = $first_date->getTimestamp();
 		$max_timestamp   = $max_date->getTimestamp();
-		$weekday_name    = $current_date->format( 'l' );
+		$weekday_name    = $current_date->date_i18n( 'l' );
 
 		if ( 'first' === $args['assign'] ) {
-			// Calculate the first weekday.
-			$delivery_date = wc_od_string_to_datetime( "next {$weekday_name}", $first_timestamp );
+			/*
+			 * Calculate the first weekday.
+			 * Remove one millisecond to the $from_timestamp value to accept the first delivery date too.
+			 */
+			$delivery_date = wc_od_string_to_datetime( "next {$weekday_name}", $first_timestamp - 1 );
 		} else {
 			// Calculate the delivery date keeping the billing interval.
 			$delivery_date = clone $current_date;
@@ -165,10 +168,13 @@ class WC_OD_Subscription_Delivery_Details {
 
 			// Try to assign the same weekday.
 			if ( $args['same_weekday'] ) {
-				// Get the previous and next weekday.
+				/*
+				 * Get the previous and next weekday.
+				 * Remove or add one millisecond to the $from_timestamp value to also accept the $delivery_date value.
+				 */
 				$date_timestamp     = $delivery_date->getTimestamp();
-				$previous_timestamp = wc_string_to_timestamp( "previous {$weekday_name}", $date_timestamp );
-				$next_timestamp     = wc_string_to_timestamp( "next {$weekday_name}", $date_timestamp );
+				$previous_timestamp = wc_string_to_timestamp( "previous {$weekday_name}", $date_timestamp + 1 );
+				$next_timestamp     = wc_string_to_timestamp( "next {$weekday_name}", $date_timestamp - 1 );
 
 				// Use the closest date to the delivery date.
 				if ( ( $date_timestamp - $previous_timestamp <= $next_timestamp - $date_timestamp ) && $this->validate_delivery_date( $previous_timestamp ) ) {

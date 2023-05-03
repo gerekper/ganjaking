@@ -22,6 +22,7 @@ class CDN
     //rewrite urls in html
     public static function rewrite($html) 
     {
+
         //filter check
         if(!apply_filters('perfmatters_cdn', true)) {
             return $html;
@@ -76,7 +77,7 @@ class CDN
         }
 
         //set cdn url
-        $cdnURL = Config::$options['cdn']['cdn_url'];
+        $cdnURL = untrailingslashit(Config::$options['cdn']['cdn_url']);
 
         //replace urls
         $html = preg_replace_callback($regEx, function($url) use ($siteURL, $cdnURL, $exclusions) {

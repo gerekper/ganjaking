@@ -54,7 +54,7 @@ class Select {
       if (!empty($block['params']['required'])) {
         $label .= ' *';
       }
-      $html .= '<option value="" disabled selected hidden>' . $label . '</option>';
+      $html .= '<option value="" disabled selected hidden>' . $this->wp->escHtml($label) . '</option>';
     } else {
       if (empty($block['params']['required'])) {
         $html .= '<option value="">-</option>';
@@ -91,7 +91,7 @@ class Select {
         $label = $option['value'];
       }
 
-      $html .= '<option value="' . $value . '"' . $isSelected . $isDisabled . '>';
+      $html .= '<option value="' . $this->wp->escAttr($value) . '"' . $isSelected . $isDisabled . '>';
       $html .= $this->wp->escAttr($label);
       $html .= '</option>';
     }

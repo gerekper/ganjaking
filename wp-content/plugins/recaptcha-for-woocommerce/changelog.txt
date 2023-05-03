@@ -1,5 +1,12 @@
 *** Changelog ***
 
+2023-04-30 - version 2.44
+
+* Fixed compatibility with WooCommerce phone order plugin
+* Fixed nonce vulnerabilities
+* Tested with WordPress 6.2
+
+
 2023-04-01 - version 2.43
 
 * Fixed JetPack reCaptcha throw error after successfully sent email. Attempt to read property nodeValue on null
@@ -51,10 +58,10 @@
 * Added action for checkout registration form - i13_woo_checkout_regform_action to render captcha on checkout registration form. For example
   for example you can do something like below in your functions.php
 
-    add_action('woocommerce_after_checkout_registration_form', 'i13woo_extra_checkout_register_fields', 9999);
+    add_action(‘woocommerce_after_checkout_registration_form‘, ‘i13woo_extra_checkout_register_fields‘, 9999);
     function i13woo_extra_checkout_register_fields(){
 
-        do_action( 'i13_woo_checkout_regform_action');
+        do_action( ‘i13_woo_checkout_regform_action‘);
     }
 
 

@@ -86,6 +86,17 @@ jQuery(document).ready(function($) {
 		});
 	});
 
+	//quick exclusions
+	$(".perfmatters-quick-exclusion-title-bar").click(function(e) {
+        var clicked = $(this).closest(".perfmatters-quick-exclusion");
+        if(clicked.hasClass("perfmatters-opened")) {
+            clicked.removeClass("perfmatters-opened");
+        }
+        else {
+        	clicked.addClass("perfmatters-opened");
+        }
+    });
+
 	//input display control
 	$('.perfmatters-input-controller input, .perfmatters-input-controller select').change(function() {
 

@@ -220,7 +220,7 @@ class Renderer {
    * @return string
    */
   private function renderTextVersion($template) {
-    $template = (mb_detect_encoding($template, 'UTF-8', true)) ? $template : utf8_encode($template);
+    $template = (mb_detect_encoding($template, 'UTF-8', true)) ? $template : mb_convert_encoding($template, 'UTF-8', mb_list_encodings());
     return @Html2Text::convert($template);
   }
 
@@ -249,7 +249,6 @@ class Renderer {
    * @return array
    */
   private function addMailpoetLogoContentBlock(array $content, array $styles) {
-    return $content;
     if (empty($content['blocks'])) return $content;
     $content['blocks'][] = [
       'type' => 'container',

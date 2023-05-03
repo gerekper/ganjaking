@@ -14,17 +14,10 @@ use MailPoet\Automation\Engine\Integration\Trigger;
 use MailPoet\Automation\Engine\Storage\AutomationRunStorage;
 use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Automation\Engine\WordPress;
-use MailPoet\WP\Functions;
 
 class TriggerHandler {
   /** @var ActionScheduler */
   private $actionScheduler;
-
-  /** @var SubjectLoader */
-  private $subjectLoader;
-
-  /** @var WordPress */
-  private $wordPress;
 
   /** @var AutomationStorage */
   private $automationStorage;
@@ -32,22 +25,34 @@ class TriggerHandler {
   /** @var AutomationRunStorage */
   private $automationRunStorage;
 
-  private $wp;
+  /** @var SubjectLoader */
+  private $subjectLoader;
+
+  /** @var SubjectTransformerHandler */
+  private $subjectTransformerHandler;
+
+  /** @var FilterHandler */
+  private $filterHandler;
+
+  /** @var WordPress */
+  private $wordPress;
 
   public function __construct(
     ActionScheduler $actionScheduler,
-    SubjectLoader $subjectLoader,
-    WordPress $wordPress,
     AutomationStorage $automationStorage,
     AutomationRunStorage $automationRunStorage,
-    Functions $wp
+    SubjectLoader $subjectLoader,
+    SubjectTransformerHandler $subjectTransformerHandler,
+    FilterHandler $filterHandler,
+    WordPress $wordPress
   ) {
     $this->actionScheduler = $actionScheduler;
-    $this->wordPress = $wordPress;
     $this->automationStorage = $automationStorage;
     $this->automationRunStorage = $automationRunStorage;
     $this->subjectLoader = $subjectLoader;
-    $this->wp = $wp;
+    $this->subjectTransformerHandler = $subjectTransformerHandler;
+    $this->filterHandler = $filterHandler;
+    $this->wordPress = $wordPress;
   }
 
   public function initialize(): void {
@@ -57,22 +62,29 @@ class TriggerHandler {
   /** @param Subject[] $subjects */
   public function processTrigger(Trigger $trigger, array $subjects): void {
     $automations = $this->automationStorage->getActiveAutomationsByTrigger($trigger);
+    if (!$automations) {
+      return;
+    }
+
+    // expand all subject transformations and load subject entries
+    $subjects = $this->subjectTransformerHandler->getAllSubjects($subjects);
+    $subjectEntries = $this->subjectLoader->getSubjectsEntries($subjects);
+
     foreach ($automations as $automation) {
       $step = $automation->getTrigger($trigger->getKey());
       if (!$step) {
         throw Exceptions::automationTriggerNotFound($automation->getId(), $trigger->getKey());
       }
 
-      // ensure subjects are registered and loadable
-      $subjectEntries = $this->subjectLoader->getSubjectsEntries($subjects);
-      foreach ($subjectEntries as $entry) {
-        $entry->getPayload();
-      }
-
       $automationRun = new AutomationRun($automation->getId(), $automation->getVersionId(), $trigger->getKey(), $subjects);
       $stepRunArgs = new StepRunArgs($automation, $automationRun, $step, $subjectEntries);
+
+      if (!$this->filterHandler->matchesFilters($stepRunArgs)) {
+        continue;
+      }
+
       $createAutomationRun = $trigger->isTriggeredBy($stepRunArgs);
-      $createAutomationRun = $this->wp->applyFilters(
+      $createAutomationRun = $this->wordPress->applyFilters(
         Hooks::AUTOMATION_RUN_CREATE,
         $createAutomationRun,
         $stepRunArgs

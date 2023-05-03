@@ -339,9 +339,9 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 				// phone and email need to come from billing.
 				if ( ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_exclude_phone'] ) ) {
-					$body['destinationAddress']['PhoneNumber'] = $this->get_formatted_string( $order_data['billing']['phone'] );
+					$body['destinationAddress']['phone'] = $this->get_formatted_string( $order_data['billing']['phone'] );
 				} else {
-					$body['destinationAddress']['PhoneNumber'] = '';
+					$body['destinationAddress']['phone'] = '';
 				}
 
 				// Amazon shipping notification list.

@@ -263,7 +263,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 			case 'new':
 				$classes      = [ 'val' ];
 				$new_url      = $item['new'];
-				$new_full_url = ( $new_url && $new_url[0] === '/' ) ? site_url() . $new_url : site_url() . '/' . $new_url;
+				$new_full_url = home_url( $new_url );
 				if ( ! $is_regex && WPSEO_Redirect_Util::requires_trailing_slash( $new_url ) ) {
 					$classes[] = 'has-trailing-slash';
 				}
@@ -283,7 +283,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 
 			case 'old':
 				$classes      = '';
-				$old_full_url = ( $item['old'][0] === '/' ) ? site_url() . $item['old'] : site_url() . '/' . $item['old'];
+				$old_full_url = home_url( $item['old'] );
 				if ( $is_regex === true ) {
 					return '<div class="val remove-slashes">' . esc_html( $item['old'] ) . '</div>' . $row_actions;
 				}

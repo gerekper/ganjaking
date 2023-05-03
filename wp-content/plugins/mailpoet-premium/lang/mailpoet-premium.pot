@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.12.0\n"
+"Project-Id-Version: MailPoet Premium 4.14.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-17T18:08:48+00:00\n"
+"POT-Creation-Date: 2023-05-01T13:32:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -206,6 +206,7 @@ msgid "Missing subscriber id."
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:38
+#: assets/dist/js/premium.js:2
 msgid "Add tag"
 msgstr ""
 
@@ -215,6 +216,7 @@ msgid "Tag %d was not found."
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:36
+#: assets/dist/js/premium.js:2
 msgid "Add to list"
 msgstr ""
 
@@ -224,11 +226,27 @@ msgstr ""
 msgid "Segment with ID '%s' not found."
 msgstr ""
 
+#. translators: %s is the actual error message
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:67
+msgid "Failed to send notification email: %s"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:79
+#: assets/dist/js/premium.js:2
+msgid "Send notification email"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:92
+msgid "MailPoet Automation Notification"
+msgstr ""
+
 #: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:36
+#: assets/dist/js/premium.js:2
 msgid "Remove from list"
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php:36
+#: assets/dist/js/premium.js:2
 msgid "Remove tag"
 msgstr ""
 
@@ -237,6 +255,7 @@ msgid "Unsubscribe"
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:36
+#: assets/dist/js/premium.js:2
 msgid "Update subscriber"
 msgstr ""
 
@@ -284,6 +303,7 @@ msgid "View MailPoet settings"
 msgstr ""
 
 #: lib/Config/Hooks.php:68
+#: assets/dist/js/premium.js:2
 msgid "Settings"
 msgstr ""
 
@@ -345,4 +365,312 @@ msgstr ""
 
 #: mailpoet_initializer.php:92
 msgid "Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Yes"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "No"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select one or more values…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "From"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "To"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Filtering by this field is not supported."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Are you sure you want to delete this step? This action cannot be undone."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Are you sure you want to delete the following step: \"%s\"? This action cannot be undone."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Delete this step?"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Delete step"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tags to add"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a tag"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add a tag or multiple tags to a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Not set up yet"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add the \"%s\" tag"
+msgid_plural "Add \"%s\" tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "tag"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "tags"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "label"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "labels"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "add tag"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "add tags"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tags to remove"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove a tag or multiple tags from a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove the \"%s\" tag"
+msgid_plural "Remove \"%s\" tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "remove tag"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "remove tags"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Do not trigger automations"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Adding a subscriber to a list won't trigger other automations"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Trigger settings"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Lists to subscribe to:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add a subscriber to a list."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add to the \"%s\" list"
+msgid_plural "Add to \"%s\" lists"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "add list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "add to list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Lists to unsubscribe from:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove a subscriber from a list."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove from the \"%s\" list"
+msgid_plural "Remove from \"%s\" lists"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "remove list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "remove from list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Set custom field value…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select a value…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Year"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select year…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Month"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select month…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Day"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select day…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "This field is required."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Custom field"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select a custom field…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Set the value to"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "How to create a custom field?"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Update the subscriber’s custom field to a specific value."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Unknown field"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Update \"%s\" to \"%s\""
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "update"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "update subscriber"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "update custom field"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "unsubscribe"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Recipients"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Send to (up to 5 email addresses)"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "MailPoet shortcodes"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "\"From\" name"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "John Doe"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "\"From\" email address"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "you@domain.com"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Subject"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Type in subject…"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Receive a notification when a contact reaches a specific point in automation."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "notification"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "email"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "New automation"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "An unknown error occurred."
 msgstr ""

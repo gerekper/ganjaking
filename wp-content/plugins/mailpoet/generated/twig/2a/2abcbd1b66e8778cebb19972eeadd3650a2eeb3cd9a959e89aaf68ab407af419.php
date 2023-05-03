@@ -46,12 +46,13 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
         echo "</h3>
 <div class=\"mailpoet_region_content\">
     <form id=\"mailpoet_newsletter_styles\" action=\"\" method=\"post\" accept-charset=\"utf-8\">
+        <div id='mailpoet_brand_styles'></div>
         {{#if isWoocommerceTransactional}}
             <div class=\"mailpoet_form_field\">
                 <span>
                     <span><input type=\"text\" class=\"mailpoet_color\" size=\"6\" maxlength=\"6\" name=\"wc-branding-color\" value=\"{{ model.woocommerce.brandingColor }}\" id=\"mailpoet_wc_branding_color\"></span>
                 </span>";
-        // line 9
+        // line 10
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Branding color");
         echo "
             </div>
@@ -63,7 +64,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
             </span>
             <select id=\"mailpoet_text_font_family\" name=\"text-family\" class=\"mailpoet_font_family mailpoet_select mailpoet_select_medium\">
             <optgroup label=\"";
-        // line 18
+        // line 19
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Standard fonts");
         echo "\">
             {{#each availableStyles.fonts.standard}}
@@ -72,7 +73,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
             </optgroup>
             {{#if availableStyles.fonts.custom.length}}
             <optgroup label=\"";
-        // line 24
+        // line 25
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Custom fonts");
         echo "\">
             {{#each availableStyles.fonts.custom}}
@@ -86,7 +87,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
                 <option value=\"{{ this }}\" {{#ifCond this '==' ../model.text.fontSize}}SELECTED{{/ifCond}}>{{ this }}</option>
             {{/each}}
             </select> ";
-        // line 35
+        // line 36
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Text");
         echo "
         </div>
@@ -97,7 +98,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               </span>
               <select id=\"mailpoet_h1_font_family\" name=\"h1-family\" class=\"mailpoet_font_family mailpoet_select mailpoet_select_medium\">
               <optgroup label=\"";
-        // line 43
+        // line 44
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Standard fonts");
         echo "\">
               {{#each availableStyles.fonts.standard}}
@@ -106,7 +107,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               </optgroup>
               {{#if availableStyles.fonts.custom.length}}
               <optgroup label=\"";
-        // line 49
+        // line 50
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Custom fonts");
         echo "\">
               {{#each availableStyles.fonts.custom}}
@@ -120,7 +121,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
                   <option value=\"{{ this }}\" {{#ifCond this '==' ../model.h1.fontSize}}SELECTED{{/ifCond}}>{{ this }}</option>
               {{/each}}
               </select> ";
-        // line 60
+        // line 61
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Heading 1");
         echo "
           </div>
@@ -130,7 +131,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               </span>
               <select id=\"mailpoet_h2_font_family\" name=\"h2-family\" class=\"mailpoet_font_family mailpoet_select mailpoet_select_medium\">
               <optgroup label=\"";
-        // line 67
+        // line 68
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Standard fonts");
         echo "\">
               {{#each availableStyles.fonts.standard}}
@@ -139,7 +140,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               </optgroup>
               {{#if availableStyles.fonts.custom.length}}
               <optgroup label=\"";
-        // line 73
+        // line 74
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Custom fonts");
         echo "\">
               {{#each availableStyles.fonts.custom}}
@@ -153,7 +154,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
                   <option value=\"{{ this }}\" {{#ifCond this '==' ../model.h2.fontSize}}SELECTED{{/ifCond}}>{{ this }}</option>
               {{/each}}
               </select> ";
-        // line 84
+        // line 85
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Heading 2");
         echo "
           </div>
@@ -163,7 +164,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               </span>
               <select id=\"mailpoet_h3_font_family\" name=\"h3-family\" class=\"mailpoet_font_family mailpoet_select mailpoet_select_medium\">
               <optgroup label=\"";
-        // line 91
+        // line 92
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Standard fonts");
         echo "\">
               {{#each availableStyles.fonts.standard}}
@@ -172,7 +173,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               </optgroup>
               {{#if availableStyles.fonts.custom.length}}
               <optgroup label=\"";
-        // line 97
+        // line 98
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Custom fonts");
         echo "\">
               {{#each availableStyles.fonts.custom}}
@@ -186,7 +187,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
                   <option value=\"{{ this }}\" {{#ifCond this '==' ../model.h3.fontSize}}SELECTED{{/ifCond}}>{{ this }}</option>
               {{/each}}
               </select> ";
-        // line 108
+        // line 109
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Heading 3");
         echo "
           </div>
@@ -194,7 +195,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
               <span>
                   <span><input type=\"text\" class=\"mailpoet_color\" size=\"6\" maxlength=\"6\" name=\"link-color\" value=\"{{ model.link.fontColor }}\" id=\"mailpoet_a_font_color\"></span>
               </span>";
-        // line 113
+        // line 114
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Links");
         echo " <label><input type=\"checkbox\" name=\"underline\" value=\"underline\" id=\"mailpoet_a_font_underline\" {{#ifCond model.link.textDecoration '==' 'underline'}}CHECKED{{/ifCond}} class=\"mailpoet_option_offset_left_small\"/> ";
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Underline");
@@ -204,7 +205,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
           <div class=\"mailpoet_form_field\">
               <label>
               ";
-        // line 118
+        // line 119
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Text line height");
         echo "
               <select id=\"mailpoet_text_line_height\" name=\"text-line-height\">
@@ -217,7 +218,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
           <div class=\"mailpoet_form_field\">
               <label>
               ";
-        // line 128
+        // line 129
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Heading line height");
         echo "
               <select id=\"mailpoet_heading_line_height\" name=\"heading-line-height\">
@@ -234,7 +235,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
             <span>
                 <span><input type=\"text\" class=\"mailpoet_color\" size=\"6\" maxlength=\"6\" name=\"newsletter-color\" value=\"{{ model.wrapper.backgroundColor }}\" id=\"mailpoet_newsletter_background_color\"></span>
             </span>";
-        // line 142
+        // line 143
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Content background");
         echo "
         </div>
@@ -242,13 +243,13 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
             <span>
                 <span><input type=\"text\" class=\"mailpoet_color\" size=\"6\" maxlength=\"6\" name=\"background-color\" value=\"{{ model.body.backgroundColor }}\" id=\"mailpoet_background_color\"></span>
             </span>";
-        // line 147
+        // line 148
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Global background");
         echo "
         </div>
     </form>
     <p class=\"mailpoet_settings_notice\">";
-        // line 150
+        // line 151
         echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translate("If an email client [link]does not support a custom web font[/link], a similar standard font will be used instead."), "https://kb.mailpoet.com/article/176-which-fonts-can-be-used-in-mailpoet#custom-web-fonts", ["target" => "_blank", "data-beacon-article" => "586b882690336009736c1455"]);
         echo "</p>
 </div>
@@ -270,7 +271,7 @@ class __TwigTemplate_e73b2cb637db2bcb6f40e724fb0d13365d1675cbb501f971890ea259b1a
 
     public function getDebugInfo()
     {
-        return array (  249 => 150,  243 => 147,  235 => 142,  218 => 128,  205 => 118,  195 => 113,  187 => 108,  173 => 97,  164 => 91,  154 => 84,  140 => 73,  131 => 67,  121 => 60,  107 => 49,  98 => 43,  87 => 35,  73 => 24,  64 => 18,  52 => 9,  42 => 2,  37 => 1,);
+        return array (  250 => 151,  244 => 148,  236 => 143,  219 => 129,  206 => 119,  196 => 114,  188 => 109,  174 => 98,  165 => 92,  155 => 85,  141 => 74,  132 => 68,  122 => 61,  108 => 50,  99 => 44,  88 => 36,  74 => 25,  65 => 19,  53 => 10,  42 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

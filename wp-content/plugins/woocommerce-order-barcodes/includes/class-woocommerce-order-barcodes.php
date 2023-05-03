@@ -408,7 +408,7 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Maybe displaying barcode.
-	 * 
+	 *
 	 * @param WC_Order $order Order object.
 	 *
 	 * @return String.
@@ -438,10 +438,15 @@ class WooCommerce_Order_Barcodes {
 			return esc_html__( 'Barcode does not exist!', 'woocommerce-order-barcodes' );
 		}
 
+		$foreground_color = $this->barcode_colours['foreground'];
+
 		// Return an image (for emails and frontend order view).
 		if ( $image ) {
 			$barcode_url = $this->barcode_url( $order_id );
-			return '<img src="' . esc_url( $barcode_url ) . '" title="' . __( 'Barcode', 'woocommerce-order-barcodes' ) . '" alt="' . __( 'Barcode', 'woocommerce-order-barcodes' ) . '" style="display:inline;border:0;max-width:100%" /><br/><span style="color:' . $this->barcode_colours['foreground'] . ';font-family:monospace;">' . $barcode_text . '</span>';
+
+			ob_start();
+			require dirname( __FILE__ ) . '/../templates/barcode-image.php';
+			return ob_get_clean();
 		}
 
 		$upload_dir = wp_upload_dir();
@@ -449,8 +454,7 @@ class WooCommerce_Order_Barcodes {
 		$dns2d = new DNS2D();
 		$dns1d->setStorPath( $upload_dir['path'] . '/cache/' );
 		$dns2d->setStorPath( $upload_dir['path'] . '/cache/' );
-		$foreground_color = $this->barcode_colours['foreground'];
-		$barcode          = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
+		$barcode = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
 
 		// Generate barcode image based on string and selected type.
 		switch ( $this->barcode_type ) {

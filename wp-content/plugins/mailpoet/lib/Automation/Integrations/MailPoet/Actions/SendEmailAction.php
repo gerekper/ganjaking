@@ -5,6 +5,8 @@ namespace MailPoet\Automation\Integrations\MailPoet\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Automation;
+use MailPoet\Automation\Engine\Data\NextStep;
 use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
@@ -19,6 +21,7 @@ use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Scheduler\AutomationEmailScheduler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscriberSegmentRepository;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Validator\Builder;
 use MailPoet\Validator\Schema\ObjectSchema;
 use Throwable;
@@ -35,6 +38,9 @@ class SendEmailAction implements Action {
   /** @var SubscriberSegmentRepository */
   private $subscriberSegmentRepository;
 
+  /** @var SubscribersRepository  */
+  private $subscribersRepository;
+
   /** @var AutomationEmailScheduler */
   private $automationEmailScheduler;
 
@@ -42,11 +48,13 @@ class SendEmailAction implements Action {
     SettingsController $settings,
     NewslettersRepository $newslettersRepository,
     SubscriberSegmentRepository $subscriberSegmentRepository,
+    SubscribersRepository $subscribersRepository,
     AutomationEmailScheduler $automationEmailScheduler
   ) {
     $this->settings = $settings;
     $this->newslettersRepository = $newslettersRepository;
     $this->subscriberSegmentRepository = $subscriberSegmentRepository;
+    $this->subscribersRepository = $subscribersRepository;
     $this->automationEmailScheduler = $automationEmailScheduler;
   }
 
@@ -121,18 +129,22 @@ class SendEmailAction implements Action {
       'status' => SubscriberEntity::STATUS_SUBSCRIBED,
     ]);
 
-    if (!$subscriberSegment) {
+    if ($newsletter->getType() !== NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL && !$subscriberSegment) {
       throw InvalidStateException::create()->withMessage(sprintf("Subscriber ID '%s' is not subscribed to segment ID '%s'.", $subscriberId, $segmentId));
     }
 
-    $subscriber = $subscriberSegment->getSubscriber();
+    $subscriber = $subscriberSegment ? $subscriberSegment->getSubscriber() : $this->subscribersRepository->findOneById($subscriberId);
     if (!$subscriber) {
       throw InvalidStateException::create();
     }
 
     $subscriberStatus = $subscriber->getStatus();
-    if ($subscriberStatus !== SubscriberEntity::STATUS_SUBSCRIBED) {
+    if ($newsletter->getType() !== NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL && $subscriberStatus !== SubscriberEntity::STATUS_SUBSCRIBED) {
       throw InvalidStateException::create()->withMessage(sprintf("Cannot schedule a newsletter for subscriber ID '%s' because their status is '%s'.", $subscriberId, $subscriberStatus));
+    }
+
+    if ($subscriberStatus === SubscriberEntity::STATUS_BOUNCED) {
+      throw InvalidStateException::create()->withMessage(sprintf("Cannot schedule an email for subscriber ID '%s' because their status is '%s'.", $subscriberId, $subscriberStatus));
     }
 
     try {
@@ -142,13 +154,14 @@ class SendEmailAction implements Action {
     }
   }
 
-  public function saveEmailSettings(Step $step): void {
+  public function saveEmailSettings(Step $step, Automation $automation): void {
     $args = $step->getArgs();
     if (!isset($args['email_id']) || !$args['email_id']) {
       return;
     }
 
     $email = $this->getEmailForStep($step);
+    $email->setType($this->isTransactional($step, $automation) ? NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL : NewsletterEntity::TYPE_AUTOMATION);
     $email->setStatus(NewsletterEntity::STATUS_ACTIVE);
     $email->setSubject($args['subject'] ?? '');
     $email->setPreheader($args['preheader'] ?? '');
@@ -160,6 +173,40 @@ class SendEmailAction implements Action {
     $this->newslettersRepository->flush();
   }
 
+  private function isTransactional(Step $step, Automation $automation): bool {
+    $allSteps = $automation->getSteps();
+
+    $triggers = array_filter(
+      $allSteps,
+      function(Step $step): bool {
+        return $step->getType() === Step::TYPE_TRIGGER;
+      }
+    );
+    $transactionalTriggers = array_filter(
+      $triggers,
+      function(Step $step): bool {
+        return in_array($step->getKey(), ['woocommerce:order-status-changed'], true);
+      }
+    );
+
+    if (!$triggers || count($transactionalTriggers) !== count($triggers)) {
+      return false;
+    }
+
+    foreach ($transactionalTriggers as $trigger) {
+      $nextSteps = array_map(
+        function(NextStep $nextStep): string {
+          return $nextStep->getId();
+        },
+        $trigger->getNextSteps()
+      );
+      if (!in_array($step->getId(), $nextSteps, true)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   private function getEmailForStep(Step $step): NewsletterEntity {
     $emailId = $step->getArgs()['email_id'] ?? null;
     if (!$emailId) {
@@ -168,9 +215,8 @@ class SendEmailAction implements Action {
 
     $email = $this->newslettersRepository->findOneBy([
       'id' => $emailId,
-      'type' => NewsletterEntity::TYPE_AUTOMATION,
     ]);
-    if (!$email) {
+    if (!$email || !in_array($email->getType(), [NewsletterEntity::TYPE_AUTOMATION, NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL], true)) {
       throw InvalidStateException::create()->withMessage(
         // translators: %s is the ID of email.
         sprintf(__("Automation email with ID '%s' not found.", 'mailpoet'), $emailId)

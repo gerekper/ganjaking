@@ -214,9 +214,17 @@ class WPSEO_WooCommerce_Schema {
 
 			// Add an @id to the offer.
 			if ( $offer['@type'] === 'Offer' ) {
+				$price                         = WPSEO_WooCommerce_Utils::get_product_display_price( $product );
 				$data['offers'][ $key ]['@id'] = YoastSEO()->meta->for_current_page()->site_url . '#/schema/offer/' . $product->get_id() . '-' . $key;
 
 				$data['offers'][ $key ]['priceSpecification']['@type'] = 'PriceSpecification';
+				$data['offers'][ $key ]['priceSpecification']['price'] = $price;
+				if ( wc_tax_enabled() ) {
+					$data['offers'][ $key ]['priceSpecification']['valueAddedTaxIncluded'] = WPSEO_WooCommerce_Utils::prices_have_tax_included();
+				}
+				else {
+					unset( $data['offers'][ $key ]['priceSpecification']['valueAddedTaxIncluded'] );
+				}
 
 				$data['offers'][ $key ]['seller'] = [ '@id' => YoastSEO()->meta->for_current_page()->site_url . '#organization' ];
 
@@ -232,6 +240,14 @@ class WPSEO_WooCommerce_Schema {
 			if ( $offer['@type'] === 'AggregateOffer' ) {
 				$data['offers'][ $key ]['@id']    = YoastSEO()->meta->for_current_page()->site_url . '#/schema/aggregate-offer/' . $product->get_id() . '-' . $key;
 				$data['offers'][ $key ]['offers'] = $this->add_individual_offers( $product );
+				if ( $product instanceof WC_Product_Variable ) {
+					$decimals = wc_get_price_decimals();
+					$lowest   = $product->get_variation_price( 'min', true );
+					$highest  = $product->get_variation_price( 'max', true );
+
+					$data['offers'][ $key ]['lowPrice']  = wc_format_decimal( $lowest, $decimals );
+					$data['offers'][ $key ]['highPrice'] = wc_format_decimal( $highest, $decimals );
+				}
 			}
 
 			// Alter availability when product is "on backorder".
@@ -430,7 +446,7 @@ class WPSEO_WooCommerce_Schema {
 		if ( function_exists( 'wc_placeholder_img_src' ) ) {
 			$image_schema_id     = YoastSEO()->meta->for_current_page()->canonical . '#woocommerceimageplaceholder';
 			$placeholder_img_src = wc_placeholder_img_src();
-			$this->data['image'] = YoastSEO()->helpers->schema->image->generate_from_url( $image_schema_id, $placeholder_img_src );
+			$this->data['image'] = YoastSEO()->helpers->schema->image->generate_from_url( $image_schema_id, $placeholder_img_src, '', false, false );
 		}
 	}
 
@@ -548,7 +564,8 @@ class WPSEO_WooCommerce_Schema {
 		$variations = $product->get_available_variations();
 
 		$currency           = get_woocommerce_currency();
-		$prices_include_tax = ( wc_tax_enabled() && WPSEO_WooCommerce_Utils::prices_have_tax_included() );
+		$tax_enabled        = wc_tax_enabled();
+		$prices_include_tax = WPSEO_WooCommerce_Utils::prices_have_tax_included();
 		$decimals           = wc_get_price_decimals();
 		$data               = [];
 		$product_id         = $product->get_id();
@@ -567,12 +584,15 @@ class WPSEO_WooCommerce_Schema {
 					'@type'                 => 'PriceSpecification',
 					'price'                 => wc_format_decimal( $variation['display_price'], $decimals ),
 					'priceCurrency'         => $currency,
-					'valueAddedTaxIncluded' => $prices_include_tax,
 				],
 			];
 
 			if ( ! empty( $variation['sku'] ) ) {
 				$offer['sku'] = $variation['sku'];
+			}
+
+			if ( $tax_enabled ) {
+				$offer['priceSpecification']['valueAddedTaxIncluded'] = $prices_include_tax;
 			}
 
 			// Adds variation's global identifiers to the $offer array.

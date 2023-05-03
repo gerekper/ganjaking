@@ -1,5 +1,26 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.04.28 - version 7.8.0
+* New: Tested up to WooCommerce 7.6.1
+* New: Under coupon meta field 'Usage restriction > Locations', load States defined by WooCommerce for selection
+* Fix: Auto-apply functionality not working correctly with coupon meta field 'Usage restriction > Locations'
+* Fix: Auto-apply functionality is forcing WooCommerce Points & Rewards (requires 1.7.29+) plugin to display messages on the 'My Account' page
+* Fix: Auto-generated coupons only saving the 1st value under 'Usage restriction > Products' & 'Usage restriction > Excluded products', if multiple values are passed
+* Fix: PHP Warning: foreach() argument must be of type array|object, string given
+* Developer: New action hook 'wc_sc_before_auto_apply_coupons' to perform actions before auto-apply functionality
+* Tweak: Unnecessarily executing 2 lines of code in a loop
+* Update: Run auto-apply feature on AJAX-based requests as well
+* Update: Added custom message for coupon meta field 'Usage restriction > Locations' if the entered location is not found
+* Update: Passed discount object as 3rd argument for filter hook 'woocommerce_coupon_is_valid'
+* Update: Spellcheck: replace 'crone' with 'cron'
+* Update: POT file
+
+2023.04.21 - version 7.7.0
+* Fix: Emails for coupons are not getting sent when the setting 'Combine emails' is enabled
+* Fix: Do not call 'get_post_meta' for coupon meta 'discount_type' if the post id is empty
+* Update: Spellcheck: replace 'Funtion' with 'Function'
+* Update: POT file
+
 2023.04.15 - version 7.6.0
 * New: Tested up to WooCommerce 7.6.0
 * Fix: Product attribute restriction not validating correctly in case of variable products

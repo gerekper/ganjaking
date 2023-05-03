@@ -5,6 +5,7 @@ namespace MailPoet\Automation\Engine\Validation\AutomationRules;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Control\SubjectTransformerHandler;
 use MailPoet\Automation\Engine\Data\Automation;
 use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Exceptions;
@@ -16,10 +17,15 @@ class ValidStepOrderRule implements AutomationNodeVisitor {
   /** @var Registry */
   private $registry;
 
+  /** @var SubjectTransformerHandler */
+  private $subjectTransformerHandler;
+
   public function __construct(
-    Registry $registry
+    Registry $registry,
+    SubjectTransformerHandler $subjectTransformerHandler
   ) {
     $this->registry = $registry;
+    $this->subjectTransformerHandler = $subjectTransformerHandler;
   }
 
   public function initialize(Automation $automation): void {
@@ -42,7 +48,7 @@ class ValidStepOrderRule implements AutomationNodeVisitor {
       return;
     }
 
-    $subjectKeys = $this->collectSubjectKeys($automation, $node->getParents());
+    $subjectKeys = $this->subjectTransformerHandler->getSubjectKeysForAutomation($automation);
     $missingSubjectKeys = array_diff($requiredSubjectKeys, $subjectKeys);
     if (count($missingSubjectKeys) > 0) {
       throw Exceptions::missingRequiredSubjects($step, $missingSubjectKeys);
@@ -50,25 +56,5 @@ class ValidStepOrderRule implements AutomationNodeVisitor {
   }
 
   public function complete(Automation $automation): void {
-  }
-
-  /**
-   * @param Step[] $parents
-   * @return string[]
-   */
-  private function collectSubjectKeys(Automation $automation, array $parents): array {
-    $triggers = array_filter($parents, function (Step $step) {
-      return $step->getType() === Step::TYPE_TRIGGER;
-    });
-
-    $subjectKeys = [];
-    foreach ($triggers as $trigger) {
-      $registryTrigger = $this->registry->getTrigger($trigger->getKey());
-      if (!$registryTrigger) {
-        throw Exceptions::automationTriggerNotFound($automation->getId(), $trigger->getKey());
-      }
-      $subjectKeys = array_merge($subjectKeys, $registryTrigger->getSubjectKeys());
-    }
-    return array_unique($subjectKeys);
   }
 }

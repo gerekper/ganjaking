@@ -38,6 +38,7 @@ class API {
   public const ERROR_MESSAGE_UNAUTHORIZED = 'No valid API key provided';
   public const ERROR_MESSAGE_INSUFFICIENT_PRIVILEGES = 'Insufficient privileges';
   public const ERROR_MESSAGE_EMAIL_VOLUME_LIMIT_REACHED = 'Email volume limit reached';
+  public const ERROR_MESSAGE_SUBSCRIBERS_LIMIT_REACHED = 'Subscribers limit reached';
   // Proxy request `authorized_email_address` from shop https://github.com/mailpoet/shop/blob/master/routes/hooks/sending/v1/index.js#L65
   public const ERROR_MESSAGE_AUTHORIZED_EMAIL_NO_FREE = 'You cannot use a free email address. Please use an address from your website’s domain, for example.';
   public const ERROR_MESSAGE_AUTHORIZED_EMAIL_INVALID = 'Invalid email.';
@@ -48,6 +49,9 @@ class API {
   // Proxy request `sender_domain` from shop https://github.com/mailpoet/shop/blob/master/routes/hooks/sending/v1/index.js#L65
   public const ERROR_MESSAGE_SENDER_DOMAIN_INVALID = 'Invalid domain. Please enter a valid domain name.';
   public const ERROR_MESSAGE_SENDER_DOMAIN_ALREADY_ADDED = 'This domain was already added to the list.';
+
+  private const KEY_CHECK_TYPE_PREMIUM = 'premium';
+  private const KEY_CHECK_TYPE_MSS = 'mss';
 
   private $apiKey;
   private $wp;
@@ -79,31 +83,25 @@ class API {
   }
 
   public function checkMSSKey() {
-    $result = $this->request(
-      $this->urlMe,
-      ['site' => strtolower(WPFunctions::get()->homeUrl())]
-    );
-
-    $code = $this->wp->wpRemoteRetrieveResponseCode($result);
-    switch ($code) {
-      case 200:
-        $body = json_decode($this->wp->wpRemoteRetrieveBody($result), true);
-        break;
-      default:
-        $this->logKeyCheckError((int)$code, 'mss');
-        $body = null;
-        break;
-    }
-
-    return ['code' => $code, 'data' => $body];
+    return $this->checkKey(self::KEY_CHECK_TYPE_MSS);
   }
 
   public function checkPremiumKey() {
+    return $this->checkKey(self::KEY_CHECK_TYPE_PREMIUM);
+  }
+
+  private function checkKey(string $keyCheckType): array {
+    if ($keyCheckType === self::KEY_CHECK_TYPE_PREMIUM) {
+      $apiUrl = $this->urlPremium;
+    } else {
+      $apiUrl = $this->urlMe;
+    }
     $result = $this->request(
-      $this->urlPremium,
+      $apiUrl,
       ['site' => strtolower(WPFunctions::get()->homeUrl())]
     );
 
+    $errorMessage = null;
     $code = $this->wp->wpRemoteRetrieveResponseCode($result);
     switch ($code) {
       case 200:
@@ -113,12 +111,13 @@ class API {
         }
         break;
       default:
-        $this->logKeyCheckError((int)$code, 'premium');
+        $this->logKeyCheckError((int)$code, $keyCheckType);
         $body = null;
+        $errorMessage = $this->wp->wpRemoteRetrieveBody($result);
         break;
     }
 
-    return ['code' => $code, 'data' => $body];
+    return ['code' => $code, 'data' => $body, 'error_message' => $errorMessage];
   }
 
   public function logCurlInformation($headers, $info) {
@@ -369,6 +368,8 @@ class API {
         return __('Insufficient privileges.', 'mailpoet');
       case self::ERROR_MESSAGE_EMAIL_VOLUME_LIMIT_REACHED:
         return __('Email volume limit reached.', 'mailpoet');
+      case self::ERROR_MESSAGE_SUBSCRIBERS_LIMIT_REACHED:
+        return __('Subscribers limit reached.', 'mailpoet');
       case self::ERROR_MESSAGE_AUTHORIZED_EMAIL_NO_FREE:
         return __('You cannot use a free email address. Please use an address from your website’s domain, for example.', 'mailpoet');
       case self::ERROR_MESSAGE_AUTHORIZED_EMAIL_INVALID:

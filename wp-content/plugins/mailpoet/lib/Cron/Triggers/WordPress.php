@@ -198,7 +198,7 @@ class WordPress {
   }
 
   private function isSubscriberStatsReportActive(): bool {
-    $isAnyKeyValid = $this->serviceChecker->getAnyValidKey();
+    $validAccountKey = $this->serviceChecker->getValidAccountKey();
     $statsReportDueTasks = $this->getTasksCount([
       'type' => SubscribersStatsReport::TASK_TYPE,
       'scheduled_in' => [self::SCHEDULED_IN_THE_PAST],
@@ -210,7 +210,7 @@ class WordPress {
       'status' => [ScheduledTaskEntity::STATUS_SCHEDULED],
     ]);
 
-    return ($isAnyKeyValid && ($statsReportDueTasks || !$statsReportFutureTasks));
+    return ($validAccountKey && ($statsReportDueTasks || !$statsReportFutureTasks));
   }
 
   private function isBeamerCheckActive(): bool {

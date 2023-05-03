@@ -203,6 +203,17 @@ class SendingQueue {
 
     // get subscribers
     $subscriberBatches = new BatchIterator($queue->taskId, $this->getBatchSize());
+    if ($subscriberBatches->count() === 0) {
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
+        'no subscribers to process',
+        ['task_id' => $queue->taskId]
+      );
+      $task = $queue->getSendingQueueEntity()->getTask();
+      if ($task) {
+        $this->scheduledTasksRepository->invalidateTask($task);
+      }
+      return;
+    }
     /** @var int[] $subscribersToProcessIds - it's required for PHPStan */
     foreach ($subscriberBatches as $subscribersToProcessIds) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
@@ -218,8 +229,11 @@ class SendingQueue {
       } else {
         // No segments = Welcome emails or some Automatic emails.
         // Welcome emails or some Automatic emails use segments only for scheduling and store them as a newsletter option
-        $foundSubscribers = SubscriberModel::whereIn('id', $subscribersToProcessIds)
-          ->where('status', SubscriberModel::STATUS_SUBSCRIBED)
+        $foundSubscribers = SubscriberModel::whereIn('id', $subscribersToProcessIds);
+        $foundSubscribers = $newsletter->type === NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL ?
+          $foundSubscribers->whereNotEqual('status', SubscriberModel::STATUS_BOUNCED) :
+          $foundSubscribers->where('status', SubscriberModel::STATUS_SUBSCRIBED);
+        $foundSubscribers = $foundSubscribers
           ->whereNull('deleted_at')
           ->findMany();
         $foundSubscribersIds = SubscriberModel::extractSubscribersIds($foundSubscribers);

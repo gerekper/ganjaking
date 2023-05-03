@@ -154,6 +154,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => $baseDir . '/src/integrations/admin/thank-you-page-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => $baseDir . '/src/integrations/admin/user-profile-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => $baseDir . '/src/integrations/admin/workouts-integration.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Zapier_Notification_Integration' => $baseDir . '/src/integrations/admin/zapier-notification-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => $baseDir . '/src/integrations/blocks/estimated-reading-time-block.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => $baseDir . '/src/integrations/blocks/related-links-block.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks' => $baseDir . '/src/deprecated/integrations/blocks/schema-blocks.php',

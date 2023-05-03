@@ -45,6 +45,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\conditionals\\yoast_admin_and_dashboard_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Yoast_Admin_And_Dashboard_Conditional',
             'yoast\\wp\\seo\\config\\migration_status' => 'Yoast\\WP\\SEO\\Config\\Migration_Status',
             'yoast\\wp\\seo\\config\\migrations\\wpyoastpremiumimprovedinternallinking' => 'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking',
+            'yoast\\wp\\seo\\helpers\\capability_helper' => 'Yoast\\WP\\SEO\\Helpers\\Capability_Helper',
             'yoast\\wp\\seo\\helpers\\current_page_helper' => 'Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper',
             'yoast\\wp\\seo\\helpers\\date_helper' => 'Yoast\\WP\\SEO\\Helpers\\Date_Helper',
             'yoast\\wp\\seo\\helpers\\indexing_helper' => 'Yoast\\WP\\SEO\\Helpers\\Indexing_Helper',
@@ -91,6 +92,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\integrations\\admin\\thank_you_page_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\user_profile_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\workouts_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\zapier_notification_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Zapier_Notification_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\blocks\\estimated_reading_time_block' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block',
             'yoast\\wp\\seo\\premium\\integrations\\blocks\\related_links_block' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block',
             'yoast\\wp\\seo\\premium\\integrations\\cleanup_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration',
@@ -151,6 +153,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Conditionals\\Yoast_Admin_And_Dashboard_Conditional' => 'getYoastAdminAndDashboardConditionalService',
             'Yoast\\WP\\SEO\\Config\\Migration_Status' => 'getMigrationStatusService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking' => 'getWpYoastPremiumImprovedInternalLinkingService',
+            'Yoast\\WP\\SEO\\Helpers\\Capability_Helper' => 'getCapabilityHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper' => 'getCurrentPageHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Date_Helper' => 'getDateHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Indexing_Helper' => 'getIndexingHelperService',
@@ -197,6 +200,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => 'getThankYouPageIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => 'getUserProfileIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => 'getWorkoutsIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Zapier_Notification_Integration' => 'getZapierNotificationIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => 'getEstimatedReadingTimeBlockService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => 'getRelatedLinksBlockService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration' => 'getCleanupIntegrationService',
@@ -470,6 +474,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Capability_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Capability_Helper
+     */
+    protected function getCapabilityHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Capability_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Current_Page_Helper' shared service.
      *
      * @return \Yoast\WP\SEO\Helpers\Current_Page_Helper
@@ -628,6 +642,7 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Zapier_Notification_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration');
@@ -978,6 +993,16 @@ class Cached_Container extends Container
     protected function getWorkoutsIntegrationService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Workouts_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Shortlinker']) ? $this->services['WPSEO_Shortlinker'] : $this->getWPSEOShortlinkerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] : $this->getPostTypeHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Zapier_Notification_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Zapier_Notification_Integration
+     */
+    protected function getZapierNotificationIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Zapier_Notification_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Zapier_Notification_Integration(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] : $this->getCapabilityHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional'] : $this->getZapierEnabledConditionalService()) && false ?: '_'});
     }
 
     /**

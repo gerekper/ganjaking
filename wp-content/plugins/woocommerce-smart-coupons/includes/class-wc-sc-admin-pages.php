@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.4.0
+ * @version     2.4.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1465,7 +1465,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		}
 
 		/**
-		 * Funtion to show search result based on email in coupon's usage restrictions
+		 * Function to show search result based on email in coupon's usage restrictions
 		 *
 		 * @param  object $wp WP object.
 		 */

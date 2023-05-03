@@ -12,6 +12,7 @@ use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\Config\AccessControl;
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Form\ApiDataSanitizer;
 
 class CustomFields extends APIEndpoint {
   public $permissions = [
@@ -24,12 +25,17 @@ class CustomFields extends APIEndpoint {
   /** @var CustomFieldsResponseBuilder */
   private $customFieldsResponseBuilder;
 
+  /** @var ApiDataSanitizer */
+  private $dataSanitizer;
+
   public function __construct(
     CustomFieldsRepository $customFieldsRepository,
-    CustomFieldsResponseBuilder $customFieldsResponseBuilder
+    CustomFieldsResponseBuilder $customFieldsResponseBuilder,
+    ApiDataSanitizer $dataSanitizer
   ) {
     $this->customFieldsRepository = $customFieldsRepository;
     $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
+    $this->dataSanitizer = $dataSanitizer;
   }
 
   public function getAll() {
@@ -54,6 +60,7 @@ class CustomFields extends APIEndpoint {
 
   public function save($data = []) {
     try {
+      $data = $this->dataSanitizer->sanitizeBlock($data);
       $customField = $this->customFieldsRepository->createOrUpdate($data);
       $customField = $this->customFieldsRepository->findOneById($customField->getId());
       if(!$customField instanceof CustomFieldEntity) return $this->errorResponse();

@@ -1,5 +1,8 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2023-05-01 - version 1.6.4
+* Update - Security update.
+
 2023-02-02 - version 1.6.3
 * Tweak - To make `display_barcode()` available for other plugins.
 

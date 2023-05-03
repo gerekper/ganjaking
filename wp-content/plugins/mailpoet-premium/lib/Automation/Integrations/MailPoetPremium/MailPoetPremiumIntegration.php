@@ -9,6 +9,7 @@ use MailPoet\Automation\Engine\Integration;
 use MailPoet\Automation\Engine\Registry;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddToListAction;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\NotificationEmailAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction;
@@ -36,6 +37,9 @@ class MailPoetPremiumIntegration implements Integration {
   /** @var UpdateSubscriberAction */
   private $updateSubscriberAction;
 
+  /** @var NotificationEmailAction */
+  private $notificationEmailAction;
+
   public function __construct(
     ContextFactory $contextFactory,
     UnsubscribeAction $unsubscribeAction,
@@ -43,7 +47,8 @@ class MailPoetPremiumIntegration implements Integration {
     RemoveTagAction $removeTagAction,
     AddToListAction $addToListAction,
     RemoveFromListAction $removeFromListAction,
-    UpdateSubscriberAction $updateSubscriberAction
+    UpdateSubscriberAction $updateSubscriberAction,
+    NotificationEmailAction $notificationEmailAction
   ) {
     $this->contextFactory = $contextFactory;
     $this->unsubscribeAction = $unsubscribeAction;
@@ -52,6 +57,7 @@ class MailPoetPremiumIntegration implements Integration {
     $this->addToListAction = $addToListAction;
     $this->removeFromListAction = $removeFromListAction;
     $this->updateSubscriberAction = $updateSubscriberAction;
+    $this->notificationEmailAction = $notificationEmailAction;
   }
 
   public function register(Registry $registry): void {
@@ -65,5 +71,6 @@ class MailPoetPremiumIntegration implements Integration {
     $registry->addAction($this->addToListAction);
     $registry->addAction($this->removeFromListAction);
     $registry->addAction($this->updateSubscriberAction);
+    $registry->addAction($this->notificationEmailAction);
   }
 }

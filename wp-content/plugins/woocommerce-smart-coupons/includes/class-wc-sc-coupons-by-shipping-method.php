@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.6.0
+ * @version     1.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 
 			add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ), 10, 2 );
 			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
-			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 2 );
+			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 3 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'wc_sc_export_coupon_meta', array( $this, 'export_coupon_meta_data' ), 10, 2 );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
@@ -145,13 +145,14 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 		/**
 		 * Validate the coupon based on shipping method
 		 *
-		 * @param  boolean   $valid  Is valid or not.
-		 * @param  WC_Coupon $coupon The coupon object.
+		 * @param  boolean      $valid  Is valid or not.
+		 * @param  WC_Coupon    $coupon The coupon object.
+		 * @param  WC_Discounts $discounts The discount object.
 		 *
 		 * @throws Exception If the coupon is invalid.
 		 * @return boolean           Is valid or not
 		 */
-		public function validate( $valid = false, $coupon = object ) {
+		public function validate( $valid = false, $coupon = object, $discounts = null ) {
 
 			// If coupon is already invalid, no need for further checks.
 			if ( false === $valid ) {

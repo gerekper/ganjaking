@@ -38,7 +38,6 @@ class ScheduledTaskEntity extends \MailPoet\Entities\ScheduledTaskEntity impleme
      * @var array<string, null> properties to be lazy loaded, indexed by property name
      */
     public static $lazyPropertiesNames = array (
-  'subscribers' => NULL,
 );
 
     /**
@@ -47,67 +46,22 @@ class ScheduledTaskEntity extends \MailPoet\Entities\ScheduledTaskEntity impleme
      * @see \Doctrine\Common\Proxy\Proxy::__getLazyProperties
      */
     public static $lazyPropertiesDefaults = array (
-  'subscribers' => NULL,
 );
 
 
 
     public function __construct(?\Closure $initializer = null, ?\Closure $cloner = null)
     {
-        unset($this->subscribers);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
     }
 
-    /**
-     * 
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        if (\array_key_exists($name, self::$lazyPropertiesNames)) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', [$name]);
-            return $this->$name;
-        }
 
-        trigger_error(sprintf('Undefined property: %s::$%s', __CLASS__, $name), E_USER_NOTICE);
 
-    }
 
-    /**
-     * 
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function __set($name, $value)
-    {
-        if (\array_key_exists($name, self::$lazyPropertiesNames)) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__set', [$name, $value]);
 
-            $this->$name = $value;
 
-            return;
-        }
-
-        $this->$name = $value;
-    }
-
-    /**
-     * 
-     * @param  string $name
-     * @return boolean
-     */
-    public function __isset($name)
-    {
-        if (\array_key_exists($name, self::$lazyPropertiesNames)) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__isset', [$name]);
-
-            return isset($this->$name);
-        }
-
-        return false;
-    }
 
     /**
      * 
@@ -116,10 +70,10 @@ class ScheduledTaskEntity extends \MailPoet\Entities\ScheduledTaskEntity impleme
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'priority', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'scheduledAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'processedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'inProgress', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'rescheduleCount', 'subscribers', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'sendingQueue', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'deletedAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'priority', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'scheduledAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'processedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'inProgress', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'rescheduleCount', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'subscribers', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'sendingQueue', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'deletedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'priority', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'scheduledAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'processedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'inProgress', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'rescheduleCount', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'sendingQueue', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'deletedAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'priority', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'scheduledAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'processedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'inProgress', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'rescheduleCount', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'subscribers', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'sendingQueue', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\ScheduledTaskEntity' . "\0" . 'deletedAt'];
     }
 
     /**
@@ -141,7 +95,6 @@ class ScheduledTaskEntity extends \MailPoet\Entities\ScheduledTaskEntity impleme
                 }
             };
 
-            unset($this->subscribers);
         }
     }
 

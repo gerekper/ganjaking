@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Newsletter\Renderer\Renderer as NewsletterRenderer;
+use MailPoet\Newsletter\Shortcodes\Shortcodes;
 use MailPoetVendor\csstidy;
 use MailPoetVendor\csstidy_print;
 
@@ -25,19 +26,27 @@ class Renderer {
   /** @var string */
   private $htmlAfterContent;
 
+  /** @var Shortcodes */
+  private $shortcodes;
+
   public function __construct(
     csstidy $cssParser,
-    NewsletterRenderer $renderer
+    NewsletterRenderer $renderer,
+    Shortcodes $shortcodes
   ) {
     $this->cssParser = $cssParser;
     $this->htmlBeforeContent = '';
     $this->htmlAfterContent = '';
     $this->renderer = $renderer;
+    $this->shortcodes = $shortcodes;
   }
 
   public function render(NewsletterEntity $newsletter, ?string $subject = null) {
-    $renderedHtml = $this->renderer->renderAsPreview($newsletter, 'html', $subject);
+    $renderedNewsletter = $this->renderer->renderAsPreview($newsletter, 'html', $subject);
     $headingText = $subject ?? '';
+
+    $renderedHtml = $this->processShortcodes($newsletter, $renderedNewsletter);
+
     $renderedHtml = str_replace(ContentPreprocessor::WC_HEADING_PLACEHOLDER, $headingText, $renderedHtml);
     $html = explode(ContentPreprocessor::WC_CONTENT_PLACEHOLDER, $renderedHtml);
     $this->htmlBeforeContent = $html[0];
@@ -75,5 +84,12 @@ class Renderer {
     /** @var csstidy_print */
     $print = $this->cssParser->print;
     return $print->plain();
+  }
+
+  private function processShortcodes(NewsletterEntity $newsletter, $content) {
+    $this->shortcodes->setQueue(null);
+    $this->shortcodes->setSubscriber(null);
+    $this->shortcodes->setNewsletter($newsletter);
+    return $this->shortcodes->replace($content);
   }
 }

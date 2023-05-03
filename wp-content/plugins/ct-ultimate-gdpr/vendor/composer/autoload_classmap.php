@@ -49,6 +49,7 @@ return array(
     'CT_Ultimate_GDPR_Service_Formcraft' => $baseDir . '/includes/service/service-formcraft.php',
     'CT_Ultimate_GDPR_Service_Formcraft_Form_Builder' => $baseDir . '/includes/service/service-formcraft-form-builder.php',
     'CT_Ultimate_GDPR_Service_Formidable_Forms' => $baseDir . '/includes/service/service-formidable-forms.php',
+    'CT_Ultimate_GDPR_Service_Fusion_Builder' => $baseDir . '/includes/service/service-fusion-builder.php',
     'CT_Ultimate_GDPR_Service_GA_Google_Analytics' => $baseDir . '/includes/service/service-ga-google-analytics.php',
     'CT_Ultimate_GDPR_Service_Google_Adsense' => $baseDir . '/includes/service/service-google-adsense.php',
     'CT_Ultimate_GDPR_Service_Google_Analytics' => $baseDir . '/includes/service/service-google-analytics.php',

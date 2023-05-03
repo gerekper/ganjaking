@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Form\BlockWrapperRenderer;
+use MailPoet\Form\FormHtmlSanitizer;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Checkbox {
@@ -69,7 +70,7 @@ class Checkbox {
 
       $html .= $fieldValidation;
 
-      $html .= ' /> ' . $option['value'];
+      $html .= ' /> ' . $this->wp->wpKses($option['value'], FormHtmlSanitizer::ALLOWED_HTML);
 
       $html .= '</label>';
     }

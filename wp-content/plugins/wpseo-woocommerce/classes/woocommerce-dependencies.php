@@ -18,7 +18,7 @@ class Yoast_WooCommerce_Dependencies {
 	 * @return bool True when the dependencies are okay.
 	 */
 	public function check_dependencies( $wp_version ) {
-		if ( ! version_compare( $wp_version, '5.9', '>=' ) ) {
+		if ( ! version_compare( $wp_version, '6.0', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'wordpress_upgrade_error' ] );
 
 			return false;
@@ -39,7 +39,7 @@ class Yoast_WooCommerce_Dependencies {
 			return false;
 		}
 
-		if ( ! version_compare( $wordpress_seo_version, '19.12-RC1', '>=' ) ) {
+		if ( ! version_compare( $wordpress_seo_version, '20.6-RC0', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'yoast_seo_upgrade_error' ] );
 
 			return false;

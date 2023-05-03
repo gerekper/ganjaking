@@ -34,7 +34,6 @@ class JS
 	//add defer tag to js files in html
 	public static function optimize($html)
 	{
-
 		//skip woocommerce
 		if(Utilities::is_woocommerce()) {
 			return $html;
@@ -73,6 +72,45 @@ class JS
 
 			//convert exlusions to string for regex
 			$js_exclusions = implode('|', $js_exclusions);
+		}
+
+		if($delay_check) {
+
+			$delay_js_behavior = apply_filters('perfmatters_delay_js_behavior', Config::$options['assets']['delay_js_behavior'] ?? '');
+
+			if(!empty($delay_js_behavior)) {
+
+				$excluded_scripts = array(
+					'perfmatters-delayed-scripts-js',
+					'lazyload',
+					'lazyLoadInstance',
+					'lazysizes',
+					'customize-support',
+					'fastclick'
+				);
+
+				if(!empty(Config::$options['assets']['delay_js_quick_exclusions'])) {
+
+					//load master array
+				    $master = self::get_quick_exclusions_master();
+
+					foreach(Config::$options['assets']['delay_js_quick_exclusions'] as $type => $items) {
+
+						foreach($items as $key => $val) {
+
+							if(!empty($master[$type][$key])) {
+								$excluded_scripts = array_merge($excluded_scripts, $master[$type][$key]['exclusions']);
+							}
+						}
+					}
+				}
+
+				if(!empty(Config::$options['assets']['delay_js_exclusions']) && is_array(Config::$options['assets']['delay_js_exclusions'])) {
+					$excluded_scripts = array_merge($excluded_scripts, Config::$options['assets']['delay_js_exclusions']);
+				}
+
+				$excluded_scripts = apply_filters('perfmatters_delay_js_exclusions', $excluded_scripts);
+			}
 		}
 
 		//loop through scripts
@@ -115,21 +153,6 @@ class JS
 					}
 				}
 				else {
-
-					$excluded_scripts = array(
-						'perfmatters-delayed-scripts-js',
-						'lazyload',
-						'lazyLoadInstance',
-						'lazysizes',
-						'customize-support',
-						'fastclick'
-					);
-
-					if(!empty(Config::$options['assets']['delay_js_exclusions']) && is_array(Config::$options['assets']['delay_js_exclusions'])) {
-						$excluded_scripts = array_merge($excluded_scripts, Config::$options['assets']['delay_js_exclusions']);
-					}
-
-					$excluded_scripts = apply_filters('perfmatters_delay_js_exclusions', $excluded_scripts);
 
 					if(!empty($excluded_scripts)) {
 						foreach($excluded_scripts as $excluded_script) {
@@ -262,5 +285,300 @@ class JS
 
 		echo '<script src="' . plugins_url('perfmatters/vendor/fastclick/fastclick.min.js') . '"></script>';
 		echo '<script>"addEventListener"in document&&document.addEventListener("DOMContentLoaded",function(){FastClick.attach(document.body)},!1);</script>';
+	}
+
+	public static function get_quick_exclusions_master() {
+		$master = array(
+	        'plugins' => array(
+	        	'atarim' => array(
+	        		'id' => 'atarim-visual-collaboration/atarim-visual-collaboration.php',
+	        		'title' => 'Atarim',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'/atarim-client-interface/',
+						'jQuery_WPF',
+						'upgrade_url'
+	        		)
+	        	),
+	        	'borlabs' => array(
+	        		'id' => 'borlabs-cookie/borlabs-cookie.php',
+	        		'title' => 'Borlabs Cookie',
+	        		'exclusions' => array(
+	        			'/wp-content/plugins/borlabs-cookie/',
+						'borlabs-cookie',
+						'BorlabsCookie',
+						'jquery.min.js'
+	        		)
+	        	),
+	        	'complianz' => array(
+	        		'id' => 'complianz-gdpr/complianz-gpdr.php',
+	        		'title' => 'Complianz',
+	        		'exclusions' => array(
+	        			'complianz'
+	        		)
+	        	),
+	        	'cookie-notice' => array(
+	        		'id' => 'cookie-notice/cookie-notice.php',
+	        		'title' => 'Cookie Notice & Compliance for GDPR',
+	        		'exclusions' => array(
+	        			'/wp-content/plugins/cookie-notice/js/front.min.js',
+						'cnArgs'
+	        		)
+	        	),
+	        	'cookieyes' => array(
+	        		'id' => 'cookie-law-info/cookie-law-info.php',
+	        		'title' => 'CookieYes',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'/wp-content/plugins/cookie-law-info/legacy/public/js/cookie-law-info-public.js',
+						'cookie-law-info-js-extra'
+	        		)
+	        	),
+	        	'gdpr-cookie-compliance' => array(
+	        		'id' => 'gdpr-cookie-compliance/moove-gdpr.php',
+	        		'title' => 'GDPR Cookie Compliance',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'/wp-content/plugins/gdpr-cookie-compliance/',
+						'moove_gdpr'
+	        		)
+	        	),
+	        	'jet-menu' => array(
+	        		'id' => 'jet-menu/jet-menu.php',
+	        		'title' => 'JetMenu',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+						'jquery-migrate.min.js',
+						'/elementor-pro/',
+						'/elementor/',
+						'/jet-blog/assets/js/lib/slick/slick.min.js',
+						'/jet-elements/',
+						'/jet-menu/',
+						'elementorFrontendConfig',
+						'ElementorProFrontendConfig',
+						'hasJetBlogPlaylist',
+						'JetEngineSettings',
+						'jetMenuPublicSettings'
+	        		)
+	        	),
+	        	'lightweight-cookie-notice' => array(
+	        		'id' => 'lightweight-cookie-notice-free/init.php',
+	        		'title' => 'Lightweight Cookie Notice',
+	        		'exclusions' => array(
+	        			'/wp-content/lightweight-cookie-notice-free/public/assets/js/production/general.js',
+						'daextlwcnf-general-js-after',
+						'daextlwcnf-general-js-extra'
+	        		)
+	        	),
+	        	'mediavine' => array(
+	        		'id' => 'mediavine-control-panel/mediavine-control-panel.php',
+	        		'title' => 'Mediavine',
+	        		'exclusions' => array(
+	        			'mediavine'
+	        		)
+	        	),
+	        	'ninja-forms' => array(
+	        		'id' => 'ninja-forms/ninja-forms.php',
+	        		'title' => 'Ninja Forms',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+	        			'/wp-includes/js/underscore.min.js',
+						'/wp-includes/js/backbone.min.js',
+						'/ninja-forms/assets/js/min/front-end.js',
+						'/ninja-forms/assets/js/min/front-end-deps.js',
+						'nfForms',
+						'nf-'
+	        		)
+	        	),
+	        	'real-bookie-banner-pro' => array(
+	        		'id' => 'real-cookie-banner-pro/index.php',
+	        		'title' => 'Real Cookie Banner Pro',
+	        		'exclusions' => array(
+	        			'vendor-banner.pro.js',
+						'banner.pro.js',
+						'realCookieBanner',
+						'real-cookie-banner-pro-banner-js-before'
+	        		)
+	        	),
+	        	'revslider' => array(
+	        		'id' => 'revslider/revslider.php',
+	        		'title' => 'Revolution Slider',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+						'jquery-migrate.min.js',
+						'revslider',
+						'rev_slider',
+						'setREVStartSize',
+						'window.RS_MODULES'
+	        		)
+	        	),
+	        	'shortpixel' => array(
+	        		'id' => 'shortpixel-adaptive-images/short-pixel-ai.php',
+	        		'title' => 'ShortPixel Adaptive Images',
+	        		'exclusions' => array(
+	        			'shortpixel.ai/assets/js/bundles/spai-lib'
+	        		)
+	        	),
+	        	'smart-slider-3' => array(
+	        		'id' => 'smart-slider-3/smart-slider-3.php',
+	        		'title' => 'Smart Slider 3',
+	        		'exclusions' => array(
+	        			'/smart-slider-3/',
+						'_N2'
+	        		)
+	        	),
+	        	'smart-slider-3-pro' => array(
+	        		'id' => 'nextend-smart-slider3-pro/nextend-smart-slider3-pro.php',
+	        		'title' => 'Smart Slider 3 Pro',
+	        		'exclusions' => array(
+	        			'/nextend-smart-slider3-pro/',
+						'_N2'
+	        		)
+	        	),
+	            'elementor' => array(
+	                'id' => 'elementor/elementor.php',
+	                'title' => 'Elementor',
+	                'exclusions' => array(
+	                    'jquery.min.js',
+	                    'jquery.smartmenus.min.js',
+	                    'webpack.runtime.min.js',
+	                    'webpack-pro.runtime.min.js',
+						'/elementor/assets/js/frontend.min.js',
+						'/elementor-pro/assets/js/frontend.min.js',
+	                    'frontend-modules.min.js',
+	                    'elements-handlers.min.js',
+	                    'elementorFrontendConfig',
+	                    'ElementorProFrontendConfig',
+	                    'imagesloaded.min.js'
+	                )   
+	            ),
+	            'elementor-search' => array(
+	                'id' => 'elementor/elementor.php',
+	                'title' => 'Elementor Search',
+	                'exclusions' => array(
+	                    'webpack-pro.runtime.min.js',
+						'webpack.runtime.min.js',
+						'elements-handlers.min.js',
+						'jquery.smartmenus.min.js'
+	                )   
+	            ),
+	            'woocommerce-product-gallery' => array(
+	                'id' => 'woocommerce/woocommerce.php',
+	                'title' => 'WooCommerce Single Product Gallery',
+	                'exclusions' => array(
+	                    'jquery.min.js',
+	                    'flexslider',
+	                    'single-product.min.js',
+	                    'slick',
+	                    'functions.min.js',
+	                    'waypoint'
+	                )
+	            )
+	        ),
+	        'themes' => array(
+	        	'astra' => array(
+	        		'id' => 'astra',
+	        		'title' => 'Astra',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+						'astra'
+	        		)
+	        	),
+	        	'avada' => array(
+	        		'id' => 'avada',
+	        		'title' => 'Avada',
+	        		'exclusions' => array(
+	        			'avada-header.js',
+						'modernizr.js',
+						'jquery.easing.js',
+						'avadaHeaderVars'
+	        		)
+	        	),
+	        	'divi' => array(
+	        		'id' => 'divi',
+	        		'title' => 'Divi',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+						'/Divi/js/scripts.min.js',
+						'et_pb_custom',
+						'elm.style.display'
+	        		)
+	        	),
+	        	'divi-animations' => array(
+	        		'id' => 'divi',
+	        		'title' => 'Divi with Animations',
+	        		'exclusions' => array(
+						'jquery.min.js',
+						'jquery-migrate.min.js',
+						'.divi_preloader_wrapper_outer',
+						'/Divi/js/scripts.min.js',
+						'/Divi/js/custom.unified.js',
+						'/js/magnific-popup.js',
+						'et_pb_custom',
+						'et_animation_data',
+						'var DIVI',
+						'elm.style.display',
+						'easypiechart.js'
+	        		)
+	        	),
+	            'generatepress-masonry-blog' => array(
+	                'id' => 'generatepress',
+	                'title' => 'GeneratePress Masonry Blog',
+	                'exclusions' => array(
+	                    'generateBlog',
+	                    'scripts.min.js',
+	                    'masonry.min.js',
+	                    'imagesloaded.min.js'
+	                )
+	            ),
+	            'generatepress-mobile-menu' => array(
+	                'id' => 'generatepress',
+	                'title' => 'GeneratePress Mobile Menu',
+	                'exclusions' => array(
+	                    '/generatepress/assets/js/menu.min.js',
+	                    'generatepressMenu'
+	                )
+	            ),
+	            'generatepress-offside-menu' => array(
+	                'id' => 'generatepress',
+	                'title' => 'GeneratePress Offside Menu',
+	                'exclusions' => array(
+	                    '/generatepress/assets/js/menu.min.js',
+	                    'generatepressMenu',
+	                    'offside.min.js',
+	                    'offSide'
+	                )
+	            ),
+	            'newspaper' => array(
+	        		'id' => 'newspaper',
+	        		'title' => 'Newspaper',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+						'jquery-migrate.min.js',
+						'tagdiv_theme.min.js',
+						'tdBlocksArray'
+	        		)
+	        	),
+	        	'oceanwp' => array(
+	        		'id' => 'oceanwp',
+	        		'title' => 'OceanWP Mobile Menu',
+	        		'exclusions' => array(
+	        			'drop-down-mobile-menu.min.js',
+						'oceanwpLocalize'
+	        		)
+	        	),
+	        	'salient' => array(
+	        		'id' => 'salient',
+	        		'title' => 'Salient',
+	        		'exclusions' => array(
+	        			'jquery.min.js',
+						'jquery-migrate.min.js',
+						'/salient/',
+						'/salient-nectar-slider/js/nectar-slider.js'
+	        		)
+	        	)
+	        )
+	    );
+	    return $master;
 	}
 }

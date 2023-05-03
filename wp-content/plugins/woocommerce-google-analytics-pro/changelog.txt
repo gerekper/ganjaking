@@ -1,5 +1,8 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.04.26 - version 2.0.2
+ * Fix - Address bug where plugin settings can be cleared during re-authentication with Google account
+
 2023.04.26 - version 2.0.1
  * Fix - Address temporary bug with GA4 data stream creation during onboarding and upgrade from v1.x
 

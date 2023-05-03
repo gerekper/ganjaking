@@ -28,7 +28,7 @@ class ServicesChecker {
   }
 
   public function isPremiumPluginActive() {
-    return true;
+    return License::getLicense() ? true : false;
   }
 
   public function isMailPoetAPIKeyValid($displayErrorNotice = true, $forceCheck = false) {
@@ -82,6 +82,60 @@ class ServicesChecker {
 
   public function isPremiumKeyValid($displayErrorNotice = true) {
     return true;
+    
+    $premiumKeySpecified = Bridge::isPremiumKeySpecified();
+    $premiumPluginActive = License::getLicense();
+    $premiumKey = $this->settings->get(Bridge::PREMIUM_KEY_STATE_SETTING_NAME);
+
+    if (!$premiumPluginActive) {
+      $displayErrorNotice = false;
+    }
+
+    if (
+      !$premiumKeySpecified
+      || empty($premiumKey['state'])
+      || $premiumKey['state'] === Bridge::KEY_INVALID
+      || $premiumKey['state'] === Bridge::KEY_ALREADY_USED
+    ) {
+      if ($displayErrorNotice) {
+        $errorString = __('[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive access to automatic upgrades and support. Need a license key? [link2]Purchase one now.[/link2]', 'mailpoet');
+        $error = Helpers::replaceLinkTags(
+          $errorString,
+          'admin.php?page=mailpoet-settings#premium',
+          [],
+          'link1'
+        );
+        $error = Helpers::replaceLinkTags(
+          $error,
+          'admin.php?page=mailpoet-upgrade',
+          [],
+          'link2'
+        );
+        WPNotice::displayWarning($error);
+      }
+      return false;
+    } elseif (
+      $premiumKey['state'] === Bridge::KEY_EXPIRING
+      && !empty($premiumKey['data']['expire_at'])
+    ) {
+      if ($displayErrorNotice) {
+        $dateTime = new DateTime();
+        $date = $dateTime->formatDate(strtotime($premiumKey['data']['expire_at']));
+        $error = Helpers::replaceLinkTags(
+          // translators: %s is a date.
+          __("Your License Key for MailPoet is expiring! Don't forget to [link]renew your license[/link] by %s to keep enjoying automatic updates and Premium support.", 'mailpoet'),
+          'https://account.mailpoet.com',
+          ['target' => '_blank']
+        );
+        $error = sprintf($error, $date);
+        WPNotice::displayWarning($error);
+      }
+      return true;
+    } elseif ($premiumKey['state'] === Bridge::KEY_VALID) {
+      return true;
+    }
+
+    return false;
   }
 
   public function isMailPoetAPIKeyPendingApproval(): bool {
@@ -106,20 +160,31 @@ class ServicesChecker {
   }
 
   /**
-   * Returns MSS or Premium valid key.
+   * Return a key when it can be used for account administration purposes (stats report, auth. addresses or domains administration)
+   * Key can be used when it is valid for MSS or Premium, but also when it is valid but has no privileges for MSS or Premium (API returns 403).
    */
-  public function getAnyValidKey(): ?string {
+  public function getValidAccountKey(): ?string {
     if ($this->isMailPoetAPIKeyValid(false, true)) {
       return $this->settings->get(Bridge::API_KEY_SETTING_NAME);
     }
+    $mssKeyState = $this->settings->get(Bridge::API_KEY_STATE_SETTING_NAME);
+    if (($mssKeyState['state'] ?? null) === Bridge::KEY_VALID_UNDERPRIVILEGED) {
+      return $this->settings->get(Bridge::API_KEY_SETTING_NAME);
+    }
+
     if ($this->isPremiumKeyValid(false)) {
       return $this->settings->get(Bridge::PREMIUM_KEY_SETTING_NAME);
     }
+    $premiumKeyState = $this->settings->get(Bridge::PREMIUM_KEY_STATE_SETTING_NAME);
+    if (($premiumKeyState['state'] ?? null) === Bridge::KEY_VALID_UNDERPRIVILEGED) {
+      return $this->settings->get(Bridge::PREMIUM_KEY_SETTING_NAME);
+    }
+
     return null;
   }
 
   public function generatePartialApiKey(): string {
-    $key = (string)($this->getAnyValidKey());
+    $key = (string)($this->getValidAccountKey());
     if ($key) {
       $halfKeyLength = (int)(strlen($key) / 2);
 

@@ -1742,7 +1742,7 @@ class DomNode implements IQuery {
 								if ($res) break 1; else break 2;
 
 							default:
-								trigger_error('Unknown operator "'.$match['operator_value'].'" to match attributes!');
+								trigger_error('Unknown operator "'.esc_html($match['operator_value']).'" to match attributes!');
 								return false;
 						}
 					}
@@ -1776,7 +1776,7 @@ class DomNode implements IQuery {
 					return false;
 				}
 			} else {
-				trigger_error('Unknown filter "'.$c['filter'].'"!');
+				trigger_error('Unknown filter "'.esc_html($c['filter']).'"!');
 				return false;
 			}
 		}

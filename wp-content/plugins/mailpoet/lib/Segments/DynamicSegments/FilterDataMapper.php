@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
+use MailPoet\Segments\DynamicSegments\Filters\DateFilterHelper;
 use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
 use MailPoet\Segments\DynamicSegments\Filters\EmailActionClickAny;
 use MailPoet\Segments\DynamicSegments\Filters\EmailOpensAbsoluteCountAction;
@@ -20,6 +21,8 @@ use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCountry;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceMembership;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceNumberOfOrders;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommercePurchaseDate;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSingleOrderValue;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSubscription;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceTotalSpent;
 use MailPoet\WP\Functions as WPFunctions;
@@ -93,7 +96,7 @@ class FilterDataMapper {
       if (empty($data['value'])) throw new InvalidFilterException('Missing number of days', InvalidFilterException::MISSING_VALUE);
       return new DynamicSegmentFilterData(DynamicSegmentFilterData::TYPE_USER_ROLE, $data['action'], [
         'value' => $data['value'],
-        'operator' => $data['operator'] ?? SubscriberSubscribedDate::BEFORE,
+        'operator' => $data['operator'] ?? DateFilterHelper::BEFORE,
         'connect' => $data['connect'],
       ]);
     }
@@ -253,6 +256,20 @@ class FilterDataMapper {
       $filterData['total_spent_type'] = $data['total_spent_type'];
       $filterData['total_spent_amount'] = $data['total_spent_amount'];
       $filterData['total_spent_days'] = $data['total_spent_days'];
+    } elseif ($data['action'] === WooCommerceSingleOrderValue::ACTION_SINGLE_ORDER_VALUE) {
+      if (
+        !isset($data['single_order_value_type'])
+        || !isset($data['single_order_value_amount']) || $data['single_order_value_amount'] < 0
+        || !isset($data['single_order_value_days']) || $data['single_order_value_days'] < 1
+      ) {
+        throw new InvalidFilterException('Missing required fields', InvalidFilterException::MISSING_SINGLE_ORDER_VALUE_FIELDS);
+      }
+      $filterData['single_order_value_type'] = $data['single_order_value_type'];
+      $filterData['single_order_value_amount'] = $data['single_order_value_amount'];
+      $filterData['single_order_value_days'] = $data['single_order_value_days'];
+    } elseif ($data['action'] === WooCommercePurchaseDate::ACTION) {
+      $filterData['operator'] = $data['operator'];
+      $filterData['value'] = $data['value'];
     } else {
       throw new InvalidFilterException("Unknown action " . $data['action'], InvalidFilterException::MISSING_ACTION);
     }

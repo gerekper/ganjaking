@@ -121,4 +121,8 @@ class NewsletterHtmlSanitizer {
     );
     return !preg_match( '%[\\\(&=}]|/\*%', $cssString );
   }
+
+  public function sanitizeURL(string $url): string {
+    return $this->wp->escUrlRaw($url);
+  }
 }

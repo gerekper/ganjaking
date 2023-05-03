@@ -58,6 +58,8 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
     $this->registerFreeService($container, \MailPoet\Util\License\Features\Subscribers::class);
     $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Templates\AutomationBuilder::class);
+    $this->registerFreeService($container, \MailPoet\Mailer\MailerFactory::class);
+    $this->registerFreeService($container, \MailPoet\Settings\SettingsController::class);
 
     // API
     $container->autowire(\MailPoet\Premium\API\JSON\v1\Bounces::class)->setPublic(true);
@@ -84,6 +86,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddToListAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\NotificationEmailAction::class)->setPublic(true);
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);

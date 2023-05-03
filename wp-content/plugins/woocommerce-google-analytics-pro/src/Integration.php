@@ -168,35 +168,7 @@ class Integration extends \WC_Integration {
 	 */
 	public function is_connected() : bool {
 
-/** @TODO restore the line below after the proxy app change has been approved by Google */
-		// return ! empty( $this->get_tracking_id() ) || ( $this->is_authenticated() && ! empty( Properties_Handler::get_ga4_properties() ) );
-
-/** v2.0.1 temporary code -- start */
-
-		if ( ! empty( $this->get_tracking_id() ) ) {
-			return true;
-		}
-
-		if ( $this->is_authenticated() && ! empty( Properties_Handler::get_ga4_properties() ) ) {
-
-			$ga4_property = Framework\SV_WC_Helper::get_posted_value( $this->get_field_key( 'ga4_property' ) );
-
-			if ( ! $ga4_property ) {
-				$ga4_property = $this->get_option( 'ga4_property', '' );
-			}
-
-			if ( $ga4_property ) {
-				[ , $ga4_property ] = explode( '|', $ga4_property );
-			}
-
-			$ga4_property_data_stream = $this->get_plugin()->get_properties_handler_instance()->get_ga4_property_data_stream( $ga4_property );
-
-			return $ga4_property_data_stream && $this->get_plugin()->get_properties_handler_instance()->get_ga4_data_stream_api_secret( $ga4_property_data_stream->name );
-		}
-
-		return false;
-
-/** v2.0.1 temporary code -- end */
+		return ! empty( $this->get_tracking_id() ) || ( $this->is_authenticated() && ! empty( Properties_Handler::get_ga4_properties() ) );
 	}
 
 

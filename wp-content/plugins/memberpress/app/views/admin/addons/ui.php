@@ -26,7 +26,6 @@
         <?php
           foreach($addons as $slug => $info) :
             $info = (object) $info;
-            $info->url = MEPR_PATH . '/plugins/' . $slug . '.zip';
             $status_label = '';
             $action_class = 'mepr-addon-action';
 
@@ -92,7 +91,7 @@
 
                   <?php elseif($status == 'download') : ?>
 
-                    <button type="button" data-plugin="<?php echo esc_attr($info->url); ?>" data-type="add-on"><i class="mp-icon mp-icon-download-cloud"></i><?php esc_html_e('Install Add-on', 'memberpress'); ?></button>
+                   <a href="https://gpldownloads.com/downloads/memberpress-core-plugin/" target="_blank"><?php esc_html_e('Install Add-on', 'memberpress'); ?></a>
 
                   <?php else : ?>
 

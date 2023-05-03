@@ -12,7 +12,6 @@ use MailPoet\Automation\Engine\Exceptions\UnexpectedValueException;
 use MailPoet\Automation\Engine\Utils\Json;
 
 class Exceptions {
-  private const MIGRATION_FAILED = 'mailpoet_automation_migration_failed';
   private const DATABASE_ERROR = 'mailpoet_automation_database_error';
   private const JSON_NOT_OBJECT = 'mailpoet_automation_json_not_object';
   private const AUTOMATION_NOT_FOUND = 'mailpoet_automation_not_found';
@@ -28,6 +27,9 @@ class Exceptions {
   private const MULTIPLE_SUBJECTS_FOUND = 'mailpoet_automation_multiple_subjects_found';
   private const PAYLOAD_NOT_FOUND = 'mailpoet_automation_payload_not_found';
   private const MULTIPLE_PAYLOADS_FOUND = 'mailpoet_automation_multiple_payloads_found';
+  private const FIELD_NOT_FOUND = 'mailpoet_automation_field_not_found';
+  private const FIELD_LOAD_FAILED = 'mailpoet_automation_field_load_failed';
+  private const FILTER_NOT_FOUND = 'mailpoet_automation_filter_not_found';
   private const AUTOMATION_STRUCTURE_MODIFICATION_NOT_SUPPORTED = 'mailpoet_automation_structure_modification_not_supported';
   private const AUTOMATION_STRUCTURE_NOT_VALID = 'mailpoet_automation_structure_not_valid';
   private const AUTOMATION_STEP_MODIFIED_WHEN_UNKNOWN = 'mailpoet_automation_step_modified_when_unknown';
@@ -41,13 +43,6 @@ class Exceptions {
     throw new InvalidStateException(
       "This is a static factory class. Use it via 'Exception::someError()' factories."
     );
-  }
-
-  public static function migrationFailed(string $error): InvalidStateException {
-    return InvalidStateException::create()
-      ->withErrorCode(self::MIGRATION_FAILED)
-      // translators: %s is the error message.
-      ->withMessage(sprintf(__('Migration failed: %s', 'mailpoet'), $error));
   }
 
   public static function databaseError(string $error): InvalidStateException {
@@ -170,6 +165,27 @@ class Exceptions {
       );
   }
 
+  public static function fieldNotFound(string $key): NotFoundException {
+    return NotFoundException::create()
+      ->withErrorCode(self::FIELD_NOT_FOUND)
+      // translators: %s is the key of the field not found.
+      ->withMessage(sprintf(__("Field with key '%s' not found.", 'mailpoet'), $key));
+  }
+
+  public static function fieldLoadFailed(string $key, array $args): InvalidStateException {
+    return InvalidStateException::create()
+      ->withErrorCode(self::FIELD_LOAD_FAILED)
+      // translators: %1$s is the key of the field, %2$s its arguments.
+      ->withMessage(sprintf(__('Field with key "%1$s" and args "%2$s" failed to load.', 'mailpoet'), $key, Json::encode($args)));
+  }
+
+  public static function filterNotFound(string $fieldType): NotFoundException {
+    return NotFoundException::create()
+      ->withErrorCode(self::FILTER_NOT_FOUND)
+      // translators: %s is the type of the field for which a filter was not found.
+      ->withMessage(sprintf(__("Filter for field of type '%s' not found.", 'mailpoet'), $fieldType));
+  }
+
   public static function automationStructureModificationNotSupported(): UnexpectedValueException {
     return UnexpectedValueException::create()
       ->withErrorCode(self::AUTOMATION_STRUCTURE_MODIFICATION_NOT_SUPPORTED)
@@ -216,6 +232,9 @@ class Exceptions {
           $step->getId(),
           implode(', ', $missingSubjectKeys)
         )
+      )
+      ->withErrors(
+        ['general' => __('This step can not be used with the selected trigger.', 'mailpoet')]
       );
   }
 

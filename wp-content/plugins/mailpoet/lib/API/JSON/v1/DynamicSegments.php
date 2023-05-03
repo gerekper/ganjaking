@@ -108,6 +108,8 @@ class DynamicSegments extends APIEndpoint {
 
   public function save($data) {
     try {
+      $data['name'] = isset($data['name']) ? sanitize_text_field($data['name']) : '';
+      $data['description'] = isset($data['description']) ? sanitize_textarea_field($data['description']) : '';
       $segment = $this->saveController->save($data);
       return $this->successResponse($this->segmentsResponseBuilder->build($segment));
     } catch (InvalidFilterException $e) {
@@ -149,6 +151,7 @@ class DynamicSegments extends APIEndpoint {
       case InvalidFilterException::MISSING_NUMBER_OF_ORDERS_FIELDS:
         return __('Please select a type for the comparison, a number of orders and a number of days.', 'mailpoet');
       case InvalidFilterException::MISSING_TOTAL_SPENT_FIELDS:
+      case InvalidFilterException::MISSING_SINGLE_ORDER_VALUE_FIELDS:
         return __('Please select a type for the comparison, an amount and a number of days.', 'mailpoet');
       case InvalidFilterException::MISSING_FILTER:
         return __('Please add at least one condition for filtering.', 'mailpoet');

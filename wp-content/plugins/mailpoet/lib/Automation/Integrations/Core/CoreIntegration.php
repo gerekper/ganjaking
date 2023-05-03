@@ -21,5 +21,12 @@ class CoreIntegration implements Integration {
 
   public function register(Registry $registry): void {
     $registry->addAction($this->delayAction);
+
+    $registry->addFilter(new Filters\BooleanFilter());
+    $registry->addFilter(new Filters\NumberFilter());
+    $registry->addFilter(new Filters\IntegerFilter());
+    $registry->addFilter(new Filters\StringFilter());
+    $registry->addFilter(new Filters\EnumFilter());
+    $registry->addFilter(new Filters\EnumArrayFilter());
   }
 }

@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '33aeab86f802e47a36160a53e304f48b92ffe510',
+        'reference' => 'f6105b2bc54d7603e3e0f26d8138475b37f53354',
         'name' => '__root__',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '33aeab86f802e47a36160a53e304f48b92ffe510',
+            'reference' => 'f6105b2bc54d7603e3e0f26d8138475b37f53354',
             'dev_requirement' => false,
         ),
         'skyverge/wc-plugin-framework' => array(

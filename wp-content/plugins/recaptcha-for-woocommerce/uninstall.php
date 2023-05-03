@@ -143,7 +143,8 @@ $options_installed = array(
 	'i13_recapcha_enable_on_woo_jetpack',
 	'i13_recapcha_woo_jetpack_score_threshold_v3',
 	'i13_recapcha_woo_jetpack_method_action_v3',
-	'i13_recapcha_wp_disable_submit_token_generation_v3_woo_jetpack'
+	'i13_recapcha_wp_disable_submit_token_generation_v3_woo_jetpack',
+	'i13_recaptcha_fresh_install'
 	
 );
 

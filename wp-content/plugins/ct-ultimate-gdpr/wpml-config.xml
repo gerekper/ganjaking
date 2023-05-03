@@ -14,12 +14,16 @@
             <key name="cookie_withdrawal_cookies_agreement_description"/>
             <key name="cookie_my_account_disclaimer"/>
             <key name="cookie_group_popup_features_available_group_2"/>
+            <key name="cookie_group_popup_features_available_group_2_individual"/>
             <key name="cookie_group_popup_features_nonavailable_group_2"/>
             <key name="cookie_group_popup_features_available_group_3"/>
+            <key name="cookie_group_popup_features_available_group_3_individual"/>
             <key name="cookie_group_popup_features_nonavailable_group_3"/>
             <key name="cookie_group_popup_features_available_group_4"/>
+            <key name="cookie_group_popup_features_available_group_4_individual"/>
             <key name="cookie_group_popup_features_nonavailable_group_4"/>
             <key name="cookie_group_popup_features_available_group_5"/>
+            <key name="cookie_group_popup_features_available_group_5_individual"/>
             <key name="cookie_group_popup_features_nonavailable_group_5"/>
             <key name="cookie_group_popup_label_will"/>
             <key name="cookie_group_popup_label_wont"/>

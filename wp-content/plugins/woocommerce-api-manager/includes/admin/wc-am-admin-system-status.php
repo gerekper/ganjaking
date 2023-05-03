@@ -81,6 +81,7 @@ class WC_AM_Admin_System_Status {
 		$this->set_api_manager_associated_api_keys( $wc_api_manager_data );
 		$this->set_api_manager_secure_hash_count( $wc_api_manager_data );
 		$this->set_api_manager_grace_period_count( $wc_api_manager_data );
+		$this->set_api_manager_next_api_resource_cleanup_scheduled( $wc_api_manager_data );
 
 		$this->set_theme_overrides( $wc_api_manager_data );
 
@@ -478,6 +479,25 @@ class WC_AM_Admin_System_Status {
 			'name'      => _x( 'Grace Periods', 'Grace Periods Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
 			'label'     => 'Grace Periods',
 			'note'      => esc_attr( WC_AM_GRACE_PERIOD()->count() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * Next API Resource Cleanup Scheduled.
+	 *
+	 * @since 2.6.10
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_next_api_resource_cleanup_scheduled( &$debug_data ) {
+		$next_cleanup = wp_next_scheduled( 'wc_am_weekly_event' );
+
+		$debug_data[ 'wc_api_manager_next_api_resource_cleanup_scheduled' ] = array(
+			'name'      => _x( 'Next API Resources Cleanup Scheduled', 'Next Resources Cleanup Scheduled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Next API Resources Cleanup Scheduled',
+			'note'      => ( ! empty( $next_cleanup ) ) ? wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) : __( 'Not scheduled.', 'woocommerce-api-manager' ),
 			'mark'      => '',
 			'mark_icon' => '',
 		);

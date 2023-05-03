@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.28.0
- * @version     1.1.0
+ * @version     1.1.1
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -140,7 +140,7 @@ if ( ! class_exists( 'WC_SC_Background_Upgrade' ) ) {
 				array(
 					'version'         => '4.28.0', // Minimum plugin version to do the action.
 					'get_row_handler' => array( __CLASS__, 'get_applied_coupon_profile_options' ), // get data.
-					'cron_handler'    => 'wcsc_move_applied_coupon_options_to_transient', // define crone handler which should be in this class.
+					'cron_handler'    => 'wcsc_move_applied_coupon_options_to_transient', // define cron handler which should be in this class.
 				),
 			);
 		}

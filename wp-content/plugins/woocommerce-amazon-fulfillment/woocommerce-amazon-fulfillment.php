@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.5
+ * Version: 4.1.7
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
@@ -71,7 +71,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.5';
+			public $version = '4.1.7';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -634,8 +634,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				 * @return void
 				 */
 				if ( apply_filters( 'ns_fba_skip_post_fulfillment_order', false, $order ) ) {
-					$this->write_debug_log( $log_tag, 'Skipping fulfillment' );
-					$order->add_order_note( __( 'Order was not sent to Amazon because it has been overriden by another plugin.', $this->ns_fba->text_domain ) );
+					$order->add_order_note( __( 'Order was not sent to Amazon because it has been overriden by another plugin.', $this->text_domain ) );
 					return;
 				}
 

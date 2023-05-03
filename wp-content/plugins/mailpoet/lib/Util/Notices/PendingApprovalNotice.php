@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Mailer\Mailer;
+use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Notice as WPNotice;
@@ -29,6 +30,7 @@ class PendingApprovalNotice {
       $shouldDisplay
       && $this->settings->get('mta.method') === Mailer::METHOD_MAILPOET
       && $this->settings->get('mta.mailpoet_api_key_state')
+      && $this->settings->get('mta.mailpoet_api_key_state.state', null) === Bridge::KEY_VALID
       && !$this->settings->get('mta.mailpoet_api_key_state.data.is_approved', false)
     ) {
       return $this->display();

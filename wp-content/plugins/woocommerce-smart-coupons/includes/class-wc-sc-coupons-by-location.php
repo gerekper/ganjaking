@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.8.0
+ * @version     1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +75,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 
 			add_action( 'init', array( $this, 'initialize_cbl_additional_locations' ) );
 
-			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 2 );
+			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 3 );
 
 			if ( is_admin() ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_javascript_css' ) );
@@ -183,6 +183,12 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 
 			$this->address = $this->locations_lookup_in['address'];
 
+			$is_wc_countries = function_exists( 'WC' ) && is_object( WC()->countries );
+
+			$continents = ( $is_wc_countries && $this->is_callable( WC()->countries, 'get_continents' ) ) ? WC()->countries->get_continents() : array();
+			$countries  = ( $is_wc_countries && $this->is_callable( WC()->countries, 'get_countries' ) ) ? WC()->countries->get_countries() : array();
+			$all_states = ( $is_wc_countries && $this->is_callable( WC()->countries, 'get_states' ) ) ? WC()->countries->get_states() : array();
+
 			?>
 
 			<div class="options_group smart-coupons-field" id="locations">
@@ -207,23 +213,70 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 					if ( ! array_key_exists( 'additional_locations', $locations ) || ! is_array( $locations['additional_locations'] ) ) {
 						$locations['additional_locations'] = array();
 					}
-						$this->additional_locations = array_map( 'html_entity_decode', array_map( 'strtolower', $locations['additional_locations'] ) );
-						$this->countries            = array_map( 'strtolower', WC()->countries->countries );
+						$this->additional_locations = array_map( 'html_entity_decode', $locations['additional_locations'] );
+						$this->countries            = WC()->countries->countries;
 
 						echo '<select name="locations[additional_locations][]" id="cc_list" data-placeholder="' . esc_html__( 'Select location', 'woocommerce-smart-coupons' ) . '..." class="sa_cbl_search_location sa_cbl_add_location" multiple>';
 
-						// Countries.
-						echo ' <optgroup label="' . esc_html__( 'Select Country', 'woocommerce-smart-coupons' ) . '"> ';
-					foreach ( $this->countries as $country ) {
-						echo '<option value="' . esc_attr( $country ) . '"';
-						if ( ! empty( $this->additional_locations ) ) {
-							$encoding        = $this->mb_detect_encoding( $country, 'UTF-8, ISO-8859-1', true );
-							$decoded_country = ( false !== $encoding ) ? html_entity_decode( $country, ENT_COMPAT, $encoding ) : $country;
-							echo esc_attr( selected( in_array( $decoded_country, $this->additional_locations, true ) ) );
+					if ( ! empty( $continents ) ) {
+						foreach ( $continents as $continent_code => $continent ) {
+							?>
+								<optgroup label="<?php echo esc_attr( ( ! empty( $continent['name'] ) ) ? $continent['name'] : $continent_code ); ?>">
+								<?php
+								if ( ! empty( $continent['countries'] ) ) {
+									foreach ( $continent['countries'] as $country_code ) {
+										if ( array_key_exists( $country_code, $countries ) && ! empty( $countries[ $country_code ] ) ) {
+											?>
+											<option value="<?php echo esc_attr( $country_code ); ?>"
+												<?php
+												if ( ! empty( $this->additional_locations ) ) {
+													$encoding             = $this->mb_detect_encoding( $country_code, 'UTF-8, ISO-8859-1', true );
+													$decoded_country_code = ( false !== $encoding ) ? html_entity_decode( $country_code, ENT_COMPAT, $encoding ) : $country_code;
+													echo esc_attr( selected( in_array( $decoded_country_code, $this->additional_locations, true ) ) );
+												}
+												?>
+											><?php echo esc_html( ( ! empty( $countries[ $country_code ] ) ) ? trim( $countries[ $country_code ] ) : trim( $country_code ) ); ?>
+											</option>
+											<?php
+										}
+									}
+								}
+								?>
+								</optgroup>
+								<?php
 						}
-						echo '>' . esc_html( ucwords( strtolower( $country ) ) ) . '</option>';
 					}
-						echo ' </optgroup> ';
+
+					if ( ! empty( $all_states ) ) {
+						foreach ( $all_states as $country_code => $states ) {
+							if ( empty( $states ) ) {
+								continue;
+							}
+							?>
+								<optgroup label="<?php echo esc_attr( ( ! empty( $countries[ $country_code ] ) ) ? $countries[ $country_code ] : $country_code ); ?>">
+								<?php
+								if ( ! empty( $states ) ) {
+									foreach ( $states as $state_code => $state_name ) {
+										$country_state_code = $country_code . '::' . $state_code;
+										?>
+										<option value="<?php echo esc_attr( $country_state_code ); ?>"
+											<?php
+											if ( ! empty( $this->additional_locations ) ) {
+												$encoding                   = $this->mb_detect_encoding( $country_state_code, 'UTF-8, ISO-8859-1', true );
+												$decoded_country_state_code = ( false !== $encoding ) ? html_entity_decode( $country_state_code, ENT_COMPAT, $encoding ) : $country_state_code;
+												echo esc_attr( selected( in_array( $decoded_country_state_code, $this->additional_locations, true ) ) );
+											}
+											?>
+										><?php echo esc_html( trim( $state_name ) ); ?>
+										</option>
+										<?php
+									}
+								}
+								?>
+								</optgroup>
+								<?php
+						}
+					}
 
 						// others.
 						echo ' <optgroup label="' . esc_html__( 'Select Additional Locations', 'woocommerce-smart-coupons' ) . '"> ';
@@ -249,7 +302,8 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 
 			$js = "jQuery('select.sa_cbl_search_location').chosen({
 						disable_search_threshold: 10,
-						width: '50%'
+						width: '50%',
+						no_results_text: '" . __( 'Entered location not found. On pressing "Enter" button, a new custom location will be saved as: ', 'woocommerce-smart-coupons' ) . "'
 					});";
 
 			$js .= "jQuery('#cc_list_chosen').on('click', function(){
@@ -324,13 +378,14 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 		/**
 		 * Validate the coupon based on location
 		 *
-		 * @param  boolean   $valid  Is valid or not.
-		 * @param  WC_Coupon $coupon The coupon object.
+		 * @param  boolean      $valid  Is valid or not.
+		 * @param  WC_Coupon    $coupon The coupon object.
+		 * @param  WC_Discounts $discounts The discount object.
 		 *
 		 * @throws Exception If the coupon is invalid.
 		 * @return boolean           Is valid or not
 		 */
-		public function validate( $valid, $coupon ) {
+		public function validate( $valid, $coupon, $discounts = null ) {
 			global $checkout;
 
 			// If coupon is invalid already, no need for further checks.
@@ -354,14 +409,21 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				$wc_customer  = WC()->customer;
 				$wc_countries = WC()->countries;
 
+				$check_live_details = false;
+				$wc_ajax_action     = ( ! empty( $_REQUEST['wc-ajax'] ) ) ? wc_clean( wp_unslash( $_REQUEST['wc-ajax'] ) ) : ''; // phpcs:ignore
+				if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX && 'update_order_review' === $wc_ajax_action ) {
+					check_ajax_referer( 'update-order-review', 'security' );
+					$check_live_details = true;
+				}
+
 				// Collect country, state & city.
 				if ( 'billing' === $this->locations_lookup_in['address'] ) {
 
 					if ( $this->is_wc_gte_30() ) {
-						$customer_billing_country  = $wc_customer->get_billing_country();
-						$customer_billing_state    = $wc_customer->get_billing_state();
-						$customer_billing_city     = $wc_customer->get_billing_city();
-						$customer_billing_postcode = $wc_customer->get_billing_postcode();
+						$customer_billing_country  = ( true === $check_live_details && ! empty( $_REQUEST['country'] ) ) ? wc_clean( wp_unslash( $_REQUEST['country'] ) ) : $wc_customer->get_billing_country(); // phpcs:ignore
+						$customer_billing_state    = ( true === $check_live_details && ! empty( $_REQUEST['state'] ) ) ? wc_clean( wp_unslash( $_REQUEST['state'] ) ) : $wc_customer->get_billing_state(); // phpcs:ignore
+						$customer_billing_city     = ( true === $check_live_details && ! empty( $_REQUEST['city'] ) ) ? wc_clean( wp_unslash( $_REQUEST['city'] ) ) : $wc_customer->get_billing_city(); // phpcs:ignore
+						$customer_billing_postcode = ( true === $check_live_details && ! empty( $_REQUEST['postcode'] ) ) ? wc_clean( wp_unslash( $_REQUEST['postcode'] ) ) : $wc_customer->get_billing_postcode(); // phpcs:ignore
 
 						$current_country   = ( ! empty( $customer_billing_country ) ) ? $customer_billing_country : '';
 						$current_state     = ( ! empty( $customer_billing_state ) ) ? $customer_billing_state : '';
@@ -375,10 +437,10 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 					}
 				} else {
 					if ( $this->is_wc_gte_30() ) {
-						$customer_shipping_country  = $wc_customer->get_shipping_country();
-						$customer_shipping_state    = $wc_customer->get_shipping_state();
-						$customer_shipping_city     = $wc_customer->get_shipping_city();
-						$customer_shipping_postcode = $wc_customer->get_shipping_postcode();
+						$customer_shipping_country  = ( true === $check_live_details && ! empty( $_REQUEST['s_country'] ) ) ? wc_clean( wp_unslash( $_REQUEST['s_country'] ) ) : $wc_customer->get_shipping_country(); // phpcs:ignore
+						$customer_shipping_state    = ( true === $check_live_details && ! empty( $_REQUEST['s_state'] ) ) ? wc_clean( wp_unslash( $_REQUEST['s_state'] ) ) : $wc_customer->get_shipping_state(); // phpcs:ignore
+						$customer_shipping_city     = ( true === $check_live_details && ! empty( $_REQUEST['s_city'] ) ) ? wc_clean( wp_unslash( $_REQUEST['s_city'] ) ) : $wc_customer->get_shipping_city(); // phpcs:ignore
+						$customer_shipping_postcode = ( true === $check_live_details && ! empty( $_REQUEST['s_postcode'] ) ) ? wc_clean( wp_unslash( $_REQUEST['s_postcode'] ) ) : $wc_customer->get_shipping_postcode(); // phpcs:ignore
 
 						$current_country   = ( ! empty( $customer_shipping_country ) ) ? $customer_shipping_country : '';
 						$current_state     = ( ! empty( $customer_shipping_state ) ) ? $customer_shipping_state : '';
@@ -401,7 +463,15 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				// Loop through additional_locations and return true on matching with either country, state or city.
 				// Return false otherwise.
 				foreach ( $locations['additional_locations'] as $additional_location ) {
-					if ( $country === $additional_location || $state === $additional_location || $city === $additional_location || $post_code === $additional_location ) {
+					if ( false !== strpos( $additional_location, '::' ) ) {
+						$exploded_location           = explode( '::', $additional_location );
+						$additional_location_country = ( ! empty( $exploded_location[0] ) ) ? $exploded_location[0] : '';
+						$additional_location_state   = ( ! empty( $exploded_location[1] ) ) ? $exploded_location[1] : '';
+						if ( $current_country === $additional_location_country && $current_state === $additional_location_state ) {
+							return true;
+						}
+					}
+					if ( $current_country === $additional_location || $current_state === $additional_location || $country === $additional_location || $state === $additional_location || $city === $additional_location || $post_code === $additional_location ) {
 						return true;
 					}
 				}

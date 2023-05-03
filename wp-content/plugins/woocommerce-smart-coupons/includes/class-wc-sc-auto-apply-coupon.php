@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -55,6 +55,8 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			add_action( 'woocommerce_before_cart', array( $this, 'auto_apply_coupons' ) );
 			add_action( 'woocommerce_before_checkout_form', array( $this, 'auto_apply_coupons' ) );
 			add_action( 'woocommerce_account_content', array( $this, 'auto_apply_coupons' ) );
+			add_action( 'woocommerce_checkout_update_order_review', array( $this, 'auto_apply_coupons' ) );
+
 			add_action( 'woocommerce_cart_emptied', array( $this, 'reset_auto_applied_coupons_session' ) );
 
 			add_action( 'woocommerce_removed_coupon', array( $this, 'wc_sc_removed_coupon' ) );
@@ -527,6 +529,14 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 				if ( ! empty( $auto_apply_coupon_ids ) && is_array( $auto_apply_coupon_ids ) ) {
 					$valid_coupon_counter         = 0;
 					$max_auto_apply_coupons_limit = apply_filters( 'wc_sc_max_auto_apply_coupons_limit', get_option( 'wc_sc_max_auto_apply_coupons_limit', 5 ), array( 'source' => $this ) );
+					$current_filter               = current_filter();
+					do_action(
+						'wc_sc_before_auto_apply_coupons',
+						array(
+							'source'         => $this,
+							'current_filter' => $current_filter,
+						)
+					);
 					foreach ( $auto_apply_coupon_ids as $apply_coupon_id ) {
 						// Process only five coupons.
 						if ( absint( $max_auto_apply_coupons_limit ) === $valid_coupon_counter ) {

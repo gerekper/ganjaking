@@ -5,6 +5,7 @@ namespace MailPoet\Automation\Engine\Integration;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Field;
 use MailPoet\Automation\Engine\Data\Subject as SubjectData;
 use MailPoet\Validator\Schema\ObjectSchema;
 
@@ -17,6 +18,9 @@ interface Subject {
   public function getName(): string;
 
   public function getArgsSchema(): ObjectSchema;
+
+  /** @return Field[] */
+  public function getFields(): array;
 
   /** @return T */
   public function getPayload(SubjectData $subjectData): Payload;

@@ -196,7 +196,7 @@ class Services extends APIEndpoint {
 
     if ($successMessage) {
       return $this->successResponse(
-        ['message' => $successMessage],
+        ['message' => $successMessage, 'state' => $state, 'result' => $result],
         Installer::getPremiumStatus()
       );
     }
@@ -284,6 +284,11 @@ class Services extends APIEndpoint {
   public function refreshMSSKeyStatus() {
     $key = $this->settings->get('mta.mailpoet_api_key');
     return $this->checkMSSKey(['key' => $key]);
+  }
+
+  public function refreshPremiumKeyStatus() {
+    $key = $this->settings->get('premium.premium_key');
+    return $this->checkPremiumKey(['key' => $key]);
   }
 
   private function isItemInArray($item, $array): bool {

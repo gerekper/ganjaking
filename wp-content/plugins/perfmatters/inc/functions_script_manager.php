@@ -505,7 +505,7 @@ function perfmatters_script_manager_print_status($type, $handle) {
 		echo "</select>";
 	}
 	else {
-		echo "<div class='pmsm-checkbox-container'>";
+		echo "<div class='pmsm-checkbox-container' style='display: flex;'>";
 			echo "<input type='hidden' name='pmsm_status[" . $type . "][" . $handle . "]' value='enabled' />";
 	        echo "<label for='pmsm_status_" . $type . "_" . $handle . "' class='perfmatters-script-manager-switch'>";
 	        	echo "<input type='checkbox' id='pmsm_status_" . $type . "_" . $handle . "' name='pmsm_status[" . $type . "][" . $handle . "]' value='disabled' " . ($statusDisabled ? "checked" : "") . " class='perfmatters-status-toggle'>";

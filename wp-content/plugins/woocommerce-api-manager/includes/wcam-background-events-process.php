@@ -16,7 +16,7 @@ if ( ! class_exists( 'WC_AM_Background_Process', false ) ) {
 }
 
 /**
- * WC_Privacy_Background_Process class.
+ * WCAM_Events_Background_Process class.
  */
 class WCAM_Events_Background_Process extends WC_AM_Background_Process {
 

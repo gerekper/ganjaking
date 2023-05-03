@@ -5,11 +5,16 @@ namespace MailPoet\Automation\Engine\Data;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Integration\Payload;
+
 class Field {
   public const TYPE_BOOLEAN = 'boolean';
   public const TYPE_INTEGER = 'integer';
+  public const TYPE_NUMBER = 'number';
   public const TYPE_STRING = 'string';
   public const TYPE_ENUM = 'enum';
+  public const TYPE_ENUM_ARRAY = 'enum_array';
+  public const TYPE_DATETIME = 'datetime';
 
   /** @var string */
   private $key;
@@ -57,11 +62,9 @@ class Field {
     return $this->factory;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getValue() {
-    return $this->getFactory()();
+  /** @return mixed */
+  public function getValue(Payload $payload) {
+    return $this->getFactory()($payload);
   }
 
   public function getArgs(): array {

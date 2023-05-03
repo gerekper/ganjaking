@@ -657,17 +657,20 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		$cookies_grouped = $this->get_cookies_to_block();
 
 		foreach ( $cookies_grouped as $group => $cookies ) {
-
-			if ( $group > $consent_level ) {
+			$cookies = explode(',', $cookies);
+			// if ( $group > $consent_level ) {
 				
 				if(is_array($cookies)) {
 					$this->delete_cookies( array_combine( $cookies, $cookies ) );
-
+				}else{
+					// value should not be readable after deletion
+					unset( $_COOKIE[ $cookies ] );
 				}
-			}
+			// }
+
 			
 		}
-		 
+
 	}
 
 	/**

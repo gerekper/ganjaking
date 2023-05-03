@@ -84,7 +84,7 @@ class Functions {
   }
 
   public function addQueryArg($key, $value = false, $url = false) {
-    return add_query_arg($key, $value, $url);
+    return add_query_arg($key, $value, $url); // nosemgrep: tools.wpscan-semgrep-rules.audit.php.wp.security.xss.query-arg
   }
 
   public function addScreenOption($option, $args = []) {
@@ -602,10 +602,6 @@ class Functions {
     return wp_safe_redirect($location, $status);
   }
 
-  public function wpSetCurrentUser($id, $name = '') {
-    return wp_set_current_user($id, $name);
-  }
-
   public function wpStaticizeEmoji($text) {
     return wp_staticize_emoji($text);
   }
@@ -704,6 +700,7 @@ class Functions {
     require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
     require_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
     require_once ABSPATH . 'wp-admin/includes/class-wp-ajax-upgrader-skin.php';
+    // nosemgrep: tools.wpscan-semgrep-rules.audit.php.wp.security.arbitrary-plugin-install
     $upgrader = new Plugin_Upgrader(new WP_Ajax_Upgrader_Skin());
     return $upgrader->install($package, $args);
   }
@@ -877,5 +874,18 @@ class Functions {
 
   public function getPluginData(string $plugin_file, bool $markup = true, bool $translate = true): array {
     return get_plugin_data($plugin_file, $markup, $translate);
+  }
+
+  public function wpIsBlockTheme(): bool {
+    // wp_is_block_theme exists only in WP 5.9+
+    if (function_exists('wp_is_block_theme')) {
+      return wp_is_block_theme();
+    }
+
+    return false;
+  }
+
+  public function getShortcodeRegex($tagnames = null): string {
+    return get_shortcode_regex($tagnames);
   }
 }

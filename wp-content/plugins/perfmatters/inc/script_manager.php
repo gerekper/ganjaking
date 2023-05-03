@@ -222,44 +222,46 @@ echo "<div id='perfmatters-script-manager-wrapper'>";
 
 						//print scripts
 						foreach($master_array['resources'] as $category => $groups) {
-							if(!empty($groups)) {
-								echo "<h3>" . $category . "</h3>";
-								if($category != "misc") {
-									echo "<div style='background: #ffffff; padding: 10px;'>";
-									foreach($groups as $group => $details) {
-										echo "<div class='perfmatters-script-manager-group'>";
-										
-											echo "<div class='pmsm-group-heading'>";
+							echo '<div class="pmsm-category-container">';
+								if(!empty($groups)) {
+									echo "<h3>" . $category . "</h3>";
+									if($category != "misc") {
+										echo "<div style='background: #ffffff; padding: 10px;'>";
+										foreach($groups as $group => $details) {
+											echo "<div class='perfmatters-script-manager-group'>";
+											
+												echo "<div class='pmsm-group-heading'>";
 
-												echo "<h4>" . (!empty($details['name']) ? $details['name'] : "") . "</h4>";
+													echo "<h4>" . (!empty($details['name']) ? $details['name'] : "") . "</h4>";
 
-												//Status
-												echo "<div class='perfmatters-script-manager-status' style='float: right; white-space: nowrap; margin-left: 10px;'>";
+													//Status
+													echo "<div class='perfmatters-script-manager-status' style='display: flex; align-items: center; white-space: nowrap; margin-left: 10px;'>";
 
-													if(!empty($details['size'])) {
-														echo "<span class='pmsm-group-tag pmsm-group-size'>" . __('Total size', 'perfmatters') . ": " . round($details['size'] / 1024, 1) . " KB</span>";
-													}
+														if(!empty($details['size'])) {
+															echo "<span class='pmsm-group-tag pmsm-group-size'>" . __('Total size', 'perfmatters') . ": " . round($details['size'] / 1024, 1) . " KB</span>";
+														}
 
-												    perfmatters_script_manager_print_status($category, $group);
+													    perfmatters_script_manager_print_status($category, $group);
+													echo "</div>";
+
 												echo "</div>";
+												
+
+												$assets = !empty($details['assets']) ? $details['assets'] : false;
+
+												perfmatters_script_manager_print_section($category, $group, $assets);
 
 											echo "</div>";
-											
-
-											$assets = !empty($details['assets']) ? $details['assets'] : false;
-
-											perfmatters_script_manager_print_section($category, $group, $assets);
-
+										}
 										echo "</div>";
 									}
-									echo "</div>";
-								}
-								else {
-									if(!empty($groups['assets'])) {
-										perfmatters_script_manager_print_section($category, $category, $groups['assets']);
+									else {
+										if(!empty($groups['assets'])) {
+											perfmatters_script_manager_print_section($category, $category, $groups['assets']);
+										}
 									}
 								}
-							}
+							echo '</div>';
 						}
 
 						//loading wrapper

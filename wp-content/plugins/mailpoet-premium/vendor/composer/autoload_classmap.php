@@ -23,6 +23,7 @@ return array(
     'MailPoet\\Premium\\Automation\\Engine\\Engine' => $baseDir . '/lib/Automation/Engine/Engine.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php',
+    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',

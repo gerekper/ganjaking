@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.6.0
+ * @version     3.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1086,7 +1086,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			$receivers_email = array();
 
 			foreach ( $coupon_details as $coupon_id => $emails ) {
-				$discount_type = $this->get_post_meta( $coupon_id, 'discount_type', true );
+				$discount_type = ( ! empty( $coupon_id ) ) ? $this->get_post_meta( $coupon_id, 'discount_type', true ) : 'fixed_cart';
 				if ( ! empty( $discount_type ) && array_key_exists( $discount_type, $all_discount_types ) ) {
 					$receivers_email = array_merge( $receivers_email, array_diff( $emails, array( $gift_certificate_sender_email ) ) );
 				}
@@ -1313,6 +1313,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				}
 			}
 
+			$order = wc_get_order( $order_id ); // Refresh order object to get latest updates in the order object.
+
 			if ( count( $order_items ) > 0 ) {
 
 				$flag = false;
@@ -1397,7 +1399,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 					$coupon_ids_to_be_sent = array_keys( $receivers_emails_list );
 					if ( ! empty( $coupon_ids_to_be_sent ) ) {
 						foreach ( $coupon_ids_to_be_sent as $coupon_id ) {
-							$discount_type = $this->get_post_meta( $coupon_id, 'discount_type', true );
+							$discount_type = ( ! empty( $coupon_id ) ) ? $this->get_post_meta( $coupon_id, 'discount_type', true ) : 'fixed_cart';
 							if ( ! empty( $discount_type ) && 'smart_coupon' !== $discount_type ) {
 								$contains_core_coupons = true;
 								break;

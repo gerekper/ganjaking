@@ -4,6 +4,8 @@ jQuery(function () {
 
     function render_list(party_filter) {
 
+        if((typeof(ct_ultimate_gdpr_cookie_list) == 'undefined')) return false;
+        
         var cookies = ct_ultimate_gdpr_cookie_list.list;
         jQuery("#ct-ultimate-gdpr-cookies-table tbody").empty();
 
