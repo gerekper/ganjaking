@@ -40,31 +40,54 @@ class WC_Help_Scout_Shortcodes {
 
 		if ( 0 < $current_user_id ) {
 		
-			/**
-			* Action for woocommerce_help_scout_customer_args.
-			*
-			* @since  1.3.4
-			*/
-			$args = apply_filters(
-				'woocommerce_help_scout_shortcode_form_user_orders_args',
-				array(
-					'post_type'      => 'shop_order',
-					'post_status'    => array_keys( wc_get_order_statuses() ),
-					'posts_per_page' => 20,
-					'meta_query'     => array(
-						array(
-							'key'     => '_customer_user',
-							'value'   => $current_user_id,
-							'compare' => '=',
+			if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				/**
+				* Action for woocommerce_help_scout_customer_args.
+				*
+				* @since  1.3.4
+				*/
+				$args = apply_filters(
+					'woocommerce_help_scout_shortcode_form_user_orders_args',
+					array(
+						'type'      => 'shop_order',
+						'status'    => array_keys( wc_get_order_statuses() ),
+						'limit' => 20,
+						'customer_id'     => (int) $current_user_id,
+					)
+				);
+	
+				$orders = wc_get_orders( $args );
+			} else {
+				/**
+				* Action for woocommerce_help_scout_customer_args.
+				*
+				* @since  1.3.4
+				*/
+				$args = apply_filters(
+					'woocommerce_help_scout_shortcode_form_user_orders_args',
+					array(
+						'post_type'      => 'shop_order',
+						'post_status'    => array_keys( wc_get_order_statuses() ),
+						'posts_per_page' => 20,
+						'meta_query'     => array(
+							array(
+								'key'     => '_customer_user',
+								'value'   => $current_user_id,
+								'compare' => '=',
+							),
 						),
-					),
-				)
-			);
-
-			$orders = get_posts( $args );
+					)
+				);
+	
+				$orders = get_posts( $args );
+			}
 
 			foreach ( $orders as $_order ) {
-				$order = wc_get_order( $_order->ID );
+				if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+					$order = $_order;
+				} else {
+					$order = wc_get_order( $_order->ID );
+				}
 				$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 				/* translators: $s: search term */
 				$date = sprintf( _x( '%1$s at %2$s', 'date and time', 'woocommerce-help-scout' ), date_i18n( wc_date_format(), strtotime( $order_date ) ), date_i18n( wc_time_format(), strtotime( $order_date ) ) );

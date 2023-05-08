@@ -1,5 +1,12 @@
 *** Brands Changelog ***
 
+2023-05-02 - version 1.6.49
+* Dev - Add php 8.2 support syntax check .
+* Dev - Add unit tests suit.
+* Dev - Renew php code styling configuration.
+* Tweak - Products list now supports Brands quick search.
+* Tweak - WC 7.7 compatibility.
+
 2023-04-26 - version 1.6.48
 * Fix - Conform to Quality Insights recommendations.
 * Fix - Incorrect default height and width params.

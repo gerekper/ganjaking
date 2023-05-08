@@ -324,6 +324,9 @@ class FUE_Addon_Woocommerce_Admin {
 			'ref'   => urlencode( admin_url( 'admin.php?page=followup-emails' ) )
 		);
 
+		// SEMGREP WARNING EXPLANATION:
+		// This function is escaped in the outputs.
+		// Also, it's sanitized by wp_safe_redirect in the bulk import.
 		return add_query_arg( $args, admin_url( 'admin.php?page=followup-emails' ) );
 	}
 

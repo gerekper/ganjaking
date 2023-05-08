@@ -583,14 +583,30 @@ class WC_AM_Install {
 		if ( get_option( 'woocommerce_api_manager_grace_period' ) === false ) {
 			update_option( 'woocommerce_api_manager_grace_period', array( 'number' => 30, 'unit' => 'days' ) );
 		}
+
+		/**
+		 * @since 2.6.12
+		 */
+		if ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) === false && wp_next_scheduled( 'wc_am_weekly_event' ) ) {
+			update_option( 'woocommerce_api_manager_api_resoure_cleanup_data', 'yes' );
+		}
+
+		/**
+		 * @since 2.6.14
+		 */
+		if ( get_option( 'woocommerce_api_manager_hide_master_key' ) === false ) {
+			update_option( 'woocommerce_api_manager_hide_master_key', 'no' );
+		}
 	}
 
 	/**
 	 * @since 2.5.5
 	 */
 	private function create_cron_jobs() {
-		if ( ! wp_next_scheduled( 'wc_am_weekly_event' ) ) {
+		if ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) === false && ! wp_next_scheduled( 'wc_am_weekly_event' ) ) {
 			wp_schedule_event( time(), 'weekly', 'wc_am_weekly_event' );
+
+			update_option( 'woocommerce_api_manager_api_resoure_cleanup_data', 'yes' );
 		}
 	}
 

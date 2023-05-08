@@ -43,7 +43,9 @@ class WC_AM_Background_Events {
 			$this->background_process = new WCAM_Events_Background_Process();
 		}
 
-		add_action( 'wc_am_weekly_event', array( $this, 'queue_weekly_event' ) );
+		if ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) == 'yes' ) {
+			add_action( 'wc_am_weekly_event', array( $this, 'queue_weekly_event' ) );
+		}
 	}
 
 	/**
@@ -501,5 +503,16 @@ class WC_AM_Background_Events {
 				WC_AM_LOG()->log_info( esc_html__( 'Missing API Resources Repair ERROR for Order ID # ', 'woocommerce-api-manager' ) . $order_id . '. ' . $e, 'missing-api-resources-repair' );
 			}
 		}
+	}
+
+	/**
+	 * Return the timestamp of the next scheduled weekly cleanup event, or false if nothing is scheduled.
+	 *
+	 * @since 2.6.12
+	 *
+	 * @return false|int
+	 */
+	public function get_next_scheduled_cleanup() {
+		return wp_next_scheduled( 'wc_am_weekly_event' );
 	}
 }

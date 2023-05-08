@@ -29,9 +29,8 @@ class RevSliderSliderImport extends RevSliderSlider {
 		
 		$this->old_slider_id	= '';
 		$this->real_slider_id	= '';
-		$upload_dir				= wp_upload_dir();
-		$this->remove_path		= $upload_dir['basedir'].'/rstemp/';
-		$this->download_path	= $this->remove_path;
+		$this->remove_path		= '';
+		$this->download_path	= $this->get_temp_path('rstemp');
 		$this->slider_id		= $this->get_post_var('sliderid');
 		$this->import_zip		= false;
 		$this->exists			= !empty($this->slider_id);
@@ -114,12 +113,9 @@ class RevSliderSliderImport extends RevSliderSlider {
 				if(is_array($duplicate)) return $duplicate; //error
 			}
 			
-			$wp_filesystem->delete($this->remove_path, true);
-			
+			$this->clear_files();
 		}catch(Exception $e){
-			if(isset($this->remove_path)){
-				$wp_filesystem->delete($this->remove_path, true);
-			}
+			$this->clear_files();
 			
 			return array('success' => false, 'error' => $e->getMessage(), 'sliderID' => $this->slider_id);
 		}
@@ -176,8 +172,9 @@ class RevSliderSliderImport extends RevSliderSlider {
 		WP_Filesystem();
 		global $wp_filesystem;
 		
+		$this->check_bad_files($path);
+
 		$file = unzip_file($path, $this->download_path);
-		
 		if(is_wp_error($file)){
 			@define('FS_METHOD', 'direct'); //lets try direct.
 			WP_Filesystem();  //WP_Filesystem() needs to be called again since now we use direct!
@@ -202,7 +199,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 			$this->import_zip = true;
 			return true;
 		}else{
-			$wp_filesystem->delete($this->remove_path, true);
+			$this->clear_files();
 			return array('success' => false, 'error' => $unzipped_data->get_error_message());
 		}
 	}
@@ -496,7 +493,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		global $wpdb, $wp_filesystem;
 		
 		if(empty($this->slider_data)){
-			$wp_filesystem->delete($this->remove_path, true);
+			$this->clear_files();
 			$this->throw_error(__('Wrong export slider file format! Please make sure that the uploaded file is either a zip file with a correct slider_export.txt in the root of it or an valid slider_export.txt file.', 'revslider'));
 		}
 		
@@ -577,7 +574,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		global $wpdb, $wp_filesystem;
 		
 		if(empty($this->slider_data)){
-			$wp_filesystem->delete($this->remove_path, true);
+			$this->clear_files();
 			$this->throw_error(__('Wrong export slider file format! Please make sure that the uploaded file is either a zip file with a correct slider_export.txt in the root of it or an valid slider_export.txt file.', 'revslider'));
 		}
 		
@@ -587,7 +584,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		
 		//check if we are a premium slider
 		if($this->get_val($params, 'pakps', false) === true && $this->_truefalse(get_option('revslider-valid', 'false')) === false){
-			$wp_filesystem->delete($this->remove_path, true);
+			$this->clear_files();
 			$this->throw_error(__('Please register your Slider Revolution plugin to import premium templates', 'revslider'));
 		}
 
@@ -1642,7 +1639,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 				}else{
 					global $wp_filesystem;
 					
-					$wp_filesystem->delete($this->remove_path, true);
+					$this->clear_files();
 					return array('success' => false, 'error' => __('could not find correct Slide to copy, please try again.', 'revslider'), 'sliderID' => $this->slider_id);
 				}
 			}else{
@@ -1868,5 +1865,51 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 */
 	public function rs_unserialize($string){
 		return @unserialize($string);
+	}
+
+	/**
+	 * clear given folder if it can be deleted
+	 **/
+	public function clear_files(){
+		if(isset($this->remove_path) && !empty($this->remove_path) && is_writable(dirname($this->remove_path))){
+			$wp_filesystem->delete($this->remove_path, true);
+		}
+	}
+
+	/**
+	 * open and checks a zip file for filetypes
+	 **/
+	public function check_bad_files($zip_file){
+		if(class_exists('ZipArchive')){
+			$zip = new ZipArchive;
+			$success = $zip->open($zip_file);
+			
+			if($success !== true) $this->throw_error(__("Can't open zip file", 'revslider'));
+
+			for($i = 0; $i < $zip->numFiles; $i++){
+				$path_info = pathinfo($zip->getNameIndex($i));
+				if(!isset($path_info['extension'])) continue;
+			
+				$pi = strtolower($path_info['extension']);
+				if(in_array($pi, $this->bad_extensions)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
+			}
+		}else{ //fallback to pclzip
+			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+			
+			$pclzip = new PclZip($zip_file);
+			
+			$content = $pclzip->listContent();
+			if(is_array($content) && !empty($content)){
+				foreach($content as $file){
+					if(!isset($file['filename'])) continue;
+
+					$path_info = pathinfo($file['filename']);
+					if(!isset($path_info['extension'])) continue;
+
+					$pi = strtolower($path_info['extension']);
+					if(in_array($pi, $this->bad_extensions)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
+				}
+			}
+		}
 	}
 }

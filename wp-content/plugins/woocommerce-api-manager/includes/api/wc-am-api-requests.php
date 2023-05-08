@@ -333,7 +333,7 @@ class WC_AM_API_Requests {
 	}
 
 	/**
-	 * Gets the API resources, or sends an error response.
+	 * Gets the API Resources, or sends an error response.
 	 *
 	 * @since 2.0
 	 */
@@ -343,10 +343,10 @@ class WC_AM_API_Requests {
 
 			if ( WC_AM_FORMAT()->empty( $resources ) ) {
 				if ( $this->error_log ) {
-					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_resources() method. Error message is "Error code 100. No API resources exist. Verify there are activations remaining, and the API Key and Product ID are correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_resources() method. Error message is "Error code 100. No API Resources exist. Verify there are activations remaining, and the API Key and Product ID are correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
-				$this->error_response( '100', sprintf( __( 'No API resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key and Product ID are correct.', 'woocommerce-api-manager' ), '<a href="' . esc_url( WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() ) . '" target="blank">', '</a>' ) );
+				$this->error_response( '100', sprintf( __( 'No API Resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key and Product ID are correct.', 'woocommerce-api-manager' ), '<a href="' . WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() . '" target="blank">', '</a>' ) );
 			}
 
 			if ( $this->debug_log ) {
@@ -355,7 +355,7 @@ class WC_AM_API_Requests {
 
 			$this->resources = $resources;
 		} catch ( Exception $exception ) {
-			$this->error_response( '100', esc_html__( 'There was an error getting API resources', 'woocommerce-api-manager' ) . ': ' . $exception );
+			$this->error_response( '100', esc_html__( 'There was an error getting API Resources', 'woocommerce-api-manager' ) . ': ' . $exception );
 
 			if ( $this->debug_log ) {
 				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from get_resources() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
@@ -375,7 +375,7 @@ class WC_AM_API_Requests {
 		$this->required( array( 'api_key', 'product_id', 'instance' ) );
 		// Verify the user account exists before proceeding.
 		$this->verify_user();
-		// Get the API resources for this customer to verify there are resources available.
+		// Get the API Resources for this customer to verify there are resources available.
 		$this->get_resources();
 
 		/**
@@ -426,7 +426,7 @@ class WC_AM_API_Requests {
 
 		if ( ! $add_api_key_activation ) {
 			/**
-			 * Activation error. Cannot activate API Key. No API resources available.
+			 * Activation error. Cannot activate API Key. No API Resources available.
 			 *
 			 * @since 2.1
 			 *
@@ -437,10 +437,10 @@ class WC_AM_API_Requests {
 			do_action( 'wc_api_manager_activate_no_api_resources_available_error', false, $this->resources, $this->request, $this->user_id );
 
 			if ( $this->error_log ) {
-				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in activate() method. Error message is "Error code 100. Cannot activate API Key. No API resources available."', 'woocommerce-api-manager' ) . PHP_EOL . esc_html__( 'Resources available:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . esc_html__( 'Request data received:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in activate() method. Error message is "Error code 100. Cannot activate API Key. No API Resources available."', 'woocommerce-api-manager' ) . PHP_EOL . esc_html__( 'Resources available:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . esc_html__( 'Request data received:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 			}
 
-			$this->error_response( '100', esc_html__( 'Cannot activate API Key. No API resources available.', 'woocommerce-api-manager' ) );
+			$this->error_response( '100', esc_html__( 'Cannot activate API Key. No API Resources available.', 'woocommerce-api-manager' ) );
 		}
 
 		if ( $this->debug_log ) {
@@ -456,7 +456,7 @@ class WC_AM_API_Requests {
 					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from activate() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
 				}
 
-				$this->error_response( '100', esc_html__( 'There was an error getting API resources in activate()', 'woocommerce-api-manager' ) . ': ' . $exception );
+				$this->error_response( '100', esc_html__( 'There was an error getting API Resources in activate()', 'woocommerce-api-manager' ) . ': ' . $exception );
 			}
 		}
 
@@ -500,7 +500,7 @@ class WC_AM_API_Requests {
 		$this->required( array( 'api_key', 'product_id', 'instance' ) );
 		// Verify the user account exists before proceeding.
 		$this->verify_user();
-		// Get the API resources for this customer to verify there are resources available.
+		// Get the API Resources for this customer to verify there are resources available.
 		$this->get_resources();
 
 		/**
@@ -530,7 +530,7 @@ class WC_AM_API_Requests {
 
 		if ( ! $delete_api_key_activation ) {
 			/**
-			 * Activation error. Cannot activate API Key. No API resources available.
+			 * Activation error. Cannot activate API Key. No API Resources available.
 			 *
 			 * @since 2.1
 			 *
@@ -556,7 +556,7 @@ class WC_AM_API_Requests {
 					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from deactivate() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
 				}
 
-				$this->error_response( '100', esc_html__( 'There was an error getting API resources in deactivate()', 'woocommerce-api-manager' ) . ': ' . $exception );
+				$this->error_response( '100', esc_html__( 'There was an error getting API Resources in deactivate()', 'woocommerce-api-manager' ) . ': ' . $exception );
 			}
 		}
 
@@ -620,7 +620,7 @@ class WC_AM_API_Requests {
 
 		// Verify the user account exists before proceeding.
 		$this->verify_user();
-		// Get the API resources for this customer to verify there are resources available.
+		// Get the API Resources for this customer to verify there are resources available.
 		$this->get_resources();
 
 		if ( $this->debug_log ) {
@@ -632,7 +632,7 @@ class WC_AM_API_Requests {
 			try {
 				$data[ 'resources' ] = WC_AM_API_RESOURCE_DATA_STORE()->get_active_api_resources( $this->request[ 'api_key' ], $this->request[ 'product_id' ] );
 			} catch ( Exception $exception ) {
-				$this->error_response( '100', esc_html__( 'There was an error getting API resources in status()', 'woocommerce-api-manager' ) . ': ' . $exception );
+				$this->error_response( '100', esc_html__( 'There was an error getting API Resources in status()', 'woocommerce-api-manager' ) . ': ' . $exception );
 
 				if ( $this->debug_log ) {
 					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from status() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
@@ -669,11 +669,11 @@ class WC_AM_API_Requests {
 						if ( $this->error_log ) {
 							// Refresh resources.
 							$this->get_resources();
-							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
+							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
 						}
 					} else {
 						if ( $this->error_log ) {
-							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
+							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
 						}
 					}
 				}
@@ -859,9 +859,9 @@ class WC_AM_API_Requests {
 
 				if ( $this->error_log ) {
 					if ( $delete_api_key_activation ) {
-						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
 					} else {
-						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
 					}
 				}
 
@@ -873,7 +873,7 @@ class WC_AM_API_Requests {
 			} else {
 				// Verify the user account exists before proceeding.
 				$this->verify_user();
-				// Get the API resources for this customer to verify there are resources available.
+				// Get the API Resources for this customer to verify there are resources available.
 				$this->get_resources();
 				// Not part of WordPress API data
 				$data[ 'package' ][ 'product_id' ] = ! empty( $product_data->product_id ) ? $product_data->product_id : 0;
@@ -1155,9 +1155,9 @@ class WC_AM_API_Requests {
 
 				if ( $this->error_log ) {
 					if ( $delete_api_key_activation ) {
-						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
 					} else {
-						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
 					}
 				}
 
@@ -1165,14 +1165,14 @@ class WC_AM_API_Requests {
 				 * Bad API Key, so send client update data without update package URL rather than an error.
 				 */
 				$is_active = false;
-				//$this->error_response( '100', esc_html__( 'The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources.', 'woocommerce-api-manager' ) );
+				//$this->error_response( '100', esc_html__( 'The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API Resources.', 'woocommerce-api-manager' ) );
 			} else {
 				/**
 				 * Good API Key, so send client update data with update package URL.
 				 */
 				// Verify the user account exists before proceeding.
 				$this->verify_user();
-				// Get the API resources for this customer to verify there are resources available.
+				// Get the API Resources for this customer to verify there are resources available.
 				$this->get_resources();
 
 				// Not part of WordPress API data
@@ -1346,17 +1346,17 @@ class WC_AM_API_Requests {
 
 			if ( WC_AM_FORMAT()->empty( $resources ) ) {
 				if ( $this->error_log ) {
-					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_api_resources_for_master_api_key_or_product_order_api_key() method. Error message is "Error code 100. No API resources exist. Verify there are activations remaining, and the API Key is correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_api_resources_for_master_api_key_or_product_order_api_key() method. Error message is "Error code 100. No API Resources exist. Verify there are activations remaining, and the API Key is correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
-				$this->error_response( '100', sprintf( __( 'No API resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key is correct.', 'woocommerce-api-manager' ), '<a href="' . esc_url( WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() ) . '" target="blank">', '</a>' ) );
+				$this->error_response( '100', sprintf( __( 'No API Resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key is correct.', 'woocommerce-api-manager' ), '<a href="' . WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() . '" target="blank">', '</a>' ) );
 			}
 
 			if ( $this->debug_log ) {
 				WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from get_api_resources_for_master_api_key_or_product_order_api_key() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $resources, true ) );
 			}
 		} catch ( Exception $exception ) {
-			$this->error_response( '100', esc_html__( 'There was an error getting API resources', 'woocommerce-api-manager' ) . ': ' . $exception );
+			$this->error_response( '100', esc_html__( 'There was an error getting API Resources', 'woocommerce-api-manager' ) . ': ' . $exception );
 
 			if ( $this->debug_log ) {
 				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from get_api_resources_for_master_api_key_or_product_order_api_key() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );

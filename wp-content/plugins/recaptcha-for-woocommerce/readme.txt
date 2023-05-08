@@ -90,6 +90,12 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 == Changelog ==
 
+= 2.45 =
+
+* Fixed recent version did not worked with Intuit Payments
+* Fixed nonce vulnerabilities
+
+
 = 2.44 =
 
 * Fixed compatibility with WooCommerce phone order plugin

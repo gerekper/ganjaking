@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.6.1
+ * @version 2.6.14
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -47,23 +47,29 @@ if ( ! empty( $user_id ) ) {
 		if ( $resources ) {
 			$master_api_key              = WC_AM_USER()->get_master_api_key( $user_id );
 			$hide_product_order_api_keys = WC_AM_USER()->hide_product_order_api_keys();
+			$hide_master_api_key         = WC_AM_USER()->hide_master_api_key();
+
+			if ( ! $hide_master_api_key ) {
+				?>
+				<table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
+					<thead>
+					<tr>
+						<th class="master-api-key"><span
+								class="nobr"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?><?php esc_html_e( ' - Can be used to activate any product.', 'woocommerce-api-manager' ); ?></span>
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="order">
+						<td class="api-manager-master-api-key">
+							<?php echo esc_attr( $master_api_key ); ?>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<?php
+			}
 			?>
-			<table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
-				<thead>
-				<tr>
-					<th class="master-api-key"><span
-							class="nobr"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?><?php esc_html_e( ' - Can be used to activate any product.', 'woocommerce-api-manager' ); ?></span>
-					</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr class="order">
-					<td class="api-manager-master-api-key">
-						<?php echo esc_attr( $master_api_key ); ?>
-					</td>
-				</tr>
-				</tbody>
-			</table>
 			<table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
 				<tbody>
 				<tr>

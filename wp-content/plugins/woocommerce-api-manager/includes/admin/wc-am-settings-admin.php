@@ -93,6 +93,8 @@ class WC_AM_Settings_Admin {
 	 * @return array Array of settings in the format required by the @see woocommerce_admin_fields() function.
 	 */
 	public function get_settings( $current_section ) {
+		$next_cleanup = WC_AM_BACKGROUND_EVENTS()->get_next_scheduled_cleanup();
+
 		$aws_s3_regions = array(
 			'af-south-1'     => 'af-south-1',
 			'ap-east-1'      => 'ap-east-1',
@@ -232,8 +234,18 @@ class WC_AM_Settings_Admin {
 
 				array(
 					'name'            => __( 'Product Order API Keys', 'woocommerce-api-manager' ),
-					'desc'            => __( 'Hide Product Order API Keys on My Account > API Keys tab screen. Hide if customers should only use Master API Key.', 'woocommerce-api-manager' ),
+					'desc'            => __( 'Hide the Product Order API Keys on My Account > API Keys tab screen. Hide if customers must use only the Master API Key.', 'woocommerce-api-manager' ),
 					'id'              => $this->option_prefix . '_hide_product_order_api_keys',
+					'default'         => 'no',
+					'type'            => 'checkbox',
+					'checkboxgroup'   => 'start',
+					'show_if_checked' => 'option'
+				),
+
+				array(
+					'name'            => __( 'Master API Key', 'woocommerce-api-manager' ),
+					'desc'            => sprintf( __( 'Hide the Master API Key on My Account > API Keys tab screen if customers must use only the Product Order API Keys.%s%sCannot be hidden if the Product Order API Keys are also hidden.%s', 'woocommerce-api-manager' ), '<br>','<div style=padding-left:1.7em;>', '</div>' ),
+					'id'              => $this->option_prefix . '_hide_master_key',
 					'default'         => 'no',
 					'type'            => 'checkbox',
 					'checkboxgroup'   => 'start',
@@ -315,6 +327,25 @@ class WC_AM_Settings_Admin {
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_doc_tabs_sec' ),
+
+				array(
+					'name' => __( 'API Resources Cleanup', 'woocommerce-api-manager' ),
+					'type' => 'title',
+					'desc' => '',
+					'id'   => $this->option_prefix . '_api_resource_cleanup'
+				),
+
+				array(
+					'name'     => __( 'Schedule API Resources Cleanup', 'woocommerce-api-manager' ),
+					'desc'     => sprintf( __( '%sSchedule the weekly cleanup of expired API Resources and related API Key activations. %s%s', 'woocommerce-api-manager' ), '<br>', ( ! empty( $next_cleanup ) ) ? __( 'The cleanup process will run automatically next on ', 'woocommerce-api-manager' ) . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) : __( 'The cleanup process is not scheduled to automatically run.', 'woocommerce-api-manager' ), '<br>' ),
+					'id'       => $this->option_prefix . '_api_resoure_cleanup_data',
+					'type'     => 'radio',
+					'desc_tip' => '',
+					'default'  => 'no',
+					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
+				),
+
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_resource_cleanup_sec' ),
 
 				array(
 					'name' => __( 'API Response', 'woocommerce-api-manager' ),
@@ -400,6 +431,28 @@ class WC_AM_Settings_Admin {
 		global $current_section;
 
 		woocommerce_update_options( $this->get_settings( $current_section ) );
+
+		/**
+		 * @since 2.6.14
+		 */
+		if ( get_option( $this->option_prefix . '_hide_product_order_api_keys' ) === 'yes' ) {
+			update_option( $this->option_prefix . '_hide_master_key', 'no' );
+		}
+
+		$cleanup_schedule = WC_AM_BACKGROUND_EVENTS()->get_next_scheduled_cleanup();
+
+		/**
+		 * @since 2.6.12
+		 */
+		if ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) == 'yes' ) {
+			if ( ! $cleanup_schedule ) {
+				wp_schedule_event( time(), 'weekly', 'wc_am_weekly_event' );
+			}
+		} elseif ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) == 'no' ) {
+			if ( is_int( $cleanup_schedule ) && $cleanup_schedule ) {
+				wp_unschedule_event( $cleanup_schedule, 'wc_am_weekly_event' );
+			}
+		}
 	}
 
 	/**
@@ -434,18 +487,18 @@ class WC_AM_Settings_Admin {
 		if ( isset( $field[ 'id' ] ) && isset( $field[ 'name' ] ) ) :
 			$field_val = get_option( $field[ 'id' ] );
 			?>
-            <tr valign="top">
-                <th scope="row" class="titledesc">
-                    <label for="<?php echo wp_kses_post( $field[ 'id' ] ); ?>"><?php echo esc_attr( $field[ 'name' ] ); ?></label>
-                </th>
-                <td class="forminp forminp-password">
-                    <input name="<?php echo esc_attr( $field[ 'id' ] ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" type="password"
-                           style="<?php echo esc_attr( isset( $field[ 'css' ] ) ? $field[ 'css' ] : '' ); ?>"
-                           value="<?php echo esc_attr( WC_AM_ENCRYPTION()->decrypt( $field_val ) ); ?>"
-                           class="<?php echo esc_attr( isset( $field[ 'class' ] ) ? $field[ 'class' ] : '' ); ?>">
-                    <span class="description"><?php echo esc_attr( $field[ 'desc' ] ); ?></span>
-                </td>
-            </tr>
+			<tr valign="top">
+				<th scope="row" class="titledesc">
+					<label for="<?php echo wp_kses_post( $field[ 'id' ] ); ?>"><?php echo esc_attr( $field[ 'name' ] ); ?></label>
+				</th>
+				<td class="forminp forminp-password">
+					<input name="<?php echo esc_attr( $field[ 'id' ] ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" type="password"
+					       style="<?php echo esc_attr( isset( $field[ 'css' ] ) ? $field[ 'css' ] : '' ); ?>"
+					       value="<?php echo esc_attr( WC_AM_ENCRYPTION()->decrypt( $field_val ) ); ?>"
+					       class="<?php echo esc_attr( isset( $field[ 'class' ] ) ? $field[ 'class' ] : '' ); ?>">
+					<span class="description"><?php echo esc_attr( $field[ 'desc' ] ); ?></span>
+				</td>
+			</tr>
 		<?php
 
 		endif;

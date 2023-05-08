@@ -70,8 +70,9 @@ abstract class ActionScheduler {
 		}
 
 		if ( file_exists( "{$dir}{$class}.php" ) ) {
+			// SEMGREP WARNING EXPLANATION
+			// This is not loading any user input. It just loads ActionScheduler and CronExpression
 			include( "{$dir}{$class}.php" );
-			return;
 		}
 	}
 

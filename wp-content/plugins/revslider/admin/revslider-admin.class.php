@@ -37,12 +37,12 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * Deactivate the Plugin through the ThemePunch Servers
 	 * @before: RevSliderOperations::doPurchaseDeactivation();
 	 * @moved to RevSliderLicense::deactivate_plugin();
-	 
+	 **/
 	public function deactivate_plugin(){
 		$rs_license = new RevSliderLicense();
 		return $rs_license->deactivate_plugin();
 	}
-	 **/
+	
 	/**
 	 * END: DEPRECATED FUNCTIONS THAT ARE IN HERE FOR OLD ADDONS TO WORK PROPERLY
 	 **/
@@ -1597,20 +1597,47 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					}
 					
 					$obj = array(
-						'id' => $slider_id,
-						'alias' => $slider->get_alias(),
-						'title' => $slider->get_title(),
-						'slider_params' => $slider->get_params(),
-						'slider_settings' => $slider->get_settings(),
-						'slides' => $_slides,
-						'static_slide' => $_static_slide,
+						'id'				=> $slider_id,
+						'alias'				=> $slider->get_alias(),
+						'title'				=> $slider->get_title(),
+						'slider_params' 	=> $slider->get_params(),
+						'slider_settings'	=> $slider->get_settings(),
+						'slides'			=> $_slides,
+						'static_slide'		=> $_static_slide,
 					);
+
+					$uid = $this->get_val($obj, array('slider_params', 'uid'));
+					if(!empty($uid)){
+						$templates		= new RevSliderTemplate();
+						$rslb			= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
+						$temp_url		= $rslb->get_url('templates', 0, true).'/'.$templates->templates_server_path;
+						$defaults		= $this->get_addition(array('templates', 'guide'));
+						
+						$template_data	= $templates->get_tp_template_sliders($uid);
+						if(!empty($template_data)){
+							foreach($template_data as $data){
+								$title			= $this->get_val($data, 'guide_title');
+								$url			= $this->get_val($data, 'guide_url');
+								$img			= $this->get_val($data, 'guide_img');
+								$template_img	= $this->get_val($data, 'img');
+								$obj['guide'] = array(
+									'title'			=> (empty($title)) ? $this->get_val($defaults, 'title') : $title,
+									'url'			=> (empty($url)) ? $this->get_val($defaults, 'url') : $url,
+									'img'			=> (empty($img)) ? $this->get_val($defaults, 'img') : $temp_url.'/'.$img,
+									'template_img'	=> (empty($template_img)) ? $this->get_val($defaults, 'img') : $template_img,
+									'template_title'=> $this->get_val($data, 'title'),
+								);
+
+								break;
+							}
+						}
+					}
 
 					$this->ajax_response_data($obj);
 				break;
 				case 'load_builder':
 					ob_start();
-					require_once RS_PLUGIN_PATH . 'admin/views/builder.php';
+					require_once(RS_PLUGIN_PATH . 'admin/views/builder.php');
 					$builder = ob_get_contents();
 					ob_clean();
 					ob_end_clean();

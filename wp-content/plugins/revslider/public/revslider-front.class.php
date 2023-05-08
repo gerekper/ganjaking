@@ -58,7 +58,6 @@ class RevSliderFront extends RevSliderFunctions {
 		$inc_global = $func->_truefalse($func->get_val($global, 'allinclude', true));
 		
 		$inc_footer = $func->_truefalse($func->get_val($global, array('script', 'footer'), true));
-		$waitfor = array('jquery');
 		$widget	 = is_active_widget(false, false, 'rev-slider-widget', true);
 		
 		$load = false;
@@ -88,22 +87,22 @@ class RevSliderFront extends RevSliderFunctions {
 			wp_dequeue_script('tp-tools');
 		}
 		
-		wp_enqueue_script('tp-tools', RS_PLUGIN_URL . 'public/assets/js/rbtools.min.js', $waitfor, RS_TP_TOOLS, $inc_footer);
+		wp_enqueue_script('tp-tools', RS_PLUGIN_URL . 'public/assets/js/rbtools.min.js', array('jquery'), RS_TP_TOOLS, $inc_footer);
 		
 		if(!file_exists(RS_PLUGIN_PATH.'public/assets/js/rs6.min.js')){
-			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.main.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.main.js', array('jquery'), $rs_ver, $inc_footer);
 			//if on, load all libraries instead of dynamically loading them
-			wp_enqueue_script('revmin-actions', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.actions.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-carousel', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.carousel.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-layeranimation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.layeranimation.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-navigation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.navigation.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-parallax', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.parallax.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-slideanims', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', $waitfor, $rs_ver, $inc_footer);
-		//	wp_enqueue_script('revmin-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', $waitfor, $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-video', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.video.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-actions', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.actions.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-carousel', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.carousel.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-layeranimation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.layeranimation.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-navigation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.navigation.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-parallax', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.parallax.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-slideanims', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', array('jquery'), $rs_ver, $inc_footer);
+		//	wp_enqueue_script('revmin-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', array('jquery'), $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-video', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.video.js', array('jquery'), $rs_ver, $inc_footer);
 		}else{
-			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/rs6.min.js', 'tp-tools', $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/rs6.min.js', array('tp-tools', 'jquery'), $rs_ver, $inc_footer);
 		}
 		
 		add_action('wp_head', array('RevSliderFront', 'add_meta_generator'));

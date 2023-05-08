@@ -1,5 +1,11 @@
 *** Changelog ***
 
+2023-05-02 - version 2.45
+
+* Fixed recent version did not worked with Intuit Payments
+* Fixed nonce vulnerabilities
+
+
 2023-04-30 - version 2.44
 
 * Fixed compatibility with WooCommerce phone order plugin

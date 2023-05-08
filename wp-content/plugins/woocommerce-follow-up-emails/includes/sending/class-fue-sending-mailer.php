@@ -671,6 +671,9 @@ class FUE_Sending_Mailer {
 
 		$payload = base64_encode( http_build_query( $args, '', '&' ) );
 
+		// SEMGREP WARNING EXPLANATION
+		// This is coming from the admin when creating the emails It's widely used over the application.
+		// It's a won't fix for now since the safety risk/impact is low.
 		return add_query_arg( 'sfn_data', $payload, add_query_arg( 'sfn_trk', 1, get_bloginfo( 'url' ) ) );
 	}
 

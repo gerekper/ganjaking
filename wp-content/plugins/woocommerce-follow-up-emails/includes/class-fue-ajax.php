@@ -281,9 +281,9 @@ class FUE_AJAX {
 				WHERE user_email LIKE %s
 				OR user_login LIKE %s
 				OR display_name LIKE %s",
+				array( '%'. $term .'%',
 				'%'. $term .'%',
-				'%'. $term .'%',
-				'%'. $term .'%'
+				'%'. $term .'%' )
 			) );
 		}
 
@@ -426,15 +426,15 @@ class FUE_AJAX {
 		}
 
 		// Full name (First Last format)
-		$name_results = $wpdb->get_results("
+		$name_results = $wpdb->get_results($wpdb->prepare( "
 			SELECT DISTINCT m1.user_id, u.user_email, m1.meta_value AS first_name, m2.meta_value AS last_name
 			FROM {$wpdb->users} u, {$wpdb->usermeta} m1, {$wpdb->usermeta} m2
 			WHERE u.ID = m1.user_id
 			AND m1.user_id = m2.user_id
 			AND m1.meta_key =  'first_name'
 			AND m2.meta_key =  'last_name'
-			AND CONCAT_WS(  ' ', m1.meta_value, m2.meta_value ) LIKE  '%{$term}%'
-		");
+			AND CONCAT_WS(  ' ', m1.meta_value, m2.meta_value ) LIKE %s
+		", '%'. $term .'%') );
 
 		if ( $name_results ) {
 			foreach ( $name_results as $result ) {
@@ -503,15 +503,15 @@ class FUE_AJAX {
 		}
 
 		// Full name (First Last format)
-		$name_results = $wpdb->get_results("
+		$name_results = $wpdb->get_results($wpdb->prepare( "
 			SELECT DISTINCT m1.user_id, u.user_email, m1.meta_value AS first_name, m2.meta_value AS last_name
 			FROM {$wpdb->users} u, {$wpdb->usermeta} m1, {$wpdb->usermeta} m2
 			WHERE u.ID = m1.user_id
 			AND m1.user_id = m2.user_id
 			AND m1.meta_key =  'first_name'
 			AND m2.meta_key =  'last_name'
-			AND CONCAT_WS(  ' ', m1.meta_value, m2.meta_value ) LIKE  '%{$term}%'
-		");
+			AND CONCAT_WS(  ' ', m1.meta_value, m2.meta_value ) LIKE %s
+		", '%' . $term . '%' ) );
 
 		if ( $name_results ) {
 			foreach ( $name_results as $result ) {
@@ -1221,6 +1221,8 @@ class FUE_AJAX {
 		$source = $post['source'];
 		$file   = $tpl->get_path();
 
+		// SEMGREP WARNING EXPLANATION:
+		// $file is a valid html file, so no PHP/PHAR is executable. Hence, the deserialization event is not happening.
 		file_put_contents( $file, $source );
 
 		self::send_response(array(
@@ -3308,7 +3310,7 @@ class FUE_AJAX {
 	 * Generate the CSV in phases to avoid script timeouts and memory limit issues
 	 */
 	public static function build_export_list() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! current_user_can( 'manage_follow_up_emails' ) || ! check_ajax_referer('fue_build_export_list' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -3317,8 +3319,8 @@ class FUE_AJAX {
 		set_time_limit(0);
 
 		$csv            = '';
-		$list           = !empty( $_POST['list'] ) ? absint( wp_unslash( $_POST['list'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-		$export_id      = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$list           = !empty( $_POST['list'] ) ? absint( wp_unslash( $_POST['list'] ) ) : false;
+		$export_id      = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : '';
 		$export_page    = get_transient( 'fue_list_export_page_'. $export_id );
 		$export_file    = sys_get_temp_dir() .'/fue_export_'. $export_id;
 

@@ -24,7 +24,13 @@ class WC_Brands_Admin {
 		add_filter( 'manage_edit-product_brand_columns', array( $this, 'columns' ) );
 		add_filter( 'manage_product_brand_custom_column', array( $this, 'column' ), 10, 3);
 		add_filter( 'manage_product_posts_columns', [ $this, 'product_columns' ], 20, 1 );
-		add_filter( 'woocommerce_product_filters', array( $this, 'product_filter' ) );
+		add_filter(
+			'woocommerce_products_admin_list_table_filters',
+			function ( $args ) {
+				$args['product_brand'] = [ $this, 'render_product_brand_filter' ];
+				return $args;
+			}
+		);
 
 		$this->settings_tabs = array(
 			'brands' => __( 'Brands', 'woocommerce-brands' )
@@ -180,6 +186,21 @@ class WC_Brands_Admin {
 	 */
 	function scripts() {
 		$screen = get_current_screen();
+
+		if ( 'edit-product' === $screen->id ) {
+			wp_localize_script(
+				'wc-brands-enhanced-select',
+				'wc_brands_enhanced_select_params',
+				[ 'ajax_url' => get_rest_url() . 'brands/search' ]
+			);
+			wp_enqueue_script(
+				'wc-brands-enhanced-select',
+				plugins_url( '/assets/js/admin/wc-brands-enhanced-select.js', __DIR__ ),
+				[ 'jquery', 'selectWoo', 'wc-enhanced-select', 'wp-api' ],
+				WC_BRANDS_VERSION,
+				false
+			);
+		}
 
 		if ( in_array( $screen->id, array( 'edit-product_brand' ) ) ) {
 			wp_enqueue_media();
@@ -467,33 +488,44 @@ class WC_Brands_Admin {
 	}
 
 	/**
-	 * Filter products by brand
+	 * Renders either dropdown or a search field for brands depending on the threshold value of
+	 * woocommerce_product_brand_filter_threshold filter.
+	 *
+	 * @return void
 	 */
-	public function product_filter( $filters ) {
-		global $wp_query;
-
-		ob_start();
-
-		$current_product_brand = isset( $wp_query->query['product_brand'] ) ? $wp_query->query['product_brand'] : '';
-		$args                  = array(
-			'pad_counts'         => 1,
-			'show_count'         => 1,
-			'hierarchical'       => 1,
-			'hide_empty'         => 0,
-			'show_uncategorized' => 1,
-			'orderby'            => 'name',
-			'selected'           => $current_product_brand,
-			'show_option_none'   => __( 'Select a brand', 'woocommerce-brands' ),
-			'option_none_value'  => '',
-			'value_field'        => 'slug',
-			'taxonomy'           => 'product_brand',
-			'name'               => 'product_brand',
-			'class'              => 'dropdown_product_brand',
-		);
-
-		wc_product_dropdown_categories( $args );
-
-		return $filters . PHP_EOL . ob_get_clean();
+	public function render_product_brand_filter() {
+		// phpcs:disable WordPress.Security.NonceVerification
+		$brands_count       = (int) wp_count_terms( 'product_brand' );
+		$current_brand_slug = wc_clean( wp_unslash( $_GET['product_brand'] ?? '' ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( $brands_count <= apply_filters( 'woocommerce_product_brand_filter_threshold', 100 ) ) {
+			wc_product_dropdown_categories(
+				[
+					'pad_counts'        => true,
+					'show_count'        => true,
+					'orderby'           => 'name',
+					'selected'          => $current_brand_slug,
+					'show_option_none'  => __( 'Filter by brand', 'woocommerce-brands' ),
+					'option_none_value' => '',
+					'value_field'       => 'slug',
+					'taxonomy'          => 'product_brand',
+					'name'              => 'product_brand',
+					'class'             => 'dropdown_product_brand',
+				]
+			);
+		} else {
+			$current_brand   = $current_brand_slug ? get_term_by( 'slug', $current_brand_slug, 'product_brand' ) : '';
+			$selected_option = '';
+			if ( $current_brand_slug && $current_brand ) {
+				$selected_option = '<option value="' . esc_attr( $current_brand_slug ) . '" selected="selected">' . esc_html( htmlspecialchars( wp_kses_post( $current_brand->name ) ) ) . '</option>';
+			}
+			$placeholder = esc_attr__( 'Filter by brand', 'woocommerce-brands' );
+			?>
+			<select class="wc-brands-search" name="product_brand" data-placeholder="<?php echo $placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" data-allow_clear="true">
+				<?php echo $selected_option; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</select>
+			<?php
+		}
+		// phpcs:enable WordPress.Security.NonceVerification
 	}
 
 	/**

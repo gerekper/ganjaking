@@ -201,9 +201,10 @@
 			var list_id     = $("#export_list").val();
 			var export_id   = $("#export_list_id").val();
 			var data = {
-				action: "fue_build_export_list",
-				list:   list_id,
-				id:     export_id
+				action:       "fue_build_export_list",
+				list:         list_id,
+				id:           export_id,
+				_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'fue_build_export_list' ) ); ?>'
 			};
 
 			$.post(ajaxurl, data, function(resp) {

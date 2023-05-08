@@ -6,11 +6,11 @@
  * Description: Automatically change order status to complete for all orders or just virtual orders when payment is successful
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.15.0
+ * Version: 1.16.0
  * Text Domain: woocommerce-order-status-control
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-Order-Status-Control
  * @author    SkyVerge
  * @category  Utility
- * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 439037:32400e509c7c36dcc1cd368e8267d981
  * WC requires at least: 3.9.4
- * WC tested up to: 7.1.0
+ * WC tested up to: 7.6.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -46,7 +46,7 @@ class WC_Order_Status_Control_Loader {
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.0';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Order Status Control';
@@ -130,7 +130,6 @@ class WC_Order_Status_Control_Loader {
 	 * @since 1.10.0
 	 */
 	protected function load_framework() {
-
 
 		if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\' . $this->get_framework_version_namespace() . '\\SV_WC_Plugin' ) ) {
 			require_once( plugin_dir_path( __FILE__ ) . 'vendor/skyverge/wc-plugin-framework/woocommerce/class-sv-wc-plugin.php' );

@@ -57,8 +57,8 @@ class FUE_Subscribers_Lists_List_Table extends WP_List_Table {
 		$page       = $this->get_pagenum();
 		$start      = ( $page * $per_page ) - $per_page;
 
-		$sql .= " ORDER BY {$orderby} {$order} LIMIT {$start}, {$per_page}";
-		$result = $wpdb->get_results( $sql );
+		$sql .= " ORDER BY %s %s LIMIT %d, %d";
+		$result = $wpdb->get_results( $wpdb->prepare( $sql, array( $orderby, $order, $start, $per_page ) ) );
 		$total_rows = $wpdb->get_var("SELECT FOUND_ROWS()");
 		$total_pages = ceil( $total_rows / $per_page );
 

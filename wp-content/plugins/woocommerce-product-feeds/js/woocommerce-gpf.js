@@ -2,6 +2,7 @@ function woo_gpf_sync_media_status(json_data) {
     var data               = JSON.parse(json_data);
     var excluded_media_ids = data.excluded_media_ids;
     var primary_media_id   = data.primary_media_id;
+    var lifestyle_media_id = data.lifestyle_media_id;
     jQuery('.woo-gpf-image-source-list-item').each(function (idx, elem) {
         var wrapper       = jQuery(elem);
         var actionWrapper = wrapper.children('.woo-gpf-img-actions-wrapper');
@@ -20,6 +21,11 @@ function woo_gpf_sync_media_status(json_data) {
             wrapper.addClass('woo-gpf-image-source-list-item-primary');
         } else {
             wrapper.removeClass('woo-gpf-image-source-list-item-primary');
+        }
+        if (media_id === lifestyle_media_id) {
+            wrapper.addClass('woo-gpf-image-source-list-item-lifestyle');
+        } else {
+            wrapper.removeClass('woo-gpf-image-source-list-item-lifestyle');
         }
     });
 }
@@ -81,5 +87,8 @@ jQuery(function () {
     });
     jQuery(document).on('click', '.woo-gpf-image-source-set-primary-item', function (e) {
         woo_gpf_handle_media_actions(jQuery(this), 'woo_gpf_set_primary_media', woo_gpf_sync_media_status);
+    });
+    jQuery(document).on('click', '.woo-gpf-image-source-set-lifestyle-item', function (e) {
+        woo_gpf_handle_media_actions(jQuery(this), 'woo_gpf_set_lifestyle_media', woo_gpf_sync_media_status);
     });
 });

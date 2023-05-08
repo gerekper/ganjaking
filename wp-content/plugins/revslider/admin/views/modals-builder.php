@@ -213,6 +213,159 @@ if(!defined('ABSPATH')) exit();
 	</div>
 </div><!-- END OF QUICK GUIDE MODAL -->
 
+<!--QUICK TEMPLATE HELP MODAL-->
+<div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_template_guide" >
+	<div class="rb-modal-inner">
+		<div class="rb-modal-content">
+			<div id="rbm_template_guide" class="rbm_helpguide rb_modal form_inner">
+				<div class="rbm_header"><span class="rbm_title"><?php _e('Template Editing Guide', 'revslider');?></span><i class="rbm_close material-icons">close</i></div>	
+				<div class="rbm_content gm_content">
+
+					<div class="gm_left">
+						<div class="gm_top_left">
+							<div class="gm_tl_title gm_title"><?php _e('Thank You For Installing The', 'revslider');?><br/><span id="gm_tl_title"></span></div>
+							<div class="gm_tl_desc"><?php _e('The guide will teach you how to use all the editor features necessary, to customize the template', 'revslider');?></div>
+							<div class="gm_tl_thumb">
+								<img class="gm_tl_thumb1" src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/guide_temp_thumb.jpg" alt="">
+								<img class="gm_tl_thumb2" src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/guide_temp_thumb.jpg" alt="">
+							</div>
+						</div>
+						<div class="gm_bottom_left">
+							<div class="gm_bl_title gm_title"><?php _e('Tutorial Videos To Watch Now', 'revslider');?></div>
+							<ul class="gm_bl_list">
+								<li><a class="gm_blue_highlight" href="https://www.youtube.com/watch?v=LRNTFu-MFgw" target="_blank"><div class="gm_bl_play"><i class="rbm_symbol material-icons">play_circle</i><div class="gm_playicon_bg"></div></div><span>Rapid Fire Overview</span></a></li>
+								<li><a class="gm_blue_highlight" href="https://www.youtube.com/watch?v=hP4oV8SWgKY" target="_blank"><div class="gm_bl_play"><i class="rbm_symbol material-icons">play_circle</i><div class="gm_playicon_bg"></div></div><span>Responsiveness in Edited Templates</span></a></li>
+								<li><a class="gm_blue_highlight" href="https://www.youtube.com/watch?v=nn3azizwpbs" target="_blank"><div class="gm_bl_play"><i class="rbm_symbol material-icons">play_circle</i><div class="gm_playicon_bg"></div></div><span>Animation Basics</span></a></li>
+							</ul>
+							<div class="gm_bl_links"><a href="https://www.sliderrevolution.com/video-tutorials/?utm_source=admin&utm_medium=button&utm_campaign=editorguide&utm_content=videotutorials" target="_blank"><i class="rbm_symbol material-icons">north_east</i><span><?php _e('View All Tutorial Videos', 'revslider');?></span></a></div>
+						</div>
+					</div>
+					<div class="gm_right">
+						<div class="gm_top_right">
+							<div class="gm_tr_title gm_title"><?php _e('Learn How To Edit This Template', 'revslider');?></div>
+							<div class="gm_tr_list">
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideEditContent">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">edit</i></div>
+									<div class="gm_guide_title"><?php _e('Edit Content', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_content.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideTemplateFeatures">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">settings</i></div>
+									<div class="gm_guide_title"><?php _e('Template Features', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_gen.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideUserInteractions">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">touch_app</i></div>
+									<div class="gm_guide_title"><?php _e('User Interactions', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_inter.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideAnimations">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">play_arrow</i></div>
+									<div class="gm_guide_title"><?php _e('Animations', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_anim.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideOptPublish">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">display_settings</i></div>
+									<div class="gm_guide_title"><?php _e('Optimizing & Publishing', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_opti.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideAddons">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">extension</i></div>
+									<div class="gm_guide_title"><?php _e('AddOns', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_addons.png" alt=""></div>
+								</div>
+
+								<a id="gm_temp_tut" href="#" target="_blank" class="gm_bottom_right gm_blue_highlight">
+									<div class="gm_br_banner"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/guide_temp_banner.jpg" alt=""></div>
+									<div class="gm_br_icon"><i class="rbm_symbol material-icons">chat</i></div>
+									<div class="gm_br_desc">How to Create an Awesome Product Slider with a Built-in Variant Switcher[Tutorial]</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="gm_guide_collection gm_template_collection"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div><!-- END OF TEMPLATE HELP GUIDE MODAL -->
+
+<!--QUICK MODULE HELP MODAL-->
+<div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_module_guide" >
+	<div class="rb-modal-inner">
+		<div class="rb-modal-content">
+			<div id="rbm_module_guide" class="rbm_helpguide rb_modal form_inner">
+				<div class="rbm_header"><span class="rbm_title"><?php _e('Module Editing Guide', 'revslider');?></span><i class="rbm_close material-icons">close</i></div>	
+				<div class="rbm_content gm_content">
+					<div class="gm_left">
+						<div class="gm_top_left">
+							<div class="gm_tl_title gm_title"><?php _e('Welcome To The Slider Revolution Visual Editor', 'revslider');?></div>
+							<div class="gm_tl_desc"><?php _e('The guide will teach you the basics of using the editor to build a new module from scratch.', 'revslider');?></div>
+							<div class="gm_tl_thumb">
+								<img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/guide_mod_thumb.png" alt="">
+							</div>
+						</div>
+						<div class="gm_bottom_left">
+							<div class="gm_bl_title gm_title"><?php _e('Tutorial Videos To Watch Now', 'revslider');?></div>
+							<ul class="gm_bl_list">
+								<li><a class="gm_blue_highlight" href="https://www.youtube.com/watch?v=LRNTFu-MFgw" target="_blank"><div class="gm_bl_play"><i class="rbm_symbol material-icons">play_circle</i><div class="gm_playicon_bg"></div></div><span>Rapid Fire Overview</span></a></li>
+								<li><a class="gm_blue_highlight" href="https://www.youtube.com/watch?v=U4gRsALKdzo" target="_blank"><div class="gm_bl_play"><i class="rbm_symbol material-icons">play_circle</i><div class="gm_playicon_bg"></div></div><span>Creating Modules</span></a></li>
+								<li><a class="gm_blue_highlight" href="https://www.youtube.com/watch?v=kUgZAYRlJrA" target="_blank"><div class="gm_bl_play"><i class="rbm_symbol material-icons">play_circle</i><div class="gm_playicon_bg"></div></div><span>Module Editor, Slides & Layers</span></a></li>
+							</ul>
+							<div class="gm_bl_links"><a href="https://www.sliderrevolution.com/video-tutorials/?utm_source=admin&utm_medium=button&utm_campaign=editorguide&utm_content=videotutorials" target="_blank"><i class="rbm_symbol material-icons">north_east</i><span><?php _e('View All Tutorial Videos', 'revslider');?></span></a></div>
+						</div>
+					</div>
+					<div class="gm_right">
+						<div class="gm_top_right">
+							<div class="gm_tr_title gm_title"><?php _e('What Would You Like To Learn About?', 'revslider');?></div>
+							<div class="gm_tr_list">
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideModuleAddingContent">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">edit</i></div>
+									<div class="gm_guide_title"><?php _e('Adding Content', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_content.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideModuleGeneralOptions">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">settings</i></div>
+									<div class="gm_guide_title"><?php _e('Module General Options', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_gen.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideModuleUserInteractions">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">touch_app</i></div>
+									<div class="gm_guide_title"><?php _e('User Interactions', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_inter.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideModuleAnimations">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">play_arrow</i></div>
+									<div class="gm_guide_title"><?php _e('Animations', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_anim.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideModuleOptiPublish">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">display_settings</i></div>
+									<div class="gm_guide_title"><?php _e('Optimizing & Publishing', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_opti.png" alt=""></div>
+								</div>
+								<div class="gm_blue_highlight gm_guide_tile" data-guide="guideModuleAddons">
+									<div class="gm_guide_icon"><i class="rbm_symbol material-icons">extension</i></div>
+									<div class="gm_guide_title"><?php _e('AddOns', 'revslider');?></div>
+									<div class="gm_guide_thumb"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/mod_addons.png" alt=""></div>
+								</div>
+
+								<div id="gm_load_tmplib" class="gm_bottom_right gm_blue_highlight">
+									<div class="gm_br_banner gm_temp_banner"><img src="<?php echo RS_PLUGIN_URL;?>admin/assets/images/guide/guide_mod_banner.png" alt=""></div>
+									<div class="gm_br_icon"><i class="rbm_symbol material-icons">download</i></div> 
+									<div class="gm_br_desc">Load A Template From The Library</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="gm_guide_collection gm_module_collection"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div><!-- END OF MODULE HELP GUIDE MODAL -->
 
 <!--LAYER IMPORT/EXPORT MODAL-->
 <div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_layerimport">

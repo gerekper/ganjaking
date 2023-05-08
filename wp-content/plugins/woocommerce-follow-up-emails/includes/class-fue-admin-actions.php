@@ -162,6 +162,9 @@ class FUE_Admin_Actions {
 		header( 'Content-Disposition:attachment;filename=email_list.csv' );
 		header( 'Pragma: no-cache' );
 
+		// SEMGREP WARNING EXPLANATION
+		// The request is protected by a nonce (see check_ajax_referer) and
+		// the $id parameter is connected to the system temp dir. So, this is protected.
 		readfile( $file );
 		exit;
 	}
@@ -542,6 +545,7 @@ class FUE_Admin_Actions {
 		} elseif ( ! empty( $post['button_restore'] ) && 'Apply' === $post['button_restore'] ) {
 			$emails    = $post['email'];
 			$email_ids = '';
+			$restored = 0;
 
 			if ( is_array( $emails ) && ! empty( $emails ) ) {
 				$emails = array_map( 'sanitize_email', $emails );
@@ -549,10 +553,13 @@ class FUE_Admin_Actions {
 			}
 
 			if ( ! empty( $email_ids ) ) {
-				$wpdb->query( "DELETE FROM {$wpdb->prefix}followup_email_excludes WHERE id IN($email_ids)" );
+				$restored = $wpdb->query( "DELETE FROM {$wpdb->prefix}followup_email_excludes WHERE id IN($email_ids)" );
+				if ( ! $restored ) {
+					$restored = 0;
+				}
 			}
 
-			wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs&opt-out-restored=' . count( $emails ) );
+			wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs&opt-out-restored=' . $restored );
 			exit;
 		}
 
@@ -592,6 +599,7 @@ class FUE_Admin_Actions {
 		if ( ! empty( $_REQUEST['page'] ) && 'followup-emails-subscribers' === $_REQUEST['page'] ) {
 			$action  = ! empty( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';
 			$action2 = ! empty( $_REQUEST['action2'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) ) : '';
+			$restored = 0;
 
 			if ( ! empty( $_REQUEST['email'] ) && ( 'restore' === $action || 'restore' === $action2 ) ) {
 				if ( ! current_user_can( 'manage_follow_up_emails' ) || ! check_admin_referer( 'bulk-emails' ) ) {
@@ -605,10 +613,13 @@ class FUE_Admin_Actions {
 				}
 
 				if ( ! empty( $email_ids ) ) {
-					$wpdb->query( "DELETE FROM {$wpdb->prefix}followup_email_excludes WHERE id IN($email_ids)" );
+					$restored = $wpdb->query( "DELETE FROM {$wpdb->prefix}followup_email_excludes WHERE id IN($email_ids)" );
+					if ( ! $restored ) {
+						$restored = 0;
+					}
 				}
 
-				wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs&opt-out-restored=' . count( $email_ids ) );
+				wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs&opt-out-restored=' . $restored );
 				exit;
 			}
 		}

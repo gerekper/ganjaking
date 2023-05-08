@@ -22,6 +22,7 @@ class WC_AM_User {
 	private $master_api_key_meta_key     = 'wc_am_master_api_key';
 	private $master_api_key_status       = 'wc_am_master_api_key_status';
 	private $hide_product_order_api_keys = false;
+	private $hide_master_api_key         = false;
 
 	/**
 	 * @var null
@@ -43,6 +44,7 @@ class WC_AM_User {
 
 	private function __construct() {
 		$this->hide_product_order_api_keys = get_option( 'woocommerce_api_manager_hide_product_order_api_keys' );
+		$this->hide_master_api_key         = get_option( 'woocommerce_api_manager_hide_master_key' );
 
 		// Create Master API Keys and status when user created.
 		add_action( 'user_register', array( $this, 'set_registration_master_key_and_status' ), 10, 1 );
@@ -379,34 +381,34 @@ class WC_AM_User {
 
 		if ( current_user_can( 'edit_user', $user->ID ) ) {
 			?>
-            <table class="form-table">
-                <tbody>
-                <tr>
-                    <th><label for="software_store_keys"><?php esc_html_e( 'API Manager API Key', 'woocommerce-api-manager' ); ?></label></th>
-                    <td>
+			<table class="form-table">
+				<tbody>
+				<tr>
+					<th><label for="software_store_keys"><?php esc_html_e( 'API Manager API Key', 'woocommerce-api-manager' ); ?></label></th>
+					<td>
 						<?php if ( empty( $user->wc_am_master_api_key ) ) : ?>
-                            <input name="generate_master_api_key" type="checkbox"
-                                   id="generate_master_api_key" value="0"/>
-                            <span
-                                    class="description"><?php esc_html_e( 'Generate Master API Key', 'woocommerce-api-manager' ); ?></span>
+							<input name="generate_master_api_key" type="checkbox"
+							       id="generate_master_api_key" value="0"/>
+							<span
+								class="description"><?php esc_html_e( 'Generate Master API Key', 'woocommerce-api-manager' ); ?></span>
 						<?php else : ?>
-                            <strong><?php esc_html_e( 'Master API Key:', 'woocommerce-api-manager' ); ?>&nbsp;</strong><code
-                                    id="wc_am_master_api_key"><?php echo esc_attr( $user->wc_am_master_api_key ) ?></code>
-                            <br>
-                            <input name="replace_master_api_key" type="checkbox"
-                                   id="replace_master_api_key" value="0"/>
-                            <span
-                                    class="description"><?php esc_html_e( 'Replace Master API Key', 'woocommerce-api-manager' ); ?></span>
-                            <br>
-                            <input name="wc_am_master_api_key_status" type="checkbox"
-                                   id="wc_am_master_api_key_status" <?php checked( isset( $user->wc_am_master_api_key_status ) ? $user->wc_am_master_api_key_status : '', 'disabled' ); ?> />
-                            <span
-                                    class="description"><?php esc_html_e( 'Disable Master API Key', 'woocommerce-api-manager' ); ?></span>
+							<strong><?php esc_html_e( 'Master API Key:', 'woocommerce-api-manager' ); ?>&nbsp;</strong><code
+								id="wc_am_master_api_key"><?php echo esc_attr( $user->wc_am_master_api_key ) ?></code>
+							<br>
+							<input name="replace_master_api_key" type="checkbox"
+							       id="replace_master_api_key" value="0"/>
+							<span
+								class="description"><?php esc_html_e( 'Replace Master API Key', 'woocommerce-api-manager' ); ?></span>
+							<br>
+							<input name="wc_am_master_api_key_status" type="checkbox"
+							       id="wc_am_master_api_key_status" <?php checked( isset( $user->wc_am_master_api_key_status ) ? $user->wc_am_master_api_key_status : '', 'disabled' ); ?> />
+							<span
+								class="description"><?php esc_html_e( 'Disable Master API Key', 'woocommerce-api-manager' ); ?></span>
 						<?php endif; ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+					</td>
+				</tr>
+				</tbody>
+			</table>
 			<?php
 		}
 	}
@@ -450,6 +452,17 @@ class WC_AM_User {
 	 */
 	public function hide_product_order_api_keys() {
 		return $this->hide_product_order_api_keys == 'yes';
+	}
+
+	/**
+	 * Returns true if the Master API Key should be hidden from the user.
+	 *
+	 * @since 2.6.14
+	 *
+	 * @return bool
+	 */
+	public function hide_master_api_key() {
+		return $this->hide_master_api_key == 'yes';
 	}
 
 }

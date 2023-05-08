@@ -42,6 +42,20 @@ if ( WCAM()->is_request( 'admin' ) ) {
 
 	WC_AM_ADMIN_SYSTEM_STATUS();
 
+
+	/**
+	 * Returns the WC_AM_Debug_Tools class object
+	 *
+	 * @since 2.6.11
+	 *
+	 * @return \WC_AM_Admin_System_Status
+	 */
+	function WC_AM_DEBUG_TOOLS() {
+		return new WC_AM_Debug_Tools();
+	}
+
+	WC_AM_DEBUG_TOOLS();
+
 	/**
 	 * Returns the WC_AM_Install class object
 	 *

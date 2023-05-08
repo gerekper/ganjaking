@@ -174,6 +174,8 @@ class FUE_Email {
 	 * @return string
 	 */
 	public function get_preview_url() {
+		// SEMGREP WARNING EXPLANATION:
+		// This is escaped later in the class_fue_meta_boxes
 		$url = add_query_arg( array(
 			'fue-preview'   => 1,
 			'email'         => $this->id,
@@ -388,7 +390,28 @@ class FUE_Email {
 			$contents = str_replace( '{section:' . $section . '}', '', $contents );
 		}
 
-		return apply_filters( 'fue_email_apply_template', $contents, $this );
+		$contents = apply_filters( 'fue_email_apply_template', $contents, $this );
+
+		return $this->clean_email_data( $contents );
+	}
+
+	/**
+	 * Clean the email content.
+	 * - Removes Scripts from inside the emails.
+	 *
+	 * @param string $data The email contents
+	 * @return false|string The leaned email.
+	 */
+	private function clean_email_data( $data ) {
+		$doc = new DOMDocument();
+		$doc->loadHTML( $data );
+		$script_tags = $doc->getElementsByTagName('script');
+
+		for ($i = 0; $i < $script_tags->length; $i++) {
+			$script_tags->item($i)->parentNode->removeChild($script_tags->item($i));
+		}
+
+		return $doc->saveHTML();
 	}
 
 	/**

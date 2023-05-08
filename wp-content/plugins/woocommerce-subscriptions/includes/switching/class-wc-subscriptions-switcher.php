@@ -188,11 +188,11 @@ class WC_Subscriptions_Switcher {
 		// If the current user doesn't own the subscription, remove the query arg from the URL
 		if ( isset( $_GET['switch-subscription'] ) && isset( $_GET['item'] ) ) {
 
-			$subscription = wcs_get_subscription( $_GET['switch-subscription'] );
-			$line_item    = wcs_get_order_item( $_GET['item'], $subscription );
+			$subscription = wcs_get_subscription( absint( $_GET['switch-subscription'] ) );
+			$line_item    = wcs_get_order_item( absint( $_GET['item'] ), $subscription );
 
 			// Visiting a switch link for someone elses subscription or if the switch link doesn't contain a valid nonce
-			if ( ! is_object( $subscription ) || empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( $_GET['_wcsnonce'], 'wcs_switch_request' ) || empty( $line_item ) || ! self::can_item_be_switched_by_user( $line_item, $subscription ) ) {
+			if ( ! is_object( $subscription ) || empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wcsnonce'] ) ), 'wcs_switch_request' ) || empty( $line_item ) || ! self::can_item_be_switched_by_user( $line_item, $subscription ) ) {
 
 				wp_redirect( remove_query_arg( array( 'switch-subscription', 'auto-switch', 'item', '_wcsnonce' ) ) );
 				exit();
@@ -334,7 +334,7 @@ class WC_Subscriptions_Switcher {
 	public static function add_switch_query_arg_grouped( $permalink ) {
 
 		if ( isset( $_GET['switch-subscription'] ) ) {
-			$permalink = self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $permalink );
+			$permalink = self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $permalink );
 		}
 
 		return $permalink;
@@ -359,7 +359,7 @@ class WC_Subscriptions_Switcher {
 		switch ( $type ) {
 			case 'variable-subscription':
 			case 'subscription':
-				return self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $permalink );
+				return self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $permalink );
 
 			case 'grouped':
 				// Check to see if the group contains a subscription.
@@ -367,7 +367,7 @@ class WC_Subscriptions_Switcher {
 				foreach ( $children as $child ) {
 					$child_product = wc_get_product( $child );
 					if ( 'subscription' === wcs_get_objects_property( $child_product, 'type' ) ) {
-						return self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $permalink );
+						return self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $permalink );
 					}
 				}
 
@@ -527,7 +527,7 @@ class WC_Subscriptions_Switcher {
 
 						echo '<label>';
 						echo sprintf( '<input%s type="checkbox" name="%s" value="1"/> %s', checked( $value, 'yes', false ), esc_attr( $name ), esc_html( $label ) );
-						echo isset( $option['desc_tip'] ) ? wcs_help_tip( $option['desc_tip'], true ) : '';
+						echo isset( $option['desc_tip'] ) ? wc_help_tip( $option['desc_tip'], true ) : '';
 						echo '</label>';
 					}
 					?>
@@ -1348,11 +1348,11 @@ class WC_Subscriptions_Switcher {
 				return $is_valid;
 			}
 
-			if ( empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( $_GET['_wcsnonce'], 'wcs_switch_request' ) ) {
+			if ( empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wcsnonce'] ) ), 'wcs_switch_request' ) ) {
 				return false;
 			}
 
-			$subscription = wcs_get_subscription( $_GET['switch-subscription'] );
+			$subscription = wcs_get_subscription( absint( $_GET['switch-subscription'] ) );
 			$item_id      = absint( $_GET['item'] );
 			$item         = wcs_get_order_item( $item_id, $subscription );
 
@@ -1429,7 +1429,7 @@ class WC_Subscriptions_Switcher {
 				return $cart_item_data;
 			}
 
-			$subscription = wcs_get_subscription( $_GET['switch-subscription'] );
+			$subscription = wcs_get_subscription( absint( $_GET['switch-subscription'] ) );
 
 			// Requesting a switch for someone elses subscription
 			if ( ! current_user_can( 'switch_shop_subscription', $subscription->get_id() ) ) {
@@ -1726,7 +1726,7 @@ class WC_Subscriptions_Switcher {
 	public static function addons_add_to_cart_url( $add_to_cart_url ) {
 
 		if ( isset( $_GET['switch-subscription'] ) && false === strpos( $add_to_cart_url, 'switch-subscription' ) ) {
-			$add_to_cart_url = self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $add_to_cart_url );
+			$add_to_cart_url = self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $add_to_cart_url );
 		}
 
 		return $add_to_cart_url;

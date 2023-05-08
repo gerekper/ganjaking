@@ -71,6 +71,7 @@ class WC_AM_Admin_System_Status {
 
 		$this->set_api_manager_download_url_expires( $wc_api_manager_data );
 		$this->set_api_manager_hide_product_order_api_keys( $wc_api_manager_data );
+		$this->set_api_manager_hide_masterapi_key( $wc_api_manager_data );
 		$this->set_api_manager_grace_period( $wc_api_manager_data );
 
 		$this->set_api_manager_api_key_activations( $wc_api_manager_data );
@@ -330,6 +331,24 @@ class WC_AM_Admin_System_Status {
 	}
 
 	/**
+	 * Hide Master API Key?
+	 *
+	 * @since 2.6.14
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_hide_masterapi_key( &$debug_data ) {
+		$hide_key = get_option( 'woocommerce_api_manager_hide_master_key' ) === 'yes';
+
+		$debug_data[ 'wc_api_manager_hide_master_key' ] = array(
+			'name'    => _x( 'Hide Master API Key?', 'Hide Master Key, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'   => 'Hide Master API Key?',
+			'note'    => $hide_key ? esc_attr__( 'Yes', 'woocommerce-api-manager' ) : esc_attr__( 'No', 'woocommerce-api-manager' ),
+			'success' => $hide_key ? 0 : 1,
+		);
+	}
+
+	/**
 	 * Secure Download URL Hashes Count.
 	 *
 	 * @since 2.6.1
@@ -492,7 +511,7 @@ class WC_AM_Admin_System_Status {
 	 * @param $debug_data
 	 */
 	private function set_api_manager_next_api_resource_cleanup_scheduled( &$debug_data ) {
-		$next_cleanup = wp_next_scheduled( 'wc_am_weekly_event' );
+		$next_cleanup = WC_AM_BACKGROUND_EVENTS()->get_next_scheduled_cleanup();
 
 		$debug_data[ 'wc_api_manager_next_api_resource_cleanup_scheduled' ] = array(
 			'name'      => _x( 'Next API Resources Cleanup Scheduled', 'Next Resources Cleanup Scheduled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),

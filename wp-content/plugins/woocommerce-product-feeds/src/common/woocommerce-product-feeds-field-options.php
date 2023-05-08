@@ -14,6 +14,21 @@ class WoocommerceProductFeedsFieldOptions {
 		];
 	}
 
+	public static function pause_options() {
+		return [
+			'ads' => _x(
+				'[Ads] Pause for all ad locations (including Shopping Ads, Display Ads, and local inventory ads)',
+				'Option for "pause" field',
+				'woocommerce_gpf'
+			),
+			'all' => _x(
+				'[All] Pause for all Shopping locations (including Shopping Ads, Display Ads, local inventory ads, Buy on Google, and free listings).',
+				'Option for "pause" field',
+				'woocommerce_gpf'
+			),
+		];
+	}
+
 	public static function age_group_options() {
 		return [
 			'newborn' => _x( 'Newborn', 'Option for "age group" field', 'woocommerce_gpf' ),

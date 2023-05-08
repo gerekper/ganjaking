@@ -443,5 +443,4 @@ class WC_AM_Format {
 	public function strcmp( $str1, $str2 ) {
 		return ! is_null( $str1 ) && ! is_null( $str2 ) && strcmp( $str1, $str2 ) !== 0;
 	}
-
 }

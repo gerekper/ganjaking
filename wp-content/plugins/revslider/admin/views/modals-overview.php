@@ -183,6 +183,8 @@ if(!defined('ABSPATH')) exit();
 						<hr class="general_hr">						
 						<label_a><?php _e('Fix RevSlider table issues', 'revslider');?></label_a><div id="rs_db_force_create" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Force RS DB Creation', 'revslider');?></div>						
 						<label_a><?php _e('Editor high contrast mode', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput callEvent" data-evt="highContrast" data-r="globals.highContrast"><span class="linebreak"></span>
+						<label_a><?php _e('Template Editing Guide', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-evt="highContrast" data-r="globals.templateGuide"><span class="linebreak"></span>
+						<label_a><?php _e('Module Creation Guide', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-evt="highContrast" data-r="globals.moduleGuide"><span class="linebreak"></span>
 
 						
 						

@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 /**
  * WC_Help_Scout_My_Account.
  *
@@ -485,7 +487,12 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 	 * @param int $order_get_id Order ID.
 	 */
 	public function update_profile_fields_helpscout_after_new_order( $order_get_id ) {
-		$user_id = get_post_meta( $order_get_id, '_customer_user', true );
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$order = wc_get_order($order_get_id);
+			$user_id = $order->get_customer_id();
+		} else {
+			$user_id = get_post_meta( $order_get_id, '_customer_user', true );
+		}
 		$this->update_profile_fields_helpscout( $user_id );
 	}
 

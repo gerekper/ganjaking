@@ -1,5 +1,23 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-05-04 - version 2.6.14
+* New: Added the option to Hide the Master API Key on WooCommerce > Settings > API Manager.
+* Update: Updated templates/emails/plain/api-keys-order-complete.php.
+* Update: Updated templates/emails/api-keys-order-complete.php.
+* Update: Updated templates/myaccount/api-keys.php.
+
+2023-05-03 - version 2.6.13
+* Tweak: Update default WooCommerce > Settings > API Manager > "Schedule API Resource Cleanup" value.
+
+2023-05-03 - version 2.6.12
+* New: Added API Resources Cleanup tool to WooCommerce > Status > Tools, to allow API Resources Cleanup to be run manually.
+* New: Added "Schedule API Resource Cleanup" section on WooCommerce > Settings > API Manager to turn on or off the automated API Resources Cleanup process.
+
+2023-05-02 - version 2.6.11
+* Fix: Edge case logic error when testing if API Resource has expired that has zero as the timestamp.
+* Fix: API endpoint response "No API Resources exist..." message URL so it displays properly.
+* New: Added API Resources Repair tool to WooCommerce > Status > Tools, to allow missing API Resources to be rebuilt all at once.
+
 2023-05-01 - version 2.6.10
 * New: Added the next scheduled cleanup cron date to status page.
 

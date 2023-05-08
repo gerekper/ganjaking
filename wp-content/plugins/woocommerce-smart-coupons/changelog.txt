@@ -1,5 +1,10 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.05.05 - version 7.9.0
+* Fix: Data under the coupon field 'Actions > Display message' is broken when saved
+* Fix: Replaced use of function 'WC_Product::get_parent' with 'WC_Product::get_parent_id'
+* Update: POT file
+
 2023.04.28 - version 7.8.0
 * New: Tested up to WooCommerce 7.6.1
 * New: Under coupon meta field 'Usage restriction > Locations', load States defined by WooCommerce for selection

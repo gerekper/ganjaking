@@ -37,10 +37,6 @@ class FUE_API_Authentication {
 
 		$params = Follow_Up_Emails::instance()->api->server->params['GET'];
 
-		if ( defined('FUE_DEBUG') && FUE_DEBUG ) {
-			return new WP_User(1);
-		}
-
 		// allow access to the index by default unless an `auth` parameter is passed
 		if ( '/' === Follow_Up_Emails::instance()->api->server->path && empty( $params['auth'] ) ) {
 			return new WP_User(0);
@@ -56,7 +52,6 @@ class FUE_API_Authentication {
 			$this->check_api_key_permissions( $user );
 
 		} catch ( Exception $e ) {
-
 			$user = new WP_Error( 'fue_api_authentication_error', $e->getMessage(), array( 'status' => $e->getCode() ) );
 		}
 

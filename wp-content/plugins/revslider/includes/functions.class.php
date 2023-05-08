@@ -340,6 +340,37 @@ class RevSliderFunctions extends RevSliderData {
 		
 		return $url;
 	}
+
+
+	/**
+	 * gets a temporary path where files can be stored
+	 **/
+	public function get_temp_path($path = 'rstemp'){
+		if(function_exists('sys_get_temp_dir')){
+			$temp = sys_get_temp_dir();
+			if(@is_dir($temp) && wp_is_writable($temp)){
+				return trailingslashit($temp);
+			}
+		}
+	
+		$temp = ini_get('upload_tmp_dir');
+		if(@is_dir($temp) && wp_is_writable($temp)){
+			return trailingslashit($temp);
+		}
+
+		$temp_dir	= get_temp_dir();
+		if(wp_is_writable($temp_dir)){
+			$dir		= $temp_dir;
+		}else{
+			$upload_dir = wp_upload_dir();
+			$dir		= $upload_dir['basedir'].'/'.$path.'/';
+			if(!is_dir($dir)){
+				mkdir($dir, 0777, true);
+			}
+		}
+
+		return $dir;
+	}
 	
 	
 	/**
@@ -690,8 +721,7 @@ class RevSliderFunctions extends RevSliderData {
 	public function import_media_raw($name, $id, $bitmap){
 		if(intval($id) === 0) return __('Invalid id given', 'revslider');
 		
-		$ul_dir	 = wp_upload_dir();
-		$path = $ul_dir['basedir'].'/rstemp/';
+		$path = $this->get_temp_path('rstemp');
 		
 		if(preg_match('/^data:image\/(\w+);base64,/', $bitmap, $type)){
 			$data = substr($bitmap, strpos($bitmap, ',') + 1);
@@ -718,9 +748,6 @@ class RevSliderFunctions extends RevSliderData {
 			return __('Image has invalid data', 'revslider');
 		}
 		
-		if(!is_dir($path)){
-			mkdir($path, 0777, true);
-		}
 		$return = file_put_contents($path.$name, $data);
 		if($return === false) return __('Image could not be saved', 'revslider');
 
@@ -752,6 +779,11 @@ class RevSliderFunctions extends RevSliderData {
 		$_s_dir = false;
 		
 		if(@fclose(@fopen($file_url, 'r'))){ //make sure the file actually exists
+			$path_info = pathinfo($file_url);
+			if(!isset($path_info['extension'])) return $return;
+			$pi = strtolower($path_info['extension']);
+			if(in_array($pi, $this->bad_extensions)) return $return;
+
 			$save_dir	= $ul_dir['basedir'].'/'.$s_dir;
 			$_atc_id	= $this->get_image_id_by_url($s_dir);
 			$atc_id		= ($_atc_id === false || $_atc_id === NULL) ? $this->get_image_id_by_basename($filename) : $_atc_id;

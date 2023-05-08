@@ -75,6 +75,7 @@ class WoocommerceGpfCommon {
 					'skip_on_category_pages' => true,
 					'callback'               => 'render_title',
 					'google_len'             => 150,
+					'ui_group'               => 'common',
 				],
 				'description'                         => [
 					'desc'                   => __( 'Product description', 'woocommerce_gpf' ),
@@ -85,6 +86,7 @@ class WoocommerceGpfCommon {
 					'mandatory'              => true,
 					'skip_on_product_pages'  => true,
 					'skip_on_category_pages' => true,
+					'ui_group'               => 'common',
 				],
 				'availability_instock'                => [
 					'desc'             => __( 'Availability (in stock products)', 'woocommerce_gpf' ),
@@ -94,6 +96,7 @@ class WoocommerceGpfCommon {
 					'mandatory'        => true,
 					'feed_types'       => [ 'google', 'googleinventory', 'googlelocalproductinventory', 'bing' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
+					'ui_group'         => 'common',
 				],
 				'availability_backorder'              => [
 					'desc'             => __( 'Availability (backordered products)', 'woocommerce_gpf' ),
@@ -103,6 +106,7 @@ class WoocommerceGpfCommon {
 					'mandatory'        => true,
 					'feed_types'       => [ 'google', 'googleinventory', 'googlelocalproductinventory', 'bing' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
+					'ui_group'         => 'common',
 				],
 				'availability_outofstock'             => [
 					'desc'             => __( 'Availability (out of stock products)', 'woocommerce_gpf' ),
@@ -112,6 +116,7 @@ class WoocommerceGpfCommon {
 					'mandatory'        => true,
 					'feed_types'       => [ 'google', 'googleinventory', 'googlelocalproductinventory', 'bing' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
+					'ui_group'         => 'common',
 				],
 				'is_bundle'                           => [
 					'desc'             => __( 'Bundle indicator (is_bundle)', 'woocommerce_gpf' ),
@@ -119,12 +124,14 @@ class WoocommerceGpfCommon {
 					'callback'         => 'render_is_bundle',
 					'feed_types'       => [ 'google' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::is_bundle_options',
+					'ui_group'         => 'advanced',
 				],
 				'availability_date'                   => [
 					'desc'       => __( 'Availability date', 'woocommerce_gpf' ),
 					'full_desc'  => __( 'If you are accepting orders for products that are available for preorder or are on backorder, use this attribute to indicate when the product becomes available for delivery.', 'woocommerce_gpf' ),
 					'callback'   => 'render_availability_date',
 					'feed_types' => [ 'google' ],
+					'ui_group'   => 'advanced',
 				],
 				'condition'                           => [
 					'desc'             => __( 'Condition', 'woocommerce_gpf' ),
@@ -133,6 +140,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'feed_types'       => [ 'google', 'googlelocalproducts', 'bing' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::condition_options',
+					'ui_group'         => 'common',
 				],
 				'brand'                               => [
 					'desc'            => __( 'Brand', 'woocommerce_gpf' ),
@@ -142,6 +150,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'googlelocalproducts', 'bing' ],
 					'google_len'      => 70,
 					'max_values'      => 1,
+					'ui_group'        => 'common',
 				],
 				'mpn'                                 => [
 					'desc'            => __( 'Manufacturer Part Number (MPN)', 'woocommerce_gpf' ),
@@ -150,6 +159,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate' => true,
 					'google_len'      => 70,
 					'max_values'      => 1,
+					'ui_group'        => 'common',
 				],
 				'product_type'                        => [
 					'desc'            => __( 'Product Type', 'woocommerce_gpf' ),
@@ -160,6 +170,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 750,
 					'max_values'      => 5,
+					'ui_group'        => 'common',
 				],
 				'google_product_category'             => [
 					'desc'        => __( 'Google Product Category', 'woocommerce_gpf' ),
@@ -168,6 +179,7 @@ class WoocommerceGpfCommon {
 					'can_default' => true,
 					'feed_types'  => [ 'google', 'googlelocalproducts' ],
 					'google_len'  => 750,
+					'ui_group'    => 'common',
 				],
 				'tax_category'                        => [
 					'desc'            => __( 'Tax Category (US stores only)', 'woocommerce_gpf' ),
@@ -176,6 +188,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
+					'ui_group'        => 'advanced',
 				],
 				'gtin'                                => [
 					'desc'            => __( 'Global Trade Item Number (GTIN)', 'woocommerce_gpf' ),
@@ -184,6 +197,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate' => true,
 					'google_len'      => 50,
 					'multiple'        => true,
+					'ui_group'        => 'common',
 				],
 				'short_title'                         => [
 					'desc'                   => __( 'Short title', 'woocommerce_gpf' ),
@@ -193,6 +207,7 @@ class WoocommerceGpfCommon {
 					'skip_on_category_pages' => true,
 					'google_len'             => 150,
 					'max_values'             => 1,
+					'ui_group'               => 'common',
 				],
 				'gender'                              => [
 					'desc'             => __( 'Gender', 'woocommerce_gpf' ),
@@ -201,6 +216,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'feed_types'       => [ 'google', 'googlelocalproducts' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::gender_options',
+					'ui_group'         => 'advanced',
 				],
 				'age_group'                           => [
 					'desc'             => __( 'Age Group', 'woocommerce_gpf' ),
@@ -209,6 +225,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'feed_types'       => [ 'google', 'googlelocalproducts' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::age_group_options',
+					'ui_group'         => 'advanced',
 				],
 				'color'                               => [
 					'desc'                 => __( 'Colour', 'woocommerce_gpf' ),
@@ -217,6 +234,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'      => true,
 					'google_len'           => 100,
 					'google_single_output' => ' / ',
+					'ui_group'             => 'common',
 				],
 				'size'                                => [
 					'desc'            => __( 'Size', 'woocommerce_gpf' ),
@@ -224,6 +242,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'googlelocalproducts' ],
 					'can_prepopulate' => true,
 					'google_len'      => 100,
+					'ui_group'        => 'common',
 				],
 				'size_type'                           => [
 					'desc'             => __( 'Size type', 'woocommerce_gpf' ),
@@ -232,6 +251,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'callback'         => 'render_generic_select',
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::size_type_options',
+					'ui_group'         => 'common',
 				],
 				'size_system'                         => [
 					'desc'             => __( 'Size system', 'woocommerce_gpf' ),
@@ -240,6 +260,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'callback'         => 'render_generic_select',
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::size_system_options',
+					'ui_group'         => 'common',
 				],
 				'unit_pricing_measure'                => [
 					'desc'            => __( 'Unit pricing measure', 'woocommerce_gpf' ),
@@ -248,6 +269,7 @@ class WoocommerceGpfCommon {
 					'can_default'     => true,
 					'can_prepopulate' => true,
 					'callback'        => 'render_textfield',
+					'ui_group'        => 'advanced',
 				],
 				'unit_pricing_base_measure'           => [
 					'desc'            => __( 'Unit pricing base measure', 'woocommerce_gpf' ),
@@ -256,6 +278,7 @@ class WoocommerceGpfCommon {
 					'can_default'     => true,
 					'can_prepopulate' => true,
 					'callback'        => 'render_textfield',
+					'ui_group'        => 'advanced',
 				],
 				'multipack'                           => [
 					'desc'            => __( 'Multipack', 'woocommerce_gpf' ),
@@ -264,6 +287,7 @@ class WoocommerceGpfCommon {
 					'can_default'     => true,
 					'can_prepopulate' => true,
 					'callback'        => 'render_textfield',
+					'ui_group'        => 'advanced',
 				],
 				'installment'                         => [
 					'desc'              => __( 'Instalment', 'woocommerce_gpf' ),
@@ -272,6 +296,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'   => false,
 					'callback'          => 'render_installment',
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'material'                            => [
 					'desc'                 => __( 'Material', 'woocommerce_gpf' ),
@@ -280,6 +305,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'      => true,
 					'google_len'           => 200,
 					'google_single_output' => ' / ',
+					'ui_group'             => 'advanced',
 				],
 				'pattern'                             => [
 					'desc'            => __( 'Pattern', 'woocommerce_gpf' ),
@@ -287,6 +313,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'can_prepopulate' => true,
 					'google_len'      => 100,
+					'ui_group'        => 'advanced',
 				],
 				'adult'                               => [
 					'desc'             => __( 'Adult content', 'woocommerce_gpf' ),
@@ -295,6 +322,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'feed_types'       => [ 'google' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::adult_options',
+					'ui_group'         => 'advanced',
 				],
 				'identifier_exists'                   => [
 					'desc'              => __( 'Identifier exists flag', 'woocommerce_gpf' ),
@@ -303,12 +331,14 @@ class WoocommerceGpfCommon {
 					'can_default'       => true,
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'adwords_grouping'                    => [
 					'desc'        => __( 'Adwords grouping filter', 'woocommerce_gpf' ),
 					'full_desc'   => __( 'Used to group products in an arbitrary way. It can be used for Product Filters to limit a campaign to a group of products or Product Targets, to bid differently for a group of products. This is a required field if the advertiser wants to bid differently to different sub-sets of products in the CPC or CPA % version. It can only hold one value.', 'woocommerce_gpf' ),
 					'can_default' => true,
 					'feed_types'  => [ 'google' ],
+					'ui_group'    => 'advanced',
 				],
 				'adwords_labels'                      => [
 					'desc'            => __( 'Adwords labels', 'woocommerce_gpf' ),
@@ -317,6 +347,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'google' ],
 					'multiple'        => true,
+					'ui_group'        => 'advanced',
 				],
 				'bing_category'                       => [
 					'desc'            => __( 'Bing Category', 'woocommerce_gpf' ),
@@ -325,6 +356,7 @@ class WoocommerceGpfCommon {
 					'can_default'     => true,
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'bing' ],
+					'ui_group'        => 'advanced',
 				],
 				'delivery_label'                      => [
 					'desc'            => __( 'Delivery label', 'woocommerce_gpf' ),
@@ -334,6 +366,27 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
+					'ui_group'        => 'common',
+				],
+				'disclosure_date'                     => [
+					'desc'            => __( 'Disclosure date', 'woocommerce_gpf' ),
+					'full_desc'       => __( 'Use the disclosure date attribute to tell Google when a product should become visible in search results across Google’s YouTube surfaces only.', 'woocommerce_gpf' ),
+					'can_default'     => true,
+					'can_prepopulate' => false,
+					'callback'        => 'render_textfield',
+					'feed_types'      => [ 'google' ],
+					'google_len'      => 25,
+					'ui_group'        => 'advanced',
+				],
+				'expiration_date'                     => [
+					'desc'            => __( 'Expiration date', 'woocommerce_gpf' ),
+					'full_desc'       => __( 'Use the expiry date attribute to stop showing a product on a specific date. For example, you can use this attribute for limited stock or seasonal products.', 'woocommerce_gpf' ),
+					'can_default'     => true,
+					'can_prepopulate' => false,
+					'callback'        => 'render_textfield',
+					'feed_types'      => [ 'google' ],
+					'google_len'      => 25,
+					'ui_group'        => 'advanced',
 				],
 				'ships_from_country'                  => [
 					'desc'             => __( 'Ships from country', 'woocommerce_gpf' ),
@@ -343,6 +396,7 @@ class WoocommerceGpfCommon {
 					'callback'         => 'render_generic_select',
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::country_options',
 					'feed_types'       => [ 'google' ],
+					'ui_group'         => 'advanced',
 				],
 				'shopping_ads_excluded_country'       => [
 					'desc'             => __( 'Shopping ads excluded countries', 'woocommerce_gpf' ),
@@ -352,6 +406,7 @@ class WoocommerceGpfCommon {
 					'callback'         => 'render_generic_select',
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::country_options',
 					'feed_types'       => [ 'google' ],
+					'ui_group'         => 'advanced',
 				],
 				'transit_time_label'                  => [
 					'desc'            => __( 'Transit time label', 'woocommerce_gpf' ),
@@ -361,6 +416,7 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
+					'ui_group'        => 'advanced',
 				],
 				'min_handling_time'                   => [
 					'desc'        => __( 'Minimum handling time', 'woocommerce_gpf' ),
@@ -369,6 +425,7 @@ class WoocommerceGpfCommon {
 					'callback'    => 'render_textfield',
 					'feed_types'  => [ 'google' ],
 					'google_len'  => 5,
+					'ui_group'    => 'advanced',
 				],
 				'max_handling_time'                   => [
 					'desc'        => __( 'Maximum handling time', 'woocommerce_gpf' ),
@@ -377,6 +434,7 @@ class WoocommerceGpfCommon {
 					'callback'    => 'render_textfield',
 					'feed_types'  => [ 'google' ],
 					'google_len'  => 5,
+					'ui_group'    => 'advanced',
 				],
 				'energy_efficiency_class'             => [
 					'desc'             => __( 'Energy efficiency class', 'woocommerce_gpf' ),
@@ -384,6 +442,7 @@ class WoocommerceGpfCommon {
 					'callback'         => 'render_generic_select',
 					'feed_types'       => [ 'google', 'googlelocalproducts' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::energy_efficiency_class_options',
+					'ui_group'         => 'advanced',
 				],
 				'min_energy_efficiency_class'         => [
 					'desc'             => __( 'Minimum energy efficiency class', 'woocommerce_gpf' ),
@@ -391,6 +450,7 @@ class WoocommerceGpfCommon {
 					'callback'         => 'render_generic_select',
 					'feed_types'       => [ 'google', 'googlelocalproducts' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::energy_efficiency_class_options',
+					'ui_group'         => 'advanced',
 				],
 				'max_energy_efficiency_class'         => [
 					'desc'             => __( 'Maximum energy efficiency class', 'woocommerce_gpf' ),
@@ -398,6 +458,7 @@ class WoocommerceGpfCommon {
 					'callback'         => 'render_generic_select',
 					'feed_types'       => [ 'google', 'googlelocalproducts' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::energy_efficiency_class_options',
+					'ui_group'         => 'advanced',
 				],
 				'energy_label_image_link'             => [
 					'desc'            => __( 'Energy label image link', 'woocommerce_gpf' ),
@@ -408,6 +469,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 2000,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'cost_of_goods_sold'                  => [
 					'desc'            => __( 'Cost of goods sold', 'woocommerce_gpf' ),
@@ -417,6 +479,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 50,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'included_destination'                => [
 					'desc'            => __( 'Included destination', 'woocommerce_gpf' ),
@@ -427,6 +490,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'excluded_destination'                => [
 					'desc'            => __( 'Excluded destination', 'woocommerce_gpf' ),
@@ -437,6 +501,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'consumer_notice'                     => [
 					'desc'              => __( 'Consumer notice(s)', 'woocommerce_gpf' ),
@@ -445,6 +510,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'   => false,
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'product_highlight'                   => [
 					'desc'              => __( 'Product highlight(s)', 'woocommerce_gpf' ),
@@ -453,6 +519,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'   => false,
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'product_detail'                      => [
 					'desc'              => __( 'Product detail(s)', 'woocommerce_gpf' ),
@@ -461,6 +528,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'   => false,
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'consumer_datasheet'                  => [
 					'desc'              => __( 'Consumer datasheet', 'woocommerce_gpf' ),
@@ -469,6 +537,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'   => false,
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'product_fee'                         => [
 					'desc'              => __( 'Product fee', 'woocommerce_gpf' ),
@@ -477,6 +546,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'   => false,
 					'feed_types'        => [ 'google' ],
 					'skip_on_bulk_edit' => true,
+					'ui_group'          => 'advanced',
 				],
 				'sell_on_google_quantity'             => [
 					'desc'            => __( 'Sell On Google Quantity', 'woocommerce_gpf' ),
@@ -487,6 +557,21 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 10,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
+				],
+				'pause'                               => [
+					'desc'             => __( 'Pause', 'woocommerce_gpf' ),
+					'full_desc'        => __(
+						'Use to tell Google when you want to temporarily stop products from showing in all ads or Shopping destinations for up to 14 days.',
+						'woocommerce_gpf'
+					),
+					'can_default'      => true,
+					'callback'         => 'render_generic_select',
+					'can_prepopulate'  => false,
+					'feed_types'       => [ 'google' ],
+					'max_values'       => 1,
+					'options_callback' => 'WoocommerceProductFeedsFieldOptions::pause_options',
+					'ui_group'         => 'advanced',
 				],
 				'purchase_quantity_limit'             => [
 					'desc'            => __( 'Purchase quantity limit', 'woocommerce_gpf' ),
@@ -502,6 +587,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 10,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'google_funded_promotion_eligibility' => [
 					'desc'             => __( 'Google-funded promotion eligibility', 'woocommerce_gpf' ),
@@ -510,6 +596,7 @@ class WoocommerceGpfCommon {
 					'can_default'      => true,
 					'callback'         => 'render_generic_select',
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::google_funded_promotion_eligibility_options',
+					'ui_group'         => 'advanced',
 				],
 				'return_address_label'                => [
 					'desc'            => __( 'Return address label', 'woocommerce_gpf' ),
@@ -520,6 +607,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'return_policy_label'                 => [
 					'desc'            => __( 'Return policy label', 'woocommerce_gpf' ),
@@ -530,6 +618,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'pickup_method'                       => [
 					'desc'             => __( 'Pickup method', 'woocommerce_gpf' ),
@@ -539,6 +628,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'  => false,
 					'feed_types'       => [ 'google' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::pickup_method_options',
+					'ui_group'         => 'advanced',
 				],
 				'pickup_sla'                          => [
 					'desc'             => __( 'Pickup SLA', 'woocommerce_gpf' ),
@@ -548,6 +638,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate'  => false,
 					'feed_types'       => [ 'google' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::pickup_sla_options',
+					'ui_group'         => 'advanced',
 				],
 				'custom_label_0'                      => [
 					'desc'            => __( 'Custom label 0', 'woocommerce_gpf' ),
@@ -558,6 +649,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'bing' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'custom_label_1'                      => [
 					'desc'            => __( 'Custom label 1', 'woocommerce_gpf' ),
@@ -568,6 +660,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'bing' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'custom_label_2'                      => [
 					'desc'            => __( 'Custom label 2', 'woocommerce_gpf' ),
@@ -578,6 +671,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'bing' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'custom_label_3'                      => [
 					'desc'            => __( 'Custom label 3', 'woocommerce_gpf' ),
@@ -588,6 +682,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'bing' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'custom_label_4'                      => [
 					'desc'            => __( 'Custom label 4', 'woocommerce_gpf' ),
@@ -598,6 +693,7 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google', 'bing' ],
 					'google_len'      => 100,
 					'max_values'      => 1,
+					'ui_group'        => 'advanced',
 				],
 				'promotion_id'                        => [
 					'desc'            => __( 'Promotion ID', 'woocommerce_gpf' ),
@@ -606,6 +702,7 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'google' ],
+					'ui_group'        => 'advanced',
 				],
 				'bing_promotion_id'                   => [
 					'desc'            => __( 'Promotion ID [Bing]', 'woocommerce_gpf' ),
@@ -614,6 +711,7 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'bing' ],
+					'ui_group'        => 'advanced',
 				],
 				'shippingprice'                       => [
 					'desc'            => __( 'Bing shipping info (price only)', 'woocommerce_gpf' ),
@@ -622,6 +720,7 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'can_prepopulate' => false,
 					'feed_types'      => [ 'bing' ],
+					'ui_group'        => 'advanced',
 				],
 				'shippingcountryprice'                => [
 					'desc'            => __( 'Bing shipping info (country and price)', 'woocommerce_gpf' ),
@@ -630,6 +729,7 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'can_prepopulate' => false,
 					'feed_types'      => [ 'bing' ],
+					'ui_group'        => 'advanced',
 				],
 				'shippingcountryserviceprice'         => [
 					'desc'            => __( 'Bing shipping info (country, service and price)', 'woocommerce_gpf' ),
@@ -638,6 +738,7 @@ class WoocommerceGpfCommon {
 					'callback'        => 'render_textfield',
 					'can_prepopulate' => false,
 					'feed_types'      => [ 'bing' ],
+					'ui_group'        => 'advanced',
 				],
 			]
 		);
@@ -1151,5 +1252,19 @@ class WoocommerceGpfCommon {
 		}
 
 		return apply_filters( 'woocommerce_gpf_google_taxonomy_locales', $locales );
+	}
+
+	public function get_ui_group_name( string $group ) {
+		switch ( $group ) {
+			case 'common':
+				return _x( 'Common fields', 'Grouping header for settings', 'woocommerce_gpf' );
+				break;
+			case 'advanced':
+				return _x( 'Advanced fields', 'Grouping header for settings', 'woocommerce_gpf' );
+				break;
+			default:
+				return ucfirst( $group );
+				break;
+		}
 	}
 }

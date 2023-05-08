@@ -389,7 +389,7 @@ class WCS_Cart_Early_Renewal extends WCS_Cart_Renewal {
 	 * @since 2.3.0
 	 */
 	public static function allow_early_renewal_order_cancellation() {
-		if ( isset( $_GET['cancel_order'] ) && isset( $_GET['order_id'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'woocommerce-cancel_order' ) ) {
+		if ( isset( $_GET['cancel_order'], $_GET['order_id'], $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'woocommerce-cancel_order' ) ) {
 			$order_id = absint( $_GET['order_id'] );
 			$order    = wc_get_order( $order_id );
 

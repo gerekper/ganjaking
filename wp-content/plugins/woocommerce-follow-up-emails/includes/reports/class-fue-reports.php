@@ -134,6 +134,10 @@ class FUE_Reports {
 			unset($log_data['target_url']);
 			$tracker->log_event( 'open', $log_data );
 
+			// SEMGREP WARNING EXPLANATION
+			// eid and oid are controlled integers, user_email is hashed.
+			// The link tho could be insecure, but it's handled from the admin when creating the email.
+			// escaping the url could potentially break the links.
 			$next = add_query_arg( array(
 				'fueid' => $parsed['eid'],
 				'qid'   => $parsed['oid'],

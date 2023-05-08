@@ -573,10 +573,10 @@ class WC_AM_Product_Data_Store {
 				$is_api = $this->get_meta( $parent_id, '_is_api' );
 
 				if ( ! empty( $is_api ) && $is_api == 'yes' ) {
-					WC_AM_PRODUCT_DATA_STORE()->update_meta( $product_id, '_api_resource_product_id', $product_id );
+					$this->update_meta( $product_id, '_api_resource_product_id', $product_id );
 				}
 			} elseif ( empty( $this->is_api_product( $product_id ) ) ) {
-				WC_AM_PRODUCT_DATA_STORE()->update_meta( $product_id, '_api_resource_product_id', $product_id );
+				$this->update_meta( $product_id, '_api_resource_product_id', $product_id );
 			}
 		} elseif ( ! empty( $parent_id ) && WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_resource_product_id' ) != $parent_id ) {
 			/*
@@ -586,7 +586,7 @@ class WC_AM_Product_Data_Store {
 			$is_api = $this->get_meta( $parent_id, '_is_api' );
 
 			if ( ! empty( $is_api ) && $is_api == 'yes' ) {
-				WC_AM_PRODUCT_DATA_STORE()->update_meta( $product_id, '_api_resource_product_id', $product_id );
+				$this->update_meta( $product_id, '_api_resource_product_id', $product_id );
 			}
 		}
 	}

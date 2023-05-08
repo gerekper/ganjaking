@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.9.0
+ * @version     5.9.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2460,7 +2460,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									$continue = true;
 								}
 
-								if ( ! $continue && in_array( $product['product_id'], $coupon_product_ids, true ) || in_array( $product['variation_id'], $coupon_product_ids, true ) || in_array( $product['data']->get_parent(), $coupon_product_ids, true ) ) {
+								$parent_id = ( $this->is_wc_gte_30() ) ? $product['data']->get_parent_id() : $product['data']->get_parent();
+
+								if ( ! $continue && in_array( $product['product_id'], $coupon_product_ids, true ) || in_array( $product['variation_id'], $coupon_product_ids, true ) || in_array( $parent_id, $coupon_product_ids, true ) ) {
 
 									$discounted_products[] = ( ! empty( $cart_item_key ) ) ? $cart_item_key : '';
 

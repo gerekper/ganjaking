@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 3.8.0
+ * Version: 3.9.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 7.3
+ * WC tested up to: 7.6
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -33,8 +33,10 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
  */
 woothemes_queue_update( plugin_basename( __FILE__ ), '1f5df97b2bc60cdb3951b72387ec2e28', '395318' );
 
-if ( ! class_exists( 'WC_Help_Scout' ) ) :
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
+if ( ! class_exists( 'WC_Help_Scout' ) ) :
+	
 	define( 'WC_HELP_SCOUT_VERSION', '2.5' );
 	define( 'WC_HELP_SCOUT_PLUGINURL', plugin_dir_url( __FILE__ ) );
 	/**
@@ -323,15 +325,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 
 			return $apis;
 		}
-		/**
-		 * Uninstall plugin and delete settings.
-		 */
-		public function plugin_uninstall() {
-			delete_option( 'woocommerce_help-scout_settings' );
-			delete_option( 'helpscout_access_refresh_token' );
-			delete_option( 'helpscout_expires_in' );
-			wp_clear_scheduled_hook( 'my_task_hook' );
-		}
+		
 
 		/**
 		 * Function get_woo_data_function.
@@ -831,19 +825,33 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 		public function get_last_orders( $customer, $total ) {
 			$orders = array();
 
-			$args = array(
-				'posts_per_page'      => intval( $total ),
-				'post_type'           => 'shop_order',
-				'meta_key'            => '_customer_user',
-				'meta_value'          => $customer->ID,
-				'ignore_sticky_posts' => 1,
-			);
+			if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				$args = array(
+					'limit'      => intval( $total ),
+					'type'           => 'shop_order',
+					'customer_id'          => (int) $customer->ID,
+					'ignore_sticky_posts' => 1,
+				);
 
-			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
-				$args['post_status'] = array_keys( wc_get_order_statuses() );
+				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
+					$args['status'] = array_keys( wc_get_order_statuses() );
+				}
+				$query = wc_get_orders($args);
+			} else {
+				$args = array(
+					'posts_per_page'      => intval( $total ),
+					'post_type'           => 'shop_order',
+					'meta_key'            => '_customer_user',
+					'meta_value'          => $customer->ID,
+					'ignore_sticky_posts' => 1,
+				);
+
+				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
+					$args['post_status'] = array_keys( wc_get_order_statuses() );
+				}
+
+				$query = get_posts( $args );
 			}
-
-			$query = get_posts( $args );
 
 			$all_status = wc_get_order_statuses();
 
@@ -853,7 +861,11 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 			}
 
 			foreach ( $query as $item ) {
-				$order = new WC_Order( $item->ID );
+				if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+					$order = $item;
+				} else {
+					$order = new WC_Order( $item->ID );
+				}
 				$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 				$orders[] = array(
 					'id'     => $order->get_order_number(),
@@ -1022,5 +1034,23 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 	}
 
 	add_action( 'plugins_loaded', array( 'WC_Help_Scout', 'get_instance' ) );
-	register_uninstall_hook( __FILE__, array( 'WC_Help_Scout', 'plugin_uninstall' ) );
+	register_uninstall_hook( __FILE__, 'opmc_plugin_uninstall' );
+		/**
+		 * Uninstall plugin and delete settings.
+		 */
+	function opmc_plugin_uninstall() {
+		delete_option( 'woocommerce_help-scout_settings' );
+		delete_option( 'helpscout_access_refresh_token' );
+		delete_option( 'helpscout_expires_in' );
+		wp_clear_scheduled_hook( 'my_task_hook' );
+	}
 endif;
+
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);

@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates/Emails
- * @version 2.6.8
+ * @version 2.6.14
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -22,6 +22,7 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 if ( is_object( $order ) && ! empty( $resources ) ) {
 	$hide_product_order_api_keys = WC_AM_USER()->hide_product_order_api_keys();
+	$hide_master_api_key         = WC_AM_USER()->hide_master_api_key();
 
 	?><h2><?php esc_html_e( 'API Product Information', 'woocommerce-api-manager' ); ?></h2>
 
@@ -84,17 +85,22 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 					<td class="td" scope="row" colspan="4" style="text-align:center;"><a
 							href="<?php echo esc_url( ( $my_account_url ) ); ?>"><?php echo esc_html__( 'Click here to login and download your file(s)', 'woocommerce-api-manager' ); ?></a></td>
 				</tr>
-			<?php } ?>
-			<tr>
-				<th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?></th>
-			</tr>
-			<tr>
-				<td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
-			</tr>
-			<tr>
-				<td class="td" scope="row" colspan="4"
-				    style="text-align:center;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?></td>
-			</tr>
+			<?php }
+			if ( ! $hide_master_api_key ) {
+				?>
+				<tr>
+					<th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?></th>
+				</tr>
+				<tr>
+					<td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
+				</tr>
+				<tr>
+					<td class="td" scope="row" colspan="4"
+					    style="text-align:center;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
 			</tfoot>
 		</table>
 	</div>

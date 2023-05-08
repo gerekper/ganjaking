@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Gravity Forms Product Add-Ons 3.4.3\n"
+"Project-Id-Version: WooCommerce Gravity Forms Product Add-Ons 3.4.4\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-gravityforms-product-"
 "addons\n"
-"POT-Creation-Date: 2023-04-07 13:16:03+00:00\n"
+"POT-Creation-Date: 2023-05-04 10:19:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -647,15 +647,15 @@ msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:57
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:57
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:416
-#: inc/gravityforms-product-addons-entry.php:416
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:419
+#: inc/gravityforms-product-addons-entry.php:419
 msgid "WooCommerce Order Item"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:63
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:63
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:422
-#: inc/gravityforms-product-addons-entry.php:422
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:425
+#: inc/gravityforms-product-addons-entry.php:425
 msgid ""
 "Any changes made on this entry directly will not be reflected on the actual "
 "order."
@@ -663,64 +663,64 @@ msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:70
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:70
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:429
-#: inc/gravityforms-product-addons-entry.php:429
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:432
+#: inc/gravityforms-product-addons-entry.php:432
 msgid "The WooCommerce order no longer exists."
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:82
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:82
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:441
-#: inc/gravityforms-product-addons-entry.php:441
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:444
+#: inc/gravityforms-product-addons-entry.php:444
 msgid "WooCommerce"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:126
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:126
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:487
-#: inc/gravityforms-product-addons-entry.php:487
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:490
+#: inc/gravityforms-product-addons-entry.php:490
 msgid "Guest"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:132
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:132
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:491
-#: inc/gravityforms-product-addons-entry.php:491
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:494
+#: inc/gravityforms-product-addons-entry.php:494
 msgid "Order"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:135
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:135
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:496
-#: inc/gravityforms-product-addons-entry.php:496
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:499
+#: inc/gravityforms-product-addons-entry.php:499
 msgid "Product"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:151
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:151
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:516
-#: inc/gravityforms-product-addons-entry.php:516
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:27
+#: inc/gravityforms-product-addons-export.php:27
 msgid "WooCommerce Order Number"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:156
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:156
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:526
-#: inc/gravityforms-product-addons-entry.php:526
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:37
+#: inc/gravityforms-product-addons-export.php:37
 msgid "WooCommerce Order Item Line Number"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:161
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:161
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:531
-#: inc/gravityforms-product-addons-entry.php:531
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:42
+#: inc/gravityforms-product-addons-export.php:42
 msgid "WooCommerce Order Item Product Name"
 msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:166
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:166
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:536
-#: inc/gravityforms-product-addons-entry.php:536
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:47
+#: inc/gravityforms-product-addons-export.php:47
 msgid "WooCommerce Order Item Product ID"
 msgstr ""
 
@@ -738,18 +738,23 @@ msgstr ""
 msgid "Add&nbsp;meta"
 msgstr ""
 
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:500
-#: inc/gravityforms-product-addons-entry.php:500
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:503
+#: inc/gravityforms-product-addons-entry.php:503
 msgid "Order Status"
 msgstr ""
 
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:521
-#: inc/gravityforms-product-addons-entry.php:521
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:32
+#: inc/gravityforms-product-addons-export.php:32
 msgid "WooCommerce Order Status"
 msgstr ""
 
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:541
-#: inc/gravityforms-product-addons-entry.php:546
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:52
+#: inc/gravityforms-product-addons-export.php:52
+msgid "WooCommerce Order Item Product SKU"
+msgstr ""
+
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-export.php:57
+#: inc/gravityforms-product-addons-export.php:57
 msgid "WooCommerce Order Item Quantity"
 msgstr ""
 
@@ -761,10 +766,6 @@ msgstr ""
 #: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-reorder.php:198
 #: inc/gravityforms-product-addons-reorder.php:198
 msgid "This field is required."
-msgstr ""
-
-#: inc/gravityforms-product-addons-entry.php:541
-msgid "WooCommerce Order Item Product SKU"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -793,10 +794,10 @@ msgstr ""
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:67
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:60
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:67
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:419
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:426
-#: inc/gravityforms-product-addons-entry.php:419
-#: inc/gravityforms-product-addons-entry.php:426
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:422
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:429
+#: inc/gravityforms-product-addons-entry.php:422
+#: inc/gravityforms-product-addons-entry.php:429
 msgctxt "Order number"
 msgid "This entry was created as part WooCommerce Order %s"
 msgstr ""
@@ -805,10 +806,10 @@ msgstr ""
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:122
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:113
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:122
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:473
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:483
-#: inc/gravityforms-product-addons-entry.php:473
-#: inc/gravityforms-product-addons-entry.php:483
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:476
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:486
+#: inc/gravityforms-product-addons-entry.php:476
+#: inc/gravityforms-product-addons-entry.php:486
 #. translators: 1: first name 2: last name
 msgctxt "full name"
 msgid "%1$s %2$s"
@@ -816,8 +817,8 @@ msgstr ""
 
 #: back_compat_less_27/inc/gravityforms-product-addons-entry.php:132
 #: dist/woocommerce-gravityforms-product-addons/back_compat_less_27/inc/gravityforms-product-addons-entry.php:132
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:491
-#: inc/gravityforms-product-addons-entry.php:491
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-entry.php:494
+#: inc/gravityforms-product-addons-entry.php:494
 msgctxt "Order number by X"
 msgid "%s by %s"
 msgstr ""

@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     2.1.0
+ * @version     2.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -156,9 +156,27 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 
 			$coupon = new WC_Coupon( $coupon );
 
+			$allowed_html = wp_kses_allowed_html( 'post' );
+
+			$additional_allowed_html = array(
+				'style' => array(),
+			);
+
+			$additional_allowed_html = apply_filters( 'wc_sc_kses_allowed_html_for_coupon_message', $additional_allowed_html, array( 'source' => $this ) );
+
+			if ( ! empty( $additional_allowed_html ) ) {
+				foreach ( $additional_allowed_html as $tag => $attributes ) {
+					if ( ! empty( $attributes ) && array_key_exists( $tag, $allowed_html ) ) {
+						$allowed_html[ $tag ] = array_merge( $allowed_html[ $tag ], $attributes );
+					} else {
+						$allowed_html[ $tag ] = $attributes;
+					}
+				}
+			}
+
 			if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
 				if ( isset( $_POST['wc_coupon_message'] ) ) { // phpcs:ignore
-					$coupon->update_meta_data( 'wc_coupon_message', wp_filter_post_kses( $_POST['wc_coupon_message'] ) ); // phpcs:ignore
+					$coupon->update_meta_data( 'wc_coupon_message', wp_kses( wp_unslash( $_POST['wc_coupon_message'] ), $allowed_html ) ); // phpcs:ignore
 				}
 				if ( isset( $_POST['wc_email_message'] ) ) { // phpcs:ignore
 					$coupon->update_meta_data( 'wc_email_message', wc_clean( wp_unslash( $_POST['wc_email_message'] ) ) ); // phpcs:ignore
@@ -168,7 +186,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				$coupon->save();
 			} else {
 				if ( isset( $_POST['wc_coupon_message'] ) ) { // phpcs:ignore
-					update_post_meta( $post_id, 'wc_coupon_message', wp_filter_post_kses( $_POST['wc_coupon_message'] ) ); // phpcs:ignore
+					update_post_meta( $post_id, 'wc_coupon_message', wp_kses( wp_unslash( $_POST['wc_coupon_message'] ), $allowed_html ) ); // phpcs:ignore
 				}
 				if ( isset( $_POST['wc_email_message'] ) ) { // phpcs:ignore
 					update_post_meta( $post_id, 'wc_email_message', wc_clean( wp_unslash( $_POST['wc_email_message'] ) ) ); // phpcs:ignore

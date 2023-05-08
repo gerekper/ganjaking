@@ -179,6 +179,19 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 						--><div id="current_width_height"><i class="material-icons rotateleft">unfold_more</i><span id="show_c_width">1920px</span><i class="material-icons">unfold_more</i><span id="show_c_height">1920px</span></div><!--
 					--></div>
 					<div id="right_top_toolbar_wrap" class="toolbar_rightoriented"><!--
+						--><div class="toolbar_btn help_wrap">
+							<i class="toptoolbaricon material-icons">help_outline</i>
+							<ul id="help_menu">
+								<li id="help_menu_template" class="gm_helpmenu"><i class="toptoolbaricon material-icons">text_snippet</i><?php _e('Template Editing Guide', 'revslider');?></li>
+								<li id="help_menu_module" class="gm_helpmenu"><i class="toptoolbaricon material-icons">text_snippet</i><?php _e('Module Creation Guide', 'revslider');?></li>
+								<li>
+									<i class="toptoolbaricon material-icons">live_help</i>
+									<?php _e('Help Mode Tooltips', 'revslider');?>
+									<input class="sliderinput easyinit" id="showhidehelpdata" data-evt="showhidehelpdata" type="checkbox" autocomplete="off">
+								</li>
+								<li id="help_menu_support_wrap"><a id="help_menu_support" href="https://account.sliderrevolution.com/portal/?redirect_to=supportsystem" target="_blank"><i class="toptoolbaricon material-icons">forum</i><?php _e('Submit A Support Ticket', 'revslider');?></a></li>
+							</ul>
+						</div><!--
 						--><div id="zoomer_wrap_toolbar" class="zoomer_wrap toolbar_selector_icons">
 							<div class="selected_placeholder"><i id="zoomer_icon" style="font-size: 17px;margin-top: -2px;"class="toptoolbaricon material-icons">search</i><div id="zoomer_factor">100%</div></div>
 							<div class="tool_dd_wrap"><!--
@@ -226,8 +239,7 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 								<div id="screen_selecotr_ss_t" class="screen_selector ss_t callEvent" data-evt="screenSelectorChanged"  data-screenicon="tablet_mac" data-triggerinp="#screenselector" data-triggerinpval="t"><i class="material-icons">tablet_mac</i><?php _e('Tablet', 'revslider');?><input type="checkbox" id="sr_custom_t_opt" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.t"></div>
 								<div id="screen_selecotr_ss_m" class="screen_selector ss_m no_rm callEvent" data-evt="screenSelectorChanged"  data-screenicon="phone_android" data-triggerinp="#screenselector" data-triggerinpval="m"><i class="material-icons">phone_android</i><?php _e('Mobile', 'revslider');?><input type="checkbox" id="sr_custom_m_opt" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.m"></div>
 							</div>
-						</div><!--
-						--><div class="toolbar_btn help_wrap"><i class="toptoolbaricon material-icons">help_outline</i></div><!--<div class="toolbar_btn tooltip_wrap"><i class="toptoolbaricon material-icons">comment</i></div>--><!--
+						</div>
 					--></div>
 				</div><!-- END OF MAIN HORIZONTAL TOOLBAR -->
 				<div id="rev_builder_wrapper">
@@ -348,7 +360,19 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 	<!-- 					-->
 
 	<div id="mouseInfoBox"></div>
-
+	<div id="guide_tooltip">
+		<div class="guide_close_wrap"><i id="gt_close" class="material-icons">close</i></div>
+		<div class="gt_title_wrap"><?php _e('You can always re-open ', 'revslider');?>
+			<span id="gt_template_title"><?php _e('the Template Editing Guide', 'revslider');?></span>
+			<span id="gt_module_title"><?php _e('the Module Creation Guide', 'revslider');?></span>
+			<span><?php _e(' here!', 'revslider');?></span>
+		</div>
+		<p><?php _e('Don\'t want the guide to open automatically?', 'revslider');?></p>
+		<div id="gt_link_wrap">
+			<span><span><?php _e('Go to', 'revslider');?></span> <i class="material-icons">settings</i> 
+			<span id="gt_global_settings"><?php _e('Global Settings', 'revslider');?></span>
+		</div>
+	</div>
 </div>
 
 

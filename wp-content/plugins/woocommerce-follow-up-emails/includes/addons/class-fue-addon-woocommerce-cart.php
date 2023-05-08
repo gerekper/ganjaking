@@ -120,6 +120,9 @@ class FUE_Addon_Woocommerce_Cart {
 			$redirect_parameters = json_decode( stripslashes( $_COOKIE['fue_cart_redirect'] ), true );
 			$cart_url = wc_get_cart_url();
 			if ( is_array( $redirect_parameters ) ) {
+				// SEMGREP WARNING EXPLANATION
+				// The $redirect_parameters are the ones present in the cookie from a GET request.
+				// However, WC performs a wp_validate_redirect before the redirection.
 				$redirect = add_query_arg( $redirect_parameters, $cart_url );
 			} else {
 				$redirect = $cart_url;

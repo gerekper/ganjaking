@@ -152,14 +152,14 @@ class FUE_API_Server {
 		$user = apply_filters( 'fue_api_check_authentication', null, $this );
 
 		// API requests run under the context of the authenticated user
-		if ( is_a( $user, 'WP_User' ) )
+		if ( is_a( $user, 'WP_User' ) ) {
+			// phpcs:ignore
 			wp_set_current_user( $user->ID );
-
-		// WP_Errors are handled in serve_request()
-		elseif ( ! is_wp_error( $user ) )
+		} elseif ( ! is_wp_error( $user ) ) {
+			// WP_Errors are handled in serve_request()
 			$user = new WP_Error( 'fue_api_authentication_error', __( 'Invalid authentication method', 'follow_up_emails' ), array( 'code' => 500 ) );
+		}
 
-		//return new WP_User(1);
 		return $user;
 	}
 
@@ -602,6 +602,10 @@ class FUE_API_Server {
 	 * @return string
 	 */
 	private function get_paginated_url( $page ) {
+
+		// SEMGREP WARNING EXPLANATION
+		// This function is for adding the paginated args for the prev and next page in the Headers of the API call
+		// No user input is reached and page is always an int.
 
 		// remove existing page query param
 		$request = remove_query_arg( 'page' );

@@ -24,10 +24,6 @@ class WC_GFPA_Entry {
 
 		add_filter( 'gform_entry_detail_meta_boxes', array( $this, 'add_custom_entry_metabox' ), 10, 3 );
 
-
-		add_filter( 'gform_export_fields', array( $this, 'add_wc_order_fields' ), 10, 1 );
-		add_filter( 'gform_export_field_value', array( $this, 'export_wc_order_fields' ), 10, 4 );
-
 		add_action( 'gform_entry_detail_content_before', array( $this, 'entry_detail_screen_notice' ), 10, 2 );
 
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'create_entries' ), 10, 2 );
@@ -152,6 +148,12 @@ class WC_GFPA_Entry {
 						return false;
 					}, 99999 );
 
+
+					$user_id = $the_order->get_user_id() ? $the_order->get_user_id() : $lead_data['created_by'];
+					if ($user_id) {
+						$lead_data['created_by'] = $user_id;
+					}
+
 					$entry_id = GFAPI::add_entry( $lead_data );
 
 					if ( $entry_id && ! is_wp_error( $entry_id ) ) {
@@ -173,10 +175,15 @@ class WC_GFPA_Entry {
 							do_action( 'gform_entry_created', $entry, $form );
 							$entry = gf_apply_filters( array( 'gform_entry_post_save', $form['id'] ), $entry, $form );
 
+							$user_id = $the_order->get_user_id() ? $the_order->get_user_id() : $entry['created_by'];
+							if ( $user_id ) {
+								$entry['created_by'] = $user_id;
+								GFAPI::update_entry_property( $entry_id, 'created_by', $user_id );
+							}
+
 							RGFormsModel::set_current_lead( $entry );
 
 							$send_notifications = isset( $form_data['send_notifications'] ) && $form_data['send_notifications'] == 'yes';
-
 							//Send notifications unless disabled
 							if ( apply_filters( 'woocommerce_gravityforms_send_entry_notifications_on_order_submission', $send_notifications, $form ) ) {
 								GFAPI::send_notifications( $form, $entry, 'form_submission', $entry );
@@ -184,10 +191,6 @@ class WC_GFPA_Entry {
 
 							GFAPI::update_entry( $entry );
 
-							$user_id = $the_order->get_user_id() ? $the_order->get_user_id() : false;
-							if ( $user_id ) {
-								GFAPI::update_entry_property( $entry_id, 'created_by', $user_id );
-							}
 
 							gf_do_action( array( 'gform_after_submission', $form_data['id'] ), $entry, $form );
 
@@ -437,7 +440,7 @@ class WC_GFPA_Entry {
 		$order_id  = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
 		$the_order = wc_get_order( $order_id );
 		if ( $the_order ) {
-			$meta_boxes['notes'] = array(
+			$meta_boxes['wcgfpa_notes'] = array(
 				'title'    => esc_html__( 'WooCommerce', 'woocommerce' ),
 				'callback' => array( $this, 'render_custom_metabox' ),
 				'context'  => 'side',
@@ -506,130 +509,5 @@ class WC_GFPA_Entry {
 		}
 
 
-	}
-
-
-	//Export management
-	public function add_wc_order_fields( $form ) {
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_number',
-			'label' => __( 'WooCommerce Order Number', 'wc_gf_addons' )
-		);
-
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_status',
-			'label' => __( 'WooCommerce Order Status', 'wc_gf_addons' )
-		);
-
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_item_number',
-			'label' => __( 'WooCommerce Order Item Line Number', 'wc_gf_addons' )
-		);
-
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_item_product_name',
-			'label' => __( 'WooCommerce Order Item Product Name', 'wc_gf_addons' )
-		);
-
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_item_product_id',
-			'label' => __( 'WooCommerce Order Item Product ID', 'wc_gf_addons' )
-		);
-
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_item_product_sku',
-			'label' => __( 'WooCommerce Order Item Product SKU', 'wc_gf_addons' )
-		);
-
-		$form['fields'][] = array(
-			'id'    => 'woocommerce_order_item_product_quantity',
-			'label' => __( 'WooCommerce Order Item Quantity', 'wc_gf_addons' )
-		);
-
-		return $form;
-	}
-
-
-	public function export_wc_order_fields( $value, $form_id, $field_id, $entry ) {
-
-		switch ( $field_id ) {
-			case 'woocommerce_order_number' :
-				$order_id = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				if ( ! empty( $order_id ) ) {
-					$the_order = wc_get_order( $order_id );
-					$value     = $the_order->get_order_number();
-				} else {
-					$value = '';
-				}
-				break;
-			case 'woocommerce_order_item_number' :
-				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
-				$value         = empty( $order_item_id ) ? '' : $order_item_id;
-				break;
-			case 'woocommerce_order_item_product_name' :
-				$value         = '';
-				$order_id      = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
-				$the_order     = wc_get_order( $order_id );
-				if ( $the_order ) {
-					$order_items = $the_order->get_items();
-					if ( isset( $order_items[ $order_item_id ] ) ) {
-						$value = $order_items[ $order_item_id ]['name'];
-					}
-				}
-				break;
-			case 'woocommerce_order_item_product_id' :
-				$value         = '';
-				$order_id      = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
-				$the_order     = wc_get_order( $order_id );
-				if ( $the_order ) {
-					$order_items = $the_order->get_items();
-					if ( isset( $order_items[ $order_item_id ] ) ) {
-						$value = $order_items[ $order_item_id ]['product_id'];
-					}
-				}
-				break;
-			case 'woocommerce_order_item_product_quantity' :
-				$order_id      = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
-				$the_order     = wc_get_order( $order_id );
-				if ( $the_order ) {
-					$order_items = $the_order->get_items();
-					if ( isset( $order_items[ $order_item_id ] ) ) {
-						$value = $order_items[ $order_item_id ]['qty'];
-					}
-				}
-				break;
-			case 'woocommerce_order_item_product_sku' :
-				$value         = '';
-				$order_id      = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				$order_item_id = gform_get_meta( $entry['id'], 'woocommerce_order_item_number' );
-				$the_order     = wc_get_order( $order_id );
-				if ( $the_order ) {
-					$order_items = $the_order->get_items();
-					if ( isset( $order_items[ $order_item_id ] ) ) {
-						$order_item_product = $order_items[$order_item_id];
-						// if $order_item_product is type of WC_Order_Item_Product, proceed to get the information.
-						if ( $order_item_product instanceof WC_Order_Item_Product ) {
-							$product = $order_item_product->get_product();
-							$value = $product->get_sku();
-						}
-					}
-				}
-				break;
-			case 'woocommerce_order_status' :
-				$order_id = gform_get_meta( $entry['id'], 'woocommerce_order_number' );
-				if ( $order_id ) {
-					$order = wc_get_order( $order_id );
-					if ( $order ) {
-						$value = $order->get_status();
-					}
-				}
-
-				break;
-		}
-
-		return $value;
 	}
 }

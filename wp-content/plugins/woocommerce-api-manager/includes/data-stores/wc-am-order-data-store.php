@@ -552,14 +552,15 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Return true if $time is older than the current time.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.6.11 Require $time to be integer data type.
 	 *
 	 * @param int $time
 	 *
 	 * @return bool
 	 */
 	public function is_time_expired( $time ) {
-		return ! empty( $time ) && (int) $time < $this->get_current_time_stamp();
+		return is_int( $time ) && $time >= 0 && $time < $this->get_current_time_stamp();
 	}
 
 	/**

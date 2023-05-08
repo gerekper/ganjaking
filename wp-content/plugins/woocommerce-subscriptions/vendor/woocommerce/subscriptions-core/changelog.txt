@@ -1,5 +1,17 @@
 *** WooCommerce Subscriptions Core Changelog ***
 
+= 5.7.0 - 2023-05-04 =
+* Fix - Fatal error from third-party extensions using the `woocommerce_update_order` expecting the second parameter.
+* Dev - Pass the subscription object as the second parameter to `woocommerce_update_subscription` hook (and `woocommerce_update_order` for backwards compatibility).
+* Dev - Return a response from the WC_Subscription::set_status() function in line with the parent WC_Order::set_status() function.
+* Dev - Add the 'wcs_recurring_shipping_package_rates_match_standard_rates' filter to enable third-parties to override whether the subscription packages match during checkout validation.
+
+= 5.6.0 - 2023-04-19 =
+* Fix - Correctly determine subscription free shipping eligibility when the initial payment cart isn't eligible. Fixes erroneous "Invalid recurring shipping method" errors on checkout. #409
+* Dev - Fixed precision loss notice that occurs when running PHP 8.1. #428
+* Dev - Fix phpcs and semgrep warnings to improve code quality. #429
+* Dev - Use `wp_safe_redirect()` when processing a payment method change request. #429
+
 = 5.5.0 - 2023-03-10 =
 * Fix - When HPOS is enabled, changing your address while paying for a renewal order will update the address on the subscription. #413
 * Fix - Prevent admin error notices being shown for the "subscription trial end" event that was caused by no callbacks being attached to this scheduled action. #414

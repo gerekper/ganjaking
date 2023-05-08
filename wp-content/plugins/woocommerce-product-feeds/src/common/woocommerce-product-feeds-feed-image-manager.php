@@ -32,6 +32,7 @@ class WoocommerceProductFeedsFeedImageManager {
 		add_action( 'wp_ajax_woo_gpf_exclude_media', [ $this, 'exclude_media' ] );
 		add_action( 'wp_ajax_woo_gpf_include_media', [ $this, 'include_media' ] );
 		add_action( 'wp_ajax_woo_gpf_set_primary_media', [ $this, 'set_primary_media' ] );
+		add_action( 'wp_ajax_woo_gpf_set_lifestyle_media', [ $this, 'set_lifestyle_media' ] );
 		add_filter( 'is_protected_meta', [ $this, 'register_protected_meta' ], 10, 3 );
 	}
 
@@ -46,6 +47,9 @@ class WoocommerceProductFeedsFeedImageManager {
 	 */
 	public function register_protected_meta( $protected, $meta_key, $meta_type ) {
 		if ( 'woocommerce_gpf_primary_media_id' === $meta_key && 'post' === $meta_type ) {
+			return true;
+		}
+		if ( 'woocommerce_gpf_lifestyle_media_id' === $meta_key && 'post' === $meta_type ) {
 			return true;
 		}
 		return $protected;
@@ -68,7 +72,8 @@ class WoocommerceProductFeedsFeedImageManager {
 			$excluded_images = [];
 		}
 
-		$primary_media_id = $wc_product->get_meta( 'woocommerce_gpf_primary_media_id', true );
+		$primary_media_id   = $wc_product->get_meta( 'woocommerce_gpf_primary_media_id', true );
+		$lifestyle_media_id = $wc_product->get_meta( 'woocommerce_gpf_lifestyle_media_id', true );
 
 		$feed_item          = $this->feed_item_factory->create( 'google', $wc_product, $wc_product, false );
 		$images_and_sources = $feed_item->get_image_sources_by_url();
@@ -80,7 +85,8 @@ class WoocommerceProductFeedsFeedImageManager {
 				$image['url'],
 				$images_and_sources,
 				$excluded_images,
-				$primary_media_id
+				$primary_media_id,
+				$lifestyle_media_id
 			);
 		}
 		$this->template->output_template_with_variables( 'woo-gpf', 'meta-field-image-info-footer', [] );
@@ -94,13 +100,15 @@ class WoocommerceProductFeedsFeedImageManager {
 	 * @param array $all_images_and_sources
 	 * @param array $excluded_images
 	 * @param string $primary_media_id
+	 * @param string $lifestyle_media_id
 	 */
 	private function output_image_source(
 		$product_id,
 		$url,
 		$all_images_and_sources,
 		$excluded_images,
-		$primary_media_id
+		$primary_media_id,
+		$lifestyle_media_id
 	) {
 
 		if ( isset( $all_images_and_sources[ $url ] ) ) {
@@ -130,13 +138,25 @@ class WoocommerceProductFeedsFeedImageManager {
 		if ( (int) $primary_media_id === (int) $images_and_sources['id'] ) {
 			$primary_status = 'woo-gpf-image-source-list-item-primary';
 		}
-		$image_actions       .= $this->template->get_template_with_variables(
+		$lifestyle_status = '';
+		if ( (int) $lifestyle_media_id === (int) $images_and_sources['id'] ) {
+			$lifestyle_status = 'woo-gpf-image-source-list-item-lifestyle';
+		}
+		$image_actions .= $this->template->get_template_with_variables(
 			'woo-gpf',
 			'meta-field-image-info-set-primary-action',
 			[
 				'nonce' => wp_create_nonce( 'woo_gpf_set_primary_media' ),
 			]
 		);
+		$image_actions .= $this->template->get_template_with_variables(
+			'woo-gpf',
+			'meta-field-image-info-set-lifestyle-action',
+			[
+				'nonce' => wp_create_nonce( 'woo_gpf_set_lifestyle_media' ),
+			]
+		);
+
 		$image_source_content = '<ul class="woo-gpf-image-source-source-list">';
 		foreach ( $images_and_sources['sources'] as $source ) {
 			switch ( $source ) {
@@ -189,6 +209,7 @@ class WoocommerceProductFeedsFeedImageManager {
 				'image_actions'    => $image_actions,
 				'list_item_status' => $list_item_status,
 				'primary_status'   => $primary_status,
+				'lifestyle_status' => $lifestyle_status,
 			]
 		);
 	}
@@ -223,6 +244,12 @@ class WoocommerceProductFeedsFeedImageManager {
 		$primary_media_id = get_post_meta( $product_id, 'woocommerce_gpf_primary_media_id', true );
 		if ( (int) $primary_media_id === (int) $media_id ) {
 			delete_post_meta( $product_id, 'woocommerce_gpf_primary_media_id' );
+		}
+
+		// Make sure this isn't set as the lifestyle, if so unset it.
+		$lifestyle_media_id = get_post_meta( $product_id, 'woocommerce_gpf_lifestyle_media_id', true );
+		if ( (int) $lifestyle_media_id === (int) $media_id ) {
+			delete_post_meta( $product_id, 'woocommerce_gpf_lifestyle_media_id' );
 		}
 
 		// Make sure the cache is bumped.
@@ -286,10 +313,37 @@ class WoocommerceProductFeedsFeedImageManager {
 		die();
 	}
 
+	/**
+	 * AJAX Callback to handle setting a media item as primary.
+	 */
+	public function set_lifestyle_media() {
+		$nonce      = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : null;
+		$media_id   = ! empty( $_POST['media_id'] ) ? $_POST['media_id'] : null;
+		$product_id = ! empty( $_POST['product_id'] ) ? $_POST['product_id'] : null;
+
+		// Validate nonce
+		if ( ! wp_verify_nonce( $nonce, 'woo_gpf_set_lifestyle_media' ) ) {
+			die( 'Unauthorised' );
+		}
+
+		// Save list
+		update_post_meta( $product_id, 'woocommerce_gpf_lifestyle_media_id', $media_id );
+
+		do_action( 'woocommerce_gpf_media_ids_updated', $product_id );
+
+		$this->echo_image_config( $product_id );
+		die();
+	}
+
 	private function echo_image_config( $product_id ) {
 		$primary_media_id   = (int) get_post_meta(
 			$product_id,
 			'woocommerce_gpf_primary_media_id',
+			true
+		);
+		$lifestyle_media_id = (int) get_post_meta(
+			$product_id,
+			'woocommerce_gpf_lifestyle_media_id',
 			true
 		);
 		$excluded_media_ids = get_post_meta(
@@ -304,6 +358,7 @@ class WoocommerceProductFeedsFeedImageManager {
 			[
 				'excluded_media_ids' => $excluded_media_ids,
 				'primary_media_id'   => $primary_media_id,
+				'lifestyle_media_id' => $lifestyle_media_id,
 			]
 		);
 	}

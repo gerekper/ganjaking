@@ -203,8 +203,9 @@ class Follow_Up_Emails {
 		}
 
 		if ( $path && is_readable( $path . $file ) ) {
+			// SEMGREP WARNING EXPLANATION
+			// This is only for the internal Autoload files
 			include_once( $path . $file );
-			return;
 		}
 	}
 

@@ -1867,7 +1867,8 @@ class WC_AM_API_Resource_Data_Store {
 	/**
 	 * Return the Access Expires value or false.
 	 *
-	 * @since 2.4
+	 * @since   2.4
+	 * @updated 2.6.11 Require $access_expires to be integer data type.
 	 *
 	 * @param int $order_id
 	 *
@@ -1918,24 +1919,29 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
-	 * Returns true if $access_expires has a timestamp > 0.
+	 * Returns true if $access_expires has a timestamp >= 0.
 	 *
-	 * @since 2.0
+	 * @since   2.0
 	 *
 	 * @param int $access_expires
+	 *
+	 * @updated 2.6.11 Require $access_expires to be integer data type.
 	 *
 	 * @return bool
 	 */
 	public function is_access_expires_set( $access_expires ) {
-		return ! empty( $access_expires ) && (int) $access_expires > 0;
+		return is_int( $access_expires ) && $access_expires >= 0;
 	}
 
 	/**
 	 * Returns true if the access_expires time stamp has expired ($access_expires < current_time).
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.6.11
 	 *
-	 * @param $access_expires
+	 * @param int $access_expires
+	 *
+	 * @updated 2.6.11 Require $access_expires to be integer data type.
 	 *
 	 * @return bool
 	 */

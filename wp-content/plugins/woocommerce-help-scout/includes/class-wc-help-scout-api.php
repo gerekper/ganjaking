@@ -8,6 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 /**
  * WC_Help_Scout_API.
  *
@@ -374,23 +377,43 @@ class WC_Help_Scout_API extends WC_API_Resource {
 	protected function get_last_orders( $customer, $total ) {
 		$orders = array();
 
-		$args = array(
-			'posts_per_page'      => intval( $total ),
-			'post_type'           => 'shop_order',
-			'suppress_filters' => false,
-			'meta_key'            => '_customer_user',
-			'meta_value'          => $customer->ID,
-			'ignore_sticky_posts' => 1,
-		);
-
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
-			$args['post_status'] = array_keys( wc_get_order_statuses() );
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$args = array(
+				'limit'      => intval( $total ),
+				'type'           => 'shop_order',
+				'suppress_filters' => false,
+				'customer_id'          => (int) $customer->ID,
+				'ignore_sticky_posts' => 1,
+			);
+	
+			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
+				$args['status'] = array_keys( wc_get_order_statuses() );
+			}
+	
+			$query = wc_get_orders( $args );
+		} else {
+			$args = array(
+				'posts_per_page'      => intval( $total ),
+				'post_type'           => 'shop_order',
+				'suppress_filters' => false,
+				'meta_key'            => '_customer_user',
+				'meta_value'          => $customer->ID,
+				'ignore_sticky_posts' => 1,
+			);
+	
+			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
+				$args['post_status'] = array_keys( wc_get_order_statuses() );
+			}
+	
+			$query = get_posts( $args );
 		}
 
-		$query = get_posts( $args );
-
 		foreach ( $query as $item ) {
-			$order = new WC_Order( $item->ID );
+			if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				$order = $item;
+			} else {
+				$order = new WC_Order( $item->ID );
+			}
 			$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 			$orders[] = array(
 				'id'     => $order->get_order_number(),

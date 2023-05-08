@@ -22,6 +22,8 @@ function fue_get_log_path() {
  * @return string
  */
 function fue_get_login_url( $redirect = '' ) {
+	// SEMGREP WARNING EXPANATION
+	// The redirect is safely used after with wp_safe_redirect
 	if ( Follow_Up_Emails::is_woocommerce_installed() ) {
 		return add_query_arg(
 			array('redirect' => $redirect),
@@ -1351,6 +1353,8 @@ function fue_get_template( $template_name, $args = array(), $template_path = '',
 
 	do_action( 'fue_before_template_part', $template_name, $template_path, $located, $args );
 
+	// SEMGREP WARNING EXPLANATION
+	// All the templates names are internals, without reaching user input
 	include( $located );
 
 	do_action( 'fue_after_template_part', $template_name, $template_path, $located, $args );

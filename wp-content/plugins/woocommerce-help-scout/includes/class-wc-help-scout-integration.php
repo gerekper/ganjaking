@@ -9,6 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+// Cron For Regenerate Token
+if ( ! wp_next_scheduled( 'daily_cron_job' ) ) {
+	wp_schedule_event( time(), 'daily', 'daily_cron_job' );
+}
+
+add_action( 'daily_cron_job', 'wp_help_scout_cron_regenate_token' );
+function wp_help_scout_cron_regenate_token() {
+	//Your code to run daily goes here
+	$obj = new WC_Help_Scout_Integration();
+	$obj->regenerate_credentials();
+}
+
+require_once('opmc-hpos-compatibility-helper.php');
+
 /**
  * Help Scout Integration.
  *
@@ -165,7 +179,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			wp_enqueue_script( $this->id . '-integration-screen', plugins_url( 'assets/js/admin/integration-screen.js', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, true );
 		}
 
-		if ( 'shop_order' === $screen->id ) {
+		if ( wc_get_page_screen_id('shop_order') === $screen->id ) {
 			wp_enqueue_style( $this->id . '-order-screen', plugins_url( 'assets/css/admin/order-screen' . $suffix . '.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
 			wp_enqueue_script( $this->id . '-order-screen', plugins_url( 'assets/js/admin/order-screen' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, true );
 			wp_localize_script(
@@ -445,7 +459,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 						$first_name = get_user_meta( $user_id, 'first_name', true );
 					}
 
-					
+
 					/**
 					 * Action for woocommerce_help_scout_customer_args.
 					 *
@@ -585,14 +599,14 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 *
 	 * @return array               Customer conversatios.
 	 */
-	public function get_customer_conversations( $customer_id, $page = 1, $status = 'all' ) {	
+	public function get_customer_conversations( $customer_id, $page = 1, $status = 'all' ) {
 
 		$integration = new WC_Help_Scout_Integration();
 		// return if Authrorization has failed.
 		if ( ! $integration->check_authorization_still_valid() ) {
 			return false;
 		}// Get the conversation data.
-		
+
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Getting conversations customer ID: ' . $customer_id );
@@ -645,19 +659,19 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return array                   Conversation details.
 	 */
 	public function get_conversation( $conversation_id ) {
-		
+
 		// Get the conversation data.
 		$integration = new WC_Help_Scout_Integration();
 		// return if Authrorization has failed.
 		if ( ! $integration->check_authorization_still_valid() ) {
 			if ( wp_doing_ajax() ) {
-			wp_send_json(
-				array(
-					'threads' => array(),
-					'subject' => '',
-					'error' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' ),
-				)
-			);
+				wp_send_json(
+					array(
+						'threads' => array(),
+						'subject' => '',
+						'error' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' ),
+					)
+				);
 			}
 			return false;
 		}
@@ -1518,7 +1532,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return void
 	 */
 	public function add_order_conversation_metabox() {
-		add_meta_box(
+		opmc_hpos_add_meta_box(
 			$this->id . '-conversation',
 			__( 'Report an issue', 'woocommerce-help-scout' ),
 			array( $this, 'order_conversation_metabox_content' ),
@@ -1533,7 +1547,8 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 *
 	 * @param  int $post_id Current order/post ID.
 	 */
-	public function order_conversation_metabox_content( $post_id ) {
+	public function order_conversation_metabox_content( $post_or_order_object ) {
+		$order = ( $post_or_order_object instanceof \WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 		include_once( 'views/html-admin-order-create-conversation.php' );
 	}
 	/**
@@ -1588,7 +1603,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			)
 		);
 
-		if ( '200' === $response['response']['code'] ) {
+		if ( '200' == $response['response']['code'] ) {
 			$tokendata = json_decode( $response['body'] );
 			$expire_timestamp = time() + $tokendata->expires_in;
 				// Update token related data in option table.

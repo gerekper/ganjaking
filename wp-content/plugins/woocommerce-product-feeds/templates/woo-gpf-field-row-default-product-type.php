@@ -1,4 +1,4 @@
-<input name="_woocommerce_gpf_data[{key}]" class="woocommerce_gpf_product_type_{raw_key} woocommerce-gpf-store-default" value="{current_data}" style="width: 100%; max-width: 750px;"{placeholder}>
+<input name="_woocommerce_gpf_data[{key}]" type="text" class="woocommerce_gpf_product_type_{raw_key} woocommerce-gpf-store-default" value="{current_data}" style="max-width: 750px;"{placeholder}>
 <p class="help-text"><small><?php _e( 'Start typing to see suggestions from the official Google taxonomy', 'woocommerce_gpf' ); ?>. The following localised taxonomies will be searched: {locale_list}</small></p>
 <script type="text/javascript">
 	jQuery(document).ready(function(){

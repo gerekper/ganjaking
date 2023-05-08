@@ -25,6 +25,7 @@ class RevSliderData {
 	const CACHE_NS_KEY = 'revslider_namespace_key';
 
 	public $css;
+	public $bad_extensions;
 
 	/**
 	 * wp cache does not support group delete
@@ -58,6 +59,18 @@ class RevSliderData {
 			add_filter('query', array($this, 'add_query_fiter'), 10, 1);
 			RevSliderGlobals::instance()->add('rs_data_query_fiter', true);
 		}
+
+		$this->bad_extensions = array(
+			'php', 'php2', 'php3', 'php4', 'php5', 'php6', 'php7', 'phps', 'phps', 'pht', 'phtm', 'phtml', 'pgif', 'shtml', 'htaccess', 'phar', 'inc', 'hphp', 'ctp', 'module',
+			'asp', 'aspx', 'config', 'ashx', 'asmx', 'aspq', 'axd', 'cshtm', 'cshtml', 'rem', 'soap', 'vbhtm', 'vbhtml', 'asa', 'cer', 'shtml',
+			'jsp', 'jspx', 'jsw', 'jsv', 'jspf', 'wss', 'do', 'action',
+			'cfm, .cfml, .cfc, .dbm',
+			'swf',
+			'pl', 'cgi',
+			'yaws',
+			'zip', 'rar', '7z',
+			'html', 'htm', 'js', 'exe', 'bat', 'cmd', 'vbs', 'msi', 'reg', 'scr', 'com', 'pif', 'jsp', 'asp', 'aspx', 'cgi', 'pl', 'swf', 'htaccess', 'sh', 'py', 'rb', 'ps1', 'psm1', 'jar', 'jspx', 'xhtml', 'jspx', 'shtml', 'ini', 'dll', 'sys', 'jspx'
+		);
 	}
 
 	/**

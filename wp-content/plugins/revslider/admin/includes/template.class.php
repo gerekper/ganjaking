@@ -12,7 +12,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 	private $templates_list			= 'revslider/get-list.php';
 	private $templates_download		= 'revslider/download.php';
 	
-	private $templates_server_path	= '/revslider/images/';
+	public $templates_server_path	= '/revslider/images/';
 	private $templates_path			= '/revslider/templates/';
 	
 	private $curl_check				= null;

@@ -1,5 +1,15 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.05.03 - version 10.10.1
+* New: WooCommerce compatibility up to 7.7
+
+2023.04.24 - version 10.10.0
+* New: Add support for 'pause' attribute
+* New: Add support for 'lifestyle_image_link' attribute
+* New: Add support for 'expiration date' attribute
+* New: Add support for 'disclosure date' attribute
+* Change: Re-organise fields in settings into groups to make it easier to manage standard settings
+
 2023.04.05 - version 10.9.1
 * New: WooCommerce compatibility up to 7.6
 * Change: Improvements to feed debug output

@@ -71,9 +71,9 @@ class FUE_Reports_Customers_Table extends WP_List_Table {
 			}
 		}
 
-		$sql .= " ORDER BY {$order_column} {$order} LIMIT {$start},{$per_page}";
+		$sql .= " ORDER BY %s %s LIMIT %d, %d";
 
-		$users          = $wpdb->get_results( $sql, ARRAY_A );
+		$users          = $wpdb->get_results( $wpdb->prepare( $sql, array( $order_column, $order, $start, $per_page ) ), ARRAY_A );
 		$items          = array();
 
 		$total_items    = $wpdb->get_var("SELECT FOUND_ROWS()");

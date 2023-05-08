@@ -1025,14 +1025,8 @@ class WoocommerceGpfFeedItem {
 			}
 		}
 
-		// Uniquefy the ordered_image_sources array...
+		// Uniqueify the ordered_image_sources array...
 		$this->ordered_images = array_unique( $this->ordered_images, SORT_REGULAR );
-
-		// Exclude any excluded images based on ID.
-		$excluded_ids = $this->general_product->get_meta( 'woocommerce_gpf_excluded_media_ids', true );
-		if ( empty( $excluded_ids ) || ! is_array( $excluded_ids ) ) {
-			$excluded_ids = [];
-		}
 
 		/**
 		 * Move the first found image into the primary image slot, and the
@@ -1047,6 +1041,13 @@ class WoocommerceGpfFeedItem {
 			$done_primary_image = true;
 		}
 
+		// Get the list of image IDs to exclude.
+		$excluded_ids = $this->general_product->get_meta( 'woocommerce_gpf_excluded_media_ids', true );
+		if ( empty( $excluded_ids ) || ! is_array( $excluded_ids ) ) {
+			$excluded_ids = [];
+		}
+
+		// Process the list of images and pull through into the image_link / additional image properties.
 		foreach ( $this->ordered_images as $image ) {
 			// Skip if excluded.
 			if ( in_array( $image['id'], $excluded_ids, true ) ) {

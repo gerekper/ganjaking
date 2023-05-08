@@ -3,7 +3,7 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.44
+ * Version: 2.45
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
@@ -3433,7 +3433,6 @@ class I13_Woo_Recpatcha {
 			$recapcha_error_msg_captcha_invalid = str_replace('[recaptcha]', $captcha_lable, $recapcha_error_msg_captcha_invalid);
 
 			$nonce_value = isset($_REQUEST['wp-login-nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['wp-login-nonce'])) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.NoNonceVerification
-			$varifyNone = wp_verify_nonce($nonce_value, 'wp-login-nonce');
 			if ('yes' == $is_enabled && isset($_POST['pwd']) && !( $this->isWordFenceActive() && isset($_POST['action']) && 'wordfence_ls_authenticate' == $_POST['action'] )) {
 
 
@@ -5105,14 +5104,7 @@ class I13_Woo_Recpatcha {
 								 });
 					<?php endif; ?>
 											
-											jQuery(document).ajaxSend(function (event, jqxhr, settings) {
-
-												if(settings.data.indexOf('g-recaptcha-response') === -1){
-													
-													settings.data = settings.data + '&g-recaptcha-response=' +window.recap_val;
-												}
-
-											});
+											
 					});
 						var verifyCallback_add_guestcheckout = function(response) {
 
@@ -5236,15 +5228,7 @@ class I13_Woo_Recpatcha {
 							 });
 						<?php endif; ?>
 						
-												jQuery(document).ajaxSend(function (event, jqxhr, settings) {
-
-													
-													if(settings.data.indexOf('g-recaptcha-response') === -1){
-													
-														 settings.data = settings.data + '&g-recaptcha-response=' +window.recap_val;
-													}
-
-												 });
+												
 					});
 					var verifyCallback_add_logincheckout = function(response) {
 
@@ -5395,12 +5379,7 @@ class I13_Woo_Recpatcha {
 
 					
 										
-											jQuery(document).ajaxSend(function (event, jqxhr, settings) {
-
-												settings.data = settings.data + '&i13_checkout_token=' + jQuery('#i13_checkout_token').val();
-
-
-											});
+											
 
 
 					});
@@ -6010,14 +5989,7 @@ class I13_Woo_Recpatcha {
 					   });
 										   
 										   
-										   jQuery(document).ajaxSend(function (event, jqxhr, settings) {
-
-													if(settings.data.indexOf('g-recaptcha-response') === -1){
-
-															settings.data = settings.data + '&g-recaptcha-response=' +window.recap_val;
-													}
-
-											});
+										
 					
 					});
 							var verifyCallback_add_guestcheckout = function(response) {
@@ -6168,12 +6140,6 @@ class I13_Woo_Recpatcha {
 
 
 								
-									jQuery(document).ajaxSend(function (event, jqxhr, settings) {
-
-											settings.data = settings.data + '&i13_checkout_token=' + jQuery('#i13_checkout_token').val();
-
-
-									});
 
 				  
 

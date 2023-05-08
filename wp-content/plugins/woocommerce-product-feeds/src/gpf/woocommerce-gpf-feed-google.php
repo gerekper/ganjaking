@@ -236,11 +236,26 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			$output .= '      <g:image_link>' . $this->esc_xml( $feed_item->image_link ) . "</g:image_link>\n";
 		}
 
+		$lifestyle_image_url = '';
+		$lifestyle_media_id  = $feed_item->general_product->get_meta( 'woocommerce_gpf_lifestyle_media_id', true );
+		if ( ! empty( $lifestyle_media_id ) && ! empty( $feed_item->image_sources[ $lifestyle_media_id ] ) ) {
+			$lifestyle_image_url = $feed_item->image_sources[ $lifestyle_media_id ]['url'];
+			$output             .= '      <g:lifestyle_image_link>' . $this->esc_xml( $lifestyle_image_url ) . "</g:lifestyle_image_link>\n";
+		}
+
+		if ( ! empty( $feed_item->lifestyle_image_link ) ) {
+			$output .= '      <g:lifestyle_image_link>' . $this->esc_xml( $feed_item->lifestyle_image_link ) . "</g:lifestyle_image_link>\n";
+		}
+
 		$output .= $this->render_prices( $feed_item );
 
 		$cnt = 0;
 		if ( apply_filters( 'woocommerce_gpf_google_additional_images', true ) ) {
 			foreach ( $feed_item->additional_images as $image_url ) {
+				// Skip if already output as the lifestyle image link.
+				if ( $image_url === $lifestyle_image_url ) {
+					continue;
+				}
 				// Google limit the number of additional images to 10
 				if ( 10 === $cnt ) {
 					break;

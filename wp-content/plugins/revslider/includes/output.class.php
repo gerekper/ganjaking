@@ -8140,7 +8140,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			$vf = $s->get_param(array('carousel', 'varyFade'), false);
 			if($vf !== false) $c['vary_fade'] = $vf;
 			$mo = $s->get_param(array('carousel', 'maxOpacity'), 100);
-			$mo = ($mo > 100) ? 100 : $mo;
+			$mo = (intval(str_replace('%', '', $mo)) > 100) ? 100 : $mo;
 			if(!in_array($mo, array(100, '100'), true)) $c['maxOpacity'] = $mo;
 		}
 		if(!in_array($br, array(0, '0', '0px'), true)) $c['border_radius'] = $br;

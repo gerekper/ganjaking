@@ -64,6 +64,11 @@ class WoocommerceGpfAdmin {
 	private $base_dir;
 
 	/**
+	 * @var array
+	 */
+	private $grouped_product_fields = array();
+
+	/**
 	 * WoocommerceGpfAdmin constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
@@ -157,10 +162,37 @@ class WoocommerceGpfAdmin {
 		// Read in the field data.
 		$this->product_fields = apply_filters( 'woocommerce_gpf_product_fields', $this->common->product_fields );
 
+		// Sort the product fields by ui_group, then name.
+		$this->grouped_product_fields = $this->generate_grouped_product_fields();
+
 		// Set up i18n for the admin screens.
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce_gpf' );
 		load_textdomain( 'woocommerce_gpf', WP_LANG_DIR . '/woocommerce-google-product-feed/woocommerce_gpf-' . $locale . '.mo' );
 		load_plugin_textdomain( 'woocommerce_gpf', false, $this->base_dir . '/languages/' );
+	}
+
+	/**
+	 * Generate an array grouped by ui_group, and ordered by field "desc".
+	 *
+	 * @return array
+	 */
+	private function generate_grouped_product_fields() {
+		$results = [];
+		// Create an array grouped by ui_group.
+		foreach ( $this->product_fields as $field_name => $field ) {
+			$field_ui_group = $field['ui_group'] ?? 'advanced';
+			if ( ! isset( $results[ $field_ui_group ] ) ) {
+				$results[ $field_ui_group ] = [];
+			}
+			$results[ $field_ui_group ][ $field_name ] = $field['desc'];
+		}
+		// Order the sub-arrays by the field name.
+		foreach ( $results as $group_key => $fields ) {
+			asort( $fields );
+			$results[ $group_key ] = $fields;
+		}
+
+		return $results;
 	}
 
 	/**
@@ -447,68 +479,95 @@ class WoocommerceGpfAdmin {
 			);
 		}
 
-		foreach ( $this->product_fields as $key => $fieldinfo ) {
-			// Skip if not enabled & not mandatory.
-			if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
-				 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
-			) {
+		foreach ( $this->grouped_product_fields as $group => $field_keys ) {
+
+			if ( empty( $field_keys ) ) {
 				continue;
 			}
-			// Skip if not to be shown on product pages.
-			if ( isset( $this->product_fields[ $key ]['skip_on_category_pages'] ) &&
-				 $this->product_fields[ $key ]['skip_on_category_pages']
-			) {
-				continue;
-			}
-
-			$header_vars = array();
-			$def_vars    = array();
-			$row_vars    = array();
-			$variables   = array();
-
-			$header_vars['row_title'] = esc_html( $fieldinfo['desc'] );
-			$header_vars['key']       = esc_html( $key );
-
-			$header_vars['default_text'] = '';
-			$placeholder                 = '';
-			if ( isset( $fieldinfo['can_default'] ) && ! empty( $this->settings['product_defaults'][ $key ] ) ) {
-				$header_vars['default_text'] .= '<span class="woocommerce_gpf_default_label">(' .
-												__( 'Default: ', 'woocommerce_gpf' ) .
-												esc_html( $this->settings['product_defaults'][ $key ] ) .
-												')</span>';
-				$placeholder                  = __( 'Use default', 'woo_gpf' );
-			}
-			$row_vars['header_content'] = $this->template_loader->get_template_with_variables(
-				'woo-gpf',
-				'meta-field-row-header',
-				$header_vars
-			);
-
-			$current_value            = isset( $current_data[ $key ] ) ? $current_data[ $key ] : '';
-			$def_vars['defaultinput'] = $this->render_field_default_input( $key, 'category', $current_value, $placeholder, null );
-			$def_vars['key']          = $key;
-			$variables['defaults']    = $this->template_loader->get_template_with_variables(
-				'woo-gpf',
-				'meta-field-row-defaults',
-				$def_vars
-			);
-			$row_vars['data_content'] = $this->template_loader->get_template_with_variables(
-				'woo-gpf',
-				'meta-field-row-data',
-				$variables
-			);
 			if ( ! $term ) {
-				$this->template_loader->output_template_with_variables(
+				$group_header = $this->template_loader->get_template_with_variables(
 					'woo-gpf',
-					'category-field-row',
-					$row_vars
+					'category-row-group',
+					[ 'group_name' => $this->common->get_ui_group_name( $group ) ]
 				);
 			} else {
-				$this->template_loader->output_template_with_variables(
+				$group_header = $this->template_loader->get_template_with_variables(
 					'woo-gpf',
-					'categories-field-row',
-					$row_vars
+					'categories-row-group',
+					[ 'group_name' => $this->common->get_ui_group_name( $group ) ]
 				);
+			}
+
+			$group_content = '';
+			foreach ( array_keys( $field_keys ) as $key ) {
+				$fieldinfo = $this->product_fields[ $key ];
+
+				// Skip if not enabled & not mandatory.
+				if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
+					 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
+				) {
+					continue;
+				}
+				// Skip if not to be shown on product pages.
+				if ( isset( $this->product_fields[ $key ]['skip_on_category_pages'] ) &&
+					 $this->product_fields[ $key ]['skip_on_category_pages']
+				) {
+					continue;
+				}
+
+				$header_vars = array();
+				$def_vars    = array();
+				$row_vars    = array();
+				$variables   = array();
+
+				$header_vars['row_title'] = esc_html( $fieldinfo['desc'] );
+				$header_vars['key']       = esc_html( $key );
+
+				$header_vars['default_text'] = '';
+				$placeholder                 = '';
+				if ( isset( $fieldinfo['can_default'] ) && ! empty( $this->settings['product_defaults'][ $key ] ) ) {
+					$header_vars['default_text'] .= '<span class="woocommerce_gpf_default_label">(' .
+													__( 'Default: ', 'woocommerce_gpf' ) .
+													esc_html( $this->settings['product_defaults'][ $key ] ) .
+													')</span>';
+					$placeholder                  = __( 'Use default', 'woo_gpf' );
+				}
+				$row_vars['header_content'] = $this->template_loader->get_template_with_variables(
+					'woo-gpf',
+					'meta-field-row-header',
+					$header_vars
+				);
+
+				$current_value            = isset( $current_data[ $key ] ) ? $current_data[ $key ] : '';
+				$def_vars['defaultinput'] = $this->render_field_default_input( $key, 'category', $current_value, $placeholder, null );
+				$def_vars['key']          = $key;
+				$variables['defaults']    = $this->template_loader->get_template_with_variables(
+					'woo-gpf',
+					'meta-field-row-defaults',
+					$def_vars
+				);
+				$row_vars['data_content'] = $this->template_loader->get_template_with_variables(
+					'woo-gpf',
+					'meta-field-row-data',
+					$variables
+				);
+				if ( ! $term ) {
+					$group_content .= $this->template_loader->get_template_with_variables(
+						'woo-gpf',
+						'category-field-row',
+						$row_vars
+					);
+				} else {
+					$group_content .= $this->template_loader->get_template_with_variables(
+						'woo-gpf',
+						'categories-field-row',
+						$row_vars
+					);
+				}
+			}
+			if ( ! empty( $group_content ) ) {
+				echo $group_header;
+				echo $group_content;
 			}
 		}
 	}
@@ -567,67 +626,88 @@ class WoocommerceGpfAdmin {
 				'style'    => $style,
 			]
 		);
-		foreach ( $this->product_fields as $key => $fieldinfo ) {
-			if ( ! isset( $this->settings['product_fields'][ $key ] ) || 'description' === $key ) {
+
+		foreach ( $this->grouped_product_fields as $group => $field_keys ) {
+
+			if ( empty( $field_keys ) ) {
 				continue;
 			}
-			$variables                      = $this->default_field_variables( $key, $loop_idx );
-			$variables['field_description'] = esc_html( $fieldinfo['desc'] );
-			$variables['field_defaults']    = '';
-			$placeholder                    = '';
-			if ( isset( $fieldinfo['can_prepopulate'] ) && ! empty( $this->settings['product_prepopulate'][ $key ] ) ) {
-				$prepopulate_vars             = array();
-				$prepopulate_vars['label']    = $this->get_prepopulate_label( $this->settings['product_prepopulate'][ $key ] );
-				$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
-					'woo-gpf',
-					'product-meta-prepopulate-text',
-					$prepopulate_vars
-				);
-			}
-			if ( isset( $fieldinfo['can_default'] ) && ! empty( $product_defaults[ $key ] ) ) {
-				$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
-					'woo-gpf',
-					'variation-meta-default-text',
-					array(
-						'default' => sprintf(
-							'Defaults to value from main product, or &quot;%s&quot;.',
-							esc_html( $product_defaults[ $key ] )
-						),
-					)
-				);
-				$placeholder                  = __( 'Use default', 'woo_gpf' );
-			}
-			if ( ! isset( $fieldinfo['callback'] ) || ! is_callable( array( &$this, $fieldinfo['callback'] ) ) ) {
-				$current_value            = ! empty( $current_data[ $key ] ) ? $current_data[ $key ] : '';
-				$variables['field_input'] = $this->render_field_default_input(
-					$key,
-					'variation',
-					$current_value,
-					$placeholder,
-					$loop_idx
-				);
-			} else {
-				if ( isset( $current_data[ $key ] ) ) {
-					$variables['field_input'] = call_user_func(
-						array( $this, $fieldinfo['callback'] ),
+
+			$group_header = $this->template_loader->get_template_with_variables(
+				'woo-gpf',
+				'product-meta-field-group',
+				[ 'group_name' => $this->common->get_ui_group_name( $group ) ]
+			);
+
+			$group_content = '';
+			foreach ( array_keys( $field_keys ) as $key ) {
+
+				if ( ! isset( $this->settings['product_fields'][ $key ] ) || 'description' === $key ) {
+					continue;
+				}
+				$fieldinfo                      = $this->product_fields[ $key ];
+				$variables                      = $this->default_field_variables( $key, $loop_idx );
+				$variables['field_description'] = esc_html( $fieldinfo['desc'] );
+				$variables['field_defaults']    = '';
+				$placeholder                    = '';
+				if ( isset( $fieldinfo['can_prepopulate'] ) && ! empty( $this->settings['product_prepopulate'][ $key ] ) ) {
+					$prepopulate_vars             = array();
+					$prepopulate_vars['label']    = $this->get_prepopulate_label( $this->settings['product_prepopulate'][ $key ] );
+					$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
+						'woo-gpf',
+						'product-meta-prepopulate-text',
+						$prepopulate_vars
+					);
+				}
+				if ( isset( $fieldinfo['can_default'] ) && ! empty( $product_defaults[ $key ] ) ) {
+					$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
+						'woo-gpf',
+						'variation-meta-default-text',
+						array(
+							'default' => sprintf(
+								'Defaults to value from main product, or &quot;%s&quot;.',
+								esc_html( $product_defaults[ $key ] )
+							),
+						)
+					);
+					$placeholder                  = __( 'Use default', 'woo_gpf' );
+				}
+				if ( ! isset( $fieldinfo['callback'] ) || ! is_callable( array( &$this, $fieldinfo['callback'] ) ) ) {
+					$current_value            = ! empty( $current_data[ $key ] ) ? $current_data[ $key ] : '';
+					$variables['field_input'] = $this->render_field_default_input(
 						$key,
 						'variation',
-						$current_data[ $key ],
+						$current_value,
 						$placeholder,
 						$loop_idx
 					);
 				} else {
-					$variables['field_input'] = call_user_func(
-						array( $this, $fieldinfo['callback'] ),
-						$key,
-						'variation',
-						null,
-						$placeholder,
-						$loop_idx
-					);
+					if ( isset( $current_data[ $key ] ) ) {
+						$variables['field_input'] = call_user_func(
+							array( $this, $fieldinfo['callback'] ),
+							$key,
+							'variation',
+							$current_data[ $key ],
+							$placeholder,
+							$loop_idx
+						);
+					} else {
+						$variables['field_input'] = call_user_func(
+							array( $this, $fieldinfo['callback'] ),
+							$key,
+							'variation',
+							null,
+							$placeholder,
+							$loop_idx
+						);
+					}
 				}
+				$group_content .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 			}
-			$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
+			if ( ! empty( $group_content ) ) {
+				echo $group_header;
+				echo $group_content;
+			}
 		}
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-footer', array() );
 		echo '</div>';
@@ -659,70 +739,91 @@ class WoocommerceGpfAdmin {
 				'style'    => '',
 			]
 		);
-		foreach ( $this->product_fields as $key => $fieldinfo ) {
-			// Skip if not enabled & not mandatory.
-			if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
-				 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
-			) {
-				continue;
-			}
-			// Skip if not to be shown on product pages.
-			if ( isset( $this->product_fields[ $key ]['skip_on_product_pages'] ) &&
-				 $this->product_fields[ $key ]['skip_on_product_pages']
-			) {
+
+		foreach ( $this->grouped_product_fields as $group => $field_keys ) {
+
+			if ( empty( $field_keys ) ) {
 				continue;
 			}
 
-			$variables                      = $this->default_field_variables( $key );
-			$variables['field_description'] = esc_html( $fieldinfo['desc'] );
-			$variables['field_defaults']    = '';
-			$placeholder                    = '';
-			if ( isset( $fieldinfo['can_prepopulate'] ) && ! empty( $this->settings['product_prepopulate'][ $key ] ) ) {
-				$prepopulate_vars          = array();
-				$prepopulate_vars['label'] = $this->get_prepopulate_label( $this->settings['product_prepopulate'][ $key ] );
-				if ( ! empty( $prepopulate_vars['label'] ) ) {
+			$group_header = $this->template_loader->get_template_with_variables(
+				'woo-gpf',
+				'product-meta-field-group',
+				[ 'group_name' => $this->common->get_ui_group_name( $group ) ]
+			);
+
+			$group_content = '';
+			foreach ( array_keys( $field_keys ) as $key ) {
+				$fieldinfo = $this->product_fields[ $key ];
+
+				// Skip if not enabled & not mandatory.
+				if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
+					 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
+				) {
+					continue;
+				}
+				// Skip if not to be shown on product pages.
+				if ( isset( $this->product_fields[ $key ]['skip_on_product_pages'] ) &&
+					 $this->product_fields[ $key ]['skip_on_product_pages']
+				) {
+					continue;
+				}
+
+				$variables                      = $this->default_field_variables( $key );
+				$variables['field_description'] = esc_html( $fieldinfo['desc'] );
+				$variables['field_defaults']    = '';
+				$placeholder                    = '';
+				if ( isset( $fieldinfo['can_prepopulate'] ) && ! empty( $this->settings['product_prepopulate'][ $key ] ) ) {
+					$prepopulate_vars          = array();
+					$prepopulate_vars['label'] = $this->get_prepopulate_label( $this->settings['product_prepopulate'][ $key ] );
+					if ( ! empty( $prepopulate_vars['label'] ) ) {
+						$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
+							'woo-gpf',
+							'product-meta-prepopulate-text',
+							$prepopulate_vars
+						);
+					}
+				}
+				if ( isset( $fieldinfo['can_default'] ) && ! empty( $product_defaults[ $key ] ) ) {
 					$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
 						'woo-gpf',
-						'product-meta-prepopulate-text',
-						$prepopulate_vars
+						'product-meta-default-text',
+						array(
+							'default' => '(' . __( 'Default: ', 'woocommerce_gpf' ) . esc_html( $product_defaults[ $key ] ) . ')',
+						)
+					);
+					$placeholder                  = __( 'Use default', 'woo_gpf' );
+				}
+				if ( ! isset( $fieldinfo['callback'] ) || ! is_callable( array( &$this, $fieldinfo['callback'] ) ) ) {
+					$current_value            = isset( $current_data[ $key ] ) ?
+						$current_data[ $key ] :
+						'';
+					$variables['field_input'] = $this->render_field_default_input(
+						$key,
+						'product',
+						$current_value,
+						$placeholder,
+						null
+					);
+				} else {
+					$current_value            = isset( $current_data[ $key ] ) ?
+						$current_data[ $key ] :
+						null;
+					$variables['field_input'] = call_user_func(
+						array( $this, $fieldinfo['callback'] ),
+						$key,
+						'product',
+						$current_value,
+						$placeholder,
+						null
 					);
 				}
+				$group_content .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 			}
-			if ( isset( $fieldinfo['can_default'] ) && ! empty( $product_defaults[ $key ] ) ) {
-				$variables['field_defaults'] .= $this->template_loader->get_template_with_variables(
-					'woo-gpf',
-					'product-meta-default-text',
-					array(
-						'default' => '(' . __( 'Default: ', 'woocommerce_gpf' ) . esc_html( $product_defaults[ $key ] ) . ')',
-					)
-				);
-				$placeholder                  = __( 'Use default', 'woo_gpf' );
+			if ( ! empty( $group_content ) ) {
+				echo $group_header;
+				echo $group_content;
 			}
-			if ( ! isset( $fieldinfo['callback'] ) || ! is_callable( array( &$this, $fieldinfo['callback'] ) ) ) {
-				$current_value            = isset( $current_data[ $key ] ) ?
-					$current_data[ $key ] :
-					'';
-				$variables['field_input'] = $this->render_field_default_input(
-					$key,
-					'product',
-					$current_value,
-					$placeholder,
-					null
-				);
-			} else {
-				$current_value            = isset( $current_data[ $key ] ) ?
-					$current_data[ $key ] :
-					null;
-				$variables['field_input'] = call_user_func(
-					array( $this, $fieldinfo['callback'] ),
-					$key,
-					'product',
-					$current_value,
-					$placeholder,
-					null
-				);
-			}
-			$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 		}
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-footer', array() );
 	}
@@ -1598,62 +1699,71 @@ class WoocommerceGpfAdmin {
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'admin-feed-fields-intro', array() );
 
 		// Output the fields.
-		foreach ( $this->product_fields as $key => $info ) {
+		foreach ( $this->grouped_product_fields as $group => $field_keys ) {
 
-			$variables                  = array();
-			$row_vars                   = array();
-			$def_vars                   = array();
-			$variables['row_title']     = esc_html( $info['desc'] );
-			$variables['feed_images']   = $this->feed_images_for_field( $key );
-			$row_vars['header_content'] = $this->template_loader->get_template_with_variables(
-				'woo-gpf',
-				'field-row-header',
-				$variables
-			);
-
-			$variables            = array();
-			$variables['key']     = esc_attr( $key );
-			$variables['checked'] = '';
-			if ( isset( $this->settings['product_fields'][ $key ] ) ) {
-				$variables['checked'] = 'checked="checked"';
-			}
-
-			$variables['full_desc'] = esc_html( $info['full_desc'] );
-
-			if ( isset( $this->product_fields[ $key ]['can_default'] ) ) {
-				$def_vars['defaultinput'] = __( 'Store default: <br>', 'woocommerce_gpf' ) .
-											$this->render_field_default_input( $key, 'config' );
-			} else {
-				$def_vars['defaultinput'] = '';
-			}
-			$def_vars['prepopulates'] = $this->prepopulate_selector_for_field( $key );
-			$def_vars['key']          = $key;
-			$def_vars['displaynone']  = '';
-			if ( ! isset( $this->settings['product_fields'][ $key ] ) ) {
-				$def_vars['displaynone'] = ' style="display:none;"';
-			}
-			$variables['class_mandatory'] = '';
-			if ( isset( $this->product_fields[ $key ]['mandatory'] ) && $this->product_fields[ $key ]['mandatory'] ) {
-				$variables['checked']         = 'checked="checked"';
-				$variables['class_mandatory'] = 'woocommerce_gpf_field_selector_mandatory"';
-				$def_vars['displaynone']      = '';
-			}
-
-			$variables['defaults']    = $this->template_loader->get_template_with_variables(
-				'woo-gpf',
-				'field-row-defaults',
-				$def_vars
-			);
-			$row_vars['data_content'] = $this->template_loader->get_template_with_variables(
-				'woo-gpf',
-				'field-row-data',
-				$variables
-			);
 			$this->template_loader->output_template_with_variables(
 				'woo-gpf',
-				'config-field-row',
-				$row_vars
+				'admin-field-group-header',
+				[ 'group_name' => $this->common->get_ui_group_name( $group ) ]
 			);
+
+			foreach ( array_keys( $field_keys ) as $key ) {
+				$variables                  = array();
+				$row_vars                   = array();
+				$def_vars                   = array();
+				$info                       = $this->product_fields[ $key ] ?? [];
+				$variables['row_title']     = esc_html( $info['desc'] );
+				$variables['feed_images']   = $this->feed_images_for_field( $key );
+				$row_vars['header_content'] = $this->template_loader->get_template_with_variables(
+					'woo-gpf',
+					'field-row-header',
+					$variables
+				);
+
+				$variables            = array();
+				$variables['key']     = esc_attr( $key );
+				$variables['checked'] = '';
+				if ( isset( $this->settings['product_fields'][ $key ] ) ) {
+					$variables['checked'] = 'checked="checked"';
+				}
+
+				$variables['full_desc'] = esc_html( $info['full_desc'] );
+
+				if ( isset( $this->product_fields[ $key ]['can_default'] ) ) {
+					$def_vars['defaultinput'] = __( 'Store default: <br>', 'woocommerce_gpf' ) .
+												$this->render_field_default_input( $key, 'config' );
+				} else {
+					$def_vars['defaultinput'] = '';
+				}
+				$def_vars['prepopulates'] = $this->prepopulate_selector_for_field( $key );
+				$def_vars['key']          = $key;
+				$def_vars['displaynone']  = '';
+				if ( ! isset( $this->settings['product_fields'][ $key ] ) ) {
+					$def_vars['displaynone'] = ' style="display:none;"';
+				}
+				$variables['class_mandatory'] = '';
+				if ( isset( $this->product_fields[ $key ]['mandatory'] ) && $this->product_fields[ $key ]['mandatory'] ) {
+					$variables['checked']         = 'checked="checked"';
+					$variables['class_mandatory'] = 'woocommerce_gpf_field_selector_mandatory"';
+					$def_vars['displaynone']      = '';
+				}
+
+				$variables['defaults']    = $this->template_loader->get_template_with_variables(
+					'woo-gpf',
+					'field-row-defaults',
+					$def_vars
+				);
+				$row_vars['data_content'] = $this->template_loader->get_template_with_variables(
+					'woo-gpf',
+					'field-row-data',
+					$variables
+				);
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf',
+					'config-field-row',
+					$row_vars
+				);
+			}
 		}
 		$variables                                = array();
 		$variables['include_variations_selected'] = checked(

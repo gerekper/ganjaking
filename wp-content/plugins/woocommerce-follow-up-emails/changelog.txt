@@ -1,5 +1,12 @@
 *** WooCommerce Follow-Up Emails ***
 
+2023-05-03 - version 4.9.39
+* Dev - Security improvements: [Semgrep] Clean and fix warnings.
+* Dev - Security improvements: [Semgrep] Refactor check_authentication hook.
+
+2023-04-04 - version 4.9.38
+* Tweak - WC 7.6 compatibility.
+
 2023-03-08 - version 4.9.37
 * Tweak - WC 7.5 compatibility.
 * Tweak - WP 6.2 compatibility.

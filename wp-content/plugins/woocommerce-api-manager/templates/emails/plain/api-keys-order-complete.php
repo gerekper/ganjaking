@@ -13,13 +13,14 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates/Emails
- * @version 2.6.8
+ * @version 2.6.14
  */
 
 defined( 'ABSPATH' ) || exit;
 
 if ( is_object( $order ) && ! empty( $resources ) ) {
 	$hide_product_order_api_keys = WC_AM_USER()->hide_product_order_api_keys();
+	$hide_master_api_key         = WC_AM_USER()->hide_master_api_key();
 
 	echo "\n\n" . esc_html( '-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-' );
 	echo "\n\n" . __( 'API Product Information', 'woocommerce-api-manager' ) . "\n\n";
@@ -55,10 +56,12 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 		echo esc_html( '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' ) . "\n\n";
 	}
 
-	// translators: %s placeholder is Master API Key
-	echo sprintf( _x( 'Master API Key: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) . "\n";
+	if ( ! $hide_master_api_key ) {
+		// translators: %s placeholder is Master API Key
+		echo sprintf( _x( 'Master API Key: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) . "\n";
 
-	echo "\n" . esc_html__( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ) . "\n";
+		echo "\n" . esc_html__( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ) . "\n";
+	}
 
 	if ( $order->has_downloadable_item() ) {
 		// translators: %s placeholder is My Account > API Downloads -> URL
