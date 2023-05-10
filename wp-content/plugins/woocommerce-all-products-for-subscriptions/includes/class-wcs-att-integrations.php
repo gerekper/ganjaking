@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with other extensions.
  *
  * @class    WCS_ATT_Integrations
- * @version  4.0.3
+ * @version  4.0.6
  */
 class WCS_ATT_Integrations {
 
@@ -115,7 +115,9 @@ class WCS_ATT_Integrations {
 			return;
 		}
 
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WCS_ATT()->plugin_basename(), false );
+		$compatibility = WCS_ATT_Core_Compatibility::is_wc_version_gte( '7.6.0' );
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WCS_ATT()->plugin_basename(), $compatibility );
 	}
 
 	/**

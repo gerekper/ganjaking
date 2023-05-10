@@ -1,6 +1,6 @@
 Aliexpress Dropshipping for Woocommerce
 
-Kernel version: 1.25.0
+Kernel version: 1.25.5
 
 Documentation Plugin: https://help.ali2woo.com/
 Plugin page: https://ali2woo.com/dropshipping-plugin/
