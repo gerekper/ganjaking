@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products Tracker.
  *
  * @class    WC_CP_Tracker
- * @version  8.5.1
+ * @version  8.7.6
  */
 class WC_CP_Tracker {
 
@@ -232,25 +232,27 @@ class WC_CP_Tracker {
 	private static function calculate_aggregation_data() {
 
 		// Number of products in catalog.
-		$args  = array(
+		$products_args  = array(
 			'status' => 'publish',
 			'limit'  => -1,
 			'return' => 'ids',
 		);
-		$query = new WC_Product_Query( $args );
+		$products_query = new WC_Product_Query( $products_args );
+		$products       = $products_query->get_products();
 
-		self::$data[ 'products' ][ 'count' ] = count( $query->get_products() );
+		self::$data[ 'products' ][ 'count' ] = is_array( $products ) ? count( $products ) : 0;
 
 		// Number of composites in use.
-		$args  = array(
+		$composites_args    = array(
 			'status' => 'publish',
 			'type'   => 'composite',
 			'limit'  => -1,
 			'return' => 'ids',
 		);
-		$query = new WC_Product_Query( $args );
+		$composites_query   = new WC_Product_Query( $composites_args );
+		$composite_products = $composites_query->get_products();
 
-		self::$data[ 'composites' ][ 'count' ] = count( $query->get_products() );
+		self::$data[ 'composites' ][ 'count' ] = is_array( $composite_products ) ? count( $composite_products ) : 0;
 
 		foreach ( self::$pending_products as $product_id ) {
 			$product = wc_get_product( $product_id );
@@ -777,7 +779,7 @@ class WC_CP_Tracker {
 			$bundled_products_query = new WC_Product_Query( $bundled_args );
 			$bundled_products       = $bundled_products_query->get_products();
 
-			self::$reusable_data[ 'product_bundles_array' ] = $bundled_products;
+			self::$reusable_data[ 'product_bundles_array' ] = is_array( $bundled_products ) ? $bundled_products : array();
 		}
 
 		return self::$reusable_data[ $key ];

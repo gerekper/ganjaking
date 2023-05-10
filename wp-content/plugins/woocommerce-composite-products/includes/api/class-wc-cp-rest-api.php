@@ -311,6 +311,11 @@ class WC_CP_REST_API {
 							),
 							'context'     => array( 'view', 'edit' )
 						),
+						'select_action'         => array(
+							'description' => __( 'Whether to display selected option or move to the next Component', 'woocommerce-composite-products' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' )
+						),
 						'product_title_visible' => array(
 							'description' => __( 'Controls the visibility of product titles in the Component Selection view.', 'woocommerce-composite-products' ),
 							'type'        => 'boolean',
@@ -1001,7 +1006,7 @@ class WC_CP_REST_API {
 			foreach ( $component_data as $key => $value ) {
 
 				// String.
-				if ( in_array( $key, array( 'id', 'title', 'description', 'query_type', 'options_style', 'thumbnail_src', 'pagination_style', 'display_prices' ) ) ) {
+				if ( in_array( $key, array( 'id', 'title', 'description', 'query_type', 'options_style', 'thumbnail_src', 'pagination_style', 'display_prices', 'select_action' ) ) ) {
 					if ( 'title' === $key ) {
 						$sanitized_data[ $key ] = strip_tags( strval( $value ) );
 					} elseif ( 'description' ===  $key ) {
@@ -1295,6 +1300,7 @@ class WC_CP_REST_API {
 		}
 
 		return array(
+			'id'            => ! empty( $data[ 'name' ] ) ? strval( $data[ 'id' ] ) : '',
 			'name'          => ! empty( $data[ 'name' ] ) ? strip_tags( $data[ 'name' ] ) : '',
 			'description'   => isset( $data[ 'description' ] ) ? wp_kses_post( $data[ 'description' ] ) : '',
 			'configuration' => $sanitized_configuration,
@@ -1362,7 +1368,7 @@ class WC_CP_REST_API {
 
 					$actions_data[ $action_id ][ 'hidden_components' ] = $action_data[ 'hidden_components' ];
 
-				} elseif ( 'conditional_options' === $action_id ) {
+				} elseif ( 'conditional_options' === $action_id && ! empty( $action_data[ 'hidden_options' ] ) && is_array( $action_data[ 'hidden_options' ] ) ) {
 
 					$actions_data[ $action_id ][ 'component_data' ] = array_combine( wp_list_pluck( $action_data[ 'hidden_options' ], 'component_id' ), wp_list_pluck( $action_data[ 'hidden_options' ], 'component_options' ) );
 					$actions_data[ $action_id ][ 'modifier' ]       = array_combine( wp_list_pluck( $action_data[ 'hidden_options' ], 'component_id' ), wp_list_pluck( $action_data[ 'hidden_options' ], 'options_modifier' ) );

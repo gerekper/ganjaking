@@ -665,8 +665,12 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
     <p>
       ";
         // line 307
-        echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade"), "https://www.mailpoet.com/support/sales-pre-sales-questions/", ["target" => "_blank"]);
-        // line 311
+        $context["allowedHtml"] = ["a" => ["href" => [], "target" => []]];
+        // line 308
+        echo "      ";
+        echo $this->extensions['MailPoet\Twig\Filters']->wpKses(MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade"), "https://www.mailpoet.com/support/sales-pre-sales-questions/", ["target" => "_blank"]),         // line 311
+($context["allowedHtml"] ?? null));
+        // line 312
         echo "
     </p>
   </div>
@@ -675,11 +679,11 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
 <div class=\"mailpoet-premium-page-footer-image\">
   <img
     src=\"";
-        // line 318
+        // line 319
         echo $this->extensions['MailPoet\Twig\Assets']->generateCdnUrl("premium/5-footer.png");
         echo "\"
     alt=\"";
-        // line 319
+        // line 320
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Image rooster crowing");
         echo "\"
   >
@@ -687,11 +691,11 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
 ";
     }
 
-    // line 324
+    // line 325
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 325
+        // line 326
         echo "<script type=\"text/javascript\">
   MailPoet.trackEvent('Premium page viewed');
 </script>
@@ -710,7 +714,7 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
 
     public function getDebugInfo()
     {
-        return array (  692 => 325,  688 => 324,  680 => 319,  676 => 318,  667 => 311,  665 => 307,  659 => 304,  655 => 302,  649 => 300,  643 => 298,  641 => 297,  634 => 293,  630 => 292,  624 => 289,  613 => 281,  609 => 280,  602 => 276,  598 => 274,  592 => 272,  586 => 270,  584 => 269,  577 => 265,  573 => 264,  569 => 263,  563 => 260,  557 => 257,  553 => 256,  549 => 255,  545 => 254,  539 => 251,  533 => 248,  527 => 245,  521 => 242,  517 => 241,  511 => 238,  497 => 227,  493 => 225,  487 => 223,  481 => 221,  479 => 220,  471 => 215,  467 => 214,  463 => 213,  457 => 210,  451 => 207,  447 => 206,  443 => 205,  437 => 202,  431 => 199,  425 => 196,  419 => 193,  410 => 187,  406 => 185,  400 => 183,  394 => 181,  392 => 180,  385 => 176,  381 => 175,  377 => 174,  371 => 171,  365 => 168,  361 => 167,  357 => 166,  353 => 165,  347 => 162,  340 => 158,  334 => 155,  328 => 152,  321 => 148,  312 => 142,  306 => 139,  293 => 129,  289 => 128,  283 => 125,  279 => 124,  273 => 121,  264 => 115,  258 => 112,  252 => 109,  244 => 104,  238 => 101,  234 => 100,  228 => 97,  220 => 92,  216 => 91,  210 => 88,  206 => 87,  200 => 84,  192 => 79,  186 => 76,  182 => 75,  178 => 74,  172 => 71,  163 => 65,  157 => 62,  151 => 58,  142 => 52,  136 => 49,  129 => 45,  123 => 42,  119 => 40,  117 => 39,  108 => 33,  104 => 32,  95 => 26,  90 => 23,  84 => 21,  78 => 19,  76 => 18,  68 => 13,  64 => 12,  58 => 9,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  696 => 326,  692 => 325,  684 => 320,  680 => 319,  671 => 312,  669 => 311,  667 => 308,  665 => 307,  659 => 304,  655 => 302,  649 => 300,  643 => 298,  641 => 297,  634 => 293,  630 => 292,  624 => 289,  613 => 281,  609 => 280,  602 => 276,  598 => 274,  592 => 272,  586 => 270,  584 => 269,  577 => 265,  573 => 264,  569 => 263,  563 => 260,  557 => 257,  553 => 256,  549 => 255,  545 => 254,  539 => 251,  533 => 248,  527 => 245,  521 => 242,  517 => 241,  511 => 238,  497 => 227,  493 => 225,  487 => 223,  481 => 221,  479 => 220,  471 => 215,  467 => 214,  463 => 213,  457 => 210,  451 => 207,  447 => 206,  443 => 205,  437 => 202,  431 => 199,  425 => 196,  419 => 193,  410 => 187,  406 => 185,  400 => 183,  394 => 181,  392 => 180,  385 => 176,  381 => 175,  377 => 174,  371 => 171,  365 => 168,  361 => 167,  357 => 166,  353 => 165,  347 => 162,  340 => 158,  334 => 155,  328 => 152,  321 => 148,  312 => 142,  306 => 139,  293 => 129,  289 => 128,  283 => 125,  279 => 124,  273 => 121,  264 => 115,  258 => 112,  252 => 109,  244 => 104,  238 => 101,  234 => 100,  228 => 97,  220 => 92,  216 => 91,  210 => 88,  206 => 87,  200 => 84,  192 => 79,  186 => 76,  182 => 75,  178 => 74,  172 => 71,  163 => 65,  157 => 62,  151 => 58,  142 => 52,  136 => 49,  129 => 45,  123 => 42,  119 => 40,  117 => 39,  108 => 33,  104 => 32,  95 => 26,  90 => 23,  84 => 21,  78 => 19,  76 => 18,  68 => 13,  64 => 12,  58 => 9,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

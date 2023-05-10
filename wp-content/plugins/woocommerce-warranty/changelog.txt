@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2023-05-08 - version 2.1.7
+* Update - Security update.
+
 2023-04-17 - version 2.1.6
 * Fix    - Adjust user/email search queries to use $wpdb->base_prefix if using multisite.
 * Update - Security update.

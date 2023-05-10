@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.4.0
+ * Version: 5.5.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 7.5
+ * WC tested up to: 7.6
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -225,8 +225,9 @@ class WooCommerce_Anti_Fraud {
 
 		add_action('profile_update', array($this, 'sync_woocommerce_email'), 10, 2) ;
 		add_action( 'woocommerce_after_checkout_validation', array($this, 'misha_validate_fname_lname'), 10, 2);
-		add_action( 'woocommerce_after_checkout_validation', array($this, 'max_order_same_ip'), 10, 2 );
+		add_action( 'woocommerce_after_checkout_validation', array($this, 'too_many_order_attempt_validation'), 10, 2 );
 		add_action( 'woocommerce_checkout_order_processed', array($this, 'wh_pre_paymentcall'), 10, 2);
+		add_action( 'woocommerce_after_checkout_validation', array($this, 'max_order_attempt_between_timespan'), 10, 2 );
 	}
 
 	/* Related to Wildcard email */
@@ -283,7 +284,7 @@ class WooCommerce_Anti_Fraud {
 
 	public function wildcard_email_validation() {
 
-		$customer_email = '';
+		$customer_billing_email = '';
 		$whitelist_email = 'false';
 
 		if (!empty($_POST['billing_email'])) {
@@ -292,7 +293,7 @@ class WooCommerce_Anti_Fraud {
 				return false;
 			}
 
-			$customer_email = sanitize_text_field($_POST['billing_email']);
+			$customer_billing_email = sanitize_text_field($_POST['billing_email']);
 		}
 
 		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
@@ -305,9 +306,9 @@ class WooCommerce_Anti_Fraud {
 
 				if (!empty($email_str_array) && is_array($email_str_array)) {
 
-					foreach ($email_str_array as $setting_email) {
+					foreach ($email_str_array as $setting_whitelisted_email) {
 
-						$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
+						$valid_customer = $this->create_email_pattern($setting_whitelisted_email, $customer_billing_email);
 
 						if (isset($valid_customer) && 'true' == $valid_customer) {
 							
@@ -328,45 +329,45 @@ class WooCommerce_Anti_Fraud {
 			$wc_af_whitelist_user_roles = array();
 		}
 
-		$is_whitelisted_roles = 'false';
+		$selected_whitelisted_role = 'false';
 		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
 		if ('yes' == $is_enable_whitelist_user_roles) {
 
 			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
 
-				$is_whitelisted_roles = 'true';
+				$selected_whitelisted_role = 'true';
 			}
 		} // check whitelist user role end
 
 		// check whitelist payment method
-		$payment_methods = 'false';
+		$selected_whitelist_payment_method = 'false';
 		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
 
 			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
-				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				$get_whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
 				
-				$payment_method = WC()->session->get('chosen_payment_method');
+				$payment_method_from_checkout = WC()->session->get('chosen_payment_method');
 				 
-				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
-					$payment_methods = 'true';
+				if ( in_array( $payment_method_from_checkout, $get_whitelist_payment_method ) ) {
+					$selected_whitelist_payment_method = 'true';
 				}
 			}
 		} // check whitelist payment method end
 		
 		// check whitelist specific email not wildcard type
-		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
 		$whitelist = explode("\n", $get_whitelist_email);
-		$not_whitelisted_email = false;
+		$selected_whitelisted_email = false;
 
 		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
 		if (in_array($whitelist_array, $whitelist)) {
-			$not_whitelisted_email = true;
+			$selected_whitelisted_email = true;
 		} // check whitelist specific email not wildcard type end
 		
-		update_option('not_whitelisted_email', $not_whitelisted_email);
-		update_option('white_payment_methods', $payment_methods);
-		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+		update_option('not_whitelisted_email', $selected_whitelisted_role);
+		update_option('white_payment_methods', $selected_whitelist_payment_method);
+		update_option('is_whitelisted_roles', $selected_whitelisted_email);
 
 		$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
 		$get_blacklist_email = get_option('wc_settings_anti_fraudblacklist_emails');
@@ -382,9 +383,9 @@ class WooCommerce_Anti_Fraud {
 
 				foreach ($email_str_array as $setting_email) {
 
-					$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
+					$valid_customer = $this->create_email_pattern($setting_email, $customer_billing_email);
 
-					if (isset($valid_customer) && 'true' == $valid_customer && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods) {
+					if (isset($valid_customer) && 'true' == $valid_customer && !$selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method) {
 
 						$whitelist_email = 'false';
 						wc_add_notice( __( 'This email id is blocked.' ), 'error' );
@@ -398,6 +399,9 @@ class WooCommerce_Anti_Fraud {
 
 	} /* Related to wildcard email end */
 
+	/*
+	* Whildcard email validation callback function to use globally
+	*/
 	public function call_wildcard_email_validation() {
 
 		$customer_email = '';
@@ -445,45 +449,48 @@ class WooCommerce_Anti_Fraud {
 			$wc_af_whitelist_user_roles = array();
 		}
 
-		$is_whitelisted_roles = 'false';
+		$selected_whitelisted_role = 'false';
 		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
 		if ('yes' == $is_enable_whitelist_user_roles) {
 
-			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
-
-				$is_whitelisted_roles = 'true';
+			foreach ( $user_roles as $role ) {
+				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
+					$selected_whitelisted_role = 'true';
+					break;
+				}
 			}
 		} // check whitelist user role end
 
 		// check whitelist payment method
-		$payment_methods = 'false';
+		$selected_whitelist_payment_method = 'false';
 		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
 
 			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
-				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				$get_whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
 				
-				$payment_method = WC()->session->get('chosen_payment_method');
+				$payment_method_from_checkout = WC()->session->get('chosen_payment_method');
 				 
-				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
-					$payment_methods = 'true';
+				if ( in_array( $payment_method_from_checkout, $get_whitelist_payment_method ) ) {
+					$selected_whitelist_payment_method = 'true';
 				}
 			}
 		} // check whitelist payment method end
 		
 		// check whitelist specific email not wildcard type
-		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
-		$whitelist = explode("\n", $get_whitelist_email);
-		$not_whitelisted_email = false;
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
+		$single_whitelist_email_arr = explode("\n", $get_whitelist_email);
+		$selected_whitelisted_email = false;
 
-		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
-		if (in_array($whitelist_array, $whitelist)) {
-			$not_whitelisted_email = true;
+		$customer_billing_email = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($customer_billing_email, $single_whitelist_email_arr)) {
+			$selected_whitelisted_email = true;
 		} // check whitelist specific email not wildcard type end
+
 		
-		update_option('not_whitelisted_email', $not_whitelisted_email);
-		update_option('white_payment_methods', $payment_methods);
-		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+		update_option('not_whitelisted_email', $selected_whitelisted_email);
+		update_option('white_payment_methods', $selected_whitelist_payment_method);
+		update_option('is_whitelisted_roles', $selected_whitelisted_role);
 
 		$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
 		$get_blacklist_email = get_option('wc_settings_anti_fraudblacklist_emails');
@@ -501,7 +508,7 @@ class WooCommerce_Anti_Fraud {
 
 					$valid_customer = $this->create_email_pattern($setting_email, $customer_email);
 
-					if (isset($valid_customer) && 'true' == $valid_customer && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods) {
+					if (isset($valid_customer) && 'true' == $valid_customer && !$selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method) {
 
 						$whitelist_email = 'false';
 						//wc_add_notice( __( 'This email id is blocked.' ), 'error' );
@@ -555,13 +562,15 @@ class WooCommerce_Anti_Fraud {
 			$wc_af_whitelist_user_roles = array();
 		}
 
-		$is_whitelisted_roles = 'false';
+		$selected_whitelisted_role = 'false';
 		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
 		if ('yes' == $is_enable_whitelist_user_roles) {
 
-			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
-
-				$is_whitelisted_roles = 'true';
+			foreach ( $user_roles as $role ) {
+				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
+					$selected_whitelisted_role = 'true';
+					break;
+				}
 			}
 		} // check whitelist user role end
 
@@ -578,43 +587,43 @@ class WooCommerce_Anti_Fraud {
 		}
 
 		// check whitelist payment method
-		$payment_methods = 'false';
+		$selected_whitelist_payment_method = 'false';
 		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
 
 			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
-				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				$get_whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
 				
-				$payment_method = WC()->session->get('chosen_payment_method');
+				$payment_method_from_checkout = WC()->session->get('chosen_payment_method');
 				 
-				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
-					$payment_methods = 'true';
+				if ( in_array( $payment_method_from_checkout, $get_whitelist_payment_method ) ) {
+					$selected_whitelist_payment_method = 'true';
 				}
 			}
 		} // check whitelist payment method end
 
 		// check whitelist specific email not wildcard type
-		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
-		$whitelist = explode("\n", $get_whitelist_email);
-		$not_whitelisted_email = false;
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
+		$single_whitelist_email_arr = explode("\n", $get_whitelist_email);
+		$selected_whitelisted_email = false;
 
-		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
-		if (in_array($whitelist_array, $whitelist)) {
-			$not_whitelisted_email = true;
+		$customer_billing_email = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($customer_billing_email, $single_whitelist_email_arr)) {
+			$selected_whitelisted_email = true;
 		} // check whitelist specific email not wildcard type end
 
-		update_option('not_whitelisted_email', $not_whitelisted_email);
-		update_option('white_payment_methods', $payment_methods);
-		update_option('is_whitelisted_roles', $is_whitelisted_roles);
-
-		$wild_whitelist_email = $this->call_wildcard_email_validation();
+		update_option('not_whitelisted_email', $selected_whitelisted_email);
+		update_option('white_payment_methods', $selected_whitelist_payment_method);
+		update_option('is_whitelisted_roles', $selected_whitelisted_role);
+		// Callback function for check whildcard email
+		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
 
 		if ('' != $blocked_email) {
 			
-			if (empty($is_whitelisted) && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+			if (empty($is_whitelisted) && !$selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email) {
 				// Af_Logger::debug('blocked_email : '. print_r($array_mail,true));
 				foreach ($array_mail as $single) {
-					if ($_POST[ 'billing_email' ] == $single  && 'false' != $wild_whitelist_email) {
+					if ($_POST[ 'billing_email' ] == $single  && 'false' != $selected_wildcard_whitelisted_email) {
 						echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');
 						$errors->add( 'validation', __('This email id is blocked.', 'woocommerce-anti-fraud') );
 					}
@@ -623,7 +632,7 @@ class WooCommerce_Anti_Fraud {
 		}
 
 
-		if ('' != $blocked_ipaddress && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+		if ('' != $blocked_ipaddress && !$selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email) {
 
 			$userip = WC_Geolocation::get_ip_address();
 			$array_ipaddress = explode(',', $blocked_ipaddress);
@@ -635,10 +644,113 @@ class WooCommerce_Anti_Fraud {
 		}
 	}
 
+	/*
+	Limit Number of Orders between Time switch is co-related to the other three whitelisted rules. This is because all of these four rules are evaluated on the checkout page before the payment is processed.
+	In this function, we are trying to evaluate "Limit Number of Orders between Time" rule before payment is processed on the checkout page.
+	Note: Risk Score is evaluated and generated in the callback function (written within a separate helper file) after payment is processed and order is generated.
+	*/
+	public function max_order_attempt_between_timespan( $fields, $errors) {
 
-	public function max_order_same_ip( $fields, $errors) {
-		$is_enabled  =  get_option('wc_af_attempt_count_check');
-		$time_stamp  = get_option('wc_settings_anti_fraud_attempt_time_span');
+		// check whitelist user role
+		$user = wp_get_current_user();
+		$user_roles = $user->roles;
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		$selected_whitelisted_role = 'false';
+		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+		if ('yes' == $is_enable_whitelist_user_roles) {
+
+			foreach ( $user_roles as $role ) {
+				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
+					$selected_whitelisted_role = 'true';
+					break;
+				}
+			}
+		} // check whitelist user role end
+
+		// check whitelist payment method
+		$selected_whitelist_payment_method = 'false';
+		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+				$get_whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				
+				$payment_method_from_checkout = WC()->session->get('chosen_payment_method');
+				 
+				if ( in_array( $payment_method_from_checkout, $get_whitelist_payment_method ) ) {
+					$selected_whitelist_payment_method = 'true';
+				}
+			}
+		} // check whitelist payment method end
+		
+		// check whitelist specific email not wildcard type
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
+		$single_whitelist_email_arr = explode("\n", $get_whitelist_email);
+		$selected_whitelisted_email = 'false';
+		
+		if (wp_verify_nonce('test', 'wc_none')) {
+			return true;
+		}
+
+		$customer_billing_email = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($customer_billing_email, $single_whitelist_email_arr)) {
+			$selected_whitelisted_email = 'true';
+		} // check whitelist specific email not wildcard type end
+
+		update_option('not_whitelisted_email', $selected_whitelisted_email);
+		update_option('white_payment_methods', $selected_whitelist_payment_method);
+		update_option('is_whitelisted_roles', $selected_whitelisted_role);
+
+		// Callback function for check whildcard email
+		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
+
+		$order_limit_enabled = get_option('wc_af_limit_order_count');
+		$is_update_status_active = get_option('wc_af_fraud_update_state');
+
+		if ('yes' === $order_limit_enabled && 'true' != $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email) {
+
+			$orders_allowed_limit = get_option('wc_af_allowed_order_limit');
+			$limit_time_start = get_option('wc_af_limit_time_start');
+			$limit_time_end = get_option('wc_af_limit_time_end');
+			// $is_update_status_active = get_option('wc_af_fraud_update_state');
+			if (0 >= $orders_allowed_limit && !empty($limit_time_start) && !empty($limit_time_end)) {
+
+				$start_time =  new DateTime($limit_time_start, wp_timezone(  ));
+				$end_time =  new DateTime($limit_time_end, wp_timezone(  ));
+				$now = new DateTime('NOW', wp_timezone());
+
+				if (( $now >= $start_time ) && ( $now <= $end_time )) {
+
+					$orders_between = wc_get_orders(
+						array(
+							'limit'               => -1,
+							'type'                => wc_get_order_types('order-count'),
+							'date_created'          => $start_time->getTimestamp() . '...' . $end_time->getTimestamp(),
+						)
+					);
+
+					if ($orders_allowed_limit <= count($orders_between)) {
+						wc_add_notice( __( 'Max Order Limit between time reached.' ), 'error' );
+					}
+				}
+			}
+		}	
+	}
+
+	/*
+	Too many order switch is co-related to the other three whitelisted rules. This is because all of these four rules are evaluated on the checkout page before the payment is processed.
+	In this function, we are trying to evaluate "Too many orders" rule before payment is processed on the checkout page.
+	Note: Risk Score is evaluated and generated in the callback function (written within a separate helper file) after payment is processed and order is generated.
+	*/
+
+	public function too_many_order_attempt_validation( $fields, $errors) {
+		$too_many_order_switch  =  get_option('wc_af_attempt_count_check');
+		$fraud_attempt_time_span  = get_option('wc_settings_anti_fraud_attempt_time_span');
 		$max_orders = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
 
 		// check whitelist user role
@@ -650,56 +762,59 @@ class WooCommerce_Anti_Fraud {
 			$wc_af_whitelist_user_roles = array();
 		}
 
-		$is_whitelisted_roles = 'false';
+		$selected_whitelisted_role = 'false';
 		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
 		if ('yes' == $is_enable_whitelist_user_roles) {
 
-			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
-
-				$is_whitelisted_roles = 'true';
+			foreach ( $user_roles as $role ) {
+				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
+					$selected_whitelisted_role = 'true';
+					break;
+				}
 			}
 		} // check whitelist user role end
 
 		// check whitelist payment method
-		$payment_methods = 'false';
+		$selected_whitelist_payment_method = 'false';
 		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
 
 			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
-				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				$get_whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
 				
-				$payment_method = WC()->session->get('chosen_payment_method');
+				$payment_method_from_checkout = WC()->session->get('chosen_payment_method');
 				 
-				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
-					$payment_methods = 'true';
+				if ( in_array( $payment_method_from_checkout, $get_whitelist_payment_method ) ) {
+					$selected_whitelist_payment_method = 'true';
 				}
 			}
 		} // check whitelist payment method end
 		
 		// check whitelist specific email not wildcard type
-		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
-		$whitelist = explode("\n", $get_whitelist_email);
-		$not_whitelisted_email = 'false';
+		$get_whitelist_email = get_option('wc_settings_anti_fraud_whitelist');
+		$single_whitelist_email_arr = explode("\n", $get_whitelist_email);
+		$selected_whitelisted_email = 'false';
 
-		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
-		if (in_array($whitelist_array, $whitelist)) {
-			$not_whitelisted_email = 'true';
+		$customer_billing_email = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
+		if (in_array($customer_billing_email, $single_whitelist_email_arr)) {
+			$selected_whitelisted_email = 'true';
 		} // check whitelist specific email not wildcard type end
 
-		update_option('not_whitelisted_email', $not_whitelisted_email);
-		update_option('white_payment_methods', $payment_methods);
-		update_option('is_whitelisted_roles', $is_whitelisted_roles);
+		update_option('not_whitelisted_email', $selected_whitelisted_email);
+		update_option('white_payment_methods', $selected_whitelist_payment_method);
+		update_option('is_whitelisted_roles', $selected_whitelisted_role);
 
-		$wild_whitelist_email = $this->call_wildcard_email_validation();
+		// Callback function for check whildcard email
+		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
 
-		if ('yes' == $is_enabled && 'true' != $not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+		if ('yes' == $too_many_order_switch && 'true' != $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email) {
 
 			// Calculate the new datetime
 			$dt = new DateTime('NOW', wp_timezone(  ));
 			$enddate = $dt;
 			$enddate = clone $dt;
 			
-			$dt->modify( '-' . $time_stamp . ' hours' );
+			$dt->modify( '-' . $fraud_attempt_time_span . ' hours' );
 
 			// Set the start and send datetime strings
 			$start_datetime_string = $dt->format( 'Y-m-d H:i:s' );
@@ -778,13 +893,16 @@ class WooCommerce_Anti_Fraud {
 			if (count($orders_count_ip) >= $max_orders || count($orders_count_email) >= $max_orders ||count($orders_count_phone) >= $max_orders) {
 				$errors->add( 'validation',
 				/* translators: %s: order time span */
-				 sprintf( esc_html__('You have reached maximum number of allowed orders in %d hours. Please try again later.', 'woocommerce-anti-fraud'), $time_stamp )
+				 sprintf( esc_html__('You have reached maximum number of allowed orders in %d hours. Please try again later.', 'woocommerce-anti-fraud'), $fraud_attempt_time_span )
 				 );
 			}
 		}
 	}
 
-
+	/*
+	Pre-payment switch is co-related to the other three whitelisted rules. This is because all of these four rules are evaluated on the checkout page before the payment is processed.
+	In this function, we are trying to get risk score and evaluate "Pre-payment"  before payment is processed on the checkout page.
+	*/
 	public function wh_pre_paymentcall( $order_id, $errors ) {
 
 		if ( !is_numeric($order_id) ) {
@@ -797,14 +915,14 @@ class WooCommerce_Anti_Fraud {
 
 		$whitelist = explode("\n", $email_whitelist);
 
-		$not_whitelisted_email = false;
+		$selected_whitelisted_email = false;
 		if (wp_verify_nonce('test', 'wc_none')) {
 			return true;
 		}
 
 		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
 		if (in_array($whitelist_array, $whitelist)) {
-			$not_whitelisted_email = true;
+			$selected_whitelisted_email = true;
 			update_post_meta($order_id, 'wc_af_score', 100);
 			update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 			$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
@@ -820,22 +938,27 @@ class WooCommerce_Anti_Fraud {
 			$wc_af_whitelist_user_roles = array();
 		}
 
-		$is_whitelisted_roles = 'false';
+		$selected_whitelisted_role = 'false';
 		$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
 		if ('yes' == $is_enable_whitelist_user_roles) {
 
-			if ( in_array( $user_roles[0], $wc_af_whitelist_user_roles ) ) {
-
-				$is_whitelisted_roles = 'true';
-				update_post_meta($order_id, 'wc_af_score', 100);
-				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
-				$order->add_order_note(__('Order fraud checks skipped due to whitelisted user role.', 'woocommerce-anti-fraud'));
-				return;
+			foreach ( $user_roles as $role ) {
+				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
+					$selected_whitelisted_role = 'true';
+					$selected_whitelisted_role = 'true';
+					update_post_meta($order_id, 'wc_af_score', 100);
+					update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+					$order->add_order_note(__('Order fraud checks skipped due to whitelisted user role.', 'woocommerce-anti-fraud'));
+					break;
+					return;
+					
+				}
 			}
+
 		} // check whitelist user role end
 
 		// check whitelist payment method
-		$payment_methods = 'false';
+		$selected_whitelist_payment_method = 'false';
 		if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
 
 			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
@@ -845,7 +968,7 @@ class WooCommerce_Anti_Fraud {
 				$payment_method = WC()->session->get('chosen_payment_method');
 				 
 				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
-					$payment_methods = 'true';
+					$selected_whitelist_payment_method = 'true';
 					update_post_meta($order_id, 'wc_af_score', 100);
 					update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 					$order->add_order_note(__('Order fraud checks skipped due to whitelisted payment method.', 'woocommerce-anti-fraud'));
@@ -855,11 +978,11 @@ class WooCommerce_Anti_Fraud {
 		} // check whitelist payment method end
 
 
-		$check_before_payment = get_option('wc_af_fraud_check_before_payment');
+		$check_before_payment_switch = get_option('wc_af_fraud_check_before_payment');
 		// echo $check_before_payment;
-		$wild_whitelist_email = $this->call_wildcard_email_validation();
+		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
 
-		if ('yes' == $check_before_payment && !$not_whitelisted_email && 'true' != $is_whitelisted_roles && 'true' != $payment_methods && 'true' != $wild_whitelist_email) {
+		if ('yes' == $check_before_payment_switch && !$selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email) {
 
 			if ( null !== get_option('wc_af_pre_payment_message') ) {
 				$pre_payment_block_message = get_option('wc_af_pre_payment_message');
@@ -1005,8 +1128,8 @@ class WooCommerce_Anti_Fraud {
 			$fraud_max_order_attempt_time_span = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
 			$limit_order_count = get_option('wc_af_limit_order_count');
 			$limit_time_start = get_option('wc_af_limit_time_start');
-			$limit_time_end = get_option('wc_af_allowed_order_limit');
-			$allowed_order_limit = get_option('wc_af_limit_time_end');
+			$allowed_order_limit = get_option('wc_af_allowed_order_limit');
+			$limit_time_end = get_option('wc_af_limit_time_end');
 
 			/* Email Blacklisting */ 
 			$enable_automatic_email_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
@@ -1839,7 +1962,13 @@ $loop->the_post();
 		update_option('wc_settings_anti_fraud_order_attempt_weight', 25);
 		update_option('wc_settings_anti_fraud_attempt_time_span', 24);
 		update_option('wc_settings_anti_fraud_max_order_attempt_time_span', 5);
+
+		update_option('wc_af_limit_order_count', 'yes');
+		update_option('wc_af_limit_time_start', 24);
+		update_option('wc_af_limit_time_end', 24);
+		update_option('wc_af_allowed_order_limit', 2);
 		update_option('wc_af_ip_multiple_check', 'yes');
+		
 		update_option('wc_settings_anti_fraud_ip_multiple_weight', 25);
 		update_option('wc_settings_anti_fraud_ip_multiple_time_span', 30);
 		update_option('wc_settings_anti_fraudenable_automatic_email_blacklist', 'yes');

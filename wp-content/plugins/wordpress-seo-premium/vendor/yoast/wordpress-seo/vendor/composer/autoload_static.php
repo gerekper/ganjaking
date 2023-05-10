@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
+class ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -525,6 +525,7 @@ class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
         'Yoast\\WP\\SEO\\Actions\\Importing\\Aioseo\\Aioseo_Validate_Data_Action' => __DIR__ . '/../..' . '/src/actions/importing/aioseo/aioseo-validate-data-action.php',
         'Yoast\\WP\\SEO\\Actions\\Importing\\Deactivate_Conflicting_Plugins_Action' => __DIR__ . '/../..' . '/src/actions/importing/deactivate-conflicting-plugins-action.php',
         'Yoast\\WP\\SEO\\Actions\\Importing\\Importing_Action_Interface' => __DIR__ . '/../..' . '/src/actions/importing/importing-action-interface.php',
+        'Yoast\\WP\\SEO\\Actions\\Importing\\Importing_Indexation_Action_Interface' => __DIR__ . '/../..' . '/src/actions/importing/importing-indexation-action-interface.php',
         'Yoast\\WP\\SEO\\Actions\\Indexables\\Indexable_Head_Action' => __DIR__ . '/../..' . '/src/actions/indexables/indexable-head-action.php',
         'Yoast\\WP\\SEO\\Actions\\Indexables_Page_Action' => __DIR__ . '/../..' . '/src/deprecated/src/actions/indexables-page-action.php',
         'Yoast\\WP\\SEO\\Actions\\Indexing\\Abstract_Indexing_Action' => __DIR__ . '/../..' . '/src/actions/indexing/abstract-indexing-action.php',
@@ -544,10 +545,17 @@ class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
         'Yoast\\WP\\SEO\\Actions\\SEMrush\\SEMrush_Login_Action' => __DIR__ . '/../..' . '/src/actions/semrush/semrush-login-action.php',
         'Yoast\\WP\\SEO\\Actions\\SEMrush\\SEMrush_Options_Action' => __DIR__ . '/../..' . '/src/actions/semrush/semrush-options-action.php',
         'Yoast\\WP\\SEO\\Actions\\SEMrush\\SEMrush_Phrases_Action' => __DIR__ . '/../..' . '/src/actions/semrush/semrush-phrases-action.php',
-        'Yoast\\WP\\SEO\\Actions\\Settings_Introduction_Action' => __DIR__ . '/../..' . '/src/actions/settings-introduction-action.php',
+        'Yoast\\WP\\SEO\\Actions\\Settings_Introduction_Action' => __DIR__ . '/../..' . '/src/deprecated/src/actions/settings-introduction-action.php',
         'Yoast\\WP\\SEO\\Actions\\Wincher\\Wincher_Account_Action' => __DIR__ . '/../..' . '/src/actions/wincher/wincher-account-action.php',
         'Yoast\\WP\\SEO\\Actions\\Wincher\\Wincher_Keyphrases_Action' => __DIR__ . '/../..' . '/src/actions/wincher/wincher-keyphrases-action.php',
         'Yoast\\WP\\SEO\\Actions\\Wincher\\Wincher_Login_Action' => __DIR__ . '/../..' . '/src/actions/wincher/wincher-login-action.php',
+        'Yoast\\WP\\SEO\\Analytics\\Application\\Missing_Indexables_Collector' => __DIR__ . '/../..' . '/src/analytics/application/missing-indexables-collector.php',
+        'Yoast\\WP\\SEO\\Analytics\\Application\\To_Be_Cleaned_Indexables_Collector' => __DIR__ . '/../..' . '/src/analytics/application/to-be-cleaned-indexables-collector.php',
+        'Yoast\\WP\\SEO\\Analytics\\Domain\\Missing_Indexable_Bucket' => __DIR__ . '/../..' . '/src/analytics/domain/missing-indexable-bucket.php',
+        'Yoast\\WP\\SEO\\Analytics\\Domain\\Missing_Indexable_Count' => __DIR__ . '/../..' . '/src/analytics/domain/missing-indexable-count.php',
+        'Yoast\\WP\\SEO\\Analytics\\Domain\\To_Be_Cleaned_Indexable_Bucket' => __DIR__ . '/../..' . '/src/analytics/domain/to-be-cleaned-indexable-bucket.php',
+        'Yoast\\WP\\SEO\\Analytics\\Domain\\To_Be_Cleaned_Indexable_Count' => __DIR__ . '/../..' . '/src/analytics/domain/to-be-cleaned-indexable-count.php',
+        'Yoast\\WP\\SEO\\Analytics\\User_Interface\\Last_Completed_Indexation_Integration' => __DIR__ . '/../..' . '/src/analytics/user-interface/last-completed-indexation-integration.php',
         'Yoast\\WP\\SEO\\Builders\\Indexable_Author_Builder' => __DIR__ . '/../..' . '/src/builders/indexable-author-builder.php',
         'Yoast\\WP\\SEO\\Builders\\Indexable_Builder' => __DIR__ . '/../..' . '/src/builders/indexable-builder.php',
         'Yoast\\WP\\SEO\\Builders\\Indexable_Date_Archive_Builder' => __DIR__ . '/../..' . '/src/builders/indexable-date-archive-builder.php',
@@ -771,6 +779,7 @@ class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
         'Yoast\\WP\\SEO\\Initializers\\Migration_Runner' => __DIR__ . '/../..' . '/src/initializers/migration-runner.php',
         'Yoast\\WP\\SEO\\Initializers\\Woocommerce' => __DIR__ . '/../..' . '/src/initializers/woocommerce.php',
         'Yoast\\WP\\SEO\\Integrations\\Abstract_Exclude_Post_Type' => __DIR__ . '/../..' . '/src/integrations/abstract-exclude-post-type.php',
+        'Yoast\\WP\\SEO\\Integrations\\Academy_Integration' => __DIR__ . '/../..' . '/src/integrations/academy-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Activation_Cleanup_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/activation-cleanup-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Addon_Installation\\Dialog_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/addon-installation/dialog-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Addon_Installation\\Installation_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/addon-installation/installation-integration.php',
@@ -966,6 +975,7 @@ class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
         'Yoast\\WP\\SEO\\Presenters\\Webmaster\\Google_Presenter' => __DIR__ . '/../..' . '/src/presenters/webmaster/google-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Webmaster\\Pinterest_Presenter' => __DIR__ . '/../..' . '/src/presenters/webmaster/pinterest-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Webmaster\\Yandex_Presenter' => __DIR__ . '/../..' . '/src/presenters/webmaster/yandex-presenter.php',
+        'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository' => __DIR__ . '/../..' . '/src/repositories/indexable-cleanup-repository.php',
         'Yoast\\WP\\SEO\\Repositories\\Indexable_Hierarchy_Repository' => __DIR__ . '/../..' . '/src/repositories/indexable-hierarchy-repository.php',
         'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => __DIR__ . '/../..' . '/src/repositories/indexable-repository.php',
         'Yoast\\WP\\SEO\\Repositories\\Primary_Term_Repository' => __DIR__ . '/../..' . '/src/repositories/primary-term-repository.php',
@@ -983,7 +993,7 @@ class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
         'Yoast\\WP\\SEO\\Routes\\Meta_Search_Route' => __DIR__ . '/../..' . '/src/routes/meta-search-route.php',
         'Yoast\\WP\\SEO\\Routes\\Route_Interface' => __DIR__ . '/../..' . '/src/routes/route-interface.php',
         'Yoast\\WP\\SEO\\Routes\\SEMrush_Route' => __DIR__ . '/../..' . '/src/routes/semrush-route.php',
-        'Yoast\\WP\\SEO\\Routes\\Settings_Introduction_Route' => __DIR__ . '/../..' . '/src/routes/settings-introduction-route.php',
+        'Yoast\\WP\\SEO\\Routes\\Settings_Introduction_Route' => __DIR__ . '/../..' . '/src/deprecated/src/routes/settings-introduction-route.php',
         'Yoast\\WP\\SEO\\Routes\\Supported_Features_Route' => __DIR__ . '/../..' . '/src/routes/supported-features-route.php',
         'Yoast\\WP\\SEO\\Routes\\Wincher_Route' => __DIR__ . '/../..' . '/src/routes/wincher-route.php',
         'Yoast\\WP\\SEO\\Routes\\Workouts_Route' => __DIR__ . '/../..' . '/src/routes/workouts-route.php',
@@ -1061,9 +1071,9 @@ class ComposerStaticInitf12cf693fab26a25ccc7f039649936b5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf12cf693fab26a25ccc7f039649936b5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf12cf693fab26a25ccc7f039649936b5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf12cf693fab26a25ccc7f039649936b5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6::$classMap;
 
         }, null, ClassLoader::class);
     }

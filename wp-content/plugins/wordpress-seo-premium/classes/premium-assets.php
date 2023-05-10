@@ -176,18 +176,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 			],
 			[
-				'name'         => 'yoast-seo-premium-integrations-page',
-				'path'         => 'assets/js/dist/',
-				'in_footer'    => true,
-				'filename'     => 'integrations-page-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-				'dependencies' => [
-					'wp-components',
-					'wp-dom-ready',
-					'wp-element',
-					'yoast-seo-premium-commons',
-				],
-			],
-			[
 				'name'         => 'yoast-seo-social-metadata-previews-package',
 				'path'         => 'assets/js/dist/yoast/',
 				'filename'     => 'social-metadata-previews-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
@@ -382,6 +370,11 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			[
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-settings',
 				'source'       => 'assets/css/dist/premium-settings-' . $version . '.css',
+				'dependencies' => [],
+			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-post-overview',
+				'source'       => 'assets/css/dist/premium-post-overview-' . $version . '.css',
 				'dependencies' => [],
 			],
 		];

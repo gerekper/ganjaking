@@ -565,6 +565,17 @@ class SubscriberEntity extends \MailPoet\Entities\SubscriberEntity implements \M
     /**
      * {@inheritDoc}
      */
+    public function getSubscriberCustomField(\MailPoet\Entities\CustomFieldEntity $customField): ?\MailPoet\Entities\SubscriberCustomFieldEntity
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubscriberCustomField', [$customField]);
+
+        return parent::getSubscriberCustomField($customField);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getSubscriberTags()
     {
 

@@ -584,7 +584,7 @@ class Properties_Handler {
 	 */
 	public static function get_ga4_property_data_stream(string $parent ) : ?stdClass {
 
-		$data_streams = get_option( 'wc_google_analytics_pro_ga4_data_streams' );
+		$data_streams = (array) get_option( 'wc_google_analytics_pro_ga4_data_streams', [] );
 
 		return $data_streams[ $parent ] ?? null;
 	}
@@ -601,7 +601,7 @@ class Properties_Handler {
 	 */
 	public static function set_ga4_property_data_stream( string $parent, stdClass $data_stream ) : stdClass {
 
-		$data_streams = get_option( 'wc_google_analytics_pro_ga4_data_streams', [] );
+		$data_streams = (array) get_option( 'wc_google_analytics_pro_ga4_data_streams', [] );
 
 		$data_streams[ $parent ] = $data_stream;
 
@@ -621,7 +621,7 @@ class Properties_Handler {
 	 */
 	public static function get_ga4_data_stream_api_secret( string $parent ) : ?stdClass {
 
-		$api_secrets = get_option( 'wc_google_analytics_pro_ga4_data_stream_api_secrets' );
+		$api_secrets = (array) get_option( 'wc_google_analytics_pro_ga4_data_stream_api_secrets', [] );
 
 		return $api_secrets[ $parent ] ?? null;
 	}
@@ -638,7 +638,7 @@ class Properties_Handler {
 	 */
 	public static function set_ga4_data_stream_api_secret( string $parent, stdClass $api_secret ) : stdClass {
 
-		$api_secrets = get_option( 'wc_google_analytics_pro_ga4_data_stream_api_secrets' );
+		$api_secrets = (array) get_option( 'wc_google_analytics_pro_ga4_data_stream_api_secrets', [] );
 
 		$api_secrets[ $parent ] = $api_secret;
 

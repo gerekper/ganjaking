@@ -87,7 +87,7 @@ function wc_cp_add_to_cart() {
 function wc_cp_add_to_cart_button( $composite = false ) {
 
 	if ( isset( $_GET[ 'update-composite' ] ) ) {
-		$cart_id = wc_clean( $_GET[ 'update-composite' ] );
+		$cart_id = esc_attr( wc_clean( $_GET[ 'update-composite' ] ) );
 		echo '<input type="hidden" name="update-composite" value="' . $cart_id . '" />';
 	}
 

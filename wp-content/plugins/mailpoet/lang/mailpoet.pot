@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.14.0\n"
+"Project-Id-Version: MailPoet 4.15.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-01T13:44:56+00:00\n"
+"POT-Creation-Date: 2023-05-08T14:59:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -642,28 +642,28 @@ msgstr ""
 
 #: views/form/editor.html:85
 #: views/form/template_selection.html:36
-#: views/forms.html:96
+#: views/forms.html:97
 msgctxt "This is a text on a widget that leads to settings for form placement - form type is fixed bar"
 msgid "Fixed bar"
 msgstr ""
 
 #: views/form/editor.html:87
 #: views/form/template_selection.html:37
-#: views/forms.html:97
+#: views/forms.html:98
 msgctxt "This is a text on a widget that leads to settings for form placement - form type is slide in"
 msgid "Slide–in"
 msgstr ""
 
 #: views/form/editor.html:89
 #: views/form/template_selection.html:38
-#: views/forms.html:98
+#: views/forms.html:99
 msgctxt "This is a text on a widget that leads to settings for form placement - form type is pop-up, it will be displayed on page in a small modal window"
 msgid "Pop-up"
 msgstr ""
 
 #: views/form/editor.html:94
 #: views/form/template_selection.html:39
-#: views/forms.html:95
+#: views/forms.html:96
 msgctxt "This is a text on a widget that leads to settings for form placement"
 msgid "Below pages"
 msgstr ""
@@ -680,7 +680,7 @@ msgstr ""
 
 #: views/form/editor.html:98
 #: views/form/template_selection.html:40
-#: views/forms.html:99
+#: views/forms.html:100
 msgctxt "Placement of the form using theme widget"
 msgid "Others (widget)"
 msgstr ""
@@ -927,7 +927,7 @@ msgid "Error"
 msgstr ""
 
 #: views/form/editor.html:212
-#: views/forms.html:77
+#: views/forms.html:78
 #: lib/Form/Widget.php:153
 msgctxt "fallback for forms without a name in a form list"
 msgid "no name"
@@ -969,7 +969,7 @@ msgstr ""
 
 #: views/form/template_selection.html:41
 #: views/subscribers/importExport/export.html:31
-#: views/subscribers/importExport/export.html:49
+#: views/subscribers/importExport/export.html:48
 #: views/subscribers/importExport/import.html:118
 msgctxt "Verb"
 msgid "Select"
@@ -997,7 +997,7 @@ msgstr ""
 #: views/newsletter/templates/blocks/posts/settingsDisplayOptions.hbs:251
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:73
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:212
-#: views/settings.html:87
+#: views/settings_translations.html:55
 #: views/subscribers/importExport/import.html:109
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
@@ -1025,7 +1025,7 @@ msgstr ""
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:79
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:174
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:218
-#: views/settings.html:88
+#: views/settings_translations.html:56
 #: views/subscribers/importExport/import.html:110
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:92
 #: assets/dist/js/admin.js:2
@@ -1120,17 +1120,17 @@ msgstr ""
 msgid "Validate for:"
 msgstr ""
 
-#: views/forms.html:8
+#: views/forms.html:9
 msgid "<strong>Tip:</strong> check out [link]this list[/link] of form plugins that integrate with MailPoet."
 msgstr ""
 
-#: views/forms.html:44
+#: views/forms.html:45
 #: lib/Config/Menu.php:271
 #: lib/Config/Menu.php:272
 msgid "Forms"
 msgstr ""
 
-#: views/forms.html:45
+#: views/forms.html:46
 #: views/logs.html:25
 #: views/segments.html:36
 #: views/segments.html:173
@@ -1140,77 +1140,77 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: views/forms.html:46
+#: views/forms.html:47
 msgid "Loading forms..."
 msgstr ""
 
-#: views/forms.html:47
+#: views/forms.html:48
 msgid "No forms were found. Why not create a new one?"
 msgstr ""
 
-#: views/forms.html:48
+#: views/forms.html:49
 msgid "All forms on this page are selected."
 msgstr ""
 
-#: views/forms.html:49
+#: views/forms.html:50
 msgid "All %d forms are selected."
 msgstr ""
 
-#: views/forms.html:50
+#: views/forms.html:51
 msgid "Select all forms on all pages"
 msgstr ""
 
-#: views/forms.html:51
+#: views/forms.html:52
 #: views/segments.html:42
 #: views/subscribers/subscribers.html:34
 #: assets/dist/js/commons.js:9
 msgid "Clear selection"
 msgstr ""
 
-#: views/forms.html:52
+#: views/forms.html:53
 msgid "%d forms permanently deleted."
 msgstr ""
 
-#: views/forms.html:53
+#: views/forms.html:54
 #: views/segments.html:44
 #: views/subscribers/subscribers.html:36
 #: assets/dist/js/commons.js:9
 msgid "Select bulk action"
 msgstr ""
 
-#: views/forms.html:54
+#: views/forms.html:55
 #: views/segments.html:45
 #: views/subscribers/subscribers.html:37
 msgid "Bulk Actions"
 msgstr ""
 
-#: views/forms.html:55
+#: views/forms.html:56
 #: views/segments.html:46
 #: views/subscribers/subscribers.html:38
 msgid "Apply"
 msgstr ""
 
-#: views/forms.html:56
+#: views/forms.html:57
 #: views/logs.html:30
 #: views/subscribers/subscribers.html:39
 msgid "Filter"
 msgstr ""
 
-#: views/forms.html:57
+#: views/forms.html:58
 #: views/segments.html:77
 #: views/subscribers/subscribers.html:40
 #: assets/dist/js/commons.js:9
 msgid "Empty Trash"
 msgstr ""
 
-#: views/forms.html:58
+#: views/forms.html:59
 #: views/segments.html:78
 #: views/subscribers/subscribers.html:41
 #: assets/dist/js/commons.js:9
 msgid "Select All"
 msgstr ""
 
-#: views/forms.html:59
+#: views/forms.html:60
 #: views/segments.html:79
 #: views/subscribers/subscribers.html:43
 #: assets/dist/js/automation.js:9
@@ -1218,12 +1218,12 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
-#: views/forms.html:60
+#: views/forms.html:61
 #: views/subscribers/subscribers.html:46
 msgid "Delete Permanently"
 msgstr ""
 
-#: views/forms.html:62
+#: views/forms.html:63
 #: views/help.html:54
 #: views/subscribers/subscribers.html:67
 #: views/subscribers/subscribers.html:86
@@ -1235,22 +1235,22 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: views/forms.html:63
+#: views/forms.html:64
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:160
 #: assets/dist/js/automation.js:9
 #: assets/dist/js/automation_editor.js:1
 msgid "Active"
 msgstr ""
 
-#: views/forms.html:64
+#: views/forms.html:65
 msgid "Not Active"
 msgstr ""
 
-#: views/forms.html:65
+#: views/forms.html:66
 msgid "Your Form is now activated!"
 msgstr ""
 
-#: views/forms.html:67
+#: views/forms.html:68
 #: views/segments.html:86
 #: views/segments.html:126
 #: views/subscribers/subscribers.html:51
@@ -1258,7 +1258,7 @@ msgstr ""
 msgid "Previous page"
 msgstr ""
 
-#: views/forms.html:68
+#: views/forms.html:69
 #: views/segments.html:87
 #: views/segments.html:127
 #: views/subscribers/subscribers.html:52
@@ -1266,7 +1266,7 @@ msgstr ""
 msgid "First page"
 msgstr ""
 
-#: views/forms.html:69
+#: views/forms.html:70
 #: views/segments.html:88
 #: views/segments.html:128
 #: views/subscribers/subscribers.html:53
@@ -1274,7 +1274,7 @@ msgstr ""
 msgid "Next page"
 msgstr ""
 
-#: views/forms.html:70
+#: views/forms.html:71
 #: views/segments.html:89
 #: views/segments.html:129
 #: views/subscribers/subscribers.html:54
@@ -1282,19 +1282,19 @@ msgstr ""
 msgid "Last page"
 msgstr ""
 
-#: views/forms.html:71
+#: views/forms.html:72
 #: views/subscribers/subscribers.html:55
 msgid "Current Page"
 msgstr ""
 
-#: views/forms.html:72
+#: views/forms.html:73
 #: views/segments.html:91
 #: views/subscribers/subscribers.html:56
 #: assets/dist/js/commons.js:9
 msgid "of"
 msgstr ""
 
-#: views/forms.html:73
+#: views/forms.html:74
 #: views/segments.html:92
 #: views/segments.html:124
 #: views/subscribers/subscribers.html:57
@@ -1302,7 +1302,7 @@ msgstr ""
 msgid "1 item"
 msgstr ""
 
-#: views/forms.html:74
+#: views/forms.html:75
 #: views/segments.html:93
 #: views/segments.html:125
 #: views/subscribers/subscribers.html:58
@@ -1310,7 +1310,7 @@ msgstr ""
 msgid "%1$d items"
 msgstr ""
 
-#: views/forms.html:76
+#: views/forms.html:77
 #: views/logs.html:22
 #: views/segments.html:47
 #: views/segments.html:118
@@ -1319,7 +1319,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: views/forms.html:78
+#: views/forms.html:79
 #: views/segments.html:35
 #: views/subscribers/subscribers.html:87
 #: lib/Config/Menu.php:388
@@ -1328,49 +1328,49 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: views/forms.html:79
+#: views/forms.html:80
 #: views/segments.html:115
 #: assets/dist/js/commons.js:9
 msgid "Type"
 msgstr ""
 
-#: views/forms.html:80
+#: views/forms.html:81
 msgid "User choice:"
 msgstr ""
 
-#: views/forms.html:81
+#: views/forms.html:82
 msgid "Sign-ups"
 msgstr ""
 
-#: views/forms.html:82
+#: views/forms.html:83
 msgid "Modified date"
 msgstr ""
 
-#: views/forms.html:83
+#: views/forms.html:84
 msgid "1 form was moved to the trash."
 msgstr ""
 
-#: views/forms.html:84
+#: views/forms.html:85
 msgid "%1$d forms were moved to the trash."
 msgstr ""
 
-#: views/forms.html:85
+#: views/forms.html:86
 msgid "1 form was permanently deleted."
 msgstr ""
 
-#: views/forms.html:86
+#: views/forms.html:87
 msgid "%1$d forms were permanently deleted."
 msgstr ""
 
-#: views/forms.html:87
+#: views/forms.html:88
 msgid "1 form has been restored from the trash."
 msgstr ""
 
-#: views/forms.html:88
+#: views/forms.html:89
 msgid "%1$d forms have been restored from the trash."
 msgstr ""
 
-#: views/forms.html:89
+#: views/forms.html:90
 #: views/segments.html:74
 #: views/subscribers/subscribers.html:42
 #: assets/dist/js/admin.js:2
@@ -1379,18 +1379,18 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: views/forms.html:90
+#: views/forms.html:91
 #: views/newsletter/templates/blocks/base/toolsGeneric.hbs:26
 #: views/segments.html:64
 #: assets/dist/js/admin.js:2
 msgid "Duplicate"
 msgstr ""
 
-#: views/forms.html:91
+#: views/forms.html:92
 msgid "Form \"%1$s\" has been duplicated."
 msgstr ""
 
-#: views/forms.html:92
+#: views/forms.html:93
 #: views/segments.html:75
 #: views/subscribers/subscribers.html:44
 #: lib/Form/Listing/FormListingRepository.php:36
@@ -1400,7 +1400,7 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: views/forms.html:93
+#: views/forms.html:94
 #: views/segments.html:76
 #: views/subscribers/subscribers.html:45
 #: assets/dist/js/admin.js:2
@@ -1408,11 +1408,11 @@ msgstr ""
 msgid "Move to trash"
 msgstr ""
 
-#: views/forms.html:94
+#: views/forms.html:95
 msgid "New Form"
 msgstr ""
 
-#: views/forms.html:100
+#: views/forms.html:101
 msgid "Form settings of \"%1$s\" form are corrupted. Please [link]reconfigure the form in the editor[/link]."
 msgstr ""
 
@@ -2078,10 +2078,6 @@ msgstr ""
 #: views/homepage.html:109
 msgctxt "Title of a link to a next page of posts"
 msgid "Previous page with posts"
-msgstr ""
-
-#: views/index.html:5
-msgid "%sSet up%s MailPoet and start sending."
 msgstr ""
 
 #: views/layout.html:127
@@ -4027,7 +4023,7 @@ msgstr ""
 #: views/newsletter/templates/components/save.hbs:21
 #: views/newsletter/templates/components/save.hbs:26
 #: views/newsletter/templates/components/save.hbs:45
-#: views/settings.html:63
+#: views/settings_translations.html:31
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 msgid "Preview"
@@ -4155,7 +4151,7 @@ msgstr ""
 #: views/segments.html:52
 #: views/subscribers/importExport/import.html:128
 #: views/subscribers/subscribers.html:69
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:106
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:114
 #: lib/Subscribers/SubscriberListingRepository.php:211
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:180
 msgid "Subscribed"
@@ -4163,7 +4159,7 @@ msgstr ""
 
 #: views/segments.html:53
 #: views/subscribers/subscribers.html:68
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:110
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:118
 #: lib/Subscribers/SubscriberListingRepository.php:216
 msgid "Unconfirmed"
 msgstr ""
@@ -4171,7 +4167,7 @@ msgstr ""
 #: views/segments.html:54
 #: views/subscribers/importExport/import.html:129
 #: views/subscribers/subscribers.html:70
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:114
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:122
 #: lib/Subscribers/SubscriberListingRepository.php:221
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:188
 msgid "Unsubscribed"
@@ -4180,7 +4176,7 @@ msgstr ""
 #: views/segments.html:55
 #: views/subscribers/importExport/import.html:130
 #: views/subscribers/subscribers.html:71
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:118
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:126
 #: lib/Subscribers/SubscriberListingRepository.php:226
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:208
 msgid "Inactive"
@@ -4188,7 +4184,7 @@ msgstr ""
 
 #: views/segments.html:56
 #: views/subscribers/subscribers.html:72
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:122
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:130
 #: lib/Subscribers/SubscriberListingRepository.php:231
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:196
 msgid "Bounced"
@@ -4398,6 +4394,7 @@ msgstr ""
 
 #: views/segments.html:145
 #: views/segments.html:211
+#: assets/dist/js/automation_editor.js:1
 msgid "days"
 msgstr ""
 
@@ -4819,7 +4816,7 @@ msgctxt "Dynamic segment creation: User selects this to use any woocommerce filt
 msgid "WooCommerce"
 msgstr ""
 
-#: views/settings.html:34
+#: views/settings_translations.html:2
 #: lib/Config/Hooks.php:473
 #: lib/Config/Menu.php:413
 #: lib/Config/Menu.php:414
@@ -4828,907 +4825,908 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: views/settings.html:35
+#: views/settings_translations.html:3
 msgid "Basics"
 msgstr ""
 
-#: views/settings.html:36
+#: views/settings_translations.html:4
 msgid "Sign-up Confirmation"
 msgstr ""
 
-#: views/settings.html:37
+#: views/settings_translations.html:5
 msgid "Send With..."
 msgstr ""
 
-#: views/settings.html:38
+#: views/settings_translations.html:6
 #: lib/AutomaticEmails/WooCommerce/WooCommerce.php:65
 #: assets/dist/js/commons.js:9
 msgid "WooCommerce"
 msgstr ""
 
-#: views/settings.html:39
+#: views/settings_translations.html:7
 msgid "Advanced"
 msgstr ""
 
-#: views/settings.html:40
+#: views/settings_translations.html:8
 msgid "Key Activation"
 msgstr ""
 
-#: views/settings.html:42
+#: views/settings_translations.html:10
 msgid "Save settings"
 msgstr ""
 
-#: views/settings.html:43
+#: views/settings_translations.html:11
 msgid "Settings saved"
 msgstr ""
 
-#: views/settings.html:45
+#: views/settings_translations.html:13
 #: views/welcome_wizard.html:31
 msgid "Default sender"
 msgstr ""
 
-#: views/settings.html:46
+#: views/settings_translations.html:14
 msgid "These email addresses will be selected by default for each new email."
 msgstr ""
 
-#: views/settings.html:47
+#: views/settings_translations.html:15
 #: assets/dist/js/admin.js:2
 msgid "From"
 msgstr ""
 
-#: views/settings.html:48
+#: views/settings_translations.html:16
 msgid "Your name"
 msgstr ""
 
-#: views/settings.html:49
+#: views/settings_translations.html:17
 #: assets/dist/js/admin.js:2
 msgid "Reply-to"
 msgstr ""
 
-#: views/settings.html:51
+#: views/settings_translations.html:19
 msgid "Subscribe in comments"
 msgstr ""
 
-#: views/settings.html:52
+#: views/settings_translations.html:20
 msgid "Visitors that comment on a post can subscribe to your list via a checkbox."
 msgstr ""
 
-#: views/settings.html:53
+#: views/settings_translations.html:21
 msgid "Subscribe in registration form"
 msgstr ""
 
-#: views/settings.html:54
+#: views/settings_translations.html:22
 msgid "Allow users who register as a WordPress user on your website to subscribe to a MailPoet list (in addition to the \"WordPress Users\" list). This also enables WordPress users to receive confirmation emails (if sign-up confirmation is enabled)."
 msgstr ""
 
-#: views/settings.html:55
+#: views/settings_translations.html:23
 msgid "Users will be subscribed to these lists:"
 msgstr ""
 
-#: views/settings.html:56
+#: views/settings_translations.html:24
+#: lib/Migrations/Migration_20230425_211517.php:15
 msgid "Yes, add me to your mailing list"
 msgstr ""
 
-#: views/settings.html:57
+#: views/settings_translations.html:25
 msgid "Choose a list"
 msgstr ""
 
-#: views/settings.html:59
+#: views/settings_translations.html:27
 msgid "Manage Subscription page"
 msgstr ""
 
-#: views/settings.html:60
+#: views/settings_translations.html:28
 msgid "When your subscribers click the \"Manage your subscription\" link, they will be directed to this page."
 msgstr ""
 
-#: views/settings.html:61
+#: views/settings_translations.html:29
 msgid "Want to use a custom Subscription page? Check out our [link]Knowledge Base[/link] for instructions."
 msgstr ""
 
-#: views/settings.html:62
+#: views/settings_translations.html:30
 msgid "Preview page"
 msgstr ""
 
-#: views/settings.html:64
+#: views/settings_translations.html:32
 msgid "Leave this field empty to display all lists"
 msgstr ""
 
-#: views/settings.html:65
+#: views/settings_translations.html:33
 msgid "To hide a list from the Manage Subscription page, go to [link]Lists[/link] and edit the one you want to hide."
 msgstr ""
 
-#: views/settings.html:67
+#: views/settings_translations.html:35
 msgid "Re-engagement page"
 msgstr ""
 
-#: views/settings.html:68
+#: views/settings_translations.html:36
 msgid "Thank your subscribers reactivated by the Re-engagement email for their continued interest in your emails."
 msgstr ""
 
-#: views/settings.html:70
+#: views/settings_translations.html:38
 msgid "Unsubscribe page"
 msgstr ""
 
-#: views/settings.html:71
+#: views/settings_translations.html:39
 msgid "When your subscribers click the \"Unsubscribe\" link, they will be directed to a confirmation page. After confirming, the success page will be shown. These pages must contain the [mailpoet_page] shortcode."
 msgstr ""
 
-#: views/settings.html:73
-#: views/settings.html:110
+#: views/settings_translations.html:41
+#: views/settings_translations.html:78
 msgid "Confirmation page"
 msgstr ""
 
-#: views/settings.html:74
+#: views/settings_translations.html:42
 msgid "Success page"
 msgstr ""
 
-#: views/settings.html:81
+#: views/settings_translations.html:49
 msgid "Newsletters and Post Notifications"
 msgstr ""
 
-#: views/settings.html:83
+#: views/settings_translations.html:51
 msgid "Please fill the email address."
 msgstr ""
 
-#: views/settings.html:85
+#: views/settings_translations.html:53
 msgid "New subscriber notifications"
 msgstr ""
 
-#: views/settings.html:86
+#: views/settings_translations.html:54
 msgid "Enter the email address that should receive notifications when someone subscribes."
 msgstr ""
 
-#: views/settings.html:89
+#: views/settings_translations.html:57
 msgid "Never"
 msgstr ""
 
-#: views/settings.html:91
+#: views/settings_translations.html:59
 msgid "Archive page shortcode"
 msgstr ""
 
-#: views/settings.html:92
+#: views/settings_translations.html:60
 msgid "Paste this shortcode on a page to display a list of past newsletters."
 msgstr ""
 
-#: views/settings.html:93
+#: views/settings_translations.html:61
 msgid "Shortcode to display total number of subscribers"
 msgstr ""
 
-#: views/settings.html:94
+#: views/settings_translations.html:62
 msgid "Paste this shortcode on a post or page to display the total number of confirmed subscribers."
 msgstr ""
 
-#: views/settings.html:96
+#: views/settings_translations.html:64
 msgid "Be GDPR compliant"
 msgstr ""
 
-#: views/settings.html:97
+#: views/settings_translations.html:65
 msgid "You need to comply with European law in regards to data privacy if you have European subscribers. Rest assured, it’s easy!"
 msgstr ""
 
-#: views/settings.html:98
+#: views/settings_translations.html:66
 msgid "Read our guide"
 msgstr ""
 
-#: views/settings.html:100
+#: views/settings_translations.html:68
 msgid "Invalid email address"
 msgstr ""
 
-#: views/settings.html:101
+#: views/settings_translations.html:69
 msgid "Authorize my email address"
 msgstr ""
 
-#: views/settings.html:103
+#: views/settings_translations.html:71
 msgid "Enable sign-up confirmation"
 msgstr ""
 
-#: views/settings.html:104
+#: views/settings_translations.html:72
 msgid "If you enable this option, your subscribers will first receive a confirmation email after they subscribe. Once they confirm their subscription (via this email), they will be marked as 'confirmed' and will begin to receive your email newsletters."
 msgstr ""
 
-#: views/settings.html:105
+#: views/settings_translations.html:73
 msgid "Read more about Double Opt-in confirmation."
 msgstr ""
 
-#: views/settings.html:106
+#: views/settings_translations.html:74
 msgid "Sign-up confirmation is mandatory when using the MailPoet Sending Service."
 msgstr ""
 
-#: views/settings.html:107
+#: views/settings_translations.html:75
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterClicksExporter.php:13
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterOpensExporter.php:13
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:71
 msgid "Email subject"
 msgstr ""
 
-#: views/settings.html:108
+#: views/settings_translations.html:76
 msgid "Email content"
 msgstr ""
 
-#: views/settings.html:109
+#: views/settings_translations.html:77
 msgid "Don't forget to include:<br /><br />[activation_link]Confirm your subscription.[/activation_link]<br /><br />Optional:<br /><br /> [lists_to_confirm] - comma separated subscriber's list names<br /><br />[subscriber:firstname | default: there] - Subscriber's first name, defaults to 'there' if not available<br /><br />[subscriber:lastname | default: there] - Subscriber's last name, defaults to 'there' if not available<br /><br />[subscriber:email] - Subscriber's email address<br /><br />[subscriber:count] - Total number of subscribers<br /><br />[site:title] - Your WordPress site title (currently '[current_site_title]')<br /><br />[site:homepage_link] - Link to your site's homepage."
 msgstr ""
 
-#: views/settings.html:111
+#: views/settings_translations.html:79
 msgid "When subscribers click on the activation link, they will be redirected to this page."
 msgstr ""
 
-#: views/settings.html:112
+#: views/settings_translations.html:80
 msgid "Subscribers will need to activate their subscription via email in order to receive your newsletters. This is highly recommended!"
 msgstr ""
 
-#: views/settings.html:113
+#: views/settings_translations.html:81
 msgid "New subscribers will be automatically confirmed, without having to confirm their subscription. This is not recommended!"
 msgstr ""
 
-#: views/settings.html:115
+#: views/settings_translations.html:83
 msgid "Enable visual subscription confirmation emails"
 msgstr ""
 
-#: views/settings.html:116
+#: views/settings_translations.html:84
 msgid "Brand and customize how your subscription confirmation emails look and feel with the drag&drop visual email designer."
 msgstr ""
 
-#: views/settings.html:118
+#: views/settings_translations.html:86
 msgid "Bounce email address"
 msgstr ""
 
-#: views/settings.html:119
+#: views/settings_translations.html:87
 msgid "Your bounced emails will be sent to this address."
 msgstr ""
 
-#: views/settings.html:121
+#: views/settings_translations.html:89
 msgid "Newsletter task scheduler (cron)"
 msgstr ""
 
-#: views/settings.html:122
+#: views/settings_translations.html:90
 msgid "Select what will activate your newsletter queue."
 msgstr ""
 
-#: views/settings.html:123
+#: views/settings_translations.html:91
 msgid "Visitors to your website"
 msgstr ""
 
-#: views/settings.html:124
+#: views/settings_translations.html:92
 msgid "Server side cron (Linux cron)"
 msgstr ""
 
-#: views/settings.html:125
+#: views/settings_translations.html:93
 msgid "WordPress built-in cron (recommended)"
 msgstr ""
 
-#: views/settings.html:126
+#: views/settings_translations.html:94
 msgid "To use this option please add this command to your crontab:"
 msgstr ""
 
-#: views/settings.html:127
+#: views/settings_translations.html:95
 msgid "With the frequency of running it every minute:"
 msgstr ""
 
-#: views/settings.html:128
+#: views/settings_translations.html:96
 msgid "Roles and capabilities"
 msgstr ""
 
-#: views/settings.html:129
+#: views/settings_translations.html:97
 msgid "Manage which WordPress roles access which features of MailPoet."
 msgstr ""
 
-#: views/settings.html:130
+#: views/settings_translations.html:98
 msgid "Manage using the Members plugin"
 msgstr ""
 
-#: views/settings.html:131
+#: views/settings_translations.html:99
 msgid "Install the plugin [link]Members[/link] (free) to manage permissions."
 msgstr ""
 
-#: views/settings.html:132
+#: views/settings_translations.html:100
 msgid "Re-engagement emails were deactivated."
 msgstr ""
 
-#: views/settings.html:133
+#: views/settings_translations.html:101
 msgid "Re-engagement emails are now enabled. Don’t forget to [link]activate them[/link]."
 msgstr ""
 
-#: views/settings.html:138
+#: views/settings_translations.html:106
 msgid "Note: attachments, CC, BCC and multiple TO are not supported. [link]Learn more[/link]"
 msgstr ""
 
-#: views/settings.html:140
+#: views/settings_translations.html:108
 msgid "Stop sending to inactive subscribers"
 msgstr ""
 
-#: views/settings.html:141
+#: views/settings_translations.html:109
 msgid "Gmail, Yahoo and other email providers will treat your emails like spam if your subscribers don't open your emails in the long run. This option will mark your subscribers as Inactive and MailPoet will stop sending to them."
 msgstr ""
 
-#: views/settings.html:142
+#: views/settings_translations.html:110
 msgid "This option is disabled because tracking is disabled."
 msgstr ""
 
-#: views/settings.html:143
+#: views/settings_translations.html:111
 msgid "After 3 months (recommended if you send once a day)"
 msgstr ""
 
-#: views/settings.html:144
+#: views/settings_translations.html:112
 msgid "After 6 months (recommended if you send at least twice a month)"
 msgstr ""
 
-#: views/settings.html:145
+#: views/settings_translations.html:113
 msgid "After 12 months (default)"
 msgstr ""
 
-#: views/settings.html:146
+#: views/settings_translations.html:114
 msgid "After 18 months"
 msgstr ""
 
-#: views/settings.html:147
+#: views/settings_translations.html:115
 msgid "Load 3rd-party libraries"
 msgstr ""
 
-#: views/settings.html:148
+#: views/settings_translations.html:116
 msgid "E.g. Google Fonts (used in the Form editor and the Email editor) and HelpScout (used for support). This needs to be enabled if you want to be able to contact support."
 msgstr ""
 
-#: views/settings.html:149
+#: views/settings_translations.html:117
 msgid "Share anonymous data"
 msgstr ""
 
-#: views/settings.html:150
+#: views/settings_translations.html:118
 msgid "Share anonymous data and help us improve the plugin. We appreciate your help!"
 msgstr ""
 
-#: views/settings.html:151
+#: views/settings_translations.html:119
 msgid "Protect your forms against spam signups"
 msgstr ""
 
-#: views/settings.html:152
+#: views/settings_translations.html:120
 msgid "Built-in CAPTCHA protects your subscription forms against bots. Alternatively, use reCAPTCHA by Google."
 msgstr ""
 
-#: views/settings.html:153
+#: views/settings_translations.html:121
 msgid "Please use the same reCAPTCHA type as in Google reCAPTCHA Settings."
 msgstr ""
 
-#: views/settings.html:154
+#: views/settings_translations.html:122
 msgid "Sign up for an API key pair here."
 msgstr ""
 
-#: views/settings.html:155
+#: views/settings_translations.html:123
 msgid "Built-in CAPTCHA (default)"
 msgstr ""
 
-#: views/settings.html:156
+#: views/settings_translations.html:124
 msgid "(disabled because GD or FreeType extension is missing)"
 msgstr ""
 
-#: views/settings.html:157
+#: views/settings_translations.html:125
 msgid "Google reCAPTCHA v2 Checkbox"
 msgstr ""
 
-#: views/settings.html:158
+#: views/settings_translations.html:126
 msgid "Google reCAPTCHA v2 Invisible"
 msgstr ""
 
-#: views/settings.html:159
+#: views/settings_translations.html:127
 msgid "Your reCAPTCHA Site Key"
 msgstr ""
 
-#: views/settings.html:160
+#: views/settings_translations.html:128
 msgid "Your reCAPTCHA Secret Key"
 msgstr ""
 
-#: views/settings.html:161
+#: views/settings_translations.html:129
 msgid "Please fill the reCAPTCHA keys."
 msgstr ""
 
-#: views/settings.html:162
+#: views/settings_translations.html:130
 msgid "Disable"
 msgstr ""
 
-#: views/settings.html:163
+#: views/settings_translations.html:131
 msgid "Recalculate Subscriber Scores"
 msgstr ""
 
-#: views/settings.html:164
+#: views/settings_translations.html:132
 msgid "MailPoet will recalculate subscriber engagement scores for all subscribers. This may take some time to complete."
 msgstr ""
 
-#: views/settings.html:165
+#: views/settings_translations.html:133
 msgid "Update now…"
 msgstr ""
 
-#: views/settings.html:166
+#: views/settings_translations.html:134
 msgid "Subscriber score recalculation has been scheduled and will start soon. It may take some time to complete."
 msgstr ""
 
-#: views/settings.html:167
+#: views/settings_translations.html:135
 msgid "Reinstall from scratch"
 msgstr ""
 
-#: views/settings.html:168
+#: views/settings_translations.html:136
 msgid "Want to start from the beginning? This will completely delete MailPoet and reinstall it from scratch. Remember: you will lose all of your data!"
 msgstr ""
 
-#: views/settings.html:169
+#: views/settings_translations.html:137
 msgid "Reinstall now..."
 msgstr ""
 
-#: views/settings.html:170
+#: views/settings_translations.html:138
 msgid "Logging"
 msgstr ""
 
-#: views/settings.html:171
+#: views/settings_translations.html:139
 msgid "Enables logging for diagnostics of plugin behavior."
 msgstr ""
 
-#: views/settings.html:172
+#: views/settings_translations.html:140
 msgid "See logs."
 msgstr ""
 
-#: views/settings.html:176
+#: views/settings_translations.html:144
 msgid "Are you sure? All of your MailPoet data will be permanently erased (newsletters, statistics, subscribers, etc.)."
 msgstr ""
 
-#: views/settings.html:179
+#: views/settings_translations.html:147
 msgid "Get notified when someone subscribes"
 msgstr ""
 
-#: views/settings.html:180
+#: views/settings_translations.html:148
 msgid "It’s been a popular feature request from our users, we hope you get lots of emails about all your new subscribers!"
 msgstr ""
 
-#: views/settings.html:181
+#: views/settings_translations.html:149
 msgid "(You can turn this feature off if it’s too many emails.)"
 msgstr ""
 
-#: views/settings.html:183
+#: views/settings_translations.html:151
 msgid "MailPoet Activation Key"
 msgstr ""
 
-#: views/settings.html:184
+#: views/settings_translations.html:152
 msgid "Activate your [link]MailPoet plan[/link] to access advanced features like detailed analytics or subscriber segmentation, faster customer support and more."
 msgstr ""
 
-#: views/settings.html:185
+#: views/settings_translations.html:153
 msgid "Already have a MailPoet plan? [link]Get your activation key[/link]."
 msgstr ""
 
-#: views/settings.html:186
+#: views/settings_translations.html:154
 msgid "Don't yet have a plan? [link]Sign up for one[/link]."
 msgstr ""
 
-#: views/settings.html:187
+#: views/settings_translations.html:155
 #: views/subscribers/importExport/import.html:116
 msgid "Verify"
 msgstr ""
 
-#: views/settings.html:193
+#: views/settings_translations.html:161
 msgid "Customers can subscribe to the \"WooCommerce Customers\" list and optionally other lists via a checkbox on the checkout page."
 msgstr ""
 
-#: views/settings.html:194
+#: views/settings_translations.html:162
 msgid "Lists to also subscribe customers to:"
 msgstr ""
 
-#: views/settings.html:195
+#: views/settings_translations.html:163
 msgid "Leave empty to subscribe only to \"WooCommerce Customers\" list"
 msgstr ""
 
-#: views/settings.html:196
+#: views/settings_translations.html:164
 msgid "Select lists..."
 msgstr ""
 
-#: views/settings.html:198
+#: views/settings_translations.html:166
 msgid "This is the checkbox message your customers will see on your WooCommerce checkout page to subscribe to the \"WooCommerce Customers\" list and lists selected in \"Opt-in on checkout\" setting."
 msgstr ""
 
-#: views/settings.html:200
+#: views/settings_translations.html:168
 msgid "The checkbox opt-in message cannot be empty."
 msgstr ""
 
-#: views/settings.html:201
+#: views/settings_translations.html:169
 msgid "Subscribe old WooCommerce customers"
 msgstr ""
 
-#: views/settings.html:202
+#: views/settings_translations.html:170
 msgid "Subscribe all my past customers to this list because they agreed to receive marketing emails from me."
 msgstr ""
 
-#: views/settings.html:204
+#: views/settings_translations.html:172
 msgid "MailPoet Sending Service"
 msgstr ""
 
-#: views/settings.html:205
+#: views/settings_translations.html:173
 msgid "You're now sending with MailPoet!"
 msgstr ""
 
-#: views/settings.html:206
+#: views/settings_translations.html:174
 msgid "Solve all of your sending problems!"
 msgstr ""
 
-#: views/settings.html:207
+#: views/settings_translations.html:175
 msgid "Reach the inbox, not the spam box."
 msgstr ""
 
-#: views/settings.html:208
+#: views/settings_translations.html:176
 msgid "Easy configuration: enter a key to activate the sending service."
 msgstr ""
 
-#: views/settings.html:209
+#: views/settings_translations.html:177
 msgid "Super fast: send up to 50,000 emails per hour."
 msgstr ""
 
-#: views/settings.html:210
+#: views/settings_translations.html:178
 msgid "All emails are signed with SPF & DKIM."
 msgstr ""
 
-#: views/settings.html:211
+#: views/settings_translations.html:179
 msgid "Automatically remove invalid and bounced addresses (bounce handling) to keep your lists clean."
 msgstr ""
 
-#: views/settings.html:212
+#: views/settings_translations.html:180
 #: assets/dist/js/admin.js:2
 msgid "See video guide"
 msgstr ""
 
-#: views/settings.html:213
+#: views/settings_translations.html:181
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 #: assets/dist/js/commons.js:9
 msgid "Activate"
 msgstr ""
 
-#: views/settings.html:214
+#: views/settings_translations.html:182
 msgid "Activated"
 msgstr ""
 
-#: views/settings.html:215
+#: views/settings_translations.html:183
 msgid "Free up to 1,000 subscribers"
 msgstr ""
 
-#: views/settings.html:216
+#: views/settings_translations.html:184
 msgid "or"
 msgstr ""
 
-#: views/settings.html:217
+#: views/settings_translations.html:185
 msgid "[link]enter your key[/link]"
 msgstr ""
 
-#: views/settings.html:218
+#: views/settings_translations.html:186
 msgid "Other"
 msgstr ""
 
-#: views/settings.html:219
+#: views/settings_translations.html:187
 msgid "Send emails via your host"
 msgstr ""
 
-#: views/settings.html:220
+#: views/settings_translations.html:188
 msgid "(not recommended!)"
 msgstr ""
 
-#: views/settings.html:221
+#: views/settings_translations.html:189
 msgid "or via a third-party sender."
 msgstr ""
 
-#: views/settings.html:222
+#: views/settings_translations.html:190
 msgid "Your key is not valid for MailPoet Sending Service."
 msgstr ""
 
-#: views/settings.html:223
+#: views/settings_translations.html:191
 msgid "Get a new plan"
 msgstr ""
 
-#: views/settings.html:224
+#: views/settings_translations.html:192
 msgid "Unless you're a pro, you’ll probably end up in spam."
 msgstr ""
 
-#: views/settings.html:225
+#: views/settings_translations.html:193
 msgid "Sending speed is limited by your host and/or your third-party (with a 2,000 per hour maximum)."
 msgstr ""
 
-#: views/settings.html:226
+#: views/settings_translations.html:194
 msgid "Manual configuration of SPF and DKIM required."
 msgstr ""
 
-#: views/settings.html:227
+#: views/settings_translations.html:195
 msgid "Bounce handling is available, but only with an extra [link]add-on[/link]."
 msgstr ""
 
-#: views/settings.html:228
+#: views/settings_translations.html:196
 msgid "Configure"
 msgstr ""
 
-#: views/settings.html:229
+#: views/settings_translations.html:197
 msgid "Method"
 msgstr ""
 
-#: views/settings.html:230
+#: views/settings_translations.html:198
 msgid "Your web host / web server"
 msgstr ""
 
-#: views/settings.html:231
+#: views/settings_translations.html:199
 msgid "SMTP"
 msgstr ""
 
-#: views/settings.html:232
+#: views/settings_translations.html:200
 msgid "Select your provider"
 msgstr ""
 
-#: views/settings.html:233
+#: views/settings_translations.html:201
 msgid "Your web host"
 msgstr ""
 
-#: views/settings.html:234
+#: views/settings_translations.html:202
 msgid "Not listed (default)"
 msgstr ""
 
-#: views/settings.html:235
+#: views/settings_translations.html:203
 msgid "Sending frequency"
 msgstr ""
 
-#: views/settings.html:236
+#: views/settings_translations.html:204
 msgid "Recommended"
 msgstr ""
 
-#: views/settings.html:237
+#: views/settings_translations.html:205
 msgid "recommended"
 msgstr ""
 
-#: views/settings.html:238
+#: views/settings_translations.html:206
 msgid "I'll set my own frequency"
 msgstr ""
 
-#: views/settings.html:239
+#: views/settings_translations.html:207
 msgid "emails"
 msgstr ""
 
-#: views/settings.html:240
+#: views/settings_translations.html:208
 msgid "%1$s emails"
 msgstr ""
 
-#: views/settings.html:241
+#: views/settings_translations.html:209
 #: lib/Twig/Functions.php:202
 msgid "every minute"
 msgstr ""
 
 #. translators: %1$d is the amount of minutes.
-#: views/settings.html:242
+#: views/settings_translations.html:210
 #: lib/Twig/Functions.php:204
 msgid "every %1$d minutes"
 msgstr ""
 
-#: views/settings.html:243
+#: views/settings_translations.html:211
 #: lib/Twig/Functions.php:205
 msgid "every hour"
 msgstr ""
 
 #. translators: %1$d is the amount of hours.
-#: views/settings.html:244
+#: views/settings_translations.html:212
 #: lib/Twig/Functions.php:207
 msgid "every %1$d hours"
 msgstr ""
 
-#: views/settings.html:245
+#: views/settings_translations.html:213
 msgid "That's <strong>%1$s emails</strong> per day"
 msgstr ""
 
-#: views/settings.html:246
+#: views/settings_translations.html:214
 msgid "That's %1$s emails per second. <strong>We highly recommend to send 1 email per second, at the absolute maximum.</strong> MailPoet needs at least one second to process and send a single email (on most hosts.) <strong>Alternatively, send with MailPoet, which can be up to 50 times faster.</strong>"
 msgstr ""
 
-#: views/settings.html:247
+#: views/settings_translations.html:215
 msgid "<strong>Warning!</strong> You may break the terms of your web host or provider by sending more than the recommended emails per day. Contact your host if you want to send more."
 msgstr ""
 
-#: views/settings.html:248
+#: views/settings_translations.html:216
 msgid "SMTP Hostname"
 msgstr ""
 
-#: views/settings.html:249
+#: views/settings_translations.html:217
 msgid "e.g.: smtp.mydomain.com"
 msgstr ""
 
-#: views/settings.html:250
+#: views/settings_translations.html:218
 msgid "SMTP Port"
 msgstr ""
 
-#: views/settings.html:251
+#: views/settings_translations.html:219
 msgid "Region"
 msgstr ""
 
-#: views/settings.html:252
+#: views/settings_translations.html:220
 msgid "Access Key"
 msgstr ""
 
-#: views/settings.html:253
+#: views/settings_translations.html:221
 msgid "Secret Key"
 msgstr ""
 
-#: views/settings.html:254
+#: views/settings_translations.html:222
 msgid "API Key"
 msgstr ""
 
-#: views/settings.html:255
+#: views/settings_translations.html:223
 msgid "Login"
 msgstr ""
 
-#: views/settings.html:256
+#: views/settings_translations.html:224
 msgid "Password"
 msgstr ""
 
-#: views/settings.html:257
+#: views/settings_translations.html:225
 msgid "Secure Connection"
 msgstr ""
 
-#: views/settings.html:258
+#: views/settings_translations.html:226
 msgid "Authentication"
 msgstr ""
 
-#: views/settings.html:259
+#: views/settings_translations.html:227
 msgid "Leave this option set to Yes. Only a tiny portion of SMTP services prefer Authentication to be turned off."
 msgstr ""
 
-#: views/settings.html:260
+#: views/settings_translations.html:228
 msgid "SPF Signature (Highly recommended!)"
 msgstr ""
 
-#: views/settings.html:261
+#: views/settings_translations.html:229
 msgid "This improves your delivery rate by verifying that you're allowed to send emails from your domain."
 msgstr ""
 
-#: views/settings.html:262
+#: views/settings_translations.html:230
 msgid "SPF is set up in your DNS. Read your host's support documentation for more information."
 msgstr ""
 
-#: views/settings.html:263
+#: views/settings_translations.html:231
 msgid "Test the sending method"
 msgstr ""
 
-#: views/settings.html:264
+#: views/settings_translations.html:232
 msgid "Send a test email"
 msgstr ""
 
-#: views/settings.html:265
+#: views/settings_translations.html:233
 msgid "Didn't receive the test email? Read our [link]quick guide[/link] to sending issues."
 msgstr ""
 
-#: views/settings.html:266
+#: views/settings_translations.html:234
 msgid "The email could not be sent. Make sure the option \"Email notifications\" has a FROM email address in the Basics tab."
 msgstr ""
 
-#: views/settings.html:267
+#: views/settings_translations.html:235
 msgid "This is a Sending Method Test"
 msgstr ""
 
-#: views/settings.html:268
+#: views/settings_translations.html:236
 msgid "Yup, it works! You can start blasting away emails to the moon."
 msgstr ""
 
-#: views/settings.html:269
+#: views/settings_translations.html:237
 msgid "The email has been sent! Check your inbox."
 msgstr ""
 
-#: views/settings.html:270
+#: views/settings_translations.html:238
 msgid "or Cancel"
 msgstr ""
 
-#: views/settings.html:272
+#: views/settings_translations.html:240
 msgid "Engagement analytics tracking"
 msgstr ""
 
-#: views/settings.html:273
+#: views/settings_translations.html:241
 msgid "Choose the balance between subscriber privacy and deeper engagement insights that is right for your business."
 msgstr ""
 
-#: views/settings.html:274
+#: views/settings_translations.html:242
 msgid "Full – additionally use browser cookies to improve the site and email engagement tracking and abandoned cart email accuracy."
 msgstr ""
 
-#: views/settings.html:275
+#: views/settings_translations.html:243
 msgid "Partial – additionally track email engagement (opens, clicks). Disable cookie-based tracking."
 msgstr ""
 
-#: views/settings.html:276
+#: views/settings_translations.html:244
 msgid "Basic – only use data your site already has about your subscribers. Disable email engagement and cookie-based tracking, and re-engagement emails."
 msgstr ""
 
-#: views/settings.html:72
+#: views/settings_translations.html:40
 msgctxt "Unsubscribe pages customization link"
 msgid "[link]Learn more about customizing these pages.[/link]"
 msgstr ""
 
-#: views/settings.html:76
+#: views/settings_translations.html:44
 msgctxt "name of a setting to automatically send statistics (newsletter open rate, click rate, etc) by email"
 msgid "Stats notifications"
 msgstr ""
 
-#: views/settings.html:77
+#: views/settings_translations.html:45
 msgctxt "Please reuse the current translations of “Welcome Emails”"
 msgid "Enter the email address that should receive your newsletter’s stats 24 hours after it has been sent, or every first Monday of the month for Welcome Emails and WooCommerce Emails."
 msgstr ""
 
-#: views/settings.html:82
+#: views/settings_translations.html:50
 msgctxt "Please reuse the current translations of “Welcome Emails”"
 msgid "Welcome Emails and WooCommerce emails"
 msgstr ""
 
-#: views/settings.html:120
+#: views/settings_translations.html:88
 msgctxt "support article link label"
 msgid "Read more."
 msgstr ""
 
-#: views/settings.html:134
+#: views/settings_translations.html:102
 msgctxt "Transational emails settings title"
 msgid "Send all site’s emails with…"
 msgstr ""
 
-#: views/settings.html:135
+#: views/settings_translations.html:103
 msgctxt "Transational emails settings description"
 msgid "Choose which method to send all your WordPress emails (e.g. password reset, new registration, WooCommerce invoices, etc.)."
 msgstr ""
 
-#: views/settings.html:136
+#: views/settings_translations.html:104
 msgctxt "Transactional emails settings link"
 msgid "Read more."
 msgstr ""
 
-#: views/settings.html:137
+#: views/settings_translations.html:105
 msgctxt "Transactional emails settings option"
 msgid "The current sending method - %1$s (recommended)"
 msgstr ""
 
-#: views/settings.html:139
+#: views/settings_translations.html:107
 msgctxt "Transactional emails settings option"
 msgid "The default WordPress sending method (default)"
 msgstr ""
 
-#: views/settings.html:173
+#: views/settings_translations.html:141
 msgctxt "In settings: \"Logging: Everything\""
 msgid "Everything"
 msgstr ""
 
-#: views/settings.html:174
+#: views/settings_translations.html:142
 msgctxt "In settings: \"Logging: Errors only\""
 msgid "Errors only"
 msgstr ""
 
-#: views/settings.html:175
+#: views/settings_translations.html:143
 msgctxt "In settings: \"Logging: Nothing\""
 msgid "Nothing"
 msgstr ""
 
-#: views/settings.html:189
+#: views/settings_translations.html:157
 msgctxt "Setting for using our editor for WooCommerce email"
 msgid "Use MailPoet to customize WooCommerce emails"
 msgstr ""
 
-#: views/settings.html:190
+#: views/settings_translations.html:158
 msgctxt "Setting for using our editor for WooCommerce email"
 msgid "You can use the MailPoet editor to customize the template used to send WooCommerce emails (notification for order processing, completed, ...)."
 msgstr ""
 
-#: views/settings.html:191
+#: views/settings_translations.html:159
 msgctxt "Settings button to go to WooCommerce email editor"
 msgid "Open template editor"
 msgstr ""
 
-#: views/settings.html:192
+#: views/settings_translations.html:160
 msgctxt "settings area: add an email opt-in checkbox on the checkout page (e-commerce websites)"
 msgid "Opt-in on checkout"
 msgstr ""
 
-#: views/settings.html:197
+#: views/settings_translations.html:165
 msgctxt "settings area: set the email opt-in message on the checkout page (e-commerce websites)"
 msgid "Checkbox opt-in message"
 msgstr ""
 
-#: views/settings.html:199
+#: views/settings_translations.html:167
 msgctxt "placeholder text for the WooCommerce checkout opt-in message"
 msgid "Checkbox opt-in message"
 msgstr ""
 
 #: views/subscribers/importExport/export.html:6
-#: views/subscribers/importExport/export.html:80
+#: views/subscribers/importExport/export.html:79
 #: views/subscribers/subscribers.html:128
 #: lib/Config/Menu.php:375
 #: lib/Config/Menu.php:376
@@ -5752,33 +5750,34 @@ msgstr ""
 msgid "List of fields to export"
 msgstr ""
 
-#: views/subscribers/importExport/export.html:40
-msgid "[link]Read about the Global status.[/link]"
-msgstr ""
-
-#: views/subscribers/importExport/export.html:54
+#: views/subscribers/importExport/export.html:53
 msgid "Format"
 msgstr ""
 
-#: views/subscribers/importExport/export.html:62
+#: views/subscribers/importExport/export.html:61
 msgid "CSV file"
 msgstr ""
 
-#: views/subscribers/importExport/export.html:69
+#: views/subscribers/importExport/export.html:68
 msgid "Excel file"
 msgstr ""
 
-#: views/subscribers/importExport/export.html:73
+#: views/subscribers/importExport/export.html:72
 msgid "ZIP extension is required to create Excel files. Please refer to the [link]official PHP ZIP installation guide[/link] or contact your hosting provider’s technical support for instructions on how to install and load the ZIP extension."
 msgstr ""
 
-#: views/subscribers/importExport/export.html:99
+#: views/subscribers/importExport/export.html:97
 #: views/subscribers/importExport/import.html:38
 msgid "Server error:"
 msgstr ""
 
-#: views/subscribers/importExport/export.html:100
+#: views/subscribers/importExport/export.html:98
 msgid "%1$s subscribers were exported. Get the exported file [link]here[/link]."
+msgstr ""
+
+#: views/subscribers/importExport/export.html:41
+msgctxt "Link to a documentation page in the knowledge base about what is the subscriber global status"
+msgid "Read about the Global status."
 msgstr ""
 
 #: views/subscribers/importExport/import.html:1
@@ -6509,7 +6508,7 @@ msgctxt "Text in unsubscribe link"
 msgid "Yes, unsubscribe me"
 msgstr ""
 
-#: views/subscription/manage_subscription.html:16
+#: views/subscription/manage_subscription.html:19
 msgctxt "success message after saving subscription settings"
 msgid "Your preferences have been saved."
 msgstr ""
@@ -6522,7 +6521,7 @@ msgstr ""
 msgid "Image woodpecker"
 msgstr ""
 
-#: views/upgrade.html:319
+#: views/upgrade.html:320
 msgid "Image rooster crowing"
 msgstr ""
 
@@ -6844,7 +6843,7 @@ msgctxt "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoe
 msgid "Upgrade now"
 msgstr ""
 
-#: views/upgrade.html:308
+#: views/upgrade.html:309
 msgctxt "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade"
 msgid "And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide."
 msgstr ""
@@ -8103,6 +8102,44 @@ msgstr ""
 msgid "is"
 msgstr ""
 
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:47
+msgid "before"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:48
+msgid "after"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:49
+msgid "on"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:50
+msgid "not on"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:51
+msgid "in the last"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:52
+msgid "not in the last"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:53
+#: lib/Automation/Integrations/Core/Filters/NumberFilter.php:37
+msgid "is set"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:54
+#: lib/Automation/Integrations/Core/Filters/NumberFilter.php:38
+msgid "is not set"
+msgstr ""
+
+#: lib/Automation/Integrations/Core/Filters/DateTimeFilter.php:55
+msgid "on the day(s) of the week"
+msgstr ""
+
 #: lib/Automation/Integrations/Core/Filters/EnumArrayFilter.php:22
 msgid "matches any of"
 msgstr ""
@@ -8145,14 +8182,6 @@ msgstr ""
 
 #: lib/Automation/Integrations/Core/Filters/NumberFilter.php:36
 msgid "is not multiple of"
-msgstr ""
-
-#: lib/Automation/Integrations/Core/Filters/NumberFilter.php:37
-msgid "is set"
-msgstr ""
-
-#: lib/Automation/Integrations/Core/Filters/NumberFilter.php:38
-msgid "is not set"
 msgstr ""
 
 #: lib/Automation/Integrations/Core/Filters/StringFilter.php:30
@@ -8236,14 +8265,18 @@ msgid "Is globally subscribed"
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:98
+msgid "Last engaged"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:106
 msgid "Subscriber status"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:130
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:138
 msgid "Subscriber segments"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:151
+#: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:159
 msgid "Email — sent count"
 msgstr ""
 
@@ -8595,8 +8628,8 @@ msgstr ""
 #: lib/Config/PopulatorData/Templates/WordPressTheme.php:1266
 #: lib/Config/PopulatorData/Templates/WorldCup.php:724
 #: lib/Config/PopulatorData/Templates/YogaStudio.php:698
-#: lib/Subscription/Pages.php:393
-#: lib/Subscription/Pages.php:491
+#: lib/Subscription/Pages.php:394
+#: lib/Subscription/Pages.php:492
 msgid "Manage your subscription"
 msgstr ""
 
@@ -10607,7 +10640,7 @@ msgstr ""
 #: lib/Settings/Pages.php:15
 #: lib/Settings/Pages.php:16
 #: lib/Settings/Pages.php:40
-#: lib/Subscription/Pages.php:283
+#: lib/Subscription/Pages.php:284
 msgid "MailPoet Page"
 msgstr ""
 
@@ -10929,52 +10962,52 @@ msgstr ""
 msgid "Your lists"
 msgstr ""
 
-#: lib/Subscription/Pages.php:290
+#: lib/Subscription/Pages.php:291
 msgid "Hmmm... we don't have a record of you."
 msgstr ""
 
-#: lib/Subscription/Pages.php:318
+#: lib/Subscription/Pages.php:319
 msgid "Your email address doesn't appear in our lists anymore. Sign up again or contact us if this appears to be a mistake."
 msgstr ""
 
-#: lib/Subscription/Pages.php:379
+#: lib/Subscription/Pages.php:380
 msgid "You are now subscribed!"
 msgstr ""
 
 #. translators: %s is the website title or website name.
-#: lib/Subscription/Pages.php:383
+#: lib/Subscription/Pages.php:384
 msgid "You have subscribed to %s"
 msgstr ""
 
-#: lib/Subscription/Pages.php:399
+#: lib/Subscription/Pages.php:400
 msgid "You are now unsubscribed."
 msgstr ""
 
-#: lib/Subscription/Pages.php:405
+#: lib/Subscription/Pages.php:406
 msgid "Thank you for letting us know!"
 msgstr ""
 
-#: lib/Subscription/Pages.php:411
+#: lib/Subscription/Pages.php:412
 msgid "Confirm you want to unsubscribe"
 msgstr ""
 
-#: lib/Subscription/Pages.php:417
+#: lib/Subscription/Pages.php:418
 msgid "Yup, we've added you to our email list. You'll hear from us shortly."
 msgstr ""
 
-#: lib/Subscription/Pages.php:433
+#: lib/Subscription/Pages.php:434
 msgid "Subscription management form is only available to mailing lists subscribers."
 msgstr ""
 
-#: lib/Subscription/Pages.php:449
+#: lib/Subscription/Pages.php:450
 msgid "Accidentally unsubscribed?"
 msgstr ""
 
-#: lib/Subscription/Pages.php:459
+#: lib/Subscription/Pages.php:460
 msgid "We appreciate your continued interest in our updates. Expect to hear from us again soon!"
 msgstr ""
 
-#: lib/Subscription/Pages.php:485
+#: lib/Subscription/Pages.php:486
 msgid "Link to subscription management page is only available to mailing lists subscribers."
 msgstr ""
 
@@ -12540,6 +12573,22 @@ msgid "Step"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
+msgid "weeks"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "months"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "unknown unit"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "unknown day"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
 msgid "Unknown value"
 msgstr ""
 
@@ -12548,7 +12597,15 @@ msgid "and unknown values"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
-msgid "Removing trigger filters is a premium feature."
+msgid "Managing trigger filters is a premium feature."
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "All conditions"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "Any condition"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1

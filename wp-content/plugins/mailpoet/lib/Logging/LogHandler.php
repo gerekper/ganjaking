@@ -17,6 +17,11 @@ class LogHandler extends AbstractProcessingHandler {
   const DAYS_TO_KEEP_LOGS = 30;
 
   /**
+   * How many records to delete on one run of purge routine
+   */
+  const PURGE_LIMIT = 1000;
+
+  /**
    * Percentage value, what is the probability of running purge routine
    * @var int
    */
@@ -79,6 +84,6 @@ class LogHandler extends AbstractProcessingHandler {
   }
 
   private function purgeOldLogs() {
-    $this->logRepository->purgeOldLogs(self::DAYS_TO_KEEP_LOGS);
+    $this->logRepository->purgeOldLogs(self::DAYS_TO_KEEP_LOGS, self::PURGE_LIMIT);
   }
 }

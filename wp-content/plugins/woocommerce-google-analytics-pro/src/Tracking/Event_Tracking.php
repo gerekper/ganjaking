@@ -28,6 +28,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\Integration;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Plugin;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Event;
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4\Custom_Event;
 use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 use function Sodium\add;
 
@@ -316,40 +317,47 @@ class Event_Tracking {
 	 *
 	 * @param string $event_name the event name
 	 * @param array $properties Optional. The event properties
+	 * @param bool $track_in_admin Optional. Whether the event should be tracked when it occurs in site admin
 	 */
-	public function custom_event( string $event_name, array $properties = [] ): void {
+	public function custom_event( string $event_name, array $properties = [], bool $track_in_admin = false ): void {
 
-		if ($event_name !== '') {
+		$event_name = trim( $event_name );
+
+		if ( ! $event_name ) {
+			return;
+		}
+
+		// Universal Analytics
+		if ( Tracking::get_tracking_id() ) {
 
 			// sanitize property names and values
 			$prop_array = false;
 			$props      = false;
 
-			if (count( $properties ) > 0) {
+			if ( count( $properties ) > 0 ) {
 
-				foreach ($properties as $k => $v) {
+				foreach ( $properties as $k => $v ) {
 
 					$key   = $this->sanitize_event_string( $k );
 					$value = $this->sanitize_event_string( $v );
 
-					if ($key && $value) {
-						$prop_array[$key] = $value;
+					if ( $key && $value ) {
+						$prop_array[ $key ] = $value;
 					}
 				}
 
-				if ($prop_array && is_array( $prop_array ) && count( $prop_array ) > 0) {
+				if ( $prop_array && is_array( $prop_array ) && count( $prop_array ) > 0 ) {
 					$props = $prop_array;
 				}
 			}
 
-			// sanitize event name
-			$event = $this->sanitize_event_string( $event_name );
-
 			// if everything checks out then trigger event
-			if ($event) {
-				$this->api_record_event( $event, $props );
-			}
+			$this->api_record_event( $event_name, $props, [], [], $track_in_admin );
 		}
+
+		// GA4
+		$event = new Custom_Event();
+		$event->track( $event_name, $properties, $track_in_admin );
 	}
 
 
@@ -413,9 +421,10 @@ class Event_Tracking {
 
 
 	/**
-	 * Returns the visitor's IP
+	 * Returns the visitor's IP.
 	 *
 	 * @since 2.0.0
+	 *
 	 * @return string client IP
 	 */
 	private function get_client_ip(): string {

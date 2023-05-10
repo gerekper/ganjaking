@@ -127,6 +127,8 @@ class __TwigTemplate_040602ebc7669cdfb9da26116daadadf72855abd5f9690ec0e527b909dc
         $this->loadTemplate("woocommerce_setup_translations.html", "welcome_wizard.html", 50)->display($context);
         // line 51
         $this->loadTemplate("premium_key_validation_strings.html", "welcome_wizard.html", 51)->display($context);
+        // line 52
+        $this->loadTemplate("settings_translations.html", "welcome_wizard.html", 52)->display($context);
     }
 
     public function getTemplateName()
@@ -141,7 +143,7 @@ class __TwigTemplate_040602ebc7669cdfb9da26116daadadf72855abd5f9690ec0e527b909dc
 
     public function getDebugInfo()
     {
-        return array (  126 => 51,  124 => 50,  122 => 49,  119 => 48,  117 => 29,  113 => 28,  99 => 17,  95 => 16,  91 => 15,  87 => 14,  83 => 13,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  128 => 52,  126 => 51,  124 => 50,  122 => 49,  119 => 48,  117 => 29,  113 => 28,  99 => 17,  95 => 16,  91 => 15,  87 => 14,  83 => 13,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

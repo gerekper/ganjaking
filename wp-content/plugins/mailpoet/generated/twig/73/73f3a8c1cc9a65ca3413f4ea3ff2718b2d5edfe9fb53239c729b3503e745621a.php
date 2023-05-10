@@ -114,25 +114,28 @@ class __TwigTemplate_9b0ddf3688f2dc81e331ee62fce3c53bfc8110f9d6615c3cf10d5c5c68f
     </style>
     ";
         // line 64
-        echo ($context["fonts_link"] ?? null);
-        echo "
-    ";
+        $context["allowedHtml"] = ["link" => ["href" => [], "rel" => []]];
         // line 65
-        echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-public.css");
+        echo "    ";
+        echo $this->extensions['MailPoet\Twig\Filters']->wpKses(($context["fonts_link"] ?? null), ($context["allowedHtml"] ?? null));
         echo "
     ";
         // line 66
+        echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-public.css");
+        echo "
+    ";
+        // line 67
         echo ($context["scripts"] ?? null);
         echo "
   </head>
   <body>
     ";
-        // line 69
+        // line 70
         echo ($context["form"] ?? null);
         echo "
     <script type=\"text/javascript\">
       var MailPoetForm = ";
-        // line 71
+        // line 72
         echo json_encode(($context["mailpoet_form"] ?? null));
         echo ";
     </script>
@@ -153,7 +156,7 @@ class __TwigTemplate_9b0ddf3688f2dc81e331ee62fce3c53bfc8110f9d6615c3cf10d5c5c68f
 
     public function getDebugInfo()
     {
-        return array (  133 => 71,  128 => 69,  122 => 66,  118 => 65,  114 => 64,  93 => 46,  53 => 9,  47 => 6,  41 => 3,  37 => 1,);
+        return array (  136 => 72,  131 => 70,  125 => 67,  121 => 66,  116 => 65,  114 => 64,  93 => 46,  53 => 9,  47 => 6,  41 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

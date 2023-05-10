@@ -169,8 +169,7 @@ class Warranty_List_Table extends WP_List_Table {
 			}
 		}
 
-		$wp_query = new WP_Query();
-		$wp_query->query( $query_args );
+		$wp_query = new WP_Query( $query_args );
 
 		$total_items = $wp_query->found_posts;
 

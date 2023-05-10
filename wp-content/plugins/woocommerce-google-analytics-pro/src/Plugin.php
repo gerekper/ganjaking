@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	public const VERSION = '2.0.2';
+	public const VERSION = '2.0.3';
 
 	/** @var Plugin the singleton instance of the plugin */
 	protected static $instance;
@@ -249,10 +249,11 @@ class Plugin extends Framework\SV_WC_Plugin {
 	/**
 	 * Returns the integration class instance.
 	 *
-	 * @return Integration
 	 * @since 1.6.0
 	 *
-	 * @see Plugin::get_integration() alias
+	 * @see Plugin::get_integration() alias for backwards compatibility
+	 *
+	 * @return Integration
 	 */
 	public function get_integration_instance(): Integration {
 		return $this->get_integration();

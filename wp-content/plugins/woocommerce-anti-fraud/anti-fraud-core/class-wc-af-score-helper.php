@@ -543,39 +543,19 @@ $loop->the_post();
 				$end_time =  new DateTime($limit_time_end, wp_timezone(  ));
 				$now = new DateTime('NOW', wp_timezone());
 
-				Af_Logger::debug('start Time : ' . print_r($start_time, true) . ' End Time ' . print_r($end_time, true) . ' Current Time ' . print_r($now, true));
+				if (( $now >= $start_time ) && ( $now <= $end_time )) {
 
-				// $start_time =  $start_time->format('Y-m-d H:i:s');
-				// $end_time =  $end_time->format('Y-m-d H:i:s');
-				// $now =  $now->format('Y-m-d H:i:s');
-
-				if ($now >= $start_time && $now <= $end_time) {
-					Af_Logger::debug('Start time :' . print_r($start_time, true));
-					Af_Logger::debug('End time :' . print_r($end_time, true));
-					Af_Logger::debug('Now time :' . print_r($now, true));
 					$orders_between = wc_get_orders(
 						array(
 							'limit'               => -1,
-							// 'exclude'             => array($order_id),
 							'type'                => wc_get_order_types('order-count'),
 							'date_created'          => $start_time->getTimestamp() . '...' . $end_time->getTimestamp(),
-							// 'date_after'          => $start_time->getTimestamp(),
-							// 'date_before'         => $end_time->getTimestamp(),
 						)
 					);
 
-					Af_Logger::debug('Total Orders in this time : ' . count($orders_between));
-					Af_Logger::debug('Total Allowed Orders in this time : ' . $orders_allowed_limit);
-
-					if ($orders_allowed_limit < count($orders_between)) {
-						$new_status = 'on-hold';
-						$order->add_order_note(__('Max Order Limit between time reached. Setting as On-Hold', 'woocommerce-anti-fraud'));
-						$is_update_status_active = 'yes';
-						Af_Logger::debug('Max Order Reched.');
+					if ($orders_allowed_limit <= count($orders_between)) {
+						wc_add_notice( __( 'Max Order Limit between time reached.' ), 'error' );
 					}
-				} else {
-					Af_Logger::debug('Current Time not between');
-					
 				}
 			}
 

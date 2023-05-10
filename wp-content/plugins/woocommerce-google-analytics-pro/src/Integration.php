@@ -24,6 +24,7 @@
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro;
 
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Auth;
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Event_Tracking;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4_Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Universal_Analytics_Event;
 use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
@@ -1189,6 +1190,33 @@ class Integration extends \WC_Integration {
 		 * @param string $tracking_id the tracking code
 		 */
 		return apply_filters( 'wc_google_analytics_pro_ua_tracking_id', $this->get_option( 'tracking_id' ) );
+	}
+
+
+	/**
+	 * Tracks a custom event.
+	 *
+	 * @since 1.0.0
+	 * @deprecated since 2.0.0
+	 *
+	 * @see Event_Tracking::custom_event()
+	 * @link https://woocommerce.com/document/woocommerce-google-analytics-pro/#section-24
+	 *
+	 * @param string $event_name the event name
+	 * @param array<mixed> $properties optional event properties
+	 * @return void
+	 */
+	public function custom_event( $event_name = false, $properties = false ) : void {
+
+		/** @link https://woocommerce.com/document/woocommerce-google-analytics-pro/#section-24 */
+		wc_deprecated_function( __METHOD__, '2.0.0', Event_Tracking::class . '::custom_event()' );
+
+		$tracking = $this->get_plugin()->get_tracking_instance();
+		$event_tracking = $tracking ? $tracking->get_event_tracking_instance() : null;
+
+		if ( $event_tracking ) {
+			$event_tracking->custom_event( $event_name, $properties );
+		}
 	}
 
 

@@ -1178,6 +1178,7 @@ class WC_Product_Composite extends WC_Product {
 					'show_sorting_options'     => $component->show_sorting_options(),
 					'show_filtering_options'   => $component->show_filtering_options(),
 					'attribute_filter_ids'     => $component->get_attribute_filters(),
+					'select_action'            => $component->get_select_action(),
 					'product_title_visible'    => false === $component->hide_selected_option_title(),
 					'product_descr_visible'    => false === $component->hide_selected_option_description(),
 					'product_price_visible'    => false === $component->hide_selected_option_price(),

@@ -27,6 +27,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Adapters\Cart_Event_Data_
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Contracts\Deferred_AJAX_Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4_Event;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\Traits\Has_Deferred_AJAX_Trigger;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -154,9 +155,10 @@ class Add_Shipping_Info_Event extends GA4_Event implements Deferred_AJAX_Event {
 
 		check_ajax_referer( $this->ajax_action, 'security' );
 
-		$shipping_method = explode( ':', $_POST['shipping_method'] ?? [] )[0] ?? null;
+		$shipping_method = Framework\SV_WC_Helper::get_posted_value( 'shipping_method' );
+		$shipping_method = is_string( $shipping_method ) ? explode( ':', $shipping_method )[0] ?? null : null;
 
-		if ( ! $shipping_method ) {
+		if ( empty( $shipping_method ) ) {
 			return;
 		}
 

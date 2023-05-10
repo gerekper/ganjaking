@@ -25,11 +25,11 @@ jQuery( document ).ready( function( $ ) {
 		body.on( 'update_completed', update_completed );
 
 		var params = {
-			'action': ajax_endpoint, 'cmd': 'start', 'woo_nonce': '',
+			'action': wcWarrantyUpdaterPage.ajax_endpoint, 'cmd': 'start', 'woo_nonce': '',
 		};
 
-		if ( ajax_params ) {
-			params = $.extend( params, ajax_params );
+		if ( wcWarrantyUpdaterPage.ajax_params ) {
+			params = $.extend( params, wcWarrantyUpdaterPage.ajax_params );
 		}
 
 		$( '#total-items-label' ).html( 'Scanning data. This may take a few minutes.' );
@@ -42,7 +42,7 @@ jQuery( document ).ready( function( $ ) {
 				total_items = resp.total_items;
 
 				$( '#total-items-label' )
-					.html( 'Total ' + entity_label_plural + ': ' + total_items );
+					.html( 'Total ' + wcWarrantyUpdaterPage.entity_label_plural + ': ' + total_items );
 
 				update_progressbar( 0 );
 
@@ -55,14 +55,14 @@ jQuery( document ).ready( function( $ ) {
 
 	function update_data() {
 		var params = {
-			'action': ajax_endpoint,
+			'action': wcWarrantyUpdaterPage.ajax_endpoint,
 			'woo_nonce': '',
 			'cmd': 'update',
 			'update_session': session,
 		};
 
-		if ( ajax_params ) {
-			params = $.extend( params, ajax_params );
+		if ( wcWarrantyUpdaterPage.ajax_params ) {
+			params = $.extend( params, wcWarrantyUpdaterPage.ajax_params );
 		}
 
 		xhr = $.post( ajaxurl, params, function( resp ) {
@@ -106,9 +106,9 @@ jQuery( document ).ready( function( $ ) {
 			var id = data[x].id;
 
 			if ( 'success' === data[x].status ) {
-				row = '<p class="success"><span class="dashicons dashicons-yes"></span> ' + ( data[x].status_text || entity_label_singular + ' #' + id + ' ' + action_label ) + '</p>';
+				row = '<p class="success"><span class="dashicons dashicons-yes"></span> ' + ( data[x].status_text || wcWarrantyUpdaterPage.entity_label_singular + ' #' + id + ' ' + wcWarrantyUpdaterPage.action_label ) + '</p>';
 			} else {
-				row = '<p class="failure"><span class="dashicons dashicons-no"></span> ' + ( data[x].status_text || entity_label_singular + ' #' + id + ' - ' + data[x].reason ) + '</p>';
+				row = '<p class="failure"><span class="dashicons dashicons-no"></span> ' + ( data[x].status_text || wcWarrantyUpdaterPage.entity_label_singular + ' #' + id + ' - ' + data[x].reason ) + '</p>';
 			}
 
 			log.append( row );
@@ -125,7 +125,7 @@ jQuery( document ).ready( function( $ ) {
 			log.append( '<div class="updated"><p>All done! <a href="#" class="return_link">Go back</a></p></div>' );
 			var height = log[0].scrollHeight;
 			log.scrollTop( height );
-			$( '.return_link' ).attr( 'href', return_url );
+			$( '.return_link' ).attr( 'href', wcWarrantyUpdaterPage.return_url );
 		}
 	}
 } );

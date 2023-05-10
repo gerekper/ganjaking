@@ -79,27 +79,27 @@ class __TwigTemplate_71b036b7f22592892987288406b287adc5134f8454b897deb37074c64d7
         // line 16
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["maxPostSize"] ?? null), "html", null, true);
         echo "',
-    roleBasedEmails = ";
+    roleBasedEmails = JSON.parse(\"";
         // line 17
-        echo ($context["role_based_emails"] ?? null);
-        echo ",
+        echo \MailPoetVendor\twig_escape_filter($this->env, \MailPoetVendor\twig_escape_filter($this->env, ($context["role_based_emails"] ?? null), "js"), "html", null, true);
+        echo "\"),
     maxPostSizeBytes = '";
         // line 18
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["maxPostSizeBytes"] ?? null), "html", null, true);
         echo "',
     importData = {},
-    mailpoetColumnsSelect2 = ";
+    mailpoetColumnsSelect2 = JSON.parse(\"";
         // line 20
-        echo ($context["subscriberFieldsSelect2"] ?? null);
-        echo ",
-    mailpoetColumns = ";
+        echo \MailPoetVendor\twig_escape_filter($this->env, \MailPoetVendor\twig_escape_filter($this->env, ($context["subscriberFieldsSelect2"] ?? null), "js"), "html", null, true);
+        echo "\"),
+    mailpoetColumns = JSON.parse(\"";
         // line 21
-        echo ($context["subscriberFields"] ?? null);
-        echo ",
-    mailpoetSegments = ";
+        echo \MailPoetVendor\twig_escape_filter($this->env, \MailPoetVendor\twig_escape_filter($this->env, ($context["subscriberFields"] ?? null), "js"), "html", null, true);
+        echo "\"),
+    mailpoetSegments = JSON.parse(\"";
         // line 22
-        echo ($context["segments"] ?? null);
-        echo ";
+        echo \MailPoetVendor\twig_escape_filter($this->env, \MailPoetVendor\twig_escape_filter($this->env, ($context["segments"] ?? null), "js"), "html", null, true);
+        echo "\");
     var mailpoet_beacon_articles = [
       '57ce07ffc6979108399a044b',
       '57ce079f903360649f6e56fc',

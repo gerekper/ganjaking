@@ -146,7 +146,7 @@ EOL;
     $this->wp->wpEnqueueScript(
       'automation_editor',
       Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('automation_editor.js'),
-      [],
+      ['wp-date'],
       Env::$version,
       true
     );

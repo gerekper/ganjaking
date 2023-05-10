@@ -1,5 +1,9 @@
 *** WooCommerce Composite Products ***
 
+2023.05.08 - version 8.7.6
+* Fix - Important: Security improvements.
+* Fix - Fixed fatal error during data collection.
+
 2023.04.10 - version 8.7.5
 * Fix - Updated the REST API schema for default_option_id to support string or integer.
 

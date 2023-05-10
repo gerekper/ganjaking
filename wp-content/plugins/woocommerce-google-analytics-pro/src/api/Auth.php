@@ -35,8 +35,7 @@ defined( 'ABSPATH' ) or exit;
  *
  * @since 2.0.0
  */
-class Auth
-{
+class Auth {
 
 
 	/** @var string URL to Google Analytics Pro Authentication proxy */
@@ -136,7 +135,8 @@ class Auth
 
 			} catch ( Framework\SV_WC_API_Exception $e ) {
 
-				if ( wc_google_analytics_pro()->get_integration()->debug_mode_on() ) {
+				// we can't access the integration instance directly to get the debug mode value as it may cause circular reference loops
+				if ( 'no' !== get_option( 'woocommerce_google_analytics_pro_settings', [] )['debug_mode'] ?? 'no' ) {
 					wc_google_analytics_pro()->log( $e->getMessage() );
 				}
 

@@ -761,18 +761,26 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 */
 		public function updater_page() {
 			$get_data = warranty_request_get_data();
-			if ( isset( $get_data['act'] ) && 'migrate_products' === $get_data['act'] ) {
-				$args = array(
-					'page_title'            => 'Data Update',
-					'return_url'            => admin_url( 'admin.php?page=warranties&warranty-data-updated=true' ),
-					'ajax_endpoint'         => 'warranty_migrate_products',
-					'entity_label_singular' => 'request',
-					'entity_label_plural'   => 'requests',
-					'action_label'          => 'updated',
-				);
-			} else {
+			
+			if ( ! isset( $get_data['act'] ) || 'migrate_products' !== $get_data['act'] ) {
 				wp_die( 'Unknown action passed. Please go back and try again' );
 			}
+			
+			$ajax_params = null;
+			if ( ! empty( $_GET['params'] ) ) {
+				$ajax_params = wc_clean( wp_unslash( $_GET['params'] ) );
+			}
+			
+			$args = array(
+				'return_url'            => admin_url( 'admin.php?page=warranties&warranty-data-updated=true' ),
+				'ajax_endpoint'         => 'warranty_migrate_products',
+				'ajax_params'           => $ajax_params,
+				'entity_label_singular' => 'request',
+				'entity_label_plural'   => 'requests',
+				'action_label'          => 'updated',
+			);
+			
+			wp_localize_script( 'warranty_data_updater', 'wcWarrantyUpdaterPage', $args );
 
 			include WooCommerce_Warranty::$base_path . '/templates/admin/updater.php';
 		}

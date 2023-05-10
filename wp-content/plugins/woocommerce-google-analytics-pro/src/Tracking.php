@@ -41,10 +41,10 @@ class Tracking {
 	private static array $user_tracking_enabled = [];
 
 	/** @var Event_Tracking instance **/
-	public Event_Tracking  $event_tracking;
+	protected Event_Tracking $event_tracking;
 
 	/** @var Email_Tracking instance **/
-	public Email_Tracking $email_tracking;
+	protected Email_Tracking $email_tracking;
 
 	/** @var Frontend_Handler the frontend handler instance */
 	protected Frontend_Handler $frontend;
