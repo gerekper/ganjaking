@@ -332,7 +332,8 @@ class woocommerce_product_pricing_rules_admin {
 		}
 
 		$all_variations = $product->get_children();
-		$div_style      = ( $condition['args']['type'] != 'variations' ) ? 'display:none;' : '';
+		$div_style      = ( $condition['args']['type'] ?? '') != 'variations'  ? 'display:none;' : '';
+
 		?>
 
         <div id="woocommerce-pricing-variations-<?php echo $name; ?>" class="section">

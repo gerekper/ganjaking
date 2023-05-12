@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.14.5\n"
+"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.14.6\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-08T10:03:49+00:00\n"
+"POT-Creation-Date: 2023-05-10T08:52:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -1042,19 +1042,19 @@ msgstr ""
 msgid "checkout with a new customer account"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:330
+#: includes/conditions/class-wc-csp-condition-customer.php:336
 msgid "You can only use an asterisk (*) to match multiple addresses before the <code>@</code> e-mail separator."
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:336
+#: includes/conditions/class-wc-csp-condition-customer.php:342
 msgid "Rule <strong>#%1$s</strong>: Invalid e-mail found (%2$s) and removed from the <strong>Customer</strong> condition. %3$s"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:342
+#: includes/conditions/class-wc-csp-condition-customer.php:348
 msgid "Rule <strong>#%1$s</strong>: Invalid e-mails found (%2$s) and removed from the <strong>Customer</strong> condition. %3$s"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:427
+#: includes/conditions/class-wc-csp-condition-customer.php:433
 msgid "Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woocommerce.com</code> will match all woocommerce.com addresses."
 msgstr ""
 
@@ -1574,13 +1574,13 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:143
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:108
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:391
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:396
 msgid "Short Description"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:146
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:111
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:394
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:399
 msgid "Optional short description for this rule&hellip;"
 msgstr ""
 
@@ -1593,7 +1593,7 @@ msgid "Select Payment Gateways&hellip;"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:164
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:418
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:423
 msgid "Show Excluded"
 msgstr ""
 
@@ -1603,7 +1603,7 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:173
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:168
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:427
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:432
 msgid "Custom Notice"
 msgstr ""
 
@@ -1624,7 +1624,7 @@ msgid "Custom notice to display when attempting to place an order while this res
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:199
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:454
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:459
 msgid "Show Static Notices"
 msgstr ""
 
@@ -1800,151 +1800,151 @@ msgstr ""
 msgid "Shipping Method Restrictions"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:190
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:195
 msgid "All &quot;%s&quot; Method Instances"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:220
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:225
 msgid "&quot;%1$s&quot; (Instance ID: %2$s)"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:221
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:226
 msgid "%1$s &ndash; %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:234
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:239
 msgid "Flat Rates (Legacy)"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:235
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:242
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:269
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:240
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:247
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:274
 msgid " (Legacy)"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:319
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:324
 msgid "Restrict the shipping methods available on the <strong>Cart</strong> and <strong>Checkout</strong> pages. To create logical \"OR\" expressions with Conditions, add multiple Restrictions."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:398
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:403
 msgid "Exclude Methods"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:400
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:405
 msgid "Select Shipping Methods&hellip;"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:410
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:415
 msgid "Exclude Rate IDs"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:412
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:417
 msgid "Shipping rate IDs to exclude, separated by &quot;|&quot;&hellip;"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:413
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:418
 msgid "Manually enter shipping rate IDs to exclude, separated by \"|\". If a rate includes the \"|\" character, replace it with \"%|%\". You may also use wildcards, such as \"FedEx*\". Useful if you are working with shipping methods that retrieve real-time rates. <strong>Important</strong>: Real-time rate IDs may change over time &ndash; use at your own risk!"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:422
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:427
 msgid "By default, excluded shipping methods are removed from the list of methods available during checkout. Select this option if you prefer to show excluded shipping methods in the checkout options and display a restriction notice when customers attempt to complete an order using an excluded shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:431
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:436
 msgid "Defaults to:<br/>&quot;Your order cannot be shipped via {excluded_method}. To complete your order, please choose a different shipping method.&quot;<br/>When conditions are defined, resolution instructions are added to the default message."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:433
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:438
 msgid "Defaults to:<br/>&quot;{product} is not eligible for shipping via {excluded_method}. To complete your order, please choose a different shipping method, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:443
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:448
 msgid "Custom notice to display when attempting to place an order while this restriction is active. You may include <code>{excluded_method}</code> and have it substituted by the selected shipping method title."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:445
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:450
 msgid "Custom notice to display when attempting to place an order while this restriction is active. You may include <code>{product}</code> and <code>{excluded_method}</code> and have them substituted by the actual product title and the selected shipping method title."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:458
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:463
 msgid "By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted shipping method. Select this option if you also want to display a static notice under each restricted shipping method in the <strong>Checkout</strong> page."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:543
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:548
 msgid "Restrict the available shipping options when an order contains this product."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:619
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:624
 msgid "Shipping Method restriction <strong>#%s</strong> has no effect: Please add at least one shipping option in the <strong>Exclude Methods</strong> or <strong>Exclude Rate IDs</strong> fields."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:638
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:643
 msgid "Rule <strong>#%s</strong> has no effect: Please add at least one shipping option in the <strong>Exclude Methods</strong> or <strong>Exclude Rate IDs</strong> fields."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:964
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:969
 msgid "To choose &quot;%2$s&quot;, please %3$s. Otherwise, please remove &quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:966
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:971
 msgid "To choose &quot;%2$s&quot;, please %3$s. Otherwise, please remove &quot;%1$s&quot; from this package."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:972
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:977
 msgid "To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. Otherwise, choose a different shipping method, or remove &quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:974
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:979
 msgid "To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. Otherwise, choose a different shipping method, or remove &quot;%1$s&quot; from package #%4$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:987
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:992
 msgid "To complete your order, please choose a different shipping method, or remove &quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:989
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:994
 msgid "To complete your order, please choose a different shipping method, or remove &quot;%1$s&quot; from package #%2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:995
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1000
 msgctxt "static notice context"
 msgid "&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:997
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1002
 msgctxt "validation notice context"
 msgid "&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1019
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1024
 msgid "To have this order shipped via &quot;%1$s&quot;, please %2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1021
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1026
 msgid "To have this package shipped via &quot;%1$s&quot;, please %2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1027
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1032
 msgid "To have your order shipped via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1029
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1034
 msgid "To have package #%3$s shipped via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1038
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1043
 msgid "To complete your order, please choose a different shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1044
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1049
 msgid "This order cannot be shipped via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1049
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1054
 msgid "Your order cannot be shipped via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1051
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1056
 msgid "Package #%3$s cannot be shipped via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
@@ -1958,11 +1958,17 @@ msgctxt "many terms separator"
 msgid "%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s"
 msgstr ""
 
-#: woocommerce-conditional-shipping-and-payments.php:80
-#: woocommerce-conditional-shipping-and-payments.php:89
+#: woocommerce-conditional-shipping-and-payments.php:82
+#: woocommerce-conditional-shipping-and-payments.php:91
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: woocommerce-conditional-shipping-and-payments.php:207
+#. translators: %s: WC min version
+#: woocommerce-conditional-shipping-and-payments.php:210
 msgid "WooCommerce Conditional Shipping and Payments requires at least WooCommerce <strong>%s</strong>."
+msgstr ""
+
+#. translators: %1$s: Version %, %2$s: Update PHP doc URL
+#: woocommerce-conditional-shipping-and-payments.php:219
+msgid "WooCommerce Conditional Shipping and Payments requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""

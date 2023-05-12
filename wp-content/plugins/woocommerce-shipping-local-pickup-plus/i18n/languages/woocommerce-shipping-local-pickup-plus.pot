@@ -1,15 +1,15 @@
-# Copyright (C) 2022 SkyVerge
+# Copyright (C) 2023 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Local Pickup Plus 2.10.0\n"
+"Project-Id-Version: WooCommerce Local Pickup Plus 2.11.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2022-11-22 10:20:55+00:00\n"
+"POT-Creation-Date: 2023-05-10 11:02:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -17,7 +17,7 @@ msgstr ""
 msgid "WooCommerce Local Pickup Plus"
 msgstr ""
 
-#: class-wc-local-pickup-plus.php:727
+#: class-wc-local-pickup-plus.php:729
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, , %3$s
 #. - <a> tag, %4$s - </a> tag
 msgid ""
@@ -26,34 +26,34 @@ msgid ""
 "pickup."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:297
+#: src/admin/class-wc-local-pickup-plus-admin.php:300
 #: src/admin/class-wc-local-pickup-plus-import.php:51
 msgid "Import"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:298
+#: src/admin/class-wc-local-pickup-plus-admin.php:301
 #: src/admin/class-wc-local-pickup-plus-export.php:51
 #: src/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:240
 msgid "Export"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:362
+#: src/admin/class-wc-local-pickup-plus-admin.php:365
 #: src/admin/class-wc-local-pickup-plus-export.php:518
 #: src/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:406
 msgid "You are not allowed to perform this action."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:508
+#: src/admin/class-wc-local-pickup-plus-admin.php:513
 msgid "Please enter 2 or more characters&hellip;"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:509
+#: src/admin/class-wc-local-pickup-plus-admin.php:514
 msgid ""
 "Please make sure you have added products, then create or update this order "
 "first, to be able to add pickup details."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:511
+#: src/admin/class-wc-local-pickup-plus-admin.php:516
 #. translators: Placeholders: {{count}} - a number of allowed appointment slots
 msgid ""
 "Heads up! You’re about to restrict your all-day appointments to {{count}}. "
@@ -61,99 +61,99 @@ msgid ""
 "claimed. Are you sure you want to proceed?"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:747
+#: src/admin/class-wc-local-pickup-plus-admin.php:752
 #: src/admin/class-wc-local-pickup-plus-products-admin.php:205
 #: src/admin/class-wc-local-pickup-plus-products-admin.php:251
 #: src/class-wc-shipping-local-pickup-plus.php:190
 msgid "Local Pickup"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:748
+#: src/admin/class-wc-local-pickup-plus-admin.php:753
 msgid "This section shows some configuration data for Local Pickup Plus."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:755
+#: src/admin/class-wc-local-pickup-plus-admin.php:760
 msgid "Status"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:756
+#: src/admin/class-wc-local-pickup-plus-admin.php:761
 msgid "Whether the shipping method has been enabled."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:759
-#: src/admin/class-wc-local-pickup-plus-admin.php:790
+#: src/admin/class-wc-local-pickup-plus-admin.php:764
+#: src/admin/class-wc-local-pickup-plus-admin.php:795
 msgid "Enabled"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:761
+#: src/admin/class-wc-local-pickup-plus-admin.php:766
 msgid "Disabled"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:766
+#: src/admin/class-wc-local-pickup-plus-admin.php:771
 msgid "Geocoding"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:767
+#: src/admin/class-wc-local-pickup-plus-admin.php:772
 msgid "Whether geocoding support via Google Maps is available."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:777
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:82
+#: src/admin/class-wc-local-pickup-plus-admin.php:782
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:105
 #: src/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:303
 #: src/class-wc-local-pickup-plus-post-types.php:62
 #: src/integrations/woocommerce-customer-order-xml-export-suite/class-wc-local-pickup-plus-integration-customer-order-xml-export.php:100
 msgid "Pickup Locations"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:778
+#: src/admin/class-wc-local-pickup-plus-admin.php:783
 msgid "The number of pickup locations published and available to customers."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:782
+#: src/admin/class-wc-local-pickup-plus-admin.php:787
 #: src/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:96
 #: src/class-wc-shipping-local-pickup-plus.php:271
 msgid "Pickup Appointments"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:783
+#: src/admin/class-wc-local-pickup-plus-admin.php:788
 msgid ""
 "Whether customers at checkout are asked to set an appointment for pickup "
 "collection."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:794
+#: src/admin/class-wc-local-pickup-plus-admin.php:799
 #: src/frontend/Fields/Package_Pickup_Appointment_Field.php:160
 msgid "Required"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:808
-#: src/class-wc-shipping-local-pickup-plus.php:371
+#: src/admin/class-wc-local-pickup-plus-admin.php:813
+#: src/class-wc-shipping-local-pickup-plus.php:373
 msgid "Pickup Location Tax"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:809
+#: src/admin/class-wc-local-pickup-plus-admin.php:814
 msgid ""
 "Whether the applied tax rate should be based on the chosen pickup location "
 "address."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:819
+#: src/admin/class-wc-local-pickup-plus-admin.php:824
 #: src/class-wc-shipping-local-pickup-plus.php:211
 msgid "Checkout Display"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:825
+#: src/admin/class-wc-local-pickup-plus-admin.php:830
 #. translators: Placeholder: %s - the selected pickup selection mode from
 #. settings
 msgid "Pickup selection mode: %s"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:834
+#: src/admin/class-wc-local-pickup-plus-admin.php:839
 #. translators: Placeholder: %s - cart item handling mode from settings
 msgid "Cart item handling mode: %s"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:849
+#: src/admin/class-wc-local-pickup-plus-admin.php:854
 #. translators: Placeholder: %s - default cart item handling from settings
 msgid "Default cart item handling: %s"
 msgstr ""
@@ -351,68 +351,68 @@ msgstr ""
 msgid "Unknown error."
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:129
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:152
 #. translators: Placeholders: %1$s new location name, %2$s previous location
 #. name, %3$s <a> tag, %4$s </a> tag, %5$s <small> tag, %6$s </small> tag
 msgid "%1$s%5$s (renamed to %3$s%2$s%4$s)%6$s"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:217
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:452
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:241
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:501
 msgid "Search for a location&hellip;"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:302
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:338
 msgid "All pickup dates"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:303
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:339
 msgid "Pickup today"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:304
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:340
 msgid "Pickup tomorrow"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:305
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:341
 msgid "Pickup this week"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:306
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:342
 msgid "Pickup next week"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:435
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:484
 msgid "Pickup location:"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:464
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:513
 msgid "Pickup date:"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:475
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:524
 msgid "Appointment required"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:475
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:524
 msgid "Set an appointment"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:483
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:532
 #. translators: %1$s - the formatted date, %2$s - the formatted time
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:528
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:577
 msgid "Items to pickup:"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:566
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:615
 #: src/class-wc-local-pickup-plus-post-types.php:67
 msgid "Edit"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-orders-admin.php:567
+#: src/admin/class-wc-local-pickup-plus-orders-admin.php:616
 msgid "Update pickup information"
 msgstr ""
 
@@ -1090,77 +1090,85 @@ msgid "Anytime during open hours"
 msgstr ""
 
 #: src/class-wc-shipping-local-pickup-plus.php:295
-msgid "15 minutes"
+msgid "5 minutes"
 msgstr ""
 
 #: src/class-wc-shipping-local-pickup-plus.php:296
-msgid "30 minutes"
+msgid "10 minutes"
 msgstr ""
 
 #: src/class-wc-shipping-local-pickup-plus.php:297
+msgid "15 minutes"
+msgstr ""
+
+#: src/class-wc-shipping-local-pickup-plus.php:298
+msgid "30 minutes"
+msgstr ""
+
+#: src/class-wc-shipping-local-pickup-plus.php:299
 msgid "60 minutes"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:304
+#: src/class-wc-shipping-local-pickup-plus.php:306
 msgid "Appointment limits"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:305
+#: src/class-wc-shipping-local-pickup-plus.php:307
 msgid ""
 "Determine how many customers can select the same appointment time before it "
 "is unavailable for a location."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:310
+#: src/class-wc-shipping-local-pickup-plus.php:312
 msgid "Default Business Hours"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:311
+#: src/class-wc-shipping-local-pickup-plus.php:313
 msgid ""
 "If using scheduled appointments and no business hours are defined, "
 "customers may not be able to select a location. The default schedule can be "
 "overridden by individual pickup locations."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:320
+#: src/class-wc-shipping-local-pickup-plus.php:322
 msgid "Common Public Holidays"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:321
+#: src/class-wc-shipping-local-pickup-plus.php:323
 msgid ""
 "Manually exclude specific days of the calendar to have a pickup appointment "
 "scheduled. The selected dates will be excluded for all years. You can "
 "override default dates from each pickup location."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:327
+#: src/class-wc-shipping-local-pickup-plus.php:329
 msgid "Default Lead Time"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:328
+#: src/class-wc-shipping-local-pickup-plus.php:330
 msgid ""
 "Set a default lead time to determine the earliest pickup date. Set to zero "
 "for no lead time. The lead time can be overridden by individual pickup "
 "locations."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:334
+#: src/class-wc-shipping-local-pickup-plus.php:336
 msgid "Lead Time Calculation"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:339
+#: src/class-wc-shipping-local-pickup-plus.php:341
 msgid "Count only open hours. Pauses outside business hours and on holidays."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:340
+#: src/class-wc-shipping-local-pickup-plus.php:342
 msgid "Count calendar days. Ignores business hours and holidays."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:346
+#: src/class-wc-shipping-local-pickup-plus.php:348
 msgid "Default Deadline"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:347
+#: src/class-wc-shipping-local-pickup-plus.php:349
 msgid ""
 "Set a default deadline to determine the latest pickup date. The deadline is "
 "based on calendar days and does not consider business hours and holidays. "
@@ -1168,57 +1176,57 @@ msgid ""
 "pickup locations."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:357
+#: src/class-wc-shipping-local-pickup-plus.php:359
 msgid "Price &amp; Tax"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:358
+#: src/class-wc-shipping-local-pickup-plus.php:360
 msgid ""
 "Set a default cost or discount when a customer chooses to pickup up an "
 "order and how taxation should be handled."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:363
+#: src/class-wc-shipping-local-pickup-plus.php:365
 msgid "Default Price Adjustment"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:364
+#: src/class-wc-shipping-local-pickup-plus.php:366
 msgid ""
 "A cost or a discount applied when choosing Local Pickup Plus as the "
 "shipping method. You can set a fixed or a percentage amount. When using "
 "percentage, the value will be calculated based on cart contents value."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:365
+#: src/class-wc-shipping-local-pickup-plus.php:367
 msgid ""
 "Set to zero for no default adjustment. The default amount can be overridden "
 "by setting an adjustment in individual pickup locations."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:373
+#: src/class-wc-shipping-local-pickup-plus.php:375
 msgid ""
 "When this shipping method is chosen, apply the tax rate based on the pickup "
 "location than for the customer's given address."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:464
+#: src/class-wc-shipping-local-pickup-plus.php:466
 msgid "Unlimited"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:472
+#: src/class-wc-shipping-local-pickup-plus.php:474
 #. translators: Placeholder: %s numerical input field HTML to limit the number
 #. of appointments per slot
 msgid "Limited to %s appointments per appointment time"
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:474
+#: src/class-wc-shipping-local-pickup-plus.php:476
 msgid ""
 "Limit the number of appointments available for each appointment time. Once "
 "the limit has been reached, the appointment will be removed from the "
 "calendar."
 msgstr ""
 
-#: src/class-wc-shipping-local-pickup-plus.php:1432
+#: src/class-wc-shipping-local-pickup-plus.php:1434
 #: src/frontend/Checkout.php:309
 #. translators: Placeholder: %s - local pickup discount amount
 msgid "%s (discount!)"
@@ -1431,18 +1439,22 @@ msgid "Choose dates&hellip;"
 msgstr ""
 
 #: src/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:144
-msgid "Hour(s)"
+msgid "Minute(s)"
 msgstr ""
 
 #: src/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:149
-msgid "Day(s)"
+msgid "Hour(s)"
 msgstr ""
 
 #: src/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:154
-msgid "Week(s)"
+msgid "Day(s)"
 msgstr ""
 
 #: src/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:159
+msgid "Week(s)"
+msgstr ""
+
+#: src/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:164
 msgid "Month(s)"
 msgstr ""
 
@@ -1465,32 +1477,32 @@ msgstr ""
 msgid "http://woocommerce.com"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:831
+#: src/admin/class-wc-local-pickup-plus-admin.php:836
 msgctxt "Pickup selection mode"
 msgid "Per order"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:866
+#: src/admin/class-wc-local-pickup-plus-admin.php:871
 msgctxt "Pickup selection mode"
 msgid "Per item"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:839
+#: src/admin/class-wc-local-pickup-plus-admin.php:844
 msgctxt "Cart item handling mode"
 msgid "Automatic grouping"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:843
+#: src/admin/class-wc-local-pickup-plus-admin.php:848
 msgctxt "Cart item handling mode"
 msgid "Customer selection"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:854
+#: src/admin/class-wc-local-pickup-plus-admin.php:859
 msgctxt "Default cart item handling"
 msgid "Pickup items"
 msgstr ""
 
-#: src/admin/class-wc-local-pickup-plus-admin.php:858
+#: src/admin/class-wc-local-pickup-plus-admin.php:863
 msgctxt "Default cart item handling"
 msgid "Ship items"
 msgstr ""

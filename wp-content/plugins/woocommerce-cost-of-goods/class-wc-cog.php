@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/cost-of-goods/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * WooCommerce Cost of Goods main plugin class.
@@ -36,7 +36,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.12.0';
+	const VERSION = '2.13.0';
 
 	/** @var WC_COG single instance of this plugin */
 	protected static $instance;
@@ -73,9 +73,10 @@ class WC_COG extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain' => 'woocommerce-cost-of-goods',
-			)
+			[
+				'text_domain'   => 'woocommerce-cost-of-goods',
+				'supports_hpos' => true,
+			]
 		);
 
 		// set an item's cost when added to an order (WC 3.0+)
@@ -609,7 +610,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 	 */
 	public function is_reports_page() : bool {
 
-		return 'wc-reports' === filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
+		return isset( $_GET['page'] ) && 'wc-reports' === $_GET['page'];
 	}
 
 

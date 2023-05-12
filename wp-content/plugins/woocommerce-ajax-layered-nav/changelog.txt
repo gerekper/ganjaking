@@ -1,5 +1,17 @@
 *** Ajax Layered Nav Changelog ***
 
+2023-05-10 - version 2.0.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Added links to the documentation page, and to get support in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.7.
+* Tweak - Tested compatibility up to WP 6.2.
+* Tweak - Use the name of the product attribute term as the default label in the "Size Selector" filter.
+* Tweak - Use white as the default color in the "Color Picker" filter options.
+* Fix - Fixed warnings when no labels or colors are set in the "Size Selector" and "Color Picker" filter options.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
 2022-07-20 - version 1.9.0
 * Fix - Fix compatibility issue with Product Filters
 

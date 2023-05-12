@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/cost-of-goods/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\COG;
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\COG\Utilities\Previous_Orders_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * AJAX handler.
@@ -61,24 +61,35 @@ class AJAX {
 	 * @return int[] array of order IDs
 	 * @throws Framework\SV_WC_Plugin_Exception
 	 */
-	private function get_order_ids( $which_orders = '' ) {
+	private function get_order_ids( string $which_orders = '' ) : array {
 
-		$query_args = array(
-			'post_type'   => 'shop_order',
-			'nopaging'    => true,
-			'fields'      => 'ids',
-			'post_status' => 'any',
-		);
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+			$query_args = [
+				'limit'    => -1,
+				'paginate' => false,
+				'return'   => 'ids',
+			];
+
+		} else {
+
+			$query_args = [
+				'post_type'   => 'shop_order',
+				'nopaging'    => true,
+				'fields'      => 'ids',
+				'post_status' => 'any',
+			];
+		}
 
 		// if we're only applying costs only to orders that don't already have a cost
 		if ( 'orders-without-costs' === $which_orders ) {
 
-			$query_args['meta_query'] = array(
-				array(
+			$query_args['meta_query'] = [
+				[
 					'key'     => '_wc_cog_order_total_cost',
 					'compare' => 'NOT EXISTS'
-				),
-			);
+				],
+			];
 		}
 
 		/**
@@ -91,16 +102,22 @@ class AJAX {
 		 */
 		$query_args = (array) apply_filters( 'wc_cost_of_goods_previous_orders_query', $query_args, $_POST );
 
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$order_ids = wc_get_orders( $query_args );
+		} else {
+			$order_ids = get_posts( $query_args );
+		}
+
 		/**
 		 * Filters the order IDs to set costs for.
 		 *
 		 * @since 2.8.0
 		 *
 		 * @param \WP_Error|int[] $order_ids normally an array of IDs
-		 * @param array $query_args query arguments that produced the found order IDs
+		 * @param array $query_args query arguments (for either WP_Query or WC_Query) that produced the found order IDs
 		 * @param array $posted_data data from $_POST
 		 */
-		$order_ids = apply_filters( 'wc_cost_of_goods_apply_costs_to_previous_orders_ids', get_posts( $query_args ), $query_args, $_POST );
+		$order_ids = apply_filters( 'wc_cost_of_goods_apply_costs_to_previous_orders_ids',$order_ids, $query_args, $_POST );
 
 		// some sort of database error
 		if ( ! is_array( $order_ids ) ) {

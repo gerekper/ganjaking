@@ -1,5 +1,11 @@
 *** WooCommerce Product Bundles ***
 
+2023.05.10 - version 6.18.5
+* Tweak - Added support for 'bundle_price' key in the REST API schema.
+* New - Introduced the 'woocommerce_bundled_item_group_of_quantity' filter to override the bundled items' Group of quantity.
+* Fix - Fixed validation notice for Name Your Price bundled items.
+* Fix - Fixed fatal error during data collection.
+
 2023.04.04 - version 6.18.4
 * Tweak - Improved data collection.
 

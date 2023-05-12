@@ -195,13 +195,8 @@ class SOD_Widget_Ajax_Layered_Nav extends WC_Widget {
 	 * Init settings after post types are registered.
 	 */
 	public function init_settings() {
-		global $woocommerce;
-		$attribute_array = array();
-		if ( function_exists( 'wc_get_attribute_taxonomies' ) ) :
-			$attribute_taxonomies = wc_get_attribute_taxonomies();
-		else :
-			$attribute_taxonomies = $woocommerce->get_attribute_taxonomies();
-		endif;
+		$attribute_array      = array();
+		$attribute_taxonomies = wc_get_attribute_taxonomies();
 
 		if ( $attribute_taxonomies ) {
 			foreach ( $attribute_taxonomies as $tax ) {
@@ -555,32 +550,27 @@ class SOD_Widget_Ajax_Layered_Nav extends WC_Widget {
 				}
 
 				// Allow themes and plugins to filter here.
-				$link = apply_filters( 'woocommerce_ajax_layered_nav_term_link', $link, $term );
+				$link  = apply_filters( 'woocommerce_ajax_layered_nav_term_link', $link, $term );
 
-				if ( $option_is_set ) {
-					$class = 'chosen filter-selected';
-				} else {
-					$class = '';
-				}
-
-				if ( ( $count > 0 || $option_is_set ) ) :
+				if ( $count > 0 || $option_is_set ) {
 					if ( 0 === $count && $hide_empty ) {
 						continue;
 					} else {
 						$temp_term_id = apply_filters( 'wc_ajax_layered_nav_sizeselector_term_id', $term->term_id );
 
-						if ( $labels[ $temp_term_id ] ) {
-							echo '<li class="' . esc_attr( $class ) . '">';
-							echo '<a href="#" data-count="' . esc_attr( $count ) . '" data-filter="' . esc_attr( urldecode( esc_url( $link ) ) ) . '" data-link="' . esc_attr( urldecode( esc_url( $link ) ) ) . '" >';
-							echo '<div class="size-filter">' . esc_html( $labels[ $temp_term_id ] ) . '</div>';
-							echo '</a>';
-							if ( $show_count ) {
-								echo ' <small class="count">' . esc_html( $count ) . '</small>';
-							}
-							echo '</li>';
+						$label = ( ! empty( $labels[ $temp_term_id ] ) ? $labels[ $temp_term_id ] : $term->name );
+						$class = ( $option_is_set ? 'chosen filter-selected' : '' );
+
+						echo '<li class="' . esc_attr( $class ) . '">';
+						echo '<a href="#" data-count="' . esc_attr( $count ) . '" data-filter="' . esc_attr( urldecode( esc_url( $link ) ) ) . '" data-link="' . esc_attr( urldecode( esc_url( $link ) ) ) . '" >';
+						echo '<div class="size-filter">' . esc_html( $label ) . '</div>';
+						echo '</a>';
+						if ( $show_count ) {
+							echo ' <small class="count">' . esc_html( $count ) . '</small>';
 						}
+						echo '</li>';
 					}
-				endif;
+				}
 			}
 			echo '</ul></div></nav>';
 		}
@@ -645,23 +635,22 @@ class SOD_Widget_Ajax_Layered_Nav extends WC_Widget {
 				// Allow themes and plugins to filter here.
 				$link = apply_filters( 'woocommerce_ajax_layered_nav_term_link', $link, $term );
 
-				if ( $option_is_set ) {
-					$class = 'chosen filter-selected';
-				} else {
-					$class = '';
-				}
+				$temp_term_id = apply_filters( 'wc_ajax_layered_nav_sizeselector_term_id', $term->term_id );
+
+				$color = ( ! empty( $colors[ $temp_term_id ] ) ? $colors[ $temp_term_id ] : '#fff' );
+				$class = ( $option_is_set ? 'chosen filter-selected' : '' );
 
 				echo '<li class="' . esc_attr( $class ) . '">';
-				$temp_term_id = apply_filters( 'wc_ajax_layered_nav_sizeselector_term_id', $term->term_id );
+
 				if ( $count > 0 || $option_is_set ) :
 					if ( 0 === $count && $hide_empty ) {
 						continue;
 					} else {
 						echo '<a href="#" data-filter="' . esc_attr( urldecode( esc_url( $link ) ) ) . '" data-count="' . esc_attr( $count ) . '" data-link="' . esc_attr( urldecode( esc_url( $link ) ) ) . '" >';
-						echo '<div class="box has-count" style="background-color:' . esc_attr( $colors[ $temp_term_id ] ) . ';"></div>';
+						echo '<div class="box has-count" style="background-color:' . esc_attr( $color ) . ';"></div>';
 					}
 				else :
-					echo '<div class="box no-count" style="background-color:' . esc_attr( $colors[ $temp_term_id ] ) . ';"></div>';
+					echo '<div class="box no-count" style="background-color:' . esc_attr( $color ) . ';"></div>';
 
 				endif;
 				if ( $count > 0 || $option_is_set ) :
@@ -746,11 +735,9 @@ class SOD_Widget_Ajax_Layered_Nav extends WC_Widget {
 		if ( ! is_post_type_archive( 'product' ) && ! is_tax( get_object_taxonomies( 'product' ) ) ) {
 			return;
 		}
-		if ( function_exists( 'wc_attribute_taxonomy_name' ) ) :
-			$taxonomy = isset( $instance['attribute'] ) ? wc_attribute_taxonomy_name( $instance['attribute'] ) : $this->settings['attribute']['std'];
-		else :
-			$taxonomy = isset( $instance['attribute'] ) ? $woocommerce->attribute_taxonomy_name( $instance['attribute'] ) : $this->settings['attribute']['std'];
-		endif;
+
+		$taxonomy = isset( $instance['attribute'] ) ? wc_attribute_taxonomy_name( $instance['attribute'] ) : $this->settings['attribute']['std'];
+
 		if ( ! taxonomy_exists( $taxonomy ) ) {
 			return;
 		}

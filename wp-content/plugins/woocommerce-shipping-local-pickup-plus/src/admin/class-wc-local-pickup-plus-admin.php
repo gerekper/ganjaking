@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Admin class.
@@ -231,7 +231,10 @@ class WC_Local_Pickup_Plus_Admin {
 		// - order, product or pickup location edit screens
 		// - pickup locations import & export pages
 		// - any of the Local Pickup Plus setting pages
-		$is_admin_screen = in_array( $typenow, array( 'product', 'shop_order', 'wc_pickup_location' ) , true ) || false !== $this->is_import_export_page() || wc_local_pickup_plus()->is_plugin_settings();
+		$is_admin_screen = in_array( $typenow, [ 'product', 'shop_order', 'wc_pickup_location' ], true )
+			|| false !== $this->is_import_export_page()
+			|| wc_local_pickup_plus()->is_plugin_settings()
+			|| Framework\SV_WC_Order_Compatibility::is_order_screen();
 
 		/**
 		 * Filter whether the current admin screen is a Local Pick Plus admin screen.
@@ -381,7 +384,7 @@ class WC_Local_Pickup_Plus_Admin {
 	/**
 	 * Load Meta Boxes
 	 *
-	 * @since 1.3.13-1
+	 * @since 1.3.13
 	 *
 	 * @return stdClass
 	 */
@@ -475,7 +478,7 @@ class WC_Local_Pickup_Plus_Admin {
 			$scripts[] = 'wc-local-pickup-plus-public-holidays';
 		}
 
-		if ( 'shop_order' === $typenow ) {
+		if ( 'shop_order' === $typenow || Framework\SV_WC_Order_Compatibility::is_order_screen() ) {
 			$scripts[] = 'wc-local-pickup-plus-orders';
 		}
 
@@ -499,6 +502,8 @@ class WC_Local_Pickup_Plus_Admin {
 			'get_time_range_picker_html_nonce'     => wp_create_nonce( 'get-time-range-picker-html' ),
 			'update_order_pickup_data_nonce'       => wp_create_nonce( 'update-order-pickup-data' ),
 			'wc_settings_screen'                   => Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id( 'wc-settings' ),
+			'is_orders_screen'                     => Framework\SV_WC_Order_Compatibility::is_orders_screen(),
+			'is_order_edit_screen'                 => Framework\SV_WC_Order_Compatibility::is_order_edit_screen(),
 			'appointments_max_customers_dismissed' => wc_string_to_bool( get_user_meta( get_current_user_id(), '_wc_local_pickup_plus_appointments_max_customers_dismissed', true ) ),
 
 			'i18n' => array(
@@ -551,7 +556,7 @@ class WC_Local_Pickup_Plus_Admin {
 	 */
 	public function get_search_pickup_locations_field( $field ) {
 
-		$custom_attributes = array();
+		$custom_attributes = [];
 
 		if ( ! empty( $field['custom_attributes'] ) && is_array( $field['custom_attributes'] ) ) {
 			foreach ( $field['custom_attributes'] as $attribute => $attribute_value ) {
@@ -577,7 +582,7 @@ class WC_Local_Pickup_Plus_Admin {
 
 		?>
 		<select
-			name="<?php echo esc_attr( isset( $field['input_name'] ) ? $field['input_name'] : $field['id'] ); ?>"
+			name="<?php echo esc_attr( $field['input_name'] ?? $field['id'] ); ?>"
 			id="<?php echo esc_attr( $field['id'] ); ?>"
 			class="<?php echo esc_attr( $field['class'] ); ?>"
 			style="<?php echo esc_attr( $field['css'] ); ?>"

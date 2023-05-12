@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.15.0
+ * @version  6.18.5
  */
 class WC_PB_REST_API {
 
@@ -35,6 +35,7 @@ class WC_PB_REST_API {
 		'bundle_item_grouping'             => array( 'get', 'update' ),
 		'bundle_min_size'                  => array( 'get', 'update' ),
 		'bundle_max_size'                  => array( 'get', 'update' ),
+		'bundle_price'                     => array( 'get' ),
 		'bundled_items'                    => array( 'get', 'update' )
 	);
 
@@ -209,6 +210,73 @@ class WC_PB_REST_API {
 				'description' => __( 'Max bundle size. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
 				'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
 				'context'     => array( 'view', 'edit' )
+			),
+			'bundle_price'                     => array(
+				'description' => __( 'Bundle price.', 'woocommerce-product-bundles' ),
+				'type'        => 'array',
+				'context'     => array( 'view' ),
+				'price'       => array(
+					'type'       => 'array',
+					'min' => array(
+						'incl_tax'                                => array(
+							'description' => __( 'Minimum Bundle price including tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						),
+						'excl_tax'                                => array(
+							'description' => __( 'Minimum Bundle price excluding tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						)
+					),
+					'max' => array(
+						'incl_tax'                                 => array(
+							'description' => __( 'Maximum Bundle price including tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						),
+						'excl_tax'                                => array(
+							'description' => __( 'Maximum Bundle price excluding tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						)
+					)
+				),
+				'regular_price'  => array(
+					'type'       => 'array',
+					'min' => array(
+						'incl_tax'                                => array(
+							'description' => __( 'Minimum Bundle regular price including tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						),
+						'excl_tax'                                => array(
+							'description' => __( 'Minimum Bundle regular price excluding tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						)
+					),
+					'max' => array(
+						'incl_tax'                                 => array(
+							'description' => __( 'Maximum Bundle regular price including tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						),
+						'excl_tax'                                => array(
+							'description' => __( 'Maximum Bundle regular price excluding tax.', 'woocommerce-product-bundles' ),
+							'type'        => 'string',
+							'context'     => array( 'view' ),
+							'readonly'    => true
+						)
+					)
+				)
 			),
 			'bundled_items'                    => array(
 				'description' => __( 'List of bundled items contained in this product. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
@@ -737,6 +805,21 @@ class WC_PB_REST_API {
 					$value = $product->get_max_bundle_size( 'edit' );
 				}
 
+			break;
+			case 'bundle_price' :
+				$value = array();
+
+				if ( 'bundle' === $product_type ) {
+					$value[ 'price' ][ 'min' ][ 'incl_tax' ] = (string) $product->get_bundle_price_including_tax( 'min' );
+					$value[ 'price' ][ 'min' ][ 'excl_tax' ] = (string) $product->get_bundle_price_excluding_tax( 'min' );
+					$value[ 'price' ][ 'max' ][ 'incl_tax' ] = (string) $product->get_bundle_price_including_tax( 'max' );
+					$value[ 'price' ][ 'max' ][ 'excl_tax' ] = (string) $product->get_bundle_price_excluding_tax( 'max' );
+
+					$value[ 'regular_price' ][ 'min' ][ 'incl_tax' ] = (string) $product->get_bundle_regular_price_including_tax( 'min' );
+					$value[ 'regular_price' ][ 'min' ][ 'excl_tax' ] = (string) $product->get_bundle_regular_price_excluding_tax( 'min' );
+					$value[ 'regular_price' ][ 'max' ][ 'incl_tax' ] = (string) $product->get_bundle_regular_price_including_tax( 'max' );
+					$value[ 'regular_price' ][ 'max' ][ 'excl_tax' ] = (string) $product->get_bundle_regular_price_excluding_tax( 'max' );
+				}
 			break;
 			case 'bundled_items' :
 

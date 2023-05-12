@@ -1,5 +1,11 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2023-05-10 - version 2.3.1
+* Fix - Add sanitization to nonce inputs.
+* Fix - Remove renovate bot configuration.
+* Tweak - WC 6.9 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2022-10-13 - version 2.3.0
 * Fix - Update compatibility declaration with HPOS (custom order tables) for WooCommerce.
 

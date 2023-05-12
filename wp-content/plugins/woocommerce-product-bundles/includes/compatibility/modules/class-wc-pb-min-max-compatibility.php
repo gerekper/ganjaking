@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  6.18.2
+ * @version  6.18.5
  */
 class WC_PB_Min_Max_Compatibility {
 
@@ -553,7 +553,16 @@ class WC_PB_Min_Max_Compatibility {
 			$group_of_quantity = absint( $product->get_meta( 'variation_group_of_quantity', true ) );
 		}
 
-		return $group_of_quantity;
+		/**
+		 * 'woocommerce_bundles_update_price_meta' filter.
+		 *
+		 * Use this to override the bundled items' 'Group of' quantity.
+		 *
+		 * @param  int                  $group_of_quantity
+		 * @param  WC_Product           $product
+		 * @param  WC_Bundled_Item|int  $bundled_item_or_product
+		 */
+		return apply_filters( 'woocommerce_bundled_item_group_of_quantity', $group_of_quantity, $product, $bundled_item_or_product );
 	}
 
 }

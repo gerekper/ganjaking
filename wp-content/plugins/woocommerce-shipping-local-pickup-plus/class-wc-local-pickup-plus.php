@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointments;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Frontend;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * WooCommerce Local Pickup Plus main class.
@@ -37,7 +37,8 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '2.10.0';
+	/** @var string plugin version */
+	const VERSION = '2.11.0';
 
 	/** shipping method ID */
 	const SHIPPING_METHOD_ID = 'local_pickup_plus';
@@ -110,10 +111,11 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::SHIPPING_METHOD_ID,
 			self::VERSION,
-			array(
+			[
 				/** @see \WC_Shipping_Local_Pickup_Plus::load_textdomain() also */
-				'text_domain' => 'woocommerce-shipping-local-pickup-plus',
-			)
+				'text_domain'   => 'woocommerce-shipping-local-pickup-plus',
+				'supports_hpos' => true,
+			]
 		);
 
 		$this->shipping_method = self::SHIPPING_METHOD_CLASS_NAME;

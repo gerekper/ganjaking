@@ -1,5 +1,8 @@
 *** WooCommerce Cost of Goods Changelog ***
 
+2023.05.10 - version 2.13.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.12.01 - version 2.12.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

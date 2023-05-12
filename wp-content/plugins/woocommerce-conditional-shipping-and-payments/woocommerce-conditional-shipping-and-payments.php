@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping destinations using conditional logic.
-* Version: 1.14.5
+* Version: 1.14.6
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -11,6 +11,8 @@
 *
 * Text Domain: woocommerce-conditional-shipping-and-payments
 * Domain Path: /languages/
+*
+* Requires PHP: 7.0
 *
 * Requires at least: 4.1
 * Tested up to: 6.0
@@ -29,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.14.5
+ * @version  1.14.6
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -37,7 +39,7 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.14.5';
+	const VERSION = '1.14.6';
 
 	/* Required WC version */
 	const REQ_WC_VERSION = '3.9.0';
@@ -204,7 +206,17 @@ class WC_Conditional_Shipping_Payments {
 		// WC version check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, self::REQ_WC_VERSION ) < 0 ) {
 			require_once( WC_CSP_ABSPATH . 'includes/admin/class-wc-csp-admin-notices.php' );
+			/* translators: %s: WC min version */
 			$notice = sprintf( __( 'WooCommerce Conditional Shipping and Payments requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-conditional-shipping-and-payments' ), self::REQ_WC_VERSION );
+			WC_CSP_Admin_Notices::add_notice( $notice, 'error' );
+			return false;
+		}
+
+		// PHP version check.
+		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
+			require_once( WC_CSP_ABSPATH . 'includes/admin/class-wc-csp-admin-notices.php' );
+			/* translators: %1$s: Version %, %2$s: Update PHP doc URL */
+			$notice = sprintf( __( 'WooCommerce Conditional Shipping and Payments requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-conditional-shipping-and-payments' ), '7.0.0', 'https://woocommerce.com/document/how-to-update-your-php-version/' );
 			WC_CSP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
 		}

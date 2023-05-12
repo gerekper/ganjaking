@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.18.0
+ * @version  6.18.5
  */
 class WC_PB_Display {
 
@@ -235,7 +235,7 @@ class WC_PB_Display {
 			'i18n_review_product_addons'     => __( 'Please review product options.', 'woocommerce-product-bundles' ),
 			'i18n_enter_valid_price'         => __( 'Please enter valid amounts.', 'woocommerce-product-bundles' ),
 			/* translators: Bundled product */
-			'i18n_enter_valid_price_for'     => __( 'Please enter a valid %s amount.', 'woocommerce-product-bundles' ),
+			'i18n_enter_valid_price_for'     => __( 'Please enter a valid amount.', 'woocommerce-product-bundles' ),
 			/* translators: Item name */
 			'i18n_string_list_item'          => _x( '&quot;%s&quot;', 'string list item', 'woocommerce-product-bundles' ),
 			/* translators: %1$s: Item before comma, %2$s: Item after comma */

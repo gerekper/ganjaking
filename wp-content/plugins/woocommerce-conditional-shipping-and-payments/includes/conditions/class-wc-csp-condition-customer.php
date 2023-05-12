@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Condition.
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.13.1
+ * @version  1.14.6
  */
 class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
@@ -171,7 +171,13 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 				$check_emails[] = WC()->customer->get_billing_email();
 
 			} elseif ( did_action( 'woocommerce_checkout_update_order_review' ) && ! empty( $_POST[ 'post_data' ] ) ) {
-				parse_str( wp_unslash( $_POST[ 'post_data' ] ), $billing_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+				if ( is_array( $_POST[ 'post_data' ] ) ) {
+					$billing_data = wp_unslash( $_POST[ 'post_data' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				} else {
+					parse_str( wp_unslash( $_POST[ 'post_data' ] ), $billing_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				}
+
 				if ( is_array( $billing_data ) && isset( $billing_data[ 'billing_email' ] ) ) {
 					$check_emails[] = wc_clean( $billing_data[ 'billing_email' ] );
 				}

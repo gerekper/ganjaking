@@ -1,18 +1,58 @@
-# Copyright (C) 2022 WooCommerce
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Ajax Layered Navigation 1.9.0\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-ajax-layered-nav\n"
-"POT-Creation-Date: 2022-07-20 15:57:27+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Advanced Ajax Layered Navigation 2.0.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.5\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-05-10T15:32:58+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-ajax-layered-nav\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Advanced Ajax Layered Navigation"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/ajax-layered-navigation/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Ajaxifies the standard WooCommerce Layered Nav and adds additional output types like color swatches, sizes, checkboxes, etc"
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
+
+#: src/Admin/Admin.php:43
+msgctxt "aria-label: documentation link"
+msgid "View Ajax-Enabled Enhanced Layered Navigation documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:44
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:50
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:51
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav-clear.php:25
 msgid "Displays a \"Clear All\" Link. Should be used with the Ajax Layered Nav."
@@ -29,7 +69,7 @@ msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav-clear.php:36
 #: widgets/class-sod-widget-ajax-layered-nav-filters.php:36
-#: widgets/class-sod-widget-ajax-layered-nav.php:218
+#: widgets/class-sod-widget-ajax-layered-nav.php:213
 msgid "Title"
 msgstr ""
 
@@ -43,9 +83,7 @@ msgid "Link Text"
 msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav-filters.php:25
-msgid ""
-"Shows active layered nav filters so users can see and deactivate them. "
-"Should be used with the Ajax Layered Nav."
+msgid "Shows active layered nav filters so users can see and deactivate them. Should be used with the Ajax Layered Nav."
 msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav-filters.php:27
@@ -76,9 +114,7 @@ msgid "Max"
 msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav.php:26
-msgid ""
-"Shows a custom attribute in a widget which lets you narrow down the list of "
-"products when viewing product categories."
+msgid "Shows a custom attribute in a widget which lets you narrow down the list of products when viewing product categories."
 msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav.php:28
@@ -87,110 +123,87 @@ msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav.php:59
 #: widgets/class-sod-widget-ajax-layered-nav.php:113
-#: woocommerce-ajax-layered-nav.php:274 woocommerce-ajax-layered-nav.php:294
+#: woocommerce-ajax-layered-nav.php:287
+#: woocommerce-ajax-layered-nav.php:307
 msgid "Name"
 msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav.php:60
-#: woocommerce-ajax-layered-nav.php:275
+#: woocommerce-ajax-layered-nav.php:288
 msgid "Color Code"
 msgstr ""
 
 #: widgets/class-sod-widget-ajax-layered-nav.php:114
-#: woocommerce-ajax-layered-nav.php:295
+#: woocommerce-ajax-layered-nav.php:308
 msgid "Label"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:217
+#: widgets/class-sod-widget-ajax-layered-nav.php:212
 msgid "Filter by"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:223
+#: widgets/class-sod-widget-ajax-layered-nav.php:218
 msgid "Attribute"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:230
+#: widgets/class-sod-widget-ajax-layered-nav.php:225
 msgid "Show Attribute Count"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:235
+#: widgets/class-sod-widget-ajax-layered-nav.php:230
 msgid "Hide attributes if filtered count goes to zero"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:241
+#: widgets/class-sod-widget-ajax-layered-nav.php:236
 msgid "Display type"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:243
+#: widgets/class-sod-widget-ajax-layered-nav.php:238
 msgid "List"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:244
+#: widgets/class-sod-widget-ajax-layered-nav.php:239
 msgid "Dropdown"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:245
+#: widgets/class-sod-widget-ajax-layered-nav.php:240
 msgid "Checkbox"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:246
+#: widgets/class-sod-widget-ajax-layered-nav.php:241
 msgid "Size Selector"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:247
+#: widgets/class-sod-widget-ajax-layered-nav.php:242
 msgid "Color Picker"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:258
+#: widgets/class-sod-widget-ajax-layered-nav.php:253
 msgid "Query type"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:260
+#: widgets/class-sod-widget-ajax-layered-nav.php:255
 msgid "AND"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:261
+#: widgets/class-sod-widget-ajax-layered-nav.php:256
 msgid "OR"
 msgstr ""
 
-#: widgets/class-sod-widget-ajax-layered-nav.php:282
 #. translators: %s Taxonomy name.
+#: widgets/class-sod-widget-ajax-layered-nav.php:277
 msgid "Any %s"
 msgstr ""
 
-#: woocommerce-ajax-layered-nav.php:75
 #. translators: %s: WooCommerce link
-msgid ""
-"WooCommerce Advanced Ajax Layered Navigation requires %s to be installed "
-"and active."
+#: woocommerce-ajax-layered-nav.php:88
+msgid "WooCommerce Advanced Ajax Layered Navigation requires %s to be installed and active."
 msgstr ""
 
-#: woocommerce-ajax-layered-nav.php:174
+#: woocommerce-ajax-layered-nav.php:187
 msgid "Loading"
 msgstr ""
 
-#: woocommerce-ajax-layered-nav.php:185
+#: woocommerce-ajax-layered-nav.php:198
 msgid "Error getting products. Try again."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Advanced Ajax Layered Navigation"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/ajax-layered-navigation/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Ajaxifies the standard WooCommerce Layered Nav and adds additional output "
-"types like color swatches, sizes, checkboxes, etc"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com"
 msgstr ""

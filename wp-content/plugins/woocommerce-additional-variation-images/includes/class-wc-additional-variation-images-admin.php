@@ -36,7 +36,7 @@ class WC_Additional_Variation_Images_Admin {
 	public function get_instance() {
 		return self::$_this;
 	}
-		
+
 	/**
 	 * load admin scripts
 	 *
@@ -74,11 +74,11 @@ class WC_Additional_Variation_Images_Admin {
 	 * @return json
 	 */
 	public function load_images_ajax() {
-		$nonce = $_POST['ajaxAdminLoadImageNonce'];
+		$nonce = isset( $_POST['ajaxAdminLoadImageNonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajaxAdminLoadImageNonce'] ) ) : '';
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wc_additional_variation_images_nonce' ) ) {
-		     die ( 'error' );	
+		     die ( 'error' );
 		}
 
 		// bail if no ids submitted
@@ -103,7 +103,7 @@ class WC_Additional_Variation_Images_Admin {
 				foreach( explode( ',', $ids ) as $attach_id ) {
 					$attachment = wp_get_attachment_image_src( $attach_id, array( 40, 40 ) );
 
-					if ( $attachment ) {		
+					if ( $attachment ) {
 						$html .= '<li><a href="#" class="wc-additional-variations-images-thumb" data-id="' . esc_attr( $attach_id ) . '"><img src="' . esc_attr( $attachment[0] ) . '" width="40" height="40" /><span class="overlay"></span></a></li>';
 					}
 				}
@@ -145,11 +145,12 @@ class WC_Additional_Variation_Images_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
 			return;
 		}
-		
+
 		// Check the nonce
-		if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_meta_nonce'], 'woocommerce_save_data' ) ) {
+		$meta_nonce = isset( $_POST['woocommerce_meta_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ) : '';
+		if ( empty( $meta_nonce ) || ! wp_verify_nonce( $meta_nonce, 'woocommerce_save_data' ) ) {
 			return;
-		} 
+		}
 
 		// Check the post being saved == the $post_id to prevent triggering this call for other save_post events
 		if ( empty( $_POST['post_ID'] ) || $_POST['post_ID'] != $post_id ) {
@@ -166,7 +167,7 @@ class WC_Additional_Variation_Images_Admin {
 			return;
 		}
 
-		$ids = $_POST['wc_additional_variations_images_thumbs'];
+		$ids = wp_unslash( $_POST['wc_additional_variations_images_thumbs'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		// sanitize
 		array_walk_recursive( $ids, 'sanitize_text_field' );
@@ -177,7 +178,7 @@ class WC_Additional_Variation_Images_Admin {
 					update_post_meta( $parent_id, '_wc_additional_variation_images', $attachment_ids );
 				} else {
 					update_post_meta( $parent_id, '_wc_additional_variation_images', '' );
-				}	
+				}
 			}
 		}
 

@@ -1,5 +1,9 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2023.05.10 - version 2.11.0
+ * Feature - Add support for pickup appointment lead times that are set in minutes
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.11.22 - version 2.10.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

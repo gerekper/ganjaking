@@ -64,7 +64,7 @@ if ( isset( $args ) ) {
 	if ( !empty( $_GET['params'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 		$params = array_map( 'sanitize_text_field', wp_unslash( $_GET['params'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 		foreach ( $params as $key => $value ) {
-			echo "ajax_params." . esc_js( $key ) . " = '" . esc_js( $value ) . "'\n";
+			echo 'ajax_params.' . esc_js( sanitize_title( $key ) ) . " = '" . esc_js( $value ) . "'\n";
 		}
 	}
 	?>

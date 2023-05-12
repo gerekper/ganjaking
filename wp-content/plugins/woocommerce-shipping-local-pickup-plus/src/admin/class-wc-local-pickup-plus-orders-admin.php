@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointment as Appointment;
 
 /**
@@ -41,21 +41,40 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 */
 	public function __construct() {
 
+		$hpos_enabled = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled();
+
 		// add a 'Pickup Locations' column to the orders edit screen
-		add_filter( 'manage_edit-shop_order_columns',        array( $this, 'add_pickup_locations_column_header' ), 20 );
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'add_pickup_locations_column_content' ) );
-		add_action( 'admin_head',                            array( $this, 'pickup_locations_column_styles' ) );
+		if ( $hpos_enabled ) {
+			add_filter( 'woocommerce_shop_order_list_table_columns',       [ $this, 'add_pickup_locations_column_header' ], 20 );
+			add_action( 'manage_woocommerce_page_wc-orders_custom_column', [ $this, 'add_pickup_locations_column_content' ], 10, 2 );
+		} else {
+			add_filter( 'manage_edit-shop_order_columns',        [ $this, 'add_pickup_locations_column_header' ], 20 );
+			add_action( 'manage_shop_order_posts_custom_column', [ $this, 'add_pickup_locations_column_content' ] );
+		}
+
+		// add styles for the 'Pickup Locations' column
+		add_action( 'admin_head', [ $this, 'pickup_locations_column_styles' ] );
 
 		// add a Pickup Location field for each shipping item to edit the Pickup Location ID
 		add_action( 'woocommerce_before_order_itemmeta', [ $this, 'output_order_shipping_item_pickup_data_field' ], 1, 2 );
 
 		// filter orders by pickup appointment time
-		add_action( 'restrict_manage_posts', [ $this, 'add_pickup_appointment_time_filter' ], 25, 1 );
-		add_filter( 'request',               [ $this, 'filter_orders_by_appointment_time' ], 998, 1 );
+		if ( $hpos_enabled ) {
+			add_action( 'woocommerce_order_list_table_restrict_manage_orders',        [ $this, 'add_pickup_appointment_time_filter' ] , 25 );
+			add_filter( 'woocommerce_shop_order_list_table_prepare_items_query_args', [ $this, 'filter_orders_by_appointment_time' ], 998 );
+		} else {
+			add_action( 'restrict_manage_posts', [ $this, 'add_pickup_appointment_time_filter' ], 25 );
+			add_filter( 'request',               [ $this, 'filter_orders_by_appointment_time' ], 998 );
+		}
 
 		// filter orders by pickup locations
-		add_action( 'restrict_manage_posts', [ $this, 'add_pickup_locations_filter' ], 20, 1 );
-		add_filter( 'request',               [ $this, 'filter_orders_by_locations' ], 999, 1 );
+		if ( $hpos_enabled ) {
+			add_action( 'woocommerce_order_list_table_restrict_manage_orders',        [ $this, 'add_pickup_locations_filter' ], 20 );
+			add_filter( 'woocommerce_shop_order_list_table_prepare_items_query_args', [ $this, 'filter_orders_by_locations' ], 999 );
+		} else {
+			add_action( 'restrict_manage_posts', [ $this, 'add_pickup_locations_filter' ], 20 );
+			add_filter( 'request',               [ $this, 'filter_orders_by_locations' ], 999 );
+		}
 	}
 
 
@@ -66,12 +85,16 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $columns
-	 * @return array
+	 * @param array<string, string>|mixed $columns
+	 * @return array|mixed
 	 */
-	public function add_pickup_locations_column_header( $columns ) {
+	public function add_pickup_locations_column_header( $columns = [] ) {
 
-		$new_columns = array();
+		$new_columns = [];
+
+		if ( ! is_array( $columns ) ) {
+			return $columns;
+		}
 
 		foreach ( $columns as $column_name => $column_info ) {
 
@@ -94,15 +117,15 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $column name of column being displayed
+	 * @param string|mixed $column name of column being displayed
+	 * @param int|mixed $order order ID or order object
 	 */
-	public function add_pickup_locations_column_content( $column ) {
-		global $post;
+	public function add_pickup_locations_column_content( $column, $order = null ) {
 
 		if ( 'pickup_locations' === $column ) {
 
 			$pickup_location_names = [];
-			$order                 = wc_get_order( $post->ID );
+			$order                 = is_numeric( $order ) ? wc_get_order( $order ) : $order;
 
 			if ( ( $order instanceof \WC_Order || $order instanceof \WC_Order_Refund ) && ! $order instanceof \WC_Subscription ) {
 
@@ -174,7 +197,7 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 
 		$screen = get_current_screen();
 
-		if ( $screen && 'edit-shop_order' === $screen->id ) :
+		if ( ( $screen && 'edit-shop_order' === $screen->id ) || Framework\SV_WC_Order_Compatibility::is_orders_screen() ) :
 
 			?>
 			<style type="text/css">
@@ -197,29 +220,29 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param string $screen the screen ID (equivalent to $typenow global)
+	 * @param string|mixed $screen_id the screen ID (equivalent to $typenow global)
 	 */
-	public function add_pickup_locations_filter( $screen ) {
+	public function add_pickup_locations_filter( $screen_id ) {
 
-		if ( 'shop_order' === $screen ) {
-
-			$pickup_location_id   = ! empty( $_GET['_pickup_location'] ) ? absint( $_GET['_pickup_location'] ) : '';
-			$pickup_location      = $pickup_location_id > 0 ? wc_local_pickup_plus_get_pickup_location( $pickup_location_id ) : null;
-			$pickup_location_name = $pickup_location instanceof \WC_Local_Pickup_Plus_Pickup_Location ? esc_html__( $pickup_location->get_name() ) : '';
-			$filter_input_args    = array(
-				'id'                => 'wc-local-pickup-plus-pickup-location-search',
-				'input_name'        => '_pickup_location',
-				'class'             => 'wc-local-pickup-plus-pickup-location-search',
-				'css'               => 'display:block;float:left;width:100%;max-width:216px;margin-right: 6px;',
-				'value'             => $pickup_location,
-				'custom_attributes' => array(
-					'data-allow_clear' => true,
-					'data-placeholder' => __( 'Search for a location&hellip;', 'woocommerce-shipping-local-pickup-plus' ),
-				),
-			);
-
-			wc_local_pickup_plus()->get_admin_instance()->output_search_pickup_locations_field( $filter_input_args );
+		if ( ! Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() && 'shop_order' !== $screen_id ) {
+			return;
 		}
+
+		$pickup_location_id = ! empty( $_GET['_pickup_location'] ) ? absint( $_GET['_pickup_location'] ) : '';
+		$pickup_location    = $pickup_location_id > 0 ? wc_local_pickup_plus_get_pickup_location( $pickup_location_id ) : null;
+		$filter_input_args  = [
+			'id'                => 'wc-local-pickup-plus-pickup-location-search',
+			'input_name'        => '_pickup_location',
+			'class'             => 'wc-local-pickup-plus-pickup-location-search',
+			'css'               => 'display:block;float:left;width:100%;max-width:216px;margin-right: 6px;',
+			'value'             => $pickup_location,
+			'custom_attributes' => [
+				'data-allow_clear' => true,
+				'data-placeholder' => __( 'Search for a location&hellip;', 'woocommerce-shipping-local-pickup-plus' ),
+			],
+		];
+
+		wc_local_pickup_plus()->get_admin_instance()->output_search_pickup_locations_field( $filter_input_args );
 	}
 
 
@@ -235,29 +258,38 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $query_vars query variables
-	 * @return array
+	 * @param array<string, mixed>|mixed $args WP_Query vars or WC_Query args according to filter
+	 * @return array<string, mixed>|mixed
 	 */
-	public function filter_orders_by_locations( $query_vars ) {
-		global $typenow;
+	public function filter_orders_by_locations( $args ) {
 
-		if (    'shop_order' === $typenow
-		     && isset( $_GET['_pickup_location'] )
-		     && $_GET['_pickup_location'] > 0
-		     && ( $orders_handler = wc_local_pickup_plus()->get_orders_instance() ) ) {
+		if ( ! is_array( $args ) ) {
+			return $args;
+		}
 
-			$pickup_location_id = (int) $_GET['_pickup_location'];
-			$order_ids          = $orders_handler->get_pickup_location_order_ids( $pickup_location_id );
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$pickup_location_id = absint( $_GET['_pickup_location'] ?? null );
+		} else {
+			$pickup_location_id = absint( $args['_pickup_location'] ?? null );
+		}
+
+		if ( ! $pickup_location_id ) {
+			return $args;
+		}
+
+		if ( $orders_handler = wc_local_pickup_plus()->get_orders_instance() ) {
+
+			$order_ids = $orders_handler->get_pickup_location_order_ids( $pickup_location_id );
 
 			// if no orders are found, show no orders then
 			if ( empty( $order_ids ) ) {
 
-				$query_vars['post__in'] = [ 0 ];
+				$args['post__in'] = [ 0 ];
 
 			// intersect results with orders that may be filtered by pickup date
-			} elseif ( ! empty( $query_vars['post__in'] ) )  {
+			} elseif ( ! empty( $args['post__in'] ) )  {
 
-				$order_ids = array_intersect( $order_ids, array_map( 'absint', $query_vars['post__in'] ) );
+				$order_ids = array_intersect( $order_ids, array_map( 'absint', $args['post__in'] ) );
 
 				// ensure that the found orders by appointment time are for the requested location
 				foreach ( $order_ids as $index => $order_id ) {
@@ -269,16 +301,16 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 				}
 
 				// if none of the found orders match the chosen pickup location, ensure that no results are returned
-				$query_vars['post__in'] = empty( $order_ids ) ? [ 0 ] : $order_ids;
+				$args['post__in'] = empty( $order_ids ) ? [ 0 ] : $order_ids;
 
 			// return all results for the requested pickup location
 			} else {
 
-				$query_vars['post__in'] = $order_ids;
+				$args['post__in'] = $order_ids;
 			}
 		}
 
-		return $query_vars;
+		return $args;
 	}
 
 
@@ -291,11 +323,15 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 *
 	 * @since 2.7.0
 	 *
-	 * @param string $screen the screen ID (equivalent to $typenow global)
+	 * @param string|mixed $screen_id the screen ID (equivalent to $typenow global)
 	 */
-	public function add_pickup_appointment_time_filter( $screen ) {
+	public function add_pickup_appointment_time_filter( $screen_id ) {
 
-		if ( 'shop_order' === $screen && 'disabled' !== wc_local_pickup_plus()->get_shipping_method_instance()->pickup_appointments_mode() ) :
+		if ( ! Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() && 'shop_order' !== $screen_id ) {
+			return;
+		}
+
+		if ( 'disabled' !== wc_local_pickup_plus()->get_shipping_method_instance()->pickup_appointments_mode() ) :
 
 			$appointment_time = ! empty( $_GET['_appointment_time'] ) ? $_GET['_appointment_time'] : '';
 			$options          = [
@@ -335,18 +371,27 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 *
 	 * @since 2.7.0
 	 *
-	 * @param array $query_vars query variables
-	 * @return array
+	 * @param array<string, mixed>|mixed $args WP_Query vars or WC_Query args according to filter
+	 * @return array<string, mixed>|mixed
 	 * @throws \Exception
 	 */
-	public function filter_orders_by_appointment_time( $query_vars ) {
-		global $typenow;
+	public function filter_orders_by_appointment_time( $args ) {
 
-		if (      'shop_order' === $typenow
-		     && ! empty( $_GET['_appointment_time'] )
-		     &&   ( $orders_handler = wc_local_pickup_plus()->get_orders_instance() ) ) {
+		if ( ! is_array( $args ) ) {
+			return $args;
+		}
 
-			switch ( $_GET['_appointment_time'] ) {
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$appointment_time = $_GET['_appointment_time'] ?? null;
+		} else {
+			$appointment_time = $args['_appointment_time'] ?? null;
+		}
+
+		$orders_handler = wc_local_pickup_plus()->get_orders_instance();
+
+		if ( $orders_handler && ! empty( $appointment_time ) ) {
+
+			switch ( $appointment_time ) {
 
 				case 'today':
 					$start = new \DateTime( 'today', new \DateTimeZone( wc_timezone_string() ) );
@@ -379,12 +424,12 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 
 				$order_ids = $orders_handler->get_orders_by_appointment_range( $start->getTimestamp(), $end->getTimestamp() );
 
-				// if no orders are found, show no orders then
-				$query_vars['post__in'] = ! empty( $order_ids ) ? $order_ids : [ 0 ];
+				// if no orders are found, show no orders then (note: HPOS supports 'post__in')
+				$args['post__in'] = ! empty( $order_ids ) ? $order_ids : [ 0 ];
 			}
 		}
 
-		return $query_vars;
+		return $args;
 	}
 
 
@@ -399,15 +444,19 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 * @param array $item order shipping item array
 	 */
 	public function output_order_shipping_item_pickup_data_field( $item_id, $item ) {
-		global $post;
+		global $post, $theorder;
 
-		$order = wc_get_order( $post );
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$order = $theorder;
+		} else {
+			$order = wc_get_order( $post );
+		}
 
 		if ( empty( $order ) && ! empty( $_POST['order_id'] ) && wp_doing_ajax() ) {
 			$order = wc_get_order( $_POST['order_id'] );
 		}
 
-		$shipping_method = isset( $item['method_id'] ) ? $item['method_id'] : null;
+		$shipping_method = $item['method_id'] ?? null;
 
 		if (      $order instanceof \WC_Order
 		     && ! $order instanceof \WC_Subscription

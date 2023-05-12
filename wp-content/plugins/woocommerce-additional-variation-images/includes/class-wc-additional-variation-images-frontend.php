@@ -81,7 +81,7 @@ class WC_Additional_Variation_Images_Frontend {
 			wp_send_json_error();
 		}
 
-		$image_ids            = array_filter( explode( ',', get_post_meta( $variation_id, '_wc_additional_variation_images', true ) ) );
+		$image_ids            = array_filter( explode( ',', get_post_meta( $variation_id, '_wc_additional_variation_images', true ) ), null );
 		$variation_main_image = $variation->get_image_id();
 
 		if ( ! empty( $variation_main_image ) ) {

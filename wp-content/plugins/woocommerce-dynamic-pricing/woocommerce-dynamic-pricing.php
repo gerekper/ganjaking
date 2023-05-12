@@ -5,7 +5,7 @@
  * Woo: 18643:9a41775bb33843f52c93c922b0053986
  * Plugin URI: https://woocommerce.com/products/dynamic-pricing/
  * Description: WooCommerce Dynamic Pricing lets you configure dynamic pricing rules for products, categories and members.
- * Version: 3.2.1
+ * Version: 3.2.2
  * Author: Element Stark
  * Author URI: https://elementstark.com
  * Requires at least: 3.3
@@ -24,7 +24,7 @@
 /**
  * Required functions
  */
-if ( !function_exists( 'is_woocommerce_active' ) ) {
+if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
 }
 
@@ -106,7 +106,7 @@ class WC_Dynamic_Pricing {
 		$is_rest_api_request = ( false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix ) ); // phpcs:disable WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 
-		if ( ( !is_admin() || defined( 'DOING_AJAX' ) ) && !defined( 'DOING_CRON' ) && !$is_rest_api_request ) {
+		if ( ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! $is_rest_api_request ) {
 			$this->load_front_end();
 		} elseif ( $is_rest_api_request ) {
 			$this->load_rest_api_front_end();
@@ -170,7 +170,6 @@ class WC_Dynamic_Pricing {
 		include 'classes/modules/class-wc-dynamic-pricing-simple-category.php';
 		include 'classes/modules/class-wc-dynamic-pricing-simple-membership.php';
 		include 'classes/modules/class-wc-dynamic-pricing-simple-taxonomy.php';
-
 
 
 		//Boot up the instances of the pricing modules
@@ -311,30 +310,28 @@ class WC_Dynamic_Pricing {
 
 
 	public function on_woocommerce_get_variation_prices_hash( $price_hash ) {
-
 		//Get a key based on role, since all rules use roles.
 		$result     = is_array( $price_hash ) ? $price_hash : array( $price_hash );
-		$session_id = null;
 
 		$roles = array();
 		if ( is_user_logged_in() ) {
 			$user = new WP_User( get_current_user_id() );
-			if ( !empty( $user->roles ) && is_array( $user->roles ) ) {
+			if ( ! empty( $user->roles ) && is_array( $user->roles ) ) {
 				foreach ( $user->roles as $role ) {
 					$roles[ $role ] = $role;
 				}
 			}
 		}
 
-		if ( !empty( $roles ) ) {
+		if ( ! empty( $roles ) ) {
 			$session_id = implode( '', $roles );
 		} else {
 			$session_id = 'norole';
 		}
 
 		$result[] = $session_id;
-		return $result;
 
+		return $result;
 	}
 
 
@@ -345,22 +342,17 @@ class WC_Dynamic_Pricing {
 	 */
 	public function add_price_filters() {
 
-		if ( WC_Dynamic_Pricing_Compatibility::is_wc_version_gte_2_7() ) {
-			//Filters the regular variation price
+		add_filter( 'woocommerce_variation_prices_price', array( $this, 'on_get_variation_prices_price' ), 10, 3 );
+		add_filter( 'woocommerce_product_variation_get_price', array(
+			$this,
+			'on_get_product_variation_price'
+		), 10, 2 );
 
-			add_filter( 'woocommerce_product_variation_get_price', array(
-				$this,
-				'on_get_product_variation_price'
-			), 10, 2 );
+		//Filters the regular product get price.
+		add_filter( 'woocommerce_product_get_price', array( $this, 'on_get_price' ), 10, 2 );
 
-			//Filters the regular product get price.
-			add_filter( 'woocommerce_product_get_price', array( $this, 'on_get_price' ), 10, 2 );
-
-			//Filters subscription prices.
-			add_filter( 'woocommerce_subscriptions_product_price', array( $this, 'on_get_price' ), 10, 2 );
-		} else {
-			add_filter( 'woocommerce_get_price', array( $this, 'on_get_price' ), 10, 2 );
-		}
+		//Filters subscription prices.
+		add_filter( 'woocommerce_subscriptions_product_price', array( $this, 'on_get_price' ), 10, 2 );
 
 	}
 
@@ -394,7 +386,7 @@ class WC_Dynamic_Pricing {
 	public function on_wp_loaded() {
 		// Force calculation of totals so that they are updated in mini-cart
 		if ( WC_Dynamic_Pricing_Compatibility::is_wc_version( '3.2.5' ) || WC_Dynamic_Pricing_Compatibility::is_wc_version( '3.2.4' ) || WC_Dynamic_Pricing_Compatibility::is_wc_version( '3.2.3' ) ) {
-			if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX && !empty( $_REQUEST['wc-ajax'] ) && ( $_REQUEST['wc-ajax'] === 'get_refreshed_fragments' || $_REQUEST['wc-ajax'] === 'add_to_cart' || $_REQUEST['wc-ajax'] == 'remove_from_cart' ) ) {
+			if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX && ! empty( $_REQUEST['wc-ajax'] ) && ( $_REQUEST['wc-ajax'] === 'get_refreshed_fragments' || $_REQUEST['wc-ajax'] === 'add_to_cart' || $_REQUEST['wc-ajax'] == 'remove_from_cart' ) ) {
 				WC()->session->set( 'cart_totals', null );
 			}
 		}
@@ -404,15 +396,7 @@ class WC_Dynamic_Pricing {
 	public function on_plugins_loaded() {
 
 		require_once 'classes/class-wc-dynamic-pricing-compatibility-functions.php';
-		add_filter( 'woocommerce_variation_prices_price', array( $this, 'on_get_variation_prices_price' ), 10, 3 );
-
-		if ( WC_Dynamic_Pricing_Compatibility::is_wc_version_gte_2_7() ) {
-			$this->add_price_filters();
-		} else {
-			add_filter( 'woocommerce_get_variation_price', array( $this, 'on_get_variation_price' ), 10, 4 );
-			add_filter( 'woocommerce_get_price', array( $this, 'on_get_price' ), 10, 2 );
-		}
-
+		$this->add_price_filters();
 
 		$additional_taxonomies = apply_filters( 'wc_dynamic_pricing_get_discount_taxonomies', array() );
 
@@ -437,15 +421,15 @@ class WC_Dynamic_Pricing {
 
 		if ( WC_Dynamic_Pricing_Compatibility::is_wc_version_gte_2_7() ) {
 
-			if ( !apply_filters( 'wc_dynamic_pricing_check_coupons', true ) ) {
+			if ( ! apply_filters( 'wc_dynamic_pricing_check_coupons', true ) ) {
 				return $valid;
 			}
 
-			if ( $coupon->get_exclude_sale_items() && isset( $values['discounts'] ) && isset( $values['discounts']['applied_discounts'] ) && !empty( $values['discounts']['applied_discounts'] ) ) {
+			if ( $coupon->get_exclude_sale_items() && isset( $values['discounts'] ) && isset( $values['discounts']['applied_discounts'] ) && ! empty( $values['discounts']['applied_discounts'] ) ) {
 				$valid = false;
 			}
 		} else {
-			if ( $coupon->exclude_sale_items() && isset( $values['discounts']['applied_discounts'] ) && !empty( $values['discounts']['applied_discounts'] ) ) {
+			if ( $coupon->exclude_sale_items() && isset( $values['discounts']['applied_discounts'] ) && ! empty( $values['discounts']['applied_discounts'] ) ) {
 				$valid = false;
 			}
 		}
@@ -464,12 +448,12 @@ class WC_Dynamic_Pricing {
 		if ( WC_Dynamic_Pricing_Compatibility::is_wc_version_gte_2_7() ) {
 			if ( $coupon->get_exclude_sale_items() ) {
 
-				if ( !apply_filters( 'wc_dynamic_pricing_check_coupons', true ) ) {
+				if ( ! apply_filters( 'wc_dynamic_pricing_check_coupons', true ) ) {
 					return $valid;
 				}
 
 				foreach ( WC()->cart->get_cart() as $values ) {
-					if ( isset( $values['discounts'] ) && isset( $values['discounts']['applied_discounts'] ) && !empty( $values['discounts']['applied_discounts'] ) ) {
+					if ( isset( $values['discounts'] ) && isset( $values['discounts']['applied_discounts'] ) && ! empty( $values['discounts']['applied_discounts'] ) ) {
 						return false;
 					}
 				}
@@ -477,7 +461,7 @@ class WC_Dynamic_Pricing {
 		} else {
 			if ( $coupon->exclude_sale_items() ) {
 				foreach ( WC()->cart->get_cart() as $values ) {
-					if ( isset( $values['discounts'] ) && isset( $values['discounts']['applied_discounts'] ) && !empty( $values['discounts']['applied_discounts'] ) ) {
+					if ( isset( $values['discounts'] ) && isset( $values['discounts']['applied_discounts'] ) && ! empty( $values['discounts']['applied_discounts'] ) ) {
 						return false;
 					}
 				}
@@ -549,7 +533,7 @@ class WC_Dynamic_Pricing {
 		}
 
 		// Force calculation of totals so that they are updated in mini-cart
-		if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX && !empty( $_REQUEST['wc-ajax'] ) && ( $_REQUEST['wc-ajax'] === 'get_refreshed_fragments' || $_REQUEST['wc-ajax'] === 'add_to_cart' || $_REQUEST['wc-ajax'] == 'remove_from_cart' ) ) {
+		if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX && ! empty( $_REQUEST['wc-ajax'] ) && ( $_REQUEST['wc-ajax'] === 'get_refreshed_fragments' || $_REQUEST['wc-ajax'] === 'add_to_cart' || $_REQUEST['wc-ajax'] == 'remove_from_cart' ) ) {
 			if ( WC_Dynamic_Pricing_Compatibility::is_wc_version_lte( '3.2.1' ) ) {
 				$cart->subtotal = false;
 			}
@@ -598,6 +582,7 @@ class WC_Dynamic_Pricing {
 	 * @param mixed $source_price
 	 * @param WC_Product $_product
 	 * @param bool $force_calculation
+	 *
 	 * @return float
 	 * @since 2.6.1
 	 *
@@ -606,8 +591,8 @@ class WC_Dynamic_Pricing {
 		$composite_ajax = did_action( 'wp_ajax_woocommerce_show_composited_product' ) | did_action( 'wp_ajax_nopriv_woocommerce_show_composited_product' ) | did_action( 'wc_ajax_woocommerce_show_composited_product' );
 
 
-		$base_price = floatval($source_price);
-		if ( empty( $_product) || $source_price === '') {
+		$base_price = floatval( $source_price );
+		if ( empty( $_product ) || $source_price === '' ) {
 			return $source_price;
 		}
 
@@ -618,7 +603,7 @@ class WC_Dynamic_Pricing {
 
 		$result_price = $base_price;
 
-		if ( !$force_calculation ) {
+		if ( ! $force_calculation ) {
 			//Cart items are discounted when loaded from session, check to see if the call to get_price is from a cart item,
 			//if so, return the price on the cart item as it currently is.
 			$cart_item = WC_Dynamic_Pricing_Context::instance()->get_cart_item_for_product( $_product );
@@ -627,7 +612,7 @@ class WC_Dynamic_Pricing {
 
 				//If no discounts applied just return the price passed to us.
 				//This is to solve subscriptions passing the sign up fee though this filter.
-				if ( !isset( $cart_item['discounts'] ) ) {
+				if ( ! isset( $cart_item['discounts'] ) ) {
 					return $base_price;
 				}
 
@@ -655,10 +640,10 @@ class WC_Dynamic_Pricing {
 		if ( is_object( $_product ) ) {
 			$cache_id = $_product->get_id() . spl_object_hash( $_product );
 
-			if ( !$force_calculation ) {
+			if ( ! $force_calculation ) {
 				if ( isset( $this->cached_adjustments[ $cache_id ] ) && $this->cached_adjustments[ $cache_id ] === false ) {
 					return $base_price;
-				} elseif ( isset( $this->cached_adjustments[ $cache_id ] ) && !empty( $this->cached_adjustments[ $cache_id ] ) ) {
+				} elseif ( isset( $this->cached_adjustments[ $cache_id ] ) && ! empty( $this->cached_adjustments[ $cache_id ] ) ) {
 					return $this->cached_adjustments[ $cache_id ];
 				}
 			}
@@ -681,11 +666,11 @@ class WC_Dynamic_Pricing {
 					if ( $working_price !== false ) {
 						$discount_price = $module->get_discounted_price_for_shop( $_product, $working_price );
 
-						if ($discount_price !== null && ( $discount_price === 0 || $discount_price === 0.0 || $discount_price ) && $discount_price != $working_price ) {
+						if ( $discount_price !== null && ( $discount_price === 0 || $discount_price === 0.0 || $discount_price ) && $discount_price != $working_price ) {
 							$working_price      = $discount_price;
 							$adjustment_applied = true;
 
-							if ( !apply_filters( 'woocommerce_dynamic_pricing_is_cumulative', true, $module->module_id, $fake_cart_item, '' ) ) {
+							if ( ! apply_filters( 'woocommerce_dynamic_pricing_is_cumulative', true, $module->module_id, $fake_cart_item, '' ) ) {
 								break;
 							}
 						}
@@ -696,12 +681,12 @@ class WC_Dynamic_Pricing {
 
 			if ( $adjustment_applied && $discount_price !== false && $discount_price != $base_price ) {
 				$result_price = $discount_price;
-				if ( !$force_calculation ) {
+				if ( ! $force_calculation ) {
 					$this->cached_adjustments[ $cache_id ] = $result_price;
 				}
 			} else {
 				$result_price = $base_price;
-				if ( !$force_calculation ) {
+				if ( ! $force_calculation ) {
 					$this->cached_adjustments[ $cache_id ] = false;
 				}
 			}
@@ -735,10 +720,10 @@ class WC_Dynamic_Pricing {
 				//Make sure we are using the price that was just discounted.
 				$working_price = $discount_price !== false ? $discount_price : $base_price;
 				$working_price = $module->get_product_working_price( $working_price, $_product );
-				if ( floatval( $working_price ) || intval($working_price) == 0 ) {
+				if ( floatval( $working_price ) || intval( $working_price ) == 0 ) {
 					$discount_price = $module->get_discounted_price_for_shop( $_product, $working_price );
 					$cumulative     = apply_filters( 'woocommerce_dynamic_pricing_is_cumulative', true, $module->module_id, array( 'data' => $_product ), '' );
-					if ($discount_price !== false && $discount_price != $base_price && !$cumulative ) {
+					if ( $discount_price !== false && $discount_price != $base_price && ! $cumulative ) {
 						break;
 					}
 				}
@@ -763,9 +748,10 @@ class WC_Dynamic_Pricing {
 	 *
 	 */
 	public function on_get_variation_prices_price( $price, $variation ) {
-		if ($price !== '') {
+		if ( $price !== '' ) {
 			$price = $this->get_discounted_price( $price, $variation );
 		}
+
 		return $price;
 	}
 
@@ -784,7 +770,7 @@ class WC_Dynamic_Pricing {
 		$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
 
 		$children = $product->get_children();
-		if ( isset( $children ) && !empty( $children ) ) {
+		if ( isset( $children ) && ! empty( $children ) ) {
 			foreach ( $children as $variation_id ) {
 				if ( $display ) {
 					$variation = wc_get_product( $variation_id );
@@ -839,7 +825,7 @@ class WC_Dynamic_Pricing {
 	 */
 	public function on_get_product_is_on_sale( $is_on_sale, $product ) {
 
-		if ( !apply_filters( 'wc_dynamic_pricing_flag_is_on_sale', true, $product ) ) {
+		if ( ! apply_filters( 'wc_dynamic_pricing_flag_is_on_sale', true, $product ) ) {
 			return $is_on_sale;
 		}
 
@@ -862,21 +848,21 @@ class WC_Dynamic_Pricing {
 
 			$diff = array_diff_assoc( $regular, $actual_prices );
 
-			if ( !empty( $diff ) ) {
+			if ( ! empty( $diff ) ) {
 				$is_on_sale = true;
 			}
 		} else {
 
 			//3.1.19 - just get the price sent though the regular get_price filter.
-			$dynamic_price = $product->get_price('view');
+			$dynamic_price = $product->get_price( 'view' );
 
 			$regular_price = $product->get_regular_price( 'view' );
 
 
-			if ( empty( $regular_price ) || (empty( $dynamic_price ) && floatval($dynamic_price) !== 0.00) ) {
+			if ( empty( $regular_price ) || ( empty( $dynamic_price ) && floatval( $dynamic_price ) !== 0.00 ) ) {
 				return $is_on_sale;
 			} else {
-				$is_on_sale = (float)$regular_price > (float)$dynamic_price;
+				$is_on_sale = (float) $regular_price > (float) $dynamic_price;
 			}
 		}
 
@@ -897,7 +883,7 @@ class WC_Dynamic_Pricing {
 		}
 
 
-		if ( isset( WC()->cart->cart_contents[ $cart_item_key ] ) && !empty( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
+		if ( isset( WC()->cart->cart_contents[ $cart_item_key ] ) && ! empty( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
 
 
 			$_product = WC()->cart->cart_contents[ $cart_item_key ]['data'];
@@ -914,7 +900,7 @@ class WC_Dynamic_Pricing {
 				WC()->cart->cart_contents[ $cart_item_key ]['data']->base_price = $adjusted_price;
 			}
 
-			if ( !isset( WC()->cart->cart_contents[ $cart_item_key ]['discounts'] ) ) {
+			if ( ! isset( WC()->cart->cart_contents[ $cart_item_key ]['discounts'] ) ) {
 
 				$discount_data                                           = array(
 					'by'                => array( $module ),
@@ -993,19 +979,19 @@ function wc_dynamic_pricing_is_within_date_range( $from = '', $to = '' ) {
 	// Check date range
 	$from_date = empty( $from ) ? false : wc_dynamic_pricing_wp_strtotime( $from . ' ' . '00:00:00' );
 	$to_date   = empty( $to ) ? false : wc_dynamic_pricing_wp_strtotime( $to . ' ' . '23:59:00' );
-	$now       = current_datetime()->format('U');
+	$now       = current_datetime()->format( 'U' );
 
-	$from_date = intval($from_date);
-	$to_date = intval($to_date);
-	$now = intval($now);
+	$from_date = intval( $from_date );
+	$to_date   = intval( $to_date );
+	$now       = intval( $now );
 
 
 	$execute_rules = true;
-	if ( $from_date && $to_date && !( $now >= $from_date && $now <= $to_date ) ) {
+	if ( $from_date && $to_date && ! ( $now >= $from_date && $now <= $to_date ) ) {
 		$execute_rules = false;
-	} elseif ( $from_date && !$to_date && !( $now >= $from_date ) ) {
+	} elseif ( $from_date && ! $to_date && ! ( $now >= $from_date ) ) {
 		$execute_rules = false;
-	} elseif ( $to_date && !$from_date && !( $now <= $to_date ) ) {
+	} elseif ( $to_date && ! $from_date && ! ( $now <= $to_date ) ) {
 		$execute_rules = false;
 	}
 
@@ -1018,7 +1004,7 @@ function wc_dynamic_pricing_wp_strtotime( $str ) {
 	// From https://mediarealm.com.au/
 	$tz_string = get_option( 'timezone_string' );
 	$tz_offset = get_option( 'gmt_offset', 0 );
-	if ( !empty( $tz_string ) ) {
+	if ( ! empty( $tz_string ) ) {
 		// If site timezone option string exists, use it
 		$timezone = $tz_string;
 	} elseif ( $tz_offset == 0 ) {
@@ -1038,7 +1024,7 @@ function wc_dynamic_pricing_wp_strtotime( $str ) {
 function wc_dynamic_pricing_is_groups_active() {
 	$result = false;
 	$result = in_array( 'groups/groups.php', (array) get_option( 'active_plugins', array() ) );
-	if ( !$result && is_multisite() ) {
+	if ( ! $result && is_multisite() ) {
 		$plugins = get_site_option( 'active_sitewide_plugins' );
 		$result  = isset( $plugins['groups/groups.php'] );
 	}
@@ -1049,7 +1035,7 @@ function wc_dynamic_pricing_is_groups_active() {
 function wc_dynamic_pricing_is_memberships_active() {
 	$result = false;
 	$result = in_array( 'woocommerce-memberships/woocommerce-memberships.php', (array) get_option( 'active_plugins', array() ) );
-	if ( !$result && is_multisite() ) {
+	if ( ! $result && is_multisite() ) {
 		$plugins = get_site_option( 'active_sitewide_plugins' );
 		$result  = isset( $plugins['woocommerce-memberships/woocommerce-memberships.php'] );
 	}
@@ -1060,7 +1046,7 @@ function wc_dynamic_pricing_is_memberships_active() {
 function wc_dynamic_pricing_is_brands_active() {
 	$result = false;
 	$result = in_array( 'woocommerce-brands/woocommerce-brands.php', (array) get_option( 'active_plugins', array() ) );
-	if ( !$result && is_multisite() ) {
+	if ( ! $result && is_multisite() ) {
 		$plugins = get_site_option( 'active_sitewide_plugins' );
 		$result  = isset( $plugins['woocommerce-brands/woocommerce-brands.php'] );
 	}

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles Tracker.
  *
  * @class    WC_PB_Tracker
- * @version  6.18.4
+ * @version  6.18.5
  */
 class WC_PB_Tracker {
 
@@ -978,9 +978,10 @@ class WC_PB_Tracker {
 				$subscription_products_query = new WC_Product_Query( $args );
 				$subscription_products       = $subscription_products_query->get_products();
 
-				$subscription_products_count = count( $subscription_products );
+				$subscription_products_array = is_array( $subscription_products ) ? $subscription_products : array();
+				$subscription_products_count = count( $subscription_products_array );
 				$subscription_products_ids   = $subscription_products_count
-					? implode( ',', array_map( 'absint', $subscription_products ) )
+					? implode( ',', array_map( 'absint', $subscription_products_array ) )
 					: 0;
 
 				$data[ 'subscriptions' ][ 'bundled_items_subscription_type_count' ] = (int) $wpdb->get_var( "
@@ -1066,7 +1067,7 @@ class WC_PB_Tracker {
 			$bundled_products_query = new WC_Product_Query( $bundled_args );
 			$bundled_products       = $bundled_products_query->get_products();
 
-			self::$reusable_data[ 'product_bundles_array' ] = $bundled_products;
+			self::$reusable_data[ 'product_bundles_array' ] = is_array( $bundled_products ) ? $bundled_products : array();
 			self::$reusable_data[ 'product_bundles_count' ] = count( self::$reusable_data[ 'product_bundles_array' ] );
 			self::$reusable_data[ 'product_bundles_ids' ]   = self::$reusable_data[ 'product_bundles_count' ]
 				? implode( ',', array_map( 'absint', self::$reusable_data[ 'product_bundles_array' ] ) )

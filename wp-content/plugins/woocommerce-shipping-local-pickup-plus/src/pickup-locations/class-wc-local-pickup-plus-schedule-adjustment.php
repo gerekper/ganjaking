@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Local Pickup time adjustment.
@@ -134,37 +134,42 @@ class WC_Local_Pickup_Plus_Schedule_Adjustment {
 	 * @since 2.0.0
 	 *
 	 * @param bool $with_data whether to return an associative array with labels and time or just the interval keys. Default false
-	 * @return string[]|array[] indexed or associative array
+	 * @return string[]|array<string, array<string, string|int>> indexed or associative array
 	 */
-	private function get_intervals( $with_data = false ) {
+	private function get_intervals( bool $with_data = false ) : array {
 
-		$intervals = array(
+		$intervals = [
 
-			'hours'  => array(
+			'minutes' => [
+				'label' => __( 'Minute(s)', 'woocommerce-shipping-local-pickup-plus' ),
+				'time' => MINUTE_IN_SECONDS,
+			],
+
+			'hours'   => [
 				'label' => __( 'Hour(s)', 'woocommerce-shipping-local-pickup-plus' ),
 				'time'  => HOUR_IN_SECONDS,
-			),
+			],
 
-			'days'   => array(
+			'days'    => [
 				'label' => __( 'Day(s)', 'woocommerce-shipping-local-pickup-plus' ),
 				'time'  => DAY_IN_SECONDS,
-			),
+			],
 
-			'weeks'  => array(
+			'weeks'   => [
 				'label' => __( 'Week(s)', 'woocommerce-shipping-local-pickup-plus' ),
 				'time'  => WEEK_IN_SECONDS,
-			),
+			],
 
-			'months' => array(
+			'months'  => [
 				'label' => __( 'Month(s)', 'woocommerce-shipping-local-pickup-plus' ),
 				'time'  => MONTH_IN_SECONDS,
-			),
+			],
 
-		);
+		];
 
-		// deadline of hours is not a practical setting
+		// deadline of minutes is not a practical setting
 		if ( 'deadline' === $this->id ) {
-			unset( $intervals['hours'] );
+			unset( $intervals['minutes'] );
 		}
 
 		return true === $with_data ? $intervals : array_keys( $intervals );
@@ -176,7 +181,7 @@ class WC_Local_Pickup_Plus_Schedule_Adjustment {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param string $interval should be: 'hours', 'days', 'weeks' or 'months'
+	 * @param string $interval should be: 'minutes', 'hours', 'days', 'weeks' or 'months'
 	 * @return bool
 	 */
 	private function is_valid_interval( $interval ) {

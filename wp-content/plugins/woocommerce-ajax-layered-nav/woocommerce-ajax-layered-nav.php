@@ -1,17 +1,21 @@
 <?php
 /**
  * Plugin Name: WooCommerce Advanced Ajax Layered Navigation
- * Version: 1.9.0
  * Plugin URI: https://woocommerce.com/products/ajax-layered-navigation/
  * Description: Ajaxifies the standard WooCommerce Layered Nav and adds additional output types like color swatches, sizes, checkboxes, etc
- * Author URI: https://woocommerce.com
- * Author: WooCommerce
- * Tested up to: 6.0
- * WC tested up to: 6.5
- * Woo: 18675:8a0ed1b64e6a889a9f084db0ed5ece6c
+ * Version: 2.0.0
+ * Author: Themesquad
+ * Author URI: https://themesquad.com
  * Text Domain: woocommerce-ajax-layered-nav
+ * Domain Path: /languages
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.2
  *
- * Copyright: © 2022 WooCommerce
+ * WC requires at least: 3.5
+ * WC tested up to: 7.7
+ * Woo: 18675:8a0ed1b64e6a889a9f084db0ed5ece6c
+ *
  * License: GNU General Public License v3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -20,6 +24,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \Themesquad\WC_Ajax_Layered_Nav\Autoloader::init() ) {
+	return;
+}
+
+// Define plugin file constant.
+if ( ! defined( 'WC_AJAX_LAYERED_NAV_FILE' ) ) {
+	define( 'WC_AJAX_LAYERED_NAV_FILE', __FILE__ );
 }
 
 // Plugin init hook.
@@ -32,15 +48,12 @@ add_action( 'woocommerce_translations_updates_for_woocommerce-ajax-layered-nav',
  * Initialize plugin.
  */
 function wc_ajax_layered_nav_init() {
-
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'wc_ajax_layered_nav_woocommerce_deactivated' );
 		return;
 	}
 
-	define( 'WC_AJAX_LAYERED_NAV_VERSION', '1.9.0' ); // WRCS: DEFINED_VERSION.
-
-	load_plugin_textdomain( 'woocommerce-ajax-layered-nav', false, plugin_basename( __DIR__ ) . '/languages' );
+	\Themesquad\WC_Ajax_Layered_Nav\Plugin::instance();
 
 	add_filter( 'woocommerce_ajax_layered_nav_term_link', 'wc_ajax_layered_nav_maybe_preserve_brand_filter' );
 	add_action( 'widgets_init', 'wc_ajax_layered_nav_register_widgets', 15 );
@@ -115,16 +128,16 @@ function wc_ajax_layered_nav_scripts() {
 
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_register_style( 'advanced_nav_css', plugins_url( 'assets/css/advanced_nav.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
+	wp_register_style( 'advanced_nav_css', WC_AJAX_LAYERED_NAV_URL . 'assets/css/advanced_nav.css', array(), WC_AJAX_LAYERED_NAV_VERSION );
 
 	if ( $is_IE ) {
-		wp_register_script( 'html5', plugins_url( 'assets/js/html5' . $suffix . '.js', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION, true );
+		wp_register_script( 'html5', WC_AJAX_LAYERED_NAV_URL . 'assets/js/html5' . $suffix . '.js', array(), WC_AJAX_LAYERED_NAV_VERSION, true );
 		wp_enqueue_script( 'html5' );
 	}
 
 	// No need for this on the Single Product page.
 	if ( ! is_product() && ( is_shop() || is_product_taxonomy() ) ) {
-		wp_enqueue_script( 'pageloader', plugins_url( 'assets/js/ajax_layered_nav' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, true );
+		wp_enqueue_script( 'pageloader', WC_AJAX_LAYERED_NAV_URL . 'assets/js/ajax_layered_nav' . $suffix . '.js', array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, true );
 		wp_enqueue_style( 'advanced_nav_css' );
 	}
 
@@ -165,8 +178,8 @@ function wc_ajax_layered_nav_scripts() {
 	$scroll             = apply_filters( 'sod_ajax_layered_nav_scrolltop', true ) ? '1' : '0';
 	$offset             = apply_filters( 'sod_ajax_layered_nav_offset', '150' );
 	$args               = array(
-		'loading_img'          => esc_url( apply_filters( 'woocommerce_ajax_layered_nav_loading_img_url', plugins_url( 'assets/images/loading.gif', __FILE__ ) ) ),
-		'superstore_img'       => esc_url( apply_filters( 'woocommerce_ajax_layered_nav_superstore_img_url', plugins_url( 'assets/images/ajax-loader.gif', __FILE__ ) ) ),
+		'loading_img'          => esc_url( apply_filters( 'woocommerce_ajax_layered_nav_loading_img_url', WC_AJAX_LAYERED_NAV_URL . 'assets/images/loading.gif' ) ),
+		'superstore_img'       => esc_url( apply_filters( 'woocommerce_ajax_layered_nav_superstore_img_url', WC_AJAX_LAYERED_NAV_URL . 'assets/images/ajax-loader.gif' ) ),
 		'nextSelector'         => apply_filters( 'sod_aln_inf_scroll_next', '.pagination a.next' ),
 		'navSelector'          => apply_filters( 'sod_aln_inf_scroll_nav', '.pagination' ),
 		'itemSelector'         => apply_filters( 'sod_aln_inf_scroll_item', '#main .product' ),
@@ -194,11 +207,11 @@ function wc_ajax_layered_nav_scripts() {
 function wc_ajax_layered_nav_admin_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_enqueue_style( 'colorpicker_css', plugins_url( 'assets/css/colorpicker.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
-	wp_enqueue_style( 'advanced_nav_css', plugins_url( 'assets/css/advanced_nav.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
+	wp_enqueue_style( 'colorpicker_css', WC_AJAX_LAYERED_NAV_URL . 'assets/css/colorpicker.css', array(), WC_AJAX_LAYERED_NAV_VERSION );
+	wp_enqueue_style( 'advanced_nav_css', WC_AJAX_LAYERED_NAV_URL . 'assets/css/advanced_nav.css', array(), WC_AJAX_LAYERED_NAV_VERSION );
 
-	wp_enqueue_script( 'advanced_nav_admin', plugins_url( 'assets/js/ajax_layered_nav_admin' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, false );
-	wp_enqueue_script( 'advanced_colorpicker', plugins_url( 'assets/js/colorpicker' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, false );
+	wp_enqueue_script( 'advanced_nav_admin', WC_AJAX_LAYERED_NAV_URL . 'assets/js/ajax_layered_nav_admin' . $suffix . '.js', array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, false );
+	wp_enqueue_script( 'advanced_colorpicker', WC_AJAX_LAYERED_NAV_URL . 'assets/js/colorpicker' . $suffix . '.js', array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, false );
 
 	wp_localize_script(
 		'advanced_nav_admin',
