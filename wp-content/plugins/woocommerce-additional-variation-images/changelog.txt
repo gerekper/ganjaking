@@ -1,5 +1,10 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2023-05-15 - version 2.3.2
+* Fix - Fix Additional Variation Images not being visible in the frontend on sites running PHP 7.4 or lower.
+* Tweak - WC 7.7 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2023-05-10 - version 2.3.1
 * Fix - Add sanitization to nonce inputs.
 * Fix - Remove renovate bot configuration.

@@ -9,7 +9,9 @@ use MailPoet\AdminPages\PageRenderer;
 use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\DynamicSegmentFilterData;
+use MailPoet\Entities\FormEntity;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\Form\FormsRepository;
 use MailPoet\Listing\PageLimit;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Segments\SegmentDependencyValidator;
@@ -50,6 +52,9 @@ class Segments {
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
+  /** @var FormsRepository */
+  private $formsRepository;
+
   public function __construct(
     PageRenderer $pageRenderer,
     PageLimit $listingPageLimit,
@@ -60,7 +65,8 @@ class Segments {
     CustomFieldsResponseBuilder $customFieldsResponseBuilder,
     SegmentDependencyValidator $segmentDependencyValidator,
     SegmentsRepository $segmentsRepository,
-    NewslettersRepository $newslettersRepository
+    NewslettersRepository $newslettersRepository,
+    FormsRepository $formsRepository
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->listingPageLimit = $listingPageLimit;
@@ -72,6 +78,7 @@ class Segments {
     $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
     $this->segmentsRepository = $segmentsRepository;
     $this->newslettersRepository = $newslettersRepository;
+    $this->formsRepository = $formsRepository;
   }
 
   public function render() {
@@ -126,6 +133,12 @@ class Segments {
     );
     $wooCurrencySymbol = $this->woocommerceHelper->isWooCommerceActive() ? $this->woocommerceHelper->getWoocommerceCurrencySymbol() : '';
     $data['woocommerce_currency_symbol'] = html_entity_decode($wooCurrencySymbol);
+    $data['signup_forms'] = array_map(function(FormEntity $form) {
+      return [
+        'id' => $form->getId(),
+        'name' => $form->getName(),
+      ];
+    }, $this->formsRepository->findAll());
     $this->pageRenderer->displayPage('segments.html', $data);
   }
 

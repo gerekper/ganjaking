@@ -89,13 +89,13 @@ class UpdraftPlus_Addons_Migrator {
 		$updraftplus->enqueue_select2();
 	}
 	
-	public function restore_delete_recursive($recurse, $ud_foreign, $restore_options, $type) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function restore_delete_recursive($recurse, $ud_foreign, $restore_options, $type) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		if ($recurse) return $recurse;
 		// If doing a single-site-to-multisite import on the uploads, then we expect subdirectories to be around - they need deleting without raising any user-visible errors
 		return ('uploads' == $type && !empty($this->new_blogid)) ? true : $recurse;
 	}
 	
-	public function pre_restore_move_in($now_done, $type, $working_dir, $info, $backup_info, $restorer, $wp_filesystem_dir) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function pre_restore_move_in($now_done, $type, $working_dir, $info, $backup_info, $restorer, $wp_filesystem_dir) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		if ($now_done) return $now_done;
 
 		if (is_multisite() && 0 == $restorer->ud_backup_is_multisite && (('plugins' == $type || 'themes' == $type) || ('uploads' == $type && !empty($this->new_blogid) && !get_site_option('ms_files_rewriting')))) {
@@ -120,7 +120,7 @@ class UpdraftPlus_Addons_Migrator {
 					if (!$move_in) $new_move_failed = true;
 				}
 				if ($new_move_failed) return new WP_Error('new_move_failed', $restorer->strings['new_move_failed']);
-				@$wp_filesystem->delete($move_from);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@$wp_filesystem->delete($move_from);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 
 				// Nothing more needs doing
 				$now_done = true;
@@ -156,7 +156,7 @@ class UpdraftPlus_Addons_Migrator {
 		$this->restore_options = $restore_options;
 	}
 
-	public function restore_this_table($restore_or_not, $unprefixed_table_name, $restore_options) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function restore_this_table($restore_or_not, $unprefixed_table_name, $restore_options) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 
 		// We're only interested in filtering out the user/usermeta table when importing single site into multisite
 		if (!$restore_or_not || empty($this->new_blogid)) return $restore_or_not;
@@ -407,7 +407,7 @@ class UpdraftPlus_Addons_Migrator {
 	 *
 	 * @return String - filtered
 	 */
-	public function dbscan_urlchange($output, $old_siteurl, $restore_options) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function dbscan_urlchange($output, $old_siteurl, $restore_options) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 		return sprintf(__('This looks like a migration (the backup is from a site with a different address/URL, %s).', 'updraftplus'), htmlspecialchars($old_siteurl));
 	}
 	
@@ -418,7 +418,7 @@ class UpdraftPlus_Addons_Migrator {
 	 *
 	 * @return String - filtered
 	 */
-	public function https_to_http_additional_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function https_to_http_additional_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 		return ' '.__('This restoration will work if you still have an SSL certificate (i.e. can use https) to access the site. Otherwise, you will want to use below search and replace to search/replace the site address so that the site can be visited without https.', 'updraftplus');
 	}
 	
@@ -429,7 +429,7 @@ class UpdraftPlus_Addons_Migrator {
 	 *
 	 * @return String - filtered
 	 */
-	public function http_to_https_additional_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function http_to_https_additional_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 		return ' '.__('As long as your web hosting allows http (i.e. non-SSL access) or will forward requests to https (which is almost always the case), this is no problem. If that is not yet set up, then you should set it up, or use below search and replace so that the non-https links are automatically replaced.', 'updraftplus');
 	}
 	
@@ -440,7 +440,7 @@ class UpdraftPlus_Addons_Migrator {
 	 *
 	 * @return String - filtered
 	 */
-	public function dbscan_urlchange_www_append_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function dbscan_urlchange_www_append_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 		return __('you will want to use below search and replace site location in the database (migrate) to search/replace the site address.', 'updraftplus');
 	}
 		
@@ -487,7 +487,7 @@ class UpdraftPlus_Addons_Migrator {
 	 * @param Array	  $warn		 - array of warning-level messages
 	 * @param Array	  $err		 - array of error-level messages
 	 */
-	public function restore_all_downloaded_postscan($backups, $timestamp, $elements, &$info, &$mess, &$warn, &$err) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function restore_all_downloaded_postscan($backups, $timestamp, $elements, &$info, &$mess, &$warn, &$err) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		if (is_array($info) && is_multisite() && isset($info['multisite']) && !$info['multisite']) {
 
@@ -538,7 +538,7 @@ class UpdraftPlus_Addons_Migrator {
 // $main_site_id = $current_site->blog_id;
 				$page = 0;
 
-				while (!isset($users) || count($users) > 0) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+				while (!isset($users) || count($users) > 0) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the loop.
 					
 					$users = get_users(array(
 						// Not documented in codex, but the source reveals that to get "all sites", you use an ID of 0
@@ -813,7 +813,7 @@ class UpdraftPlus_Addons_Migrator {
 		if (!empty($this->tables_replaced[$table])) return;
 
 		// If not done already, then search & replace this table, + record that it is done
-		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$stripped_table = substr($table, strlen($import_table_prefix));
 		// Remove multisite site number prefix, if relevant
@@ -1057,14 +1057,19 @@ class UpdraftPlus_Addons_Migrator {
 			array_unshift($to_array, $this->uploads);
 		}
 
+		$schemes = array('http', 'https');
+		$prefixes = array('www.', '');
 		// Add the opposite http version so that sites with mixed links are caught
 		foreach ($from_array as $key => $value) {
-			if (0 === stripos($value, 'https://')) {
-				$from_array[] = 'http://'.substr($value, 8);
-				$to_array[] = $to_array[$key];
-			} elseif (0 === stripos($value, 'http://')) {
-				$from_array[] = 'https://'.substr($value, 7);
-				$to_array[] = $to_array[$key];
+			if (preg_match('#^https?://(?:www\.)?(.+)#i', $value, $matches)) {
+				foreach ($schemes as $scheme) {
+					foreach ($prefixes as $prefix) {
+						if (!in_array($scheme."://".$prefix.$matches[1], $from_array)) {
+							$from_array[] = $scheme."://".$prefix.$matches[1];
+							$to_array[] = $to_array[$key];
+						}
+					}
+				}
 			}
 		}
 
@@ -1185,7 +1190,7 @@ class UpdraftPlus_Addons_Migrator {
 			}
 		}
 
-		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		list($from_array, $to_array) = $this->build_searchreplace_array($replace_this_siteurl, $replace_this_home, $replace_this_content, $replace_this_uploads, $replace_this_abspath);
 
@@ -1241,6 +1246,8 @@ class UpdraftPlus_Addons_Migrator {
 				// "Warning: strpos(): Empty delimiter" means that the second parameter is a zero-length string
 				if (0 === strpos($table[0], $import_table_prefix)) {
 					$tablename = $table[0];
+
+					if (!in_array($tablename, $this->restore_options['tables_to_restore'])) continue;
 
 					$stripped_table = substr($tablename, strlen($import_table_prefix));
 					// Remove multisite site number prefix, if relevant

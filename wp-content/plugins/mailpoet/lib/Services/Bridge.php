@@ -5,11 +5,9 @@ namespace MailPoet\Services;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\DI\ContainerWrapper;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Services\Bridge\API;
 use MailPoet\Settings\SettingsController;
-use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Bridge {
@@ -45,21 +43,13 @@ class Bridge {
   /** @var SettingsController */
   private $settings;
 
-  /** @var SubscribersFeature */
-  private $subscribersFeature;
-
   public function __construct(
-    SettingsController $settingsController = null,
-    SubscribersFeature $subscribersFeature = null
+    SettingsController $settingsController = null
   ) {
     if ($settingsController === null) {
       $settingsController = SettingsController::getInstance();
     }
-    if ($subscribersFeature === null) {
-      $subscribersFeature = ContainerWrapper::getInstance()->get(SubscribersFeature::class);
-    }
     $this->settings = $settingsController;
-    $this->subscribersFeature = $subscribersFeature;
   }
 
   /**
@@ -209,24 +199,7 @@ class Bridge {
   }
 
   public function storeMSSKeyAndState($key, $state) {
-    if (
-      empty($state['state'])
-      || $state['state'] === self::KEY_CHECK_ERROR
-    ) {
-      return false;
-    }
-
-    // store the key itself
-    $this->settings->set(
-      self::API_KEY_SETTING_NAME,
-      $key
-    );
-
-    // store the key state
-    $this->settings->set(
-      self::API_KEY_STATE_SETTING_NAME,
-      $state
-    );
+    return $this->storeKeyAndState(API::KEY_CHECK_TYPE_MSS, $key, $state);
   }
 
   public function checkPremiumKey($key) {
@@ -280,6 +253,18 @@ class Bridge {
   }
 
   public function storePremiumKeyAndState($key, $state) {
+    return $this->storeKeyAndState(API::KEY_CHECK_TYPE_PREMIUM, $key, $state);
+  }
+
+  private function storeKeyAndState(string $keyType, ?string $key, ?array $state) {
+    if ($keyType === API::KEY_CHECK_TYPE_PREMIUM) {
+      $keySettingName = self::PREMIUM_KEY_SETTING_NAME;
+      $keyStateSettingName = self::PREMIUM_KEY_STATE_SETTING_NAME;
+    } else {
+      $keySettingName = self::API_KEY_SETTING_NAME;
+      $keyStateSettingName = self::API_KEY_STATE_SETTING_NAME;
+    }
+
     if (
       empty($state['state'])
       || $state['state'] === self::KEY_CHECK_ERROR
@@ -287,58 +272,50 @@ class Bridge {
       return false;
     }
 
+    $previousKey = $this->settings->get($keySettingName);
+    // If the key remain the same and the new state is not valid we want to preserve the data from the previous state.
+    // The data contain information about state limits. We need those to display the correct information to users.
+    if (empty($state['data']) && $previousKey === $key) {
+      $previousState = $this->settings->get($keyStateSettingName);
+      if (!empty($previousState['data'])) {
+        $state['data'] = $previousState['data'];
+      }
+    }
+
     // store the key itself
-    $this->settings->set(
-      self::PREMIUM_KEY_SETTING_NAME,
-      $key
-    );
+    if ($previousKey !== $key) {
+      $this->settings->set(
+        $keySettingName,
+        $key
+      );
+    }
 
     // store the key state
     $this->settings->set(
-      self::PREMIUM_KEY_STATE_SETTING_NAME,
+      $keyStateSettingName,
       $state
     );
   }
 
-  private function buildKeyState($keyState, $result, ?string $accessRestriction) {
-    $state = [
+  private function buildKeyState($keyState, $result, ?string $accessRestriction): array {
+    return [
       'state' => $keyState,
       'access_restriction' => $accessRestriction,
       'data' => !empty($result['data']) ? $result['data'] : null,
       'code' => !empty($result['code']) ? $result['code'] : self::CHECK_ERROR_UNKNOWN,
     ];
-
-    return $state;
   }
 
-  public function updateSubscriberCount(string $key): bool {
-    return $this->getApi($key)->updateSubscriberCount($this->subscribersFeature->getSubscribersCount());
+  public function updateSubscriberCount(string $key, int $count): bool {
+    return $this->getApi($key)->updateSubscriberCount($count);
   }
 
-  public static function invalidateKey() {
-    $settings = SettingsController::getInstance();
-    $settings->set(
-      self::API_KEY_STATE_SETTING_NAME,
-      ['state' => self::KEY_INVALID]
+  public function invalidateMssKey() {
+    $key = $this->settings->get(self::API_KEY_SETTING_NAME);
+    $this->storeMSSKeyAndState($key, $this->buildKeyState(
+      self::KEY_INVALID,
+      [ 'code' => API::RESPONSE_CODE_KEY_INVALID ],
+      null)
     );
-  }
-
-  public function onSettingsSave($settings) {
-    $apiKey = $settings[Mailer::MAILER_CONFIG_SETTING_NAME]['mailpoet_api_key'] ?? null;
-    $premiumKey = $settings['premium']['premium_key'] ?? null;
-    if (!empty($apiKey)) {
-      $apiKeyState = $this->checkMSSKey($apiKey);
-      $this->storeMSSKeyAndState($apiKey, $apiKeyState);
-    }
-    if (!empty($premiumKey)) {
-      $premiumState = $this->checkPremiumKey($premiumKey);
-      $this->storePremiumKeyAndState($premiumKey, $premiumState);
-    }
-    if ($apiKey && !empty($apiKeyState) && in_array($apiKeyState['state'], [self::KEY_VALID, self::KEY_VALID_UNDERPRIVILEGED], true)) {
-      return $this->updateSubscriberCount($apiKey);
-    }
-    if ($premiumKey && !empty($premiumState) && in_array($premiumState['state'], [self::KEY_VALID, self::KEY_VALID_UNDERPRIVILEGED], true)) {
-      return $this->updateSubscriberCount($apiKey);
-    }
   }
 }

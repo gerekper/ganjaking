@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.15.0\n"
+"Project-Id-Version: MailPoet Premium 4.16.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-08T14:55:57+00:00\n"
+"POT-Creation-Date: 2023-05-15T15:06:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -292,6 +292,10 @@ msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:84
 msgid "Welcome series for new WordPress users"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartTrigger.php:56
+msgid "Abandoned cart"
 msgstr ""
 
 #: lib/Config/Hooks.php:45
@@ -685,6 +689,39 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "email"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "30 minutes"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "1 hour"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "4 hours"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "1 day"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "3 days"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Subscriber abandons cart"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a subscriber who has items in the shopping cart leaves your website without checking out."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgctxt "noun"
+msgid "Trigger"
 msgstr ""
 
 #: assets/dist/js/premium.js:2

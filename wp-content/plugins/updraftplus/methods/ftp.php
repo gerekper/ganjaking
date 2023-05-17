@@ -165,7 +165,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 		$ftp_remote_path = trailingslashit($opts['path']);
 		foreach ($backup_array as $file) {
 			$fullpath = $updraft_dir.$file;
-			$this->log("upload attempt: $file -> ftp://".$opts['user']."@".$opts['host']."/${ftp_remote_path}${file}");
+			$this->log("upload attempt: $file -> ftp://".$opts['user']."@".$opts['host']."/{$ftp_remote_path}{$file}");
 			$timer_start = microtime(true);
 			$size_k = round(filesize($fullpath)/1024, 1);
 			// Note :Setting $resume to true unnecessarily is not meant to be a problem. Only ever (Feb 2014) seen one weird FTP server where calling SIZE on a non-existent file did create a problem. So, this code just helps that case. (the check for non-empty upload_status[p] is being cautious.
@@ -287,10 +287,10 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 
 		$ret = true;
 		foreach ($files as $file) {
-			if (@$ftp->delete($ftp_remote_path.$file)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-				$this->log("delete: succeeded (${ftp_remote_path}${file})");
+			if (@$ftp->delete($ftp_remote_path.$file)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
+				$this->log("delete: succeeded ({$ftp_remote_path}{$file})");
 			} else {
-				$this->log("delete: failed (${ftp_remote_path}${file})");
+				$this->log("delete: failed ({$ftp_remote_path}{$file})");
 				$ret = 'file_delete_error';
 			}
 		}
@@ -459,7 +459,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 		
 		if ($ftp->put(ABSPATH.WPINC.'/version.php', $fullpath, FTP_BINARY, false, true)) {
 			echo __("Success: we successfully logged in, and confirmed our ability to create a file in the given directory (login type:", 'updraftplus')." ".$ftp->login_type.')';
-			@$ftp->delete($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@$ftp->delete($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 		} else {
 			_e('Failure: we successfully logged in, but were not able to create a file in the given directory.', 'updraftplus');
 			if (!empty($ftp->ssl)) {

@@ -7,11 +7,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-12T18:21:28+00:00\n"
-"PO-Revision-Date: 2023-04-07 10:54:04+0000\n"
+"POT-Creation-Date: 2023-05-12T18:16:26+00:00\n"
+"PO-Revision-Date: 2023-04-19 09:54:02+0000\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/class-wc-booking-order-manager.php:835
+msgid "View Booking Calendar &rarr;"
+msgstr "予約カレンダーを表示 →"
 
 #: includes/wc-bookings-functions.php:437
 msgid "If there are multiple rules with the same priority, then the order of the rules is considered. In this case the rule with the higher order will take precedence over the rule with the lower order."
@@ -35,7 +39,7 @@ msgstr "エラー: リソースが見つかりません。もう一度お試し�
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
-#: includes/class-wc-bookings-google-calendar-connection.php:867
+#: includes/class-wc-bookings-google-calendar-connection.php:878
 msgid "Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.%1$sAdd %2$s to the Authorized redirect URIs of your Google Cloud App."
 msgstr "カスタムの Google カレンダー API アプリを使用するにはこちらにログイン情報を入力してください。ログイン情報を入力するには現在の接続を切断します。%1$sあなたの Google Cloud アプリで %2$s を認証済みのリダイレクト URL に追加します。"
 
@@ -131,21 +135,17 @@ msgstr "予約可能枠が「デフォルトで利用不可」の場合、24時�
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "予約可能枠が「デフォルトで利用不可」の場合、24時間を超える期間は許可されません。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:935
+#: includes/class-wc-bookings-google-calendar-connection.php:946
 msgid "When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced."
 msgstr "有効にすると、イベントの説明は WooCommerce Bookings から変更する必要があります。 Google カレンダーのイベントの説明に直接加えた変更は、データの同期時に失われます。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:933
+#: includes/class-wc-bookings-google-calendar-connection.php:944
 msgid "Enable overwrite"
 msgstr "上書きを有効化"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:931
+#: includes/class-wc-bookings-google-calendar-connection.php:942
 msgid "Overwrite Description"
 msgstr "説明を上書き"
-
-#: includes/class-wc-booking-order-manager.php:835
-msgid "View all orders &rarr;"
-msgstr "すべての注文を表示 →"
 
 #: includes/class-wc-booking-order-manager.php:833
 msgid "View order &rarr;"
@@ -206,24 +206,24 @@ msgstr "最短期間は%1$d %2$sです"
 msgid "The maximum duration is %1$d %2$s"
 msgstr "最長期間は%1$d %2$sです"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:920
+#: includes/class-wc-bookings-google-calendar-connection.php:931
 msgid "Check this to delete an event from Google Calendar when the corresponding store availability is deleted."
 msgstr "こちらを確認し、対応するストアの予約可能枠が削除されたときに Google カレンダーからイベントを削除します。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:918
+#: includes/class-wc-bookings-google-calendar-connection.php:929
 msgid "Delete Events from Google Calendar"
 msgstr "Google カレンダーからイベントを削除する"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:916
+#: includes/class-wc-bookings-google-calendar-connection.php:927
 msgid "Deletion Preference"
 msgstr "削除設定"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:528
+#: includes/admin/class-wc-bookings-details-meta-box.php:578
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "日付は yyyy-mm-dd 形式にする必要があり、空欄にはできません。"
 
 #: includes/admin/class-wc-bookings-admin.php:677
-#: includes/admin/class-wc-bookings-details-meta-box.php:513
+#: includes/admin/class-wc-bookings-details-meta-box.php:563
 msgid "Start date cannot be greater than end date."
 msgstr "開始日を終了日より後にすることはできません。"
 
@@ -231,60 +231,60 @@ msgstr "開始日を終了日より後にすることはできません。"
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "「開始日と終了日」は yyyy-mm-dd 形式にする必要があり、空欄にはできません。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1348
+#: includes/class-wc-bookings-google-calendar-connection.php:1363
 msgid "Invalid request!"
 msgstr "不正なリクエストです。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1118
+#: includes/class-wc-bookings-google-calendar-connection.php:1129
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
 msgstr "WooCommerce.com により提供されたアプリを使用して Google カレンダーと同期するには、以下の [Google 連携] ボタンをクリックして、Google カレンダーへのアクセスを承認します。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1007
+#: includes/class-wc-bookings-google-calendar-connection.php:1018
 msgid "Connect with custom Google app"
 msgstr "カスタムの Google アプリと接続する"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1005
+#: includes/class-wc-bookings-google-calendar-connection.php:1016
 msgid "Please fill out all required fields from above and save changes."
 msgstr "上のすべての必須フィールドに記入して、変更を保存してください。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:897
+#: includes/class-wc-bookings-google-calendar-connection.php:908
 msgid "Select your Calendar."
 msgstr "お使いのカレンダーを選択します。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:890
+#: includes/class-wc-bookings-google-calendar-connection.php:901
 msgid "Connected Calendar Settings"
 msgstr "接続されたカレンダーの設定"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:880
+#: includes/class-wc-bookings-google-calendar-connection.php:891
 msgid "Enter the Google Client Secret associated with your Calendar API app."
 msgstr "Calendar API アプリと関連付けられている Google のクライアントシークレットを入力します。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:878
+#: includes/class-wc-bookings-google-calendar-connection.php:889
 msgid "Client Secret"
 msgstr "クライアントシークレット"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:872
+#: includes/class-wc-bookings-google-calendar-connection.php:883
 msgid "Enter the Google Client ID associated with your Calendar API app."
 msgstr "Calendar API アプリと関連付けられている Google クライアント ID を入力します。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:870
+#: includes/class-wc-bookings-google-calendar-connection.php:881
 msgid "Client ID"
 msgstr "クライアント ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:864
+#: includes/class-wc-bookings-google-calendar-connection.php:875
 msgid "Connect with a custom Google Calendar App"
 msgstr "カスタムの Google カレンダーアプリと接続する"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:214
+#: includes/admin/class-wc-bookings-details-meta-box.php:223
 msgid "Metadata:"
 msgstr "メタデータ :"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:412
+#: woocommerce-bookings.php:413
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "「商品データ」セクションで予約を管理するには、個々の商品について<a href=\"%1$s\">商品を追加または編集</a>し、次に<a href=\"%2$s\" target=\"_blank\">「予約ページ」</a>に移動してそれらを個別に管理します。"
 
-#: woocommerce-bookings.php:410
+#: woocommerce-bookings.php:411
 msgid "Bookings has been activated!"
 msgstr "Bookings が有効化されました。"
 
@@ -1402,18 +1402,18 @@ msgstr "予約概要:"
 msgid "Bookings from %s"
 msgstr "予約開始 %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1479
+#: includes/class-wc-bookings-google-calendar-connection.php:1500
 #: includes/class-wc-bookings-init.php:91
 #: includes/class-wc-bookings-init.php:94
 msgid "Booking"
 msgstr "予約"
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1447
+#: includes/class-wc-bookings-google-calendar-connection.php:1468
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr "注 : このイベントは Google カレンダーで編集できません。 変更する必要がある場合は、<a href=\"%s\" target=\"_blank\">WooCommerce でこの予約を編集</a>してください。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1431
+#: includes/class-wc-bookings-google-calendar-connection.php:1452
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:47
 #: templates/emails/admin-new-booking.php:65
@@ -1425,7 +1425,7 @@ msgstr "注 : このイベントは Google カレンダーで編集できませ�
 msgid "Booking Type"
 msgstr "予約タイプ"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1430
+#: includes/class-wc-bookings-google-calendar-connection.php:1451
 #: templates/emails/admin-booking-cancelled.php:37
 #: templates/emails/admin-new-booking.php:55
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1436,90 +1436,90 @@ msgstr "予約タイプ"
 msgid "Booking ID"
 msgstr "予約 ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1257
+#: includes/class-wc-bookings-google-calendar-connection.php:1271
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "アカウントの連携に失敗しました。もう一度お試しください。問題が解決しない場合は、デバッグログオプションを有効にして何が起こっているか確認してみてください。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1237
+#: includes/class-wc-bookings-google-calendar-connection.php:1251
 msgid "Account connected successfully!"
 msgstr "アカウントの連携に成功しました。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1192
-#: includes/class-wc-bookings-google-calendar-connection.php:1295
-#: includes/class-wc-bookings-google-calendar-connection.php:1308
+#: includes/class-wc-bookings-google-calendar-connection.php:1203
+#: includes/class-wc-bookings-google-calendar-connection.php:1309
+#: includes/class-wc-bookings-google-calendar-connection.php:1322
 msgid "Permission denied!"
 msgstr "権限がありません。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1158
+#: includes/class-wc-bookings-google-calendar-connection.php:1169
 msgid "Account not properly connected, reset successfully!"
 msgstr "アカウントが正常に接続されていません。正常にリセットしました。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1155
+#: includes/class-wc-bookings-google-calendar-connection.php:1166
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "アカウント連携の解除に失敗しました、もう一度お試しください。問題が解決しない場合は、デバッグログオプションを有効にして何が起こっているか確認してみてください。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1153
+#: includes/class-wc-bookings-google-calendar-connection.php:1164
 msgid "Account disconnected successfully!"
 msgstr "アカウントの切断に成功しました!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1010
-#: includes/class-wc-bookings-google-calendar-connection.php:1106
+#: includes/class-wc-bookings-google-calendar-connection.php:1021
+#: includes/class-wc-bookings-google-calendar-connection.php:1117
 msgid "Disconnect"
 msgstr "接続解除"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1009
-#: includes/class-wc-bookings-google-calendar-connection.php:1105
+#: includes/class-wc-bookings-google-calendar-connection.php:1020
+#: includes/class-wc-bookings-google-calendar-connection.php:1116
 msgid "Successfully authenticated."
 msgstr "認証に成功しました。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1101
+#: includes/class-wc-bookings-google-calendar-connection.php:1112
 msgid "Connect with Google"
 msgstr "Google 連携"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1025
+#: includes/class-wc-bookings-google-calendar-connection.php:1036
 msgid "Select a calendar from the list"
 msgstr "リストからカレンダーを選択"
 
 #. translators: 1: log file path
-#: includes/class-wc-bookings-google-calendar-connection.php:928
+#: includes/class-wc-bookings-google-calendar-connection.php:939
 msgid "Log Google Calendar events, such as API requests, inside %s"
 msgstr "%s 内の API リクエストなどの Google カレンダーのイベントを記録する"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:925
+#: includes/class-wc-bookings-google-calendar-connection.php:936
 msgid "Enable logging"
 msgstr "ログを有効化"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:923
+#: includes/class-wc-bookings-google-calendar-connection.php:934
 msgid "Debug Log"
 msgstr "デバッグログ"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:910
+#: includes/class-wc-bookings-google-calendar-connection.php:921
 msgid "Manage the sync flow between your Store calendar and Google calendar."
 msgstr "ストアのカレンダーと Google カレンダー間の同期フローを管理します。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:908
+#: includes/class-wc-bookings-google-calendar-connection.php:919
 msgid "Sync one way - from Store to Google"
 msgstr "一方向同期 - ストアから Google へ"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:907
+#: includes/class-wc-bookings-google-calendar-connection.php:918
 msgid "Sync both ways - between Store and Google"
 msgstr "双方向同期 - ストアと Google 間"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:905
+#: includes/class-wc-bookings-google-calendar-connection.php:916
 msgid "Sync Preference"
 msgstr "同期設定"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:860
-#: includes/class-wc-bookings-google-calendar-connection.php:886
+#: includes/class-wc-bookings-google-calendar-connection.php:871
+#: includes/class-wc-bookings-google-calendar-connection.php:897
 msgid "Authorization"
 msgstr "承認"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1153
-#: includes/class-wc-bookings-google-calendar-connection.php:1155
-#: includes/class-wc-bookings-google-calendar-connection.php:1158
-#: includes/class-wc-bookings-google-calendar-connection.php:1226
-#: includes/class-wc-bookings-google-calendar-connection.php:1237
-#: includes/class-wc-bookings-google-calendar-connection.php:1257
+#: includes/class-wc-bookings-google-calendar-connection.php:1164
+#: includes/class-wc-bookings-google-calendar-connection.php:1166
+#: includes/class-wc-bookings-google-calendar-connection.php:1169
+#: includes/class-wc-bookings-google-calendar-connection.php:1239
+#: includes/class-wc-bookings-google-calendar-connection.php:1251
+#: includes/class-wc-bookings-google-calendar-connection.php:1271
 msgid "Google Calendar"
 msgstr "Google カレンダー"
 
@@ -1578,8 +1578,8 @@ msgstr "本日の予約"
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
 msgstr "すべての予約の開始および終了時間 (指定が異なる場合を除く) は、以下のタイムゾーンで表示されています。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:513
-#: includes/admin/class-wc-bookings-details-meta-box.php:528
+#: includes/admin/class-wc-bookings-details-meta-box.php:563
+#: includes/admin/class-wc-bookings-details-meta-box.php:578
 #: includes/class-wc-booking-order-manager.php:165
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
@@ -1589,16 +1589,18 @@ msgstr "すべての予約の開始および終了時間 (指定が異なる場�
 msgid "Bookings"
 msgstr "予約"
 
-#: includes/class-wc-booking-form-handler.php:40
+#: includes/class-wc-booking-form-handler.php:25
+#: includes/class-wc-booking-form-handler.php:33
+#: includes/class-wc-booking-form-handler.php:48
 #: includes/data-stores/class-wc-booking-data-store.php:125
 msgid "Invalid booking."
 msgstr "無効な予約です。"
 
-#: includes/class-wc-booking-form-handler.php:38
+#: includes/class-wc-booking-form-handler.php:46
 msgid "Your booking can no longer be cancelled. Please contact us if you need assistance."
 msgstr "予約はキャンセルできません。 サポートが必要な場合は、お問い合わせください。"
 
-#: includes/class-wc-booking-form-handler.php:34
+#: includes/class-wc-booking-form-handler.php:42
 msgid "Your booking was cancelled."
 msgstr "予約がキャンセルされました。"
 
@@ -2047,31 +2049,31 @@ msgid "Sorry, you are not allowed to access this tab."
 msgstr "このタブにアクセスする権限がありません。"
 
 #. translators: %s: file extension
-#: includes/admin/views/html-notifications-page.php:51
+#: includes/admin/views/html-notifications-page.php:61
 msgid "Attach %s file"
 msgstr "%s ファイルの添付"
 
-#: includes/admin/views/html-notifications-page.php:46
+#: includes/admin/views/html-notifications-page.php:55
 msgid "Attachment"
 msgstr "添付"
 
-#: includes/admin/views/html-notifications-page.php:41
+#: includes/admin/views/html-notifications-page.php:50
 msgid "The following tags can be inserted in your message/subject and will be replaced dynamically"
 msgstr "次のタグをメッセージ・件名に挿入することができ、これらは動的に置き換えられます"
 
-#: includes/admin/views/html-notifications-page.php:40
+#: includes/admin/views/html-notifications-page.php:49
 msgid "The message you wish to send"
 msgstr "送信したいメッセージ"
 
-#: includes/admin/views/html-notifications-page.php:37
+#: includes/admin/views/html-notifications-page.php:46
 msgid "Message"
 msgstr "メッセージ"
 
-#: includes/admin/views/html-notifications-page.php:32
+#: includes/admin/views/html-notifications-page.php:41
 msgid "Email subject"
 msgstr "メール件名"
 
-#: includes/admin/views/html-notifications-page.php:29
+#: includes/admin/views/html-notifications-page.php:38
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:163
 #: includes/emails/class-wc-email-booking-cancelled.php:157
 #: includes/emails/class-wc-email-booking-confirmed.php:155
@@ -2081,17 +2083,17 @@ msgstr "メール件名"
 msgid "Subject"
 msgstr "件名"
 
-#: includes/admin/views/html-notifications-page.php:20
+#: includes/admin/views/html-notifications-page.php:29
 msgid "Select a booking product..."
 msgstr "予約商品を選択して下さい..."
 
-#: includes/admin/views/html-notifications-page.php:16
+#: includes/admin/views/html-notifications-page.php:25
 msgid "Booking Product"
 msgstr "予約商品"
 
 #. translators: 1: starting strong tag 2: closing strong tag 3: starting a href
 #. tag 4: closing a href tag
-#: includes/admin/views/html-notifications-page.php:7
+#: includes/admin/views/html-notifications-page.php:16
 msgid "You may send an email notification to all customers who have a %1$sfuture%2$s booking for a particular product. This will use the default template specified under %3$sWooCommerce > Settings > Emails%4$s."
 msgstr "特定の商品に対し%1$s今後%2$sの予約があるすべての顧客にメール通知を送信できます。 これは、%3$s「WooCommerce」>「設定」>「メール」%4$sで指定したデフォルトのテンプレートが使用されます。"
 
@@ -3078,8 +3080,8 @@ msgid "Settings"
 msgstr "設定"
 
 #: includes/admin/class-wc-bookings-menus.php:71
-#: includes/admin/views/html-notifications-page.php:2
-#: includes/admin/views/html-notifications-page.php:58
+#: includes/admin/views/html-notifications-page.php:11
+#: includes/admin/views/html-notifications-page.php:69
 #: woocommerce-bookings.php:206
 msgid "Send Notification"
 msgstr "通知を送信"
@@ -3087,7 +3089,7 @@ msgstr "通知を送信"
 #: includes/admin/class-wc-bookings-menus.php:70
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
-#: includes/class-wc-bookings-google-calendar-connection.php:895
+#: includes/class-wc-bookings-google-calendar-connection.php:906
 #: woocommerce-bookings.php:196
 msgid "Calendar"
 msgstr "カレンダー"
@@ -3117,132 +3119,132 @@ msgstr "設定を開始するには、予約可能枠を設定するか予約可
 msgid "You're almost ready to take bookings!"
 msgstr "あと少しで予約を受け付ける準備が整います。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:374
+#: includes/admin/class-wc-bookings-details-meta-box.php:416
 msgid "End time (local timezone):"
 msgstr "終了日 (ローカルタイムゾーン) :"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:365
+#: includes/admin/class-wc-bookings-details-meta-box.php:405
 msgid "Start time (local timezone):"
 msgstr "開始日 (ローカルタイムゾーン) :"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:356
+#: includes/admin/class-wc-bookings-details-meta-box.php:394
 msgid "End time:"
 msgstr "終了時刻 :"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:348
+#: includes/admin/class-wc-bookings-details-meta-box.php:384
 msgid "Start time:"
 msgstr "開始時刻:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:342
+#: includes/admin/class-wc-bookings-details-meta-box.php:376
 msgid "Check this box if the booking is for all day."
 msgstr "終日予約にするにはチェックを入れてください。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:341
+#: includes/admin/class-wc-bookings-details-meta-box.php:375
 msgid "All day booking:"
 msgstr "終日予約 :"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:333
+#: includes/admin/class-wc-bookings-details-meta-box.php:365
 msgid "End date:"
 msgstr "終了日時:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:325
+#: includes/admin/class-wc-bookings-details-meta-box.php:355
 msgid "Start date:"
 msgstr "開始日時:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:321
+#: includes/admin/class-wc-bookings-details-meta-box.php:350
 msgid "Booking date &amp; time"
 msgstr "予約の日時"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:247
+#: includes/admin/class-wc-bookings-details-meta-box.php:269
 msgid "Parent booking ID:"
 msgstr "親予約 ID:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:240
+#: includes/admin/class-wc-bookings-details-meta-box.php:260
 msgid "Booked product:"
 msgstr "予約済み商品:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:233
+#: includes/admin/class-wc-bookings-details-meta-box.php:252
 msgid "Booking specification"
 msgstr "予約仕様"
 
 #. translators: 1: full name 2: user id 3: email
-#: includes/admin/class-wc-bookings-details-meta-box.php:197
+#: includes/admin/class-wc-bookings-details-meta-box.php:206
 msgid "%1$s (#%2$s &ndash; %3$s)"
 msgstr "%1$s (#%2$s &ndash; %3$s)"
 
 #. translators: 1: guest name
-#: includes/admin/class-wc-bookings-details-meta-box.php:190
+#: includes/admin/class-wc-bookings-details-meta-box.php:199
 msgctxt "Admin booking guest placeholder"
 msgid "Guest (%s)"
 msgstr "ゲスト (%s)"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:187
+#: includes/admin/class-wc-bookings-details-meta-box.php:196
 #: includes/admin/views/html-create-booking-page.php:21
 msgid "Guest"
 msgstr "ゲスト"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:184
+#: includes/admin/class-wc-bookings-details-meta-box.php:193
 msgid "Customer:"
 msgstr "顧客:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:172
+#: includes/admin/class-wc-bookings-details-meta-box.php:181
 msgid "Booking status:"
 msgstr "予約状態:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:168
+#: includes/admin/class-wc-bookings-details-meta-box.php:177
 msgid "m"
 msgstr "m"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:168
+#: includes/admin/class-wc-bookings-details-meta-box.php:177
 msgid "h"
 msgstr "h"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:167
+#: includes/admin/class-wc-bookings-details-meta-box.php:176
 msgid "Date created:"
 msgstr "注文作成日:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:159
+#: includes/admin/class-wc-bookings-details-meta-box.php:168
 msgid "Order ID:"
 msgstr "注文 ID:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:156
+#: includes/admin/class-wc-bookings-details-meta-box.php:165
 msgid "General details"
 msgstr "一般詳細"
 
 #. translators: 1: bookings addon title
-#: includes/admin/class-wc-bookings-details-meta-box.php:149
+#: includes/admin/class-wc-bookings-details-meta-box.php:158
 msgid "Booking type: %s"
 msgstr "予約タイプ: %s"
 
 #. translators: 1: href to order id
-#: includes/admin/class-wc-bookings-details-meta-box.php:144
+#: includes/admin/class-wc-bookings-details-meta-box.php:153
 msgid "Linked to order %s."
 msgstr "注文 %s にリンクしました。"
 
 #. translators: 1: booking id
-#: includes/admin/class-wc-bookings-details-meta-box.php:137
+#: includes/admin/class-wc-bookings-details-meta-box.php:146
 msgid "Booking #%s details"
 msgstr "予約番号%sの詳細"
 
 #. translators: 1: product type
-#: includes/admin/class-wc-bookings-details-meta-box.php:85
+#: includes/admin/class-wc-bookings-details-meta-box.php:94
 msgid "This booking is missing a required add-on (product type: %s). Some information is shown below but might be incomplete. Please install the missing add-on through the plugins screen."
 msgstr "この予約に必要なアドオンがありません (商品タイプ : %s)。 以下に一部の情報を表示していますが、完全ではない可能性があります。 不足しているアドオンをプラグイン画面でインストールしてください。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:79
+#: includes/admin/class-wc-bookings-details-meta-box.php:88
 msgid "It appears the booking product associated with this booking has been removed."
 msgstr "この予約に関連付けられている予約商品が削除されたようです。"
 
 #. translators: 1: maximum bookable date
-#: includes/admin/class-wc-bookings-details-meta-box.php:74
+#: includes/admin/class-wc-bookings-details-meta-box.php:83
 msgid "This booking is scheduled over the product's allowed max booking date (%s). Please ensure this is correct."
 msgstr "この予約は商品の最大予約可能日数 (%s) を超えています。間違いがないかどうかご確認ください。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:66
+#: includes/admin/class-wc-bookings-details-meta-box.php:75
 msgid "This booking is scheduled over 2 years into the future. Please ensure this is correct."
 msgstr "この予約は将来2年以上の範囲にわたっています。間違いがないかどうかご確認ください。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:54
+#: includes/admin/class-wc-bookings-details-meta-box.php:60
 msgid "Booking Details"
 msgstr "予約詳細"
 
@@ -3274,7 +3276,7 @@ msgid "Customer details"
 msgstr "お客様の詳細"
 
 #: includes/admin/class-wc-bookings-create.php:114
-#: includes/admin/class-wc-bookings-details-meta-box.php:601
+#: includes/admin/class-wc-bookings-details-meta-box.php:661
 msgid "Error: Could not create item"
 msgstr "エラー:アイテムを作成できません"
 
@@ -3426,7 +3428,7 @@ msgid "%1$s: %2$d"
 msgstr "%1$s: %2$d"
 
 #: includes/admin/class-wc-bookings-calendar.php:653
-#: includes/admin/class-wc-bookings-details-meta-box.php:257
+#: includes/admin/class-wc-bookings-details-meta-box.php:280
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
 #: templates/emails/admin-booking-cancelled.php:72
@@ -3591,7 +3593,7 @@ msgstr "予約を更新しました。"
 #: includes/admin/class-wc-bookings-admin.php:654
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:275
-#: includes/class-wc-bookings-google-calendar-connection.php:1432
+#: includes/class-wc-bookings-google-calendar-connection.php:1453
 #: includes/wc-bookings-functions.php:1243
 msgid "Persons"
 msgstr "人数"
@@ -3708,8 +3710,8 @@ msgstr "編集"
 #: includes/admin/class-wc-bookable-resource-cpt.php:91
 #: includes/admin/class-wc-bookings-cpt.php:272
 #: includes/admin/class-wc-bookings-customer-meta-box.php:116
-#: includes/admin/class-wc-bookings-details-meta-box.php:115
-#: includes/admin/class-wc-bookings-details-meta-box.php:160
+#: includes/admin/class-wc-bookings-details-meta-box.php:124
+#: includes/admin/class-wc-bookings-details-meta-box.php:169
 #: includes/emails/class-wc-email-booking-cancelled.php:88
 #: includes/emails/class-wc-email-booking-confirmed.php:86
 #: includes/emails/class-wc-email-booking-notification.php:92

@@ -244,7 +244,7 @@ class UpdraftPlus_Encryption {
 			if (!$resumption) {
 				$updraftplus->log("Could not resume the encryption will now try to start again");
 				// remove the existing encrypted file as it's no good to us now
-				@unlink($encrypted_path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@unlink($encrypted_path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				// reset the data encrypted so that the loop can be entered
 				$data_encrypted = 0;
 				// setup encryption to reset the IV

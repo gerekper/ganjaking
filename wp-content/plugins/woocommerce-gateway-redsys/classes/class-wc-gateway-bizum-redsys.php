@@ -731,6 +731,12 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . $bizum_data_send['product_description'] );
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_PAYMETHODS: z' );
 		}
+		/**
+		 * Filter hook to allow 3rd parties to add more fields to the form
+		 *
+		 * @since 1.0.0
+		 * @param array $redsys_args The arguments sent to Redsys.
+		 */
 		$redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );
 		return $redsys_args;
 	}

@@ -18,6 +18,20 @@ if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_inclu
 
 class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 
+	/**
+	 * Chunk count no.
+	 *
+	 * @var Integer
+	 */
+	private $block;
+
+	/**
+	 * Uploaded file size
+	 *
+	 * @var Integer
+	 */
+	private $uploaded_size;
+
 	// https://msdn.microsoft.com/en-us/library/azure/ee691964.aspx - maximum block size is 4MB
 	private $chunk_size = 2097152;
 

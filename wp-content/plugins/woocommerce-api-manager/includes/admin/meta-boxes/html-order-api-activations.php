@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 			 * @since 2.6
 			 */
 			if ( $resource->sub_id == 0 ) {
-				$is_expired = WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired( $resource->access_expires ?? false );
+				$is_expired = WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires ?? false );
 			} else {
 				$is_expired = ! WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $resource->sub_id );
 			}

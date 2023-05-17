@@ -52,7 +52,7 @@ class UpdraftPlus_Addons_Incremental {
 	 *
 	 * @return string      - the premium backup link
 	 */
-	public function incremental_backup_link($link) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function incremental_backup_link($link) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 		return '<p><a href="#" id="updraftplus_incremental_backup_link" onclick="updraft_backup_dialog_open(\'incremental\'); return false;" data-incremental="1">' . __('Add changed files (incremental backup) ...', ' updraftplus ') . '</a></p>';
 	}
 
@@ -67,7 +67,7 @@ class UpdraftPlus_Addons_Incremental {
 	 *
 	 * @return string                - returns a string that is either the original backup date or the string that contains the incremental set data
 	 */
-	public function showbackup_date($date, $backup, $jobdata, $backup_date, $simple_format) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function showbackup_date($date, $backup, $jobdata, $backup_date, $simple_format) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		$incremental_sets = !empty($backup['incremental_sets']) ? $backup['incremental_sets'] : array();
 		
@@ -430,7 +430,7 @@ class UpdraftPlus_Addons_Incremental {
 	 *
 	 * @return boolean - to indicate whether or not (e.g. no full backup was found) an incremental run can proceed
 	 */
-	public function prepare_incremental_run($incremental = false, $entities = array()) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function prepare_incremental_run($incremental = false, $entities = array()) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		global $updraftplus;
 
 		$nonce = UpdraftPlus_Backup_History::get_latest_backup($entities);

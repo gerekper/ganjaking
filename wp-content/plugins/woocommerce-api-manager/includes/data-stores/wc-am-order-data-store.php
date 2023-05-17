@@ -550,17 +550,28 @@ class WC_AM_Order_Data_Store {
 	}
 
 	/**
-	 * Return true if $time is older than the current time.
+	 * Return true if $time is older than the current time, and false if $time is zero meaning infinite.
 	 *
 	 * @since   2.0
-	 * @updated 2.6.11 Require $time to be integer data type.
+	 * @updated 2.6.15 Add case for infinte subscriptions having a value of zero.
 	 *
 	 * @param int $time
 	 *
 	 * @return bool
 	 */
 	public function is_time_expired( $time ) {
-		return is_int( $time ) && $time >= 0 && $time < $this->get_current_time_stamp();
+		if ( is_numeric( $time ) ) {
+			// Infinite API Manager subscription.
+			if ( $time == 0 ) {
+				return false;
+			}
+
+			// A value of zero would return true. Infinite API Manager subscriptions, which have a value of zero, would evaluate as expired.
+			return $time < $this->get_current_time_stamp();
+		}
+
+		// If a non-numeric argument is sent, there is no way to evaluate it accurately.
+		return false;
 	}
 
 	/**

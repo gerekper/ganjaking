@@ -75,7 +75,7 @@ abstract class UpdraftPlus_RemoteSend {
 	 *
 	 * @return array                 - the array response
 	 */
-	public function udrpc_action($response, $command, $data, $name_indicator) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function udrpc_action($response, $command, $data, $name_indicator) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		if (is_array($data) && isset($data['sender_public'])) {
 			// Do we already know the sender's public key?
@@ -120,7 +120,7 @@ abstract class UpdraftPlus_RemoteSend {
 		return $msg;
 	}
 
-	public function updraftplus_logline($line, $nonce, $level, $uniq_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function updraftplus_logline($line, $nonce, $level, $uniq_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		if ('notice' === $level && 'php_event' === $uniq_id) {
 			$this->php_events[] = $line;
 		}
@@ -173,7 +173,7 @@ abstract class UpdraftPlus_RemoteSend {
 		$existing_size = file_exists($fullpath) ? filesize($fullpath) : 0;
 
 		if ($start > $existing_size) {
-			return $this->return_rpc_message(array('response' => 'error', 'data' => "invalid_start_too_big:start=${start},existing_size=${existing_size}"));
+			return $this->return_rpc_message(array('response' => 'error', 'data' => "invalid_start_too_big:start={$start},existing_size={$existing_size}"));
 		}
 
 		if (false == ($fhandle = fopen($fullpath, 'ab'))) {
@@ -187,7 +187,7 @@ abstract class UpdraftPlus_RemoteSend {
 		
 		if (false === $write_status || (false == $write_status && !empty($data))) return $this->return_rpc_message(array('response' => 'error', 'data' => 'fwrite_failure'));
 
-		@fclose($fhandle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@fclose($fhandle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$our_keys = UpdraftPlus_Options::get_updraft_option('updraft_migrator_localkeys');
 		if (is_array($our_keys) && isset($our_keys[$name_hash]) && !empty($our_keys[$name_hash]['name'])) $updraftplus->log("Received data chunk on key ".$our_keys[$name_hash]['name']. " ($file, ".$start.", is_last=$is_last_chunk)");
@@ -252,7 +252,7 @@ abstract class UpdraftPlus_RemoteSend {
 	 *
 	 * @return array                 - the array response
 	 */
-	public function udrpc_command_upload_complete($response, $data, $name_indicator) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function udrpc_command_upload_complete($response, $data, $name_indicator) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		if (!preg_match('/^([a-f0-9]+)\.migrator.updraftplus.com$/', $name_indicator, $matches)) return $response;
 		
 		if (defined('UPDRAFTPLUS_THIS_IS_CLONE') && UPDRAFTPLUS_THIS_IS_CLONE) {
@@ -510,7 +510,7 @@ abstract class UpdraftPlus_RemoteSend {
 	 *
 	 * @return string        - the RSA remote key
 	 */
-	public function updraft_migrate_key_create_return($string, $data) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function updraft_migrate_key_create_return($string, $data) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		return $this->updraft_migrate_key_create($data);
 	}
 

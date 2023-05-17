@@ -1,6 +1,6 @@
 <h1>{post_title}</h1>
 
-<h2><?php _e( 'Attendee Detail', 'woocommerce-box-office' ); ?></h2>
+<h2><?php esc_html_e( 'Attendee Detail', 'woocommerce-box-office' ); ?></h2>
 
 <table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
 	<tbody>

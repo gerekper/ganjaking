@@ -79,18 +79,18 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         if (($context["has_valid_api_key"] ?? null)) {
             // line 19
             echo "            href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
           ";
         } else {
             // line 21
             echo "            href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 21)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 21)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
           ";
         }
         // line 23
-        echo "          class=\"mailpoet-button button-primary\"
+        echo "          class=\"mailpoet-button button-primary mailpoet-premium-shop-link\"
         >
 
           ";
@@ -136,9 +136,9 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
       target=\"_blank\"
       href=\"";
             // line 49
-            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=starter&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 49)) . \MailPoetVendor\twig_escape_filter($this->env, "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase", "html_attr")), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=starter&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 49)) . \MailPoetVendor\twig_escape_filter($this->env, "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase&ref=plugin-upgrade-page", "html_attr")), "html", null, true);
             echo "\"
-      class=\"mailpoet-button button-primary\"
+      class=\"mailpoet-button button-primary mailpoet-premium-shop-link\"
     >
       ";
             // line 52
@@ -395,18 +395,18 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         if (($context["has_valid_api_key"] ?? null)) {
             // line 181
             echo "            href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
           ";
         } else {
             // line 183
             echo "            href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 183)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 183)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
           ";
         }
         // line 185
-        echo "        class=\"mailpoet-button button-primary\"
+        echo "        class=\"mailpoet-button button-primary mailpoet-premium-shop-link\"
         >
           ";
         // line 187
@@ -482,18 +482,18 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         if (($context["has_valid_api_key"] ?? null)) {
             // line 221
             echo "            href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
           ";
         } else {
             // line 223
             echo "            href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=creator&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 223)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=creator&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 223)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
           ";
         }
         // line 225
-        echo "          class=\"mailpoet-button button-primary\"
+        echo "          class=\"mailpoet-button button-primary mailpoet-premium-shop-link\"
         >
           ";
         // line 227
@@ -587,18 +587,18 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         if (($context["has_valid_api_key"] ?? null)) {
             // line 270
             echo "          href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
         ";
         } else {
             // line 272
             echo "          href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=agency&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 272)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=agency&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 272)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
         ";
         }
         // line 274
-        echo "        class=\"mailpoet-button button-primary\"
+        echo "        class=\"mailpoet-button button-primary mailpoet-premium-shop-link\"
       >
         ";
         // line 276
@@ -644,18 +644,18 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         if (($context["has_valid_api_key"] ?? null)) {
             // line 298
             echo "        href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (("https://account.mailpoet.com/orders/upgrade/" . ($context["plugin_partial_key"] ?? null)) . "?utm_source=plugin&utm_medium=premium&utm_campaign=upgrade&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
       ";
         } else {
             // line 300
             echo "        href=\"";
-            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 300)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase"), "html", null, true);
+            echo \MailPoetVendor\twig_escape_filter($this->env, (((("https://account.mailpoet.com/?s=" . ($context["subscriber_count"] ?? null)) . "&g=business&billing=monthly&email=") . \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["current_wp_user"] ?? null), "user_email", [], "any", false, false, false, 300)) . "&utm_source=plugin&utm_medium=premium&utm_campaign=purchase&ref=plugin-upgrade-page"), "html", null, true);
             echo "\"
       ";
         }
         // line 302
-        echo "      class=\"mailpoet-button button-primary\"
+        echo "      class=\"mailpoet-button button-primary mailpoet-premium-shop-link\"
     >
       ";
         // line 304
@@ -668,7 +668,7 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         $context["allowedHtml"] = ["a" => ["href" => [], "target" => []]];
         // line 308
         echo "      ";
-        echo $this->extensions['MailPoet\Twig\Filters']->wpKses(MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade"), "https://www.mailpoet.com/support/sales-pre-sales-questions/", ["target" => "_blank"]),         // line 311
+        echo $this->extensions['MailPoet\Twig\Filters']->wpKses(MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide.", "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoet-upgrade"), "https://www.mailpoet.com/support/sales-pre-sales-questions/?ref=plugin-upgrade-page", ["target" => "_blank"]),         // line 311
 ($context["allowedHtml"] ?? null));
         // line 312
         echo "
@@ -698,6 +698,12 @@ class __TwigTemplate_dada0e5bfec8608eb9f123444f9396788d2220a0663c5d2c4a893ecbc6a
         // line 326
         echo "<script type=\"text/javascript\">
   MailPoet.trackEvent('Premium page viewed');
+
+  jQuery(function(\$) {
+    \$('.mailpoet-premium-page a.mailpoet-premium-shop-link').on('click', function() {
+      MailPoet.trackEvent('Upgrade page CTA clicked');
+    });
+  });
 </script>
 ";
     }

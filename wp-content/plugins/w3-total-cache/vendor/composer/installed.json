@@ -1,5 +1,60 @@
 [
     {
+        "name": "aws/aws-php-sns-message-validator",
+        "version": "1.8.0",
+        "version_normalized": "1.8.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aws/aws-php-sns-message-validator.git",
+            "reference": "ea20e69fe15139540c6f20ff7c61ed48b9804bfd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aws/aws-php-sns-message-validator/zipball/ea20e69fe15139540c6f20ff7c61ed48b9804bfd",
+            "reference": "ea20e69fe15139540c6f20ff7c61ed48b9804bfd",
+            "shasum": ""
+        },
+        "require": {
+            "ext-openssl": "*",
+            "php": ">=5.4",
+            "psr/http-message": "^1.0"
+        },
+        "require-dev": {
+            "guzzlehttp/psr7": "^1.4",
+            "phpunit/phpunit": "^4.0",
+            "squizlabs/php_codesniffer": "^2.3"
+        },
+        "time": "2022-08-22T19:38:21+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Aws\\Sns\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Amazon Web Services",
+                "homepage": "http://aws.amazon.com"
+            }
+        ],
+        "description": "Amazon SNS message validation for PHP",
+        "homepage": "http://aws.amazon.com/sdkforphp",
+        "keywords": [
+            "SNS",
+            "amazon",
+            "aws",
+            "cloud",
+            "message",
+            "sdk",
+            "webhooks"
+        ]
+    },
+    {
         "name": "aws/aws-sdk-php",
         "version": "3.183.8",
         "version_normalized": "3.183.8.0",
@@ -56,12 +111,12 @@
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Aws\\": "src/"
-            },
             "files": [
                 "src/functions.php"
-            ]
+            ],
+            "psr-4": {
+                "Aws\\": "src/"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -201,17 +256,17 @@
     },
     {
         "name": "guzzlehttp/promises",
-        "version": "1.5.1",
-        "version_normalized": "1.5.1.0",
+        "version": "1.5.2",
+        "version_normalized": "1.5.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/promises.git",
-            "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da"
+            "reference": "b94b2807d85443f9719887892882d0329d1e2598"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/promises/zipball/fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
-            "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
+            "url": "https://api.github.com/repos/guzzle/promises/zipball/b94b2807d85443f9719887892882d0329d1e2598",
+            "reference": "b94b2807d85443f9719887892882d0329d1e2598",
             "shasum": ""
         },
         "require": {
@@ -220,7 +275,7 @@
         "require-dev": {
             "symfony/phpunit-bridge": "^4.4 || ^5.1"
         },
-        "time": "2021-10-22T20:56:57+00:00",
+        "time": "2022-08-28T14:55:35+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -283,17 +338,17 @@
     },
     {
         "name": "guzzlehttp/psr7",
-        "version": "1.9.0",
-        "version_normalized": "1.9.0.0",
+        "version": "1.9.1",
+        "version_normalized": "1.9.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/psr7.git",
-            "reference": "e98e3e6d4f86621a9b75f623996e6bbdeb4b9318"
+            "reference": "e4490cabc77465aaee90b20cfc9a770f8c04be6b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/psr7/zipball/e98e3e6d4f86621a9b75f623996e6bbdeb4b9318",
-            "reference": "e98e3e6d4f86621a9b75f623996e6bbdeb4b9318",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/e4490cabc77465aaee90b20cfc9a770f8c04be6b",
+            "reference": "e4490cabc77465aaee90b20cfc9a770f8c04be6b",
             "shasum": ""
         },
         "require": {
@@ -311,13 +366,8 @@
         "suggest": {
             "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
         },
-        "time": "2022-06-20T21:43:03+00:00",
+        "time": "2023-04-17T16:00:37+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.9-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "files": [
@@ -391,17 +441,17 @@
     },
     {
         "name": "mtdowling/jmespath.php",
-        "version": "2.6.0",
-        "version_normalized": "2.6.0.0",
+        "version": "2.6.1",
+        "version_normalized": "2.6.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/jmespath/jmespath.php.git",
-            "reference": "42dae2cbd13154083ca6d70099692fef8ca84bfb"
+            "reference": "9b87907a81b87bc76d19a7fb2d61e61486ee9edb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/42dae2cbd13154083ca6d70099692fef8ca84bfb",
-            "reference": "42dae2cbd13154083ca6d70099692fef8ca84bfb",
+            "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/9b87907a81b87bc76d19a7fb2d61e61486ee9edb",
+            "reference": "9b87907a81b87bc76d19a7fb2d61e61486ee9edb",
             "shasum": ""
         },
         "require": {
@@ -409,10 +459,10 @@
             "symfony/polyfill-mbstring": "^1.17"
         },
         "require-dev": {
-            "composer/xdebug-handler": "^1.4",
+            "composer/xdebug-handler": "^1.4 || ^2.0",
             "phpunit/phpunit": "^4.8.36 || ^7.5.15"
         },
-        "time": "2020-07-31T21:01:56+00:00",
+        "time": "2021-06-14T00:11:39+00:00",
         "bin": [
             "bin/jp.php"
         ],
@@ -424,12 +474,12 @@
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "JmesPath\\": "src/"
-            },
             "files": [
                 "src/JmesPath.php"
-            ]
+            ],
+            "psr-4": {
+                "JmesPath\\": "src/"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -544,32 +594,33 @@
     },
     {
         "name": "symfony/polyfill-intl-idn",
-        "version": "v1.20.0",
-        "version_normalized": "1.20.0.0",
+        "version": "v1.19.0",
+        "version_normalized": "1.19.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-intl-idn.git",
-            "reference": "3b75acd829741c768bc8b1f84eb33265e7cc5117"
+            "reference": "4ad5115c0f5d5172a9fe8147675ec6de266d8826"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/3b75acd829741c768bc8b1f84eb33265e7cc5117",
-            "reference": "3b75acd829741c768bc8b1f84eb33265e7cc5117",
+            "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/4ad5115c0f5d5172a9fe8147675ec6de266d8826",
+            "reference": "4ad5115c0f5d5172a9fe8147675ec6de266d8826",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1",
+            "php": ">=5.3.3",
             "symfony/polyfill-intl-normalizer": "^1.10",
+            "symfony/polyfill-php70": "^1.10",
             "symfony/polyfill-php72": "^1.10"
         },
         "suggest": {
             "ext-intl": "For best performance"
         },
-        "time": "2020-10-23T14:02:19+00:00",
+        "time": "2020-10-21T09:57:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-main": "1.20-dev"
+                "dev-main": "1.19-dev"
             },
             "thanks": {
                 "name": "symfony/polyfill",
@@ -578,12 +629,12 @@
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Intl\\Idn\\": ""
-            },
             "files": [
                 "bootstrap.php"
-            ]
+            ],
+            "psr-4": {
+                "Symfony\\Polyfill\\Intl\\Idn\\": ""
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -630,30 +681,30 @@
     },
     {
         "name": "symfony/polyfill-intl-normalizer",
-        "version": "v1.20.0",
-        "version_normalized": "1.20.0.0",
+        "version": "v1.19.0",
+        "version_normalized": "1.19.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-            "reference": "727d1096295d807c309fb01a851577302394c897"
+            "reference": "8db0ae7936b42feb370840cf24de1a144fb0ef27"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/727d1096295d807c309fb01a851577302394c897",
-            "reference": "727d1096295d807c309fb01a851577302394c897",
+            "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/8db0ae7936b42feb370840cf24de1a144fb0ef27",
+            "reference": "8db0ae7936b42feb370840cf24de1a144fb0ef27",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1"
+            "php": ">=5.3.3"
         },
         "suggest": {
             "ext-intl": "For best performance"
         },
-        "time": "2020-10-23T14:02:19+00:00",
+        "time": "2020-10-23T09:01:57+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-main": "1.20-dev"
+                "dev-main": "1.19-dev"
             },
             "thanks": {
                 "name": "symfony/polyfill",
@@ -662,12 +713,12 @@
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-            },
             "files": [
                 "bootstrap.php"
             ],
+            "psr-4": {
+                "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+            },
             "classmap": [
                 "Resources/stubs"
             ]

@@ -5,13 +5,19 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 class UpdraftPlus_Search_Replace {
 
 	private $known_incomplete_classes = array();
+
 	private $columns = array();
+
 	private $current_row = 0;
 
 	private $use_wpdb = false;
+
 	private $use_mysqli = false;
+
 	private $wpdb_obj = null;
+
 	private $mysql_dbh = null;
+
 	protected $max_recursion = 0;
 	
 	/**
@@ -56,10 +62,10 @@ class UpdraftPlus_Search_Replace {
 	/**
 	 * The engine
 	 *
-	 * @param string|array   $search    - a string or array of things to search for
-	 * @param string|array   $replace   - a string or array of things to replace the search terms with
-	 * @param array          $tables    - an array of tables
-	 * @param integer        $page_size - the page size
+	 * @param string|array $search    - a string or array of things to search for
+	 * @param string|array $replace   - a string or array of things to replace the search terms with
+	 * @param array        $tables    - an array of tables
+	 * @param integer      $page_size - the page size
 	 */
 	public function icit_srdb_replacer($search, $replace, $tables, $page_size) {
 
@@ -178,7 +184,7 @@ class UpdraftPlus_Search_Replace {
 							}
 							mysqli_free_result($data);
 						} else {
-							// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
+							// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- Ignore removed extension compatibility.
 							while ($row = mysql_fetch_array($data)) {
 								$rowrep = $this->process_row($table, $row, $search, $replace, $stripped_table);
 								$report['rows']++;
@@ -186,8 +192,7 @@ class UpdraftPlus_Search_Replace {
 								$report['change'] += $rowrep['change'];
 								foreach ($rowrep['errors'] as $err) $report['errors'][] = $err;
 							}
-							// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
-							@mysql_free_result($data);
+							@mysql_free_result($data); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- If an error occurs during mysql free result and it fails to free result, it will not impact anything at all. mysql_* function used in the scenario in which the mysqli extension doesn't exist.
 						}
 					}
 				}
@@ -226,7 +231,7 @@ class UpdraftPlus_Search_Replace {
 			if ($this->use_mysqli) {
 				$data = mysqli_query($this->mysql_dbh, $sql_line);
 			} else {
-				// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
+				// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- Ignore removed extension compatibility.
 				$data = mysql_query($sql_line, $this->mysql_dbh);
 			}
 			if (false !== $data) return array($data, $page_size);
@@ -383,11 +388,11 @@ class UpdraftPlus_Search_Replace {
 			$case_insensitive = false;
 
 			// If we've reached the maximum recursion level, short circuit
-			if  (0 !== $this->max_recursion && $recursion_level >= $this->max_recursion) {
+			if (0 !== $this->max_recursion && $recursion_level >= $this->max_recursion) {
 				return $data;
 			}
 
-			if (is_array ($data) || is_object($data)) {
+			if (is_array($data) || is_object($data)) {
 				// If we've seen this exact object or array before, short circuit
 				if (in_array($data, $visited_data, true)) {
 					return $data; // Avoid infinite recursions when there's a circular reference
@@ -403,7 +408,7 @@ class UpdraftPlus_Search_Replace {
 			}
 
 			// O:8:"DateTime":0:{} : see https://bugs.php.net/bug.php?id=62852
-			if (is_serialized($data) && false === strpos($data, 'O:8:"DateTime":0:{}') && false !== ($unserialized = @unserialize($data))) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			if (is_serialized($data) && false === strpos($data, 'O:8:"DateTime":0:{}') && false !== ($unserialized = @unserialize($data))) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				$data = $this->recursive_unserialize_replace($from, $to, $unserialized, true, $recursion_level + 1);
 			} elseif (is_array($data)) {
 				$_tmp = array();
@@ -508,7 +513,7 @@ class UpdraftPlus_Search_Replace {
 		if ($this->use_wpdb) {
 			$last_error = $wpdb->last_error;
 		} else {
-			// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
+			// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- Ignore removed extension compatibility.
 			$last_error = ($this->use_mysqli) ? mysqli_error($this->mysql_dbh) : mysql_error($this->mysql_dbh);
 		}
 		$updraftplus->log(__('Error:', 'updraftplus')." ".$last_error." - ".__('the database query being run was:', 'updraftplus').' '.$sql_line, 'warning-restore');

@@ -10,9 +10,7 @@ use MailPoet\Config\ServicesChecker;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerError;
 use MailPoet\Mailer\SubscriberError;
-use MailPoet\Services\Bridge;
 use MailPoet\Services\Bridge\API;
-use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\Util\Notices\UnauthorizedEmailNotice;
@@ -27,9 +25,6 @@ class MailPoetMapper {
 
   const TEMPORARY_UNAVAILABLE_RETRY_INTERVAL = 300; // seconds
 
-  /** @var Bridge */
-  private $bridge;
-
   /** @var ServicesChecker */
   private $servicesChecker;
 
@@ -39,21 +34,14 @@ class MailPoetMapper {
   /** @var WPFunctions */
   private $wp;
 
-  /** @var SettingsController */
-  private $settings;
-
   public function __construct(
-    Bridge $bridge,
     ServicesChecker $servicesChecker,
-    SettingsController $settings,
     SubscribersFeature $subscribers,
     WPFunctions $wp
   ) {
     $this->servicesChecker = $servicesChecker;
     $this->subscribersFeature = $subscribers;
     $this->wp = $wp;
-    $this->bridge = $bridge;
-    $this->settings = $settings;
   }
 
   public function getInvalidApiKeyError() {
@@ -137,7 +125,7 @@ class MailPoetMapper {
     return $message;
   }
 
-  private function getInsufficientPrivilegesMessage(): string {
+  private function getSubscribersLimitReachedMessage(): string {
     $message = __('You have reached the subscriber limit of your plan. Please [link1]upgrade your plan[/link1], or [link2]contact our support team[/link2] if you have any questions.', 'mailpoet');
     $message = Helpers::replaceLinkTags(
       $message,
@@ -208,12 +196,21 @@ class MailPoetMapper {
     $partialApiKey = $this->servicesChecker->generatePartialApiKey();
     $emailVolumeLimit = $this->subscribersFeature->getEmailVolumeLimit();
     $date = Carbon::now()->startOfMonth()->addMonth();
-    $message = sprintf(
+    if ($emailVolumeLimit) {
+      $message = sprintf(
       // translators: %1$s is email volume limit and %2$s the date when you can resume sending.
-      __('You have sent more emails this month than your MailPoet plan includes (%1$s), and sending has been temporarily paused. To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on <b>%2$s</b>.', 'mailpoet'),
-      $emailVolumeLimit,
-      $this->wp->dateI18n(get_option('date_format'), $date->getTimestamp())
-    );
+        __('You have sent more emails this month than your MailPoet plan includes (%1$s), and sending has been temporarily paused. To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on %2$s.', 'mailpoet'),
+        $emailVolumeLimit,
+        $this->wp->dateI18n($this->wp->getOption('date_format'), $date->getTimestamp())
+      );
+    } else {
+      $message = sprintf(
+        // translators: %1$s the date when you can resume sending.
+        __('You have sent more emails this month than your MailPoet plan includes, and sending has been temporarily paused. To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on %1$s.', 'mailpoet'),
+        $this->wp->dateI18n($this->wp->getOption('date_format'), $date->getTimestamp())
+      );
+    }
+
     $message = Helpers::replaceLinkTags(
       $message,
       "https://account.mailpoet.com/orders/upgrade/{$partialApiKey}",
@@ -251,18 +248,22 @@ class MailPoetMapper {
       return [$operation, $message];
     }
 
+    // Backward compatibility for older blocked keys.
+    // Exceeded subscribers limit used to use the same error message as insufficient privileges.
+    // We can change the message to "Insufficient privileges" like wording a couple of months after releasing SHOP-1228
     if ($result['error'] === API::ERROR_MESSAGE_INSUFFICIENT_PRIVILEGES) {
       $operation = MailerError::OPERATION_INSUFFICIENT_PRIVILEGES;
-      $message = $this->getInsufficientPrivilegesMessage();
+      $message = $this->getSubscribersLimitReachedMessage();
+      return [$operation, $message];
+    }
+
+    if ($result['error'] === API::ERROR_MESSAGE_SUBSCRIBERS_LIMIT_REACHED) {
+      $operation = MailerError::OPERATION_SUBSCRIBER_LIMIT_REACHED;
+      $message = $this->getSubscribersLimitReachedMessage();
       return [$operation, $message];
     }
 
     if ($result['error'] === API::ERROR_MESSAGE_EMAIL_VOLUME_LIMIT_REACHED) {
-      // Update the current email volume limit from MSS
-      $premiumKey = $this->settings->get(Bridge::PREMIUM_KEY_SETTING_NAME);
-      $result = $this->bridge->checkPremiumKey($premiumKey);
-      $this->bridge->storePremiumKeyAndState($premiumKey, $result);
-
       $operation = MailerError::OPERATION_EMAIL_LIMIT_REACHED;
       $message = $this->getEmailVolumeLimitReachedMessage();
       return [$operation, $message];

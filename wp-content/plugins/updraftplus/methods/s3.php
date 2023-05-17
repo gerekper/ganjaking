@@ -162,30 +162,6 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
 		$use_ssl = true;
 		$ssl_ca = false;
-		$config = $this->get_config();
-		if (!$nossl) {
-			$curl_version = function_exists('curl_version') ? curl_version() : array('features' => null);
-			$curl_ssl_supported = ($curl_version['features'] && defined('CURL_VERSION_SSL') && CURL_VERSION_SSL);
-			if ($curl_ssl_supported) {
-				if ($disableverify) {
-					$ssl_ca = false;
-					$this->log("Disabling verification of SSL certificates");
-				} else {
-					if ($useservercerts) {
-						$this->log("Using the server's SSL certificates");
-						$ssl_ca = 'system';
-					} else {
-						$ssl_ca = file_exists(UPDRAFTPLUS_DIR.'/includes/cacert.pem') ? UPDRAFTPLUS_DIR.'/includes/cacert.pem' : true;
-					}
-				}
-			} else {
-				$use_ssl = false;
-				$this->log("Curl/SSL is not available. Communications will not be encrypted.");
-			}
-		} else {
-			$use_ssl = false;
-			$this->log("SSL was disabled via the user's preference. Communications will not be encrypted.");
-		}
 
 		try {
 			$storage = new $use_s3_class($key, $secret, $use_ssl, $ssl_ca, $endpoint, $session_token);
@@ -448,7 +424,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 				} else {
 
 					// Retrieve the upload ID
-					$upload_id = $this->jobdata_get($hash.'_uid', null, "upd_${whoweare_keys}_${hash}_uid");
+					$upload_id = $this->jobdata_get($hash.'_uid', null, "upd_{$whoweare_keys}_{$hash}_uid");
 					if (empty($upload_id)) {
 						$storage->setExceptions(true);
 						try {
@@ -484,7 +460,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 					$successes = 0;
 					$etags = array();
 					for ($i = 1; $i <= $chunks; $i++) {
-						$etag = $this->jobdata_get($hash.'_etag_'.$i, null, "ud_${whoweare_keys}_${hash}_e$i");
+						$etag = $this->jobdata_get($hash.'_etag_'.$i, null, "ud_{$whoweare_keys}_{$hash}_e$i");
 						if (null !== $etag && strlen($etag) > 0) {
 							$this->log("chunk $i: was already completed (etag: $etag)");
 							$successes++;
@@ -608,7 +584,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			while ($attempt_flag < 5) {
 
 				$attempt_flag++;
-				if (@$storage->getBucketLocation($bucket_name)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				if (@$storage->getBucketLocation($bucket_name)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					$attempt_flag = 100;
 				} else {
 					if (empty($config['sessiontoken'])) $config['sessiontoken'] = null;
@@ -1125,7 +1101,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	 * @return Boolean - whether or not DNS bucket naming will be used
 	 */
 	protected function maybe_use_dns_bucket_name($storage, $bucket, $config) {
-		
+
 		if ('s3' === $config['key'] && '' !== $bucket) {
 			
 			if (preg_match("#^([^/]+)/(.*)$#", $bucket, $pmatches)) {
@@ -1192,7 +1168,43 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	private function get_bucket_access($storage, $config, $bucket, $path) {
 
 		$bucket_exists = false;
-		
+
+		$use_ssl = true;
+		$ssl_ca = false;
+		$nossl = $this->got_with['nossl'];
+		// Ignore the 'nossl' setting if the endpoint is DigitalOcean Spaces (https://developers.digitalocean.com/documentation/v2/)
+		if (!empty($config['endpoint']) && preg_match('/[\.^]digitaloceanspaces\.com$/', $config['endpoint'])) {
+			$nossl = apply_filters('updraftplus_gets3_nossl', false, $config['endpoint'], $this->got_with['nossl']);
+		}
+
+		if (!$nossl) {
+			$curl_version = function_exists('curl_version') ? curl_version() : array('features' => null);
+			$curl_ssl_supported = ($curl_version['features'] && defined('CURL_VERSION_SSL') && CURL_VERSION_SSL);
+			if ($curl_ssl_supported) {
+				if ($this->got_with['disableverify']) {
+					$ssl_ca = false;
+					$this->log("Disabling verification of SSL certificates");
+				} else {
+					if ($this->got_with['useservercerts']) {
+						$this->log("Using the server's SSL certificates");
+						$ssl_ca = 'system';
+					} else {
+						$ssl_ca = file_exists(UPDRAFTPLUS_DIR.'/includes/cacert.pem') ? UPDRAFTPLUS_DIR.'/includes/cacert.pem' : true;
+					}
+				}
+			} else {
+				$use_ssl = false;
+				$this->log("Curl/SSL is not available. Communications will not be encrypted.");
+			}
+		} else {
+			$use_ssl = false;
+			$this->log("SSL was disabled via the user's preference. Communications will not be encrypted.");
+		}
+
+		$storage->setSSL($use_ssl);
+		$storage->setSSLAuth(null, null, $ssl_ca);
+
+
 		// If using Amazon S3, then always prefer using host-based access
 		$this->maybe_use_dns_bucket_name($storage, $bucket, $config);
 		
@@ -1205,7 +1217,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 				$this->set_region($storage, $endpoint);
 			}
 			try {
-				$region = @$storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				$region = @$storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 				
 				// We want to distinguish between an empty region (null), and an exception or missing bucket (false)
 				if (empty($region) && false !== $region) $region = null;
@@ -1252,7 +1264,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 						if (!is_wp_error($new_storage)) {
 							// Try again
 							try {
-								$region = @$new_storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+								$region = @$new_storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 								// We want to distinguish between an empty region (null), and an exception or missing bucket (false)
 								if (empty($region) && false !== $region) $region = null;
 								// Worked this time; update the passed-in information
@@ -1277,7 +1289,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			$storage->setExceptions(true);
 			try {
 				
-				if (@$storage->putBucket($bucket, 'private')) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				if (@$storage->putBucket($bucket, 'private')) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					$bucket_exists = true;
 				}
 				
@@ -1285,7 +1297,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 				$this->s3_exception = $e;
 				try {
 					
-					if (false !== @$storage->getBucket($bucket, $path, null, 1)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					if (false !== @$storage->getBucket($bucket, $path, null, 1)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 						$bucket_exists = true;
 					}
 				} catch (Exception $e) {
@@ -1305,7 +1317,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 								$this->set_region($storage, $xml->Region->__toString());
 								$storage->setExceptions(false);
 								
-								if (false !== @$storage->getBucket($bucket, $path, null, 1)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+								if (false !== @$storage->getBucket($bucket, $path, null, 1)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 									$bucket_exists = true;
 								}
 								
@@ -1435,9 +1447,9 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			$storage->setExceptions(true);
 			try {
 				if (!$storage->putObjectString($try_file, $bucket, $path.$try_file)) {
-					echo __('Failure', 'updraftplus').": ${bucket_verb}".__('We successfully accessed the bucket, but the attempt to create a file in it failed.', 'updraftplus');
+					echo __('Failure', 'updraftplus').": {$bucket_verb}".__('We successfully accessed the bucket, but the attempt to create a file in it failed.', 'updraftplus');
 				} else {
-					echo __('Success', 'updraftplus').": ${bucket_verb}".__('We accessed the bucket, and were able to create files within it.', 'updraftplus').' ';
+					echo __('Success', 'updraftplus').": {$bucket_verb}".__('We accessed the bucket, and were able to create files within it.', 'updraftplus').' ';
 					$comm_with = ('' !== $endpoint) ? $endpoint : $config['whoweare_long'];
 					if ($storage->getuseSSL()) {
 						echo sprintf(__('The communication with %s was encrypted.', 'updraftplus'), $comm_with);
@@ -1447,12 +1459,12 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 					$create_success = true;
 				}
 			} catch (Exception $e) {
-				echo __('Failure', 'updraftplus').": ${bucket_verb}".__('We successfully accessed the bucket, but the attempt to create a file in it failed.', 'updraftplus').' '.__('Please check your access credentials.', 'updraftplus').' ('.$e->getMessage().')';
+				echo __('Failure', 'updraftplus').": {$bucket_verb}".__('We successfully accessed the bucket, but the attempt to create a file in it failed.', 'updraftplus').' '.__('Please check your access credentials.', 'updraftplus').' ('.$e->getMessage().')';
 			}
 
 			if (!empty($create_success)) {
 				try {
-					@$storage->deleteObject($bucket, $path.$try_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					@$storage->deleteObject($bucket, $path.$try_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 				} catch (Exception $e) {
 					echo ' '.__('Delete failed:', 'updraftplus').' '.$e->getMessage();
 				}

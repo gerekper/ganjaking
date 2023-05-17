@@ -135,6 +135,7 @@ class WC_Box_Office_Ticket_Create_Admin {
 		}
 
 		$template = sprintf( '%sincludes/views/admin/create-ticket-step-%d.php', WCBO()->dir, $step );
+		// nosemgrep: audit.php.lang.security.file.inclusion-arg
 		require_once( $template );
 	}
 

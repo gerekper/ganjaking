@@ -33,7 +33,7 @@ class UpdraftPlus_Temporary_Clone_Restore {
 		}
 
 		// Make the scope of $wp_file_descriptions global, so that when wp-admin/includes/file.php assigns to it, it is adjusting the global variable as intended
-		global $wp_file_descriptions; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		global $wp_file_descriptions; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/includes/file.php.
 		if (!function_exists('WP_Filesystem')) require_once ABSPATH.'wp-admin/includes/file.php';
 		WP_Filesystem();
 
@@ -65,7 +65,7 @@ class UpdraftPlus_Temporary_Clone_Restore {
 		if (!file_exists($updraft_dir . 'ready_for_restore')) return;
 
 		// Make the scope of $wp_file_descriptions global, so that when wp-admin/includes/file.php assigns to it, it is adjusting the global variable as intended
-		global $wp_file_descriptions; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		global $wp_file_descriptions; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/includes/file.php.
 		if (!function_exists('WP_Filesystem')) require_once ABSPATH.'wp-admin/includes/file.php';
 		WP_Filesystem();
 

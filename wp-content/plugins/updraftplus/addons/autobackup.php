@@ -523,7 +523,7 @@ ENDHERE;
 	private function autobackup_go($entity, $jquery = false) {
 		define('UPDRAFTPLUS_BROWSERLOG', true);
 		echo '<p style="clear:left; padding-top:6px;">'.__('Creating backup with UpdraftPlus...', 'updraftplus')."</p>";
-		@ob_end_flush();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@ob_end_flush();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 		echo '<pre id="updraftplus-autobackup-log">';
 		global $updraftplus;
 
@@ -587,9 +587,9 @@ ENDHERE;
 
 		if (!empty($_REQUEST['updraftplus_noautobackup'])) return;
 
-		$title = __('Update Plugin');// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
-		$parent_file = 'plugins.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
-		$submenu_file = 'plugins.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		$title = __('Update Plugin');// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/admin-header.php.
+		$parent_file = 'plugins.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/admin-header.php.
+		$submenu_file = 'plugins.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/admin-header.php.
 		include_once(ABSPATH . 'wp-admin/admin-header.php');
 
 		$this->inpage_restrict = 'plugins';
@@ -638,9 +638,9 @@ ENDHERE;
 
 		if (!empty($_REQUEST['updraftplus_noautobackup'])) return;
 
-		$title = __('Update Theme');// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
-		$parent_file = 'themes.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
-		$submenu_file = 'themes.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		$title = __('Update Theme');// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/admin-header.php.
+		$parent_file = 'themes.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/admin-header.php.
+		$submenu_file = 'themes.php';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Passed though to wp-admin/admin-header.php.
 		include_once(ABSPATH.'wp-admin/admin-header.php');
 
 		$this->inpage_restrict = 'themes';
@@ -700,8 +700,8 @@ ENDHERE;
 		// Import original value of $wp_version
 		include(ABSPATH.WPINC.'/version.php');
 		
-		$lock_variable = version_compare($wp_version, "4.5.999", "<") ? 'updateLock' : 'ajaxLocked';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
-		$queue_variable = version_compare($wp_version, "4.5.999", "<") ? 'updateQueue' : 'queue';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		$lock_variable = version_compare($wp_version, "4.5.999", "<") ? 'updateLock' : 'ajaxLocked';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- Passed to javascript function below.
+		$queue_variable = version_compare($wp_version, "4.5.999", "<") ? 'updateQueue' : 'queue';// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- Passed to javascript function below.
 
 		?>
 			<script type="text/javascript">

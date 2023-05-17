@@ -203,16 +203,23 @@ class UpdraftPlus_Dropbox_API {
             }   
         } catch (Exception $e) {
             $responseCheck = json_decode($e->getMessage());
-            if (isset($responseCheck) && strpos($responseCheck[0] , 'incorrect_offset') !== false) {
+            if (empty($responseCheck)) {
+                throw $e;
+            } else {
+                
+                $extract_message = (is_object($responseCheck[0]) && isset($responseCheck[0]->{'.tag'})) ? $responseCheck[0]->{'.tag'} : $responseCheck[0];
+                
+                if (strpos($responseCheck, 'incorrect_offset') !== false) {
 				$expected_offset = $responseCheck[1];
 				throw new Exception('Submitted input out of alignment: got ['.$params['cursor']['offset'].'] expected ['.$expected_offset.']');
 				
 //                 $params['cursor']['offset'] = $responseCheck[1];
 //                 $response = $this->append_upload($params, $last_call);
-            } elseif (isset($responseCheck) && strpos($responseCheck[0], 'closed') !== false) {
-                throw new Exception("Upload with upload_id {$params['cursor']['session_id']} already completed");
-            } else {
-                throw $e;
+                } elseif (strpos($responseCheck, 'closed') !== false) {
+                    throw new Exception("Upload with upload_id {$params['cursor']['session_id']} already completed");
+                } elseif (strpos($responseCheck, 'too_many_requests') !== false) {
+                    throw new Exception("Dropbox API error: too_many_requests");
+                }
             }
         }
         return $response;

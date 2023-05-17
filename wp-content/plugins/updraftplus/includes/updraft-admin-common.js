@@ -62,7 +62,10 @@ function updraft_send_command(action, data, callback, options) {
 					} else {
 						console.log(e);
 						console.log(response);
-						if (options.alert_on_error) { alert(updraftlion.unexpectedresponse+' '+response); }
+						if (options.alert_on_error) {
+							if ('string' === typeof response && response.match(/security\scheck\s?/i)) response += ' (' + updraftlion.expired_tokens + ' ' + updraftlion.reload_page + ')';
+							alert(updraftlion.unexpectedresponse+' '+response);
+						}
 						return;
 					}
 				}
@@ -2784,7 +2787,7 @@ jQuery(function($) {
 			backupnow_nodb: 0,
 			backupnow_nofiles: 0,
 			backupnow_nocloud: 0,
-			backupnow_label: 'UpdraftPlus Clone',
+			backupnow_label: 'UpdraftClone',
 			extradata: '',
 			onlythisfileentity: 'plugins,themes,uploads,others',
 			clone_id: clone_id,
@@ -4547,7 +4550,7 @@ jQuery(function($) {
 	});
 });
 
-// UpdraftPlus Vault
+// UpdraftVault
 jQuery(function($) {
 	
 	var settings_css_prefix = '#updraft-navtab-settings-content ';

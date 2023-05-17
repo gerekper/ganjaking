@@ -27,7 +27,7 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 			$this->product_ids = array_filter( array_map( 'absint', $_GET['product_ids'] ) );
 
 		} elseif ( isset( $_GET['product_ids'] ) ) {
-			$this->product_ids = array_filter( array( absint( $_GET['product_ids'] ) ) );
+			$this->product_ids = array( absint( $_GET['product_ids'] ) );
 		}
 
 		// filter product ids to vendor specific

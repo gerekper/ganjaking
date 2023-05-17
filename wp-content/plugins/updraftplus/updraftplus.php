@@ -5,7 +5,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 2.23.3.26
+Version: 2.23.4.26
 Update URI: https://updraftplus.com/
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -37,10 +37,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if (!defined('ABSPATH')) die('No direct access allowed');
 
-if ((isset($updraftplus) && is_object($updraftplus) && is_a($updraftplus, 'UpdraftPlus')) || function_exists('updraftplus_modify_cron_schedules')) return; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+if ((isset($updraftplus) && is_object($updraftplus) && is_a($updraftplus, 'UpdraftPlus')) || function_exists('updraftplus_modify_cron_schedules')) return; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- There is a possibility that the $updraftplus variable is already defined from previous process.
 
 define('UPDRAFTPLUS_DIR', dirname(__FILE__));
 define('UPDRAFTPLUS_URL', plugins_url('', __FILE__));
+define('UPDRAFTPLUS_PLUGIN_SLUG', plugin_basename(__FILE__));
 define('UPDRAFT_DEFAULT_OTHERS_EXCLUDE', 'upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log');
 define('UPDRAFT_DEFAULT_UPLOADS_EXCLUDE', 'backup*,*backups,backwpup*,wp-clone,snapshots');
 
@@ -86,7 +87,7 @@ if (!defined('UPDRAFTPLUS_BINZIP_OPTS')) {
 /**
  * A wrapper for (require|include)(_once)? that will first check for existence, and direct the user what to do (since the traditional PHP error messages aren't clear enough for all users)
  *
- * @param String $path the file path to check
+ * @param String $path   the file path to check
  * @param String $method the method to load the file
  */
 function updraft_try_include_file($path, $method = 'include') {
@@ -102,7 +103,7 @@ function updraft_try_include_file($path, $method = 'include') {
 	} elseif ('include_once' === $method) {
 		include_once($file_to_include);
 	} elseif ('require' === $method) {
-		require($file_to_include);
+		require($file_to_include); // phpcs:ignore PEAR.Files.IncludingFile.UseInclude -- File required intentionally.
 	} else {
 		require_once($file_to_include);
 	}
@@ -168,7 +169,7 @@ if (!function_exists('updraftplus_modify_cron_schedules')) :
  * @return array cron schedules which contains schedules of our own
  */
 function updraftplus_modify_cron_schedules($schedules) {
-	return array_merge($schedules, updraftplus_list_cron_schedules());
+		return array_merge($schedules, updraftplus_list_cron_schedules());
 }
 endif;
 // http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules. Raised priority because some plugins wrongly over-write all prior schedule changes (including BackupBuddy!)
@@ -213,7 +214,7 @@ if (is_dir(UPDRAFTPLUS_DIR.'/addons') && $dir_handle = opendir(UPDRAFTPLUS_DIR.'
 			unset($header);
 		}
 	}
-	@closedir($dir_handle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+	@closedir($dir_handle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 }
 
 if (is_file(UPDRAFTPLUS_DIR.'/udaddons/updraftplus-addons.php')) updraft_try_include_file('udaddons/updraftplus-addons.php', 'require_once');
@@ -239,7 +240,7 @@ if (!file_exists(UPDRAFTPLUS_DIR.'/class-updraftplus.php') || !file_exists(UPDRA
 		if (!$updraftplus->memory_check($updraftplus->memory_check_current(WP_MAX_MEMORY_LIMIT))) {
 			$new = absint($updraftplus->memory_check_current(WP_MAX_MEMORY_LIMIT));
 			if ($new>32 && $new<100000) {
-				@ini_set('memory_limit', $new.'M');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@ini_set('memory_limit', $new.'M');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 			}
 		}
 	}

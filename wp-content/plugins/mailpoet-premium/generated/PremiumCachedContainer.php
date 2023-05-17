@@ -33,6 +33,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Automation\\Engine\\Builder\\UpdateStepsController' => 'getUpdateStepsControllerService',
             'MailPoet\\Automation\\Engine\\Hooks' => 'getHooksService',
             'MailPoet\\Automation\\Engine\\Mappers\\AutomationMapper' => 'getAutomationMapperService',
+            'MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage' => 'getAutomationRunStorageService',
             'MailPoet\\Automation\\Engine\\Storage\\AutomationStatisticsStorage' => 'getAutomationStatisticsStorageService',
             'MailPoet\\Automation\\Engine\\Storage\\AutomationStorage' => 'getAutomationStorageService',
             'MailPoet\\Automation\\Engine\\Validation\\AutomationValidator' => 'getAutomationValidatorService',
@@ -47,6 +48,8 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Listing\\PageLimit' => 'getPageLimitService',
             'MailPoet\\Mailer\\MailerFactory' => 'getMailerFactoryService',
             'MailPoet\\Newsletter\\NewslettersRepository' => 'getNewslettersRepositoryService',
+            'MailPoet\\Newsletter\\Sending\\ScheduledTaskSubscribersRepository' => 'getScheduledTaskSubscribersRepositoryService',
+            'MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository' => 'getScheduledTasksRepositoryService',
             'MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository' => 'getNewsletterStatisticsRepositoryService',
             'MailPoet\\Newsletter\\Url' => 'getUrlService',
             'MailPoet\\Premium\\API\\JSON\\v1\\Bounces' => 'getBouncesService',
@@ -68,6 +71,9 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => 'getContextFactoryService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => 'getMailPoetPremiumIntegrationService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => 'getPremiumAutomationTemplatesService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartHandler' => 'getAbandonedCartHandlerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartTrigger' => 'getAbandonedCartTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration' => 'getWooCommerceIntegrationService',
             'MailPoet\\Premium\\Config\\Initializer' => 'getInitializerService',
             'MailPoet\\Premium\\Config\\Renderer' => 'getRenderer2Service',
             'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => 'getStatisticsClicksRepositoryService',
@@ -166,6 +172,16 @@ class PremiumCachedContainer extends Container
     protected function getAutomationMapperService()
     {
         return $this->services['MailPoet\\Automation\\Engine\\Mappers\\AutomationMapper'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Engine\\Mappers\\AutomationMapper');
+    }
+
+    /**
+     * Gets the public 'MailPoet\Automation\Engine\Storage\AutomationRunStorage' shared service.
+     *
+     * @return \MailPoet\Automation\Engine\Storage\AutomationRunStorage
+     */
+    protected function getAutomationRunStorageService()
+    {
+        return $this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage');
     }
 
     /**
@@ -309,6 +325,26 @@ class PremiumCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository' shared service.
+     *
+     * @return \MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository
+     */
+    protected function getScheduledTaskSubscribersRepositoryService()
+    {
+        return $this->services['MailPoet\\Newsletter\\Sending\\ScheduledTaskSubscribersRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Newsletter\\Sending\\ScheduledTaskSubscribersRepository');
+    }
+
+    /**
+     * Gets the public 'MailPoet\Newsletter\Sending\ScheduledTasksRepository' shared service.
+     *
+     * @return \MailPoet\Newsletter\Sending\ScheduledTasksRepository
+     */
+    protected function getScheduledTasksRepositoryService()
+    {
+        return $this->services['MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository');
+    }
+
+    /**
      * Gets the public 'MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository' shared service.
      *
      * @return \MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository
@@ -417,7 +453,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getEngineService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates'] ?? $this->getPremiumAutomationTemplatesService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] ?? $this->getWooCommerceIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates'] ?? $this->getPremiumAutomationTemplatesService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
     }
 
     /**
@@ -518,6 +554,36 @@ class PremiumCachedContainer extends Container
     protected function getPremiumAutomationTemplatesService()
     {
         return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates(($this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Templates\\AutomationBuilder'] ?? $this->getAutomationBuilderService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler
+     */
+    protected function getAbandonedCartHandlerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartHandler'] = new \MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler(($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()), ($this->services['MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository'] ?? $this->getScheduledTasksRepositoryService()), ($this->services['MailPoet\\Newsletter\\Sending\\ScheduledTaskSubscribersRepository'] ?? $this->getScheduledTaskSubscribersRepositoryService()), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationStorage'] ?? $this->getAutomationStorageService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger
+     */
+    protected function getAbandonedCartTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger(($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartHandler'] ?? $this->getAbandonedCartHandlerService()), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] ?? $this->getAutomationRunStorageService()), ($this->services['MailPoet\\Segments\\SegmentsRepository'] ?? $this->getSegmentsRepositoryService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration
+     */
+    protected function getWooCommerceIntegrationService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] = new \MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartTrigger'] ?? $this->getAbandonedCartTriggerService()));
     }
 
     /**

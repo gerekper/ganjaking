@@ -967,7 +967,7 @@ class WC_AM_API_Resource_Data_Store {
 	 */
 	private function get_active_resource( $resource ) {
 		$is_wc_sub            = false;
-		$is_expired           = $this->is_access_expired( $resource->access_expires );
+		$is_expired           = WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires );
 		$grace_period_exists  = WC_AM_GRACE_PERIOD()->exists( $resource->api_resource_id );
 		$grace_period_expired = WC_AM_GRACE_PERIOD()->is_expired( $resource->api_resource_id );
 
@@ -1893,7 +1893,7 @@ class WC_AM_API_Resource_Data_Store {
 
 		$result = $wpdb->get_var( $wpdb->prepare( $sql, $args ) );
 
-		return $this->is_access_expires_set( $result );
+		return is_numeric( $result );
 	}
 
 	/**
@@ -1919,34 +1919,21 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
-	 * Returns true if $access_expires has a timestamp >= 0.
-	 *
-	 * @since   2.0
-	 *
-	 * @param int $access_expires
-	 *
-	 * @updated 2.6.11 Require $access_expires to be integer data type.
-	 *
-	 * @return bool
-	 */
-	public function is_access_expires_set( $access_expires ) {
-		return is_int( $access_expires ) && $access_expires >= 0;
-	}
-
-	/**
 	 * Returns true if the access_expires time stamp has expired ($access_expires < current_time).
 	 *
-	 * @since   2.0
-	 * @updated 2.6.11
+	 * @deprecated  2.6.15
+	 *
+	 * @since       2.0
+	 * @updated     2.6.11
 	 *
 	 * @param int $access_expires
-	 *
-	 * @updated 2.6.11 Require $access_expires to be integer data type.
 	 *
 	 * @return bool
 	 */
 	public function is_access_expired( $access_expires ) {
-		return $this->is_access_expires_set( $access_expires ) ? WC_AM_ORDER_DATA_STORE()->is_time_expired( $access_expires ) : false;
+		_deprecated_function( 'WC_AM_API_RESOURCE_DATA_STORE()->is_access_expired()', '2.6.15', 'WC_AM_ORDER_DATA_STORE()->is_time_expired()' );
+
+		return WC_AM_ORDER_DATA_STORE()->is_time_expired( $access_expires );
 	}
 
 	/**

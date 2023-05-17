@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -448,6 +448,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 						)
 					);
 
+					$generated_from_order_id = ( is_object( $coupon ) && $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'generated_from_order_id' ) : $this->get_post_meta( $coupon_id, 'generated_from_order_id', true );
+
+				if ( empty( $generated_from_order_id ) ) {
 					woocommerce_wp_checkbox(
 						array(
 							'id'          => 'sc_disable_email_restriction',
@@ -455,6 +458,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 							'description' => __( 'Do not restrict auto-generated coupons to buyer/receiver email, anyone with coupon code can use it', 'woocommerce-smart-coupons' ),
 						)
 					);
+				}
+
 				?>
 			</div>
 			<?php
@@ -541,7 +546,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 
 				if ( isset( $_POST['sc_is_visible_storewide'] ) ) { // phpcs:ignore
 					$coupon->update_meta_data( 'sc_is_visible_storewide', $post_sc_is_visible_storewide );
+					delete_option( 'sc_display_global_coupons' ); // Since there's an update in storewide coupon, refresh the global coupon's list.
 				} else {
+					$old_sc_is_visible_storewide = $coupon->get_meta( 'sc_is_visible_storewide' );
+					if ( 'yes' === $old_sc_is_visible_storewide ) {
+						delete_option( 'sc_display_global_coupons' ); // Since there's an update in storewide coupon, refresh the global coupon's list.
+					}
 					$coupon->update_meta_data( 'sc_is_visible_storewide', 'no' );
 				}
 

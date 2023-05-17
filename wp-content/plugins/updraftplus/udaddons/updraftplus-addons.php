@@ -51,6 +51,15 @@ class UpdraftPlusAddons2 {
 	private $admin_notices = array();
 
 	private $saved_site_id;
+	
+	private $plugin_file;
+
+	/**
+	 * Not used anywhere, but it is set.
+	 *
+	 * @var UpdraftPlusAddOns_Options2
+	 */
+	private $options;
 
 	/**
 	 * Constructor
@@ -742,7 +751,7 @@ class UpdraftPlusAddons2 {
 			$shopurl = "";
 			$latestchange = null;
 			$lines_read = 0;
-			while ($lines_read<10 && $line = @fgets($f)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			while ($lines_read<10 && $line = @fgets($f)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				if ("" == $key && preg_match('/Addon: ([^:]+):(.*)$/i', $line, $lmatch)) {
 					$key = $lmatch[1];
 					$name = $lmatch[2];
@@ -821,7 +830,7 @@ class UpdraftPlusAddons2 {
 
 		if (!is_dir($plugin_dir.'/addons')) return array();
 		$local_addons = array();
-		if ($dir_handle = @opendir($plugin_dir.'/addons')) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if ($dir_handle = @opendir($plugin_dir.'/addons')) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 			while (false !== ($e = readdir($dir_handle))) {
 				if (is_file($plugin_dir.'/addons/'.$e) && preg_match('/^(.*)\.php$/i', $e, $matches)) {
 					$addon = $this->get_addon_info($plugin_dir.'/addons/'.$e);

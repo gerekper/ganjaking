@@ -65,7 +65,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 * @param Array $args       A indexed array of command line arguments
 	 * @param Array $assoc_args Key value pair of command line arguments
 	 */
-	public function backup($args, $assoc_args) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function backup($args, $assoc_args) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 		global $wpdb, $updraftplus;
 		if (isset($assoc_args['exclude-db']) && filter_var($assoc_args['exclude-db'], FILTER_VALIDATE_BOOLEAN)) {
 			$backupnow_db = false;
@@ -202,7 +202,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 * @param string $message backup start message
 	 * @param string $job_id  backup job identifier
 	 */
-	public function backupnow_start_message($message, $job_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function backupnow_start_message($message, $job_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		return sprintf(__('Backup has been started successfully. You can see the last log message by running the following command: "%s"', 'updraftplus'), 'wp updraftplus backup_progress '.$job_id);
 	}
 	
@@ -285,7 +285,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 */
 	public function get_most_recently_modified_log() {
 		if (false === ($updraftplus = $this->_load_ud())) return new WP_Error('no_updraftplus');
-		list($mod_time, $log_file, $job_id) = $updraftplus->last_modified_log();// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		list($mod_time, $log_file, $job_id) = $updraftplus->last_modified_log();// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method returns an array.
 		$this->set_commands_object();
 		$log_data = $this->commands->get_log($job_id);
 		WP_CLI::log($log_data['log']);
@@ -790,7 +790,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 			}
 		}
 		
-		list ($mess, $warn, $err, $info) = $updraftplus->analyse_db_file($backup_set['timestamp'], array());// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		list ($mess, $warn, $err, $info) = $updraftplus->analyse_db_file($backup_set['timestamp'], array());// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method returns an array.
 		
 		if (!empty($info['supported_charset'])) {
 			if (empty($assoc_args['charset'])) $restore_options['updraft_restorer_charset'] = $info['supported_charset'];
@@ -1212,7 +1212,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 			'backupnow_nodb'    => 0,
 			'backupnow_nofiles' => 0,
 			'backupnow_nocloud' => 0,
-			'backupnow_label'   => 'UpdraftPlus Clone',
+			'backupnow_label'   => 'UpdraftClone',
 			'extradata'         => array(),
 			'onlythisfileentity' => 'plugins,themes,uploads,others',
 			'clone_id' => $clone_id,

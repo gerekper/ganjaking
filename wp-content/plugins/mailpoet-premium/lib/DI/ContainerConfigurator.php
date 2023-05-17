@@ -26,6 +26,9 @@ class ContainerConfigurator implements IContainerConfigurator {
 
     // Free plugin dependencies
     $this->registerFreeService($container, \MailPoet\Subscribers\SubscriberTagRepository::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationRunStorage::class);
+    $this->registerFreeService($container, \MailPoet\Newsletter\Sending\ScheduledTasksRepository::class);
+    $this->registerFreeService($container, \MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository::class);
     $this->registerFreeService($container, \MailPoet\Tags\TagRepository::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateStepsController::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateAutomationController::class);
@@ -76,6 +79,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     // Automation - API endpoints
     $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint::class)->setPublic(true);
+
     // Automation - MailPoet Premium integration
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory::class)->setPublic(true);
@@ -87,6 +91,12 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\NotificationEmailAction::class)->setPublic(true);
+
+    // Automation - WooCommerce integration
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler::class)->setPublic(true);
+
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);

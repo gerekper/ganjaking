@@ -33,6 +33,13 @@ abstract class UpdraftPlus_RemoteStorage_Addons_Base_v2 extends UpdraftPlus_Back
 
 	private $chunked;
 
+	/**
+	 * Decides whether to print the test button
+	 *
+	 * @var Boolean
+	 */
+	protected $test_button;
+
 	public function __construct($method, $description, $chunked = true, $test_button = true) {
 
 		$this->method = $method;
@@ -63,7 +70,7 @@ abstract class UpdraftPlus_RemoteStorage_Addons_Base_v2 extends UpdraftPlus_Back
 	protected function required_configuration_keys() {
 	}
 
-	public function upload_files($ret, $backup_array) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function upload_files($ret, $backup_array) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the caller from this class uses 2 arguments.
 
 		global $updraftplus;
 
@@ -136,8 +143,8 @@ abstract class UpdraftPlus_RemoteStorage_Addons_Base_v2 extends UpdraftPlus_Back
 	/**
 	 * This function handles bootstrapping and calling the remote methods delete function
 	 *
-	 * @param Boolean $ret       - A boolean value
-	 * @param Array   $files     - An array of files to delete.
+	 * @param Boolean $ret   - A boolean value
+	 * @param Array   $files - An array of files to delete.
 	 *
 	 * @return - On success returns true, false or WordPress Error on failure
 	 */

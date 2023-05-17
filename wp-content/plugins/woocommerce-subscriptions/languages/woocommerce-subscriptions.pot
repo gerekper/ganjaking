@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Subscriptions plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscriptions 5.1.1\n"
+"Project-Id-Version: WooCommerce Subscriptions 5.1.2\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/contact-us\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-05T10:24:36+00:00\n"
+"POT-Creation-Date: 2023-05-11T06:36:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-subscriptions\n"
@@ -1629,7 +1629,7 @@ msgid "Choose a new subscription."
 msgstr ""
 
 #: includes/switching/class-wc-subscriptions-switcher.php:245
-#: includes/switching/class-wc-subscriptions-switcher.php:1233
+#: includes/switching/class-wc-subscriptions-switcher.php:1234
 msgid "Your cart contained an invalid subscription switch request. It has been removed."
 msgid_plural "Your cart contained invalid subscription switch requests. They have been removed."
 msgstr[0] ""
@@ -1740,7 +1740,7 @@ msgstr ""
 
 #: includes/switching/class-wc-subscriptions-switcher.php:453
 #: includes/switching/class-wc-subscriptions-switcher.php:555
-#: includes/switching/class-wc-subscriptions-switcher.php:2637
+#: includes/switching/class-wc-subscriptions-switcher.php:2638
 msgid "Upgrade or Downgrade"
 msgstr ""
 
@@ -1759,87 +1759,87 @@ msgid "Between Grouped Subscriptions"
 msgstr ""
 
 #. translators: %s: order number.
-#: includes/switching/class-wc-subscriptions-switcher.php:1142
+#: includes/switching/class-wc-subscriptions-switcher.php:1143
 msgid "Switch order cancelled due to a new switch order being created #%s."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1361
+#: includes/switching/class-wc-subscriptions-switcher.php:1362
 msgid "You can only switch to a subscription product."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1367
+#: includes/switching/class-wc-subscriptions-switcher.php:1368
 msgid "We can not find your old subscription item."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1389
+#: includes/switching/class-wc-subscriptions-switcher.php:1390
 msgid "You can not switch to the same subscription."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1436
+#: includes/switching/class-wc-subscriptions-switcher.php:1437
 msgid "You can not switch this subscription. It appears you do not own the subscription."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1477
+#: includes/switching/class-wc-subscriptions-switcher.php:1478
 msgid "There was an error locating the switch details."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1858
+#: includes/switching/class-wc-subscriptions-switcher.php:1859
 msgctxt "a switch type"
 msgid "Downgrade"
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1861
+#: includes/switching/class-wc-subscriptions-switcher.php:1862
 msgctxt "a switch type"
 msgid "Upgrade"
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1864
+#: includes/switching/class-wc-subscriptions-switcher.php:1865
 msgctxt "a switch type"
 msgid "Crossgrade"
 msgstr ""
 
 #. translators: %1: product subtotal, %2: HTML span tag, %3: direction (upgrade, downgrade, crossgrade), %4: closing HTML span tag
-#: includes/switching/class-wc-subscriptions-switcher.php:1869
+#: includes/switching/class-wc-subscriptions-switcher.php:1870
 msgctxt "product subtotal string"
 msgid "%1$s %2$s(%3$s)%4$s"
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1985
+#: includes/switching/class-wc-subscriptions-switcher.php:1986
 msgid "The original subscription item being switched cannot be found."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:1987
+#: includes/switching/class-wc-subscriptions-switcher.php:1988
 msgid "The item on the switch order cannot be found."
 msgstr ""
 
 #. translators: 1$: old item, 2$: new item when switching
-#: includes/switching/class-wc-subscriptions-switcher.php:1998
+#: includes/switching/class-wc-subscriptions-switcher.php:1999
 msgctxt "used in order notes"
 msgid "Customer switched from: %1$s to %2$s."
 msgstr ""
 
 #. translators: %s: new item name.
-#: includes/switching/class-wc-subscriptions-switcher.php:2001
+#: includes/switching/class-wc-subscriptions-switcher.php:2002
 msgctxt "used in order notes"
 msgid "Customer added %s."
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:2361
-#: includes/switching/class-wc-subscriptions-switcher.php:2914
+#: includes/switching/class-wc-subscriptions-switcher.php:2362
+#: includes/switching/class-wc-subscriptions-switcher.php:2915
 msgid "Switch Order"
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:2376
-#: includes/switching/class-wc-subscriptions-switcher.php:2929
+#: includes/switching/class-wc-subscriptions-switcher.php:2377
+#: includes/switching/class-wc-subscriptions-switcher.php:2930
 msgid "Switched Subscription"
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:2594
+#: includes/switching/class-wc-subscriptions-switcher.php:2595
 msgctxt "add to cart button text while switching a subscription"
 msgid "Switch subscription"
 msgstr ""
 
-#: includes/switching/class-wc-subscriptions-switcher.php:2778
+#: includes/switching/class-wc-subscriptions-switcher.php:2779
 #: vendor/woocommerce/subscriptions-core/wcs-functions.php:224
 msgctxt "Subscription status"
 msgid "Switched"

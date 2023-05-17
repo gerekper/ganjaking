@@ -449,7 +449,7 @@ class WC_AM_Settings_Admin {
 				wp_schedule_event( time(), 'weekly', 'wc_am_weekly_event' );
 			}
 		} elseif ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) == 'no' ) {
-			if ( is_int( $cleanup_schedule ) && $cleanup_schedule ) {
+			if ( is_numeric( $cleanup_schedule ) && $cleanup_schedule ) {
 				wp_unschedule_event( $cleanup_schedule, 'wc_am_weekly_event' );
 			}
 		}

@@ -5,6 +5,7 @@ namespace MailPoet\Cron\Workers;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Cron\Workers\Automations\AbandonedCartWorker;
 use MailPoet\Cron\Workers\Bounce as BounceWorker;
 use MailPoet\Cron\Workers\KeyCheck\PremiumKeyCheck as PremiumKeyCheckWorker;
 use MailPoet\Cron\Workers\KeyCheck\SendingServiceKeyCheck as SendingServiceKeyCheckWorker;
@@ -150,5 +151,10 @@ class WorkersFactory {
   /** @return SubscribersEmailCount */
   public function createSubscribersEmailCountsWorker() {
     return $this->container->get(SubscribersEmailCount::class);
+  }
+
+  /** @return AbandonedCartWorker */
+  public function createAbandonedCartWorker() {
+    return $this->container->get(AbandonedCartWorker::class);
   }
 }

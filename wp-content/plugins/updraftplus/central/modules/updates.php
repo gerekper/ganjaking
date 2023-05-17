@@ -243,7 +243,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 		// THis is included so we can get $wp_version
 		include(ABSPATH.WPINC.'/version.php');
 		
-		$status['oldVersion'] = $wp_version;// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		$status['oldVersion'] = $wp_version;// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
 		
 		if (!current_user_can('update_core')) {
 			$status['error'] = 'updates_permission_denied';
@@ -254,7 +254,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 
 		wp_version_check();
 		
-		$locale = get_locale();// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		$locale = get_locale();// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused variable is for future use.
 		
 		$core_update_key = false;
 		$core_update_latest_version = false;
@@ -262,10 +262,10 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 		$get_core_updates = get_core_updates();
 		
 		// THis is included so we can get $wp_version
-		@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 		
 		foreach ($get_core_updates as $k => $core_update) {
-			if (isset($core_update->version) && version_compare($core_update->version, $wp_version, '>') && version_compare($core_update->version, $core_update_latest_version, '>')) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+			if (isset($core_update->version) && version_compare($core_update->version, $wp_version, '>') && version_compare($core_update->version, $core_update_latest_version, '>')) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
 				$core_update_latest_version = $core_update->version;
 				$core_update_key = $k;
 			}
@@ -777,10 +777,10 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 				$core_update_latest_version = false;
 				
 				// THis is included so we can get $wp_version
-				@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				
 				foreach ($get_core_updates as $k => $core_update) {
-					if (isset($core_update->version) && version_compare($core_update->version, $wp_version, '>') && version_compare($core_update->version, $core_update_latest_version, '>')) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+					if (isset($core_update->version) && version_compare($core_update->version, $wp_version, '>') && version_compare($core_update->version, $core_update_latest_version, '>')) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
 						$core_update_latest_version = $core_update->version;
 						$core_update_key = $k;
 					}
@@ -798,14 +798,14 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 					
 					// We're making sure here to only return those items for update that has new
 					// versions greater than the currently installed version.
-					if (version_compare($wp_version, $update->version, '<')) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+					if (version_compare($wp_version, $update->version, '<')) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
 						$core_updates[] = array(
 							'download' => $update->download,
 							'version' => $update->version,
 							'php_version' => $update->php_version,
 							'mysql_version' => $update->mysql_version,
 							'installed' => array(
-								'version' => $wp_version,// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+								'version' => $wp_version,// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
 								'mysql' => $mysql_version,
 								'php' => PHP_VERSION,
 								'is_mysql' => $is_mysql,

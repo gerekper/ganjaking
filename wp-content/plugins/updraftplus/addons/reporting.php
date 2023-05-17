@@ -3,9 +3,8 @@
 /*
 UpdraftPlus Addon: reporting:Sophisticated reporting options
 Description: Provides various new reporting capabilities
-Version: 2.6
+Version: 2.7
 Shop: /shop/reporting/
-Latest Change: 2.15.8
 */
 // @codingStandardsIgnoreEnd
 
@@ -24,7 +23,18 @@ class UpdraftPlus_Addon_Reporting {
 	private $history;
 
 	private $syslog;
+	
+	private $log_facility;
+	
+	private $log_ident;
 
+	/**
+	 * Email reporting HTML content
+	 *
+	 * @var String
+	 */
+	private $html;
+	
 	/**
 	 * Class constructor
 	 */
@@ -59,7 +69,7 @@ class UpdraftPlus_Addon_Reporting {
 		if (false !== ($this->syslog = openlog($this->log_ident, LOG_ODELAY|LOG_PID, $this->log_facility))) add_filter('updraftplus_logline', array($this, 'logline'), 10, 3);
 	}
 
-	public function showbackup_date($date, $backup, $jobdata, $key, $simple_format) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function showbackup_date($date, $backup, $jobdata, $key, $simple_format) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		if (!is_array($backup) || empty($backup['label'])) return $date;
 		if ($simple_format) {
 			return $date.' - '.htmlspecialchars($backup['label']);
@@ -121,7 +131,7 @@ class UpdraftPlus_Addon_Reporting {
 		} else {
 			$pri = LOG_INFO;
 		}
-		@syslog($pri, "($nonce) $line");// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@syslog($pri, "($nonce) $line");// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 		return $line;
 	}
 
@@ -147,7 +157,7 @@ class UpdraftPlus_Addon_Reporting {
 	 * @param  array  $jobdata
 	 * @return string
 	 */
-	public function updraft_report_body($report, $final_message, $contains, $errors, $warnings, $jobdata) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function updraft_report_body($report, $final_message, $contains, $errors, $warnings, $jobdata) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 	
 		global $updraftplus;
 
@@ -303,8 +313,9 @@ class UpdraftPlus_Addon_Reporting {
 	public function wp_mail_content_type($content_type) {
 		// Only convert if the message is text/plain and the template is ok
 		if ('text/plain' == $content_type && !empty($this->html)) {
-			if (empty($this->added_phpmailer_init_action)) {
-				$this->added_phpmailer_init_action = true;
+			static $added_phpmailer_init_action;
+			if (empty($added_phpmailer_init_action)) {
+				$added_phpmailer_init_action = true;
 				add_action('phpmailer_init', array($this, 'phpmailer_init'));
 			}
 			return 'text/html';
@@ -369,7 +380,7 @@ class UpdraftPlus_Addon_Reporting {
 	 * @param string  $type backup entity types
 	 * @return boolean filtered value
 	 */
-	public function email_backup($doit, $addr, $ind, $type) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function email_backup($doit, $addr, $ind, $type) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		$wholebackup = UpdraftPlus_Options::get_updraft_option('updraft_report_wholebackup', null);
 		$dbbackup = UpdraftPlus_Options::get_updraft_option('updraft_report_dbbackup', null);
 		if (is_array($wholebackup) && !empty($wholebackup[$ind]) && empty($dbbackup[$ind])) {
@@ -390,7 +401,7 @@ class UpdraftPlus_Addon_Reporting {
 	 * @param string  $descrip_type backup entity types
 	 * @return string log message
 	 */
-	public function backup_skip_log_message($log_message, $addr, $ind, $descrip_type) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function backup_skip_log_message($log_message, $addr, $ind, $descrip_type) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		$wholebackup = UpdraftPlus_Options::get_updraft_option('updraft_report_wholebackup', null);
 		if (!is_array($wholebackup) || empty($wholebackup[$ind])) {
 			return 'You have chosen to not send the backup via the email remote storage option for '.$addr.'. '.$descrip_type.' will not be sent.';

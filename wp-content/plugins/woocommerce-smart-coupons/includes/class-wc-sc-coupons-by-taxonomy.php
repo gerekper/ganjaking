@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       4.13.0
- * @version     1.5.0
+ * @version     1.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -734,7 +734,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 
 			$taxonomy_restrictions = ( ! empty( $args['taxonomy_restrictions'] ) ) ? $args['taxonomy_restrictions'] : array();
 
-			if ( ! empty( $taxonomy_restrictions ) ) {
+			if ( ! empty( $taxonomy_restrictions ) && is_array( $taxonomy_restrictions ) ) {
 				$include_ids = array();
 				$exclude_ids = array();
 				foreach ( $taxonomy_restrictions as $taxonomy_restriction ) {

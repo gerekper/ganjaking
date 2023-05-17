@@ -126,7 +126,7 @@ class WP_Optimize_Host extends UpdraftCentral_Host {
 	 *
 	 * @return void
 	 */
-	public function log($line, $level = 'notice', $uniq_id = false) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function log($line, $level = 'notice', $uniq_id = false) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the the abstract UpdraftCentral_Host class uses 3 arguments.
 		global $wp_optimize;
 
 		if ($wp_optimize) {

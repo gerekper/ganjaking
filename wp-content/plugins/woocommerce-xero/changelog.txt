@@ -1,5 +1,10 @@
 *** Xero Integration ***
 
+2023-05-12 - version 1.7.57
+* Dev - Bump WooCommerce "tested up to" version 7.6.
+* Dev - Bump WordPress "tested up to" version 6.2.
+* Dev - Bump WordPress minimum supported version from 5.7 to 5.8.
+
 2023-03-13 - version 1.7.56
 * Add - Support for Xero's Ultimate plan.
 * Add - Support for caching API requests for 60 seconds.

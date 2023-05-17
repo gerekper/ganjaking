@@ -22,6 +22,13 @@ class UpdraftPlus_Addon_LockAdmin {
 	private $default_support_url = 'https://updraftplus.com/faqs/locked-updraftplus-settings-page-forgotten-password-unlock/';
 
 	/**
+	 * Stores password, session and other data
+	 *
+	 * @var Array
+	 */
+	private $opts;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

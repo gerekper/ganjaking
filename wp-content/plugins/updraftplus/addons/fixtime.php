@@ -172,7 +172,7 @@ class UpdraftPlus_AddOn_FixTime {
 	 * @param  string $group_id
 	 * @return boolean
 	 */
-	public function prune_or_not($prune_it, $type, $backup_datestamp, $entity, $entity_how_many, $rule, $group_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function prune_or_not($prune_it, $type, $backup_datestamp, $entity, $entity_how_many, $rule, $group_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 
 		$debug = UpdraftPlus_Options::get_updraft_option('updraft_debug_mode');
 
@@ -570,13 +570,13 @@ class UpdraftPlus_AddOn_FixTime {
 		return __('starting from next time it is', 'updraftplus').' '.$this->day_selector($day_selector_id, $selected_interval).'<input title="'.__('Start time', 'updraftplus').__('Enter in format HH:MM (e.g. 14:22).', 'updraftplus').' '.htmlspecialchars(__('The time zone used is that from your WordPress settings, in Settings -> General.', 'updraftplus')).'" type="text" class="fix-time" maxlength="5" name="'.$time_selector_id.'" value="'.sprintf('%02d', $start_hour).':'.sprintf('%02d', $start_minute).'">';
 	}
 
-	public function schedule_showdbopts($disp, $selected_interval) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function schedule_showdbopts($disp, $selected_interval) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 		$start_time = UpdraftPlus_Options::get_updraft_option('updraft_starttime_db');
 		list ($start_hour, $start_minute) = $this->parse($start_time);
 		return $this->starting_widget($start_hour, $start_minute, 'updraft_startday_db', 'updraft_starttime_db', $selected_interval);
 	}
 
-	public function schedule_showfileopts($disp, $selected_interval) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function schedule_showfileopts($disp, $selected_interval) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 		$start_time = UpdraftPlus_Options::get_updraft_option('updraft_starttime_files');
 		list ($start_hour, $start_minute) = $this->parse($start_time);
 		return $this->starting_widget($start_hour, $start_minute, 'updraft_startday_files', 'updraft_starttime_files', $selected_interval);

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		public function set_global_coupons() {
 			global $wpdb;
 			$global_coupon_option_name = 'sc_display_global_coupons';
-			$global_coupons            = get_option( $global_coupon_option_name );
+			$global_coupons            = $this->sc_get_option( $global_coupon_option_name );
 			$current_sc_version        = get_option( 'sa_sc_db_version', '' );             // code for updating the db - for autoload related fix.
 
 			if ( false === $global_coupons ) {

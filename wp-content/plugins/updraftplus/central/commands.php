@@ -212,6 +212,11 @@ abstract class UpdraftCentral_Commands {
 			$is_chunked = true;
 		}
 
+		if (!$is_chunked || ($is_chunked && isset($params['chunk']) && 0 === (int) $params['chunk'])) {
+			// if it's not a chunk upload or if it's a chunk upload operation and the current chunk variable is zero, then it means a new upload operation has just begun therefore we should remove previous left-over file (if any and due to error during the previous upload of the same file), because it can lead to a corrupt/invalid zip file (we use file_put_contents a few lines below with FILE_APPEND attribute)
+			if (file_exists($upload_dir.'/'.$filename) && !unlink($upload_dir.'/'.$filename)) return $this->_generic_error_response('unable_to_delete_existing_file');
+		}
+
 		if (empty($params['data'])) {
 			return $this->_generic_error_response('data_empty_or_invalid');
 		}
@@ -269,7 +274,7 @@ abstract class UpdraftCentral_Commands {
 
 				// Remove zip file on success and on error (cleanup)
 				if ($install_result || is_null($install_result) || is_wp_error($install_result)) {
-					@unlink($zip_filepath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					@unlink($zip_filepath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				}
 
 				if (false === $install_result || is_wp_error($install_result)) {

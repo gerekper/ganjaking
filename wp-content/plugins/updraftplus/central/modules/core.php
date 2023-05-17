@@ -344,7 +344,7 @@ class UpdraftCentral_Core_Commands extends UpdraftCentral_Commands {
 		global $wpdb;
 
 		// THis is included so we can get $wp_version
-		@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$ud_version = is_a($this->ud, 'UpdraftPlus') ? $this->ud->version : 'none';
 
@@ -352,7 +352,7 @@ class UpdraftCentral_Core_Commands extends UpdraftCentral_Commands {
 			'versions' => array(
 				'ud' => $ud_version,
 				'php' => PHP_VERSION,
-				'wp' => $wp_version,// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+				'wp' => $wp_version,// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
 				'mysql' => $wpdb->db_version(),
 				'udrpc_php' => $this->rc->udrpc_version,
 			),

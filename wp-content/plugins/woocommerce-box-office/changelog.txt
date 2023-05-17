@@ -1,5 +1,13 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-05-12 - version 1.1.51
+* Dev - Bump WooCommerce "tested up to" version 7.6.
+* Dev - Bump WordPress "tested up to" version 6.2.
+* Dev - Bump WordPress minimum supported version from 5.6 to 5.8.
+* Dev - Resolve PHPCS warnings.
+* Fix - Resolve ticket shortcode compatibility issues.
+* No changelog entry required.
+
 2023-03-15 - version 1.1.50
 * Add - Support for WooCommerce email templates for Ticket notifications.
 * Tweak - WC 7.5.0 compatibility.

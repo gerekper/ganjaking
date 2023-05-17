@@ -5590,29 +5590,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 				if ( '2.1.0' === $protocol_version || '2.2.0' === $protocol_version ) {
 
-					$datos_usuario = array(
-						'threeDSInfo'              => 'AuthenticationData',
-						'protocolVersion'          => $protocol_version,
-						'browserAcceptHeader'      => WCPSD2()->get_accept_headers_user( $user_id ),
-						'browserColorDepth'        => WCPSD2()->get_profundidad_color_user( $user_id ),
-						'browserIP'                => '86.0.4240.111',
-						'browserJavaEnabled'       => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-						'browserJavascriptEnabled' => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-						'browserLanguage'          => WCPSD2()->get_idioma_navegador_user( $user_id ),
-						'browserScreenHeight'      => WCPSD2()->get_altura_pantalla_user( $user_id ),
-						'browserScreenWidth'       => WCPSD2()->get_anchura_pantalla_user( $user_id ),
-						'browserTZ'                => WCPSD2()->get_diferencia_horaria_user( $user_id ),
-						'browserUserAgent'         => WCPSD2()->get_agente_navegador_user( $user_id ),
-						'threeDSServerTransID'     => $three_ds_server_trans_id,
-						'notificationURL'          => $final_notify_url,
-						'threeDSCompInd'           => 'N',
-					);
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
 						$this->log->add( 'redsys', 'threeDSInfo: AuthenticationData' );
 						$this->log->add( 'redsys', 'protocolVersion: ' . $protocol_version );
 					}
-					$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
 					$datos_entrada  = '<DATOSENTRADA>';
 					$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 					$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -5626,7 +5608,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$datos_entrada .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
 					$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
 					$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-					// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
 					$datos_entrada .= '</DATOSENTRADA>';
 					$xml            = '<REQUEST>';
 					$xml           .= $datos_entrada;
@@ -5759,27 +5740,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					}
 				} else {
 					$protocol_version = '1.0.2';
-					$datos_usuario    = array(
-						'threeDSInfo'         => 'AuthenticationData',
-						'protocolVersion'     => $protocol_version,
-						'browserAcceptHeader' => WCPSD2()->get_accept_headers_user( $user_id ),
-						'browserColorDepth'   => WCPSD2()->get_profundidad_color_user( $user_id ),
-						'browserIP'           => '86.0.4240.111',
-						'browserJavaEnabled'  => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-						'browserLanguage'     => WCPSD2()->get_idioma_navegador_user( $user_id ),
-						'browserScreenHeight' => WCPSD2()->get_altura_pantalla_user( $user_id ),
-						'browserScreenWidth'  => WCPSD2()->get_anchura_pantalla_user( $user_id ),
-						'browserTZ'           => WCPSD2()->get_diferencia_horaria_user( $user_id ),
-						'browserUserAgent'    => WCPSD2()->get_agente_navegador_user( $user_id ),
-						'notificationURL'     => $final_notify_url,
-						'threeDSCompInd'      => 'N',
-					);
-					$data             = array(
-						'threeDSInfo'     => 'AuthenticationData',
-						'protocolVersion' => '1.0.2',
-					);
-					$need             = wp_json_encode( $data );
-					$acctinfo         = WCPSD2()->get_acctinfo( $order, $datos_usuario );
 					$datos_entrada    = '<DATOSENTRADA>';
 					$datos_entrada   .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 					$datos_entrada   .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -5794,7 +5754,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$datos_entrada   .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
 					$datos_entrada   .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
 					$datos_entrada   .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-					// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
 					// $datos_entrada .= "<DS_MERCHANT_MERCHANTURL>" . $final_notify_url . "</DS_MERCHANT_MERCHANTURL>";
 					// $datos_entrada .= "<DS_MERCHANT_TITULAR>" . $merchan_name . ' ' . $merchant_lastnme . "</DS_MERCHANT_TITULAR>";
 					$datos_entrada .= '</DATOSENTRADA>';
@@ -11693,40 +11652,31 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
 				$headers = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_http_accept_headers'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 				$data['_accept_haders'] = sanitize_text_field( $headers );
-				update_user_meta( $user_id, '_accept_haders', sanitize_text_field( $headers ) );
 			}
 			if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
 				$agente = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_agente_navegador'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 				$data['_billing_agente_navegador_field'] = sanitize_text_field( $agente );
-				update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
 			}
 			if ( ! empty( $_POST['billing_idioma_navegador'] ) ) {
 				$data['_billing_idioma_navegador_field'] = sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) );
-				update_user_meta( $user_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_altura_pantalla'] ) ) {
 				$data['_billing_altura_pantalla_field'] = sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) );
-				update_user_meta( $user_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_anchura_pantalla'] ) ) {
 				$data['_billing_anchura_pantalla_field'] = sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) );
-				update_user_meta( $user_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_profundidad_color'] ) ) {
 				$data['_billing_profundidad_color_field'] = sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) );
-				update_user_meta( $user_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_diferencia_horaria'] ) ) {
 				$data['_billing_diferencia_horaria_field'] = sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) );
-				update_user_meta( $user_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_tz_horaria'] ) ) {
 				$data['_billing_tz_horaria_field'] = sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) );
-				update_user_meta( $user_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
 			}
 			if ( ! empty( $_POST['billing_js_enabled_navegador'] ) ) {
 				$data['_billing_js_enabled_navegador_field'] = sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) );
-				update_user_meta( $user_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
 			}
 			if ( ! empty( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
 				set_transient( $order_id . '_redsys_use_token', sanitize_text_field( wp_unslash( $_POST['token'] ) ), 36000 );

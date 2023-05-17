@@ -65,7 +65,7 @@ class WCS_Cart_Switch extends WCS_Cart_Renewal {
 			}
 		}
 
-		return $pay_url;
+		return $pay_url; // nosemgrep: audit.php.wp.security.xss.query-arg -- False positive. $pay_url is escaped in the template and escaping URLs should be done at the point of output or usage.
 	}
 
 	/**

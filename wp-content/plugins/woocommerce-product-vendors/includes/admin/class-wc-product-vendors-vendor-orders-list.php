@@ -55,7 +55,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 	public function prepare_items() {
 		global $wpdb;
 
-		// check if table exists before continuing
+		// Check if table exists before continuing.
 		if ( ! WC_Product_Vendors_Utils::commission_table_exists() ) {
 			return;
 		}
@@ -68,87 +68,57 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
-		$orderby = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( $_REQUEST['orderby'] ) : 'order_id';
-		$order   = ( ! empty( $_REQUEST['order'] ) && 'asc' === $_REQUEST['order'] ) ? 'ASC' : 'DESC';
+		$items_per_page = $this->get_items_per_page( 'orders_per_page', apply_filters( 'wcpv_orders_list_default_item_per_page', 20 ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		$current_page   = $this->get_pagenum();
 
-		$items_per_page = $this->get_items_per_page( 'orders_per_page', apply_filters( 'wcpv_orders_list_default_item_per_page', 20 ) );
+		$order_by       = ( ! empty( $_REQUEST['orderby'] ) ? sanitize_sql_orderby( wp_unslash( $_REQUEST['orderby'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$order_by       = ( $order_by && in_array( $order_by, array_keys( $sortable ), true ) ) ? $order_by : 'order_id';
+		$order_by_order = ( 'ASC' === strtoupper( wp_unslash( $_REQUEST['order'] ?? '' ) ) ) ? 'ASC' : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$current_page = $this->get_pagenum();
+		// Query args.
+		$sql_where = array(
+			$wpdb->prepare( '`commission`.`vendor_id` = %d', $this->vendor_id ),
+		);
 
-		$sql = 'SELECT COUNT(commission.id) FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE . ' AS commission';
-
-		$sql .= ' WHERE 1=1';
-
-		$sql .= " AND `vendor_id` = {$this->vendor_id}";
-
-		// check if it is a search
-		if ( ! empty( $_REQUEST['s'] ) ) {
-			$order_id = absint( $_REQUEST['s'] );
-
-			$sql .= " AND `order_id` = {$order_id}";
-
+		// Check if it is a search.
+		$search_arg = ! empty( $_REQUEST['s'] ) ? absint( $_REQUEST['s'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $search_arg ) {
+			$sql_where[] = $wpdb->prepare( '`commission`.`order_id` = %d', $search_arg );
 		} else {
-
-			if ( ! empty( $_REQUEST['m'] ) ) {
-
-				$year  = absint( substr( $_REQUEST['m'], 0, 4 ) );
-				$month = absint( substr( $_REQUEST['m'], 4, 2 ) );
-
-				$time_filter = " AND MONTH( commission.order_date ) = {$month} AND YEAR( commission.order_date ) = {$year}";
-
-				$sql .= $time_filter;
+			$m_arg = ! empty( $_REQUEST['m'] ) ? wp_unslash( $_REQUEST['m'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( $m_arg ) {
+				$year        = absint( substr( $m_arg, 0, 4 ) );
+				$month       = absint( substr( $m_arg, 4, 2 ) );
+				$sql_where[] = $wpdb->prepare( 'MONTH( `commission`.`order_date` ) = %d AND YEAR( `commission`.`order_date` ) = %d', $month, $year );
 			}
 
-			if ( ! empty( $_REQUEST['commission_status'] ) ) {
-				$commission_status = esc_sql( $_REQUEST['commission_status'] );
-
-				$status_filter = " AND `commission_status` = '{$commission_status}'";
-
-				$sql .= $status_filter;
+			$status_arg = ! empty( $_REQUEST['commission_status'] ) ? wp_unslash( $_REQUEST['commission_status'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( $status_arg ) {
+				$sql_where[] = $wpdb->prepare( '`commission`.`commission_status` = %s', $status_arg );
 			}
 		}
 
-		$total_items = $wpdb->get_var( $sql );
+		$sql_where = ( $sql_where ? ( ' WHERE ' . implode( ' AND ', $sql_where ) ) : '' );
 
-		$this->set_pagination_args( array(
-			'total_items' => (double) $total_items,
-			'per_page'    => $items_per_page,
-		) );
+		$total_items = absint(
+			$wpdb->get_var(
+				'SELECT COUNT(`commission`.`id`) FROM `' . WC_PRODUCT_VENDORS_COMMISSION_TABLE . "` AS `commission` $sql_where" // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+			)
+		);
+
+		$this->set_pagination_args(
+			array(
+				'total_items' => (float) $total_items,
+				'per_page'    => $items_per_page,
+			)
+		);
 
 		$offset = ( $current_page - 1 ) * $items_per_page;
 
-		$sql = 'SELECT * FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE . ' AS commission';
-
-		$sql .= ' WHERE 1=1';
-
-		$sql .= " AND `vendor_id` = {$this->vendor_id}";
-
-		// check if it is a search
-		if ( ! empty( $_REQUEST['s'] ) ) {
-			$order_id = absint( $_REQUEST['s'] );
-
-			$sql .= " AND `order_id` = {$order_id}";
-
-		} else {
-
-			if ( ! empty( $_REQUEST['m'] ) ) {
-				$sql .= $time_filter;
-			}
-
-			if ( ! empty( $_REQUEST['commission_status'] ) ) {
-				$sql .= $status_filter;
-			}
-		}
-
-		$sql .= " ORDER BY `{$orderby}` {$order}";
-
-		$sql .= " LIMIT {$items_per_page}";
-
-		$sql .= " OFFSET {$offset}";
-
-		$data = $wpdb->get_results( $sql );
-
-		$this->items = $data;
+		// Fetch items.
+		$this->items = $wpdb->get_results(
+			'SELECT * FROM `' . WC_PRODUCT_VENDORS_COMMISSION_TABLE . "` AS `commission` $sql_where ORDER BY `commission`.`$order_by` $order_by_order LIMIT $items_per_page OFFSET $offset" // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+		);
 
 		return true;
 	}
@@ -283,7 +253,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 			}
 			?>
 		</select>
-		
+
 	<?php
 	}
 
@@ -425,7 +395,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 				if ( ! empty( $item->variation_id ) ) {
 					$product    = wc_get_product( absint( $item->variation_id ) );
 					$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
-					
+
 					if ( $metadata = $order_item->get_formatted_meta_data() ) {
 						foreach ( $metadata as $meta_id => $meta ) {
 							// Skip hidden core fields

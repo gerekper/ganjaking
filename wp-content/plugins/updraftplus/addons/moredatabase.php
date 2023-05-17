@@ -108,7 +108,7 @@ class UpdraftPlus_Addon_MoreDatabase {
 	 * @param String $posted_data
 	 * @return Array
 	 */
-	public function extradb_testconnection_go($results_initial_value_ignored, $posted_data) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function extradb_testconnection_go($results_initial_value_ignored, $posted_data) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 	
 		if (empty($posted_data['user'])) return(array('r' => $posted_data['row'], 'm' => '<p>'.sprintf(__("Failure: No %s was given.", 'updraftplus').'</p>', __('user', 'updraftplus'))));
 
@@ -372,18 +372,18 @@ class UpdraftPlus_Addon_MoreDatabase {
 	 * @param  string $whichdb_suffix This spcifies the DB suffix
 	 * @return string                 returns the encrypted file name
 	 */
-	public function encrypt_file($result, $file, $encryption, $whichdb, $whichdb_suffix) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function encrypt_file($result, $file, $encryption, $whichdb, $whichdb_suffix) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		global $updraftplus;
 		$updraft_dir = $updraftplus->backups_dir_location();
 		$updraftplus->jobdata_set('jobstatus', 'dbencrypting'.$whichdb_suffix);
 		$time_started = microtime(true);
-		$file_size = @filesize($updraft_dir.'/'.$file)/1024;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$file_size = @filesize($updraft_dir.'/'.$file)/1024;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$memory_limit = ini_get('memory_limit');
-		$memory_usage = round(@memory_get_usage(false)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-		$memory_usage2 = round(@memory_get_usage(true)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-		$updraftplus->log("Encryption being requested: file_size: ".round($file_size, 1)." KB memory_limit: $memory_limit (used: ${memory_usage}M | ${memory_usage2}M)");
+		$memory_usage = round(@memory_get_usage(false)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		$memory_usage2 = round(@memory_get_usage(true)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		$updraftplus->log("Encryption being requested: file_size: ".round($file_size, 1)." KB memory_limit: $memory_limit (used: {$memory_usage}M | {$memory_usage2}M)");
 		
 		$encrypted_file = UpdraftPlus_Encryption::encrypt($updraft_dir.'/'.$file, $encryption);
 
@@ -401,7 +401,7 @@ class UpdraftPlus_Addon_MoreDatabase {
 			}
 
 			// Delete unencrypted file
-			@unlink($updraft_dir.'/'.$file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@unlink($updraft_dir.'/'.$file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 			$updraftplus->jobdata_set('jobstatus', 'dbencrypted'.$whichdb_suffix);
 
@@ -524,7 +524,7 @@ class UpdraftPlus_Addon_MoreDatabase {
 	 * @param  [array]      $dbinfo       an array of information about the current database
 	 * @return [boolean] a boolean value indicating if a table should be included in the backup or not
 	 */
-	public function updraftplus_backup_table($bool, $table, $table_prefix, $whichdb, $dbinfo) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function updraftplus_backup_table($bool, $table, $table_prefix, $whichdb, $dbinfo) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		// Check this empty not to cause errors
 		if (!empty($this->database_tables)) {

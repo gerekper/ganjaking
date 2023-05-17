@@ -61,9 +61,9 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 				$upload_rate = $data_since_last_tick / max($time_since_last_tick, 1);
 				$upload_secs = min(floor($job_run_time), 10);
 				if ($job_run_time < 15) $upload_secs = max(6, $job_run_time*0.6);
-				$new_chunk = max(min($upload_secs * $upload_rate * 0.9, 10485760), 1048576);
+				$new_chunk = (int) max(min($upload_secs * $upload_rate * 0.9, 10485760), 1048576);
 				$new_chunk = $new_chunk - ($new_chunk % 524288);
-				$chunk_size = (int) $new_chunk;
+				$chunk_size = $new_chunk;
 				$storage->setChunkSize($chunk_size);
 				$updraftplus->jobdata_set('dropbox_chunk_size', $chunk_size);
 			}
@@ -561,7 +561,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 	 *
 	 * @return String - the data downloaded
 	 */
-	public function chunked_download($file, $headers, $data, $fh) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function chunked_download($file, $headers, $data, $fh) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the caller from UpdraftPlus class uses 4 arguments.
 
 		$opts = $this->get_options();// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- filter use
 		$storage = $this->get_storage();
@@ -586,34 +586,74 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 	}
 
 	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses())
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus, $updraftplus_admin;
+		$partial_templates = $this->get_partial_templates();
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/dropbox-logo.png',
+			'storage_image_description' => __(sprintf(__('%s logo', 'updraftplus'), 'Dropbox')),
+			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], true, $this->get_id().' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
+			'app_authorisation_policy_label' => wp_kses(sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-dropbox-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'Dropbox'), $this->allowed_html_for_content_sanitisation()),
+			'sub_folders_instruction_label1' => __('Need to use sub-folders?', 'updraftplus'),
+			'sub_folders_instruction_label2' => sprintf(__('Backups are saved in %s.', 'updraftplus'), 'apps/UpdraftPlus'),
+			'sub_folders_instruction_label3' => wp_kses(sprintf(__('If you backup several sites into the same Dropbox and want to organize with sub-folders, then %scheck out Premium%s', 'updraftplus'), '<a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/").'" target="_blank">', '</a>'), $this->allowed_html_for_content_sanitisation()),
+			'input_authenticate_with_label' => sprintf(__('Authenticate with %s', 'updraftplus'), __('Dropbox', 'updraftplus')),
+			'already_authenticated_label' => __('(You are already authenticated).', 'updraftplus'),
+			'authentication_link_text' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'authentication_label' => __('Ensure you are logged into the correct account before continuing.', 'updraftplus'),
+			'authorised_redirect_uri_label' => __('You must add the following as the authorised redirect URI in your Dropbox console (under "API Settings") when asked', 'updraftplus'),
+			'input_app_key_label' => __('Your Dropbox App Key', 'updraftplus'),
+			'input_app_secret_label' => __('Your Dropbox App Secret', 'updraftplus'),
+			'partial_templates_contain_input_element' => isset($partial_templates['dropbox_additional_configuration_top']) && preg_match('/<input(?:>|[^>]+>)/i', $partial_templates['dropbox_additional_configuration_top']),
+			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
+		);
+		return wp_parse_args(apply_filters('updraft_'.$this->get_id().'_template_properties', array()), wp_parse_args($properties, $this->get_persistent_variables_and_methods()));
+	}
+
+	/**
 	 * Get the pre configuration template
 	 *
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		global $updraftplus_admin;
-
-		$classes = $this->get_css_classes(false);
-		
 		?>
-			<tr class="<?php echo $classes . ' ' . 'dropbox_pre_config_container';?>">
+			<tr class="{{get_template_css_classes false}} {{method_id}}_pre_config_container">
 				<td colspan="2">
-					<img alt="<?php _e(sprintf(__('%s logo', 'updraftplus'), 'Dropbox')); ?>" src="<?php echo UPDRAFTPLUS_URL.'/images/dropbox-logo.png'; ?>">
+					<img alt="{{storage_image_description}}" src="{{storage_image_url}}">
 					<br>
 					<p>
-						<?php
-							global $updraftplus_admin;
-							$updraftplus_admin->curl_check('Dropbox', false, 'dropbox');
-						?>
+					{{{curl_existence_label}}}
 					</p>
 					<p>
-						<?php echo sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-dropbox-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'Dropbox');?>
+					{{{app_authorisation_policy_label}}}
 					</p>
 				</td>
 			</tr>
-
 		<?php
+	}
+
+	/**
+	 * Get remote storage partial templates, the partial template is recognised by its name. To find out a name of partial template, look for the partial call syntax in the template, it's enclosed by double curly braces (i.e. {{> partial_template_name }})
+	 *
+	 * @return Array an associative array keyed by name of the partial templates
+	 */
+	public function get_partial_templates() {
+		$partial_templates = array();
+		ob_start();
+		?>
+			<tr class="{{get_template_css_classes true}}">
+				<td></td>
+				<td><strong>{{sub_folders_instruction_label1}}</strong> {{sub_folders_instruction_label2}} {{{sub_folders_instruction_label3}}}</td>
+			</tr>
+		<?php
+		$partial_templates['dropbox_additional_configuration_top'] = ob_get_clean();
+		return wp_parse_args(apply_filters('updraft_'.$this->get_id().'_partial_templates', $partial_templates), parent::get_partial_templates());
 	}
 
 	/**
@@ -623,56 +663,48 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 	 */
 	public function get_configuration_template() {
 		ob_start();
-		$classes = $this->get_css_classes();
-
-		$defmsg = '<tr class="'.$classes.'"><td></td><td><strong>'.__('Need to use sub-folders?', 'updraftplus').'</strong> '.sprintf(__('Backups are saved in %s.', 'updraftplus'), 'apps/UpdraftPlus').' '.sprintf(__('If you backup several sites into the same Dropbox and want to organize with sub-folders, then %scheck out Premium%s', 'updraftplus'), '<a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/").'" target="_blank">', '</a>').'</td></tr>';
-				
-		$extra_config = apply_filters('updraftplus_dropbox_extra_config_template', $defmsg, $this);
-		echo $extra_config;
 		?>
-			<tr class="<?php echo $classes;?>">
-				<th><?php echo sprintf(__('Authenticate with %s', 'updraftplus'), __('Dropbox', 'updraftplus'));?>:</th>
+			{{#> dropbox_additional_configuration_top}}
+			{{/dropbox_additional_configuration_top}}
+			<tr class="{{get_template_css_classes true}}">
+				<th>{{input_authenticate_with_label}}:</th>
 				<td>
 					{{#if is_authenticated}}
-					<?php
-						echo "<p><strong>".__('(You are already authenticated).', 'updraftplus')."</strong>";
-						$this->get_deauthentication_link();
-						echo '</p>';
-					?>
+					<p>
+						<strong>{{already_authenticated_label}}</strong>
+						<a class="updraft_deauthlink" href="{{admin_page_url}}?action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=deauth&nonce={{deauthentication_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{deauthentication_link_text}}</a>
+					</p>
 					{{/if}}
 					{{#if ownername_sentence}}
 						<br/>
 						{{ownername_sentence}}
 					{{/if}}
-					<?php
-						echo '<p>';
-						$this->get_authentication_link();
-						echo '</p>';
-					?>			
+					<p>
+					{{authentication_label}} <a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&nonce={{storage_auth_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a>
+					</p>
 				</td>
 			</tr>
 			{{!-- Legacy: only show this next setting to old users who had a setting stored --}}
 			{{#if old_user_settings}}
-				<tr class="<?php echo $classes;?>">
+				<tr class="{{get_template_css_classes true}}">
 					<th></th>
 					<td>
-						<?php echo '<p>'.htmlspecialchars(__('You must add the following as the authorised redirect URI in your Dropbox console (under "API Settings") when asked', 'updraftplus')).': <kbd>'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraftmethod-dropbox-auth</kbd></p>'; ?>
+						<p>{{authorised_redirect_uri_label}}: <kbd>{{admin_page_url}}?page=updraftplus&action=updraftmethod-dropbox-auth</kbd></p>
 					</td>
 				</tr>
-				<tr class="<?php echo $classes;?>">
-					<th>Your Dropbox App Key:</th>
-					<td><input type="text" autocomplete="off" style="width:332px" <?php $this->output_settings_field_name_and_id('appkey');?> value="{{appkey}}" /></td>
+				<tr class="{{get_template_css_classes true}}">
+					<th>{{input_app_key_label}}:</th>
+					<td><input type="text" autocomplete="off" style="width:332px" id="{{get_template_input_attribute_value "id" "appkey"}}" name="{{get_template_input_attribute_value "name" "appkey"}}" value="{{appkey}}" /></td>
 				</tr>
-				<tr class="<?php echo $classes;?>">
-					<th>Your Dropbox App Secret:</th>
-					<td><input type="text" style="width:332px" <?php $this->output_settings_field_name_and_id('secret');?> value="{{secret}}" /></td>
+				<tr class="{{get_template_css_classes true}}">
+					<th>{{input_app_secret_label}}:</th>
+					<td><input type="text" style="width:332px" id="{{get_template_input_attribute_value "id" "secret"}}" name="{{get_template_input_attribute_value "name" "secret"}}" value="{{secret}}" /></td>
 				</tr>
 			{{else}}
-			<?php if (false === strpos($extra_config, '<input')) {
-				// We need to make sure that it is not the case that the module has no settings whatsoever - this can result in the module being effectively invisible.
-				?>
-				<input type="hidden" <?php $this->output_settings_field_name_and_id('dummy-nosave');?> value="0">
-			<?php } ?>
+				{{#unless partial_templates_contain_input_element}}
+				{{!-- We need to make sure that it is not the case that the module has no settings whatsoever - this can result in the module being effectively invisible. --}}
+				<input type="hidden" id="{{get_template_input_attribute_value "id" "dummy-nosave"}}" name="{{get_template_input_attribute_value "name" "dummy-nosave"}}" value="0">
+				{{/unless}}
 			{{/if}}
 		<?php
 		return ob_get_clean();

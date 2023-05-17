@@ -189,6 +189,7 @@ class WC_Box_Office_Ticket_Form {
 			}
 		}
 
+		// nosemgrep: audit.php.lang.misc.array-filter-no-callback
 		return array_filter( $customer );
 	}
 

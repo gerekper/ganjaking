@@ -118,7 +118,7 @@ class UpdraftPlus_BackupModule_email extends UpdraftPlus_BackupModule {
 		<?php
 	}
 
-	public function delete($files, $data = null, $sizeinfo = array()) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function delete($files, $data = null, $sizeinfo = array()) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the caller uses 3 arguments.
 		return true;
 	}
 }

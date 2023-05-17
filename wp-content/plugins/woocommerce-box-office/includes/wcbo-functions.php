@@ -314,12 +314,12 @@ function wcbo_get_my_ticket_url( $ticket_id, $print = false ) {
 	}
 
 	$token = get_post_meta( $ticket_id, '_token', true );
-	$url   = add_query_arg( 'token', $token, get_permalink( $page_id ) );
+	$url   = add_query_arg( 'token', rawurlencode( $token ), get_permalink( $page_id ) );
 	if ( $print ) {
 		$url = add_query_arg( 'print', 'true', $url );
 	}
 
-	return apply_filters( 'woocommerce_box_office_my_ticket_url', $url );
+	return esc_url( apply_filters( 'woocommerce_box_office_my_ticket_url', $url ) );
 }
 
 /**

@@ -176,7 +176,7 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 			'input_location_title' => __('Enter only a bucket name or a bucket and path. Examples: mybucket, mybucket/mypath', 'updraftplus'),
 			'input_endpoint_label' => sprintf(__('%s end-point', 'updraftplus'), 'S3'),
 			'input_bucket_access_style_label' => __('Bucket access style', 'updraftplus'),
-			'input_bucket_access_style_readmore' =>  wp_kses('<a aria-label="'.esc_attr__('Read more about bucket access style', 'updraftplus').'" href="https://updraftplus.com/faqs/what-is-the-different-between-path-style-and-bucket-style-access-to-an-s3-compatible-bucket/" target="_blank"><em>'.__('(Read more)', 'updraftplus').'</em></a>', $this->allowed_html_for_content_sanitisation()),
+			'input_bucket_access_style_readmore' => wp_kses('<a aria-label="'.esc_attr__('Read more about bucket access style', 'updraftplus').'" href="https://updraftplus.com/faqs/what-is-the-different-between-path-style-and-bucket-style-access-to-an-s3-compatible-bucket/" target="_blank"><em>'.__('(Read more)', 'updraftplus').'</em></a>', $this->allowed_html_for_content_sanitisation()),
 			'input_bucket_access_style_option_labels' => array(
 				'path_style' => __('Path style', 'updraftplus'),
 				'virtual_host_style' => __('Virtual-host style', 'updraftplus'),

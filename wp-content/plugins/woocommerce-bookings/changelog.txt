@@ -1,5 +1,14 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-05-12 - version 1.16.0
+* Add - Bookable products dropdown option in WooCommerce Analytics' reports.
+* Bump Woo tested up to version 7.6.0.
+* Fix - Fixed time formatting by adding escape code support.
+* Fix - Minimum block bookable setting appears to negate a date's booking count and buffer.
+* Fix - Missing Borders on Input Fields.
+* Fix - Remove shipping address of virtual products when added from the Admin.
+* Fix - Store and product availability rules setting saving correctly in the Safari browser.
+
 2023-04-12 - version 1.15.79
 * Add - Encryption to stored access, refresh, and sync keys for Google Calendar.
 * Add - Support for the Accommodation Booking extension's Check-in and Check-out days.

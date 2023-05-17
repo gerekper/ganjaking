@@ -16,7 +16,14 @@ class WC_Bookings_Init {
 		add_action( 'wp_enqueue_scripts', array( $this, 'booking_form_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'booking_shared_dependencies' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'booking_shared_dependencies' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'booking_admin_dependencies' ) );
 		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+
+		// Filter the Analytics data.
+		add_filter( 'woocommerce_analytics_products_query_args', array( $this, 'analytics_products_query_args') );
+		add_filter( 'woocommerce_analytics_products_stats_query_args', array( $this, 'analytics_products_query_args') );
+		add_filter( 'woocommerce_analytics_clauses_join', array( $this, 'analytics_clauses_join' ), 10, 2 );
+		add_filter( 'woocommerce_analytics_clauses_where', array( $this, 'analytics_clauses_where' ), 10, 2 );
 
 		// Load payment gateway name.
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'include_gateway' ) );
@@ -243,6 +250,16 @@ class WC_Bookings_Init {
 	}
 
 	/**
+	 * Register/enqueue admin dependencies.
+	 *
+	 * @since 1.15.80
+	 */
+	public function booking_admin_dependencies() {
+		// Analytics Page JS.
+		wp_enqueue_script( 'wc_bookings_analytics_script', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-bookings-analytics.js', array(), WC_BOOKINGS_VERSION, true );
+	}
+
+	/**
 	 * Add a custom payment gateway
 	 * This gateway works with bookings that require confirmation.
 	 * It's only needed on the front-end so we make sure we hide
@@ -285,6 +302,84 @@ class WC_Bookings_Init {
 		}
 
 		return $allcaps;
+	}
+
+	/**
+	 * Bookable Products filtered under the Analytics page.
+	 *
+	 * @param array $args Query arguments.
+	 * 
+	 * @return array Updated query arguments.
+	 */
+	public function analytics_products_query_args( $args ) {
+		if ( 'bookings' === filter_input( INPUT_GET, 'filter' ) ) {
+			if ( isset( $args['meta_query'] ) ) {
+				$args['meta_query'][] = array(
+					'relation' => 'AND',
+					array(
+						'key'     => '_wc_booking_availability',
+						'compare' => 'EXISTS',
+					),
+					array(
+						'key'     => '_regular_price',
+						'compare' => 'NOT EXISTS',
+					),
+				);
+			} else {
+				$args['meta_query'] = array(
+					'relation' => 'AND',
+					array(
+						'key'     => '_wc_booking_availability',
+						'compare' => 'EXISTS',
+					),
+					array(
+						'key'     => '_regular_price',
+						'compare' => 'NOT EXISTS',
+					),
+				);
+			}					
+		}
+	
+		return $args;
+	}
+
+	/**
+	 * Bookable Products filtered via JOIN clause(s).
+	 *
+	 * @param array $clauses The existing clauses.
+	 * @param array $context The context of the clause.
+	 * 
+	 * @return array Updated clauses.
+	 */
+	public function analytics_clauses_join( $clauses, $context ) {
+		global $wpdb;
+
+		if ( 'bookings' === filter_input( INPUT_GET, 'filter' ) ) {
+			$clauses[] = " JOIN {$wpdb->prefix}term_relationships ON {$wpdb->prefix}wc_order_product_lookup.product_id = {$wpdb->prefix}term_relationships.object_id";
+			$clauses[] = " JOIN {$wpdb->prefix}term_taxonomy ON {$wpdb->prefix}term_taxonomy.term_taxonomy_id = {$wpdb->prefix}term_relationships.term_taxonomy_id";
+			$clauses[] = " JOIN {$wpdb->prefix}terms ON {$wpdb->prefix}term_taxonomy.term_id = {$wpdb->prefix}terms.term_id";
+		}
+
+		return $clauses;
+	}
+
+	/**
+	 * Bookable Products filtered via WHERE clause(s).
+	 *
+	 * @param array $clauses The existing clauses.
+	 * @param array $context The context of the clause.
+	 * 
+	 * @return array Updated clauses.
+	 */
+	public function analytics_clauses_where( $clauses, $context ) {
+		global $wpdb;
+
+		if ( 'bookings' === filter_input( INPUT_GET, 'filter' ) ) {
+			$clauses[] = " AND {$wpdb->prefix}term_taxonomy.taxonomy = 'product_type'";
+			$clauses[] = " AND {$wpdb->prefix}terms.slug = 'booking'";
+		}
+
+		return $clauses;
 	}
 
 	/**

@@ -30,6 +30,13 @@ class UpdraftPlus_Addons_RemoteStorage_backblaze extends UpdraftPlus_RemoteStora
 	private $chunk_size = 5242880;
 
 	/**
+	 * Decides whether the upload bucket exists or not
+	 *
+	 * @var Boolean
+	 */
+	private $is_upload_bucket_exist;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

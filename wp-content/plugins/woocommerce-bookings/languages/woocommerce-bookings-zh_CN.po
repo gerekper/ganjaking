@@ -7,11 +7,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-12T18:21:28+00:00\n"
-"PO-Revision-Date: 2023-04-05 09:54:04+0000\n"
+"POT-Creation-Date: 2023-05-12T18:16:26+00:00\n"
+"PO-Revision-Date: 2023-04-19 16:54:03+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/class-wc-booking-order-manager.php:835
+msgid "View Booking Calendar &rarr;"
+msgstr "查看预订日历 →"
 
 #: includes/wc-bookings-functions.php:437
 msgid "If there are multiple rules with the same priority, then the order of the rules is considered. In this case the rule with the higher order will take precedence over the rule with the lower order."
@@ -35,7 +39,7 @@ msgstr "错误：未找到资源，请重试"
 
 #. translators: %1$s - line breaks, %2$s - URL to use as authorised redirect
 #. URI
-#: includes/class-wc-bookings-google-calendar-connection.php:867
+#: includes/class-wc-bookings-google-calendar-connection.php:878
 msgid "Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.%1$sAdd %2$s to the Authorized redirect URIs of your Google Cloud App."
 msgstr "请在下方输入凭据，以便使用 Google 日历 API 应用程序。必须断开现有连接才能输入凭据。%1$s请将 %2$s 添加到 Google Cloud 应用程序的已授权重定向 URI 中。"
 
@@ -131,21 +135,17 @@ msgstr "预订持续周期已设置为 24 小时，因为当“可用性”为�
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "当“可用性”为“默认不可用”时，持续周期不允许超过 24 小时。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:935
+#: includes/class-wc-bookings-google-calendar-connection.php:946
 msgid "When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced."
 msgstr "启用后，对事件描述的任何更改都必须在 WooCommerce Bookings 事件中完成。 同步数据时，直接对 Google 日历中的事件描述所做的任何更改都将丢失。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:933
+#: includes/class-wc-bookings-google-calendar-connection.php:944
 msgid "Enable overwrite"
 msgstr "启用覆盖"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:931
+#: includes/class-wc-bookings-google-calendar-connection.php:942
 msgid "Overwrite Description"
 msgstr "覆盖描述"
-
-#: includes/class-wc-booking-order-manager.php:835
-msgid "View all orders &rarr;"
-msgstr "查看全部订单 →"
 
 #: includes/class-wc-booking-order-manager.php:833
 msgid "View order &rarr;"
@@ -206,24 +206,24 @@ msgstr "最小周期为 %1$d %2$s"
 msgid "The maximum duration is %1$d %2$s"
 msgstr "最大周期为 %1$d %2$s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:920
+#: includes/class-wc-bookings-google-calendar-connection.php:931
 msgid "Check this to delete an event from Google Calendar when the corresponding store availability is deleted."
 msgstr "选中此项后，将在删除相应商店可用性时删除 Google 日历中的事件。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:918
+#: includes/class-wc-bookings-google-calendar-connection.php:929
 msgid "Delete Events from Google Calendar"
 msgstr "删除 Google 日历中的事件"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:916
+#: includes/class-wc-bookings-google-calendar-connection.php:927
 msgid "Deletion Preference"
 msgstr "删除首选项"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:528
+#: includes/admin/class-wc-bookings-details-meta-box.php:578
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "日期格式应为 yyyy-mm-dd，且不能为空。"
 
 #: includes/admin/class-wc-bookings-admin.php:677
-#: includes/admin/class-wc-bookings-details-meta-box.php:513
+#: includes/admin/class-wc-bookings-details-meta-box.php:563
 msgid "Start date cannot be greater than end date."
 msgstr "开始日期不得晚于结束日期。"
 
@@ -231,60 +231,60 @@ msgstr "开始日期不得晚于结束日期。"
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "“开始和结束日期”的格式应为 yyyy-mm-dd，且不能为空。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1348
+#: includes/class-wc-bookings-google-calendar-connection.php:1363
 msgid "Invalid request!"
 msgstr "请求无效！"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1118
+#: includes/class-wc-bookings-google-calendar-connection.php:1129
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
 msgstr "要使用 WooCommerce.com 提供的应用程序与 Google 日历同步，请点击下方的“连接 Google”按钮进行授权以访问您的 Google 日历。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1007
+#: includes/class-wc-bookings-google-calendar-connection.php:1018
 msgid "Connect with custom Google app"
 msgstr "连接自定义 Google 应用程序"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1005
+#: includes/class-wc-bookings-google-calendar-connection.php:1016
 msgid "Please fill out all required fields from above and save changes."
 msgstr "请填写上方所有的必需字段并保存所做更改。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:897
+#: includes/class-wc-bookings-google-calendar-connection.php:908
 msgid "Select your Calendar."
 msgstr "选择您的日历。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:890
+#: includes/class-wc-bookings-google-calendar-connection.php:901
 msgid "Connected Calendar Settings"
 msgstr "已连接日历设置"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:880
+#: includes/class-wc-bookings-google-calendar-connection.php:891
 msgid "Enter the Google Client Secret associated with your Calendar API app."
 msgstr "输入与您的日历 API 应用程序关联的 Google 客户端密钥。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:878
+#: includes/class-wc-bookings-google-calendar-connection.php:889
 msgid "Client Secret"
 msgstr "客户端密钥"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:872
+#: includes/class-wc-bookings-google-calendar-connection.php:883
 msgid "Enter the Google Client ID associated with your Calendar API app."
 msgstr "输入与您的日历 API 应用程序关联的 Google 客户端 ID。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:870
+#: includes/class-wc-bookings-google-calendar-connection.php:881
 msgid "Client ID"
 msgstr "客户端 ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:864
+#: includes/class-wc-bookings-google-calendar-connection.php:875
 msgid "Connect with a custom Google Calendar App"
 msgstr "连接自定义 Google 日历应用程序"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:214
+#: includes/admin/class-wc-bookings-details-meta-box.php:223
 msgid "Metadata:"
 msgstr "元数据："
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:412
+#: woocommerce-bookings.php:413
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "<a href=\"%1$s\">添加或编辑产品</a>以管理产品数据区域中的单个产品预订，然后前往<a href=\"%2$s\" target=\"_blank\">“预订”页面</a> 对它们进行单独管理。"
 
-#: woocommerce-bookings.php:410
+#: woocommerce-bookings.php:411
 msgid "Bookings has been activated!"
 msgstr "已激活预订！"
 
@@ -1402,18 +1402,18 @@ msgstr "预订描述："
 msgid "Bookings from %s"
 msgstr "预订自 %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1479
+#: includes/class-wc-bookings-google-calendar-connection.php:1500
 #: includes/class-wc-bookings-init.php:91
 #: includes/class-wc-bookings-init.php:94
 msgid "Booking"
 msgstr "预订"
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1447
+#: includes/class-wc-bookings-google-calendar-connection.php:1468
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr "注意：此事件无法在 Google 日历中进行编辑。 如果您需要进行更改，<a href=\"%s\" target=\"_blank\">请在 WooCommerce 中编辑此预订</a>。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1431
+#: includes/class-wc-bookings-google-calendar-connection.php:1452
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:47
 #: templates/emails/admin-new-booking.php:65
@@ -1425,7 +1425,7 @@ msgstr "注意：此事件无法在 Google 日历中进行编辑。 如果您需
 msgid "Booking Type"
 msgstr "预订类型"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1430
+#: includes/class-wc-bookings-google-calendar-connection.php:1451
 #: templates/emails/admin-booking-cancelled.php:37
 #: templates/emails/admin-new-booking.php:55
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1436,90 +1436,90 @@ msgstr "预订类型"
 msgid "Booking ID"
 msgstr "预订ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1257
+#: includes/class-wc-bookings-google-calendar-connection.php:1271
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "连接账户失败，请重试，如果问题依然存在，请开启调试日志以查看问题在哪儿。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1237
+#: includes/class-wc-bookings-google-calendar-connection.php:1251
 msgid "Account connected successfully!"
 msgstr "账户连接成功！"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1192
-#: includes/class-wc-bookings-google-calendar-connection.php:1295
-#: includes/class-wc-bookings-google-calendar-connection.php:1308
+#: includes/class-wc-bookings-google-calendar-connection.php:1203
+#: includes/class-wc-bookings-google-calendar-connection.php:1309
+#: includes/class-wc-bookings-google-calendar-connection.php:1322
 msgid "Permission denied!"
 msgstr "没有权限！"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1158
+#: includes/class-wc-bookings-google-calendar-connection.php:1169
 msgid "Account not properly connected, reset successfully!"
 msgstr "帐户未正确连接，已成功重置连接！"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1155
+#: includes/class-wc-bookings-google-calendar-connection.php:1166
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "断开账户连接失败，请重试，如果问题依然存在，请开启调试日志以查看问题在哪儿。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1153
+#: includes/class-wc-bookings-google-calendar-connection.php:1164
 msgid "Account disconnected successfully!"
 msgstr "账户连接断开成功！"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1010
-#: includes/class-wc-bookings-google-calendar-connection.php:1106
+#: includes/class-wc-bookings-google-calendar-connection.php:1021
+#: includes/class-wc-bookings-google-calendar-connection.php:1117
 msgid "Disconnect"
 msgstr "断开连接"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1009
-#: includes/class-wc-bookings-google-calendar-connection.php:1105
+#: includes/class-wc-bookings-google-calendar-connection.php:1020
+#: includes/class-wc-bookings-google-calendar-connection.php:1116
 msgid "Successfully authenticated."
 msgstr "授权成功。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1101
+#: includes/class-wc-bookings-google-calendar-connection.php:1112
 msgid "Connect with Google"
 msgstr "连接到Google"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1025
+#: includes/class-wc-bookings-google-calendar-connection.php:1036
 msgid "Select a calendar from the list"
 msgstr "从列表中选择日历"
 
 #. translators: 1: log file path
-#: includes/class-wc-bookings-google-calendar-connection.php:928
+#: includes/class-wc-bookings-google-calendar-connection.php:939
 msgid "Log Google Calendar events, such as API requests, inside %s"
 msgstr "记录Google日历事件，例如API申请，包括 %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:925
+#: includes/class-wc-bookings-google-calendar-connection.php:936
 msgid "Enable logging"
 msgstr "启用日志"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:923
+#: includes/class-wc-bookings-google-calendar-connection.php:934
 msgid "Debug Log"
 msgstr "调试日志"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:910
+#: includes/class-wc-bookings-google-calendar-connection.php:921
 msgid "Manage the sync flow between your Store calendar and Google calendar."
 msgstr "管理您的商店日历和 Google 日历之间的同步流程。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:908
+#: includes/class-wc-bookings-google-calendar-connection.php:919
 msgid "Sync one way - from Store to Google"
 msgstr "单向同步 - 从商店至 Google"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:907
+#: includes/class-wc-bookings-google-calendar-connection.php:918
 msgid "Sync both ways - between Store and Google"
 msgstr "双向同步 - 商店和 Google 之间"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:905
+#: includes/class-wc-bookings-google-calendar-connection.php:916
 msgid "Sync Preference"
 msgstr "同步偏好设置"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:860
-#: includes/class-wc-bookings-google-calendar-connection.php:886
+#: includes/class-wc-bookings-google-calendar-connection.php:871
+#: includes/class-wc-bookings-google-calendar-connection.php:897
 msgid "Authorization"
 msgstr "授权"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1153
-#: includes/class-wc-bookings-google-calendar-connection.php:1155
-#: includes/class-wc-bookings-google-calendar-connection.php:1158
-#: includes/class-wc-bookings-google-calendar-connection.php:1226
-#: includes/class-wc-bookings-google-calendar-connection.php:1237
-#: includes/class-wc-bookings-google-calendar-connection.php:1257
+#: includes/class-wc-bookings-google-calendar-connection.php:1164
+#: includes/class-wc-bookings-google-calendar-connection.php:1166
+#: includes/class-wc-bookings-google-calendar-connection.php:1169
+#: includes/class-wc-bookings-google-calendar-connection.php:1239
+#: includes/class-wc-bookings-google-calendar-connection.php:1251
+#: includes/class-wc-bookings-google-calendar-connection.php:1271
 msgid "Google Calendar"
 msgstr "Google日历"
 
@@ -1578,8 +1578,8 @@ msgstr "今日预订"
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
 msgstr "除非特殊说明，否则所有预订开始和结束时间均按以下时区显示："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:513
-#: includes/admin/class-wc-bookings-details-meta-box.php:528
+#: includes/admin/class-wc-bookings-details-meta-box.php:563
+#: includes/admin/class-wc-bookings-details-meta-box.php:578
 #: includes/class-wc-booking-order-manager.php:165
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
@@ -1589,16 +1589,18 @@ msgstr "除非特殊说明，否则所有预订开始和结束时间均按以下
 msgid "Bookings"
 msgstr "预订"
 
-#: includes/class-wc-booking-form-handler.php:40
+#: includes/class-wc-booking-form-handler.php:25
+#: includes/class-wc-booking-form-handler.php:33
+#: includes/class-wc-booking-form-handler.php:48
 #: includes/data-stores/class-wc-booking-data-store.php:125
 msgid "Invalid booking."
 msgstr "无效的预订。"
 
-#: includes/class-wc-booking-form-handler.php:38
+#: includes/class-wc-booking-form-handler.php:46
 msgid "Your booking can no longer be cancelled. Please contact us if you need assistance."
 msgstr "您的预订已不能被取消。如果您觉得有必要请联系我们"
 
-#: includes/class-wc-booking-form-handler.php:34
+#: includes/class-wc-booking-form-handler.php:42
 msgid "Your booking was cancelled."
 msgstr "您的预订已取消"
 
@@ -2047,31 +2049,31 @@ msgid "Sorry, you are not allowed to access this tab."
 msgstr "抱歉，您不能访问此选项卡。"
 
 #. translators: %s: file extension
-#: includes/admin/views/html-notifications-page.php:51
+#: includes/admin/views/html-notifications-page.php:61
 msgid "Attach %s file"
 msgstr "附上 %s 文件"
 
-#: includes/admin/views/html-notifications-page.php:46
+#: includes/admin/views/html-notifications-page.php:55
 msgid "Attachment"
 msgstr "附件"
 
-#: includes/admin/views/html-notifications-page.php:41
+#: includes/admin/views/html-notifications-page.php:50
 msgid "The following tags can be inserted in your message/subject and will be replaced dynamically"
 msgstr "下列标签可用在邮件标题/信息内容中"
 
-#: includes/admin/views/html-notifications-page.php:40
+#: includes/admin/views/html-notifications-page.php:49
 msgid "The message you wish to send"
 msgstr "您想发送的信息的内容"
 
-#: includes/admin/views/html-notifications-page.php:37
+#: includes/admin/views/html-notifications-page.php:46
 msgid "Message"
 msgstr "信息内容"
 
-#: includes/admin/views/html-notifications-page.php:32
+#: includes/admin/views/html-notifications-page.php:41
 msgid "Email subject"
 msgstr "邮件标题"
 
-#: includes/admin/views/html-notifications-page.php:29
+#: includes/admin/views/html-notifications-page.php:38
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:163
 #: includes/emails/class-wc-email-booking-cancelled.php:157
 #: includes/emails/class-wc-email-booking-confirmed.php:155
@@ -2081,17 +2083,17 @@ msgstr "邮件标题"
 msgid "Subject"
 msgstr "主题"
 
-#: includes/admin/views/html-notifications-page.php:20
+#: includes/admin/views/html-notifications-page.php:29
 msgid "Select a booking product..."
 msgstr "选择一个可预订产品..."
 
-#: includes/admin/views/html-notifications-page.php:16
+#: includes/admin/views/html-notifications-page.php:25
 msgid "Booking Product"
 msgstr "预订产品"
 
 #. translators: 1: starting strong tag 2: closing strong tag 3: starting a href
 #. tag 4: closing a href tag
-#: includes/admin/views/html-notifications-page.php:7
+#: includes/admin/views/html-notifications-page.php:16
 msgid "You may send an email notification to all customers who have a %1$sfuture%2$s booking for a particular product. This will use the default template specified under %3$sWooCommerce > Settings > Emails%4$s."
 msgstr "您可以向所有在%1$s将来%2$s预定了特定产品的客户发送电子邮件通知。 这将使用到在%3$s“WooCommerce”>“设置”>“电子邮件”%4$s下指定的默认模板。"
 
@@ -3078,8 +3080,8 @@ msgid "Settings"
 msgstr "设置"
 
 #: includes/admin/class-wc-bookings-menus.php:71
-#: includes/admin/views/html-notifications-page.php:2
-#: includes/admin/views/html-notifications-page.php:58
+#: includes/admin/views/html-notifications-page.php:11
+#: includes/admin/views/html-notifications-page.php:69
 #: woocommerce-bookings.php:206
 msgid "Send Notification"
 msgstr "发送通知"
@@ -3087,7 +3089,7 @@ msgstr "发送通知"
 #: includes/admin/class-wc-bookings-menus.php:70
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
-#: includes/class-wc-bookings-google-calendar-connection.php:895
+#: includes/class-wc-bookings-google-calendar-connection.php:906
 #: woocommerce-bookings.php:196
 msgid "Calendar"
 msgstr "日历"
@@ -3117,132 +3119,132 @@ msgstr "要进行设置，您需要设置您的可用性或添加可预订产品
 msgid "You're almost ready to take bookings!"
 msgstr "您就快准备好接受预订了！"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:374
+#: includes/admin/class-wc-bookings-details-meta-box.php:416
 msgid "End time (local timezone):"
 msgstr "结束时间（当地时区）："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:365
+#: includes/admin/class-wc-bookings-details-meta-box.php:405
 msgid "Start time (local timezone):"
 msgstr "开始时间（当地时区）："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:356
+#: includes/admin/class-wc-bookings-details-meta-box.php:394
 msgid "End time:"
 msgstr "结束时间："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:348
+#: includes/admin/class-wc-bookings-details-meta-box.php:384
 msgid "Start time:"
 msgstr "开始时间："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:342
+#: includes/admin/class-wc-bookings-details-meta-box.php:376
 msgid "Check this box if the booking is for all day."
 msgstr "如果该预订是全天的请选中此栏。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:341
+#: includes/admin/class-wc-bookings-details-meta-box.php:375
 msgid "All day booking:"
 msgstr "全天预订："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:333
+#: includes/admin/class-wc-bookings-details-meta-box.php:365
 msgid "End date:"
 msgstr "结束日期："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:325
+#: includes/admin/class-wc-bookings-details-meta-box.php:355
 msgid "Start date:"
 msgstr "开始日期："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:321
+#: includes/admin/class-wc-bookings-details-meta-box.php:350
 msgid "Booking date &amp; time"
 msgstr "预定日期和时间"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:247
+#: includes/admin/class-wc-bookings-details-meta-box.php:269
 msgid "Parent booking ID:"
 msgstr "父级预订 ID："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:240
+#: includes/admin/class-wc-bookings-details-meta-box.php:260
 msgid "Booked product:"
 msgstr "已预订产品："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:233
+#: includes/admin/class-wc-bookings-details-meta-box.php:252
 msgid "Booking specification"
 msgstr "预订指定"
 
 #. translators: 1: full name 2: user id 3: email
-#: includes/admin/class-wc-bookings-details-meta-box.php:197
+#: includes/admin/class-wc-bookings-details-meta-box.php:206
 msgid "%1$s (#%2$s &ndash; %3$s)"
 msgstr "%1$s (#%2$s &ndash; %3$s)"
 
 #. translators: 1: guest name
-#: includes/admin/class-wc-bookings-details-meta-box.php:190
+#: includes/admin/class-wc-bookings-details-meta-box.php:199
 msgctxt "Admin booking guest placeholder"
 msgid "Guest (%s)"
 msgstr "访客 (%s)"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:187
+#: includes/admin/class-wc-bookings-details-meta-box.php:196
 #: includes/admin/views/html-create-booking-page.php:21
 msgid "Guest"
 msgstr "访客"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:184
+#: includes/admin/class-wc-bookings-details-meta-box.php:193
 msgid "Customer:"
 msgstr "顾客:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:172
+#: includes/admin/class-wc-bookings-details-meta-box.php:181
 msgid "Booking status:"
 msgstr "预订状态:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:168
+#: includes/admin/class-wc-bookings-details-meta-box.php:177
 msgid "m"
 msgstr "分钟"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:168
+#: includes/admin/class-wc-bookings-details-meta-box.php:177
 msgid "h"
 msgstr "小时"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:167
+#: includes/admin/class-wc-bookings-details-meta-box.php:176
 msgid "Date created:"
 msgstr "创建日期:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:159
+#: includes/admin/class-wc-bookings-details-meta-box.php:168
 msgid "Order ID:"
 msgstr "订单ID："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:156
+#: includes/admin/class-wc-bookings-details-meta-box.php:165
 msgid "General details"
 msgstr "一般详情"
 
 #. translators: 1: bookings addon title
-#: includes/admin/class-wc-bookings-details-meta-box.php:149
+#: includes/admin/class-wc-bookings-details-meta-box.php:158
 msgid "Booking type: %s"
 msgstr "预订类型： %s"
 
 #. translators: 1: href to order id
-#: includes/admin/class-wc-bookings-details-meta-box.php:144
+#: includes/admin/class-wc-bookings-details-meta-box.php:153
 msgid "Linked to order %s."
 msgstr "已连接至订单 %s。"
 
 #. translators: 1: booking id
-#: includes/admin/class-wc-bookings-details-meta-box.php:137
+#: includes/admin/class-wc-bookings-details-meta-box.php:146
 msgid "Booking #%s details"
 msgstr "预订 #%s 详细信息"
 
 #. translators: 1: product type
-#: includes/admin/class-wc-bookings-details-meta-box.php:85
+#: includes/admin/class-wc-bookings-details-meta-box.php:94
 msgid "This booking is missing a required add-on (product type: %s). Some information is shown below but might be incomplete. Please install the missing add-on through the plugins screen."
 msgstr "该预订缺少必需的加载项（产品类型：%s）。 下面显示了部分信息，但可能不完整。 请通过插件页面安装缺少的加载项。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:79
+#: includes/admin/class-wc-bookings-details-meta-box.php:88
 msgid "It appears the booking product associated with this booking has been removed."
 msgstr "与此预订关联的预订产品似乎已被移除。"
 
 #. translators: 1: maximum bookable date
-#: includes/admin/class-wc-bookings-details-meta-box.php:74
+#: includes/admin/class-wc-bookings-details-meta-box.php:83
 msgid "This booking is scheduled over the product's allowed max booking date (%s). Please ensure this is correct."
 msgstr "该预订超过了产品允许的最大周期 (%s),请确保这是对的。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:66
+#: includes/admin/class-wc-bookings-details-meta-box.php:75
 msgid "This booking is scheduled over 2 years into the future. Please ensure this is correct."
 msgstr "该预订超过2年，请确保这是对的。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:54
+#: includes/admin/class-wc-bookings-details-meta-box.php:60
 msgid "Booking Details"
 msgstr "预订详情"
 
@@ -3274,7 +3276,7 @@ msgid "Customer details"
 msgstr "客户详情"
 
 #: includes/admin/class-wc-bookings-create.php:114
-#: includes/admin/class-wc-bookings-details-meta-box.php:601
+#: includes/admin/class-wc-bookings-details-meta-box.php:661
 msgid "Error: Could not create item"
 msgstr "错误 : 未能创建项目"
 
@@ -3426,7 +3428,7 @@ msgid "%1$s: %2$d"
 msgstr "%1$s： %2$d"
 
 #: includes/admin/class-wc-bookings-calendar.php:653
-#: includes/admin/class-wc-bookings-details-meta-box.php:257
+#: includes/admin/class-wc-bookings-details-meta-box.php:280
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
 #: templates/emails/admin-booking-cancelled.php:72
@@ -3591,7 +3593,7 @@ msgstr "预订已更新。"
 #: includes/admin/class-wc-bookings-admin.php:654
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:275
-#: includes/class-wc-bookings-google-calendar-connection.php:1432
+#: includes/class-wc-bookings-google-calendar-connection.php:1453
 #: includes/wc-bookings-functions.php:1243
 msgid "Persons"
 msgstr "人"
@@ -3708,8 +3710,8 @@ msgstr "编辑"
 #: includes/admin/class-wc-bookable-resource-cpt.php:91
 #: includes/admin/class-wc-bookings-cpt.php:272
 #: includes/admin/class-wc-bookings-customer-meta-box.php:116
-#: includes/admin/class-wc-bookings-details-meta-box.php:115
-#: includes/admin/class-wc-bookings-details-meta-box.php:160
+#: includes/admin/class-wc-bookings-details-meta-box.php:124
+#: includes/admin/class-wc-bookings-details-meta-box.php:169
 #: includes/emails/class-wc-email-booking-cancelled.php:88
 #: includes/emails/class-wc-email-booking-confirmed.php:86
 #: includes/emails/class-wc-email-booking-notification.php:92

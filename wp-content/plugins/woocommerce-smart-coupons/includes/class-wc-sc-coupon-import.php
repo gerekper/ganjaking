@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.8.0
+ * @version     2.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -116,7 +116,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 		public $imported = 0;
 
 		/**
-		 * Variable to hold instance of WC_SC_Coupon_Fields
+		 * Variable to hold instance of WC_SC_Coupon_Import
 		 *
 		 * @var $instance
 		 */
@@ -132,9 +132,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 		}
 
 		/**
-		 * Get single instance of WC_SC_Coupon_Fields
+		 * Get single instance of WC_SC_Coupon_Import
 		 *
-		 * @return WC_SC_Coupon_Fields Singleton object of WC_SC_Coupon_Fields
+		 * @return WC_SC_Coupon_Import Singleton object of WC_SC_Coupon_Import
 		 */
 		public static function get_instance() {
 			// Check if instance is already exists.
@@ -309,6 +309,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				if ( ( ! empty( $post_smart_coupons_generate_action ) && ( 'woo_sc_is_email_imported_coupons' === $post_smart_coupons_generate_action || 'send_store_credit' === $post_smart_coupons_generate_action ) ) || ( isset( $_POST['woo_sc_is_email_imported_coupons'] ) ) ) {
 					update_option( 'woo_sc_is_email_imported_coupons', 'yes', 'no' );
 				}
+				if ( isset( $_POST['wc_sc_update_existing_coupons'] ) ) {
+					update_option( 'wc_sc_update_existing_coupons', 'yes', 'no' );
+				}
 
 				$generate_action = ( isset( $_POST['smart_coupons_generate_action'] ) ) ? wc_clean( wp_unslash( $_POST['smart_coupons_generate_action'] ) ) : ''; // phpcs:ignore
 				$is_import_email = get_option( 'woo_sc_is_email_imported_coupons' );
@@ -367,8 +370,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 			$postdata = array(
 				'import_id'      => $post['post_id'],
 				'post_author'    => ( ! empty( $post['post_author'] ) ) ? absint( $post['post_author'] ) : get_current_user_id(),
-				'post_date'      => ( $post['post_date'] ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date'] ) ) : '',
-				'post_date_gmt'  => ( $post['post_date_gmt'] ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : '',
+				'post_date'      => ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date'] ) ) : gmdate( 'Y-m-d H:i:s', time() ),
+				'post_date_gmt'  => ( ! empty( $post['post_date_gmt'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : gmdate( 'Y-m-d H:i:s', time() ),
 				'post_content'   => $post['post_content'],
 				'post_excerpt'   => $post['post_excerpt'],
 				'post_title'     => $post_title,
@@ -381,7 +384,22 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				'comment_status' => $post['comment_status'],
 			);
 
+			$update_existing_coupons = get_option( 'wc_sc_update_existing_coupons' );
+
 			$_coupon = new WC_Coupon( $postdata['post_title'] );
+
+			if ( 'yes' === $update_existing_coupons ) {
+				$coupon_id = $_coupon->get_id();
+				if ( empty( $coupon_id ) ) {
+					$this->skipped++;
+					update_option( 'skipped_tasks_count_woo_sc', $this->skipped, 'no' );
+					unset( $post );
+					return;
+				}
+			} else {
+				$_coupon->set_id( 0 );
+			}
+
 			$_coupon->set_date_created( $postdata['post_date'] );
 			$_coupon->set_description( $postdata['post_excerpt'] );
 
@@ -397,6 +415,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				wp_update_post( $postdata );
 			} else {
 				$this->skipped++;
+				update_option( 'skipped_tasks_count_woo_sc', $this->skipped, 'no' );
 				unset( $post );
 				return;
 			}
@@ -462,11 +481,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 							if ( ! empty( $meta_value ) ) {
 								$used_by = explode( '|', $meta_value );
 								if ( ! empty( $used_by ) && is_array( $used_by ) ) {
-									$is_callable_set_used_by = $this->is_callable( $_coupon, 'set_used_by' );
-									foreach ( $used_by as $_used_by ) {
-										if ( true === $is_callable_set_used_by ) {
-											$_coupon->set_used_by( $_used_by );
-										} else {
+									if ( $this->is_callable( $_coupon, 'set_used_by' ) ) {
+										$_coupon->set_used_by( $used_by );
+									} else {
+										foreach ( $used_by as $_used_by ) {
 											add_post_meta( $post_id, $meta_key, $_used_by );
 										}
 									}
@@ -859,6 +877,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 					width: fit-content;
 					margin: 0 auto;
 				}
+				.sc-import-inner-box .sc-import-ready .wc-sc-update-existing-coupons {
+					vertical-align: super;
+					color: #f00;
+					font-weight: bold;
+				}
 				.sc-import-outer-box .dashicons {
 					display: inline-block;
 					vertical-align: middle;
@@ -891,11 +914,15 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 								<li><span class="dashicons dashicons-yes"></span> <?php echo esc_html__( 'File uploaded OK', 'woocommerce-smart-coupons' ); ?></li>
 								<li><span class="dashicons dashicons-yes"></span> <?php echo esc_html__( 'File format seems OK', 'woocommerce-smart-coupons' ); ?></li>
 							</ul>
+							<p>
+								<label for="wc_sc_update_existing_coupons"><input type="checkbox" name="wc_sc_update_existing_coupons" id="wc_sc_update_existing_coupons"  />
+								<?php echo esc_html__( 'Update existing coupons', 'woocommerce-smart-coupons' ) . ' <span class="wc-sc-update-existing-coupons" title="' . esc_html__( 'New feature', 'woocommerce-smart-coupons' ) . '">*</span> <span class="woocommerce-help-tip" data-tip="' . esc_attr__( 'If enabled, existing coupons that match by coupon code will be updated. Coupons that do not exist will be skipped.', 'woocommerce-smart-coupons' ) . '"></span>'; ?></label>
+							</p>
 							<?php $is_send_email = $this->is_email_template_enabled(); ?>
 							<?php if ( 'yes' === $is_send_email && $is_email_present ) { ?>
 							<p>
 								<label for="woo_sc_is_email_imported_coupons"><input type="checkbox" name="woo_sc_is_email_imported_coupons" id="woo_sc_is_email_imported_coupons"  />
-								<?php echo esc_html__( 'Email coupon to recipients?', 'woocommerce-smart-coupons' ) . ' <span class="woocommerce-help-tip" data-tip="' . esc_attr__( 'Enable this to send coupon to recipient\'s email addresses, provided in imported file.', 'woocommerce-smart-coupons' ) . '"></span>'; ?></label>
+								<?php echo esc_html__( 'Email coupon to recipients', 'woocommerce-smart-coupons' ) . ' <span class="woocommerce-help-tip" data-tip="' . esc_attr__( 'Enable this to send coupon to recipient\'s email addresses, provided in imported file.', 'woocommerce-smart-coupons' ) . '"></span>'; ?></label>
 							</p>
 							<?php } ?>
 						</div>

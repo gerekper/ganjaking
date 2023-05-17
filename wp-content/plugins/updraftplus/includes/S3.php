@@ -1755,6 +1755,13 @@ abstract class UpdraftPlus_AWSRequest {
 final class UpdraftPlus_S3Request extends UpdraftPlus_AWSRequest {
 
 	/**
+	 * Amazon S3 object
+	 *
+	 * @var UpdraftPlus_S3|null
+	 */
+	private $s3;
+
+	/**
 	 * Constructor
 	 *
 	 * @param string  $verb Verb

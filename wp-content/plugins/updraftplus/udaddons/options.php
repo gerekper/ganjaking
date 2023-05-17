@@ -20,6 +20,20 @@ class UpdraftPlusAddOns_Options2 {
 	// Object with at least get_option(), update_option() and addons_admin_url() methods
 	private $options;
 
+	/**
+	 * Plugin update URL
+	 *
+	 * @var String
+	 */
+	private $plugin_update_url;
+
+	/**
+	 * Updated JavaScript code.
+	 *
+	 * @var String
+	 */
+	private $update_js;
+
 	public function __construct($slug, $title, $mother) {
 
 		$this->slug = $slug;

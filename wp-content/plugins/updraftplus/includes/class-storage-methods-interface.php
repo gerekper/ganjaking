@@ -86,7 +86,7 @@ class UpdraftPlus_Storage_Methods_Interface {
 			}
 
 			// Get the list of template properties from the predefined storage method
-			$options[$method]['template_properties'] =  $object->get_template_properties();
+			$options[$method]['template_properties'] = $object->get_template_properties();
 		}
 
 		return array(
@@ -338,7 +338,7 @@ class UpdraftPlus_Storage_Methods_Interface {
 						$updraftplus->log(__('Error', 'updraftplus'), 'notice-restore');
 					} else {
 						clearstatcache();
-						if (0 === @filesize($fullpath)) @unlink($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						if (0 === @filesize($fullpath)) @unlink($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 						$updraftplus->log('Remote fetch failed');
 					}
 				}
@@ -359,7 +359,7 @@ class UpdraftPlus_Storage_Methods_Interface {
 
 		global $updraftplus;
 	
-		if (function_exists('set_time_limit')) @set_time_limit(UPDRAFTPLUS_SET_TIME_LIMIT);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (function_exists('set_time_limit')) @set_time_limit(UPDRAFTPLUS_SET_TIME_LIMIT);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$service = $service_object->get_id();
 		

@@ -138,6 +138,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
 		}
+		add_action( 'ywsbs_pay_renew_order_with_' . $this->id, array( $this, 'renew_yith_subscription' ), 10, 1 );
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'update_checkout_on_change' ), 999 );
 		add_action( 'wp_head', array( $this, 'add_insite_redsys2' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
@@ -180,35 +181,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				</div>
 				<?php
 			}
-			if ( class_exists( 'SOAPClient' ) ) {
-				$exception_message = false;
-				$soap_client       = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
-				try {
-					$result = $soap_client->__soapCall( 'trataPeticion', array() );
-				} catch ( SoapFault $fault ) {
-					$exception_message = $fault->getMessage();
-				}
-				if ( $exception_message ) {
-					?>
-					<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
-						<p><?php esc_html_e( 'InSite will not work in Test Mode, Normally this happens because your hosting is blocking the Port 25443 for SOAP, please talk to your hosting and tell them to open port 25443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in test mode..', 'woocommerce-redsys' ); ?></p>
-					</div>
-					<?php
-				}
-				$soap_client = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
-				try {
-					$result = $soap_client->__soapCall( 'trataPeticion', array() );
-				} catch ( SoapFault $fault ) {
-					$exception_message = $fault->getMessage();
-				}
-				if ( $exception_message ) {
-					?>
-					<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
-						<p><?php esc_html_e( 'InSite will not work in Real Mode, Normally this happens because your hosting is blocking SOAP, please talk to your hosting and tell them to open port 443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in real mode.', 'woocommerce-redsys' ); ?></p>
-					</div>
-					<?php
-				}
-			} else {
+			if ( ! class_exists( 'SOAPClient' ) ) {
 				?>
 				<div class="notice notice-error"><h4><?php esc_html_e( 'Attention! Problem with SOAP.', 'woocommerce-redsys' ); ?></h4>
 					<?php esc_html_e( 'SOAP is needed for Pay with InSite. Ask to your hosting to enable it. Without active SOAP on the server, the functionality of the plugin is very limited.', 'woocommerce-redsys' ); ?>
@@ -1407,7 +1380,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'insite', 'Ds_AuthorisationCode: ' . $authorisationcode );
 				}
 				if ( $authorisationcode ) {
-					WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
+					$data                 = array();
+					$data['_redsys_done'] = 'yes';
 					$dsdate = date( 'd/m/Y', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 					$dshour = date( 'H:i', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 					if ( 'yes' === $this->debug ) {
@@ -1425,7 +1399,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 
 					if ( ! empty( $redsys_order ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
+						$data['_payment_order_number_redsys'] = $redsys_order;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_payment_order_number_redsys saved: ' . $redsys_order );
 						}
@@ -1437,7 +1411,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $terminal ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
+						$data['_payment_terminal_redsys'] = $terminal;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_payment_terminal_redsys saved: ' . $terminal );
 						}
@@ -1449,7 +1423,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $authorisationcode ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+						$data['_authorisation_code_redsys'] = $authorisationcode;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_authorisation_code_redsys saved: ' . $authorisationcode );
 						}
@@ -1461,7 +1435,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $currency_code ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+						$data['_corruncy_code_redsys'] = $currency_code;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_corruncy_code_redsys saved: ' . $currency_code );
 						}
@@ -1473,7 +1447,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $secretsha256 ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+						$data['_redsys_secretsha256'] = $secretsha256;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_redsys_secretsha256 saved: ' . $secretsha256 );
 						}
@@ -1489,6 +1463,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'insite', '  The final has come, this story has ended  ' );
 						$this->log->add( 'insite', '/******************************************/' );
 					}
+					WCRed()->update_order_meta( $order->get_id(), $data );
 					do_action( 'insite_post_payment_complete', $order->get_id() );
 					return true;
 				} else {
@@ -1561,7 +1536,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$response          = (string) $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 				if ( $authorisationcode ) {
-					WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
+					$data                 = array();
+					$data['_redsys_done'] = 'yes';
 					$dsdate = date( 'd/m/Y', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 					$dshour = date( 'H:i', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 					if ( 'yes' === $this->debug ) {
@@ -1578,7 +1554,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'insite', ' ' );
 					}
 					if ( ! empty( $redsys_order ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
+						$data['_payment_order_number_redsys'] = $redsys_order;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_payment_order_number_redsys saved: ' . $redsys_order );
 						}
@@ -1590,7 +1566,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $terminal ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
+						$data['_payment_terminal_redsys'] = $terminal;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_payment_terminal_redsys saved: ' . $terminal );
 						}
@@ -1602,7 +1578,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $authorisationcode ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+						$data['_authorisation_code_redsys'] = $authorisationcode;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_authorisation_code_redsys saved: ' . $authorisationcode );
 						}
@@ -1614,7 +1590,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $currency_code ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+						$data['_corruncy_code_redsys'] = $currency_code;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_corruncy_code_redsys saved: ' . $currency_code );
 						}
@@ -1626,7 +1602,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( ! empty( $secretsha256 ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+						$data['_redsys_secretsha256'] = $secretsha256;
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'insite', '_redsys_secretsha256 saved: ' . $secretsha256 );
 						}
@@ -1642,6 +1618,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'insite', '  The final has come, this story has ended  ' );
 						$this->log->add( 'insite', '/******************************************/' );
 					}
+					WCRed()->update_order_meta( $order->get_id(), $data );
 					do_action( 'insite_post_payment_complete', $order->get_id() );
 					return true;
 				} else {
@@ -2363,6 +2340,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			);
 			$allowed_html_filter = apply_filters( 'redsys_kses_descripcion', $allowed_html );
 
+			/*
 			if ( empty( $billing_first_name ) || ! $billing_first_name || '' === $billing_first_name ) {
 
 				echo '<legend>' . wp_kses( $this->description, $allowed_html_filter ) . '</legend><br />';
@@ -2374,6 +2352,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 				return;
 			}
+			*/
 
 			$colorbutton = $this->colorbutton;
 
@@ -4367,12 +4346,15 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				} else {
 					$cof = '';
 				}
+				$dsmerchanem3 = '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
 
+				/*
 				if ( 'N' === $insite_ds_card_psd2 ) {
-					$dsmerchanem3 = '';
+					$dsmerchanem3 = '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
 				} else {
 					$dsmerchanem3 = '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
 				}
+				*/
 
 				$datos_entrada  = '<DATOSENTRADA>';
 				$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $insite_redsys_amount . '</DS_MERCHANT_AMOUNT>';
@@ -4938,8 +4920,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			! isset( $_POST['token'] ) ||
 			! isset( $_POST['order_id'] ) ||
 			! isset( $_POST['order_total'] ) ||
-			! isset( $_POST['billing_first_name'] ) ||
-			! isset( $_POST['billing_last_name'] ) ||
+			// ! isset( $_POST['billing_first_name'] ) ||
+			// ! isset( $_POST['billing_last_name'] ) ||
 			! isset( $_POST['user_id'] ) ||
 			! isset( $_POST['userAgent'] ) ||
 			! isset( $_POST['http_accept'] )
@@ -4980,8 +4962,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$redsys_token      = sanitize_text_field( wp_unslash( $_POST['token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$order_id          = sanitize_text_field( wp_unslash( $_POST['order_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$amount            = sanitize_text_field( wp_unslash( $_POST['order_total'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$merchan_name      = sanitize_text_field( wp_unslash( $_POST['billing_first_name'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$merchant_lastnme  = sanitize_text_field( wp_unslash( $_POST['billing_last_name'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		// $merchan_name      = sanitize_text_field( wp_unslash( $_POST['billing_first_name'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		// $merchant_lastnme  = sanitize_text_field( wp_unslash( $_POST['billing_last_name'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$user_id           = sanitize_text_field( wp_unslash( $_POST['user_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$usr_agent         = sanitize_text_field( wp_unslash( $_POST['userAgent'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$http_accept       = sanitize_text_field( wp_unslash( $_POST['http_accept'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
@@ -5049,7 +5031,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
 		$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
 		$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
-		$datos_entrada .= '<DS_MERCHANT_TITULAR>' . WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) . '</DS_MERCHANT_TITULAR>';
+		// $datos_entrada .= '<DS_MERCHANT_TITULAR>' . WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) . '</DS_MERCHANT_TITULAR>';
 		$datos_entrada .= '<DS_MERCHANT_IDOPER>' . $redsys_token . '</DS_MERCHANT_IDOPER>';
 		if ( $merchant_data ) {
 			$datos_entrada .= $merchant_data;
@@ -5185,8 +5167,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		set_transient( $order_id . '_insite_redsys_amount', $redsys_amount, 3600 );
 		set_transient( $order_id . '_insite_redsys_token', $redsys_token, 3600 );
 		set_transient( $order_id . '_insite_final_notify_url', $final_notify_url, 3600 );
-		set_transient( $order_id . '_insite_merchan_name', $merchan_name, 3600 );
-		set_transient( $order_id . '_insite_merchant_lastnme', $merchant_lastnme, 3600 );
+		// set_transient( $order_id . '_insite_merchan_name', $merchan_name, 3600 );
+		// set_transient( $order_id . '_insite_merchant_lastnme', $merchant_lastnme, 3600 );
 		set_transient( $order_id . '_insite_redsys_adr', $redsys_adr, 3600 );
 		set_transient( $order_id . '_insite_secretsha256', $secretsha256, 3600 );
 		set_transient( $order_id . '_insite_save', $save, 3600 );
@@ -5308,7 +5290,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 			$user_id                 = get_current_user_id();
 			$browser_accept_header   = WCRed()->get_order_meta( $ordermum, '_accept_haders', true );
-			$browser_color_depth     = WCRed()->get_order_meta( $ordermum, '_billing_profundidad_color_field', true );
+			$browser_color_depth     = WCPSD2()->get_profundidad_color( $ordermum );
 			$browser_language        = WCRed()->get_order_meta( $ordermum, '_billing_idioma_navegador_field', true );
 			$browser_screen_height   = WCRed()->get_order_meta( $ordermum, '_billing_altura_pantalla_field', true );
 			$browser_screen_width    = WCRed()->get_order_meta( $ordermum, '_billing_anchura_pantalla_field', true );
@@ -5723,7 +5705,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			<input type="hidden" name="PaReq" value="' . esc_attr( $par_eq ) . '" />
 			<input type="hidden" name="MD" value="' . esc_attr( $md ) . '" />
 			<input type="hidden" name="TermUrl" value="' . esc_attr( $final_notify_url ) . '" />
-			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . esc_html__( 'Pay with Bizum', 'woocommerce-redsys' ) . '" />
+			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . esc_html__( 'Pay', 'woocommerce-redsys' ) . '" />
 		</form>';
 			}
 		} else {
@@ -5871,10 +5853,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					} else {
 						$entorno = '1';
 					}
-
-					$service = new ISAuthenticationService( $secretsha256, $entorno );
-					$result  = $service->sendOperation( $request );
-
+					$service   = new ISAuthenticationService( $secretsha256, $entorno );
+					$result    = $service->sendOperation( $request );
 					$resultado = $result->getResult();
 
 					if ( 'yes' === $this->debug ) {
@@ -7436,45 +7416,39 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) && 'insite' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
 			$order   = WCRed()->get_order( $order_id );
 			$user_id = $order->get_user_id();
+			$data    = array();
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
 				$headers = base64_decode( wp_unslash( $_POST['billing_http_accept_headers'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-				WCRed()->update_order_meta( $order_id, '_accept_haders', sanitize_text_field( $headers ) );
-				update_user_meta( $user_id, '_accept_haders', sanitize_text_field( $headers ) );
+				$data['_accept_haders'] = sanitize_text_field( $headers );
 			}
 			if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
 				$agente = base64_decode( wp_unslash( $_POST['billing_agente_navegador'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-				WCRed()->update_order_meta( $order_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
-				update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
+				$data['_billing_agente_navegador_field'] = sanitize_text_field( $agente );
 			}
 			if ( ! empty( $_POST['billing_idioma_navegador'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
-				update_user_meta( $user_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
+				$data['_billing_idioma_navegador_field'] = sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) );
 			}
 			if ( ! empty( $_POST['billing_altura_pantalla'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
-				update_user_meta( $user_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
+				$data['_billing_altura_pantalla_field'] = sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) );
 			}
 			if ( ! empty( $_POST['billing_anchura_pantalla'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
-				update_user_meta( $user_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
+				$data['_billing_anchura_pantalla_field'] = sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) );
 			}
 			if ( ! empty( $_POST['billing_profundidad_color'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
-				update_user_meta( $user_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
+				$data['_billing_profundidad_color_field'] = sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) );
 			}
 			if ( ! empty( $_POST['billing_diferencia_horaria'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
-				update_user_meta( $user_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
+				$data['_billing_diferencia_horaria_field'] = sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) );
 			}
 			if ( ! empty( $_POST['_temp_redsys_order_number'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_temp_redsys_order_number', sanitize_text_field( wp_unslash( $_POST['_temp_redsys_order_number'] ) ) );
+				$data['_temp_redsys_order_number'] = sanitize_text_field( wp_unslash( $_POST['_temp_redsys_order_number'] ) );
 			}
 			if ( ! empty( $_POST['_redsys_save_token'] ) && 'yes' === $_POST['_redsys_save_token'] ) {
-				WCRed()->update_order_meta( $order_id, '_redsys_save_token', sanitize_text_field( wp_unslash( $_POST['_redsys_save_token'] ) ) );
+				$data['_redsys_save_token'] = sanitize_text_field( wp_unslash( $_POST['_redsys_save_token'] ) );
 			}
 			if ( ! empty( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
 				set_transient( $order_id . '_insite_use_token', sanitize_text_field( wp_unslash( $_POST['token'] ), 36000 ) );
@@ -7487,13 +7461,12 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				set_transient( $order_id . '_redsys_token_type', 'no', 36000 );
 			}
 			if ( ! empty( $_POST['billing_tz_horaria'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
-				update_user_meta( $user_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
+				$data['_billing_tz_horaria_field'] = sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) );
 			}
 			if ( ! empty( $_POST['billing_js_enabled_navegador'] ) ) {
-				WCRed()->update_order_meta( $order_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
-				update_user_meta( $user_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
+				$data['_billing_js_enabled_navegador_field'] = sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) );
 			}
+			WCRed()->update_order_meta( $order_id, $data );
 			do_action( 'save_field_update_order_meta', $_POST );
 		}
 	}

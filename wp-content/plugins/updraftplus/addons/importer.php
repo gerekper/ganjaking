@@ -28,7 +28,7 @@ class UpdraftPlus_Addons_Importer {
 		add_filter('updraftplus_if_foreign_then_premium_message', array($this, 'if_foreign_then_premium_message'));
 	}
 
-	public function foreign_allow_missing_entity($allow, $type, $foreign) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function foreign_allow_missing_entity($allow, $type, $foreign) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		// This plugin splits the backup over various sets
 		return ('dropbox-wpadm' == $foreign) ? true : $allow;
 	}
@@ -151,7 +151,7 @@ class UpdraftPlus_Addons_Importer {
 						for ($i=0; $i < $numfiles; $i++) {
 							$si = $zip->statIndex($i);
 							if ('wp-content/backups/wordpress-db-backup.sql' == $si['name']) {
-								@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+								@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 								$btime = $si['mtime'];
 							} elseif (preg_match('#wp-content/backups/(.*)\.sql$#i', $si['name'], $matches)) {
 								if ($si['mtime'] > $latest_mtime) {
@@ -160,7 +160,7 @@ class UpdraftPlus_Addons_Importer {
 								}
 							}
 						}
-						@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					}
 					set_transient($transkey, $btime, 86400*365);
 

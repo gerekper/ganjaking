@@ -1,5 +1,17 @@
 *** Product Vendors Changelog ***
 
+2023-05-12 - version 2.1.77
+* Dev - Added filter hooks on vendor/admin/settings views.
+* Dev - Bump PHP minimum supported version from 7.0 to 7.2.
+* Dev - Bump WooCommerce "tested up to" version 7.4.
+* Dev - Bump WooCommerce "tested up to" version 7.6.
+* Dev - Bump WooCommerce minimum supported version from 6.0 to 6.8.
+* Dev - Bump WordPress "tested up to" version 6.2.
+* Dev - Bump WordPress minimum supported version from 5.6 to 5.8.
+* Dev - Show more detail in PHPCS output.
+* Fix - Rework query logic in Vendor Orders list.
+* Fix - Support form validation.
+
 2023-03-27 - version 2.1.76
 * Dev - Always return array in `get_vendor_data_by_id` even if there's no vendor.
 * Fix - Reporting stats for 'Last Month' are not accurate for logged-in vendor.

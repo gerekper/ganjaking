@@ -95,5 +95,6 @@ class Daemon {
     yield $this->workersFactory->createSubscribersCountCacheRecalculationWorker();
     yield $this->workersFactory->createReEngagementEmailsSchedulerWorker();
     yield $this->workersFactory->createNewsletterTemplateThumbnailsWorker();
+    yield $this->workersFactory->createAbandonedCartWorker();
   }
 }

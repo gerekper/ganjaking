@@ -19,8 +19,8 @@ class Subscribers {
   const MSS_SUPPORT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.support_tier';
   const PREMIUM_KEY_STATE = 'premium.premium_key_state.state';
   const PREMIUM_SUBSCRIBERS_LIMIT_SETTING_KEY = 'premium.premium_key_state.data.site_active_subscriber_limit';
-  const PREMIUM_EMAIL_VOLUME_LIMIT_SETTING_KEY = 'premium.premium_key_state.data.email_volume_limit';
-  const PREMIUM_EMAILS_SENT_SETTING_KEY = 'premium.premium_key_state.data.emails_sent';
+  const MSS_EMAIL_VOLUME_LIMIT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.email_volume_limit';
+  const MSS_EMAILS_SENT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.emails_sent';
   const PREMIUM_SUPPORT_SETTING_KEY = 'premium.premium_key_state.data.support_tier';
   const SUBSCRIBERS_COUNT_CACHE_KEY = 'mailpoet_subscribers_count';
   const SUBSCRIBERS_COUNT_CACHE_EXPIRATION_MINUTES = 60;
@@ -47,18 +47,27 @@ class Subscribers {
 
   public function check(): bool {
     $limit = $this->getSubscribersLimit();
-    if ($limit === false) return false;
     $subscribersCount = $this->getSubscribersCount();
-    return $subscribersCount > $limit;
+    if ($limit && $subscribersCount > $limit) {
+      return true;
+    }
+    // We don't have data from MSS, or they might be outdated so we need to check accessibility restrictions
+    $mssStateData = $this->settings->get(Bridge::API_KEY_STATE_SETTING_NAME);
+    $restriction = $mssStateData['access_restriction'] ?? '';
+    return $restriction === Bridge::KEY_ACCESS_SUBSCRIBERS_LIMIT;
   }
 
   public function checkEmailVolumeLimitIsReached(): bool {
+    // We have data from MSS and we can determine based on the data
     $emailVolumeLimit = $this->getEmailVolumeLimit();
-    if (!$emailVolumeLimit) {
-      return false;
-    }
     $emailsSent = $this->getEmailsSent();
-    return $emailsSent > $emailVolumeLimit;
+    if ($emailVolumeLimit && $emailsSent > $emailVolumeLimit) {
+      return true;
+    }
+    // We don't have data from MSS, or they might be outdated so we need to check accessibility restrictions
+    $mssStateData = $this->settings->get(Bridge::API_KEY_STATE_SETTING_NAME);
+    $restriction = $mssStateData['access_restriction'] ?? '';
+    return $restriction === Bridge::KEY_ACCESS_EMAIL_VOLUME_LIMIT;
   }
 
   public function getSubscribersCount(): int {
@@ -75,20 +84,32 @@ class Subscribers {
     return $count;
   }
 
+  /**
+   * Returns true if key is valid or valid but underprivileged
+   * Do not use the method to check if key is valid for sending emails or premium
+   * This only means that the Bridge can authenticate the key.
+   * @return bool
+   */
   public function hasValidApiKey(): bool {
-    return $this->hasValidMssKey() || $this->hasValidPremiumKey();
+    $mssState = $this->settings->get(self::MSS_KEY_STATE);
+    $premiumState = $this->settings->get(self::PREMIUM_KEY_STATE);
+    return $this->hasValidMssKey()
+      || $this->hasValidPremiumKey()
+      || $mssState === Bridge::KEY_VALID_UNDERPRIVILEGED
+      || $premiumState === Bridge::KEY_VALID_UNDERPRIVILEGED;
   }
 
   public function getSubscribersLimit() {
     if (!$this->hasValidApiKey()) {
       return $this->getFreeSubscribersLimit();
     }
-
-    if ($this->hasValidMssKey() && $this->hasMssSubscribersLimit()) {
+    $mssState = $this->settings->get(self::MSS_KEY_STATE);
+    if (($this->hasValidMssKey() || $mssState === Bridge::KEY_VALID_UNDERPRIVILEGED) && $this->hasMssSubscribersLimit()) {
       return $this->getMssSubscribersLimit();
     }
 
-    if ($this->hasValidPremiumKey() && $this->hasPremiumSubscribersLimit()) {
+    $premiumState = $this->settings->get(self::PREMIUM_KEY_STATE);
+    if (($this->hasValidPremiumKey() || $premiumState === Bridge::KEY_VALID_UNDERPRIVILEGED) && $this->hasPremiumSubscribersLimit()) {
       return $this->getPremiumSubscribersLimit();
     }
 
@@ -96,11 +117,11 @@ class Subscribers {
   }
 
   public function getEmailVolumeLimit(): int {
-    return (int)$this->settings->get(self::PREMIUM_EMAIL_VOLUME_LIMIT_SETTING_KEY);
+    return (int)$this->settings->get(self::MSS_EMAIL_VOLUME_LIMIT_SETTING_KEY);
   }
 
   public function getEmailsSent(): int {
-    return (int)$this->settings->get(self::PREMIUM_EMAILS_SENT_SETTING_KEY);
+    return (int)$this->settings->get(self::MSS_EMAILS_SENT_SETTING_KEY);
   }
 
   public function hasValidMssKey() {

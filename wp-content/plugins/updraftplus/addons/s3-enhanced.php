@@ -186,7 +186,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 	 *
 	 * @return Array - results (with keys dependent upon the outcome)
 	 */
-	public function newuser_go($initial_value = array(), $settings_values = array()) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function newuser_go($initial_value = array(), $settings_values = array()) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		if (empty($settings_values['adminaccesskey'])) {
 			return array('e' => 1, 'm' => __('You need to enter an admin access key', 'updraftplus'));
@@ -256,14 +256,14 @@ class UpdraftPlus_Addon_S3_Enhanced {
 			$path = "";
 		}
 		
-		$location = @$storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$location = @$storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 		if ($location) {
 			$bucket_exists = true;
 		}
 		
 		if (!isset($bucket_exists)) {
 			$storage->useDNSBucketName(true);
-			$gb = @$storage->getBucket($bucket, null, null, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			$gb = @$storage->getBucket($bucket, null, null, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged  -- Silenced to suppress errors that may arise because of the method.
 			if (false !== $gb) {
 				$bucket_exists = true;
 				$location = '';
@@ -273,7 +273,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		if (!isset($bucket_exists)) {
 			$storage->setExceptions(true);
 			try {
-				$try_to_create_bucket = @$storage->putBucket($bucket, 'private', $region);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				$try_to_create_bucket = @$storage->putBucket($bucket, 'private', $region);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 			} catch (Exception $e) {
 				$try_to_create_bucket = false;
 				$s3_error = $e->getMessage();

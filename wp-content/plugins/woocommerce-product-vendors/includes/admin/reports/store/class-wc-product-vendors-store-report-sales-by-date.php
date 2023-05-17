@@ -243,7 +243,14 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 
 		$this->calculate_current_range( $this->current_range );
 
-		include( 'views/html-report-by-date.php' );
+		/**
+		 * Optionally override the views/html-report-by-date.php view: filters must return a string to be passed into include_once.
+		 *
+		 * @since 2.1.77
+		 *
+		 * @param string $path Default path to the view.
+		 */
+		include( apply_filters( 'wcpv_report_by_date_template', 'views/html-report-by-date.php' ) );
 	}
 
 	/**

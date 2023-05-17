@@ -26,18 +26,18 @@ class UpdraftPlus_Addon_CloudFilesEnhanced {
 
 	private $regions;
 	
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		add_action('updraftplus_settings_page_init', array($this, 'updraftplus_settings_page_init'));
-		add_action('plugins_loaded', array($this, 'plugins_loaded'));
 		add_action('updraft_cloudfiles_newuser', array($this, 'newuser'));
 		add_filter('updraft_cloudfiles_apikeysetting', array($this, 'apikeysettings'));
 	}
-
-	public function plugins_loaded() {
-		$this->title = __('Rackspace Cloud Files, enhanced', 'updraftplus');
-		$this->description = __('Adds enhanced capabilities for Rackspace Cloud Files users', 'updraftplus');
-	}
 	
+	/**
+	 * Called by the WP action updraftplus_settings_page_init
+	 */
 	public function updraftplus_settings_page_init() {
 		
 		$this->accounts = array(

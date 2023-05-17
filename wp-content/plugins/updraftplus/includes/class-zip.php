@@ -244,7 +244,7 @@ class UpdraftPlus_PclZip {
 		// Route around PHP bug (exact version with the problem not known)
 		$ziparchive_create_match = (version_compare(PHP_VERSION, '5.2.12', '>') && defined('ZIPARCHIVE::CREATE')) ? ZIPARCHIVE::CREATE : 1;
 
-		if ($flags == $ziparchive_create_match && file_exists($path)) @unlink($path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if ($flags == $ziparchive_create_match && file_exists($path)) @unlink($path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$this->pclzip = new PclZip($path);
 
@@ -432,7 +432,7 @@ class UpdraftPlus_BinZip extends UpdraftPlus_PclZip {
 		global $updraftplus, $updraftplus_backup;
 
 		// BinZip does not like zero-sized zip files
-		if (file_exists($this->path) && 0 == filesize($this->path)) @unlink($this->path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (file_exists($this->path) && 0 == filesize($this->path)) @unlink($this->path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$descriptorspec = array(
 			0 => array('pipe', 'r'),
@@ -503,7 +503,7 @@ class UpdraftPlus_BinZip extends UpdraftPlus_PclZip {
 						$last_recorded_alive = time();
 					}
 					if (file_exists($this->path)) {
-						$new_size = @filesize($this->path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						$new_size = @filesize($this->path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 						if (!$something_useful_happened && $new_size > $orig_size + 20) {
 							UpdraftPlus_Job_Scheduler::something_useful_happened();
 							$something_useful_happened = true;

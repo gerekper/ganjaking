@@ -105,10 +105,13 @@ class WC_Bookings_Create {
 				}
 
 				if ( $order_id ) {
-					$item_id  = wc_add_order_item( $order_id, array(
-						'order_item_name' => $product->get_title(),
-						'order_item_type' => 'line_item',
-					) );
+					$item_id = wc_add_order_item(
+						$order_id,
+						array(
+							'order_item_name' => $product->get_title(),
+							'order_item_type' => 'line_item',
+						)
+					);
 
 					if ( ! $item_id ) {
 						throw new Exception( __( 'Error: Could not create item', 'woocommerce-bookings' ) );
@@ -128,7 +131,9 @@ class WC_Bookings_Create {
 							'country',
 							'phone',
 						);
-						$types = array( 'shipping', 'billing' );
+						$types = $product->is_virtual() ?
+							array( 'billing' ) :
+							array( 'shipping', 'billing' );
 
 						foreach ( $types as $type ) {
 							foreach ( $keys as $key ) {
@@ -180,11 +185,11 @@ class WC_Bookings_Create {
 
 		switch ( $step ) {
 			case 1:
-				include( 'views/html-create-booking-page.php' );
+				include 'views/html-create-booking-page.php';
 				break;
 			case 2:
 				add_filter( 'wc_get_template', array( $this, 'use_default_form_template' ), 10, 5 );
-				include( 'views/html-create-booking-page-2.php' );
+				include 'views/html-create-booking-page-2.php';
 				remove_filter( 'wc_get_template', array( $this, 'use_default_form_template' ), 10 );
 				break;
 		}
@@ -194,7 +199,7 @@ class WC_Bookings_Create {
 	 * Create order.
 	 *
 	 * @param  float $total
-	 * @param  int $customer_id
+	 * @param  int   $customer_id
 	 * @return int
 	 */
 	public function create_order( $total, $customer_id ) {

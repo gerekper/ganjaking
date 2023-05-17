@@ -4,26 +4,26 @@
   Plugin Name: WooCommerce Recommendation Engine
  * Plugin URI: http://woothemes.com/woocommerce
  * Description: WooCommerce Recommendation Engine is a smart recommendation engine for your store, providing automatic cross sells based on users viewing and purcahsing history.
- * Version: 3.2.9
+ * Version: 3.3.0
  * Author: Element Stark
  * Author URI: http://www.elementstark.com
- * Requires at least: 3.8.0
- * Tested up to: 6.0
+ * Requires at least: 6.0
+ * Tested up to: 6.2
  *
  * Text Domain: wc_recommender
- * Copyright: © 2009-2022 Element Stark LLC.
+ * Copyright: © 2009-2023 Element Stark LLC.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * Woo: 216821:a3d370f38edc35cdc5bc41a4041ed308
- * WC requires at least: 3.0.0
- * WC tested up to: 6.5
+ * WC requires at least: 7.0
+ * WC tested up to: 7.7
  */
 
 /**
  * Required functions
  */
-if ( !function_exists( 'woothemes_queue_update' ) ) {
+if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
 }
 
@@ -38,7 +38,7 @@ if ( is_woocommerce_active() ) {
 	/**
 	 * woocommerce_product_addons class
 	 * */
-	if ( !class_exists( 'WC_Recommendation_Engine' ) ) {
+	if ( ! class_exists( 'WC_Recommendation_Engine' ) ) {
 
 		class WC_Recommendation_Engine {
 
@@ -87,7 +87,7 @@ if ( is_woocommerce_active() ) {
 
 
 				add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
-				add_action('plugins_loaded', array($this, 'register_cli_command'));
+				add_action( 'plugins_loaded', array( $this, 'register_cli_command' ) );
 
 				if ( is_admin() ) {
 					add_action( 'admin_notices', array( self::$message_controller, 'show_messages' ) );
@@ -100,7 +100,7 @@ if ( is_woocommerce_active() ) {
 					WC_Recommender_Admin::register();
 
 
-					if ( !defined( 'DOING_AJAX' ) ) {
+					if ( ! defined( 'DOING_AJAX' ) ) {
 						require 'admin/class-wc-recommender-installer.php';
 						require 'admin/class-wc-recommender-admin-settings.php';
 
@@ -121,7 +121,7 @@ if ( is_woocommerce_active() ) {
 
 
 				// Record data when a new order is placed
-				add_action( 'woocommerce_checkout_order_processed', array( &$this, 'record_item_ordered' ), 100 );
+				add_action( 'woocommerce_checkout_order_processed', array( &$this, 'record_items_ordered' ), 100 );
 
 				// Record data when a new order is completed
 				add_action( 'woocommerce_order_status_completed', array( &$this, 'record_update_order' ) );
@@ -156,7 +156,7 @@ if ( is_woocommerce_active() ) {
 				if ( get_option( 'woocommerce_recommender_db_version' ) != $this->version ) {
 					add_action( 'init', 'install_woocommerce_recommender', 99 );
 
-					if ( !wp_next_scheduled( 'wc_recommender_build' ) ) {
+					if ( ! wp_next_scheduled( 'wc_recommender_build' ) ) {
 						wp_schedule_event( time(), 'twicedaily', 'wc_recommender_build' );
 					}
 				}
@@ -167,7 +167,7 @@ if ( is_woocommerce_active() ) {
 			 */
 			public function activate() {
 				activate_woocommerce_recommender();
-				if ( !wp_next_scheduled( 'wc_recommender_build' ) ) {
+				if ( ! wp_next_scheduled( 'wc_recommender_build' ) ) {
 					wp_schedule_event( time(), 'twicedaily', 'wc_recommender_build' );
 				}
 			}
@@ -184,9 +184,9 @@ if ( is_woocommerce_active() ) {
 			}
 
 			public function on_woocommerce_init() {
-				if ( !(is_admin() || defined( 'DOING_AJAX' ) ) && !defined( 'DOING_CRON' ) && ! $this->is_rest_api_request() && !is_checkout() && !is_checkout_pay_page() ) {
+				if ( ! ( is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! $this->is_rest_api_request() && ! is_checkout() && ! is_checkout_pay_page() ) {
 					//We need to force WooCommerce to set the session cookie
-					if ( WC()->session && !WC()->session->has_session() ) {
+					if ( WC()->session && ! WC()->session->has_session() ) {
 						WC()->session->set_customer_session_cookie( true );
 					}
 				}
@@ -231,7 +231,7 @@ if ( is_woocommerce_active() ) {
 			 *
 			 * @param int $order_id
 			 */
-			public function record_item_ordered( $order_id ) {
+			public function record_items_ordered( $order_id ) {
 				$order       = new WC_Order( $order_id );
 				$order_items = $order->get_items();
 				foreach ( $order_items as $item ) {
@@ -295,9 +295,11 @@ if ( is_woocommerce_active() ) {
 
 			/**
 			 * Hooks into the delete_post action.  Removes items from session history when the products and orders are deleted.
-			 * @global wpdb $wpdb
 			 *
 			 * @param int $post_id
+			 *
+			 * @global wpdb $wpdb
+			 *
 			 */
 			public function on_delete_post( $post_id ) {
 				global $wpdb;

@@ -24,7 +24,14 @@ class WC_Product_Vendors_Vendor_Reports {
 		$current_tab    = ! empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : $first_tab[0];
 		$current_report = isset( $_GET['report'] ) ? sanitize_title( $_GET['report'] ) : current( array_keys( $reports[ $current_tab ]['reports'] ) );
 
-		include_once( 'views/html-vendor-reports-page.php' );
+		/**
+		 * Optionally override the views/html-vendor-reports-page.php view: filters must return a string to be passed into include_once.
+		 *
+		 * @since 2.1.77
+		 *
+		 * @param string $path Default path to the view.
+		 */
+		include_once( apply_filters( 'wcpv_vendor_reports_page_template', 'views/html-vendor-reports-page.php' ) );
 	}
 
 	/**

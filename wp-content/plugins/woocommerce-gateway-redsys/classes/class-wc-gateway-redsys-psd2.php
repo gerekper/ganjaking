@@ -370,13 +370,31 @@ class WC_Gateway_Redsys_PSD2 {
 		 * Copyright: (C) 2013 - 2023 José Conti
 		 */
 		$data = WCRed()->get_order_meta( $order_id, '_billing_profundidad_color_field', true );
+		$this->debug( 'get_profundidad_color() $data: ' . $data );
 
 		if ( $data ) {
-			$this->debug( '_billing_profundidad_color_field: ' . $data );
+			if ( $data < '4' ) {
+				$data = '1';
+			} elseif ( $data < '8' ) {
+				$data = '4';
+			} elseif ( $data < '15' ) {
+				$data = '8';
+			} elseif ( $data < '16' ) {
+				$data = '15';
+			} elseif ( $data < '24' ) {
+				$data = '16';
+			} elseif ( $data < '32' ) {
+				$data = '24';
+			} elseif ( $data < '48' ) {
+				$data = '32';
+			} elseif ( '48' >= $data ) {
+				$data = '48';
+			}
+			$this->debug( 'get_profundidad_color() $data existe _billing_profundidad_color_field: ' . $data );
 			return $data;
 		} else {
 			$data = '1';
-			$this->debug( '_billing_profundidad_color_field: ' . $data );
+			$this->debug( 'get_profundidad_color() $data NO existe _billing_profundidad_color_field: ' . $data );
 			return $data;
 		}
 	}
@@ -516,11 +534,32 @@ class WC_Gateway_Redsys_PSD2 {
 		 * Copyright: (C) 2013 - 2023 José Conti
 		 */
 		$data = get_user_meta( $user_id, '_billing_profundidad_color_field', true );
+		$this->debug( 'get_profundidad_color_user() $data: ' . $data );
 
 		if ( $data ) {
+			if ( $data < '4' ) {
+				$data = '1';
+			} elseif ( $data < '8' ) {
+				$data = '4';
+			} elseif ( $data < '15' ) {
+				$data = '8';
+			} elseif ( $data < '16' ) {
+				$data = '15';
+			} elseif ( $data < '24' ) {
+				$data = '16';
+			} elseif ( $data < '32' ) {
+				$data = '24';
+			} elseif ( $data < '48' ) {
+				$data = '32';
+			} elseif ( '48' >= $data ) {
+				$data = '48';
+			}
+			$this->debug( 'get_profundidad_color_user() $data existe _billing_profundidad_color_field: ' . $data );
 			return $data;
 		} else {
-			return '1';
+			$this->debug( 'get_profundidad_color_user() $data NO existe _billing_profundidad_color_field: ' . $data );
+			$data = '1';
+			return $data;
 		}
 	}
 	/**
@@ -585,6 +624,23 @@ class WC_Gateway_Redsys_PSD2 {
 			$shipnameindicator = '01';
 		}
 		return $shipnameindicator;
+	}
+	/**
+	 * Get State Code Redsys.
+	 *
+	 * @param string $state State.
+	 * @return string|bool
+	 */
+	public function get_state_code( $state = false ) {
+		if ( $state ) {
+			$state = preg_replace( '/^[A-Z]+-/', '', $state );
+			if ( strlen( $state ) > 3 ) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		return $state;
 	}
 	/**
 	 * Get acctinfo
@@ -737,45 +793,53 @@ class WC_Gateway_Redsys_PSD2 {
 		if ( $order->get_billing_postcode() !== '' ) {
 			$ds_merchant_emv3ds['billAddrPostCode'] = $this->clean_data( $order->get_billing_postcode() );
 		}
+		if ( $order->get_shipping_state() !== '' ) {
+			$state = $this->get_state_code( strtoupper( $this->clean_data( $order->get_shipping_state() ) ) );
+			if ( $state ) {
+				$ds_merchant_emv3ds['billAddrState'] = $state;
+			}
+		}
 		if ( $order->get_billing_state() !== '' ) {
-			$ds_merchant_emv3ds['billAddrState'] = strtoupper( $this->clean_data( $order->get_billing_state() ) );
+			$state = $this->get_state_code( strtoupper( $this->clean_data( $order->get_billing_state() ) ) );
+			if ( $state ) {
+				$ds_merchant_emv3ds['billAddrState'] = $state;
+			}
 		}
 		if ( $order->get_billing_country() !== '' ) {
 			$ds_merchant_emv3ds['billAddrCountry'] = WCRed()->get_country_codes_3( $order->get_billing_country() );
 		}
 		$ds_merchant_emv3ds['Email']    = $this->get_email( $order );
 		$ds_merchant_emv3ds['acctInfo'] = $acct_info;
-		if ( $this->get_homephone( $order ) !== '' ) {
-			$ds_merchant_emv3ds['homePhone'] = array( 'subscriber' => $this->get_homephone( $order ) );
+		if ( $this->get_homephone( $order ) !== '' && $order->get_billing_country() !== '' ) {
+			$ds_merchant_emv3ds['homePhone'] = array(
+				'subscriber' => $this->get_homephone( $order ),
+				'cc'         => WCRed()->get_country_codes_2( $order->get_billing_country() ),
+			);
 		}
 		/**
 		 * TO-DO: suspiciousAccActivity, en una futura versión añadiré un meta a los usuarios para que el admistrador pueda marcar alguna cuenta fraudulenta o que ha habido algún problema.
 		 */
 
-		if ( $order->get_shipping_address_2() !== '' ) {
-			$ds_merchant_emv3ds['billAddrLine2'] = $this->clean_data( $order->get_shipping_address_2() );
-		}
 		if ( $order->has_shipping_address() ) {
-			if ( $this->clean_data( $order->get_shipping_city() !== '' ) ) {
+			if ( $order->get_shipping_city() !== '' ) {
 				$ds_merchant_emv3ds['shipAddrCity'] = $this->clean_data( $order->get_shipping_city() );
 			}
 
-			if ( $this->clean_data( $order->get_shipping_address_1() !== '' ) ) {
+			if ( $order->get_shipping_address_1() !== '' ) {
 				$ds_merchant_emv3ds['shipAddrLine1'] = $this->clean_data( $order->get_shipping_address_1() );
 			}
 
-			if ( $this->clean_data( $order->get_shipping_postcode() !== '' ) ) {
+			if ( $order->get_shipping_postcode() !== '' ) {
 				$ds_merchant_emv3ds['shipAddrPostCode'] = $this->clean_data( $order->get_shipping_postcode() );
 			}
-			if ( $this->clean_data( $order->get_shipping_state() !== '' ) ) {
-				$ds_merchant_emv3ds['shipAddrState'] = strtoupper( $this->clean_data( $order->get_shipping_state() ) );
+			if ( $order->get_shipping_state() !== '' ) {
+				$state = $this->get_state_code( strtoupper( $this->clean_data( $order->get_shipping_state() ) ) );
+				if ( $state ) {
+					$ds_merchant_emv3ds['shipAddrState'] = $state;
+				}
 			}
 			if ( $order->get_shipping_country() !== '' ) {
 				$ds_merchant_emv3ds['shipAddrCountry'] = WCRed()->get_country_codes_3( $order->get_shipping_country() );
-			}
-
-			if ( $order->get_shipping_address_2() !== '' ) {
-				$ds_merchant_emv3ds['shipAddrLine2'] = $this->clean_data( $order->get_shipping_address_2() );
 			}
 		}
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {

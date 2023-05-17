@@ -4,12 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1
+class ComposerStaticInitec9f036f36a966a3253a9d48a939695c
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
@@ -39,6 +39,7 @@ class ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1
         ),
         'A' => 
         array (
+            'Aws\\Sns\\' => 8,
             'Aws\\' => 4,
         ),
     );
@@ -71,6 +72,10 @@ class ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Aws\\Sns\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aws/aws-php-sns-message-validator/src',
         ),
         'Aws\\' => 
         array (
@@ -802,7 +807,10 @@ class ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1
         'Aws\\Sms\\SmsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sms/SmsClient.php',
         'Aws\\SnowBall\\Exception\\SnowBallException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SnowBall/Exception/SnowBallException.php',
         'Aws\\SnowBall\\SnowBallClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SnowBall/SnowBallClient.php',
+        'Aws\\Sns\\Exception\\InvalidSnsMessageException' => __DIR__ . '/..' . '/aws/aws-php-sns-message-validator/src/Exception/InvalidSnsMessageException.php',
         'Aws\\Sns\\Exception\\SnsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sns/Exception/SnsException.php',
+        'Aws\\Sns\\Message' => __DIR__ . '/..' . '/aws/aws-php-sns-message-validator/src/Message.php',
+        'Aws\\Sns\\MessageValidator' => __DIR__ . '/..' . '/aws/aws-php-sns-message-validator/src/MessageValidator.php',
         'Aws\\Sns\\SnsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sns/SnsClient.php',
         'Aws\\Sqs\\Exception\\SqsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sqs/Exception/SqsException.php',
         'Aws\\Sqs\\SqsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sqs/SqsClient.php',
@@ -978,9 +986,9 @@ class ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc972e5e91f8b219f1680861ca6a05fc1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitec9f036f36a966a3253a9d48a939695c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitec9f036f36a966a3253a9d48a939695c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitec9f036f36a966a3253a9d48a939695c::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,5 +1,17 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.05.12 - version 7.10.0
+* New: Tested up to WooCommerce 7.7.0
+* New: During coupon import process, option to choose to update existing coupons
+* Fix: Unnecessarily displaying coupon field 'Disable email restriction?' in auto-generated coupons
+* Fix: Warning: Invalid argument supplied for foreach '$taxonomy_restrictions'
+* Fix: Fatal error: Uncaught Error: Call to a member function getOffsetTimestamp on null when importing CSV file containing existing coupons
+* Fix: Coupon method 'set_used_by' expects parameter to be an array
+* Tweak: Query performance improvement when loading store-wide coupons
+* Tweak: Improvements in method 'sc_get_option'
+* Update: Maintain & show count of coupons skipped during bulk generate or import process
+* Update: POT file
+
 2023.05.05 - version 7.9.0
 * Fix: Data under the coupon field 'Actions > Display message' is broken when saved
 * Fix: Replaced use of function 'WC_Product::get_parent' with 'WC_Product::get_parent_id'

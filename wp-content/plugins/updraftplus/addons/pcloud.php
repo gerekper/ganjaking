@@ -526,7 +526,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 						<br>
 						{{ownername_sentence}}
 					{{/if}}
-					<p><a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a></p>
+					<p><a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&nonce={{storage_auth_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a></p>
 				</td>
 				<input type="hidden" id="{{get_template_input_attribute_value "id" "pcllocation"}}" name="{{get_template_input_attribute_value "name" "pcllocation"}}" value="{{pcllocation}}">
 			</tr>

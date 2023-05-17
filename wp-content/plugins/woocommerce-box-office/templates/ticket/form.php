@@ -5,12 +5,12 @@
 
 	<p class="buttons">
 		<?php if ( $editable ) : ?>
-			<input type="submit" class="button" value="<?php _e( 'Update', 'woocommerce-box-office' ); ?>" />
+			<input type="submit" class="button" value="<?php esc_attr_e( 'Update', 'woocommerce-box-office' ); ?>" />
 		<?php endif; ?>
 
 		<?php if ( $print_ticket_enabled ) : ?>
 			<a href="<?php echo esc_url( $print_ticket_url ); ?>" target="_blank" class="button">
-				<?php _e( 'Print ticket', 'woocommerce-box-office' ); ?>
+				<?php esc_html_e( 'Print ticket', 'woocommerce-box-office' ); ?>
 			</a>
 		<?php endif; ?>
 	</p>

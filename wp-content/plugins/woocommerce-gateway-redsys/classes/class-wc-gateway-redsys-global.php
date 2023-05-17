@@ -220,7 +220,7 @@ class WC_Gateway_Redsys_Global {
 					'span' => array(
 						'class' => array(),
 					),
-				),
+				)
 			),
 			esc_url( $guias ),
 			esc_url( $faq ),
@@ -851,6 +851,39 @@ class WC_Gateway_Redsys_Global {
 	/**
 	 * Get country codes
 	 */
+	public function get_country_codes_phone() {
+
+		include_once REDSYS_PLUGIN_DATA_PATH_P . 'countries-2.php';
+
+		$countries = array();
+		$countries = redsys_get_country_code_2();
+		return $countries;
+	}
+	/**
+	 * Get country codes 2
+	 *
+	 * @param string $country_code_2 Country Code 2.
+	 */
+	public function get_country_codes_2( $country_code_2 ) {
+
+		$countries = array();
+		$countries = $this->get_country_codes_phone();
+
+		if ( $countries ) {
+			foreach ( $countries as $country => $valor ) {
+				$country_2_up = strtoupper( $country_code_2 );
+				if ( $country_2_up === $country ) {
+					return $valor;
+				} else {
+					continue;
+				}
+			}
+		}
+		return false;
+	}
+	/**
+	 * Get country codes
+	 */
 	public function get_country_codes() {
 
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'countries.php';
@@ -1373,6 +1406,38 @@ class WC_Gateway_Redsys_Global {
 		$order = wc_get_order( $order_id );
 		if ( $order ) {
 			return $order->get_meta( $key, $single, $context );
+		}
+		return false;
+	}
+	/**
+	 * Get transient.
+	 *
+	 * @param array  $data Data.
+	 * @param string $order_id Order ID.
+	 */
+	public function set_transient( $data = false, $order_id = false ) {
+		if ( ! $order_id || ! $data ) {
+			return false;
+		}
+		if ( is_array( $data ) ) {
+			$data = array( $data );
+		}
+		$serialized = maybe_serialize( $data );
+		set_transient( 'redsys_transients_' . $order_id, $serialized, 3600 );
+	}
+	/**
+	 * Get transient.
+	 *
+	 * @param string $order_id Order ID.
+	 */
+	public function get_transient( $order_id = false ) {
+		if ( ! $order_id ) {
+			return false;
+		}
+		$transient = get_transient( 'redsys_transients_' . $order_id );
+		if ( $transient ) {
+			$transient = maybe_unserialize( $transient );
+			return $transient;
 		}
 		return false;
 	}

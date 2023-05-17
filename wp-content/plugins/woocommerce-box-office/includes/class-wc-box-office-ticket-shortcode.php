@@ -45,7 +45,7 @@ class WC_Box_Office_Ticket_Shortcode {
 	 */
 	public function my_ticket( $params = array() ) {
 		$params = shortcode_atts( array(
-			'token' => ! empty( $_GET['token'] ) ? $_GET['token'] : ''
+			'token' => ! empty( $_GET['token'] ) ? wc_clean( wp_unslash( $_GET['token'] ) ) : ''
 		), $params );
 
 		$ticket = wc_box_office_get_ticket_by_token( $params['token'] );
@@ -184,7 +184,7 @@ class WC_Box_Office_Ticket_Shortcode {
 
 		$i = 0;
 
-		$html = '<ul class="ticket-list columns-' . $columns . '">' . "\n";
+		$html = '<ul class="ticket-list columns-' . esc_attr( $columns ) . '">' . "\n";
 
 		foreach ( $tickets as $ticket ) {
 			$position = '';
@@ -224,7 +224,7 @@ class WC_Box_Office_Ticket_Shortcode {
 					break;
 
 					case 'url':
-						$url_link = esc_url( $ticket_meta );
+						$url_link = $ticket_meta;
 						$url = str_replace( 'http://', '', $url_link );
 						$url = str_replace( 'https://', '', $url );
 						$url = str_replace( 'www.', '', $url );
@@ -256,7 +256,7 @@ class WC_Box_Office_Ticket_Shortcode {
 				$full_name .= $last_name;
 			}
 
-			$html .= '<li class="' . $position . '">' . "\n";
+			$html .= '<li class="' . esc_attr( $position ) . '">' . "\n";
 
 			if ( $avatar ) {
 				$html .= '<div>' . $avatar . '</div>' . "\n";
@@ -269,7 +269,7 @@ class WC_Box_Office_Ticket_Shortcode {
 			}
 
 			if ( $url ) {
-				$html .= '<a href="' . $url_link . '">' . $url . '</a><br/>' . "\n";
+				$html .= '<a href="' . esc_url( $url_link ) . '">' . esc_html( $url ) . '</a><br/>' . "\n";
 			}
 
 			if ( $twitter ) {
@@ -349,7 +349,7 @@ class WC_Box_Office_Ticket_Shortcode {
 			'show_content'    => false,
 			'content'         => $content,
 			'show_email_form' => true,
-			'email'           => ! empty( $_POST['ticket_email'] ) ? $_POST['ticket_email'] : '',
+			'email'           => ! empty( $_POST['ticket_email'] ) ? wc_clean( wp_unslash( $_POST['ticket_email'] ) ) : '',
 			'notice'          => '',
 			'notice_type'     => '',
 			'product_id'      => $atts['product_id'],
@@ -405,14 +405,14 @@ class WC_Box_Office_Ticket_Shortcode {
 			return;
 		}
 
-		$email = ! empty( $_POST['ticket_email'] ) ? $_POST['ticket_email'] : '';
+		$email = ! empty( $_POST['ticket_email'] ) ? wc_clean( wp_unslash( $_POST['ticket_email'] ) ) : '';
 		if ( ! is_email( $email ) ) {
 			$this->_notice_type_link_retrieval = 400;
 			$this->_notice_link_retrieval = __( 'The e-mail address you have entered does not seem to be valid.', 'woocommerce-box-office' );
 			return;
 		}
 
-		$product_id = ! empty( $_POST['ticket_product_id'] ) ? $_POST['ticket_product_id'] : '';
+		$product_id = ! empty( $_POST['ticket_product_id'] ) ? wc_clean( wp_unslash( $_POST['ticket_product_id'] ) ) : '';
 
 		// Get ticket by email.
 		$ticket = wc_box_office_get_ticket_by_email( $email, $product_id );

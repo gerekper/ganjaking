@@ -1,5 +1,10 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-05-14 - version 2.6.15
+* Fix: Logic bug in is_time_expired(). Caused API Manager Subscriptions with an access expires zero value, meaning infinite/lifetime, to be deleted during cleanup.
+* Tweak: Replace use of is_int() with is_numeric().
+* Tweak: Deprecate is_access_expired() which was a wrapper for is_time_expired().
+
 2023-05-04 - version 2.6.14
 * New: Added the option to Hide the Master API Key on WooCommerce > Settings > API Manager.
 * Update: Updated templates/emails/plain/api-keys-order-complete.php.

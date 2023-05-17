@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -277,6 +277,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 			delete_option( 'current_time_woo_sc' );
 			delete_option( 'all_tasks_count_woo_sc' );
 			delete_option( 'remaining_tasks_count_woo_sc' );
+			delete_option( 'skipped_tasks_count_woo_sc' );
 			delete_option( 'bulk_coupon_action_woo_sc' );
 		}
 
@@ -560,12 +561,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 					<?php
 				} else {
 					$background_coupon_process_result = get_option( 'wc_sc_background_coupon_process_result' );
-					$woo_sc_action_data               = get_option( 'woo_sc_action_data', false );
 					if ( false !== $background_coupon_process_result ) {
+						$woo_sc_action_data      = get_option( 'woo_sc_action_data', false );
+						$update_existing_coupons = get_option( 'wc_sc_update_existing_coupons' );
 						switch ( $background_coupon_process_result['action'] ) {
 							case 'import_email':
 								$action_title = __( 'Coupon import', 'woocommerce-smart-coupons' );
-								$action_text  = __( 'added & emailed', 'woocommerce-smart-coupons' );
+								$action_text  = ( 'yes' === $update_existing_coupons ) ? __( 'updated & emailed', 'woocommerce-smart-coupons' ) : __( 'added & emailed', 'woocommerce-smart-coupons' );
 								break;
 							case 'generate_email':
 								$action_title = __( 'Coupon bulk generation', 'woocommerce-smart-coupons' );
@@ -573,7 +575,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								break;
 							case 'import':
 								$action_title = __( 'Coupon import', 'woocommerce-smart-coupons' );
-								$action_text  = __( 'added', 'woocommerce-smart-coupons' );
+								$action_text  = ( 'yes' === $update_existing_coupons ) ? __( 'updated', 'woocommerce-smart-coupons' ) : __( 'added', 'woocommerce-smart-coupons' );
 								break;
 							case 'send_store_credit':
 								$action_title = __( 'Store credit', 'woocommerce-smart-coupons' );
@@ -598,8 +600,14 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 						<div id="wc_sc_coupon_background_progress" class="updated" style="background-color: #f0fff0;">
 							<p>
 								<strong><?php echo esc_html( $action_title ); ?></strong>:&nbsp;
-								<?php echo esc_html__( 'Successfully', 'woocommerce-smart-coupons' ) . ' ' . esc_html( $action_text ) . ' ' . esc_html( $background_coupon_process_result['successful'] ) . ' ' . esc_html( _n( $coupon_text['single'], $coupon_text['plural'], $background_coupon_process_result['successful'], 'woocommerce-smart-coupons' ) ) . '.'; // phpcs:ignore ?>
-
+								<?php
+								if ( ! empty( $background_coupon_process_result['successful'] ) ) {
+									echo esc_html__( 'Successfully', 'woocommerce-smart-coupons' ) . ' ' . esc_html( $action_text ) . ' ' . esc_html( $background_coupon_process_result['successful'] ) . ' ' . esc_html( _n( $coupon_text['single'], $coupon_text['plural'], $background_coupon_process_result['successful'], 'woocommerce-smart-coupons' ) ) . '. '; // phpcs:ignore
+								}
+								if ( ! empty( $background_coupon_process_result['skipped'] ) ) {
+									echo esc_html__( 'Skipped', 'woocommerce-smart-coupons' ) . ' ' . esc_html( $background_coupon_process_result['skipped'] ) . ' ' . esc_html( _n( $coupon_text['single'], $coupon_text['plural'], $background_coupon_process_result['skipped'], 'woocommerce-smart-coupons' ) ) . '.'; // phpcs:ignore
+								}
+								?>
 							</p>
 							<?php
 							if ( ! empty( $woo_sc_action_data ) ) {
@@ -970,11 +978,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 									$bulk_coupon_action    = get_option( 'bulk_coupon_action_woo_sc' );
 									$all_tasks_count       = get_option( 'all_tasks_count_woo_sc' );
 									$remaining_tasks_count = get_option( 'remaining_tasks_count_woo_sc' );
+									$skipped_tasks_count   = get_option( 'skipped_tasks_count_woo_sc' );
 									$success_count         = $all_tasks_count - $remaining_tasks_count;
 
 									$coupon_background_process_result = array(
 										'action'     => $bulk_coupon_action,
-										'successful' => $success_count,
+										'successful' => $success_count - $skipped_tasks_count,
+										'skipped'    => $skipped_tasks_count,
 									);
 
 									delete_option( 'bulk_coupon_action_woo_sc' );
@@ -1099,11 +1109,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 							$bulk_coupon_action    = get_option( 'bulk_coupon_action_woo_sc' );
 							$all_tasks_count       = get_option( 'all_tasks_count_woo_sc' );
 							$remaining_tasks_count = get_option( 'remaining_tasks_count_woo_sc' );
+							$skipped_tasks_count   = get_option( 'skipped_tasks_count_woo_sc' );
 							$success_count         = $all_tasks_count - $remaining_tasks_count;
 
 							$coupon_background_process_result = array(
 								'action'     => $bulk_coupon_action,
-								'successful' => $success_count,
+								'successful' => $success_count - $skipped_tasks_count,
+								'skipped'    => $skipped_tasks_count,
 							);
 
 							fclose( $csv_file_handler ); // phpcs:ignore
@@ -1111,6 +1123,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								unlink( $csvfilename ); // phpcs:ignore
 							}
 							update_option( 'woo_sc_is_email_imported_coupons', 'no', 'no' );
+							update_option( 'wc_sc_update_existing_coupons', 'no', 'no' );
 							delete_option( 'bulk_coupon_action_woo_sc' );
 
 							update_option( 'wc_sc_background_coupon_process_result', $coupon_background_process_result, 'no' );

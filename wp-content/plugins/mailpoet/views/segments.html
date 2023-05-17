@@ -27,6 +27,7 @@
     var mailpoet_can_use_woocommerce_subscriptions = <%= json_encode(can_use_woocommerce_subscriptions)  %>;
     var mailpoet_woocommerce_currency_symbol = <%= json_encode(woocommerce_currency_symbol)  %>;
     var mailpoet_woocommerce_countries = <%= json_encode(woocommerce_countries)  %>;
+    var mailpoet_signup_forms = <%= json_encode(signup_forms) %>;
   </script>
 <% endblock %>
 
@@ -63,6 +64,7 @@
     'multipleSegmentsRestored': __('%1$d lists have been restored from the Trash.'),
     'duplicate': __('Duplicate'),
     'listDuplicated': __('List "%1$s" has been duplicated.'),
+    'segmentDuplicated': __('Segment "%1$s" has been duplicated.'),
     'update': __('Update'),
     'forceSync': __('Force Sync'),
     'readMore': __('Read More'),
@@ -152,12 +154,22 @@
     'equals': __('equals'),
     'notEquals': __('not equals'),
     'contains': __('contains'),
+    'notContains': __('does not contain'),
     'value': __('value'),
     'selectValue': __('Select value'),
     'checked': __('checked'),
     'unchecked': __('unchecked'),
     'unknown': __('unknown'),
     'notUnknown': __('not unknown'),
+    'is': __('is'),
+    'isNot': __('is not'),
+    'startsWith': __('starts with'),
+    'notStartsWith': __('does not start with'),
+    'endsWith': __('ends with'),
+    'notEndsWith': __('does not end with'),
+    'firstName': __('First name'),
+    'lastName': __('Last name'),
+    'email': __('Email'),
 
     'before': _x('before', 'Meaning: "Subscriber subscribed before April"'),
     'after': _x('after', 'Meaning: "Subscriber subscribed after April'),
@@ -179,6 +191,7 @@
     'subscriberScorePlaceholder': _x('score', 'Placeholder for input: subscriber engagement score'),
     'subscriberScoreSentence': _x('{condition} {score} %', 'The result will be "higher than 20 %"'),
     'subscribedToList': __('subscribed to list'),
+    'subscribedViaForm': __('subscribed via form'),
     'segmentsSubscriber': __('WordPress user role'),
     'mailpoetCustomField': __('MailPoet custom field'),
     'segmentsActiveMembership': __('is member of'),
@@ -190,6 +203,7 @@
     'searchLists': __('Search lists'),
     'subscriberTag': _x('tag', 'Subscriber tag'),
     'searchTags': _x('Search tags'),
+    'searchForms': __('Search forms'),
 
     'anyOf': __('any of'),
     'allOf': __('all of'),
@@ -211,6 +225,7 @@
     'daysPlaceholder': __('days'),
     'days': _x('days', 'Appears together with `inTheLast` when creating a new WooCommerce segment based on the number of orders.'),
     'inTheLast': _x('in the last', 'Appears together with `days` when creating a new WooCommerce segment based on the number of orders.'),
+    'wooAverageSpent': __('average order value'),
     'wooNumberOfOrdersOrders': __('orders'),
     'wooPurchasedCategory': __('purchased in category'),
     'wooPurchaseDate': __('purchase date'),

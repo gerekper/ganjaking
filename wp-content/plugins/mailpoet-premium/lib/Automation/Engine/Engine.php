@@ -11,11 +11,15 @@ use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndp
 use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates;
+use MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Engine {
   /** @var MailPoetPremiumIntegration */
   private $mailpoetPremiumIntegration;
+
+  /** @var WooCommerceIntegration */
+  private $woocommerceIntegration;
 
   /** @var PremiumAutomationTemplates  */
   private $templateStorage;
@@ -25,10 +29,12 @@ class Engine {
 
   public function __construct(
     MailPoetPremiumIntegration $mailpoetPremiumIntegration,
+    WooCommerceIntegration $woocommerceIntegration,
     PremiumAutomationTemplates $templateStorage,
     WPFunctions $wp
   ) {
     $this->mailpoetPremiumIntegration = $mailpoetPremiumIntegration;
+    $this->woocommerceIntegration = $woocommerceIntegration;
     $this->templateStorage = $templateStorage;
     $this->wp = $wp;
   }
@@ -42,6 +48,11 @@ class Engine {
 
     $this->wp->addAction(AutomationHooks::INITIALIZE, [
       $this->mailpoetPremiumIntegration,
+      'register',
+    ]);
+
+    $this->wp->addAction(AutomationHooks::INITIALIZE, [
+      $this->woocommerceIntegration,
       'register',
     ]);
 

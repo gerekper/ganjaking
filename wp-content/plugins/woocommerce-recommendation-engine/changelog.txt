@@ -1,4 +1,10 @@
 *** WooCommerce Recommendation Engine Changelog ***
+2023.05.12 - version 3.3.0
+    * Update: WC and WP Updates.
+    * Update: Remove hidden and products which are not available to the current user.
+    * Update: Remove legacy code, which was used to support older versions of WC.
+    * Update: Remove legacy async rebuild script.
+
 2022.06.08 - version 3.2.9
     * Fix: Fix view template for the shortcode, woocommerce_related_products_by_status when using the completed status.
     * Update:  Include new filters when rebuilding items directly from the admin dashboard.

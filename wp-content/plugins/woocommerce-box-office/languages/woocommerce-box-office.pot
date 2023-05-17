@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Box Office 1.1.50\n"
+"Project-Id-Version: WooCommerce Box Office 1.1.51\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-box-office\n"
-"POT-Creation-Date: 2023-03-15 23:16:33+00:00\n"
+"POT-Creation-Date: 2023-05-12 17:58:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: includes/class-wc-box-office-cart.php:233
 #: includes/class-wc-box-office-settings.php:127
-#: includes/class-wc-box-office-ticket-form.php:207
+#: includes/class-wc-box-office-ticket-form.php:208
 msgid "Buy Ticket Now"
 msgstr ""
 
@@ -260,7 +260,7 @@ msgid "Buy Ticket Button Button Text Plural"
 msgstr ""
 
 #: includes/class-wc-box-office-settings.php:135
-#: includes/class-wc-box-office-ticket-form.php:212
+#: includes/class-wc-box-office-ticket-form.php:213
 msgid "Buy Tickets Now"
 msgstr ""
 
@@ -445,83 +445,83 @@ msgstr ""
 msgid "Please choose ticket-enabled product"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:172
+#: includes/class-wc-box-office-ticket-create-admin.php:173
 msgid "Error - please try again"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:241
+#: includes/class-wc-box-office-ticket-create-admin.php:242
 msgid "Error: could not create order item"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:431
+#: includes/class-wc-box-office-ticket-create-admin.php:432
 msgid "Missing value for field %s"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:478
+#: includes/class-wc-box-office-ticket-create-admin.php:479
 msgid "Something wrong with field %s."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:583
+#: includes/class-wc-box-office-ticket-create-admin.php:584
 msgid "The product cannot be purchased."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:587
+#: includes/class-wc-box-office-ticket-create-admin.php:588
 msgid "Product is set to sold individually. You can only add one ticket."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:591
+#: includes/class-wc-box-office-ticket-create-admin.php:592
 msgid ""
 "You cannot create ticket for &quot;%s&quot; because the product is out of "
 "stock."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:595
+#: includes/class-wc-box-office-ticket-create-admin.php:596
 msgid ""
 "You cannot create that amount of ticket(s) because there is not enough "
 "stock (%s remaining)."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:623
+#: includes/class-wc-box-office-ticket-create-admin.php:624
 msgid "Please select the product options."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:631
+#: includes/class-wc-box-office-ticket-create-admin.php:632
 msgid "Please select option for %s."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:636
+#: includes/class-wc-box-office-ticket-create-admin.php:637
 msgid "Invalid value for option %s."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:666
+#: includes/class-wc-box-office-ticket-create-admin.php:667
 msgid "Number of ticket fields does not match with provided ticket quantity."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:220
+#: includes/class-wc-box-office-ticket-form.php:221
 msgid "Fields are required"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:253
+#: includes/class-wc-box-office-ticket-form.php:254
 msgid "Please check at least one box to proceed."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:381
+#: includes/class-wc-box-office-ticket-form.php:382
 msgid "%s is required field and can not be empty."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:392
+#: includes/class-wc-box-office-ticket-form.php:393
 msgid "Invalid email is provided."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:401
+#: includes/class-wc-box-office-ticket-form.php:402
 msgid "Invalid URL is provided"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:416
+#: includes/class-wc-box-office-ticket-form.php:417
 msgid "Invalid value for field %s"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:486
+#: includes/class-wc-box-office-ticket-form.php:487
 msgid "Call %s::validate first"
 msgstr ""
 

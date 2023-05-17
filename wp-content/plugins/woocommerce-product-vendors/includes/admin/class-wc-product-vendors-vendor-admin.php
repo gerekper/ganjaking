@@ -1419,7 +1419,14 @@ class WC_Product_Vendors_Vendor_Admin {
 			$tzstring = WC_Product_Vendors_Utils::get_default_timezone_string();
 		}
 
-		include_once( 'views/html-vendor-store-settings-page.php' );
+		/**
+		 * Optionally override the views/html-vendor-store-settings-page.php view: filters must return a string to be passed into include_once.
+		 *
+		 * @since 2.1.77
+		 *
+		 * @param string $path Default path to the view.
+		 */
+		include_once( apply_filters( 'wcpv_vendor_store_settings_page_template', 'views/html-vendor-store-settings-page.php' ) );
 
 		return true;
 	}

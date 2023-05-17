@@ -384,7 +384,14 @@ class WC_Product_Vendors_Store_Admin {
 	public function add_vendor_fields() {
 		$tzstring = WC_Product_Vendors_Utils::get_default_timezone_string();
 
-		include_once( 'views/html-create-vendor-fields-page.php' );
+		/**
+		 * Optionally override the views/html-create-vendor-fields-page.php view: filters must return a string to be passed into include_once.
+		 *
+		 * @since 2.1.77
+		 *
+		 * @param string $path Default path to the view.
+		 */
+		include_once( apply_filters( 'wcpv_create_vendor_fields_page_template', 'views/html-create-vendor-fields-page.php' ) );
 
 		return true;
 	}
@@ -450,7 +457,14 @@ class WC_Product_Vendors_Store_Admin {
 			$hide_remove_image_link = 'display:none;';
 		}
 
-		include_once( 'views/html-edit-vendor-fields-page.php' );
+		/**
+		 * Optionally override the views/html-edit-vendor-fields-page.php view: filters must return a string to be passed into include_once.
+		 *
+		 * @since 2.1.77
+		 *
+		 * @param string $path Default path to the view.
+		 */
+		include_once( apply_filters( 'wcpv_edit_vendor_fields_page_template', 'views/html-edit-vendor-fields-page.php' ) );
 
 		return true;
 	}
@@ -761,7 +775,14 @@ class WC_Product_Vendors_Store_Admin {
 			$manage_customers = 'allow';
 		}
 
-		include_once( 'views/html-edit-user-profile-page.php' );
+		/**
+		 * Optionally override the views/html-edit-user-profile-page.php view: filters must return a string to be passed into include_once.
+		 *
+		 * @since 2.1.77
+		 *
+		 * @param string $path Default path to the view.
+		 */
+		include_once( apply_filters( 'wcpv_edit_user_profile_page_template', 'views/html-edit-user-profile-page.php' ) );
 
 		return true;
 	}

@@ -57,7 +57,7 @@ class UpdraftPlus_Temporary_Clone_User_Notice {
 	}
 
 	/**
-	 * This function will perform security checks before allowing the ajax calls for the UpdraftPlus clone VPS mu-plugin be processed.
+	 * This function will perform security checks before allowing the ajax calls for the UpdraftClone VPS mu-plugin be processed.
 	 *
 	 * @return void
 	 */
@@ -69,7 +69,7 @@ class UpdraftPlus_Temporary_Clone_User_Notice {
 	}
 
 	/**
-	 * This function will handle the ajax calls for the UpdraftPlus clone user notice mu-plugin.
+	 * This function will handle the ajax calls for the UpdraftClone user notice mu-plugin.
 	 *
 	 * @return void
 	 */

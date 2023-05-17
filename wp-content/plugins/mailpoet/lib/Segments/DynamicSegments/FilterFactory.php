@@ -16,8 +16,11 @@ use MailPoet\Segments\DynamicSegments\Filters\MailPoetCustomFields;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberScore;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberSegment;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberSubscribedDate;
+use MailPoet\Segments\DynamicSegments\Filters\SubscriberSubscribedViaForm;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberTag;
+use MailPoet\Segments\DynamicSegments\Filters\SubscriberTextField;
 use MailPoet\Segments\DynamicSegments\Filters\UserRole;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceAverageSpent;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCountry;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceMembership;
@@ -34,6 +37,9 @@ class FilterFactory {
 
   /** @var UserRole */
   private $userRole;
+
+  /** @var WooCommerceAverageSpent */
+  private $wooCommerceAverageSpent;
 
   /** @var WooCommerceProduct */
   private $wooCommerceProduct;
@@ -83,6 +89,12 @@ class FilterFactory {
   /** @var EmailActionClickAny */
   private $emailActionClickAny;
 
+  /** @var SubscriberSubscribedViaForm */
+  private $subscribedViaForm;
+
+  /** @var SubscriberTextField */
+  private $subscriberTextField;
+
   public function __construct(
     EmailAction $emailAction,
     EmailActionClickAny $emailActionClickAny,
@@ -101,7 +113,10 @@ class FilterFactory {
     SubscriberScore $subscriberScore,
     SubscriberTag $subscriberTag,
     SubscriberSegment $subscriberSegment,
-    WooCommerceSingleOrderValue $wooCommerceSingleOrderValue
+    SubscriberSubscribedViaForm $subscribedViaForm,
+    WooCommerceSingleOrderValue $wooCommerceSingleOrderValue,
+    WooCommerceAverageSpent $wooCommerceAverageSpent,
+    SubscriberTextField $subscriberTextField
   ) {
     $this->emailAction = $emailAction;
     $this->userRole = $userRole;
@@ -121,6 +136,9 @@ class FilterFactory {
     $this->subscriberSegment = $subscriberSegment;
     $this->emailActionClickAny = $emailActionClickAny;
     $this->wooCommerceSingleOrderValue = $wooCommerceSingleOrderValue;
+    $this->subscriberTextField = $subscriberTextField;
+    $this->subscribedViaForm = $subscribedViaForm;
+    $this->wooCommerceAverageSpent = $wooCommerceAverageSpent;
   }
 
   public function getFilterForFilterEntity(DynamicSegmentFilterEntity $filter): Filter {
@@ -145,7 +163,8 @@ class FilterFactory {
 
   /**
    * @param ?string $action
-   * @return MailPoetCustomFields|SubscriberScore|SubscriberSegment|SubscriberSubscribedDate|UserRole|SubscriberTag
+   *
+   * @return MailPoetCustomFields|SubscriberScore|SubscriberSegment|SubscriberSubscribedDate|UserRole|SubscriberTag|SubscriberTextField|SubscriberSubscribedViaForm
    */
   private function userRole(?string $action) {
     if ($action === SubscriberSubscribedDate::TYPE) {
@@ -158,6 +177,10 @@ class FilterFactory {
       return $this->subscriberSegment;
     } elseif ($action === SubscriberTag::TYPE) {
       return $this->subscriberTag;
+    } elseif ($action === SubscriberSubscribedViaForm::TYPE) {
+      return $this->subscribedViaForm;
+    } elseif (in_array($action, SubscriberTextField::TYPES)) {
+      return $this->subscriberTextField;
     }
     return $this->userRole;
   }
@@ -201,6 +224,8 @@ class FilterFactory {
       return $this->wooCommerceSingleOrderValue;
     } elseif ($action === WooCommercePurchaseDate::ACTION) {
       return $this->wooCommercePurchaseDate;
+    } elseif ($action === WooCommerceAverageSpent::ACTION) {
+      return $this->wooCommerceAverageSpent;
     }
     return $this->wooCommerceCategory;
   }

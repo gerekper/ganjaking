@@ -15,16 +15,16 @@
 
 		<p class="form-row">
 			<label for="ticket-private-content-email">
-				<?php _e( 'E-mail', 'woocommerce-box-office' ); ?>
+				<?php esc_html_e( 'E-mail', 'woocommerce-box-office' ); ?>
 			</label>
 
 			<input id="ticket-private-content-email" name="ticket_email" type="email" value="<?php echo esc_attr( $email ); ?>" />
 			<span class="description">
-				<?php _e( 'Your email associated with the ticket.', 'woocommerce-box-office' ); ?>
+				<?php esc_html_e( 'Your email associated with the ticket.', 'woocommerce-box-office' ); ?>
 			</span>
 		</p>
 		<p class="buttons">
-			<input type="submit" class="button" value="<?php _e( 'Send me private link', 'woocommerce-box-office' ); ?>" />
+			<input type="submit" class="button" value="<?php esc_attr_e( 'Send me private link', 'woocommerce-box-office' ); ?>" />
 		</p>
 	</form>
 	<?php endif; ?>

@@ -36,6 +36,13 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	private $the_germany_client_id;
 
 	/**
+	 * File size
+	 *
+	 * @var Integer
+	 */
+	private $onedrive_file_size;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -212,7 +219,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 						}
 					}
 
-					if (!isset($uploaded_size)) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+					if (!isset($uploaded_size)) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the condition above.
 						$uploaded_size = 0;
 						if ($this->use_msgraph_api($opts)) {
 							$endpoint_tld = isset($opts['endpoint_tld']) ? $opts['endpoint_tld'] : 'com';
@@ -479,7 +486,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 
 	}
 	
-	public function chunked_download($file, $headers, $data) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function chunked_download($file, $headers, $data) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the caller from UpdraftPlus class uses 4 arguments.
 		$file_obj = $data[1];
 
 		$options = array();
@@ -1257,7 +1264,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 				</p>
 				<p>
 				{{account_warning_label}}
-				<a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a>
+				<a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&nonce={{storage_auth_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a>
 				</p>
 			</td>
 		</tr>

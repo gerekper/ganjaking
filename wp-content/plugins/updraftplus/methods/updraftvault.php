@@ -9,6 +9,13 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	private $vault_mothership = 'https://vault.updraftplus.com/plugin-info/';
 	
 	private $vault_config;
+
+	/**
+	 * Decides whether vault config should be printed or not
+	 *
+	 * @var Boolean
+	 */
+	private $vault_in_config_print;
 	
 	protected $quota_transient_used = false;
 
@@ -225,7 +232,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 					$config['path'] = $response['path'];
 					$config['sessiontoken'] = (isset($response['sessiontoken']) ? $response['sessiontoken'] : '');
 				} elseif (is_array($response) && isset($response['result']) && ('token_unknown' == $response['result'] || 'site_duplicated' == $response['result'])) {
-					$this->log("This site appears to not be connected to UpdraftPlus Vault (".$response['result'].")");
+					$this->log("This site appears to not be connected to UpdraftVault (".$response['result'].")");
 					$config['error'] = array('message' => 'site_not_connected', 'values' => array($response['result']));
 					
 					$config['accesskey'] = '';
@@ -317,10 +324,10 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 				return __('Your UpdraftPlus Premium purchase is over a year ago. You should renew immediately to avoid losing the 12 months of free storage allowance that you get for being a current UpdraftPlus Premium customer.', 'updraftplus');
 				break;
 			case 'vault_subscription_overdue':
-				return __('You have an UpdraftPlus Vault subscription with overdue payment. You are within the few days of grace period before it will be suspended, and you will lose your quota and access to data stored within it. Please renew as soon as possible!', 'updraftplus');
+				return __('You have an UpdraftVault subscription with overdue payment. You are within the few days of grace period before it will be suspended, and you will lose your quota and access to data stored within it. Please renew as soon as possible!', 'updraftplus');
 				break;
 			case 'vault_subscription_suspended':
-				return __("You have an UpdraftPlus Vault subscription that has not been renewed, and the grace period has expired. In a few days' time, your stored data will be permanently removed. If you do not wish this to happen, then you should renew as soon as possible.", 'updraftplus');
+				return __("You have an UpdraftVault subscription that has not been renewed, and the grace period has expired. In a few days' time, your stored data will be permanently removed. If you do not wish this to happen, then you should renew as soon as possible.", 'updraftplus');
 				// The following shouldn't be a possible response (the server can deal with duplicated sites with the same IDs) - but there's no harm leaving it in for now (Dec 2015)
 				// This means that the site is accessing with a different home_url() than it was registered with.
 				break;
@@ -466,20 +473,20 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		$this->vault_in_config_print = true;
 		$properties = array(
 			'storage_image_url' => UPDRAFTPLUS_URL.'/images/updraftvault-150.png',
-			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftPlus Vault', 'SimpleXMLElement'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftVault', 'SimpleXMLElement'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
 			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], false, $this->get_id().' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
-			'storage_long_description' => wp_kses(__('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'storage_long_description' => wp_kses(__('UpdraftVault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 			'storage_package_options_label1' => __('Need to get space?', 'updraftplus'),
 			'storage_package_options_label2' => __('Show the options', 'updraftplus'),
 			'storage_already_registered_label1' => __('Already got space?', 'updraftplus'),
 			'storage_already_registered_label2' => sprintf(__('Connect to your %s account', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 			'storage_already_registered_label3' => __('Connect', 'updraftplus'),
-			'storage_long_description2' => __("UpdraftPlus Vault is built on top of Amazon's world-leading data-centres, with redundant data storage to achieve 99.999999999% reliability.", 'updraftplus'),
+			'storage_long_description2' => __("UpdraftVault is built on top of Amazon's world-leading data-centres, with redundant data storage to achieve 99.999999999% reliability.", 'updraftplus'),
 			'storage_readmore_label' => sprintf(__('Read more about %s here.', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 			'storage_read_faq_label' => sprintf(__('Read the %s FAQs here.', 'updraftplus'), 'Vault'),
 			'more_vault_info_landing_url' => $this->get_url('more_vault_info_landing'),
 			'more_vault_info_faqs_url' => $this->get_url('more_vault_info_faqs'),
-			'storage_package_options_label3' => wp_kses(__('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'storage_package_options_label3' => wp_kses(__('UpdraftVault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 			'start_subscription_button_label' => __('Start Subscription', 'updraftplus'),
 			'start_15gb_subscription_button_title' => sprintf(__('Start %s Subscription', 'updraftplus'), '15GB'),
 			'start_50gb_subscription_button_title' => sprintf(__('Start %s Subscription', 'updraftplus'), '50GB'),
@@ -519,11 +526,11 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 			'forgotten_password_link_label' => __("Don't know your email address, or forgotten your password?", 'updraftplus').__('Follow this link for help', 'updraftplus'),
 			'forgotten_password_link_url' => $this->get_url('vault_forgotten_credentials_links'),
 			'forgotten_password_link_text' => __('Go here for help', 'updraftplus'),
-			'site_is_already_connected_label' => wp_kses(__('This site is <strong>connected</strong> to UpdraftPlus Vault.', 'updraftplus').' '.__("Well done - there's nothing more needed to set up.", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'site_is_already_connected_label' => wp_kses(__('This site is <strong>connected</strong> to UpdraftVault.', 'updraftplus').' '.__("Well done - there's nothing more needed to set up.", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 			'vault_owner_label' => __('Vault owner', 'updraftplus'),
 			'vault_quota_label' => __('Quota:', 'updraftplus'),
 			'button_disconnect_label' => __('Disconnect', 'updraftplus'),
-			'vault_is_not_connected_label' => wp_kses(__('You are <strong>not connected</strong> to UpdraftPlus Vault.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'vault_is_not_connected_label' => wp_kses(__('You are <strong>not connected</strong> to UpdraftVault.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 		);
 		if ($updraftplus_checkout_embed) {
 			$properties['checkout_embed_5gb_attribute'] = $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-5-gb') ? 'data-embed-checkout="'.esc_attr(apply_filters('updraftplus_com_link', $updraftplus_checkout_embed->get_product('updraftplus-vault-storage-5-gb', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=settings'))).'"' : '';
@@ -584,11 +591,11 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		if (!is_array($vault_settings)) {
 			$vault_settings = $this->get_options();
 		}
-		if (!is_array($vault_settings) || empty($vault_settings['token']) || empty($vault_settings['email'])) return '<p>'.__('You are <strong>not connected</strong> to UpdraftPlus Vault.', 'updraftplus').'</p>';
+		if (!is_array($vault_settings) || empty($vault_settings['token']) || empty($vault_settings['email'])) return '<p>'.__('You are <strong>not connected</strong> to UpdraftVault.', 'updraftplus').'</p>';
 
 		$ret = '<p id="vault-is-connected">';
 		
-		$ret .= __('This site is <strong>connected</strong> to UpdraftPlus Vault.', 'updraftplus').' '.__("Well done - there's nothing more needed to set up.", 'updraftplus').'</p><p><strong>'.__('Vault owner', 'updraftplus').':</strong> '.htmlspecialchars($vault_settings['email']);
+		$ret .= __('This site is <strong>connected</strong> to UpdraftVault.', 'updraftplus').' '.__("Well done - there's nothing more needed to set up.", 'updraftplus').'</p><p><strong>'.__('Vault owner', 'updraftplus').':</strong> '.htmlspecialchars($vault_settings['email']);
 
 		$ret .= '<br><strong>'.__('Quota:', 'updraftplus').'</strong> ';
 		if (!isset($vault_settings['quota']) || !is_numeric($vault_settings['quota']) || $vault_settings['quota'] < 0) {
@@ -910,7 +917,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 						// else... would also be an error condition, but not one known possible (and it will show a generic error anyway)
 					}
 				} elseif (isset($response['quota']) && !$response['quota']) {
-					return new WP_Error('no_quota', __('You do not currently have any UpdraftPlus Vault quota', 'updraftplus'));
+					return new WP_Error('no_quota', __('You do not currently have any UpdraftVault quota', 'updraftplus'));
 				} else {
 					return new WP_Error('unknown_response', __('UpdraftPlus.Com returned a response, but we could not understand it', 'updraftplus'));
 				}

@@ -149,7 +149,7 @@ class WC_AM_Subscription {
 	 * @return bool|null|string
 	 */
 	public function get_subscription_id( $order_id ) {
-		if ( ! is_int( $order_id ) ) {
+		if ( ! is_numeric( $order_id ) ) {
 			$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 
 			if ( is_object( $order ) ) {

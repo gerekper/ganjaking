@@ -53,7 +53,7 @@ class UpdraftPlus_Clone extends UpdraftPlus_Login {
 	}
 
 	/**
-	 * Executes login or registration process. Connects and sends request to the UpdraftPlus clone
+	 * Executes login or registration process. Connects and sends request to the UpdraftClone
 	 * and returns the response coming from the server
 	 *
 	 * @internal
@@ -93,7 +93,7 @@ class UpdraftPlus_Clone extends UpdraftPlus_Login {
 	}
 
 	/**
-	 * Executes the create clone process. Connects and sends request to the UpdraftPlus clone and returns the response coming from the server
+	 * Executes the create clone process. Connects and sends request to the UpdraftClone and returns the response coming from the server
 	 *
 	 * @internal
 	 * @param array $data - The submitted form data
@@ -127,7 +127,7 @@ class UpdraftPlus_Clone extends UpdraftPlus_Login {
 	}
 
 	/**
-	 * Executes the clone status process. Connects and sends request to the UpdraftPlus clone and returns the response coming from the server
+	 * Executes the clone status process. Connects and sends request to the UpdraftClone and returns the response coming from the server
 	 *
 	 * @internal
 	 * @param array $data - The submitted form data
@@ -144,7 +144,7 @@ class UpdraftPlus_Clone extends UpdraftPlus_Login {
 	}
 
 	/**
-	 * Executes the clone info poll. Connects and sends request to the UpdraftPlus clone and returns the response coming from the server
+	 * Executes the clone info poll. Connects and sends request to the UpdraftClone and returns the response coming from the server
 	 *
 	 * @internal
 	 * @param array $data - The submitted form data
@@ -181,7 +181,7 @@ class UpdraftPlus_Clone extends UpdraftPlus_Login {
 	}
 
 	/**
-	 * Executes the clone failed delete process. Connects and sends request to the UpdraftPlus clone and returns the response coming from the server
+	 * Executes the clone failed delete process. Connects and sends request to the UpdraftClone and returns the response coming from the server
 	 *
 	 * @internal
 	 * @param array $data - The submitted form data

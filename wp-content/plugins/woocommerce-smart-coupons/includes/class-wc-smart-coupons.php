@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.9.1
+ * @version     6.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -3721,8 +3721,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					}
 				}
 
-				$all_discount_types = wc_get_coupon_types();
-				$generated_codes    = array();
+				$all_discount_types     = wc_get_coupon_types();
+				$generated_codes        = array();
+				$refresh_global_coupons = false;
 
 				for ( $i = 1; $i <= $post['no_of_coupons_to_generate']; $i++ ) {
 					$customer_email = ( ! empty( $customer_emails[ $i ] ) ) ? $customer_emails[ $i ] : '';
@@ -3795,6 +3796,13 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 					$data[ $i ] = apply_filters( 'sc_generate_coupon_meta', $data[ $i ], $post );
 
+					if ( false === $refresh_global_coupons && 'yes' === $data[ $i ]['sc_is_visible_storewide'] ) {
+						$refresh_global_coupons = true;
+					}
+				}
+
+				if ( true === $refresh_global_coupons ) {
+					delete_option( 'sc_display_global_coupons' ); // Since there's an update in storewide coupon, refresh the global coupon's list.
 				}
 			}
 
@@ -5261,22 +5269,40 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @param  string $default Default value.
 		 * @return string|null
 		 */
-		public function sc_get_option( $option_name = '', $default = '' ) {
+		public function sc_get_option( $option_name = '', $default = 'no_default' ) {
 			global $wpdb;
 
 			if ( empty( $option_name ) ) {
 				return false;
 			}
-			return $wpdb->get_var( // phpcs:ignore
-				$wpdb->prepare(
-					"SELECT option_value 
-						FROM {$wpdb->prefix}options 
-						WHERE option_name = %s
-					UNION SELECT %s",
-					$option_name,
-					$default
-				)
-			);
+
+			if ( 'no_default' === $default ) {
+				$row = $wpdb->get_row( // phpcs:ignore
+					$wpdb->prepare(
+						"SELECT option_value 
+							FROM {$wpdb->prefix}options 
+							WHERE option_name = %s
+						LIMIT %d",
+						$option_name,
+						1
+					)
+				);
+			} else {
+				$row = $wpdb->get_row( // phpcs:ignore
+					$wpdb->prepare(
+						"SELECT option_value 
+							FROM {$wpdb->prefix}options 
+							WHERE option_name = %s
+						UNION SELECT %s
+						LIMIT %d",
+						$option_name,
+						$default,
+						1
+					)
+				);
+			}
+
+			return is_null( $row ) ? false : ( ( ! empty( $row->option_value ) ) ? $row->option_value : '' );
 
 		}
 

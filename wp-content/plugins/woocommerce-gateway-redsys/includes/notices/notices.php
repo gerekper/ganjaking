@@ -33,13 +33,14 @@ add_action( 'admin_init', 'redsys_admin_notice_lite_version', 0 );
  */
 function redsys_add_notice_intalled_new() {
 
+	wp_cache_delete( 'hide-install-redsys-notice', 'options' );
 	$hide = get_option( 'hide-install-redsys-notice' );
 
 	if ( 'yes' !== $hide ) {
 		if ( isset( $_REQUEST['redsys-hide-install'] ) && 'hide-install-redsys' === $_REQUEST['redsys-hide-install'] && isset( $_REQUEST['_redsys_hide_install_nonce'] ) ) {
 			$nonce = sanitize_text_field( wp_unslash( $_REQUEST['_redsys_hide_install_nonce'] ) );
 			if ( wp_verify_nonce( $nonce, 'redsys_hide_install_nonce' ) ) {
-				update_option( 'hide-install-redsys-notice', 'yes' );
+				update_option( 'hide-install-redsys-notice', 'yes', false );
 			}
 		} else {
 			?>
@@ -81,13 +82,14 @@ add_action( 'admin_notices', 'redsys_add_notice_intalled_new' );
  */
 function redsys_add_notice_new_version() {
 
+	wp_cache_delete( 'hide-new-version-redsys-notice', 'options' );
 	$version = get_option( 'hide-new-version-redsys-notice' );
 
 	if ( REDSYS_VERSION !== $version ) {
 		if ( isset( $_REQUEST['redsys-hide-new-version'] ) && 'hide-new-version-redsys' === $_REQUEST['redsys-hide-new-version'] && isset( $_REQUEST['_redsys_hide_new_version_nonce'] ) ) {
 			$nonce = sanitize_text_field( wp_unslash( $_REQUEST['_redsys_hide_new_version_nonce'] ) );
 			if ( wp_verify_nonce( $nonce, 'redsys_hide_new_version_nonce' ) ) {
-				update_option( 'hide-new-version-redsys-notice', REDSYS_VERSION );
+				update_option( 'hide-new-version-redsys-notice', REDSYS_VERSION, false );
 			}
 		} else {
 			?>

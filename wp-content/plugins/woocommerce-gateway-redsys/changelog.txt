@@ -1,5 +1,22 @@
 *** Redsys Gateway Change Log ***
 
+2023.05.14 - version 20.4.0
+
+* NEW: The InSite form is now always displayed. Filling in some fields is no longer necessary. Thanks to the new API, there's no need to wait anymore.
+* NEW: The website URL is now displayed on the Thank You page (new Redsys requirement).
+* UPDATE: Improved HPOS metadata.
+* UPDATE: Enhanced InSite for v1 credit cards.
+* UPDATE: Refined states in EMV3DS.
+* UPDATE: Declared compatibility with WooCommerce 7.7.
+* UPDATE: Removed old code.
+* UPDATE: Improved state in EMV3DS.
+* UPDATE: Improved Phone (CC) in EMV3DS.
+* UPDATE: Updated browserColorDepth in EMV3DS.
+* FIX: Fixed a comma in the global class. On some servers, this comma can cause a fatal error.
+* FIX: Corrected a string in InSite.
+* FIX: Now, Yith Subscriptions with InSite work again.
+* FIX: Resolved notice in Site Health Class.
+
 2023.04.02 - version 20.3.0
 
 * UPDATE: Improved InSite with authenticators.

@@ -55,7 +55,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 
 		$client->authenticate();
 
-		if (empty($region)) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		if (empty($region)) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined below.
 			$catalog = $client->getCatalog();
 			if (!empty($catalog)) {
 				$items = $catalog->getItems();
@@ -241,7 +241,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 			'storage_long_description' => $this->long_desc,
 			'mb_substr_existence_label' => !apply_filters('updraftplus_openstack_mbsubstr_exists', function_exists('mb_substr')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('Your web server\'s PHP installation does not include a required module (%s). Please contact your web hosting provider\'s support.', 'updraftplus'), 'mbstring').' '.sprintf(__("UpdraftPlus's %s module <strong>requires</strong> %s. Please do not file any support requests; there is no alternative.", 'updraftplus'), $this->desc, 'mbstring'), $this->method, false), $this->allowed_html_for_content_sanitisation()) : '',
 			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($this->long_desc, false, $this->method.' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
-			'openstack_text_description' =>  __('Get your access credentials from your OpenStack Swift provider, and then pick a container name to use for storage. This container will be created for you if it does not already exist.', 'updraftplus'),
+			'openstack_text_description' => __('Get your access credentials from your OpenStack Swift provider, and then pick a container name to use for storage. This container will be created for you if it does not already exist.', 'updraftplus'),
 			'faq_link_text' => __('Also, you should read this important FAQ.', 'updraftplus'),
 			'faq_link_url' => wp_kses(apply_filters("updraftplus_com_link", "https://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/"), array(), array('http', 'https')),
 			'input_authentication_uri_label' => __('Authentication URI', 'updraftplus'),

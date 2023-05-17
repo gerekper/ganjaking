@@ -1565,6 +1565,7 @@ body.admin-color-midnight .button.button-remove:focus {
 }
 
 #filelist, #filelist2 {
+	margin-top: 30px;
 	width: 100%;
 }
 

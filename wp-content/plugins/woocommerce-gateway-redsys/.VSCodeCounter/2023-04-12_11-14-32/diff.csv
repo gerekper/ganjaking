@@ -1,0 +1,14 @@
+"filename", "language", "PHP", "comment", "blank", "total"
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-redsys-site-health.php", "PHP", 2, 0, 0, 2
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-bizum-redsys.php", "PHP", 153, 16, 3, 172
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-direct-debit-redsys.php", "PHP", -9, 0, 0, -9
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-googlepay-redsys.php", "PHP", -1, 0, -4, -5
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-insite-redsys.php", "PHP", 48, -2, -4, 42
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-masterpass-redsys.php", "PHP", -1, 0, 0, -1
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-paygold-redsys.php", "PHP", -10, 0, 0, -10
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-redsys-bank-transfer.php", "PHP", -1, 0, 0, -1
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-redsys-global.php", "PHP", 306, 39, 10, 355
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/classes/class-wc-gateway-redsys.php", "PHP", 182, 5, 11, 198
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/includes/data/dserrors.php", "PHP", 1, 0, 0, 1
+"/Users/joseconticalveras/Documents/GitHub/woocommerce-gateway-redsys/includes/data/wplanguages.php", "PHP", 1, 0, 0, 1
+"Total", "-", 671, 58, 16, 745

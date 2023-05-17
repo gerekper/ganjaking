@@ -67,6 +67,48 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 	private $last_logged_at = 0;
 
 	/**
+	 * Decides whether to use scp or not
+	 *
+	 * @var Boolean
+	 */
+	private $scp;
+
+	/**
+	 * SSH2 or SFTP class object
+	 *
+	 * @var Net_SSH2|Net_SFTP
+	 */
+	private $ssh;
+
+	/**
+	 * SFTP path to store backup files
+	 *
+	 * @var String
+	 */
+	private $path;
+
+	/**
+	 * SFTP path to store backup files
+	 *
+	 * @var String
+	 */
+	private $sftp_path;
+
+	/**
+	 * SFTP file size
+	 *
+	 * @var Integer
+	 */
+	private $sftp_size;
+
+	/**
+	 * SFTP beginning position
+	 *
+	 * @var Integer
+	 */
+	private $sftp_began_at;
+
+	/**
 	 * Set up the connection, change directory to the configured directory, and return a connection object
 	 *
 	 * @return WP_Error|Net_SSH2|Net_SCP
@@ -98,13 +140,12 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 		if ($path) {
 			if ($scp) {
 				// May fail - e.g. if directory already exists, or if the remote shell is restricted
-				@$this->ssh->exec('mkdir '.$this->possibly_escapeshellarg($path));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-				// N.B. - have not changed directory (since cd may not be an available command)
+				@$this->ssh->exec('mkdir '.$this->possibly_escapeshellarg($path));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Have not changed directory (since cd may not be an available command).
 			} else {
-				@$sftp->mkdir($path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@$sftp->mkdir($path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 				// See if the directory now exists
 				if (!$sftp->chdir($path)) {
-					@$sftp->disconnect();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					@$sftp->disconnect();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					return new WP_Error('nochdir', __("Check your file permissions: Could not successfully create and enter directory:", 'updraftplus')." $path");
 				}
 			}
@@ -141,7 +182,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 		
 	}
 	
-	public function upload_files($ret, $backup_array) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function upload_files($ret, $backup_array) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the caller from UpdraftPlus_RemoteStorage_Addons_Base_v2 uses 2 arguments.
 
 		global $updraftplus;
 		$sftp = $this->do_connect_and_chdir();
@@ -226,7 +267,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 		}
 	}
 
-	public function delete_files($ret, $files, $sftp_arr = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function delete_files($ret, $files, $sftp_arr = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the caller from UpdraftPlus_RemoteStorage_Addons_Base_v2 uses 2 arguments.
 
 		if (is_string($files)) $files = array($files);
 
@@ -285,9 +326,9 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 			
 			$nosizes = false;
 
-			if (false == ($exec = $this->ssh->exec($cdcom."ls -l ${match}*"))) {
+			if (false == ($exec = $this->ssh->exec($cdcom."ls -l {$match}*"))) {
 				$nosizes = true;
-				$exec = $this->ssh->exec($cdcom."ls -1 ${match}*");
+				$exec = $this->ssh->exec($cdcom."ls -1 {$match}*");
 			}
 			if (false != $exec) {
 				foreach (explode("\n", $exec) as $str) {
@@ -313,7 +354,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 		return $results;
 	}
 
-	public function download_file($ret, $file) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function download_file($ret, $file) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the caller from UpdraftPlus_RemoteStorage_Addons_Base_v2 uses 2 arguments.
 
 		global $updraftplus;
 
@@ -351,7 +392,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 	 *
 	 * @return WP_Error|Net_SSH2|Net_SCP
 	 */
-	private function connect($host, $port = 22, $fingerprint = '', $user = '', $pass = '', $key = '', $scp = false, $debug = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	private function connect($host, $port = 22, $fingerprint = '', $user = '', $pass = '', $key = '', $scp = false, $debug = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 
 		global $updraftplus;
 		
@@ -646,11 +687,11 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 		// So far, so good
 		if (empty($scp)) {
 			if ($path) {
-				@$sftp->mkdir($path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@$sftp->mkdir($path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 				// See if the directory now exists
 				if (!$sftp->chdir($path)) {
 					echo __('Check your file permissions: Could not successfully create and enter:', 'updraftplus')." (".htmlspecialchars($path).")";
-					@$sftp->disconnect();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					@$sftp->disconnect();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					return;
 				}
 			}
@@ -920,7 +961,7 @@ class UpdraftPlus_ftp_wrapper {
 
 	}
  
-	public function curl_progress_function($download_size, $downloaded_size, $upload_size, $uploaded_size) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function curl_progress_function($download_size, $downloaded_size, $upload_size, $uploaded_size) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a callback for curl.
 
 		if ($uploaded_size<1) return;
 
@@ -937,7 +978,7 @@ class UpdraftPlus_ftp_wrapper {
 
 	}
 
-	public function put($local_file_path, $remote_file_path, $mode = FTP_BINARY, $resume = false, $updraftplus = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function put($local_file_path, $remote_file_path, $mode = FTP_BINARY, $resume = false, $updraftplus = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 
 		$file_size = filesize($local_file_path);
 

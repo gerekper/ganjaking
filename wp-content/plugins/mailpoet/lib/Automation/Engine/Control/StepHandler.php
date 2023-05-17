@@ -223,6 +223,8 @@ class StepHandler {
       if (!$subjectData) {
         throw Exceptions::subjectDataNotFound($key, $automationRun->getId());
       }
+    }
+    foreach ($subjectDataMap as $subjectData) {
       foreach ($subjectData as $data) {
         $subjectEntries[] = $this->subjectLoader->getSubjectEntry($data);
       }

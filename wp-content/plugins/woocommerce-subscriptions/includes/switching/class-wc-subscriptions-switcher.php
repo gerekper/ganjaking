@@ -293,7 +293,7 @@ class WC_Subscriptions_Switcher {
 
 								if ( $last_order->needs_payment() ) {
 									// translators: 1$: is the "You have already subscribed to this product" notice, 2$-4$: opening/closing link tags, 3$: an order number
-									$subscribed_notice = sprintf( __( '%1$s Complete payment on %2$sOrder %3$s%4$s to be able to change your subscription.', 'woocommerce-subscriptions' ), $subscribed_notice, sprintf( '<a href="%s">', $last_order->get_checkout_payment_url() ), $last_order->get_order_number(), '</a>' );
+									$subscribed_notice = sprintf( __( '%1$s Complete payment on %2$sOrder %3$s%4$s to be able to change your subscription.', 'woocommerce-subscriptions' ), $subscribed_notice, sprintf( '<a href="%s">', esc_url( $last_order->get_checkout_payment_url() ) ), $last_order->get_order_number(), '</a>' );
 								}
 
 								wc_add_notice( $subscribed_notice, 'notice' );
@@ -620,9 +620,10 @@ class WC_Subscriptions_Switcher {
 				'_wcsnonce'           => wp_create_nonce( 'wcs_switch_request' ),
 			)
 		);
-		$permalink  = add_query_arg( $query_args, $permalink );
 
-		return apply_filters( 'woocommerce_subscriptions_add_switch_query_args', $permalink, $subscription_id, $item_id );
+		$permalink = add_query_arg( $query_args, $permalink );
+
+		return apply_filters( 'woocommerce_subscriptions_add_switch_query_args', $permalink, $subscription_id, $item_id ); // nosemgrep: audit.php.wp.security.xss.query-arg -- False positive. $permalink is escaped in the template and escaping URLs should be done at the point of output or usage.
 	}
 
 	/**

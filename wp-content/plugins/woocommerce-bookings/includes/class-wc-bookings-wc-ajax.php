@@ -225,6 +225,14 @@ class WC_Bookings_WC_Ajax {
 			// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 			$max_date_bookable = strtotime( "+{$get_max_date['value']} {$get_max_date['unit']}", current_time( 'timestamp' ) );
 
+			// If a buffer is used, subtract it from the min date bookable in the
+			// future to cover and display the bookings made during that time.
+			// Fix for https://github.com/woocommerce/woocommerce-bookings/issues/3509.
+			$interval_in_minutes   = $product->get_time_interval_in_minutes();
+			$amount_of_buffer_days = $product->get_buffer_period();
+			$buffer_in_seconds     = $interval_in_minutes * $amount_of_buffer_days * 60;
+			$min_date_bookable     = $min_date_bookable - $buffer_in_seconds;
+
 			// If the date is provided, use it only if it is a valid Unix timestamp, and it is after/before the min/max bookable time.
 			// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.Found
 			$min_date = $args['min_date'] = isset( $_GET['min_date'] )

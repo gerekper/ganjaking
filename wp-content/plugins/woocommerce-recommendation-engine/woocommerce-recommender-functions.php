@@ -18,7 +18,7 @@ function woocommerce_recommender_record_product_view( $product_id, $user_id = 0 
 	$session_id    = WC_Recommender_Compatibility::WC()->session->get_customer_id();
 	$activity_date = date( 'Y-m-d H:i:s' );
 	$activity_type = 'viewed';
-	$user_id       = !$user_id && is_user_logged_in() ? get_current_user_id() : 0;
+	$user_id       = ! $user_id && is_user_logged_in() ? get_current_user_id() : 0;
 
 	woocommerce_recommender_record_product( $product_id, $session_id, $user_id, 0, $activity_type, $activity_date );
 }
@@ -53,8 +53,6 @@ function woocommerce_recommender_record_product_ordered( $order_id, $product_id,
 
 /**
  * Generic version of the record functions.  This function writes the records to the databsae.
- * @global wpdb $wpdb
- * @global WC_Recommendation_Engine $woocommerce_recommender
  *
  * @param int $product_id
  * @param string $session_id
@@ -64,11 +62,14 @@ function woocommerce_recommender_record_product_ordered( $order_id, $product_id,
  * @param string $activity_date MYSQL date formatted string.
  *
  * @return bool
+ * @global WC_Recommendation_Engine $woocommerce_recommender
+ *
+ * @global wpdb $wpdb
  */
 function woocommerce_recommender_record_product( $product_id, $session_id, $user_id, $order_id, $activity_type, $activity_date ) {
 	global $wpdb, $woocommerce_recommender;
 
-	if (apply_filters('wc_recommender_record_product', true, $product_id, $session_id, $user_id, $order_id, $activity_type)) {
+	if ( apply_filters( 'wc_recommender_record_product', true, $product_id, $session_id, $user_id, $order_id, $activity_type ) ) {
 
 		$data = array(
 			'session_id'    => $session_id,
@@ -90,12 +91,14 @@ function woocommerce_recommender_record_product( $product_id, $session_id, $user
 
 /**
  * Updates the activity type of a previously recorded session history item.
- * @global wpdb $wpdb
- * @global WC_Recommendation_Engine $woocommerce_recommender
  *
  * @param type $order_id
  * @param type $product_id
  * @param type $activity_type
+ *
+ * @global WC_Recommendation_Engine $woocommerce_recommender
+ *
+ * @global wpdb $wpdb
  */
 function woocommerce_recommender_update_recorded_product( $order_id, $product_id, $activity_type ) {
 	global $wpdb, $woocommerce_recommender;
@@ -126,7 +129,7 @@ function woocommerce_recommender_get_simularity(
 ) {
 	global $wpdb, $woocommerce_recommender;
 
-	if ( !is_array( $activity_types ) ) {
+	if ( ! is_array( $activity_types ) ) {
 		$activity_types = (array) $activity_types;
 	}
 
@@ -139,22 +142,26 @@ function woocommerce_recommender_get_simularity(
 	$db_scores = $wpdb->get_results( $recommendations_sql );
 
 	$scores = array();
-	if ( is_array( $db_scores ) && !is_wp_error( $db_scores ) ) {
+	if ( is_array( $db_scores ) && ! is_wp_error( $db_scores ) ) {
 
 		foreach ( $db_scores as $db_score ) {
-			$scores[ $db_score->related_product_id ] = (float) $db_score->score;
+			$product = wc_get_product( $db_score->related_product_id );
+			// If the product exists, and the product is visible, then we can keep it in the array
+			if ( $product && $product->exists() && $product->is_visible() ) {
+				$scores[ $db_score->related_product_id ] = (float) $db_score->score;
+			}
 		}
 
-		return $scores;
-	} else {
-
+		asort( $scores );
 	}
+
+	return $scores;
 }
 
 function woocommerce_recommender_get_purchased_together( $current_product_id, $activity_types = array( 'completed' ) ) {
 	global $wpdb, $woocommerce_recommender;
 
-	if ( !is_array( $activity_types ) ) {
+	if ( ! is_array( $activity_types ) ) {
 		$activity_types = (array) $activity_types;
 	}
 
@@ -167,16 +174,20 @@ function woocommerce_recommender_get_purchased_together( $current_product_id, $a
 	$db_scores = $wpdb->get_results( $recommendations_sql );
 
 	$scores = array();
-	if ( is_array( $db_scores ) && !is_wp_error( $db_scores ) ) {
+	if ( is_array( $db_scores ) && ! is_wp_error( $db_scores ) ) {
 
 		foreach ( $db_scores as $db_score ) {
-			$scores[ $db_score->related_product_id ] = (float) $db_score->score;
+			$product = wc_get_product( $db_score->related_product_id );
+			// If the product exists, and the product is visible, then we can keep it in the array
+			if ( $product && $product->exists() && $product->is_visible() ) {
+				$scores[ $db_score->related_product_id ] = (float) $db_score->score;
+			}
 		}
 
 		asort( $scores );
-
-		return $scores;
 	}
+
+	return $scores;
 }
 
 function woocommerce_recommender_sort_posts( &$posts, $simularity_scores ) {
@@ -223,39 +234,6 @@ class WC_Recommender_Recorder {
 		$this->tbl_storage = $woocommerce_recommender->db_tbl_recommendations;
 	}
 
-	public function build_all_async() {
-		global $wpdb, $woocommerce_recommender;
-
-		$wpdb->query( "DELETE FROM $woocommerce_recommender->db_tbl_recommendations" );
-		$total = $wpdb->get_var( "SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish'" );
-		$pages = absint( $total / $this->posts_batch_size ) + 1;
-
-		$endpoints         = array();
-		$endpoint_template = add_query_arg( array(
-			'nocache'                             => '%s',
-			'woocommerce_recommender_build_slice' => 'true',
-			'start'                               => '%d'
-		), trailingslashit( get_site_url() ) );
-
-		for ( $p = 0; $p < $pages; $p ++ ) {
-			$endpoints[] = sprintf( $endpoint_template, uniqid( '', true ), $p * $this->posts_batch_size );
-		}
-
-		//create a new RollingCurl object and pass it the name of your custom callback function
-		$rc = new RollingCurl( "woocommerce_recommender_async_request_callback" );
-
-		//the window size determines how many simultaneous requests to allow.  
-		$rc->window_size = 20;
-
-		foreach ( $endpoints as $url ) {
-			// add each request to the RollingCurl object
-			$request = new RollingCurlRequest( $url );
-			$rc->add( $request );
-		}
-
-		$rc->execute();
-	}
-
 	function woocommerce_recommender_begin_build_simularity( $start = false, $count = 10, $skip_delete = false, $type = 'all' ) {
 		global $wpdb, $woocommerce_recommender;
 		$products_to_process = array();
@@ -269,7 +247,7 @@ class WC_Recommender_Recorder {
 
 		$products_to_process = $wpdb->get_col( $sql );
 
-		if ( !$skip_delete && ( $start === false || $start === 0 ) ) {
+		if ( ! $skip_delete && ( $start === false || $start === 0 ) ) {
 			if ( $type == 'viewed' ) {
 				$wpdb->query( "DELETE FROM $woocommerce_recommender->db_tbl_recommendations WHERE rkey LIKE '%recommender_viewed%'" );
 			}
@@ -294,21 +272,21 @@ class WC_Recommender_Recorder {
 
 
 			if ( $type == 'purchased' ) {
-				$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+				$status = apply_filters( 'woocommerce_recommender_also_purchased_status', 'completed' );
 				$this->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
 			}
 
 
 			if ( $type == 'purchased-together' ) {
-				$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+				$status = apply_filters( 'woocommerce_recommender_purchased_together_status', 'completed' );
 				$this->woocommerce_build_purchased_together( $product_id, array( $status ) );
 			}
 
 			if ( $type == 'all' ) {
 				$this->woocommerce_recommender_build_simularity( $product_id, array( 'viewed' ) );
-				$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+				$status = apply_filters( 'woocommerce_recommender_also_purchased_status', 'completed' );
 				$this->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
-				$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+				$status = apply_filters( 'woocommerce_recommender_purchased_together_status', 'completed' );
 				$this->woocommerce_build_purchased_together( $product_id, array( $status ) );
 			}
 
@@ -324,7 +302,7 @@ class WC_Recommender_Recorder {
 	) {
 		global $wpdb, $woocommerce_recommender;
 
-		if ( !is_array( $activity_types ) ) {
+		if ( ! is_array( $activity_types ) ) {
 			$activity_types = (array) $activity_types;
 		}
 
@@ -382,7 +360,7 @@ class WC_Recommender_Recorder {
 	) {
 		global $wpdb, $woocommerce_recommender;
 
-		if ( !is_array( $activity_types ) ) {
+		if ( ! is_array( $activity_types ) ) {
 			$activity_types = (array) $activity_types;
 		}
 
@@ -532,59 +510,7 @@ function woocommerce_recommender_manually_build_scores() {
 		die();
 	}
 
-	if ( isset( $_REQUEST['woocommerce_recommender_build_async'] ) ) {
-		require 'lib/RollingCurl.php';
-		header( "Content-Type: text/plain" );
-
-		$force = $_REQUEST['woocommerce_recommender_build_async'];
-
-		$builder = new WC_Recommender_Recorder();
-		$running = get_option( 'woocommerce_recommender_build_running', false );
-		if ( ( $force == 'force' ) || empty( $running ) ) {
-
-			update_option( 'woocommerce_recommender_build_async_running', true );
-			update_option( 'woocommerce_recommender_build_running', true );
-			update_option( 'woocommerce_recommender_cron_start', time() );
-
-			echo 'Begin Building Recommendations' . PHP_EOL;
-			$builder->build_all_async();
-			echo 'Completed Building Recommendations' . PHP_EOL;
-
-			update_option( 'woocommerce_recommender_cron_end', time() );
-			update_option( 'woocommerce_recommender_build_running', false );
-			update_option( 'woocommerce_recommender_build_async_running', false );
-		} else {
-			echo 'Cron Job Already Running';
-		}
-
-		die();
-	}
-
-	if ( isset( $_REQUEST['woocommerce_recommender_build_slice'] ) ) {
-		require 'lib/RollingCurl.php';
-
-		$running = get_option( 'woocommerce_recommender_build_async_running', false );
-		if ( !empty( $running ) ) {
-			header( 'Content Type: text/plain' );
-			$builder = new WC_Recommender_Recorder();
-			//Set start at 10 so we never send the delete flag from this. 
-			$start = ( isset( $_GET['start'] ) && $_GET['start'] ) ? $_GET['start'] : 0;
-			//call the begin build, which will build 10 recommendations by default.   use skip delete param since the async operation deletes for us. 
-			$builder->woocommerce_recommender_begin_build_simularity( $start, $builder->posts_batch_size, true );
-
-
-			echo 'Built recommendations ' . $start . ' through ' . ( $builder->posts_batch_size + $start ) . PHP_EOL;
-			echo PHP_EOL;
-
-		} else {
-			echo 'No Async Job Running, exiting';
-			echo PHP_EOL;
-		}
-
-		die();
-	}
-
-	if ( isset( $_REQUEST['woocommerce_recommender_build'] ) && !empty( $_REQUEST['woocommerce_recommender_build'] ) ) {
+	if ( isset( $_REQUEST['woocommerce_recommender_build'] ) && ! empty( $_REQUEST['woocommerce_recommender_build'] ) ) {
 
 		$total = $wpdb->get_var( "SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish'" );
 		$start = isset( $_POST['woocommerce_recommender_build_start'] ) ? $_POST['woocommerce_recommender_build_start'] : 0;

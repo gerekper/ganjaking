@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, apor
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 6.2
-Stable tag: 1.23.3
+Stable tag: 1.23.4
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -169,6 +169,30 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
 
+= 1.23.4 - 16/May/2023 =
+
+* SECURITY: Fixed a missing nonce combined with a URL sanitisation failure, which could lead to a targetted XSS opportunity (if an attacker persuades a logged-in administrator to both re-authorise their connection to a remote storage (e.g. Dropbox) and then to follow a link personally crafted for their site before re-authorising whilst logged in, he can then store a fixed JavaScript payload in the WP admin area (they would need a further route to use that ability to cause any damage). Because of the need for the administrator to co-operate in multiple steps, this attack is very unlikely (but you should of course still update).
+* FIX: DigitalOcean S3-compatible storage does not work with disabled SSL entirely where possible settings.
+* FIX: If there was an error or network connectivity issue on first attempt of uploading a plugin/theme file, then the second attempt of uploading the same file would make the file become corrupted thus resulting in installation failure.
+* COMPATIBILITY: Suppress htmlspecialchars deprecation warnings on PHP 8.1
+* COMPATIBILITY: Suppress some PHP 8.2 deprecation notices from use of ${} style variables, and others from use of dynamic properties
+* TWEAK: Handle web hosting company setup that disabled pclose() but not popen()
+* TWEAK: All HTTP requests to the Google Drive API now, by default, forces to use HTTP/1.1 version. Also, a constant named UPDRAFTPLUS_GDRIVE_CURL_HTTP_VERSION can be set in the wp-config.php file to change the default HTTP version to another preferred version
+* TWEAK: Improve 'move' and 'copy' filesystem functions in restoring directories containing files to a different mount point/partition than where they reside
+* TWEAK: Improve files pruning mechanism, by not repeating already-done ones when resuming deletions
+* TWEAK: Improve the Handlebars templates of the Google Drive, Dropbox and UpdraftVault remote storage modules by taking PHP code out of them
+* TWEAK: Improve widget layout when decrypting a backup
+* TWEAK: Remove Boostrap CSS in Restore Wizard and replace with Flexbox CSS
+* TWEAK: Add multisite subsites header information to the database backup file that will be used for converting a network subsite to a standalone normal WordPress site
+* TWEAK: Add the UpdraftPlus plugin slug header to the database backup file
+* TWEAK: Include next-level-up directory path along with deleted folder's name when deleting a folder
+* TWEAK: Update seasonal notices
+* TWEAK: Make common logic for getting backup history from the database
+* TWEAK: Remove usage of the file_get_contents() function from WebDAV remote storage without chunking upload
+* TWEAK: Pass through some previously unhandled Dropbox error codes
+* TWEAK: Added the "non-core" word to the WordPress database tables excluded warning.
+* TWEAK: Remove WordPress core tables from the non-core WordPress database tables excluded list in restoration step 2
+* TWEAK: When migrating the www site, the search replace will be performed in database tables on the non-www domain too, and vice versa
 
 = 1.23.3 - 16/Mar/2023 =
 
@@ -214,6 +238,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * TWEAK: Use nonce when starting a new restoration and strengthen the continuation process to prevent direct access that has the potential of being file and/or log abuse
 * TWEAK: Improve the WebDAV storage module API in regard to the way it handles uploading and writing files
 * TWEAK: Replace the word "Directory" with "Folder" in UI notices
+* TWEAK: UpdraftVault: select storage class intelligently
 
 = 1.22.25 - 16/Dec/2022 =
 
@@ -1718,4 +1743,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.23.3: A security fix release - please update. More details: https://updraftplus.com/updraftplus-1-23-3-2-23-3-important-security-release/
+* 1.23.4: Various tweaks and fixes, including a minor security issue. A recommended update for all.

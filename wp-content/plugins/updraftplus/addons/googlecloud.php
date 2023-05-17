@@ -245,8 +245,8 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 				$extra_log = $media->getProgress();
 				
 				if (!$status && $this->chunk_size < 67108864 && microtime(true) - $start_time < 2.5 && !feof($handle) && $updraftplus->verify_free_memory($this->chunk_size * 4)) {
-					$memory_usage = round(@memory_get_usage(false)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-					$memory_usage2 = round(@memory_get_usage(true)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					$memory_usage = round(@memory_get_usage(false)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+					$memory_usage2 = round(@memory_get_usage(true)/1048576, 1);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 					$this->chunk_size = $this->chunk_size * 2;
 					$extra_log .= ' - increasing chunk size to '.round($this->chunk_size/1024).' KB';
 					$extra_log .= " - memory usage: $memory_usage / $memory_usage2";
@@ -295,7 +295,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		return $this->do_upload_engine($basename, $from, false);
 	}
 
-	public function do_download($file, $fullpath) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- need $fullpath as its called in functions.php
+	public function do_download($file, $fullpath) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- need $fullpath as its called in functions.php.
 
 		global $updraftplus;
 
@@ -331,7 +331,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		
 	}
 	
-	public function chunked_download($file, $headers, $link) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function chunked_download($file, $headers, $link) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 
 		$request = $this->client->getAuth()->sign(new UDP_Google_Http_Request($link, 'GET', $headers, null));
 
@@ -772,7 +772,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 			if (isset($google['settings'][$instance_id]['clientid']) && $old_client_id == $google['settings'][$instance_id]['clientid'] && $old_client_secret == $google['settings'][$instance_id]['secret']) {
 				$google['settings'][$instance_id]['token'] = $old_token;
 			}
-			if (!empty($opts['settings'][$instance_id]['token']) && $old_client_id != $google['settings'][$instance_id]['clientid']) {
+			if (!empty($opts['settings'][$instance_id]['token']) && isset($google['settings'][$instance_id]['clientid']) && $old_client_id != $google['settings'][$instance_id]['clientid']) {
 				updraft_try_include_file('methods/googlecloud.php', 'include_once');
 				$updraftplus->register_wp_http_option_hooks();
 				$googlecloud = new UpdraftPlus_BackupModule_googlecloud();
@@ -968,7 +968,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		$opts['bucket_location'] = $bucket_location;
 		$opts['storage_class'] = $storage_class;
 
-		list ($bucket_name, $path) = $this->split_bucket_path($posted_settings['bucket_path']);// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		list ($bucket_name, $path) = $this->split_bucket_path($posted_settings['bucket_path']);// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameters are for future use.
 		
 		if (empty($bucket_name)) {
 			_e("Failure: No bucket details were given.", 'updraftplus');
@@ -1251,7 +1251,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 				{{{authentication_label2}}}
 				</p>
 				<br>
-				<a data-pretext="{{{authentication_label2}}}" class="button-ud-google updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{authentication_link_text}}</a>
+				<a data-pretext="{{{authentication_label2}}}" class="button-ud-google updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&nonce={{storage_auth_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{authentication_link_text}}</a>
 			</td>
 		</tr>
 		<?php
