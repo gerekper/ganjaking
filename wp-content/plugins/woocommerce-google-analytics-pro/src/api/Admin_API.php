@@ -113,14 +113,14 @@ class Admin_API extends Framework\SV_WC_API_Base {
 	 * @param array $args request arguments
 	 * @return Request object
 	 */
-	protected function get_new_request( $args = [], $data = [] ) : Request {
+	protected function get_new_request( $args = [], $data = [], $params = [] ) : Request {
 
 		$args = wp_parse_args( $args, [
 			'method' => 'GET',
 			'path'   => '/',
 		] );
 
-		return new Request( $args['method'], $args['path'], $data );
+		return new Request( $args['method'], $args['path'], $data, $params );
 	}
 
 
@@ -131,15 +131,20 @@ class Admin_API extends Framework\SV_WC_API_Base {
 	 *
 	 * @since 2.0.0
 	 *
+	 * @param array $params request query parameters
 	 * @return Account_Summaries_Response object
 	 * @throws Framework\SV_WC_API_Exception
 	 */
-	public function get_account_summaries() : Account_Summaries_Response {
+	public function get_account_summaries( array $params = [] ) : Account_Summaries_Response {
 
-		$request = $this->get_new_request( [
-			'method' => 'GET',
-			'path'   => '/accountSummaries',
-		] );
+		$request = $this->get_new_request(
+			[
+				'method' => 'GET',
+				'path'   => '/accountSummaries',
+			],
+			[],
+			array_merge( [ 'pageSize' => 200 ], $params )
+		);
 
 		$this->set_response_handler( Account_Summaries_Response::class );
 

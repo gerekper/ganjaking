@@ -261,21 +261,45 @@ jQuery(document).ready(function() {
 	});
 
 	/**
-	 * Settings tabs
+	 * Control the settings tabs
 	 */
 	jQuery('#permalink-manager').on('click', '.settings-tabs .subsubsub a', function() {
 		var tab_id = jQuery(this).attr('data-tab');
 
-		jQuery('#permalink-manager .settings-tabs .subsubsub a').removeClass('current');
-		jQuery(this).addClass('current');
-
-		jQuery('#permalink-manager .settings-tabs form > div').hide().removeClass('active-tab');
-		jQuery('#permalink-manager .settings-tabs form > div#pm_' + tab_id).show().addClass('active-tab');
-
-		jQuery('#permalink-manager .settings-tabs form input[name="pm_active_tab"]').val(tab_id);
+		pm_load_settings_tab(tab_id);
 
 		return false;
 	});
+
+	if(jQuery('#permalink-manager .settings-tabs').length > 0) {
+		var tab_id = window.location.hash.substring(1);
+
+		pm_load_settings_tab(tab_id);
+	}
+
+	function pm_load_settings_tab(tab_id) {
+		var settings_container = jQuery('#permalink-manager .settings-tabs');
+		var new_tab = jQuery(settings_container).find('.subsubsub a[data-tab=' + tab_id + ']');
+
+		if(jQuery(new_tab).length > 0) {
+			jQuery(settings_container).find('.subsubsub a').removeClass('current');
+			jQuery(new_tab).addClass('current');
+
+			jQuery(settings_container).find('form > div').hide().removeClass('active-tab');
+			jQuery(settings_container).find('form > div#pm_' + tab_id).show().addClass('active-tab');
+
+			jQuery(settings_container).find('form input[name="pm_active_tab"]').val(tab_id);
+
+			// Change the hash in the URL
+			if (tab_id) {
+				if (history.pushState) {
+					history.pushState(null, null, "#" + tab_id);
+				} else {
+					window.location.hash = tab_id;
+				}
+			}
+		}
+	}
 
 	/**
 	 * Conditional fields in Permalink Manager settings

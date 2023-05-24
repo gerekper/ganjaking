@@ -53,6 +53,10 @@ class FUE_Email_Template {
 	 * @return bool|WP_Error
 	 */
 	public function load_template( $file ) {
+		// Only allow `.html` templates.
+		if ( ! preg_match( '/\.html$/', $file ) ) {
+			$file .= '.html';
+		}
 
 		$file = fue_locate_email_template( $file );
 
@@ -64,7 +68,7 @@ class FUE_Email_Template {
 		}
 
 		$this->path     = $file;
-		$this->contents = file_get_contents( $file );
+		$this->contents = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$this->name     = $this->get_template_name();
 		$this->extract_sections();
 		return true;

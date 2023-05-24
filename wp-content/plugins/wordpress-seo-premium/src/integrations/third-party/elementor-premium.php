@@ -19,8 +19,8 @@ use WPSEO_Social_Previews;
 use WPSEO_Utils;
 use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
-use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper;
+use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
 
@@ -30,18 +30,18 @@ use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
 class Elementor_Premium implements Integration_Interface {
 
 	/**
-	 * Holds the Current_Page_Helper.
-	 *
-	 * @var Current_Page_Helper
-	 */
-	protected $current_page_helper;
-
-	/**
 	 * Holds the script handle.
 	 *
 	 * @var string
 	 */
 	const SCRIPT_HANDLE = 'elementor-premium';
+
+	/**
+	 * Holds the Current_Page_Helper.
+	 *
+	 * @var Current_Page_Helper
+	 */
+	protected $current_page_helper;
 
 	/**
 	 * Represents the post.
@@ -77,7 +77,7 @@ class Elementor_Premium implements Integration_Interface {
 	 * Constructs the class.
 	 *
 	 * @param Prominent_Words_Helper $prominent_words_helper The prominent words helper.
-	 * @param Current_Page_Helper    $current_page_helper The Current_Page_Helper.
+	 * @param Current_Page_Helper    $current_page_helper    The Current_Page_Helper.
 	 */
 	public function __construct( Prominent_Words_Helper $prominent_words_helper, Current_Page_Helper $current_page_helper ) {
 		$this->prominent_words_helper = $prominent_words_helper;

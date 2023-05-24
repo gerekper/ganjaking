@@ -437,45 +437,6 @@ class Event_Tracking {
 
 
 	/**
-	 * Gets the Measurement Protocol API handler for GA4.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return Measurement_Protocol_API
-	 */
-	public function get_measurement_protocol_api(): Measurement_Protocol_API {
-
-		if ( $this->measurement_protocol_api instanceof Measurement_Protocol_API) {
-			return $this->measurement_protocol_api;
-		}
-
-		return $this->measurement_protocol_api = new Measurement_Protocol_API(
-			Tracking::get_measurement_id(),
-			wc_google_analytics_pro()->get_auth_instance()->get_mp_api_secret()
-		);
-	}
-
-
-	/**
-	 * Gets the Measurement Protocol API handler for Universal Analytics.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @deprecated since 2.0.0 will be removed when Universal Analytics is retired
-	 *
-	 * @return Measurement_Protocol_UA_API
-	 */
-	public function get_measurement_protocol_ua_api(): Measurement_Protocol_UA_API {
-
-		if ( $this->measurement_protocol_ua_api instanceof Measurement_Protocol_UA_API) {
-			return $this->measurement_protocol_ua_api;
-		}
-
-		return $this->measurement_protocol_ua_api = new Measurement_Protocol_UA_API( Tracking::get_tracking_id() );
-	}
-
-
-	/**
 	 * Gets the integration instance.
 	 *
 	 * @since 2.0.0

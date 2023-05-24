@@ -131,7 +131,6 @@ class Properties_Handler {
 
 			if ( ! wc_google_analytics_pro()->get_api_client_instance()->get_auth_instance()->get_mp_api_secret() ) {
 
-
 				$url = "{$base_url}/admin/streams/table/4699708520";
 
 				$message = sprintf(
@@ -459,11 +458,13 @@ class Properties_Handler {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return array
+	 * @return array<string, array<string, mixed>>
 	 */
 	public static function get_ga4_properties(): array {
 
-		if ( ! is_array( $properties = get_transient( 'wc_google_analytics_pro_ga4_properties' ) ) ) {
+		$properties = get_transient( 'wc_google_analytics_pro_ga4_properties' );
+
+		if ( ! is_array( $properties ) ) {
 
 			$properties = [];
 
@@ -474,12 +475,20 @@ class Properties_Handler {
 				@set_time_limit( 0 );
 
 				$admin_api         = wc_google_analytics_pro()->get_api_client_instance()->get_admin_api();
-				$account_summaries = $admin_api->get_account_summaries()->list_account_summaries();
+				$account_summaries = [];
+
+				do {
+
+					$account_summaries_response = $admin_api->get_account_summaries( ! empty( $next_page_token ) ? [ 'pageToken' => $next_page_token ] : [] );
+
+					array_push( $account_summaries, ...$account_summaries_response->list_account_summaries() );
+
+				} while ( $next_page_token = $account_summaries_response->get_next_page_token() );
 
 				// loop over the account summaries to get available properties
 				foreach ( $account_summaries as $account_summary ) {
 
-					if (empty( $account_summary->propertySummaries )) {
+					if ( empty( $account_summary->propertySummaries ) ) {
 						continue;
 					}
 
@@ -510,7 +519,7 @@ class Properties_Handler {
 				$properties = [];
 			}
 
-			if ( is_array( $properties ) ) {
+			if ( is_array( $properties ) && ! empty( $properties ) ) {
 				// sort properties by keys, by comparing them naturally
 				uksort( $properties, 'strnatcasecmp' );
 			}

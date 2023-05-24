@@ -2,7 +2,7 @@
  * wppm.plugin.js
  * JavaScript functions required by the plugin
  *
- * @version 1.9.0
+ * @version 2.2.1
  */
 (function ($) {
 
@@ -307,5 +307,4 @@
             WPPM_EL_Sharing_Handler($(this), $);
         });
     };
-
 })(jQuery);

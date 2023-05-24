@@ -5,8 +5,8 @@ namespace Yoast\WP\SEO\Premium\Integrations\Front_End;
 use WP_Query;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Helpers\Redirect_Helper;
+use Yoast\WP\SEO\Integrations\Integration_Interface;
 
 /**
  * Class Crawl_Cleanup_Searches.
@@ -43,11 +43,11 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	/**
 	 * Crawl_Cleanup_Searches integration constructor.
 	 *
-	 * @param Options_Helper  $options_helper  The option helper.
-	 * @param Redirect_Helper $redirect_helper The redirect helper.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Options_Helper  $options_helper  The option helper.
+	 * @param Redirect_Helper $redirect_helper The redirect helper.
 	 */
 	public function __construct( Options_Helper $options_helper, Redirect_Helper $redirect_helper ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Searches' );
@@ -94,10 +94,10 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	/**
 	 * Check if we want to allow this search to happen.
 	 *
-	 * @param WP_Query $query The main query.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_Query $query The main query.
 	 *
 	 * @return WP_Query
 	 */

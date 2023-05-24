@@ -3,7 +3,7 @@
  * bullet-list.php
  * Template part for the WP Post Modules Plugin
  *
- * @version 1.9.0
+ * @version 2.2.1
  * All variables coming from parent file wp-post-modules-el.php
  */
 	$out = '';

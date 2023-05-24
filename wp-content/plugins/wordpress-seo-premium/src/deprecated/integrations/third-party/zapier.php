@@ -56,11 +56,11 @@ class Zapier implements Integration_Interface {
 	/**
 	 * Zapier constructor.
 	 *
-	 * @param WPSEO_Admin_Asset_Manager $asset_manager The admin asset manager.
-	 * @param Zapier_Helper             $zapier_helper The Zapier helper.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WPSEO_Admin_Asset_Manager $asset_manager The admin asset manager.
+	 * @param Zapier_Helper             $zapier_helper The Zapier helper.
 	 */
 	public function __construct( WPSEO_Admin_Asset_Manager $asset_manager, Zapier_Helper $zapier_helper ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
@@ -110,10 +110,10 @@ class Zapier implements Integration_Interface {
 	/**
 	 * Returns additional content to be displayed after the Zapier toggle.
 	 *
-	 * @param Yoast_Feature_Toggle $integration The integration feature we've shown the toggle for.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Yoast_Feature_Toggle $integration The integration feature we've shown the toggle for.
 	 *
 	 * @return void
 	 */
@@ -223,10 +223,10 @@ class Zapier implements Integration_Interface {
 	/**
 	 * Enhances the array for the integrations page script with additional data.
 	 *
-	 * @param array $data The array to add data to.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param array $data The array to add data to.
 	 *
 	 * @return array The enhances data.
 	 */

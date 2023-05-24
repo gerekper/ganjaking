@@ -25,10 +25,10 @@ class Robots_Txt_Integration implements Integration_Interface {
 	/**
 	 * Sets the helpers.
 	 *
-	 * @param Options_Helper $options_helper Options helper.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Options_Helper $options_helper Options helper.
 	 */
 	public function __construct( Options_Helper $options_helper ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Robots_Txt_Integration' );
@@ -74,10 +74,10 @@ class Robots_Txt_Integration implements Integration_Interface {
 	/**
 	 * Add a disallow rule for search to robots.txt.
 	 *
-	 * @param Robots_Txt_Helper $robots_txt_helper The robots txt helper.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Robots_Txt_Helper $robots_txt_helper The robots txt helper.
 	 *
 	 * @return void
 	 */
@@ -91,10 +91,10 @@ class Robots_Txt_Integration implements Integration_Interface {
 	/**
 	 * Add a disallow rule for /wp-json/ to robots.txt.
 	 *
-	 * @param Robots_Txt_Helper $robots_txt_helper The robots txt helper.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Robots_Txt_Helper $robots_txt_helper The robots txt helper.
 	 *
 	 * @return void
 	 */

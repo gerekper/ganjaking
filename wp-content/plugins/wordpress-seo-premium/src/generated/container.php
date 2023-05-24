@@ -54,6 +54,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\helpers\\post_type_helper' => 'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper',
             'yoast\\wp\\seo\\helpers\\request_helper' => 'Yoast\\WP\\SEO\\Helpers\\Request_Helper',
             'yoast\\wp\\seo\\helpers\\robots_helper' => 'Yoast\\WP\\SEO\\Helpers\\Robots_Helper',
+            'yoast\\wp\\seo\\helpers\\score_icon_helper' => 'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper',
             'yoast\\wp\\seo\\helpers\\social_profiles_helper' => 'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper',
             'yoast\\wp\\seo\\helpers\\url_helper' => 'Yoast\\WP\\SEO\\Helpers\\Url_Helper',
             'yoast\\wp\\seo\\integrations\\admin\\admin_columns_cache_integration' => 'Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration',
@@ -68,6 +69,8 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\conditionals\\algolia_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\cornerstone_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\edd_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\inclusive_language_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\term_overview_or_ajax_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional',
             'yoast\\wp\\seo\\premium\\config\\badge_group_names' => 'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names',
             'yoast\\wp\\seo\\premium\\config\\migrations\\addindexonindexableidandstem' => 'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem',
             'yoast\\wp\\seo\\premium\\database\\migration_runner_premium' => 'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium',
@@ -79,6 +82,9 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\initializers\\woocommerce' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Woocommerce',
             'yoast\\wp\\seo\\premium\\initializers\\wp_cli_initializer' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\cornerstone_column_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\cornerstone_taxonomy_column_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\inclusive_language_column_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\inclusive_language_taxonomy_column_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\keyword_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\metabox_formatter_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Metabox_Formatter_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\plugin_links_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration',
@@ -156,6 +162,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper' => 'getPostTypeHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Request_Helper' => 'getRequestHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Robots_Helper' => 'getRobotsHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper' => 'getScoreIconHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper' => 'getSocialProfilesHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
             'Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration' => 'getAdminColumnsCacheIntegrationService',
@@ -170,6 +177,8 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => 'getAlgoliaEnabledConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional' => 'getCornerstoneEnabledConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => 'getEDDConditionalService',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional' => 'getInclusiveLanguageEnabledConditionalService',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional' => 'getTermOverviewOrAjaxConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => 'getBadgeGroupNamesService',
             'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => 'getAddIndexOnIndexableIdAndStemService',
             'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => 'getMigrationRunnerPremiumService',
@@ -181,6 +190,9 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Woocommerce' => 'getWoocommerceService',
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer' => 'getWpCliInitializerService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration' => 'getCornerstoneColumnIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => 'getCornerstoneTaxonomyColumnIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration' => 'getInclusiveLanguageColumnIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration' => 'getInclusiveLanguageTaxonomyColumnIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration' => 'getKeywordIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Metabox_Formatter_Integration' => 'getMetaboxFormatterIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration' => 'getPluginLinksIntegrationService',
@@ -553,6 +565,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Score_Icon_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Score_Icon_Helper
+     */
+    protected function getScoreIconHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Social_Profiles_Helper' shared service.
      *
      * @return \Yoast\WP\SEO\Helpers\Social_Profiles_Helper
@@ -620,6 +642,9 @@ class Cached_Container extends Container
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Woocommerce');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Metabox_Formatter_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration');
@@ -740,6 +765,26 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\Inclusive_Language_Enabled_Conditional' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Conditionals\Inclusive_Language_Enabled_Conditional
+     */
+    protected function getInclusiveLanguageEnabledConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Inclusive_Language_Enabled_Conditional();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\Term_Overview_Or_Ajax_Conditional' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Conditionals\Term_Overview_Or_Ajax_Conditional
+     */
+    protected function getTermOverviewOrAjaxConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Term_Overview_Or_Ajax_Conditional();
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Config\Badge_Group_Names' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Config\Badge_Group_Names
@@ -847,6 +892,36 @@ class Cached_Container extends Container
     protected function getCornerstoneColumnIntegrationService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Cornerstone_Column_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] : $this->getPostTypeHelperService()) && false ?: '_'}, ${($_ = isset($this->services['wpdb']) ? $this->services['wpdb'] : $this->getWpdbService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration']) ? $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration'] : $this->getAdminColumnsCacheIntegrationService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Cornerstone_Taxonomy_Column_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Cornerstone_Taxonomy_Column_Integration
+     */
+    protected function getCornerstoneTaxonomyColumnIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Cornerstone_Taxonomy_Column_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper'] : ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper'] = new \Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper())) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Inclusive_Language_Column_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Inclusive_Language_Column_Integration
+     */
+    protected function getInclusiveLanguageColumnIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Inclusive_Language_Column_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] : $this->getPostTypeHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper'] : $this->getScoreIconHelperService()) && false ?: '_'}, ${($_ = isset($this->services['wpdb']) ? $this->services['wpdb'] : $this->getWpdbService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration']) ? $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration'] : $this->getAdminColumnsCacheIntegrationService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Inclusive_Language_Taxonomy_Column_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Inclusive_Language_Taxonomy_Column_Integration
+     */
+    protected function getInclusiveLanguageTaxonomyColumnIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Inclusive_Language_Taxonomy_Column_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper'] : $this->getScoreIconHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper'] : ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper'] = new \Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper())) && false ?: '_'});
     }
 
     /**

@@ -58,11 +58,11 @@ class Premium_Option_Wpseo_Watcher implements Integration_Interface {
 	/**
 	 * Checks if the Zapier integration is disabled; if so, deletes the data.
 	 *
-	 * @param array $old_value The old value of the option.
-	 * @param array $new_value The new value of the option.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param array $old_value The old value of the option.
+	 * @param array $new_value The new value of the option.
 	 *
 	 * @return bool Whether the Zapier data has been deleted or not.
 	 */

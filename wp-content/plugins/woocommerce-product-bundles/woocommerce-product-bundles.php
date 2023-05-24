@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.18.5
+* Version: 6.18.6
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -18,7 +18,7 @@
 * Tested up to: 6.0
 *
 * WC requires at least: 3.9
-* WC tested up to: 6.9
+* WC tested up to: 7.7
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.18.5
+ * @version  6.18.6
  */
 class WC_Bundles {
 
-	public $version  = '6.18.5';
+	public $version  = '6.18.6';
 	public $required = '3.9.0';
 
 	/**
@@ -349,8 +349,9 @@ class WC_Bundles {
 		// Analytics.
 		require_once( WC_PB_ABSPATH . 'includes/admin/analytics/class-wc-pb-admin-analytics.php' );
 
-		// Tracker.
+		// Tracking.
 		require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-tracker.php' );
+		require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-tracks.php' );
 
 		// WP-CLI includes.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {

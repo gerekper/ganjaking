@@ -30,11 +30,11 @@ class Zapier_Action {
 	/**
 	 * Zapier_Action constructor.
 	 *
-	 * @param Zapier_Helper        $zapier_helper        The Zapier helper.
-	 * @param Indexable_Repository $indexable_repository The Indexable repository.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Zapier_Helper        $zapier_helper        The Zapier helper.
+	 * @param Indexable_Repository $indexable_repository The Indexable repository.
 	 */
 	public function __construct( Zapier_Helper $zapier_helper, Indexable_Repository $indexable_repository ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
@@ -46,11 +46,11 @@ class Zapier_Action {
 	/**
 	 * Subscribes Zapier and stores the passed URL for later usage.
 	 *
-	 * @param string $url     The URL to subscribe.
-	 * @param string $api_key The API key from Zapier to check against the one stored in the options.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $url     The URL to subscribe.
+	 * @param string $api_key The API key from Zapier to check against the one stored in the options.
 	 *
 	 * @return object The response object.
 	 */
@@ -92,10 +92,10 @@ class Zapier_Action {
 	/**
 	 * Unsubscribes Zapier based on the passed ID.
 	 *
-	 * @param string $id The ID to unsubscribe.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $id The ID to unsubscribe.
 	 *
 	 * @return object The response object.
 	 */
@@ -125,11 +125,11 @@ class Zapier_Action {
 	/**
 	 * Checks the API key submitted by Zapier.
 	 *
-	 * @param string $api_key The API key from Zapier to check against the one
-	 *     stored in the options.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $api_key The API key from Zapier to check against the one
+	 *     stored in the options.
 	 *
 	 * @return object The response object.
 	 */
@@ -154,11 +154,11 @@ class Zapier_Action {
 	/**
 	 * Sends an array of the last published post URLs.
 	 *
-	 * @param string $api_key The API key from Zapier to check against the one
-	 *     stored in the options.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $api_key The API key from Zapier to check against the one
+	 *     stored in the options.
 	 *
 	 * @return object The response object.
 	 */
@@ -214,10 +214,10 @@ class Zapier_Action {
 	/**
 	 * Resets the API key in the DB.
 	 *
-	 * @param string $api_key The API key to be reset.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $api_key The API key to be reset.
 	 *
 	 * @return object The response object.
 	 */

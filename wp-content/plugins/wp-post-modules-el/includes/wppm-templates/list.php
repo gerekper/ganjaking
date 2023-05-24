@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 1.9.0
+ * @version 2.2.1
  *
  * All variables coming from parent file wp-post-modules-el.php
  */
@@ -113,11 +113,8 @@
 		 * @since 1.0.0
 		 */
 		$image_path = apply_filters( 'wppm_widget_image_path',  '/' );
-		if ( locate_template( $image_path . 'image.php' ) ) {
-            require( get_stylesheet_directory() . $image_path . 'image.php' );
-        } else {
-            require( dirname( __FILE__ ) . $image_path . 'image.php' );
-        }
+        
+        require( dirname( __FILE__ ) . $image_path . 'image.php' );
 
 
 		$format = apply_filters( 'wppm_grid_s1_output', '<article%12$s%13$s  class="%2$s%3$s"><div class="wppm-post-wrap"><div class="entry-content">%5$s<%11$s%14$s class="entry-title%15$s%16$s"><a href="%6$s" title="%17$s">%7$s</a></%11$s>%8$s%9$s%10$s</div>%4$s</div></article>' );

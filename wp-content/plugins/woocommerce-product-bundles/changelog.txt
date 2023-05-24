@@ -1,5 +1,8 @@
 *** WooCommerce Product Bundles ***
 
+2023.05.17 - version 6.18.6
+ * Tweak - Introduced basic event tracking support via Tracks.
+
 2023.05.10 - version 6.18.5
 * Tweak - Added support for 'bundle_price' key in the REST API schema.
 * New - Introduced the 'woocommerce_bundled_item_group_of_quantity' filter to override the bundled items' Group of quantity.

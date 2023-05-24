@@ -8,8 +8,6 @@
 use Yoast\WP\SEO\Integrations\Blocks\Siblings_Block;
 use Yoast\WP\SEO\Integrations\Blocks\Subpages_Block;
 use Yoast\WP\SEO\Premium\Addon_Installer;
-use Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper;
-use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Presenters\Admin\Help_Link_Presenter;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
@@ -30,7 +28,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '20.7';
+	const PLUGIN_VERSION_NAME = '20.8';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.

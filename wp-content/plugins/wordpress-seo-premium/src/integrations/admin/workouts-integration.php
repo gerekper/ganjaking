@@ -167,7 +167,7 @@ class Workouts_Integration implements Integration_Interface {
 			->where_raw( '( incoming_link_count is NULL OR incoming_link_count < 3 )' )
 			->where_raw( '( post_status = \'publish\' OR post_status IS NULL )' )
 			->where_raw( '( is_robots_noindex = FALSE OR is_robots_noindex IS NULL )' )
-			->where_raw( 'NOT ( object_sub_type = \'page\' AND permalink = %s )', [ home_url( '/' ) ] )
+			->where_raw( 'NOT ( object_sub_type = \'page\' AND permalink = %s )', [ \home_url( '/' ) ] )
 			->where_in( 'object_sub_type', $this->get_public_sub_types() )
 			->where_in( 'object_type', [ 'post' ] )
 			->where_not_in( 'id', $indexable_ids_in_orphaned_workout )

@@ -7,7 +7,7 @@ Tags: permalinks, custom permalinks, permalink, woocommerce permalinks, url edit
 Requires at least: 4.4.0
 Requires PHP: 5.4
 Tested up to: 6.3.0
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -42,9 +42,6 @@ Click here for additional information and to purchase <a href="https://permalink
 * **Custom fields support**<br/>Only Permalink Manager makes it possible to <a href="https://permalinkmanager.pro/docs/tutorials/how-to-use-custom-fields-inside-wordpress-permalinks/">add custom fields to WordPress permalinks</a> without the need for any technical skills on the part of the user.
 * **Extra redirects**<br/>You can define extra 301 redirects (aliases) for any post, page, or term. Additionally, you may assign a redirect URL to each post/term, which will take users to any external URL address. For each element, the redirect URLs might be specified separately.
 
-= Translators =
-* Japanese - Shinsaku Ikeda
-
 == Installation ==
 
 Go to `Plugins -> Add New` section from your admin account and search for `Permalink Manager`.
@@ -73,7 +70,6 @@ While this data structure works for the vast majority of WordPress sites, it may
 
 To summarize, the plugin is suitable for small and medium-sized websites. It will not slow down your pageload time or affect its usability in any way. However, if you want to use it on a much bigger website with thousands of permalinks (more than 60.000), please consider excluding content types that do not require customized permalink format in order to lower the custom permalinks array. For further details on the plugin's performance, please <a href="https://permalinkmanager.pro/docs/basics/performance/">visit this post</a>.
 
-
 = Can I define different permalink formats per each language.
 Yes, it is possible if you are using either WPML or Polylang. You can find <a href="https://permalinkmanager.pro/docs/tutorials/how-to-translate-permalinks/">the full instructions here</a>.
 
@@ -100,6 +96,15 @@ It is because Permalink Manager overwrites one of the core WordPress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.4.1 (May 22, 2023) =
+* Dev - The function that adds the "Permalink Manager" button via 'get_sample_permalink_html' filter has been updated
+* Dev - The function that controls permalink trailing slashes has been refactored and improved
+* Dev - When WPML is enabled, Permalink Manager uses "term_taxonomy_id" instead of "term_id" for language mismatch functions to avoid compatibility issues
+* Dev - To avoid problems with other 3rd party plugins, the function that places the "Permalink Manager" button below the title editor field in Classic Editor mode no longer overwrites the whole HTML
+* Enhancement - The plugin interface's text descriptions and label names have been simplified for readability
+* Enhancement - Added new section "Exclusion settings" with a field to manually enter IDs of posts/terms to be ignored by Permalink Manager
+* Fix - The compatability problem that caused "fatal error" for some RankMath users has been resolved
 
 = 2.4.0 (April 12, 2023) =
 * Dev - Improved custom permalink detection function

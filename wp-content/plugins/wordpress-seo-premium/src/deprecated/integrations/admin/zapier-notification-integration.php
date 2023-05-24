@@ -2,14 +2,14 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Admin;
 
-use WPSEO_Shortlinker;
 use WPSEO_Admin_Asset_Manager;
 use WPSEO_Options;
+use WPSEO_Shortlinker;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
-use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Helpers\Capability_Helper;
-use Yoast\WP\SEO\Presenters\Admin\Notice_Presenter;
+use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Conditionals\Zapier_Enabled_Conditional;
+use Yoast\WP\SEO\Presenters\Admin\Notice_Presenter;
 
 /**
  * Shows a notification telling the user that zapier integration will be removed.
@@ -64,12 +64,12 @@ class Zapier_Notification_Integration implements Integration_Interface {
 	/**
 	 * Zapier_Notification_Integration constructor.
 	 *
-	 * @param WPSEO_Admin_Asset_Manager  $admin_asset_manager The admin asset manager.
-	 * @param Capability_Helper          $capability_helper   The capability helper.
-	 * @param Zapier_Enabled_Conditional $zapier_enable_conditional   The capability helper.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WPSEO_Admin_Asset_Manager  $admin_asset_manager       The admin asset manager.
+	 * @param Capability_Helper          $capability_helper         The capability helper.
+	 * @param Zapier_Enabled_Conditional $zapier_enable_conditional The capability helper.
 	 */
 	public function __construct(
 		WPSEO_Admin_Asset_Manager $admin_asset_manager,
@@ -121,7 +121,7 @@ class Zapier_Notification_Integration implements Integration_Interface {
 			$this->admin_asset_manager->enqueue_style( 'monorepo' );
 
 			/* translators: %1$s for Yoast SEO */
-			$title   = \sprintf( __( 'Zapier integration will be removed from %1$s', 'wordpress-seo-premium' ), 'Yoast SEO' );
+			$title   = \sprintf( \__( 'Zapier integration will be removed from %1$s', 'wordpress-seo-premium' ), 'Yoast SEO' );
 			$content = \sprintf(
 				/* translators: %1$s and %2$s expands to the link to https://yoast.com/features/zapier, %3$s for Yoast SEO, %4$s for support email.  */
 				\esc_html__( 'The %1$sZapier integration%2$s (on the Integrations page) will be removed from %3$s in 20.7 (release date May 9th). If you have any questions, please reach out to %4$s.', 'wordpress-seo-premium' ),

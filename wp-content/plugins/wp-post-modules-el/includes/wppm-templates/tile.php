@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 1.9.0
+ * @version 2.2.1
  *
  * All variables coming from parent file wp-post-modules-el.php
  */
@@ -122,11 +122,8 @@
 		 * @since 1.0.0
 		 */
 		$image_path = apply_filters( 'wppm_widget_image_path',  '/' );
-		if ( locate_template( $image_path . 'image.php' ) ) {
-            require( get_stylesheet_directory() . $image_path . 'image.php' );
-        } else {
-            require( dirname( __FILE__ ) . $image_path . 'image.php' );
-        }
+
+        require( dirname( __FILE__ ) . $image_path . 'image.php' );
 
 		$format = apply_filters( 'wppm_portfolio_output', '<article%10$s%11$s class="%1$s"><div class="tile-wrap"><div class="tile-content"><div class="tile-overlay">%3$s<%9$s%12$s class="entry-title"><a href="%4$s" title="%13$s">%5$s</a></%9$s>%6$s%7$s%8$s</div></div>%2$s</div></article>' );
 		if ( 'featured' == $img_source && has_post_thumbnail() ) {

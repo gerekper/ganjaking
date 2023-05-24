@@ -41,20 +41,20 @@ class Permalink_Manager_Settings {
 				'section_name' => __( 'General settings', 'permalink-manager' ),
 				'container'    => 'row',
 				'name'         => 'general',
-				'fields' => array(
+				'fields'       => array(
 					'auto_update_uris'   => array(
 						'type'        => 'select',
-						'label'       => __( 'URI update mode', 'permalink-manager' ),
+						'label'       => __( 'Permalink update', 'permalink-manager' ),
 						'input_class' => '',
-						'choices'     => array( 0 => __( 'Don\'t auto-update permalinks (default mode)', 'permalink-manager' ), 1 => __( 'Auto-update permalinks', 'permalink-manager' ), 2 => __( 'Don\'t save/generate custom permalinks for new items', 'permalink-manager' ) ),
-						'description' => sprintf( '<strong>%s</strong><br />%s<br />%s', __( 'After a post/term is updated, Permalink Manager can automatically update its custom permalink to follow the default format set in Permastructure settings.', 'permalink-manager' ), __( 'Choose the last option if you wish to use the native permalinks rather than generate custom permalinks whenever a new post or term is added.', 'permalink-manager' ), __( 'You may override the global settings in the URI Editor by selecting a different setting for each post or term individually.', 'permalink-manager' ) )
+						'choices'     => array( 0 => __( 'Don\'t auto-update custom permalinks (default mode)', 'permalink-manager' ), 1 => __( 'Auto-update custom permalinks', 'permalink-manager' ), 2 => __( 'Disable custom permalinks for new posts/terms', 'permalink-manager' ) ),
+						'description' => sprintf( '<strong>%s</strong><br />%s<br />%s', __( 'Custom permalinks in Permalink Manager will not be updated automatically to avoid overwriting individual modifications. If necessary, you can opt to change them every time a post/term is saved to match the Permastructure settings default format.', 'permalink-manager' ), __( 'If you select the third option, Permalink Manager will not generate new custom permalinks for newly added items. This lets you choose which pages will have custom permalinks and which will continue to use the original WordPress permalinks.', 'permalink-manager' ), __( 'The Permalink Manager editor allows you to select a different mode and override this global settings for specific posts and terms.', 'permalink-manager' ) )
 					),
 					'force_custom_slugs' => array(
 						'type'        => 'select',
 						'label'       => __( 'Slugs mode', 'permalink-manager' ),
 						'input_class' => 'settings-select',
-						'choices'     => array( 0 => __( 'Use native slugs', 'permalink-manager' ), 1 => __( 'Use actual titles as slugs', 'permalink-manager' ), 2 => __( 'Inherit parents\' slugs', 'permalink-manager' ) ),
-						'description' => sprintf( '%s<br />%s<br />%s', __( '<strong>Permalink Manager can use either native slugs or actual titles for custom permalinks.</strong>', 'permalink-manager' ), __( 'The native slug is generated from the initial title after the post or term is published.', 'permalink-manager' ), __( 'Use this field if you would like Permalink Manager to use the actual titles instead of native slugs.', 'permalink-manager' ) )
+						'choices'     => array( 0 => __( 'Use WordPress slugs (default mode)', 'permalink-manager' ), 1 => __( 'Use actual titles instead of WordPress slugs', 'permalink-manager' ), 2 => __( 'Inherit parents\' slugs', 'permalink-manager' ) ),
+						'description' => sprintf( '%s<br />%s<br />%s', __( '<strong>Permalink Manager can generate custom permalinks using either WordPress slugs or actual titles.</strong>', 'permalink-manager' ), __( 'A slug is a permalink component that identifies a certain page. For example, "<em>shop</em>" and "<em>sample-product</em>" are two slugs in the permalink "<em>shop/sample-product</em>".', 'permalink-manager' ), __( 'WordPress slugs are generated automatically from the first title and remain the same even if the title is changed.', 'permalink-manager' ) )
 					),
 					'trailing_slashes'   => array(
 						'type'        => 'select',
@@ -62,18 +62,6 @@ class Permalink_Manager_Settings {
 						'input_class' => 'settings-select',
 						'choices'     => array( 0 => __( 'Use default settings', 'permalink-manager' ), 1 => __( 'Add trailing slashes', 'permalink-manager' ), 2 => __( 'Remove trailing slashes', 'permalink-manager' ) ),
 						'description' => sprintf( '<strong>%s</strong><br />%s<br />%s', __( 'This option can be used to alter the native settings and control if trailing slash should be added or removed from the end of posts & terms permalinks.', 'permalink-manager' ), __( 'You can use this feature to either add or remove the slashes from end of WordPress permalinks.', 'permalink-manager' ), __( 'Please go to "<em>Redirect settings -> Trailing slashes redirect</em>" to force the trailing slashes mode with redirect.', 'permalink-manager' ) )
-					),
-					'partial_disable'    => array(
-						'type'        => 'checkbox',
-						'label'       => __( 'Exclude content types', 'permalink-manager' ),
-						'choices'     => $content_types,
-						'description' => __( 'Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager' )
-					),
-					'ignore_drafts'      => array(
-						'type'        => 'select',
-						'label'       => __( 'Exclude drafts & pending posts', 'permalink-manager' ),
-						'choices'     => array( 0 => __( 'Do not exclude', 'permalink-manager' ), 1 => __( 'Exclude drafts', 'permalink-manager' ), 2 => __( 'Exclude drafts & pending posts', 'permalink-manager' ) ),
-						'description' => __( 'If enabled, custom permalinks for posts marked as "draft" or "pending" will not be created.', 'permalink-manager' )
 					)
 				)
 			),
@@ -86,7 +74,7 @@ class Permalink_Manager_Settings {
 						'type'        => 'single_checkbox',
 						'label'       => __( 'Canonical redirect', 'permalink-manager' ),
 						'input_class' => '',
-						'description' => sprintf( '%s<br />%s', __( '<strong>Canonical redirect allows WordPress to "correct" the requested URL and redirect visitor to the canonical permalink.</strong>', 'permalink-manager' ), __( 'This feature will be also used to redirect (old) original permalinks to (new) custom permalinks set with Permalink Manager.', 'permalink-manager' ) )
+						'description' => sprintf( '%s<br />%s', __( '<strong>Canonical redirect allows WordPress to "correct" the requested URL and redirect visitor to the canonical permalink.</strong>', 'permalink-manager' ), __( 'Permalink Manager uses canonical redirect to avoid "duplicate content" SEO issues by redirecting different permalinks that lead to the same content to a custom permalink set in the plugin.', 'permalink-manager' ) )
 					),
 					/*'endpoint_redirect' => array(
 						'type' => 'single_checkbox',
@@ -141,6 +129,50 @@ class Permalink_Manager_Settings {
 						'input_class' => 'settings-select',
 						'choices'     => array( 0 => __( 'Disable (Permalink Manager redirect functions)', 'permalink-manager' ), "301" => __( '301 redirect', 'permalink-manager' ), "302" => __( '302 redirect', 'permalink-manager' ) ),
 						'description' => sprintf( '%s<br /><strong>%s</strong>', __( 'Permalink Manager includes a set of hooks that allow to extend the redirect functions used natively by WordPress to avoid 404 errors.', 'permalink-manager' ), __( 'You can disable this feature if you do not want Permalink Manager to trigger any additional redirect functions at all.', 'permalink-manager' ) )
+					)
+				)
+			),
+			'exclusion'     => array(
+				'section_name' => __( 'Exclusion settings', 'permalink-manager' ),
+				'container'    => 'row',
+				'name'         => 'general',
+				'fields'       => array(
+					'partial_disable'                        => array(
+						'type'        => 'checkbox',
+						'label'       => __( 'Exclude content types', 'permalink-manager' ),
+						'choices'     => $content_types,
+						'description' => __( 'Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager' )
+					),
+					'partial_disable_strict'                 => array(
+						'type'        => 'single_checkbox',
+						'label'       => __( '"Exclude content types" strict mode', 'permalink-manager' ),
+						'description' => __( 'If this option is enabled, any custom post types and taxonomies with the "<strong>query_var</strong>" and "<strong>rewrite</strong>" attributes set to "<em>false</em>" will be excluded from the plugin and hence will not be shown in the "<em>Exclude content types</em>" options.', 'permalink-manager' )
+					),
+					'exclude_post_ids'                       => array(
+						'type'        => 'text',
+						'label'       => __( 'Exclude posts/pages by ID', 'permalink-manager' ),
+						'input_class' => 'widefat',
+						'description' => sprintf( '%s<br />%s', __( 'Specify the IDs of posts/pages for which you want to preserve the original WordPress URLs instead of applying custom permalinks.', 'permalink-manager' ), __( 'Enter single IDs (e.g., "<em>4, 8, 15, 16</em>"), ID ranges (e.g., "<em>23-42</em>"), or a combination of both.', 'permalink-manager' ) )
+					),
+					'exclude_term_ids'                       => array(
+						'type'        => 'text',
+						'label'       => __( 'Exclude terms by ID', 'permalink-manager' ),
+						'input_class' => 'widefat',
+						'pro'         => true,
+						'disabled'    => true,
+						'description' => sprintf( '%s<br />%s', __( 'Specify the IDs of categories/terms for which you want to preserve the original WordPress URLs instead of applying custom permalinks.', 'permalink-manager' ), __( 'Enter single IDs (e.g., "<em>4, 8, 15, 16</em>"), ID ranges (e.g., "<em>23-42</em>"), or a combination of both.', 'permalink-manager' ) )
+					),
+					/*'exclude_query_vars'     => array(
+						'type'        => 'text',
+						'label'       => __( 'Non-redirectable query variables', 'permalink-manager' ),
+						'placeholder' => 'eg. um_user, um_tab',
+						'input_class' => 'widefat',
+						'description' => __( 'Use this field to exclude specific query variables from triggering a redirect when Permalink Manager detects permalinks. To prevent the redirect on dynamic sections (eg. profile tabs), you can enter the variable used by the third-party plugin (eg. <em>um_user</em> for Ultimate Member plugin).', 'permalink-manager' )
+					),*/ 'ignore_drafts' => array(
+						'type'        => 'select',
+						'label'       => __( 'Exclude drafts & pending posts', 'permalink-manager' ),
+						'choices'     => array( 0 => __( 'Do not exclude', 'permalink-manager' ), 1 => __( 'Exclude drafts', 'permalink-manager' ), 2 => __( 'Exclude drafts & pending posts', 'permalink-manager' ) ),
+						'description' => __( 'If enabled, custom permalinks for posts marked as "draft" or "pending" will not be created.', 'permalink-manager' )
 					)
 				)
 			),
@@ -200,11 +232,6 @@ class Permalink_Manager_Settings {
 					'show_native_slug_field'    => array(
 						'type'  => 'single_checkbox',
 						'label' => __( 'Show "Native slug" field in URI Editor', 'permalink-manager' )
-					),
-					'partial_disable_strict'    => array(
-						'type'        => 'single_checkbox',
-						'label'       => __( '"Exclude content types" strict mode', 'permalink-manager' ),
-						'description' => __( 'If this option is enabled, any custom post types and taxonomies with the "<strong>query_var</strong>" and "<strong>rewrite</strong>" attributes set to "<em>false</em>" will be excluded from the plugin and hence will not be shown in the "<em>General settings -> Exclude content types</em>" options.', 'permalink-manager' )
 					),
 					'pagination_redirect'       => array(
 						'type'        => 'single_checkbox',

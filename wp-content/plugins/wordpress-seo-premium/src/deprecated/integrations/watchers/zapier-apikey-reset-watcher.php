@@ -28,10 +28,10 @@ class Zapier_APIKey_Reset_Watcher implements Integration_Interface {
 	/**
 	 * Watcher constructor.
 	 *
-	 * @param Options_Helper $options The options helper.
-	 *
 	 * @deprecated 20.5
 	 * @codeCoverageIgnore
+	 *
+	 * @param Options_Helper $options The options helper.
 	 */
 	public function __construct( Options_Helper $options ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.5' );

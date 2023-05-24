@@ -151,7 +151,7 @@ class Permalink_Manager_URI_Functions_Tax {
 	}
 
 	/**
-	 * Get the default custom permalink (not overwritten by the user) or native URI (unfiltered)
+	 * Get the default custom permalink (not overwritten by the user) or native permalink (unfiltered)
 	 *
 	 * @param WP_Term|int $term
 	 * @param bool $native_uri
@@ -584,18 +584,18 @@ class Permalink_Manager_URI_Functions_Tax {
 	}
 
 	/**
-	 * Add "Current URI" input field to "Quick Edit" form
+	 * Add "Custom permalink" input field to "Quick Edit" form
 	 *
 	 * @param array $columns
 	 *
 	 * @return array mixed
 	 */
 	function quick_edit_column( $columns ) {
-		return ( is_array( $columns ) ) ? array_merge( $columns, array( 'permalink-manager-col' => __( 'Current URI', 'permalink-manager' ) ) ) : $columns;
+		return ( is_array( $columns ) ) ? array_merge( $columns, array( 'permalink-manager-col' => __( 'Custom permalink', 'permalink-manager' ) ) ) : $columns;
 	}
 
 	/**
-	 * Display the URI of the current term in the "Current URI" column
+	 * Display the URI of the current term in the "Custom permalink" column
 	 *
 	 * @param string $content The column content.
 	 * @param string $column_name The name of the column to display. In this case, we named our column permalink-manager-col.

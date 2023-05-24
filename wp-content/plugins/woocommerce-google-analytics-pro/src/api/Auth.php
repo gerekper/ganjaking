@@ -256,6 +256,21 @@ class Auth {
 
 
 	/**
+	 * Gets the full proxy app URL.
+	 *
+	 * @since 2.0.4
+	 *
+	 * @param string $endpoint
+	 * @param array<string, mixed> $params
+	 * @return string
+	 */
+	protected function get_proxy_app_url( string $endpoint = '', array $params = [] ) : string {
+
+		return add_query_arg( $params, self::PROXY_URL . '/' . $endpoint );
+	}
+
+
+	/**
 	 * Gets the Google API authentication URL.
 	 *
 	 * @since 2.0.0
@@ -264,7 +279,7 @@ class Auth {
 	 */
 	public function get_auth_url(): string {
 
-		return self::PROXY_URL . '/auth?callback=' . urlencode( $this->get_callback_url() );
+		return $this->get_proxy_app_url( 'auth', [ 'callback' => urlencode( $this->get_callback_url() ) ] );
 	}
 
 
@@ -280,7 +295,7 @@ class Auth {
 		$refresh_url = null;
 
 		if ( $refresh_token = $this->get_refresh_token() ) {
-			$refresh_url = self::PROXY_URL . '/auth/refresh?token=' . base64_encode( $refresh_token );
+			$refresh_url = $this->get_proxy_app_url( 'auth/refresh', [ 'token' => base64_encode( $refresh_token ) ] );
 		}
 
 		return $refresh_url;
@@ -350,7 +365,7 @@ class Auth {
 		$revoke_url = null;
 
 		if ( $token = $this->get_access_token_json() ) {
-			$revoke_url = self::PROXY_URL . '/auth/revoke?token=' . base64_encode( $token );
+			$revoke_url = $this->get_proxy_app_url( 'auth/revoke', [ 'token' => base64_encode( $token ) ] );
 		}
 
 		return $revoke_url;
@@ -366,7 +381,7 @@ class Auth {
 	 */
 	public function get_callback_url(): string {
 
-		return get_home_url( null, 'wc-api/wc-google-analytics-pro/auth' );
+		return WC()->api_request_url( 'wc-google-analytics-pro/auth' );
 	}
 
 

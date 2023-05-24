@@ -161,14 +161,22 @@ if ( $user_id ):
 						</td>
 						<td class="status">
 							<?php
-							if ( $row->status == 1 ) {
-								echo esc_html__('Queued', 'follow_up_emails');
-								echo '<br/><small><a href="#" class="queue-toggle" data-status="queued" data-id="'. esc_attr( $row->id ) .'">'. esc_html__('Do not send', 'follow_up_emails') .'</a></small>';
+							if ( 1 === (int) $row->status ) {
+								echo esc_html__( 'Queued', 'follow_up_emails' );
+								$data_status = 'queued';
+								$label       = __( 'Do not send', 'follow_up_emails' );
 							} else {
-								echo esc_html__('Suspended', 'follow_up_emails');
-								echo '<br/><small><a href="#" class="queue-toggle" data-status="paused" data-id="'. esc_attr( $row->id ) .'">'. esc_html__('Re-enable', 'follow_up_emails') .'</a></small>';
+								echo esc_html__( 'Suspended', 'follow_up_emails' );
+								$data_status = 'paused';
+								$label       = __( 'Re-enable', 'follow_up_emails' );
 							}
 							?>
+							<br/>
+							<small>
+								<a href="#" class="queue-toggle" data-status="<?php echo esc_attr( $data_status ); ?>" data-id="<?php echo esc_attr( $row->id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'toggle_queue_status' ) ); ?>">
+									<?php echo esc_html( $label ); ?>
+								</a>
+							</small>
 						</td>
 						<td>
 							<?php echo esc_html( date( $date_format, $row->send_on ) ); ?>
@@ -568,6 +576,7 @@ if ( $user_id ):
 							id="assignee"
 							name="assignee"
 							class="user-search-select"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'admin_search' ) ); ?>"
 							data-placeholder="<?php esc_attr_e( 'Search for a user&hellip;', 'follow_up_emails' ); ?>"
 							data-allow_clear="true"
 							tabindex="-1"

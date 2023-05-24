@@ -1,10 +1,16 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.05.17 - version 2.0.4
+ * Tweak - Display notice if the connected Google account has no Analytics accounts set up
+ * Tweak - Ensure auth button follows Google branding guidelines
+ * Fix - Handle account summaries that are larger than 50 entries
+ * Fix - Ensure Universal Analytics settings are not shown if the connected Google Account has no UA properties
+
 2023.05.08 - version 2.0.3
  * Tweak - Ensure calling `Event_Tracking::custom_event()` records the event in GA4 in addition to UA
  * Fix - Prevent a circular reference loop to cause out of memory errors in the integrations page if an auth token cannot be refreshed
  * Fix - Correctly handle tracking of added shipping info events for orders without a shipping method set
- * FIx - Restore and deprecate `Integration::custom_event()` in favor of `Event_Tracking::custom_event()`
+ * Fix - Restore and deprecate `Integration::custom_event()` in favor of `Event_Tracking::custom_event()`
  * Fix - Address possible fatal errors when some plugin options are missing from the database
 
 2023.04.26 - version 2.0.2

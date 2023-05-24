@@ -157,10 +157,6 @@ class Permalink_Manager_Core_Functions {
 				return $query;
 			}
 
-			// Check if draft posts should be excluded from URI Query
-			$exclude_drafts = ( isset( $permalink_manager_options['general']['ignore_drafts'] ) ) ? $permalink_manager_options['general']['ignore_drafts'] : false;
-			$exclude_drafts = apply_filters( 'permalink_manager_exclude_drafts', $exclude_drafts );
-
 			// Check what content type should be loaded in case of duplicate ("posts" or "terms")
 			$duplicates_priority = apply_filters( 'permalink_manager_duplicates_priority', false );
 
@@ -174,6 +170,9 @@ class Permalink_Manager_Core_Functions {
 			do {
 				// Store an array with custom permalinks in a separate variable
 				$all_uris = $permalink_manager_uris;
+
+				// Remove empty rows
+				$all_uris = array_filter( $all_uris );
 
 				// In case of multiple elements using the same URI, the function will follow the "permalink_manager_duplicates_priority" filter value to determine whether terms or posts should be ignored
 				if ( $duplicates_priority ) {
@@ -487,16 +486,16 @@ class Permalink_Manager_Core_Functions {
 			 * 4. Set global with detected item id
 			 */
 			if ( ! empty( $element_id ) && empty( $disabled ) && empty( $excluded ) ) {
-				$pm_query['id'] = $element_id;
-
 				if ( ! empty( $element_object->taxonomy ) ) {
+					$pm_query['id'] = $element_object->term_id;
 					$content_type = "Taxonomy: {$element_object->taxonomy}";
 				} else if ( ! empty( $element_object->post_type ) ) {
+					$pm_query['id'] = $element_object->ID;
 					$content_type = "Post type: {$element_object->post_type}";
 				}
 
 				// If language mismatch is detected do not set 'do_not_redirect' to allow canonical redirect
-				if ( empty($pm_query['flag']) || $pm_query['flag'] !== 'language_mismatch' ) {
+				if ( empty( $pm_query['flag'] ) || $pm_query['flag'] !== 'language_mismatch' ) {
 					$query['do_not_redirect'] = 1;
 				}
 			}
@@ -539,26 +538,31 @@ class Permalink_Manager_Core_Functions {
 		// Keep the original permalink in a separate variable
 		$original_permalink = $permalink;
 
-		$trailing_slash_setting = ( ! empty( $permalink_manager_options['general']['trailing_slashes'] ) ) ? $permalink_manager_options['general']['trailing_slashes'] : "";
+		$trailing_slash_mode = ( ! empty( $permalink_manager_options['general']['trailing_slashes'] ) ) ? $permalink_manager_options['general']['trailing_slashes'] : "";
 
-		// Remove trailing slashes from URLs that end with file extension (eg. .html)
-		if ( preg_match( '/(http(?:s)?:\/\/(?:[^\/]+)\/.*\.([a-zA-Z]{3,4}))\/?$/', $permalink ) ) {
-			$permalink = preg_replace( '/^(?!http(?:s):\/\/[^\/]+\/$)(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1$3', $permalink ); // Instead of untrailingslashit()
-		} else {
-			// Add trailing slashes
-			if ( in_array( $trailing_slash_setting, array( 1, 10 ) ) ) {
-				$permalink = preg_replace( '/(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1/$3', $permalink ); // Instead of trailingslashit()
-			} // Remove trailing slashes
-			else if ( in_array( $trailing_slash_setting, array( 2, 20 ) ) ) {
-				$permalink = preg_replace( '/(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1$3', $permalink ); // Instead of untrailingslashit()
-			} // Default settings
-			else {
-				$permalink = user_trailingslashit( $permalink );
-			}
+		// Ignore homepage URLs
+		if ( ( filter_var( $permalink, FILTER_VALIDATE_URL ) && trim( parse_url( $permalink, PHP_URL_PATH ), '/' ) == '' ) ) {
+			return $permalink;
+		}
+
+		// Always remove trailing slashes from URLs/URIs that end with file extension (eg. .html)
+		if ( preg_match( '/(http(?:s)\:\/\/[^\/]+\/)?.*\.([a-zA-Z]{3,4})[\/]*(\?[^\/]+|$)/', $permalink ) ) {
+			$trailing_slash_mode = 2;
+		}
+
+		// Add trailing slashes
+		if ( in_array( $trailing_slash_mode, array( 1, 10 ) ) ) {
+			$permalink = preg_replace( '/(.+?)([\/]*)([\?\#][^\/]+|$)/', '$1/$3', $permalink ); // Instead of trailingslashit()
+		} // Remove trailing slashes
+		else if ( in_array( $trailing_slash_mode, array( 2, 20 ) ) ) {
+			$permalink = preg_replace( '/(.+?)([\/]*)([\?\#][^\/]+|$)/', '$1$3', $permalink ); // Instead of untrailingslashit()
+		} // Default settings
+		else {
+			$permalink = user_trailingslashit( $permalink );
 		}
 
 		// Remove double slashes
-		$permalink = preg_replace( '/([^:])(\/{2,})/', '$1/', $permalink );
+		$permalink = preg_replace( '/(?<!:)(\/{2,})/', '/', $permalink );
 
 		// Remove trailing slashes from URLs that end with query string or anchors
 		$permalink = preg_replace( '/([\?\#]{1}[^\/]+)([\/]+)$/', '$1', $permalink );
@@ -782,19 +786,9 @@ class Permalink_Manager_Core_Functions {
 			}
 
 			/**
-			 * 2. Check if URL contains duplicated slashes
+			 * 2. Prevent redirect loop
 			 */
-			if ( ! empty( $old_uri ) && ( $old_uri !== '/' ) && preg_match( '/\/{2,}/', $old_uri ) ) {
-				$new_uri           = ltrim( preg_replace( '/([^:])([\/]+)/', '$1/', $old_uri ), '/' );
-				$correct_permalink = sprintf( "%s/%s", $home_url, $new_uri );
-
-				$redirect_type = ( $redirect_type == '-' ) ? 'duplicated_slash_redirect' : $redirect_type;
-			}
-
-			/**
-			 * 3. Prevent redirect loop
-			 */
-			if ( ! empty( $correct_permalink ) && is_string( $correct_permalink ) && ! empty( $wp->request ) && ! empty( $redirect_type ) && ! in_array( $redirect_type, array( 'slash_redirect', 'duplicated_slash_redirect' ) ) ) {
+			if ( ! empty( $correct_permalink ) && is_string( $correct_permalink ) && ! empty( $wp->request ) && ! empty( $redirect_type ) && $redirect_type != 'slash_redirect' ) {
 				$current_uri  = trim( $wp->request, "/" );
 				$redirect_uri = trim( parse_url( $correct_permalink, PHP_URL_PATH ), "/" );
 
@@ -802,9 +796,9 @@ class Permalink_Manager_Core_Functions {
 			}
 
 			/**
-			 * 4. Add endpoints to redirect URL
+			 * 3. Add endpoints to redirect URL
 			 */
-			if ( ! empty( $correct_permalink ) && $endpoint_redirect && ( $redirect_type !== 'slash_redirect' ) && ( ! empty( $pm_query['endpoint_value'] ) || ! empty( $pm_query['endpoint'] ) ) ) {
+			if ( ! empty( $correct_permalink ) && $endpoint_redirect && ( ! empty( $pm_query['endpoint_value'] ) || ! empty( $pm_query['endpoint'] ) ) ) {
 				$endpoint_value = $pm_query['endpoint_value'];
 
 				if ( empty( $pm_query['endpoint'] ) && is_numeric( $endpoint_value ) ) {
@@ -824,42 +818,31 @@ class Permalink_Manager_Core_Functions {
 		}
 
 		/**
-		 * 5. Check trailing slashes (ignore links with query parameters)
+		 * 4. Check trailing & duplicated slashes (ignore links with query parameters)
 		 */
-		if ( $trailing_slashes_mode && $trailing_slashes_redirect && empty( $correct_permalink ) && empty( $query_string ) && ! empty( $old_uri ) && ! is_front_page() ) {
-			// Check if $old_uri ends with slash or not
-			$ends_with_slash       = ( substr( $old_uri, - 1 ) == "/" ) ? true : false;
-			$trailing_slashes_mode = ( preg_match( "/.*\.([a-zA-Z]{3,4})\/?$/", $old_uri ) && $trailing_slashes_mode == 1 ) ? 2 : $trailing_slashes_mode;
+		if ( ( ( $trailing_slashes_mode && $trailing_slashes_redirect ) || preg_match( '/\/{2,}/', $old_uri ) ) && empty( $correct_permalink ) && empty( $query_string ) && ! empty( $old_uri ) && $old_uri !== "/" ) {
+			$trailing_slash = ( substr( $old_uri, - 1 ) == "/" ) ? true : false;
+			$obsolete_slash = ( preg_match( '/\/{2,}/', $old_uri ) || preg_match( "/.*\.([a-zA-Z]{3,4})\/$/", $old_uri ) );
 
-			// Ignore empty URIs
-			if ( $old_uri != "/" ) {
-				$new_uri = trim( $old_uri, '/' );
+			if ( ( $trailing_slashes_mode == 1 && ! $trailing_slash ) || ( $trailing_slashes_mode == 2 && $trailing_slash ) || $obsolete_slash ) {
+				$new_uri = self::control_trailing_slashes( $old_uri );
 
-				// 2A. Force trailing slashes
-				if ( $trailing_slashes_mode == 1 && ! $ends_with_slash ) {
-					$correct_permalink = sprintf( "%s/%s/", $home_url, $new_uri );
-				} // 2B. Remove trailing slashes
-				else if ( $trailing_slashes_mode == 2 && $ends_with_slash ) {
-					$correct_permalink = sprintf( "%s/%s", $home_url, $new_uri );
-				} // 2C. Remove duplicated trailing slashes
-				else if ( $trailing_slashes_mode == 1 && preg_match( '/[\/]{2,}$/', $old_uri ) ) {
-					$correct_permalink = sprintf( "%s/%s/", $home_url, $new_uri );
+				if ( $new_uri !== $old_uri ) {
+					$correct_permalink = sprintf( "%s/%s", $home_url, ltrim( $new_uri, '/' ) );
+					$redirect_type     = 'slash_redirect';
 				}
 			}
-
-			$redirect_type = ( ! empty( $correct_permalink ) ) ? 'slash_redirect' : '-';
 		}
 
 		/**
-		 * 6. WWW prefix | SSL mismatch redirect
+		 * 5. WWW prefix | SSL mismatch redirect
 		 */
 		if ( ! empty( $permalink_manager_options['general']['sslwww_redirect'] ) ) {
 			$home_url_has_www      = ( strpos( $home_url, 'www.' ) !== false ) ? true : false;
 			$requested_url_has_www = ( strpos( $_SERVER['HTTP_HOST'], 'www.' ) !== false ) ? true : false;
 			$home_url_has_ssl      = ( strpos( $home_url, 'https' ) !== false ) ? true : false;
-			$requested_url_has_ssl = is_ssl();
-
-			if ( ( $home_url_has_www !== $requested_url_has_www ) || ( $home_url_has_ssl !== $requested_url_has_ssl ) ) {
+			
+			if ( ( $home_url_has_www !== $requested_url_has_www ) || ( ! is_ssl() && $home_url_has_ssl !== false ) ) {
 				$new_uri           = ltrim( $old_uri, '/' );
 				$correct_permalink = sprintf( "%s/%s", $home_url, $new_uri );
 
@@ -868,12 +851,12 @@ class Permalink_Manager_Core_Functions {
 		}
 
 		/**
-		 * 7. Debug redirect
+		 * 6. Debug redirect
 		 */
 		$correct_permalink = apply_filters( 'permalink_manager_filter_redirect', $correct_permalink, $redirect_type, $queried_object, $old_uri );
 
 		/**
-		 * 8. Ignore default URIs (or do nothing if redirects are disabled)
+		 * 7. Ignore default URIs (or do nothing if redirects are disabled)
 		 */
 		if ( ! empty( $correct_permalink ) && is_string( $correct_permalink ) && ! empty( $redirect_mode ) ) {
 			// Allow redirect
@@ -931,12 +914,17 @@ class Permalink_Manager_Core_Functions {
 		}
 
 		if ( ! empty( $wp->query_vars['do_not_redirect'] ) ) {
-			// RankMath
-			if ( class_exists( 'RankMath\Helper' ) ) {
-				$rank_math_modules = RankMath\Helper::get_module( 'redirections' );
+			if ( function_exists( 'rank_math' ) ) {
+				$rank_math_instance = rank_math();
 
-				remove_action( 'template_redirect', array( $rank_math_modules, 'do_redirection' ), 11 );
-				remove_action( 'wp', array( $rank_math_modules, 'do_redirection' ), 11 );
+				if ( property_exists( $rank_math_instance, 'container' ) && is_array( $rank_math_instance->container ) && is_object( $rank_math_instance->container['manager'] ) && method_exists( $rank_math_instance->container['manager'], 'get_module' ) ) {
+					$rank_math_redirections_module = $rank_math_instance->container['manager']->get_module( 'redirections' );
+
+					if ( ! empty( $rank_math_redirections_module ) ) {
+						remove_action( 'template_redirect', array( $rank_math_redirections_module, 'do_redirection' ), 11 );
+						remove_action( 'wp', array( $rank_math_redirections_module, 'do_redirection' ), 11 );
+					}
+				}
 			}
 
 			// SEOPress

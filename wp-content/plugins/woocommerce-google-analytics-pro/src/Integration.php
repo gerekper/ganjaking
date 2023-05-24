@@ -350,6 +350,23 @@ class Integration extends \WC_Integration {
 		$ua_properties    = $this->is_authenticated() ? Properties_Handler::get_ua_properties() : null;
 		$auth_button_text = $this->is_authenticated() ? esc_html__( 'Re-authenticate with your Google account', 'woocommerce-google-analytics-pro' ) : esc_html__( 'Connect your Google account', 'woocommerce-google-analytics-pro' );
 
+		if ( empty( $ga_properties ) && empty( $ua_properties ) && $this->is_authenticated() ) {
+			wc_google_analytics_pro()->get_admin_notice_handler()->add_admin_notice(
+				/* translators: Placeholder: %s - plugin name, in bold; %2$s opening <a> tag, %3$s - closing </a> tag */
+				sprintf(
+					esc_html__( '%1$s: The currently authenticated Google account does not have any Analytics accounts set up. Please %2$screate an Analytics account%3$s and reload this page.', 'woocommerce-google-analytics-pro' ),
+					'<strong>' . wc_google_analytics_pro()->get_plugin_name() . '</strong>',
+					'<a href="https://support.google.com/analytics/answer/9304153?hl=en" target="_blank">', // note that even though we check for both GA4 and UA properties, we encourage them to set up only GA4 properties
+					'</a>'
+				),
+				wc_google_analytics_pro()->get_id() . '-account-' . get_option( 'wc_google_analytics_pro_account_id', '' ) . '-no-analytics-accounts',
+				[
+					'dismissible'             => true,
+					'always_show_on_settings' => false,
+					'notice_class'            => 'notice-warning'
+				],
+			);
+		}
 
 /** @TODO restore the code block below after the GA proxy app update has been approved by Google */
 
@@ -364,7 +381,6 @@ class Integration extends \WC_Integration {
 		// 		],
 		// 	]);
 		// } else if ( ! empty( $ga_properties ) ) {
-
 
 /** v2.0.1 temporary code -- start */
 
@@ -396,7 +412,6 @@ class Integration extends \WC_Integration {
 		if ( ! empty( $ga_properties ) ) {
 
 /** v2.0.1 temporary code -- end */
-
 
 			// add empty option so clearing the field is possible
 			$ga_properties = array_merge( [ '' => '' ], $ga_properties );
@@ -438,12 +453,12 @@ class Integration extends \WC_Integration {
 			] );
 		}
 
+		// make this use google guidelines
 		$auth_fields['oauth_button'] = [
-			'type'        => 'button',
-			'default'     => $auth_button_text,
-			'class'       => 'button',
+			'type'        => 'ga_pro_auth_button',
+			'value'       => $auth_button_text,
 			'desc_tip'    => __( 'We need view & edit access to your Analytics account so we can display reports and automatically configure Analytics settings for you.', 'woocommerce-google-analytics-pro' ),
-            'description' => __( 'You\'ll be prompted to choose an existing Google Analytics account. Click "Allow" to complete the connection and return here to choose a property to link to this website', 'woocommerce-google-analytics-pro' ),
+			'description' => __( 'You\'ll be prompted to choose an existing Google Analytics account. Click "Allow" to complete the connection and return here to choose a property to link to this website', 'woocommerce-google-analytics-pro' ),
 		];
 
 		if ( empty( $ua_properties ) && empty( $ga_properties ) ) {
@@ -742,6 +757,67 @@ class Integration extends \WC_Integration {
 			],
 
 		];
+	}
+
+
+	/**
+	 * Generate auth button.
+	 *
+	 * The generated HTML/CSS is based on https://developers.google.com/identity/gsi/web/guides/overview#sign_in_with_google_demo
+	 *
+	 * @param string $key Field key.
+	 * @param array  $data Field data.
+	 * @since  2.0.4
+	 * @return string
+	 */
+	public function generate_ga_pro_auth_button_html( string $key, array $data ) : string {
+
+		$field_key = $this->get_field_key( $key );
+		$defaults  = array(
+			'title'             => '',
+			'desc_tip'          => false,
+			'description'       => '',
+			'custom_attributes' => array(),
+		);
+
+		$data = wp_parse_args( $data, $defaults );
+
+		ob_start();
+		?>
+		<tr valign="top">
+			<th scope="row" class="titledesc">
+				<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?> <?php echo $this->get_tooltip_html( $data ); // WPCS: XSS ok. ?></label>
+			</th>
+			<td class="forminp">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
+
+					<button class="wc-google-analytics-pro-auth-button" <?php echo $this->get_custom_attribute_html( $data ); // WPCS: XSS ok. ?> id="woocommerce_google_analytics_pro_oauth_button">
+						<div class="flex-container">
+							<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' class="google-logo">
+								<g>
+									<path fill='#EA4335'
+										  d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'></path>
+									<path fill='#4285F4'
+										  d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'></path>
+									<path fill='#FBBC05'
+										  d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'></path>
+									<path fill='#34A853'
+										  d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'></path>
+									<path fill='none' d='M0 0h48v48H0z'></path>
+								</g>
+							</svg>
+							<span><?php echo esc_html( $data['value'] ); ?></span>
+						</div>
+					</button>
+
+					<?php echo $this->get_description_html( $data ); // WPCS: XSS ok. ?>
+				</fieldset>
+			</td>
+		</tr>
+		<?php
+
+		return ob_get_clean();
 	}
 
 
@@ -1211,7 +1287,7 @@ class Integration extends \WC_Integration {
 		/** @link https://woocommerce.com/document/woocommerce-google-analytics-pro/#section-24 */
 		wc_deprecated_function( __METHOD__, '2.0.0', Event_Tracking::class . '::custom_event()' );
 
-		$tracking = $this->get_plugin()->get_tracking_instance();
+		$tracking       = $this->get_plugin()->get_tracking_instance();
 		$event_tracking = $tracking ? $tracking->get_event_tracking_instance() : null;
 
 		if ( $event_tracking ) {

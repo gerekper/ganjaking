@@ -1,6 +1,5 @@
 <?php
-// phpcs:disable Yoast.NamingConventions.NamespaceName.Invalid
-// phpcs:disable Yoast.NamingConventions.NamespaceName.MaxExceeded
+
 namespace Yoast\WP\SEO\Schema_Templates\Block_Patterns;
 
 /**

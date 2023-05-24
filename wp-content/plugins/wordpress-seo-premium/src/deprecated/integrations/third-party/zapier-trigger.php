@@ -34,11 +34,11 @@ class Zapier_Trigger implements Integration_Interface {
 	/**
 	 * Zapier constructor.
 	 *
-	 * @param Meta_Helper   $meta_helper   The meta helper.
-	 * @param Zapier_Helper $zapier_helper The Zapier helper.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Meta_Helper   $meta_helper   The meta helper.
+	 * @param Zapier_Helper $zapier_helper The Zapier helper.
 	 */
 	public function __construct( Meta_Helper $meta_helper, Zapier_Helper $zapier_helper ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
@@ -88,10 +88,10 @@ class Zapier_Trigger implements Integration_Interface {
 	 * - if the item hasn't been sent before
 	 * - if the post_date is recent (so we are not just updating a post published before enabling Zapier)
 	 *
-	 * @param Indexable $indexable The indexable.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Indexable $indexable The indexable.
 	 *
 	 * @return void
 	 */
@@ -121,10 +121,10 @@ class Zapier_Trigger implements Integration_Interface {
 	/**
 	 * Sends a request to the Zapier trigger hook.
 	 *
-	 * @param Indexable $indexable The indexable.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Indexable $indexable The indexable.
 	 *
 	 * @return void
 	 */

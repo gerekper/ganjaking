@@ -24,6 +24,7 @@ jQuery(document).ready(function($) {
 
     var params = {
         "action": "fue_send_manual_emails",
+		"nonce": FUE_Manual_Send.nonce,
         "cmd": "start",
         "key": key,
         "test": _test
@@ -58,7 +59,7 @@ jQuery(document).ready(function($) {
 
         var params = {
             "action": "fue_send_manual_emails",
-            "woo_nonce": "",
+            "nonce": FUE_Manual_Send.nonce,
             "cmd": "continue",
             "key": key,
             "test": _test

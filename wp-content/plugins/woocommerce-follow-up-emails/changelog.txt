@@ -1,5 +1,9 @@
 *** WooCommerce Follow-Up Emails ***
 
+2023-05-16 - version 4.9.50
+* Fix - Add missing nonces for AJAX calls.
+* Fix - Only allow HTML files for template editing.
+
 2023-05-10 - version 4.9.40
 * Fix - Security issues.
 * Tweak - WC 7.7 compatibility.

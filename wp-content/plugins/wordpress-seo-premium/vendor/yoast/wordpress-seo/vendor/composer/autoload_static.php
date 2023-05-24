@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6
+class ComposerStaticInit1d4fd035c74737375fff91b1955824fa
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -644,6 +644,7 @@ class ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddColumnsToIndexables' => __DIR__ . '/../..' . '/src/config/migrations/20200420073606_AddColumnsToIndexables.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddEstimatedReadingTime' => __DIR__ . '/../..' . '/src/config/migrations/20201202144329_AddEstimatedReadingTime.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddHasAncestorsColumn' => __DIR__ . '/../..' . '/src/config/migrations/20200609154515_AddHasAncestorsColumn.php',
+        'Yoast\\WP\\SEO\\Config\\Migrations\\AddInclusiveLanguageScore' => __DIR__ . '/../..' . '/src/config/migrations/20230417083836_AddInclusiveLanguageScore.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexableObjectIdAndTypeIndex' => __DIR__ . '/../..' . '/src/config/migrations/20200430075614_AddIndexableObjectIdAndTypeIndex.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexesForProminentWordsOnIndexables' => __DIR__ . '/../..' . '/src/config/migrations/20200728095334_AddIndexesForProminentWordsOnIndexables.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddObjectTimestamps' => __DIR__ . '/../..' . '/src/config/migrations/20211020091404_AddObjectTimestamps.php',
@@ -686,6 +687,7 @@ class ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6
         'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Not_Built_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/not-built-exception.php',
         'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Post_Not_Built_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/post-not-built-exception.php',
         'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Post_Not_Found_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/post-not-found-exception.php',
+        'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Post_Type_Not_Built_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/post-type-not-built-exception.php',
         'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Source_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/source-exception.php',
         'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Term_Not_Built_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/term-not-built-exception.php',
         'Yoast\\WP\\SEO\\Exceptions\\Indexable\\Term_Not_Found_Exception' => __DIR__ . '/../..' . '/src/exceptions/indexable/term-not-found-exception.php',
@@ -1071,9 +1073,9 @@ class ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7a866fc509f29257a429e68e0cd1d5d6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1d4fd035c74737375fff91b1955824fa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1d4fd035c74737375fff91b1955824fa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1d4fd035c74737375fff91b1955824fa::$classMap;
 
         }, null, ClassLoader::class);
     }

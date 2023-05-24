@@ -23,10 +23,10 @@ class Zapier_Enabled_Conditional implements Conditional {
 	/**
 	 * Zapier_Enabled_Conditional constructor.
 	 *
-	 * @param Zapier_Helper $zapier The Zapier helper.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Zapier_Helper $zapier The Zapier helper.
 	 */
 	public function __construct( Zapier_Helper $zapier ) {
 		\_deprecated_function( __METHOD__, 'WPSEO Premium 20.7' );

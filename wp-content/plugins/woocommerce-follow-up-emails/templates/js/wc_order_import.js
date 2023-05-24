@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
         var params = {
             "action": "fue_wc_order_import",
             "cmd": "start",
-            "woo_nonce": "",
+            "nonce": FUE_Order_Import.nonce,
             "email_id": email_id,
             "test": _test
         };
@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
     function import_filter_orders() {
         var params = {
             "action"            : "fue_wc_order_import",
-            "woo_nonce"         : "",
+            "nonce"             : FUE_Order_Import.nonce,
             "email_id"          : email_id,
             "cmd"               : "filter",
             "import_session"    : session
@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
     function import_orders() {
         var params = {
             "action"            : "fue_wc_order_import",
-            "woo_nonce"         : "",
+            "nonce"             : FUE_Order_Import.nonce,
             "email_id"          : email_id,
             "cmd"               : "import",
             "test"              : _test,

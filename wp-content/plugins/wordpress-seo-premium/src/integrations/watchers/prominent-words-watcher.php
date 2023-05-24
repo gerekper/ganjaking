@@ -2,8 +2,9 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Watchers;
 
-use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
+use Yoast\WP\SEO\Integrations\Integration_Interface;
+use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository;
 
 /**
@@ -16,7 +17,7 @@ class Prominent_Words_Watcher implements Integration_Interface {
 	/**
 	 * The repository of the prominent words.
 	 *
-	 * @var Prominent_Words_Repository $prominent_words_repository
+	 * @var Prominent_Words_Repository
 	 */
 	private $prominent_words_repository;
 
@@ -41,7 +42,7 @@ class Prominent_Words_Watcher implements Integration_Interface {
 	/**
 	 * Removes all prominent words for indexables if they are present.
 	 *
-	 * @param \Yoast\WP\SEO\Models\Indexable $indexable The indexable that got deleted.
+	 * @param Indexable $indexable The indexable that got deleted.
 	 *
 	 * @return void
 	 */

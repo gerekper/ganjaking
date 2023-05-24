@@ -132,7 +132,7 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 		if ( get_option( 'fue_subscription_needs_update' ) == 1 ) {
 			?>
 			<div id="message" class="updated">
-				<p><?php esc_html_e( '<strong>Follow-Ups Data Update Required</strong>', 'follow_up_emails' ); ?></p>
+				<p><strong><?php esc_html_e( 'Follow-Ups Data Update Required', 'follow_up_emails' ); ?></strong></p>
 				<p class="submit"><a href="<?php echo esc_url( add_query_arg( 'tab', 'subscription_update', admin_url( 'admin.php?page=followup-emails' ) ) ); ?>" class="fue-update-now button-primary"><?php esc_html_e( 'Run the updater', 'follow_up_emails' ); ?></a></p>
 			</div>
 			<script type="text/javascript">
@@ -158,7 +158,14 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 	public function admin_scripts() {
 		if ( !empty( $_GET['tab'] ) && $_GET['tab'] === 'subscription_update' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wp_enqueue_script( 'jquery-ui-progressbar', false, array( 'jquery', 'jquery-ui' ) );
-			wp_enqueue_script( 'fue_wc_subscriptions_updater', FUE_TEMPLATES_URL .'/js/wc_subscriptions_updater.js', array('jquery', 'jquery-ui-progressbar'), FUE_VERSION );
+			wp_enqueue_script( 'fue_wc_subscriptions_updater', FUE_TEMPLATES_URL . '/js/wc_subscriptions_updater.js', array( 'jquery', 'jquery-ui-progressbar' ), FUE_VERSION );
+			wp_localize_script(
+				'fue_wc_subscriptions_updater',
+				'FUE_Subscriptions_Updater',
+				array(
+					'nonce' => wp_create_nonce( 'subscriptions_update' ),
+				)
+			);
 		}
 	}
 

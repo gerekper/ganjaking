@@ -3,11 +3,9 @@
 namespace Yoast\WP\SEO\Premium\Integrations;
 
 use Yoast\WP\SEO\Actions\Indexing\Indexation_Action_Interface;
-use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
-use Yoast\WP\SEO\Analytics\Domain\Missing_Indexable_Bucket;
+use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action;
-use Yoast\WP\SEO\Analytics\Domain\Missing_Indexable_Count;
 
 /**
  * Adds prominent words to the missing indexables bucket.
@@ -21,7 +19,7 @@ class Missing_Indexables_Count_Integration implements Integration_Interface {
 	/**
 	 * The content indexable action.
 	 *
-	 * @var \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action
+	 * @var Content_Action
 	 */
 	private $content_action;
 

@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
         var params = {
             "action": "fue_wc_subscriptions_update",
             "cmd": "start",
-            "woo_nonce": "",
+            "nonce": FUE_Subscriptions_Updater.nonce,
             "test": _test
         };
 
@@ -57,7 +57,7 @@ jQuery(document).ready(function($) {
     function update_subscriptions() {
         var params = {
             "action"            : "fue_wc_subscriptions_update",
-            "woo_nonce"         : "",
+            "nonce"             : FUE_Subscriptions_Updater.nonce,
             "cmd"               : "update",
             "test"              : _test,
             "update_session"    : session

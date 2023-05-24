@@ -103,4 +103,17 @@ abstract class Response extends Framework\SV_WC_API_JSON_Response {
 	}
 
 
+	/**
+	 * Gets the next page token, if available
+	 *
+	 * @sine 2.0.4
+	 *
+	 * @return string|null
+	 */
+	public function get_next_page_token() : ?string {
+
+		return $this->response_data->nextPageToken ?? null;
+	}
+
+
 }

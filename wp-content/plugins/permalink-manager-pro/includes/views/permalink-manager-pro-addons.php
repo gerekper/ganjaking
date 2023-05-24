@@ -108,6 +108,8 @@ class Permalink_Manager_Pro_Addons {
 		unset( $fields['redirect']['fields']['setup_redirects']['disabled'] );
 		unset( $fields['redirect']['fields']['extra_redirects']['pro'] );
 		unset( $fields['redirect']['fields']['extra_redirects']['disabled'] );
+		unset( $fields['exclusion']['fields']['exclude_term_ids']['pro'] );
+		unset( $fields['exclusion']['fields']['exclude_term_ids']['disabled'] );
 
 		return $fields;
 	}

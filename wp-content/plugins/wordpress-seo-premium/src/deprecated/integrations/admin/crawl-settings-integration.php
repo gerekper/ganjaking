@@ -70,11 +70,11 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	/**
 	 * Crawl_Settings_Integration constructor.
 	 *
-	 * @param Options_Helper    $options_helper The options helper.
-	 * @param WPSEO_Shortlinker $shortlinker    The shortlinker.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Options_Helper    $options_helper The options helper.
+	 * @param WPSEO_Shortlinker $shortlinker    The shortlinker.
 	 */
 	public function __construct( Options_Helper $options_helper, WPSEO_Shortlinker $shortlinker ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Admin\Crawl_Settings_Integration' );
@@ -145,10 +145,10 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	/**
 	 * Adds content to the Crawl Cleanup network tab.
 	 *
-	 * @param Yoast_Form $yform The yoast form object.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Yoast_Form $yform The yoast form object.
 	 */
 	public function add_crawl_settings_tab_content_network( $yform ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Admin\Crawl_Settings_Integration::add_crawl_settings_tab_content_network( $yform )' );

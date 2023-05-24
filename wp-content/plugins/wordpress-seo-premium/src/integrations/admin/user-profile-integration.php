@@ -194,7 +194,7 @@ class User_Profile_Integration implements Integration_Interface {
 	private function get_posted_user_fields() {
 		$user_schema = [];
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in process_user_option_update.
-		if ( isset( $_POST['wpseo_user_schema'] ) && is_array( $_POST['wpseo_user_schema'] ) ) {
+		if ( isset( $_POST['wpseo_user_schema'] ) && \is_array( $_POST['wpseo_user_schema'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in process_user_option_update.
 			$user_schema = \array_map( 'sanitize_text_field', \wp_unslash( $_POST['wpseo_user_schema'] ) );
 		}

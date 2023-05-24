@@ -132,19 +132,20 @@ class FUE_Addon_Woocommerce_Admin {
 			</div>
 			<script type="text/javascript">
 				jQuery( '.fue-update-now' ).on( 'click', function() {
-					var answer = confirm( '<?php esc_js( __( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the scanner now?', 'follow_up_emails' ) ); ?>' );
+					var answer = confirm( '<?php echo esc_js( __( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the scanner now?', 'follow_up_emails' ) ); ?>' );
 					return answer;
 				} );
 
 				jQuery('.fue-disable-scan').on( 'click', function() {
 					var container   = jQuery(this).parents("div#message");
-					var message     = '<?php esc_js( __(' Not scanning your existing orders may cause customer and conditional emails to not work accurately. Do you wish to continue?', 'follow_up_emails' ) ); ?>';
+					var message     = '<?php echo esc_js( __( 'Not scanning your existing orders may cause customer and conditional emails to not work accurately. Do you wish to continue?', 'follow_up_emails' ) ); ?>';
 
 					if ( confirm( message ) ) {
 						post = {
-							action: "fue_wc_disable_order_scan"
+							action: "fue_wc_disable_order_scan",
+							nonce:  "<?php echo esc_attr( wp_create_nonce( 'disable_order_scan' ) ); ?>",
 						};
-						jQuery.getJSON( ajaxurl, post, function(resp) {
+						jQuery.post( ajaxurl, post, function( resp ) {
 							if ( resp && resp.status == 'success' ) {
 								container.remove();
 							}
@@ -249,7 +250,14 @@ class FUE_Addon_Woocommerce_Admin {
 			if ( ! empty( $_GET['tab'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( $_GET['tab'] === 'order_import' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					wp_enqueue_script( 'jquery-ui-progressbar', false, array( 'jquery', 'jquery-ui' ) );
-					wp_enqueue_script( 'fue_wc_order_import', FUE_TEMPLATES_URL .'/js/wc_order_import.js', array('jquery', 'jquery-ui-progressbar'), FUE_VERSION );
+					wp_enqueue_script( 'fue_wc_order_import', FUE_TEMPLATES_URL . '/js/wc_order_import.js', array( 'jquery', 'jquery-ui-progressbar' ), FUE_VERSION, false );
+					wp_localize_script(
+						'fue_wc_order_import',
+						'FUE_Order_Import',
+						array(
+							'nonce' => wp_create_nonce( 'order_import' ),
+						)
+					);
 				}
 				if ( $_GET['tab'] === 'data_update' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					wp_enqueue_script( 'jquery-ui-progressbar', false, array( 'jquery', 'jquery-ui' ) );

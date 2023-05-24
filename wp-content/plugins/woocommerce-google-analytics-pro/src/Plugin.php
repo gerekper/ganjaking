@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	public const VERSION = '2.0.3';
+	public const VERSION = '2.0.4';
 
 	/** @var Plugin the singleton instance of the plugin */
 	protected static $instance;
@@ -206,10 +206,8 @@ class Plugin extends Framework\SV_WC_Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string[] $integrations the existing integrations
-	 * @return string[]
 	 */
-	public function load_integration( $integrations = array() ): array {
+	public function load_integration( array $integrations = []): array {
 
 		if ( ! in_array( Integration::class, $integrations, true ) ) {
 			$integrations = array_merge( [ self::PLUGIN_ID => Integration::class ], $integrations );
@@ -374,12 +372,12 @@ class Plugin extends Framework\SV_WC_Plugin {
 	 */
 	protected function get_deprecated_hooks() {
 
-		$deprecated_hooks = array(
-			'wc_google_analytics_pro_product_funnel_steps' => array(
+		$deprecated_hooks = [
+			'wc_google_analytics_pro_product_funnel_steps' => [
 				'version' => '1.3.0',
 				'removed' => true,
-			),
-		);
+			],
+		];
 
 		return $deprecated_hooks;
 	}
@@ -412,7 +410,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 	 */
 	public function add_api_request_logging() {
 
-		$settings = get_option( 'woocommerce_google_analytics_pro_settings', array() );
+		$settings = get_option( 'woocommerce_google_analytics_pro_settings', []);
 
 		if ( ! isset( $settings['debug_mode'] ) || 'no' === $settings['debug_mode'] ) {
 			return;
@@ -605,13 +603,13 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 			$this->get_admin_notice_handler()->add_admin_notice(
 				/* translators: %1$s - function name, %2$s, %4$s - opening <a> tag, %3$s, %5$s - closing </a> tag */
-				sprintf( esc_html__( 'Please update any custom tracking code & switch the Google Analytics javascript tracker function name to %1$s in the %2$sGoogle Analytics settings%3$s. You can %4$slearn more from the plugin documentation%5$s.', 'woocommerce-google-analytics-pro' ), '<code>ga</code>', '<a href="' . $this->get_settings_url() . '#woocommerce_google_analytics_pro_additional_settings_section">', '</a>', '<a href="https://docs.woocommerce.com/document/woocommerce-google-analytics-pro/#upgrading">', '</a>' ),
+				sprintf( esc_html__( 'Please update any custom tracking code & switch the Google Analytics javascript tracker function name to %1$s in the %2$sGoogle Analytics settings%3$s. You can %4$slearn more from the plugin documentation%5$s.', 'woocommerce-google-analytics-pro' ), '<code>ga</code>', '<a href="' . $this->get_settings_url() . '#woocommerce_google_analytics_pro_additional_settings_section">', '</a>', '<a href="' . $this->get_documentation_url() . '#upgrading">', '</a>' ),
 				'update_function_name',
-				array(
+				[
 					'dismissible'             => true,
 					'notice_class'            => 'error',
 					'always_show_on_settings' => true
-				)
+				]
 			);
 		}
 	}

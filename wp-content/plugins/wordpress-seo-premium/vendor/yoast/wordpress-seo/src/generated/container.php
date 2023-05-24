@@ -148,6 +148,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\config\\migrations\\addcolumnstoindexables' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddColumnsToIndexables',
             'yoast\\wp\\seo\\config\\migrations\\addestimatedreadingtime' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddEstimatedReadingTime',
             'yoast\\wp\\seo\\config\\migrations\\addhasancestorscolumn' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddHasAncestorsColumn',
+            'yoast\\wp\\seo\\config\\migrations\\addinclusivelanguagescore' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddInclusiveLanguageScore',
             'yoast\\wp\\seo\\config\\migrations\\addindexableobjectidandtypeindex' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexableObjectIdAndTypeIndex',
             'yoast\\wp\\seo\\config\\migrations\\addindexesforprominentwordsonindexables' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexesForProminentWordsOnIndexables',
             'yoast\\wp\\seo\\config\\migrations\\addobjecttimestamps' => 'Yoast\\WP\\SEO\\Config\\Migrations\\AddObjectTimestamps',
@@ -559,6 +560,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Config\\Migrations\\AddColumnsToIndexables' => 'getAddColumnsToIndexablesService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\AddEstimatedReadingTime' => 'getAddEstimatedReadingTimeService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\AddHasAncestorsColumn' => 'getAddHasAncestorsColumnService',
+            'Yoast\\WP\\SEO\\Config\\Migrations\\AddInclusiveLanguageScore' => 'getAddInclusiveLanguageScoreService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexableObjectIdAndTypeIndex' => 'getAddIndexableObjectIdAndTypeIndexService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexesForProminentWordsOnIndexables' => 'getAddIndexesForProminentWordsOnIndexablesService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\AddObjectTimestamps' => 'getAddObjectTimestampsService',
@@ -1598,7 +1600,7 @@ class Cached_Container extends Container
             return $this->services['Yoast\\WP\\SEO\\Builders\\Indexable_Post_Type_Archive_Builder'];
         }
 
-        return $this->services['Yoast\\WP\\SEO\\Builders\\Indexable_Post_Type_Archive_Builder'] = new \Yoast\WP\SEO\Builders\Indexable_Post_Type_Archive_Builder(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Values\\Indexables\\Indexable_Builder_Versions']) ? $this->services['Yoast\\WP\\SEO\\Values\\Indexables\\Indexable_Builder_Versions'] : ($this->services['Yoast\\WP\\SEO\\Values\\Indexables\\Indexable_Builder_Versions'] = new \Yoast\WP\SEO\Values\Indexables\Indexable_Builder_Versions())) && false ?: '_'}, $a, ${($_ = isset($this->services['wpdb']) ? $this->services['wpdb'] : $this->getWpdbService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Builders\\Indexable_Post_Type_Archive_Builder'] = new \Yoast\WP\SEO\Builders\Indexable_Post_Type_Archive_Builder(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] = new \Yoast\WP\SEO\Helpers\Options_Helper())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Values\\Indexables\\Indexable_Builder_Versions']) ? $this->services['Yoast\\WP\\SEO\\Values\\Indexables\\Indexable_Builder_Versions'] : ($this->services['Yoast\\WP\\SEO\\Values\\Indexables\\Indexable_Builder_Versions'] = new \Yoast\WP\SEO\Values\Indexables\Indexable_Builder_Versions())) && false ?: '_'}, $a, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] : $this->getPostTypeHelperService()) && false ?: '_'}, ${($_ = isset($this->services['wpdb']) ? $this->services['wpdb'] : $this->getWpdbService()) && false ?: '_'});
     }
 
     /**
@@ -2363,6 +2365,16 @@ class Cached_Container extends Container
     protected function getAddHasAncestorsColumnService()
     {
         return $this->services['Yoast\\WP\\SEO\\Config\\Migrations\\AddHasAncestorsColumn'] = new \Yoast\WP\SEO\Config\Migrations\AddHasAncestorsColumn(${($_ = isset($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter']) ? $this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] : ($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] = new \Yoast\WP\Lib\Migrations\Adapter())) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Config\Migrations\AddInclusiveLanguageScore' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Config\Migrations\AddInclusiveLanguageScore
+     */
+    protected function getAddInclusiveLanguageScoreService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Config\\Migrations\\AddInclusiveLanguageScore'] = new \Yoast\WP\SEO\Config\Migrations\AddInclusiveLanguageScore(${($_ = isset($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter']) ? $this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] : ($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] = new \Yoast\WP\Lib\Migrations\Adapter())) && false ?: '_'});
     }
 
     /**
@@ -4621,6 +4633,7 @@ class Cached_Container extends Container
         $instance->register_migration('free', '20201216141134', 'Yoast\\WP\\SEO\\Config\\Migrations\\ExpandPrimaryTermIDColumnLengths');
         $instance->register_migration('free', '20210817092415', 'Yoast\\WP\\SEO\\Config\\Migrations\\AddVersionColumnToIndexables');
         $instance->register_migration('free', '20211020091404', 'Yoast\\WP\\SEO\\Config\\Migrations\\AddObjectTimestamps');
+        $instance->register_migration('free', '20230417083836', 'Yoast\\WP\\SEO\\Config\\Migrations\\AddInclusiveLanguageScore');
         $instance->register_initializer('Yoast\\WP\\SEO\\Initializers\\Crawl_Cleanup_Permalinks');
         $instance->register_initializer('Yoast\\WP\\SEO\\Initializers\\Disable_Core_Sitemaps');
         $instance->register_initializer('Yoast\\WP\\SEO\\Initializers\\Migration_Runner');

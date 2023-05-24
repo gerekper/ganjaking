@@ -2,9 +2,10 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Third_Party;
 
-use Yoast\WP\SEO\Premium\Conditionals\EDD_Conditional;
+use WPSEO_Schema_Context;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
+use Yoast\WP\SEO\Premium\Conditionals\EDD_Conditional;
 use Yoast\WP\SEO\Surfaces\Meta_Surface;
 
 /**
@@ -70,8 +71,8 @@ class EDD implements Integration_Interface {
 	/**
 	 * Make sure the WebPage schema contains reference to the product.
 	 *
-	 * @param array                 $data    The schema Webpage data.
-	 * @param \WPSEO_Schema_Context $context Context object.
+	 * @param array                $data    The schema Webpage data.
+	 * @param WPSEO_Schema_Context $context Context object.
 	 *
 	 * @return array
 	 */
@@ -112,7 +113,7 @@ class EDD implements Integration_Interface {
 	 * @return array
 	 */
 	private function clean_up_offer( $offer ) {
-		if ( array_key_exists( 'priceValidUntil', $offer ) && $offer['priceValidUntil'] === null ) {
+		if ( \array_key_exists( 'priceValidUntil', $offer ) && $offer['priceValidUntil'] === null ) {
 			unset( $offer['priceValidUntil'] );
 		}
 		$offer['seller'] = $this->return_organization_node();

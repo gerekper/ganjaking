@@ -1,7 +1,5 @@
 <?php
 
-// phpcs:disable Yoast.NamingConventions.NamespaceName.MaxExceeded
-// phpcs:disable Yoast.NamingConventions.NamespaceName.Invalid
 namespace Yoast\WP\SEO\Integrations\Blocks;
 
 use Yoast\WP\SEO\Conditionals\No_Conditionals;

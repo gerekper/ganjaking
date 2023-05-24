@@ -45,12 +45,14 @@ class Request extends Framework\SV_WC_API_JSON_Request {
 	 * @param string $method HTTP method
 	 * @param string $path the endpoint path
 	 * @param array  $data the request data
+	 * @param array  $params the request (query) params (optional
 	 */
-	public function __construct( string $method, string $path, array $data = [] ) {
+	public function __construct( string $method, string $path, array $data = [], array $params = [] ) {
 
 		$this->method = $method;
 		$this->path   = $path;
 		$this->data   = $data;
+		$this->params = $params;
 	}
 
 

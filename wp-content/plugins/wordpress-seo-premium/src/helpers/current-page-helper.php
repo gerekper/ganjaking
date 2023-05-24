@@ -38,7 +38,7 @@ class Current_Page_Helper {
 	 * Retrieves the current post id.
 	 * Returns 0 if no post id is found.
 	 *
-	 * @return integer The post id.
+	 * @return int The post id.
 	 */
 	public function get_current_post_id() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We are not processing form information, We are casting to an integer.

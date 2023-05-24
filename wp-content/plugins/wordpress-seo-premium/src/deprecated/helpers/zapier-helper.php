@@ -124,10 +124,10 @@ class Zapier_Helper {
 	/**
 	 * Check if a string matches the API key in the DB, if present.
 	 *
-	 * @param string $api_key The API key to test.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $api_key The API key to test.
 	 *
 	 * @return bool Whether the API key is valid or not.
 	 */
@@ -160,10 +160,10 @@ class Zapier_Helper {
 	/**
 	 * Returns whether the submitted id is present in the subscriptions.
 	 *
-	 * @param string $id The id to be tested.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $id The id to be tested.
 	 *
 	 * @return bool Whether the id is present in the subscriptions.
 	 */
@@ -182,10 +182,10 @@ class Zapier_Helper {
 	/**
 	 * Unsubscribes the submitted id.
 	 *
-	 * @param string $id The id to be unsubscribed.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $id The id to be unsubscribed.
 	 *
 	 * @return bool Whether the unsubscription was successful.
 	 */
@@ -202,10 +202,10 @@ class Zapier_Helper {
 	/**
 	 * Creates a new subscription with the submitted URL.
 	 *
-	 * @param string $url The URL to be subscribed.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $url The URL to be subscribed.
 	 *
 	 * @return array|bool The subscription data (id and URL) if successful, false otherwise.
 	 */
@@ -229,10 +229,10 @@ class Zapier_Helper {
 	/**
 	 * Builds and returns the data for Zapier.
 	 *
-	 * @param Indexable $indexable The indexable from which the data must be extracted.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Indexable $indexable The indexable from which the data must be extracted.
 	 *
 	 * @return array[] The array of data ready to be sent to Zapier.
 	 */
@@ -277,10 +277,10 @@ class Zapier_Helper {
 	 * that support the Yoast Metabox. We filter out attachments regardless of
 	 * the Yoast SEO settings, anyway.
 	 *
-	 * @param string $post_type The post type to be checked.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param string $post_type The post type to be checked.
 	 *
 	 * @return bool Whether the post type is supported by the Zapier integration.
 	 */

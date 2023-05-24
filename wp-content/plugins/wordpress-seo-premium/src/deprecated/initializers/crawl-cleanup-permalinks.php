@@ -40,12 +40,12 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 	/**
 	 * Crawl Cleanup Permalinks constructor.
 	 *
+	 * @deprecated 20.4
+	 * @codeCoverageIgnore
+	 *
 	 * @param Current_Page_Helper $current_page_helper The current page helper.
 	 * @param Options_Helper      $options_helper      The option helper.
 	 * @param Url_Helper          $url_helper          The URL helper.
-	 *
-	 * @deprecated 20.4
-	 * @codeCoverageIgnore
 	 */
 	public function __construct(
 		Current_Page_Helper $current_page_helper,

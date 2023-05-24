@@ -36,10 +36,10 @@ class Integrations_Page implements Integration_Interface {
 	/**
 	 * Workouts_Integration constructor.
 	 *
-	 * @param Options_Helper $options_helper The options helper.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Options_Helper $options_helper The options helper.
 	 */
 	public function __construct( Options_Helper $options_helper ) {
 		\deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );

@@ -17,7 +17,7 @@ class Cleanup_Integration implements Integration_Interface {
 	/**
 	 * The indexable cleanup repository.
 	 *
-	 * @var Indexable_Cleanup_Repository $indexable_cleanup_repository
+	 * @var Indexable_Cleanup_Repository
 	 */
 	private $indexable_cleanup_repository;
 
@@ -91,9 +91,9 @@ class Cleanup_Integration implements Integration_Interface {
 	/**
 	 * Cleans orphaned rows from a yoast table.
 	 *
-	 * @param string $table The table to cleanup.
+	 * @param string $table  The table to cleanup.
 	 * @param string $column The table column the cleanup will rely on.
-	 * @param int    $limit The limit we'll apply to the queries.
+	 * @param int    $limit  The limit we'll apply to the queries.
 	 *
 	 * @return int The number of deleted rows.
 	 */
@@ -177,7 +177,7 @@ class Cleanup_Integration implements Integration_Interface {
 	/**
 	 * Retrieve a list of prominent word taxonomy IDs.
 	 *
-	 * @param wpdb $wpdb The WordPress database object.
+	 * @param wpdb $wpdb  The WordPress database object.
 	 * @param int  $limit The maximum amount of prominent word taxonomies to retrieve.
 	 *
 	 * @return string[] A list of prominent word taxonomy IDs (of size 'limit').
@@ -194,7 +194,7 @@ class Cleanup_Integration implements Integration_Interface {
 	/**
 	 * Deletes the given list of taxonomies and their terms.
 	 *
-	 * @param wpdb     $wpdb The WordPress database object.
+	 * @param wpdb     $wpdb         The WordPress database object.
 	 * @param string[] $taxonomy_ids The IDs of the taxonomies to remove and their corresponding terms.
 	 *
 	 * @return bool|int `false` if the query failed, the amount of rows deleted otherwise.

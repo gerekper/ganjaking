@@ -722,7 +722,7 @@ class Permalink_Manager_Actions {
 	 * @param string $element_id
 	 */
 	function ajax_detect_duplicates( $uri = null, $element_id = null ) {
-		$duplicate_alert = __( "URI is already in use, please select another one!", "permalink-manager" );
+		$duplicate_alert = __( "Permalink is already in use, please select another one!", "permalink-manager" );
 
 		if ( ! empty( $_REQUEST['custom_uris'] ) ) {
 			// Sanitize the array

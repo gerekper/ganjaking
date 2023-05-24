@@ -195,7 +195,7 @@ class Permalink_Manager_Helper_Functions {
 		else {
 			if ( ! empty( $term->slug ) ) {
 				$term_slug = ( $native_uri ) ? $term->slug : Permalink_Manager_Helper_Functions::force_custom_slugs( $term->slug, $term );
-			} else if ( !empty ( $terms ) ) {
+			} else if ( ! empty ( $terms ) ) {
 				foreach ( $terms as $single_term ) {
 					if ( $single_term->parent == 0 ) {
 						$term_slug = self::force_custom_slugs( $single_term->slug, $single_term );
@@ -317,6 +317,29 @@ class Permalink_Manager_Helper_Functions {
 	}
 
 	/**
+	 * Get a list of all excluded posts' IDs
+	 *
+	 * @return array
+	 */
+	public static function get_excluded_post_ids() {
+		global $permalink_manager_options;
+
+		if ( ! empty( $permalink_manager_options["general"]["exclude_post_ids"] ) ) {
+			$excluded_post_ids_raw = $permalink_manager_options["general"]["exclude_post_ids"];
+
+			$excluded_post_ids = self::get_ids_from_string( $excluded_post_ids_raw );
+		} else {
+			$excluded_post_ids = array();
+		}
+
+		// Allow to filter the array via filter
+		$excluded_post_ids = apply_filters( 'permalink_manager_excluded_post_ids', $excluded_post_ids );
+
+		// Only numeric IDs are allowed
+		return ( ! empty( $excluded_post_ids ) ) ? array_filter( $excluded_post_ids, 'is_numeric' ) : array();
+	}
+
+	/**
 	 * Check if specific post should be ignored by Permalink Manager
 	 *
 	 * @param WP_Post|int $post
@@ -327,19 +350,20 @@ class Permalink_Manager_Helper_Functions {
 	public static function is_post_excluded( $post = null, $draft_check = false ) {
 		$post = ( is_integer( $post ) ) ? get_post( $post ) : $post;
 
-		// A. Check if post type is disabled
+		// 1. Check if post type is disabled
 		if ( ! empty( $post->post_type ) && self::is_post_type_disabled( $post->post_type ) ) {
 			return true;
 		}
 
-		$excluded_post_ids = apply_filters( 'permalink_manager_excluded_post_ids', array() );
+		// 2. Get list of post IDs excluded in the plugin settings or via the filter
+		$excluded_post_ids = self::get_excluded_post_ids();
 
-		// B. Check if post ID is excluded
+		// 3. Exclude post IDs excluded via the filter or in the plugin settings
 		if ( is_array( $excluded_post_ids ) && ! empty( $post->ID ) && in_array( $post->ID, $excluded_post_ids ) ) {
 			return true;
 		}
 
-		// C. Check if post is a "draft", "pending", removed
+		// D. Check if post is a "draft", "pending", removed
 		if ( $draft_check ) {
 			return self::is_draft_excluded( $post );
 		}
@@ -378,6 +402,29 @@ class Permalink_Manager_Helper_Functions {
 	}
 
 	/**
+	 * Get a list of all excluded terms' IDs
+	 *
+	 * @return array
+	 */
+	public static function get_excluded_term_ids() {
+		global $permalink_manager_options;
+
+		if ( ! empty( $permalink_manager_options["general"]["exclude_term_ids"] ) ) {
+			$excluded_term_ids_raw = $permalink_manager_options["general"]["exclude_term_ids"];
+
+			$excluded_term_ids = self::get_ids_from_string( $excluded_term_ids_raw );
+		} else {
+			$excluded_term_ids = array();
+		}
+
+		// Allow to filter the array via filter
+		$excluded_term_ids = apply_filters( 'permalink_manager_excluded_term_ids', $excluded_term_ids );
+
+		// Only numeric IDs are allowed
+		return ( ! empty( $excluded_term_ids ) ) ? array_filter( $excluded_term_ids, 'is_numeric' ) : array();
+	}
+
+	/**
 	 * Check if specific term should be ignored by Permalink Manager
 	 *
 	 * @param WP_Term $term
@@ -387,14 +434,15 @@ class Permalink_Manager_Helper_Functions {
 	public static function is_term_excluded( $term = null ) {
 		$term = ( is_numeric( $term ) ) ? get_term( $term ) : $term;
 
-		// A. Check if post type is disabled
+		// 1. Check if taxonomy is disabled
 		if ( ! empty( $term->taxonomy ) && self::is_taxonomy_disabled( $term->taxonomy ) ) {
 			return true;
 		}
 
-		$excluded_term_ids = apply_filters( 'permalink_manager_excluded_term_ids', array() );
+		// 2. Get list of term IDs excluded in the plugin settings or via the filter
+		$excluded_term_ids = self::get_excluded_term_ids();
 
-		// B. Check if post ID is excluded
+		// 3. Exclude term IDs excluded via the filter or in the plugin settings
 		if ( is_array( $excluded_term_ids ) && ! empty( $term->term_id ) && in_array( $term->term_id, $excluded_term_ids ) ) {
 			return true;
 		}
@@ -661,6 +709,42 @@ class Permalink_Manager_Helper_Functions {
 	}
 
 	/**
+	 * Convert the text containing IDs and/or ID ranges to an array
+	 *
+	 * @param string $data
+	 *
+	 * @return array
+	 */
+	static function get_ids_from_string( $data ) {
+		// Remove whitespaces and other invalid characters
+		$raw_ids = esc_sql( preg_replace( '/[^\d,-]/', '', $data ) );
+
+		// Convert the string into the array with IDs and/or ranges
+		preg_match_all( "/([\d]+(?:-?[\d]+)?)/x", $raw_ids, $groups );
+
+		$ids = array();
+
+		if ( ! empty( $groups[1] ) ) {
+			foreach ( $groups[1] as $group ) {
+				if ( is_numeric( $group ) ) {
+					$ids[] = $group;
+				} else if ( preg_match( '/([\d]+)-([\d]+)/', $group, $range_limits ) ) {
+					$range_start = (int) $range_limits[1];
+					$range_end = (int) $range_limits[2];
+
+					if ( $range_start < $range_end ) {
+						$ids = array_merge( $ids, range( $range_start, $range_end ) );
+					}
+				}
+			}
+
+			$ids = array_unique( $ids );
+		}
+
+		return $ids;
+	}
+
+	/**
 	 * Encode URI and keep special characters
 	 *
 	 * @param string $uri
@@ -786,11 +870,13 @@ class Permalink_Manager_Helper_Functions {
 	 *
 	 * @return string
 	 */
-	public static function force_custom_slugs( $slug, $object, $flat = false ) {
-		global $permalink_manager_options, $permalink_manager_uris;
+	public static function force_custom_slugs( $slug, $object, $flat = false, $force_custom_slugs = null ) {
+		global $permalink_manager_options;
 
-		$force_custom_slugs = ( ! empty( $permalink_manager_options['general']['force_custom_slugs'] ) ) ? $permalink_manager_options['general']['force_custom_slugs'] : false;
-		$force_custom_slugs = apply_filters( 'permalink_manager_force_custom_slugs', $force_custom_slugs, $slug, $object );
+		if ( empty( $force_custom_slugs ) ) {
+			$force_custom_slugs = ( ! empty( $permalink_manager_options['general']['force_custom_slugs'] ) ) ? $permalink_manager_options['general']['force_custom_slugs'] : false;
+			$force_custom_slugs = apply_filters( 'permalink_manager_force_custom_slugs', $force_custom_slugs, $slug, $object );
+		}
 
 		if ( $force_custom_slugs ) {
 			// A. Custom slug (title)
@@ -809,8 +895,7 @@ class Permalink_Manager_Helper_Functions {
 				$new_slug = self::sanitize_title( $title );
 			} // B. Custom slug (custom permalink)
 			else {
-				$object_id = ( ! empty( $object->term_id ) ) ? "tax-{$object->term_id}" : $object->ID;
-				$new_slug  = ( ! empty( $permalink_manager_uris[ $object_id ] ) ) ? basename( $permalink_manager_uris[ $object_id ] ) : '';
+				$new_slug = basename( Permalink_Manager_URI_Functions::get_single_uri( $object, false, true ) );
 			}
 
 			$slug = ( ! empty( $new_slug ) ) ? preg_replace( '/([^\/]+)$/', $new_slug, $slug ) : $slug;

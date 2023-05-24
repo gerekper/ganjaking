@@ -149,8 +149,8 @@ class Prominent_Words_Repository {
 	/**
 	 * Deletes all prominent words for an indexable
 	 *
-	 * @param int $indexable_id     The id of the indexable which needs to have
-	 *                              some of its prominent words deleted.
+	 * @param int $indexable_id The id of the indexable which needs to have
+	 *                          some of its prominent words deleted.
 	 *
 	 * @return bool Whether the deletion was successful.
 	 */

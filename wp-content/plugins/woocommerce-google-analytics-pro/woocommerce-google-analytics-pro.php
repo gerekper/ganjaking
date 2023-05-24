@@ -6,7 +6,7 @@
  * Description: Measure your site's success using advanced eCommerce tracking via Google Analytics
  * Author: SkyVerge
  * Author URI: http://www.skyverge.com
- * Version: 2.0.3
+ * Version: 2.0.4
  * Text Domain: woocommerce-google-analytics-pro
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  *
  * Woo: 1312497:d8aed8b7306b509eec1589e59abe319f
  * WC requires at least: 3.9.4
- * WC tested up to: 7.6.1
+ * WC tested up to: 7.7.0
  */
 
 defined( 'ABSPATH' ) or exit;

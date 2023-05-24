@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Follow-Up Emails 4.9.40\n"
+"Project-Id-Version: Follow-Up Emails 4.9.50\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-follow-up-emails\n"
-"POT-Creation-Date: 2023-05-10 15:02:21+00:00\n"
+"POT-Creation-Date: 2023-05-16 15:07:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,18 +55,18 @@ msgid "Send on %s"
 msgstr ""
 
 #: includes/addons/class-fue-addon-bookings.php:262
-#: includes/addons/class-fue-addon-woocommerce-admin.php:766
+#: includes/addons/class-fue-addon-woocommerce-admin.php:774
 msgid "The name of the purchased item."
 msgstr ""
 
 #: includes/addons/class-fue-addon-bookings.php:263
-#: includes/addons/class-fue-addon-woocommerce-admin.php:769
+#: includes/addons/class-fue-addon-woocommerce-admin.php:777
 msgid "The list of categories where the purchased item is under."
 msgstr ""
 
 #: includes/addons/class-fue-addon-bookings.php:264
-#: includes/addons/class-fue-addon-subscriptions.php:323
-#: includes/addons/class-fue-addon-woocommerce-admin.php:771
+#: includes/addons/class-fue-addon-subscriptions.php:330
+#: includes/addons/class-fue-addon-woocommerce-admin.php:779
 msgid "The quantity of the purchased item."
 msgstr ""
 
@@ -401,12 +401,12 @@ msgid ""
 msgstr ""
 
 #: includes/addons/class-fue-addon-subscriptions-v2.php:1767
-#: includes/addons/class-fue-addon-subscriptions.php:1935
+#: includes/addons/class-fue-addon-subscriptions.php:1942
 msgid "Until cancelled"
 msgstr ""
 
 #: includes/addons/class-fue-addon-subscriptions-v2.php:1788
-#: includes/addons/class-fue-addon-subscriptions.php:1915
+#: includes/addons/class-fue-addon-subscriptions.php:1922
 msgid "1 %s"
 msgstr ""
 
@@ -417,7 +417,7 @@ msgid ""
 msgstr ""
 
 #: includes/addons/class-fue-addon-subscriptions.php:135
-msgid "<strong>Follow-Ups Data Update Required</strong>"
+msgid "Follow-Ups Data Update Required"
 msgstr ""
 
 #: includes/addons/class-fue-addon-subscriptions.php:136
@@ -432,136 +432,136 @@ msgid ""
 "Are you sure you wish to run the updater now?"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:183
+#: includes/addons/class-fue-addon-subscriptions.php:190
 msgid "after subscription activated"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:184
+#: includes/addons/class-fue-addon-subscriptions.php:191
 msgid "after subscription renewed"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:185
+#: includes/addons/class-fue-addon-subscriptions.php:192
 msgid "after subscription cancelled"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:186
+#: includes/addons/class-fue-addon-subscriptions.php:193
 msgid "after subscription pending cancellation"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:187
+#: includes/addons/class-fue-addon-subscriptions.php:194
 msgid "after subscription expired"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:188
+#: includes/addons/class-fue-addon-subscriptions.php:195
 msgid "after subscription suspended"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:189
+#: includes/addons/class-fue-addon-subscriptions.php:196
 msgid "after subscription reactivated"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:190
+#: includes/addons/class-fue-addon-subscriptions.php:197
 msgid "after subscription renewal payment failed"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:191
+#: includes/addons/class-fue-addon-subscriptions.php:198
 msgid "after a renewal order has been created"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:192
+#: includes/addons/class-fue-addon-subscriptions.php:199
 msgid "before next subscription payment"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:193
+#: includes/addons/class-fue-addon-subscriptions.php:200
 msgid "before active subscription expires"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:197
+#: includes/addons/class-fue-addon-subscriptions.php:204
 msgid "Subscription Emails"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:198
+#: includes/addons/class-fue-addon-subscriptions.php:205
 msgid "Subscription Email"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:201
-#: includes/addons/class-fue-addon-subscriptions.php:202
+#: includes/addons/class-fue-addon-subscriptions.php:208
+#: includes/addons/class-fue-addon-subscriptions.php:209
 msgid ""
 "Create emails to send to a user based upon the subscription statuses of "
 "your customers."
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:214
+#: includes/addons/class-fue-addon-subscriptions.php:221
 msgid "Customers with an active subscription"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:322
+#: includes/addons/class-fue-addon-subscriptions.php:329
 msgid "The subscription product's name"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:324
-#: includes/addons/class-fue-addon-subscriptions.php:328
-#: includes/addons/class-fue-addon-woocommerce-admin.php:743
+#: includes/addons/class-fue-addon-subscriptions.php:331
+#: includes/addons/class-fue-addon-subscriptions.php:335
+#: includes/addons/class-fue-addon-woocommerce-admin.php:751
 msgid "The list of categories where the purchased items are under."
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:326
-#: includes/addons/class-fue-addon-woocommerce-admin.php:737
+#: includes/addons/class-fue-addon-subscriptions.php:333
+#: includes/addons/class-fue-addon-woocommerce-admin.php:745
 #: includes/addons/twitter/class-fue-addon-twitter-admin.php:145
 msgid "Displays a list of purchased items."
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:327
-#: includes/addons/class-fue-addon-woocommerce-admin.php:738
+#: includes/addons/class-fue-addon-subscriptions.php:334
+#: includes/addons/class-fue-addon-woocommerce-admin.php:746
 msgid "Displays a comma-separated list of purchased items."
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:330
+#: includes/addons/class-fue-addon-subscriptions.php:337
 msgid "The date that a customer's subscription renews"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:331
+#: includes/addons/class-fue-addon-subscriptions.php:338
 msgid "The date that a customer's subscription ends"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:332
+#: includes/addons/class-fue-addon-subscriptions.php:339
 msgid "The number of days before a subscription is up for renewal"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:333
+#: includes/addons/class-fue-addon-subscriptions.php:340
 msgid "The start date of the subscription"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:334
+#: includes/addons/class-fue-addon-subscriptions.php:341
 msgid "The length of the trial (e.g. 20 days)"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:335
+#: includes/addons/class-fue-addon-subscriptions.php:342
 msgid "The initial cost + any signup fees"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:336
+#: includes/addons/class-fue-addon-subscriptions.php:343
 msgid "The cost and term of the subscription"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:337
+#: includes/addons/class-fue-addon-subscriptions.php:344
 msgid "The cost of the subscription"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:338
+#: includes/addons/class-fue-addon-subscriptions.php:345
 msgid "The ID of the subscription"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:1162
-#: includes/addons/class-fue-addon-subscriptions.php:1209
+#: includes/addons/class-fue-addon-subscriptions.php:1169
+#: includes/addons/class-fue-addon-subscriptions.php:1216
 msgid "Until Cancelled"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:1348
+#: includes/addons/class-fue-addon-subscriptions.php:1355
 msgid "Subscription payment failed for Order %s"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions.php:1349
+#: includes/addons/class-fue-addon-subscriptions.php:1356
 msgid ""
 "A subscription payment for the order %s has failed. The subscription has "
 "now been automatically put on hold."
@@ -641,7 +641,7 @@ msgstr ""
 
 #: includes/addons/class-fue-addon-woocommerce-admin-products.php:77
 #: includes/lib/action-scheduler/classes/ActionScheduler_wpPostStore_PostTypeRegistrar.php:33
-#: templates/reports/user_view.php:669
+#: templates/reports/user_view.php:678
 msgid "Add"
 msgstr ""
 
@@ -669,190 +669,190 @@ msgstr ""
 
 #: includes/addons/class-fue-addon-woocommerce-admin.php:141
 msgid ""
-" Not scanning your existing orders may cause customer and conditional "
-"emails to not work accurately. Do you wish to continue?"
+"Not scanning your existing orders may cause customer and conditional emails "
+"to not work accurately. Do you wish to continue?"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:179
+#: includes/addons/class-fue-addon-woocommerce-admin.php:180
 msgid "No action specified"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:310
-#: includes/addons/class-fue-addon-woocommerce-admin.php:348
+#: includes/addons/class-fue-addon-woocommerce-admin.php:318
+#: includes/addons/class-fue-addon-woocommerce-admin.php:356
 msgid "Import Orders"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:536
+#: includes/addons/class-fue-addon-woocommerce-admin.php:544
 msgid "Custom Fields"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:542
+#: includes/addons/class-fue-addon-woocommerce-admin.php:550
 #: includes/class-fue-coupons.php:45 templates/coupons/coupon-list-table.php:18
 msgid "Coupons"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:551
+#: includes/addons/class-fue-addon-woocommerce-admin.php:559
 msgid "Exclusions"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:649
+#: includes/addons/class-fue-addon-woocommerce-admin.php:657
 msgid "WooCommerce Email Settings"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:650
+#: includes/addons/class-fue-addon-woocommerce-admin.php:658
 msgid "Click here to manage your WooCommerce email styles"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:739
+#: includes/addons/class-fue-addon-woocommerce-admin.php:747
 msgid "Displays a list of purchased items, quantities, and prices."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:740
+#: includes/addons/class-fue-addon-woocommerce-admin.php:748
 msgid "Displays a list of purchased items, quantities, and prices with thumbnails."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:741
+#: includes/addons/class-fue-addon-woocommerce-admin.php:749
 msgid ""
 "Displays a list of the purchased items with their quantities, codes, and "
 "prices."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:742
+#: includes/addons/class-fue-addon-woocommerce-admin.php:750
 msgid ""
 "Displays a list of the purchased items, with their quantities, prices, and "
 "categories."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:744
-#: includes/addons/class-fue-addon-woocommerce-admin.php:772
-#: includes/addons/class-fue-addon-woocommerce-admin.php:784
+#: includes/addons/class-fue-addon-woocommerce-admin.php:752
+#: includes/addons/class-fue-addon-woocommerce-admin.php:780
+#: includes/addons/class-fue-addon-woocommerce-admin.php:792
 msgid "The the amount spent on an order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:749
+#: includes/addons/class-fue-addon-woocommerce-admin.php:757
 msgid "The amount of the refund"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:750
+#: includes/addons/class-fue-addon-woocommerce-admin.php:758
 msgid "The reason for the refund"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:764
+#: includes/addons/class-fue-addon-woocommerce-admin.php:772
 msgid "The URL of the downloadable file."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:765
+#: includes/addons/class-fue-addon-woocommerce-admin.php:773
 msgid "The name of the downloadable file."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:767
+#: includes/addons/class-fue-addon-woocommerce-admin.php:775
 msgid "The code number of the purchased item."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:768
+#: includes/addons/class-fue-addon-woocommerce-admin.php:776
 msgid ""
 "The URL of the purchased item. Only works when the product is specified in "
 "the trigger setting."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:770
+#: includes/addons/class-fue-addon-woocommerce-admin.php:778
 msgid "The price of the purchased item."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:785
-#: includes/addons/class-fue-addon-woocommerce-admin.php:786
+#: includes/addons/class-fue-addon-woocommerce-admin.php:793
+#: includes/addons/class-fue-addon-woocommerce-admin.php:794
 msgid "Total amount spent by the customer"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:787
+#: includes/addons/class-fue-addon-woocommerce-admin.php:795
 msgid "The date the customer last ordered"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:798
+#: includes/addons/class-fue-addon-woocommerce-admin.php:806
 msgid "The first email description..."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:799
+#: includes/addons/class-fue-addon-woocommerce-admin.php:807
 msgid "The quantity email description..."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:800
+#: includes/addons/class-fue-addon-woocommerce-admin.php:808
 msgid "The last email description..."
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:813
+#: includes/addons/class-fue-addon-woocommerce-admin.php:821
 msgid "The generated Order Number for the puchase"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:814
+#: includes/addons/class-fue-addon-woocommerce-admin.php:822
 msgid "The date that the order was made"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:815
+#: includes/addons/class-fue-addon-woocommerce-admin.php:823
 msgid "The date and time that the order was made"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:816
+#: includes/addons/class-fue-addon-woocommerce-admin.php:824
 msgid "The subtotal of the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:817
+#: includes/addons/class-fue-addon-woocommerce-admin.php:825
 msgid "The tax total of the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:818
+#: includes/addons/class-fue-addon-woocommerce-admin.php:826
 msgid "The payment method used to pay for the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:819
+#: includes/addons/class-fue-addon-woocommerce-admin.php:827
 msgid "URL for customer to pay their (unpaid - pending) order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:820
+#: includes/addons/class-fue-addon-woocommerce-admin.php:828
 msgid "The billing address of the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:821
+#: includes/addons/class-fue-addon-woocommerce-admin.php:829
 msgid "The shipping address of the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:822
+#: includes/addons/class-fue-addon-woocommerce-admin.php:830
 msgid "The billing phone of the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:823
+#: includes/addons/class-fue-addon-woocommerce-admin.php:831
 msgid "The shipping phone of the order"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:832
+#: includes/addons/class-fue-addon-woocommerce-admin.php:840
 msgid "All Users"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:833
+#: includes/addons/class-fue-addon-woocommerce-admin.php:841
 msgid "All Customers"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:834
+#: includes/addons/class-fue-addon-woocommerce-admin.php:842
 msgid "This Customer"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:835
+#: includes/addons/class-fue-addon-woocommerce-admin.php:843
 msgid "Customers who bought these products"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:836
+#: includes/addons/class-fue-addon-woocommerce-admin.php:844
 msgid "Customers who bought from these categories"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:837
+#: includes/addons/class-fue-addon-woocommerce-admin.php:845
 msgid "Customers who bought between these dates"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:838
+#: includes/addons/class-fue-addon-woocommerce-admin.php:846
 msgid "Customers who never bought these products"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-admin.php:943
+#: includes/addons/class-fue-addon-woocommerce-admin.php:951
 msgid "Filter by emails sent/queued"
 msgstr ""
 
@@ -869,7 +869,7 @@ msgid "Cart emails have been cleared for this user"
 msgstr ""
 
 #: includes/addons/class-fue-addon-woocommerce-cart.php:457
-#: includes/class-fue-ajax.php:600 includes/class-fue-ajax.php:1027
+#: includes/class-fue-ajax.php:599 includes/class-fue-ajax.php:1026
 #: includes/class-fue-meta-boxes.php:170 includes/class-fue-meta-boxes.php:189
 #: templates/email-list/class-wc-fue-list-table.php:529
 #: templates/meta-boxes/email-actions.php:25
@@ -1270,35 +1270,38 @@ msgstr ""
 #: includes/class-fue-admin-actions.php:1229
 #: includes/class-fue-admin-actions.php:1260 includes/class-fue-ajax.php:124
 #: includes/class-fue-ajax.php:205 includes/class-fue-ajax.php:241
-#: includes/class-fue-ajax.php:262 includes/class-fue-ajax.php:330
-#: includes/class-fue-ajax.php:391 includes/class-fue-ajax.php:470
-#: includes/class-fue-ajax.php:542 includes/class-fue-ajax.php:587
-#: includes/class-fue-ajax.php:625 includes/class-fue-ajax.php:664
-#: includes/class-fue-ajax.php:704 includes/class-fue-ajax.php:738
-#: includes/class-fue-ajax.php:755 includes/class-fue-ajax.php:860
-#: includes/class-fue-ajax.php:869 includes/class-fue-ajax.php:996
-#: includes/class-fue-ajax.php:1018 includes/class-fue-ajax.php:1039
-#: includes/class-fue-ajax.php:1091 includes/class-fue-ajax.php:1113
-#: includes/class-fue-ajax.php:1134 includes/class-fue-ajax.php:1155
-#: includes/class-fue-ajax.php:1176 includes/class-fue-ajax.php:1200
-#: includes/class-fue-ajax.php:1238 includes/class-fue-ajax.php:1267
-#: includes/class-fue-ajax.php:1340 includes/class-fue-ajax.php:1383
-#: includes/class-fue-ajax.php:1426 includes/class-fue-ajax.php:1483
-#: includes/class-fue-ajax.php:1569 includes/class-fue-ajax.php:1704
-#: includes/class-fue-ajax.php:1727 includes/class-fue-ajax.php:1769
-#: includes/class-fue-ajax.php:1832 includes/class-fue-ajax.php:1848
-#: includes/class-fue-ajax.php:1872 includes/class-fue-ajax.php:1885
-#: includes/class-fue-ajax.php:1907 includes/class-fue-ajax.php:2017
-#: includes/class-fue-ajax.php:2132 includes/class-fue-ajax.php:2228
-#: includes/class-fue-ajax.php:2290 includes/class-fue-ajax.php:2308
-#: includes/class-fue-ajax.php:2347 includes/class-fue-ajax.php:2396
-#: includes/class-fue-ajax.php:2435 includes/class-fue-ajax.php:2474
-#: includes/class-fue-ajax.php:2573 includes/class-fue-ajax.php:2674
-#: includes/class-fue-ajax.php:2924 includes/class-fue-ajax.php:3006
-#: includes/class-fue-ajax.php:3021 includes/class-fue-ajax.php:3193
-#: includes/class-fue-ajax.php:3213 includes/class-fue-ajax.php:3234
-#: includes/class-fue-ajax.php:3252 includes/class-fue-ajax.php:3272
-#: includes/class-fue-ajax.php:3314 includes/class-fue-ajax.php:3376
+#: includes/class-fue-ajax.php:262 includes/class-fue-ajax.php:328
+#: includes/class-fue-ajax.php:329 includes/class-fue-ajax.php:388
+#: includes/class-fue-ajax.php:389 includes/class-fue-ajax.php:468
+#: includes/class-fue-ajax.php:538 includes/class-fue-ajax.php:539
+#: includes/class-fue-ajax.php:586 includes/class-fue-ajax.php:624
+#: includes/class-fue-ajax.php:663 includes/class-fue-ajax.php:703
+#: includes/class-fue-ajax.php:737 includes/class-fue-ajax.php:754
+#: includes/class-fue-ajax.php:859 includes/class-fue-ajax.php:868
+#: includes/class-fue-ajax.php:995 includes/class-fue-ajax.php:1017
+#: includes/class-fue-ajax.php:1038 includes/class-fue-ajax.php:1090
+#: includes/class-fue-ajax.php:1112 includes/class-fue-ajax.php:1133
+#: includes/class-fue-ajax.php:1154 includes/class-fue-ajax.php:1175
+#: includes/class-fue-ajax.php:1199 includes/class-fue-ajax.php:1244
+#: includes/class-fue-ajax.php:1273 includes/class-fue-ajax.php:1346
+#: includes/class-fue-ajax.php:1389 includes/class-fue-ajax.php:1432
+#: includes/class-fue-ajax.php:1488 includes/class-fue-ajax.php:1489
+#: includes/class-fue-ajax.php:1574 includes/class-fue-ajax.php:1575
+#: includes/class-fue-ajax.php:1710 includes/class-fue-ajax.php:1733
+#: includes/class-fue-ajax.php:1775 includes/class-fue-ajax.php:1838
+#: includes/class-fue-ajax.php:1854 includes/class-fue-ajax.php:1878
+#: includes/class-fue-ajax.php:1891 includes/class-fue-ajax.php:1913
+#: includes/class-fue-ajax.php:2023 includes/class-fue-ajax.php:2138
+#: includes/class-fue-ajax.php:2234 includes/class-fue-ajax.php:2296
+#: includes/class-fue-ajax.php:2314 includes/class-fue-ajax.php:2353
+#: includes/class-fue-ajax.php:2402 includes/class-fue-ajax.php:2441
+#: includes/class-fue-ajax.php:2480 includes/class-fue-ajax.php:2579
+#: includes/class-fue-ajax.php:2680 includes/class-fue-ajax.php:2930
+#: includes/class-fue-ajax.php:3015 includes/class-fue-ajax.php:3029
+#: includes/class-fue-ajax.php:3030 includes/class-fue-ajax.php:3202
+#: includes/class-fue-ajax.php:3222 includes/class-fue-ajax.php:3243
+#: includes/class-fue-ajax.php:3261 includes/class-fue-ajax.php:3281
+#: includes/class-fue-ajax.php:3323 includes/class-fue-ajax.php:3385
 #: includes/class-fue-coupons.php:99 includes/class-fue-coupons.php:542
 #: includes/class-fue-install.php:182
 msgid "You do not have permission"
@@ -1357,7 +1360,7 @@ msgid "Any status"
 msgstr ""
 
 #: includes/addons/wc-memberships/class-fue-addon-wc-memberships-manual-emails.php:38
-#: templates/reports/user_view.php:236
+#: templates/reports/user_view.php:244
 msgid "Status: %s"
 msgstr ""
 
@@ -1523,7 +1526,7 @@ msgstr ""
 msgid "minute"
 msgstr ""
 
-#: includes/class-follow-up-emails.php:134 templates/reports/user_view.php:496
+#: includes/class-follow-up-emails.php:134 templates/reports/user_view.php:504
 #: templates/settings/settings-woocommerce-integrations.php:37
 msgid "minutes"
 msgstr ""
@@ -1532,7 +1535,7 @@ msgstr ""
 msgid "hour"
 msgstr ""
 
-#: includes/class-follow-up-emails.php:135 templates/reports/user_view.php:497
+#: includes/class-follow-up-emails.php:135 templates/reports/user_view.php:505
 #: templates/settings/settings-woocommerce-integrations.php:38
 msgid "hours"
 msgstr ""
@@ -1542,7 +1545,7 @@ msgid "day"
 msgstr ""
 
 #: includes/class-follow-up-emails.php:136
-#: templates/coupons/coupon-form.php:115 templates/reports/user_view.php:498
+#: templates/coupons/coupon-form.php:115 templates/reports/user_view.php:506
 #: templates/settings/settings-woocommerce-integrations.php:39
 msgid "days"
 msgstr ""
@@ -1552,7 +1555,7 @@ msgid "week"
 msgstr ""
 
 #: includes/class-follow-up-emails.php:137
-#: templates/coupons/coupon-form.php:116 templates/reports/user_view.php:499
+#: templates/coupons/coupon-form.php:116 templates/reports/user_view.php:507
 msgid "weeks"
 msgstr ""
 
@@ -1561,7 +1564,7 @@ msgid "month"
 msgstr ""
 
 #: includes/class-follow-up-emails.php:138
-#: templates/coupons/coupon-form.php:117 templates/reports/user_view.php:500
+#: templates/coupons/coupon-form.php:117 templates/reports/user_view.php:508
 msgid "months"
 msgstr ""
 
@@ -1569,7 +1572,7 @@ msgstr ""
 msgid "year"
 msgstr ""
 
-#: includes/class-follow-up-emails.php:139 templates/reports/user_view.php:501
+#: includes/class-follow-up-emails.php:139 templates/reports/user_view.php:509
 msgid "years"
 msgstr ""
 
@@ -1835,23 +1838,23 @@ msgstr ""
 msgid "Sent test email for ID %d"
 msgstr ""
 
-#: includes/class-fue-ajax.php:599
+#: includes/class-fue-ajax.php:598
 #. translators: %d Email ID.
 msgid "Activated email"
 msgstr ""
 
-#: includes/class-fue-ajax.php:601 includes/class-fue-ajax.php:1027
+#: includes/class-fue-ajax.php:600 includes/class-fue-ajax.php:1026
 #: templates/email-list/class-wc-fue-list-table.php:199
 #: templates/email-list/class-wc-fue-list-table.php:530
 msgid "Deactivate"
 msgstr ""
 
-#: includes/class-fue-ajax.php:606
+#: includes/class-fue-ajax.php:605
 #. translators: %d Email ID.
 msgid "Deactivated email"
 msgstr ""
 
-#: includes/class-fue-ajax.php:607 includes/class-fue-meta-boxes.php:175
+#: includes/class-fue-ajax.php:606 includes/class-fue-meta-boxes.php:175
 #: includes/class-fue-meta-boxes.php:190
 #: templates/email-list/class-wc-fue-list-table.php:532
 #: templates/meta-boxes/email-actions.php:28
@@ -1859,7 +1862,7 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: includes/class-fue-ajax.php:608 includes/class-fue-ajax.php:1006
+#: includes/class-fue-ajax.php:607 includes/class-fue-ajax.php:1005
 #: includes/sending/class-fue-sending-queue-list-table.php:315
 #: includes/sending/class-fue-sending-queue-list-table.php:398
 #: templates/email-list/class-wc-fue-list-table.php:198
@@ -1867,73 +1870,73 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
-#: includes/class-fue-ajax.php:642
+#: includes/class-fue-ajax.php:641
 #: includes/sending/class-fue-sending-queue-list-table.php:302
 #: templates/reports/user_view.php:165
 msgid "Queued"
 msgstr ""
 
-#: includes/class-fue-ajax.php:643 templates/reports/user_view.php:166
+#: includes/class-fue-ajax.php:642 templates/reports/user_view.php:167
 msgid "Do not send"
 msgstr ""
 
-#: includes/class-fue-ajax.php:652
+#: includes/class-fue-ajax.php:651
 #: includes/sending/class-fue-sending-queue-list-table.php:313
-#: templates/reports/user_view.php:168
+#: templates/reports/user_view.php:169
 msgid "Suspended"
 msgstr ""
 
-#: includes/class-fue-ajax.php:653 templates/reports/user_view.php:169
+#: includes/class-fue-ajax.php:652 templates/reports/user_view.php:171
 msgid "Re-enable"
 msgstr ""
 
-#: includes/class-fue-ajax.php:689 includes/class-fue-ajax.php:723
+#: includes/class-fue-ajax.php:688 includes/class-fue-ajax.php:722
 msgid "added by %s on <abbr title=\"%s\" class=\"exact-date\">%s</abbr>"
 msgstr ""
 
-#: includes/class-fue-ajax.php:690 includes/class-fue-ajax.php:724
-#: templates/reports/user_view.php:651
+#: includes/class-fue-ajax.php:689 includes/class-fue-ajax.php:723
+#: templates/reports/user_view.php:660
 msgid "Delete note"
 msgstr ""
 
-#: includes/class-fue-ajax.php:745
+#: includes/class-fue-ajax.php:744
 #. translators: %d Note ID.
 msgid "Deleted customer note"
 msgstr ""
 
-#: includes/class-fue-ajax.php:786
+#: includes/class-fue-ajax.php:785
 msgid "Cannot create a reminder without a date"
 msgstr ""
 
-#: includes/class-fue-ajax.php:792
+#: includes/class-fue-ajax.php:791
 msgid "Reminder for Customer \"%s\""
 msgstr ""
 
-#: includes/class-fue-ajax.php:793
+#: includes/class-fue-ajax.php:792
 msgid "<p>Hello %s,</p><p>This is your reminder about customer \"%s\".</p>"
 msgstr ""
 
-#: includes/class-fue-ajax.php:799
+#: includes/class-fue-ajax.php:798
 msgid "<p>To view your customer details for \"%s\", <a href=\"%s\">click here</a>"
 msgstr ""
 
-#: includes/class-fue-ajax.php:817
+#: includes/class-fue-ajax.php:816
 msgid "Saved reminder"
 msgstr ""
 
-#: includes/class-fue-ajax.php:830 templates/reports/user_view.php:528
+#: includes/class-fue-ajax.php:829 templates/reports/user_view.php:536
 msgid "added by %s"
 msgstr ""
 
-#: includes/class-fue-ajax.php:832 templates/reports/user_view.php:530
+#: includes/class-fue-ajax.php:831 templates/reports/user_view.php:538
 msgid "assigned to %s by %s"
 msgstr ""
 
-#: includes/class-fue-ajax.php:839 templates/reports/user_view.php:536
+#: includes/class-fue-ajax.php:838 templates/reports/user_view.php:544
 msgid "Reminder set for %s at %s"
 msgstr ""
 
-#: includes/class-fue-ajax.php:845 includes/class-fue-meta-boxes.php:148
+#: includes/class-fue-ajax.php:844 includes/class-fue-meta-boxes.php:148
 #: includes/class-fue-subscribers-lists-list-table.php:122
 #: includes/class-fue-subscribers-lists-list-table.php:150
 #: includes/class-fue-subscribers-optouts-list-table.php:97
@@ -1944,39 +1947,39 @@ msgstr ""
 #: templates/email-list/class-wc-fue-list-table.php:202
 #: templates/email-list/class-wc-fue-list-table.php:474
 #: templates/meta-boxes/email-actions.php:57
-#: templates/reports/user_view.php:544
+#: templates/reports/user_view.php:552
 msgid "Delete"
 msgstr ""
 
-#: includes/class-fue-ajax.php:892
+#: includes/class-fue-ajax.php:891
 msgid "Email is empty"
 msgstr ""
 
-#: includes/class-fue-ajax.php:899
+#: includes/class-fue-ajax.php:898
 msgid "Recipient is missing"
 msgstr ""
 
-#: includes/class-fue-ajax.php:906
+#: includes/class-fue-ajax.php:905
 msgid "Cannot schedule email without a send date"
 msgstr ""
 
-#: includes/class-fue-ajax.php:913
+#: includes/class-fue-ajax.php:912
 msgid "Invalid resend schedule"
 msgstr ""
 
-#: includes/class-fue-ajax.php:960
+#: includes/class-fue-ajax.php:959
 msgid "Email queued: %s scheduled on %s"
 msgstr ""
 
-#: includes/class-fue-ajax.php:973
+#: includes/class-fue-ajax.php:972
 msgid "Email added to the queue"
 msgstr ""
 
-#: includes/class-fue-ajax.php:980
+#: includes/class-fue-ajax.php:979
 msgid "An error occurred while trying to schedule the email \"%s\". %s."
 msgstr ""
 
-#: includes/class-fue-ajax.php:1006 includes/class-fue-meta-boxes.php:178
+#: includes/class-fue-ajax.php:1005 includes/class-fue-meta-boxes.php:178
 #: includes/class-fue-meta-boxes.php:191
 #: templates/email-list/class-wc-fue-list-table.php:535
 #: templates/email-list/class-wc-fue-list-table.php:680
@@ -1985,13 +1988,13 @@ msgstr ""
 msgid "Archived"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1029
+#: includes/class-fue-ajax.php:1028
 #: templates/email-list/class-wc-fue-list-table.php:200
 #: templates/email-list/class-wc-fue-list-table.php:541
 msgid "Archive"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1182
+#: includes/class-fue-ajax.php:1181
 msgid "Error: Invalid request. Please try again."
 msgstr ""
 
@@ -1999,35 +2002,35 @@ msgstr ""
 msgid "Invalid request. Please try again."
 msgstr ""
 
-#: includes/class-fue-ajax.php:1293
+#: includes/class-fue-ajax.php:1299
 msgid "checking for new messages"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1297
+#: includes/class-fue-ajax.php:1303
 msgid ""
 "<span class=\"dashicons dashicons-no\"></span> Unable to receive test "
 "message! Please check your settings."
 msgstr ""
 
-#: includes/class-fue-ajax.php:1321
+#: includes/class-fue-ajax.php:1327
 msgid ""
 "<span class=\"dashicons dashicons-yes\"></span> Your bounce server is "
 "configured!"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1432
+#: includes/class-fue-ajax.php:1438
 msgid "Please enable the OpenSSL extension in your PHP installation"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1472
+#: includes/class-fue-ajax.php:1478
 msgid "Not able to create new DKIM keys!"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1650 includes/class-fue-ajax.php:1671
+#: includes/class-fue-ajax.php:1656 includes/class-fue-ajax.php:1677
 msgid "Emails in batch %d have been processed"
 msgstr ""
 
-#: includes/class-fue-ajax.php:2736
+#: includes/class-fue-ajax.php:2742
 msgid ""
 "Warning: Your WordPress memory limit is less than the recommended 64MB. If "
 "importing fails, please try increasing this value.\n"
@@ -2035,7 +2038,7 @@ msgid ""
 "Do you wish to continue?"
 msgstr ""
 
-#: includes/class-fue-ajax.php:2739
+#: includes/class-fue-ajax.php:2745
 msgid ""
 "Warning: You are attempting to import a large number of orders. Please set "
 "your WordPress memory limit to at least 128MB. Continuing may lead to the "
@@ -2044,15 +2047,15 @@ msgid ""
 "Do you still wish to continue?"
 msgstr ""
 
-#: includes/class-fue-ajax.php:3118
+#: includes/class-fue-ajax.php:3127
 msgid "The new subscription could not be found. Skipping"
 msgstr ""
 
-#: includes/class-fue-ajax.php:3134
+#: includes/class-fue-ajax.php:3143
 msgid "No subscription key found. Skipping."
 msgstr ""
 
-#: includes/class-fue-email-template.php:62
+#: includes/class-fue-email-template.php:66
 msgid "The template could not be found or is not accessible"
 msgstr ""
 
@@ -2602,13 +2605,13 @@ msgstr ""
 #: templates/reports/bounces.php:6 templates/reports/email_open.php:5
 #: templates/reports/link_click.php:6 templates/reports/report_view.php:127
 #: templates/reports/user_view.php:28 templates/reports/user_view.php:105
-#: templates/reports/user_view.php:312
+#: templates/reports/user_view.php:320
 msgid "Email"
 msgstr ""
 
 #: includes/class-fue-subscribers-optouts-list-table.php:31
 #: templates/add-ons/wootickets-digest-email.php:10
-#: templates/optout_table.php:34 templates/reports/user_view.php:356
+#: templates/optout_table.php:34 templates/reports/user_view.php:364
 msgid "Date"
 msgstr ""
 
@@ -3167,13 +3170,13 @@ msgstr ""
 #: templates/email-form/woocommerce/email-form.php:4
 #: templates/email-list/class-wc-fue-list-table.php:172
 #: templates/email-variables/cart-contents.php:4
-#: templates/reports/report_view.php:128 templates/reports/user_view.php:242
+#: templates/reports/report_view.php:128 templates/reports/user_view.php:250
 msgid "Product"
 msgstr ""
 
 #: includes/reports/class-fue-reports.php:740
 #: includes/sending/class-fue-sending-queue-list-table.php:366
-#: templates/reports/user_view.php:104 templates/reports/user_view.php:313
+#: templates/reports/user_view.php:104 templates/reports/user_view.php:321
 msgid "Order"
 msgstr ""
 
@@ -3343,7 +3346,7 @@ msgstr ""
 
 #: includes/sending/class-fue-sending-queue-list-table.php:397
 #: templates/email-list/class-wc-fue-list-table.php:456
-#: templates/reports/user_view.php:455
+#: templates/reports/user_view.php:463
 msgid "Send"
 msgstr ""
 
@@ -3465,12 +3468,12 @@ msgid "Settings updated"
 msgstr ""
 
 #: templates/add-ons/template-create.php:35
-#: templates/add-ons/template-upload.php:29
+#: templates/add-ons/template-upload.php:55
 msgid "Could not create directory: %s."
 msgstr ""
 
 #: templates/add-ons/template-create.php:48
-#: templates/add-ons/template-upload.php:42
+#: templates/add-ons/template-upload.php:68
 msgid "Could not create directory."
 msgstr ""
 
@@ -3484,7 +3487,7 @@ msgid "Created template %s"
 msgstr ""
 
 #: templates/add-ons/template-create.php:76
-#: templates/add-ons/template-upload.php:58
+#: templates/add-ons/template-upload.php:84
 #: templates/add-ons/templates-uninstall.php:39
 msgid "Go back"
 msgstr ""
@@ -3509,9 +3512,17 @@ msgstr ""
 msgid "%d downloads"
 msgstr ""
 
-#: templates/add-ons/template-upload.php:57
+#: templates/add-ons/template-upload.php:20
+msgid "ZipArchive is required to check template files."
+msgstr ""
+
+#: templates/add-ons/template-upload.php:38
+msgid "Only HTML template files are allowed."
+msgstr ""
+
+#: templates/add-ons/template-upload.php:83
 #. translators: %s template name
-msgid "Unzipped template"
+msgid "Unzipped template %s"
 msgstr ""
 
 #: templates/add-ons/templates-list.php:45
@@ -3523,31 +3534,31 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:4
+#: templates/add-ons/templates-new.php:5
 msgid "Upload your ZIP file"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:10
+#: templates/add-ons/templates-new.php:11
 msgid "Install Template"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:14
+#: templates/add-ons/templates-new.php:16
 msgid "Create a template from scratch"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:16
+#: templates/add-ons/templates-new.php:18
 msgid "Create a Template"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:23
+#: templates/add-ons/templates-new.php:25
 msgid "Template Name"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:28
+#: templates/add-ons/templates-new.php:30
 msgid "Template Source"
 msgstr ""
 
-#: templates/add-ons/templates-new.php:35
+#: templates/add-ons/templates-new.php:37
 msgid "Save Template"
 msgstr ""
 
@@ -4562,7 +4573,7 @@ msgstr ""
 msgid "Email(s) have been added to the queue"
 msgstr ""
 
-#: templates/email-log.php:13 templates/reports/user_view.php:441
+#: templates/email-log.php:13 templates/reports/user_view.php:449
 msgid "Select Email"
 msgstr ""
 
@@ -4595,12 +4606,12 @@ msgid "Unsubscribe"
 msgstr ""
 
 #: templates/email-variables/cart-contents.php:5
-#: templates/reports/user_view.php:243
+#: templates/reports/user_view.php:251
 msgid "Quantity"
 msgstr ""
 
 #: templates/email-variables/cart-contents.php:6
-#: templates/reports/user_view.php:244
+#: templates/reports/user_view.php:252
 msgid "Price"
 msgstr ""
 
@@ -4998,7 +5009,7 @@ msgstr ""
 msgid "Web Version Views"
 msgstr ""
 
-#: templates/reports/overview.php:154 templates/reports/user_view.php:188
+#: templates/reports/overview.php:154 templates/reports/user_view.php:196
 msgid "Conversions"
 msgstr ""
 
@@ -5062,159 +5073,159 @@ msgstr ""
 msgid "No emails scheduled"
 msgstr ""
 
-#: templates/reports/user_view.php:193
+#: templates/reports/user_view.php:201
 msgid "Email Received"
 msgstr ""
 
-#: templates/reports/user_view.php:194
+#: templates/reports/user_view.php:202
 msgid "Order #"
 msgstr ""
 
-#: templates/reports/user_view.php:195
+#: templates/reports/user_view.php:203
 msgid "Conversion Value"
 msgstr ""
 
-#: templates/reports/user_view.php:203
+#: templates/reports/user_view.php:211
 msgid "No conversions found"
 msgstr ""
 
-#: templates/reports/user_view.php:232
+#: templates/reports/user_view.php:240
 msgid "Abandoned Items"
 msgstr ""
 
-#: templates/reports/user_view.php:235
+#: templates/reports/user_view.php:243
 msgid "Last updated: %s"
 msgstr ""
 
-#: templates/reports/user_view.php:251
+#: templates/reports/user_view.php:259
 msgid "No saved cart items"
 msgstr ""
 
-#: templates/reports/user_view.php:307
+#: templates/reports/user_view.php:315
 msgid "Opt-Outs"
 msgstr ""
 
-#: templates/reports/user_view.php:314
+#: templates/reports/user_view.php:322
 msgid "Date Added"
 msgstr ""
 
-#: templates/reports/user_view.php:322
+#: templates/reports/user_view.php:330
 msgid "No opt-outs found"
 msgstr ""
 
-#: templates/reports/user_view.php:330
+#: templates/reports/user_view.php:338
 msgid "All emails"
 msgstr ""
 
-#: templates/reports/user_view.php:350
+#: templates/reports/user_view.php:358
 msgid "Order History"
 msgstr ""
 
-#: templates/reports/user_view.php:355
+#: templates/reports/user_view.php:363
 msgid "Order (status)"
 msgstr ""
 
-#: templates/reports/user_view.php:357
+#: templates/reports/user_view.php:365
 msgid "Total"
 msgstr ""
 
-#: templates/reports/user_view.php:405
+#: templates/reports/user_view.php:413
 msgid "<a href=\"%s\">%s</a> <br /> (%s)"
 msgstr ""
 
-#: templates/reports/user_view.php:413
+#: templates/reports/user_view.php:421
 msgid "<a class=\"button\" href=\"%s\">View Order</a>"
 msgstr ""
 
-#: templates/reports/user_view.php:431
+#: templates/reports/user_view.php:439
 msgid "<strong>Lifetime Value:</strong> %s"
 msgstr ""
 
-#: templates/reports/user_view.php:436
+#: templates/reports/user_view.php:444
 msgid "Schedule Emails"
 msgstr ""
 
-#: templates/reports/user_view.php:457
+#: templates/reports/user_view.php:465
 msgid "now"
 msgstr ""
 
-#: templates/reports/user_view.php:458
+#: templates/reports/user_view.php:466
 msgid "later"
 msgstr ""
 
-#: templates/reports/user_view.php:464
+#: templates/reports/user_view.php:472
 msgid "at"
 msgstr ""
 
-#: templates/reports/user_view.php:482 templates/reports/user_view.php:620
+#: templates/reports/user_view.php:490 templates/reports/user_view.php:629
 msgid "AM"
 msgstr ""
 
-#: templates/reports/user_view.php:483 templates/reports/user_view.php:621
+#: templates/reports/user_view.php:491 templates/reports/user_view.php:630
 msgid "PM"
 msgstr ""
 
-#: templates/reports/user_view.php:489 templates/send_manual_form.php:100
+#: templates/reports/user_view.php:497 templates/send_manual_form.php:100
 msgid "Send again"
 msgstr ""
 
-#: templates/reports/user_view.php:493
+#: templates/reports/user_view.php:501
 msgid "in"
 msgstr ""
 
-#: templates/reports/user_view.php:506
+#: templates/reports/user_view.php:514
 msgid "Schedule Email"
 msgstr ""
 
-#: templates/reports/user_view.php:512
+#: templates/reports/user_view.php:520
 msgid "Reminders"
 msgstr ""
 
-#: templates/reports/user_view.php:516
+#: templates/reports/user_view.php:524
 msgid "There are no reminders yet"
 msgstr ""
 
-#: templates/reports/user_view.php:553
+#: templates/reports/user_view.php:561
 msgid "Add Reminder"
 msgstr ""
 
-#: templates/reports/user_view.php:556
+#: templates/reports/user_view.php:564
 msgid "Reminder notes"
 msgstr ""
 
-#: templates/reports/user_view.php:562
+#: templates/reports/user_view.php:570
 msgid "Assign reminder"
 msgstr ""
 
-#: templates/reports/user_view.php:571
+#: templates/reports/user_view.php:580
 msgid "Search for a user&hellip;"
 msgstr ""
 
-#: templates/reports/user_view.php:579
+#: templates/reports/user_view.php:588
 msgid "Send in"
 msgstr ""
 
-#: templates/reports/user_view.php:581
+#: templates/reports/user_view.php:590
 msgid "day(s)"
 msgstr ""
 
-#: templates/reports/user_view.php:583 templates/reports/user_view.php:624
+#: templates/reports/user_view.php:592 templates/reports/user_view.php:633
 msgid "Set Reminder"
 msgstr ""
 
-#: templates/reports/user_view.php:587
+#: templates/reports/user_view.php:596
 msgid "Send on"
 msgstr ""
 
-#: templates/reports/user_view.php:633
+#: templates/reports/user_view.php:642
 msgid "Customer Notes"
 msgstr ""
 
-#: templates/reports/user_view.php:637
+#: templates/reports/user_view.php:646
 msgid "There are no notes yet"
 msgstr ""
 
-#: templates/reports/user_view.php:660
+#: templates/reports/user_view.php:669
 msgid "Add Note"
 msgstr ""
 

@@ -4,7 +4,7 @@
  * The main Elementor widget file for WP Post Modules
  *
  * @since 1.0.0
- * @version 1.9.0
+ * @version 2.2.1
  *
  */
 
@@ -49,6 +49,20 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
             'wppm-jq-easing'
         ];
     }
+
+    /**
+     * Get widget keywords.
+     *
+     * Retrieve the list of keywords the widget belongs to.
+     *
+     * @since 2.2.1
+     * @access public
+     *
+     * @return array Widget keywords.
+     */
+    public function get_keywords() {
+        return [ 'posts', 'post grid', 'post list', 'query loop', 'blog posts', 'portfolio' ];
+    }    
 
     protected function register_controls() {
 
@@ -440,6 +454,16 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
         'return_value' => __( 'true', 'wppm-el' ),
         'description' => __( 'Hide current post from post module when on single post.', 'wppm-el' ),
         'condition' => [ 'single_term_filter' => ['true'] ]
+        ]
+        );
+
+        $this->add_control(
+        'no_posts_text',
+        [
+        'label' => __( 'No posts found text', 'wppm-el' ),
+        'type' => Controls_Manager::TEXT,
+        'description' => __( 'Provide a text which shall be displayed if no posts found.', 'wppm-el' ),
+        'default' => __( 'No posts found.', 'wppm_el' ),
         ]
         );
 
@@ -977,84 +1001,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
             'description' => __( 'Enable equal height on grid columns.', 'wppm-el' ),
             'condition' => [ 'template' => ['grid', 'list'] ]
             ]
-        );        
-
-        $this->add_responsive_control(
-            'img_align',
-            [
-                'label' => __( 'Image Alignment', 'wppm-el' ),
-                'type' => \Elementor\Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __( 'Left', 'wppm-el' ),
-                        'icon' => 'fa fa-align-left',
-                    ],
-                    '10' => [
-                        'title' => __( 'Right', 'wppm-el' ),
-                        'icon' => 'fa fa-align-right',
-                    ],
-                ],
-                'default' => '1',
-                'toggle' => true,
-                'prefix_class' => 'row-',
-                'condition' => [ 'template' => ['list'] ],
-                'selectors' => ['{{WRAPPER}} .wppm-grid.list-enabled .post-img' => 'order: {{VALUE}}']
-            ]
-        );
-
-        $this->add_responsive_control(
-            'img_margin',
-            [
-                'label' => __( 'Image Margin', 'wppm-el' ),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => [ 'px', 'em', 'rem', '%' ],
-                'selectors' => [
-                    '{{WRAPPER}} .wppm-el-post .post-img' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
-                ],
-                'condition' => [ 'template' => ['grid', 'list'] ]
-            ]
-        );
-
-        $this->add_responsive_control(
-            'img_padding',
-            [
-                'label' => __( 'Image Padding', 'wppm-el' ),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => [ 'px', 'em', 'rem', '%' ],
-                'selectors' => [
-                    '{{WRAPPER}} .wppm-el-post .post-img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
-                ],
-                'condition' => [ 'template' => ['grid', 'list'] ]
-            ]
-        );
-
-        $this->add_responsive_control(
-                    'list_split',
-                    [
-                        'label' => __( 'Image and Content ratio (%)', 'wppm-el' ),
-                        'type' => Controls_Manager::SLIDER,
-                        'size_units' => [ '%' ],
-                        'range' => [
-                            '%' => [
-                                'min' => 0,
-                                'max' => 80,
-                                'step' => 1,
-                            ]
-                        ],
-                        'default' => [
-                            'unit' => '%',
-                            'size' => 33,
-                        ],
-                        'selectors' => [
-                            '{{WRAPPER}} .wppm .post-img' => 'flex-basis: {{SIZE}}%; max-width: {{SIZE}}%',
-                            '{{WRAPPER}} .wppm .entry-content' => 'flex-basis: calc(100% - {{SIZE}}%); max-width: calc(99.999% - {{SIZE}}%)',
-                            '{{WRAPPER}}.sep-content-border .list-enabled .wppm-post-wrap:after' => 'left: {{SIZE}}%;',
-                            '{{WRAPPER}}.sep-content-border.row-reverse .list-enabled .wppm-post-wrap:after,{{WRAPPER}}.sep-content-border.row-10 .list-enabled .wppm-post-wrap:after' => 'right: {{SIZE}}%; left: 0;'
-                        ],
-                        'description' => __( 'Select image width (in %) when image and content are inline.', 'wppm-el' ),
-        'condition' => [ 'template' => ['list'] ]
-                    ]
-                );
+        ); 
 
         $this->add_control(
             'list_collapse_tablet',
@@ -1777,20 +1724,8 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                     ],
                 ],
                 'devices' => [ 'desktop', 'tablet', 'mobile' ],
-                'desktop_default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
-                'tablet_default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
-                'mobile_default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
                 'selectors' => [
-                    '{{WRAPPER}} .wppm-tile .tile-overlay' => 'width: {{SIZE}}{{UNIT}};'
+                    '{{WRAPPER}} .wppm-tile .tile-content' => 'width: {{SIZE}}{{UNIT}};'
                 ],
                 'condition' => [ 'template' => ['tile'] ]
             ]
@@ -1823,20 +1758,8 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                     ],
                 ],
                 'devices' => [ 'desktop', 'tablet', 'mobile' ],
-                'desktop_default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
-                'tablet_default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
-                'mobile_default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
                 'selectors' => [
-                    '{{WRAPPER}} .wppm-tile .tile-overlay' => 'height: {{SIZE}}{{UNIT}};'
+                    '{{WRAPPER}} .wppm-tile .tile-content' => 'height: {{SIZE}}{{UNIT}};'
                 ],
                 'condition' => [ 'template' => ['tile'] ]
             ]
@@ -1968,6 +1891,83 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
         'condition' => [ 'imglink' => ['media'] ]
         ]
         );
+
+        $this->add_responsive_control(
+            'img_align',
+            [
+                'label' => __( 'Image Alignment', 'wppm-el' ),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => [
+                    '1' => [
+                        'title' => __( 'Left', 'wppm-el' ),
+                        'icon' => 'eicon-align-start-h',
+                    ],
+                    '10' => [
+                        'title' => __( 'Right', 'wppm-el' ),
+                        'icon' => 'eicon-align-end-h',
+                    ],
+                ],
+                'default' => '1',
+                'toggle' => true,
+                'prefix_class' => 'row-',
+                'condition' => [ 'template' => ['list'] ],
+                'selectors' => ['{{WRAPPER}} .wppm-grid.list-enabled .post-img' => 'order: {{VALUE}}']
+            ]
+        );
+
+        $this->add_responsive_control(
+            'img_margin',
+            [
+                'label' => __( 'Image Margin', 'wppm-el' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', 'rem', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .wppm-el-post .post-img' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+                ],
+                'condition' => [ 'template' => ['grid', 'list'] ]
+            ]
+        );
+
+        $this->add_responsive_control(
+            'img_padding',
+            [
+                'label' => __( 'Image Padding', 'wppm-el' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', 'rem', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .wppm-el-post .post-img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+                ],
+                'condition' => [ 'template' => ['grid', 'list'] ]
+            ]
+        );
+
+        $this->add_responsive_control(
+                    'list_split',
+                    [
+                        'label' => __( 'Image and Content ratio (%)', 'wppm-el' ),
+                        'type' => Controls_Manager::SLIDER,
+                        'size_units' => [ '%' ],
+                        'range' => [
+                            '%' => [
+                                'min' => 0,
+                                'max' => 80,
+                                'step' => 1,
+                            ]
+                        ],
+                        'default' => [
+                            'unit' => '%',
+                            'size' => 33,
+                        ],
+                        'selectors' => [
+                            '{{WRAPPER}} .wppm .post-img' => 'flex-basis: {{SIZE}}%; max-width: {{SIZE}}%',
+                            '{{WRAPPER}} .wppm .entry-content' => 'flex-basis: calc(100% - {{SIZE}}%); max-width: calc(99.999% - {{SIZE}}%)',
+                            '{{WRAPPER}}.sep-content-border .list-enabled .wppm-post-wrap:after' => 'left: {{SIZE}}%;',
+                            '{{WRAPPER}}.sep-content-border.row-reverse .list-enabled .wppm-post-wrap:after,{{WRAPPER}}.sep-content-border.row-10 .list-enabled .wppm-post-wrap:after' => 'right: {{SIZE}}%; left: 0;'
+                        ],
+                        'description' => __( 'Select image width (in %) when image and content are inline.', 'wppm-el' ),
+        'condition' => [ 'template' => ['list'] ]
+                    ]
+                );        
 
         $this->add_control(
         'imgwidth',
@@ -2150,21 +2150,21 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'options' => [
                     'left' => [
                         'title' => __( 'Left', 'wppm-el' ),
-                        'icon' => 'fa fa-align-left',
+                        'icon' => 'eicon-align-start-h',
                     ],
                     'center' => [
                         'title' => __( 'Center', 'wppm-el' ),
-                        'icon' => 'fa fa-align-center',
+                        'icon' => 'eicon-align-center-h',
                     ],
 
                     'right' => [
                         'title' => __( 'Right', 'wppm-el' ),
-                        'icon' => 'fa fa-align-right',
+                        'icon' => 'eicon-align-end-h',
                     ],
 
                     'justify' => [
                         'title' => __( 'Justified', 'wppm-el' ),
-                        'icon' => 'fa fa-align-justify',
+                        'icon' => 'eicon-align-stretch-h',
                     ],
                 ],
                 'default' => 'right',
@@ -2312,21 +2312,21 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'options' => [
                     'left' => [
                         'title' => __( 'Left', 'wppm-el' ),
-                        'icon' => 'fa fa-align-left',
+                        'icon' => 'eicon-align-start-h',
                     ],
                     'center' => [
                         'title' => __( 'Center', 'wppm-el' ),
-                        'icon' => 'fa fa-align-center',
+                        'icon' => 'eicon-align-center-h',
                     ],
 
                     'right' => [
                         'title' => __( 'Right', 'wppm-el' ),
-                        'icon' => 'fa fa-align-right',
+                        'icon' => 'eicon-align-end-h',
                     ],
 
                     'justify' => [
                         'title' => __( 'Justified', 'wppm-el' ),
-                        'icon' => 'fa fa-align-justify',
+                        'icon' => 'eicon-align-stretch-h',
                     ],
                 ],
                 'default' => 'left',
@@ -2477,21 +2477,21 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'options' => [
                     'left' => [
                         'title' => __( 'Left', 'wppm-el' ),
-                        'icon' => 'fa fa-align-left',
+                        'icon' => 'eicon-align-start-h',
                     ],
                     'center' => [
                         'title' => __( 'Center', 'wppm-el' ),
-                        'icon' => 'fa fa-align-center',
+                        'icon' => 'eicon-align-center-h',
                     ],
 
                     'right' => [
                         'title' => __( 'Right', 'wppm-el' ),
-                        'icon' => 'fa fa-align-right',
+                        'icon' => 'eicon-align-end-h',
                     ],
 
                     'justify' => [
                         'title' => __( 'Justified', 'wppm-el' ),
-                        'icon' => 'fa fa-align-justify',
+                        'icon' => 'eicon-align-stretch-h',
                     ],
                 ],
                 'default' => 'left',
@@ -2581,21 +2581,21 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'label_block' => true,
                 'type' => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
-                    'inherit' => [
+                    'initial' => [
                         'title' => __( 'Left', 'wppm-el' ),
-                        'icon' => 'fa fa-align-left',
+                        'icon' => 'eicon-align-start-h',
                     ],
                     '0 auto' => [
                         'title' => __( 'Center', 'wppm-el' ),
-                        'icon' => 'fa fa-align-center',
+                        'icon' => 'eicon-align-center-h',
                     ],
 
                     $rtl_css_9 => [
                         'title' => __( 'Right', 'wppm-el' ),
-                        'icon' => 'fa fa-align-right',
+                        'icon' => 'eicon-align-end-h',
                     ]
                 ],
-                'default' => 'inherit',
+                'default' => 'initial',
                 'selectors' => [ '{{WRAPPER}} .meta-col:not(.col-60)' => 'margin: {{VALUE}}'],
                 'toggle' => true
             ]
@@ -3361,11 +3361,11 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'options' => [
                     'above' => [
                         'title' => __( 'Above', 'wppm-el' ),
-                        'icon' => 'fa fa-align-top',
+                        'icon' => 'eicon-align-start-v',
                     ],
                     'below' => [
                         'title' => __( 'Below', 'wppm-el' ),
-                        'icon' => 'fa fa-align-bottom',
+                        'icon' => 'eicon-align-end-v',
                     ],
                 ],
                 'default' => 'below',
@@ -3383,15 +3383,15 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 'options' => [
                     '' => [
                         'title' => __( 'Left', 'wppm-el' ),
-                        'icon' => 'fa fa-align-left',
+                        'icon' => 'eicon-align-start-h',
                     ],
                     'center' => [
                         'title' => __( 'Center', 'wppm-el' ),
-                        'icon' => 'fa fa-align-center',
+                        'icon' => 'eicon-align-center-h',
                     ],
                     'right' => [
                         'title' => __( 'Right', 'wppm-el' ),
-                        'icon' => 'fa fa-align-right',
+                        'icon' => 'eicon-align-end-h',
                     ],
                 ],
                 'default' => '',
@@ -4033,6 +4033,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
             'single_term_filter'    => false,
             'author_archive_filter' => false,
             'taxonomy_optional '    => '',
+            'no_posts_text'         => __( 'No posts found.', 'wppm_el' ),
             'hide_current_post'     => false,
             'blog_id'               => null,
             'template'              => 'grid',
@@ -4443,7 +4444,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
                 return $out;
             }
         else :
-            return __( 'No posts found matching your criteria. Please modify Query parameters to show posts.', 'wppm-el' );
+            return esc_html( $no_posts_text );
         endif;
     }
 

@@ -511,10 +511,22 @@ class FUE_Admin_Controller {
 			if ( isset( $_GET['tab'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				switch ( $_GET['tab'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					case 'send_manual_emails':
-						wp_enqueue_script( 'fue_manual_send', FUE_TEMPLATES_URL . '/js/manual_send.js', array(
-							'jquery',
-							'jquery-ui-progressbar',
-						), FUE_VERSION );
+						wp_enqueue_script(
+							'fue_manual_send',
+							FUE_TEMPLATES_URL . '/js/manual_send.js',
+							array(
+								'jquery',
+								'jquery-ui-progressbar',
+							),
+							FUE_VERSION
+						);
+						wp_localize_script(
+							'fue_manual_send',
+							'FUE_Manual_Send',
+							array(
+								'nonce' => wp_create_nonce( 'send_manual_emails' ),
+							)
+						);
 						break;
 
 					case 'send_manual_email_batches':

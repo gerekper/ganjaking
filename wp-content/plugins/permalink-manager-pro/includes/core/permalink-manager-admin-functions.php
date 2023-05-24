@@ -823,7 +823,7 @@ class Permalink_Manager_Admin_Functions {
 		$html .= sprintf( "<legend class=\"inline-edit-legend\">%s</legend>", __( "Permalink Manager", "permalink-manager" ) );
 
 		$html .= '<div class="inline-edit-col">';
-		$html .= sprintf( "<label class=\"inline-edit-group\"><span class=\"title\">%s</span><span class=\"input-text-wrap\">%s</span></label>", __( "Current URI", "permalink-manager" ), self::generate_option_field( "custom_uri", array( "input_class" => "custom_uri", "value" => '' ) ) );
+		$html .= sprintf( "<label class=\"inline-edit-group\"><span class=\"title\">%s</span><span class=\"input-text-wrap\">%s</span></label>", __( "Custom permalink", "permalink-manager" ), self::generate_option_field( "custom_uri", array( "input_class" => "custom_uri", "value" => '' ) ) );
 		$html .= "</div>";
 
 		$html .= "</fieldset>";
@@ -894,7 +894,7 @@ class Permalink_Manager_Admin_Functions {
 
 		// If the draft is excluded do not display the contents of URI Editor
 		if ( ! empty( $is_draft_excluded ) ) {
-			$alert = sprintf( __( 'The custom permalink cannot be edited due to the <a href="%s" target="_blank">Permalink Manager settings</a> ("<strong>Exclude drafts & pending posts</strong>") and the post status not allowing it.', 'permalink-manager' ), self::get_admin_url( '&section=settings' ) );
+			$alert = sprintf( __( 'The custom permalink cannot be edited due to the <a href="%s" target="_blank">Permalink Manager settings</a> ("<strong>Exclude drafts & pending posts</strong>") and the post status not allowing it.', 'permalink-manager' ), self::get_admin_url( '&section=settings#exclusion' ) );
 
 			$html = ( ! $gutenberg ) ? "<div class=\"permalink-manager-edit-uri-box\">" : "<div class=\"permalink-manager-gutenberg permalink-manager-edit-uri-box\">";
 			$html .= sprintf( '<p class="uri_locked">%s</p>', $alert );
@@ -904,21 +904,21 @@ class Permalink_Manager_Admin_Functions {
 			$auto_update_def_val = $permalink_manager_options["general"]["auto_update_uris"];
 
 			if ( $auto_update_def_val == 1 ) {
-				$auto_update_def_label = __( "Auto-update \"Current URI\"", "permalink-manager" );
+				$auto_update_def_label = __( "Auto-update \"Custom permalink\"", "permalink-manager" );
 			} else if ( $auto_update_def_val == 2 ) {
 				$auto_update_def_label = __( "Don't save/generate custom permalinks", "permalink-manager" );
 			} else {
-				$auto_update_def_label = __( "Don't auto-update \"Current URI\"", "permalink-manager" );
+				$auto_update_def_label = __( "Don't auto-update \"Custom permalink\"", "permalink-manager" );
 			}
 
 			$auto_update_choices = array(
 				0   => array( "label" => sprintf( __( "Use global settings [%s]", "permalink-manager" ), $auto_update_def_label ), "atts" => "data-readonly=\"{$auto_update_def_val}\"" ),
 				10  => '---',
-				- 1 => array( "label" => __( "Don't auto-update \"Current URI\"", "permalink-manager" ), "atts" => "data-readonly=\"0\"" ),
-				- 2 => array( "label" => __( "Don't auto-update \"Current URI\" and exclude from the \"Regenerate/reset\" tool", "permalink-manager" ), "atts" => "data-readonly=\"0\"" ),
-				1   => array( "label" => __( "Auto-update \"Current URI\"", "permalink-manager" ), "atts" => "data-readonly=\"1\"" ),
+				- 1 => array( "label" => __( "Don't auto-update \"Custom permalink\"", "permalink-manager" ), "atts" => "data-readonly=\"0\"" ),
+				- 2 => array( "label" => __( "Don't auto-update \"Custom permalink\" and exclude from the \"Regenerate/reset\" tool", "permalink-manager" ), "atts" => "data-readonly=\"0\"" ),
+				1   => array( "label" => __( "Auto-update \"Custom permalink\"", "permalink-manager" ), "atts" => "data-readonly=\"1\"" ),
 				11  => '---',
-				2   => array( "label" => __( "Don't save/generate custom permalinks (disallow further URI changes)", "permalink-manager" ), "atts" => "data-readonly=\"2\"" ),
+				2   => array( "label" => __( "Disable custom permalink (disallow further changes)", "permalink-manager" ), "atts" => "data-readonly=\"2\"" ),
 			);
 
 			// Decode default URI
@@ -947,15 +947,15 @@ class Permalink_Manager_Admin_Functions {
 				$custom_uri_field .= __( "The custom URI cannot be edited on frontpage.", "permalink-manager" );
 			} else {
 				$custom_uri_field = self::generate_option_field( "custom_uri", array( "extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode( $uri ) ) );
-				$custom_uri_field .= sprintf( '<p class="uri_locked hidden">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __( 'The URL above is displayed in read-only mode. To enable editing, change the "<strong>URI update mode</strong>" to <em>Don\'t auto-update "Current URI"</em>.', 'permalink-manager' ) );
+				$custom_uri_field .= sprintf( '<p class="uri_locked hidden">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __( 'The URL above is displayed in read-only mode. To enable editing, change the "<strong>Permalink update</strong>" setting to <em>Don\'t auto-update "Custom permalink"</em>.', 'permalink-manager' ) );
 			}
 
-			$html .= sprintf( "<div class=\"custom_uri_container\"><p><label for=\"custom_uri\" class=\"strong\">%s</label></p><span>%s</span><span class=\"duplicated_uri_alert\"></span></div>", __( "Current URI", "permalink-manager" ), $custom_uri_field );
+			$html .= sprintf( "<div class=\"custom_uri_container\"><p><label for=\"custom_uri\" class=\"strong\">%s</label></p><span>%s</span><span class=\"duplicated_uri_alert\"></span></div>", __( "Custom permalink", "permalink-manager" ), $custom_uri_field );
 
 			// 5. Auto-update URI
 			if ( empty( $is_front_page ) ) {
 				if ( ! empty( $auto_update_choices ) ) {
-					$html .= sprintf( "<div><p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p><span>%s</span></div>", __( "URI update mode", "permalink-manager" ), self::help_tooltip( __( "If 'auto-update mode' is turned on, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager" ) ), self::generate_option_field( "auto_update_uri", array( "type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices ) ) );
+					$html .= sprintf( "<div><p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p><span>%s</span></div>", __( "Permalink update", "permalink-manager" ), self::help_tooltip( __( "If 'auto-update mode' is turned on, the 'Custom permalink' field will be automatically changed to 'Default custom permalink' (displayed below) after the post is saved or updated.", "permalink-manager" ) ), self::generate_option_field( "auto_update_uri", array( "type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices ) ) );
 				}
 			}
 
@@ -967,15 +967,21 @@ class Permalink_Manager_Admin_Functions {
 			}
 
 			if ( empty( $is_front_page ) ) {
-				// 7. Default URI
-				$html .= sprintf( "<div class=\"default-permalink-row columns-container\"><span class=\"column-3_4\"><strong>%s:</strong> %s</span><span class=\"column-1_4\"><a href=\"#\" class=\"restore-default\"><span class=\"dashicons dashicons-image-rotate\"></span> %s</a></span></div>", __( "Default URI", "permalink-manager" ), esc_html( $default_uri ), __( "Restore Default URI", "permalink-manager" ) );
+				// 7. Default custom permalink
+				$html .= "<div class=\"default-permalink-row columns-container\">";
+				$html .= sprintf( "<span class=\"column-3_4\"><strong>%s:</strong> %s</span>", __( "Default custom permalink", "permalink-manager" ), esc_html( $default_uri ) );
+				$html .= sprintf( "<span class=\"column-1_4\"><a href=\"#\" class=\"restore-default\"><span class=\"dashicons dashicons-image-rotate\"></span> %s</a></span>", __( "Use \"Default custom permalink\"", "permalink-manager" ) );
+				// $html .= sprintf( "<span class=\"column-1_4\"><a href=\"#\" class=\"restore-default\" target=\"_blank\"><span class=\"dashicons dashicons-external\"></span> %s</a></span>", __( "Go to \"Permastructures\"", "permalink-manager" ) );
+				$html .= "</div>";
 
-				// 8. Native URI info
+				// 8. Native permalink info
 				if ( ! empty( $permalink_manager_options['general']['redirect'] ) && ! ( ! empty( $element->post_status ) && in_array( $element->post_status, array( 'auto-draft', 'trash', 'draft' ) ) ) ) {
 					$native_permalink = trim( Permalink_Manager_Helper_Functions::get_permalink_base( $element ), "/" ) . "/";
 					$native_permalink .= $native_uri;
 
-					$html .= sprintf( "<div class=\"default-permalink-row columns-container\"><span><strong>%s</strong> <a href=\"%s\">%s</a></span></div>", __( "Automatic redirect for native URI enabled:", "permalink-manager" ), $native_permalink, rawurldecode( $native_uri ) );
+					$native_permalink_label = ( $native_uri === $uri ) ? __( "Original WordPress permalink:", "permalink-manager" ) : __( "Original WordPress permalink (redirected):", "permalink-manager" );
+
+					$html .= sprintf( "<div class=\"default-permalink-row columns-container\"><span><strong>%s</strong> <a href=\"%s\">%s</a></span></div>", $native_permalink_label, $native_permalink, rawurldecode( $native_uri ) );
 				}
 			}
 

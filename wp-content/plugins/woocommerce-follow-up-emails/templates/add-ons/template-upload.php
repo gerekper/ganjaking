@@ -15,6 +15,32 @@ if ( ! WP_Filesystem($creds) ) {
 	return true;
 }
 
+// Check that the zip file only contains `.html` files.
+if ( ! class_exists( 'ZipArchive' ) ) {
+	show_message( __( 'ZipArchive is required to check template files.', 'follow_up_emails' ) );
+	return;
+}
+
+$zip_file = isset( $_FILES['template']['tmp_name'] ) ? wp_unslash( $_FILES['template']['tmp_name'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+$zip      = new ZipArchive();
+
+$zip->open( $zip_file );
+
+$template_name = '';
+for ( $i = 0; $i < $zip->numFiles; $i++ ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+	$template_name = $zip->getNameIndex( $i );
+
+	if ( '__MACOSX/' === $template_name ) { // Skip the OS X-created __MACOSX directory.
+		continue;
+	}
+
+	if ( ! preg_match( '/\.html$/', $template_name ) ) {
+		show_message( __( 'Only HTML template files are allowed.', 'follow_up_emails' ) );
+		return;
+	}
+}
+
+
 global $wp_filesystem;
 
 // check if we need to first create the follow-up-emails/emails directory
@@ -46,13 +72,13 @@ if ( !file_exists( $emails_dir ) ) {
 	}
 }
 
-$status = unzip_file( isset( $_FILES['template']['tmp_name'] ) ? wp_unslash( $_FILES['template']['tmp_name'] ) : '', $emails_dir );
+$unzipped = unzip_file( $zip_file, $emails_dir );
 
-if ( is_wp_error( $status ) ) {
-	show_message( $status );
+if ( is_wp_error( $unzipped ) ) {
+	show_message( $unzipped );
 	return;
 }
 
 /* translators: %s template name */
-show_message( sprintf( __( 'Unzipped template', 'follow_up_emails' ), $template_name ) );
+show_message( sprintf( __( 'Unzipped template %s', 'follow_up_emails' ), $template_name ) );
 show_message( '<a href="admin.php?page=followup-emails-templates">' . __( 'Go back', 'follow_up_emails' ) . '</a>' );

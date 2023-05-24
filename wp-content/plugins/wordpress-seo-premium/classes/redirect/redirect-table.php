@@ -355,7 +355,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		if ( isset( $_GET['redirect-type'] ) && is_string( $_GET['redirect-type'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: Cast to an integer and strictly compared against known keys.
 			$redirect_type = (int) wp_unslash( $_GET['redirect-type'] );
-			$redirect_type = in_array( $redirect_type, array_keys( $this->redirect_types ), true ) ? $redirect_type : 0;
+			$redirect_type = array_key_exists( $redirect_type, $this->redirect_types ) ? $redirect_type : 0;
 		}
 		if ( $redirect_type !== 0 ) {
 			$this->filter['redirect_type'] = $redirect_type;
@@ -456,7 +456,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		if ( isset( $_GET['orderby'] ) && is_string( $_GET['orderby'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: same as above and we are strictly comparing the values.
 			$orderby = wp_unslash( $_GET['orderby'] );
-			if ( in_array( $orderby, array_keys( $this->get_sortable_columns() ), true ) ) {
+			if ( array_key_exists( $orderby, $this->get_sortable_columns() ) ) {
 				return $orderby;
 			}
 		}

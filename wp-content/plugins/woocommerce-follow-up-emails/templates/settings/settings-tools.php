@@ -155,7 +155,7 @@
 		}
 
 		function fue_delete_stats_data() {
-			$.post(ajaxurl, {action: "fue_delete_stats_data"}, function(resp) {
+			$.post(ajaxurl, {action: "fue_delete_stats_data", nonce: "<?php echo esc_attr( wp_create_nonce( 'delete_stats_data' ) ); ?>"}, function(resp) {
 				if ( resp.status && resp.status == 'processing' ) {
 					fue_delete_stats_data();
 				} else {
@@ -176,7 +176,7 @@
 		}
 
 		function fue_delete_daily_summary() {
-			$.post(ajaxurl, {action: "fue_delete_daily_summary"}, function(resp) {
+			$.post(ajaxurl, {action: "fue_delete_daily_summary", nonce: "<?php echo esc_attr( wp_create_nonce( 'delete_daily_summary' ) ); ?>"}, function(resp) {
 				if ( resp.count && resp.count > 0 ) {
 					var remaining = resp.count;
 					fue_summary_deleted = fue_summary_posts - remaining;

@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Admin;
 
+use WPSEO_Meta;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 
@@ -57,7 +58,7 @@ class Related_Keyphrase_Filter_Integration implements Integration_Interface {
 	private function get_related_keyphrase_filter( $focus_keyphrase ) {
 		return [
 			'post_type' => \get_query_var( 'post_type', 'post' ),
-			'key'       => \WPSEO_Meta::$meta_prefix . 'focuskeywords',
+			'key'       => WPSEO_Meta::$meta_prefix . 'focuskeywords',
 			'value'     => '"keyword":"' . \sanitize_text_field( $focus_keyphrase ) . '"',
 			'compare'   => 'LIKE',
 		];

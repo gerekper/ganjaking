@@ -18,7 +18,7 @@ class Permalink_Manager_URI_Functions_Post {
 
 		add_filter( 'url_to_postid', array( $this, 'url_to_postid' ), 999 );
 
-		add_filter( 'get_sample_permalink_html', array( $this, 'edit_uri_box' ), 10, 5 );
+		add_filter( 'get_sample_permalink_html', array( $this, 'edit_uri_box' ), 20, 5 );
 
 		add_action( 'save_post', array( $this, 'update_post_uri' ), 99, 1 );
 		add_action( 'edit_attachment', array( $this, 'update_post_uri' ), 99, 1 );
@@ -31,7 +31,7 @@ class Permalink_Manager_URI_Functions_Post {
 	}
 
 	/**
-	 * Add "Current URI" input field to "Quick Edit" form
+	 * Add "Custom Permalink" input field to "Quick Edit" form
 	 */
 	function admin_init() {
 		$post_types = Permalink_Manager_Helper_Functions::get_post_types_array();
@@ -175,7 +175,7 @@ class Permalink_Manager_URI_Functions_Post {
 	}
 
 	/**
-	 * Get the default custom permalink (not overwritten by the user) or native URI (unfiltered)
+	 * Get the default custom permalink (not overwritten by the user) or native permalink (unfiltered)
 	 *
 	 * @param WP_Post|int $post
 	 * @param bool $native_uri
@@ -694,8 +694,6 @@ class Permalink_Manager_URI_Functions_Post {
 	 * @return string
 	 */
 	function edit_uri_box( $html, $id, $new_title, $new_slug, $post ) {
-		global $permalink_manager_uris;
-
 		// Detect auto drafts
 		$autosave = ( ! empty( $new_title ) && empty( $new_slug ) ) ? true : false;
 
@@ -710,10 +708,6 @@ class Permalink_Manager_URI_Functions_Post {
 			return $html;
 		}
 
-		$new_html    = preg_replace( "/^(<strong>(.*)<\/strong>)(.*)/is", "$1 ", $html );
-		$default_uri = self::get_default_post_uri( $id );
-		$native_uri  = self::get_default_post_uri( $id, true );
-
 		// Make sure that home URL ends with slash
 		$home_url = Permalink_Manager_Helper_Functions::get_permalink_base( $post );
 
@@ -724,10 +718,10 @@ class Permalink_Manager_URI_Functions_Post {
 		} else {
 			// B. Do not change anything if post is not saved yet (display sample permalink instead)
 			if ( $autosave || empty( $post->post_status ) ) {
-				$sample_permalink_uri = $default_uri;
+				$sample_permalink_uri = self::get_default_post_uri( $id );
 			} // C. Display custom URI if set
 			else {
-				$sample_permalink_uri = ( ! empty( $permalink_manager_uris[ $id ] ) ) ? $permalink_manager_uris[ $id ] : $native_uri;
+				$sample_permalink_uri = Permalink_Manager_URI_Functions::get_single_uri( $post, true );
 			}
 
 			// Decode URI & allow to filter it
@@ -735,17 +729,27 @@ class Permalink_Manager_URI_Functions_Post {
 
 			// Prepare the sample & default permalink
 			$sample_permalink = sprintf( "%s/<span class=\"editable\">%s</span>", $home_url, str_replace( "//", "/", $sample_permalink_uri ) );
-
-			// Allow to filter the sample permalink URL
-			// $sample_permalink = apply_filters('permalink_manager_filter_post_sample_permalink', $sample_permalink, $post);
 		}
 
-		// Append new HTML output
-		$new_html .= sprintf( "<span class=\"sample-permalink-span\"><a id=\"sample-permalink\" href=\"%s\">%s</a></span>&nbsp;", strip_tags( $sample_permalink ), $sample_permalink );
+		$sample_permalink_html = sprintf( "<span id=\"sample-permalink\"><span class=\"sample-permalink-span\"><a id=\"sample-permalink\" href=\"%s\">%s</a></span></span>&nbsp;", strip_tags( $sample_permalink ), $sample_permalink );
+
+		// 1. Overwrite the sample permalink
+		if ( preg_match( '/(<span id="sample-permalink"><a.*<\/a><\/span>)/m', $html ) ) {
+			$new_html = preg_replace('/(<span id="sample-permalink"><a.*<\/a><\/span>)/m', $sample_permalink_html, $html);
+		} else if ( preg_match( '/(<a id="sample-permalink"[^<]*>.*<\/a>)/m', $html ) ) {
+			$new_html = preg_replace('/(<a id="sample-permalink"[^<]*>.*<\/a>)/m', $sample_permalink_html, $html);
+		} else {
+			$new_html = $html;
+		}
+
+		// 2. Append the Permalink Editor
 		$new_html .= ( ! $autosave ) ? Permalink_Manager_Admin_Functions::display_uri_box( $post ) : "";
 
-		// Append hidden field with native slug
-		$new_html .= ( ! empty( $post->post_name ) ) ? "<span id=\"editable-post-name-full\">{$post->post_name}</span>" : "";
+		// 3. Hide the "Edit" slug button
+		$new_html = str_replace('edit-slug button', 'edit-slug button hidden', $new_html );
+
+		// 4. Append hidden field with native slug
+		$new_html .= ( ! empty( $post->post_name ) && strpos( $new_html, 'editable-post-name-full' ) === false ) ? "<span id=\"editable-post-name-full\">{$post->post_name}</span>" : "";
 
 		return $new_html;
 	}
@@ -768,11 +772,11 @@ class Permalink_Manager_URI_Functions_Post {
 			return $columns;
 		}
 
-		return ( is_array( $columns ) ) ? array_merge( $columns, array( 'permalink-manager-col' => __( 'Current URI', 'permalink-manager' ) ) ) : $columns;
+		return ( is_array( $columns ) ) ? array_merge( $columns, array( 'permalink-manager-col' => __( 'Custom permalink', 'permalink-manager' ) ) ) : $columns;
 	}
 
 	/**
-	 * Display the URI of the current post in the "Current URI" column
+	 * Display the URI of the current post in the "Custom Permalink" column
 	 *
 	 * @param string $column_name The name of the column to display. In this case, we named our column permalink-manager-col.
 	 * @param int $post_id The ID of the term.
@@ -798,7 +802,7 @@ class Permalink_Manager_URI_Functions_Post {
 	}
 
 	/**
-	 * Display the simplified URI Editor in "Quick Edit" mode
+	 * Display the simplified Permalink Editor in "Quick Edit" mode
 	 *
 	 * @param string $column_name
 	 * @param string $post_type

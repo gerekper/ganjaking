@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 1.9.0
+ * @version 2.2.1
  *
  * All variables coming from parent file wp-post-modules-el.php
  */
@@ -114,11 +114,7 @@
 		 * @since 1.0.0
 		 */
 		$image_path = apply_filters( 'wppm_widget_image_path',  '/' );
-		if ( locate_template( $image_path . 'image.php' ) ) {
-            require( get_stylesheet_directory() . $image_path . 'image.php' );
-        } else {
-            require( dirname( __FILE__ ) . $image_path . 'image.php' );
-        }
+        require( dirname( __FILE__ ) . $image_path . 'image.php' );
 
 		// Format output
 		if ( $sub_type == 's2' ) {

@@ -26,10 +26,10 @@ class Zapier_Classic_Editor implements Integration_Interface {
 	/**
 	 * Zapier constructor.
 	 *
-	 * @param Zapier_Helper $zapier_helper The Zapier helper.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Zapier_Helper $zapier_helper The Zapier helper.
 	 */
 	public function __construct( Zapier_Helper $zapier_helper ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
@@ -42,6 +42,7 @@ class Zapier_Classic_Editor implements Integration_Interface {
 	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
 	 * @return array
 	 */
 	public static function get_conditionals() {
@@ -69,10 +70,10 @@ class Zapier_Classic_Editor implements Integration_Interface {
 	/**
 	 * Adds the Zapier text to the Classic Editor publish box.
 	 *
-	 * @param WP_Post $post The current post object.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_Post $post The current post object.
 	 *
 	 * @return void
 	 */

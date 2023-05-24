@@ -102,7 +102,8 @@ jQuery(document).ready(function($){
         var data    = {
             action: 'fue_toggle_queue_status',
             status: status,
-            id: id
+            id: id,
+			nonce: $( this ).data( 'nonce' )
         };
 
         $(parent).block({ message: null, overlayCSS: { background: '#fff url('+ FUE.ajax_loader +') no-repeat center', opacity: 0.6 } });

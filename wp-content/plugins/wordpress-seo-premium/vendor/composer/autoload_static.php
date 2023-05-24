@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit41320b624a79157aedf6c4b07496ad49
+class ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -140,6 +140,8 @@ class ComposerStaticInit41320b624a79157aedf6c4b07496ad49
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/algolia-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/cornerstone-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => __DIR__ . '/../..' . '/src/conditionals/edd-conditional.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/inclusive-language-enabled-conditional.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional' => __DIR__ . '/../..' . '/src/conditionals/term-overview-or-ajax-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional' => __DIR__ . '/../..' . '/src/deprecated/conditionals/zapier-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
@@ -158,7 +160,10 @@ class ComposerStaticInit41320b624a79157aedf6c4b07496ad49
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer' => __DIR__ . '/../..' . '/src/initializers/wp-cli-initializer.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => __DIR__ . '/../..' . '/src/integrations/abstract-opengraph-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-column-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-taxonomy-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Crawl_Settings_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/crawl-settings-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-column-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-taxonomy-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Integrations_Page' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/integrations-page.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/keyword-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Metabox_Formatter_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/metabox-formatter-integration.php',
@@ -224,9 +229,9 @@ class ComposerStaticInit41320b624a79157aedf6c4b07496ad49
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit41320b624a79157aedf6c4b07496ad49::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit41320b624a79157aedf6c4b07496ad49::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit41320b624a79157aedf6c4b07496ad49::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa::$classMap;
 
         }, null, ClassLoader::class);
     }

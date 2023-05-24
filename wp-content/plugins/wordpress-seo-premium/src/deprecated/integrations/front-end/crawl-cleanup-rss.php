@@ -24,10 +24,10 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	/**
 	 * Crawl Cleanup RSS integration constructor.
 	 *
-	 * @param Options_Helper $options_helper The option helper.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param Options_Helper $options_helper The option helper.
 	 */
 	public function __construct( Options_Helper $options_helper ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss' );
@@ -158,10 +158,10 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	/**
 	 * Sends a cache control header.
 	 *
-	 * @param int $expiration The expiration time.
-	 *
 	 * @deprecated 20.4
 	 * @codeCoverageIgnore
+	 *
+	 * @param int $expiration The expiration time.
 	 */
 	public function cache_control_header( $expiration ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss::cache_control_header( $expiration )' );

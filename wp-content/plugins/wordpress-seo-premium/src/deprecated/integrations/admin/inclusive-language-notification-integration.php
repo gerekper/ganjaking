@@ -1,6 +1,5 @@
 <?php
 
-// phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
 namespace Yoast\WP\SEO\Premium\Deprecated\Integrations\Admin;
 
 use WPSEO_Language_Utils;

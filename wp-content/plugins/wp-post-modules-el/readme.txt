@@ -4,8 +4,8 @@ Author: SaurabhSharma
 Author URI: http://codecanyon.net/user/saurabhsharma
 Tags: post modules, post snippets, wp query
 Requires at least: 4.3
-Tested up to: 5.8.2
-Stable tag: 5.8.2
+Tested up to: 6.2.1
+Stable tag: 6.2.1
 
 
 == Description ==
@@ -124,6 +124,38 @@ For installation and setup, please refer to the documentation/index.html file in
 main download archive.
 
 == Changelog ==
+
+= 2.2.1 =
+* Fixed: Image link not working in "Tile" display style
+    - Post image should be clickable and linked to permalink or the media file as chosen in widget settings
+* Elementor tested upto 3.13.2
+
+= 2.2.0 =
+* Ensured compatibility with WordPress 6.2
+* Elementor tested upto 3.12.2
+* Tested and ensured compatibility upto php 8.1.13
+
+= 2.1.1 =
+* Fixed compatibility with "The 7" theme
+    - The image.php file had a name conflict with the theme file
+* Updated deprecated Elementor hooks to the latest ones
+
+= 2.1.0 =
+* Moved image align and margin/padding options into the "Images" section
+* Toggle switches with Fontawesome icons updated to the Elementor icons
+    - E.g. Image align toggle, title align toggle.
+* Fixed: Category links "more" dropdown showing 1 extra count
+* Ensured compatibility with WordPress 6.1.1 and Elementor 3.9.x
+* Tested compatibility with php 8.0.0
+
+= 2.0.0 =
+* Added option for specifying "No posts found" text
+    - See WP Post Modules > Content > Query > No posts found text
+* Minified and reduced file size of frontend JavaScript file
+* Added Elementor specific keywords for the widget
+    - Typing any of the following keywords will show the widget in the editor:
+      posts, post grid, post list, query loop, blog posts, portfolio
+* Ensured compatibility with WordPress 5.9.2 and Elementor 3.6.x      
 
 = 1.9.0 =
 * Added "Filter by time period" option

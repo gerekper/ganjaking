@@ -3,10 +3,11 @@
  * Plugin Name: WP Post Modules for Elementor
  * Author:      SaurabhSharma
  * Author URI: 	http://codecanyon.net/user/saurabhsharma
- * Version:     1.9.0
+ * Version:     2.2.1
  * Text Domain: wppm-el
  * Domain Path: /languages/
  * Description: Create WordPress Post Modules in different styles for Blog, Magazine and Newspaper websites.
+ * Elementor tested up to: 3.13.2
  */
 
 // Exit if accessed directly
@@ -128,7 +129,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
 
             add_action( 'plugins_loaded', array( self::$instance, 'load_plugin_textdomain' ) );
 
-            add_action( 'elementor/widgets/widgets_registered', array( self::$instance, 'include_widgets') );
+            add_action( 'elementor/widgets/register', array( self::$instance, 'include_widgets') );
 
             add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_frontend_scripts'), 10 );
 
@@ -140,7 +141,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
 
         public function include_widgets( $widgets_manager ) {
             require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/widget-wppm.php';
-            $widgets_manager->register_widget_type( new \WP_Post_Modules_El\Widgets\Widget_WP_Post_Modules_El() );
+            $widgets_manager->register( new \WP_Post_Modules_El\Widgets\Widget_WP_Post_Modules_El() );
         }
 
     /**
@@ -150,7 +151,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
     public function register_frontend_scripts() {
 
             // JavaScript files
-            wp_register_script( 'wppm-el-plugin-functions', plugin_dir_url( __FILE__ ) . 'assets/js/wppm-el.frontend.js', array( 'jquery' ), '', true );
+            wp_register_script( 'wppm-el-plugin-functions', plugin_dir_url( __FILE__ ) . 'assets/js/wppm-el.frontend.min.js', array( 'jquery' ), '', true );
             wp_register_script( 'wppm-jq-easing', plugin_dir_url( __FILE__ ) . 'assets/js/jquery.easing.min.js', array( 'jquery' ), '', true );
             wp_register_script( 'wppm-jq-owl-carousel', plugin_dir_url( __FILE__ ) . 'assets/js/owl.carousel.min.js', array( 'jquery' ), '', true );
             wp_register_script( 'wppm-jq-marquee', plugin_dir_url( __FILE__ ) . 'assets/js/jquery.marquee.min.js', array( 'jquery' ), '', true );
@@ -238,6 +239,8 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
 
                 'single_term_filter'     => false,
                 'author_archive_filter' => false,
+                'taxonomy_optional '    => '',
+                'no_posts_text'         => __( 'No posts found.', 'wppm_el' ),
                 'hide_current_post'     => false,
                 'blog_id'               => null,
                 'template'              => 'grid',
@@ -576,7 +579,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
                 }
                 return $out;
             else :
-                return __( 'No posts found matching your criteria. Please modify Query parameters to show posts.', 'wppm-el' );
+                return esc_html( $no_posts_text );
             endif;
         }
     }

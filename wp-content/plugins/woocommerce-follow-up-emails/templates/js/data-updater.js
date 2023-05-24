@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
         var params = {
             "action": ajax_endpoint,
             "cmd": "start",
-            "woo_nonce": ""
+            "nonce": ajax_nonce,
         };
 
         if ( ajax_params ) {
@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
     function update_data() {
         var params = {
             "action"            : ajax_endpoint,
-            "woo_nonce"         : "",
+			"nonce"             : ajax_nonce,
             "cmd"               : "update",
             "update_session"    : session
         };

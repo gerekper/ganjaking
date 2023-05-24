@@ -237,12 +237,12 @@ class FUE_AJAX {
 	 * The resulting data is JSON-encoded before being sent to the browser
 	 */
 	public static function get_post_custom_fields() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'get_post_custom_fields', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		$id     = isset($_POST['id']) ? absint( $_POST['id'] ) : 0;
-		$meta   = get_post_custom($id);
+		$id   = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+		$meta = get_post_custom( $id );
 		wp_send_json( $meta );
 	}
 
@@ -314,7 +314,7 @@ class FUE_AJAX {
 	}
 
 	/**
-	 * SEEMS TO BE DEAD CODE.
+	 * Used for the assigned admin user in a reminder on the Customer Data tab.
 	 * AJAX handler for searching for admins/managers
 	 *
 	 * This method looks for partial user_email and/or user ID matches,
@@ -323,14 +323,13 @@ class FUE_AJAX {
 	 *     first_name last_name <user_email>
 	 *
 	 * The resulting array is then JSON-encoded before it is sent back
-	 *
 	 */
 	public static function admin_search() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_GET['nonce'] ) || ! check_ajax_referer( 'admin_search', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		$term = isset( $_GET['term'] ) ? sanitize_text_field( wp_unslash( $_GET['term'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$term = isset( $_GET['term'] ) ? sanitize_text_field( wp_unslash( $_GET['term'] ) ) : '';
 
 		if ( empty( $term ) ) {
 			die();
@@ -374,7 +373,7 @@ class FUE_AJAX {
 	}
 
 	/**
-	 * SEEMS TO BE DEAD CODE.
+	 * Used on the send manual email page to search for an email address.
 	 * AJAX handler for searching for existing email addresses
 	 *
 	 * This method looks for partial user_email and/or display_name matches,
@@ -384,15 +383,14 @@ class FUE_AJAX {
 	 *     first_name last_name <user_email>
 	 *
 	 * The resulting array is then JSON-encoded before it is sent back
-	 *
 	 */
 	public static function search_for_email() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_GET['nonce'] ) || ! check_ajax_referer( 'search_for_email', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
 		global $wpdb;
-		$term = isset( $_GET['term'] ) ? sanitize_text_field( wp_unslash( $_GET['term'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$term = isset( $_GET['term'] ) ? sanitize_text_field( wp_unslash( $_GET['term'] ) ) : '';
 		$results    = array();
 		$all_emails = array();
 
@@ -533,27 +531,27 @@ class FUE_AJAX {
 	 * An email is considered to be a duplicate when the duration, interval type,
 	 * interval period, always send setting, and email type are exactly the same.
 	 * A similar email will have the same properties as the duplicate email except
-	 * for the interval period. Uses @see FUE_Email::has_duplicate_email() and
-	 * @see FUE_Email::has_similar_email()
-	 *
+	 * for the interval period. Uses FUE_Email::has_duplicate_email() and
+	 * FUE_Email::has_similar_email()
 	 */
 	public static function find_similar_emails() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'find_similar_emails', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		$id             = isset($_POST['id']) ? absint( wp_unslash( $_POST['id'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-		$type           = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$interval       = isset( $_POST['interval'] ) ? absint( wp_unslash( $_POST['interval'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$duration       = isset( $_POST['interval_duration'] ) ? sanitize_text_field( wp_unslash( $_POST['interval_duration'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$interval_type  = isset( $_POST['interval_type'] ) ? sanitize_text_field( wp_unslash( $_POST['interval_type'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$product        = isset( $_POST['product_id'] ) ? absint( wp_unslash( $_POST['product_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
-		$category       = isset( $_POST['category_id'] ) ? absint( wp_unslash( $_POST['category_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
-		$always_send    = isset( $_POST['always_send'] ) ? absint( wp_unslash( $_POST['always_send'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
+		$id            = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : false;
+		$type          = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
+		$interval      = isset( $_POST['interval'] ) ? absint( wp_unslash( $_POST['interval'] ) ) : '';
+		$duration      = isset( $_POST['interval_duration'] ) ? sanitize_text_field( wp_unslash( $_POST['interval_duration'] ) ) : '';
+		$interval_type = isset( $_POST['interval_type'] ) ? sanitize_text_field( wp_unslash( $_POST['interval_type'] ) ) : '';
+		$product       = isset( $_POST['product_id'] ) ? absint( wp_unslash( $_POST['product_id'] ) ) : 0;
+		$category      = isset( $_POST['category_id'] ) ? absint( wp_unslash( $_POST['category_id'] ) ) : 0;
+		$always_send   = isset( $_POST['always_send'] ) ? absint( wp_unslash( $_POST['always_send'] ) ) : 0;
 
 		// skip manual emails
-		if ( $type == 'manual' )
-			die('');
+		if ( 'manual' === $type ) {
+			die( '' );
+		}
 
 		if ( $id ) {
 			$email = new FUE_Email( $id );
@@ -561,20 +559,21 @@ class FUE_AJAX {
 			$email = new FUE_Email();
 		}
 
-		$email->type                = $type;
-		$email->interval_num        = $interval;
-		$email->interval_duration   = $duration;
-		$email->interval_type       = $interval_type;
-		$email->always_send         = $always_send;
-		$email->product_id          = $product;
-		$email->category_id         = $category;
+		$email->type              = $type;
+		$email->interval_num      = $interval;
+		$email->interval_duration = $duration;
+		$email->interval_type     = $interval_type;
+		$email->always_send       = $always_send;
+		$email->product_id        = $product;
+		$email->category_id       = $category;
 
-		if ( $email->has_duplicate_email() )
-			die("DUPE");
+		if ( $email->has_duplicate_email() ) {
+			die( 'DUPE' );
+		}
 
-		if ( $email->has_similar_email() )
-			die("SIMILAR");
-
+		if ( $email->has_similar_email() ) {
+			die( 'SIMILAR' );
+		}
 	}
 
 	/**
@@ -617,40 +616,40 @@ class FUE_AJAX {
 	}
 
 	/**
-	 * SEEMS TO BE DEAD CODE.
+	 * Found in Users > Customer Data > Scheduled Emails table.
 	 * AJAX handler for toggling an email queue's status
 	 */
 	public static function toggle_queue_status() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'toggle_queue_status', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
 		global $wpdb;
-		$id     = absint( $_POST['id'] );
-		$status = $wpdb->get_var( $wpdb->prepare("SELECT status FROM {$wpdb->prefix}followup_email_orders WHERE id = %d", $id) );
-		$resp   = array('ack' => 'OK');
+		$id     = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+		$status = (int) $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$wpdb->prefix}followup_email_orders WHERE id = %d", $id ) );
+		$resp   = array( 'ack' => 'OK' );
 
-		if ($status == 0) {
+		if ( 0 === $status ) {
 			// activate
-			$wpdb->update($wpdb->prefix .'followup_email_orders', array('status' => 1), array('id' => $id));
+			$wpdb->update( $wpdb->prefix . 'followup_email_orders', array( 'status' => 1 ), array( 'id' => $id ) );
 
 			// re-create the task
 			$param = array( $id );
-			$send_time = $wpdb->get_var( $wpdb->prepare("SELECT send_on FROM {$wpdb->prefix}followup_email_orders WHERE id = %d", $id) );
+			$send_time = $wpdb->get_var( $wpdb->prepare( "SELECT send_on FROM {$wpdb->prefix}followup_email_orders WHERE id = %d", $id ) );
 			as_schedule_single_action( $send_time, 'sfn_followup_emails', $param, 'fue' );
 
-			$resp['new_status'] = __('Queued', 'follow_up_emails');
-			$resp['new_action'] = __('Do not send', 'follow_up_emails');
+			$resp['new_status'] = __( 'Queued', 'follow_up_emails' );
+			$resp['new_action'] = __( 'Do not send', 'follow_up_emails' );
 		} else {
 			// deactivate
-			$wpdb->update($wpdb->prefix .'followup_email_orders', array('status' => 0), array('id' => $id));
+			$wpdb->update( $wpdb->prefix . 'followup_email_orders', array( 'status' => 0 ), array( 'id' => $id ) );
 
 			// if using action-scheduler, delete the task
 			$param = array( $id );
-			as_unschedule_action( 'sfn_followup_emails',  $param, 'fue' );
+			as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
 
-			$resp['new_status'] = __('Suspended', 'follow_up_emails');
-			$resp['new_action'] = __('Re-enable', 'follow_up_emails');
+			$resp['new_status'] = __( 'Suspended', 'follow_up_emails' );
+			$resp['new_action'] = __( 'Re-enable', 'follow_up_emails' );
 		}
 
 		wp_send_json( $resp );
@@ -1200,34 +1199,41 @@ class FUE_AJAX {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		if ( ! wp_verify_nonce( $_POST['security'], 'save_template_html' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-			self::send_response(array(
-				'status'    => 'ERR',
-				'error'     => __('Invalid request. Please try again.', 'follow_up_emails')
-			));
+		if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( sanitize_key( $_POST['security'] ), 'save_template_html' ) ) {
+			self::send_response(
+				array(
+					'status' => 'ERR',
+					'error'  => __( 'Invalid request. Please try again.', 'follow_up_emails' ),
+				)
+			);
 		}
 
 		$post = stripslashes_deep( $_POST );
 
-		$tpl = new FUE_Email_Template( $post['template'] );
+		$template = new FUE_Email_Template();
+		$loaded   = $template->load_template( $post['template'] );
 
-		if ( is_wp_error( $tpl ) ) {
-			self::send_response(array(
-				'status'    => 'ERR',
-				'error'     => $tpl->get_error_message()
-			));
+		if ( is_wp_error( $loaded ) ) {
+			self::send_response(
+				array(
+					'status' => 'ERR',
+					'error'  => $loaded->get_error_message(),
+				)
+			);
 		}
 
 		$source = $post['source'];
-		$file   = $tpl->get_path();
+		$file   = $template->get_path();
 
 		// SEMGREP WARNING EXPLANATION:
 		// $file is a valid html file, so no PHP/PHAR is executable. Hence, the deserialization event is not happening.
 		file_put_contents( $file, $source );
 
-		self::send_response(array(
-			'status' => 'OK'
-		));
+		self::send_response(
+			array(
+				'status' => 'OK',
+			)
+		);
 	}
 
 	/**
@@ -1475,15 +1481,15 @@ class FUE_AJAX {
 	}
 
 	/**
-	 * Seems like DEAD CODE.
+	 * Called when batches are disabled and a manual email is sent with over 50 recepients.
 	 * Send manual emails in batches
 	 */
 	public static function send_manual_emails() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'send_manual_emails', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
 
@@ -1565,13 +1571,13 @@ class FUE_AJAX {
 	 * Send manual emails in batches when "Single Emails Sending Schedule" has been enabled in the settings.
 	 */
 	public static function send_manual_email_batches() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'fue_send_manual_email_batches', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		set_time_limit(0);
+		set_time_limit( 0 );
 
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
 
@@ -1723,7 +1729,7 @@ class FUE_AJAX {
 	 * Delete daily summary posts
 	 */
 	public static function delete_daily_summary() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'delete_daily_summary', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -1765,7 +1771,7 @@ class FUE_AJAX {
 	 * Clear the stats data one table at a time
 	 */
 	public static function delete_stats_data() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'delete_stats_data', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -1844,7 +1850,7 @@ class FUE_AJAX {
 	 * AJAX handler to start email import
 	 */
 	public static function scheduler_do_import() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'scheduler_import', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -1868,7 +1874,7 @@ class FUE_AJAX {
 	 * AJAX handler to start import process
 	 */
 	public static function scheduler_import_start() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'scheduler_import', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -1881,7 +1887,7 @@ class FUE_AJAX {
 	 * AJAX handler to complete the importing process
 	 */
 	public static function scheduler_import_complete() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'scheduler_import', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -1903,20 +1909,20 @@ class FUE_AJAX {
 	 * Clear unnecessary scheduled actions
 	 */
 	public static function clear_scheduled_actions() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'fue_clear_scheduled_actions', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		set_time_limit(0);
+		set_time_limit( 0 );
 
 		$wpdb = Follow_Up_Emails::instance()->wpdb;
 
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
 
-		$cmd        = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$session    = !empty($_POST['update_session']) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ): ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$cmd     = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : '';
+		$session = ! empty( $_POST['update_session'] ) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : '';
 
 		if ( $cmd == 'start' ) {
 			// generate a new session id
@@ -2670,23 +2676,23 @@ class FUE_AJAX {
 	 * Each step, a session key will be returned which is used to continue an existing import process.
 	 */
 	public static function wc_order_import() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'order_import', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
 	    ob_start();
 
-		set_time_limit(0);
+		set_time_limit( 0 );
 
 		$wpdb = Follow_Up_Emails::instance()->wpdb;
 
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
 
-		$cmd            = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$email_id       = !empty($_POST['email_id']) ? absint( wp_unslash( $_POST['email_id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$session        = !empty($_POST['import_session']) ? sanitize_text_field( wp_unslash( $_POST['import_session'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$cmd            = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : '';
+		$email_id       = ! empty( $_POST['email_id'] ) ? absint( wp_unslash( $_POST['email_id'] ) ) : '';
+		$session        = ! empty( $_POST['import_session'] ) ? sanitize_text_field( wp_unslash( $_POST['import_session'] ) ) : '';
 		$wc_importer    = new FUE_Addon_WooCommerce_Order_Importer();
 
 		if ( $session ) {
@@ -2920,18 +2926,21 @@ class FUE_AJAX {
 	 * Update the total purchase amount for all customers
 	 */
 	public static function wc_update_customer_order_total() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'fue_wc_update_customer_order_total', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		set_time_limit(0);
+		set_time_limit( 0 );
 		$wpdb = Follow_Up_Emails::instance()->wpdb;
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
-		$cmd        = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$session    = ! empty($_POST['update_session']) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		if ( $cmd == 'start' ) {
+
+		$cmd     = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : '';
+		$session = ! empty( $_POST['update_session'] ) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : '';
+
+		if ( 'start' === $cmd ) {
 			// generate a new session id
 			$session = time();
 			ob_start();
@@ -3002,7 +3011,7 @@ class FUE_AJAX {
 	 * Set a flag in the DB to stop displaying the Scan Orders prompt
 	 */
 	public static function wc_disable_order_scan() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'disable_order_scan', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
@@ -3017,23 +3026,23 @@ class FUE_AJAX {
 	 * subscription key format (order_product) to the new Order Subscription ID
 	 */
 	public static function wc_subscriptions_update() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'subscriptions_update', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		set_time_limit(0);
+		set_time_limit( 0 );
 
 		$wpdb = Follow_Up_Emails::instance()->wpdb;
 
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
 
-		$cmd        = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$session    = !empty($_POST['update_session']) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$scheduler  = Follow_Up_Emails::instance()->scheduler;
+		$cmd       = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : '';
+		$session   = ! empty( $_POST['update_session'] ) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : '';
+		$scheduler = Follow_Up_Emails::instance()->scheduler;
 
-		if ( $cmd == 'start' ) {
+		if ( 'start' === $cmd ) {
 			// generate a new session id
 			$session = time();
 
@@ -3372,20 +3381,20 @@ class FUE_AJAX {
 	 * Move follow-up history logs from the comments table to followup_followup_history
 	 */
 	public static function migrate_logs() {
-		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! check_ajax_referer( 'fue_migrate_logs', 'nonce' ) || ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		set_time_limit(0);
+		set_time_limit( 0 );
 
 		$wpdb = Follow_Up_Emails::instance()->wpdb;
 
-		if ( empty( $_POST['cmd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( empty( $_POST['cmd'] ) ) {
 			self::send_response( array( 'error' => 'CMD is missing' ) );
 		}
 
-		$cmd        = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$session    = !empty($_POST['update_session']) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$cmd     = isset( $_POST['cmd'] ) ? sanitize_text_field( wp_unslash( $_POST['cmd'] ) ) : '';
+		$session = ! empty( $_POST['update_session'] ) ? sanitize_text_field( wp_unslash( $_POST['update_session'] ) ) : '';
 
 		if ( $cmd == 'start' ) {
 			// generate a new session id

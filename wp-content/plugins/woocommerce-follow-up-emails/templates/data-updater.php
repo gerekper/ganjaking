@@ -56,6 +56,7 @@ if ( isset( $args ) ) {
 <script>
 	var return_url              = '<?php echo esc_js( $args['return_url'] ); ?>';
 	var ajax_endpoint           = '<?php echo esc_js( $args['ajax_endpoint'] ); ?>';
+	var ajax_nonce              = '<?php echo esc_js( wp_create_nonce( $args['ajax_endpoint'] ) ); ?>';
 	var ajax_params             = {};
 	var entity_label_singular   = '<?php echo esc_js( addslashes( $args['entity_label_singular'] ) ); ?>';
 	var entity_label_plural     = '<?php echo esc_js( addslashes( $args['entity_label_plural'] ) ); ?>';

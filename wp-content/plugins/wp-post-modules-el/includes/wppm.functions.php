@@ -129,7 +129,7 @@ if ( ! function_exists( 'wppm_el_meta' ) ) :
 				foreach( $cats as $cat ) {
 					if ( $i == ($cat_limit + 1) && $show_more_cats ) {
 						$hasmore = true;
-						$cat_list .= '<li class="submenu-parent"><a class="wppm-cat-toggle" href="#">' . sprintf( esc_attr_x( '+ %d more', 'more count for category list', 'wppm-el' ), number_format_i18n( $cat_count ) ) . '</a><ul class="cat-sub submenu">';
+						$cat_list .= '<li class="submenu-parent"><a class="wppm-cat-toggle" href="#">' . sprintf( esc_attr_x( '+ %d more', 'more count for category list', 'wppm-el' ), number_format_i18n( $cat_count - 1 ) ) . '</a><ul class="cat-sub submenu">';
 					}
 					$cat_list .= '<li><a class="cat-' . $cat->slug . '" href="' . get_category_link( $cat->cat_ID ) . '">' . $cat->cat_name . '</a></li>';
 					if ( $i == $cat_limit && ! $show_more_cats ) {

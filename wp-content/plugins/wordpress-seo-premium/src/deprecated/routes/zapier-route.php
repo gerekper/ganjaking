@@ -76,10 +76,10 @@ class Zapier_Route implements Route_Interface {
 	/**
 	 * Zapier_Route constructor.
 	 *
-	 * @param Zapier_Action $zapier_action The action to handle the requests to the endpoint.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param Zapier_Action $zapier_action The action to handle the requests to the endpoint.
 	 */
 	public function __construct( Zapier_Action $zapier_action ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.7' );
@@ -185,10 +185,10 @@ class Zapier_Route implements Route_Interface {
 	/**
 	 * Runs the subscribe action.
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return WP_REST_Response The response of the subscribe action.
 	 */
@@ -208,10 +208,10 @@ class Zapier_Route implements Route_Interface {
 	/**
 	 * Runs the unsubscribe action.
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return WP_REST_Response The response of the unsubscribe action.
 	 */
@@ -226,10 +226,10 @@ class Zapier_Route implements Route_Interface {
 	/**
 	 * Runs the check_api_key action.
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return WP_REST_Response The response of the check_api_key action.
 	 */
@@ -244,10 +244,10 @@ class Zapier_Route implements Route_Interface {
 	/**
 	 * Runs the perform_list action.
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return WP_REST_Response The response of the perform_list action.
 	 */
@@ -278,10 +278,10 @@ class Zapier_Route implements Route_Interface {
 	/**
 	 * Runs the reset_api_key action.
 	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
 	 * @deprecated 20.7
 	 * @codeCoverageIgnore
+	 *
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return WP_REST_Response The response of the reset_api_key action.
 	 */
