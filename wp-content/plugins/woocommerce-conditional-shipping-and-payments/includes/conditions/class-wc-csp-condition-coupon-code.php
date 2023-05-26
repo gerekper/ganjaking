@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -259,20 +259,20 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 		}
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]" data-zero_config_mods="<?php echo esc_attr( json_encode( $zero_config_modifiers ) ); ?>">
-						<option value="used" <?php selected( $modifier, 'used', true ) ?>><?php echo __( 'used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-used" <?php selected( $modifier, 'not-used', true ) ?>><?php echo __( 'not used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="free-shipping" <?php selected( $modifier, 'free-shipping', true ) ?>><?php echo __( 'enables free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-free-shipping" <?php selected( $modifier, 'not-free-shipping', true ) ?>><?php echo __( 'does not enable free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]" data-zero_config_mods="<?php echo esc_attr( json_encode( $zero_config_modifiers ) ); ?>">
+						<option value="used" <?php selected( $modifier, 'used', true ); ?>><?php esc_html_e( 'used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-used" <?php selected( $modifier, 'not-used', true ); ?>><?php esc_html_e( 'not used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="free-shipping" <?php selected( $modifier, 'free-shipping', true ); ?>><?php esc_html_e( 'enables free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-free-shipping" <?php selected( $modifier, 'not-free-shipping', true ); ?>><?php esc_html_e( 'does not enable free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value" style="<?php echo in_array( $modifier, $zero_config_modifiers ) ? 'display:none;' : '' ; ?>">
-				<input type="text"  name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" value="<?php echo $coupon_codes; ?>" placeholder="<?php esc_attr_e( "Enter coupon codes, separated by comma (,).", 'woocommerce-conditional-shipping-and-payments' ) ?>" step="any" min="0"/>
+				<input type="text"  name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value]" value="<?php echo esc_attr( $coupon_codes ); ?>" placeholder="<?php esc_attr_e( "Enter coupon codes, separated by comma (,).", 'woocommerce-conditional-shipping-and-payments' ) ?>" step="any" min="0"/>
 				<span class="description"><?php esc_attr_e( "Enter coupon codes, separated by comma (,). You may also use wildcards, such as 'discount*'.", 'woocommerce-conditional-shipping-and-payments' ) ?></span>
 			</div>
 			<div class="condition_value condition--disabled" style="<?php echo ! in_array( $modifier, $zero_config_modifiers ) ? 'display:none;' : '' ; ?>"></div>

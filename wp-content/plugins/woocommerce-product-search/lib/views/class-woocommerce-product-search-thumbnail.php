@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Thumbnails
  */
@@ -54,10 +56,10 @@ class WooCommerce_Product_Search_Thumbnail {
 	 */
 	public static function after_setup_theme() {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$thumbnail_width   = isset( $options[self::THUMBNAIL_WIDTH] ) ? $options[self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-		$thumbnail_height  = isset( $options[self::THUMBNAIL_HEIGHT] ) ? $options[self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
-		$thumbnail_crop    = isset( $options[self::THUMBNAIL_CROP] ) ? $options[self::THUMBNAIL_CROP] : self::THUMBNAIL_DEFAULT_CROP;
+		$settings = Settings::get_instance();
+		$thumbnail_width  = $settings->get( self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+		$thumbnail_height = $settings->get( self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
+		$thumbnail_crop   = $settings->get( self::THUMBNAIL_CROP, self::THUMBNAIL_DEFAULT_CROP );
 		if ( !has_image_size( self::thumbnail_size_name() ) ) {
 			add_image_size( self::thumbnail_size_name(), intval( $thumbnail_width ), intval( $thumbnail_height ), $thumbnail_crop );
 		}
@@ -65,9 +67,9 @@ class WooCommerce_Product_Search_Thumbnail {
 		$product_taxonomies = self::get_product_taxonomies();
 		foreach( $product_taxonomies as $product_taxonomy ) {
 			if ( $taxonomy = get_taxonomy( $product_taxonomy ) ) {
-				$thumbnail_width   = isset( $options[$taxonomy->name . '-' . self::THUMBNAIL_WIDTH] ) ? $options[$taxonomy->name . '-' . self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-				$thumbnail_height  = isset( $options[$taxonomy->name . '-' . self::THUMBNAIL_HEIGHT] ) ? $options[$taxonomy->name . '-' . self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
-				$thumbnail_crop    = isset( $options[$taxonomy->name . '-' . self::THUMBNAIL_CROP] ) ? $options[$taxonomy->name . '-' . self::THUMBNAIL_CROP] : self::THUMBNAIL_DEFAULT_CROP;
+				$thumbnail_width  = $settings->get( $taxonomy->name . '-' . self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+				$thumbnail_height = $settings->get( $taxonomy->name . '-' . self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
+				$thumbnail_crop   = $settings->get( $taxonomy->name . '-' . self::THUMBNAIL_CROP, self::THUMBNAIL_DEFAULT_CROP );
 				if ( !has_image_size( self::thumbnail_size_name( $taxonomy->name . '-' ) ) ) {
 					add_image_size( self::thumbnail_size_name( $taxonomy->name . '-' ), intval( $thumbnail_width ), intval( $thumbnail_height ), $thumbnail_crop );
 				}
@@ -82,9 +84,9 @@ class WooCommerce_Product_Search_Thumbnail {
 	 */
 	public static function thumbnail_size_name( $prefix = '' ) {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$thumbnail_width   = isset( $options[$prefix . self::THUMBNAIL_WIDTH] ) ? $options[$prefix . self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-		$thumbnail_height  = isset( $options[$prefix . self::THUMBNAIL_HEIGHT] ) ? $options[$prefix . self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
+		$settings = Settings::get_instance();
+		$thumbnail_width  = $settings->get( $prefix . self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+		$thumbnail_height = $settings->get( $prefix . self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
 		return sprintf( self::THUMBNAIL . '-%dx%d', intval( $thumbnail_width ), intval( $thumbnail_height ) );
 	}
 
@@ -112,10 +114,10 @@ class WooCommerce_Product_Search_Thumbnail {
 	 */
 	public static function get_image_size( $prefix = '' ) {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$thumbnail_width   = isset( $options[$prefix . self::THUMBNAIL_WIDTH] ) ? $options[$prefix . self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-		$thumbnail_height  = isset( $options[$prefix . self::THUMBNAIL_HEIGHT] ) ? $options[$prefix . self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
-		$thumbnail_crop    = isset( $options[$prefix . self::THUMBNAIL_CROP] ) ? $options[$prefix . self::THUMBNAIL_CROP] : self::THUMBNAIL_DEFAULT_CROP;
+		$settings = Settings::get_instance();
+		$thumbnail_width  = $settings->get( $prefix . self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+		$thumbnail_height = $settings->get( $prefix . self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
+		$thumbnail_crop   = $settings->get( $prefix . self::THUMBNAIL_CROP, self::THUMBNAIL_DEFAULT_CROP );
 		return array(
 			'width'  => $thumbnail_width,
 			'height' => $thumbnail_height,
@@ -174,10 +176,10 @@ class WooCommerce_Product_Search_Thumbnail {
 							}
 						}
 					}
-					$options = get_option( 'woocommerce-product-search', array() );
-					$thumbnail_width   = isset( $options[$prefix . self::THUMBNAIL_WIDTH] ) ? $options[$prefix . self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-					$thumbnail_height  = isset( $options[$prefix . self::THUMBNAIL_HEIGHT] ) ? $options[$prefix . self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
-					$thumbnail_crop    = isset( $options[$prefix . self::THUMBNAIL_CROP] ) ? $options[$prefix . self::THUMBNAIL_CROP] : self::THUMBNAIL_DEFAULT_CROP;
+					$settings = Settings::get_instance();
+					$thumbnail_width  = $settings->get( $prefix . self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+					$thumbnail_height = $settings->get( $prefix . self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
+					$thumbnail_crop   = $settings->get( $prefix . self::THUMBNAIL_CROP, self::THUMBNAIL_DEFAULT_CROP );
 
 					switch ( $thumbnail_crop ) {
 
@@ -269,16 +271,11 @@ class WooCommerce_Product_Search_Thumbnail {
 	 */
 	public static function woocommerce_admin_field_wps_thumbnail( $value ) {
 
-		$options = get_option( 'woocommerce-product-search', null );
-		if ( $options === null ) {
-			if ( add_option( 'woocommerce-product-search', array(), '', 'no' ) ) {
-				$options = get_option( 'woocommerce-product-search' );
-			}
-		}
+		$settings = Settings::get_instance();
 
-		$thumbnail_width  = isset( $options[self::THUMBNAIL_WIDTH] ) ? $options[self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-		$thumbnail_height = isset( $options[self::THUMBNAIL_HEIGHT] ) ? $options[self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
-		$thumbnail_crop   = isset( $options[self::THUMBNAIL_CROP] ) ? $options[self::THUMBNAIL_CROP] : self::THUMBNAIL_DEFAULT_CROP;
+		$thumbnail_width  = $settings->get( self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+		$thumbnail_height = $settings->get( self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
+		$thumbnail_crop   = $settings->get( self::THUMBNAIL_CROP, self::THUMBNAIL_DEFAULT_CROP );
 
 		echo '<tr valign="top">';
 		echo '<th scope="row">';
@@ -315,13 +312,12 @@ class WooCommerce_Product_Search_Thumbnail {
 	public static function get_placeholder_thumbnail() {
 
 		$result = null;
-		$options = get_option( 'woocommerce-product-search', array() );
-		$thumbnail_use_placeholder = isset( $options[self::THUMBNAIL_USE_PLACEHOLDER] ) ? $options[self::THUMBNAIL_USE_PLACEHOLDER] : self::THUMBNAIL_USE_PLACEHOLDER_DEFAULT;
+		$settings = Settings::get_instance();
+		$thumbnail_use_placeholder = $settings->get( self::THUMBNAIL_USE_PLACEHOLDER, self::THUMBNAIL_USE_PLACEHOLDER_DEFAULT );
 		if ( $thumbnail_use_placeholder ) {
-			$thumbnail_url = wc_placeholder_img_src();
-			$options = get_option( 'woocommerce-product-search', array() );
-			$thumbnail_width   = isset( $options[self::THUMBNAIL_WIDTH] ) ? $options[self::THUMBNAIL_WIDTH] : self::THUMBNAIL_DEFAULT_WIDTH;
-			$thumbnail_height  = isset( $options[self::THUMBNAIL_HEIGHT] ) ? $options[self::THUMBNAIL_HEIGHT] : self::THUMBNAIL_DEFAULT_HEIGHT;
+			$thumbnail_url    = wc_placeholder_img_src();
+			$thumbnail_width  = $settings->get( self::THUMBNAIL_WIDTH, self::THUMBNAIL_DEFAULT_WIDTH );
+			$thumbnail_height = $settings->get( self::THUMBNAIL_HEIGHT, self::THUMBNAIL_DEFAULT_HEIGHT );
 			$result = array( $thumbnail_url, $thumbnail_width, $thumbnail_height );
 		}
 		return $result;

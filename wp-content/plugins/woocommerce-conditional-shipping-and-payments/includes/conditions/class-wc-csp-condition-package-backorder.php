@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Backorder in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Backorder
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Package_Backorder extends WC_CSP_Package_Condition {
 
@@ -162,15 +162,15 @@ class WC_CSP_Condition_Package_Backorder extends WC_CSP_Package_Condition {
 	}
 
 	?>
-	<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+	<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 	<div class="condition_row_inner">
 		<div class="condition_modifier">
 			<div class="sw-enhanced-select">
-				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-					<option value="in" <?php selected( $modifier, 'in', true ) ?>><?php echo __( 'in package', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-					<option value="not-in" <?php selected( $modifier, 'not-in', true ) ?>><?php echo __( 'not in package', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-					<option value="all-in" <?php selected( $modifier, 'all-in', true ) ?>><?php echo __( 'all package items', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-					<option value="not-all-in" <?php selected( $modifier, 'not-all-in', true ) ?>><?php echo __( 'not all package items', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+				<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+					<option value="in" <?php selected( $modifier, 'in', true ); ?>><?php esc_html_e( 'in package', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<option value="not-in" <?php selected( $modifier, 'not-in', true ); ?>><?php esc_html_e( 'not in package', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<option value="all-in" <?php selected( $modifier, 'all-in', true ); ?>><?php esc_html_e( 'all package items', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<option value="not-all-in" <?php selected( $modifier, 'not-all-in', true ); ?>><?php esc_html_e( 'not all package items', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 				</select>
 			</div>
 		</div>

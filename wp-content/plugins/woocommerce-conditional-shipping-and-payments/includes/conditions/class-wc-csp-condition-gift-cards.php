@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Gift Cards Condition.
  *
  * @class    WC_CSP_Condition_Gift_Cards
- * @version  1.8.0
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Gift_Cards extends WC_CSP_Condition {
 
@@ -113,13 +113,13 @@ class WC_CSP_Condition_Gift_Cards extends WC_CSP_Condition {
 		}
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="used" <?php selected( $modifier, 'used', true ) ?>><?php echo __( 'used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-used" <?php selected( $modifier, 'not-used', true ) ?>><?php echo __( 'not used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+						<option value="used" <?php selected( $modifier, 'used', true ); ?>><?php esc_html_e( 'used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-used" <?php selected( $modifier, 'not-used', true ); ?>><?php esc_html_e( 'not used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>

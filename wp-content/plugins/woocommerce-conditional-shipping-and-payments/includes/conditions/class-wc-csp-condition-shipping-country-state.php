@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Country/State Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Country_State
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
@@ -308,18 +308,18 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 		$shipping_continents_directory = WC()->countries->get_shipping_continents();
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="in" <?php selected( $selected_modifier, 'in', true ) ?>><?php echo __( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-in" <?php selected( $selected_modifier, 'not-in', true ) ?>><?php echo __( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+						<option value="in" <?php selected( $selected_modifier, 'in', true ); ?>><?php esc_html_e( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-in" <?php selected( $selected_modifier, 'not-in', true ); ?>><?php esc_html_e( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value select-field">
-				<select class="csp_shipping_countries multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" multiple="multiple" data-placeholder="<?php _e( 'Select shipping countries&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select class="csp_shipping_countries multiselect sw-select2" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value][]" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select shipping countries&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 						foreach ( $shipping_continents_directory as $continent_code => $continent ) {
 							echo '<option value="continent:' . esc_attr( $continent_code ) . '"' . selected( in_array( $continent_code, $selected_continents ), true, false ) . '>' . esc_html( $continent[ 'name' ] ) . '</option>';
@@ -333,8 +333,8 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 					?>
 				</select>
 				<div class="condition_form_row">
-					<a class="wccsp_select_all button" href="#"><?php _e( 'All', 'woocommerce' ); ?></a>
-					<a class="wccsp_select_none button" href="#"><?php _e( 'None', 'woocommerce' ); ?></a>
+					<a class="wccsp_select_all button" href="#"><?php esc_html_e( 'All', 'woocommerce' ); ?></a>
+					<a class="wccsp_select_none button" href="#"><?php esc_html_e( 'None', 'woocommerce' ); ?></a>
 				</div>
 			</div>
 		</div>
@@ -343,7 +343,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 			<div class="condition_modifier">
 			</div>
 			<div class="condition_value excluded_states select-field">
-				<select class="csp_shipping_states multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][states][]" multiple="multiple" data-placeholder="<?php _e( 'Limit restriction to specific states or regions&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select class="csp_shipping_states multiselect sw-select2" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][states][]" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Limit restriction to specific states or regions&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 
 						// If condition value includes a continent, then map it to the countries it contains.
@@ -374,8 +374,8 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 					?>
 				</select>
 				<div class="condition_form_row">
-					<a class="wccsp_select_all button" href="#"><?php _e( 'All', 'woocommerce' ); ?></a>
-					<a class="wccsp_select_none button" href="#"><?php _e( 'None', 'woocommerce' ); ?></a>
+					<a class="wccsp_select_all button" href="#"><?php esc_html_e( 'All', 'woocommerce' ); ?></a>
+					<a class="wccsp_select_none button" href="#"><?php esc_html_e( 'None', 'woocommerce' ); ?></a>
 				</div>
 			</div>
 		</div><?php
@@ -434,11 +434,11 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
 			echo '<optgroup label="' . esc_attr( $country_name ) . '">';
 			foreach ( $states_per_country as $state_key => $state_value ) {
-				echo '<option value="' . esc_attr( $country_code ) . ':' . $state_key . '"';
+				echo '<option value="' . esc_attr( $country_code . ':' . $state_key ) . '"';
 				if ( ! empty( $selected_states[ $country_code ] ) && in_array( $state_key, $selected_states[ $country_code ] ) ) {
 					echo ' selected';
 				}
-				echo '>' . $country_name . ' &ndash; ' . $state_value . '</option>';
+				echo '>' . esc_html( $country_name . ' &ndash; ' . $state_value ) . '</option>';
 			}
 			echo '</optgroup>';
 		}

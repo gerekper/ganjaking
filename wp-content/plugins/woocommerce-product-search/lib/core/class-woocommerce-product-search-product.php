@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Product search enhancements.
  */
@@ -39,8 +41,8 @@ class WooCommerce_Product_Search_Product {
 	 * Registers the request filter.
 	 */
 	public static function init() {
-		$options = get_option( 'woocommerce-product-search', array() );
-		$use_weights = isset( $options[WooCommerce_Product_Search::USE_WEIGHTS] ) ? $options[WooCommerce_Product_Search::USE_WEIGHTS] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+		$settings = Settings::get_instance();
+		$use_weights = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
 		if ( $use_weights ) {
 			add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 			add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
@@ -68,16 +70,16 @@ class WooCommerce_Product_Search_Product {
 
 			if ( isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_QUERY] ) ) {
 
-				$options = get_option( 'woocommerce-product-search', array() );
+				$settings = Settings::get_instance();
 
-				$use_weights       = isset( $options[WooCommerce_Product_Search::USE_WEIGHTS] ) ? $options[WooCommerce_Product_Search::USE_WEIGHTS] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
-				$weight_title      = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_TITLE] ) ? $options[WooCommerce_Product_Search::WEIGHT_TITLE] : WooCommerce_Product_Search::WEIGHT_TITLE_DEFAULT );
-				$weight_excerpt    = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) ? $options[WooCommerce_Product_Search::WEIGHT_EXCERPT] : WooCommerce_Product_Search::WEIGHT_EXCERPT_DEFAULT );
-				$weight_content    = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_CONTENT] ) ? $options[WooCommerce_Product_Search::WEIGHT_CONTENT] : WooCommerce_Product_Search::WEIGHT_CONTENT_DEFAULT );
-				$weight_tags       = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_TAGS] ) ? $options[WooCommerce_Product_Search::WEIGHT_TAGS] : WooCommerce_Product_Search::WEIGHT_TAGS_DEFAULT );
-				$weight_categories = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) ? $options[WooCommerce_Product_Search::WEIGHT_CATEGORIES] : WooCommerce_Product_Search::WEIGHT_CATEGORIES_DEFAULT );
-				$weight_attributes = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) ? $options[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] : WooCommerce_Product_Search::WEIGHT_ATTRIBUTES_DEFAULT );
-				$weight_sku        = intval( isset( $options[WooCommerce_Product_Search::WEIGHT_SKU] ) ? $options[WooCommerce_Product_Search::WEIGHT_SKU] : WooCommerce_Product_Search::WEIGHT_SKU_DEFAULT );
+				$use_weights       = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
+				$weight_title      = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_TITLE, WooCommerce_Product_Search::WEIGHT_TITLE_DEFAULT ) );
+				$weight_excerpt    = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_EXCERPT, WooCommerce_Product_Search::WEIGHT_EXCERPT_DEFAULT ) );
+				$weight_content    = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_CONTENT, WooCommerce_Product_Search::WEIGHT_CONTENT_DEFAULT ) );
+				$weight_tags       = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_TAGS, WooCommerce_Product_Search::WEIGHT_TAGS_DEFAULT ) );
+				$weight_categories = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_CATEGORIES, WooCommerce_Product_Search::WEIGHT_CATEGORIES_DEFAULT ) );
+				$weight_attributes = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_ATTRIBUTES, WooCommerce_Product_Search::WEIGHT_ATTRIBUTES_DEFAULT ) );
+				$weight_sku        = intval( $settings->get( WooCommerce_Product_Search::WEIGHT_SKU, WooCommerce_Product_Search::WEIGHT_SKU_DEFAULT ) );
 
 				$title       = ( $weight_title != 0 ) && ( isset( $_REQUEST[WooCommerce_Product_Search_Service::TITLE] ) ? intval( $_REQUEST[WooCommerce_Product_Search_Service::TITLE] ) > 0 : WooCommerce_Product_Search_Service::DEFAULT_TITLE );
 				$excerpt     = ( $weight_excerpt != 0 ) && ( isset( $_REQUEST[WooCommerce_Product_Search_Service::EXCERPT] ) ? intval( $_REQUEST[WooCommerce_Product_Search_Service::EXCERPT] ) > 0 : WooCommerce_Product_Search_Service::DEFAULT_EXCERPT );
@@ -102,8 +104,7 @@ class WooCommerce_Product_Search_Product {
 
 				if ( $title || $excerpt || $content || $tags || $categories || $attributes || $sku ) {
 
-					$options = get_option( 'woocommerce-product-search', null );
-					$match_split = isset( $options[WooCommerce_Product_Search_Service::MATCH_SPLIT] ) ? intval( $options[WooCommerce_Product_Search_Service::MATCH_SPLIT] ) : WooCommerce_Product_Search_Service::MATCH_SPLIT_DEFAULT;
+					$match_split = intval( $settings->get( WooCommerce_Product_Search_Service::MATCH_SPLIT, WooCommerce_Product_Search_Service::MATCH_SPLIT_DEFAULT ) );
 
 					$indexer = new WooCommerce_Product_Search_Indexer();
 					$object_type_ids = array(

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order Status Condition.
  *
  * @class    WC_CSP_Condition_Order_Status
- * @version  1.9.0
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Order_Status extends WC_CSP_Condition {
 
@@ -172,25 +172,25 @@ class WC_CSP_Condition_Order_Status extends WC_CSP_Condition {
 		$all_statuses = wc_get_order_statuses();
 		?>
 
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>"/>
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>"/>
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="in" <?php selected( $modifier, 'in', true ) ?>><?php echo __( 'in', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-in" <?php selected( $modifier, 'not-in', true ) ?>><?php echo __( 'not in', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+						<option value="in" <?php selected( $modifier, 'in', true ); ?>><?php esc_html_e( 'in', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-in" <?php selected( $modifier, 'not-in', true ); ?>><?php esc_html_e( 'not in', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value">
-				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php _e( 'Select statuses&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select statuses&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 					foreach ( $all_statuses as $status => $label ) {
-						echo '<option value="' . $status . '" ' . selected( in_array( $status, $condition_statuses, true ), true, false ) . '>' . $label . '</option>';
+						echo '<option value="' . esc_attr( $status ) . '" ' . selected( in_array( $status, $condition_statuses, true ), true, false ) . '>' . esc_html( $label ) . '</option>';
 					}
 					?>
 				</select>
-				<span class="description"><?php _e( 'Condition applies only in <code>order-pay</code> endpoint and checkout.', 'woocommerce' ) ?></span>
+				<span class="description"><?php echo wp_kses_post( __( 'Condition applies only in <code>order-pay</code> endpoint and checkout.', 'woocommerce-conditional-shipping-and-payments' ) ); ?></span>
 			</div>
 		</div>
 		<?php

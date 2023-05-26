@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Date Time Condition.
  *
  * @class    WC_CSP_Condition_Date_Time
- * @version  1.10.0
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 
@@ -298,16 +298,16 @@ class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 		$value_input_name       = 'restriction[' . $index . '][conditions][' . $condition_index . '][value][]';
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>"/>
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>"/>
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]"
-							class="has_conditional_values" data-value_input_name="<?php echo $value_input_name; ?>"
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]"
+							class="has_conditional_values" data-value_input_name="<?php echo esc_attr( $value_input_name ); ?>"
 					>
 						<?php foreach ( $this->available_modifiers as $modifier_key => $modifier_content ) { ?>
-							<option value="<?php echo $modifier_key; ?>" <?php selected( $modifier, $modifier_key, true ) ?>>
-								<?php echo $modifier_content[ 'label' ] ?>
+							<option value="<?php echo esc_attr( $modifier_key ); ?>" <?php selected( $modifier, $modifier_key, true ); ?>>
+								<?php echo esc_html( $modifier_content[ 'label' ] ); ?>
 							</option>
 						<?php } ?>
 					</select>
@@ -315,12 +315,12 @@ class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 			</div>
 
 			<?php
-			echo $this->get_admin_fields_freetext_html( $modifier, $year_modifiers, $values, $value_input_name );
-			echo $this->get_admin_fields_freetext_html( $modifier, $day_in_month_modifiers, $values, $value_input_name );
-			echo $this->get_admin_fields_freetext_html( $modifier, $hour_modifiers, $values, $value_input_name );
+			echo $this->get_admin_fields_freetext_html( $modifier, $year_modifiers, $values, $value_input_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $this->get_admin_fields_freetext_html( $modifier, $day_in_month_modifiers, $values, $value_input_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $this->get_admin_fields_freetext_html( $modifier, $hour_modifiers, $values, $value_input_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-			echo $this->get_admin_fields_select_html( $modifier, $month_modifiers, $values_array, $value_input_name, 'month' );
-			echo $this->get_admin_fields_select_html( $modifier, $day_in_week_modifiers, $values_array, $value_input_name, 'day_in_week' );
+			echo $this->get_admin_fields_select_html( $modifier, $month_modifiers, $values_array, $value_input_name, 'month' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $this->get_admin_fields_select_html( $modifier, $day_in_week_modifiers, $values_array, $value_input_name, 'day_in_week' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 		</div>
 		<?php
@@ -342,21 +342,21 @@ class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 		?>
 
 		<div class="condition_value select-field"
-			 data-modifiers="<?php echo implode( ',', $modifiers ); ?>"
+			 data-modifiers="<?php echo esc_attr( implode( ',', $modifiers ) ); ?>"
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
 			<input type="text"
 				   class="csp_conditional_values_input"
-				   name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>"
-				   value="<?php echo in_array( $current_modifier, $modifiers ) ? $values : ''; ?>"
-				   placeholder="<?php echo sprintf( __( 'Enter values from %1$s to %2$s, separated by comma&hellip;', 'woocommerce-conditional-shipping-and-payments' ), min( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ), max( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ) ) ?>"
+				   name="<?php echo in_array( $current_modifier, $modifiers ) ? esc_attr( $value_input_name ) : ''; ?>"
+				   value="<?php echo in_array( $current_modifier, $modifiers ) ? esc_attr( $values ) : ''; ?>"
+				   placeholder="<?php echo esc_attr( sprintf( __( 'Enter values from %1$s to %2$s, separated by comma&hellip;', 'woocommerce-conditional-shipping-and-payments' ), min( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ), max( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ) ) ); ?>"
 			/>
 			<span class="description">
-				<?php echo sprintf( __( 'Enter values from <code>%1$s</code> to <code>%2$s</code>, separated by comma. Supports dashes for ranges. Example: <code>%3$s</code>.', 'woocommerce-conditional-shipping-and-payments' ),
+				<?php echo wp_kses_post( sprintf( __( 'Enter values from <code>%1$s</code> to <code>%2$s</code>, separated by comma. Supports dashes for ranges. Example: <code>%3$s</code>.', 'woocommerce-conditional-shipping-and-payments' ),
 					min( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ),
 					max( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ),
 					$this->available_modifiers[ $modifiers[ 0 ] ][ 'sample' ]
-				);
+				) );
 				?>
 			</span>
 		</div>
@@ -389,22 +389,22 @@ class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 		?>
 
 		<div class="condition_value select-field"
-			 data-modifiers="<?php echo implode( ',', $modifiers ); ?>"
+			 data-modifiers="<?php echo esc_attr( implode( ',', $modifiers ) ); ?>"
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
 			<select class="csp_conditional_values_input multiselect sw-select2"
-					name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>"
-					multiple="multiple" data-placeholder="<?php echo $placeholder; ?>">
+					name="<?php echo in_array( $current_modifier, $modifiers ) ? esc_attr( $value_input_name ) : ''; ?>"
+					multiple="multiple" data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
 				<?php
 				foreach ( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] as $key ) {
-					echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $values_array ), true, false ) . '>'
-					     . ( 'month' === $type ? $wp_locale->get_month( $key ) : $wp_locale->get_weekday( $key ) ) . '</option>';
+					$option = 'month' === $type ? $wp_locale->get_month( $key ) : $wp_locale->get_weekday( $key );
+					echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $values_array ), true, false ) . '>' . esc_html( $option ) . '</option>';
 				}
 				?>
 			</select>
 			<div class="condition_form_row">
-				<a class="wccsp_select_all button" href="#"><?php _e( 'All', 'woocommerce' ); ?></a>
-				<a class="wccsp_select_none button" href="#"><?php _e( 'None', 'woocommerce' ); ?></a>
+				<a class="wccsp_select_all button" href="#"><?php esc_html_e( 'All', 'woocommerce' ); ?></a>
+				<a class="wccsp_select_none button" href="#"><?php esc_html_e( 'None', 'woocommerce' ); ?></a>
 			</div>
 		</div>
 

@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 if ( !function_exists( 'woocommerce_product_search' ) ) {
 	/**
 	 * Renders a product search form which is returned as HTML and loads
@@ -49,8 +51,8 @@ class WooCommerce_Product_Search_Field {
 	 */
 	public static function init() {
 		add_shortcode( 'woocommerce_product_search', array( __CLASS__, 'woocommerce_product_search' ) );
-		$options = get_option( 'woocommerce-product-search', array() );
-		$auto_replace_form = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_FORM] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_FORM] : WooCommerce_Product_Search::AUTO_REPLACE_FORM_DEFAULT;
+		$settings = Settings::get_instance();
+		$auto_replace_form = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_FORM, WooCommerce_Product_Search::AUTO_REPLACE_FORM_DEFAULT );
 		if ( $auto_replace_form ) {
 			add_filter( 'get_product_search_form', array( __CLASS__, 'get_product_search_form' ) );
 		}
@@ -60,8 +62,8 @@ class WooCommerce_Product_Search_Field {
 	 * Enqueues scripts and styles needed to render our search facility.
 	 */
 	public static function load_resources() {
-		$options = get_option( 'woocommerce-product-search', array() );
-		$enable_css = isset( $options[WooCommerce_Product_Search::ENABLE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_CSS] : WooCommerce_Product_Search::ENABLE_CSS_DEFAULT;
+		$settings = Settings::get_instance();
+		$enable_css = $settings->get( WooCommerce_Product_Search::ENABLE_CSS, WooCommerce_Product_Search::ENABLE_CSS_DEFAULT );
 		wp_enqueue_script( 'typewatch' );
 		wp_enqueue_script( 'product-search' );
 		if ( $enable_css ) {
@@ -429,10 +431,10 @@ class WooCommerce_Product_Search_Field {
 	 * @return string WPS form
 	 */
 	public static function get_product_search_form( $form ) {
-		$options = get_option( 'woocommerce-product-search', array() );
-		$auto_replace = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE] : WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT;
+		$settings = Settings::get_instance();
+		$auto_replace = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE, WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT );
 		if ( $auto_replace ) {
-			$auto_instance = isset( $options[WooCommerce_Product_Search::AUTO_INSTANCE] ) ? $options[WooCommerce_Product_Search::AUTO_INSTANCE] : WooCommerce_Product_Search_Widget::get_auto_instance_default();
+			$auto_instance = $settings->get( WooCommerce_Product_Search::AUTO_INSTANCE, WooCommerce_Product_Search_Widget::get_auto_instance_default() );
 			$form = self::woocommerce_product_search( $auto_instance );
 		}
 		return $form;
@@ -447,9 +449,9 @@ class WooCommerce_Product_Search_Field {
 		global $woocommerce_product_search_inline_styles;
 		$output = '';
 		if ( !isset( $woocommerce_product_search_inline_styles ) ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$enable_inline_css = isset( $options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] : WooCommerce_Product_Search::ENABLE_INLINE_CSS_DEFAULT;
-			$inline_css        = isset( $options[WooCommerce_Product_Search::INLINE_CSS] ) ? $options[WooCommerce_Product_Search::INLINE_CSS] : WooCommerce_Product_Search::INLINE_CSS_DEFAULT;
+			$settings = Settings::get_instance();
+			$enable_inline_css = $settings->get( WooCommerce_Product_Search::ENABLE_INLINE_CSS, WooCommerce_Product_Search::ENABLE_INLINE_CSS_DEFAULT );
+			$inline_css        = $settings->get( WooCommerce_Product_Search::INLINE_CSS, WooCommerce_Product_Search::INLINE_CSS_DEFAULT );
 			if ( $enable_inline_css ) {
 				if ( !empty( $inline_css ) ) {
 					$output .= '<style type="text/css">';

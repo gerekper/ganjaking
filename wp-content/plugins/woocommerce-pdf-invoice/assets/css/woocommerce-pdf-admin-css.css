@@ -83,7 +83,7 @@ h3.dompdf-config {
 	height:2em!important;
 	width:2em
 }
-
+/*
 [data-icon]::after {
   font-family: "untitled-font-1" !important;
   content: attr(data-icon);
@@ -96,7 +96,7 @@ h3.dompdf-config {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+*/
 [class^="icon-"]::after,
 [class*=" icon-"]::after {
   font-family: "untitled-font-1" !important;

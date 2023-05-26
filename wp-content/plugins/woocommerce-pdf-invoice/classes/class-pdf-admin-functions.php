@@ -333,7 +333,7 @@ class WC_pdf_admin_functions {
 	 */
 	public function handle_email_invoice( $redirect_to, $action, $ids ) {
 
-		// Bail out if this is not the pdf_update_invoice_meta.
+		// Bail out if this is not the pdf_email_invoice.
 		if ( $action === 'pdf_email_invoice' ) {
 
 			require_once( 'class-pdf-send-pdf-class.php' );

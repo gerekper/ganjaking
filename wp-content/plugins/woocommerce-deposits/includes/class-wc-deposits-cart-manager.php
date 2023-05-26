@@ -502,7 +502,11 @@ class WC_Deposits_Cart_Manager {
 		// Validate sold individually.
 		$product = wc_get_product( $product_id );
 
-		if ( $product->is_sold_individually() ) {
+		/*
+		 * Exclude bookable product from this check, as it can be added multiple times to the cart with different dates or slots.
+		 * @see https://github.com/woocommerce/woocommerce-deposits/issues/495
+		 */
+		if ( $product->is_sold_individually() && 'booking' !== $product->get_type() ) {
 			foreach ( WC()->cart->get_cart() as $cart_item ) {
 				if ( $cart_item['product_id'] === $product_id ) {
 					/* translators: %s: product name */

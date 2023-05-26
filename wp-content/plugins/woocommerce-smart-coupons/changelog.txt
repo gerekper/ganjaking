@@ -1,5 +1,11 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.05.24 - version 7.11.0
+* New: Tested up to WordPress 6.2.2
+* Fix: 'Coupons' field under product is breaking due to conflict with Yoast Pro for WooCommerce
+* Fix: On the Checkout page, if opted to send coupons to self, it is still validating email fields that are mistakenly left in the provided email field
+* Update: POT file
+
 2023.05.12 - version 7.10.0
 * New: Tested up to WooCommerce 7.7.0
 * New: During coupon import process, option to choose to update existing coupons

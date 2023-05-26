@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Membership Plan Condition.
  *
  * @class    WC_CSP_Condition_Membership_Plan
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Membership_Plan extends WC_CSP_Condition {
 
@@ -170,23 +170,23 @@ class WC_CSP_Condition_Membership_Plan extends WC_CSP_Condition {
 		$membership_plans = wc_memberships_get_membership_plans();
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="in" <?php selected( $modifier, 'in', true ) ?>><?php echo __( 'active exists', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-in" <?php selected( $modifier, 'not-in', true ) ?>><?php echo __( 'all inactive', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-all-in" <?php selected( $modifier, 'not-all-in', true ) ?>><?php echo __( 'inactive exists', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="all-in" <?php selected( $modifier, 'all-in', true ) ?>><?php echo __( 'all active', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+						<option value="in" <?php selected( $modifier, 'in', true ); ?>><?php esc_html_e( 'active exists', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-in" <?php selected( $modifier, 'not-in', true ); ?>><?php esc_html_e( 'all inactive', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-all-in" <?php selected( $modifier, 'not-all-in', true ); ?>><?php esc_html_e( 'inactive exists', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="all-in" <?php selected( $modifier, 'all-in', true ); ?>><?php esc_html_e( 'all active', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value">
-				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php _e( 'Select plans&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select plans&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 						foreach ( $membership_plans as $plan ) {
-							echo '<option value="' . $plan->get_id() . '" ' . selected( in_array( $plan->get_id(), $current_plans ), true, false ) . '>' . $plan->get_name() . '</option>';
+							echo '<option value="' . esc_attr( $plan->get_id() ) . '" ' . selected( in_array( $plan->get_id(), $current_plans ), true, false ) . '>' . esc_html( $plan->get_name() ) . '</option>';
 						}
 					?>
 				</select>

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Currency Condition.
  *
  * @class    WC_CSP_Condition_Currency
- * @version  1.12.1
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Currency extends WC_CSP_Condition {
 
@@ -161,27 +161,27 @@ class WC_CSP_Condition_Currency extends WC_CSP_Condition {
 		}
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="in" <?php selected( $modifier, 'in', true ) ?>><?php echo __( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-in" <?php selected( $modifier, 'not-in', true ) ?>><?php echo __( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+						<option value="in" <?php selected( $modifier, 'in', true ); ?>><?php esc_html_e( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-in" <?php selected( $modifier, 'not-in', true ); ?>><?php esc_html_e( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value select-field">
-				<select class="csp_currencies multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" multiple="multiple" data-placeholder="<?php _e( 'Select currency&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select class="csp_currencies multiselect sw-select2" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value][]" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select currency&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 						foreach ( $currencies as $key => $val ) {
-							echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $currency ), true, false ).'>' . $val . '</option>';
+							echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $currency ), true, false ).'>' . esc_html( $val ) . '</option>';
 						}
 					?>
 				</select>
 				<div class="condition_form_row">
-					<a class="wccsp_select_all button" href="#"><?php _e( 'All', 'woocommerce' ); ?></a>
-					<a class="wccsp_select_none button" href="#"><?php _e( 'None', 'woocommerce' ); ?></a>
+					<a class="wccsp_select_all button" href="#"><?php esc_html_e( 'All', 'woocommerce' ); ?></a>
+					<a class="wccsp_select_none button" href="#"><?php esc_html_e( 'None', 'woocommerce' ); ?></a>
 				</div>
 			</div>
 		</div><?php

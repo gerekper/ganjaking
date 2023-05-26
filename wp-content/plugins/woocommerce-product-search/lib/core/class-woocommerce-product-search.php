@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Boots; activation; deactivation; update; setup.
  */
@@ -117,7 +119,13 @@ class WooCommerce_Product_Search {
 	 */
 	public static function init() {
 
-		global $wp_query;
+		if ( !self::check_dependencies() ) {
+			return;
+		}
+
+		require_once WOO_PS_CORE_LIB . '/class-settings.php';
+
+		$settings = Settings::get_instance();
 
 		register_activation_hook( WOO_PS_FILE, array( __CLASS__, 'activate' ) );
 		register_deactivation_hook( WOO_PS_FILE, array( __CLASS__, 'deactivate' ) );
@@ -130,26 +138,24 @@ class WooCommerce_Product_Search {
 		add_action( 'wpmu_new_blog', array( __CLASS__, 'wpmu_new_blog' ), 9, 2 );
 		add_action( 'delete_blog', array( __CLASS__, 'delete_blog' ), 10, 2 );
 		require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-log.php';
-		if ( self::check_dependencies() ) {
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-system.php';
 
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-cache.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-guardian.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product-processor.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-term-processor.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-hit.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-utility.php';
-			require_once WOO_PS_BLOCKS_LIB . '/class-blocks.php';
-		}
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-system.php';
+
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-cache.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-guardian.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product-processor.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-term-processor.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-hit.php';
+		require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-utility.php';
+		require_once WOO_PS_BLOCKS_LIB . '/class-blocks.php';
 
 		if ( !empty( $_REQUEST['ixmbd'] ) ) {
 			add_action( 'plugins_loaded', array( __CLASS__, 'signal_filter_response' ), PHP_INT_MAX );
-			$options = get_option( 'woocommerce-product-search', array() );
-			$filter_process_dom = isset( $options[self::FILTER_PROCESS_DOM] ) ? $options[self::FILTER_PROCESS_DOM] : self::FILTER_PROCESS_DOM_DEFAULT;
+			$filter_process_dom = $settings->get( self::FILTER_PROCESS_DOM, self::FILTER_PROCESS_DOM_DEFAULT );
 			if ( $filter_process_dom ) {
 				add_filter( 'wp_print_scripts', array( __CLASS__, 'wp_print_scripts' ), PHP_INT_MAX );
 				add_filter( 'wp_print_styles', array( __CLASS__, 'wp_print_styles' ), PHP_INT_MAX );
@@ -207,7 +213,6 @@ class WooCommerce_Product_Search {
 	public static function template_redirect() {
 
 		if ( is_404() ) {
-			$count = 0;
 			$url = $_SERVER['REQUEST_URI'];
 
 			$redirect_url = preg_replace( '~/' . self::get_pagination_base() . '/[0-9]+~i', '', $url );
@@ -368,8 +373,8 @@ class WooCommerce_Product_Search {
 			return $buffer;
 		}
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$filter_parse_dom = isset( $options[self::FILTER_PARSE_DOM] ) ? $options[self::FILTER_PARSE_DOM] : self::FILTER_PARSE_DOM_DEFAULT;
+		$settings = Settings::get_instance();
+		$filter_parse_dom = $settings->get( self::FILTER_PARSE_DOM, self::FILTER_PARSE_DOM_DEFAULT );
 
 		$start = function_exists( 'microtime' ) ? microtime( true ) : time();
 
@@ -455,7 +460,8 @@ class WooCommerce_Product_Search {
 	public static function plugins_loaded() {
 
 		load_plugin_textdomain( 'woocommerce-product-search', false, 'woocommerce-product-search/languages' );
-		if ( self::check_dependencies() ) {
+
+		if ( class_exists( 'WooCommerce' ) ) {
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-field.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter.php';
@@ -591,7 +597,7 @@ class WooCommerce_Product_Search {
 
 		global $woocommerce_product_search_version;
 
-		$previous_version = get_option( 'woocommerce_product_search_plugin_version', null );
+		$previous_version = get_option( 'woocommerce_product_search_plugin_version', '' );
 		$woocommerce_product_search_version = WOO_PS_PLUGIN_VERSION;
 
 		if ( version_compare( $previous_version, $woocommerce_product_search_version ) < 0 ) {
@@ -709,8 +715,8 @@ class WooCommerce_Product_Search {
 	 */
 	public static function deactivate( $network_wide = false ) {
 		if ( is_multisite() && $network_wide ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$network_delete_data = isset( $options[WooCommerce_Product_Search::NETWORK_DELETE_DATA] ) ? $options[WooCommerce_Product_Search::NETWORK_DELETE_DATA] : false;
+			$settings = Settings::get_instance();
+			$network_delete_data = $settings->get( WooCommerce_Product_Search::NETWORK_DELETE_DATA, false );
 			if ( $network_delete_data ) {
 				$blog_ids = self::get_blogs();
 				foreach ( $blog_ids as $blog_id ) {
@@ -732,11 +738,8 @@ class WooCommerce_Product_Search {
 	 * @param boolean $drop overrides the plugin's delete-data option, default is false
 	 */
 	private static function cleanup( $drop = false ) {
-
-		global $wpdb;
-
-		$options = get_option( 'woocommerce-product-search', array() );
-		$delete_data = isset( $options[WooCommerce_Product_Search::DELETE_DATA] ) ? $options[WooCommerce_Product_Search::DELETE_DATA] : false;
+		$settings = Settings::get_instance();
+		$delete_data = $settings->get( WooCommerce_Product_Search::DELETE_DATA, false );
 		if ( $delete_data || $drop ) {
 			self::cleanup_metas();
 			WooCommerce_Product_Search_Controller::cleanup( true );
@@ -745,7 +748,7 @@ class WooCommerce_Product_Search {
 			delete_option( 'woocommerce_product_search_plugin_tables' );
 			delete_option( 'woocommerce_product_search_plugin_version' );
 			delete_option( 'woocommerce_product_search_db_version' );
-			delete_option( 'woocommerce-product-search' );
+			$settings->flush();
 		}
 	}
 
@@ -807,12 +810,12 @@ class WooCommerce_Product_Search {
 		@set_time_limit( 0 );
 		@ignore_user_abort( true );
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		unset( $options['use-fulltext'] );
-		unset( $options['fulltext-boolean'] );
-		unset( $options['fulltext-wildcards'] );
-		unset( $options['ft_min_word_len'] );
-		update_option( 'woocommerce-product-search', $options );
+		$settings = Settings::get_instance();
+		$settings->delete( 'use-fulltext' );
+		$settings->delete( 'fulltext-boolean' );
+		$settings->delete( 'fulltext-wildcards' );
+		$settings->delete( 'ft_min_word_len' );
+		$settings->save();
 
 		$indexes = array();
 		$results = $wpdb->get_results( "SHOW INDEX FROM $wpdb->posts WHERE Key_name = 'wps_ft_title'" );
@@ -869,30 +872,51 @@ class WooCommerce_Product_Search {
 	/**
 	 * Check plugin dependencies and nag if they are not met.
 	 *
-	 * @param boolean $disable disable the plugin if true, defaults to false
+	 * @param boolean $disable @deprecated parameter since 4.13.0 [was: disable the plugin if true, defaults to false]
 	 */
 	public static function check_dependencies( $disable = false ) {
-		$result = true;
-		$active_plugins = get_option( 'active_plugins', array() );
-		if ( is_multisite() ) {
-			$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins', array() );
-			$active_sitewide_plugins = array_keys( $active_sitewide_plugins );
-			$active_plugins = array_merge( $active_plugins, $active_sitewide_plugins );
-		}
+		$woocommerce_is_active = false;
 
-		$woocommerce_is_active = in_array( 'woocommerce/woocommerce.php', $active_plugins );
-		if ( !$woocommerce_is_active ) {
-			self::$admin_messages[] = '<div class="error">' . __( '<em>WooCommerce Product Search</em> is an extension for the <a href="https://woocommerce.com" target="_blank">WooCommerce</a> plugin. Please install and activate it.', 'woocommerce-product-search' ) . '</div>';
-		}
-
-		if ( !$woocommerce_is_active ) {
-			if ( $disable ) {
-				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-				deactivate_plugins( array( WOO_PS_FILE ) );
+		if ( function_exists( 'wp_get_active_and_valid_plugins' ) ) {
+			$woocommerce_plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
+			$active_plugin_paths = wp_get_active_and_valid_plugins();
+			$woocommerce_is_active = in_array( $woocommerce_plugin_path, $active_plugin_paths );
+			if ( !$woocommerce_is_active && is_multisite() && function_exists( 'wp_get_active_network_plugins' ) ) {
+				$active_network_plugin_paths = wp_get_active_network_plugins();
+				$woocommerce_is_active = in_array( $woocommerce_plugin_path, $active_network_plugin_paths );
 			}
-			$result = false;
+		} else {
+			$active_plugins = get_option( 'active_plugins', array() );
+			if ( is_multisite() ) {
+				$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins', array() );
+				$active_sitewide_plugins = array_keys( $active_sitewide_plugins );
+				$active_plugins = array_merge( $active_plugins, $active_sitewide_plugins );
+			}
+			$woocommerce_is_active = in_array( 'woocommerce/woocommerce.php', $active_plugins );
 		}
-		return $result;
+
+		if ( !$woocommerce_is_active ) {
+			add_action( 'admin_notices', array( __CLASS__, 'woocommerce_is_missing' ) );
+
+		}
+
+		return $woocommerce_is_active;
+	}
+
+	/**
+	 * Admin notice about WooCommerce missing.
+	 *
+	 * @since 4.13.0
+	 */
+	public static function woocommerce_is_missing() {
+		echo '<div class="error">';
+		echo '<p>';
+		echo '<strong>';
+		/* translators: Link */
+		printf( esc_html__( 'WooCommerce Product Search requires %s to be installed and active.', 'woocommerce-product-search' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) ;
+		echo '</strong>';
+		echo '</p>';
+		echo '</div>';
 	}
 }
 WooCommerce_Product_Search::init();

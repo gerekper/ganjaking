@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Payment Gateways.
  *
  * @class    WC_CSP_Restrict_Payment_Gateways
- * @version  1.12.1
+ * @version  1.15.0
  */
 class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -82,7 +82,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 * @return void
 	 */
 	public function payment_gateway_option( $gateway_id, $gateway, $gateways ) {
-		echo '<option value="' . esc_attr( $gateway_id ) . '" ' . selected( in_array( $gateway_id, $gateways ), true, false ) . '>' . $gateway->get_method_title() . '</option>';
+		echo '<option value="' . esc_attr( $gateway_id ) . '" ' . selected( in_array( $gateway_id, $gateways ), true, false ) . '>' . esc_html( $gateway->get_method_title() ) . '</option>';
 	}
 
 	/**
@@ -92,7 +92,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 */
 	public function generate_admin_global_fields_html() {
 		?><p>
-			<?php echo __( 'Restrict the payment gateways available on the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo wp_kses_post( __( 'Restrict the payment gateways available on the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
 		</p><?php
 
 		$this->get_admin_global_metaboxes_html();
@@ -140,16 +140,16 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 		<div class="woocommerce_restriction_form">
 			<div class="sw-form-field">
 				<label>
-					<?php _e( 'Short Description', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Short Description', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>
 				<div class="sw-form-content">
-					<input class="short_description" name="restriction[<?php echo $index; ?>][description]" id="restriction_<?php echo $index; ?>_short_description" placeholder="<?php _e( 'Optional short description for this rule&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo $description; ?>"/>
+					<input class="short_description" name="restriction[<?php echo esc_attr( $index ); ?>][description]" id="restriction_<?php echo esc_attr( $index ); ?>_short_description" placeholder="<?php esc_attr_e( 'Optional short description for this rule&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo esc_html( $description ); ?>"/>
 				</div>
 			</div>
 			<div class="sw-form-field">
-				<label><?php _e( 'Exclude Gateways', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
+				<label><?php esc_html_e( 'Exclude Gateways', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
 				<div class="sw-form-content">
-					<select name="restriction[<?php echo $index; ?>][gateways][]" class="multiselect sw-select2" data-wrap="yes" multiple="multiple" data-placeholder="<?php _e( 'Select Payment Gateways&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][gateways][]" class="multiselect sw-select2" data-wrap="yes" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select Payment Gateways&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 						<?php
 							foreach ( $payment_gateways as $key => $val ) {
 								do_action( 'woocommerce_csp_admin_payment_gateway_option', $key, $val, $gateways, $field_type );
@@ -161,16 +161,19 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 			</div>
 			<div class="sw-form-field sw-form-field--checkbox">
 				<label>
-					<?php _e( 'Show Excluded', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Show Excluded', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>
 				<div class="sw-form-content">
-					<input type="checkbox" class="checkbox show_excluded_in_checkout" name="restriction[<?php echo $index; ?>][show_excluded]" <?php echo $show_excluded ? 'checked="checked"' : ''; ?>>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, excluded payment gateways are hidden in the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. Select this option if you prefer to show excluded gateways in the <strong>Checkout</strong> page and display a restriction notice when customers attempt to complete an order using an excluded gateway. In the <strong>Order > Pay</strong> page, excluded payment gateways will remain hidden.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<input type="checkbox" class="checkbox show_excluded_in_checkout" name="restriction[<?php echo esc_attr( $index ); ?>][show_excluded]" <?php echo $show_excluded ? 'checked="checked"' : ''; ?>>
+					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, excluded payment gateways are hidden in the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. Select this option if you prefer to show excluded gateways in the <strong>Checkout</strong> page and display a restriction notice when customers attempt to complete an order using an excluded gateway. In the <strong>Order > Pay</strong> page, excluded payment gateways will remain hidden.', 'woocommerce-conditional-shipping-and-payments' ) );
+					?>
 				</div>
 			</div>
 			<div class="sw-form-field show-excluded-checked" style="<?php echo false === $show_excluded ? 'display:none;' : ''; ?>">
 				<label>
-					<?php _e( 'Custom Notice', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Custom Notice', 'woocommerce-conditional-shipping-and-payments' ); ?>
 					<?php
 
 						if ( $field_type === 'global' ) {
@@ -181,8 +184,9 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 					?>
 				</label>
 				<div class="sw-form-content">
-					<textarea class="custom_message" name="restriction[<?php echo $index; ?>][message]" id="restriction_<?php echo $index; ?>_message" placeholder="" rows="2" cols="20"><?php echo $message; ?></textarea>
+					<textarea class="custom_message" name="restriction[<?php echo esc_attr( $index ); ?>][message]" id="restriction_<?php echo esc_attr( $index ); ?>_message" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $message ); ?></textarea>
 					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo WC_CSP_Core_Compatibility::wc_help_tip( $tiptip );
 
 						if ( $field_type === 'global' ) {
@@ -190,17 +194,20 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 						} else {
 							$tip = __( 'Custom notice to display when attempting to place an order while this restriction is active. You may include <code>{product}</code> and <code>{excluded_gateway}</code> and have them substituted by the actual product title and the selected payment gateway title.', 'woocommerce-conditional-shipping-and-payments' );
 						}
-						echo '<span class="description">' . $tip . '</span>';
+						echo wp_kses_post( '<span class="description">' . $tip . '</span>' );
 					?>
 				</div>
 			</div>
 			<div class="sw-form-field sw-form-field--checkbox show-excluded-checked" style="<?php echo false === $show_excluded || false === $this->supports( 'static-notices' ) ? 'display:none;' : ''; ?>">
 				<label>
-					<?php _e( 'Show Static Notices', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Show Static Notices', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>
 				<div class="sw-form-content">
-					<input type="checkbox" class="checkbox show_excluded_notices_in_checkout" name="restriction[<?php echo $index; ?>][show_excluded_notices]" <?php echo $show_excluded_notices ? 'checked="checked"' : ''; ?>>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted payment method. Select this option if you also want to display a static notice under each restricted payment method.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<input type="checkbox" class="checkbox show_excluded_notices_in_checkout" name="restriction[<?php echo esc_attr( $index ); ?>][show_excluded_notices]" <?php echo $show_excluded_notices ? 'checked="checked"' : ''; ?>>
+					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted payment method. Select this option if you also want to display a static notice under each restricted payment method.', 'woocommerce-conditional-shipping-and-payments' ) );
+					?>
 				</div>
 			</div>
 		</div>
@@ -277,7 +284,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 */
 	function get_admin_product_fields_html( $index, $options = array() ) {
 		?><div class="restriction-description">
-			<?php echo __( 'Restrict the available payment options when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php esc_attr_e( 'Restrict the available payment options when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</div><?php
 
 		$this->get_admin_fields_html( $index, $options, 'product' );

@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 6.2.2 =
+Release Date: May 25th, 2023
+
+* [Fixed] Closing a select field in Bulk Edit left the select box on the screen
+* [MLA] Media Library Assistant list tables did not recognize the custom columns
+* [Updated] Admin Columns Core version 4.6.4
+
 = 6.2.1 =
 Release Date: April 26th, 2023
 

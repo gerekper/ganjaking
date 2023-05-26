@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -160,27 +160,27 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		$data_hash = md5( json_encode( $global_restrictions ) );
 
 		?><tr><td>
-		<div id="restrictions_data" class="panel csp_global_panel woocommerce_options_panel wc-metaboxes-wrapper postbox <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restrictions_data--empty' : ''; ?> <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
+		<div id="restrictions_data" class="panel csp_global_panel woocommerce_options_panel wc-metaboxes-wrapper postbox <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restrictions_data--empty' : ''; ?> <?php echo esc_attr( WC_CSP_Core_Compatibility::get_versions_class() ); ?>">
 			<div class="inside">
 
 				<div class="hr-section hr-section--conditions-and temp-placeholder">
-					<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</div>
 
 				<p class="toolbar toolbar--top">
 					<select style="display:none;" name="_restriction_type" class="restriction_type">
 						<?php
-						echo '<option value="' . $this->id . '"></option>';
+						echo '<option value="' . esc_attr( $this->id ) . '"></option>';
 						?>
 					</select>
 
-					<span class="bulk_toggle_wrapper <?php echo empty( $global_restrictions ) ? 'disabled' : '' ; ?>">
-						<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
-						<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
+					<span class="bulk_toggle_wrapper <?php echo empty( $global_restrictions ) ? 'disabled' : ''; ?>">
+						<a href="#" class="expand_all"><?php esc_html_e( 'Expand all', 'woocommerce' ); ?></a>
+						<a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce' ); ?></a>
 					</span>
 				</p>
 
-				<div class="woocommerce_restrictions wc-metaboxes ui-sortable <?php echo $this->id ?>" data-hash="<?php echo $data_hash; ?>">
+				<div class="woocommerce_restrictions wc-metaboxes ui-sortable <?php echo esc_attr( $this->id ); ?>" data-hash="<?php echo esc_attr( $data_hash ); ?>">
 					<?php
 
 					if ( ! empty( $_GET[ 'add_rule' ] ) ) {
@@ -198,13 +198,13 @@ class WC_CSP_Restriction extends WC_Settings_API {
 					// Empty state.
 					?><div class="woocommerce_restrictions__boarding">
 						<div class="woocommerce_restrictions__boarding__message">
-							<h3><?php echo $this->title; ?></h3>
-							<p><?php echo __( 'No restrictions found. Add some now?', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
+							<h3><?php echo esc_html( $this->title ); ?></h3>
+							<p><?php esc_html_e( 'No restrictions found. Add some now?', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
 						</div>
 					</div>
 				</div>
 				<p class="submit toolbar toolbar--footer borderless <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restriction_data--empty' : '' ; ?>">
-					<button id="woocommerce-add-global-restriction" type="button" class="button button-secondary add_restriction"><?php _e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></button>
+					<button id="woocommerce-add-global-restriction" type="button" class="button button-secondary add_restriction"><?php esc_html_e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></button>
 					<button name="save" class="button button-primary woocommerce-save-button" type="submit" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
 				</p>
 			</div>
@@ -239,32 +239,32 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		}
 
 		?>
-		<div class="<?php echo $ajax ? 'woocommerce_restriction--added ' : ''; ?>woocommerce_restriction woocommerce_restriction_<?php echo $restriction_id; ?> wc-metabox <?php echo ! $ajax ? 'closed' : 'open'; ?>" data-restriction_id="<?php echo $restriction_id; ?>" data-index="<?php echo $index; ?>">
+		<div class="<?php echo $ajax ? 'woocommerce_restriction--added ' : ''; ?>woocommerce_restriction woocommerce_restriction_<?php echo esc_attr( $restriction_id ); ?> wc-metabox <?php echo ! $ajax ? 'closed' : 'open'; ?>" data-restriction_id="<?php echo esc_attr( $restriction_id ); ?>" data-index="<?php echo esc_attr( $index ); ?>">
 			<h3>
 				<div class="restriction_title">
 					<?php
 					$toggle_class = ( 'yes' === $options[ 'enabled' ] ) ? 'woocommerce-input-toggle--enabled' : 'woocommerce-input-toggle--disabled';
 					?>
-					<span id="active-toggle" class="woocommerce-input-toggle <?php echo $toggle_class; ?>"></span>
-					<span class="restriction_title_index_container">#<span class="restriction_title_index"><?php echo $count; ?></span></span> <?php
-						echo $this->get_title();
+					<span id="active-toggle" class="woocommerce-input-toggle <?php echo esc_attr( $toggle_class ); ?>"></span>
+					<span class="restriction_title_index_container">#<span class="restriction_title_index"><?php echo (int) $count; ?></span></span> <?php
+						echo esc_html( $this->get_title() );
 
 						if ( ! $ajax ) {
-							echo '  &nbsp;&ndash;&nbsp;  ' . '<span class="restriction_title_inner">' . $this->get_options_description( $options ) . '</span>';
+							echo wp_kses_post( '  &nbsp;&ndash;&nbsp;  ' . '<span class="restriction_title_inner">' . $this->get_options_description( $options ) . '</span>' );
 						}
 					?>
 				</div>
 				<div class="handle">
-					<div class="handle-item toggle-item" aria-label="<?php _e( 'Click to toggle', 'woocommerce' ); ?>"></div>
+					<div class="handle-item toggle-item" aria-label="<?php esc_attr_e( 'Click to toggle', 'woocommerce' ); ?>"></div>
 					<div class="handle-item sort-item" aria-label="<?php esc_attr_e( 'Drag and drop to set order', 'woocommerce-conditional-shipping-and-payments' ); ?>"></div>
-					<a href="#" class="remove_row delete"><?php echo __( 'Remove', 'woocommerce' ); ?></a>
+					<a href="#" class="remove_row delete"><?php esc_html_e( 'Remove', 'woocommerce' ); ?></a>
 				</div>
 
 			</h3>
 			<div class="woocommerce_restriction_data wc-metabox-content" <?php echo ! $ajax ? 'style="display:none;"' : '' ; ?>>
-				<input type="hidden" name="restriction[<?php echo $index; ?>][enabled]" class="enabled" value="<?php echo $options[ 'enabled' ]; ?>"/>
-				<input type="hidden" name="restriction[<?php echo $index; ?>][position]" class="position" value="<?php echo $index; ?>"/>
-				<input type="hidden" name="restriction[<?php echo $index; ?>][restriction_id]" class="restriction_id" value="<?php echo $restriction_id; ?>"/>
+				<input type="hidden" name="restriction[<?php echo (int) $index; ?>][enabled]" class="enabled" value="<?php echo esc_attr( $options[ 'enabled' ] ); ?>"/>
+				<input type="hidden" name="restriction[<?php echo (int) $index; ?>][position]" class="position" value="<?php echo (int) $index; ?>"/>
+				<input type="hidden" name="restriction[<?php echo (int) $index; ?>][restriction_id]" class="restriction_id" value="<?php echo esc_attr( $restriction_id ); ?>"/>
 				<?php
 				$this->get_admin_product_fields_html( $index, $options );
 				do_action( 'woocommerce_csp_admin_product_fields', $this->id, $index, $options );
@@ -311,26 +311,26 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		}
 
 		?>
-		<div class="<?php echo $ajax ? 'woocommerce_restriction--added ' : ''; ?>woocommerce_restriction woocommerce_restriction_<?php echo $restriction_id; ?> wc-metabox <?php echo $state; ?>" data-restriction_id="<?php echo $restriction_id; ?>" data-index="<?php echo $index; ?>">
+		<div class="<?php echo $ajax ? 'woocommerce_restriction--added ' : ''; ?>woocommerce_restriction woocommerce_restriction_<?php echo esc_attr( $restriction_id ); ?> wc-metabox <?php echo esc_attr( $state ); ?>" data-restriction_id="<?php echo esc_attr( $restriction_id ); ?>" data-index="<?php echo esc_attr( $index ); ?>">
 			<h3>
 				<div class="restriction_title">
 					<?php
 					$toggle_class = ( 'yes' === $options[ 'enabled' ] ) ? 'woocommerce-input-toggle--enabled' : 'woocommerce-input-toggle--disabled';
 					?>
-					<span id="active-toggle" class="woocommerce-input-toggle <?php echo $toggle_class; ?>"></span>
-					<?php echo sprintf( __( '<span class="restriction_title_index_container">#<span class="restriction_title_index">%1$s</span></span> <span class="restriction_title_inner">%2$s</span>', 'woocommerce-conditional-shipping-and-payments' ), $count + ( empty( $_GET[ 'add_rule' ] ) ? 0 : 1 ), $this->get_options_description( $options ) ); ?>
+					<span id="active-toggle" class="woocommerce-input-toggle <?php echo esc_attr( $toggle_class ); ?>"></span>
+					<?php echo wp_kses_post( sprintf( __( '<span class="restriction_title_index_container">#<span class="restriction_title_index">%1$s</span></span> <span class="restriction_title_inner">%2$s</span>', 'woocommerce-conditional-shipping-and-payments' ), absint( $count + ( empty( $_GET[ 'add_rule' ] ) ? 0 : 1 ) ), esc_html( $this->get_options_description( $options ) ) )); ?>
 
 				</div>
 				<div class="handle">
-					<div class="handle-item toggle-item" aria-label="<?php _e( 'Click to toggle', 'woocommerce' ); ?>"></div>
+					<div class="handle-item toggle-item" aria-label="<?php esc_attr_e( 'Click to toggle', 'woocommerce' ); ?>"></div>
 					<div class="handle-item sort-item" aria-label="<?php esc_attr_e( 'Drag and drop to set order', 'woocommerce-conditional-shipping-and-payments' ); ?>"></div>
-					<a href="#" class="remove_row delete"><?php echo __( 'Remove', 'woocommerce' ); ?></a>
+					<a href="#" class="remove_row delete"><?php esc_html_e( 'Remove', 'woocommerce' ); ?></a>
 				</div>
 			</h3>
 			<div class="woocommerce_restriction_data wc-metabox-content" <?php echo $state === 'closed' ? 'style="display:none;"' : '' ; ?>>
-				<input type="hidden" name="restriction[<?php echo $index; ?>][enabled]" class="enabled" value="<?php echo $options[ 'enabled' ]; ?>"/>
-				<input type="hidden" name="restriction[<?php echo $index; ?>][position]" class="position" value="<?php echo $index; ?>"/>
-				<input type="hidden" name="restriction[<?php echo $index; ?>][restriction_id]" class="restriction_id" value="<?php echo $restriction_id; ?>"/>
+				<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][enabled]" class="enabled" value="<?php echo esc_attr( $options[ 'enabled' ] ); ?>"/>
+				<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][position]" class="position" value="<?php echo esc_attr( $index ); ?>"/>
+				<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][restriction_id]" class="restriction_id" value="<?php echo esc_attr( $restriction_id ); ?>"/>
 				<?php
 				$this->get_admin_global_fields_html( $index, $options );
 				do_action( 'woocommerce_csp_admin_global_fields', $this->id, $index, $options );

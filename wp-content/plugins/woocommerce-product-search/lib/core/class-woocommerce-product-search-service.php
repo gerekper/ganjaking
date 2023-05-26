@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Product search service.
  */
@@ -292,8 +294,8 @@ class WooCommerce_Product_Search_Service {
 		} else if ( isset( $woocommerce_product_search_s ) ) {
 			$s = $woocommerce_product_search_s;
 		} else if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$auto_replace_rest = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] : WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT;
+			$settings = Settings::get_instance();
+			$auto_replace_rest = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_REST, WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT );
 			if ( $auto_replace_rest ) {
 				if ( isset( $_REQUEST['search'] ) ) {
 					$s = $_REQUEST['search'];
@@ -471,14 +473,14 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function use_engine() {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$auto_replace = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE] : WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT;
-		$auto_replace_admin = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] : WooCommerce_Product_Search::AUTO_REPLACE_ADMIN_DEFAULT;
+		$settings = Settings::get_instance();
+		$auto_replace = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE, WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT );
+		$auto_replace_admin = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_ADMIN, WooCommerce_Product_Search::AUTO_REPLACE_ADMIN_DEFAULT );
 		$is_admin = is_admin();
 		$use_engine = $auto_replace && !$is_admin || $auto_replace_admin && $is_admin || isset( $_REQUEST['ixwps'] );
 
 		if ( !$use_engine && defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-			$auto_replace_rest = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] : WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT;
+			$auto_replace_rest = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_REST, WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT );
 			if ( $auto_replace_rest ) {
 				$use_engine = true;
 			}
@@ -1422,8 +1424,8 @@ class WooCommerce_Product_Search_Service {
 
 		global $wpdb, $wp_query;
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$apply = isset( $options[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] ) ? $options[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] : WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY_DEFAULT;
+		$settings = Settings::get_instance();
+		$apply = $settings->get( WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY, WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY_DEFAULT );
 		if ( !apply_filters( 'woocommerce_product_search_get_terms_args_apply', $apply, $args, $taxonomies ) ) {
 			return $args;
 		}
@@ -1737,15 +1739,15 @@ class WooCommerce_Product_Search_Service {
 			return $post_ids;
 		}
 
-		$options = get_option( 'woocommerce-product-search', null );
+		$settings = Settings::get_instance();
 
-		$log_query_times = isset( $options[WooCommerce_Product_Search::LOG_QUERY_TIMES] ) ? $options[WooCommerce_Product_Search::LOG_QUERY_TIMES] : WooCommerce_Product_Search::LOG_QUERY_TIMES_DEFAULT;
+		$log_query_times = $settings->get( WooCommerce_Product_Search::LOG_QUERY_TIMES, WooCommerce_Product_Search::LOG_QUERY_TIMES_DEFAULT );
 
 		if ( isset( $params['log_query_times'] ) ) {
 			$log_query_times = boolval( $params['log_query_times'] );
 		}
 
-		$match_split = isset( $options[self::MATCH_SPLIT] ) ? intval( $options[self::MATCH_SPLIT] ) : self::MATCH_SPLIT_DEFAULT;
+		$match_split = intval( $settings->get( self::MATCH_SPLIT, self::MATCH_SPLIT_DEFAULT ) );
 
 		$indexer = new WooCommerce_Product_Search_Indexer();
 		$object_type_ids = array();
@@ -2910,8 +2912,8 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$use_short_description = isset( $options[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] ) ? $options[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] : WooCommerce_Product_Search::USE_SHORT_DESCRIPTION_DEFAULT;
+		$settings = Settings::get_instance();
+		$use_short_description = $settings->get( WooCommerce_Product_Search::USE_SHORT_DESCRIPTION, WooCommerce_Product_Search::USE_SHORT_DESCRIPTION_DEFAULT );
 
 		$tags        = isset( $_REQUEST[self::TAGS] ) ? intval( $_REQUEST[self::TAGS] ) > 0 : self::DEFAULT_TAGS;
 		$limit       = isset( $_REQUEST[self::LIMIT] ) ? intval( $_REQUEST[self::LIMIT] ) : self::DEFAULT_LIMIT;
@@ -3373,7 +3375,7 @@ class WooCommerce_Product_Search_Service {
 	 */
 	private static function shorten( $content, $what = 'description' ) {
 
-		$options = get_option( 'woocommerce-product-search', array() );
+		$settings = Settings::get_instance();
 
 		switch ( $what ) {
 			case 'description' :
@@ -3385,12 +3387,12 @@ class WooCommerce_Product_Search_Service {
 
 		switch( $what ) {
 			case 'title' :
-				$max_words = isset( $options[WooCommerce_Product_Search::MAX_TITLE_WORDS] ) ? $options[WooCommerce_Product_Search::MAX_TITLE_WORDS] : WooCommerce_Product_Search::MAX_TITLE_WORDS_DEFAULT;
-				$max_characters = isset( $options[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] ) ? $options[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] : WooCommerce_Product_Search::MAX_TITLE_CHARACTERS_DEFAULT;
+				$max_words = $settings->get( WooCommerce_Product_Search::MAX_TITLE_WORDS, WooCommerce_Product_Search::MAX_TITLE_WORDS_DEFAULT );
+				$max_characters = $settings->get( WooCommerce_Product_Search::MAX_TITLE_CHARACTERS, WooCommerce_Product_Search::MAX_TITLE_CHARACTERS_DEFAULT );
 				break;
 			default :
-				$max_words = isset( $options[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] ) ? $options[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] : WooCommerce_Product_Search::MAX_EXCERPT_WORDS_DEFAULT;
-				$max_characters = isset( $options[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] ) ? $options[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] : WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS_DEFAULT;
+				$max_words = $settings->get( WooCommerce_Product_Search::MAX_EXCERPT_WORDS, WooCommerce_Product_Search::MAX_EXCERPT_WORDS_DEFAULT );
+				$max_characters = $settings->get( WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS, WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS_DEFAULT );
 		}
 
 		$ellipsis = esc_html( apply_filters( 'woocommerce_product_search_shorten_ellipsis', '&hellip;', $content, $what ) );

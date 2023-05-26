@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Admin extensions to the product post type.
  */
@@ -33,8 +35,8 @@ class WooCommerce_Product_Search_Admin_Product {
 	 */
 	public static function init() {
 		if ( is_admin() ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+			$settings = Settings::get_instance();
+			$use_weights = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
 			if ( $use_weights ) {
 
 				add_action( 'woocommerce_product_write_panel_tabs', array( __CLASS__, 'product_write_panel_tabs' ) );
@@ -228,8 +230,8 @@ class WooCommerce_Product_Search_Admin_Product {
 
 		$product_taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
 		if ( in_array( $taxonomy, $product_taxonomies ) ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+			$settings = Settings::get_instance();
+			$use_weights = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
 			if ( $use_weights ) {
 				$search_weight = isset( $_POST['_search_weight'] ) ? trim( $_POST['_search_weight'] ) : '';
 				if ( strlen( $search_weight ) > 0 ) {

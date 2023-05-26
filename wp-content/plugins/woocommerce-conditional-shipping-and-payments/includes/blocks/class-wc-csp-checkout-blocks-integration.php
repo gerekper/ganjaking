@@ -7,6 +7,7 @@ use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
  *
  * @package WooCommerce Conditional Shipping and Payments
  * @since   1.13.0
+ * @version 1.15.0
  */
 class WC_CSP_Blocks_Integration implements IntegrationInterface {
 
@@ -35,14 +36,14 @@ class WC_CSP_Blocks_Integration implements IntegrationInterface {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-conditional-shipping-and-payments' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-conditional-shipping-and-payments' ), '1.0.0' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-conditional-shipping-and-payments' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-conditional-shipping-and-payments' ), '1.0.0');
 	}
 
 	/**

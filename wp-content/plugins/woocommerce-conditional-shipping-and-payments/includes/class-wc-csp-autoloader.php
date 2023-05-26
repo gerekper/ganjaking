@@ -37,7 +37,7 @@ class WC_CSP_Autoloader {
 	 * @return string
 	 */
 	private function get_file_name_from_class( $class ) {
-		return 'class-' . str_replace( '_', '-', $class ) . '.php';
+		return 'class-' . str_replace( '_', '-', wc_clean( $class ) ) . '.php';
 	}
 
 	/**
@@ -47,8 +47,8 @@ class WC_CSP_Autoloader {
 	 * @return bool Successful or not.
 	 */
 	private function load_file( $path ) {
-		if ( $path && is_readable( $path ) ) {
-			include_once $path;
+		if ( $path && 0 === strpos( $path, $this->include_path) && is_readable( $path ) ) {
+			include_once $path; // nosemgrep: audit.php.lang.security.file.inclusion-arg
 			return true;
 		}
 		return false;

@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Provides information in the admin bar.
  */
@@ -92,8 +94,8 @@ class WooCommerce_Product_Search_Admin_Bar {
 			return;
 		}
 
-		$options = get_option( 'woocommerce-product-search', null );
-		$show_in_admin_bar = isset( $options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] ) ? $options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] : WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR_DEFAULT;
+		$settings = Settings::get_instance();
+		$show_in_admin_bar = $settings->get( WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR, WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR_DEFAULT );
 
 		if ( $show_in_admin_bar || WPS_ADMIN_BAR_STATUS ) {
 

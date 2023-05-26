@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.14.3
+ * @version  1.15.0
  */
 class WC_CSP_Admin {
 
@@ -385,10 +385,10 @@ class WC_CSP_Admin {
 		$data_hash = md5( json_encode( $applied_restrictions ) );
 
 		?>
-		<div id="restrictions_data" class="panel csp_product_panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo empty( $restrictions ) ? 'restrictions_data--empty' : ''; ?> <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>" style="display:none">
+		<div id="restrictions_data" class="panel csp_product_panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo empty( $restrictions ) ? 'restrictions_data--empty' : ''; ?> <?php echo esc_attr( WC_CSP_Core_Compatibility::get_versions_class() ); ?>" style="display:none">
 
 			<div class="hr-section hr-section--conditions-and temp-placeholder">
-				<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
+				<?php esc_html_e( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
 			</div>
 
 			<div class="options_group">
@@ -396,24 +396,24 @@ class WC_CSP_Admin {
 				<div class="toolbar toolbar--product">
 
 					<select name="_restriction_type" class="restriction_type">
-						<option value=""><?php _e( 'Choose restriction&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value=""><?php esc_html_e( 'Choose restriction&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<?php
 
 						foreach ( $restrictions as $restriction_id => $restriction ) {
-							echo '<option value="' . $restriction_id . '">' . $restriction->get_title() . '</option>';
+							echo '<option value="' . esc_attr( $restriction_id ) . '">' . esc_html( $restriction->get_title() ) . '</option>';
 						}
 
 						?>
 					</select>
-					<button type="button" class="button add_restriction"><?php _e( 'Add', 'woocommerce-conditional-shipping-and-payments' ); ?></button>
+					<button type="button" class="button add_restriction"><?php esc_html_e( 'Add', 'woocommerce-conditional-shipping-and-payments' ); ?></button>
 
-					<span class="bulk_toggle_wrapper <?php echo empty( $applied_restrictions ) ? 'disabled' : '' ; ?>">
-						<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
-						<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
+					<span class="bulk_toggle_wrapper <?php echo empty( $applied_restrictions ) ? 'disabled' : ''; ?>">
+						<a href="#" class="expand_all"><?php esc_html_e( 'Expand all', 'woocommerce' ); ?></a>
+						<a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce' ); ?></a>
 					</span>
 				</div>
 
-				<div class="woocommerce_restrictions wc-metaboxes ui-sortable" data-hash="<?php echo $data_hash; ?>">
+				<div class="woocommerce_restrictions wc-metaboxes ui-sortable" data-hash="<?php echo esc_attr( $data_hash ); ?>">
 					<?php
 
 					if ( $applied_restrictions ) {
@@ -431,8 +431,8 @@ class WC_CSP_Admin {
 					?>
 					<div class="woocommerce_restrictions__boarding">
 						<div class="woocommerce_restrictions__boarding__message product_level_boarding">
-							<h3><?php echo __( 'Restrictions', 'woocommerce-conditional-shipping-and-payments' ); ?></h3>
-							<p><?php echo __( 'This product does not exclude any shipping or payment options.', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
+							<h3><?php esc_attr_e( 'Restrictions', 'woocommerce-conditional-shipping-and-payments' ); ?></h3>
+							<p><?php esc_attr_e( 'This product does not exclude any shipping or payment options.', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
 						</div>
 					</div>
 				</div>
@@ -664,11 +664,11 @@ class WC_CSP_Admin {
 		echo '<select name="product_restrictions" id="dropdown_product_restrictions">';
 
 		// Default value.
-		echo '<option value>' . __( 'Filter by restriction', 'woocommerce-conditional-shipping-and-payments' ) . '</option>';
+		echo '<option value>' . esc_html__( 'Filter by restriction', 'woocommerce-conditional-shipping-and-payments' ) . '</option>';
 
 		foreach ( $this->get_restriction_filters() as $filter_key => $filter ) {
 			$selected = $filter_key === $selected_filter ? ' selected="selected"' : '';
-			echo '<option value="' . $filter_key . '"' . $selected . '>' . $filter[ 'label' ] . '</option>';
+			echo '<option value="' . esc_attr( $filter_key ) . '"' . $selected . '>' . esc_html( $filter[ 'label' ] ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		echo '</select>';

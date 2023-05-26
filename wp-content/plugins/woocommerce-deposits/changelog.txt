@@ -1,5 +1,12 @@
 *** WooCommerce Deposits Changelog ***
 
+2023-05-24 - version 2.1.6
+* Fix – Conflict with WooCommerce Bookings in which customers are not able to book multiple dates of the same product through a single checkout.
+* Fix – Tax not applied for scheduled payments when an order placed using block-based checkout.
+* Dev – Bump WooCommerce “tested up to” version 7.6.
+* Dev – Bump WordPress minimum supported version from 5.6 to 5.8.
+* Dev – Bump WordPress “tested up to” version 6.2.
+
 2023-04-03 - version 2.1.5
 * Tweak – Bump PHP minimum supported version from 7.0 to 7.2.
 * Tweak – Bump WooCommerce minimum supported version from 6.0 to 6.8.

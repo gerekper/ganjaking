@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Gift Cards Compatibility.
  *
- * @version 1.8.0
+ * @version 1.15.0
  */
 class WC_CSP_Gift_Cards_Compatibility {
 
@@ -279,13 +279,13 @@ class WC_CSP_Gift_Cards_Compatibility {
 			foreach ( self::$shared_result->get_messages() as $message ) {
 				ob_start();
 				echo '<tr><th></th><td>';
-					echo '<div class="woocommerce-info">' . self::get_static_messages() . '</div>';
+					echo '<div class="woocommerce-info">' . self::get_static_messages() . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</td></tr>';
 				$output .= ob_get_clean();
 			}
 		}
 
-		echo $output;
+		echo wp_kses_post($output);
 	}
 
 	/**
@@ -354,7 +354,7 @@ class WC_CSP_Gift_Cards_Compatibility {
 		$gateway          = self::get_mock_payment_gateway();
 
 		if ( $gateway_id === end( $keys ) ) {
-			echo '<option value="' . $gateway->id . '" ' . selected( in_array( $gateway->id, $gateways ), true, false ) . '>' . $gateway->title . '</option>';
+			echo '<option value="' . esc_attr( $gateway->id ) . '" ' . selected( in_array( $gateway->id, $gateways ), true, false ) . '>' . esc_html( $gateway->title ) . '</option>';
 		}
 	}
 

@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Index worker.
  */
@@ -63,9 +65,9 @@ class WooCommerce_Product_Search_Worker {
 	public static function start() {
 
 		wps_log_info( 'Worker is starting.' );
-		$options = get_option( 'woocommerce-product-search', array() );
-		$options[self::INDEX_WORKER_STATUS] = true;
-		update_option( 'woocommerce-product-search', $options );
+		$settings = Settings::get_instance();
+		$settings->set( self::INDEX_WORKER_STATUS, true );
+		$settings->save();
 		self::schedule( self::START_DELTA );
 	}
 
@@ -75,9 +77,9 @@ class WooCommerce_Product_Search_Worker {
 	public static function stop() {
 
 		wps_log_info( 'Worker is stopping.' );
-		$options = get_option( 'woocommerce-product-search', array() );
-		$options[self::INDEX_WORKER_STATUS] = false;
-		update_option( 'woocommerce-product-search', $options );
+		$settings = Settings::get_instance();
+		$settings->set( self::INDEX_WORKER_STATUS, false );
+		$settings->save();
 		self::wp_unschedule_hook( 'woocommerce_product_search_work' );
 	}
 
@@ -86,8 +88,8 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	private static function schedule( $delta = null ) {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$status = isset( $options[self::INDEX_WORKER_STATUS] ) ? $options[self::INDEX_WORKER_STATUS] : self::INDEX_WORKER_STATUS_DEFAULT;
+		$settings = Settings::get_instance();
+		$status = $settings->get( self::INDEX_WORKER_STATUS, self::INDEX_WORKER_STATUS_DEFAULT );
 
 		if ( $status ) {
 
@@ -154,8 +156,9 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_status() {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		return isset( $options[self::INDEX_WORKER_STATUS] ) ? $options[self::INDEX_WORKER_STATUS] : self::INDEX_WORKER_STATUS_DEFAULT;
+		$settings = Settings::get_instance();
+		$status = $settings->get( self::INDEX_WORKER_STATUS, self::INDEX_WORKER_STATUS_DEFAULT );
+		return $status;
 	}
 
 	/**
@@ -175,9 +178,10 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_work_cycle() {
 
-		$options = get_option( 'woocommerce-product-search', array() );
+		$settings = Settings::get_instance();
 		$max_execution_time = self::get_work_cycle_default();
-		return intval( isset( $options[self::WORK_CYCLE] ) ? $options[self::WORK_CYCLE] : $max_execution_time );
+		$work_cycle = intval( $settings->get( self::WORK_CYCLE, $max_execution_time ) );
+		return $work_cycle;
 	}
 
 	/**
@@ -218,8 +222,9 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_idle_cycle() {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		return intval( isset( $options[self::IDLE_CYCLE] ) ? $options[self::IDLE_CYCLE] : self::IDLE_CYCLE_DEFAULT );
+		$settings = Settings::get_instance();
+		$idle_cycle = intval( $settings->get( self::IDLE_CYCLE, self::IDLE_CYCLE_DEFAULT ) );
+		return $idle_cycle;
 	}
 
 	/**
@@ -229,8 +234,9 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_limit_per_work_cycle() {
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		return intval( isset( $options[self::LIMIT_PER_WORK_CYCLE] ) ? $options[self::LIMIT_PER_WORK_CYCLE] : self::LIMIT_PER_WORK_CYCLE_DEFAULT );
+		$settings = Settings::get_instance();
+		$value = intval( $settings->get( self::LIMIT_PER_WORK_CYCLE, self::LIMIT_PER_WORK_CYCLE_DEFAULT ) );
+		return $value;
 	}
 
 	/**

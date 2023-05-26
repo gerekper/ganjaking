@@ -26,6 +26,9 @@
 				// Create Invoice actions
 				add_action( 'woocommerce_before_thankyou', array( $this,'pdf_invoice_payment_complete' ) );
 
+				// Added for creating orders at Pending, create invoice as order is created
+				add_action( 'woocommerce_checkout_order_created', array( $this,'pdf_invoice_pending_order_status' ) );
+
 				add_action( 'init', array( $this,'pdf_invoice_order_status_array' ) );
 
 				// Create Invoice for manual subscriptions
@@ -129,6 +132,32 @@
 		}
 
 		/**
+		 * { pdf_invoice_pending_order_status description }
+		 *
+		 * @param      <type>  $order_id  The order identifier
+		 */
+		public static function pdf_invoice_pending_order_status( $order ) {
+
+			// Get the invoice options
+			$settings 			= get_option( 'woocommerce_pdf_invoice_settings' );
+
+			$create_invoice 	= isset( $settings['create_invoice'] ) ? $settings['create_invoice'] : NULL;
+
+			$order_status 		= $order->get_status();
+			
+			$order_status_array = WC_pdf_functions::get_order_status_array( $create_invoice );
+
+			if ( empty( $order_status ) ) {
+				$order_status = apply_filters( 'woocommerce_default_order_status', 'pending' );
+			}
+
+			if( in_array( $order_status, $order_status_array ) ) {
+				WC_pdf_functions::woocommerce_completed_order_create_invoice( $order->get_id() );
+			}
+
+		}
+
+		/**
 		 * [pdf_invoice_order_status_array description]
 		 * @return [type] [description]
 		 */
@@ -196,9 +225,9 @@
 
 			// Create an array of acceptable order statuses based on $woocommerce_pdf_invoice_options['create_invoice']
 			if ( $create_invoice == 'on-hold' ) {
-				$order_status_array = array( 'on-hold','pending','processing','completed' );
+				$order_status_array = array( 'on-hold','processing','completed' );
 			} elseif ( $create_invoice == 'pending' ) {
-				$order_status_array = array( 'pending','processing','completed' );
+				$order_status_array = array( 'on-hold','pending','processing','completed' );
 			} elseif ( $create_invoice == 'processing' ) {
 				$order_status_array = array( 'processing','completed' );
 			} elseif ( $create_invoice == 'completed' ) {
@@ -412,11 +441,11 @@
 			}
 
 			// Invoice number exists, just get it and leave.
-			if( get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE ) ) {
+			if( get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE ) && !empty( get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE ) ) ) {
 				return get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE );
 			}
 
-			if( get_post_meta( $order_id, '_invoice_number', TRUE ) ) {
+			if( get_post_meta( $order_id, '_invoice_number', TRUE )  && !empty( get_post_meta( $order_id, '_invoice_number', TRUE ) ) ) {
 
 				$compatibility_invoice_number = get_post_meta( $order_id, '_invoice_number', TRUE );
 				update_post_meta( $order_id, '_wc_pdf_invoice_number', $compatibility_invoice_number );

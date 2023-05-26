@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Recurring frequency in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Recurring_Package
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Package_Recurring_Package extends WC_CSP_Package_Condition {
 
@@ -234,18 +234,18 @@ class WC_CSP_Condition_Package_Recurring_Package extends WC_CSP_Package_Conditio
 	$selected_periods = isset( $condition_data[ 'value' ] ) ? $condition_data[ 'value' ] : array();
 
 	?>
-	<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+	<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 	<div class="condition_row_inner">
 		<div class="condition_modifier">
 			<div class="sw-enhanced-select">
-				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-					<option value="is" <?php selected( $modifier, 'is', true ) ?>><?php echo __( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-					<option value="is-not" <?php selected( $modifier, 'is-not', true ) ?>><?php echo __( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+				<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+					<option value="is" <?php selected( $modifier, 'is', true ); ?>><?php esc_html_e( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<option value="is-not" <?php selected( $modifier, 'is-not', true ); ?>><?php esc_html_e( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 				</select>
 			</div>
 		</div>
 		<div class="condition_value">
-			<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php _e( 'Select billing period&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+			<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select billing period&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 
 				<?php
 					foreach ( $periods as $value => $label ) {

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Methods.
  *
  * @class    WC_CSP_Restrict_Shipping_Methods
- * @version  1.14.6
+ * @version  1.15.0
  */
 class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -172,7 +172,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 			$classes = apply_filters( 'woocommerce_csp_restricted_shipping_rate_notice_classes', array( 'woocommerce-info', 'csp-shipping-rate-notice' ), $rate, $index );
 
 			foreach ( $result->get_messages() as $message ) {
-				echo '<div class="' . implode( ' ', $classes ) . '" style="margin: 1em 0;">' . $message[ 'text' ] . '</div>';
+				echo wp_kses_post( '<div class="' . implode( ' ', $classes ) . '" style="margin: 1em 0;">' . $message[ 'text' ] . '</div>' );
 			}
 		}
 	}
@@ -191,8 +191,8 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		if ( $method->supports( 'shipping-zones' ) ) {
 
-			echo '<optgroup label="' . $method->get_method_title() . '">';
-			echo '<option value="' . esc_attr( $method_id ) . '" ' . selected( in_array( $method_id, $selected_methods ), true, false ) . '>' . sprintf( __( 'All &quot;%s&quot; Method Instances', 'woocommerce-conditional-shipping-and-payments' ), $method->get_method_title() ) . '</option>';
+			echo '<optgroup label="' . esc_attr( $method->get_method_title() ) . '">';
+			echo '<option value="' . esc_attr( $method_id ) . '" ' . selected( in_array( $method_id, $selected_methods ), true, false ) . '>' . sprintf( esc_html__( 'All &quot;%s&quot; Method Instances', 'woocommerce-conditional-shipping-and-payments' ), esc_html( $method->get_method_title() ) ) . '</option>';
 
 			$zones = WC_CSP_Helpers::cache_get( 'wc_shipping_zones' );
 
@@ -225,7 +225,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 						$method_title = sprintf( __( '&quot;%1$s&quot; (Instance ID: %2$s)', 'woocommerce-conditional-shipping-and-payments' ), $method_instance->get_title(), $instance_id );
 						$option_name  = sprintf( __( '%1$s &ndash; %2$s', 'woocommerce-conditional-shipping-and-payments' ), $zone_name, $method_title );
 
-						echo '<option value="' . $option_id . '" ' . selected( in_array( $option_id, $selected_methods ), true, false ) . '>' . $option_name . '</option>';
+						echo '<option value="' . esc_attr( $option_id ) . '" ' . selected( in_array( $option_id, $selected_methods ), true, false ) . '>' . esc_html( $option_name ) . '</option>';
 					}
 				}
 			}
@@ -236,8 +236,8 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			if ( $method_id === 'legacy_flat_rate' ) {
 
-				echo '<optgroup label="' . __( 'Flat Rates (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) . '">';
-				echo '<option value="' . esc_attr( $method_id ) . '" ' . selected( in_array( $method_id, $selected_methods ), true, false ) . '>' . $method->get_title() . __( ' (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) . '</option>';
+				echo '<optgroup label="' . esc_attr__( 'Flat Rates (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) . '">';
+				echo '<option value="' . esc_attr( $method_id ) . '" ' . selected( in_array( $method_id, $selected_methods ), true, false ) . '>' . esc_html( $method->get_title() ) . esc_html__( ' (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) . '</option>';
 				$this->additional_legacy_flat_rate_options( $method, $selected_methods );
 				echo '</optgroup>';
 
@@ -245,7 +245,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 				$is_legacy = ( 0 === strpos( $method_id, 'legacy_' ) );
 				$option    = '<option value="' . esc_attr( $method_id ) . '" ' . selected( in_array( $method_id, $selected_methods ), true, false ) . '>' . $method->get_title() . ( $is_legacy ? __( ' (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) : '' ) . '</option>';
-				echo apply_filters( 'woocommerce_csp_admin_shipping_method_option_default', $option, $method_id, $method, $selected_methods );
+				echo apply_filters( 'woocommerce_csp_admin_shipping_method_option_default', $option, $method_id, $method, $selected_methods ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 	}
@@ -271,7 +271,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			$option_id = 'legacy_flat_rate:' . urldecode( sanitize_title( $this_option[0] ) );
 
-			echo '<option value="' . esc_attr( $option_id ) . '" ' . selected( in_array( $option_id, $selected_methods ), true, false ) . '>' . $this_option[0] . __( ' (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) . '</option>';
+			echo '<option value="' . esc_attr( $option_id ) . '" ' . selected( in_array( $option_id, $selected_methods ), true, false ) . '>' . esc_html( $this_option[ 0 ] ) . esc_html__( ' (Legacy)', 'woocommerce-conditional-shipping-and-payments' ) . '</option>';
 		}
 	}
 
@@ -296,7 +296,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			$option_id = 'flat_rate:' . urldecode( sanitize_title( $this_option[0] ) );
 
-			echo '<option value="' . esc_attr( $option_id ) . '" ' . selected( in_array( $option_id, $selected_methods ), true, false ) . '>' . $this_option[0] . '</option>';
+			echo '<option value="' . esc_attr( $option_id ) . '" ' . selected( in_array( $option_id, $selected_methods ), true, false ) . '>' . esc_html( $this_option[ 0 ] ) . '</option>';
 		}
 	}
 
@@ -321,7 +321,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	 */
 	function generate_admin_global_fields_html() {
 		?><p>
-			<?php echo __( 'Restrict the shipping methods available on the <strong>Cart</strong> and <strong>Checkout</strong> pages. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo wp_kses_post( __( 'Restrict the shipping methods available on the <strong>Cart</strong> and <strong>Checkout</strong> pages. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
 		</p><?php
 
 		$this->get_admin_global_metaboxes_html();
@@ -393,16 +393,16 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 		<div class="woocommerce_restriction_form">
 			<div class="sw-form-field">
 				<label for="short_description">
-					<?php _e( 'Short Description', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Short Description', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>
 				<div class="sw-form-content">
-					<input class="short_description" name="restriction[<?php echo $index; ?>][description]" id="restriction_<?php echo $index; ?>_message" placeholder="<?php _e( 'Optional short description for this rule&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo $description; ?>" />
+					<input class="short_description" name="restriction[<?php echo esc_attr( $index ); ?>][description]" id="restriction_<?php echo esc_attr( $index ); ?>_message" placeholder="<?php esc_attr_e( 'Optional short description for this rule&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo esc_html( $description ); ?>" />
 				</div>
 			</div>
 			<div class="sw-form-field">
-				<label><?php _e( 'Exclude Methods', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
+				<label><?php esc_html_e( 'Exclude Methods', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
 				<div class="sw-form-content">
-					<select name="restriction[<?php echo $index; ?>][methods][]" class="multiselect sw-select2" data-wrap="yes" multiple="multiple" data-placeholder="<?php _e( 'Select Shipping Methods&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][methods][]" class="multiselect sw-select2" data-wrap="yes" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select Shipping Methods&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 						<?php
 							foreach ( $shipping_methods as $key => $val ) {
 								do_action( 'woocommerce_csp_admin_shipping_method_option', $key, $val, $methods );
@@ -412,24 +412,30 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 				</div>
 			</div>
 			<div class="sw-form-field">
-				<label><?php _e( 'Exclude Rate IDs', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
+				<label><?php esc_html_e( 'Exclude Rate IDs', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
 				<div class="sw-form-content">
-					<input type="text" name="restriction[<?php echo $index; ?>][custom_rates]" placeholder="<?php _e( 'Shipping rate IDs to exclude, separated by &quot;|&quot;&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo $custom_rates_input; ?>"/>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'Manually enter shipping rate IDs to exclude, separated by "|". If a rate includes the "|" character, replace it with "%|%". You may also use wildcards, such as "FedEx*". Useful if you are working with shipping methods that retrieve real-time rates. <strong>Important</strong>: Real-time rate IDs may change over time &ndash; use at your own risk!', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<input type="text" name="restriction[<?php echo esc_attr( $index ); ?>][custom_rates]" placeholder="<?php esc_attr_e( 'Shipping rate IDs to exclude, separated by &quot;|&quot;&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo esc_attr( $custom_rates_input ); ?>"/>
+					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'Manually enter shipping rate IDs to exclude, separated by "|". If a rate includes the "|" character, replace it with "%|%". You may also use wildcards, such as "FedEx*". Useful if you are working with shipping methods that retrieve real-time rates. <strong>Important</strong>: Real-time rate IDs may change over time &ndash; use at your own risk!', 'woocommerce-conditional-shipping-and-payments' ) );
+					?>
 				</div>
 			</div>
 			<div class="sw-form-field sw-form-field--checkbox">
 				<label>
-					<?php _e( 'Show Excluded', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Show Excluded', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>
 				<div class="sw-form-content">
-					<input type="checkbox" class="checkbox show_excluded_in_checkout" name="restriction[<?php echo $index; ?>][show_excluded]" <?php echo $show_excluded ? 'checked="checked"' : ''; ?>>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, excluded shipping methods are removed from the list of methods available during checkout. Select this option if you prefer to show excluded shipping methods in the checkout options and display a restriction notice when customers attempt to complete an order using an excluded shipping method.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<input type="checkbox" class="checkbox show_excluded_in_checkout" name="restriction[<?php echo esc_attr( $index ); ?>][show_excluded]" <?php echo $show_excluded ? 'checked="checked"' : ''; ?>>
+					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, excluded shipping methods are removed from the list of methods available during checkout. Select this option if you prefer to show excluded shipping methods in the checkout options and display a restriction notice when customers attempt to complete an order using an excluded shipping method.', 'woocommerce-conditional-shipping-and-payments' ) );
+					?>
 				</div>
 			</div>
 			<div class="sw-form-field show-excluded-checked" style="<?php echo false === $show_excluded ? 'display:none;' : ''; ?>">
 				<label>
-					<?php _e( 'Custom Notice', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Custom Notice', 'woocommerce-conditional-shipping-and-payments' ); ?>
 					<?php
 
 						if ( $field_type === 'global' ) {
@@ -440,8 +446,9 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					?>
 				</label>
 				<div class="sw-form-content">
-					<textarea class="custom_message" name="restriction[<?php echo $index; ?>][message]" id="restriction_<?php echo $index; ?>_message" placeholder="" rows="2" cols="20"><?php echo $message; ?></textarea>
+					<textarea class="custom_message" name="restriction[<?php echo esc_attr( $index ); ?>][message]" id="restriction_<?php echo esc_attr( $index ); ?>_message" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $message ); ?></textarea>
 					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo WC_CSP_Core_Compatibility::wc_help_tip( $tiptip );
 
 						if ( $field_type === 'global' ) {
@@ -450,17 +457,20 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 							$tip = __( 'Custom notice to display when attempting to place an order while this restriction is active. You may include <code>{product}</code> and <code>{excluded_method}</code> and have them substituted by the actual product title and the selected shipping method title.', 'woocommerce-conditional-shipping-and-payments' );
 						}
 
-						echo '<span class="description">' . $tip . '</span>';
+						echo wp_kses_post( '<span class="description">' . $tip . '</span>' );
 					?>
 				</div>
 			</div>
 			<div class="sw-form-field sw-form-field--checkbox show-excluded-checked" style="<?php echo false === $show_excluded || false === $this->supports( 'static-notices' ) ? 'display:none;' : ''; ?>">
 				<label>
-					<?php _e( 'Show Static Notices', 'woocommerce-conditional-shipping-and-payments' ); ?>
+					<?php esc_html_e( 'Show Static Notices', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>
 				<div class="sw-form-content">
-					<input type="checkbox" class="checkbox show_excluded_notices_in_checkout" name="restriction[<?php echo $index; ?>][show_excluded_notices]" <?php echo $show_excluded_notices ? 'checked="checked"' : ''; ?>>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted shipping method. Select this option if you also want to display a static notice under each restricted shipping method in the <strong>Checkout</strong> page.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<input type="checkbox" class="checkbox show_excluded_notices_in_checkout" name="restriction[<?php echo esc_attr( $index ); ?>][show_excluded_notices]" <?php echo $show_excluded_notices ? 'checked="checked"' : ''; ?>>
+					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted shipping method. Select this option if you also want to display a static notice under each restricted shipping method in the <strong>Checkout</strong> page.', 'woocommerce-conditional-shipping-and-payments' ) );
+					?>
 				</div>
 			</div>
 		</div>
@@ -545,7 +555,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	 */
 	function get_admin_product_fields_html( $index, $options = array() ) {
 		?><div class="restriction-description">
-			<?php echo __( 'Restrict the available shipping options when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php esc_html_e( 'Restrict the available shipping options when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</div><?php
 
 		$this->get_admin_fields_html( $index, $options, 'product' );

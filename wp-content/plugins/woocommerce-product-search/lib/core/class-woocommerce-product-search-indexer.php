@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Indexer.
  */
@@ -157,11 +159,14 @@ class WooCommerce_Product_Search_Indexer {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$options = get_option( 'woocommerce-product-search', array() );
-		$this->limit = intval( isset( $options[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] ) ? $options[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] : WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE_DEFAULT );
+
+		$settings = Settings::get_instance();
+		$this->limit = intval( $settings->get( self::INDEX_PER_CYCLE, self::INDEX_PER_CYCLE_DEFAULT ) );
 		$this->limit = apply_filters( 'woocommerce_product_search_indexer_limit', $this->limit );
-		if ( $this->limit <= 0 ) {
+		if ( !is_numeric( $this->limit ) || $this->limit <= 0 ) {
 			$this->limit = self::INDEX_PER_CYCLE_DEFAULT;
+		} else {
+			$this->limit = intval( $this->limit );
 		}
 		$this->check_memory_limit = apply_filters( 'woocommerce_product_search_indexer_check_memory_limit', $this->check_memory_limit ) !== false;
 		$this->check_execution_limit = apply_filters( 'woocommerce_product_search_indexer_check_execution_limit', $this->check_execution_limit ) !== false;
@@ -504,11 +509,11 @@ class WooCommerce_Product_Search_Indexer {
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
-		$options = get_option( 'woocommerce-product-search', null );
+		$settings = Settings::get_instance();
 
 		$index_order_by  = 'ID';
 		$index_order_dir = 'DESC';
-		$index_order     = isset( $options[self::INDEX_ORDER] ) ? $options[self::INDEX_ORDER] : self::INDEX_ORDER_DEFAULT;
+		$index_order     = $settings->get( self::INDEX_ORDER, self::INDEX_ORDER_DEFAULT );
 		switch( $index_order ) {
 			case self::INDEX_ORDER_MOST_RECENT :
 				$index_order_by  = 'ID';

@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Settings.
  */
@@ -493,12 +495,7 @@ class WooCommerce_Product_Search_Admin {
 			wp_die( esc_html( __( 'Access denied.', 'woocommerce-product-search' ) ) );
 		}
 
-		$options = get_option( 'woocommerce-product-search', null );
-		if ( $options === null ) {
-			if ( add_option( 'woocommerce-product-search', array(), '', 'no' ) ) {
-				$options = get_option( 'woocommerce-product-search' );
-			}
-		}
+		$settings = Settings::get_instance();
 
 		if ( isset( $_POST['submit'] ) ) {
 			if ( wp_verify_nonce( $_POST[self::NONCE], 'set' ) ) {
@@ -510,44 +507,44 @@ class WooCommerce_Product_Search_Admin {
 						if ( $match_split < WooCommerce_Product_Search_Service::MATCH_SPLIT_MIN || $match_split > WooCommerce_Product_Search_Service::MATCH_SPLIT_MAX ) {
 							$match_split = WooCommerce_Product_Search_Service::MATCH_SPLIT_DEFAULT;
 						}
-						$options[WooCommerce_Product_Search_Service::MATCH_SPLIT] = $match_split;
-						$options[WooCommerce_Product_Search::RECORD_HITS] = isset( $_POST[WooCommerce_Product_Search::RECORD_HITS] );
-						$options[WooCommerce_Product_Search::FILTER_PROCESS_DOM] = isset( $_POST[WooCommerce_Product_Search::FILTER_PROCESS_DOM] );
-						$options[WooCommerce_Product_Search::FILTER_PARSE_DOM] = isset( $_POST[WooCommerce_Product_Search::FILTER_PARSE_DOM] );
-						$options[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] = isset( $_POST[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] );
-						$options[WooCommerce_Product_Search::LOG_QUERY_TIMES] = isset( $_POST[WooCommerce_Product_Search::LOG_QUERY_TIMES] );
-						$options[WooCommerce_Product_Search::DELETE_DATA] = isset( $_POST[WooCommerce_Product_Search::DELETE_DATA] );
+						$settings->set( WooCommerce_Product_Search_Service::MATCH_SPLIT, $match_split );
+						$settings->set( WooCommerce_Product_Search::RECORD_HITS, isset( $_POST[WooCommerce_Product_Search::RECORD_HITS] ) );
+						$settings->set( WooCommerce_Product_Search::FILTER_PROCESS_DOM, isset( $_POST[WooCommerce_Product_Search::FILTER_PROCESS_DOM] ) );
+						$settings->set( WooCommerce_Product_Search::FILTER_PARSE_DOM, isset( $_POST[WooCommerce_Product_Search::FILTER_PARSE_DOM] ) );
+						$settings->set( WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY, isset( $_POST[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] ) );
+						$settings->set( WooCommerce_Product_Search::LOG_QUERY_TIMES, isset( $_POST[WooCommerce_Product_Search::LOG_QUERY_TIMES] ) );
+						$settings->set( WooCommerce_Product_Search::DELETE_DATA, isset( $_POST[WooCommerce_Product_Search::DELETE_DATA] ) );
 
-						$options[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] = isset( $_POST[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] );
+						$settings->set( WooCommerce_Product_Search::USE_SHORT_DESCRIPTION, isset( $_POST[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] ) );
 
 						$max_title_words = isset( $_POST[WooCommerce_Product_Search::MAX_TITLE_WORDS] ) && ( $_POST[WooCommerce_Product_Search::MAX_TITLE_WORDS] !== '' ) ? intval( $_POST[WooCommerce_Product_Search::MAX_TITLE_WORDS] ) : WooCommerce_Product_Search::MAX_TITLE_WORDS_DEFAULT;
 						if ( $max_title_words < 0 ) {
 							$max_title_words = WooCommerce_Product_Search::MAX_TITLE_WORDS_DEFAULT;
 						}
-						$options[WooCommerce_Product_Search::MAX_TITLE_WORDS] = $max_title_words;
+						$settings->set( WooCommerce_Product_Search::MAX_TITLE_WORDS, $max_title_words );
 
 						$max_title_characters = isset( $_POST[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] ) && ( $_POST[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] !== '' ) ? intval( $_POST[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] ) : WooCommerce_Product_Search::MAX_TITLE_CHARACTERS_DEFAULT;
 						if ( $max_title_characters < 0 ) {
 							$max_title_characters = WooCommerce_Product_Search::MAX_TITLE_CHARACTERS_DEFAULT;
 						}
-						$options[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] = $max_title_characters;
+						$settings->set( WooCommerce_Product_Search::MAX_TITLE_CHARACTERS, $max_title_characters );
 
 						$max_excerpt_words = isset( $_POST[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] ) && ( $_POST[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] !== '' ) ? intval( $_POST[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] ) : WooCommerce_Product_Search::MAX_EXCERPT_WORDS_DEFAULT;
 						if ( $max_excerpt_words < 0 ) {
 							$max_excerpt_words = WooCommerce_Product_Search::MAX_EXCERPT_WORDS_DEFAULT;
 						}
-						$options[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] = $max_excerpt_words;
+						$settings->set( WooCommerce_Product_Search::MAX_EXCERPT_WORDS, $max_excerpt_words );
 
 						$max_excerpt_characters = isset( $_POST[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] ) && ( $_POST[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] !== '' ) ? intval( $_POST[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] ) : WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS_DEFAULT;
 						if ( $max_excerpt_characters < 0 ) {
 							$max_excerpt_characters = WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS_DEFAULT;
 						}
-						$options[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] = $max_excerpt_characters;
+						$settings->set( WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS, $max_excerpt_characters );
 
-						$options[WooCommerce_Product_Search::AUTO_REPLACE]       = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE] );
+						$settings->set( WooCommerce_Product_Search::AUTO_REPLACE, isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE] ) );
 						if ( WPS_EXT_PDS ) {
-							$options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] );
-							$options[WooCommerce_Product_Search::AUTO_REPLACE_JSON]  = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_JSON] );
+							$settings->set( WooCommerce_Product_Search::AUTO_REPLACE_ADMIN, isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] ) );
+							$settings->set( WooCommerce_Product_Search::AUTO_REPLACE_JSON, isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_JSON] ) );
 							$json_limit = '';
 							if ( isset( $_POST[WooCommerce_Product_Search::JSON_LIMIT] ) ) {
 								if ( trim( $_POST[WooCommerce_Product_Search::JSON_LIMIT] ) !== '' ) {
@@ -557,15 +554,15 @@ class WooCommerce_Product_Search_Admin {
 									}
 								}
 							}
-							$options[WooCommerce_Product_Search::JSON_LIMIT] = $json_limit;
+							$settings->set( WooCommerce_Product_Search::JSON_LIMIT, $json_limit );
 						}
 						if ( WPS_EXT_REST ) {
-							$options[WooCommerce_Product_Search::AUTO_REPLACE_REST] = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_REST] );
+							$settings->set( WooCommerce_Product_Search::AUTO_REPLACE_REST, isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_REST] ) );
 						}
 
-						$options[WooCommerce_Product_Search::AUTO_REPLACE_FORM]  = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_FORM] );
-						if ( $options[WooCommerce_Product_Search::AUTO_REPLACE_FORM] ) {
-							$old_instance = isset( $options[WooCommerce_Product_Search::AUTO_INSTANCE] ) ? $options[WooCommerce_Product_Search::AUTO_INSTANCE] : WooCommerce_Product_Search_Widget::get_auto_instance_default();
+						$settings->set( WooCommerce_Product_Search::AUTO_REPLACE_FORM, isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_FORM] ) );
+						if ( $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_FORM ) ) {
+							$old_instance = $settings->get( WooCommerce_Product_Search::AUTO_INSTANCE, WooCommerce_Product_Search_Widget::get_auto_instance_default() );
 							$search_widget_instance = new WooCommerce_Product_Search_Widget( 'wps-auto-instance' );
 							$search_widget_instance->_set( 1 );
 							$field_names = array(
@@ -626,21 +623,21 @@ class WooCommerce_Product_Search_Admin {
 								}
 							}
 							$new_instance = $search_widget_instance->update( $new_instance, $old_instance );
-							$options[WooCommerce_Product_Search::AUTO_INSTANCE] = $new_instance;
+							$settings->set( WooCommerce_Product_Search::AUTO_INSTANCE, $new_instance );
 						} else {
-							unset( $options[WooCommerce_Product_Search::AUTO_INSTANCE] );
+							$settings->delete( WooCommerce_Product_Search::AUTO_INSTANCE );
 						}
 						break;
 
 					case self::SECTION_WEIGHTS :
-						$options[WooCommerce_Product_Search::USE_WEIGHTS]       = isset( $_POST[WooCommerce_Product_Search::USE_WEIGHTS] );
-						$options[WooCommerce_Product_Search::WEIGHT_TITLE]      = isset( $_POST[WooCommerce_Product_Search::WEIGHT_TITLE] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_TITLE] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_TITLE] ) : WooCommerce_Product_Search::WEIGHT_TITLE_DEFAULT;
-						$options[WooCommerce_Product_Search::WEIGHT_EXCERPT]    = isset( $_POST[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) : WooCommerce_Product_Search::WEIGHT_EXCERPT_DEFAULT;
-						$options[WooCommerce_Product_Search::WEIGHT_CONTENT]    = isset( $_POST[WooCommerce_Product_Search::WEIGHT_CONTENT] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_CONTENT] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_CONTENT] ) : WooCommerce_Product_Search::WEIGHT_CONTENT_DEFAULT;
-						$options[WooCommerce_Product_Search::WEIGHT_TAGS]       = isset( $_POST[WooCommerce_Product_Search::WEIGHT_TAGS] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_TAGS] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_TAGS] ) : WooCommerce_Product_Search::WEIGHT_TAGS_DEFAULT;
-						$options[WooCommerce_Product_Search::WEIGHT_CATEGORIES] = isset( $_POST[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) : WooCommerce_Product_Search::WEIGHT_CATEGORIES_DEFAULT;
-						$options[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] = isset( $_POST[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) : WooCommerce_Product_Search::WEIGHT_ATTRIBUTES_DEFAULT;
-						$options[WooCommerce_Product_Search::WEIGHT_SKU]        = isset( $_POST[WooCommerce_Product_Search::WEIGHT_SKU] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_SKU] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_SKU] ) : WooCommerce_Product_Search::WEIGHT_SKU_DEFAULT;
+						$settings->set( WooCommerce_Product_Search::USE_WEIGHTS, isset( $_POST[WooCommerce_Product_Search::USE_WEIGHTS] ) );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_TITLE, isset( $_POST[WooCommerce_Product_Search::WEIGHT_TITLE] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_TITLE] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_TITLE] ) : WooCommerce_Product_Search::WEIGHT_TITLE_DEFAULT );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_EXCERPT, isset( $_POST[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) : WooCommerce_Product_Search::WEIGHT_EXCERPT_DEFAULT );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_CONTENT, isset( $_POST[WooCommerce_Product_Search::WEIGHT_CONTENT] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_CONTENT] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_CONTENT] ) : WooCommerce_Product_Search::WEIGHT_CONTENT_DEFAULT );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_TAGS, isset( $_POST[WooCommerce_Product_Search::WEIGHT_TAGS] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_TAGS] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_TAGS] ) : WooCommerce_Product_Search::WEIGHT_TAGS_DEFAULT );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_CATEGORIES, isset( $_POST[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) : WooCommerce_Product_Search::WEIGHT_CATEGORIES_DEFAULT );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_ATTRIBUTES, isset( $_POST[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) : WooCommerce_Product_Search::WEIGHT_ATTRIBUTES_DEFAULT );
+						$settings->set( WooCommerce_Product_Search::WEIGHT_SKU, isset( $_POST[WooCommerce_Product_Search::WEIGHT_SKU] ) && strlen( trim( $_POST[WooCommerce_Product_Search::WEIGHT_SKU] ) ) > 0 ? intval( $_POST[WooCommerce_Product_Search::WEIGHT_SKU] ) : WooCommerce_Product_Search::WEIGHT_SKU_DEFAULT );
 						break;
 
 					case self::SECTION_THUMBNAILS :
@@ -648,16 +645,16 @@ class WooCommerce_Product_Search_Admin {
 						if ( ( $thumbnail_width < 0 ) || $thumbnail_width > WooCommerce_Product_Search_Thumbnail::THUMBNAIL_MAX_DIM ) {
 							$thumbnail_width = WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_WIDTH;
 						}
-						$options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH] = $thumbnail_width;
+						$settings->set( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH, $thumbnail_width );
 
 						$thumbnail_height = isset( $_POST[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] ) ? intval( $_POST[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] ) : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT;
 						if ( ( $thumbnail_height < 0 ) || $thumbnail_height > WooCommerce_Product_Search_Thumbnail::THUMBNAIL_MAX_DIM ) {
 							$thumbnail_height = WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT;
 						}
-						$options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] = $thumbnail_height;
+						$settings->set( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT, $thumbnail_height );
 
-						$options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] = isset( $_POST[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] );
-						$options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] = isset( $_POST[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] );
+						$settings->set( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP, isset( $_POST[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] ) );
+						$settings->set( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER, isset( $_POST[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] ) );
 
 						$product_taxonomies = WooCommerce_Product_Search_Thumbnail::get_product_taxonomies();
 						foreach( $product_taxonomies as $product_taxonomy ) {
@@ -666,50 +663,50 @@ class WooCommerce_Product_Search_Admin {
 								if ( ( $thumbnail_width < 0 ) || $thumbnail_width > WooCommerce_Product_Search_Thumbnail::THUMBNAIL_MAX_DIM ) {
 									$thumbnail_width = WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_WIDTH;
 								}
-								$options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH] = $thumbnail_width;
+								$settings->set( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH, $thumbnail_width );
 
 								$thumbnail_height = isset( $_POST[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] ) ? intval( $_POST[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] ) : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT;
 								if ( ( $thumbnail_height < 0 ) || $thumbnail_height > WooCommerce_Product_Search_Thumbnail::THUMBNAIL_MAX_DIM ) {
 									$thumbnail_height = WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT;
 								}
-								$options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] = $thumbnail_height;
+								$settings->set( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT, $thumbnail_height );
 
-								$options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] = isset( $_POST[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] );
-								$options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] = isset( $_POST[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] );
+								$settings->set( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP, isset( $_POST[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] ) );
+								$settings->set( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER, isset( $_POST[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] ) );
 							}
 						}
 
 						break;
 
 					case self::SECTION_CSS :
-						$options[WooCommerce_Product_Search::ENABLE_CSS]        = isset( $_POST[WooCommerce_Product_Search::ENABLE_CSS] );
-						$options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] = isset( $_POST[WooCommerce_Product_Search::ENABLE_INLINE_CSS] );
-						$options[WooCommerce_Product_Search::INLINE_CSS]        = isset( $_POST[WooCommerce_Product_Search::INLINE_CSS] ) ? trim( strip_tags( $_POST[WooCommerce_Product_Search::INLINE_CSS] ) ) : WooCommerce_Product_Search::INLINE_CSS_DEFAULT;
+						$settings->set( WooCommerce_Product_Search::ENABLE_CSS, isset( $_POST[WooCommerce_Product_Search::ENABLE_CSS] ) );
+						$settings->set( WooCommerce_Product_Search::ENABLE_INLINE_CSS, isset( $_POST[WooCommerce_Product_Search::ENABLE_INLINE_CSS] ) );
+						$settings->set( WooCommerce_Product_Search::INLINE_CSS, isset( $_POST[WooCommerce_Product_Search::INLINE_CSS] ) ? trim( strip_tags( $_POST[WooCommerce_Product_Search::INLINE_CSS] ) ) : WooCommerce_Product_Search::INLINE_CSS_DEFAULT );
 						break;
 
 					case self::SECTION_INDEX :
 						if ( current_user_can( self::INDEXER_CONTROL_CAPABILITY ) ) {
 
 							$show_in_admin_bar = isset( $_POST[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] );
-							$options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] = $show_in_admin_bar;
+							$settings->set( WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR, $show_in_admin_bar );
 
 							$work_cycle = isset( $_POST[WooCommerce_Product_Search_Worker::WORK_CYCLE] ) ? intval( $_POST[WooCommerce_Product_Search_Worker::WORK_CYCLE] ) : WooCommerce_Product_Search_Worker::get_work_cycle_default();
 							if ( $work_cycle <= 0 ) {
 								$work_cycle = WooCommerce_Product_Search_Worker::get_work_cycle_default();
 							}
-							$options[WooCommerce_Product_Search_Worker::WORK_CYCLE] = $work_cycle;
+							$settings->set( WooCommerce_Product_Search_Worker::WORK_CYCLE, $work_cycle );
 
 							$idle_cycle = isset( $_POST[WooCommerce_Product_Search_Worker::IDLE_CYCLE] ) ? intval( $_POST[WooCommerce_Product_Search_Worker::IDLE_CYCLE] ) : WooCommerce_Product_Search_Worker::IDLE_CYCLE_DEFAULT;
 							if ( $idle_cycle <= 0 ) {
 								$idle_cycle = WooCommerce_Product_Search_Worker::IDLE_CYCLE_DEFAULT;
 							}
-							$options[WooCommerce_Product_Search_Worker::IDLE_CYCLE] = $idle_cycle;
+							$settings->set( WooCommerce_Product_Search_Worker::IDLE_CYCLE, $idle_cycle );
 
 							$index_per_cycle = isset( $_POST[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] ) ? intval( $_POST[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] ) : WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE_DEFAULT;
 							if ( $index_per_cycle <= 0 ) {
 								$index_per_cycle = WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE_DEFAULT;
 							}
-							$options[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] = $index_per_cycle;
+							$settings->set( WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE, $index_per_cycle );
 
 							$index_order = isset( $_POST[WooCommerce_Product_Search_Indexer::INDEX_ORDER] ) ? $_POST[WooCommerce_Product_Search_Indexer::INDEX_ORDER] : WooCommerce_Product_Search_Indexer::INDEX_ORDER_DEFAULT;
 							switch( $index_order ) {
@@ -721,7 +718,7 @@ class WooCommerce_Product_Search_Admin {
 								default :
 									$index_order = WooCommerce_Product_Search_Indexer::INDEX_ORDER_DEFAULT;
 							}
-							$options[WooCommerce_Product_Search_Indexer::INDEX_ORDER] = $index_order;
+							$settings->set( WooCommerce_Product_Search_Indexer::INDEX_ORDER, $index_order );
 						}
 						break;
 
@@ -812,7 +809,7 @@ class WooCommerce_Product_Search_Admin {
 						break;
 				}
 
-				update_option( 'woocommerce-product-search', $options );
+				$settings->save();
 			}
 		}
 	}
@@ -835,52 +832,50 @@ class WooCommerce_Product_Search_Admin {
 		wp_enqueue_script( 'product-search-admin', WOO_PS_PLUGIN_URL . '/js/product-search-admin.js', array( 'jquery', ), WOO_PS_PLUGIN_VERSION, true );
 		wp_enqueue_style( 'wps-admin' );
 
-		$options = get_option( 'woocommerce-product-search', null );
-		if ( $options === null ) {
-			if ( add_option( 'woocommerce-product-search', array(), '', 'no' ) ) {
-				$options = get_option( 'woocommerce-product-search' );
-			}
+		$settings = Settings::get_instance();
+
+		$auto_replace       = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE, WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT );
+		$auto_replace_admin = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_ADMIN, WooCommerce_Product_Search::AUTO_REPLACE_ADMIN_DEFAULT );
+		$auto_replace_json  = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_JSON, WooCommerce_Product_Search::AUTO_REPLACE_JSON_DEFAULT );
+		$json_limit         = $settings->get( WooCommerce_Product_Search::JSON_LIMIT, WooCommerce_Product_Search::JSON_LIMIT_DEFAULT );
+		if ( $json_limit !== '' ) {
+			$json_limit = intval( $json_limit );
 		}
+		$auto_replace_rest  = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_REST, WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT );
+		$auto_replace_form  = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_FORM, WooCommerce_Product_Search::AUTO_REPLACE_FORM_DEFAULT );
+		$auto_instance      = $settings->get( WooCommerce_Product_Search::AUTO_INSTANCE, WooCommerce_Product_Search_Widget::get_auto_instance_default() );
 
-		$auto_replace       = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE] : WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT;
-		$auto_replace_admin = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] : WooCommerce_Product_Search::AUTO_REPLACE_ADMIN_DEFAULT;
-		$auto_replace_json  = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_JSON] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_JSON] : WooCommerce_Product_Search::AUTO_REPLACE_JSON_DEFAULT;
-		$json_limit         = isset( $options[WooCommerce_Product_Search::JSON_LIMIT] ) ? ( $options[WooCommerce_Product_Search::JSON_LIMIT] !== '' ? intval( $options[WooCommerce_Product_Search::JSON_LIMIT] ) : '' ) : WooCommerce_Product_Search::JSON_LIMIT_DEFAULT;
-		$auto_replace_rest  = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] : WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT;
-		$auto_replace_form  = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_FORM] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_FORM] : WooCommerce_Product_Search::AUTO_REPLACE_FORM_DEFAULT;
-		$auto_instance      = isset( $options[WooCommerce_Product_Search::AUTO_INSTANCE] ) ? $options[WooCommerce_Product_Search::AUTO_INSTANCE] : WooCommerce_Product_Search_Widget::get_auto_instance_default();
+		$use_short_description  = $settings->get( WooCommerce_Product_Search::USE_SHORT_DESCRIPTION, WooCommerce_Product_Search::USE_SHORT_DESCRIPTION_DEFAULT );
+		$max_title_words        = intval( $settings->get( WooCommerce_Product_Search::MAX_TITLE_WORDS, WooCommerce_Product_Search::MAX_TITLE_WORDS_DEFAULT ) );
+		$max_title_characters   = intval( $settings->get( WooCommerce_Product_Search::MAX_TITLE_CHARACTERS, WooCommerce_Product_Search::MAX_TITLE_CHARACTERS_DEFAULT ) );
+		$max_excerpt_words      = intval( $settings->get( WooCommerce_Product_Search::MAX_EXCERPT_WORDS, WooCommerce_Product_Search::MAX_EXCERPT_WORDS_DEFAULT ) );
+		$max_excerpt_characters = intval( $settings->get( WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS, WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS_DEFAULT ) );
 
-		$use_short_description  = isset( $options[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] ) ? $options[WooCommerce_Product_Search::USE_SHORT_DESCRIPTION] : WooCommerce_Product_Search::USE_SHORT_DESCRIPTION_DEFAULT;
-		$max_title_words        = isset( $options[WooCommerce_Product_Search::MAX_TITLE_WORDS] ) ? intval( $options[WooCommerce_Product_Search::MAX_TITLE_WORDS] ) : WooCommerce_Product_Search::MAX_TITLE_WORDS_DEFAULT;
-		$max_title_characters   = isset( $options[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] ) ? intval( $options[WooCommerce_Product_Search::MAX_TITLE_CHARACTERS] ) : WooCommerce_Product_Search::MAX_TITLE_CHARACTERS_DEFAULT;
-		$max_excerpt_words      = isset( $options[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] ) ? intval( $options[WooCommerce_Product_Search::MAX_EXCERPT_WORDS] ) : WooCommerce_Product_Search::MAX_EXCERPT_WORDS_DEFAULT;
-		$max_excerpt_characters = isset( $options[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] ) ? intval( $options[WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS] ) : WooCommerce_Product_Search::MAX_EXCERPT_CHARACTERS_DEFAULT;
+		$match_split        = intval( $settings->get( WooCommerce_Product_Search_Service::MATCH_SPLIT, WooCommerce_Product_Search_Service::MATCH_SPLIT_DEFAULT ) );
+		$record_hits        = $settings->get( WooCommerce_Product_Search::RECORD_HITS, WooCommerce_Product_Search::RECORD_HITS_DEFAULT );
+		$filter_process_dom = $settings->get( WooCommerce_Product_Search::FILTER_PROCESS_DOM, WooCommerce_Product_Search::FILTER_PROCESS_DOM_DEFAULT );
+		$filter_parse_dom   = $settings->get( WooCommerce_Product_Search::FILTER_PARSE_DOM, WooCommerce_Product_Search::FILTER_PARSE_DOM_DEFAULT );
+		$service_get_terms_args_apply = $settings->get( WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY, WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY_DEFAULT );
+		$log_query_times    = $settings->get( WooCommerce_Product_Search::LOG_QUERY_TIMES, WooCommerce_Product_Search::LOG_QUERY_TIMES_DEFAULT );
+		$delete_data        = $settings->get( WooCommerce_Product_Search::DELETE_DATA, false );
 
-		$match_split        = isset( $options[WooCommerce_Product_Search_Service::MATCH_SPLIT] ) ? intval( $options[WooCommerce_Product_Search_Service::MATCH_SPLIT] ) : WooCommerce_Product_Search_Service::MATCH_SPLIT_DEFAULT;
-		$record_hits        = isset( $options[WooCommerce_Product_Search::RECORD_HITS] ) ? $options[WooCommerce_Product_Search::RECORD_HITS] : WooCommerce_Product_Search::RECORD_HITS_DEFAULT;
-		$filter_process_dom = isset( $options[WooCommerce_Product_Search::FILTER_PROCESS_DOM] ) ? $options[WooCommerce_Product_Search::FILTER_PROCESS_DOM] : WooCommerce_Product_Search::FILTER_PROCESS_DOM_DEFAULT;
-		$filter_parse_dom   = isset( $options[WooCommerce_Product_Search::FILTER_PARSE_DOM] ) ? $options[WooCommerce_Product_Search::FILTER_PARSE_DOM] : WooCommerce_Product_Search::FILTER_PARSE_DOM_DEFAULT;
-		$service_get_terms_args_apply = isset( $options[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] ) ? $options[WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY] : WooCommerce_Product_Search::SERVICE_GET_TERMS_ARGS_APPLY_DEFAULT;
-		$log_query_times    = isset( $options[WooCommerce_Product_Search::LOG_QUERY_TIMES] ) ? $options[WooCommerce_Product_Search::LOG_QUERY_TIMES] : WooCommerce_Product_Search::LOG_QUERY_TIMES_DEFAULT;
-		$delete_data        = isset( $options[WooCommerce_Product_Search::DELETE_DATA] ) ? $options[WooCommerce_Product_Search::DELETE_DATA] : false;
+		$use_weights       = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
+		$weight_title      = $settings->get( WooCommerce_Product_Search::WEIGHT_TITLE, WooCommerce_Product_Search::WEIGHT_TITLE_DEFAULT );
+		$weight_excerpt    = $settings->get( WooCommerce_Product_Search::WEIGHT_EXCERPT, WooCommerce_Product_Search::WEIGHT_EXCERPT_DEFAULT );
+		$weight_content    = $settings->get( WooCommerce_Product_Search::WEIGHT_CONTENT, WooCommerce_Product_Search::WEIGHT_CONTENT_DEFAULT );
+		$weight_tags       = $settings->get( WooCommerce_Product_Search::WEIGHT_TAGS, WooCommerce_Product_Search::WEIGHT_TAGS_DEFAULT );
+		$weight_categories = $settings->get( WooCommerce_Product_Search::WEIGHT_CATEGORIES, WooCommerce_Product_Search::WEIGHT_CATEGORIES_DEFAULT );
+		$weight_attributes = $settings->get( WooCommerce_Product_Search::WEIGHT_ATTRIBUTES, WooCommerce_Product_Search::WEIGHT_ATTRIBUTES_DEFAULT );
+		$weight_sku        = $settings->get( WooCommerce_Product_Search::WEIGHT_SKU, WooCommerce_Product_Search::WEIGHT_SKU_DEFAULT );
 
-		$use_weights       = isset( $options[WooCommerce_Product_Search::USE_WEIGHTS] ) ? $options[WooCommerce_Product_Search::USE_WEIGHTS] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
-		$weight_title      = isset( $options[WooCommerce_Product_Search::WEIGHT_TITLE] ) ? $options[WooCommerce_Product_Search::WEIGHT_TITLE] : WooCommerce_Product_Search::WEIGHT_TITLE_DEFAULT;
-		$weight_excerpt    = isset( $options[WooCommerce_Product_Search::WEIGHT_EXCERPT] ) ? $options[WooCommerce_Product_Search::WEIGHT_EXCERPT] : WooCommerce_Product_Search::WEIGHT_EXCERPT_DEFAULT;
-		$weight_content    = isset( $options[WooCommerce_Product_Search::WEIGHT_CONTENT] ) ? $options[WooCommerce_Product_Search::WEIGHT_CONTENT] : WooCommerce_Product_Search::WEIGHT_CONTENT_DEFAULT;
-		$weight_tags       = isset( $options[WooCommerce_Product_Search::WEIGHT_TAGS] ) ? $options[WooCommerce_Product_Search::WEIGHT_TAGS] : WooCommerce_Product_Search::WEIGHT_TAGS_DEFAULT;
-		$weight_categories = isset( $options[WooCommerce_Product_Search::WEIGHT_CATEGORIES] ) ? $options[WooCommerce_Product_Search::WEIGHT_CATEGORIES] : WooCommerce_Product_Search::WEIGHT_CATEGORIES_DEFAULT;
-		$weight_attributes = isset( $options[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] ) ? $options[WooCommerce_Product_Search::WEIGHT_ATTRIBUTES] : WooCommerce_Product_Search::WEIGHT_ATTRIBUTES_DEFAULT;
-		$weight_sku        = isset( $options[WooCommerce_Product_Search::WEIGHT_SKU] ) ? $options[WooCommerce_Product_Search::WEIGHT_SKU] : WooCommerce_Product_Search::WEIGHT_SKU_DEFAULT;
+		$thumbnail_width   = $settings->get( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_WIDTH );
+		$thumbnail_height  = $settings->get( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT );
+		$thumbnail_crop    = $settings->get( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_CROP );
+		$thumbnail_use_placeholder = $settings->get( WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER_DEFAULT );
 
-		$thumbnail_width   = isset( $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH] ) ? $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_WIDTH;
-		$thumbnail_height  = isset( $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] ) ? $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT;
-		$thumbnail_crop    = isset( $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] ) ? $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_CROP;
-		$thumbnail_use_placeholder = isset( $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] ) ? $options[WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER_DEFAULT;
-
-		$enable_css        = isset( $options[WooCommerce_Product_Search::ENABLE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_CSS] : WooCommerce_Product_Search::ENABLE_CSS_DEFAULT;
-		$enable_inline_css = isset( $options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] : WooCommerce_Product_Search::ENABLE_INLINE_CSS_DEFAULT;
-		$inline_css        = isset( $options[WooCommerce_Product_Search::INLINE_CSS] ) ? $options[WooCommerce_Product_Search::INLINE_CSS] : WooCommerce_Product_Search::INLINE_CSS_DEFAULT;
+		$enable_css        = $settings->get( WooCommerce_Product_Search::ENABLE_CSS, WooCommerce_Product_Search::ENABLE_CSS_DEFAULT );
+		$enable_inline_css = $settings->get( WooCommerce_Product_Search::ENABLE_INLINE_CSS, WooCommerce_Product_Search::ENABLE_INLINE_CSS_DEFAULT );
+		$inline_css        = $settings->get( WooCommerce_Product_Search::INLINE_CSS, WooCommerce_Product_Search::INLINE_CSS_DEFAULT );
 
 		echo '<style type="text/css">';
 		echo 'div.product-search-tabs ul li a { outline: none; }';
@@ -1592,10 +1587,10 @@ class WooCommerce_Product_Search_Admin {
 						continue;
 					}
 
-					$thumbnail_width   = isset( $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH] ) ? $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_WIDTH;
-					$thumbnail_height  = isset( $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] ) ? $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT;
-					$thumbnail_crop    = isset( $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] ) ? $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_CROP;
-					$thumbnail_use_placeholder = isset( $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] ) ? $options[$taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER] : WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER_DEFAULT;
+					$thumbnail_width  = $settings->get( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_WIDTH, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_WIDTH );
+					$thumbnail_height = $settings->get( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_HEIGHT, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_HEIGHT );
+					$thumbnail_crop   = $settings->get( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_CROP, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_DEFAULT_CROP );
+					$thumbnail_use_placeholder = $settings->get( $taxonomy->name . '-' . WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER, WooCommerce_Product_Search_Thumbnail::THUMBNAIL_USE_PLACEHOLDER_DEFAULT );
 
 					echo '<h4>';
 					echo esc_html__( $taxonomy->label, 'woocommerce-product-search' );
@@ -1755,7 +1750,7 @@ class WooCommerce_Product_Search_Admin {
 
 				echo '</div>';
 
-				$show_in_admin_bar = isset( $options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] ) ? $options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] : WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR_DEFAULT;
+				$show_in_admin_bar = $settings->get( WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR, WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR_DEFAULT );
 				echo '<p>';
 				echo '<label>';
 				printf( '<input name="%s" type="checkbox" %s />', esc_attr( WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR ), $show_in_admin_bar ? ' checked="checked" ' : '' );
@@ -1797,10 +1792,10 @@ class WooCommerce_Product_Search_Admin {
 				esc_html_e( 'Indexer', 'woocommerce-product-search' );
 				echo '</h5>';
 
-				$work_cycle      = isset( $options[WooCommerce_Product_Search_Worker::WORK_CYCLE] ) ? $options[WooCommerce_Product_Search_Worker::WORK_CYCLE] : WooCommerce_Product_Search_Worker::get_work_cycle_default();
-				$idle_cycle      = isset( $options[WooCommerce_Product_Search_Worker::IDLE_CYCLE] ) ? $options[WooCommerce_Product_Search_Worker::IDLE_CYCLE] : WooCommerce_Product_Search_Worker::IDLE_CYCLE_DEFAULT;
-				$index_per_cycle = isset( $options[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] ) ? $options[WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE] : WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE_DEFAULT;
-				$index_order     = isset( $options[WooCommerce_Product_Search_Indexer::INDEX_ORDER] ) ? $options[WooCommerce_Product_Search_Indexer::INDEX_ORDER] : WooCommerce_Product_Search_Indexer::INDEX_ORDER_DEFAULT;
+				$work_cycle      = $settings->get( WooCommerce_Product_Search_Worker::WORK_CYCLE, WooCommerce_Product_Search_Worker::get_work_cycle_default() );
+				$idle_cycle      = $settings->get( WooCommerce_Product_Search_Worker::IDLE_CYCLE, WooCommerce_Product_Search_Worker::IDLE_CYCLE_DEFAULT );
+				$index_per_cycle = $settings->get( WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE, WooCommerce_Product_Search_Indexer::INDEX_PER_CYCLE_DEFAULT );
+				$index_order     = $settings->get( WooCommerce_Product_Search_Indexer::INDEX_ORDER, WooCommerce_Product_Search_Indexer::INDEX_ORDER_DEFAULT );
 
 				$can_control = current_user_can( self::INDEXER_CONTROL_CAPABILITY );
 
@@ -2443,10 +2438,10 @@ class WooCommerce_Product_Search_Admin {
 	 * @param string $status
 	 */
 	public static function after_plugin_row( $plugin_file, $plugin_data, $status ) {
-		$options = get_option( 'woocommerce-product-search', array() );
+		$settings = Settings::get_instance();
 		if ( $plugin_file == plugin_basename( WOO_PS_FILE ) ) {
-			$delete_data         = isset( $options[ WooCommerce_Product_Search::DELETE_DATA] ) ? $options[ WooCommerce_Product_Search::DELETE_DATA] : false;
-			$delete_network_data = isset( $options[ WooCommerce_Product_Search::NETWORK_DELETE_DATA] ) ? $options[ WooCommerce_Product_Search::NETWORK_DELETE_DATA] : false;
+			$delete_data         = $settings->get( WooCommerce_Product_Search::DELETE_DATA, false );
+			$delete_network_data = $settings->get( WooCommerce_Product_Search::NETWORK_DELETE_DATA, false );
 			if (
 				( is_plugin_active( $plugin_file ) && $delete_data && current_user_can( 'install_plugins' ) ) ||
 				( is_plugin_active_for_network( $plugin_file ) && $delete_network_data  && current_user_can( 'manage_network_plugins' ) )

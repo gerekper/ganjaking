@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.7.0
+ * @version     3.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -247,6 +247,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			$post_billing_email       = ( ! empty( $_POST['billing_email'] ) ) ? wc_clean( wp_unslash( $_POST['billing_email'] ) ) : '';                   // phpcs:ignore
 			$is_gift                  = ( ! empty( $_POST['is_gift'] ) ) ? wc_clean( wp_unslash( $_POST['is_gift'] ) ) : '';                               // phpcs:ignore
 			$send_to                  = ( isset( $_POST['sc_send_to'] ) ) ? wc_clean( wp_unslash( $_POST['sc_send_to'] ) ) : '';                           // phpcs:ignore
+
+			if ( 'no' === $is_gift ) {
+				return;
+			}
 
 			if ( empty( $post_gift_receiver_email ) || ! is_array( $post_gift_receiver_email ) ) {
 				return;

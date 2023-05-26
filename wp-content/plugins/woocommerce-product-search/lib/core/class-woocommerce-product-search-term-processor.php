@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Term processor.
  */
@@ -77,8 +79,8 @@ class WooCommerce_Product_Search_Term_Processor {
 		$product_taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
 		if ( in_array( $taxonomy, $product_taxonomies ) ) {
 			$indexer = new WooCommerce_Product_Search_Indexer();
-			$options = get_option( 'woocommerce-product-search', array() );
-			$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+			$settings = Settings::get_instance();
+			$use_weights = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
 			if ( $use_weights ) {
 
 				$indexer->process_term_weights( array( $term_id ) );
@@ -139,8 +141,8 @@ class WooCommerce_Product_Search_Term_Processor {
 				if ( count( $term_ids ) > 0 ) {
 					$term_ids = array_unique( array_map( 'intval', $term_ids ) );
 					$indexer = new WooCommerce_Product_Search_Indexer();
-					$options = get_option( 'woocommerce-product-search', array() );
-					$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+					$settings = Settings::get_instance();
+					$use_weights = $settings->get( WooCommerce_Product_Search::USE_WEIGHTS, WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT );
 					if ( $use_weights ) {
 
 						$indexer->process_term_weights( $term_ids );

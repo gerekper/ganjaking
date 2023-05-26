@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 if ( !function_exists( 'woocommerce_product_search_filter_sale' ) ) {
 	/**
 	 * Renders a sale filter for products on sale.
@@ -55,8 +57,8 @@ class WooCommerce_Product_Search_Filter_Sale {
 	 * Enqueues scripts and styles needed to render our search facility.
 	 */
 	public static function load_resources() {
-		$options = get_option( 'woocommerce-product-search', array() );
-		$enable_css = isset( $options[WooCommerce_Product_Search::ENABLE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_CSS] : WooCommerce_Product_Search::ENABLE_CSS_DEFAULT;
+		$settings = Settings::get_instance();
+		$enable_css = $settings->get( WooCommerce_Product_Search::ENABLE_CSS, WooCommerce_Product_Search::ENABLE_CSS_DEFAULT );
 		wp_enqueue_script( 'typewatch' );
 		wp_enqueue_script( 'product-filter' );
 		if ( $enable_css ) {

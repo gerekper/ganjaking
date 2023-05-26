@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 if ( class_exists( 'WC_Product_Data_Store_CPT' ) ) {
 
 /**
@@ -50,8 +52,11 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	public static function check_ajax_referer( $action, $result ) {
 		if ( $action === 'search-products' && $result !== false ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$json_limit = isset( $options[WooCommerce_Product_Search::JSON_LIMIT] ) ? ( $options[WooCommerce_Product_Search::JSON_LIMIT] !== '' ? intval( $options[WooCommerce_Product_Search::JSON_LIMIT] ) : '' ) : WooCommerce_Product_Search::JSON_LIMIT_DEFAULT;
+			$settings = Settings::get_instance();
+			$json_limit = $settings->get( WooCommerce_Product_Search::JSON_LIMIT, WooCommerce_Product_Search::JSON_LIMIT_DEFAULT );
+			if ( $json_limit !== '' ) {
+				$json_limit = intval( $json_limit );
+			}
 			self::$limit = $json_limit;
 			self::$json_product_search = true;
 		} else {
@@ -100,8 +105,8 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	public function search_products( $term, $type = '', $include_variations = false, $all_statuses = false, $limit = null, $include = null, $exclude = null ) {
 		global $wpdb;
 
-		$options = get_option( 'woocommerce-product-search', array() );
-		$auto_replace_json = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_JSON] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_JSON] : WooCommerce_Product_Search::AUTO_REPLACE_JSON_DEFAULT;
+		$settings = Settings::get_instance();
+		$auto_replace_json = $settings->get( WooCommerce_Product_Search::AUTO_REPLACE_JSON, WooCommerce_Product_Search::AUTO_REPLACE_JSON_DEFAULT );
 
 		if (
 			self::$json_product_search && !$auto_replace_json ||

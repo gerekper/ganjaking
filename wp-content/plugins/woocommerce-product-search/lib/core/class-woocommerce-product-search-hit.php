@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 /**
  * Hit machine.
  */
@@ -41,8 +43,9 @@ class WooCommerce_Product_Search_Hit {
 	 * @return boolean true if hits are recorded, otherwise false
 	 */
 	public static function get_status() {
-		$options = get_option( 'woocommerce-product-search', array() );
-		return isset( $options[WooCommerce_Product_Search::RECORD_HITS] ) ? $options[WooCommerce_Product_Search::RECORD_HITS] : WooCommerce_Product_Search::RECORD_HITS_DEFAULT;
+		$settings = Settings::get_instance();
+		$record_hits = $settings->get( WooCommerce_Product_Search::RECORD_HITS, WooCommerce_Product_Search::RECORD_HITS_DEFAULT );
+		return $record_hits;
 	}
 
 	/**

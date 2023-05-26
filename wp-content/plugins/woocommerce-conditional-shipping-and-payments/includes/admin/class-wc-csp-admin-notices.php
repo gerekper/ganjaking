@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditional Shipping and Payments admin notices handling.
  *
  * @class    WC_CSP_Admin_Notices
- * @version  1.12.1
+ * @version  1.15.0
  */
 class WC_CSP_Admin_Notices {
 
@@ -156,9 +156,8 @@ class WC_CSP_Admin_Notices {
 					$notice_classes[] = 'is-dismissible';
 				}
 
-				echo '<div class="' . implode( ' ', $notice_classes ) . '"' . $dismiss_attr . '>';
-				echo wpautop( wp_kses_post( $notice[ 'content' ] ) );
-				echo '</div>';
+				$output = '<div class="' . esc_attr( implode( ' ', $notice_classes ) ) . '"' . $dismiss_attr . '>' . wpautop( $notice[ 'content' ] ) . '</div>';
+				echo wp_kses_post( $output );
 			}
 
 			if ( function_exists( 'wc_enqueue_js' ) ) {
@@ -466,19 +465,7 @@ class WC_CSP_Admin_Notices {
 	 * @deprecated  3.14.0
 	 */
 	public static function dismiss_notice_handler() {
-		if ( isset( $_GET[ 'dismiss_wc_csp_notice' ] ) && isset( $_GET[ '_wc_csp_admin_nonce' ] ) ) {
-			if ( ! wp_verify_nonce( wc_clean( $_GET[ '_wc_csp_admin_nonce' ] ), 'wc_csp_dismiss_notice_nonce' ) ) {
-				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
-			}
-
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce' ) );
-			}
-
-			$notice = sanitize_text_field( $_GET[ 'dismiss_wc_csp_notice' ] );
-
-			self::dismiss_notice( $notice );
-		}
+		_deprecated_function( __FUNCTION__, '1.15.0', 'WC_CSP_Admin_Notices::dismiss_notice' );
 	}
 }
 

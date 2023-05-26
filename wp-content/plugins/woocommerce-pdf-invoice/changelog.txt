@@ -1,4 +1,14 @@
 *** WooCommerce PDF Invoice Changelog ***
+2023.05.22 - version 4.17.3
+ * WC 7.6.0
+ * Fix - Check _wc_pdf_invoice_number and _invoice_number are not empty
+ * Fix - "Undefined variable $zip"
+ * Fix - make sure invoice is created at point order is created for pending order status.
+ * Fix - move bulk emailing invoices to scheduled action
+ * Fix - remove [data-icon]::after css
+ * Fix - Change WC active check
+ * Fix - Make sure PDF is attached to Order Note email.
+
 2023.02.16 - version 4.17.2
  * Fix - Deprecated Subscriptions filters
  * Fix - PDF Export notice

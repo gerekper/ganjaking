@@ -1,5 +1,20 @@
 *** Sale Flash Pro Changelog ***
 
+2023-05-22 - version 1.3.0
+* Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Updated plugin text domain.
+* Tweak - Tested compatibility up to WC 7.7.
+* Tweak - Tested compatibility up to WP 6.2.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
+2022-05-17 - version 1.2.22
+* Fix - Compatibility fix for composer v2.2.0.
+* Tweak - WC 6.4 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2021-10-26 - version 1.2.21
 * Fix - Properly escape translated strings.
 * Fix - Update build scripts.

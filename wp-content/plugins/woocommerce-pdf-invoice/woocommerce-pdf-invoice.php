@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce PDF Invoices
 Plugin URI: https://woocommerce.com/products/pdf-invoices/
 Description: Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page. 
-Version: 4.17.2
+Version: 4.17.3
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.5.0
@@ -47,7 +47,7 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     /**
      * Defines
      */
-    define( 'PDFVERSION' , '4.17.2' );
+    define( 'PDFVERSION' , '4.17.3' );
     define( 'PDFLANGUAGE', 'woocommerce-pdf-invoice' );
     define( 'PDFSETTINGS' , admin_url( 'admin.php?page=woocommerce_pdf' ) );
     define( 'PDFSUPPORTURL' , 'http://support.woothemes.com/' );
@@ -63,10 +63,16 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     load_textdomain( 'woocommerce-pdf-invoice', WP_LANG_DIR . "/woocommerce-pdf-invoice/woocommerce-pdf-invoice-$locale.mo" );
     load_plugin_textdomain( 'woocommerce-pdf-invoice', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+    add_action( 'plugins_loaded', 'woocommerce_pdf_invoices_active_init', 9 );
+
     /**
      * Don't do anything else unless WC is active
      */
-    if ( is_woocommerce_active() ) {
+    function woocommerce_pdf_invoices_active_init() {
+
+        if ( ! class_exists( 'WooCommerce' ) ) {
+            return;
+        }
 
         // Load PDF Invoice Defaults
         include( 'classes/class-invoice-defaults.php' );
@@ -99,16 +105,26 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
          * Sending PDFs and such
          * Only load if necessary
          * Prevents conflicts with other plugins that use DOMPDF
+         * 
+         * is_admin for the customer note email
          */
         $actions_array = array( 'woocommerce_mark_order_status', 'pdfinvoice-admin-send-pdf', 'pdf_email_invoice', 'pdf_create_invoice' );
 
         if( 
-            ( isset($_GET['action']) && in_array( $_GET['action'], $actions_array ) ) || 
+            ( isset($_GET['action']) && in_array( $_GET['action'], $actions_array ) ) ||
             ( ! empty( $_POST['wc_order_action'] ) ) ||
-            isset($_GET['pdfid'] ) 
+            isset($_GET['pdfid'])
         ) {
             require_once( 'classes/class-pdf-send-pdf-class.php' );
         }
+
+        // Check the settings for the email ID
+        // is_admin for the customer note email
+        $email_options = get_option( 'woocommerce_customer_note_settings' );
+
+        if( isset( $email_options['pdf_invoice_attach_pdf_invoice'] ) && $email_options['pdf_invoice_attach_pdf_invoice'] == 'yes' && is_admin() ) {
+            require_once( 'classes/class-pdf-send-pdf-class.php' );
+        }  
 
         /**
          * Various PDF functions
@@ -142,7 +158,6 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
             add_filter( 'wc_customer_order_export_csv_order_headers', array( $this, 'add_pdf_invoice_to_csv_export_column_headers' ) );
             add_filter( 'wc_customer_order_export_csv_order_row', array( $this, 'add_pdf_invoice_to_csv_export_column_data' ), 10, 3 );
             add_filter( 'wc_customer_order_export_xml_order_data', array( $this, 'add_pdf_invoice_to_xml_export_column_data' ), 10, 3 );
-
 
         }
 
@@ -381,6 +396,7 @@ order allow,deny
 
             return $new_order_data;
         }
+
 
     } // WC_pdf_admin
 

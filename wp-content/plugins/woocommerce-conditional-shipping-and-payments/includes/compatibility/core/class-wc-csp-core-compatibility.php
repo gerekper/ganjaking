@@ -378,7 +378,7 @@ class WC_CSP_Core_Compatibility {
 		if ( self::is_wc_version_gte( '2.5' ) ) {
 			return wc_help_tip( $tip );
 		} else {
-			return '<img class="help_tip woocommerce-help-tip" data-tip="' . $tip . '" src="' . WC()->plugin_url() . '/assets/images/help.png" />';
+			return '<img class="help_tip woocommerce-help-tip" data-tip="' . esc_attr( $tip ) . '" src="' . WC()->plugin_url() . '/assets/images/help.png" />';
 		}
 	}
 

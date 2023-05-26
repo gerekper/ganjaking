@@ -176,24 +176,24 @@
 
 			$export_log = $_REQUEST;
 
-			// Set the temp directory
-			$pdftemp 	= sys_get_temp_dir();
-			$upload_dir = wp_upload_dir();
-            if ( file_exists( $upload_dir['basedir'] . '/woocommerce_pdf_invoice/index.html' ) ) {
-				$pdftemp = $upload_dir['basedir'] . '/woocommerce_pdf_invoice';
-			}
+			if( isset( $_REQUEST['pdf_export'] ) ) {
 
-			// Logging
-    		$export_log['Temp'] 	= $pdftemp;
+				// Set the temp directory
+				$pdftemp 	= sys_get_temp_dir();
+				$upload_dir = wp_upload_dir();
+	            if ( file_exists( $upload_dir['basedir'] . '/woocommerce_pdf_invoice/index.html' ) ) {
+					$pdftemp = $upload_dir['basedir'] . '/woocommerce_pdf_invoice';
+				}
 
-			// Bulk Download
-			$zip_status = get_transient( '_pdf_export_status', $zip->status, DAY_IN_SECONDS );
-    		$zip_file 	= get_transient( '_pdf_export_zip_file', $zip_file, DAY_IN_SECONDS );
-    		$changed 	= get_transient( '_pdf_export_changed', $changed, DAY_IN_SECONDS );
-			
-			if( isset( $zip_status ) && isset( $_REQUEST['pdf_export'] ) ) {
+				// Logging
+	    		$export_log['Temp'] = $pdftemp;
 
-				if( $zip_status == 0 ) {
+				// Bulk Download
+				$zip_status = get_transient( '_pdf_export_status' );
+	    		$zip_file 	= get_transient( '_pdf_export_zip_file' );
+	    		$changed 	= get_transient( '_pdf_export_changed' );
+
+				if( isset( $zip_status ) && $zip_status == 0 ) {
 
 					$number = isset( $changed ) ? absint( $changed ) : 0;
 					/* translators: %s: orders count */

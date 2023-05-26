@@ -70,12 +70,12 @@ function wc_csp_print_taxonomy_tree_options( $terms, $selected_ids = array(), $a
 		}
 
 		// Print option element.
-		echo '<option value="' . $term->term_id . '" ' . selected( in_array( $term->term_id, $selected_ids ), true, false ) . '>';
+		echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( in_array( $term->term_id, $selected_ids ), true, false ) . '>';
 
 		if ( $args[ 'shorten_text' ] && count( $term_path ) > $args[ 'shorten_level' ] ) {
-			echo sprintf( _x( '%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s', 'many terms separator', 'woocommerce-conditional-shipping-and-payments' ), $term_path[ 0 ], $term_path[ count( $term_path ) - 1 ] );
+			echo esc_html( sprintf( _x( '%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s', 'many terms separator', 'woocommerce-conditional-shipping-and-payments' ), $term_path[ 0 ], $term_path[ count( $term_path ) - 1 ] ) );
 		} else {
-			echo $option_text;
+			echo esc_html( $option_text );
 		}
 
 		echo '</option>';

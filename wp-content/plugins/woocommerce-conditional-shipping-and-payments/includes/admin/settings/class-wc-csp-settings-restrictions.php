@@ -16,7 +16,7 @@ if ( ! class_exists( 'WC_Settings_Restrictions' ) ) :
 /**
  * WooCommerce Global Restriction Settings.
  *
- * @version  1.11.0
+ * @version  1.15.0
  */
 class WC_Settings_Restrictions extends WC_Settings_Page {
 
@@ -275,14 +275,14 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 
 		?>
 		<tr valign="top">
-			<td class="forminp <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
+			<td class="forminp <?php echo esc_attr( WC_CSP_Core_Compatibility::get_versions_class() ); ?>">
 				<table class="wc_shipping wc_restrictions_overview widefat wp-list-table" cellspacing="0">
 					<thead>
 						<tr>
-							<th class="name"><?php _e( 'Restriction Type', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
-							<th class="status"><?php _e( 'Active Rules', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
-							<th class="summary"><?php _e( 'Summary', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
-							<th class="actions"><?php _e( 'Actions', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
+							<th class="name"><?php esc_html_e( 'Restriction Type', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
+							<th class="status"><?php esc_html_e( 'Active Rules', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
+							<th class="summary"><?php esc_html_e( 'Summary', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
+							<th class="actions"><?php esc_html_e( 'Actions', 'woocommerce-conditional-shipping-and-payments' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -293,7 +293,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 							// Check if a NUX version needed.
 							if ( empty( $restriction_data ) ) { ?>
 								<tr>
-									<td colspan="4" class="on_boarding <?php echo $restriction_id; ?>">
+									<td colspan="4" class="on_boarding <?php echo esc_attr( $restriction_id ); ?>">
 										<div class="on_boarding__container">
 											<div class="information">
 												<a class="title" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $restriction_id ) ); ?>">
@@ -302,16 +302,16 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 												<p>
 													<?php
 													if ( 'payment_gateways' === $restriction_id ) {
-														echo __( 'Restrict the payment gateways available at checkout.', 'woocommerce-conditional-shipping-and-payments' );
+														echo esc_html__( 'Restrict the payment gateways available at checkout.', 'woocommerce-conditional-shipping-and-payments' );
 													} elseif ( 'shipping_methods' === $restriction_id ) {
-														echo __( 'Restrict the shipping methods available at checkout.', 'woocommerce-conditional-shipping-and-payments' );
+														echo esc_html__( 'Restrict the shipping methods available at checkout.', 'woocommerce-conditional-shipping-and-payments' );
 													} elseif ( 'shipping_countries' === $restriction_id ) {
-														echo __( 'Restrict the shipping countries allowed at checkout.', 'woocommerce-conditional-shipping-and-payments' );
+														echo esc_html__( 'Restrict the shipping countries allowed at checkout.', 'woocommerce-conditional-shipping-and-payments' );
 													}
 													?>
 												</p>
 											</div>
-											<a class="action" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $restriction_id . '&add_rule=1' ) ); ?>" aria-label="Add Restriction"><?php _e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></a>
+											<a class="action" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $restriction_id . '&add_rule=1' ) ); ?>" aria-label="Add Restriction"><?php esc_html_e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></a>
 										</div>
 									</td>
 								</tr>
@@ -335,7 +335,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 
 													foreach ( $rules as $rule_key => $rule ) {
 														?><tr>
-															<td class="column-wccsp_title"><?php echo $restriction->get_options_description( $rule ); ?></td>
+															<td class="column-wccsp_title"><?php echo esc_html( $restriction->get_options_description( $rule ) ); ?></td>
 															<td class="column-wc_actions">
 																<a class="button wc-action-button wccsp-edit-restriction-rule edit" title="Edit" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $restriction_id . '&view_rule=' . $rule_key ) ); ?>" aria-label="Edit"></a>
 																<a class="button wc-action-button wccsp-delete-restriction-rule delete" title="Delete" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&restriction_id=' . $restriction_id . '&delete_rule=' . $rule_key . '&delete_nonce=' . $delete_nonce ) ); ?>" aria-label="Delete"></a>

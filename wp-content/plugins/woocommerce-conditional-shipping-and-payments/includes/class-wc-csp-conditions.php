@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditions class.
  *
  * @class    WC_CSP_Conditions
- * @version  1.13.1
+ * @version  1.15.0
  */
 class WC_CSP_Conditions {
 
@@ -168,7 +168,7 @@ class WC_CSP_Conditions {
 							{{{ data.condition_content }}}
 						</div>
 						<div class="condition_remove column-wc_actions">
-							<a href="#" class="button wc-action-button trash help_tip" data-tip="<?php echo __( 'Remove', 'woocommerce-conditional-shipping-and-payments' ) ?>"></a>
+							<a href="#" class="button wc-action-button trash help_tip" data-tip="<?php esc_attr_e( 'Remove', 'woocommerce-conditional-shipping-and-payments' ); ?>"></a>
 						</div>
 					</div>
 				</script>
@@ -282,7 +282,7 @@ class WC_CSP_Conditions {
 		?>
 		<div class="hr-section hr-section--conditions">
 			<?php
-			echo __( 'Conditions', 'woocommerce-conditional-shipping-and-payments' );
+			esc_html_e( 'Conditions', 'woocommerce-conditional-shipping-and-payments' );
 			?>
 		</div>
 		<?php
@@ -313,11 +313,11 @@ class WC_CSP_Conditions {
 										$conditions[ $condition_id ]->get_admin_fields_html( $index, $condition_index, $condition_data );
 									?></div>
 									<div class="condition_remove column-wc_actions">
-										<a href="#" data-tip="<?php echo __( 'Remove', 'woocommerce-conditional-shipping-and-payments' ) ?>" class="button wc-action-button trash help_tip"></a>
+										<a href="#" data-tip="<?php esc_attr_e( 'Remove', 'woocommerce-conditional-shipping-and-payments' ); ?>" class="button wc-action-button trash help_tip"></a>
 									</div>
 								</div>
 								<div class="hr-section hr-section--conditions-and">
-									<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
+									<?php esc_html_e( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
 								</div><?php
 							}
 						}
@@ -360,13 +360,13 @@ class WC_CSP_Conditions {
 			if ( ! empty( $additional_options ) ) {
 
 				foreach ( $additional_options as $key => $value ) {
-					?><option value="<?php echo $key ?>" selected="selected"><?php echo $value ?></option><?php
+					?><option value="<?php echo esc_attr( $key ); ?>" selected="selected"><?php echo esc_html( $value ); ?></option><?php
 				}
 			}
 
 			foreach ( $conditions as $condition_id => $condition ) {
-				?><option value="<?php echo $condition_id ?>" <?php echo $condition_id === $selected_id ? 'selected="selected"' : ''; ?>><?php
-					echo $condition->get_title();
+				?><option value="<?php echo esc_attr($condition_id); ?>" <?php echo $condition_id === $selected_id ? 'selected="selected"' : ''; ?>><?php
+					echo esc_html( $condition->get_title() );
 				?></option><?php
 			}
 		?></select><?php

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Role Condition.
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.11.0
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Customer_Role extends WC_CSP_Condition {
 
@@ -145,21 +145,21 @@ class WC_CSP_Condition_Customer_Role extends WC_CSP_Condition {
 		$wp_role_names            = array_merge( $wp_role_names, $wp_roles->get_names() );
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="in" <?php selected( $modifier, 'in', true ) ?>><?php echo __( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-in" <?php selected( $modifier, 'not-in', true ) ?>><?php echo __( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]">
+						<option value="in" <?php selected( $modifier, 'in', true ); ?>><?php esc_html_e( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-in" <?php selected( $modifier, 'not-in', true ); ?>><?php esc_html_e( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value">
-				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php _e( 'Select roles&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select roles&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 						foreach ( $wp_role_names as $role_slug => $role_name ) {
-							echo '<option value="' . $role_slug . '" ' . selected( in_array( $role_slug, $roles ), true, false ) . '>' . $role_name . '</option>';
+							echo '<option value="' . esc_attr( $role_slug ) . '" ' . selected( in_array( $role_slug, $roles ), true, false ) . '>' . esc_html( $role_name ) . '</option>';
 						}
 					?>
 				</select>

@@ -88,6 +88,8 @@ class WooCommerce_Product_Search_Log {
 	const WARNING = 1;
 	const ERROR = 2;
 
+	private static $pid = null;
+
 	/**
 	 * Log the message. INFO and WARNING are logged only when WPS_DEBUG is true.
 	 * ERROR is logged always.
@@ -110,9 +112,16 @@ class WooCommerce_Product_Search_Log {
 			}
 		}
 		if ( $log ) {
-			$pid = @getmypid();
-			if ( $pid === false ) {
-				$pid = 'ERROR';
+			if ( self::$pid === null ) {
+				if ( function_exists( 'getmypid' ) ) {
+					self::$pid = @getmypid();
+					if ( self::$pid === false ) {
+						self::$pid = null;
+					}
+				}
+				if ( self::$pid === null ) {
+					self::$pid = hash( 'crc32', rand( 0, time() ) );
+				}
 			}
 			switch( $level ) {
 				case self::ERROR :
@@ -129,7 +138,7 @@ class WooCommerce_Product_Search_Log {
 				'WPS | %s | %s | %s',
 				$level_str,
 				$message,
-				$pid
+				self::$pid !== null ? self::$pid : '.'
 			) );
 		}
 	}

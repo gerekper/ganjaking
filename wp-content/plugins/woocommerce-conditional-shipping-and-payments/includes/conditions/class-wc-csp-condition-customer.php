@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Condition.
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.14.6
+ * @version  1.15.0
  */
 class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
@@ -377,16 +377,16 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 		$value_input_name             = 'restriction[' . $index . '][conditions][' . $condition_index . '][value][]';
 
 		?>
-		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>"/>
+		<input type="hidden" name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][condition_id]" value="<?php echo esc_attr( $this->id ); ?>"/>
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]"
-							class="has_conditional_values" data-value_input_name="<?php echo $value_input_name; ?>"
+					<select name="restriction[<?php echo esc_attr( $index ); ?>][conditions][<?php echo esc_attr( $condition_index ); ?>][modifier]"
+							class="has_conditional_values" data-value_input_name="<?php echo esc_attr( $value_input_name ); ?>"
 					>
 						<?php foreach ( $this->available_modifiers as $modifier_key => $modifier_content ) { ?>
-							<option value="<?php echo $modifier_key; ?>" <?php selected( $modifier, $modifier_key, true ) ?>>
-								<?php echo $modifier_content[ 'label' ] ?>
+							<option value="<?php echo esc_attr( $modifier_key ); ?>" <?php selected( $modifier, $modifier_key, true ); ?>>
+								<?php echo esc_html( $modifier_content[ 'label' ] ); ?>
 							</option>
 						<?php } ?>
 					</select>
@@ -394,8 +394,8 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 			</div>
 
 			<?php
-			echo $this->get_admin_fields_freetext_html( $modifier, $email_modifiers, $values, $value_input_name );
-			echo $this->get_admin_fields_placeholder_html( $modifier, $returning_customer_modifiers );
+			echo $this->get_admin_fields_freetext_html( $modifier, $email_modifiers, $values, $value_input_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $this->get_admin_fields_placeholder_html( $modifier, $returning_customer_modifiers ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 		</div>
 		<?php
@@ -426,11 +426,11 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 		?>
 
 		<div class="condition_value select-field"
-			 data-modifiers="<?php echo implode( ',', $modifiers ); ?>"
+			 data-modifiers="<?php echo esc_attr( implode( ',', $modifiers ) ); ?>"
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
-			<textarea class="csp_conditional_values_input" name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>"><?php echo in_array( $current_modifier, $modifiers ) ? esc_textarea( $formatted_values ) : ''; ?></textarea>
-			<span class="description"><?php _e( 'Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woocommerce.com</code> will match all woocommerce.com addresses.', 'woocommerce-conditional-shipping-and-payments' ) ?></span>
+			<textarea class="csp_conditional_values_input" name="<?php echo in_array( $current_modifier, $modifiers ) ? esc_attr( $value_input_name ) : ''; ?>"><?php echo in_array( $current_modifier, $modifiers ) ? esc_textarea( $formatted_values ) : ''; ?></textarea>
+			<span class="description"><?php echo wp_kses_post( __( 'Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woocommerce.com</code> will match all woocommerce.com addresses.', 'woocommerce-conditional-shipping-and-payments' ) ); ?></span>
 		</div>
 
 		<?php
@@ -453,7 +453,7 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 		?>
 
 		<div class="condition_value condition--disabled"
-			 data-modifiers="<?php echo implode( ',', $modifiers ); ?>"
+			 data-modifiers="<?php echo esc_attr( implode( ',', $modifiers ) ); ?>"
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		></div>
 

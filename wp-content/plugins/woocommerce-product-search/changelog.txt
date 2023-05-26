@@ -1,146 +1,162 @@
 *** WooCommerce Product Search ***
 
+2023.05.22 - version 4.13.1
+* Update - WordPress 6.2 compatible.
+* Update - WooCommerce 7.7 compatible.
+* Fix - Fixes the WooCommerce dependency checks on multisite setups.
+* Update - Revised changelog entries for the version history parser as of 4.0.0.
+
+2023.05.18 - version 4.13.0
+* Update - WordPress 6.2 compatible.
+* Update - WordPress 6.3-alpha compatible.
+* Update - WooCommerce 7.7 compatible.
+* Update - Revised the internal settings API.
+* Update - Revised the WooCommerce dependency checks.
+* Update - Removed the legacy code in woo-includes.
+* Update - Made the logger resilient to hosts that remove the getmypid() function.
+* Fix - Fixes a PHP Deprecated notice of passing null to a parameter of type string during version comparison.
+
 2023.04.17 - version 4.12.0
-* WordPress 6.2 compatible.
-* WordPress 6.3-alpha compatible.
-* Requires at least WordPress 6.0.
-* WooCommerce 7.6 compatible.
-* Requires at least WooCommerce 7.0.
+* Update - WordPress 6.2 compatible.
+* Update - WordPress 6.3-alpha compatible.
+* Update - Requires at least WordPress 6.0.
+* Update - WooCommerce 7.6 compatible.
+* Update - Requires at least WooCommerce 7.0.
 
 2023.02.13 - version 4.11.0
-* WordPress 6.1 compatible.
-* WordPress 6.2-beta compatible.
-* WooCommerce 7.4 compatible.
-* Added index status information display to the Admin Bar while indexing is incomplete.
-* Added an option in the Index section to enable or disable the status information display in the Admin Bar.
-* Added the WPS_ADMIN_BAR_STATUS constant which can be set to true to always show status information in the Admin Bar.
-* Updated the translation template.
-* Updated the included translations.
+* Update - WordPress 6.1 compatible.
+* Update - WordPress 6.2-beta compatible.
+* Update - WooCommerce 7.4 compatible.
+* Add - Added index status information display to the Admin Bar while indexing is incomplete.
+* Add - Added an option in the Index section to enable or disable the status information display in the Admin Bar.
+* Add - Added the WPS_ADMIN_BAR_STATUS constant which can be set to true to always show status information in the Admin Bar.
+* Update - Updated the translation template.
+* Update - Updated the included translations.
 
 2022.12.30 - version 4.10.0
-* WordPress 6.1 compatible.
-* WooCommerce 7.2 compatible.
-* Requires at least WordPress 5.8.
-* Requires at least WooCommerce 6.0.
-* Using WP_Rewrite's $pagination_base instead of hardcoded 'page' as pagination permalink base.
-* Added the woocommerce_product_search_pagination_base filter.
-* Guarded non-accurate filter response optimizations against producing empty or incomplete content when errors occur during buffer processing.
+* Update - WordPress 6.1 compatible.
+* Update - WooCommerce 7.2 compatible.
+* Update - Requires at least WordPress 5.8.
+* Update - Requires at least WooCommerce 6.0.
+* Dev - Using WP_Rewrite's $pagination_base instead of hardcoded 'page' as pagination permalink base.
+* Add - Added the woocommerce_product_search_pagination_base filter.
+* Dev - Guarded non-accurate filter response optimizations against producing empty or incomplete content when errors occur during buffer processing.
 
 2022.11.22 - version 4.9.0
-* WordPress 6.1 compatible.
-* WooCommerce 7.1 compatible.
-* This release is focused on internal optimizations that bring substantial performance gains, with measured operational improvements in excess of 1000% in numerous cases.
-* Decreases the sever load while attending search and filtering requests.
-* Improves the overall query response performance with targeted code optimizations.
-* Improves the search engine performance with faster database queries.
-* Improves the search engine performance with faster dataset handling operations.
+* Update - WordPress 6.1 compatible.
+* Update - WooCommerce 7.1 compatible.
+* Dev - This release is focused on internal optimizations that bring substantial performance gains, with measured operational improvements in excess of 1000% in numerous cases.
+* Dev - Decreases the sever load while attending search and filtering requests.
+* Dev - Improves the overall query response performance with targeted code optimizations.
+* Dev - Improves the search engine performance with faster database queries.
+* Dev - Improves the search engine performance with faster dataset handling operations.
 
 2022.09.05 - version 4.8.0
-* WordPress 6.0 compatible.
-* WooCommerce 6.9 compatible.
-* Fixed an issue where certain inline scripts were dropped on subsequent wp_enqueue_scripts invocations, thus live search and filtering would not work, observed with block-based themes.
-* Fixed inappropriate price limits obtained in certain execution flows where the post_status for the product post type was inadequate for the $wp_query.
+* Update - WordPress 6.0 compatible.
+* Update - WooCommerce 6.9 compatible.
+* Fix - Fixed an issue where certain inline scripts were dropped on subsequent wp_enqueue_scripts invocations, thus live search and filtering would not work, observed with block-based themes.
+* Fix - Fixed inappropriate price limits obtained in certain execution flows where the post_status for the product post type was inadequate for the $wp_query.
 
 2022.07.12 - version 4.7.0
-* WordPress 6.0 compatible.
-* WooCommerce 6.7 compatible.
-* Updated indexer for PHP 8.x compatibility fixing PHP Deprecated: Automatic conversion of false to array is deprecated
+* Update - WordPress 6.0 compatible.
+* Update - WooCommerce 6.7 compatible.
+* Update - Updated indexer for PHP 8.x compatibility fixing PHP Deprecated: Automatic conversion of false to array is deprecated
 
 2022.04.01 - version 4.6.0
-* WordPress 6.0 compatible.
-* WooCommerce 6.4 compatible.
-* Resolves an issue where a product menu item could cause the price filter to extend the price limits to the full range of products.
-* Accessibility improvement to avoid prematurely hiding results provided by the Product Search Field when long clicks or secondary clicks are used.
-* Organized the extension's settings sections into its Settings submenu within the new WooCommerce Admin menu.
-* Resolved an issue where excluded terms would have no effect with WPML.
-* Added the woocommerce_product_search_request_term_ids_include filter.
-* Added the woocommerce_product_search_request_term_ids_exclude filter.
-* Fixes price slider handle positions should reflect correct current values set when present in page request.
-* Fixes price slider's upper limit handle should react on first change.
+* Update - WordPress 6.0 compatible.
+* Update - WooCommerce 6.4 compatible.
+* Fix - Resolves an issue where a product menu item could cause the price filter to extend the price limits to the full range of products.
+* Dev - Accessibility improvement to avoid prematurely hiding results provided by the Product Search Field when long clicks or secondary clicks are used.
+* Update - Organized the extension's settings sections into its Settings submenu within the new WooCommerce Admin menu.
+* Fix - Resolved an issue where excluded terms would have no effect with WPML.
+* Add - Added the woocommerce_product_search_request_term_ids_include filter.
+* Add - Added the woocommerce_product_search_request_term_ids_exclude filter.
+* Fix - Fixes price slider handle positions should reflect correct current values set when present in page request.
+* Fix - Fixes price slider's upper limit handle should react on first change.
 
 2022.03.21 - version 4.5.0
-* WordPress 6.0 compatible.
-* WooCommerce 6.3 compatible.
-* Revised restrictive term processing limits, potentially yielding incomplete results.
-* Improved tag filter consistency avoiding the inclusion of tags which are not related to products within the current context.
-* Improved filter query performance slightly with added restrictions that exclude marker entries (related to count and term queries).
-* Corrected tag product counts for those with no related products within current context, to show zero when applicable.
-* Avoid confusion over notice related to reports provided, removing it on the extension's reports.
-* Fixed Request-URI Too Long errors caused by input field generation bug on Queries report.
-* Added the CSV export feature to the report on Queries.
+* Update - WordPress 6.0 compatible.
+* Update - WooCommerce 6.3 compatible.
+* Dev - Revised restrictive term processing limits, potentially yielding incomplete results.
+* Dev - Improved tag filter consistency avoiding the inclusion of tags which are not related to products within the current context.
+* Dev - Improved filter query performance slightly with added restrictions that exclude marker entries (related to count and term queries).
+* Fix - Corrected tag product counts for those with no related products within current context, to show zero when applicable.
+* Dev - Avoid confusion over notice related to reports provided, removing it on the extension's reports.
+* Fix - Fixed Request-URI Too Long errors caused by input field generation bug on Queries report.
+* Add - Added the CSV export feature to the report on Queries.
 
 2022.02.09 - version 4.4.0
-* WordPress 6.0 compatible.
-* WooCommerce 6.2 compatible.
-* Requires at least WordPress 5.6.
-* Requires at least WooCommerce 5.8.
-* Updated documentation links.
-* Updated the Product Search Field block to include the WPML Language Filter option.
-* Reverted block registration to desired order as the block registry does not offer them in reverse order anymore (tested with WP 5.9 & WP 6.0).
+* Update - WordPress 6.0 compatible.
+* Update - WooCommerce 6.2 compatible.
+* Update - Requires at least WordPress 5.6.
+* Update - Requires at least WooCommerce 5.8.
+* Update - Updated documentation links.
+* Update - Updated the Product Search Field block to include the WPML Language Filter option.
+* Dev - Reverted block registration to desired order as the block registry does not offer them in reverse order anymore (tested with WP 5.9 & WP 6.0).
 
 2022.01.23 - version 4.3.0
-* WordPress 5.9 compatible.
-* WooCommerce 6.1 compatible.
-* Requires at least WooCommerce 5.6.
-* Attributes from variable products that are not used for variations are added to the index for their variations.
-* Indexer administrative section reloads hourly to renew status nonce.
-* Fixed depth not taken into account when rendering hierarchical term filters.
-* Fixed option show ancestors had no effect when disabled and rendering a product category filter.
+* Update - WordPress 5.9 compatible.
+* Update - WooCommerce 6.1 compatible.
+* Update - Requires at least WooCommerce 5.6.
+* Add - Attributes from variable products that are not used for variations are added to the index for their variations.
+* Add - Indexer administrative section reloads hourly to renew status nonce.
+* Fix - Fixed depth not taken into account when rendering hierarchical term filters.
+* Fix - Fixed option show ancestors had no effect when disabled and rendering a product category filter.
 
 2021.11.25 - version 4.2.1
-* Fixes a comparison bug in the redirect_canonical filter used to avoid redirect loops in certain circumstances.
-* Increased the implicit limit of items for category and attribute filter dropdowns (using 100000 to override the default used by the selectize component's maxOptions parameter).
-* Added the woocommerce_product_search_selectize_max_options filter.
+* Fix - Fixes a comparison bug in the redirect_canonical filter used to avoid redirect loops in certain circumstances.
+* Dev - Increased the implicit limit of items for category and attribute filter dropdowns (using 100000 to override the default used by the selectize component's maxOptions parameter).
+* Add - Added the woocommerce_product_search_selectize_max_options filter.
 
 2021.11.09 - version 4.2.0
-* WordPress 5.8 compatible.
-* WooCommerce 5.9 compatible.
-* Requires at least WooCommerce 5.5.
-* Added the woocommerce_product_search_use_engine filter.
-* Added compatibility with the WooCommerce Composite Products extension (skip handling its AJAX requests).
+* Update - WordPress 5.8 compatible.
+* Update - WooCommerce 5.9 compatible.
+* Update - Requires at least WooCommerce 5.5.
+* Add - Added the woocommerce_product_search_use_engine filter.
+* Add - Added compatibility with the WooCommerce Composite Products extension (skip handling its AJAX requests).
 
 2021.11.02 - version 4.1.0
-* WordPress 5.8 compatible.
-* WooCommerce 5.8 compatible.
-* Improved filter and search results consistency with Catalog Visibility options for products.
-* Fixed limited processing when PHP memory_limit is set to -1 to have no memory limit.
-* Fixed a PHP Notice when inconsistent data is encountered while indexing a product variation.
-* Legacy widgets are not offered in the block editor as of this release by default.
-* Added the WPS_LEGACY_WIDGETS constant which can be set to true to enable legacy widgets offered in the block editor.
-* Fixed missing fill color in some block icons.
-* Improved indexing schedule queries and reduced scheduling overhead.
-* Fixed not applying weights on product filter search.
-* Fixed query time logged twice on product filter search.
-* Fixed blinker timeout set to 0 should disable it, for product search field and product filter search field.
+* Update - WordPress 5.8 compatible.
+* Update - WooCommerce 5.8 compatible.
+* Dev - Improved filter and search results consistency with Catalog Visibility options for products.
+* Fix - Fixed limited processing when PHP memory_limit is set to -1 to have no memory limit.
+* Fix - Fixed a PHP Notice when inconsistent data is encountered while indexing a product variation.
+* Dev - Legacy widgets are not offered in the block editor as of this release by default.
+* Add - Added the WPS_LEGACY_WIDGETS constant which can be set to true to enable legacy widgets offered in the block editor.
+* Fix - Fixed missing fill color in some block icons.
+* Dev - Improved indexing schedule queries and reduced scheduling overhead.
+* Fix - Fixed not applying weights on product filter search.
+* Fix - Fixed query time logged twice on product filter search.
+* Fix - Fixed blinker timeout set to 0 should disable it, for product search field and product filter search field.
 
 2021.08.06 - version 4.0.1
-* Fixes issues with dropdown style not being applied to category or attribute filters (appearing to be haphazard due to disorderly Javascript execution paths).
-* Omitting shop page check for customizer so block widget content is shown regardless of setting to show on shop pages only.
+* Fix - Fixes issues with dropdown style not being applied to category or attribute filters (appearing to be haphazard due to disorderly Javascript execution paths).
+* Dev - Omitting shop page check for customizer so block widget content is shown regardless of setting to show on shop pages only.
 
 2021.08.04 - version 4.0.0
-* WooCommerce 5.5 compatible.
-* Requires at least WooCommerce 5.0.
-* WordPress 5.8+ full widgets block editor compatibility.
-* Full block editor compatibility with new blocks added for all search and filter facilities provided by the extension.
-* Added the Product Search Field block.
-* Added the Product Filter – Search block.
-* Added the Product Filter – Category block.
-* Added the Product Filter – Attribute block.
-* Added the Product Filter – Price block.
-* Added the Product Filter – Rating block.
-* Added the Product Filter – Reset block.
-* Added the Product Filter – Sale block.
-* Added the Product Filter – Stock block.
-* Added the Product Filter – Tag block.
-* Added the Product Filter – Products block.
-* Blinded inline scripts against unwanted modification during content rendering (wptexturize etc).
-* Added the woocommerce_product_search_is_shop filter.
-* Added the woocommerce_product_search_is_shop() API function.
-* Added support for shop_only attributes on filter shortcodes and corresponding API functions.
-* Fixed automated search filter output in wp_footer corrupting responses to certain JSON requests, e.g. filter block output for ServerSideRender.
-* Fixed Javascript errors when trying to set properties of certain document elements when absent.
-* Removes the assistant as it is superfluous if the widgets block editor is used. The block browser can be used instead.
-* Requires fully updated database, removed backward-compatibility for configurations that have no object_term table.
+* Update - WooCommerce 5.5 compatible.
+* Update - Requires at least WooCommerce 5.0.
+* Update - WordPress 5.8+ full widgets block editor compatibility.
+* Add - Full block editor compatibility with new blocks added for all search and filter facilities provided by the extension.
+* Add - Added the Product Search Field block.
+* Add - Added the Product Filter – Search block.
+* Add - Added the Product Filter – Category block.
+* Add - Added the Product Filter – Attribute block.
+* Add - Added the Product Filter – Price block.
+* Add - Added the Product Filter – Rating block.
+* Add - Added the Product Filter – Reset block.
+* Add - Added the Product Filter – Sale block.
+* Add - Added the Product Filter – Stock block.
+* Add - Added the Product Filter – Tag block.
+* Add - Added the Product Filter – Products block.
+* Dev - Blinded inline scripts against unwanted modification during content rendering (wptexturize etc).
+* Add - Added the woocommerce_product_search_is_shop filter.
+* Add - Added the woocommerce_product_search_is_shop() API function.
+* Add - Added support for shop_only attributes on filter shortcodes and corresponding API functions.
+* Fix - Fixed automated search filter output in wp_footer corrupting responses to certain JSON requests, e.g. filter block output for ServerSideRender.
+* Fix - Fixed Javascript errors when trying to set properties of certain document elements when absent.
+* Update - Removes the assistant as it is superfluous if the widgets block editor is used. The block browser can be used instead.
+* Update - Requires fully updated database, removed backward-compatibility for configurations that have no object_term table.
 
 2021.06.16 - version 3.8.0
 * WordPress 5.8 compatible.

@@ -23,6 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use com\itthinx\woocommerce\search\engine\Settings;
+
 if ( !function_exists( 'woocommerce_product_search_filter' ) ) {
 	/**
 	 * Renders a product filter form which is returned as HTML and loads
@@ -94,8 +96,8 @@ class WooCommerce_Product_Search_Filter {
 	 * Enqueues scripts and styles needed to render our search facility.
 	 */
 	public static function load_resources() {
-		$options = get_option( 'woocommerce-product-search', array() );
-		$enable_css = isset( $options[WooCommerce_Product_Search::ENABLE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_CSS] : WooCommerce_Product_Search::ENABLE_CSS_DEFAULT;
+		$settings = Settings::get_instance();
+		$enable_css = $settings->get( WooCommerce_Product_Search::ENABLE_CSS, WooCommerce_Product_Search::ENABLE_CSS_DEFAULT );
 		wp_enqueue_script( 'typewatch' );
 		wp_enqueue_script( 'product-filter' );
 		if ( $enable_css ) {
@@ -1072,9 +1074,9 @@ class WooCommerce_Product_Search_Filter {
 		global $woocommerce_product_search_inline_styles;
 		$output = '';
 		if ( !isset( $woocommerce_product_search_inline_styles ) ) {
-			$options = get_option( 'woocommerce-product-search', array() );
-			$enable_inline_css = isset( $options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] ) ? $options[WooCommerce_Product_Search::ENABLE_INLINE_CSS] : WooCommerce_Product_Search::ENABLE_INLINE_CSS_DEFAULT;
-			$inline_css        = isset( $options[WooCommerce_Product_Search::INLINE_CSS] ) ? $options[WooCommerce_Product_Search::INLINE_CSS] : WooCommerce_Product_Search::INLINE_CSS_DEFAULT;
+			$settings = Settings::get_instance();
+			$enable_inline_css = $settings->get( WooCommerce_Product_Search::ENABLE_INLINE_CSS, WooCommerce_Product_Search::ENABLE_INLINE_CSS_DEFAULT );
+			$inline_css        = $settings->get( WooCommerce_Product_Search::INLINE_CSS, WooCommerce_Product_Search::INLINE_CSS_DEFAULT );
 			if ( $enable_inline_css ) {
 				if ( !empty( $inline_css ) ) {
 					$output .= '<style type="text/css">';

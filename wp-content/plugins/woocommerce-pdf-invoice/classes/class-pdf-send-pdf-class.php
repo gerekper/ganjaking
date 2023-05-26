@@ -14,9 +14,17 @@
     class WC_send_pdf {
 
         public function __construct() {
-        	$this->wc_version = get_option( 'woocommerce_version' );
-			add_action( 'init', array( $this, 'init' ) );
 
+        	$this->wc_version = get_option( 'woocommerce_version' );
+			
+        	if( is_admin() ) {
+        		add_action( 'admin_init', array( $this, 'init' ) );
+        	} else {
+        		add_action( 'init', array( $this, 'init' ) );
+        	}
+
+        	add_action( 'wp_ajax_woocommerce_customer_note', array( $this, 'init' ), 9 );
+			
 			// Get the PDF Invoice settings
 			$this->settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
@@ -40,6 +48,12 @@
          */
 	 	public static function pdf_attachment( $attachment = NULL, $id = NULL, $order = NULL ) {
 
+	 		// Stop everything if iconv, mbstring or GD  are not loaded, prevents fatal errors
+        	if ( ! extension_loaded( 'iconv' ) || ! extension_loaded( 'mbstring' ) || ! extension_loaded('gd') || ! $id || ! $order ) {
+        		self::log_pdf( "Missing PHP functions, PDF creation stopped" );
+        		return $attachment;
+        	}
+
 	 		// Clean up the refunded $id
 	 		$email_option_name = 'woocommerce_' . $id . '_settings';
 
@@ -49,12 +63,6 @@
 
 	 		// Get the PDF Invoice settings
 	 		$settings = get_option( 'woocommerce_pdf_invoice_settings' );
-
-	 		// Stop everything if iconv, mbstring or GD  are not loaded, prevents fatal errors
-        	if ( ! extension_loaded( 'iconv' ) || ! extension_loaded( 'mbstring' ) || ! extension_loaded('gd') || ! $id || ! $order ) {
-        		self::log_pdf( "Missing PHP functions, PDF creation stopped" );
-        		return $attachment;
-        	}
 
         	// Make the array for email ids
         	$email_ids = array();
@@ -69,6 +77,7 @@
 
         	// Check the settings for the email ID
         	$email_options = get_option( $email_option_name );
+
         	if( isset( $email_options['pdf_invoice_attach_pdf_invoice'] ) && $email_options['pdf_invoice_attach_pdf_invoice'] == 'yes' ) {
         		$email_ids[] = $id;
         	}
@@ -1044,7 +1053,7 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 *
-		 * <?php echo apply_filters( 'pdf_template_registered_name_text', __( 'Registered Name : ', 'woocommerce-pdf-invoice' ) ); ?>[[PDFREGISTEREDNAME]] 
+		 * echo apply_filters( 'pdf_template_registered_name_text', __( 'Registered Name : ', 'woocommerce-pdf-invoice' ) ); [[PDFREGISTEREDNAME]] 
 		 */
 		public static function get_invoice_registeredname_section( $order_id, $settings ) {
 
@@ -1073,7 +1082,7 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 *
-		 * <?php echo apply_filters( 'pdf_template_registered_office_text', __( 'Registered Office : ', 'woocommerce-pdf-invoice' ) ); ?>[[PDFREGISTEREDADDRESS]]
+		 * echo apply_filters( 'pdf_template_registered_office_text', __( 'Registered Office : ', 'woocommerce-pdf-invoice' ) ); [[PDFREGISTEREDADDRESS]]
 		 */
 		public static function get_invoice_registeredaddress_section( $order_id, $settings ) {
 
@@ -1102,7 +1111,7 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 *
-		 * <?php echo apply_filters( 'pdf_template_company_number_text', __( 'Company Number : ', 'woocommerce-pdf-invoice' ) ); ?>[[PDFCOMPANYNUMBER]]
+		 * echo apply_filters( 'pdf_template_company_number_text', __( 'Company Number : ', 'woocommerce-pdf-invoice' ) ); [[PDFCOMPANYNUMBER]]
 		 */
 		public static function get_invoice_companynumber_section( $order_id, $settings ) {
 
@@ -1131,7 +1140,7 @@
 		 * @param  [type] $woocommerce_pdf_invoice_options [description]
 		 * @return [type]                                  [description]
 		 *
-		 * <?php echo apply_filters( 'pdf_template_vat_number_text', __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) ); ?>[[PDFTAXNUMBER]]
+		 * echo apply_filters( 'pdf_template_vat_number_text', __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) ); [[PDFTAXNUMBER]]
 		 */
 		public static function get_invoice_taxnumber_section( $order_id, $settings ) {
 

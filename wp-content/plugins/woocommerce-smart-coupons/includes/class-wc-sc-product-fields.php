@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Product_Fields' ) ) {
 		private function __construct() {
 
 			add_action( 'woocommerce_product_options_general_product_data', array( $this, 'woocommerce_product_options_coupons' ) );
-			add_action( 'woocommerce_product_after_variable_attributes', array( $this, 'woocommerce_product_options_coupons_variable' ), 11, 3 );
+			add_action( 'woocommerce_product_after_variable_attributes', array( $this, 'woocommerce_product_options_coupons_variable' ), 10, 3 );
 
 			add_action( 'woocommerce_process_product_meta', array( $this, 'woocommerce_process_product_meta_coupons' ), 10, 2 );
 			add_action( 'woocommerce_save_product_variation', array( $this, 'woocommerce_process_product_meta_coupons_variable' ), 10, 2 );

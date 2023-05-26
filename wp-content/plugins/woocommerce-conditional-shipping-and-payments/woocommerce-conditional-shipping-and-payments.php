@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping destinations using conditional logic.
-* Version: 1.14.6
+* Version: 1.15.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.14.6
+ * @version  1.15.0
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -39,7 +39,7 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.14.6';
+	const VERSION = '1.15.0';
 
 	/* Required WC version */
 	const REQ_WC_VERSION = '3.9.0';
@@ -79,7 +79,7 @@ class WC_Conditional_Shipping_Payments {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-conditional-shipping-and-payments' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-conditional-shipping-and-payments' ), '1.0.0' );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class WC_Conditional_Shipping_Payments {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-conditional-shipping-and-payments' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-conditional-shipping-and-payments' ), '1.0.0' );
 	}
 
 	/**
@@ -318,6 +318,14 @@ class WC_Conditional_Shipping_Payments {
 
 		$version = get_option( 'wc_csp_version', false );
 
+		if ( ! class_exists( 'WC_CSP_Core_Compatibility' ) ){
+			require_once( WC_CSP_ABSPATH . 'includes/compatibility/core/class-wc-csp-core-compatibility.php' );
+		}
+
+		if ( ! class_exists( 'WC_CSP_Admin_Notices' ) ){
+			require_once( WC_CSP_ABSPATH . 'includes/admin/class-wc-csp-admin-notices.php' );
+		}
+
 		if ( $version === false ) {
 
 			add_option( 'wc_csp_version', self::VERSION );
@@ -348,6 +356,11 @@ class WC_Conditional_Shipping_Payments {
 	 * @return void
 	 */
 	public function deactivate() {
+
+		if ( ! class_exists( 'WC_CSP_Core_Compatibility' ) ){
+			require_once( WC_CSP_ABSPATH . 'includes/compatibility/core/class-wc-csp-core-compatibility.php' );
+		}
+		
 		// Clear cached shipping rates.
 		WC_CSP_Core_Compatibility::clear_cached_shipping_rates();
 	}

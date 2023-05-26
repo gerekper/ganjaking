@@ -1,120 +1,147 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Sale Flash Pro 1.2.21\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-sale-flash-pro\n"
-"POT-Creation-Date: 2021-10-26 13:21:00+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Sale Flash Pro 1.3.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-05-22T14:53:26+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-sale-flash-pro\n"
 
-#: woocommerce-sale-flash-pro.php:37
-#. translators: %s WC download URL link.
-msgid ""
-"Sale Flash Pro requires WooCommerce to be installed and active. You can "
-"download %s here."
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:68 woocommerce-sale-flash-pro.php:227
-msgid "Sale flash type"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:69
-msgid "How sale flashes are displayed. Can be overridden by editing products."
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:74
-msgid "Percent e.g. 25% off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:75
-msgid "Amount e.g. &pound;25 off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:79
-msgid "Sale flash price"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:80
-msgid "Show original price?"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:86
-msgid "Enable for variations"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:87
-msgid "Show sale flashes for variable products e.g. Up to 40% off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:163
-#. translators: 1: discount price
-msgid "up to %s%% off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:167
-#. translators: 1: discount price
-msgid "up to %s off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:175
-#. translators: 1: discount price
-msgid "%s%% off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:183
-#. translators: 1: discount price
-msgid "%s off!"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:228
-msgid "Choose a sale flash style for this product."
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:230
-msgid "Default"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:231
-msgid "Percent"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:232
-msgid "Amount"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:239
-msgid "Hide sale flash"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:240
-msgid "Hide the sale flash for this product."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
 msgid "WooCommerce Sale Flash Pro"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
+#. Plugin URI of the plugin
 msgid "https://woocommerce.com/products/sale-flash-pro/"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"Gives you global and per-product control over sale flash display and lets "
-"you show % or the amount off."
+#. Description of the plugin
+msgid "Gives you global and per-product control over sale flash display and lets you show % or the amount off."
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "WooCommerce"
+#. Author of the plugin
+msgid "Themesquad"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com"
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
+
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Sale Flash Pro settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Sale Flash Pro documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#. translators: %s WC download URL link.
+#: woocommerce-sale-flash-pro.php:49
+msgid "Sale Flash Pro requires WooCommerce to be installed and active. You can download %s here."
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:82
+#: woocommerce-sale-flash-pro.php:241
+msgid "Sale flash type"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:83
+msgid "How sale flashes are displayed. Can be overridden by editing products."
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:88
+msgid "Percent e.g. 25% off!"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:89
+msgid "Amount e.g. &pound;25 off!"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:93
+msgid "Sale flash price"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:94
+msgid "Show original price?"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:100
+msgid "Enable for variations"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:101
+msgid "Show sale flashes for variable products e.g. Up to 40% off!"
+msgstr ""
+
+#. translators: 1: discount price
+#: woocommerce-sale-flash-pro.php:177
+msgid "up to %s%% off!"
+msgstr ""
+
+#. translators: 1: discount price
+#: woocommerce-sale-flash-pro.php:181
+msgid "up to %s off!"
+msgstr ""
+
+#. translators: 1: discount price
+#: woocommerce-sale-flash-pro.php:189
+msgid "%s%% off!"
+msgstr ""
+
+#. translators: 1: discount price
+#: woocommerce-sale-flash-pro.php:197
+msgid "%s off!"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:242
+msgid "Choose a sale flash style for this product."
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:244
+msgid "Default"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:245
+msgid "Percent"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:246
+msgid "Amount"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:253
+msgid "Hide sale flash"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:254
+msgid "Hide the sale flash for this product."
 msgstr ""
