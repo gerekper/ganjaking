@@ -171,7 +171,7 @@ class WPBakeryShortCode_Vc_Tta_Tabs extends WPBakeryShortCode_Vc_Tta_Accordion {
 					$classes[] = $this->activeClass;
 				}
 
-				$title = '<span class="vc_tta-title-text">' . $section['title'] . '</span>';
+				$title = '<span class="vc_tta-title-text">' . wp_kses_post( $section['title'] ) . '</span>';
 				if ( 'true' === $section['add_icon'] ) {
 					$icon_html = $this->constructIcon( $section );
 					if ( 'left' === $section['i_position'] ) {

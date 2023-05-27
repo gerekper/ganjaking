@@ -39,7 +39,7 @@ if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 $output .= '<div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $wrapper_attributes ) . '>';
-$output .= '<a href="https://pinterest.com/pin/create/button/?url=' . $url . $media . $description . '" class="pin-it-button" count-layout="' . $type . '"><img border="0" src="https://assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>';
+$output .= '<a href="https://pinterest.com/pin/create/button/?url=' . $url . $media . $description . '" class="pin-it-button" count-layout="' . esc_attr( $type ) . '"><img border="0" src="https://assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>';
 $output .= '</div>';
 
 return $output;

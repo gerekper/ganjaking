@@ -226,7 +226,7 @@ $output = '
 	'title' => $title,
 	'extraclass' => 'wpb_posts_slider_heading',
 ) ) . '
-			<div class="wpb_gallery_slides' . $type . '" data-interval="' . $interval . '"' . $flex_fx . '>' . $teasers . '</div>
+			<div class="wpb_gallery_slides' . esc_attr( $type ) . '" data-interval="' . esc_attr( $interval ) . '"' . $flex_fx . '>' . $teasers . '</div>
 		</div>
 	</div>
 ';

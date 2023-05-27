@@ -1180,18 +1180,6 @@ function vc_extract_youtube_id( $url ) {
 /**
  * @return string[]|\WP_Taxonomy[]
  */
-/**
- * @return string[]|\WP_Taxonomy[]
- */
-/**
- * @return string[]|\WP_Taxonomy[]
- */
-/**
- * @return string[]|\WP_Taxonomy[]
- */
-/**
- * @return string[]|\WP_Taxonomy[]
- */
 function vc_taxonomies_types( $post_type = null ) {
 	global $vc_taxonomies_types;
 	if ( is_null( $vc_taxonomies_types ) || $post_type ) {
@@ -1287,18 +1275,6 @@ function vc_stringify_attributes( $attributes ) {
 	return implode( ' ', $atts );
 }
 
-/**
- * @return bool
- */
-/**
- * @return bool
- */
-/**
- * @return bool
- */
-/**
- * @return bool
- */
 /**
  * @return bool
  */
@@ -1446,4 +1422,17 @@ function wpb_remove_custom_onclick( $match ) {
 	}
 
 	return $match[0];
+}
+
+/**
+ * We use it only to check is current environment is wordpress.com
+ *
+ * @return bool
+ * @since 6.2
+ */
+function wpb_check_wordpress_com_env() {
+	return defined( 'IS_ATOMIC' ) &&
+		IS_ATOMIC &&
+		defined( 'ATOMIC_CLIENT_ID' ) &&
+		'2' === ATOMIC_CLIENT_ID;
 }

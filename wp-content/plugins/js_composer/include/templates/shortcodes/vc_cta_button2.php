@@ -44,7 +44,7 @@ $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class, $this->s
 $css_class .= $this->getCSSAnimation( $css_animation );
 $output = '';
 
-$output .= '<div ' . $inline_css . ' class="' . esc_attr( trim( $css_class ) ) . '">';
+$output .= '<div ' . esc_attr( $inline_css ) . ' class="' . esc_attr( trim( $css_class ) ) . '">';
 if ( '' !== $link && 'bottom' !== $position ) {
 	$output .= do_shortcode( '[vc_button2 align="' . $position . '" link="' . $link . '" title="' . $title . '" color="' . $color . '" size="' . $size . '" style="' . $btn_style . '" el_class="vc_cta_btn"]' );
 }

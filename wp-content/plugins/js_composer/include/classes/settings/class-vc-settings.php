@@ -124,7 +124,7 @@ class Vc_Settings {
 		}
 
 		if ( ! vc_is_network_plugin() || ( vc_is_network_plugin() && is_network_admin() ) ) {
-			if ( ! vc_is_updater_disabled() ) {
+			if ( ! vc_is_updater_disabled() && ! wpb_check_wordpress_com_env() ) {
 				$this->tabs['vc-updater'] = esc_html__( 'Product License', 'js_composer' );
 			}
 		}

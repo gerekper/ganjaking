@@ -41,7 +41,7 @@ $tabs_nav .= '<ul class="wpb_tabs_nav ui-tabs-nav vc_clearfix">';
 foreach ( $tab_titles as $tab ) {
 	$tab_atts = shortcode_parse_atts( $tab[0] );
 	if ( isset( $tab_atts['title'] ) ) {
-		$tabs_nav .= '<li><a href="#tab-' . ( isset( $tab_atts['tab_id'] ) ? $tab_atts['tab_id'] : sanitize_title( $tab_atts['title'] ) ) . '">' . $tab_atts['title'] . '</a></li>';
+		$tabs_nav .= '<li><a href="#tab-' . ( isset( $tab_atts['tab_id'] ) ? esc_attr( $tab_atts['tab_id'] ) : sanitize_title( $tab_atts['title'] ) ) . '">' . wp_kses_post( $tab_atts['title'] ) . '</a></li>';
 	}
 }
 $tabs_nav .= '</ul>';
@@ -55,7 +55,7 @@ if ( 'vc_tour' === $this->shortcode ) {
 }
 
 $output = '
-	<div class="' . $css_class . '" data-interval="' . $interval . '">
+	<div class="' . esc_attr( $css_class ) . '" data-interval="' . esc_attr( $interval ) . '">
 		<div class="wpb_wrapper wpb_tour_tabs_wrapper ui-tabs vc_clearfix">
 			' . wpb_widget_title( array(
 	'title' => $title,

@@ -177,7 +177,7 @@ switch ( $onclick ) {
 			}
 		}
 
-		$img['thumbnail'] = str_replace( '<img ', '<img data-vc-zoom="' . $large_img_src . '" ', $img['thumbnail'] );
+		$img['thumbnail'] = str_replace( '<img ', '<img data-vc-zoom="' . esc_url( $large_img_src ) . '" ', $img['thumbnail'] );
 
 		break;
 }
@@ -187,7 +187,7 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
 	$el_class = vc_remove_class( 'prettyphoto', $el_class );
 }
 
-$wrapperClass = 'vc_single_image-wrapper ' . $style . ' ' . $border_color;
+$wrapperClass = 'vc_single_image-wrapper ' . esc_attr( $style ) . ' ' . esc_attr( $border_color );
 
 if ( $link ) {
 	$a_attrs['href'] = $link;

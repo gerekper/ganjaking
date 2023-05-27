@@ -1,5 +1,9 @@
 *** WPBakery Page Builder changelog ***
 
+2023-05-24 - version 6.13.0
+  - Fix: XSS vulnerability fix for elements
+  - Fix: XSS vulnerability fix for the user roles
+
 2023-04-18 - version 6.11.0
   - New: API for wordpress.com created to support integration
   - Update: Access to templates is in compliance with the licensing terms

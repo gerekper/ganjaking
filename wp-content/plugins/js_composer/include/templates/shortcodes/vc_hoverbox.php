@@ -32,6 +32,7 @@ if ( ! empty( $atts['el_id'] ) ) {
 
 $class_to_filter = vc_shortcode_custom_css_class( $atts['css'], ' ' ) . $this->getExtraClass( $atts['el_class'] ) . $this->getCSSAnimation( $atts['css_animation'] );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
+$css_class = esc_attr( $css_class );
 
 // Hover Background color
 if ( 'custom' !== $atts['hover_background_color'] ) {

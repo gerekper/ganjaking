@@ -45,6 +45,10 @@ class Vc_License {
 	public function init() {
 
 		if ( 'vc-updater' === vc_get_param( 'page' ) ) {
+			// clear transient for check the license
+			$site_url = self::getSiteUrl();
+			$transient_name = 'wpb_license_key_check_' . md5( $site_url );
+			delete_transient( $transient_name );
 			$activate = vc_get_param( 'activate' );
 			$deactivate = vc_get_param( 'deactivate' );
 			if ( $activate ) {
@@ -67,6 +71,16 @@ class Vc_License {
 			vc_license(),
 			'checkLicenseKeyFromRemote',
 		) );
+
+		add_action( 'admin_notices', array(
+			$this,
+			'outputLastError',
+		) );
+
+		add_action( 'vc_after_init', array(
+			$this,
+			'checkLicenseKey',
+		) );
 	}
 
 	/**
@@ -76,7 +90,14 @@ class Vc_License {
 	 * @param bool $success
 	 */
 	public function outputNotice( $message, $success = true ) {
-		echo sprintf( '<div class="%s"><p>%s</p></div>', (bool) $success ? 'updated' : 'error', esc_html( $message ) );
+		echo sprintf( '<div class="%s"><p>%s</p></div>', (bool) $success ? 'updated' : 'error', wp_kses( $message, array(
+			'a' => array(
+				'href' => array(),
+				'title' => array(),
+				'target' => array(),
+				'rel' => array(),
+			),
+		) ) );
 	}
 
 	/**
@@ -85,18 +106,36 @@ class Vc_License {
 	 * @param string $error
 	 */
 	public function showError( $error ) {
-		$this->error = $error;
-		add_action( 'admin_notices', array(
-			$this,
-			'outputLastError',
-		) );
+		// save error in db
+		// get current errors from db
+		$errors = get_option( 'wpb_license_errors', array() );
+		// add new error
+		$errors[] = [
+			'message' => $error,
+			'time' => time(),
+		];
+		// save errors
+		update_option( 'wpb_license_errors', $errors );
 	}
 
 	/**
 	 * Output last error
 	 */
 	public function outputLastError() {
-		$this->outputNotice( $this->error, false );
+		// get errors from db
+		$errors = get_option( 'wpb_license_errors', array() );
+		// filter errors by time < 10 min
+		$errors = array_filter( $errors, function ( $error ) {
+			return $error['time'] > time() - 600;
+		} );
+		// update db
+		update_option( 'wpb_license_errors', $errors );
+		// output all errors
+		// unique
+		$errors = array_unique( array_column( $errors, 'message' ) );
+		foreach ( $errors as $error ) {
+			$this->outputNotice( $error, false );
+		}
 	}
 
 	/**
@@ -120,19 +159,19 @@ class Vc_License {
 	 * 2) Receive success status and license key
 	 * 3) Set new license key
 	 *
-	 * @param bool $activation
+	 * @param bool $isActivation
 	 * @param string $user_token
 	 *
 	 * @return bool
 	 */
-	public function finishActivationDeactivation( $activation, $user_token ) {
+	public function finishActivationDeactivation( $isActivation, $user_token ) {
 		if ( ! $this->isValidToken( $user_token ) ) {
 			$this->showError( esc_html__( 'Token is not valid or has expired', 'js_composer' ) );
 
 			return false;
 		}
 
-		if ( $activation ) {
+		if ( $isActivation ) {
 			$url = self::$support_host . '/finish-license-activation';
 		} else {
 			$url = self::$support_host . '/finish-license-deactivation';
@@ -164,7 +203,6 @@ class Vc_License {
 
 			return false;
 		}
-
 		if ( 200 !== $response['response']['code'] ) {
 			$this->showError( sprintf( esc_html__( 'Server did not respond with OK: %s', 'js_composer' ), $response['response']['code'] ) );
 
@@ -185,14 +223,14 @@ class Vc_License {
 			return false;
 		}
 
-		if ( $activation ) {
+		if ( $isActivation ) {
 			if ( ! isset( $json['license_key'] ) || ! $this->isValidFormat( $json['license_key'] ) ) {
 				$this->showError( esc_html__( 'Invalid response structure. Please contact us for support.', 'js_composer' ) );
 
 				return false;
 			}
 
-			$this->setLicenseKey( $json['license_key'] );
+			$this->setLicenseOptions( $json['license_key'] );
 
 			add_action( 'admin_notices', array(
 				$this,
@@ -201,15 +239,26 @@ class Vc_License {
 		} else {
 			$this->setLicenseKey( '' );
 
+			$this->setLicenseOptions();
+
 			add_action( 'admin_notices', array(
 				$this,
 				'outputDeactivatedSuccess',
 			) );
 		}
 
-		$this->setLicenseKeyToken( '' );
-
 		return true;
+	}
+
+	/**
+	 * Set some options related to license.
+	 *
+	 * @param string $licenseKey
+	 */
+	public function setLicenseOptions( $licenseKey = '' ) {
+		$this->setLicenseKey( $licenseKey );
+		update_option( 'wpb_license_errors', array() );
+		$this->setLicenseKeyToken( '' );
 	}
 
 	/**
@@ -217,6 +266,7 @@ class Vc_License {
 	 */
 	public function isActivated() {
 		return true;
+		return (bool) $this->getLicenseKey();
 	}
 
 	/**
@@ -237,6 +287,77 @@ class Vc_License {
 		}
 
 		die( wp_json_encode( $response ) );
+	}
+
+	public function checkLicenseKey() {
+		$site_url = self::getSiteUrl();
+		// Send request to remote server to check is license is activated on this domain
+		$license_key = $this->getLicenseKey();
+		if ( empty( $license_key ) ) {
+			return;
+		}
+		$transient_key = 'wpb_license_key_check_' . md5( $site_url );
+		// if transient cache exists skip
+		if ( false !== get_transient( $transient_key ) ) {
+			return;
+		}
+
+		$url = self::$support_host . '/check-license-key';
+		$params = array(
+			'body' => array(
+				'license_key' => $license_key,
+				'domain' => $site_url,
+			),
+			'timeout' => 30,
+		);
+		// FIX SSL SNI
+		$filter_add = true;
+		if ( function_exists( 'curl_version' ) ) {
+			$version = curl_version();
+			if ( version_compare( $version['version'], '7.18', '>=' ) ) {
+				$filter_add = false;
+			}
+		}
+		if ( $filter_add ) {
+			add_filter( 'https_ssl_verify', '__return_false' );
+		}
+		$response = wp_remote_get( $url, $params );
+		if ( $filter_add ) {
+			remove_filter( 'https_ssl_verify', '__return_false' );
+		}
+		if ( is_wp_error( $response ) ) {
+			$this->showError( sprintf( esc_html__( '%s. Please try again.', 'js_composer' ), $response->get_error_message() ) );
+
+			return false;
+		}
+
+		if ( 200 !== $response['response']['code'] ) {
+			$this->showError( sprintf( esc_html__( 'Server did not respond with OK: %s', 'js_composer' ), $response['response']['code'] ) );
+
+			return false;
+		}
+		$json = json_decode( $response['body'], true );
+		if ( ! $json || ! isset( $json['result'] ) ) {
+			set_transient( 'wpb_license_key_check', true, 600 ); // 10 minutes wait for next check in case if error
+
+			return false;
+		}
+		if ( ! $json['result'] ) {
+			// license not found or not activated or activated on another domain
+			$message = $json['message'];
+			// force deactivate license
+			$this->setLicenseKey( '' );
+			$this->setLicenseKeyToken( '' );
+
+			$this->showError( $message );
+			set_transient( $transient_key, true, 600 ); // 10 minutes wait for next check in case if error
+
+			return false;
+		}
+		// all good
+		set_transient( $transient_key, true, 86400 ); // 24 hours wait for next check
+
+		return true;
 	}
 
 	/**
@@ -331,7 +452,7 @@ class Vc_License {
 	 * @return bool
 	 */
 	public function isValid( $license_key ) {
-		return true;
+		return $license_key === $this->getLicenseKey();
 	}
 
 	/**
@@ -459,7 +580,7 @@ class Vc_License {
 	 *
 	 * @param string $token
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	public function setLicenseKeyToken( $token ) {
 		if ( vc_is_network_plugin() ) {
@@ -540,10 +661,7 @@ class Vc_License {
 	}
 
 	/**
-	 * @return string|void
-	 */
-	/**
-	 * @return string|void
+	 * @return string
 	 */
 	public static function getSiteUrl() {
 		if ( vc_is_network_plugin() ) {

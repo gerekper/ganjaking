@@ -134,7 +134,7 @@ foreach ( $images as $i => $image ) {
 
 	switch ( $onclick ) {
 		case 'img_link_large':
-			$link_start = '<a href="' . esc_url( $large_img_src ) . '" target="' . $custom_links_target . '">';
+			$link_start = '<a href="' . esc_url( $large_img_src ) . '" target="' . esc_attr( $custom_links_target ) . '">';
 			$link_end = '</a>';
 			break;
 
@@ -145,7 +145,7 @@ foreach ( $images as $i => $image ) {
 
 		case 'custom_link':
 			if ( ! empty( $custom_links[ $i ] ) ) {
-				$link_start = '<a href="' . esc_url( $custom_links[ $i ] ) . '"' . ( ! empty( $custom_links_target ) ? ' target="' . $custom_links_target . '"' : '' ) . '>';
+				$link_start = '<a href="' . esc_url( $custom_links[ $i ] ) . '"' . ( ! empty( $custom_links_target ) ? ' target="' . esc_attr( $custom_links_target ) . '"' : '' ) . '>';
 				$link_end = '</a>';
 			}
 			break;
@@ -162,13 +162,13 @@ if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 $output = '';
-$output .= '<div class="' . $css_class . '" ' . implode( ' ', $wrapper_attributes ) . '>';
+$output .= '<div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $wrapper_attributes ) . '>';
 $output .= '<div class="wpb_wrapper">';
 $output .= wpb_widget_title( array(
 	'title' => $title,
 	'extraclass' => 'wpb_gallery_heading',
 ) );
-$output .= '<div class="wpb_gallery_slides' . $type . '" data-interval="' . $interval . '"' . $flex_fx . '>' . $slides_wrap_start . $gal_images . $slides_wrap_end . '</div>';
+$output .= '<div class="wpb_gallery_slides' . esc_attr( $type ) . '" data-interval="' . esc_attr( $interval ) . '"' . $flex_fx . '>' . $slides_wrap_start . $gal_images . $slides_wrap_end . '</div>';
 $output .= '</div>';
 $output .= '</div>';
 
