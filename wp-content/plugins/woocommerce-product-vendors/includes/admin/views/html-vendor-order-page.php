@@ -40,14 +40,14 @@ if ( ! $shipping_method ) {
 						<div class="panel-wrap woocommerce">
 							<div id="order_data" class="panel">
 
-								<h2><?php printf( esc_html__( 'Order #%s Details', 'woocommerce-product-vendors' ), $order->get_order_number() ); ?></h2>
+								<h2><?php printf( esc_html__( 'Order #%s Details', 'woocommerce-product-vendors' ), esc_html( $order->get_order_number() ) ); ?></h2>
 
 								<div class="order_data_column_container">
 									<div class="order_data_column">
 										<h4><?php esc_html_e( 'General Details', 'woocommerce-product-vendors' ); ?></h4>
 
 										<p class="form-field form-field-wide"><label for="order_date"><?php esc_html_e( 'Order date:', 'woocommerce-product-vendors' ) ?></label>
-											<input type="text" class="date-picker" name="order_date" id="order_date" maxlength="10" value="<?php echo $order_date; ?>" disabled="disabled" />
+											<input type="text" class="date-picker" name="order_date" id="order_date" maxlength="10" value="<?php echo esc_attr( $order_date ); ?>" disabled="disabled" />
 										</p>
 
 										<p class="form-field form-field-wide wc-order-status"><label for="order_status"><?php esc_html_e( 'Order status:', 'woocommerce-product-vendors' ) ?></label>
@@ -75,12 +75,12 @@ if ( ! $shipping_method ) {
 											?>
 											<p>
 												<strong><?php esc_html_e( 'Email:', 'woocommerce-product-vendors' ); ?></strong>
-												<a href="mailto:<?php echo esc_attr( $address['email'] ); ?>"><?php echo $address['email']; ?></a>
+												<a href="mailto:<?php echo esc_attr( $address['email'] ); ?>"><?php echo esc_html( $address['email'] ); ?></a>
 											</p>
 
 											<p>
 												<strong><?php esc_html_e( 'Phone:', 'woocommerce-product-vendors' ); ?></strong>
-												<?php echo $address['phone']; ?>
+												<?php echo esc_html( $address['phone'] ); ?>
 											</p>
 										</div>
 									</div><!-- .order_data_column -->

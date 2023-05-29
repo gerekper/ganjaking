@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<p><?php printf( esc_html__( 'The order #%d from %s has been cancelled. The order was as follows:', 'woocommerce-product-vendors' ), $order->get_order_number(), $order->get_formatted_billing_full_name() ); ?></p>
+<p><?php printf( esc_html__( 'The order #%d from %s has been cancelled. The order was as follows:', 'woocommerce-product-vendors' ), esc_html( $order->get_order_number() ), esc_html( $order->get_formatted_billing_full_name() ) ); ?></p>
 
 <?php
 

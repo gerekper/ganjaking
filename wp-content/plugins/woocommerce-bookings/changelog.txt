@@ -1,5 +1,11 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-05-26 - version 1.16.01
+* Dev - Add filter, `wc_bookings_product_duration_fallback`, for product duration to add support for custom duration unit.
+* Dev - Resolve coding standards issues.
+* Fix - Clear expired In Cart bookings tool now respects expiry time settings.
+* Fix - Limit 50% width of the resources select input to 50%.
+
 2023-05-12 - version 1.16.0
 * Add - Bookable products dropdown option in WooCommerce Analytics' reports.
 * Bump Woo tested up to version 7.6.0.

@@ -513,12 +513,12 @@ class WC_MS_Address_Book {
                 $addresses = array();
             }
 
-	        if ( $include_default ) {
-		        $default_address = $this->get_user_default_address( $user->ID );
+			if ( $include_default ) {
+				$default_address = $this->get_user_default_address( $user->ID );
 
-		        if ( $default_address['address_1'] && $default_address['postcode'] ) {
-			        $addresses += array( $default_address );
-		        }
+				if ( $default_address['address_1'] && $default_address['postcode'] ) {
+					$addresses[] = $default_address;
+				}
 	        }
         } else {
             // guest address - using sessions to store the address

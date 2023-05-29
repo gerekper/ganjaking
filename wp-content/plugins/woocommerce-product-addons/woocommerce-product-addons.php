@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Product Add-ons
  * Plugin URI: https://woocommerce.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 6.2.0
+ * Version: 6.3.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  *
@@ -92,8 +92,17 @@ function woocommerce_product_addons_init() {
 		return;
 	}
 
+	// PHP version check.
+	if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
+		/* translators: %1$s: Version %, %2$s: Update PHP doc URL */
+		$notice = sprintf( __( 'WooCommerce Product Add-Ons requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-addons' ), '7.0.0', 'https://woocommerce.com/document/how-to-update-your-php-version/' );
+		require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin-notices.php';
+		WC_PAO_Admin_Notices::add_notice( $notice, 'error' );
+		return false;
+	}
+
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
-		define( 'WC_PRODUCT_ADDONS_VERSION', '6.2.0' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '6.3.0' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -108,6 +117,26 @@ function woocommerce_product_addons_init() {
 			 * @var WC_Product_Add_Ons_Groups_Controller
 			 */
 			protected $groups_controller;
+
+			/**
+			 * The single instance of the class.
+			 *
+			 * @var WC_Product_Addons
+			 */
+			protected static $_instance = null;
+
+			/**
+			 * Main WC_Product_Addons instance. Ensures only one instance is loaded or can be loaded - @see 'WC_PAO()'.
+			 *
+			 * @static
+			 * @return  WC_Product_Addons
+			 */
+			public static function instance() {
+				if ( is_null( self::$_instance ) ) {
+					self::$_instance = new self();
+				}
+				return self::$_instance;
+			}
 
 			/**
 			 * Constructor.
@@ -243,9 +272,78 @@ function woocommerce_product_addons_init() {
 				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 
 			}
+
+			/**
+			 * Get PAO screen ids.
+			 */
+			public function get_screen_ids() {
+				$screens   = array();
+				$screens[] = 'product_page_addons';
+
+				/*
+				 * 'woocommerce_pao_screen_ids' filter.
+				 *
+				 * @param array $screens
+				 */
+				return (array) apply_filters( 'woocommerce_pao_screen_ids', $screens );
+			}
+
+			/**
+			 * Checks if the current admin screen belongs to extension.
+			 *
+			 * @param   array  $extra_screens_to_check (Optional)
+			 * @return  bool
+			 */
+			public function is_current_screen( $extra_screens_to_check = array() ) {
+
+				global $current_screen;
+
+				$screen_id = $current_screen ? $current_screen->id : '';
+
+				if ( in_array( $screen_id, $this->get_screen_ids(), true ) ) {
+					return true;
+				}
+
+				if ( ! empty( $extra_screens_to_check ) && in_array( $screen_id, $extra_screens_to_check ) ) {
+					return true;
+				}
+
+				return false;
+			}
+
+			/**
+			 * Get formatted screen id.
+			 *
+			 *
+			 * @param  string $key
+			 * @return string
+			 */
+			function get_formatted_screen_id( $screen_id ) {
+
+				if ( version_compare( WC()->version, '7.3.0' ) < 0 ) {
+					$prefix = sanitize_title( __( 'WooCommerce', 'woocommerce' ) );
+				} else {
+					$prefix = 'woocommerce';
+				}
+
+				if ( 0 === strpos( $screen_id, 'woocommerce_' ) ) {
+					$screen_id = str_replace( 'woocommerce_', $prefix . '_', $screen_id );
+				}
+
+				return $screen_id;
+			}
 		}
 
-		new WC_Product_Addons();
+		/**
+		 * Returns the main instance of WC_Product_Addons to prevent the need to use globals.
+		 *
+		 * @return  WC_Product_Addons
+		 */
+		function WC_PAO() {
+			return WC_Product_Addons::instance();
+		}
+
+		WC_PAO();
 
 	endif;
 }

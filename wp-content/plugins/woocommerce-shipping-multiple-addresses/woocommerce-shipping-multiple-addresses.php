@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.8.3
+ * Version: 3.8.5
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
  * Domain Path: /languages
- * Tested up to: 6.1
- * WC tested up to: 7.1
+ * Tested up to: 6.2
+ * WC tested up to: 7.7
  * WC requires at least: 3.2.3
  * Woo: 18741:aa0eb6f777846d329952d5b891d6f8cc
  *
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.8.3' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.8.5' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -487,23 +487,32 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 				}
 
 			} else {
-				// load order and display the addresses
-				$order_id = (int)$_GET['order_id'];
-				$order = wc_get_order( $order_id );
+				// Load order and display the addresses.
+				$order_id = intval( $_GET['order_id'] );
+				$order    = wc_get_order( $order_id );
 
-				if ($order_id == 0 || !$order) wp_die(__( 'Order could not be found', 'wc_shipping_multiple_address' ) );
+				if ( ! is_user_logged_in() ) {
+					return esc_html__( 'Please log in to access this page', 'wc_shipping_multiple_address' );
+				}
+
+				if ( ! $order instanceof WC_Order ) {
+					return esc_html__( 'Order could not be found', 'wc_shipping_multiple_address' );
+				}
+
+				$current_user = wp_get_current_user();
+
+				if ( $order->get_user_id() !== $current_user->ID && $order->get_billing_email() !== $current_user->user_email ) {
+					return esc_html__( 'You don\'t have access to this page', 'wc_shipping_multiple_address' );
+				}
 
 				$packages = $order->get_meta( '_wcms_packages' );
 
-				if ( !$packages ) wp_die(__( 'This order does not ship to multiple addresses', 'wc_shipping_multiple_address' ) );
+				if ( ! is_array( $packages ) || empty( $packages ) ) {
+					return esc_html__( 'This order does not ship to multiple addresses', 'wc_shipping_multiple_address' );
+				}
 
-				// load the address fields
+				// load the address fields.
 				$this->cart->load_cart_files();
-
-				$checkout   = WC()->checkout;
-				$cart       = WC()->cart;
-				//$shipFields = apply_filters( 'woocommerce_shipping_fields', array() );
-				$shipFields = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
 
 				echo '<table class="shop_tabe"><thead><tr><th class="product-name">'. __( 'Product', 'wc_shipping_multiple_address' ) .'</th><th class="product-quantity">'. __( 'Qty', 'wc_shipping_multiple_address' ) .'</th><th class="product-address">'. __( 'Address', 'wc_shipping_multiple_address' ) .'</th></thead>';
 				echo '<tbody>';

@@ -247,7 +247,7 @@ function wwob_products_metabox() {
 			'group_title'   => __( 'Product', 'wpali-woocommerce-order-builder' ) . ' {#}', // {#} gets replaced by row number
 			'add_button'    => __( 'Add Product', 'wpali-woocommerce-order-builder' ),
 			'remove_button' => __( 'Remove Product', 'wpali-woocommerce-order-builder' ),
-			// 'sortable'      => true, 
+			'sortable'      => true, 
 			'closed'     => true,
 		),
 		'after_group'    => '

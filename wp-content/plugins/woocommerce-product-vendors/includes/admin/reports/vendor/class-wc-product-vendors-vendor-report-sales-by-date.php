@@ -257,14 +257,14 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 		?>
 		<a
 			href="#"
-			download="report-<?php echo esc_attr( $this->current_range ); ?>-<?php echo date_i18n( 'Y-m-d', current_time('timestamp') ); ?>.csv"
+			download="report-<?php echo esc_attr( $this->current_range ); ?>-<?php echo esc_attr( date_i18n( 'Y-m-d', current_time('timestamp') ) ); ?>.csv"
 			class="export_csv"
 			data-export="chart"
 			data-xaxes="<?php esc_attr_e( 'Date', 'woocommerce-product-vendors' ); ?>"
 			data-exclude_series="2"
-			data-groupby="<?php echo $this->chart_groupby; ?>"
-			data-range="<?php echo $this->current_range; ?>"
-			data-custom-range="<?php echo 'custom' === $this->current_range ? $this->start_date . '-' . $this->end_date : ''; ?>"
+			data-groupby="<?php echo esc_attr( $this->chart_groupby ); ?>"
+			data-range="<?php echo esc_attr( $this->current_range ); ?>"
+			data-custom-range="<?php echo 'custom' === $this->current_range ? esc_attr( $this->start_date . '-' . $this->end_date ): ''; ?>"
 		>
 			<?php esc_html_e( 'Export CSV', 'woocommerce-product-vendors' ); ?>
 		</a>
@@ -379,22 +379,22 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 			var main_chart;
 
 			jQuery(function(){
-				var order_data = jQuery.parseJSON( decodeURIComponent( '<?php echo $chart_data; ?>' ) );
+				var order_data = jQuery.parseJSON( decodeURIComponent( '<?php echo esc_js( $chart_data ); ?>' ) );
 				var drawGraph = function( highlight ) {
 					var series = [
 						{
 							label: "<?php echo esc_js( __( 'Number of orders', 'woocommerce-product-vendors' ) ); ?>",
 							data: order_data.order_counts,
-							color: '<?php echo $this->chart_colors['order_count']; ?>',
-							bars: { fillColor: '<?php echo $this->chart_colors['order_count']; ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo $this->barwidth; ?> * 0.5, align: 'left' },
+							color: '<?php echo esc_js( $this->chart_colors['order_count'] ); ?>',
+							bars: { fillColor: '<?php echo esc_js( $this->chart_colors['order_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'left' },
 							shadowSize: 0,
 							hoverable: false
 						},
 						{
 							label: "<?php echo esc_js( __( 'Number of items sold', 'woocommerce-product-vendors' ) ) ?>",
 							data: order_data.order_item_counts,
-							color: '<?php echo $this->chart_colors['item_count']; ?>',
-							bars: { fillColor: '<?php echo $this->chart_colors['item_count']; ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo $this->barwidth; ?> * 0.5, align: 'center' },
+							color: '<?php echo esc_js( $this->chart_colors['item_count'] ); ?>',
+							bars: { fillColor: '<?php echo esc_js( $this->chart_colors['item_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'center' },
 							shadowSize: 0,
 							hoverable: false
 						},
@@ -402,17 +402,17 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 							label: "<?php echo esc_js( __( 'Shipping amount', 'woocommerce-product-vendors' ) ) ?>",
 							data: order_data.shipping_amounts,
 							yaxis: 2,
-							color: '<?php echo $this->chart_colors['shipping_amount']; ?>',
+							color: '<?php echo esc_js( $this->chart_colors['shipping_amount'] ); ?>',
 							points: { show: true, radius: 5, lineWidth: 2, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
-							prepend_tooltip: "<?php echo get_woocommerce_currency_symbol(); ?>"
+							prepend_tooltip: "<?php echo esc_js( get_woocommerce_currency_symbol() ); ?>"
 						},
 						{
 							label: "<?php echo esc_js( __( 'Average sales amount', 'woocommerce-product-vendors' ) ) ?>",
-							data: [ [ <?php echo min( array_keys( $order_amounts ) ); ?>, <?php echo $this->report_data->average_sales; ?> ], [ <?php echo max( array_keys( $order_amounts ) ); ?>, <?php echo $this->report_data->average_sales; ?> ] ],
+							data: [ [ <?php echo esc_js( min( array_keys( $order_amounts ) ) ); ?>, <?php echo esc_js( $this->report_data->average_sales ); ?> ], [ <?php echo esc_js( max( array_keys( $order_amounts ) ) ); ?>, <?php echo esc_js( $this->report_data->average_sales ); ?> ] ],
 							yaxis: 2,
-							color: '<?php echo $this->chart_colors['average']; ?>',
+							color: '<?php echo esc_js( $this->chart_colors['average'] ); ?>',
 							points: { show: false },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
@@ -422,41 +422,41 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 							label: "<?php echo esc_js( __( 'Gross Sales amount', 'woocommerce-product-vendors' ) ) ?>",
 							data: order_data.order_amounts,
 							yaxis: 2,
-							color: '<?php echo $this->chart_colors['sales_amount']; ?>',
+							color: '<?php echo esc_js( $this->chart_colors['sales_amount'] ); ?>',
 							points: { show: true, radius: 5, lineWidth: 2, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
-							<?php echo $this->get_currency_tooltip(); ?>
+							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
 						},
 						{
 							label: "<?php echo esc_js( __( 'Net Sales amount', 'woocommerce-product-vendors' ) ) ?>",
 							data: order_data.net_order_amounts,
 							yaxis: 2,
-							color: '<?php echo $this->chart_colors['net_sales_amount']; ?>',
+							color: '<?php echo esc_js( $this->chart_colors['net_sales_amount'] ); ?>',
 							points: { show: true, radius: 6, lineWidth: 4, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 5, fill: false },
 							shadowSize: 0,
-							<?php echo $this->get_currency_tooltip(); ?>
+							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
 						},
 						{
 							label: "<?php echo esc_js( __( 'Total Earned Commission Amount', 'woocommerce-product-vendors' ) ) ?>",
 							data: order_data.total_earned,
 							yaxis: 2,
-							color: '<?php echo $this->chart_colors['earned']; ?>',
+							color: '<?php echo esc_js( $this->chart_colors['earned'] ); ?>',
 							points: { show: true, radius: 6, lineWidth: 4, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 5, fill: false },
 							shadowSize: 0,
-							<?php echo $this->get_currency_tooltip(); ?>
+							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
 						},
 						{
 							label: "<?php echo esc_js( __( 'Total Commission Amount', 'woocommerce-product-vendors' ) ) ?>",
 							data: order_data.total_commission,
 							yaxis: 2,
-							color: '<?php echo $this->chart_colors['commission']; ?>',
+							color: '<?php echo esc_js( $this->chart_colors['commission'] ); ?>',
 							points: { show: true, radius: 6, lineWidth: 4, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 5, fill: false },
 							shadowSize: 0,
-							<?php echo $this->get_currency_tooltip(); ?>
+							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
 						}
 					];
 
@@ -495,7 +495,7 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 								timeformat: "<?php if ( $this->chart_groupby == 'day' ) echo '%d %b'; else echo '%b'; ?>",
 								monthNames: <?php echo wp_json_encode( array_values( $wp_locale->month_abbrev ) ) ?>,
 								tickLength: 1,
-								minTickSize: [1, "<?php echo $this->chart_groupby; ?>"],
+								minTickSize: [1, "<?php echo esc_js( $this->chart_groupby ); ?>"],
 								font: {
 									color: "#aaa"
 								}

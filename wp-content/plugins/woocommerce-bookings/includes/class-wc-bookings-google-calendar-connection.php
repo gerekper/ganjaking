@@ -175,7 +175,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$client->setClientSecret( $this->client_secret );
 		$client->setRedirectUri( $this->redirect_uri_custom );
 		$auth_url = $client->createAuthUrl();
-		wp_redirect( $auth_url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+		wp_redirect( $auth_url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect nosemgrep:audit.php.wp.security.unsafe-wp-redirect
 		exit;
 	}
 
@@ -2018,6 +2018,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			return $client->createAuthUrl();
 		}
 
+		// nosemgrep:audit.php.wp.security.xss.query-arg
 		return add_query_arg(
 			array(
 				'redirect' => urlencode(

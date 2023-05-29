@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Add-Ons.
  *
  * @class    WCS_ATT_Integration_PAO
- * @version  3.1.1
+ * @version  4.1.0
  */
 class WCS_ATT_Integration_PAO {
 
@@ -277,9 +277,9 @@ class WCS_ATT_Integration_PAO {
 
 			$schemes             = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 			$price_filter_exists = WCS_ATT_Product_Schemes::price_filter_exists( $schemes );
-			$discount_addons     = $price_filter_exists && self::discount_addons( $product ) ? 'yes' :'no';
+			$discount_addons     = $price_filter_exists && self::discount_addons( $product ) ? 'yes' : 'no';
 
-			echo '<div class="wcsatt-pao-data" data-discount_addons="' . $discount_addons . '"></div>';
+			echo '<div class="wcsatt-pao-data" data-discount_addons="' . esc_attr( $discount_addons ) . '"></div>';
 		}
 	}
 

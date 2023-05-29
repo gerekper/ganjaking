@@ -2418,7 +2418,19 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 				} elseif ( 'month' === $duration_unit ) {
 					$duration_unit = _n( 'month', 'months', $this->get_max_duration(), 'woocommerce-bookings' );
 				} else {
-					$duration_unit = _n( 'block', 'blocks', $this->get_max_duration(), 'woocommerce-bookings' );
+					$duration_unit_block = _n( 'block', 'blocks', $this->get_max_duration(), 'woocommerce-bookings' );
+
+					/**
+					 * Filter product duration fallback unit. This filter can be used to specify custom product
+					 * duration unit if it does not match existing units.
+					 *
+					 * @since 1.16.1
+					 *
+					 * @param string $duration_unit_block Default fallback duration
+					 * @param string $duration_unit       Current duration unit
+					 * @param int    $duration            Duration of booking
+					 */
+					$duration_unit = apply_filters( 'wc_bookings_product_duration_fallback', $duration_unit_block, $duration_unit, $this->get_max_duration() );
 				}
 				/* translators: 1: maximum duration 2: duration unit */
 				return new WP_Error( 'Error', sprintf( __( 'The maximum duration is %1$d %2$s', 'woocommerce-bookings' ), $this->get_max_duration(), $duration_unit ) );
@@ -2433,7 +2445,19 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 				} elseif ( 'month' === $duration_unit ) {
 					$duration_unit = _n( 'month', 'months', $this->get_min_duration(), 'woocommerce-bookings' );
 				} else {
-					$duration_unit = _n( 'block', 'blocks', $this->get_min_duration(), 'woocommerce-bookings' );
+					$duration_unit_block = _n( 'block', 'blocks', $this->get_min_duration(), 'woocommerce-bookings' );
+
+					/**
+					 * Filter product duration fallback unit. This filter can be used to specify custom product
+					 * duration unit if it does not match existing units.
+					 *
+					 * @since 1.16.1
+					 *
+					 * @param string $duration_unit_block Default fallback duration
+					 * @param string $duration_unit       Current duration unit
+					 * @param int    $duration            Duration of booking
+					 */
+					$duration_unit = apply_filters( 'wc_bookings_product_duration_fallback', $duration_unit_block, $duration_unit, $this->get_min_duration() );
 				}
 				/* translators: 1: minimum duration 2: duration unit */
 				return new WP_Error( 'Error', sprintf( __( 'The minimum duration is %1$d %2$s', 'woocommerce-bookings' ), $this->get_min_duration(), $duration_unit ) );

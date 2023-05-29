@@ -1,5 +1,8 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-05-26 - version 2.5.3
+* Fix - Fixed undefined function `wcs_get_page_screen_id` error when using a WooCommerce Subscriptions version lower than 4.8.0.
+
 2023-04-28 - version 2.5.2
 * Fix - Apply the timezone offset when calculating the weekday of the previous delivery date in a subscription renewal.
 

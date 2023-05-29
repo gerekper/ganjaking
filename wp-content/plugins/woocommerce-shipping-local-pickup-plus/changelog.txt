@@ -1,5 +1,8 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2023.05.23 - version 2.11.1
+ * Fix - Ensure that orders can be filtered by pickup location in the orders admin screen (with or without using HPOS)
+
 2023.05.10 - version 2.11.0
  * Feature - Add support for pickup appointment lead times that are set in minutes
  * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)

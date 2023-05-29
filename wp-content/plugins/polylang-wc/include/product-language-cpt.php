@@ -131,10 +131,11 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 	 *
 	 * @since 1.0
 	 *
+	 * @param bool $sync True if it is synchronization, false if it is a copy.
 	 * @return string[]
 	 */
-	protected function get_legacy_metas() {
-		return array(
+	protected function get_legacy_metas( $sync ) {
+		$metas_to_sync = array(
 			'_backorders'            => 'backorders',
 			'_children'              => 'children',
 			'_crosssell_ids'         => 'cross_sell_ids',
@@ -158,7 +159,6 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 			'_sku'                   => 'sku',
 			'_sold_individually'     => 'sold_individually',
 			'_stock'                 => 'stock_quantity',
-			'_stock_status'          => 'stock_status',
 			'_tax_class'             => 'tax_class',
 			'_tax_status'            => 'tax_status',
 			'_thumbnail_id'          => 'image_id',
@@ -170,6 +170,10 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 			'_product_url'           => 'product_url',
 			'_purchase_note'         => 'purchase_note',
 			'_variation_description' => 'description',
+		);
+		return $sync ? $metas_to_sync : array_merge(
+			$metas_to_sync,
+			array( '_stock_status' => 'stock_status' )
 		);
 	}
 
@@ -186,48 +190,49 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 	 * @return string[]
 	 */
 	public function copy_post_metas( $metas, $sync, $from, $to, $lang ) {
-		if ( in_array( get_post_type( $from ), array( 'product', 'product_variation' ) ) ) {
-
-			$_to_copy = self::get_legacy_metas();
-			$to_copy = array_keys( $_to_copy );
-
-			// Add attributes in variations.
-			$metas_from = get_post_custom( $from );
-			if ( is_array( $metas_from ) ) {
-				foreach ( array_keys( $metas_from ) as $key ) {
-					if ( is_string( $key ) && 0 === strpos( $key, 'attribute_' ) ) {
-						$to_copy[] = $key;
-					}
-				}
-			}
-
-			// Should we copy text?
-			if ( ! PLLWC_Products::should_copy_texts( $from, $to, $sync ) ) {
-				$to_copy = array_diff(
-					$to_copy,
-					array(
-						'_button_text',
-						'_product_url',
-						'_purchase_note',
-						'_variation_description',
-					)
-				);
-			}
-
-			/**
-			 * Filters the product custom fields to copy or synchronize.
-			 *
-			 * @since 0.2
-			 *
-			 * @param string[] $to_copy List of custom fields names.
-			 * @param bool     $sync    True if it is synchronization, false if it is a copy.
-			 * @param int      $from    Id of the product from which we copy informations.
-			 * @param int      $to      Id of the product to which we paste informations.
-			 * @param string   $lang    Language code.
-			 */
-			$to_copy = array_unique( apply_filters( 'pllwc_copy_post_metas', array_combine( $to_copy, $to_copy ), $sync, $from, $to, $lang ) );
-			$metas = array_merge( $metas, $to_copy );
+		if ( ! in_array( get_post_type( $from ), array( 'product', 'product_variation' ) ) ) {
+			return $metas;
 		}
+
+		if ( $sync ) {
+			// Remove product attributes from metas to copy.
+			// Because these product post metas are public and automatically synchronized by Polylang.
+			// See https://github.com/polylang/polylang/blob/3.3.2/modules/sync/sync-post-metas.php#L51-L61.
+			$attributes_to_keep = preg_grep( '/^attribute_/', $metas, PREG_GREP_INVERT );
+			if ( false !== $attributes_to_keep ) {
+				$metas = $attributes_to_keep;
+			}
+		}
+
+		$_to_copy = self::get_legacy_metas( $sync );
+		$to_copy = array_keys( $_to_copy );
+
+		// Should we copy text?
+		if ( ! PLLWC_Products::should_copy_texts( $from, $to, $sync ) ) {
+			$to_copy = array_diff(
+				$to_copy,
+				array(
+					'_button_text',
+					'_product_url',
+					'_purchase_note',
+					'_variation_description',
+				)
+			);
+		}
+
+		/**
+		 * Filters the product custom fields to copy or synchronize.
+		 *
+		 * @since 0.2
+		 *
+		 * @param string[] $to_copy List of custom fields names.
+		 * @param bool     $sync    True if it is synchronization, false if it is a copy.
+		 * @param int      $from    Id of the product from which we copy informations.
+		 * @param int      $to      Id of the product to which we paste informations.
+		 * @param string   $lang    Language code.
+		 */
+		$to_copy = array_unique( apply_filters( 'pllwc_copy_post_metas', array_combine( $to_copy, $to_copy ), $sync, $from, $to, $lang ) );
+		$metas = array_merge( $metas, $to_copy );
 
 		return $metas;
 	}
@@ -276,14 +281,6 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 					}
 				}
 
-				if ( in_array( 'stock_status', $updated_props, true ) ) {
-					if ( $tr_product->is_type( 'variation' ) ) {
-						do_action( 'woocommerce_variation_set_stock_status', $tr_product->get_id(), $tr_product->get_stock_status(), $tr_product );
-					} else {
-						do_action( 'woocommerce_product_set_stock_status', $tr_product->get_id(), $tr_product->get_stock_status(), $tr_product );
-					}
-				}
-
 				if ( array_intersect( $updated_props, array( 'sku', 'regular_price', 'sale_price', 'date_on_sale_from', 'date_on_sale_to', 'total_sales', 'average_rating', 'stock_quantity', 'stock_status', 'manage_stock', 'downloadable', 'virtual', 'tax_status', 'tax_class' ) ) ) {
 					$this->update_lookup_table( $tr_product->get_id(), 'wc_product_meta_lookup' );
 				}
@@ -328,17 +325,13 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 			if ( 0 === strpos( $key, 'attribute_' ) ) {
 				// Translate taxonomy attributes in variations.
 				$tax = substr( $key, 10 );
-				if ( taxonomy_exists( $tax ) && $value ) {
-					$terms = get_terms( $tax, array( 'slug' => $value, 'hide_empty' => false, 'lang' => '' ) ); // Don't use get_term_by filtered by language since WP 4.7.
-					if ( is_array( $terms ) && ( $term = reset( $terms ) ) && $tr_id = pll_get_term( $term->term_id, $lang ) ) {
-						$term = get_term( $tr_id, $tax );
-						if ( $term instanceof WP_Term ) {
-							$value = $term->slug;
-						}
-					}
+				if ( ! empty( $tax ) && ! empty( $value ) && is_string( $value ) ) {
+					$attribute    = array( $tax => $value );
+					$tr_attribute = PLLWC_Products::maybe_translate_attributes( $attribute, $lang );
+					$value        = $tr_attribute[ $tax ];
 				}
 			} else {
-				$props = self::get_legacy_metas();
+				$props = self::get_legacy_metas( false );
 				if ( isset( $props[ $key ] ) ) {
 					$value = PLLWC_Products::maybe_translate_property( $value, $props[ $key ], $lang );
 				}
@@ -438,6 +431,10 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 
 		$lang = PLL()->model->get_language( $lang );
 
+		if ( empty( $lang ) ) {
+			return false;
+		}
+
 		return (bool) $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT posts.ID
@@ -452,7 +449,7 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 				LIMIT 1",
 				wp_slash( $sku ),
 				$product_id,
-				$lang->term_taxonomy_id
+				$lang->get_tax_prop( 'language', 'term_taxonomy_id' )
 			)
 		);
 	}
@@ -473,6 +470,10 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 
 		$lang = PLL()->model->get_language( $lang );
 
+		if ( empty( $lang ) ) {
+			return 0;
+		}
+
 		return $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT posts.ID
@@ -485,7 +486,7 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 					AND pll_tr.term_taxonomy_id = %d
 				LIMIT 1",
 				$sku,
-				$lang->term_taxonomy_id
+				$lang->get_tax_prop( 'language', 'term_taxonomy_id' )
 			)
 		);
 	}
@@ -535,7 +536,8 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 			$edited_term = get_term_by( 'id', $term_id, $taxonomy );
 
 			if ( $edited_term instanceof WP_Term && $edited_term->slug !== self::$editing_term->slug ) {
-				$language = absint( pll_get_term_language( $term_id, 'term_taxonomy_id' ) );
+				$language = pll_get_term_language( $term_id, 'language:term_taxonomy_id' );
+				$language = absint( $language );
 
 				$wpdb->query(
 					$wpdb->prepare(

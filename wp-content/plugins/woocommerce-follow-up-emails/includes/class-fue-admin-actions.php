@@ -542,28 +542,9 @@ class FUE_Admin_Actions {
 
 			wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs&opt-out-added=' . urlencode( $email ) );
 			exit;
-		} elseif ( ! empty( $post['button_restore'] ) && 'Apply' === $post['button_restore'] ) {
-			$emails    = $post['email'];
-			$email_ids = '';
-			$restored = 0;
-
-			if ( is_array( $emails ) && ! empty( $emails ) ) {
-				$emails = array_map( 'sanitize_email', $emails );
-				$email_ids = "'" . implode( "','", $emails ) . "'";
-			}
-
-			if ( ! empty( $email_ids ) ) {
-				$restored = $wpdb->query( "DELETE FROM {$wpdb->prefix}followup_email_excludes WHERE id IN($email_ids)" );
-				if ( ! $restored ) {
-					$restored = 0;
-				}
-			}
-
-			wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs&opt-out-restored=' . $restored );
-			exit;
 		}
 
-		wp_safe_redirect( 'admin.php?page=followup-emails-optouts' );
+		wp_safe_redirect( 'admin.php?page=followup-emails-subscribers&view=opt-outs' );
 		exit;
 	}
 

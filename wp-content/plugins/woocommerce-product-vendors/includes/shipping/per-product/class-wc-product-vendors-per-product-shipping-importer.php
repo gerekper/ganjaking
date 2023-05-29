@@ -244,7 +244,7 @@ if ( class_exists( 'WP_Importer' ) ) :
 
 				} else {
 
-					echo '<p><strong>' . __( 'Sorry, there has been an error.', 'woocommerce-product-vendors' ) . '</strong></p>';
+					echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce-product-vendors' ) . '</strong></p>';
 
 					return false;
 				}
@@ -261,7 +261,7 @@ if ( class_exists( 'WP_Importer' ) ) :
 		 */
 		public function header() {
 			echo '<div class="wrap">';
-			echo '<h2>' . __( 'Import Per-product Shipping Rates', 'woocommerce-product-vendors' ) . '</h2>';
+			echo '<h2>' . esc_html__( 'Import Per-product Shipping Rates', 'woocommerce-product-vendors' ) . '</h2>';
 		}
 
 		/**
@@ -303,7 +303,7 @@ if ( class_exists( 'WP_Importer' ) ) :
 
 			if ( ! empty( $upload_dir['error'] ) ) :
 				?><div class="error"><p><?php esc_html_e( 'Before you can upload your import file, you will need to fix the following error:', 'woocommerce-product-vendors' ); ?></p>
-				<p><strong><?php echo $upload_dir['error']; ?></strong></p></div><?php
+				<p><strong><?php echo esc_html( $upload_dir['error'] ); ?></strong></p></div><?php
 			else :
 				?>
 				<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?php echo esc_attr( wp_nonce_url( $action, 'import-upload' ) ); ?>">
@@ -316,8 +316,8 @@ if ( class_exists( 'WP_Importer' ) ) :
 								<td>
 									<input type="file" id="upload" name="import" size="25" />
 									<input type="hidden" name="action" value="save" />
-									<input type="hidden" name="max_file_size" value="<?php echo $bytes; ?>" />
-									<small><?php printf( esc_html__( 'Maximum size: %s', 'woocommerce-product-vendors' ), $size ); ?></small>
+									<input type="hidden" name="max_file_size" value="<?php echo esc_attr( $bytes ); ?>" />
+									<small><?php printf( esc_html__( 'Maximum size: %s', 'woocommerce-product-vendors' ), esc_html( $size ) ); ?></small>
 								</td>
 							</tr>
 							<tr>

@@ -140,7 +140,7 @@ class PLLWC_Frontend {
 				if ( PLL()->options['hide_default'] && 'page' === get_option( 'show_on_front' ) && PLL()->options['default_lang'] === $lang->slug ) {
 					$pages = pll_languages_list( array( 'fields' => 'page_on_front' ) );
 					if ( in_array( wc_get_page_id( 'shop' ), $pages ) ) {
-						return $lang->home_url;
+						return $lang->get_home_url();
 					}
 				}
 
@@ -234,7 +234,7 @@ class PLLWC_Frontend {
 	public function product_tax_query( $tax_query ) {
 		foreach ( $tax_query as $k => $q ) {
 			if ( is_array( $q ) && ! empty( $q['field'] ) && 'slug' === $q['field'] ) {
-				$terms = get_terms( $q['taxonomy'], array( 'slug' => $q['terms'] ) );
+				$terms = get_terms( array( 'taxonomy' => $q['taxonomy'], 'slug' => $q['terms'] ) );
 				if ( is_array( $terms ) ) {
 					$tax_query[ $k ]['terms'] = wp_list_pluck( $terms, 'term_taxonomy_id' );
 					$tax_query[ $k ]['field'] = 'term_taxonomy_id';
@@ -280,7 +280,7 @@ class PLLWC_Frontend {
 		$args['tax_query'][] = array(
 			'taxonomy' => 'language',
 			'field'    => 'term_taxonomy_id',
-			'terms'    => PLL()->curlang->term_taxonomy_id,
+			'terms'    => PLL()->curlang->get_tax_prop( 'language', 'term_taxonomy_id' ),
 			'operator' => 'IN',
 		);
 

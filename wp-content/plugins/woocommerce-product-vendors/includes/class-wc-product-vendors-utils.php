@@ -599,9 +599,9 @@ class WC_Product_Vendors_Utils {
 
 		$rating_html = '<small style="display:block;">' . esc_html__( 'Average Vendor Rating', 'woocommerce-product-vendors' ) . '</small>';
 
-		$rating_html .= '<div class="wcpv-star-rating star-rating" title="' . sprintf( esc_attr__( 'Rated %s out of 5', 'woocommerce-product-vendors' ), $rating ) . '">';
+		$rating_html .= '<div class="wcpv-star-rating star-rating" title="' . esc_attr( sprintf( __( 'Rated %s out of 5', 'woocommerce-product-vendors' ), $rating ) ) . '">';
 
-		$rating_html .= '<span style="width:' . ( ( $rating / 5 ) * 100 ) . '%"><strong class="rating">' . $rating . '</strong> ' . esc_html__( 'out of 5', 'woocommerce-product-vendors' ) . '</span>';
+		$rating_html .= '<span style="width:' . ( ( $rating / 5 ) * 100 ) . '%"><strong class="rating">' . esc_html( $rating ) . '</strong> ' . esc_html__( 'out of 5', 'woocommerce-product-vendors' ) . '</span>';
 
 		$rating_html .= '</div>';
 
@@ -1796,5 +1796,57 @@ class WC_Product_Vendors_Utils {
 				wc_get_rounding_precision()
 			),
 		];
+	}
+
+	/**
+	 * This function should return HTML about vendor commission amount with refunded amount.
+	 * We use this function to show vendor commission details in store commission list, vendor order list and  vendor order details page.
+	 *
+	 * @since 2.1.77
+	 *
+	 * @return string
+	 */
+	public static function get_total_commission_amount_html( \stdClass $commission, WC_Order $order ) {
+		$vendor_order_item_commission = get_post_meta(
+			$commission->order_id,
+			"_wcpv_commission_{$commission->id}_amount",
+			true
+		);
+		$total_commission_amount      = $commission->total_commission_amount ?: '0';
+
+		// Check if the commission has been fully refunded.
+		if ( ! $total_commission_amount && 'void' !== $commission->commission_status ) {
+			return sprintf(
+			/* translators: 1. commission refund status label */
+				'%2$s<br><small class="wpcv-refunded">%1$s</small>',
+				esc_html__( 'Fully Refunded', 'woocommerce-product-vendors' ),
+				wc_price( $total_commission_amount ) ?: ''
+			);
+		}
+
+		if ( $vendor_order_item_commission ) {
+			// New logic to calculate refunded commission
+			// total commission amount stores in each order item meta.
+			// We can reduce order item commission from this meta value to calculate refunded commission.
+			$refunded_commission = $vendor_order_item_commission - $total_commission_amount;
+		} else {
+			// Old logic to calculate refunded commission
+			$product_commission_amount = $commission->product_commission_amount ?: '0';
+			$product_amount            = $commission->product_amount ?: '0';
+			$refunded_amount           = $order->get_total_refunded_for_item( (int) $commission->order_item_id );
+			$refunded_commission       = $refunded_amount * $product_commission_amount / $product_amount;
+		}
+
+		$refund = empty( $refunded_commission ) ?
+			'' :
+			sprintf(
+				__(
+					'<br /><small class="wpcv-refunded">-%s</small>',
+					'woocommerce-product-vendors'
+				),
+				wc_price( $refunded_commission )
+			);
+
+		return wc_price( sanitize_text_field( $commission->total_commission_amount ) ) . $refund;
 	}
 }

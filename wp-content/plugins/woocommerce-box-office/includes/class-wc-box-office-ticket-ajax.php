@@ -13,10 +13,6 @@ class WC_Box_Office_Ticket_Ajax {
 		// Process ticket input/scan.
 		add_action( 'wp_ajax_scan_ticket', array( $this, 'scan_ticket' ) );
 		add_action( 'wp_ajax_nopriv_scan_ticket', array( $this, 'scan_ticket' ) );
-
-		// Save barcode from ticket edit screen.
-		add_action( 'wp_ajax_save_ticket_barcode', array( $this, 'save_ticket_barcode' ) );
-		add_action( 'wp_ajax_nopriv_save_ticket_barcode', array( $this, 'save_ticket_barcode' ) );
 	}
 
 	/**
@@ -92,30 +88,4 @@ class WC_Box_Office_Ticket_Ajax {
 		// Exit function to prevent '0' displaying at the end of ajax request
 		exit;
 	}
-
-	/**
-	 * Save barcode via ajax.
-	 *
-	 * @return  void
-	 */
-	public function save_ticket_barcode() {
-		if ( ! isset( $_POST['ticket_id'] ) ) {
-			exit;
-		}
-
-		$ticket_id = $_POST['ticket_id'];
-
-		// Add encoded barcode image to ticket
-		if ( isset( $_POST['ticket_barcode_image'] ) && ! empty( $_POST['ticket_barcode_image'] ) ) {
-			update_post_meta( $ticket_id, '_barcode_image', $_POST['ticket_barcode_image'] );
-		}
-
-		// Add barcode text to ticket
-		if ( isset( $_POST['ticket_barcode_text'] ) && ! empty( $_POST['ticket_barcode_text'] ) ) {
-			update_post_meta( $ticket_id, '_barcode_text', $_POST['ticket_barcode_text'] );
-		}
-
-		exit;
-	}
-
 }

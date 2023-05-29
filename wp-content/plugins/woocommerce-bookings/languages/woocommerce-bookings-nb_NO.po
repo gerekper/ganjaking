@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-12T18:16:26+00:00\n"
+"POT-Creation-Date: 2023-05-26T15:05:29+00:00\n"
 "PO-Revision-Date: 2023-03-15 22:59:25+0000\n"
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -1220,191 +1220,191 @@ msgid "Enable Bookings Timezone Calculation"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:192
+#: includes/class-wc-bookings-init.php:199
 msgid "In Cart <span class=\"count\">(%s)</span>"
 msgid_plural "In Cart <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-bookings-init.php:186
+#: includes/class-wc-bookings-init.php:193
 msgctxt "woocommerce-bookings"
 msgid "In Cart"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:183
+#: includes/class-wc-bookings-init.php:190
 msgid "Cancelled <span class=\"count\">(%s)</span>"
 msgid_plural "Cancelled <span class=\"count\">(%s)</span>"
 msgstr[0] "Kansellert <span class=\"count\">(%s)</span>"
 msgstr[1] "Kansellert <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:177
+#: includes/class-wc-bookings-init.php:184
 msgctxt "woocommerce-bookings"
 msgid "Cancelled"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:174
+#: includes/class-wc-bookings-init.php:181
 msgid "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-bookings-init.php:168
+#: includes/class-wc-bookings-init.php:175
 msgctxt "woocommerce-bookings"
 msgid "Pending Confirmation"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:165
+#: includes/class-wc-bookings-init.php:172
 msgid "Un-paid <span class=\"count\">(%s)</span>"
 msgid_plural "Un-paid <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-bookings-init.php:159
+#: includes/class-wc-bookings-init.php:166
 msgctxt "woocommerce-bookings"
 msgid "Un-paid"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:156
+#: includes/class-wc-bookings-init.php:163
 msgid "Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "Bekreftet <span class=\"count\">(%s)</span>"
 msgstr[1] "Bekreftet <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:150
+#: includes/class-wc-bookings-init.php:157
 msgctxt "woocommerce-bookings"
 msgid "Confirmed"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:147
+#: includes/class-wc-bookings-init.php:154
 msgid "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-bookings-init.php:141
+#: includes/class-wc-bookings-init.php:148
 msgctxt "woocommerce-bookings"
 msgid "Paid &amp; Confirmed"
 msgstr ""
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:138
+#: includes/class-wc-bookings-init.php:145
 msgid "Complete <span class=\"count\">(%s)</span>"
 msgid_plural "Complete <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-bookings-init.php:132
+#: includes/class-wc-bookings-init.php:139
 msgctxt "woocommerce-bookings"
 msgid "Complete"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:109
+#: includes/class-wc-bookings-init.php:116
 msgid "This is where bookings are stored."
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:107
+#: includes/class-wc-bookings-init.php:114
 msgid "All Bookings"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:106
+#: includes/class-wc-bookings-init.php:113
 msgctxt "Admin menu name"
 msgid "Bookings"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:105
+#: includes/class-wc-bookings-init.php:112
 msgid "Parent Bookings"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:104
+#: includes/class-wc-bookings-init.php:111
 msgid "No Bookings found in trash"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:103
+#: includes/class-wc-bookings-init.php:110
 msgid "No Bookings found"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:102
+#: includes/class-wc-bookings-init.php:109
 msgid "Search Bookings"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:100
-#: includes/class-wc-bookings-init.php:101
+#: includes/class-wc-bookings-init.php:107
+#: includes/class-wc-bookings-init.php:108
 msgid "View Booking"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:99
+#: includes/class-wc-bookings-init.php:106
 #: includes/emails/class-wc-email-new-booking.php:25
 msgid "New Booking"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:98
+#: includes/class-wc-bookings-init.php:105
 msgid "Edit Booking"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:96
+#: includes/class-wc-bookings-init.php:103
 msgid "Add New Booking"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:69
+#: includes/class-wc-bookings-init.php:76
 msgid "Bookable resources are bookable within a bookings product."
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:66
+#: includes/class-wc-bookings-init.php:73
 msgctxt "Admin menu name"
 msgid "Resources"
 msgstr "Ressurser"
 
-#: includes/class-wc-bookings-init.php:65
+#: includes/class-wc-bookings-init.php:72
 msgid "Parent Resources"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:64
+#: includes/class-wc-bookings-init.php:71
 msgid "No Resource found in trash"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:63
+#: includes/class-wc-bookings-init.php:70
 msgid "No Resource found"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:62
+#: includes/class-wc-bookings-init.php:69
 msgid "Search Resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:60
-#: includes/class-wc-bookings-init.php:61
+#: includes/class-wc-bookings-init.php:67
+#: includes/class-wc-bookings-init.php:68
 msgid "View Resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:59
+#: includes/class-wc-bookings-init.php:66
 msgid "New Resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:58
+#: includes/class-wc-bookings-init.php:65
 msgid "Edit Resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:56
+#: includes/class-wc-bookings-init.php:63
 msgid "Add New Resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:55
+#: includes/class-wc-bookings-init.php:62
 msgid "Add Resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:54
+#: includes/class-wc-bookings-init.php:61
 msgid "Bookable resource"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:53
+#: includes/class-wc-bookings-init.php:60
 msgid "Bookable resources"
 msgstr ""
 
-#: includes/class-wc-bookings-init.php:38
+#: includes/class-wc-bookings-init.php:45
 msgid "Person Type"
 msgstr ""
 
@@ -1418,8 +1418,8 @@ msgid "Bookings from %s"
 msgstr ""
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1500
-#: includes/class-wc-bookings-init.php:91
-#: includes/class-wc-bookings-init.php:94
+#: includes/class-wc-bookings-init.php:98
+#: includes/class-wc-bookings-init.php:101
 msgid "Booking"
 msgstr ""
 
@@ -1599,7 +1599,7 @@ msgstr ""
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
-#: includes/class-wc-bookings-init.php:93
+#: includes/class-wc-bookings-init.php:100
 #: woocommerce-bookings.php:216
 msgid "Bookings"
 msgstr ""
@@ -3120,7 +3120,7 @@ msgstr ""
 #: includes/admin/views/html-create-booking-page-2.php:15
 #: includes/admin/views/html-create-booking-page-2.php:36
 #: includes/admin/views/html-create-booking-page.php:7
-#: includes/class-wc-bookings-init.php:95
+#: includes/class-wc-bookings-init.php:102
 #: woocommerce-bookings.php:185
 msgid "Add Booking"
 msgstr ""
@@ -3297,7 +3297,7 @@ msgstr ""
 msgid "Customer details"
 msgstr "Kundedetaljer"
 
-#: includes/admin/class-wc-bookings-create.php:114
+#: includes/admin/class-wc-bookings-create.php:117
 #: includes/admin/class-wc-bookings-details-meta-box.php:661
 msgid "Error: Could not create item"
 msgstr ""
@@ -3636,8 +3636,8 @@ msgstr ""
 #: includes/admin/class-wc-bookings-admin.php:335
 #: includes/admin/views/html-booking-resources.php:36
 #: includes/admin/views/html-booking-tab.php:1
-#: includes/class-wc-bookings-init.php:51
-#: includes/class-wc-bookings-init.php:67
+#: includes/class-wc-bookings-init.php:58
+#: includes/class-wc-bookings-init.php:74
 msgid "Resources"
 msgstr ""
 
@@ -3725,8 +3725,8 @@ msgid "Resource details"
 msgstr "Ressursdetaljer"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:98
-#: includes/class-wc-bookings-init.php:57
-#: includes/class-wc-bookings-init.php:97
+#: includes/class-wc-bookings-init.php:64
+#: includes/class-wc-bookings-init.php:104
 msgid "Edit"
 msgstr "Rediger"
 

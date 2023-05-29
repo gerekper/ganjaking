@@ -19,6 +19,7 @@ class WC_AM_User {
 	private $associated_api_key_table    = 'wc_am_associated_api_key';
 	private $secure_hash_table           = 'wc_am_secure_hash';
 	private $grace_period_table          = 'wc_am_grace_period';
+	private $legacy_product_id_table     = 'wc_am_legacy_product_id';
 	private $master_api_key_meta_key     = 'wc_am_master_api_key';
 	private $master_api_key_status       = 'wc_am_master_api_key_status';
 	private $hide_product_order_api_keys = false;
@@ -79,7 +80,7 @@ class WC_AM_User {
 	}
 
 	/**
-	 * Returns the string name of the API Activation database table.
+	 * Returns the string name of the Associated API Key database table.
 	 *
 	 * @since 2.0
 	 *
@@ -101,7 +102,7 @@ class WC_AM_User {
 	}
 
 	/**
-	 * Returns the string name of the Secure Hash database table.
+	 * Returns the string name of the Grace Period database table.
 	 *
 	 * @since 2.6
 	 *
@@ -109,6 +110,17 @@ class WC_AM_User {
 	 */
 	public function get_grace_period_table_table_name() {
 		return $this->grace_period_table;
+	}
+
+	/**
+	 * Returns the string name of the Legacty Product ID database table.
+	 *
+	 * @since 2.7
+	 *
+	 * @return string
+	 */
+	public function get_legacy_product_id_table_name() {
+		return $this->legacy_product_id_table;
 	}
 
 	/**
@@ -381,34 +393,34 @@ class WC_AM_User {
 
 		if ( current_user_can( 'edit_user', $user->ID ) ) {
 			?>
-			<table class="form-table">
-				<tbody>
-				<tr>
-					<th><label for="software_store_keys"><?php esc_html_e( 'API Manager API Key', 'woocommerce-api-manager' ); ?></label></th>
-					<td>
+            <table class="form-table">
+                <tbody>
+                <tr>
+                    <th><label for="software_store_keys"><?php esc_html_e( 'API Manager API Key', 'woocommerce-api-manager' ); ?></label></th>
+                    <td>
 						<?php if ( empty( $user->wc_am_master_api_key ) ) : ?>
-							<input name="generate_master_api_key" type="checkbox"
-							       id="generate_master_api_key" value="0"/>
-							<span
-								class="description"><?php esc_html_e( 'Generate Master API Key', 'woocommerce-api-manager' ); ?></span>
+                            <input name="generate_master_api_key" type="checkbox"
+                                   id="generate_master_api_key" value="0"/>
+                            <span
+                                    class="description"><?php esc_html_e( 'Generate Master API Key', 'woocommerce-api-manager' ); ?></span>
 						<?php else : ?>
-							<strong><?php esc_html_e( 'Master API Key:', 'woocommerce-api-manager' ); ?>&nbsp;</strong><code
-								id="wc_am_master_api_key"><?php echo esc_attr( $user->wc_am_master_api_key ) ?></code>
-							<br>
-							<input name="replace_master_api_key" type="checkbox"
-							       id="replace_master_api_key" value="0"/>
-							<span
-								class="description"><?php esc_html_e( 'Replace Master API Key', 'woocommerce-api-manager' ); ?></span>
-							<br>
-							<input name="wc_am_master_api_key_status" type="checkbox"
-							       id="wc_am_master_api_key_status" <?php checked( isset( $user->wc_am_master_api_key_status ) ? $user->wc_am_master_api_key_status : '', 'disabled' ); ?> />
-							<span
-								class="description"><?php esc_html_e( 'Disable Master API Key', 'woocommerce-api-manager' ); ?></span>
+                            <strong><?php esc_html_e( 'Master API Key:', 'woocommerce-api-manager' ); ?>&nbsp;</strong><code
+                                    id="wc_am_master_api_key"><?php echo esc_attr( $user->wc_am_master_api_key ) ?></code>
+                            <br>
+                            <input name="replace_master_api_key" type="checkbox"
+                                   id="replace_master_api_key" value="0"/>
+                            <span
+                                    class="description"><?php esc_html_e( 'Replace Master API Key', 'woocommerce-api-manager' ); ?></span>
+                            <br>
+                            <input name="wc_am_master_api_key_status" type="checkbox"
+                                   id="wc_am_master_api_key_status" <?php checked( isset( $user->wc_am_master_api_key_status ) ? $user->wc_am_master_api_key_status : '', 'disabled' ); ?> />
+                            <span
+                                    class="description"><?php esc_html_e( 'Disable Master API Key', 'woocommerce-api-manager' ); ?></span>
 						<?php endif; ?>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 			<?php
 		}
 	}

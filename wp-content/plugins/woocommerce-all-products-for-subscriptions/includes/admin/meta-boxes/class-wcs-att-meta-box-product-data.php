@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for SATT-enabled product types.
  *
  * @class    WCS_ATT_Meta_Box_Product_Data
- * @version  3.4.2
+ * @version  4.1.0
  */
 class WCS_ATT_Meta_Box_Product_Data {
 
@@ -100,7 +100,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 			$classes .= ' planless onboarding';
 		}
 
-		?><div id="wcsatt_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo $classes; ?>" style="display:none;">
+		?><div id="wcsatt_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo esc_attr( $classes ); ?>" style="display:none;">
 
 			<div class="options_group global_scheme_options"><?php
 
@@ -119,7 +119,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 				) );
 
 			?></div>
-			<div class="hr-section hr-section-schemes"><?php echo __( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></div>
+			<div class="hr-section hr-section-schemes"><?php echo esc_html__( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></div>
 			<div class="options_group subscription_schemes wc-metaboxes ui-sortable" data-count=""><?php
 
 				if ( $has_subscription_schemes ) {
@@ -136,17 +136,17 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 				?><div class="apfs_boarding__schemes">
 					<div class="apfs_boarding__schemes__message">
-						<h3><?php _e( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></h3>
-						<p><?php _e( 'Add some custom subscription plans to this product.', 'woocommerce-all-products-for-subscriptions' ); ?>
-						<br/><?php _e( 'These plans will override your global subscription plans.', 'woocommerce-all-products-for-subscriptions' ); ?>
+						<h3><?php esc_html_e( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></h3>
+						<p><?php esc_html_e( 'Add some custom subscription plans to this product.', 'woocommerce-all-products-for-subscriptions' ); ?>
+						<br/><?php esc_html_e( 'These plans will override your global subscription plans.', 'woocommerce-all-products-for-subscriptions' ); ?>
 						</p>
 					</div>
 				</div>
 			</div>
 			<div class="options_group subscription_schemes_add_wrapper">
-				<button type="button" class="button add_subscription_scheme"><?php _e( 'Add Plan', 'woocommerce-all-products-for-subscriptions' ); ?></button>
+				<button type="button" class="button add_subscription_scheme"><?php esc_html_e( 'Add Plan', 'woocommerce-all-products-for-subscriptions' ); ?></button>
 			</div>
-			<div class="hr-section hr-section-schemes-settings"><?php echo __( 'Advanced Settings', 'woocommerce-all-products-for-subscriptions' ); ?></div>
+			<div class="hr-section hr-section-schemes-settings"><?php echo esc_html__( 'Advanced Settings', 'woocommerce-all-products-for-subscriptions' ); ?></div>
 			<div class="options_group additional_scheme_options"><?php
 
 				// Subscription Status.
@@ -196,7 +196,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 					?>
 					<div class="wcsatt_default_layout form-field _wcsatt_layout_field">
-						<label for="_wcsatt_layout"><?php _e( 'Options layout', 'woocommerce-all-products-for-subscriptions' ) ?></label>
+						<label for="_wcsatt_layout"><?php esc_html_e( 'Options layout', 'woocommerce-all-products-for-subscriptions' ); ?></label>
 						<ul class="wcsatt_image_select__container">
 							<?php
 							foreach ( $layouts as $layout ) {
@@ -205,8 +205,8 @@ class WCS_ATT_Meta_Box_Product_Data {
 									$classes[] = 'selected';
 								}
 							?>
-							<li class="<?php echo implode( ' ', $classes ); ?>" >
-								<input type="radio"<?php echo $layout[ 'checked' ] ? ' checked' : '' ?> name="_wcsatt_layout" id="_wcsatt_layout" value="<?php echo $layout[ 'value' ] ?>">
+							<li class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" >
+								<input type="radio"<?php echo $layout[ 'checked' ] ? ' checked' : ''; ?> name="_wcsatt_layout" id="_wcsatt_layout" value="<?php echo esc_attr( $layout[ 'value' ] ); ?>">
 								<?php echo wc_help_tip( '<strong>' . $layout[ 'title' ] . '</strong> &ndash; ' . $layout[ 'description' ] ); ?>
 							</li>
 							<?php } ?>
@@ -261,17 +261,17 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 		// Subscription Price, Interval and Period.
 		?><div class="satt_subscription_details">
-			<p class="form-field _satt_subscription_details_<?php echo $index; ?>">
-				<label for="_satt_subscription_details_<?php echo $index; ?>"><?php esc_html_e( 'Interval', 'woocommerce-all-products-for-subscriptions' ); ?></label>
+			<p class="form-field _satt_subscription_details_<?php echo absint( $index ); ?>">
+				<label for="_satt_subscription_details_<?php echo absint( $index ); ?>"><?php esc_html_e( 'Interval', 'woocommerce-all-products-for-subscriptions' ); ?></label>
 				<span class="wrap">
-					<label for="_satt_subscription_period_interval_<?php echo $index; ?>" class="wcs_hidden_label"><?php esc_html_e( 'Subscription interval', 'woocommerce-subscriptions' ); ?></label>
-					<select id="_satt_subscription_period_interval_<?php echo $index; ?>" name="wcsatt_schemes[<?php echo $index; ?>][subscription_period_interval]" class="wc_input_subscription_period_interval">
+					<label for="_satt_subscription_period_interval_<?php echo absint( $index ); ?>" class="wcs_hidden_label"><?php esc_html_e( 'Subscription interval', 'woocommerce-subscriptions' ); ?></label>
+					<select id="_satt_subscription_period_interval_<?php echo absint( $index ); ?>" name="wcsatt_schemes[<?php echo absint( $index ); ?>][subscription_period_interval]" class="wc_input_subscription_period_interval">
 					<?php foreach ( wcs_get_subscription_period_interval_strings() as $value => $label ) { ?>
 						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $subscription_period_interval, true ) ?>><?php echo esc_html( $label ); ?></option>
 					<?php } ?>
 					</select>
-					<label for="_satt_subscription_period_<?php echo $index; ?>" class="wcs_hidden_label"><?php esc_html_e( 'Subscription period', 'woocommerce-subscriptions' ); ?></label>
-					<select id="_satt_subscription_period_<?php echo $index; ?>" name="wcsatt_schemes[<?php echo $index; ?>][subscription_period]" class="wc_input_subscription_period last" >
+					<label for="_satt_subscription_period_<?php echo absint( $index ); ?>" class="wcs_hidden_label"><?php esc_html_e( 'Subscription period', 'woocommerce-subscriptions' ); ?></label>
+					<select id="_satt_subscription_period_<?php echo absint( $index ); ?>" name="wcsatt_schemes[<?php echo absint( $index ); ?>][subscription_period]" class="wc_input_subscription_period last" >
 					<?php foreach ( wcs_get_subscription_period_strings() as $value => $label ) { ?>
 						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $subscription_period, true ) ?>><?php echo esc_html( $label ); ?></option>
 					<?php } ?>

@@ -173,7 +173,10 @@ class WC_AM_API_Requests {
 
 			if ( $key == 'software_id' ) {
 				unset( $this->request[ $key ] );
-				$this->request[ 'product_id' ] = ! empty( $value ) ? $value : '';
+				/**
+				 * @since 2.7
+				 */
+				$this->request[ 'product_id' ] = WC_AM_LEGACY_PRODUCT_ID()->get_product_id_integer( $value );
 			}
 
 			if ( $key == 'software_version' ) {
@@ -695,6 +698,15 @@ class WC_AM_API_Requests {
 
 		// Legacy API Manager < 2.0, and API Manager PHP Library <= 1.2.
 		$top_level_data[ 'status_check' ] = $is_active ? 'active' : 'inactive';
+
+		/**
+		 * Format additional data for WC Software Add-on response.
+		 *
+		 * @since 2.7
+		 */
+		if ( $this->request[ 'wcam_software_add_on_request' ] = 'yes' ) {
+			$top_level_data[ 'remaining' ] = $data[ 'activations_remaining' ];
+		}
 
 		/**
 		 * Data Cache

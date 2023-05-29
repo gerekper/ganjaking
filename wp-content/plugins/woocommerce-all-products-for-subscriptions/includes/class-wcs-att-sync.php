@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles synchronization.
  *
  * @class    WCS_ATT_Sync
- * @version  3.1.2
+ * @version  4.1.0
  */
 class WCS_ATT_Sync {
 
@@ -164,17 +164,23 @@ class WCS_ATT_Sync {
 				<div class="subscription_sync_annual <?php echo ! empty( $payment_month ) ? 'subscription_sync_annual--synced' : ''; ?>" style="<?php echo esc_attr( $display_annual_select ); ?>">
 
 					<p class="form-field _satt_subscription_payment_sync_date_day_field">
-						<label for="_satt_subscription_payment_sync_date_day_<?php echo $index; ?>"><?php echo esc_html( __( 'Synchronization', 'woocommerce-all-products-for-subscriptions' ) ); ?></label>
+						<label for="_satt_subscription_payment_sync_date_day_<?php echo absint( $index ); ?>"><?php echo esc_html( __( 'Synchronization', 'woocommerce-all-products-for-subscriptions' ) ); ?></label>
 						<span class="wrap">
-							<select id="_satt_subscription_payment_sync_date_month_<?php echo $index; ?>" name="wcsatt_schemes[<?php echo $index; ?>][subscription_payment_sync_date_month]" class="wc_input_subscription_payment_sync wc_input_subscription_payment_sync_date_month" >
+							<select id="_satt_subscription_payment_sync_date_month_<?php echo absint( $index ); ?>" name="wcsatt_schemes[<?php echo absint( $index ); ?>][subscription_payment_sync_date_month]" class="wc_input_subscription_payment_sync wc_input_subscription_payment_sync_date_month" >
 								<option value="0" <?php selected( 0, $payment_month, true ) ?>><?php echo esc_html( __( 'Disabled', 'woocommerce-all-products-for-subscriptions' ) ); ?></option>
 								<?php foreach ( $wp_locale->month as $value => $label ) { ?>
 									<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $payment_month, true ) ?>><?php echo esc_html( sprintf( __( '%s each year', 'woocommerce-all-products-for-subscriptions' ), $label ) ); ?></option>
 								<?php } ?>
 							</select>
-							<input type="number" id="_satt_subscription_payment_sync_date_day_<?php echo $index; ?>" name="wcsatt_schemes[<?php echo $index; ?>][subscription_payment_sync_date_day]" class="wc_input_subscription_payment_sync satt_subscription_payment_sync_date_day" value="<?php echo ( $subscription_payment_sync_date && $payment_day ? esc_attr( $payment_day ) : 1 ); ?>" placeholder="<?php echo esc_attr_x( 'Day', 'input field placeholder for day field for annual subscriptions', 'woocommerce-subscriptions' ); ?>"  />
+							<?php
+								$sync_date_attr = $subscription_payment_sync_date && $payment_day ? $payment_day : 1;
+							?>
+							<input type="number" id="_satt_subscription_payment_sync_date_day_<?php echo absint( $index ); ?>" name="wcsatt_schemes[<?php echo absint( $index ); ?>][subscription_payment_sync_date_day]" class="wc_input_subscription_payment_sync satt_subscription_payment_sync_date_day" value="<?php echo esc_attr( $sync_date_attr ); ?>" placeholder="<?php echo esc_attr_x( 'Day', 'input field placeholder for day field for annual subscriptions', 'woocommerce-subscriptions' ); ?>"  />
 						</span>
-						<?php echo wcs_help_tip( WC_Subscriptions_Synchroniser::$sync_description_year ); ?>
+						<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							echo wcs_help_tip( WC_Subscriptions_Synchroniser::$sync_description_year );
+						?>
 					</p>
 				</div>
 			</div><?php

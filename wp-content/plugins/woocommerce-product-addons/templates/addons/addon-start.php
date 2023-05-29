@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 6.1.0
+ * @version 6.3.0
  * @package woocommerce-product-addons
  */
 
@@ -79,6 +79,7 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 					}
 
 					?>
+					<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<label <?php echo $for_html; ?> class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wp_kses_post( wptexturize( $name ) ); ?> <?php echo ! empty( $price_display ) ? '<span class="wc-pao-addon-price">' . wp_kses_post( $price_display ) . '</span>' : ''; ?> <?php echo $required ? '<em class="required" title="' . esc_attr__( 'Required field', 'woocommerce-product-addons' ) . '">*</em>' : ''; ?></label>
 					<?php
 					break;

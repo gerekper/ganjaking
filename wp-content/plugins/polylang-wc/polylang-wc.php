@@ -10,8 +10,8 @@
  * Plugin name:          Polylang for WooCommerce
  * Plugin URI:           https://polylang.pro
  * Description:          Adds multilingual capability to WooCommerce
- * Version:              1.7.2
- * Requires at least:    5.7
+ * Version:              1.8
+ * Requires at least:    5.8
  * Requires PHP:         7.0
  * Author:               WP SYNTEX
  * Author URI:           https://polylang.pro
@@ -20,8 +20,8 @@
  * License:              GPL v3 or later
  * License URI:          https://www.gnu.org/licenses/gpl-3.0.txt
  *
- * WC requires at least: 5.1
- * WC tested up to:      7.4
+ * WC requires at least: 5.6
+ * WC tested up to:      7.7
  *
  * Copyright 2016-2020 Frédéric Demarle
  * Copyright 2020-2023 WP SYNTEX
@@ -44,8 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Don't access directly.
 }
 
-define( 'PLLWC_VERSION', '1.7.2' );
-define( 'PLLWC_MIN_PLL_VERSION', '3.0' );
+define( 'PLLWC_VERSION', '1.8' );
+define( 'PLLWC_MIN_PLL_VERSION', '3.4-beta1' );
 
 define( 'PLLWC_FILE', __FILE__ ); // This file.
 define( 'PLLWC_BASENAME', plugin_basename( PLLWC_FILE ) ); // Plugin name as known by WP.
@@ -120,9 +120,9 @@ class Polylang_Woocommerce {
 	public $emails;
 
 	/**
-	 * @var PLLWC_Export
+	 * @var PLLWC_Product_Export
 	 */
-	public $export;
+	public $product_export;
 
 	/**
 	 * @var PLLWC_Frontend
@@ -130,9 +130,9 @@ class Polylang_Woocommerce {
 	public $frontend;
 
 	/**
-	 * @var PLLWC_Import
+	 * @var PLLWC_Product_Import
 	 */
-	public $import;
+	public $product_import;
 
 	/**
 	 * @var PLLWC_Links
@@ -190,6 +190,16 @@ class Polylang_Woocommerce {
 	public $wizard;
 
 	/**
+	 * @var PLLWC_Translation_Export|null
+	 */
+	public $translation_export;
+
+	/**
+	 * @var PLLWC_Translation_Import|null
+	 */
+	public $translation_import;
+
+	/**
 	 * Singleton.
 	 *
 	 * @var Polylang_Woocommerce
@@ -219,11 +229,10 @@ class Polylang_Woocommerce {
 		}
 
 		/*
-		 * Fix home url when using pretty permalinks and the shop is on front.
-		 * Added here because the filters are fired before the action 'pll_init'.
+		 * Fix home url when using plain permalinks and the shop is on front.
+		 * Added here because the filter is fired before the action 'pll_init'.
 		 */
-		add_filter( 'pll_languages_list', array( 'PLLWC_Links', 'set_home_urls' ), 7 ); // After Polylang.
-		add_filter( 'pll_after_languages_cache', array( 'PLLWC_Links', 'pll_after_languages_cache' ), 20 ); // After Polylang.
+		add_filter( 'pll_additional_language_data', array( 'PLLWC_Links', 'set_home_url' ), 20, 2 ); // After Polylang.
 
 		add_filter( 'pll_is_ajax_on_front', array( $this, 'fix_ajax_product_import' ) );
 
@@ -308,15 +317,15 @@ class Polylang_Woocommerce {
 
 		PLLWC_Variation_Data_Store_CPT::init();
 
-		$this->post_types = new PLLWC_Post_Types();
-		$this->links      = defined( 'POLYLANG_PRO' ) && POLYLANG_PRO && get_option( 'permalink_structure' ) ? new PLLWC_Links_Pro() : new PLLWC_Links();
-		$this->stock      = new PLLWC_Stock();
-		$this->emails     = new PLLWC_Emails();
-		$this->strings    = new PLLWC_Strings();
-		$this->data       = new PLLWC_Xdata();
-		$this->export     = new PLLWC_Export();
-		$this->import     = new PLLWC_Import();
-		$this->products   = new PLLWC_Products();
+		$this->post_types     = new PLLWC_Post_Types();
+		$this->links          = defined( 'POLYLANG_PRO' ) && POLYLANG_PRO && get_option( 'permalink_structure' ) ? new PLLWC_Links_Pro() : new PLLWC_Links();
+		$this->stock          = new PLLWC_Stock();
+		$this->emails         = new PLLWC_Emails();
+		$this->strings        = new PLLWC_Strings();
+		$this->data           = new PLLWC_Xdata();
+		$this->product_export = new PLLWC_Product_Export();
+		$this->product_import = new PLLWC_Product_Import();
+		$this->products       = new PLLWC_Products();
 
 		if ( defined( 'POLYLANG_PRO' ) && POLYLANG_PRO ) {
 			$this->rest_api     = new PLLWC_REST_API();
@@ -355,8 +364,16 @@ class Polylang_Woocommerce {
 				$this->coupons                 = new PLLWC_Admin_Coupons();
 				$this->site_health             = new PLLWC_Admin_Site_Health();
 
+				if ( defined( 'POLYLANG_PRO' ) && POLYLANG_PRO ) {
+					$this->translation_export = ( new PLLWC_Translation_Export() )->init();
+				}
+
 				add_action( 'woocommerce_system_status_report', array( $this->admin_status_reports, 'status_report' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			}
+
+			if ( PLL() instanceof PLL_Settings && defined( 'POLYLANG_PRO' ) && POLYLANG_PRO ) {
+				$this->translation_import = ( new PLLWC_Translation_Import() )->init();
 			}
 		}
 
@@ -381,13 +398,20 @@ class Polylang_Woocommerce {
 		load_plugin_textdomain( 'polylang-wc' );
 		printf(
 			'<div class="error"><p>%s</p><p>%s</p></div>',
-			esc_html__( 'Polylang for WooCommerce has been deactivated because you are using an old version of Polylang.', 'polylang-wc' ),
 			esc_html(
 				sprintf(
-					/* translators: %1$s and %2$s are Polylang version numbers */
-					__( 'You are using Polylang %1$s. Polylang for WooCommerce requires at least Polylang %2$s.', 'polylang-wc' ),
+					/* translators: %s is the plugin name (Polylang or Polylang Pro) */
+					__( 'Polylang for WooCommerce has been deactivated because you are using an old version of %s.', 'polylang-wc' ),
+					POLYLANG
+				)
+			),
+			esc_html(
+				sprintf(
+					/* translators: %1$s and %2$s are plugin version numbers, %3$s is the plugin name (Polylang or Polylang Pro) */
+					__( 'You are using %3$s %1$s. Polylang for WooCommerce requires at least %3$s %2$s.', 'polylang-wc' ),
 					POLYLANG_VERSION,
-					PLLWC_MIN_PLL_VERSION
+					PLLWC_MIN_PLL_VERSION,
+					POLYLANG
 				)
 			)
 		);

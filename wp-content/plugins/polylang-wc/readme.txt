@@ -1,10 +1,10 @@
 === Polylang for WooCommerce ===
-Contributors: Chouby, manooweb, sebastienserre, greglone
+Contributors: Chouby, manooweb, sebastienserre, greglone, hugod, marianne38
 Tags: multilingual, woocommerce
-Requires at least: 5.7
+Requires at least: 5.8
 Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.7.2
+Stable tag: 1.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,20 @@ Some popular extensions such as WooCommerce Subscriptions, Dynamic Pricing, Tabl
 This extension can be used either with the free version of Polylang or in combination with Polylang Pro.
 
 == Changelog ==
+
+= 1.8 (2023-05-23) =
+
+* Requires WordPress 5.8 or higher, WC 5.6 or higher, Polylang 3.4 or higher.
+* Adapt the code base to Polylang 3.4.
+* Add support for XLIFF import and export with Polylang Pro.
+* Add support for the product attributes lookup table.
+* Bookings: Unlink person types from product instead of deleting them.
+* Fix invalid order in account page if an account endpoint is set to an empty value.
+* Fix checkout block redirecting to the order received page in wrong language.
+* Fix shortcodes reported as missing in status report when WC pages use blocks.
+* Fix legacy report for children categories.
+* Fix fatal error when attempting to access the order in a function hooked to `woocommerce_email_recipient_new_order`.
+* Fix: avoid a fatal error in WooCommerce Min Max Quantities.
 
 = 1.7.2 (2023-02-21) =
 

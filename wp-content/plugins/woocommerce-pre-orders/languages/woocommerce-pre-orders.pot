@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Pre-Orders 2.0.1\n"
+"Project-Id-Version: WooCommerce Pre-Orders 2.0.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-pre-orders\n"
-"POT-Creation-Date: 2023-04-14 20:49:51+00:00\n"
+"POT-Creation-Date: 2023-05-24 04:41:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -121,7 +121,7 @@ msgstr[1] ""
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:424
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:513
 #: includes/class-wc-pre-orders-list-table.php:64
-#: includes/class-wc-pre-orders-list-table.php:257
+#: includes/class-wc-pre-orders-list-table.php:270
 #: includes/class-wc-pre-orders-my-pre-orders.php:168
 msgid "Cancel"
 msgstr ""
@@ -188,7 +188,7 @@ msgstr ""
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:636
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:692
 #: includes/admin/class-wc-pre-orders-admin-pre-orders.php:736
-#: includes/class-wc-pre-orders-list-table.php:189
+#: includes/class-wc-pre-orders-list-table.php:202
 #: templates/myaccount/my-pre-orders.php:18
 #: templates/myaccount/my-pre-orders.php:44
 msgid "Product"
@@ -598,87 +598,87 @@ msgstr ""
 msgid "Pre-order"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:187
+#: includes/class-wc-pre-orders-list-table.php:200
 #: templates/myaccount/my-pre-orders.php:19
 #: templates/myaccount/my-pre-orders.php:49
 msgid "Status"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:188
+#: includes/class-wc-pre-orders-list-table.php:201
 msgid "Customer"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:190
+#: includes/class-wc-pre-orders-list-table.php:203
 #: templates/myaccount/my-pre-orders.php:17
 #: templates/myaccount/my-pre-orders.php:33
 msgid "Order"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:191
+#: includes/class-wc-pre-orders-list-table.php:204
 msgid "Order status"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:192
+#: includes/class-wc-pre-orders-list-table.php:205
 msgid "Order date"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:193
+#: includes/class-wc-pre-orders-list-table.php:206
 msgid "Availability date"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:292
+#: includes/class-wc-pre-orders-list-table.php:305
 #. translators: %s: order number
 msgid "Order %s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:675
+#: includes/class-wc-pre-orders-list-table.php:688
 msgid "No pre-orders found"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:677
+#: includes/class-wc-pre-orders-list-table.php:690
 msgid ""
 "Pre-orders will appear here for you to view and manage once purchased by a "
 "customer."
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:681
+#: includes/class-wc-pre-orders-list-table.php:694
 #. translators: %1$s = Opening anchor tag for WooCommerce Pre-Orders
 #. documentation on WooCommerce.com, %2$s = closing anchor tag
 msgid "%1$sLearn more about managing pre-orders%2$s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:687
+#: includes/class-wc-pre-orders-list-table.php:700
 #. translators: %1$s = Opening anchor tag for adding new product, %2$s =
 #. closing anchor tag
 msgid "%1$sSetup a product to allow pre-orders%2$s"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:725
+#: includes/class-wc-pre-orders-list-table.php:738
 msgid "Search for a customer&hellip;"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:733
+#: includes/class-wc-pre-orders-list-table.php:746
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:744
+#: includes/class-wc-pre-orders-list-table.php:757
 msgid "Filter"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:749
-#: includes/class-wc-pre-orders-list-table.php:784
+#: includes/class-wc-pre-orders-list-table.php:762
+#: includes/class-wc-pre-orders-list-table.php:797
 msgid "Optional message to include in the email to the customer"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:770
+#: includes/class-wc-pre-orders-list-table.php:783
 msgid "Are you sure you want to cancel this pre-order?"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:817
+#: includes/class-wc-pre-orders-list-table.php:830
 msgid "Show all availability dates"
 msgstr ""
 
-#: includes/class-wc-pre-orders-list-table.php:832
+#: includes/class-wc-pre-orders-list-table.php:845
 #. translators: %1$s month, %2$d year
 msgid "%1$s %2$d"
 msgstr ""

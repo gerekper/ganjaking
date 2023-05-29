@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart support.
  *
  * @class    WCS_ATT_Cart
- * @version  4.0.0
+ * @version  4.1.0
  */
 class WCS_ATT_Cart {
 
@@ -184,6 +184,19 @@ class WCS_ATT_Cart {
 		if ( self::is_supported( array_merge( $cart_item, array( 'product_id' => $product_id ) ) ) && ! isset( $cart_item[ 'wcsatt_data' ] ) ) { // Might be set - @see 'WCS_ATT_Order::restore_cart_item_from_order_item'.
 
 			$posted_subscription_scheme_key = WCS_ATT_Product_Schemes::get_posted_subscription_scheme( $product_id );
+
+			if ( null === $posted_subscription_scheme_key ) {
+
+				if ( $variation_id ) {
+					$product = wc_get_product( $variation_id );
+				} else {
+					$product = wc_get_product( $product_id );
+				}
+
+				if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) ) {
+					$posted_subscription_scheme_key = WCS_ATT_Product_Schemes::get_default_subscription_scheme( $product );
+				}
+			}
 
 			$cart_item[ 'wcsatt_data' ] = array(
 				'active_subscription_scheme' => $posted_subscription_scheme_key,
@@ -506,6 +519,8 @@ class WCS_ATT_Cart {
 			}
 		}
 
+		// It's safe to ignore the warning. The url returned is escaped downstream in cart.php .
+		// nosemgrep: audit.php.wp.security.xss.query-arg
 		return $html;
 	}
 

@@ -51,34 +51,34 @@ class ResultPrinter
             self::$printResultCounter++;
             echo '
         <div class="panel panel-default">
-            <div class="panel-heading '. ($errorMessage ? 'error' : '') .'" role="tab" id="heading-'.self::$printResultCounter.'">
+            <div class="panel-heading ' . esc_attr($errorMessage ? 'error' : '') . '" role="tab" id="heading-' . esc_attr( self::$printResultCounter ) . '">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#step-'. self::$printResultCounter .'" aria-expanded="false" aria-controls="step-'.self::$printResultCounter.'">
-            '. self::$printResultCounter .'. '. $title . ($errorMessage ? ' (Failed)' : '') . '</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#step-'. esc_attr( self::$printResultCounter ) .'" aria-expanded="false" aria-controls="step-' . esc_attr( self::$printResultCounter ) . '">
+            ' . esc_html( self::$printResultCounter ) .'. '. esc_html( $title ) . esc_html($errorMessage ? ' (Failed)' : '') . '</a>
                 </h4>
             </div>
-            <div id="step-'.self::$printResultCounter.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-'. self::$printResultCounter . '">
+            <div id="step-' . esc_attr( self::$printResultCounter) . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-'. esc_attr( self::$printResultCounter ) . '">
                 <div class="panel-body">
             ';
 
             if ($objectId) {
-                echo "<div>" . ($objectName ? $objectName : "Object") . " with ID: $objectId </div>";
+                echo "<div>" . esc_html($objectName ? $objectName : "Object") . " with ID: " . esc_html( $objectId ) . "</div>";
             }
 
             echo '<div class="row hidden-xs hidden-sm hidden-md"><div class="col-md-6"><h4>Request Object</h4>';
             self::printObject($request);
-            echo '</div><div class="col-md-6"><h4 class="'. ($errorMessage ? 'error' : '') .'">Response Object</h4>';
+            echo '</div><div class="col-md-6"><h4 class="'. esc_attr($errorMessage ? 'error' : '') .'">Response Object</h4>';
             self::printObject($response, $errorMessage);
             echo '</div></div>';
 
             echo '<div class="hidden-lg"><ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" ><a href="#step-'.self::$printResultCounter .'-request" role="tab" data-toggle="tab">Request</a></li>
-                        <li role="presentation" class="active"><a href="#step-'.self::$printResultCounter .'-response" role="tab" data-toggle="tab">Response</a></li>
+                        <li role="presentation" ><a href="#step-' . esc_attr( self::$printResultCounter ) .'-request" role="tab" data-toggle="tab">Request</a></li>
+                        <li role="presentation" class="active"><a href="#step-' . esc_attr( self::$printResultCounter ) .'-response" role="tab" data-toggle="tab">Response</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane" id="step-'.self::$printResultCounter .'-request"><h4>Request Object</h4>';
+                        <div role="tabpanel" class="tab-pane" id="step-' . esc_attr( self::$printResultCounter ) .'-request"><h4>Request Object</h4>';
             self::printObject($request) ;
-            echo '</div><div role="tabpanel" class="tab-pane active" id="step-'.self::$printResultCounter .'-response"><h4>Response Object</h4>';
+            echo '</div><div role="tabpanel" class="tab-pane active" id="step-' . esc_attr( self::$printResultCounter ) .'-response"><h4>Response Object</h4>';
             self::printObject($response, $errorMessage);
             echo '</div></div></div></div>
             </div>
@@ -144,7 +144,7 @@ class ResultPrinter
     {
         if ($error) {
             echo '<p class="error"><i class="fa fa-exclamation-triangle"></i> '.
-             $error.
+             esc_html( $error ).
             '</p>';
         }
         if ($object) {
@@ -154,7 +154,7 @@ class ResultPrinter
             } elseif (is_string($object) && \PayPal\Validation\JsonValidator::validate($object, true)) {
                 echo '<pre class="prettyprint '. ($error ? 'error' : '') .'">'. str_replace('\\/', '/', json_encode(json_decode($object), 128)) . "</pre>";
             } elseif (is_string($object)) {
-                echo '<pre class="prettyprint '. ($error ? 'error' : '') .'">' . $object . '</pre>';
+                echo '<pre class="prettyprint '. ($error ? 'error' : '') .'">' . esc_html( $object ) . '</pre>';
             } else {
                 echo "<pre>";
                 print_r($object);

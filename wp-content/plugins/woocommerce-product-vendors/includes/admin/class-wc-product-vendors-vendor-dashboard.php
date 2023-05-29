@@ -248,8 +248,8 @@ class WC_Product_Vendors_Vendor_Dashboard {
 		<ul class="wc_status_list">
 			<?php if ( WC_Product_Vendors_Utils::is_admin_vendor() ) { ?>
 				<li class="sales-this-month">
-					<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-reports&range=month' ); ?>">
-						<?php printf( __( "<strong>%s</strong> net sales this month", 'woocommerce-product-vendors' ), wc_price( $total_product_amount ) ); ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&range=month' ) ); ?>">
+						<?php printf( esc_html__( "<strong>%s</strong> net sales this month", 'woocommerce-product-vendors' ), wc_price( $total_product_amount ) ); ?>
 					</a>
 				</li>
 			<?php } ?>
@@ -266,33 +266,33 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			}
 			?>
 				<li class="best-seller-this-month">
-					<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-reports&tab=orders&report=sales_by_product&range=month&product_ids=' . $top_seller_id ); ?>">
-						<?php printf( __( "%s top seller this month (sold %d)", 'woocommerce-product-vendors' ), "<strong>" . $top_seller_title . "</strong>", $top_seller_qty ); ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=orders&report=sales_by_product&range=month&product_ids=' . $top_seller_id ) ); ?>">
+						<?php printf( esc_html__( "%s top seller this month (sold %d)", 'woocommerce-product-vendors' ), "<strong>" . esc_html( $top_seller_title ) . "</strong>", esc_html( $top_seller_qty ) ); ?>
 					</a>
 				</li>
 
 			<?php if ( WC_Product_Vendors_Utils::is_admin_vendor() ) { ?>
 				<li class="commission">
-					<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-orders' ); ?>">
-						<?php printf( __( "<strong>%s</strong> commission this month", 'woocommerce-product-vendors' ), wc_price( $commission ) ); ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-orders' ) ); ?>">
+						<?php printf( esc_html__( "<strong>%s</strong> commission this month", 'woocommerce-product-vendors' ), wc_price( $commission ) ); ?>
 					</a>
 				</li>
 			<?php } ?>
 
 			<li class="unfulfilled-products">
-				<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-orders' ); ?>">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-orders' ) ); ?>">
 					<?php printf( _n( "<strong>%s product</strong> awaiting fulfillment", "<strong>%s products</strong> awaiting fulfillment", $unfulfilled_products, 'woocommerce-product-vendors' ), $unfulfilled_products ); ?>
 				</a>
 			</li>
 
 			<li class="low-in-stock">
-				<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=low_in_stock' ); ?>">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=low_in_stock' ) ); ?>">
 					<?php printf( _n( "<strong>%s product</strong> low in stock", "<strong>%s products</strong> low in stock", $lowinstock_count, 'woocommerce-product-vendors' ), $lowinstock_count ); ?>
 				</a>
 			</li>
 
 			<li class="out-of-stock">
-				<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=out_of_stock' ); ?>">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=out_of_stock' ) ); ?>">
 					<?php printf( _n( "<strong>%s product</strong> out of stock", "<strong>%s products</strong> out of stock", $outofstock_count, 'woocommerce-product-vendors' ), $outofstock_count ); ?>
 				</a>
 			</li>

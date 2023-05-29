@@ -734,7 +734,9 @@ class WC_AM_API_Resource_Data_Store {
 				if ( ! empty( $product_ids ) ) {
 					foreach ( $product_ids as $id ) {
 						// Compare the string $product_id to the legacy software title to determine the numeric product ID.
-						if ( WC_AM_FORMAT()->strcmp( $product_id, WC_AM_PRODUCT_DATA_STORE()->get_product_legacy_api_software_title( $id ) ) ) {
+						if ( WC_AM_FORMAT()->strcmp( $product_id, WC_AM_LEGACY_PRODUCT_ID()->get_product_id_title( $id ) ) ) {
+							$ids[] = $id;
+						} elseif ( get_option( 'woocommerce_api_manager_translate_software_add_on_queries' ) == 'yes' && WC_AM_FORMAT()->strcmp( $product_id, WC_AM_LEGACY_PRODUCT_ID()->get_product_id_title( $id, '_software_product_id' ) ) ) {
 							$ids[] = $id;
 						}
 					}
@@ -930,7 +932,7 @@ class WC_AM_API_Resource_Data_Store {
 	 *
 	 * @since 2.0
 	 *
-	 * @param array $resources Get the resources first, then passed it in.
+	 * @param array $resources Get the resources first, then pass it in.
 	 * @param int   $product_id
 	 *
 	 * @return array
@@ -1178,16 +1180,30 @@ class WC_AM_API_Resource_Data_Store {
 	 * @return false|int
 	 */
 	public function get_item_quantity_and_refund_quantity_by_order_id_and_product_id( $order_id, $product_id ) {
+		$this->get_api_resource_by_order_id_and_product_id( $order_id, $product_id );
+	}
+
+	/**
+	 * Get the item quanity for the line item row.
+	 *
+	 * @since 2.7
+	 *
+	 * @param int $order_id
+	 * @param int $product_id
+	 *
+	 * @return false|int
+	 */
+	public function get_api_resource_by_order_id_and_product_id( $order_id, $product_id ) {
 		global $wpdb;
 
-		$item_quantity = $wpdb->get_row( $wpdb->prepare( "
+		$resource = $wpdb->get_row( $wpdb->prepare( "
 			SELECT 		*
 			FROM {$wpdb->prefix}" . $this->api_resource_table . "
 			WHERE 		product_id = %d
 			AND 		order_id = %d
 		", $product_id, $order_id ) );
 
-		return ! WC_AM_FORMAT()->empty( $item_quantity ) ? $item_quantity : false;
+		return ! WC_AM_FORMAT()->empty( $resource ) ? $resource : false;
 	}
 
 	/**
@@ -1557,6 +1573,24 @@ class WC_AM_API_Resource_Data_Store {
 		" );
 
 		return ! empty( $order_ids ) ? $order_ids : array();
+	}
+
+	/**
+	 * Returns all product_ids.
+	 *
+	 * @since 2.7
+	 *
+	 * @return array
+	 */
+	public function get_all_product_ids_from_api_resource_table() {
+		global $wpdb;
+
+		$product_ids = $wpdb->get_col( "
+			SELECT DISTINCT product_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+		" );
+
+		return ! WC_AM_FORMAT()->empty( $product_ids ) ? $product_ids : array();
 	}
 
 	/**

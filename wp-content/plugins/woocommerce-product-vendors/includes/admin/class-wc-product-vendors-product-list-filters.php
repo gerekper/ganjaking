@@ -37,13 +37,13 @@ class WC_Product_Vendors_Product_List_Filters {
 
 		?>
 		<select name="wcpv_product_vendors" id="product_vendor_filter_dropdown" >
-			<option value=""> <?php echo __( 'Filter by Vendor', 'woocommerce-product-vendors' ); ?> </option>
+			<option value=""> <?php esc_html_e( 'Filter by Vendor', 'woocommerce-product-vendors' ); ?> </option>
 			<?php
 			foreach ( $vendors as $vendor ) {
 				echo '<option ';
 				selected( $selected, $vendor->slug, true );
 				echo 'value="' . esc_attr( $vendor->slug ) . '" >';
-				echo $vendor->name;
+				echo esc_html( $vendor->name );
 				echo '</option>';
 			}
 			?>

@@ -5,11 +5,11 @@
  * Description: <a href="http://www.woothemes.com/products/email-attachments/" target="_blank">WooCommerce E-Mail Attachments</a> provides a possibility for adding attachments to WooCommerce E-Mails. You can upload files for exclusiv use as attachment to E-Mails or use files from the media gallery. You can also add an informational note to the E-Mail, that an attachment has been added and add CC and BCC reciepients.<br /> Email to <a href="mailto:support@inoplugs.com">support@inoplugs.com</a> with any questions.
  * Author: InoPlugs
  * Author URI: http://inoplugs.com
- * Version: 3.1.1
+ * Version: 3.2
  * Text Domain: woocommerce_email_attachments
  * WC requires at least: 2.1.0
- * WC tested up to: 6.1
- * WP tested up to: 5.8
+ * WC tested up to: 7.7.0
+ * WP tested up to: 6.2.2
  *
  * Woo: 18661:6d6299c28142e976e1155cdb853f8014
  *
@@ -206,4 +206,18 @@ else
 	}
 }
 
+/**
+ * Declare compatibility - we do not have any order access
+ *
+ * @link https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book
+ * @since 3.2
+ */
+add_action( 'before_woocommerce_init', function()
+	{
+		if( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) )
+		{
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 

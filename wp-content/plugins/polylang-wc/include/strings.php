@@ -387,6 +387,10 @@ class PLLWC_Strings {
 	 * @return array
 	 */
 	public function translate_bacs_accounts( $accounts ) {
+		if ( ! is_array( $accounts ) ) {
+			return $accounts;
+		}
+
 		foreach ( $accounts as $k => $account ) {
 			$accounts[ $k ]['account_name'] = pll__( $account['account_name'] );
 			$accounts[ $k ]['bank_name'] = pll__( $account['bank_name'] );

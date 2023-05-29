@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.8.3\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.8.5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2023-03-14 19:58:07+00:00\n"
+"POT-Creation-Date: 2023-05-23 12:19:57+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,7 +54,7 @@ msgid "Address is already in your address book"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:28
-#: includes/wcms-order.php:379 woocommerce-shipping-multiple-addresses.php:508
+#: includes/wcms-order.php:379 woocommerce-shipping-multiple-addresses.php:517
 msgid "Address"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 
 #: includes/wcms-order.php:1023 templates/pip-template-body.php:118
 #: templates/pip-template-body.php:204 templates/shipping-address-table.php:66
-#: woocommerce-shipping-multiple-addresses.php:508
+#: woocommerce-shipping-multiple-addresses.php:517
 msgid "Product"
 msgstr ""
 
@@ -811,8 +811,8 @@ msgid "Shipping Options"
 msgstr ""
 
 #: woocommerce-shipping-multiple-addresses.php:287
-#: woocommerce-shipping-multiple-addresses.php:605
-#: woocommerce-shipping-multiple-addresses.php:934
+#: woocommerce-shipping-multiple-addresses.php:614
+#: woocommerce-shipping-multiple-addresses.php:943
 msgid "Shipping Methods"
 msgstr ""
 
@@ -821,51 +821,59 @@ msgstr ""
 msgid "New address saved"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:494
+#: woocommerce-shipping-multiple-addresses.php:495
+msgid "Please log in to access this page"
+msgstr ""
+
+#: woocommerce-shipping-multiple-addresses.php:499
 msgid "Order could not be found"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:498
+#: woocommerce-shipping-multiple-addresses.php:505
+msgid "You don't have access to this page"
+msgstr ""
+
+#: woocommerce-shipping-multiple-addresses.php:511
 msgid "This order does not ship to multiple addresses"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:508
+#: woocommerce-shipping-multiple-addresses.php:517
 msgid "Qty"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:614
+#: woocommerce-shipping-multiple-addresses.php:623
 msgid "The following items do not have a shipping address assigned."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:618
+#: woocommerce-shipping-multiple-addresses.php:627
 msgid "There are no shipping options available for the following items."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:646
+#: woocommerce-shipping-multiple-addresses.php:655
 msgid "Assign Shipping Address"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:756
+#: woocommerce-shipping-multiple-addresses.php:765
 msgid ""
 "(1) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "
 "alternate arrangements."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:761
-#: woocommerce-shipping-multiple-addresses.php:870
-#: woocommerce-shipping-multiple-addresses.php:1014
+#: woocommerce-shipping-multiple-addresses.php:770
+#: woocommerce-shipping-multiple-addresses.php:879
+#: woocommerce-shipping-multiple-addresses.php:1023
 msgid "Modify address"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:865
+#: woocommerce-shipping-multiple-addresses.php:874
 msgid ""
 "(2) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "
 "alternate arrangements."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:1009
+#: woocommerce-shipping-multiple-addresses.php:1018
 msgid ""
 "(3) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "

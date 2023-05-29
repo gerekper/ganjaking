@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once 'trait-warranty-util.php';
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Utilities\OrderUtil;
 use WooCommerce\Warranty\Warranty_Util;
 
 if ( ! class_exists( 'Warranty_Admin' ) ) :
@@ -68,8 +69,8 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			add_action( 'admin_post_wc_warranty_settings_update', array( $this, 'update_settings' ) );
 
 			add_filter( 'manage_shop_order_posts_columns', array( $this, 'count_shop_order_columns' ), 1000 );
+			add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'count_shop_order_columns' ), 1000 );
 			add_action( 'woocommerce_admin_order_actions_end', array( $this, 'order_inline_edit_actions' ) );
-			add_action( 'admin_footer', array( $this, 'order_inline_edit_template' ) );
 
 			add_action( 'woocommerce_ajax_add_order_item_meta', array( $this, 'add_line_item_warranty_meta' ), 10, 2 );
 			add_action( 'woocommerce_before_order_itemmeta', array( $this, 'maybe_render_addon_options' ), 10, 3 );
@@ -259,7 +260,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 			$screen = get_current_screen();
 
-			if ( 'edit-shop_order' === $screen->id ) {
+			if ( 'edit-shop_order' === $screen->id || 'woocommerce_page_wc-orders' === $screen->id ) {
 				add_thickbox();
 				wp_enqueue_media();
 				wp_enqueue_style( 'warranty_admin_css', plugins_url( 'assets/css/admin.css', WooCommerce_Warranty::$plugin_file ), array(), WOOCOMMERCE_WARRANTY_VERSION );
@@ -1316,7 +1317,11 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		}
 
 		public function count_shop_order_columns( $columns ) {
-			self::$shop_order_columns = count( $columns ) - 1;
+			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) || ! OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				self::$shop_order_columns = count( $columns );
+			} else {
+				self::$shop_order_columns = count( $columns ) - 1;
+			}
 
 			return $columns;
 		}
@@ -1330,16 +1335,62 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			if ( ! warranty_order_has_warranty_requests( $order->get_id() ) ) {
 				return;
 			}
+
+			$admin_warranty_url = $this->get_warranty_admin_inline_link( $order->get_id() );
 			?>
-			<a class="button tips inline-rma dashicons-before dashicons-controls-repeat" data-tip="<?php echo wc_sanitize_tooltip( esc_html__( 'Manage Return', 'wc_warranty' ) ); ?>" href="#"> </a>
+			<a class="button tips inline-rma dashicons-before dashicons-controls-repeat" data-row="post-<?php echo esc_attr( $order->get_id() ); ?>" data-tip="<?php echo wc_sanitize_tooltip( esc_html__( 'Manage Return', 'wc_warranty' ) ); ?>" href="<?php echo esc_url( $admin_warranty_url ); ?>"> </a>
 			<?php
+			$this->order_inline_edit_row( $order->get_id() );
 		}
 
 		/**
-		 * The template for inline-editing RMA requests
+		 * Get link for the warranty post in admin.
+		 *
+		 * @param Int $order_id Order ID.
+		 *
+		 * @return String.
 		 */
-		public function order_inline_edit_template() {
-			global $wp_query, $wp_list_table;
+		public function get_warranty_admin_inline_link( $order_id ) {
+			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+				return '#';
+			}
+
+			if ( ! OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				return '#';
+			}
+
+			$requests = get_posts(
+				array(
+					'post_type'      => 'warranty_request',
+					'nopaging'       => true,
+					'posts_per_page' => 1,
+					'fields'         => 'ids',
+					'meta_query'     => array(
+						array(
+							'key'   => '_order_id',
+							'value' => absint( $order_id ),
+						),
+					),
+				)
+			);
+
+			if ( empty( $requests ) ) {
+				return '#';
+			}
+
+			foreach ( $requests as $request_id ) {
+				$request = warranty_load( $request_id );
+
+				if ( ! empty( $request['code'] ) ) {
+					return admin_url( 'admin.php?page=warranties&s=' . $request['code'] );
+				}
+			}
+
+			return '#';
+		}
+
+		public function order_inline_edit_row( $order_id ) {
+
 			$screen   = get_current_screen();
 			$statuses = warranty_get_statuses();
 
@@ -1353,393 +1404,388 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				'coupon'      => esc_html__( 'Refund as store credit', 'wc_warranty' ),
 			);
 
-			if ( 'edit-shop_order' !== $screen->id || empty( $wp_query->query_vars['post_type'] ) || 'shop_order' !== $wp_query->query_vars['post_type'] || ! have_posts() ) {
+			$requests = get_posts(
+				array(
+					'post_type'  => 'warranty_request',
+					'nopaging'   => true,
+					'fields'     => 'ids',
+					'meta_query' => array(
+						array(
+							'key'   => '_order_id',
+							'value' => $order_id,
+						),
+					),
+				)
+			);
+
+			if ( empty( $requests ) ) {
 				return;
 			}
 			?>
 			<table style="display: none">
-				<tbody id="inlineedit">
+			<tbody class="inlineedit">
+			<tr id="inline-edit-post-<?php echo esc_attr( $order_id ); ?>" class="inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-order">
+				<td colspan="<?php echo esc_attr( self::$shop_order_columns ); ?>">
 					<?php
-					foreach ( $wp_query->posts as $post ) :
-						$requests = get_posts(
-							array(
-								'post_type'  => 'warranty_request',
-								'nopaging'   => true,
-								'fields'     => 'ids',
-								'meta_query' => array(
-									array(
-										'key'   => '_order_id',
-										'value' => $post->ID,
-									),
-								),
-							)
-						);
+					foreach ( $requests as $request_id ) :
+						$request = warranty_load( $request_id );
 
-						if ( empty( $requests ) ) {
+						if ( ! $request ) {
 							continue;
 						}
+
+						$permissions = get_option( 'warranty_permissions', array() );
+						$term        = wp_get_post_terms( $request['ID'], 'shop_warranty_status' );
+						$status      = ( ! empty( $term ) ) ? $term[0] : $statuses[0];
+						$me          = wp_get_current_user();
+						$readonly    = true;
+						$refunded    = get_post_meta( $request_id, '_refund_amount', true );
 						?>
-						<tr id="inline-edit-post-<?php echo esc_attr( $post->ID ); ?>" class="inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-order">
-							<td colspan="<?php echo esc_attr( self::$shop_order_columns ); ?>">
+						<div class="warranty-request" id="warranty_request_<?php echo esc_attr( $request_id ); ?>">
+							<h2>
 								<?php
-								foreach ( $requests as $request_id ) :
-									$request = warranty_load( $request_id );
+								// translators: Request code.
+								printf( esc_html__( 'RMA %s', 'wc_warranty' ), esc_html( $request['code'] ) );
+								?>
+							</h2>
 
-									if ( ! $request ) {
-										continue;
-									}
+							<div class="warranty-update-message warranty-updated hidden">
+								<p></p>
+							</div>
 
-									$permissions = get_option( 'warranty_permissions', array() );
-									$term        = wp_get_post_terms( $request['ID'], 'shop_warranty_status' );
-									$status      = ( ! empty( $term ) ) ? $term[0] : $statuses[0];
-									$me          = wp_get_current_user();
-									$readonly    = true;
-									$refunded    = get_post_meta( $request_id, '_refund_amount', true );
-									?>
-									<div class="warranty-request" id="warranty_request_<?php echo esc_attr( $request_id ); ?>">
-										<h2>
-											<?php
-											// translators: Request code.
-											printf( esc_html__( 'RMA %s', 'wc_warranty' ), esc_html( $request['code'] ) );
-											?>
-										</h2>
+							<fieldset class="inline-edit-col-right">
+								<div class="inline-edit-col">
+									<h3><?php esc_html_e( 'Products', 'wc_warranty' ); ?></h3>
 
-										<div class="warranty-update-message warranty-updated hidden">
-											<p></p>
+									<?php foreach ( $request['products'] as $request_product ) : ?>
+										<div class="field">
+											<span class="label">
+												<?php
+												// translators: Product title, Quantity.
+												printf( esc_html__( '%1$s &times; %2$d', 'wc_warranty' ), esc_html( get_the_title( $request_product['product_id'] ) ), esc_html( $request_product['quantity'] ) );
+												?>
+											</span>
 										</div>
+									<?php endforeach; ?>
 
-										<fieldset class="inline-edit-col-right">
-											<div class="inline-edit-col">
-												<h3><?php esc_html_e( 'Products', 'wc_warranty' ); ?></h3>
+									<h3><?php esc_html_e( 'RMA Data', 'wc_warranty' ); ?></h3>
 
-												<?php foreach ( $request['products'] as $request_product ) : ?>
-													<div class="field">
-														<span class="label">
-															<?php
-															// translators: Product title, Quantity.
-															printf( esc_html__( '%1$s &times; %2$d', 'wc_warranty' ), esc_html( get_the_title( $request_product['product_id'] ) ), esc_html( $request_product['quantity'] ) );
-															?>
-														</span>
-													</div>
-												<?php endforeach; ?>
+									<div class="field">
+										<span class="label"><?php esc_html_e( 'Request Type:', 'wc_warranty' ); ?></span>
+										<span class="value"><?php echo esc_html( $requests_str[ $request['request_type'] ] ); ?></span>
+									</div>
+									<?php
 
-												<h3><?php esc_html_e( 'RMA Data', 'wc_warranty' ); ?></h3>
+									if ( 'refund' === $request['request_type'] && $refunded > 0 ) :
+										?>
+										<div class="field">
+											<span class="label"><?php esc_html_e( 'Refunded:', 'wc_warranty' ); ?></span> <span class="value"><?php echo wc_price( $refunded ); ?></span>
+										</div>
+										<?php
+									endif;
 
-												<div class="field">
-													<span class="label"><?php esc_html_e( 'Request Type:', 'wc_warranty' ); ?></span>
-													<span class="value"><?php echo esc_html( $requests_str[ $request['request_type'] ] ); ?></span>
-												</div>
-												<?php
+									$form   = get_option( 'warranty_form' );
+									$inputs = json_decode( $form['inputs'] );
 
-												if ( 'refund' === $request['request_type'] && $refunded > 0 ) :
-													?>
-													<div class="field">
-														<span class="label"><?php esc_html_e( 'Refunded:', 'wc_warranty' ); ?></span> <span class="value"><?php echo wc_price( $refunded ); ?></span>
-													</div>
-													<?php
-												endif;
+									foreach ( $inputs as $input ) {
+										$key   = $input->key;
+										$type  = $input->type;
+										$field = $form['fields'][ $input->key ];
 
-												$form   = get_option( 'warranty_form' );
-												$inputs = json_decode( $form['inputs'] );
+										if ( 'paragraph' === $type ) {
+											continue;
+										}
 
-												foreach ( $inputs as $input ) {
-													$key   = $input->key;
-													$type  = $input->type;
-													$field = $form['fields'][ $input->key ];
+										$value = get_post_meta( $request['ID'], '_field_' . $key, true );
 
-													if ( 'paragraph' === $type ) {
-														continue;
-													}
+										if ( is_array( $value ) ) {
+											$value = implode( ',<br/>', $value );
+										}
 
-													$value = get_post_meta( $request['ID'], '_field_' . $key, true );
+										if ( 'file' === $type && ! empty( $value ) ) {
+											$value = WooCommerce_Warranty::get_uploaded_file_anchor_tag( $value, 'customer' );
+										}
 
-													if ( is_array( $value ) ) {
-														$value = implode( ',<br/>', $value );
-													}
+										if ( empty( $value ) && ! empty( $item['reason'] ) && ! $this->row_reason_injected ) {
+											$value = $item['reason'];
+										}
 
-													if ( 'file' === $type && ! empty( $value ) ) {
-														$value = WooCommerce_Warranty::get_uploaded_file_anchor_tag( $value, 'customer' );
-													}
-
-													if ( empty( $value ) && ! empty( $item['reason'] ) && ! $this->row_reason_injected ) {
-														$value = $item['reason'];
-													}
-
-													if ( ! $value ) {
-														$value = '-';
-													}
-													?>
-													<div class="field">
-														<span class="label"><?php echo esc_html( $field['name'] ); ?>:</span> <span class="value"><?php echo wp_kses_post( $value ); ?></span>
-													</div>
-
-													<?php
-												}
-												?>
-											</div>
-										</fieldset>
-
-										<fieldset class="inline-edit-col-left">
-											<div class="inline-edit-col">
-												<?php
-
-												if ( in_array( 'administrator', $me->roles, true ) ) {
-													$readonly = false;
-												} elseif ( ! isset( $permissions[ $status->slug ] ) || empty( $permissions[ $status->slug ] ) ) {
-													$readonly = false;
-												} elseif ( in_array( $me->ID, $permissions[ $status->slug ], true ) ) {
-													$readonly = false;
-												}
-
-												if ( $readonly ) {
-													$status_content = ucfirst( $status->name );
-												} else {
-													$status_content = '<select class="warranty-status" name="status" id="status_' . $request['ID'] . '">';
-
-													foreach ( $statuses as $_status ) :
-														$sel             = ( $status->slug === $_status->slug ) ? 'selected' : '';
-														$status_content .= '<option value="' . $_status->slug . '" ' . $sel . '>' . ucfirst( $_status->name ) . '</option>';
-													endforeach;
-
-													$status_content .= '</select>';
-													// <button class="button-primary warranty-update-status" type="button" title="Update" data-id="'. $request['ID'] .'" data-security="'. $nonces['status'] .'"><span>'. __('Update', 'wc_warranty') .'</span></button>';
-												}
-												?>
-
-												<h3><?php esc_html_e( 'RMA Status', 'wc_warranty' ); ?></h3>
-												<?php
-												echo $status_content; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
-												?>
-
-												<div class="codes_form closeable">
-													<h4><?php esc_html_e( 'Return shipping details', 'wc_warranty' ); ?></h4>
-													<?php
-													$shipping_label_id = get_post_meta( $request['ID'], '_warranty_shipping_label', true );
-
-													if ( $shipping_label_id ) {
-														$lnk = wp_get_attachment_url( $shipping_label_id );
-														echo '<a href="' . esc_url( $lnk ) . '"><strong>' . esc_html__( 'Download the Shipping Label', 'wc_warranty' ) . '</strong></a>';
-													} else {
-														?>
-														<input name="shipping_label_image" id="shipping_label_<?php echo esc_attr( $request_id ); ?>" class="shipping-label-url short-text" type="text" value="" />
-														<input name="shipping_label_image_id" id="shipping_label_id_<?php echo esc_attr( $request_id ); ?>" type="hidden" value="" />
-														<input class="rma-upload-button button" type="button" data-id="<?php echo esc_attr( $request_id ); ?>" data-uploader_title="<?php esc_attr_e( 'Set Shipping Label', 'wc_warranty' ); ?>" data-uploader_button_text="<?php esc_attr_e( 'Set Shipping Label', 'wc_warranty' ); ?>" value="<?php esc_attr_e( 'Select Shipping Label', 'wc_warranty' ); ?>" />
-														<?php
-													} // End final If Checking the attachment :).
-													?>
-												</div>
-											</div>
-
-											<div class="inline-edit-col">
-												<h3><?php esc_html_e( 'Return Tracking Details', 'wc_warranty' ); ?></h3>
-
-												<?php
-												// if tracking code is being requested, notify the admin.
-												$class = 'hidden';
-												if ( 'y' === $request['request_tracking_code'] && empty( $request['tracking_code'] ) ) :
-													$class = '';
-												endif;
-												?>
-												<div class="codes_form closeable">
-													<div class="wc-tracking-requested warranty-updated <?php echo esc_attr( $class ); ?>">
-														<p><?php esc_html_e( 'Tracking information requested from customer', 'wc_warranty' ); ?></p>
-													</div>
-
-													<?php
-													// Tracking code hasnt been requested yet.
-													if ( 'y' !== $request['request_tracking_code'] ) :
-														?>
-														<div class="request-tracking-div">
-															<label><input type="checkbox" name="request_tracking" value="1" />
-																<strong><?php esc_html_e( 'Request tracking code from the Customer', 'wc_warranty' ); ?></strong></label>
-														</div>
-														<?php
-													else : // tracking code requested.
-														// if tracking code is not empty, it has already been provided.
-														if ( ! empty( $request['tracking_code'] ) ) {
-															echo '<strong>' . esc_html__( 'Customer Provided Tracking', 'wc_warranty' ) . ':</strong>&nbsp;';
-
-															if ( ! empty( $request['tracking_provider'] ) ) {
-																$all_providers = array();
-
-																foreach ( WooCommerce_Warranty::get_providers() as $providers ) {
-																	foreach ( $providers as $provider => $format ) {
-																		$all_providers[ sanitize_title( $provider ) ] = $format;
-																	}
-																}
-
-																$provider      = esc_html( $request['tracking_provider'] );
-																$tracking_code = esc_html( $request['tracking_code'] );
-																$link          = $all_providers[ $provider ];
-																$link          = str_replace( '%1$s', $tracking_code, $link );
-																$link          = str_replace( '%2$s', '', $link );
-																printf( __( '%s via %s (<a href="' . esc_url( $link ) . '" target="_blank">Track Shipment</a>)', 'wc_warranty' ), $tracking_code, $provider, $link );
-															} else {
-																echo esc_html( $request['tracking_code'] );
-															}
-														}
-													endif;
-													?>
-												</div>
-
-												<div class="codes_form closeable">
-													<?php
-													if ( ! empty( $request['return_tracking_provider'] ) ) :
-														?>
-														<p>
-															<label for="return_tracking_provider_<?php echo esc_attr( $request['ID'] ); ?>">
-																<strong><?php esc_html_e( 'Shipping Provider', 'wc_warranty' ); ?></strong></label>
-															<select class="return_tracking_provider" name="return_tracking_provider" id="return_tracking_provider_<?php echo esc_attr( $request['ID'] ); ?>">
-																<?php
-																foreach ( WooCommerce_Warranty::get_providers() as $provider_group => $providers ) {
-																	echo '<optgroup label="' . esc_attr( $provider_group ) . '">';
-																	foreach ( $providers as $provider => $url ) {
-																		echo '<option value="' . esc_attr( sanitize_title( $provider ) ) . '" ' . selected( sanitize_title( $provider ), $request['return_tracking_provider'], false ) . '>' . esc_html( $provider ) . '</option>';
-																	}
-																	echo '</optgroup>';
-																}
-																?>
-															</select>
-														</p>
-														<p>
-															<label for="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>">
-																<strong><?php esc_html_e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
-															<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>" value="<?php echo esc_attr( $request['return_tracking_code'] ); ?>" placeholder="<?php esc_attr_e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
-															<span class="description"><?php esc_html_e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
-														</p>
-													<?php else : ?>
-														<p>
-															<label for="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>">
-																<strong><?php esc_html_e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
-															<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>" value="<?php echo esc_attr( $request['return_tracking_code'] ); ?>" placeholder="<?php esc_attr_e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
-															<span class="description"><?php esc_html_e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
-														</p>
-													<?php endif; ?>
-												</div>
-											</div>
-										</fieldset>
-
-										<fieldset class="inline-edit-col-center">
-											<div class="inline-edit-col">
-												<h3><?php esc_html_e( 'Actions', 'wc_warranty' ); ?></h3>
-
-												<div class="actions-block">
-													<?php
-													echo $this->get_warranty_actions( $request['ID'], true ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
-													?>
-												</div>
-											</div>
-										</fieldset>
-										<br class="clear" />
-
-										<div class="submit inline-edit-save">
-											<input type="button" class="button close_tr" value="<?php esc_attr_e( 'Close', 'wc_warranty' ); ?>" />
-
-											<div class="alignright">
-												<a class="button-primary" target="_blank" href="<?php echo esc_url( wp_nonce_url( 'admin-post.php?action=warranty_print&request=' . $request['ID'], 'warranty_print' ) ); ?>"><?php esc_html_e( 'Print', 'wc_warranty' ); ?></a>
-												<input type="button" class="button-primary rma-update" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $update_nonce ); ?>" value="<?php esc_attr_e( 'Update', 'wc_warranty' ); ?>" />
-												<input type="button" class="button-secondary warranty-trash" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( wp_create_nonce( 'warranty_delete' ) ); ?>" value="<?php esc_attr_e( 'Delete', 'wc_warranty' ); ?>" />
-											</div>
+										if ( ! $value ) {
+											$value = '-';
+										}
+										?>
+										<div class="field">
+											<span class="label"><?php echo esc_html( $field['name'] ); ?>:</span> <span class="value"><?php echo wp_kses_post( $value ); ?></span>
 										</div>
 
 										<?php
-										if ( 'refund' === $request['request_type'] ) :
-											$item_amount = warranty_get_item_amount( $request_id );
-											$available   = max( 0, $item_amount - floatval( $refunded ) );
-											?>
-											<div id="warranty-refund-modal-<?php echo esc_attr( $request_id ); ?>" style="display:none;">
-												<table class="form-table">
-													<tr>
-														<th>
-															<span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span>
-														</th>
-														<td>
-															<span class="value">
-															<?php
-															echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
-															?>
-																</span>
-														</td>
-													</tr>
-													<tr>
-														<th>
-															<span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span>
-														</th>
-														<td>
-															<span class="value">
-															<?php
-															echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
-															?>
-																</span>
-														</td>
-													</tr>
-													<tr>
-														<th>
-															<span class="label"><?php esc_html_e( 'Refund amount:', 'wc_warranty' ); ?></span>
-														</th>
-														<td>
-															<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
-															<input type="text" class="input-short amount" value="<?php echo esc_attr( $available ); ?>" size="5" />
-														</td>
-													</tr>
-												</table>
+									}
+									?>
+								</div>
+							</fieldset>
 
-												<p class="submit alignright">
-													<input type="button" class="warranty-process-refund button-primary" value="<?php esc_attr_e( 'Process Refund', 'wc_warranty' ); ?>" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $update_nonce ); ?>" />
-												</p>
+							<fieldset class="inline-edit-col-left">
+								<div class="inline-edit-col">
+									<?php
+
+									if ( in_array( 'administrator', $me->roles, true ) ) {
+										$readonly = false;
+									} elseif ( ! isset( $permissions[ $status->slug ] ) || empty( $permissions[ $status->slug ] ) ) {
+										$readonly = false;
+									} elseif ( in_array( $me->ID, $permissions[ $status->slug ], true ) ) {
+										$readonly = false;
+									}
+
+									if ( $readonly ) {
+										$status_content = ucfirst( $status->name );
+									} else {
+										$status_content = '<select class="warranty-status" name="status" id="status_' . $request['ID'] . '">';
+
+										foreach ( $statuses as $_status ) :
+											$sel             = ( $status->slug === $_status->slug ) ? 'selected' : '';
+											$status_content .= '<option value="' . $_status->slug . '" ' . $sel . '>' . ucfirst( $_status->name ) . '</option>';
+										endforeach;
+
+										$status_content .= '</select>';
+										// <button class="button-primary warranty-update-status" type="button" title="Update" data-id="'. $request['ID'] .'" data-security="'. $nonces['status'] .'"><span>'. __('Update', 'wc_warranty') .'</span></button>';
+									}
+									?>
+
+									<h3><?php esc_html_e( 'RMA Status', 'wc_warranty' ); ?></h3>
+									<?php
+									echo $status_content; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+									?>
+
+									<div class="codes_form closeable">
+										<h4><?php esc_html_e( 'Return shipping details', 'wc_warranty' ); ?></h4>
+										<?php
+										$shipping_label_id = get_post_meta( $request['ID'], '_warranty_shipping_label', true );
+
+										if ( $shipping_label_id ) {
+											$lnk = wp_get_attachment_url( $shipping_label_id );
+											echo '<a href="' . esc_url( $lnk ) . '"><strong>' . esc_html__( 'Download the Shipping Label', 'wc_warranty' ) . '</strong></a>';
+										} else {
+											?>
+											<input name="shipping_label_image" id="shipping_label_<?php echo esc_attr( $request_id ); ?>" class="shipping-label-url short-text" type="text" value="" />
+											<input name="shipping_label_image_id" id="shipping_label_id_<?php echo esc_attr( $request_id ); ?>" type="hidden" value="" />
+											<input class="rma-upload-button button" type="button" data-id="<?php echo esc_attr( $request_id ); ?>" data-uploader_title="<?php esc_attr_e( 'Set Shipping Label', 'wc_warranty' ); ?>" data-uploader_button_text="<?php esc_attr_e( 'Set Shipping Label', 'wc_warranty' ); ?>" value="<?php esc_attr_e( 'Select Shipping Label', 'wc_warranty' ); ?>" />
+											<?php
+										} // End final If Checking the attachment :).
+										?>
+									</div>
+								</div>
+
+								<div class="inline-edit-col">
+									<h3><?php esc_html_e( 'Return Tracking Details', 'wc_warranty' ); ?></h3>
+
+									<?php
+									// if tracking code is being requested, notify the admin.
+									$class = 'hidden';
+									if ( 'y' === $request['request_tracking_code'] && empty( $request['tracking_code'] ) ) :
+										$class = '';
+									endif;
+									?>
+									<div class="codes_form closeable">
+										<div class="wc-tracking-requested warranty-updated <?php echo esc_attr( $class ); ?>">
+											<p><?php esc_html_e( 'Tracking information requested from customer', 'wc_warranty' ); ?></p>
+										</div>
+
+										<?php
+										// Tracking code hasnt been requested yet.
+										if ( 'y' !== $request['request_tracking_code'] ) :
+											?>
+											<div class="request-tracking-div">
+												<label><input type="checkbox" name="request_tracking" value="1" />
+													<strong><?php esc_html_e( 'Request tracking code from the Customer', 'wc_warranty' ); ?></strong></label>
 											</div>
 											<?php
-										elseif ( 'coupon' === $request['request_type'] ) :
-											$item_amount = warranty_get_item_amount( $request_id );
-											?>
-											<div id="warranty-coupon-modal-<?php echo esc_attr( $request_id ); ?>" style="display:none;">
-												<table class="form-table">
-													<tr>
-														<th>
-															<span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span>
-														</th>
-														<td>
-															<span class="value">
-															<?php
-															echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
-															?>
-																</span>
-														</td>
-													</tr>
-													<tr>
-														<th>
-															<span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span>
-														</th>
-														<td>
-															<span class="value">
-															<?php
-															echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
-															?>
-																</span>
-														</td>
-													</tr>
-													<tr>
-														<th>
-															<span class="label"><?php esc_html_e( 'Coupon amount:', 'wc_warranty' ); ?></span>
-														</th>
-														<td>
-															<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
-															<input type="text" class="input-short amount" value="<?php echo esc_attr( $item_amount ); ?>" size="5" />
-														</td>
-													</tr>
-												</table>
+										else : // tracking code requested.
+											// if tracking code is not empty, it has already been provided.
+											if ( ! empty( $request['tracking_code'] ) ) {
+												echo '<strong>' . esc_html__( 'Customer Provided Tracking', 'wc_warranty' ) . ':</strong>&nbsp;';
 
-												<p class="submit alignright">
-													<input type="button" class="warranty-process-coupon button-primary" value="<?php esc_html_e( 'Send Coupon', 'wc_warranty' ); ?>" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $coupon_nonce ); ?>" />
-												</p>
-											</div>
+												if ( ! empty( $request['tracking_provider'] ) ) {
+													$all_providers = array();
+
+													foreach ( WooCommerce_Warranty::get_providers() as $providers ) {
+														foreach ( $providers as $provider => $format ) {
+															$all_providers[ sanitize_title( $provider ) ] = $format;
+														}
+													}
+
+													$provider      = $request['tracking_provider'];
+													$tracking_code = $request['tracking_code'];
+													$link          = $all_providers[ $provider ];
+													$link          = str_replace( '%1$s', $tracking_code, $link );
+													$link          = str_replace( '%2$s', '', $link );
+
+													// translators: tracking code, shipping provider, anchor tag start, anchor tag end.
+													printf( esc_html__( '%1$s via %2$s (%3$sTrack Shipment%4$s)', 'wc_warranty' ), esc_html( $tracking_code ), esc_html( $provider ), '<a href=" ' . esc_url( $link ) . '" target="_blank">', '</a>' );
+												} else {
+													echo esc_html( $request['tracking_code'] );
+												}
+											}
+										endif;
+										?>
+									</div>
+
+									<div class="codes_form closeable">
+										<?php
+										if ( ! empty( $request['return_tracking_provider'] ) ) :
+											?>
+											<p>
+												<label for="return_tracking_provider_<?php echo esc_attr( $request['ID'] ); ?>">
+													<strong><?php esc_html_e( 'Shipping Provider', 'wc_warranty' ); ?></strong></label>
+												<select class="return_tracking_provider" name="return_tracking_provider" id="return_tracking_provider_<?php echo esc_attr( $request['ID'] ); ?>">
+													<?php
+													foreach ( WooCommerce_Warranty::get_providers() as $provider_group => $providers ) {
+														echo '<optgroup label="' . esc_attr( $provider_group ) . '">';
+														foreach ( $providers as $provider => $url ) {
+															echo '<option value="' . esc_attr( sanitize_title( $provider ) ) . '" ' . selected( sanitize_title( $provider ), $request['return_tracking_provider'], false ) . '>' . esc_html( $provider ) . '</option>';
+														}
+														echo '</optgroup>';
+													}
+													?>
+												</select>
+											</p>
+											<p>
+												<label for="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>">
+													<strong><?php esc_html_e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
+												<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>" value="<?php echo esc_attr( $request['return_tracking_code'] ); ?>" placeholder="<?php esc_attr_e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
+												<span class="description"><?php esc_html_e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
+											</p>
+										<?php else : ?>
+											<p>
+												<label for="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>">
+													<strong><?php esc_html_e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
+												<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>" value="<?php echo esc_attr( $request['return_tracking_code'] ); ?>" placeholder="<?php esc_attr_e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
+												<span class="description"><?php esc_html_e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
+											</p>
 										<?php endif; ?>
 									</div>
-								<?php endforeach; ?>
-							</td>
-						</tr>
+								</div>
+							</fieldset>
+
+							<fieldset class="inline-edit-col-center">
+								<div class="inline-edit-col">
+									<h3><?php esc_html_e( 'Actions', 'wc_warranty' ); ?></h3>
+
+									<div class="actions-block">
+										<?php
+										echo $this->get_warranty_actions( $request['ID'], true ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+										?>
+									</div>
+								</div>
+							</fieldset>
+							<br class="clear" />
+
+							<div class="submit inline-edit-save">
+								<input type="button" class="button close_tr" value="<?php esc_attr_e( 'Close', 'wc_warranty' ); ?>" />
+
+								<div class="alignright">
+									<a class="button-primary" target="_blank" href="<?php echo esc_url( wp_nonce_url( 'admin-post.php?action=warranty_print&request=' . $request['ID'], 'warranty_print' ) ); ?>"><?php esc_html_e( 'Print', 'wc_warranty' ); ?></a>
+									<input type="button" class="button-primary rma-update" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $update_nonce ); ?>" value="<?php esc_attr_e( 'Update', 'wc_warranty' ); ?>" />
+									<input type="button" class="button-secondary warranty-trash" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( wp_create_nonce( 'warranty_delete' ) ); ?>" value="<?php esc_attr_e( 'Delete', 'wc_warranty' ); ?>" />
+								</div>
+							</div>
+
+							<?php
+							if ( 'refund' === $request['request_type'] ) :
+								$item_amount = warranty_get_item_amount( $request_id );
+								$available   = max( 0, $item_amount - floatval( $refunded ) );
+								?>
+								<div id="warranty-refund-modal-<?php echo esc_attr( $request_id ); ?>" style="display:none;">
+									<table class="form-table">
+										<tr>
+											<th>
+												<span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span>
+											</th>
+											<td>
+												<span class="value">
+												<?php
+												echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												?>
+													</span>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span>
+											</th>
+											<td>
+												<span class="value">
+												<?php
+												echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												?>
+													</span>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<span class="label"><?php esc_html_e( 'Refund amount:', 'wc_warranty' ); ?></span>
+											</th>
+											<td>
+												<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
+												<input type="text" class="input-short amount" value="<?php echo esc_attr( $available ); ?>" size="5" />
+											</td>
+										</tr>
+									</table>
+
+									<p class="submit alignright">
+										<input type="button" class="warranty-process-refund button-primary" value="<?php esc_attr_e( 'Process Refund', 'wc_warranty' ); ?>" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $update_nonce ); ?>" />
+									</p>
+								</div>
+								<?php
+							elseif ( 'coupon' === $request['request_type'] ) :
+								$item_amount = warranty_get_item_amount( $request_id );
+								?>
+								<div id="warranty-coupon-modal-<?php echo esc_attr( $request_id ); ?>" style="display:none;">
+									<table class="form-table">
+										<tr>
+											<th>
+												<span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span>
+											</th>
+											<td>
+												<span class="value">
+												<?php
+												echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												?>
+													</span>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span>
+											</th>
+											<td>
+												<span class="value">
+												<?php
+												echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												?>
+													</span>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<span class="label"><?php esc_html_e( 'Coupon amount:', 'wc_warranty' ); ?></span>
+											</th>
+											<td>
+												<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
+												<input type="text" class="input-short amount" value="<?php echo esc_attr( $item_amount ); ?>" size="5" />
+											</td>
+										</tr>
+									</table>
+
+									<p class="submit alignright">
+										<input type="button" class="warranty-process-coupon button-primary" value="<?php esc_html_e( 'Send Coupon', 'wc_warranty' ); ?>" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $coupon_nonce ); ?>" />
+									</p>
+								</div>
+							<?php endif; ?>
+						</div>
 					<?php endforeach; ?>
-				</tbody>
+				</td>
+			</tr>
+			</tbody>
 			</table>
 			<?php
 		}

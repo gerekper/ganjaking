@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2023-05-23 - version 2.1.8
+* Fix    - "Manage return" is not working on HPOS order admin table.
+
 2023-05-08 - version 2.1.7
 * Update - Security update.
 

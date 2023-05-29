@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.1.6
+ * @version 4.1.0
  */
 
 // Exit if accessed directly.
@@ -17,11 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div class="wcsatt-add-to-subscription-wrapper closed <?php echo $is_visible ? 'active' : 'inactive'; ?>" data-product_id="<?php echo $product_id; ?>" <?php echo $is_visible ? '' : 'style="display:none;"'; ?>>
+<div class="wcsatt-add-to-subscription-wrapper closed <?php echo $is_visible ? 'active' : 'inactive'; ?>" data-product_id="<?php echo absint( $product_id ); ?>" <?php echo $is_visible ? '' : 'style="display:none;"'; ?>>
 	<label class="wcsatt-add-to-subscription-action-label">
 		<input class="wcsatt-add-to-subscription-action-input" type="checkbox" name="add-to-subscription-input" value="yes" />
-		<span class="wcsatt-add-to-subscription-action"><?php _e( 'Add to an existing subscription?', 'woocommerce-all-products-for-subscriptions' ); ?></span>
+		<span class="wcsatt-add-to-subscription-action"><?php esc_html_e( 'Add to an existing subscription?', 'woocommerce-all-products-for-subscriptions' ); ?></span>
 	</label>
 	<div class="wcsatt-add-to-subscription-options <?php echo $force_responsive ? 'wcsatt-add-to-subscription-table-wrapper' : ''; ?>" style="display:none;"></div>
-	<input type="hidden" class="add-to-subscription-input" name="add-product-to-subscription" value="<?php echo $product_id; ?>" />
+	<input type="hidden" class="add-to-subscription-input" name="add-product-to-subscription" value="<?php echo absint( $product_id ); ?>" />
 </div>

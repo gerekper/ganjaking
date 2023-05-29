@@ -59,13 +59,14 @@ class PLLWC_Bookings {
 		add_action( 'pllwc_copy_product', array( $this, 'copy_resources' ), 10, 3 );
 		add_action( 'pllwc_copy_product', array( $this, 'copy_persons' ), 10, 3 );
 		add_action( 'wp_ajax_woocommerce_remove_bookable_resource', array( $this, 'remove_bookable_resource' ), 5 ); // Before WooCommerce Bookings.
-		add_action( 'wp_ajax_woocommerce_remove_bookable_person', array( $this, 'remove_bookable_person' ), 5 ); // Before WooCommerce Bookings.
+		add_action( 'wp_ajax_woocommerce_unlink_bookable_person', array( $this, 'unlink_bookable_person' ), 5 ); // Before WooCommerce Bookings.
 
 		add_action( 'pll_save_post', array( $this, 'save_post' ), 10, 3 );
 		add_filter( 'update_post_metadata', array( $this, 'update_post_metadata' ), 99, 4 ); // After Yoast SEO which returns null at priority 10. See https://github.com/Yoast/wordpress-seo/pull/6902.
 		add_filter( 'get_post_metadata', array( $this, 'get_post_metadata' ), 10, 4 );
 		add_filter( 'pll_copy_post_metas', array( $this, 'copy_post_metas' ) );
 		add_filter( 'pll_translate_post_meta', array( $this, 'translate_post_meta' ), 10, 3 );
+		add_filter( 'pll_post_metas_to_export', array( $this, 'get_metas_to_translate' ), 10 );
 
 		// Cart.
 		add_filter( 'pllwc_translate_cart_item', array( $this, 'translate_cart_item' ), 10, 2 );
@@ -384,15 +385,15 @@ class PLLWC_Bookings {
 	}
 
 	/**
-	 * Removes the person type in translated products when a person type is removed in Ajax.
-	 * Hooked to the action 'wp_ajax_woocommerce_remove_bookable_person'.
+	 * Unlinks the person type in translated products when a person type is unlink in Ajax.
+	 * Hooked to the action 'wp_ajax_woocommerce_unlink_bookable_person'.
 	 *
 	 * @since 0.6
 	 *
 	 * @return void
 	 */
-	public function remove_bookable_person() {
-		check_ajax_referer( 'delete-bookable-person', 'security' );
+	public function unlink_bookable_person() {
+		check_ajax_referer( 'unlink-bookable-person', 'security' );
 
 		if ( isset( $_POST['person_id'] ) ) {
 			$person_type_id = intval( $_POST['person_id'] );
@@ -400,8 +401,10 @@ class PLLWC_Bookings {
 
 			if ( $person_type && 'bookable_person' === $person_type->post_type ) {
 				foreach ( pll_get_post_translations( $person_type_id ) as $tr_id ) {
-					if ( $tr_id !== $person_type_id ) { // Let WooCommerce delete the current person type.
-						wp_delete_post( $tr_id );
+					if ( $tr_id !== $person_type_id ) { // Let WooCommerce unlink the current person type.
+						$tr_person_type = new WC_Product_Booking_Person_Type( $tr_id );
+						$tr_person_type->set_parent_id( 0 );
+						$tr_person_type->save();
 					}
 				}
 			}
@@ -700,6 +703,18 @@ class PLLWC_Bookings {
 			$value = $tr_value;
 		}
 		return $value;
+	}
+
+	/**
+	 * Adds the bookings metas to export.
+	 *
+	 * @since 1.8
+	 *
+	 * @param array $metas An array of post metas to export.
+	 * @return array
+	 */
+	public function get_metas_to_translate( $metas ) {
+		return array_merge( $metas, array( 'wc_booking_resource_label' => 1 ) );
 	}
 
 	/**

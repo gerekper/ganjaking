@@ -20,7 +20,7 @@ class WC_AM_Install {
 	 * @var array
 	 */
 	private $db_updates = array(
-		'2.0.0' => array(
+		'2.0.0'  => array(
 			'wc_am_update_200_create_master_api_key',
 			'wc_am_update_200_data_migrate_orders',
 			'wc_am_update_200_data_migrate_activations',
@@ -28,19 +28,22 @@ class WC_AM_Install {
 			'wc_am_update_200_data_merge_software_title',
 			'wc_am_update_200_db_version',
 		),
-		'2.0.1' => array(
+		'2.0.1'  => array(
 			'wc_am_update_201_data_migrate_access_granted_to_order_created_time',
 			'wc_am_update_201_db_version',
 		),
-		'2.0.5' => array(
+		'2.0.5'  => array(
 			'wc_am_update_205_check_if_api_resources_table_is_empty',
 			'wc_am_update_205_db_version',
 		),
-		'2.2.6' => array(
+		'2.2.6'  => array(
 			'wc_am_update_2_2_6_db_version',
 		),
-		'2.6.9' => array(
+		'2.6.9'  => array(
 			'wc_am_update_2_6_9_missing_api_resources_repair',
+		),
+		'2.6.17' => array(
+			'wc_am_update_2_6_17_add_unique_key_instance',
 		),
 	);
 
@@ -183,10 +186,10 @@ class WC_AM_Install {
 			$this->create_options();
 			$this->create_tables();
 			$this->create_cron_jobs();
-			// $this->create_master_api_key();
 			$this->maybe_enable_setup_wizard();
 			$this->update_wc_am_version();
 			$this->maybe_update_db_version();
+			$this->add_unique_key_instance_to_wc_am_api_activation();
 			WC_AM_SMART_CACHE()->delete_transients( 'wc_am_installing' );
 
 			flush_rewrite_rules();
@@ -224,7 +227,7 @@ class WC_AM_Install {
 	private function needs_db_update() {
 		$current_db_version = get_option( 'wc_am_db_version', null );
 
-		return ! is_null( $current_db_version ) && version_compare( $current_db_version, max( array_keys( $this->db_updates ) ), '<' );
+		return ! is_null( $current_db_version ) && version_compare( $current_db_version, array_key_last( $this->db_updates ), '<' );
 	}
 
 	/**
@@ -252,8 +255,6 @@ class WC_AM_Install {
 			} else {
 				WC_AM_ADMIN_NOTICES()->add_notice( 'update' );
 			}
-		} else {
-			$this->update_db_version();
 		}
 	}
 
@@ -343,6 +344,7 @@ class WC_AM_Install {
 					KEY hash_name (hash_name)
 				) $collate;
 			";
+
 			dbDelta( $hash_table );
 		}
 
@@ -391,6 +393,7 @@ class WC_AM_Install {
 					KEY user_id (user_id)
 				) $collate;
 			";
+
 			dbDelta( $api_resource_table );
 		}
 
@@ -424,11 +427,12 @@ class WC_AM_Install {
 					user_id BIGINT UNSIGNED NOT NULL,
 					PRIMARY KEY (activation_id),
 					KEY api_key (api_key),
-					KEY instance (instance),
+					UNIQUE KEY instance (instance),
 					KEY master_api_key (master_api_key),
 					KEY user_id (user_id)
 				) $collate;
 			";
+
 			dbDelta( $activation_table );
 		}
 
@@ -453,6 +457,7 @@ class WC_AM_Install {
 					KEY api_resource_id (api_resource_id)
 				) $collate;
 			";
+
 			dbDelta( $activation_table );
 		}
 
@@ -469,6 +474,25 @@ class WC_AM_Install {
 					UNIQUE KEY api_resource_id (api_resource_id)
 				) $collate;
 			";
+
+			dbDelta( $activation_table );
+		}
+
+		/**
+		 * @since 2.7
+		 */
+		if ( ! $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_legacy_product_id';" ) ) {
+			$activation_table = "
+				CREATE TABLE {$wpdb->prefix}wc_am_legacy_product_id (
+					legacy_product_id BIGINT UNSIGNED NOT NULL auto_increment,
+					product_id_title VARCHAR(190) NOT NULL,
+					product_id_integer BIGINT UNSIGNED NOT NULL,
+					PRIMARY KEY (legacy_product_id),
+					UNIQUE KEY product_id_title (product_id_title),
+					KEY product_id_integer (product_id_integer)
+				) $collate;
+			";
+
 			dbDelta( $activation_table );
 		}
 		/**
@@ -477,6 +501,28 @@ class WC_AM_Install {
 		 * are added by the resource owner, a customer account is created, and an email sent to the collaborator to set their password, after
 		 * a secure password has already been created for the new account.
 		 */
+	}
+
+	/**
+	 * Make the instance column in the wc_am_api_activation database table a unique key.
+	 *
+	 * @since 2.7
+	 */
+	private function add_unique_key_instance_to_wc_am_api_activation() {
+		global $wpdb;
+
+		$result           = false;
+		$wc_am_db_version = get_option( 'wc_am_db_version' );
+
+		if ( ! $wc_am_db_version === false && version_compare( $wc_am_db_version, '2.6.9', '=' ) ) {
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_api_activation'" ) ) {
+				$result = $wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_activation` DROP KEY `instance`, ADD UNIQUE KEY(`instance`)" );
+			}
+
+			if ( ! WC_AM_FORMAT()->empty( $result ) ) {
+				WC_AM_INSTALL()->update_db_version( '2.6.17' );
+			}
+		}
 	}
 
 	private function create_options() {
@@ -596,6 +642,13 @@ class WC_AM_Install {
 		 */
 		if ( get_option( 'woocommerce_api_manager_hide_master_key' ) === false ) {
 			update_option( 'woocommerce_api_manager_hide_master_key', 'no' );
+		}
+
+		/**
+		 * @since 2.7
+		 */
+		if ( get_option( 'woocommerce_api_manager_translate_software_add_on_queries' ) === false ) {
+			update_option( 'woocommerce_api_manager_translate_software_add_on_queries', 'no' );
 		}
 	}
 

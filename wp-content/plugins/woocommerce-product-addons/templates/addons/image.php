@@ -2,7 +2,7 @@
 /**
  * The Template for displaying image swatches field.
  *
- * @version 6.0.0
+ * @version 6.3.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
@@ -53,7 +53,7 @@ foreach ( $addon['options'] as $i => $option ) {
 	$image_title = $option['label'] . ' ' . $price_tip;
 	?>
 		<a href="#" title="<?php echo esc_attr( $image_title ); ?>" class="wc-pao-addon-image-swatch" data-value="<?php echo esc_attr( sanitize_title( $option['label'] ) . '-' . $loop ); ?>" data-price="<?php echo esc_attr( ' <span class="wc-pao-addon-image-swatch-price">' . wptexturize( $option[ 'label' ] ) ); ?> <?php echo ! empty( $price_display ) ? esc_attr( '<span class="wc-pao-addon-price">' . wp_kses_post( $price_display ) . '</span>' ) : ''; ?>">
-			<img src="<?php echo esc_url( $image_src[0] ? $image_src[0] : wc_placeholder_img_src() ); ?>" alt="<?php echo wp_strip_all_tags( $image_title ); ?>" />
+			<img src="<?php echo esc_url( is_array( $image_src ) && $image_src[0] ? $image_src[0] : wc_placeholder_img_src() ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $image_title ) ); ?>" />
 		</a>
 
 <?php } ?>

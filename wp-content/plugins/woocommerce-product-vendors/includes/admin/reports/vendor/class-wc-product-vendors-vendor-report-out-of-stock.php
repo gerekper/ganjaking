@@ -21,7 +21,7 @@ class WC_Product_Vendors_Vendor_Report_Out_Of_Stock extends WC_Report_Stock {
 	 * No items found text
 	 */
 	public function no_items() {
-		_e( 'No out of stock products found.', 'woocommerce-product-vendors' );
+		esc_html_e( 'No out of stock products found.', 'woocommerce-product-vendors' );
 	}
 
 	/**

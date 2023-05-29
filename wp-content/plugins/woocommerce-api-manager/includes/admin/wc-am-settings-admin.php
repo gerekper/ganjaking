@@ -244,7 +244,7 @@ class WC_AM_Settings_Admin {
 
 				array(
 					'name'            => __( 'Master API Key', 'woocommerce-api-manager' ),
-					'desc'            => sprintf( __( 'Hide the Master API Key on My Account > API Keys tab screen if customers must use only the Product Order API Keys.%s%sCannot be hidden if the Product Order API Keys are also hidden.%s', 'woocommerce-api-manager' ), '<br>','<div style=padding-left:1.7em;>', '</div>' ),
+					'desc'            => sprintf( __( 'Hide the Master API Key on My Account > API Keys tab screen if customers must use only the Product Order API Keys.%s%sCannot be hidden if the Product Order API Keys are also hidden.%s', 'woocommerce-api-manager' ), '<br>', '<div style=padding-left:1.7em;>', '</div>' ),
 					'id'              => $this->option_prefix . '_hide_master_key',
 					'default'         => 'no',
 					'type'            => 'checkbox',
@@ -406,6 +406,25 @@ class WC_AM_Settings_Admin {
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_response_sec' ),
 
 				array(
+					'name' => __( 'Migrations', 'woocommerce-api-manager' ),
+					'type' => 'title',
+					'desc' => '',
+					'id'   => $this->option_prefix . '_transitions'
+				),
+
+				array(
+					'name'            => __( 'WC Software Add-On', 'woocommerce-api-manager' ),
+					'desc'            => sprintf( __( 'When this option is selected the API Manager will listen for HTTP(s) API queries intended for the WooCommerce Software Add-On plugin.%s%sThe WC Software Add-On plugin can be deleted after its data has been imported into the API Manager.%s%s%s%sNote:%s The import tool will not run unless this option is selected. Go to %sTools%s to Import the WC Software Add-On Data into the API Manager.%s', 'woocommerce-api-manager' ), '<br>', '<div style=padding-left:1.7em;>', '</div>', '<br>','<div style=padding-left:1.7em;>', '<strong class="red">', '</strong>', '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=tools' ) . '">', '</a>', '</div>' ),
+					'id'              => $this->option_prefix . '_translate_software_add_on_queries',
+					'default'         => 'no',
+					'type'            => 'checkbox',
+					'checkboxgroup'   => 'start',
+					'show_if_checked' => 'option'
+				),
+
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_transitions_sec' ),
+
+				array(
 					'name' => __( 'API Manager Extensions', 'woocommerce-api-manager' ),
 					'desc' => sprintf( __( '%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP Library for Plugins and Themes%s.%s%sDisplay the Product API tab settings data automatically on the frontend product page with the %sWooCommerce API Manager Product Tabs%s extension is implemented.%s%s', 'woocommerce-api-manager' ), '<ul style="list-style-type:disc;padding-left:5em">', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '</li>', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-product-tabs/' ) . '" target="blank">', '</a>', '</li>', '</ul>' ),
 					'type' => 'title',
@@ -487,18 +506,18 @@ class WC_AM_Settings_Admin {
 		if ( isset( $field[ 'id' ] ) && isset( $field[ 'name' ] ) ) :
 			$field_val = get_option( $field[ 'id' ] );
 			?>
-			<tr valign="top">
-				<th scope="row" class="titledesc">
-					<label for="<?php echo wp_kses_post( $field[ 'id' ] ); ?>"><?php echo esc_attr( $field[ 'name' ] ); ?></label>
-				</th>
-				<td class="forminp forminp-password">
-					<input name="<?php echo esc_attr( $field[ 'id' ] ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" type="password"
-					       style="<?php echo esc_attr( isset( $field[ 'css' ] ) ? $field[ 'css' ] : '' ); ?>"
-					       value="<?php echo esc_attr( WC_AM_ENCRYPTION()->decrypt( $field_val ) ); ?>"
-					       class="<?php echo esc_attr( isset( $field[ 'class' ] ) ? $field[ 'class' ] : '' ); ?>">
-					<span class="description"><?php echo esc_attr( $field[ 'desc' ] ); ?></span>
-				</td>
-			</tr>
+            <tr valign="top">
+                <th scope="row" class="titledesc">
+                    <label for="<?php echo wp_kses_post( $field[ 'id' ] ); ?>"><?php echo esc_attr( $field[ 'name' ] ); ?></label>
+                </th>
+                <td class="forminp forminp-password">
+                    <input name="<?php echo esc_attr( $field[ 'id' ] ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" type="password"
+                           style="<?php echo esc_attr( isset( $field[ 'css' ] ) ? $field[ 'css' ] : '' ); ?>"
+                           value="<?php echo esc_attr( WC_AM_ENCRYPTION()->decrypt( $field_val ) ); ?>"
+                           class="<?php echo esc_attr( isset( $field[ 'class' ] ) ? $field[ 'class' ] : '' ); ?>">
+                    <span class="description"><?php echo esc_attr( $field[ 'desc' ] ); ?></span>
+                </td>
+            </tr>
 		<?php
 
 		endif;

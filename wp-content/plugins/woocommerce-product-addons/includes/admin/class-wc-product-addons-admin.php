@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Admin\Features\Features;
  * Product Add-Ons admin.
  *
  * @class    WC_Product_Addons_Admin
- * @version  6.2.0
+ * @version  6.3.0
  */
 class WC_Product_Addons_Admin {
 
@@ -103,7 +103,7 @@ class WC_Product_Addons_Admin {
 		$html                     = '<input type="checkbox" id="show-incomplete-subtotal" name="product_addons_options[show-incomplete-subtotal]" value="1"' . checked( 1, $show_incomplete_subtotal, false ) . '/>';
 		$html                    .= '<label for="show-incomplete-subtotal-label">' . esc_html( __( 'Show running subtotal, even if not all required add-on choices have been made.', 'woocommerce-product-addons' ) ) . '</label>';
 
-		echo $html;
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -176,13 +176,17 @@ class WC_Product_Addons_Admin {
 	 * @since 3.0.0
 	 */
 	public function script_styles() {
-		if (
-			'product_page_addons'        !== get_current_screen()->id &&
-			'product'                    !== get_current_screen()->id &&
-			'shop_order'                 !== get_current_screen()->id &&
-			'shop_subscription'          !== get_current_screen()->id &&
-			'woocommerce_page_wc-orders' !== get_current_screen()->id
-		) {
+
+		$valid_screen_ids = array(
+			'product',
+			'shop_order',
+			'shop_subscription',
+			WC_PAO()->get_formatted_screen_id( 'woocommerce_page_wc-orders' ),
+			WC_PAO()->get_formatted_screen_id( 'woocommerce_page_wc-orders--shop_subscription' ),
+			WC_PAO()->get_formatted_screen_id( 'woocommerce_page_wc-orders--shop_order' )
+		);
+
+		if ( ! WC_PAO()->is_current_screen( $valid_screen_ids ) ) {
 			return;
 		}
 
@@ -224,7 +228,7 @@ class WC_Product_Addons_Admin {
 	 * @return array
 	 */
 	public function add_screen_id( $screen_ids ) {
-		$screen_ids[] = 'product_page_addons';
+		$screen_ids = array_merge( $screen_ids, WC_PAO()->get_screen_ids() );
 
 		return $screen_ids;
 	}
@@ -236,16 +240,24 @@ class WC_Product_Addons_Admin {
 		if ( ! empty( $_GET['add'] ) || ! empty( $_GET['edit'] ) ) {
 
 			if ( $_POST ) {
-				$edit_id = $this->save_global_addons();
 
-				if ( $edit_id ) {
-					echo '<div class="updated"><p>' . esc_html__( 'Add-on saved successfully', 'woocommerce-product-addons' ) . '</p></div>';
+				// Check if all form fields have been posted.
+				if ( isset( $_POST[ 'pao_post_control_var' ] ) && ! isset( $_POST[ 'pao_post_test_var' ] ) ) {
+
+					echo wp_kses_post( '<div class="notice notice-warning"><p>' . sprintf( esc_html__( 'Product Add-Ons has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server\'s host or administrator and (kindly) ask them to increase the number of variables that PHP scripts can post and process%1$s.', 'woocommerce-product-addons' ), function_exists( 'ini_get' ) && ini_get( 'max_input_vars' ) ? sprintf( __( ' (currently %s)', 'woocommerce-product-addons' ), ini_get( 'max_input_vars' ) ) : '' ) ) . '</p></div>';
+
+				} else {
+					$posted_addons_data = $this->save_global_addons();
+					$edit_id            = $posted_addons_data[ 'edit_id' ];
+					$reference          = $posted_addons_data[ 'reference' ];
+					$priority           = $posted_addons_data[ 'priority' ];
+					$objects            = $posted_addons_data[ 'objects' ];
+					$product_addons     = array_filter( (array) $posted_addons_data[ 'product_addons' ] );
+
+					if ( $edit_id ) {
+						echo '<div class="updated"><p>' . esc_html__( 'Add-on saved successfully', 'woocommerce-product-addons' ) . '</p></div>';
+					}
 				}
-
-				$reference      = ! empty( $_POST['addon-reference'] ) ? wc_clean( wp_unslash( $_POST['addon-reference'] ) ) : '';
-				$priority       = ! empty( $_POST['addon-priority'] ) ? absint( $_POST['addon-priority'] ) : 0;
-				$objects        = ! empty( $_POST['addon-objects'] ) ? array_map( 'absint', $_POST['addon-objects'] ) : array();
-				$product_addons = array_filter( (array) $this->get_posted_product_addons() );
 			}
 
 			if ( ! empty( $_GET['edit'] ) ) {
@@ -261,7 +273,7 @@ class WC_Product_Addons_Admin {
 				$reference      = $global_addon->post_title;
 				$priority       = get_post_meta( $global_addon->ID, '_priority', true );
 				$objects        = (array) wp_get_post_terms( $global_addon->ID, apply_filters( 'woocommerce_product_addons_global_post_terms', array( 'product_cat' ) ), array( 'fields' => 'ids' ) );
-				$product_addons = array_filter( (array) get_post_meta( $global_addon->ID, '_product_addons', true ) );
+				$product_addons = array_filter( (array) get_post_meta( $global_addon->ID, '_product_addons', true ) ); // nosemgrep: audit.php.lang.misc.array-filter-no-callback
 
 				if ( get_post_meta( $global_addon->ID, '_all_products', true ) == 1 ) {
 					$objects[] = 0;
@@ -347,7 +359,7 @@ class WC_Product_Addons_Admin {
 	/**
 	 * Save global addons
 	 *
-	 * @return bool success or failure
+	 * @return array posted addons data
 	 */
 	public function save_global_addons() {
 
@@ -405,7 +417,13 @@ class WC_Product_Addons_Admin {
 		update_post_meta( $edit_id, '_product_addons', $product_addons );
 		update_option( 'woocommerce_global_product_addons_last_modified', current_time( 'U' ) );
 
-		return $edit_id;
+		return array(
+			'edit_id'        => $edit_id,
+			'reference'      => $reference,
+			'priority'       => $priority,
+			'objects'        => $objects,
+			'product_addons' => $product_addons
+		);
 	}
 
 	/**
@@ -437,6 +455,14 @@ class WC_Product_Addons_Admin {
 	 * @param int $post_id Post ID.
 	 */
 	public function process_meta_box( $post_id ) {
+
+		// Check if all addons have been posted.
+		if ( isset( $_POST[ 'pao_post_control_var' ] ) && ! isset( $_POST[ 'pao_post_test_var' ] ) ) {
+			$notice = sprintf( __( 'Product Add-Ons has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server\'s host or administrator and (kindly) ask them to increase the number of variables that PHP scripts can post and process%1$s.', 'woocommerce-product-addons' ), function_exists( 'ini_get' ) && ini_get( 'max_input_vars' ) ? sprintf( __( ' (currently %s)', 'woocommerce-product-addons' ), ini_get( 'max_input_vars' ) ) : '' );
+			WC_PAO_Admin_Notices::add_notice( $notice, 'warning', true );
+			return;
+		}
+
 		// Save addons as serialised array.
 		$product_addons                = $this->get_posted_product_addons();
 		$product_addons_exclude_global = isset( $_POST['_product_addons_exclude_global'] ) ? 1 : 0;
@@ -482,7 +508,7 @@ class WC_Product_Addons_Admin {
 		} elseif ( ! empty( $_GET[ 'edit' ] ) ) {
 			$edit_id            = absint( $_GET[ 'edit' ] );
 			$global_addon       = get_post( $edit_id );
-			$current_addon_data = is_a( $global_addon, 'WP_Post' ) ? array_filter( (array) get_post_meta( $global_addon->ID, '_product_addons', true ) ) : array();
+			$current_addon_data = is_a( $global_addon, 'WP_Post' ) ? array_filter( (array) get_post_meta( $global_addon->ID, '_product_addons', true ) ) : array(); // nosemgrep: audit.php.lang.misc.array-filter-no-callback
 		}
 
 		foreach ( $current_addon_data as $addon ) {
@@ -581,7 +607,7 @@ class WC_Product_Addons_Admin {
 
 			// maybe_unserialize does not support additional options, to set allowed_classes to false.
 			if ( is_serialized( $import_addons ) ) { // Don't attempt to unserialize data that wasn't serialized going in.
-				$import_addons =  @unserialize( $import_addons, array( 'allowed_classes' => false ) );
+				$import_addons =  @unserialize( $import_addons, array( 'allowed_classes' => false ) ); // nosemgrep: audit.php.lang.security.object-injection
 			}
 
 			if ( is_array( $import_addons ) && ! empty( $import_addons ) ) {
@@ -650,7 +676,7 @@ class WC_Product_Addons_Admin {
 			'id'                 => isset( $addon['id'] ) ? absint( $addon['id'] ) : 0,
 		);
 
-		if ( is_array( $addon['options'] ) ) {
+		if ( isset( $addon[ 'options' ] ) && is_array( $addon['options'] ) ) {
 			$sanitized['options'] = array();
 
 			foreach ( $addon['options'] as $key => $option ) {
@@ -740,7 +766,7 @@ class WC_Product_Addons_Admin {
 				$addon_html = str_replace( '<div class="wc-order-item-variation"><strong>' . esc_html__( 'Variation ID:', 'woocommerce-product-addons' ) . '</strong> ' . $var_id . '</div>', '', $addon_html );
 			}
 
-			echo $addon_html;
+			echo $addon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 

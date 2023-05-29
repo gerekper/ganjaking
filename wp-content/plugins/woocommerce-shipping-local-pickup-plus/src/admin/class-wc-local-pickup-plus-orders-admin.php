@@ -49,7 +49,7 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 			add_action( 'manage_woocommerce_page_wc-orders_custom_column', [ $this, 'add_pickup_locations_column_content' ], 10, 2 );
 		} else {
 			add_filter( 'manage_edit-shop_order_columns',        [ $this, 'add_pickup_locations_column_header' ], 20 );
-			add_action( 'manage_shop_order_posts_custom_column', [ $this, 'add_pickup_locations_column_content' ] );
+			add_action( 'manage_shop_order_posts_custom_column', [ $this, 'add_pickup_locations_column_content' ], 10, 2 );
 		}
 
 		// add styles for the 'Pickup Locations' column
@@ -263,17 +263,9 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 */
 	public function filter_orders_by_locations( $args ) {
 
-		if ( ! is_array( $args ) ) {
-			return $args;
-		}
+		$pickup_location_id = absint( $_GET['_pickup_location'] ?? null );
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
-			$pickup_location_id = absint( $_GET['_pickup_location'] ?? null );
-		} else {
-			$pickup_location_id = absint( $args['_pickup_location'] ?? null );
-		}
-
-		if ( ! $pickup_location_id ) {
+		if ( ! $pickup_location_id || ! is_array( $args ) ) {
 			return $args;
 		}
 
@@ -377,19 +369,10 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 	 */
 	public function filter_orders_by_appointment_time( $args ) {
 
-		if ( ! is_array( $args ) ) {
-			return $args;
-		}
-
-		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
-			$appointment_time = $_GET['_appointment_time'] ?? null;
-		} else {
-			$appointment_time = $args['_appointment_time'] ?? null;
-		}
-
+		$appointment_time = $_GET['_appointment_time'] ?? null;
 		$orders_handler = wc_local_pickup_plus()->get_orders_instance();
 
-		if ( $orders_handler && ! empty( $appointment_time ) ) {
+		if ( $orders_handler && is_array( $args ) && ! empty( $appointment_time ) ) {
 
 			switch ( $appointment_time ) {
 

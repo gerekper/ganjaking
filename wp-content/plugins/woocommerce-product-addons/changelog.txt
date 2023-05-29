@@ -1,5 +1,13 @@
 *** Product Addons Changelog ***
 
+2023-05-23 - version 6.3.0
+* Fix - Important: Security improvements.
+* New - Added admin notice to stores that use a PHP version earlier than 7.0.
+* Tweak - Added a notice when addons cannot be saved due to a low 'max_input_vars' value.
+* Tweak - Updated the logic that determines in which admin screens, Product Add-Ons styles/scripts are loaded. 
+* Tweak - Optimized the way global addons are saved. 
+* Fix - Fixed a fatal error triggered when dividing the addon price by a zero quantity.
+
 2023-04-11 - version 6.2.0
 * New - Important: Bumped minimum required versions.
 * Fix - Important: Security improvements.

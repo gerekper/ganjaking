@@ -5,7 +5,7 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.7.32
+ * Version: 1.7.33
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
  * Tested up to: 6.2
@@ -155,7 +155,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.32' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.33' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -204,6 +204,18 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 		/** @var string the endpoint page to use for frontend */
 		public $endpoint = WC_POINTS_REWARDS_ENDPOINT;
 
+		/** @var WC_Points_Rewards_Product product class */
+		private $product;
+
+		/** @var WC_Points_Rewards_Cart_Checkout the cart/checkout class */
+		private $cart;
+
+		/** @var WC_Points_Rewards_Order  the order class */
+		private $order;
+
+		/** @var WC_Points_Rewards_Discount the discount class */
+		private $discount;
+
 		/**
 		 * Initializes the plugin
 		 *
@@ -248,6 +260,24 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			$this->install();
 
 			add_action( 'after_switch_theme', 'wc_points_rewards_activate' );
+		}
+
+		/**
+		 * __get method for backward compatibility.
+		 *
+		 * @param $key string property name
+		 * @return mixed
+		 * @since x.x.x
+		 */
+		public function __get( $key ) {
+			// Add warning for private properties.
+			if ( in_array( $key, array( 'product', 'cart', 'order', 'discount' ), true ) ) {
+				/* translators: %s property name. */
+				_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( 'The %s property is private and should not be accessed outside its class.', 'woocommerce-points-and-rewards' ), esc_html( $key ) ), 'x.x.x' );
+				return $this->$key;
+			}
+
+			return null;
 		}
 
 		/**

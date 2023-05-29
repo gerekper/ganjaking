@@ -59,6 +59,7 @@ class WC_AM_Background_Events {
 		$this->queue_cleanup_expired_grace_periods();
 		$this->background_process->push_to_queue( array( 'task' => 'cleanup_hash' ) );
 		$this->background_process->save()->dispatch();
+
 		WC_AM_LOG()->log_info( esc_html__( 'Expired API Resources Cleanup event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'expired-api-resources-cleanup' );
 	}
 
@@ -71,7 +72,26 @@ class WC_AM_Background_Events {
 		$this->queue_repair_missing_api_resources();
 		$this->background_process->push_to_queue( array( 'task' => 'wc_am_repair_hash' ) );
 		$this->background_process->save()->dispatch();
+
 		WC_AM_LOG()->log_info( esc_html__( 'Missing API Resources Repair event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'missing-api-resources-repair' );
+	}
+
+	/**
+	 * Run on-demand.
+	 *
+	 * @since 2.7
+	 */
+	public function queue_wc_software_add_on_data_import_event() {
+		if ( get_option( 'woocommerce_api_manager_translate_software_add_on_queries' ) == 'yes' && get_option( 'wc_software_add_on_data_added' ) === false ) {
+			$this->queue_repair_event();
+			$this->queue_add_wc_software_add_on_data();
+			$this->background_process->push_to_queue( array( 'task' => 'wc_am_add_wc_software_add_on_data_event' ) );
+			$this->background_process->save()->dispatch();
+
+			WC_AM_LOG()->log_info( esc_html__( 'Add WC Software Add-on data event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'wc-software-add-on-add-data' );
+
+			update_option( 'wc_software_add_on_data_added', 'yes' );
+		}
 	}
 
 	/**
@@ -514,5 +534,96 @@ class WC_AM_Background_Events {
 	 */
 	public function get_next_scheduled_cleanup() {
 		return wp_next_scheduled( 'wc_am_weekly_event' );
+	}
+
+	/**
+	 * Queue repair_missing_api_resources().
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 2.7
+	 */
+	private function queue_add_wc_software_add_on_data() {
+		global $wpdb;
+
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_software_licenses';" ) ) {
+			$key_ids = $wpdb->get_col( "
+				SELECT key_id
+				FROM {$wpdb->prefix}woocommerce_software_licenses
+			" );
+
+			if ( ! empty( $key_ids ) ) {
+				foreach ( $key_ids as $key_id ) {
+					$this->background_process->push_to_queue( array( 'task' => 'add_wc_software_add_on_data', 'wc_software_add_on_data_key_id' => $key_id ) );
+				}
+
+				WC_AM_LOG()->log_info( esc_html__( 'WC Software Add-on API Keys added to the Asscociated API Keys database table.', 'woocommerce-api-manager' ), 'wc-software-add-on-add-data' );
+			} else {
+				WC_AM_LOG()->log_info( esc_html__( 'There Were No WC Software Add-on API Keys added to the Asscociated API Keys database table.', 'woocommerce-api-manager' ), 'wc-software-add-on-add-data' );
+			}
+		}
+	}
+
+	/**
+	 * Adds WC Software Add-on API Keys to the wc_am_associated_api_key database table
+	 * and API Key/License Key activations to the wc_am_api_activation database table.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since   2.7
+	 *
+	 * @param int $key_id
+	 */
+	public function add_wc_software_add_on_data( $key_id ) {
+		global $wpdb;
+
+		if ( ! empty( $key_id ) ) {
+			// Add Software Licenses as API Keys.
+			try {
+				$license_sql = "
+					SELECT *
+					FROM {$wpdb->prefix}woocommerce_software_licenses
+					WHERE key_id = %d
+				";
+
+				$software_license_data = $wpdb->get_row( $wpdb->prepare( $license_sql, $key_id ) );
+
+				if ( ! WC_AM_FORMAT()->empty( $software_license_data ) ) {
+					// Translate String product_id to integer product_id.
+					$product_id = WC_AM_LEGACY_PRODUCT_ID()->get_product_id_integer( $software_license_data->software_product_id, '_software_product_id' );
+
+					WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->add_associated_api_key( $software_license_data->license_key, $software_license_data->order_id, $product_id );
+
+					// Add Software License activations as API Key activations.
+					$activation_sql = "
+						SELECT *
+						FROM {$wpdb->prefix}woocommerce_software_activations
+						WHERE key_id = %d
+					";
+
+					$software_activation_data = $wpdb->get_row( $wpdb->prepare( $activation_sql, $key_id ) );
+
+					if ( ! WC_AM_FORMAT()->empty( $software_activation_data ) ) {
+						$api_resource = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_by_order_id_and_product_id( $software_license_data->order_id, $product_id );
+
+						$request_data = array(
+							'api_key'         => ! empty( $software_activation_data->license_key ) ? $software_activation_data->license_key : '',
+							'user_ip'         => '',
+							'instance'        => ! empty( $software_activation_data->instance ) ? $software_activation_data->instance : '',
+							'object'          => ! empty( $software_activation_data->activation_platform ) ? $software_activation_data->activation_platform : '',
+							'product_id'      => $product_id,
+							'version'         => $software_license_data->software_version,
+							'update_requests' => 0
+						);
+
+						if ( $software_activation_data->activation_active == 1 && ! empty( $request_data[ 'product_id' ] ) && ! empty( $request_data[ 'api_key' ] ) && ! empty( $request_data[ 'instance' ] ) ) {
+							WC_AM_API_ACTIVATION_DATA_STORE()->add_api_key_activation( $api_resource->user_id, $api_resource, $request_data );
+						}
+					}
+				}
+			} catch ( Exception $e ) {
+				WC_AM_LOG()->log_info( esc_html__( 'Add WC Software Add-on data ERROR for key_id ', 'woocommerce-api-manager' ) . $key_id . '. ' . $e, 'wc-software-add-on-add-data' );
+			}
+		}
 	}
 }

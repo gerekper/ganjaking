@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 4.0.6
+* Version: 4.1.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -40,12 +40,12 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  4.0.6
+ * @version  4.1.0
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '4.0.6';
+	const VERSION = '4.1.0';
 
 	/* Required WC version. */
 	const REQ_WC_VERSION = '3.9.0';
@@ -86,7 +86,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-all-products-for-subscriptions' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-all-products-for-subscriptions' ), '1.0.0' );
 	}
 
 	/**
@@ -95,7 +95,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-all-products-for-subscriptions' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-all-products-for-subscriptions' ), '1.0.0' );
 	}
 
 	/**

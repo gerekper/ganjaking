@@ -2,9 +2,9 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPAli: Woocommerce Order Builder 1.1.5\n"
+"Project-Id-Version: WPAli: Woocommerce Order Builder 1.1.6\n"
 "Report-Msgid-Bugs-To: https://plugins.wpali.com/forums/\n"
-"POT-Creation-Date: 2022-05-31 15:17:32+00:00\n"
+"POT-Creation-Date: 2022-09-30 11:47:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -452,9 +452,9 @@ msgid "Responsiveness"
 msgstr ""
 
 #: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:47
-#: public/class-wpali-woocommerce-order-builder-public.php:567
-#: public/class-wpali-woocommerce-order-builder-public.php:641
-#: public/class-wpali-woocommerce-order-builder-public.php:692
+#: public/class-wpali-woocommerce-order-builder-public.php:579
+#: public/class-wpali-woocommerce-order-builder-public.php:656
+#: public/class-wpali-woocommerce-order-builder-public.php:708
 msgid "Product Options"
 msgstr ""
 
@@ -772,16 +772,16 @@ msgid "Enable"
 msgstr ""
 
 #: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:362
-#: public/class-wpali-woocommerce-order-builder-public.php:571
-#: public/class-wpali-woocommerce-order-builder-public.php:646
-#: public/class-wpali-woocommerce-order-builder-public.php:695
+#: public/class-wpali-woocommerce-order-builder-public.php:583
+#: public/class-wpali-woocommerce-order-builder-public.php:661
+#: public/class-wpali-woocommerce-order-builder-public.php:711
 msgid "Color"
 msgstr ""
 
 #: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:363
-#: public/class-wpali-woocommerce-order-builder-public.php:574
-#: public/class-wpali-woocommerce-order-builder-public.php:649
-#: public/class-wpali-woocommerce-order-builder-public.php:698
+#: public/class-wpali-woocommerce-order-builder-public.php:587
+#: public/class-wpali-woocommerce-order-builder-public.php:664
+#: public/class-wpali-woocommerce-order-builder-public.php:714
 msgid "Size"
 msgstr ""
 
@@ -881,29 +881,29 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: public/class-wpali-woocommerce-order-builder-public.php:109
+#: public/class-wpali-woocommerce-order-builder-public.php:112
 msgid "Please select at least"
 msgstr ""
 
-#: public/class-wpali-woocommerce-order-builder-public.php:245
+#: public/class-wpali-woocommerce-order-builder-public.php:254
 msgid "Total"
 msgstr ""
 
-#: public/class-wpali-woocommerce-order-builder-public.php:518
+#: public/class-wpali-woocommerce-order-builder-public.php:529
 msgid "Order Details:"
 msgstr ""
 
-#: public/class-wpali-woocommerce-order-builder-public.php:577
-#: public/class-wpali-woocommerce-order-builder-public.php:652
-#: public/class-wpali-woocommerce-order-builder-public.php:701
+#: public/class-wpali-woocommerce-order-builder-public.php:591
+#: public/class-wpali-woocommerce-order-builder-public.php:667
+#: public/class-wpali-woocommerce-order-builder-public.php:717
 msgid "Instructions"
 msgstr ""
 
-#: public/class-wpali-woocommerce-order-builder-public.php:689
+#: public/class-wpali-woocommerce-order-builder-public.php:705
 msgid "Order details"
 msgstr ""
 
-#: public/class-wpali-woocommerce-order-builder-public.php:759
+#: public/class-wpali-woocommerce-order-builder-public.php:907
 msgid ""
 "Sorry, This product has options. To purchase, please select options first "
 "and try again."

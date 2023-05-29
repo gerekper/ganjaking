@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @since 1.5.0
 		 */
 		public function admin_scripts() {
-			if ( wcs_get_page_screen_id( 'shop_subscription' ) !== wc_od_get_current_screen_id() ) {
+			if ( wc_od_get_subscription_screen_id( 'shop_subscription' ) !== wc_od_get_current_screen_id() ) {
 				return;
 			}
 
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @since 1.5.0
 		 */
 		public function add_meta_boxes() {
-			add_meta_box( 'woocommerce-subscription-delivery', _x( 'Next order delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Subscription_Delivery::output', wcs_get_page_screen_id( 'shop_subscription' ), 'side', 'core' );
+			add_meta_box( 'woocommerce-subscription-delivery', _x( 'Next order delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Subscription_Delivery::output', wc_od_get_subscription_screen_id( 'shop_subscription' ), 'side', 'core' );
 		}
 
 		/**

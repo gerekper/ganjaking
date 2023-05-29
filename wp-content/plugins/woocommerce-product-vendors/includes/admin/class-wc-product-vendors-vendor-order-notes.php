@@ -111,11 +111,11 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 
 		$output .= '<p class="meta">';
 		$output .= '<abbr class="exact-date" title="' . esc_attr( $note->comment_date ) . '">';
-		$output .= sprintf( __( 'added on %1$s at %2$s', 'woocommerce-product-vendors' ), date_i18n( wc_date_format(), strtotime( $note->comment_date ) ), date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) );
+		$output .= esc_html( sprintf( __( 'added on %1$s at %2$s', 'woocommerce-product-vendors' ), date_i18n( wc_date_format(), strtotime( $note->comment_date ) ), date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ) );
 		$output .= '</abbr>';
 
 		if ( $note->comment_author !== 'WooCommerce' ) {
-			$output .= sprintf( ' ' . __( 'by %s (%s)', 'woocommerce-product-vendors' ), $note->comment_author, WC_Product_Vendors_Utils::get_logged_in_vendor( 'name' ) );
+			$output .= esc_html( sprintf( ' ' . __( 'by %s (%s)', 'woocommerce-product-vendors' ), $note->comment_author, WC_Product_Vendors_Utils::get_logged_in_vendor( 'name' ) ) );
 		}
 		
 		$output .= '</p>';
@@ -170,13 +170,13 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 					$note_classes = apply_filters( 'woocommerce_order_note_class', $note_classes, $note );
 
 					?>
-					<li rel="<?php echo absint( $note->comment_ID ) ; ?>" class="<?php echo esc_attr( implode( ' ', $note_classes ) ); ?>">
+					<li rel="<?php echo esc_attr( absint( $note->comment_ID ) ); ?>" class="<?php echo esc_attr( implode( ' ', $note_classes ) ); ?>">
 						<div class="note_content">
 							<?php echo wpautop( wptexturize( wp_kses_post( $note->comment_content ) ) ); ?>
 						</div>
 						<p class="meta">
-							<abbr class="exact-date" title="<?php echo $note->comment_date; ?>"><?php printf( __( 'added on %1$s at %2$s', 'woocommerce-product-vendors' ), date_i18n( wc_date_format(), strtotime( $note->comment_date ) ), date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ); ?></abbr>
-							<?php if ( $note->comment_author !== 'WooCommerce' ) printf( ' ' . __( 'by %s', 'woocommerce-product-vendors' ), $note->comment_author ); ?>
+							<abbr class="exact-date" title="<?php echo esc_attr( $note->comment_date ); ?>"><?php printf( esc_html__( 'added on %1$s at %2$s', 'woocommerce-product-vendors' ), esc_html( date_i18n( wc_date_format(), strtotime( $note->comment_date ) ) ), esc_html( date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ) ); ?></abbr>
+							<?php if ( $note->comment_author !== 'WooCommerce' ) printf( ' ' . esc_html__( 'by %s', 'woocommerce-product-vendors' ), esc_html( $note->comment_author ) ); ?>
 						</p>
 					</li>
 					<?php
@@ -191,7 +191,7 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 		?>
 		<div class="add_note">
 			<?php wp_nonce_field( '_wc_product_vendors_vendor_add_order_note_nonce' . $order->get_id(), 'wcpv_add_order_note_nonce', false ); ?>
-			<h4><?php esc_html_e( 'Add note', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Add a note for your reference, or add a customer note (the user will be notified).', 'woocommerce-product-vendors' ) ); ?></h4>
+			<h4><?php esc_html_e( 'Add note', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( esc_html__( 'Add a note for your reference, or add a customer note (the user will be notified).', 'woocommerce-product-vendors' ) ); ?></h4>
 			<p>
 				<textarea type="text" name="order_note" id="add_order_note" class="input-text" cols="20" rows="5"></textarea>
 			</p>

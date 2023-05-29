@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<ul>
 				<?php
 					foreach ( $ranges as $range => $name ) {
-						echo '<li class="' . ( $current_range == $range ? 'active' : '' ) . '"><a href="' . esc_url( remove_query_arg( array( 'start_date', 'end_date' ), add_query_arg( 'range', $range ) ) ) . '">' . $name . '</a></li>';
+						echo '<li class="' . ( $current_range == $range ? 'active' : '' ) . '"><a href="' . esc_url( remove_query_arg( array( 'start_date', 'end_date' ), add_query_arg( 'range', $range ) ) ) . '">' . esc_html( $name ) . '</a></li>';
 					}
 				?>
 				<li class="custom <?php echo $current_range == 'custom' ? 'active' : ''; ?>">
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<ul class="chart-widgets">
 						<?php foreach ( $this->get_chart_widgets() as $widget ) : ?>
 							<li class="chart-widget">
-								<?php if ( $widget['title'] ) : ?><h4><?php echo $widget['title']; ?></h4><?php endif; ?>
+								<?php if ( $widget['title'] ) : ?><h4><?php echo esc_html( $widget['title'] ); ?></h4><?php endif; ?>
 								<?php call_user_func( $widget['callback'] ); ?>
 							</li>
 						<?php endforeach; ?>
@@ -58,8 +58,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php if ( $legends = $this->get_chart_legend() ) : ?>
 						<ul class="chart-legend">
 							<?php foreach ( $legends as $legend ) : ?>
-								<li style="border-color: <?php echo $legend['color']; ?>" <?php if ( isset( $legend['highlight_series'] ) ) echo 'class="highlight_series ' . ( isset( $legend['placeholder'] ) ? 'tips' : '' ) . '" data-series="' . esc_attr( $legend['highlight_series'] ) . '"'; ?> data-tip="<?php echo isset( $legend['placeholder'] ) ? wc_sanitize_tooltip( $legend['placeholder'] ) : ''; ?>">
-									<?php echo $legend['title']; ?>
+								<li style="border-color: <?php echo esc_attr( $legend['color'] ); ?>" <?php if ( isset( $legend['highlight_series'] ) ) echo 'class="highlight_series ' . ( isset( $legend['placeholder'] ) ? 'tips' : '' ) . '" data-series="' . esc_attr( $legend['highlight_series'] ) . '"'; ?> data-tip="<?php echo isset( $legend['placeholder'] ) ? wc_sanitize_tooltip( $legend['placeholder'] ) : ''; ?>">
+									<?php echo esc_html( $legend['title'] ); ?>
 								</li>
 							<?php endforeach; ?>
 						</ul>

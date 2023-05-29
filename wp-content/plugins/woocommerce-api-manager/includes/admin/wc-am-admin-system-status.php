@@ -82,6 +82,7 @@ class WC_AM_Admin_System_Status {
 		$this->set_api_manager_associated_api_keys( $wc_api_manager_data );
 		$this->set_api_manager_secure_hash_count( $wc_api_manager_data );
 		$this->set_api_manager_grace_period_count( $wc_api_manager_data );
+		$this->set_api_manager_legacy_product_id_count( $wc_api_manager_data );
 		$this->set_api_manager_next_api_resource_cleanup_scheduled( $wc_api_manager_data );
 
 		$this->set_theme_overrides( $wc_api_manager_data );
@@ -498,6 +499,23 @@ class WC_AM_Admin_System_Status {
 			'name'      => _x( 'Grace Periods', 'Grace Periods Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
 			'label'     => 'Grace Periods',
 			'note'      => esc_attr( WC_AM_GRACE_PERIOD()->count() ),
+			'mark'      => '',
+			'mark_icon' => '',
+		);
+	}
+
+	/**
+	 * Grace Periods Count.
+	 *
+	 * @since 2.7.1
+	 *
+	 * @param $debug_data
+	 */
+	private function set_api_manager_legacy_product_id_count( &$debug_data ) {
+		$debug_data[ 'wc_api_manager_legacy_product_id_count' ] = array(
+			'name'      => _x( 'Legacy Product IDs', 'Legacy Product IDs Count, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
+			'label'     => 'Legacy Product IDs',
+			'note'      => esc_attr( WC_AM_LEGACY_PRODUCT_ID()->count() ),
 			'mark'      => '',
 			'mark_icon' => '',
 		);

@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<h3><?php printf( esc_html__( 'Hello! A vendor ( %s ) has added a new product awaiting review.', 'woocommerce-product-vendors' ), $vendor_name ); ?></h3>
+<h3><?php printf( esc_html__( 'Hello! A vendor ( %s ) has added a new product awaiting review.', 'woocommerce-product-vendors' ), esc_html( $vendor_name ) ); ?></h3>
 
-<p><a href="<?php echo esc_url( $product_link ); ?>"><?php echo $product_name; ?></a></p>
+<p><a href="<?php echo esc_url( $product_link ); ?>"><?php echo esc_html( $product_name ); ?></a></p>
 
 <?php do_action( 'woocommerce_email_footer', $email ); ?>

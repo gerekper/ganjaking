@@ -837,16 +837,53 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	/**
 	 * Sets product featured visibility.
 	 *
-	 * @param int $product_id
-	 * @param array $post
+	 * @param int   $product_id Product ID.
+	 * @param array $post       Importer post data.
 	 */
 	public function set_featured( $product_id, $post ) {
-		foreach( $post['postmeta'] as $meta ) {
-			if ( '_featured' === $meta['key'] && 'yes' === $meta['value'] ) {
-				wp_set_post_terms( $product_id, array( 'featured' ), 'product_visibility', true );
+		$product = wc_get_product( $product_id );
+		if ( ! $product ) {
+			return;
+		}
+
+		foreach ( $post['postmeta'] as $meta ) {
+			if ( '_featured' === $meta['key'] ) {
+				$product->set_featured( 'yes' === $meta['value'] );
+				$product->save();
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Sets stock status.
+	 *
+	 * @param int   $product_id Product ID.
+	 * @param array $post       Importer post data.
+	 */
+	public function set_stock_data( $product_id, $post ) {
+		$product = wc_get_product( $product_id );
+		if ( ! $product ) {
+			return;
+		}
+
+		foreach ( $post['postmeta'] as $meta ) {
+			if ( '_manage_stock' === $meta['key'] ) {
+				$product->set_manage_stock( $meta['value'] );
+			}
+			if ( '_stock' === $meta['key'] ) {
+				$product->set_stock_quantity( $meta['value'] );
+			}
+			if ( '_backorders' === $meta['key'] && ! empty( $meta['value'] ) ) {
+				$product->set_backorders( $meta['value'] );
+			}
+			if ( '_stock_status' === $meta['key'] && ! empty( $meta['value'] ) ) {
+				$product->set_stock_status( $meta['value'] );
+			}
+		}
+
+		// Save product.
+		$product->save();
 	}
 
 	/**
@@ -998,6 +1035,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				} else {
 					$this->set_catalog_visibility( $post_id, $post );
 					$this->set_featured( $post_id, $post );
+					$this->set_stock_data( $post_id, $post );
 
 					WC_Product_CSV_Import_Suite::log( __( '> Merged post data: ', 'woocommerce-product-csv-import-suite' ) . print_r( $postdata, true ) );
 				}
@@ -1066,6 +1104,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			} else {
 				$this->set_catalog_visibility( $post_id, $post );
 				$this->set_featured( $post_id, $post );
+				$this->set_stock_data( $post_id, $post );
 
 				WC_Product_CSV_Import_Suite::log( sprintf( __('> Inserted - post ID is %s.', 'woocommerce-product-csv-import-suite'), $post_id ) );
 			}
@@ -1258,8 +1297,6 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		foreach ( $insert_meta_data as $key => $value ) {
 			if ( $key === '_file_paths' ) {
 				do_action( 'woocommerce_process_product_file_download_paths', $post_id, 0, $value );
-			} elseif ( '_stock_status' === $key && 'outofstock' === $value ) {
-				wp_set_post_terms( $post_id, array( 'exclude-from-catalog', 'exclude-from-search' ), 'product_visibility', true );
 			}
 		}
 

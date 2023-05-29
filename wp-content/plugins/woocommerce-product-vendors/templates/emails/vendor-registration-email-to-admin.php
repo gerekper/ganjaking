@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p><?php esc_html_e( 'Vendor information:', 'woocommerce-product-vendors' ); ?></p>
 
 <ul>
-	<li><?php printf( esc_html__( 'Email', 'woocommerce-product-vendors' ) . ': %s', $user_email ); ?></li>
-	<li><?php printf( esc_html__( 'First Name', 'woocommerce-product-vendors' ) . ': %s', $first_name ); ?></li>
-	<li><?php printf( esc_html__( 'Last Name', 'woocommerce-product-vendors' ) . ': %s', $last_name ); ?></li>
-	<li><?php printf( esc_html__( 'Vendor Name', 'woocommerce-product-vendors' ) . ': %s', stripslashes( $vendor_name ) ); ?></li>
-	<li><?php printf( esc_html__( 'Vendor Description', 'woocommerce-product-vendors' ) . ':<br />%s', stripslashes( $vendor_desc ) ); ?></li>
+	<li><?php printf( esc_html__( 'Email', 'woocommerce-product-vendors' ) . ': %s', esc_html( $user_email ) ); ?></li>
+	<li><?php printf( esc_html__( 'First Name', 'woocommerce-product-vendors' ) . ': %s', esc_html( $first_name ) ); ?></li>
+	<li><?php printf( esc_html__( 'Last Name', 'woocommerce-product-vendors' ) . ': %s', esc_html( $last_name ) ); ?></li>
+	<li><?php printf( esc_html__( 'Vendor Name', 'woocommerce-product-vendors' ) . ': %s', esc_html( stripslashes( $vendor_name ) ) ); ?></li>
+	<li><?php printf( esc_html__( 'Vendor Description', 'woocommerce-product-vendors' ) . ':<br />%s', esc_html( stripslashes( $vendor_desc ) ) ); ?></li>
 </ul>
 
 <?php /* translators: %1$s is the pending vendors list url. */ ?>

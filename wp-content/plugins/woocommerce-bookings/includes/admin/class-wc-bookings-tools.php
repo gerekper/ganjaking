@@ -56,7 +56,7 @@ class WC_Bookings_Tools {
 	/**
 	 * Removes In Cart bookings
 	 *
-	 * @param  string  $remove  If set to 'all' it will remove all In Cart, otherwise, just expired ones. 
+	 * @param  string  $remove  If set to 'all' it will remove all In Cart, otherwise, just expired ones.
 	 *
 	 * @return string  Message being returned after the system tool is run.
 	 */
@@ -73,13 +73,13 @@ class WC_Bookings_Tools {
 			'date_query'  => array(
 				array(
 					'column' => 'post_date_gmt',
-					'before' => date( 'Y-m-d H:i:s', current_time( 'timestamp' ) - ( $minutes * 60 ) ),
+					'before' => date( 'Y-m-d H:i:s', current_time( 'timestamp', 1 ) - ( $minutes * 60 ) ),
 				),
 			),
 			'posts_per_page' => -1,
 		);
 
-		// We set this, then remove it if there's a match because we don't always want to remove all. 
+		// We set this, then remove it if there's a match because we don't always want to remove all.
 		if ( 'all' === $remove ) {
 			unset( $args['date_query'] );
 		}

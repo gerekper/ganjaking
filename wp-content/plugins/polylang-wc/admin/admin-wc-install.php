@@ -214,7 +214,7 @@ class PLLWC_Admin_WC_Install {
 		foreach ( array_keys( $this->pages[ $default_language ] ) as $key ) {
 			$post_id = wc_get_page_id( $key );
 			if ( ! pll_get_post_language( $post_id ) ) {
-				pll_set_post_language( $post_id, $default_language );
+				pll_set_post_language( $post_id, (string) $default_language );
 			}
 		}
 
@@ -248,9 +248,9 @@ class PLLWC_Admin_WC_Install {
 			$post = get_post( $post_id, ARRAY_A );
 			unset( $post['ID'] );
 			// FIXME post parent?
-			$post['post_title'] = $this->pages[ $lang ][ $page ]['title'];
+			$post['post_title']  = $this->pages[ $lang ][ $page ]['title'];
 			$post['post_status'] = 'draft'; // Keep it draft before we set the language, to correctly handle auto added pages to menu.
-			$tr_id = wp_insert_post( $post );
+			$tr_id = wp_insert_post( wp_slash( $post ) );
 
 			if ( ! is_wp_error( $tr_id ) ) {
 				// Assign the language and translations.
@@ -265,7 +265,7 @@ class PLLWC_Admin_WC_Install {
 				 * and attempt to share the slug if needed ( to do after the language has been set ).
 				 */
 				if ( ! empty( $tr_post ) ) {
-					$tr_post->post_name = $this->pages[ $lang ][ $page ]['name'];
+					$tr_post->post_name   = $this->pages[ $lang ][ $page ]['name'];
 					$tr_post->post_status = 'publish';
 					wp_update_post( $tr_post );
 				}
@@ -320,7 +320,7 @@ class PLLWC_Admin_WC_Install {
 
 			// Assign a default language to the default product category.
 			if ( ! $default_cat_lang ) {
-				pll_set_term_language( (int) $default, pll_default_language() );
+				pll_set_term_language( (int) $default, (string) pll_default_language() );
 			} else {
 				self::create_default_product_cat( $args['slug'] );
 			}
@@ -341,7 +341,7 @@ class PLLWC_Admin_WC_Install {
 
 			// Assign a default language to default product category.
 			if ( ! $default_cat_lang ) {
-				pll_set_term_language( (int) $default, pll_default_language() );
+				pll_set_term_language( (int) $default, (string) pll_default_language() );
 			}
 
 			foreach ( pll_languages_list() as $language ) {
@@ -380,7 +380,7 @@ class PLLWC_Admin_WC_Install {
 										AND tr2.term_taxonomy_id = %d
 										SET tr1.term_taxonomy_id = %d
 										WHERE tr1.term_taxonomy_id = %d",
-										$language->term_taxonomy_id,
+										$language->get_tax_prop( 'language', 'term_taxonomy_id' ),
 										$tr_cat->term_taxonomy_id,
 										$default_category->term_taxonomy_id
 									)

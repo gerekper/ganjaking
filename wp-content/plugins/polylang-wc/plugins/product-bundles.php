@@ -99,7 +99,7 @@ class PLLWC_Product_Bundles {
 					// FIXME Copy paste of PLLWC_Admin_Products::copy_default_attributes().
 					foreach ( $meta_data['default_variation_attributes'] as $k => $v ) {
 						if ( taxonomy_exists( $k ) ) {
-							$terms = get_terms( $k, array( 'slug' => $v, 'lang' => '' ) ); // Don't use get_term_by filtered by language since WP 4.7.
+							$terms = get_terms( array( 'taxonomy' => $k, 'slug' => $v, 'lang' => '' ) ); // Don't use get_term_by filtered by language since WP 4.7.
 							if ( is_array( $terms ) && ( $term = reset( $terms ) ) && $tr_id = pll_get_term( $term->term_id, $lang ) ) {
 								$term = get_term( $tr_id, $k );
 								$meta_data['default_variation_attributes'][ $k ] = $term->slug;

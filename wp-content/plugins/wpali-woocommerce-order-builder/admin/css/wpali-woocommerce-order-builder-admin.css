@@ -26,6 +26,10 @@ div#wwob_metabox .inside {
     margin: 0;
     padding: 0;
 }
+body .cmb-repeat-table .cmb-remove-row>.cmb-remove-row-button {
+    height: 22px;
+    min-height: 22px;
+}
 .cmb-repeat-table .cmb-remove-row>.cmb-remove-row-button:before {
     content: "\f335"!important;
 }
@@ -192,6 +196,9 @@ ul.woob_item_details_display {
 }
 #wwob_metabox .cmb2-wrap .cmb-row.conditional-hidden-group .cmb-td {
     width: 100%;
+}
+#wwob_metabox .cmb2-wrap .cmb-row.conditional-hidden-group .cmb-td.cmb-remove-row {
+    width: 22px;
 }
 .cmb2-postbox .cmb2-wrap .cmb-row.conditional-hidden, .cmb2-postbox .cmb2-wrap .cmb-row.conditional-hidden-group {
     display: none;

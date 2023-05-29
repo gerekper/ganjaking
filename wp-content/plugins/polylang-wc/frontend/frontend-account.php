@@ -64,8 +64,7 @@ class PLLWC_Frontend_Account {
 
 		if ( $tr_id && $tr_id !== $product_id && $product = wc_get_product( $tr_id ) ) {
 			if ( $is_visible ) {
-				$permalink = get_permalink( $product->get_id() );
-				$item_name = sprintf( '<a href="%s">%s</a>', $permalink, $product->get_name() );
+				$item_name = sprintf( '<a href="%s">%s</a>', esc_url( $product->get_permalink() ), $product->get_name() );
 			} else {
 				$item_name = $product->get_name();
 			}

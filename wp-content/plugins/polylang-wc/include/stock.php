@@ -29,10 +29,7 @@ class PLLWC_Stock {
 		add_filter( 'woocommerce_update_product_stock_query', array( $this, 'update_product_stock_query' ), 10, 2 ); // Since WC 3.6.
 		add_action( 'woocommerce_updated_product_stock', array( $this, 'updated_product_stock' ) ); // Since WC 3.6.
 
-		add_action( 'woocommerce_product_set_stock_status', array( $this, 'set_stock_status' ), 10, 2 );
-		add_action( 'woocommerce_variation_set_stock_status', array( $this, 'set_stock_status' ), 10, 2 );
-
-		add_filter( 'woocommerce_query_for_reserved_stock', array( $this, 'query_for_reserved_stock' ), 10, 3 );
+		add_filter( 'woocommerce_query_for_reserved_stock', array( $this, 'query_for_reserved_stock' ), 10, 2 );
 	}
 
 	/**
@@ -76,60 +73,35 @@ class PLLWC_Stock {
 	}
 
 	/**
-	 * Synchronizes the stock status across the product translations.
-	 *
-	 * @since 1.1
-	 *
-	 * @param int    $id     Product id.
-	 * @param string $status Stock status.
-	 * @return void
-	 */
-	public function set_stock_status( $id, $status ) {
-		static $avoid_recursion = array();
-
-		// To avoid recursion, we make sure that the couple product id + stock status is set only once.
-		if ( empty( $avoid_recursion[ $id ][ $status ] ) ) {
-			$tr_ids = $this->data_store->get_translations( $id );
-
-			foreach ( $tr_ids as $tr_id ) {
-				if ( $tr_id !== $id ) {
-					$avoid_recursion[ $id ][ $status ] = true;
-					wc_update_product_stock_status( $tr_id, $status );
-				}
-			}
-		}
-	}
-
-	/**
 	 * Synchronizes reserve_stock_for_product accross translations
 	 *
 	 * @since 1.5
+	 * @since 1.8 Removed the 3rd parameter.
 	 *
-	 * @param string $query            The query for getting reserved stock of a product.
-	 * @param int    $product_id       Product ID.
-	 * @param int    $exclude_order_id Order to exclude from the results.
+	 * @param string $query      The query to get the reserved stock of a product.
+	 * @param int    $product_id Product ID.
 	 * @return string
 	 */
-	public function query_for_reserved_stock( $query, $product_id, $exclude_order_id ) {
+	public function query_for_reserved_stock( $query, $product_id ) {
 		global $wpdb;
 
 		$product_ids = $this->data_store->get_translations( $product_id );
 
-		if ( empty( $product_ids ) ) {
+		if ( empty( array_diff( $product_ids, array( $product_id ) ) ) ) {
+			// No other translations.
 			return $query;
 		}
 
-		return sprintf(
-			"
-			SELECT COALESCE( SUM( stock_table.`stock_quantity` ), 0 ) FROM $wpdb->wc_reserved_stock stock_table
-			LEFT JOIN $wpdb->posts posts ON stock_table.`order_id` = posts.ID
-			WHERE posts.post_status IN ( 'wc-checkout-draft', 'wc-pending' )
-			AND stock_table.`expires` > NOW()
-			AND stock_table.`product_id` IN ( %s )
-			AND stock_table.`order_id` != %d
-			",
-			implode( ',', array_map( 'intval', $product_ids ) ),
-			(int) $exclude_order_id
+		return str_replace(
+			$wpdb->prepare( 'AND stock_table.`product_id` = %d', $product_id ),
+			$wpdb->prepare(
+				sprintf(
+					'AND stock_table.`product_id` IN ( %s )',
+					implode( ', ', array_fill( 0, count( $product_ids ), '%d' ) )
+				),
+				array_map( 'intval', $product_ids )
+			),
+			$query
 		);
 	}
 }

@@ -27,7 +27,7 @@ if ( 'wc_product_vendors_admin_vendor' === $role ) {
 <p><?php esc_html_e( 'Please login to the site and visit your vendor dashboard to start managing your products.', 'woocommerce-product-vendors' ); ?></p>
 
 <ul>
-	<li><?php printf( esc_html__( 'Login Address: %s', 'woocommerce-product-vendors' ), '<a href="' . esc_url( wp_login_url() ) . '">' . wp_login_url() . '</a>' ); ?></li>
+	<li><?php printf( esc_html__( 'Login Address: %s', 'woocommerce-product-vendors' ), '<a href="' . esc_url( wp_login_url() ) . '">' . esc_html( wp_login_url() ) . '</a>' ); ?></li>
 </ul>
 
 <?php do_action( 'woocommerce_email_footer', $email ); ?>

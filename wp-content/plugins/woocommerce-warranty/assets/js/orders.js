@@ -6,14 +6,14 @@ jQuery( document ).ready( function( $ ) {
         e.preventDefault();
 
         var tr = $( this ).closest( 'tr' );
-        var id = tr.attr( 'id' );
+        var id = jQuery( this ).data( 'row' );
 
-        if ( list.find( '#inline-edit-' + id ).length > 0 ) {
+        if ( list.children( '#inline-edit-' + id ).length > 0 ) {
             // close it
-            list.find( '#inline-edit-' + id ).find( '.close_tr' ).click();
+            list.children( '#inline-edit-' + id ).find( '.close_tr' ).click();
         } else {
             remove_inline_edit_rows();
-            insert_inline_row( id );
+            insert_inline_row( id, tr );
         }
     } );
 
@@ -59,6 +59,7 @@ jQuery( document ).ready( function( $ ) {
         event.preventDefault();
 
         var btn = $( this );
+		var container = btn.closest( '.codes_form' );
 
         // Create the media frame.
         file_frame = wp.media.frames.file_frame = wp.media( {
@@ -73,8 +74,8 @@ jQuery( document ).ready( function( $ ) {
             attachment = file_frame.state().get( 'selection' ).first().toJSON();
 
             var request_id = btn.data( 'id' );
-            $( '#shipping_label_' + request_id ).val( attachment.url );
-            $( '#shipping_label_id_' + request_id ).val( attachment.id );
+            container.find( '#shipping_label_' + request_id ).val( attachment.url );
+            container.find( '#shipping_label_id_' + request_id ).val( attachment.id );
         } );
 
         // Finally, open the modal
@@ -208,9 +209,9 @@ jQuery( document ).ready( function( $ ) {
         } );
     } );
 
-    var insert_inline_row = function( source_id ) {
+    var insert_inline_row = function( source_id, row ) {
         var cloned = $( '#inline-edit-' + source_id ).clone();
-        var source = $( '#' + source_id );
+        var source = row;
 
         cloned
             .insertAfter( source )
@@ -219,7 +220,7 @@ jQuery( document ).ready( function( $ ) {
     };
 
     var remove_inline_edit_rows = function() {
-        list.find( 'tr.hidden' ).remove();
-        list.find( 'tr.inline-edit-row' ).remove();
+        list.children( 'tr.hidden' ).remove();
+        list.children( 'tr.inline-edit-row' ).remove();
     };
 });

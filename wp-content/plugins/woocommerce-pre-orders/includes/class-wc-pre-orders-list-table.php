@@ -126,6 +126,18 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			}
 			$counts['trash'] = $trash_count;
 
+			$base_url = admin_url( 'admin.php?page=wc_pre_orders' );
+
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( isset( $_REQUEST['s'] ) ) {
+				$search_string = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+				// When an array is provided, sanitize_text_field returns an empty string.
+				if ( '' !== $search_string ) {
+					$base_url = add_query_arg( 's', rawurlencode( $search_string ), $base_url );
+				}
+			}
+
 			// build the set of views, if any
 			foreach ( $counts as $status => $count ) {
 				if ( $count > 0 ) {
@@ -135,14 +147,15 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						$class = '';
 					}
 
-					$base_url = admin_url( 'admin.php?page=wc_pre_orders' );
+					$status_url = add_query_arg( 'pre_order_status', rawurlencode( $status ), $base_url );
 
-					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					if ( isset( $_REQUEST['s'] ) ) {
-						$base_url = add_query_arg( 's', wc_clean( wp_unslash( $_REQUEST['s'] ) ), $base_url ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					}
-
-					$this->views[ $status ] = sprintf( '<a href="%s"%s>%s <span class="count">(%s)</span></a>', add_query_arg( 'pre_order_status', $status, $base_url ), $class, ucfirst( $status ), $count );
+					$this->views[ $status ] = sprintf(
+						'<a href="%s"%s>%s <span class="count">(%s)</span></a>',
+						esc_url( $status_url ),
+						$class,
+						ucfirst( $status ),
+						$count
+					);
 				}
 			}
 		}

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Order Delivery
  * Plugin URI: https://woocommerce.com/products/woocommerce-order-delivery/
  * Description: Choose a delivery date during checkout for the order.
- * Version: 2.5.2
+ * Version: 2.5.3
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires PHP: 5.6

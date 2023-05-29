@@ -1231,7 +1231,7 @@ class WC_Product_Vendors_Vendor_Admin {
 		// Check if vendor have access to order page.
 		if ( ! $order ) {
 			echo '<div class="error"><p>';
-			print_r( __( 'You do not have permission to view this page.', 'woocommerce-product-vendors' ) );
+			esc_html_e( 'You do not have permission to view this page.', 'woocommerce-product-vendors' );
 			echo '</p></div>';
 			return;
 		}
@@ -1248,7 +1248,7 @@ class WC_Product_Vendors_Vendor_Admin {
 		// Check if vendor have access to order page.
 		if ( ! WC_Product_Vendors_Utils::can_logged_in_user_access_order( $order_id ) ) {
 			echo '<div class="error"><p>';
-			print_r( __( 'You do not have permission to view this page.', 'woocommerce-product-vendors' ) );
+			esc_html_e( 'You do not have permission to view this page.', 'woocommerce-product-vendors' );
 			echo '</p></div>';
 			return;
 		}
@@ -1700,7 +1700,7 @@ class WC_Product_Vendors_Vendor_Admin {
 
 		foreach ( $show_fields as $fieldset ) :
 			?>
-			<h3><?php echo $fieldset['title']; ?></h3>
+			<h3><?php echo esc_html( $fieldset['title'] ); ?></h3>
 			<table class="form-table">
 				<?php
 				foreach ( $fieldset['fields'] as $key => $field ) :
@@ -1709,15 +1709,15 @@ class WC_Product_Vendors_Vendor_Admin {
 						<th><label for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $field['label'] ); ?></label></th>
 						<td>
 							<?php if ( ! empty( $field['type'] ) && 'select' == $field['type'] ) : ?>
-								<select name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="<?php echo ( ! empty( $field['class'] ) ? $field['class'] : '' ); ?>" style="width: 25em;">
+								<select name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="<?php echo ( ! empty( $field['class'] ) ? esc_attr( $field['class'] ) : '' ); ?>" style="width: 25em;">
 									<?php
 									$selected = esc_attr( get_user_meta( $user->ID, $key, true ) );
 									foreach ( $field['options'] as $option_key => $option_value ) : ?>
-									<option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( $selected, $option_key, true ); ?>><?php echo esc_attr( $option_value ); ?></option>
+									<option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( $selected, $option_key, true ); ?>><?php echo esc_html( $option_value ); ?></option>
 									<?php endforeach; ?>
 								</select>
 							<?php else : ?>
-							<input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( get_user_meta( $user->ID, $key, true ) ); ?>" class="<?php echo ( ! empty( $field['class'] ) ? $field['class'] : 'regular-text' ); ?>" />
+							<input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( get_user_meta( $user->ID, $key, true ) ); ?>" class="<?php echo ( ! empty( $field['class'] ) ? esc_attr( $field['class'] ) : 'regular-text' ); ?>" />
 							<?php endif; ?>
 							<br/>
 							<span class="description"><?php echo wp_kses_post( $field['description'] ); ?></span>

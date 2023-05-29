@@ -937,29 +937,6 @@ class WC_CSV_Parser {
 					$product['crosssell_skus'] = $skus;
 				}
 			}
-
-			/**
-			 * Handle `featured` column.
-			 */
-			elseif ( 'featured' === $key ) {
-				$term_may_exist = term_exists( 'featured', 'product_visibility' );
-				$term_id        = $term_may_exist ? $term_may_exist['term_id'] : 0;
-				if ( 'yes' === $value ) {
-					if ( ! $term_id ) {
-						$term    = wp_insert_term( 'featured', 'product_visibility' );
-						$term_id = $term['term_id'];
-					}
-
-					// Add to array
-					$terms_array[] = array(
-						'taxonomy' => 'product_visibility',
-						'terms'    => $term_id,
-					);
-				} elseif ( 'no' === $value && $merging && $term_id ) {
-					wp_remove_object_terms( (int) $post_id, (int) $term_id, 'product_visibility' );
-				}
-			}
-
 		}
 
 		// Remove empty attribues

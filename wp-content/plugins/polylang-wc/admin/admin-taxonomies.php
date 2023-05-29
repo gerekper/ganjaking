@@ -158,6 +158,7 @@ class PLLWC_Admin_Taxonomies {
 		$thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
 		$thumbnail_id = is_numeric( $thumbnail_id ) ? (int) $thumbnail_id : 0;
 
+		/** @var string $lang|false */
 		$lang = pll_get_term_language( $term_id );
 
 		if ( $thumbnail_id && $lang && pll_get_post_language( $thumbnail_id ) !== $lang ) {

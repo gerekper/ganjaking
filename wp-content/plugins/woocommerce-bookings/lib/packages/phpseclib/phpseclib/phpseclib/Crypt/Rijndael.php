@@ -49,7 +49,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 12-May-2023 using Strauss.
+ * Modified by woocommerce on 26-May-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 

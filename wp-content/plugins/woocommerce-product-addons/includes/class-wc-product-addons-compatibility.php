@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_PAO_Compatibility
- * @version  6.1.3
+ * @version  6.3.0
  */
 class WC_PAO_Compatibility {
 
@@ -56,7 +56,7 @@ class WC_PAO_Compatibility {
 	 * @since 6.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-product-addons' ), '6.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-product-addons' ), '6.0.0' );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class WC_PAO_Compatibility {
 	 * @since 6.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-product-addons' ), '6.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-product-addons' ), '6.0.0' );
 	}
 
 	/**

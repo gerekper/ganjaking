@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.3
+
+	- Added support for legacy version channels.
+	- Fixed a typo in an error message.
+
 ## 2.2.9
 
 	- Improved performance by decreasing the number of calls to `get_plugins()`.

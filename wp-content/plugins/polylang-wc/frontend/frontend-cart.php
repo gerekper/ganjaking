@@ -155,7 +155,7 @@ class PLLWC_Frontend_Cart {
 
 			if ( taxonomy_exists( $taxonomy ) ) {
 				// Don't use get_term_by( 'slug' ) which is filtered in the current language by Polylang Pro.
-				$terms = get_terms( $taxonomy, array( 'slug' => $value, 'lang' => $orig_lang ) );
+				$terms = get_terms( array( 'taxonomy' => $taxonomy, 'slug' => $value, 'lang' => $orig_lang ) );
 
 				if ( ! empty( $terms ) && is_array( $terms ) ) {
 					$term = reset( $terms );
@@ -346,6 +346,6 @@ class PLLWC_Frontend_Cart {
 		if ( ! empty( $language ) ) {
 			$page_id = pll_get_post( $page_id, $language );
 		}
-		return $page_id;
+		return $page_id ? $page_id : 0;
 	}
 }

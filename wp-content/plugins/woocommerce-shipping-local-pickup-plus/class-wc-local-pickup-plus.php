@@ -38,7 +38,7 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 
 
 	/** @var string plugin version */
-	const VERSION = '2.11.0';
+	const VERSION = '2.11.1';
 
 	/** shipping method ID */
 	const SHIPPING_METHOD_ID = 'local_pickup_plus';

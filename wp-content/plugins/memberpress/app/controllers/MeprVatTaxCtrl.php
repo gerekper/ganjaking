@@ -517,7 +517,7 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
       return false; // bail.
     }
 
-    if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table" || $_POST['action'] == 'mepr_stripe_create_payment_client_secret') ) {
+    if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table" || $_POST['action'] == 'mepr_stripe_get_elements_options') ) {
       $country = isset($_POST['mepr-address-country']) ? sanitize_text_field(wp_unslash($_POST['mepr-address-country'])) : '';
     }
     else{

@@ -327,12 +327,17 @@ class WC_Box_Office_Ticket_Shortcode {
 	 * and email form to retrieve link (with token in query string) to unlock
 	 * content.
 	 *
-	 * @param array  $atts    Shortcode attributes
-	 * @param string $content Content in [ticket_private_content][/ticket_private_content]
+	 * @param array  $atts    Shortcode attributes.
+	 * @param string $content Content in [ticket_private_content][/ticket_private_content].
 	 *
 	 * @return string Private content
 	 */
 	public function private_content( $atts, $content ) {
+		// Ensure dependency for the notice functions is loaded.
+		if ( ! function_exists( 'wc_print_notice' ) ) {
+			include_once WC_ABSPATH . 'includes/wc-notice-functions.php';
+		}
+
 		$atts = shortcode_atts(
 			array(
 				'product_id' => '',
@@ -342,7 +347,7 @@ class WC_Box_Office_Ticket_Shortcode {
 
 		// product_id is required in the shortcode.
 		if ( empty( $atts['product_id'] ) ) {
-			return  '';
+			return '';
 		}
 
 		$content_vars = array(
@@ -352,7 +357,7 @@ class WC_Box_Office_Ticket_Shortcode {
 			'email'           => ! empty( $_POST['ticket_email'] ) ? wc_clean( wp_unslash( $_POST['ticket_email'] ) ) : '',
 			'notice'          => '',
 			'notice_type'     => '',
-			'product_id'      => $atts['product_id'],
+			'product_id'      => absint( $atts['product_id'] ),
 		);
 
 		try {
@@ -364,12 +369,12 @@ class WC_Box_Office_Ticket_Shortcode {
 				throw new Exception( __( 'The content on this page is private.', 'woocommerce-box-office' ), 400 );
 			}
 
-			$ticket = wc_box_office_get_ticket_by_token( $_GET['token'] );
+			$ticket = wc_box_office_get_ticket_by_token( wc_clean( wp_unslash( $_GET['token'] ) ) );
 			if ( ! $ticket ) {
 				throw new Exception( __( 'Invalid ticket token.', 'woocommerce-box-office' ), 400 );
 			}
 
-			if ( $content_vars['product_id'] !== $ticket->product_id ) {
+			if ( $content_vars['product_id'] !== absint( $ticket->product_id ) ) {
 				throw new Exception( __( 'Sorry, but your ticket does not allow you to view this content.', 'woocommerce-box-office' ), 400 );
 			}
 

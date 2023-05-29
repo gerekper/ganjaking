@@ -133,7 +133,7 @@ class PLLWC_Swatches {
 					$attr['image'] = $tr_id;
 				}
 
-				$terms = get_terms( $attr_terms[ $k ]['taxonomy'], array( 'slug' => $attr_terms[ $k ]['slug'], 'lang' => $orig_lang ) );
+				$terms = get_terms( array( 'taxonomy' => $attr_terms[ $k ]['taxonomy'], 'slug' => $attr_terms[ $k ]['slug'], 'lang' => $orig_lang ) );
 				$term = reset( $terms );
 				$tr_term = get_term( pll_get_term( $term->term_id, $lang ) );
 				$tr_k = md5( $tr_term->slug );

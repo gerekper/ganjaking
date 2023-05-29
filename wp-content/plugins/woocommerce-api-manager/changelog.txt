@@ -1,5 +1,30 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-05-25 - version 2.7.2
+* Tweak: Move translate pre 2.0 legacy String Product ID to a post 2.0 integer Product ID event before the Product ID is processed by the API endpoints for a faster API response to legacy requests.
+* Fix: A denial of API endpoint access due to a check of an integer Product ID rather than a legacy String Product ID.
+
+2023-05-24 - version 2.7.1
+* New: Added Legacy Product ID count to the WooCommerce > Status > WooCommerce API Manager section.
+* Fix: wc_am_legacy_product_id database table not created due to a trailing comma.
+
+2023-05-23 - version 2.7
+* Fix: Update in version 2.5 for PHP 8.2 changes to strcmp() resulted in incorrect results when comparing legacy software title strings to find the product_id integer.
+* New: Added wc_am_legacy_product_id database table. Speeds up lookups when translating a pre 2.0 legacy String Product ID to a post 2.0 integer Product ID.
+* New: Added automated API Resource creation from WooCommerce Software Add-on 1.9 and greater imported data.
+* New: Added automated License key import from WooCommerce Software Add-on 1.9 and greater to Associated API Key database table.
+* New: Added automated License key activations import from WooCommerce Software Add-on 1.9 and greater to API Key activations database table.
+* New: Added API request translation for clients of WooCommerce Software Add-on 1.9 and greater. The API Manager will listen for HTTP(s) API queries intended for the WooCommerce Software Add-On plugin when this settings option is selected. This works even if the WC Software Add-On plugin has been deleted.
+* New: Added automated Product ID import into wc_am_legacy_product_id database table from WooCommerce Software Add-on 1.9 and greater.
+
+2023-05-18 - version 2.6.17
+* Update: Run the database updater.
+
+2023-05-18 - version 2.6.16
+* Fix: WC AM Subscription API Resources were deleted when cancelled WC Subscriptions API Resources were deleted.
+* Tweak: Apply UNIQUE constraint to instance column in wc_am_api_activation database table to prevent duplicates of this unique required field.
+* Tweak: Make sure version data has digits only in its format going forward.
+
 2023-05-14 - version 2.6.15
 * Fix: Logic bug in is_time_expired(). Caused API Manager Subscriptions with an access expires zero value, meaning infinite/lifetime, to be deleted during cleanup.
 * Tweak: Replace use of is_int() with is_numeric().
@@ -384,7 +409,7 @@
 
 2019-05-09 - version 2.0.17
 * Fix: insert_setting_after() method called only when is_admin() == true caused fatal error in some cases.
-* Fix: <a tag open in woocommerce-api-manager/includes/api/wc-am-api-requests.php.
+* Fix: "<a" tag open in woocommerce-api-manager/includes/api/wc-am-api-requests.php.
 * Fix: Changed improperly referenced get_row_data_by_activation_id() method to get_activation_resource_by_activation_id().
 
 2019-03-28 - version 2.0.16

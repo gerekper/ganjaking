@@ -289,40 +289,41 @@ class PLLWC_Links {
 	}
 
 	/**
-	 * Sets the home urls when using plain permalinks and the shop is on front.
+	 * Sets `home_url` property when using plain permalinks and the shop is on front.
 	 *
-	 * @since 0.5
+	 * @since 1.8
 	 *
-	 * @param PLL_Language[] $languages Array of PLL_Language objects.
-	 * @return PLL_Language[]
+	 * @param array $additional_data    Array of editable language properties.
+	 * @param array $data Language data Array of `PLL_Language` object properties currently created.
+	 * @return array Editable properties with `home_url` set.
+	 *
+	 * @phpstan-param array<non-empty-string, mixed> $additional_data
+	 * @phpstan-param non-empty-array<non-empty-string, mixed> $data
 	 */
-	public static function set_home_urls( $languages ) {
-		// Test that wc_get_page_id() exists as the filter is applied before we check if WooCommerce is activated.
-		if ( ! get_option( 'permalink_structure' ) && 'page' === get_option( 'show_on_front' ) && function_exists( 'wc_get_page_id' ) && in_array( wc_get_page_id( 'shop' ), wp_list_pluck( $languages, 'page_on_front' ) ) ) {
-			$options = get_option( 'polylang' );
-			foreach ( $languages as $k => $lang ) {
-				if ( ! $options['hide_default'] || $lang->slug !== $options['default_lang'] ) {
-					$languages[ $k ]->home_url = home_url( '/?post_type=product&lang=' . $lang->slug );
-				}
-			}
+	public static function set_home_url( $additional_data, $data ) {
+		if (
+			! function_exists( 'wc_get_page_id' ) // Test that wc_get_page_id() exists as the filter is applied before we check if WooCommerce is activated.
+			|| get_option( 'permalink_structure' ) // Plain permalink sets `permalink_structure` option to empty string.
+			|| 'page' !== get_option( 'show_on_front' )
+			) {
+
+			return $additional_data;
 		}
 
-		return $languages;
-	}
+		// Use `PLL_Translated_Post::get_raw_translation()` instead of `PLL_Translated_Post::get_translations()` to avoid calling `PLL_Model::get_languages_list()` while languages are created.
+		$shop_page_translations = PLL()->model->post->get_raw_translations( wc_get_page_id( 'shop' ) );
 
-	/**
-	 * Sets the home urls when not cached and using plain permalinks and the shop is on front.
-	 *
-	 * @since 0.5
-	 *
-	 * @param PLL_Language[] $languages Array of PLL_Language objects.
-	 * @return PLL_Language[]
-	 */
-	public static function pll_after_languages_cache( $languages ) {
-		if ( ( defined( 'PLL_CACHE_LANGUAGES' ) && ! PLL_CACHE_LANGUAGES ) || ( defined( 'PLL_CACHE_HOME_URL' ) && ! PLL_CACHE_HOME_URL ) ) {
-			return self::set_home_urls( $languages );
+		if ( isset( $additional_data['page_on_front'] ) && ! in_array( $additional_data['page_on_front'], $shop_page_translations, true ) ) {
+			return $additional_data;
 		}
-		return $languages;
+
+		if ( PLL()->options['hide_default'] && PLL()->options['default_lang'] === $data['slug'] ) {
+			return $additional_data;
+		}
+
+		$additional_data['home_url'] = home_url( '/?post_type=product&lang=' . $data['slug'] );
+
+		return $additional_data;
 	}
 
 	/**
@@ -352,6 +353,8 @@ class PLLWC_Links {
 			$saved_curlang = PLL()->curlang;
 
 			PLL()->curlang = PLL()->model->get_language( $lang );
+
+			add_filter( 'option_woocommerce_checkout_page_id', 'pll_get_post' ); // Translate checkout redirect URL.
 			$url = $order->get_checkout_order_received_url();
 
 			$avoid_recursion = false;

@@ -248,7 +248,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 					selected( $m, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: 1: month name, 2: 4-digit year */
-					sprintf( __( '%1$s %2$d', 'woocommerce-product-vendors' ), $wp_locale->get_month( $month ), $year )
+					esc_html( sprintf( __( '%1$s %2$d', 'woocommerce-product-vendors' ), $wp_locale->get_month( $month ), $year ) )
 				);
 			}
 			?>
@@ -320,18 +320,21 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 	 * @return mixed
 	 */
 	public function column_cb( $item ) {
-		return sprintf( '<input type="checkbox" name="ids[%d]" value="%d" />', $item->id, $item->order_item_id );
+		return sprintf( '<input type="checkbox" name="ids[%d]" value="%d" />', esc_attr( $item->id ), esc_attr( $item->order_item_id ) );
 	}
 
 	/**
 	 * Defines what data to show on each column
 	 *
-	 * @access public
-	 * @since 2.0.0
-	 * @version 2.0.0
-	 * @param array $item
+	 * @access  public
+	 * @since   2.0.0
+	 * @since   2.1.77 Use WC_Product_Vendors_Utils::get_total_commission_amount_html to display vendor commission.
+	 *
+	 * @param \stdClass $item
 	 * @param string $column_name
+	 *
 	 * @return mixed
+	 * @version 2.0.0
 	 */
 	public function column_default( $item, $column_name ) {
 		$order = wc_get_order( absint( $item->order_id ) );
@@ -446,25 +449,8 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 				if ( ! is_a( $order, 'WC_Order' ) ) {
 					return __( 'N/A', 'woocommerce-product-vendors' );
 				}
-				$refund          = '';
-				$refunded_amount = $order->get_total_refunded_for_item( intval( $item->order_item_id ) );
 
-				if ( ! $item->total_commission_amount && 'void' !== $item->commission_status ) {
-					$refund = sprintf(
-					/* translators: 1. commission refund status label */
-						'<br><small class="wpcv-refunded">%1$s</small>',
-						esc_html__( 'Fully Refunded', 'woocommerce-product-vendors' )
-					);
-				} elseif ( $refunded_amount ) {
-					$refunded_commission = $refunded_amount * $item->product_commission_amount / $item->product_amount;
-
-					$refund = sprintf(
-						'<br /><small class="wpcv-refunded">-%1$s</small>',
-						wc_price( $refunded_commission )
-					);
-				}
-
-				return wc_price( sanitize_text_field( $item->total_commission_amount ) ) . $refund;
+				return WC_Product_Vendors_Utils::get_total_commission_amount_html( $item, $order );
 
 			case 'commission_status' :
 				$status = __( 'N/A', 'woocommerce-product-vendors' );
@@ -565,7 +551,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 	 * @return bool
 	 */
 	public function no_items() {
-		_e( 'No orders found.', 'woocommerce-product-vendors' );
+		esc_html_e( 'No orders found.', 'woocommerce-product-vendors' );
 
 		return true;
 	}
@@ -632,7 +618,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 			$processed++;
 		}
 
-		echo '<div class="notice-success notice"><p>' . sprintf( _n( '%d item processed.', '%d items processed', $processed, 'woocommerce-product-vendors' ), $processed ) . '</p></div>';
+		echo '<div class="notice-success notice"><p>' . sprintf( esc_html( _n( '%d item processed.', '%d items processed', $processed, 'woocommerce-product-vendors' ) ), esc_html( $processed ) ) . '</p></div>';
 
 		WC_Product_Vendors_Utils::clear_reports_transients();
 
@@ -702,7 +688,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 				$style = 'display:none;';
 			}
 
-			$style = ' style="' . $style . '"';
+			$style = ' style="' . esc_attr( $style ) . '"';
 
 			if ( 'cb' == $column_key ) {
 				$class[] = 'check-column';
@@ -723,16 +709,16 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 					$class[] = $desc_first ? 'asc' : 'desc';
 				}
 
-				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . $column_display_name . '</span><span class="sorting-indicator"></span></a>';
+				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . esc_html( $column_display_name ) . '</span><span class="sorting-indicator"></span></a>';
 			}
 
-			$id = $with_id ? "id='$column_key'" : '';
+			$id = $with_id ? "id='" . esc_attr( $column_key ) . "'" : '';
 
 			if ( ! empty( $class ) ) {
-				$class = "class='" . join( ' ', $class ) . "'";
+				$class = "class='" . esc_attr( join( ' ', $class ) ) . "'";
 			}
 
-			echo "<th scope='col' $id $class $style>$column_display_name</th>";
+			echo "<th scope='col' $id $class $style>$column_display_name</th>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }

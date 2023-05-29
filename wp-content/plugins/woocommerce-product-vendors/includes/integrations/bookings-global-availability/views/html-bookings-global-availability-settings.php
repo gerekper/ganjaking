@@ -55,7 +55,7 @@
 			}
 
 			update_option( 'wc_global_booking_availability', $availability );
-			echo '<div class="updated" style="display:block !important;"><p>' . __( 'Settings saved', 'woocommerce-product-vendors' ) . '</p></div>';
+			echo '<div class="updated" style="display:block !important;"><p>' . esc_html__( 'Settings saved', 'woocommerce-product-vendors' ) . '</p></div>';
 		}
 		?>
 

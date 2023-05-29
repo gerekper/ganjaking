@@ -39,7 +39,7 @@ $billing = $order->get_formatted_billing_address();
 			<td class="td" style="text-align:left; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" valign="top" width="50%">
 				<h3><?php esc_html_e( 'Shipping Address', 'woocommerce-product-vendors' ); ?></h3>
 
-				<p class="text"><?php echo $shipping; ?></p>
+				<p class="text"><?php echo esc_html( $shipping ); ?></p>
 			</td>
 		<?php endif; ?>
 	</tr>

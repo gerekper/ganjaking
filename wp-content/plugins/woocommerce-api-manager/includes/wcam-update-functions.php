@@ -541,3 +541,22 @@ function wc_am_update_2_6_9_missing_api_resources_repair() {
 	WC_AM_BACKGROUND_EVENTS()->queue_weekly_event();
 	WC_AM_INSTALL()->update_db_version( '2.6.9' );
 }
+
+/**
+ * Make the instance column in the wc_am_api_activation database table a unique key.
+ *
+ * @since 2.6.17
+ */
+function wc_am_update_2_6_17_add_unique_key_instance() {
+	global $wpdb;
+
+	$result = false;
+
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}wc_am_api_activation'" ) ) {
+		$result = $wpdb->query( "ALTER TABLE `{$wpdb->prefix}wc_am_api_activation` DROP KEY `instance`, ADD UNIQUE KEY(`instance`)" );
+	}
+
+	if ( ! WC_AM_FORMAT()->empty( $result ) ) {
+		WC_AM_INSTALL()->update_db_version( '2.6.17' );
+	}
+}

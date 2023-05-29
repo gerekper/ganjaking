@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 4.0.5
+ * @version 4.1.0
  */
 
 // Exit if accessed directly.
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wcsatt-add-cart-to-subscription-wrapper <?php echo $is_checked ? 'open' : 'closed'; ?>" <?php echo $is_visible ? '' : 'style="display:none;"'; ?>>
 	<form class="wcsatt-add-cart-to-subscription-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
-		<h4 class="wcsatt-add-cart-to-subscription-intro"><?php _e( '&mdash; or &mdash;', 'woocommerce-all-products-for-subscriptions' ); ?></h4>
+		<h4 class="wcsatt-add-cart-to-subscription-intro"><?php esc_html_e( '&mdash; or &mdash;', 'woocommerce-all-products-for-subscriptions' ); ?></h4>
 		<p class="wcsatt-add-cart-to-subscription-action-wrapper">
 			<label class="wcsatt-add-cart-to-subscription-action-label">
 				<input class="wcsatt-add-cart-to-subscription-action-input" type="checkbox" name="add-to-subscription-checked" value="yes" <?php checked( $is_checked, true ); ?> />

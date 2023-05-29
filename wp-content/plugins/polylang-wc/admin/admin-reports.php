@@ -74,7 +74,7 @@ class PLLWC_Admin_Reports {
 			if ( preg_match( $pattern, $query['where'], $matches ) ) {
 				$ids = array();
 
-				foreach ( $this->data_store->get_translations( $matches[1] ) as $tr_id ) {
+				foreach ( $this->data_store->get_translations( (int) $matches[1] ) as $tr_id ) {
 					$ids[] = $tr_id;
 				}
 
@@ -121,11 +121,19 @@ class PLLWC_Admin_Reports {
 	 * @return array
 	 */
 	public function report_data( $results ) {
-		if ( is_array( $results ) ) {
-			foreach ( $results as $key => $result ) {
-				if ( ! empty( $result->product_id ) ) {
-					$results[ $key ]->product_id = $this->data_store->get( $result->product_id, PLLWC_Admin::get_preferred_language() );
-				}
+		if ( ! is_array( $results ) ) {
+			return $results;
+		}
+
+		$lang = PLLWC_Admin::get_preferred_language();
+
+		if ( empty( $lang ) ) {
+			return $results;
+		}
+
+		foreach ( $results as $key => $result ) {
+			if ( ! empty( $result->product_id ) ) {
+				$results[ $key ]->product_id = $this->data_store->get( $result->product_id, $lang );
 			}
 		}
 
@@ -146,11 +154,18 @@ class PLLWC_Admin_Reports {
 		$term_ids = array();
 
 		foreach ( pll_get_term_translations( $category_id ) as $tr_id ) {
-			$term_ids[] = get_term_children( $tr_id, 'product_cat' );
 			$term_ids[] = $tr_id;
+			$tr_childs  = get_term_children( $tr_id, 'product_cat' );
+
+			if ( is_wp_error( $tr_childs ) ) {
+				continue;
+			}
+
+			$term_ids = array_merge( $term_ids, $tr_childs );
 		}
 
 		$terms = get_objects_in_term( $term_ids, 'product_cat' );
+
 		return is_array( $terms ) ? array_map( 'intval', $terms ) : array();
 	}
 
@@ -186,6 +201,12 @@ class PLLWC_Admin_Reports {
 	 * @return string
 	 */
 	public function stock_query( $query_from ) {
-		return str_replace( 'WHERE 1=1', $this->data_store->join_clause( 'posts' ) . ' WHERE 1=1' . $this->data_store->where_clause( PLLWC_Admin::get_preferred_language() ), $query_from );
+		$lang = PLLWC_Admin::get_preferred_language();
+
+		if ( empty( $lang ) ) {
+			return $query_from;
+		}
+
+		return str_replace( 'WHERE 1=1', $this->data_store->join_clause( 'posts' ) . ' WHERE 1=1' . $this->data_store->where_clause( $lang ), $query_from );
 	}
 }

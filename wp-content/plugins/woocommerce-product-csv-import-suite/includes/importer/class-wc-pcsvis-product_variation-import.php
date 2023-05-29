@@ -157,6 +157,9 @@ class WC_PCSVIS_Product_Variation_Import extends WC_PCSVIS_Product_Import {
 			}
 		}
 
+		// Set stock status.
+		$this->set_stock_data( $post_id, $post );
+
 		// map pre-import ID to local ID
 		if ( empty( $processing_product_id ) ) {
 			$processing_product_id = (int) $post_id;

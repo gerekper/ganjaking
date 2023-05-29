@@ -29,7 +29,6 @@ class PLLWC_REST_Product extends PLL_REST_Translated_Object {
 		parent::__construct( PLL()->rest_api, array( 'product' => array( 'filters' => false ) ) );
 
 		$this->type           = 'post';
-		$this->id             = 'ID'; // Backward compatibility with Polylang Pro < 3.2.
 		$this->setter_id_name = 'ID';
 
 		$this->data_store = PLLWC_Data_Store::load( 'product_language' );
@@ -117,7 +116,6 @@ class PLLWC_REST_Product extends PLL_REST_Translated_Object {
 
 	/**
 	 * Returns the language to use when searching if a sku is unique.
-	 * Requires Polylang Pro 2.7+
 	 *
 	 * @since 1.3
 	 *
@@ -127,9 +125,6 @@ class PLLWC_REST_Product extends PLL_REST_Translated_Object {
 	public function language_for_unique_sku( $language ) {
 		if ( isset( $this->request['lang'] ) && in_array( $this->request['lang'], $this->model->get_languages_list( array( 'fields' => 'slug' ) ) ) ) {
 			$language = PLL()->model->get_language( $this->request['lang'] );
-		} elseif ( isset( $this->params['lang'] ) && in_array( $this->params['lang'], $this->model->get_languages_list( array( 'fields' => 'slug' ) ) ) ) {
-			// Backward compatibility with Polylang Pro < 3.2.
-			$language = PLL()->model->get_language( $this->params['lang'] );
 		}
 
 		return $language;

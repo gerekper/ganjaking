@@ -426,7 +426,7 @@ class WC_Product_Addons_Cart {
 	 * Updates the product price based on the add-ons and the quantity.
 	 *
 	 * @param array $cart_item_data Cart item meta data.
-	 * @param array $quantity       Quantity of products in that cart item.
+	 * @param int   $quantity       Quantity of products in that cart item.
 	 * @param array $prices         Array of prices for that product to use in
 	 *                              calculations.
 	 *
@@ -470,9 +470,10 @@ class WC_Product_Addons_Cart {
 						$sale_price    += (float) ( $sale_price * ( $addon_price / 100 ) );
 						break;
 					case 'flat_fee':
-						$price         += (float) ( $addon_price / $quantity );
-						$regular_price += (float) ( $addon_price / $quantity );
-						$sale_price    += (float) ( $addon_price / $quantity );
+						$flat_fee       = $quantity > 0 ? (float) ( $addon_price / $quantity ) : 0;
+						$price         += $flat_fee;
+						$regular_price += $flat_fee;
+						$sale_price    += $flat_fee;
 						break;
 					default:
 						$price         += (float) $addon_price;

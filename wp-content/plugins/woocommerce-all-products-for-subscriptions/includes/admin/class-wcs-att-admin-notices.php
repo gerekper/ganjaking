@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WCS_ATT_Admin_Notices
- * @version  4.0.0
+ * @version  4.1.0
  */
 class WCS_ATT_Admin_Notices {
 
@@ -144,16 +144,15 @@ class WCS_ATT_Admin_Notices {
 			foreach ( $notices as $notice ) {
 
 				$notice_classes = array( 'wcsatt_notice', 'notice', 'notice-' . $notice[ 'type' ] );
-				$dismiss_attr   = $notice[ 'dismiss_class' ] ? 'data-dismiss_class="' . $notice[ 'dismiss_class' ] . '"' : '';
+				$dismiss_attr   = $notice[ 'dismiss_class' ] ? ' data-dismiss_class="' . esc_attr( $notice[ 'dismiss_class' ] ) . '"' : '';
 
 				if ( $notice[ 'dismiss_class' ] ) {
 					$notice_classes[] = $notice[ 'dismiss_class' ];
 					$notice_classes[] = 'is-dismissible';
 				}
 
-				echo '<div class="' . implode( ' ', $notice_classes ) . '"' . $dismiss_attr . '>';
-				echo wpautop( $notice[ 'content' ] );
-				echo '</div>';
+				$output = '<div class="' . esc_attr( implode( ' ', $notice_classes ) ) . '"' . $dismiss_attr . '>' . wpautop( $notice[ 'content' ] ) . '</div>';
+				echo wp_kses_post( $output );
 			}
 
 			if ( function_exists( 'wc_enqueue_js' ) ) {
@@ -299,14 +298,12 @@ class WCS_ATT_Admin_Notices {
 			return;
 		}
 
-		$settings_link = WC_Subscriptions_Admin::settings_tab_url();
-
 		ob_start();
 
 		?>
 		<p>
-			<?php _e( 'Awesome &ndash; this product is now available on subscription!', 'woocommerce-all-products-for-subscriptions' ); ?>
-			<?php echo sprintf( __( 'Did you know that you can also <a href="%s">add subscription plans to your products in bulk</a>?', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT()->get_resource_url( 'global-plan-settings' ) ); ?>
+			<?php esc_html_e( 'Awesome &ndash; this product is now available on subscription!', 'woocommerce-all-products-for-subscriptions' ); ?>
+			<?php echo wp_kses_post( sprintf( __( 'Did you know that you can also <a href="%s">add subscription plans to your products in bulk</a>?', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT()->get_resource_url( 'global-plan-settings' ) ) ); ?>
 		</p>
 		<?php
 

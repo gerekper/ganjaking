@@ -1,5 +1,13 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2023-05-24 - version 2.0.2
+* Dev – Bump WooCommerce “tested up to” version 7.6.
+* Dev – Bump WordPress minimum supported version from 5.6 to 5.8.
+* Dev – Bump WordPress “tested up to” version 6.2.
+* Fix – Prevent countdowns of trashed products from showing up.
+* Update – Improve escaping of the URLs for the different Pre-Order statuses.
+* Update – Replace the use of “extract” for retrieving the attributes of the countdown shortcode.
+
 2023-04-14 - version 2.0.1
 * Fix - Layout attribute in the countdown timer.
 * Fix - Improve the "Shop loop product message" description.

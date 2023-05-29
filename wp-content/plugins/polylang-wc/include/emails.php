@@ -298,7 +298,7 @@ class PLLWC_Emails {
 		}
 
 		if ( ! is_locale_switched() ) {
-			PLL()->load_strings_translations( $language->locale );
+			PLL()->load_strings_translations( $language->get_locale() );
 		}
 
 		/**
@@ -458,9 +458,8 @@ class PLLWC_Emails {
 	 */
 	protected function send_order_email( $email, $order_id ) {
 		if ( method_exists( $email, 'trigger' ) ) {
-			$recipients = explode( ',', $email->get_recipient() );
+			$recipients = $this->get_recipients( $email );
 
-			remove_all_filters( 'woocommerce_email_recipient_' . $email->id ); // Prevents multiple emails sent to recipients added in this filter.
 			remove_filter( 'get_user_metadata', array( $this, 'filter_user_locale' ) );
 
 			$emails_by_language = array();
@@ -533,5 +532,20 @@ class PLLWC_Emails {
 		} else {
 			$this->before_order_email( $order ); // Other emails are sent to the customer in the order's language.
 		}
+	}
+
+	/**
+	 * Returns an array of recipients for the given email type.
+	 *
+	 * @since 1.8
+	 *
+	 * @param WC_Email $email Email object.
+	 * @return string[] Array of recipients for the email.
+	 */
+	protected function get_recipients( $email ) {
+		$recipients = $email->get_option( 'recipient', get_option( 'admin_email' ) );
+		$recipients = explode( ',', $recipients );
+		$recipients = array_map( 'trim', $recipients );
+		return array_filter( $recipients );
 	}
 }

@@ -434,6 +434,12 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			$sync_status      = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sp_api_sync_inventory_interval_enabled' ) );
 			$sync_ship_status = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sync_ship_status' ) );
 			$sync_value       = (int) $this->get_option( 'ns_fba_sp_api_sync_inventory_interval' );
+
+			// Check if WooCommerce is loaded fully to prevent throwing errors.
+			if ( ! function_exists( 'as_has_scheduled_action' ) || ! function_exists( 'as_schedule_recurring_action' ) ) {
+				return;
+			}
+
 			$action_scheduled = as_has_scheduled_action( 'sp_api_sync_inventory' );
 
 			if ( ( ! $sync_status && ! $sync_ship_status ) || ! $this->is_configured ) {
@@ -773,7 +779,9 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			delete_option( 'ns_fba_lwa_merchant_id' );
 			delete_option( 'ns_fba_lwa_configured' );
 			// Remove any actively scheduled inventory syncs.
-			as_unschedule_all_actions( 'sp_api_sync_inventory' );
+			if ( function_exists( 'as_unschedule_all_actions' ) ) {
+				as_unschedule_all_actions( 'sp_api_sync_inventory' );
+			}
 			wp_send_json_success();
 		}
 

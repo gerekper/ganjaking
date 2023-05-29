@@ -145,7 +145,7 @@ class WC_AM_Format {
 	 * GMT/UTC offset for that timezone, so for example, when 3rd party code has set the servers
 	 * timezone using date_default_timezone_set( 'America/Los_Angeles' ) doing something like
 	 * gmdate( "Y-m-d H:i:s", strtotime( gmdate( "Y-m-d H:i:s" ) ) ) will actually add 7 hours to
-	 * the date even though it is a date in UTC timezone because the timezone wasn't specificed.
+	 * the date even though it is a date in UTC timezone because the timezone wasn't specified.
 	 *
 	 * This makes sure the date is never converted.
 	 *
@@ -245,7 +245,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * Take a date and convert it into an epoch/unix timestamp with the correctly locallized timezone offset.
+	 * Take a date and convert it into an epoch/unix timestamp with the correctly localized timezone offset.
 	 *
 	 * @since 2.4.4
 	 *
@@ -258,7 +258,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date and time.
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formatted date and time.
 	 *
 	 * @since     2.0.6
 	 * @depecated 2.5
@@ -274,7 +274,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date and time.
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formatted date and time.
 	 *
 	 * @since 2.0.6
 	 *
@@ -287,7 +287,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date for a calendar.
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formatted date for a calendar.
 	 *
 	 * @since     2.4
 	 * @depecated 2.5
@@ -303,7 +303,7 @@ class WC_AM_Format {
 	}
 
 	/**
-	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date for a calendar.
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formatted date for a calendar.
 	 *
 	 * @since 2.4
 	 *
@@ -323,7 +323,7 @@ class WC_AM_Format {
 	 *
 	 * @since  2.6
 	 *
-	 * @param string|integer|null $date UTC timestamp, or ISO 8601 DateTime. If the DateTime string has no timezone or offset, WordPress site timezone will be assumed. Null if their is no date.
+	 * @param string|integer|null $date UTC timestamp, or ISO 8601 DateTime. If the DateTime string has no timezone or offset, WordPress site timezone will be assumed. Null if there is no date.
 	 *
 	 * @return null|WC_DateTime in site's timezone
 	 */
@@ -434,6 +434,7 @@ class WC_AM_Format {
 	 * PHP notice: Deprecated: strcmp(): Passing null to parameter #1 ($string1) of type string is deprecated ...
 	 *
 	 * @since 2.5
+	 * @since 2.7 updated strcmp() to === 0 as it was before 2.5, since it should be zero if both strings are identical.
 	 *
 	 * @param String $str1
 	 * @param String $str2
@@ -441,6 +442,46 @@ class WC_AM_Format {
 	 * @return bool
 	 */
 	public function strcmp( $str1, $str2 ) {
-		return ! is_null( $str1 ) && ! is_null( $str2 ) && strcmp( $str1, $str2 ) !== 0;
+		return ! is_null( $str1 ) && ! is_null( $str2 ) && strcmp( $str1, $str2 ) === 0;
+	}
+
+	/**
+	 * Extracts the digits from a string and returns the version. Excludes non-digits. Includes periods.
+	 * Examples: 1.2, 1.3.3
+	 *
+	 * @since 2.6.16
+	 *
+	 * @param $string
+	 *
+	 * @return float
+	 */
+	public function string_to_version( $string ) {
+		return is_numeric( $string ) ? $string : preg_replace( '/[^0-9,.]/', '', $string );
+	}
+
+	/**
+	 * Extracts the digits from a string and returns the absolute value float. Excludes non-digits.
+	 *
+	 * @since 2.6.16
+	 *
+	 * @param $string
+	 *
+	 * @return float
+	 */
+	public function string_to_float( $string ) {
+		return is_numeric( $string ) ? abs( (float) $string ) : abs( (float) filter_var( $string, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ) ); // 5.00
+	}
+
+	/**
+	 * Extracts the digits from a string and returns the absolute value integer. Excludes non-digits.
+	 *
+	 * @since 2.6.16
+	 *
+	 * @param $string
+	 *
+	 * @return int
+	 */
+	public function string_to_integer( $string ) {
+		return is_numeric( $string ) ? absint( $string ) : absint( filter_var( $string, FILTER_SANITIZE_NUMBER_INT ) );
 	}
 }

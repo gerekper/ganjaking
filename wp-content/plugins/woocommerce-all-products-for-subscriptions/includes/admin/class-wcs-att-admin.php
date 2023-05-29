@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin
- * @version  4.0.3
+ * @version  4.1.0
  */
 class WCS_ATT_Admin {
 
@@ -253,7 +253,7 @@ class WCS_ATT_Admin {
 
 					?></div>
 					<p class="subscription_schemes_add_wrapper">
-						<button type="button" class="button add_subscription_scheme"><?php _e( 'Add Plan', 'woocommerce-all-products-for-subscriptions' ); ?></button>
+						<button type="button" class="button add_subscription_scheme"><?php esc_html_e( 'Add Plan', 'woocommerce-all-products-for-subscriptions' ); ?></button>
 					</p>
 				</div>
 			</td>

@@ -1428,7 +1428,7 @@ class MeprUser extends MeprBaseModel {
     $use_address_from_request = false;
     $action = isset($_POST['action']) ? sanitize_text_field(wp_unslash($_POST['action'])) : '';
 
-    if(!empty($action) && in_array($action, ['mepr_update_price_string', 'mepr_update_spc_invoice_table', 'mepr_stripe_create_payment_client_secret'], true)) {
+    if(!empty($action) && in_array($action, ['mepr_update_price_string', 'mepr_update_spc_invoice_table', 'mepr_stripe_get_elements_options'], true)) {
       $mepr_options = MeprOptions::fetch();
 
       if(!MeprUtils::is_user_logged_in() || ($mepr_options->show_address_fields && $mepr_options->show_fields_logged_in_purchases)) {
@@ -1558,7 +1558,7 @@ class MeprUser extends MeprBaseModel {
     if($addr2 and !empty($addr2)) { $addr .= "<br/>{$addr2}"; }
     if($country and !empty($country)) { $country = "<br/>{$country}"; } else { $country = ''; }
 
-    $addr = sprintf( __('<br/>%1$s<br/>%2$s, %3$s %4$s%5$s<br/>', 'memberpress'), $addr, $city, $state, $zip, $country );
+    $addr = sprintf( '<br/>' . __('%1$s', 'memberpress') . '<br/>' . __('%2$s, %3$s %4$s%5$s', 'memberpress') . '<br/>', $addr, $city, $state, $zip, $country );
 
     return MeprHooks::apply_filters( 'mepr-user-formatted-address', $addr, $this );
   }

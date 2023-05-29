@@ -8,7 +8,7 @@
  *
  * @since 0.8
  */
-class PLLWC_Export {
+class PLLWC_Product_Export {
 
 	/**
 	 * Constructor.

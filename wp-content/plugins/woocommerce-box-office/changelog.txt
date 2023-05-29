@@ -1,5 +1,10 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-05-22 - version 1.1.52
+* Fix - Fatal error in short-code `[ticket_private_content]` while editing it in the block editor.
+* Fix - Remove unused Ajax endpoints.
+* Fix - Shortcode rendering issues.
+
 2023-05-12 - version 1.1.51
 * Dev - Bump WooCommerce "tested up to" version 7.6.
 * Dev - Bump WordPress "tested up to" version 6.2.

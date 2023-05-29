@@ -194,7 +194,7 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 			}
 		}
 
-		echo '<p>' . ' <strong>' . implode( ', ', $this->product_ids_titles ) . '</strong></p>';
+		echo '<p>' . ' <strong>' . esc_html( implode( ', ', $this->product_ids_titles ) ) . '</strong></p>';
 		echo '<p><a class="button" href="' . esc_url( remove_query_arg( 'product_ids' ) ) . '">' . esc_html__( 'Reset', 'woocommerce-product-vendors' ) . '</a></p>';
 	}
 
@@ -268,9 +268,9 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 						}
 
 						echo '<tr class="' . ( in_array( $product->product_id, $this->product_ids ) ? 'active' : '' ) . '">
-							<td class="count">' . $product->order_item_qty . '</td>
-							<td class="name"><a href="' . esc_url( add_query_arg( 'product_ids', $product->product_id ) ) . '">' . get_the_title( $product->product_id ) . '</a></td>
-							<td class="sparkline">' . $this->sales_sparkline( $product->product_id, 7, 'count' ) . '</td>
+							<td class="count">' . esc_html( $product->order_item_qty ) . '</td>
+							<td class="name"><a href="' . esc_url( add_query_arg( 'product_ids', $product->product_id ) ) . '">' . esc_html( get_the_title( $product->product_id ) ) . '</a></td>
+							<td class="sparkline">' . esc_html( $this->sales_sparkline( $product->product_id, 7, 'count' ) ) . '</td>
 						</tr>';
 					}
 				} else {
@@ -314,8 +314,8 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 
 						echo '<tr class="' . ( in_array( $product->product_id, $this->product_ids ) ? 'active' : '' ) . '">
 							<td class="count">' . wc_price( $product->order_item_total ) . '</td>
-							<td class="name"><a href="' . esc_url( add_query_arg( 'product_ids', $product->product_id ) ) . '">' . get_the_title( $product->product_id ) . '</a></td>
-							<td class="sparkline">' . $this->sales_sparkline( $product->product_id, 7, 'sales' ) . '</td>
+							<td class="name"><a href="' . esc_url( add_query_arg( 'product_ids', $product->product_id ) ) . '">' . esc_html( get_the_title( $product->product_id ) ) . '</a></td>
+							<td class="sparkline">' . esc_html( $this->sales_sparkline( $product->product_id, 7, 'sales' ) ) . '</td>
 						</tr>';
 					}
 				} else {
@@ -354,11 +354,11 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 		?>
 		<a
 			href="#"
-			download="report-<?php echo esc_attr( $current_range ); ?>-<?php echo date_i18n( 'Y-m-d', current_time('timestamp') ); ?>.csv"
+			download="report-<?php echo esc_attr( $current_range ); ?>-<?php echo esc_attr( date_i18n( 'Y-m-d', current_time('timestamp') ) ); ?>.csv"
 			class="export_csv"
 			data-export="chart"
 			data-xaxes="<?php esc_attr_e( 'Date', 'woocommerce-product-vendors' ); ?>"
-			data-groupby="<?php echo $this->chart_groupby; ?>"
+			data-groupby="<?php echo esc_attr( $this->chart_groupby ); ?>"
 		>
 			<?php esc_html_e( 'Export CSV', 'woocommerce-product-vendors' ); ?>
 		</a>
@@ -469,7 +469,7 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 				var main_chart;
 
 				jQuery(function(){
-					var order_data = jQuery.parseJSON( decodeURIComponent( '<?php echo $chart_data; ?>' ) );
+					var order_data = jQuery.parseJSON( decodeURIComponent( '<?php echo esc_js( $chart_data ); ?>' ) );
 
 					var drawGraph = function( highlight ) {
 
@@ -477,8 +477,8 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 							{
 								label: "<?php echo esc_js( __( 'Number of items sold', 'woocommerce-product-vendors' ) ) ?>",
 								data: order_data.order_item_counts,
-								color: '<?php echo $this->chart_colors['item_count']; ?>',
-								bars: { fillColor: '<?php echo $this->chart_colors['item_count']; ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo $this->barwidth; ?> * 0.5, align: 'center' },
+								color: '<?php echo esc_js( $this->chart_colors['item_count'] ); ?>',
+								bars: { fillColor: '<?php echo esc_js( $this->chart_colors['item_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'center' },
 								shadowSize: 0,
 								hoverable: false
 							},
@@ -486,11 +486,11 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 								label: "<?php echo esc_js( __( 'Sales amount', 'woocommerce-product-vendors' ) ) ?>",
 								data: order_data.order_item_amounts,
 								yaxis: 2,
-								color: '<?php echo $this->chart_colors['sales_amount']; ?>',
+								color: '<?php echo esc_js( $this->chart_colors['sales_amount'] ); ?>',
 								points: { show: true, radius: 5, lineWidth: 3, fillColor: '#fff', fill: true },
 								lines: { show: true, lineWidth: 4, fill: false },
 								shadowSize: 0,
-								<?php echo $this->get_currency_tooltip(); ?>
+								<?php echo esc_js( $this->get_currency_tooltip() ); ?>
 							}
 						];
 
@@ -528,7 +528,7 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Product extends WC_Admin_Report 
 									timeformat: "<?php if ( $this->chart_groupby == 'day' ) echo '%d %b'; else echo '%b'; ?>",
 									monthNames: <?php echo wp_json_encode( array_values( $wp_locale->month_abbrev ) ) ?>,
 									tickLength: 1,
-									minTickSize: [1, "<?php echo $this->chart_groupby; ?>"],
+									minTickSize: [1, "<?php echo esc_js( $this->chart_groupby ); ?>"],
 									font: {
 										color: "#aaa"
 									}

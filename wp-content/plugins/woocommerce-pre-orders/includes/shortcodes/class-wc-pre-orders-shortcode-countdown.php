@@ -101,25 +101,25 @@ class WC_Pre_Orders_Shortcode_Countdown {
 	public static function output( $atts ) {
 		global $woocommerce, $product, $wpdb;
 
-		extract(
-			shortcode_atts(
-				array(
-					'product_id'  => '',
-					'product_sku' => '',
-					'until'       => '',
-					'before'      => '',
-					'after'       => '',
-					'layout'      => '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}{sn} {sl}{s>}',
-					'format'      => 'yodHMS',
-					'compact'     => 'false',
-				),
-				$atts
-			)
+		$shortcode_atts = shortcode_atts(
+			array(
+				'product_id'  => '',
+				'product_sku' => '',
+				'until'       => '',
+				'before'      => '',
+				'after'       => '',
+				'layout'      => '{y<}{yn} {yl}{y>} {o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>} {s<}{sn} {sl}{s>}',
+				'format'      => 'yodHMS',
+				'compact'     => 'false',
+			),
+			$atts
 		);
 
+		$product_id = $shortcode_atts['product_id'];
+
 		// product by sku?
-		if ( $product_sku ) {
-			$product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_sku' AND meta_value=%s LIMIT 1", $product_sku ) );
+		if ( $shortcode_atts['product_sku'] ) {
+			$product_id = wc_get_product_id_by_sku( $shortcode_atts['product_sku'] );
 		}
 
 		// product by id?
@@ -127,13 +127,19 @@ class WC_Pre_Orders_Shortcode_Countdown {
 			$product = wc_get_product( $product_id );
 		}
 
+		// no product, or product is in the trash? Bail.
+		if ( ! $product instanceof WC_Product || 'trash' === $product->get_status() ) {
+			return;
+		}
+
 		// date override (convert from string unless someone was savvy enough to provide a timestamp)
+		$until = $shortcode_atts['until'];
 		if ( $until && ! is_numeric( $until ) ) {
 			$until = strtotime( $until );
 		}
 
-		// product and no date override, get the datetime from the product, if there is one
-		if ( $product && ! $until ) {
+		// no date override, get the datetime from the product.
+		if ( ! $until ) {
 			$until = get_post_meta( $product->get_id(), '_wc_pre_orders_availability_datetime', true );
 		}
 
@@ -143,8 +149,11 @@ class WC_Pre_Orders_Shortcode_Countdown {
 		}
 
 		// if a layout is being used, prepend/append the before/after text
+		$layout = $shortcode_atts['layout'];
 		if ( $layout ) {
-			$layout = esc_js( $before ) . self::sanitize_layout( $layout ) . esc_js( $after );
+			$layout  = esc_js( $shortcode_atts['before'] );
+			$layout .= self::sanitize_layout( $shortcode_atts['layout'] );
+			$layout .= esc_js( $shortcode_atts['after'] );
 		}
 
 		// enqueue the required javascripts
@@ -156,8 +165,8 @@ class WC_Pre_Orders_Shortcode_Countdown {
 		$('#woocommerce-pre-orders-countdown-<?php echo esc_attr( $until ); ?>').countdown({
 			until: new Date(<?php echo (int) $until * 1000; ?>),
 			layout: '<?php echo $layout; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>',
-			format: '<?php echo esc_js( $format ); ?>',
-			compact: <?php echo filter_var( $compact, FILTER_VALIDATE_BOOL ) ? 'true' : 'false'; ?>,
+			format: '<?php echo esc_js( $shortcode_atts['format'] ); ?>',
+			compact: <?php echo filter_var( $shortcode_atts['compact'], FILTER_VALIDATE_BOOL ) ? 'true' : 'false'; ?>,
 			expiryUrl: location.href,
 		});
 		<?php

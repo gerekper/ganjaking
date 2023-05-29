@@ -251,7 +251,7 @@ class WC_Product_Vendors_Bookings {
 		}
 
 		if ( empty( $bookings ) ) {
-			echo '<p>' . __( 'There are no bookings available.', 'woocommerce-product-vendors' ) . '</p>';
+			echo '<p>' . esc_html__( 'There are no bookings available.', 'woocommerce-product-vendors' ) . '</p>';
 
 			return;
 		}
@@ -276,14 +276,14 @@ class WC_Product_Vendors_Bookings {
 					$booking_item = get_wc_booking( $booking->ID );
 					?>
 					<tr>
-						<td><a href="<?php echo get_edit_post_link( $booking->ID ); ?>" title="<?php esc_attr_e( 'Edit Booking', 'woocommerce-product-vendors' ); ?>"><?php printf( __( 'Booking #%d', 'woocommerce-product-vendors' ), $booking->ID ); ?></a></td>
+						<td><a href="<?php echo esc_url( get_edit_post_link( $booking->ID ) ); ?>" title="<?php esc_attr_e( 'Edit Booking', 'woocommerce-product-vendors' ); ?>"><?php printf( esc_html__( 'Booking #%d', 'woocommerce-product-vendors' ), esc_html( $booking->ID ) ); ?></a></td>
 
-						<td><a href="<?php echo get_edit_post_link( $booking_item->get_product()->get_id() ); ?>" title="<?php esc_attr_e( 'Edit Product', 'woocommerce-product-vendors' ); ?>"><?php echo $booking_item->get_product()->get_name(); ?></a></td>
+						<td><a href="<?php echo esc_url( get_edit_post_link( $booking_item->get_product()->get_id() ) ); ?>" title="<?php esc_attr_e( 'Edit Product', 'woocommerce-product-vendors' ); ?>"><?php echo esc_html( $booking_item->get_product()->get_name() ); ?></a></td>
 
 						<td>
 							<?php
 							if ( $booking_item->has_persons() ) {
-								echo $booking_item->get_persons_total();
+								echo esc_html( $booking_item->get_persons_total() );
 							} else {
 								esc_html_e( 'N/A', 'woocommerce-product-vendors' );
 							}
@@ -293,9 +293,9 @@ class WC_Product_Vendors_Bookings {
 						<td>
 							<?php
 							if ( $booking_item->get_customer() ) {
-							?>
-								<a href="mailto:<?php echo esc_attr( $booking_item->get_customer()->email ); ?>"><?php echo $booking_item->get_customer()->name; ?></a>
-							<?php
+								?>
+								<a href="mailto:<?php echo esc_attr( $booking_item->get_customer()->email ); ?>"><?php echo esc_html( $booking_item->get_customer()->name ); ?></a>
+								<?php
 							} else {
 								esc_html_e( 'N/A', 'woocommerce-product-vendors' );
 							}
@@ -306,7 +306,7 @@ class WC_Product_Vendors_Bookings {
 							<?php
 							if ( $booking_item->get_order() ) {
 							?>
-								<a href="<?php echo admin_url( 'admin.php?page=wcpv-vendor-order&id=' . $booking_item->order_id ); ?>" title="<?php esc_attr_e( 'Order Detail', 'woocommerce-product-vendors' ); ?>"><?php printf( __( '#%d', 'woocommerce-product-vendors' ), $booking_item->order_id ); ?></a> &mdash; <?php echo WC_Product_Vendors_Utils::format_order_status( $booking_item->get_order()->get_status() ); ?>
+								<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-order&id=' . $booking_item->order_id ) ); ?>" title="<?php esc_attr_e( 'Order Detail', 'woocommerce-product-vendors' ); ?>"><?php printf( esc_html__( '#%d', 'woocommerce-product-vendors' ), esc_html( $booking_item->order_id ) ); ?></a> &mdash; <?php esc_html_e( WC_Product_Vendors_Utils::format_order_status( $booking_item->get_order()->get_status() ) ); ?>
 							<?php
 							} else {
 								esc_html_e( 'N/A', 'woocommerce-product-vendors' );
@@ -314,8 +314,8 @@ class WC_Product_Vendors_Bookings {
 							?>
 						</td>
 
-						<td><?php echo $booking_item->get_start_date(); ?></td>
-						<td><?php echo $booking_item->get_end_date(); ?></td>
+						<td><?php echo esc_html( $booking_item->get_start_date() ); ?></td>
+						<td><?php echo esc_html( $booking_item->get_end_date() ); ?></td>
 					</tr>
 					<?php
 				}

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.2.3
+ * @version  4.1.0
  */
 class WCS_ATT_Display_Product {
 
@@ -355,7 +355,7 @@ class WCS_ATT_Display_Product {
 				'allow_one_time'   => false === $force_subscription,
 				'sign_up_text'     => self::get_subscription_options_button_text( $parent_product ? $parent_product : $product ),
 				'dropdown_label'   => $force_subscription ? '' : self::get_subscription_options_dropdown_label( $product ),
-				'hide_wrapper'     => $hide_wrapper
+				'hide_wrapper'     => $hide_wrapper,
 			), false, WCS_ATT()->plugin_path() . '/templates/' );
 
 			$options_html = ob_get_clean();
@@ -638,6 +638,8 @@ class WCS_ATT_Display_Product {
 		// Include the SATT script in footer.
 		wp_enqueue_script( 'wcsatt-single-product' );
 
+		// At this point, we're echoing template parts that can be overriden by themes.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo self::get_subscription_options_content( $product );
 	}
 

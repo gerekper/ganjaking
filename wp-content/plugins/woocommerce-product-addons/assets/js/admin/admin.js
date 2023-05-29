@@ -152,6 +152,21 @@ jQuery( function( $ ) {
 		},
 
 		init: function() {
+			var $products_addons_data = $( '#product_addons_data' ),
+				$control_var          = $( '<input>' ),
+				$test_var             = $( '<input>' );
+
+			$control_var.attr( 'type', 'hidden' );
+			$control_var.attr( 'name', 'pao_post_control_var' );
+			$control_var.val( '1' );
+
+			$test_var.attr( 'type', 'hidden' );
+			$test_var.attr( 'name', 'pao_post_test_var' );
+			$test_var.val( '1' );
+
+			$products_addons_data.prepend( $control_var );
+			$products_addons_data.append( $test_var );
+
 			$( '.post-type-product' ).on( 'click', '#publishing-action input[name="save"]', function() {
 				return wc_pao_admin.validateSettings( 'product' );
 			} );
@@ -160,7 +175,7 @@ jQuery( function( $ ) {
 				return wc_pao_admin.validateSettings( 'global' );
 			} );
 
-			$( '#product_addons_data' )
+			$products_addons_data
 				.on( 'change', '.wc-pao-addon-content-name', function() {
 					if ( $( this ).val() ) {
 						$( this ).closest( '.wc-pao-addon' ).find( '.wc-pao-addon-name' ).text( $( this ).val() );

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Add-Ons admin notices handling.
  *
  * @class    WC_PAO_Admin_Notices
- * @version  6.0.0
+ * @version  6.3.0
  */
 class WC_PAO_Admin_Notices {
 
@@ -48,7 +48,7 @@ class WC_PAO_Admin_Notices {
 	public static function init() {
 
 		if ( ! class_exists( 'WC_PAO_Notices' ) ) {
-			require_once  WC_PAO_ABSPATH . 'includes/class-wc-product-addons-notices.php' ;
+			require_once dirname( __FILE__ ) . '/../class-wc-product-addons-notices.php';
 		}
 
 		// Avoid duplicates for some notice types that are meant to be unique.
@@ -196,9 +196,8 @@ class WC_PAO_Admin_Notices {
 					$notice_classes[] = 'is-dismissible';
 				}
 
-				echo '<div class="' . implode( ' ', $notice_classes ) . '"' . $dismiss_attr . '>';
-				echo wpautop( wp_kses_post( $notice[ 'content' ] ) );
-				echo '</div>';
+				$output = '<div class="' . esc_attr( implode( ' ', $notice_classes ) ) . '"' . $dismiss_attr . '>' . wpautop( $notice[ 'content' ] ) . '</div>';
+				echo wp_kses_post( $output );
 			}
 
 			if ( function_exists( 'wc_enqueue_js' ) ) {

@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p><?php esc_html_e( 'Here is your login account information:', 'woocommerce-product-vendors' ); ?></p>
 
 <ul>
-	<li><?php printf( esc_html__( 'Login Address: %s', 'woocommerce-product-vendors' ), '<a href="' . esc_url( wp_login_url() ) . '">' . wp_login_url() . '</a>' ); ?></li>
-	<li><?php printf( esc_html__( 'Login Name: %s', 'woocommerce-product-vendors' ), $user_login ); ?></li>
+	<li><?php printf( esc_html__( 'Login Address: %s', 'woocommerce-product-vendors' ), '<a href="' . esc_url( wp_login_url() ) . '">' . esc_html( wp_login_url() ) . '</a>' ); ?></li>
+	<li><?php printf( esc_html__( 'Login Name: %s', 'woocommerce-product-vendors' ), esc_html( $user_login ) ); ?></li>
 </ul>
 
 <?php if ( ! empty( $password_reset_key ) ) { ?>

@@ -294,7 +294,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 						esc_url_raw(
 							remove_query_arg(
 								array( '_wp_http_referer', '_wpnonce', 'action', 'action2' ),
-								( ! empty( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' )
+								! empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : false
 							)
 						)
 					);

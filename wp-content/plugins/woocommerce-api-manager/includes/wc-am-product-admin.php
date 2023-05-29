@@ -391,7 +391,7 @@ class WC_AM_Product_Admin {
 
 		if ( ! in_array( $product_type, array( 'grouped', 'external' ) ) ) {
 			?>
-            <li class="api_tab show_if_api"><a href="#api_data"><span><?php esc_html_e( 'API', 'woocommerce-api-manager' ); ?></span></a></li>
+			<li class="api_tab show_if_api"><a href="#api_data"><span><?php esc_html_e( 'API', 'woocommerce-api-manager' ); ?></span></a></li>
 			<?php
 		}
 	}
@@ -411,10 +411,11 @@ class WC_AM_Product_Admin {
 			$this->define_fields();
 			?>
 
-            <div id="api_data" class="panel woocommerce_options_panel">
-                <div id="api_chbx" class="options_group show_if_variable" style="padding:2em">
-                    <strong class="attribute_name"><?php esc_html_e( 'All data below is copied to all variations, unless the checkbox is selected per variation labeled "Set API options for this variable product only." Activation limit, not listed below, must be set per variation.', 'woocommerce-api-manager' ) ?></strong>
-                </div>
+			<div id="api_data" class="panel woocommerce_options_panel">
+				<div id="api_chbx" class="options_group show_if_variable" style="padding:2em">
+					<strong
+						class="attribute_name"><?php esc_html_e( 'All data below is copied to all variations, unless the checkbox is selected per variation labeled "Set API options for this variable product only." Activation limit, not listed below, must be set per variation.', 'woocommerce-api-manager' ) ?></strong>
+				</div>
 
 				<?php
 
@@ -641,7 +642,7 @@ class WC_AM_Product_Admin {
 				echo '</div>';
 
 				?>
-            </div>
+			</div>
 
 			<?php
 
@@ -700,11 +701,11 @@ class WC_AM_Product_Admin {
 		" );
 
 			?>
-            <script type="text/javascript">
+			<script type="text/javascript">
                 jQuery('input#_is_api').click(function () {
                     alert('<?php echo esc_js( __( 'A checked, and saved, API checkbox CANNOT be unchecked later. This product will remain a permanent API Manager product, and CANNOT be deleted from the store. This product will be made available as an API Resource on existing, and future, purchases.', 'woocommerce-api-manager' ) ); ?>');
                 });
-            </script>
+			</script>
 			<?php
 
 			WCAM()->wc_am_print_js( "jQuery('select.wc-am-select').selectWoo({allowClear:true}); " );
@@ -740,7 +741,7 @@ class WC_AM_Product_Admin {
 		}
 		?>
 
-        <style>
+		<style>
             .woocommerce-help-tip {
                 color: #666;
                 display: inline-block;
@@ -752,55 +753,55 @@ class WC_AM_Product_Admin {
                 vertical-align: middle;
                 width: 16px;
             }
-        </style>
+		</style>
 
-        <div class="show_if_api">
-            <p class="api_var_heading form-row form-row-full">
+		<div class="show_if_api">
+			<p class="api_var_heading form-row form-row-full">
 				<?php esc_html_e( 'API Manager Options', 'woocommerce-api-manager' ); ?>
-            </p>
+			</p>
 
-            <div>
-                <p class="form-row">
-                    <label>
+			<div>
+				<p class="form-row">
+					<label>
 					<span><input type="checkbox" class="am_checkbox api_global_data_set_var<?php echo $loop; ?>"
-                                 name="_api_data_is_global_override[<?php echo $loop; ?>]"
-                                 value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_data_is_global_override' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Set API options for this variable product only.', 'woocommerce-api-manager' ); ?>
+					             name="_api_data_is_global_override[<?php echo $loop; ?>]"
+					             value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_data_is_global_override' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Set API options for this variable product only.', 'woocommerce-api-manager' ); ?>
                         <span class="woocommerce-help-tip"
                               data-tip="<?php esc_html_e( 'The information set here will only apply to this variable product.', 'woocommerce-api-manager' ); ?>"
 						   </span></span>
-                    </label>
-                </p>
-                <p class="form-row">
-                    <label>
+					</label>
+				</p>
+				<p class="form-row">
+					<label>
 					<span><input type="checkbox" id="_api_activations_unlimited_var<?php echo $loop; ?>"
-                                 name="_api_activations_unlimited_var[<?php echo $loop; ?>]"
-                                 value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations_unlimited' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Unlimited Activations', 'woocommerce-api-manager' ); ?>
+					             name="_api_activations_unlimited_var[<?php echo $loop; ?>]"
+					             value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations_unlimited' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Unlimited Activations', 'woocommerce-api-manager' ); ?>
                         <span class="woocommerce-help-tip"
                               data-tip="<?php esc_html_e( 'Enable for unlimited number of activations.', 'woocommerce-api-manager' ); ?>"
 						   </span></span>
-                    </label>
-                </p>
-            </div>
-            <div id="api_override_chkbx<?php echo $loop; ?>">
-                <p class="form-row form-row-first" id="_api_activations_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Activation Limit:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                        data-tip="<?php esc_html_e( 'Limits the number of API Key activations. Default is 1 when left empty. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to match the new value.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="number" name="_api_activations_var[<?php echo $loop; ?>]" step="1" min="1"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations' ) ); ?>"
-                           placeholder="<?php esc_html_e( '1', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+					</label>
+				</p>
+			</div>
+			<div id="api_override_chkbx<?php echo $loop; ?>">
+				<p class="form-row form-row-first" id="_api_activations_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Activation Limit:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                                    data-tip="<?php esc_html_e( 'Limits the number of API Key activations. Default is 1 when left empty. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to match the new value.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="number" name="_api_activations_var[<?php echo $loop; ?>]" step="1" min="1"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations' ) ); ?>"
+					       placeholder="<?php esc_html_e( '1', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-last">
-                    <label for="api_resources_product_id<?php echo $loop; ?>"><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?> <span
-                                class="woocommerce-help-tip"
-                                data-tip="<?php esc_html_e( 'Unique ID used to indentify this API resource. Do NOT delete this product.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_resource_product_id[<?php echo $loop; ?>]"
-                           id="api_resources_product_id<?php echo $loop; ?>"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_resource_product_id' ) ); ?>"
-                           readonly/>
-                </p>
+				<p class="form-row form-row-last">
+					<label for="api_resources_product_id<?php echo $loop; ?>"><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?> <span
+							class="woocommerce-help-tip"
+							data-tip="<?php esc_html_e( 'Unique ID used to indentify this API resource. Do NOT delete this product.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_resource_product_id[<?php echo $loop; ?>]"
+					       id="api_resources_product_id<?php echo $loop; ?>"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_resource_product_id' ) ); ?>"
+					       readonly/>
+				</p>
 
 				<?php
 
@@ -818,90 +819,90 @@ class WC_AM_Product_Admin {
 					) ) && ! $is_wc_sub ) :
 					$expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
 					?>
-                    <p class="form-row form-row-first">
-                        <label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                              data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to recalculate using this new value.', 'woocommerce-api-manager' ); ?>"
-                            </span></label>
-                        <input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
-                               value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
-                               placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
-                    </p>
+					<p class="form-row form-row-first">
+						<label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+						                                                                                      data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to recalculate using this new value.', 'woocommerce-api-manager' ); ?>"
+							</span></label>
+						<input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
+						       value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
+						       placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
+					</p>
 				<?php
 				endif;
 				?>
 
-                <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                      data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                                  data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                               data-tip="<?php esc_html_e( 'The current software version number, which triggers an update notification if the customer has an older version installed.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_new_version_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_new_version' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'e.g. 1.2.5', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                           data-tip="<?php esc_html_e( 'The current software version number, which triggers an update notification if the customer has an older version installed.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_new_version_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_new_version' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'e.g. 1.2.5', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Version Required:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                        data-tip="<?php esc_html_e( 'The minimum version of platform/framework, such as WordPress, required to run the software.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_version_required_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_version_required' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'e.g. 3.3', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Version Required:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                                    data-tip="<?php esc_html_e( 'The minimum version of platform/framework, such as WordPress, required to run the software.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_version_required_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_version_required' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'e.g. 3.3', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Version Tested Up To:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                            data-tip="<?php esc_html_e( 'The highest version of platform/framework, such as WordPress, the software has been tested on.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_tested_up_to_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_tested_up_to' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'e.g. 4.0', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Version Tested Up To:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                                        data-tip="<?php esc_html_e( 'The highest version of platform/framework, such as WordPress, the software has been tested on.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_tested_up_to_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_tested_up_to' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'e.g. 4.0', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Requires PHP Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                            data-tip="<?php esc_html_e( 'Minimum version of PHP software requires.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_requires_php_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_requires_php' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'e.g. 7.3', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Requires PHP Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                                        data-tip="<?php esc_html_e( 'Minimum version of PHP software requires.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_requires_php_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_requires_php' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'e.g. 7.3', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Last Updated:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                    data-tip="<?php esc_html_e( 'The date the software was last updated.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_last_updated_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_last_updated' ) ); ?>"
-                           class="wc_api_last_updated_var"
-                           placeholder="<?php esc_html_e( 'YYYY-MM-DD', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Last Updated:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                                data-tip="<?php esc_html_e( 'The date the software was last updated.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_last_updated_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_last_updated' ) ); ?>"
+					       class="wc_api_last_updated_var"
+					       placeholder="<?php esc_html_e( 'YYYY-MM-DD', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Author:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                              data-tip="<?php esc_html_e( 'The name of the software author.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_author_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_author' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'Todd Lahman', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Author:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                          data-tip="<?php esc_html_e( 'The name of the software author.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_author_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_author' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'Todd Lahman', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 
-                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Page URL:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                data-tip="<?php esc_html_e( 'The software page URL.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_plugin_url_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_plugin_url' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'http://myplugin.com', 'woocommerce-api-manager' ); ?>"/>
-                </p>
+				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+					<label><?php esc_html_e( 'Page URL:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+					                                                                            data-tip="<?php esc_html_e( 'The software page URL.', 'woocommerce-api-manager' ); ?>"
+						</span></label>
+					<input type="text" name="_api_plugin_url_var[<?php echo $loop; ?>]"
+					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_plugin_url' ) ); ?>"
+					       placeholder="<?php esc_html_e( 'http://myplugin.com', 'woocommerce-api-manager' ); ?>"/>
+				</p>
 				<?php
 				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_description_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_description_var_field' ) . '"><label for="' . esc_attr( '_api_description_var[' . $loop . ']' ) . '">' . esc_html__( 'Description', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'A description of the software, and how it works.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_description' ) );
@@ -1051,8 +1052,8 @@ class WC_AM_Product_Admin {
 				echo '</p>';
 				?>
 
-            </div>
-        </div>
+			</div>
+		</div>
 
 		<?php
 		WCAM()->wc_am_print_js( "
@@ -1242,8 +1243,18 @@ class WC_AM_Product_Admin {
 				if ( is_array( $field ) && $field[ 'id' ] != '_api_resource_title' ) { // Software Title/Resource Title is deprecated and cannot be changed.
 					$data = isset( $_POST[ $field[ 'id' ] ] ) ? esc_attr( wc_clean( $_POST[ $field[ 'id' ] ] ) ) : '';
 
-					// Update the fields.
-					WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, $field[ 'id' ], $data );
+					if ( $field[ 'id' ] == '_api_new_version' ) {
+						WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, $field[ 'id' ], WC_AM_FORMAT()->string_to_version( $data ) );
+					} elseif ( $field[ 'id' ] == '_api_version_required' ) {
+						WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, $field[ 'id' ], WC_AM_FORMAT()->string_to_version( $data ) );
+					} elseif ( $field[ 'id' ] == '_api_tested_up_to' ) {
+						WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, $field[ 'id' ], WC_AM_FORMAT()->string_to_version( $data ) );
+					} elseif ( $field[ 'id' ] == '_api_requires_php' ) {
+						WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, $field[ 'id' ], WC_AM_FORMAT()->string_to_version( $data ) );
+					} else {
+						// Update the fields.
+						WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, $field[ 'id' ], $data );
+					}
 
 					/**
 					 * @since 2.0
@@ -1420,7 +1431,17 @@ class WC_AM_Product_Admin {
 
 					foreach ( $clean_fields as $key => $clean_field ) {
 						if ( isset( $post[ $clean_field . '_var' ][ $i ] ) ) {
-							WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, wc_clean( $post[ $clean_field . '_var' ][ $i ] ) );
+							if ( $clean_field == '_api_new_version' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field . '_var' ][ $i ] ) ) );
+							} elseif ( $clean_field == '_api_version_required' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field . '_var' ][ $i ] ) ) );
+							} elseif ( $clean_field == '_api_tested_up_to' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field . '_var' ][ $i ] ) ) );
+							} elseif ( $clean_field == '_api_requires_php' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field . '_var' ][ $i ] ) ) );
+							} else {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, wc_clean( $post[ $clean_field . '_var' ][ $i ] ) );
+							}
 						}
 					}
 
@@ -1539,7 +1560,17 @@ class WC_AM_Product_Admin {
 
 					foreach ( $clean_fields as $key => $clean_field ) {
 						if ( isset( $post[ $clean_field ] ) ) {
-							WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, wc_clean( $post[ $clean_field ] ) );
+							if ( $clean_field == '_api_new_version' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field ] ) ) );
+							} elseif ( $clean_field == '_api_version_required' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field ] ) ) );
+							} elseif ( $clean_field == '_api_tested_up_to' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field ] ) ) );
+							} elseif ( $clean_field == '_api_requires_php' ) {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, WC_AM_FORMAT()->string_to_version( wc_clean( $post[ $clean_field ] ) ) );
+							} else {
+								WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, wc_clean( $post[ $clean_field ] ) );
+							}
 						}
 					}
 

@@ -40,16 +40,19 @@ class PLLWC_Links_Pro extends PLLWC_Links {
 	 * @since 0.4
 	 *
 	 * @return string[]
+	 *
+	 * @phpstan-return array<non-falsy-string>
 	 */
 	protected function get_query_vars() {
 		/**
-		 * Filters the list of endpoints query vars
+		 * Filters the list of endpoints query vars.
 		 *
 		 * @since 0.4
 		 *
 		 * @param string[] $slugs Endpoints slugs.
 		 */
-		return apply_filters( 'pllwc_endpoints_query_vars', WC()->query->get_query_vars() );
+		$query_vars = apply_filters( 'pllwc_endpoints_query_vars', WC()->query->get_query_vars() );
+		return array_filter( (array) $query_vars );
 	}
 
 	/**
@@ -67,8 +70,9 @@ class PLLWC_Links_Pro extends PLLWC_Links {
 		unset( $slugs['archive_product'] );
 
 		// Remove /%product_cat% from the product base slug.
-		if ( isset( $slugs['product'] ) ) {
-			if ( $slug = preg_replace( '#\/?%.+?%#', '', $slugs['product']['slug'] ) ) {
+		if ( isset( $slugs['product'], $slugs['product']['slug'] ) && is_string( $slugs['product']['slug'] ) ) {
+			$slug = preg_replace( '#\/?%.+?%#', '', $slugs['product']['slug'] );
+			if ( $slug ) {
 				$slugs['product']['slug'] = $slug;
 				$tr_slug = $mo->translate( $slug );
 				$slugs['product']['translations'][ $language->slug ] = empty( $tr_slug ) ? $slug : $tr_slug;

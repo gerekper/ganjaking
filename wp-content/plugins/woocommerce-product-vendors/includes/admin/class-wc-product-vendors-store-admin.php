@@ -935,7 +935,7 @@ class WC_Product_Vendors_Store_Admin {
 			<h2><?php esc_html_e( 'Vendor Commission', 'woocommerce-product-vendors' ); ?>
 				<?php
 				if ( ! empty( $_REQUEST['s'] ) ) {
-					echo '<span class="subtitle">' . esc_html__( 'Search results for', 'woocommerce-product-vendors' ) . ' "' . sanitize_text_field( $_REQUEST['s'] ) . '"</span>';
+					echo '<span class="subtitle">' . esc_html__( 'Search results for', 'woocommerce-product-vendors' ) . ' "' . esc_html( $_REQUEST['s'] ) . '"</span>';
 				}
 				?>
 			</h2>
@@ -1248,7 +1248,9 @@ class WC_Product_Vendors_Store_Admin {
 
 			$sold_by = WC_Product_Vendors_Utils::get_sold_by_link( $item['product_id'] );
 
-			echo '<em class="wcpv-sold-by-order-details">' . apply_filters( 'wcpv_sold_by_text', __( 'Sold By:', 'woocommerce-product-vendors' ) ) . ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . $sold_by['name'] . '</a></em>';
+			echo '<em class="wcpv-sold-by-order-details">';
+			echo apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . esc_html( $sold_by['name'] ) . '</a></em>';
 		}
 	}
 
@@ -1347,9 +1349,9 @@ class WC_Product_Vendors_Store_Admin {
 			echo '<div class="options_group show_if_variable show_if_booking">';
 			?>
 			<p class="wcpv-commission form-row form-row-first">
-				<label><?php echo esc_html__( 'Commission', 'woocommerce-product-vendors' ) . ' (' . $commission_type . ')'; ?>: <?php echo wc_help_tip( __( 'Enter a commission for this product variation.  Enter a positive number.', 'woocommerce-product-vendors' ) ); ?></label>
+				<label><?php echo esc_html__( 'Commission', 'woocommerce-product-vendors' ) . ' (' . esc_html( $commission_type ) . ')'; ?>: <?php echo wc_help_tip( esc_html__( 'Enter a commission for this product variation.  Enter a positive number.', 'woocommerce-product-vendors' ) ); ?></label>
 
-				<input type="number" name="_wcpv_product_variation_commission[<?php echo $loop; ?>]" value="<?php echo esc_attr( $commission ); ?>" placeholder="<?php echo esc_attr( $commission_placeholder ); ?>" step="any" min="0" />
+				<input type="number" name="_wcpv_product_variation_commission[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $commission ); ?>" placeholder="<?php echo esc_attr( $commission_placeholder ); ?>" step="any" min="0" />
 			</p>
 			<?php
 			echo '</div>';
@@ -1579,11 +1581,11 @@ class WC_Product_Vendors_Store_Admin {
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wcpv_vendor_search_nonce' ) ) {
-		     wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		if ( empty( $_GET['term'] ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		$term = (string) wc_clean( stripslashes( $_GET['term']['term'] ) );
@@ -1829,7 +1831,7 @@ class WC_Product_Vendors_Store_Admin {
 
 			$output .= '</label></div></fieldset>';
 
-			echo $output;
+			echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 
@@ -1917,14 +1919,15 @@ class WC_Product_Vendors_Store_Admin {
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wcpv_export_commissions_nonce' ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		$commission = new WC_Product_Vendors_Commission( new WC_Product_Vendors_PayPal_MassPay );
 
 		$query = $commission->csv_filtered_query( $order_id, $year, $month, $commission_status, $vendor_id );
 
-		echo $query;
+		// This will end up as URIencoded CSV file content that will be pushed as an anchor's href via jQuery.
+		echo $query; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		exit;
 	}
 
@@ -1941,7 +1944,7 @@ class WC_Product_Vendors_Store_Admin {
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wcpv_export_unpaid_commissions_nonce' ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		$currency = get_woocommerce_currency();
@@ -1995,7 +1998,7 @@ class WC_Product_Vendors_Store_Admin {
 		// convert the array to string recursively
 		$commissions_data = implode( PHP_EOL, array_map( array( 'WC_Product_Vendors_Utils', 'convert2string' ), $commissions_data ) );
 
-		echo $commissions_data;
+		echo $commissions_data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		exit;
 	}
 

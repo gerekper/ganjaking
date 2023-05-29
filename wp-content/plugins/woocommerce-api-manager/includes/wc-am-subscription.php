@@ -47,12 +47,10 @@ class WC_AM_Subscription {
 			 * @see   update_status() in WC_Subscription
 			 * @since 1.5
 			 */
-			add_action( 'woocommerce_subscription_status_cancelled', array( $this, 'delete_expired_subscription_and_activations' ) );
-			add_action( 'woocommerce_subscription_status_expired', array( $this, 'delete_expired_subscription_and_activations' ) );
-			add_action( 'subscriptions_cancelled_for_order', array( $this, 'delete_expired_subscription_and_activations' ) );
-			add_action( 'subscriptions_expired_for_order', array( $this, 'delete_expired_subscription_and_activations' ) );
 			add_action( 'woocommerce_subscription_status_cancelled', array( $this, 'delete_subscription' ) );
 			add_action( 'woocommerce_subscription_status_expired', array( $this, 'delete_subscription' ) );
+			add_action( 'subscriptions_cancelled_for_order', array( $this, 'delete_subscription' ) );
+			add_action( 'subscriptions_expired_for_order', array( $this, 'delete_subscription' ) );
 			add_action( 'woocommerce_subscription_trashed', array( $this, 'delete_subscription' ) );
 			add_action( 'woocommerce_subscription_deleted', array( $this, 'delete_subscription' ) );
 			add_action( 'woocommerce_api_delete_subscription', array( $this, 'delete_subscription' ) );
@@ -142,21 +140,15 @@ class WC_AM_Subscription {
 	/**
 	 * Returns the user subscription ID.
 	 *
-	 * @since 1.3.9.8
+	 * @since   1.3.9.8
+	 * @updated 2.0
+	 * @updated 2.6.16 Removed non-numeric conditional.
 	 *
 	 * @param int $order_id Subscription order ID.
 	 *
 	 * @return bool|null|string
 	 */
 	public function get_subscription_id( $order_id ) {
-		if ( ! is_numeric( $order_id ) ) {
-			$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
-
-			if ( is_object( $order ) ) {
-				$order_id = $order->get_id();
-			}
-		}
-
 		if ( ! empty( $order_id ) ) {
 			/**
 			 * @since 2.0
@@ -1035,52 +1027,10 @@ class WC_AM_Subscription {
 	}
 
 	/**
-	 * Delete expired subscription API Keys and API Key activations.
-	 *
-	 * @since 2.0
-	 *
-	 * @param object $order
-	 *
-	 * @throws \Exception
-	 */
-	public function delete_expired_subscription_and_activations( $order ) {
-		global $wpdb;
-
-		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order );
-
-		if ( is_object( $order ) ) {
-			$order_id = $order->get_id();
-			$sub_id   = $this->get_subscription_id( $order_id );
-
-			// Delete grace periods.
-			WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $sub_id );
-			// Refreshing cache here will also delete API cache for activations about to be deleted.
-			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
-
-			// Delete API Key activations for on-hold status Subscriptions
-			$this->delete_api_key_activations_by_sub_id( $sub_id );
-
-			/**
-			 * Delete the subscription API resource.
-			 */
-			$where = array(
-				'sub_id' => $sub_id
-			);
-
-			$where_format = array(
-				'%d'
-			);
-
-			$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
-
-			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
-		}
-	}
-
-	/**
 	 * Delete the API resource order item when the subscription is cancelled or expired.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.6.16
 	 *
 	 * @param int|WC_Subscription $subscription
 	 *
@@ -1092,28 +1042,39 @@ class WC_AM_Subscription {
 		$subscription = $this->get_subscription_object( $subscription );
 
 		if ( is_object( $subscription ) ) {
-			$sub_id   = $subscription->get_id();
-			$order_id = WC_AM_API_RESOURCE_DATA_STORE()->get_order_id_by_sub_id( $sub_id );
+			$sub_id = $subscription->get_id();
 
-			// Delete grace periods.
-			WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $sub_id );
-			// Refreshing cache here will also delete API cache for activations about to be deleted.
-			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
+			/**
+			 * If $subscription->get_id() does not exist then zero is returned as the default value from the WC_Data class.
+			 * If a zero value is used by $wpdb->delete for the sub_id, then WC AM Subscriptions would be deleted instead
+			 * because those API Resources have a zero value for sub_id. The sub_id field only has a value > 0 for
+			 * WC Subscriptions API Resources.
+			 *
+			 * @since 2.6.16
+			 */
+			if ( ! empty( $sub_id ) ) {
+				$order_id = WC_AM_API_RESOURCE_DATA_STORE()->get_order_id_by_sub_id( $sub_id );
 
-			// Delete API Key activations.
-			$this->delete_api_key_activations_by_sub_id( $sub_id );
+				// Delete grace periods.
+				WC_AM_GRACE_PERIOD()->delete_wc_subscription_expiration_by_subscription( $sub_id );
+				// Refreshing cache here will also delete API cache for activations about to be deleted.
+				WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 
-			$where = array(
-				'sub_id' => $sub_id
-			);
+				// Delete API Key activations.
+				$this->delete_api_key_activations_by_sub_id( $sub_id );
 
-			$where_format = array(
-				'%d'
-			);
+				$where = array(
+					'sub_id' => $sub_id
+				);
 
-			$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
+				$where_format = array(
+					'%d'
+				);
 
-			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+				$wpdb->delete( $wpdb->prefix . $this->api_resource_table, $where, $where_format );
+
+				WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+			}
 		}
 	}
 

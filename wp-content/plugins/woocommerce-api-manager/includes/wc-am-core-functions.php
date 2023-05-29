@@ -42,7 +42,6 @@ if ( WCAM()->is_request( 'admin' ) ) {
 
 	WC_AM_ADMIN_SYSTEM_STATUS();
 
-
 	/**
 	 * Returns the WC_AM_Debug_Tools class object
 	 *
@@ -241,6 +240,17 @@ function WC_AM_GRACE_PERIOD() {
 }
 
 /**
+ * Returns the WC_AM_Legacy_Product_ID_Data_Store class object
+ *
+ * @since 2.7
+ *
+ * @return \WC_AM_Legacy_Product_ID_Data_Store
+ */
+function WC_AM_LEGACY_PRODUCT_ID() {
+	return WC_AM_Legacy_Product_ID_Data_Store::instance();
+}
+
+/**
  * Returns the WC_AM_Log class object
  *
  * @since 2.0
@@ -302,6 +312,23 @@ function WC_AM_SMART_CACHE() {
 }
 
 WC_AM_SMART_CACHE();
+
+/**
+ * Returns the WCAM_Software_Add_On_Translator class object
+ *
+ * @since 2.7
+ *
+ * @return \WCAM_Software_Add_On_Translator|null
+ */
+function WC_AM_SOFTWARE_ADD_ON_TRANSLATOR() {
+	require_once( 'vendor/woocommerce-software-add-on/wc-software-add-on_translator.php' );
+
+	return WCAM_Software_Add_On_Translator::instance();
+}
+
+if ( get_option( 'woocommerce_api_manager_translate_software_add_on_queries' ) == 'yes' ) {
+	WC_AM_SOFTWARE_ADD_ON_TRANSLATOR();
+}
 
 /**
  * Returns the WC_AM_Subscription class object

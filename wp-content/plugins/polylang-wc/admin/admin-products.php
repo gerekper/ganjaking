@@ -94,7 +94,7 @@ class PLLWC_Admin_Products {
 					$term_ids      = is_array( $product_terms ) ? wp_list_pluck( $product_terms, 'term_id' ) : array();
 					$tr_term_ids   = array_map( 'pll_get_term', $term_ids );
 
-					$all_terms = get_terms( $taxonomy, array( 'orderby' => 'name', 'hide_empty' => 0, 'lang' => $lang->slug ) );
+					$all_terms = get_terms( array( 'taxonomy' => $taxonomy, 'orderby' => 'name', 'hide_empty' => 0, 'lang' => $lang->slug ) );
 
 					if ( is_array( $all_terms ) ) {
 						foreach ( $all_terms as $term ) {
@@ -194,9 +194,9 @@ class PLLWC_Admin_Products {
 	 * @return void
 	 */
 	public function remove_sanitize_title() {
-		// Backward compatibility with Polylang < 2.9.
-		$obj = isset( PLL()->filters_sanitization ) ? PLL()->filters_sanitization : PLL()->filters;
-		remove_filter( 'sanitize_title', array( $obj, 'sanitize_title' ) );
+		if ( isset( PLL()->filters_sanitization ) ) {
+			remove_filter( 'sanitize_title', array( PLL()->filters_sanitization, 'sanitize_title' ) );
+		}
 	}
 
 	/**
@@ -207,8 +207,8 @@ class PLLWC_Admin_Products {
 	 * @return void
 	 */
 	public function add_sanitize_title() {
-		// Backward compatibility with Polylang < 2.9.
-		$obj = isset( PLL()->filters_sanitization ) ? PLL()->filters_sanitization : PLL()->filters;
-		add_filter( 'sanitize_title', array( $obj, 'sanitize_title' ), 10, 3 );
+		if ( isset( PLL()->filters_sanitization ) ) {
+			add_filter( 'sanitize_title', array( PLL()->filters_sanitization, 'sanitize_title' ), 10, 3 );
+		}
 	}
 }

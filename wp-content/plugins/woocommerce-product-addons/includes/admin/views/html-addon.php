@@ -59,7 +59,7 @@ if ( 'heading' === $addon_type ) {
 			<button type="button" class="wc-pao-remove-addon button"><?php esc_html_e( 'Remove', 'woocommerce-product-addons' ); ?></button>
 			<span class="wc-pao-addon-toggle" title="<?php esc_attr_e( 'Click to toggle', 'woocommerce-product-addons' ); ?>" aria-hidden="true"></span>
 			<input type="hidden" name="product_addon_position[<?php echo esc_attr( $loop ); ?>]" class="wc-pao-addon-position" value="<?php echo esc_attr( $loop ); ?>" />
-			<input type="hidden" name="product_addon_id_[<?php echo $loop; ?>]" class="product_addon_id" value="<?php echo $id; ?>" />
+			<input type="hidden" name="product_addon_id_[<?php echo esc_attr( $loop ); ?>]" class="product_addon_id" value="<?php echo esc_attr( $id ); ?>" />
 		</div>
 	</div>
 

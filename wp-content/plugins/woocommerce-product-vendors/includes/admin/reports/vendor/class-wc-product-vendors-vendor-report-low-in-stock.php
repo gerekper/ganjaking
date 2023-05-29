@@ -21,7 +21,7 @@ class WC_Product_Vendors_Vendor_Report_Low_In_Stock extends WC_Report_Stock {
 	 * No items found text
 	 */
 	public function no_items() {
-		_e( 'No low in stock products found.', 'woocommerce-product-vendors' );
+		esc_html_e( 'No low in stock products found.', 'woocommerce-product-vendors' );
 	}
 
 	/**

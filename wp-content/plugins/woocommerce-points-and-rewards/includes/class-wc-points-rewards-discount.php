@@ -54,12 +54,12 @@ class WC_Points_Rewards_Discount {
 	 *
 	 * @deprecated 1.6.0
 	 * @since 1.0
-	 * @param array $data the coupon data
+	 * @param array  $data the coupon data
 	 * @param string $code the coupon code
 	 * @return array the custom coupon data
 	 */
 	public function get_discount_data( $data, $code ) {
-		if ( strtolower( $code ) != $this->get_discount_code() ) {
+		if ( strtolower( $code ) !== $this->get_discount_code() ) {
 			return $data;
 		}
 

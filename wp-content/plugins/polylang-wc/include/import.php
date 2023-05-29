@@ -8,7 +8,7 @@
  *
  * @since 0.8
  */
-class PLLWC_Import {
+class PLLWC_Product_Import {
 	/**
 	 * Product language data store.
 	 *

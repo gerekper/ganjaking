@@ -133,14 +133,17 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 	/**
 	 * Adds checkbox to each row
 	 *
-	 * @access public
-	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @access  public
+	 * @since   2.0.0
+	 * @since   2.1.77 Use WC_Product_Vendors_Utils::get_total_commission_amount_html to display vendor commission.
+	 *
 	 * @param object $item
+	 *
 	 * @return mixed
+	 * @version 2.0.0
 	 */
 	public function column_cb( $item ) {
-		return sprintf( '<input type="checkbox" name="ids[%d]" value="%d" /><input type="hidden" name="order_item_ids[%d]" value="%d" />', $item->id, $item->order_item_id, $item->id, $item->order_item_id );
+		return sprintf( '<input type="checkbox" name="ids[%d]" value="%d" /><input type="hidden" name="order_item_ids[%d]" value="%d" />', esc_attr( $item->id ), esc_attr( $item->order_item_id ), esc_attr( $item->id ), esc_attr( $item->order_item_id ) );
 	}
 
 	/**
@@ -149,15 +152,15 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 	 * @access public
 	 * @since 2.0.0
 	 * @version 2.0.0
-	 * @param array $item
+	 * @param \stdClass $item
 	 * @param string $column_name
 	 * @return mixed
 	 */
 	public function column_default( $item, $column_name ) {
-		switch ( $column_name ) {
+		$order = wc_get_order( $item->order_id );
 
+		switch ( $column_name ) {
 			case 'product_name' :
-				$order          = wc_get_order( $item->order_id );
 				$quantity       = absint( $item->product_quantity );
 				$var_attributes = '';
 				$refund         = '';
@@ -168,7 +171,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 					$product = wc_get_product( absint( $item->variation_id ) );
 
 					$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
-					
+
 					if ( $metadata = $order_item->get_formatted_meta_data() ) {
 						foreach ( $metadata as $meta_id => $meta ) {
 							// Skip hidden core fields
@@ -197,7 +200,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 				}
 
 				if ( is_object( $product ) && $product->get_sku() ) {
-					$sku = sprintf( __( '<br />%1$s: %2$s', 'woocommerce-product-vendors' ), 'SKU', $product->get_sku() );
+					$sku = sprintf( __( '<br />%1$s: %2$s', 'woocommerce-product-vendors' ), 'SKU', esc_html( $product->get_sku() ) );
 				}
 
 				$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
@@ -214,20 +217,15 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 				} elseif ( ! empty( $item->product_name ) ) {
 					return $quantity . 'x ' . sanitize_text_field( $item->product_name ) . $order_item_meta . $refund;
 				} else {
-					return sprintf( '%s ' . __( 'Product Not Found', 'woocommerce-product-vendors' ), '#' . absint( $item->product_id ) );
+					return sprintf( '%s ' . esc_html__( 'Product Not Found', 'woocommerce-product-vendors' ), '#' . absint( $item->product_id ) );
 				}
 
 			case 'total_commission_amount' :
-				$order           = wc_get_order( $item->order_id );
-				$refund          = '';
-				$refunded_amount = $order->get_total_refunded_for_item( intval( $item->order_item_id ) );
-
-				if ( $refunded_amount ) {
-					$refunded_commission = $refunded_amount * $item->product_commission_amount / $item->product_amount;
-					$refund              = sprintf( __( '<br /><small class="wpcv-refunded">-%s</small>', 'woocommerce-product-vendors' ), wc_price( $refunded_commission ) );
+				if ( ! is_a( $order, 'WC_Order' ) ) {
+					return __( 'N/A', 'woocommerce-product-vendors' );
 				}
 
-				return wc_price( sanitize_text_field( $item->total_commission_amount ) ) . $refund;
+				return WC_Product_Vendors_Utils::get_total_commission_amount_html( $item, $order );
 
 			case 'commission_status' :
 				if ( 'unpaid' === $item->commission_status ) {
@@ -259,7 +257,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 					$status = '<span class="wcpv-fulfilled-status">' . esc_html__( 'FULFILLED', 'woocommerce-product-vendors' ) . '</span>';
 
 				} else {
-					$status = __( 'N/A', 'woocommerce-product-vendors' );
+					$status = esc_html__( 'N/A', 'woocommerce-product-vendors' );
 				}
 
 				return $status;
@@ -301,7 +299,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 	 * @return bool
 	 */
 	public function no_items() {
-		_e( 'No orders found.', 'woocommerce-product-vendors' );
+		esc_html_e( 'No orders found.', 'woocommerce-product-vendors' );
 
 		return true;
 	}
@@ -433,7 +431,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 				$style = 'display:none;';
 			}
 
-			$style = ' style="' . $style . '"';
+			$style = ' style="' . esc_attr( $style ) . '"';
 
 			if ( 'cb' == $column_key ) {
 				$class[] = 'check-column';
@@ -454,13 +452,13 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 					$class[] = $desc_first ? 'asc' : 'desc';
 				}
 
-				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . $column_display_name . '</span><span class="sorting-indicator"></span></a>';
+				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . esc_html( $column_display_name ) . '</span><span class="sorting-indicator"></span></a>';
 			}
 
-			$id = $with_id ? "id='$column_key'" : '';
+			$id = $with_id ? "id='" . esc_attr( $column_key ) . "'" : '';
 
 			if ( ! empty( $class ) ) {
-				$class = "class='" . join( ' ', $class ) . "'";
+				$class = "class='" . esc_attr( join( ' ', $class ) ) . "'";
 			}
 
 			echo "<th scope='col' $id $class $style>$column_display_name</th>";

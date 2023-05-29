@@ -304,7 +304,7 @@ class WC_Product_Vendors_New_Renewal_Email_To_Vendor extends WC_Email {
 		<p>
 			<?php
 			/* translators: the amount in commission price */
-			echo sprintf( __( 'Your commission for this subscription renewal order is %s.', 'woocommerce-product-vendors' ), wc_price( $commission, array( 'currency' => get_woocommerce_currency() ) ) );
+			echo sprintf( esc_html__( 'Your commission for this subscription renewal order is %s.', 'woocommerce-product-vendors' ), wc_price( $commission, array( 'currency' => get_woocommerce_currency() ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 		</p>
 		<?php

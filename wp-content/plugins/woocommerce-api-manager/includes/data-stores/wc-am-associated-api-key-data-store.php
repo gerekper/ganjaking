@@ -262,7 +262,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 				$result = $wpdb->insert( $wpdb->prefix . $this->associated_api_key_table, $data, $format );
 
-				if ( $result ) {
+				if ( ! WC_AM_FORMAT()->empty( $result ) ) {
 					$associated_api_key_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_associated_api_key_ids_by_api_resource_id( $api_resource_id );
 
 					$data = array(

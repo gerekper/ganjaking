@@ -64,7 +64,7 @@
 					<option value="time" <?php selected( $availability['type'], 'time' ); ?>><?php esc_html_e( 'Time Range (all week)', 'woocommerce-product-vendors' ); ?></option>
 					<option value="time:range" <?php selected( $availability['type'], 'time:range' ); ?>><?php esc_html_e( 'Date Range with time', 'woocommerce-product-vendors' ); ?></option>
 					<?php foreach ( $intervals['days'] as $key => $label ) : ?>
-						<option value="time:<?php echo $key; ?>" <?php selected( $availability['type'], 'time:' . $key ) ?>><?php echo $label; ?></option>
+						<option value="time:<?php echo esc_attr( $key ); ?>" <?php selected( $availability['type'], 'time:' . $key ) ?>><?php echo esc_html( $label ); ?></option>
 					<?php endforeach; ?>
 				</optgroup>
 			</select>
@@ -75,21 +75,21 @@
 		<div class="select from_day_of_week">
 			<select name="wc_booking_availability_from_day_of_week[]">
 				<?php foreach ( $intervals['days'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( isset( $availability['from'] ) && $availability['from'] == $key, true ) ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( isset( $availability['from'] ) && $availability['from'] === $key, true ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
 		<div class="select from_month">
 			<select name="wc_booking_availability_from_month[]">
 				<?php foreach ( $intervals['months'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( isset( $availability['from'] ) && $availability['from'] == $key, true ) ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( isset( $availability['from'] ) && $availability['from'] === $key, true ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
 		<div class="select from_week">
 			<select name="wc_booking_availability_from_week[]">
 				<?php foreach ( $intervals['weeks'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( isset( $availability['from'] ) && $availability['from'] == $key, true ) ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( isset( $availability['from'] ) && $availability['from'] === $key, true ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
@@ -105,7 +105,7 @@
 			<input type="text" class="date-picker" name="wc_booking_availability_from_date[]" value="<?php echo esc_attr( $from_date ); ?>" />
 		</div>
 		<div class="from_time">
-			<input type="time" class="time-picker" name="wc_booking_availability_from_time[]" value="<?php if ( strrpos( $availability['type'], 'time' ) === 0 && ! empty( $availability['from'] ) ) echo $availability['from'] ?>" placeholder="HH:MM" />
+			<input type="time" class="time-picker" name="wc_booking_availability_from_time[]" value="<?php if ( strrpos( $availability['type'], 'time' ) === 0 && ! empty( $availability['from'] ) ) echo esc_attr( $availability['from'] ) ?>" placeholder="HH:MM" />
 		</div>
 	</div>
 	</td>
@@ -118,21 +118,21 @@
 		<div class="select to_day_of_week">
 			<select name="wc_booking_availability_to_day_of_week[]">
 				<?php foreach ( $intervals['days'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( isset( $availability['to'] ) && $availability['to'] == $key, true ) ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( isset( $availability['to'] ) && $availability['to'] == $key, true ) ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
 		<div class="select to_month">
 			<select name="wc_booking_availability_to_month[]">
 				<?php foreach ( $intervals['months'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( isset( $availability['to'] ) && $availability['to'] == $key, true ) ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( isset( $availability['to'] ) && $availability['to'] === $key, true ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
 		<div class="select to_week">
 			<select name="wc_booking_availability_to_week[]">
 				<?php foreach ( $intervals['weeks'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( isset( $availability['to'] ) && $availability['to'] == $key, true ) ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( isset( $availability['to'] ) && $availability['to'] === $key, true ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
@@ -149,15 +149,15 @@
 		</div>
 
 		<div class="to_time">
-			<input type="time" class="time-picker" name="wc_booking_availability_to_time[]" value="<?php if ( strrpos( $availability['type'], 'time' ) === 0 && ! empty( $availability['to'] ) ) echo $availability['to']; ?>" placeholder="HH:MM" />
+			<input type="time" class="time-picker" name="wc_booking_availability_to_time[]" value="<?php if ( strrpos( $availability['type'], 'time' ) === 0 && ! empty( $availability['to'] ) ) echo esc_attr( $availability['to'] ); ?>" placeholder="HH:MM" />
 		</div>
 	</div>
 	</td>
 	<td>
 		<div class="select">
 			<select name="wc_booking_availability_bookable[]">
-				<option value="no" <?php selected( isset( $availability['bookable'] ) && $availability['bookable'] == 'no', true ) ?>><?php _e( 'No', 'woocommerce-product-vendors' ) ;?></option>
-				<option value="yes" <?php selected( isset( $availability['bookable'] ) && $availability['bookable'] == 'yes', true ) ?>><?php _e( 'Yes', 'woocommerce-product-vendors' ) ;?></option>
+				<option value="no" <?php selected( isset( $availability['bookable'] ) && $availability['bookable'] == 'no', true ) ?>><?php esc_html_e( 'No', 'woocommerce-product-vendors' ) ;?></option>
+				<option value="yes" <?php selected( isset( $availability['bookable'] ) && $availability['bookable'] == 'yes', true ) ?>><?php esc_html_e( 'Yes', 'woocommerce-product-vendors' ) ;?></option>
 			</select>
 		</div>
 	</td>
@@ -167,11 +167,13 @@
 	</div>
 	</td>
 	<td>
-	<?php if ( ! empty( $availability['vendor'] ) && current_user_can( 'manage_options' ) ) {
+	<?php
+	if ( ! empty( $availability['vendor'] ) && current_user_can( 'manage_options' ) ) {
 		$vendor = get_term( $availability['vendor'], WC_PRODUCT_VENDORS_TAXONOMY );
 
-		echo $vendor->name;
-	} ?>
+		echo esc_html( $vendor->name );
+	}
+	?>
 	</td>
 	<td class="remove">&nbsp;</td>
 </tr>

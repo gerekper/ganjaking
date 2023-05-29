@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <p><?php esc_html_e( "Hello, a note has just been added to your order:", 'woocommerce-product-vendors' ); ?></p>
 
-<blockquote><?php echo wpautop( wptexturize( $note ) ) ?></blockquote>
+<blockquote><?php echo wp_kses_post( wpautop( wptexturize( $note ) ) ) ?></blockquote>
 
 <p><?php esc_html_e( "For your reference, your order details are shown below.", 'woocommerce-product-vendors' ); ?></p>
 

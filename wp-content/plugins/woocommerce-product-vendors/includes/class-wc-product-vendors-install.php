@@ -324,7 +324,7 @@ class WC_Product_Vendors_Install {
 		if ( $show_notice ) {
 			?>
 			<div class="updated woocommerce-message woocommerce-product-vendors-activated" style="border-left-color: #aa559a;">
-				<h4><?php esc_html_e( 'WooCommerce Product Vendors Installed &#8211; To get started,', 'woocommerce-product-vendors' ); ?> <a href="<?php echo admin_url( 'admin.php?page=wc-settings&tab=products&section=wcpv_vendor_settings' ); ?>"><?php esc_html_e( 'configure your vendor settings', 'woocommerce-product-vendors' ); ?></a></h4>
+				<h4><?php esc_html_e( 'WooCommerce Product Vendors Installed &#8211; To get started,', 'woocommerce-product-vendors' ); ?> <a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=products&section=wcpv_vendor_settings' ) ); ?>"><?php esc_html_e( 'configure your vendor settings', 'woocommerce-product-vendors' ); ?></a></h4>
 			</div>
 			<?php
 

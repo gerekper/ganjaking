@@ -1537,7 +1537,7 @@ if ( ! class_exists( 'GFForms' ) ) {
 			fieldSetting = 'label_setting';
 		}
 
-		var warningDiv = '<div class="gform-alert gform-alert--accessibility gform-alert--inline" data-field-setting="' + fieldSetting + '>';
+		var warningDiv = '<div class="gform-alert gform-alert--accessibility gform-alert--inline" data-field-setting="' + fieldSetting + '">';
 			warningDiv += '<span class="gform-alert__icon gform-icon gform-icon--accessibility" aria-hidden="true"></span>';
 			warningDiv += '<div class="gform-alert__message-wrap">' + message + '</div>';
 			warningDiv += '</div>';

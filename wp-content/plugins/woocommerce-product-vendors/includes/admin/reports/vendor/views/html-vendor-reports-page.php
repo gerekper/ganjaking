@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="icon32 icon32-woocommerce-reports" id="icon-woocommerce"><br /></div><h2 class="nav-tab-wrapper woo-nav-tab-wrapper">
 		<?php
 			foreach ( $reports as $key => $report_group ) {
-				echo '<a href="'.admin_url( 'admin.php?page=wcpv-vendor-reports&tab=' . urlencode( $key ) ).'" class="nav-tab ';
+				echo '<a href="' . esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=' . urlencode( $key ) ) ).'" class="nav-tab ';
 				if ( $current_tab == $key ) echo 'nav-tab-active';
 				echo '">' . esc_html( $report_group[ 'title' ] ) . '</a>';
 			}
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					if ( $key == $current_report ) $link .= 'current';
 
-					$link .= '">' . $report['title'] . '</a>';
+					$link .= '">' . esc_html( $report['title'] ) . '</a>';
 
 					$links[] = $link;
 
@@ -53,10 +53,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$report = $reports[ $current_tab ][ 'reports' ][ $current_report ];
 
 		if ( ! isset( $report['hide_title'] ) || $report['hide_title'] != true )
-			echo '<h3>' . $report['title'] . '</h3>';
+			echo '<h3>' . esc_html( $report['title'] ) . '</h3>';
 
 		if ( $report['description'] )
-			echo '<p>' . $report['description'] . '</p>';
+			echo '<p>' . esc_html( $report['description'] ) . '</p>';
 
 		if ( $report['callback'] && ( is_callable( $report['callback'] ) ) )
 			call_user_func( $report['callback'], $current_report );

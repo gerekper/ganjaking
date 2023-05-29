@@ -47,7 +47,7 @@ $has_addons = ( ! empty( $product_addons ) && 0 < count( $product_addons ) ) ? '
 			<p>
 				<?php
 				/* translators: %s URL to addons page */
-				printf( __( 'You can create additional <a href="%s">add-ons</a> that apply to all products or to certain categories.', 'woocommerce-product-addons' ), esc_url( admin_url() . 'edit.php?post_type=product&page=addons' ) );
+				echo wp_kses_post( sprintf( __( 'You can create additional <a href="%s">add-ons</a> that apply to all products or to certain categories.', 'woocommerce-product-addons' ), esc_url( admin_url() . 'edit.php?post_type=product&page=addons' ) ) );
 				?>
 			</p>
 

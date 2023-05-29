@@ -194,7 +194,7 @@ class Wpali_Woocommerce_Order_Builder {
 			$this->loader->add_filter( 'woocommerce_email_order_meta_fields', $plugin_public, 'wwob_email_order_meta_fields' );
 			$this->loader->add_filter( 'woocommerce_order_item_product', $plugin_public, 'wwob_order_item_product', 10, 2 );
 			$this->loader->add_filter( 'woocommerce_get_item_data', $plugin_public, 'wwob_get_item_data', 10 , 2 );
-			$this->loader->add_action( 'woocommerce_add_order_item_meta', $plugin_public, 'wwob_add_order_item_meta', 10 , 2 );
+			$this->loader->add_action( 'woocommerce_new_order_item', $plugin_public, 'wwob_add_order_item_meta', 10 , 2 );
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'wwob_extra_items_styles');
 			$this->loader->add_filter( 'woocommerce_add_to_cart_validation', $plugin_public, 'wwob_prevent_items_add_to_cart',  10, 2);
 			$this->loader->add_filter( 'body_class', $plugin_public, 'add_wwob_slug_body_class');

@@ -108,6 +108,9 @@ class PLLWC_Post_Types {
 	 * @return string[] The list of taxonomies to copy or synchronize.
 	 */
 	public function copy_taxonomies( $taxonomies ) {
-		return array_merge( $taxonomies, array( 'product_type', 'product_shipping_class', 'product_visibility' ), self::get_translated_taxonomies() );
+		return array_merge(
+			$taxonomies,
+			array( 'product_type', 'product_shipping_class', 'product_visibility', 'product_cat', 'product_tag' )
+		);
 	}
 }

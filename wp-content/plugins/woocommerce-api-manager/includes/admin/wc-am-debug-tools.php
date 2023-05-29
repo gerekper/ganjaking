@@ -52,6 +52,15 @@ final class WC_AM_Debug_Tools {
 			'callback' => array( $this, 'queue_cleanup_event' ),
 		);
 
+		$import_has_run = get_option( 'wc_software_add_on_data_added' ) == 'yes';
+
+		$tools[ 'wc_am_queue_wc_software_add_on_data_import' ] = array(
+			'name'     => __( 'Import WC Software Add-On Data', 'woocommerce-api-manager' ),
+			'button'   => __( 'Import WC Software Add-On Data', 'woocommerce-api-manager' ),
+			'desc'     => sprintf( __( '%s%s%s%sNote:%s This tool automatically imports the WooCommerce Software Add-On License Keys and Activations, and builds Order line items into API Resources. %sThe import event will run only once.%s%sNote:%s For each Product that should be an API Product, select the Product edit > API checkbox, set the Activation Limit on the Product edit > API form, and set the API Access Expires value if desired. All customer API Resources will be udpated with the new values.%sNote:%s Either add the %sWooCommerce API Manager PHP Library for Plugins and Themes%s to your plugin or theme, or build a new client to connect to the API Manager APIs according the the %sdocumentation%s to take advantage of all the features available.', 'woocommerce-api-manager' ), '<strong class="red">', ( $import_has_run ) ? __( 'Import has already run.', 'woocommerce-api-manager' ) : '', '</strong><br>', '<strong class="red">', '</strong>', '<strong class="red">', '</strong>', '<br><strong class="red">', '</strong>', '<br><strong class="red">', '</strong>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '<a href="' . esc_url( 'https://woocommerce.com/document/woocommerce-api-manager/' ) . '" target="blank">', '</a>' ),
+			'callback' => array( $this, 'queue_wc_software_add_on_data_import' ),
+		);
+
 		return $tools;
 	}
 
@@ -71,5 +80,14 @@ final class WC_AM_Debug_Tools {
 	 */
 	public function queue_cleanup_event() {
 		WC_AM_BACKGROUND_EVENTS()->queue_weekly_event();
+	}
+
+	/**
+	 * Queue the API Resources cleanup event.
+	 *
+	 * @since 2.7
+	 */
+	public function queue_wc_software_add_on_data_import() {
+		WC_AM_BACKGROUND_EVENTS()->queue_wc_software_add_on_data_import_event();
 	}
 }

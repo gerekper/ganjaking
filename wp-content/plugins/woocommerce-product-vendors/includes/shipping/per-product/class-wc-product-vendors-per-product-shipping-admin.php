@@ -152,20 +152,20 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
-						<th><?php esc_html_e( 'Country Code', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'A 2 digit country code, e.g. US. Leave blank to apply to all.', 'woocommerce-product-vendors' ) ); ?></a></th>
-						<th><?php esc_html_e( 'State/County Code', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'A state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-product-vendors' ) ); ?></a></th>
-						<th><?php esc_html_e( 'Zip/Postal Code', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to all areas.', 'woocommerce-product-vendors' ) ); ?></a></th>
-						<th class="cost"><?php esc_html_e( 'Line Cost (Excl. Tax)', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Decimal cost for the line as a whole.', 'woocommerce-product-vendors' ) ); ?></a></th>
-						<th class="item_cost"><?php esc_html_e( 'Item Cost (Excl. Tax)', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Decimal cost for the item (multiplied by qty).', 'woocommerce-product-vendors' ) ); ?></a></th>
+						<th><?php esc_html_e( 'Country Code', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( esc_html__( 'A 2 digit country code, e.g. US. Leave blank to apply to all.', 'woocommerce-product-vendors' ) ); ?></a></th>
+						<th><?php esc_html_e( 'State/County Code', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( esc_html__( 'A state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-product-vendors' ) ); ?></a></th>
+						<th><?php esc_html_e( 'Zip/Postal Code', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( esc_html__( 'Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to all areas.', 'woocommerce-product-vendors' ) ); ?></a></th>
+						<th class="cost"><?php esc_html_e( 'Line Cost (Excl. Tax)', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( esc_html__( 'Decimal cost for the line as a whole.', 'woocommerce-product-vendors' ) ); ?></a></th>
+						<th class="item_cost"><?php esc_html_e( 'Item Cost (Excl. Tax)', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( esc_html__( 'Decimal cost for the item (multiplied by qty).', 'woocommerce-product-vendors' ) ); ?></a></th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
 						<th colspan="6">
-							<a href="#" class="button button-primary insert" data-postid="<?php echo $post_id; ?>"><?php esc_html_e( 'Insert row', 'woocommerce-product-vendors' ); ?></a>
+							<a href="#" class="button button-primary insert" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php esc_html_e( 'Insert row', 'woocommerce-product-vendors' ); ?></a>
 							<a href="#" class="button remove"><?php esc_html_e( 'Remove row', 'woocommerce-product-vendors' ); ?></a>
 
-							<a href="#" download="per-product-rates-<?php echo $post_id ?>.csv" class="button export" data-postid="<?php echo $post_id; ?>"><?php esc_html_e( 'Export CSV', 'woocommerce-product-vendors' ); ?></a>
+							<a href="#" download="per-product-rates-<?php echo esc_attr( $post_id ) ?>.csv" class="button export" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php esc_html_e( 'Export CSV', 'woocommerce-product-vendors' ); ?></a>
 
 							<?php
 							// only store owners are allow to import
@@ -194,11 +194,11 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 							?>
 							<tr>
 								<td class="sort">&nbsp;</td>
-								<td class="country"><input type="text" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-								<td class="state"><input type="text" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-								<td class="postcode"><input type="text" value="<?php echo esc_attr( $rule->rule_postcode ); ?>" placeholder="*" name="per_product_postcode[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-								<td class="cost"><input type="text" value="<?php echo esc_attr( $rule->rule_cost ); ?>" placeholder="0.00" name="per_product_cost[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-								<td class="item_cost"><input type="text" value="<?php echo esc_attr( $rule->rule_item_cost ); ?>" placeholder="0.00" name="per_product_item_cost[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
+								<td class="country"><input type="text" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ) ?>]" /></td>
+								<td class="state"><input type="text" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ) ?>]" /></td>
+								<td class="postcode"><input type="text" value="<?php echo esc_attr( $rule->rule_postcode ); ?>" placeholder="*" name="per_product_postcode[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ) ?>]" /></td>
+								<td class="cost"><input type="text" value="<?php echo esc_attr( $rule->rule_cost ); ?>" placeholder="0.00" name="per_product_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ) ?>]" /></td>
+								<td class="item_cost"><input type="text" value="<?php echo esc_attr( $rule->rule_item_cost ); ?>" placeholder="0.00" name="per_product_item_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ) ?>]" /></td>
 							</tr>
 							<?php
 						}

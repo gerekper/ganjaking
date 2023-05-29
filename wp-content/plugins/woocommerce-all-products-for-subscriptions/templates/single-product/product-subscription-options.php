@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.0.0
+ * @version 4.1.0
  */
 
 // Exit if accessed directly.
@@ -18,13 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="wcsatt-options-wrapper <?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" data-sign_up_text="<?php echo esc_attr( $sign_up_text ); ?>" <?php echo $hide_wrapper ? 'style="display:none;"' : ''; ?>>
-	<div class="wcsatt-options-product-prompt <?php echo esc_attr( implode( ' ', $prompt_classes ) ); ?>" data-prompt_type="<?php echo esc_attr( $prompt_type ); ?>"><?php echo $prompt; ?></div>
+	<div class="wcsatt-options-product-prompt <?php echo esc_attr( implode( ' ', $prompt_classes ) ); ?>" data-prompt_type="<?php echo esc_attr( $prompt_type ); ?>">
+		<?php
+			// At this point, we're echoing template parts that can be overriden by themes.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $prompt;
+		?>
+	</div>
 	<div class="wcsatt-options-product-wrapper" <?php echo in_array( 'closed', $wrapper_classes ) ? 'style="display:none;"' : '' ?>><?php
 
 		if ( $display_dropdown ) {
 
 			if ( $dropdown_label ) {
-				?><span class="wcsatt-options-product-dropdown-label"><?php echo $dropdown_label; ?></span><?php
+				?><span class="wcsatt-options-product-dropdown-label"><?php echo wp_kses_post( $dropdown_label ); ?></span><?php
 			}
 
 			?><select class="wcsatt-options-product-dropdown" name="convert_to_sub_dropdown<?php echo absint( $product_id ); ?>"><?php
@@ -34,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						continue;
 					}
 
-					?><option <?php echo $option[ 'selected' ] ? 'selected="true"' : ''; ?>value="<?php echo esc_attr( $option[ 'value' ] ); ?>"><?php echo $option[ 'dropdown' ]; ?></option><?php
+					?><option <?php echo $option[ 'selected' ] ? 'selected="true"' : ''; ?>value="<?php echo esc_attr( $option[ 'value' ] ); ?>"><?php echo esc_html( $option[ 'dropdown' ] ); ?></option><?php
 				}
 			?></select><?php
 		}
@@ -44,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?><li class="<?php echo esc_attr( $option[ 'class' ] ); ?>">
 					<label>
 						<input type="radio" name="convert_to_sub_<?php echo absint( $product_id ); ?>" data-custom_data="<?php echo esc_attr( json_encode( $option[ 'data' ] ) ); ?>" value="<?php echo esc_attr( $option[ 'value' ] ); ?>" <?php checked( $option[ 'selected' ], true, true ); ?> />
-						<span class="<?php echo esc_attr( $option[ 'class' ] ) . '-details'; ?>"><?php echo $option[ 'description' ]; ?></span>
+						<span class="<?php echo esc_attr( $option[ 'class' ] ) . '-details'; ?>"><?php echo wp_kses_post( $option[ 'description' ] ); ?></span>
 						<?php echo ''; ?>
 					</label>
 				</li><?php

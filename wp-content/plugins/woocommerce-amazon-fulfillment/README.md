@@ -68,6 +68,9 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2023-04-12 - version 4.1.8
+* Fix cron error when not fully loaded.
+
 ### 2023-04-12 - version 4.1.7
 * Fix customer fulfilment order details
 

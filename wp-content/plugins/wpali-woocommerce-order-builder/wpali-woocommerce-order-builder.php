@@ -1,14 +1,14 @@
 <?php
 /**
  * @link              https://wpali.com
- * @since             1.1.5
+ * @since             1.1.6
  * @package           Wpali_Woocommerce_Order_Builder
  *
  * @wordpress-plugin
  * Plugin Name:       WPAli: Woocommerce Order Builder
  * Plugin URI:        https://wpali.com/woocommerce-order-builder
  * Description:       Plugin to create unlimited combo products and enable your customers to build their order easily in one page and see the price instantly..
- * Version:           1.1.5
+ * Version:           1.1.6
  * Author:            ALI KHALLAD
  * Author URI:        https://wpali.com
  * License:           GPL-2.0+
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WWOB_VERSION', '1.1.5' );
+define( 'WWOB_VERSION', '1.1.6' );
 
 /**
  * The code that runs during plugin activation.

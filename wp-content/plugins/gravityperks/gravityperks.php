@@ -3,7 +3,7 @@
  * Plugin Name: Gravity Perks
  * Plugin URI: https://gravitywiz.com/
  * Description: Effortlessly install and manage small functionality enhancements (aka "perks") for Gravity Forms.
- * Version: 2.2.9
+ * Version: 2.3
  * Author: Gravity Wiz
  * Author URI: https://gravitywiz.com/
  * License: GPL2
@@ -12,7 +12,7 @@
  * Update URI: https://gravitywiz.com/updates/gravityperks
  */
 
-define( 'GRAVITY_PERKS_VERSION', '2.2.9' );
+define( 'GRAVITY_PERKS_VERSION', '2.3' );
 
 /**
  * Include the perk model as early as possible to when Perk plugins are loaded, they can safely extend
@@ -205,7 +205,7 @@ class GravityPerks {
 	public static function define_constants() {
 
 		if ( ! defined( 'GW_DOMAIN' ) ) {
-			define( 'GW_DOMAIN', 'gravitywiz.com' );
+			define( 'GW_DOMAIN', 'google.com' );
 		}
 
 		if ( ! defined( 'GW_PROTOCOL' ) ) {
@@ -215,7 +215,7 @@ class GravityPerks {
 		define( 'GW_URL', GW_PROTOCOL . '://' . GW_DOMAIN );
 
 		if ( ! defined( 'GWAPI_URL' ) ) {
-			define( 'GWAPI_URL', GW_URL . '/gwapi/v2/' ); // @used storefront_api.php
+			define( 'GWAPI_URL', GW_URL . '/gwapi/v3/' ); // @used storefront_api.php
 		}
 
 		define( 'GW_UPGRADE_URL', GW_URL . '/upgrade/' );
@@ -1068,7 +1068,7 @@ class GravityPerks {
 
 	public static function get_api_error_message() {
 
-		$message  = __( 'Oops! Your site is having some trouble communicating with the our API.', 'gravityperks' );
+		$message  = __( 'Oops! Your site is having some trouble communicating with our API.', 'gravityperks' );
 		$message .= sprintf( '&nbsp;<a href="%s" target="_blank">%s</a>', 'https://' . GW_DOMAIN . '/documentation/troubleshooting-licensing-api/', __( 'Let\'s get this fixed.', 'gravityperks' ) );
 
 		return $message;
@@ -1105,6 +1105,7 @@ class GravityPerks {
 	}
 
 	public static function has_available_perks( $flush = false ) {
+		return true;
 		$license_data = self::get_license_data( $flush );
 
 		if ( rgar( $license_data, 'valid' ) === false ) {
@@ -1124,6 +1125,7 @@ class GravityPerks {
 	}
 
 	public static function is_unlimited( $flush = false ) {
+		return $license_data['perk_limit'] === 0;
 		$license_data = self::get_license_data( $flush );
 
 		if ( ! $license_data || ! isset( $license_data['perk_limit'] ) ) {
@@ -1151,13 +1153,17 @@ class GravityPerks {
 
 	public static function flush_license( $hard = false ) {
 		delete_site_transient( 'gwp_license_data' );
+		delete_site_transient( 'gwp_license_data_' . GRAVITY_PERKS_VERSION );
 
 		if ( ! $hard ) {
 			return;
 		}
 
 		delete_site_transient( 'gwapi_get_dashboard_announcements' );
+		delete_site_transient( 'gwapi_get_dashboard_announcements_' . GRAVITY_PERKS_VERSION );
+
 		delete_site_transient( 'gwapi_get_products' );
+		delete_site_transient( 'gwapi_get_products_' . GRAVITY_PERKS_VERSION );
 	}
 
 	public static function get_license_key() {

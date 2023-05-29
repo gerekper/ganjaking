@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Follow-Up Emails 4.9.50\n"
+"Project-Id-Version: Follow-Up Emails 4.9.51\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-follow-up-emails\n"
-"POT-Creation-Date: 2023-05-16 15:07:12+00:00\n"
+"POT-Creation-Date: 2023-05-23 11:42:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1256,19 +1256,19 @@ msgstr ""
 #: includes/class-fue-admin-actions.php:151
 #: includes/class-fue-admin-actions.php:177
 #: includes/class-fue-admin-actions.php:512
-#: includes/class-fue-admin-actions.php:576
-#: includes/class-fue-admin-actions.php:606
-#: includes/class-fue-admin-actions.php:633
-#: includes/class-fue-admin-actions.php:718
-#: includes/class-fue-admin-actions.php:807
-#: includes/class-fue-admin-actions.php:886
-#: includes/class-fue-admin-actions.php:934
-#: includes/class-fue-admin-actions.php:968
-#: includes/class-fue-admin-actions.php:1126
-#: includes/class-fue-admin-actions.php:1180
-#: includes/class-fue-admin-actions.php:1209
-#: includes/class-fue-admin-actions.php:1229
-#: includes/class-fue-admin-actions.php:1260 includes/class-fue-ajax.php:124
+#: includes/class-fue-admin-actions.php:557
+#: includes/class-fue-admin-actions.php:587
+#: includes/class-fue-admin-actions.php:614
+#: includes/class-fue-admin-actions.php:699
+#: includes/class-fue-admin-actions.php:788
+#: includes/class-fue-admin-actions.php:867
+#: includes/class-fue-admin-actions.php:915
+#: includes/class-fue-admin-actions.php:949
+#: includes/class-fue-admin-actions.php:1107
+#: includes/class-fue-admin-actions.php:1161
+#: includes/class-fue-admin-actions.php:1190
+#: includes/class-fue-admin-actions.php:1210
+#: includes/class-fue-admin-actions.php:1241 includes/class-fue-ajax.php:124
 #: includes/class-fue-ajax.php:205 includes/class-fue-ajax.php:241
 #: includes/class-fue-ajax.php:262 includes/class-fue-ajax.php:328
 #: includes/class-fue-ajax.php:329 includes/class-fue-ajax.php:388
@@ -1622,66 +1622,66 @@ msgstr ""
 msgid "This email has already been added"
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:582
+#: includes/class-fue-admin-actions.php:563
 msgid "Invalid email address passed."
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:827
-#: includes/class-fue-admin-actions.php:1018
+#: includes/class-fue-admin-actions.php:808
+#: includes/class-fue-admin-actions.php:999
 msgid "Error: Unknown action."
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:836
-#: includes/class-fue-admin-actions.php:900
+#: includes/class-fue-admin-actions.php:817
+#: includes/class-fue-admin-actions.php:881
 msgid "%d list has been deleted"
 msgid_plural "%s lists have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-fue-admin-actions.php:989
+#: includes/class-fue-admin-actions.php:970
 msgid "Queue #%1$d: %2$s"
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:995
+#: includes/class-fue-admin-actions.php:976
 msgid "Queue #%d: Scheduled email sent manually"
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:1027
+#: includes/class-fue-admin-actions.php:1008
 msgid "%d email has been activated"
 msgid_plural "%s emails have been activated"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-fue-admin-actions.php:1038
+#: includes/class-fue-admin-actions.php:1019
 msgid "%d email has been suspended"
 msgid_plural "%s emails have been suspended"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-fue-admin-actions.php:1049
-#: includes/class-fue-admin-actions.php:1149
+#: includes/class-fue-admin-actions.php:1030
+#: includes/class-fue-admin-actions.php:1130
 msgid "%d email has been deleted"
 msgid_plural "%s emails have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-fue-admin-actions.php:1078
+#: includes/class-fue-admin-actions.php:1059
 msgid "Action failed. Invalid user ID."
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:1089
+#: includes/class-fue-admin-actions.php:1070
 msgid "Action failed. Invalid product ID."
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:1195
+#: includes/class-fue-admin-actions.php:1176
 msgid "Scheduled email updated successfully"
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:1214
+#: includes/class-fue-admin-actions.php:1195
 msgid "Scheduled email deleted"
 msgstr ""
 
-#: includes/class-fue-admin-actions.php:1243
+#: includes/class-fue-admin-actions.php:1224
 msgid "Scheduled email sent manually"
 msgstr ""
 
@@ -1713,7 +1713,7 @@ msgid "New Tweet"
 msgstr ""
 
 #: includes/class-fue-admin-controller.php:22
-#: includes/class-fue-admin-controller.php:380
+#: includes/class-fue-admin-controller.php:379
 #: templates/reports/user_view.php:88
 msgid "Scheduled Emails"
 msgstr ""
@@ -1744,56 +1744,56 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:232
+#: includes/class-fue-admin-controller.php:231
 msgid "Processing Emails"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:235
+#: includes/class-fue-admin-controller.php:234
 msgid "batch"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:236
+#: includes/class-fue-admin-controller.php:235
 msgid "batches"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:285
-#: includes/class-fue-admin-controller.php:304 templates/updater.php:14
+#: includes/class-fue-admin-controller.php:284
+#: includes/class-fue-admin-controller.php:303 templates/updater.php:14
 msgid "Data Update"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:372
+#: includes/class-fue-admin-controller.php:371
 msgid "This will delete ALL scheduled emails! Continue?"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:475
+#: includes/class-fue-admin-controller.php:474
 #: includes/reports/class-fue-reports.php:737
 #: templates/coupons/coupon-list-table.php:115
 #: templates/reports/overview.php:148
 msgid "Email Name"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:476
+#: includes/class-fue-admin-controller.php:475
 msgid "Processing request..."
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:477
+#: includes/class-fue-admin-controller.php:476
 msgid ""
 "A follow-up email with the same settings already exists. Do you want to "
 "create it anyway?"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:478
+#: includes/class-fue-admin-controller.php:477
 msgid "A similar follow-up email already exists. Do you wish to continue?"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:479
+#: includes/class-fue-admin-controller.php:478
 #: includes/class-fue-subscribers-lists-list-table.php:97
 #: templates/add-ons/templates-list.php:57
 #: templates/add-ons/templates-list.php:67
 msgid "Save"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:479
+#: includes/class-fue-admin-controller.php:478
 msgid "Build your email"
 msgstr ""
 
@@ -2466,7 +2466,7 @@ msgstr ""
 #: includes/class-fue-subscribers-list-table.php:36
 #: includes/reports/class-fue-reports.php:738
 #: templates/add-ons/wootickets-digest-email.php:6
-#: templates/coupons/coupon-list-table.php:110 templates/optout_table.php:33
+#: templates/coupons/coupon-list-table.php:110
 #: templates/settings/settings-subscriptions.php:18
 #: templates/settings/settings-wootickets.php:17
 msgid "Email Address"
@@ -2611,7 +2611,7 @@ msgstr ""
 
 #: includes/class-fue-subscribers-optouts-list-table.php:31
 #: templates/add-ons/wootickets-digest-email.php:10
-#: templates/optout_table.php:34 templates/reports/user_view.php:364
+#: templates/reports/user_view.php:364
 msgid "Date"
 msgstr ""
 
@@ -4849,24 +4849,6 @@ msgstr ""
 msgid "Manage email subscriptions"
 msgstr ""
 
-#: templates/optout_table.php:4
-msgid "Manage Opt-outs"
-msgstr ""
-
-#: templates/optout_table.php:8 templates/subscribers-opt-outs.php:3
-msgid "1 email has been restored"
-msgid_plural "%d emails have been restored"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/optout_table.php:12 templates/subscribers-opt-outs.php:7
-msgid "<em>%s</em> has been added to the opt-out list"
-msgstr ""
-
-#: templates/optout_table.php:46
-msgid "No rows found"
-msgstr ""
-
 #: templates/order-import.php:51
 msgid "Order Importer"
 msgstr ""
@@ -5931,6 +5913,16 @@ msgstr ""
 msgid "Really delete this list?"
 msgstr ""
 
+#: templates/subscribers-opt-outs.php:3
+msgid "1 email has been restored"
+msgid_plural "%d emails have been restored"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/subscribers-opt-outs.php:7
+msgid "<em>%s</em> has been added to the opt-out list"
+msgstr ""
+
 #: templates/subscribers-opt-outs.php:27
 msgid "Add Email to Opt-out"
 msgstr ""
@@ -6043,7 +6035,7 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:237
+#: includes/class-fue-admin-controller.php:236
 msgctxt "Data updater action label"
 msgid "processed"
 msgstr ""

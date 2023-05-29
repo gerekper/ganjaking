@@ -982,7 +982,7 @@ class WC_Points_Rewards_Admin {
 					<fieldset>
 						<p class="form-field apply_points_until_field">
 							<?php /* translators: %1$s, %2$s - open and close strong tag, %3$s, %4$s - open and close em tag */ ?>
-							<label for="apply_points_until_field"><?php printf( esc_html__( '%1$sUp Until%2$s - %3$sOptional%4$s: Leave blank to apply to all orders', 'woocommerce-points-and-rewards' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></label>
+							<label for="apply_points_until_field"><?php printf( esc_html__( '%1$sSince%2$s - %3$sOptional%4$s: Leave blank to apply to all orders', 'woocommerce-points-and-rewards' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></label>
 							<input type="text" class="date-picker" name="apply_points_until" id="apply_points_until" value="" placeholder="<?php echo esc_attr_x( 'YYYY-MM-DD', 'placeholder', 'woocommerce-points-and-rewards' ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 						</p>
 					</fieldset>

@@ -76,25 +76,38 @@ class PLLWC_Sync_Content {
 					break;
 
 				case 'woocommerce/featured-product':
+					if ( empty( $block['innerBlocks'] ) ) {
+						break;
+					}
+
 					/** @var PLLWC_Product_Language_CPT */
 					$data_store = PLLWC_Data_Store::load( 'product_language' );
+					$tr_id      = $data_store->get( $block['attrs']['productId'], $lang );
 
-					$tr_id = $data_store->get( $block['attrs']['productId'], $lang );
-
-					if ( ! empty( $tr_id ) && ! empty( $block['innerBlocks'] ) ) {
-						$tr_link = get_permalink( $tr_id );
-
-						if ( $tr_link ) {
-							// Extract the URL in the button.
-							$dom = new DOMDocument();
-							$dom->loadHTML( $block['innerBlocks'][0]['innerHTML'] );
-							$tags = $dom->getElementsByTagName( 'a' );
-							$href = $tags[0]->getAttribute( 'href' );
-
-							$blocks[ $k ]['attrs']['productId'] = $tr_id;
-							$blocks[ $k ]['innerBlocks'][0]['innerContent'][0] = $blocks[ $k ]['innerBlocks'][0]['innerHTML'] = str_replace( $href, $tr_link, $block['innerBlocks'][0]['innerHTML'] );
-						}
+					if ( empty( $tr_id ) ) {
+						break;
 					}
+
+					$product = wc_get_product( $tr_id );
+
+					if ( empty( $product ) ) {
+						break;
+					}
+
+					$tr_link = $product->get_permalink();
+
+					if ( empty( $tr_link ) ) {
+						break;
+					}
+
+					// Extract the URL in the button.
+					$dom = new DOMDocument();
+					$dom->loadHTML( $block['innerBlocks'][0]['innerHTML'] );
+					$tags = $dom->getElementsByTagName( 'a' );
+					$href = $tags[0]->getAttribute( 'href' );
+
+					$blocks[ $k ]['attrs']['productId'] = $tr_id;
+					$blocks[ $k ]['innerBlocks'][0]['innerContent'][0] = $blocks[ $k ]['innerBlocks'][0]['innerHTML'] = str_replace( $href, $tr_link, $block['innerBlocks'][0]['innerHTML'] );
 					break;
 
 				case 'woocommerce/featured-category':

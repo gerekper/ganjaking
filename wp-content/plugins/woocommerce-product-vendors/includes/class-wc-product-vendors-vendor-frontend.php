@@ -72,7 +72,7 @@ class WC_Product_Vendors_Vendor_Frontend {
 	public function add_section() {
 		if ( WC_Product_Vendors_Utils::auth_vendor_user() ) {
 
-			printf( '<a href="%s" title="%s" class="button vendor-dashboard-link">%s</a>', esc_url( admin_url() ), esc_attr( __( 'Vendor Dashboard', 'woocommerce-product-vendors' ) ), __( 'Vendor Dashboard', 'woocommerce-product-vendors' ) );
+			printf( '<a href="%s" title="%s" class="button vendor-dashboard-link">%s</a>', esc_url( admin_url() ), esc_attr( __( 'Vendor Dashboard', 'woocommerce-product-vendors' ) ), esc_html__( 'Vendor Dashboard', 'woocommerce-product-vendors' ) );
 		}
 
 		return true;
@@ -94,8 +94,10 @@ class WC_Product_Vendors_Vendor_Frontend {
 		if ( 'yes' === $sold_by ) {
 
 			$sold_by = WC_Product_Vendors_Utils::get_sold_by_link( $post->ID );
-
-			echo '<em class="wcpv-sold-by-loop">' . apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ) . ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . $sold_by['name'] . '</a></em>';
+			
+			echo '<em class="wcpv-sold-by-loop">';
+			echo apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . esc_html( $sold_by['name'] ) . '</a></em>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		return true;
@@ -118,7 +120,9 @@ class WC_Product_Vendors_Vendor_Frontend {
 
 			$sold_by = WC_Product_Vendors_Utils::get_sold_by_link( $post->ID );
 
-			echo '<em class="wcpv-sold-by-single">' . apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ) . ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . $sold_by['name'] . '</a></em>';
+			echo '<em class="wcpv-sold-by-single">';
+			echo apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . esc_html( $sold_by['name'] ) . '</a></em>';
 		}
 
 		return true;
@@ -168,7 +172,9 @@ class WC_Product_Vendors_Vendor_Frontend {
 
 			$sold_by = WC_Product_Vendors_Utils::get_sold_by_link( $item['product_id'] );
 
-			echo '<br /><em class="wcpv-sold-by-order-details">' . apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ) . ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . $sold_by['name'] . '</a></em>';
+			echo '<br /><em class="wcpv-sold-by-order-details">';
+			echo apply_filters( 'wcpv_sold_by_text', esc_html__( 'Sold By:', 'woocommerce-product-vendors' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo ' <a href="' . esc_url( $sold_by['link'] ) . '" title="' . esc_attr( $sold_by['name'] ) . '">' . esc_html( $sold_by['name'] ) . '</a></em>';
 		}
 
 		return true;
@@ -227,13 +233,13 @@ class WC_Product_Vendors_Vendor_Frontend {
 			$show_ratings = get_option( 'wcpv_vendor_settings_vendor_review', 'yes' );
 
 			if ( 'yes' === $show_ratings ) {
-				echo WC_Product_Vendors_Utils::get_vendor_rating_html( $term->term_id );
+				echo WC_Product_Vendors_Utils::get_vendor_rating_html( $term->term_id ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 
 			// profile
 			if ( ! empty( $vendor_data['profile'] ) && 'yes' === get_option( 'wcpv_vendor_settings_vendor_display_profile', 'yes' ) ) {
 				add_filter( 'wp_kses_allowed_html', array( $this, 'kses_allowed_html' ), 10, 2 );
-				echo '<div class="wcpv-vendor-profile entry-summary">' . wpautop( wp_kses_post( do_shortcode( $vendor_data['profile'] ) ) ) . '</div>' . PHP_EOL;
+				echo '<div class="wcpv-vendor-profile entry-summary">' . wpautop( wp_kses_post( do_shortcode( $vendor_data['profile'] ) ) ) . '</div>' . PHP_EOL; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				remove_filter( 'wp_kses_allowed_html', array( $this, 'kses_allowed_html' ) );
 			}
 		}

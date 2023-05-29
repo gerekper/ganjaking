@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 4.0.6\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 4.1.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-08T10:22:55+00:00\n"
+"POT-Creation-Date: 2023-05-22T08:31:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -36,20 +36,20 @@ msgid "https://somewherewarm.com/"
 msgstr ""
 
 #. translators: onboarding url
-#: includes/admin/class-wcs-att-admin-notices.php:281
+#: includes/admin/class-wcs-att-admin-notices.php:280
 msgid "Thank you for installing <strong>All Products for WooCommerce Subscriptions</strong>. Ready to make your products available on subscription? <a href=\"%s\">Add some global subscription plans to get started</a>.<br/>You can limit these plans to specific product categories &mdash; or, if you need more flexibility, it is possible to add custom subscription plans to individual products."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:308
+#: includes/admin/class-wcs-att-admin-notices.php:305
 msgid "Awesome &ndash; this product is now available on subscription!"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:309
+#: includes/admin/class-wcs-att-admin-notices.php:306
 msgid "Did you know that you can also <a href=\"%s\">add subscription plans to your products in bulk</a>?"
 msgstr ""
 
 #. translators: onboarding url
-#: includes/admin/class-wcs-att-admin-notices.php:341
+#: includes/admin/class-wcs-att-admin-notices.php:338
 msgid "<strong>All Products for WooCommerce Subscriptions</strong> no longer supports Cart Subscription Plans. Your existing Cart Subscription Plans have been migrated to <a href=\"%s\">Global Subscription Plans</a> &mdash; a quick, new way to add subscription plans to your existing products in bulk."
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 
 #: includes/admin/class-wcs-att-admin.php:480
 #: includes/class-wcs-att-sync.php:170
-#: includes/class-wcs-att-sync.php:193
+#: includes/class-wcs-att-sync.php:199
 msgid "Disabled"
 msgstr ""
 
@@ -332,16 +332,16 @@ msgstr ""
 msgid "%1$s version %2$s (out of date)"
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:447
+#: includes/class-wcs-att-cart.php:460
 msgid "The &quot;%1$s&quot; subscription plan that you originally signed up for is no longer available."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:450
-#: includes/class-wcs-att-cart.php:458
+#: includes/class-wcs-att-cart.php:463
+#: includes/class-wcs-att-cart.php:471
 msgid "The &quot;%s&quot; subscription plan that you originally signed up for has changed. Please remove the product from your cart and try again."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:455
+#: includes/class-wcs-att-cart.php:468
 msgid "&quot;%1$s&quot; is only available for purchase on subscription."
 msgstr ""
 
@@ -472,11 +472,11 @@ msgid "Choose a subscription plan:"
 msgstr ""
 
 #: includes/display/class-wcs-att-display-product.php:526
-#: includes/display/class-wcs-att-display-product.php:705
+#: includes/display/class-wcs-att-display-product.php:707
 msgid "Sign up"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:702
+#: includes/display/class-wcs-att-display-product.php:704
 msgid "Select plan"
 msgstr ""
 

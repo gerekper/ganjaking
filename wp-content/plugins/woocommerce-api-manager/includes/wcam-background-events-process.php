@@ -68,6 +68,9 @@ class WCAM_Events_Background_Process extends WC_AM_Background_Process {
 			case 'repair_missing_api_resources':
 				WC_AM_BACKGROUND_EVENTS()->repair_missing_api_resources( absint( $item[ 'repair_order_id_api_resources' ] ) );
 				break;
+			case 'add_wc_software_add_on_data':
+				WC_AM_BACKGROUND_EVENTS()->add_wc_software_add_on_data( absint( $item[ 'wc_software_add_on_data_key_id' ] ) );
+				break;
 		}
 
 		return false;

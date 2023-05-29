@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  4.0.4
+ * @version  4.1.0
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -1601,6 +1601,8 @@ class WCS_ATT_Integration_PB_CP {
 			}
 		}
 
+		// It's safe to ignore the warning. The url returned is escaped downstream in class-wc-subscriptions-switcher.php .
+		// nosemgrep: audit.php.wp.security.xss.query-arg
 		return $url;
 	}
 

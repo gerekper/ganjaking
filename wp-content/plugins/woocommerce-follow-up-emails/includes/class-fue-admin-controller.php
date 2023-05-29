@@ -35,7 +35,6 @@ class FUE_Admin_Controller {
 			'follow-up_page_followup-emails-coupons',
 			'follow-up_page_followup-emails-queue',
 			'follow-up_page_followup-emails-subscribers',
-			'follow-up_page_followup-emails-optouts',
 			'follow-up_page_followup-emails-settings',
 			'follow-up_page_followup-emails-addons',
 			'follow-up_page_followup-emails-templates',

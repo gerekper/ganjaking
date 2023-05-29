@@ -37,7 +37,7 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_items' ),
-					'permission_callback' => '__return_true',
+					'permission_callback' => array( $this, 'get_items_permissions_check' ),
 				),
 			)
 		);
@@ -53,8 +53,8 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 	const ID        = 'i';
 
 	/**
-	 * Mapping of abbrieviations to expanded versions of lables.
-	 * Used to minimize storred transient size.
+	 * Mapping of abbrieviations to expanded versions of labels.
+	 * Used to minimize stored transient size.
 	 */
 	protected $transient_keys_mapping = array(
 		self::AVAILABLE => 'available',
@@ -313,4 +313,15 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 		$availability =  wc_bookings_paginated_availability( $cached_availabilities, $page, $records_per_page );
 		return $this->transient_expand( $availability );
 	}
+
+	/**
+	 * Checks if a given request has access to get items.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
+	 */
+	public function get_items_permissions_check( $request ) {
+		return true;
+	}
+
 }

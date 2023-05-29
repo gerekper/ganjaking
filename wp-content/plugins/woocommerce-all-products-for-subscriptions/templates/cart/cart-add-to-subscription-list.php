@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.4.0
+ * @version 4.1.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( empty( $subscriptions ) ) {
-	_e( 'No matching subscriptions found.', 'woocommerce-all-products-for-subscriptions' );
+	esc_html_e( 'No matching subscriptions found.', 'woocommerce-all-products-for-subscriptions' );
 } else {
 	?><div class="woocommerce_account_subscriptions">
 
@@ -42,7 +42,7 @@ if ( empty( $subscriptions ) ) {
 							<?php do_action( 'woocommerce_my_subscriptions_after_subscription_id', $subscription ); ?>
 						</td>
 						<td class="subscription-total order-total woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-products-overview" data-title="<?php echo esc_attr_x( 'Products', 'Used in data attribute. Escaped', 'woocommerce-all-products-for-subscriptions' ); ?>">
-							<?php echo WCS_ATT_Order::get_contents_summary( $subscription ); ?>
+							<?php echo wp_kses_post( WCS_ATT_Order::get_contents_summary( $subscription ) ); ?>
 						</td>
 						<td class="subscription-next-payment order-date woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-next-payment woocommerce-orders-table__cell-order-date" data-title="<?php echo esc_attr_x( 'Next Payment', 'table heading', 'woocommerce-all-products-for-subscriptions' ); ?>">
 
@@ -61,7 +61,7 @@ if ( empty( $subscriptions ) ) {
 						</td>
 						<td class="subscription-actions order-actions woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-actions woocommerce-orders-table__cell-order-actions">
 							<?php do_action( 'woocommerce_wcsatt_add_to_subscription_actions', $subscription, $context ); ?>
-							<button type="submit" class="wcsatt-add-to-subscription-button button add alt" name="<?php echo 'cart' === $context ? 'add-cart-to-subscription' : 'add-to-subscription'; ?>" value="<?php echo $subscription_id; ?>"><?php _e( 'Add to subscription', 'woocommerce-all-products-for-subscriptions' ); ?></button>
+							<button type="submit" class="wcsatt-add-to-subscription-button button add alt" name="<?php echo 'cart' === $context ? 'add-cart-to-subscription' : 'add-to-subscription'; ?>" value="<?php echo absint( $subscription_id ); ?>"><?php esc_html_e( 'Add to subscription', 'woocommerce-all-products-for-subscriptions' ); ?></button>
 						</td>
 					</tr>
 				<?php endforeach; ?>

@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							// SKU
 							if ( is_object( $_product ) && $_product->get_sku() ) {
-								echo ' (#' . $_product->get_sku() . ')';
+								echo ' (#' . esc_html( $_product->get_sku() ) . ')';
 							}
 
 							// allow other plugins to add additional product information here

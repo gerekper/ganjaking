@@ -61,3 +61,9 @@
 = 1.1.4 = 31/05/2022
 * Upgrade the custom fields library and other dependencies.
 * Generate a new translation file.
+
+= 1.1.5 = 13/08/2022
+* Bug fixes
+
+= 1.1.6 = 30/09/2022
+* Fix a depracted function from WooCommerce

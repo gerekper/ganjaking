@@ -22,6 +22,7 @@ class PLLWC_Min_Max_Quantities {
 	public function __construct() {
 		add_filter( 'pllwc_copy_post_metas', array( $this, 'copy_product_metas' ) );
 		add_filter( 'pll_copy_term_metas', array( $this, 'copy_term_metas' ) );
+		add_action( 'add_meta_boxes', array( $this, 'set_global_post_id' ), 1, 2 );
 	}
 
 	/**
@@ -65,5 +66,31 @@ class PLLWC_Min_Max_Quantities {
 	 */
 	public function copy_term_metas( $metas ) {
 		return array_merge( $metas, array( 'group_of_quantity' ) );
+	}
+
+	/**
+	 * Sets global `$post_id` to avoid fatal error with Min/Max Quantities.
+	 * Even if this global is not the official `$post_ID`.
+	 *
+	 * @see https://github.com/polylang/polylang-wc/issues/627.
+	 *
+	 * @since 1.8
+	 *
+	 * @param string  $post_type Post type.
+	 * @param WP_Post $post      Current post object.
+	 * @return void
+	 */
+	public function set_global_post_id( $post_type, $post ) {
+		global $post_id;
+
+		if (
+			'post-new.php' === $GLOBALS['pagenow']
+			&& isset( $_GET['from_post'], $_GET['new_lang'], $_GET['_wpnonce'] )
+			&& 'product' === $post_type
+			&& wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'new-post-translation' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			&& $post instanceof WP_Post
+		) {
+			$post_id = $post->ID; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
 	}
 }

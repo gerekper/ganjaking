@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2023-05-23 - version 4.9.51
+* Tweak - Remove code for old optout page.
+
 2023-05-16 - version 4.9.50
 * Fix - Add missing nonces for AJAX calls.
 * Fix - Only allow HTML files for template editing.

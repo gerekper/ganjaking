@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php } ?>
 
 				<?php if ( $atts['show_logo'] && 'false' !== $atts['show_logo'] && ! empty( $vendor_data['logo'] ) ) { ?>
-					<a href="<?php echo esc_url( get_term_link( $vendor->term_id, WC_PRODUCT_VENDORS_TAXONOMY ) ); ?>" class="wcpv-vendor-logo"><?php echo  wp_get_attachment_image( absint( $vendor_data['logo'] ), 'full' ); ?></a>
+					<a href="<?php echo esc_url( get_term_link( $vendor->term_id, WC_PRODUCT_VENDORS_TAXONOMY ) ); ?>" class="wcpv-vendor-logo"><?php echo wp_get_attachment_image( absint( $vendor_data['logo'] ), 'full' ); ?></a>
 				<?php } ?>
 			</li>
 		<?php } ?>

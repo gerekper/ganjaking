@@ -1,5 +1,13 @@
 *** Email Attachments Changelog ***
 
+2023.05.24 - version 3.2
+	* added: compatibility support for WooCommerce HPOS
+
+2022.09.06 - version 3.1.2
+	* added: selectbox to display notification header and text at beginning of E-Mail body
+	* added: filter "wc_email_attachments_unfiltered_notification_text" - allows to use unfiltered HTML in notification header and text
+			 (e.g. add_filter( 'wc_email_attachments_unfiltered_notification_text', '__return_true', 10 );  )
+
 2022.01.26 - version 3.1.1
 	* Version bump: checked compatibility for WP 5.8 and WooCommerce 6.1
 

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
+class ComposerStaticInitde64d8e252ffa1012de456aa02eeccce
 {
     public static $classMap = array (
         'PLLWC_Admin' => __DIR__ . '/../..' . '/admin/admin.php',
@@ -25,7 +25,6 @@ class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
         'PLLWC_Data_Store' => __DIR__ . '/../..' . '/include/data-store.php',
         'PLLWC_Dynamic_Pricing' => __DIR__ . '/../..' . '/plugins/dynamic-pricing.php',
         'PLLWC_Emails' => __DIR__ . '/../..' . '/include/emails.php',
-        'PLLWC_Export' => __DIR__ . '/../..' . '/include/export.php',
         'PLLWC_Follow_Up_Emails' => __DIR__ . '/../..' . '/plugins/follow-up-emails.php',
         'PLLWC_Free_Gift_Coupons' => __DIR__ . '/../..' . '/plugins/free-gift-coupons.php',
         'PLLWC_Frontend' => __DIR__ . '/../..' . '/frontend/frontend.php',
@@ -33,7 +32,6 @@ class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
         'PLLWC_Frontend_Cart' => __DIR__ . '/../..' . '/frontend/frontend-cart.php',
         'PLLWC_Frontend_WC_Pages' => __DIR__ . '/../..' . '/frontend/frontend-wc-pages.php',
         'PLLWC_Germanized' => __DIR__ . '/../..' . '/plugins/germanized.php',
-        'PLLWC_Import' => __DIR__ . '/../..' . '/include/import.php',
         'PLLWC_Install' => __DIR__ . '/../..' . '/include/install.php',
         'PLLWC_Links' => __DIR__ . '/../..' . '/include/links.php',
         'PLLWC_Links_Pro' => __DIR__ . '/../..' . '/include/links-pro.php',
@@ -45,6 +43,8 @@ class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
         'PLLWC_Post_Types' => __DIR__ . '/../..' . '/include/post-types.php',
         'PLLWC_Product_Bundles' => __DIR__ . '/../..' . '/plugins/product-bundles.php',
         'PLLWC_Product_Data_Store_CPT' => __DIR__ . '/../..' . '/include/product-data-store-cpt.php',
+        'PLLWC_Product_Export' => __DIR__ . '/../..' . '/include/export.php',
+        'PLLWC_Product_Import' => __DIR__ . '/../..' . '/include/import.php',
         'PLLWC_Product_Language_CPT' => __DIR__ . '/../..' . '/include/product-language-cpt.php',
         'PLLWC_Products' => __DIR__ . '/../..' . '/include/products.php',
         'PLLWC_REST_API' => __DIR__ . '/../..' . '/include/rest-api.php',
@@ -60,6 +60,8 @@ class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
         'PLLWC_Sync_Content' => __DIR__ . '/../..' . '/include/sync-content.php',
         'PLLWC_Table_Rate_Shipping' => __DIR__ . '/../..' . '/plugins/table-rate-shipping.php',
         'PLLWC_Translated_Object_Language_CPT' => __DIR__ . '/../..' . '/include/translated-object-language-cpt.php',
+        'PLLWC_Translation_Export' => __DIR__ . '/../..' . '/modules/translation-import-export/export.php',
+        'PLLWC_Translation_Import' => __DIR__ . '/../..' . '/modules/translation-import-export/import.php',
         'PLLWC_Variation_Data_Store_CPT' => __DIR__ . '/../..' . '/include/variation-data-store-cpt.php',
         'PLLWC_WCFD' => __DIR__ . '/../..' . '/plugins/wcfd.php',
         'PLLWC_Wizard' => __DIR__ . '/../..' . '/admin/wizard.php',
@@ -71,7 +73,7 @@ class ComposerStaticInitab96494d6f353a3e57be9269edad83e5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitab96494d6f353a3e57be9269edad83e5::$classMap;
+            $loader->classMap = ComposerStaticInitde64d8e252ffa1012de456aa02eeccce::$classMap;
 
         }, null, ClassLoader::class);
     }

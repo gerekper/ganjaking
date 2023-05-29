@@ -45,22 +45,32 @@ class PLLWC_Admin_Status_Reports {
 			_x( 'Shop base', 'Page setting', 'polylang-wc' ) => array(
 				'option'    => 'woocommerce_shop_page_id',
 				'shortcode' => '',
+				'block'     => '',
 				'help'      => __( 'The status of your WooCommerce shop\'s homepage translations.', 'polylang-wc' ),
 			),
 			_x( 'Cart', 'Page setting', 'polylang-wc' ) => array(
 				'option'    => 'woocommerce_cart_page_id',
-				'shortcode' => '[' . apply_filters( 'woocommerce_cart_shortcode_tag', 'woocommerce_cart' ) . ']',
+				'shortcode' => apply_filters( 'woocommerce_cart_shortcode_tag', 'woocommerce_cart' ),
+				'block'     => 'woocommerce/cart',
 				'help'      => __( 'The status of your WooCommerce shop\'s cart translations.', 'polylang-wc' ),
 			),
 			_x( 'Checkout', 'Page setting', 'polylang-wc' ) => array(
 				'option'    => 'woocommerce_checkout_page_id',
-				'shortcode' => '[' . apply_filters( 'woocommerce_checkout_shortcode_tag', 'woocommerce_checkout' ) . ']',
+				'shortcode' => apply_filters( 'woocommerce_checkout_shortcode_tag', 'woocommerce_checkout' ),
+				'block'     => 'woocommerce/checkout',
 				'help'      => __( 'The status of your WooCommerce shop\'s checkout page translations.', 'polylang-wc' ),
 			),
 			_x( 'My account', 'Page setting', 'polylang-wc' ) => array(
 				'option'    => 'woocommerce_myaccount_page_id',
-				'shortcode' => '[' . apply_filters( 'woocommerce_my_account_shortcode_tag', 'woocommerce_my_account' ) . ']',
+				'shortcode' => apply_filters( 'woocommerce_my_account_shortcode_tag', 'woocommerce_my_account' ),
+				'block'     => '',
 				'help'      => __( 'The status of your WooCommerce shop\'s “My Account” page translations.', 'polylang-wc' ),
+			),
+			_x( 'Terms and conditions', 'Page setting', 'polylang-wc' ) => array(
+				'option'    => 'woocommerce_terms_page_id',
+				'shortcode' => '',
+				'block'     => '',
+				'help'      => __( 'The status of your WooCommerce shop\'s “Terms and conditions” page translations.', 'polylang-wc' ),
 			),
 		);
 
@@ -100,12 +110,20 @@ class PLLWC_Admin_Status_Reports {
 					$page_properties['is_error'] = true;
 				}
 
-				// Do translations have the correct shortcode?
-				elseif ( $values['shortcode'] ) {
+				// Do translations have the correct shortcode or block?
+				elseif ( ! empty( $values['block'] || ! empty( $values['shortcode'] ) ) ) {
 					$wrong_translations = array();
 					foreach ( $translations as $lang => $translation ) {
 						$_page = get_post( $translation );
-						if ( ! empty( $_page ) && ! strstr( $_page->post_content, $values['shortcode'] ) ) {
+
+						if ( empty( $_page ) ) {
+							continue;
+						}
+
+						$has_shortcode = ! empty( $values['shortcode'] ) && has_shortcode( $_page->post_content, $values['shortcode'] );
+						$has_block     = ! empty( $values['block'] ) && has_block( $values['block'], $_page->post_content );
+
+						if ( ! $has_shortcode && ! $has_block ) {
 							$wrong_translations[] = PLL()->model->get_language( $lang )->name;
 						}
 					}
@@ -113,7 +131,7 @@ class PLLWC_Admin_Status_Reports {
 					if ( $wrong_translations ) {
 						$page_properties['error_message'] = sprintf(
 							/* translators: %s comma separated list of native languages names */
-							_n( 'The shortcode is missing for the translation in %s', 'The shortcode is missing for the translations in %s', count( $wrong_translations ), 'polylang-wc' ),
+							_n( 'The shortcode or block is missing for the translation in %s', 'The shortcode or block is missing for the translations in %s', count( $wrong_translations ), 'polylang-wc' ),
 							implode( ', ', $wrong_translations )
 						);
 						$page_properties['is_error'] = true;

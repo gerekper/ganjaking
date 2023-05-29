@@ -15,7 +15,9 @@ class PLLWC_Admin {
 	 *
 	 * @since 0.1
 	 *
-	 * @return string Language slug.
+	 * @return string|false Language slug.
+	 *
+	 * @phpstan-return non-empty-string|false
 	 */
 	public static function get_preferred_language() {
 		// We rely on the admin language filter.
@@ -23,12 +25,15 @@ class PLLWC_Admin {
 			return PLL()->curlang->slug;
 		}
 
-		// Or the current locale ( admin language ).
-		if ( $curlang = PLL()->model->get_language( get_user_locale() ) ) {
+		// Or the current locale (admin language).
+		$curlang = PLL()->model->get_language( get_user_locale() );
+
+		if ( ! empty( $curlang ) ) {
 			return $curlang->slug;
 		}
 
 		// Or the default language.
+		/** @var non-empty-string|false */
 		return pll_default_language();
 	}
 }

@@ -683,7 +683,7 @@ class WC_AM_API_Activation_Data_Store {
 				'sub_id'                => ! empty( $available_resource[ 'sub_id' ] ) ? (int) $available_resource[ 'sub_id' ] : 0,
 				'sub_item_id'           => ! empty( $available_resource[ 'sub_item_id' ] ) ? (int) $available_resource[ 'sub_item_id' ] : 0,
 				'sub_parent_id'         => ! empty( $available_resource[ 'sub_parent_id' ] ) ? (int) $available_resource[ 'sub_parent_id' ] : 0,
-				'version'               => ! empty( $request_data[ 'version' ] ) ? (string) $request_data[ 'version' ] : '',
+				'version'               => ! empty( $request_data[ 'version' ] ) ? (string) WC_AM_FORMAT()->string_to_version( $request_data[ 'version' ] ) : '',
 				'update_requests'       => ! empty( $request_data[ 'update_requests' ] ) ? (int) $request_data[ 'update_requests' ] : 0,
 				'user_id'               => (int) $user_id
 			);
