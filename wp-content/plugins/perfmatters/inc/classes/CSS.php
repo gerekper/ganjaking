@@ -110,8 +110,10 @@ class CSS
                     '/uploads/oxygen/css/', //oxygen
                     '/uploads/bb-plugin/cache/', //beaver builder
                     '/uploads/generateblocks/', //generateblocks
-                    '/et-cache/' //divi
+                    '/et-cache/', //divi
+                    '/widget-google-reviews/assets/css/public-main.css' //plugin for google reviews
                 );
+                
                 if(!empty(Config::$options['assets']['rucss_excluded_stylesheets'])) {
                     $stylesheet_exclusions = array_merge($stylesheet_exclusions, Config::$options['assets']['rucss_excluded_stylesheets']);
                 }
@@ -306,6 +308,11 @@ class CSS
             '#elementor-device-mode', //elementor
             '.elementor-nav-menu',
             '.elementor-has-item-ratio',
+            '.elementor-popup-modal',
+            '.elementor-sticky--active',
+            '.dialog-type-lightbox',
+            '.dialog-widget-content',
+            '.lazyloaded',
             '.ast-header-break-point', //astra
             '.dropdown-nav-special-toggle', //kadence
             'rs-fw-forcer' //rev slider

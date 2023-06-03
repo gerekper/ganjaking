@@ -564,11 +564,13 @@ class WC_Brands_Admin {
 	 * settings api does not trigger save for the permalinks page.
 	 */
 	public function save_permalink_settings() {
-		if ( ! is_admin() || ! isset( $_POST['permalink_structure'] ) || ! isset( $_POST['woocommerce_product_brand_slug'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( ! is_admin() ) {
 			return;
 		}
 
-		update_option( 'woocommerce_brand_permalink', wc_sanitize_permalink( trim( wc_clean( wp_unslash( $_POST['woocommerce_product_brand_slug'] ) ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['permalink_structure'], $_POST['wc-permalinks-nonce'], $_POST['woocommerce_product_brand_slug'] ) && wp_verify_nonce( wp_unslash( $_POST['wc-permalinks-nonce'] ), 'wc-permalinks' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			update_option( 'woocommerce_brand_permalink', wc_sanitize_permalink( trim( wc_clean( wp_unslash( $_POST['woocommerce_product_brand_slug'] ) ) ) ) );
+		}
 	}
 
 	/**

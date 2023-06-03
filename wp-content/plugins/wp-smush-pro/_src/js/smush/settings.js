@@ -13,7 +13,7 @@
 		e.preventDefault();
 		$( '#save-settings-button' ).addClass( 'sui-button-onload' );
 		saveSettings( $( this ).serialize(), 'bulk' );
-		runReCheck();
+		// runReCheck();
 	} );
 
 	/**
@@ -76,6 +76,7 @@
 				const res = JSON.parse( xhr.response );
 				if ( 'undefined' !== typeof res.success && res.success ) {
 					showSuccessNotice( wp_smush_msgs.settingsUpdated );
+					triggerSavedSmushSettingsEvent( res.data );
 				} else if ( res.data && res.data.message ) {
 					WP_Smush.helpers.showErrorNotice( res.data.message );
 				} else {
@@ -87,6 +88,14 @@
 		};
 
 		xhr.send( 'page=' + page + '&' + settings + '&_ajax_nonce=' + wp_smush_msgs.nonce );
+	}
+	
+	function triggerSavedSmushSettingsEvent( status ) {
+		document.dispatchEvent(
+			new CustomEvent( 'onSavedSmushSettings', {
+				detail: status
+			} )
+		);
 	}
 
 	/**

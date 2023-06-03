@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    2.6.0
- * @version  4.0.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -17,8 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div class="component_pagination cp_clearfix <?php echo esc_attr( $classes ); ?>" data-pagination_data="<?php echo esc_attr( json_encode( $pagination_data ) ); ?>" <?php echo $has_pages ? '' : 'style="display:none"'; ?>><?php
+?><div class="component_pagination cp_clearfix <?php echo esc_attr( $classes ); ?>" data-pagination_data="<?php echo wc_esc_json( json_encode( $pagination_data ) ); ?>" <?php echo $has_pages ? '' : 'style="display:none"'; ?>><?php
 	if ( $append_options ) {
-		?><button class="button component_options_load_more"><?php echo __( 'Load more&hellip;', 'woocommerce-composite-products' ); ?></button><?php
+		?><button class="button component_options_load_more"><?php esc_html_e( 'Load more&hellip;', 'woocommerce-composite-products' ); ?></button><?php
 	}
 ?></div>

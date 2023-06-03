@@ -4,6 +4,8 @@
  *
  * @since 3.1
  * @package WP_Smush
+ *
+ * @var $cta_url    string CTA URL.
  */
 
 use Smush\Core\Helper;
@@ -14,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 $should_show_tracking_confirmation = ! is_multisite();
 ?>
 
-<script type="text/template" id="smush-onboarding" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'free'; ?>">
+<script type="text/template" id="smush-onboarding" data-cta-url="<?php echo esc_js( $cta_url ); ?>" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'free'; ?>">
 	<div class="sui-box-header sui-flatten sui-content-center sui-spacing-sides--90">
 		<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
 		<figure class="sui-box-banner" aria-hidden="true">

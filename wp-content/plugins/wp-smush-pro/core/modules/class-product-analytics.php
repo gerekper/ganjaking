@@ -3,7 +3,11 @@
 namespace Smush\Core\Modules;
 
 use Smush\Core\Integrations\Mixpanel;
+use Smush\Core\Media_Library\Media_Library_Scanner;
+use Smush\Core\Modules\Background\Background_Process;
+use Smush\Core\Server_Utils;
 use Smush\Core\Settings;
+use Smush\Core\Stats\Global_Stats;
 use WP_Smush;
 
 class Product_Analytics {
@@ -16,46 +20,46 @@ class Product_Analytics {
 	 * @var Settings
 	 */
 	private $settings;
+	/**
+	 * @var Server_Utils
+	 */
+	private $server_utils;
 
 	public function __construct() {
-		$this->settings = Settings::get_instance();
+		$this->settings     = Settings::get_instance();
+		$this->server_utils = new Server_Utils();
 
 		$this->hook_actions();
 	}
 
 	private function hook_actions() {
-		if ( $this->settings->get( 'usage' ) ) {
-			add_action( 'wp_smush_directory_smush_start', array( $this, 'track_directory_smush' ) );
-			add_action( 'wp_smush_bulk_smush_start', array( $this, 'track_bulk_smush_start' ) );
-			add_action( 'wp_smush_config_applied', array( $this, 'track_config_applied' ) );
+		// Setting events.
+		add_action( 'wp_smush_settings_updated', array( $this, 'track_opt_toggle' ), 10, 2 );
+		add_action( 'wp_smush_settings_updated', array( $this, 'intercept_settings_update' ), 10, 2 );
+		add_action( 'wp_smush_settings_deleted', array( $this, 'intercept_reset' ) );
+		add_action( 'wp_smush_settings_updated', array( $this, 'track_integrations_saved' ), 10, 2 );
+
+		if ( ! $this->settings->get( 'usage' ) ) {
+			return;
 		}
 
-		$this->hook_settings_update_interceptor( array( $this, 'track_opt_toggle' ) );
-		$this->hook_settings_update_interceptor( array( $this, 'intercept_settings_update' ) );
-		$this->hook_settings_delete_interceptor( array( $this, 'intercept_reset' ) );
-	}
+		// Other events.
+		add_action( 'wp_smush_directory_smush_start', array( $this, 'track_directory_smush' ) );
+		add_action( 'wp_smush_bulk_smush_start', array( $this, 'track_bulk_smush_start' ) );
+		add_action( 'wp_smush_config_applied', array( $this, 'track_config_applied' ) );
 
-	private function hook_settings_update_interceptor( $callback ) {
-		if ( $this->settings->is_network_enabled() ) {
-			add_action(
-				"update_site_option_wp-smush-settings",
-				function ( $option, $settings, $old_settings ) use ( $callback ) {
-					call_user_func_array( $callback, array( $old_settings, $settings ) );
-				},
-				10,
-				3
-			);
-		} else {
-			add_action( "update_option_wp-smush-settings", $callback, 10, 2 );
-		}
-	}
-
-	private function hook_settings_delete_interceptor( $callback ) {
-		if ( $this->settings->is_network_enabled() ) {
-			add_action( "delete_site_option_wp-smush-settings", $callback );
-		} else {
-			add_action( "delete_option_wp-smush-settings", $callback );
-		}
+		add_action( 'wp_smush_before_scan_library', array( $this, 'track_scan_start' ) );
+		add_action( 'wp_smush_after_scan_library', array( $this, 'track_scan_end' ) );
+		add_action(
+			'wp_smush_background_scan_process_cancelled',
+			array( $this, 'track_background_scan_process_cancellation' ),
+			10, 2
+		);
+		add_action(
+			'wp_smush_background_scan_process_dead',
+			array( $this, 'track_background_scan_process_death' ),
+			10, 2
+		);
 	}
 
 	/**
@@ -164,6 +168,11 @@ class Product_Analytics {
 	}
 
 	private function identify_referrer() {
+		$onboarding_request = ! empty( $_REQUEST['action'] ) && 'smush_setup' === $_REQUEST['action'];
+		if ( $onboarding_request ) {
+			return 'Wizard';
+		}
+
 		$path       = parse_url( wp_get_referer(), PHP_URL_QUERY );
 		$query_vars = array();
 		parse_str( $path, $query_vars );
@@ -193,54 +202,56 @@ class Product_Analytics {
 	}
 
 	public function get_super_properties() {
-		global $wpdb, $wp_version;
+		global $wp_version;
 
 		return array(
-			'active_theme'   => get_stylesheet(),
-			'locale'         => get_locale(),
-			'mysql_version'  => $wpdb->get_var( 'SELECT VERSION()' ),
-			'php_version'    => phpversion(),
-			'plugin'         => 'Smush',
-			'plugin_type'    => WP_Smush::is_pro() ? 'pro' : 'free',
-			'plugin_version' => WP_SMUSH_VERSION,
-			'server_type'    => $this->get_server_type(),
-			'wp_type'        => is_multisite() ? 'multisite' : 'single',
-			'wp_version'     => $wp_version,
+			'active_theme'       => get_stylesheet(),
+			'locale'             => get_locale(),
+			'mysql_version'      => $this->server_utils->get_mysql_version(),
+			'php_version'        => phpversion(),
+			'plugin'             => 'Smush',
+			'plugin_type'        => WP_Smush::is_pro() ? 'pro' : 'free',
+			'plugin_version'     => WP_SMUSH_VERSION,
+			'server_type'        => $this->server_utils->get_server_type(),
+			'memory_limit'       => $this->convert_to_megabytes( $this->server_utils->get_memory_limit() ),
+			'max_execution_time' => $this->server_utils->get_max_execution_time(),
+			'wp_type'            => is_multisite() ? 'multisite' : 'single',
+			'wp_version'         => $wp_version,
+			'device'             => $this->get_device(),
 		);
 	}
 
-	private function get_server_type() {
-		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
-			return '';
+	private function get_device() {
+		if ( ! $this->is_mobile() ) {
+			return 'desktop';
 		}
 
-		$server_software = wp_unslash( $_SERVER['SERVER_SOFTWARE'] );
-		if ( ! is_array( $server_software ) ) {
-			$server_software = array( $server_software );
+		if ( $this->is_tablet() ) {
+			return 'tablet';
 		}
 
-		$server_software = array_map( 'strtolower', $server_software );
-		$is_nginx        = $this->array_has_needle( $server_software, 'nginx' );
-		if ( $is_nginx ) {
-			return 'nginx';
-		}
-
-		$is_apache = $this->array_has_needle( $server_software, 'apache' );
-		if ( $is_apache ) {
-			return 'apache';
-		}
-
-		return '';
+		return 'mobile';
 	}
 
-	private function array_has_needle( $array, $needle ) {
-		foreach ( $array as $item ) {
-			if ( strpos( $item, $needle ) !== false ) {
-				return true;
-			}
+	private function is_tablet() {
+		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return false;
 		}
+		/**
+		 * It doesn't work with IpadOS due to of this:
+		 * https://stackoverflow.com/questions/62323230/how-can-i-detect-with-php-that-the-user-uses-an-ipad-when-my-user-agent-doesnt-c
+		 */
+		$tablet_pattern = '/(tablet|ipad|playbook|kindle|silk)/i';
+		return preg_match( $tablet_pattern, $_SERVER['HTTP_USER_AGENT'] );
+	}
 
-		return false;
+	private function is_mobile() {
+		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return false;
+		}
+		// Do not use wp_is_mobile() since it doesn't detect ipad/tablet.
+		$mobile_patten = '/Mobile|iP(hone|od|ad)|Android|BlackBerry|tablet|IEMobile|Kindle|NetFront|Silk|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune|playbook/i';
+		return preg_match( $mobile_patten, $_SERVER['HTTP_USER_AGENT'] );
 	}
 
 	private function normalize_url( $url ) {
@@ -312,9 +323,163 @@ class Product_Analytics {
 		}
 	}
 
+	public function track_integrations_saved( $old_settings, $settings ) {
+		if ( empty( $settings['usage'] ) ) {
+			return;
+		}
+
+		$settings = $this->remove_unchanged_settings( $old_settings, $settings );
+		if ( empty( $settings ) ) {
+			return;
+		}
+
+		$this->maybe_track_integrations_toggle( $settings );
+	}
+
+	private function maybe_track_integrations_toggle( $settings ) {
+		$integrations = array(
+			'gutenberg'  => 'Gutenberg',
+			'gform'      => 'Gravity Forms',
+			'js_builder' => 'WP Bakery',
+			's3'         => 'Amazon S3',
+			'nextgen'    => 'NextGen Gallery',
+		);
+
+		foreach ( $settings as $integration_slug => $is_activated ) {
+			if ( ! array_key_exists( $integration_slug, $integrations ) ) {
+				continue;
+			}
+
+			if ( $is_activated ) {
+				$this->get_mixpanel()->track(
+					'Integration Activated',
+					array(
+						'Integration' => $integrations[ $integration_slug ],
+					)
+				);
+			} else {
+				$this->get_mixpanel()->track(
+					'Integration Deactivated',
+					array(
+						'Integration' => $integrations[ $integration_slug ],
+					)
+				);
+			}
+		}
+	}
+
 	public function intercept_reset() {
 		if ( $this->settings->get( 'usage' ) ) {
 			$this->get_mixpanel()->track( 'Opt Out' );
 		}
+	}
+
+	public function track_scan_start() {
+		$this->get_mixpanel()->track( 'Scan Started', array_merge(
+			$this->get_bulk_properties(),
+			$this->get_scan_properties()
+		) );
+	}
+
+	public function track_scan_end() {
+		$this->get_mixpanel()->track( 'Scan Ended', array_merge(
+			$this->get_bulk_properties(),
+			$this->get_scan_properties()
+		) );
+	}
+
+	/**
+	 * @param $identifier string
+	 * @param $background_process Background_Process
+	 *
+	 * @return void
+	 */
+	public function track_background_scan_process_cancellation( $identifier, $background_process ) {
+		$this->get_mixpanel()->track(
+			'Background Scan Process Cancelled',
+			$this->get_background_process_status_properties( $background_process )
+		);
+	}
+
+	/**
+	 * @param $identifier string
+	 * @param $background_process Background_Process
+	 *
+	 * @return void
+	 */
+	public function track_background_scan_process_death( $identifier, $background_process ) {
+		$scanner = new Media_Library_Scanner();
+
+		$this->get_mixpanel()->track(
+			'Background Scan Process Dead',
+			array_merge(
+				array( 'Slice Size' => $scanner->get_slice_size() ),
+				$this->get_background_process_status_properties( $background_process )
+			)
+		);
+	}
+
+	private function get_scan_properties() {
+		$global_stats       = Global_Stats::get();
+		$global_stats_array = $global_stats->to_array();
+		$properties         = array();
+
+		$labels = array(
+			'image_attachment_count' => 'Image Attachment Count',
+			'optimized_images_count' => 'Optimized Images Count',
+			'optimize_count'         => 'Optimize Count',
+			'reoptimize_count'       => 'Reoptimize Count',
+			'ignore_count'           => 'Ignore Count',
+			'animated_count'         => 'Animated Count',
+			'error_count'            => 'Error Count',
+			'percent_optimized'      => 'Percent Optimized',
+			'size_before'            => 'Size Before',
+			'size_after'             => 'Size After',
+			'savings_percent'        => 'Savings Percent',
+		);
+
+		$savings_keys = array(
+			'size_before',
+			'size_after',
+		);
+
+		foreach ( $labels as $key => $label ) {
+			if ( isset( $global_stats_array[ $key ] ) ) {
+				$properties[ $label ] = $global_stats_array[ $key ];
+
+				if ( in_array( $key, $savings_keys, true ) ) {
+					$properties[ $label ] = $this->convert_to_megabytes( $properties[ $label ] );
+				}
+			}
+		}
+
+		return $properties;
+	}
+
+	/**
+	 * @param Background_Process $background_process
+	 *
+	 * @return array
+	 */
+	private function get_background_process_status_properties( Background_Process $background_process ) {
+		$background_process_status = $background_process ? $background_process->get_status() : false;
+		$properties                = array();
+		if ( $background_process_status ) {
+			$properties = array(
+				'Total Items'     => $background_process_status->get_total_items(),
+				'Processed Items' => $background_process_status->get_processed_items(),
+				'Failed Items'    => $background_process_status->get_failed_items(),
+			);
+		}
+
+		return $properties;
+	}
+
+	private function convert_to_megabytes( $size_in_bytes ) {
+		if ( empty( $size_in_bytes ) ) {
+			return 0;
+		}
+		$unit_mb = pow( 1024, 2 );
+		return round( $size_in_bytes / $unit_mb, 2 );
 	}
 }

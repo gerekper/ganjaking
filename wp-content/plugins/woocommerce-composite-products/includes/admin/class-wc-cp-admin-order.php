@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products edit-order functions and filters.
  *
  * @class    WC_CP_Admin_Order
- * @version  8.4.0
+ * @version  8.8.0
  */
 class WC_CP_Admin_Order {
 
@@ -257,7 +257,7 @@ class WC_CP_Admin_Order {
 							</article>
 							<footer>
 								<div class="inner">
-									<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Done', 'woocommerce-composite-products' ); ?></button>
+									<button id="btn-ok" class="button button-primary button-large"><?php esc_html_e( 'Done', 'woocommerce-composite-products' ); ?></button>
 								</div>
 							</footer>
 						</section>

@@ -280,7 +280,7 @@ class Core extends Stats {
 			'all_resmushed'           => esc_html__( 'All images are fully optimized.', 'wp-smushit' ),
 			'all_smushed'             => esc_html__( 'All attachments have been smushed. Awesome!', 'wp-smushit' ),
 			'error_size_limit'        => WP_Smush::is_pro() ? '' : sprintf(
-			/* translators: %1$s - opening link tag, %2$s - </a> */
+				/* translators: %1$s - opening a link <a>, %2$s - Close the link </a> */
 				esc_html__( 'Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files up to 32Mb each.', 'wp-smushit' ),
 				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
 				'</a>'
@@ -338,6 +338,7 @@ class Core extends Stats {
 			'debug_mode'              => defined( 'WP_DEBUG' ) && WP_DEBUG,
 			'cancel'                  => esc_html__( 'Cancel', 'wp-smushit' ),
 			'cancelling'              => esc_html__( 'Cancelling ...', 'wp-smushit' ),
+			'recheck_images_link'     => Helper::get_recheck_images_link(),
 		);
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );
@@ -370,37 +371,11 @@ class Core extends Stats {
 				$this->resmush_ids = $resmush_ids;
 			}
 
-			if ( ! defined( 'WP_SMUSH_DISABLE_STATS' ) || ! WP_SMUSH_DISABLE_STATS ) {
-				// Setup all the stats.
-				$this->setup_global_stats( true );
-			}
-
 			// Get attachments if all the images are not smushed.
 			$this->unsmushed_attachments = $this->remaining_count > 0 ? $this->get_unsmushed_attachments() : array();
 			$this->unsmushed_attachments = ! empty( $this->unsmushed_attachments ) && is_array( $this->unsmushed_attachments ) ? array_values( $this->unsmushed_attachments ) : $this->unsmushed_attachments;
 
-			// Array of all smushed, unsmushed and lossless IDs.
-			$data = array(
-				'count_supersmushed' => $this->super_smushed,
-				'count_smushed'      => $this->smushed_count,
-				'count_total'        => $this->total_count - $this->skipped_count,
-				'count_images'       => $this->stats['total_images'],
-				'count_resize'       => $this->stats['resize_count'],
-				'count_skipped'      => $this->skipped_count,
-				'unsmushed'          => $this->unsmushed_attachments,
-				'resmush'            => $this->resmush_ids,
-				'size_before'        => $this->stats['size_before'],
-				'size_after'         => $this->stats['size_after'],
-				'savings_bytes'      => $this->stats['bytes'],
-				'savings_resize'     => $this->stats['resize_savings'],
-				'savings_conversion' => $this->stats['conversion_savings'],
-				'savings_dir_smush'  => $this->dir_stats,
-				'savings_percent'    => $this->stats['percent'] > 0 ? number_format_i18n( $this->stats['percent'], 1 ) : 0,
-				'percent_grade'      => $this->percent_grade,
-				'percent_metric'     => $this->percent_metric,
-				'percent_optimized'  => $this->percent_optimized,
-				'remaining_count'    => $this->remaining_count,
-			);
+			$data = $this->get_global_stats();
 		} else {
 			$data = array(
 				'count_supersmushed' => '',
@@ -487,50 +462,7 @@ class Core extends Stats {
 	 * @return array
 	 */
 	public function image_dimensions() {
-		// Get from cache if available to avoid duplicate looping.
-		$sizes = wp_cache_get( 'get_image_sizes', 'smush_image_sizes' );
-		if ( $sizes ) {
-			return $sizes;
-		}
-
-		global $_wp_additional_image_sizes;
-		$additional_sizes = get_intermediate_image_sizes();
-		$sizes            = array();
-
-		if ( empty( $additional_sizes ) ) {
-			return $sizes;
-		}
-
-		// Create the full array with sizes and crop info.
-		foreach ( $additional_sizes as $_size ) {
-			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ), true ) ) {
-				$sizes[ $_size ]['width']  = get_option( $_size . '_size_w' );
-				$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
-				$sizes[ $_size ]['crop']   = (bool) get_option( $_size . '_crop' );
-			} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
-				$sizes[ $_size ] = array(
-					'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
-					'height' => $_wp_additional_image_sizes[ $_size ]['height'],
-					'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
-				);
-			}
-		}
-
-		// Medium Large.
-		if ( ! isset( $sizes['medium_large'] ) || empty( $sizes['medium_large'] ) ) {
-			$width  = (int) get_option( 'medium_large_size_w' );
-			$height = (int) get_option( 'medium_large_size_h' );
-
-			$sizes['medium_large'] = array(
-				'width'  => $width,
-				'height' => $height,
-			);
-		}
-
-		// Set cache to avoid this loop next time.
-		wp_cache_set( 'get_image_sizes', $sizes, 'smush_image_sizes' );
-
-		return $sizes;
+		return Helper::get_image_sizes();
 	}
 
 	/**
@@ -609,11 +541,11 @@ class Core extends Stats {
 	/**
 	 * Set the big image threshold.
 	 *
-	 * @since 3.3.2
-	 *
-	 * @param int $threshold  The threshold value in pixels. Default 2560.
+	 * @param int $threshold The threshold value in pixels. Default 2560.
 	 *
 	 * @return int|bool  New threshold. False if scaling is disabled.
+	 * @since 3.3.2
+	 *
 	 */
 	public function big_image_size_threshold( $threshold ) {
 		if ( Settings::get_instance()->get( 'no_scale' ) ) {

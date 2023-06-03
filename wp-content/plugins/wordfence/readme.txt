@@ -2,9 +2,9 @@
 Contributors: mmaunder, wfryan, wfmatt, wfmattr
 Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute force, scanner, scan, web application firewall, protection, stop hackers, prevent hacks, secure wordpress, wordpress security
 Requires at least: 3.9
-Requires PHP: 5.3
+Requires PHP: 5.5
 Tested up to: 6.2
-Stable tag: 7.9.1
+Stable tag: 7.9.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,12 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.9.3 - May 31, 2023 =
+* Improvement: Added exception handling to prevent WAF errors from being fatal
+* Fix: Corrected error caused by method call on null in WAF
+* Change: Deprecated support for PHP 5.5 and 5.6, ended support for PHP 5.3 and 5.4
+* Change: Specified WAF version parameter when requesting firewall rules
 
 = 7.9.2 - March 27, 2023 =
 * Improvement: The vulnerability severity score (CVSS) is now shown with any vulnerability findings from the scanner

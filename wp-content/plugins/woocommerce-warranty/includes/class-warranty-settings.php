@@ -788,6 +788,7 @@ class Warranty_Settings {
             $("a.updateinline").click(function(e) {
                 e.preventDefault();
                 var target = "#"+ $(this).data("target");
+				var nonce  = $( "#categories_list" ).data( "nonce" );
                 var fields = $("#categories_list :input").serializeArray();
 
                 $(".categories-warranty-container").block({
@@ -803,12 +804,19 @@ class Warranty_Settings {
                     value: "warranty_update_category_defaults"
                 });
 
+				fields.push({
+					name: "security",
+					value: nonce
+				});
+
                 $.post( ajaxurl, fields, function( resp ) {
-                    if ( resp ) {
-                        for ( id in resp ) {
-                            $("#row_"+ id +" .warranty-string").html( resp[id] );
-                        }
-                    }
+					if ( resp.success === false ) {
+						alert( resp.message );
+					} else if ( resp.success === true && resp.data) {
+						for ( id in resp.data ) {
+							$("#row_"+ id +" .warranty-string").html( resp.data[id] );
+						}
+					}
 
                     $(target).hide();
                     $(".categories-warranty-container").unblock();

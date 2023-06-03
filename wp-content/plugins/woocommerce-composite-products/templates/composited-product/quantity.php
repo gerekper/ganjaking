@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.2.3
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -28,7 +28,9 @@ woocommerce_quantity_input( array(
 $quantity_input = ob_get_clean();
 
 if ( $quantity_max !== '' && $quantity_min == $quantity_max ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo preg_replace( '/(class=\"[^\"]*quantity)([\"\ ])/', '$1 quantity_hidden$2', $quantity_input );
 } else {
- 	echo $quantity_input;
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo $quantity_input;
 }

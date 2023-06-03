@@ -73,6 +73,8 @@ if ( ! class_exists( 'WCAM_Software_Add_On_Translator' ) ) {
 		 */
 		public function translate_request() {
 			if ( isset( $_REQUEST[ 'request' ] ) ) {
+				$this->request = $_REQUEST;
+
 				$this->translate_keys();
 				WC_AM_API_REQUESTS( $this->request );
 			}

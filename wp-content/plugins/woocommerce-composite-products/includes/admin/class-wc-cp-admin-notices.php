@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products admin notices handling.
  *
  * @class    WC_CP_Admin_Notices
- * @version  7.0.3
+ * @version  8.8.1
  */
 class WC_CP_Admin_Notices {
 
@@ -206,16 +206,15 @@ class WC_CP_Admin_Notices {
 			foreach ( $notices as $notice ) {
 
 				$notice_classes = array( 'wc_cp_notice', 'notice', 'notice-' . $notice[ 'type' ] );
-				$dismiss_attr   = $notice[ 'dismiss_class' ] ? 'data-dismiss_class="' . $notice[ 'dismiss_class' ] . '"' : '';
+				$dismiss_attr   = $notice[ 'dismiss_class' ] ? ' data-dismiss_class="' . esc_attr( $notice[ 'dismiss_class' ] ) . '"' : '';
 
 				if ( $notice[ 'dismiss_class' ] ) {
 					$notice_classes[] = $notice[ 'dismiss_class' ];
 					$notice_classes[] = 'is-dismissible';
 				}
 
-				echo '<div class="' . implode( ' ', $notice_classes ) . '"' . $dismiss_attr . '>';
-				echo wpautop( wp_kses_post( $notice[ 'content' ] ) );
-				echo '</div>';
+				$output = '<div class="' . esc_attr( implode( ' ', $notice_classes ) ) . '"' . $dismiss_attr . '>' . wpautop( $notice[ 'content' ] ) . '</div>';
+				echo wp_kses_post( $output );
 			}
 
 			if ( function_exists( 'wc_enqueue_js' ) ) {
@@ -581,19 +580,7 @@ class WC_CP_Admin_Notices {
 	 * @deprecated  3.14.0
 	 */
 	public static function dismiss_notice_handler() {
-		if ( isset( $_GET[ 'dismiss_wc_cp_notice' ] ) && isset( $_GET[ '_wc_cp_admin_nonce' ] ) ) {
-			if ( ! wp_verify_nonce( wc_clean( $_GET[ '_wc_cp_admin_nonce' ] ), 'wc_cp_dismiss_notice_nonce' ) ) {
-				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
-			}
-
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce' ) );
-			}
-
-			$notice = sanitize_text_field( $_GET[ 'dismiss_wc_cp_notice' ] );
-
-			self::dismiss_notice( $notice );
-		}
+		_deprecated_function( __FUNCTION__, '8.8.0', 'WC_CP_Admin_Notices::dismiss_notice' );
 	}
 }
 

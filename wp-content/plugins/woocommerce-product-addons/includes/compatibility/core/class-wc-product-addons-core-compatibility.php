@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions for WC core back-compatibility.
  *
  * @class    WC_PAO_Core_Compatibility
- * @version  6.1.3
+ * @version  6.3.1
  */
 class WC_PAO_Core_Compatibility {
 
@@ -299,6 +299,16 @@ class WC_PAO_Core_Compatibility {
 		return self::$is_hpos_enabled;
 	}
 
+	/**
+	 * Returns true if site is using block theme.
+	 *
+	 * @since  6.3.1
+	 *
+	 * @return boolean
+	 */
+	public static function wc_current_theme_is_fse_theme() {
+		return function_exists( 'wc_current_theme_is_fse_theme' ) ? wc_current_theme_is_fse_theme() : false;
+	}
 }
 
 WC_PAO_Core_Compatibility::init();

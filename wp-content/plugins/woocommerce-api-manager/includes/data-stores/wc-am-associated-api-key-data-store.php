@@ -64,7 +64,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 	/**
 	 * Returns the associated_api_key_id for the Associated API Key.
 	 *
-	 * @since 2.0
+	 * @since 2.5.5
 	 *
 	 * @param string $api_key
 	 *

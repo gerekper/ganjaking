@@ -156,7 +156,7 @@ class Installer {
 			}
 
 			$hide_new_feature_highlight_modal = apply_filters( 'wpmudev_branding_hide_doc_link', false );
-			if ( ! $hide_new_feature_highlight_modal && WP_Smush::is_pro() && version_compare( $version, '3.12.0', '<' ) ) {
+			if ( ! $hide_new_feature_highlight_modal && version_compare( $version, '3.13.0', '<' ) ) {
 				// Add the flag to display the new feature background process modal.
 				add_site_option( 'wp-smush-show_upgrade_modal', true );
 			}

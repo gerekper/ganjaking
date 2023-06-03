@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds hooks for Product Add-Ons Compatibility.
  *
- * @version  8.7.0
+ * @version  8.8.0
  */
 class WC_CP_Addons_Compatibility {
 
@@ -190,8 +190,8 @@ class WC_CP_Addons_Compatibility {
 
 		?>
 		<div class="component_selection_details_option">
-			<input type="checkbox" class="checkbox"<?php echo ( $disable_addons === 'no' ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_addons]" <?php echo ( $disable_addons === 'no' ? 'value="1"' : '' ); ?>/>
-			<span class="labelspan"><?php echo __( 'Product Add-Ons', 'woocommerce-composite-products' ); ?></span>
+			<input type="checkbox" class="checkbox"<?php echo 'no' === $disable_addons ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_addons]" <?php echo 'no' === $disable_addons ? 'value="1"' : ''; ?>/>
+			<span class="labelspan"><?php esc_html_e( 'Product Add-Ons', 'woocommerce-composite-products' ); ?></span>
 			<?php echo wc_help_tip( __( 'Enable/disable Product Add-Ons of the selected option.', 'woocommerce-composite-products' ) ); ?>
 		</div>
 		<?php

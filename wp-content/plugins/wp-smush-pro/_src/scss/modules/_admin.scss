@@ -1089,12 +1089,142 @@
 				top: -1px;
 				margin-left: 5px;
 			}
+			li {
+				border-bottom: none!important;
+				border-top: 1px solid #E6E6E6;
+				&:first-child {
+					border-top: none;
+				}
+				&.sui-hidden {
+					display: none !important
+				}
+			}
 		}
 	}
 
 	.sui-box-footer .sui-icon-loader {
 		line-height: 18px;
 		vertical-align: middle;
+	}
+	
+	.smush-updated-dialog {
+		&.wp-smush-upgrade-modal-dark-background{
+			> .sui-box {
+				background: transparent;
+				.sui-box-header figure {
+					margin-bottom: 0;
+				}
+				.sui-box-body {
+					padding-top:40px;
+					background-color:#fff;
+				}
+			}
+		}
+	}
+	
+
+	.wp-smush-scan-progress-bar-wrapper {
+		--progress-bar-height: 12px;
+		--progress-transition-duration: 1.2s;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #fff;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		color:$text-color;
+		border-radius: $border-radius;
+		overflow: hidden;
+		z-index:10;
+		.wp-smush-scan-progress-bar-inner {
+			display: flex;
+			align-items: center;
+			text-align: left;
+			justify-content: space-between;
+			width: 100%;
+			padding: 5px 30px;
+
+			.sui-button{
+				background-color: transparent;
+				color: $main-color;
+				&:hover,&:focus{
+					background-color: $main-color;
+					color:#fff;
+					box-shadow: none;
+				}
+			}
+		}
+		.wp-smush-progress-status{
+			line-height: 30px;
+			font-weight: 700;
+			// max-height: 100px;
+			.wp-smush-progress-percent {
+				font-size: 28px;
+			}
+			h4 {
+				font-size: 20px;
+				margin: 0 0 15px;
+			}
+			p {
+				font-size: 13px;
+				margin:0 0 6px;
+				&.wp-smush-scan-hold-on-notice {
+					font-size: 14px;
+					margin-bottom:0;
+					opacity:1;
+					animation: fadeIn 3s;
+					&.sui-hidden {
+						animation:none;
+					}
+
+				}
+			}
+			strong {
+				font-weight: 700;
+			}
+		}
+		.sui-progress {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			.sui-progress-bar{
+				height: var( --progress-bar-height );
+			}
+			.wp-smush-progress-inner{
+				transition: width var(--progress-transition-duration) ease-in-out;
+			}
+		}
+	}
+
+	.sui-modal #smush-stop-scanning-dialog {
+		max-width:460px;
+		.sui-box-footer {
+			padding-top: 20px;
+		}
+	}
+
+	.smush-settings-wrapper {
+		.smush-png2jpg-setting-note {
+			p span {
+				display: block;
+				margin-top:20px;
+			}
+		}
+	}
+
+	.wp-smush-recheck-images-notice-box {
+		> .sui-notice {
+			animation: fadeIn 3s;
+			&.sui-hidden {
+				animation: none;
+			}
+		}
 	}
 
 	/**

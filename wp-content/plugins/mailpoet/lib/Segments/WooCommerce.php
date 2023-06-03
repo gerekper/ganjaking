@@ -9,7 +9,7 @@ use MailPoet\Config\Env;
 use MailPoet\Config\SubscriberChangesNotifier;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
-use MailPoet\Models\ModelValidator;
+use MailPoet\Services\Validator;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\Source;
 use MailPoet\Subscribers\SubscriberSaveController;
@@ -61,6 +61,9 @@ class WooCommerce {
   /** @var SubscriberChangesNotifier */
   private $subscriberChangesNotifier;
 
+  /** @var Validator */
+  private $validator;
+
   public function __construct(
     SettingsController $settings,
     WPFunctions $wp,
@@ -72,7 +75,8 @@ class WooCommerce {
     WP $wpSegment,
     EntityManager $entityManager,
     Connection $connection,
-    SubscriberChangesNotifier $subscriberChangesNotifier
+    SubscriberChangesNotifier $subscriberChangesNotifier,
+    Validator $validator
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
@@ -85,6 +89,7 @@ class WooCommerce {
     $this->entityManager = $entityManager;
     $this->connection = $connection;
     $this->subscriberChangesNotifier = $subscriberChangesNotifier;
+    $this->validator = $validator;
   }
 
   public function shouldShowWooCommerceSegment(): bool {
@@ -250,11 +255,9 @@ class WooCommerce {
   }
 
   private function insertSubscriberFromOrder(\WC_Order $wcOrder, string $status): ?string {
-    $validator = new ModelValidator();
-
     $email = $wcOrder->get_billing_email();
 
-    if (!$email || !$validator->validateEmail($email)) {
+    if (!$email || !$this->validator->validateEmail($email)) {
       return null;
     }
 
@@ -267,7 +270,6 @@ class WooCommerce {
    */
   private function insertSubscribersFromOrders(int $lastProcessedOrderId, int $batchSize): array {
     global $wpdb;
-    $validator = new ModelValidator();
 
     $parameters = [
       'lowestOrderId' => $lastProcessedOrderId,
@@ -297,7 +299,7 @@ class WooCommerce {
 
     $processedOrders = [];
     foreach ($result as $item) {
-      if (!$validator->validateEmail($item['email'])) {
+      if (!$this->validator->validateEmail($item['email'])) {
         continue;
       }
       // because data in result are sorted by id, we can replace the previous order id

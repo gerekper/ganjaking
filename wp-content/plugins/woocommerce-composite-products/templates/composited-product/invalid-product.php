@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 6.0.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -25,10 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$html = $link . __( 'The selected item cannot be purchased at the moment.', 'woocommerce-composite-products' );
 	}
 
-	echo $html;
+	echo wp_kses_post( $html );
 
 	if ( ! empty( $note ) ) {
-		echo '<span class="invalid_product_note">' . $note . '</span>';
+		echo '<span class="invalid_product_note">' . wp_kses_post( $note ) . '</span>';
 	}
 
 ?></div>

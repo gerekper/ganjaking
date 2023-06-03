@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Hooks for One Page Checkout compatibility.
  *
- * @version  3.11.3
+ * @version  8.8.0
  */
 class WC_CP_OPC_Compatibility {
 
@@ -66,6 +66,7 @@ class WC_CP_OPC_Compatibility {
 			), '', WC_CP()->plugin_path() . '/templates/' );
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo str_replace( array( '<form method="post" enctype="multipart/form-data"', '</form>' ), array( '<div', '</div>' ), ob_get_clean() );
 	}
 

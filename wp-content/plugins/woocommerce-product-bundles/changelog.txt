@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2023.05.29 - version 6.19.0
+* New - Introduced block theme support on existing frontend templates.
+* New - Added support for blocks-based notices styling.
+* Fix - Improvements in global styles compatibility.
+
 2023.05.17 - version 6.18.6
  * Tweak - Introduced basic event tracking support via Tracks.
 

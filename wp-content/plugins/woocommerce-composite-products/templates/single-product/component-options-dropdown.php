@@ -18,5 +18,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?><div class="component_options_select_wrapper" <?php echo $hide_dropdown ? 'style="display:none;"' : ''; ?>>
-	<select id="component_options_<?php echo $component_id; ?>" class="component_options_select" name="wccp_component_selection[<?php echo $component_id; ?>]"></select>
+	<select id="component_options_<?php echo esc_attr( $component_id ); ?>" class="component_options_select" name="wccp_component_selection[<?php echo esc_attr( $component_id ); ?>]"></select>
 </div>

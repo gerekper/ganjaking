@@ -10,6 +10,7 @@ namespace Smush\Core\Modules;
 
 use Smush\Core\Core;
 use Smush\Core\Helper;
+use Smush\Core\Stats\Global_Stats;
 use WP_Error;
 use WP_Smush;
 
@@ -54,7 +55,7 @@ class WebP extends Abstract_Module {
 		// Only apply filters for PRO + activated Webp.
 		if ( $this->is_active() ) {
 			// Add a filter to check if the image should resmush.
-			add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 10, 2 );
+			//add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 10, 2 );
 		}
 	}
 
@@ -719,7 +720,9 @@ class WebP extends Abstract_Module {
 		}
 
 		// Show only when there are images in the library, except on mu, where the count is always 0.
-		if ( ! is_multisite() && 0 === WP_Smush::get_instance()->core()->total_count ) {
+		$core         = WP_Smush::get_instance()->core();
+		$global_stats = $core->get_global_stats();
+		if ( ! is_multisite() && empty( $global_stats['count_total'] ) ) {
 			return;
 		}
 

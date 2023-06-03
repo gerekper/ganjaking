@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.12.6
+ * Version:           3.13.0
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -48,7 +48,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.12.6' );
+	define( 'WP_SMUSH_VERSION', '3.13.0' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -70,10 +70,10 @@ if ( ! defined( 'WP_SMUSH_URL' ) ) {
 	define( 'WP_SMUSH_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'WP_SMUSH_MAX_BYTES' ) ) {
-	define( 'WP_SMUSH_MAX_BYTES', 5000000 );
+	define( 'WP_SMUSH_MAX_BYTES', 5242880 );
 }
 if ( ! defined( 'WP_SMUSH_PREMIUM_MAX_BYTES' ) ) {
-	define( 'WP_SMUSH_PREMIUM_MAX_BYTES', 32000000 );
+	define( 'WP_SMUSH_PREMIUM_MAX_BYTES', 33554432 );
 }
 if ( ! defined( 'WP_SMUSH_TIMEOUT' ) ) {
 	define( 'WP_SMUSH_TIMEOUT', 150 );
@@ -141,6 +141,10 @@ if ( WP_SMUSH_BASENAME !== plugin_basename( __FILE__ ) ) {
 require_once WP_SMUSH_DIR . 'core/class-installer.php';
 register_activation_hook( __FILE__, array( 'Smush\\Core\\Installer', 'smush_activated' ) );
 register_deactivation_hook( __FILE__, array( 'Smush\\Core\\Installer', 'smush_deactivated' ) );
+
+register_activation_hook( __FILE__, function () {
+	set_transient( 'wp-smush-plugin-activated', true, 30 );
+} );
 
 // Init the plugin and load the plugin instance for the first time.
 add_action( 'plugins_loaded', array( 'WP_Smush', 'get_instance' ) );
@@ -229,7 +233,20 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			// The dash-notification actions are hooked into "init" with a priority of 10.
 			add_action( 'init', array( $this, 'register_pro_modules' ), 5 );
 
+			add_action( 'init', array( $this, 'do_plugin_activated_action' ) );
+
 			$this->init();
+		}
+
+		public function do_plugin_activated_action() {
+			$transient_key = 'wp-smush-plugin-activated';
+
+			( new \Smush\Core\Modules\Background\Mutex( $transient_key ) )->execute( function () use ( $transient_key ) {
+				if ( get_transient( $transient_key ) ) {
+					do_action( 'wp_smush_plugin_activated' );
+					delete_transient( $transient_key );
+				}
+			} );
 		}
 
 		/**

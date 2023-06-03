@@ -196,6 +196,7 @@ class wfConfig {
 			'keyType' => array('value' => wfLicense::KEY_TYPE_PAID_CURRENT, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'isPaid' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'keyExpDays' => array('value' => 365, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
+
 			'hasKeyConflict' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'timeoffset_wf_updated' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'cacheType' => array('value' => 'disabled', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
@@ -971,8 +972,12 @@ class wfConfig {
 		self::remove($name . '.lock');
 	}
 	public static function autoUpdate(){
-		// Prevent auto-update for PHP 5.2. Consider tying this into `wfVersionCheckController::PHP_DEPRECATING`.
-		if (version_compare(PHP_VERSION, '5.3', '<')) {
+		require(dirname(__FILE__) . '/wfVersionSupport.php');
+		/**
+		 * @var string $wfPHPDeprecatingVersion
+		 * @var string $wfPHPMinimumVersion
+		 */
+		if (version_compare(PHP_VERSION, $wfPHPMinimumVersion, '<')) {
 			return;
 		}
 

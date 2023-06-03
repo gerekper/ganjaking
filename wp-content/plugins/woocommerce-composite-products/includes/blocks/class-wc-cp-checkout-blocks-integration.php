@@ -11,7 +11,7 @@ use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
 /**
  * Class for integrating with WooCommerce Blocks scripts.
  *
- * @version 8.5.0
+ * @version 8.8.0
  */
 class WC_CP_Checkout_Blocks_Integration implements IntegrationInterface {
 
@@ -46,14 +46,14 @@ class WC_CP_Checkout_Blocks_Integration implements IntegrationInterface {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '8.4.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '8.4.0' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '8.4.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '8.4.0' );
 	}
 
 	/**

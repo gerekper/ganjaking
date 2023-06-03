@@ -4091,7 +4091,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$insite_merchant_lastnme         = get_transient( $ordermi . '_insite_merchant_lastnme' );
 		$insite_redsys_adr               = get_transient( $ordermi . '_insite_redsys_adr' );
 		$insite_secretsha256             = get_transient( $ordermi . '_insite_secretsha256' );
-		$insite_save                     = get_transient( $ordermi . '_insite_save' );
+		$insite_save                     = WCRed()->get_order_meta( $order_id, '_redsys_save_token', true );
 		$insite_protocolversion          = get_transient( $ordermi . '_insite_protocolversion' );
 		$insite_three_ds_server_trans_id = get_transient( $ordermi . '_insite_threeDSServerTransID' );
 		$insite_three_ds_info            = get_transient( $ordermi . '_insite_threeDSInfo' );
@@ -4336,12 +4336,12 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$ds_merchant_group = '';
 				}
 
-				if ( $insite_ds_merchant_cof_ini ) {
+				if ( $insite_ds_merchant_cof_ini && 'yes' === $insite_save ) {
 					$ini = '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER><DS_MERCHANT_COF_INI>' . $insite_ds_merchant_cof_ini . '</DS_MERCHANT_COF_INI>';
 				} else {
 					$ini = '';
 				}
-				if ( $insite_ds_merchant_cof_type ) {
+				if ( $insite_ds_merchant_cof_type && 'yes' === $save ) {
 					$cof = '<DS_MERCHANT_COF_TYPE>' . $insite_ds_merchant_cof_type . '</DS_MERCHANT_COF_TYPE>';
 				} else {
 					$cof = '';
@@ -4987,7 +4987,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$redsys_insite->log->add( 'insite', '$currency: ' . $currency );
 		}
 
-		if ( ( 'yes' === $redsys_insite->pay1clic || 'yes' === $save ) || 'yes' === $need_token ) {
+		if ( ( 'yes' === $redsys_insite->pay1clic && ( 'yes' === $save ) || 'yes' === $need_token ) ) {
 			if ( 'R' === $token_type_needed ) {
 				$merchant_data = '<DS_MERCHANT_MERCHANTDATA>0</DS_MERCHANT_MERCHANTDATA>';
 				$identifier    = '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER>';
@@ -5289,7 +5289,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			}
 
 			$user_id                 = get_current_user_id();
+			$ordermum                = $ordermum;
 			$browser_accept_header   = WCRed()->get_order_meta( $ordermum, '_accept_haders', true );
+			$insite_save             = WCRed()->get_order_meta( $ordermum, '_redsys_save_token', true );
 			$browser_color_depth     = WCPSD2()->get_profundidad_color( $ordermum );
 			$browser_language        = WCRed()->get_order_meta( $ordermum, '_billing_idioma_navegador_field', true );
 			$browser_screen_height   = WCRed()->get_order_meta( $ordermum, '_billing_altura_pantalla_field', true );
@@ -5325,6 +5327,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '$browser_tz: ' . $browser_tz );
 				$this->log->add( 'insite', '$java_enabled: ' . WCRed()->clean_data( $java_enabled ) );
 				$this->log->add( 'insite', '$protocol_version: ' . $protocol_version );
+				$this->log->add( 'insite', '$insite_save: ' . $insite_save );
 				$this->log->add( 'insite', '$merchant_cof: ' . $merchant_cof );
 				$this->log->add( 'insite', '$merchant_type: ' . $merchant_type );
 				$this->log->add( 'insite', '$excep_sca: ' . $excep_sca );
@@ -5355,6 +5358,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$order_total_sign            = get_transient( $orderid2 . '_insite_redsys_amount' );
 
 			}
+			if ( 'yes' !== $insite_save && ( 'no' === $merchant_identifier || empty( $merchant_identifier ) ) ) {
+				$merchant_cof   = false;
+				$merchant_type  = false;
+				$merchant_txnid = false;
+			}
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', '$orderid2: ' . $orderid2 );
 				$this->log->add( 'insite', '$customer: ' . $customer );
@@ -5369,7 +5377,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '$merchant_type: ' . $merchant_type );
 			}
 
-			if ( ( 'no' === $merchant_identifier || empty( $merchant_identifier ) ) && ! empty( $merchant_cof ) ) {
+			if ( ( 'yes' === $insite_save && 'no' === $merchant_identifier || empty( $merchant_identifier ) ) && ! empty( $merchant_cof ) ) {
 				$merchant_identifier = 'REQUIRED';
 			}
 

@@ -216,17 +216,15 @@ import MixPanel from "../mixpanel";
 
 					if (200 === xhr.status) {
 						const res = JSON.parse(xhr.response);
-						if (
-							'undefined' !== typeof res.data.success &&
-							res.data.success
-						) {
+						const data = ((res || {}).data || {});
+						if (data.success) {
 							self.success.push(item);
 						} else {
 							self.errors.push({
 								id: item,
-								src: res.data.src,
-								thumb: res.data.thumb,
-								link: res.data.link,
+								src: data.src || "Error",
+								thumb: data.thumb,
+								link: data.link,
 							});
 						}
 					}

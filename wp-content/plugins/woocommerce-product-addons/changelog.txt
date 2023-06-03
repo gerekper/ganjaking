@@ -1,5 +1,9 @@
 *** Product Addons Changelog ***
 
+2023-05-29 - version 6.3.1
+* New - Introduced block theme support on existing frontend templates.
+* Fix - Improvements in global styles compatibility.
+
 2023-05-23 - version 6.3.0
 * Fix - Important: Security improvements.
 * New - Added admin notice to stores that use a PHP version earlier than 7.0.

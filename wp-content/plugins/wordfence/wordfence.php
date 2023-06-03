@@ -2,16 +2,16 @@
 /*
 Plugin Name: Wordfence Security
 Plugin URI: http://www.wordfence.com/
-Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Wordfence Security - Anti-virus, Firewall and Malware Scan
 Author: Wordfence
-Version: 7.9.2
+Version: 7.9.3
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Author URI: http://www.wordfence.com/
 Text Domain: wordfence
 Domain Path: /languages
 Network: true
 Requires at least: 3.9
-Requires PHP: 5.3
+Requires PHP: 5.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,8 +39,8 @@ if(defined('WP_INSTALLING') && WP_INSTALLING){
 if (!defined('ABSPATH')) {
 	exit;
 }
-define('WORDFENCE_VERSION', '7.9.2');
-define('WORDFENCE_BUILD_NUMBER', '1679934025');
+define('WORDFENCE_VERSION', '7.9.3');
+define('WORDFENCE_BUILD_NUMBER', '1685552791');
 define('WORDFENCE_BASENAME', function_exists('plugin_basename') ? plugin_basename(__FILE__) :
 	basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 
@@ -67,8 +67,15 @@ if (!defined('WF_IS_FLYWHEEL')) {
 if (!defined('WF_IS_PRESSABLE')) {
 	define('WF_IS_PRESSABLE', (defined('IS_ATOMIC') && IS_ATOMIC) || (defined('IS_PRESSABLE') && IS_PRESSABLE));
 }
+
+require(dirname(__FILE__) . '/lib/wfVersionSupport.php');
+/**
+ * @var string $wfPHPDeprecatingVersion
+ * @var string $wfPHPMinimumVersion
+ */
+
 if (!defined('WF_PHP_UNSUPPORTED')) {
-	define('WF_PHP_UNSUPPORTED', version_compare(PHP_VERSION, '5.3', '<'));
+	define('WF_PHP_UNSUPPORTED', version_compare(PHP_VERSION, $wfPHPMinimumVersion, '<'));
 }
 
 if (WF_PHP_UNSUPPORTED) {
@@ -125,11 +132,14 @@ add_action(
 	function() {
 		wfConfig::set( 'onboardingAttempt1', 'skipped' );
 		wfConfig::set( 'onboardingAttempt3', 'license' );
-
 		if ( '' === wfConfig::get( 'apiKey' ) ) {
 			wordfence::ajax_downgradeLicense_callback();
 		}
 	}
 );
-/* Anti-Leecher Indentifier */
-/* Credited By BABIATO-FORUM */
+
+/* Disable updates notification */
+add_filter( 'site_transient_update_plugins', function( $value ) {
+	unset( $value->response['wordfence/wordfence.php'] );
+	return $value;
+} );

@@ -6,6 +6,7 @@ class Background_Process_Status {
 	const PROCESSING = 'in_processing';
 	const CANCELLED = 'is_cancelled';
 	const COMPLETED = 'is_completed';
+	const DEAD = 'is_dead';
 	const TOTAL_ITEMS = 'total_items';
 	const PROCESSED_ITEMS = 'processed_items';
 	const FAILED_ITEMS = 'failed_items';
@@ -112,6 +113,10 @@ class Background_Process_Status {
 		$this->set_value( self::CANCELLED, $is_cancelled );
 	}
 
+	public function is_dead() {
+		return $this->get_value( self::DEAD );
+	}
+
 	public function is_completed() {
 		return $this->get_value( self::COMPLETED );
 	}
@@ -130,6 +135,7 @@ class Background_Process_Status {
 			$this->set_data( array(
 				self::PROCESSING      => true,
 				self::CANCELLED       => false,
+				self::DEAD            => false,
 				self::COMPLETED       => false,
 				self::TOTAL_ITEMS     => $total_items,
 				self::PROCESSED_ITEMS => 0,
@@ -143,6 +149,7 @@ class Background_Process_Status {
 			$this->set_data( array(
 				self::PROCESSING => false,
 				self::CANCELLED  => false,
+				self::DEAD       => false,
 				self::COMPLETED  => true,
 			) );
 		} );
@@ -153,6 +160,18 @@ class Background_Process_Status {
 			$this->set_data( array(
 				self::PROCESSING => false,
 				self::CANCELLED  => true,
+				self::DEAD       => false,
+				self::COMPLETED  => false,
+			) );
+		} );
+	}
+
+	public function mark_as_dead() {
+		$this->mutex( function () {
+			$this->set_data( array(
+				self::PROCESSING => false,
+				self::CANCELLED  => false,
+				self::DEAD       => true,
 				self::COMPLETED  => false,
 			) );
 		} );

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditional Shipping and Payments admin notices handling.
  *
  * @class    WC_CSP_Admin_Notices
- * @version  1.15.0
+ * @version  1.15.1
  */
 class WC_CSP_Admin_Notices {
 
@@ -149,7 +149,7 @@ class WC_CSP_Admin_Notices {
 			foreach ( $notices as $notice ) {
 
 				$notice_classes = array( 'wc_csp_notice', 'notice', 'notice-' . $notice[ 'type' ] );
-				$dismiss_attr   = $notice[ 'dismiss_class' ] ? 'data-dismiss_class="' . $notice[ 'dismiss_class' ] . '"' : '';
+				$dismiss_attr   = $notice[ 'dismiss_class' ] ? ' data-dismiss_class="' . $notice[ 'dismiss_class' ] . '"' : '';
 
 				if ( $notice[ 'dismiss_class' ] ) {
 					$notice_classes[] = $notice[ 'dismiss_class' ];

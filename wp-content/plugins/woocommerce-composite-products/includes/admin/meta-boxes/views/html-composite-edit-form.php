@@ -2,7 +2,7 @@
 /**
  * Admin edit-Component meta box html
  *
- * @version 5.1.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		);
 
 		?>
-		<div class="composite_component" data-component_data="<?php echo esc_attr( json_encode( $component_data ) ); ?>">
+		<div class="composite_component" data-component_data="<?php echo wc_esc_json( json_encode( $component_data ) ); ?>">
 		<?php
 
 			/*
@@ -45,10 +45,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			?>
 			<div class="component_option_select_wrapper">
-				<select id="component_option_select_<?php echo $component->get_id(); ?>" class="component_option_select sw-select2-search--products" style="width: 75%;" name="wccp_component_selection[<?php echo $component->get_id(); ?>]" data-allow_clear="true" data-action="woocommerce_json_search_products_in_component" data-include="<?php echo esc_attr( json_encode( $component_data ) ); ?>" data-limit="100" data-placeholder="<?php echo __( 'Search for a product&hellip;', 'woocommerce-composite-products' ); ?>">
+				<select id="component_option_select_<?php echo esc_attr( $component->get_id() ); ?>" class="component_option_select sw-select2-search--products" style="width: 75%;" name="wccp_component_selection[<?php echo esc_attr( $component->get_id() ); ?>]" data-allow_clear="true" data-action="woocommerce_json_search_products_in_component" data-include="<?php echo wc_esc_json( json_encode( $component_data ) ); ?>" data-limit="100" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-composite-products' ); ?>">
 					<?php
 						if ( $chosen_option ) {
-							echo '<option value="' . $chosen_option_id . '" selected="selected">' . WC_CP_Helpers::get_product_title( $chosen_option->get_product() ) . '</option>';
+							echo '<option value="' . esc_attr( $chosen_option_id ) . '" selected="selected">' . esc_html( WC_CP_Helpers::get_product_title( $chosen_option->get_product() ) ) . '</option>';
 						}
 					?>
 				</select>
@@ -60,13 +60,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 */
 
 			?>
-			<div class="component_option_selection_details_wrapper <?php echo $chosen_option ? 'component_option_selection_type_' . $chosen_option->get_product()->get_type() : ''; ?>">
+			<div class="component_option_selection_details_wrapper <?php echo $chosen_option ? esc_attr( 'component_option_selection_type_' . $chosen_option->get_product()->get_type() ) : ''; ?>">
 				<?php
 					if ( $chosen_option ) {
 
 						$chosen_option_data = $chosen_option->get_product_data();
 
 						if ( ! empty( $chosen_option_data ) ) {
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							echo $chosen_option_data[ 'product_html' ];
 						}
 					}

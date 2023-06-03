@@ -56,7 +56,7 @@ class Menu {
 
   const LANDINGPAGE_PAGE_SLUG = 'mailpoet-landingpage';
 
-  const ICON_BASE64_SVG = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNTIuMDIgMTU2LjQiPjx0aXRsZT5NYWlsUG9ldCBpY29uPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTM3LjcxLDg5LjFjMy41LDAsNS45LS44LDcuMi0yLjNhOCw4LDAsMCwwLDItNS40VjM1LjdsMTcsNDUuMWExMi42OCwxMi42OCwwLDAsMCwzLjcsNS40YzEuNiwxLjMsNCwyLDcuMiwyYTEyLjU0LDEyLjU0LDAsMCwwLDUuOS0xLjQsOC40MSw4LjQxLDAsMCwwLDMuOS01bDE4LjEtNTBWODFhOC41Myw4LjUzLDAsMCwwLDIuMSw2LjFjMS40LDEuNCwzLjcsMi4yLDYuOSwyLjIsMy41LDAsNS45LS44LDcuMi0yLjNhOCw4LDAsMCwwLDItNS40VjguN2E3LjQ4LDcuNDgsMCwwLDAtMy4zLTYuNmMtMi4xLTEuNC01LTIuMS04LjYtMi4xYTE5LjMsMTkuMywwLDAsMC05LjQsMiwxMS42MywxMS42MywwLDAsMC01LjEsNi44TDc0LjkxLDY3LjEsNTQuNDEsOC40YTEyLjQsMTIuNCwwLDAsMC00LjUtNi4yYy0yLjEtMS41LTUtMi4yLTguOC0yLjJhMTYuNTEsMTYuNTEsMCwwLDAtOC45LDIuMWMtMi4zLDEuNS0zLjUsMy45LTMuNSw3LjJWODAuOGMwLDIuOC43LDQuOCwyLDYuMkMzMi4yMSw4OC40LDM0LjQxLDg5LjEsMzcuNzEsODkuMVoiLz48cGF0aCBmaWxsPSJjdXJyZW50Q29sb3IiIGQ9Ik0xNDksMTE2LjZsLTIuNC0xLjlhNy40LDcuNCwwLDAsMC05LjQuMywxOS42NSwxOS42NSwwLDAsMS0xMi41LDQuNmgtMjEuNEEzNy4wOCwzNy4wOCwwLDAsMCw3NywxMzAuNWwtMS4xLDEuMi0xLjEtMS4xYTM3LjI1LDM3LjI1LDAsMCwwLTI2LjMtMTAuOUgyN2ExOS41OSwxOS41OSwwLDAsMS0xMi40LTQuNiw3LjI4LDcuMjgsMCwwLDAtOS40LS4zbC0yLjQsMS45QTcuNDMsNy40MywwLDAsMCwwLDEyMi4yYTcuMTQsNy4xNCwwLDAsMCwyLjQsNS43QTM3LjI4LDM3LjI4LDAsMCwwLDI3LDEzNy40aDIxLjZhMTkuNTksMTkuNTksMCwwLDEsMTguOSwxNC40di4yYy4xLjcsMS4yLDQuNCw4LjUsNC40czguNC0zLjcsOC41LTQuNHYtLjJhMTkuNTksMTkuNTksMCwwLDEsMTguOS0xNC40SDEyNWEzNy4yOCwzNy4yOCwwLDAsMCwyNC42LTkuNSw3LjQyLDcuNDIsMCwwLDAsMi40LTUuN0E3Ljg2LDcuODYsMCwwLDAsMTQ5LDExNi42WiIvPjwvZz48L2c+PC9zdmc+';
+  const ICON_BASE64_SVG = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNTIuMDIgMTU2LjQiPjxwYXRoIGZpbGw9IiNhN2FhYWQiIGQ9Ik0zNy43MSw4OS4xYzMuNSwwLDUuOS0uOCw3LjItMi4zYTgsOCwwLDAsMCwyLTUuNFYzNS43bDE3LDQ1LjFhMTIuNjgsMTIuNjgsMCwwLDAsMy43LDUuNGMxLjYsMS4zLDQsMiw3LjIsMmExMi41NCwxMi41NCwwLDAsMCw1LjktMS40LDguNDEsOC40MSwwLDAsMCwzLjktNWwxOC4xLTUwVjgxYTguNTMsOC41MywwLDAsMCwyLjEsNi4xYzEuNCwxLjQsMy43LDIuMiw2LjksMi4yLDMuNSwwLDUuOS0uOCw3LjItMi4zYTgsOCwwLDAsMCwyLTUuNFY4LjdhNy40OCw3LjQ4LDAsMCwwLTMuMy02LjZjLTIuMS0xLjQtNS0yLjEtOC42LTIuMWExOS4zLDE5LjMsMCwwLDAtOS40LDIsMTEuNjMsMTEuNjMsMCwwLDAtNS4xLDYuOEw3NC45MSw2Ny4xLDU0LjQxLDguNGExMi40LDEyLjQsMCwwLDAtNC41LTYuMmMtMi4xLTEuNS01LTIuMi04LjgtMi4yYTE2LjUxLDE2LjUxLDAsMCwwLTguOSwyLjFjLTIuMywxLjUtMy41LDMuOS0zLjUsNy4yVjgwLjhjMCwyLjguNyw0LjgsMiw2LjJDMzIuMjEsODguNCwzNC40MSw4OS4xLDM3LjcxLDg5LjFaIi8+PHBhdGggZmlsbD0iI2E3YWFhZCIgZD0iTTE0OSwxMTYuNmwtMi40LTEuOWE3LjQsNy40LDAsMCwwLTkuNC4zLDE5LjY1LDE5LjY1LDAsMCwxLTEyLjUsNC42aC0yMS40QTM3LjA4LDM3LjA4LDAsMCwwLDc3LDEzMC41bC0xLjEsMS4yLTEuMS0xLjFhMzcuMjUsMzcuMjUsMCwwLDAtMjYuMy0xMC45SDI3YTE5LjU5LDE5LjU5LDAsMCwxLTEyLjQtNC42LDcuMjgsNy4yOCwwLDAsMC05LjQtLjNsLTIuNCwxLjlBNy40Myw3LjQzLDAsMCwwLDAsMTIyLjJhNy4xNCw3LjE0LDAsMCwwLDIuNCw1LjdBMzcuMjgsMzcuMjgsMCwwLDAsMjcsMTM3LjRoMjEuNmExOS41OSwxOS41OSwwLDAsMSwxOC45LDE0LjR2LjJjLjEuNywxLjIsNC40LDguNSw0LjRzOC40LTMuNyw4LjUtNC40di0uMmExOS41OSwxOS41OSwwLDAsMSwxOC45LTE0LjRIMTI1YTM3LjI4LDM3LjI4LDAsMCwwLDI0LjYtOS41LDcuNDIsNy40MiwwLDAsMCwyLjQtNS43QTcuODYsNy44NiwwLDAsMCwxNDksMTE2LjZaIi8+PC9zdmc+';
 
   public $mpApiKeyValid;
   public $premiumKeyValid;
@@ -79,17 +79,13 @@ class Menu {
   /** @var CustomFonts  */
   private $customFonts;
 
-  /** @var Changelog */
-  private $changelog;
-
   public function __construct(
     AccessControl $accessControl,
     WPFunctions $wp,
     ServicesChecker $servicesChecker,
     ContainerWrapper $container,
     Router $router,
-    CustomFonts $customFonts,
-    Changelog $changelog
+    CustomFonts $customFonts
   ) {
     $this->accessControl = $accessControl;
     $this->wp = $wp;
@@ -97,7 +93,6 @@ class Menu {
     $this->container = $container;
     $this->router = $router;
     $this->customFonts = $customFonts;
-    $this->changelog = $changelog;
   }
 
   public function init() {
@@ -110,6 +105,8 @@ class Menu {
         'setup',
       ]
     );
+
+    $this->wp->addFilter('parent_file', [$this, 'highlightNestedMailPoetSubmenus']);
   }
 
   public function setup() {
@@ -187,7 +184,7 @@ class Menu {
 
     // Welcome wizard page
     $this->wp->addSubmenuPage(
-      true,
+      null,
       $this->setPageTitle(__('Welcome Wizard', 'mailpoet')),
       esc_html__('Welcome Wizard', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -200,7 +197,7 @@ class Menu {
 
     // Landingpage
     $this->wp->addSubmenuPage(
-      true,
+      null,
       $this->setPageTitle(__('MailPoet', 'mailpoet')),
       esc_html__('MailPoet', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -211,13 +208,13 @@ class Menu {
       ]
     );
 
-    $this->registerMailPoetSubMenuEntries(!$this->changelog->shouldShowWelcomeWizard());
+    $this->registerMailPoetSubMenuEntries();
   }
 
-  private function registerMailPoetSubMenuEntries(bool $showEntries) {
+  private function registerMailPoetSubMenuEntries() {
     // Homepage
     $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Home', 'mailpoet')),
       esc_html__('Home', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -230,7 +227,7 @@ class Menu {
 
     // Emails page
     $newslettersPage = $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Emails', 'mailpoet')),
       esc_html__('Emails', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_EMAILS,
@@ -255,7 +252,7 @@ class Menu {
 
     // newsletter editor
     $this->wp->addSubmenuPage(
-      true,
+      self::EMAILS_PAGE_SLUG,
       $this->setPageTitle(__('Newsletter', 'mailpoet')),
       esc_html__('Newsletter Editor', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_EMAILS,
@@ -266,11 +263,11 @@ class Menu {
       ]
     );
 
-    $this->registerAutomationMenu($showEntries);
+    $this->registerAutomationMenu();
 
     // Forms page
     $formsPage = $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Forms', 'mailpoet')),
       esc_html__('Forms', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_FORMS,
@@ -295,7 +292,7 @@ class Menu {
 
     // form editor
     $formEditorPage = $this->wp->addSubmenuPage(
-      true,
+      self::FORMS_PAGE_SLUG,
       $this->setPageTitle(__('Form Editor', 'mailpoet')),
       esc_html__('Form Editor', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_FORMS,
@@ -315,7 +312,7 @@ class Menu {
 
     // form editor templates
     $formTemplateSelectionEditorPage = $this->wp->addSubmenuPage(
-      true,
+      self::FORMS_PAGE_SLUG,
       $this->setPageTitle(__('Select Form Template', 'mailpoet')),
       esc_html__('Select Form Template', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_FORMS,
@@ -336,7 +333,7 @@ class Menu {
 
     // Subscribers page
     $subscribersPage = $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Subscribers', 'mailpoet')),
       esc_html__('Subscribers', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_SUBSCRIBERS,
@@ -387,7 +384,7 @@ class Menu {
 
     // Segments page
     $segmentsPage = $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Lists', 'mailpoet')),
       esc_html__('Lists', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_SEGMENTS,
@@ -412,7 +409,7 @@ class Menu {
 
     // Settings page
     $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Settings', 'mailpoet')),
       esc_html__('Settings', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_SETTINGS,
@@ -425,7 +422,7 @@ class Menu {
 
     // Help page
     $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      self::MAIN_PAGE_SLUG,
       $this->setPageTitle(__('Help', 'mailpoet')),
       esc_html__('Help', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -438,21 +435,23 @@ class Menu {
 
     // Upgrade page
     // Only show this page in menu if the Premium plugin is not activated
-    $this->wp->addSubmenuPage(
-      License::getLicense() || !$showEntries ? true : self::MAIN_PAGE_SLUG,
-      $this->setPageTitle(__('Upgrade', 'mailpoet')),
-      esc_html__('Upgrade', 'mailpoet'),
-      AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
-      self::UPGRADE_PAGE_SLUG,
-      [
-        $this,
-        'upgrade',
-      ]
-    );
+    if (!License::getLicense()) {
+      $this->wp->addSubmenuPage(
+        self::MAIN_PAGE_SLUG,
+        $this->setPageTitle(__('Upgrade', 'mailpoet')),
+        esc_html__('Upgrade', 'mailpoet'),
+        AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
+        self::UPGRADE_PAGE_SLUG,
+        [
+          $this,
+          'upgrade',
+        ]
+      );
+    }
 
     // WooCommerce Setup
     $this->wp->addSubmenuPage(
-      true,
+      null,
       $this->setPageTitle(__('WooCommerce Setup', 'mailpoet')),
       esc_html__('WooCommerce Setup', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -465,7 +464,7 @@ class Menu {
 
     // Experimental page
     $this->wp->addSubmenuPage(
-      true,
+      self::SETTINGS_PAGE_SLUG,
       $this->setPageTitle(__('Experimental Features', 'mailpoet')),
       '',
       AccessControl::PERMISSION_MANAGE_FEATURES,
@@ -475,7 +474,7 @@ class Menu {
 
     // display logs page
     $this->wp->addSubmenuPage(
-      true,
+      self::SETTINGS_PAGE_SLUG,
       $this->setPageTitle(__('Logs', 'mailpoet')),
       '',
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -484,9 +483,15 @@ class Menu {
     );
   }
 
-  private function registerAutomationMenu(bool $showEntries) {
+  private function registerAutomationMenu() {
+    $parentSlug = self::MAIN_PAGE_SLUG;
+    // Automations menu is hidden when the subscription is part of a bundle and AutomateWoo is active but pages can be accessed directly
+    if ($this->wp->isPluginActive('automatewoo/automatewoo.php') && $this->servicesChecker->isBundledSubscription()) {
+      $parentSlug = null;
+    }
+
     $automationPage = $this->wp->addSubmenuPage(
-      $showEntries ? self::MAIN_PAGE_SLUG : true,
+      $parentSlug,
       $this->setPageTitle(__('Automations', 'mailpoet')),
       // @ToDo Remove Beta once Automation is no longer beta.
       '<span>' . esc_html__('Automations', 'mailpoet') . '</span><span class="mailpoet-beta-badge">Beta</span>',
@@ -497,7 +502,7 @@ class Menu {
 
     // Automation editor
     $automationEditorPage = $this->wp->addSubmenuPage(
-      true,
+      self::AUTOMATIONS_PAGE_SLUG,
       $this->setPageTitle(__('Automation Editor', 'mailpoet')),
       esc_html__('Automation Editor', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_AUTOMATIONS,
@@ -506,8 +511,9 @@ class Menu {
     );
 
     // Automation templates
+
     $this->wp->addSubmenuPage(
-      true,
+      self::AUTOMATIONS_PAGE_SLUG,
       $this->setPageTitle(__('Automation Templates', 'mailpoet')),
       esc_html__('Automation Templates', 'mailpoet'),
       AccessControl::PERMISSION_MANAGE_AUTOMATIONS,
@@ -625,6 +631,41 @@ class Menu {
     );
   }
 
+  public function highlightNestedMailPoetSubmenus($parentFile) {
+    global $plugin_page, $submenu;
+
+    $page = $this->getPageFromContext();
+    if ($page) {
+      $plugin_page = $page;
+      return $parentFile;
+    }
+
+    if ($parentFile === self::MAIN_PAGE_SLUG || !self::isOnMailPoetAdminPage()) {
+      return $parentFile;
+    }
+
+    // find slug of the current submenu item
+    $parentSlug = null;
+    foreach ($submenu as $groupSlug => $group) {
+      foreach ($group as $item) {
+        if (($item[2] ?? null) === $plugin_page) {
+          $parentSlug = $groupSlug;
+          break 2;
+        }
+      }
+    }
+
+    if ($parentSlug) {
+      // highlight parent submenu item
+      $plugin_page = $parentSlug;
+    } else {
+      // no parent, hide MailPoet submenu for setup, wizards, error pages, etc.
+      unset($submenu[self::MAIN_PAGE_SLUG]);
+      $plugin_page = self::MAIN_PAGE_SLUG;
+    }
+    return $parentFile;
+  }
+
   public static function isOnMailPoetAutomationPage(): bool {
     $screenId = isset($_REQUEST['page']) ? sanitize_text_field(wp_unslash($_REQUEST['page'])) : '';
     $automationPages = [
@@ -674,7 +715,7 @@ class Menu {
       return false;
     }
     WPFunctions::get()->addSubmenuPage(
-      true,
+      null,
       'MailPoet',
       'MailPoet',
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -695,5 +736,13 @@ class Menu {
       && stripos(sanitize_text_field(wp_unslash($_SERVER['SCRIPT_NAME'])), 'plugins.php') !== false;
     $checker = $checker ?: $this->servicesChecker;
     $this->premiumKeyValid = $checker->isPremiumKeyValid($showNotices);
+  }
+
+  public function getPageFromContext(): ?string {
+    $context = isset($_GET['context']) ? sanitize_text_field(wp_unslash($_GET['context'])) : null;
+    if ($context === 'automation') {
+      return self::AUTOMATIONS_PAGE_SLUG;
+    }
+    return null;
   }
 }

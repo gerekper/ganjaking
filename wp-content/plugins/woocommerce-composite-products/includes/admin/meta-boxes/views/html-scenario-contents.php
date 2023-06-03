@@ -2,7 +2,7 @@
 /**
  * Scenario metabox contents
  *
- * @version 4.0.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="options_group">
-	<input type="hidden" name="bto_scenario_data[<?php echo $id; ?>][dirty]" value="1"/><?php
+	<input type="hidden" name="bto_scenario_data[<?php echo esc_attr( $id ); ?>][dirty]" value="1"/><?php
 
 	/**
 	 * Action 'woocommerce_composite_scenario_admin_info_html'.
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 */
 	do_action( 'woocommerce_composite_scenario_admin_info_html', $id, $scenario_data, $composite_data, $composite_id );
 
-	?><div class="hr-section"><?php echo __( 'Conditions', 'woocommerce-composite-products' ); ?></div><?php
+	?><div class="hr-section"><?php esc_html_e( 'Conditions', 'woocommerce-composite-products' ); ?></div><?php
 
 	/**
 	 * Action 'woocommerce_composite_scenario_admin_config_html'.
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 */
 	do_action( 'woocommerce_composite_scenario_admin_config_html', $id, $scenario_data, $composite_data, $composite_id );
 
-	?><div class="hr-section"><?php echo __( 'Actions', 'woocommerce-composite-products' ); ?></div><?php
+	?><div class="hr-section"><?php esc_html_e( 'Actions', 'woocommerce-composite-products' ); ?></div><?php
 
 	/**
 	 * Action 'woocommerce_composite_scenario_admin_actions_html'.

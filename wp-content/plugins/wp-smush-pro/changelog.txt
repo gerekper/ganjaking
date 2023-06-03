@@ -6,7 +6,18 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
-= 3.12.6 ( 2023-09-22 ) =
+= 3.13.0 ( 2023-05-30 )
+- New: Scan for detecting changes in the media library
+- Improvement: Performance improvements on large sites
+- Improvement: Code refactoring
+- Fix: PHP warnings and notices
+- Fix: Missing comments for translation strings that have placeholders in them
+- Fix: Compatibility issues with WP Offload Media
+- Fix: Timeout on Smush pages when there are more than 200k images
+- Fix: Images incorrectly marked as requiring resmush
+- Fix: Ignore link stuck in Grid Layout mode in the media library
+
+= 3.12.6 ( 2023-03-09 ) =
 - Enhance: Compatibility with WordPress 6.2.
 - Fix: Upgrade modal reappears after closing
 
@@ -30,7 +41,7 @@ Change Log:
 
 = 3.12.0 ( 2022-10-11 )
 - New: Bulk smush images in the background!
-- New: 50 images limit removed for free users
+- New: Revised limits on bulk image optimization
 - New: Better GDPR compliance by replacing Google fonts with Bunny fonts
 - New: Filter on media library page to view media items with errors
 - New: Option to receive an email once bulk smush is complete

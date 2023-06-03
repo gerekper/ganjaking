@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.10.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -17,4 +17,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<span class="price"><?php echo $product->get_price_html(); ?></span>
+<span class="price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>

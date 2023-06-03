@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.7.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -16,4 +16,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div id="composite_pagination_<?php echo $product_id; ?>" class="composite_pagination"></div>
+?><div id="composite_pagination_<?php echo esc_attr( $product_id ); ?>" class="composite_pagination"></div>

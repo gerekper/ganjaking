@@ -1,5 +1,12 @@
 *** Bulk Stock Management Changelog ***
 
+2023-05-31 - version 2.2.34
+* Include autoloader files in the zip file building process.
+
+2023-05-15 - version 2.2.33
+* Add additional output escaping and fix the "View stock report" button.
+* Add missing escaping for request parameters and for the generated output.
+
 2022-11-09 - version 2.2.32
 * Declare positive compatibility with HPOS.
 

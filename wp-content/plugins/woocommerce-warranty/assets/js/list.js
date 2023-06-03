@@ -5,6 +5,7 @@ jQuery( document ).ready( function( $ ) {
 	$( '.update-status' ).click( function() {
 		var id = $( this ).data( 'request_id' );
 		var value = $( '#status_' + id ).val();
+		var nonce = $( '#update_status_nonce_' + id ).val();
 
 		if ( value ) {
 			var data = {
@@ -12,6 +13,7 @@ jQuery( document ).ready( function( $ ) {
 				'type': 'change_status',
 				'status': value,
 				'request_id': id,
+				'security': nonce,
 			};
 			$.ajax( {
 				type: 'POST',
@@ -127,53 +129,6 @@ jQuery( document ).ready( function( $ ) {
 		} );
 	} );
 
-	list.on( 'click', 'input.request-tracking', function() {
-		var btn = this;
-		var tr = $( this ).closest( 'tr' );
-		var td = $( tr ).find( 'td' );
-		$( td ).block( {
-			message: null, overlayCSS: {
-				background: '#FFFFFF', opacity: 0.6,
-			},
-		} );
-
-		$.post( ajaxurl, {
-			action: 'warranty_request_tracking', id: $( this ).data( 'request' ),
-		}, function( resp ) {
-			$( '.wc-tracking-requested' ).show();
-			$( '#the-list .request-tracking-div' ).remove();
-			$( td ).unblock();
-		} );
-	} );
-
-	list.on( 'click', '.set-tracking', function() {
-		var btn = this;
-		var tr = $( this ).closest( 'tr' );
-		var td = $( tr ).find( 'td' );
-		$( td ).block( {
-			message: null,
-			overlayCSS: {
-				background: '#FFFFFF',
-				opacity: 0.6,
-			},
-		} );
-		var provider = '';
-
-		if ( $( '#the-list select.return_tracking_provider' ).length > 0 ) {
-			provider = $( '#the-list select.return_tracking_provider option:selected' ).val();
-		}
-
-		$.post( ajaxurl, {
-			action: 'warranty_set_tracking',
-			tracking: list.find( '.tracking_code' ).val(),
-			id: $( this ).data( 'request' ),
-			provider: provider,
-		}, function( resp ) {
-			$( '.wc-tracking-saved' ).show();
-			$( td ).unblock();
-		} );
-	} );
-
 	body.on( 'click', '.warranty-process-refund', function() {
 		var id = $( this ).data( 'id' );
 		var security = $( this ).data( 'security' );
@@ -244,6 +199,7 @@ jQuery( document ).ready( function( $ ) {
 		e.preventDefault();
 		var container = $( this ).parents( '.inline-edit-col' );
 		var request = $( this ).data( 'request' );
+		var nonce = $( this ).data( 'nonce' );
 		var notes_list = container.find( 'ul.admin-notes' );
 		var note = $( '#admin_note_' + request ).val();
 
@@ -257,9 +213,15 @@ jQuery( document ).ready( function( $ ) {
 			},
 		} );
 
-		var data = { action: 'warranty_add_note', request: request, note: note };
+		var data = { action: 'warranty_add_note', security: nonce, request: request, note: note };
 
 		$.post( ajaxurl, data, function( resp ) {
+			if ( resp.length < 1 ) {
+				alert( wc_enhanced_select_params.i18n_ajax_error );
+				container.unblock();
+				return;
+			}
+
 			$( notes_list ).html( resp );
 			container.unblock();
 		} );
@@ -269,6 +231,7 @@ jQuery( document ).ready( function( $ ) {
 		e.preventDefault();
 		var container = $( this ).parents( '.inline-edit-col' );
 		var note = $( this ).data( 'note_id' );
+		var nonce = $( this ).data( 'nonce' );
 		var request = $( this ).data( 'request' );
 		var notes_list = container.find( 'ul.admin-notes' );
 
@@ -280,7 +243,7 @@ jQuery( document ).ready( function( $ ) {
 			},
 		} );
 
-		var data = { action: 'warranty_delete_note', request: request, note_id: note };
+		var data = { action: 'warranty_delete_note', request: request, note_id: note, security: nonce };
 
 		$.post( ajaxurl, data, function( resp ) {
 			$( notes_list ).html( resp );

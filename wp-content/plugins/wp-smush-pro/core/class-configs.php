@@ -27,7 +27,7 @@ class Configs {
 	 *
 	 * @var array
 	 */
-	private $pro_features = array( 'original', 'backup', 'png_to_jpg', 's3', 'nextgen', 'cdn', 'auto_resize', 'webp', 'webp_mod' );
+	private $pro_features = array( 'png_to_jpg', 's3', 'nextgen', 'cdn', 'webp', 'webp_mod' );
 
 	/**
 	 * Gets the local list of configs via Smush endpoint.

@@ -473,6 +473,13 @@ class JS
 	                    'functions.min.js',
 	                    'waypoint'
 	                )
+	            ),
+	            'wp-armour' => array(
+	            	'id' => 'honeypot/wp-armour.php',
+	            	'title' => 'WP Armour',
+	            	'exclusions' => array(
+	            		'wpa_field_info'
+	            	)
 	            )
 	        ),
 	        'themes' => array(
@@ -488,10 +495,20 @@ class JS
 	        		'id' => 'avada',
 	        		'title' => 'Avada',
 	        		'exclusions' => array(
+	        			'jquery.min.js',
 	        			'avada-header.js',
 						'modernizr.js',
 						'jquery.easing.js',
 						'avadaHeaderVars'
+	        		)
+	        	),
+	        	'bricks' => array(
+	        		'id' => 'bricks',
+	        		'title' => 'Bricks Slider',
+	        		'exclusions' => array(
+	        			'/wp-content/themes/bricks/assets/js/bricks.min.js',
+	        			'/wp-content/themes/bricks/assets/js/libs/swiper.min.js',
+	        			'bricks-scripts-js-extra'
 	        		)
 	        	),
 	        	'divi' => array(

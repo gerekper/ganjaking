@@ -531,12 +531,6 @@ function perfmatters_disable_woocommerce_scripts() {
 				$classes = array_diff($classes, array('woocommerce-no-js'));
 				return array_values($classes);
 			},10, 1);
-
-			//Dequue Cart Fragmentation Script
-			if(empty($perfmatters_options['disable_woocommerce_cart_fragmentation'])) {
-				wp_dequeue_script('wc-cart-fragments');
-				wp_deregister_script('wc-cart-fragments');
-			}
 		}
 	}
 }
@@ -549,8 +543,19 @@ if(!empty($perfmatters_options['disable_woocommerce_cart_fragmentation'])) {
 
 function perfmatters_disable_woocommerce_cart_fragmentation() {
 	if(class_exists('WooCommerce')) {
-		wp_dequeue_script('wc-cart-fragments');
-		wp_deregister_script('wc-cart-fragments');
+
+		global $wp_scripts;
+
+		if(!empty($wp_scripts->registered['wc-cart-fragments'])) {
+
+			$cart_fragments_src = $wp_scripts->registered['wc-cart-fragments']->src;
+			$wp_scripts->registered['wc-cart-fragments']->src = null;
+
+			add_action('wp_head', function() use ($cart_fragments_src) {
+
+				echo '<script>function perfmatters_check_cart_fragments(){if(null!==document.getElementById("perfmatters-cart-fragments"))return!1;if(document.cookie.match("(^|;) ?woocommerce_cart_hash=([^;]*)(;|$)")){var e=document.createElement("script");e.id="perfmatters-cart-fragments",e.src="' . $cart_fragments_src . '",e.async=!0,document.head.appendChild(e)}}perfmatters_check_cart_fragments(),document.addEventListener("click",function(){setTimeout(perfmatters_check_cart_fragments,1e3)});</script>';
+			});
+		}
 	}
 }
 
@@ -1601,25 +1606,23 @@ function perfmatters_is_dynamic_request () {
 
 /* EDD License Functions
 /***********************************************************************/
-function perfmatters_activate_license() {
+function perfmatters_activate_license($network = false) {
 
 	//grab existing license data
-	$license = is_network_admin() ? get_site_option('perfmatters_edd_license_key') : get_option('perfmatters_edd_license_key');
+	$license = is_network_admin() || $network ? get_site_option('perfmatters_edd_license_key') : get_option('perfmatters_edd_license_key');
 
 	if(!empty($license)) {
 
-		//data to send in our API request
 		$api_params = array(
 			'edd_action'=> 'activate_license',
 			'license' 	=> $license,
-			'item_name' => urlencode(PERFMATTERS_ITEM_NAME), // the name of our product in EDD
+			'item_name' => urlencode(PERFMATTERS_ITEM_NAME),
 			'url'       => home_url()
 		);
 
-		//Call the custom API.
+		//EDD API request
 		$response = wp_remote_post(PERFMATTERS_STORE_URL, array('timeout' => 15, 'sslverify' => true, 'body' => $api_params));
 
-		//make sure the response came back okay
 		if(is_wp_error($response)) {
 			return false;
 		}
@@ -1632,64 +1635,74 @@ function perfmatters_activate_license() {
  $license_data->expires = date('Y-m-d', strtotime('+50 years'));
  $license_data->license = 'valid';
 
-		//update stored option
-		if(is_network_admin()) {
-			update_site_option('perfmatters_edd_license_status', $license_data->license);
-		}
-		else {
-			update_option('perfmatters_edd_license_status', $license_data->license);
+		//license is valid
+		if(!empty($license_data->license) && $license_data->license == 'valid') {
+
+			//update stored option
+			if(is_network_admin() || $network) {
+				update_site_option('perfmatters_edd_license_status', $license_data->license);
+				return true;
+			}
+			else {
+				update_option('perfmatters_edd_license_status', $license_data->license);
+				return true;
+			}
 		}
 	}
+
+	return false;
 }
 
-function perfmatters_deactivate_license() {
+function perfmatters_deactivate_license($network = false) {
 
 	//grab existing license data
-	$license = is_network_admin() ? get_site_option('perfmatters_edd_license_key') : get_option('perfmatters_edd_license_key');
+	$license = is_network_admin() || $network ? get_site_option('perfmatters_edd_license_key') : get_option('perfmatters_edd_license_key');
 
 	if(!empty($license)) {
 
-		// data to send in our API request
 		$api_params = array(
 			'edd_action'=> 'deactivate_license',
 			'license' 	=> $license,
-			'item_name' => urlencode(PERFMATTERS_ITEM_NAME), // the name of our product in EDD
+			'item_name' => urlencode(PERFMATTERS_ITEM_NAME),
 			'url'       => home_url()
 		);
 
-		// Call the custom API.
+		//EDD API request
 		$response = wp_remote_post(PERFMATTERS_STORE_URL, array('timeout' => 15, 'sslverify' => true, 'body' => $api_params));
 
-		// make sure the response came back okay
 		if(is_wp_error($response)) {
 			return false;
 		}
 
-		// decode the license data
+		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
-
 		$license_data->success = true;
  $license_data->error = '';
  $license_data->expires = date('Y-m-d', strtotime('+50 years'));
  $license_data->license = 'valid';
 
-		// $license_data->license will be either "deactivated" or "failed"
+		//license is deactivated
 		if($license_data->license == 'deactivated') {
+
 			//update license option
-			if(is_network_admin()) {
+			if(is_network_admin() || $network) {
 				delete_site_option('perfmatters_edd_license_status');
+				return true;
 			}
 			else {
 				delete_option('perfmatters_edd_license_status');
+				return true;
 			}
 		}
 	}
+
+	return false;
 }
 
-function perfmatters_check_license() {
+function perfmatters_check_license($network = false) {
 
 	//grab existing license data
-	$license = is_network_admin() ? get_site_option('perfmatters_edd_license_key') : get_option('perfmatters_edd_license_key');
+	$license = is_network_admin() || $network ? get_site_option('perfmatters_edd_license_key') : get_option('perfmatters_edd_license_key');
 
 	if(!empty($license)) {
 
@@ -1710,13 +1723,14 @@ function perfmatters_check_license() {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
+
 		$license_data->success = true;
  $license_data->error = '';
  $license_data->expires = date('Y-m-d', strtotime('+50 years'));
  $license_data->license = 'valid';
 
 		//update license option
-		if(is_network_admin()) {
+		if(is_network_admin() || $network) {
 			update_site_option('perfmatters_edd_license_status', $license_data->license);
 		}
 		else {

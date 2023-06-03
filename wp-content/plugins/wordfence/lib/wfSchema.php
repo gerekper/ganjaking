@@ -222,6 +222,12 @@ class wfSchema {
   PRIMARY KEY (`IP`,`identifier`),
   KEY `expiration` (`expiration`)
 ) DEFAULT CHARSET=utf8;",
+'wfWafFailures' => "(
+  `id` INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `throwable` TEXT NOT NULL,
+  `rule_id` INT(10) UNSIGNED,
+  `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) DEFAULT CHARSET=utf8"
 );
 	private $db = false;
 	public function __construct($dbhost = false, $dbuser = false, $dbpassword = false, $dbname = false){

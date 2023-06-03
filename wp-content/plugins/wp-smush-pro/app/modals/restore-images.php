@@ -137,6 +137,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<p class="sui-description sui-margin-left sui-margin-right">
 		<?php
 		printf(
+			/* translators: 1: Open a link <a>, 2: Close the link </a> */
 			esc_html__( "Note: You can find all the images which couldn't be restored (still smushed) in your %1\$sMedia Library%2\$s.", 'wp-smushit' ),
 			'<a href="' . esc_url( admin_url( 'upload.php' ) ) . '">',
 			'</a>'

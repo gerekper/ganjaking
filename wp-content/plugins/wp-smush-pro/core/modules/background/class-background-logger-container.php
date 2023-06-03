@@ -31,7 +31,7 @@ class Background_Logger_Container {
 	}
 
 	private function log( $message, $type ) {
-		if ( method_exists( $this->logger, $type ) ) {
+		if ( $this->logger && method_exists( $this->logger, $type ) ) {
 			$this->logger->$type(
 				$this->prepare_message( $message )
 			);

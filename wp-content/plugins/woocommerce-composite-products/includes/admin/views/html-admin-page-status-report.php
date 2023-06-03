@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( version_compare( $debug_data[ 'db_version' ], $version, '==' ) ) {
 					echo '<mark class="yes">' . esc_html( $debug_data[ 'db_version' ] ) . '</mark>';
 				} else {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html( $debug_data[ 'db_version' ] ) . ' - ' . __( 'Database version mismatch.', 'woocommerce-composite-products' ) . '</mark>';
+					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html( $debug_data[ 'db_version' ] ) . ' - ' . esc_html__( 'Database version mismatch.', 'woocommerce-composite-products' ) . '</mark>';
 				}
 			?>
 			</td>
@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				} elseif ( '' === $debug_data[ 'loopback_test_result' ] ) {
 					echo '<mark class="no">&ndash;</mark>';
 				} else {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . __( 'Loopback test failed.', 'woocommerce-composite-products' ) . '</mark>';
+					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Loopback test failed.', 'woocommerce-composite-products' ) . '</mark>';
 				}
 			?>
 			</td>

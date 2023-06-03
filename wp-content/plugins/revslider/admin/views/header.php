@@ -68,6 +68,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 	RVS.ENV.activated		= <?php echo ($rsaf->_truefalse($rs_valid) === true) ? 'true' : 'false'; ?>;
 	RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
 	RVS.ENV.plugin_dir		= 'revslider';
+	RVS.ENV.ajax_pre		= 'rs';
 	RVS.ENV.slug_path		= '<?php echo str_replace(array("\n", "\r"), '', RS_PLUGIN_SLUG_PATH); ?>';
 	RVS.ENV.slug			= '<?php echo str_replace(array("\n", "\r"), '', RS_PLUGIN_SLUG); ?>';
 	RVS.ENV.plugin_url		= '<?php echo str_replace(array("\n", "\r"), '', RS_PLUGIN_URL); ?>';

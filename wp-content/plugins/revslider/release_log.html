@@ -1,4 +1,21 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.6.14 (30th May 2023)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Backend: Whenever an empty folder is reopened, it will now automatically be reconnected to the root directory.</li>
+		<li>Backend: Now, when opening an empty folder, a brief breadcrumb will be displayed to explain its empty status.</li>		
+		<li>Updated google fonts list</li>		
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>	
+		<li>Changed ajax call request name for the backend as the OWASP Core Ruleset does not allow the use of the old name</li>
+		<li>Carousel jumps to wrong slide while navigating if slider is different height slides</li>
+		<li>Opening modal with specific slide doesn't work correctly on carousel slider</li>
+		<li>Setting the zIndex value to "Auto" on hover resulted in a zIndex of 500, inadvertently leading to overlap with other areas.</li>
+		<li>Editor: When the background color of a module is changed, it doesn't update live to reflect the selected color. The background color only updates after the color picker modal is closed.</li>
+		<li>Backend: Action references on global layers originating from slides other than the global slide are non-functional. Selecting any layer from global slides consequently results in the removal of the action from the list.</li>
+		<li>SFX Block Layer transition only fades in Safari</li>
+	</ul>
 	<h3 class="version-number">Version 6.6.13 (4th May 2023)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>

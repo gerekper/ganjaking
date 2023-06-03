@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
@@ -35,7 +34,6 @@ class SegmentsSimpleListRepository {
   public function getListWithSubscribedSubscribersCounts(array $segmentTypes = []): array {
     return $this->getList(
       $segmentTypes,
-      SubscriberEntity::STATUS_SUBSCRIBED,
       SubscriberEntity::STATUS_SUBSCRIBED
     );
   }
@@ -70,37 +68,18 @@ class SegmentsSimpleListRepository {
    */
   private function getList(
     array $segmentTypes = [],
-    string $subscriberGlobalStatus = null,
-    string $subscriberSegmentStatus = null
+    string $subscriberGlobalStatus = null
   ): array {
-    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
-    $subscribersSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
     $segmentsTable = $this->entityManager->getClassMetadata(SegmentEntity::class)->getTableName();
 
     $segmentsDataQuery = $this->entityManager
       ->getConnection()
       ->createQueryBuilder();
 
-    $countCondition = "subscribers.deleted_at IS NULL AND subsegments.id IS NOT NULL AND subscribers.id IS NOT NULL";
-    if ($subscriberGlobalStatus) {
-      $countCondition .= " AND subscribers.status= :subscriberGlobalStatus";
-      $segmentsDataQuery->setParameter('subscriberGlobalStatus', $subscriberGlobalStatus);
-    }
-
-    if ($subscriberSegmentStatus) {
-      $countCondition .= " AND subsegments.status = :subscriberSegmentStatus";
-      $segmentsDataQuery->setParameter('subscriberSegmentStatus', $subscriberSegmentStatus);
-    }
-
     $segmentsDataQuery->select(
-        "segments.id, segments.name, segments.type, COUNT(IF($countCondition, 1, NULL)) as subscribers"
+        "segments.id, segments.name, segments.type"
       )->from($segmentsTable, 'segments')
-      ->leftJoin('segments', $subscribersSegmentsTable, 'subsegments', "subsegments.segment_id = segments.id")
-      ->leftJoin('subsegments', $subscribersTable, 'subscribers', "subscribers.id = subsegments.subscriber_id")
       ->where('segments.deleted_at IS NULL')
-      ->groupBy('segments.id')
-      ->addGroupBy('segments.name')
-      ->addGroupBy('segments.type')
       ->orderBy('segments.name');
 
     if (!empty($segmentTypes)) {
@@ -115,16 +94,12 @@ class SegmentsSimpleListRepository {
     }
     $segments = $statement->fetchAll();
 
-    // Fetch subscribers counts for dynamic segments and correct data types
+    // Fetch subscribers counts for static and dynamic segments and correct data types
     foreach ($segments as $key => $segment) {
       // BC compatibility fix. PHP8.1+ returns integer but JS apps expect string
       $segments[$key]['id'] = (string)$segment['id'];
-      if ($segment['type'] === SegmentEntity::TYPE_DYNAMIC) {
-        $statisticsKey = $subscriberGlobalStatus ?: 'all';
-        $segments[$key]['subscribers'] = (int)$this->subscribersCountsController->getSegmentStatisticsCountById($segment['id'])[$statisticsKey];
-      } else {
-        $segments[$key]['subscribers'] = (int)$segment['subscribers'];
-      }
+      $statisticsKey = $subscriberGlobalStatus ?: 'all';
+      $segments[$key]['subscribers'] = (int)$this->subscribersCountsController->getSegmentStatisticsCountById($segment['id'])[$statisticsKey];
     }
     return $segments;
   }

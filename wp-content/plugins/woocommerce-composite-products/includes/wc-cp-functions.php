@@ -199,7 +199,7 @@ function wc_cp_get_composited_order_item_container( $maybe_composited_order_item
 
 				} else {
 					$msg = 'get_order() is not callable on the supplied $order_item. No $order object given.';
-					_doing_it_wrong( __FUNCTION__ . '()', $msg, '3.10.0' );
+					_doing_it_wrong( __FUNCTION__ . '()', $msg, '3.10.0' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			}
 
@@ -273,7 +273,7 @@ function wc_cp_get_composited_order_items( $maybe_composite_container_order_item
 
 				} else {
 					$msg = 'get_order() is not callable on the supplied $order_item. No $order object given.';
-					_doing_it_wrong( __FUNCTION__ . '()', $msg, '3.10.0' );
+					_doing_it_wrong( __FUNCTION__ . '()', $msg, '3.10.0' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			}
 
@@ -540,13 +540,13 @@ function wc_cp_print_taxonomy_tree_options( $terms, $selected_ids = array(), $ar
 		}
 
 		// Print option element.
-		echo '<option value="' . $term->term_id . '" ' . selected( in_array( $term->term_id, $selected_ids ), true, false ) . '>';
+		echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( in_array( $term->term_id, $selected_ids ), true, false ) . '>';
 
 		if ( $args[ 'shorten_text' ] && count( $term_path ) > $args[ 'shorten_level' ] ) {
 			/* translators: %1$s: Term, %2$s: Next term. */
-			echo sprintf( _x( '%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s', 'many terms separator', 'woocommerce-composite-products' ), $term_path[ 0 ], $term_path[ count( $term_path ) - 1 ] );
+			echo sprintf( esc_html_x( '%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s', 'many terms separator', 'woocommerce-composite-products' ), esc_html( $term_path[ 0 ] ), esc_html($term_path[ count( $term_path ) - 1 ]) );
 		} else {
-			echo $option_text;
+			echo esc_html( $option_text );
 		}
 
 		echo '</option>';

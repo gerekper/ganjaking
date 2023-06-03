@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions for WC core back-compatibility.
  *
  * @class    WC_PB_Core_Compatibility
- * @version  6.18.3
+ * @version  6.19.0
  */
 class WC_PB_Core_Compatibility {
 
@@ -699,6 +699,17 @@ class WC_PB_Core_Compatibility {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Returns true if site is using block theme.
+	 *
+	 * @since  6.19.0
+	 *
+	 * @return boolean
+	 */
+	public static function wc_current_theme_is_fse_theme() {
+		return function_exists( 'wc_current_theme_is_fse_theme' ) ? wc_current_theme_is_fse_theme() : false;
 	}
 
 	/**

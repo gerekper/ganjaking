@@ -6,8 +6,9 @@
  *
  * @var int    $total_images_to_smush Resmush + unsmushed image count.
  * @var Admin  $ng                    NextGen admin class.
- * @var int    $remaining_count       Remaining images.
- * @var array  $resmush_ids           Resmush ID.
+ * @var int    $total_count           Total count.
+ * @var int    $unsmushed_count       Unsmushed images count.
+ * @var array  $resmush_count         Resmush count.
  * @var string $url                   Media library URL.
  */
 
@@ -47,7 +48,18 @@ if ( ! defined( 'WPINC' ) ) {
 
 <?php $this->view( 'all-images-smushed-notice', array( 'all_done' => empty( $total_images_to_smush ) ), 'common' ); ?>
 
-<?php $this->view( 'progress-bar', array( 'count' => ( $ng->remaining_count + $resmush_count ) ), 'views/nextgen' ); ?>
+<?php
+$in_processing_notice = __( 'Bulk smush is currently running. You need to keep this page open for the process to complete.', 'wp-smushit' );
+$this->view( 'progress-bar',
+	array(
+		'count'                           => $total_count,
+		'background_processing_enabled'   => false,
+		'background_in_processing_notice' => '',
+		'in_processing_notice'            => $in_processing_notice,
+	),
+	'common'
+);
+?>
 
 <div class="smush-final-log sui-hidden">
 	<div class="smush-bulk-errors"></div>
@@ -62,7 +74,7 @@ if ( ! defined( 'WPINC' ) ) {
 <div class="wp-smush-bulk-wrapper sui-border-frame<?php echo empty( $total_images_to_smush ) ? ' sui-hidden' : ''; ?>">
 
 	<div id="wp-smush-bulk-content">
-		<?php WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content( $total_images_to_smush, $resmush_count, $ng->remaining_count ); ?>
+		<?php WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content( $total_images_to_smush, $resmush_count, $unsmushed_count ); ?>
 	</div>
 
 	<button type="button" class="sui-button sui-button-blue wp-smush-nextgen-bulk">

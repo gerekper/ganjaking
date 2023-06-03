@@ -40,7 +40,7 @@ else :
 					esc_html( $pretty_date ),
 				);
 				?>
-				<a class="delete_note" href="#" data-request="<?php echo esc_attr( $request_id ); ?>" data-note_id="<?php echo esc_attr( $note->comment_ID ); ?>"><?php esc_html_e( 'Delete note', 'wc_warranty' ); ?></a>
+				<a class="delete_note" href="#" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wc_warranty_delete_note_nonce_' . $note->comment_ID ) ); ?>" data-request="<?php echo esc_attr( $request_id ); ?>" data-note_id="<?php echo esc_attr( $note->comment_ID ); ?>"><?php esc_html_e( 'Delete note', 'wc_warranty' ); ?></a>
 			</p>
 		</li>
 		<?php

@@ -8,7 +8,10 @@
 
 namespace Smush\App;
 
+use Smush\Core\Array_Utils;
+use Smush\Core\Resize\Resize_Optimization;
 use Smush\Core\Settings;
+use Smush\Core\Stats\Global_Stats;
 use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -43,7 +46,7 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 				null,
 				'main',
 				array(
-					'box_class'         => 'sui-box sui-summary sui-summary-smush ' . $this->get_whitelabel_class(),
+					'box_class'         => 'sui-box sui-summary sui-summary-smush-metabox sui-summary-smush ' . $this->get_whitelabel_class(),
 					'box_content_class' => false,
 				)
 			);
@@ -78,33 +81,23 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 	 * Summary meta box.
 	 */
 	public function dashboard_summary_meta_box() {
-		$core = WP_Smush::get_instance()->core();
-
-		$resize_count = $core->get_savings( 'resize', false, false, true );
-
-		// Split human size to get format and size.
-		$human = explode( ' ', $core->stats['human'] );
-
-		$resize_savings = 0;
-		// Get current resize savings.
-		if ( ! empty( $core->stats['resize_savings'] ) && $core->stats['resize_savings'] > 0 ) {
-			$resize_savings = size_format( $core->stats['resize_savings'], 1 );
-		}
+		$array_utils  = new Array_Utils();
+		$core         = WP_Smush::get_instance()->core();
+		$global_stats = $core->get_global_stats();
 
 		$this->view(
 			'summary/meta-box',
 			array(
-				'human_format'      => empty( $human[1] ) ? 'B' : $human[1],
-				'human_size'        => empty( $human[0] ) ? '0' : intval($human[0] ),
-				'remaining'         => $core->remaining_count(),
-				'resize_count'      => ! $resize_count ? 0 : $resize_count,
+				'human_bytes'       => $array_utils->get_array_value( $global_stats, 'human_bytes' ),
+				'remaining'         => $array_utils->get_array_value( $global_stats, 'remaining_count' ),
+				'resize_count'      => $array_utils->get_array_value( $global_stats, 'count_resize' ),
 				'resize_enabled'    => (bool) $this->settings->get( 'resize' ),
-				'resize_savings'    => $resize_savings,
-				'stats_percent'     => $core->stats['percent'] > 0 ? number_format_i18n( $core->stats['percent'], 1 ) : 0,
-				'total_optimized'   => $core->stats['total_images'],
-				'percent_grade'     => $core->percent_grade,
-				'percent_metric'    => $core->percent_metric,
-				'percent_optimized' => $core->percent_optimized,
+				'resize_savings'    => $array_utils->get_array_value( $global_stats, 'savings_resize_human' ),
+				'stats_percent'     => $array_utils->get_array_value( $global_stats, 'savings_percent' ),
+				'total_optimized'   => $array_utils->get_array_value( $global_stats, 'count_images' ),
+				'percent_grade'     => $array_utils->get_array_value( $global_stats, 'percent_grade' ),
+				'percent_metric'    => $array_utils->get_array_value( $global_stats, 'percent_metric' ),
+				'percent_optimized' => $array_utils->get_array_value( $global_stats, 'percent_optimized' ),
 			)
 		);
 	}
@@ -118,20 +111,27 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 	 * @return void
 	 */
 	public function conversion_savings_stats() {
-		$core = WP_Smush::get_instance()->core();
-
-		if ( WP_Smush::is_pro() && ! empty( $core->stats['conversion_savings'] ) && $core->stats['conversion_savings'] > 0 ) {
-			?>
-			<li class="smush-conversion-savings">
-				<span class="sui-list-label">
-					<?php esc_html_e( 'PNG to JPEG savings', 'wp-smushit' ); ?>
-				</span>
-				<span class="sui-list-detail wp-smush-stats">
-					<?php echo $core->stats['conversion_savings'] > 0 ? esc_html( size_format( $core->stats['conversion_savings'], 1 ) ) : '0 MB'; ?>
-				</span>
-			</li>
-			<?php
+		if ( ! WP_Smush::is_pro() ) {
+			return;
 		}
+
+		$core         = WP_Smush::get_instance()->core();
+		$global_stats = $core->get_global_stats();
+		$class_names  = array( 'smush-conversion-savings' );
+		if ( empty( $global_stats['savings_conversion'] ) || ! isset( $global_stats['savings_conversion_human'] ) ) {
+			$class_names[] = 'sui-hidden';
+		}
+
+		?>
+		<li class="<?php echo esc_attr( join( ' ', $class_names ) ); ?>">
+			<span class="sui-list-label">
+				<?php esc_html_e( 'PNG to JPEG savings', 'wp-smushit' ); ?>
+			</span>
+			<span class="sui-list-detail wp-smush-stats">
+				<?php echo esc_html( $global_stats['savings_conversion_human'] ); ?>
+			</span>
+		</li>
+		<?php
 	}
 
 	/**

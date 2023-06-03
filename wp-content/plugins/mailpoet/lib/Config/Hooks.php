@@ -16,6 +16,7 @@ use MailPoet\Subscription\Form;
 use MailPoet\Subscription\Manage;
 use MailPoet\Subscription\Registration;
 use MailPoet\WooCommerce\Integrations\AutomateWooHooks;
+use MailPoet\WooCommerce\WooSystemInfoController;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoet\WPCOM\DotcomLicenseProvisioner;
 
@@ -65,6 +66,9 @@ class Hooks {
   /** @var AutomateWooHooks */
   private $automateWooHooks;
 
+  /** @var WooSystemInfoController */
+  private $wooSystemInfoController;
+
   public function __construct(
     Form $subscriptionForm,
     Comment $subscriptionComment,
@@ -80,7 +84,8 @@ class Hooks {
     SubscriberChangesNotifier $subscriberChangesNotifier,
     WP $wpSegment,
     DotcomLicenseProvisioner $dotcomLicenseProvisioner,
-    AutomateWooHooks $automateWooHooks
+    AutomateWooHooks $automateWooHooks,
+    WooSystemInfoController $wooSystemInfoController
   ) {
     $this->subscriptionForm = $subscriptionForm;
     $this->subscriptionComment = $subscriptionComment;
@@ -97,6 +102,7 @@ class Hooks {
     $this->subscriberChangesNotifier = $subscriberChangesNotifier;
     $this->dotcomLicenseProvisioner = $dotcomLicenseProvisioner;
     $this->automateWooHooks = $automateWooHooks;
+    $this->wooSystemInfoController = $wooSystemInfoController;
   }
 
   public function init() {
@@ -112,6 +118,7 @@ class Hooks {
     $this->setupAutomateWooSubscriptionEvents();
     $this->setupPostNotifications();
     $this->setupWooCommerceSettings();
+    $this->setupWoocommerceSystemInfo();
     $this->setupFooter();
     $this->setupSettingsLinkInPluginPage();
     $this->setupChangeNotifications();
@@ -344,6 +351,30 @@ class Hooks {
       $this->hooksWooCommerce,
       'addMailPoetTaskToWooHomePage',
     ]);
+  }
+
+  public function setupWoocommerceSystemInfo() {
+    $this->wp->addAction(
+      'woocommerce_system_status_report',
+      [
+        $this->wooSystemInfoController,
+        'render',
+      ]
+    );
+    $this->wp->addAction(
+      'woocommerce_rest_prepare_system_status',
+      [
+        $this->wooSystemInfoController,
+        'addFields',
+      ]
+    );
+    $this->wp->addAction(
+      'woocommerce_rest_system_status_schema',
+      [
+        $this->wooSystemInfoController,
+        'addSchema',
+      ]
+    );
   }
 
   public function setupWooCommerceUsers() {

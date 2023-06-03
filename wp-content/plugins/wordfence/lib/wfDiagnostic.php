@@ -92,6 +92,7 @@ class wfDiagnostic
 					'wafAutoPrependFilePath' => __('wordfence-waf.php path', 'wordfence'),
 					'wafFilePermissions' => __('WAF File Permissions', 'wordfence'),
 					'wafRecentlyRemoved' => __('Recently removed wflogs files', 'wordfence'),
+					'wafLoaded' => __('WAF Loaded Successfully', 'wordfence')
 				),
 			),
 			'MySQL' => array(
@@ -442,6 +443,15 @@ class wfDiagnostic
 		}
 		
 		return array('test' => true, 'infoOnly' => true, 'message' => implode("\n", $message));
+	}
+
+	public function wafLoaded() {
+		$waf = wfWAF::getInstance();
+		return array(
+			'test' => true,
+			'infoOnly' => true,
+			'message' => $waf !== null && ($waf instanceof wfWAFWordPress) ? __('Yes', 'wordfence') : __('No', 'wordfence')
+		);
 	}
 	
 	private function _filterOutNestedEntries($a) {

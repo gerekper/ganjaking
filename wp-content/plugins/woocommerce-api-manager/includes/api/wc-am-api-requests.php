@@ -328,7 +328,9 @@ class WC_AM_API_Requests {
 
 		if ( $missing ) {
 			if ( $this->error_log ) {
-				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in required() method. Error message is "Error code 100. The following required query string data is missing:"', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( join( ', ', $missing ), true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in required() method. Error message is "Error code 100. The following required query string data is missing:"', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( join( ', ', $missing ), true ) . PHP_EOL . PHP_EOL . esc_html__( 'Details from the HTTP(s) query are:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( array_merge( $this->request, array(
+					                            'User ID' => $this->user_id
+				                            ) ),                                                                                                                                                                                                                                                                                                                                                         true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'The following required query string data is missing', 'woocommerce-api-manager' ) . ': ' . join( ', ', $missing ) );

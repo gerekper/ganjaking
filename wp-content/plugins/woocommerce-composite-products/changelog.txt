@@ -1,5 +1,11 @@
 *** WooCommerce Composite Products ***
 
+2023.06.01 - version 8.8.1
+* Fix - Fixed styling for dismissible admin notices.
+
+2023.05.22 - version 8.8.0
+* Fix - Important: Security improvements.
+
 2023.05.08 - version 8.7.6
 * Fix - Important: Security improvements.
 * Fix - Fixed fatal error during data collection.

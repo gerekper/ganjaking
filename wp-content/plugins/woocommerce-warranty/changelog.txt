@@ -1,5 +1,9 @@
 *** Warranty Requests Changelog ***
 
+2023-05-31 - version 2.1.9
+* Fix    - Incorrect colspan on .inline-edit-row td on WC orders table.
+* Update - Security update.
+
 2023-05-23 - version 2.1.8
 * Fix    - "Manage return" is not working on HPOS order admin table.
 

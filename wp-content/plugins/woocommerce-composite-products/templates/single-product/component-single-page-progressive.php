@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 4.0.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div id="component_<?php echo $component_id; ?>" class="<?php echo esc_attr( implode( ' ', $component_classes ) ); ?>" data-nav_title="<?php echo esc_attr( $component->get_title() ); ?>" data-item_id="<?php echo $component_id; ?>" style="display:none;">
+?><div id="component_<?php echo esc_attr( $component_id ); ?>" class="<?php echo esc_attr( implode( ' ', $component_classes ) ); ?>" data-nav_title="<?php echo esc_attr( $component->get_title() ); ?>" data-item_id="<?php echo esc_attr( $component_id ); ?>" style="display:none;">
 
 	<div class="component_title_wrapper"><?php
 
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	?></div>
 
-	<div id="component_<?php echo $component_id; ?>_inner" class="component_inner" <?php echo in_array( 'toggled', $component_classes ) && in_array( 'closed', $component_classes ) ? 'style="display:none;"' : ''; ?>>
+	<div id="component_<?php echo esc_attr( $component_id ); ?>_inner" class="component_inner" <?php echo in_array( 'toggled', $component_classes ) && in_array( 'closed', $component_classes ) ? 'style="display:none;"' : ''; ?>>
 
 		<div class="block_component"></div>
 

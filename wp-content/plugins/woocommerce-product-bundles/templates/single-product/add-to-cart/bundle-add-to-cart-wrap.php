@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 6.4.0
+ * @version 6.19.0
  */
 
 // Exit if accessed directly.
@@ -35,9 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				do_action( 'woocommerce_after_bundle_price' );
 			?>
 			<div class="bundle_error" style="display:none">
-				<div class="woocommerce-info">
-					<ul class="msg"></ul>
-				</div>
+				<?php wc_print_notice( '<ul class="msg"></ul>', 'notice' ); ?>
 			</div>
 			<?php
 				/**

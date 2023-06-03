@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Bulk Stock Management
  * Plugin URI: https://woocommerce.com/products/bulk-stock-management/
  * Description: Bulk edit stock levels and print out stock reports right from WooCommerce admin.
- * Version: 2.2.32
+ * Version: 2.2.34
  * Author: WooCommerce
  * Author URI: http://woocommerce.com
  * Text Domain: woocommerce-bulk-stock-management
@@ -12,12 +12,16 @@
  * WC requires at least: 2.6
  * Woo: 18670:02f4328d52f324ebe06a78eaaae7934f
  *
- * Copyright: © 2022 WooCommerce
+ * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package woocommerce-bulk-stock-management
  */
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Automattic\WooCommerce\BulkStockManagement\RequestUtil as Request;
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_bulk_stock_management_init' );
@@ -43,7 +47,7 @@ function wc_bulk_stock_management_init() {
 		return;
 	}
 
-	define( 'WC_BULK_STOCK_MANAGEMENT_VERSION', '2.2.32' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BULK_STOCK_MANAGEMENT_VERSION', '2.2.34' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WC_Bulk_Stock_Management class
@@ -113,7 +117,7 @@ function wc_bulk_stock_management_init() {
 		 * Add menus to WP admin
 		 */
 		public function register_menu() {
-			$page = add_submenu_page( 'edit.php?post_type=product', __( 'Stock Management', 'woocommerce-bulk-stock-management' ), __( 'Stock Management', 'woocommerce-bulk-stock-management' ), apply_filters( 'wc_bulk_stock_cap', 'edit_others_products' ), 'woocommerce-bulk-stock-management', array( $this, 'stock_management_page' ) );
+			$page = add_submenu_page( 'edit.php?post_type=product', esc_html__( 'Stock Management', 'woocommerce-bulk-stock-management' ), esc_html__( 'Stock Management', 'woocommerce-bulk-stock-management' ), apply_filters( 'wc_bulk_stock_cap', 'edit_others_products' ), 'woocommerce-bulk-stock-management', array( $this, 'stock_management_page' ) );
 
 			add_action( 'admin_print_styles-' . $page, array( $this, 'admin_css' ) );
 
@@ -132,7 +136,7 @@ function wc_bulk_stock_management_init() {
 			$option = 'per_page';
 
 			$args = array(
-				'label'   => __( 'Products', 'woocommerce-product-vendors' ),
+				'label'   => esc_html__( 'Products', 'woocommerce-product-vendors' ),
 				'default' => apply_filters( 'wc_bulk_stock_default_items_per_page', 50 ),
 				'option'  => 'wc_bulk_stock_products_per_page',
 			);
@@ -171,7 +175,7 @@ function wc_bulk_stock_management_init() {
 			$this->maybe_show_notice();
 			?>
 			<div class="wrap">
-				<h2><?php esc_html_e( 'Stock Management', 'woocommerce-bulk-stock-management' ); ?> <a href="<?php echo wp_nonce_url( add_query_arg( 'print', 'stock_report' ), 'print-stock' ); ?>" class="add-new-h2"><?php esc_html_e( 'View stock report', 'woocommerce-bulk-stock-management' ); ?></a></h2>
+				<h2><?php esc_html_e( 'Stock Management', 'woocommerce-bulk-stock-management' ); ?> <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'print', 'stock_report' ), 'print-stock' ) ); ?>" class="add-new-h2"><?php esc_html_e( 'View stock report', 'woocommerce-bulk-stock-management' ); ?></a></h2>
 				<form id="stock-management" method="get">
 					<input type="hidden" name="post_type" value="product" />
 					<input type="hidden" name="page" value="woocommerce-bulk-stock-management" />
@@ -185,7 +189,7 @@ function wc_bulk_stock_management_init() {
 		 * Display notice if there's updated products.
 		 */
 		public function maybe_show_notice() {
-			$updated_count = ! empty( $_GET['updated'] ) ? absint( $_GET['updated'] ) : 0;
+			$updated_count = absint( Request::get_query_string_variable( 'updated', '0' ) );
 			if ( $updated_count ) {
 				/* translators: 1: number of product(s) */
 				echo wp_kses_post( '<div class="updated notice is-dismissible"><p>' . sprintf( _n( '%s product was updated', '%s products were updated', $updated_count, 'woocommerce-bulk-stock-management' ), $updated_count ) . '</p></div>' );
@@ -201,8 +205,9 @@ function wc_bulk_stock_management_init() {
 
 			if ( $action ) {
 				$this->dispatch_action( $action );
-			} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
-				wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			} elseif ( ! empty( Request::get_request_variable( '_wp_http_referer' ) ) ) {
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				wp_safe_redirect( sanitize_url( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 				exit;
 			}
 		}
@@ -233,8 +238,8 @@ function wc_bulk_stock_management_init() {
 
 			$affected_rows = 0;
 			if ( 'save' === $action ) {
-				$quantities         = ! empty( $_POST['stock_quantity'] ) ? $_POST['stock_quantity'] : array();
-				$current_quantities = ! empty( $_POST['current_stock_quantity'] ) ? $_POST['current_stock_quantity'] : array();
+				$quantities         = Request::get_post_variable( 'stock_quantity', array() );
+				$current_quantities = Request::get_post_variable( 'current_stock_quantity', array() );
 
 				foreach ( $quantities as $id => $qty ) {
 					if ( '' === $qty ) {
@@ -260,7 +265,7 @@ function wc_bulk_stock_management_init() {
 					}
 				}
 			} else {
-				$products = array_map( 'absint', ! empty( $_POST['product'] ) ? $_POST['product'] : array() );
+				$products = array_map( 'absint', Request::get_post_variable( 'product', array() ) );
 				if ( $products ) {
 					foreach ( $products as $id ) {
 						$affected_rows++;
@@ -320,7 +325,8 @@ function wc_bulk_stock_management_init() {
 		 * Output the stock report table
 		 */
 		public function print_stock_report() {
-			if ( ! empty( $_GET['print'] ) && 'stock_report' === $_GET['print'] ) {
+			$print = Request::get_query_string_variable( 'print' );
+			if ( 'stock_report' === $print ) {
 				check_admin_referer( 'print-stock' );
 				include apply_filters( 'wc_stock_report_template', plugin_dir_path( __FILE__ ) . 'templates/stock-report.php' );
 				die();

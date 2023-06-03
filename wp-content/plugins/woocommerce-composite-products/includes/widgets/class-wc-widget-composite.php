@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Displays configuration summary of the currently displayed composite product.
  * By default applicable to Multi-page Composites only.
  *
- * @version  4.1.2
+ * @version  8.8.0
  * @extends  WC_Widget
  */
 class WC_Widget_Composite extends WC_Widget {
@@ -93,14 +93,14 @@ class WC_Widget_Composite extends WC_Widget {
 			'display' => $display
 		);
 
-		echo str_replace( 'widget_composite_summary ', 'widget_composite_summary widget_position_' . $display . ' ', $args[ 'before_widget' ] );
+		echo wp_kses_post( str_replace( 'widget_composite_summary ', 'widget_composite_summary widget_position_' . $display . ' ', $args[ 'before_widget' ] ) );
 
 		$default = isset( $this->settings[ 'title' ][ 'std' ] ) ? $this->settings[ 'title' ][ 'std' ] : '';
 
 		if ( ! empty( $instance[ 'title' ] ) ) {
 			/** Documented in wp-includes/widgets/class-wp-widget-pages.php */
 			$title = apply_filters( 'widget_title', $instance[ 'title' ], $instance, $this->id_base );
-			echo $args[ 'before_title' ] . $title . $args[ 'after_title' ];
+			echo wp_kses_post( $args[ 'before_title' ] . $title . $args[ 'after_title' ] );
 		}
 
 		$classes   = array();
@@ -127,7 +127,7 @@ class WC_Widget_Composite extends WC_Widget {
 
 		ob_start();
 
-		?><div class="widget_composite_summary_content <?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-container_id="<?php echo $product_id; ?>"><?php
+		?><div class="widget_composite_summary_content <?php echo esc_attr( implode( ' ', $classes ) ); ?>" data-container_id="<?php echo esc_attr( $product_id ); ?>"><?php
 
 			/**
 			 * 'woocommerce_composite_summary_widget_content' hook:
@@ -143,9 +143,10 @@ class WC_Widget_Composite extends WC_Widget {
 
 		?></div><?php
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo ob_get_clean();
 
-		echo $args[ 'after_widget' ];
+		echo wp_kses_post( $args[ 'after_widget' ] );
 	}
 
 	/**

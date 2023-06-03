@@ -10,9 +10,12 @@ namespace Smush\App\Pages;
 
 use Smush\App\Abstract_Summary_Page;
 use Smush\App\Interface_Page;
+use Smush\Core\Array_Utils;
 use Smush\Core\Core;
 use Smush\Core\Settings;
+use Smush\Core\Stats\Global_Stats;
 use WP_Smush;
+use Smush\Core\Backups\Backups;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -45,10 +48,44 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		add_action( 'wp_smush_render_setting_row', array( $this, 'set_background_email_setting_visibility' ) );
 	}
 
+	public function enqueue_scripts( $hook ) {
+		parent::enqueue_scripts( $hook );
+
+		$this->enqueue_lib_scanner_scripts();
+	}
+
+	protected function enqueue_lib_scanner_scripts() {
+		wp_enqueue_script(
+			'smush-library-scanner',
+			WP_SMUSH_URL . 'app/assets/js/smush-library-scanner.min.js',
+			array( 'wp-i18n' ),
+			WP_SMUSH_VERSION,
+			true
+		);
+
+		wp_localize_script( 'smush-library-scanner', 'mediaLibraryScan', array(
+			'nonce' => wp_create_nonce( 'wp_smush_media_library_scanner' ),
+		) );
+	}
+
 	/**
 	 * Register meta boxes.
 	 */
 	public function register_meta_boxes() {
+		if ( ! is_network_admin() ) {
+			$this->add_meta_box(
+				'recheck-images-notice',
+				null,
+				array( $this, 'recheck_images_notice_meta_box' ),
+				null,
+				null,
+				'main',
+				array(
+					'box_class'         => 'sui-box wp-smush-recheck-images-notice-box sui-hidden',
+					'box_content_class' => false,
+				)
+			);
+		}
 		parent::register_meta_boxes();
 
 		if ( ! is_network_admin() ) {
@@ -167,10 +204,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				<?php
 				printf( /* translators: %s: link to gifgifs.com */
 					esc_html__(
-						'Note: Image resizing happens automatically when you upload attachments. To support
-					retina devices, we recommend using 2x the dimensions of your image size. Animated GIFs will not be
-					resized as they will lose their animation, please use a tool such as %s to resize
-					then re-upload.',
+						'Note: Image resizing happens automatically when you upload attachments. To support retina devices, we recommend using 2x the dimensions of your image size. Animated GIFs will not be resized as they will lose their animation, please use a tool such as %s to resize then re-upload.',
 						'wp-smushit'
 					),
 					'<a href="http://gifgifs.com/resizer/" target="_blank">http://gifgifs.com/resizer/</a>'
@@ -200,16 +234,19 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			<div class="sui-toggle-content">
 				<div class="sui-notice sui-notice-info" style="margin-top: 10px">
 					<div class="sui-notice-content">
-						<div class="sui-notice-message">
+						<div class="sui-notice-message smush-png2jpg-setting-note">
 							<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
 							<p>
 								<?php
-								printf( /* translators: %1$s - <strong>, %2$s - </strong> */
-									esc_html__( 'Note: Any PNGs with transparency will be ignored. Smush will only convert PNGs if it results in a smaller file size. The resulting file will have a new filename and extension (JPEG), and %1$sany hard-coded URLs on your site that contain the original PNG filename will need to be updated manually%2$s.', 'wp-smushit' ),
-									'<strong>',
-									'</strong>'
-								);
-								?>
+									/* translators: 1: <strong> 2: </strong> */
+									printf( esc_html__( 'Note: Any PNGs with transparency will be ignored. Smush will only convert PNGs if it results in a smaller file size. The original PNG file will be deleted, and the resulting file will have a new filename and extension (JPEG). %1$sAny hard-coded URLs on your site that contain the original PNG filename will need to be updated manually.%2$s', 'wp-smushit' ), '<strong>', '</strong>' ); ?>
+								<br/>
+								<span>
+									<?php
+										/* translators: 1: <strong> 2: </strong> */
+										printf( esc_html__( '%1$sBackup original images%2$s must be enabled if you wish to retain the original PNG image as a backup.', 'wp-smushit' ), '<strong>', '</strong>' );
+									?>
+								</span>
 							</p>
 						</div>
 					</div>
@@ -237,15 +274,15 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 					break;
 				case 'strip_exif':
 					esc_html_e(
-						'Note: This data adds to the size of the image. While this information might be
-					important to photographers, it’s unnecessary for most users and safe to remove.',
+						'Note: This data adds to the size of the image. While this information might be important to photographers, it’s unnecessary for most users and safe to remove.',
 						'wp-smushit'
 					);
 					break;
 				case 'background_email':
 					$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
 					if ( $bg_optimization->can_use_background() ) {
-						$bg_email_desc   = sprintf( __( 'You will receive an email at <strong>%s</strong> when the bulk smush has completed.', 'wp-smushit' ), $bg_optimization->get_mail_recipient() );
+						/* translators: %s: Email address. */
+						$bg_email_desc = sprintf( __( 'You will receive an email at <strong>%s</strong> when the bulk smush has completed.', 'wp-smushit' ), $bg_optimization->get_mail_recipient() );
 					} else {
 						$bulk_upgrade_url = $this->get_utm_link(
 							array(
@@ -255,6 +292,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 							)
 						);
 						$bg_email_desc    = sprintf(
+							/* translators: 1: Open link tag <a>, 2: Close link tag </a> */
 							esc_html__( 'Get the email notification as part of the Background Optimization feature. You don’t have to keep the bulk smush page open when it is in progress. Be notified when Background Optimization completes. %1$sTry it with Smush Pro%2$s', 'wp-smushit' ),
 							'<a href="' . esc_url( $bulk_upgrade_url ) . '" class="smush-upsell-link" target="_blank">',
 							'</a>'
@@ -509,13 +547,9 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 	 * bulk smush action buttons etc. in this box.
 	 */
 	public function bulk_smush_metabox() {
-		$core = WP_Smush::get_instance()->core();
-
-		$total_images_to_smush = $core->remaining_count();
-
-		// This is the same calculation used for $core->remaining_count,
-		// except that we don't add the re-smushed count here.
-		$unsmushed_count = $core->total_count - $core->smushed_count - $core->skipped_count;
+		$core         = WP_Smush::get_instance()->core();
+		$global_stats = $core->get_global_stats();
+		$array_utils  = new Array_Utils();
 
 		$bulk_upgrade_url       = $this->get_utm_link(
 			array(
@@ -554,6 +588,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			);
 		}
 		$in_processing_notice = sprintf(
+			/* translators: %s: Upsell text */
 			__( 'Bulk Smush is currently running. Please keep this page open until the process is complete. %s', 'wp-smushit' ),
 			$upsell_text
 		);
@@ -563,9 +598,11 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			array(
 				'core'                            => $core,
 				'can_use_background'              => $bg_optimization->can_use_background(),
-				'unsmushed_count'                 => $unsmushed_count > 0 ? $unsmushed_count : 0,
-				'resmush_count'                   => count( get_option( 'wp-smush-resmush-list', array() ) ),
-				'total_images_to_smush'           => $total_images_to_smush,
+				'is_pro'                          => WP_Smush::is_pro(),
+				'unsmushed_count'                 => (int) $array_utils->get_array_value( $global_stats, 'count_unsmushed' ),
+				'resmush_count'                   => (int) $array_utils->get_array_value( $global_stats, 'count_resmush' ),
+				'remaining_count'                 => (int) $array_utils->get_array_value( $global_stats, 'remaining_count' ),
+				'total_count'                     => (int) $array_utils->get_array_value( $global_stats, 'count_total' ),
 				'bulk_upgrade_url'                => $bulk_upgrade_url,
 				'upsell_cdn_url'				  => $upsell_cdn_url,
 				'background_processing_enabled'   => $background_processing_enabled,
@@ -597,6 +634,9 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			unset( $fields[ $key ] );
 		}
 
+		$backups       = new Backups();
+		$backup_exists = $backups->items_with_backup_exist();
+
 		$this->view(
 			'bulk-settings/meta-box',
 			array(
@@ -604,7 +644,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				'cdn_enabled'      => $this->settings->get( 'cdn' ),
 				'grouped_settings' => $fields,
 				'settings'         => $this->settings->get(),
-				'backups_count'    => count( WP_Smush::get_instance()->core()->mod->backup->get_attachments_with_backups() ),
+				'backup_exists'    => $backup_exists,
 			)
 		);
 	}
@@ -654,5 +694,13 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			</style>
 			<?php
 		}
+	}
+
+	public function recheck_images_notice_meta_box() {
+		$this->view(
+			'recheck-images-notice',
+			array(),
+			'common'
+		);
 	}
 }

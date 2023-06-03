@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Product_Addon_Display class.
+ * 
+ * @version 6.3.1
  */
 class WC_Product_Addons_Display {
 	public $show_num_chars;
@@ -66,6 +68,11 @@ class WC_Product_Addons_Display {
 		) {
 			wp_enqueue_style( 'woocommerce-addons-css', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/css/frontend/frontend.css', array( 'dashicons' ), WC_PRODUCT_ADDONS_VERSION );
 			wp_enqueue_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip.min.js', array( 'jquery' ), WC_VERSION, true );
+
+			if ( WC_PAO_Core_Compatibility::wc_current_theme_is_fse_theme() ) {
+				wp_register_style( 'wc-pao-blocks-style', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/css/frontend/blocktheme.css', false, WC_PRODUCT_ADDONS_VERSION );
+				wp_enqueue_style( 'wc-pao-blocks-style' );
+			}
 		}
 	}
 

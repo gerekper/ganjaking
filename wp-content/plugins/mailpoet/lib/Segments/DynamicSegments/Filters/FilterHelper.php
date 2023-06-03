@@ -29,7 +29,7 @@ class FilterHelper {
     return $this->entityManager
       ->getConnection()
       ->createQueryBuilder()
-      ->select('id')
+      ->select($this->getSubscribersTable() . '.id')
       ->from($this->getSubscribersTable());
   }
 

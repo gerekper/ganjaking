@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 					</p>
 
 					<p>
-						<a class="add_note button" data-request="<?php echo esc_attr( $request['ID'] ); ?>" href="#"><?php esc_html_e( 'Add', 'wc_warranty' ); ?></a>
+						<a class="add_note button" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wc_warranty_add_note_nonce_' . $request['ID'] ) ); ?>" data-request="<?php echo esc_attr( $request['ID'] ); ?>" href="#"><?php esc_html_e( 'Add', 'wc_warranty' ); ?></a>
 					</p>
 				</div>
 			</div>

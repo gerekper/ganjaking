@@ -2009,11 +2009,23 @@ class wfWAFRuleComparisonSubject {
 		return $this->waf;
 	}
 
+	private static function setWafForSubject($subject, $waf) {
+		if (is_array($subject)) {
+			foreach ($subject as $child) {
+				self::setWafForSubject($child, $waf);
+			}
+		}
+		else if ($subject instanceof wfWAFRuleComparisonSubject) {
+			$subject->setWAF($waf);
+		}
+	}
+
 	/**
 	 * @param wfWAF $waf
 	 */
 	public function setWAF($waf) {
 		$this->waf = $waf;
+		self::setWafForSubject($this->subject, $waf);
 	}
 }
 }

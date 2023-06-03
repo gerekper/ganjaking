@@ -25,8 +25,6 @@ class Warranty_Ajax {
 			'delete_request'             => false,
 			'add_note'                   => false,
 			'delete_note'                => false,
-			'request_tracking'           => false,
-			'set_tracking'               => false,
 			'update_inline'              => false,
 			'return_inventory'           => false,
 			'refund_item'                => false,
@@ -58,9 +56,15 @@ class Warranty_Ajax {
 	 */
 	public static function user_search() {
 		global $wpdb;
+
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_user_search_nonce' ) ) {
+			die( esc_html__( 'Security check', 'wc_warranty' ) );
+		}
+
 		$get_data  = warranty_request_get_data();
 		$term      = isset( $get_data['term'] ) ? $get_data['term'] : false;
-		$results   = array();
 		$all_users = array();
 
 		if ( is_numeric( $term ) ) {
@@ -136,6 +140,13 @@ class Warranty_Ajax {
 	 */
 	public static function search_for_email() {
 		global $wpdb;
+
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_search_for_email_nonce' ) ) {
+			die( esc_html__( 'Security check', 'wc_warranty' ) );
+		}
+
 		$get_data            = warranty_request_get_data();
 		$term                = isset( $get_data['term'] ) ? $get_data['term'] : false;
 		$results             = array();
@@ -240,46 +251,29 @@ class Warranty_Ajax {
 	 */
 	public static function update_request_fragment() {
 		$post_data = wc_clean( wp_unslash( $_REQUEST ) );
+
+		if ( empty( $post_data['request_id'] ) ) {
+			die( esc_html__( 'No ID', 'wc_warranty' ) );
+		}
+
+		$request_id = $post_data['request_id'];
+
 		$type      = $post_data['type'];
 		$message   = '';
 
+		$nonce = ! empty( $post_data['security'] ) ? sanitize_text_field( wp_unslash( $post_data['security'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_update_status_nonce_' . $request_id ) ) {
+			die( esc_html__( 'Security check', 'wc_warranty' ) );
+		}
+
 		if ( 'change_status' === $type ) {
+
 			$new_status = $post_data['status'];
-			$request_id = $post_data['request_id'];
 
 			warranty_update_request( $request_id, array( 'status' => $new_status ) );
 
 			$message = __( 'Request status updated', 'wc_warranty' );
-		} elseif ( 'generate_rma' === $type ) {
-			// using GET.
-			$request_id = $post_data['request_id'];
-			$code       = warranty_generate_rma_code();
-
-			warranty_update_request( $request_id, array( 'code' => $code ) );
-
-			$message = __( 'RMA Code generated successfully', 'wc_warranty' );
-		} elseif ( 'request_code' === $type ) {
-			$request_id = $post_data['request_id'];
-
-			warranty_update_request( $request_id, array( 'request_tracking_code' => 'y' ) );
-
-			warranty_send_emails( $request_id, 'request_tracking' );
-
-			$message = __( 'Tracking code requested', 'wc_warranty' );
-		} elseif ( 'set_return_tracking' === $type ) {
-			$request_id = $post_data['request_id'];
-			$provider   = isset( $post_data['return_tracking_provider'] ) ? $post_data['return_tracking_provider'] : false;
-			$code       = $post_data['return_tracking_code'];
-
-			$data['return_tracking_code'] = $code;
-
-			if ( false !== $provider ) {
-				$data['return_tracking_provider'] = $provider;
-			}
-
-			warranty_update_request( $request_id, $data );
-
-			$message = __( 'Return tracking code updated', 'wc_warranty' );
 		}
 
 		if ( $message ) {
@@ -333,8 +327,13 @@ class Warranty_Ajax {
 	public static function add_note() {
 		$request    = warranty_request_data();
 		$request_id = isset( $request['request'] ) ? absint( $request['request'] ) : 0;
+		$nonce      = isset( $request['security'] ) ? sanitize_text_field( $request['security'] ) : '';
 		$user       = wp_get_current_user();
 		$note       = isset( $request['note'] ) ? $request['note'] : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_add_note_nonce_' . $request_id ) ) {
+			die;
+		}
 
 		if ( ! warranty_load( $request_id ) ) {
 			die;
@@ -369,6 +368,11 @@ class Warranty_Ajax {
 		$request    = warranty_request_data();
 		$request_id = isset( $request['request'] ) ? absint( $request['request'] ) : 0;
 		$note       = isset( $request['note_id'] ) ? absint( $request['note_id'] ) : 0;
+		$nonce      = isset( $request['security'] ) ? sanitize_text_field( $request['security'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_delete_note_nonce_' . $note ) ) {
+			die;
+		}
 
 		wp_delete_comment( $note, true );
 
@@ -377,48 +381,6 @@ class Warranty_Ajax {
 		$list = ob_get_clean();
 
 		die( $list );
-	}
-
-	/**
-	 * Send a tracking request to the customer
-	 */
-	public static function request_tracking() {
-		ob_start();
-
-		$request_id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
-		warranty_send_tracking_request( $request_id );
-
-		ob_end_clean();
-
-		wp_send_json( array( 'status' => 'OK' ) );
-	}
-
-	/**
-	 * Set the return shipping details
-	 */
-	public static function set_tracking() {
-		ob_start();
-
-		$request_id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
-		$provider   = ! empty( $_POST['return_tracking_provider'] ) ? sanitize_text_field( wp_unslash( $_POST['return_tracking_provider'] ) ) : false;
-		$code       = isset( $_POST['tracking'] ) ? sanitize_text_field( wp_unslash( $_POST['tracking'] ) ) : '';
-
-		$data['return_tracking_code'] = $code;
-
-		if ( false !== $provider ) {
-			$data['return_tracking_provider'] = $provider;
-		}
-
-		warranty_update_request( $request_id, $data );
-
-		ob_end_clean();
-
-		wp_send_json(
-			array(
-				'status'  => 'OK',
-				'message' => __( 'Shipping tracking details saved', 'wc_warranty' ),
-			)
-		);
 	}
 
 	/**
@@ -561,6 +523,18 @@ class Warranty_Ajax {
 			die();
 		}
 
+		$nonce = isset( $post_data['security'] ) ? sanitize_text_field( $post_data['security'] ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'warranty_update_product-' . $product_id ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => esc_html__( 'Security token does not match.', 'woocommerce-warranty' ),
+				)
+			);
+			die();
+		}
+
 		// Make sure the product ID is legit.
 		$product = wc_get_product( $product_id );
 		if ( ! $product instanceof WC_Product ) {
@@ -640,6 +614,18 @@ class Warranty_Ajax {
 	}
 
 	public static function update_category_defaults() {
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'warranty_category_update_inline' ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'data'    => array(),
+					'message' => esc_html__( 'Security token does not match.', 'woocommerce-warranty' ),
+				)
+			);
+		}
+
 		$warranties = Warranty_Settings::get_category_warranties_from_post();
 		update_option( 'wc_warranty_categories', $warranties );
 
@@ -660,7 +646,13 @@ class Warranty_Ajax {
 			$strings[ $category_id ] = ( $default ) ? '<em>Default warranty</em>' : warranty_get_warranty_string( 0, $warranty );
 		}
 
-		wp_send_json( $strings );
+		wp_send_json(
+			array(
+				'success' => true,
+				'data'    => $strings,
+				'message' => '',
+			)
+		);
 	}
 
 	/**
@@ -675,6 +667,12 @@ class Warranty_Ajax {
 		 * We need to turn off the object cache temporarily while we deal with transients,
 		 * as a workaround to a W3 Total Cache object caching bug.
 		*/ global $_wp_using_ext_object_cache;
+
+		$nonce = ! empty( $_POST['woo_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['woo_nonce'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'warranty_migrate_products_nonce' ) ) {
+			wp_send_json( array( 'error' => esc_html__( 'Security token does not match.', 'woocommerce-warranty' ) ) );
+		}
 
 		$_wp_using_ext_object_cache_previous = $_wp_using_ext_object_cache;
 		$_wp_using_ext_object_cache          = false;

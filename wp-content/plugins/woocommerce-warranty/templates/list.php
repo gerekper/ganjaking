@@ -245,15 +245,17 @@ class Warranty_List_Table extends WP_List_Table {
 		if ( $readonly ) {
 			$content = ucfirst( $status->name );
 		} else {
-			$content = '<select name="status" id="status_' . $item['ID'] . '">';
+			$content = '<select name="status" id="status_' . esc_attr( $item['ID'] ) . '">';
 
 			foreach ( $statuses as $_status ) :
 				$sel      = ( $status->slug === $_status->slug ) ? 'selected' : '';
-				$content .= '<option value="' . $_status->slug . '" ' . $sel . '>' . ucfirst( $_status->name ) . '</option>';
+				$content .= '<option value="' . esc_attr( $_status->slug ) . '" ' . $sel . '>' . ucfirst( $_status->name ) . '</option>';
 			endforeach;
 
+			$nonce    = wp_create_nonce( 'wc_warranty_update_status_nonce_' . $item['ID'] );
 			$content .= '</select>
-			<button class="button update-status" type="button" title="Update" data-request_id="' . $item['ID'] . '"><span>' . __( 'Update', 'wc_warranty' ) . '</span></button>
+			<input type="hidden" id="update_status_nonce_' . esc_attr( $item['ID'] ) . '" name="security" value="' . esc_attr( $nonce ) . '" />
+			<button class="button update-status" type="button" title="Update" data-request_id="' . esc_attr( $item['ID'] ) . '"><span>' . __( 'Update', 'wc_warranty' ) . '</span></button>
 			';
 		}
 		return $content;

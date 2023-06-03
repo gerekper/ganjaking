@@ -56,7 +56,7 @@ jQuery( function( $ ) {
 						return {
 							term: term.term,
 							action: $( this ).data( 'action' ) || 'warranty_user_search',
-							security: wc_enhanced_select_params.search_customers_nonce,
+							security: user_email_search_params.user_search_nonce,
 						};
 					},
 					processResults: function( data, page ) {
@@ -92,6 +92,7 @@ jQuery( function( $ ) {
 						return {
 							term: term.term,
 							action: $( this ).data( 'action' ) || 'warranty_search_for_email',
+							security: user_email_search_params.search_for_email_nonce,
 						};
 					}, processResults: function( data, page ) {
 						var terms = [];

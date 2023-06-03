@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.2
-Stable tag: 2.1.0
+Tested up to: 6.2.2
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,19 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.1.1 - 05.31.2023 =
+* Added WP-CLI support for managing plugin license key activation.
+* Changed behavior of Disable Cart Fragments toggle to only load cart fragmentation script when there are items in the cart.
+* Added default array for critical image preload exclusions that are always needed.
+* Added additional Delay JS quick exclusions for Bricks Slider and WP Armour.
+* Added additional built-in exclusions for Remove Unused CSS for better compatibility with Elementor and Google Reviews Widget.
+* Updated lazy loading fade-in effect to use CSS animation property instead of transition for better compatibility with existing element transitions.
+* Added requirement for advanced options to be turned on to be able to defer jQuery.
+* Added WP-CLI request exclusion to MU plugin functions.
+* Fixed a PHP warning that could sometimes be generated if an image was not able to be parsed for missing dimensions.
+* Updated instant.page library to version 5.2.0.
+* Translation updates.
 
 = 2.1.0 - 05.01.2023 =
 * Added new delay JS option for Quick Exclusions that will show up when certain popular plugins and themes are activated.

@@ -8,6 +8,8 @@
 
 namespace Smush\Core;
 
+use Smush\Core\Media\Media_Item_Cache;
+use Smush\Core\Media\Media_Item_Optimizer;
 use WP_CLI;
 use WP_CLI_Command;
 use WP_Smush;
@@ -258,8 +260,7 @@ class CLI extends WP_CLI_Command {
 	private function restore_image( $id = 0 ) {
 		$core = WP_Smush::get_instance()->core();
 
-		$attachments = ! empty( $core->smushed_attachments ) ? $core->smushed_attachments : $core->get_smushed_attachments();
-
+		$attachments = $core->get_smushed_attachments();
 		if ( empty( $attachments ) ) {
 			WP_CLI::success( __( 'No images available to restore', 'wp-smushit' ) );
 			return;
@@ -281,7 +282,7 @@ class CLI extends WP_CLI_Command {
 			if ( ! $core->mod->backup->backup_exists( $attachment_id ) ) {
 				$warning = true;
 
-				$warning_text = printf( /* translators: %d - attachment ID */
+				$warning_text = sprintf(/* translators: %d - attachment ID */
 					esc_html__( 'Image %d cannot be restored', 'wp-smushit' ),
 					(int) $attachment_id
 				);
@@ -290,7 +291,13 @@ class CLI extends WP_CLI_Command {
 				continue;
 			}
 
-			$core->mod->backup->restore_image( $attachment_id, false );
+			$media_item = Media_Item_Cache::get_instance()->get( $attachment_id );
+			$optimizer  = new Media_Item_Optimizer( $media_item );
+			$restored   = $optimizer->restore();
+			if ( ! $restored ) {
+				$warning = true;
+			}
+
 			$progress->tick();
 		}
 
@@ -301,7 +308,6 @@ class CLI extends WP_CLI_Command {
 		} else {
 			WP_CLI::success( __( 'All images restored', 'wp-smushit' ) );
 		}
-
 	}
 
 }

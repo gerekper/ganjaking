@@ -8,8 +8,10 @@
 namespace Smush\App;
 
 use Smush\Core\Core;
+use Smush\Core\Error_Handler;
 use Smush\Core\Helper;
 use Smush\Core\Settings;
+use Smush\Core\Stats\Global_Stats;
 use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -508,31 +510,31 @@ class Admin {
 	/**
 	 * Prints the content for pending images for the Bulk Smush section.
 	 *
-	 * @since 3.7.2
+	 * @param int $remaining_count
+	 * @param int $reoptimize_count
+	 * @param int $optimize_count
 	 *
-	 * @param int $remaining_count Resmush + unsmushed image count.
-	 * @param int $resmush_count   Resmush count.
-	 * @param int $unsmushed_count Unsmushed image count.
+	 * @since 3.7.2
 	 */
-	public function print_pending_bulk_smush_content( $remaining_count, $resmush_count, $unsmushed_count ) {
-		$unsmushed_message = '';
-		if ( 0 < $unsmushed_count ) {
-			$unsmushed_message = sprintf(
+	public function print_pending_bulk_smush_content( $remaining_count, $reoptimize_count, $optimize_count ) {
+		$optimize_message = '';
+		if ( 0 < $optimize_count ) {
+			$optimize_message = sprintf(
 				/* translators: 1. opening strong tag, 2: unsmushed images count,3. closing strong tag. */
-				esc_html( _n( '%1$s%2$d attachment%3$s that needs smushing', '%1$s%2$d attachments%3$s that need smushing', $unsmushed_count, 'wp-smushit' ) ),
+				esc_html( _n( '%1$s%2$d attachment%3$s that needs smushing', '%1$s%2$d attachments%3$s that need smushing', $optimize_count, 'wp-smushit' ) ),
 				'<strong>',
-				absint( $unsmushed_count ),
+				absint( $optimize_count ),
 				'</strong>'
 			);
 		}
 
-		$resmush_message = '';
-		if ( 0 < $resmush_count ) {
-			$resmush_message = sprintf(
+		$reoptimize_message = '';
+		if ( 0 < $reoptimize_count ) {
+			$reoptimize_message = sprintf(
 				/* translators: 1. opening strong tag, 2: re-smush images count,3. closing strong tag. */
-				esc_html( _n( '%1$s%2$d attachment%3$s that needs re-smushing', '%1$s%2$d attachments%3$s that need re-smushing', $resmush_count, 'wp-smushit' ) ),
+				esc_html( _n( '%1$s%2$d attachment%3$s that needs re-smushing', '%1$s%2$d attachments%3$s that need re-smushing', $reoptimize_count, 'wp-smushit' ) ),
 				'<strong>',
-				esc_html( $resmush_count ),
+				esc_html( $reoptimize_count ),
 				'</strong>'
 			);
 		}
@@ -543,9 +545,9 @@ class Admin {
 			/* translators: 1. username, 2. unsmushed images message, 3. 'and' text for when having both unsmushed and re-smush images, 4. re-smush images message. */
 			__( '%1$s, you have %2$s%3$s%4$s! %5$s', 'wp-smushit' ),
 			esc_html( Helper::get_user_name() ),
-			$unsmushed_message,
-			( $unsmushed_message && $resmush_message ? esc_html__( ' and ', 'wp-smushit' ) : '' ),
-			$resmush_message,
+			$optimize_message,
+			( $optimize_message && $reoptimize_message ? esc_html__( ' and ', 'wp-smushit' ) : '' ),
+			$reoptimize_message,
 			$bulk_limit_free_message
 		);
 		?>
@@ -554,6 +556,50 @@ class Admin {
 			<?php echo wp_kses_post( $image_count_description ); ?>
 		</p>
 		<?php
+	}
+
+	public function get_global_stats_with_bulk_smush_content() {
+		$core             = WP_Smush::get_instance()->core();
+		$stats            = $core->get_global_stats();
+		$global_stats     = Global_Stats::get();
+		$remaining_count  = $global_stats->get_remaining_count();
+		$optimize_count   = $global_stats->get_optimize_list()->get_count();
+		$reoptimize_count = $global_stats->get_redo_count();
+
+		$stats['errors']  = Error_Handler::get_last_errors();
+
+		if ( $remaining_count > 0 ) {
+			ob_start();
+			WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content(
+				$remaining_count,
+				$reoptimize_count,
+				$optimize_count
+			);
+			$content          = ob_get_clean();
+			$stats['content'] = $content;
+		}
+
+		return $stats;
+	}
+
+	public function get_global_stats_with_bulk_smush_content_and_notice() {
+		$stats = $this->get_global_stats_with_bulk_smush_content();
+		$remaining_count  = Global_Stats::get()->get_remaining_count();
+		if ( $remaining_count < 1 ) {
+			$stats['notice']     = esc_html__( 'Yay! All images are optimized as per your current settings.', 'wp-smushit' );
+			$stats['noticeType'] = 'success';
+		} else {
+			$stats['noticeType'] = 'warning';
+			$stats['notice']     = sprintf(
+				/* translators: %1$d - number of images, %2$s - opening a tag, %3$s - closing a tag */
+				esc_html__( 'Image check complete, you have %1$d images that need smushing. %2$sBulk smush now!%3$s', 'wp-smushit' ),
+				$remaining_count,
+				'<a href="#" class="wp-smush-trigger-bulk">',
+				'</a>'
+			);
+		}
+
+		return $stats;
 	}
 
 	private function generate_bulk_limit_message_for_free( $remaining_count ) {
@@ -642,6 +688,7 @@ class Admin {
 		}
 
 		$notice_text = sprintf(
+			/* translators: %s: <strong>curl_multi_exec()</strong> */
 			esc_html__( 'Smush was unable to activate parallel processing on your site as your web hosting provider has disabled the %s function on your server. We highly recommend contacting your hosting provider to enable that function to optimize images on your site faster.', 'wp-smushit' ),
 			'<strong>curl_multi_exec()</strong>'
 		);
@@ -685,7 +732,8 @@ class Admin {
 		}
 
 		$notice_text = sprintf(
-			esc_html__( 'Smush was unable to activate background processing on your site as your web hosting provider is using an old version of MySQL on your server (version %s). We highly recommend contacting your hosting provider to upgrade MySQL to version %s or higher to optimize images in the background.', 'wp-smushit' ),
+			/* translators: 1: Current MYSQL version, 2: Required MYSQL version */
+			esc_html__( 'Smush was unable to activate background processing on your site as your web hosting provider is using an old version of MySQL on your server (version %1$s). We highly recommend contacting your hosting provider to upgrade MySQL to version %2$s or higher to optimize images in the background.', 'wp-smushit' ),
 			$bg_optimization->get_actual_mysql_version(),
 			$bg_optimization->get_required_mysql_version()
 		);

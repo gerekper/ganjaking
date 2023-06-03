@@ -24,13 +24,11 @@ jQuery( document ).ready( function( $ ) {
 		body.on( 'update_init_completed', update_data );
 		body.on( 'update_completed', update_completed );
 
-		var params = {
-			'action': wcWarrantyUpdaterPage.ajax_endpoint, 'cmd': 'start', 'woo_nonce': '',
-		};
-
-		if ( wcWarrantyUpdaterPage.ajax_params ) {
-			params = $.extend( params, wcWarrantyUpdaterPage.ajax_params );
-		}
+		const params = $.extend( wcWarrantyUpdaterPage.ajax_params || {}, {
+			'cmd': 'start', 
+			'action': wcWarrantyUpdaterPage.ajax_endpoint,
+			'woo_nonce': wcWarrantyUpdaterPage.ajax_nonce,
+		} );
 
 		$( '#total-items-label' ).html( 'Scanning data. This may take a few minutes.' );
 
@@ -54,16 +52,12 @@ jQuery( document ).ready( function( $ ) {
 	} )();
 
 	function update_data() {
-		var params = {
+		const params = $.extend( wcWarrantyUpdaterPage.ajax_params || {}, {
 			'action': wcWarrantyUpdaterPage.ajax_endpoint,
-			'woo_nonce': '',
+			'woo_nonce': wcWarrantyUpdaterPage.ajax_nonce,
 			'cmd': 'update',
 			'update_session': session,
-		};
-
-		if ( wcWarrantyUpdaterPage.ajax_params ) {
-			params = $.extend( params, wcWarrantyUpdaterPage.ajax_params );
-		}
+		} );
 
 		xhr = $.post( ajaxurl, params, function( resp ) {
 			if ( resp.error ) {

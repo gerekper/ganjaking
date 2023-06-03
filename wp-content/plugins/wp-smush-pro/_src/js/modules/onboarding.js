@@ -4,7 +4,7 @@
 /**
  * Modals JavaScript code.
  */
- ( function() {
+( function() {
 	'use strict';
 
 	/**
@@ -15,7 +15,6 @@
 	WP_Smush.onboarding = {
 		membership: 'free', // Assume free by default.
 		onboardingModal: document.getElementById( 'smush-onboarding-dialog' ),
-		scanFilesModal: document.getElementById( 'checking-files-dialog' ),
 		first_slide: 'usage',
 		settings: {
 			first: true,
@@ -42,6 +41,7 @@
 		],
 		touchX: null,
 		touchY: null,
+		recheckImagesLink: '',
 
 		/**
 		 * Init module.
@@ -54,6 +54,7 @@
 			const dialog = document.getElementById( 'smush-onboarding' );
 
 			this.membership = dialog.dataset.type;
+			this.recheckImagesLink = dialog.dataset.ctaUrl;
 
 			if ( 'pro' !== this.membership ) {
 				this.onboardingSlides = [
@@ -76,13 +77,13 @@
 				'.smush-onboarding-skip-link'
 			);
 			if ( skipButton ) {
-				skipButton.addEventListener( 'click', this.skipSetup );
+				skipButton.addEventListener( 'click', this.skipSetup.bind( this ) );
 			}
 
 			// Show the modal.
 			window.SUI.openModal(
 				'smush-onboarding-dialog',
-				'checking-files-dialog',
+				'wpcontent',
 				undefined,
 				false
 			);
@@ -209,7 +210,7 @@
 					);
 					xhr.onload = () => {
 						if ( 200 === xhr.status ) {
-							WP_Smush.onboarding.showScanDialog();
+							self.onFinishingSetup();
 						} else {
 							window.console.log(
 								'Request failed.  Returned status of ' +
@@ -225,6 +226,22 @@
 					);
 				} );
 			}
+		},
+
+		onFinishingSetup() {
+			this.onFinish();
+			this.startRecheckImages();
+		},
+
+		onFinish() {
+			window.SUI.closeModal();
+		},
+
+		startRecheckImages() {
+			if ( ! this.recheckImagesLink ) {
+				return;
+			}
+			window.location.href = this.recheckImagesLink;
 		},
 
 		/**
@@ -282,7 +299,7 @@
 		/**
 		 * Skip onboarding experience.
 		 */
-		skipSetup: () => {
+		skipSetup() {
 			const _nonce = document.getElementById( 'smush_quick_setup_nonce' );
 
 			const xhr = new XMLHttpRequest();
@@ -292,7 +309,7 @@
 			);
 			xhr.onload = () => {
 				if ( 200 === xhr.status ) {
-					WP_Smush.onboarding.showScanDialog();
+					this.onSkipSetup();
 				} else {
 					window.console.log(
 						'Request failed.  Returned status of ' + xhr.status
@@ -302,52 +319,8 @@
 			xhr.send();
 		},
 
-		/**
-		 * Show checking files dialog.
-		 */
-		showScanDialog() {
-			window.SUI.closeModal();
-			// Do not need to re-check images if we are in bulk smush page.
-			if ( window.location.search.indexOf('page=smush-bulk') > -1 ) {
-				return;
-			}
-			window.SUI.openModal(
-				'checking-files-dialog',
-				'wpbody-content',
-				undefined,
-				false
-			);
-
-			const nonce = document.getElementById( 'wp_smush_options_nonce' );
-
-			setTimeout( () => {
-				const xhr = new XMLHttpRequest();
-				xhr.open( 'POST', ajaxurl + '?action=scan_for_resmush', true );
-				xhr.setRequestHeader(
-					'Content-type',
-					'application/x-www-form-urlencoded'
-				);
-				xhr.onload = () => {
-					const elem = document.querySelector(
-						'#smush-onboarding-dialog'
-					);
-					elem.parentNode.removeChild( elem );
-
-					if ( 200 === xhr.status ) {
-						setTimeout( function() {
-							window.location.search = 'page=smush-bulk';
-						}, 1000 );
-					} else {
-						window.console.log(
-							'Request failed.  Returned status of ' + xhr.status
-						);
-					}
-				};
-				xhr.send(
-					'type=media&get_ui=false&process_settings=false&wp_smush_options_nonce=' +
-						nonce.value
-				);
-			}, 3000 );
+		onSkipSetup() {
+			this.onFinish();
 		},
 
 		/**
@@ -371,7 +344,7 @@
 						'Request failed.  Returned status of ' + xhr.status
 					);
 				}
-			}
+			};
 			xhr.send();
 		},
 	};

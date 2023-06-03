@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    3.6.0
- * @version  3.7.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -17,4 +17,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div id="component_option_radio_buttons_<?php echo $component_id; ?>" class="component_option_radio_buttons" data-component_option_columns="1"></div>
+?><div id="component_option_radio_buttons_<?php echo esc_attr( $component_id ); ?>" class="component_option_radio_buttons" data-component_option_columns="1"></div>

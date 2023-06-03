@@ -198,7 +198,16 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				wp_enqueue_style( 'select2' );
 				wp_enqueue_script( 'wc-enhanced-select' );
 
-				wp_enqueue_script( 'user-email-search', plugins_url( 'assets/js/user-email-search.js', WooCommerce_Warranty::$plugin_file ), array( 'wc-enhanced-select' ), WOOCOMMERCE_WARRANTY_VERSION );
+				wp_register_script( 'user-email-search', plugins_url( 'assets/js/user-email-search.js', WooCommerce_Warranty::$plugin_file ), array( 'wc-enhanced-select' ), WOOCOMMERCE_WARRANTY_VERSION );
+				wp_localize_script(
+					'user-email-search',
+					'user_email_search_params',
+					array(
+						'user_search_nonce'      => wp_create_nonce( 'wc_warranty_user_search_nonce' ),
+						'search_for_email_nonce' => wp_create_nonce( 'wc_warranty_search_for_email_nonce' ),
+					)
+				);
+				wp_enqueue_script( 'user-email-search' );
 
 				add_thickbox();
 				wp_enqueue_media();
@@ -762,25 +771,31 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 */
 		public function updater_page() {
 			$get_data = warranty_request_get_data();
-			
+
 			if ( ! isset( $get_data['act'] ) || 'migrate_products' !== $get_data['act'] ) {
 				wp_die( 'Unknown action passed. Please go back and try again' );
 			}
-			
-			$ajax_params = null;
-			if ( ! empty( $_GET['params'] ) ) {
-				$ajax_params = wc_clean( wp_unslash( $_GET['params'] ) );
+
+			$ajax_params      = ( ! empty( $_GET['params'] ) ) ? wc_clean( wp_unslash( $_GET['params'] ) ) : null;
+			$sanitized_params = array();
+
+			if ( is_array( $ajax_params ) ) {
+				foreach ( $ajax_params as $key => $value ) {
+					$sanitized_key                      = str_replace( '-', '_', sanitize_title( $key ) );
+					$sanitized_params[ $sanitized_key ] = $value;
+				}
 			}
-			
+
 			$args = array(
 				'return_url'            => admin_url( 'admin.php?page=warranties&warranty-data-updated=true' ),
 				'ajax_endpoint'         => 'warranty_migrate_products',
-				'ajax_params'           => $ajax_params,
+				'ajax_nonce'            => wp_create_nonce( 'warranty_migrate_products_nonce' ),
+				'ajax_params'           => 0 < count( $sanitized_params ) ? $sanitized_params : null,
 				'entity_label_singular' => 'request',
 				'entity_label_plural'   => 'requests',
 				'action_label'          => 'updated',
 			);
-			
+
 			wp_localize_script( 'warranty_data_updater', 'wcWarrantyUpdaterPage', $args );
 
 			include WooCommerce_Warranty::$base_path . '/templates/admin/updater.php';
@@ -1317,11 +1332,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		}
 
 		public function count_shop_order_columns( $columns ) {
-			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) || ! OrderUtil::custom_orders_table_usage_is_enabled() ) {
-				self::$shop_order_columns = count( $columns );
-			} else {
-				self::$shop_order_columns = count( $columns ) - 1;
-			}
+			self::$shop_order_columns = count( $columns );
 
 			return $columns;
 		}

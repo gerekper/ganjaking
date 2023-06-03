@@ -17,5 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( $product_description ) {
-	echo apply_filters( 'woocommerce_composited_product_excerpt', wpautop( do_shortcode( wp_kses_post( $product_description ) ) ), $product_id, $component_id, $composite );
+	$product_excerpt = apply_filters( 'woocommerce_composited_product_excerpt', wpautop( do_shortcode( wp_kses_post( $product_description ) ) ), $product_id, $component_id, $composite );
+	echo wp_kses_post( $product_excerpt );
 }

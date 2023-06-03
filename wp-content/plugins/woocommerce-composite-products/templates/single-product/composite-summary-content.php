@@ -8,8 +8,8 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version  3.7.0
  * @since    4.0.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		$title = $component->get_title();
 
-		?><li class="summary_element summary_element_<?php echo $component_id; ?> <?php echo $summary_element_class; ?>" data-item_id="<?php echo $component_id; ?>">
+		?><li class="summary_element summary_element_<?php echo esc_attr( $component_id ); ?> <?php echo esc_attr( $summary_element_class ); ?>" data-item_id="<?php echo esc_attr( $component_id ); ?>">
 			<div class="summary_element_wrapper_outer">
 				<div class="summary_element_wrapper disabled">
 					<div class="summary_element_wrapper_inner cp_clearfix"></div>

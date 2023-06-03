@@ -64,7 +64,7 @@ class Resize extends Abstract_Module {
 		// Apply filter(s) if activated resizing.
 		if ( $this->is_active() ) {
 			// Add a filter to check if the image should resmush.
-			add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 10, 2 );
+			//add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 10, 2 );
 		}
 	}
 

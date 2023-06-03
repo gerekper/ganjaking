@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Wishlists Compatibility.
  *
- * @version  3.15.3
+ * @version  8.8.0
  */
 class WC_CP_Wishlists_Compatibility {
 
@@ -46,11 +46,11 @@ class WC_CP_Wishlists_Compatibility {
 					continue;
 				}
 
-				echo '<dt class="component_title_meta wishlist_component_title_meta">' . $composited_item_data[ 'title' ] . ':</dt>';
+				echo wp_kses_post( '<dt class="component_title_meta wishlist_component_title_meta">' . $composited_item_data[ 'title' ] . ':</dt>' );
 
 				$default_markup = $composited_product->get_title() . ' <strong class="component_quantity_meta wishlist_component_quantity_meta product-quantity">&times; ' . $composited_item_data[ 'quantity' ] . '</strong>';
 
-				echo '<dd class="component_option_meta wishlist_component_option_meta">' . apply_filters( 'woocommerce_composite_wishlist_item_contents', $default_markup, $composited_product, $composited_item_data ) . '</dd>';
+				echo wp_kses_post( '<dd class="component_option_meta wishlist_component_option_meta">' . apply_filters( 'woocommerce_composite_wishlist_item_contents', $default_markup, $composited_product, $composited_item_data ) . '</dd>' );
 
 				if ( ! empty ( $composited_item_data[ 'attributes' ] ) ) {
 
@@ -86,11 +86,11 @@ class WC_CP_Wishlists_Compatibility {
 
 						$attributes = $attributes . $label . ': ' . $attribute_value . ', ';
 					}
-					echo '<dd class="component_attribute_meta wishlist_component_attribute_meta">' . rtrim( $attributes, ', ' ) . '</dd>';
+					echo wp_kses_post( '<dd class="component_attribute_meta wishlist_component_attribute_meta">' . rtrim( $attributes, ', ' ) . '</dd>' );
 				}
 			}
 			echo '</dl>';
-			echo '<p class="component_notice wishlist_component_notice">' . __( '*', 'woocommerce-composite-products' ) . '&nbsp;&nbsp;<em>' . __( 'For up-to-date pricing details, please add the product to your cart.', 'woocommerce-composite-products' ) . '</em></p>';
+			echo '<p class="component_notice wishlist_component_notice">' . esc_html__( '*', 'woocommerce-composite-products' ) . '&nbsp;&nbsp;<em>' . esc_html__( 'For up-to-date pricing details, please add the product to your cart.', 'woocommerce-composite-products' ) . '</em></p>';
 		}
 	}
 

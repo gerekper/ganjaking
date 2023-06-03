@@ -223,4 +223,22 @@ jQuery( document ).ready( function( $ ) {
         list.children( 'tr.hidden' ).remove();
         list.children( 'tr.inline-edit-row' ).remove();
     };
-});
+
+    function set_inline_edit_row_cell_colspan() {
+        list.find( 'tr.inline-edit-row > td' ).attr( 'colspan', calculate_inline_edit_row_cell_colspan_value() );
+    }
+
+    function calculate_inline_edit_row_cell_colspan_value() {
+        const visible_column_count = get_orders_table_visible_column_count();
+
+        return 0 >= visible_column_count ? 1 : visible_column_count;
+    }
+
+    function get_orders_table_visible_column_count() {
+        return list.children( 'tr:first-child' ).children( '*:not(.hidden)' ).length;
+    }
+
+    set_inline_edit_row_cell_colspan();
+
+    $( document ).on( 'click', '.hide-column-tog', set_inline_edit_row_cell_colspan );
+} );

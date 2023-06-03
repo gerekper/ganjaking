@@ -489,7 +489,7 @@ function perfmatters_settings() {
             'perfmatters_woocommerce', 
             array(
                 'id' => 'disable_woocommerce_cart_fragmentation',
-                'tooltip' => __('Completely disables WooCommerce cart fragmentation script.', 'perfmatters')
+                'tooltip' => __('Disables WooCommerce cart fragmentation script when there are no items in the cart.', 'perfmatters')
             )
         );
 
@@ -556,21 +556,24 @@ function perfmatters_settings() {
         )
     );
 
-    //defer jquery
-    add_settings_field(
-        'defer_jquery', 
-        perfmatters_title(__('Include jQuery', 'perfmatters'), 'defer_jquery', 'https://perfmatters.io/docs/defer-javascript-wordpress/#include-jquery'), 
-        'perfmatters_print_input', 
-        'perfmatters_options', 
-        'assets_js', 
-        array(
-            'id' => 'defer_jquery',
-            'section' => 'assets',
-            'confirmation' => __('Many plugins and themes require jQuery. We recommend either testing jQuery deferral separately or leaving this option turned off.', 'perfmatters'),
-            'tooltip' => __('Allow jQuery core to be deferred. We recommend testing this separately or leaving it off.', 'perfmatters'),
-            'class' => 'assets-defer_js' . (empty($perfmatters_options['assets']['defer_js']) ? ' hidden' : '')
-        )
-    );
+    if(!empty($perfmatters_tools['show_advanced'])) {
+
+        //defer jquery
+        add_settings_field(
+            'defer_jquery', 
+            perfmatters_title(__('Include jQuery', 'perfmatters'), 'defer_jquery', 'https://perfmatters.io/docs/defer-javascript-wordpress/#include-jquery'), 
+            'perfmatters_print_input', 
+            'perfmatters_options', 
+            'assets_js', 
+            array(
+                'id' => 'defer_jquery',
+                'section' => 'assets',
+                'confirmation' => __('Many plugins and themes require jQuery. We recommend either testing jQuery deferral separately or leaving this option turned off.', 'perfmatters'),
+                'tooltip' => __('Allow jQuery core to be deferred. We recommend testing this separately or leaving it off.', 'perfmatters'),
+                'class' => 'assets-defer_js' . (empty($perfmatters_options['assets']['defer_js']) ? ' hidden' : '')
+            )
+        );
+    }
 
     //js exlusions
     add_settings_field(

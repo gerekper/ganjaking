@@ -14,6 +14,8 @@ use Smush\Core\Core;
 use Smush\Core\Error_Handler;
 use Smush\Core\Helper;
 use Smush\Core\Configs;
+use Smush\Core\Media\Media_Item_Cache;
+use Smush\Core\Media\Media_Item_Optimizer;
 use Smush\Core\Modules\CDN;
 use Smush\Core\Modules\Helpers\Parser;
 use Smush\Core\Modules\Smush;
@@ -89,12 +91,8 @@ class Ajax {
 		 * BULK SMUSH
 		 */
 		// Ignore image from bulk Smush.
-		add_action( 'wp_ajax_ignore_bulk_image', array( $this, 'ignore_bulk_image' ) );
-		add_action( 'wp_ajax_wp_smush_ignore_all_failed_items', array( $this, 'ajax_ignore_all_failed_items' ) );
-		// Handle Smush Bulk Ajax.
 		add_action( 'wp_ajax_wp_smushit_bulk', array( $this, 'process_smush_request' ) );
 		// Remove from skip list.
-		add_action( 'wp_ajax_remove_from_skip_list', array( $this, 'remove_from_skip_list' ) );
 
 		/**
 		 * DIRECTORY SMUSH
@@ -451,312 +449,15 @@ class Ajax {
 			);
 		}
 
-		$resmush_list = array();
-
 		// Scanning for NextGen or Media Library.
 		$type = isset( $_REQUEST['type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['type'] ) ) : '';
 
-		$core = WP_Smush::get_instance()->core();
-
-		// Save settings only if networkwide settings are disabled.
-		if ( Settings::can_access() && ( ! isset( $_REQUEST['process_settings'] ) || 'false' !== $_REQUEST['process_settings'] ) ) {
-			// Fetch the new settings.
-			$this->settings->init();
-		}
-
-		// If there aren't any images in the library, return the notice.
-		if ( 0 === count( $core->get_media_attachments() ) && 'nextgen' !== $type ) {
-			wp_send_json_success(
-				array(
-					'notice'      => esc_html__( 'We haven’t found any images in your media library yet so there’s no smushing to be done! Once you upload images, reload this page and start playing!', 'wp-smushit' ),
-					'super_smush' => $this->settings->get( 'lossy' ),
-					'no_images'   => true,
-				)
-			);
-		}
-
 		/**
-		 * Logic: If none of the required settings is on, don't need to resmush any of the images
-		 * We need at least one of these settings to be on, to check if any of the image needs resmush.
+		 * @hooked wp_smush_nextgen_scan_stats Smush\Core\Integrations\NextGen\Admin::scan_images()
 		 */
+		$stats = apply_filters( "wp_smush_{$type}_scan_stats", array() );
 
-		// Initialize Media Library Stats.
-		if ( 'nextgen' !== $type && empty( $core->remaining_count ) ) {
-			// Force update to clear caches.
-			$core->setup_global_stats( true );
-		}
-
-		// Initialize NextGen Stats.
-		if ( 'nextgen' === $type && is_object( $core->nextgen->ng_admin ) && empty( $core->nextgen->ng_admin->remaining_count ) ) {
-			$core->nextgen->ng_admin->setup_image_counts();
-		}
-
-		$key = 'nextgen' === $type ? 'wp-smush-nextgen-resmush-list' : 'wp-smush-resmush-list';
-
-		$remaining_count = 'nextgen' === $type ? $core->nextgen->ng_admin->remaining_count : $core->remaining_count;
-
-		if (
-			0 === (int) $remaining_count &&
-			! $this->settings->get( 'lossy' ) &&
-			( ! $this->settings->get( 'original' ) || ! WP_Smush::is_pro() ) &&
-			! $core->mod->webp->is_active() &&
-			! $this->settings->get( 'strip_exif' )
-		) {
-			delete_option( $key );
-			// Default Notice, to be displayed at the top of page. Show a message, at the top.
-			wp_send_json_success(
-				array(
-					'notice' => esc_html__( 'Yay! All images are optimized as per your current settings.', 'wp-smushit' ),
-				)
-			);
-		}
-
-		// Set to empty by default.
-		$content = '';
-
-		// Get Smushed Attachments.
-		if ( 'nextgen' !== $type ) {
-			// Get list of Smushed images.
-			$attachments = ! empty( $core->smushed_attachments ) ? $core->smushed_attachments : $core->get_smushed_attachments();
-		} else {
-			// Get smushed attachments list from nextgen class, We get the meta as well.
-			$attachments = $core->nextgen->ng_stats->get_ngg_images();
-		}
-
-		$stats = array(
-			'size_before'        => 0,
-			'size_after'         => 0,
-			'savings_resize'     => 0,
-			'savings_conversion' => 0,
-		);
-
-		$image_count         = 0;
-		$super_smushed_count = 0;
-		$smushed_count       = 0;
-		$resized_count       = 0;
-		// Check if any of the smushed image needs to be resmushed.
-		if ( ! empty( $attachments ) && is_array( $attachments ) ) {
-			if ( 'nextgen' !== $type ) {
-				// Initialize resize class.
-				$core->mod->resize->initialize();
-				// Media lib.
-				$media_lib = WP_Smush::get_instance()->library();
-			}
-
-			foreach ( $attachments as $attachment_k => $attachment ) {
-				/** Check should resmush for nextgen type */
-				if ( 'nextgen' === $type ) {
-					if ( $this->nextgen_should_resmush( $attachment ) ) {
-						
-					}
-					continue;
-				}
-
-				/** Check should resmush for media type */
-				// Skip if already in ignored list.
-				if ( ! empty( $core->skipped_attachments ) && in_array( $attachment, $core->skipped_attachments ) ) {
-					continue;
-				}
-
-				// Retrieve smush data.
-				$smush_data = get_post_meta( $attachment, Smush::$smushed_meta_key, true );
-				if ( empty( $smush_data['stats'] ) ) {
-					continue;
-				}
-
-				// Check if the attachment need to be smushed.
-				if ( $media_lib->should_resmush( $attachment, $smush_data ) ) {
-					
-				}
-
-				/**
-				 * Calculate stats during re-check images action.
-				 */
-				$resize_savings     = get_post_meta( $attachment, 'wp-smush-resize_savings', true );
-				$conversion_savings = Helper::get_pngjpg_savings( $attachment );
-
-				// Increase the smushed count.
-				$smushed_count ++;
-				// Get the resized image count.
-				if ( ! empty( $resize_savings ) ) {
-					$resized_count ++;
-				}
-
-				// Get the image count.
-				$image_count += ( ! empty( $smush_data['sizes'] ) && is_array( $smush_data['sizes'] ) ) ? count( $smush_data['sizes'] ) : 0;
-
-				// If the image is in resmush list, and it was super smushed earlier.
-				$super_smushed_count += $smush_data['stats']['lossy'] ? 1 : 0;
-
-				// Add to the stats.
-				$stats['size_before'] += ! empty( $smush_data['stats'] ) ? $smush_data['stats']['size_before'] : 0;
-				$stats['size_before'] += ! empty( $resize_savings['size_before'] ) ? $resize_savings['size_before'] : 0;
-				$stats['size_before'] += ! empty( $conversion_savings['size_before'] ) ? $conversion_savings['size_before'] : 0;
-
-				$stats['size_after'] += ! empty( $smush_data['stats'] ) ? $smush_data['stats']['size_after'] : 0;
-				$stats['size_after'] += ! empty( $resize_savings['size_after'] ) ? $resize_savings['size_after'] : 0;
-				$stats['size_after'] += ! empty( $conversion_savings['size_after'] ) ? $conversion_savings['size_after'] : 0;
-
-				$stats['savings_resize']     += ! empty( $resize_savings ) && isset( $resize_savings['bytes'] ) ? $resize_savings['bytes'] : 0;
-				$stats['savings_conversion'] += ! empty( $conversion_savings ) && isset( $conversion_savings['bytes'] ) ? $conversion_savings['bytes'] : 0;
-			}// End of Foreach Loop
-
-			// Store the resmush list in Options table.
-			update_option( $key, $resmush_list, false );
-		}
-
-		// Delete resmush list if empty.
-		if ( empty( $resmush_list ) ) {
-			delete_option( $key );
-		}
-
-		$unsmushed_ids = array();
-
-		// Get updated stats for NextGen.
-		if ( 'nextgen' === $type ) {
-			// Reinitialize NextGen stats.
-			$core->nextgen->ng_admin->setup_image_counts();
-			// Image count, Smushed Count, Super-smushed Count, Savings.
-			$stats               = $core->nextgen->ng_stats->get_smush_stats();
-			$image_count         = $core->nextgen->ng_admin->image_count;
-			$smushed_count       = $core->nextgen->ng_admin->smushed_count;
-			$super_smushed_count = $core->nextgen->ng_admin->super_smushed;
-
-			$unsmushed_count = $core->nextgen->ng_admin->remaining_count;
-
-			if ( 0 < $unsmushed_count ) {
-				$raw_unsmushed = $core->nextgen->ng_stats->get_ngg_images( 'unsmushed' );
-				if ( ! empty( $raw_unsmushed ) && is_array( $raw_unsmushed ) ) {
-					$unsmushed_ids = array_keys( $raw_unsmushed );
-				}
-			}
-		} else {
-			$unsmushed_count = $core->remaining_count - count( $core->resmush_ids );
-
-			if ( 0 < $unsmushed_count ) {
-				$unsmushed_ids = array_values( $core->get_unsmushed_attachments() );
-			}
-		}
-
-		$resmush_count   = count( $resmush_list );
-		$count           = $unsmushed_count + $resmush_count;
-		$remaining_count = $count;
-
-		// If a user manually runs smush check, return the resmush list and UI to be appended to Bulk Smush UI.
-		if ( filter_input( INPUT_GET, 'get_ui', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ) ) {
-			if ( 'nextgen' !== $type ) {
-				// Set the variables.
-				$core->resmush_ids = $resmush_list;
-			} else {
-				// To avoid the php warning.
-				$core->nextgen->ng_admin->resmush_ids = $resmush_list;
-			}
-
-			if ( $count ) {
-				ob_start();
-				WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content( $count, $resmush_count, $unsmushed_count );
-				$content = ob_get_clean();
-			}
-		}
-
-		// Directory Smush Stats
-		// Include directory smush stats if not requested for NextGen.
-		if ( 'nextgen' !== $type ) {
-			// Append the directory smush stats.
-			$dir_smush_stats = get_option( 'dir_smush_stats', array() );
-			if ( ! empty( $dir_smush_stats['dir_smush'] ) ) {
-				$dir_smush_stats = $dir_smush_stats['dir_smush'];
-				if ( ! empty( $dir_smush_stats['optimised'] ) ) {
-					$image_count += $dir_smush_stats['optimised'];
-				}
-
-				// Add directory smush stats if not empty.
-				if ( ! empty( $dir_smush_stats['image_size'] ) && ! empty( $dir_smush_stats['orig_size'] ) ) {
-					$stats['size_before'] += $dir_smush_stats['orig_size'];
-					$stats['size_after']  += $dir_smush_stats['image_size'];
-				}
-			}
-		}
-
-		$total_count = 'nextgen' !== $type
-			? ( $core->total_count - $core->skipped_count )
-			: $core->nextgen->ng_admin->total_count;
-
-		list( $percent_optimized, $percent_metric, $percent_grade ) = $core->get_grade_data(
-			$remaining_count,
-			$core->total_count,
-			$core->skipped_count
-		);
-
-		$return = array(
-			// Leave one line here to easy separate NextGen after merging SMUSH-1124.
-			'count_total'        => $total_count,
-			'resmush_ids'        => $resmush_list,
-			'unsmushed'          => $unsmushed_ids,
-			'count_image'        => $image_count,
-			'count_supersmushed' => $super_smushed_count,
-			'count_smushed'      => $smushed_count,
-			'count_resize'       => $resized_count,
-			'size_before'        => ! empty( $stats['size_before'] ) ? $stats['size_before'] : 0,
-			'size_after'         => ! empty( $stats['size_after'] ) ? $stats['size_after'] : 0,
-			'savings_resize'     => ! empty( $stats['savings_resize'] ) ? $stats['savings_resize'] : 0,
-			'savings_conversion' => ! empty( $stats['savings_conversion'] ) ? $stats['savings_conversion'] : 0,
-			'savings_percent'    => ! empty( $stats['percent'] ) && $stats['percent'] > 0 ? number_format_i18n( $stats['percent'], 1 ) : 0,
-			'percent_grade'      => $percent_grade,
-			'percent_metric'     => $percent_metric,
-			'percent_optimized'  => $percent_optimized,
-			'remaining_count'    => $remaining_count,
-		);
-
-		if ( ! empty( $content ) ) {
-			$return['content'] = $content;
-		}
-
-		// Include the count.
-		if ( ! empty( $count ) ) {
-			$return['count'] = $count;
-
-			$return['noticeType'] = 'warning';
-			$return['notice']     = sprintf(
-				/* translators: %1$d - number of images, %2$s - opening a tag, %3$s - closing a tag */
-				esc_html__( 'Image check complete, you have %1$d images that need smushing. %2$sBulk smush now!%3$s', 'wp-smushit' ),
-				$count,
-				'<a href="#" class="wp-smush-trigger-bulk" data-type="' . $type . '">',
-				'</a>'
-			);
-		}
-
-		$return['super_smush'] = $this->settings->get( 'lossy' );
-		if ( WP_Smush::is_pro() && $this->settings->get( 'lossy' ) && 'nextgen' === $type ) {
-			$ss_count                    = $core->nextgen->ng_stats->nextgen_super_smushed_count( $core->nextgen->ng_stats->get_ngg_images( 'smushed' ) );
-			$return['super_smush_stats'] = sprintf( '<strong><span class="smushed-count">%d</span>/%d</strong>', $ss_count, $core->nextgen->ng_admin->total_count );
-		}
-
-		wp_send_json_success( $return );
-	}
-
-	/**
-	 * Whether to resmush NextGen thumbnail or not.
-	 *
-	 * Separated it here for refactor stats.
-	 *
-	 * @param array $attachment  Attachment metadata.
-	 * @return bool
-	 */
-	private function nextgen_should_resmush( $attachment ) {
-		if ( empty( $attachment['wp_smush'] ) ) {
-			// Do not have this case as we only query smushed item.
-			return false;
-		}
-		$smush_data = $attachment['wp_smush'];
-		if ( empty( $attachment['wp_smush']['stats'] ) ) {
-			// Something wrong, empty stats.
-			return false;
-		}
-
-		return $this->settings->get( 'lossy' ) && empty( $smush_data['stats']['lossy'] )
-			|| $this->settings->get( 'strip_exif' ) && ! empty( $smush_data['stats']['keep_exif'] ) && ( 1 === (int) $smush_data['stats']['keep_exif'] )
-			|| $this->settings->get( 'original' ) && WP_Smush::is_pro() && empty( $smush_data['sizes']['full'] );
+		return wp_send_json_success( $stats );
 	}
 
 	/**
@@ -771,7 +472,7 @@ class Ajax {
 
 		// For media Library.
 		if ( 'nextgen' !== $_POST['type'] ) {
-			$resmush_list = get_option( $key );
+			
 			if ( ! empty( $resmush_list ) && is_array( $resmush_list ) ) {
 				$stats = WP_Smush::get_instance()->core()->get_stats_for_attachments( $resmush_list );
 			}
@@ -800,13 +501,8 @@ class Ajax {
 			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
 		}
 
-		$core = WP_Smush::get_instance()->core();
-
-		if ( empty( $core->stats ) ) {
-			$core->setup_global_stats( true );
-		}
-
-		$stats = $core->get_global_stats();
+		$admin = WP_Smush::get_instance()->admin();
+		$stats = $admin->get_global_stats_with_bulk_smush_content();
 
 		wp_send_json_success( $stats );
 	}
@@ -815,40 +511,6 @@ class Ajax {
 	 *
 	 * BULK SMUSH
 	 */
-
-	/**
-	 * Ignore image from bulk Smush.
-	 *
-	 * @since 1.9.0
-	 */
-	public function ignore_bulk_image() {
-		check_ajax_referer( 'wp-smush-ajax' );
-
-		// Check capability.
-		if ( ! Helper::is_user_allowed( 'upload_files' ) ) {
-			wp_send_json_error(
-				array(
-					'error_msg' => esc_html__( "You don't have permission to work with uploaded files.", 'wp-smushit' ),
-				),
-				403
-			);
-		}
-
-		if ( ! isset( $_POST['id'] ) ) {
-			wp_send_json_error();
-		}
-
-		$attachment_id = absint( $_POST['id'] );
-
-		// Ignore image.
-		update_post_meta( $attachment_id, 'wp-smush-ignore-bulk', true );
-
-		wp_send_json_success(
-			array(
-				'links' => WP_Smush::get_instance()->library()->get_optimization_links( $attachment_id ),
-			)
-		);
-	}
 
 	/**
 	 * Bulk Smushing Handler.
@@ -916,37 +578,15 @@ class Ajax {
 		);
 
 		if ( $errors && is_wp_error( $errors ) && $errors->has_errors() ) {
-			$error_code    = $errors->get_error_code();
-			$error_message = $errors->get_error_message( $error_code );
-			$error_data    = $errors->get_error_data( $error_code );
-
-			// Check for timeout error and suggest filtering timeout.
-			if ( strpos( $error_message, 'timed out' ) ) {
-				$error_code = 'timeout';
-			}
-
+			$error = Error_Handler::get_error( $errors, Media_Item_Cache::get_instance()->get( $attachment_id ) );
 			$response = array(
-				'stats'         => $stats,
-				'error'         => $error_code,
-				'error_message' => Helper::filter_error( $error_message, $attachment_id ),
-				'show_warning'  => (int) $smush->show_warning(),
-				'error_class'   => '',
+				'stats'        => $stats,
+				'error'        => $error,
+				'show_warning' => (int) $smush->show_warning(),
 			);
-
-			// Add error_data (file_name) to response data.
-			if ( $error_data && is_array( $error_data ) ) {
-				$response = array_merge( $error_data, $response );
-			}
 
 			// Send data.
 			wp_send_json_error( $response );
-		}
-
-		// Check if a resmush request, update the resmush list.
-		if ( ! empty( $_REQUEST['is_bulk_resmush'] ) && 'false' !== $_REQUEST['is_bulk_resmush'] && $_REQUEST['is_bulk_resmush'] ) {
-			$smush->update_resmush_list( $attachment_id );
-		} else {
-			Core::add_to_smushed_list( $attachment_id );
 		}
 
 		// Runs after a image is successfully smushed.
@@ -960,38 +600,6 @@ class Ajax {
 			array(
 				'stats'        => $stats,
 				'show_warning' => (int) $smush->show_warning(),
-			)
-		);
-	}
-
-	/**
-	 * Remove the image meta that is making the image skip bulk smush.
-	 *
-	 * @since 3.0
-	 */
-	public function remove_from_skip_list() {
-		check_ajax_referer( 'wp-smush-remove-skipped' );
-
-		if ( ! Helper::is_user_allowed( 'upload_files' ) ) {
-			wp_send_json_error(
-				array(
-					'error_message' => esc_html__( "You don't have permission to work with uploaded files.", 'wp-smushit' ),
-				),
-				403
-			);
-		}
-
-		if ( ! isset( $_POST['id'] ) ) {
-			wp_send_json_error();
-		}
-
-		$attachment_id = absint( $_POST['id'] );
-
-		// Undo ignored file.
-		delete_post_meta( $attachment_id, 'wp-smush-ignore-bulk' );
-		wp_send_json_success(
-			array(
-				'html' => WP_Smush::get_instance()->library()->generate_markup( $attachment_id ),
 			)
 		);
 	}
@@ -1021,7 +629,7 @@ class Ajax {
 		$result['dir_smush'] = $stats;
 
 		// Cumulative Stats.
-		$result['combined_stats'] = WP_Smush::get_instance()->core()->mod->dir->combine_stats( $stats );
+		//$result['combined_stats'] = WP_Smush::get_instance()->core()->mod->dir->combine_stats( $stats );
 
 		// Store the stats in options table.
 		update_option( 'dir_smush_stats', $result, false );
@@ -1387,57 +995,5 @@ class Ajax {
 		}
 		delete_site_option( 'wp-smush-show_upgrade_modal' );
 		wp_send_json_success();
-	}
-
-	/**
-	 * Ignore image failed images.
-	 *
-	 * @since 3.12.0
-	 */
-	public function ajax_ignore_all_failed_items() {
-		check_ajax_referer( 'wp-smush-ajax' );
-
-		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( "You don't have permission to do this.", 'wp-smushit' ),
-				),
-				403
-			);
-		}
-
-		// Ignore all failed images.
-		if ( $this->ignore_all_failed_items() ) {
-			wp_send_json_success();
-		}
-
-		wp_send_json_error();
-	}
-
-	/**
-	 * Ignore all failed items.
-	 *
-	 * @return bool
-	 */
-	private function ignore_all_failed_items() {
-		global $wpdb;
-
-		$failed_images = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT post_meta_error.post_id FROM $wpdb->postmeta as post_meta_error
-				LEFT JOIN $wpdb->postmeta as post_meta_ignored ON post_meta_ignored.post_id = post_meta_error.post_id AND post_meta_ignored.meta_key= %s
-				WHERE post_meta_ignored.meta_value IS NULL AND post_meta_error.meta_key = %s",
-				Error_Handler::IGNORE_KEY,
-				Error_Handler::ERROR_KEY
-			)
-		);
-		if ( empty( $failed_images ) ) {
-			return;
-		}
-
-		foreach ( $failed_images as $failed_image_id ) {
-			update_post_meta( $failed_image_id, Error_Handler::IGNORE_KEY, 1 );
-		}
-		return true;
 	}
 }

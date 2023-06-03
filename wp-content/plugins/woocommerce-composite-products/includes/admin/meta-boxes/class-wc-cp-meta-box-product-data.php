@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.6.0
+ * @version  8.8.0
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -324,7 +324,7 @@ class WC_CP_Meta_Box_Product_Data {
 		?><div class="bundle_group bto_clearfix">
 			<div class="bto_layouts bto_clearfix form-field components_panel_field">
 				<label class="bundle_group_label">
-					<?php _e( 'Layout', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Layout', 'woocommerce-composite-products' ); ?>
 				</label>
 				<ul class="bto_clearfix bto_layouts_list">
 					<?php
@@ -342,8 +342,8 @@ class WC_CP_Meta_Box_Product_Data {
 
 						?>
 						<label class="bto_layout_label <?php echo $selected_layout == $layout_id ? 'selected' : ''; ?>">
-							<img class="layout_img" src="<?php echo $layout_data[ 'image_src' ]; ?>" />
-							<input <?php echo $selected_layout == $layout_id ? 'checked="checked"' : ''; ?> name="bto_style" type="radio" value="<?php echo $layout_id; ?>" />
+							<img class="layout_img" src="<?php echo esc_attr( $layout_data[ 'image_src' ] ); ?>" />
+							<input <?php echo $selected_layout == $layout_id ? 'checked="checked"' : ''; ?> name="bto_style" type="radio" value="<?php echo esc_attr( $layout_id ); ?>" />
 							<?php echo wc_help_tip( '<strong>' . $layout_data[ 'title' ] . '</strong> &ndash; ' . $layout_data[ 'description' ] ); ?>
 						</label>
 						<?php
@@ -460,12 +460,12 @@ class WC_CP_Meta_Box_Product_Data {
 		$selected_layout = $composite_product_object->get_layout( 'edit' );
 
 		?>
-		<div class="hr-section hr-section-components"><?php echo __( 'Components', 'woocommerce-composite-products' ); ?></div>
-		<div class="options_group config_group bto_clearfix <?php echo empty( $composite_data ) ? 'options_group--boarding' : ''; ?> <?php echo 'layout-' . $selected_layout; ?>">
+		<div class="hr-section hr-section-components"><?php esc_html_e( 'Components', 'woocommerce-composite-products' ); ?></div>
+		<div class="options_group config_group bto_clearfix <?php echo empty( $composite_data ) ? 'options_group--boarding' : ''; ?> <?php echo 'layout-' . esc_attr( $selected_layout ); ?>">
 			<p class="toolbar">
 				<span class="bulk_toggle_wrapper">
-					<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
-					<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
+					<a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce' ); ?></a>
+					<a href="#" class="expand_all"><?php esc_html_e( 'Expand all', 'woocommerce' ); ?></a>
 				</span>
 			</p>
 
@@ -498,11 +498,11 @@ class WC_CP_Meta_Box_Product_Data {
 						?>
 						<div class="bto_boarding__components">
 							<div class="bto_boarding__components__message">
-								<h3><?php _e( 'Components', 'woocommerce-composite-products' ); ?></h3>
+								<h3><?php esc_html_e( 'Components', 'woocommerce-composite-products' ); ?></h3>
 								<p><?php
 									/* translators: Documentation link. */
-									echo sprintf( __( 'Components are the <a href="%s" target="_blank">building blocks</a> of every Composite Product.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'guide' ) ); ?>
-								<br/><?php _e( 'Ready to start building?', 'woocommerce-composite-products' ); ?>
+									echo wp_kses_post( sprintf( __( 'Components are the <a href="%s" target="_blank">building blocks</a> of every Composite Product.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'guide' ) ) ) ); ?>
+								<br/><?php esc_html_e( 'Ready to start building?', 'woocommerce-composite-products' ); ?>
 								</p>
 							</div>
 						</div>
@@ -513,7 +513,7 @@ class WC_CP_Meta_Box_Product_Data {
 			</div>
 
 			<p class="bto_action_button_wrapper bto_action_button_wrapper--add_component">
-				<button type="button" class="button add_bto_group"><?php _e( 'Add Component', 'woocommerce-composite-products' ); ?></button>
+				<button type="button" class="button add_bto_group"><?php esc_html_e( 'Add Component', 'woocommerce-composite-products' ); ?></button>
 			</p>
 		</div><?php
 	}
@@ -549,7 +549,7 @@ class WC_CP_Meta_Box_Product_Data {
 		</div>
 		<div class="options_group composite_type show_if_composite">
 			<div class="form-field">
-				<label><?php _e( 'Composite type', 'woocommerce-composite-products' ); ?></label>
+				<label><?php esc_html_e( 'Composite type', 'woocommerce-composite-products' ); ?></label>
 				<ul class="bto_type_options">
 					<?php
 					foreach ( $composite_type_options as $type ) {
@@ -558,8 +558,8 @@ class WC_CP_Meta_Box_Product_Data {
 							$classes[] = 'selected';
 						}
 						?>
-						<li class="<?php echo implode( ' ', $classes ); ?>" >
-							<input type="radio"<?php echo $type[ 'checked' ] ?> name="_composite_type" class="composite_type_option" value="<?php echo $type[ 'value' ] ?>">
+						<li class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" >
+							<input type="radio" <?php echo esc_attr( $type[ 'checked' ] ); ?> name="_composite_type" class="composite_type_option" value="<?php echo esc_attr( $type[ 'value' ] ); ?>">
 							<?php echo wc_help_tip( '<strong>' . $type[ 'title' ] . '</strong> &ndash; ' . $type[ 'description' ] ); ?>
 						</li>
 						<?php
@@ -570,10 +570,10 @@ class WC_CP_Meta_Box_Product_Data {
 			<div class="wp-clearfix"></div>
 			<div id="message" class="inline notice">
 				<p>
-					<span class="assembled_notice_title"><?php _e( 'What happened to the shipping options?', 'woocommerce-composite-products' ); ?></span>
+					<span class="assembled_notice_title"><?php esc_html_e( 'What happened to the shipping options?', 'woocommerce-composite-products' ); ?></span>
 					<?php
 						/* translators: Documentation link. */
-						echo sprintf( __( 'The contents of this composite product preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> composite products do not have any shipping options to configure.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'shipping-options' ) ); ?>
+						echo wp_kses_post( sprintf( __( 'The contents of this composite product preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> composite products do not have any shipping options to configure.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'shipping-options' ) ) ) ); ?>
 				</p>
 			</div>
 		<?php
@@ -711,16 +711,16 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="scenario_action_config_group scenario_action_conditional_components_group" >
 			<div class="toggle_scenario_action_config">
-				<label for="scenario_action_conditional_components_<?php echo $id; ?>">
-				<input id="scenario_action_conditional_components_<?php echo $id; ?>" type="checkbox" class="checkbox scenario_action_conditional_components_input" <?php echo ( $hide_components === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][conditional_components][is_active]" <?php echo ( $hide_components === 'yes' ? ' value="1"' : '' ); ?> />
+				<label for="scenario_action_conditional_components_<?php echo esc_attr( $id ); ?>">
+				<input id="scenario_action_conditional_components_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox scenario_action_conditional_components_input" <?php echo ( $hide_components === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_scenario_data[<?php echo esc_attr( $id ); ?>][scenario_actions][conditional_components][is_active]" <?php echo ( $hide_components === 'yes' ? ' value="1"' : '' ); ?> />
 					<?php
-					echo __( 'Hide Components', 'woocommerce-composite-products' );
+					esc_html_e( 'Hide Components', 'woocommerce-composite-products' );
 					echo wc_help_tip( __( 'Enable this option to hide one or more Components when the specified Conditions are satisfied.', 'woocommerce-composite-products' ) );
 					?>
 				</label>
 			</div>
-			<div class="action_config action_components" <?php echo ( $hide_components === 'no' ? ' style="display:none;"' : '' ); ?> >
-				<select id="bto_conditional_components_ids_<?php echo $id; ?>" name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][conditional_components][hidden_components][]" style="width: 100%;" class="sw-select2 conditional_components_ids" multiple="multiple" data-placeholder="<?php echo __( 'Select components&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+			<div class="action_config action_components" <?php echo $hide_components === 'no' ? ' style="display:none;"' : ''; ?> >
+				<select id="bto_conditional_components_ids_<?php echo esc_attr( $id ); ?>" name="bto_scenario_data[<?php echo esc_attr( $id ); ?>][scenario_actions][conditional_components][hidden_components][]" style="width: 100%;" class="sw-select2 conditional_components_ids" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select components&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 					foreach ( $composite_data as $component_id => $component_data ) {
 
@@ -739,7 +739,8 @@ class WC_CP_Meta_Box_Product_Data {
 						}
 
 						$option_selected = in_array( $component_id, $hidden_components ) ? 'selected="selected"' : '';
-						echo '<option ' . $option_selected . 'value="' . $component_id . '">' . ( ! $append_id ? $component_title : sprintf( '%1$s (#%2$s)', $component_title, $component_id ) ) . '</option>';
+						$option_display  = ! $append_id ? $component_title : sprintf( '%1$s (#%2$s)', $component_title, $component_id );
+						echo '<option ' . esc_attr( $option_selected ) . 'value="' . esc_attr( $component_id ) . '">' . esc_html( $option_display ) . '</option>';
 					}
 
 				?></select>
@@ -771,10 +772,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="scenario_action_config_group scenario_action_conditional_options_group" >
 			<div class="toggle_scenario_action_config">
-				<label for="scenario_action_conditional_options_<?php echo $id; ?>">
-					<input id="scenario_action_conditional_options_<?php echo $id; ?>" type="checkbox" class="checkbox scenario_action_conditional_options_input" <?php echo ( $has_hidden_options === 'yes' ? ' checked="checked"' : '' ); ?> name="<?php echo $post_name; ?>[is_active]" <?php echo ( $has_hidden_options === 'yes' ? ' value="1"' : '' ); ?> />
+				<label for="scenario_action_conditional_options_<?php echo esc_attr( $id ); ?>">
+					<input id="scenario_action_conditional_options_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox scenario_action_conditional_options_input" <?php echo ( $has_hidden_options === 'yes' ? ' checked="checked"' : '' ); ?> name="<?php echo esc_attr( $post_name ); ?>[is_active]" <?php echo $has_hidden_options === 'yes' ? ' value="1"' : ''; ?> />
 					<?php
-					echo __( 'Hide Component Options', 'woocommerce-composite-products' );
+					esc_html_e( 'Hide Component Options', 'woocommerce-composite-products' );
 					echo wc_help_tip( __( 'Enable this option to hide one or more Component Options when the specified Conditions are satisfied.', 'woocommerce-composite-products' ) );
 					?>
 				</label>
@@ -820,17 +821,17 @@ class WC_CP_Meta_Box_Product_Data {
 					$conditional_options_by_component_count = count( $conditional_options_by_component );
 
 					?>
-					<div class="os_container widefat<?php echo $conditional_options_by_component_count ? '' : ' os_empty'; ?>" data-os_count="<?php echo $conditional_options_by_component_count; ?>" data-os_post_name="<?php echo $post_name; ?>" data-unique_additions="yes">
+					<div class="os_container widefat<?php echo $conditional_options_by_component_count ? '' : ' os_empty'; ?>" data-os_count="<?php echo (int) $conditional_options_by_component_count; ?>" data-os_post_name="<?php echo esc_attr( $post_name ); ?>" data-unique_additions="yes">
 						<div class="os_boarding<?php echo $conditional_options_by_component_count ? '' : ' active'; ?>">
 							<div class="icon">
 								<i class="dashicons dashicons-networking"></i>
 							</div>
 							<div class="text"><?php esc_html_e( 'Choose a Component to get started.', 'woocommerce-composite-products' ); ?></br><?php esc_html_e( 'Then, select the options you\'d like to hide.', 'woocommerce-composite-products' ); ?></div>
 						</div>
-						<div class="os_list <?php echo $conditional_options_by_component_count ? '' : ' hidden'; ?>" data-os_modifiers="<?php echo esc_attr( json_encode( $modifiers ) ); ?>">
+						<div class="os_list <?php echo $conditional_options_by_component_count ? '' : ' hidden'; ?>" data-os_modifiers="<?php echo wc_esc_json( json_encode( $modifiers ) ); ?>">
 
 							<?php foreach ( $conditional_options_by_component as $condition_index => $condition_data ) { ?>
-								<div class="os_row" data-os_index="<?php echo $condition_index; ?>">
+								<div class="os_row" data-os_index="<?php echo esc_attr( $condition_index ); ?>">
 									<div class="os_select">
 										<div class="sw-enhanced-select">
 											<?php self::print_condition_components_dropdown( $composite_data, $condition_data[ 'component_id' ] ); ?>
@@ -893,20 +894,20 @@ class WC_CP_Meta_Box_Product_Data {
 		$field_name  = 'state' === $field_type ? 'bto_state_data' : 'bto_scenario_data';
 
 		?>
-		<div class="<?php echo $field_name; ?>_title">
+		<div class="<?php echo esc_attr( $field_name ); ?>_title">
 			<div class="form-field">
 				<label>
-					<?php echo 'state' === $field_type ? __( 'State Name', 'woocommerce-composite-products' ) : __( 'Scenario Name', 'woocommerce-composite-products' ); ?>
+					<?php echo 'state' === $field_type ? esc_html__( 'State Name', 'woocommerce-composite-products' ) : esc_html__( 'Scenario Name', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="text" class="<?php echo $field_name; ?>_title component_text_input" name="<?php echo $field_name; ?>[<?php echo $id; ?>][title]" value="<?php echo esc_attr( $title ); ?>"/>
+				<input type="text" class="<?php echo esc_attr( $field_name ); ?>_title component_text_input" name="<?php echo esc_attr( $field_name ); ?>[<?php echo esc_attr( $id ); ?>][title]" value="<?php echo esc_attr( $title ); ?>"/>
 			</div>
 		</div>
-		<div class="<?php echo $field_name; ?>_description">
+		<div class="<?php echo esc_attr( $field_name ); ?>_description">
 			<div class="form-field">
 				<label>
-					<?php echo 'state' === $field_type ? __( 'State Description', 'woocommerce-composite-products' ) : __( 'Scenario Description', 'woocommerce-composite-products' ); ?>
+					<?php echo 'state' === $field_type ? esc_html__( 'State Description', 'woocommerce-composite-products' ) : esc_html__( 'Scenario Description', 'woocommerce-composite-products' ); ?>
 				</label>
-				<textarea class="<?php echo $field_name; ?>_description" name="<?php echo $field_name; ?>[<?php echo $id; ?>][description]" id="<?php echo $field_type; ?>_description_<?php echo $id; ?>" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea>
+				<textarea class="<?php echo esc_attr( $field_name ); ?>_description" name="<?php echo esc_attr( $field_name ); ?>[<?php echo esc_attr( $id ); ?>][description]" id="<?php echo esc_attr( $field_type ); ?>_description_<?php echo esc_attr( $id ); ?>" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea>
 			</div>
 		</div>
 		<?php
@@ -989,10 +990,10 @@ class WC_CP_Meta_Box_Product_Data {
 
 		?>
 		<div class="sw-form-os">
-			<div class="os_container widefat wc-cp-<?php echo $field_type; ?>-conditions-container <?php echo $conditions_count ? '' : 'os_empty'; ?>" data-os_count="<?php echo $conditions_count; ?>" data-os_post_name="<?php echo $post_name; ?>" data-unique_additions="yes">
+			<div class="os_container widefat wc-cp-<?php echo esc_attr( $field_type ); ?>-conditions-container <?php echo $conditions_count ? '' : 'os_empty'; ?>" data-os_count="<?php echo (int) $conditions_count; ?>" data-os_post_name="<?php echo esc_attr( $post_name ); ?>" data-unique_additions="yes">
 				<div class="os_boarding<?php echo $conditions_count ? '' : ' active'; ?>">
 					<div class="icon">
-						<i class="dashicons <?php echo ( 'state' === $field_type ? 'cp-fa-state' : 'dashicons-randomize' ); ?>"></i>
+						<i class="dashicons <?php echo 'state' === $field_type ? 'cp-fa-state' : 'dashicons-randomize'; ?>"></i>
 					</div><?php
 						if ( 'state' === $field_type ) {
 							?><div class="text"><?php esc_html_e( 'First, add some Components.', 'woocommerce-composite-products' ); ?></br><?php esc_html_e( 'Then, choose products or variations that can be bought together.', 'woocommerce-composite-products' ); ?></div><?php
@@ -1004,7 +1005,7 @@ class WC_CP_Meta_Box_Product_Data {
 				<div class="os_list"<?php echo $conditions_count ? '' : ' class="hidden"'; ?>>
 
 					<?php foreach ( $conditions as $condition_index => $condition_data ) { ?>
-						<div class="os_row" data-os_index="<?php echo $condition_index; ?>">
+						<div class="os_row" data-os_index="<?php echo esc_attr( $condition_index ); ?>">
 							<div class="os_select">
 								<div class="sw-enhanced-select">
 									<?php self::print_condition_components_dropdown( $composite_data, $condition_data[ 'component_id' ] ); ?>
@@ -1078,13 +1079,13 @@ class WC_CP_Meta_Box_Product_Data {
 		?><div class="component_select_action">
 			<div class="form-field">
 				<label>
-					<?php _e( 'Option Select Action', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Option Select Action', 'woocommerce-composite-products' ); ?>
 				</label>
-				<select class="sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_data[<?php echo $id; ?>][select_action]"><?php
+				<select class="sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_data[<?php echo esc_attr( $id ); ?>][select_action]"><?php
 
 					foreach ( $select_action_options as $option_key => $option ) {
 
-						echo '<option ' . selected( $select_action, $option[ 'id' ], false ) . ' value="' . $option[ 'id' ] . '">' . $option[ 'title' ] . '</option>';
+						echo '<option ' . selected( $select_action, $option[ 'id' ], false ) . ' value="' . esc_attr( $option[ 'id' ] ) . '">' . esc_html( $option[ 'title' ] ) . '</option>';
 
 						$help_tip .= '<strong>' . $option[ 'title' ] . '</strong> &ndash; ' . $option[ 'description' ];
 
@@ -1117,27 +1118,27 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="component_selection_details">
 			<div class="form-field">
-				<label for="component_selection_details_<?php echo $id; ?>">
-					<?php echo __( 'Selection Details Visibility', 'woocommerce-composite-products' ); ?>
+				<label for="component_selection_details_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Selection Details Visibility', 'woocommerce-composite-products' ); ?>
 				</label>
 				<div class="component_selection_details_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_product_title ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_product_title]" <?php echo ( 'no' === $hide_product_title ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Title', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_product_title ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_product_title]" <?php echo 'no' === $hide_product_title ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Title', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Show/hide the title of the selected option.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 				<div class="component_selection_details_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_product_description ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_product_description]" <?php echo ( 'no' === $hide_product_description ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Description', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_product_description ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_product_description]" <?php echo 'no' === $hide_product_description ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Description', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Show/hide the description of the selected option.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 				<div class="component_selection_details_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_product_thumbnail ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_product_thumbnail]" <?php echo ( 'no' === $hide_product_thumbnail ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Thumbnail', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_product_thumbnail ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_product_thumbnail]" <?php echo 'no' === $hide_product_thumbnail ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Thumbnail', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Show/hide the thumbnail of the selected option.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 				<div class="component_selection_details_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_product_price ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_product_price]" <?php echo ( 'no' === $hide_product_price ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Price', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_product_price ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_product_price]" <?php echo 'no' === $hide_product_price ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Price', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Show/hide the price of the selected option.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 				<?php
@@ -1175,22 +1176,22 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="component_subtotal_visibility">
 			<div class="form-field">
-				<label for="component_subtotal_visibility_<?php echo $id; ?>">
-					<?php echo __( 'Subtotal Visibility', 'woocommerce-composite-products' ); ?>
+				<label for="component_subtotal_visibility_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Subtotal Visibility', 'woocommerce-composite-products' ); ?>
 				</label>
 				<div class="component_subtotal_visibility_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_in_product ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_subtotal_product]" <?php echo ( 'no' === $hide_in_product ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Single-product summary', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_in_product ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_subtotal_product]" <?php echo 'no' === $hide_in_product ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Single-product summary', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the Component subtotal in the single-product Summary section.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 				<div class="component_subtotal_visibility_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_in_cart ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_subtotal_cart]" <?php echo ( 'no' === $hide_in_cart ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Cart/checkout', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_in_cart ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_subtotal_cart]" <?php echo 'no' === $hide_in_cart ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Cart/checkout', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the Component subtotal in cart/checkout templates.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 				<div class="component_subtotal_visibility_option">
-					<input type="checkbox" class="checkbox"<?php echo ( 'no' === $hide_in_orders ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_subtotal_orders]" <?php echo ( 'no' === $hide_in_orders ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php echo __( 'Order details', 'woocommerce-composite-products' ); ?>
+					<input type="checkbox" class="checkbox"<?php echo 'no' === $hide_in_orders ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_subtotal_orders]" <?php echo 'no' === $hide_in_orders ? 'value="1"' : ''; ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Order details', 'woocommerce-composite-products' ); ?>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the Component subtotal in order details &amp; e-mail templates.', 'woocommerce-composite-products' ) ); ?>
 				</div>
 			</div>
@@ -1213,10 +1214,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="component_show_orderby group_show_orderby" >
 			<div class="form-field">
-				<label for="group_show_orderby_<?php echo $id; ?>">
-					<?php echo __( 'Options Sorting', 'woocommerce-composite-products' ); ?>
+				<label for="group_show_orderby_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Options Sorting', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input id="group_show_orderby_<?php echo $id; ?>" type="checkbox" class="checkbox"<?php echo ( $show_orderby === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_orderby]" <?php echo ( $show_orderby === 'yes' ? 'value="1"' : '' ); ?>/>
+				<input id="group_show_orderby_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox"<?php echo $show_orderby === 'yes' ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_orderby]" <?php echo $show_orderby === 'yes' ? 'value="1"' : ''; ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to allow sorting the available Component Options by popularity, rating, newness or price.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1240,10 +1241,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="component_show_filters group_show_filters" >
 			<div class="form-field">
-				<label for="group_show_filters_<?php echo $id; ?>">
-					<?php echo __( 'Options Filtering', 'woocommerce-composite-products' ); ?>
+				<label for="group_show_filters_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Options Filtering', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input id="group_show_filters_<?php echo $id; ?>" type="checkbox" class="checkbox"<?php echo ( $show_filters === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][show_filters]" <?php echo ( $show_filters === 'yes' ? 'value="1"' : '' ); ?>/>
+				<input id="group_show_filters_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox"<?php echo $show_filters === 'yes' ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][show_filters]" <?php echo $show_filters === 'yes' ? 'value="1"' : ''; ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to configure and display layered attribute filters. Useful for narrowing down Component Options more easily.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div><?php
@@ -1276,10 +1277,10 @@ class WC_CP_Meta_Box_Product_Data {
 			?><div class="component_filters group_filters" >
 				<div class="bto_attributes_selector bto_multiselect">
 					<div class="form-field">
-						<select id="bto_attribute_ids_<?php echo $id; ?>" name="bto_data[<?php echo $id; ?>][attribute_filters][]" style="width: 100%" class="multiselect sw-select2" data-wrap="-tipped" multiple="multiple" data-sortable="yes" data-placeholder="<?php echo  __( 'Select product attributes&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+						<select id="bto_attribute_ids_<?php echo esc_attr( $id ); ?>" name="bto_data[<?php echo esc_attr( $id ); ?>][attribute_filters][]" style="width: 100%" class="multiselect sw-select2" data-wrap="-tipped" multiple="multiple" data-sortable="yes" data-placeholder="<?php echo esc_attr__( 'Select product attributes&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 							foreach ( $sorted_options as $attribute_taxonomy_id => $attribute_taxonomy_label ) {
-								echo '<option value="' . $attribute_taxonomy_id . '" ' . selected( in_array( $attribute_taxonomy_id, $selected_taxonomies ), true, false ).'>' . $attribute_taxonomy_label . '</option>';
+								echo '<option value="' . esc_attr( $attribute_taxonomy_id ) . '" ' . selected( in_array( $attribute_taxonomy_id, $selected_taxonomies ), true, false ).'>' . esc_html( $attribute_taxonomy_label ) . '</option>';
 							}
 
 						?></select>
@@ -1383,9 +1384,9 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="component_title group_title">
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Component Name', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Component Name', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="text" class="group_title component_text_input" name="bto_data[<?php echo $id; ?>][title]" value="<?php echo esc_attr( $title ); ?>"/><?php echo wc_help_tip( __( 'Name or title of this Component.', 'woocommerce-composite-products' ) ); ?>
+				<input type="text" class="group_title component_text_input" name="bto_data[<?php echo esc_attr( $id ); ?>][title]" value="<?php echo esc_attr( $title ); ?>"/><?php echo wc_help_tip( __( 'Name or title of this Component.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
 		<?php
@@ -1407,9 +1408,9 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="component_description group_description">
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Component Description', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Component Description', 'woocommerce-composite-products' ); ?>
 				</label>
-				<textarea class="group_description" name="bto_data[<?php echo $id; ?>][description]" id="group_description_<?php echo $id; ?>" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea><?php echo wc_help_tip( __( 'Optional short description of this Component.', 'woocommerce-composite-products' ) ); ?>
+				<textarea class="group_description" name="bto_data[<?php echo esc_attr( $id ); ?>][description]" id="group_description_<?php echo esc_attr( $id ); ?>" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea><?php echo wc_help_tip( __( 'Optional short description of this Component.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
 		<?php
@@ -1432,11 +1433,11 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="component_image group_image">
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Component Image', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Component Image', 'woocommerce-composite-products' ); ?>
 				</label>
-				<a href="#" class="upload_component_image_button <?php echo $image_id ? 'has_image': ''; ?>"><span class="prompt"><?php echo __( 'Select image', 'woocommerce-composite-products' ); ?></span><img src="<?php if ( ! empty( $image ) ) echo esc_attr( $image ); else echo esc_attr( wc_placeholder_img_src() ); ?>" /><input type="hidden" name="bto_data[<?php echo $id; ?>][thumbnail_id]" class="image" value="<?php echo $image_id; ?>" /></a>
+				<a href="#" class="upload_component_image_button <?php echo $image_id ? 'has_image': ''; ?>"><span class="prompt"><?php esc_html_e( 'Select image', 'woocommerce-composite-products' ); ?></span><img src="<?php if ( ! empty( $image ) ) echo esc_attr( $image ); else echo esc_attr( wc_placeholder_img_src() ); ?>" /><input type="hidden" name="bto_data[<?php echo esc_attr( $id ); ?>][thumbnail_id]" class="image" value="<?php echo esc_attr( $image_id ); ?>" /></a>
 				<?php echo wc_help_tip( __( 'Placeholder image to use in configuration summaries. Substituted by the image of the selected Component Option.', 'woocommerce-composite-products' ) ); ?>
-				<a href="#" class="remove_component_image_button <?php echo $image_id ? 'has_image': ''; ?>"><?php echo __( 'Remove image', 'woocommerce-composite-products' ); ?></a>
+				<a href="#" class="remove_component_image_button <?php echo $image_id ? 'has_image': ''; ?>"><?php esc_html_e( 'Remove image', 'woocommerce-composite-products' ); ?></a>
 			</div>
 		</div>
 		<?php
@@ -1494,22 +1495,22 @@ class WC_CP_Meta_Box_Product_Data {
 					);
 				}
 
-				$options_attr .= sprintf( ' data-component_options="%s"', htmlspecialchars( json_encode( $component_options_array ) ) );
+				$options_attr .= sprintf( ' data-component_options="%s"', wc_esc_json( json_encode( $component_options_array ) ) );
 			}
 
 			$options_attr .= sprintf( ' data-use_ajax="%s"', $use_ajax ? 'yes' : 'no' );
 			$options_attr .= sprintf( ' id="component_query_type_%s"', absint( $data[ 'component_id' ] ) );
 		}
 		?>
-		<div class="component_query_type"<?php echo $options_attr; ?>>
+		<div class="component_query_type"<?php echo $options_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Component Options', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Component Options', 'woocommerce-composite-products' ); ?>
 				</label>
-				<select class="component_query_type sw-select2" data-wrap="-tipped" name="bto_data[<?php echo $id; ?>][query_type]" style="width: 100%;"><?php
+				<select class="component_query_type sw-select2" data-wrap="-tipped" name="bto_data[<?php echo esc_attr( $id ); ?>][query_type]" style="width: 100%;"><?php
 
 					foreach ( $select_by as $key => $description ) {
-						?><option value="<?php echo $key; ?>" <?php selected( $query_type, $key, true ); ?>><?php echo $description; ?></option><?php
+						?><option value="<?php echo esc_attr( $key ); ?>" <?php selected( $query_type, $key, true ); ?>><?php echo esc_html( $description ); ?></option><?php
 					}
 
 				?></select>
@@ -1520,7 +1521,7 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="component_selector bto_selector component_query_type_selector bto_multiselect component_query_type_product_ids">
 			<div class="form-field"><?php
 
-				?><select id="bto_ids_<?php echo $id; ?>" class="sw-select2-search--products products_selector" data-wrap="-tipped" name="bto_data[<?php echo $id; ?>][assigned_ids][]" multiple="multiple" style="width: 100%;" data-limit="100" data-action="woocommerce_json_search_component_options" data-placeholder="<?php echo  __( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-sortable="true"><?php
+				?><select id="bto_ids_<?php echo esc_attr( $id ); ?>" class="sw-select2-search--products products_selector" data-wrap="-tipped" name="bto_data[<?php echo esc_attr( $id ); ?>][assigned_ids][]" multiple="multiple" style="width: 100%;" data-limit="100" data-action="woocommerce_json_search_component_options" data-placeholder="<?php echo esc_attr__( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-sortable="true"><?php
 
 					$product_id_options = array();
 
@@ -1544,7 +1545,7 @@ class WC_CP_Meta_Box_Product_Data {
 
 					if ( ! empty( $product_id_options ) ) {
 						foreach ( $product_id_options as $product_id => $product_name ) {
-							echo '<option value="' . $product_id . '" selected="selected">' . $product_name . '</option>';
+							echo '<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product_name ) . '</option>';
 						}
 					}
 
@@ -1556,7 +1557,7 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="component_category_selector bto_category_selector component_query_type_selector bto_multiselect component_query_type_category_ids">
 			<div class="form-field">
 
-				<select id="bto_category_ids_<?php echo $id; ?>" class="multiselect sw-select2 categories_selector" data-wrap="-tipped" name="bto_data[<?php echo $id; ?>][assigned_category_ids][]" style="width: 100%" multiple="multiple" data-placeholder="<?php echo  __( 'Select categories&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+				<select id="bto_category_ids_<?php echo esc_attr( $id ); ?>" class="multiselect sw-select2 categories_selector" data-wrap="-tipped" name="bto_data[<?php echo esc_attr( $id ); ?>][assigned_category_ids][]" style="width: 100%" multiple="multiple" data-placeholder="<?php echo esc_attr__( 'Select categories&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 					wc_cp_print_taxonomy_tree_options( self::$product_categories_tree, $selected_categories, apply_filters( 'woocommerce_composite_component_admin_config_taxonomy_dropdown_options', array(), $id, $product_id ) );
 				?></select>
 			</div>
@@ -1611,30 +1612,30 @@ class WC_CP_Meta_Box_Product_Data {
 			'default_option_category_ids' => $default_option_valid ? $default_option->get_category_ids() : false
 		);
 
-		?><div class="component_default_selector default_selector_container" data-selected_data="<?php echo esc_attr( json_encode( $selected_data ) ); ?>">
+		?><div class="component_default_selector default_selector_container" data-selected_data="<?php echo wc_esc_json( json_encode( $selected_data ) ); ?>">
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Default Option', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Default Option', 'woocommerce-composite-products' ); ?>
 				</label>
 				<div class="component_query_type_category_ids default_selector_wrapper">
-					<select id="group_category_ids_default_<?php echo $id; ?>" class="sw-select2-search--products default_selector_categories" data-wrap="-tipped" style="width: 100%;" name="bto_data[<?php echo $id; ?>][default_id_categories]" data-allow_clear="true" data-action="woocommerce_json_search_products_in_categories" data-limit="200" data-include="<?php echo esc_attr( implode( ',', $category_ids ) ); ?>" data-placeholder="<?php echo __( 'Search for a product&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+					<select id="group_category_ids_default_<?php echo esc_attr( $id ); ?>" class="sw-select2-search--products default_selector_categories" data-wrap="-tipped" style="width: 100%;" name="bto_data[<?php echo esc_attr( $id ); ?>][default_id_categories]" data-allow_clear="true" data-action="woocommerce_json_search_products_in_categories" data-limit="200" data-include="<?php echo esc_attr( implode( ',', $category_ids ) ); ?>" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 						if ( $default_option_valid ) {
-							echo '<option value="' . $default_option_id . '" selected="selected">' . $default_option_title . '</option>';
+							echo '<option value="' . esc_attr( $default_option_id ) . '" selected="selected">' . esc_html( $default_option_title ) . '</option>';
 						}
 
 					?></select>
-					<?php echo wc_help_tip( $tip ) . self::add_error_tip(); ?>
+					<?php echo wc_help_tip( $tip ) . self::add_error_tip(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</div>
 				<div class="component_query_type_product_ids default_selector_wrapper">
-					<select id="group_product_ids_default_<?php echo $id; ?>" class="sw-select2 default_selector_products" data-wrap="-tipped" style="width: 100%;" name="bto_data[<?php echo $id; ?>][default_id_products]" data-allow_clear="true" data-placeholder="<?php esc_attr_e( 'Choose a product&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+					<select id="group_product_ids_default_<?php echo esc_attr( $id ); ?>" class="sw-select2 default_selector_products" data-wrap="-tipped" style="width: 100%;" name="bto_data[<?php echo esc_attr( $id ); ?>][default_id_products]" data-allow_clear="true" data-placeholder="<?php esc_attr_e( 'Choose a product&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 						if ( $default_option_valid ) {
-							echo '<option value="' . $default_option_id . '" selected="selected">' . $default_option_title . '</option>';
+							echo '<option value="' . esc_attr( $default_option_id ) . '" selected="selected">' . esc_html( $default_option_title ) . '</option>';
 						}
 
 					?></select>
-					<?php echo wc_help_tip( $tip ) . self::add_error_tip(); ?>
+					<?php echo wc_help_tip( $tip ) . self::add_error_tip(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</div>
 			</div>
 		</div>
@@ -1656,10 +1657,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="group_quantity_min">
 			<div class="form-field">
-				<label for="group_quantity_min_<?php echo $id; ?>">
-					<?php echo __( 'Min Quantity', 'woocommerce-composite-products' ); ?>
+				<label for="group_quantity_min_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Min Quantity', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="number" class="group_quantity group_quantity_min" name="bto_data[<?php echo $id; ?>][quantity_min]" id="group_quantity_min_<?php echo $id; ?>" value="<?php echo $quantity_min; ?>" placeholder="" step="1" min="0" />
+				<input type="number" class="group_quantity group_quantity_min" name="bto_data[<?php echo esc_attr( $id ); ?>][quantity_min]" id="group_quantity_min_<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $quantity_min ); ?>" placeholder="" step="1" min="0" />
 				<?php echo wc_help_tip( __( 'Set a minimum quantity for the selected Component Option.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1682,10 +1683,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="group_quantity_max">
 			<div class="form-field">
-				<label for="group_quantity_max_<?php echo $id; ?>">
-					<?php echo __( 'Max Quantity', 'woocommerce-composite-products' ); ?>
+				<label for="group_quantity_max_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Max Quantity', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="number" class="group_quantity group_quantity_max" name="bto_data[<?php echo $id; ?>][quantity_max]" id="group_quantity_max_<?php echo $id; ?>" value="<?php echo $quantity_max; ?>" placeholder="" step="1" min="<?php echo $quantity_min; ?> />
+				<input type="number" class="group_quantity group_quantity_max" name="bto_data[<?php echo esc_attr( $id ); ?>][quantity_max]" id="group_quantity_max_<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $quantity_max ); ?>" placeholder="" step="1" min="<?php echo (int) $quantity_min; ?> />
 				<?php echo wc_help_tip( __( 'Set a maximum quantity for the selected Component Option. Leave the field empty to allow an unlimited maximum quantity.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1707,10 +1708,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="group_optional" >
 			<div class="form-field">
-				<label for="group_optional_<?php echo $id; ?>">
-					<?php echo __( 'Optional', 'woocommerce-composite-products' ); ?>
+				<label for="group_optional_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Optional', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input id="group_optional_<?php echo $id; ?>" type="checkbox" class="checkbox component_optional"<?php echo ( $optional === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][optional]" <?php echo ( $optional === 'yes' ? ' value="1"' : '' ); ?> />
+				<input id="group_optional_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox component_optional"<?php echo $optional === 'yes' ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][optional]" <?php echo $optional === 'yes' ? ' value="1"' : ''; ?> />
 				<?php echo wc_help_tip( __( 'Controls whether a Component Option must be selected or not.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1732,10 +1733,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="group_shipped_individually">
 			<div class="form-field">
-				<label for="group_shipped_individually_<?php echo $id; ?>">
-					<?php echo __( 'Shipped Individually', 'woocommerce-composite-products' ); ?>
+				<label for="group_shipped_individually_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Shipped Individually', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input id="group_shipped_individually_<?php echo $id; ?>" type="checkbox" class="checkbox"<?php echo ( $shipped_individually === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][shipped_individually]" <?php echo ( $shipped_individually === 'yes' ? ' value="1"' : '' ); ?> />
+				<input id="group_shipped_individually_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox"<?php echo $shipped_individually === 'yes' ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][shipped_individually]" <?php echo $shipped_individually === 'yes' ? ' value="1"' : ''; ?> />
 				<?php echo wc_help_tip( __( 'Enable this option if the Component is <strong>not</strong> physically assembled or packaged within the Composite.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1757,10 +1758,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="group_priced_individually">
 			<div class="form-field">
-				<label for="group_priced_individually_<?php echo $id; ?>">
-					<?php echo __( 'Priced Individually', 'woocommerce-composite-products' ); ?>
+				<label for="group_priced_individually_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Priced Individually', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input id="group_priced_individually_<?php echo $id; ?>" type="checkbox" class="checkbox"<?php echo ( $priced_individually === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_data[<?php echo $id; ?>][priced_individually]" <?php echo ( $priced_individually === 'yes' ? ' value="1"' : '' ); ?> />
+				<input id="group_priced_individually_<?php echo esc_attr( $id ); ?>" type="checkbox" class="checkbox"<?php echo $priced_individually === 'yes' ? ' checked="checked"' : ''; ?> name="bto_data[<?php echo esc_attr( $id ); ?>][priced_individually]" <?php echo $priced_individually === 'yes' ? ' value="1"' : ''; ?> />
 				<?php echo wc_help_tip( __( 'Enable this option if the included Component Options must maintain their individual prices.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1786,13 +1787,13 @@ class WC_CP_Meta_Box_Product_Data {
 		?><div class="component_display_prices">
 			<div class="form-field">
 				<label>
-					<?php _e( 'Option Prices', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Option Prices', 'woocommerce-composite-products' ); ?>
 				</label>
-				<select class="sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_data[<?php echo $id; ?>][display_prices]"><?php
+				<select class="sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_data[<?php echo esc_attr( $id ); ?>][display_prices]"><?php
 
 					foreach ( $price_display_options as $option_key => $option ) {
 
-						echo '<option ' . selected( $prices_display, $option[ 'id' ], false ) . ' value="' . $option[ 'id' ] . '">' . $option[ 'title' ] . '</option>';
+						echo '<option ' . selected( $prices_display, $option[ 'id' ], false ) . ' value="' . esc_attr( $option[ 'id' ] ) . '">' . esc_html( $option[ 'title' ] ) . '</option>';
 
 						$help_tip .= '<strong>' . $option[ 'title' ] . '</strong> &ndash; ' . $option[ 'description' ];
 
@@ -1822,10 +1823,10 @@ class WC_CP_Meta_Box_Product_Data {
 		?>
 		<div class="group_discount">
 			<div class="form-field">
-				<label for="group_discount_<?php echo $id; ?>">
-					<?php echo __( 'Discount %', 'woocommerce-composite-products' ); ?>
+				<label for="group_discount_<?php echo esc_attr( $id ); ?>">
+					<?php esc_html_e( 'Discount %', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="text" class="group_discount input-text wc_input_decimal" name="bto_data[<?php echo $id; ?>][discount]" id="group_discount_<?php echo $id; ?>" value="<?php echo $discount; ?>" placeholder="" />
+				<input type="text" class="group_discount input-text wc_input_decimal" name="bto_data[<?php echo esc_attr( $id ); ?>][discount]" id="group_discount_<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $discount ); ?>" placeholder="" />
 				<?php echo wc_help_tip( __( 'Discount to apply to the chosen Component Option.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1863,9 +1864,9 @@ class WC_CP_Meta_Box_Product_Data {
 		?><div class="component_options_style group_options_style" <?php echo $show_options_style ? '' : 'style="display:none;"'; ?>>
 			<div class="form-field">
 				<label>
-					<?php _e( 'Options Style', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Options Style', 'woocommerce-composite-products' ); ?>
 				</label>
-				<select class="options_style_selector sw-select2" data-wrap="-tipped" name="bto_data[<?php echo $id; ?>][selection_mode]" style="width: 100%;" ><?php
+				<select class="options_style_selector sw-select2" data-wrap="-tipped" name="bto_data[<?php echo esc_attr( $id ); ?>][selection_mode]" style="width: 100%;" ><?php
 
 					$option_style  = self::get_options_style( $data );
 					$option_styles = WC_CP_Component::get_options_styles();
@@ -1876,7 +1877,7 @@ class WC_CP_Meta_Box_Product_Data {
 						$supports             = new stdClass();
 						$supports->pagination = WC_CP_Component::options_style_supports( $style[ 'id' ], 'pagination' ) ? 'yes' : 'no';
 
-						echo '<option ' . selected( $option_style, $style[ 'id' ], false ) . ' value="' . $style[ 'id' ] . '" data-supports="' . esc_attr( json_encode( $supports ) ) . '">' . $style[ 'title' ] . '</option>';
+						echo '<option ' . selected( $option_style, $style[ 'id' ], false ) . ' value="' . esc_attr( $style[ 'id' ] ) . '" data-supports="' . wc_esc_json( json_encode( $supports ) ) . '">' . esc_html( $style[ 'title' ] ) . '</option>';
 
 						$help_tip .= '<strong>' . $style[ 'title' ] . '</strong> &ndash; ' . $style[ 'description' ];
 
@@ -1927,13 +1928,13 @@ class WC_CP_Meta_Box_Product_Data {
 		?><div class="component_pagination_style" <?php echo $show_pagination_style ? '' : 'style="display:none;"'; ?>>
 			<div class="form-field">
 				<label>
-					<?php _e( 'Options Pagination', 'woocommerce-composite-products' ); ?>
+					<?php esc_html_e( 'Options Pagination', 'woocommerce-composite-products' ); ?>
 				</label>
-				<select class="sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_data[<?php echo $id; ?>][pagination_style]"><?php
+				<select class="sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_data[<?php echo esc_attr( $id ); ?>][pagination_style]"><?php
 
 					foreach ( $pagination_style_options as $option_key => $option ) {
 
-						echo '<option ' . selected( $pagination_style, $option[ 'id' ], false ) . ' value="' . $option[ 'id' ] . '">' . $option[ 'title' ] . '</option>';
+						echo '<option ' . selected( $pagination_style, $option[ 'id' ], false ) . ' value="' . esc_attr( $option[ 'id' ] ) . '">' . esc_html( $option[ 'title' ] ) . '</option>';
 
 						$help_tip .= '<strong>' . $option[ 'title' ] . '</strong> &ndash; ' . $option[ 'description' ];
 
@@ -2235,8 +2236,8 @@ class WC_CP_Meta_Box_Product_Data {
 
 						?><p class="toolbar">
 							<span class="bulk_toggle_wrapper">
-								<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
-								<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
+								<a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce' ); ?></a>
+								<a href="#" class="expand_all"><?php esc_html_e( 'Expand all', 'woocommerce' ); ?></a>
 							</span>
 						</p>
 
@@ -2270,11 +2271,11 @@ class WC_CP_Meta_Box_Product_Data {
 							} else {
 								?><div class="bto_boarding__scenarios bto_scenarios__boarding--scenarios_empty">
 									<div class="bto_boarding__scenarios__message">
-										<h3><?php _e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
-										<p><?php _e( 'Use Scenarios to conditionally hide Components and Component Options.', 'woocommerce-composite-products' ); ?>
+										<h3><?php esc_html_e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
+										<p><?php esc_html_e( 'Use Scenarios to conditionally hide Components and Component Options.', 'woocommerce-composite-products' ); ?>
 										<br/><?php
 											/* translators: %1$s: Documentation link, %2$s: Support link. */
-											echo sprintf( __( 'Need assistance? Check out the <a href="%1$s" target="_blank">documentation</a>, or <a href="%2$s" target="_blank">get in touch</a> with us.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ), WC_CP()->get_resource_url( 'ticket-form' ) ); ?>
+											echo wp_kses_post( sprintf( __( 'Need assistance? Check out the <a href="%1$s" target="_blank">documentation</a>, or <a href="%2$s" target="_blank">get in touch</a> with us.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'advanced-guide' ) ), esc_attr( WC_CP()->get_resource_url( 'ticket-form' ) ) ) ); ?>
 										</p>
 									</div>
 								</div><?php
@@ -2283,20 +2284,20 @@ class WC_CP_Meta_Box_Product_Data {
 						?></div>
 
 						<p class="bto_action_button_wrapper bto_action_button_wrapper--add_scenario">
-							<button type="button" class="button add_bto_scenario"><?php _e( 'Add Scenario', 'woocommerce-composite-products' ); ?></button>
+							<button type="button" class="button add_bto_scenario"><?php esc_html_e( 'Add Scenario', 'woocommerce-composite-products' ); ?></button>
 						</p><?php
 
 					} else {
 
 						?><div class="bto_boarding__scenarios bto_scenarios__boarding--components_empty">
 							<div class="bto_boarding__scenarios__message">
-								<h3><?php _e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
+								<h3><?php esc_html_e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
 								<p><?php
 									/* translators: Documentation link. */
-									echo sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'guide' ) ); ?>
+									echo wp_kses_post( sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'guide' ) ) ) ); ?>
 								<br/><?php
 									/* translators: Documentation link. */
-									echo sprintf( __( 'Then, return here to <a href="%s" target="_blank">add Scenarios</a>.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ) ); ?>
+									echo wp_kses_post( sprintf( __( 'Then, return here to <a href="%s" target="_blank">add Scenarios</a>.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'advanced-guide' ) ) ) ); ?>
 								</p>
 							</div>
 						</div><?php
@@ -2318,8 +2319,8 @@ class WC_CP_Meta_Box_Product_Data {
 
 							?><p class="toolbar">
 								<span class="bulk_toggle_wrapper">
-									<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
-									<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
+									<a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce' ); ?></a>
+									<a href="#" class="expand_all"><?php esc_html_e( 'Expand all', 'woocommerce' ); ?></a>
 								</span>
 							</p>
 
@@ -2354,11 +2355,11 @@ class WC_CP_Meta_Box_Product_Data {
 
 									?><div class="bto_boarding__states bto_state__boarding--state_empty">
 										<div class="bto_boarding__states__message">
-											<h3><?php _e( 'States', 'woocommerce-composite-products' ); ?></h3>
-											<p><?php _e( 'Use States to specify combinations of Component Options that can be bought together.', 'woocommerce-composite-products' ); ?>
+											<h3><?php esc_html_e( 'States', 'woocommerce-composite-products' ); ?></h3>
+											<p><?php esc_html_e( 'Use States to specify combinations of Component Options that can be bought together.', 'woocommerce-composite-products' ); ?>
 											<br/><?php
 												/* translators: %1$s: Documentation link, %2$s: Support link. */
-												echo sprintf( __( 'Need assistance? Check out the <a href="%1$s" target="_blank">documentation</a>, or <a href="%2$s" target="_blank">get in touch</a> with us.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ), WC_CP()->get_resource_url( 'ticket-form' ) ); ?>
+												echo wp_kses_post( sprintf( __( 'Need assistance? Check out the <a href="%1$s" target="_blank">documentation</a>, or <a href="%2$s" target="_blank">get in touch</a> with us.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'advanced-guide' ) ), esc_attr( WC_CP()->get_resource_url( 'ticket-form' ) ) ) ); ?>
 											</p>
 										</div>
 									</div><?php
@@ -2367,18 +2368,18 @@ class WC_CP_Meta_Box_Product_Data {
 							?></div>
 
 							<p class="bto_action_button_wrapper bto_action_button_wrapper--add_scenario">
-								<button type="button" class="button add_bto_state"><?php _e( 'Add State', 'woocommerce-composite-products' ); ?></button>
+								<button type="button" class="button add_bto_state"><?php esc_html_e( 'Add State', 'woocommerce-composite-products' ); ?></button>
 							</p><?php
 
 						} else {
 
 							?><div class="bto_boarding__states bto_states__boarding--components_empty">
 								<div class="bto_boarding__states__message">
-									<h3><?php _e( 'States', 'woocommerce-composite-products' ); ?></h3>
-									<p><?php echo sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'guide' ) ); ?>
+									<h3><?php esc_html_e( 'States', 'woocommerce-composite-products' ); ?></h3>
+									<p><?php echo wp_kses_post( sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'guide' ) ) ) ); ?>
 									<br/><?php
 										/* translators: Documentation link. */
-										echo sprintf( __( 'Then, return here to <a href="%s" target="_blank">add States</a>.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ) ); ?>
+										echo wp_kses_post( sprintf( __( 'Then, return here to <a href="%s" target="_blank">add States</a>.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'advanced-guide' ) ) ) ); ?>
 									</p>
 								</div>
 							</div><?php
@@ -3803,10 +3804,10 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="os_row_inner">
 			<div class="os_modifier">
 				<div class="sw-enhanced-select">
-					<input type="hidden" name="<?php echo $post_name; ?>[match_component][<?php echo $component_id; ?>]" value="1"/>
-					<select name="<?php echo $post_name; ?>[modifier][<?php echo $component_id; ?>]">
+					<input type="hidden" name="<?php echo esc_attr( $post_name ); ?>[match_component][<?php echo esc_attr( $component_id ); ?>]" value="1"/>
+					<select name="<?php echo esc_attr( $post_name ); ?>[modifier][<?php echo esc_attr( $component_id ); ?>]">
 						<?php foreach ( $modifiers as $modifier_key => $modifier_label ) { ?>
-							<option value="<?php echo esc_attr( $modifier_key ); ?>" <?php selected( $modifier, $modifier_key, true ); ?>><?php echo $modifier_label; ?></option>
+							<option value="<?php echo esc_attr( $modifier_key ); ?>" <?php selected( $modifier, $modifier_key, true ); ?>><?php echo esc_html( $modifier_label ); ?></option>
 						<?php } ?>
 					</select>
 				</div>
@@ -3818,25 +3819,26 @@ class WC_CP_Meta_Box_Product_Data {
 
 						$scenario_options = ! empty( $condition_data[ 'component_data' ] ) ? self::get_condition_component_options( $condition_data[ 'component_data' ] ) : array();
 
-						?><select name="<?php echo $post_name; ?>[component_data][<?php echo $component_id; ?>][]" style="width: 100%;" class="sw-select2 bto_scenario_ids" multiple="multiple" data-placeholder="<?php echo __( 'Select products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+						?><select name="<?php echo esc_attr( $post_name ); ?>[component_data][<?php echo esc_attr( $component_id ); ?>][]" style="width: 100%;" class="sw-select2 bto_scenario_ids" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 						if ( ! empty( $scenario_options ) ) {
 							foreach ( $scenario_options as $scenario_option_id => $scenario_option_description ) {
 								$option_selected = in_array( $scenario_option_id, array_keys( $selected ) ) ? 'selected="selected"' : '';
-								echo '<option ' . $option_selected . 'value="' . $scenario_option_id . '">' . $scenario_option_description . '</option>';
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo '<option ' . $option_selected . 'value="' . esc_attr( $scenario_option_id ) . '">' . esc_html( $scenario_option_description ) . '</option>';
 							}
 						} elseif ( ! empty( $condition_data[ 'component_options_html' ] ) ) {
-							echo $condition_data[ 'component_options_html' ];
+							echo $condition_data[ 'component_options_html' ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 
 						?></select><?php
 
 					} else {
 
-						?><select name="<?php echo $post_name; ?>[component_data][<?php echo $component_id; ?>][]" class="sw-select2-search--products" multiple="multiple" style="width: 100%;" data-include="<?php echo esc_attr( json_encode( array( 'composite_id' => $composite_id, 'component_id' => $component_id ) ) ); ?>" data-limit="100" data-action="woocommerce_json_search_products_and_variations_in_component" data-action_version="8.0" data-placeholder="<?php echo  __( 'Search for products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+						?><select name="<?php echo esc_attr( $post_name ); ?>[component_data][<?php echo esc_attr( $component_id ); ?>][]" class="sw-select2-search--products" multiple="multiple" style="width: 100%;" data-include="<?php echo wc_esc_json( json_encode( array( 'composite_id' => $composite_id, 'component_id' => $component_id ) ) ); ?>" data-limit="100" data-action="woocommerce_json_search_products_and_variations_in_component" data-action_version="8.0" data-placeholder="<?php echo esc_attr__( 'Search for products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 							if ( ! empty( $selected ) ) {
 								foreach ( $selected as $selection_id_in_condition => $selection_in_condition ) {
-									echo '<option value="' . $selection_id_in_condition . '" selected="selected">' . $selection_in_condition . '</option>';
+									echo '<option value="' . esc_attr( $selection_id_in_condition ) . '" selected="selected">' . esc_html( $selection_in_condition ) . '</option>';
 								}
 							}
 
@@ -4025,7 +4027,7 @@ class WC_CP_Meta_Box_Product_Data {
 					{{{ data.os_content }}}
 				</div>
 				<div class="os_remove column-wc_actions">
-					<a href="#" class="button wc-action-button trash help_tip" data-tip="<?php echo __( 'Remove', 'woocommerce-composite-products' ) ?>"></a>
+					<a href="#" class="button wc-action-button trash help_tip" data-tip="<?php esc_attr_e( 'Remove', 'woocommerce-composite-products' ) ?>"></a>
 				</div>
 			</div>
 		</script>
@@ -4049,7 +4051,7 @@ class WC_CP_Meta_Box_Product_Data {
 			if ( ! empty( $additional_options ) ) {
 				$selected_id = null;
 				foreach ( $additional_options as $key => $value ) {
-					?><option value="<?php echo $key ?>" selected="selected"><?php echo $value ?></option><?php
+					?><option value="<?php echo esc_attr( $key ); ?>" selected="selected"><?php echo esc_html( $value ); ?></option><?php
 				}
 			}
 
@@ -4069,8 +4071,8 @@ class WC_CP_Meta_Box_Product_Data {
 					}
 				}
 
-				?><option value="<?php echo $component_id ?>" <?php echo $component_id === $selected_id ? 'selected="selected"' : ''; ?>><?php
-					echo ! $append_id ? $component_title : sprintf( '%1$s (#%2$s)', $component_title, $component_id );
+				?><option value="<?php echo esc_attr( $component_id ); ?>" <?php echo $component_id === $selected_id ? 'selected="selected"' : ''; ?>><?php
+					echo ! $append_id ? esc_html( $component_title ) : sprintf( '%1$s (#%2$s)', esc_html( $component_title ), esc_attr( $component_id ) );
 				?></option><?php
 			}
 		?></select><?php

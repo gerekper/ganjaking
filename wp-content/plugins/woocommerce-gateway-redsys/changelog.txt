@@ -1,5 +1,18 @@
 *** Redsys Gateway Change Log ***
 
+2023.05.30 - version 21.0.0
+
+* NEW: Added catalan front translation for InSite.
+* NEW: Added galego front translation for InSite.
+* NEW: Added euskera front translation for InSite.
+* NEW: Added Gutenberg Block for Credit Card Image.
+* NEW: Added Checkout Block for Bizum.
+* NEW: Added Checkout Block for PayGold.
+* NEW: Added Checkout Block for MasterPass.
+* NEW: Added Checkout Block for Redsys Bank Transfer.
+* NEW: Added Checkout Block for Redsys Direct Debit.
+* FIX: InSite tokenization. Now only save the token when it is indicated to save the card at checkout.
+
 2023.05.14 - version 20.4.0
 
 * NEW: The InSite form is now always displayed. Filling in some fields is no longer necessary. Thanks to the new API, there's no need to wait anymore.

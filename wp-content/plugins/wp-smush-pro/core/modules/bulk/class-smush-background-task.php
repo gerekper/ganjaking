@@ -5,6 +5,7 @@ namespace Smush\Core\Modules\Bulk;
 class Smush_Background_Task implements \Serializable {
 	const TASK_TYPE_SMUSH = 'SMUSH';
 	const TASK_TYPE_RESMUSH = 'RESMUSH';
+	const TASK_TYPE_ERROR = 'ERROR';
 
 	private $type;
 

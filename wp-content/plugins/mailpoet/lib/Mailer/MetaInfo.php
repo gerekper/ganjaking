@@ -5,8 +5,8 @@ namespace MailPoet\Mailer;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Models\Newsletter;
 
 class MetaInfo {
   public function getSendingTestMetaInfo() {
@@ -37,22 +37,22 @@ class MetaInfo {
     return $this->makeMetaInfo('new_subscriber_notification', 'unknown', 'administrator');
   }
 
-  public function getNewsletterMetaInfo($newsletter, SubscriberEntity $subscriber) {
-    $type = $newsletter->type ?? 'unknown';
-    switch ($newsletter->type) {
-      case Newsletter::TYPE_AUTOMATIC:
-        $group = isset($newsletter->options['group']) ? $newsletter->options['group'] : 'unknown';
-        $event = isset($newsletter->options['event']) ? $newsletter->options['event'] : 'unknown';
+  public function getNewsletterMetaInfo(NewsletterEntity $newsletter, SubscriberEntity $subscriber) {
+    $type = $newsletter->getType();
+    switch ($newsletter->getType()) {
+      case NewsletterEntity::TYPE_AUTOMATIC:
+        $group = !is_null($newsletter->getOptionValue('group')) ? $newsletter->getOptionValue('group') : 'unknown';
+        $event = !is_null($newsletter->getOptionValue('event')) ? $newsletter->getOptionValue('event') : 'unknown';
         $type = sprintf('automatic_%s_%s', $group, $event);
         break;
-      case Newsletter::TYPE_STANDARD:
+      case NewsletterEntity::TYPE_STANDARD:
         $type = 'newsletter';
         break;
-      case Newsletter::TYPE_WELCOME:
+      case NewsletterEntity::TYPE_WELCOME:
         $type = 'welcome';
         break;
-      case Newsletter::TYPE_NOTIFICATION:
-      case Newsletter::TYPE_NOTIFICATION_HISTORY:
+      case NewsletterEntity::TYPE_NOTIFICATION:
+      case NewsletterEntity::TYPE_NOTIFICATION_HISTORY:
         $type = 'post_notification';
         break;
     }

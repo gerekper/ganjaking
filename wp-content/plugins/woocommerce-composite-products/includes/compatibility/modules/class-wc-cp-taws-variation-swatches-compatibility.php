@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * ThemeAlien Variation Swatches for WooCommerce
  *
- * @version  4.0.0
+ * @version  8.8.0
  */
 class WC_CP_TAWS_Variation_Swatches_Compatibility {
 
@@ -49,6 +49,7 @@ class WC_CP_TAWS_Variation_Swatches_Compatibility {
 
 			";
 
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo "\n<script type=\"text/javascript\">\njQuery(function($) { $js });\n</script>\n";
 		}
 	}

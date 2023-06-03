@@ -223,6 +223,7 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			RVS.F.openObjectLibrary({types: ['modules'], filter: 'all', selected: ['modules'], success: successObj});
 			
 			var folder = RVS.F.getCookie('rs6_wizard_folder');
+			
 			if(folder && folder !== -1 && folder !== '-1' && ((RVS.LIB.OBJ !==undefined && RVS.LIB.OBJ.items!==undefined && RVS.LIB.OBJ.items.modules!==undefined))) RVS.F.changeOLIBToFolder(folder);		
 			
 		},

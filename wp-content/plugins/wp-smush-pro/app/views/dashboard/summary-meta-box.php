@@ -6,8 +6,7 @@
  * @package WP_Smush
  *
  * @var string    $cdn_status         CDN status.
- * @var string    $human_format       Format of savings (kb, mb, etc..).
- * @var string    $human_size         Converted size from bytes.
+ * @var string    $human_bytes
  * @var bool      $is_cdn             CDN module status.
  * @var bool      $is_lazy_load       Lazy load status.
  * @var bool      $is_local_webp      Local WebP status.
@@ -19,6 +18,7 @@
  * @var int|float $percent_metric     Metric to calculate circle score.
  * @var int       $percent_optimized  Percent optimized.
  * @var int       $total_optimized    Total nubmer of images optimized.
+ * @var string|int $stats_percent
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -26,49 +26,34 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 ?>
+<?php
+$this->view(
+	'scan-progress-bar',
+	array(),
+	'common'
+);
 
-<div class="sui-summary-image-space" aria-hidden="true">
-	<div class="sui-circle-score <?php echo esc_attr( $percent_grade ); ?> loaded" data-score="<?php echo absint( $percent_optimized ); ?>">
-		<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-			<circle stroke-width="16" cx="50" cy="50" r="42"></circle>
-			<circle stroke-width="16" cx="50" cy="50" r="42" style="--metric-array: <?php echo 2.63893782902 * absint( $percent_metric ); ?> <?php echo 263.893782902 - absint( $percent_metric ); ?>"></circle>
-		</svg>
-		<span class="sui-circle-score-label"><?php echo absint( $percent_optimized ); ?></span>
-	</div>
-	<small><?php esc_html_e( 'Images optimized in the media library', 'wp-smushit' ); ?></small>
-</div>
-<div class="sui-summary-segment">
-	<div class="sui-summary-details">
-		<span class="sui-summary-large wp-smush-stats-human">
-			<?php echo esc_html( $human_size ); ?>
-		</span>
-		<span class="sui-summary-detail wp-smush-savings">
-			<span class="wp-smush-stats-human"><?php echo esc_html( $human_format ); ?></span> /
-			<span class="wp-smush-stats-percent"><?php echo esc_html( $stats_percent ); ?></span>%
-		</span>
-		<span class="sui-summary-sub">
-			<?php esc_html_e( 'Total Savings', 'wp-smushit' ); ?>
-		</span>
-		<span class="smushed-items-count">
-			<span class="wp-smush-count-total">
-				<span class="sui-summary-detail wp-smush-total-optimised">
-					<?php echo esc_html( $total_optimized ); ?>
-				</span>
-				<span class="sui-summary-sub">
-					<?php esc_html_e( 'Images Smushed', 'wp-smushit' ); ?>
-				</span>
-			</span>
-			<span class="wp-smush-count-resize-total <?php echo $resize_count > 0 ? '' : 'sui-hidden'; ?>">
-				<span class="sui-summary-detail wp-smush-total-optimised">
-					<?php echo esc_html( $resize_count ); ?>
-				</span>
-				<span class="sui-summary-sub">
-					<?php esc_html_e( 'Images Resized', 'wp-smushit' ); ?>
-				</span>
-			</span>
-		</span>
-	</div>
-</div>
+$this->view(
+	'circle-progress-bar',
+	array(
+		'percent_grade'     => $percent_grade,
+		'percent_optimized' => $percent_optimized,
+		'percent_metric'    => $percent_metric,
+	),
+	'common'
+);
+
+$this->view(
+	'summary-segment',
+	array(
+		'human_bytes'     => $human_bytes,
+		'total_optimized' => $total_optimized,
+		'stats_percent'   => $stats_percent,
+		'resize_count'    => $resize_count,
+	),
+	'common'
+);
+?>
 <div class="sui-summary-segment" style="overflow: visible">
 	<ul class="sui-list">
 		<li>

@@ -8,8 +8,11 @@
 
 namespace Smush\Core;
 
+use Smush\Core\Media\Media_Item;
+use Smush\Core\Media\Media_Item_Cache;
+use Smush\Core\Media\Media_Item_Optimizer;
+use Smush\Core\Stats\Global_Stats;
 use WP_Error;
-use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -65,182 +68,6 @@ class Error_Handler {
 		'file_not_found',
 
 	);
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct() {
-		// Handle failed items.
-		add_action( 'wp_smush_no_smushit', array( $this, 'maybe_flag_failed_item' ), 999, 2 );
-		add_action( 'wp_smush_after_smush_file', array( $this, 'maybe_remove_failed_item_flag' ), 999, 3 );
-		add_action( 'wp_smush_after_restore_backup', array( $this, 'remove_failed_item_flag_after_restore' ), 10, 3 );
-
-		// When start BO, ignore all animated files of previous session.
-		add_action( 'wp_smush_bulk_smush_start', array( $this, 'ignore_all_animate_files_on_start' ) );
-	}
-
-	/**
-	 * Set a flag for failed item.
-	 *
-	 * @param int      $attachment_id  Attachment ID.
-	 * @param WP_Error $errors         An instance of WP_Error.
-	 */
-	public function maybe_flag_failed_item( $attachment_id, $errors ) {
-		$has_errors = $errors && is_wp_error( $errors ) && $errors->has_errors();
-		if ( ! $has_errors ) {
-			return;
-		}
-
-		if ( ! wp_attachment_is_image( $attachment_id ) ) {
-			// Do not flag error for non-image type.
-			return;
-		}
-		self::set_flag_failed_item( $attachment_id, $errors->get_error_code() );
-	}
-
-	/**
-	 * Maybe remove flag for failed item after compressing image successfully.
-	 *
-	 * @param int      $attachment_id  Attachment ID.
-	 * @param array    $meta           Attachment meta.
-	 * @param WP_Error $errors         An instance of WP_Error.
-	 */
-	public function maybe_remove_failed_item_flag( $attachment_id, $meta, $errors ) {
-		$has_errors = $errors && is_wp_error( $errors ) && $errors->has_errors();
-		if ( $has_errors ) {
-			// Has errors, return.
-			return;
-		}
-		self::remove_flag_failed_item( $attachment_id );
-	}
-
-	/**
-	 * Remove flag failed item after restoring.
-	 *
-	 * @param bool   $restored         Is restored or not.
-	 * @param string $backup_full_path Backup path.
-	 * @param int    $attachment_id    Attachment ID.
-	 */
-	public function remove_failed_item_flag_after_restore( $restored, $backup_full_path, $attachment_id ) {
-		if ( $restored ) {
-			delete_post_meta( $attachment_id, self::ERROR_KEY );
-		}
-	}
-
-	/**
-	 * Ignore all animated files when start new background process.
-	 *
-	 * This will help us:
-	 * 1. Do not show animated errors of previous processing after completing the process.
-	 * 2. Keep ignore animated files the same behavior with the old version.
-	 */
-	public function ignore_all_animate_files_on_start() {
-		global $wpdb;
-		$animated_images = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT post_meta_error.post_id FROM $wpdb->postmeta as post_meta_error
-				LEFT JOIN $wpdb->postmeta as post_meta_ignored ON post_meta_ignored.post_id = post_meta_error.post_id AND post_meta_ignored.meta_key= %s
-				WHERE post_meta_ignored.meta_value IS NULL AND post_meta_error.meta_key = %s AND post_meta_error.meta_value = %s",
-				self::IGNORE_KEY,
-				self::ERROR_KEY,
-				self::ANIMATED_ERROR_CODE
-			)
-		);
-		if ( empty( $animated_images ) ) {
-			return;
-		}
-
-		foreach ( $animated_images as $animated_image_id ) {
-			if ( empty( $animated_image_id ) ) {
-				continue;
-			}
-			update_post_meta( $animated_image_id, self::IGNORE_KEY, Core::STATUS_ANIMATED );
-		}
-	}
-
-	/**
-	 * Verify an animated file from error meta value.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return boolean
-	 */
-	public static function is_animated_file( $attachment_id ) {
-		return self::ANIMATED_ERROR_CODE === self::get_error_code( $attachment_id );
-	}
-
-	/**
-	 * Check if the image is ignored.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return mixed Ignored meta value or false if not found.
-	 */
-	public static function is_ignored( $attachment_id ) {
-		$ignored = get_post_meta( $attachment_id, self::IGNORE_KEY, true );
-		return ! empty( $ignored ) ? $ignored : false;
-	}
-
-	/**
-	 * Check if there is error_code for skipped compression case.
-	 *
-	 * @param  string $error_code Error code.
-	 * @return boolean
-	 */
-	public static function is_skipped_error_code( $error_code ) {
-		return in_array( $error_code, self::$skipped_error_codes, true );
-	}
-
-	/**
-	 * Check if should regenerate thumbnail.
-	 *
-	 * @param  string $error_code Error code.
-	 * @return boolean
-	 */
-	public static function should_regenerate_thumbnail( $error_code ) {
-		return in_array( $error_code, self::$regenerate_error_codes, true );
-	}
-
-	/**
-	 * Set ignored flag for failed item.
-	 *
-	 * @param int    $attachment_id Attachment ID.
-	 * @param string $error_code Error code.
-	 */
-	public static function set_flag_failed_item( $attachment_id, $error_code ) {
-		if ( in_array( $error_code, self::$locked_error_codes, true ) ) {
-			return;
-		}
-		return update_post_meta( $attachment_id, self::ERROR_KEY, $error_code );
-	}
-
-	/**
-	 * Get error code.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 * @return null|string
-	 */
-	public static function get_error_code( $attachment_id ) {
-		$error_code = get_post_meta( $attachment_id, self::ERROR_KEY, true );
-		if ( 'size_limit' === $error_code && WP_Smush::is_pro() ) {
-			return;
-		}
-		return $error_code;
-	}
-
-	/**
-	 * Remove ignored flag for failed item.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return bool
-	 */
-	public static function remove_flag_failed_item( $attachment_id ) {
-		if ( ! self::get_error_code( $attachment_id ) ) {
-			return false;
-		}
-		return delete_post_meta( $attachment_id, self::ERROR_KEY );
-	}
 
 	/**
 	 * Get error message.
@@ -305,46 +132,84 @@ class Error_Handler {
 		return $error_message;
 	}
 
-	/**
-	 * Get error message on media lib.
-	 *
-	 * @param string $error_code Error code.
-	 * @param int    $image_id   Attachment ID.
-	 * @return string
-	 */
-	public static function get_error_message_for_media_library( $error_code, $image_id = 0 ) {
-		$error_messages = self::get_error_messages_for_media_library();
-		if ( empty( $error_messages[ $error_code ] ) ) {
-			return self::get_error_message( $error_code, $image_id );
-		}
-		return self::format_error_message( $error_messages[ $error_code ], $error_code, $image_id );
+	public static function get_all_failed_images() {
+		$media_item_error_ids   = Global_Stats::get()->get_error_list()->get_ids();
+		$optimization_error_ids = self::get_last_optimization_error_ids( PHP_INT_MAX );
+		return array_unique( array_merge( $media_item_error_ids, $optimization_error_ids ) );
 	}
 
 	/**
-	 * Get last failed items.
+	 * Get last optimization errors.
 	 *
 	 * @param int $limit Query limit.
 	 * @return array
 	 */
-	private static function get_last_failed_items( $limit ) {
+	private static function get_last_optimization_error_ids( $limit ) {
 		global $wpdb;
 		// phpcs:ignore  WordPress.DB.PreparedSQL.NotPrepared
 		$query = $wpdb->prepare(
-			"SELECT DISTINCT post_meta_error.post_id, post_meta_error.meta_value FROM $wpdb->postmeta as post_meta_error
+			"SELECT DISTINCT post_meta_error.post_id FROM $wpdb->postmeta as post_meta_error
 			LEFT JOIN $wpdb->postmeta as post_meta_ignore ON post_meta_ignore.post_id = post_meta_error.post_id AND post_meta_ignore.meta_key= %s
 			WHERE post_meta_ignore.meta_value IS NULL AND post_meta_error.meta_key = %s
 			ORDER BY post_meta_error.post_id DESC LIMIT %d;",
-			self::IGNORE_KEY,
-			self::ERROR_KEY,
+			Media_Item::IGNORED_META_KEY,
+			Media_Item_Optimizer::ERROR_META_KEY,
 			$limit
 		);
 		/**
 		 * Due to performance, we do not join with table wp_posts to exclude the deleted attachments,
 		 * leave a filter for third-party custom it.
 		 */
-		$query = apply_filters( 'wp_smush_query_get_failed_items', $query );
+		$query = apply_filters( 'wp_smush_query_get_last_optimize_errors', $query );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared
-		return $wpdb->get_results( $query );
+		return $wpdb->get_col( $query );
+	}
+
+	private static function get_last_media_item_errors( $limit ) {
+		$error_list_ids = Global_Stats::get()->get_error_list()->get_ids();
+		$last_errors    = array();
+		if ( empty( $error_list_ids ) ) {
+			return $last_errors;
+		}
+		foreach( $error_list_ids as $attachment_id ) {
+			$media_item        = Media_Item_Cache::get_instance()->get( $attachment_id );
+			if ( ! $media_item->has_errors() ) {
+				continue;
+			}
+
+			$last_errors[ $attachment_id ] = self::get_error( $media_item->get_errors(), $media_item );
+
+			if ( count( $last_errors ) >= $limit ) {
+				break;
+			}
+		}
+
+		return $last_errors;
+	}
+
+	private static function get_last_optimize_errors( $limit ) {
+		$last_errors_ids = self::get_last_optimization_error_ids( $limit );
+		$last_errors = array();
+		if ( empty( $last_errors_ids ) ) {
+			return $last_errors;
+		}
+
+		foreach( $last_errors_ids as $attachment_id ) {
+			$media_item = Media_Item_Cache::get_instance()->get( $attachment_id );
+			$optimizer  = new Media_Item_Optimizer($media_item);
+
+			if( ! $optimizer->has_errors() ) {
+				continue;
+			}
+
+			$last_errors[ $attachment_id ] = self::get_error( $optimizer->get_errors(), $media_item );
+
+			if ( count( $last_errors ) >= $limit ) {
+				break;
+			}
+		}
+
+		return $last_errors;
 	}
 
 	/**
@@ -354,113 +219,28 @@ class Error_Handler {
 	 * @return array
 	 */
 	public static function get_last_errors( $limit = 10 ) {
-		$failed_items = self::get_last_failed_items( $limit );
-		if ( empty( $failed_items ) ) {
-			return array();
+		$last_errors    = self::get_last_media_item_errors( $limit );
+		$no_item_errors = count( $last_errors );
+		if ( $no_item_errors >= $limit ) {
+			return $last_errors;
 		}
-		$errors = array();
-		foreach ( $failed_items as $failed ) {
-			$error_code    = $failed->meta_value;
-			$image_id      = (int) $failed->post_id;
-			$error_message = self::get_error_message( $error_code, $image_id );
-			if ( $error_message ) {
-				$error = self::get_error( $image_id, $error_code );
-				if ( $error ) {
-					// Add error.
-					$errors[ $image_id ] = $error;
-				}
-			}
-		}
-		return $errors;
+
+		$optimize_errors = self::get_last_optimize_errors( $limit - $no_item_errors );
+
+		return $last_errors + $optimize_errors;
 	}
 
 	/**
-	 * Get error info for log.
-	 *
-	 * @param int    $image_id   Attachment ID.
-	 * @param string $error_code Error code.
-	 * @return false|array
+	 * @return array
 	 */
-	public static function get_error( $image_id, $error_code ) {
-		$error_message = self::get_error_message( $error_code, $image_id );
-		if ( empty( $error_message ) ) {
-			return false;
-		}
-
-		$thumbnail = wp_get_attachment_image_src( $image_id, 'thumbnail' );
-		$file_name = 'undefined';
-		$file_link = false;
-		if ( ! empty( $thumbnail[0] ) ) {
-			$file_link = $thumbnail[0];
-			$file_name = basename( str_replace( '-150x150.', '.', $file_link ) );
-		}
+	public static function get_error( WP_Error $errors, Media_Item $media_item ) {
+		$thumbnail = $media_item->get_size('thumbnail' );
 		return array(
-			'error_msg'  => $error_message,
-			'thumbnail'  => $file_link,
-			'file_link'  => Helper::get_image_media_link( $image_id, $file_name ),
-			'error_code' => $error_code,
+			'error_code'    => $errors->get_error_code(),
+			'error_message' => $errors->get_error_message(),
+			'file_name'     => $media_item->get_scaled_or_full_size()->get_file_name(),
+			'thumbnail'     => $thumbnail ? $thumbnail->get_file_url() : false,
 		);
-	}
-
-	/**
-	 * Get CDN notice base on CDN status.
-	 *
-	 * @return string
-	 */
-	private static function get_cdn_notice_with_config_link() {
-		$cdn = WP_Smush::get_instance()->core()->mod->cdn;
-		if ( $cdn->get_status() ) {
-			return '<span class="smush-cdn-notice">' . esc_html__( 'GIFs are serving from global CDN', 'wp-smushit' ) . '</span>';
-		}
-		$cdn_link = Helper::get_page_url( 'smush-cdn' );
-		/* translators: %1$s : Open a link %2$s Close the link */
-		return '<span class="smush-cdn-notice">' . sprintf( esc_html__( '%1$sEnable CDN%2$s to serve GIFs closer and faster to visitors', 'wp-smushit' ), '<a href="' . esc_url( $cdn_link ) . '" target="_blank">', '</a>' ) . '</span>';
-	}
-
-	/**
-	 * Generate utm link base on error code.
-	 *
-	 * @param string $error_code Error code.
-	 *
-	 * @return null|string
-	 */
-	public static function get_utm_msg( $error_code ) {
-		if ( WP_Smush::is_pro() ) {
-			if ( self::ANIMATED_ERROR_CODE !== $error_code ) {
-				return;
-			}
-			return self::get_cdn_notice_with_config_link();
-		}
-		$utm_error_msg = array(
-			'animated'   => __( 'Try Pro to Serve GIFs with our global CDN.', 'wp-smushit' ),
-			'size_limit' => __( 'Try Pro to Smush larger images.', 'wp-smushit' ),
-		);
-		if ( ! isset( $utm_error_msg[ $error_code ] ) ) {
-			return;
-		}
-
-		$upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
-		$args        = array(
-			'coupon'     => 'SMUSH30OFF',
-			'checkout'   => 0,
-			'utm_source' => 'smush',
-			'utm_medium' => 'plugin',
-		);
-
-		switch ( $error_code ) {
-			case 'animated':
-				$args['utm_campaign'] = 'smush_bulksmush_library_gif_cdn';
-				$utm_link             = add_query_arg( $args, $upgrade_url );
-				break;
-			case 'size_limit':
-				$args['utm_campaign'] = 'smush_bulksmush_library_filesizelimit';
-				$utm_link             = add_query_arg( $args, $upgrade_url );
-				break;
-		}
-
-		if ( ! empty( $utm_link ) ) {
-			return sprintf( '<a class="smush-upgrade-link" href="%s" target="_blank">%s</a>', esc_url( $utm_link ), esc_html( $utm_error_msg[ $error_code ] ) );
-		}
 	}
 
 	/**
@@ -489,23 +269,6 @@ class Error_Handler {
 				'not_writable'   => __( '%s is not writable', 'wp-smushit' ),
 				/* translators: %s: File path */
 				'file_not_found' => __( 'Skipped (%s), File not found.', 'wp-smushit' ),
-			)
-		);
-	}
-
-	/**
-	 * Get error messages.=
-	 *
-	 * @return array
-	 */
-	private static function get_error_messages_for_media_library() {
-		return apply_filters(
-			'wp_smush_error_messages_on_library',
-			array(
-				'ignored'        => esc_html__( 'Ignored.', 'wp-smushit' ),
-				'no_file_meta'   => esc_html__( 'No file data found in image meta. We recommend regenerating the thumbnails.', 'wp-smushit' ),
-				/* translators: %s: File path */
-				'file_not_found' => __( 'File (%s) not found, we recommend regenerating the thumbnails', 'wp-smushit' ),
 			)
 		);
 	}

@@ -169,6 +169,10 @@ class Preload
 
         if(!empty($matches)) {
 
+            $exclusions = apply_filters('perfmatters_critical_image_exclusions', array(
+                ';base64'
+            ));
+
             $count = 0;
             
             foreach($matches as $match) {
@@ -181,7 +185,6 @@ class Preload
                     continue;
                 }
 
-                $exclusions = apply_filters('perfmatters_critical_image_exclusions', array());
                 if(!empty($exclusions) && is_array($exclusions)) {
                     foreach($exclusions as $exclusion) {
                         if(strpos($match[0], $exclusion) !== false) {

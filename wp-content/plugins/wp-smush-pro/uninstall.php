@@ -51,6 +51,21 @@ $smushit_keys = array(
 	'wp-smush-webp_hide_wizard',
 	'wp-smush-hide-tutorials',
 	'wp-smush-hide_tutorials_from_bulk_smush', // Possible leftover from 3.8.4.
+	'wp-smush-png2jpg-rewrite-rules-flushed',
+	'wp-smush-optimization-global-stats',
+	'wp-smush-resize-global-stats',
+	'wp-smush-png2jpg-global-stats',
+	'wp_smush_skip_image_sizes_recheck',
+	'wp_smush_image_sizes_state',
+	'wp_smush_global_stats',
+	'wp-smush-optimize-list',
+	'wp-smush-reoptimize-list',
+	'wp-smush-error-items-list',
+	'wp-smush-plugin-activated',
+	'wp_smush_run_optimize_on_scan_completed',
+	'wp-smush-nextgen-reoptimize-list',
+	'wp-smush-nextgen-super-smushed-list',
+	'wp_smush_scan_slice_size',
 );
 
 $db_keys = array(

@@ -1,5 +1,11 @@
 *** Currency Converter Changelog ***
 
+2023-05-31 - version 2.0.2
+* Tweak - Enqueue the frontend scripts only on pages with registered widgets.
+* Tweak - Tested compatibility with WC 7.7.
+* Fix - Fixed error when localizing the JS scripts on pages without registered widgets.
+* Fix - Updated the script `money.min.js` to version 0.2.0.
+
 2023-04-18 - version 2.0.1
 * Tweak - Use a password field type for the 'App ID' setting.
 * Tweak - Remove the API credentials on the plugin uninstall.
@@ -69,14 +75,14 @@
 * Fix minification of conversion.js. PR#87
 
 2021-01-28 - version 1.6.24
-* Fix   - Compatibility with WC core blocks. PR#78
-* Fix   - Compatibility with Jetpack infinite scroll. PR#79
-* Fix   - Retain the chosen currency across page loads. PR#82
-* Fix   - Display prices in the correct format based on currency. PR#84
+* Fix - Compatibility with WC core blocks. PR#78
+* Fix - Compatibility with Jetpack infinite scroll. PR#79
+* Fix - Retain the chosen currency across page loads. PR#82
+* Fix - Display prices in the correct format based on currency. PR#84
 * Tweak - Display both currency symbols & currency codes. PR#83
 
 2020-08-14 - version 1.6.23
-* Fix   - Replace deprecated jQuery methods.
+* Fix - Replace deprecated jQuery methods.
 * Tweak - WordPress 5.5 compatibility.
 
 2020-07-07 - version 1.6.22
@@ -143,7 +149,7 @@
 
 2016-07-01 - version 1.6.3
 * Tweak - Zero replace now uses the WooCommerce settings to determine the number of decimal points.
-* Fix   - Stores with "." and "," switched display incorrect pricing.
+* Fix - Stores with "." and "," switched display incorrect pricing.
 
 2016-01-21 - version 1.6.2
 * Tweak - Extend option to disable location detection (added in 1.6) to the shortcode.

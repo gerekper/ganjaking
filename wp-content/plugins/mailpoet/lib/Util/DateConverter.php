@@ -9,7 +9,7 @@ use MailPoetVendor\Carbon\Carbon;
 
 class DateConverter {
   /**
-   * @return bool|string
+   * @return string|false
    */
   public function convertDateToDatetime(string $date, string $dateFormat) {
     $datetime = false;

@@ -11,6 +11,9 @@ use MailPoetVendor\Carbon\Carbon;
 class TransientCache {
   public const SUBSCRIBERS_STATISTICS_COUNT_KEY = 'mailpoet_subscribers_statistics_count_cache';
   public const SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY = 'mailpoet_subscribers_statistics_count_global_status_cache';
+  public const SUBSCRIBERS_HOMEPAGE_STATISTICS_COUNT_KEY = 'mailpoet_subscribers_statistics_count_homepage_cache';
+
+  private $cacheEnabled;
 
   /** @var WPFunctions */
   private $wp;
@@ -19,6 +22,7 @@ class TransientCache {
     WPFunctions $wp
   ) {
     $this->wp = $wp;
+    $this->cacheEnabled = $this->wp->applyFilters('mailpoet_transient_cache_enabled', true);
   }
 
   public function getItem(string $key, int $id): ?array {
@@ -65,6 +69,12 @@ class TransientCache {
     $this->deleteItems($key);
   }
 
+  public function invalidateAllItems(): void {
+    $this->invalidateItems(self::SUBSCRIBERS_STATISTICS_COUNT_KEY);
+    $this->invalidateItems(self::SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY);
+    $this->invalidateItems(self::SUBSCRIBERS_HOMEPAGE_STATISTICS_COUNT_KEY);
+  }
+
   private function deleteItems(string $key): void {
     $this->wp->deleteTransient($key);
   }
@@ -74,6 +84,17 @@ class TransientCache {
   }
 
   public function getItems(string $key): array {
+    if (!$this->cacheEnabled) {
+      return [];
+    }
     return $this->wp->getTransient($key) ?: [];
+  }
+
+  public function enableCache(): void {
+    $this->cacheEnabled = true;
+  }
+
+  public function disableCache(): void {
+    $this->cacheEnabled = false;
   }
 }

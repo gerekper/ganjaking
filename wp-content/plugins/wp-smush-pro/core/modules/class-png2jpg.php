@@ -58,7 +58,7 @@ class Png2jpg extends Abstract_Module {
 			 * 2. If there is not a PNG file, we don't need to download this file,
 			 * and on resize method we will try to download the file content from url if it's necessary.
 			 */
-			add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 9, 2 );
+			//add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 9, 2 );
 
 			/**
 			 * Save can be convert to jpg status before resizing the image.

@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 				<th scope="col" id="col_warranty" class="manage-column column-warranty"><?php esc_html_e( 'Warranty', 'wc_warranty' ); ?></th>
 			</tr>
 			</thead>
-			<tbody id="categories_list">
+			<tbody id="categories_list" data-nonce="<?php echo esc_attr( wp_create_nonce( 'warranty_category_update_inline' ) ); ?>">
 			<?php
 			foreach ( $categories as $category ) :
 				$category_id = $category->term_id;

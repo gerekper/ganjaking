@@ -81,7 +81,11 @@ class Images
         }
 
         //get image path
-        $image_path = str_replace('/wp-content', '', WP_CONTENT_DIR) . '/' . parse_url($url)['path'];
+        $parsed_url = parse_url($url);
+        if(empty($parsed_url['path'])) {
+            return false;
+        }
+        $image_path = str_replace('/wp-content', '', WP_CONTENT_DIR) . '/' . $parsed_url['path'];
 
         if(file_exists($image_path)) {
 

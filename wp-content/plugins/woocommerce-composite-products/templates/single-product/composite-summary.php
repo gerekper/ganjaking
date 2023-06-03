@@ -11,7 +11,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    3.0.0
- * @version  6.2.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -42,13 +42,13 @@ if ( apply_filters( 'woocommerce_composite_summary_vertical_style', false, $prod
 	$summary_classes .= ' force_vertical';
 }
 
-?><div id="composite_summary_<?php echo $product_id; ?>" class="composite_summary <?php echo esc_attr( $summary_classes ); ?>" data-summary_columns="<?php echo esc_attr( $summary_columns ); ?>"><?php
+?><div id="composite_summary_<?php echo esc_attr( $product_id ); ?>" class="composite_summary <?php echo esc_attr( $summary_classes ); ?>" data-summary_columns="<?php echo esc_attr( $summary_columns ); ?>"><?php
 
 	if ( $product->get_composite_layout_style_variation() === 'componentized' ) {
 
 		?><h2 class="summary_title step_title_wrapper">
-			<span class="aria_title" aria-label="<?php echo __( 'Your Selections', 'woocommerce-composite-products' ); ?>" tabindex="-1"><?php echo __( 'Your Selections', 'woocommerce-composite-products' ); ?></span>
-			<span class="step_title_text"><?php echo __( 'Your Selections', 'woocommerce-composite-products' ); ?></span>
+			<span class="aria_title" aria-label="<?php esc_attr_e( 'Your Selections', 'woocommerce-composite-products' ); ?>" tabindex="-1"><?php esc_html_e( 'Your Selections', 'woocommerce-composite-products' ); ?></span>
+			<span class="step_title_text"><?php esc_html_e( 'Your Selections', 'woocommerce-composite-products' ); ?></span>
 		</h2><?php
 
 	} else {
@@ -57,7 +57,7 @@ if ( apply_filters( 'woocommerce_composite_summary_vertical_style', false, $prod
 			$final_step = count( $components ) + 1;
 			$title      = __( 'Review and Purchase', 'woocommerce-composite-products' );
 			/* translators: %1$d: Step index, %2$s: Step title. */
-			echo apply_filters( 'woocommerce_composite_step_title', sprintf( __( '<span class="step_index">%1$d</span> <span class="step_title">%2$s</span>', 'woocommerce-composite-products' ), $final_step, $title ), $title, $final_step );
+			echo wp_kses_post( apply_filters( 'woocommerce_composite_step_title', sprintf( __( '<span class="step_index">%1$d</span> <span class="step_title">%2$s</span>', 'woocommerce-composite-products' ), $final_step, $title ), $title, $final_step ) );
 		?></h2><?php
 	}
 

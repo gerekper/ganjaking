@@ -11,8 +11,8 @@
 	'use strict';
 
 	WP_Smush.helpers = {
-		cacheUpsellErrorCodes: [],
 		init: () => {},
+		cacheUpsellErrorCodes: [],
 
 		/**
 		 * Convert bytes to human-readable form.
@@ -147,64 +147,65 @@
 		 */
 		 prepareBulkSmushErrorRow: (errorMsg, fileName, thumbnail, id, type, errorCode) => {
 			const thumbDiv =
-				'undefined' === typeof thumbnail ?
-				'<i class="sui-icon-photo-picture" aria-hidden="true"></i>' :
-				thumbnail;
+			thumbnail && 'undefined' !== typeof thumbnail ?
+				`<img class="attachment-thumbnail" src="${thumbnail}" />` :
+				'<i class="sui-icon-photo-picture" aria-hidden="true"></i>';
 			const editLink = window.wp_smush_msgs.edit_link.replace('{{id}}', id);
-			const fileLink =
+			fileName =
 				'undefined' === fileName || 'undefined' === typeof fileName ?
 				'undefined' :
 				fileName;
 
 			let tableDiv =
-				'<div class="smush-bulk-error-row" data-error-code="'+ errorCode + '">' +
-				'<div class="smush-bulk-image-data">' +
-				'<div class="smush-bulk-image-title">' +
-				thumbDiv +
-				'<span class="smush-image-name">' +
-				fileLink +
-				'</span>' +
-				'</div>' +
-				'<div class="smush-image-error">' +
-				errorMsg +
-				'</div>' +
-				'</div>';
+				`<div class="smush-bulk-error-row" data-error-code="${errorCode}">
+					<div class="smush-bulk-image-data">
+						<div class="smush-bulk-image-title">
+							${ thumbDiv }
+							<span class="smush-image-name">
+								<a href="${editLink}">${fileName}</a>
+							</span>
+						</div>
+					<div class="smush-image-error">
+						${errorMsg}
+					</div>
+				</div>`;
 
 			if ('media' === type) {
-				tableDiv =
-					tableDiv +
-					'<div class="smush-bulk-image-actions">' +
-					'<a href="javascript:void(0)" class="sui-tooltip sui-tooltip-constrained sui-tooltip-left smush-ignore-image" data-tooltip="' +
-					window.wp_smush_msgs.error_ignore +
-					'" data-id="' +
-					id +
-					'">' +
-					window.wp_smush_msgs.btn_ignore +
-					'</a>' +
-					'<a class="smush-link-detail" href="' + editLink + '">' +
-						window.wp_smush_msgs.view_detail +
-					'</a>' +
-				'</div>';
+				tableDiv +=
+					`<div class="smush-bulk-image-actions">
+						<a href="javascript:void(0)" class="sui-tooltip sui-tooltip-constrained sui-tooltip-left smush-ignore-image" data-tooltip="${window.wp_smush_msgs.error_ignore}" data-id="${id}">
+							${window.wp_smush_msgs.btn_ignore}
+						</a>
+						<a class="smush-link-detail" href="${editLink}">
+							${window.wp_smush_msgs.view_detail}
+						</a>
+					</div>`;
 			}
 
-			tableDiv = tableDiv + '</div>';
+			tableDiv += '</div>';
 
-			tableDiv += WP_Smush.helpers.upsellWithError(errorCode);
+			tableDiv += WP_Smush.helpers.upsellWithError( errorCode );
 
 			return tableDiv;
+		},
+		cacheUpsellErrorCode( errorCode ) {
+			this.cacheUpsellErrorCodes.push( errorCode );
 		},
 		/**
 		 * Get upsell base on error code.
 		 * @param {string} errorCode Error code.
 		 * @returns {string}
-		 *
-		 * Do not use arrow function to use `this`.
 		 */
-		upsellWithError: function (errorCode) {
-			if (!errorCode || !window.wp_smush_msgs['error_' + errorCode] || this.isUpsellRendered( errorCode )) {
+		upsellWithError(errorCode) {
+			if (
+				!errorCode
+				|| !window.wp_smush_msgs['error_' + errorCode]
+				|| this.isUpsellRendered( errorCode )
+			) {
 				return '';
 			}
 			this.cacheRenderedUpsell( errorCode );
+			
 			return '<div class="smush-bulk-error-row smush-error-upsell">' +
 				'<div class="smush-bulk-image-title">' +
 				'<span class="smush-image-error">' +
@@ -213,11 +214,11 @@
 				'</div></div>';
 		},
 		// Do not use arrow function to use `this`.
-		isUpsellRendered: function( errorCode ) {
+		isUpsellRendered( errorCode ) {
 			return this.cacheUpsellErrorCodes.includes( errorCode );
 		},
 		// Do not use arrow function to use `this`.
-		cacheRenderedUpsell: function ( errorCode ) {
+		cacheRenderedUpsell( errorCode ) {
 			this.cacheUpsellErrorCodes.push( errorCode );
 		},
 		/**
@@ -272,6 +273,9 @@
 
 			SUI.openNotice( 'wp-smush-ajax-notice', noticeMessage, noticeOptions );
 			return Promise.resolve( '#wp-smush-ajax-notice' );
+		},
+		closeNotice() {
+			window.SUI.closeNotice( 'wp-smush-ajax-notice' );
 		},
 		renderActivationCDNNotice: function( noticeMessage ) {
 			const animatedNotice = document.getElementById('wp-smush-animated-upsell-notice');

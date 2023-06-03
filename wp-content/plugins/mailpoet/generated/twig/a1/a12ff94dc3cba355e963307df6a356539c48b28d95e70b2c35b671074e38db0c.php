@@ -39,11 +39,24 @@ class __TwigTemplate_57bfdd4fb362dd94264b1d68ab1e6f4bdf9b65226909b1d15784e661ea7
         // line 1
         echo "<div class=\"mailpoet_tools\"></div>
 <div class=\"mailpoet_content\" data-automation-id=\"coupon_block\">
-    <div  class=\"mailpoet_editor_coupon\" style=\"{{#ifCond model.styles.block.textAlign '==' 'left'}}margin: 0 auto 0 0; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'center'}}margin: auto; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'right'}}margin: 0 0 0 auto; {{/ifCond}}line-height: {{ model.styles.block.lineHeight }}; width: {{ model.styles.block.width }}; background-color: {{ model.styles.block.backgroundColor }}; color: {{ model.styles.block.fontColor }}; font-family: {{fontWithFallback model.styles.block.fontFamily }}; font-size: {{ model.styles.block.fontSize }}; font-weight: {{ model.styles.block.fontWeight }}; border: {{ model.styles.block.borderWidth }} {{ model.styles.block.borderStyle }} {{ model.styles.block.borderColor }}; border-radius: {{ model.styles.block.borderRadius }};\">{{ model.code }}</div>
-    <div class=\"mailpoet_editor_coupon_overlay\">";
-        // line 4
-        echo $this->extensions['MailPoet\Twig\I18n']->translate("The coupon code will be auto-generated when this campaign is activated. All subscribers of this campaign will receive the same coupon code.");
-        echo "</div>
+    <div class=\"mailpoet_editor_coupon\" style=\"{{#ifCond model.styles.block.textAlign '==' 'left'}}margin: 0 auto 0 0; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'center'}}margin: auto; {{/ifCond}}{{#ifCond model.styles.block.textAlign '==' 'right'}}margin: 0 0 0 auto; {{/ifCond}}line-height: {{ model.styles.block.lineHeight }}; width: {{ model.styles.block.width }}; background-color: {{ model.styles.block.backgroundColor }}; color: {{ model.styles.block.fontColor }}; font-family: {{fontWithFallback model.styles.block.fontFamily }}; font-size: {{ model.styles.block.fontSize }}; font-weight: {{ model.styles.block.fontWeight }}; border: {{ model.styles.block.borderWidth }} {{ model.styles.block.borderStyle }} {{ model.styles.block.borderColor }}; border-radius: {{ model.styles.block.borderRadius }};\">{{ model.code }}</div>
+    <div class=\"mailpoet_editor_coupon_overlay\" style=\"{{#ifCond model.source '==' 'allCoupons'}}visibility: hidden;{{/ifCond}}\">
+        ";
+        // line 5
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("The coupon code will be auto-generated when this campaign is activated.");
+        echo "
+        {{#ifCond model.isStandardEmail '==' true}}
+          ";
+        // line 7
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("All subscribers of this campaign will receive the same coupon code.");
+        echo "
+        {{else}}
+          ";
+        // line 9
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("Each subscriber of this campaign will receive a new coupon code.");
+        echo "
+        {{/ifCond}}
+    </div>
 </div>
 <div class=\"mailpoet_block_highlight\"></div>
 ";
@@ -61,7 +74,7 @@ class __TwigTemplate_57bfdd4fb362dd94264b1d68ab1e6f4bdf9b65226909b1d15784e661ea7
 
     public function getDebugInfo()
     {
-        return array (  42 => 4,  37 => 1,);
+        return array (  53 => 9,  48 => 7,  43 => 5,  37 => 1,);
     }
 
     public function getSourceContext()

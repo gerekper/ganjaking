@@ -10,13 +10,13 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 	?>
 	<tr>
 		<?php if ( wc_product_sku_enabled() ) : ?>
-			<td><?php echo $product->get_sku(); ?></td>
+			<td><?php echo esc_html( $product->get_sku() ); ?></td>
 		<?php endif; ?>
 		<td>
 			<?php
 
 			if ( ! $nested ) {
-				$post_title = $post->post_title;
+				$post_title = esc_html( $post->post_title );
 			} else {
 				$post_title = '';
 			}
@@ -29,11 +29,7 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 	        	$attributes = $product->get_variation_attributes();
 
 	        	foreach ( $attributes as $name => $attribute ) {
-	        		if ( function_exists( 'wc_attribute_label' ) ) {
-	        			$list_attributes[] = wc_attribute_label( str_replace( 'attribute_', '', $name ) ) . ': <strong>' . $attribute . '</strong>';
-	        		} else {
-	        			$list_attributes[] = wc_attribute_label( str_replace( 'attribute_', '', $name ) ) . ': <strong>' . $attribute . '</strong>';
-	        		}
+        			$list_attributes[] = esc_html_e( wc_attribute_label( str_replace( 'attribute_', '', $name ) ) ) . ': <strong>' . esc_html_e( $attribute ) . '</strong>';
 	        	}
 
 	        	$post_title .= implode( ', ', $list_attributes );
@@ -41,13 +37,13 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 	        	$post_title .= '</em></small>';
 	        }
 
-	        echo $post_title;
+	        echo esc_html( $post_title );
 
 		?></td>
-		<td><?php echo $post->ID; ?></td>
+		<td><?php echo esc_html( $post->ID ); ?></td>
 		<td><?php echo 'product' === $post->post_type ? 'Product' : 'Variation'; ?></td>
-		<td><?php echo wc_price( $product->get_price() ); ?></td>
-		<td><?php echo wc_stock_amount( $product->get_stock_quantity() ); ?></td>
+		<td><?php echo esc_html( wc_price( $product->get_price() ) ); ?></td>
+		<td><?php echo esc_html( wc_stock_amount( $product->get_stock_quantity() ) ); ?></td>
 	</tr>
 	<?php
 }
@@ -56,7 +52,7 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title><?php _e( 'Stock Report' ); ?></title>
+		<title><?php esc_html_e( 'Stock Report' ); ?></title>
 		<style>
 			body { background:white; color:black; width: 95%; margin: 0 auto; }
 			table { border: 1px solid #000; width: 100%; }
@@ -66,21 +62,21 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 	</head>
 	<body>
 		<header>
-			<p class="date"><?php echo date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) ); ?></p>
-			<h1 class="title"><?php _e( 'Stock Report', 'woocommerce-bulk-stock-management' ); ?></h1>
+			<p class="date"><?php echo esc_html( date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) ) ); ?></p>
+			<h1 class="title"><?php esc_html_e( 'Stock Report', 'woocommerce-bulk-stock-management' ); ?></h1>
 		</header>
 		<section>
 		<table cellspacing="0" cellpadding="2">
 			<thead>
 				<tr>
 					<?php if ( wc_product_sku_enabled() ) : ?>
-						<th scope="col" style="text-align:left;"><?php _e( 'SKU', 'woocommerce-bulk-stock-management' ); ?></th>
+						<th scope="col" style="text-align:left;"><?php esc_html_e( 'SKU', 'woocommerce-bulk-stock-management' ); ?></th>
 					<?php endif; ?>
-					<th scope="col" style="text-align:left;"><?php _e( 'Product', 'woocommerce-bulk-stock-management' ); ?></th>
-					<th scope="col" style="text-align:left;"><?php _e( 'ID', 'woocommerce-bulk-stock-management' ); ?></th>
-					<th scope="col" style="text-align:left;"><?php _e( 'Type', 'woocommerce-bulk-stock-management' ); ?></th>
-					<th scope="col" style="text-align:left;"><?php _e( 'Unit Retail Price', 'woocommerce-bulk-stock-management' ); ?></th>
-					<th scope="col" style="text-align:left;"><?php _e( 'Stock Qty', 'woocommerce-bulk-stock-management' ); ?></th>
+					<th scope="col" style="text-align:left;"><?php esc_html_e( 'Product', 'woocommerce-bulk-stock-management' ); ?></th>
+					<th scope="col" style="text-align:left;"><?php esc_html_e( 'ID', 'woocommerce-bulk-stock-management' ); ?></th>
+					<th scope="col" style="text-align:left;"><?php esc_html_e( 'Type', 'woocommerce-bulk-stock-management' ); ?></th>
+					<th scope="col" style="text-align:left;"><?php esc_html_e( 'Unit Retail Price', 'woocommerce-bulk-stock-management' ); ?></th>
+					<th scope="col" style="text-align:left;"><?php esc_html_e( 'Stock Qty', 'woocommerce-bulk-stock-management' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

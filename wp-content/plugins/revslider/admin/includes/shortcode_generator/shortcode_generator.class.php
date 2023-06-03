@@ -289,6 +289,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 
 			RVS.ENV.plugin_url	= '<?php echo RS_PLUGIN_URL; ?>';
 			RVS.ENV.plugin_dir	= 'revslider';
+			RVS.ENV.ajax_pre	= 'rs';
 			RVS.ENV.ajax_url	= '<?php echo esc_js( admin_url( 'admin-ajax.php') ); ?>';
 			RVS.ENV.admin_url	= '<?php echo admin_url('admin.php?page=revslider'); ?>';
 			RVS.ENV.nonce		= '<?php echo wp_create_nonce('revslider_actions'); ?>';

@@ -272,8 +272,7 @@ class CDN extends Abstract_Module {
 			switch ( $setting_key ) {
 				case 'webp':
 					esc_html_e(
-						'Note: We’ll detect and serve WebP images to browsers that will accept them by checking
-						Accept Headers, and gracefully fall back to normal PNGs or JPEGs for non-compatible browsers.',
+						'Note: We’ll detect and serve WebP images to browsers that will accept them by checking Accept Headers, and gracefully fall back to normal PNGs or JPEGs for non-compatible browsers.',
 						'wp-smushit'
 					);
 					break;
@@ -289,14 +288,14 @@ class CDN extends Abstract_Module {
 					break;
 				case 'background_images':
 					printf(
-						/* translators: %1$s - link, %2$s - closing link tag */
+						/* translators: %1$s - Open the link <a>, %2$s - Closing link tag */
 						esc_html__( 'Note: For this feature to work your theme’s background images must be declared correctly using the default %1$swp_attachment%2$s functions.', 'wp-smushit' ),
 						'<a href="https://developer.wordpress.org/reference/functions/wp_get_attachment_image/" target="_blank">',
 						'</a>'
 					);
 					echo '<br>';
 					printf(
-						/* translators: %1$s - link, %2$s - closing link tag */
+						/* translators: %1$s - Open the link <a>, %2$s - closing link tag */
 						esc_html__( 'For any non-media library uploads, you can still use the %1$sDirectory Smush%2$s feature to compress them, they just won’t be served from the CDN.', 'wp-smushit' ),
 						'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush-directory' ) ) . '">',
 						'</a>'
@@ -304,7 +303,7 @@ class CDN extends Abstract_Module {
 					break;
 				case 'rest_api_support':
 					printf(
-						/* translators: %1$s - link, %2$s - closing link tag */
+						/* translators: %1$s - Open a link <a>, %2$s - closing link tag */
 						esc_html__( 'Note: Smush will use the %1$srest_pre_echo_response%2$s hook to filter images in REST API responses.', 'wp-smushit' ),
 						'<a href="https://developer.wordpress.org/reference/hooks/rest_pre_echo_response/" target="_blank">',
 						'</a>'

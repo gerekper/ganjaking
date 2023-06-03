@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    1.0.0
- * @version  3.14.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div id="component_options_<?php echo $component_id; ?>" class="component_options" data-options_data="<?php echo htmlspecialchars( json_encode( $component_options_data ) ); ?>">
+?><div id="component_options_<?php echo esc_attr( $component_id ); ?>" class="component_options" data-options_data="<?php echo wc_esc_json( json_encode( $component_options_data ) ); ?>">
 	<div class="component_options_inner cp_clearfix"><?php
 
 		/**

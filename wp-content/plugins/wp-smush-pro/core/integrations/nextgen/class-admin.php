@@ -17,7 +17,9 @@ use C_Gallery_Storage;
 use nggdb;
 use Smush\App\Media_Library;
 use Smush\Core\Core;
+use Smush\Core\Helper;
 use Smush\Core\Integrations\NextGen;
+use Smush\Core\Settings;
 use stdClass;
 use WP_Smush;
 
@@ -86,6 +88,8 @@ class Admin extends NextGen {
 	 */
 	public $ng_stats;
 
+	protected $settings;
+
 	/**
 	 * Admin constructor.
 	 *
@@ -93,6 +97,7 @@ class Admin extends NextGen {
 	 */
 	public function __construct( Stats $stats ) {
 		$this->ng_stats = $stats;
+		$this->settings = Settings::get_instance();
 
 		// Update the number of columns.
 		add_filter( 'ngg_manage_images_number_of_columns', array( $this, 'wp_smush_manage_images_number_of_columns' ) );
@@ -107,10 +112,14 @@ class Admin extends NextGen {
 		add_action( 'ngg_delete_gallery', array( $this->ng_stats, 'update_stats_cache' ) );
 
 		// Update the Super Smush count, after the smushing.
-		add_action( 'wp_smush_image_optimised_nextgen', array( $this, 'update_lists' ), '', 2 );
+		add_action( 'wp_smush_image_optimised_nextgen', array( $this, 'update_lists_after_optimizing' ), '', 2 );
 
 		// Reset smush data after restoring the image.
 		add_action( 'ngg_recovered_image', array( $this, 'reset_smushdata' ) );
+
+		add_action( 'wp_ajax_nextgen_get_stats', array( $this, 'ajax_get_stats' ) );
+
+		add_filter( 'wp_smush_nextgen_scan_stats', array( $this, 'scan_images' ) );
 	}
 
 	/**
@@ -205,7 +214,7 @@ class Admin extends NextGen {
 			$error_in_bulk = esc_html__( '{{smushed}}/{{total}} images were successfully compressed, {{errors}} encountered issues.', 'wp-smushit' );
 		} else {
 			$error_in_bulk = sprintf(
-				/* translators: %1$s - opening link tag, %2$s - </a> */
+				/* translators: %1$s - opening link tag, %2$s - Close the link </a> */
 				esc_html__( '{{smushed}}/{{total}} images were successfully compressed, {{errors}} encountered issues. Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files.', 'wp-smushit' ),
 				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
 				'</a>'
@@ -224,56 +233,7 @@ class Admin extends NextGen {
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );
 
-		// If premium, Super smush allowed, all images are smushed, localize lossless smushed ids for bulk compression.
-		$resmush_ids = get_option( 'wp-smush-nextgen-resmush-list', array() );
-		if ( $resmush_ids ) {
-			$this->resmush_ids = $resmush_ids;
-		}
-
-		// Setup image counts ( Total, Smushed, Super-smushed, Remaining ).
-		$this->setup_image_counts();
-
-		// Get the Latest Stats.
-		$this->stats = $this->ng_stats->get_smush_stats();
-
-		// Get the unsmushed ids, used for localized stats as well as normal localization.
-		$unsmushed = $this->ng_stats->get_ngg_images( 'unsmushed' );
-		$unsmushed = ( ! empty( $unsmushed ) && is_array( $unsmushed ) ) ? array_keys( $unsmushed ) : array();
-
-		$smushed = $this->ng_stats->get_ngg_images();
-		$smushed = ( ! empty( $smushed ) && is_array( $smushed ) ) ? array_keys( $smushed ) : array();
-
-		$this->smushed = $smushed;
-		$this->ids     = $unsmushed;
-
-		$this->super_smushed = get_option( 'wp-smush-super_smushed_nextgen', array() );
-		$this->super_smushed = ! empty( $this->super_smushed['ids'] ) ? $this->super_smushed['ids'] : array();
-
-		// If we have images to be resmushed, Update supersmush list.
-		if ( ! empty( $this->resmush_ids ) && ! empty( $this->super_smushed ) ) {
-			$this->super_smushed = array_diff( $this->super_smushed, $this->resmush_ids );
-		}
-
-		// If supersmushed images are more than total, clean it up.
-		if ( count( $this->super_smushed ) > $this->total_count ) {
-			$this->super_smushed = $this->cleanup_super_smush_data();
-		}
-
-		// Array of all smushed, unsmushed and lossless ids.
-		$data = array(
-			'count_smushed'      => $this->smushed_count,
-			'count_supersmushed' => count( $this->super_smushed ),
-			'count_total'        => $this->total_count,
-			'count_images'       => $this->image_count,
-			'smushed'            => $smushed,
-			'unsmushed'          => $unsmushed,
-			'resmush'            => $this->resmush_ids,
-		);
-
-		// Add the stats to array.
-		if ( ! empty( $this->stats ) && is_array( $this->stats ) ) {
-			$data = array_merge( $data, $this->stats );
-		}
+		$data = $this->ng_stats->get_global_stats();
 
 		wp_localize_script( $handle, 'wp_smushit_data', $data );
 	}
@@ -357,7 +317,10 @@ class Admin extends NextGen {
 	 * @param int $attachment_id  Attachment ID.
 	 */
 	public function update_resmush_list( $attachment_id ) {
-		WP_Smush::get_instance()->core()->mod->smush->update_resmush_list( $attachment_id, 'wp-smush-nextgen-resmush-list' );
+		if ( $this->ng_stats->get_reoptimize_list()->has_id( $attachment_id ) ) {
+			return $this->ng_stats->get_reoptimize_list()->remove_id( $attachment_id );
+		}
+		return $this->ng_stats->get_reoptimize_list()->add_id( $attachment_id );
 	}
 
 	/**
@@ -407,7 +370,7 @@ class Admin extends NextGen {
 		update_option( 'wp_smush_stats_nextgen', $nextgen_stats, false );
 
 		// Remove from Super Smush list.
-		WP_Smush::get_instance()->core()->mod->smush->update_super_smush_count( $attachment_id, 'remove', 'wp-smush-super_smushed_nextgen' );
+		$this->ng_stats->get_supper_smushed_list()->remove_id( $image_id );
 	}
 
 	/**
@@ -416,43 +379,23 @@ class Admin extends NextGen {
 	 * @param int   $image_id  Image ID.
 	 * @param array $stats     Stats.
 	 */
-	public function update_lists( $image_id, $stats ) {
-		WP_Smush::get_instance()->core()->mod->smush->update_lists( $image_id, $stats, 'wp-smush-super_smushed_nextgen' );
-		if ( ! empty( $this->resmush_ids ) && in_array( $image_id, $this->resmush_ids ) ) {
-			$this->update_resmush_list( $image_id );
+	public function update_lists_after_optimizing( $image_id, $stats ) {
+		if ( isset( $stats['stats']['lossy'] ) && 1 === (int) $stats['stats']['lossy'] ) {
+			$this->ng_stats->get_supper_smushed_list()->add_id( $image_id );
 		}
+		$this->update_resmush_list( $image_id );
 	}
 
 	/**
 	 * Initialize NextGen Gallery Stats
 	 */
 	public function setup_image_counts() {
-		$smushed_images = $this->ng_stats->get_ngg_images( 'smushed' );
-
-		// Check if resmush ids are not set, get it.
-		if ( empty( $this->resmush_ids ) ) {
-			$this->resmush_ids = get_option( 'wp-smush-nextgen-resmush-list', array() );
-		}
-
-		// Includes the count of different sizes an image might have.
-		$this->image_count = $this->get_image_count( $smushed_images, false );
-
-		// If we have images to be resmushed, exclude it.
-		if ( ! empty( $this->resmush_ids ) && is_array( $smushed_images ) ) {
-			// Get the Smushed images, exlude resmush ids.
-			$smushed_images = array_diff_key( $smushed_images, array_flip( $this->resmush_ids ) );
-		}
-
-		// Set the counts.
-		$this->total_count = $this->ng_stats->total_count();
-
-		// Count of images ( Attachments ), Does not includes additioanl sizes that might have been created.
-		$this->smushed_count = isset( $smushed_images ) && is_array( $smushed_images ) ? count( $smushed_images ) : $smushed_images;
-
-		$this->super_smushed = get_option( 'wp-smush-super_smushed_nextgen', array() );
-		$this->super_smushed = ! empty( $this->super_smushed['ids'] ) ? count( $this->super_smushed['ids'] ) : 0;
-
-		$this->remaining_count = $this->ng_stats->get_ngg_images( 'unsmushed', true );
+		$this->total_count     = $this->ng_stats->total_count();
+		$this->smushed_count   = $this->ng_stats->get_smushed_count();
+		$this->image_count     = $this->ng_stats->get_smushed_image_count();
+		$this->resmush_ids     = $this->ng_stats->get_reoptimize_list()->get_ids();
+		$this->super_smushed   = $this->ng_stats->get_supper_smushed_count();
+		$this->remaining_count = $this->ng_stats->get_remaining_count();
 	}
 
 	/**
@@ -541,25 +484,6 @@ class Admin extends NextGen {
 	}
 
 	/**
-	 * Cleanup Super-smush images array against the all ids in gallery
-	 *
-	 * @return array|mixed|void
-	 */
-	private function cleanup_super_smush_data() {
-		$super_smushed = get_option( 'wp-smush-super_smushed_nextgen', array() );
-		$ids           = $this->ng_stats->total_count( false, true );
-
-		if ( is_array( $super_smushed ) && ! empty( $super_smushed['ids'] ) && is_array( $ids ) ) {
-			$super_smushed['ids'] = array_intersect( $super_smushed['ids'], $ids );
-		}
-
-		update_option( 'wp-smush-super_smushed_nextgen', $super_smushed );
-
-		return $super_smushed['ids'];
-
-	}
-
-	/**
 	 * Reset smush data after restoring the image.
 	 *
 	 * @since 3.10.0
@@ -571,6 +495,9 @@ class Admin extends NextGen {
 		if ( empty( $image->meta_data['wp_smush'] ) && empty( $image->meta_data['wp_smush_resize_savings'] ) ) {
 			return;
 		}
+
+		$this->ng_stats->subtract_image_stats( $image );
+
 		// Remove the Meta, And send json success.
 		$image->meta_data['wp_smush'] = '';
 
@@ -605,4 +532,107 @@ class Admin extends NextGen {
 		do_action( 'wp_smush_image_nextgen_restored', $image->pid );
 	}
 
+	public function ajax_get_stats() {
+		check_ajax_referer( 'wp-smush-ajax', '_nonce' );
+
+		// Check capability.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'notice'     => esc_html__( "You don't have permission to do this.", 'wp-smushit' ),
+					'noticeType' => 'error',
+				)
+			);
+		}
+
+		$stats = $this->get_global_stats_with_bulk_smush_content_and_notice();
+
+		wp_send_json_success( $stats );
+	}
+
+	private function get_global_stats_with_bulk_smush_content_and_notice() {
+		$stats           = $this->get_global_stats_with_bulk_smush_content();
+		$remaining_count = $stats['remaining_count'];
+
+		if ( $remaining_count > 0 ) {
+			$stats['noticeType'] = 'warning';
+			$stats['notice']     = sprintf(
+			/* translators: %1$d - number of images, %2$s - opening a tag, %3$s - closing a tag */
+				esc_html__( 'Image check complete, you have %1$d images that need smushing. %2$sBulk smush now!%3$s', 'wp-smushit' ),
+				$remaining_count,
+				'<a href="#" class="wp-smush-trigger-nextgen-bulk">',
+				'</a>'
+			);
+		} else {
+			$stats['notice']     = esc_html__( 'Yay! All images are optimized as per your current settings.', 'wp-smushit' );
+			$stats['noticeType'] = 'success';
+		}
+		return $stats;
+	}
+
+	private function get_global_stats_with_bulk_smush_content() {
+		$stats            = $this->ng_stats->get_global_stats();
+		$remaining_count  = $stats['remaining_count'];
+		$reoptimize_count = $stats['count_resmush'];
+		$optimize_count   = $stats['count_unsmushed'];
+
+		if ( $remaining_count > 0 ) {
+			ob_start();
+			WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content(
+				$remaining_count,
+				$reoptimize_count,
+				$optimize_count
+			);
+			$content = ob_get_clean();
+			$stats['content'] = $content;
+		}
+
+		return $stats;
+	}
+
+	public function scan_images() {
+		$resmush_list = array();
+		$attachments  = $this->ng_stats->get_ngg_images();
+		// Check if any of the smushed image needs to be resmushed.
+		if ( ! empty( $attachments ) && is_array( $attachments ) ) {
+			foreach ( $attachments as $attachment_k => $attachment ) {
+				if ( $this->should_resmush( $attachment ) ) {
+					$resmush_list[] = $attachment_k;
+				}
+			}// End of Foreach Loop
+
+			// Store the resmush list in Options table.
+			$this->ng_stats->get_reoptimize_list()->update_ids( $resmush_list );
+		}
+
+		// Delete resmush list if empty.
+		if ( empty( $resmush_list ) ) {
+			$this->ng_stats->get_reoptimize_list()->delete_ids();
+		}
+
+		return $this->get_global_stats_with_bulk_smush_content_and_notice();
+	}
+
+	private function should_resmush( $attachment ) {
+		if ( empty( $attachment['wp_smush']['stats'] ) ) {
+			return false;
+		}
+		$smush_data = $attachment['wp_smush'];
+
+		return $this->lossy_optimization_required( $smush_data )
+			   || $this->strip_exif_optimization_required( $smush_data )
+			   || $this->original_optimization_required( $smush_data );
+	}
+
+	private function lossy_optimization_required( $smush_data ) {
+		return $this->settings->get( 'lossy' ) && empty( $smush_data['stats']['lossy'] );
+	}
+
+	private function strip_exif_optimization_required( $smush_data ) {
+		return $this->settings->get( 'strip_exif' ) && ! empty( $smush_data['stats']['keep_exif'] ) && ( 1 === (int) $smush_data['stats']['keep_exif'] );
+	}
+
+	private function original_optimization_required( $smush_data ) {
+		return $this->settings->get( 'original' ) && empty( $smush_data['sizes']['full'] );
+	}
 }

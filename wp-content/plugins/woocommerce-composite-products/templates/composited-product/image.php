@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.13.3
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -43,6 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$html .= '</figure>';
 	}
 
-	echo apply_filters( 'woocommerce_composited_product_image_html', $html, $product_id, $component );
+	$product_image_html = apply_filters( 'woocommerce_composited_product_image_html', $html, $product_id, $component );
+
+	echo wp_kses_post( $product_image_html );
 
 ?></div>

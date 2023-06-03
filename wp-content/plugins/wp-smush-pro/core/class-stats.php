@@ -8,6 +8,13 @@
 
 namespace Smush\Core;
 
+use Smush\Core\Media\Media_Item;
+use Smush\Core\Media\Media_Item_Query;
+use Smush\Core\Png2Jpg\Png2Jpg_Optimization;
+use Smush\Core\Resize\Resize_Optimization;
+use Smush\Core\Smush\Smush_Optimization;
+use Smush\Core\Smush\Smush_Optimization_Global_Stats;
+use Smush\Core\Stats\Global_Stats;
 use stdClass;
 use WP_Query;
 
@@ -118,18 +125,6 @@ class Stats {
 		// Update the media_attachments list.
 		add_action( 'add_attachment', array( $this, 'add_to_media_attachments_list' ) );
 		add_action( 'delete_attachment', array( $this, 'update_lists' ), 12 );
-	}
-
-	/**
-	 * The method setup_global_stats assumes that the resmush ids are already available in $this->resmush_ids but that's not always the case.
-	 * This wrapper method first populates $this->resmush_ids. Not changing setup_global_stats because it is already being used in so many places.
-	 *
-	 * This is obviously meant to be a temporary workaround while we can get stats fixed properly.
-	 */
-	public function setup_global_stats_with_resmush_correction( $force_update = false ) {
-		$this->resmush_ids = $this->get_resmush_ids();
-
-		$this->setup_global_stats( $force_update );
 	}
 
 	/**
@@ -396,15 +391,6 @@ class Stats {
 	 * @return array
 	 */
 	public function get_smushed_attachments( $force_update = false ) {
-		// If not forced to update, try to get from cache.
-		if ( ! $force_update ) {
-			$smushed_count = wp_cache_get( 'wp-smush-smushed_ids', 'wp-smush' );
-			// Return the cache value if cache is set.
-			if ( false !== $smushed_count && ! empty( $smushed_count ) ) {
-				return $smushed_count;
-			}
-		}
-
 		// Remove the Filters added by WP Media Folder.
 		do_action( 'wp_smush_remove_filters' );
 
@@ -415,15 +401,7 @@ class Stats {
 				"SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key=%s",
 				Modules\Smush::$smushed_meta_key
 			)
-		); // Db call ok.
-
-		// Remove resmush IDs from the list.
-		if ( ! empty( $this->resmush_ids ) && is_array( $this->resmush_ids ) ) {
-			$posts = array_diff( $posts, $this->resmush_ids );
-		}
-
-		// Set in cache.
-		wp_cache_set( 'wp-smush-smushed_ids', $posts, 'wp-smush' );
+		);
 
 		return $posts;
 	}
@@ -491,26 +469,7 @@ class Stats {
 	 * @return array
 	 */
 	public function get_unsmushed_attachments() {
-		// Check if we can get the unsmushed attachments from the other two variables.
-		if ( ! empty( $this->attachments ) && ! empty( $this->smushed_attachments ) ) {
-			$attachments = array_diff( $this->attachments, $this->smushed_attachments );
-
-			// Remove skipped attachments.
-			if ( ! empty( $this->skipped_attachments ) ) {
-				$attachments = array_diff( $attachments, $this->skipped_attachments );
-			}
-
-			$attachments = ! empty( $attachments ) && is_array( $attachments ) ? array_slice( $attachments, 0, $this->max_rows ) : array();
-		} else {
-			$attachments = $this->run_query( self::get_unsmushed_meta_query() );
-		}
-
-		// Remove resmush list from unsmushed images.
-		if ( ! empty( $this->resmush_ids ) && is_array( $this->resmush_ids ) ) {
-			$attachments = array_diff( $attachments, $this->resmush_ids );
-		}
-
-		return $attachments;
+		return $this->run_query( self::get_unsmushed_meta_query() );
 	}
 
 	/**
@@ -545,21 +504,15 @@ class Stats {
 		$unsmushed_query = array(
 			'relation' => 'AND',
 			array(
-				'key'     => Modules\Smush::$smushed_meta_key,
+				'key'     => Smush_Optimization::SMUSH_META_KEY,
 				'compare' => 'NOT EXISTS',
 			),
 			array(
-				'key'     => Error_Handler::IGNORE_KEY,
+				'key'     => Media_Item::IGNORED_META_KEY,
 				'compare' => 'NOT EXISTS',
 			),
 		);
 
-		if ( Core::ignore_all_failed_items() ) {
-			$unsmushed_query[] = array(
-				'key'  => Error_Handler::ERROR_KEY,
-				'type' => 'NOT EXISTS',
-			);
-		}
 		return $unsmushed_query;
 	}
 
@@ -985,14 +938,12 @@ class Stats {
 		global $wpdb;
 		$ignored_query = "SELECT DISTINCT post_id FROM $wpdb->postmeta WHERE meta_key = %s";
 		$args[]        = Error_Handler::IGNORE_KEY;
-		if ( self::ignore_all_failed_items() ) {
-			$ignored_query .= ' OR meta_key = %s';
-			$args[]         = Error_Handler::ERROR_KEY;
-		} else {
-			$ignored_query .= ' OR meta_key = %s AND meta_value = %s';
-			$args[]         = Error_Handler::ERROR_KEY;
-			$args[]         = Error_Handler::ANIMATED_ERROR_CODE;
-		}
+
+		// Animated files are considered ignored
+		$ignored_query .= ' OR meta_key = %s AND meta_value = %s';
+		$args[]        = Error_Handler::ERROR_KEY;
+		$args[]        = Error_Handler::ANIMATED_ERROR_CODE;
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared
 		$images = $wpdb->get_col( $wpdb->prepare( $ignored_query, $args ) );
 		wp_cache_set( 'skipped_images', $images, 'wp-smush' );
@@ -1000,34 +951,168 @@ class Stats {
 		return $images;
 	}
 
-	public function get_global_stats() {
+	/**
+	 * Checks every place where ignored or animated flag has been stored in the past to get a count.
+	 *
+	 * TODO: this is meant to be a temporary method to be used until the new stats are adopted. Remove in a few versions.
+	 *
+	 * @return int
+	 */
+	private function get_skipped_count() {
+		global $wpdb;
+
+		$animated_key = Media_Item::ANIMATED_META_KEY;
+		$ignored_key  = Media_Item::IGNORED_META_KEY;
+
+		$error_meta_key       = Error_Handler::ERROR_KEY;
+		$animated_error_value = 'animated';
+
+		$mime_types = ( new Smush_File() )->get_supported_mime_types();
+		$mime_types = implode( "','", $mime_types );
+
+		$query = $wpdb->prepare(
+			"SELECT COUNT(DISTINCT postmeta.post_id) FROM $wpdb->postmeta as postmeta
+                    INNER JOIN $wpdb->posts as posts
+                        ON postmeta.post_id = posts.ID AND posts.post_type = 'attachment'
+                        AND posts.post_mime_type IN ('". $mime_types ."')
+					WHERE meta_key = %s
+					OR meta_key = %s
+					OR (meta_key = %s AND meta_value = %s)",
+			$ignored_key,
+			$animated_key,
+			$error_meta_key,
+			$animated_error_value
+		);
+
+		return (int) $wpdb->get_var( $query );
+	}
+
+	/**
+	 * On sites where the new scan has never been run, this method is meant act as a fallback.
+	 *
+	 * TODO: this is meant to be a temporary method to be used until the new stats are adopted. Remove in a few versions.
+	 *
+	 * @return array
+	 */
+	public function get_backup_global_stats() {
+		$backup_stats = wp_cache_get( 'backup_global_stats', 'wp-smush' );
+		if ( empty( $backup_stats ) ) {
+			$backup_stats = $this->fetch_backup_global_stats();
+			wp_cache_set( 'backup_global_stats', $backup_stats, 'wp-smush' );
+		}
+
+		return $backup_stats;
+	}
+
+	public function fetch_backup_global_stats() {
+		$stats                         = get_option( 'smush_global_stats' );
+		$array_utils                   = new Array_Utils();
+		$savings_percent               = $array_utils->get_array_value( $stats, 'percent' );
+		$query                         = new Media_Item_Query();
+		$image_attachment_count        = $query->get_image_attachment_count();
+		$smushed_count                 = $query->get_smushed_count();
+		$skipped_count                 = $this->get_skipped_count();
+		$total_optimizable_items_count = $image_attachment_count - $skipped_count;
+		$total_optimizable_items_count = $total_optimizable_items_count > 0 ? $total_optimizable_items_count : 0;
+		$unsmushed_count               = $image_attachment_count - $smushed_count - $skipped_count;
+		$unsmushed_count               = $unsmushed_count > 0 ? $unsmushed_count : 0;
+		$resmush_count                 = count( (array) get_option( 'wp-smush-resmush-list', array() ) );
+		$remaining_count               = $unsmushed_count + $resmush_count;
+		$bytes                         = (int) $array_utils->get_array_value( $stats, 'bytes' );
+		$human_bytes                   = size_format(
+			$bytes,
+			$bytes >= 1024 ? 1 : 0
+		);
+		$resize_savings                = (int) $array_utils->get_array_value( $stats, 'resize_savings' );
+		$resize_savings_human          = size_format(
+			$resize_savings,
+			$resize_savings >= 1024 ? 1 : 0
+		);
+
+		list( $percent_optimized, $percent_metric, $grade ) = $this->get_grade_data( $remaining_count, $image_attachment_count, $skipped_count );
+
 		return array(
-			'count_images'       => ! empty( $this->stats ) && isset( $this->stats['total_images'] ) ? $this->stats['total_images'] : 0,
-			'count_resize'       => ! empty( $this->stats ) && isset( $this->stats['resize_count'] ) ? $this->stats['resize_count'] : 0,
-			'count_smushed'      => $this->smushed_count,
-			'count_supersmushed' => $this->super_smushed,
-			'count_total'        => $this->total_count,
-			'count_skipped'      => $this->skipped_count,
-			'savings_bytes'      => ! empty( $this->stats ) && isset( $this->stats['bytes'] ) ? $this->stats['bytes'] : 0,
-			'savings_conversion' => ! empty( $this->stats ) && isset( $this->stats['conversion_savings'] ) ? $this->stats['conversion_savings'] : 0,
-			'savings_resize'     => ! empty( $this->stats ) && isset( $this->stats['resize_savings'] ) ? $this->stats['resize_savings'] : 0,
-			'size_before'        => ! empty( $this->stats ) && isset( $this->stats['size_before'] ) ? $this->stats['size_before'] : 0,
-			'size_after'         => ! empty( $this->stats ) && isset( $this->stats['size_after'] ) ? $this->stats['size_after'] : 0,
-			'savings_percent'    => ! empty( $this->stats ) && isset( $this->stats['percent'] ) && $this->stats['percent'] > 0 ? number_format_i18n( $this->stats['percent'], 1 ) : 0,
-			'percent_grade'      => $this->percent_grade,
-			'percent_metric'     => $this->percent_metric,
-			'percent_optimized'  => $this->percent_optimized,
-			'remaining_count'    => $this->remaining_count,
+			'stats_updated_timestamp' => false,
+			'is_outdated'             => true,
+			'count_supersmushed'      => $query->get_lossy_count(),
+			'count_smushed'           => $smushed_count,
+			'count_total'             => $total_optimizable_items_count,
+			'count_images'            => (int) $array_utils->get_array_value( $stats, 'total_images' ),
+			'count_resize'            => (int) $array_utils->get_array_value( $stats, 'resize_count' ),
+			'count_skipped'           => $skipped_count,
+			'unsmushed'               => array(),
+			'count_unsmushed'         => $unsmushed_count,
+			'resmush'                 => array(),
+			'count_resmush'           => $resmush_count,
+			'size_before'             => (int) $array_utils->get_array_value( $stats, 'size_before' ),
+			'size_after'              => (int) $array_utils->get_array_value( $stats, 'size_after' ),
+			'savings_bytes'           => $bytes,
+			'human_bytes'             => $human_bytes,
+			'savings_resize'          => $resize_savings,
+			'savings_resize_human'    => $resize_savings_human,
+			'savings_conversion'      => (int) $array_utils->get_array_value( $stats, 'conversion_savings' ),
+			'savings_dir_smush'       => $this->dir_stats,
+			'savings_percent'         => $savings_percent > 0 ? number_format_i18n( $savings_percent, 1 ) : 0,
+			'percent_grade'           => $grade,
+			'percent_metric'          => $percent_metric,
+			'percent_optimized'       => $percent_optimized,
+			'remaining_count'         => $remaining_count,
 		);
 	}
 
 	/**
-	 * Whether to ignore all failed items from unsmushed images or not.
+	 * Returns an array that can be consumed by the JS
 	 *
-	 * @return bool
+	 * TODO: When we have rewritten the frontend of the plugin we can directly use {@see Global_Stats::to_array()} instead
+	 *
+	 * @return array
 	 */
-	public static function ignore_all_failed_items() {
-		return apply_filters( 'wp_smush_ignore_all_failed_items', defined( 'WP_SMUSH_IGNORE_FAILED_ITEMS' ) ? (bool) WP_SMUSH_IGNORE_FAILED_ITEMS : false );
+	public function get_global_stats() {
+		$global_stats = Global_Stats::get();
+		if ( empty( $global_stats->get_stats_update_started_timestamp() ) ) {
+			// A scan was never started, use the old stats
+			return $this->get_backup_global_stats();
+		}
+
+		$total_stats = $global_stats->get_sum_of_optimization_global_stats();
+		/**
+		 * @var $smush_stats Smush_Optimization_Global_Stats
+		 */
+		$smush_stats   = $global_stats->get_persistable_stats_for_optimization( Smush_Optimization::KEY )
+		                              ->get_stats();
+		$resize_stats  = $global_stats->get_persistable_stats_for_optimization( Resize_Optimization::KEY )
+		                              ->get_stats();
+		$png2jpg_stats = $global_stats->get_persistable_stats_for_optimization( Png2Jpg_Optimization::KEY )
+		                              ->get_stats();
+
+		return array(
+			'stats_updated_timestamp'  => $global_stats->get_stats_updated_timestamp(),
+			'is_outdated'              => $global_stats->is_outdated(),
+			'count_supersmushed'       => $smush_stats->get_lossy_count(),
+			'count_smushed'            => $smush_stats->get_count(),
+			'count_total'              => $global_stats->get_total_optimizable_items_count(),
+			'count_images'             => $global_stats->get_optimized_images_count(),
+			'count_resize'             => $resize_stats->get_count(),
+			'count_skipped'            => $global_stats->get_skipped_count(),
+			'unsmushed'                => $global_stats->get_optimize_list()->get_ids(),
+			'count_unsmushed'          => $global_stats->get_optimize_list()->get_count(),
+			'resmush'                  => $global_stats->get_redo_ids(),
+			'count_resmush'            => $global_stats->get_redo_count(),
+			'size_before'              => $total_stats->get_size_before(),
+			'size_after'               => $total_stats->get_size_after(),
+			'savings_bytes'            => $total_stats->get_bytes(),
+			'human_bytes'              => $total_stats->get_human_bytes(),
+			'savings_resize'           => $resize_stats->get_bytes(),
+			'savings_resize_human'     => $resize_stats->get_human_bytes(),
+			'savings_conversion'       => $png2jpg_stats->get_bytes(),
+			'savings_conversion_human' => $png2jpg_stats->get_human_bytes(),
+			'savings_dir_smush'        => $this->dir_stats,
+			'savings_percent'          => $total_stats->get_percent() > 0 ? number_format_i18n( $total_stats->get_percent(), 1 ) : 0,
+			'percent_grade'            => $global_stats->get_grade_class(),
+			'percent_metric'           => $global_stats->get_percent_metric(),
+			'percent_optimized'        => $global_stats->get_percent_optimized(),
+			'remaining_count'          => $global_stats->get_remaining_count(),
+		);
 	}
 
 	/**

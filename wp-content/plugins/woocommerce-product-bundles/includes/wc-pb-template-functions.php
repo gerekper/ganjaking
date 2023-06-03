@@ -143,8 +143,21 @@ function wc_pb_template_add_to_cart_button( $bundle = false ) {
 		return;
 	}
 
+	$button_class = implode(
+		' ',
+		array_filter(
+			array(
+				'single_add_to_cart_button',
+				'bundle_add_to_cart_button',
+				'button',
+				'alt',
+				wc_pb_wp_theme_get_element_class_name( 'button' ),
+			)
+		)
+	);
+
 	wc_get_template( 'single-product/add-to-cart/bundle-quantity-input.php', array(), false, WC_PB()->plugin_path() . '/templates/' );
-	wc_get_template( 'single-product/add-to-cart/bundle-button.php', array(), false, WC_PB()->plugin_path() . '/templates/' );
+	wc_get_template( 'single-product/add-to-cart/bundle-button.php', array( 'button_class' => $button_class ), false, WC_PB()->plugin_path() . '/templates/' );
 }
 
 /**
@@ -754,4 +767,20 @@ function wc_pb_template_bundled_variation_attribute_options( $args ) {
 	}
 
 	return $html;
+}
+
+
+if ( ! function_exists( 'wc_pb_wp_theme_get_element_class_name' ) ) {
+
+	/**
+	 * Compatibility wrapper for getting the element-based block class.
+	 *
+	 * @since 6.19.0
+	 *
+	 * @param  string  $element
+	 * @return string
+	 */
+	function wc_pb_wp_theme_get_element_class_name( $element ) {
+		return WC_PB_Core_Compatibility::wc_current_theme_is_fse_theme() && function_exists( 'wc_wp_theme_get_element_class_name' ) ? wc_wp_theme_get_element_class_name( $element ) : '';
+	}
 }

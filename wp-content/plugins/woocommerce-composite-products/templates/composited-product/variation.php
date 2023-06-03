@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.14.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="woocommerce-variation-add-to-cart variations_button quantity_button">
-	<input type="hidden" class="variation_id" name="wccp_variation_id[<?php echo $component_id; ?>]" value=""/><?php
+	<input type="hidden" class="variation_id" name="wccp_variation_id[<?php echo esc_attr( $component_id ); ?>]" value=""/><?php
 
 	wc_get_template( 'composited-product/quantity.php', array(
 		'quantity_min'      => $quantity_min,

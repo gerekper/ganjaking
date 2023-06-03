@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.17.1
+ * @version  6.19.0
  */
 class WC_PB_Cart {
 
@@ -2169,8 +2169,10 @@ class WC_PB_Cart {
 				$found = true;
 			} elseif ( wc_pb_is_bundle_container_cart_item( $search_cart_item ) && isset( $cart_item[ 'stamp' ] ) && $cart_item[ 'stamp' ] === $search_cart_item[ 'stamp' ] ) {
 				/* translators: %1$s: Product title */
-				$message = sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-product-bundles' ), $product->get_title() );
-				throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), $message ) );
+				$message         = sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-product-bundles' ), $product->get_title() );
+				$button_class    = wc_pb_wp_theme_get_element_class_name( 'button' );
+				$wp_button_class = $button_class ? ' ' . $button_class : '';
+				throw new Exception( sprintf( '<a href="%s" class="button wc-forward%s">%s</a> %s', wc_get_cart_url(), $wp_button_class, __( 'View Cart', 'woocommerce' ), $message ) );
 			}
 		}
 

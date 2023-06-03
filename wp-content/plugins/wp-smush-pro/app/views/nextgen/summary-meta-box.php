@@ -20,20 +20,20 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-?>
+$this->view(
+	'circle-progress-bar',
+	array(
+		'percent_grade'           => $percent_grade,
+		'percent_optimized'       => $percent_optimized,
+		'percent_metric'          => $percent_metric,
+		'progressbar_description' => __( 'Images optimized in the NextGEN Gallery', 'wp-smushit' ),
+	),
+	'common'
+);
 
-<div class="sui-summary-image-space" aria-hidden="true">
-	<div class="sui-circle-score <?php echo esc_attr( $percent_grade ); ?> loaded" data-score="<?php echo absint( $percent_optimized ); ?>" id="smush-image-score">
-		<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-			<circle stroke-width="16" cx="50" cy="50" r="42"></circle>
-			<circle stroke-width="16" cx="50" cy="50" r="42" style="--metric-array: <?php echo 2.63893782902 * absint( $percent_metric ); ?> <?php echo 263.893782902 - absint( $percent_metric ); ?>"></circle>
-		</svg>
-		<span class="sui-circle-score-label"><?php echo absint( $percent_optimized ); ?></span>
-	</div>
-	<small><?php esc_html_e( 'Images optimized in the NextGEN Gallery', 'wp-smushit' ); ?></small>
-</div>
+?>
 <div class="sui-summary-segment">
-	<div class="sui-summary-details">
+	<div class="sui-summary-details wp-smush-count-total">
 		<span class="sui-summary-large wp-smush-total-optimised">
 			<?php echo absint( $image_count ); ?>
 		</span>
@@ -44,7 +44,7 @@ if ( ! defined( 'WPINC' ) ) {
 </div>
 <div class="sui-summary-segment">
 	<ul class="sui-list smush-stats-list-nextgen">
-		<li class="smush-resize-savings">
+		<li class="smush-total-savings">
 			<span class="sui-list-label">
 				<?php esc_html_e( 'Total savings', 'wp-smushit' ); ?>
 			</span>
@@ -54,7 +54,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<?php echo esc_html( $stats_percent ); ?>
 				</span>%
 				<span class="wp-smush-stats-sep">/</span>
-				<span class="wp-smush-stats-human">
+				<span class="sui-summary-large wp-smush-stats-human">
 					<?php echo esc_html( $stats_human ); ?>
 				</span>
 			</span>
@@ -66,7 +66,7 @@ if ( ! defined( 'WPINC' ) ) {
 				</span>
 				<span class="sui-list-detail wp-smush-stats">
 					<?php if ( $lossy_enabled ) : ?>
-						<span class="smushed-count"><?php echo count( $super_smushed_count ); ?></span>/<?php echo absint( $total_count ); ?>
+						<span class="smushed-count"><?php echo  (int) $super_smushed_count; ?></span>/<?php echo absint( $total_count ); ?>
 					<?php else : ?>
 						<span class="sui-tag sui-tag-disabled wp-smush-lossy-disabled">
 							<?php esc_html_e( 'Disabled', 'wp-smushit' ); ?>

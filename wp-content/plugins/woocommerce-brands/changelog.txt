@@ -1,5 +1,9 @@
 *** Brands Changelog ***
 
+2023-05-30 - version 1.6.50
+* Fix - Add initial playwright e2e smoke test.
+* Fix - Adds nonce verification before saving product brand base permalink setting.
+
 2023-05-02 - version 1.6.49
 * Dev - Add php 8.2 support syntax check .
 * Dev - Add unit tests suit.

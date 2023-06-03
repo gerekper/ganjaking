@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-05-23 21:21-0700\n"
-"PO-Revision-Date: 2023-05-23 21:21-0700\n"
+"POT-Creation-Date: 2023-05-26 13:49-0700\n"
+"PO-Revision-Date: 2023-05-26 13:49-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -84,8 +84,8 @@ msgstr "Encore aucune activation"
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:14
 #: includes/admin/meta-boxes/html-order-api-resources.php:19
-#: includes/data-stores/wc-am-api-resource-data-store.php:1224
-#: includes/data-stores/wc-am-api-resource-data-store.php:1234
+#: includes/data-stores/wc-am-api-resource-data-store.php:1226
+#: includes/data-stores/wc-am-api-resource-data-store.php:1236
 #: templates/emails/api-keys-order-complete.php:56
 #: templates/emails/api-keys-order-complete.php:61
 #: templates/emails/plain/api-keys-order-complete.php:32
@@ -852,240 +852,244 @@ msgstr ""
 msgid "No request value received."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:253
+#: includes/api/wc-am-api-requests.php:247
 msgid ""
 "Error in route_request() method. Error message is \"Error code 100. Request "
 "value does not exist.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:256
+#: includes/api/wc-am-api-requests.php:250
 msgid "Request value does not exist."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:269
+#: includes/api/wc-am-api-requests.php:263
 msgid ""
 "Error in verify_user() method. Error message is \"Error code 100. An empty "
 "API Key was sent.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:272
+#: includes/api/wc-am-api-requests.php:266
 msgid "An empty API Key was sent."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:281
+#: includes/api/wc-am-api-requests.php:275
 msgid ""
 "Error in verify_user() method. Error message is \"Error code 100. A customer "
 "account does not exist for this API Key.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:284
+#: includes/api/wc-am-api-requests.php:278
 msgid "A customer account does not exist for this API Key."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:301
+#: includes/api/wc-am-api-requests.php:295
 msgid ""
 "Error in verify_user() method. Error message is \"Error code 100. A Master "
 "API Key did not exist for this customer, and all customers are required to "
 "have a Master API Key, so a Master API Key has been created.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:304
+#: includes/api/wc-am-api-requests.php:298
 msgid ""
 "A Master API Key did not exist for this account, but is required, so a A "
 "Master API Key was created. Please try your request again, or contact "
 "support."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:307
+#: includes/api/wc-am-api-requests.php:301
 msgid ""
 "Error in verify_user() method. Error message is \"Error code 100. The API "
 "access for this API Key has been disabled, or an API Key was sent that does "
 "not exist on this store.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:310
+#: includes/api/wc-am-api-requests.php:304
 msgid ""
 "The API access for this API Key has been disabled, or an API Key was sent "
 "that does not exist on this store."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:315
+#: includes/api/wc-am-api-requests.php:309
 msgid "Details from verify_user() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:337
+#: includes/api/wc-am-api-requests.php:331
 msgid ""
 "Error in required() method. Error message is \"Error code 100. The following "
 "required query string data is missing:\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:340
+#: includes/api/wc-am-api-requests.php:331
+msgid "Details from the HTTP(s) query are:"
+msgstr ""
+
+#: includes/api/wc-am-api-requests.php:336
 #, fuzzy
 msgid "The following required query string data is missing"
 msgstr "L'information requise suivante est manquante"
 
-#: includes/api/wc-am-api-requests.php:355
+#: includes/api/wc-am-api-requests.php:351
 msgid ""
 "Error in get_resources() method. Error message is \"Error code 100. No API "
 "Resources exist. Verify there are activations remaining, and the API Key and "
 "Product ID are correct.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:358
+#: includes/api/wc-am-api-requests.php:354
 #, php-format
 msgid ""
 "No API Resources exist. Login to %sMy Account%s to verify there are "
 "activations remaining, and the API Key and Product ID are correct."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:362
-#: includes/api/wc-am-api-requests.php:370
+#: includes/api/wc-am-api-requests.php:358
+#: includes/api/wc-am-api-requests.php:366
 msgid "Details from get_resources() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:367
-#: includes/api/wc-am-api-requests.php:1377
+#: includes/api/wc-am-api-requests.php:363
+#: includes/api/wc-am-api-requests.php:1373
 #, fuzzy
 msgid "There was an error getting API Resources"
 msgstr "%s sur %s activations restantes"
 
-#: includes/api/wc-am-api-requests.php:412
+#: includes/api/wc-am-api-requests.php:408
 msgid ""
 "Error in activate() method. Error message is \"Error code 100. Cannot "
 "activate API Key. The API Key has already been activated with the same "
 "unique instance ID sent with this request.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:412
-#: includes/api/wc-am-api-requests.php:449
+#: includes/api/wc-am-api-requests.php:408
+#: includes/api/wc-am-api-requests.php:445
 msgid "Resources available:"
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:412
-#: includes/api/wc-am-api-requests.php:449
+#: includes/api/wc-am-api-requests.php:408
+#: includes/api/wc-am-api-requests.php:445
 msgid "Request data received:"
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:415
+#: includes/api/wc-am-api-requests.php:411
 msgid ""
 "Cannot activate API Key. The API Key has already been activated with the "
 "same unique instance ID sent with this request."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:430
-#: includes/api/wc-am-api-requests.php:534
+#: includes/api/wc-am-api-requests.php:426
+#: includes/api/wc-am-api-requests.php:530
 #, fuzzy, php-format
 msgid "%s out of %s activations remaining"
 msgstr "%s sur %s activations restantes"
 
-#: includes/api/wc-am-api-requests.php:449
+#: includes/api/wc-am-api-requests.php:445
 msgid ""
 "Error in activate() method. Error message is \"Error code 100. Cannot "
 "activate API Key. No API Resources available.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:452
+#: includes/api/wc-am-api-requests.php:448
 msgid "Cannot activate API Key. No API Resources available."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:456
-#: includes/api/wc-am-api-requests.php:465
+#: includes/api/wc-am-api-requests.php:452
+#: includes/api/wc-am-api-requests.php:461
 msgid "Details from activate() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:468
+#: includes/api/wc-am-api-requests.php:464
 #, fuzzy
 msgid "There was an error getting API Resources in activate()"
 msgstr "%s sur %s activations restantes"
 
-#: includes/api/wc-am-api-requests.php:552
+#: includes/api/wc-am-api-requests.php:548
 #, fuzzy
 msgid "The API Key could not be deactivated."
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/api/wc-am-api-requests.php:556
-#: includes/api/wc-am-api-requests.php:565
+#: includes/api/wc-am-api-requests.php:552
+#: includes/api/wc-am-api-requests.php:561
 msgid "Details from deactivate() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:568
+#: includes/api/wc-am-api-requests.php:564
 #, fuzzy
 msgid "There was an error getting API Resources in deactivate()"
 msgstr "%s sur %s activations restantes"
 
-#: includes/api/wc-am-api-requests.php:636
-#: includes/api/wc-am-api-requests.php:647
+#: includes/api/wc-am-api-requests.php:632
+#: includes/api/wc-am-api-requests.php:643
 msgid "Details from status() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:644
+#: includes/api/wc-am-api-requests.php:640
 #, fuzzy
 msgid "There was an error getting API Resources in status()"
 msgstr "%s sur %s activations restantes"
 
+#: includes/api/wc-am-api-requests.php:677
 #: includes/api/wc-am-api-requests.php:681
-#: includes/api/wc-am-api-requests.php:685
 msgid "Error in status() method. Error message is \"The product ID "
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:788
-#: includes/api/wc-am-api-requests.php:880
-#: includes/api/wc-am-api-requests.php:882
+#: includes/api/wc-am-api-requests.php:784
+#: includes/api/wc-am-api-requests.php:876
+#: includes/api/wc-am-api-requests.php:878
 msgid "Error in information() method. Error message is \"The product ID "
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:795
-#: includes/api/wc-am-api-requests.php:1058
+#: includes/api/wc-am-api-requests.php:791
+#: includes/api/wc-am-api-requests.php:1054
 #, fuzzy
 msgid "The product ID "
 msgstr "Produit"
 
-#: includes/api/wc-am-api-requests.php:933
+#: includes/api/wc-am-api-requests.php:929
 msgid "Details from information() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1050
-#: includes/api/wc-am-api-requests.php:1176
-#: includes/api/wc-am-api-requests.php:1178
+#: includes/api/wc-am-api-requests.php:1046
+#: includes/api/wc-am-api-requests.php:1172
+#: includes/api/wc-am-api-requests.php:1174
 msgid "Error in update() method. Error message is \"The product ID "
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1211
+#: includes/api/wc-am-api-requests.php:1207
 msgid "Details from update() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1367
+#: includes/api/wc-am-api-requests.php:1363
 msgid ""
 "Error in get_api_resources_for_master_api_key_or_product_order_api_key() "
 "method. Error message is \"Error code 100. No API Resources exist. Verify "
 "there are activations remaining, and the API Key is correct.\""
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1370
+#: includes/api/wc-am-api-requests.php:1366
 #, php-format
 msgid ""
 "No API Resources exist. Login to %sMy Account%s to verify there are "
 "activations remaining, and the API Key is correct."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1374
-#: includes/api/wc-am-api-requests.php:1380
+#: includes/api/wc-am-api-requests.php:1370
+#: includes/api/wc-am-api-requests.php:1376
 msgid ""
 "Details from get_api_resources_for_master_api_key_or_product_order_api_key() "
 "method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1385
+#: includes/api/wc-am-api-requests.php:1381
 msgid "Details from product_list() method."
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1447
+#: includes/api/wc-am-api-requests.php:1443
 msgid ""
 "Details from success_response() method. This is the success response from "
 "the API:"
 msgstr ""
 
-#: includes/api/wc-am-api-requests.php:1497
+#: includes/api/wc-am-api-requests.php:1493
 msgid ""
 "Details from error_response() method. This is the error response from the "
 "API:"

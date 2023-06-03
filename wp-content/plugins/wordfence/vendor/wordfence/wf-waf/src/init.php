@@ -1,7 +1,7 @@
 <?php
 if (defined('WFWAF_VERSION')) { exit(); }
 
-define('WFWAF_VERSION', '1.0.5');
+define('WFWAF_VERSION', '1.1.0');
 define('WFWAF_PATH', dirname(__FILE__) . '/');
 define('WFWAF_LIB_PATH', WFWAF_PATH . 'lib/');
 define('WFWAF_VIEW_PATH', WFWAF_PATH . 'views/');

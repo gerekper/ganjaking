@@ -87,8 +87,8 @@ function wc_cp_add_to_cart() {
 function wc_cp_add_to_cart_button( $composite = false ) {
 
 	if ( isset( $_GET[ 'update-composite' ] ) ) {
-		$cart_id = esc_attr( wc_clean( $_GET[ 'update-composite' ] ) );
-		echo '<input type="hidden" name="update-composite" value="' . $cart_id . '" />';
+		$cart_id = wc_clean( $_GET[ 'update-composite' ] );
+		echo '<input type="hidden" name="update-composite" value="' . esc_attr( $cart_id ) . '" />';
 	}
 
 	if ( $composite && ! $composite->is_in_stock() ) {
@@ -140,7 +140,7 @@ function wc_cp_summary_widget_details_wrapper_start( $components, $composite, $w
 
 	if ( 'fixed' === $widget_options[ 'display' ] ) {
 		?><div class="widget_composite_summary_details_wrapper">
-			<span role="button" class="summary_carousel_button prev disabled inactive"><button class="aria_button" aria-label="<?php echo __( 'View previous steps', 'woocommerce-composite-products' ); ?>"></button></span>
+			<span role="button" class="summary_carousel_button prev disabled inactive"><button class="aria_button" aria-label="<?php esc_attr_e( 'View previous steps', 'woocommerce-composite-products' ); ?>"></button></span>
 			<div class="widget_composite_summary_elements_wrapper"><?php
 	}
 }
@@ -158,7 +158,7 @@ function wc_cp_summary_widget_details_wrapper_end( $components, $composite, $wid
 
 	if ( 'fixed' === $widget_options[ 'display' ] ) {
 			?></div>
-			<span role="button" class="summary_carousel_button next disabled inactive"><button class="aria_button" aria-label="<?php echo __( 'View next steps', 'woocommerce-composite-products' ); ?>"></button></span>
+			<span role="button" class="summary_carousel_button next disabled inactive"><button class="aria_button" aria-label="<?php esc_attr_e( 'View next steps', 'woocommerce-composite-products' ); ?>"></button></span>
 		</div><?php
 	}
 }
@@ -237,7 +237,7 @@ function wc_cp_summary_widget_availability( $components, $product ) {
 
 	?><div class="widget_composite_summary_availability">
 		<div class="composite_availability"><?php
-			echo wc_get_stock_html( $product );
+			echo wc_get_stock_html( $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		?></div>
 	</div><?php
 }
@@ -503,7 +503,7 @@ function wc_cp_component_selection( $component_id, $product ) {
 	$selected_option  = $product->get_component( $component_id )->view->get_selected_option();
 	$navigation_style = $product->get_composite_layout_style();
 
-	?><div class="component_content" data-product_id="<?php echo $component_id; ?>">
+	?><div class="component_content" data-product_id="<?php echo esc_attr( $component_id ); ?>">
 		<div class="component_summary cp_clearfix"><?php
 
 			/**
@@ -953,11 +953,11 @@ function wc_cp_no_js_msg( $components, $product ) {
 		<span id="cp-no-js-msg">
 			<script type="text/javascript">
 				var el = document.getElementById( 'cp-no-js-msg' );
-				el.innerHTML = "<?php _e( 'Loading...', 'woocommerce-composite-products' ); ?>";
+				el.innerHTML = "<?php esc_html_e( 'Loading...', 'woocommerce-composite-products' ); ?>";
 			</script>
 		</span>
 		<noscript>
-			<?php _e( 'JavaScript must be supported by your browser and needs to be enabled in order to view this page.', 'woocommerce-composite-products' ); ?>
+			<?php esc_html_e( 'JavaScript must be supported by your browser and needs to be enabled in order to view this page.', 'woocommerce-composite-products' ); ?>
 		</noscript>
 	</p><?php
 }

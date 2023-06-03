@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Form\Util\FieldNameObfuscator;
-use MailPoet\Models\ModelValidator;
+use MailPoet\Services\Validator;
 use MailPoet\WP\Functions as WPFunctions;
 
 /**
@@ -35,8 +35,8 @@ class BlockRendererHelper {
 
     if ($blockId === 'email') {
       $rules['required'] = true;
-      $rules['minlength'] = ModelValidator::EMAIL_MIN_LENGTH;
-      $rules['maxlength'] = ModelValidator::EMAIL_MAX_LENGTH;
+      $rules['minlength'] = Validator::EMAIL_MIN_LENGTH;
+      $rules['maxlength'] = Validator::EMAIL_MAX_LENGTH;
       $rules['type-message'] = __('This value should be a valid email.', 'mailpoet');
     }
 

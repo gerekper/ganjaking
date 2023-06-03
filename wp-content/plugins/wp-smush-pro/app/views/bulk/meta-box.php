@@ -7,9 +7,10 @@
  *
  * @var Smush\Core\Core $core                           Instance of Smush\Core\Core
  * @var bool            $can_use_background             Check if user can use BO.
+ * @var bool            $total_count
  * @var integer         $unsmushed_count                Count of the images that need smushing.
  * @var integer         $resmush_count                  Count of the images that need re-smushing.
- * @var integer         $total_images_to_smush          Total count of all images to smush. Unsmushed images + images to re-smush.
+ * @var integer         $remaining_count                Remaining count of all images to smush. Unsmushed images + images to re-smush.
  * @var string          $bulk_upgrade_url               Bulk Smush upgrade to PRO url.
  * @var string          $upsell_cdn_url                 Upsell CDN URL.
  * @var bool            $background_processing_enabled  Background optimization is enabled.
@@ -21,8 +22,9 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+use Smush\Core\Stats\Global_Stats;
 
-if ( 0 !== absint( $core->total_count ) ) :
+if ( 0 !== absint( $total_count ) ) :
 	if ( $background_processing_enabled ) {
 		$msg = __( 'Bulk smush detects images that can be optimized and allows you to compress them in bulk in the background without any quality loss.', 'wp-smushit' );
 	} else {
@@ -34,10 +36,15 @@ if ( 0 !== absint( $core->total_count ) ) :
 
 <?php
 // If there are no images in media library.
-if ( 0 === absint( $core->total_count ) ) {
+if ( 0 === absint( $total_count ) ) {
 	$this->view( 'media-lib-empty', array(), 'views/bulk' );
 	return;
 }
+
+$this->view( 'auto-bulk-smush-notification', array(
+	'background_processing_enabled' => $background_processing_enabled,
+), 'views/bulk' );
+
 if ( ! $can_use_background ) {
 	$this->view(
 		'limit-reached-notice',
@@ -49,7 +56,7 @@ if ( ! $can_use_background ) {
 $this->view(
 	'progress-bar',
 	array(
-		'count'                           => $total_images_to_smush,
+		'count'                           => $remaining_count,
 		'background_in_processing_notice' => $background_in_processing_notice,
 		'background_processing_enabled'   => $background_processing_enabled,
 		'in_processing_notice'			  => $in_processing_notice,
@@ -58,19 +65,26 @@ $this->view(
 );
 
 // All images are smushed.
-$this->view( 'all-images-smushed-notice', array( 'all_done' => empty( $total_images_to_smush ) ), 'common' );
+$this->view( 'all-images-smushed-notice', array( 'all_done' => empty( $remaining_count ) ), 'common' );
 
 // List errors.
 $this->view( 'list-errors', array(), 'views/bulk' );
 
 ?>
-<div class="wp-smush-bulk-wrapper sui-border-frame<?php echo empty( $total_images_to_smush ) || $background_in_processing ? ' sui-hidden' : ''; ?>">
+<div class="wp-smush-bulk-wrapper sui-border-frame<?php echo empty( $remaining_count ) || $background_in_processing ? ' sui-hidden' : ''; ?>">
 	<div id="wp-smush-bulk-content">
-		<?php WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content( $total_images_to_smush, $resmush_count, $unsmushed_count ); ?>
+		<?php WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content( $remaining_count, $resmush_count, $unsmushed_count ); ?>
 	</div>
-	<?php $bulk_smush_class = $background_processing_enabled ? 'wp-smush-bo-start' : 'wp-smush-all'; ?>
+	<?php
+	$bulk_smush_class    = $background_processing_enabled ? 'wp-smush-bo-start' : 'wp-smush-all';
+
+	if ( Global_Stats::get()->is_outdated() && ! $background_in_processing ) {
+		$bulk_smush_class   .= ' wp-smush-scan-and-bulk-smush';
+	}
+
+	?>
 	<button type="button" class="<?php echo esc_attr( $bulk_smush_class ); ?> sui-button sui-button-blue" title="<?php esc_attr_e( 'Click to start Bulk Smushing images in Media Library', 'wp-smushit' ); ?>">
-		<?php esc_html_e( 'BULK SMUSH NOW', 'wp-smushit' ); ?>
+		<?php esc_html_e( 'BULK SMUSH', 'wp-smushit' ); ?>
 	</button>
 </div>
 <?php

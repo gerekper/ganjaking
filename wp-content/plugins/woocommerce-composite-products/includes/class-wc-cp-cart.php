@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  8.4.2
+ * @version  8.8.0
  */
 
 class WC_CP_Cart {
@@ -65,7 +65,7 @@ class WC_CP_Cart {
 	 * @since 3.7.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class WC_CP_Cart {
 	 * @since 3.7.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/*

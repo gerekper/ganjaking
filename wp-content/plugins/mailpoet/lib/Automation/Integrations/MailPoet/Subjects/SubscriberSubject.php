@@ -9,12 +9,9 @@ use MailPoet\Automation\Engine\Data\Field;
 use MailPoet\Automation\Engine\Data\Subject as SubjectData;
 use MailPoet\Automation\Engine\Integration\Payload;
 use MailPoet\Automation\Engine\Integration\Subject;
+use MailPoet\Automation\Integrations\MailPoet\Fields\SubscriberFieldsFactory;
 use MailPoet\Automation\Integrations\MailPoet\Payloads\SubscriberPayload;
-use MailPoet\Entities\SegmentEntity;
-use MailPoet\Entities\SubscriberEntity;
 use MailPoet\NotFoundException;
-use MailPoet\Segments\SegmentsFinder;
-use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Validator\Builder;
 use MailPoet\Validator\Schema\ObjectSchema;
@@ -25,22 +22,17 @@ use MailPoet\Validator\Schema\ObjectSchema;
 class SubscriberSubject implements Subject {
   const KEY = 'mailpoet:subscriber';
 
-  /** @var SegmentsFinder */
-  private $segmentsFinder;
-
-  /** @var SegmentsRepository */
-  private $segmentsRepository;
+  /** @var SubscriberFieldsFactory */
+  private $subscriberFieldsFactory;
 
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
   public function __construct(
-    SegmentsFinder $segmentsFinder,
-    SegmentsRepository $segmentsRepository,
+    SubscriberFieldsFactory $subscriberFieldsFactory,
     SubscribersRepository $subscribersRepository
   ) {
-    $this->segmentsFinder = $segmentsFinder;
-    $this->segmentsRepository = $segmentsRepository;
+    $this->subscriberFieldsFactory = $subscriberFieldsFactory;
     $this->subscribersRepository = $subscribersRepository;
   }
 
@@ -70,100 +62,6 @@ class SubscriberSubject implements Subject {
 
   /** @return Field[] */
   public function getFields(): array {
-    return [
-      new Field(
-        'mailpoet:subscriber:email',
-        Field::TYPE_STRING,
-        __('Subscriber email', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          return $payload->getEmail();
-        }
-      ),
-      new Field(
-        'mailpoet:subscriber:engagement-score',
-        Field::TYPE_NUMBER,
-        __('Engagement score', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          return $payload->getSubscriber()->getEngagementScore();
-        }
-      ),
-      new Field(
-        'mailpoet:subscriber:is-globally-subscribed',
-        Field::TYPE_BOOLEAN,
-        __('Is globally subscribed', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          return $payload->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED;
-        }
-      ),
-      new Field(
-        'mailpoet:subscriber:last-engaged',
-        Field::TYPE_DATETIME,
-        __('Last engaged', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          return $payload->getSubscriber()->getLastEngagementAt();
-        }
-      ),
-      new Field(
-        'mailpoet:subscriber:status',
-        Field::TYPE_ENUM,
-        __('Subscriber status', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          return $payload->getStatus();
-        },
-        [
-          'options' => [
-            [
-              'id' => SubscriberEntity::STATUS_SUBSCRIBED,
-              'name' => __('Subscribed', 'mailpoet'),
-            ],
-            [
-              'id' => SubscriberEntity::STATUS_UNCONFIRMED,
-              'name' => __('Unconfirmed', 'mailpoet'),
-            ],
-            [
-              'id' => SubscriberEntity::STATUS_UNSUBSCRIBED,
-              'name' => __('Unsubscribed', 'mailpoet'),
-            ],
-            [
-              'id' => SubscriberEntity::STATUS_INACTIVE,
-              'name' => __('Inactive', 'mailpoet'),
-            ],
-            [
-              'id' => SubscriberEntity::STATUS_BOUNCED,
-              'name' => __('Bounced', 'mailpoet'),
-            ],
-          ],
-        ]
-      ),
-      new Field(
-        'mailpoet:subscriber:segments',
-        Field::TYPE_ENUM_ARRAY,
-        __('Subscriber segments', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          $segments = $this->segmentsFinder->findDynamicSegments($payload->getSubscriber());
-          $value = [];
-          foreach ($segments as $segment) {
-            $value[] = $segment->getId();
-          }
-          return $value;
-        },
-        [
-          'options' => array_map(function ($segment) {
-            return [
-              'id' => $segment->getId(),
-              'name' => $segment->getName(),
-            ];
-          }, $this->segmentsRepository->findBy(['type' => SegmentEntity::TYPE_DYNAMIC])),
-        ]
-      ),
-      new Field(
-        'mailpoet:subscriber:email-sent-count',
-        Field::TYPE_INTEGER,
-        __('Email — sent count', 'mailpoet'),
-        function (SubscriberPayload $payload) {
-          return $payload->getSubscriber()->getEmailCount();
-        }
-      ),
-    ];
+    return $this->subscriberFieldsFactory->getFields();
   }
 }

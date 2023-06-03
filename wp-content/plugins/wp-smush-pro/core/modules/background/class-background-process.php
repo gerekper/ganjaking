@@ -2,6 +2,8 @@
 
 namespace Smush\Core\Modules\Background;
 
+use Smush\Core\Server_Utils;
+
 /**
  * Abstract WP_Background_Process class.
  *
@@ -52,6 +54,7 @@ abstract class Background_Process extends Async_Request {
 	private $utils;
 
 	private $tasks_per_request = self::TASKS_PER_REQUEST_UNLIMITED;
+	private $server_utils;
 
 	/**
 	 * Initiate new background process
@@ -68,6 +71,7 @@ abstract class Background_Process extends Async_Request {
 		$this->logger_container = new Background_Logger_Container( $this->identifier );
 		$this->status           = new Background_Process_Status( $this->identifier );
 		$this->utils            = new Background_Utils();
+		$this->server_utils     = new Server_Utils();
 	}
 
 	private function generate_instance_id() {
@@ -280,8 +284,8 @@ abstract class Background_Process extends Async_Request {
 	 * @return bool
 	 */
 	protected function memory_exceeded() {
-		$memory_limit   = $this->get_memory_limit() * 0.9; // 90% of max memory
-		$current_memory = memory_get_usage( true );
+		$memory_limit   = $this->server_utils->get_memory_limit() * 0.9; // 90% of max memory
+		$current_memory = $this->server_utils->get_memory_usage();
 		$return         = false;
 
 		if ( $current_memory >= $memory_limit ) {
@@ -289,27 +293,6 @@ abstract class Background_Process extends Async_Request {
 		}
 
 		return apply_filters( $this->identifier . '_memory_exceeded', $return );
-	}
-
-	/**
-	 * Get memory limit
-	 *
-	 * @return int
-	 */
-	protected function get_memory_limit() {
-		if ( function_exists( 'ini_get' ) ) {
-			$memory_limit = ini_get( 'memory_limit' );
-		} else {
-			// Sensible default.
-			$memory_limit = '128M';
-		}
-
-		if ( ! $memory_limit || - 1 === $memory_limit ) {
-			// Unlimited, set to 32GB.
-			$memory_limit = '32000M';
-		}
-
-		return intval( $memory_limit ) * 1024 * 1024;
 	}
 
 	/**
@@ -393,10 +376,21 @@ abstract class Background_Process extends Async_Request {
 			exit;
 		}
 
-		$this->logger()->warning( "Health check: Process instance seems to have died. Spawn a new instance." );
-		$this->spawn();
+		if ( $this->attempt_restart_during_health_check() ) {
+			$this->logger()->warning( "Health check: Process instance seems to have died. Spawn a new instance." );
+			$this->spawn();
+		} else {
+			$this->logger()->warning( "Health check: Process instance seems to have died. Restart disabled, marking the process as dead." );
+			$this->mark_as_dead();
+		}
 
 		exit;
+	}
+
+	private function mark_as_dead() {
+		$this->status->mark_as_dead();
+		$this->cleanup();
+		$this->do_action( 'dead' );
 	}
 
 	/**
@@ -596,5 +590,9 @@ abstract class Background_Process extends Async_Request {
 		$interval = apply_filters( $this->identifier . '_cron_interval', $minutes );
 
 		return $interval * MINUTE_IN_SECONDS;
+	}
+
+	protected function attempt_restart_during_health_check() {
+		return true;
 	}
 }

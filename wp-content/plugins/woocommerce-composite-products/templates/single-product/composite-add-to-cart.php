@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    1.0.0
- * @version  8.4.2
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div id="composite_data_<?php echo $product_id; ?>" class="cart composite_data <?php echo isset( $_REQUEST[ 'add-to-cart' ] ) ? 'composite_added_to_cart' : ''; ?>" data-item_id="review" data-composite_settings="<?php echo htmlspecialchars( json_encode( $product->add_to_cart_form_settings() ) ); ?>" data-nav_title="<?php echo esc_attr( __( 'Review and Purchase', 'woocommerce-composite-products' ) ); ?>" data-scenario_data="<?php echo esc_attr( json_encode( $product->get_current_scenario_data() ) ); ?>" data-price_data="<?php echo esc_attr( json_encode( $product->get_composite_price_data() ) ); ?>" data-container_id="<?php echo $product_id; ?>" style="display:none;"><?php
+?><div id="composite_data_<?php echo esc_attr( $product_id ); ?>" class="cart composite_data <?php echo isset( $_REQUEST[ 'add-to-cart' ] ) ? 'composite_added_to_cart' : ''; ?>" data-item_id="review" data-composite_settings="<?php echo wc_esc_json( json_encode( $product->add_to_cart_form_settings() ) ); ?>" data-nav_title="<?php echo esc_attr( __( 'Review and Purchase', 'woocommerce-composite-products' ) ); ?>" data-scenario_data="<?php echo wc_esc_json( json_encode( $product->get_current_scenario_data() ) ); ?>" data-price_data="<?php echo wc_esc_json( json_encode( $product->get_composite_price_data() ) ); ?>" data-container_id="<?php echo esc_attr( $product_id ); ?>" style="display:none;"><?php
 
 	/**
 	 * Action 'woocommerce_before_add_to_cart_button'.
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="composite_message" style="display:none;"><ul class="msg woocommerce-info"></ul></div>
 		<div class="composite_availability"><?php
 			// Availability html.
-			echo $availability_html;
+			echo wp_kses_post( $availability_html );
 		?></div>
 		<div class="composite_button"><?php
 

@@ -4,11 +4,11 @@
  *
  * @package WP_Smush
  *
- * @var array $basic_features Basic features list.
- * @var bool $cdn_enabled CDN status.
- * @var array $grouped_settings Grouped settings that can be skipped.
- * @var array $settings Settings values.
- * @var int $backups_count Number of attachments with backups.
+ * @var array $basic_features    Basic features list.
+ * @var bool  $cdn_enabled       CDN status.
+ * @var array $grouped_settings  Grouped settings that can be skipped.
+ * @var array $settings          Settings values.
+ * @var bool  $backup_exists     Number of attachments with backups.
  */
 
 use Smush\Core\Settings;
@@ -69,7 +69,7 @@ do_action( 'wp_smush_after_basic_settings' );
 	</div>
 
 	<div class="sui-box-settings-col-2">
-		<button type="button" class="sui-button sui-button-ghost wp-smush-restore" onclick="WP_Smush.restore.init()" <?php disabled( ! $backups_count ); ?>>
+		<button type="button" class="sui-button sui-button-ghost wp-smush-restore" onclick="WP_Smush.restore.init()" <?php disabled( ! $backup_exists ); ?>>
 			<i class="sui-icon-undo" aria-hidden="true"></i>
 			<?php esc_html_e( 'Restore Thumbnails', 'wp-smushit' ); ?>
 		</button>

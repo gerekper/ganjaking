@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Used to create and store a product_id / variation_id representation of a product collection based on the included items' inventory requirements.
  *
  * @class    WC_PB_Stock_Manager
- * @version  5.8.0
+ * @version  6.19.0
  */
 class WC_PB_Stock_Manager {
 
@@ -303,8 +303,9 @@ class WC_PB_Stock_Manager {
 						}
 
 						$view_cart_string = __( 'View Cart', 'woocommerce' );
-						/* translators: %1$s: View cart URL, %2$s: View cart text */
-						$error = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), $view_cart_string, $notice );
+						$button_class    = wc_pb_wp_theme_get_element_class_name( 'button' );
+						$wp_button_class = $button_class ? ' ' . $button_class : '';
+						$error = sprintf( '<a href="%s" class="button wc-forward%s">%s</a> %s', wc_get_cart_url(), $wp_button_class, $view_cart_string, $notice );
 
 						throw new Exception( $error );
 					}

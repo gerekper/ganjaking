@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 4.0.0
+ * @version 8.8.0
  */
 
 // Exit if accessed directly.
@@ -34,10 +34,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				?><tr class="attribute_options" data-attribute_label="<?php echo esc_attr( wc_attribute_label( $attribute_name ) ); ?>">
 					<td class="label">
-						<label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo wc_attribute_label( $attribute_name ); ?> <abbr class="required" title="<?php _e( 'Required option', 'woocommerce-composite-products' ); ?>">*</abbr></label>
+						<label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo wp_kses_post( wc_attribute_label( $attribute_name ) ); ?> <abbr class="required" title="<?php esc_attr_e( 'Required option', 'woocommerce-composite-products' ); ?>">*</abbr></label>
 					</td>
 					<td class="value"><?php
 
+						// Has been escaped upstream.
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo wc_cp_composited_single_variation_attribute_options( array(
 							'options'    => $options,
 							'attributes' => $attributes,

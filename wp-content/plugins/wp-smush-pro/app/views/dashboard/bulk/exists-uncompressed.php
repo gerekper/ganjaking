@@ -49,6 +49,6 @@ if ( $show_bulk_limit_notice && $uncompressed > \Smush\Core\Core::MAX_FREE_BULK 
         </div>
     </div>
 <?php endif; ?>
-<a href="<?php echo esc_url( $this->get_url( 'smush-bulk' ) ); ?>" class="sui-button sui-button-blue">
+<a href="<?php echo esc_url( $this->get_url( 'smush-bulk' ) ); ?>" class="sui-button sui-button-blue wp-smush-bulk-smush-link">
     <?php esc_html_e( 'Bulk Smush', 'wp-smushit' ); ?>
 </a>

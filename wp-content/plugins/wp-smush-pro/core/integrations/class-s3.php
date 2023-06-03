@@ -18,8 +18,8 @@ namespace Smush\Core\Integrations;
 use Amazon_S3_And_CloudFront;
 use DeliciousBrains\WP_Offload_Media\Items\Media_Library_Item;
 use Smush\App\Admin;
-use Smush\Core\Settings;
 use Smush\Core\Helper;
+use Smush\Core\Settings;
 use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -108,6 +108,9 @@ class S3 extends Abstract_Integration {
 	 * @since 3.9.6
 	 */
 	public function init() {
+		// TODO: (stats refactor) we still need some of the stuff from this controller e.g. notices
+		return;
+
 		global $as3cf;
 
 		// Check file exists.
@@ -194,8 +197,7 @@ class S3 extends Abstract_Integration {
 			'short_label' => __( 'Amazon S3', 'wp-smushit' ),
 			'desc'        => sprintf( /* translators: %1$s - <a>, %2$s - </a> */
 				esc_html__(
-					"Storing your image on S3 buckets using %1\$sWP Offload Media%2\$s? Smush can detect
-				and smush those assets for you, including when you're removing files from your host server.",
+					"Storing your image on S3 buckets using %1\$sWP Offload Media%2\$s? Smush can detect and smush those assets for you, including when you're removing files from your host server.",
 					'wp-smushit'
 				),
 				"<a href='$plugin_url' target = '_blank'>",
@@ -287,13 +289,6 @@ class S3 extends Abstract_Integration {
 			return;
 		}
 
-		// Do not display the notice on Bulk Smush Screen.
-		global $current_screen;
-
-		if ( ! empty( $current_screen->id ) && ! in_array( $current_screen->id, Admin::$plugin_pages, true ) && false === strpos( $current_screen->id, 'page_smush' ) ) {
-			return;
-		}
-
 		// If already dismissed, do not show.
 		if ( '1' === get_site_option( 'wp-smush-hide_s3support_alert' ) ) {
 			return;
@@ -316,7 +311,7 @@ class S3 extends Abstract_Integration {
 			$message = sprintf(
 				/* Translators: %1$s: opening strong tag, %2$s: closing strong tag, %s: settings link, %3$s: opening a and strong tags, %4$s: closing a and strong tags */
 				__(
-					'We can see you have WP Offload Media installed with the %1$sRemove Files From Server%2$s option activated. If you want to optimize your S3 images, you’ll need to enable the %3$sAmazon S3 Support%4$s feature in Smush’s Integrations.',
+					'We can see you have WP Offload Media installed. If you want to optimize your S3 images, you’ll need to enable the %3$sAmazon S3 Support%4$s feature in Smush’s Integrations.',
 					'wp-smushit'
 				),
 				'<strong>',
@@ -331,7 +326,7 @@ class S3 extends Abstract_Integration {
 			$message = sprintf(
 				/* Translators: %1$s: opening strong tag, %2$s: closing strong tag, %s: settings link, %3$s: opening a and strong tags, %4$s: closing a and strong tags */
 				__(
-					"We can see you have WP Offload Media installed with the %1\$sRemove Files From Server%2\$s option activated. If you want to optimize your S3 images you'll need to %3\$supgrade to Smush Pro%4\$s",
+					"We can see you have WP Offload Media installed. If you want to optimize your S3 images you'll need to %3\$supgrade to Smush Pro%4\$s",
 					'wp-smushit'
 				),
 				'<strong>',
@@ -1312,8 +1307,8 @@ class S3 extends Abstract_Integration {
 		 */
 		global $as3cf;
 
-		// Check if S3 offload plugin is active and delete file from server option is enabled.
-		if ( ! is_object( $as3cf ) || ! method_exists( $as3cf, 'get_setting' ) || ! $as3cf->get_setting( 'remove-local-file' ) ) {
+		// Check if S3 offload plugin is active.
+		if ( ! is_object( $as3cf ) || ! method_exists( $as3cf, 'get_setting' ) ) {
 			return false;
 		}
 

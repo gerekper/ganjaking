@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerde Redsys Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-12 19:26+0100\n"
-"PO-Revision-Date: 2023-03-12 19:53+0100\n"
+"PO-Revision-Date: 2023-05-22 12:51+0200\n"
 "Last-Translator: José Conti <j.conti@joseconti.com>\n"
 "Language-Team: José Conti https://www.joseconti.com\n"
 "Language: es_ES\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../classes/class-plugin-list-links-redsys-premium.php:37
@@ -2238,7 +2238,7 @@ msgstr "NUMERO DE TARJETA DE CRÉDITO"
 
 #: ../classes/class-wc-gateway-insite-redsys.php:2619
 msgid "EXPIRATION"
-msgstr "CADUCIDAD"
+msgstr "VENCIMIENTO"
 
 #: ../classes/class-wc-gateway-insite-redsys.php:2623
 #: ../classes/class-wc-gateway-insite-redsys.php:2762

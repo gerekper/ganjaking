@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.7.5
+ * @version  8.8.0
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -786,6 +786,8 @@ class WC_Product_Composite extends WC_Product {
 			}
 		}
 
+		// It's safe to ignore this warning as it's not this function's responsibility to escape the URL.
+		// nosemgrep: audit.php.wp.security.xss.query-arg
 		return $permalink;
 	}
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.18.5
+ * @version  6.19.0
  */
 class WC_PB_Display {
 
@@ -204,6 +204,12 @@ class WC_PB_Display {
 		wp_style_add_data( 'wc-bundle-style', 'rtl', 'replace' );
 
 		wp_enqueue_style( 'wc-bundle-style' );
+
+		if ( WC_PB_Core_Compatibility::wc_current_theme_is_fse_theme() ) {
+			wp_register_style( 'wc-bundle-blocks-style', WC_PB()->plugin_url() . '/assets/css/frontend/blocktheme.css', false, WC_PB()->version );
+			wp_style_add_data( 'wc-bundle-blocks-style', 'rtl', 'replace' );
+			wp_enqueue_style( 'wc-bundle-blocks-style' );
+		}
 
 		$on_backorder_string       = __( 'Available on backorder', 'woocommerce' );
 		$insufficient_stock_string = __( 'Insufficient stock', 'woocommerce-product-bundles' );

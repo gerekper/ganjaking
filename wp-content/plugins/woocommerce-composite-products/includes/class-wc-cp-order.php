@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite order-related filters and functions.
  *
  * @class    WC_CP_Order
- * @version  8.5.1
+ * @version  8.8.0
  */
 class WC_CP_Order {
 
@@ -62,7 +62,7 @@ class WC_CP_Order {
 	 * @since 3.7.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class WC_CP_Order {
 	 * @since 3.7.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**

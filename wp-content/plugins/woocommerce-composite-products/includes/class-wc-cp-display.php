@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.7.0
+ * @version  8.8.0
  */
 class WC_CP_Display {
 
@@ -67,7 +67,7 @@ class WC_CP_Display {
 	 * @since 3.7.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class WC_CP_Display {
 	 * @since 3.7.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**
@@ -1484,8 +1484,8 @@ class WC_CP_Display {
 					continue;
 				}
 
-				echo '<dt class="component_title_meta wishlist_component_title_meta">' . $composited_item_data[ 'title' ] . ':</dt>';
-				echo '<dd class="component_option_meta wishlist_component_option_meta">' . $composited_product->get_title() . ' <strong class="component_quantity_meta wishlist_component_quantity_meta product-quantity">&times; ' . $composited_item_data[ 'quantity' ] . '</strong></dd>';
+				echo wp_kses_post( '<dt class="component_title_meta wishlist_component_title_meta">' . $composited_item_data[ 'title' ] . ':</dt>' );
+				echo wp_kses_post( '<dd class="component_option_meta wishlist_component_option_meta">' . $composited_product->get_title() . ' <strong class="component_quantity_meta wishlist_component_quantity_meta product-quantity">&times; ' . $composited_item_data[ 'quantity' ] . '</strong></dd>' );
 
 				if ( ! empty ( $composited_item_data[ 'attributes' ] ) ) {
 
@@ -1521,11 +1521,11 @@ class WC_CP_Display {
 
 						$attributes = $attributes . $label . ': ' . $attribute_value . ', ';
 					}
-					echo '<dd class="component_attribute_meta wishlist_component_attribute_meta">' . rtrim( $attributes, ', ' ) . '</dd>';
+					echo wp_kses_post( '<dd class="component_attribute_meta wishlist_component_attribute_meta">' . rtrim( $attributes, ', ' ) . '</dd>' );
 				}
 			}
 			echo '</dl>';
-			echo '<p class="component_notice wishlist_component_notice">' . __( '*', 'woocommerce-composite-products' ) . '&nbsp;&nbsp;<em>' . __( 'Accurate pricing info available in cart.', 'woocommerce-composite-products' ) . '</em></p>';
+			echo '<p class="component_notice wishlist_component_notice">' . esc_html__( '*', 'woocommerce-composite-products' ) . '&nbsp;&nbsp;<em>' . esc_html__( 'Accurate pricing info available in cart.', 'woocommerce-composite-products' ) . '</em></p>';
 		}
 	}
 

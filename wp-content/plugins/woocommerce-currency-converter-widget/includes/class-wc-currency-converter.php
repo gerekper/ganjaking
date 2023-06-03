@@ -287,6 +287,10 @@ class WC_Currency_Converter extends Plugin {
 	 * Enqueue Styles and scripts
 	 */
 	public function enqueue_assets() {
+		if ( ! $this->widget ) {
+			return;
+		}
+
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Styles.

@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    3.7.0
- * @version  4.0.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<ul class="page-numbers">
 
 			<# if ( data.page > 1 ) { #>
-				<li><a class="page-numbers component_pagination_element prev" data-page_num="{{ data.page - 1 }}" href="#" rel="nofollow" aria-label="<?php echo _x( 'Previous page', 'options pagination previous label', 'woocommerce-composite-products' ); ?>"><?php echo _x( '&larr;', 'options pagination previous', 'woocommerce-composite-products' ); ?></a></li>
+				<li><a class="page-numbers component_pagination_element prev" data-page_num="{{ data.page - 1 }}" href="#" rel="nofollow" aria-label="<?php echo esc_attr_x( 'Previous page', 'options pagination previous label', 'woocommerce-composite-products' ); ?>"><?php echo esc_html_x( '&larr;', 'options pagination previous', 'woocommerce-composite-products' ); ?></a></li>
 			<# } #>
 
 			<# for ( var i = 1; i <= data.pages; i++ ) { #>
@@ -34,16 +34,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<# } else { #>
 							<a class="page-numbers component_pagination_element number" data-page_num="{{ i }}" href="#" rel="nofollow" aria-label="<?php
 								/* translators: Page number. */
-								echo sprintf( _x( 'Page %s', 'options pagination label', 'woocommerce-composite-products' ), '{{ i }}' ); ?>">{{ i }}</a>
+								echo sprintf( esc_html_x( 'Page %s', 'options pagination label', 'woocommerce-composite-products' ), '{{ i }}' ); ?>">{{ i }}</a>
 						<# } #>
 					</li>
 				<# } else if ( ( i === data.page - data.range_mid - 1 ) || ( i === data.page + data.range_mid + 1 ) || ( i === data.range_end + 1 && data.page < data.range_end ) || ( i === data.pages - data.range_end - 1 && data.page > data.pages - data.range_end + data.range_mid + 1 ) ) { #>
-					<li><span class="page-numbers component_pagination_element dots"><?php echo _x( '&hellip;', 'options pagination dots', 'woocommerce-composite-products' ); ?></span></li>
+					<li><span class="page-numbers component_pagination_element dots"><?php echo esc_html_x( '&hellip;', 'options pagination dots', 'woocommerce-composite-products' ); ?></span></li>
 				<# } #>
 			<# } #>
 
 			<# if ( data.page < data.pages ) { #>
-				<li><a class="page-numbers component_pagination_element next" data-page_num="{{ data.page + 1 }}" href="#" rel="nofollow" aria-label="<?php echo _x( 'Next page', 'options pagination next label', 'woocommerce-composite-products' ); ?>"><?php echo _x( '&rarr;', 'options pagination next', 'woocommerce-composite-products' ); ?></a></li>
+				<li><a class="page-numbers component_pagination_element next" data-page_num="{{ data.page + 1 }}" href="#" rel="nofollow" aria-label="<?php echo esc_attr_x( 'Next page', 'options pagination next label', 'woocommerce-composite-products' ); ?>"><?php echo esc_html_x( '&rarr;', 'options pagination next', 'woocommerce-composite-products' ); ?></a></li>
 			<# } #>
 
 		</ul>

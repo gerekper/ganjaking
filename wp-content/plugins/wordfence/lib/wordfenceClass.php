@@ -341,6 +341,8 @@ class wordfence {
 
 		wfUpdateCheck::syncAllVersionInfo();
 
+		self::purgeWafFailures();
+
 		wfConfig::remove('lastPermissionsTemplateCheck');
 	}
 	public static function _scheduleRefreshUpdateNotification($upgrader = null, $options = null) {
@@ -2123,13 +2125,14 @@ SQL
 
 		// Sync the WAF data with the database.
 		$updateCountries = false;
+
 		if (!WFWAF_SUBDIRECTORY_INSTALL && $waf = wfWAF::getInstance()) {
 			$homeurl = wfUtils::wpHomeURL();
 			$siteurl = wfUtils::wpSiteURL();
 			wfConfig::set('isPaid', 1);
 			wfConfig::set('keyType', wfLicense::KEY_TYPE_PAID_CURRENT);
 			wfConfig::set('premiumNextRenew', time()+31536000);
-
+			
 			//Sync the GeoIP database if needed
 			$destination = WFWAF_LOG_PATH . '/GeoLite2-Country.mmdb';
 			if (!file_exists($destination) || wfConfig::get('needsGeoIPSync')) {
@@ -5941,7 +5944,55 @@ HTML;
 		}
 	}
 
+	public static function isWafFailureLoggingEnabled() {
+		return wfConfig::get('other_WFNet', true);
+	}
+
+	private static function purgeWafFailures() {
+		global $wpdb;
+		$table = wfDB::networkTable('wfWafFailures');
+		$wpdb->query("DELETE FROM {$table} WHERE `timestamp` < DATE_SUB(NOW(), INTERVAL 1 DAY)");
+	}
+
+	private static function capWafFailures() {
+		global $wpdb;
+		$table = wfDB::networkTable('wfWafFailures');
+		$highestDeletableId = $wpdb->get_var("SELECT id FROM {$table} ORDER BY id DESC LIMIT 1 OFFSET 25");
+		if ($highestDeletableId === null)
+			return;
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$table} WHERE id <= %d",
+				$highestDeletableId
+			)
+		);
+	}
+
+	public static function logWafFailure() {
+		global $wf_waf_failure, $wpdb;
+		if (!self::isWafFailureLoggingEnabled())
+			return;
+		if (is_array($wf_waf_failure) && array_key_exists('throwable', $wf_waf_failure)) {
+			$throwable = $wf_waf_failure['throwable'];
+			if (!($throwable instanceof Throwable || $throwable instanceof Exception))
+				return;
+			$table = wfDB::networkTable('wfWafFailures');
+			$data = [
+				'throwable' => (string) $throwable
+			];
+			if (array_key_exists('rule_id', $wf_waf_failure)) {
+				$ruleId = $wf_waf_failure['rule_id'];
+				if (is_int($ruleId) || $ruleId >= 0)
+					$data['rule_id'] = (int) $ruleId;
+			}
+			$wpdb->insert($table, $data);
+			self::capWafFailures();
+			self::scheduleSendAttackData();
+		}
+	}
+
 	public static function initAction(){
+		self::logWafFailure();
 		load_plugin_textdomain('wordfence', false, basename(WORDFENCE_PATH) . '/languages');
 
 		$firewall = new wfFirewall();
@@ -8530,6 +8581,60 @@ SQL
 		}
 	}
 
+	private static function truncateWafFailures() {
+		wfDB::shared()->truncate(wfDB::networkTable('wfWafFailures'));
+	}
+
+	private static function loadWafFailures(&$purgeCallable = null) {
+		global $wpdb;
+		$table = wfDB::networkTable('wfWafFailures');
+		$query = <<<SQL
+			SELECT
+				id,
+				failures.rule_id,
+				throwable AS latest_throwable,
+				UNIX_TIMESTAMP(latest_occurrence) AS latest_occurrence,
+				occurrences
+			FROM
+				{$table} failures
+				JOIN (
+					SELECT
+						rule_id,
+						MAX(id) AS max_id,
+						MAX(timestamp) AS latest_occurrence,
+						COUNT(*) AS occurrences
+					FROM
+						{$table}
+					GROUP BY
+						rule_id
+				) aggregate ON failures.id = aggregate.max_id
+SQL;
+		$results = $wpdb->get_results($query);
+		$maxId = null;
+		foreach ($results as $row) {
+			if ($maxId === null) {
+				$maxId = $row->id;
+			}
+			else {
+				$maxId = max($maxId, $row->id);
+			}
+		}
+		if ($maxId === null) {
+			$purgeCallable = function() { /* Nothing to delete */ };
+		}
+		else {
+			$purgeCallable = function() use ($table, $maxId, $wpdb) {
+				$wpdb->query(
+					$wpdb->prepare(
+						"DELETE FROM {$table} WHERE id <= %d",
+						$maxId
+					)
+				);
+			};
+		}
+		return $results;
+	}
+
 	/**
 	 *
 	 */
@@ -8771,11 +8876,12 @@ SQL
 						}
 					}
 					
-					//Send false positives
+					//Send false positives and WAF failures
 					$lastSendTime = wfConfig::get('lastFalsePositiveSendTime');
 					$whitelistedURLParams = (array) wfWAF::getInstance()->getStorageEngine()->getConfig('whitelistedURLParams', array(), 'livewaf');
-					if (count($whitelistedURLParams)) {
-						$data = array();
+					$wafFailures = self::loadWafFailures($purgeWafFailures);
+					if (count($whitelistedURLParams) || !empty($wafFailures)) {
+						$falsePositives = array();
 						$mostRecentWhitelisting = $lastSendTime;
 						foreach ($whitelistedURLParams as $urlParamKey => $rules) {
 							list($path, $paramKey) = explode('|', $urlParamKey);
@@ -8814,13 +8920,19 @@ SQL
 							}
 							
 							if (count($ruleData)) {
-								$data[] = array(
+								$falsePositives[] = array(
 									base64_decode($path),
 									base64_decode($paramKey),
 									$ruleData,
 								);
 							}
 						}
+
+						$data = [];
+						if (!empty($wafFailures))
+							$data['waf_failures'] = $wafFailures;
+						if (!empty($falsePositives))
+							$data['false_positives'] = $falsePositives;
 						
 						if (count($data)) {
 							$homeurl = wfUtils::wpHomeURL();
@@ -8847,6 +8959,7 @@ SQL
 							if (!is_wp_error($response) && ($body = wp_remote_retrieve_body($response))) {
 								$jsonData = json_decode($body, true);
 								if (is_array($jsonData) && array_key_exists('success', $jsonData)) {
+									$purgeWafFailures();
 									wfConfig::set('lastFalsePositiveSendTime', $mostRecentWhitelisting);
 								}
 							}
@@ -8864,6 +8977,7 @@ SQL
 		else if (!wfConfig::get('other_WFNet', true)) {
 			wfConfig::set('lastAttackDataSendTime', time());
 			wfConfig::set('lastFalsePositiveSendTime', time());
+			self::truncateWafFailures();
 		}
 
 		self::trimWfHits();

@@ -532,7 +532,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		add_action('save_post', array($this, 'on_save_post'));
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
-		add_action('wp_ajax_revslider_ajax_action', array($this, 'do_ajax_action')); //ajax response to save slider options.
+		add_action('wp_ajax_revslider_ajax_action', array($this, 'do_ajax_action')); //owasp rule may disallow this one, so please use rs_ajax_action instead
+		add_action('wp_ajax_rs_ajax_action', array($this, 'do_ajax_action')); //ajax response to save slider options.
 		add_action('wp_ajax_revslider_ajax_call_front', array($this, 'do_front_ajax_action'));
 		add_action('wp_ajax_nopriv_revslider_ajax_call_front', array($this, 'do_front_ajax_action')); //for not logged in users
 		
@@ -711,6 +712,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
 			RVS.ENV.slug			= '<?php echo RS_PLUGIN_SLUG; ?>';
 			RVS.ENV.plugin_dir		= 'revslider';
+			RVS.ENV.ajax_pre		= 'rs';
 		</script>
 		<!-- WAIT A MINUTE OVERLAY CONTAINER -->
 		<div id="waitaminute" class="_TPRB_">

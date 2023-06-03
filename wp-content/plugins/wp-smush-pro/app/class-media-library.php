@@ -12,12 +12,14 @@ namespace Smush\App;
 
 use Smush\Core\Core;
 use Smush\Core\Helper;
+use Smush\Core\Media\Media_Item;
+use Smush\Core\Media\Media_Item_Optimizer;
+use Smush\Core\Media_Library\Media_Library_Row;
 use Smush\Core\Modules\Abstract_Module;
 use Smush\Core\Modules\Smush;
-use Smush\Core\Error_Handler;
+use Smush\Core\Stats\Global_Stats;
 use WP_Post;
 use WP_Query;
-use WP_Smush;
 
 /**
  * Class Media_Library
@@ -137,7 +139,11 @@ class Media_Library extends Abstract_Module {
 		global $current_screen;
 
 		// Filter only media screen.
-		if ( ! is_admin() || ( ! empty( $current_screen ) && 'upload' !== $current_screen->base ) ) {
+		if (
+			! is_admin()
+			|| ( ! empty( $current_screen ) && 'upload' !== $current_screen->base )
+			|| 'attachment' !== $query->get( 'post_type' )
+		) {
 			return $query;
 		}
 
@@ -221,27 +227,39 @@ class Media_Library extends Abstract_Module {
 	 * @return array
 	 */
 	private function query_failed_processing() {
+		// Custom query to add error items.
+		add_filter( 'posts_where_request', array( $this, 'filter_query_to_add_media_item_errors' ) );
+
+		// Custom query for failed on optimization.
 		$meta_query =  array(
 			'relation' => 'AND',
 			array(
-				'key'     => Error_Handler::ERROR_KEY,
+				'key'     => Media_Item_Optimizer::ERROR_META_KEY,
 				'compare' => 'EXISTS',
 			),
 			array(
-				'key'     => Error_Handler::IGNORE_KEY,
+				'key'     => Media_Item::IGNORED_META_KEY,
 				'compare' => 'NOT EXISTS',
 			),
 		);
 
-		if ( WP_Smush::is_pro() ) {
-			$meta_query[] = array(
-				'key'     => Error_Handler::ERROR_KEY,
-				'value'   => 'size_limit',
-				'compare' => '!=',
-			);
+		return $meta_query;
+	}
+
+
+	public function filter_query_to_add_media_item_errors( $where ) {
+		global $wpdb;
+
+		remove_filter( 'posts_where_request', array( $this, 'filter_query_to_add_media_item_errors' ) );
+
+		$media_error_ids = Global_Stats::get()->get_error_list()->get_ids();
+		if ( empty( $media_error_ids ) ) {
+			return $where;
 		}
 
-		return $meta_query;
+		$where .= sprintf( " OR {$wpdb->posts}.ID IN (%s)", join( ',', $media_error_ids ) );
+
+		return $where;
 	}
 
 	/**
@@ -252,7 +270,7 @@ class Media_Library extends Abstract_Module {
 	private function query_ignored() {
 		return array(
 			array(
-				'key'     => 'wp-smush-ignore-bulk',
+				'key'     => Media_Item::IGNORED_META_KEY,
 				'compare' => 'EXISTS',
 			),
 		);
@@ -457,465 +475,8 @@ class Media_Library extends Abstract_Module {
 	 * @return string  HTML content or array of results.
 	 */
 	public function generate_markup( $id ) {
-		// Don't proceed if attachment is not image, or if image is not a jpg, png or gif, or if is not found.
-		$is_smushable = Helper::is_smushable( $id );
-		$is_image_404 = false === $is_smushable;
-		if ( ! $is_smushable && ! $is_image_404 && empty( $smush_data ) ) {
-			return Error_Handler::get_error_message_for_media_library( 'not_processed' );
-		}
-
-		$smush_data      = get_post_meta( $id, Smush::$smushed_meta_key, true );
-		$attachment_data = wp_get_attachment_metadata( $id );
-		$error_code      = Error_Handler::get_error_code( $id );
-		$error_class     = ! empty( $error_code ) ? ' smush-warning' : '';
-		if ( Error_Handler::is_ignored( $id ) ) {
-			$error_class .= ' smush-ignored';
-		}
-
-		$html = '<p class="smush-status' . $error_class . '">' . $this->get_optimization_status( $id, $smush_data ) . '</p>';
-
-		// Need links, except the time that the image can't be optimized anymore.
-		$links = $this->get_optimization_links( $id, $smush_data, $attachment_data );
-		if ( ! empty( $links ) ) {
-			$html .= '<div class="sui-smush-media smush-status-links">' . $links . '</div>';
-		}
-
-		// Attach the stats table.
-		if ( isset( $smush_data['sizes'] ) ) {
-			$html .= $this->get_detailed_stats( $id, $smush_data, $attachment_data );
-		}
-
-		return $html;
-	}
-
-	/**
-	 * Get error message.
-	 *
-	 * @param int    $attachment_id Attachment ID.
-	 * @param string $error_code Error code.
-	 * @return null|string
-	 */
-	private function get_error_message( $attachment_id, $error_code = false ) {
-		if ( ! empty( $error_code ) ) {
-			return Error_Handler::get_error_message_for_media_library( $error_code, $attachment_id );
-		}
-		$is_ignored = Error_Handler::is_ignored( $attachment_id );
-		$error_code = Error_Handler::get_error_code( $attachment_id );
-		if ( $is_ignored ) {
-			if ( Core::STATUS_ANIMATED === (int) $is_ignored || Error_Handler::ANIMATED_ERROR_CODE === $error_code ) {
-				return Error_Handler::get_error_message_for_media_library( 'animated' );
-			}
-
-			return Error_Handler::get_error_message_for_media_library( 'ignored' );
-		}
-		if ( empty( $error_code ) ) {
-			return;
-		}
-		return Error_Handler::get_error_message_for_media_library( $error_code, $attachment_id );
-	}
-
-	/**
-	 * Get the image optimization status.
-	 *
-	 * Status                       Links                               Stats
-	 * - Smushing in progress...    No buttons                          false
-	 * - Already optimized          No buttons | Re-smush?              false
-	 * - Ignored from auto-smush    Undo                                false
-	 * - Not optimized              Smush | Ignore                      false
-	 * - X images reduced by Y
-	 *   Image size: Z              Re-smush? | View Stats | Restore?   true
-	 *
-	 * @param int         $id         Attachment ID.
-	 * @param array       $smush_data Optimization data.
-	 * @param null|string $error_code Error code.
-	 *
-	 * @return string
-	 */
-	private function get_optimization_status( $id, $smush_data, $error_code = null ) {
-		if ( get_transient( 'smush-in-progress-' . $id ) ) {
-			return Error_Handler::get_error_message_for_media_library( 'in_progress' );
-		}
-
-		$error_message = $this->get_error_message( $id );
-		if ( $error_message ) {
-			return $error_message;
-		}
-
-		if ( empty( $smush_data ) ) {
-			return Error_Handler::get_error_message_for_media_library( 'not_processed' );
-		}
-
-		$stats = $this->core->get_stats_for_attachments( array( $id ) );
-
-		if ( $stats['size_after'] === $stats['size_before'] ) {
-			return __( 'Already optimized', 'wp-smushit' );
-		}
-
-		$percent = ( $stats['size_before'] - $stats['size_after'] ) / $stats['size_before'] * 100;
-
-		if ( 1 < $stats['count_images'] ) {
-			$status_text = sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings, %3$d: number of images */
-				esc_html__( '%3$d images reduced by %1$s (%2$s)', 'wp-smushit' ),
-				esc_html( size_format( $stats['size_before'] - $stats['size_after'], 1 ) ),
-				sprintf( '%01.1f%%', number_format_i18n( $percent, 2 ) ),
-				$stats['count_images']
-			);
-		} else {
-			$status_text = sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings */
-				esc_html__( 'Reduced by %1$s (%2$s)', 'wp-smushit' ),
-				esc_html( size_format( $stats['size_before'] - $stats['size_after'], 1 ) ),
-				sprintf( '%01.1f%%', number_format_i18n( $percent, 2 ) )
-			);
-		}
-
-		$file_path = get_attached_file( $id );
-		$size      = file_exists( $file_path ) ? filesize( $file_path ) : 0;
-		if ( $size > 0 ) {
-			/* translators: %1$s: new line, %2$s: image size */
-			$status_text .= sprintf( __( '%1$sImage size: %2$s', 'wp-smushit' ), '<br />', size_format( $size, 1 ) );
-		}
-
-		return $status_text;
-	}
-
-	/**
-	 * Get regenerate doc link.
-	 *
-	 * @since 3.12.0
-	 *
-	 * @return string
-	 */
-	private function get_regenerate_doc_link() {
-		$doc = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/';
-		if ( ! WP_Smush::is_pro() ) {
-			$doc = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs';
-		}
-		$doc .= '#restoring-images';
-		return $doc;
-	}
-
-	/**
-	 * Get revert link with utm links.
-	 *
-	 * @since 3.12.0
-	 *
-	 * @param int    $attachment_id Attachment ID.
-	 * @param string $utm_link  Utm link.
-	 *
-	 * @return string
-	 */
-	private function get_revert_with_utm_links( $attachment_id, $utm_link = '' ) {
-		$nonce      = wp_create_nonce( 'wp-smush-remove-skipped' );
-		$links      = '';
-		$class_name = 'wp-smush-remove-skipped';
-		if ( ! empty( $utm_link ) ) {
-			$links      .= $utm_link;
-			$class_name .= ' smush-revert-utm';
-		}
-		$links .= "<a href='#' class='" . esc_attr( $class_name ) . "' data-id='{$attachment_id}' data-nonce='{$nonce}'>" . esc_html__( 'Revert back to previous state', 'wp-smushit' ) . '</a>';
-		return $links;
-	}
-
-	/**
-	 * Get ignore button with suggestion link for regeneration.
-	 *
-	 * @since 3.12.0
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 * @return string
-	 */
-	private function get_ignore_with_regenerate_links( $attachment_id ) {
-		$links  = "<a target='_blank' href='" . esc_url( $this->get_regenerate_doc_link() ) . "' class='wp-smush-learnmore' data-id='{$attachment_id}'>" . esc_html__( 'Learn more', 'wp-smushit' ) . '</a>';
-		$links .= ' | ';
-		$links .= "<a href='#' class='smush-ignore-image' data-id='{$attachment_id}'>" . esc_html__( 'Ignore', 'wp-smushit' ) . '</a>';
-		return $links;
-	}
-
-	/**
-	 * Get ignore links and resmush or utm link.
-	 *
-	 * @since 3.12.0
-	 *
-	 * @param int    $attachment_id Attachment ID.
-	 * @param string $utm_link  Utm link.
-	 *
-	 * @return string
-	 */
-	private function get_ignore_with_failed_links( $attachment_id, $utm_link = '' ) {
-		$links      = '';
-		$class_name = 'smush-ignore-image';
-		if ( empty( $utm_link ) ) {
-			$links  = self::get_resmsuh_link( $attachment_id );
-			$links .= ' | ';
-		} else {
-			$links      .= $utm_link;
-			$class_name .= ' smush-ignore-utm';
-		}
-		$links .= "<a href='#' class='" . esc_attr( $class_name ) . "' data-id='{$attachment_id}'>" . esc_html__( 'Ignore', 'wp-smushit' ) . '</a>';
-		return $links;
-	}
-
-	/**
-	 * Get not processed links.
-	 *
-	 * @since 3.12.0
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return string
-	 */
-	private function get_not_processed_link( $attachment_id ) {
-		$links  = "<a href='#' class='wp-smush-send' data-id='{$attachment_id}'>" . esc_html__( 'Smush', 'wp-smushit' ) . '</a>';
-		$links .= ' | ';
-		$links .= "<a href='#' class='smush-ignore-image' data-id='{$attachment_id}'>" . esc_html__( 'Ignore', 'wp-smushit' ) . '</a>';
-		return $links;
-	}
-
-	/**
-	 * Get optimization links. Possible values:
-	 * - Smush
-	 * - Ignore
-	 * - View Stats
-	 * - Restore
-	 * - Undo
-	 *
-	 * @param int   $id               Attachment ID.
-	 * @param array $smush_data       Optimization data.
-	 * @param array $attachment_data  Attachment data.
-	 *
-	 * @return string
-	 */
-	public function get_optimization_links( $id, $smush_data = array(), $attachment_data = array() ) {
-		if ( get_transient( 'smush-in-progress-' . $id ) ) {
-			return '';
-		}
-
-		// Skipped.
-		$is_ignored = Error_Handler::is_ignored( $id );
-		$error_code = Error_Handler::get_error_code( $id );
-
-		$utm_link = Error_Handler::get_utm_msg( $error_code );
-		if ( $is_ignored ) {
-			return $this->get_revert_with_utm_links( $id, $utm_link );
-		}
-
-		$show_restore_link    = $this->show_restore_option( $id, $attachment_data );
-		$should_hide_doc_link = apply_filters( 'wpmudev_branding_hide_doc_link', false );
-		$show_learn_more_link = ! $show_restore_link && ! $should_hide_doc_link;
-		if ( Error_Handler::should_regenerate_thumbnail( $error_code ) && $show_learn_more_link ) {
-			return $this->get_ignore_with_regenerate_links( $id );
-		}
-
-		if ( empty( $smush_data ) && ! empty( $error_code ) ) {
-			// Failed too early, maybe it was a temporary issue that resmushing will fix.
-			return $this->get_ignore_with_failed_links( $id, $utm_link );
-		}
-
-		// Not optimized.
-		if ( empty( $smush_data ) ) {
-			return $this->get_not_processed_link( $id );
-		}
-
-		$stats        = $this->core->get_stats_for_attachments( array( $id ) );
-		$show_resmush = $this->show_resmush( $id, $smush_data, $attachment_data );
-
-		// Already optimized, but needs a resumsh.
-		if ( $stats['size_after'] === $stats['size_before'] && $show_resmush ) {
-			return self::get_resmsuh_link( $id );
-		}
-
-		$links = $show_resmush ? self::get_resmsuh_link( $id ) : $this->get_super_smush_link( $id, $smush_data );
-
-		// Show restore link only for images that had actual savings.
-		if ( $stats['size_after'] !== $stats['size_before'] && $show_restore_link ) {
-			$links .= empty( $links ) ? '' : ' | ';
-			$links .= self::get_restore_link( $id );
-		}
-
-		// Detailed Stats Link.
-		if ( $stats['size_after'] !== $stats['size_before'] ) {
-			$links .= empty( $links ) ? '' : ' | ';
-			$links .= sprintf(
-				'<a href="#" class="wp-smush-action smush-stats-details wp-smush-title sui-tooltip sui-tooltip-top-right" data-tooltip="%s">%s</a>',
-				esc_html__( 'Detailed stats for all the image sizes', 'wp-smushit' ),
-				esc_html__( 'View Stats', 'wp-smushit' )
-			);
-		}
-
-		return $links;
-	}
-
-	/**
-	 * Checks the current settings and returns the value whether to enable or not the resmush option.
-	 *
-	 * @param string $id               Attachment ID.
-	 * @param array  $wp_smush_data    Smush data.
-	 * @param array  $attachment_data  Attachment data.
-	 *
-	 * @return bool
-	 */
-	private function show_resmush( $id = '', $wp_smush_data = array(), $attachment_data = array() ) {
-		$resmush_ids = (array) get_option( 'wp-smush-resmush-list', array() );
-		// If it's in resmushed lists, return.
-		if ( in_array( $id, $resmush_ids ) ) {
-			return true;
-		}
-		return $this->should_resmush( $id, $wp_smush_data, $attachment_data );
-	}
-
-	/**
-	 * Checks the current settings and returns the value whether to should resmush the attachment or not.
-	 *
-	 * @param int   $attachment_id    Attachment ID.
-	 * @param array $smush_data       Smush data.
-	 * @param array $attachment_data  Attachment data.
-	 *
-	 * @since 3.10.3 Create a general method for re-using inside Ajax::scan_images()
-	 *
-	 * @return bool
-	 */
-	public function should_resmush( $attachment_id, $smush_data, $attachment_data = array() ) {
-		// If skipped, returns.
-		if ( ! apply_filters( 'wp_smush_image', true, $attachment_id ) ) {
-			return false;
-		}
-
-		// If we need to optimise losslessly, add to resmush list.
-		if ( $this->settings->get( 'lossy' ) && empty( $smush_data['stats']['lossy'] ) ) {
-			return true;
-		}
-
-		// If we need to strip exif, put it in resmush list.
-		if ( $this->settings->get( 'strip_exif' ) && isset( $smush_data['stats']['keep_exif'] ) && ( 1 === (int) $smush_data['stats']['keep_exif'] ) ) {
-			return true;
-		}
-
-		if ( empty( $attachment_data ) ) {
-			$attachment_data = wp_get_attachment_metadata( $attachment_id );
-		}
-		$attachment_sizes = empty( $attachment_data['sizes'] ) ? array() : $attachment_data['sizes'];
-
-		$smushed_sizes = empty( $smush_data['sizes'] ) ? array() : $smush_data['sizes'];
-
-		// If Original image needs to be smushed.
-		if ( $this->settings->get( 'original' ) && WP_Smush::is_pro() && empty( $smushed_sizes['full'] ) ) {
-			return true;
-		}
-
-		// Initially assume that we should not resmush.
-		$should_resmush = false;
-
-		// Get list of allowed image sizes.
-		$allowed_image_sizes = $this->get_allowed_image_sizes();
-
-		// unsmushed sizes = allowed sizes - smushed sizes
-		$unsmushed_sizes = ! empty( $smushed_sizes ) && $allowed_image_sizes && is_array( $allowed_image_sizes )
-			? array_diff_key( $allowed_image_sizes, $smushed_sizes )
-			: false;
-
-		// Support for WordPress.com hosting Site Accelerator.
-		$has_photon_filter = has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' );
-
-		if ( $unsmushed_sizes && ! $has_photon_filter ) {
-			$optimized_files = $this->get_optimized_image_files( $smushed_sizes, $attachment_sizes );
-
-			foreach ( $unsmushed_sizes as $unsmushed_image_size => $unsmushed_size_data ) {
-				if ( isset( $attachment_sizes[ $unsmushed_image_size ]['file'] ) ) {
-					$maybe_unsmushed_file = $attachment_sizes[ $unsmushed_image_size ]['file'];
-					if ( in_array( $maybe_unsmushed_file, $optimized_files, true ) ) {
-						// Even though the size is unsmushed, the underlying file has already been smushed, so skip.
-						continue;
-					}
-				}
-
-				// If image has a size that can be compressed.
-				if ( isset( $attachment_sizes[ $unsmushed_image_size ] ) ) {
-					$should_resmush = true;
-					break;
-				}
-			}
-		}
-
-		/**
-		 * If the image needs to be resmushed add it to the list.
-		 *
-		 * @since 3.9.6 Add a filter to allow user handle resmush.
-		 *
-		 * @param bool  $should_resmush     Whether the image should resmush.
-		 * @param int   $attachment         Attachment ID.
-		 * @param array $smush_data         Smushed data.
-		 *
-		 * @hooked Smush\Core\Modules\Png2jpg::should_resmush() 9
-		 * @hooked Smush\Core\Modules\Resize::should_resmush()  10
-		 * @hooked Smush\Core\Modules\Webp::should_resmush()    10
-		 */
-		return apply_filters( 'wp_smush_should_resmush', $should_resmush, $attachment_id, $smush_data );
-	}
-
-	/**
-	 * Get allowed image sizes.
-	 *
-	 * @return array
-	 */
-	private function get_allowed_image_sizes() {
-		// Even with BP we do not scan multiple blogs in the same request, so cache it.
-		if ( is_null( $this->allowed_image_sizes ) ) {
-			$this->allowed_image_sizes = $this->prepare_allowed_image_sizes();
-		}
-
-		return $this->allowed_image_sizes;
-	}
-
-	private function prepare_allowed_image_sizes() {
-		$image_sizes = $this->settings->get_setting( 'wp-smush-image_sizes' );
-
-		if ( empty( $image_sizes ) ) {
-			// Empty means we need to smush all images. So get all sizes of current site.
-			$image_sizes = WP_Smush::get_instance()->core()->image_dimensions();
-		} elseif ( is_array( $image_sizes ) ) {
-			$image_sizes = array_flip( $image_sizes );
-		} else {
-			$image_sizes = array();
-		}
-
-		return $image_sizes;
-	}
-
-	/**
-	 * Multiple attachment sizes can have the same underlying file.
-	 * This method returns an array of file names that have been smushed already.
-	 *
-	 * @param $smushed_sizes
-	 * @param $attachment_sizes
-	 *
-	 * @return array
-	 */
-	private function get_optimized_image_files( $smushed_sizes, $attachment_sizes ) {
-		$optimized_files = array();
-		foreach ( $smushed_sizes as $smushed_image_size => $image_stats ) {
-			if ( isset( $attachment_sizes[ $smushed_image_size ]['file'] ) ) {
-				$optimized_files[] = $attachment_sizes[ $smushed_image_size ]['file'];
-			}
-		}
-
-		return $optimized_files;
-	}
-
-	/**
-	 * If any of the image size have a backup file, show the restore option
-	 *
-	 * @param int          $image_id         Attachment ID.
-	 * @param string|array $attachment_data  Attachment data.
-	 *
-	 * @return bool
-	 */
-	private function show_restore_option( $image_id, $attachment_data ) {
-		// No Attachment data, don't go ahead.
-		if ( empty( $attachment_data ) || ! $this->settings->get( 'backup' ) ) {
-			return false;
-		}
-
-		return $this->core->mod->backup->backup_exists( $image_id );
+		$media_lib_item = new Media_Library_Row( $id );
+		return $media_lib_item->generate_markup();
 	}
 
 	/**
@@ -956,128 +517,6 @@ class Media_Library extends Abstract_Module {
 		$html .= self::progress_bar();
 
 		return $html;
-	}
-
-	/**
-	 * Shows the image size and the compression for each of them
-	 *
-	 * @param int   $image_id             Attachment ID.
-	 * @param array $wp_smush_data        Smush data array.
-	 * @param array $attachment_metadata  Attachment metadata.
-	 *
-	 * @return string
-	 */
-	private function get_detailed_stats( $image_id, $wp_smush_data, $attachment_metadata ) {
-		$stats      = '<div id="smush-stats-' . $image_id . '" class="sui-smush-media smush-stats-wrapper hidden">
-			<table class="wp-smush-stats-holder">
-				<thead>
-					<tr>
-						<th class="smush-stats-header">' . esc_html__( 'Image size', 'wp-smushit' ) . '</th>
-						<th class="smush-stats-header">' . esc_html__( 'Savings', 'wp-smushit' ) . '</th>
-					</tr>
-				</thead>
-				<tbody>';
-		$size_stats = $wp_smush_data['sizes'];
-
-		// Reorder Sizes as per the maximum savings.
-		uasort(
-			$size_stats,
-			function( $a, $b ) {
-				if ( $a->bytes === $b->bytes ) {
-					return 0;
-				}
-				return $a->bytes < $b->bytes ? 1 : -1;
-			}
-		);
-
-		if ( ! empty( $attachment_metadata['sizes'] ) ) {
-			// Get skipped images.
-			$skipped = $this->get_skipped_images( $image_id, $size_stats, $attachment_metadata );
-
-			if ( ! empty( $skipped ) ) {
-				foreach ( $skipped as $img_data ) {
-					$skip_class = 'size_limit' === $img_data['reason'] ? ' error' : '';
-					$stats     .= '<tr>
-							<td>' . strtoupper( $img_data['size'] ) . '</td>
-							<td class="smush-skipped' . $skip_class . '">' . $this->skip_reason( $img_data['reason'] ) . '</td>
-						</tr>';
-				}
-			}
-		}
-
-		// Show Sizes and their compression.
-		foreach ( $size_stats as $size_key => $size_value ) {
-			$dimensions = '';
-			// Get the dimensions for the image size if available.
-			if ( ! empty( $attachment_metadata['sizes'] ) && ! empty( $attachment_metadata['sizes'][ $size_key ] ) ) {
-				$dimensions = $attachment_metadata['sizes'][ $size_key ]['width'] . 'x' . $attachment_metadata['sizes'][ $size_key ]['height'];
-			}
-			$dimensions = ! empty( $dimensions ) ? sprintf( ' <br /> (%s)', $dimensions ) : '';
-			if ( $size_value->bytes > 0 ) {
-				$percent = round( $size_value->percent, 1 );
-				$percent = $percent > 0 ? ' ( ' . $percent . '% )' : '';
-				$stats  .= '<tr>
-						<td>' . strtoupper( $size_key ) . $dimensions . '</td>
-						<td>' . size_format( $size_value->bytes, 1 ) . $percent . '</td>
-					</tr>';
-			}
-		}
-		$stats .= '</tbody>
-			</table>
-		</div>';
-
-		return $stats;
-	}
-
-	/**
-	 * Return a list of images not smushed and reason
-	 *
-	 * @param int   $image_id             Attachment ID.
-	 * @param array $size_stats           Stats array.
-	 * @param array $attachment_metadata  Attachment metadata.
-	 *
-	 * TODO: Remove this method as no longer need.
-	 *
-	 * @return array
-	 */
-	private function get_skipped_images( $image_id, $size_stats, $attachment_metadata ) {
-		$skipped = array();
-
-		// Get a list of all the sizes, Show skipped images.
-		$media_size = get_intermediate_image_sizes();
-
-		// Full size.
-		$full_image = get_attached_file( $image_id );
-
-		// If full image was not smushed, reason 1. Large Size logic, 2. Free and greater than 5Mb.
-		if ( ! array_key_exists( 'full', $size_stats ) && ! WP_Smush::is_pro() ) {
-			// For free version, check if full size is greater than 5 Mb, show the skipped status.
-			$file_size = file_exists( $full_image ) ? filesize( $full_image ) : '';
-			if ( empty( $skipped ) && ! empty( $file_size ) && ( $file_size / WP_SMUSH_MAX_BYTES ) > 1 ) {
-				$skipped[] = array(
-					'size'   => 'full',
-					'reason' => 'size_limit',
-				);
-			}
-		}
-		// For other sizes, check if the image was generated and not available in stats.
-		if ( is_array( $media_size ) ) {
-			foreach ( $media_size as $size ) {
-				if ( array_key_exists( $size, $attachment_metadata['sizes'] ) && ! array_key_exists( $size, $size_stats ) && ! empty( $size['file'] ) ) {
-					// Image Path.
-					$img_path   = path_join( dirname( $full_image ), $size['file'] );
-					$image_size = file_exists( $img_path ) ? filesize( $img_path ) : '';
-					if ( ! empty( $image_size ) && ( $image_size / WP_SMUSH_MAX_BYTES ) > 1 ) {
-						$skipped[] = array(
-							'size'   => 'full',
-							'reason' => 'size_limit',
-						);
-					}
-				}
-			}
-		}
-
-		return $skipped;
 	}
 
 	/**
@@ -1140,33 +579,4 @@ class Media_Library extends Abstract_Module {
 			esc_html__( 'Restore', 'wp-smushit' )
 		);
 	}
-
-	/**
-	 * Show super smush link.
-	 *
-	 * @since 3.4.0
-	 *
-	 * @param int   $id          Attachment ID.
-	 * @param array $smush_data  Smush data array.
-	 *
-	 * @return string
-	 */
-	private function get_super_smush_link( $id, $smush_data ) {
-		if ( empty( $smush_data['stats'] ) ) {
-			return '';
-		}
-
-		// Image is already lossy.
-		if ( isset( $smush_data['stats']['lossy'] ) && $smush_data['stats']['lossy'] ) {
-			return '';
-		}
-
-		// Check if compression was lossless, and lossy compression is enabled.
-		if ( ! $this->settings->get( 'lossy' ) || 'image/gif' === get_post_mime_type( $id ) ) {
-			return '';
-		}
-
-		return "<a href='#' class='wp-smush-send' data-id='{$id}'>" . __( 'Super-Smush', 'wp-smushit' ) . '</a>';
-	}
-
 }

@@ -18,6 +18,7 @@ use MailPoet\Newsletter\Options\NewsletterOptionsRepository;
 use MailPoet\Segments\SegmentSaveController;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\WP;
+use MailPoet\Services\Validator;
 use MailPoet\Subscribers\ImportExport\Export\Export;
 use MailPoet\Subscribers\ImportExport\Import\Import;
 use MailPoet\Subscribers\ImportExport\Import\MailChimp;
@@ -54,6 +55,9 @@ class ImportExport extends APIEndpoint {
   /** @var TagRepository */
   private $tagRepository;
 
+  /** @var Validator */
+  private $validator;
+
   /** @var CronWorkerScheduler */
   private $cronWorkerScheduler;
 
@@ -71,7 +75,8 @@ class ImportExport extends APIEndpoint {
     SegmentsResponseBuilder $segmentsResponseBuilder,
     CronWorkerScheduler $cronWorkerScheduler,
     SubscribersRepository $subscribersRepository,
-    TagRepository $tagRepository
+    TagRepository $tagRepository,
+    Validator $validator
   ) {
     $this->wpSegment = $wpSegment;
     $this->customFieldsRepository = $customFieldsRepository;
@@ -83,6 +88,7 @@ class ImportExport extends APIEndpoint {
     $this->cronWorkerScheduler = $cronWorkerScheduler;
     $this->segmentsResponseBuilder = $segmentsResponseBuilder;
     $this->tagRepository = $tagRepository;
+    $this->validator = $validator;
   }
 
   public function getMailChimpLists($data) {
@@ -136,6 +142,7 @@ class ImportExport extends APIEndpoint {
         $this->newsletterOptionsRepository,
         $this->subscriberRepository,
         $this->tagRepository,
+        $this->validator,
         json_decode($data, true)
       );
       $process = $import->process();

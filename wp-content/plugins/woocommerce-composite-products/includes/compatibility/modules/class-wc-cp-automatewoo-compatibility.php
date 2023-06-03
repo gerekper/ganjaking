@@ -27,7 +27,7 @@ class WC_CP_AutomateWoo_Compatibility {
 	/**
 	 * Filter out components from the abandoned cart and keep the composite products (parent).
 	 *
-	 * @since  x.x.x
+	 * @since  8.7.4
 	 *
 	 * @param  array  $items
 	 * @return \AutomateWoo\Cart_Item[]

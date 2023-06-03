@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    2.6.0
- * @version  3.7.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -21,11 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p class="component_section_title">
 		<label class="component_orderby_title"><?php
-		echo __( 'Sort options by', 'woocommerce-composite-products' );
+		esc_html_e( 'Sort options by', 'woocommerce-composite-products' );
 		?></label>
 	</p>
 
-	<select name="component_orderby_<?php echo $component_id; ?>" class="component_orderby component_orderby_<?php echo $component_id; ?> orderby">
+	<select name="component_orderby_<?php echo esc_attr( $component_id ); ?>" class="component_orderby component_orderby_<?php echo esc_attr( $component_id ); ?> orderby">
 		<?php foreach ( $component_ordering_options as $id => $name ) : ?>
 			<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $orderby, $id ); ?>><?php echo esc_html( $name ); ?></option>
 		<?php endforeach; ?>

@@ -680,7 +680,9 @@ mcg_guide_image { width: 280px; height: 160px; background-position: top left; ba
 #ol_results .rsl_breadcrumb i.material-icons { display:inline-block; line-height:25px; vertical-align: top;  font-size: 25px; margin-right: 10px;  }
 #ol_results .rsl_breadcrumb_div { display: inline-block; color: #797b7e; /*#323438;*/ margin-right: 10px; font-size: 25px; line-height: 25px; vertical-align: top }
 
+#ol_results .rsl_breadcrumb.warning { pointer-events:none;color:#eec700}
 #ol_results .rsl_breadcrumb:hover { color: #fff; }
+
 #ol_modulessorting { display: inline-block;vertical-align: top; }
 
 ._TPRB_ .olti_content .tponoffwrap  { margin-top: 0px; margin-bottom: 10px; margin-right: 10px; }

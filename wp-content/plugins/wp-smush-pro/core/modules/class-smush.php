@@ -12,6 +12,12 @@ use Smush\Core\Api\Request_Multiple;
 use Smush\Core\Core;
 use Smush\Core\Helper;
 use Smush\Core\Error_Handler;
+use Smush\Core\Media\Media_Item_Cache;
+use Smush\Core\Media\Media_Item_Optimizer;
+use Smush\Core\Smush\Smusher;
+use Smush\Core\Smush\Smush_Optimization;
+use Smush\Core\Webp\Webp_Converter;
+use Smush\Core\Webp\Webp_Optimization;
 use WP_Error;
 use WP_Smush;
 
@@ -69,20 +75,20 @@ class Smush extends Abstract_Module {
 	 */
 	public function init() {
 		// Update the Super Smush count, after the Smush'ing.
-		add_action( 'wp_smush_image_optimised', array( $this, 'update_lists' ), '', 2 );
+		//add_action( 'wp_smush_image_optimised', array( $this, 'update_lists' ), '', 2 );
 
 		// Smush image (Auto Smush) when `wp_generate_attachment_metadata` filter is fired.
 		add_filter( 'wp_generate_attachment_metadata', array( $this, 'smush_image' ), 15, 2 );
 
 		// Delete backup files.
-		add_action( 'delete_attachment', array( $this, 'delete_images' ), 12 );
+		//add_action( 'delete_attachment', array( $this, 'delete_images' ), 12 );
 
 		// Handle the Async optimisation.
 		add_action( 'wp_async_wp_generate_attachment_metadata', array( $this, 'wp_smush_handle_async' ) );
 		add_action( 'wp_async_wp_save_image_editor_file', array( $this, 'wp_smush_handle_editor_async' ), '', 2 );
 
 		// Make sure we treat scaled images as additional size.
-		add_filter( 'wp_smush_add_scaled_images_to_meta', array( $this, 'add_scaled_to_meta' ), 10, 2 );
+		//add_filter( 'wp_smush_add_scaled_images_to_meta', array( $this, 'add_scaled_to_meta' ), 10, 2 );
 
 		// Fix SSL CA certificates issue.
 		add_action( 'wp_smush_before_smush_file', array( $this, 'fix_ssl_ca_certificate_error' ) );
@@ -379,6 +385,9 @@ class Smush extends Abstract_Module {
 	 * @return array|bool|WP_Error
 	 */
 	public function do_smushit( $file_path = '', $convert_to_webp = false, $retries = 0 ) {
+		// TODO: (stats refactor) handle properly
+		return $this->do_smushit_optimization( $file_path, $convert_to_webp, $retries );
+
 		$errors = $this->validate_file( $file_path );
 		if ( count( $errors->get_error_messages() ) ) {
 			Helper::logger()->error(
@@ -465,7 +474,7 @@ class Smush extends Abstract_Module {
 
 		// Check for API message and store in db.
 		if ( ! empty( $data->api_message ) ) {
-			$this->add_api_message( $data->api_message );
+			$this->add_api_message( (array) $data->api_message );
 		}
 
 		// If is_premium is set in response, send it over to check for member validity.
@@ -521,6 +530,7 @@ class Smush extends Abstract_Module {
 			} else {
 				return new WP_Error(
 					'error_posting_to_api',
+					/* translators: %s: Error message. */
 					sprintf( __( 'Error posting to API: %s', 'wp-smushit' ), $error )
 				);
 			}
@@ -528,6 +538,7 @@ class Smush extends Abstract_Module {
 
 		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			$error = sprintf(
+				/* translators: 1: Error code, 2: Error message */
 				__( 'Error posting to API: %1$s %2$s', 'wp-smushit' ),
 				wp_remote_retrieve_response_code( $response ),
 				wp_remote_retrieve_response_message( $response )
@@ -911,6 +922,18 @@ $stats['stats']['lossy'] = 1;
 	 * @return mixed Returns response data, TRUE if smushed the file, or FALSE with error(s).
 	 */
 	public function smushit( $attachment_id, &$ref_meta, &$ref_errors ) {
+		// TODO: (stats refactor) handle properly
+		$meta = $this->run_optimizer( $attachment_id );
+		if ( is_wp_error( $meta ) ) {
+			$ref_errors = $meta;
+
+			return false;
+		} else {
+			$ref_meta = $meta;
+
+			return true;
+		}
+
 		/**
 		 * Prevent infinite loop when someone calls `wp_generate_attachment_metadata` inside smushit.
 		 *
@@ -1127,6 +1150,16 @@ $stats['stats']['lossy'] = 1;
 			return $meta;
 		}
 
+		// Is doing wp_generate_attachment_metadata.
+		$generating_metadata = doing_filter( 'wp_generate_attachment_metadata' );
+		if ( $generating_metadata && ! $this->is_auto_smush_enabled() ) {
+			// TODO: the following commented out line is here for historic reference only in case we need it again but hopefully we won't. Remove it once the version 3.13 has been out for a while. The reason why we are removing it is that it causes the test test__global_stats_updated_on_restore to fail.
+			// Remove stats and update cache.
+			//WP_Smush::get_instance()->core()->remove_stats( $id );
+
+			return $meta;
+		}
+
 		/**
 		 * Smush image.
 		 *
@@ -1269,7 +1302,7 @@ $stats['stats']['lossy'] = 1;
 		 *
 		 * @since 3.8.0
 		 */
-		WP_Smush::get_instance()->core()->mod->webp->delete_images( $image_id, false );
+		//WP_Smush::get_instance()->core()->mod->webp->delete_images( $image_id, false );
 	}
 
 	/**
@@ -1558,5 +1591,49 @@ $stats['stats']['lossy'] = 1;
 	 */
 	public function set_request_multiple( $request_multiple ) {
 		$this->request_multiple = $request_multiple;
+	}
+
+	private function do_smushit_optimization( $file_path, $convert_to_webp, $retries ) {
+		$errors = $this->validate_file( $file_path );
+		if ( count( $errors->get_error_messages() ) ) {
+			return $errors;
+		}
+
+		$smusher = $convert_to_webp
+			? new Webp_Converter()
+			: new Smusher();
+		$smusher->set_retry_attempts( $retries );
+		$data = $smusher->smush_file( $file_path );
+		if ( $data ) {
+			return array(
+				'success' => true,
+				'data'    => $data,
+			);
+		} else {
+			return $smusher->get_errors();
+		}
+	}
+
+	private function run_optimizer( $attachment_id ) {
+		$in_progress_error = new WP_Error( 'in_progress', 'Smush already in progress' );
+		if ( $this->prevent_infinite_loop ) {
+			return $this->no_smushit( $attachment_id, $in_progress_error, $in_progress_error );
+		}
+		$this->prevent_infinite_loop = true;
+
+		$media_item = Media_Item_Cache::get_instance()->get( $attachment_id );
+		$optimizer  = new Media_Item_Optimizer( $media_item );
+		$optimized  = $optimizer->optimize();
+
+		$this->prevent_infinite_loop = false;
+
+		if ( $optimized ) {
+			return $media_item->get_wp_metadata();
+		} else {
+			if ( $media_item->has_errors() ) {
+				return $media_item->get_errors();
+			}
+			return $optimizer->get_errors();
+		}
 	}
 }

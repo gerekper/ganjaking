@@ -9,6 +9,8 @@ namespace Smush\Core\Modules;
 
 use Smush\Core\Core;
 use Smush\Core\Helper;
+use Smush\Core\Media\Media_Item_Cache;
+use Smush\Core\Media\Media_Item_Optimizer;
 use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -39,7 +41,7 @@ class Backup extends Abstract_Module {
 	 */
 	public function init() {
 		// Handle Restore operation.
-		add_action( 'wp_ajax_smush_restore_image', array( $this, 'restore_image' ) );
+		//add_action( 'wp_ajax_smush_restore_image', array( $this, 'restore_image' ) );
 
 		// Handle bulk restore from modal.
 		add_action( 'wp_ajax_get_image_count', array( $this, 'get_image_count' ) );
@@ -54,7 +56,8 @@ class Backup extends Abstract_Module {
 	 * @return bool  True if the backup file exists, false otherwise.
 	 */
 	public function backup_exists( $attachment_id, $file_path = false ) {
-		return apply_filters( 'wp_smush_backup_exists', $this->get_backup_file( $attachment_id, $file_path ), $attachment_id, $file_path );
+		$media_item = Media_Item_Cache::get_instance()->get( $attachment_id );
+		return $media_item->backup_file_exists();
 	}
 
 	/**
@@ -375,6 +378,7 @@ class Backup extends Abstract_Module {
 	 * @return bool
 	 */
 	public function restore_image( $attachment_id = '', $resp = true ) {
+		// TODO: (stats refactor) handle properly
 		// If no attachment id is provided, check $_POST variable for attachment_id.
 		if ( empty( $attachment_id ) ) {
 			// Check Empty fields.
@@ -700,20 +704,16 @@ class Backup extends Abstract_Module {
 	 * @return array  Array of attachments IDs.
 	 */
 	public function get_attachments_with_backups() {
-		$images = wp_cache_get( 'images_with_backups', 'wp-smush' );
+		global $wpdb;
 
-		if ( ! $images ) {
-			global $wpdb;
-			$images = $wpdb->get_col(
-				"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attachment_backup_sizes' AND (`meta_value` LIKE '%smush-full%' OR `meta_value` LIKE '%smush_png_path%')"
-			); // Db call ok.
+		$images_to_restore = $wpdb->get_col(
+			"SELECT post_id FROM {$wpdb->postmeta}
+			WHERE meta_key='_wp_attachment_backup_sizes'
+				AND (`meta_value` LIKE '%smush-full%'
+				OR `meta_value` LIKE '%smush_png_path%')"
+		);
 
-			if ( $images ) {
-				wp_cache_set( 'images_with_backups', $images, 'wp-smush' );
-			}
-		}
-
-		return $images;
+		return $images_to_restore;
 	}
 
 	/**
@@ -749,18 +749,25 @@ class Backup extends Abstract_Module {
 
 		$id = filter_input( INPUT_POST, 'item', FILTER_SANITIZE_NUMBER_INT, FILTER_NULL_ON_FAILURE );
 
-		$status = $id && $this->restore_image( $id, false );
+		$media_item = Media_Item_Cache::get_instance()->get( $id );
+		if ( ! $media_item->is_mime_type_supported() ) {
+			wp_send_json_error(
+				array(
+					/* translators: %s: Error message */
+					'error_msg' => sprintf( esc_html__( 'Image not restored. %s', 'wp-smushit' ), $media_item->get_errors()->get_error_message() ),
+				)
+			);
+		}
 
-		$original_meta = wp_get_attachment_metadata( $id, true );
+		$optimizer = new Media_Item_Optimizer( $media_item );
+		$status    = $id && $optimizer->restore();
 
-		// Try to get the file name from path.
-		$file_name = explode( '/', $original_meta['file'] );
-		$file_name = is_array( $file_name ) ? array_pop( $file_name ) : $original_meta['file'];
+		$file_name = $media_item->get_full_or_scaled_size()->get_file_name();
 
 		wp_send_json_success(
 			array(
 				'success' => $status,
-				'src'     => $file_name ? $file_name : __( 'Error getting file name', 'wp-smushit' ),
+				'src'     => ! empty( $file_name ) ? $file_name : __( 'Error getting file name', 'wp-smushit' ),
 				'thumb'   => wp_get_attachment_image( $id ),
 				'link'    => Helper::get_image_media_link( $id, $file_name, true ),
 			)

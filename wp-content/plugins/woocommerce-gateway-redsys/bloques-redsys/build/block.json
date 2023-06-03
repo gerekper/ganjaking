@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "create-block/bloques-redsys",
+  "version": "0.1.0",
+  "title": "Redsys Imagen Tarjeta de Crédito",
+  "category": "widgets",
+  "icon": "money",
+  "description": "Añade la imagen de las tarejtas de crédito solicitadas por muchos bancos.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "bloques-redsys",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

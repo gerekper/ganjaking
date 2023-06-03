@@ -49,7 +49,10 @@ if ( ! defined( 'WPINC' ) ) {
 				<span class="wp-smush-progress-inner" style="width: 0%"></span>
 			</div>
 		</div>
-		<?php $cancel_btn_class = $background_processing_enabled ? 'wp-smush-bo-cancel-bulk' : 'wp-smush-cancel-bulk'; ?>
+		<?php
+			// $cancel_btn_class = $background_processing_enabled ? 'wp-smush-bo-cancel-bulk' : 'wp-smush-cancel-bulk';
+			$cancel_btn_class = 'wp-smush-cancel-btn';
+		?>
 		<button class="sui-progress-close <?php echo esc_attr( $cancel_btn_class ); ?>" type="button">
 			<?php esc_html_e( 'Cancel', 'wp-smushit' ); ?>
 		</button>
@@ -59,13 +62,12 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 
 	<div class="sui-progress-state">
-		<span class="sui-progress-state-text">
-			<span>0</span>/<span class="wp-smush-total-count"><?php echo absint( $count ); ?></span> <?php esc_html_e( 'images optimized', 'wp-smushit' ); ?>
-		</span>
+		<span class="sui-progress-state-text"><span>0</span>/<span class="wp-smush-total-count"><?php echo absint( $count ); ?></span> </span>
+		<span class="sui-progress-state-unit"><?php esc_html_e( 'images optimized', 'wp-smushit' ); ?></span>
 	</div>
 
 	<div id="bulk-smush-resume-button" class="sui-hidden">
-		<a class="wp-smush-all sui-button wp-smush-started">
+		<a class="wp-smush-all sui-button wp-smush-started wp-smush-resume-bulk-smush">
 			<i class="sui-icon-play" aria-hidden="true"></i>
 			<?php esc_html_e( 'Resume', 'wp-smushit' ); ?>
 		</a>

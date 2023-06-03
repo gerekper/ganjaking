@@ -136,6 +136,31 @@ function SmushFetcher() {
 			 */
 			request: (data) => data.action && request(data.action, data),
 		},
+
+		scanMediaLibrary: {
+			start: ( optimize_on_scan_completed = false ) => {
+				optimize_on_scan_completed = optimize_on_scan_completed ? 1 : 0;
+				const _ajax_nonce = window.wp_smushit_data.media_library_scan.nonce;
+				return request( 'wp_smush_start_background_scan', {
+					optimize_on_scan_completed,
+					_ajax_nonce,
+				} );
+			},
+
+			cancel: () => {
+				const _ajax_nonce = window.wp_smushit_data.media_library_scan.nonce;
+				return request( 'wp_smush_cancel_background_scan', {
+					_ajax_nonce,
+				} );
+			},
+
+			getScanStatus: () => {
+				const _ajax_nonce = window.wp_smushit_data.media_library_scan.nonce;
+				return request( 'wp_smush_get_background_scan_status', {
+					_ajax_nonce,
+				} );
+			},
+		},
 	};
 
 	assign(this, methods);

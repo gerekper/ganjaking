@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    2.6.0
- * @version  4.0.0
+ * @version  8.8.0
  */
 
 // Exit if accessed directly.
@@ -17,13 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div id="component_filters_<?php echo $component_id; ?>" class="component_filters">
+?><div id="component_filters_<?php echo esc_attr( $component_id ); ?>" class="component_filters">
 
 	<p class="component_section_title component_filters_section_title">
 		<label class="component_filters_title">
-			<?php echo __( 'Filter options', 'woocommerce-composite-products' ); ?>
+			<?php esc_html_e( 'Filter options', 'woocommerce-composite-products' ); ?>
 		</label>
-		<a class="reset_component_filters" href="#" rel="nofollow" role="button" aria-label="<?php echo __( 'Reset all filters', 'woocommerce-composite-products' ); ?>"></a>
+		<a class="reset_component_filters" href="#" rel="nofollow" role="button" aria-label="<?php esc_attr_e( 'Reset all filters', 'woocommerce-composite-products' ); ?>"></a>
 	</p><?php
 
 	foreach ( $component_filtering_options as $filter ) {
@@ -31,12 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?><div class="component_filter cp_clearfix <?php echo 'closed' === $filter[ 'filter_toggle_state' ] ? 'closed' : 'open'; ?>" data-filter_type="<?php echo esc_attr( $filter[ 'filter_type' ] ); ?>" data-filter_id="<?php echo esc_attr( $filter[ 'filter_id' ] ); ?>" data-multiselect="<?php echo esc_attr( $filter[ 'is_multiselect' ] ) ? 'yes' : 'no'; ?>">
 			<div class="component_filter_title">
 				<label class="component_filter_name" >
-					<span class="component_filter_name_text"><?php echo $filter[ 'filter_name' ]; ?></span><?php
+					<span class="component_filter_name_text"><?php echo wp_kses_post( $filter[ 'filter_name' ] ); ?></span><?php
 					/* translators: Filter name. */
-					?><button class="aria_button" aria-label="<?php echo sprintf( __( 'Toggle %s', 'woocommerce-composite-products' ), $filter[ 'filter_name' ] ); ?>" aria-expanded="<?php echo 'closed' !== $filter[ 'filter_toggle_state' ] ? 'true' : 'false'; ?>"></button>
+					?><button class="aria_button" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle %s', 'woocommerce-composite-products' ), $filter[ 'filter_name' ] ) ); ?>" aria-expanded="<?php echo 'closed' !== $filter[ 'filter_toggle_state' ] ? 'true' : 'false'; ?>"></button>
 				</label><?php
 				/* translators: Filter name. */
-				?><a class="reset_component_filter" href="#" rel="nofollow" role="button" aria-label="<?php echo sprintf( __( 'Reset %s', 'woocommerce-composite-products' ), $filter[ 'filter_name' ] ); ?>"></a>
+				?><a class="reset_component_filter" href="#" rel="nofollow" role="button" aria-label="<?php echo esc_attr( sprintf( __( 'Reset %s', 'woocommerce-composite-products' ), $filter[ 'filter_name' ] ) ); ?>"></a>
 			</div>
 			<div class="component_filter_content" <?php echo 'closed' === $filter[ 'filter_toggle_state' ] ? 'style="display:none;"' : ''; ?>><?php
 
@@ -45,8 +45,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					foreach ( $filter[ 'filter_options' ] as $option_id => $option_name ) {
 
 						?><li class="component_filter_option" data-option_id="<?php echo esc_attr( $option_id ); ?>">
-							<a class="toggle_filter_option" href="#" rel="nofollow" role="checkbox" aria-checked="false" aria-label="<?php echo sprintf( __( 'Toggle %s', 'woocommerce-composite-products' ), $option_name ); ?>"><?php
-								echo $option_name;
+							<a class="toggle_filter_option" href="#" rel="nofollow" role="checkbox" aria-checked="false" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle %s', 'woocommerce-composite-products' ), $option_name ) ); ?>"><?php
+								echo wp_kses_post( $option_name );
 							?></a>
 						</li><?php
 					}

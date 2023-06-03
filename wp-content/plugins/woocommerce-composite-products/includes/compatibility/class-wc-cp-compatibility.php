@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.7.4
+ * @version  8.8.0
  */
 class WC_CP_Compatibility {
 
@@ -63,7 +63,7 @@ class WC_CP_Compatibility {
 	 * @since 3.7.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class WC_CP_Compatibility {
 	 * @since 3.7.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-composite-products' ), '3.7.0' );
 	}
 
 	/**

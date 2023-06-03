@@ -963,9 +963,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
             if(!$order->is_complete() && !$order->is_processing()) {
               $order->update_meta('processing', true);
 
-              if($sub->status != MeprSubscription::$active_str) {
-                $this->record_create_sub($sub);
-              }
+              $this->record_create_sub($sub);
 
               if($sub->trial && $sub->trial_days > 0) {
                 $amount = (float) $sub->trial_total;
@@ -1025,7 +1023,8 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         }
       }
 
-      if($sub->status != MeprSubscription::$active_str) {
+      // Record subscription creation here if using Stripe Elements
+      if($this->settings->stripe_checkout_enabled != 'on') {
         $this->record_create_sub($sub);
       }
 

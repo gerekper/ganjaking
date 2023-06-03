@@ -130,12 +130,16 @@ abstract class Abstract_Async {
 
 		$this->body_data = $data;
 
-		$shutdown_action = has_action( 'shutdown', array( $this, 'process_request' ) );
+		$has_shutdown_action         = has_action( 'shutdown', array( $this, 'process_request' ) );
+		$is_upload_attachment_action = ! empty( $_POST['action'] ) && 'upload-attachment' === $_POST['action'];
+		$is_post_id_non_empty        = ! empty( $_POST ) && isset( $_POST['post_id'] ) && $_POST['post_id'];
+		$is_async_upload             = isset( $_POST['post_id'] ) && empty( $_POST['post_id'] ) && isset( $_FILES['async-upload'] );
+		$should_hook_to_shutdown     = $is_upload_attachment_action || $is_post_id_non_empty || $is_async_upload;
 
 		// Do not use this, as in case of importing, only the last image gets processed
 		// It's very important that all the Media uploads, are handled via shutdown action, else, sometimes the image meta updated
 		// by smush is earlier, and then original meta update causes discrepancy.
-		if ( ( ( ! empty( $_POST['action'] ) && 'upload-attachment' === $_POST['action'] ) || ( ! empty( $_POST ) && isset( $_POST['post_id'] ) && $_POST['post_id'] ) ) && ! $shutdown_action ) {
+		if ( $should_hook_to_shutdown && ! $has_shutdown_action ) {
 			add_action( 'shutdown', array( $this, 'process_request' ) );
 		} else {
 			// Send a ajax request to process image and return image metadata, added for compatibility with plugins like
