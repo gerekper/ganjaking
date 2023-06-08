@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\Track\Unsubscribes;
@@ -97,7 +96,7 @@ class Subscription {
   public function extendWooCommerceCheckoutForm() {
     $this->hideAutomateWooOptinCheckbox();
     $inputName = self::CHECKOUT_OPTIN_INPUT_NAME;
-    $checked = $this->isCurrentUserSubscribed();
+    $checked = false;
     if (!empty($_POST[self::CHECKOUT_OPTIN_INPUT_NAME])) {
       $checked = true;
     }
@@ -122,18 +121,12 @@ class Subscription {
   }
 
   private function getSubscriptionField($inputName, $checked, $labelString) {
-    return $this->wcHelper->woocommerceFormField(
-      $this->wp->escAttr($inputName),
-      [
-        'type' => 'checkbox',
-        'label' => $this->wp->escHtml($labelString),
-        'input_class' => ['woocommerce-form__input', 'woocommerce-form__input-checkbox', 'input-checkbox'],
-        'label_class' => ['woocommerce-form__label', 'woocommerce-form__label-for-checkbox', 'checkbox'],
-        'custom_attributes' => ['data-automation-id' => 'woo-commerce-subscription-opt-in'],
-        'return' => true,
-      ],
-      $checked ? '1' : '0'
-    );
+    $checked = checked($checked, true, false);
+
+    return '<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox" data-automation-id="woo-commerce-subscription-opt-in">
+      <input id="mailpoet_woocommerce_checkout_optin" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" ' . $checked . ' type="checkbox" name="' . $this->wp->escAttr($inputName) . '" value="1" />
+      <span>' . $this->wp->escHtml($labelString) . '</span>
+    </label>';
   }
 
   private function getSubscriptionPresenceCheckField() {
@@ -159,21 +152,6 @@ class Subscription {
       1
     );
     return str_replace('type="text"', 'type="hidden"', $field);
-  }
-
-  public function isCurrentUserSubscribed() {
-    $subscriber = $this->subscribersRepository->getCurrentWPUser();
-    if (!$subscriber instanceof SubscriberEntity) {
-      return false;
-    }
-
-    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
-    $subscriberSegment = $this->subscriberSegmentRepository->findOneBy(
-      ['subscriber' => $subscriber->getId(), 'segment' => $wcSegment->getId()]
-    );
-
-    return $subscriberSegment instanceof SubscriberSegmentEntity
-      && $subscriberSegment->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED;
   }
 
   public function subscribeOnOrderPay($orderId) {
@@ -202,20 +180,18 @@ class Subscription {
       return null;
     }
 
-    $checkoutOptinEnabled = (bool)$this->settings->get(self::OPTIN_ENABLED_SETTING_NAME);
     $checkoutOptin = !empty($_POST[self::CHECKOUT_OPTIN_INPUT_NAME]);
 
-    return $this->handleSubscriberOptin($subscriber, $checkoutOptinEnabled, $checkoutOptin);
+    return $this->handleSubscriberOptin($subscriber, $checkoutOptin);
   }
 
   /**
-   * Subscribe or unsubscribe a subscriber.
+   * Subscribe a subscriber.
    *
    * @param SubscriberEntity $subscriber Subscriber object
-   * @param bool $checkoutOptinEnabled
-   * @param bool $checkoutOptin
+   * @param bool $shouldSubscribe Whether the subscriber should be subscribed
    */
-  public function handleSubscriberOptin(SubscriberEntity $subscriber, bool $checkoutOptinEnabled, bool $checkoutOptin): bool {
+  public function handleSubscriberOptin(SubscriberEntity $subscriber, bool $shouldSubscribe): bool {
     $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
 
     $segmentIds = (array)$this->settings->get(self::OPTIN_SEGMENTS_SETTING_NAME, []);
@@ -225,37 +201,24 @@ class Subscription {
     }
     $signupConfirmation = $this->settings->get('signup_confirmation');
 
-    if (!$checkoutOptin) {
-      $this->wp->doAction('mailpoet_woocommerce_segment_unsubscribed', $subscriber);
-      // Opt-in is disabled or checkbox is unchecked
-      $this->subscriberSegmentRepository->unsubscribeFromSegments($subscriber, [$wcSegment]);
+    if ($shouldSubscribe) {
+      $subscriber->setSource(Source::WOOCOMMERCE_CHECKOUT);
 
-      // Unsubscribe from configured segment only when opt-in is enabled
-      if ($checkoutOptinEnabled && $moreSegmentsToSubscribe) {
-        $this->subscriberSegmentRepository->unsubscribeFromSegments($subscriber, $moreSegmentsToSubscribe);
-      }
-      // Update global status only in case the opt-in is enabled
-      if ($checkoutOptinEnabled) {
-        $this->updateSubscriberStatus($subscriber);
+      if (
+        ($subscriber->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED)
+        || ((bool)$signupConfirmation['enabled'] === false)
+      ) {
+        $this->subscribe($subscriber);
+      } else {
+        $this->requireSubscriptionConfirmation($subscriber);
       }
 
+      $this->subscriberSegmentRepository->subscribeToSegments($subscriber, array_merge([$wcSegment], $moreSegmentsToSubscribe));
+
+      return true;
+    } else {
       return false;
     }
-
-    $subscriber->setSource(Source::WOOCOMMERCE_CHECKOUT);
-
-    if (
-      ($subscriber->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED)
-      || ((bool)$signupConfirmation['enabled'] === false)
-    ) {
-      $this->subscribe($subscriber);
-    } else {
-      $this->requireSubscriptionConfirmation($subscriber);
-    }
-
-    $this->subscriberSegmentRepository->subscribeToSegments($subscriber, array_merge([$wcSegment], $moreSegmentsToSubscribe));
-
-    return true;
   }
 
   private function hideAutomateWooOptinCheckbox(): void {

@@ -317,27 +317,50 @@ if ( ! class_exists( 'NS_MCF_WooCommerce' ) ) {
 			if ( isset( $_GET['post'] ) ) {
 				$id = intval( $_GET['post'] );
 
-				// handle WooCommerce versions before and after 2.2.
-				$term = term_exists( 'fail-to-fba', 'shop_order_status' );
+				if ( NS_MCF_Utils::is_hpos() ) {
+					// Handle HPOS checks.
+					$order = wc_get_order( $id );
+					if ( 'fail-to-fba' === $order->get_status() ) {
+						?>
+							<div class="error"><p>
+							<?php
+							esc_html_e( 'Uh-oh! The submission to Amazon Fulfillment failed.', $this->ns_fba->text_domain );
+							?>
+							</p></div>
+						<?php
+					} elseif ( 'sent-to-fba' === $order->get_status() ) {
+						?>
+							<div class="updated"><p>
+							<?php
+							esc_html_e( 'Success! The submission to Amazon Fulfillment worked!', $this->ns_fba->text_domain );
+							?>
+							</p></div>
+						<?php
+					}
+				} else {
 
-				if ( ( $term && has_term( 'fail-to-fba', 'shop_order_status', $id ) ) ||
-					get_post_status( $id ) === 'wc-fail-to-fba' ) {
-					?>
-						<div class="error"><p>
-						<?php
-						esc_html_e( 'Uh-oh! The submission to Amazon Fulfillment failed.', $this->ns_fba->text_domain );
+					// handle WooCommerce versions before and after 2.2.
+					$term = term_exists( 'fail-to-fba', 'shop_order_status' );
+
+					if ( ( $term && has_term( 'fail-to-fba', 'shop_order_status', $id ) ) ||
+						get_post_status( $id ) === 'wc-fail-to-fba' ) {
 						?>
-						</p></div>
-					<?php
-				} elseif ( ( $term && has_term( 'sent-to-fba', 'shop_order_status', $id ) ) ||
-					get_post_status( $id ) === 'wc-sent-to-fba' ) {
-					?>
-						<div class="updated"><p>
+							<div class="error"><p>
+							<?php
+							esc_html_e( 'Uh-oh! The submission to Amazon Fulfillment failed.', $this->ns_fba->text_domain );
+							?>
+							</p></div>
 						<?php
-						esc_html_e( 'Success! The submission to Amazon Fulfillment worked!', $this->ns_fba->text_domain );
+					} elseif ( ( $term && has_term( 'sent-to-fba', 'shop_order_status', $id ) ) ||
+						get_post_status( $id ) === 'wc-sent-to-fba' ) {
 						?>
-						</p></div>
-					<?php
+							<div class="updated"><p>
+							<?php
+							esc_html_e( 'Success! The submission to Amazon Fulfillment worked!', $this->ns_fba->text_domain );
+							?>
+							</p></div>
+						<?php
+					}
 				}
 			}
 		}

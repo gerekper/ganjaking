@@ -1989,15 +1989,15 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                 </table>';
 
-							echo '<p></p>
+							// echo '<p></p>
 
-                                <table>
-                                    <tr>
-                                        <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td>
+                            //     <table>
+                            //         <tr>
+                            //             <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td>
 
-                                        <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td>
-                                    </tr>
-                                </table>';
+                            //             <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td>
+                            //         </tr>
+                            //     </table>';
 
 							echo '<p></p>
 

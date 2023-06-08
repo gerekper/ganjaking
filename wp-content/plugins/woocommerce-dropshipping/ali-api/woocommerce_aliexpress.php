@@ -14,6 +14,31 @@
 	add_action( 'rest_api_init', 'import_ali_product_in_woo_callback' );
 
 
+// End point for user bug report.
+function myapi_send_email( $data ) {
+    $to = $data['to'];
+	$user_email = $data['user_email'];
+    $subject = $data['subject'];
+    $message = $data['message'];
+	$new_message = "Sent By : " .$user_email."<br><br> Bug Report: ".$message;
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+
+    $result = wp_mail( $to, $subject, $new_message, $headers );
+    if ( $result ) {
+        return array( 'success' => true );
+    } else {
+        return array( 'success' => false );
+    }
+}
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'myapi/v1', '/send-email', array(
+        'methods' => 'POST',
+        'callback' => 'myapi_send_email',
+    ) );
+} );
+// End point for user bug report.
+
+
 function permission_callback_validation( $request ) {
 	return true;
 }

@@ -69,10 +69,10 @@ class WC_Subscription_Downloads_Products {
 		<div class="options_group subscription_downloads show_if_downloadable">
 
 			<p class="form-field _subscription_downloads_field">
-				<label for="subscription-downloads-ids"><?php _e( 'Subscriptions', 'woocommerce-subscription-downloads' ); ?></label>
+				<label for="subscription-downloads-ids"><?php esc_html_e( 'Subscriptions', 'woocommerce-subscription-downloads' ); ?></label>
 
 				<?php if ( version_compare( WC_VERSION, '3.0', '>=' ) ) : ?>
-					<select id="subscription-downloads-ids" multiple="multiple" data-action="wc_subscription_downloads_search" data-placeholder="<?php _e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" class="subscription-downloads-ids wc-product-search" name="_subscription_downloads_ids[]" style="width: 50%;">
+					<select id="subscription-downloads-ids" multiple="multiple" data-action="wc_subscription_downloads_search" data-placeholder="<?php esc_attr_e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" class="subscription-downloads-ids wc-product-search" name="_subscription_downloads_ids[]" style="width: 50%;">
 						<?php
 						$subscriptions_ids = WC_Subscription_Downloads::get_subscriptions( $post->ID );
 						if ( empty( $subscriptions_ids ) ) {
@@ -83,7 +83,7 @@ class WC_Subscription_Downloads_Products {
 								$_subscription = wc_get_product( $subscription_id );
 
 								if ( $_subscription ) {
-									echo '<option value="' . esc_attr( $subscription_id ) . '" selected="selected">' . sanitize_text_field( $_subscription->get_formatted_name() ) . '</option>';
+									echo '<option value="' . esc_attr( $subscription_id ) . '" selected="selected">' . esc_html( wp_strip_all_tags( $_subscription->get_formatted_name() ) ) . '</option>';
 								}
 							}
 						}
@@ -107,8 +107,8 @@ class WC_Subscription_Downloads_Products {
 						}
 					}
 					?>
-					<input type="hidden" id="subscription-downloads-ids" class="wc-product-search subscription-downloads-ids" name="_subscription_downloads_ids" data-placeholder="<?php _e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" data-selected='<?php echo _wp_specialchars( wp_json_encode( $subscriptions_selected ), ENT_QUOTES, 'UTF-8', true ); // Same as wc_esc_json but it's only in WC 3.5.5. ?>' value="<?php echo esc_attr( implode( ',', $subscriptions_value ) ); ?>" data-allow_clear="true" style="width: 50%;" data-action="wc_subscription_downloads_search" data-multiple="true" />
-				<?php endif; ?> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'Select subscriptions that this product is part.', 'woocommerce-subscription-downloads' ) ); ?>' src="<?php echo $woocommerce->plugin_url(); ?>/assets/images/help.png" height="16" width="16" />
+					<input type="hidden" id="subscription-downloads-ids" class="wc-product-search subscription-downloads-ids" name="_subscription_downloads_ids" data-placeholder="<?php esc_attr_e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" data-selected='<?php echo wc_esc_json( wp_json_encode( $subscriptions_selected ) ); ?>' value="<?php echo esc_attr( implode( ',', $subscriptions_value ) ); ?>" data-allow_clear="true" style="width: 50%;" data-action="wc_subscription_downloads_search" data-multiple="true" />
+				<?php endif; ?> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'Select subscriptions that this product is part.', 'woocommerce-subscription-downloads' ) ); ?>' src="<?php echo esc_url( $woocommerce->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" />
 			</p>
 
 		</div>
@@ -128,9 +128,9 @@ class WC_Subscription_Downloads_Products {
 			<tr class="show_if_variation_downloadable">
 				<td colspan="2">
 					<div>
-						<label><?php _e( 'Subscriptions', 'woocommerce-subscription-downloads' ); ?>: <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Select subscriptions that this product is part.', 'woocommerce-subscription-downloads' ) ); ?>" href="#">[?]</a></label>
+						<label><?php esc_html_e( 'Subscriptions', 'woocommerce-subscription-downloads' ); ?>: <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Select subscriptions that this product is part.', 'woocommerce-subscription-downloads' ) ); ?>" href="#">[?]</a></label>
 
-						<select multiple="multiple" data-placeholder="<?php _e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" class="subscription-downloads-ids wc-product-search" name="_variable_subscription_downloads_ids[<?php echo $loop; ?>][]">
+						<select multiple="multiple" data-placeholder="<?php esc_html_e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" class="subscription-downloads-ids wc-product-search" name="_variable_subscription_downloads_ids[<?php echo esc_attr( $loop ); ?>][]">
 							<?php
 							$subscriptions_ids = WC_Subscription_Downloads::get_subscriptions( $variation->ID );
 							if ( $subscriptions_ids ) {
@@ -138,7 +138,7 @@ class WC_Subscription_Downloads_Products {
 									$_subscription = wc_get_product( $subscription_id );
 
 									if ( $_subscription ) {
-										echo '<option value="' . esc_attr( $subscription_id ) . '" selected="selected">' . sanitize_text_field( $_subscription->get_formatted_name() ) . '</option>';
+										echo '<option value="' . esc_attr( $subscription_id ) . '" selected="selected">' . esc_html( wp_strip_all_tags( $_subscription->get_formatted_name() ) ) . '</option>';
 									}
 								}
 							}
@@ -150,7 +150,7 @@ class WC_Subscription_Downloads_Products {
 		<?php else : ?>
 			<div class="show_if_variation_downloadable">
 				<p class="form-row form-row-wide">
-					<label><?php _e( 'Subscriptions', 'woocommerce-subscription-downloads' ); ?>: <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Select subscriptions that this product is part.', 'woocommerce-subscription-downloads' ) ); ?>" href="#">[?]</a></label>
+					<label><?php esc_html_e( 'Subscriptions', 'woocommerce-subscription-downloads' ); ?>: <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Select subscriptions that this product is part.', 'woocommerce-subscription-downloads' ) ); ?>" href="#">[?]</a></label>
 					<?php
 					$subscriptions_ids = WC_Subscription_Downloads::get_subscriptions( $variation->ID );
 					$subscriptions_selected = array();
@@ -167,7 +167,7 @@ class WC_Subscription_Downloads_Products {
 						}
 					}
 					?>
-					<input type="hidden" class="wc-product-search subscription-downloads-ids" name="_variable_subscription_downloads_ids[<?php echo $loop; ?>]" data-placeholder="<?php _e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" data-selected='<?php echo _wp_specialchars( wp_json_encode( $subscriptions_selected ),  ENT_QUOTES, 'UTF-8', true ); // Same as wc_esc_json but it's only in WC 3.5.5. ?>' value="<?php echo esc_attr( implode( ',', $subscriptions_value ) ); ?>" data-allow_clear="true" data-action="wc_subscription_downloads_search" data-multiple="true" />
+					<input type="hidden" class="wc-product-search subscription-downloads-ids" name="_variable_subscription_downloads_ids[<?php echo esc_attr( $loop ); ?>]" data-placeholder="<?php esc_attr_e( 'Select subscriptions', 'woocommerce-subscription-downloads' ); ?>" data-selected='<?php echo wc_esc_json( wp_json_encode( $subscriptions_selected ) ); ?>' value="<?php echo esc_attr( implode( ',', $subscriptions_value ) ); ?>" data-allow_clear="true" data-action="wc_subscription_downloads_search" data-multiple="true" />
 				</p>
 			</div>
 		<?php endif; ?>
@@ -339,7 +339,7 @@ class WC_Subscription_Downloads_Products {
 	 * @return void
 	 */
 	public function save_simple_product_data( $product_id ) {
-		$subscription_ids = ! empty( $_POST['_subscription_downloads_ids'] ) ? $_POST['_subscription_downloads_ids'] : '';
+		$subscription_ids = ! empty( $_POST['_subscription_downloads_ids'] ) ? wc_clean( wp_unslash( $_POST['_subscription_downloads_ids'] ) ) : '';
 
 		if ( ! isset( $_POST['_downloadable'] ) || 'publish' !== get_post_status( $product_id ) ) {
 			update_post_meta( $product_id, '_subscription_downloads_ids', $subscription_ids );
@@ -365,13 +365,13 @@ class WC_Subscription_Downloads_Products {
 			return;
 		}
 
-		$subscriptions = isset( $_POST['_variable_subscription_downloads_ids'][ $index ] ) ? $_POST['_variable_subscription_downloads_ids'][ $index ] : array();
+		$subscriptions = isset( $_POST['_variable_subscription_downloads_ids'][ $index ] ) ? wc_clean( wp_unslash( $_POST['_variable_subscription_downloads_ids'][ $index ] ) ) : array();
 
 		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
 			$subscriptions = explode( ',', $subscriptions );
 		}
 
-		$subscriptions = array_filter( $subscriptions );
+		$subscriptions = array_filter( $subscriptions ); // nosemgrep: audit.php.lang.misc.array-filter-no-callback -- $subscriptions are already passed through wc_clean() and wp_unslash().
 
 		$this->update_subscription_downloads( $variation_id, $subscriptions );
 	}

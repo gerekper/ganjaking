@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.5.2
- * @version     1.3.0
+ * @version     1.3.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -189,7 +189,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 			}
 
 			$column_content = apply_filters( 'wc_sc_view_orders_column_content', $column_content, array( 'coupon' => $coupon ) );
-			echo $column_content; // phpcs:ignore
+			echo wp_kses_post( $column_content );
 
 		}
 

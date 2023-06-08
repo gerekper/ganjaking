@@ -2,4 +2,4 @@
 
 if (!defined('ABSPATH')) exit;
 
- return array('dependencies' => array('wc-blocks-checkout', 'wc-settings', 'wp-element', 'wp-polyfill'), 'version' => '6e4f200b43e008bb5e28');
+ return array('dependencies' => array('wc-blocks-checkout', 'wc-settings', 'wp-element', 'wp-polyfill'), 'version' => 'e3c1a5e97a15e43edc4c');

@@ -105,7 +105,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			// check if international fulfillment is disabled and if this order is international.
 			$country          = new WC_Countries();
 			$base_country     = $country->get_base_country();
-			$shipping_country = get_post_meta( $order->get_id(), '_shipping_country', true );
+			$shipping_country = $order->get_shipping_country();
 
 			if ( $this->isset_on( $this->ns_fba->options['ns_fba_disable_international'] ) && $base_country !== $shipping_country ) {
 				$is_order_amazon_fulfill = false;
@@ -317,6 +317,19 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			}
 
 			return true;
+		}
+
+		/**
+		 * Checks if HPOS is enabled.
+		 * This can be used for custom HPOS functionality and compatibility checks.
+		 *
+		 * @return boolean
+		 */
+		public static function is_hpos() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+				return \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+			}
+			return false;
 		}
 
 	} // class.

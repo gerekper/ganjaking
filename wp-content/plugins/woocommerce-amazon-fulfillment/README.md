@@ -68,6 +68,9 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2023-05-29 - version 4.1.9
+* Added WooCommerce HPOS Support
+
 ### 2023-04-12 - version 4.1.8
 * Fix cron error when not fully loaded.
 

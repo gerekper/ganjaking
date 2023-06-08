@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.8.0
+ * @version     3.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1351,6 +1351,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						}
 					}
 				}
+
+				$order = wc_get_order( $order_id ); // Refresh order object to get latest updates in the order object.
 
 				if ( $flag && 'add' === $operation ) {
 					$combine_emails = $this->is_email_template_enabled( 'combine' );

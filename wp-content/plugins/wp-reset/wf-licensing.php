@@ -527,7 +527,12 @@ if (false === class_exists('WF_Licensing_WPR')) {
                 $out['error'] = 'Error querying licensing server. ' .  $result->get_error_message() . ' Please try again in a few moments.';
                 $this->update_license($out);
 
-                return false;
+                if(strlen($out['license_key'])>4 && !empty($license['valid_until'])){
+                    $this->update_license($license);
+                    return true;
+                } else {
+                    return false;
+                }
             } elseif (!is_array($result) || !isset($result['success'])) {
                 $out['error'] = 'Invalid response from licensing server. Please try again in a few moments.';
                 $this->update_license($out);

@@ -1,5 +1,14 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.06.02 - version 7.12.0
+* New: Tested up to WooCommerce 7.7.2
+* New: Show linked coupons to a product on the products listing page (dashboard)
+* Fix: Store credit amount is ignored when paying via 'WooCommerce PayPal Payments' plugin
+* Update: Removed directory 'woo-includes'
+* Update: Use Aelia Currency Switcher's conversion only when Aelia Currency Switcher plugin is active
+* Update: Escape values to be shown under the coupon dashboard column 'View order'
+* Update: POT file
+
 2023.05.24 - version 7.11.0
 * New: Tested up to WordPress 6.2.2
 * Fix: 'Coupons' field under product is breaking due to conflict with Yoast Pro for WooCommerce

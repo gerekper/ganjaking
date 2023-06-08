@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.17.0\n"
+"Project-Id-Version: MailPoet 4.18.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-29T12:20:50+00:00\n"
+"POT-Creation-Date: 2023-06-05T12:22:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -10699,7 +10699,7 @@ msgstr ""
 msgid "Select a MailPoet form"
 msgstr ""
 
-#: lib/PostEditorBlocks/WooCommerceBlocksIntegration.php:122
+#: lib/PostEditorBlocks/WooCommerceBlocksIntegration.php:121
 msgid "Subscribe to marketing opt-in."
 msgstr ""
 
@@ -11174,15 +11174,16 @@ msgid "Congrats! You’re progressing well so far. Complete your upgrade thanks 
 msgstr ""
 
 #: lib/Util/Notices/BlackFridayNotice.php:35
-msgid "Our Black Friday sale is live! Save 40% for a limited time."
+msgid "Get 40% off all MailPoet annual plans and upgrades – no coupon required."
 msgstr ""
 
 #: lib/Util/Notices/BlackFridayNotice.php:36
-msgid "Get a 40% discount on all MailPoet plans and upgrades until 3 PM UTC on 29 November. Terms & conditions apply."
+msgid "Offer ends at 2 pm UTC on Monday, June 19, 2023. Terms and conditions apply."
 msgstr ""
 
-#: lib/Util/Notices/BlackFridayNotice.php:38
-msgid "Shop Now"
+#. translators: a button on a sale banner. "Save" meaning to save money - 40% discount
+#: lib/Util/Notices/BlackFridayNotice.php:39
+msgid "Pick a plan and save"
 msgstr ""
 
 #: lib/Util/Notices/ChangedTrackingNotice.php:29

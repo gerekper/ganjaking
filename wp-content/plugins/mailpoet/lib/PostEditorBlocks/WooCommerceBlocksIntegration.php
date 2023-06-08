@@ -98,7 +98,6 @@ class WooCommerceBlocksIntegration {
       [
       'defaultText' => $this->settings->get('woocommerce.optin_on_checkout.message', ''),
       'optinEnabled' => $this->settings->get('woocommerce.optin_on_checkout.enabled', false),
-      'defaultStatus' => $this->woocommerceSubscription->isCurrentUserSubscribed(),
       ],
       $this->wp
     ));
@@ -132,7 +131,6 @@ class WooCommerceBlocksIntegration {
   }
 
   public function processCheckoutBlockOptin(\WC_Order $order, $request) {
-    $checkoutOptinEnabled = (bool)$this->settings->get(WooCommerceSubscription::OPTIN_ENABLED_SETTING_NAME);
     $checkoutOptin = isset($request['extensions']['mailpoet']['optin']) ? (bool)$request['extensions']['mailpoet']['optin'] : false;
 
     if (!$order->get_billing_email()) {
@@ -152,6 +150,6 @@ class WooCommerceBlocksIntegration {
       return null;
     }
 
-    $this->woocommerceSubscription->handleSubscriberOptin($subscriber, $checkoutOptinEnabled, $checkoutOptin);
+    $this->woocommerceSubscription->handleSubscriberOptin($subscriber, $checkoutOptin);
   }
 }

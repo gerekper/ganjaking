@@ -1,5 +1,8 @@
-*** WooCommerce Subscription Downloads ***	 		    	 
-    	    	  	     	 		   	 	    
+*** WooCommerce Subscription Downloads ***
+
+2023-05-29 - version 1.4.1
+* Dev - Fix phpcs and semgrep warnings to improve code quality.
+
 2023-03-07 - version 1.4.0
 * Add - Declare WooCommerce Subscription Downloads compatible with High-Performance Order Storage.
 * Dev - Improved code clarity in WC_Subscription_Downloads_Products class.

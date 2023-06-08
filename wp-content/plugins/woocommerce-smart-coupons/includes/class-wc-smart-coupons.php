@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.0.0
+ * @version     6.0.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -223,6 +223,11 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'class-wc-sc-coupon-refund-process.php';
 			include_once 'class-wc-sc-background-upgrade.php';
 			include_once 'blocks/class-wc-sc-gutenberg-coupon-block.php';
+
+			if ( is_admin() ) {
+				// Include file to show linked coupons on product screen.
+				include_once 'class-wc-sc-product-columns.php';
+			}
 
 		}
 
@@ -2146,6 +2151,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 				if ( $this->is_wc_greater_than( '3.1.2' ) ) {
 					$cart->set_total( $total );
+					$cart->set_session();
 				} else {
 					$cart->total = $total;
 				}
@@ -6040,10 +6046,16 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @return float
 		 */
 		public function convert_price( $price = 0, $to_currency = null, $from_currency = null ) {
-			if ( ! class_exists( 'WC_SC_Aelia_CS_Compatibility' ) ) {
-				include_once 'compat/class-wc-sc-aelia-cs-compatibility.php';
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
 			}
-			return WC_SC_Aelia_CS_Compatibility::get_instance()->convert_price( $price, $to_currency, $from_currency );
+			if ( is_plugin_active( 'woocommerce-aelia-currencyswitcher/woocommerce-aelia-currencyswitcher.php' ) ) {
+				if ( ! class_exists( 'WC_SC_Aelia_CS_Compatibility' ) ) {
+					include_once 'compat/class-wc-sc-aelia-cs-compatibility.php';
+				}
+				return WC_SC_Aelia_CS_Compatibility::get_instance()->convert_price( $price, $to_currency, $from_currency );
+			}
+			return $price;
 		}
 
 		/**

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.8
+ * Version: 4.1.9
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
@@ -71,7 +71,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.8';
+			public $version = '4.1.9';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -302,6 +302,8 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 
 				add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 				add_action( 'init', array( $this, 'init_test_upgrade' ) );
+
+				add_action( 'before_woocommerce_init', array( $this, 'init_woocommerce' ) );
 			}
 
 			/**
@@ -388,7 +390,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					add_action(
 						'woocommerce_order_action_ns_fba_check_tracking',
 						function( $order ) {
-							if ( empty( get_post_meta( $order->get_id(), '_sent_to_fba', true ) ) ) {
+							if ( empty( $order->get_meta( '_sent_to_fba' ) ) ) {
 								wp_die( esc_html__( 'This order has not been sent to Amazon for fulfillment.', 'ns-fba-for-woocommerce' ) );
 							}
 							ob_start();
@@ -427,6 +429,17 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					$temp_upgrader = new WP_Upgrader();
 					$temp_options  = array();
 					$this->wc_integration->after_upgrade_plugin( $temp_upgrader, $temp_options );
+				}
+			}
+
+			/**
+			 * Initialize the HPOS compatibility.
+			 *
+			 * @return void
+			 */
+			public function init_woocommerce() {
+				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 				}
 			}
 

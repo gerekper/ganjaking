@@ -3,12 +3,12 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 6.11
+  Version: 6.12
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
 
-  Copyright 2015 - 2022  Web factory Ltd  (email: wpreset@webfactoryltd.com)
+  Copyright 2015 - 2023  Web factory Ltd  (email: wpreset@webfactoryltd.com)
 
   This program is NOT free software.
 
@@ -46,7 +46,7 @@ class WP_Reset
 {
     protected static $instance = null;
     public $version = 0;
-    public $er_version = 1.36;
+    public $er_version = 1.37;
     public $plugin_url = '';
     public $plugin_dir = '';
     public $licensing_servers = array('https://dashboard.wpreset.com/api/');
@@ -417,7 +417,7 @@ class WP_Reset
 
         $res = $this->add_plugin_featured('eps-301-redirects', $res);
         $res = $this->add_plugin_featured('wp-force-ssl', $res);
-        
+
         return $res;
     } // plugins_api_result
 
@@ -809,7 +809,7 @@ class WP_Reset
                 $js_localize['space_usage_total'] = WP_Reset_Utility::format_size($js_localize['space_usage_total']);
             }
 
-            
+
         }
 
         if ($this->is_plugin_page()) {
@@ -4651,7 +4651,7 @@ class WP_Reset
             $orphaned_snapshots[$current_id][] = $table[0];
         } // foreach
 
-        
+
 
         if ($space_usage_total / 1000000 > $options['snapshots_size_alert']) {
             echo '<div class="card">';
@@ -4667,7 +4667,7 @@ class WP_Reset
             echo '</div>';
             echo '</div>';
         }
-        
+
         echo '<div class="card">';
         echo '<span>' . $this->get_card_header('WP Reset Resource Usage', 'snapshots-user', array('collapse_button' => true, 'create_snapshot' => false, 'snapshot_actions' => false)) . '</span>';
         echo '<div class="card-body">';
@@ -4677,7 +4677,7 @@ class WP_Reset
         echo ' - Automatic snapshots take up ' . WP_Reset_Utility::format_size($space_usage_auto) . '<br />';
         echo '<p>If there are snapshots that you don\'t need right away but still want to keep them, you can download them to your computer or upload them to cloud and then delete them from your website.
         For automatic snapshots you can also enable the "Automatically delete automatic snapshots" option in the <a class="change-tab" data-tab="4" href="#snapshot-options-group">Settings</a> tab to limit the space used up by automatic snapshots.</p>';
-        
+
         echo '<hr />';
 
         if (!empty($orphaned_snapshots)) {
@@ -4695,18 +4695,18 @@ class WP_Reset
             echo '<hr />';
         }
 
-        
-        
+
+
         $autosnapshot_size = $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-autosnapshots');
         $snapshot_size = $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-snapshots-export');
-        
+
         echo 'Total Disk space used by temporary files such as snapshot download ZIP files is <strong>' . WP_Reset_Utility::format_size($autosnapshot_size + $snapshot_size) . '</strong>';
         echo '<br /><br />';
         echo '<p><a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce('wpr_delete_temporary_files'), 'action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary files</a></p>';
         echo '</p>';
         echo '</div>';
         echo '</div>';
-        
+
 
         echo '<div class="card" id="card-snapshots">';
         echo $this->get_card_header('Snapshots', 'snapshots-info', array('collapse_button' => true, 'documentation_link' => true));
@@ -4747,7 +4747,7 @@ class WP_Reset
         echo '</div>';
         echo '</div>'; // snapshots desc
 
-        
+
 
 
         echo '<div class="card">';
@@ -4788,7 +4788,7 @@ class WP_Reset
         echo '<tr><th></th><th class="ss-date">Date</th><th>Description</th><th class="ss-size">Size</th><th class="ss-actions">';
         echo '<div class="dropdown">
         <a class="button dropdown-toggle" href="#">Actions</a>
-        <div class="dropdown-menu">        
+        <div class="dropdown-menu">
         <a title="Delete all auto snapshots" data-snapshots="auto" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All Automatic Snapshots', 'wp-reset') . '</a>
         <a title="Delete selected auto snapshots" data-snapshots=selected_auto href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected auto snapshots" data-text-wait="Deleting selected automatic snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected Automatic Snapshots', 'wp-reset') . '</a>';
 

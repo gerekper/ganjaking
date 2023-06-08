@@ -27,27 +27,29 @@ class Column {
       !empty($params['width']) &&
       (strlen($params['width']) > 0 && ctype_digit(substr($params['width'], 0, 1)))
     ) {
-      $widthValue = $this->wp->escAttr($params['width']) . (is_numeric($params['width']) ? '%' : '');
+      $widthValue = $params['width'] . (is_numeric($params['width']) ? '%' : '');
       $styles[] = "flex-basis:{$widthValue}";
     }
     if (!empty($params['padding']) && is_array($params['padding'])) {
-      $styles[] = $this->wp->escAttr(
-        "padding:{$params['padding']['top']} {$params['padding']['right']} {$params['padding']['bottom']} {$params['padding']['left']}"
-      );
+      $top = $params['padding']['top'] ?? 0;
+      $right = $params['padding']['right'] ?? 0;
+      $bottom = $params['padding']['bottom'] ?? 0;
+      $left = $params['padding']['left'] ?? 0;
+      $styles[] = "padding:{$top} {$right} {$bottom} {$left};";
     }
-    if (isset($params['text_color'])) {
+    if (!empty($params['text_color'])) {
       $styles[] = "color:{$params['text_color']};";
     }
     if (!empty($params['background_color'])) {
       $styles[] = "background-color:{$params['background_color']};";
     }
-    if (isset($params['gradient'])) {
+    if (!empty($params['gradient'])) {
       $styles[] = "background:{$params['gradient']};";
     }
     if (!count($styles)) {
       return '';
     }
-    return ' style="' . implode(';', $styles) . ';"';
+    return ' style="' . $this->wp->escAttr(implode(';', $styles)) . ';"';
   }
 
   private function getClass(array $params): string {

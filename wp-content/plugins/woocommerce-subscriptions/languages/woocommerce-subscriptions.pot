@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the WooCommerce Subscriptions plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscriptions 5.1.2\n"
+"Project-Id-Version: WooCommerce Subscriptions 5.1.3\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/contact-us\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-11T06:36:38+00:00\n"
+"POT-Creation-Date: 2023-06-05T04:39:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.0\n"
 "X-Domain: woocommerce-subscriptions\n"
 
 #. Plugin Name of the plugin
@@ -1869,46 +1869,6 @@ msgstr ""
 
 #: templates/html-early-renewal-modal-content.php:34
 msgid "Want to renew early via the checkout? Click %shere.%s"
-msgstr ""
-
-#: tests/unit/scheduler/scheduler.php:65
-#: vendor/woocommerce/subscriptions-core/wcs-functions.php:291
-msgctxt "table heading"
-msgid "Start Date"
-msgstr ""
-
-#: tests/unit/scheduler/scheduler.php:66
-#: vendor/woocommerce/subscriptions-core/wcs-functions.php:292
-msgctxt "table heading"
-msgid "Trial End"
-msgstr ""
-
-#: tests/unit/scheduler/scheduler.php:67
-#: vendor/woocommerce/subscriptions-core/templates/myaccount/my-subscriptions.php:40
-#: vendor/woocommerce/subscriptions-core/wcs-functions.php:293
-msgctxt "table heading"
-msgid "Next Payment"
-msgstr ""
-
-#: tests/unit/scheduler/scheduler.php:68
-#: vendor/woocommerce/subscriptions-core/templates/emails/cancelled-subscription.php:23
-#: vendor/woocommerce/subscriptions-core/templates/emails/expired-subscription.php:23
-#: vendor/woocommerce/subscriptions-core/templates/emails/on-hold-subscription.php:23
-#: vendor/woocommerce/subscriptions-core/wcs-functions.php:294
-msgctxt "table heading"
-msgid "Last Order Date"
-msgstr ""
-
-#: tests/unit/scheduler/scheduler.php:69
-#: vendor/woocommerce/subscriptions-core/wcs-functions.php:295
-msgctxt "table heading"
-msgid "Cancelled Date"
-msgstr ""
-
-#: tests/unit/scheduler/scheduler.php:70
-#: vendor/woocommerce/subscriptions-core/wcs-functions.php:296
-msgctxt "table heading"
-msgid "End Date"
 msgstr ""
 
 #. translators: 1: relation type, 2: list of valid relation types.
@@ -4179,7 +4139,7 @@ msgctxt "Used in WooCommerce by removed item notification: \"_All linked subscri
 msgid "All linked subscription items were"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/class-wcs-cart-renewal.php:1522
+#: vendor/woocommerce/subscriptions-core/includes/class-wcs-cart-renewal.php:1526
 msgctxt "The place order button text while renewing a subscription"
 msgid "Renew subscription"
 msgstr ""
@@ -6368,6 +6328,14 @@ msgctxt "table headings in notification email"
 msgid "Price"
 msgstr ""
 
+#: vendor/woocommerce/subscriptions-core/templates/emails/cancelled-subscription.php:23
+#: vendor/woocommerce/subscriptions-core/templates/emails/expired-subscription.php:23
+#: vendor/woocommerce/subscriptions-core/templates/emails/on-hold-subscription.php:23
+#: vendor/woocommerce/subscriptions-core/wcs-functions.php:294
+msgctxt "table heading"
+msgid "Last Order Date"
+msgstr ""
+
 #: vendor/woocommerce/subscriptions-core/templates/emails/cancelled-subscription.php:24
 msgctxt "table headings in notification email"
 msgid "End of Prepaid Term"
@@ -6650,6 +6618,12 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
+#: vendor/woocommerce/subscriptions-core/templates/myaccount/my-subscriptions.php:40
+#: vendor/woocommerce/subscriptions-core/wcs-functions.php:293
+msgctxt "table heading"
+msgid "Next Payment"
+msgstr ""
+
 #: vendor/woocommerce/subscriptions-core/templates/myaccount/my-subscriptions.php:46
 #: vendor/woocommerce/subscriptions-core/templates/myaccount/related-orders.php:53
 #: vendor/woocommerce/subscriptions-core/templates/myaccount/related-subscriptions.php:42
@@ -6827,6 +6801,26 @@ msgstr ""
 
 #: vendor/woocommerce/subscriptions-core/wcs-functions.php:265
 msgid "Can not get address type display name. Address type is not a string."
+msgstr ""
+
+#: vendor/woocommerce/subscriptions-core/wcs-functions.php:291
+msgctxt "table heading"
+msgid "Start Date"
+msgstr ""
+
+#: vendor/woocommerce/subscriptions-core/wcs-functions.php:292
+msgctxt "table heading"
+msgid "Trial End"
+msgstr ""
+
+#: vendor/woocommerce/subscriptions-core/wcs-functions.php:295
+msgctxt "table heading"
+msgid "Cancelled Date"
+msgstr ""
+
+#: vendor/woocommerce/subscriptions-core/wcs-functions.php:296
+msgctxt "table heading"
+msgid "End Date"
 msgstr ""
 
 #: vendor/woocommerce/subscriptions-core/wcs-functions.php:331

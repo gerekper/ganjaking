@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Smart Coupons
  * Plugin URI: https://woocommerce.com/products/smart-coupons/
  * Description: <strong>WooCommerce Smart Coupons</strong> lets customers buy gift certificates, store credits or coupons easily. They can use purchased credits themselves or gift to someone else.
- * Version: 7.11.0
+ * Version: 7.12.0
  * Author: StoreApps
  * Author URI: https://www.storeapps.org/
  * Developer: StoreApps
@@ -11,7 +11,7 @@
  * Requires at least: 4.4
  * Tested up to: 6.2.2
  * WC requires at least: 3.0.0
- * WC tested up to: 7.7.0
+ * WC tested up to: 7.7.2
  * Text Domain: woocommerce-smart-coupons
  * Domain Path: /languages
  * Woo: 18729:05c45f2aa466106a466de4402fff9dde
@@ -21,18 +21,6 @@
  *
  * @package woocommerce-smart-coupons
  */
-
-/**
- * Required functions
- */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once 'woo-includes/woo-functions.php';
-}
-
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), '05c45f2aa466106a466de4402fff9dde', '18729' );
 
 /**
  * Include class having function to execute during activation & deactivation of plugin
@@ -49,7 +37,13 @@ register_activation_hook( __FILE__, array( 'WC_SC_Act_Deact', 'smart_coupon_acti
  */
 register_deactivation_hook( __FILE__, array( 'WC_SC_Act_Deact', 'smart_coupon_deactivate' ) );
 
-if ( is_woocommerce_active() ) {
+$active_plugins = (array) get_option( 'active_plugins', array() );
+
+if ( is_multisite() ) {
+	$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
+}
+
+if ( in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins ) ) {
 
 	if ( ! defined( 'WC_SC_PLUGIN_FILE' ) ) {
 		define( 'WC_SC_PLUGIN_FILE', __FILE__ );

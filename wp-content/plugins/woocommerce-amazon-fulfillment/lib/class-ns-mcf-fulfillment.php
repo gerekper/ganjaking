@@ -346,7 +346,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 				// Amazon shipping notification list.
 				$notify = array();
-				if ( get_post_meta( $order_id, '_billing_email', true ) && ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_disable_shipping_email'] ) ) {
+				if ( $order->get_billing_email() && ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_disable_shipping_email'] ) ) {
 					$notify = array( $order_data['billing']['email'] );
 				}
 				// Add the admin email.
@@ -441,9 +441,11 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 					$order->add_order_note( '<a href="' . $this->ns_fba->log_url . '" target="_blank">' . __( 'Successfully submitted order to FBA', $this->ns_fba->text_domain ) . '</a> (' . __( 'click for full log', $this->ns_fba->text_domain ) . ').' );
 
-					update_post_meta( $order_id, '_sent_to_fba', gmdate( 'm-d-Y H:i:s', time() ) );
+					$order->update_meta_data( '_sent_to_fba', gmdate( 'm-d-Y H:i:s', time() ) );
 
 					$this->write_debug_log( $log_tag, '_sent_to_fba has been updated' );
+
+					$order->save();
 
 					return $order_id;
 
@@ -654,12 +656,13 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 			$this->write_debug_log( 'DEBUG', 'Starting to sync fulfillment order status' );
 
-			$orders = get_posts(
+			$orders = wc_get_orders(
 				array(
 					'numberposts' => 20,
 					'order'       => 'ASC',
+					'return'      => 'ids',
 					'post_type'   => wc_get_order_types(),
-					'post_status' => array( 'wc-sent-to-fba', 'wc-part-to-fba' ),
+					'status'      => array( 'wc-sent-to-fba', 'wc-part-to-fba' ),
 				)
 			);
 
@@ -670,14 +673,13 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 			$this->ns_fba->logger->add_entry( 'sync_fulfillment_order_status', 'wc', '_order_sync' );
 			$this->ns_fba->logger->add_entry( $orders, 'wc', '_order_sync' );
 
-			foreach ( $orders as $f_order ) {
-				$order = wc_get_order( $f_order->ID );
+			foreach ( $orders as $order_id ) {
+				$order = wc_get_order( $order_id );
 				if ( ! $order ) {
-					$this->ns_fba->logger->add_entry( 'Invalid order ' . $f_order->ID, 'wc', '_order_sync' );
+					$this->ns_fba->logger->add_entry( 'Invalid order ' . $order_id, 'wc', '_order_sync' );
 					continue;
 				}
 
-				$order_id     = $f_order->ID;
 				$order_number = $this->ns_fba->options['ns_fba_order_prefix'] . $order->get_order_number();
 
 				$log_tag = 'Order ' . $order_id;
@@ -690,10 +692,14 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					$this->write_debug_log( $log_tag, 'Getting fulfillment order' );
 
 					$fulfillment_response = $this->get_fulfillment_order( $order_id );
+					if ( ! $fulfillment_response || SP_API::is_error_in( $fulfillment_response ) ) {
+						$this->write_debug_log( $log_tag, 'Response is not readable' );
+						continue;
+					}
 					$fulfillment_json     = json_decode( $fulfillment_response['body'], true );
 					$fulfillment_status   = $fulfillment_json['payload']['fulfillmentOrder']['fulfillmentOrderStatus'];
 
-					if ( ! $fulfillment_response || empty( $fulfillment_status ) ) {
+					if ( empty( $fulfillment_status ) ) {
 						$this->write_debug_log( $log_tag, 'Response is not readable' );
 						continue;
 					}
@@ -703,26 +709,28 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					// update the order status based on the FBA status returned.
 					switch ( $fulfillment_status ) {
 						case 'Cancelled':
-							$this->set_order_status_safe( $order_id, 'cancelled' );
+							$this->set_order_status_safe( $order, 'cancelled' );
 							$order->add_order_note( 'Synced fulfillment status with FBA and found CANCELLED. Updated order status from Sent to FBA to Cancelled.' );
 							break;
 						case 'Complete':
-							$this->set_order_status_safe( $order_id, 'completed' );
+							$this->set_order_status_safe( $order, 'completed' );
 							$order->add_order_note( 'Synced fulfillment status with FBA and found COMPLETE. Updated order status from Sent to FBA to Completed.' );
 							break;
 						case 'CompletePartialled':
-							$this->set_order_status_safe( $order_id, 'completed' );
+							$this->set_order_status_safe( $order, 'completed' );
 							$order->add_order_note( 'Synced fulfillment status with FBA and found COMPLETE_PARTIALLED. Updated order status from Sent to FBA to Completed.' );
 							break;
 					}
 				} catch ( Exception $ex ) {
 					$this->write_debug_log( $log_tag, $ex->getMessage() );
 
-					echo esc_html( $order_number . '	' . $f_order->post_type . '	' . $f_order->post_status . ' FBA status err: ' . $ex->getMessage() . '<br />' );
+					echo esc_html( $order_number . '	' . ' FBA status err: ' . $ex->getMessage() . '<br />' );
 
 					$order_note = '<a href="' . $this->ns_fba->err_log_url . '" target="_blank">' . __( 'Failed to sync order status from FBA', $this->ns_fba->text_domain ) . '</a> (' . __( 'click for full log', $this->ns_fba->text_domain ) . '). <b>' . __( 'Error Message:', $this->ns_fba->text_domain ) . '</b><br /><span style="color:red;">' . $ex->getMessage() . '</span>';
 					$order->add_order_note( $order_note );
 				}
+
+				$order->save();
 			}
 
 			if ( $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_sync_ship_retry'] ) ) {
@@ -730,30 +738,31 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				$this->write_debug_log( 'DEBUG', 'Trying to resend orders' );
 
 				// We should consider a direct query to avoid loading all data.
-				$failed_orders = get_posts(
+				$failed_orders = wc_get_orders(
 					array(
-						'numberposts' => 20,
-						'order'       => 'ASC',
-						'post_type'   => wc_get_order_types(),
-						'post_status' => array( 'wc-fail-to-fba' ),
-						'meta_query'  => array(
-							array(
-								'key'     => 'ns_fba_retried',
-								'compare' => 'NOT EXISTS',
-							),
-						),
+						'numberposts'  => 20,
+						'order'        => 'ASC',
+						'return'       => 'ids',
+						'post_type'    => wc_get_order_types(),
+						'status'       => array( 'wc-fail-to-fba' ),
+						'meta_key'     => 'ns_fba_retried',
+						'meta_compare' => 'NOT EXISTS',
 					)
 				);
-				foreach ( $failed_orders as $f_order ) {
-					$order_id = $f_order->ID;
 
-					if ( ! get_post_meta( $order_id, 'ns_fba_retried', true ) ) {
+				foreach ( $failed_orders as $order_id ) {
+
+					$order = wc_get_order( $order_id );
+					if ( ! $order ) {
+						continue;
+					}
+
+					if ( ! $order->get_meta( 'ns_fba_retried' ) ) {
 
 						$this->write_debug_log( 'Order ' . $order_id, 'Trying to resend order' );
-
-						$order = wc_get_order( $f_order->ID );
-						add_post_meta( $order_id, 'ns_fba_retried', time() );
+						$order->add_meta_data( 'ns_fba_retried', time() );
 						$order->add_order_note( 'Retrying to submit order to Amazon' );
+						$order->save();
 						$this->post_fulfillment_order( $order );
 					}
 				}
@@ -763,11 +772,20 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		/**
 		 * Set the order status.
 		 *
-		 * @param int    $order_id The order id.
-		 * @param string $status The order status.
+		 * @param int|object $order_id The order id or the order obect.
+		 * @param string     $status The order status.
 		 */
 		private function set_order_status_safe( $order_id, $status ) {
-			$order  = wc_get_order( $order_id );
+			if ( is_int( $order_id ) ) {
+				$order  = wc_get_order( $order_id );
+			} else {
+				$order  = $order_id;
+			}
+
+			if ( ! $order ) {
+				return;
+			}
+			
 			$status = apply_filters( 'ns_fba_order_status', $status, $order_id );
 			$order->update_status( $status, 'WooCommerce Amazon Fulfillment: ', true );
 		}

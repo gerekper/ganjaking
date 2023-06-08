@@ -1,3 +1,6 @@
+### 2.7.7.1
+- Fixed a bug that prevented dynamic population from working in the block settings.
+
 ### 2.7.7 | 2023-05-25
 - Added the ability to display error messages for Drop Downs and Textareas on form editor's field settings panel.
 - Fixed a bug that prevented HTML tags from using theme styles in the Orbital theme.

@@ -412,7 +412,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			} else {
 				// Clear any schedules that might have previously been configured.
 				// But ONLY if we're still coming from the Settings Page postback which will always have service url.
-				if ( ! empty( $_POST['woocommerce_fba_ns_fba_service_url'] ) ) {
+				if ( ! empty( $_POST['woocommerce_fba_ns_fba_service_url'] ) && function_exists( 'as_unschedule_all_actions' ) ) {
 					as_unschedule_all_actions( 'sp_api_sync_inventory' );
 				}
 

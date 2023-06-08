@@ -147,24 +147,33 @@ class WC_Subscription_Downloads_Order {
 			$html .= '****************************************************';
 			$html .= PHP_EOL . PHP_EOL;
 
-			echo $html;
+			echo esc_html( wp_strip_all_tags( $html ) );
 
 		} elseif ( $downloads && ! $plain_text ) {
-			$html = '<h2>' . apply_filters( 'woocommerce_subscription_downloads_my_downloads_title', __( 'Available downloads', 'woocommerce-subscription-downloads' ) ) . '</h2>';
+			$html = '<h2>' . esc_html( apply_filters( 'woocommerce_subscription_downloads_my_downloads_title', __( 'Available downloads', 'woocommerce-subscription-downloads' ) ) ) . '</h2>';
 
 			$html .= '<table cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top;" border="0">';
 				$html .= '<tr>';
 					$html .= '<td valign="top">';
 						$html .= '<ul class="digital-downloads">';
 			foreach ( $downloads as $download ) {
-				$html .= sprintf( '<li><a href="%1$s" title="%2$s" target="_blank">%2$s</a></li>', $download['download_url'], $download['name'] );
+				$html .= sprintf( '<li><a href="%1$s" title="%2$s" target="_blank">%2$s</a></li>', esc_url( $download['download_url'] ), esc_html( $download['name'] ) );
 			}
 						$html .= '</ul>';
 					$html .= '</td>';
 				$html .= '</tr>';
 			$html .= '</table>';
 
-			echo $html;
+			/**
+			 * The following HTML output consists of both static content and variable elements.
+			 * The variable elements, such as user-generated content or database values, are properly escaped to prevent security vulnerabilities.
+			 *
+			 * If this HTML is ever exposed externally via a filter or if more variable elements are added, additional security measures should be taken into account.
+			 * Consider using the necessary escaping functions/methods to ensure the continued safety of the output.
+			 *
+			 * Note: The warning 'WordPress.Security.EscapeOutput.OutputNotEscaped' has been suppressed intentionally, but ensure that the code adheres to the required security standards.
+			 */
+			echo $html; // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 
