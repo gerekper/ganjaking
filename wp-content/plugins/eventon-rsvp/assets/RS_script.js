@@ -1,61 +1,170 @@
 /**
  * Javascript: RSVP Events Calendar
- * @version  2.6.5
+ * @version  2.8.3
  */
 jQuery(document).ready(function($){
 	
-	init();	
 
 	var JDATA = {};	
 	var submit_open = false;
 	
-	// INITIATE script
-		function init(){		
-			$('body').on('click','.evoRS_status_option_selection span',function(){
-				show_rsvp_form( $(this), $(this).attr('data-val'), 'submit');
-			});
-		}
 
 	// load JSON DATA for event's rsvp into local object
 		function load_json_to_local(O){
 			JDATA = O.closest('.evo_metarow_rsvp').find('.evors_jdata').data('j');
 		}	
-	
-	// RSVP form interactions
-		// change RSVP status within the form
-			$('body').on('click', 'span.evors_choices', function(){
-				OBJ = $(this);
 
-				VAL = OBJ.attr('data-val');
-				SUBMISSION_FORM = OBJ.closest('form.evors_submission_form');
-				SUBMISSION_FORM.attr('class','evors_submission_form  rsvp_'+VAL);
-				OBJ.siblings().removeClass('set');
-				OBJ.addClass('set');
+	// RSVP form function 
+	$.fn.evors_form = function (opt){
+		var form = this;
+		const form_holder = form.closest('.evors_forms');
 
-				OBJ.siblings('input').val( VAL );
+		var formtype = form.find('input[name=formtype]').val();
 
-			});
-		// close RSVP form from incard close button
-			$('body').on('click','.evors_incard_close',function(){
-				PAR = $(this).parent();
-				PAR.slideUp(function(){
-					PAR.html('');
+		works = {
+			reset_notifications: function(elm){
+				$('.evors_lightbox_body').removeClass('error');
+				$( elm ).removeClass('err');
+				$('.evors_lightbox_body').find('.notification').hide();
+			},
+			interaction: function(){
+				// capacity check 
+				form.on('change','input[name="count"]', function(){
+					O = $(this);
+			
+					// reset
+					works.reset_notifications( $(this) );
+					
+					CAP = JDATA.cap;
+					PERCAP = JDATA.precap;
+					form = O.closest('.evors_submission_form');
+
+					VAL = parseInt(O.val());
+					passedVAL = parseInt(O.data('passed'));
+
+					ERROR = false;
+
+
+					// change RSVP form
+					if( formtype == 'update'){
+						// no space left but waitlist
+						if(CAP == 'wl' && VAL> passedVAL){
+							$(this).addClass('err');
+							works.show_msg('err9'); 
+							ERROR = true;
+						}
+
+						changeVAL =  VAL - passedVAL;
+
+						// increasing count
+						if(CAP != 'wl' && changeVAL>0 && changeVAL> parseInt(CAP) ){
+							$(this).addClass('err');
+							works.show_msg('err9'); 
+							ERROR = true;
+						}
+					}else{
+						// check avialable space vs party size
+							if(VAL > parseInt(CAP) && CAP!= 'na'){
+								$(this).addClass('err');
+								works.show_msg('err9'); 
+								ERROR = true;
+							}
+						// check per each rsvp capacity vs party size
+							if(VAL > parseInt(PERCAP) && PERCAP!= 'na'){
+								$(this).addClass('err');
+								works.show_msg('err10'); 
+								ERROR = true;
+							}
+					}						
+
+					// if valid capacity add additional guests
+					if(!ERROR){					
+
+						guestNames = form.find('.form_guest_names');
+						if(VAL>1){
+							
+							maskField = '<input class="regular input" name="names[]" type="text">';			
+							inputHolder = guestNames.find('.form_guest_names_list');
+							ExistInputCount = inputHolder.find('input').length;
+							
+							// add or remove input fields
+							if( (VAL-1) > ExistInputCount){ // add
+								fieldsNeed = VAL-1-ExistInputCount;
+								appender ='';
+								for(x=0; x<fieldsNeed; x++){
+									appender += maskField;
+								}
+								inputHolder.append(appender);
+							}else{
+								fieldsNeed = VAL-2;
+								inputHolder.find('input').each(function(index){
+									if(index> fieldsNeed) $(this).remove();
+								});
+							}
+							guestNames.show();
+						}else{
+							guestNames.hide();
+						}
+					}
 				});
-				// reset any selected RSVP choices
-				$(this).closest('.evo_metarow_rsvp').find('.evors_choices').removeClass('set');
-			});
 
-		// checkbox field
-			$('body').on('click', '.evors_checkbox_field', function(){
-				O = $(this);
-				if(O.hasClass('checked')){
-					O.removeClass('checked');
-					O.siblings('input').val('no');
-				}else{
-					O.addClass('checked');
-					O.siblings('input').val('yes');
-				}
-			});
+				// change RSVP status within the form
+				form.on('click', 'span.evors_choices', function(){
+					OBJ = $(this);
+
+					VAL = OBJ.attr('data-val');
+					form.attr('class','evors_gen_form evors_submission_form  rsvp_'+VAL);
+					OBJ.siblings().removeClass('set');
+					OBJ.addClass('set');
+
+					OBJ.siblings('input').val( VAL );
+				});
+
+				// close RSVP form from incard close button
+				form.on('click','.evors_incard_close',function(){
+					$(this).closest('.evors_incard_form').hide();
+					// reset any selected RSVP choices
+					$(this).closest('.evo_metarow_rsvp').find('.evors_choices').removeClass('set');
+				});
+				// checkbox field
+				form.on('click', '.evors_checkbox_field', function(){
+					O = $(this);
+					if(O.hasClass('checked')){
+						O.removeClass('checked');	O.siblings('input').val('no');
+					}else{
+						O.addClass('checked');	O.siblings('input').val('yes');
+					}
+				});
+			},
+
+			// show form message
+			show_msg: function (code, type, message){
+				
+				if(message == '' || message === undefined){
+					var C = form_holder.find('.evors_msg_').data('j');
+					var classN = (type== undefined || type=='error' || type == '')? 'err':type;
+					message = C.codes[code]
+				}				
+				form_holder.find('.notification').addClass(classN).show().find('p').html(message);
+				form_holder.parent().addClass('error');
+				form.addClass('error');
+			}
+		}
+
+		works.interaction();
+	}
+	
+
+	// open RSVP form from anywhere @since 2.8.3
+		$('body').on('click','.evors_trig_open_rsvp_form', function(event){
+			event.preventDefault();
+			event.stopPropagation();
+
+			show_rsvp_form( $(this), $(this).attr('data-val'), 'submit');
+		});
+		$('body').on('click','.evoRS_status_option_selection span',function(){
+			show_rsvp_form( $(this), $(this).attr('data-val'), 'submit');
+		});
 		
 	// RSVP from eventtop
 		$('body').on('click', '.evors_rsvpiable span.evors_choices', function(event){
@@ -128,25 +237,35 @@ jQuery(document).ready(function($){
 			
 			// validation
 				// run through each rsvp field
-					form.find('.input').each(function(index){
-						iO = $(this);
-
-						$(this).removeClass('err');
+					form.find('.form_row.req').each(function(index){
 						
-						// required checkbox field
-						if( iO.hasClass('req') && iO.hasClass('checkbox') && iO.val()=='no'){
-							error = 1;
-							iO.siblings('em').addClass('err');
-						}
+						const row = $(this);
+						row.removeClass('err');
 
-						// check required fields filled
-						if( iO.hasClass('req') && iO.val()=='' && iO.is(":visible")){
-							error = 1;
-							iO.addClass('err');
-						}						
+						iO = $(this).find('input');
 
-						if( $(this).val() == '' ) return true;
-						//ajaxdataa[ $(this).attr('name') ] = encodeURIComponent( $(this).val() );					
+						if( iO.length < 1) return;
+						
+						$.each(iO, function(){
+							ioo = $(this);
+
+							// required checkbox field
+							if( ioo.hasClass('checkbox') && ioo.val()=='no'){
+								error = 1;
+								row.addClass('err');
+							}
+
+							// check required fields filled
+							if( ioo.val()=='' && ioo.is(":visible")){
+								error = 1;
+								row.addClass('err');
+							}						
+
+							if( $(this).val() == '' ) return true;
+
+						});
+
+										
 					});
 
 				// validate email
@@ -198,6 +317,7 @@ jQuery(document).ready(function($){
 			// if form type is wl-remove
 				if(formType == 'wl-remove') error = 0;			
 				
+			// if no errors proceed
 			if(error==0){
 				var updates = form.find('.updates input').attr('checked');
 					updates = (updates=='checked')? 'yes':'no';
@@ -243,8 +363,16 @@ jQuery(document).ready(function($){
 							// update Event Card
 								if(data.e_id){					
 									if(data.data_content_eventcard != ''){
+										const incard_form_html = EVENTCARD.find('.evors_incard_form').html();
+
 										EVENTCARD.find('.evors_eventcard_content').html( data.data_content_eventcard);
 										lb_eventcard.find('.evors_eventcard_content').html( data.data_content_eventcard);
+
+										// update incard rsvp form @since 2.8.4
+										if( EVENTCARD.find('.evors_incard_form').is(":visible") ){
+											EVENTCARD.find('.evors_incard_form').html( incard_form_html ).show();
+										} 
+											
 									}
 								}
 							// update event manager stuff
@@ -278,92 +406,6 @@ jQuery(document).ready(function($){
 			}else if(error==1){	rsvp_error('err','','',form);	}	
 		});
 	
-	// capacity check real-time
-		$('body').on('change','input.evors_rsvp_count',function(){	
-			O = $(this);
-			
-			// reset
-				$('.evors_lightbox_body').removeClass('error');
-				$(this).removeClass('err');
-				rsvp_hide_notifications();
-
-			// get form type
-				FORM = O.closest('form');
-				formtype = FORM.find('input[name=formtype]').val();
-
-			
-			CAP = JDATA.cap;
-			PERCAP = JDATA.precap;
-			FORM = O.closest('.evors_submission_form');
-
-			VAL = parseInt(O.val());
-			passedVAL = parseInt(O.data('passed'));
-
-			ERROR = false;
-
-
-			// change RSVP form
-			if( formtype == 'update'){
-				// no space left but waitlist
-				if(CAP == 'wl' && VAL> passedVAL){
-					$(this).addClass('err');
-					rsvp_error('err9','','',FORM); 
-					ERROR = true;
-				}
-
-				changeVAL =  VAL - passedVAL;
-
-				// increasing count
-				if(CAP != 'wl' && changeVAL>0 && changeVAL> parseInt(CAP) ){
-					$(this).addClass('err');
-					rsvp_error('err9','','',FORM); 
-					ERROR = true;
-				}
-			}else{
-				// check avialable space vs party size
-					if(VAL > parseInt(CAP) && CAP!= 'na'){
-						$(this).addClass('err');
-						rsvp_error('err9','','',FORM); 
-						ERROR = true;
-					}
-				// check per each rsvp capacity vs party size
-					if(VAL > parseInt(PERCAP) && PERCAP!= 'na'){
-						$(this).addClass('err');
-						rsvp_error('err10','','',FORM); 
-						ERROR = true;
-					}
-			}						
-
-			if(!ERROR){
-			// if valid capacity add additional guests
-				guestNames = O.closest('.evors_submission_form').find('.form_guest_names');
-				if(VAL>1){
-					
-					maskField = '<input class="regular input" name="names[]" type="text">';			
-					inputHolder = guestNames.find('.form_guest_names_list');
-					ExistInputCount = inputHolder.find('input').length;
-					
-					// add or remove input fields
-					if( (VAL-1) > ExistInputCount){ // add
-						fieldsNeed = VAL-1-ExistInputCount;
-						appender ='';
-						for(x=0; x<fieldsNeed; x++){
-							appender += maskField;
-						}
-						inputHolder.append(appender);
-					}else{
-						fieldsNeed = VAL-2;
-						inputHolder.find('input').each(function(index){
-							if(index> fieldsNeed) $(this).remove();
-						});
-					}
-					guestNames.show();
-				}else{
-					guestNames.hide();
-				}
-			}
-		});
-	
 	// CHANGE RSVP
 		// change a RSVP
 			$("body").on('click','.evors_change_rsvp_trig',function(){				
@@ -384,8 +426,7 @@ jQuery(document).ready(function($){
 				PAR = OBJ.parent();
 
 				// load Json data					
-				JDATA = OBJ.parent().siblings('.evors_jdata').data('j');
-				
+				JDATA = OBJ.parent().siblings('.evors_jdata').data('j');				
 
 				show_rsvp_form(OBJ, '','update');
 			});
@@ -397,9 +438,7 @@ jQuery(document).ready(function($){
 
 			ROW = OBJ.closest('.evo_metarow_rsvp');
 			if(OBJ.closest('.evo_metarow_rsvp').length) load_json_to_local( OBJ);
-
-			
-
+		
 			if(JDATA){
 				$.each(JDATA, function(index, val){
 					ajaxdataa[index] = val;
@@ -417,11 +456,8 @@ jQuery(document).ready(function($){
 			FORMNEST = OBJ.closest('.evors_forms').parent();
 			
 			$.ajax({
-				beforeSend: function(){ 
-					loading(OBJ);	
-				},					
-				url:	evors_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
+				beforeSend: function(){ 	loading(OBJ);		},					
+				url:	evors_ajax_script.ajaxurl,data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 				success:function(data){
 					if(data.status=='good'){
 						// show form inside eventcard
@@ -429,7 +465,7 @@ jQuery(document).ready(function($){
 							ROW.find('.evors_incard_form')
 								.removeClass('error')
 								.html( data.content )
-								.slideDown();							
+								.slideDown('fast');							
 						}else{
 							$('.evors_lightbox')
 								.find('.evo_lightbox_body')
@@ -438,6 +474,8 @@ jQuery(document).ready(function($){
 							$('.evors_lightbox.evo_lightbox').addClass('show');
 							$('body').trigger('evolightbox_show');
 						}
+
+						$('body').find('form.evors_gen_form').evors_form();
 						
 					}else{
 						// error notice ***
@@ -464,9 +502,16 @@ jQuery(document).ready(function($){
 		// Find RSVP
 			$('body').on('click','.evors_findrsvp_form_btn', function(){
 				var obj = $(this);			
-				var form = obj.closest('form.evors_findrsvp_form');
-				FORM_PAR = obj.closest('.evors_forms');
+				var form = obj.closest('form.evors_findrsvp_form');				
 				var error = 0;
+
+				// get form data
+				var formdata = form.serializeArray().reduce(function(obj, item) {
+				    obj[item.name] = item.value;
+				    return obj;
+				}, {});
+
+				f_holder = obj.closest('.evors_forms');
 
 				// run through each rsvp field
 					form.find('.input').each(function(index){
@@ -481,18 +526,27 @@ jQuery(document).ready(function($){
 					var ajaxdataa = {};
 					ajaxdataa['action']='evors_find_rsvp_form';
 					form.ajaxSubmit({
-						beforeSend: function(){ 	FORM_PAR.addClass('loading');		},
+						beforeSend: function(){ 	f_holder.addClass('loading');		},
 						url:	evors_ajax_script.ajaxurl,
 						data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 						success:function(data){
 							if(data.status=='good'){
-								FORM_PAR.parent().removeClass('error').addClass('t');
-								FORM_PAR.parent().html( data.content );
+
+								if( formdata.incard == 'yes'){
+
+								}else{
+
+								}
+
+								f_holder.parent().removeClass('error').addClass('t');
+								f_holder.parent().html( data.content );
+
+								$('body').find('form.evors_gen_form').evors_form();
 								
 							}else{
 								rsvp_error('err5','','',form);
 							}
-						},complete:function(){ 	FORM_PAR.removeClass('loading');	}
+						},complete:function(){ 	f_holder.removeClass('loading');	}
 					});
 				}				
 			});

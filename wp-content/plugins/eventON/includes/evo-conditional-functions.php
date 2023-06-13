@@ -58,7 +58,7 @@ function eventon_is_hex_dark($hex){
 	$green = hexdec(substr($hex, 3, 2));
 	$blue = hexdec(substr($hex, 5, 2));
 	$result = (($red * 299) + ($green * 587) + ($blue * 114)) / 1000;
-	echo $result;
+	//echo $result;
 
 	return $result < 128 ? true: false;
 

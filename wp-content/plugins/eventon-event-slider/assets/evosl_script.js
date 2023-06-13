@@ -1,6 +1,6 @@
 /**
  * Javascript: Slider for eventon
- * @version  2.0.4
+ * @version  2.0.6
  */
 jQuery(document).ready(function($){
 	
@@ -38,11 +38,11 @@ jQuery(document).ready(function($){
 						CAL.find('.evo_slider_outter').prepend(html);
 						html = "<span class='evoslider_nav nav next'><i class='fa fa-angle-right'></i></span>";
 						CAL.find('.evo_slider_outter').append(html);
-						CAL.find('.evosl_footer').append( "<span class='evoslider_dots'></span>" );
+						CAL.find('.evosl_footer').append( "<span class='evoslider_dots none'></span>" );
 					}
 				}else{
 					html = "<span class='evoslider_nav nav prev'><i class='fa fa-angle-left'></i></span>";
-					html += "<span class='evoslider_dots'></span>";
+					html += "<span class='evoslider_dots none'></span>";
 					html += "<span class='evoslider_nav nav next'><i class='fa fa-angle-right'></i></span>";
 					CAL.find('.evosl_footer').html( html );
 				}
@@ -135,7 +135,9 @@ jQuery(document).ready(function($){
 						dots_html += "<span class='evosl_dot "+ (dc == cur_slide_index? 'f':'') +"' data-index='"+ dc+"'><em></em></span>";
 					}	
 
-					CAL.find('.evoslider_dots').html( dots_html);		
+					var extra_class = dot_max <1 ? 'none':'';
+
+					CAL.find('.evoslider_dots').html( dots_html).addClass(extra_class);		
 				}
 
 			// slide looping
@@ -178,6 +180,7 @@ jQuery(document).ready(function($){
 		slide.$el = this;
 		var SC = $el.evo_shortcode_data();
 		var EL = $el.find('.eventon_events_list');
+		const slider_outter = $el.find('.evo_slider_outter');
 		var all_slides = $el.find('.eventon_list_event').length;
 
 		slide = {
@@ -223,12 +226,17 @@ jQuery(document).ready(function($){
 			},
 			interaction: function(){
 				// click on nav arrows
-				$el.on('swiperight','.evo_slider_outter', function(){
+				var slider_inter_area = $el.find('.evo_slider_outter');
+				slider_inter_area.on('swiperight', function(event){
+					if( !$(event.target).hasClass('evcal_list_a')) return;
 					slide.changeSlide( 'prev');
 				});
-				$el.on('swipeleft','.evo_slider_outter', function(){
-					slide.changeSlide( 'next');
+
+				slider_inter_area.on('swipeleft', function(event, data){
+					if( !$(event.target).hasClass('evcal_list_a')) return;
+					slide.changeSlide( 'next');				
 				});
+				
 
 				$el.on('click','.evoslider_nav',function(){
 					var direction = $(this).hasClass('next')? 'next':'prev';
@@ -264,6 +272,8 @@ jQuery(document).ready(function($){
 
 		slide.init();
 		slide.interaction();
+
+		
 	};
 	
 	$('body').find('.evoslider').each(function(){

@@ -13,6 +13,7 @@ class evo_cal_body{
 	private $args;
 
 	public $redirect_no_login = false;
+	public $rtl;
 
 	// construct the calendar body 
 		public function __construct(){
@@ -194,7 +195,7 @@ class evo_cal_body{
 							
 							echo  $this->cal_above_header($arg_y);	
 
-							echo "<div class='evo_header_title'>";
+							echo "<div class='evo_header_title ". (EVO()->cal->check_yn('evo_arrow_right','evcal_1')? 'right':'') ."'>";
 							echo "<p id='evcal_cur' class='evo_month_title'> ".$cal_header_title."</p>";	
 							// arrows
 							if(!$hide_arrows) echo $this->cal_parts_arrows();
@@ -433,8 +434,7 @@ class evo_cal_body{
 
 		// calendar parts
 			function cal_parts_arrows($args=''){
-				$opt = $this->cal->evopt1;
-				return "<p class='evo_arrows". ((!empty($opt['evo_arrow_right']) && $opt['evo_arrow_right']=='yes')? ' right':'') ."'><span id='evcal_prev' class='evcal_arrows evcal_btn_prev' ></span><span id='evcal_next' class='evcal_arrows evo_arrow_next evcal_btn_next' ></span></p>";
+				return "<p class='evo_arrows'><span id='evcal_prev' class='evcal_arrows evcal_btn_prev' ></span><span id='evcal_next' class='evcal_arrows evo_arrow_next evcal_btn_next' ></span></p>";
 			}
 
 			// layout changing buttons
@@ -530,7 +530,7 @@ class evo_cal_body{
 				$focused_month_num  = $SC['fixed_month'];
 				$focused_year = $SC['fixed_year'];
 
-				echo "<div class='evo_footer_nav'>";
+				echo "<div class='evo_footer_nav ". (EVO()->cal->check_yn('evo_arrow_right','evcal_1')? 'right':'') ."'>";
 
 				$lang = (!empty($SC['lang']))? $SC['lang']: 'L1';
 				$cal_header_title = get_eventon_cal_title_month($focused_month_num, $focused_year, $lang);

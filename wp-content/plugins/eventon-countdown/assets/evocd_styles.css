@@ -1,4 +1,7 @@
-/** Styles for frontend */
+/** 
+* Styles for frontend 
+* @version 1.1
+*/
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer, .evo_pop_body .evoet_cx span.evocd_timer{
 		margin-bottom: 5px;
 		clear:both;
@@ -17,16 +20,17 @@
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period, 
 	.evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period,
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount, 
-	.evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount
+	.evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount,
+	span.evocd_timer span.evocd_time span.countdown-amount
 	{
-		font-family: 'roboto','arial narrow';
+		font-family: var(--evo_font_1), 'arial narrow';
 	}
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_text, 
 	.evo_pop_body .evoet_cx span.evocd_timer span.evocd_text,
 	.evocd_ondemand_timer,
 	.evocd_ondemand_timer_holder
 	{
-		font-family: 'open sans','arial'
+		font-family: var(--evo_font_2), 'arial'
 	}
 
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time, 
@@ -35,7 +39,6 @@
 	}	
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_text,
 	 .evo_pop_body .evoet_cx span.evocd_timer span.evocd_text{
-		color: #ABABAB;
 		padding: 0px;
 		float: none;
 		font-size: 14px;	
@@ -50,9 +53,17 @@
 /* color eventtop */
 	.color .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_text,
 	 .evo_pop_body.color .evoet_cx span.evocd_timer span.evocd_text,
-	.color .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount, .evo_pop_body.color .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount,
-	.color .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period, .evo_pop_body.color .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period
+	.color .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount, 
+	.evo_pop_body.color .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount,
+	.color .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period, 
+	.evo_pop_body.color .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period
 	 {color:#fff;}
+	body .evo_lightbox_body.color.eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount,
+	body .evo_lightbox_body.color.eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period,
+	body .evo_lightbox_body.color.eventon_list_event .evcal_desc span.evocd_timer span.evocd_text, .evo_pop_body .evcal_desc span.evocd_timer span.evocd_text
+	{
+		color:#fff;
+	}
 /* other */
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section, .evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section{
 		text-align: center;
@@ -66,7 +77,8 @@
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section span, .evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section span{
 		float: none;		
 	}
-	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period, .evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period{
+	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period, 
+	.evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period{
 		text-transform: uppercase;
 		display: block;
 		font-size: 10px;	
@@ -74,10 +86,11 @@
 		margin-right: 5px;
 		text-align: left;
 	}
-	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount, .evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount{
+	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount, 
+	.evo_pop_body .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount{
 		text-transform: uppercase;
 		display: block;
-		color: #6b6b6b;
+		color: var(--evo_color_1);
 		margin-right: 5px;
 		min-width: 30px;
 		box-sizing:border-box;
@@ -86,14 +99,20 @@
 		font-weight: bold;
 	}
 
-	.evo_widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount{
+	.evo_widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount,
+	.widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-amount,
+	.widget span.evocd_timer span.evocd_time span.countdown-amount{
 		min-width: 20px;
 		font-size: 14px;
 	}
-	.evo_widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_text{font-size:12px;margin-bottom:5px;}
-	.evo_widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period{font-size:8px;}
+	.evo_widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_text,
+	.widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_text
+	{font-size:12px;margin-bottom:5px;}
+	.evo_widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period,
+	.widget .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-section .countdown-period
+	{font-size:8px;}
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-show3 span:nth-child(3) .countdown-amount, .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-show4 span:nth-child(4) .countdown-amount{
-		color: #cccccc;
+		/*color: #cccccc;*/
 	}
 	.eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time .countdown-show3{
 		min-width:120px;
@@ -106,6 +125,25 @@
 		background-color: #EAEAEA;
 		border-color:#3F3F3F!important;
 	}
+
+/* compact style */
+	span.evocd_timer.sty_compact span.evocd_time span.countdown-amount{letter-spacing: 2px;}
+
+/* default 2 */
+	span.evocd_timer.sty_def2 span.evocd_time .countdown-section
+	{flex-direction: column;}
+
+/* default 3 */
+	span.evocd_timer.sty_def3 span.evocd_time .countdown-section
+	{flex-direction: column;   
+    padding: 5px!important;
+    margin: 3px 0 5px;}
+    .color span.evocd_timer.sty_def3 span.evocd_time .countdown-section{
+    	 background-color: #ffffff3d;
+    }
+    span.evocd_timer.sty_def3 span.evocd_time .countdown-section{background-color: #8a8a8a3d}
+
+	
 /* countdown timer styles */
 	.evocd_ondemand_timer_holder{
 		background-color: #dedede;
@@ -146,14 +184,13 @@
 		font-size: 75%;
 		text-align: center;
 	}
-	.countdown-amount {
-	    font-size: 200%;
-	}
+	.countdown-amount { font-size: 24px; }
 	.countdown-period { display: block;	}
 	.countdown-descr {
 		display: block;
 		width: 100%;
 	}
+	
 /* RTL */
 	.evo_sin_pageevortl .eventon_events_list .eventon_list_event .evoet_cx span.evocd_timer span.evocd_time
 	{float:right;margin-right: 0px}

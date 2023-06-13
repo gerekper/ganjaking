@@ -1,7 +1,7 @@
 <?php
 /**
 * Calendar single event's html structure 
-* @version 4.3.2
+* @version 4.4
 */
 
 class EVO_Cal_Event_Structure{
@@ -11,6 +11,8 @@ class EVO_Cal_Event_Structure{
 
 	private $OO = array();
 	private $OO2 = array();
+
+	public $helper, $help;
 	
 	public function __construct($EVENT=''){
 
@@ -39,6 +41,24 @@ class EVO_Cal_Event_Structure{
 		
 		$OT = '';
 		switch($field){
+			case 'data':
+
+				$orgs = array();
+				if( !empty($event_organizer) ){
+					foreach($event_organizer as $id=>$dd){
+						$orgs[$id] = $dd->name;
+					}
+				}
+
+				$data = array(
+					'd'=> array(
+						'loc.n'=> (!empty($location_name) ? $location_name: ''),
+						'orgs'=> $orgs
+					)
+				);
+				$OT .= "<span class='evoet_data' ". $this->helper->array_to_html_data($data)."></span>";
+
+			break;
 			case 'ft_img':
 				if( empty($object->img_url_med)) return $OT; 
 
@@ -313,22 +333,19 @@ class EVO_Cal_Event_Structure{
 						foreach($event_organizer as $EO_id=>$EO){
 							if( empty( $EO->name)) continue;
 
-							$org_data = array(
-
-							);
-
 							$btn_data = array(
 								'lbvals'=> array(
-									'lbc'=>'evo_organizer_lb',
+									'lbc'=>'evo_organizer_lb_'.$EO->term_id,
 									't'=>	$EO->name,
 									'ajax'=>'yes',
+									'ajax_type'=>'endpoint',
+									'ajax_action'=>'eventon_gen_trig_ajax',
 									'end'=>'client',
 									'd'=> array(					
 										'eventid'=> $EVENT->ID,
 										'ri'=> $EVENT->ri,
 										'term_id'=> $EO->term_id,
-										'action'=> 'eventon_gen_trig_ajax',
-										'uid'=>'evo_get_organizer_info',
+										'tax'=>'event_organizer',
 										'load_lbcontent'=>true
 									)
 								)
@@ -548,7 +565,10 @@ class EVO_Cal_Event_Structure{
 				$OT .= $inner_content;
 
 				$OT .= "</span>";
-			}		
+			}	
+
+			// include event top data
+				$OT .= $this->get_eventtop_item_html( 'data', $EventData, $eventtop_fields);	
 
 		return $OT;
 	}
@@ -1014,6 +1034,7 @@ class EVO_Cal_Event_Structure{
 								$OT.= (!empty($img_src)? 
 										"<p class='evo_data_val evo_card_organizer_image'><img src='{$img_src[0]}'/></p>":null);
 
+							// description
 							$description = !empty($EO->description) ? stripslashes($EO->description): false;
 
 							$org_data = '';
@@ -1035,7 +1056,7 @@ class EVO_Cal_Event_Structure{
 
 									if( empty($EO->$key )) continue;
 										
-									$org_social .= "<a href='". urldecode( $EO->$key ) . "'><i class='fa fa-{$key}'></i></a>";
+									$org_social .= "<a target='_blank' href='". urldecode( $EO->$key ) . "'><i class='fa fa-{$key}'></i></a>";
 								}
 								if( !empty($org_social)) 
 									$org_data .= "<p class='evo_card_organizer_social'>" .$org_social ."</p>";
@@ -1046,13 +1067,14 @@ class EVO_Cal_Event_Structure{
 										'lbc'=>'evo_organizer_lb',
 										't'=>	$EO->name,
 										'ajax'=>'yes',
+										'ajax_type'=>'endpoint',
+										'ajax_action'=>'eventon_get_tax_card_content',
 										'end'=>'client',
 										'd'=> array(					
 											'eventid'=> $EVENT->ID,
 											'ri'=> $EVENT->ri,
 											'term_id'=> $EO->term_id,
-											'action'=> 'eventon_gen_trig_ajax',
-											'uid'=>'evo_get_organizer_info',
+											'tax'=>'event_organizer',
 											'load_lbcontent'=>true
 										)
 									)
@@ -1064,9 +1086,7 @@ class EVO_Cal_Event_Structure{
 							$OT .= "</div>";
 
 						}
-								$OT.= "</div>";
-
-															
+								$OT.= "</div>";															
 								$OT .= "</div>
 							</div>";
 						
@@ -1114,7 +1134,14 @@ class EVO_Cal_Event_Structure{
 					break;
 
 					case "addtocal":
-						$__ics_url =admin_url('admin-ajax.php').'?action=eventon_ics_download&amp;event_id='.$EVENT->ID.'&amp;ri='.$EVENT->ri;
+
+						// nonced ICS file url
+						$__ics_url = add_query_arg(array(
+						    'action' => 'eventon_ics_download',
+						    'event_id'	=> $EVENT->ID,
+						    'ri'	=> $EVENT->ri,
+						    'nonce'=> wp_create_nonce('eventon_ics_oneevent')
+						), admin_url('admin-ajax.php'));
 
 							$O = (object)array(
 								'location_name'=> !empty($location_name)?$location_name:'',
@@ -1579,8 +1606,10 @@ class EVO_Cal_Event_Structure{
 					if(!empty($location_type) && $location_type == 'virtual')
 						$_schema_location .= ',';
 
+					if( !empty($location_name) ) 
+						$location_name = str_replace('"', "", $location_name);
 					$_name = !empty($location_name)? '"name":"'.$location_name.'",':'';
-					$location_name = str_replace('"', "", $location_name);
+					
 					$_schema_location .= '{"@type":"Place",'.$_name.'"address":{"@type": "PostalAddress","streetAddress":"'. str_replace("\,",",", stripslashes($location_address) ).'"}}';
 				}
 				if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address)){

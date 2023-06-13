@@ -1,7 +1,7 @@
 <?php
 /**
  * Multi Data Types Class
- * @version 4.3
+ * @version 4.3.5
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -21,7 +21,7 @@ class evo_mdt{
 		add_filter('evo_eventcard_adds', array($this, 'eventcard_adds'), 10, 1);
 		
 		for($x=1; $x <= $this->evo_get_mdt_count() ; $x++){
-			add_filter('eventon_eventCard_evomdt_'.$x, array($this, 'frontend_box'), 10, 2);
+			add_filter('eventon_eventCard_evomdt_'.$x, array($this, 'frontend_box'), 10, 3);
 		}
 	}
 
@@ -103,7 +103,7 @@ class evo_mdt{
 			}
 			return $array;
 		}
-		function frontend_box($object, $helpers){
+		function frontend_box($object, $helpers, $EVENT){
 
 			$x = $object->x;
 			$mdt_name = $this->evo_get_mdt_names();
@@ -111,7 +111,7 @@ class evo_mdt{
 
 			if ( $terms && ! is_wp_error( $terms ) ):
 			ob_start();
-			echo  "<div class='evo_metarow_mdt_{$x} evo_metarow_mdt evorow evcal_evdata_row evcal_evrow_sm".$helpers['end_row_class']."' data-event_id='".$object->event_id."'>
+			echo  "<div class='evo_metarow_mdt_{$x} evo_metarow_mdt evorow evcal_evdata_row evcal_evrow_sm".$helpers['end_row_class']."' data-event_id='".$EVENT->ID."'>
 					<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__evomdt_'.$x, 'fa-list',$helpers['evOPT'] )."'></i></span>
 					<div class='evcal_evdata_cell'>";
 				echo "<h3 class='evo_h3'>".evo_lang($mdt_name[$x])."</h3>";
@@ -122,6 +122,7 @@ class evo_mdt{
 				echo "<div class='evomdt_data grid'>";
 				// each term
 				$tax_data = $this->get_mdt_term_data( $object->tax );
+
 				foreach($terms as $term){
 					echo "<div class='evomdt_item'>";
 					$img_attr = '';
@@ -389,24 +390,36 @@ class evo_mdt{
 				}
 			}
 		}
+
+		// @updated 4.3.5
 		function save_custom_field($term_id){
 			$help = new evo_helper();
 			$postdata = $help->sanitize_array( $_POST );
+			
+			if ( isset( $postdata['tax'] ) && strpos($postdata['tax'], 'multi') !== false ) {
 
-			if ( isset( $postdata['term_meta'] ) ) {
-
-				$post_term_meta_data = $postdata['term_meta'];
-
-				$taxonomy = $postdata['taxonomy'];
+				$taxonomy = $postdata['tax'];
 				$mdt_index = str_replace('_', '', ( strrchr($taxonomy, '_') ) );
-				$term_field_name = 'evcal_mdt_img' . $mdt_index;
+
+				$term_meta_fields = array();
+				$term_meta_fields[] = 'evcal_mdt_img' . $mdt_index;
+				for( $z=1; $z <= $this->evo_max_mdt_addfield_count(); $z++){
+					$term_meta_fields[] = 'evcal_mdta_' . $mdt_index. '_'. $z;
+				}				
+								
 
 				$term_meta = evo_get_term_meta($taxonomy ,$term_id);
 
-				foreach( $post_term_meta_data as $field=>$value){
-					if( !isset( $post_term_meta_data[ $field ] )) continue;
+				foreach( $term_meta_fields as $field ){
+					if( !isset( $postdata[ $field ] )) continue;
 
-					$term_meta[ $field ] = $value;
+					// image field fix
+					if( strpos($field, 'evcal_mdt_img') !== false){
+						$term_meta[ 'image' ] = $postdata[ $field ];
+						continue;
+					}
+
+					$term_meta[ $field ] = $postdata[ $field ];
 				}
 
 				evo_save_term_metas($taxonomy, $term_id, $term_meta);

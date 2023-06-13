@@ -21,6 +21,7 @@
 		position: relative; width: 100%;
 		z-index: 1;
 	}
+	body.single-ajde_events .wp-site-blocks #main{width: auto;}
 	.evo_page_body .evo_sin_page .evosin_event_title{font-family: var(--evo_font_1); text-transform: uppercase;}
 	
 	#evcal_list p.evo_single_event_noaceess{display: block;}

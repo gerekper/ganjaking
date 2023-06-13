@@ -6,13 +6,13 @@
  * @author 		Ashan Jay
  * @category 	Admin
  * @package 	eventon/Admin/Taxonomies
- * @version     4.2.3
+ * @version     4.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class EVO_Taxonomies extends EVO_Taxonomies_editor{
-
+	private $help;
 	function __construct(){
 		add_action( 'admin_init', array($this,'eventon_taxonomy_admin' ));
 		add_action( 'event_type_pre_add_form', array($this, 'event_type_description' ));
@@ -34,6 +34,7 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 		add_action( 'create_event_type', array($this,'evo_tax_save_new_meta_field_et1'), 10, 2 );
 
 		// event location
+			add_action("event_location_term_edit_form_top", array($this,'location_edit_form_top'), 10 ,2); 
 			add_filter("manage_edit-event_location_columns", array($this,'eventon_evLocation_theme_columns')); 
 			add_filter("manage_event_location_custom_column", array($this,'eventon_manage_evLocation_columns'), 10, 3);
 			add_action( 'event_location_add_form_fields', array($this,'eventon_taxonomy_add_new_meta_field'), 10, 2 );
@@ -44,6 +45,7 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 			add_action( 'event_organizer_edit_form', array($this,'tax_viewpage_btn'), 10, 2 );
 
 		// event organizer
+			add_action("event_organizer_term_edit_form_top", array($this,'organizer_edit_form_top'), 10 ,2); 
 			add_filter("manage_edit-event_organizer_columns", array($this,'eventon_evorganizer_theme_columns'));  
 			add_filter("manage_event_organizer_custom_column", array($this,'eventon_manage_evorganizer_columns'), 10, 3); 
 			add_action( 'event_organizer_add_form_fields', array($this,'eventon_taxonomy_add_new_meta_field_org'), 10, 2 );
@@ -261,7 +263,6 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 							'virtual'=> __('Virtual Location','eventon'),
 						)					
 					),
-					'submit'=>array('type'=>'button',)
 				),
 				'event_organizer'=> array(
 					'term_name'=>array(
@@ -277,6 +278,11 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 						'name'=>__('Organizer Description','eventon'),
 						'var'=>'description',
 						'value'=> ($event_tax_term? $event_tax_term->description:''),				
+					),
+					'description2'=>array(
+						'type'=>'wysiwyg',
+						'name'=>__('Organizer Secondary Description','eventon'),
+						'var'=>'description2',				
 					),
 					'evcal_org_contact'=>array(
 						'type'=>'text',
@@ -344,7 +350,6 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 						'name'=>__('Organizer Image','eventon'),
 						'var'=>	'evo_org_img'	
 					),
-					'submit'=>array('type'=>'button',)
 				)
 
 			), $tax, $event_tax_term);
@@ -355,6 +360,12 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 		}
 
 	// TAXONOMY - event location
+		// pre edit form
+			function location_edit_form_top($tag, $taxonomy){
+				if( !isset( $tag->name ) ) return;
+				echo __('Location ID') . ': #'. $tag->term_id;
+			}
+
 		// remove some columns		
 			function eventon_evLocation_theme_columns($theme_columns) {
 			    $new_columns = array(
@@ -650,6 +661,11 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 			}
 				
 	// TAXONOMY Event Organizer
+		// pre edit form
+			function organizer_edit_form_top($tag, $taxonomy){
+				if( !isset( $tag->name ) ) return;
+				echo __('Organizer ID') . ': #'. $tag->term_id;
+			}
 		// remove some columns
 			function eventon_evorganizer_theme_columns($theme_columns) {
 			    $new_columns = array(
@@ -759,6 +775,25 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 							</td>
 							</tr>
 
+						<?php continue; endif;
+
+						if( $value['type'] == 'wysiwyg' ):
+							//print_r($value);
+						?>
+							<tr class="form-field">
+							<th scope="row" valign="top"><label for="term_meta[evcal_org_exlink]"><?php echo $value['name'] ?></label></th>
+							<td>
+								
+								<?php
+								$value['id'] = 'term_meta['.$value['var'] .']';
+								$value['value'] = $this->termmeta($term_meta, $value['var'] );
+								echo EVO()->elements->get_element( $value );
+								?>
+
+								<p class="description"><?php _e( 'You can type HTML content into this description field, it will be used as organizer description','eventon' ); ?></p>
+							</td>
+							</tr>
+
 						<?php continue; endif;?>
 
 						<?php if($value['type'] == 'image'):?>
@@ -766,16 +801,18 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 							<th scope="row" valign="top"><label for="term_meta[evo_org_img]"><?php _e( 'Image', 'eventon' ); ?></label></th>
 							<td class='evo_metafield_image'>
 								<?php 
+									$img_url=false;
 									if(!empty($term_meta['evo_org_img'])){
 										$img_url = wp_get_attachment_image_src($term_meta['evo_org_img'],'medium');
-									}else{ $img_url=false;}
+										$img_url = isset($img_url[0]) ? $img_url[0]: false;
+									}
 
 									$__button_text = (!empty($term_meta['evo_org_img']))? __('Remove Image','eventon'): __('Choose Image','eventon');
 									$__button_text_not = (empty($term_meta['evo_org_img']))? __('Remove Image','eventon'): __('Choose Image','eventon');
 									$__button_class = (!empty($term_meta['evo_org_img']))? 'removeimg':'chooseimg';
 								?>						
 								<input style='width:auto' class="custom_upload_image_button button <?php echo $__button_class;?>" data-txt='<?php echo $__button_text_not;?>' type="button" value="<?php echo $__button_text;?>" /><br/>
-								<span class='evo_org_image_src image_src'><img src='<?php echo $img_url[0];?>' style='<?php echo !empty($term_meta['evo_org_img'])?'':'display:none';?>'/></span>
+								<span class='evo_org_image_src image_src'><img src='<?php echo $img_url;?>' style='<?php echo !empty($term_meta['evo_org_img'])?'':'display:none';?>'/></span>
 								
 								<input class='evo_org_img evo_meta_img' type="hidden" name="term_meta[evo_org_img]" id="term_meta[evo_org_img]" value="<?php echo !empty( $term_meta['evo_org_img'] ) ? esc_attr( $term_meta['evo_org_img'] ) : ''; ?>">
 								<p class="description"><?php _e( '(Optional) Organizer Image','eventon' ); ?></p>

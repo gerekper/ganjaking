@@ -281,6 +281,8 @@ jQuery(document).ready(function($){
 
 		function _ready_form(form_id){
 			var FORM = $('#'+form_id);
+
+			console.log($.cookie('evoau_event_submited'));
 			
 			// WYG editor
 				if(FORM.find('textarea.evoau_wyg').length>0){
@@ -681,18 +683,6 @@ jQuery(document).ready(function($){
 			var nof = formp.find('.evoau_json');
 			nof = nof.data('j');
 
-		// save cookie if submission is limited
-			if(form.data('limitsubmission')=='ow' ){
-				if($.cookie('evoau_event_submited')=='yes'){
-					formp.addClass('errorForm limitSubmission');
-					form.find('.inner').slideUp();
-					form.find('.evoau_success_msg').html('<p><b></b>'+nof.nof6+'</p>').show();
-					return false;
-				}else{
-					$.cookie('evoau_event_submited','yes',{expires:24});
-				}			
-			}
-
 		reset_form(form);
 					
 		// check required fields missing
@@ -742,6 +732,18 @@ jQuery(document).ready(function($){
 					errors = (errors == 0)? 20:errors+1;
 					form.find('.au_captcha').addClass('err');
 				}
+			}
+
+		// save cookie if submission is limited
+			if(form.data('limitsubmission')=='ow' ){
+				if($.cookie('evoau_event_submited')=='yes'){
+					formp.addClass('errorForm limitSubmission');
+					form.find('.inner').slideUp();
+					form.find('.evoau_form_messages').html('<p>'+nof.nof6+'</p>').show();
+					return false;
+				}else{
+					$.cookie('evoau_event_submited','yes',{expires:24});
+				}			
 			}
 
 		// pass correct event descriptions
@@ -845,6 +847,7 @@ jQuery(document).ready(function($){
 
 		form.find('.inner').show();
 		form.find('.evoau_success_msg').hide();
+		form.find('.evoau_form_messages').html();
 
 		if(type=='hardcore' || type=='midcore'){
 			form.find('input[type=text]').val('');

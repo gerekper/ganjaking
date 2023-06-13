@@ -780,6 +780,21 @@ class WC_AM_Subscription {
 	}
 
 	/**
+	 * Return true if the subscription has a defined next_payment date.
+	 *
+	 * @since 2.8
+	 *
+	 * @param int|object $sub
+	 *
+	 * @return bool
+	 */
+	public function has_next_payment_by_sub( $sub ) {
+		$time = $this->get_subscription_time_by_sub_id( $sub, 'next_payment' );
+
+		return is_numeric( $time ) && $time > 0;
+	}
+
+	/**
 	 * Finds the subscription ID using the item ID, then confirms the it is a line_item on the subscription.
 	 * If not, return false.
 	 * This is useful if subscription status is not active or pending-cancel yet, such as when it is still

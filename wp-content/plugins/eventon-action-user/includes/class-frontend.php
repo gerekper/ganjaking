@@ -1,7 +1,7 @@
 <?php
 /*
  *	ActionUser front-end
- *	@version 	2.3
+ *	@version 	2.4
  */
 
 class evoau_frontend{
@@ -15,7 +15,6 @@ class evoau_frontend{
 	function __construct(){
 		add_filter('evo_cal_gen_options', array($this, 'load_options'));
 		$this->evoau_opt = get_option('evcal_options_evoau_1');
-		$this->evoau_opt_2 = get_option('evcal_options_evoau_2');
 
 		add_filter('eventon_extra_tax',array($this,'extra_tax'),10,1);
 		add_action( 'init', array( $this, 'register_frontend_scripts' ) ,15);
@@ -39,7 +38,6 @@ class evoau_frontend{
 	}
 	public function load_options($A){
 		$A['evoau_1'] = 'evcal_options_evoau_1';
-		$A['evoau_2'] = 'evcal_options_evoau_2';
 		return $A;
 	}
 	function extra_tax($array){
@@ -301,6 +299,9 @@ class evoau_frontend{
 				}
 				$post_data = $this->HELP->sanitize_array( $_POST );
 
+				// temp solution
+				$post_data['event_description'] = $_POST['event_description'];
+
 
 			// before form submission validation
 				$ready_to_go = apply_filters('evoau_before_form_submission', true, $post_data);
@@ -312,6 +313,8 @@ class evoau_frontend{
 					$this->formtype = 'edit';
 					$__post_content = (!empty($post_data['event_description']))?
 	        			$this->filter_post_content($post_data['event_description']): null;
+
+	        		//print_r( sanitize_textarea_field($_POST['event_description']) );
 					
 					// update event name and event details
 					$event = array(
@@ -792,7 +795,8 @@ class evoau_frontend{
 				return array(
 					'status'=>'good',
 					'msg'=>'',
-					'success_message_html' => $form->get_form_success_html( $this->formtype, $post_data['form_atts_data'] )
+					'success_message_html' => $form->get_form_success_html( 
+						$this->formtype, (isset($post_data['form_atts_data']) ? $post_data['form_atts_data'] : array() ) )
 				);
 			}else{
 				// could not create custom post type
@@ -1108,7 +1112,7 @@ class evoau_frontend{
 			$file_location = EVO()->template_locator(
 				'notif_email.php', 
 				$eventon_au->plugin_path."/templates/", 
-				'templates/email/actionuser/'
+				'/templates/email/actionuser/'
 			);
 			include($file_location);
 

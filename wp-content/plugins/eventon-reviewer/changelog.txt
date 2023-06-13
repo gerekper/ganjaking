@@ -1,5 +1,18 @@
 ﻿REVIEWER for events (RE) addon for EventON Plugin
 ====================================
+v 1.1 (2023-3-16)
+ADDED: average rating value above rating data
+ADDED: rating star text next to rating stars
+FIXED: $event_pmv error resolved
+FIXED: manual sync not updating new html content
+FIXED: star size mismatch
+FIXED: php 8.1 issues
+UPDATED: layout and UI styles 
+
+v 1.0.5 (2021-2-18)
+ADDED: integration with virtual events to leave review after live event
+COMPATIBILITY: eventON  3.1
+
 v 1.0.4 (2020-9-22)
 FIXED: asset path to load styles via ssl urls
 FIXED: new review notification email not working

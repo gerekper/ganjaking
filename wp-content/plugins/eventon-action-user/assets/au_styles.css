@@ -1,6 +1,6 @@
 /**
  * Eventon Action User form styles
- * @verion 2.0.11
+ * @verion 2.3.2
  */
 /* general */
 	.eventon_actionuser_eventslist p{
@@ -13,7 +13,8 @@
 	.evoau_submission_form .msub_row a, 
 	.row .enterNew,
 	.evoau_submission_form .formBtnS
-	{font-family: 'League Spartan','arial narrow';font-weight: 700;}
+	{font-family: var(--evo_font_1);
+	font-weight: 700;}
 
 	.evoau_submission_form p input, 
 	.evoau_submission_form p textarea, 
@@ -27,7 +28,7 @@
 	.evoau_file_field span.evoau_img_btn,
 	.eventon_au_form_section.overLay .closeForm,
 	.evoau_submission_form form
-	{font-family: 'Noto Sans','arial'}
+	{font-family: var(--evo_font_2)}
 
 /* access code form */
 	.evoau_event_access{
@@ -76,14 +77,13 @@
 	.evoau_submission_form p label, .evoau_submission_form p.evo_field_label{
 		font-size: 14px;
 		font-weight: bold;
-		color: #808080;
+		color: var(--evo_color_1);
 		margin: 0;
 		padding-bottom: 5px;
 		display: block; width: 100%;
 	}
 	.evoau_submission_form h2, .evoau_submission_form h3{		
-		margin: 25px 0;
-		color:#808080;
+		margin: 25px 0;color: var(--evo_color_1);
 	}
 	.evoau_submission_form h2{text-transform: uppercase;}
 	.evoau_submission_form h2,
@@ -219,7 +219,7 @@
 	.evoau_submission_form .evoau_table{margin: 0 -20px;}
 	.evoau_submission_form .evoau_table .submit_row.row{padding-top: 15px;background-color: transparent;}
 	.evoau_submission_form .evoau_table .submit_row.row:hover{background-color: transparent;}	
-	.evoau_submission_form .evoau_table .row.err{border-left:5px solid #FA938B;background-color: #FFF7F7}
+	.evoau_submission_form .evoau_table .row.err{/*border-left:5px solid #6d1109;*/background-color: #fffba4}
 	.evoau_submission_form .evoau_table .row.err:hover{background-color: #FFEDEB}
 	
 	.evoau_submission_form .evoau_table .row.evoau_sub_child_formfield .sub_child_title{font-size: 16px;}
@@ -354,6 +354,14 @@
 		.evoau_submission_form p.es_values span span.select{    background-color: #f3c991;color: #fff;}
 		.evoau_submission_form .event_status textarea{height: 80px;}
 
+	/* form messages */
+		.evoau_form_messages{}
+		.errorForm .evoau_form_messages{padding:20px;}
+		.errorForm .evoau_form_messages p{
+			color: #fff;
+		    font-size: 16px;
+		    margin: 0;
+		}
 	/* success message */
 		.evoau_success_msg{text-align: left;}
 		.limitSubmission .evoau_success_msg p{color: #ffffff;}
@@ -409,11 +417,13 @@
 		}
 	/* form error msg */
 		.formeMSG{
-			text-align: center;
+			text-align: center;font-size: 16px;
 			margin: 0px;
 			padding:20px;
 			background-color:rgb(250, 147, 139);
 			color:#fff;
+			    margin: 20px 10px 0;
+    		border-radius: 15px;
 		}
 	/* changing form effects */
 		.evoau_submission_form.loading{
@@ -435,8 +445,8 @@
 			background-color: #9BD28C;
 			padding:90px 0; border:none;
 		}
-		.evoau_submission_form.errorForm{background-color: #FFF6F5;}
-		.evoau_submission_form.limitSubmission{background-color: #E4897E;}
+		.evoau_submission_form.errorForm{background-color: #ff3620;}
+		.evoau_submission_form.limitSubmission{background-color: #f73e3e;}
 
 /* form wyg styles */
 	#evoau_form .trumbowyg-fullscreen{padding-top: 30px;}

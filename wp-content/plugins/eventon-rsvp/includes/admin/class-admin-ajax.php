@@ -74,20 +74,23 @@ class evors_admin_ajax{
 	
 	// GET list of attendees for event
 		function get_attendees_list(){
-			
+
+
 			$status = 0;
 			ob_start();
 
-				$ri = 'all';
-				if( isset($_POST['ri'] ) ) $ri = $_POST['ri'];
-				if( isset($_POST['ri'] ) && $_POST['ri'] == '0' )  $ri = '0';
+				$post_data = $this->post_data;
 
-				$RSVP = new EVORS_Event($_POST['e_id'], $ri);
+				$ri = 'all';
+				if( isset($post_data['ri'] ) ) $ri = $post_data['ri'];
+				if( isset($post_data['ri'] ) && $post_data['ri'] == '0' )  $ri = '0';
+
+				$RSVP = new EVORS_Event($post_data['e_id'], $ri);
 
 				$ri_count_active = $RSVP->is_ri_count_active();	
 
 				// if repeat counts active -> show selector
-				if( $ri_count_active && !isset($_POST['ri'] )  ){
+				if( $ri_count_active && !isset($post_data['ri'] )  ){
 
 					$datetime = new evo_datetime();
 					$wp_date_format = get_option('date_format');	
@@ -131,9 +134,27 @@ class evors_admin_ajax{
 
 				$RSVP_LIST = $RSVP->GET_rsvp_list('all');
 
-				
-				echo "<div class='evors_list'>";
-				echo "<p class='header'>RSVP Status: YES</p>"; /***/
+				// run ajax button data
+				$data = array(
+					'd'=> array(
+						'uid'=>'evors_refresh_guest_list_lb',
+						'lightbox_key'=>'evors_view_attendees',
+						'ajaxdata'=> array(					
+							'e_id'=> $post_data['e_id'],
+							'ri'=> $ri,
+							'action'=> 'the_ajax_evors_a1',
+							'load_lbcontent'=> true
+						)
+					)
+				);
+
+				echo "<div class='evors_list' data-eid='{$post_data['e_id']}'>";
+
+				echo "<div class='evors_list_actions pad5'>
+					<span class='evo_trigger_ajax_run evo_btn' ". $this->help->array_to_html_data($data) ."><i class='fa fa-rotate marr5'></i> ".__('Refresh','evors') ."</span>
+				</div>";
+
+				echo "<p class='header'>". __('RSVP Status: YES','evors'). "</p>"; 
 				if(!empty($RSVP_LIST['y']) && count($RSVP_LIST['y'])>0){
 					foreach($RSVP_LIST['y'] as $_id=>$rsvp){
 						echo $this->each_attendee_data_row($_id, $rsvp, $__checking_status_text);
@@ -142,7 +163,7 @@ class evors_admin_ajax{
 					echo "<p>".__('No Attendees found.','eventon')."</p>";
 				}
 
-				echo "<p class='header'>RSVP Status: MAYBE</p>"; /***/
+				echo "<p class='header'>". __('RSVP Status: MAYBE','evors')."</p>"; 
 				if(!empty($RSVP_LIST['m']) && count($RSVP_LIST['m'])>0){
 					foreach($RSVP_LIST['m'] as $_id=>$rsvp){
 						echo $this->each_attendee_data_row($_id ,$rsvp, $__checking_status_text);
@@ -150,7 +171,7 @@ class evors_admin_ajax{
 				}else{	echo "<p>".__('No Attendees found.','eventon')."</p>";	}	
 
 
-				echo "<p class='header'>RSVP Status: NO</p>"; /***/
+				echo "<p class='header'>". __('RSVP Status: NO','evors')."</p>"; 
 				if(!empty($RSVP_LIST['n']) && count($RSVP_LIST['n'])>0){
 					foreach($RSVP_LIST['n'] as $_id=>$rsvp){
 						echo "<div class='evors_rsvp_no_attendees'>";
@@ -207,35 +228,38 @@ class evors_admin_ajax{
 		function get_attendee_info(){
 
 			$optRS = EVORS()->evors_opt;
-			$rpmv = get_post_custom($_POST['rsvpid']);
-			$rsvpArray = array('y'=>'Yes','m'=>'Maybe','n'=>'No');
+
+			$rsvp_id = (int)$this->post_data['rsvpid'];
+			$event_id = (int)$this->post_data['eid'];
+
+			$RSVP_POST = new EVO_RSVP_CPT( $rsvp_id );
+			$RSVP = new EVORS_Event( $event_id);
+
+			$rpmv = $RSVP_POST->pmv;
+			
+			$rsvpArray = array('y'=> __('Yes','evors'),'m'=>__('Maybe','evors'),'n'=>__('No','evors'));
 
 			ob_start();
+
 
 			?>
 			<div class='evors_one_attendee_info'>
 				<p class='name'><?php echo (!empty($rpmv['first_name'])? $rpmv['first_name'][0]:'').' '.(!empty($rpmv['last_name'])? $rpmv['last_name'][0]:'');?> (#<?php echo $_POST['rsvpid'];?>)</p>				
 			<?php
+			
 
 			$array = array(
-				'rsvp'=>__('RSVP Status','eventon'),
-				'email'=>__('Email Address','eventon'),
-				'phone'=>__('Phone Number','eventon'),				
-				'e_id'=>__('Event','eventon'),
-				'repeat_interval'=>__('Event Date','eventon'),
-				'count'=>__('Spaces Reserved','eventon'),
-				'names'=>__('Additional Attendees','eventon'),
-				'updates'=>__('Receive Event Updates','eventon'),
+				'rsvp'=>__('RSVP Status','evors'),
+				'email'=>__('Email Address','evors'),
+				'phone'=>__('Phone Number','evors'),				
+				'e_id'=>__('Event','evors'),
+				'repeat_interval'=>__('Event Date','evors'),
+				'count'=>__('Spaces Reserved','evors'),
+				'names'=>__('Additional Attendees','evors'),
+				'updates'=>__('Receive Event Updates','evors'),
 			);
 
-			// additional fields
-				for($x=1; $x<= EVORS()->frontend->addFields; $x++){
-					if(evo_settings_val('evors_addf'.$x, $optRS) && !empty($optRS['evors_addf'.$x.'_1'])){
-						if($optRS['evors_addf'.$x.'_2']=='html') continue;
-						$array['evors_addf'.$x.'_1'] = $optRS['evors_addf'.$x.'_1'];
-					}
-				}
-
+			
 			foreach($array as $key=>$val){
 				if(!empty($rpmv[$key])){
 					$value = $rpmv[$key][0];
@@ -267,6 +291,18 @@ class evors_admin_ajax{
 				$checkinSTATUS = $_checkinST = (!empty($rpmv['status']))? $rpmv['status'][0]:'check-in';
 				$status = EVORS()->frontend->get_checkin_status($checkinSTATUS);
 				echo "<p class='status' data-rsvpid='{$_POST['rsvpid']}' data-status='{$checkinSTATUS}'><em>".__('Checkin Status','eventon').'</em>'.$status.'</p>';
+
+			// from from fields
+				$form_fields = EVORS()->rsvpform->get_form_fields($RSVP, $RSVP_POST);
+
+				foreach($form_fields as $key=>$fdata){
+					extract( $fdata );
+					$value = $RSVP_POST && $RSVP_POST->get_prop($key) ? $RSVP_POST->get_prop($key) :'-';
+					echo "<p><em>{$name}</em>".$value."</p>";
+				}
+
+			// @since 2.8.4
+				do_action('evors_attendee_info_lb_end', $RSVP_POST);
 
 			// edit this attendee information
 				echo "<p class='action'><a href='".admin_url('post.php?post='.$_POST['rsvpid'].'&action=edit')."' class='evo_admin_btn'>".__('Edit Attendee Info','eventon')."</p>";
@@ -349,8 +385,6 @@ class evors_admin_ajax{
 
 			$RR = new EVO_RSVP_CPT( $rsvp_id);	
 
-			$rsvp_pmv = get_post_custom($rsvp_id);
-
 			$args['rsvp_id'] = $rsvp_id;
 			$args['first_name'] = $RR->first_name();
 			$args['last_name'] = $RR->last_name();
@@ -386,23 +420,32 @@ class evors_admin_ajax{
 
 			ob_start();?>
 			<div id='evors_emailing' class='pad20' style=''>
-				<p><label><?php _e('Select Emailing Type','evors');?></label>
-					<select name="" id="evors_emailing_options">
-						<option value="someone"><?php _e('Email Attendees List to Someone','evors');?></option>
-						<option value="someonenot"><?php _e('Email Not-coming guest List to Someone','evors');?></option>
-						<option value="coming"><?php _e('Email to Only Attending Guests','evors');?></option>
-						<option value="notcoming"><?php _e('Email to Guests not Coming to Event','evors');?></option>
-						<option value="all"><?php _e('Email to All Rsvped Guests','evors');?></option>
-					</select>
-				</p>
-				<p><label><?php _e('Attendees Status','evors');?></label>
-					<select name="" id="evors_att_status">
-						<option value="all"><?php _e('All','evors');?></option>
-						<option value="receive_updates"><?php _e('Those who agreed to receive event updates','evors');?></option>
-					</select>
-				</p>
-				<?php
-					// if repeat interval count separatly	
+				<form>
+				<?php 
+				echo EVO()->elements->process_multiple_elements( array(
+					array('type'=>'hidden','name'=>'action','value'=>'the_ajax_evors_a9'),
+					array('type'=>'hidden','name'=>'eid','value'=>$RSVP->event->ID),
+					array(
+						'id'=>'evors_emailing_options','type'=>'dropdown',
+						'name'=>__('Select Emailing Type','evors'),
+						'options'=> apply_filters('evors_email_attendees_emailing_type', array(
+							'coming'=>__('Email to Only Attending Guests','evors'),
+							'notcoming'=>__('Email to Guests not Coming to Event','evors'),
+							'all'=>__('Email to All Rsvped Guests','evors'),
+							'someonenot'=>__('Share Not-coming List to Someone','evors'),
+							'someone'=>__('Share Attendees List to Someone','evors'),
+						), $RSVP)
+					),array(
+						'id'=>'evors_att_status','type'=>'dropdown',
+						'name'=>__('Attendees Status','evors'),
+						'options'=> apply_filters('evors_email_attendees_attedee_status', array(
+							'all'=>__('All emails','evors'),
+							'receive_updates'=>__('Only guests agreed to receive event updates','evors'),
+						), $RSVP)
+					)
+				));
+				
+				// if repeat interval count separatly	
 					$repeats = $RSVP->event->get_repeats();									
 					if($ri_count_active && $repeats ){
 
@@ -424,12 +467,32 @@ class evors_admin_ajax{
 							echo "</p>";
 						}
 					}
+				
+				echo EVO()->elements->process_multiple_elements(  array(
+					array(
+						'type'=>'text','id'=>'emails','name'=>__('Email Addresses (separated by commas)','evors'),
+						'row_style'=>'display:none'
+					),
+					array(
+						'type'=>'text','id'=>'email_subject',
+						'name'=>__('Subject for email','evors') . ' <abbr class="required" title="required">*</abbr>'
+					),
+					array(
+						'type'=>'textarea','id'=>'email_content','name'=>__('Email message content','evors')  . ' <abbr class="required" title="required">*</abbr>'
+					)
+				));
+
+				$btn_data = array(
+					'd'=> array(
+						'lightbox_key'=>'evors_emailing',
+						'uid'=>'evors_email_attendees',
+					)
+				);
+
 				?>
-				<p style='' class='text'><label for=""><?php _e('Email Addresses (separated by commas)','evors');?></label><br/><input style='width:100%' type="text"></p>
-				<p style='' class='subject'><label for=""><?php _e('Subject for email','evors');?> *</label><br/><input style='width:100%' type="text"></p>
-				<p style='' class='textarea'><label for=""><?php _e('Message for the email','evors');?></label><br/>
-					<textarea cols="30" rows="5" style='width:100%'></textarea></p>
-				<p><a data-eid='<?php echo $RSVP->event->ID;?>' id="evors_email_submit" class='evo_admin_btn btn_prime'><?php _e('Send Email','evors');?></a></p>
+				
+				<p><a class='evo_admin_btn btn_prime evors_submit_email_form' <?php echo $this->help->array_to_html_data($btn_data);?>><?php _e('Send Email','evors');?></a></p>
+			</form>
 			</div>
 			
 			<?php $emailing_content = ob_get_clean();
@@ -447,10 +510,10 @@ class evors_admin_ajax{
 
 			$post_data = $this->post_data;
 
-			$eid = $_POST['eid'];
-			$type = $_POST['type'];
-			$att_status = isset($_POST['att_status'])? $_POST['att_status']: 'all'; // attendee status
-			$RI = !empty($_POST['repeat_interval'])? $_POST['repeat_interval']:'all'; // repeat interval
+			$eid = $post_data['eid'];
+			$type = $post_data['evors_emailing_options'];
+			$att_status = isset($post_data['evors_att_status'])? $post_data['evors_att_status']: 'all'; // attendee status
+			$RI = !empty($post_data['repeat_interval'])? $post_data['repeat_interval']:'all'; // repeat interval
 			$EMAILED = $_message_addition = false;
 			$emails = array();
 
@@ -462,7 +525,7 @@ class evors_admin_ajax{
 
 				$attending = $type =='someone'? true: false;
 
-				$emails = explode(',', str_replace(' ', '', htmlspecialchars_decode($_POST['emails'])));
+				$emails = explode(',', str_replace(' ', '', htmlspecialchars_decode($post_data['emails'])));
 				
 				if(is_array($guests) && isset($guests['y']) && count($guests['y'])>0){
 					ob_start();
@@ -530,12 +593,15 @@ class evors_admin_ajax{
 				}
 			}
 
+			// plug
+			$emails = apply_filters('evors_email_attendees_emails_array', $emails, $RSVP, $post_data);
+
 			// emaling
-			$EMAILED = array();
+			$EMAILED = $args = array();
 			if($emails){				
 				$messageBODY = "<div style='padding:15px'>".
-					(!empty($_POST['message'])? 
-						html_entity_decode(stripslashes($_POST['message'])).'<br/><br/>':'' ).
+					(!empty($post_data['email_content'])? 
+						html_entity_decode(stripslashes($post_data['email_content'])).'<br/><br/>':'' ).
 					($_message_addition ? $_message_addition:'') . 
 					"</div>";
 
@@ -543,14 +609,14 @@ class evors_admin_ajax{
 				$from_email = EVORS()->email->get_from_email_address();
 			
 				$args = array(
-					'html'=>'yes',
-					'type'=> ($type == 'someone'? 'regular':'bcc'),
-					'to'=> $emails,
-					'subject'=>$_POST['subject'],
-					'from'=>$from_email,
-					'from_email'=>$from_email,
-					'from_name'=>EVORS()->email->get_from_email_name(),
-					'message'=>$messageBODY,
+					'html'=>		'yes',
+					'type'=> 		($type == 'someone'? 'regular':'bcc'),
+					'to'=> 			$emails,
+					'subject'=>		$post_data['email_subject'],
+					'from'=>		$from_email,
+					'from_email'=>	$from_email,
+					'from_name'=>	EVORS()->email->get_from_email_name(),
+					'message'=>		$messageBODY,
 					'return_details'=> true
 				);
 
@@ -559,9 +625,10 @@ class evors_admin_ajax{
 			}			
 
 			$return_content = array(
-				'status'=> ( $EMAILED['result'] ? '0' :'did not go'),
-				'other'=>$args,
-				'error'=> (isset($EMAILED['error']) ? $EMAILED['error']: '')
+				'status'=> 		( isset($EMAILED['result']) && $EMAILED['result'] ? 'good' :'bad'),
+				'msg'=> 		( isset($EMAILED['result']) && $EMAILED['result'] ? __('Email Sent') : __('Could not send the email') ),
+				'other'=>		$args,
+				'error'=> 		(isset($EMAILED['error']) ? $EMAILED['error']: '')
 			);
 			
 			echo json_encode($return_content);		

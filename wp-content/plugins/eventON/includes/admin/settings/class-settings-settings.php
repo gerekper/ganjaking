@@ -1,9 +1,10 @@
 <?php
 /**
   * evo settings class
-  * @version 4.3.3
+  * @version 4.4
   */
 class evo_settings_settings{
+	private $evcal_opt;
 	function __construct($evcal_opt)	{		
 		$this->evcal_opt = $evcal_opt;
 	}
@@ -108,6 +109,11 @@ class evo_settings_settings{
 								'last_2months'=>__('Query only the event posts created within last 2 months','eventon'),
 								'this_month'=>__('Query only the event posts created this month','eventon')
 							)
+						),
+						array('id'=>'evo_sanitize_html',
+							'type'=>'yesno',
+							'name'=>__('Enable sanitizing HTML content for event data','eventon'), 
+							'legend'=>__('Enabling this will sanitize HTML content using evo_helper()->sanitize_html() function and remove unsupported html content. By default any HTML content is allowed.','eventon')
 						),
 					array('type'=>'sub_section_close'),
 
@@ -498,7 +504,7 @@ class evo_settings_settings{
 								'100per'=>__('100% Image height with stretch to fit','eventon'),
 								'full'=>__('100% Image height with propotionate to calendar width','eventon')
 						)),
-						array('id'=>'evo_ftimghover','type'=>'note','name'=>__('NOTE: Featured image display styles: Direct image style will show &lt;img/&gt; image as oppose to the image as background image of a &lt;div/&gt;','eventon')),
+						array('id'=>'evo_ftimghover','type'=>'note','name'=>__('NOTE: Featured image display styles: Direct image style will show image as img element as oppose to the image as background image of a div element','eventon')),
 						array('id'=>'evo_ftimghover','type'=>'yesno','name'=>__('Disable hover effect on featured image','eventon'),'legend'=>'Remove the hover moving animation effect from featured image on event. Hover effect is not available on Direct Image style'),
 						array('id'=>'evo_ftimgclick','type'=>'yesno','name'=>__('Disable zoom effect on click','eventon'),'legend'=>'Remove the moving animation effect from featured image on click event. Zoom effect is not available in Direct Image style'),
 
@@ -1190,12 +1196,6 @@ class evo_settings_settings{
 						__('Meta data field support dynamic values via event edit page. {startdate} {enddate} {eventid} {startunix} {endunix}.','eventon')
 				),
 				
-				array(
-					'id'=>'evcal_cmf_sanitize',
-					'type'=>'yesno',
-					'name'=>__('Enable Sanitizing Custom Field Value When Saving','eventon'), 
-				 	'legend'=>__('Sanitize the custom meta field values saved in event edit. This will use wp_kses() you can use filter evo_sanitize_html to add support for more html elements.','eventon')
-				),
 				array('id'=>'evcal_cmf_count','type'=>'dropdown','name'=>__('Number of Additional Custom Data Fields','eventon'), 'options'=>$__additions_009_a, 'default'=>3)
 			);
 

@@ -2,21 +2,21 @@
 /**
  * EventON Setup
  *
- * @since 4.3.3
+ * @since 4.4
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.3.3';
+	public $version = '4.4';
 	
 	
 	public $template_url;
 	public $print_scripts=false;
 
 	public $lang = 'L1';
-	public $assets_path, $cal, $calendar, $evo_generator, $frontend,$mdt,$temp,$shortcodes,$ajax,$rest,$cron,$elements,$shortcode_gen,$lightbox,$gen_int,$evosv,$webhooks,$ajde;
+	public $assets_path, $cal, $calendar, $evo_generator, $frontend,$mdt,$temp,$shortcodes,$ajax,$rest,$cron,$elements,$shortcode_gen,$lightbox,$gen_int,$evosv,$webhooks,$ajde, $evo_admin, $taxonomies;
 
 
 	// setup one instance of eventon
@@ -118,6 +118,7 @@ final class EventON {
 			
 		include_once( EVO_ABSPATH. 'includes/class-environment.php' );
 		include_once( EVO_ABSPATH. 'includes/eventon-core-functions.php' );
+		include_once( EVO_ABSPATH. 'includes/class-event-tax.php' );
 		include_once( EVO_ABSPATH. 'includes/class-event.php' );
 		include_once( EVO_ABSPATH. 'includes/class-frontend.php' );		
 		include_once( EVO_ABSPATH. 'includes/class-map-styles.php' );
@@ -133,7 +134,7 @@ final class EventON {
 		include_once( EVO_ABSPATH.'includes/class-deprecations.php' );	
 		
 		include_once( EVO_ABSPATH.'includes/integration/class-intergration-general.php' );
-		include_once( EVO_ABSPATH.'includes/integration/class-intergration-gutenberg.php' );
+		include_once( EVO_ABSPATH.'includes/integration/blocks/class-evo-blocks.php' );
 		include_once( EVO_ABSPATH.'includes/integration/class-intergration-visualcomposer.php' );	
 		include_once( EVO_ABSPATH.'includes/integration/class-intergration-webhooks.php' );	// added in v4.1
 		include_once( EVO_ABSPATH.'includes/integration/elementor/class-elementor-init.php' );
@@ -158,8 +159,10 @@ final class EventON {
 			include_once(EVO_ABSPATH.'includes/admin/class-evo-errors.php' );					
 		}
 		if ( ! $this->is_request('admin') || $this->is_request('ajax') ){
+
 			// Functions
 			include_once( EVO_ABSPATH.'includes/eventon-functions.php' );
+			include_once( EVO_ABSPATH.'includes/admin/class-admin-ajax.php' );
 		}
 
 		if( $this->is_request('frontend')){
@@ -407,12 +410,13 @@ final class EventON {
 
 			// Paths to check
 			$paths = apply_filters('evo_file_template_paths', array(
-				1=>TEMPLATEPATH.'/'.$this->template_url. $append, // TEMPLATEPATH/eventon/--append--
+				1=>TEMPLATEPATH.'/'.$this->template_url .'/'. $append, // TEMPLATEPATH/eventon/--append--
 				2=>$childThemePath.'/',
-				3=>$childThemePath.'/'.$this->template_url. $append,
+				3=>$childThemePath.'/'.$this->template_url .'/'. $append,
 			));
 
 			$location = $default_locations .$file;
+
 			// FILE Exist
 			if ( $file ) {			
 				// each path

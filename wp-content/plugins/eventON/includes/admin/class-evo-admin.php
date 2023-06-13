@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon/Admin
- * @version     4.3
+ * @version     4.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class evo_admin {
 
 	private $class_name;
-	public $metaboxes, $settings;
+	public $metaboxes, $settings, $opt;
 
 	/** Constructor */
 	public function __construct() {
@@ -81,6 +81,10 @@ class evo_admin {
 			if($pagenow =='edit-tags.php' || $pagenow == 'term.php'){
 				EVO()->elements->load_colorpicker();
 				wp_enqueue_script('taxonomy',AJDE_EVCAL_URL.'/assets/js/admin/taxonomy.js' ,array('jquery'),'1.0', true);
+
+				// Custom editor @since 4.3.5
+		   		wp_enqueue_style('evo_wyg_editor');
+		   		wp_enqueue_script('evo_wyg_editor');
 			}
 
 			// @since 4.2.3
@@ -99,10 +103,7 @@ class evo_admin {
 		// event edit page content
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/post_types/class-meta_boxes.php' );
 			$this->metaboxes = new evo_event_metaboxes();
-
-		// Includes for admin
-			if(defined('DOING_AJAX')){	include_once( 'class-admin-ajax.php' );		}			
-
+				
 		// evneton settings only 
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings.php' );
 			$this->settings = new EVO_Settings();
@@ -177,7 +178,6 @@ class evo_admin {
 		function eventon_settings_page() {
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings.php' );
 			
-			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/eventon-admin-settings.php' );
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings-appearance.php' );
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings-scripts.php' );
 
@@ -242,7 +242,14 @@ class evo_admin {
 				wp_enqueue_script('evcal_backend_post',AJDE_EVCAL_URL.'/assets/js/admin/event-post.js', array('jquery','jquery-form','jquery-ui-core','jquery-ui-datepicker'), EVO()->version, true );
 				wp_enqueue_script("jquery-ui-core");
 				
-				wp_localize_script( 'evcal_backend_post', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));	
+				/*
+				comment out 4.4
+				wp_localize_script( 
+					'evcal_backend_post', 
+					'the_ajax_script', 
+					array( 'ajaxurl' => admin_url( 'admin-ajax.php' )
+				));	
+				*/
 				
 				// hook for plugins
 				do_action('eventon_admin_post_script');
@@ -266,6 +273,8 @@ class evo_admin {
 					'select_from_list'=> esc_html__('Select from list', 'eventon'),
 					'add_new_item'=> esc_html__('Add new item', 'eventon'),
 					'edit_item'=> esc_html__('Edit item', 'eventon'),
+					'evo_ajax_url' => evo_ajax::get_endpoint('%%endpoint%%') , 
+					'rest_url'=> EVO_Rest_API::get_rest_api('%%endpoint%%'),
 				)
 			);
 

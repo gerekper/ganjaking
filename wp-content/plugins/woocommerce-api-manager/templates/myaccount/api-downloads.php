@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.6.1
+ * @version 2.8.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -59,7 +59,7 @@ if ( ! empty( $user_id ) ) {
 				<thead>
 				<tr>
 					<?php foreach ( $columns as $column_id => $column_name ) { ?>
-						<th class="<?php echo esc_attr( $column_id ); ?>"><span class="nobr"><?php echo esc_html( $column_name ); ?></span></th>
+						<th class="<?php echo esc_attr( $column_id ); ?>"><span class="nobr" style="white-space: nowrap;"><?php echo esc_html( $column_name ); ?></span></th>
 					<?php } ?>
 				</tr>
 				</thead>

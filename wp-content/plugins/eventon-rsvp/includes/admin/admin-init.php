@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon-rsvp/classes
- * @version     2.5.4
+ * @version     2.8.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -195,6 +195,9 @@ class evorsvp_admin{
 		}
 
 		function evoRS_dynamic_styles($_existen){
+
+			extract( EVO()->elements->get_def_css() );
+
 			$new= array(
 				array(
 					'item'=>'#evorsvp_form #submit_rsvp_form',
@@ -249,8 +252,9 @@ class evorsvp_admin{
 					'item'=>'.evors_lightbox_body #evorsvp_form .form_row select, 
 					.evors_lightbox_body #evorsvp_form .form_row input,
 					.evors_incard_form #evorsvp_form .form_row input,
+					#evorsvp_form .form_row select,
 					#evorsvp_form .form_row textarea',
-					'css'=>'color:#$', 'var'=>'evoRS_ff',	'default'=>'ffffff'
+					'css'=>'color:#$', 'var'=>'evoRS_ff',	'default'=> $evo_color_1
 				),
 				
 				array('item'=>'

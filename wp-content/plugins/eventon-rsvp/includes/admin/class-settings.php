@@ -257,12 +257,16 @@ class EVORS_Settings{
 				
 				array('id'=>'evors_ffields','type'=>'checkboxes','name'=>'Select RSVP form fields to show in the form. <i>(** First , Last names, and Email are required)</i>',
 					'options'=>array(
-						'phone'=>'Phone Number',
-						'count'=>'RSVP Count -- (If unckecked system will count as 1 RSVP)',
-						'updates'=>'Receive Updates About Event -- (Acknowledge Checkbox field)',
-						'names'=>'Other Guest Names -- (if RSVP count if more than 1)',
-						'additional'=>'Additional Notes Field -- (visible only for NO option)',
-						'captcha'=>'Verification Code'
+						'phone'=> __('Phone Number','evors'),
+						'count'=> __('RSVP Count -- (If unckecked system will count as 1 RSVP)','evors'),
+						'updates'=> __('Receive Updates About Event -- (Acknowledge Checkbox field)','evors'),
+						'names'=> __('Other Guest Names -- (if RSVP count is more than 1)','evors'),
+						'additional'=> __('Additional Notes Field -- (visible only for YES option)','evors'),
+						'captcha'=> __('Verification Code','evors'),
+						'twitter'=> __('Twitter Handle','evors'),
+						'instagram'=> __('Instagram Handle','evors'),
+						'youtube'=> __('Youtube Handle','evors'),
+						'tiktok'=> __('TikTok Handle','evors'),
 				)),	
 				array('id'=>'evors_hide_change','type'=>'note','name'=>'NOTE: "Additional Notes Field" will only show when a guest select NO as RSVP status. "Receive Updates About Event" will only be checked when emailing attendees.'),
 			

@@ -6,7 +6,7 @@
  
  *	@Author: AJDE
  *	@EventON
- *	@version: 4.3.2
+ *	@version: 4.4
  */	
 	
 
@@ -52,10 +52,11 @@
 
 			<div class='entry-content'>
 
-				<div class='evo_term_top_section dfx'>
+				<div class='evo_term_top_section dfx fx_dr_c'>
 					
 					<?php if($img_url):?>
-						<div class="evotax_term_img" style='background-image:url(<?php echo $img_url;?>)'>
+						<div class="evotax_term_img dfx" style=''>
+							<img src='<?php echo $img_url;?>'/>
 						</div>	
 					<?php endif;?>						
 					
@@ -63,8 +64,11 @@
 					<div class='evo_tax_details'>
 						<h2 class="tax_term_name organizer_name evo_h2 ttu"><span><?php echo $organizer_term_name;?></span></h2>		
 						<?php 
-
+						// description
 						echo category_description();
+
+						// secondary description
+						if( !empty( $term_meta['description2'])) echo $term_meta['description2'];
 						
 						if(!empty($term_meta['evcal_org_contact'])){						
 							echo "<p class='contactinfo border marb10'>". $term_meta['evcal_org_contact'] ."</p>";

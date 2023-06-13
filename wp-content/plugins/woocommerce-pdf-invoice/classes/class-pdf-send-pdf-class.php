@@ -7,9 +7,17 @@
 	// include DomPDF autoloader
     require_once ( PDFPLUGINPATH . "lib/dompdf/autoload.inc.php" );
 
+	// Load PDFMerger
+	if ( !class_exists('PDFMerger') ) {
+		require_once ( PDFPLUGINPATH . 'lib/PDFMerger/PDFMerger.php' );
+	}
+
     // reference the Dompdf namespaces
-	use WooCommercePDFInvoice\Dompdf;
-	use WooCommercePDFInvoice\Options;
+	use Dompdf\Dompdf;
+	use Dompdf\Options;
+
+	// referenece PDFMerger namespace
+	use PDFMerger\PDFMerger;
 
     class WC_send_pdf {
 
@@ -17,11 +25,7 @@
 
         	$this->wc_version = get_option( 'woocommerce_version' );
 			
-        	if( is_admin() ) {
-        		add_action( 'admin_init', array( $this, 'init' ) );
-        	} else {
-        		add_action( 'init', array( $this, 'init' ) );
-        	}
+        	add_action( 'init', array( $this, 'init' ) );
 
         	add_action( 'wp_ajax_woocommerce_customer_note', array( $this, 'init' ), 9 );
 			
@@ -366,13 +370,6 @@
 					} else {
 						self::log_pdf( "PDF NOT saved to temp folder" );
 					}
-						
-					// ob_start();
-					// ob_clean();
-
-					if ( !class_exists('PDFMerger') ) {
-						include ( PDFPLUGINPATH . 'lib/PDFMerger/PDFMerger.php' );
-					}
 
 					if ( isset($settings['pdf_termsid']) && $settings['pdf_termsid'] != 0 ) {
 
@@ -441,6 +438,10 @@
 						}
 
 					}
+
+					// Unset DOMPDF
+					$dompdf = new DOMPDF();
+					$dompdf = NULL;
 						
 					// Send the file name and location to the Email
 					// return 	array( $invattachments, $termsattachments );
@@ -470,6 +471,10 @@
 					} else {
 						self::log_pdf( "PDF NOT saved to temp folder (02)" );
 					}
+
+					// Unset DOMPDF
+					$dompdf = new DOMPDF();
+					$dompdf = NULL;
 		
 					// Send the file name and location to the Email
 					return 	$attachments;

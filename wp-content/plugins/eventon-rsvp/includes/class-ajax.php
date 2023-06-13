@@ -270,9 +270,12 @@ class evorsvp_ajax{
 				if($prevalidate === true){
 					// if UPDATING
 					if(!empty($post['rsvpid'])){
+
+						$RSVP_POST = new EVO_RSVP_CPT( $post['rsvpid'] );
+
 						$rsvpID = $post['rsvpid'];
 
-						$old_rsvp_status = get_post_meta($rsvpID, 'rsvp', true);
+						$old_rsvp_status = $RSVP_POST->get_rsvp_status();
 
 						$proceed = true;
 
@@ -281,9 +284,11 @@ class evorsvp_ajax{
 
 							$remaining_rsvp = $RSVP->remaining_rsvp();
 
-							if($remaining_rsvp == 'wl') $proceed = false;
+							if($remaining_rsvp == 'wl') $proceed = false; // legacy
+							if( !$RSVP->has_space_to_rsvp( $post['count'] ) ) $proceed = false;
 
-							if( !$RSVP->has_space_to_rsvp($post['count']) ) $proceed = false;
+							// @since 2.8.4
+							$proceed = apply_filters('evors_updatersvp_n_to_y', $proceed, $RSVP, $RSVP_POST, $remaining_rsvp);
 						}
 
 						if( $proceed){

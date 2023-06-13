@@ -16,7 +16,6 @@ class evoau_ajax{
 	// construct
 		public function __construct(){
 			$ajax_events = array(
-				'the_ajax_au'=>'the_ajax_au',
 				'evoau_get_form'=>'event_get_form',
 				'evoau_get_manager_event'=>'get_manager_event',
 				'evoau_delete_event'=>'evoau_delete_event',
@@ -198,21 +197,6 @@ class evoau_ajax{
 			}
 		}
 
-	// load new role caps in admin
-		function the_ajax_au(){
-			
-			$role = $_POST['role'];		
-				
-			$content = EVOAU()->admin->get_cap_list_admin($role);
-			
-			$return_content = array(
-				'content'=> $content,
-				'status'=>'ok'
-			);
-			
-			echo json_encode($return_content);		
-			exit;
-		}
 
 }new evoau_ajax();
 

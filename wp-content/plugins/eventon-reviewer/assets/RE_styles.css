@@ -1,8 +1,15 @@
 /**
  * 	Reviews Events Calendar styles
- * 	@version 0.6
+ * 	@version 1.1
 */
 
+/* general */
+	.evore_form_section .review_submission_form h3,
+	.evcal_evdata_cell .rating_data .evore_avg_val
+	{font-family: var(--evo_font_1)}
+	body .review_submission_form p input,
+	body .review_submission_form p textarea
+	{font-family: var(--evo_font_2);}
 /* eventcard */
 	.review_list .reviewer,
 	.evcal_evdata_cell .review_list .review.show,
@@ -14,9 +21,10 @@
 	#evcal_list .eventon_list_event .event_description p.review
 	{display: none; }
 	
-	.evcal_evdata_cell .review_list .review.show{margin-bottom: 15px;}
+	.evcal_evdata_cell .review_list .review.show{margin-bottom: 30px;}
 	.review_list p.review {margin: 0;padding: 0;}
 	.review_list .review .rating{display: block;opacity: 0.6;}
+	.review_list .review .rating .fa{font-size: 14px;}
 
 	.evcal_evdata_cell .review_list.alllist .review{display: block; }
 	.review_list_control span{margin-right: 5px; opacity: 0.2;cursor: pointer;}
@@ -26,12 +34,14 @@
 	.evcal_evdata_cell .review_list .review .description{
 		padding: 8px;
 		background-color: #DEDEDE;
-		border-radius: 3px;
-		margin-bottom: 10px; margin-top: 3px;
+		border-radius: 10px;
+		margin-bottom: 10px; margin-top: 10px;
 		display: inline-block;
 		position: relative;
 	}
-	.evcal_evdata_cell .review_list .review.show .description:before{
+	.evcal_evdata_cell .review_list .review.show .description:before,
+	.evcal_evdata_cell .review_list.alllist .review .description:before
+	{
 		content:"";
 		width: 0;
 		height: 0;
@@ -40,7 +50,7 @@
 		border-color: #DEDEDE transparent transparent transparent;
 		position: absolute;
 		margin-bottom: -10px;
-		left: 4px; bottom: 0;
+		left: 10px; bottom: 0;
 	}
 	.evcal_evdata_cell .review_list_control{margin-bottom: 10px;}
 
@@ -52,7 +62,7 @@
 		flex-wrap: wrap;
 	}
 	.evcal_evdata_cell h3.orating .orating_stars{margin: 0 10px;	}
-	.evcal_evdata_cell h3.orating .orating_stars span{position: relative;}
+	.evcal_evdata_cell h3.orating .orating_stars span{position: relative;font-size: 18px;}
 	.evcal_evdata_cell h3.orating .orating_stars .fa-star-half:after{
 		content: "\f005";
 	    font-family: 'evo_FontAwesome';
@@ -91,9 +101,9 @@
 		}
 		.rating_data p{margin-bottom: 5px;}
 		.evcal_evdata_cell .rating_data {			
-			padding: 8px 10px 10px;
+			padding: 15px;
 		    margin: 10px 0px 15px 0;
-		    background-color: #f5f5f5;
+		    background-color: #fff;
 		    border-radius: 10px;
 		}
 		.evcal_evdata_cell .rating_data span.bar{
@@ -101,7 +111,7 @@
 			border-radius:8px;
 			background-color: #D6D6D6;
 			height: 10px;
-			margin: 3px 8px 0;
+			margin: 0px 20px 0;
 		}
 		.evcal_evdata_cell .rating_data span.bar em{
 			display: block;
@@ -109,16 +119,23 @@
 			border-radius:8px;
 			height: 10px;
 		}
+		.evcal_evdata_cell .rating_data .rating_line{
+			display: flex; align-items: center;padding-bottom: 5px;
+		}
+		.evcal_evdata_cell .rating_data .rating_line .rating_txt{margin-right: 10px;}
+		.evcal_evdata_cell .rating_data .rating_line .rating{padding:0;}
+		.evcal_evdata_cell .rating_data .rating span{font-size: 12px;}
 
 /* lightbox */
 	.evore_form_section{	
-		background-color: #99c379;
+		background-color: #6bc725;
 		color: #fff;
-		padding: 90px 30px;
+		padding: 50px;
 		margin: 0 auto;
 		text-align: center;
 		position: relative;
 	}
+	.evore_form_section .review_submission_form > * {color:#fff;}
 	.evore_form_section.error{background-color:#e67562}
 	.review_submission_form.loading:before{
 		background: url(evo-loader.gif) center center no-repeat;
@@ -129,49 +146,38 @@
 		opacity: 0.5;
 	}
 	.review_submission_form.loading{opacity: 0.4}
-	
+	.review_submission_form p label{padding-bottom: 10px;}
 	.review_submission_form p label{
-		display: block;
-		text-align: center;		
+		display: block;text-align: left;		
 	}
 	body .review_submission_form p textarea, 
 	body .review_submission_form p input[type="text"]{
 		border: none;
 	    background-color: rgba(255, 255, 255, 0.25);
 	    color: #fff;
-	    padding: 10px 8px;
-	    border-radius: 5px;
+	    padding: 10px 20px;
+	    border-radius: 10px;
 	    display: inline-block;
 	    margin: 0;
 	    box-sizing: border-box;
 	    width: 100%;
-	    font-family: 'open sans': 
+	}
+	body .review_submission_form p textarea:focus, 
+	body .review_submission_form p input:focus{
+		outline:none;    box-shadow: 0px 0px 20px -10px #000
 	}
 	.review_submission_form p textarea{height: 80px;}
-	.evore_form_section .evore_submit{
-		font: bold 14px arial;
-	    display: inline-block;
-	    padding: 8px 12px!important;
-	    margin-top: 4px;
-	    text-transform: uppercase;
-	    text-decoration: none;
-	    border-radius: 4px;
-	    border-bottom: none;
-	    background-color: #fff;
-	    color: #9AB37F;
-	}
-	.evore_form_section p{margin: 0 0 10px;padding: 0;}
-	.evore_form_section p.star_rating{
-		font-size: 24px;
-	}
-	.evore_form_section p.star_rating span{margin: 0 4px;cursor:pointer;}
+	
+	.evore_form_section p{margin: 0 0 20px;padding: 0;}
+	.evore_form_section p.star_rating{font-size: 24px;}
+	.evore_form_section p.star_rating span{margin: 0 4px;cursor:pointer; font-size: 24px;}
 	
 	/* notification */
 		.evore_form_section .notification{
 			padding: 30px;
-		    margin: 30px -30px -90px;
+		    margin: 30px -50px -70px;
 		}
-		.evore_form_section .notification.err{background-color: #d26250;}
+		.evore_form_section .notification.err{background-color: #f0573e;}
 
 	/* checkmark for success message */
 		.evore_form_section .review_confirmation p{font-size: 18px;}

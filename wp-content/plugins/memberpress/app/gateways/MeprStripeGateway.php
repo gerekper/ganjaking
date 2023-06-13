@@ -253,12 +253,13 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     }
 
     $customer_id = $this->get_customer_id($usr);
-    $price_id = $this->get_stripe_price_id($sub, $product, $product->adjusted_price());
+    $base_price = MeprHooks::apply_filters('mepr_stripe_product_base_price', $product->adjusted_price(), $product, $usr);
+    $price_id = $this->get_stripe_price_id($sub, $product, $base_price);
     $stripe_product_id = $this->get_product_id($product);
     $coupon = $txn->coupon();
 
     if($coupon instanceof MeprCoupon) {
-      $discount_amount = $this->get_coupon_discount_amount($coupon, $product, $txn->tax_rate);
+      $discount_amount = $this->get_coupon_discount_amount($coupon, $product);
 
       if ($discount_amount > 0 && $coupon->discount_mode != 'first-payment') {
         if ($tax_inclusive) {
@@ -299,12 +300,13 @@ class MeprStripeGateway extends MeprBaseRealGateway {
             $tmp_coupon->discount_amount = $coupon->get_discount_amount($product);
             $tmp_coupon->discount_type = $coupon->discount_type;
             $price = $tmp_coupon->apply_discount($product->price, false, $product);
+            $price = MeprHooks::apply_filters('mepr_stripe_product_base_price', $price, $product, $usr);
             $price_id = $this->get_stripe_price_id($sub, $product, $price);
           }
       }
     }
 
-    if ($txn->tax_rate > 0 && $calculate_taxes) {
+    if ($calculate_taxes && $txn->tax_rate > 0 && $txn->tax_amount > 0) {
       $tax_rate_id = $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $product, $tax_inclusive);
     }
     if (!$product->is_one_time_payment()) {
@@ -351,6 +353,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         $tmp_coupon->discount_amount = $coupon->get_discount_amount($product);
         $tmp_coupon->discount_type = $coupon->discount_type;
         $price = $tmp_coupon->apply_discount($product->price, false, $product);
+        $price = MeprHooks::apply_filters('mepr_stripe_product_base_price', $price, $product, $usr);
         $checkout_session['line_items'][0]['price'] = $this->get_stripe_price_id($sub, $product, $price);
       }
 
@@ -500,7 +503,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         }
 
         if($subscription->trial && $subscription->trial_days > 0) {
-          $amount = (float) $subscription->trial_amount;
+          $amount = $calculate_taxes && !$tax_inclusive && $transaction->tax_rate > 0 ? (float) $subscription->trial_amount : (float) $subscription->trial_total;
         }
         else {
           $amount = $calculate_taxes && !$tax_inclusive && $transaction->tax_rate > 0 ? (float) $subscription->price : (float) $subscription->total;
@@ -553,7 +556,8 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       ];
 
       if($sub->trial && $sub->trial_days > 0) {
-        $line_item = $this->build_line_item($this->get_one_time_price_id($prd, (float) $sub->trial_amount), $txn, $prd);
+        $amount = $calculate_taxes && !$tax_inclusive && $txn->tax_rate > 0 ? (float) $sub->trial_amount : (float) $sub->trial_total;
+        $line_item = $this->build_line_item($this->get_one_time_price_id($prd, $amount), $txn, $prd);
         array_unshift($line_items, $line_item);
 
         $args = array_merge($args, [
@@ -1973,6 +1977,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         $sub->trial = false;
         $sub->trial_days = 0;
         $sub->trial_amount = 0.00;
+        $sub->trial_tax_amount = 0.00;
+        $sub->trial_total = 0.00;
+        $sub->trial_tax_reversal_amount = 0.00;
         $sub->store();
       }
     }
@@ -1980,6 +1987,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $sub->trial = true;
       $sub->trial_days = MeprUtils::tsdays(strtotime($sub->expires_at) - time());
       $sub->trial_amount = 0.00;
+      $sub->trial_tax_amount = 0.00;
+      $sub->trial_total = 0.00;
+      $sub->trial_tax_reversal_amount = 0.00;
       $sub->store();
     }
 
@@ -2034,11 +2044,11 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
     if($tax_inclusive) {
       $plan_id = $this->get_stripe_plan_id($sub, $prd, $sub->total);
-      $tax_rate_id = $sub->tax_rate > 0 ? $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, true) : null;
+      $tax_rate_id = $sub->tax_rate > 0 && $sub->tax_amount > 0 ? $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, true) : null;
     }
     else {
       $plan_id = $this->get_stripe_plan_id($sub, $prd, $sub->price);
-      $tax_rate_id = $sub->tax_rate > 0 ? $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, false) : null;
+      $tax_rate_id = $sub->tax_rate > 0 && $sub->tax_amount > 0 ? $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, false) : null;
     }
 
     $item = ['plan' => $plan_id];
@@ -3799,9 +3809,10 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   public function create_subscription(MeprTransaction $txn, MeprSubscription $sub, MeprProduct $prd, $customer_id, $payment_method_id = null, $default_incomplete = true, $trial_days = 0) {
     $mepr_options = MeprOptions::fetch();
 
-    $item = ['plan' => $this->get_stripe_plan_id($sub, $prd, $prd->price)];
+    $price = MeprHooks::apply_filters('mepr_stripe_product_base_price', $prd->price, $prd, $txn->user());
+    $item = ['plan' => $this->get_stripe_plan_id($sub, $prd, $price)];
 
-    if(get_option('mepr_calculate_taxes') && $txn->tax_rate > 0) {
+    if(get_option('mepr_calculate_taxes') && $txn->tax_rate > 0 && $txn->tax_amount > 0) {
       $item = array_merge($item, [
         'tax_rates' => [$this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, $mepr_options->attr('tax_calc_type') == 'inclusive')]
       ]);
@@ -4144,7 +4155,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       'discountable' => 'false'
     ];
 
-    if(get_option('mepr_calculate_taxes') && $txn->tax_rate > 0) {
+    if(get_option('mepr_calculate_taxes') && $txn->tax_rate > 0 && $txn->tax_amount > 0) {
       $args['tax_rates'] = [$this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, $mepr_options->attr('tax_calc_type') == 'inclusive')];
     }
 
@@ -4176,7 +4187,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       'quantity' => 1,
     ];
 
-    if($calculate_taxes && $txn->tax_rate > 0) {
+    if($calculate_taxes && $txn->tax_rate > 0 && $txn->tax_amount > 0) {
       $line_item = array_merge($line_item, [
         'tax_rates' => [$this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, $tax_inclusive)]
       ]);

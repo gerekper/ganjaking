@@ -62,6 +62,7 @@ class WC_Catalog_Restrictions_Filters {
 			$this,
 			'on_woocommerce_product_add_to_cart_url'
 		), 99, 2 );
+
 		add_filter( 'woocommerce_loop_add_to_cart_link', array( $this, 'on_loop_add_to_cart_link' ), 99, 2 );
 		add_filter( 'woocommerce_product_add_to_cart_text', array(
 			$this,
@@ -458,15 +459,22 @@ class WC_Catalog_Restrictions_Filters {
 		return $result;
 	}
 
-	public function on_loop_add_to_cart_link( $markup, $product ) {
+	/**
+	 * @param string $markup
+	 * @param WC_Product|bool $product
+	 *
+	 * @return mixed|string|null
+	 */
+	public function on_loop_add_to_cart_link( string $markup, $product ) {
 		global $wc_cvo;
 		if ( $product && !$this->user_can_purchase( $product ) ) {
 			$label = wptexturize( $wc_cvo->setting( 'wc_cvo_atc_text' ) );
 			if ( empty( $label ) ) {
 				return "";
 			}
-			$link = get_permalink( $product->get_id() );
 
+			$link = $product->get_permalink();
+			$link = apply_filters( 'catalog_visibility_alternate_add_to_cart_link_url', $link, $product );
 			return apply_filters( 'catalog_visibility_alternate_add_to_cart_link', sprintf( '<a href="%s" data-product_id="%s" class="button product_type_%s">%s</a>', $link, $product->get_id(), $product->get_type(), $label ) );
 		} else {
 			return $markup;
@@ -491,7 +499,8 @@ class WC_Catalog_Restrictions_Filters {
 		if ( $product && !$this->user_can_purchase( $product ) ) {
 			$link = get_permalink( $product->get_id() );
 
-			return apply_filters( 'catalog_visibility_alternate_add_to_cart_link_url', $link, $product );
+			$url = apply_filters( 'catalog_visibility_alternate_add_to_cart_link_url', $link, $product );
+			return $url;
 		} else {
 			return $url;
 		}

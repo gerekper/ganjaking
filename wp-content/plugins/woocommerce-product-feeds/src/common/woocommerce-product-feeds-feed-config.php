@@ -171,7 +171,7 @@ class WoocommerceProductFeedsFeedConfig {
 	private function generate_category_string( $term_id ) {
 		$term = get_term( $term_id, 'product_cat' );
 		if ( ! $term ) {
-			return __( 'Unknown category', 'woocommerce_gpf' );
+			return __( 'Unknown category - maybe deleted?', 'woocommerce_gpf' );
 		}
 		$parent_string = get_term_parents_list(
 			$term_id,

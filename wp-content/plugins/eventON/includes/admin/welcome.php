@@ -217,7 +217,7 @@ class EVO_Welcome_Page {
 					<div id='eventon_welcome_header'>			
 						<p class='logo'>
 							<?php echo EVO()->evo_admin->get_svg_el();?>
-							<span>EventON</span></p>
+							<span><?php _e('EventON','eventon');?></span></p>
 					</div>
 
 								
@@ -227,12 +227,13 @@ class EVO_Welcome_Page {
 					<div class='evowel_info1'>
 						<p class='h3'><?php
 							if(!empty($_GET['evo-updated']))
-								$message = __( 'Thank you for updating EventON to ver ', 'eventon' );
+								$message = __( 'Thank you for updating EventON', 'eventon' );
 							else
-								$message = __( 'Thank you for purchasing EventON ver ', 'eventon' );
+								$message = __( 'Thank you for purchasing EventON', 'eventon' );
 								
-							printf( __( '%s%s', 'eventon' ), $message,	EVO()->version );
-						?></p>			
+							printf( __( '%s', 'eventon' ), $message);
+						?></p>		
+						<p class='version_num'><?php printf( __( '%s', 'eventon' ), EVO()->version );?></p>
 						<p class='h4'><?php 
 							if(!empty($_GET['evo-updated']))
 								printf( __( 'We hope you will enjoy the new features we have added!','eventon'));

@@ -11,6 +11,19 @@
 /* buttons within black boxes */	
 	.evomb_body p.yesno_row{display: block;}
 
+/* general */
+	.evoadmin_eventedit_boxhead{display: flex; justify-content: space-between;}
+	.evoadmin_eventedit_boxhead .evoadmin_eventedit_reloadbox{cursor: pointer;
+		display: flex;
+	    background-color: #202421;
+	    color: #fff;
+	    justify-content: center;
+	    align-content: center;
+	    padding: 5px 8px;
+	    border-radius: 3px;
+	}
+	.evoadmin_eventedit_boxhead .evoadmin_eventedit_reloadbox:hover{opacity: 0.7}
+
 /** EVENT COLOR **/
 	.evcal_color_box{
 		cursor:pointer;height:20px; 
@@ -156,10 +169,7 @@
 	}
 	.evomdt_selection li i:hover{opacity: 1;}
 /* event post specific settngs */
-	.evo_event_opts label{
-		padding-top: 4px;
-		padding-left: 50px;
-	}
+	.evo_event_opts label{padding-left: 50px;}
 	.evo_event_opts p.yesno_leg_line{padding-top: 0; margin-top: 0;}
 
 /** User interaction **/
@@ -351,11 +361,13 @@
 		border-bottom: 1px solid #e8e8e8;
 	}
 	.postbox .eventon_mb	.eventon_settings_table .innersection td{
-		background-color: #e8e8e8;
-		padding: 20px;    	
-    	border-top: 1px solid #d6d6d6; border-left: none;
-    	border-color: #d6d6d6;
+		padding: 20px; border-left: none;
 	} 
+	.postbox .eventon_mb	.eventon_settings_table .innersection td > div{
+		    background-color: #e5e7ec;
+	    padding: 20px;
+	    border-radius: 20px;
+	}
 	.eventon_settings_table .yesno_leg_line{padding-top: 5px;padding-bottom: 8px;}
 	.eventon_settings_table input{width: 100%;}
 
@@ -377,7 +389,7 @@
 	    margin: 15px -25px -15px;
 	    padding: 20px;
 	}
-	.evo_edit_field_box{background-color: #efefef;border-radius: 8px;padding: 15px;margin: 8px 0 15px;	}
+	.evo_edit_field_box{background-color: #efefef;border-radius: 15px;padding: 15px;margin: 8px 0 15px;	}
 	.evo_edit_field_box .evo_edit_field_box{background-color: #e0e0e0;}
 
 /* general tax selection field styles */

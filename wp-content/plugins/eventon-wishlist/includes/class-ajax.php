@@ -4,7 +4,7 @@
  *
  * @author 		AJDE
  * @category 	Core
- * @version     0.1
+ * @version     1.1.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -21,13 +21,23 @@ class evowi_ajax{
 	}
 
 	function evowi_change_wishlist(){
+		$help = new evo_helper();
+		$postdata = $help->process_post($_POST);
+
+		// set the language
+		$SC = $postdata['sc'];
+		if( isset( $SC['lang'] ) ) evo_set_global_lang( $SC['lang']);
+
+
+		$ri = isset($postdata['ri']) & !empty($postdata['ri']) ? $postdata['ri'] : 0;
+
 		if(!is_user_logged_in()){ 
 
 			ob_start();
 
-			$current_page = $_POST['pl'];
+			$current_page = $postdata['pl'];
 				
-			$event_id = (int)$_POST['ei'];
+			$event_id = (int)$postdata['ei'];
 
 			?>
 				<div style='text-align:center;padding:20px;'>
@@ -53,20 +63,18 @@ class evowi_ajax{
 			exit;
 		}
 
-		global $evowi;
-
 		$fnc = new evowi_fnc();
 
 		$userid = get_current_user_id();
 
-		$result = $fnc->change_user_wishlist($_POST['newstatus'], $_POST['ei'], $_POST['ri'], $userid);
+		$result = $fnc->change_user_wishlist($postdata['newstatus'], $postdata['ei'], $ri, $userid);
 
 		// get new counts
 		$wishlist_events = get_option('_evo_wishlist');
 		$evOpt = evo_get_options('1');
-		$count = $fnc->get_wishlist_count($_POST['ei'], $_POST['ri'], $wishlist_events);
+		$count = $fnc->get_wishlist_count($postdata['ei'], $ri, $wishlist_events);
 
-		if( $_POST['newstatus']=='add' ){
+		if( $postdata['newstatus']=='add' ){
 			$html = "<span class='evowi_wi_area'>
 					<i class='fa ".get_eventON_icon('evcal_evowi_001', 'fa-heart',$evOpt )."'></i>
 					<em>".$count."</em>
@@ -81,7 +89,7 @@ class evowi_ajax{
 		echo json_encode(array(
 			'status'=> ($result?'good':'bad'), 
 			'message'=> ($result?
-				( $_POST['newstatus']=='add'?'Added to wishlist':'Removed from wishlist')
+				( $postdata['newstatus']=='add'?'Added to wishlist':'Removed from wishlist')
 				:'Please try again later!'),
 			'html'=> $html
 		));	

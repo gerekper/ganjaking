@@ -1,5 +1,8 @@
 ﻿Event Speakers and schedule (SS) addon for EventON Plugin
 ====================================
+v 2.0.2 (2023-2-14)
+FIXED: schedule date header click changes it
+
 v 2.0.1 (2023-2-10)
 ADDED: company field for speaker
 FIXED: schedule description list getting duplicate styles

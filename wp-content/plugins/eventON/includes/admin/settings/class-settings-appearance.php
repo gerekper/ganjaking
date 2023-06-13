@@ -1,10 +1,11 @@
 <?php
 /**
  * Appearance settings for eventon
- * @version 4.3
+ * @version 4.4
  */
 
 class evoadmin_set_appearance{
+	private $evcal_opt;
 	function __construct($evcal_opt)	{
 		$this->evcal_opt = $evcal_opt;
 	}
@@ -183,6 +184,22 @@ class evoadmin_set_appearance{
 					array('id'=>'evcal__fc6','type'=>'color','name'=>__('Text under event title (on EventTop. Eg. Time, location etc.)','eventon'),'default'=>$preset_data['evo_color_1']),
 					array('id'=>'evcal__fc7','type'=>'color','name'=>__('Category title color (eg. Event Type)','eventon'),'default'=>$preset_data['evo_color_1']),					
 
+					array('id'=>'evcal__ett_borderleft','type'=>'dropdown',
+						'name'=>__('EventTop hover border left size','eventon'),
+						'default'=>'7px',
+						'options'=> array(
+							'7px'=>'7px',
+							'8px'=>'8px',
+							'9px'=>'9px',
+							'10px'=>'10px',
+							'11px'=>'11px',
+							'12px'=>'12px',
+							'13px'=>'13px',
+							'14px'=>'14px',
+							'15px'=>'15px',
+						)
+					),	
+					
 					array('id'=>'fs_fonti','type'=>'fontation','name'=>__('Background Color','eventon'),
 						'variations'=>array(
 							array('id'=>'evcal__bgc4', 'name'=>'Default State', 'type'=>'color', 'default'=>'f1f1f1'),

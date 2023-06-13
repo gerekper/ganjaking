@@ -2,13 +2,15 @@
 /**
  * Language Settings 
  *
- * @version		4.3.3
+ * @version		4.4
  * @package		EventON/settings
  * @category	Settings
  * @author 		AJDE
  */
 
 class evo_settings_lang{
+	public $evcal_opt, $evopt, $lang_version, $lang_options,$lang_variations, $uri_parts;
+
 	private $eventon_months = array(1=>'january','february','march','april','may','june','july','august','september','october','november','december');
 		
 	private $eventon_days = array(1=>'monday','tuesday','wednesday','thursday','friday','saturday','sunday');
@@ -411,6 +413,7 @@ class evo_settings_lang{
 					array('label'=>'Share on twitter','var'=>1),
 					array('label'=>'Share on Linkedin','var'=>1),
 					array('label'=>'Share on Pinterest','var'=>1),
+					array('label'=>'Share on Whatsapp','var'=>1),
 					array('label'=>'Copy Link','var'=>1),
 					array('label'=>'Event Link Copied to Clipboard!','var'=>1),
 					array('type'=>'subheader','label'=>__('Add to calendar Section','eventon')),

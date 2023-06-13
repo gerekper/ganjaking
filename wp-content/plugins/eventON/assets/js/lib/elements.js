@@ -1,11 +1,11 @@
 /**
  * EventON elements
- * version: 4.2.3
+ * version: 4.3.5
  */
 jQuery(document).ready(function($){
 
 // process element interactivity on demand
-	$('body').on('evo_elm_load_interactivity',function(){
+	$.fn.evo_process_element_interactivity = function(O){
 		setup_colorpicker();
 		_evo_elm_load_datepickers();
 
@@ -14,7 +14,15 @@ jQuery(document).ready(function($){
 				$(this).trumbowyg();
 			});	
 		}
+	}
+	// on page load
+	$('body').evo_process_element_interactivity();
+	// on after elements load
+	$('body').on('evo_elm_load_interactivity',function(){
+		$(this).evo_process_element_interactivity();
 	});
+
+
 
 // yes no button		
 	$('body').on('click','.ajde_yn_btn', function(){
@@ -313,18 +321,31 @@ jQuery(document).ready(function($){
 		OBJ = $(this);
 
 		const upload_box = OBJ.closest('.evo_data_upload_holder').find('.evo_data_upload_window');
+		upload_box.show();
+
+		const msg_elm = upload_box.find('.msg');
+		msg_elm.hide();		
+	});
+
+	$('body').on('click','.upload_settings_button',function(event){
+		//event.preventDefault();
+		OBJ = $(this);
+
+		const upload_box = OBJ.closest('.evo_data_upload_window');
 
 		// show form
 		upload_box.show();
+		//console.log('s');
 
 		const msg_elm = upload_box.find('.msg');
 		const form = upload_box.find('form');
 		var fileSelect = upload_box.find('input');
 		const acceptable_file_type = fileSelect.data('file_type');
 		msg_elm.hide();
-
+		
 		// when form submitted
 		$(form).submit(function(event){
+			//console.log('d');
 			event.preventDefault();
 			msg_elm.html('Processing').show();
 
@@ -341,6 +362,9 @@ jQuery(document).ready(function($){
 		      	return;
 		    }
 
+		    if( file === undefined ){
+		    	msg_elm.html('Missing File.'); return;
+		    }
 		    if( file.name.indexOf( acceptable_file_type ) == -1 ){
 		  		msg_elm.html('Only accept '+acceptable_file_type+' file format.');
 		  	}else{
@@ -353,9 +377,13 @@ jQuery(document).ready(function($){
 	            reader.onerror = function() {
 	            	msg_elm.html('Unable to read file.');
 	            };
-	        }			
+	        }	
+
+	        return false;		
 		});
+		return true;
 	});
+
 	// close upload window
 	$('body').on('click','.evo_data_upload_window_close',function(){
 		$(this).parent().hide();

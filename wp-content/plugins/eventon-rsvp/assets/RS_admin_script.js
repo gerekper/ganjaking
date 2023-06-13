@@ -1,6 +1,6 @@
 /**
  * JS for RSVP admin section 
- * @version  2.8
+ * @version  2.9
  */
 jQuery(document).ready(function($){
 	
@@ -8,6 +8,16 @@ jQuery(document).ready(function($){
 		
 	// INITIATE script
 	function init(){}
+
+	// on save event post update page meta values
+		$('body')
+		.on('evo_ajax_form_complete_evors_save_eventedit_settings',function(event, OO, form){
+			var fordata = form.serializeArray();
+			$.each(fordata, function(index, value){
+				$('body').find('input[value="' + value.name + '"]')
+				.closest('tr').find('textarea').val( value.value );
+			});
+		});
 
 	// GET attendee list	
 		// For repeating events -> selecting a repeat and submit
@@ -50,6 +60,7 @@ jQuery(document).ready(function($){
 					d: 			{
 						action: 		'evorsadmin_attendee_info',
 						rsvpid:			OBJ.parent().data('rsvpid'),
+						eid:			OBJ.closest('.evors_list').data('eid'),
 						load_lbcontent: true
 					}
 				});
@@ -61,7 +72,7 @@ jQuery(document).ready(function($){
 			$(this).closest('td').find('.evotx_ri_cap_inputs p').removeClass('hidden');
 		});
 	// Sync attendees count
-		$('#evors_SY').on('click',function(){
+		$('body').on('click','.evors_sync_count_trig',function(){
 
 			var obj = $(this);
 			var data_arg = {
@@ -94,49 +105,34 @@ jQuery(document).ready(function($){
 		});
 
 	// Emailing for RSVP
-		$('body').on('change','#evors_emailing_options',function(){
+		$('body').on('change','.evors_emailing_options',function(){
+			LB = $(this).closest('.evo_lightbox');
 			VAL = $(this).find(":selected").attr('value');
 			if(VAL=='someone' || VAL=='someonenot'){
-				$('#evors_emailing').find('p.text').show();
+				LB.find('.evo_elm_row.emails').show();
 			}else{
-				$('#evors_emailing').find('p.text').hide();
+				LB.find('.evo_elm_row.emails').hide();
 			}
 		});
-		$('body').on('click','#evors_email_submit', function(){
+		$('body').on('click','.evors_submit_email_form', function(){
 			var obj = $(this);
-			var data_arg = {
-				action: 		'the_ajax_evors_a9',
-				eid:			$(this).attr('data-eid'),
-				type:			$('#evors_emailing_options').val(),
-				att_status:			$('#evors_att_status').val(),
-				emails:			$('#evors_emailing .text input').val(),
-				subject:		$('#evors_emailing .subject input').val(),
-				message:		$('#evors_emailing .textarea textarea').val(),
-				repeat_interval:$('#evors_emailing_repeat_interval').val(),
-			};	
 
-			if(data_arg.subject == '' ){
-				obj.closest('.ajde_popup_text').siblings('.message').addClass('bad').html('Required Fields Missing').show();
-			}else{
-				obj.closest('.ajde_popup_text').siblings('.message').hide();
-				$.ajax({
-					beforeSend: function(){
-						obj.closest('.ajde_popup_text').addClass('loading');
-					},
-					type: 'POST',
-					url:evors_admin_ajax_script.ajaxurl,
-					data: data_arg,
-					dataType:'json',
-					success:function(data){
-						//console.log(data);
-						if(data.status=='0'){
-							obj.closest('.ajde_popup_text').siblings('.message').addClass('good').html('Emails Sent').show();
-						}else{
-							obj.closest('.ajde_popup_text').siblings('.message').addClass('bad').html('Could not send emails. Try again later.').show();
-						}
-					},complete:function(){obj.closest('.ajde_popup_text').removeClass('loading');}
-				});
-			}	
+			LB = $('body').find('.evors_emailing.evo_lightbox');
+			
+			// check validate required fields
+			if( LB.find('input[name="email_subject"]').val() == ''){
+				LB.evo_lightbox_show_msg({'type': 'bad', 'message': 'Required Fields Missing!' });
+				return;
+			}
+			if( LB.find('textarea[name="email_content"]').val() == ''){
+				LB.evo_lightbox_show_msg({'type': 'bad', 'message': 'Required Fields Missing!' });
+				return;
+			}
+
+			// proceed
+			obj.evo_ajax_lightbox_form_submit( obj.data('d') );
+
+			return;
 		});
 
 	// Default build in checkin
@@ -275,4 +271,33 @@ jQuery(document).ready(function($){
 		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   		return regex.test(email);
 	}
+
+
+	// ADDONS
+	// waitlist - add to list
+		$('body')
+		.on('evo_ajax_success_evorsw_add_to_list', function(event, OO){
+			LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
+			LB.evo_lightbox_close();
+		})
+		// from page
+		.on('evo_ajax_beforesend_evorsw_add_to_list_pg', function(event, OO, data){
+			$('body').find('.evorsw_add_to_list_pg').closest('td').addClass('evoloading');
+		})
+		.on('evo_ajax_complete_evorsw_add_to_list_pg', function(event, OO, data){
+			$('body').find('.evorsw_add_to_list_pg').closest('td').removeClass('evoloading');
+		})
+		.on('evo_ajax_success_evorsw_add_to_list_pg', function(event, OO, data){
+			$('body').find('.evorsw_add_to_list_pg').siblings('span').html( data.new_checkin_status )
+				.attr('class','rsvp_ch_st evors_trig_checkin check-in')
+				.data('status','check-in');
+			$('body').find('.evorsw_add_to_list_pg').remove();
+		})
+		// moved to waitlist
+		.on('evo_ajax_success_evorsw_move_to_waitlist', function(event, OO){
+			LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
+			LB.evo_lightbox_close();
+		})
+		;
+
 });

@@ -1,6 +1,6 @@
 /**
  * Javascript for wishlist
- * @version  1.1.1
+ * @version  1.2
  */
 jQuery(document).ready(function($){
 	
@@ -20,6 +20,7 @@ jQuery(document).ready(function($){
 		ajaxdataa['ri']= OBJ.data('ri');				
 		ajaxdataa['pl']= window.location.href;				
 		ajaxdataa['newstatus']= newStatus; 
+		ajaxdataa['sc']= OBJ.closest('.ajde_evcal_calendar').evo_shortcode_data(); 
 		
 		$.ajax({
 			beforeSend: function(){	OBJ.addClass('loading');	},
@@ -55,5 +56,17 @@ jQuery(document).ready(function($){
 
 		
 	});
+
+	// load dynamic count for wishlist manager
+		$('body').on('evo_init_ajax_completed',function(){
+			setTimeout(function(){
+				if( $('body').find('.evowi_wl_manager').length > 0 ){
+					var ev_count = $('.evowi_wl_manager').find('.eventon_list_event').length;
+					$('.evowi_wl_manager').find('.evowi_stats b').html( ev_count);
+				}
+			}, 1000);
+			
+		});
+		
 
 });

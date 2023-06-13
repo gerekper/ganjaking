@@ -1,0 +1,33 @@
+Repeat Customizer (RC) addon for EventON Plugin
+====================================
+v 1.0.3 (2023-3-15)
+FIXED: organizer field not working with eventon 4.2.1
+FIXED: features and completed fields value not passing from event
+FIXED: custom meta data values not working
+
+v 1.0.2 (2022-3-1)
+FIXED: custom field type text area not showing for customizing
+
+v 1.0.1 (2022-2-18)
+ADDED: Event color customizability with eventon 3.1
+ADDED: Virtual event url and pass compatibility for repeat events
+ADDED: event image selection open with selected image highlighted
+FIXED: event image selection opening multiple lightboxes
+FIXED: meta box styling
+FIXED: event status reason not working correct in editor
+FIXED: event meta box repeat settings styling
+REQ: EventON 4.0
+
+v 1.0 (2020-12-4)
+ADDED: repeat customizer data sanitizing
+ADDED: event image, event title as new customizable fields
+ADDED: filter for adding extra fields for customization
+UPDATED: customizer backend UI designs
+UPDATED: using eventon elements form form fields
+COMPATIBILITY: EventON 3.0.6
+
+v 0.2 (2020-6-4)
+FIXED: first instance of repeat customizer for be not clickable
+
+v 0.1 (2020-2-20)
+Initial release

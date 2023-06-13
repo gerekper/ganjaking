@@ -1,7 +1,7 @@
 <?php
 /**
  * Wishlist Admin
- * @version 1.1.1
+ * @version 1.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -59,6 +59,7 @@ class evowi_admin{
 				array('label'=>'You must login to add events to wish list!','var'=>'1'),
 				array('label'=>'You do not have any wish list events','var'=>'1'),
 				array('label'=>'You can view and manage the events you have added to your wishlist from here.','var'=>'1'),
+				array('label'=>'Event in the wishlist','var'=>'1'),
 				array('type'=>'togend'),
 			);
 			return (is_array($_existen))? array_merge($_existen, $new_ar): $_existen;

@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin/ajde_events
- * @version     4.3.3
+ * @version     4.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -13,13 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class evo_event_metaboxes{
 	public $EVENT = false;
 	public $event_data = array();
+	private $helper;
 
 	public function __construct(){
 		add_action( 'add_meta_boxes', array($this,'metabox_init') );
 		add_action( 'save_post', array($this,'eventon_save_meta_data'), 1, 2 );
 		//add_action( 'post_submitbox_misc_actions', array($this,'ajde_events_settings_per_post' ));
 
-		add_filter('evo_eventedit_pageload_data',array($this, 'eventedit_pageload_data'), 10, 3);
+		add_filter('evo_eventedit_pageload_data',array($this, 'eventedit_pageload_data'), 10, 4);
 		add_filter('evo_eventedit_pageload_dom_ids', array($this, 'eventedit_domids'), 12,3);
 	}
 
@@ -78,7 +79,9 @@ class evo_event_metaboxes{
 			$array['evo_color']= 'evo_mb_color';
 			return $array;
 		}
-		function eventedit_pageload_data($array, $postdata, $EVENT){
+		function eventedit_pageload_data($array, $postdata, $EVENT, $id){
+
+			if( $id && $id != 'evo') return $array;
 			
 			ob_start();
 			include_once 'class-meta_box_all.php';
@@ -137,12 +140,21 @@ class evo_event_metaboxes{
 						'id'=>'_onlyloggedin', 'type'=>'yesno_btn',
 						'value'=> $event->get_prop('_onlyloggedin'),
 						'input'=>true,
-						'label'=>__('Only for loggedin users','eventon'),
+						'label'=>__('Loggedin Users Only','eventon'),
 						'tooltip'=>__('This will make this event only visible if the users are loggedin to this site','eventon'),
 						'tooltip_position'=>'L',
 					)
 				)
 			);
+
+			// export event data as CSV file
+				$exportURL = add_query_arg(array(
+				    'action' => 'eventon_export_events',
+				    'eid'	=> $event->ID,
+				    'nonce'=> wp_create_nonce('eventon_download_events')
+				), admin_url('admin-ajax.php'));
+
+			echo "<p><a class='evo_btn' href='{$exportURL}'>" . __('Download CSV') .'</a>'. EVO()->elements->tooltips( __('Download a CSV file format of event data from this event.','eventon'), 'L') .'</p>';
 				// @since 2.2.28
 				do_action('eventon_event_submitbox_misc_actions',$event);
 			?>
@@ -331,6 +343,9 @@ class evo_event_metaboxes{
 					}
 				}
 
+			// remove duplicate field keys
+				$fields_ar = array_unique($fields_ar);
+
 			$proper_time = 	evoadmin_get_unix_time_fromt_post($post_id);
 
 			// if Repeating event save repeating intervals
@@ -378,29 +393,26 @@ class evo_event_metaboxes{
 				}else{
 					delete_post_meta($post_id, '_evo_images');
 				}
+				
 
 			// run through all the custom meta fields
 				foreach($fields_ar as $f_val){
 					
-					if(!empty($post_data[$f_val])){
+					// make sure values are not empty at $_POST level
+					if(!empty($_POST[$f_val])){
 
 						$post_value = ( $post_data[$f_val]);
 
-						// for saving custom meta fields @since 4.3.3
-						if( strpos($f_val, '_evcal_ec_f') !== false ){
-							// check sanitize field value or no
-							if( EVO()->cal->check_yn('evcal_cmf_sanitize')){
-								$post_value = $HELP->sanitize_html( $_POST[$f_val]);
-							}else{
-								$post_value =  $_POST[$f_val];
-							}							
-						}
-
-						// for fields with HTML cotent @since 4.3.3
+						// for fields with HTML content @since 4.3.3
 						if( in_array($f_val, $fields_with_html)){
 
 							$EVENT->set_prop($f_val, $HELP->sanitize_html( $_POST[ $f_val ] ));
 							continue;
+						}
+
+						// for saving custom meta fields @since 4.3.3
+						if( strpos($f_val, '_evcal_ec_f') !== false ){
+							$post_value = $HELP->sanitize_html( $_POST[$f_val]);				
 						}
 						
 						$EVENT->set_prop( $f_val , $post_value);

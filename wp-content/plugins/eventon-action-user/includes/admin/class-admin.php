@@ -1,7 +1,7 @@
 <?php
 /**
  * Action User admin functions
- * @version 2.0.11
+ * @version 2.3.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -49,24 +49,21 @@ class evoau_admin{
 		}
 	// MENUS
 		function menu(){
-			add_submenu_page( 'eventon', 'Action User', 'Action User', 'manage_eventon', 'action_user', array($this,'evoAU_action_user_fnct') );
+			add_submenu_page( 'eventon', 'Action User', __('Action User','evoau'), 'manage_eventon', 'admin.php?page=eventon&tab=evoau_1', '' );
+			//add_submenu_page( 'eventon', 'Action User', 'Action User', 'manage_eventon', 'action_user', array($this,'evoAU_action_user_fnct') );
 		}
-			function evoAU_action_user_fnct(){
-				require_once('settings_page.php');
-				$settings = new evoau_settings();
-				$settings->content();
-			}
+			
 
 	// User profile fields
 		function extra_user_info($user){			
 			?>	
-			<h3><?php _e('Event Information');?></h3>
+			<h3><?php _e('Event Information','evoau');?></h3>
 			<table class='form-table'>
 				<tr>
-					<th><label><?php _e('User Capabilities');?></label></th>
+					<th><label><?php _e('User Capabilities','evoau');?></label></th>
 					<td>
 						<?php if(current_user_can('administrator')):?>
-						<a href='<?php echo wp_nonce_url("admin.php?page=action_user&tab=evoau_2&"."object=user&amp;user_id={$user->ID}", "evo_user_{$user->ID}");?>' class='button wp-generate-pw hide-if-no-js'>EventON Capabilities</a>
+						<a href='<?php echo wp_nonce_url("admin.php?page=eventon&tab=evoau_1&amp;uid={$user->ID}#evoau_usercap", "evo_user_{$user->ID}");?>' class='button wp-generate-pw hide-if-no-js'>EventON Capabilities</a>
 					<?php endif;?>
 					</td>
 				</tr>
@@ -77,6 +74,8 @@ class evoau_admin{
 
 	// appearance inserts
 		function appearance_settings($array){
+			extract( EVO()->elements->get_def_css());
+
 			$new[] = array('id'=>'evoau','type'=>'hiddensection_open','name'=>'ActionUser Styles','display'=>'none');
 			$new[] = array('id'=>'evoau','type'=>'fontation','name'=>'Submit Button',
 				'variations'=>array(
@@ -88,8 +87,8 @@ class evoau_admin{
 				'variations'=>array(
 					array('id'=>'evoau_a0', 'name'=>'Background Color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evoau_a1', 'name'=>'Border Color','type'=>'color', 'default'=>'d9d7d7'),
-					array('id'=>'evoau_a2', 'name'=>'Field Label Color','type'=>'color', 'default'=>'808080'),
-					array('id'=>'evoau_a3', 'name'=>'Headers Text Color','type'=>'color', 'default'=>'808080')				
+					array('id'=>'evoau_a2', 'name'=>'Field Label Color','type'=>'color', 'default'=> $evo_color_1),
+					array('id'=>'evoau_a3', 'name'=>'Headers Text Color','type'=>'color', 'default'=> $evo_color_1)				
 				)
 			);
 			$new[] = array('id'=>'evoau_a1','type'=>'fontation','name'=>'Location & Organizer Buttons',
@@ -113,6 +112,8 @@ class evoau_admin{
 		}
 		// Add settings to dynamic styles
 			function dynamic_styles($_existen){
+				extract( EVO()->elements->get_def_css());
+
 				$new= array(
 					array(
 						'item'=>'.evoau_submission_form .submit_row input, .evoau_submission_form .evcal_btn',
@@ -149,11 +150,11 @@ class evoau_admin{
 					),
 					array(
 						'item'=>'body .evoau_submission_form h2, body .evoau_submission_form h3',
-						'css'=>'color:#$', 'var'=>'evoau_a3',	'default'=>'808080'
+						'css'=>'color:#$', 'var'=>'evoau_a3',	'default'=> $evo_color_1
 					),
 					array(
 						'item'=>'body .evoau_submission_form p label',
-						'css'=>'color:#$', 'var'=>'evoau_a2',	'default'=>'808080'
+						'css'=>'color:#$', 'var'=>'evoau_a2',	'default'=> $evo_color_1
 					),
 					array(
 						'item'=>'.evoau_submission_form .row p .evo_date_time_select input.evoau_dpicker',
@@ -209,43 +210,56 @@ class evoau_admin{
 			if ($pagenow == 'users.php') {				
 				if (current_user_can( 'manage_eventon' )) {
 				  $actions['evo_capabilities'] = '<a href="' . 
-					wp_nonce_url("admin.php?page=action_user&tab=evoau_2&"."object=user&amp;user_id={$user->ID}", "evo_user_{$user->ID}") . 
+					wp_nonce_url("admin.php?page=eventon&tab=evoau_1&amp;uid={$user->ID}#evoau_usercap#evoau_usercap", "evo_user_{$user->ID}") . 
 					'">' . __('EventON Capabilities', 'eventon') . '</a>';
 				}      
 			}
 			return $actions;
 		}
 		// UPDATE user/role capabilities
-			function update_role_caps($ID, $type='role', $action=''){
-				global $_POST;
+			function update_role_caps($ID, $type='role', $postdata =''){
 				
 				$caps = eventon_get_core_capabilities();
+
 				
-				if($type=='role'){
+				if($type == 'role'){
+
+					// can not change the admin permissions
+					if( $ID == 'administrator') return;
+
 					global $wp_roles;
 					
 					$current_role_caps = $wp_roles->get_role($ID);		
-					$cur_role_caps = ($current_role_caps->capabilities);
+					$cur_role_caps = ($current_role_caps->capabilities);	
 					
 					foreach($caps as $capgroupf=>$capgroup){			
 						foreach($capgroup as $cap){
+
 							
-							if(!isset($_POST[$cap])) continue;
+							if(!isset($postdata[$cap])) continue;
+
+							//echo $cap.'// ';		
+
 							
 							// add cap
 							// If capability exist currently
 							if(array_key_exists($cap, $cur_role_caps)){ 
-								if(isset($_POST[$cap]) && $_POST[$cap]=='no'){
-									$wp_roles->remove_cap( $ID, $cap );
+								if(isset($postdata[$cap]) && $postdata[$cap]=='no'){
+									$wp_roles->remove_cap( $ID, $cap );	
+							
 								}
 							}else{// if capability doesnt exists currently
-								if(isset($_POST[$cap]) && $_POST[$cap]=='yes'){
+								if(isset($postdata[$cap]) && $postdata[$cap]=='yes'){
 									$wp_roles->add_cap( $ID, $cap );
 								}
 							}					
 						}
-					}		
-				}else if($type=='user'){
+					}
+				}
+
+
+				// for each user
+				if($type=='user'){					
 					$currentuser = new WP_User( $ID );
 					$cur_role_caps = $currentuser->allcaps;
 					
@@ -254,11 +268,12 @@ class evoau_admin{
 							// add cap
 							// If capability exist currently
 							if(array_key_exists($cap, $cur_role_caps)){ 
-								if(isset($_POST[$cap]) && $_POST[$cap]=='no'){
+								if(isset($postdata[$cap]) && $postdata[$cap]=='no'){
 									$currentuser->remove_cap( $cap );
 								}
-							}else{// if capability doesnt exists currently
-								if(isset($_POST[$cap]) && $_POST[$cap]=='yes'){
+							}else{
+							// if capability doesnt exists currently
+								if(isset($postdata[$cap]) && $postdata[$cap]=='yes'){
 									$currentuser->add_cap( $cap );
 								}
 							}					
@@ -477,19 +492,24 @@ class evoau_admin{
 			$count=1;
 			if($type =='role'){
 				global $wp_roles;
-				$wp_roles = new WP_Roles();
+				//$wp_roles = new WP_Roles();
 									
-				$current_role_caps = $wp_roles->get_role($ID);	
-				//print_r($current_role_caps);
-				$cur_role_caps = ($current_role_caps->capabilities);			
+				$current_role_caps = $wp_roles->get_role($ID);					
+				$cur_role_caps = ($current_role_caps->capabilities);	
 				
-			}else if($type=='user'){
+			}
+
+			if($type=='user'){
 				$currentuser = new WP_User( $ID );
 				$cur_role_caps = $currentuser->allcaps;
 			}
-			
-			
+						
 			$caps = eventon_get_core_capabilities();
+
+			//$caps['eventon'][] = 'edit_draft_eventons'; 
+			//$caps['eventon'][] = 'delete_draft_eventons'; 
+			//print_r($caps);
+
 			foreach($caps as $capgroupf=>$capgroup){
 				
 				foreach($capgroup as $cap){
@@ -512,7 +532,7 @@ class evoau_admin{
 
 					$content= '<p class="yesno_row">'.$yesno_btn.'<input type="hidden" name="'.$rowcap.'" value="'.$yesno_val.'"><span class="field_name">'.$human_nam.'</span></p>';
 					
-					if($count >10){
+					if($count >12){
 						$content_r .=$content;
 					}else{
 						$content_l .=$content;
@@ -530,7 +550,7 @@ class evoau_admin{
 	// Assigned users for column for events
 	// @version 1.8
 		function add_column_title($columns){
-			$columns['evoau']= 'Assigned Users';
+			$columns['evoau']= __('Assigned Users','evoau');
 			return $columns;
 		}
 		function column_content($post_id){

@@ -1,5 +1,24 @@
 ActionUser (AU) addon for EventON Plugin
 ====================================
+v 2.4.1 (2023-3-15)
+FIXED: limit submission error message empty
+FIXED: form error display styles
+FIXED: limit submissions erorr on event manager
+FIXED: actionuser settings saved after pluggable function
+FIXED: settings saving not saving values for actionuser extensions
+
+v 2.4 (2023-5-9)
+ADDED: actionuser settings using eventon settings library
+FIXED: tooltip icons on frontend
+FIXED: form submission undefined error
+FIXED: child templates not working
+FIXED: template path
+FIXED: event status translations not working
+FIXED: styles to use eventON font using variables
+FIXED: header and subheader values not passing from shortcode
+MOVED: user capabilities to lightbox based settings
+UPDATED: event manager styles to match eventON 4.2
+
 v 2.3.1 (2022-3-31)
 FIXED: Event submissions not going through with new virtual end date field empty
 

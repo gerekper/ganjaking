@@ -8,8 +8,8 @@
         require_once ( PDFPLUGINPATH . "lib/dompdf/autoload.inc.php" );
 
     // reference the Dompdf namespaces
-    use WooCommercePDFInvoice\Dompdf;
-    use WooCommercePDFInvoice\Options;
+    use Dompdf\Dompdf;
+    use Dompdf\Options;
 
     class WC_pdf_admin_settings {
 

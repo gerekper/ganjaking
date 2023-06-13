@@ -21,8 +21,8 @@ class EVO_Shortcode_Data{
 					'name'=> __('Main Calendar','eventon'),
 					'code'=>'add_eventon',
 					'variables'=>apply_filters('eventon_basiccal_shortcodebox', array(
-						$this->shortcode_default_field('cal_id')
-						,$this->shortcode_default_field('event_order')
+						//$this->shortcode_default_field('cal_id')
+						$this->shortcode_default_field('event_order')
 						,$this->shortcode_default_field('event_count')
 						,$this->shortcode_default_field('show_limit')
 						,$this->shortcode_default_field('show_limit_redir')
@@ -164,7 +164,7 @@ class EVO_Shortcode_Data{
 							)
 						,$this->shortcode_default_field('month_incre')
 						,$this->shortcode_default_field('fixed_mo_yr')
-						,$this->shortcode_default_field('cal_id')
+						//,$this->shortcode_default_field('cal_id')
 						,$this->shortcode_default_field('event_order')
 						,$this->shortcode_default_field('UIX')
 

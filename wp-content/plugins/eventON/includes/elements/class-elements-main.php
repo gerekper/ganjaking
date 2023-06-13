@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 4.3
+ * @version 4.3.5
 
 Items //
 print_date_time_selector
@@ -36,7 +36,7 @@ class EVO_General_Elements{
 			'label'=>'',		
 			'hideable'=> false,
 			'value'=>'','default'=>'','values'=> array(),'values_array'=> array(),
-			'max'=>'','min'=>'','step'=>'',
+			'max'=>'','min'=>'','step'=>'','readonly'=>false,
 			'TD'=>'eventon', // text domain
 			'legend'=>'','tooltip'=>'',
 			'tooltip_position'=>'',
@@ -84,7 +84,7 @@ class EVO_General_Elements{
 		switch($type){
 			// notices
 			case 'notice':
-				echo "<div class='evo_elm_row evo_elm_notice {$row_class}' style='{$row_style}'>". $name ."</div>";
+				echo "<p class='evo_elm_row evo_elm_notice {$row_class}' style='{$row_style}'>". $name ."</p>";
 			break;
 
 			// custom code field
@@ -140,11 +140,15 @@ class EVO_General_Elements{
 				echo"<p class='evo_field_label'>".$name.$legend_code. $hideable_text. "</p><p class='evo_field_container'>";
 
 				if($show_val && $hideable){
-					echo "<input type='password' style='' name='".$id."'";
+					echo "<input class='{$field_class}' type='password' style='' name='".$id."'";
 					echo'value="'. htmlspecialchars( $value , ENT_QUOTES ) .'"';
 				}else{
-					echo "<input type='{$field_type}' name='{$id}' max='{$max}' min='{$min}' step='{$step}'";
-					echo 'value="'. htmlspecialchars( $value , ENT_QUOTES ) .'"';
+					echo "<input class='{$field_class}' type='{$field_type}' name='{$id}' max='{$max}' min='{$min}' step='{$step}'";
+
+					if( $readonly ) echo 'readonly="true"';
+					//$__values = htmlspecialchars( $value , ENT_QUOTES);
+					$__values =  $value ;
+					echo 'value="'. $__values .'"';
 				}				
 				echo $placeholder."/>";
 
@@ -297,7 +301,7 @@ class EVO_General_Elements{
 			// select row 
 			case 'select_row':
 				?>
-				<p class='evo_elm_row evo_row_select <?php echo $row_class;?> <?php echo $select_multi_options? 'multi':'';?>' style='{$row_style}'>
+				<p class='evo_elm_row evo_row_select <?php echo $row_class;?> <?php echo $select_multi_options? 'multi':'';?>' style='<?php echo $row_style;?>'>
 					<input type='hidden' name='<?php echo $name;?>' value='<?php echo $value;?>'/>
 					
 					<?php if(!empty($label)):?> 
@@ -431,6 +435,176 @@ class EVO_General_Elements{
 		}
 		return $output;
 	}
+
+	// @since 4.3.5
+	function print_hidden_inputs( $array){
+		foreach( $array as $name=>$value){
+			echo "<input type='hidden' name='{$name}' value='{$value}'>";
+		}
+	}
+// Ligthbox triggering button @since 4.3.5
+	function print_trigger_element($args, $type){
+		$help = new evo_helper();
+
+		switch($type){
+			case 'trig_lb':
+				/*
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'id'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'lb_class' =>'',
+					'lb_title'=>'',	
+					'ajax_data'=>array(),
+
+				*/
+				$opt = extract( array_merge(array(					
+					'class_attr'=>'', // pass class to replace default
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'id'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'lb_class' =>'',
+					'lb_title'=>'',
+					'lb_size'=>'', // mid, small
+					'lb_padding'=>'evopad30',
+					'lb_loader'=> false,			
+					'lb_load_new_content'=> true,			
+					'ajax'=>'yes',
+					'ajax_data'=>'',
+					'end'=>'admin',// client or admin
+					'ajax_action'=>'',// @since 4.4
+					'ajax_type'=>'', // @since 4.4
+					//'content_id'=>'',
+					//'content'=>'', // pass dynamic content
+				), $args) );
+
+				$btn_data = array(
+					'lbvals'=> array(
+						'lbc'=> $lb_class,
+						'lbsz'=> $lb_size,
+						'lb_padding'=> $lb_padding,
+						't'=> $lb_title,
+						'ajax'=> $ajax,
+						'd'=> $ajax_data,
+						'uid'=> $uid,
+						'load_new_content'=> $lb_load_new_content,
+						'lightbox_loader'=> $lb_loader,
+					)
+				);
+
+				if( $end != 'admin' ) $btn_data['lbvals']['end'] = $end;
+				if( !empty($ajax_action) ) $btn_data['lbvals']['ajax_action'] = $ajax_action; // @since 4.4
+				if( !empty($ajax_type) ) $btn_data['lbvals']['ajax_type'] = $ajax_type; // @since 4.4
+
+				$class_attr = empty($class_attr) ? 'evo_btn evolb_trigger ': $class_attr;
+				?><<?php echo $dom_element;?> <?php echo !empty($id) ? "id='{$id}'" :null;?> class='<?php echo $class_attr . $extra_classes;?>' <?php echo $help->array_to_html_data($btn_data);?>  style='<?php echo $styles;?>'><?php echo $title;?></<?php echo $dom_element;?>>
+				<?php
+
+			break;
+			case 'trig_form_submit':
+				/* easy copy
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'lb_class' =>'',
+				*/
+
+				$opt = extract( array_merge(array(
+					'class_attr'=>'', // pass class to replace default
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'lb_class' =>'',
+					'lb_loader'=> false,			
+					'lb_hide'=> false,			
+					'lb_hide_message'=> false,			
+					'lb_load_new_content'=> false,			
+					'load_new_content_id'=> '',		
+					'end'=>'admin',// client or admin
+					//'content_id'=>'',
+					//'content'=>'', // pass dynamic content
+				), $args) );
+
+				$btn_data = array(
+					'd'=> array( 'uid'=> $uid,
+						'lightbox_key'=>$lb_class,
+						'lightbox_loader'=>$lb_loader,
+						'end'=>$end,
+						'hide_lightbox'=> $lb_hide,
+						'hide_message'=>$lb_hide_message,
+						'load_new_content'=>$lb_load_new_content,
+						'load_new_content_id'=> $load_new_content_id
+					)
+				);
+
+				$class_attr = empty($class_attr) ? 'evo_btn evolb_trigger_save ': $class_attr;
+				?><<?php echo $dom_element;?> class='<?php echo $class_attr . $extra_classes;?>' <?php echo $help->array_to_html_data($btn_data);?> style='<?php echo $styles;?>'><?php echo $title;?></<?php echo $dom_element;?>>
+				<?php
+			break;
+			case 'trig_ajax':
+				/* easy copy
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'lb_class' =>'',
+					'lb_load_new_content'=> false,			
+					'load_new_content_id'=> '',	
+					'ajax_data' =>array(),
+				*/
+
+				$opt = extract( array_merge(array(
+					'class_attr'=>'',
+					'extra_classes'=>'',
+					'styles'=> '',
+					'title'=>'',
+					'dom_element'=> 'span',
+					'uid'=>'',
+					'ajax_data'=>'',
+					'lb_class' =>'',
+					'lb_loader'=> false,	
+					'lb_hide'=> false,			
+					'lb_hide_message'=> false,					
+					'lb_load_new_content'=> false,			
+					'load_new_content_id'=> '',		
+					'end'=>'admin',// client or admin
+					//'content_id'=>'',
+					//'content'=>'', // pass dynamic content
+				), $args) );
+
+				$btn_data = array(
+					'd'=> array( 'uid'=> $uid,
+						'lightbox_key'=>$lb_class,
+						'lightbox_loader'=>$lb_loader,
+						'end'=>$end,
+						'load_new_content'=>$lb_load_new_content,
+						'ajaxdata'=> $ajax_data
+					)
+				);
+
+				if( !empty($load_new_content_id)) $btn_data['d']['load_new_content_id'] = $load_new_content_id;
+				if( $lb_hide) $btn_data['d']['hide_lightbox'] = $lb_hide;
+				if( $lb_hide_message) $btn_data['d']['hide_message'] = $lb_hide_message;
+
+				$class_attr = empty($class_attr) ? 'evo_btn evo_trigger_ajax_run ': $class_attr;
+
+				?>
+				<<?php echo $dom_element;?> class='<?php echo $class_attr . $extra_classes;?>' <?php echo $help->array_to_html_data($btn_data);?> style='<?php echo $styles;?>'><?php echo $title;?></<?php echo $dom_element;?>>
+				<?php
+			break;
+		}
+	}
+
 
 // date time selector
 	function print_date_time_selector($A){
@@ -710,6 +884,17 @@ class EVO_General_Elements{
 		return $nesting_start.'<span id="'.$args['id'].'" class="evo_elm ajde_yn_btn '.($no? 'NO':null).''.(($args['abs']=='yes')? ' absolute':null).'" '.$_attr.'><span class="btn_inner" style=""><span class="catchHandle"></span></span></span>'.$input.$label.$nesting_end;
 	}
 
+// DEFAULT CSS style colors @since 4.3
+	function get_def_css(){
+		$preset_data = array(
+			'evo_color_1' => '202124',
+			'evo_color_2' => '656565',
+			'evo_color_link' => '656565',
+			'evo_color_prim' => '00aafb',
+		);
+		return $preset_data;
+	}
+
 // SVG icons
 	public function get_icon($name){
 		if( $name == 'live'){
@@ -768,30 +953,31 @@ class EVO_General_Elements{
 		return $font_;
 	}
 
-// Import box +@version 4.0.2
+// Import box +@version 4.3.5
 	function print_import_box_html($args){
 		$defaults = array(
 			'box_id'=>'',
 			'title'=>'',
 			'message'=>'',
 			'file_type'=>'.csv',
-			'button_label'=> __('Upload','eventon')
+			'button_label'=> __('Upload','eventon'),
+			'type'=>'popup',
 		);
 		$args = !empty($args)? array_merge($defaults, $args): $defaults;
 
 		extract($args);
 
 		?>
-		<div class='evo_data_upload_window' data-id="<?php echo $box_id;?>" id='import_box' style='display:none'>
+		<div class='evo_data_upload_window <?php echo $type;?>' data-id="<?php echo $box_id;?>" id='import_box' style='display:<?php echo $type == 'popup'? 'none':'';?>'>
 			<span id="close" class='evo_data_upload_window_close'>X</span>
 			<form id="evo_settings_import_form" action="" method="POST" data-link='<?php echo AJDE_EVCAL_PATH;?> '>
 					
 				<h3 style='padding-bottom: 10px'><?php echo $title;?></h3>
 				<p ><i><?php echo $message;?></i></p>
 				
-				<input style='padding: 10px 0'type="file" id="file-select" name="settings[]" multiple="" accept="<?php echo $file_type;?>" data-file_type='<?php echo $file_type;?>'>
+				<input style=''type="file" id="file-select" name="settings[]" multiple="" accept="<?php echo $file_type;?>" data-file_type='<?php echo $file_type;?>'>
 				
-				<button type="submit" id="upload_settings_button" class='evo_admin_btn btn_prime'><?php echo $button_label;?></button>
+				<p><button type="submit" id="upload_settings_button" class='upload_settings_button evo_admin_btn btn_prime'><?php echo $button_label;?></button></p>
 			</form>
 			<p class="msg" style='display:none'><?php _e('File Uploading','eventon');?></p>
 		</div>
@@ -859,16 +1045,7 @@ class EVO_General_Elements{
 		<?php
 	}
 
-// DEFAULT CSS style colors @since 4.3
-	function get_def_css(){
-		$preset_data = array(
-			'evo_color_1' => '202124',
-			'evo_color_2' => '656565',
-			'evo_color_link' => '656565',
-			'evo_color_prim' => '00aafb',
-		);
-		return $preset_data;
-	}
+
 
 // styles and scripts
 	function register_styles_scripts(){

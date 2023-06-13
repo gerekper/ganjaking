@@ -1,7 +1,7 @@
 <?php
 /**
  * RSVP Language
- * @version 2.6.3
+ * @version 2.8.4
  */
 
 class EVORS_Lang{
@@ -61,6 +61,8 @@ class EVORS_Lang{
 			
 			array('label'=>'RSVP Form Text','type'=>'subheader'),
 				array('label'=>'Form label: RSVP ID #','name'=>'evoRSL_007a',),
+				array('label'=>'Your Name','var'=>1),
+				array('label'=>'Your Email Address','var'=>1),
 				array('label'=>'Form label: First Name','name'=>'evoRSL_007',),
 				array('label'=>'Form label: Last Name','name'=>'evoRSL_008',),
 				array('label'=>'Form label: Email Address','name'=>'evoRSL_009',),
@@ -200,6 +202,7 @@ class EVORS_Lang{
 				array('label'=>'Time','var'=>'1'),
 				array('label'=>'Update','var'=>'1'),
 				array('label'=>'No Signed-in guests yet','var'=>'1'),
+				array('label'=>'Capacity Information','var'=>'1'),
 			array('type'=>'togend'),
 		));
 

@@ -25,6 +25,7 @@ $fields = EVO()->taxonomies->get_event_tax_fields_array($tax, $event_tax_term);
 
 			}else{	$field_value = $value['value'];	}
 
+
 		$fields_processed[ $key ] = $value;
 		if( !empty($value['placeholder']) ) $fields_processed[ $key ]['default'] = $value['placeholder'];
 		if( !empty($value['legend']) ) $fields_processed[ $key ]['tooltip'] = $value['legend'];

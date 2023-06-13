@@ -7,7 +7,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions
- * @version     4.3
+ * @version     4.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -74,8 +74,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		return $count;
 	}
 	function evo_retrieve_cmd_count($evopt=''){
-		global $eventon;
-		$opt = $eventon->frontend->evo_options;
+		$opt = EVO()->frontend->evo_options;
 		$evopt = (!empty($evopt))? $evopt: $opt;
 		
 		if(!empty($evopt['cmd_count']) && $evopt['cmd_count']==0){
@@ -1742,6 +1741,13 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 	}
 
 // GENERAL
+	// define a constant if its not already defined @since 4.4
+	function evo_maybe_define_constant($name, $value){
+		if ( ! defined( $name ) ) {
+			define( $name, $value );
+		}
+	}
+
 	// GET EVENT
 	function get_event($the_event){	global $eventon;}
 
@@ -1802,6 +1808,12 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 	}
 	function evo_archive_page_content(){}
 
+	// Wrapper for nocache_headers which also disables page caching.
+	// @since 4.4
+	function evo_nocache_headers() {
+		nocache_headers();
+	}
+
 // EVENT COLOR
 	/** Return integer value for a hex color code **/
 	function eventon_get_hex_val($color){
@@ -1842,6 +1854,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 		}
 		return '#'.$pure_hex_val;
 	}
+
 
 // Organizer
 	function eventon_get_organizer_social_meta_array(){

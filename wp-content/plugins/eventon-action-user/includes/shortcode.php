@@ -41,11 +41,14 @@ class au_shortcode{
 						'lightbox'=>'no',
 						'msub'=>'no',
 						'rlink'=>'',		
-						'rdir'=>'no',		
+						'rdir'=>'no',	
+						'rdur'=>'',	
 						'calltype'=>'new',
 						'wordcount'=>0,
 						'formrtl'=>'no',
 						'btntxt'=> 'Submit New Event',
+						'header'=>'',
+						'sheader'=>'',
 					), $atts , 'add_evo_submission_form'
 				);
 

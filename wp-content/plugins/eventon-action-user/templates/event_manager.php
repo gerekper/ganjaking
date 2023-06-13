@@ -52,10 +52,10 @@
 	}	
 ?>
 
-<p><?php evo_lang_e('Hello');?> <?php echo $current_user->display_name?>. <?php evo_lang_e('From your event manager dashboard you can view your submitted events and manage them in here');?></p>
+<p class='evoau_intro'><?php evo_lang_e('Hello');?> <?php echo $current_user->display_name?>. <?php evo_lang_e('From your event manager dashboard you can view your submitted events and manage them in here');?></p>
 
 
-<h3><?php evo_lang_e('My Submitted Events');?><span style='float:right'><i class='fa fa-search evo_event_manager_search_trig'></i><?php echo count($events).' '.evo_lang('Events');?></span></h3>
+<h3 class='evoau_subheader'><?php evo_lang_e('My Submitted Events');?><span style='float:right'><i class='fa fa-search evo_event_manager_search_trig'></i><?php echo count($events).' '.evo_lang('Events');?></span></h3>
 
 <div class='evoau_search_form'>
 	<input class='evoau_search_form_input' type='input' name='event_name' placeholder="<?php evo_lang_e('Type in event name to search visible events below');?>"/>

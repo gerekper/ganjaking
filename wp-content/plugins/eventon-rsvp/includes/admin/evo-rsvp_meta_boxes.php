@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin/evo-rsvp
- * @version     2.8.2
+ * @version     2.9.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -16,6 +16,10 @@ class evors_meta_boxes{
 		add_action( 'eventon_save_meta', array($this, 'evoRS_save_meta_data'), 10 , 2 );
 		add_action( 'save_post', array($this, 'evoRS_save_rsvp_meta_data'), 1 , 2 );
 
+		// dynamic meta box content
+		add_filter('evo_eventedit_pageload_data', array($this, 'eventedit_content'), 12,3);
+		add_filter('evo_eventedit_pageload_dom_ids', array($this, 'eventedit_dom_ids'), 12,3);
+
 		// Debug reminders
 		//$fnc = new evorm_fnc();
 		//$result = $fnc->send_email(13, 'evorm_pre_1');
@@ -23,7 +27,7 @@ class evors_meta_boxes{
 	}
 	// Initiate
 		function evoRS_meta_boxes(){
-			add_meta_box('evors_mb1',__('RSVP Event','evors'), array($this, 'evors_metabox_content'),'ajde_events', 'normal', 'high');
+			add_meta_box('evors_mb1',__('RSVP Event','evors'), array($this, 'event_metabox_content'),'ajde_events', 'normal', 'high');
 			add_meta_box('evors_mb1',__('RSVP Event','evors'), array($this, 'evoRS_metabox_rsvp'),'evo-rsvp', 'normal', 'high');
 			add_meta_box('evors_mb3',__('RSVP Email','evors'), array($this, 'evoRS_notifications_box2'),'evo-rsvp', 'side', 'default');
 			add_meta_box('evors_mb4',__('RSVP Notes','evors'), array($this, 'evors_notes'),'evo-rsvp', 'side', 'default');
@@ -126,9 +130,10 @@ class evors_meta_boxes{
 // META box for evo-rsvp post page
 	function evoRS_metabox_rsvp(){
 		global $post, $ajde, $pagenow;
+
+		wp_enqueue_script('evcal_functions');
 		
 		$RR = new EVO_RSVP_CPT($post->ID);
-
 		$RSVP = new EVORS_Event( $RR->event_id(), $RR->repeat_interval());
 		
 		$pmv = $RR->pmv;
@@ -214,12 +219,7 @@ class evors_meta_boxes{
 						'name'=> __('Count','evors'),
 						'editable'=>true,
 						'value'=> (!empty($pmv['count']) ? $pmv['count'][0]:'')
-					),'phone'=>array(
-						'type'=>'normal',
-						'name'=> __('Phone','evors'),
-						'editable'=>true,
-						'value'=> (!empty($pmv['phone']) ? $pmv['phone'][0]:'')
-					),
+					)
 				);
 
 				foreach($table_rows as $key=>$data){
@@ -318,79 +318,72 @@ class evors_meta_boxes{
 					<?php
 				}
 
-				// additional fields
-				for($x=1; $x<= EVORS()->frontend->addFields; $x++){
-					// if fields is activated and name of the field is not empty
-					if(evo_settings_val('evors_addf'.$x, $optRS) && !empty($optRS['evors_addf'.$x.'_1'])){
-						
 
-						// If the field is allowed for the event
-						if($RSVP->_show_none_AF()) continue;
-						if(!$RSVP->_can_show_AF('AF'.$x)) continue;
+				$form_fields = EVORS()->rsvpform->get_form_fields($RSVP, $RR);
+				
+				foreach($form_fields as $key=> $fdata){
+					extract( $fdata );
+					$FIELDVAL = $RR && $RR->get_prop($key) ? $RR->get_prop($key) :'-';
 
-						$FIELDTYPE = !empty($optRS['evors_addf'.$x.'_2'])? $optRS['evors_addf'.$x.'_2']:'text';
-						$FIELDNAME = !empty($optRS['evors_addf'.$x.'_1'])? $optRS['evors_addf'.$x.'_1']:'Field';
-						$FIELDVAL = (!empty($pmv['evors_addf'.$x.'_1']))? $pmv['evors_addf'.$x.'_1'][0]: '-';
+					echo "<tr>";
 
-						echo "<tr>";
+					switch ($type) {
+						case 'text':
+							$field_value = is_array( $FIELDVAL ) ? implode(',', $FIELDVAL) : $FIELDVAL;
+							
+							echo "<td>".$name."</td>
+							<td><input type='text' name='evors_addf".$x."_1' value='".$field_value."'/></td>";
+							break;	
+						case 'checkbox':
+							echo "<td>". html_entity_decode($name) ."</td>
+							<td>";
 
-						switch ($FIELDTYPE) {
-							case 'text':
-								echo "<td>".$FIELDNAME."</td>
-								<td><input type='text' name='evors_addf".$x."_1' value='".$FIELDVAL."'/></td>";
-								break;	
-							case 'checkbox':
-								echo "<td>". html_entity_decode($FIELDNAME) ."</td>
-								<td>";
-
-								$field_name = 'evors_addf'.$x.'_1';
-								echo $ajde->wp_admin->html_yesnobtn(array(
-									'id'=>$field_name,
-									'input'=>true,
-									'default'=>((!empty($pmv[$field_name]) && $pmv[$field_name][0]=='yes')? 'yes':'no' )
-								));
-								echo "</td>";
-								break;	
-							case 'html':
-								echo "<td>".html_entity_decode($FIELDNAME)."</td>
-								<td>".$FIELDVAL."</td>";
-								break;	
-							case 'textarea':
-								echo "<td>".$FIELDNAME."</td>
-								<td><textarea style='width:100%' name='evors_addf".$x."_1'>".$FIELDVAL."</textarea></td>";
-								break;
-							case 'dropdown':
-								echo "<td>".$FIELDNAME."</td>
-								<td><select name='evors_addf{$x}_1'>";
-									$OPTIONS = EVORS()->frontend->get_additional_field_options($optRS['evors_addf'.$x.'_4']);
-									foreach($OPTIONS as $slug=>$options ){
-										echo "<option ".(!empty($pmv['evors_addf'.$x.'_1']) && $slug==$pmv['evors_addf'.$x.'_1'][0]?'selected="selected"':'')." value='{$slug}'>{$options}</option>";
-									}
-								echo "</select></td>";
-								break;
-							case 'file':
-								echo "<td>".$FIELDNAME."</td><td>";
-
-								if( $FIELDVAL != '-'){
-									$url = wp_get_attachment_url( $FIELDVAL );
-									if($url) $FIELDVAL = $url;
-								}
-
-								echo $FIELDVAL . "</td>";
-								
-								
-								break;
-
-
-							case has_action("evors_additional_field_evorsvp_cpt_{$FIELDTYPE}"):		
-								do_action("evors_additional_field_evorsvp_cpt_{$FIELDTYPE}", $FIELDNAME, $FIELDVAL);
+							echo $ajde->wp_admin->html_yesnobtn(array(
+								'id'=>$key,
+								'input'=>true,
+								'default'=> $FIELDVAL
+							));
+							echo "</td>";
+							break;	
+						case 'html':
+							echo "<td>".html_entity_decode($name)."</td>
+							<td>".$FIELDVAL."</td>";
+							break;	
+						case 'textarea':
+							echo "<td>".$name."</td>
+							<td><textarea style='width:100%' name='evors_addf".$x."_1'>".$FIELDVAL."</textarea></td>";
 							break;
-						}
-						echo "</tr>";
-					}
-				}?>
+						case 'dropdown':
+							echo "<td>".$name."</td>
+							<td><select name='evors_addf{$x}_1'>";								
+								foreach($options as $slug=>$option ){
+									$selected = $FIELDVAL == $slug ? 'selected="selected"' :'';
+									echo "<option ". $selected." value='{$slug}'>{$option}</option>";
+								}
+							echo "</select></td>";
+							break;
+						case 'file':
+							echo "<td>".$name."</td><td>";
 
-				<?php
+							if( $FIELDVAL != '-'){
+								$url = wp_get_attachment_url( $FIELDVAL );
+								if($url) $FIELDVAL = $url;
+							}
+
+							echo $FIELDVAL . "</td>";						
+							
+							break;
+					}
+
+					if( has_action("evors_additional_field_{$type}") ):
+						do_action("evors_additional_field_{$type}", $FIELDVAL, $name, $required);
+					endif;
+
+					echo "</tr>";
+				}
+
+
+				
 				// addional guest names
 				$names = !empty($pmv['names'])? unserialize($pmv['names'][0]): false;
 				if($names){
@@ -403,12 +396,12 @@ class evors_meta_boxes{
 				?>
 				
 				<tr><td><?php _e('Additional Notes','evors');?>: </td>
-					<td><textarea style='width:100%' type='text' name='additional_notes'><?php echo !empty($pmv['additional_notes'])?$pmv['additional_notes'][0]:'';?></textarea></td></tr>
+					<td><textarea style='width:100%' type='text' name='additional_notes'><?php echo $RR && $RR->get_prop('additional_notes') ? $RR->get_prop('additional_notes') :'';?></textarea></td></tr>
 
 				<?php
 				// plugabble hook
-				if(!empty($pmv['e_id']))	
-					do_action('eventonrs_rsvp_post_table',$post->ID, $pmv, $RR);
+				if( $RR->event_id() )	
+					do_action('eventonrs_rsvp_post_table',$RR->ID, $pmv, $RR);
 				?>
 			</table>
 			</div>
@@ -477,18 +470,31 @@ class evors_meta_boxes{
 	}
 
 // RSVP meta box for EVENT posts
-	function evors_metabox_content(){
-
-		global $post, $eventon_rs, $eventon, $ajde;
-
-		$optRS = EVORS()->evors_opt;
+	function event_metabox_content(){
+		?>
+			<div id='evo_mb_ss' class='evo_metabox eventon_mb'>
+				<div id='evo_pageload_data_evors'> <?php EVO()->evo_admin->print_metabox_loading_html();?></div>
+			</div>
+		<?php
+	}
+	function eventedit_dom_ids($array, $postdata, $EVENT){
+		$array['evors'] = 'evo_pageload_data_evors';
+		return $array;
+	}
+	function eventedit_content($array, $postdata, $EVENT){
+		//if( $id && $id != 'evors') return $array;
 		
-		$eventID = $post->ID;
+		$array['evors'] = $this->event_metabox_content_html( $EVENT );
+		return $array;
+	}
 
-		wp_nonce_field( plugin_basename( __FILE__ ), 'evors_nonce' );
+	function event_metabox_content_html($EVENT){
+
+		$optRS = EVORS()->evors_opt;		
+		$eventID = $EVENT->ID;
 
 		$help = new evo_helper();
-		$EVENT = new EVORS_Event( EVO()->evo_admin->metaboxes->EVENT->ID );
+		$EVENT = new EVORS_Event( $EVENT );
 		$pmv = $EVENT->event->get_data();
 
 		// Before event RSVP plug
@@ -519,8 +525,8 @@ class evors_meta_boxes{
 
 					?>
 					<p class='y'><b><?php echo $synced['y']; ?></b><span><?php _e('YES','evors');?></span></p>
-					<p class='m'><b><?php echo $synced['m'];?></b><span><?php _e('Maybe','evors');?></span></p>
 					<p class='n'><b><?php echo $synced['n'];?></b><span><?php _e('No','evors');?></span></p>
+					<p class='m'><b><?php echo $synced['m'];?></b><span><?php _e('Maybe','evors');?></span></p>
 
 					<?php do_action('evors_admin_eventedit_stats_end', $EVENT );?>
 
@@ -597,7 +603,7 @@ class evors_meta_boxes{
 						?>
 						<a class='evo_btn download' href="<?php echo $exportURL;?>" title='<?php _e('Download (CSV)','evors');?>'><i class='fa fa-download'></i> <?php _e('Download (CSV)','evors');?></a> 
 						
-						<a id='evors_SY' class='evo_btn' data-e_id='<?php echo $eventID;?>' class=' sync' title='<?php _e('Sync Count','evors');?>'><i class='fa fa-undo'></i> <?php _e('Sync Count','evors');?></a> 
+						<a id='evors_SY' class='evors_sync_count_trig evo_btn' data-e_id='<?php echo $eventID;?>' class=' sync' title='<?php _e('Sync Count','evors');?>'><i class='fa fa-undo'></i> <?php _e('Sync Count','evors');?></a> 
 						
 						<?php 
 							$btn_data = array(
@@ -628,22 +634,8 @@ class evors_meta_boxes{
 		</div>
 		</div>
 		<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
-
-	// print out the yes no value HTML for meta box for RSVP
-		function html_yesno_fields($var, $label, $pmv , $guide='', $afterstatement='', $id='', $as_type='class'){
-			global $eventon;
-
-			$val = (!empty($pmv[$var]))? $pmv[$var][0]:null;
-			?>
-			<p class='yesno_leg_line '>
-				<?php echo eventon_html_yesnobtn(array('id'=>$id, 'var'=>$val, 'attr'=>array('afterstatement'=>$afterstatement,'as_type'=>$as_type)) ); ?>					
-				<input type='hidden' name='<?php echo $var;?>' value="<?php echo ($val=='yes')?'yes':'no';?>"/>
-				<label for='<?php echo $var;?>'><?php _e($label,'evors')?><?php echo !empty($guide)? $eventon->throw_guide($guide, '',false):'';?></label>
-			</p>
-			<?php
-		}
 
 /** Save the menu data meta box. **/
 	function evoRS_save_meta_data($arr, $post_id){
@@ -652,8 +644,6 @@ class evors_meta_boxes{
 		foreach($fields as $field){
 			if(!empty($_POST[$field])){
 				update_post_meta( $post_id, $field, $_POST[$field] );
-			}else{
-				delete_post_meta($post_id, $field);
 			}
 		}
 			

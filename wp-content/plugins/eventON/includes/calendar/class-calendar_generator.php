@@ -13,7 +13,8 @@ class EVO_generator {
 
 	public $google_maps_load,
 		$is_eventcard_open,
-		$evopt1,$evopt2,
+		$evopt1,
+		$evopt2,
 		$evcal_hide_sort;
 
 	public $is_upcoming_list = false;
@@ -42,7 +43,7 @@ class EVO_generator {
 	// time date values
 		public $GMT, $DD, $timezone, $timezone0, $current_time, $time_format, $date_format, $is_utcoff, $utc_time, $current_time0;
 		private $utc_DD;
-		public $filtering, $shell, $body, $helper;
+		public $filtering, $shell, $body, $helper, $EVENT;
 
 	public $__calendar_type;
 	public $events_list = array();
@@ -145,7 +146,7 @@ class EVO_generator {
 		function process_arguments($args='', $set_date_range = true){
 
 			EVO()->frontend->evo_on_page = true;
-
+			
 			// process args and strip invalid quotation marks
 			if(is_array($args) && sizeof($args)>0 && !empty($args) ){
 				foreach($args as $field=>$val){
@@ -370,12 +371,13 @@ class EVO_generator {
 			// Query events
 			$event_list_array = $this->evo_get_wp_events_array( $wp_argument_additions );	
 
-			//print_r($event_list_array);
 			$event_list_array = $this->filtering->move_important_events_up( $event_list_array );
+
 
 
 			// apply event list filters in stages
 			$event_list_array = $this->filtering->apply_filters_to_event_list($event_list_array,'past_future');
+
 
 			$event_list_array_raw = $this->filtering->apply_filters_to_event_list($event_list_array,'pagination');
 			$event_list_array = $this->filtering->apply_filters_to_event_list($event_list_array_raw,'event_count');
@@ -383,6 +385,7 @@ class EVO_generator {
 			
 			// allow the events list to be altered before converting to html
 			$event_list_array = apply_filters('evo_generate_events_before_process', $event_list_array); 
+
 
 			// Start Date range 
 				$DD = new DateTime();
@@ -597,8 +600,6 @@ class EVO_generator {
 		// for a month by default but can change to set time line with args
 			public function evo_get_wp_events_array(	$wp_argument_additions='', $shortcode_args='' ){
 
-				//echo 't';
-				//$ecv = $this->process_arguments($shortcode_args); - dep 2.8
 				$ecv = $SC = $this->shortcode_args;
 
 				$this->reused();
@@ -609,7 +610,8 @@ class EVO_generator {
 						'post_status'		=>'publish',
 						'posts_per_page'	=>-1 ,
 						'order'				=>'ASC',
-						'orderby' => 		'menu_order'
+						'orderby' 			=> 'menu_order',
+						'has_password'		=> FALSE
 					);
 
 					//search query addition
@@ -655,7 +657,7 @@ class EVO_generator {
 						if( isset($SC['event_status']) && $SC['event_status'] != 'all' && $SC['hide_cancels'] == 'no'){
 								
 							$event_status_val = sanitize_text_field( $ecv['event_status'] );
-							$event_status_val_ = explode(',', $event_status_val);
+							$event_status_val_ = array_filter( explode(',', $event_status_val) );
 
 							if( count($event_status_val_)>1){
 								$relation = isset($SC['filter_relationship']) ? 
@@ -673,10 +675,13 @@ class EVO_generator {
 								$meta_query[] = $arr;
 
 							}else{
-								$meta_query[] = array(
-									'key'     => '_status',
-									'value'   => $event_status_val
-								);
+								if( $event_status_val != 'all,'){
+									$meta_query[] = array(
+										'key'     => '_status',
+										'value'   => $event_status_val
+									);
+								}
+								
 							}						
 						}
 
@@ -812,10 +817,6 @@ class EVO_generator {
 							'end_year'=> date('Y', (!empty($focus_end_date_range)? $focus_end_date_range: $this->current_time)),
 							'end_month'=> date('n', (!empty($focus_end_date_range)? $focus_end_date_range: $this->current_time)),
 						);
-
-					//print_r($this->cal_range_data);
-
-					//print_r($events);
 					
 					$event_list_array = $this->wp_query_event_cycle_filter( $events);
 					
@@ -858,7 +859,6 @@ class EVO_generator {
 					if(apply_filters('evo_wp_query_post_type_if', true, $SC) == true && $events->post->post_type != 'ajde_events') continue;
 
 					$EVENT = new EVO_Event( $events->post->ID ,'','',true, $events->post);
-					$p_id = $EVENT->ID;					
 					$ev_vals = $EVENT->get_data();
 
 					// if event set to exclude from calendars
@@ -917,7 +917,7 @@ class EVO_generator {
 									if(!$_is_event_inrange ) continue;
 
 
-									if(in_array($p_id, $this->events_processed)){
+									if(in_array( $EVENT->ID, $this->events_processed)){
 										if($hide_mult_occur=='yes' && $show_repeats=='no') continue;
 									}
 									
@@ -925,13 +925,10 @@ class EVO_generator {
 									if( in_array($E_start_unix, $virtual_dates)) continue;
 
 
-								
-
-
 								$virtual_dates[] = $E_start_unix;
 								$event_list_array[] = $this->_convert_to_readable_eventdata(array(
 									'ID'=> $EVENT->ID,
-									'event_id' => $p_id,
+									'event_id' => $EVENT->ID,
 									'event_start_unix'=> (int)$E_start_unix,
 									'event_start_unix_utc'=> (int)$E_start_unix + $EVENT->utcoff,
 									'event_end_unix'=> (int)$E_end_unix,
@@ -944,8 +941,8 @@ class EVO_generator {
 									'ri'=>$index,
 								), $EVENT);
 
-								if($EVENT->is_featured() )	$featured_events[]=$p_id;
-								$this->events_processed[]=$p_id;									
+								if($EVENT->is_featured() )	$featured_events[] = $EVENT->ID;
+								$this->events_processed[] = $EVENT->ID;									
 
 							}// endforeeach
 						}	
@@ -1002,8 +999,6 @@ class EVO_generator {
 
 				$this->_featured_events = $featured_events;
 
-				
-
 				return $event_list_array;
 
 			}
@@ -1049,8 +1044,6 @@ class EVO_generator {
 
 			$month_int = date('n', time() );
 			$data = array();
-
-		
 
 			$data =  $this->generate_event_data($event_array, '', $month_int);
 			$this->__calendar_type = 'default'; // reset calendar type 
@@ -1145,7 +1138,7 @@ class EVO_generator {
 				
 
 				//if virtual event end time set > override visible end time
-				if( $EVENT->vir_duration){
+				if( $EVENT->vir_duration && !$EVENT->is_repeating_event() ){
 					$event_end_unix = $event_start_unix + $EVENT->vir_duration;
 					$DATE_end_val = eventon_get_formatted_time( $event_end_unix );
 				}
@@ -1848,9 +1841,10 @@ class EVO_generator {
 							$_eventcard['gmap'] = array(
 								'id'=>$unique_varied_id, 
 								'ltype'=> (isset($EventData['location_type']) ? $EventData['location_type']:'')
-							);
-							$_eventcard['getdirection'] = array();
+							);							
 						}else{	$_eventInAttr['data-gmap_status'] = 'null';	}
+
+						$_eventcard['getdirection'] = array();
 
 					// Repeat series
 						if($is_recurring_event && $EVENT->check_yn('_evcal_rep_series') ){
@@ -2319,6 +2313,7 @@ class EVO_generator {
 					$C = '';
 					foreach($tax['event_type'] as $et){
 						if( !isset($et['et_color'])) continue;
+						if( !empty($C)) continue;
 						$C = $et['et_color'];
 					}
 

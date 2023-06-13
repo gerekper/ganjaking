@@ -256,7 +256,7 @@ class evo_cal_help {
 
 			// other values
 				//get directions
-				$rearrange_items['getdirection']=array('getdirection',__('Get Directions','eventon'));
+				$rearrange_items['getdirection'] = array('getdirection',__('Get Directions','eventon'));
 				
 					
 				//paypal
@@ -498,9 +498,10 @@ class evo_cal_help {
 			// create day block values from legacy - what to show
 			$evotop_dayblock = isset($this->opt1['evotop_dayblock']) ? $this->opt1['evotop_dayblock'] :  false;
 			if( !$evotop_dayblock){
+				$evotop_dayblock = array();
 				foreach( array(
 					'dayname','eventyear','eventendyear'
-				) as $ff){
+				) as $ff){					
 					if( in_array($ff, $saved_eventtop_fields)) $evotop_dayblock[] = $ff;
 				}
 			}

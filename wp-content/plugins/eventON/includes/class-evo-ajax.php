@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions/AJAX
- * @version     4.2.2
+ * @version     4.4
  */
 
 class evo_ajax{
@@ -17,10 +17,15 @@ class evo_ajax{
 	private $helper;
 
 	public function __construct(){
+
+		add_action( 'init', array( __CLASS__, 'define_ajax' ), 0 );
+		add_action( 'template_redirect', array( __CLASS__, 'do_evo_ajax' ), 0 );
+
 		$ajax_events = array(
 			'init_load'=>'init_load',			
 			'ajax_events_data'=>'ajax_events_data',			
-			'the_ajax_hook'=>'main_ajax_call',			
+			'get_events'=>'main_ajax_call',			
+			//'the_ajax_hook'=>'main_ajax_call',			
 			'load_event_content'=>'load_event_content',
 			'load_single_eventcard_content'=>'load_single_eventcard_content',
 			'ics_download'=>'eventon_ics_download',			
@@ -31,30 +36,83 @@ class evo_ajax{
 			'record_mod_joined'=>'record_mod_joined',
 			'refresh_elm'=>'refresh_elm',
 			'gen_trig_ajax'=>'gen_trig_ajax',
+			'get_tax_card_content'=>'get_tax_card_content',
 
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			$prepend = ( in_array($ajax_event, array('the_ajax_hook','evo_dynamic_css','the_post_ajax_hook_3','the_post_ajax_hook_2')) )? '': 'eventon_';
 			add_action( 'wp_ajax_'. $prepend . $ajax_event, array( $this, $class ) );
 			add_action( 'wp_ajax_nopriv_'. $prepend . $ajax_event, array( $this, $class ) );
+
+			// EVO AJAX can be used for frontend ajax requests.
+			add_action( 'evo_ajax_' . $prepend . $ajax_event, array( $this , $class ) );
 		}
 
 		$this->helper = new evo_helper();
 
+		// deprecating in 4.5
 		add_filter('evo_ajax_general_send_results',array($this, 'general_send_req'), 10,2);
 	}	
 
+	// AJAX via endpoints @since 4.4
+		
+		// Get Ajax Endpoint.	
+		public static function get_endpoint( $request = '' ) {
+			return esc_url_raw( apply_filters( 'eventon_ajax_get_endpoint', add_query_arg( 'evo-ajax', $request, remove_query_arg( array( '_wpnonce' ), home_url( '/', 'relative' ) ) ), $request ) );
+		}
+
+		// Set AJAX constant and headers.
+		public static function define_ajax() {
+			// phpcs:disable
+			if ( ! empty( $_GET['evo-ajax'] ) ) {
+				evo_maybe_define_constant( 'DOING_AJAX', true );
+				evo_maybe_define_constant( 'EVO_DOING_AJAX', true );
+				if ( ! WP_DEBUG || ( WP_DEBUG && ! WP_DEBUG_DISPLAY ) ) {
+					@ini_set( 'display_errors', 0 ); // Turn off display_errors during AJAX events to prevent malformed JSON.
+				}
+				$GLOBALS['wpdb']->hide_errors();
+			}
+			// phpcs:enable
+		}
+
+		// Send headers for Ajax Requests.
+		private static function evo_ajax_headers() {
+			if ( ! headers_sent() ) {
+				send_origin_headers();
+				send_nosniff_header();
+				evo_nocache_headers();
+				header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );
+				header( 'X-Robots-Tag: noindex' );
+				status_header( 200 );
+			} elseif ( Constants::is_true( 'WP_DEBUG' ) ) {
+				headers_sent( $file, $line );
+				trigger_error( "evo_ajax_headers cannot set headers - headers already sent by {$file} on line {$line}", E_USER_NOTICE ); // @codingStandardsIgnoreLine
+			}
+		}
+
+		// Ajax request and fire action
+		public static function do_evo_ajax(){
+			global $wp_query;
+
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended
+			if ( ! empty( $_GET['evo-ajax'] ) ) {
+				$wp_query->set( 'evo-ajax', sanitize_text_field( wp_unslash( $_GET['evo-ajax'] ) ) );
+			}
+
+			$action = $wp_query->get( 'evo-ajax' );
+
+			if ( $action ) {
+				self::evo_ajax_headers();
+				$action = sanitize_text_field( $action );
+				do_action( 'evo_ajax_' . $action );
+				wp_die();
+			}
+			// phpcs:enable
+		}
 
 	// Initial load
-		function callback($name, $nonce){
-			$name = str_replace('eventon_', '', $name);
-			if(!wp_verify_nonce( $nonce, 'rest_'.EVO()->version)) return false;
-			return call_user_func_array(array($this, $name),array(true) );
-		}
 		function init_load($return = false){
-			// get global cals on init
-			global $EVOAJAX;
-
+			
 			$post_data = $this->helper->recursive_sanitize_array_fields( $_POST);	
 
 			// init load calendar events
@@ -124,151 +182,22 @@ class evo_ajax{
 			);exit;			
 		}
 
-	// general send request
-		function general_send_req($arr, $post){
+	// get taxonomy lightbox card details
+		function get_tax_card_content(){
+			$post = $this->helper->sanitize_array( $_POST );
+			
+			// event organizer
+			if( $post['tax'] == 'event_organizer'){
+				$tax = new EVO_Event_Tax();
 
-			// get organizer more details
-			if( $post['uid'] == 'evo_get_organizer_info'){
-				$EVENT = new EVO_Event($post['eventid'], '', isset($post['ri']) ? $post['ri']:'0' );
-
-				$org_data = $EVENT->get_taxonomy_data( 'event_organizer', true, $post['term_id'] );
-
-
-				if( !$org_data) return $arr;
-
-				$org_data_this = $org_data['event_organizer'][$post['term_id']];
-
-				// organizer link
-				$organizer_link_target = (!empty($org_data_this->organizer_link_target) && $org_data_this->organizer_link_target == 'yes')? '_blank':'';
-
-				$organizer_term_link = !empty($org_data_this->organizer_link) ? evo_format_link($org_data_this->organizer_link): false;
-
-				$organizer_term_name = $organizer_term_link ? '<a target="'.$organizer_link_target.'" href="'. $organizer_term_link .'">' . $org_data_this->name . '</a>' : $org_data_this->name; 
-
-				ob_start();
-				?>
-				<div class='evo_event_moreinfo_org pad40'>
-					<div class='evo_row'>
-						
-						<?php 
-							// image
-							if( !empty($org_data_this->img_id)):
-								$img_url = wp_get_attachment_image_src( $org_data_this->img_id ,'full');
-								$img_url = $img_url[0];
-								?>
-								<div class='evo_row_item evo_row6_l evo_row6_m evo_row12_s padr20'>
-								<p class=''><img class='borderr15' src='<?php echo $img_url;?>'/></p>
-								</div>
-								<?php 
-							endif;
-
-						?>
-						
-						<div class='evo_row_item evo_row6_l evo_row6_m evo_row12_s'>
-							<h3 class='evo_h3 padt20 padb20 fw900i' style="font-size:36px;"><?php echo $org_data_this->name;?></h3>
-							<div class='padb10 evo_org_desc'><?php echo $org_data_this->description;?></div>
-
-							<?php
-							if(!empty($org_data_this->organizer_contact)){						
-								echo "<p class='padb10 marb10i evo_borderb' >". $org_data_this->organizer_contact ."</p>";
-							}
-							if(!empty($org_data_this->contact_email)){						
-								echo "<p class='padb10 marb10i evo_borderb' >". $org_data_this->contact_email ."</p>";
-							}
-
-							// physical address
-							if(!empty($org_data_this->organizer_address)){						
-								echo "<p class='padb10 marb10i evo_borderb' >". $org_data_this->organizer_address ."</p>";
-							}
-							?>
-
-							<?php 
-							// social media links
-								$social_html = '';
-								foreach( $EVENT->get_organizer_social_meta_array() as $f=>$k){
-									if( empty($org_data_this->$f)) continue;
-
-									$social_html .= "<a class='pad10' href='". $org_data_this->$f. "'><i class='fa fa-{$f}'></i></a>";
-								}
-
-								if(!empty($social_html)){
-									echo "<div class='evo_tax_social_media padt10 padb10'>{$social_html}</div>";
-								}
-							?>
-
-							<?php if( $organizer_term_link):?>
-								<p class='mar0 pad0'><a class='evo_btn evcal_btn' href='<?php echo $organizer_term_link;?>' target='<?php echo $organizer_link_target;?>'><?php evo_lang_e('Learn More');?></a></p>
-							<?php endif;?>
-
-						</div>						
-					</div>
-					
-					<?php 
-					// organizer location map
-						if( !empty($org_data_this->organizer_address) ):
-						
-						EVO()->cal->set_cur('evcal_1');
-						$zoomlevel = EVO()->cal->get_prop('evcal_gmap_zoomlevel');
-							if(!$zoomlevel) $zoomlevel = 16;
-
-						$map_type = EVO()->cal->get_prop('evcal_gmap_format');
-							if(!$map_type) $map_type = 'roadmap';
-
-						$location_address = stripslashes( $org_data_this->organizer_address );
-
-						$map_data = array(
-							'address'=> $location_address,
-							'latlng'=>'',
-							'location_type'=> 'add',
-							'zoom'=> $zoomlevel,
-							'scroll'=> EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes',
-							'mty'=>$map_type,
-							'delay'=>400
-						);
-
-					?>
-					
-					<div id='evo_org_<?php echo $org_data_this->term_id;?>' class="evo_trigger_map borderr15 mart15" style='height:250px;' <?php echo $this->helper->array_to_html_data($map_data);?>></div>
-				
-					<?php endif;?>	
-					
-
-					<?php do_action('evo_eventcard_organizer_info_before_events', $org_data_this, $EVENT);?>
-					
-					<div class='evo_databox borderr15 pad30 mart15'>
-						
-						<h3 class="evo_h3 evo_borderb" ><?php evo_lang_e('Events by');?> <?php echo $org_data_this->name;?></h3>
-						<div class='padt20'>
-							<?php 
-
-							$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
-
-							
-							echo EVO()->shortcodes->events_list( array(
-								'number_of_months'=>5,
-								'event_organizer'=>$post['term_id'],
-								'hide_mult_occur'=>'no',
-								'hide_empty_months'=>'yes',
-								'eventtop_style'=> $eventtop_style,
-								'ux_val'=>3
-							));
-
-							?>
-						</div>
-					</div>
-				</div>
-
-				<?php
-
-				return array('status'=>'good', 'content'=> ob_get_clean());
-
-				print_r($org_data);
-
+				echo json_encode(					
+					array(
+						'status'=>'good',
+						'content'=> $tax->get_organizer_lightbox_content( $post ) 
+					)
+				);exit;
 			}
-
-			return $arr;
 		}
-
 
 	// Primary function to load event data 
 		function main_ajax_call(){
@@ -521,12 +450,24 @@ class evo_ajax{
 
 			if( !isset( $_GET['event_id'])) return false;
 
+			// verify nonce
+				if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_ics_oneevent')) die('Security Check Failed!');
+
 			$event_id = (int)( sanitize_text_field( $_GET['event_id']) );
 			$ri = isset($_GET['ri'])? (int)( sanitize_text_field($_GET['ri']) ) : 0;
 
 			$EVENT = new EVO_Event($event_id,'',$ri);
 			$EVENT->get_event_post();
 			
+			// validations
+				// check post type
+				if( 'ajde_events' !== $EVENT->post_type ) die('Not a valid Event!');
+
+				// check event exists
+				if( $EVENT->post_status != 'publish') die('Not a valid Event!');
+
+				// check password protected event
+				if( $EVENT->is_password_required() ) die('Password Protected Event!');		
 			
 			$slug = $EVENT->post_name;
 						
@@ -679,6 +620,12 @@ class evo_ajax{
 			exit;
 
 	}
+
+	// deprecating
+	function general_send_req($a1, $post){
+		return $a1;
+	}
+
 	/* dynamic styles */
 		/*function eventon_dymanic_css(){
 			//global $foodpress_menus;

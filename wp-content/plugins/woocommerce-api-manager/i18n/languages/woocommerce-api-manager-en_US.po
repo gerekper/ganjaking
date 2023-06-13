@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-05-26 13:49-0700\n"
-"PO-Revision-Date: 2023-05-26 13:49-0700\n"
+"POT-Creation-Date: 2023-06-03 00:05-0700\n"
+"PO-Revision-Date: 2023-06-03 00:05-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -22,6 +22,145 @@ msgstr ""
 #: includes/libraries/wp-background-process.php:423
 #, php-format
 msgid "Every %d minutes"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:31
+msgid "API Customer"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:32
+#: includes/admin/menus/wc-am-menus.php:35
+#: includes/admin/menus/wc-am-menus.php:54
+#, fuzzy
+msgid "API Customers"
+msgstr "Vous n'avez pas de clés API."
+
+#: includes/admin/menus/wc-am-customers-table-list.php:63
+msgid "Profile "
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:63
+#: includes/admin/menus/wc-am-customers-table-list.php:71
+#: includes/admin/menus/wc-am-customers-table-list.php:75
+#: includes/admin/menus/wc-am-customers-table-list.php:77
+#: includes/admin/menus/wc-am-customers-table-list.php:81
+msgid "n/a"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:67
+#, php-format
+msgid "%s%s%s"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:77
+msgid "View other orders "
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:79
+#: templates/myaccount/api-keys.php:182 templates/myaccount/api-keys.php:184
+#: templates/myaccount/api-keys.php:221 templates/myaccount/api-keys.php:223
+#, fuzzy
+msgid " out of "
+msgstr "%s sur %s activations restantes"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:84
+#: includes/admin/menus/wc-am-customers-table-list.php:89
+#: includes/admin/meta-boxes/html-order-api-resources.php:14
+#: includes/admin/meta-boxes/html-order-api-resources.php:19
+#: includes/data-stores/wc-am-api-resource-data-store.php:1226
+#: includes/data-stores/wc-am-api-resource-data-store.php:1236
+#: templates/emails/api-keys-order-complete.php:56
+#: templates/emails/api-keys-order-complete.php:61
+#: templates/emails/plain/api-keys-order-complete.php:32
+#: templates/emails/plain/api-keys-order-complete.php:37
+#: templates/myaccount/api-keys.php:176 templates/myaccount/api-keys.php:212
+#, fuzzy
+msgctxt "Used as end date for an indefinite subscription"
+msgid "When Cancelled"
+msgstr "Action"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:87
+#: includes/admin/meta-boxes/html-order-api-resources.php:17
+#: templates/emails/api-keys-order-complete.php:59
+#: templates/emails/plain/api-keys-order-complete.php:35
+#: templates/myaccount/api-keys.php:210
+msgid "Expired"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:96
+msgid "Pending Cancellation"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:101
+#, fuzzy
+msgid "Lifetime Subscription"
+msgstr "Description"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:114
+msgid "User ID"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:115
+#, fuzzy
+msgid "Customer Name"
+msgstr "Vous n'avez pas de clés API."
+
+#: includes/admin/menus/wc-am-customers-table-list.php:116
+#: includes/admin/meta-boxes/html-order-api-activations.php:45
+#: templates/myaccount/api-keys.php:95
+#, fuzzy
+msgid "Product Order API Key"
+msgstr "Clés de licence API"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:117
+#: templates/emails/api-keys-order-complete.php:33
+#, fuzzy
+msgid "Product"
+msgstr "Produit"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:118
+#, fuzzy
+msgid "Order ID"
+msgstr "Commande invalide."
+
+#: includes/admin/menus/wc-am-customers-table-list.php:119
+#: templates/emails/api-keys-order-complete.php:35
+#: templates/myaccount/api-keys.php:100
+#, fuzzy
+msgid "Activations"
+msgstr "Activations"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:120
+#, fuzzy
+msgid "Access Granted"
+msgstr "Permission d'accès API"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:121
+#, fuzzy
+msgid "Access Expires"
+msgstr "Permission d'accès API"
+
+#: includes/admin/menus/wc-am-customers-table-list.php:122
+msgid "Next Payment"
+msgstr ""
+
+#: includes/admin/menus/wc-am-customers-table-list.php:213
+#, fuzzy
+msgid "No API Customers found."
+msgstr "Vous n'avez pas de clés API."
+
+#: includes/admin/menus/wc-am-customers-table-list.php:232
+msgid "Search"
+msgstr ""
+
+#: includes/admin/menus/wc-am-menus.php:33
+#: includes/admin/wc-am-settings-admin.php:68
+#, fuzzy
+msgid "API Manager"
+msgstr "Update API Manager"
+
+#: includes/admin/menus/wc-am-menus.php:80
+msgid "Number of items per page"
 msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:16
@@ -59,12 +198,6 @@ msgstr ""
 msgid "Master API Key"
 msgstr "Clé de licence API"
 
-#: includes/admin/meta-boxes/html-order-api-activations.php:45
-#: templates/myaccount/api-keys.php:95
-#, fuzzy
-msgid "Product Order API Key"
-msgstr "Clés de licence API"
-
 #: includes/admin/meta-boxes/html-order-api-activations.php:47
 #, fuzzy
 msgid "Associated API Key"
@@ -81,27 +214,6 @@ msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 #, fuzzy
 msgid "No activations yet."
 msgstr "Encore aucune activation"
-
-#: includes/admin/meta-boxes/html-order-api-resources.php:14
-#: includes/admin/meta-boxes/html-order-api-resources.php:19
-#: includes/data-stores/wc-am-api-resource-data-store.php:1226
-#: includes/data-stores/wc-am-api-resource-data-store.php:1236
-#: templates/emails/api-keys-order-complete.php:56
-#: templates/emails/api-keys-order-complete.php:61
-#: templates/emails/plain/api-keys-order-complete.php:32
-#: templates/emails/plain/api-keys-order-complete.php:37
-#: templates/myaccount/api-keys.php:176 templates/myaccount/api-keys.php:212
-#, fuzzy
-msgctxt "Used as end date for an indefinite subscription"
-msgid "When Cancelled"
-msgstr "Action"
-
-#: includes/admin/meta-boxes/html-order-api-resources.php:17
-#: templates/emails/api-keys-order-complete.php:59
-#: templates/emails/plain/api-keys-order-complete.php:35
-#: templates/myaccount/api-keys.php:210
-msgid "Expired"
-msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-resources.php:43
 #, fuzzy
@@ -527,11 +639,6 @@ msgstr ""
 #: includes/admin/wc-am-debug-tools.php:60
 msgid "Import has already run."
 msgstr ""
-
-#: includes/admin/wc-am-settings-admin.php:68
-#, fuzzy
-msgid "API Manager"
-msgstr "Update API Manager"
 
 #: includes/admin/wc-am-settings-admin.php:133
 #: includes/admin/wc-am-settings-admin.php:163
@@ -1779,20 +1886,9 @@ msgstr ""
 msgid "API Product Information"
 msgstr "Clé de licence API :"
 
-#: templates/emails/api-keys-order-complete.php:33
-#, fuzzy
-msgid "Product"
-msgstr "Produit"
-
 #: templates/emails/api-keys-order-complete.php:34
 msgid "ID"
 msgstr ""
-
-#: templates/emails/api-keys-order-complete.php:35
-#: templates/myaccount/api-keys.php:100
-#, fuzzy
-msgid "Activations"
-msgstr "Activations"
 
 #: templates/emails/api-keys-order-complete.php:36
 #: templates/myaccount/api-keys.php:98
@@ -1912,12 +2008,6 @@ msgid ""
 "order."
 msgstr ""
 
-#: templates/myaccount/api-keys.php:182 templates/myaccount/api-keys.php:184
-#: templates/myaccount/api-keys.php:221 templates/myaccount/api-keys.php:223
-#, fuzzy
-msgid " out of "
-msgstr "%s sur %s activations restantes"
-
 #: templates/myaccount/api-keys.php:286
 msgid "No API products available yet."
 msgstr ""
@@ -1930,7 +2020,7 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:577
+#: woocommerce-api-manager.php:585
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must "
@@ -1938,7 +2028,7 @@ msgid ""
 "WooCommerce on the %splugin page%s once it is installed."
 msgstr ""
 
-#: woocommerce-api-manager.php:595
+#: woocommerce-api-manager.php:603
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s is inactive because it requires PHP version "
@@ -1946,7 +2036,7 @@ msgid ""
 "upgrade your version of PHP."
 msgstr ""
 
-#: woocommerce-api-manager.php:632
+#: woocommerce-api-manager.php:640
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, "
@@ -1955,7 +2045,7 @@ msgid ""
 "%s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:652
+#: woocommerce-api-manager.php:660
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version "
@@ -1963,7 +2053,7 @@ msgid ""
 "installed. Please upgrade WooCommerce Subscriptions to version %s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:707
+#: woocommerce-api-manager.php:715
 #, php-format
 msgid ""
 "Warning! Version 2.0 is a major update to the WooCommerce API Manager "
@@ -1971,6 +2061,18 @@ msgid ""
 "extensions, and test all plugins and custom code with version 2.0 on a "
 "staging site. %sLearn more about the changes in version 2.0 &raquo;%s"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Find Order ID"
+#~ msgstr "Commande invalide."
+
+#, fuzzy
+#~ msgid "Search by Order ID"
+#~ msgstr "Commande invalide."
+
+#, fuzzy
+#~ msgid "Access expires"
+#~ msgstr "Permission d'accès API"
 
 #, fuzzy
 #~ msgid "API Transitions"
@@ -2112,10 +2214,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Rebuild User API Data"
 #~ msgstr "WooCommerce API Manager"
-
-#, fuzzy
-#~ msgid "Order Screen"
-#~ msgstr "Commande invalide."
 
 #, fuzzy
 #~ msgid "Activation Order Note"

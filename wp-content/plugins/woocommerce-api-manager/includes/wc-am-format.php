@@ -276,13 +276,19 @@ class WC_AM_Format {
 	/**
 	 * Takes an Epoch/Unix timestamp and converts it into a localized string formatted date and time.
 	 *
-	 * @since 2.0.6
+	 * @since   2.0.6
+	 * @updated 2.8 Added $date_only.
 	 *
-	 * @param int $timestamp
+	 * @param int  $timestamp
+	 * @param bool $date_only
 	 *
 	 * @return string
 	 */
-	public function unix_timestamp_to_date( $timestamp ) {
+	public function unix_timestamp_to_date( $timestamp, $date_only = false ) {
+		if ( $date_only ) {
+			return date_i18n( $this->date_format(), $this->localized_datetime_timestamp( $timestamp ) );
+		}
+
 		return date_i18n( $this->date_format() . ' ' . $this->time_format(), $this->localized_datetime_timestamp( $timestamp ) );
 	}
 

@@ -1,10 +1,11 @@
 <?php
 /*
  * EventON Taxonomy Editor
- * @version 4.2
+ * @version 4.4
  */
 
 class EVO_Taxonomies_editor{
+private $helper;
 
 function editor_ajax_calls(){
 	$ajax_events = array(
@@ -180,7 +181,9 @@ function editor_ajax_calls(){
 					$term_meta = array();
 
 					// save description
-					$term_description = isset($_POST['description'])? $this->helper->sanitize_html($_POST['description']):'';
+					$term_description = isset($_POST['description'])? 
+						$this->helper->sanitize_html($_POST['description']):'';
+
 
 					$tt = wp_update_term($taxtermID, $tax, array( 'description'=>$term_description ));
 					
@@ -214,7 +217,15 @@ function editor_ajax_calls(){
 							}
 
 
-							$term_meta[ $value['var'] ] = str_replace('"', "'", $post_data[$value['var']]); 
+							$field_value = $post_data[ $value['var'] ];
+							$field_value = str_replace('"', "'", $field_value );
+
+							// for secondary description
+							if( $key == 'description2' && isset( $_POST['description2'] )){
+								$field_value = $this->helper->sanitize_html( $_POST['description2'] );
+							}
+
+							$term_meta[ $value['var'] ] = $field_value; 
 
 						}else{
 							$term_meta[ $value['var'] ] = ''; 

@@ -2,7 +2,7 @@
 /**
  *	EventON Post Data Store 
  * @+ 3.0.2
- * @u 3.0.2
+ * @u 4.4
  */
 
 class EVO_Data_Store{
@@ -14,6 +14,8 @@ class EVO_Data_Store{
 
 	public $ID;
 	public $meta = array();
+
+	public $post_author, $author, $title, $post_date, $post_content, $content, $excerpt, $post_excerpt, $post_status, $post_parent, $time;
 
 // meta data
 	public function get_permalink(){
@@ -131,6 +133,7 @@ class EVO_Data_Store{
 		$this->post_excerpt = $this->excerpt = $results->post_excerpt;
 		$this->post_status = $results->post_status;
 		$this->post_parent = $results->post_parent;
+		$this->post_password = $results->post_password;
 
 		$time = strtotime($this->post_date);
 		$this->time = date('M j,Y \A\T g:iA', $time);

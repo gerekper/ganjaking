@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.6.14
+ * @version 2.8.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -51,56 +51,56 @@ if ( ! empty( $user_id ) ) {
 
 			if ( ! $hide_master_api_key ) {
 				?>
-				<table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
-					<thead>
-					<tr>
-						<th class="master-api-key"><span
-								class="nobr"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?><?php esc_html_e( ' - Can be used to activate any product.', 'woocommerce-api-manager' ); ?></span>
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr class="order">
-						<td class="api-manager-master-api-key">
+                <table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
+                    <thead>
+                    <tr>
+                        <th class="master-api-key"><span
+                                    class="nobr"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?><?php esc_html_e( ' - Can be used to activate any product.', 'woocommerce-api-manager' ); ?></span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="order">
+                        <td class="api-manager-master-api-key">
 							<?php echo esc_attr( $master_api_key ); ?>
-						</td>
-					</tr>
-					</tbody>
-				</table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 				<?php
 			}
 			?>
-			<table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
-				<tbody>
-				<tr>
-					<hr>
+            <table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
+                <tbody>
+                <tr>
+                    <hr>
 					<?php if ( ! $hide_product_order_api_keys ) { ?>
-						<td>
+                        <td>
 							<?php esc_html_e( 'A Product Order API Key is used to activate a single product from a single order.', 'woocommerce-api-manager' ); ?>
-						</td>
+                        </td>
 					<?php } ?>
-				</tr>
-				</tbody>
-			</table>
-			<table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
-				<thead>
-				<tr>
-					<th class="<?php echo esc_attr( 'api-manager-software-product' ); ?>"><span
-							class="nobr"><?php esc_html_e( 'Product Title', 'woocommerce-api-manager' ); ?></span></th>
-					<th class="<?php echo esc_attr( 'api-manager-software-product' ); ?>"><span
-							class="nobr"><?php esc_html_e( 'Product ID', 'woocommerce-api-manager' ); ?></span></th>
+                </tr>
+                </tbody>
+            </table>
+            <table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
+                <thead>
+                <tr>
+                    <th class="<?php echo esc_attr( 'api-manager-software-product' ); ?>"><span
+                                class="nobr"><?php esc_html_e( 'Product Title', 'woocommerce-api-manager' ); ?></span></th>
+                    <th class="<?php echo esc_attr( 'api-manager-software-product' ); ?>"><span
+                                class="nobr" style="white-space: nowrap;"><?php esc_html_e( 'Product ID', 'woocommerce-api-manager' ); ?></span></th>
 					<?php
 					if ( ! $hide_product_order_api_keys ) { ?>
-						<th class="<?php echo esc_attr( 'api-manager-key' ); ?>"><span
-								class="nobr"><?php esc_html_e( 'Product Order API Key', 'woocommerce-api-manager' ); ?></span></th>
+                        <th class="<?php echo esc_attr( 'api-manager-key' ); ?>"><span
+                                    class="nobr" style="white-space: nowrap;"><?php esc_html_e( 'Product Order API Key', 'woocommerce-api-manager' ); ?></span></th>
 					<?php } ?>
-					<th class="<?php echo esc_attr( 'api-manager-expire' ); ?>"><span
-							class="nobr"><?php esc_html_e( 'Expires', 'woocommerce-api-manager' ); ?></span></th>
-					<th class="<?php echo esc_attr( 'api-manager-activation' ); ?>"><span
-							class="nobr"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></span></th>
-				</tr>
-				</thead>
-				<tbody>
+                    <th class="<?php echo esc_attr( 'api-manager-expire' ); ?>"><span
+                                class="nobr"><?php esc_html_e( 'Expires', 'woocommerce-api-manager' ); ?></span></th>
+                    <th class="<?php echo esc_attr( 'api-manager-activation' ); ?>"><span
+                                class="nobr"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></span></th>
+                </tr>
+                </thead>
+                <tbody>
 				<?php
 				foreach ( $resources as $resource ) {
 					// Refreshing cache here will also delete API cache for activations about to be deleted.
@@ -153,58 +153,56 @@ if ( ! empty( $user_id ) ) {
 							 * Only display active subscriptions
 							 */
 							if ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) ) {
-								if ( ! empty( $resource->sub_id ) ) {
-									$sub_id        = $resource->sub_id;
-									$sub_order_key = $resource->sub_order_key;
-									?>
-									<tr class="order">
-										<td class="api-manager-product">
-											<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php echo esc_attr( $product_title ) ?></a>
-										</td>
-										<td class="api-manager-product-id">
-											<?php
-											echo absint( $product_id );
-											?>
-										</td>
-										<?php if ( ! $hide_product_order_api_keys ) { ?>
-											<td class="api-manager-product-order-api-key">
-												<?php echo esc_attr( $product_order_api_key ); ?>
-											</td>
-										<?php } ?>
-										<td class="api-manager-expire">
-											<?php
-											esc_html_e( ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) );
-											?>
-										</td>
-										<td class="api-manager-activations">
-											<?php
-											if ( ! $hide_product_order_api_keys ) {
-												echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $resource->activations_purchased_total );
-											} else {
-												echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $total_activations_purchased );
-											} ?>
-										</td>
-									</tr>
-									<?php
-								}
+								$sub_id        = $resource->sub_id;
+								$sub_order_key = $resource->sub_order_key;
+								?>
+                                <tr class="order">
+                                    <td class="api-manager-product">
+                                        <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php echo esc_attr( $product_title ) ?></a>
+                                    </td>
+                                    <td class="api-manager-product-id">
+										<?php
+										echo absint( $product_id );
+										?>
+                                    </td>
+									<?php if ( ! $hide_product_order_api_keys ) { ?>
+                                        <td class="api-manager-product-order-api-key">
+											<?php echo esc_attr( $product_order_api_key ); ?>
+                                        </td>
+									<?php } ?>
+                                    <td class="api-manager-expire" style="white-space: nowrap;">
+										<?php
+										esc_html_e( ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) );
+										?>
+                                    </td>
+                                    <td class="api-manager-activations">
+										<?php
+										if ( ! $hide_product_order_api_keys ) {
+											echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $resource->activations_purchased_total );
+										} else {
+											echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $total_activations_purchased );
+										} ?>
+                                    </td>
+                                </tr>
+								<?php
 							} else {
 								/**
 								 * Non WC Subscriptions API Keys
 								 */
 								?>
-								<tr class="order">
-									<td class="api-manager-product">
-										<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php echo esc_attr( $product_title ) ?></a>
-									</td>
-									<td class="api-manager-product-id">
+                                <tr class="order">
+                                    <td class="api-manager-product">
+                                        <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php echo esc_attr( $product_title ) ?></a>
+                                    </td>
+                                    <td class="api-manager-product-id">
 										<?php echo absint( $product_id ); ?>
-									</td>
+                                    </td>
 									<?php if ( ! $hide_product_order_api_keys ) { ?>
-										<td class="api-manager-license-key">
+                                        <td class="api-manager-license-key">
 											<?php echo esc_attr( $product_order_api_key ); ?>
-										</td>
+                                        </td>
 									<?php } ?>
-									<td class="api-manager-expire">
+                                    <td class="api-manager-expire" style="white-space: nowrap;">
 										<?php
 										if ( WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires ?? false ) ) {
 											$expires = __( 'Expired', 'woocommerce-api-manager' );
@@ -214,83 +212,119 @@ if ( ! empty( $user_id ) ) {
 
 										esc_html_e( $expires );
 										?>
-									</td>
-									<td class="api-manager-activations">
+                                    </td>
+                                    <td class="api-manager-activations">
 										<?php
 										if ( ! $hide_product_order_api_keys ) {
 											echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $resource->activations_purchased_total );
 										} else {
 											echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $total_activations_purchased );
 										} ?>
-									</td>
-								</tr>
+                                    </td>
+                                </tr>
 								<?php
 							} // end if user subscription is active, or if non subscription API Key has API access
-						}
 
-						$activation_data = WC_AM_API_ACTIVATION_DATA_STORE()->get_total_activations_resources_for_api_key_by_product_id( $master_api_key, $product_id );
+							$activation_data = WC_AM_API_ACTIVATION_DATA_STORE()->get_total_activations_resources_for_api_key_by_product_id( $master_api_key, $product_id );
 
-						if ( ! empty( $activation_data ) ) {
-							foreach ( $activation_data as $key => $activation_info ) {
-								if ( $activation_info->api_resource_id == $resource->api_resource_id ) {
+							if ( ! empty( $activation_data ) ) {
+								foreach ( $activation_data as $key => $activation_info ) {
+									// Show Product Order API Key
+									if ( ! $hide_product_order_api_keys && $activation_info->api_resource_id == $resource->api_resource_id ) {
+										?>
+                                        <tr class="api-manager-domains">
+                                            <td colspan="3" style="border-right: 0; padding-left: 5em;">
+												<?php
+												echo '<a href="' . esc_url( WC_AM_URL()->nonce_url( array(
+													                                                    'delete_activation' => '1',
+													                                                    'instance'          => $activation_info->instance,
+													                                                    'order_id'          => $activation_info->order_id,
+													                                                    'sub_parent_id'     => $activation_info->sub_parent_id,
+													                                                    'api_key'           => $activation_info->api_key,
+													                                                    'product_id'        => $activation_info->product_id,
+													                                                    'user_id'           => $user_id
+												                                                    ) ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
+
+												if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
+													// If $object is a URL, then remove the trailing slash.
+													$obj_length = strlen( $activation_info->object );
+													$object     = ! empty( $activation_info->object ) && substr( $activation_info->object, $obj_length - 1, $obj_length ) == '/' ? substr( $activation_info->object, 0, $obj_length - 1 ) : $activation_info->object;
+													?>
+                                                    <a style="text-align:left; vertical-align: middle; border-left: 0; padding-left: 1.5em;"
+                                                       href="<?php echo esc_url( $activation_info->object ); ?>"
+                                                       target="_blank"><?php echo WC_AM_URL()->remove_url_prefix( $object ); ?></a><span
+                                                            style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+													<?php
+												} else { ?>
+                                                    <span
+                                                            style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+													<?php
+												} ?>
+                                            </td>
+                                        </tr>
+										<?php
+										// Hide Product Order API Key
+									} elseif ( $hide_product_order_api_keys ) {
+										?>
+                                        <tr class="api-manager-domains">
+                                            <td colspan="4" style="border-right: 0; padding-left: 5em;">
+												<?php
+												echo '<a href="' . esc_url( WC_AM_URL()->nonce_url( array(
+													                                                    'delete_activation' => '1',
+													                                                    'instance'          => $activation_info->instance,
+													                                                    'order_id'          => $activation_info->order_id,
+													                                                    'sub_parent_id'     => $activation_info->sub_parent_id,
+													                                                    'api_key'           => $activation_info->api_key,
+													                                                    'product_id'        => $activation_info->product_id,
+													                                                    'user_id'           => $user_id
+												                                                    ) ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
+
+												if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
+													// If $object is a URL, then remove the trailing slash.
+													$obj_length = strlen( $activation_info->object );
+													$object     = ! empty( $activation_info->object ) && substr( $activation_info->object, $obj_length - 1, $obj_length ) == '/' ? substr( $activation_info->object, 0, $obj_length - 1 ) : $activation_info->object;
+													?>
+                                                    <a style="text-align:left; vertical-align: middle; border-left: 0; padding-left: 1.5em;"
+                                                       href="<?php echo esc_url( $activation_info->object ); ?>"
+                                                       target="_blank"><?php echo WC_AM_URL()->remove_url_prefix( $object ); ?></a><span
+                                                            style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+													<?php
+												} else { ?>
+                                                    <span
+                                                            style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+													<?php
+												} ?>
+                                            </td>
+                                        </tr>
+										<?php
+									}
 									?>
-									<tr class="api-manager-domains">
-										<?php if ( $hide_product_order_api_keys ) { ?>
-										<td colspan="3" style="border-right: 0; padding-left: 5em;">
-											<?php } else { ?>
-										<td colspan="4" style="border-right: 0; padding-left: 5em;">
-											<?php } ?>
-											<?php
-											echo '<a href="' . esc_url( WC_AM_URL()->nonce_url( array(
-												                                                    'delete_activation' => '1',
-												                                                    'instance'          => $activation_info->instance,
-												                                                    'order_id'          => $activation_info->order_id,
-												                                                    'sub_parent_id'     => $activation_info->sub_parent_id,
-												                                                    'api_key'           => $activation_info->api_key,
-												                                                    'product_id'        => $activation_info->product_id,
-												                                                    'user_id'           => $user_id
-											                                                    ) ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
-
-											if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
-												// If $object is a URL, then remove the trailing slash.
-												$obj_length = strlen( $activation_info->object );
-												$object     = ! empty( $activation_info->object ) && substr( $activation_info->object, $obj_length - 1, $obj_length ) == '/' ? substr( $activation_info->object, 0, $obj_length - 1 ) : $activation_info->object;
-												?>
-												<a style="text-align:left; vertical-align: middle; border-left: 0; padding-left: 1.5em;"
-												   href="<?php echo esc_url( $activation_info->object ); ?>"
-												   target="_blank"><?php echo WC_AM_URL()->remove_url_prefix( $object ); ?></a><span
-													style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
-											<?php } else { ?>
-												<span
-													style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
-											<?php } ?>
-										</td>
-									</tr>
-								<?php } // end if order_key
+									<?php
+								} // end foreach $activation_data
 								?>
-							<?php } // end current_info
-							?>
-						<?php } // end $order_data
-					} // end if $api
-				} // end foreach
+								<?php
+							} // end ! empty( $activation_data )
+						} // end is_object( $order )
+					} // end $is_api
+				} // end foreach $resources
 				?>
-				</tbody>
-			</table>
+                </tbody>
+            </table>
 			<?php
 		} else { ?>
-			<div class="woocommerce-Message woocommerce-Message--info woocommerce-info">
-				<a class="woocommerce-Button button"
-				   href="<?php echo esc_url( apply_filters( 'wc_api_manager_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-					<?php esc_html_e( 'Go shop', 'woocommerce-api-manager' ) ?>
-				</a>
+            <div class="woocommerce-Message woocommerce-Message--info woocommerce-info">
+                <a class="woocommerce-Button button"
+                   href="<?php echo esc_url( apply_filters( 'wc_api_manager_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
+					<?php esc_html_e( 'Go to shop', 'woocommerce-api-manager' ) ?>
+                </a>
 				<?php esc_html_e( 'No API products available yet.', 'woocommerce-api-manager' ); ?>
-			</div>
+            </div>
 			<?php
 		} // end if $orders
 	} else { ?>
-		<div class="woocommerce-Message woocommerce-Message--info woocommerce-info">
+        <div class="woocommerce-Message woocommerce-Message--info woocommerce-info">
 			<?php esc_html_e( 'This account has been disabled.', 'woocommerce-api-manager' ); ?>
-		</div>
+        </div>
 	<?php } // end if master API key not disabled
 	// Amount of time for the API call to complete.
 	//print( 'Executed in ' . round( ( microtime( true ) - $time_start ), 6 ) . ' seconds' );

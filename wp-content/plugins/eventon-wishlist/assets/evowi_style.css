@@ -1,12 +1,11 @@
 /**
  * Styles for eventon wishlist
- * @version 1.1
+ * @version 1.2
  */
 
 .ajde_evcal_calendar.evoWI #evcal_head{display: none;}
 .eventon_events_list .eventon_list_event .evoet_cx span.evowi, 
 .evo_pop_body .evoet_cx span.evowi{
-	color:#808080;
 	display: flex;align-items: center;
 	font-size: 12px;
 	position: relative;
@@ -14,7 +13,7 @@
 }
 .eventon_events_list .eventon_list_event .evoet_cx span.evowi_wi_area, 
 .evo_pop_body .evoet_cx span.evowi_wi_area{
-	color:#808080; display: inline-flex;align-items: center;
+	display: inline-flex;align-items: center;
 	border-radius: 5px;
 	padding: 5px 8px 5px 0;
 	margin-right: 8px;
@@ -25,7 +24,12 @@
 /* COLOR */	
 	.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evowi_wi_area,
 	.evo_pop_body.color .evoet_cx span.evowi_wi_area
-	{color:#fff;}
+	{
+		color:#fff;
+		background-color: #ffffff4d;
+	    border-radius: 10px;
+	    padding: 5px 10px;
+	}
 	.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evowi,
 	.evo_pop_body.color .evoet_cx span.evowi
 	{color:#fff;}
@@ -42,6 +46,7 @@
     width: 14px;
     opacity: 0.3;
 }
+
 
 .eventon_events_list .eventon_list_event .evoet_cx span.evowi.loading:before, 
 .evo_pop_body .evoet_cx span.evowi.loading:before{
@@ -69,3 +74,25 @@
 }
 .ajde_evcal_calendar.evoWI #evcal_list, .ajde_evcal_calendar.evoWI #evcal_list .evcal_month_line p{border:none;}
 
+/* wishlist manager */
+	.evowi_wl_manager{}
+	.evowi_wl_manager .evowi_stats{
+		background-color: #e8e8e8;
+	    padding: 10px 20px;
+	    margin: 0 0 10px;
+	    border-radius: 15px;
+	}
+	.evowi_wl_manager .evowi_stats p{
+		margin: 0;
+	    font-size: 16px;
+	    display: flex;
+	    flex-direction: row;
+	    justify-content: space-between;
+	    align-items: center;
+	    flex-wrap: wrap;
+	}
+	.evowi_wl_manager .evowi_stats p b{
+		background-color: #cfcfcf;
+	    padding: 10px;
+	    border-radius: 12px;
+	}

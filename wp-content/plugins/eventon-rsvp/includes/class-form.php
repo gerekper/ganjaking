@@ -1,10 +1,16 @@
 <?php
 /**
  * RSVP frontend form function
- * @version 2.6.8
+ * @version 2.8.4
  */
 class evors_form{
 	private $active_fields = false;
+
+	function __construct(){
+		EVO()->cal->set_cur('evcal_rs');
+		$this->options_rsvp = EVO()->cal->get_op('evcal_rs');
+		$this->active_fields =EVO()->cal->get_prop('evors_ffields');
+	}
 
 	function get_form($args=''){
 		global $eventon_rs;
@@ -67,7 +73,7 @@ class evors_form{
 				if(!$prefill) $prefill_edittable = false;
 			
 			// form fields
-				$active_fields = $this->active_fields =(!empty($optRS['evors_ffields']))?$optRS['evors_ffields']:false;
+				$active_fields = $this->active_fields;
 				$this->active_fields[] = 'submit_btn';
 
 			// if form type is update but can not find RSVP id
@@ -105,15 +111,18 @@ class evors_form{
 		ob_start();
 
 
-// Incard form close button
-	if($args['incard']=='yes')	echo "<a class='evors_incard_close'></a>";
+
 
 ?>
 <div id='evorsvp_form' class='evors_forms form_<?php echo $args['formtype'];?>' data-rsvpid='<?php echo $args['rsvpid'];?>'>
-	<form class='evors_submission_form <?php echo $rsvpChoice?'rsvp_'.$rsvpChoice:'';?>' method="POST" action="" enctype="multipart/form-data">
+	<form class='evors_gen_form evors_submission_form <?php echo $rsvpChoice?'rsvp_'.$rsvpChoice:'';?>' method="POST" action="" enctype="multipart/form-data">
 
 		<?php
-			// hidden input fields
+
+		// Incard form close button
+			if($args['incard']=='yes')	echo "<a class='evors_incard_close'></a>";
+
+		// hidden input fields
 			$arr = apply_filters('evors_form_hidden_values',array(
 				'rsvpid'=>	$args['rsvpid'],
 				'e_id'=>	$event_id,
@@ -185,187 +194,155 @@ class evors_form{
 				$_field_fname = $evors->lang( 'evoRSL_007','First Name');
 				$_field_lname = $evors->lang( 'evoRSL_008','Last Name');				
 			?>
-			<div class="form_row name">
-				<input class='name input req' name='first_name' type="text" placeholder='<?php echo $_field_fname;?>' title='<?php echo $_field_fname;?>' data-passed='' value='<?php echo $args['fname'];?>' <?php echo (!$prefill_edittable && !empty($args['fname']))? 'readonly="readonly"':'';?>/>
-				<input class='name input req' name='last_name' type="text" placeholder='<?php echo $_field_lname;?>' title='<?php echo $_field_lname;?>' data-passed='' value='<?php echo $args['lname'];?>' <?php echo (!$prefill_edittable && !empty($args['lname']))? 'readonly="readonly"':'';?>/>
+			<div class="form_row name req">
+				<label><?php echo evo_lang('Your Name');?></label>
+				<input class='name input' name='first_name' type="text" placeholder='<?php echo $_field_fname;?>' title='<?php echo $_field_fname;?>' data-passed='' value='<?php echo $args['fname'];?>' <?php echo (!$prefill_edittable && !empty($args['fname']))? 'readonly="readonly"':'';?>/>
+				<input class='name input' name='last_name' type="text" placeholder='<?php echo $_field_lname;?>' title='<?php echo $_field_lname;?>' data-passed='' value='<?php echo $args['lname'];?>' <?php echo (!$prefill_edittable && !empty($args['lname']))? 'readonly="readonly"':'';?>/>
 			</div>
 		
 		<?php
-			// initial key fields
-			foreach(array(
-				'email'=>array('Email Address','evoRSL_009'),
-				'phone'=>array('Phone Number','evoRSL_009a'),
-				'count'=>array('How Many People in Your Party?','evoRSL_010'),
-			) as $key=>$val){
-				if(
-					$key == 'email'||
-					($key !='email' && $active_fields && in_array($key, $active_fields) )
-				):
-					$name = $evors->lang( $val[1], $val[0]);
-					$value = ($RR && $RR->get_prop($key) && $key!= 'email')? $RR->get_prop($key): (!empty($args[$key])? $args[$key]:'');
 
-					// Read only field
-					$readonly = ($key=='email' && $args['formtype']=='update' && !empty($value) )? 
+		// EMAIL field
+			$name = evo_lang_get('evoRSL_009','Email Address');
+			$value = (!empty($args['email'])? $args['email']:'');
+			$readonly = ($args['formtype']=='update' && !empty($value) )? 
 						'readonly="readonly"':'';
-					
-					// capacity limit
-					if($key=='count'){
-						$cap = 'na';
-						
-						if(!empty($args['cap']) || !empty($args['precap'])){
-							$capacity = !empty($args['cap'])? $args['cap']:'';
-							$precap = !empty($args['precap'])? $args['precap']:'';
 
-							// get minimum value as capacity
-							$cap = min( $capacity,$precap  );
+			?>
+				<div class="form_row email req">
+					<label><?php echo evo_lang('Your Email Address');?></label>
+					<input <?php echo $readonly;?> class='regular input evors_rsvp_email' name='email' type="text" placeholder='<?php echo $name;?>' title='<?php echo $name;?>' data-passed='<?php echo $value;?>' value='<?php echo $value;?>' <?php echo ((!$prefill_edittable && !empty($value))?'readonly="readonly"':'');?>/>
+				</div>
+			<?php
 
-							// if no capacity limit but per rsvp capacity set
-							if( !empty($precap) && empty($capacity) )	$cap = $precap;
 
-							// when value is not passed used capacity values
-							if(!empty($value) && $value>0){
-								$cap = max($value, $cap);
-							}
+		// each for field
+			$form_fields = $this->get_form_fields($RSVP, $RR);
 
-						} 
-						$value = empty($value)? 1:$value;
-					}
-				?>
-					<div class="form_row <?php echo $key.' '.( in_array($key, array('count','phone'))?'show_yes':'');?>">
-						<?php echo ( in_array($key, array('count')))? '<label>'.$name.'</label>':'';?>
-						<input <?php echo $readonly;?> class='regular input req evors_rsvp_<?php echo $key;?>' name='<?php echo $key;?>' type="text" placeholder='<?php echo ($key!='count')?$name:'';?>' title='<?php echo $name;?>' data-passed='<?php echo $value;?>' value='<?php echo $value;?>' <?php echo ((!$prefill_edittable && !empty($value) && $key=='email')?'readonly="readonly"':'');?>/>
-					</div>
-				<?php
-				endif;
+			//print_r($form_fields);
+			//print_r($active_fields);
+
+			foreach( $form_fields  as $key=> $fdata){
+
+				// skip auto generated names field
+				if( $key == 'names' ) continue;
+
+				extract($fdata);
+
+				//$check_fields = true;
+				//if( !empty($skip_active_check) && $skip_active_check) $check_fields = false;
+				//if( $check_fields && $active_fields && !in_array($key, $active_fields)  ) continue;
+				
+				$value = ($RR && $RR->get_prop($key) )? $RR->get_prop($key): (!empty($args[$key])? $args[$key]:'');
+				$placeholder = $name;
+
+				$name .= $required? ' <abbr class="required" title="required">*</abbr>':'';
+
+				if( $type == 'checkbox') $type = 'yesno';
+				if( $type == 'html'){ 
+					$type = 'code';
+					$content = $name;
+				}
+
+				if( $key == 'count'){ 
+					$placeholder = ''; 
+					if( empty($value)) $value = 1;
+				}
+				if( $type == 'file'){
+					?>
+					<p class='form_row <?php echo !empty($visibility_type)? 'show_'.$visibility_type:'';?>'>
+						<label><?php echo $name;?></label>
+						<input name='rsvpfile_<?php echo $x;?>' type='file' value='<?php echo $value;?>'>
+					</p>
+					<?php
+					continue;
+				}
+				
+
+				// additional notes field
+					if( $key == 'additional'):
+						?>
+						<div class="form_row additional_note show_yes" >
+							<label><?php echo $name;?></label>
+							<textarea class='input' name='additional_notes' type="text" placeholder='<?php echo $name;?>'><?php echo $value;?></textarea>
+						</div>
+						<?php
+						continue;
+					endif;
+
+				// captcha field - auto required
+					if( $key == 'captcha'):
+						// validation calculations
+						$cals = array(	0=>'3+8', '5-2', '4+2', '6-3', '7+1'	);
+						$rr = rand(0, 4);
+						$calc = $cals[$rr];
+						?>
+						<div class="form_row captcha req">
+							<p><?php echo $name;?></p>
+							<p><?php echo $calc;?> = <input type="text" data-cal='<?php echo $rr;?>' class='regular_a captcha'/></p>
+						</div>
+						<?php
+						continue;
+					endif;
+
+				// all other fields
+					if( !empty($type)):
+						echo "<div class='form_row {$key} ". (!empty($visibility_type)? 'show_'.$visibility_type:'') . ( $required ? ' req':'') . "'>";
+						echo EVO()->elements->get_element(array(
+							'type'=>$type,
+							'id'=> $key,
+							'name'=> $name, 'default'=> $placeholder,
+							'value' => $value,
+							'options'=> !empty($options) ? $options : '',
+							'content'=> !empty($content) ? $content : '',
+						));	
+						echo "</div>";
+					endif;
+				
+
+				// after count show additional guests
+					if( $key == 'count'):
+
+						if($active_fields && in_array('names', $active_fields)):
+							$_field_names = $evors->lang('evoRSL_010b','List Full Name of Other Guests');
+							$count = $RR && $RR->count()? $RR->count():1;
+							$names = $RR && $RR->get_prop('names')? $RR->get_prop('names'):false;
+							// /print_r($names);								
+						?>
+						<div class="form_row names form_guest_names show_yes" style='display:<?php echo ($count>1)?'':'none';?>'>
+							<p class='evo_field_label'><?php echo $_field_names;?></p>
+							<div class='form_row_inner form_guest_names_list'>
+								<?php for($x=0; $x< ($count-1); $x++):
+									$name = ($names && isset($names[$x] ))? $names[$x]:'';
+								?>
+								<input class='regular input <?php echo $x;?>' name='names[]' type="text" value='<?php echo $name;?>'/>
+								<?php endfor;?>
+							</div>
+						</div>
+						<?php 
+						endif;
+					endif;
+
+				// pluggable field
+					if( has_action("evors_additional_field_{$type}") ):
+						do_action("evors_additional_field_{$type}", $value, $name, $required);
+					endif;
 			}
 		
-			// Additional Guest Names			
-			if($active_fields && in_array('names', $active_fields)):
-				$_field_names = $evors->lang('evoRSL_010b','List Full Name of Other Guests');
-				$count = $RR && $RR->count()? $RR->count():1;
-				$names = $RR && $RR->get_prop('names')? $RR->get_prop('names'):false;
-				// /print_r($names);								
-		?>
-			<div class="form_row names form_guest_names show_yes" style='display:<?php echo ($count>1)?'':'none';?>'>
-				<label><?php echo $_field_names;?></label>
-				<div class='form_row_inner form_guest_names_list'>
-					<?php for($x=0; $x< ($count-1); $x++):
-						$name = ($names && isset($names[$x] ))? $names[$x]:'';
-					?>
-					<input class='regular input <?php echo $x;?>' name='names[]' type="text" value='<?php echo $name;?>'/>
-					<?php endfor;?>
-				</div>
-			</div>
-		<?php  endif;?>
 
-			<?php
-			// ADDITIONAL FIELDS
-				for($x=1; $x <= $frontend->addFields; $x++){
-					// if fields is activated and name of the field is not empty
-					if(evo_settings_val('evors_addf'.$x, $optRS) && !empty($optRS['evors_addf'.$x.'_1'])){
-
-						// if set to not show any additional fields for this event
-						if($RSVP->_show_none_AF()) continue;
-
-						// if set to show only certain additional fields for this event.
-						if( !$RSVP->_can_show_AF('AF'.$x) ) continue;
-						
-						$required = evo_settings_check_yn($optRS , 'evors_addf'.$x.'_3')? 'req':null;
-						
-						$FIELDTYPE = (!empty($optRS['evors_addf'.$x.'_2']) || (!empty($optRS['evors_addf'.$x.'_2']) && $optRS['evors_addf'.$x.'_2']=='dropdown' && !empty($optRS['evors_addf'.$x.'_4'])) 
-							)? 	$optRS['evors_addf'.$x.'_2']:'text';
-
-						$value = $RR && $RR->get_prop('evors_addf'.$x.'_1')? $RR->get_prop('evors_addf'.$x.'_1'):'';
-						
-						$placeholder = !empty($optRS['evors_addf'.$x.'_ph'])? $optRS['evors_addf'.$x.'_ph']: '';
-						
-						$FIELDNAME = !empty($optRS['evors_addf'.$x.'_1'])? 
-							html_entity_decode(stripslashes($optRS['evors_addf'.$x.'_1'])): 'field';
-							$FIELDNAME = evo_lang($FIELDNAME);
-
-
-						// Label
-						$asterix = $required? '<abbr class="required" title="required">*</abbr>':'';
-						$label_content = '<label for="'.'evors_addf'.$x.'_1'.'">'.$FIELDNAME . $asterix .'</label>';
-
-						// when to hide the field
-						$visibility_type = !empty($optRS['evors_addf'.$x.'_vis'])? $optRS['evors_addf'.$x.'_vis']: 'def';
-
-					?>
-						<div class="form_row additional_field show_<?php echo $visibility_type;?>">
-
-					<?php
-						switch($FIELDTYPE){
-							case 'text':
-								?><p class='inputfield'>
-								<?php echo $label_content;?>
-								<input title='<?php echo $FIELDNAME;?>' placeholder='<?php echo $placeholder;?>' class='regular input <?php echo $required;?>' name='<?php echo 'evors_addf'.$x.'_1';?>'type="text" value='<?php echo $value;?>'/><?php
-							break;
-							case 'html':
-								?><p><?php echo $FIELDNAME;?></p><?php
-							break;
-							case 'textarea':
-								?><p><?php echo $label_content;?>
-								<textarea title='<?php echo $FIELDNAME;?>' placeholder='<?php echo $placeholder;?>' class='regular input <?php echo $required;?>' name='<?php echo 'evors_addf'.$x.'_1';?>'><?php echo $value;?></textarea></p><?php
-							break;
-							case 'checkbox':
-
-								$_value = $value? $value: 'no';
-								?><p class='field_checkbox'>
-								<span><em class='evors_checkbox_field <?php echo $_value =='yes'? 'checked':'';?>'></em>
-									<input name='<?php echo 'evors_addf'.$x.'_1';?>' class='<?php echo $required;?> checkbox input' type="hidden" value='<?php echo $_value;?>'> 
-									<span class='evors_checkbox_name'><?php echo $FIELDNAME;?></span>
-								</span>
-								</p><?php
-							break;
-							case 'dropdown':
-								?><p>
-									<?php echo $label_content;?>
-									<select name='<?php echo 'evors_addf'.$x.'_1';?>' class='input dropdown'>
-									<?php
-										global $eventon_rs;
-										$OPTIONS = $frontend->get_additional_field_options($optRS['evors_addf'.$x.'_4']);
-										foreach($OPTIONS as $slug=>$option){
-											$selected = (!empty($value) && $value == $slug)? 'selected="selected"':'';
-											echo "<option value='{$slug}' {$selected}>{$option}</option>";
-										}
-									?>
-									</select>
-								</p><?php
-							break;
-
-							case 'file':
-								?>
-								<p>
-									<label><?php echo $FIELDNAME;?></label>
-									<input name='rsvpfile_<?php echo $x;?>' type='file' value='<?php echo $value;?>'>
-								</p>
-								<?php
-								
-							break;
-
-							case has_action("evors_additional_field_{$FIELDTYPE}"):		
-								do_action("evors_additional_field_{$FIELDTYPE}", $value, $FIELDNAME, $required);
-							break;
-						}
-					?>
-						
-						</div>
-					<?php
-					}
-				}
-			?>
-
-		<?php
-			// additional notes field for NO option
-				$value = $RR && $RR->get_prop('additional_notes')? $RR->get_prop('additional_notes'):'';
-				$this->_field_html('additional',$value);
 		
-			$this->_field_html('captcha');
-			$this->_field_html('updates', ($RR && $RR->get_updates()? 'yes':'no') );
-			$this->_field_html('submit_btn');
+		// SUBMIT BUTTON
 		?>
-		<?php do_action('evors_after_form');?>			
+			<div class="form_row">
+				<a id='submit_rsvp_form' class='evors_submit_rsvpform_btn evcal_btn evors_submit'><?php echo EVORS()->lang( 'evoRSL_012','Submit');?></a>
+				<?php
+				// terms and conditions field
+					if( EVO()->cal->check_yn('evors_terms','evcal_rs') && EVO()->cal->get_prop('evors_terms_link','evcal_rs') ){
+						echo "<p class='terms' style='padding-top:10px'><a href='". EVO()->cal->get_prop('evors_terms_link') ."' target='_blank'>". EVORS()->lang( 'evoRSL_tnc','Terms & Conditions')."</a></p>";
+					}
+				?>
+			</div>
+		<?php	 do_action('evors_after_form');?>			
 		</div>
 	<!-- submission_form-->
 	</form>
@@ -376,57 +353,86 @@ class evors_form{
 	}
 
 
-// Form field content
-	function _field_html($type, $value=''){
-		if(!$this->active_fields) return false;
-		if(!in_array($type, $this->active_fields)) return false;
+// form fields array
+	function get_form_fields($RSVP, $RR = ''){
+		$optRS = EVORS()->frontend->optRS;
 
-		$op_rsvp = EVORS()->evors_opt;
-		EVO()->cal->set_cur('evcal_rs');
+		$return = array(
+			'phone'=>array( 'type'=>'text','name'=> evo_lang_get('evoRSL_009a','Phone Number'), 'visibility_type'=>'yes' ),
+			'count'=>array( 'type'=>'text','name'=> evo_lang_get('evoRSL_010','How Many People in Your Party?') ),
+			'names'=>array( 'type'=>'text','name'=> evo_lang_get('evoRSL_010b','List Full Name of Other Guests') ),
+			'twitter'=> array( 'type'=>'text','name'=> 'Twitter User Handle' ),
+			'instagram'=> array( 'type'=>'text','name'=> 'Instagram Handle' ),
+			'youtube'=> array( 'type'=>'text','name'=> 'Youtube Handle' ),
+			'tiktok'=> array( 'type'=>'text','name'=> 'TikTok Handle' ),
+		);
 
-		switch ($type){
-			case 'additional':
-				$label = EVORS()->lang('evoRSL_010a','Additional Notes');
-				?>
-				<div class="form_row additional_note show_yes" >
-					<label><?php echo $label;?></label>
-					<textarea class='input' name='additional_notes' type="text" placeholder='<?php echo $label;?>'><?php echo $value;?></textarea>
-				</div>
-				<?php
-			break;
-			case 'captcha':
-				// validation calculations
-				$cals = array(	0=>'3+8', '5-2', '4+2', '6-3', '7+1'	);
-				$rr = rand(0, 4);
-				$calc = $cals[$rr];
-				?>
-				<div class="form_row captcha">
-					<p><?php echo EVORS()->lang( 'evoRSL_011a','Verify you are a human');?></p>
-					<p><?php echo $calc;?> = <input type="text" data-cal='<?php echo $rr;?>' class='regular_a captcha'/></p>
-				</div>
-				<?php
-			break;
-			case 'updates':
-				$checked = ($value == 'yes')? 'checked="checked"':'';
-				?>
-				<div class="form_row updates">
-					<input type="checkbox" name='updates' value='yes' <?php echo $checked;?>/> <label><?php echo EVORS()->lang( 'evoRSL_011','Receive updates about event');?></label>
-				</div>
-				<?php
-			break;
-			case 'submit_btn':
-				?>
-				<div class="form_row">
-					<a id='submit_rsvp_form' class='evors_submit_rsvpform_btn evcal_btn evors_submit'><?php echo EVORS()->lang( 'evoRSL_012','Submit');?></a>
-					<?php
-						if( EVO()->cal->check_yn('evors_terms') && EVO()->cal->get_prop('evors_terms_link') ){
-							echo "<p class='terms' style='padding-top:10px'><a href='". EVO()->cal->get_prop('evors_terms_link') ."' target='_blank'>". EVORS()->lang( 'evoRSL_tnc','Terms & Conditions')."</a></p>";
-						}
-					?>
-				</div>
-				<?php
-			break;
+		// additional fields
+		for($x=1; $x <= EVORS()->frontend->addFields; $x++){
+			// if fields is activated and name of the field is not empty
+			if(evo_settings_val('evors_addf'.$x, $optRS) && !empty($optRS['evors_addf'.$x.'_1'])){
+				if($RSVP->_show_none_AF()) continue;
+				if( !$RSVP->_can_show_AF('AF'.$x) ) continue;
+
+				$FIELDTYPE = (!empty($optRS['evors_addf'.$x.'_2']) || (!empty($optRS['evors_addf'.$x.'_2']) && $optRS['evors_addf'.$x.'_2']=='dropdown' && !empty($optRS['evors_addf'.$x.'_4'])) 
+						)? 	$optRS['evors_addf'.$x.'_2']:'text';
+
+				$value = $RR && $RR->get_prop('evors_addf'.$x.'_1')? $RR->get_prop('evors_addf'.$x.'_1'):'';
+				
+				$placeholder = !empty($optRS['evors_addf'.$x.'_ph'])? $optRS['evors_addf'.$x.'_ph']: '';
+
+				$FIELDNAME = !empty($optRS['evors_addf'.$x.'_1'])? 
+						html_entity_decode(stripslashes($optRS['evors_addf'.$x.'_1'])): 'field';
+						$FIELDNAME = evo_lang($FIELDNAME);
+				$visibility_type = !empty($optRS['evors_addf'.$x.'_vis'])? $optRS['evors_addf'.$x.'_vis']: 'def';
+				$required = evo_settings_check_yn($optRS , 'evors_addf'.$x.'_3')? 'req':null;
+				
+				$return[ 'evors_addf'.$x] = array(
+					'type'=> $FIELDTYPE,
+					'name'=> $FIELDNAME, 
+					'x'=> $x,					
+					'value'=>$value,
+					'placeholder'=> $placeholder,
+					'visibility_type' => $visibility_type,
+					'skip_active_check'=> true,
+					'options'=> EVORS()->frontend->get_additional_field_options($optRS['evors_addf'.$x.'_4']),
+					'required'=> $required
+				);
+			}
 		}
+
+		// additional notes field for NO option
+			$value = $RR && $RR->get_prop('additional_notes')? $RR->get_prop('additional_notes'):'';		
+
+		$return[ 'additional' ] = array('value'=> $value, 'name'=> evo_lang_get('evoRSL_010a','Additional Notes'));
+		$return[ 'captcha' ] = array('type'=>'captcha', 'name'=> evo_lang_get('evoRSL_011a','Verify you are a human'));
+		$return[ 'updates' ] = array('type'=>'yesno', 'name'=> evo_lang_get('evoRSL_011','Receive updates about event'), 'value'=> ($RR && $RR->get_updates()? 'yes':'no'));
+
+		// process fields -> add empty fields, remove not active fields
+		foreach($return as $key=> $values){
+
+			$return[ $key ] = array_merge(array(
+				'type'=>'','value'=>'','name'=>'', 'skip_active_check'=> false, 'required'=> false,
+				'visibility_type'=>''
+			), $values);
+
+			if( $return[$key]['skip_active_check']) continue;
+
+			if( $this->active_fields && !in_array($key, $this->active_fields) ){
+				unset(  $return[$key] );
+			}
+			
+		}
+
+		return apply_filters('evors_form_fields_array', $return, $RSVP, $RR);
+	}
+
+	function get_form_field_keys( $RSVP, $RR=''){
+		$return = array();
+		foreach( $this->get_form_fields( $RSVP, $RR) as $key=>$v){
+			$return[] = $key;		
+		}
+		return $return;
 	}
 
 // Find RSVP form
@@ -439,13 +445,16 @@ class evors_form{
 		
 		ob_start();
 
-		if($args['incard']=='yes')		echo "<a class='evors_incard_close'></a>";
 
 		?>
 	<div id='evorsvp_form' class='evors_forms'>
 	<div class='find_rsvp_to_change form_section'>
-	<form class='evors_findrsvp_form' method="POST" action="" enctype="multipart/form-data">
-		<?php 	wp_nonce_field( AJDE_EVCAL_BASENAME, 'evors_nonce' );	?>
+	<form class='evors_gen_form evors_findrsvp_form' method="POST" action="" enctype="multipart/form-data">
+		<?php 
+
+		if($args['incard']=='yes')		echo "<a class='evors_incard_close'></a>";	
+
+		wp_nonce_field( AJDE_EVCAL_BASENAME, 'evors_nonce' );	?>
 		<?php
 			if(!empty($args) && is_array($args)){
 				foreach($args as $key=>$val){
@@ -481,8 +490,7 @@ class evors_form{
 
 // Success message content
 	function form_message($RSVP, $rsvpid, $form_type, $post){
-		global $eventon_rs;
-
+		
 		$form_type = empty($form_type)? 'submit': $form_type;
 
 		$front = EVORS()->frontend;
@@ -502,13 +510,23 @@ class evors_form{
 	<div id='evorsvp_form' class='evors_forms'>
 	<div class='rsvp_confirmation form_section' data-rsvpid='<?php echo $rsvpid;?>'>
 		<b></b>
-		<?php if($form_type=='submit'):?>
+		<p><?php evo_lang_e('RSVP ID');?> #<?php echo $rsvpid;?></p>
+		<?php 
+		if($form_type=='submit'):?>
 			<?php
-				$_html_header = $front->replace_en( apply_filters('evors_form_success_msg_header', $eventon_rs->lang( 'evoRSL_x5','Successfully RSVP-ed for [event-name]'), $RSVP_cpt , $post) , $eventName );
+				$_html_header = $front->replace_en( apply_filters('evors_form_success_msg_header', EVORS()->lang( 'evoRSL_x5','Successfully RSVP-ed for [event-name]'), $RSVP_cpt , $post) , $eventName );
 			?>
 			<h3 class="form_header submit"><?php echo $_html_header;?></h3>
-		<?php else:?>
-			<h3 class="form_header update"><?php echo $front->replace_en($eventon_rs->lang( 'evoRSL_x4','Successfully updated RSVP for [event-name]'), get_the_title( $RSVP_cpt->event_id() ) );?></h3>
+		<?php 
+		// updating
+		else:?>
+			
+			<h3 class="form_header update"><?php echo $front->replace_en(EVORS()->lang( 'evoRSL_x4','Successfully updated RSVP for [event-name]'), get_the_title( $RSVP_cpt->event_id() ) );?></h3>
+			
+			<?php 
+			// @since 2.8.4
+			do_action('evors_form_success_msg_updated_rsvp', $RSVP_cpt, $RSVP);?>
+		
 		<?php endif;?>
 		
 		<p><?php echo EVORS()->lang( 'evoRSL_x7','Thank You');?> 
@@ -524,7 +542,7 @@ class evors_form{
 			
 				$_txt_reseverd = str_replace('[spaces]', 
 					"<span class='spots'>".( $RSVP_cpt->count() )."</span>", 
-					$eventon_rs->lang( 'evoRSL_x6','You have reserved [spaces] space(s) for [event-name]')
+					EVORS()->lang( 'evoRSL_x6','You have reserved [spaces] space(s) for [event-name]')
 				);
 				$_txt_reseverd = $front->replace_en($_txt_reseverd, $eventName);
 				echo "<p class='coming'>{$_txt_reseverd}</p>";
@@ -534,7 +552,7 @@ class evors_form{
 			if( !evo_settings_check_yn($optRS, 'evors_disable_emails')){
 				$_txt_emails = str_replace('[email]', 
 					"<span class='email'>".($RSVP_cpt->email()? $RSVP_cpt->email():'' )."</span>", 
-					$eventon_rs->lang( 'evoRSL_x8','We have email-ed you a confirmation to [email]')
+					EVORS()->lang( 'evoRSL_x8','We have email-ed you a confirmation to [email]')
 				);
 				echo "<p class='coming'>{$_txt_emails}</p>";
 			}
@@ -552,7 +570,7 @@ class evors_form{
 		?>		
 		<div class="form_row" style='padding-top:10px' data-rsvpid='<?php echo $rsvpid;?>' 
 		<?php echo $datastring;?>>
-			<a id='call_change_rsvp_form' class='evcal_btn evors_submit'><?php echo $eventon_rs->lang('evoRSL_012x','Change my RSVP');?></a>
+			<a id='call_change_rsvp_form' class='evcal_btn evors_submit'><?php echo EVORS()->lang('evoRSL_012x','Change my RSVP');?></a>
 		</div>
 
 		<?php do_action('evors_form_success_msg_end',$RSVP_cpt);?>

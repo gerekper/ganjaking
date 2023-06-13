@@ -472,8 +472,9 @@ class MeprStripeCtrl extends MeprBaseCtrl
             }
 
             if($subscription->trial && $subscription->trial_days > 0) {
-              if((float) $subscription->trial_amount > 0) {
-                $invoice_items[] = $pm->build_invoice_item((float) $subscription->trial_amount, $transaction, $product, $customer_id);
+              if((float) $subscription->trial_total > 0) {
+                $amount = $calculate_taxes && !$tax_inclusive && $transaction->tax_rate > 0 ? (float) $subscription->trial_amount : (float) $subscription->trial_total;
+                $invoice_items[] = $pm->build_invoice_item($amount, $transaction, $product, $customer_id);
               }
             }
             else {
@@ -484,7 +485,7 @@ class MeprStripeCtrl extends MeprBaseCtrl
         }
 
         // Use a SetupIntent for free trials, and create the subscription via webhook later
-        if($sub->trial && $sub->trial_days > 0 && (float) $sub->trial_amount <= 0.00 && empty($invoice_items)) {
+        if($sub->trial && $sub->trial_days > 0 && (float) $sub->trial_total <= 0.00 && empty($invoice_items)) {
           $setup_intent = $pm->create_setup_intent($customer_id, $txn, $prd);
 
           $client_secret = $setup_intent->client_secret;
@@ -500,8 +501,9 @@ class MeprStripeCtrl extends MeprBaseCtrl
           if($sub->trial && $sub->trial_days > 0) {
             $trial_days = $sub->trial_days;
 
-            if((float) $sub->trial_amount > 0.00) {
-              array_unshift($invoice_items, $pm->build_invoice_item((float) $sub->trial_amount, $txn, $prd, $customer_id));
+            if((float) $sub->trial_total > 0.00) {
+              $amount = $calculate_taxes && !$tax_inclusive && $txn->tax_rate > 0 ? (float) $sub->trial_amount : (float) $sub->trial_total;
+              array_unshift($invoice_items, $pm->build_invoice_item($amount, $txn, $prd, $customer_id));
             }
           }
           elseif(count($invoice_items)) {

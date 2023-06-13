@@ -1,13 +1,12 @@
 <?php
 /**
  *	EventON Settings Main Object
- *	@version 4.2.3
+ *	@version 4.4
  */
 
 class EVO_Settings{
 	
-	public $focus_tab;
-	public $current_section;
+	public $focus_tab, $current_section, $options_pre;
 	private $tab_props = false;
 
 	public function __construct(){
@@ -158,6 +157,7 @@ class EVO_Settings{
 				<p>					
 					<?php 
 					foreach( $footer_btns as $btn):
+						if(!isset( $btn['label'] )) continue;
 						$href = isset($btn['href']) && !empty( $btn['href'] )? 'href="'. $btn['href'] .'"':'';
 						$target = isset($btn['target']) && !empty( $btn['target'] ) ? 'target="'. $btn['target'] .'"' : '';
 
@@ -169,6 +169,37 @@ class EVO_Settings{
 		</div>
 		<?php 
 		return ob_get_clean();
+	}
+	function print_event_edit_box_yn_header($data){
+		extract( array_merge(array(
+			'value'=> '',
+			'id'=>'',
+			'name'=>'',
+			'tooltip'=>'',
+			'reload_btn'=>false,
+			'afterstatement'=>'',
+			'reload_id'=> '',
+			'eid'=>''
+		), $data));
+		?>
+		<p class='evoadmin_eventedit_boxhead yesno_leg_line ' style='padding:10px'>
+			<?php 
+			echo EVO()->elements->yesno_btn(array(
+				'id'=> $id,
+				'var'=> $value, 
+				'guide'=> $tooltip,
+				'label'=> $name,
+				'afterstatement'=> $afterstatement,
+				'input'=> true,
+			));
+
+			if( !empty($reload_id)){
+				echo "<span class='evoadmin_eventedit_reloadbox' data-id='$reload_id' data-eid='{$eid}'><i class='fa fa-refresh'></i></span>";
+			}
+
+			?>			
+		</p>
+		<?php 
 	}
 
 
@@ -818,9 +849,9 @@ class EVO_Settings{
 							
 							$yesno_val = (!empty($ajdePT[$field['id']]))? $ajdePT[$field['id']]:'no';
 							
-							$rightside.= "<div class='backender_yn_sec' id='".$field['id']."' style='display:".(($yesno_val=='yes')?'block':'none')."'>";
+							$rightside.= "<div class='backender_yn_sec' id='".$field['id']."' style='display:".(($yesno_val=='yes')?'block':'none')."'><div class='evosettings_field_child'>";
 						break;
-						case 'end_afterstatement': $rightside.= "</div>"; break;
+						case 'end_afterstatement': $rightside.= "</div><em class='hr_line evosettings_end_field'></em></div>"; break;
 						
 						// hidden section open
 						case 'hiddensection_open':
@@ -850,7 +881,7 @@ class EVO_Settings{
 						$rightside.= "<em class='hr_line'></em>";}
 					
 				}		
-				$rightside.= "</div><!-- nfer-->";
+				$rightside.= "</div>";//<!-- nfer-->
 			}
 			$count++;
 		}

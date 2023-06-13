@@ -1,7 +1,7 @@
 /**
  * Styles for actionUser wp-admin backend
  */
-.capabilities_list .yesno_row span.field_name{display: inline-block; padding-bottom: 8px;}
+.capabilities_list .yesno_row span.field_name{display: inline-block; }
 .evoau_assign_users{
 	border-radius: 5px;
 	overflow: hidden; background-color: #f1f1f1
@@ -33,4 +33,10 @@
 .evoau_private_note em{
 	display: block;
 	font-weight: bold; text-transform: uppercase;
+}
+.capabilities_list{
+      background-color: #e8e8e8;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
 }

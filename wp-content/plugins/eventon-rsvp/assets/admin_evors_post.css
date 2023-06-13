@@ -110,6 +110,19 @@
 	.evcal_rep.evors_info_actions a:hover{opacity: 0.5;}
 
 /* lightbox styling */
+	:root{
+		--evors_border_c:#E6E6E6;
+	}
+
+	/* lightbox actions */
+		.evors_list_actions{    border-bottom: 1px solid var(--evors_border_c);
+			display: flex;
+		    justify-content: flex-end;
+		    background-color: var(--evo_color_1);
+		    color: #fff;
+		}
+		.evors_list_actions span{}
+
 	.evors_list p.header:hover{background-color: transparent;}
 	.evors_list p.header{
 		font-weight: bold; font-style: italic;
@@ -117,7 +130,7 @@
 	}
 	.evors_list p:hover{background-color: #F7F7F7;}
 	.evors_list p{
-		border-bottom:1px solid #E6E6E6;
+		border-bottom:1px solid var(--evors_border_c);
 		margin: 0;
 		padding:8px 10px;
 	}

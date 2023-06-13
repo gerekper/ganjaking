@@ -1,6 +1,6 @@
 /** 
  * Javascript for countdown addon
- * @version  0.12
+ * @version  1.1
  */
 
 jQuery(document).ready(function($){
@@ -15,7 +15,7 @@ jQuery(document).ready(function($){
 			var lang = $.parseJSON(obj.attr('data-timetx'));
 
 			// for lightbox event cards
-				p = obj.closest('.evo_lightbox_content');
+				p = obj.closest('.evolb_content');
 				var pp = ( p.length>0) ? true: false;
 
 				if(pp){
@@ -24,6 +24,7 @@ jQuery(document).ready(function($){
 				}
 
 			obj.countdown({
+				compact: ( obj.data('compact') == 'compact') ? true: false,
 				labels: [lang.yr, lang.o, lang.w, lang.d, lang.h, lang.m, lang.s], 
 				labels1: [lang.yr, lang.o, lang.w, lang.d, lang.h, lang.m, lang.s], // for one value
 				//layout:'<b>{d<}{dn} {dl} and {d>}</b>'+ '<b>{hn} {hl}</b><b>{mn} {ml}, {sn} {sl}</b>',
@@ -70,6 +71,12 @@ jQuery(document).ready(function($){
 		$('body').on('evolightbox_show',function(){
 			init_timers();
 		});
+		$('body').on('evolightbox_end',function(){
+			$('.evo_lightbox').find('.evocd_time').each(function(){
+				$(this).start_timer();
+			});
+		});
+
 		$('body').on('lightbox_before_event_closing',function(event, LB){
 			timer = LB.find('.evocd_time');
 			timer.countdown('destroy');

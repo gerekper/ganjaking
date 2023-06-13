@@ -174,6 +174,7 @@
             background-color: #fff;
             border-radius: 50%;
             color: #222222;
+            flex: 0 0 35px;
         }
         .evosl_footer_outter .nav:hover {opacity: 1; background-color: #fff    }
         .evosl_footer_outter .nav:hover i{color: #3d3d3d}
@@ -250,6 +251,7 @@
         .evoslider_dots{display: flex;
             align-items: center;
             margin: 0 15px;
+            flex-wrap: wrap;
         }
         .evoslider_dots span{
             position: relative;
@@ -259,7 +261,7 @@
             background-color: #e1e1e1;
             display: block;
             border-radius: 50%;
-            margin: 0px 5px;
+            margin: 5px;
             transition: all 0.5s ease;
             outline: none;
             cursor: pointer;
@@ -298,13 +300,24 @@
     .evoslider.verticalSlider .eventon_events_list{flex-direction: column}
 
 /* multi slider */    
-     .evoslider.multiSlider .evo_slider_slide_out .eventon_list_event{
+    .evoslider.multiSlider .evo_slider_slide_out .eventon_list_event{
         margin-right: 5px;
         border-radius: 10px;
         transition: all 0.4s;
      }
-      .evosliderbox.ajde_evcal_calendar.multiSlider .eventon_list_event .evcal_desc span.evcal_desc2, .evo_pop_body .evcal_desc span.evcal_desc2 {
+
+    .evoslider.ajde_evcal_calendar.ss_imgtop.multiSlider .eventon_list_event.hasbgimg .evo_boxtop{
+        flex: 0 0 200px;
+    }
+    .evosliderbox.ajde_evcal_calendar.multiSlider .hasbgimg.eventon_list_event{
+        justify-content: flex-start;
+    }
+    .evosliderbox.ajde_evcal_calendar.multiSlider .eventon_list_event .evcal_desc span.evcal_desc2, 
+      .evo_pop_body .evcal_desc span.evcal_desc2 {
         font-size: 20px;
+    }
+    .evosliderbox.ajde_evcal_calendar.multiSlider .eventon_list_event .evcal_desc span.evoet_title{
+        padding-bottom:15px;
     }
     .evosliderbox.ajde_evcal_calendar.multiSlider .eventon_list_event .hasFtIMG .evcal_desc, .evo_pop_body .hasFtIMG .evcal_desc {
         padding: 10px 20px;

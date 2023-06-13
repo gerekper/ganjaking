@@ -130,7 +130,7 @@ function __construct(){
 	<div class='eventon_au_form_section <?php echo ($_LIGTHBOX)?'overLay':'';?>' style='display:<?php echo $_LIGTHBOX?'none':'block';?>'>
 		
 
-	<div id='eventon_form_<?php echo $rand;?>' class='evoau_submission_form <?php echo ($_USER_LOGIN_REQ?'loginneeded':'') . ' '. ($LIMITSUB?' limitSubmission':'').' '.($_LIGTHBOX?'lightbox':''). ( $atts['formrtl']=='yes'? ' evortl':''); ?>' >
+	<div id='eventon_form_<?php echo $rand;?>' class='evoau_submission_form <?php echo ($_USER_LOGIN_REQ?'loginneeded':'') . ' '. ($LIMITSUB && !$_EDITFORM ?' limitSubmission':'').' '.($_LIGTHBOX?'lightbox':''). ( $atts['formrtl']=='yes'? ' evortl':''); ?>' >
 		<a class='closeForm'>X</a>
 		<form method="POST" action="" enctype="multipart/form-data" id='evoau_form' class='' data-msub='<?php echo ($_msub)?'ow':'nehe';?>' data-redirect='<?php echo ($atts && !empty($atts['rlink']) && !empty($atts['rdir']) && $atts['rdir']=='yes')?$atts['rlink']:'nehe';?>' data-rdur='<?php echo $this->val_check($atts,'rdur');?>' data-limitsubmission='<?php echo (!empty($evoopt['evoau_limit_submissions']) && $evoopt['evoau_limit_submissions']=='yes')?'ow':'nehe';?>' data-enhance="false">
 			
@@ -156,11 +156,19 @@ function __construct(){
 		?>
 		<?php 	wp_nonce_field( AJDE_EVCAL_BASENAME, 'evoau_noncename' );	?>
 			
-			<div class='evoau_form_fields inner' style='display:<?php echo $LIMITSUB?'none':'block';?>'>
+			<div class='evoau_form_fields inner' style='display:<?php echo $LIMITSUB && !$_EDITFORM ?'none':'block';?>'>
 			
-			<h2><?php echo $_EDITFORM? eventon_get_custom_language($opt_2, 'evoAUL_ese', 'Edit Submitted Event', $lang):
-				(($atts && !empty($atts['header']))? stripslashes($atts['header']):  
-				((!empty($evoopt['evo_au_title']))? stripslashes($evoopt['evo_au_title']):'Submit your event'));?></h2>
+			<h2><?php echo 
+				$_EDITFORM? 
+					eventon_get_custom_language($opt_2, 'evoAUL_ese', 'Edit Submitted Event', $lang):
+					(
+						($atts && !empty($atts['header']) )? 
+							stripslashes($atts['header']):  
+							( ( !empty($evoopt['evo_au_title']) )? 
+								stripslashes($evoopt['evo_au_title']):
+								'Submit your event'		
+							)				
+					);?></h2>
 			<?php
 				// form subtitle text
 				$SUBTITLE = ($atts && !empty($atts['sheader']))? $atts['sheader']:
@@ -1475,7 +1483,7 @@ function __construct(){
 							<span>							
 							<input type="hidden" name="_status" value="<?php echo $_status;?>"/><?php
 						 
-							foreach( $this->EVENT->get_status_array() as $f=>$v){
+							foreach( $this->EVENT->get_status_array('front') as $f=>$v){
 								$sel = false;
 								if($f == $_status) $sel = true;
 								?>

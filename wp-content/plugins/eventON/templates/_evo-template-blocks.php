@@ -1,7 +1,7 @@
 <?php
 /** 
  * EventON Template Blocks
- * @version 4.1.2
+ * @version 4.4
  */
 
 class EVO_Temp_Blocks{
@@ -9,24 +9,25 @@ class EVO_Temp_Blocks{
 
 
  	// return the constructed template object for the query
- 	public function get_single_event_template(){
+ 	public function get_single_event_template($slug=''){
  		
- 		$slug = 'single-ajde_events';
+ 		if( empty($slug) ) $slug = 'single-ajde_events';
 
- 		$template_content = file_get_contents(
-			EVO()->plugin_path() . '/templates/blocks/'. $slug.'.php'
-		);
+ 		$path = EVO()->plugin_path() . '/templates/blocks/'. $slug.'.html';
+
+ 		$template_content = file_get_contents( $path );
+ 		
 
 		$template                 = new WP_Block_Template();
 		$template->id             = self::PLUGIN_SLUG . '//' . $slug;
 		$template->content        = self::inject_theme_attribute_in_content( $template_content );
 		$template->slug           = $slug;
-		$template->path           = EVO()->plugin_path() . '/templates/blocks/'. $slug.'.php';
+		$template->path           = EVO()->plugin_path() . '/templates/blocks/'. $slug.'.html';
 		$template->source         = 'custom';
 		$template->theme          = 'EventON';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Single Event Page', 'eventon' );
-		$template->description 	  = __('Template used to display single event.', 'eventon');
+		$template->title          = esc_html__( 'Event Page', 'eventon' );
+		$template->description 	  = __('Template used to display event pages.', 'eventon');
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
 		$template->is_custom      = true;
@@ -91,5 +92,41 @@ class EVO_Temp_Blocks{
 		}
 
 		return $all_blocks;
+	}
+
+	/**
+	 * Removes templates that were added to a theme's block-templates directory, but already had a customised version saved in the database.
+	 */
+	public function remove_theme_templates_with_custom_alternative( $templates ) {
+
+		// Get the slugs of all templates that have been customised and saved in the database.
+		$customised_template_slugs = array_map(
+			function( $template ) {
+				return $template->slug;
+			},
+			array_values(
+				array_filter(
+					$templates,
+					function( $template ) {
+						// This template has been customised and saved as a post.
+						return 'custom' === $template->source;
+					}
+				)
+			)
+		);
+
+		// Remove theme (i.e. filesystem) templates that have the same slug as a customised one. We don't need to check
+		// for `eventon` in $template->source here because eventon templates won't have been added to $templates
+		// if a saved version was found in the db. This only affects saved templates that were saved BEFORE a theme
+		// template with the same slug was added.
+		return array_values(
+			array_filter(
+				$templates,
+				function( $template ) use ( $customised_template_slugs ) {
+					// This template has been customised and saved as a post, so return it.
+					return ! ( 'theme' === $template->source && in_array( $template->slug, $customised_template_slugs, true ) );
+				}
+			)
+		);
 	}
 }

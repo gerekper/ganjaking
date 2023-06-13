@@ -70,6 +70,7 @@ class WC_AM_Autoloader {
 			$paths = array(
 				WCAM()->plugin_path() . '/includes/' . $file,
 				WCAM()->plugin_path() . '/includes/admin/' . $file,
+				WCAM()->plugin_path() . '/includes/admin/menus/' . $file,
 				WCAM()->plugin_path() . '/includes/api/' . $file,
 				WCAM()->plugin_path() . '/includes/data-stores/' . $file,
 				WCAM()->plugin_path() . '/includes/queue/' . $file,

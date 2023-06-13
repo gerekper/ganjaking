@@ -1,6 +1,6 @@
 /**
  * Javascript: Speaker & Schedule
- * @version  0.1
+ * @version  2.0.2
  */
 jQuery(document).ready(function($){	
 
@@ -25,11 +25,11 @@ jQuery(document).ready(function($){
 			OBJ.closest('.evosch_blocks_list').find('ul.evosch_date_'+DAY).addClass('evoss_show');
 		});
 	// expand schedule
-		$('body').on('click','.evosch_oneday_schedule li',function(){
+		$('body').on('click','.evosch_oneday_schedule li.evoss_block',function(){
 			if($(this).hasClass('evoss_hide')){
-				$(this).attr('class','evoss_show');
+				$(this).attr('class','evoss_block evoss_show');
 			}else{
-				$(this).attr('class','evoss_hide');
+				$(this).attr('class','evoss_block evoss_hide');
 			}
 		});
 });

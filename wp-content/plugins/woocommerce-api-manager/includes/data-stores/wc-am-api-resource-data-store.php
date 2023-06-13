@@ -1164,9 +1164,7 @@ class WC_AM_API_Resource_Data_Store {
 	 * @return int The number of of activations for a product, before those activations have been activated.
 	 */
 	public function get_total_activations( $resources ) {
-		$total_activations = (int) array_sum( wp_list_pluck( $resources, 'activations_total' ) );
-
-		return $total_activations ? $total_activations : 0;
+		return (int) array_sum( wp_list_pluck( $resources, 'activations_total' ) );
 	}
 
 	/**

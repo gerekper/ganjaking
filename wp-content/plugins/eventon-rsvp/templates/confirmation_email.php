@@ -1,7 +1,7 @@
 <?php
 /**
  * Confirmation email sent to the attendee
- * @version 	2.8.1
+ * @version 	2.9.3
  *
  * To Customize this template: copy and paste this file to .../wp-content/themes/--your-theme-name--/eventon/templates/email/rsvp/ folder and edit the copied file customzie this email template.
  */
@@ -100,7 +100,7 @@
 				for($x=1; $x<=EVORS()->frontend->addFields; $x++){
 					
 					if( !EVO()->cal->check_yn('evors_addf'.$x,'evcal_rs') ) continue;
-					if( !$RSVP->get_prop('evors_addf'.$x.'_1') ) continue;
+					if( !$RSVP->get_prop('evors_addf'.$x ) ) continue;
 
 					// if show no AFs
 					 	if($eRSVP->_show_none_AF()) continue;
@@ -111,7 +111,7 @@
 					// skip file type
 					 	if( EVO()->cal->get_prop('evors_addf'.$x.'_2','evcal_rs') == 'file' ) continue;
 
-					echo $__item_p_beg. html_entity_decode( $optRS['evors_addf'.$x.'_1'] ) .": </span>".( $RSVP->get_prop('evors_addf'.$x.'_1')? $RSVP->get_prop('evors_addf'.$x.'_1') : '-')."</p>";
+					echo $__item_p_beg. html_entity_decode( $optRS['evors_addf'.$x.'_1'] ) .": </span>".( $RSVP->get_prop('evors_addf'.$x)? $RSVP->get_prop('evors_addf'.$x ) : '-')."</p>";
 					
 				}
 				

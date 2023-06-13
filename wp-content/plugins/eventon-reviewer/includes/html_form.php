@@ -56,7 +56,9 @@
 			</div>
 		<?php endif;?>
 
-		<p><a id='submit_review_form' class='evcal_btn evore_submit'><?php echo $front->lang( 'evoREL_x13','Submit');?></a></p>
+		<p style='margin-top: 20px;'>
+			<a id='submit_review_form' class='evcal_btn evore_submit'><?php echo $front->lang( 'evoREL_x13','Submit');?></a>
+		</p>
 
 		<?php if($active_fields && in_array('terms', $active_fields) && !empty($options['evore_termscond_text'])): ?>
 			<p><a href='<?php echo $options['evore_termscond_text'];?>' target='_blank'><?php echo $front->lang( 'evoREL_x12a','Terms & Conditions');?></a></p>

@@ -27,7 +27,7 @@
     this.$orderBumps = this.$form.find('input[name="mepr_order_bumps[]"]');
     this.initPaymentMethods();
     this.$form.on('submit', $.proxy(this.handleSubmit, this));
-    this.$form.find('input[name="mepr_payment_method"]').on('change', $.proxy(this.maybeUpdateElements, this));
+    this.$form.find('input[name="mepr_payment_method"], input[name="mepr_vat_customer_type"]').on('change', $.proxy(this.maybeUpdateElements, this));
     this.$textFields.add(this.$form.find('input[name="mepr_coupon_code"]')).on('blur', $.proxy(this.maybeUpdateElements, this));
     this.$selectFields.on('change', $.proxy(this.maybeUpdateElements, this));
     this.$orderBumps.on('change', $.proxy(this.maybeUpdateElements, this));

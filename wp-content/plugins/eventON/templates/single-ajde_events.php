@@ -8,7 +8,7 @@
  *
  *	@Author: AJDE
  *	@EventON
- *	@version: 4.1.3
+ *	@version: 4.4
  */
 
 
@@ -17,10 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }	
 
-do_action('eventon_before_header');
-	
-
-get_header('events');
+do_action('eventon_before_header');	
 
 
 // you can also pass a lang value in below function to create fixed lang single event page.
@@ -49,6 +46,3 @@ do_action('eventon_before_main_content');
 </div>	
 
 <?php 	do_action('eventon_after_main_content'); 
-
-
-get_footer('events');

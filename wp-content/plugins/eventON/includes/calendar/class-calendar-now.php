@@ -139,7 +139,7 @@ class Evo_Calendar_Now{
 						$gap = $next_event_start_unix - EVO()->calendar->get_current_time();
 						$nonce = wp_create_nonce('evo_calendar_now');
 
-						echo "<h3>". evo_lang('Coming up Next in') ." <span class='evo_countdowner' data-gap='{$gap}' data-t='' data-d='". evo_lang('Day') ."' data-ds='". evo_lang('Days') ."' data-exp_act='runajax_refresh_now_cal' data-n='{$nonce}'></span></h3>";
+						echo "<h3><em class='fsn padr10' >". evo_lang('Coming up Next in') ."</em> <span class='evo_countdowner' data-gap='{$gap}' data-t='' data-d='". evo_lang('Day') ."' data-ds='". evo_lang('Days') ."' data-exp_act='runajax_refresh_now_cal' data-n='{$nonce}'></span></h3>";
 
 						$header_args = array(
 							'external'=> true,

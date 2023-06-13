@@ -243,6 +243,9 @@ class WoocommerceProductFeedsFeedManagerListTable extends WP_List_Table {
 			return $this->term_path_class[ $term_id ];
 		}
 		$term = get_term( $term_id );
+		if ( ! $term ) {
+			return __( 'Unknown category - maybe deleted?', 'woocommerce_gpf' );
+		}
 		$path = $term->name;
 		while ( ! empty( $term->parent ) ) {
 			$term = get_term( $term->parent );

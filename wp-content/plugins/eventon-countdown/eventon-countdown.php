@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/
  Description: Count down till the event ends
  Author: Ashan Jay
- Version: 1.0
+ Version: 1.1
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
- Tested up to: 6.0
+ Tested up to: 6.1
 
  */
 
  class eventon_cd{
- 	public $version='1.0';
-	public $eventon_version = '4.1';
+ 	public $version='1.1';
+	public $eventon_version = '4.3';
 	public $name = 'Countdown';
 	public $id = 'EVOCD';
 
@@ -105,7 +105,7 @@
 
 	// plugin link in settings
 		function plugin_links($links){
-			$settings_link = '<a href="admin.php?page=eventon&tab=evcal_cd">'.__('Settings','eventon').'</a>'; 
+			$settings_link = '<a href="admin.php?page=eventon#eventon_countdown">'.__('Settings','eventon').'</a>'; 
 			array_unshift($links, $settings_link); 
 	 		return $links; 	
 		}

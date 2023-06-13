@@ -1,6 +1,7 @@
 <?php
 /**
  * Wait list extension for event
+ * @version 1.0
  */
 
 class EVORSW_Waitlist{
@@ -30,7 +31,7 @@ class EVORSW_Waitlist{
 
 	}
 
-	private function get_waitlist($ri = 'all'){
+	function get_waitlist($ri = 'all'){
 		$meta_query = array(
 			array('key' => 'rsvp_type','value' => 'waitlist'),
 			array('key' => 'e_id','value' => $this->RSVP->event->ID),
@@ -64,19 +65,22 @@ class EVORSW_Waitlist{
 	}
 
 	// Offer the available space to waitlist guest
-	function offer_space_to_waitlist($available_spaces){
-		$WL = $this->get_waitlist($this->ri);
+	function offer_space_to_waitlist($available_spaces, $WL = null){
+		if( empty($WL) ) $WL = $this->get_waitlist($this->ri);
 
+		$total_spaces_offered_waitlist = 0;
 		$space_offered_to_someone = false;
 
 		foreach($WL->posts as $post){
 			if($available_spaces== 0) continue;
 			$RR = new EVO_RSVP_CPT($post->ID);
 
-			// if this rsvp fits available space offer them RSVP
-			if($available_spaces >= $RR->count()){
+			$this_rsvp_spaces = $RR->count();
 
-				// add this guet to event attendee list
+			// if this rsvp fits available space offer them RSVP
+			if($available_spaces >= $this_rsvp_spaces ){
+
+				// add this guest to event attendee list
 				$this->add_to_event_attendee_list($RR);
 
 				// EMAILING
@@ -84,6 +88,13 @@ class EVORSW_Waitlist{
 					EVORS()->email->send_email(array(
 						'rsvp_id'=> $RR->ID,
 					), 'confirmation');
+
+					// notify attendee
+					EVORS()->email->send_email(array(
+						'rsvp_id'=> $RR->ID,
+						'notice_title'=> evo_lang('You have been offered confirmed space!'),
+						'notice_message'=> evo_lang('Your waitlist status has been moved to confirmed. We look forward to seeing you at the event.')
+					), 'attendee_notification');
 
 					// Admin Notification
 					EVORS()->email->send_email( array(
@@ -93,18 +104,19 @@ class EVORSW_Waitlist{
 					),
 					'notification');
 
-				$available_spaces -= $RR->count();
+				$available_spaces = $available_spaces - $this_rsvp_spaces;
 				$space_offered_to_someone = true;
+				$total_spaces_offered_waitlist += $this_rsvp_spaces;
 			}
 		}
 
 		// if the space was offered to someone else
 		if($space_offered_to_someone){
 			// sync counts
-			$this->RSVP->sync_rsvp_count();
+			$this->RSVP->sync_rsvp_count('waitlist_refresh');
 		}
 		
-		return $space_offered_to_someone;
+		return $total_spaces_offered_waitlist;
 
 	}
 
@@ -141,6 +153,11 @@ class EVORSW_Waitlist{
 	// when guest chose to be removed from waitlist
 	function remove_from_waitlist($RR){
 
+	}
+
+	// sync attendance count on RSVP object
+	function sync_rsvp_count(){
+		$this->RSVP->sync_rsvp_count();
 	}
 	
 }

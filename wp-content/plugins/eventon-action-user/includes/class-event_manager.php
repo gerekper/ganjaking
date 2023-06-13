@@ -47,8 +47,8 @@ class EVOAU_Event_Manager{
 			// loading child templates
 				$file_name = 'event_manager.php';
 				$paths = array(
-					0=> TEMPLATEPATH.'/'. EVO()->template_url.'actionuser/',
-					1=> STYLESHEETPATH.'/'. EVO()->template_url.'actionuser/',
+					0=> TEMPLATEPATH.'/'. EVO()->template_url.'/actionuser/',
+					1=> STYLESHEETPATH.'/'. EVO()->template_url.'/actionuser/',
 					2=> EVOAU()->plugin_path.'/templates/',
 				);
 

@@ -1,7 +1,7 @@
 <?php
 /** 
  * Wishlist manager for frontend user's events in wishlist
- * @version 0.8
+ * @version 1.2
  * @author  AJDE
  *
  * You can copy this template file and place it in ...wp-content/themes/<--your-theme-name->/eventon/wishlist/ folder 

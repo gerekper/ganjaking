@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce PDF Invoices
 Plugin URI: https://woocommerce.com/products/pdf-invoices/
 Description: Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page. 
-Version: 4.17.3
+Version: 4.18.0
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.5.0
-WC tested up to: 7.4.0
+WC tested up to: 7.7.0
 Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
 */
 
@@ -47,7 +47,7 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     /**
      * Defines
      */
-    define( 'PDFVERSION' , '4.17.3' );
+    define( 'PDFVERSION' , '4.18.0' );
     define( 'PDFLANGUAGE', 'woocommerce-pdf-invoice' );
     define( 'PDFSETTINGS' , admin_url( 'admin.php?page=woocommerce_pdf' ) );
     define( 'PDFSUPPORTURL' , 'http://support.woothemes.com/' );
@@ -106,13 +106,13 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
          * Only load if necessary
          * Prevents conflicts with other plugins that use DOMPDF
          * 
-         * is_admin for the customer note email
          */
         $actions_array = array( 'woocommerce_mark_order_status', 'pdfinvoice-admin-send-pdf', 'pdf_email_invoice', 'pdf_create_invoice' );
 
         if( 
             ( isset($_GET['action']) && in_array( $_GET['action'], $actions_array ) ) ||
             ( ! empty( $_POST['wc_order_action'] ) ) ||
+            ( isset( $_POST['post_type'] ) && $_POST['post_type'] === 'shop_order' ) ||
             isset($_GET['pdfid'])
         ) {
             require_once( 'classes/class-pdf-send-pdf-class.php' );

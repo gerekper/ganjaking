@@ -40,7 +40,7 @@ class evo_re_functions{
 
 			$event_ratings = array();
 
-			if($reviews->have_posts()){				
+			if($reviews->have_posts()):				
 				while($reviews->have_posts()): $reviews->the_post();
 					$rpmv = get_post_custom($reviews->post->ID);
 					$ri = !empty($rpmv['repeat_interval'])? $rpmv['repeat_interval'][0]:0;
@@ -64,7 +64,12 @@ class evo_re_functions{
 				endwhile;
 				//print_r($event_ratings);
 				update_post_meta($event_id, '_event_reviews', $event_ratings);
-			}
+
+			// no reviews
+			else:
+				delete_post_meta($event_id, '_event_reviews');
+			endif;
+
 			wp_reset_postdata();
 		}
 
@@ -193,24 +198,7 @@ class evo_re_functions{
 			return ($_event_reviews && isset($_event_reviews[$ri]) && isset($_event_reviews[$ri]['average']))? 
 				number_format($_event_reviews[$ri]['average'],2,'.',''): false;
 		}
-
-		// return average rating for all instances of an event
-		function get_average_all_ratings($event_id, $event_pmv=''){
-			$event_pmv = !empty($event_pmv)? $event_pmv: get_post_custom($event_id);
-			$_event_reviews = !empty($event_pmv['_event_reviews'])? unserialize($event_pmv['_event_reviews'][0]):false;
-
-			if(!$_event_reviews) return false;
-
-			$sum = $count = 0;
-			foreach($_event_reviews as $ri){
-				$_count = array_sum($ri['rates']);
-				$sum += $ri['average']*$_count;
-				$count += $_count;
-			}
-
-			return number_format( ($sum/$count), 2,'.','');
-		}
-
+		
 		function get_rating_percentage($average='',$event_id='', $event_pmv=''){
 			$average = !empty($average)? $average: $this->get_average_rating($event_id, $event_pmv);
 			
@@ -226,22 +214,9 @@ class evo_re_functions{
 			$count = (is_array($_event_reviews[$ri]['rates'])? array_sum($_event_reviews[$ri]['rates']):0);
 			return $count;
 		}
-		function get_rating_all_count($event_id, $event_pmv=''){
-			$event_pmv = !empty($event_pmv)? $event_pmv: get_post_custom($event_id);
-			$_event_reviews = (!empty($event_pmv['_event_reviews']))? unserialize($event_pmv['_event_reviews'][0]):false;
+		
 
-			if(!$_event_reviews || !is_array($_event_reviews) || (is_array($_event_reviews) && count($_event_reviews)==0) ){ 
-				return false;
-			}else{
-				$count = 0;		
-				foreach($_event_reviews as $ri){
-					$count += array_sum($ri['rates']);
-				}
-				return $count;
-			}
-		}
-
-		function get_rating_ind_counts($event_id, $ri=0, $event_pmv){
+		function get_rating_ind_counts($event_id, $ri=0, $event_pmv=''){
 			$event_pmv = !empty($event_pmv)? $event_pmv: get_post_custom($event_id);
 			$_event_reviews = !empty($event_pmv['_event_reviews'])? unserialize($event_pmv['_event_reviews'][0]):false;
 

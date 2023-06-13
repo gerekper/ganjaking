@@ -1,5 +1,40 @@
 ﻿RSVP (RS) addon for EventON Plugin
 ====================================
+v 2.9.3 (2023-3-29)
+FIXED: change RSVP form inside eventcard is not working
+FIXED: download attendees CSV not showing additional field values
+FIXED: additional form field data not visible in confirmation emails
+UPDATED: confirmation and notification email code
+
+v 2.9.2 (2023-3-23)
+FIXED: rsvp meta box loading error
+
+v 2.9.1 (2023-3-17)
+FIXED: additional guest name input fields issue
+
+v 2.9 (2023-2-6)
+ADDED: pluggable function for attendee information - evors_attendee_info_lb_end
+ADDED: plug evors_form_success_msg_updated_rsvp
+ADDED: refresh button to view attendees on event edit 
+ADDED: social media handle fields
+ADDED: extra form fields to be visible for attendee info lightbox
+FIXED: eventon functions script to load on evo-rsvp post page
+FIXED: sync count to also update rsvp capacity for non repeating events
+FIXED: incard rsvp form dissapear after submitting the form
+FIXED: form field text color to use eventon default css
+FIXED: checkbox converted into yes no interactive button
+FIXED: current activated form fields to be visible everywhere
+FIXED: Eventtop rsvp option button styles
+UPDATED: admin javascript to support addon scripts
+UPDATED: rsvp form to use eventon elements
+UPDATED: Moved rsvp event edit settings to load via ajax
+
+v 2.8.3 (2022-12-20)
+ADDED: js trigger rsvp form from anywhere via javascript
+ADDED: more general style classes
+FIXED: rsvp settings not saving values via lightbox
+FIXED: waitlist styles
+
 v 2.8.2 (2022-12-13)
 FIXED: confirmation email first name and then last name
 FIXED: removed extra emailing button in settings for event

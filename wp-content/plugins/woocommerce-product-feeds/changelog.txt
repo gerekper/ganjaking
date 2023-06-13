@@ -1,5 +1,9 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.06.05 - version 10.10.2
+* New: WooCommerce compatibility up to 7.8
+* Fix: Resolve UI issue on manage feeds page when a filtered category has been deleted
+
 2023.05.03 - version 10.10.1
 * New: WooCommerce compatibility up to 7.7
 

@@ -62,7 +62,7 @@ class evorsvp_functions{
 				for($x=1; $x<= EVORS()->frontend->addFields; $x++){
 					if(!evo_settings_val('evors_addf'.$x, $optRS) || empty($optRS['evors_addf'.$x.'_1']) ) continue;
 					if(!$RSVP->_can_show_AF('AF'.$x)) continue;
-					$csv_headers['evors_addf'.$x.'_1'] = '"'.$optRS['evors_addf'.$x.'_1'].'"';
+					$csv_headers['evors_addf'.$x] = '"'.$optRS['evors_addf'.$x.'_1'].'"';
 				}
 			}
 

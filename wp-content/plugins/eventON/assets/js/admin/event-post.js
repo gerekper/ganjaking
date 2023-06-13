@@ -1,5 +1,5 @@
 /** 
- * @version  4.3.3
+ * @version  4.4
  */
 jQuery(document).ready(function($){
 
@@ -7,20 +7,25 @@ jQuery(document).ready(function($){
 	var time_format = ($('body').find('input[name=_evo_time_format]').val()=='24h')? 'H:i':'h:i:A';
 	var RTL = $('body').hasClass('rtl');
 
-	// on page load run dynamic content
-		$('body').evo_admin_get_ajax({
-			ajaxdata:{
-				'action':'eventon_eventedit_onload',
-				'eid': $('#evo_event_id').val()
-			},
-			uid:'eventedit_onload'
-		});
+	// on page load run dynamic content		
+		$.fn.load_eventedit_data = function(){
+			$('body').evo_admin_get_ajax({
+				ajax_type: 'ajax',
+				ajax_action: 'eventon_eventedit_onload',
+				ajaxdata:{
+					'action':'eventon_eventedit_onload',
+					'eid': $('#evo_event_id').val()
+				},
+				uid:'eventedit_onload'
+			});
+		}
+		$('body').load_eventedit_data();
+		
+
 
 	// load event edit page data
 		$('body').on('evo_ajax_success_eventedit_onload', function(event, OO, data){
-			//$('#evo_pageload_data').html( data.content_array.evo);
-			//$('#evo_mb_color').html( data.content_array.evo_color);
-
+			// load html content to matching dom IDs
 			if( 'dom_ids' in data){
 				$.each(data.dom_ids, function(index, value){
 					if( !( index in data.content_array)) return;
@@ -28,6 +33,23 @@ jQuery(document).ready(function($){
 					$('body').trigger('evo_eventedit_dom_loaded_'+index , [ index, value]);
 				});	
 			}
+
+			$('body').find('.evoloading').removeClass('evoloading');
+		});
+
+		// reload a meta box
+		$('body').on('click','.evoadmin_eventedit_reloadbox',function(){
+			$(this).closest('div').addClass('evoloading');
+			$('body').evo_admin_get_ajax({
+				ajax_type: 'ajax',
+				ajax_action: 'eventon_eventedit_onload',
+				ajaxdata:{
+					'action':'eventon_eventedit_onload',
+					'eid': $(this).data('eid'),
+					'id': $(this).data('id')
+				},
+				uid:'eventedit_onload'
+			});
 		});
 
 	// event status
@@ -67,7 +89,7 @@ jQuery(document).ready(function($){
 					beforeSend: function(){ 
 						LB.evo_lightbox_start_inloading();
 					},
-					url:	the_ajax_script.ajaxurl,
+					url:	evo_admin_ajax_handle.ajaxurl,
 					data: 	ajaxdataa_,	dataType:'json', type: 	'POST',
 					success:function(data){
 						LB.find('.evo_virtual_moderator_users').html( data.content );
@@ -132,9 +154,9 @@ jQuery(document).ready(function($){
 			$('body').on('click','#_evo_virtual_endtime',function(){
 				
 				if($(this).hasClass('NO')){
-					$('.evo_date_time_virtual_end_row').show();
-				}else{
 					$('.evo_date_time_virtual_end_row').hide();
+				}else{
+					$('.evo_date_time_virtual_end_row').show();
 				}
 			});
 
@@ -619,20 +641,21 @@ jQuery(document).ready(function($){
 		});
 		
 	
-	
+	$('body')
 	// end time hide or not
-		$('#evo_hide_endtime').on('click',function(){
+		.on('click','#evo_hide_endtime', function(){
+			console.log('ss');
 			// yes
-			if($(this).hasClass('NO')){
-				$('.evo_date_time_elem.evo_end').animate({'opacity':'0.5'});
+			if( !($(this).hasClass('NO')) ){
+				$('body').find('.evo_date_time_elem.evo_end').animate({'opacity':'0.5'});
 			}else{
-				$('.evo_date_time_elem.evo_end').animate({'opacity':'1'});
+				$('body').find('.evo_date_time_elem.evo_end').animate({'opacity':'1'});
 			}
-		});
+		})
 	// All day or not
-		$('#evcal_allday').on('click',function(){
+		.on('click','#evcal_allday', function(){
 			// yes
-			if($(this).hasClass('NO')){
+			if( !($(this).hasClass('NO')) ){
 				$('.evo_datetimes .evo_time_edit').animate({'opacity':'0.5'});
 			}else{
 				$('.evo_datetimes .evo_time_edit').show().animate({'opacity':'1'});

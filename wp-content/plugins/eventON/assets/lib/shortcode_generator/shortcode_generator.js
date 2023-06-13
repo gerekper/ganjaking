@@ -110,7 +110,8 @@ jQuery(document).ready(function($){
 					}
 				});
 
-				goto_inside_step(true);
+				if( Object.keys( data.vars ).length > 0 )
+					goto_inside_step(true);
 			}
 
 			var interaction = function(){

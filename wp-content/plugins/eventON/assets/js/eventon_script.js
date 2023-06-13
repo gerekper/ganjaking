@@ -1,6 +1,6 @@
 /**
  * Javascript code that is associated with the front end of the calendar
- * @version 4.3.3
+ * @version 4.4
  */
 
 jQuery(document).ready(function($){
@@ -137,9 +137,7 @@ jQuery(document).ready(function($){
 // RUN on Page load
 	function init(){
 
-		ajax_url = the_ajax_script.ajax_method=='ajax' ?
-			evo_general_params.ajaxurl: 
-			the_ajax_script.rurl + 'eventon/v1/data?action=init';
+		ajax_url = evo_general_params.ajaxurl;
 
 		init_run_gmap_openevc();
 		fullheight_img_reset();	
@@ -170,14 +168,13 @@ jQuery(document).ready(function($){
 		$(document).trigger('evo_before_trig_ajax', [obj]);
 
 		var new_ajax_data = $(document).data( 'evo_data');
-		new_ajax_data['action'] = 'eventon_gen_trig_ajax';
 		new_ajax_data['nn'] = the_ajax_script.postnonce;
 
 		$.ajax({
 			beforeSend: function(){
 				$(document).trigger('evo_beforesend_trig_ajax', [obj, new_ajax_data]);
 			},
-			type: 'POST',url: ajax_url ,data: new_ajax_data,dataType:'json',
+			type: 'POST',url: get_ajax_url('eventon_gen_trig_ajax') ,data: new_ajax_data,dataType:'json',
 			success:function(return_data){
 				$(document).trigger('evo_success_trig_ajax', [obj, new_ajax_data, return_data]);
 			},complete:function(){
@@ -282,7 +279,6 @@ jQuery(document).ready(function($){
 
 			if( send_data.length <= 0 || !send_data) return;
 
-			send_data['action'] = 'eventon_refresh_elm';
 			send_data['nonce'] = evo_general_params.n;
 
 			$.ajax({
@@ -297,7 +293,7 @@ jQuery(document).ready(function($){
 						});	
 					}
 				},
-				type: 'POST',url: ajax_url,data: send_data,dataType:'json',
+				type: 'POST',url: get_ajax_url('eventon_refresh_elm'),data: send_data,dataType:'json',
 				success:function(data){
 					if( data.status == 'good' ){
 						evo_apply_refresh_content( data );
@@ -609,7 +605,7 @@ jQuery(document).ready(function($){
 				ED = $(elm).evo_cal_get_basic_eventdata();
 				if( !ED) return;
 
-				console.log(ED);
+				//console.log(ED);
 
 				//if ( ED.uID in processed_ids) return;
 
@@ -687,7 +683,7 @@ jQuery(document).ready(function($){
 		if( !has_events){
 			no_event_content = CAL.evo_get_global({S1: 'html', S2:'no_events'});
 			
-			html += "<div class='date_row'><div class='row no_events'>"+no_event_content+"</div></div>";
+			html += "<div class='date_row'><div class='row no_events evosv'>"+no_event_content+"</div></div>";
 		}
 
 		html += '</div>';
@@ -713,8 +709,7 @@ jQuery(document).ready(function($){
 
 			if(run_initload == false) return false;
 
-
-			var data_arg = {action: 'eventon_init_load'};	
+			var data_arg = {};	
 
 			BODY = $('body');
 			BODY.trigger('evo_global_page_run');
@@ -733,7 +728,9 @@ jQuery(document).ready(function($){
 		
 		$.ajax({
 			beforeSend: function(){},
-			type: 'POST',url: ajax_url ,data: data_arg,dataType:'json',
+			type: 'POST',
+			url: get_ajax_url('eventon_init_load'), 
+			data: data_arg,dataType:'json',
 			success:function(data){
 				$('#evo_global_data').data('d', data);
 
@@ -1068,10 +1065,12 @@ jQuery(document).ready(function($){
 		});	
 		
 
-		// process lightbox event card
+		// process various lightbox types
 		$('body')
 		.on('evo_lightbox_processed', function(event, OO, LIGHTBOX){
 			if( OO.uid != 'evo_open_eventcard_lightbox') return false;
+
+			var CAL = OO.other_data.CAL;
 
 			LIGHTBOX.addClass('eventcard eventon_events_list');
 			LIGHTBOX_content = LIGHTBOX.find('.evolb_content');
@@ -1120,10 +1119,9 @@ jQuery(document).ready(function($){
 		})
 
 		// after eventcard content is loaded to lightbox via 3a - @since 4.2.3
-			.on('evo_ajax_success_load_single_eventcard_content_3a', function (event, OO, data){
+			.on('evo_ajax_success_evo_open_eventcard_lightbox', function (event, OO, data){
 				
-				
-				if( OO.uid != "load_single_eventcard_content_3a") return false;
+				if( OO.ajaxdata.uid != "load_single_eventcard_content_3a") return false;
 				
 				LIGHTBOX = $('.evo_lightbox.'+ OO.lightbox_key);
 				LIGHTBOX_content = LIGHTBOX.find('.evolb_content');
@@ -1132,6 +1130,7 @@ jQuery(document).ready(function($){
 
 				// generate map
 				LIGHTBOX_content.evoGenmaps({	'fnt':2 ,'cal': CAL });
+
 
 				// countdown
 				LIGHTBOX_content.find('.evo_countdowner').each(function(){
@@ -1177,10 +1176,12 @@ jQuery(document).ready(function($){
 
 				CAL.evo_lightbox_open({
 					uid:'evo_open_eventcard_lightbox',
+					//uid:'load_single_eventcard_content_3a',
 					lbc:'evo_eventcard',
 					end:'client',
 					content: new_content,
 					ajax:'yes',
+					ajax_endpoint: 'eventon_load_single_eventcard_content',
 					d: 	data_arg,
 					other_data: {
 						extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+SC_data.event_id +'_'+ SC_data.repeat_interval + cancel_class,
@@ -1780,7 +1781,7 @@ jQuery(document).ready(function($){
 					run_cal_ajax(CAL.attr('id'),'none','filering');
 				});
 
-			// CLEAR filters - @4.2 u @4.3.3
+			// CLEAR filters - @4.2 u @4.4
 			// reset back to default on page load values
 				$('body').on('click','.evo_filter_clear',function(){
 					CAL = $(this).closest('.ajde_evcal_calendar');
@@ -1814,6 +1815,10 @@ jQuery(document).ready(function($){
 						$.each(IN_values, function(index, value){
 							default_value +=  value + ',';
 						});
+
+						// remove last comma from the string @since 4.4
+							default_value = default_value.replace(/,\s*$/, "");
+
 						filter.data('filter_val', default_value);
 
 					});
@@ -1906,7 +1911,6 @@ jQuery(document).ready(function($){
 					const CAL = section.find('.ajde_evcal_calendar').eq(0);
 
 					var dataA = {
-						action: 'eventon_refresh_now_cal',
 						nonce: nonce,
 						other: OBJ.data(),
 						SC: CAL.evo_shortcode_data()
@@ -1918,7 +1922,7 @@ jQuery(document).ready(function($){
 						beforeSend: function(){
 							section.addClass('evoloading');
 						},
-						type: 'POST',url:ajax_url,data: dataA,dataType:'json',
+						type: 'POST',url: get_ajax_url('eventon_refresh_now_cal'), data: dataA,dataType:'json',
 						success:function(data){
 							if( data.status == 'good'){
 								section.html( data.html);
@@ -1972,7 +1976,7 @@ jQuery(document).ready(function($){
 				$('body').trigger('evo_main_ajax_before', [CAL, ajaxtype, direction, SC]);		
 
 				var data_arg = {
-					action: 		'the_ajax_hook',
+					//action: 		'eventon_get_events',
 					direction: 		direction,
 					shortcode: 		SC,
 					ajaxtype: 		ajaxtype,
@@ -1991,7 +1995,7 @@ jQuery(document).ready(function($){
 						}
 						ev_cal.evo_loader_animation();					
 					},
-					type: 'POST',url:ajax_url,data: data_arg,dataType:'json',
+					type: 'POST', url: get_ajax_url('eventon_get_events'),data: data_arg,dataType:'json',
 					success:function(data){
 						if(!data) return false;
 						if(ajaxtype == 'paged'){	
@@ -2233,7 +2237,7 @@ jQuery(document).ready(function($){
 		});
 
 		// on event card lightbox load -> organizer details @since 4.2
-		$('body').on('evo_ajax_complete_evo_get_organizer_info', function(event,  OO){
+		$('body').on('evo_ajax_complete_eventon_get_tax_card_content', function(event,  OO){
 			
 			LB = $('body').find('.'+ OO.lightbox_key);
 
@@ -2248,7 +2252,6 @@ jQuery(document).ready(function($){
 		// Loading single event json based content
 			$('body').on('evo_load_single_event_content', function(event, eid, obj){
 				var ajaxdataa = {};
-				ajaxdataa['action']='eventon_load_event_content';
 				ajaxdataa['eid'] = eid;
 				ajaxdataa['nonce'] = the_ajax_script.postnonce;	
 
@@ -2261,7 +2264,7 @@ jQuery(document).ready(function($){
 				
 				$.ajax({
 					beforeSend: function(){ 	},	
-					url:	the_ajax_script.ajaxurl,
+					url:	get_ajax_url('eventon_load_event_content'),
 					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 					success:function(data){
 						$('body').trigger('evo_single_event_content_loaded', [data, obj]);
@@ -2332,6 +2335,9 @@ jQuery(document).ready(function($){
 							'cal':CAL,
 						});
 
+						// mark as eventcard open @since 4.4
+						evObj.find('.event_description').addClass('open');
+
 					// open eventBox and lightbox	
 					}else if(SC.uxval =='3'){
 
@@ -2347,6 +2353,13 @@ jQuery(document).ready(function($){
 						var appendation = '<div class="event_excerpt_in">'+ev_excerpt+'</div>'
 						evObj.append(appendation);
 					}
+
+					// trigger support @since 4.4
+					var obj = evObj.find('.desc_trig');
+					var event_id = evObj.data('event_id');
+
+
+					$('body').trigger('evo_slidedown_eventcard_complete',[ event_id, obj]);	
 				});
 
 
@@ -2495,6 +2508,10 @@ jQuery(document).ready(function($){
 		});	
 
 // supportive
+	// ajax url function 
+		function get_ajax_url(action){
+			return $('body').evo_get_ajax_url({a:action, type:'endpoint'});
+		}
 	// handlebar additions
 		function handlebar_additional_arguments(){
 			Handlebars.registerHelper('ifE',function(v1, options){

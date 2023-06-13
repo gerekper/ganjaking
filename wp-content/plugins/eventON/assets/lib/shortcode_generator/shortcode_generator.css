@@ -1,6 +1,6 @@
 /* 
 Shortcode Generator 
-@version 4.3
+@version 4.3.5
 */
 
 :root{
@@ -10,6 +10,7 @@ Shortcode Generator
 }
     
     .evo_lightboxes .evo_shortcode_generator .evolb_box{width: 600px;}
+    .evo_lightboxes .evo_shortcode_generator .evolb_content{padding:0;}
 
     .evo_lightbox .evolb_content input.ajdePOSH_input, 
     .evo_lightbox .evolb_content input.ajdePOSH_input[type="text"]

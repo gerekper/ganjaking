@@ -24,7 +24,7 @@
 		transition: all .2s ease;
 	}
 
-/** General reusable styles **/
+/** General reusable styles **/©
 	.marr10{margin-right:10px}
 	.mart5{margin-top:5px} .mart10{margin-top:10px} .mart15{margin-top:15px} .mart20{margin-top:20px} .mart25{margin-top:25px} .mart30{margin-top:30px} .mart40{margin-top:40px} .mart50{margin-top:50px}
 	.marb0{margin-bottom:0px}.marb5{margin-bottom:5px} .marb10{margin-bottom:10px} .marb15{margin-bottom:15px} .marb20{margin-bottom:20px} .marb25{margin-bottom:25px} .marb30{margin-bottom:30px} .marb35{margin-bottom:35px} .marb40{margin-bottom:40px} .marb45{margin-bottom:45px} .marb50{margin-bottom:50px} .marb55{margin-bottom:55px} .marb90{margin-bottom: 90px}
@@ -75,6 +75,7 @@
 		.dib{display:inline-block}
 
 	/* font */
+		.fsn{font-style: normal;}
 		.fw400{font-weight: 400}
 		.fw700{font-weight: 700}
 		.fw900{font-weight: 900}
@@ -91,7 +92,7 @@
 
 /*-- calendar general styles --*/
 	:root{
-		--evo_font_1:'Montserrat', sans-serif;
+		--evo_font_1:'Figtree','Montserrat', sans-serif;
 		--evo_font_2:'Noto Sans',arial;
 		--evo_font_weight: 800;
 		--evo_color_1:#202124;
@@ -470,7 +471,9 @@
 	}
 
 	.ajde_evcal_calendar .calendar_header p.evo_arrows, .evo_footer_nav p.evo_arrows{display: flex;}
-	.ajde_evcal_calendar .calendar_header p.evo_arrows.right, .evo_footer_nav p.evo_arrows.right{float: right;	}
+	.ajde_evcal_calendar .calendar_header .evo_header_title.right,
+	.ajde_evcal_calendar .evo_footer_nav.right
+	 {justify-content: space-between;	}
 	.ajde_evcal_calendar .calendar_header .evcal_arrows:hover,
 	.evo_footer_nav .evcal_arrows:hover{background-color: #e2e2e2;}
 	.evo_footer_nav{padding-top: 10px;display: flex;align-items: center;}
@@ -734,7 +737,7 @@
 		.eventon_filter_line .eventon_filter{
 			display: block;
 			float: left;
-			margin-right: 10px;
+			margin-right: 10px;margin-bottom: 5px;
 		}
 		.evo_fc_widget .eventon_filter_line{
 			padding-left: 0;
@@ -1274,6 +1277,9 @@
 	.evo_pop_body .evoet_cx{	margin-right: 10px;}
 
 	/* eventtop tags */	
+		.eventon_events_list .eventon_list_event .evoet_cx .evoet_location,
+		.eventon_events_list .eventon_list_event .evoet_cx .evoet_time_expand
+		{padding-left: 1px;}
 		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags, 
 		.evo_pop_body .evoet_cx span.evoet_tags{display:flex; align-items: center;flex-wrap:wrap;margin-bottom: 5px;}
 		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_tags span, 
@@ -1317,9 +1323,10 @@
 		}
 
 
+	/* top line for eventtop */
 	.eventon_events_list .eventon_list_event .evoet_cx.evoet_c0,
 	.evo_pop_body .evoet_cx.evoet_c0{
-		/*flex-basis: 100%;*/
+		flex-basis: 100%;
 	}
 
 	/* event top level 3 items */	
@@ -1547,14 +1554,19 @@
 	.evosv_grid .row:first-of-type .evosv_date{display: flex}
 	.evosv_grid .row:first-of-type{margin-left: 0px}
 	.evosv_grid .row:hover .evosv_items{    background-color: #fed582;}
-	.evosv_grid .row .llxvl{display: flex;align-items: center;overflow:hidden;
-		text-overflow: ellipsis;white-space: nowrap; flex-wrap: wrap;}
-	.evosv_grid .row .evosv_items{display: flex;flex:1 1 auto;cursor: pointer;
-		padding: 5px 15px;border-radius: 20px;
-		align-items: flex-start;
+	.evosv_grid .row .llxvl{display: flex;align-items: center;}
+	.evosv_grid .row .evosv_items{
+		display: flex;flex:1 1 auto;cursor: pointer;
+		padding: 5px 15px;border-radius: 20px;min-width: 0px
 	}
-	.evosv_grid .row .evosv_items .evosv_time{width: 160px;flex:none;}
-	.evosv_grid .row .evosv_items .evosv_event{width: 100%}
+	.evosv_grid .row .evosv_items .evosv_time{width: 160px;flex:none;margin:0px 15px auto 0px;}
+	.evosv_grid .row .evosv_items .evosv_event{
+		    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    flex: 1;
+	    display: block;
+	}
 	.evosv_grid .row .evosv_items .evosv_clr{
 		width: 20px; height: 15px;
 	    margin: 4px 15px auto 0px; border-radius: 20px;flex: none;
@@ -1697,6 +1709,7 @@
 	    flex-direction: column;
 	    justify-content: center;
 	    align-items: center;
+	    box-sizing: border-box;
 	}
 
 	#evcal_list .evorow.getdirections .evo_get_direction_content button,
@@ -2677,7 +2690,8 @@
 	#evcal_widget .ajde_evcal_calendar .calendar_header p,
 	.widget_block .ajde_evcal_calendar .calendar_header p
 	{font-size:18px; height:auto;}
-	#evcal_widget .ajde_evcal_calendar .calendar_header .evo_arrows, .widget_block .ajde_evcal_calendar .calendar_header .evo_arrows{display: flex;}
+	#evcal_widget .ajde_evcal_calendar .calendar_header .evo_arrows, 
+	.widget_block .ajde_evcal_calendar .calendar_header .evo_arrows{display: flex;margin-bottom: 5px !important;}
 	#evcal_widget .ajde_evcal_calendar #evcal_prev{margin-right:8px}
 	#evcal_widget .ajde_evcal_calendar #evcal_next{margin-left:8px}
 	#evcal_widget #evcal_sort_bar ul .sort_title{padding:8px 5px 0 0 }
@@ -2751,7 +2765,8 @@
 	{transform:rotate(135deg) translate(-1px, -1px);}
 
 	/*#evcal_widget #evcal_head .evcal_arrows:before{    transform: rotate(135deg) translate(-1px, 11px) scale(0.7);}*/
-	#evcal_widget #evcal_head .evcal_arrows.evo_arrow_next:before{rotate(-45deg) translate(-1px, -11px) scale(0.7)}
+	#evcal_widget #evcal_head .evcal_arrows.evo_arrow_next:before
+	{transform: rotate(-45deg) translate(-1px, -11px) scale(0.7)}
 	
 	#evcal_widget #evcal_head #evcal_prev {margin-right:2px; }
 	#evcal_widget #evcal_head #evcal_next {margin-left:2px;}
@@ -2840,8 +2855,9 @@
 
 	.evo_lightbox_body .bordb{border-bottom: 1px solid #cdcdcd;}
 	.evo_lightbox_body .evcal_gmaps{min-height: 200px;}
-	.evopop_top{display:flex;position: relative;
-		padding:20px; min-height:80px;border-bottom:1px solid #e4e4e4;margin-bottom: 10px;
+	.evopop_top{
+		display:flex;position: relative;flex-wrap: wrap;
+		padding:20px; min-height:80px; margin-bottom: 10px;
 	}
 	.evopop_top .ev_ftImg{display:none;}
 	.evopop_top .evcal_cblock em.evo_time{display: none;}	
@@ -2893,6 +2909,7 @@
 		{content:". . .";display: block;}
 		.evo_lightbox .evcal_cblock .evo_time{display: none;}
 		.evo_lightbox .bordb{border-bottom: 1px solid #cdcdcd;	}
+		.evo_lightbox .evocard_row .evorow.bordb{border-bottom:none!important	}
 		.evo_lightbox.eventcard .evo_lightbox_body, .evo_lightbox .evo_lightbox_body,
 		.evo_lightbox .evolb_content{
 			background-color: #fff; border-radius: 12px; overflow: hidden;
@@ -2972,6 +2989,9 @@
 			position: relative;  overflow: hidden;flex:1; margin-bottom: 10px;
 		    background-color: #f7f7f7!important;
 		}
+		body .evorow .evo_loading_bar{background-color: #e6e6e6!important}
+		body .evorow .evo_loading_bar:before{background: linear-gradient(90deg, 
+    transparent 0%, rgb(239 239 239 / 50%) 50%, transparent 100%)}
 		.evo_loading_bar.wid_90{width: 90%}
 		.evo_loading_bar.wid_80{width: 80%}
 		.evo_loading_bar.wid_70{width: 70%}
@@ -3127,9 +3147,6 @@
 		.ajde_evcal_calendar.clean #evcal_list .eventon_list_event p .evcal_desc span.evcal_event_title
 		{color:#737373;}
 		.ajde_evcal_calendar.clean .evcal_cblock .evo_end:before{background-color: #737373}
-		.ajde_evcal_calendar.clean .eventon_events_list .eventon_list_event .event_description{
-			border-radius: 0 0 5px 5px;
-		}
 		
 		/* crystal clean */
 		.ajde_evcal_calendar.esty_5 .evo_ett_break{flex-basis: 100%;}
@@ -3464,7 +3481,7 @@
 			{width: 100%;}
 		}
 
-/* location card */
+/* taxonomy /location card */
 	.evotax_term_card .evotax_term_details, .evotax_term_card{display: flex; justify-content: space-between;}
 	.evotax_term_card .evotax_term_details.evo_location_tax{
 		flex-wrap: wrap;justify-content: center;
@@ -3484,7 +3501,8 @@
   		border-radius: 15px;
   		overflow: hidden;
   		margin-bottom: 15px;
-  		flex-basis: 40%; margin-right: 15px;
+  		flex: 1 0 40%; 
+  		margin-right: 15px;
 	}
 	
 	.evotax_term_card .tax_term_name a{color:var(--evo_color_1);}
@@ -3540,6 +3558,9 @@
 	.evotax_term_card .tax_term_name i{display: block; color: #fff;text-transform: uppercase;font-size: 18px;}
 	.evotax_term_card .tax_term_name span{font-weight: bold;}
 	.evotax_term_card .endborder_curves{border-radius: 15px;}
+
+	.evotax_term_card .evotax_term_img{width: 100%;background-color: #616161;}
+	.evotax_term_card .evotax_term_img img{width: 75%;    margin: 20px auto; position: relative; border-radius: 20px;}
 
 /** Search styles * @since 2.5.3 */
 	.evo_widget .evo_cal_above span.evo-search{min-height:auto;}

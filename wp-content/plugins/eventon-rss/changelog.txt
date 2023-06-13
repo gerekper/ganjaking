@@ -1,7 +1,16 @@
 RSS Feed (RSS) addon for EventON Plugin
 ====================================
+v 1.1.5 (2023-2-10)
+FIXED: php code printed on the feed
+FIXED: rss header not closed bracket
+FIXED: ?event_type value not working in URL
+
+v 1.1.4 (2022-11-26)
+FIXED: start and end text translations
+
 v 1.1.3 (2021-10-4)
 FIXED: isPermaLink nomenclature correction
+FIXED: events not appearing with EventON 4.1.2
 
 v 1.1.2 (2020-9-23)
 ADDE: isPermalink false to guid

@@ -7,6 +7,10 @@
 	--evors_border_rad_1 : 15px;
 	--evors_bgc_inside_content : #e6e6e6;
 	--evors_bgc_inside_content2 : #e0e0e0;
+	--evors_bgc_bad : #ff5226;
+	--evors_bgc_checked : #8fc255;
+	--evors_bgc_checkin : #2798f7;
+	--evors_bgc_waitlist : #93d2ff;
 }
 
 /* general */
@@ -87,6 +91,9 @@
 		font-size: 14px;
 		display: inline-block;
 	}
+	.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx em.evors_rsvped_status_user{
+		color:var(--evo_color_2);border:none;
+	}
 	.evors_rsvped_status_user{cursor: default; background-color: #ececec; border-radius: 20px; margin-left: 10px;}
 	.evoRS_status_option_selection .evors_rsvped_status_user{
 		background-color: #ffffff;
@@ -126,7 +133,7 @@
 	#evcal_widget .evcal_desc3_rsvp .evors_rsvpiable .evors_choices{font-size: 11px}
 	#evcal_widget .evors_eventtop_data.remaining_count{margin-left: 0; padding-left: 0; border:none; display: block}
 	#evcal_widget .evors_change_rsvp span.change{margin:5px 0;}
-	#evcal_widget .evcal_evdata_row .evors_section.evors_user_text span{font-size: 12px}
+	#evcal_widget .evcal_evdata_row .evors_section.evors_user_text p{font-size: 12px}
 	#evcal_widget #evcal_list .eventon_list_event .evcal_desc em.evors_rsvped_status_user{margin:5px 0;}
 	.widget .evcal_desc .evors_eventtop_data em{font-size: 11px;}		
 	#evcal_widget .evors_eventtop_section_data{background-color: transparent;padding: 0;}
@@ -146,13 +153,6 @@
 	.eventon_events_list .eventon_list_event .evoet_cx .evcal_desc3_rsvp,
 	.evo_pop_body .evoet_cx .evcal_desc3_rsvp{
 		display: flex; flex-wrap: wrap;
-		    background-color: #ffffff29;
-	    border-radius: 10px;
-	    padding: 10px;
-	    /* border-top: 1px solid #fff; */
-	    /* border-bottom: 1px solid #fff; */
-	    /* padding: 10px 0 5px; */
-	    margin-bottom: 5px;
 	}
 	.evoet_cx .evcal_desc3_rsvp span.evors_rsvpiable{
 		clear:both;
@@ -184,7 +184,8 @@
 		text-transform: uppercase;
 		margin: 0 10px 0 0;	text-align: center;line-height: 1.1;		
 	}
-	#evcal_list .evoet_cx .evors_eventtop_section_data .evors_eventtop_data em{
+	#evcal_list .evoet_cx .evors_eventtop_section_data .evors_eventtop_data em,
+	.evoet_cx .evors_eventtop_section_data .evors_eventtop_data em{
     	color: #fff; background-color: #adadad;}
     .evoet_cx .evors_eventtop_section_data .evors_eventtop_data.remaining_count em
     {background-color: #6dc56b;color:#fff;}
@@ -230,7 +231,8 @@
 		background-position: center center;left: 0;
 	}
 
-	body .eventon_list_event .evcal_list_a .evors_rsvpiable span:hover, body .evo_pop_body .evors_rsvpiable span:hover{background-color: #ffd089}	
+	body .eventon_list_event .evcal_list_a .evors_rsvpiable span:hover, 
+	body .evo_pop_body .evors_rsvpiable span:hover{background-color: var(--evo_color_1)}	
 
 	.ajde_evcal_calendar.boxy .evoet_cx .evcal_desc3_rsvp>*,
 	.ajde_evcal_calendar.boxy .evoet_cx .evcal_desc3_rsvp span
@@ -260,11 +262,11 @@
 	.evors_captcha span.captcha.code7{background-position: 0 -145px;}
 
 /* checkbox field */	
-	.evors_forms p.field_checkbox span{
+	.evors_forms .field_checkbox span{
 		display:flex;
 		align-items: center;
 	}
-	.evors_forms p.field_checkbox em{
+	.evors_forms .field_checkbox em{
 		background-color: #fff;
 		border-radius: 20px;
 		margin-right: 20px;
@@ -272,14 +274,13 @@
 		display: inline-block;
 		cursor: pointer;
 		position: relative;
-		margin-top:10px;
 	}
-	.evors_forms p.field_checkbox span span{
+	.evors_forms .field_checkbox span span{
 		text-align: left
 	}
-	.evors_forms p.field_checkbox em.err{border:1px solid #f74949;}
-	.evors_forms p.field_checkbox em:hover{background-color: #d8d8d8;}
-	.evors_forms p.field_checkbox em.checked:after{
+	.evors_forms .field_checkbox em.err{border:1px solid #f74949;}
+	.evors_forms .field_checkbox em:hover{background-color: #d8d8d8;}
+	.evors_forms .field_checkbox em.checked:after{
 		content:"";
 		border-right: 3px solid #949494;
 		border-bottom: 3px solid #949494;
@@ -364,8 +365,8 @@
 	.evcal_eventcard .evors_incard_form.show{display: block;}
 	
 	/* close button */
-		.evors_incard_form a.evors_incard_close:hover{opacity: 1;}
-		.evors_incard_form a.evors_incard_close{
+		.evors_gen_form a.evors_incard_close:hover{opacity: 1;}
+		.evors_gen_form a.evors_incard_close{
 			position: absolute;
 		    top: 0;
 		    right: 0;
@@ -400,7 +401,7 @@
 		background-color: #5ab535;
 		padding:30px;		
 	}
-	.evors_incard_form.error{background-color: #CF7A64}
+	.evors_incard_form.error{background-color: var(--evors_bgc_bad)}
 	#evcal_list .eventon_list_event .evcal_eventcard .evors_incard_form p,
 	.evors_incard_form #evorsvp_form p
 	{color:#fff;}
@@ -445,12 +446,12 @@
 	}
 
 /* lightbox form */
-	.evors_lightbox .evo_lightbox_body.evo_lightbox_body.error{background-color: #CF7A64}
+	.evors_lightbox .evo_lightbox_body.evo_lightbox_body.error{background-color: var(--evors_bgc_bad)}
 	.evors_lightbox .evo_lightbox_body{
 		background-color: #6dc56b;
 		border-radius: 12px;
 		color:#fff;
-		padding: 30px;
+		padding: 35px;
 		text-align: center;position: relative;
 	}
 	#evors_form_section{
@@ -474,6 +475,13 @@
 	#evorsvp_form h3{
 		margin: 0; padding: 0 0 5px 0;
 		color: #fff;
+	}
+	#evorsvp_form h3.form_header.notice{
+		background-color: #fff;
+		color: var(--evo_color_1);
+	    padding: 10px 20px;
+	    margin: 10px 0;
+	    border-radius: 15px;
 	}
 	#evorsvp_form p.evors_subtitle{
 		padding-bottom: 10px;
@@ -523,12 +531,11 @@
 		margin-right: -1px;
 		font: bold 14px arial;
 		cursor: pointer;
-		opacity: 0.6;
 	}
 	#evorsvp_form .rsvp_status p.sin span{border-radius: 5px;}
 	#evorsvp_form .rsvp_status span:hover{
 		background-color: rgba(255, 255, 255, 0.21);
-		opacity: 1;
+		opacity: 0.8;
 	}
 	#evorsvp_form .rsvp_status span.set{
 		background-color: #fff;
@@ -538,13 +545,20 @@
 	#evorsvp_form .form_row{
 		padding-bottom: 15px;
 	}	
-		#evorsvp_form .form_row.name{display:flex;}
+		#evorsvp_form .ajde_yn_btn.evo_elm{background-color: var(--evo_color_1)}
+		#evorsvp_form .ajde_yn_btn.evo_elm.NO{background-color: rgba(255, 255, 255, 0.25);}
+		#evorsvp_form .form_row .yesno_row span.field_name{padding-left: 50px}
+		#evorsvp_form .evo_field_container{margin-top: 5px;}		
+		#evorsvp_form .evo_elm_row input, 
+		#evorsvp_form .evo_elm_row select, 
+		#evorsvp_form .evo_elm_row textarea, 
+
 		#evorsvp_form .form_row input, 
 		#evorsvp_form .form_row select, 
 		#evorsvp_form .form_row textarea{
 			border:none;
 			background-color: rgba(255, 255, 255, 0.25);
-			color: #fff;
+			color: var(--evo_color_1);
 			padding: 10px 20px;border-radius: 25px;
 			display: inline-block;
 			margin: 0;
@@ -552,34 +566,43 @@
 			border:1px solid rgba(255, 255, 255, 0);
 			box-shadow:none;
 		}
-		#evorsvp_form .form_row input:focus{outline:none;}
-		#evorsvp_form .form_row input[readonly=readonly]{background-color: rgba(255, 255, 255, 0.13);}
-		#evorsvp_form .input.err{border:1px solid rgba(255, 255, 255, 0.53)}
+		#evorsvp_form .form_row .evors_checko{cursor: pointer;}
+		#evorsvp_form .form_row input:focus, #evorsvp_form .evo_elm_row input:focus{outline:none;}
+		#evorsvp_form .form_row input[readonly=readonly]{background-color: rgba(255, 255, 255, 0.3);}
+		
+		#evorsvp_form .form_row.req.err input{border:1px solid rgba(255, 255, 255, 0.8)}
 
 		#evorsvp_form .form_row select option{color:#3d3d3d;}
 		.evors_popup #evorsvp_form .form_row .err{
 			border:1px solid red;
 		}
+		#evorsvp_form .form_row.name{display:flex;flex-wrap: wrap;gap:10px;}
+		#evorsvp_form .form_row.name label{flex-basis: 100%;}
 		#evorsvp_form .form_row input.name{
-			width: 50%; display: inline-block;
+			flex-basis: 49%; display: inline-block;
 		}
-		#evorsvp_form .form_row input.name[name=last_name]{
-			margin-left: 10px;
-		}
-		#evorsvp_form .form_row input.regular, #evorsvp_form .form_row textarea{
+		#evorsvp_form .form_row input.name[name=last_name]{}
+		#evorsvp_form .evo_elm_row input,
+		#evorsvp_form .form_row input.regular, 
+		#evorsvp_form .form_row textarea{
 			width: 100%;
 		}
 
 		#evorsvp_form .form_row input.captcha{ width: 70px; text-align: center;}
-		#evorsvp_form .form_row input.evors_rsvp_count{width: 100px; text-align: center;	}
+		#evorsvp_form .form_row.count input{width: 100px; text-align: center;	}
 		#evorsvp_form .form_row.additional_field label, 
+		#evorsvp_form .form_row label, 
+		#evorsvp_form .form_row .evo_field_label, 
+		#evorsvp_form .evo_elm_row label, 
 		#evorsvp_form .form_row.count label{
 			display: block;
-			margin-bottom: 5px;
+			margin-bottom: 5px; font-size: 14px; font-weight: 800;
 		}
-		#evorsvp_form .form_row input:focus{
+		#evorsvp_form .form_row input:focus, #evorsvp_form .evo_elm_row input:focus{
 			background-color: rgba(255, 255, 255, 0.5);
 		}
+		#evorsvp_form .form_row input::-webkit-input-placeholder, 
+		#evorsvp_form .form_row textarea::-webkit-input-placeholder, 
 		#evorsvp_form .form_row input::-webkit-input-placeholder, 
 		.evors_lightbox_body textarea::-webkit-input-placeholder
 			{color: #88b077; font-style:italic;}
@@ -620,7 +643,7 @@
 
 	#evorsvp_form .notification.err p{
 		display: inline-block; 
-		background-color: #BD5B41;
+		background-color: var(--evo_color_1);
 		color: #fff;
 		padding: 3px 8px;
 		border-radius: 5px
@@ -670,7 +693,6 @@
 		text-align: center;
 		line-height: 40px;
 		color: #6b6b6b;
-		opacity: 0.6;
 		margin-right: 9px; margin-bottom: 9px;
 		font-style: normal;
 		cursor: pointer;
@@ -735,14 +757,14 @@
 		margin-top: 5px;
 	}
 	.evcal_evdata_row .evors_section{padding-bottom: 8px; margin-bottom: 8px;}
-	.evcal_evdata_row .evors_section.evors_user_text span{
+	.evcal_evdata_row .evors_section.evors_user_text p{
 		font-style: normal;
 	    padding: 5px 0;
 	    display: block;
 	    line-height: 130%;
 	}
 	.evcal_evdata_row .evors_attendance_count_data{
-		display: flex;flex-direction: row;
+		display: flex;flex-direction: row;margin-top: 10px;
 	}
 	.evcal_evdata_row .evors_attendance_count_data .evors_section{
 		display: block;
@@ -806,7 +828,7 @@
 	    padding: 10px;
 	    border-radius: var(--evors_border_rad_1);
 	}
-	.evors_evc_rsvpchoice .evors_evc_rsvpchoice_txt{font-size: 16px; font-weight: bold; font-style: normal;opacity: 0.7;}
+	.evors_evc_rsvpchoice .evors_evc_rsvpchoice_txt{font-size: 16px; font-weight: bold; font-style: normal;}
 
 /* user RSVP manager */
 	.eventon_rsvp_rsvplist a, .eventon_rsvp_rsvplist a:hover{
@@ -891,6 +913,11 @@
 	    height: 100%; display: flex;align-items: center;
 	}
 	#evors_rsvp_manager .rsvpmanager_event a{text-decoration: none}
+
+/* waitlist */
+	.evcal_evdata_row.evo_metarow_rsvp .wl_inlist{background-color: #cae6ff}
+	.evcal_evdata_row.evo_metarow_rsvp .wl_addto{background-color: #a2d3ff}
+
 /* actionuser event manager */
 	.evoaursvp_data a.evcal_btn{box-shadow:none;}
 	.evoaursvp_data .evors_list ul{	
@@ -942,19 +969,39 @@
 	    margin: 0;
 	}
 	.evoaursvp_data p.header{
-		padding: 5px 10px; background-color: #eaeaea;  color: #000;margin:0;
+		padding: 5px 10px 15px; margin:0;
+		    display: flex;
+   		justify-content: space-between;
 	}
+	.evoaursvp_data p.header em{
+	    background-color: #333;
+	    color: #fff;
+	    padding: 2px 8px;
+	    border-radius: 10px;
+	    font-size: 12px;}
 	
 	#evorsau_stats p.num{
 	    margin: 10px 0;
-	    padding: 10px 15px;
+	    padding: 20px;
 	    font-size: 30px;
 	    font-weight: bold;
 	    text-transform: uppercase;
-	    border: 3px solid #ffffff;
 	    border-radius: 20px;
-	    display: inline-block;
-	    color: #808080;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    color: #fff;background-color: #979797
+	}
+	#evorsau_stats p.num.checked{background-color: var(--evors_bgc_checked); flex:1;}
+	#evorsau_stats p.num.checkin{background-color: var(--evors_bgc_checkin)}
+	#evorsau_stats p.num.waitlist{background-color: var(--evors_bgc_waitlist)}
+	#evorsau_stats .evorsau_cap_statboxes{
+		display: flex;
+	    gap: 10px;
+	    flex-wrap: wrap;
+	}
+	#evorsau_stats p.num em{
+		font-size: 12px; font-style: normal;
 	}
 	.evorsau_bar{
 		background-color: #ffffff;
@@ -1006,7 +1053,6 @@
 		    font-weight: bold;
 		    line-height: 130%;
 		}
-		.evors_waitlist_remaining_spots span.evorsw_wl_size{margin-right: 20px;}
 		.evors_waitlist_remaining_spots span.evorsw_wl_status{position: relative;}
 		.evors_waitlist_remaining_spots span.evorsw_wl_info i.fa{display: inline-block;
 			color:#95cd74;margin-right: 5px; font-size: 20px;
@@ -1018,13 +1064,12 @@
 		    border-radius: 5px;
 		    padding: 10px 10px;
 		    display: inline-block;
-		    margin-right: 10px;
 		    color: #fff;
 		}
 
 		#evorsvp_form .evorsw_form_subtitle.evors_subtitle{
 			background-color: #fff;
-			color:#929292!important;
+			color:var(--evo_color_2)!important;
 			    margin: 10px 0px 40px;
 		    padding: 5px 20px;
 		    text-transform: uppercase;
@@ -1118,16 +1163,18 @@
 	.evo_popin .evcal_eventcard p.evors_whos_coming_title,
 	.eventon_list_event .evcal_evdata_row p.evors_whos_coming_title,
 	.evorsau_legends span ,
-	.eventon_rsvp_rsvplist p em.count
-	{font-family: 'open sans',arial;}
+	.eventon_rsvp_rsvplist p em.count	
+	{font-family: var(--evo_font_1),arial;}
 
 	.evcal_evdata_row .evors_stat_data p em,
 	.evors_submission_form, .evors_lightbox_body #evorsvp_form h3,
 	.evcal_desc .evors_eventtop_data em,
 	.eventon_rsvp_rsvplist p em.event_data span a,
 	.eventon_rsvp_rsvplist p span.rsvpstatus,
-	.eventon_rsvp_rsvplist p a.update_rsvp
-	{font-family: 'roboto',oswald,'arial narrow';font-weight: 700;}
+	.eventon_rsvp_rsvplist p a.update_rsvp,
+	.evors_lightbox_body #evorsvp_form .form_row select, .evors_lightbox_body #evorsvp_form .form_row input, 
+	.evors_incard_form #evorsvp_form .form_row input, #evorsvp_form .form_row select, #evorsvp_form .form_row textarea
+	{font-family: var(--evo_font_2),'arial narrow';font-weight: 700;}
 
 /* mobile or smaller view */
 	@media (max-width: 900px){

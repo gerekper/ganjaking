@@ -1,5 +1,18 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-06-04 - version 2.8.1
+* Fix: API Key activations not displayed when Product Order API Key hidden in api-keys.php template.
+* Fix: Product ID column table header text wrapped when it should not be in the api-keys.php template.
+* Fix: Release Date column table header text wrapped when it should not be in the api-downloads.php template.
+* Update: Updated templates/myaccount/api-keys.php.
+* Update: Updated templates/myaccount/api-downloads.php.php.
+* New: Settings page link to API Manager > API Customers submenu.
+
+2023-06-03 - version 2.8
+* New: Added top level menu API Manager.
+* New: Added API Manager > API Customers submenu for searchable API Resource display.
+* Dev: Added $date_only parameter to unix_timestamp_to_date().
+
 2023-05-29 - version 2.7.3
 * Fix: $_REQUEST value was not assigned to $this->request before the key translation in the WCAM_Software_Add_On_Translator class.
 * Tweak: Add more details from the missing query string error logged for the administrator/store manager.

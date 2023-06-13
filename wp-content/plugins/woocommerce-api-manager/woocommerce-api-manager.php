@@ -3,8 +3,8 @@
 /**
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
- * Description: An API resource manager.
- * Version: 2.7.3
+ * Description: An API Resource manager.
+ * Version: 2.8.1
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -16,7 +16,7 @@
  * Tested up to: 6.2.2
  * Requires PHP: 7.2
  * WC requires at least: 7.4
- * WC tested up to: 7.7
+ * WC tested up to: 7.7.2
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
  *
  * Intellectual Property rights, and copyright, reserved by Todd Lahman, LLC as allowed by law include,
@@ -35,7 +35,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WC_AM_VERSION' ) ) {
-	define( 'WC_AM_VERSION', '2.7.3' );
+	define( 'WC_AM_VERSION', '2.8.1' );
 }
 
 // Minimum WooCommerce version required.
@@ -363,8 +363,16 @@ final class WooCommerce_API_Manager {
 	/**
 	 * admin_scripts function.
 	 */
-	public function admin_scripts() {
-		wp_enqueue_style( 'woocommerce_api_manager_admin_styles', $this->plugin_url() . 'includes/assets/css/admin-min.css', array(), WC_AM_VERSION );
+
+	/**
+	 * admin_scripts function.
+	 *
+	 * @param String $hook_suffix
+	 *
+	 * @updated 2.8
+	 */
+	public function admin_scripts( $hook_suffix ) {
+		wp_enqueue_style( 'woocommerce_api_manager_admin_styles', $this->plugin_url() . 'includes/assets/css/admin.min.css', array(), WC_AM_VERSION );
 	}
 
 	/**
@@ -377,7 +385,7 @@ final class WooCommerce_API_Manager {
 	public function enqueue_styles( $styles ) {
 		if ( is_account_page() ) {
 			$styles[ 'woocommerce-api-manager' ] = array(
-				'src'     => $this->plugin_url() . 'includes/assets/css/woocommerce-api-manager-min.css?' . filemtime( $this->plugin_path() . '/includes/assets/css/woocommerce-api-manager-min.css' ),
+				'src'     => $this->plugin_url() . 'includes/assets/css/woocommerce-api-manager.min.css?' . filemtime( $this->plugin_path() . '/includes/assets/css/woocommerce-api-manager.css' ),
 				'deps'    => 'woocommerce-smallscreen',
 				'version' => WC_AM_VERSION,
 				'media'   => 'all'
@@ -385,7 +393,7 @@ final class WooCommerce_API_Manager {
 
 			if ( wp_get_theme() == 'Storefront' ) {
 				$styles[ 'wc-am-storefront-icons' ] = array(
-					'src'     => $this->plugin_url() . 'includes/assets/css/wc-am-storefront-icons-min.css?' . filemtime( $this->plugin_path() . '/includes/assets/css/wc-am-storefront-icons-min.css' ),
+					'src'     => $this->plugin_url() . 'includes/assets/css/wc-am-storefront-icons.min.css?' . filemtime( $this->plugin_path() . '/includes/assets/css/wc-am-storefront-icons-min.css' ),
 					'deps'    => 'woocommerce-smallscreen',
 					'version' => WC_AM_VERSION,
 					'media'   => 'all'
@@ -573,9 +581,9 @@ final class WooCommerce_API_Manager {
 	 * @since 1.0
 	 */
 	public static function woocommerce_inactive_notice() { ?>
-		<div class="notice notice-info is-dismissible">
-			<p><?php printf( __( 'The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must be active for the WooCommerce API Manager to work. Please activate WooCommerce on the %splugin page%s once it is installed.', 'woocommerce-api-manager' ), '<strong>', '</strong>', '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">', '</a>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' ); ?></p>
-		</div>
+        <div class="notice notice-info is-dismissible">
+            <p><?php printf( __( 'The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must be active for the WooCommerce API Manager to work. Please activate WooCommerce on the %splugin page%s once it is installed.', 'woocommerce-api-manager' ), '<strong>', '</strong>', '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">', '</a>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' ); ?></p>
+        </div>
 		<?php
 	}
 
@@ -589,11 +597,11 @@ final class WooCommerce_API_Manager {
 	 * notice-info – info message displayed with a blue border
 	 */
 	public static function wam_php_requirement() { ?>
-		<div class="error notice-warning">
-			<!--            <p>-->
+        <div class="error notice-warning">
+            <!--            <p>-->
 			<?php //printf( __( 'Warning: The next release of the %sWooCommerce API Manager%s may not run if PHP version 7 or above is not installed. Upgrade now if you have not already.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_REQUIRED_PHP_VERSION, PHP_VERSION ); ?><!--</p>-->
-			<p><?php printf( __( 'The %sWooCommerce API Manager%s is inactive because it requires PHP version %s or greater, but your server has %s installed. Ask your web host to upgrade your version of PHP.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_REQUIRED_PHP_VERSION, PHP_VERSION ); ?></p>
-		</div>
+            <p><?php printf( __( 'The %sWooCommerce API Manager%s is inactive because it requires PHP version %s or greater, but your server has %s installed. Ask your web host to upgrade your version of PHP.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_REQUIRED_PHP_VERSION, PHP_VERSION ); ?></p>
+        </div>
 		<?php
 	}
 
@@ -628,9 +636,9 @@ final class WooCommerce_API_Manager {
 	 * @since 2.0
 	 */
 	public static function upgrade_wc_am_warning() { ?>
-		<div class="notice notice-error">
-			<p><?php printf( __( 'The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, but your server has WooCommerce version %s installed. The WooCommerce API Manager will remain disabled until WooCommerce has been upgraded to version %s or greater.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_WC_MIN_REQUIRED_VERSION, get_option( 'woocommerce_version' ), WC_AM_WC_MIN_REQUIRED_VERSION ); ?></p>
-		</div>
+        <div class="notice notice-error">
+            <p><?php printf( __( 'The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, but your server has WooCommerce version %s installed. The WooCommerce API Manager will remain disabled until WooCommerce has been upgraded to version %s or greater.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_WC_MIN_REQUIRED_VERSION, get_option( 'woocommerce_version' ), WC_AM_WC_MIN_REQUIRED_VERSION ); ?></p>
+        </div>
 		<?php
 	}
 
@@ -648,9 +656,9 @@ final class WooCommerce_API_Manager {
 		}
 
 		?>
-		<div class="notice notice-error">
-			<p><?php printf( __( 'The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version %s or greater, but your server has WooCommerce Subscriptions version %s installed. Please upgrade WooCommerce Subscriptions to version %s or greater.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, $wam_wc_subs_active_version, WC_AM_WC_SUBS_MIN_REQUIRED_VERSION ); ?></p>
-		</div>
+        <div class="notice notice-error">
+            <p><?php printf( __( 'The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version %s or greater, but your server has WooCommerce Subscriptions version %s installed. Please upgrade WooCommerce Subscriptions to version %s or greater.', 'woocommerce-api-manager' ), '<strong>', '</strong>', WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, $wam_wc_subs_active_version, WC_AM_WC_SUBS_MIN_REQUIRED_VERSION ); ?></p>
+        </div>
 		<?php
 	}
 

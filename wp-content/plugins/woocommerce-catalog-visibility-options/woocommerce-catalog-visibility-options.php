@@ -4,11 +4,11 @@
  *
  * Plugin URI: https://woocommerce.com/products/catalog-visibility-options/
  * Description: Provides the ability to hide prices, or show prices only to authenticated users. Provides the ability to disable e-commerce functionality by disabling the cart.
- * Version: 3.3.0
+ * Version: 3.3.1
  * Author: Lucas Stark
  * Author URI: https://www.elementstark.com/
  * Requires at least: 4.0
- * Tested up to: 6.1
+ * Tested up to: 6.2
  *
  * Text Domain: wc_catalog_restrictions
  * Domain Path: /i18n/languages/
@@ -17,7 +17,7 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * WC tested up to: 7.4
+ * WC tested up to: 7.7
  * WC requires at least: 6.0
  * Woo: 18648:12e791110365fdbb5865c8658907967e
  */

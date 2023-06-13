@@ -1,10 +1,11 @@
 <?php
 /**
 * Calendar Filtering
-* @version 4.3.3
+* @version 4.4
 */
 
 class EVO_Cal_Filering{
+	public $cal;
 	public function __construct(){
 		$this->cal = EVO()->evo_generator;
 		add_filter('evo_cal_above_header_btn', array($this, 'cal_header_btn'),10,2);
@@ -134,9 +135,16 @@ class EVO_Cal_Filering{
 						if($ff == 'evpf'){
 							$__filter_val = (!empty($args[$vv])? $args[$vv]: 'all');
 
+							extract( $this->process_filter_terms( $__filter_val ) );
+
+							$data_args = $help->array_to_html_data(array(
+								'notvals'=> $not_values,// default not changing
+								'invals'=> $in_values,// default not changing
+							));	
+
 							$filter_type_name = evo_lang('Past and Future Events');
 							echo "<div class='eventon_filter evo_hideshow_pastfuture' data-filter_field='{$vv}' 
-								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}'>								
+								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}' ". $data_args. ">								
 								<div class='eventon_filter_selection'>
 									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow select_one' style='display:none'>";
@@ -154,9 +162,17 @@ class EVO_Cal_Filering{
 						if($ff == 'evvir'){
 							$__filter_val = (!empty($args[$vv])? $args[$vv]: 'all');
 
+							extract( $this->process_filter_terms( $__filter_val ) );
+
+							$data_args = $help->array_to_html_data(array(
+								'notvals'=> $not_values,// default not changing
+								'invals'=> $in_values,// default not changing
+							));	
+
+
 							$filter_type_name = evo_lang('Virtual Events');
 							echo "<div class='eventon_filter evo_hideshow_vir' data-filter_field='{$vv}' 
-								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}'>								
+								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}' ". $data_args. ">								
 								<div class='eventon_filter_selection'>
 									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow select_one' style='display:none'>";
@@ -180,9 +196,16 @@ class EVO_Cal_Filering{
 						if($ff == 'evst'){
 							$__filter_val = (!empty($args[$vv])? $args[$vv]: 'all');
 
+							extract( $this->process_filter_terms( $__filter_val ) );
+
+							$data_args = $help->array_to_html_data(array(
+								'notvals'=> $not_values,// default not changing
+								'invals'=> $in_values,// default not changing
+							));	
+
 							$filter_type_name = evo_lang('Events Status');
 							echo "<div class='eventon_filter evo_hideshow_st' data-filter_field='{$vv}' 
-								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}'>								
+								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}' ". $data_args. ">								
 								<div class='eventon_filter_selection'>
 									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow select_one' style='display:none'>";
@@ -219,6 +242,12 @@ class EVO_Cal_Filering{
 							$__filter_val = (!empty($args[$vv])? $args[$vv]: 'all');
 							$filtering_values = $__filter_val == 'all'? array(): explode(',', $__filter_val);
 
+							extract( $this->process_filter_terms( $__filter_val ) );
+							$data_args = $help->array_to_html_data(array(
+								'notvals'=> $not_values,// default not changing
+								'invals'=> $in_values,// default not changing
+							));
+
 							// INSIDE
 								$inside = '';
 								// all event tags
@@ -235,7 +264,7 @@ class EVO_Cal_Filering{
 							// Empty inside
 							if(empty($inside)) continue;
 
-							echo "<div class='eventon_filter evo_hideshow_evotag' data-filter_field='event_tag' data-filter_val='{$__filter_val}' data-filter_type='tax' data-fldef='{$__filter_val}'>								
+							echo "<div class='eventon_filter evo_hideshow_evotag' data-filter_field='event_tag' data-filter_val='{$__filter_val}' data-filter_type='tax' data-fldef='{$__filter_val}' ". $data_args. ">								
 								
 								<div class='eventon_filter_selection'>
 									<p class='filtering_set_val' data-opts='evs4_in'>". evo_lang('Event Tag'). "<em class='fa fa-check'></em></p>
@@ -288,10 +317,14 @@ class EVO_Cal_Filering{
 								$inside .=  "<p class='evo_filter_val ". $select_all ." all' data-filter_val='all'>{$__text_all_}</p>";
 							}
 
+							//print_r($in_values);
+
 							// each taxonomy term
 								foreach($cats as $ct){
 									// show only set filter values if set & NOT values are empty
-										if($filter_show_set_only && !in_array($ct->term_id, $in_values ) && count($not_values) == 0 ) continue;
+										if($filter_show_set_only && !in_array($ct->term_id, $in_values ) && count($not_values) == 0)
+											continue;
+
 
 									// if NOT filter value > skip it
 										if( in_array( $ct->term_id, $not_values) ) continue;
@@ -330,8 +363,8 @@ class EVO_Cal_Filering{
 									(!empty($this->cal->lang_array[$ff])? $this->cal->lang_array[$ff]: 
 										evo_lang(str_replace('_', ' ', $vv)) );
 							
-							// process the initial value
-							$initial_filter_value = $raw_filter_val . (in_array('all', $in_values) ? ',all':'');
+							// process the initial value @u 4.4
+							$initial_filter_value = $raw_filter_val;
 
 							$data_args = $help->array_to_html_data(array(
 								'filter_field'=> $vv,								
@@ -391,7 +424,7 @@ class EVO_Cal_Filering{
 					if( strpos($single_term_id, 'NOT-')!== false ){
 						$not_values[] = str_replace('NOT-', '', $single_term_id);
 					}else{
-						$in_values[] = $value;
+						$in_values[] = $single_term_id;
 					}
 				}
 
@@ -431,9 +464,13 @@ class EVO_Cal_Filering{
 					$tax_name = $name == 'event_tag'? 'post_tag':$name;
 
 					$SC_val = $SC[$name];
-					$SC_filter_val = apply_filters('eventon_event_type_value', $SC_val, $name, $SC);					
+					$SC_filter_val = apply_filters('eventon_event_type_value', $SC_val, $name, $SC);	
 
-					if($SC_filter_val == 'all') continue;
+					$terms_array = $values_array = explode(',', $SC_filter_val);
+					$terms_array = array_filter( array_unique($terms_array) );
+
+					// if this tax is all > skip it
+					if( in_array('all', $terms_array) && count($terms_array) == 1) continue;
 
 					if(in_array($name, $meta_query_keys)){
 						$wp_meta_query[] = array(
@@ -444,13 +481,9 @@ class EVO_Cal_Filering{
 
 						$operator = 'IN';
 						$terms = '';
-
-						$values_array = explode(',', $SC_filter_val);
-
-
+					
 						// NOT filter process @updated 4.3.3
 						if(strpos($SC_filter_val, 'NOT-')!== false){
-
 
 							// separate not values 							
 							$not_values = $in_values = array();
@@ -465,8 +498,8 @@ class EVO_Cal_Filering{
 									}
 								}
 
-								$not_values = array_unique($not_values);// remove duplicates
 
+								$not_values = array_unique($not_values);// remove duplicates
 
 							// not do any terms
 							if( in_array('NOT-all', $values_array) || in_array('NOT-ALL', $values_array) ){
@@ -507,21 +540,25 @@ class EVO_Cal_Filering{
 								}else{
 									$wp_tax_query = array_merge($wp_tax_query, $wp_tax_add);
 								}
+
+								continue;
 							
 							}
 						}else{
-							$terms = array_filter($values_array);
+							$terms = array_filter($terms_array);
 						}
 
 						// add to tax query
 						$wp_tax_query[] = array(
-							'taxonomy'=> ($name == 'event_tag'? 'post_tag':$name),
+							'taxonomy'=> $tax_name,
 							'field'=> 	apply_filters('eventon_filter_field_type', 'id',$name),
 							'terms'=>	$terms,
 							'operator'=>$operator,
 						);
 					}
 				}	
+
+				//print_r($wp_tax_query);
 
 			// Append to wp_query
 				if(!empty($wp_tax_query)){

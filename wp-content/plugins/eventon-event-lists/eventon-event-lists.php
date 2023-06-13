@@ -4,22 +4,24 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create past and upcoming event lists for eventON
  Author: Ashan Jay
- Version: 0.21
+ Version: 1.0
  Author URI: http://www.ashanjay.com/
- Requires at least: 5.0
- Tested up to: 5.6
+ Requires at least: 6.0
+ Tested up to: 6.2
+ Text Domain: evoel
+ Domain Path: /lang/
  */
  
 class eventon_event_lists{
 	
-	public $version='0.21';
-	public $eventon_version = '3.0.6';
+	public $version='1.0';
+	public $eventon_version = '4.3';
 	public $name = 'EventLists';
 	
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path, $addon ;	
+	public $template_url, $frontend, $shortcodes;
 	private $urls;
-	public $template_url ;
 	
 	public $is_running_el = false;
 	
@@ -58,6 +60,9 @@ class eventon_event_lists{
 			
 	// SUPER init
 		function super_init(){
+
+			$this->load_plugin_textdomain();
+			
 			// PLUGIN SLUGS			
 			$this->addon_data['plugin_url'] = path_join(WP_PLUGIN_URL, basename(dirname(__FILE__)));
 			$this->addon_data['plugin_slug'] = plugin_basename(__FILE__);
@@ -88,6 +93,18 @@ class eventon_event_lists{
 
 			// RUN addon updater only in dedicated pages
 			if ( is_admin() )	$this->addon->updater();
+		}
+
+	// Load localisation files
+		function load_plugin_textdomain(){		
+			
+			$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
+			$locale = apply_filters( 'plugin_locale', $locale, 'evoel' );
+			
+			if ( is_admin() ) {
+				load_textdomain( 'evoel', WP_LANG_DIR . "/eventon-event-lists/lang/evoel-".$locale.".mo" );	
+				load_plugin_textdomain( 'evoel', false, plugin_basename( dirname( __FILE__ ) ) . "/lang" );
+			}		
 		}
 
 	// SECONDARY FUNCTIONS

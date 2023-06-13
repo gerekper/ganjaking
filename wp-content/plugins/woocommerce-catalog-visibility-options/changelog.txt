@@ -1,4 +1,24 @@
 *** Catalog Visibility Options Changelog ***
+2023.06.10 - version 3.3.1
+    * Update: WP and WC version compatibility.
+    * Update: Call catalog_visibility_alternate_add_to_cart_link_url filter on the add to cart link for shop links.
+    * New: Allow filtering of the locations which are used for the location picker.  Use the filter woocommerce_catalog_restrictions_available_locations.
+            	 * add_filter( 'woocommerce_catalog_restrictions_available_locations', function( $available_locations, $allowed_countries, $allowed_states, $use_states ) {
+            	 * $available_locations = [
+            	 *    'US' => [
+            	 *        'title' => 'United States',
+            	 *        'code' => 'US',
+            	 *        'states' => [
+            	 *            'CA' => [
+            	 *                'title' => 'California',
+            	 *                'code' => 'CA'
+            	 *            ],
+            	 *         ]
+            	 *     ]
+            	 * ];
+            	 * return $available_locations;
+            	 * }, 10, 4 );
+
 2023.03.01 - version 3.3.0
     * Update: WP and WC version compatibility.
     * Update: PHP 8 compatibility.

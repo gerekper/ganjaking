@@ -1,7 +1,7 @@
 <?php
 /**
  * Notification email sent to ADMIN
- * @version 	2.6.3
+ * @version 	2.9.3
  *
  * To Customize this template: copy and paste this file to .../wp-content/themes/--your-theme-name--/eventon/templates/email/rsvp/ folder and edit that file.
  *
@@ -104,11 +104,24 @@
 						array( EVORS()->lang('evoRSLX_003a', 'Receive Updates', $lang) , $RSVP->get_prop('updates') ),
 					);
 
+
+					// additional guest names
+						if($RSVP->get_prop('names')){
+							$data[] = array(evo_lang('Additional guest names', $lang), implode(', ', $RSVP->get_prop('names') )	);
+						}
+
+					// for each data field
+						foreach($data as $vv){
+							if(empty($vv[1])) continue;
+							echo $__item_p_beg . $vv[0] .':</span> '. html_entity_decode($vv[1]) .'</p>';
+						}
+
 					//additional fields
+						$af_data = array();
 						for($x=1; $x<= EVORS()->frontend->addFields; $x++){
 
 							if( !EVO()->cal->check_yn('evors_addf'.$x,'evcal_rs') ) continue;
-							if( !$RSVP->get_prop('evors_addf'.$x.'_1') ) continue;					
+							if( !$RSVP->get_prop('evors_addf'.$x) ) continue;					
 							
 							// if show no AFs
 							 	if($this_event->_show_none_AF()) continue;
@@ -119,34 +132,33 @@
 							// if uploaded file
 							 	if( EVO()->cal->get_prop('evors_addf'.$x.'_2','evcal_rs') == 'file' ){
 
-							 		$media_id = $RSVP->get_prop('evors_addf'.$x.'_1');
+							 		$media_id = $RSVP->get_prop('evors_addf'.$x);
 							 		$url = wp_get_attachment_url( $media_id );
 									
 									if( !$url ) continue;
 
-							 		$data[] = array(
+							 		$af_data[] = array(
 							 			html_entity_decode($optRS['evors_addf'.$x.'_1']),
 							 			$url
 							 		);
 							 	}else{
-							 		$data[] = array(
-								 		html_entity_decode($optRS['evors_addf'.$x.'_1']) , $RSVP->get_prop('evors_addf'.$x.'_1')
+							 		$af_data[] = array(
+								 		html_entity_decode($optRS['evors_addf'.$x.'_1']) , $RSVP->get_prop('evors_addf'.$x )
 								 	);
-							 	}
-
-							 		
+							 	}							 		
 						}
 
-					// additional guest names
-						if($RSVP->get_prop('names')){
-							$data[] = array(evo_lang('Additional Information', $lang), implode(', ', $RSVP->get_prop('names') )	);
+						// for each additional field data
+						if( count($af_data)> 0){
+							echo "<div style='background-color: #eee;border-radius: 10px; padding: 20px; margin-top: 20px;'><p style='{$__styles_02}'><span style='color:#333;'>" . evo_lang('Additional Information', $lang) . "</span></p>";
 						}
-
-					// for each data field
-					foreach($data as $vv){
-						if(empty($vv[1])) continue;
-						echo $__item_p_beg . $vv[0] .':</span> '. html_entity_decode($vv[1]) .'</p>';
-					}
+						foreach($af_data as $vv){
+							if(empty($vv[1])) continue;
+							echo $__item_p_beg . $vv[0] .':</span> '. html_entity_decode($vv[1]) .'</p>';
+						}
+						if( count($af_data)> 0){
+							echo "</div>";
+						}
 
 					// close switch case				
 					break;

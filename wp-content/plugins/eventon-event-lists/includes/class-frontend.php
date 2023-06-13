@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Lists Ext. Addon Front end
- * @version 0.21
+ * @version 1.0
  */
 class evoel_frontend{
 
@@ -121,11 +121,14 @@ class evoel_frontend{
 						$__focus_start_date_range = strtotime( date("m/j/Y", $current_timestamp).'00:00:00' );
 					}elseif($end=='rightnow'){
 						$__focus_start_date_range = $current_timestamp;
-					}elseif($end=='rightnow'){
-						
 					}else{
 						$__focus_start_date_range = $current_timestamp;
 					}
+
+					// +/- days & +/- months
+						if(strpos($start, 'days') !== false || strpos($start, 'months') !== false){
+							$__focus_start_date_range = strtotime($start, $__focus_start_date_range);
+						}
 
 					// END TIME
 					if(strpos($end, '/') !== false){
@@ -138,11 +141,25 @@ class evoel_frontend{
 						$__focus_end_date_range = strtotime('+1 month', $current_timestamp);
 					}
 
-					// calculate number of months
-						$_unix_between_range = $__focus_start_date_range - $__focus_end_date_range;						
-						$SC['number_of_months'] = ((int)abs( $_unix_between_range/(60*60*24*30)) ) +1;
+					// +/- days & +/- months
+						if(strpos($end, 'days') !== false || strpos($end, 'months') !== false){
+							$__focus_end_date_range = strtotime($end, $current_timestamp);
+						}
 
-						if($SC['number_of_months'] == 0) $SC['number_of_months'] = 1;
+					// calculate number of months
+						if( $number_of_months > 1){
+							$__focus_end_date_range = strtotime(
+								'+'.( (int)$number_of_months ).' months', 
+								$__focus_start_date_range);
+							$SC['number_of_months'] = (int)$number_of_months;
+
+						// calculate number of months based on end range time
+						}else{
+							$_unix_between_range = $__focus_start_date_range - $__focus_end_date_range;						
+							$SC['number_of_months'] = ((int)abs( $_unix_between_range/(60*60*24*30)) ) +1;
+							if($SC['number_of_months'] == 0) $SC['number_of_months'] = 1;
+						}
+
 
 
 			// past events list -- el_type = pe
@@ -172,7 +189,7 @@ class evoel_frontend{
 
 				}
 
-			//echo 'from '.date('Y-m-d H/i/s', $__focus_start_date_range) .' to'. date('Y-m-d H/i/s', $__focus_start_date_range);
+			//echo 'from '.date('Y-m-d H/i/s', $__focus_start_date_range) .' to'. date('Y-m-d H/i/s', $__focus_end_date_range);
 
 			$SC['focus_start_date_range'] = $__focus_start_date_range;	
 			$SC['focus_end_date_range'] = $__focus_end_date_range;
@@ -256,8 +273,10 @@ class evoel_frontend{
 				// EACH MONTH			
 				for($x=0; $x< $number_of_months ; $x++){
 
+
 					// if count per cal met
-					if($event_count_list == 'yes' && $show_limit == 'no' && $_EC == $event_count) continue;
+					if($event_count_list == 'yes' && $show_limit == 'no' && $event_count != 0 && $_EC == $event_count) continue;
+
 
 					// each month event count
 					$_ECM = 0;
@@ -293,7 +312,9 @@ class evoel_frontend{
 							if( $x+1 == $number_of_months){ // last month in list
 								$DD->setTimestamp( (int)$focus_end_date_range);
 							}
-						}					
+						}			
+
+						
 						
 						$EU = $DD->format('U');				
 
@@ -306,7 +327,7 @@ class evoel_frontend{
 						if($hide_mult_occur == 'yes' && array_key_exists($event['_ID'], $_ESM) ) continue;
 						
 						// count limit
-						if( $event_count_list == 'yes'){ // per calendar
+						if( $event_count_list == 'yes' && $event_count != 0){ // per calendar
 							if($show_limit == 'no' &&  $_EC == $event_count) continue;
 							if($show_limit == 'yes' && $sep_month == 'yes' &&  $_EC == $event_count) continue;
 							
@@ -321,14 +342,11 @@ class evoel_frontend{
 							$SU, $EU,  (int)$event['event_start_unix'] , (int)$event['event_end_unix'] 
 						)){
 
-							//echo date('y-m-d',$SU ).' '.date('y-m-d',$EU).' '.date('y-m-d',(int)$event['event_start_unix']).' '. date('y-m-d',(int)$event['event_end_unix']).'//';
-
-							
-
 							$_ES[ $event['_ID'] ] = $_ESM[$event['_ID']] = $event;
 							$_EC++; $_ECM++;
 						}
 					}
+
 
 					// count for all cal with show more
 					if($event_count_list == 'yes' && $show_limit == 'yes' ){
@@ -370,8 +388,8 @@ class evoel_frontend{
 				$content .= EVO()->calendar->filtering->no_more_events_add($_ES);
 			}
 
-
-			if( $_EC == 0 && $sep_month == 'no'){
+			// when there are no events in entire calendar
+			if( $_EC == 0 ){
 				$content = "<div class='eventon_list_event no_events'><p class='no_events' >".EVO()->calendar->lang_array['no_event']."</p></div>";
 			}
 
@@ -401,7 +419,6 @@ class evoel_frontend{
 
 	//	STYLES
 		function styles(){
-			global $eventon_el;
 			ob_start();
 			include_once(EVOEL()->assets_path.'el_styles.css');
 			echo ob_get_clean();

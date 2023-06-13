@@ -1,5 +1,76 @@
 <?php
 
+/**
+ * Get locations that can be used to restrict catalog visibility.
+ *
+ * @return array List of locations that can be used to restrict catalog visibility.
+ *             Each location has a title, code, and states (if applicable).
+ *             The states are an array of state codes and titles.
+ * @uses WC()->countries->get_allowed_country_states()
+ *
+ * @uses WC()->countries->get_allowed_countries()
+ */
+function woocommerce_catalog_restrictions_get_locations(): array {
+	// List of available locations the user can choose from. This is a list of countries and potentially states.
+	$available_locations = [];
+
+	// Get all allowed countries
+	$allowed_countries = WC()->countries->get_allowed_countries();
+
+	// Get all allowed states
+	$allowed_states = WC()->countries->get_allowed_country_states();
+
+	foreach ( $allowed_countries as $country_code => $country_value ) {
+		$available_locations[ $country_code ] = [
+			'title'  => $country_value, // 'title' is the country name, e.g. 'United States
+			'code'   => $country_code,
+			'states' => []
+		];
+
+		// If we're using states, add them to the list of available locations
+		$states = $allowed_states[ $country_code ] ?? false;
+		if ( ! empty( $states ) ) {
+			foreach ( $states as $state_code => $state ) {
+				$available_locations[ $country_code ]['states'][ $state_code ] = [
+					'title' => $state, // 'title' is the state name, e.g. 'California'
+					'code'  => $state_code
+				];
+			}
+		}
+	}
+
+	/**
+	 * Filter the list of available locations the user can choose from. This is a list of countries and potentially states.
+	 *
+	 * @param array $available_locations An array of available locations.
+	 * @param array $allowed_countries An array of allowed countries.
+	 * @param array $allowed_states An array of allowed states.
+	 * @param bool $use_states Whether to use states.
+	 *
+	 * @return array
+	 *
+	 * @example
+	 * add_filter( 'woocommerce_catalog_restrictions_available_locations', function( $available_locations, $allowed_countries, $allowed_states, $use_states ) {
+	 * $available_locations = [
+	 *    'US' => [
+	 *        'title' => 'United States',
+	 *        'code' => 'US',
+	 *        'states' => [
+	 *            'CA' => [
+	 *                'title' => 'California',
+	 *                'code' => 'CA'
+	 *            ],
+	 *         ]
+	 *     ]
+	 * ];
+	 * return $available_locations;
+	 * }, 10, 4 );
+	 */
+	$use_states          = apply_filters( 'woocommerce_catalog_restrictions_locations_include_states', get_option( '_wc_restrictions_locations_type' ) == 'states' );
+
+	return apply_filters( 'woocommerce_catalog_restrictions_available_locations', $available_locations, $allowed_countries, $allowed_states, $use_states );
+}
+
 function woocommerce_catalog_restrictions_country_input( $value = '', $args = '' ) {
 	global $woocommerce;
 
@@ -16,60 +87,53 @@ function woocommerce_catalog_restrictions_country_input( $value = '', $args = ''
               <select name="' . $key . '" id="' . $key . '" class="country_to_state ' . implode( ' ', $args['class'] ) . '">';
 
 
-	if ( apply_filters( 'woocommerce_catalog_restrictions_locations_include_states', get_option( '_wc_restrictions_locations_type' ) == 'states' ) ) {
-
+	$available_locations = woocommerce_catalog_restrictions_get_locations();
+	$use_states          = apply_filters( 'woocommerce_catalog_restrictions_locations_include_states', get_option( '_wc_restrictions_locations_type' ) == 'states' );
+	if ( $use_states ) {
 		$field .= '<option value="">' . __( 'Select your country / state&hellip;', 'wc_catalog_restrictions' ) . '</option>';
 
-		$all_states = WC()->countries->get_allowed_country_states();
-		foreach ( $woocommerce->countries->get_allowed_countries() as $ckey => $cvalue ) {
+		foreach ( $available_locations as $country_code => $country_data ) {
 
-			$states = isset( $all_states[ $ckey ] ) ? $all_states[ $ckey ] : false;
-			if ( $states && ! empty( $states ) ) {
-				$field .= '<optgroup label="' . __( $cvalue, 'woocommerce' ) . '">';
+			$states = $country_data['states'] ?? false;
+			if ( ! empty( $states ) ) {
+				$field .= '<optgroup label="' . __( $country_data['title'], 'woocommerce' ) . '">';
 
 				foreach ( $states as $skey => $state ) {
-					$cs_value = $ckey . $skey;
-					$selected = '';
+					$country_state_code = $country_code . $skey;
 					if ( is_array( $value ) ) {
-						$selected = in_array( $cs_value, $value ) ? 'selected="selected"' : '';
+						$selected = in_array( $country_state_code, $value ) ? 'selected="selected"' : '';
 					} else {
-						$selected = $cs_value == $value ? 'selected="selected"' : '';
+						$selected = $country_state_code == $value ? 'selected="selected"' : '';
 					}
 
-					$field .= '<option value="' . $cs_value . '" ' . $selected . '>' . __( $state, 'woocommerce' ) . '</option>';
+					$field .= '<option value="' . $country_state_code . '" ' . $selected . '>' . __( $state['title'], 'woocommerce' ) . '</option>';
 				}
 				$field .= '</optgroup>';
 			} else {
-				$selected = '';
 				if ( is_array( $value ) ) {
-					$selected = in_array( $ckey, $value ) ? 'selected="selected"' : '';
+					$selected = in_array( $country_code, $value ) ? 'selected="selected"' : '';
 				} else {
-					$selected = $ckey == $value ? 'selected="selected"' : '';
+					$selected = $country_code == $value ? 'selected="selected"' : '';
 				}
 
-				$field .= '<option value="' . $ckey . '" ' . $selected . '>' . __( $cvalue, 'woocommerce' ) . '</option>';
+				$field .= '<option value="' . $country_code . '" ' . $selected . '>' . __( $country_data['title'], 'woocommerce' ) . '</option>';
 
 			}
-
 		}
 	} else {
 		$field .= '<option value="">' . __( 'Select your country&hellip;', 'wc_catalog_restrictions' ) . '</option>';
-
-		foreach ( $woocommerce->countries->get_allowed_countries() as $ckey => $cvalue ) {
-			$selected = '';
+		foreach ( $available_locations as $country_code => $country_data ) {
 			if ( is_array( $value ) ) {
-				$selected = in_array( $ckey, $value ) ? 'selected="selected"' : '';
+				$selected = in_array( $country_code, $value ) ? 'selected="selected"' : '';
 			} else {
-				$selected = $ckey == $value ? 'selected="selected"' : '';
+				$selected = $country_code == $value ? 'selected="selected"' : '';
 			}
 
-			$field .= '<option value="' . $ckey . '" ' . $selected . '>' . __( $cvalue, 'woocommerce' ) . '</option>';
+			$field .= '<option value="' . $country_code . '" ' . $selected . '>' . __( $country_data['title'], 'woocommerce' ) . '</option>';
 		}
 	}
 
-
 	$field .= '</select>';
-
 	echo $field;
 }
 
@@ -79,28 +143,27 @@ function woocommerce_catalog_restrictions_country_multiselect_options( $selected
 		$selected_values = array( $selected_values );
 	}
 
-	if ( apply_filters( 'woocommerce_catalog_restrictions_locations_include_states', get_option( '_wc_restrictions_locations_type' ) == 'states' ) ) {
-		$all_states = WC()->countries->get_allowed_country_states();
-		$countries  = WC()->countries->get_allowed_countries();
-		foreach ( $countries as $ckey => $cval ) {
-			$states = isset( $all_states[ $ckey ] ) ? $all_states[ $ckey ] : false;
-			if ( $states && ! empty( $states ) ) {
-				echo '<optgroup label="' . esc_attr( $cval ) . '">';
+	$use_states          = apply_filters( 'woocommerce_catalog_restrictions_locations_include_states', get_option( '_wc_restrictions_locations_type' ) == 'states' );
+	$available_locations = woocommerce_catalog_restrictions_get_locations();
+	if ( $use_states ) {
+		foreach ( $available_locations as $ckey => $cval ) {
+			$states = $cval['states'] ?? false;
+			if ( ! empty( $states ) ) {
+				echo '<optgroup label="' . esc_attr( $cval['title'] ) . '">';
 				foreach ( $states as $skey => $sval ) {
 					$cs_value = $ckey . $skey;
-					echo '<option ' . selected( in_array( $cs_value, $selected_values ), true, false ) . 'value="' . $cs_value . '">' . $sval . '</option>';
+					echo '<option ' . selected( in_array( $cs_value, $selected_values ), true, false ) . ' value="' . $cs_value . '">' . $sval . '</option>';
 				}
 				echo '</optgroup>';
 			} else {
-				echo '<option ' . selected( in_array( $ckey, $selected_values ), true, false ) . ' value="' . $ckey . '">' . ( $escape ? esc_js( $cval ) : $cval ) . '</option>';
+				echo '<option ' . selected( in_array( $ckey, $selected_values ), true, false ) . ' value="' . $ckey . '">' . ( $escape ? esc_js( $cval['title'] ) : $cval['title'] ) . '</option>';
 			}
 		}
 
 	} else {
 
-		$countries = WC()->countries->get_allowed_countries();
-		foreach ( $countries as $key => $val ) {
-			echo '<option ' . selected( in_array( $key, $selected_values ), true, false ) . ' value="' . $key . '">' . ( $escape ? esc_js( $val ) : $val ) . '</option>';
+		foreach ( $available_locations as $key => $val ) {
+			echo '<option ' . selected( in_array( $val['code'], $selected_values ), true, false ) . ' value="' . $key . '">' . ( $escape ? esc_js( $val['title'] ) : $val['title'] ) . '</option>';
 		}
 	}
 }
@@ -142,23 +205,23 @@ function woocommerce_catalog_restrictions_wp_select( $field ) {
 	$tooltip     = ! empty( $field['description'] ) && false !== $field['desc_tip'] ? $field['description'] : '';
 	$description = ! empty( $field['description'] ) && false === $field['desc_tip'] ? $field['description'] : '';
 	?>
-    <p <?php echo wc_implode_html_attributes( $wrapper_attributes ); // WPCS: XSS ok. ?>>
-        <label <?php echo wc_implode_html_attributes( $label_attributes ); // WPCS: XSS ok. ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
+	<p <?php echo wc_implode_html_attributes( $wrapper_attributes ); // WPCS: XSS ok. ?>>
+		<label <?php echo wc_implode_html_attributes( $label_attributes ); // WPCS: XSS ok. ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
 		<?php if ( $tooltip ) : ?>
 			<?php echo wc_help_tip( $tooltip ); // WPCS: XSS ok. ?>
 		<?php endif; ?>
-        <br />
-        <select <?php echo wc_implode_html_attributes( $field_attributes ); // WPCS: XSS ok. ?>>
+		<br/>
+		<select <?php echo wc_implode_html_attributes( $field_attributes ); // WPCS: XSS ok. ?>>
 			<?php
 			foreach ( $field['options'] as $key => $value ) {
 				echo '<option value="' . esc_attr( $key ) . '"' . wc_selected( $key, $field['value'] ) . '>' . esc_html( $value ) . '</option>';
 			}
 			?>
-        </select>
+		</select>
 		<?php if ( $description ) : ?>
-            <span class="description"><?php echo wp_kses_post( $description ); ?></span>
+			<span class="description"><?php echo wp_kses_post( $description ); ?></span>
 		<?php endif; ?>
-    </p>
+	</p>
 	<?php
 }
 

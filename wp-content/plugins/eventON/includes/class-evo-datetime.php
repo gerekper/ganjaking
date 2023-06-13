@@ -10,6 +10,7 @@
  */
 
 class evo_datetime{		
+	public $wp_time_format, $wp_date_format;
 	/**	Construction function	 */
 		public function __construct(){
 			$this->wp_time_format = EVO()->calendar->time_format;

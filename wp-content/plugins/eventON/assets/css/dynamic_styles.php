@@ -226,6 +226,10 @@
 		,array(
 			'item'=>'.eventon_events_list .eventon_list_event .evcal_list_a.featured_event',
 			'css'=>'background-color:#$', 'var'=>'evcal__bgc5',	'default'=>'fff6e2'
+		),
+		array(
+			'item'=>'.eventon_events_list .eventon_list_event .desc_trig:hover',
+			'css'=>'border-left-width:$', 'var'=>'evcal__ett_borderleft',	'default'=>'7px'
 		),array(
 			'item'=>'.eventon_events_list .eventon_list_event .evcal_list_a.featured_event:hover',
 			'css'=>'background-color:#$', 'var'=>'evcal__bgc5h',	'default'=>'ffecc5'

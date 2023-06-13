@@ -2,7 +2,7 @@
 /**
  * Admin class for countdown addon
  *
- * @version 	0.1
+ * @version 	1.1
  * @author  	AJDE
  */
 
@@ -22,19 +22,13 @@ class evocd_admin{
 		add_filter('eventon_settings_lang_tab_content', array($this,'language_additions'), 10, 1);
 
 		// settings
-		add_filter('eventon_settings_tabs',array($this,'tab_array') ,10, 1);
-		add_action('eventon_settings_tabs_evcal_cd',array($this,'tab_content') );	
-
-		add_action( 'admin_menu', array( $this, 'menu' ),9);
+		add_filter('eventon_settings_tab1_arr_content', array($this, 'evo_settings'), 10, 1);
 		
 		add_filter('eventon_event_metafields',array($this,'save_meta'), 10, 1);
 		
 		// event meta box
-		add_action('eventon_add_meta_boxes',array($this, 'meta_box'));
-
-		
-	}
-	
+		add_action('eventon_add_meta_boxes',array($this, 'meta_box'));		
+	}	
 
 	// event meta box
 		function meta_box(){
@@ -122,97 +116,60 @@ class evocd_admin{
 			return $fields;
 		}
 
-	// EventON settings menu inclusion
-		function menu(){
-			add_submenu_page( 'eventon', 'Countdown', __('Countdown','eventon'), 'manage_eventon', 'admin.php?page=eventon&tab=evcal_cd', '' );
-		}
-
 	// TABS SETTINGS
-		function tab_array($evcal_tabs){
-			$evcal_tabs['evcal_cd']='Countdown';		
-			return $evcal_tabs;
-		}
-
-		function tab_content(){
-			global $eventon;
-
-			$eventon->load_ajde_backender();
-
-			ob_start();?>
-
-				<p>Event countdown can be turned on for each event from event edit page.
-				<br/>
-				You can hide the event countdown timers from a calendar by including below shortcode variable:
-				<br/><br/>
-				<code>hide_countdown="yes"</code> example within a shortcode <code>[add_eventon hide_countdown="yes"]</code>
-				<br/>
-				<br/>Text captions that appear on countdown can be edited from  <strong>myeventon > language</strong>.
-				</p><br/>
-
-				<h4>Compatibility</h4>
-				<p>
-					Real-time event countdown timer (at this time) can only be run on an event in the calendar OR on a single event page. It will only show a static version of the timer when an event is set to open as lightbox.
-				</p>
-
-
-			<?php $content = ob_get_clean();
-			?>
-			<form method="post" action=""><?php settings_fields('evocd_field_group'); 
-					wp_nonce_field( AJDE_EVCAL_BASENAME, 'evcal_noncename' );?>
-			<div id="evcal_cd" class="evcal_admin_meta">	
-				<div class="evo_inside">
-				<?php
-				$site_name = get_bloginfo('name');
-				$site_email = get_bloginfo('admin_email');
-
-				$customization_pg_array = array(					
-					array(							
-							'id'=>'eventon_countdown',
-							'name'=>'Settings & Instructions for Event Countdown',
-							'display'=>'show',
-							'tab_name'=>'General',
-							'fields'=> apply_filters('evo_cd_setting_fields', array(
-								array('id'=>'evo_cd_001','type'=>'customcode',
-										'code'=>$content),
-
-							)
-					))
-				);
-						
-				$eventon->load_ajde_backender();						
-				$evcal_opt = get_option('evcal_options_evcal_cd');
-				print_ajde_customization_form($customization_pg_array, $evcal_opt);	
-				?>
-			</div>
-			</div>
-			<div class='evo_diag'>
-				<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /><br/><br/>
-			</div>
+		function evo_settings($array){			
+			$new_array = $array;
 			
-			</form>	
-			<?php
+			$new_array[]= array(
+				'id'=>'eventon_countdown',
+				'name'=>'CountDown Settings',
+				'display'=>'none','icon'=>'clock',
+				'tab_name'=>'CountDown',
+				'fields'=> apply_filters('evocd_setting_fields', array(
+					array('id'=>'evorss_page','type'=>'note',
+						'name'=>__('Event countdown can be turned on for each event from event edit page.
+						<br/>You can hide the event countdown timers from a calendar by including below shortcode variable:<br/><br/>
+						<code>hide_countdown="yes"</code> example within a shortcode <code>[add_eventon hide_countdown="yes"]</code><br/>
+						<br/>Text captions that appear on countdown can be edited from  <strong>myeventon > language</strong>','evocd')),
+											
+					array('id'=>'evocs_compact','type'=>'dropdown',
+						'name'=>__('Countdown timer layout style','evocd'),
+						'legend'=>__('By default the countdown timer will show as expanded style'),
+						'options'=> array(
+							'def'=>'Expanded Layout',
+							'def2'=>'Expanded Layout with legends under number',
+							'def3'=>'Expanded Layout with legends under number in boxes',
+							'compact'=>'Compact Layout'
+						)
+					),								
+				)
+			));
+			
+			return $new_array;
+
 		}
-	
+		
 	// Appearnace section
-		function appearance_settings($array){			
+		function appearance_settings($array){	
+			extract(EVO()->elements->get_def_css());
+
 			$new[] = array('id'=>'evocd','type'=>'hiddensection_open','name'=>'CountDown Styles','display'=>'none');
-			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Time boxes',
+			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Time on clear eventtop',
 				'variations'=>array(
-					array('id'=>'evocd_1', 'name'=>'General Time font color','type'=>'color', 'default'=>'6b6b6b'),
-					array('id'=>'evocd_3', 'name'=>'Seconds Color','type'=>'color', 'default'=>'cccccc'),					
-					array('id'=>'evocd_4', 'name'=>'Time amount text color','type'=>'color', 'default'=>'ABABAB'),					
+					array('id'=>'evocd_1', 'name'=>'General Time font color','type'=>'color', 'default'=>$evo_color_1),
+					array('id'=>'evocd_3', 'name'=>'Seconds Color','type'=>'color', 'default'=> $evo_color_2),					
+					array('id'=>'evocd_4', 'name'=>'Time legends text color','type'=>'color', 'default'=>$evo_color_2),	
+					array('id'=>'evocd_0', 'name'=>'Countdown title text color','type'=>'color', 'default'=>$evo_color_1),						
 				)
 			);
-			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Time boxes on Tile',
+			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Time on colored eventtop',
 				'variations'=>array(
-					array('id'=>'evocd_1t', 'name'=>'General Time font color','type'=>'color', 'default'=>'6b6b6b'),
-					array('id'=>'evocd_3t', 'name'=>'Seconds Color','type'=>'color', 'default'=>'cccccc'),					
-					array('id'=>'evocd_4t', 'name'=>'Time amount text color','type'=>'color', 'default'=>'ABABAB'),					
-					array('id'=>'evocd_5t', 'name'=>'Countdown title text color','type'=>'color', 'default'=>'ABABAB'),					
+					array('id'=>'evocd_1t', 'name'=>'General Time font color','type'=>'color', 'default'=>'ffffff'),
+					array('id'=>'evocd_3t', 'name'=>'Seconds Color','type'=>'color', 'default'=>'ffffff'),					
+					array('id'=>'evocd_4t', 'name'=>'Time amount text color','type'=>'color', 'default'=>'ffffff'),					
+					array('id'=>'evocd_5t', 'name'=>'Countdown title text color','type'=>'color', 'default'=>'ffffff'),					
 				)
 			);
-			$new[] = array('id'=>'evocd_0','type'=>'fontation','name'=>'Countdown title text color',
-				'type'=>'color', 'default'=>'ABABAB');
 			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Expired Timer',
 				'variations'=>array(
 					array('id'=>'evocd_5', 'name'=>'Font Color','type'=>'color', 'default'=>'ffffff'),
@@ -226,40 +183,42 @@ class evocd_admin{
 			return array_merge($array, $new);
 		}
 		function dynamic_styles($_existen){
+			extract(EVO()->elements->get_def_css());
 			$new= array(
 				array(
-					'item'=>'body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount',
-					'css'=>'color:#$', 'var'=>'evocd_1t','default'=>'6b6b6b'					
+					'item'=>'body .color .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount',
+					'css'=>'color:#$', 'var'=>'evocd_1t','default'=>'ffffff'				
 				),
 				array(
-					'item'=>'body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show3 span:nth-child(3) .countdown-amount, body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show4 span:nth-child(4) .countdown-amount',
-					'css'=>'color:#$', 'var'=>'evocd_3t','default'=>'cccccc'					
+					'item'=>'body .color .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show3 span:nth-child(3) .countdown-amount, body .color .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show4 span:nth-child(4) .countdown-amount',
+					'css'=>'color:#$', 'var'=>'evocd_3t','default'=>'ffffff'					
+				),
+				array(
+					'item'=>'.color .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-period',
+					'css'=>'color:#$', 'var'=>'evocd_4t','default'=>'ffffff'					
 				),array(
-					'item'=>'.boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-period',
-					'css'=>'color:#$', 'var'=>'evocd_4t','default'=>'ABABAB'					
-				),array(
-					'item'=>'body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_text',
-					'css'=>'color:#$', 'var'=>'evocd_5t','default'=>'ABABAB'					
+					'item'=>'body .color .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_text',
+					'css'=>'color:#$', 'var'=>'evocd_5t','default'=>'ffffff'					
 				),
 				array(
 					'item'=>'body .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount, body .evo_pop_body .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount',
 					'multicss'=>array(
-						array('css'=>'color:#$', 'var'=>'evocd_1',	'default'=>'6b6b6b'),
+						array('css'=>'color:#$', 'var'=>'evocd_1',	'default'=>$evo_color_1),
 					)
 				),array(
 					'item'=>'body .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show3 span:nth-child(3) .countdown-amount, body .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show4 span:nth-child(4) .countdown-amount',
 					'multicss'=>array(
-						array('css'=>'color:#$', 'var'=>'evocd_3',	'default'=>'cccccc'),
+						array('css'=>'color:#$', 'var'=>'evocd_3',	'default'=> $evo_color_2),
 					)
 				),array(
 					'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-period, .evo_pop_body .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-period',
 					'multicss'=>array(
-						array('css'=>'color:#$', 'var'=>'evocd_4',	'default'=>'ABABAB'),
+						array('css'=>'color:#$', 'var'=>'evocd_4',	'default'=> $evo_color_1),
 					)
 				),array(
 					'item'=>'body .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_text, .evo_pop_body .evcal_desc span.evocd_timer span.evocd_text',
 					'multicss'=>array(
-						array('css'=>'color:#$', 'var'=>'evocd_0',	'default'=>'ABABAB'),
+						array('css'=>'color:#$', 'var'=>'evocd_0',	'default'=>$evo_color_1),
 					)
 				),array(
 					'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_text.timeexpired, .evo_pop_body .evcal_desc span.evocd_timer span.evocd_text.timeexpired',

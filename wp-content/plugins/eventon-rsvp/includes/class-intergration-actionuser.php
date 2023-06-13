@@ -248,29 +248,43 @@ class evors_actionuser{
 			$selection = (!empty($evors_opt['evors_selection']))? $evors_opt['evors_selection']: true;
 
 			wp_enqueue_script('evo_RS_script');
+
+			$RSVP_LIST = $EVENT->GET_rsvp_list();
+
+			$checkin_stats = $EVENT->get_checked_stats($RSVP_LIST );
 				
 			?>
 			<div id='evorsau_rsvp_section' class='evoau_manager_continer' style='padding:15px;' data-eid='<?php echo $event_id;?>' data-ri='<?php echo $ri;?>'>
 				<h3 class="evoauem_section_subtitle"><?php evo_lang_e('Event');?>: <b><?php echo get_the_title($event_id);?></b> 
-					<i class='evoau_information_bubble' style=''><?php evo_lang_e('RSVP Information & Stats');?></i> 
+					<i class='evoau_information_bubble' style='font-style: normal;'><?php evo_lang_e('RSVP Information & Stats');?></i> 
 					<i class='fa fa-repeat evorsau_refresh_data evorsau_icon_button' title='<?php evo_lang_e('Refresh data');?>'></i>
 				</h3>	
 				<div class="evoaursvp_data" style='margin-top:10px;'>
 					
 					<div id="evorsau_stats" class='evoau_tile' style=''>
-						<h4 style='margin:0'><?php evo_lang_e('Total Capacity');?></h4>
+						<h4 style='margin:0'><?php evo_lang_e('Capacity Information');?></h4>
+						<div class='evorsau_cap_statboxes'>
 						<?php
 							$total = $EVENT->event->get_prop('evors_capacity_count');
 							
 							if( !empty( $total )){
-								echo "<p class='num'>{$total}</p>";
+								echo "<p class='num'>{$total}<em>". evo_lang('Capacity') ."</em></p>";
+							}
+
+							if( isset($checkin_stats['checked'])){
+								echo "<p class='num checked'>{$checkin_stats['checked']}<em>". evo_lang('Checked') ."</em></p>";
+							}
+							if( isset($checkin_stats['check-in'])){
+								echo "<p class='num checkin'>{$checkin_stats['check-in']}<em>". evo_lang('Not Checked') ."</em></p>";
 							}
 
 							$synced = $EVENT->total_rsvp_counts();
 
 							$total = !empty($total)? $total: ($synced['y'] + $synced['n'] + $synced['m']);
 
+							do_action('evors_au_eventmanager_statbox', $EVENT);
 						?>
+						</div>
 
 						<div class="evorsau_bar">
 							<span class="yes_count" style='width:<?php echo ($total>0? ($synced['y']/$total *100):0);?>%'></span>
@@ -281,6 +295,8 @@ class evors_actionuser{
 							<?php if(is_array($selection) && in_array('m', $selection)):?>
 							<span class="maybe_count" style='width:<?php echo ($total>0? ($synced['m']/$total *100):0);?>%'></span>
 							<?php endif;?>
+
+							<?php do_action('evors_au_eventmanager_bar', $EVENT);?>
 						</div>
 						<div class="evorsau_legends">
 							<span class="data_yes"><b></b> <?php evo_lang_e('Yes');?> <em><?php echo $synced['y'];?></em></span>
@@ -292,6 +308,7 @@ class evors_actionuser{
 							<?php if(is_array($selection) && in_array('m', $selection)):?>
 							<span class="data_maybe"><b></b> <?php evo_lang_e('Maybe');?> <em><?php echo $synced['m'];?></em></span>
 							<?php endif;?>
+							<?php do_action('evors_au_eventmanager_stats', $EVENT);?>
 						</div>
 					</div>	
 
@@ -309,7 +326,7 @@ class evors_actionuser{
 									
 						
 					<?php 
-						$RSVP_LIST = $EVENT->GET_rsvp_list();
+						
 
 						if($RSVP_LIST):
 							$__checking_status_text = EVORS()->frontend->get_trans_checkin_status();
@@ -346,7 +363,7 @@ class evors_actionuser{
 								<?php // RSVP yes attendees?>
 
 								<div class='evoau_tile'>
-									<p class='header rsvp_yes'><?php evo_lang_e('RSVP Status: YES');?></p>
+									<p class='header rsvp_yes'><?php evo_lang_e('RSVP Status: YES');?> <em ><?php echo !empty($RSVP_LIST['y'])? count($RSVP_LIST['y']):0;?></em></p>
 									<?php
 									if(!empty($RSVP_LIST['y']) && count($RSVP_LIST['y'])>0){
 										echo "<ul>";
@@ -363,11 +380,10 @@ class evors_actionuser{
 								<?php 
 
 								// RSVP maybe attendees
-
 								if(is_array($selection) && in_array('m', $selection)):?>
 								
 								<div class='evoau_tile'>
-									<p class='header rsvp_maybe'><?php evo_lang_e('RSVP Status: MAYBE');?></p><?php
+									<p class='header rsvp_maybe'><?php evo_lang_e('RSVP Status: MAYBE');?> <em ><?php echo !empty($RSVP_LIST['m'])? count($RSVP_LIST['m']):0;?></em></p><?php
 									if(!empty($RSVP_LIST['m']) && count($RSVP_LIST['m'])>0){
 										echo "<ul>";
 										foreach($RSVP_LIST['m'] as $_id=>$rsvp){
@@ -382,6 +398,7 @@ class evors_actionuser{
 								<?php endif;	?>
 							</div>
 								
+							<?php do_action('evors_au_eventmanager_attendees_end', $EVENT);?>
 						<?php endif;	?>
 				</div>
 				</div>

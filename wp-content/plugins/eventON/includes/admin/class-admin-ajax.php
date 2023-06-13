@@ -1,17 +1,20 @@
 <?php
 /**
  * Function ajax for backend
- * @version   4.3
+ * @version   4.4
  */
 class EVO_admin_ajax{
+	public $helper, $post_data;
+	
 	public function __construct(){
+
 		$ajax_events = array(
 			'get_shortcode_generator'=>'get_shortcode_generator',	
 
 			'deactivate_product'	=>'deactivate_product',	
 			'validate_license'		=>'validate_license',					
 			'revalidate_license'	=>'revalidate_license',					
-			'export_events'			=>'export_events',			
+			'export_events'			=>'export_events',					
 			'get_addons_list'		=>'get_addons_list',
 			'export_settings'		=>'export_settings',
 			'import_settings'		=>'import_settings',
@@ -44,6 +47,9 @@ class EVO_admin_ajax{
 
 		$this->helper = new evo_helper();
 		$this->post_data = $this->helper->sanitize_array( $_POST );
+
+		// rest based functions
+		//add_filter('evo_ajax_rest_eventon_eventedit_onload', array($this, 'evo_eventedit_onload'),10, 2);
 	}
 
 	// shortcode generator
@@ -66,15 +72,20 @@ class EVO_admin_ajax{
 
 			$EVENT = new EVO_Event($this->post_data['eid']);
 
-			$content_array = apply_filters('evo_eventedit_pageload_data',array(), $this->post_data, $EVENT);
-			$dom_id_array = apply_filters('evo_eventedit_pageload_dom_ids',array(), $this->post_data, $EVENT);
+			$id = isset( $this->post_data['id'] ) ? $this->post_data['id'] : false;
 
+			$content_array = apply_filters('evo_eventedit_pageload_data',array(), $this->post_data, $EVENT, $id);
+			$dom_id_array = apply_filters('evo_eventedit_pageload_dom_ids',array(), $this->post_data, $EVENT, $id);
 
-			echo json_encode(array(
+			$response = array(
 				'status'=>'good',
 				'content_array'=> $content_array,
 				'dom_ids'=> $dom_id_array
-			));exit;
+			);
+
+			//return $response;
+
+			echo json_encode($response);exit;
 		}
 
 	// virtual events
@@ -408,6 +419,11 @@ class EVO_admin_ajax{
 			// verify nonce
 				if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_download_events')) die('Security Check Failed!');
 
+			$run_process_content = false;
+
+			// if event ID was passed
+			$event_id = isset($_REQUEST['eid']) ? (int)$_REQUEST['eid'] : false;
+
 			header('Content-Encoding: UTF-8');
         	header('Content-type: text/csv; charset=UTF-8');
 			header("Content-Disposition: attachment; filename=Eventon_events_".date("d-m-y").".csv");
@@ -419,49 +435,11 @@ class EVO_admin_ajax{
 			$event_type_count = evo_get_ett_count($evo_opt);
 			$cmd_count = evo_calculate_cmd_count($evo_opt);
 
-			$fields = apply_filters('evo_csv_export_fields',array(
-				'publish_status',	
-				'event_id',			
-				'evcal_event_color'=>'color',
-				'event_name',				
-				'event_description','event_start_date','event_start_time','event_end_date','event_end_time',
+			$fields = $this->get_event_csv_fields();
 
-				'evcal_allday'=>'all_day',
-				'evo_hide_endtime'=>'hide_end_time',
-				'evcal_gmap_gen'=>'event_gmap',
-				'evo_year_long'=>'yearlong',
-				'_featured'=>'featured',
-
-				'evo_location_id'=>'evo_location_id',
-				'evcal_location_name'=>'location_name',	// location name			
-				'evcal_location'=>'event_location',	// address		
-				'location_desc'=>'location_description',	
-				'location_lat'=>'location_latitude',	
-				'location_lon'=>'location_longitude',	
-				'location_link'=>'location_link',	
-				'location_img'=>'location_img',	
-				
-				'evo_organizer_id'=>'evo_organizer_id',
-				'evcal_organizer'=>'event_organizer',
-				'organizer_description'=>'organizer_description',
-				'organizer_contact'=>'evcal_org_contact',
-				'organizer_address'=>'evcal_org_address',
-				'organizer_link'=>'evcal_org_exlink',
-				'organizer_img'=>'evo_org_img',
-
-				'evcal_subtitle'=>'evcal_subtitle',
-				'evcal_lmlink'=>'learnmore link',
-				'image_url',
-
-				'evcal_repeat'=>'repeatevent',
-				'evcal_rep_freq'=>'frequency',
-				'evcal_rep_num'=>'repeats',
-				'evp_repeat_rb'=>'repeatby',
-			));
-			
 			// Print out the CSV file header
 				$csvHeader = '';
-				foreach($fields as $var=>$val){	$csvHeader.= $val.',';	}
+				foreach( $fields as $var=>$val){	$csvHeader.= $val.',';	}
 
 				// event types
 					for($y=1; $y<=$event_type_count;  $y++){
@@ -480,12 +458,14 @@ class EVO_admin_ajax{
 				
 				echo (function_exists('iconv'))? iconv("UTF-8", "ISO-8859-2", $csvHeader): $csvHeader;
  	
- 			// events
-			$events = new WP_Query(array(
-				'posts_per_page'=>-1,
-				'post_type' => 'ajde_events',
-				'post_status'=>'any'			
-			));
+ 			// WP Get events
+				$wp_arg = array(
+					'posts_per_page'=>-1,
+					'post_type' => 'ajde_events',
+					'post_status'=>'any'			
+				);
+				if( $event_id ) $wp_arg['p'] = $event_id;
+				$events = new WP_Query($wp_arg);
 
 			if($events->have_posts()):
 
@@ -531,17 +511,21 @@ class EVO_admin_ajax{
 					// Event Initial
 						// event name
 							$eventName = $EVENT->get_title();
-							$eventName = $this->html_process_content($eventName, $process_html_content);
-							//$eventName = iconv("utf-8", "ascii//TRANSLIT//IGNORE", $eventName);
-							//$eventName =  preg_replace("/^'|[^A-Za-z0-9\s-]|'$/", '', $output); 
-							$eventName = str_replace('&amp;#8217;', "'", $eventName);
+							if( $run_process_content){
+								$eventName = $this->html_process_content($eventName, $process_html_content);
+								$eventName = iconv("utf-8", "ascii//TRANSLIT//IGNORE", $eventName);
+								$eventName =  preg_replace("/^'|[^A-Za-z0-9\s-]|'$/", '', $output); 
+								$eventName = str_replace('&amp;#8217;', "'", $eventName);
+							}
 							$csvRow.= '"'. $eventName.'",';
 
 						// summary for the ICS file
 						$event_content = (!empty($EVENT->content))? $EVENT->content:'';
 							$event_content = str_replace('"', "'", $event_content);
 							$event_content = str_replace(',', "\,", $event_content);
-							$event_content = $this->html_process_content( $event_content, $process_html_content);
+							if( $run_process_content){
+								$event_content = $this->html_process_content( $event_content, $process_html_content);
+							}
 						$csvRow.= '"'.$event_content.'",';
 
 						// start time
@@ -630,8 +614,8 @@ class EVO_admin_ajax{
 							$continue = false;
 							switch ($val){
 								case 'location_description':
-									if ( $event_location_term_id ){
-										$csvRow.= '"'. $this->html_process_content( $_event_location_term[0]->description) . '",';
+									if ( $event_location_term_id && !empty($location_term_meta['location_description']) ){
+										$csvRow.= '"'. $this->html_process_content( $location_term_meta['location_description']) . '",';
 									}else{	$csvRow.= ",";	}
 									$continue = true;
 								break;
@@ -642,8 +626,8 @@ class EVO_admin_ajax{
 									$continue = true;
 								break;
 								case 'location_name':
-									if($event_location_term_id){
-										$csvRow.= '"'. $this->html_process_content( $_event_location_term[0]->name, $process_html_content) . '",';									
+									if($event_location_term_id && !empty(  $location_term_meta['location_name'] )){
+										$csvRow.= '"'. $this->html_process_content( $location_term_meta['location_name'], $process_html_content) . '",';									
 									}elseif(!empty($pmv[$var]) ){
 										$value = $this->html_process_content($pmv[$var][0], $process_html_content);
 										$csvRow.= '"'.$value.'"';
@@ -754,6 +738,47 @@ class EVO_admin_ajax{
 			wp_reset_postdata();
 		}
 
+		private function get_event_csv_fields(){
+			return apply_filters('evo_csv_export_fields',array(
+				'publish_status',	
+				'event_id',			
+				'evcal_event_color'=>'color',
+				'event_name',				
+				'event_description','event_start_date','event_start_time','event_end_date','event_end_time',
+
+				'evcal_allday'=>'all_day',
+				'evo_hide_endtime'=>'hide_end_time',
+				'evcal_gmap_gen'=>'event_gmap',
+				'evo_year_long'=>'yearlong',
+				'_featured'=>'featured',
+
+				'evo_location_id'=>'evo_location_id',
+				'evcal_location_name'=>'location_name',	// location name			
+				'evcal_location'=>'event_location',	// address		
+				'location_desc'=>'location_description',	
+				'location_lat'=>'location_latitude',	
+				'location_lon'=>'location_longitude',	
+				'location_link'=>'location_link',	
+				'location_img'=>'location_img',	
+				
+				'evo_organizer_id'=>'evo_organizer_id',
+				'evcal_organizer'=>'event_organizer',
+				'organizer_description'=>'organizer_description',
+				'organizer_contact'=>'evcal_org_contact',
+				'organizer_address'=>'evcal_org_address',
+				'organizer_link'=>'evcal_org_exlink',
+				'organizer_img'=>'evo_org_img',
+
+				'evcal_subtitle'=>'evcal_subtitle',
+				'evcal_lmlink'=>'learnmore link',
+				'image_url',
+
+				'evcal_repeat'=>'repeatevent',
+				'evcal_rep_freq'=>'frequency',
+				'evcal_rep_num'=>'repeats',
+				'evp_repeat_rb'=>'repeatby',
+			));
+		}
 		function html_process_content($content, $process = true){
 			//$content = iconv('UTF-8', 'Windows-1252', $content);
 			return ($process)? htmlentities($content, ENT_QUOTES): $content;

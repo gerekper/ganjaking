@@ -1,19 +1,26 @@
 <?php
 /**
  * ActionUser admin ajax section
- * @version 
+ * @version 2.3.2
  */
 
 class evoau_admin_ajax{
+	public $help;
+
 	public function __construct(){
 		$ajax_events = array(
 			'evoau_load_assigned_users'=>'evoau_load_assigned_users',
 			'evoau_save_assigned_users'=>'evoau_save_assigned_users',
+
+			'evoau_load_capability'=>'load_capability',
+			'evoau_save_capability'=>'save_capability',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {				
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
 		}
+
+		$this->help = new evo_helper();
 	}
 
 	// load the HTML for assigning users section
@@ -120,6 +127,149 @@ class evoau_admin_ajax{
 					'status'=>'good'
 				), $event_id)
 			);
+			exit;
+
+		}
+
+	// capabilities manager
+		function load_capability(){
+
+			
+			$postdata = $this->help->sanitize_array($_POST);
+			$userid = isset($postdata['userid']) ? $postdata['userid'] : false;
+			$this_role = isset($postdata['role']) ? $postdata['role'] : 'administrator';
+
+			ob_start();
+
+			$settings_page_role = 'administrator';
+
+			?>
+			<form method="post" action="" class='pad20'>
+				<?php 
+				settings_fields('evoau_field_group'); 
+				wp_nonce_field( AJDE_EVCAL_BASENAME, 'evoau_noncename' );
+
+				echo EVO()->elements->process_multiple_elements(array(
+					array('type'=>'hidden','name'=>'userid', 'value'=> $userid),
+					array('type'=>'hidden','name'=>'action', 'value'=> 'evoau_save_capability' ),
+				));
+				?>
+				<?php					
+					// Capabilities for Individual user
+					if( $userid  ):
+						
+						$cur_edit_user = new WP_User( $userid );
+						
+						if (!is_multisite() || current_user_can('manage_network_users')) {
+							$anchor_start = '<a href="' . wp_nonce_url("user-edit.php?user_id={$userid}", 
+							  "evo_user_{$userid}") .'" >';
+							$anchor_end = '</a>';
+						} else {
+							$anchor_start = '';
+							$anchor_end = '';
+						}
+						$user_info = ' <span style="font-weight: bold;">'.$anchor_start. $cur_edit_user->user_login; 
+						if ($cur_edit_user->display_name!==$cur_edit_user->user_login) {
+							$user_info .= ' ('.$cur_edit_user->display_name.')';
+						}
+						
+						$user_info .= $anchor_end.'</span>';
+						if (is_multisite() && is_super_admin($userid)) {
+							$user_info .= '  <span style="font-weight: bold; color:red;">'. 	esc_html__('Network Super Admin', 'eventon') .'</span>';
+						}						
+				?>
+					<h3 class='evopadb10'><?php _e('Capabilities for user','eventon');?> <?php echo $user_info . ' (#'. $userid .')';?></h3>
+					<p><?php _e('Primary Role','eventon');?>: <b><?php echo $cur_edit_user->roles[0] ;?></b></p>				
+					
+					<div class='capabilities_list'>
+						<h4 class='evopadb20'><?php _e('EventON Capabilities','eventon');?></h4>	
+						<?php						
+							echo EVOAU()->admin->get_cap_list_admin($userid, 'user');
+						?>
+					</div>				
+				<?php	
+					// capabilities for a ROLE				
+					else:
+				?>				
+					<h3><?php _e('Select Role and set Capabilities for eventON','eventon');?></h3>
+					<p><?php _e('Select Role','eventon');?> <select class='evoau_role_selector' name='current_role'>
+					<?php
+						global $wp_roles;
+							
+						$roles = $wp_roles->get_names();
+						
+						//print_r($roles);
+						foreach($roles as $role=>$rolev){
+							$selected = ( $this_role == $role)?'selected':null;
+							echo "<option value='{$role}' {$selected}>{$rolev}</option>";
+						}						
+					?>
+					</select></p>
+					<div class='capabilities_list'>
+						<?php						
+							$caps =  EVOAU()->admin->get_cap_list_admin( $this_role );
+							echo $caps;
+						?>
+					</div>
+					</p><b>NOTE: </b><i><?php _e('Primary Administrator capabilities can not be changed. Permissions for each user can be configured separately from WordPress > Users page, by clicking on "EventON Capabilities" under each user. Each user permissions will prevail user role permissions for EventON.','eventon');?></i></p>					
+				<?php endif;?>				
+				<br/>
+				<h3 class='evopadb20'><?php _e('Guide to Capabilities','eventon');?></h3>
+				<p>
+					<?php
+					foreach(array(
+						__('publish events','eventon') => __('Allow user to publish a event','eventon'),
+						__('edit events','eventon') => __('Allow editing of the user\'s own events but does not grant publishing permission','eventon'),
+						__('edit others events','eventon') => __('Allows the user to edit everyone else\'s events but not publish.','eventon'),
+						__('edit published events','eventon') => __("Allows the user to edit his own events that are published.",'eventon'),
+						__('delete events','eventon') => __("Grants the ability to delete events created by that user but not other.",'eventon'),
+						__('delete others events','eventon') => __("Capability to delete events created by other users.",'eventon'),
+						__('read private events','eventon') => __("Allow user to read private events.",'eventon'),
+						__('assign event terms','eventon') => __("Allows the user to assign event terms to allowed events.",'eventon'),
+						__('submit New Events From Submission Form','eventon') => __("Permission to submit events from new event submission form.",'eventon'),
+						__('Upload Files','eventon') => __("Allow user to upload an image file for event image.",'eventon'),
+					) as $key=>$val){
+						echo "<span class='evopadb5' style='display:block'><b>". $key. "</b> - ". $val ."</span>";
+					}
+					?>
+				</p>
+								
+				<?php
+					EVO()->elements->print_trigger_element(
+						array(
+							'title'=>__('Save Changes','evoau'),
+							'uid'=>'evoau_save_cap_manager',
+							'lb_class' =>'config_user_capabilities',
+							'lb_loader'=> true,
+							'lb_hide'=> 3000
+						), 'trig_form_submit'
+					);
+				?>
+			</form>
+
+			<?php
+			echo json_encode(array(
+				'content'=>ob_get_clean(),'status'=>'good') );
+			exit;
+		}
+
+	// save user capabilities
+		function save_capability(){
+
+			$postdata = $this->help->sanitize_array($_POST);
+
+			$type = 'role';
+			if( isset($postdata['userid']) && !empty($postdata['userid'])) $type = 'user';
+			$ID = isset($postdata['userid']) && !empty($postdata['userid']) ? $postdata['userid'] : $postdata['current_role'];
+
+			EVOAU()->admin->update_role_caps($ID, $type, $postdata);
+
+			echo json_encode(array(
+				'status'=>'good',
+				'msg'=> __("Successfully saved user capabilities"),
+				'ID'=> $ID,
+				'type'=> $type
+			) );
 			exit;
 
 		}

@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.3.3
+ * @version: 4.3.5
  */
 (function($){
 
@@ -17,8 +17,6 @@
 				break;
 			}
 		};
-
-	
 
 	// access page GLOBALS
 		$.fn.evo_get_global = function(opt){
@@ -69,66 +67,110 @@
 	// GENERAL AJAX ACCESS + 4.1.2
 		$.fn.evo_admin_get_ajax = function(opt){
   			var defs = {
-  				'lightbox_key':'',
+  				'lightbox_key':'', // same as lightbox class
   				'lightbox_loader': true,
   				'load_new_content': true,
+  				'load_new_content_id': '', // @since 4.3.5
+  				'hide_lightbox':false,	// @since 4.3.5
+  				'hide_message':2000,	// @since 4.3.5
   				'ajaxdata':{
   					'load_lbcontent':'',
   					'load_new_content':''
   				},
   				'uid':'',
   				'end':'admin', // admin or client
+  				'loader_el':'',
+  				'ajax_type':'ajax',
+  				'ajax_action':'',
   			}
 
+  			var el = $(this);
   			var OO = $.extend({}, defs, opt);
 
+  			//console.log(OO);
 
+  			
   			var ajaxdata = OO.ajaxdata;
 
   			// passing nonce
   			ajaxdata['nn'] = ( OO.end == 'client' ) ? evo_general_params.n : evo_admin_ajax_handle.postnonce; 
 
+  			// uid use ajax_action as backup
+  				if( OO.uid == '' && OO.ajax_action != '') OO.uid = OO.ajax_action;
+
   			LB = false;
   			if( OO.lightbox_key != '') LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
 
+
   			var returnvals = '';
 
+  			// process action value
+  			if( 'a' in ajaxdata ) ajaxdata['action'] = ajaxdata.a;
+
+  			// ajax url processing 
+  				var ajax_url = el.evo_get_ajax_url({a: OO.ajax_action, e: OO.end, type: OO.ajax_type});
 
 			$.ajax({
 				beforeSend: function(){
-					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO ]);
+					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO, el ]);
 					if( LB && OO.lightbox_loader){
 						LB.find('.ajde_popup_text').addClass( 'loading');
 						LB.find('.evolb_content').addClass( 'loading');
 					}
+					if( OO.loader_el){
+						$( OO.loader_el ).addClass('evoloading loading');
+					}
 				},
 				type: 'POST',
-				url: (OO.end == 'admin')? evo_admin_ajax_handle.ajaxurl : evo_general_params.ajaxurl,
+				url: ajax_url,
 				data: ajaxdata,
 				dataType:'json',
 				success:function(data){					
 					//console.log(OO);
-					if( OO.ajaxdata.load_lbcontent ) LB.evo_lightbox_populate_content({content: data.content});
-					if( OO.ajaxdata.load_new_content ) LB.evo_lightbox_populate_content({content: data.content});
+					if( LB ){
+
+						// show message
+							if( 'msg' in data && data.msg != '' && LB){
+								LB.evo_lightbox_show_msg({'type': data.status, 
+									'message':data.msg, 
+									hide_lightbox: OO.hide_lightbox,	
+									hide_message: OO.hide_message
+								});
+							}
+							
+
+						// populate content
+						if( OO.ajaxdata.load_lbcontent || OO.ajaxdata.load_new_content || OO.load_new_content ){
+							// populate a specific dom element with content
+							if( OO.load_new_content_id != '' ){
+								$('body').find('#'+OO.load_new_content_id ).replaceWith( data.content );
+							}else{
+								LB.evo_lightbox_populate_content({content: data.content});
+							}							
+						}
+					}	
 
 					// process trumbowyg editors
 						$('body').trigger('evo_elm_load_interactivity');
 
-					//console.log(OO.uid);
-					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data ]);	
+					//console.log(OO);
+					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data , el]);	
 
 				},complete:function(){
-					$('body').trigger('evo_ajax_complete_' + OO.uid ,[ OO ]);
+					$('body').trigger('evo_ajax_complete_' + OO.uid ,[ OO , el ]);
 					if( LB && OO.lightbox_loader){
 						LB.find('.ajde_popup_text').removeClass( 'loading');
 						LB.find('.evolb_content').removeClass( 'loading');
+					}
+					if( OO.loader_el){
+						$( OO.loader_el ).removeClass('evoloading loading');
 					}
 				}
 			});	
 		}
 
 		// submit forms via ligtbox
-		// @since 4.2.2		
+		// @since 4.2.2		@updated 4.3.5
 		$.fn.evo_ajax_lightbox_form_submit = function(opt){
 			var defs = {
   				'lightbox_key':'', // lightbox class
@@ -138,32 +180,49 @@
   				'hide_lightbox':false,
   				'hide_message':false,
   				'load_new_content':false,
+  				'load_new_content_id':'',
+  				'ajax_type':'ajax',
+  				'ajax_action':'',
   			}
 
   			var OO = $.extend({}, defs, opt);
+  			el = this;
 
   			const form = this.closest('form');
   			var LB = false;
   			if( OO.lightbox_key != '') LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
+
+  			//console.log(OO);
+
+  			var ajax_url = el.evo_get_ajax_url({a: OO.ajax_action, e: OO.end, type: OO.ajax_type});
 
 			form.ajaxSubmit({
 				beforeSubmit: function(){	
 					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO ]);
 					if( LB && OO.lightbox_loader) LB.evo_lightbox_start_inloading();
 				},
-				dataType: 	'json',	url: 		the_ajax_script.ajaxurl,	type: 	'POST',
+				dataType: 	'json',	url: ajax_url,	type: 	'POST',
 				success:function(data){
 
-					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data ]);	
+					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data, el ]);	
 
 					if( data.status == 'good'){
-						LB.evo_lightbox_show_msg({'type': 'good', 
-							'message':data.msg, 
-							hide_lightbox: OO.hide_lightbox,
-							hide_message: OO.hide_message
-						});
+						if(LB){
+							LB.evo_lightbox_show_msg({'type': 'good', 
+								'message':data.msg, 
+								hide_lightbox: OO.hide_lightbox,
+								hide_message: OO.hide_message
+							});
+						}
 
-						if( OO.load_new_content ) LB.evo_lightbox_populate_content({content: data.content});
+						// populate specific element
+						if( OO.load_new_content && OO.load_new_content_id != ''){
+							$('body').find('#'+OO.load_new_content_id ).replaceWith( data.content );
+						}else{
+							// populate current lightbox
+							if( OO.load_new_content ) LB.evo_lightbox_populate_content({content: data.content});
+						}
+						
 						
 						// if ajax data pass dom content to be replaced with run through each and replace - @4.2.3
 						if( 'refresh_dom_content' in data ){
@@ -234,12 +293,16 @@
 				'end':'admin',// admin or client end
 				'other_data':'',
 				'lightbox_loader': true,
+				'load_new_content': true, // @since 4.3.5
+				'lb_padding': 'evopad30', // @4.3.5
+				'ajax_action':'', // @4.4 pass on ajax endpoint action key
+				'ajax_type':'ajax', // @4.4 ajax type, ajax, rest or endpoint
 			};
 
 			var OO = $.extend({}, defaults, opt);
 
 			// create lightbox HTML
-			var html = '<div class="evo_lightbox '+OO.lbc+' '+OO.end+'"><div class="evolb_content_in"><div class="evolb_content_inin"><div class="evolb_box '+OO.lbc+' '+OO.lbsz +'"><div class="evolb_header"><a class="evolb_backbtn" style="display:none"><i class="fa fa-angle-left"></i></a><p class="evolb_title">' + OO.t + '</p><a class="evolb_close_btn evolbclose ">X</a></div><div class="evolb_content"></div><p class="message"></p></div></div></div></div>';
+			var html = '<div class="evo_lightbox '+OO.lbc+' '+OO.end+'" data-lbc="'+OO.lbc+'"><div class="evolb_content_in"><div class="evolb_content_inin"><div class="evolb_box '+OO.lbc+' '+OO.lbsz +'"><div class="evolb_header"><a class="evolb_backbtn" style="display:none"><i class="fa fa-angle-left"></i></a><p class="evolb_title">' + OO.t + '</p><span class="evolb_close_btn evolbclose ">X</span></div><div class="evolb_content '+ OO.lb_padding +'"></div><p class="message"></p></div></div></div></div>';
 
 			$('#evo_lightboxes').append( html );
 
@@ -276,10 +339,13 @@
 
 					LB.evo_admin_get_ajax({
 						ajaxdata: D, 
+						ajax_action: OO.ajax_action,
+						ajax_type: OO.ajax_type,
 						lightbox_key: OO.lbc,
-						uid: OO.d.uid,
+						uid: ( OO.uid != '' ) ? OO.uid : OO.d.uid,
 						end: OO.end,
 						lightbox_loader: OO.lightbox_loader,
+						load_new_content: OO.load_new_content,
 					});
 				}
 
@@ -382,6 +448,29 @@
 			if( OO.animation_type == 'saving')
 				LB.find('.evolb_content').addClass('loading');
 
+		}
+
+	// Get Ajax url @since 4.4
+		$.fn.evo_get_ajax_url = function(opt){
+			var defaults = { a:'',e:'client', type: 'ajax'};
+			var OO = $.extend({}, defaults, opt);
+
+			// end point url
+			if( OO.type == 'endpoint'){
+				var evo_ajax_url = ( OO.e == 'client' )? 
+					evo_general_params.evo_ajax_url : evo_admin_ajax_handle.evo_ajax_url;
+				return  evo_ajax_url.toString().replace( '%%endpoint%%', OO.a );
+			// rest api url
+			}else if( OO.type == 'rest' ){
+				var evo_ajax_url = ( OO.e == 'client' )? 
+					evo_general_params.rest_url : evo_admin_ajax_handle.rest_url;
+					//console.log(evo_ajax_url);
+					//console.log(OO);
+				return  evo_ajax_url.toString().replace( '%%endpoint%%', OO.a );
+			}else{
+				return ( OO.e == 'client' ) ? 
+					evo_general_params.ajaxurl : evo_admin_ajax_handle.ajaxurl;
+			}	
 		}
 	
 	// Count down	// @+ 3.0
@@ -687,18 +776,19 @@
 				RR['ett1'][ $(this).data('id')] = $(this).data('v');
 			});
 
+			// since 4.3.5
+			const eventtop_data = ELM.find('.evoet_data').data('d');
+
 			// location
-			if(ELM.find('.evoet_location').length > 0){
-				const loc_elm = ELM.find('.evoet_location');
-				RR['location'] = loc_elm.find('.evcal_location').data('n');
+			if('loc.n' in eventtop_data && eventtop_data['loc.n'] != ''){
+				RR['location'] = eventtop_data['loc.n'];
 			}
 
 			// organizer
-			if(ELM.find('.evcal_oganizer').length > 0){
-				const org_elm = ELM.find('.evcal_oganizer');
+			if('orgs' in eventtop_data && eventtop_data.orgs !== undefined ){
 				var org_names = '';
-				org_elm.find('.evoet_dataval').each(function(index){
-					org_names += $(this).html() +' ';
+				$.each(eventtop_data.orgs, function(index, value){
+					org_names += value +' ';
 				});
 				RR['organizer'] = org_names;
 			}
@@ -773,7 +863,7 @@
 				var not_string = '';
 
 				// if NOT filter in place > include that in tax value for query
-				if( NOT_values.length >0 && filter_val != default_val ){	
+				if( NOT_values!== undefined && NOT_values.length >0 && filter_val != default_val ){	
 					
 					$.each(NOT_values, function(index, value){
 						not_string += 'NOT-'+ value +',';

@@ -3,7 +3,7 @@
  * Template Loader
  *
  * @class 		EVO_Template_Loader 
- * @version		4.0.7
+ * @version		4.4
  * @package		Eventon/Classes
  * @category	Class
  * @author 		AJDE
@@ -20,7 +20,6 @@ class EVO_Template_Loader {
 	public function __construct() {
 
 		$this->template_directory = EVO()->plugin_path() . '/templates';
-
 		$this->theme_support = evo_current_theme_is_fse_theme();
 
 		add_filter( 'template_include', array( $this, 'template_loader' ) , 99);
@@ -28,24 +27,23 @@ class EVO_Template_Loader {
 		$this->template_blocks = new EVO_Temp_Blocks();
 
 		// block
-		add_action( 'template_redirect', array( $this, 'render_block_template' ) );
-		add_filter( 'get_block_templates', array( $this, 'add_block_templates' ), 10, 3 );
-		add_filter( 'default_template_types', array( $this, 'block_template_types' ), 10, 1 );
+		add_filter( 'get_block_templates', array( $this, 'add_evo_block_templates' ), 10, 3 );
+		//add_filter( 'default_template_types', array( $this, 'block_template_types' ), 10, 1 );
 		
 	}
+
 
 	// Load a template
 	public function template_loader( $template ) {
 		if ( is_embed() ) {	return $template;	}
 
+		// skip custom template for FSE
+		//if( $this->theme_support ) return $template;
+
 		$default_file = $this->get_template_loader_default_file();
-		//print_r($default_file);
-
-
+		
 		if ( $default_file ) {
-			/**
-			 * Filter hook to choose which files to find before eventon does it's own logic.
-			 */
+			// Filter hook to choose which files to find before eventon does it's own logic.
 			$search_files = $this->get_template_loader_files( $default_file );
 			$template     = locate_template( $search_files );
 
@@ -73,7 +71,6 @@ class EVO_Template_Loader {
 			$default_file = ( $this->has_block_template( 'single-ajde_events' ) && $this->theme_support ) ?
 				'':'single-ajde_events.php';
 
-
 			// if single event page is only for loggedin users
 				if( EVO()->cal->check_yn('evosm_loggedin','evcal_1') && !is_user_logged_in()){
 					wp_redirect( evo_login_url() );
@@ -82,6 +79,7 @@ class EVO_Template_Loader {
 			// if single event template is disabled
 				if( EVO()->cal->check_yn('evo_ditch_sin_template','evcal_1')) $default_file = '';
 				$evo_template = true;
+
 		
 		} elseif (is_post_type_archive( 'ajde_events' ) ){
 			$default_file = 'archive-ajde_events.php';
@@ -130,14 +128,11 @@ class EVO_Template_Loader {
 		}
 
 
-		// add FSE notice
-			if( $evo_template && $this->theme_support ) 
-				echo '<p class="evo_fse_notice">' . __("EventON does not fully support FSE themes at this moment!",'eventon') . '</p>';
-
 		// General Block check
-		if( !empty($default_file) && $evo_template){			
+		if( !empty($default_file) && $evo_template){	
 
 			$block_name = str_replace('.php', '', $default_file);
+
 			if( $this->has_block_template( $block_name ) && $this->theme_support ) return '';
 		}
 		
@@ -145,53 +140,11 @@ class EVO_Template_Loader {
 		return $default_file;
 	}
 
-	/**
-	* Checks whether a block template with that name exists.
-	*/
-	private function has_block_template( $template_name ) {
-		if ( ! $template_name ) {
-			return false;
-		}
-
-		$has_template            = false;
-		$template_filename       = $template_name . '.html';
-		// Since Gutenberg 12.1.0, the conventions for block templates directories have changed,
-		// we should check both these possible directories for backwards-compatibility.
-		$possible_templates_dirs = array( 'templates', 'block-templates' );
-
-		// Combine the possible root directory names with either the template directory
-		// or the stylesheet directory for child themes, getting all possible block templates
-		// locations combinations.
-		$filepath        = DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_filename;
-		$legacy_filepath = DIRECTORY_SEPARATOR . 'block-templates' . DIRECTORY_SEPARATOR . $template_filename;
-		$possible_paths  = array(
-			get_stylesheet_directory() . $filepath,
-			get_stylesheet_directory() . $legacy_filepath,
-			get_template_directory() . $filepath,
-			get_template_directory() . $legacy_filepath,
-		);
-
-		// Check the first matching one.
-		foreach ( $possible_paths as $path ) {
-			if ( is_readable( $path ) ) {
-				$has_template = true;
-				break;
-			}
-		}
-
-		/**
-		 * Filters the value of the result of the block template check.
-		 */
-		return (bool) apply_filters( 'evo_has_block_template', $has_template, $template_name );
-	}
-
 	// Get an array of filenames to search for a given template
 	// @since 4.1.2
 	public function get_template_loader_files( $default_file  ) {
 		
 		$templates = apply_filters( 'evo_template_loader_files', array(), $default_file );
-	
-
 
 		if ( is_page_template() ) {
 			$page_template = get_page_template_slug();
@@ -201,7 +154,8 @@ class EVO_Template_Loader {
 				if ( 0 === $validated_file ) {
 					$templates[] = $page_template;
 				} else {
-					error_log( "EventON: Unable to validate template path: \"$page_template\". Error Code: $validated_file." ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					error_log( "EventON: Unable to validate template path: \"$page_template\". Error Code: $validated_file." ); 
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				}
 			}
 		}
@@ -226,101 +180,103 @@ class EVO_Template_Loader {
 		$templates[] = EVO()->template_path() .'/templates/' . $default_file;
 
 		return array_unique( $templates );
-
-		
 	}
 
 	// language value for the archive pages
 	function pass_lang(){
 		if( isset($_GET['l'])) EVO()->lang = sanitize_text_field( $_GET['l'] );
 	}
+
+	
+	
 	
 
 // Render Block Templates
-	
-
-	function render_block_template(){
-		if( is_singular('ajde_events') &&
-			$this->get_theme_template_path('single-ajde_events') && 
-			$this->block_template_is_available('single-ajde_events') 
-		){
-			add_filter( 'evo_has_block_template', '__return_true', 10, 0 );
-		}
-	}
-	// check if block template with the name exists in evo blocks
-	public function block_template_is_available( $template_name, $template_type = 'wp_template' ) {
-		if ( ! $template_name ) {
-			return false;
-		}
-		$directory = $this->template_directory . '/blocks/' . $template_name . '.php';
-
-		return is_readable(
-			$directory
-		) || $this->get_block_templates( array( $template_name ), $template_type );
-	}
-
-	// get and build the block template objects from the block template files
-	public function get_block_templates( $slugs = array(), $template_type = 'wp_template' ) {
-
-		$templates      = array();
-
-		$theme_name = wp_get_theme()->get( 'TextDomain' );
-		$template_is_from_theme = false;
-
-		foreach ( $slugs as $slug ) {
-			if( $slug == 'single-ajde_events'){	
-				$templates[] = $this->template_blocks->get_single_event_template();
-			}
-		}
-
-		return $templates;
-
-	}
-
-
-	// add the block template object to be used
-	function add_block_templates($query_result, $query, $template_type ){
-
-		if( !evo_current_theme_is_fse_theme()  &&
-			( ! function_exists( 'gutenberg_supports_block_templates' ) || ! gutenberg_supports_block_templates() )
-		){ return $query_result; }
+	function add_evo_block_templates($query_result, $query, $template_type){
 
 		$post_type      = isset( $query['post_type'] ) ? $query['post_type'] : '';
 		$slugs          = isset( $query['slug__in'] ) ? $query['slug__in'] : array();
 
-		$template = $this->get_block_templates( $slugs, $template_type );
 
 		foreach($slugs as $slug){
+			if( !in_array($slug, array(
+				'single-ajde_events',
+				'taxonomy-event_type',
+				'taxonomy-event_organizer',
+				'taxonomy-event_location'
+			))) continue;
+			
+			$query_result[] = $this->template_blocks->get_single_event_template( $slug );			
+		}
 
-			if( $slug == 'single-ajde_events'){	
-				$query_result[] = $template[0];
+		$query_result = $this->template_blocks->remove_theme_templates_with_custom_alternative($query_result);
+		
+		return $query_result;
+	}
+
+
+
+	// Checks whether a block template with that name exists.
+	private function has_block_template( $template_name ) {
+		if ( ! $template_name ) {
+			return false;
+		}
+
+		$has_template            = false;
+		$template_filename       = $template_name . '.html';
+		$template_filename_2       = $template_name . '.php';
+
+		// Since Gutenberg 12.1.0, the conventions for block templates directories have changed,
+		// we should check both these possible directories for backwards-compatibility.
+		$possible_templates_dirs = array( 'templates', 'block-templates' );
+
+		// Combine the possible root directory names with either the template directory
+		// or the stylesheet directory for child themes, getting all possible block templates
+		// locations combinations.
+		$filepath        = DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_filename;
+		$legacy_filepath = DIRECTORY_SEPARATOR . 'block-templates' . DIRECTORY_SEPARATOR . $template_filename;
+		$possible_paths  = array(
+			get_stylesheet_directory() . $filepath,
+			get_stylesheet_directory() . $legacy_filepath,
+			get_template_directory() . $filepath,
+			get_template_directory() . $legacy_filepath,
+			EVO()->plugin_path() .'/templates/blocks/'  . $template_filename,
+			EVO()->plugin_path() .'/templates/blocks/'  . $template_filename_2,
+		);
+
+
+		// Check the first matching one.
+		foreach ( $possible_paths as $path ) {
+			if ( is_readable( $path ) ) {
+				$has_template = true;
+				break;
 			}
 		}
 
 
-		return $query_result;
-
-		/*
-		$query_result = array_map(
-			function( $template ) {
-				print_r($template);
-				if ( 'theme' === $template->origin ) {
-					return $template;
-				}
-				if ( $template->title === $template->slug ) {
-					$template->title = $this->get_plugin_block_template_types( $template->slug ,'title');
-				}
-				if ( ! $template->description ) {
-					$template->description = $this->get_plugin_block_template_types( $template->slug ,'description');
-				}
-				return $template;
-			},
-			$query_result
-		);
-		*/
-
-		return $query_result;
+		// Filters the value of the result of the block template check
+		return (bool) apply_filters( 'evo_has_block_template', $has_template, $template_name );
 	}
+
+	function get_plugin_block_template_types($template_slug, $type){
+		$all_data = array(
+			'single-ajde_events' => array(
+				'title'=> _X('Single Event', 'Template name', 'eventon'),
+				'description'=> __('Template used to display single event.', 'eventon')
+			)
+		);
+		return $all_data[ $template_slug][ $type];
+	}
+
+	function block_template_types($template_types){
+		//print_r($template_types);
+		$template_types['single-ajde_events']=  array(
+				'title'=> _X('Single Event', 'Template name', 'eventon'),
+				'description'=> __('Template used to display single event.', 'eventon')
+			);
+		return $template_types;
+	}
+// SUPPORTIVE
 	// get the first matching template part within theme directories
 	public static function get_theme_template_path( $template_slug, $template_type = 'wp_template' ) {
 		$template_filename      = $template_slug . '.php';
@@ -352,33 +308,6 @@ class EVO_Template_Loader {
 
 		return null;
 	}
-	
-	// convert template path into a slug
-	public function generate_template_slug_from_path( $path ) {
-		$template_extension = '.php';
-		return basename( $path, $template_extension );
-	}
-
-	function get_plugin_block_template_types($template_slug, $type){
-		$all_data = array(
-			'single-ajde_events' => array(
-				'title'=> _X('Single Event', 'Template name', 'eventon'),
-				'description'=> __('Template used to display single event.', 'eventon')
-			)
-		);
-		return $all_data[ $template_slug][ $type];
-	}
-
-	function block_template_types($template_types){
-		//print_r($template_types);
-		$template_types['single-ajde_events']=  array(
-				'title'=> _X('Single Event', 'Template name', 'eventon'),
-				'description'=> __('Template used to display single event.', 'eventon')
-			);
-		return $template_types;
-	}
-
-	
 	
 }
 new EVO_Template_Loader();

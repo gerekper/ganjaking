@@ -7,7 +7,7 @@ class GF_Installation_Wizard_Step_License_Key extends GF_Installation_Wizard_Ste
 
 	public $defaults = array(
 		'license_key' => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
-		'accept_terms' => true,
+		'accept_terms' => false,
 	);
 
 	function display() {

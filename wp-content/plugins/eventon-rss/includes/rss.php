@@ -2,7 +2,7 @@
 /*
  * RSS Page
  * This page handles the event RSS feed.
- * @version 1.1
+ * @version 1.1.5
  */ 
 
 $debug = false;
@@ -26,6 +26,7 @@ foreach( $url_passing_args  as $A){
 $data_args['hide_past'] = 'no';
 $data_args['sort_by'] = 'sort_date';
 $data_args['event_order'] = 'ASC';
+$data_args['number_of_months'] = '5';
 
 // override with settings values
 	foreach( array(
@@ -40,10 +41,9 @@ $data_args['event_order'] = 'ASC';
 $force_post_author = EVO()->cal->check_yn('evorss_paut','evcal_1');
 $force_evo_date_formatting = EVO()->cal->check_yn('evorss_evotimeformating','evcal_1');
 
-$data_args = EVO()->evo_generator->process_arguments($data_args, false);
+$data_args = EVO()->calendar->process_arguments($data_args, false);
 
-
-$events_data = EVO()->evo_generator->evo_get_wp_events_array('', $data_args);
+EVO()->calendar->shell->set_calendar_range($data_args);
 
 
 // date
@@ -66,6 +66,8 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 
 	$_offset_additional = $offset .'00';
 
+	$rss_title = EVO()->cal->get_prop('evorss_title','evcal_1');
+	$rss_title = $rss_title? $rss_title: apply_filters('evorss_blog_title', get_bloginfo_rss('name') .' - Event Feed')
 ?>
 <rss version="2.0" 
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -73,10 +75,13 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-    <?php do_action('rss2_ns'); ?>>
+    <?php do_action('rss2_ns'); ?> >
+
     <?php if($debug) print_r($data_args);?>
+
 	<channel>
-		<title><?php echo evo_has_option_val('evorss_title')? evo_get_option_val('evorss_title'): apply_filters('evorss_blog_title', get_bloginfo_rss('name') .' - Event Feed');?></title>
+		<title><?php echo $rss_title;?></title>
+		<addonversion><?php echo EVORSS()->version;?></addonversion>
         <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
         <link><?php bloginfo_rss('url') ?></link>
         <description><?php bloginfo_rss('description'); echo $T;?></description>
@@ -89,8 +94,15 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 		
 		<?php
 
+		$events_data = EVO()->evo_generator->evo_get_wp_events_array('', $data_args);
 
+
+		
 		$site_url = get_bloginfo_rss('url');
+		if(empty($events_data)){
+			?><item>No Events</item><?php
+
+		}
 		if(!empty($events_data)):
 
 
@@ -108,10 +120,6 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 			$EVENT->get_event_post();
 
 
-			// excerpt for the feed
-			$excerpt = eventon_get_normal_excerpt($EVENT->content, 20);
-		
-
 			// featured image
 			$output= $imageurl = false;
 			if(has_post_thumbnail($event_id)){
@@ -126,6 +134,11 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 				"<div style='width:100%'><img src='" . $imageurl . "' width='{$thumb_url_array[1]}' height='{$thumb_url_array[2]}'/><br/></div>"
 				:null;
 
+			// excerpt for the feed
+				$excerpt = eventon_get_normal_excerpt($EVENT->content, 20);
+				$excerpt = $EVENT->content;
+				$description = apply_filters('evorss_before_feed_item_description', $image.$start_time.$end_time, $image, $start_time, $end_time) . ' '. $excerpt;
+
 			// event date/times
 			if(empty($event_data['event_start_unix'])) continue;
 			
@@ -133,9 +146,9 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 			if($force_evo_date_formatting){
 				$start_time = $EVENT->get_formatted_smart_time();
 			}else{
-				$start_time = 'START: '.  date_i18n($feed_date_format, $event_data['event_start_unix']);
+				$start_time = evo_lang('START') .': '.  date_i18n($feed_date_format, $event_data['event_start_unix']);
 				$endtime = !empty($event_data['event_end_unix'])? $event_data['event_end_unix']: $event_data['event_start_unix']; 
-				$end_time = ' <br/>END: '.date_i18n($feed_date_format, $endtime).' <br/>';
+				$end_time = ' <br/>'. evo_lang('END') .': '.date_i18n($feed_date_format, $endtime).' <br/>';
 			}
 			
 
@@ -153,12 +166,12 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 
 		?>
 			<item>
-                <title><?php echo get_the_title($event_id); ?></title>
+                <title><?php echo apply_filters('the_title_rss', get_the_title($event_id) ); ?></title>
                 <link><?php the_permalink($event_id); ?></link>
                 <pubDate><?php echo $pubDate ?></pubDate>
                 <dc:creator><?php echo $author; ?></dc:creator>
                 <guid isPermaLink='false'><?php echo $site_url.'/'.$event_id.'/var/ri-'.$RI ?></guid>
-                <description><![CDATA[<?php echo apply_filters('evorss_before_feed_item_description', $image.$start_time.$end_time, $image, $start_time, $end_time); echo ' '. $excerpt ?>]]></description>
+                <description><![CDATA[<?php echo $description ?>]]></description>
                 <?php 
                 // if an event image is set
                 if($imageurl):
@@ -168,8 +181,10 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n";
 					<enclosure url='<?php echo $imageurl;?>' type='image/jpg' length="131842"/>
                 <?php endif;?>
 
-                <content:encoded><![CDATA[<?php echo $start_time.$end_time; echo $excerpt ?>]]></content:encoded>
+                <content:encoded><![CDATA[<?php echo $description ?>]]></content:encoded>
+               
                 <?php rss_enclosure(); ?>
+                
                 <?php do_action('rss2_item'); ?>
             </item>
 

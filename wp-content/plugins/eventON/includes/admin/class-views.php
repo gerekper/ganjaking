@@ -15,7 +15,7 @@ class EVO_Views{
 				global $ajde;
 				$style_input = "width:100%; margin-top:5px; display:block;border-radius:5px; font-size:20px";
 				?>
-				<div class='evo_license_section_form'>
+				<div class='evo_license_section_form pad20'>
 					<p style='padding-top:10px;'><?php _e('Enter Your EventON Purchase Key','eventon');?>
 						<input class='fields' name='key' type='text' style='<?php echo $style_input;?>'/>
 						<input class='eventon_slug fields' name='slug' type='hidden' value='eventon' />
@@ -36,7 +36,7 @@ class EVO_Views{
 				global $ajde;
 
 				?>
-				<div class='evo_license_section_form'>
+				<div class='evo_license_section_form pad20'>
 					<p>
 						<label><?php _e('Addon License Key','eventon');?>*</label>
 						<input class='eventon_license_key_val fields' name='key' type='text' style='width:100%' placeholder='Enter the addon license key'/>
@@ -190,11 +190,11 @@ class EVO_Views{
 				$remote_version = $ADDON->get_remote_version();
 
 				// initial variables
-					$guide = ($_has_addon && $ADDON->get_prop('guide_file') )? "<span class='eventon_guide_btn ajde_popup_trig' ajax_url='{$ADDON->get_prop('guide_file')}' poptitle='How to use {$product['name']}'>Guide</span> | ":null;
+					$guide = ($_has_addon && $ADDON->get_prop('guide_file') )? "<span class='eventon_guide_btn ajde_popup_trig' ajax_url='{$ADDON->get_prop('guide_file')}' data-t='How to use {$product['name']}'>Guide</span> | ":null;
 					
 					$__action_btn = (!$_has_addon)? 
 					"<a class='evo_admin_btn btn_secondary' target='_blank' href='". $product['download']."'>Get it now</a>": 
-					"<a class='ajde_popup_trig evo_admin_btn btn_prime evo_addon_license_form_trigger' data-dynamic_c='1' data-content_id='eventon_pop_content_{$slug}' poptitle='Activate {$product['name']} License' data-slug='{$slug}' data-product_id='{$product['id']}'>Activate Now</a>";
+					"<a class='ajde_popup_trig evo_admin_btn btn_prime evo_addon_license_form_trigger' data-dynamic_c='1' data-content_id='eventon_pop_content_{$slug}' data-t='Activate {$product['name']} License' data-slug='{$slug}' data-product_id='{$product['id']}'>Activate Now</a>";
 
 					$__remote_version = '<span title="Remote server version" style="opacity:0.2"> /'.$remote_version.'</span>';
 

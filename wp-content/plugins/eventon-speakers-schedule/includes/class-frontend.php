@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON-SS/classes
- * @version     2.0
+ * @version     2.0.2
  */
 class evoss_front{
 	
@@ -220,7 +220,7 @@ class evoss_front{
 
 							$desc_visibile = ($count==1)? 'evoss_show':'evoss_hide';
 
-							$content .= "<li class='{$desc_visibile}'>";
+							$content .= "<li class='evoss_block {$desc_visibile}'>";
 							
 							$time = '';
 							$time_start = '-';

@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon-rsvp/classes
- * @version     2.8.2
+ * @version     2.8.3
  */
 class evors_front{
 
@@ -162,7 +162,7 @@ class evors_front{
 
 			//construct HTML
 			if(!empty($output)){
-				$output = "<span class='evcal_desc3_rsvp'>".$output."</span>";
+				$output = "<span class='evoet_box_1 evcal_desc3_rsvp'>".$output."</span>";
 			}
 
 			return $output;
@@ -422,7 +422,7 @@ class evors_front{
 				ob_start();
 
 
-					echo  "<div class='evorow evcal_evdata_row bordb evcal_evrow_sm evo_metarow_rsvp".$helpers['end_row_class']."' >";
+					echo  "<div class='evorow evcal_evdata_row evcal_evrow_sm evo_metarow_rsvp".$helpers['end_row_class']."' >";
 
 						// JSON data for the event
 						$JSON_data = $this->event_rsvp_data(
@@ -461,6 +461,7 @@ class evors_front{
 
 						// Event Card content
 						$show_eventcard_rsvp_content = apply_filters('evors_eventcard_content_show',true, $RR,$RSVP, $EVENT);	
+						
 						if(  $show_eventcard_rsvp_content !== false):
 
 						 	echo $this->_get_event_card_content($RSVP, $RR);							
@@ -482,26 +483,37 @@ class evors_front{
 
 					// whether current user have rsvped
 					$current_user_rsvped = $RR? $RR->get_rsvp_status(): false;
+					$current_user_rsvp_status = $current_user_rsvped? $current_user_rsvped: '';
 
 					$can_user_rsvp = $this->can_user_rsvp;
 
 					ob_start();
+
+					do_action('evors_eventcard_before_usertext',$RSVP, $RR );
 
 					// user rsvp based text
 						$_user_txt = $RR ? ( $RR->get_rsvp_status()=='n'? 
 								evo_lang('Sorry to hear you can not make it to the event.'):
 								evo_lang('We look forward to seeing you at the event!')): 
 							evo_lang('Please let us know if you can make it to the event.');
-
 					
+
 					// there are RSVP spots remaining OR user loggedin
 						if( $can_user_rsvp || (!$can_user_rsvp && $current_user_rsvped)){	
-							echo "<p class='evors_section evors_user_text'><span>". apply_filters('evors_evc_user_rsvp_txt', $_user_txt,$RSVP, $RR) ."</span></p>";
+							echo "<div class='evors_section evors_user_text ".$current_user_rsvp_status."'><p>". apply_filters('evors_evc_user_rsvp_txt', $_user_txt,$RSVP, $RR) ."</p></div>";
 
-							echo "<div class='evoRS_status_option_selection'>";
-							echo $this->_get_evc_html_rsvpoption($RR, $RSVP);							
-							echo "</div>";
+							do_action('evors_eventcard_after_usertext',$RSVP, $RR );
+
+
+							$rsvp_choice_btn_html = '';
+							$rsvp_choice_btn_html .= "<div class='evoRS_status_option_selection evors_section sec_shade'>";
+							$rsvp_choice_btn_html .= $this->_get_evc_html_rsvpoption($RR, $RSVP);							
+							$rsvp_choice_btn_html .= "</div>";
+
+							echo apply_filters('evors_rsvp_choice_btns_evc', $rsvp_choice_btn_html, $RR, $RSVP);
 						}
+
+
 
 					?>
 					<div class="evors_incard_form"></div>
@@ -523,7 +535,7 @@ class evors_front{
 
 							$user_id = (is_user_logged_in())? $current_user_rsvped:'na';
 						
-							echo "<div class='evors_section evors_change_rsvp sec_shade mart10'>
+							echo "<div class='evors_section evors_change_rsvp sec_shade2 mart30'>
 								<p class=''>".
 									'<span class="evors_change_rsvp_label">'.evo_lang_get('evoRSL_002a2','Can not make it to this event?') . '</span>'
 									."<span class='change evors_change_rsvp_trig' data-rsvpid='". ($RR? $RR->ID:'')."' data-val='".($current_user_rsvped?'chu':'ch')."'>".$_txt_changersvp."</span>
@@ -700,13 +712,17 @@ class evors_front{
 					
 					if(!$closeRSVPbeforeX && $can_still_rsvp && $_show_remaining_rsvp_section ){
 						$spots_remaining_HTML .= "<div class='evors_section evors_remaining_spots sec_shade'>";
+						
 						if($remaining_rsvp == '0'){
-							$spots_remaining_HTML .= "<p class='remaining_count no_spots_left'><em class='nospace'>".evo_lang('Filled')."</em>".evo_lang_get( 'evoRSL_002c','No more spots left!', $lang, $opt)."</p>";
+							$spots_remaining_HTML .= "<p class='evors_nospaceleft remaining_count no_spots_left'><em class='nospace'>".evo_lang('Filled')."</em>".evo_lang_get( 'evoRSL_002c','No more spots left!', $lang, $opt)."</p>";
 						}elseif($remaining_rsvp == 'nocap' ){
-							$spots_remaining_HTML .= "<p class='remaining_count'><em class='space'>".evo_lang('Open')."</em>".evo_lang_get( 'evoRSL_002bb','Spaces Still Available', $lang, $opt)."</p>";
+							$spots_remaining_HTML .= "<p class='evors_nocap_spaceleft remaining_count'><em class='space'>".evo_lang('Open')."</em>".evo_lang_get( 'evoRSL_002bb','Spaces Still Available', $lang, $opt)."</p>";
 						}else{
-							if($show_remainingrsvp_onCard)
-								$spots_remaining_HTML .= "<p class='remaining_count'><em>". $remaining_rsvp  ."</em> ".evo_lang_get('evoRSL_002b','Spots remaining', $lang, $opt)."</p>";
+							if($show_remainingrsvp_onCard){
+								$spots_remaining_HTML .= "<p class='evors_showcount_spaceleft remaining_count'><em>". $remaining_rsvp  ."</em> ".evo_lang_get('evoRSL_002b','Spots remaining', $lang, $opt)."</p>";
+							}else{
+								$spots_remaining_HTML .= "<p class='evors_noshowcount_spaceleft remaining_count '><em class='space'>".evo_lang('Open')."</em>".evo_lang_get( 'evoRSL_002bb','Spaces Still Available', $lang, $opt)."</p>";
+							}
 						}
 						$spots_remaining_HTML .= "</div>";
 

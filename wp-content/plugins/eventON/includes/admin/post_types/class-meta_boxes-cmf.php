@@ -1,7 +1,7 @@
 <?php
 /**
  *	Event edit custom meta field data
- *	@version 4.3.3
+ *	@version 4.4
  */
 
 $metabox_array = array();
@@ -34,75 +34,83 @@ $EVENT = new EVO_Event( $p_id );
 
 $closedmeta = eventon_get_collapse_metaboxes($EVENT->ID);
 
-foreach($metabox_array as $index=>$mBOX){
-	ob_start();
+if( count($metabox_array)>0):
+	foreach($metabox_array as $index=>$mBOX){
+		ob_start();
 
-	
-	$x = $mBOX['x'];
-	$__field_id = '_evcal_ec_f'.$x.'a1_cus';
-	$__field_type = EVO()->cal->get_prop('evcal_ec_f'.$x.'a2');
-
-	echo "<div class='evcal_data_block_style1'>
-			<div class='evcal_db_data ' data-id='{$__field_id}'>";
-
-			
-		// FIELD
-		$__saved_field_value = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cus") )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cus"):null ;
 		
-		// wysiwyg editor
-		if( $__field_type == 'textarea'){
-		
-			wp_editor($__saved_field_value, $__field_id);					
+		$x = $mBOX['x'];
+		$__field_id = '_evcal_ec_f'.$x.'a1_cus';
+		$__field_type = EVO()->cal->get_prop('evcal_ec_f'.$x.'a2');
+
+		echo "<div class='evcal_data_block_style1'>
+				<div class='evcal_db_data ' data-id='{$__field_id}'>";
+
+				
+			// FIELD
+			$__saved_field_value = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cus") )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cus"):null ;
 			
-		// textarea editor
-		}elseif( $__field_type == 'textarea_basic'){			
+			// wysiwyg editor
+			if( $__field_type == 'textarea'){
 			
-			echo "<textarea class='textarea_basic' type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus'> ";										
-			echo $__saved_field_value.'</textarea>';	
+				wp_editor($__saved_field_value, $__field_id);					
+				
+			// textarea editor
+			}elseif( $__field_type == 'textarea_basic'){			
+				
+				echo "<textarea class='textarea_basic' type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus'> ";										
+				echo $__saved_field_value.'</textarea>';	
+				
+			// button
+			}elseif( $__field_type =='button'){
+				
+				$__saved_field_link = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cusL")  )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cusL"):null ;
+
+				echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";
+				echo 'value="'. ( !empty($__saved_field_value) ? addslashes($__saved_field_value ) :'' ) .'"';						
+				echo "style='width:100%' placeholder='".__('Button Text','eventon')."' title='Button Text'/>";
+
+				echo "<input type='text' id='_evcal_ec_f".$x."a1_cusL' name='_evcal_ec_f".$x."a1_cusL' ";
+				echo 'value="'. $__saved_field_link.'"';						
+				echo "style='width:100%' placeholder='".__('Button Link','eventon')."' title='Button Link'/>";
+
+					$onw = ($EVENT->get_prop("_evcal_ec_f".$x."_onw") )? $EVENT->get_prop("_evcal_ec_f".$x."_onw"):null ;
+				?>
+
+				<span class='yesno_row evo'>
+					<?php 	
+					echo EVO()->elements->yesno_btn(array(
+						'id'=>'_evcal_ec_f'.$x . '_onw',
+						'var'=> $EVENT->get_prop('_evcal_ec_f'.$x . '_onw'),
+						'input'=>true,
+						'label'=>__('Open in New window','eventon')
+					));?>											
+				</span>
+				<?php
 			
-		// button
-		}elseif( $__field_type =='button'){
-			
-			$__saved_field_link = ($EVENT->get_prop("_evcal_ec_f".$x."a1_cusL")  )? $EVENT->get_prop("_evcal_ec_f".$x."a1_cusL"):null ;
+			// text	
+			}else{
+				echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";										
+				echo 'value="'. $__saved_field_value.'"';						
+				echo "style='width:100%'/>";								
+			}
 
-			echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";
-			echo 'value="'. addslashes($__saved_field_value ) .'"';						
-			echo "style='width:100%' placeholder='".__('Button Text','eventon')."' title='Button Text'/>";
+		echo "</div></div>";
 
-			echo "<input type='text' id='_evcal_ec_f".$x."a1_cusL' name='_evcal_ec_f".$x."a1_cusL' ";
-			echo 'value="'. $__saved_field_link.'"';						
-			echo "style='width:100%' placeholder='".__('Button Link','eventon')."' title='Button Link'/>";
+		$metabox_array[$index]['content'] = ob_get_clean();
+		$metabox_array[$index]['close'] = ( $closedmeta && in_array($mBOX['id'], $closedmeta) ? true:false);
+	}
 
-				$onw = ($EVENT->get_prop("_evcal_ec_f".$x."_onw") )? $EVENT->get_prop("_evcal_ec_f".$x."_onw"):null ;
-			?>
+	// process for visibility
+	echo EVO()->evo_admin->metaboxes->process_content( $metabox_array );
 
-			<span class='yesno_row evo'>
-				<?php 	
-				echo EVO()->elements->yesno_btn(array(
-					'id'=>'_evcal_ec_f'.$x . '_onw',
-					'var'=> $EVENT->get_prop('_evcal_ec_f'.$x . '_onw'),
-					'input'=>true,
-					'label'=>__('Open in New window','eventon')
-				));?>											
-			</span>
-			<?php
-		
-		// text	
-		}else{
-			echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";										
-			echo 'value="'. $__saved_field_value.'"';						
-			echo "style='width:100%'/>";								
-		}
-
-	echo "</div></div>";
-
-	$metabox_array[$index]['content'] = ob_get_clean();
-	$metabox_array[$index]['close'] = ( $closedmeta && in_array($mBOX['id'], $closedmeta) ? true:false);
-}
+else:
+	echo '<p class="pad20"><span class="evomarb10" style="display:block">' . __('You do not have any custom meta fields activated.') . '</span><a class="evo_btn" href="'. get_admin_url(null, 'admin.php?page=eventon#evcal_009','admin') .'">'. __('Activate Custom Meta Fields','eventon') . '</a></p>';
+endif;
 
 //print_r($metabox_array);
 
-// process for visibility
-echo EVO()->evo_admin->metaboxes->process_content( $metabox_array );
+
+
 
 

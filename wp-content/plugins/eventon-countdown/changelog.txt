@@ -1,5 +1,13 @@
 Countdown (CD) addon for EventON Plugin
 ====================================
+v 1.1 (2023-1-23)
+ADDED: compact layout style support
+ADDED: boxed countdown timer style back from original design
+FIXED: minor styles issue 
+FIXED: lightbox countdown not running
+FIXED: countdown timer not working on lightbox events
+FIXED: compatibility with eventON 4.3
+
 v 1.0 (2022-7-20)
 REQ: EventON 4.1 compatibility
 

@@ -4,15 +4,15 @@
  Plugin URI: http://www.myeventon.com/
  Description: Ratings & reviews events
  Author: Ashan Jay
- Version: 1.0.4
+ Version: 1.1
  Author URI: http://www.myeventon.com/addons/event-reviewer/
- Requires at least: 5.0
- Tested up to: 5.5
+ Requires at least: 6.0
+ Tested up to: 6.1
  */
 class eventon_reviewer{
 	
-	public $version='1.0.4';
-	public $eventon_version = '2.9';
+	public $version='1.1';
+	public $eventon_version = '4.3';
 	public $name = 'Event Reviewer';
 	public $id = 'EVORE';
 			
@@ -78,12 +78,16 @@ class eventon_reviewer{
 			$this->opt = get_option('evcal_options_evcal_re');
 			$this->opt2 = get_option('evcal_options_evcal_2');
 
+			EVO()->cal->load_more('evcal_re');
+
 			// Deactivation
 			register_deactivation_hook( __FILE__, array($this,'deactivate'));
 
 			include_once( 'includes/class-event_reviews.php' );
 			include_once( 'includes/class-shortcode.php' );
 			include_once( 'includes/class-frontend.php' );
+			include_once( 'includes/class-intergration-virtual.php' );
+
 			$this->frontend = new evore_front();
 			
 			if ( is_admin() ){

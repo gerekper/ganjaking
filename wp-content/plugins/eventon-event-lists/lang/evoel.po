@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: evoel\n"
+"POT-Creation-Date: 2021-08-02 15:08-0700\n"
+"PO-Revision-Date: 2021-08-02 15:08-0700\n"
+"Last-Translator: \n"
+"Language-Team: AJDE\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../eventon-event-lists.php:58
+#, php-format
+msgid "EventON %s is NOT active! - "
+msgstr ""
+
+#: ../includes/class-shortcode.php:50
+msgid "Event Lists: Extended"
+msgstr ""
+
+#: ../includes/class-shortcode.php:54
+msgid "Custom Calendar title"
+msgstr ""
+
+#: ../includes/class-shortcode.php:58
+msgid "Select Event List Type"
+msgstr ""
+
+#: ../includes/class-shortcode.php:60
+msgid "Type of event list you want to show."
+msgstr ""
+
+#: ../includes/class-shortcode.php:63
+msgid "Upcoming Events"
+msgstr ""
+
+#: ../includes/class-shortcode.php:64
+msgid "Past Events"
+msgstr ""
+
+#: ../includes/class-shortcode.php:65
+msgid "Date Range"
+msgstr ""
+
+#: ../includes/class-shortcode.php:74
+msgid "Start Date Range"
+msgstr ""
+
+#: ../includes/class-shortcode.php:78 ../includes/class-shortcode.php:85
+msgid ""
+"Date value MUST be in yyyy/mm/dd format. ALSO supported values: today, "
+"rightnow, +/-{x} days, +/-{x} months"
+msgstr ""
+
+#: ../includes/class-shortcode.php:81
+msgid "End Date Range"
+msgstr ""
+
+#: ../includes/class-shortcode.php:91
+msgid "Event Cut-off"
+msgstr ""
+
+#: ../includes/class-shortcode.php:93
+msgid ""
+"Past or upcoming events cut-off time. This will allow you to override past "
+"event cut-off settings for calendar events. Current date = today at 12:00am"
+msgstr ""
+
+#: ../includes/class-shortcode.php:95
+msgid "Current Time"
+msgstr ""
+
+#: ../includes/class-shortcode.php:97
+msgid "Current Time: "
+msgstr ""
+
+#: ../includes/class-shortcode.php:98
+msgid "Current Date: "
+msgstr ""
+
+#: ../includes/class-shortcode.php:99
+msgid "Fixed Time"
+msgstr ""
+
+#: ../includes/class-shortcode.php:116
+msgid "Apply Event Count to Whole Events List"
+msgstr ""
+
+#: ../includes/class-shortcode.php:118
+msgid ""
+"Event Count limit will be applied to the entire events list instead of per "
+"each month, by default event count is applied to each month"
+msgstr ""
+
+#: ../includes/class-shortcode.php:124
+msgid "Show load more events button"
+msgstr ""
+
+#: ../includes/class-shortcode.php:126
+msgid ""
+"Require \"event count limit\" to work, then this will add a button to show "
+"rest of the events for calendar in increments"
+msgstr ""
+
+#: ../includes/class-shortcode.php:132
+msgid "Redirect load more events button"
+msgstr ""
+
+#: ../includes/class-shortcode.php:134
+msgid ""
+"http:// URL the load more events button will redirect to instead of loading "
+"more events on the same calendar."
+msgstr ""
+
+#: ../includes/class-shortcode.php:138
+msgid ""
+"Load more events via AJAX only support when \"Separate events by month\" is "
+"disabled AND \"Apply Event Count to Whole Events List\" is enabled"
+msgstr ""
+
+#: ../includes/class-shortcode.php:140
+msgid "Load more events via AJAX"
+msgstr ""
+
+#: ../includes/class-shortcode.php:142
+msgid ""
+"This will load more events via AJAX as oppose to loading all events onLoad."
+msgstr ""
+
+#: ../includes/class-shortcode.php:151
+msgid "Separate events by month"
+msgstr ""
+
+#: ../includes/class-shortcode.php:153
+msgid "This will separate events into months similar to basic event list"
+msgstr ""
+
+#: ../includes/class-shortcode.php:163
+msgid "Month Order for List"
+msgstr ""
+
+#: ../includes/class-shortcode.php:165
+msgid ""
+"How to order months in the events list where there are more than one month"
+msgstr ""
+
+#: ../includes/class-shortcode.php:169
+msgid "ASC: Nov, Dec"
+msgstr ""
+
+#: ../includes/class-shortcode.php:170
+msgid "DESC: Dec, Nov"
+msgstr ""

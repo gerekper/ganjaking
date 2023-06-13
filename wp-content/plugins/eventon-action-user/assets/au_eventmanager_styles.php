@@ -1,6 +1,32 @@
 <?php
 // styles for event manager thats printed on to the page
+
+$preset_data = array(
+    'evo_color_1' => '202124',
+    'evo_color_2' => '656565',
+    'evo_color_link' => '656565',
+);
+extract($preset_data);
+
 ?>
+
+.eventon_actionuser_eventslist p subtitle a,
+.eventon_actionuser_eventslist .evoau_manager_row .event_date_time,
+.eventon_actionuser_eventslist .evoau_manager_row .event_date_time span,
+.eventon_actionuser_eventslist a.editEvent, .eventon_actionuser_eventslist a.deleteEvent,
+.evoau_manager_continer h4,
+.evoau_back_btn i, .evoau_paginations i,
+a.evoau_back_btn, .evoau_paginations,
+#evoau_event_manager h3.evoau_subheader
+{color:var(--evo_color_1)}
+
+.eventon_actionuser_eventslist .evoau_manager_row a.evoauem_additional_buttons,
+.eventon_actionuser_eventslist .editEvent:hover, .eventon_actionuser_eventslist .deleteEvent:hover,
+.evoau_back_btn:hover i, .evoau_paginations:hover i
+{background-color:var(--evo_color_1)}
+
+.evoau_back_btn i, .evoau_paginations i
+{border-color:var(--evo_color_1)}
 
 .evoau_manager_event_section{
 	width:100%;
@@ -34,18 +60,17 @@
     cursor:pointer;
 }
 .evoau_delete_trigger span:hover{background-color:#32bbfd}
-.evoau_manager_event_rows, .evoau_manager_continer{border:1px solid #E2E2E2;border-radius:12px;overflow:hidden}
+.evoau_manager_event_rows, .evoau_manager_continer{border:1px solid var(--evo_color_2);border-radius:12px;overflow:hidden}
 
 .evoau_manager_continer h4{
     font-weight: 900; font-size:20px;
-    color: #585858;
     font-family: 'roboto';
     padding: 10px 0;
 }
 
 .evoau_manager_continer .evoau_tile{
     background-color: #eaeaea;
-    padding: 15px;
+    padding: 30px;
     border-radius: 10px; margin-bottom:10px;
 }
 .evoauem_section_subtitle b{margin-right:10px;}
@@ -56,7 +81,7 @@
     font-size: 16px;
     display:inline-block;margin-right:10px; 
 }
-.evorsau_icon_button{margin-right:10px; cursor: pointer;opacity: 0.5;}
+.evorsau_icon_button{margin-left:10px; cursor: pointer;opacity: 0.5;}
 .evorsau_icon_button:hover{opacity: 1;}
 
 .evcal_btn.evoau, .evoau_submission_form.loginneeded .evcal_btn{
@@ -95,7 +120,8 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     height: 30px;
     width: 30px;
     display: inline-block;
-    border: 1px solid #808080;
+    border-width:1px;
+    border-style:solid;
     text-align: center;
     font-size: 16px;
     position: relative;
@@ -103,7 +129,6 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     margin-right:10px;
     box-sizing:border-box;
 }
-.evoau_back_btn:hover i, .evoau_paginations:hover i{background-color:#808080}
 .evoau_back_btn:hover i:before, .evoau_paginations:hover i:before{color:#fff}
 .evoau_back_btn i:before{
 	margin-top:5px;
@@ -117,11 +142,11 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     position: relative;
     margin-bottom: 10px;
     border-radius: 10px;
-    background-color: #e8e8e8;
+    background-color: transparent;
+    border: 1px solid var(--evo_color_2);
     margin: 10px;
 }
 .eventon_actionuser_eventslist .evoau_manager_row.past{background-color:#f7f7f7}
-.eventon_actionuser_eventslist .evoau_manager_row:last-child{border:none}
 .eventon_actionuser_eventslist .evoau_manager_row p{padding:0; margin:0}
 .eventon_actionuser_eventslist .evoau_manager_row p.event_name{}
 .eventon_actionuser_eventslist .evoau_manager_row p.event_name i{
@@ -135,6 +160,8 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     border-bottom: 1px solid #afafaf;
     border-top: 1px solid #afafaf;
 }
+#evoau_event_manager h3.evoau_subheader{margin:20px 0 10px 0}
+#evoau_event_manager p.evoau_intro{margin:10px 0}
 #evoau_event_manager h3 i.fa-search{
      font-size: 18px;
     margin-right: 10px;
@@ -146,8 +173,8 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     display:none;
     margin-bottom: 20px;
     background-color: #e8e8e8;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 25px;
+    padding: 10px 20px;
 }
 .evoau_search_form input{
     width: 100%;
@@ -163,9 +190,9 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
 	font-size: 11px;
 	text-transform: uppercase;		
 }
-.eventon_actionuser_eventslist .evoau_manager_row span.event_date_time{font-size:13px}
-.eventon_actionuser_eventslist .evoau_manager_row span.event_date_time span{
-   display: inline-block;margin-left: 10px;opacity: 1;font-size: 13px;color: #000;
+.eventon_actionuser_eventslist .evoau_manager_row .event_date_time{font-size:13px}
+.eventon_actionuser_eventslist .evoau_manager_row .event_date_time span{
+   display: inline-block;margin-left: 10px;opacity: 1;font-size: 13px;
 }
 .eventon_actionuser_eventslist .evoau_manager_row span.event_date{}
 .eventon_actionuser_eventslist .evoau_manager_row a.evoauem_additional_buttons{
@@ -173,10 +200,9 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
 	display:inline-block;
 	border-radius:20px;
 	margin-right:5px;
-	padding:2px 15px;
-	background-color:#969696;
+	padding:1px 15px;margin-top:5px;
 	color:#fff;
-	font-size:11px;
+	font-size:12px;
 	text-transform:uppercase;
     text-decoration:none
 }
@@ -189,7 +215,7 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
 	color:#808080;
 	font-size:18px;
 }
-.eventon_actionuser_eventslist p subtitle a{color:#808080; text-decoration:none!important}
+.eventon_actionuser_eventslist p subtitle a{text-decoration:none!important}
 .eventon_actionuser_eventslist .evoau_manager_row span em,
 .eventon_actionuser_eventslist .evoau_manager_row tags{
 	padding:3px 10px; background-color:#cccccc; color:#fff;display:inline-block; border-radius:5px; margin-bottom:5px; font-size:12px; font-style:normal;line-height:1; margin-right:5px;
@@ -201,8 +227,7 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
 
 .eventon_actionuser_eventslist .evoau_manager_row span em.event_poststatus.status_publish{background-color:#64ce76}
 .eventon_actionuser_eventslist a.editEvent, .eventon_actionuser_eventslist a.deleteEvent{
-	opacity: 0.8;
-    z-index: 1;
+	z-index: 1;
     text-align: center;
     position: absolute;
     right: 20px;
@@ -210,7 +235,6 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     height: 40px;
     width: 40px;
     padding-top: 12px;
-    color: #333;
     cursor: pointer;
     border-radius: 50%;
     border: 1px solid #3d3d3d;
@@ -226,7 +250,7 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
 	right:70px;
 }
 .eventon_actionuser_eventslist .editEvent:hover, .eventon_actionuser_eventslist .deleteEvent:hover{
-	text-decoration: none; opacity: 1;background-color:#3d3d3d; color:#fff; }
+	text-decoration: none; opacity: 1;color:#fff; }
 
 .eventon_actionuser_eventslist em{clear: both;}
 h3.evoauem_del_msg{padding: 4px 12px; border-radius: 5px; text-transform: uppercase;}
@@ -254,14 +278,7 @@ p.evoau_outter_shell{
     display: inline-block;
     margin-top:3px;
 }
-.evoau_table .ajdeToolTip:before {
-    content: "\f06a";
-    font-style: normal;
-    display: inline-block;
-    color: #9d9d9d;
-    font-size: 18px;
-    margin-top: 2px;
-}
+
 .evoau_table .ajdeToolTip em{
     visibility: hidden;
     font: 12px 'open sans';

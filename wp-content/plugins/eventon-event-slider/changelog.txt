@@ -1,5 +1,10 @@
 Event Slider (SL) addon for EventON Plugin
 ====================================
+v 2.0.6 (2023-1-31)
+FIXED: mobile swipe with dailyview switching 2 slides
+FIXED: slide nav dots not wrapping to width
+FIXED: Several layout style conflicts 
+
 v 2.0.5 (2021-12-3)
 FIXED: mini slider flex style issues
 FIXED: mini slider image support

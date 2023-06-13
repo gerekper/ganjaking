@@ -140,10 +140,11 @@ class evo_frontend {
 			wp_register_script( 'evo_wyg_editor',EVO()->assets_path.'lib/trumbowyg/trumbowyg.min.js','', EVO()->version, true );
 			wp_register_style( 'evo_wyg_editor',EVO()->assets_path.'lib/trumbowyg/trumbowyg.css', '', EVO()->version);
 
+			// removing
 			wp_localize_script( 
 				'evcal_ajax_handle', 
 				'the_ajax_script', 
-				apply_filters('evo_ajax_script_data', array( 
+				apply_filters('evo_ajax_script_data_legacy', array( 
 					'ajaxurl' => admin_url( 'admin-ajax.php' ) , 
 					'rurl'=> get_rest_url(),
 					'postnonce' => wp_create_nonce( 'eventon_nonce' ),
@@ -151,15 +152,19 @@ class evo_frontend {
 					'evo_v'=> EVO()->version
 				))
 			);
+
+			// modified @4.4
 			wp_localize_script( 
 				'evcal_ajax_handle', 
 				'evo_general_params', 
 				apply_filters('evo_ajax_script_data', array( 
 					'ajaxurl' => admin_url( 'admin-ajax.php' ) , 
-					'rurl'=> get_rest_url(),
-					'n' => wp_create_nonce( 'eventon_nonce' ),
+					'evo_ajax_url' => evo_ajax::get_endpoint('%%endpoint%%') , 
 					'ajax_method' => 'ajax',
+					'rest_url'=> EVO_Rest_API::get_rest_api('%%endpoint%%'),
+					'n' => wp_create_nonce( 'eventon_nonce' ),					
 					'evo_v'=> EVO()->version,
+					'text'=> array(),
 				))
 			);
 
@@ -172,8 +177,11 @@ class evo_frontend {
 			wp_register_script('eventon_gmaps_blank', EVO()->assets_path. 'js/maps/eventon_gen_maps_none.js', array('jquery'), EVO()->version ,true );	
 			
 
-			$apikey = !empty($evo_opt['evo_gmap_api_key'])? '?key='.$evo_opt['evo_gmap_api_key'] :'';
-			wp_register_script( 'evcal_gmaps', apply_filters('eventon_google_map_url', 'https://maps.googleapis.com/maps/api/js'.$apikey), array('jquery'),'1.0',true);
+			$apikey = !empty($evo_opt['evo_gmap_api_key'])? '?key='.$evo_opt['evo_gmap_api_key'] .'&callback=Function.prototype' :'';
+			wp_register_script( 'evcal_gmaps', 
+				apply_filters('eventon_google_map_url', 
+					'https://maps.googleapis.com/maps/api/js'.$apikey), 
+				array('jquery'),'1.0',true);
 			
 
 			// STYLES
@@ -230,6 +238,7 @@ class evo_frontend {
 					//'Roboto' => 'Roboto:400,700,900',
 					//'league-spartan' => 'League+Spartan:400,700',
 					'monsterrat' => 'Montserrat:700,800,900',
+					//'figtree' => 'Figtree:700,800,900',
 				)
 			);
 

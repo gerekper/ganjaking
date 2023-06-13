@@ -88,8 +88,15 @@ class evo_cal_shell {
 
 				// month increment value
 				if(!empty($month_incre) && $month_incre != 0){
-					if( strpos($month_incre, '+') === false  && strpos($month_incre, '-') === false) $month_incre = '+'.$month_incre;
-					$DD->modify('+'. (int)$month_incre.'month');
+
+					// for + values
+					if( strpos($month_incre, '+') === false  && strpos($month_incre, '-') === false)
+						$month_incre = '+'.$month_incre;
+
+					if( strpos($month_incre, '+') !== false ) $month_incre = '+'.(int)$month_incre;
+					if( strpos($month_incre, '-') !== false ) $month_incre = '-'.(int)( str_replace('-', '', $month_incre ));
+						 
+					$DD->modify( $month_incre.'month');
 					$_start = $DD->format('U');
 				}
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.3
+ * @version 4.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -33,7 +33,10 @@ class EVO_Event extends EVO_Data_Store{
 	public $utcoff = 0;
 	public $is_utcoff = false;
 
+	public $event_data, $end_unix; 
+
 	public function __construct($event_id, $event_pmv='', $ri = 0, $force_data_set = true, $post=false){
+
 		
 		$this->event_id = $this->ID = (int)$event_id;
 		$this->post_type = 'ajde_events';		
@@ -59,6 +62,12 @@ class EVO_Event extends EVO_Data_Store{
 			$this->excerpt = $post->post_excerpt;
 			$this->post_name = $post->post_name;
 			$this->post_title = $post->post_title;
+			$this->post_password = $post->post_password;
+			$this->post_type = $post->post_type;
+			$this->post_status = $post->post_status;
+
+			// validate post is indeed event
+			if( 'ajde_events' !== $this->post_type) return false;
 		}
 
 		$this->event_data = $this->meta_data;
@@ -691,6 +700,11 @@ class EVO_Event extends EVO_Data_Store{
 			return ob_get_clean();
 		}
 
+	// password protected events
+		function is_password_required(){
+			return $this->post_password;
+		}
+
 	// Taxonomy @+2.8.1 @~2.8.5
 		function get_tax_ids(){
 			global $wpdb;
@@ -1029,6 +1043,9 @@ class EVO_Event extends EVO_Data_Store{
 		// not initiated on load
 		function get_event_post(){
 			$this->load_post();
+
+			// validate post is indeed event
+			if( 'ajde_events' !== $this->post_type) return false;
 		}
 		function get_start_unix(){	return (int)$this->get_prop('evcal_srow');	}
 		function get_end_unix(){	return (int)$this->get_prop('evcal_erow');	}
@@ -1148,7 +1165,7 @@ class EVO_Event extends EVO_Data_Store{
 				foreach($organizer_meta as $I=>$key){	
 					$K = is_integer($I)? $key: $I;				
 					$R[$K] = (empty($org_term_meta[$key]))? '': $org_term_meta[$key];
-				}
+				}				
 
 				return $R;
 			}else{
@@ -1188,6 +1205,11 @@ class EVO_Event extends EVO_Data_Store{
 						}
 					}
 
+					// append secondary description to main description
+					if( !empty( $R[ $tax ][ $term->term_id ]->description2 )){
+						$R[ $tax ][ $term->term_id ]->description .= '<div class="evo_sd">'. $R[ $tax ][ $term->term_id ]->description2 .'</div>';
+					}
+
 					// pass link 
 					$R[ $tax ][ $term->term_id ]->link = get_term_link( $term , $tax);
 				}				
@@ -1210,6 +1232,7 @@ class EVO_Event extends EVO_Data_Store{
 			$meta_data['event_organizer']['organizer_address'] = 'evcal_org_address';
 			$meta_data['event_organizer']['organizer_link'] = 'evcal_org_exlink';
 			$meta_data['event_organizer']['organizer_link_target'] = '_evocal_org_exlink_target';
+			$meta_data['event_organizer']['description2'] = 'description2';
 
 			$meta_data = apply_filters( 'evo_single_event_taxonomy_meta_array', $meta_data, $tax, $this);
 

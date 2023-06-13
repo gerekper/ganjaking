@@ -69,6 +69,19 @@ if ( WCAM()->is_request( 'admin' ) ) {
 	WC_AM_INSTALL();
 
 	/**
+	 * Returns the WC_AM_Menus class object
+	 *
+	 * @since 2.8
+	 *
+	 * @return \WC_AM_Menus
+	 */
+	function WC_AM_MENUS() {
+		return new WC_AM_Menus();
+	}
+
+	WC_AM_MENUS();
+
+	/**
 	 * Returns the WC_AM_Order_Admin class object
 	 *
 	 * @since 1.5

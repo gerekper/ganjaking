@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/addons/event-slider
  Description: Display your events in a neatly crafted slider of events
  Author: Ashan Jay
- Version: 2.0.5
+ Version: 2.0.6
  Author URI: http://www.ashanjay.com/
- Requires at least: 5.0
- Tested up to: 5.8
+ Requires at least: 6.0
+ Tested up to: 6.1
  */
 
 class evo_slider{
 	
-	public $version='2.0.5';
-	public $eventon_version = '4.0';
+	public $version='2.0.6';
+	public $eventon_version = '4.2';
 	public $name = 'Event Slider';
 	public $id = 'EVOSL';
 			

@@ -1,10 +1,11 @@
 <?php
 /** 
  * front end WISHLIST
- * @version 1.1.1
+ * @version 1.2
  */
 class evowi_frontend{
-
+	public $fnc, $user_wishlist;
+	
 	public $wishlist_manager = false;
 	public function __construct(){
 
@@ -162,12 +163,20 @@ class evowi_frontend{
 
 			// Set number of months for the wish list manager if not passed
 			if( !isset($atts['number_of_months']) ) $atts['number_of_months']= 12;
+
+			//print_r($this->user_wishlist);
+
+			echo "<div class='evowi_wl_manager'>";
 					
 			if($this->user_wishlist){
 				$this->only_wi_actions();
 
 				$atts['calendar_type'] = 'wishlist';
 				$atts['wishlist'] = 'yes';
+				if( !isset($atts['eventtop_style']) ) $atts['eventtop_style'] = '2';
+
+				// wish list count stats
+				echo "<div class='evowi_stats'><p>". evo_lang('Event in the wishlist') ."<b>-</b></p></div>";
 
 				echo EVO()->calendar->_get_initial_calendar( $atts , array(
 					'date_header'=>false,
@@ -177,6 +186,8 @@ class evowi_frontend{
 			}else{
 				echo '<p class="no_events">'.evo_lang('You do not have any wish list events')."</p>";
 			}	
+
+			echo "</div>";
 		}
 
 		// before initial ajax call is run

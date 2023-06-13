@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Template functions for template system
- *	@version 4.3.1
+ *	@version 4.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -105,7 +105,10 @@ function evotemp_before_header(){
 			}
 
 		}
+
+	if( !evo_current_theme_is_fse_theme() )  get_header('events');
 }
+
 function evotemp_before_main_content(){
 	wp_enqueue_style( 'evo_single_event');		
 	EVO()->frontend->load_evo_scripts_styles();		
@@ -136,14 +139,17 @@ function evotemp_content_wrapper(){
 	<div class='evo_page_content <?php echo EVO()->cal->check_yn('evosm_1','evcal_1') ? 'evo_se_sidarbar':null;?>'>
 	<?php
 }
-function evotemp_after_loop(){
-
+function evotemp_after_loop(){}
+function evotemp_after_main_content(){
+	if( !evo_current_theme_is_fse_theme() ) get_footer('events');
 }
-function evotemp_after_main_content(){}
 function evotemp_before_single_event(){}
 function evotemp_before_single_event_content(){
 
 	global $event;
+
+	// if password protected event
+	//if( $event->is_password_required() ) echo 'Password Protected event';
 
 
 	$rtl = EVO()->cal->check_yn( 'evo_rtl','evcal_1');
@@ -221,7 +227,8 @@ function evotemp_single_event_summary(){
 		// repeat header
 		echo $event->get_repeat_header_html();
 
-		if( !EVO()->cal->check_yn('evosm_hide_title') ):?><h1 class='evosin_event_title'><?php echo $event->get_title();?></h1><?php
+		if( !EVO()->cal->check_yn('evosm_hide_title') ):?><h1 class='evosin_event_title'>
+			<?php echo $event->get_title(); ?></h1><?php
 		endif;
 			
 		echo isset($content[0]) ? $content[0]['content'] : '';
@@ -231,24 +238,24 @@ function evotemp_after_event_content(){
 
 	// comments section
 	if( !EVO()->cal->check_yn('evosm_comments_hide')){
+		
+		if( !evo_current_theme_is_fse_theme() ):			
 		?>
-		<div id='eventon_comments'>
-		<?php comments_template( '', true );	?>
-		</div>
+		<div id='eventon_comments'><?php comments_template( '', true );	?></div>
 		<?php
+		endif;
 	}
 
 	?></div><!---ajde_evcal_calendar--><?php 
 }
-function evotemp_after_single_event_summary(){
-	
-}
+function evotemp_after_single_event_summary(){}
 function evotemp_single_event_after_loop(){
 
 	// side bar
 	if(EVO()->cal->check_yn( 'evosm_1','evcal_1')){
 		if ( is_active_sidebar( 'evose_sidebar' ) ){
 
+			if( !evo_current_theme_is_fse_theme() ):
 			?>
 			<div class='evo_page_sidebar'>
 				<ul id="sidebar">
@@ -256,37 +263,17 @@ function evotemp_single_event_after_loop(){
 				</ul>
 			</div>
 			<?php
+			endif;
 		}
 	}
 	?></div><!-- evo_page_content--><?php
 }
 function evotemp_after_single_event(){}
-
 function evo_get_page_header(){
-	if( evo_current_theme_is_fse_theme() ){
-		
-		block_header_area();
-		
-		wp_head();
-		?><div class="wp-site-blocks"><?php
-		
-	}else{
-		get_header();
-	}
+	if( !evo_current_theme_is_fse_theme() )	get_header();
 }
 function evo_get_page_footer(){
-	if( evo_current_theme_is_fse_theme() ){
-
-		
-		block_footer_area(); 
-
-		?></div><?php
-
-		wp_footer();
-
-	}else{
-		get_footer();
-	}
+	if( !evo_current_theme_is_fse_theme() )	get_footer();
 }
 function evo_get_page_sidebar(){
 	if( !evo_current_theme_is_fse_theme() ){

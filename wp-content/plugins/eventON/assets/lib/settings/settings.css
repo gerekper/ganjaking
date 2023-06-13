@@ -168,7 +168,6 @@
 	}
 	.evo_settings_subsection h4{margin-bottom: 10px;}
 	.evo_settings_subsection em.hr_line{border-color: #d8d5d5;}
-	.evo_settings_subsection em.hr_line:last-child{display: none;}
 	.evo_settings_subsection p.acus_line.acus_radio{    padding-bottom: 10px; margin-bottom: 10px;}
 	#ajde_customization .evo_settings_subsection .ajdebe_dropdown, 
 	.customization_right_in .evo_settings_subsection .nfe_f_width input, 
@@ -267,12 +266,12 @@
 
 /* hidden yes no section */
 	.customization_right_in .backender_yn_sec{border-top: none;}
-	.backender_yn_sec{
+	.backender_yn_sec .evosettings_field_child{
 		background-color: #d6d6d6; border-radius: 10px;
-		margin: 0;
-		padding: 10px 20px 0;
+		margin: 0;padding: 10px 15px;
 	}
 	.backender_yn_sec .backender_yn_sec{background-color: #c6c6c6}
+	.evosettings_field_child em.hr_line:last-child{display: none;}
 
 /* fonts */
 	#acus_right h3{
@@ -301,11 +300,7 @@
 		display:block; 
 		margin:8px -20px;
 	}
-	em.hr_line.noexpand{margin:10px -10px}
-	.backender_yn_sec em.hr_line{
-		margin:10px -10px;
-		border-bottom:1px solid #EDEDED;
-	}
+	em.hr_line.noexpand{margin:10px -10px}	
 
 /* I/O */
 	/* checkboxes */
@@ -475,19 +470,19 @@
 	.ajdeSET_hidden_body .evo_in em.hr_line:last-child{display: none;}
 /*-- arrgange box */
 	#ajdeEVC_arrange_box{
-		padding:7px;
-		border:1px dashed #d5d5d5;
+		padding:7px; border-radius: 10px;
+		border:1px solid #d5d5d5;
 		margin-top:3px;
 	}
 	#ajdeEVC_arrange_box p{
 		background-color:#E4E4E4;
 		padding:5px 6px;
-		color:#6f6f6f;
+		color: var(--evo_color_1);
 		text-transform:uppercase;
 		cursor:move;
 		position: relative;
 		padding-left: 35px;
-		border-radius: 5px;
+		border-radius: 8px;
 		height: 20px;
 		line-height: 20px
 	}
@@ -532,7 +527,7 @@
 		content:"\f111";
 		left: 1px;
 		right: auto;
-		opacity: 0.4
+		opacity: 0.3
 	}
 /* preview email section */
 	.evo_email_preview .evo_email_preview_body{

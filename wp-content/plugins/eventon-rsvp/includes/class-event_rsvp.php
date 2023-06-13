@@ -1,7 +1,7 @@
 <?php
 /**
  * Event RSVP object
- * @version 2.8.2
+ * @version 2.9
  */
 
 class EVORS_Event{
@@ -81,6 +81,8 @@ class EVORS_Event{
 
 
 // RSVP data	
+
+
 	// check if capacity set
 	// v 2.6.3
 		function is_capacity_limit_set(){
@@ -224,6 +226,21 @@ class EVORS_Event{
 			return $rsvp_count;
 		}
 
+	// return checked vs checkin count from guest list array
+		function get_checked_stats($guest_list){
+			if(empty($guest_list)) return false;
+			$return = array('checked'=>0, 'check-in'=>0);
+
+			foreach($guest_list as $rsvp=>$data){
+				if( $rsvp != 'y') continue;
+				foreach($data as $id=>$v){
+					$return[$v['status'] ] += $v['count'];
+				}
+			}
+
+			return $return;
+		}
+
 
 	// check if max rsvp per instance set and return the max value
 	function is_per_rsvp_max_set(){
@@ -313,8 +330,11 @@ class EVORS_Event{
 				$pmv = $RR->pmv;
 
 				// only allow normal RSVP guests
-				if($rsvp_type == 'normal' && !in_array($RR->checkin_status(), array('check-in', 'checked'))) continue;
+				if($rsvp_type == 'normal' && !in_array($RR->checkin_status(), array('check-in', 'checked'))) continue;				
 
+				// RSVP type filter
+				if( !in_array($rsvp_type, array('normal', 'all')) && $rsvp_type != $RR->get_rsvp_type() ) continue;
+				
 				$rsvp = $RR->get_rsvp_status();
 				$e_id = $RR->event_id();
 				$_ri = $RR->repeat_interval(); // RI of the rsvp post
@@ -324,8 +344,6 @@ class EVORS_Event{
 
 
 				if(empty($pmv['email'])) continue;
-
-
 
 				if(	
 					( $ri == 0 && $ri == $_ri) ||						
@@ -689,26 +707,30 @@ class EVORS_Event{
 			EVO()->cal->set_cur('evcal_rs');
 
 			$RR = EVORS()->frontend->oneRSVP = new EVO_RSVP_CPT($created_rsvp_id);
-
-			//$pmv = get_post_meta($args['e_id']);
-			$_count = (empty($args['count'])) ? 1: $args['count'];
-			$_count = (int)$_count;
-			if( $_count <1 ) $_count = 1;
-
+			
 			// BEFREO SAVE
-			$args = apply_filters('evors_new_rsvp_before_save', $args, $this);
-			$args['rsvp_id'] = $created_rsvp_id;
+				$args = apply_filters('evors_new_rsvp_before_save', $args, $this);
+				$args['rsvp_id'] = $created_rsvp_id;
 
-			// save rsvp data
-			foreach( apply_filters('evors_saversvp_meta_array', array(
-				'lang','rsvp','first_name','last_name','email','phone','updates','e_id','rsvp_type'
-			)) as $key){
-				if(empty($args[$key])) continue;
+			// for each form field data
+				$form_fields = EVORS()->rsvpform->get_form_field_keys($this, $RR);
 
-				$RR->set_prop( $key, $args[ $key ] );
-			}
+				foreach( apply_filters(
+					'evors_saversvp_meta_array', 
+					array_merge( array(
+						'lang','rsvp','first_name','last_name','email','phone','updates','e_id','rsvp_type'
+					), $form_fields ) )
+				 as $key){
+					if(empty($args[$key])) continue;
 
-			$RR->set_prop( 'count', $_count);
+					$RR->set_prop( $key, $args[ $key ] );
+				}
+
+			// resave correct count value
+				$_count = (empty($args['count'])) ? 1: $args['count'];
+				$_count = (int)$_count;
+				if( $_count <1 ) $_count = 1;
+				$RR->set_prop( 'count', $_count);
 
 			// Save repeat interval
 				$__repeat_interval = (isset($args['repeat_interval']))? $args['repeat_interval']: '0';
@@ -719,13 +741,12 @@ class EVORS_Event{
 					$RR->set_prop( 'names', $args['names']);
 				}
 
-			// save additional form fields
+			// Additional field that is a file field
 				for($x=1; $x<= EVORS()->frontend->addFields; $x++){
 					$F = EVO()->cal->get_prop( 'evors_addf'.$x );
 					if( $F ){
 
-						$field_type = isset($this->opt_rs['evors_addf'.$x.'_2']) ?
-							$this->opt_rs['evors_addf'.$x.'_2']: false;
+						$field_type = EVO()->cal->get_prop('evors_addf'.$x.'_2');
 						$value = (!empty($args['evors_addf'.$x.'_1']))? $args['evors_addf'.$x.'_1']: '-';
 						
 						// save file uploads
@@ -734,11 +755,7 @@ class EVORS_Event{
 
 							// append the attachment file url for admin notification email attachment
 							if($url) $args['attachments'][] = $url;
-						//save field value
-						}else{
-							$RR->set_prop( 'evors_addf'.$x.'_1', $value);
 						}
-
 					}
 				}
 				
@@ -968,12 +985,15 @@ class EVORS_Event{
 
 			// save the attachment ID 
 			$RR->set_prop( 'evors_addf'.$x.'_1', $attachmentId);
+			$RR->set_prop( 'evors_addf'.$x, $attachmentId);
 
 			$url = wp_get_attachment_url( $attachmentId );
 
 			return !$url? false : $url;
 		}
 	}
+
+
 
 
 // SYNC Values
@@ -1029,13 +1049,18 @@ class EVORS_Event{
 			$rsvp_count = apply_filters('evors_sync_after_query', $rsvp_count, $Rs, $this, $ri_count, $sync_type);
 		}
 
+		// update event rsvp capacity count, if set and is less than new total yes count
+		if( $this->is_capacity_limit_set() && !$is_ri_count_active){
+			$capacity = $this->event->get_prop('evors_capacity_count');
 
+			if( $capacity < $rsvp_count['y'] ) $this->event->set_prop('evors_capacity_count', $rsvp_count['y'] );
+		}
 
 
 		// update the RSVP counts
-		update_post_meta($event_id,'_rsvp_yes', $rsvp_count['y'] );
-		update_post_meta($event_id,'_rsvp_no', $rsvp_count['n'] );
-		update_post_meta($event_id,'_rsvp_maybe', $rsvp_count['m'] );
+		$this->event->set_prop('_rsvp_yes', $rsvp_count['y'] );
+		$this->event->set_prop('_rsvp_no', $rsvp_count['n'] );
+		$this->event->set_prop('_rsvp_maybe', $rsvp_count['m'] );
 
 		wp_reset_postdata();			
 

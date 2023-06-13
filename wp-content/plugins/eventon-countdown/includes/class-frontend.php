@@ -3,7 +3,7 @@
  * Frontend Class for countdown
  *
  * @author 		AJDE
- * @version     1.0
+ * @version     1.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -94,13 +94,16 @@ class evocd_front{
 				$_evocd_tx1 = $EVENT->get_prop_val( '_evocd_tx1', evo_lang('This event ends in..') );
 				$_evocd_tx2 = $EVENT->get_prop_val('_evocd_tx2', evo_lang('Time has ran out! Better luck next time!') );
 
-
+			
 			if($different>0){
+				// compact style
+				$compact = EVO()->cal->get_prop('evocs_compact','evcal_1');
+
 				$unique_id = 'event_cd_'.$EVENT->ID.'_'.$repeat_num.'_'.(rand(1,10));
 
-				$output .= "<span class='evocd_timer evoet_b1'>";
+				$output .= "<span class='evocd_timer evoet_b1 sty_". $compact ."'>";
 					$output .= "<span class='evocd_text' data-ex_tx='". $_evocd_tx2 ."'>". $_evocd_tx1 ."</span>";
-					$output .= "<span id='".$unique_id."' class='evocd_time' data-et='".$different."' data-ex_ux='{$ex_ux}' data-timetx='".$time_json."'>";
+					$output .= "<span id='".$unique_id."' class='evocd_time' data-et='".$different."' data-ex_ux='{$ex_ux}' data-timetx='".$time_json."' data-compact='{$compact}'>";
 						//$output .= '<span id="noDays" class="countdown is-countdown"><span class="countdown-row countdown-show3">
 						//<span class="countdown-section">
 						//<span class="countdown-amount">112</span>

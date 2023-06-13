@@ -1,5 +1,15 @@
 Wishlist for EventON Plugin
 ====================================
+v 1.2 (2023-5-11)
+ADDED: wishlist manager event count
+FIXED: undefined ri value and not saving repeats
+FIXED: PHP 8.2 compatibility
+
+v 1.1.2 (2023-3-22)
+FIXED: sanitize post content
+FIXED: language value not passed for subscription form
+FIXED: EventON 4.2 compatibility
+
 v 1.1.1 (2022-9-13)
 ADDED: ability to add events to wishlist from single event page
 FIXED: login message not passing link to current page

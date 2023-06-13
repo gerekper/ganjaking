@@ -3,7 +3,7 @@
  * Helper functions to be used by eventon or its addons
  * front-end only
  *
- * @version 4.3.3
+ * @version 4.3.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -72,6 +72,8 @@ class evo_helper{
 
 		// sanitize html content
 			function sanitize_html($content){
+				if( !EVO()->cal->check_yn('evo_sanitize_html','evcal_1')) return $content;
+
 				return wp_kses( $content, apply_filters('evo_sanitize_html', array( 
 				    'a' => array(
 				        'href' => array(),

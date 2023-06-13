@@ -4,7 +4,7 @@
  * Plugin URI: http://www.myeventon.com/
  * Description: Allow visitors to RSVP to your event.
  *  Author: Ashan Jay
- * Version: 2.8.2
+ * Version: 2.9.3
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 5.0
  * Tested up to: 6.1
@@ -15,16 +15,16 @@
 
 class EventON_rsvp{
 	
-	public $version='2.8.2';
-	public $eventon_version = '4.2.2';
+	public $version='2.9.3';
+	public $eventon_version = '4.3';
 	public $name = 'RSVP Events';
 			
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path ;
+	public $addon, $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path ;
+	public $opt2, $evors_opt  ;
+	public $shortcodes, $helper, $frontend, $functions, $email, $webhooks, $rsvpform ;
 	private $urls;
 	public $template_url ;
-
-	public $evors_opt;
 	
 	public $rsvp_array = array('y'=>'yes','m'=>'maybe','n'=>'no');
 	public $rsvp_array_ = array('y'=>'Yes','m'=>'Maybe','n'=>'No');
@@ -108,6 +108,7 @@ class EventON_rsvp{
 			// Deactivation
 			register_deactivation_hook( __FILE__, array($this,'deactivate'));
 
+			include_once( 'includes/class-ajax.php' );
 			include_once( 'includes/class-event_rsvp.php' );
 			include_once( 'includes/class-rsvp.php' );
 			include_once( 'includes/class-shortcode.php' );
@@ -118,11 +119,13 @@ class EventON_rsvp{
 			include_once( 'includes/class-intergration-actionuser.php' );
 			include_once( 'includes/class-intergration-qrcode.php' );
 			include_once( 'includes/class-intergration-webhooks.php' );
+			include_once( 'includes/class-form.php' );
 
 			$this->frontend = new evors_front();
 			$this->functions = new evorsvp_functions();
 			$this->email = new evors_email();
 			$this->webhooks = new EVORS_Webhooks();
+			$this->rsvpform = new evors_form();
 			
 			if ( is_admin() ){
 				include_once( 'includes/admin/class-lang.php' );
@@ -133,9 +136,7 @@ class EventON_rsvp{
 
 			}
 			if ( defined('DOING_AJAX') ){
-				include_once( 'includes/class-ajax.php' );
-				include_once( 'includes/class-form.php' );
-				$this->rsvpform = new evors_form();
+				
 			}			
 
 			$this->register_rsvp_post_type();

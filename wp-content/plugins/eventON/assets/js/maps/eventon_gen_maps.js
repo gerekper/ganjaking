@@ -26,6 +26,8 @@
 		};
 		var options = $.extend({}, defaults, opt); 
 
+		console.log(options);
+
 		var geocoder;
 
 		var code = {};

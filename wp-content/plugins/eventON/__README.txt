@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
-Tested up to: 6.1.1
-Stable tag: 4.3.3
+Tested up to: 6.2.2
+Stable tag: 4.4
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,62 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.4 (2023-6-9) =
+ADDED: location and organizer term ID on term edit page form
+ADDED: endpoint based ajax call method to speed up ajax requests
+ADDED: evo_slidedown_eventcard_complete trigger for single event box
+ADDED: appearance settings to adjust eventtop hover left border size
+ADDED: support for full site editing themes
+ADDED: ability to download each event as CSV data in event edit
+FIXED: Automatic conversion of false to array class-calendar-helper.php on line 504
+FIXED: get directions not working when google maps API is disabled
+FIXED: ux_val 3a not showing google maps
+FIXED: schedule view formatting
+FIXED: share on whatsapp text translation
+FIXED: addons page lightbox title missing and other errors
+FIXED: clear filter not working
+FIXED: single event page title text encoding
+FIXED: download events as CSV special character encoding
+FIXED: download events as CSV event location data error
+FIXED: event organizer page organize image bad cropping
+FIXED: event edit page notice message when no custom fields activated
+FIXED: security vulnerability in eventon_ics_download
+UPDATED: event organizer lightbox styles and code
+UPDATED: admin welcome screen design and layout
+UPDATED: cal_id value no longer needed but still supported
+
+= 4.3.5 (2023-4-10) =
+ADDED: print_ligthbox_button element
+ADDED: option to disable custom meta field sanitizing
+ADDED: secondary organizer description field to support html content
+FIXED: eventon elements code errors
+FIXED: widget arrow CSS error
+FIXED: template loader not loading correct child location
+FIXED: settings eventcard note with div cause issues when translated
+FIXED: virtual visible event end time fix issue
+FIXED: JSON LD location with double quotes parsing
+FIXED: multi data type image save not working
+FIXED: month_incre value getting stripped of -/+ values with PHP versions
+FIXED: shortcode generator going to inside step on load
+FIXED: minor time and location icon cutoff in eventtop
+FIXED: event custom meta field saving twice
+FIXED: event custom meta images not saving
+FIXED: organizer social media links to open in new window
+FIXED: removed empty button on organizer and location event edit form
+FIXED: organizer details lightbox no image content width
+FIXED: eventtop title across layout issue
+FIXED: organizer info opened from eventtop replacing previous opened lightbox content
+UPDATED: eventon_functions.js
+UPDATED: wp-admin lightbox design and formatting
+UPDATED: EVO_General_Elements() class with global dynamic button function
+UPDATED: lightbox close button DOM element to span from a
+UPDATED: moved html content sanitize as an option to settings
+
+= 4.3.4 (2023-2-16) =
+FIXED: filter issues
+FIXED: callback error on google maps
+FIXED: javascript error on filter
+
 = 4.3.3 (2023-2-15) = 
 ADDED: setting to enable sanitize custom meta field saving
 FIXED: organizer description inside div

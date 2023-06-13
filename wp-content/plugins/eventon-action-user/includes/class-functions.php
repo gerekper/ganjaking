@@ -41,7 +41,7 @@ class evoau_functions{
 
 				global $current_user;
 				$event_author = get_post_field ('post_author', $event_id);
-
+				$event_post_statud = get_post_field ('post_status', $event_id);
 				
 				// user made event
 				if( $event_author == $current_user->ID ){
@@ -62,7 +62,6 @@ class evoau_functions{
 						return ( current_user_can('edit_others_eventons', $event_id) ) ? true: false;
 					}
 				}
-
 
 
 				// if the user is admin// override everything
@@ -263,7 +262,7 @@ class evoau_functions{
 				echo "</p>";
 				
 				echo "{$edit_html} {$delete_html}
-					<span class='event_date_time'><i>".evo_lang('Date')."</i><span>{$DateTime}</span></span>
+					<p class='event_date_time'><i>".evo_lang('Date')."</i><span>{$DateTime}</span></p>
 					<span class='event_info_tags'>";
 						
 						$ES = $EVENT->get_event_status();
@@ -285,7 +284,7 @@ class evoau_functions{
 
 		// language
 			function get_lang($text, $lang='L1'){
-				$lang = !empty($eventon_au->frontend->lang)? EVOAU()->frontend->lang: $lang ;
-				return evo_lang($text, $lang, EVOAU()->frontend->evoau_opt_2);
+				$lang = !empty( EVOAU()->frontend->lang)? EVOAU()->frontend->lang: $lang ;
+				return evo_lang($text, $lang, '');
 			}
 }

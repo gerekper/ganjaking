@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/rsvp-waitlist
  * Description: Create waitlists for RSVPs
  * Author: Ashan Jay
- * Version: 0.3
+ * Version: 1.1.1
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 4.0
- * Tested up to: 5.0
+ * Requires at least: 6.0
+ * Tested up to: 6.1.1
  *  
  * Text Domain: evorsw
  * Domain Path: /lang/
@@ -16,9 +16,9 @@
 
 class EVORSW{
 
-	public $version='0.3';
-	public $eventon_version = '2.6.15';
-	public $evors_version = '2.6.3';
+	public $version='1.1.1';
+	public $eventon_version = '4.3';
+	public $evors_version = '2.9';
 	public $name = 'RSVP Waitlist';
 	public $id = 'EVORSW';
 
@@ -88,6 +88,10 @@ class EVORSW{
 
 			include_once( 'includes/class-event-waitlist.php' );	
 			include_once( 'includes/class-frontend.php' );	
+			include_once( 'includes/class-intergrations.php' );	
+
+			$this->front = new EVORSW_Front();
+			$this->integrations = new EVORSW_Intergrations();
 			
 			if ( defined('DOING_AJAX') ){
 				//include_once( 'includes/class-ajax.php' );
