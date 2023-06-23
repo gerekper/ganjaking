@@ -38,10 +38,28 @@ class WPML_TM_Jobs_Repository {
 			return $this->wpdb->get_results( $this->query_builder->get_data_query( $params ) );
 		}
 
-		return new WPML_TM_Jobs_Collection( array_map(
-			array( $this, 'build_job_entity' ),
-			$this->wpdb->get_results( $this->query_builder->get_data_query( $params ) )
-		) );
+		$results = $this->wpdb->get_results( $this->query_builder->get_data_query( $params ) );
+		return is_array( $results )
+			? new WPML_TM_Jobs_Collection( array_map(
+				array( $this, 'build_job_entity' ),
+				$results
+			  ) )
+			: new WPML_TM_Jobs_Collection( [] );
+	}
+
+	/**
+	 * @param WPML_TM_Jobs_Search_Params $params
+	 *
+	 * @throws \InvalidArgumentException When get_columns_to_select() is used. In that case use get().
+	 *
+	 * @return WPML_TM_Jobs_Collection
+	 */
+	public function get_collection( WPML_TM_Jobs_Search_Params $params ) {
+		if ( $params->get_columns_to_select() ) {
+			throw new \InvalidArgumentException( 'Not valid with get_columns_to_select().' );
+		}
+
+		return $this->get( $params );
 	}
 
 	/**
@@ -85,7 +103,7 @@ class WPML_TM_Jobs_Repository {
 		$params->set_job_types( $job_type );
 
 		$data = $this->wpdb->get_row( $this->query_builder->get_data_query( $params ) );
-		if ( $data ) {
+		if ( is_object( $data )  ) {
 			$data = $this->build_job_entity( $data );
 		}
 
@@ -93,11 +111,11 @@ class WPML_TM_Jobs_Repository {
 	}
 
 	/**
-	 * @param stdClass $raw_data
+	 * @param object $raw_data
 	 *
 	 * @return WPML_TM_Job_Entity
 	 */
-	private function build_job_entity( stdClass $raw_data ) {
+	private function build_job_entity( $raw_data ) {
 		$types = [ WPML_TM_Job_Entity::POST_TYPE, WPML_TM_Job_Entity::PACKAGE_TYPE, WPML_TM_Job_Entity::STRING_BATCH ];
 		$batch = new WPML_TM_Jobs_Batch( $raw_data->local_batch_id, $raw_data->batch_name, $raw_data->tp_batch_id );
 
@@ -150,11 +168,11 @@ class WPML_TM_Jobs_Repository {
 	}
 
 	/**
-	 * @param stdClass $raw_data
+	 * @param object $raw_data
 	 *
 	 * @return DateTime|null
 	 */
-	private function get_deadline( stdClass $raw_data ) {
+	private function get_deadline( $raw_data ) {
 		if ( $raw_data->deadline_date && '0000-00-00 00:00:00' !== $raw_data->deadline_date ) {
 			return new DateTime( $raw_data->deadline_date );
 		}

@@ -100,12 +100,11 @@ class WPML_Terms_Translations {
 
 	/**
 	 * @param string $slug
-	 * @param bool   $taxonomy
-	 * If $taxonomy is given, then slug existence is checked only for the specific taxonomy.
+	 * @param string $taxonomy
 	 *
 	 * @return bool
 	 */
-	private static function term_slug_exists( $slug, $taxonomy = false ) {
+	private static function term_slug_exists( $slug, $taxonomy ) {
 		global $wpdb;
 
 		$existing_term_prepared_query = $wpdb->prepare(
@@ -158,6 +157,7 @@ class WPML_Terms_Translations {
 	 * @param string|string[]|\WP_Post $post_type
 	 */
 	public static function quick_edit_terms_removal( $column_name, $post_type ) {
+		/** @var SitePress $sitepress */
 		global $sitepress, $wpdb;
 		if ( $column_name == 'icl_translations' ) {
 			$taxonomies                     = array_filter(
@@ -189,8 +189,7 @@ class WPML_Terms_Translations {
 				$terms_by_language_and_taxonomy[ $lang ][ $tax ][] = $term->term_id;
 			}
 			$terms_json = wp_json_encode( $terms_by_language_and_taxonomy );
-			$output     = '<div id="icl-terms-by-lang" style="display: none;">' . wp_kses_post( $terms_json ) . '</div>';
-			echo $output;
+			echo $terms_json ? '<div id="icl-terms-by-lang" style="display: none;">' . wp_kses_post( $terms_json ) . '</div>' : '';
 		}
 	}
 
@@ -245,7 +244,7 @@ class WPML_Terms_Translations {
 
 		$term                = false;
 		$lang_code           = false;
-		$taxonomy            = false;
+		$taxonomy            = '';
 		$original_id         = false;
 		$original_tax_id     = false;
 		$trid                = false;
@@ -345,7 +344,9 @@ class WPML_Terms_Translations {
 					)
 				);
 
-				$translated_slug = self::term_unique_slug( $translated_slug, $taxonomy, $lang_code );
+				$translated_slug = is_string( $lang_code )
+					? self::term_unique_slug( $translated_slug, $taxonomy, $lang_code )
+					: $translated_slug;
 			}
 			$new_translated_term = false;
 			if ( $term ) {
@@ -408,6 +409,10 @@ class WPML_Terms_Translations {
 		$post_translations        = $sitepress->get_element_translations( $post_trid, 'post_' . $post_type );
 		$terms_from_original_post = wp_get_post_terms( $post_id, $taxonomy );
 
+		if ( is_wp_error ( $terms_from_original_post ) ) {
+			return;
+		}
+
 		$is_original = true;
 
 		if ( $sitepress->get_original_element_id( $post_id, 'post_' . $post_type ) != $post_id ) {
@@ -421,6 +426,11 @@ class WPML_Terms_Translations {
 				continue;
 			}
 			$terms_from_translated_post = wp_get_post_terms( $translated_post_id, $taxonomy );
+
+			if ( is_wp_error ( $terms_from_translated_post ) ) {
+				continue;
+			}
+
 			if ( $is_original ) {
 				$duplicates = $sitepress->get_duplicates( $post_id );
 				if ( in_array( $translated_post_id, $duplicates ) ) {

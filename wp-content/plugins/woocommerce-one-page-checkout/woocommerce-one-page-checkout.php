@@ -7,10 +7,10 @@
  * Text Domain: woocommerce-one-page-checkout
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 2.3.0
- * Tested up to: 6.0
+ * Version: 2.5.0
+ * Tested up to: 6.2
  * WC requires at least: 2.5
- * WC tested up to: 6.4
+ * WC tested up to: 7.8
  * Woo: 527886:c9ba8f8352cd71b5508af5161268619a
  *
  * This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '2.3.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '2.5.0' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -1028,7 +1028,7 @@ class PP_One_Page_Checkout {
 
 		WC()->cart->maybe_set_cart_cookies();
 
-		echo json_encode( $response_data );
+		echo wp_json_encode( $response_data );
 
 		do_action( 'wcopc_ajax_remove_from_cart_response_after' );
 
@@ -1048,12 +1048,12 @@ class PP_One_Page_Checkout {
 
 		check_ajax_referer( self::$nonce_action, 'nonce' );
 
-		// Clear cart each time a new radio button is pressed
+		// Clear cart each time a new radio button is pressed.
 		if ( isset( $_REQUEST['empty_cart'] ) && ! apply_filters( 'wcopc_not_empty_cart', false ) ) {
 			WC()->cart->empty_cart();
 		}
 
-		// Populate $_POST with 3rd party input data to allow 3rd party code to validate
+		// Populate $_POST with 3rd party input data to allow 3rd party code to validate.
 		if ( isset( $_POST['input_data'] ) ) {
 
 			parse_str( $_POST['input_data'], $input_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -1079,7 +1079,7 @@ class PP_One_Page_Checkout {
 
 		if ( ! $bypass ) {
 
-			// Variation handling
+			// Variation handling.
 			if ( 'variation' === $add_to_cart_handler ) {
 
 				$variation_id       = $product_id;
@@ -1093,11 +1093,11 @@ class PP_One_Page_Checkout {
 				$variations = $product->get_variation_attributes();
 				$variation  = $product;
 
-				// Verify all attributes
+				// Verify all attributes.
 				foreach ( $variations as $name => $value ) {
 
 					if ( $value ) {
-						// Custom product attribute, get a formatted versin of the name so it displays nicely on the Review Order table
+						// Custom product attribute, get a formatted version of the name so it displays nicely on the Review Order table.
 						if ( ! taxonomy_exists( esc_attr( str_replace( 'attribute_', '', $name ) ) ) ) {
 							$variations[ $name ] = self::get_formatted_attribute_value( $name, $value, $attributes );
 						}
@@ -1108,7 +1108,7 @@ class PP_One_Page_Checkout {
 				}
 
 				if ( $all_variations_set ) {
-					// Add to cart validation
+					// Add to cart validation.
 					$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id, $variations );
 
 					if ( $passed_validation ) {
@@ -1120,10 +1120,9 @@ class PP_One_Page_Checkout {
 				} else {
 					wc_add_notice( __( 'Please choose product options&hellip;', 'woocommerce-one-page-checkout' ), 'error' );
 				}
-
-				// Variable product handling
 			} elseif ( 'variable' === $add_to_cart_handler ) {
 
+				// Variable product handling.
 				$variation_id       = empty( $_REQUEST['variation_id'] ) ? '' : absint( $_REQUEST['variation_id'] );
 				$quantity           = empty( $_REQUEST['quantity'] ) ? 1 : wc_stock_amount( $_REQUEST['quantity'] );
 				$all_variations_set = true;
@@ -1133,7 +1132,7 @@ class PP_One_Page_Checkout {
 				$attributes = $product->get_attributes();
 				$variation  = wc_get_product( $variation_id );
 
-				// Verify all attributes
+				// Verify all attributes.
 				foreach ( $attributes as $attribute ) {
 					if ( ! $attribute['is_variation'] ) {
 						continue;
@@ -1143,13 +1142,13 @@ class PP_One_Page_Checkout {
 
 					if ( isset( $_REQUEST[ $taxonomy ] ) ) {
 						if ( $attribute['is_taxonomy'] ) {
-							// Don't use wc_clean as it destroys sanitized characters
+							// Don't use wc_clean as it destroys sanitized characters.
 							$value = sanitize_title( stripslashes( $_REQUEST[ $taxonomy ] ) );
 						} else {
 							$value = wc_clean( stripslashes( $_REQUEST[ $taxonomy ] ) );
 						}
 
-						// Get valid value from variation
+						// Get valid value from variation.
 						$variation_data = wc_get_product_variation_attributes( $variation_id );
 						$valid_value    = $variation_data[ $taxonomy ];
 
@@ -1164,7 +1163,7 @@ class PP_One_Page_Checkout {
 				}
 
 				if ( $all_variations_set ) {
-					// Add to cart validation
+					// Add to cart validation.
 					$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id, $variations );
 
 					if ( $passed_validation ) {
@@ -1179,22 +1178,21 @@ class PP_One_Page_Checkout {
 				if ( empty( $variation_id ) || ! $all_variations_set ) {
 					wc_add_notice( __( 'Please choose product options&hellip;', 'woocommerce-one-page-checkout' ), 'error' );
 				}
-
-				// Custom Handler
 			} elseif ( has_action( 'wcopc_add_to_cart_handler_' . $add_to_cart_handler ) ) {
 
+				// Custom Handler.
 				do_action( 'wcopc_add_to_cart_handler_' . $add_to_cart_handler, $url );
 
-				// Simple Products
 			} else {
 
+				// Simple Products.
 				$quantity = empty( $_REQUEST['quantity'] ) ? 1 : wc_stock_amount( $_REQUEST['quantity'] );
 
-				// Add to cart validation
+				// Add to cart validation.
 				$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
 
 				if ( $passed_validation ) {
-					// Add the product to the cart
+					// Add the product to the cart.
 					if ( WC()->cart->add_to_cart( $product_id, $quantity ) ) {
 						wc_add_notice( self::get_add_to_cart_message( $quantity, wcopc_get_products_name( $product ) ), 'success' );
 						$was_added_to_cart = true;
@@ -1207,9 +1205,8 @@ class PP_One_Page_Checkout {
 			$passed_validation = true;
 		}
 
-		// Check cart items are valid, this is usually done when the cart is loaded or customer checks out, but we need to do it here to ensure coupons and items are checked
+		// Check cart items are valid, this is usually done when the cart is loaded or customer checks out, but we need to do it here to ensure coupons and items are checked.
 		do_action( 'woocommerce_check_cart_items' );
-
 		do_action( 'wcopc_ajax_add_to_cart_response_before' );
 
 		WC()->cart->maybe_set_cart_cookies();
@@ -1236,7 +1233,7 @@ class PP_One_Page_Checkout {
 
 		$response_data = apply_filters( 'wcopc_ajax_add_to_cart_response_data', $response_data );
 
-		echo json_encode( $response_data );
+		echo wp_json_encode( $response_data );
 
 		do_action( 'wcopc_ajax_add_to_cart_response_after' );
 
@@ -1250,46 +1247,34 @@ class PP_One_Page_Checkout {
 	 * @since 1.0
 	 */
 	public static function ajax_update_add_cart() {
-
 		check_ajax_referer( self::$nonce_action, 'nonce' );
+
 		$cart_contents = WC()->cart->get_cart();
+		$bypass        = false;
 
-		$bypass = false;
-		$update = false;
-
-		foreach ( $cart_contents as $cart_item_id => $value ) {
-
+		if ( isset( $_POST['update_key'] ) ) {
 			// Requests coming from the OPC order-review template reference a specific cart item by its key.
-			if ( isset( $_POST['update_key'] ) ) {
-
-				if ( $cart_item_id === $_POST['update_key'] ) {
-					$update = true;
+			$update_key = wc_clean( wp_unslash( $_POST['update_key'] ) );
+			foreach ( $cart_contents as $cart_item_id => $cart_item ) {
+				if ( $cart_item_id === $update_key ) {
+					if ( isset( $_POST['quantity'] ) ) {
+						$bypass   = true;
+						$quantity = absint( $_POST['quantity'] );
+						WC()->cart->set_quantity( $cart_item_id, $quantity );
+						wc_add_notice( self::get_add_to_cart_message( $quantity, $cart_item['data']->get_title() ), 'success' );
+					} else {
+						WC()->cart->set_quantity( $cart_item_id, 0 );
+					}
 				}
-
-				// Requests coming from OPC items reference their own product_id and OPC ID.
-			} elseif ( isset( $_POST['add_to_cart'] ) && ( $value['product_id'] === $_POST['add_to_cart'] || $value['variation_id'] === $_POST['add_to_cart'] ) ) {
-				$update = true;
 			}
-
-			if ( ! $update ) {
-				continue;
+		} elseif ( isset( $_POST['add_to_cart'] ) ) {
+			// Requests coming from OPC items reference their own product_id and OPC ID.
+			$add_to_cart = absint( $_POST['add_to_cart'] );
+			foreach ( $cart_contents as $cart_item_id => $cart_item ) {
+				if ( $cart_item['product_id'] === $add_to_cart || $cart_item['variation_id'] === $add_to_cart ) {
+					WC()->cart->set_quantity( $cart_item_id, 0 );
+				}
 			}
-
-			// When a request comes from the modified order-review template, we need to modify cart items WITHOUT removing them to preserve sensitive cart item data added by other extensions.
-			if ( isset( $_POST['update_key'] ) && isset( $_POST['quantity'] ) ) {
-
-				$quantity = absint( $_POST['quantity'] );
-
-				WC()->cart->set_quantity( $cart_item_id, $quantity );
-				$bypass = true;
-				wc_add_notice( self::get_add_to_cart_message( $quantity, $value['data']->get_title() ), 'success' );
-
-			} else {
-
-				WC()->cart->set_quantity( $cart_item_id, 0 );
-			}
-
-			break;
 		}
 
 		self::ajax_add_to_cart( $bypass );
@@ -1545,7 +1530,7 @@ class PP_One_Page_Checkout {
 
 		self::one_page_checkout_shortcode( $atts );
 		self::$evaluated_shortcode = true;
-		$shortcode_html = ob_get_clean();
+		$shortcode_html            = ob_get_clean();
 
 		return '<div class="wcopc">' . $shortcode_html . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
@@ -1580,20 +1565,21 @@ class PP_One_Page_Checkout {
 		}
 
 		if ( ! empty( $atts['template'] ) ) {
+			$user_defined_template = self::sanitize_template( $atts['template'] );
 
-			// Template param can accept either a full file name and path or just the file name without path/extension
-			if ( file_exists( wc_locate_template( $atts['template'], '', self::$template_path ) ) ) {
-
-				self::$template = $atts['template'];
-
-			} elseif ( file_exists( wc_locate_template( 'checkout/' . $atts['template'] . '.php', '', self::$template_path ) ) ) {
-
-				// But if the template does not exist, check...
-				self::$template = 'checkout/' . $atts['template'] . '.php';
-
+			if ( $user_defined_template ) {
+				self::$template = $user_defined_template;
 			}
 
-			// Allow plugins to override the template
+			/**
+			 * Hook: wcopc_template
+			 *
+			 * Allows plugins to override the template.
+			 *
+			 * @since 1.0.0
+			 * @param $template string The template file to load.
+			 * @param $atts array The shortcode attributes.
+			 */
 			self::$template = apply_filters( 'wcopc_template', self::$template, $atts );
 		}
 
@@ -1608,7 +1594,31 @@ class PP_One_Page_Checkout {
 		$checkout = WC()->checkout();
 
 		wc_get_template( 'checkout/form-checkout.php', array( 'checkout' => $checkout ) );
+	}
 
+	/**
+	 * Sanitizes the template name provided by the shortcode.
+	 *
+	 * @param string $raw_template_name The raw template name provided by the shortcode.
+	 * @return string
+	 */
+	private static function sanitize_template( $raw_template_name ) {
+		// If provided template is a path, use realpath. Otherwise sanitize the template name.
+		$template_name = stristr( $raw_template_name, '/' ) ? realpath( $raw_template_name ) : sanitize_file_name( $raw_template_name );
+
+		if ( ! $template_name ) {
+			return '';
+		}
+
+		if ( file_exists( wc_locate_template( $template_name, '', self::$template_path ) ) ) {
+			return $template_name;
+		}
+
+		if ( file_exists( wc_locate_template( 'checkout/' . $template_name . '.php', '', self::$template_path ) ) ) {
+			return 'checkout/' . $template_name . '.php';
+		}
+
+		return '';
 	}
 
 	/**

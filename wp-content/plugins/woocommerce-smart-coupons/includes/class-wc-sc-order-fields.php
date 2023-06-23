@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		private function __construct() {
 
 			add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'admin_order_totals_add_smart_coupons_discount_details' ) );
-			add_filter( 'woocommerce_get_order_item_totals', array( $this, 'add_smart_coupons_discount_details' ), 10, 2 );
+			add_filter( 'woocommerce_get_order_item_totals', array( $this, 'add_smart_coupons_discount_details' ), 10, 3 );
 
 			add_action( 'wp_loaded', array( $this, 'order_fields_hooks' ) );
 
@@ -43,6 +43,8 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 			add_action( 'woocommerce_email_after_order_table', array( $this, 'show_store_credit_balance' ), 10, 3 );
 
 			add_filter( 'woocommerce_get_coupon_id_from_code', array( $this, 'get_coupon_id_from_code' ), 1000, 3 );
+
+			add_filter( 'woocommerce_order_item_get_discount', array( $this, 'smart_coupon_get_discount' ), 99, 2 );
 
 		}
 
@@ -96,6 +98,16 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 			}
 
 			$total_credit_used = 0;
+
+			if ( ! $this->is_old_sc_order( $order ) ) {
+				$smart_coupons_contribution = ( $this->is_callable( $order, 'get_meta' ) ) ? $order->get_meta( 'smart_coupons_contribution' ) : array();
+
+				if ( ! empty( $smart_coupons_contribution ) ) {
+					$total_credit_used = array_sum( $smart_coupons_contribution );
+				}
+
+				return $total_credit_used;
+			}
 
 			$coupons = $order->get_items( 'coupon' );
 
@@ -164,6 +176,10 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 				return;
 			}
 
+			if ( ! $this->is_old_sc_order( $order_id ) ) {
+				return;
+			}
+
 			$order = wc_get_order( $order_id );
 
 			$total_credit_used = $this->get_total_credit_used_in_order( $order );
@@ -215,16 +231,17 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		 *
 		 * @param array    $total_rows All rows.
 		 * @param WC_Order $order The order object.
+		 * @param string   $tax_display Tax to display.
 		 * @return array $total_rows
 		 */
-		public function add_smart_coupons_discount_details( $total_rows = array(), $order = null ) {
+		public function add_smart_coupons_discount_details( $total_rows = array(), $order = null, $tax_display = '' ) {
 			global $store_credit_label;
 
 			if ( empty( $order ) ) {
 				return $total_rows;
 			}
 
-			$total_credit_used = $this->get_total_credit_used_in_order( $order );
+			$total_credit_used = (float) $this->get_total_credit_used_in_order( $order );
 
 			$offset = array_search( 'order_total', array_keys( $total_rows ), true );
 
@@ -241,13 +258,30 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 					array_slice( $total_rows, $offset, null )
 				);
 
-				$total_discount = $order->get_total_discount();
+				$total_discount = (float) $order->get_total_discount();
 				// code to check and manipulate 'Discount' amount based on Store Credit used.
 				if ( $total_discount === $total_credit_used ) {
 					unset( $total_rows['discount'] );
 				} else {
-					$total_discount                  = $total_discount - $total_credit_used;
-					$total_rows['discount']['value'] = '-' . wc_price( $total_discount );
+					if ( $this->is_old_sc_order( $order ) ) {
+						$total_discount                  = $total_discount - $total_credit_used;
+						$total_rows['discount']['value'] = '-' . wc_price( $total_discount );
+					} else {
+						if ( 'incl' === $tax_display ) {
+							$total_discount_tax = $order->get_discount_tax();
+							$total_discount    += $total_discount_tax;
+						}
+						if ( $total_discount > $total_credit_used ) {
+							$total_discount = $total_discount - $total_credit_used;
+							if ( ! array_key_exists( 'discount', $total_rows ) ) {
+								$total_rows['discount'] = array();
+							}
+							if ( ! array_key_exists( 'label', $total_rows['discount'] ) ) {
+								$total_rows['discount']['label'] = __( 'Discount:', 'woocommerce-smart-coupons' );
+							}
+							$total_rows['discount']['value'] = '-' . wc_price( $total_discount );
+						}
+					}
 				}
 			}
 
@@ -263,6 +297,10 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		 * @return float $total_discount
 		 */
 		public function smart_coupons_order_amount_total_discount( $total_discount, $order = null ) {
+
+			if ( ! $this->is_old_sc_order( $order ) ) {
+				return $total_discount;
+			}
 
 			// To avoid adding store credit in 'Discount' field on order admin panel.
 			if ( did_action( 'woocommerce_admin_order_item_headers' ) >= 1 ) {
@@ -504,6 +542,48 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 				}
 			}
 			return $id;
+		}
+
+		/**
+		 * Function to get total discount applied by store credit.
+		 *
+		 * @param float                $discount The original discount.
+		 * @param WC_Order_Item_Coupon $order_item The coupon order item.
+		 * @return float
+		 */
+		public function smart_coupon_get_discount( $discount = 0, $order_item = null ) {
+			$order_id = ( $this->is_callable( $order_item, 'get_order_id' ) ) ? $order_item->get_order_id() : 0;
+			if ( $this->is_old_sc_order( $order_id ) ) {
+				return $discount;
+			}
+			if ( is_admin() && $order_item->is_type( 'coupon' ) ) {
+				$coupon_data = $order_item->get_meta( 'coupon_data' );
+				if ( ! empty( $coupon_data['discount_type'] ) && 'smart_coupon' === $coupon_data['discount_type'] ) {
+					$discount_tax = $this->is_callable( $order_item, 'get_discount_tax' ) ? $order_item->get_discount_tax() : 0;
+					if ( empty( $discount_tax ) ) {
+						return $discount;
+					}
+					$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+					if ( ! empty( $backtrace ) && is_array( $backtrace ) ) {
+						$args = array();
+						foreach ( $backtrace as $trace ) {
+							if ( array_key_exists( 'args', $trace ) ) {
+								$args = array_merge( $args, array_values( $trace['args'] ) );
+							}
+						}
+						$args = array_filter( array_unique( $args ) );
+						if ( ! empty( $args ) && is_array( $args ) ) {
+							foreach ( $args as $path ) {
+								if ( stripos( $path, 'admin/meta-boxes/views/html-order-items.php' ) !== false ) {
+									$discount += $discount_tax;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			return $discount;
 		}
 
 	}

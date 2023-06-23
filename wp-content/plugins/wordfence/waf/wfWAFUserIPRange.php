@@ -118,6 +118,12 @@ class wfWAFUserIPRange {
 		return false;
 	}
 
+	private static function repeatString($string, $count) {
+		if ($count <= 0)
+			return '';
+		return str_repeat($string, $count);
+	}
+
 	/**
 	 * Expand a compressed printable range representation of an IPv6 address.
 	 *
@@ -134,7 +140,7 @@ class wfWAFUserIPRange {
 		}
 		$dbl_colon_pos = strpos($ip_range, '::');
 		if ($dbl_colon_pos !== false) {
-			$ip_range = str_replace('::', str_repeat(':0000',
+			$ip_range = str_replace('::', self::repeatString(':0000',
 					(($dbl_colon_pos === 0 || $dbl_colon_pos === strlen($ip_range) - 2) ? 9 : 8) - $colon_count) . ':', $ip_range);
 			$ip_range = trim($ip_range, ':');
 		}

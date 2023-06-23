@@ -483,7 +483,7 @@ if (!wfConfig::liveTrafficEnabled($overridden)):
 																		data-bind="click: showRecentTraffic" target="_blank" rel="noopener noreferrer">
 																	<span class="wf-hidden-xs"><?php esc_html_e('See recent traffic', 'wordfence'); ?></span><span class="wf-visible-xs"><?php esc_html_e('Recent', 'wordfence'); ?></span>
 																</a>
-																<span data-bind="if: action() == 'blocked:waf'">
+																<span data-bind="if: action() == 'blocked:waf' && actionData().path && actionData().paramKey && actionData().failedRules">
 																	<a class="wf-btn wf-btn-default wf-btn-sm"
 																			data-bind="click: function () { $root.whitelistWAFParamKey(actionData().path, actionData().paramKey, actionData().failedRules) }"
 																			title="<?php esc_attr_e('If this is a false positive, you can exclude this parameter from being filtered by the firewall', 'wordfence') ?>">

@@ -4,7 +4,7 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "From:": [
             "从："
@@ -60,11 +60,17 @@
          "Publish right away but mark as not reviewed so I can take a look later": [
             "立即发布但标记为未审阅，以便我稍后检查"
          ],
+         "Publish right away without reviewing": [
+            "不审校直接发布"
+         ],
          "Who will translate?": [
             "谁来翻译？"
          ],
          "Only myself": [
             "仅我自己"
+         ],
+         "You will be the sole translator for this site.": [
+            "你将是该网站的唯一翻译者。"
          ],
          "Users of this site": [
             "本网站的用户"
@@ -90,6 +96,12 @@
          "You will choose a user of this site and delegate the setup of translators to him/her. Choose this option when you are building a website for a client, who will set up translator users or choose a translation service.": [
             "您将选择此网站的一名用户并将译员的设置委派给他/她。在为客户构建网站时请选择此选项，客户将设置译员用户或选择翻译服务。"
          ],
+         "Translate Everything Automatically": [
+            "自动翻译所有内容"
+         ],
+         "Let WPML do the translating for you": [
+            "让 WPML 为你翻译"
+         ],
          "Translates all your published content automatically": [
             "自动翻译你发布的所有内容"
          ],
@@ -99,8 +111,14 @@
          "Instantly translates new content and updates translations whenever you edit a page or post": [
             "每当你编辑页面或贴文时立即翻译新内容并更新翻译"
          ],
+         "You can review translations before publishing or hire professional reviewers": [
+            "你可以在发布前审校翻译或聘请专业审校员"
+         ],
          "Affordable and fast": [
             "价格实惠且快速"
+         ],
+         "How would you like to translate the content?": [
+            "你想如何翻译该内容？"
          ],
          "Choose": [
             "选择"
@@ -111,20 +129,20 @@
          "You decide what to translate and who'll translate it": [
             "你决定翻译什么内容及由谁来翻译"
          ],
-         "Translate it yourself": [
-            "自己翻译"
+         "Translate yourself": [
+            ""
          ],
-         "Assign it to translators that are users of your site": [
-            "将其分配给你的网站用户作为翻译人员"
+         "Use automatic translation on the content you choose": [
+            ""
          ],
-         "Send it to a professional translation service": [
-            "将其发送给专业翻译服务"
+         "Work with translators that are users of your site": [
+            ""
          ],
          "or": [
             "或"
          ],
-         "Translate it automatically using machine translation": [
-            "使用机器翻译自动翻译"
+         "Send to professional translation services": [
+            ""
          ],
          "user": [
             "用户"
@@ -184,7 +202,7 @@
             "国旗"
          ],
          "Flag file": [
-            "旗帜文件"
+            "国旗文件"
          ],
          "You just added  language. Next, select it as the site's default language or a translation language.": [
             "您刚刚添加了语言。接下来，选择它作为网站的默认语言或翻译语言。"
@@ -357,8 +375,14 @@
          "Show error message": [
             "显示错误消息"
          ],
+         "WPML is ready to translate your site": [
+            "WPML 已准备好翻译你的网站"
+         ],
          "WPML has started translating your site": [
             "WPML已开始翻译您的网站"
+         ],
+         "When you're done editing content, go to <s>WPML → Translation Management</s> to start translations.": [
+            "完成内容编辑后，转到 <s>WPML → 翻译管理</s>开始翻译。"
          ],
          "View the status of the translations in <s>WPML → Translation Management</s>.": [
             "在<s>WPML → 翻译管理</s>中查看翻译状态。"
@@ -374,6 +398,88 @@
          ],
          "Language switcher customization": [
             "语言切换器定制"
+         ],
+         "Your current setup will use a lot of translation credits": [
+            ""
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            ""
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            ""
+         ],
+         "10,000 credits assigned by default to development sites": [
+            ""
+         ],
+         "posts, pages...": [
+            ""
+         ],
+         "translated to": [
+            ""
+         ],
+         "<b>%1$d</b> language": [
+            "",
+            "<b>%1$d</b> languages"
+         ],
+         "will cost approximately": [
+            ""
+         ],
+         "credits": [
+            ""
+         ],
+         "Loading details...": [
+            ""
+         ],
+         "Hide details": [
+            "隐藏详情"
+         ],
+         "Show details": [
+            "显示详细资料"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            ""
+         ],
+         "What do you want to do?": [
+            ""
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            ""
+         ],
+         "Continue with this setup": [
+            ""
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            ""
+         ],
+         "Make changes": [
+            ""
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            ""
+         ],
+         "Reduce the number of translation languages": [
+            ""
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            ""
+         ],
+         "Change site languages": [
+            ""
+         ],
+         "Change your translation mode": [
+            ""
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            ""
+         ],
+         "Change translation mode": [
+            ""
+         ],
+         "I'm OK with using this many translation credits,": [
+            ""
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            ""
          ],
          "Default language": [
             "默认语言"
@@ -411,17 +517,20 @@
          "Get a key for this site": [
             "获取此网站的密钥"
          ],
-         "Yes!": [
-            "是！"
+         "Are you ready to start translating now?": [
+            "现在准备好开始翻译了吗？"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "现在开始翻译我的网站。WPML 将使用你的自动翻译积分。"
+         "Yes, start translating!": [
+            ""
          ],
-         "No. I need to do some changes first": [
-            "否，我需要先做一些修改"
+         "WPML will translate your site for you using your automatic translation credits.": [
+            ""
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "准备就绪后，你可以从“翻译管理仪表板”开始自动翻译。"
+         "No, my content isn't finalized yet": [
+            ""
+         ],
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            ""
          ],
          "Improve your site’s translations using helpful plugins": [
             "使用有用的插件改进网站的翻译"
@@ -486,18 +595,6 @@
          "A new language could not be added correctly": [
             "无法正确添加新语言"
          ],
-         "Languages": [
-            "语言"
-         ],
-         "URL Format": [
-            "URL格式"
-         ],
-         "Register WPML": [
-            "注册WPML"
-         ],
-         "Translation Mode": [
-            "翻译模式"
-         ],
          "Support": [
             "支持"
          ],
@@ -521,6 +618,18 @@
          ],
          "Finish": [
             "完成"
+         ],
+         "Languages": [
+            "语言"
+         ],
+         "URL Format": [
+            "URL格式"
+         ],
+         "Register WPML": [
+            "注册WPML"
+         ],
+         "Translation Mode": [
+            "翻译模式"
          ],
          "Settings": [
             "设置"

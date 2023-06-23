@@ -46,11 +46,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							// Show title/image etc
 							if ( $show_image ) {
-								echo apply_filters( 'woocommerce_order_item_thumbnail', '<div style="margin-bottom: 5px"><img src="' . ( $_product->get_image_id() ? current( wp_get_attachment_image_src( $_product->get_image_id(), 'thumbnail') ) : wc_placeholder_img_src() ) .'" alt="' . esc_attr__( 'Product Image', 'woocommerce-product-vendors' ) . '" height="' . esc_attr( $image_size[1] ) . '" width="' . esc_attr( $image_size[0] ) . '" style="vertical-align:middle; margin-right: 10px;" /></div>', $item );
+								echo wp_kses_post( apply_filters( 'woocommerce_order_item_thumbnail', '<div style="margin-bottom: 5px"><img src="' . ( $_product->get_image_id() ? current( wp_get_attachment_image_src( $_product->get_image_id(), 'thumbnail') ) : wc_placeholder_img_src() ) .'" alt="' . esc_attr__( 'Product Image', 'woocommerce-product-vendors' ) . '" height="' . esc_attr( $image_size[1] ) . '" width="' . esc_attr( $image_size[0] ) . '" style="vertical-align:middle; margin-right: 10px;" /></div>', $item ) );
 							}
 
 							// Product name
-							echo apply_filters( 'woocommerce_order_item_name', $item['name'], $item, false );
+							echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item['name'], $item, false ) );
 
 							// SKU
 							if ( is_object( $_product ) && $_product->get_sku() ) {
@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order );
 
 						?></td>
-						<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;"><?php echo apply_filters( 'woocommerce_email_order_item_quantity', $item['qty'], $item ); ?></td>
+						<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;"><?php echo wp_kses_post( apply_filters( 'woocommerce_email_order_item_quantity', $item['qty'], $item ) ); ?></td>
 						<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $item ) ); ?></td>
 					</tr>
 					<?php

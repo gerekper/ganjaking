@@ -1,5 +1,34 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-06-21 - version 3.0.2
+* Fix: Email address search on API Customer dashboard.
+* Fix: Enter the page number and hit enter to go to that page on API Customer dashboard.
+
+2023-06-20 - version 3.0.1
+* Fix: Renewal quantity added to the cart when Renew button clicked. Checked for is_expired before setting the value of the quantity, so the default of 1 was used.
+* Update: Change to the api-keys.php template related to the fix noted above.
+* Dev: Compatible with WooCommerce Cart and Checkout blocks.
+
+2023-06-18 - version 3.0
+* Update: The minimum required PHP version is now 7.4.
+* Update: Replace get_page_by_title(), deprecated in WP 6.2, with get_posts() which calls WP_Query().
+* Update: Changes to the api-keys.php template for API Resource Renewal button, and other renewal related features.
+* Fix: API Customer dashboard Product sorting column.
+* Tweak: Sort the API Customer dashboard by Access Granted by default.
+* Tweak: Added to the API Customer dashboard: Subscription Type and Grace Period columns.
+* Tweak: Removed from the API Customer dashboard: User ID and Product Order API Key columns.
+* Tweak: Improved the appearance of the WooCommerce > Settings > API Manager screen.
+* New: Added feature to renew an API Resource Subscription that will carryover the API Key activations for the same Product ID.
+* New: A renewed API Resource Subscription will carryover remaining time from the renewed API Resource to the new API Resource to extend the new expiration end date.
+* New: Added renew link in My Account > API Keys to renew API Manager Subscription.
+* New: Added Manual Renewal Period to Settings that allows renew link to only display within a time period close to the expiration date.
+* New: Expanded Grace Period to include API Resource Subscriptions.
+* New: Added line item data visible on the order screen for new API Resource Subscription renewals, and previous API Resource Subscription.
+* New: Added "Expiring Subscription" email text/html template to WooCommerce > Settings > Emails.
+* New: "Expiring Subscription" emails have the messages soon to expire, expired but renewable, and expired, with custom information delivered with each to encourage renewals and inform the customer.
+* New: "Expiring Subscription" emails are automatically delivered when 30 days, 7 days, away from the expiration date, and 1 day after the expiration date if there is a grace period of more than 1 day.
+* Dev: Added the verify_api_key_is_active API endpoint.
+
 2023-06-04 - version 2.8.1
 * Fix: API Key activations not displayed when Product Order API Key hidden in api-keys.php template.
 * Fix: Product ID column table header text wrapped when it should not be in the api-keys.php template.
@@ -481,14 +510,14 @@
 * Tweak: Replace get_all_orders() method with get_all_order_ids() method.
 * Tweak: Use wc_get_orders() for get_all_order_ids() method to insure compatibility when WooCommerce moves orders to a custom database table.
 * Tweak: Free memory as wc_am_update_201_data_migrate_access_granted_to_order_created_time() loops through orders to make it more memory efficient.
-* Tweak: Change api-keys.php template column wording from Product by Product ID to Product Title.
-* Tweak: Change api-keys.php template column Product ID cell data from URL to plain text to make it easier to copy.
+* Update: Change api-keys.php template column wording from Product by Product ID to Product Title.
+* Update: Change api-keys.php template column Product ID cell data from URL to plain text to make it easier to copy.
 
 2019-02-13 - version 2.0.7
 * Tweak: Template overrides for yourtheme/woocommerce/api-keys.php, and yourtheme/woocommerce/api-downloads.php have moved to yourtheme/woocommerce/myaccount/api-keys.php, and yourtheme/woocommerce/myaccount/api-downloads.php
 * Fix: The API Manager no longer relies on the woocommerce_downloadable_product_permissions table for download data, but rather only looks for the first Downloadable files URL on the product due to issues described in the following docs. Please read https://docs.woocommerce.com/document/digital-downloadable-product-handling/ for more information on how adding/changing Downloadable files URLs on products can cause download/update URLs to stop working since WooCommerce 3.0.
-* Tweak: Added Product ID to api-keys-order-complete.php email template.
-* Tweak: Added Product ID to api-keys.php template.
+* Update: Added Product ID to api-keys-order-complete.php email template.
+* Update: Added Product ID to api-keys.php template.
 
 2019-01-29 - version 2.0.6
 * Dev: REQUIRED: PHP 7.0 and above now a hard requirement.

@@ -15,7 +15,7 @@ class WPML_TM_REST_AMS_Clients extends WPML_REST_Base {
 	private $translator_activation_records;
 
 	/**
-	 * @var WPML_TM_ATE_AMS_Endpoints
+	 * @var WPML_TM_MCS_ATE_Strings
 	 */
 	private $strings;
 

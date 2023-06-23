@@ -836,7 +836,7 @@ class WCML_Url_Translation {
 
 		$original_base       = $_POST['base'];
 		$original_base_value = $_POST['base_value'];
-		$base_translation    = trim( $_POST['base_translation'], '/' );
+		$base_translation    = wc_sanitize_permalink( trim( $_POST['base_translation'], '/' ) );
 		$language            = $_POST['language'];
 
 		if ( $original_base == 'shop' ) {
@@ -846,7 +846,7 @@ class WCML_Url_Translation {
 			if ( ! is_null( $translated_shop_id ) ) {
 
 				$trnsl_shop_obj = get_post( $translated_shop_id );
-				$new_slug       = wp_unique_post_slug( sanitize_title( $_POST['base_translation'] ), $translated_shop_id, $trnsl_shop_obj->post_status, $trnsl_shop_obj->post_type, $trnsl_shop_obj->post_parent );
+				$new_slug       = wp_unique_post_slug( $base_translation, $translated_shop_id, $trnsl_shop_obj->post_status, $trnsl_shop_obj->post_type, $trnsl_shop_obj->post_parent );
 				$this->wpdb->update( $this->wpdb->posts, [ 'post_name' => $new_slug ], [ 'ID' => $translated_shop_id ] );
 
 			}

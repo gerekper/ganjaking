@@ -5,9 +5,7 @@
  * @version 2.3
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_display_cart : WC()->cart->get_tax_price_display_mode();
 ?>
 
@@ -29,35 +27,39 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 			<?php
 				do_action( 'woocommerce_review_order_before_cart_contents' );
 
-				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-					$_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+				$_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 
-					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
-						?>
+				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
+					?>
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo esc_attr( $_product->get_id() ); ?>" data-update_key="<?php echo esc_attr( $cart_item_key ); ?>">
 							<td class="product-name">
 								<div class="product-remove" >
-									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_html__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_html__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<div class="product-details" >
-									<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', wcopc_get_products_name( $_product ), $cart_item, $cart_item_key ) ); ?>
-									<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', wcopc_get_products_name( $_product ), $cart_item, $cart_item_key ) ); ?>
+								<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<div class="product-quantity">
-								<?php
-									if ( $_product->is_sold_individually() ) {
-										$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
-									} else {
-										$product_quantity = woocommerce_quantity_input( array(
-											'input_name'  => "cart[{$cart_item_key}][qty]",
-											'input_value' => $cart_item['quantity'],
-											'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
-											'min_value'   => '0'
-										), $_product, false );
-									}
+							<?php
+							if ( $_product->is_sold_individually() ) {
+								$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
+							} else {
+								$product_quantity = woocommerce_quantity_input(
+									array(
+										'input_name'  => "cart[{$cart_item_key}][qty]",
+										'input_value' => $cart_item['quantity'],
+										'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
+										'min_value'   => '0',
+									),
+									$_product,
+									false
+								);
+							}
 
-									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-								?>
+								echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							?>
 								</div>
 							</td>
 							<td class="product-total">
@@ -65,8 +67,8 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 							</td>
 						</tr>
 						<?php
-					}
 				}
+			}
 
 				do_action( 'woocommerce_review_order_after_cart_contents' );
 			?>
@@ -129,4 +131,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 
 		</tfoot>
 	</table>
-<?php if ( ! is_ajax() ) : ?></div><?php endif; ?>
+<?php
+if ( ! is_ajax() ) :
+	?>
+	</div><?php endif; ?>

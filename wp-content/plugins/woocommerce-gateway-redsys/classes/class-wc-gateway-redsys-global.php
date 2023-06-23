@@ -8,7 +8,7 @@
  * @link https://joseconti.com
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2013 José Conti.
+ * @copyright 2013-2023 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -1837,7 +1837,9 @@ class WC_Gateway_Redsys_Global {
 		// Obtener el valor correspondiente a la opción seleccionada.
 		$description = isset( $description_options[ $description_type ] ) ? $description_options[ $description_type ] : $description_options['order'];
 
-		// Aplicar cualquier filtro definido por otros plugins o temas.
+		/**
+		 * Aplicar cualquier filtro definido por otros plugins o temas.
+		 */
 		$description = apply_filters( 'redsys_product_description', $description, $order );
 
 		// Devolver la descripción del producto.
@@ -1959,6 +1961,24 @@ class WC_Gateway_Redsys_Global {
 		return add_query_arg(
 			array(
 				'redsys-order-id' => $order_id,
+			),
+			$pay_url
+		);
+	}
+	/**
+	 * Get url redsys payment
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param string $final_notify_url Final notify url.
+	 */
+	public function get_url_bizum_payment( $order_id, $final_notify_url ) {
+
+		$pay_url = $final_notify_url;
+		set_transient( $order_id . '_iframe', 'yes' );
+		return add_query_arg(
+			array(
+				'bizum-order-id' => $order_id,
+				'bizum-iframe'   => 'yes',
 			),
 			$pay_url
 		);

@@ -5,6 +5,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    6.9.0
+ * @version  6.21.0
  */
 
 // Exit if accessed directly.
@@ -96,7 +97,7 @@ class WC_PB_Analytics_Revenue_Stats_REST_Controller extends WC_REST_Reports_Cont
 
 		$page      = $report_data->page_no;
 		$max_pages = $report_data->pages;
-		$base      = add_query_arg( $request->get_query_params(), rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ) );
+		$base      = add_query_arg( $request->get_query_params(), rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ) ); // nosemgrep: audit.php.wp.security.xss.query-arg
 		if ( $page > 1 ) {
 			$prev_page = $page - 1;
 			if ( $prev_page > $max_pages ) {

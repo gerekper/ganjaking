@@ -84,7 +84,7 @@ class WPML_TM_Post_Edit_Custom_Field_Settings_Menu {
 										<input class="icl_mcs_cfs"
 									              name="icl_mcs_cf_<?php echo esc_attr( base64_encode( $cfield ) ); ?>"
 									              type="radio"
-									              value="<?php echo esc_attr( $state['value'] ); ?>" <?php echo esc_attr( $radio_disabled . $checked ); ?>
+									              value="<?php echo esc_attr( (string) $state['value'] ); ?>" <?php echo esc_attr( $radio_disabled . $checked ); ?>
 										/>
 										<?php echo esc_html( $state['text'] ) ?>
 									</label>&nbsp;

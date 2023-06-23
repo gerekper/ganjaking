@@ -3,6 +3,7 @@
 namespace WPML\TranslationRoles;
 
 use WPML\Collect\Support\Collection;
+use WPML\LIB\WP\User;
 
 class RemoveManager extends Remove {
 
@@ -16,6 +17,6 @@ class RemoveManager extends Remove {
 	}
 
 	protected static function getCap() {
-		return \WPML_Manage_Translations_Role::CAPABILITY;
+		return User::CAP_MANAGE_TRANSLATIONS;
 	}
 }

@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "자동 번역을 일시 중지하는 중에 오류가 발생했습니다. 나중에 다시 시도하거나 지원팀에 문의하세요."
@@ -24,17 +23,38 @@
          "Insufficient funds": [
             "잔액 부족"
          ],
+         "Translate Everything Automatically - running": [
+            "모든 항목을 자동으로 번역 - 실행 중"
+         ],
+         "Translate Everything Automatically - active": [
+            "모든 항목을 자동으로 번역 - 활성화"
+         ],
          "Pause": [
             "일시 중지"
+         ],
+         "Pause automatic translation": [
+            "자동 번역 일시 중지"
          ],
          "WPML will finish in-progress translations but won't translate anything new.": [
             "WPML은 진행 중인 번역을 완료하지만 새로운 것은 번역하지 않습니다."
          ],
+         "Translate Everything Automatically is paused": [
+            "모든 항목을 자동으로 번역이 일시 중지되어 있습니다"
+         ],
+         "Translate Everything Automatically - paused": [
+            "모든 항목을 자동으로 번역 - 일시 중지됨"
+         ],
          "Resume": [
             "다시 시작"
          ],
+         "Start automatic translation": [
+            "자동 번역 시작"
+         ],
          "This uses %scredits%s to translate your existing content and anything you add or change later.": [
             "여기서는 %s크레딧%s을 사용하여 기존 콘텐츠와 나중에 추가하거나 변경하는 모든 내용을 번역합니다."
+         ],
+         "Start translating everything automatically": [
+            "모든 항목을 자동으로 번역 시작"
          ],
          "WPML will translate any new content you create into %1$s.": [
             "WPML은 새로 만드는 모든 콘텐츠를 %1$s로 번역합니다."
@@ -42,8 +62,17 @@
          "WPML will translate all new future content to %1$s and keep translations up to date when you make changes.": [
             "WPML은 모든 새로운 향후 콘텐츠를 %1$s로 번역하고 변경하면 번역을 최신 상태로 유지합니다."
          ],
+         "Do you want to translate existing content, too?": [
+            "기존 콘텐츠도 번역하시겠습니까?"
+         ],
          "Yes, translate all new and existing content": [
             "예, 모든 새 콘텐츠와 기존 콘텐츠를 번역합니다"
+         ],
+         "No, only translate new content": [
+            "아니요, 새 콘텐츠만 번역합니다"
+         ],
+         "You can translate existing content from the Translation Management Dashboard": [
+            "번역 관리 대시보드에서 기존 콘텐츠를 번역할 수 있습니다"
          ],
          "Connection Error. Please wait a minute and reload this page. If the problem continues, please contact WPML support.": [
             "연결 오류입니다. 잠시 기다렸다가 이 페이지를 다시 로드하세요. 문제가 계속되면 WPML 지원팀에 문의하세요."
@@ -57,6 +86,9 @@
          "Cancel": [
             "취소"
          ],
+         "Start translating everything": [
+            "모든 항목 번역 시작"
+         ],
          "%1$d language": [
             "%1$d개 언어",
             "%1$d개 언어"
@@ -66,6 +98,9 @@
          ],
          "All new future content": [
             "모든 새로운 향후 콘텐츠"
+         ],
+         "Translate Everything Automatically - stopped": [
+            "모든 항목을 자동으로 번역 - 중지됨"
          ],
          "Fix it": [
             "문제 해결"
@@ -124,11 +159,17 @@
          "Publish right away but mark as not reviewed so I can take a look later": [
             "바로 게시하지만 나중에 살펴볼 수 있도록 검토되지 않음으로 표시합니다"
          ],
+         "Publish right away without reviewing": [
+            "검토하지 않고 바로 게시"
+         ],
          "Who will translate?": [
             "누가 번역할까요?"
          ],
          "Only myself": [
             "나만"
+         ],
+         "You will be the sole translator for this site.": [
+            "이 사이트의 유일한 번역가는 귀하입니다."
          ],
          "Users of this site": [
             "이 사이트의 사용자"
@@ -154,6 +195,12 @@
          "You will choose a user of this site and delegate the setup of translators to him/her. Choose this option when you are building a website for a client, who will set up translator users or choose a translation service.": [
             "이 사이트의 사용자를 선택하고 해당 사용자에게 번역가 설정을 위임할 수 있습니다. 번역가 사용자를 설정하거나 번역 서비스 제공자를 선택하게 될 고객을 위해 웹 사이트를 만들 때 이 옵션을 선택하십시오."
          ],
+         "Translate Everything Automatically": [
+            "모든 항목을 자동으로 번역"
+         ],
+         "Let WPML do the translating for you": [
+            "WPML에 번역을 맡겨보세요"
+         ],
          "Translates all your published content automatically": [
             "사용자의 게시된 모든 콘텐츠를 자동으로 번역합니다"
          ],
@@ -163,8 +210,14 @@
          "Instantly translates new content and updates translations whenever you edit a page or post": [
             "페이지나 게시물을 편집할 때마다 새 콘텐츠를 즉시 번역하고 번역을 업데이트합니다"
          ],
+         "You can review translations before publishing or hire professional reviewers": [
+            "게시하거나 전문 검토자를 고용하기 전에 번역을 검토할 수 있습니다"
+         ],
          "Affordable and fast": [
             "적당하고 빠름"
+         ],
+         "How would you like to translate the content?": [
+            "콘텐츠를 어떻게 번역하시겠습니까?"
          ],
          "Choose": [
             "선택"
@@ -175,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "무엇을 번역하고 누가 번역할지 결정합니다"
          ],
-         "Translate it yourself": [
+         "Translate yourself": [
             "직접 번역"
          ],
-         "Assign it to translators that are users of your site": [
-            "사이트의 사용자인 번역가에게 배정"
+         "Use automatic translation on the content you choose": [
+            "선택한 콘텐츠에 대해 자동 번역 사용"
          ],
-         "Send it to a professional translation service": [
-            "전문 번역 서비스로 전송"
+         "Work with translators that are users of your site": [
+            "사이트의 사용자인 번역가와 작업"
          ],
          "or": [
             "또는"
          ],
-         "Translate it automatically using machine translation": [
-            "기계 번역을 사용하여 자동 번역"
+         "Send to professional translation services": [
+            "전문 번역 서비스로 보내기"
          ],
          "Save settings": [
             "설정 저장"
@@ -394,6 +447,12 @@
          "What are the languages of your site?": [
             "사이트의 언어는 무엇입니까?"
          ],
+         "Automatic translation": [
+            "자동 번역"
+         ],
+         "What should happen with your automatically translated content": [
+            "자동으로 번역된 콘텐츠는 어떻게 되어야 할까요?"
+         ],
          "%d credits/word": [
             "%d크레딧/단어"
          ],
@@ -415,14 +474,32 @@
          "Drag & drop to sort from the most to the least preferred engine.": [
             "드래그 앤 드롭하여 가장 선호도가 높은 엔진에서 가장 낮은 엔진으로 정렬합니다."
          ],
+         "Choose the tone of your automatic translations.": [
+            "자동 번역의 어조를 선택하세요."
+         ],
          "Read more": [
             "더 읽기"
          ],
          "Learn more": [
             "자세한 정보"
          ],
+         "On": [
+            "켬"
+         ],
+         "Off": [
+            "끔"
+         ],
+         "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
+            "콘텐츠를 자동으로 번역하려면 <b>고급 번역 편집기</b>를 사용해야 합니다."
+         ],
+         "You currently use a translation service to translate your content. To translate your site automatically, first disconnect your translation service in your %1$sTranslation Management settings%2$s.": [
+            "현재 번역 서비스를 사용하여 콘텐츠를 번역하고 있습니다. 사이트를 자동으로 번역하려면 먼저 %1$s번역 관리 설정%2$s에서 번역 서비스 연결을 해제하세요."
+         ],
          "Translation Mode": [
             "번역 모드"
+         ],
+         "How to translate your site's content": [
+            "사이트 컨텐츠 번역 방법"
          ],
          "Change mode": [
             "모드 변경"
@@ -430,8 +507,11 @@
          "You decide what to translate and who’ll translate it.": [
             "무엇을 번역하고 누가 번역할지 결정합니다."
          ],
-         "You need to have a valid account in order to continue.": [
-            "계속하려면 올바른 계정이 있어야 합니다."
+         "Let WPML do the translating for you.": [
+            "WPML에 번역을 맡겨보세요."
+         ],
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "자동 번역을 사용하려면, <a>pay-as-you-go에 가입</a>하거나 <a2>사이트에 크레딧을 할당하세요</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "크레딧 마법사를 로드하는 중에 오류가 발생했습니다."
@@ -442,17 +522,32 @@
          "You decided to:": [
             "다음과 같이 결정했습니다:"
          ],
+         "Translate everything <b>automatically</b>": [
+            "모든 항목을 <b>자동으로</b> 번역"
+         ],
          "Pay for credits as you go": [
             "사용한 만큼 크레딧으로 지불"
          ],
          "Assign credits to your site on WPML.org": [
             "WPML.org의 사용자 사이트에 크레딧 할당"
          ],
+         "Review translations <b>after</b> publishing.": [
+            "게시 <b>후에</b> 번역을 검토합니다."
+         ],
+         "Review translations <b>before</b> publishing.": [
+            "게시 <b>전에</b> 번역을 검토합니다."
+         ],
+         "Publish translations <b>without</b> review.": [
+            "검토 <b>없이</b> 번역을 게시합니다."
+         ],
          "Translate only <b>future</b> content.": [
             "<b>향후</b> 콘텐츠만 번역합니다."
          ],
          "Translate <b>current</b> and <b>future</b> content.": [
             "<b>현재</b> 및 <b>향후</b> 콘텐츠를 번역합니다."
+         ],
+         "Translate all my current content plus new content as I create it.": [
+            "현재 콘텐츠와 새 콘텐츠를 만들 때 모두 번역합니다."
          ],
          "Only translate new content I create starting now.": [
             "지금부터 내가 만든 새 콘텐츠만 번역합니다."

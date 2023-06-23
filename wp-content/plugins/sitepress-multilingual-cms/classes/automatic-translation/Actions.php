@@ -67,6 +67,7 @@ class Actions implements \IWPML_Action {
 					     if (
 						     $postElement->get_wp_object()->post_status === 'publish'
 						     && $postElement->get_language_code() === Languages::getDefaultCode()
+						     && $postElement->get_source_language_code() === null
 					     ) {
 						     $secondaryLanguageCodes = LanguageMappings::geCodesEligibleForAutomaticTranslations();
 

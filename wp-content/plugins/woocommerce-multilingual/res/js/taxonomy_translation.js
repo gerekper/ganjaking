@@ -107,9 +107,9 @@ jQuery(function ($) {
                 this_form.find('input').prop('disabled', false);
 
                 if (ret.errors) {
-                    this_form.find('.errors').html(ret.errors);
+                    this_form.find('.errors').html(WCML.sanitize(ret.errors));
                 } else {
-                    jQuery('#wcml_tt_sync_preview').html(ret.html);
+                    jQuery('#wcml_tt_sync_preview').html(WCML.sanitize(ret.html));
                     jQuery('#wcml_tt_sync_assignment').fadeOut();
                     jQuery('#wcml_tt_sync_desc').fadeOut();
                 }

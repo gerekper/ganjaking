@@ -123,7 +123,7 @@ class WPML_SEO_HeadLangs {
 							<?php
 							foreach ( $options as $priority => $option ) {
 								?>
-								<option value="<?php echo esc_html( $priority ); ?>" <?php echo $option['selected'] ? 'selected="selected"' : ''; ?>><?php echo esc_html( $option['label'] ); ?></option>
+								<option value="<?php echo esc_html( (string) $priority ); ?>" <?php echo $option['selected'] ? 'selected="selected"' : ''; ?>><?php echo esc_html( $option['label'] ); ?></option>
 								<?php
 							}
 							?>

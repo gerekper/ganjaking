@@ -5489,7 +5489,7 @@ ENDHERE;
 	 * This method works through the passed in settings array and saves the settings to the database clearing old data and setting up a return array with content to update the page via ajax
 	 *
 	 * @param  array $settings An array of settings taking from the admin page ready to be saved to the database
-	 * @return array           An array response containing the status of the update along with content to be used to update the admin page.
+	 * @return array           An array response containing the status of the update along with content to be used to update the admin page. It will be echo-ed back to the browser.
 	 */
 	public function save_settings($settings) {
 	
@@ -5500,83 +5500,88 @@ ENDHERE;
 		
 		$more_files_path_updated = false;
 
-		if (isset($settings['updraftplus_version']) && $updraftplus->version == $settings['updraftplus_version']) {
+		$error_messages = apply_filters('updraftplus_settings_validation_errors_before_save', array(), $settings);
 
-			$return_array = array('saved' => true);
-			
-			$add_to_post_keys = array('updraft_interval', 'updraft_interval_database', 'updraft_interval_increments', 'updraft_starttime_files', 'updraft_starttime_db', 'updraft_startday_files', 'updraft_startday_db');
-			
-			// If database and files are on same schedule, override the db day/time settings
-			if (isset($settings['updraft_interval_database']) && isset($settings['updraft_interval_database']) && $settings['updraft_interval_database'] == $settings['updraft_interval'] && isset($settings['updraft_starttime_files'])) {
-				$settings['updraft_starttime_db'] = $settings['updraft_starttime_files'];
-				$settings['updraft_startday_db'] = $settings['updraft_startday_files'];
-			}
-			foreach ($add_to_post_keys as $key) {
-				// For add-ons that look at $_POST to find saved settings, add the relevant keys to $_POST so that they find them there
-				if (isset($settings[$key])) {
-					$_POST[$key] = $settings[$key];
-				}
-			}
-
-			// Check if updraft_include_more_path is set, if it is then we need to update the page, if it's not set but there's content already in the database that is cleared down below so again we should update the page.
-			$more_files_path_updated = false;
-
-			// i.e. If an option has been set, or if it was currently active in the settings
-			if (isset($settings['updraft_include_more_path']) || UpdraftPlus_Options::get_updraft_option('updraft_include_more_path')) {
-				$more_files_path_updated = true;
-			}
-			
-			// Wipe the extra retention rules, as they are not saved correctly if the last one is deleted
-			UpdraftPlus_Options::update_updraft_option('updraft_retain_extrarules', array());
-			UpdraftPlus_Options::update_updraft_option('updraft_email', array());
-			UpdraftPlus_Options::update_updraft_option('updraft_report_warningsonly', array());
-			UpdraftPlus_Options::update_updraft_option('updraft_report_wholebackup', array());
-			UpdraftPlus_Options::update_updraft_option('updraft_extradbs', array());
-			UpdraftPlus_Options::update_updraft_option('updraft_include_more_path', array());
-			
-			$relevant_keys = $updraftplus->get_settings_keys();
-
-			if (isset($settings['updraft_auto_updates']) && in_array('updraft_auto_updates', $relevant_keys)) {
-				$updraftplus->set_automatic_updates($settings['updraft_auto_updates']);
-				unset($settings['updraft_auto_updates']); // unset the key and its value to prevent being processed the second time
-			}
-
-			if (method_exists('UpdraftPlus_Options', 'mass_options_update')) {
-				$original_settings = $settings;
-				$settings = UpdraftPlus_Options::mass_options_update($settings);
-				$mass_updated = true;
-			}
-
-			foreach ($settings as $key => $value) {
-
-				if (in_array($key, $relevant_keys)) {
-					if ('updraft_service' == $key && is_array($value)) {
-						foreach ($value as $subkey => $subvalue) {
-							if ('0' == $subvalue) unset($value[$subkey]);
-						}
-					}
-
-					// This flag indicates that either the stored database option was changed, or that the supplied option was changed before being stored. It isn't comprehensive - it's only used to update some UI elements with invalid input.
-					$updated = empty($mass_updated) ? (is_string($value) && UpdraftPlus_Options::get_updraft_option($key) != $value) : (is_string($value) && (!isset($original_settings[$key]) || $original_settings[$key] != $value));
-
-					if (empty($mass_updated)) UpdraftPlus_Options::update_updraft_option($key, $value);
-					
-					// Add information on what has changed to array to loop through to update links etc.
-					// Restricting to strings for now, to prevent any unintended leakage (since this is just used for UI updating)
-					if ($updated) {
-						$value = UpdraftPlus_Options::get_updraft_option($key);
-						if (is_string($value)) $return_array['changed'][$key] = $value;
-					}
-				// @codingStandardsIgnoreLine
-				} else {
-					// This section is ignored by CI otherwise it will complain the ELSE is empty.
-					
-					// When last active, it was catching: option_page, action, _wpnonce, _wp_http_referer, updraft_s3_endpoint, updraft_dreamobjects_endpoint. The latter two are empty; probably don't need to be in the page at all.
-					// error_log("Non-UD key when saving from POSTed data: ".$key);
-				}
-			}
+		if (count($error_messages)) {
+			$return_array = array('saved' => false, 'error_message' => implode(', ', $error_messages));
 		} else {
-			$return_array = array('saved' => false, 'error_message' => sprintf(__('UpdraftPlus seems to have been updated to version (%s), which is different to the version running when this settings page was loaded. Please reload the settings page before trying to save settings.', 'updraftplus'), $updraftplus->version));
+			$return_array = array('saved' => true);
+			if (isset($settings['updraftplus_version']) && $updraftplus->version == $settings['updraftplus_version']) {
+			
+				$add_to_post_keys = array('updraft_interval', 'updraft_interval_database', 'updraft_interval_increments', 'updraft_starttime_files', 'updraft_starttime_db', 'updraft_startday_files', 'updraft_startday_db');
+				
+				// If database and files are on same schedule, override the db day/time settings
+				if (isset($settings['updraft_interval_database']) && isset($settings['updraft_interval_database']) && $settings['updraft_interval_database'] == $settings['updraft_interval'] && isset($settings['updraft_starttime_files'])) {
+					$settings['updraft_starttime_db'] = $settings['updraft_starttime_files'];
+					$settings['updraft_startday_db'] = $settings['updraft_startday_files'];
+				}
+				foreach ($add_to_post_keys as $key) {
+					// For add-ons that look at $_POST to find saved settings, add the relevant keys to $_POST so that they find them there
+					if (isset($settings[$key])) {
+						$_POST[$key] = $settings[$key];
+					}
+				}
+	
+				// Check if updraft_include_more_path is set, if it is then we need to update the page, if it's not set but there's content already in the database that is cleared down below so again we should update the page.
+				$more_files_path_updated = false;
+	
+				// i.e. If an option has been set, or if it was currently active in the settings
+				if (isset($settings['updraft_include_more_path']) || UpdraftPlus_Options::get_updraft_option('updraft_include_more_path')) {
+					$more_files_path_updated = true;
+				}
+				
+				// Wipe the extra retention rules, as they are not saved correctly if the last one is deleted
+				UpdraftPlus_Options::update_updraft_option('updraft_retain_extrarules', array());
+				UpdraftPlus_Options::update_updraft_option('updraft_email', array());
+				UpdraftPlus_Options::update_updraft_option('updraft_report_warningsonly', array());
+				UpdraftPlus_Options::update_updraft_option('updraft_report_wholebackup', array());
+				UpdraftPlus_Options::update_updraft_option('updraft_extradbs', array());
+				UpdraftPlus_Options::update_updraft_option('updraft_include_more_path', array());
+				
+				$relevant_keys = $updraftplus->get_settings_keys();
+	
+				if (isset($settings['updraft_auto_updates']) && in_array('updraft_auto_updates', $relevant_keys)) {
+					$updraftplus->set_automatic_updates($settings['updraft_auto_updates']);
+					unset($settings['updraft_auto_updates']); // unset the key and its value to prevent being processed the second time
+				}
+	
+				if (method_exists('UpdraftPlus_Options', 'mass_options_update')) {
+					$original_settings = $settings;
+					$settings = UpdraftPlus_Options::mass_options_update($settings);
+					$mass_updated = true;
+				}
+	
+				foreach ($settings as $key => $value) {
+	
+					if (in_array($key, $relevant_keys)) {
+						if ('updraft_service' == $key && is_array($value)) {
+							foreach ($value as $subkey => $subvalue) {
+								if ('0' == $subvalue) unset($value[$subkey]);
+							}
+						}
+	
+						// This flag indicates that either the stored database option was changed, or that the supplied option was changed before being stored. It isn't comprehensive - it's only used to update some UI elements with invalid input.
+						$updated = empty($mass_updated) ? (is_string($value) && UpdraftPlus_Options::get_updraft_option($key) != $value) : (is_string($value) && (!isset($original_settings[$key]) || $original_settings[$key] != $value));
+	
+						if (empty($mass_updated)) UpdraftPlus_Options::update_updraft_option($key, $value);
+						
+						// Add information on what has changed to array to loop through to update links etc.
+						// Restricting to strings for now, to prevent any unintended leakage (since this is just used for UI updating)
+						if ($updated) {
+							$value = UpdraftPlus_Options::get_updraft_option($key);
+							if (is_string($value)) $return_array['changed'][$key] = $value;
+						}
+					// @codingStandardsIgnoreLine
+					} else {
+						// This section is ignored by CI otherwise it will complain the ELSE is empty.
+						
+						// When last active, it was catching: option_page, action, _wpnonce, _wp_http_referer, updraft_s3_endpoint, updraft_dreamobjects_endpoint. The latter two are empty; probably don't need to be in the page at all.
+						// error_log("Non-UD key when saving from POSTed data: ".$key);
+					}
+				}
+			} else {
+				$return_array = array('saved' => false, 'error_message' => sprintf(__('UpdraftPlus seems to have been updated to version (%s), which is different to the version running when this settings page was loaded. Please reload the settings page before trying to save settings.', 'updraftplus'), $updraftplus->version));
+			}
 		}
 		
 		// Checking for various possible messages
@@ -5734,6 +5739,9 @@ ENDHERE;
 
 		$site_options = array('updraft_oneshotnonce');
 		foreach ($site_options as $s) delete_site_option($s);
+
+		$updraftplus->schedule_backup('manual');
+		$updraftplus->schedule_backup_database('manual');
 
 		$this->show_admin_warning(__("Your settings have been wiped.", 'updraftplus'));
 

@@ -123,6 +123,12 @@ class WooCommerce_Product_Search {
 			return;
 		}
 
+		add_action( 'before_woocommerce_init', function() {
+			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WOO_PS_FILE, true );
+			}
+		} );
+
 		require_once WOO_PS_CORE_LIB . '/class-settings.php';
 
 		$settings = Settings::get_instance();

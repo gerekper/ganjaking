@@ -9,22 +9,22 @@ use MailPoet\API\REST\Request;
 use MailPoet\API\REST\Response;
 use MailPoet\Automation\Engine\API\Endpoint;
 use MailPoet\Automation\Engine\Data\AutomationTemplate;
-use MailPoet\Automation\Engine\Storage\AutomationTemplateStorage;
+use MailPoet\Automation\Engine\Registry;
 use MailPoet\Validator\Builder;
 
 class AutomationTemplatesGetEndpoint extends Endpoint {
-
-
-  private $storage;
+  /** @var Registry */
+  private $registry;
 
   public function __construct(
-    AutomationTemplateStorage $storage
+    Registry $registry
   ) {
-    $this->storage = $storage;
+    $this->registry = $registry;
   }
 
   public function handle(Request $request): Response {
-    $templates = $this->storage->getTemplates((int)$request->getParam('category'));
+    $category = $request->getParam('category');
+    $templates = array_values($this->registry->getTemplates($category ? strval($category) : null));
     return new Response(array_map(function (AutomationTemplate $automation) {
       return $automation->toArray();
     }, $templates));
@@ -32,7 +32,7 @@ class AutomationTemplatesGetEndpoint extends Endpoint {
 
   public static function getRequestSchema(): array {
     return [
-      'category' => Builder::integer()->nullable(),
+      'category' => Builder::string(),
     ];
   }
 }

@@ -222,16 +222,15 @@ if ( ! class_exists( 'WC_Drip_Subscriptions' ) ) {
 		}
 
 		/**
-		 * Settings Wrapper
+		 * Settings Wrapper.
 		 *
-		 * @package WooCommerce Drip
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.0.0
+		 * @since 1.0.0
+		 * @deprecated 1.2.0
 		 *
-		 * @deprecated
+		 * @return array
 		 */
 		public function wrapper() {
-			_deprecated_function( 'WC_Drip_Subscriptions::wrapper', '1.3.0', 'wcdrip_get_settings' );
+			_deprecated_function( 'WC_Drip_Subscriptions::wrapper', '1.2.0', 'wcdrip_get_settings' );
 			return wcdrip_get_settings();
 		}
 

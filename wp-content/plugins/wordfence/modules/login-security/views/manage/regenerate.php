@@ -9,22 +9,22 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 	<div class="wfls-block-header wfls-block-header-border-bottom">
 		<div class="wfls-block-header-content">
 			<div class="wfls-block-title">
-				<strong><?php esc_html_e('Recovery Codes', 'wordfence-2fa'); ?></strong>
+				<strong><?php esc_html_e('Recovery Codes', 'wordfence'); ?></strong>
 			</div>
 		</div>
 	</div>
 	<div class="wfls-block-content wfls-padding-add-bottom">
-		<p id="wfls-recovery-code-count"><?php echo esc_html(sprintf($remaining == 1 ? __('%d unused recovery code remains. You may generate a new set by clicking below.', 'wordfence-2fa') : __('%d unused recovery codes remain. You may generate a new set by clicking below.', 'wordfence-2fa'), $remaining)); ?></p>
-		<p class="wfls-center wfls-add-top"><a href="#" class="wfls-btn wfls-btn-default" id="wfls-recovery" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Generate New Codes', 'wordfence-2fa'); ?></a></p>
+		<p id="wfls-recovery-code-count"><?php echo esc_html(sprintf($remaining == 1 ? __('%d unused recovery code remains. You may generate a new set by clicking below.', 'wordfence') : __('%d unused recovery codes remain. You may generate a new set by clicking below.', 'wordfence'), $remaining)); ?></p>
+		<p class="wfls-center wfls-add-top"><a href="#" class="wfls-btn wfls-btn-default" id="wfls-recovery" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Generate New Codes', 'wordfence'); ?></a></p>
 	</div>
 </div>
 <script type="text/x-jquery-template" id="wfls-tmpl-recovery-prompt">
 	<?php
 	echo \WordfenceLS\Model_View::create('common/modal-prompt', array(
-		'title' => __('Generate New Recovery Codes', 'wordfence-2fa'),
-		'message' => __('Are you sure you want to generate new recovery codes? Any remaining unused codes will be disabled.', 'wordfence-2fa'),
-		'primaryButton' => array('id' => 'wfls-recovery-prompt-cancel', 'label' => __('Cancel', 'wordfence-2fa'), 'link' => '#'),
-		'secondaryButtons' => array(array('id' => 'wfls-recovery-prompt-confirm', 'label' => __('Generate', 'wordfence-2fa'), 'link' => '#')),
+		'title' => __('Generate New Recovery Codes', 'wordfence'),
+		'message' => __('Are you sure you want to generate new recovery codes? Any remaining unused codes will be disabled.', 'wordfence'),
+		'primaryButton' => array('id' => 'wfls-recovery-prompt-cancel', 'label' => __('Cancel', 'wordfence'), 'link' => '#'),
+		'secondaryButtons' => array(array('id' => 'wfls-recovery-prompt-confirm', 'label' => __('Generate', 'wordfence'), 'link' => '#')),
 	))->render();
 	?>
 </script>
@@ -58,15 +58,15 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 							payload,
 							function(response) {
 								if (response.error) {
-									WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo esc_js(__('Error Generating New Codes', 'wordfence-2fa')); ?>', response.error);
+									WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo esc_js(__('Error Generating New Codes', 'wordfence')); ?>', response.error);
 								}
 								else if (response.recovery) {
 									$('#wfls-recovery-code-count').text(response.text);
 									
-									var message = '<p><?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(sprintf(__('Use one of these %d codes to log in if you lose access to your authenticator device. Codes are %d characters long plus optional spaces. Each one may be used only once.', 'wordfence-2fa'), \WordfenceLS\Controller_Users::RECOVERY_CODE_COUNT, \WordfenceLS\Controller_Users::RECOVERY_CODE_SIZE * 2)); ?></p><ul class="wfls-recovery-codes">';
+									var message = '<p><?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(sprintf(__('Use one of these %d codes to log in if you lose access to your authenticator device. Codes are %d characters long plus optional spaces. Each one may be used only once.', 'wordfence'), \WordfenceLS\Controller_Users::RECOVERY_CODE_COUNT, \WordfenceLS\Controller_Users::RECOVERY_CODE_SIZE * 2)); ?></p><ul class="wfls-recovery-codes">';
 
-									var recoveryCodeFileContents = '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(sprintf(__('Two-Factor Authentication Recovery Codes - %s (%s)', 'wordfence-2fa'), preg_replace('~^https?://~i', '', home_url()), $user->user_login)); ?>' + "\r\n";
-									recoveryCodeFileContents = recoveryCodeFileContents + "\r\n" + '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(sprintf(__('Each line of %d letters and numbers is a single recovery code, with optional spaces for readability. To use a recovery code, after entering your username and password, enter the code like "1234 5678 90AB CDEF" at the 2FA prompt. If your site has a custom login prompt and does not show a 2FA prompt, you can use the single-step method by entering your password and the code together in the Password field, like "mypassword1234 5678 90AB CDEF". Your recovery codes are:', 'wordfence-2fa'), \WordfenceLS\Controller_Users::RECOVERY_CODE_SIZE * 2)); ?>' + "\r\n\r\n";
+									var recoveryCodeFileContents = '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(sprintf(__('Two-Factor Authentication Recovery Codes - %s (%s)', 'wordfence'), preg_replace('~^https?://~i', '', home_url()), $user->user_login)); ?>' + "\r\n";
+									recoveryCodeFileContents = recoveryCodeFileContents + "\r\n" + '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(sprintf(__('Each line of %d letters and numbers is a single recovery code, with optional spaces for readability. To use a recovery code, after entering your username and password, enter the code like "1234 5678 90AB CDEF" at the 2FA prompt. If your site has a custom login prompt and does not show a 2FA prompt, you can use the single-step method by entering your password and the code together in the Password field, like "mypassword1234 5678 90AB CDEF". Your recovery codes are:', 'wordfence'), \WordfenceLS\Controller_Users::RECOVERY_CODE_SIZE * 2)); ?>' + "\r\n\r\n";
 									for (var i = 0; i < response.recovery.length; i++) {
 										message = message + '<li>' + response.recovery[i] + '</li>';
 										recoveryCodeFileContents = recoveryCodeFileContents + response.recovery[i] + "\r\n";
@@ -74,10 +74,10 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 
 									message = message + "</ul>";
 
-									message = message + "<p class=\"wfls-center\"><a href=\"#\" class=\"wfls-btn wfls-btn-default\" id=\"wfls-recovery-new-download\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"dashicons dashicons-download\"></i> <?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Download', 'wordfence-2fa')); ?></a></p>";
+									message = message + "<p class=\"wfls-center\"><a href=\"#\" class=\"wfls-btn wfls-btn-default\" id=\"wfls-recovery-new-download\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"dashicons dashicons-download\"></i> <?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Download', 'wordfence')); ?></a></p>";
 
 
-									WFLS.panelModalHTML((WFLS.screenSize(500) ? '300px' : '400px'), "<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('New Recovery Codes', 'wordfence-2fa')); ?>", message, {onComplete: function() {
+									WFLS.panelModalHTML((WFLS.screenSize(500) ? '300px' : '400px'), "<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('New Recovery Codes', 'wordfence')); ?>", message, {onComplete: function() {
 										$('#wfls-recovery-new-download').on('click', function(e) {
 											e.preventDefault();
 											e.stopPropagation();
@@ -89,7 +89,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 								WFLS.panelClose(); //The prompt
 							},
 							function(error) {
-								WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Generating New Codes', 'wordfence-2fa')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to generate new recovery codes. Please try again.', 'wordfence-2fa')); ?>');
+								WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Generating New Codes', 'wordfence')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to generate new recovery codes. Please try again.', 'wordfence')); ?>');
 								WFLS.panelClose(); //The prompt
 							}
 						);

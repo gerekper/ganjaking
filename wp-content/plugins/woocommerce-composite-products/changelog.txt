@@ -1,5 +1,14 @@
 *** WooCommerce Composite Products ***
 
+2023.06.13 - version 8.9.0
+* Tweak - Removed add-on flat fees from per unit product prices in the cart. Requires Product Add-Ons v6.4.0.
+* Fix - Fixed an issue that prevented bundled items add-ons from being initialized when added to a component.
+* Fix - Fixed an issue that prevented composited product images from rendering correctly.
+* New - Introduced 'woocommerce_store_api_before_composite_aggregated_totals_calculation' and 'woocommerce_store_api_after_composite_aggregated_totals_calculation' actions.
+
+2023.06.12 - version 8.8.2
+* Fix - Fixed an issue where scenarios are not saved when editing a product.
+
 2023.06.01 - version 8.8.1
 * Fix - Fixed styling for dismissible admin notices.
 

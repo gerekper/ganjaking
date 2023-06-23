@@ -89,10 +89,10 @@ class View {
 				<?php echo esc_html( $entry->description ); ?>
 			</td>
 			<td class="wpml-job-id">
-				<?php echo esc_html( $entry->wpmlJobId ); ?>
+				<?php echo esc_html( (string) $entry->wpmlJobId ); ?>
 			</td>
 			<td class="ate-job-id">
-				<?php echo esc_html( $entry->ateJobId ); ?>
+				<?php echo esc_html( (string) $entry->ateJobId ); ?>
 			</td>
 			<td class="extra-data">
 				<?php echo esc_html( $entry->getExtraDataToString() ); ?>

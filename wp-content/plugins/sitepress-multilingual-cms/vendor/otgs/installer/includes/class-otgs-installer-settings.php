@@ -14,7 +14,7 @@ class Settings {
 			if ( self::is_gz_on() ) {
 				$settings = gzuncompress( $settings );
 			}
-			return unserialize( $settings );
+			return unserialize( (string) $settings );
 		}
 
 	}
@@ -24,7 +24,7 @@ class Settings {
 		if ( self::is_gz_on() ) {
 			$settings = gzcompress( $settings );
 		}
-		$settings = base64_encode( $settings );
+		$settings = base64_encode( (string) $settings );
 
 		update_option( 'wp_installer_settings', $settings, 'no' );
 	}

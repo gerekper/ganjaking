@@ -72,8 +72,10 @@ class WCML_Translation_Editor {
 
 	public function preselect_product_type_in_admin_screen() {
 		global $pagenow;
+
+		/* phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected */
 		if ( 'post-new.php' === $pagenow && isset( $_GET['post_type'], $_GET['trid'] ) && $_GET['post_type'] === 'product' ) {
-				$translations = $this->sitepress->get_element_translations( $_GET['trid'], 'post_product_type' );
+			$translations = $this->sitepress->get_element_translations( (int) $_GET['trid'], 'post_product_type' );
 			foreach ( $translations as $translation ) {
 				if ( $translation->original ) {
 					$source_lang = $translation->language_code;

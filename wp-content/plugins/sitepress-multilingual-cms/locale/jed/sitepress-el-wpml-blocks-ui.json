@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Advanced": [
             "Για προχωρημένους"
@@ -108,8 +107,29 @@
          "Current language background": [
             "Τρέχον φόντο γλώσσας"
          ],
-         "Small": [
-            "Μικρό"
+         "Full name": [
+            "Ονοματεπώνυμο"
+         ],
+         "Code": [
+            "Κώδικας"
+         ],
+         "Justify items left": [
+            "Στοίχιση στοιχείων αριστερά"
+         ],
+         "Justify items center": [
+            "Στοίχιση στοιχείων στο κέντρο"
+         ],
+         "Justify items right": [
+            "Στοίχιση στοιχείων δεξιά"
+         ],
+         "Justify items space between": [
+            "Στοίχιση στοιχείων με διάστημα ανάμεσα"
+         ],
+         "Horizontal": [
+            "Οριζόντια"
+         ],
+         "Vertical": [
+            "Κάθετα"
          ],
          "Normal": [
             "Κανονικό"
@@ -132,6 +152,9 @@
          "ab": [
             "αβ"
          ],
+         "Small": [
+            "Μικρό"
+         ],
          "Displays the WPML Language Switcher.": [
             "Προβάλλει την Εναλλαγή Γλώσσας WPML."
          ],
@@ -141,20 +164,14 @@
          "displays the WPML Language Switcher": [
             "προβάλλει την Εναλλαγή Γλώσσας WPML"
          ],
+         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
+            "Προβάλλει την Εναλλαγή Γλώσσας WPML. <br/> Μάθετε <a>πώς να μεταφράσετε αυτό το τμήμα</a>."
+         ],
          "Navigation Language Switcher": [
             "Εναλλαγή Γλώσσας Πλοήγησης"
          ],
          "Reset all": [
             "Επαναφορά όλων"
-         ],
-         "Minimum value is : ": [
-            "Η ελάχιστη τιμή είναι :"
-         ],
-         "Maximum value is : ": [
-            "Η μέγιστη τιμή είναι :"
-         ],
-         "Value must be a number!": [
-            "Η τιμή πρέπει να είναι αριθμός!"
          ]
       }
    }

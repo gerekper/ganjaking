@@ -265,7 +265,7 @@ class RecommendationsManager {
 			'is_active'               => $isActive,
 			'slug'                    => $pluginData['slug'],
 			'recommendation_icon_url' => isset( $pluginData['recommendation_icon_url'] ) ? $pluginData['recommendation_icon_url'] : '',
-			'download_data'           => base64_encode( json_encode( $downloadData ) ),
+			'download_data'           => base64_encode( (string) json_encode( $downloadData ) ),
 		];
 	}
 

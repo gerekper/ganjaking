@@ -19,7 +19,7 @@ $hasGracePeriod =  $defaultGracePeriod > 0;
 	<div class="wfls-block-header wfls-block-header-border-bottom">
 		<div class="wfls-block-header-content">
 			<div class="wfls-block-title">
-				<strong><?php echo $gracePeriod ? esc_html__('Grace Period', 'wordfence-2fa') : esc_html__('Locked Out', 'wordfence-2fa') ?></strong>
+				<strong><?php echo $gracePeriod ? esc_html__('Grace Period', 'wordfence') : esc_html__('Locked Out', 'wordfence') ?></strong>
 			</div>
 		</div>
 	</div>
@@ -28,8 +28,8 @@ $hasGracePeriod =  $defaultGracePeriod > 0;
 			<p><?php
 				$requiredDateFormatted = \WordfenceLS\Controller_Time::format_local_time('F j, Y g:i A', $requiredAt);
 				echo $ownAccount ?
-					sprintf(wp_kses(__('Two-factor authentication will be required for your account beginning <strong>%s</strong>', 'wordfence-2fa'), array('strong'=>array())), $requiredDateFormatted) :
-					sprintf(wp_kses(__('Two-factor authentication will be required for user <strong>%s</strong> beginning <strong>%s</strong>.', 'wordfence-2fa'), array('strong'=>array())), esc_html($user->user_login), $requiredDateFormatted)
+					sprintf(wp_kses(__('Two-factor authentication will be required for your account beginning <strong>%s</strong>', 'wordfence'), array('strong'=>array())), $requiredDateFormatted) :
+					sprintf(wp_kses(__('Two-factor authentication will be required for user <strong>%s</strong> beginning <strong>%s</strong>.', 'wordfence'), array('strong'=>array())), esc_html($user->user_login), $requiredDateFormatted)
 			?></p>
 			<?php if (\WordfenceLS\Controller_Users::shared()->has_revokable_grace_period($user)): ?>
 			<?php echo \WordfenceLS\Model_View::create(
@@ -41,8 +41,8 @@ $hasGracePeriod =  $defaultGracePeriod > 0;
 		<?php else: ?>
 			<p>
 				<?php echo $ownAccount ?
-				esc_html__('Two-factor authentication is required for your account, but has not been configured.', 'wordfence-2fa') :
-				esc_html__('Two-factor authentication is required for this account, but has not been configured.', 'wordfence-2fa') ?>
+				esc_html__('Two-factor authentication is required for your account, but has not been configured.', 'wordfence') :
+				esc_html__('Two-factor authentication is required for this account, but has not been configured.', 'wordfence') ?>
 			</p>
 			<?php echo \WordfenceLS\Model_View::create(
 				'common/reset-grace-period',

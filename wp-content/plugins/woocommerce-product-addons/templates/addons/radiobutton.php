@@ -2,11 +2,13 @@
 /**
  * The Template for displaying radio button field.
  *
- * @version 6.1.0
+ * @version 6.4.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
  */
+
+global $product;
 
 $loop             = 0;
 $field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
@@ -37,7 +39,11 @@ foreach ( $addon['options'] as $i => $option ) {
 	$label        = ( '0' === $option['label'] ) || ! empty( $option['label'] ) ? $option['label'] : '';
 
 	if ( 'percentage_based' === $price_type ) {
-		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_for_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 			$option,
@@ -45,7 +51,11 @@ foreach ( $addon['options'] as $i => $option ) {
 			'radiobutton'
 		) : '';
 	} else {
-		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_for_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$option,

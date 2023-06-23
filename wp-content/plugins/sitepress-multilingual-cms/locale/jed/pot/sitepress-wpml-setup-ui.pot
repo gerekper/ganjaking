@@ -35,7 +35,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: src/js/components/roles/CreateUser.js:138
+#: src/js/components/roles/CreateUser.js:137
 msgid "(required)"
 msgstr ""
 
@@ -187,23 +187,24 @@ msgid "You decide what to translate and who'll translate it"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:74
-msgid "Translate it yourself"
+msgid "Translate yourself"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:77
-msgid "Assign it to translators that are users of your site"
+msgid "Use automatic translation on the content you choose"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:80
-msgid "Send it to a professional translation service"
+msgid "Work with translators that are users of your site"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:81
+#: src/js/setup/components/Steps/HighCostsWarning.js:264
 msgid "or"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:83
-msgid "Translate it automatically using machine translation"
+msgid "Send to professional translation services"
 msgstr ""
 
 #: src/js/components/translation-managers/AddManagerDialog.js:47
@@ -488,15 +489,15 @@ msgstr ""
 msgid "I will set up the domains for my secondary languages later."
 msgstr ""
 
-#: src/js/setup/components/Steps/Address.js:208
+#: src/js/setup/components/Steps/Address.js:209
 msgid "The domain you have entered is invalid."
 msgstr ""
 
-#: src/js/setup/components/Steps/Address.js:210
+#: src/js/setup/components/Steps/Address.js:211
 msgid "The domain you have entered must be unique."
 msgstr ""
 
-#: src/js/setup/components/Steps/Address.js:230
+#: src/js/setup/components/Steps/Address.js:231
 msgid ""
 "Please Note: Your site won't work in your secondary languages until this is "
 "successfully set up or you switch to a different URL option."
@@ -594,6 +595,129 @@ msgstr ""
 msgid "Language switcher customization"
 msgstr ""
 
+#: src/js/setup/components/Steps/HighCostsWarning.js:122
+msgid "Your current setup will use a lot of translation credits"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:126
+msgid ""
+"You decided to <b>Translate Everything Automatically</b> on a <span "
+"class=\"warning\">development site</span>"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:127
+msgid "You decided to <b>Translate Everything Automatically:</b>"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:131
+msgid "10,000 credits assigned by default to development sites"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:138
+msgid "posts, pages..."
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:142
+msgid "translated to"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:148
+msgid "<b>%1$d</b> language"
+msgid_plural "<b>%1$d</b> languages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:155
+msgid "will cost approximately"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:159
+msgid "credits"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:165
+msgid "Loading details..."
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:173
+msgid "Hide details"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:174
+msgid "Show details"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:196
+msgid "Your current setup will use approximately <b>%s</b> credits"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:210
+msgid "What do you want to do?"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:218
+msgid ""
+"Since this is a development site, you may not want to spend credits on "
+"dummy content."
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:229
+msgid "Continue with this setup"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:230
+msgid ""
+"WPML will automatically translate your site’s content. When your credits "
+"run out, you can purchase more or sign up for pay-as-you-go to continue "
+"using automatic translation."
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:239
+msgid "Make changes"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:240
+msgid ""
+"You can use fewer credits by adjusting some of the settings you selected "
+"during setup."
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:252
+msgid "Reduce the number of translation languages"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:255
+msgid ""
+"The more languages you have on your site, the more credits it costs to "
+"translate. <b>You can always add more languages later.</b>"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:259
+msgid "Change site languages"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:270
+msgid "Change your translation mode"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:273
+msgid ""
+"<b>Translate What You Choose</b> gives you more control over what gets "
+"translated, and you can still use automatic translation."
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:277
+msgid "Change translation mode"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:283
+msgid "I'm OK with using this many translation credits,"
+msgstr ""
+
+#: src/js/setup/components/Steps/HighCostsWarning.js:286
+msgid "let's proceed and translate the whole site automatically."
+msgstr ""
+
 #: src/js/setup/components/Steps/Languages.js:102
 msgid "Default language"
 msgstr ""
@@ -651,30 +775,30 @@ msgid "Are you ready to start translating now?"
 msgstr ""
 
 #: src/js/setup/components/Steps/PauseTranslateEverything.js:49
-msgid "Yes!"
+msgid "Yes, start translating!"
 msgstr ""
 
 #: src/js/setup/components/Steps/PauseTranslateEverything.js:51
 msgid ""
-"Start translating my site now. WPML will use your automatic translation "
+"WPML will translate your site for you using your automatic translation "
 "credits."
 msgstr ""
 
 #: src/js/setup/components/Steps/PauseTranslateEverything.js:58
-msgid "No. I need to do some changes first"
+msgid "No, my content isn't finalized yet"
 msgstr ""
 
 #: src/js/setup/components/Steps/PauseTranslateEverything.js:60
 msgid ""
-"When you’re ready, you can start automatic translation from the Translation "
+"When you're ready, start automatic translation from the Translation "
 "Management Dashboard."
 msgstr ""
 
-#: src/js/setup/components/Steps/Plugins.js:118
+#: src/js/setup/components/Steps/Plugins.js:128
 msgid "Improve your site’s translations using helpful plugins"
 msgstr ""
 
-#: src/js/setup/components/Steps/Plugins.js:123
+#: src/js/setup/components/Steps/Plugins.js:133
 msgid ""
 "Based on the themes and other plugins running on your site, we recommend "
 "that you enable the following WPML components. These are included with your "
@@ -682,11 +806,11 @@ msgid ""
 "more."
 msgstr ""
 
-#: src/js/setup/components/Steps/Plugins.js:85
+#: src/js/setup/components/Steps/Plugins.js:95
 msgid "Error in activating plugin."
 msgstr ""
 
-#: src/js/setup/components/Steps/Plugins.js:87
+#: src/js/setup/components/Steps/Plugins.js:97
 msgid "Error in installing plugin."
 msgstr ""
 
@@ -716,17 +840,17 @@ msgstr ""
 msgid "Privacy and data usage policy"
 msgstr ""
 
-#: src/js/setup/components/Steps/Translation.js:33
+#: src/js/setup/components/Steps/Translation.js:55
 msgid ""
 "<LinkToTheDifferentWaysYouCanTranslateYourSite/> for help with choosing the "
 "best mode for your site."
 msgstr ""
 
-#: src/js/setup/components/Steps/Translation.js:51
+#: src/js/setup/components/Steps/Translation.js:73
 msgid "Can't decide? Let us help!"
 msgstr ""
 
-#: src/js/setup/components/Steps/Translation.js:68
+#: src/js/setup/components/Steps/Translation.js:90
 msgid "Contact our support team"
 msgstr ""
 
@@ -767,56 +891,56 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: src/js/setup/models/Languages.js:52
+#: src/js/setup/models/Languages.js:57
 msgid "A new language could not be added correctly"
 msgstr ""
 
-#: src/js/setup/store.js:33
-msgid "Languages"
-msgstr ""
-
-#: src/js/setup/store.js:36
-msgid "URL Format"
-msgstr ""
-
-#: src/js/setup/store.js:39
-msgid "Register WPML"
-msgstr ""
-
-#: src/js/setup/store.js:42
-msgid "Translation Mode"
-msgstr ""
-
-#: src/js/setup/store.js:59
+#: src/js/setup/store.js:108
 msgid "Support"
 msgstr ""
 
-#: src/js/setup/store.js:62
+#: src/js/setup/store.js:111
 msgid "Plugins"
 msgstr ""
 
-#: src/js/setup/store.js:65
+#: src/js/setup/store.js:114
 msgid "Finished"
 msgstr ""
 
-#: src/js/setup/store.js:78
+#: src/js/setup/store.js:130
 msgid "Back"
 msgstr ""
 
-#: src/js/setup/store.js:83
+#: src/js/setup/store.js:135
 msgid "Continue"
 msgstr ""
 
-#: src/js/setup/store.js:88
+#: src/js/setup/store.js:140
 msgid "Skip"
 msgstr ""
 
-#: src/js/setup/store.js:92
+#: src/js/setup/store.js:144
 msgid "Install and activate"
 msgstr ""
 
-#: src/js/setup/store.js:97
+#: src/js/setup/store.js:149
 msgid "Finish"
+msgstr ""
+
+#: src/js/setup/store.js:76
+msgid "Languages"
+msgstr ""
+
+#: src/js/setup/store.js:79
+msgid "URL Format"
+msgstr ""
+
+#: src/js/setup/store.js:82
+msgid "Register WPML"
+msgstr ""
+
+#: src/js/setup/store.js:85
+msgid "Translation Mode"
 msgstr ""
 
 #: src/js/translationServices/components/Sections.js:16

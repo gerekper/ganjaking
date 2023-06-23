@@ -346,7 +346,7 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 			// phpcs:disable WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			$package['contents'][ $cf ]           = array(
 				'translate' => 1,
-				'data'      => base64_encode( $custom_field_val ),
+				'data'      => base64_encode( (string) $custom_field_val ),
 				'format'    => 'base64',
 			);
 			$package['contents'][ $cf . '-name' ] = array(
@@ -386,7 +386,7 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 	 */
 	public static function preserve_numerics( $value, $name, $original_post_id, $single ) {
 		$get_original = function () use ( $original_post_id, $name, $single ) {
-			$meta = get_post_meta( $original_post_id, $name, $single );
+			$meta = get_post_meta( (int) $original_post_id, $name, $single );
 			return apply_filters( 'wpml_decode_custom_field', $meta, $name );
 		};
 		if ( is_numeric( $value ) && is_int( $get_original() ) ) {

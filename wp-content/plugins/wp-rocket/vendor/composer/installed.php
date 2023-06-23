@@ -10,6 +10,15 @@
         'dev' => false,
     ),
     'versions' => array(
+        'cloudflare/cf-ip-rewrite' => array(
+            'pretty_version' => '1.0.4',
+            'version' => '1.0.4.0',
+            'reference' => '48e2ce52e87d3d27cdb662584fccf82efa898bf1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cloudflare/cf-ip-rewrite',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'composer/installers' => array(
             'pretty_version' => 'v2.2.0',
             'version' => '2.2.0.0',

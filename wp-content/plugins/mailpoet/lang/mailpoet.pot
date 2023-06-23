@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.18.0\n"
+"Project-Id-Version: MailPoet 4.19.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-05T12:22:06+00:00\n"
+"POT-Creation-Date: 2023-06-19T16:25:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: views/homepage.html:79
 #: views/segments.html:250
 #: views/subscribers/subscribers.html:146
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Congrats!"
 msgstr ""
 
@@ -451,6 +451,7 @@ msgstr ""
 #: views/segments.html:169
 #: views/subscription/manage_subscription.html:9
 #: lib/API/MP/v1/CustomFields.php:27
+#: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:62
 #: lib/Form/Templates/Templates/InitialForm.php:22
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:60
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:71
@@ -948,7 +949,7 @@ msgstr ""
 #: views/layout.html:179
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 #: assets/dist/js/newsletter_editor.js:2
 msgid "Close"
 msgstr ""
@@ -1131,8 +1132,8 @@ msgid "<strong>Tip:</strong> check out [link]this list[/link] of form plugins th
 msgstr ""
 
 #: views/forms.html:45
-#: lib/Config/Menu.php:268
-#: lib/Config/Menu.php:269
+#: lib/Config/Menu.php:270
+#: lib/Config/Menu.php:271
 msgid "Forms"
 msgstr ""
 
@@ -1142,7 +1143,7 @@ msgstr ""
 #: views/segments.html:182
 #: views/subscribers/subscribers.html:26
 #: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Search"
 msgstr ""
 
@@ -1161,7 +1162,7 @@ msgstr ""
 #: views/forms.html:50
 #: views/segments.html:42
 #: views/subscribers/subscribers.html:32
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Select bulk action"
 msgstr ""
 
@@ -1186,22 +1187,22 @@ msgstr ""
 #: views/forms.html:54
 #: views/segments.html:76
 #: views/subscribers/subscribers.html:36
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Empty Trash"
 msgstr ""
 
 #: views/forms.html:55
 #: views/segments.html:77
 #: views/subscribers/subscribers.html:37
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Select All"
 msgstr ""
 
 #: views/forms.html:56
 #: views/segments.html:78
 #: views/subscribers/subscribers.html:39
-#: assets/dist/js/automation.js:9
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/automation.js:1
+#: assets/dist/js/commons.js:16
 msgid "Restore"
 msgstr ""
 
@@ -1215,17 +1216,18 @@ msgstr ""
 #: views/subscribers/subscribers.html:63
 #: views/subscribers/subscribers.html:82
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:104
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:180
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:75
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:176
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/automation.js:9
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/automation.js:1
+#: assets/dist/js/commons.js:16
 msgid "Status"
 msgstr ""
 
 #: views/forms.html:60
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:160
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_editor.js:1
 msgid "Active"
 msgstr ""
@@ -1242,7 +1244,7 @@ msgstr ""
 #: views/segments.html:85
 #: views/segments.html:125
 #: views/subscribers/subscribers.html:47
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Previous page"
 msgstr ""
 
@@ -1250,7 +1252,7 @@ msgstr ""
 #: views/segments.html:86
 #: views/segments.html:126
 #: views/subscribers/subscribers.html:48
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "First page"
 msgstr ""
 
@@ -1258,7 +1260,7 @@ msgstr ""
 #: views/segments.html:87
 #: views/segments.html:127
 #: views/subscribers/subscribers.html:49
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Next page"
 msgstr ""
 
@@ -1266,7 +1268,7 @@ msgstr ""
 #: views/segments.html:88
 #: views/segments.html:128
 #: views/subscribers/subscribers.html:50
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Last page"
 msgstr ""
 
@@ -1278,7 +1280,7 @@ msgstr ""
 #: views/forms.html:69
 #: views/segments.html:90
 #: views/subscribers/subscribers.html:52
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "of"
 msgstr ""
 
@@ -1286,7 +1288,7 @@ msgstr ""
 #: views/segments.html:91
 #: views/segments.html:123
 #: views/subscribers/subscribers.html:53
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "1 item"
 msgstr ""
 
@@ -1294,7 +1296,7 @@ msgstr ""
 #: views/segments.html:92
 #: views/segments.html:124
 #: views/subscribers/subscribers.html:54
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "%1$d items"
 msgstr ""
 
@@ -1303,22 +1305,22 @@ msgstr ""
 #: views/segments.html:45
 #: views/segments.html:117
 #: views/subscribers/importExport/import/step_data_manipulation.html:7
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Name"
 msgstr ""
 
 #: views/forms.html:75
 #: views/segments.html:37
 #: views/subscribers/subscribers.html:83
-#: lib/Config/Menu.php:385
-#: lib/Config/Menu.php:386
+#: lib/Config/Menu.php:387
+#: lib/Config/Menu.php:388
 #: assets/dist/js/admin.js:2
 msgid "Lists"
 msgstr ""
 
 #: views/forms.html:76
 #: views/segments.html:114
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Type"
 msgstr ""
 
@@ -1362,8 +1364,8 @@ msgstr ""
 #: views/segments.html:73
 #: views/subscribers/subscribers.html:38
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/automation.js:9
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/automation.js:1
+#: assets/dist/js/commons.js:16
 msgid "Edit"
 msgstr ""
 
@@ -1392,7 +1394,7 @@ msgstr ""
 #: views/segments.html:75
 #: views/subscribers/subscribers.html:41
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Move to trash"
 msgstr ""
 
@@ -1781,9 +1783,10 @@ msgstr ""
 
 #: views/homepage.html:68
 #: views/subscribers/subscribers.html:25
-#: lib/Config/Menu.php:334
-#: lib/Config/Menu.php:335
-#: assets/dist/js/automation.js:9
+#: lib/Config/Menu.php:336
+#: lib/Config/Menu.php:337
+#: assets/dist/js/automation.js:1
+#: assets/dist/js/automation_analytics.js:1
 msgid "Subscribers"
 msgstr ""
 
@@ -1832,7 +1835,7 @@ msgstr ""
 #: views/segments.html:249
 #: views/subscribers/subscribers.html:145
 #: lib/Twig/Functions.php:303
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Excellent"
 msgstr ""
 
@@ -1845,14 +1848,14 @@ msgstr ""
 #: views/segments.html:252
 #: views/subscribers/subscribers.html:148
 #: lib/Twig/Functions.php:305
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Good"
 msgstr ""
 
 #: views/homepage.html:82
 #: views/segments.html:253
 #: views/subscribers/subscribers.html:149
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Good stuff."
 msgstr ""
 
@@ -1870,7 +1873,7 @@ msgstr ""
 #: views/homepage.html:85
 #: views/segments.html:256
 #: views/subscribers/subscribers.html:152
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Something to improve."
 msgstr ""
 
@@ -2071,17 +2074,17 @@ msgstr ""
 
 #: views/layout.html:117
 #: views/layout.html:177
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Back to section root"
 msgstr ""
 
 #: views/layout.html:118
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Updates"
 msgstr ""
 
 #: views/layout.html:119
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "What’s new"
 msgstr ""
 
@@ -2117,7 +2120,7 @@ msgid "Sending is in progress. Do you want to pause sending and edit the newslet
 msgstr ""
 
 #: views/layout.html:128
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 #: assets/dist/js/newsletter_editor.js:2
 msgid "To edit this email, it needs to be deactivated. You can activate it again after you make the changes."
 msgstr ""
@@ -2177,7 +2180,7 @@ msgid "Refresh monthly email limit"
 msgstr ""
 
 #: views/layout.html:145
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "To help your audience and MailPoet authenticate you as the domain owner, please add the following DNS records to your domain’s DNS and click “Verify the DNS records”. Please note that it may take up to 24 hours for DNS changes to propagate after you make the change. [link]Read the guide[/link]."
 msgstr ""
 
@@ -2193,17 +2196,17 @@ msgstr ""
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:132
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:147
 #: lib/Newsletter/Sending/ScheduledTaskSubscribersListingRepository.php:53
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Sent"
 msgstr ""
 
 #: views/layout.html:155
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Not sent yet!"
 msgstr ""
 
 #: views/layout.html:156
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "There was a problem with rendering!"
 msgstr ""
 
@@ -2230,7 +2233,7 @@ msgid "All of your WordPress and WooCommerce emails are sent with your hosting c
 msgstr ""
 
 #: views/layout.html:167
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Sending has been paused due to a technical issue with %1$s"
 msgstr ""
 
@@ -2250,12 +2253,12 @@ msgid "Sign up for free in minutes"
 msgstr ""
 
 #: views/layout.html:171
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Sending is paused because the following connection issue prevents MailPoet from delivering emails"
 msgstr ""
 
 #: views/layout.html:172
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Error code: %1$s"
 msgstr ""
 
@@ -2266,17 +2269,17 @@ msgstr ""
 
 #: views/layout.html:174
 #: lib/Util/Notices/UnauthorizedEmailNotice.php:78
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Resume sending"
 msgstr ""
 
 #: views/layout.html:175
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "I have upgraded my subscription, resume sending"
 msgstr ""
 
 #: views/layout.html:180
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Today"
 msgstr ""
 
@@ -2370,7 +2373,7 @@ msgid "This value should be the same."
 msgstr ""
 
 #: views/layout.html:123
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "In the last step, before sending a newsletter. URL: ?page=mailpoet-newsletters#/send/2"
 msgid "You might not reach the inbox of your subscribers if you use this email address."
 msgstr ""
@@ -2408,7 +2411,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: views/logs.html:21
-#: lib/Config/Menu.php:475
+#: lib/Config/Menu.php:477
 msgid "Logs"
 msgstr ""
 
@@ -2551,7 +2554,7 @@ msgid "MailPoet account connected"
 msgstr ""
 
 #: views/newsletter/editor.html:340
-#: lib/Config/Menu.php:254
+#: lib/Config/Menu.php:256
 msgid "Newsletter Editor"
 msgstr ""
 
@@ -2611,7 +2614,7 @@ msgstr ""
 #: lib/Config/PopulatorData/Templates/KidsClothing.php:1400
 #: lib/Config/PopulatorData/Templates/KidsClothing.php:1519
 #: lib/Config/PopulatorData/Templates/KidsClothing.php:1522
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Read more"
 msgstr ""
 
@@ -3423,7 +3426,7 @@ msgstr ""
 
 #: views/newsletter/templates/blocks/base/toolsGeneric.hbs:14
 #: views/newsletter/templates/blocks/base/toolsGeneric.hbs:21
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Delete"
 msgstr ""
 
@@ -3434,7 +3437,7 @@ msgstr ""
 #: views/newsletter/templates/blocks/base/toolsGeneric.hbs:18
 #: views/subscribers/importExport/import/step_data_manipulation.html:28
 #: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Cancel"
 msgstr ""
 
@@ -3716,7 +3719,7 @@ msgstr ""
 #: views/newsletter/templates/blocks/posts/settingsSelection.hbs:12
 #: views/newsletter/templates/blocks/products/settingsSelection.hbs:9
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:117
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_editor.js:1
 msgid "Draft"
 msgstr ""
@@ -3752,6 +3755,7 @@ msgid "No products available"
 msgstr ""
 
 #: views/newsletter/templates/blocks/products/widget.hbs:4
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:253
 #: assets/dist/js/newsletter_editor.js:2
 msgid "Products"
 msgstr ""
@@ -3983,7 +3987,7 @@ msgstr ""
 
 #: views/newsletter/templates/components/newsletterPreview.hbs:63
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "If you have already received approval email, click [link]here[/link] to update the status."
 msgstr ""
 
@@ -4010,7 +4014,7 @@ msgstr ""
 #: views/subscribers/subscribers.html:125
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:81
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Save"
 msgstr ""
 
@@ -4101,17 +4105,17 @@ msgstr ""
 
 #: views/premium_key_validation_strings.html:2
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Learn more"
 msgstr ""
 
 #: views/premium_key_validation_strings.html:3
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "MailPoet Premium is installed but not activated."
 msgstr ""
 
 #: views/premium_key_validation_strings.html:4
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Activate MailPoet Sending Service"
 msgstr ""
 
@@ -4258,24 +4262,24 @@ msgid "New Segment"
 msgstr ""
 
 #: views/segments.html:79
-#: assets/dist/js/automation.js:9
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/automation.js:1
+#: assets/dist/js/commons.js:16
 msgid "Delete permanently"
 msgstr ""
 
 #: views/segments.html:81
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Trash and disable"
 msgstr ""
 
 #: views/segments.html:82
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Restore and enable"
 msgstr ""
 
 #: views/segments.html:89
 #: views/segments.html:129
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Current page"
 msgstr ""
 
@@ -4683,10 +4687,10 @@ msgstr ""
 
 #: views/segments.html:264
 #: views/subscribers/subscribers.html:132
-#: lib/Config/Menu.php:438
-#: lib/Config/Menu.php:439
+#: lib/Config/Menu.php:440
+#: lib/Config/Menu.php:441
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Upgrade"
 msgstr ""
 
@@ -4699,14 +4703,14 @@ msgstr ""
 #: views/segments.html:266
 #: views/subscribers/subscribers.html:135
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Download MailPoet Premium plugin"
 msgstr ""
 
 #: views/segments.html:267
 #: views/subscribers/subscribers.html:136
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Activate MailPoet Premium plugin"
 msgstr ""
 
@@ -4874,8 +4878,8 @@ msgstr ""
 
 #: views/settings_translations.html:2
 #: lib/Config/Hooks.php:515
-#: lib/Config/Menu.php:410
-#: lib/Config/Menu.php:411
+#: lib/Config/Menu.php:412
+#: lib/Config/Menu.php:413
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 msgid "Settings"
@@ -4895,7 +4899,7 @@ msgstr ""
 
 #: views/settings_translations.html:6
 #: lib/AutomaticEmails/WooCommerce/WooCommerce.php:65
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "WooCommerce"
 msgstr ""
 
@@ -5428,7 +5432,7 @@ msgstr ""
 #: views/settings_translations.html:181
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Activate"
 msgstr ""
 
@@ -5784,8 +5788,8 @@ msgstr ""
 #: views/subscribers/importExport/export.html:6
 #: views/subscribers/importExport/export.html:79
 #: views/subscribers/subscribers.html:124
-#: lib/Config/Menu.php:372
-#: lib/Config/Menu.php:373
+#: lib/Config/Menu.php:374
+#: lib/Config/Menu.php:375
 msgid "Export"
 msgstr ""
 
@@ -5843,8 +5847,8 @@ msgstr ""
 #: views/subscribers/importExport/import.html:6
 #: views/subscribers/importExport/import.html:99
 #: views/subscribers/subscribers.html:123
-#: lib/Config/Menu.php:359
-#: lib/Config/Menu.php:360
+#: lib/Config/Menu.php:361
+#: lib/Config/Menu.php:362
 msgid "Import"
 msgstr ""
 
@@ -5853,7 +5857,7 @@ msgid "No active lists found"
 msgstr ""
 
 #: views/subscribers/importExport/import.html:39
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Select"
 msgstr ""
 
@@ -6087,7 +6091,7 @@ msgid "Import again"
 msgstr ""
 
 #: views/subscribers/importExport/import.html:102
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "View subscribers"
 msgstr ""
 
@@ -6424,7 +6428,7 @@ msgstr ""
 
 #: views/subscribers/subscribers.html:108
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Statistics"
 msgstr ""
 
@@ -6435,6 +6439,7 @@ msgstr ""
 #: views/subscribers/subscribers.html:111
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:82
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:91
+#: assets/dist/js/automation_analytics.js:1
 msgid "Opened"
 msgstr ""
 
@@ -6444,6 +6449,7 @@ msgid "A machine-opened email is an email opened by a computer in the background
 msgstr ""
 
 #: views/subscribers/subscribers.html:114
+#: assets/dist/js/automation_analytics.js:1
 msgid "Clicked"
 msgstr ""
 
@@ -6506,6 +6512,7 @@ msgstr ""
 
 #: views/subscribers/subscribers.html:157
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:210
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:236
 msgid "Tags"
 msgstr ""
 
@@ -6970,9 +6977,9 @@ msgstr ""
 #. Author of the plugin
 #: views/woo_system_info.html:5
 #: lib/Config/Capabilities.php:80
-#: lib/Config/Menu.php:198
-#: lib/Config/Menu.php:199
-#: lib/Config/Menu.php:626
+#: lib/Config/Menu.php:200
+#: lib/Config/Menu.php:201
+#: lib/Config/Menu.php:642
 #: lib/Config/PrivacyPolicy.php:12
 #: lib/WooCommerce/WooSystemInfoController.php:41
 msgid "MailPoet"
@@ -6987,8 +6994,7 @@ msgid "Sending Method:"
 msgstr ""
 
 #: views/woo_system_info.html:14
-#: lib/WooCommerce/WooSystemInfoController.php:47
-msgid "What method is used to sent out newsletters?"
+msgid "What method is used to send out newsletters?"
 msgstr ""
 
 #: views/woo_system_info.html:19
@@ -7083,6 +7089,7 @@ msgstr ""
 msgid "Create and send newsletters, post notifications and welcome emails from your WordPress."
 msgstr ""
 
+#: lib/AdminPages/Pages/AutomationAnalytics.php:57
 #: lib/AdminPages/Pages/AutomationEditor.php:68
 msgid "Automation not found."
 msgstr ""
@@ -7134,8 +7141,8 @@ msgstr ""
 #: lib/API/JSON/ErrorHandler.php:14
 #: lib/API/JSON/ErrorResponse.php:25
 #: lib/API/REST/API.php:84
-#: assets/dist/js/automation.js:9
 #: assets/dist/js/automation_editor.js:1
+#: assets/dist/js/commons.js:16
 msgid "An unknown error occurred."
 msgstr ""
 
@@ -7433,7 +7440,7 @@ msgid "Your MailPoet Sending Service key expires on %s!"
 msgstr ""
 
 #: lib/API/JSON/v1/Services.php:140
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Your key is not valid for the MailPoet Sending Service"
 msgstr ""
 
@@ -7460,7 +7467,7 @@ msgid "Your Premium key expires on %s"
 msgstr ""
 
 #: lib/API/JSON/v1/Services.php:209
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Your key is not valid for MailPoet Premium"
 msgstr ""
 
@@ -7474,7 +7481,7 @@ msgid "Error validating Premium key, please try again later (%s)"
 msgstr ""
 
 #: lib/API/JSON/v1/Services.php:255
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "MailPoet Sending Service is not active."
 msgstr ""
 
@@ -8007,62 +8014,6 @@ msgstr ""
 msgid "Unknown error."
 msgstr ""
 
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:64
-msgid "Send a welcome email when someone subscribes to your list. Optionally, you can choose to send this email after a specified period."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:69
-msgid "Welcome new subscribers"
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:93
-msgid "Send a welcome email when a new WordPress user registers to your website. Optionally, you can choose to send this email after a specified period."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:98
-msgid "Welcome new WordPress users"
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:122
-msgid "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:127
-msgid "Welcome series for new subscribers"
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:136
-msgid "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:141
-msgid "Welcome series for new WordPress users"
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:150
-msgid "Welcome your first-time customers by sending an email with a special offer for their next purchase. Make them feel appreciated within your brand."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:155
-msgid "Celebrate first-time buyers"
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:164
-msgid "These are your most important customers. Make them feel special by sending a thank you note for supporting your brand."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:169
-msgid "Thank loyal customers"
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:178
-msgid "Nudge your shoppers to complete the purchase after they added a product to the cart but haven't completed the order. Offer a coupon code as a last resort to convert them to customers."
-msgstr ""
-
-#: lib/Automation/Engine/Storage/AutomationTemplateStorage.php:183
-msgid "Abandoned cart reminder"
-msgstr ""
-
 #: lib/Automation/Engine/Validation/AutomationGraph/AutomationWalker.php:18
 msgid "Automation must contain a 'root' step"
 msgstr ""
@@ -8306,6 +8257,10 @@ msgstr ""
 msgid "Automation email with ID '%s' not found."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoet/Analytics/Endpoints/OverviewEndpoint.php:33
+msgid "Automation not found"
+msgstr ""
+
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberAutomationFieldsFactory.php:41
 msgid "Automations — entered"
 msgstr ""
@@ -8356,6 +8311,7 @@ msgid "Administrator"
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:164
+#: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:32
 msgid "WordPress user"
 msgstr ""
 
@@ -8409,6 +8365,86 @@ msgstr ""
 msgid "Subscriber with ID '%d' not found."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:36
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:43
+msgid "Welcome new subscribers"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:37
+msgid "Send a welcome email when someone subscribes to your list. Optionally, you can choose to send this email after a specified period."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:62
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:69
+msgid "Welcome new WordPress users"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:63
+msgid "Send a welcome email when a new WordPress user registers to your website. Optionally, you can choose to send this email after a specified period."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:88
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:95
+msgid "Welcome series for new subscribers"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:89
+msgid "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:107
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:114
+msgid "Welcome series for new WordPress users"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:108
+msgid "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:126
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:133
+msgid "Celebrate first-time buyers"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:127
+msgid "Welcome your first-time customers by sending an email with a special offer for their next purchase. Make them feel appreciated within your brand."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:156
+msgid "Thank you"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:157
+msgid "Thank You for Choosing Us!"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:174
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:181
+msgid "Thank loyal customers"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:175
+msgid "These are your most important customers. Make them feel special by sending a thank you note for supporting your brand."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:193
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:200
+msgid "Abandoned cart reminder"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:194
+msgid "Nudge your shoppers to complete the purchase after they have added a product to the cart but haven't completed the order."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:221
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:228
+msgid "Abandoned cart campaign"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoet/Templates/TemplatesFactory.php:222
+msgid "Encourage your potential customers to finalize their purchase when they have added items to their cart but haven't finished the order yet. Offer a coupon code as a last resort to convert them to customers."
+msgstr ""
+
 #: lib/Automation/Integrations/MailPoet/Triggers/SomeoneSubscribesTrigger.php:43
 #: assets/dist/js/automation_editor.js:1
 msgid "Someone subscribes"
@@ -8419,16 +8455,144 @@ msgstr ""
 msgid "WordPress user registers"
 msgstr ""
 
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:30
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:43
+msgid "Billing company"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:39
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:51
+msgid "Billing phone"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:48
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:59
+msgid "Billing city"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:57
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:67
+msgid "Billing postcode"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:66
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:75
+msgid "Billing state/county"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:75
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:83
+msgid "Billing country"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:87
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:94
+msgid "Shipping company"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:96
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:102
+msgid "Shipping phone"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:105
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:110
+msgid "Shipping city"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:114
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:118
+msgid "Shipping postcode"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:123
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:126
+msgid "Shipping state/county"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerFieldsFactory.php:132
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:134
+msgid "Shipping country"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:39
+msgid "Total spent"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:48
+msgid "Average spent"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:59
+msgid "Order count"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:68
+msgid "First paid order date"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:80
+msgid "Last paid order date"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:92
+msgid "Purchased categories"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerOrderFieldsFactory.php:104
+msgid "Purchased tags"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerReviewFieldsFactory.php:27
+msgid "Review count"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/CustomerReviewFieldsFactory.php:36
+msgid "Last review date"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:145
+msgid "Created date"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:153
+msgid "Paid date"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:161
+msgid "Customer provided note"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:169
+msgid "Payment method"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:191
+msgid "Total"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:199
+msgid "Used coupons"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:210
+msgid "Is first order"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Fields/OrderFieldsFactory.php:219
+msgid "Categories"
+msgstr ""
+
 #: lib/Automation/Integrations/WooCommerce/Subjects/AbandonedCartSubject.php:34
 msgid "MailPoet Abandoned Cart"
 msgstr ""
 
-#: lib/Automation/Integrations/WooCommerce/Subjects/CustomerSubject.php:21
+#: lib/Automation/Integrations/WooCommerce/Subjects/CustomerSubject.php:31
 msgid "WooCommerce customer"
 msgstr ""
 
 #. translators: %d is the ID of the customer.
-#: lib/Automation/Integrations/WooCommerce/Subjects/CustomerSubject.php:42
+#: lib/Automation/Integrations/WooCommerce/Subjects/CustomerSubject.php:52
 msgid "Customer with ID '%d' not found."
 msgstr ""
 
@@ -8436,18 +8600,30 @@ msgstr ""
 msgid "WooCommerce order status change"
 msgstr ""
 
-#: lib/Automation/Integrations/WooCommerce/Subjects/OrderSubject.php:30
+#: lib/Automation/Integrations/WooCommerce/Subjects/OrderSubject.php:36
 msgid "WooCommerce order"
 msgstr ""
 
 #. translators: %d is the order ID.
-#: lib/Automation/Integrations/WooCommerce/Subjects/OrderSubject.php:44
+#: lib/Automation/Integrations/WooCommerce/Subjects/OrderSubject.php:50
 msgid "Order with ID '%d' not found."
 msgstr ""
 
 #: lib/Automation/Integrations/WooCommerce/Triggers/OrderStatusChangedTrigger.php:40
 #: assets/dist/js/automation_editor.js:1
 msgid "Order status changed"
+msgstr ""
+
+#: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:70
+msgid "Is guest"
+msgstr ""
+
+#: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:78
+msgid "Registered date"
+msgstr ""
+
+#: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:87
+msgid "Roles"
 msgstr ""
 
 #: lib/Config/AccessControl.php:78
@@ -8502,86 +8678,92 @@ msgstr ""
 msgid "Unable to connect to the database (the database is unable to open a file or folder), the connection is likely not configured correctly. Please read our [link] Knowledge Base article [/link] for steps how to resolve it."
 msgstr ""
 
-#: lib/Config/Menu.php:185
-#: lib/Config/Menu.php:186
+#: lib/Config/Menu.php:187
+#: lib/Config/Menu.php:188
 msgid "Welcome Wizard"
 msgstr ""
 
-#: lib/Config/Menu.php:215
-#: lib/Config/Menu.php:216
+#: lib/Config/Menu.php:217
+#: lib/Config/Menu.php:218
 msgid "Home"
 msgstr ""
 
-#: lib/Config/Menu.php:228
-#: lib/Config/Menu.php:229
+#: lib/Config/Menu.php:230
+#: lib/Config/Menu.php:231
+#: assets/dist/js/automation_analytics.js:1
 msgid "Emails"
 msgstr ""
 
-#: lib/Config/Menu.php:241
+#: lib/Config/Menu.php:243
 msgctxt "newsletters per page (screen options)"
 msgid "Number of newsletters per page"
 msgstr ""
 
-#: lib/Config/Menu.php:253
+#: lib/Config/Menu.php:255
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:42
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Newsletter"
 msgstr ""
 
-#: lib/Config/Menu.php:281
+#: lib/Config/Menu.php:283
 msgctxt "forms per page (screen options)"
 msgid "Number of forms per page"
 msgstr ""
 
-#: lib/Config/Menu.php:293
-#: lib/Config/Menu.php:294
+#: lib/Config/Menu.php:295
+#: lib/Config/Menu.php:296
 msgid "Form Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:313
-#: lib/Config/Menu.php:314
+#: lib/Config/Menu.php:315
+#: lib/Config/Menu.php:316
 msgid "Select Form Template"
 msgstr ""
 
-#: lib/Config/Menu.php:347
+#: lib/Config/Menu.php:349
 msgctxt "subscribers per page (screen options)"
 msgid "Number of subscribers per page"
 msgstr ""
 
-#: lib/Config/Menu.php:398
+#: lib/Config/Menu.php:400
 msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
 
-#: lib/Config/Menu.php:423
-#: lib/Config/Menu.php:424
+#: lib/Config/Menu.php:425
+#: lib/Config/Menu.php:426
 msgid "Help"
 msgstr ""
 
-#: lib/Config/Menu.php:452
-#: lib/Config/Menu.php:453
+#: lib/Config/Menu.php:454
+#: lib/Config/Menu.php:455
 msgid "WooCommerce Setup"
 msgstr ""
 
-#: lib/Config/Menu.php:465
+#: lib/Config/Menu.php:467
 msgid "Experimental Features"
 msgstr ""
 
-#: lib/Config/Menu.php:492
 #: lib/Config/Menu.php:494
+#: lib/Config/Menu.php:496
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Automations"
 msgstr ""
 
-#: lib/Config/Menu.php:503
-#: lib/Config/Menu.php:504
+#: lib/Config/Menu.php:505
+#: lib/Config/Menu.php:506
 msgid "Automation Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:514
 #: lib/Config/Menu.php:515
+#: lib/Config/Menu.php:516
+msgid "Automation Analytics"
+msgstr ""
+
+#: lib/Config/Menu.php:526
+#: lib/Config/Menu.php:527
 msgid "Automation Templates"
 msgstr ""
 
@@ -9678,7 +9860,7 @@ msgstr ""
 #: lib/Newsletter/Sending/ScheduledTaskSubscribersListingRepository.php:48
 #: lib/Segments/SegmentListingRepository.php:94
 #: lib/Subscribers/SubscriberListingRepository.php:206
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "All"
 msgstr ""
 
@@ -11312,6 +11494,10 @@ msgstr ""
 msgid "Default WordPress sending method"
 msgstr ""
 
+#: lib/WooCommerce/WooSystemInfoController.php:47
+msgid "What method is used to sent out newsletters?"
+msgstr ""
+
 #: lib/WooCommerce/WooSystemInfoController.php:65
 msgid "The URL which needs to be pinged to get the cron started?"
 msgstr ""
@@ -11386,7 +11572,7 @@ msgid "Create"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Welcome Email"
 msgstr ""
 
@@ -11773,7 +11959,7 @@ msgid "Schedule"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Send"
 msgstr ""
 
@@ -12404,159 +12590,189 @@ msgstr ""
 msgid "Use our inbuilt WooCommerce email customizer to design your store's transactional emails and build customer confidence."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Undo"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Automation \"%s\" was duplicated."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "1 automation moved to the Trash."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "1 automation restored from the Trash."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
+#: assets/dist/js/automation_analytics.js:1
 msgid "Edit automation"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "1 automation and all associated data permanently deleted."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgctxt "verb"
 msgid "Trash"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Trash automation"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Yes, move to trash"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Are you sure you want to move the automation \"%s\" to the Trash?"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Permanently delete automation"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Yes, permanently delete"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Are you sure you want to permanently delete \"%s\" and all associated data? This cannot be undone!"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_editor.js:1
 msgid "More"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgctxt "automation stats"
 msgid "Entered"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgctxt "automation stats"
 msgid "Processing"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgctxt "automation stats"
 msgid "Exited"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgctxt "noun"
 msgid "Draft"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgctxt "noun"
 msgid "Trash"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "New automation"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Better engagement begins with automation"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Send emails that inform, reward, and engage your audience through powerful segmenting, scheduling, and design tools."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Start with a template"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Welcome"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Explore essentials"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Choose from our list of pre-made templates and make it your own."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Browse all templates →"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Start with a trigger"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Deliver relevant messages to your customers based on who they are and how they interact with your business."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Customize your automation"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Choose steps and create a custom journey to best suit your needs."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Design your email"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Modify one of our pre-made email templates or create your own design."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Start engaging"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Activate the automation and start engaging with your customers as they interact with your business."
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Build your own automations"
 msgstr ""
 
-#: assets/dist/js/automation.js:9
+#: assets/dist/js/automation.js:1
 msgid "Create customized email sequences with our new automation editor."
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgid "Date range:"
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgid "vs. %1$s (%2$s)"
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgid "Changing the date range is a premium feature."
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgctxt "WooCommerce orders"
+msgid "Orders"
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgid "Revenue"
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgid "Overview"
+msgstr ""
+
+#: assets/dist/js/automation_analytics.js:1
+msgid "Automation flow"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
@@ -12728,6 +12944,26 @@ msgid "Step"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
+msgid "The automation would only be started if the following trigger conditions are met:"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "All conditions"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "Any condition"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "The automation would only be started if <operator>all of</operator> the following trigger conditions are met:"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "The automation would only be started if <operator>any of</operator> the following trigger conditions are met:"
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
 msgid "weeks"
 msgstr ""
 
@@ -12756,14 +12992,6 @@ msgid "Managing trigger filters is a premium feature."
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
-msgid "All conditions"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "Any condition"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
 msgid "Unknown field \"%s\""
 msgstr ""
 
@@ -12781,10 +13009,6 @@ msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
 msgid "Trigger filters"
-msgstr ""
-
-#: assets/dist/js/automation_editor.js:1
-msgid "The automation would only be started if the following trigger conditions are met:"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
@@ -12825,6 +13049,10 @@ msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
 msgid "No automation data."
+msgstr ""
+
+#: assets/dist/js/automation_editor.js:1
+msgid "Filters"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
@@ -13108,7 +13336,7 @@ msgid "Add a tag or multiple tags to a subscriber."
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Premium"
 msgstr ""
 
@@ -13297,7 +13525,7 @@ msgid "change"
 msgstr ""
 
 #: assets/dist/js/automation_editor.js:1
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Activating…"
 msgstr ""
 
@@ -13341,408 +13569,408 @@ msgstr ""
 msgid "Choose your automation template"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Edit step name"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Step name"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Give the automation step a name that indicates its purpose. E.g \"Abandoned cart recovery\". This name will be displayed only to you and not to the clients."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "The automation has been saved."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Well done! Automation is now activated!"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Automation is now deactivated!"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Automation is deactivated. But recent users are still going through the flow."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Could not create automation."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Coming soon"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "All templates and fully configurable automations are available in the premium version."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Pending"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Verified"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Invalid"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Manage Sender Domain "
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Host"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Value"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Click here to copy"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Verify the DNS records"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Authorized emails"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Sender Domains"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Check your inbox now to confirm your email address. Please find the email with the subject: [bold]\"email address to authorize\"[/bold]"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "An error occured when performing the request. Please try again later"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "The email address has been authorized. You can now send emails using this address with MailPoet."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Authorizing your email address: [senderEmail]"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Confirm to proceed"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Confirm"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Revenues by customers who clicked on this email in the last 2 weeks."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Excellent open rate"
 msgid "above 30%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Good open rate"
 msgid "between 10 and 30%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Critical open rate"
 msgid "under 10%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Excellent click rate"
 msgid "above 3%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Good click rate"
 msgid "between 1 and 3%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Critical click rate"
 msgid "under 1%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Excellent bounce rate"
 msgid "below 0.5%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Good bounce rate"
 msgid "between 0.5% and 1.5%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Critical bounce rate"
 msgid "above 1.5%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Excellent unsubscribe rate"
 msgid "Below 0.3%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Good unsubscribe rate"
 msgid "between 0.3% and 0.7%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "Critical unsubscribe rate"
 msgid "above 0.7%"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Critical"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Tomorrow"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Paused"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "The changes you made may not be saved"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Your key is valid"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Your key is not valid"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "MailPoet Sending Service is active"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "MailPoet Premium is active"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "MailPoet Premium is not installed."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "You’re on localhost or using an IP address instead of a domain. Not allowed for security reasons!"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Your host is blocking the activation, e.g. Altervista"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "This website is on an Intranet. Activating MailPoet will not be possible."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "You are becoming a bigger sender – congratulations! To keep up with the growth, and continue sending, [link]please upgrade your plan[/link]"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "You have sent more emails this month than your MailPoet plan includes, and sending has been temporarily paused. To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on %1$s"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "A test email was sent to [email_address]"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Note: this subscription is currently pending approval by MailPoet."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "You should receive an email from us about it within 48h. Sending will be paused in the meantime, but you can still send email previews to yourself and explore the plugin features."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please specify a license key before validating it."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Upgrade your MailPoet plan"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please upgrade your MailPoet plan."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Subscribers limit reached"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please upgrade your MailPoet plan to continue using MailPoet."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Download the MailPoet Premium plugin"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please download the MailPoet Premium plugin."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Download"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Downloading…"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Plugin installation failed."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Activate the MailPoet Premium plugin"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please activate the MailPoet Premium plugin."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Reload the page"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Plugin activation failed."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "The MailPoet Premium plugin was activated. Please reload the page."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Purchase a MailPoet plan"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please purchase a MailPoet plan."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Purchase"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Please try again."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Not an authorized sender email address. [link]Authorize it now.[/link]"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Email violates Sender Domain’s DMARC policy. Please set up [link]sender authentication[/link]."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgctxt "In the last step, before sending a newsletter. URL: ?page=mailpoet-newsletters#/send/2"
 msgid "Use an address like %1$s for the Sender and put %2$s in the <em>Reply-to</em> field below."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Excellent. Your authorized email was saved. You can change it in the [link]Basics tab of the MailPoet settings[/link]."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "It’s time to set your default FROM address!"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Set one of [link]your authorized email addresses[/link] as the default FROM email for your MailPoet emails."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Can’t use this email yet! [link]Please authorize it first[/link]."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "An error occured when saving FROM email address."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "An error occurred while saving the template in \"Recently sent\""
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Loading ..."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "No items found."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "All items on this page are selected."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "All %d items are selected."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Select all items on all pages"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Clear selection"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Before you start, this is how you drag and drop in MailPoet"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Tutorial"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Post Notification"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Re-engagement"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Template"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Design"
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Oops! There seems to be an issue with the sending on your website. [link]See our guide[/link] to solve this yourself."
 msgstr ""
 
-#: assets/dist/js/commons.js:9
+#: assets/dist/js/commons.js:16
 msgid "Sending has been resumed."
 msgstr ""
 

@@ -7,9 +7,14 @@ class Plugin_Settings_Watcher extends Controller {
 	 * @var Settings
 	 */
 	private $settings;
+	/**
+	 * @var Array_Utils
+	 */
+	private $array_utils;
 
 	public function __construct() {
-		$this->settings = Settings::get_instance();
+		$this->settings    = Settings::get_instance();
+		$this->array_utils = new Array_Utils();
 
 		$this->hook_settings_update_interceptor( array( $this, 'trigger_updated_action' ) );
 		$this->hook_settings_delete_interceptor( array( $this, 'trigger_deleted_action' ) );
@@ -18,6 +23,11 @@ class Plugin_Settings_Watcher extends Controller {
 			$this,
 			'trigger_resize_sizes_updated_action',
 		), 'wp-smush-resize_sizes' );
+
+		$this->hook_settings_update_interceptor( array(
+			$this,
+			'trigger_membership_status_change_action',
+		), 'wp_smush_api_auth' );
 	}
 
 	private function hook_settings_update_interceptor( $callback, $option_id = 'wp-smush-settings' ) {
@@ -53,5 +63,15 @@ class Plugin_Settings_Watcher extends Controller {
 
 	public function trigger_resize_sizes_updated_action( $old_settings, $settings ) {
 		do_action( 'wp_smush_resize_sizes_updated', $old_settings, $settings );
+	}
+
+	public function trigger_membership_status_change_action( $old_settings, $settings ) {
+		$api_key      = Helper::get_wpmudev_apikey();
+		$old_validity = isset( $old_settings[ $api_key ]['validity'] ) ? $old_settings[ $api_key ]['validity'] : false;
+		$new_validity = isset( $settings[ $api_key ]['validity'] ) ? $settings[ $api_key ]['validity'] : false;
+
+		if ( $old_validity !== $new_validity ) {
+			do_action( 'wp_smush_membership_status_changed' );
+		}
 	}
 }

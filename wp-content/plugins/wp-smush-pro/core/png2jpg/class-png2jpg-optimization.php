@@ -627,7 +627,7 @@ class Png2Jpg_Optimization extends Media_Item_Optimization {
 	private function relative_paths( $absolute_paths ) {
 		$relative_paths = array();
 		foreach ( $absolute_paths as $key => $absolute_path ) {
-			$dir                    = untrailingslashit( dirname( $this->media_item->get_relative_file_path() ) );
+			$dir                    = $this->media_item->get_relative_file_dir();
 			$file                   = wp_basename( $absolute_path );
 			$relative_paths[ $key ] = "$dir/$file";
 		}

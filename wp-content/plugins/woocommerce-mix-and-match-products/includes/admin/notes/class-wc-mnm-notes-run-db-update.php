@@ -5,6 +5,7 @@
  * Adds a note to complete the WooCommerce Mix and Match db update after the upgrade in the WC Admin context.
  * 
  * @since 2.4.0
+ * @version 2.4.4
  *
  * @package WooCommerce Mix and Match/Admin/Notes
  */
@@ -225,7 +226,7 @@ class WC_MNM_Notes_Run_Db_Update {
 		$note_actions = array(
 			array(
 				'name'         => 'update-db_done',
-				'label'        => __( 'Thanks!', 'woocommerce-mix-and-match-products' ),
+				'label'        => __( 'Dismiss', 'woocommerce-mix-and-match-products' ),
 				'url'          => $hide_notices_url,
 				'status'       => 'actioned',
 				'primary'      => true,

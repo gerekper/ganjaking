@@ -6,6 +6,7 @@ use WPML\LIB\WP\Nonce;
 use WPML\Core\WP\App\Resources;
 use WPML\TM\ATE\AutoTranslate\Endpoint\CancelJobs;
 use WPML\TM\ATE\Hooks\JobActionsFactory;
+use WPML\LanguageSwitcher\LsTemplateDomainUpdater;
 
 class Loader implements \IWPML_Backend_Action {
 
@@ -30,7 +31,8 @@ class Loader implements \IWPML_Backend_Action {
 							'nonce' => Nonce::create( 'update_site_key_wpml' ),
 						],
 						'endpoints'      => [
-							'cancelJobs' => CancelJobs::class,
+							'cancelJobs'              => CancelJobs::class,
+							'lsTemplatesUpdateDomain' => LsTemplateDomainUpdater::class,
 						],
 					],
 				]

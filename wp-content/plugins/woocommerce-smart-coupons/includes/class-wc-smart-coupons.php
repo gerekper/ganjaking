@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.0.1
+ * @version     6.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -150,6 +150,12 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			add_action( 'before_woocommerce_init', array( $this, 'hpos_compat_declaration' ) );
 
+			add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'format_sc_meta_data' ), 99, 2 );
+			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hidden_order_itemmeta' ) );
+
+			add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( $this, 'custom_meta_support_in_orders_query' ), 10, 2 );
+
+			add_action( 'upgrader_process_complete', array( $this, 'upgrader_process_complete' ), 10, 2 );
 		}
 
 		/**
@@ -343,6 +349,12 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			if ( false === $coupon_design_for_email ) {
 				add_option( 'wc_sc_setting_coupon_design_for_email', 'email-coupon', '', 'no' );
 			}
+
+			$orders_prior_to_800 = $this->sc_get_option( 'wc_sc_old_orders_prior_to_800' );
+			if ( false === $orders_prior_to_800 ) {
+				$this->maybe_sync_orders_prior_to_800();
+			}
+
 		}
 
 		/**
@@ -1882,6 +1894,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			} else {
 				add_action( 'wp_loaded', array( $this, 'smart_coupons_discount_total_filters' ), 20 );
 				add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'order_calculate_discount_amount' ), 10, 2 );
+				add_filter( 'woocommerce_cart_totals_coupon_html', array( $this, 'cart_totals_coupon_html' ), 99, 3 );
 			}
 		}
 
@@ -2150,6 +2163,89 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				}
 
 				if ( $this->is_wc_greater_than( '3.1.2' ) ) {
+					$cart_contents_total        = $this->is_callable( $cart, 'get_cart_contents_total' ) ? $cart->get_cart_contents_total() : 0;
+					$cart_contents_tax          = $this->is_callable( $cart, 'get_cart_contents_tax' ) ? $cart->get_cart_contents_tax() : 0;
+					$cart_contents_taxes        = $this->is_callable( $cart, 'get_cart_contents_taxes' ) ? $cart->get_cart_contents_taxes() : array();
+					$coupon_discount_totals     = $this->is_callable( $cart, 'get_coupon_discount_totals' ) ? $cart->get_coupon_discount_totals() : array();
+					$coupon_discount_tax_totals = $this->is_callable( $cart, 'get_coupon_discount_tax_totals' ) ? $cart->get_coupon_discount_tax_totals() : array();
+					$discount_total             = $this->is_callable( $cart, 'get_discount_total' ) ? $cart->get_discount_total() : 0;
+					$discount_tax               = $this->is_callable( $cart, 'get_discount_tax' ) ? $cart->get_discount_tax() : 0;
+					$shipping_total             = $this->is_callable( $cart, 'get_shipping_total' ) ? $cart->get_shipping_total() : 0;
+					$shipping_tax               = $this->is_callable( $cart, 'get_shipping_tax' ) ? $cart->get_shipping_tax() : 0;
+					$shipping_taxes             = $this->is_callable( $cart, 'get_shipping_taxes' ) ? $cart->get_shipping_taxes() : array();
+					$coupon_discount            = 0;
+					$coupon_discount_total      = $discount_total;
+					$coupon_discount_tax        = $discount_tax;
+					$coupon_discount_taxes      = $coupon_discount_tax_totals;
+					$new_coupon_discount_tax    = 0;
+					$shipping_discount          = 0;
+					$shipping_discount_total    = 0;
+					$shipping_discount_tax      = 0;
+					$shipping_discount_taxes    = array();
+					$credit_discount_tax        = 0;
+					$credit_discount_taxes      = array();
+
+					$smart_coupon_credit_used = ( ! empty( $cart->smart_coupon_credit_used ) ) ? $cart->smart_coupon_credit_used : array();
+
+					if ( is_array( $smart_coupon_credit_used ) && ! empty( $smart_coupon_credit_used ) ) {
+						$total = $this->is_callable( $cart, 'get_total' ) ? $cart->get_total( 'edit' ) : $total;
+						foreach ( $smart_coupon_credit_used as $code => $coupon_credit ) {
+							if ( $coupon_credit > 0 ) {
+								$coupon_discount                 = min( $cart_contents_total, $coupon_credit );
+								$coupon_discount_total          += $coupon_discount;
+								$cart_contents_total            -= $coupon_discount;
+								$coupon_discount_totals[ $code ] = $coupon_discount;
+								$cart->set_cart_contents_total( $cart_contents_total );
+								$cart->set_coupon_discount_totals( $coupon_discount_totals );
+								$coupon_credit -= $coupon_discount;
+								if ( $coupon_credit > 0 ) {
+									if ( is_array( $cart_contents_taxes ) && ! empty( $cart_contents_taxes ) ) {
+										if ( empty( $coupon_discount_taxes[ $code ] ) ) {
+											$coupon_discount_taxes[ $code ] = 0;
+										}
+										if ( empty( $credit_discount_taxes[ $code ] ) ) {
+											$credit_discount_taxes[ $code ] = 0;
+										}
+										foreach ( $cart_contents_taxes as $index => $tax ) {
+											$new_coupon_discount_tax         = min( $tax, $coupon_credit );
+											$coupon_credit                  -= $new_coupon_discount_tax;
+											$coupon_discount_taxes[ $code ] += $new_coupon_discount_tax;
+											$credit_discount_taxes[ $code ] += $new_coupon_discount_tax;
+										}
+										$credit_discount_tax                 = array_sum( $credit_discount_taxes );
+										$coupon_discount_tax                 = array_sum( $coupon_discount_taxes ) - $credit_discount_tax;
+										$coupon_discount_tax_totals[ $code ] = $coupon_discount_taxes[ $code ];
+										$cart->set_coupon_discount_tax_totals( $coupon_discount_tax_totals );
+									}
+								}
+								if ( $coupon_credit > 0 ) {
+									$shipping_discount                = min( $shipping_total, $coupon_credit );
+									$shipping_discount_total         += $shipping_discount;
+									$coupon_discount_totals[ $code ] += $shipping_discount;
+									$cart->set_coupon_discount_totals( $coupon_discount_totals );
+									$coupon_credit -= $shipping_discount;
+								}
+								if ( $coupon_credit > 0 ) {
+									if ( is_array( $shipping_taxes ) && ! empty( $shipping_taxes ) ) {
+										foreach ( $shipping_taxes as $index => $s_tax ) {
+											$shipping_discount_taxes[ $index ] = min( $s_tax, $coupon_credit );
+											$coupon_credit                    -= $shipping_discount_taxes[ $index ];
+										}
+										$shipping_discount_tax                = array_sum( $shipping_discount_taxes );
+										$coupon_discount_tax_totals[ $code ] += $shipping_discount_tax;
+										$cart->set_coupon_discount_tax_totals( $coupon_discount_tax_totals );
+									}
+								}
+							}
+						}
+						$discount_total = $coupon_discount_total + $credit_discount_tax + $shipping_discount_total + $shipping_discount_tax;
+						$cart->set_discount_total( $discount_total );
+						$discount_tax = $coupon_discount_tax;
+						$cart->set_discount_tax( $discount_tax );
+						$total_tax = $cart_contents_tax + $shipping_tax;
+						$cart->set_total_tax( $total_tax );
+						$total = $cart_contents_total + array_sum( $cart_contents_taxes ) + $shipping_total + array_sum( $shipping_taxes ) - array_sum( $credit_discount_taxes ) - $shipping_discount_total - $shipping_discount_tax;
+					}
 					$cart->set_total( $total );
 					$cart->set_session();
 				} else {
@@ -2162,6 +2258,35 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 		}
 
+		/**
+		 * Function to show the discount amount applied by the store credit on the tax.
+		 *
+		 * @param string    $coupon_html The current HTML.
+		 * @param WC_Coupon $coupon The coupon object.
+		 * @param string    $discount_amount_html The discount amount HTML.
+		 * @return string
+		 */
+		public function cart_totals_coupon_html( $coupon_html = '', $coupon = null, $discount_amount_html = '' ) {
+			$cart = ( function_exists( 'WC' ) && isset( WC()->cart ) ) ? WC()->cart : null;
+			if ( is_a( $cart, 'WC_Cart' ) ) {
+				$tax_price_display_mode   = $cart->get_tax_price_display_mode();
+				$smart_coupon_credit_used = ( isset( $cart->smart_coupon_credit_used ) ) ? $cart->smart_coupon_credit_used : array();
+				$coupon_code              = ( $this->is_callable( $coupon, 'get_code' ) ) ? $coupon->get_code() : '';
+				if ( ! empty( $coupon_code ) && array_key_exists( $coupon_code, $smart_coupon_credit_used ) ) {
+					$coupon_discount_tax_totals = $this->is_callable( $cart, 'get_coupon_discount_tax_totals' ) ? $cart->get_coupon_discount_tax_totals() : array();
+					if ( ! empty( $coupon_discount_tax_totals[ $coupon_code ] ) ) {
+						if ( 'excl' === $tax_price_display_mode ) {
+							/* translators: Discount amount applied on tax */
+							$coupon_html = $coupon_html . ' <small>(' . sprintf( __( 'excludes -%s on tax', 'woocommerce-smart-coupons' ), wc_price( $coupon_discount_tax_totals[ $coupon_code ] ) ) . ')</small>';
+						} else {
+							/* translators: Discount amount applied on tax */
+							$coupon_html = $coupon_html . ' <small>(' . sprintf( __( 'includes -%s on tax', 'woocommerce-smart-coupons' ), wc_price( $coupon_discount_tax_totals[ $coupon_code ] ) ) . ')</small>';
+						}
+					}
+				}
+			}
+			return $coupon_html;
+		}
 
 		/**
 		 * Function to do action 'smart_coupons_after_calculate_totals' since WooCommerce Services plugin triggers 'woocommerce_cart_reset' in its function for 'woocommerce_after_calculate_totals' action causing miscalculation in did_action( 'smart_coupons_after_calculate_totals' ) hook.
@@ -2171,7 +2296,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			$cart_reset_action_count         = did_action( 'woocommerce_cart_reset' );
 			$sc_after_calculate_action_count = did_action( 'smart_coupons_after_calculate_totals' );
 
-			// This is to match counter for 'smart_coupons_after_calculate_totals' hook with 'woocommerce_cart_reset' counter since we are using these two counters to prevent store credit being appplied multiple times.
+			// This is to match counter for 'smart_coupons_after_calculate_totals' hook with 'woocommerce_cart_reset' counter since we are using these two counters to prevent store credit being applied multiple times.
 			if ( $sc_after_calculate_action_count < $cart_reset_action_count ) {
 				do_action( 'smart_coupons_after_calculate_totals' );
 			}
@@ -5308,7 +5433,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				);
 			}
 
-			return is_null( $row ) ? false : ( ( ! empty( $row->option_value ) ) ? $row->option_value : '' );
+			return is_null( $row ) ? false : ( ( ! empty( $row->option_value ) ) ? maybe_unserialize( $row->option_value ) : '' );
 
 		}
 
@@ -6488,6 +6613,264 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return 'shop_order';
 			}
 			return get_post_type( $post_id );
+		}
+
+		/**
+		 * Function to check whether the order was created prior to version 8.0.0 or not.
+		 *
+		 * @param WC_Order|int $order The order to be checked.
+		 * @return boolean
+		 */
+		public function is_old_sc_order( $order = null ) {
+
+			if ( empty( $order ) || is_array( $order ) ) {
+				return false;
+			}
+
+			$orders_prior_to_800 = $this->sc_get_option( 'wc_sc_old_orders_prior_to_800' );
+
+			if ( empty( $orders_prior_to_800 ) || 'no' === $orders_prior_to_800 ) {
+				return false;
+			}
+
+			if ( is_a( $order, 'WC_Order' ) ) {
+				$order_id = $this->is_callable( $order, 'get_id' ) ? $order->get_id() : 0;
+			} else {
+				$order_id = $order;
+			}
+			$order_id = absint( $order_id );
+
+			$from_to_groups = array_chunk( $orders_prior_to_800, 2, true );
+
+			foreach ( $from_to_groups as $group ) {
+				$group = array_flip( $group );
+				$from  = ( ! empty( $group['from'] ) ) ? absint( $group['from'] ) : 0;
+				$to    = ( ! empty( $group['to'] ) ) ? absint( $group['to'] ) : 0;
+				if ( $from <= $to && $order_id >= $from && $order_id <= $to ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Function to find & record orders that were created when Smart Coupons older than 8.0.0 was active & in which store credit was applied
+		 */
+		public function maybe_sync_orders_prior_to_800() {
+			$orders_prior_to_800 = $this->sc_get_option( 'wc_sc_old_orders_prior_to_800' );
+
+			if ( 'no' === $orders_prior_to_800 ) {
+				return;
+			}
+
+			$args      = array(
+				'return'                     => 'ids',
+				'orderby'                    => 'ID',
+				'order'                      => 'ASC',
+				'limit'                      => -1,
+				'smart_coupons_contribution' => array(
+					'value'   => array( '', 'a:0:{}' ),
+					'compare' => 'NOT IN',
+				),
+			);
+			$order_ids = wc_get_orders( $args );
+
+			if ( empty( $order_ids ) ) {
+				return;
+			}
+
+			if ( ! is_array( $orders_prior_to_800 ) || empty( $orders_prior_to_800 ) ) {
+				$orders_prior_to_800 = array();
+				if ( ! empty( $order_ids ) ) {
+					$from                                   = min( $order_ids );
+					$to                                     = max( $order_ids );
+					$orders_prior_to_800[ absint( $from ) ] = 'from';
+					$orders_prior_to_800[ absint( $to ) ]   = 'to';
+					update_option( 'wc_sc_old_orders_prior_to_800', $orders_prior_to_800, 'no' );
+				}
+				return;
+			}
+
+			if ( ! empty( $orders_prior_to_800 ) ) {
+				krsort( $orders_prior_to_800, SORT_NUMERIC );
+			}
+
+			$last_800_order  = array_search( '8.0.0', $orders_prior_to_800, true );
+			$last_from_order = array_search( 'from', $orders_prior_to_800, true );
+			$last_to_order   = array_search( 'to', $orders_prior_to_800, true );
+			$max             = max( $last_800_order, $last_from_order, $last_to_order );
+
+			if ( ! array_key_exists( $max, $orders_prior_to_800 ) ) {
+				return;
+			}
+
+			$status    = $orders_prior_to_800[ $max ];
+			$remaining = array_slice( $order_ids, ( array_search( $max, $order_ids, true ) + 1 ) );
+
+			if ( empty( $remaining ) ) {
+				return;
+			}
+
+			switch ( $status ) {
+				case '8.0.0':
+					$from                                   = min( $remaining );
+					$to                                     = max( $remaining );
+					$orders_prior_to_800[ absint( $from ) ] = 'from';
+					$orders_prior_to_800[ absint( $to ) ]   = 'to';
+					break;
+				case 'from':
+					$to                                   = max( $remaining );
+					$orders_prior_to_800[ absint( $to ) ] = 'to';
+					break;
+				case 'to':
+					$to = max( $remaining );
+					unset( $orders_prior_to_800[ $max ] );
+					$orders_prior_to_800[ absint( $to ) ] = 'to';
+					break;
+			}
+
+			$orders_prior_to_800 = array_diff( $orders_prior_to_800, array( '8.0.0' ) );
+
+			ksort( $orders_prior_to_800, SORT_NUMERIC );
+
+			update_option( 'wc_sc_old_orders_prior_to_800', $orders_prior_to_800, 'no' );
+
+		}
+
+		/**
+		 * Function to be executed after the plugin is upgraded.
+		 *
+		 * @param object $upgrader The upgrader object.
+		 * @param array  $hook_extra Additional params.
+		 */
+		public function upgrader_process_complete( $upgrader = null, $hook_extra = array() ) {
+			if ( ! empty( $hook_extra['type'] ) && 'plugin' === $hook_extra['type']
+				&& ! empty( $upgrader->result['destination_name'] ) && 'woocommerce-smart-coupons' === $upgrader->result['destination_name']
+				&& ! empty( $upgrader->new_plugin_data['Woo'] && '18729:05c45f2aa466106a466de4402fff9dde' === $upgrader->new_plugin_data['Woo'] )
+			) {
+				if ( $this->is_sc_gte( '8.0.0' ) ) {
+					$this->maybe_sync_orders_prior_to_800();
+				} else {
+					$this->record_latest_800_order();
+				}
+			}
+		}
+
+		/**
+		 * Add support for custom meta from Smart Coupons to search for Orders
+		 *
+		 * @param array $query The query.
+		 * @param array $query_vars The query vars.
+		 * @return array
+		 */
+		public function custom_meta_support_in_orders_query( $query = array(), $query_vars = array() ) {
+			if ( ! empty( $query_vars['smart_coupons_contribution'] ) ) {
+				$query['meta_query'][] = array(
+					'key'     => 'smart_coupons_contribution',
+					'value'   => array_map( 'esc_attr', $query_vars['smart_coupons_contribution']['value'] ),
+					'compare' => esc_attr( $query_vars['smart_coupons_contribution']['compare'] ),
+				);
+			}
+			return $query;
+		}
+
+		/**
+		 * Function to record latest order which was created when Smart Coupons 8.0.0+ was active & store credit was applied to the order.
+		 */
+		public function record_latest_800_order() {
+			$orders_prior_to_800 = $this->sc_get_option( 'wc_sc_old_orders_prior_to_800' );
+
+			if ( false !== $orders_prior_to_800 && 'no' !== $orders_prior_to_800 ) {
+				$args      = array(
+					'return'                     => 'ids',
+					'orderby'                    => 'ID',
+					'order'                      => 'DESC',
+					'limit'                      => 1,
+					'smart_coupons_contribution' => array(
+						'value'   => array( '', 'a:0:{}' ),
+						'compare' => 'NOT IN',
+					),
+				);
+				$order_ids = wc_get_orders( $args );
+				if ( ! empty( $order_ids ) ) {
+					$last_order_id = current( $order_ids );
+					if ( ! is_array( $orders_prior_to_800 ) || empty( $orders_prior_to_800 ) ) {
+						$orders_prior_to_800 = array();
+					}
+					if ( ! array_key_exists( $last_order_id, $orders_prior_to_800 ) ) {
+						$last_array_element  = array( absint( $last_order_id ) => '8.0.0' );
+						$orders_prior_to_800 = $orders_prior_to_800 + $last_array_element;
+					}
+					update_option( 'wc_sc_old_orders_prior_to_800', $orders_prior_to_800, 'no' );
+				}
+			}
+		}
+
+		/**
+		 * Format order item meta added by Smart Coupons.
+		 *
+		 * @param array         $formatted_metas Existsing metas.
+		 * @param WC_Order_Item $order_item The order item.
+		 * @return array
+		 */
+		public function format_sc_meta_data( $formatted_metas = array(), $order_item = null ) {
+			if ( ! empty( $formatted_metas ) ) {
+				$sc_metas_label = array(
+					'_wc_sc_product_source' => __( 'Added by coupon', 'woocommerce-smart-coupons' ),
+				);
+				foreach ( $formatted_metas as $meta_id => $meta ) {
+					if ( ! empty( $meta->key ) && array_key_exists( $meta->key, $sc_metas_label ) ) {
+						switch ( $meta->key ) {
+							default:
+								$formatted_metas[ $meta_id ]->display_key = $sc_metas_label[ $meta->key ];
+								break;
+						}
+					}
+				}
+			}
+			return $formatted_metas;
+		}
+
+		/**
+		 * Hide order item metas that are added by the Smart Coupons plugin.
+		 *
+		 * @param array $metas The existing metas.
+		 * @return array
+		 */
+		public function hidden_order_itemmeta( $metas = array() ) {
+			if ( ! is_array( $metas ) || empty( $metas ) ) {
+				$metas = array();
+			}
+			$sc_metas  = array(
+				'sc_called_credit',
+				'sc_refunded_discount',
+				'sc_refunded_discount_tax',
+				'sc_refunded_user_id',
+				'sc_refunded_timestamp',
+				'sc_refunded_coupon_id',
+				'sc_revoke_refunded_discount',
+				'sc_revoke_refunded_discount_tax',
+				'sc_revoke_refunded_user_id',
+				'sc_revoke_refunded_timestamp',
+				'sc_revoke_refunded_coupon_id',
+			);
+			$intersect = array_intersect( $metas, $sc_metas );
+			if ( count( $sc_metas ) !== count( $intersect ) ) {
+				$metas = array_merge( $metas, $sc_metas );
+				$metas = array_filter( array_unique( $metas ) );
+			}
+			return $metas;
+		}
+
+		/**
+		 * Function to compare with current version of Smart Coupons
+		 *
+		 * @param string $version Version number to compare.
+		 * @return bool
+		 */
+		public function is_sc_gte( $version ) {
+			return version_compare( $this->plugin_data['Version'], $version, '>=' );
 		}
 
 		/**

@@ -1,5 +1,11 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-06-21 - version 1.7.35
+* Fix - PHP Notices when Cart and Checkout blocks are used with debugging activated.
+
+2023-06-13 - version 1.7.34
+* Tweak - WC 7.8 compatibility.
+
 2023-05-18 - version 1.7.33
 * Fix - Dynamic property deprecation notices with PHP 8.2.
 * Fix - Label updated to Apply Points to Previous Orders > Since.

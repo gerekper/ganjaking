@@ -1,17 +1,38 @@
-# Copyright (C) 2022 WooCommerce
-# This file is distributed under the GPL-2.0+.
+# Copyright (C) 2023 Themesquad
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Drip 1.2.34\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-drip\n"
-"POT-Creation-Date: 2022-09-02 09:44:14+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Drip 1.3.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-06-12T12:29:12+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: woocommerce-drip\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Drip"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-drip/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Integrate your WooCommerce store and customers with your Drip account."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
 
 #: includes/class-wcdrip-events.php:90
 msgid "Purchase"
@@ -21,28 +42,21 @@ msgstr ""
 msgid "Customer"
 msgstr ""
 
-#: includes/class-wcdrip-privacy.php:12 includes/class-wcdrip-settings.php:35
+#: includes/class-wcdrip-privacy.php:12
+#: includes/class-wcdrip-settings.php:35
 msgid "Drip"
 msgstr ""
 
 #: includes/class-wcdrip-privacy.php:20
-msgid ""
-"By using this extension, you may be storing personal data or sharing data "
-"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
-"how this works, including what you may want to include in your privacy "
-"policy.</a>"
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:36
-msgid ""
-"Configure the settings below to connect your WooCommerce store to your Drip "
-"account and start recording events."
+msgid "Configure the settings below to connect your WooCommerce store to your Drip account and start recording events."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:36
-msgid ""
-"After authenticating and selecting an account, the Drip embed code will "
-"automatically be added to your site."
+msgid "After authenticating and selecting an account, the Drip embed code will automatically be added to your site."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:114
@@ -50,9 +64,7 @@ msgid "Authentication & Account"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:116
-msgid ""
-"Please authenticate your Drip account here and choose the account to "
-"connect it with."
+msgid "Please authenticate your Drip account here and choose the account to connect it with."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:120
@@ -85,9 +97,7 @@ msgid "Subscribe Checkbox"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:135
-msgid ""
-"Add a subscription box to the checkout page and WooCommerce registration "
-"form."
+msgid "Add a subscription box to the checkout page and WooCommerce registration form."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:143
@@ -119,10 +129,7 @@ msgid "Subscribe Text"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:162
-msgid ""
-"%s Subscribe to {campaign_name}%sText for the subscribe checkbox - valid "
-"HTML allowed. Use the template tag %s to display the campaign name "
-"(optional)."
+msgid "%s Subscribe to {campaign_name}%sText for the subscribe checkbox - valid HTML allowed. Use the template tag %s to display the campaign name (optional)."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:162
@@ -139,25 +146,15 @@ msgid "Event Sale Name"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:177
-msgid ""
-"%s Purchase%s Name the event that is added to a subscriber after a "
-"purchase. It should (optionally) match your Conversion Goal name exactly."
-msgstr ""
-
-#: includes/class-wcdrip-settings.php:186
-msgid "Enable Logging"
+msgid "%s Purchase%s Name the event that is added to a subscriber after a purchase. It should (optionally) match your Conversion Goal name exactly."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:188
-msgid ""
-"Note: this may log personal information. We recommend using this for "
-"debugging purposes only and deleting the logs when finished."
+msgid "Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:189
-msgid ""
-"Log Drip debug events, such as API requests, to WooCommerce System Status "
-"log."
+msgid "Log Drip debug events, such as API requests, to WooCommerce System Status log."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:263
@@ -169,9 +166,7 @@ msgid "Reload Accounts / Campaigns"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:266
-msgid ""
-"If you have added a new account and/or campaign and it's not showing, this "
-"will refresh the list."
+msgid "If you have added a new account and/or campaign and it's not showing, this will refresh the list."
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:401
@@ -186,33 +181,37 @@ msgstr ""
 msgid "WordPress HTTP API request error."
 msgstr ""
 
-#: woocommerce-drip.php:34
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Drip settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Drip documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
 #. translators: %s WC download URL link.
-msgid ""
-"Drip requires WooCommerce to be installed and active. You can download %s "
-"here."
-msgstr ""
-
-#: woocommerce-drip.php:107
-msgid "Documentation"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Drip"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/woocommerce-drip/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Integrate your WooCommerce store and customers with your Drip account."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com"
+#: woocommerce-drip.php:47
+msgid "Drip requires WooCommerce to be installed and active. You can download %s here."
 msgstr ""

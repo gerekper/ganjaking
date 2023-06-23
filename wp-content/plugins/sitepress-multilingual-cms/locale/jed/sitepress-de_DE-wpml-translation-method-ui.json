@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Beim Pausieren Ihrer automatischen Übersetzung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder kontaktieren Sie unser Supportteam."
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "Sie entscheiden, was übersetzt werden soll und wer es übersetzen soll."
          ],
-         "Translate it yourself": [
+         "Translate yourself": [
             "Selbst übersetzen"
          ],
-         "Assign it to translators that are users of your site": [
-            "Übersetzern zuteilen, die Benutzer Ihrer Website sind"
+         "Use automatic translation on the content you choose": [
+            "Automatische Übersetzung für ausgewählte Inhalte verwenden"
          ],
-         "Send it to a professional translation service": [
-            "An einen professionellen Übersetzungsdienst senden"
+         "Work with translators that are users of your site": [
+            "Von Website-Benutzern übersetzen lassen"
          ],
          "or": [
             "oder"
          ],
-         "Translate it automatically using machine translation": [
-            "Automatisch mit maschineller Übersetzung übersetzen"
+         "Send to professional translation services": [
+            "An professionelle Übersetzungsdienste senden"
          ],
          "Save settings": [
             "Einstellungen speichern"
@@ -383,7 +382,7 @@
             " (erforderlich)"
          ],
          "Please fill in the field": [
-            "Bitte füllen Sie das Feld aus"
+            "Bitte füllen Sie das Feld aus."
          ],
          "PNG, SVG, or JPG files": [
             "PNG-, SVG- oder JPG-Dateien"
@@ -443,7 +442,7 @@
             "Wenn Sie die Sprachen, die Sie brauchen, nicht in der Liste finden können"
          ],
          "create a custom language": [
-            "erstellen Sie eine benutzerdefinierte Sprache"
+            "Erstellen einer benutzerdefinierten Sprache"
          ],
          "What are the languages of your site?": [
             "Welche Sprachen werden auf Ihrer Website verwendet?"
@@ -484,6 +483,12 @@
          "Learn more": [
             "Mehr erfahren"
          ],
+         "On": [
+            "Ein"
+         ],
+         "Off": [
+            "Aus"
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "Wenn Sie Ihre Inhalte automatisch übersetzen lassen möchten, müssen Sie den <b>erweiterten Übersetzungseditor</b> verwenden."
          ],
@@ -505,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "Überlassen Sie die Übersetzung WPML."
          ],
-         "You need to have a valid account in order to continue.": [
-            "Sie müssen ein gültiges Konto haben, um fortfahren zu können."
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "Um die automatische Übersetzung zu verwenden, <a>melden Sie sich für Pay-as-you-go an</a> oder <a2>weisen Sie Ihrer Website Credits zu</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "Beim Laden des Credit-Assistenten ist ein Fehler aufgetreten."

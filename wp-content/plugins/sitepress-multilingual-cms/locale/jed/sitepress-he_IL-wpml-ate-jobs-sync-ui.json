@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Sending for translation": [
             "שליחה לתרגום"
@@ -72,6 +71,9 @@
          "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
             "השפה שלך, %s, חייבתלהיות ממופה לשפה נתמכת כדי להשתמש בתרגום אוטומטי.",
             "על השפות הבאות באתר שלך להיות ממופות לשפה נתמכת כדי להשתמש בתרגום אוטומטי: %s"
+         ],
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            "תוכן בשפות אלו: %s, לא מתאימים לתרגום אוטומטי אלא אם תמפה אותם לשפה השונה מברירת המחדל."
          ],
          "%d translation waiting for review": [
             "תרגום %d ממתין לבדיקה",

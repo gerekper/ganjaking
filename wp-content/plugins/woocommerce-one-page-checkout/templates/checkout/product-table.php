@@ -6,14 +6,17 @@
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 ?>
 <table class="shop_table" cellspacing="0">
-	<?php foreach( $products as $product ) : ?>
+	<?php foreach ( $products as $product ) : ?>
 
-	<tr class="product-item cart <?php if ( wcopc_get_products_prop( $product, 'in_cart' ) ) echo 'selected'; ?>">
+	<tr class="product-item cart
+		<?php
+		if ( wcopc_get_products_prop( $product, 'in_cart' ) ) {
+			echo 'selected';}
+		?>
+	">
 
 		<td class="product-thumbnail">
 			<a href="<?php echo esc_url( wp_get_attachment_url( $product->get_image_id() ) ); ?>" data-rel="prettyPhoto" itemprop="image" class="woocommerce-main-image zoom">

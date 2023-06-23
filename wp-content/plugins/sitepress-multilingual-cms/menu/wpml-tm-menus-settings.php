@@ -3,6 +3,7 @@
 use WPML\API\Settings;
 use WPML\DocPage;
 use WPML\TM\Menu\TranslationMethod\TranslationMethodSettings;
+use WPML\LIB\WP\User;
 
 class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 
@@ -112,19 +113,19 @@ class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 		if ( $translate_link_targets->is_rescan_required() ) {
 			$this->tab_items['mcsetup']['caption'] = '<i class="otgs-ico-warning"></i>' . esc_html( $this->tab_items['mcsetup']['caption'] );
 		}
-		$this->tab_items['mcsetup']['callback']         = array( $this, 'build_content_mcs' );
-		$this->tab_items['mcsetup']['current_user_can'] = array(
-			'manage_options',
-			WPML_Manage_Translations_Role::CAPABILITY
-		);
+		$this->tab_items['mcsetup']['callback']         = [ $this, 'build_content_mcs' ];
+		$this->tab_items['mcsetup']['current_user_can'] = [
+			User::CAP_MANAGE_TRANSLATIONS,
+			User::CAP_ADMINISTRATOR,
+		];
 	}
 
 	private function build_translation_notifications_item() {
-		$this->tab_items['notifications'] = array(
+		$this->tab_items['notifications'] = [
 			'caption'          => esc_html__( 'Translation Notifications', 'wpml-translation-management' ),
-			'current_user_can' => WPML_Manage_Translations_Role::CAPABILITY,
-			'callback'         => array( $this, 'build_content_translation_notifications' ),
-		);
+			'current_user_can' => [ User::CAP_ADMINISTRATOR, User::CAP_MANAGE_TRANSLATIONS ],
+			'callback'         => [ $this, 'build_content_translation_notifications' ],
+		];
 	}
 
 	public function build_content_mcs() {
@@ -330,22 +331,9 @@ class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 
 						<div class="wpml-section-content-inner">
 							<h4>
-								<?php echo esc_html__( 'Document status', 'wpml-translation-management' ); ?>
+								<?php echo esc_html__( 'When you receive completed translations', 'sitepress' ); ?>
 							</h4>
 							<ul>
-								<li>
-									<label>
-										<input type="radio" name="icl_translated_document_status" value="0"
-											<?php
-											checked(
-												(bool) icl_get_setting( 'translated_document_status' ),
-												false
-											);
-											?>
-										/>
-										<?php echo esc_html__( 'Draft', 'wpml-translation-management' ); ?>
-									</label>
-								</li>
 								<li>
 									<label>
 										<input type="radio" name="icl_translated_document_status" value="1"
@@ -358,10 +346,23 @@ class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 										/>
 										<?php
 										echo esc_html__(
-											'Same as the original document',
-											'wpml-translation-management'
+											'Publish the translated post when original is also published (default)',
+											'sitepress'
 										)
 										?>
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio" name="icl_translated_document_status" value="0"
+											<?php
+											checked(
+												(bool) icl_get_setting( 'translated_document_status' ),
+												false
+											);
+											?>
+										/>
+										<?php echo esc_html__( 'Save the translated post as a draft', 'sitepress' ); ?>
 									</label>
 								</li>
 							</ul>
@@ -369,10 +370,49 @@ class WPML_TM_Menus_Settings extends WPML_TM_Menus {
 								<?php
 								echo esc_html__(
 									'Choose if translations should be published when received. Note: If Publish is selected, the translation will only be published if the original document is published when the translation is received.',
-									'wpml-translation-management'
+									'sitepress'
 								)
 								?>
 							</p>
+						</div>
+
+						<div class="wpml-section-content-inner">
+							<h4>
+								<?php echo esc_html__( 'When you publish the original post', 'sitepress' ); ?>
+							</h4>
+							<ul>
+								<li>
+									<label>
+										<input type="radio" name="icl_translated_document_status_sync" value="1"
+											<?php
+											checked(
+												(bool) icl_get_setting( 'translated_document_status_sync' ),
+												true
+											);
+											?>
+										/>
+										<?php echo esc_html__( 'Publish the post translations', 'sitepress' ); ?>
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio" name="icl_translated_document_status_sync" value="0"
+											<?php
+											checked(
+												(bool) icl_get_setting( 'translated_document_status_sync' ),
+												false
+											);
+											?>
+										/>
+										<?php
+										echo esc_html__(
+											'Do not publish the post translations',
+											'sitepress'
+										)
+										?>
+									</label>
+								</li>
+							</ul>
 						</div>
 
 						<div class="wpml-section-content-inner">

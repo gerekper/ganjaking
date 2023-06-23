@@ -30,7 +30,7 @@ return array(
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
-    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php',
+    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php',
     'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartHandler' => $baseDir . '/lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartHandler.php',
     'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartTrigger' => $baseDir . '/lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartTrigger.php',
     'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration' => $baseDir . '/lib/Automation/Integrations/WooCommerce/WooCommerceIntegration.php',

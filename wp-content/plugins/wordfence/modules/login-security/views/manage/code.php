@@ -8,7 +8,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 	<div class="wfls-block-header wfls-block-header-border-bottom">
 		<div class="wfls-block-header-content">
 			<div class="wfls-block-title">
-				<strong><?php esc_html_e('1. Scan Code or Enter Key', 'wordfence-2fa'); ?></strong>
+				<strong><?php esc_html_e('1. Scan Code or Enter Key', 'wordfence'); ?></strong>
 			</div>
 		</div>
 	</div>

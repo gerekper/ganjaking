@@ -130,7 +130,7 @@ abstract class Elements {
 
 	/**
 	 * @param \stdClass $job
-	 * @param 'leave'|'override'|null  $howToHandleExisting
+	 * @param string|null  $howToHandleExisting
 	 * @param bool $translateAutomatically
 	 *
 	 * @return bool

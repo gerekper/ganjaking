@@ -90,7 +90,7 @@ class WPML_Absolute_To_Permalinks {
 	private function get_fragment( $url, $parts ) {
 		$fragment = $parts->fragment;
 		$fragment = $this->remove_query_in_wrong_lang( $fragment );
-		if ( $fragment != '' ) {
+		if ( is_string( $fragment ) && $fragment != '' ) {
 			$fragment = str_replace( '&#038;', '&', $fragment );
 			$fragment = str_replace( '&amp;', '&', $fragment );
 			if ( $fragment[0] == '&' ) {
@@ -108,7 +108,7 @@ class WPML_Absolute_To_Permalinks {
 	}
 
 	private function remove_query_in_wrong_lang( $fragment ) {
-		if ( $fragment != '' ) {
+		if ( is_string( $fragment ) && $fragment != '' ) {
 			$fragment = str_replace( '&#038;', '&', $fragment );
 			$fragment = str_replace( '&amp;', '&', $fragment );
 			$start    = $fragment[0];

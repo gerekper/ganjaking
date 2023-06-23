@@ -8,7 +8,7 @@
  * @link https://joseconti.com
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2013 José Conti.
+ * @copyright 2013-2023 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -1344,7 +1344,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		set_time_limit( 0 );
 		$order = wc_get_order( $order_id );
 
-		$transaction_id = WCRed()->get_order_meta( $order_id, '_payment_order_number_redsys', true );
+		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'directdebitredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}

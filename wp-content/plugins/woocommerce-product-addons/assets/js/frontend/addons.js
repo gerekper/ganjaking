@@ -240,13 +240,6 @@
 			 * Variable Products.
 			 */
 
-			// Do this when the variations change because we need to know if the product is in a valid configuration.
-			// The woocommerce-product-addons-update event will determine whether to show the subtotal panel or not.
-			$( ".variations_form" ).on( "woocommerce_variation_select_change", function () {
-				self.validation.validate();
-				self.updateTotals();
-			} );
-
 			// Reset addon totals when the variation selection is cleared. The form is not valid until a variation is selected.
 			self.$el.on( 'click', '.reset_variations', function () {
 				self.totals.reset();
@@ -511,6 +504,7 @@
 			self.total             = 0;
 			self.total_raw         = 0;
 			self.base_price        = self.$totals.data( 'price' );
+			self.product_id        = self.is_variable ? self.$variation_input.val() : self.$totals.data( 'product-id' );
 
 			/**
 			 * Compatibility with Smart Coupons self declared gift amount purchase.

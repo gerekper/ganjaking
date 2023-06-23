@@ -129,11 +129,21 @@ class Hooks implements \IWPML_Action, IStandAloneAction {
 	 * @return array
 	 */
 	private function getAllCurrencies() {
-		$buildCurrency = function( $label, $code ) {
+		$currencyFormats = json_decode( file_get_contents( WCML_PLUGIN_PATH . '/res/currencies/currency_formats.json' ) );
+
+		$buildCurrency = function( $label, $code ) use ( $currencyFormats ) {
+			$getDefault = function( $prop, $default ) use ( $code, $currencyFormats ) {
+				return Obj::pathOr( $default, [ $code, $prop ], $currencyFormats );
+			};
+
 			return (object) [
-				'code'   => $code,
-				'label'  => html_entity_decode( $label ),
-				'symbol' => html_entity_decode( get_woocommerce_currency_symbol( $code ) ),
+				'code'         => $code,
+				'label'        => html_entity_decode( $label ),
+				'symbol'       => html_entity_decode( get_woocommerce_currency_symbol( $code ) ),
+				'position'     => $getDefault( 'position', 'left' ),
+				'thousand_sep' => $getDefault( 'thousand_sep', '.' ),
+				'decimal_sep'  => $getDefault( 'decimal_sep', ',' ),
+				'num_decimals' => $getDefault( 'num_decimals', 2 ),
 			];
 		};
 

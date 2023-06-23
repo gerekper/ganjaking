@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    1.0.0
+ * @version  6.21.0
  */
 
 // Exit if accessed directly.
@@ -290,7 +291,7 @@ function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = f
 
 				} else {
 					$msg = 'get_order() is not callable on the supplied $order_item. No $order object given.';
-					_doing_it_wrong( __FUNCTION__ . '()', $msg, '5.3.0' );
+					_doing_it_wrong( __FUNCTION__ . '()', esc_html( $msg ), '5.3.0' );
 				}
 			}
 
@@ -364,7 +365,7 @@ function wc_pb_get_bundled_order_items( $container_order_item, $order = false, $
 
 				} else {
 					$msg = 'get_order() is not callable on the supplied $order_item. No $order object given.';
-					_doing_it_wrong( __FUNCTION__ . '()', $msg, '5.3.0' );
+					_doing_it_wrong( __FUNCTION__ . '()', esc_html( $msg ), '5.3.0' );
 				}
 			}
 

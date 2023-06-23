@@ -225,7 +225,7 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 		 * @since 4.6.0
 		 *
 		 * @param bool                      $isDisabled
-		 * @param WPML_Custom_Field_Setting $this
+		 * @param WPML_Custom_Field_Setting $instance
 		 */
 		return apply_filters( 'wpml_custom_field_setting_is_html_disabled', $isDisabled, $this )
 			? 'disabled="disabled"'

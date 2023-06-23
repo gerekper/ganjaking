@@ -37,6 +37,7 @@ class BackgroundTaskLoader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		     ->then( function() {
 			     $tasks = $this->getSerializedTasks();
 			     Resources::enqueueGlobalVariable('wpml_background_tasks', [
+					 /** @phpstan-ignore-next-line */
 				     'endpoints' => array_merge( Lst::pluck('taskType', $tasks), [ BackgroundTaskLoader::class ] ),
 				     'tasks' => $tasks,
 			     ] );

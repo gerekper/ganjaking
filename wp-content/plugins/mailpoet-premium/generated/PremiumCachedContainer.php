@@ -36,9 +36,9 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage' => 'getAutomationRunStorageService',
             'MailPoet\\Automation\\Engine\\Storage\\AutomationStatisticsStorage' => 'getAutomationStatisticsStorageService',
             'MailPoet\\Automation\\Engine\\Storage\\AutomationStorage' => 'getAutomationStorageService',
+            'MailPoet\\Automation\\Engine\\Templates\\AutomationBuilder' => 'getAutomationBuilderService',
             'MailPoet\\Automation\\Engine\\Validation\\AutomationValidator' => 'getAutomationValidatorService',
             'MailPoet\\Automation\\Integrations\\MailPoet\\Subjects\\SubscriberSubject' => 'getSubscriberSubjectService',
-            'MailPoet\\Automation\\Integrations\\MailPoet\\Templates\\AutomationBuilder' => 'getAutomationBuilderService',
             'MailPoet\\Config\\AccessControl' => 'getAccessControlService',
             'MailPoet\\Config\\Renderer' => 'getRendererService',
             'MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository' => 'getNewsletterLinkRepositoryService',
@@ -70,7 +70,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => 'getUpdateSubscriberActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => 'getContextFactoryService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => 'getMailPoetPremiumIntegrationService',
-            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => 'getPremiumAutomationTemplatesService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => 'getPremiumTemplatesFactoryService',
             'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartHandler' => 'getAbandonedCartHandlerService',
             'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartTrigger' => 'getAbandonedCartTriggerService',
             'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration' => 'getWooCommerceIntegrationService',
@@ -205,6 +205,16 @@ class PremiumCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\Automation\Engine\Templates\AutomationBuilder' shared service.
+     *
+     * @return \MailPoet\Automation\Engine\Templates\AutomationBuilder
+     */
+    protected function getAutomationBuilderService()
+    {
+        return $this->services['MailPoet\\Automation\\Engine\\Templates\\AutomationBuilder'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Engine\\Templates\\AutomationBuilder');
+    }
+
+    /**
      * Gets the public 'MailPoet\Automation\Engine\Validation\AutomationValidator' shared service.
      *
      * @return \MailPoet\Automation\Engine\Validation\AutomationValidator
@@ -222,16 +232,6 @@ class PremiumCachedContainer extends Container
     protected function getSubscriberSubjectService()
     {
         return $this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Subjects\\SubscriberSubject'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Integrations\\MailPoet\\Subjects\\SubscriberSubject');
-    }
-
-    /**
-     * Gets the public 'MailPoet\Automation\Integrations\MailPoet\Templates\AutomationBuilder' shared service.
-     *
-     * @return \MailPoet\Automation\Integrations\MailPoet\Templates\AutomationBuilder
-     */
-    protected function getAutomationBuilderService()
-    {
-        return $this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Templates\\AutomationBuilder'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Integrations\\MailPoet\\Templates\\AutomationBuilder');
     }
 
     /**
@@ -453,7 +453,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getEngineService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] ?? $this->getWooCommerceIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates'] ?? $this->getPremiumAutomationTemplatesService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] ?? $this->getWooCommerceIntegrationService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
     }
 
     /**
@@ -543,17 +543,17 @@ class PremiumCachedContainer extends Container
      */
     protected function getMailPoetPremiumIntegrationService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] ?? $this->getContextFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction'] ?? $this->getUnsubscribeActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] ?? $this->getAddTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] ?? $this->getRemoveTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] ?? $this->getAddToListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction'] ?? $this->getRemoveFromListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction'] ?? $this->getUpdateSubscriberActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction'] ?? $this->getNotificationEmailActionService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] ?? $this->getContextFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction'] ?? $this->getUnsubscribeActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] ?? $this->getAddTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] ?? $this->getRemoveTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] ?? $this->getAddToListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction'] ?? $this->getRemoveFromListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction'] ?? $this->getUpdateSubscriberActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction'] ?? $this->getNotificationEmailActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory'] ?? $this->getPremiumTemplatesFactoryService()));
     }
 
     /**
-     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates' shared autowired service.
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory' shared autowired service.
      *
-     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory
      */
-    protected function getPremiumAutomationTemplatesService()
+    protected function getPremiumTemplatesFactoryService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates(($this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Templates\\AutomationBuilder'] ?? $this->getAutomationBuilderService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory(($this->services['MailPoet\\Automation\\Engine\\Templates\\AutomationBuilder'] ?? $this->getAutomationBuilderService()));
     }
 
     /**

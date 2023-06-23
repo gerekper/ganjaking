@@ -8,9 +8,7 @@
  * @version 1.4.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Set the property for a product in a version independent way.
@@ -39,9 +37,9 @@ function wcopc_get_variation_parent_id( $product ) {
 
 	if ( ! $product->is_type( 'variation' ) ) {
 		$parent = false;
-	} else if ( is_callable( array( $product, 'get_parent_id' ) ) ) {
+	} elseif ( is_callable( array( $product, 'get_parent_id' ) ) ) {
 		$parent = $product->get_parent_id();
-	} else if ( ! empty( $product->parent ) && $product->parent instanceof WC_Product_Variable ) {
+	} elseif ( ! empty( $product->parent ) && $product->parent instanceof WC_Product_Variable ) {
 		$parent = $product->parent->get_id();
 	} else {
 		$parent = wp_get_post_parent_id( $product->get_id() );
@@ -196,7 +194,6 @@ function wcopc_is_rest_api_request() {
 		return WC()->is_rest_api_request();
 	}
 
-
 	if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 		return false;
 	}
@@ -221,7 +218,7 @@ function wcopc_get_visible_children( $product ) {
 		return array();
 	}
 
-	return is_callable( array( $product, 'get_visible_children', ) ) ? $product->get_visible_children() : $product->get_children( true );
+	return is_callable( array( $product, 'get_visible_children' ) ) ? $product->get_visible_children() : $product->get_children( true );
 }
 
 /**

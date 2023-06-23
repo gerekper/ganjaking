@@ -31,7 +31,7 @@ if ( defined( 'WPML_Templates_Factory::OTGS_TWIG_CACHE_DISABLED_KEY' ) ) {
 	$otgs_twig_cache_disable_key = WPML_Templates_Factory::OTGS_TWIG_CACHE_DISABLED_KEY;
 }
 
-if ( wp_verify_nonce( $nonce, $action ) ) {
+if ( $nonce && $action && wp_verify_nonce( $nonce, $action ) ) {
 	ob_end_clean();
 	global $wpdb;
 	switch ( $action ) {
@@ -294,8 +294,9 @@ if ( wp_verify_nonce( $nonce, $action ) ) {
 
 			foreach ( get_taxonomies( array(), 'names' ) as $taxonomy ) {
 
-				$terms_objects = get_terms( $taxonomy, 'hide_empty=0' );
-				if ( $terms_objects ) {
+				$terms_objects = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => 0 ] );
+				if ( is_array( $terms_objects ) ) {
+					/** @phpstan-ignore-next-line For some reason 'get_term_taxonomy_id_from_term_object' is not recognised as function by PHPStan. */
 					$term_taxonomy_ids = array_map( 'get_term_taxonomy_id_from_term_object', $terms_objects );
 					wp_update_term_count( $term_taxonomy_ids, $taxonomy, true );
 				}
@@ -355,7 +356,7 @@ ob_start();
 print_r( $sitepress->get_settings() );
 $ob = ob_get_contents();
 ob_end_clean();
-echo esc_html( $ob );
+echo esc_html( (string) $ob );
 echo '</textarea>';
 
 ?>

@@ -1,5 +1,13 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-06-14 - version 1.16.02
+* Dev - Bump WooCommerce "tested up to" version to 7.7.
+* Dev - Added new GitHub Workflow to run Quality Insights Toolkit tests.
+* Fix - Availability settings array handling.
+* Fix - Buffer period was not applied when resources are automatically selected.
+* Fix - Keep the start date selected when a booking spans over multiple months.
+* Fix - Prevent random disconnection with Google Calendar.
+
 2023-05-26 - version 1.16.01
 * Dev - Add filter, `wc_bookings_product_duration_fallback`, for product duration to add support for custom duration unit.
 * Dev - Resolve coding standards issues.

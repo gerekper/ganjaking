@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AdminPages\Pages\Automation;
+use MailPoet\AdminPages\Pages\AutomationAnalytics;
 use MailPoet\AdminPages\Pages\AutomationEditor;
 use MailPoet\AdminPages\Pages\AutomationTemplates;
 use MailPoet\AdminPages\Pages\ExperimentalFeatures;
@@ -52,6 +53,7 @@ class Menu {
   const LOGS_PAGE_SLUG = 'mailpoet-logs';
   const AUTOMATIONS_PAGE_SLUG = 'mailpoet-automation';
   const AUTOMATION_EDITOR_PAGE_SLUG = 'mailpoet-automation-editor';
+  const AUTOMATION_ANALYTICS_PAGE_SLUG = 'mailpoet-automation-analytics';
   const AUTOMATION_TEMPLATES_PAGE_SLUG = 'mailpoet-automation-templates';
 
   const LANDINGPAGE_PAGE_SLUG = 'mailpoet-landingpage';
@@ -177,14 +179,14 @@ class Menu {
       'MailPoet',
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
       self::MAIN_PAGE_SLUG,
-      null,
+      '',
       self::ICON_BASE64_SVG,
       30
     );
 
     // Welcome wizard page
     $this->wp->addSubmenuPage(
-      null,
+      '',
       $this->setPageTitle(__('Welcome Wizard', 'mailpoet')),
       esc_html__('Welcome Wizard', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -197,7 +199,7 @@ class Menu {
 
     // Landingpage
     $this->wp->addSubmenuPage(
-      null,
+      '',
       $this->setPageTitle(__('MailPoet', 'mailpoet')),
       esc_html__('MailPoet', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -451,7 +453,7 @@ class Menu {
 
     // WooCommerce Setup
     $this->wp->addSubmenuPage(
-      null,
+      '',
       $this->setPageTitle(__('WooCommerce Setup', 'mailpoet')),
       esc_html__('WooCommerce Setup', 'mailpoet'),
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
@@ -487,7 +489,7 @@ class Menu {
     $parentSlug = self::MAIN_PAGE_SLUG;
     // Automations menu is hidden when the subscription is part of a bundle and AutomateWoo is active but pages can be accessed directly
     if ($this->wp->isPluginActive('automatewoo/automatewoo.php') && $this->servicesChecker->isBundledSubscription()) {
-      $parentSlug = null;
+      $parentSlug = '';
     }
 
     $automationPage = $this->wp->addSubmenuPage(
@@ -508,6 +510,16 @@ class Menu {
       AccessControl::PERMISSION_MANAGE_AUTOMATIONS,
       self::AUTOMATION_EDITOR_PAGE_SLUG,
       [$this, 'automationEditor']
+    );
+
+    // Automation analytics
+    $this->wp->addSubmenuPage(
+      self::AUTOMATIONS_PAGE_SLUG,
+      $this->setPageTitle(__('Automation Analytics', 'mailpoet')),
+      esc_html__('Automation Analytics', 'mailpoet'),
+      AccessControl::PERMISSION_MANAGE_AUTOMATIONS,
+      self::AUTOMATION_ANALYTICS_PAGE_SLUG,
+      [$this, 'automationAnalytics']
     );
 
     // Automation templates
@@ -577,6 +589,10 @@ class Menu {
 
   public function automationEditor() {
     $this->container->get(AutomationEditor::class)->render();
+  }
+
+  public function automationAnalytics() {
+    $this->container->get(AutomationAnalytics::class)->render();
   }
 
   public function experimentalFeatures() {
@@ -715,7 +731,7 @@ class Menu {
       return false;
     }
     WPFunctions::get()->addSubmenuPage(
-      null,
+      '',
       'MailPoet',
       'MailPoet',
       AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,

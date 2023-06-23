@@ -242,6 +242,9 @@ class WC_AM_API_Requests {
 			case 'product_list':
 				$this->product_list();
 				break;
+			case 'verify_api_key_is_active':
+				$this->verify_api_key_is_active();
+				break;
 			default:
 				if ( $this->error_log ) {
 					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in route_request() method. Error message is "Error code 100. Request value does not exist."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
@@ -435,9 +438,10 @@ class WC_AM_API_Requests {
 			 *
 			 * @since 2.1
 			 *
-			 * @param boolean Default false. Not intended for return value.
-			 * @param Array ( $this->resources ). Array of customer API Resources.
-			 * @param Array ( $this->request ). Array of customer API request data.
+			 * @param boolean $false     Default is false. Not intended for return value.
+			 * @param Array   $resources Array of customer API Resources.
+			 * @param Array   $request   Array of customer API request data.
+			 * @param int     $user_id   User ID.
 			 */
 			do_action( 'wc_api_manager_activate_no_api_resources_available_error', false, $this->resources, $this->request, $this->user_id );
 
@@ -1414,6 +1418,41 @@ class WC_AM_API_Requests {
 		 */
 
 		$this->success_response( apply_filters( 'wc_api_manager_product_list_top_level_data', $top_level_data ), apply_filters( 'wc_api_manager_product_list_data', $data, $resources, $this->request, $this->user_id ) );
+	}
+
+	/**
+	 * Returns success true if the API Key exists and is assigned to an active API Resource.
+	 *
+	 * @since 3.0
+	 */
+	private function verify_api_key_is_active() {
+		$this->required( array( 'api_key' ) );
+
+		try {
+			$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resources_for_master_api_key_or_product_order_api_key( $this->request[ 'api_key' ] );
+
+			if ( WC_AM_FORMAT()->empty( $resources ) ) {
+				$associated_api_key_resource = WC_AM_ASSOCIATED_API_KEY_DATA_STORE()->is_associated_api_key_assigned_to_api_resource( $this->request[ 'api_key' ] );
+
+				if ( ! WC_AM_FORMAT()->empty( $associated_api_key_resource ) ) {
+					$this->success_response();
+				}
+
+				$this->error_response( '100', esc_html__( 'The API Key is not active or does not exist.', 'woocommerce-api-manager' ) );
+			} else {
+				$this->success_response();
+			}
+		} catch ( Exception $exception ) {
+			$this->error_response( '100', esc_html__( 'There was an error verifying the API Key', 'woocommerce-api-manager' ) . ': ' . $exception );
+
+			if ( $this->debug_log ) {
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from verify_api_key_is_active() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
+			}
+		}
+
+		if ( $this->debug_log ) {
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from verify_api_key_is_active() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
+		}
 	}
 
 	/**

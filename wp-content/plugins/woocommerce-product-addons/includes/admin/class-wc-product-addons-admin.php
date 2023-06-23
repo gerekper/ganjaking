@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Admin\Features\Features;
  * Product Add-Ons admin.
  *
  * @class    WC_Product_Addons_Admin
- * @version  6.3.0
+ * @version  6.3.3
  */
 class WC_Product_Addons_Admin {
 
@@ -380,20 +380,31 @@ class WC_Product_Addons_Admin {
 			$priority = 10;
 		}
 
+		$data = array(
+			'edit_id'        => $edit_id,
+			'reference'      => $reference,
+			'priority'       => $priority,
+			'objects'        => $objects,
+			'product_addons' => $product_addons
+		);
+
+		$edit_post = array(
+			'ID'         => $edit_id,
+			'post_title' => $reference,
+			'post_type'  => 'global_product_addon'
+		);
+
 		if ( $edit_id ) {
+
 			$post_type = get_post_type( $edit_id );
 			if ( 'global_product_addon' !== $post_type ) {
 				return false;
 			}
 
-			$edit_post               = array();
-			$edit_post['ID']         = $edit_id;
-			$edit_post['post_title'] = $reference;
-			$edit_post['post_type']  = 'global_product_addon';
-
 			wp_update_post( $edit_post );
 			wp_set_post_terms( $edit_id, $objects, 'product_cat', false );
-			do_action( 'woocommerce_product_addons_global_edit_addons', $edit_post, $objects );
+
+			do_action( 'woocommerce_product_addons_global_edit_addons', $edit_post, $objects, $data );
 
 		} else {
 
@@ -405,6 +416,10 @@ class WC_Product_Addons_Admin {
 					'product_cat' => $objects,
 				),
 			), $reference, $objects ) );
+
+			$edit_post['ID'] = $data['edit_id'] = $edit_id;
+
+			do_action( 'woocommerce_product_addons_global_create_addons', $edit_post, $objects, $data );
 		}
 
 		if ( in_array( 0, $objects ) ) {
@@ -417,13 +432,7 @@ class WC_Product_Addons_Admin {
 		update_post_meta( $edit_id, '_product_addons', $product_addons );
 		update_option( 'woocommerce_global_product_addons_last_modified', current_time( 'U' ) );
 
-		return array(
-			'edit_id'        => $edit_id,
-			'reference'      => $reference,
-			'priority'       => $priority,
-			'objects'        => $objects,
-			'product_addons' => $product_addons
-		);
+		return $data;
 	}
 
 	/**

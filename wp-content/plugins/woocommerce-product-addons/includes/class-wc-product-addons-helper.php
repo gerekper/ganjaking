@@ -223,7 +223,7 @@ class WC_Product_Addons_Helper {
 			$price *= -1;
 		}
 
-		if ( ( is_cart() || is_checkout() ) && null !== $cart_item ) {
+		if ( ( is_cart() || is_checkout() || WC_PAO_Core_Compatibility::is_store_api_request( 'cart' ) || WC_PAO_Core_Compatibility::is_store_api_request( 'checkout' ) ) && null !== $cart_item ) {
 			$product = wc_get_product( $cart_item->get_id() );
 		}
 
@@ -428,5 +428,53 @@ class WC_Product_Addons_Helper {
 		$src = WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/images/no-image-select-placeholder.png';
 
 		return apply_filters( 'woocommerce_product_addons_no_image_select_placeholder_src', $src );
+	}
+
+	/**
+	 * Create a clone of the current product/cart item/order item and set its price equal to the add-on price.
+	 * This will allow extensions to discount the add-on price.
+	 *
+	 * @param WC_Product $product
+	 * @param float      $price
+	 *
+	 * @return WC_Product
+	 *
+	 */
+	public static function create_product_with_filtered_addon_prices( $product, $price ) {
+
+		$cloned_product = clone $product;
+		$cloned_product->set_price( $price );
+		$cloned_product->set_regular_price( $price );
+		$cloned_product->set_sale_price( $price );
+
+		// Prevent Product Bundles from changing add-on prices.
+		if ( isset( $cloned_product->bundled_cart_item ) ) {
+			unset( $cloned_product->bundled_cart_item );
+		}
+
+		// Prevent Composite Products from changing add-on prices.
+		if ( isset( $cloned_product->composited_cart_item ) ) {
+			unset( $cloned_product->composited_cart_item );
+		}
+
+		/**
+		 * All Products for WooCommerce Subscriptions compatibility.
+		 *
+		 * If All Products for WooCommerce Subscriptions shouldn't discount add-ons, then remove flat fees from the price offset used to
+		 * calculate discounts.
+		 */
+		if ( class_exists( 'WCS_ATT_Integration_PAO' ) && class_exists( 'WCS_ATT_Product' ) ) {
+			if ( ! WCS_ATT_Integration_PAO::discount_addons( $cloned_product ) ) {
+
+				// Create new SATT instance to avoid price offsets changing in the original product too.
+				if ( isset ( $cloned_product->wcsatt_instance ) ) {
+					$cloned_product->wcsatt_instance += 1;
+				}
+
+				WCS_ATT_Product::set_runtime_meta( $cloned_product, 'price_offset', $price );
+			}
+		}
+
+		return $cloned_product;
 	}
 }

@@ -4,17 +4,17 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 $optionName = \WordfenceLS\Controller_Settings::OPTION_RECAPTCHA_THRESHOLD;
 $currentValue = \WordfenceLS\Controller_Settings::shared()->get_float($optionName, 0.5);
 $selectOptions = array(
-	array('label' => __('1.0 (definitely a human)', 'wordfence-2fa'), 'value' => 1.0),
-	array('label' => __('0.9', 'wordfence-2fa'), 'value' => 0.9),
-	array('label' => __('0.8', 'wordfence-2fa'), 'value' => 0.8),
-	array('label' => __('0.7', 'wordfence-2fa'), 'value' => 0.7),
-	array('label' => __('0.6', 'wordfence-2fa'), 'value' => 0.6),
-	array('label' => __('0.5 (probably a human)', 'wordfence-2fa'), 'value' => 0.5),
-	array('label' => __('0.4', 'wordfence-2fa'), 'value' => 0.4),
-	array('label' => __('0.3', 'wordfence-2fa'), 'value' => 0.3),
-	array('label' => __('0.2', 'wordfence-2fa'), 'value' => 0.2),
-	array('label' => __('0.1', 'wordfence-2fa'), 'value' => 0.1),
-	array('label' => __('0.0 (definitely a bot)', 'wordfence-2fa'), 'value' => 0.0),
+	array('label' => __('1.0 (definitely a human)', 'wordfence'), 'value' => 1.0),
+	array('label' => __('0.9', 'wordfence'), 'value' => 0.9),
+	array('label' => __('0.8', 'wordfence'), 'value' => 0.8),
+	array('label' => __('0.7', 'wordfence'), 'value' => 0.7),
+	array('label' => __('0.6', 'wordfence'), 'value' => 0.6),
+	array('label' => __('0.5 (probably a human)', 'wordfence'), 'value' => 0.5),
+	array('label' => __('0.4', 'wordfence'), 'value' => 0.4),
+	array('label' => __('0.3', 'wordfence'), 'value' => 0.3),
+	array('label' => __('0.2', 'wordfence'), 'value' => 0.2),
+	array('label' => __('0.1', 'wordfence'), 'value' => 0.1),
+	array('label' => __('0.0 (definitely a bot)', 'wordfence'), 'value' => 0.0),
 );
 ?>
 <ul class="wfls-flex-vertical wfls-flex-align-left">
@@ -25,8 +25,8 @@ $selectOptions = array(
 				<ul>
 					<li class="wfls-option-title">
 						<ul class="wfls-flex-vertical wfls-flex-align-left">
-							<li><span id="wfls-option-recaptcha-threshold-label"><strong><?php esc_html_e('reCAPTCHA human/bot threshold score', 'wordfence-2fa'); ?></strong></span></li>
-							<li class="wfls-option-subtitle"><?php esc_html_e('A reCAPTCHA score equal to or higher than this value will be considered human. Anything lower will be treated as a bot and require additional verification for login and registration.', 'wordfence-2fa'); ?></li>
+							<li><span id="wfls-option-recaptcha-threshold-label"><strong><?php esc_html_e('reCAPTCHA human/bot threshold score', 'wordfence'); ?></strong></span></li>
+							<li class="wfls-option-subtitle"><?php esc_html_e('A reCAPTCHA score equal to or higher than this value will be considered human. Anything lower will be treated as a bot and require additional verification for login and registration.', 'wordfence'); ?></li>
 						</ul>
 					</li>
 					<li class="wfls-option-select wfls-padding-add-top-xs-small">
@@ -48,7 +48,7 @@ $selectOptions = array(
 					<canvas id="wfls-recaptcha-score-history"></canvas>
 				</div>
 				<div class="wfls-center">
-					<a href="#" id="wfls-reset-recaptcha-score-stats" class="wfls-text-small"><?php esc_html_e('Reset Score Statistics', 'wordfence-2fa'); ?></a>
+					<a href="#" id="wfls-reset-recaptcha-score-stats" class="wfls-text-small"><?php esc_html_e('Reset Score Statistics', 'wordfence'); ?></a>
 				</div>
 			</li>
 		</ul>
@@ -85,7 +85,7 @@ $selectOptions = array(
 				var barChartData = {
 					labels: ['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0'],
 					datasets: [{
-						label: '<?php esc_attr_e('Requests', 'wordfence-2fa'); ?>',
+						label: '<?php esc_attr_e('Requests', 'wordfence'); ?>',
 						backgroundColor: 'rgba(75,192,192,0.4)',
 						borderColor: 'rgba(75,192,192,1.0)',
 						borderWidth: 1,
@@ -103,21 +103,21 @@ $selectOptions = array(
 						},
 						title: {
 							display: true,
-							text: '<?php esc_attr_e('reCAPTCHA Score History', 'wordfence-2fa'); ?>'
+							text: '<?php esc_attr_e('reCAPTCHA Score History', 'wordfence'); ?>'
 						},
 						scales: {
-							yAxes: [{
+							y: {
 								display: true,
-								scaleLabel: {
+								title: {
 									display: true,
-									labelString: '<?php esc_attr_e('Count', 'wordfence-2fa'); ?>'
+									text: '<?php esc_attr_e('Count', 'wordfence'); ?>'
 								},
 								ticks: {
 									min: 0,
 									precision: 0,
 									stepSize: <?php echo max(10, pow(10, floor(log10(array_sum($stats['counts']) / 5)))); ?>
 								}
-							}]
+							}
 						}
 					}
 				});

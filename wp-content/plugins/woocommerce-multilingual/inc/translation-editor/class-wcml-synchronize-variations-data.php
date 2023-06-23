@@ -237,7 +237,17 @@ class WCML_Synchronize_Variations_Data {
 
 		if ( $this->woocommerce_wpml->sync_product_data->check_if_product_fields_sync_needed( $original_variation_id, $tr_variation_id, 'taxonomies' ) ) {
 
-			$all_taxs = get_object_taxonomies( 'product_variation' );
+			/**
+			 * Filters the taxonomy objects to synchronize.
+			 *
+			 * @since 5.2.0
+			 *
+			 * @param WP_Taxonomy[] $taxonomiesToSync
+			 * @param int|string    $original_variation_id
+			 * @param int|string    $tr_variation_id
+			 * @param string        $lang
+			 */
+			$all_taxs = apply_filters( 'wcml_product_variations_taxonomies_to_sync', get_object_taxonomies( 'product_variation' ), $original_variation_id, $tr_variation_id, $lang );
 
 			if ( ! empty( $all_taxs ) ) {
 				foreach ( $all_taxs as $tt ) {
@@ -291,7 +301,7 @@ class WCML_Synchronize_Variations_Data {
 						// adjust the global attribute slug in the custom field.
 						$attid = null;
 						if ( substr( $meta_key, 0, 10 ) === 'attribute_' ) {
-							if ( $meta_value ) {
+							if( '' !== $meta_value ) {
 								$trn_post_meta = $this->woocommerce_wpml->attributes->get_translated_variation_attribute_post_meta( $meta_value, $meta_key, $original_variation_id, $variation_id, $lang );
 								$meta_value    = $trn_post_meta['meta_value'];
 								$meta_key      = $trn_post_meta['meta_key'];

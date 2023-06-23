@@ -9,9 +9,10 @@
     {{ wp_do_action( 'admin_head' ) }}
 </head>
 <body class="wcml-setup wp-core-ui">
-<h1 id="wcml-logo"><a href="https://wpml.org/woocommerce-multilingual"><img
-                src="{{ WCML_PLUGIN_URL }}/res/images/banner-772x120.png"
-                alt="WooCommerce Multilingual"/></a></h1>
+<div class="wcml-setup__wrapper">
+<h1 id="wcml-logo"><img
+                src="{{ WCML_PLUGIN_URL }}/res/images/wcml-logo.png"
+                alt="WooCommerce Multilingual"/></h1>
 
 {% if has_handler %}
 <form class="wcml-setup-form" method="post">

@@ -23,8 +23,6 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\Loader;
-use Automattic\WooCommerce\Admin\Features\Features;
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 
@@ -101,14 +99,15 @@ class WooCommerce_Product_Search_Admin_Navigation {
 		$result = false;
 		if (
 			class_exists( '\Automattic\WooCommerce\Admin\Features\Features' ) &&
-			method_exists( '\Automattic\WooCommerce\Admin\Features\Features', 'exists' )
+			method_exists( '\Automattic\WooCommerce\Admin\Features\Features', 'exists' ) &&
+			method_exists( '\Automattic\WooCommerce\Admin\Features\Features', 'is_enabled' )
 		) {
-			$result = Features::exists( 'navigation' );
+			$result = \Automattic\WooCommerce\Admin\Features\Features::exists( 'navigation' ) && \Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'navigation' );
 		} else if (
 			class_exists( '\Automattic\WooCommerce\Admin\Loader' ) &&
 			method_exists( '\Automattic\WooCommerce\Admin\Loader', 'is_feature_enabled' )
 		) {
-			$result = Loader::is_feature_enabled( 'navigation' );
+			$result = \Automattic\WooCommerce\Admin\Loader::is_feature_enabled( 'navigation' );
 		}
 		return $result;
 	}

@@ -28,6 +28,6 @@ class Model_Notice {
 			$severityClass = 'notice-warning';
 		}
 		
-		echo '<div class="wfls-notice notice ' . $severityClass . '" data-notice-id="' . esc_attr($this->_id) . '" data-notice-type="' . esc_attr($this->_category) . '"><p>' . $this->_messageHTML . '</p><p>' . sprintf(__('<a class="wfls-btn wfls-btn-default wfls-btn-sm wfls-dismiss-link" href="#" onclick="GWFLS.dismiss_notice(\'%s\'); return false;">Dismiss</a>', 'wordfence-2fa'), esc_attr($this->_id)) . '</p></div>';
+		echo '<div class="wfls-notice notice ' . $severityClass . '" data-notice-id="' . esc_attr($this->_id) . '" data-notice-type="' . esc_attr($this->_category) . '"><p>' . $this->_messageHTML . '</p><p>' . sprintf(__('<a class="wfls-btn wfls-btn-default wfls-btn-sm wfls-dismiss-link" href="#" onclick="GWFLS.dismiss_notice(\'%s\'); return false;">Dismiss</a>', 'wordfence'), esc_attr($this->_id)) . '</p></div>';
 	}
 }

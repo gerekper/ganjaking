@@ -28,6 +28,10 @@ class AdminLanguageSwitcher implements \IWPML_Frontend_Action {
 
 		if ( $selectedLocale ) {
 			$languageCode = Languages::localeToCode( $selectedLocale );
+			if ( ! is_string( $languageCode ) ) {
+				return;
+			}
+
 			$secure       = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
 			setcookie( 'wp-wpml_login_lang', $languageCode, time() + 120, COOKIEPATH, COOKIE_DOMAIN, $secure );
 			setcookie( 'wp_lang', '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN, $secure );
@@ -97,7 +101,7 @@ class AdminLanguageSwitcher implements \IWPML_Frontend_Action {
 
 	/**
 	 * @param $sitepress
-	 * @param callable $languageCode
+	 * @param string $languageCode
 	 *
 	 * @return string
 	 */

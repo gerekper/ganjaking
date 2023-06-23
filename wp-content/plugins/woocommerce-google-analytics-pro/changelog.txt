@@ -1,5 +1,11 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.06.12 - version 2.0.5
+ * Tweak - Send page_location and page_referrer parameters to GA4 when tracking events via API
+ * Fix - Ensure events are not sent to GA4 via API when visitor identity is not available
+ * Fix - Ensure title for Subscription events section appears above subscription events settings
+ * Fix - Avoid passing `null` to `json_decode()`
+
 2023.05.17 - version 2.0.4
  * Tweak - Display notice if the connected Google account has no Analytics accounts set up
  * Tweak - Ensure auth button follows Google branding guidelines

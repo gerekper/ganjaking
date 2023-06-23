@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Προέκυψε ένα σφάλμα κατά την απόπειρα παύσης της Αυτόματης Μετάφρασής σας. Δοκιμάστε ξανά αργότερα ή επικοινωνήστε το τμήμα υποστήριξής μας."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "Πώς θέλετε να μεταφράσετε;"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "Μπορείτε να μεταφράσετε αυτόματα περιεχόμενο μόνο από την κύρια γλώσσα σας (%s) σε άλλες γλώσσες. Χρησιμοποιήστε την εναλλαγή γλώσσας στην κορυφή αυτής της σελίδας για αλλαγή σε %s."
-         ],
          "Assign to a translator": [
             "Ανάθεση σε μεταφραστή"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "Δεν χρειάζεστε μονάδες μετάφρασης για να μεταφράσετε περιεχόμενο μόνοι σας."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "Μπορείτε να μεταφράσετε αυτόματα μόνο περιεχόμενο από την προεπιλεγμένη γλώσσα του ιστότοπού σας (Αγγλικά) στις άλλες γλώσσες του ιστότοπού σας. Αποεπιλέξτε περιεχόμενο στις δευτερεύουσες γλώσσες του ιστότοπού σας για να συνεχίσετε."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "Μπορείτε να μεταφράσετε αυτόματα περιεχόμενο μόνο από την κύρια γλώσσα σας (%s) σε άλλες γλώσσες. Χρησιμοποιήστε την εναλλαγή γλώσσας στην κορυφή αυτής της σελίδας για αλλαγή σε %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "Το επιλεγμένο περιεχόμενο περιλαμβάνει στοιχεία που αρχικά δημιουργήθηκαν σε αυτή τη γλώσσα. Αποεπιλέξτε αυτά τα στοιχεία για να συνεχίσετε."
+         ],
+         "Add to Translation Queue": [
+            "Προσθήκη σε Ουρά Μετάφρασης"
          ],
          "Select a post or page to translate": [
             "Επιλέξτε μια δημοσίευση ή σελίδα για μετάφραση"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "Το επιλεγμένο περιεχόμενο έχει μεταφραστεί ήδη"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "Το επιλεγμένο περιεχόμενο περιλαμβάνει στοιχεία σε διαφορετική γλώσσα από την προεπιλεγμένη γλώσσα του ιστότοπού σας."
          ],
          "Choose at least one translation action": [
             "Επιλέξτε τουλάχιστον μία ενέργεια μετάφρασης"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "Προσθήκη σε Καλάθι Μετάφρασης"
          ],
-         "Add to Translation Queue": [
-            "Προσθήκη σε Ουρά Μετάφρασης"
-         ],
          "One more thing...": [
             "Κάτι ακόμη..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "Να μην γίνεται τίποτα"
          ],
-         "You need credits to use automatic translation.": [
-            "Χρειάζεστε μονάδες για να χρησιμοποιήσετε την αυτόματη μετάφραση."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "Για να αναθέσετε περιεχόμενο σε έναν μεταφραστή, πρώτα <a href=\"%s\" target=\"_blank\">προσθέστε έναν μεταφραστήr</a> ή <a href=\"%s\" target=\"_blank\">συνδεθείτε σε μια υπηρεσία μετάφρασης</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "Χρειάζεστε μονάδες για να χρησιμοποιήσετε την αυτόματη μετάφραση."
          ],
          "Translators Tab": [
             "Καρτέλα μεταφραστών"

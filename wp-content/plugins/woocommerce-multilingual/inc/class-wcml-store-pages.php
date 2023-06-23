@@ -111,6 +111,7 @@ class WCML_Store_Pages {
 	}
 
 	public function install_pages_action( $pages ) {
+		/** @var wpdb $wpdb */
 		global $wpdb;
 
 		foreach ( $pages as $key => $page ) {
@@ -547,6 +548,7 @@ class WCML_Store_Pages {
 	}
 
 	public function after_set_default_language( $code, $previous_code ) {
+		/** @var wpdb $wpdb */
 		global $wpdb;
 
 		$this->create_missing_store_pages();

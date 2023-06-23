@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Beim Pausieren Ihrer automatischen Übersetzung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder kontaktieren Sie unser Supportteam."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "Wie möchten Sie Inhalte übersetzen lassen?"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "Automatische Übersetzungen funktionieren nur für Inhalte aus Ihrer Hauptsprache (%s) in andere Sprachen. Über den Sprachumschalter oben auf dieser Seite können Sie zu %s wechseln."
-         ],
          "Assign to a translator": [
             "Übersetzer beauftragen"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "Wenn Sie Inhalte selbst übersetzen, benötigen Sie keine Übersetzungs-Credits."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "Sie können Inhalte nur automatisch aus der Standardsprache Ihrer Website (Englisch) in die anderen Sprachen Ihrer Website übersetzen. Entfernen Sie Inhalte in den Sekundärsprachen Ihrer Website von der Auswahl, um fortzufahren."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "Automatische Übersetzungen funktionieren nur für Inhalte aus Ihrer Hauptsprache (%s) in andere Sprachen. Über den Sprachumschalter oben auf dieser Seite können Sie zu %s wechseln."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "Ausgewählte Inhalte umfassen Elemente, die ursprünglich in dieser Sprache erstellt wurden. Entfernen Sie diese Elemente von der Auswahl, bevor Sie fortfahren."
+         ],
+         "Add to Translation Queue": [
+            "Zur Übersetzungsliste hinzufügen"
          ],
          "Select a post or page to translate": [
             "Wählen Sie einen Beitrag oder eine Seite aus, die übersetzt werden soll."
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "Die gewünschten Inhalte sind bereits übersetzt."
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "Der ausgewählte Inhalt enthält Elemente in einer anderen Sprache als der Standardsprache Ihrer Website."
          ],
          "Choose at least one translation action": [
             "Wählen Sie mindestens eine Übersetzungsaktion."
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "Zum Übersetzungskorb hinzufügen"
          ],
-         "Add to Translation Queue": [
-            "Zur Übersetzungsliste hinzufügen"
-         ],
          "One more thing...": [
             "Noch eine Sache..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "Nichts tun"
          ],
-         "You need credits to use automatic translation.": [
-            "Für die automatische Übersetzung benötigen Sie Credits."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "Um Inhalte zu einem Übersetzer zuzuweisen, <a href=\"%s\" target=\"_blank\">fügen Sie einen Übersetzer hinzu</a> oder <a href=\"%s\" target=\"_blank\">verbinden Sie einen Übersetzungsdienst</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "Für die automatische Übersetzung benötigen Sie Credits."
          ],
          "Translators Tab": [
             "Übersetzer-Register"

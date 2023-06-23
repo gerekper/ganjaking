@@ -78,6 +78,7 @@ abstract class GA4_Event extends Event {
 	 * @return bool whether the event was successfully tracked or not
 	 */
 	protected function record_via_api( array $properties = [], array $identities = [], array $user_properties = [] ): bool {
+		global $wp;
 
 		$user_id = $identities['uid'] ?? Identity_Helper::get_uid();
 
@@ -87,10 +88,21 @@ abstract class GA4_Event extends Event {
 
 		$data = [
 			'client_id'  => (string) ( $identities['cid'] ?? Identity_Helper::get_cid() ),
-			'events'     => [[
-				'name'   => $this->get_name(),
-				'params' => $properties,
-			]]
+			'events'     => [
+				/**
+				 * Filters the event item to be sent to the API.
+				 *
+				 * @since 2.0.5
+				 * @param array{ name: string, params: array<string, mixed> } $event an associative array of event item data
+				 */
+				apply_filters( 'wc_google_analytics_pro_api_event_item', [
+					'name'   => $this->get_name(),
+					'params' => array_merge( [
+						'page_location' => preg_replace( '/(_wpnonce=)[^&]+/', '$1***', home_url() . ( $_SERVER['REQUEST_URI'] ?? '' ) ),
+						'page_referrer' => $_SERVER['HTTP_REFERER'] ?? '',
+					], $properties ),
+				] ),
+			]
 		];
 
 		// only add user properties if not empty to avoid invalid JSON

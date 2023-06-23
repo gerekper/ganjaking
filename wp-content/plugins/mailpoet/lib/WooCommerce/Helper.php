@@ -217,7 +217,7 @@ class Helper {
   public function getLatestCoupon(): ?string {
     $coupons = $this->wp->getPosts([
       'numberposts' => 1,
-      'orderby' => 'name',
+      'orderby' => 'date_created',
       'order' => 'desc',
       'post_type' => 'shop_coupon',
       'post_status' => 'publish',

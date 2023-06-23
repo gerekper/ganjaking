@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, apor
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 6.2
-Stable tag: 1.23.4
+Stable tag: 1.23.5
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -168,6 +168,30 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
+* TWEAK: Remove the incremental dropdown on incremental backup restore when the user selects only the database to restore
+* TWEAK: Validate SFTP key field on credential test and before save
+* TWEAK: Remove the unused UpdraftPlus_S3::getHttpUploadPostParams() method.
+* TWEAK: Fix pCloud deprecated warning in PHP 8.2
+* TWEAK: Fix Google Cloud deprecated warning in PHP 8.2
+* TWEAK: Fix Google Drive deprecated warning in PHP 8.2
+* TWEAK: Fix pCloud deprecation warning in PHP 8.2
+* TWEAK: Fixed issue with cron jobs not clearing after wiping settings
+* TWEAK: Added link to WP-Optimize in the database size tab in the advanced tools
+* FIX: Search / replace database not working on Admin dashboard > Settings > UpdraftPlus Backups > Advanced Tools > Search / replace database on PHP 8.2 due to stricter type checking
+* TWEAK: Fixed Missing/ broken links for the pcloud image in addons tab
+
+
+= 1.23.5 - 19/Jun/2023 =
+
+* FIX: Search / replace database not working on Admin dashboard > Settings > UpdraftPlus Backups > Advanced Tools > Search / replace database on PHP 8.2 due to stricter type checking
+* TWEAK: Remove the incremental dropdown on incremental backup restore when the user selects only the database to restore
+* TWEAK: Validate SFTP key field on credential test and before save
+* TWEAK: Remove the unused UpdraftPlus_S3::getHttpUploadPostParams() method
+* COMPATIBILITY: Fix pCloud deprecated warning in PHP 8.2
+* COMPATIBILITY: Fix Google Cloud deprecated warning in PHP 8.2
+* COMPATIBILITY: Fix Google Drive deprecated warning in PHP 8.2
+* TWEAK: Fixed issue with cron jobs not clearing after wiping settings
+* TWEAK: Added link to WP-Optimize in the database size tab in the advanced tools
 
 = 1.23.4 - 16/May/2023 =
 
@@ -1743,4 +1767,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.23.4: Various tweaks and fixes, including a minor security issue. A recommended update for all.
+* 1.23.5: Various tweaks and fixes a fatal error when searching / replacing database manually. A recommended update for all.

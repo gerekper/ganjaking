@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.7
- * @version  2.3.0
+ * @version  2.4.6
  */
 
 // Exit if accessed directly.
@@ -43,6 +43,7 @@ class WC_MNM_Flatsome_Compatibility {
 
 		// Add inline style.
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'inline_style' ), 20 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'inline_style' ), 20 );
 	}
 
 

@@ -1,3 +1,13 @@
+var WCML = {
+    sanitize: function(s) {
+        if (typeof s === 'string' || s instanceof String) {
+            return s.replace(/<script[^>]*?>.*?<\/script>/gi, '');
+        }
+
+        return s;
+    }
+};
+
 jQuery(function ($) {
     var discard = false;
 
@@ -102,7 +112,7 @@ jQuery(function ($) {
                 $(dialog_container).remove();
                 $(link).find('i').remove();
                 $(link).append('<i class="otgs-ico-edit" >');
-                $(link).parent().prepend(response);
+                $(link).parent().prepend(WCML.sanitize(response));
             }
         })
     });

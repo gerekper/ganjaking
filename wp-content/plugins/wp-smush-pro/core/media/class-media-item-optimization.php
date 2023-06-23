@@ -17,6 +17,9 @@ abstract class Media_Item_Optimization {
 	 */
 	abstract public function get_stats();
 
+	/**
+	 * @return Media_Item_Stats
+	 */
 	abstract public function get_size_stats( $size_key );
 
 	abstract public function get_optimized_sizes_count();

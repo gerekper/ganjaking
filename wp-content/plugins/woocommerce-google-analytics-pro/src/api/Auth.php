@@ -70,11 +70,13 @@ class Auth {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return array|null
+	 * @return array<string, mixed>|null
 	 */
 	protected function parse_json_token(): ?array {
 
-		return json_decode( $this->get_access_token_json(), true );
+		$token = $this->get_access_token_json();
+
+		return $token ? json_decode( $token, true ) : null;
 	}
 
 
@@ -208,7 +210,7 @@ class Auth {
 		$json_token = base64_decode( $response['body'] );
 
 		// bail out if the token was invalid
-		if ( ! ( $this->token = json_decode( $json_token, true ) ) ) {
+		if ( ! $json_token || ! ( $this->token = json_decode( $json_token, true ) ) ) {
 			throw new Framework\SV_WC_API_Exception( 'Could not refresh access token: returned token was invalid.' );
 		}
 
@@ -237,7 +239,7 @@ class Auth {
 		}
 
 		$json_token = base64_decode( $_REQUEST['token'] );
-		$token      = json_decode( $json_token, true );
+		$token      = $json_token ? json_decode( $json_token, true ) : null;
 
 		// invalid token
 		if ( ! $token ) {

@@ -264,6 +264,10 @@ function paygold_metabox( $post_or_order_object ) {
 		? wc_get_page_screen_id( 'shop-order' )
 		: 'shop_order';
 
+	if ( ! isset( $_GET['id'] ) && ! isset( $_GET['post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return;
+	}
+
 	if ( isset( $_GET['id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$order_id = sanitize_text_field( wp_unslash( $_GET['id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	} else {

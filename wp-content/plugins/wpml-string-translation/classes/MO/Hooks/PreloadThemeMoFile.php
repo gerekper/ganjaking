@@ -60,6 +60,7 @@ class PreloadThemeMoFile implements \IWPML_Action {
 			WHERE domain IN ({$domainsClause}) AND file_path REGEXP %s
 		";
 
+		/** @var string $sql */
 		$sql = $this->wpdb->prepare(
 			$sql,
 			'((\\/|-)' . $locale . '(\\.|-))+'

@@ -8324,31 +8324,28 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					self.$el.on( 'wc-composite-component-loaded', function() {
 
 						if ( typeof window.WC_PAO !== 'undefined' ) {
-							// Initialize component-level addons.
-							if ( self.has_addons()  ) {
 
-								// Initialize bundled item addon forms.
-								if ( 'bundle' === self.get_selected_product_type() ) {
+							// Initialize bundled item addon forms.
+							if ( 'bundle' === self.get_selected_product_type() ) {
+								self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content.find( '.bundle_data.cart' ) ) );
 
-									self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content.find( '.bundle_data.cart' ) ) );
+								var bundle = self.get_bundle_script( this.component_id );
 
-									var bundle = self.get_bundle_script( this.component_id );
+								if ( bundle ) {
 
-									if ( bundle ) {
+									$.each( bundle.bundled_items, function( index, bundled_item ) {
 
-										$.each( bundle.bundled_items, function( index, bundled_item ) {
+										if ( bundled_item.has_addons() ) {
+											new window.WC_PAO.Form( bundled_item.$bundled_item_cart );
+										}
 
-											if ( bundled_item.has_addons() ) {
-												new window.WC_PAO.Form( bundled_item.$bundled_item_cart );
-											}
+									} );
 
-										} );
-
-										bundle.match_bundled_items_addons_forms();
-									}
-								} else {
-									self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content ) );
+									bundle.match_bundled_items_addons_forms();
 								}
+							} else if ( self.has_addons()  ) {
+								// Initialize component-level addons.
+								self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content ) );
 							}
 						}
 

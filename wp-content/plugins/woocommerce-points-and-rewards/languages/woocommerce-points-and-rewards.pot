@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.33\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.35\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2023-05-18 21:05:30+00:00\n"
+"POT-Creation-Date: 2023-06-21 07:38:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -210,7 +210,7 @@ msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:597
 #: includes/class-wc-points-rewards-admin.php:747
-#: includes/class-wc-points-rewards-admin.php:1128
+#: includes/class-wc-points-rewards-admin.php:1134
 #: includes/class-wc-points-rewards-manage-points-list-table.php:41
 #: includes/class-wc-points-rewards-manage-points-list-table.php:76
 #: includes/class-wc-points-rewards-points-log-list-table.php:41
@@ -360,52 +360,52 @@ msgstr ""
 msgid "Database error while applying user points."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1101
+#: includes/class-wc-points-rewards-admin.php:1107
 #. translators: %s number of orders updated.
 msgid "%s order updated."
 msgid_plural "%s orders updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-points-rewards-admin.php:1131
+#: includes/class-wc-points-rewards-admin.php:1137
 msgid "Earned:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1132
-#: includes/class-wc-points-rewards-admin.php:1136
+#: includes/class-wc-points-rewards-admin.php:1138
+#: includes/class-wc-points-rewards-admin.php:1142
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1135
+#: includes/class-wc-points-rewards-admin.php:1141
 msgid "Redeemed:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1157
+#: includes/class-wc-points-rewards-admin.php:1163
 msgid "Points Modifier"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1158
+#: includes/class-wc-points-rewards-admin.php:1164
 msgid ""
 "Enter a percentage which modifies how points are earned when this coupon is "
 "applied. For example, enter 200% to double the amount of points typically "
 "earned when the coupon is applied."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1220
+#: includes/class-wc-points-rewards-admin.php:1226
 msgid "Reset Points and Rewards"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1221
+#: includes/class-wc-points-rewards-admin.php:1227
 msgid "Delete all points and rewards and clear the logs."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1222
+#: includes/class-wc-points-rewards-admin.php:1228
 msgid ""
 "<strong class=\"red\">Note:</strong> This action will remove all customer "
 "points and cannot be undone."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1237
+#: includes/class-wc-points-rewards-admin.php:1243
 msgid "All points and rewards successfully deleted"
 msgstr ""
 
@@ -432,15 +432,15 @@ msgstr ""
 msgid "Discount Applied Successfully"
 msgstr ""
 
-#: includes/class-wc-points-rewards-extend-store-endpoint.php:107
+#: includes/class-wc-points-rewards-extend-store-endpoint.php:114
 msgid "Points generated message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-extend-store-endpoint.php:113
+#: includes/class-wc-points-rewards-extend-store-endpoint.php:120
 msgid "Message to user inviting them to redeem points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-extend-store-endpoint.php:119
+#: includes/class-wc-points-rewards-extend-store-endpoint.php:126
 msgid "Max number of points able to be redeemed"
 msgstr ""
 
@@ -750,7 +750,7 @@ msgstr ""
 msgid "The %s property is private and should not be accessed outside its class."
 msgstr ""
 
-#: woocommerce-points-and-rewards.php:459
+#: woocommerce-points-and-rewards.php:475
 msgid "Configure"
 msgstr ""
 

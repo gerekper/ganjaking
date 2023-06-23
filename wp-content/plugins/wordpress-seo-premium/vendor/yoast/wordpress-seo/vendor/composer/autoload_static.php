@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1d4fd035c74737375fff91b1955824fa
+class ComposerStaticInit9eb92818a3b749752ced1463b74a063d
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -311,6 +311,7 @@ class ComposerStaticInit1d4fd035c74737375fff91b1955824fa
         'WPSEO_WordPress_AJAX_Integration' => __DIR__ . '/../..' . '/inc/interface-wpseo-wordpress-ajax-integration.php',
         'WPSEO_WordPress_Integration' => __DIR__ . '/../..' . '/inc/interface-wpseo-wordpress-integration.php',
         'WPSEO_Yoast_Columns' => __DIR__ . '/../..' . '/admin/class-yoast-columns.php',
+        'Wincher_Dashboard_Widget' => __DIR__ . '/../..' . '/admin/class-wincher-dashboard-widget.php',
         'YoastSEO_Vendor\\GuzzleHttp\\Client' => __DIR__ . '/../..' . '/vendor_prefixed/guzzlehttp/guzzle/src/Client.php',
         'YoastSEO_Vendor\\GuzzleHttp\\ClientInterface' => __DIR__ . '/../..' . '/vendor_prefixed/guzzlehttp/guzzle/src/ClientInterface.php',
         'YoastSEO_Vendor\\GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/../..' . '/vendor_prefixed/guzzlehttp/guzzle/src/Cookie/CookieJar.php',
@@ -626,6 +627,7 @@ class ComposerStaticInit1d4fd035c74737375fff91b1955824fa
         'Yoast\\WP\\SEO\\Conditionals\\Updated_Importer_Framework_Conditional' => __DIR__ . '/../..' . '/src/conditionals/updated-importer-framework-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\User_Can_Manage_Wpseo_Options_Conditional' => __DIR__ . '/../..' . '/src/conditionals/user-can-manage-wpseo-options-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\User_Can_Publish_Posts_And_Pages_Conditional' => __DIR__ . '/../..' . '/src/conditionals/user-can-publish-posts-and-pages-conditional.php',
+        'Yoast\\WP\\SEO\\Conditionals\\WP_CRON_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/wp-cron-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\WP_Robots_Conditional' => __DIR__ . '/../..' . '/src/conditionals/wp-robots-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Web_Stories_Conditional' => __DIR__ . '/../..' . '/src/conditionals/web-stories-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Wincher_Automatically_Track_Conditional' => __DIR__ . '/../..' . '/src/conditionals/wincher-automatically-track-conditional.php',
@@ -1073,9 +1075,9 @@ class ComposerStaticInit1d4fd035c74737375fff91b1955824fa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1d4fd035c74737375fff91b1955824fa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1d4fd035c74737375fff91b1955824fa::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1d4fd035c74737375fff91b1955824fa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9eb92818a3b749752ced1463b74a063d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9eb92818a3b749752ced1463b74a063d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9eb92818a3b749752ced1463b74a063d::$classMap;
 
         }, null, ClassLoader::class);
     }

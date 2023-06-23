@@ -24,43 +24,47 @@
 .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity {
   display: flex !important;
   width: 8em; }
-  .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button {
-    background: none;
-    border: 0;
-    color: initial;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    height: 2.5em;
-    line-height: 1;
-    margin: 0;
-    padding: 0;
-    width: 2.5em; }
-    .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button:disabled, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button:disabled {
-      cursor: not-allowed;
-      opacity: .2; }
-  .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button--minus, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button--minus {
-    order: 1; }
-  .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button--plus, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .button--plus {
-    order: 3;
-    margin-left: auto;
-    margin-right: auto; }
-  .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .qty, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .qty {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    flex: 1 1 auto;
-    font-size: 1em;
-    line-height: 1;
-    height: 2.5em;
-    margin: 0 .25em;
-    order: 2;
-    padding: 0;
-    text-align: center;
-    width: 2.5em; }
-    .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .qty::-webkit-inner-spin-button, .js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .qty::-webkit-outer-spin-button, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .qty::-webkit-inner-spin-button, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .quantity .qty::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0; }
+
+.js .mnm_form.has-plus-minus-buttons .product-quantity .button, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .button {
+  background: none;
+  border: 0;
+  color: initial;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  height: 2.5em;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  width: 2.5em; }
+  .js .mnm_form.has-plus-minus-buttons .product-quantity .button:disabled, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .button:disabled {
+    cursor: not-allowed;
+    opacity: .2; }
+
+.js .mnm_form.has-plus-minus-buttons .product-quantity .button--minus, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .button--minus {
+  order: 1; }
+
+.js .mnm_form.has-plus-minus-buttons .product-quantity .button--plus, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .button--plus {
+  order: 3;
+  margin-left: auto;
+  margin-right: auto; }
+
+.js .mnm_form.has-plus-minus-buttons .product-quantity .qty, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .qty {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  flex: 1 1 auto;
+  font-size: 1em;
+  line-height: 1;
+  height: 2.5em;
+  margin: 0 .25em;
+  order: 2;
+  padding: 0;
+  text-align: center;
+  width: 2.5em; }
+  .js .mnm_form.has-plus-minus-buttons .product-quantity .qty::-webkit-inner-spin-button, .js .mnm_form.has-plus-minus-buttons .product-quantity .qty::-webkit-outer-spin-button, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .qty::-webkit-inner-spin-button, .woocommerce-js .mnm_form.has-plus-minus-buttons .product-quantity .qty::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
 
 .mnm_form {
   /* Reset button */ }

@@ -20,7 +20,7 @@ class ResetPreferredTranslationService implements \IWPML_Backend_Action {
 		$resetButton  = sprintf( __( 'Reset & Fetch', 'wpml-translation-manager' ) );
 
 		$html = '<div class="icl_cyan_box" id="wpml_tm_reset_preferred_translation_service_btn">' .
-		        wp_nonce_field( self::ACTION_ID, 'wpml_tm_reset_preferred_translation_service_nonce' ) .
+		        wp_nonce_field( self::ACTION_ID, 'wpml_tm_reset_preferred_translation_service_nonce', true, false ) . // <-- This seams to be never used.
 		        '<h3>' . $resetTitle . '</h3>
 				<p>' . $resetMessage . '</p>
 				<a class="button-primary" href="#">' . $resetButton . '</a><span class="spinner"></span>
@@ -33,7 +33,7 @@ class ResetPreferredTranslationService implements \IWPML_Backend_Action {
 		$action = Sanitize::stringProp( 'action', $_POST );
 		$nonce  = Sanitize::stringProp( 'nonce', $_POST );
 
-		if ( wp_verify_nonce( $nonce, $action ) ) {
+		if ( $nonce && $action && wp_verify_nonce( $nonce, $action ) ) {
 			OTGS_Installer()->settings['repositories']['wpml']['ts_info']['preferred'] = null;
 			OTGS_Installer()->refresh_subscriptions_data();
 			wp_send_json_success();

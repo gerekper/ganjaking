@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "من:"
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "أنت من يقرر المحتوى المراد ترجمته ومن سيقوم بترجمته"
          ],
-         "Translate it yourself": [
-            "ترجمته بنفسك"
+         "Translate yourself": [
+            "ترجم بنفسك"
          ],
-         "Assign it to translators that are users of your site": [
-            "تعيينه إلى مترجمين من مستخدمي موقعك"
+         "Use automatic translation on the content you choose": [
+            "استخدام الترجمة الآلية على المحتوى الذي تختاره"
          ],
-         "Send it to a professional translation service": [
-            "إرساله إلى خدمة ترجمة احترافية"
+         "Work with translators that are users of your site": [
+            "متوافق مع المترجمين الذين قاموا بالتسجيل كمستخدمين على موقعك"
          ],
          "or": [
             "أو"
          ],
-         "Translate it automatically using machine translation": [
-            "ترجمته آليًا باستخدام خدمة الترجمة الآلية"
+         "Send to professional translation services": [
+            "إرسال إلى خدمات الترجمة الاحترافية"
          ],
          "user": [
             "مستخدم"
@@ -399,6 +398,88 @@
          "Language switcher customization": [
             "تخصيص محول اللغة"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "إعدادك الحالي سيستهلك الكثير من نقاط رصيد الترجمة"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "لقد اخترت <b>ترجمة كل شيء آليًا</b> على <span class=\"warning\">موقع قيد التطوير</span>"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "لقد اخترت <b>ترجمة كل شيء آليًا:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "تم تعيين 10000 نقطة رصيد بشكل افتراضي إلى المواقع قيد التطوير"
+         ],
+         "posts, pages...": [
+            "المقالات، والصفحات..."
+         ],
+         "translated to": [
+            "مُترجم إلى"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b> لغة",
+            "<b>%1$d</b> من اللغات"
+         ],
+         "will cost approximately": [
+            "سيتكلف تقريبًا"
+         ],
+         "credits": [
+            "من نقاط الرصيد"
+         ],
+         "Loading details...": [
+            "جارٍ تحميل التفاصيل..."
+         ],
+         "Hide details": [
+            "إخفاء التفاصيل"
+         ],
+         "Show details": [
+            "عرض التفاصيل"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "إعدادك الحالي سيستهلك تقريبًا <b>%s</b> من نقاط الرصيد"
+         ],
+         "What do you want to do?": [
+            "ما الذي ترغب في فعله؟"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "نظرًا لأن هذا من المواقع قيد التطوير، فقد لا ترغب في إهدار نقاط الرصيد على المحتوى غير المهم."
+         ],
+         "Continue with this setup": [
+            "المتابعة مع هذا الإعداد"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "سيقوم WPML بترجمة محتوى موقعك آليًا. عند نفاد نقاط الرصيد الخاصة بك، يمكنك شراء المزيد أو الاشتراك في باقة الدفع بحسب الاستخدام لمتابعة استخدام الترجمة الآلية."
+         ],
+         "Make changes": [
+            "إجراء تغييرات"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "يمكنك استخدام نقاط رصيد أقل عن طريق تعديل بعض الإعدادات التي حددتها أثناء الإعداد."
+         ],
+         "Reduce the number of translation languages": [
+            "تقليل عدد لغات الترجمة"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "كلما زاد عدد اللغات على موقعك، استهكلت نقاط رصيد أكثر للترجمة. <b>يمكنك دائمًا إضافة المزيد من اللغات لاحقًا.</b>"
+         ],
+         "Change site languages": [
+            "تغيير لغات الموقع"
+         ],
+         "Change your translation mode": [
+            "تغيير وضع الترجمة خاصتك"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "خيار <b>ترجمة ما تختاره</b> يمنحك تحكمًا أكبر في المحتوى الذي ستتم ترجمته، وسيظل بمقدورك استخدامك الترجمة الآلية."
+         ],
+         "Change translation mode": [
+            "تغيير وضع الترجمة"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "ليست لدي مشكلة في استهلاك هذا العدد الكبير من نقاط الرصيد،"
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "لنتابع ونترجم الموقع بأكمله آليًا."
+         ],
          "Default language": [
             "اللغة الافتراضية"
          ],
@@ -438,17 +519,17 @@
          "Are you ready to start translating now?": [
             "هل أنت جاهز لبدء الترجمة الآن؟"
          ],
-         "Yes!": [
-            "نعم!"
+         "Yes, start translating!": [
+            "نعم، ابدأ الترجمة!"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "ابدأ ترجمة موقعي الآن. سوف يستخدم WPML نقاط رصيد الترجمة الآلية الخاصة بك."
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "سيترجم WPML موقعك من أجلك باستخدام نقاط رصيد الترجمة الآلية."
          ],
-         "No. I need to do some changes first": [
-            "لا. يجب أن أقوم بإجراء بعض التغييرات أولًا"
+         "No, my content isn't finalized yet": [
+            "لا، لم يكتمل محتواي بعد"
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "عندما تكون جاهزًا، يمكنك بدء الترجمة الآلية من لوحة أدوات إدارة الترجمة."
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "عندما تكون جاهزًا، يمكنك بدء الترجمة الآلية من 'لوحة أدوات الترجمة' (Translation Management Dashboard)."
          ],
          "Improve your site’s translations using helpful plugins": [
             "تحسين ترجمات موقعك باستخدام الإضافات المفيدة"
@@ -513,18 +594,6 @@
          "A new language could not be added correctly": [
             "لم يمكن إضافة اللغة الجديدة بشكل صحيح"
          ],
-         "Languages": [
-            "لغات"
-         ],
-         "URL Format": [
-            "تنسيق مسار الإنترنت"
-         ],
-         "Register WPML": [
-            "تسجيل WPML"
-         ],
-         "Translation Mode": [
-            "وضع الترجمة"
-         ],
          "Support": [
             "دعم"
          ],
@@ -548,6 +617,18 @@
          ],
          "Finish": [
             "انهي"
+         ],
+         "Languages": [
+            "لغات"
+         ],
+         "URL Format": [
+            "تنسيق مسار الإنترنت"
+         ],
+         "Register WPML": [
+            "تسجيل WPML"
+         ],
+         "Translation Mode": [
+            "وضع الترجمة"
          ],
          "Settings": [
             "الإعدادات"

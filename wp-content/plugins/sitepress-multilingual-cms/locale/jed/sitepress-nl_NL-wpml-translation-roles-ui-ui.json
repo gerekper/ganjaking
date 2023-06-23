@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "Vanuit:"
@@ -196,7 +195,7 @@
             "Lees meer over"
          ],
          "The name of your language as it will appear on your site's language switcher.": [
-            "De naam van je taal zoals die zal verschijnen op de taal-switcher van je site."
+            "De naam van je taal zoals die zal verschijnen op de taalschakelaar van je site."
          ],
          "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
             "Een unieke waarde die de taal identificeert in de database en URL. Eenmaal opgeslagen, kan de taalcode niet meer worden gewijzigd."

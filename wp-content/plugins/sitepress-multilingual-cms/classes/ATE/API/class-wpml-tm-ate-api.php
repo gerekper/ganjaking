@@ -1,6 +1,6 @@
 <?php
 
-use WPML\TM\ATE\ClonedSites\FingerprintGenerator;
+use WPML\TM\ATE\API\FingerprintGenerator;
 use WPML\TM\ATE\Log\Entry;
 use WPML\TM\ATE\Log\EventsTypes;
 use WPML\TM\ATE\ClonedSites\ApiCommunication as ClonedSitesHandler;
@@ -18,6 +18,7 @@ use function WPML\FP\pipe;
 use WPML\Element\API\Languages;
 use WPML\FP\Relation;
 use WPML\FP\Maybe;
+use WPML\TM\ATE\API\RequestException;
 
 /**
  * @author OnTheGo Systems
@@ -73,11 +74,11 @@ class WPML_TM_ATE_API {
 	 * @param array $params
 	 * @see https://bitbucket.org/emartini_crossover/ate/wiki/API/V1/jobs/create
 	 *
-	 * @return {
+	 * @return array{
 	 *  code: int,
 	 *  status: string,
 	 *  message: string,
-	 *  jobs: {
+	 *  jobs: array{
 	 *    int: int
 	 *  }
 	 * } | WP_Error
@@ -155,6 +156,9 @@ class WPML_TM_ATE_API {
 			return new WP_Error( 'communication_error', 'ATE communication is locked, please update configuration' );
 		}
 
+		$translator_email = filter_var( wp_get_current_user()->user_email, FILTER_SANITIZE_URL );
+		$return_url = filter_var( $return_url, FILTER_SANITIZE_URL );
+
 		$url = $this->endpoints->get_ate_editor();
 		$url = str_replace(
 			[
@@ -164,8 +168,8 @@ class WPML_TM_ATE_API {
 			],
 			[
 				$job_id,
-				urlencode( filter_var( wp_get_current_user()->user_email, FILTER_SANITIZE_URL ) ),
-				urlencode( filter_var( $return_url, FILTER_SANITIZE_URL ) ),
+				$translator_email ? urlencode( $translator_email ) : '',
+				$return_url ? urlencode( $return_url ) : '',
 			],
 			$url
 		);
@@ -200,12 +204,14 @@ class WPML_TM_ATE_API {
 
 		$result = $this->requestWithLog( $url, [ 'method' => 'POST', 'body' => $params ] );
 
-		return $result && ! is_wp_error( $result ) ?
-			[
-				'id'         => $result->job_id,
-				'ate_status' => Obj::propOr( WPML_TM_ATE_AMS_Endpoints::ATE_JOB_STATUS_CREATED, 'status', $result )
-			] :
-			false;
+		if ( ! is_object( $result ) || ! property_exists( $result, 'job_id' ) ) {
+			return false;
+		}
+
+		return [
+			'id'         => $result->job_id,
+			'ate_status' => Obj::propOr( WPML_TM_ATE_AMS_Endpoints::ATE_JOB_STATUS_CREATED, 'status', $result ),
+		];
 	}
 
 	/**
@@ -277,13 +283,14 @@ class WPML_TM_ATE_API {
 			return $url;
 		}
 
+		$body   = wp_json_encode( $pairs, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 		$result = $this->wp_http->request(
 			$url,
 			array(
 				'timeout' => 60,
 				'method'  => $verb,
 				'headers' => $this->json_headers(),
-				'body'    => wp_json_encode( $pairs, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ),
+				'body'    => $body ?: '',
 			)
 		);
 
@@ -475,11 +482,14 @@ class WPML_TM_ATE_API {
 	}
 
 	private function get_response_body( $result ) {
-		if ( is_array( $result ) && array_key_exists( 'body', $result ) && ! is_wp_error( $result ) ) {
+		if ( is_array( $result ) && array_key_exists( 'body', $result ) ) {
 			$body = json_decode( $result['body'] );
 
 			if ( isset( $body->authenticated ) && ! (bool) $body->authenticated ) {
-				return new WP_Error( 'ate_auth_failed', $body->message );
+				return new WP_Error(
+					'ate_auth_failed',
+					isset( $body->message ) ? $body->message : ''
+				);
 			}
 
 			return $body;
@@ -535,7 +545,7 @@ class WPML_TM_ATE_API {
 	 * @param array|\stdClass|false|null $job
 	 *
 	 * @return string
-	 * @throws Requests_Exception
+	 * @throws RequestException The request to ATE failed.
 	 */
 	public function get_remote_xliff_content( $xliff_url, $job = null ) {
 
@@ -551,7 +561,10 @@ class WPML_TM_ATE_API {
 		wpml_tm_ate_ams_log_remove( $entry );
 
 		if ( is_wp_error( $response ) ) {
-			throw new Requests_Exception( $response->get_error_message(), $response->get_error_code() );
+			throw new RequestException(
+				$response->get_error_message(),
+				$response->get_error_code()
+			);
 		}
 
 		return $response['body'];
@@ -629,7 +642,7 @@ class WPML_TM_ATE_API {
 	 * @return array|mixed|object|string|WP_Error|null
 	 */
 	private function request( $url, array $requestArgs = [] ) {
-		$lock = $this->clonedSitesHandler->checkCloneSiteLock();
+		$lock = $this->clonedSitesHandler->checkCloneSiteLock( $url );
 		if ( $lock ) {
 			return $lock;
 		}
@@ -669,7 +682,7 @@ class WPML_TM_ATE_API {
 	 * @param string $url
 	 * @param array $requestArgs
 	 *
-	 * @return array|mixed|object|string|WP_Error|null
+	 * @return array|int|float|object|string|WP_Error|null
 	 */
 	private function requestWithLog( $url, array $requestArgs = [] ) {
 		$response = $this->request( $url, $requestArgs );

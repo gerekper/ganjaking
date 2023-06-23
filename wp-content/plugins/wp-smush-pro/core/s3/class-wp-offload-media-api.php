@@ -50,6 +50,10 @@ class WP_Offload_Media_Api {
 	private function call_method_if_exists( $method_name, $arguments ) {
 		global $as3cf;
 
+		if ( empty( $as3cf ) ) {
+			return false;
+		}
+
 		if ( method_exists( $as3cf, $method_name ) ) {
 			$this->return_value = call_user_func_array( array( $as3cf, $method_name ), $arguments );
 

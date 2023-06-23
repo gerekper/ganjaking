@@ -2,7 +2,10 @@
 
 namespace Smush\Core\Modules;
 
+use Smush\Core\Array_Utils;
 use Smush\Core\Integrations\Mixpanel;
+use Smush\Core\Media_Library\Background_Media_Library_Scanner;
+use Smush\Core\Media_Library\Media_Library_Scan_Background_Process;
 use Smush\Core\Media_Library\Media_Library_Scanner;
 use Smush\Core\Modules\Background\Background_Process;
 use Smush\Core\Server_Utils;
@@ -24,10 +27,15 @@ class Product_Analytics {
 	 * @var Server_Utils
 	 */
 	private $server_utils;
+	/**
+	 * @var Media_Library_Scan_Background_Process
+	 */
+	private $scan_background_process;
 
 	public function __construct() {
-		$this->settings     = Settings::get_instance();
-		$this->server_utils = new Server_Utils();
+		$this->settings                = Settings::get_instance();
+		$this->server_utils            = new Server_Utils();
+		$this->scan_background_process = Background_Media_Library_Scanner::get_instance()->get_background_process();
 
 		$this->hook_actions();
 	}
@@ -46,17 +54,21 @@ class Product_Analytics {
 		// Other events.
 		add_action( 'wp_smush_directory_smush_start', array( $this, 'track_directory_smush' ) );
 		add_action( 'wp_smush_bulk_smush_start', array( $this, 'track_bulk_smush_start' ) );
+		add_action( 'wp_smush_bulk_smush_completed', array( $this, 'track_bulk_smush_completed' ) );
 		add_action( 'wp_smush_config_applied', array( $this, 'track_config_applied' ) );
 
-		add_action( 'wp_smush_before_scan_library', array( $this, 'track_scan_start' ) );
-		add_action( 'wp_smush_after_scan_library', array( $this, 'track_scan_end' ) );
+		$identifier = $this->scan_background_process->get_identifier();
+
+		add_action( "{$identifier}_before_start", array( $this, 'track_background_scan_start' ) );
+		add_action( "{$identifier}_completed", array( $this, 'track_background_scan_end' ) );
+
 		add_action(
-			'wp_smush_background_scan_process_cancelled',
+			"{$identifier}_cancelled",
 			array( $this, 'track_background_scan_process_cancellation' ),
 			10, 2
 		);
 		add_action(
-			'wp_smush_background_scan_process_dead',
+			"{$identifier}_dead",
 			array( $this, 'track_background_scan_process_death' ),
 			10, 2
 		);
@@ -218,6 +230,7 @@ class Product_Analytics {
 			'wp_type'            => is_multisite() ? 'multisite' : 'single',
 			'wp_version'         => $wp_version,
 			'device'             => $this->get_device(),
+			'user_agent'         => $this->server_utils->get_user_agent(),
 		);
 	}
 
@@ -297,6 +310,24 @@ class Product_Analytics {
 		$this->get_mixpanel()->track( 'Bulk Smush Started', $this->get_bulk_properties() );
 	}
 
+	public function track_bulk_smush_completed() {
+		$this->get_mixpanel()->track( 'Bulk Smush Completed', $this->get_bulk_smush_stats() );
+	}
+
+	private function get_bulk_smush_stats() {
+		$global_stats = WP_Smush::get_instance()->core()->get_global_stats();
+		$array_util   = new Array_Utils();
+
+		return array(
+			'Total Savings'                 => $this->convert_to_megabytes( (int) $array_util->get_array_value( $global_stats, 'savings_bytes' ) ),
+			'Total Images'                  => (int) $array_util->get_array_value( $global_stats, 'count_images' ),
+			'Media Optimization Percentage' => (float) $array_util->get_array_value( $global_stats, 'percent_optimized' ),
+			'Percentage of Savings'         => (float) $array_util->get_array_value( $global_stats, 'savings_percent' ),
+			'Images Resized'                => (int) $array_util->get_array_value( $global_stats, 'count_resize' ),
+			'Resize Savings'                => $this->convert_to_megabytes( (int) $array_util->get_array_value( $global_stats, 'savings_resize' ) ),
+		);
+	}
+
 	public function track_config_applied( $config_name ) {
 		$properties = $config_name
 			? array( 'Config Name' => $config_name )
@@ -374,14 +405,19 @@ class Product_Analytics {
 		}
 	}
 
-	public function track_scan_start() {
+	public function track_background_scan_start() {
+		$properties = array(
+			'Scan Type' => $this->scan_background_process->get_status()->is_dead() ? 'Retry' : 'New',
+		);
+
 		$this->get_mixpanel()->track( 'Scan Started', array_merge(
+			$properties,
 			$this->get_bulk_properties(),
 			$this->get_scan_properties()
 		) );
 	}
 
-	public function track_scan_end() {
+	public function track_background_scan_end() {
 		$this->get_mixpanel()->track( 'Scan Ended', array_merge(
 			$this->get_bulk_properties(),
 			$this->get_scan_properties()
@@ -422,7 +458,6 @@ class Product_Analytics {
 	private function get_scan_properties() {
 		$global_stats       = Global_Stats::get();
 		$global_stats_array = $global_stats->to_array();
-		$properties         = array();
 
 		$labels = array(
 			'image_attachment_count' => 'Image Attachment Count',

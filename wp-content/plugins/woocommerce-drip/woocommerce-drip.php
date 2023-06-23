@@ -3,24 +3,37 @@
  * Plugin Name: WooCommerce Drip
  * Plugin URI: https://woocommerce.com/products/woocommerce-drip/
  * Description: Integrate your WooCommerce store and customers with your Drip account.
- * Version: 1.2.34
- * Author: WooCommerce
- * Author URI: https://woocommerce.com
- * License: GPL-2.0+
+ * Version: 1.3.0
+ * Author: Themesquad
+ * Author URI: https://themesquad.com
  * Text Domain: woocommerce-drip
+ * Domain Path: /languages
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.2
  *
- * Copyright: © 2022 WooCommerce
  * Woo: 609085:cbafd0ee5daa6120a5902df2ecf6fe7b
- * WC tested up to: 6.9
- * WC requires at least: 3.0
- * Tested up to: 6.0
+ * WC requires at least: 3.5
+ * WC tested up to: 7.8
+ *
+ * License: GNU General Public License v3.0
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package woocommerce-drip
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+defined( 'ABSPATH' ) || exit;
+
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \Themesquad\WC_Drip\Autoloader::init() ) {
+	return;
+}
+
+// Define plugin file constant.
+if ( ! defined( 'WC_DRIP_FILE' ) ) {
+	define( 'WC_DRIP_FILE', __FILE__ );
 }
 
 /**
@@ -37,29 +50,26 @@ function woocommerce_drip_missing_wc_notice() {
 add_action( 'plugins_loaded', 'woocommerce_drip_init' );
 
 function woocommerce_drip_init() {
-	load_plugin_textdomain( 'woocommerce-drip', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'woocommerce_drip_missing_wc_notice' );
 		return;
 	}
 
 	if ( ! class_exists( 'WC_Drip' ) ) {
-		define( 'WC_DRIP_VERSION', '1.2.34' ); // WRCS: DEFINED_VERSION.
-
 		/**
 		 * WC_Drip Class
 		 *
 		 * @package  WooCommerce Drip
 		 * @since    1.0.0
 		 */
-		class WC_Drip {
+		class WC_Drip extends \Themesquad\WC_Drip\Plugin {
 			/**
 			 * Construct the plugin.
 			 **/
-			public function __construct() {
+			protected function __construct() {
+				parent::__construct();
+
 				$this->init();
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 			}
 
 			/**
@@ -67,14 +77,14 @@ function woocommerce_drip_init() {
 			 **/
 			public function init() {
 				// Brace Yourself
-				require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wcdrip.php' );
-				require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wcdrip-settings.php' );
-				require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wcdrip-privacy.php' );
-				require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wcdrip-events.php' );
-				require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wcdrip-subscribe.php' );
+				require_once WC_DRIP_PATH . 'includes/class-wcdrip.php';
+				require_once WC_DRIP_PATH . 'includes/class-wcdrip-settings.php';
+				require_once WC_DRIP_PATH . 'includes/class-wcdrip-privacy.php';
+				require_once WC_DRIP_PATH . 'includes/class-wcdrip-events.php';
+				require_once WC_DRIP_PATH . 'includes/class-wcdrip-subscribe.php';
 
 				// Drip API PHP Library Class
-				require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/Drip_API.class.php' );
+				require_once WC_DRIP_PATH . 'includes/lib/Drip_API.class.php';
 
 				// Vroom.. Vroom..
 				add_action( 'init', array( 'WC_Drip_Init', 'get_instance' ) );
@@ -97,21 +107,9 @@ function woocommerce_drip_init() {
 
 				return $integrations;
 			}
-
-			/**
-			 * Plugin action links
-			 */
-			public function action_links( $links ) {
-				$plugin_links = array(
-					'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=integration&section=wcdrip' ) . '">Settings</a>',
-					'<a href="https://docs.woocommerce.com/document/woocommerce-drip/">' . __( 'Documentation', 'woocommerce-drip' ) . '</a>',
-				);
-
-				return array_merge( $plugin_links, $links );
-			}
 		}
 
-		new WC_Drip();
+		WC_Drip::instance();
 	}
 }
 
@@ -121,7 +119,7 @@ if ( ! function_exists( 'wcdrip_log' ) ) {
 	/**
 	 * Log a message via WC_Logger.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @param string $message Message to log
 	 */
@@ -150,7 +148,7 @@ if ( ! function_exists( 'wcdrip_get_settings' ) ) {
 	/**
 	 * Get WP Drip settings.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @return array WC Drip settings
 	 */

@@ -59,7 +59,7 @@ class WPML_TP_Apply_Translations {
 	/**
 	 * @param array $params
 	 *
-	 * @return array|WPML_TM_Jobs_Collection
+	 * @return WPML_TM_Jobs_Collection
 	 */
 	private function get_jobs( array $params ) {
 		if ( $params ) {
@@ -87,7 +87,7 @@ class WPML_TP_Apply_Translations {
 		$params->set_original_element_id( $original_element_id );
 		$params->set_job_types( $element_type );
 
-		return $this->jobs_repository->get( $params );
+		return $this->jobs_repository->get_collection( $params );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class WPML_TP_Apply_Translations {
 	 * @return WPML_TM_Jobs_Collection
 	 */
 	private function get_all_ready_jobs() {
-		return $this->jobs_repository->get(
+		return $this->jobs_repository->get_collection(
 			new WPML_TM_Jobs_Search_Params(
 				array(
 					'status' => array( ICL_TM_TRANSLATION_READY_TO_DOWNLOAD ),

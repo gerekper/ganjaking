@@ -12,7 +12,7 @@ use Smush\Core\Media\Media_Item_Query;
  */
 class Media_Library_Scanner {
 	const SLICE_SIZE_DEFAULT = 2500;
-	const SLICE_SIZE_STEP = 500;
+	const SLICE_SIZE_MIN = 500;
 	const SLICE_SIZE_OPTION_ID = 'wp_smush_scan_slice_size';
 
 	public function before_scan_library() {
@@ -51,15 +51,7 @@ class Media_Library_Scanner {
 	}
 
 	public function reduce_slice_size_option() {
-		$current_value = get_option( self::SLICE_SIZE_OPTION_ID, null );
-		$current_value = is_null( $current_value )
-			? self::SLICE_SIZE_DEFAULT
-			: (int) $current_value;
-
-		$new_value = $current_value - self::SLICE_SIZE_STEP;
-		$new_value = max( $new_value, self::SLICE_SIZE_STEP ); // Don't go lower than 500
-
-		update_option( self::SLICE_SIZE_OPTION_ID, $new_value );
+		update_option( self::SLICE_SIZE_OPTION_ID, self::SLICE_SIZE_MIN );
 	}
 
 	private function get_slice_size_option() {

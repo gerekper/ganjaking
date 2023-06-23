@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<div class="wp-smush-scan-progress-bar-inner">
 		<div class="wp-smush-progress-status">
 			<div class="wp-smush-scan-description">
-				<h4><?php esc_html_e( 'Scanning Media library', 'wp-smushit' ); ?></h4>
+				<h4><?php esc_html_e( 'Scanning Media Library', 'wp-smushit' ); ?></h4>
 				<span class="wp-smush-progress-percent">0%</span>
 				<p>
 				<?php
@@ -47,6 +47,12 @@ if ( ! defined( 'WPINC' ) ) {
 <?php
 	$this->view(
 		'stop-scanning',
+		array(),
+		'modals'
+	);
+
+	$this->view(
+		'retry-scan-notice',
 		array(),
 		'modals'
 	);

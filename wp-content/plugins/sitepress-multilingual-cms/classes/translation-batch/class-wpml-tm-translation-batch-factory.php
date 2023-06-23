@@ -23,7 +23,7 @@ class WPML_TM_Translation_Batch_Factory {
 	public function create( array $batch_data ) {
 		$translators = isset( $batch_data['translators'] ) ? $batch_data['translators'] : array();
 		$basket_name = Sanitize::stringProp( 'basket_name', $batch_data );
-		
+
 		$elements    = apply_filters(
 			'wpml_tm_batch_factory_elements',
 			$this->get_elements( $batch_data, array_keys( $translators ) ),
@@ -37,7 +37,7 @@ class WPML_TM_Translation_Batch_Factory {
 
 		return new WPML_TM_Translation_Batch(
 			$elements,
-			$basket_name,
+			$basket_name ?: '',
 			$translators,
 			$deadline_date
 		);
@@ -62,7 +62,9 @@ class WPML_TM_Translation_Batch_Factory {
 		$result = array();
 		foreach ( $batch_data['batch'] as $item ) {
 			$element_id   = $item['post_id'];
-			$element_type = $item['type'];
+			$element_type = isset( $item['type'] ) && is_string( $item['type'] )
+				? $item['type']
+				: '';
 
 			if ( ! in_array( $element_type, $basket_items_types, true ) ) {
 				continue;
@@ -107,6 +109,6 @@ class WPML_TM_Translation_Batch_Factory {
 
 		return is_array( $date_parts ) &&
 			   count( $date_parts ) === 3 &&
-			   checkdate( $date_parts[1], $date_parts[2], $date_parts[0] );
+			   checkdate( (int) $date_parts[1], (int) $date_parts[2], (int) $date_parts[0] );
 	}
 }

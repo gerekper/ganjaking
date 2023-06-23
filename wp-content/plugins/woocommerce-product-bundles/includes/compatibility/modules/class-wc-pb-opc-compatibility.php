@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * One Page Checkout Compatibility.
  *
- * @version  6.4.0
+ * @version  6.21.0
  */
 class WC_PB_OPC_Compatibility {
 
@@ -58,6 +58,7 @@ class WC_PB_OPC_Compatibility {
 					'bundle_price_data' => $product->get_bundle_form_data()
 				), false, WC_PB()->plugin_path() . '/templates/' );
 
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo str_replace( array( '<form method="post" enctype="multipart/form-data"', '</form>' ), array( '<div', '</div>' ), ob_get_clean() );
 			}
 		}

@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Add-ons 6.3.1\n"
+"Project-Id-Version: WooCommerce Product Add-ons 6.4.2\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-29T14:56:53+00:00\n"
+"POT-Creation-Date: 2023-06-21T13:32:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-product-addons\n"
 
@@ -36,7 +36,7 @@ msgid "https://woocommerce.com"
 msgstr ""
 
 #: includes/admin/class-wc-product-addons-admin.php:61
-#: includes/admin/class-wc-product-addons-admin.php:434
+#: includes/admin/class-wc-product-addons-admin.php:443
 msgid "Add-ons"
 msgstr ""
 
@@ -95,12 +95,12 @@ msgid "Add Image"
 msgstr ""
 
 #: includes/admin/class-wc-product-addons-admin.php:247
-#: includes/admin/class-wc-product-addons-admin.php:461
+#: includes/admin/class-wc-product-addons-admin.php:470
 msgid "Product Add-Ons has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server's host or administrator and (kindly) ask them to increase the number of variables that PHP scripts can post and process%1$s."
 msgstr ""
 
 #: includes/admin/class-wc-product-addons-admin.php:247
-#: includes/admin/class-wc-product-addons-admin.php:461
+#: includes/admin/class-wc-product-addons-admin.php:470
 msgid " (currently %s)"
 msgstr ""
 
@@ -160,16 +160,16 @@ msgstr ""
 msgid "Multiple Choice"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:754
+#: includes/admin/class-wc-product-addons-admin.php:763
 msgid "SKU:"
 msgstr ""
 
 #. translators: %s ID of variation
-#: includes/admin/class-wc-product-addons-admin.php:763
+#: includes/admin/class-wc-product-addons-admin.php:772
 msgid "%s (No longer exists)"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:766
+#: includes/admin/class-wc-product-addons-admin.php:775
 msgid "Variation ID:"
 msgstr ""
 
@@ -336,8 +336,8 @@ msgid "Add description"
 msgstr ""
 
 #: includes/admin/views/html-addon.php:154
-#: templates/addons/addon-start.php:62
-#: templates/addons/addon-start.php:83
+#: templates/addons/addon-start.php:70
+#: templates/addons/addon-start.php:91
 msgid "Required field"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgid "Adjust price"
 msgstr ""
 
 #: includes/admin/views/html-global-admin-add.php:6
-#: woocommerce-product-addons.php:255
+#: woocommerce-product-addons.php:257
 msgid "Create add-ons"
 msgstr ""
 
@@ -464,90 +464,138 @@ msgstr ""
 msgid "Need help with add-ons? Visit the %1$sDocumentation%2$s."
 msgstr ""
 
+#: includes/api/class-wc-product-addons-store-api.php:104
+msgid "Addons data."
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:267
+msgctxt "flat fee addon price in order"
+msgid " (+ %1$s)"
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:269
+msgctxt "addon price in order"
+msgid " (%1$s)"
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:271
+msgctxt "custom addon price in order"
+msgid " (%1$s)"
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:655
+msgctxt "flat fee addon price in cart"
+msgid " (+ %1$s)"
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:660
+msgctxt "custom price addon price in cart"
+msgid " (%1$s)"
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:664
+msgctxt "quantity based addon price in cart"
+msgid " (%1$s)"
+msgstr ""
+
+#: includes/class-wc-product-addons-cart.php:671
+msgctxt "percentage based addon price in cart"
+msgid " (%1$s)"
+msgstr ""
+
 #: includes/class-wc-product-addons-compatibility.php:59
 #: includes/class-wc-product-addons-compatibility.php:68
 msgid "Foul!"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:134
+#: includes/class-wc-product-addons-compatibility.php:167
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:135
+#: includes/class-wc-product-addons-compatibility.php:168
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/class-wc-product-addons-compatibility.php:138
-#: includes/class-wc-product-addons-compatibility.php:150
+#: includes/class-wc-product-addons-compatibility.php:171
+#: includes/class-wc-product-addons-compatibility.php:183
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Add-ons</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:147
+#: includes/class-wc-product-addons-compatibility.php:180
 msgid "Composite Products"
 msgstr ""
 
-#: includes/class-wc-product-addons-compatibility.php:148
+#: includes/class-wc-product-addons-compatibility.php:181
 msgid "WooCommerce Composite Products"
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:95
-msgid "Please choose an option."
+#: includes/class-wc-product-addons-compatibility.php:193
+msgid "WooCommerce Blocks"
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:96
-msgid "Please enter some text in this field."
-msgstr ""
-
-#: includes/class-wc-product-addons-display.php:97
-msgid "Please enter a number in this field."
-msgstr ""
-
-#: includes/class-wc-product-addons-display.php:98
-msgid "Please upload a file."
-msgstr ""
-
-#: includes/class-wc-product-addons-display.php:99
-msgid "Please enter letters only."
-msgstr ""
-
-#: includes/class-wc-product-addons-display.php:100
-msgid "Please enter numbers only."
-msgstr ""
-
-#: includes/class-wc-product-addons-display.php:101
-msgid "Please enter letters and numbers only."
+#. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
+#: includes/class-wc-product-addons-compatibility.php:196
+msgid "The installed version of <strong>%1$s</strong> does not support <strong>Product Add-ons</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:102
-msgid "Please enter a valid email address."
+msgid "Please choose an option."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:103
-msgid "Please enter at least %1$s characters."
+msgid "Please enter some text in this field."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:104
-msgid "Please enter up to %1$s characters."
+msgid "Please enter a number in this field."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:105
-msgid "Please enter %1$s or more."
+msgid "Please upload a file."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:106
-msgid "Please enter %1$s or less."
+msgid "Please enter letters only."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:107
-msgid "Subtotal"
+msgid "Please enter numbers only."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:108
+msgid "Please enter letters and numbers only."
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:109
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:110
+msgid "Please enter at least %1$s characters."
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:111
+msgid "Please enter up to %1$s characters."
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:112
+msgid "Please enter %1$s or more."
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:113
+msgid "Please enter %1$s or less."
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:114
+msgid "Subtotal"
+msgstr ""
+
+#: includes/class-wc-product-addons-display.php:115
 msgid "%s characters remaining"
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:525
+#: includes/class-wc-product-addons-display.php:532
 msgid "Select options"
 msgstr ""
 
@@ -606,16 +654,16 @@ msgstr ""
 msgid "(max file size %s)"
 msgstr ""
 
-#: templates/addons/image.php:20
-#: templates/addons/image.php:21
-#: templates/addons/image.php:66
-#: templates/addons/radiobutton.php:24
-#: templates/addons/select.php:24
+#: templates/addons/image.php:22
+#: templates/addons/image.php:23
+#: templates/addons/image.php:68
+#: templates/addons/radiobutton.php:26
+#: templates/addons/select.php:26
 msgid "None"
 msgstr ""
 
-#: templates/addons/image.php:68
-#: templates/addons/select.php:26
+#: templates/addons/image.php:70
+#: templates/addons/select.php:28
 msgid "Select an option..."
 msgstr ""
 
@@ -629,22 +677,22 @@ msgstr ""
 msgid "WooCommerce Product Add-Ons requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 
-#: woocommerce-product-addons.php:241
+#: woocommerce-product-addons.php:243
 msgid "Support"
 msgstr ""
 
-#: woocommerce-product-addons.php:242
+#: woocommerce-product-addons.php:244
 msgid "Documentation"
 msgstr ""
 
-#: woocommerce-product-addons.php:255
+#: woocommerce-product-addons.php:257
 msgid "WooCommerce Product Add-ons is ready to go!"
 msgstr ""
 
-#: woocommerce-product-addons.php:255
+#: woocommerce-product-addons.php:257
 msgid "Create an add-on that applies to every product, or apply it to specific categories. Create an add-on for an individual product by editing the product."
 msgstr ""
 
-#: woocommerce-product-addons.php:255
+#: woocommerce-product-addons.php:257
 msgid "Find products"
 msgstr ""

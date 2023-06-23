@@ -70,7 +70,7 @@ class CloneJobs {
 	 * @return bool
 	 */
 	public function cloneWPMLJob( $wpmlJobId ) {
-		$params = json_decode( wp_json_encode( [
+		$params = json_decode( (string) wp_json_encode( [
 			'jobs' => [ wpml_tm_create_ATE_job_creation_model( $wpmlJobId ) ]
 		] ), true );
 

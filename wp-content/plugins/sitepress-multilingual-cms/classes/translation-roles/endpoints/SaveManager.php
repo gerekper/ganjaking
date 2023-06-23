@@ -20,7 +20,7 @@ class SaveManager extends SaveUser {
 	public function run( Collection $data ) {
 
 		// $setRole :: WP_User -> WP_User
-		$setRole = Fns::tap( invoke( 'add_cap' )->with( \WPML_Manage_Translations_Role::CAPABILITY ) );
+		$setRole = Fns::tap( invoke( 'add_cap' )->with( User::CAP_MANAGE_TRANSLATIONS ) );
 
 		return self::getUser( $data )
 		           ->map( $setRole )

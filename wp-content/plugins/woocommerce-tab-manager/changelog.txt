@@ -1,5 +1,12 @@
 *** WooCommerce Tab Manager Changelog ***
 
+2023.06.20 - version 1.16.0
+ * Fix - Register admin tab layout page properly to avoid deprecation messages in PHP 8+
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
+2022.11.30 - version 1.15.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.08.15 - version 1.14.2
  * Fix - Replace deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
  * Misc - Require WooCommerce 3.9.4 or newer

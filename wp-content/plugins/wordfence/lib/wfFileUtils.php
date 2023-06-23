@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/wfInvalidPathException.php";
+require_once __DIR__ . "/wfInaccessibleDirectoryException.php";
 
 class wfFileUtils {
 
@@ -13,9 +14,9 @@ class wfFileUtils {
 	}
 
 	public static function getContents($directory) {
-		$contents = scandir($directory);
+		$contents = @scandir($directory);
 		if ($contents === false)
-			throw new Exception("Unable to read contents of directory: $directory");
+			throw new wfInaccessibleDirectoryException("Unable to read contents", $directory);
 		return array_filter($contents, function ($file) { return !wfFileUtils::isCurrentOrParentDirectory($file); });
 	}
 

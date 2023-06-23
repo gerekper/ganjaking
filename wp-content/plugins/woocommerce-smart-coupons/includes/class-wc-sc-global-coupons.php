@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		private function __construct() {
 
 			add_action( 'admin_init', array( $this, 'set_global_coupons' ) );
-			add_action( 'woocommerce_coupon_options_save', array( $this, 'update_global_coupons' ), 10, 2 );
+			add_action( 'woocommerce_coupon_options_save', array( $this, 'update_global_coupons' ), 99, 2 );
 			add_action( 'deleted_post', array( $this, 'sc_delete_global_coupons' ) );
 			add_action( 'trashed_post', array( $this, 'sc_delete_global_coupons' ) );
 			add_action( 'untrashed_post', array( $this, 'sc_untrash_global_coupons' ) );

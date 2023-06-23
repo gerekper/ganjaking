@@ -149,7 +149,7 @@ class Subscriptions_Integration {
 		];
 
 		// try to append after custom events
-		if ( array_key_exists( '404_error_event_name', $settings ) ) {
+		if ( array_key_exists( 'reorder_event_name', $settings ) ) {
 			$settings = Framework\SV_WC_Helper::array_insert_after( $settings, 'reorder_event_name', $subscription_settings );
 		} else {
 			$settings = array_merge( $settings, $subscription_settings );

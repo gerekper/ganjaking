@@ -147,7 +147,6 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 			SELECT 		api_resource_id
 			FROM {$wpdb->prefix}" . $this->grace_period_table . "
 			WHERE 		api_resource_id = %d
-			LIMIT 1
 			", (int) $api_resource_id ) );
 
 		return ! WC_AM_FORMAT()->empty( $id );
@@ -158,6 +157,7 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @since   2.6
 	 * @updated 2.6.7 Do not delete expired Grace Period here.
+	 * @updated 3.0 If the API Resource is expired, but does not exist in the Grace Period table, add it, then check if it is expired, which will include the correct calculations.
 	 *
 	 * @param int $api_resource_id
 	 *
@@ -168,9 +168,24 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 
 		if ( $this->exists( $api_resource_id ) ) {
 			$expired = WC_AM_ORDER_DATA_STORE()->is_time_expired( $this->get_expiration( $api_resource_id ) );
+		} else {
+			$access_expires = WC_AM_API_RESOURCE_DATA_STORE()->get_access_expires_by_api_resource_id( $api_resource_id );
+
+			if ( $access_expires > 0 ) {
+				$is_expired = WC_AM_ORDER_DATA_STORE()->is_time_expired( $access_expires );
+
+				if ( $is_expired ) {
+					// WC Subscriptions are added with an action hook.
+					$result = $this->add_api_manager_subscription_expiration_by_api_resource_id( $api_resource_id );
+
+					if ( ! WC_AM_FORMAT()->empty( $result ) ) {
+						$expired = WC_AM_ORDER_DATA_STORE()->is_time_expired( $this->get_expiration( $api_resource_id ) );
+					}
+				}
+			}
 		}
 
-		return $expired;
+		return ! WC_AM_FORMAT()->empty( $expired );
 	}
 
 	/**
@@ -267,11 +282,11 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 			}
 		}
 
-		return $result;
+		return ! WC_AM_FORMAT()->empty( $result );
 	}
 
 	/**
-	 * Adds the Non WooCommerce Subscription Grace Period expiration.
+	 * Adds the API Manager Subscription Grace Period expiration.
 	 *
 	 * @since 2.6
 	 *
@@ -279,12 +294,12 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @return bool
 	 */
-	public function add_non_wc_subscription_expiration_by_api_resource_id( $api_resource_id ) {
-		return $this->add_non_wc_subscription_expiration( $api_resource_id );
+	public function add_api_manager_subscription_expiration_by_api_resource_id( $api_resource_id ) {
+		return $this->add_api_manager_subscription_expiration( $api_resource_id );
 	}
 
 	/**
-	 * Adds the Non WooCommerce Subscription Grace Period expiration.
+	 * Adds the API Manager Subscription Grace Period expiration.
 	 *
 	 * @since 2.6
 	 *
@@ -292,14 +307,14 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @return bool
 	 */
-	public function add_non_wc_subscription_expiration_by_order( $order ) {
+	public function add_api_manager_subscription_expiration_by_order( $order ) {
 		$api_resource_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_ids_by_order( $order );
 
-		return $this->add_non_wc_subscription_expiration( $api_resource_ids );
+		return $this->add_api_manager_subscription_expiration( $api_resource_ids );
 	}
 
 	/**
-	 * Adds the Non WooCommerce Subscription Grace Period expiration.
+	 * Adds the API Manager Subscription Grace Period expiration.
 	 *
 	 * @since 2.6
 	 *
@@ -307,7 +322,7 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	 *
 	 * @return bool
 	 */
-	private function add_non_wc_subscription_expiration( $api_resource_ids ) {
+	private function add_api_manager_subscription_expiration( $api_resource_ids ) {
 		$result           = false;
 		$expiration_dates = array();
 
@@ -317,8 +332,6 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 
 				if ( is_numeric( $access_expires ) && $access_expires > 0 ) {
 					$expiration_dates[ $resource->api_resource_id ] = absint( $access_expires + $this->calculate_grace_period() );
-				} else {
-					$expiration_dates[ $resource->api_resource_id ] = absint( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() + $this->calculate_grace_period() );
 				}
 			}
 
@@ -332,16 +345,14 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 
 			if ( is_numeric( $access_expires ) && $access_expires > 0 ) {
 				$result = $this->insert( $api_resource_ids, absint( $access_expires + $this->calculate_grace_period() ) );
-			} else {
-				$this->insert( $api_resource_ids, absint( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() + $this->calculate_grace_period() ) );
 			}
 		}
 
-		return $result;
+		return ! WC_AM_FORMAT()->empty( $result );
 	}
 
 	/**
-	 * Delete the Non  WooCommerce Subscription and WooCommerce Subscription Grace Period expiration.
+	 * Delete the API Manager Subscription and WooCommerce Subscription Grace Period expiration.
 	 *
 	 * @since 2.6
 	 *
@@ -354,7 +365,7 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	}
 
 	/**
-	 * Delete the Non  WooCommerce Subscription and WooCommerce Subscription Grace Period expiration.
+	 * Delete the API Manager Subscription and WooCommerce Subscription Grace Period expiration.
 	 *
 	 * @since 2.6
 	 *
@@ -384,7 +395,7 @@ class WC_AM_Grace_Period_Data_Store implements WCAM_Grace_Period_Data_Store_Inte
 	}
 
 	/**
-	 * Delete the WooCommerce Subscription Grace Period expiration.
+	 * Delete the Subscription Grace Period expiration.
 	 *
 	 * @since 2.6
 	 *

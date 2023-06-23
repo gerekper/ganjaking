@@ -147,8 +147,8 @@ function update_dynamic_price_ajax(gform_total) {
             return;
         }
 
-        var form_id = $form.find("input[name=wc_gforms_form_id]").val();
-        var product_type = $form.find("input[name=wc_gforms_product_type]").val();
+        const form_id = $form.find("input[name=wc_gforms_form_id]").val();
+        const product_type = $form.find("input[name=wc_gforms_product_type]").val();
 
         if (form_id) {
 
@@ -160,11 +160,10 @@ function update_dynamic_price_ajax(gform_total) {
                 }
             }
 
+            const next_page = parseInt($form.find("input[name=wc_gforms_next_page]").val(), 10) || 0;
+            const previous_page = $form.find("input[name=wc_gforms_previous_page]").val();
 
-            var next_page = $form.find("input[name=wc_gforms_next_page]").val();
-            var previous_page = $form.find("input[name=wc_gforms_previous_page]").val();
-
-            if (product_type != 'external') {
+            if (product_type !== 'external') {
                 $form.attr('action', '');
             }
 
@@ -185,10 +184,20 @@ function update_dynamic_price_ajax(gform_total) {
             $('button[type=submit]', $form).attr('id', 'gform_submit_button_' + form_id).addClass('button gform_button');
 
 
-            if (next_page != 0) {
+            if (next_page !== 0) {
                 $('button[type=submit]', $form).remove();
                 $('div.quantity', $form).remove();
                 $('#wl-wrapper', $form).hide();
+
+                const stripe_payment_request_wrapper = $form.find('#wc-stripe-payment-request-wrapper');
+                if (stripe_payment_request_wrapper.length) {
+                    stripe_payment_request_wrapper.remove();
+                }
+
+                const wc_stripe_payment_request_button_separator = $form.find('#wc-stripe-payment-request-button-separator');
+                if (wc_stripe_payment_request_button_separator.length) {
+                    wc_stripe_payment_request_button_separator.remove();
+                }
             }
 
             $('.gform_next_button', $form).attr('onclick', '');

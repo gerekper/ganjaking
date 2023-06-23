@@ -32,15 +32,7 @@ class woocommerce_gravityforms_product_form {
 		return $args;
 	}
 
-	private function set_submission_if_null( $form_id, $key, $val ) {
-		if ( ! isset( GFFormDisplay::$submission[ $form_id ][ $key ] ) ) {
-			GFFormDisplay::$submission[ $form_id ][ $key ] = $val;
-		}
-	}
-
 	public function get_form( $options ) {
-
-		$product = null;
 
 		$product = wc_get_product( $this->product_id );
 		$atts    = shortcode_atts( array(
@@ -63,7 +55,6 @@ class woocommerce_gravityforms_product_form {
 
 		extract( $atts );
 
-		//Get the form meta so we can make sure the form exists.
 		$form_meta = RGFormsModel::get_form_meta( $this->form_id );
 		if ( ! empty( $form_meta ) ) {
 

@@ -58,6 +58,9 @@ class wfWAFIPBlocksController
 		}
 		$isSynchronizing = true;
 		
+		global $wpdb;
+		$suppressed = $wpdb->suppress_errors(!(defined('WFWAF_DEBUG') && WFWAF_DEBUG));
+		
 		// Pattern Blocks
 		$blocks = wfBlock::patternBlocks(true);
 		$patternBlocks = array();
@@ -138,6 +141,8 @@ class wfWAFIPBlocksController
 			// Do nothing
 		}
 		$isSynchronizing = false;
+		
+		$wpdb->suppress_errors($suppressed);
 	}
 	
 	/**

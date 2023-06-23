@@ -12,6 +12,7 @@ use WPML\TM\Jobs\Query\StringsBatchQuery;
 use WPML\FP\Obj;
 use function WPML\Container\make;
 use \WPML\Setup\Option as SetupOptions;
+use WPML\TM\ATE\TranslateEverything\TranslatableData\Calculate;
 
 if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== SetupOptions::isTMAllowed() ) ) {
 
@@ -499,6 +500,33 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 			$job->target_language->name = $translation_job->get_language_code( true );
 			$job->deadline              = strtotime( $translation_job->get_deadline_date() );
 			$job->apply_memory          = $apply_memory;
+
+			/*
+			 * wpmldev-1840
+			 *
+			 * With wpmldev-1730 WPML estimates the credits, which the site will
+			 * require by fetching post content, title and excerpt.
+			 * In the future this estimation should happen on ATE, but for that
+			 * they need to get the WPML calculated chars per job to compare
+			 * with the real costs for the translation.
+			 * Once ATE is providing the calculation and does no longer need
+			 * the `wpml_chars_count` parameter, the following block
+			 * until "END" can be deleted.
+			 *
+			 * Also the property "wpml_chars_count" can be removed from
+			 * ./classes/ATE/models/class-wpml-tm-ate-models-job-create.php
+			 */
+			$calculate = new Calculate();
+			$fields    = $translation_job->get_original_fields();
+			foreach ( $fields as $key => $value ) {
+				if (
+					! empty( $value ) &&
+					in_array( $key, [ 'title', 'body', 'excerpt' ], true )
+				) {
+					$job->wpml_chars_count += $calculate->chars( $value );
+				}
+			}
+			/* END */
 
 			$job->permalink = '#';
 			if ( 'Post' === $translation_job->get_type() ) {

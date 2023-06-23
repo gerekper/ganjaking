@@ -4,7 +4,7 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "Sending for translation": [
             "发送翻译"
@@ -18,8 +18,41 @@
          "You don't have the rights to review this language": [
             "您无权查看此语言"
          ],
+         "translations": [
+            "翻译"
+         ],
+         "left in the queue": [
+            "留在队列中"
+         ],
+         "Translation on hold": [
+            "翻译暂停"
+         ],
+         "No translations in the queue": [
+            "队列中没有翻译"
+         ],
          "%d translations left": [
             "%d 翻译剩余"
+         ],
+         "%d min remaining": [
+            "剩余 %d 分钟"
+         ],
+         "less than 1 min remaining": [
+            "剩余不到 1 分钟"
+         ],
+         "Automatic translation status": [
+            "自动翻译状态"
+         ],
+         "Translate Everything Automatically": [
+            "自动翻译所有内容"
+         ],
+         "Translate Everything Automatically is active": [
+            "“自动翻译所有内容”处于活动状态"
+         ],
+         "Translate Everything Automatically is paused": [
+            "自动翻译所有内容已暂停"
+         ],
+         "Translate Everything Automatically stopped": [
+            "自动翻译所有内容已停止"
          ],
          "Preparing content for translation": [
             "正在准备翻译内容"
@@ -27,8 +60,25 @@
          "Preparing more content for translation": [
             "正在准备更多的翻译内容"
          ],
+         "An error occured, fix it to continue.": [
+            "发生错误，修复错误以继续。"
+         ],
          "There is an issue with automatic translation that needs your attention. Fix it to continue.": [
             "有一个自动翻译问题需要您注意。请修复后继续。"
+         ],
+         "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "您的默认语言%s必须映射到支持的语言才能使用自动翻译。"
+         ],
+         "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "你的语言 %s 必须映射到支持的语言才能使用自动翻译。",
+            "你网站上的以下语言必须映射到支持的语言才能使用自动翻译: %s"
+         ],
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            "这些语言的内容: %s，无法自动翻译，除非将其映射到与默认语言不同的语言。"
+         ],
+         "%d translation waiting for review": [
+            "%d 翻译等待审校",
+            "%d 翻译等待审阅"
          ],
          "Account credits used": [
             "已用账户积分"
@@ -48,6 +98,9 @@
          "Credits left:": [
             "剩余积分："
          ],
+         "The number of credit you will receive an invoice for at the end of the month. View your pay-as-you-go details in your site’s automatic translation settings.": [
+            "你将在月底收到积分数的发票。可在网站的自动翻译设置中查看按需付费详情。"
+         ],
          "Calculating": [
             "计算中"
          ],
@@ -57,8 +110,14 @@
          "Prepaid credits left": [
             "剩余预付积分"
          ],
+         "Pay-as-you-go credits used": [
+            "已使用按需付费积分"
+         ],
          "Resume": [
             "恢复"
+         ],
+         "Stop": [
+            "停止"
          ],
          "Fix it": [
             "修复它"
@@ -111,11 +170,29 @@
          "The number of translations": [
             "翻译数量"
          ],
+         "Translate Everything Automatically - running": [
+            "自动翻译所有内容 - 运行中"
+         ],
+         "Translate Everything Automatically - active": [
+            "自动翻译所有内容 - 活动"
+         ],
+         "Pause automatic translation": [
+            "暂停自动翻译"
+         ],
          "WPML will finish in-progress translations but won't translate anything new.": [
             "WPML 将完成正在进行的翻译，但不会翻译任何新内容。"
          ],
+         "Translate Everything Automatically - paused": [
+            "自动翻译所有内容 – 已暂停"
+         ],
+         "Start automatic translation": [
+            "开始自动翻译"
+         ],
          "This uses %scredits%s to translate your existing content and anything you add or change later.": [
             "这将使用%s积分%s来翻译你的现有内容及后来添加或修改的任何内容。"
+         ],
+         "Start translating everything automatically": [
+            "开始自动翻译所有内容"
          ],
          "WPML will translate any new content you create into %1$s.": [
             "WPML 会将你创建的任何新内容翻译成 %1$s。"
@@ -123,8 +200,17 @@
          "WPML will translate all new future content to %1$s and keep translations up to date when you make changes.": [
             "WPML 会将所有未来的新内容翻译成 %1$s 并会在你做出更改时对翻译进行最新。"
          ],
+         "Do you want to translate existing content, too?": [
+            "你是否也想翻译现有内容？"
+         ],
          "Yes, translate all new and existing content": [
             "是，翻译所有新内容和现有内容"
+         ],
+         "No, only translate new content": [
+            "不，只翻译新内容"
+         ],
+         "You can translate existing content from the Translation Management Dashboard": [
+            "你可以从翻译管理仪表板翻译现有内容"
          ],
          "Connection Error. Please wait a minute and reload this page. If the problem continues, please contact WPML support.": [
             "连接错误。请稍等重新加载此页面。如果问题仍然存在，请联系 WPML 支持。"
@@ -138,6 +224,9 @@
          "Cancel": [
             "取消"
          ],
+         "Start translating everything": [
+            "开始翻译所有内容"
+         ],
          "%1$d language": [
             "%1$d 语言",
             "%1$d 语言"
@@ -147,6 +236,9 @@
          ],
          "All new future content": [
             "所有未来的新内容"
+         ],
+         "Translate Everything Automatically - stopped": [
+            "自动翻译所有内容 - 已停止"
          ]
       }
    }

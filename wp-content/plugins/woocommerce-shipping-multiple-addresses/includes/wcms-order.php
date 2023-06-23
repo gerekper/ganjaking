@@ -43,6 +43,16 @@ class WC_MS_Order {
 	}
 
 	public function update_package_status() {
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wcms_update_package_status_save' ) ) {
+			die( esc_html__( 'Permission denied: Security check failed', 'wc_shipping_multiple_address' ) );
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			exit;
+		}
+
 		$pkg_idx  = $_POST['package'];
 		$order_id = $_POST['order'];
 		$order    = wc_get_order( $order_id );
@@ -672,7 +682,7 @@ class WC_MS_Order {
 		echo '</div>';
 		echo '<div class="clear"></div>';
 
-
+		$update_pkg_status_nonce = wp_create_nonce( 'wcms_update_package_status_save' );
 		$email_enabled = ($send_email) ? 'true' : 'false';
 		$inline_js = '
 			var email_enabled = '. $email_enabled .';
@@ -696,7 +706,7 @@ class WC_MS_Order {
 
 				jQuery(".package-"+ pkg_id +"-box").block({ message: null, overlayCSS: { background: "#fff url(' . WC()->plugin_url() . '/assets/images/ajax-loader.gif) no-repeat center", opacity: 0.6 } });
 
-				jQuery.post(ajaxurl, {action: "wcms_update_package_status", "status": status, package: pkg_id, order: order_id, email: email}, function(resp) {
+				jQuery.post(ajaxurl, {action: "wcms_update_package_status", security: "' . esc_js( $update_pkg_status_nonce ) . '", "status": status, package: pkg_id, order: order_id, email: email}, function(resp) {
 					if ( resp == "Completed" ) {
 						jQuery(".package-"+ pkg_id +"-box").prepend("<span class=\'complete\'>&nbsp;</span>");
 						jQuery("#package_"+ pkg_id +"_status_p").show();

@@ -818,7 +818,7 @@ class WC_Booking_Order_Manager {
 	 * @param WC_Order $order WC_Order object.
 	 * @param bool     $sent_to_admin Whether to send email notification to admin or not.
 	 *
-	 * @since x.x.x
+	 * @since 1.15.57
 	 * @return void
 	 */
 	public function add_admin_calender_link( $order, $sent_to_admin ) {

@@ -6,12 +6,12 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 ?>
 <div id="wfls-onboarding-standalone-modal">
 	<div id="wfls-onboarding-standalone-modal-header">
-		<div id="wfls-onboarding-standalone-modal-header-title"><?php esc_html_e('Wordfence Login Security Installed', 'wordfence-2fa'); ?></div>
+		<div id="wfls-onboarding-standalone-modal-header-title"><?php esc_html_e('Wordfence Login Security Installed', 'wordfence'); ?></div>
 		<div id="wfls-onboarding-standalone-modal-header-accessory"><a href="#" id="wfls-onboarding-standalone-modal-dismiss">&times;</a></div>
 	</div>
 	<div id="wfls-onboarding-standalone-modal-content">
-		<p><?php esc_html_e('You have just installed the Wordfence Login Security plugin. It contains a subset of the functionality found in the full Wordfence plugin: Two-factor Authentication, XML-RPC Protection and Login Page CAPTCHA.', 'wordfence-2fa'); ?></p>
-		<p><?php printf(__('If you\'re looking for a more comprehensive solution, the <a href="%s" target="_blank" rel="noopener noreferrer">full Wordfence plugin</a> includes all of the features in this plugin as well as a full-featured WordPress firewall, a security scanner, live traffic, and more. The standard installation includes a robust set of free features that can be upgraded via a Premium license key.', 'wordfence-2fa'), 'https://wordpress.org/plugins/wordfence/'); ?></p>
+		<p><?php esc_html_e('You have just installed the Wordfence Login Security plugin. It contains a subset of the functionality found in the full Wordfence plugin: Two-factor Authentication, XML-RPC Protection and Login Page CAPTCHA.', 'wordfence'); ?></p>
+		<p><?php printf(__('If you\'re looking for a more comprehensive solution, the <a href="%s" target="_blank" rel="noopener noreferrer">full Wordfence plugin</a> includes all of the features in this plugin as well as a full-featured WordPress firewall, a security scanner, live traffic, and more. The standard installation includes a robust set of free features that can be upgraded via a Premium license key.', 'wordfence'), 'https://wordpress.org/plugins/wordfence/'); ?></p>
 	</div>
 </div>
 <script type="application/javascript">

@@ -128,7 +128,7 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
      * @param int|null $sentFrom
      * @param \WPML_TM_Translation_Batch $batch
 	 *
-	 * @return bool|void
+	 * @return void
 	 * @throws \InvalidArgumentException
 	 * @throws \RuntimeException
 	 */
@@ -296,9 +296,9 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 		// Start of possibly dead code.
 		if (
 			! $this->is_second_attempt_to_get_jobs_data &&
-			$ate_jobs_to_create &&
-			$this->added_translation_jobs( array( 'local' => $ate_jobs_to_create ) )
+			$ate_jobs_to_create
 		) {
+			$this->added_translation_jobs( array( 'local' => $ate_jobs_to_create ) );
 			$ate_jobs_data                            = $this->get_ate_jobs_data( $translation_jobs );
 			$this->is_second_attempt_to_get_jobs_data = true;
 		}
@@ -514,7 +514,8 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 	 */
 	private function logRetryError( $jobId ) {
 		$job = Jobs::get( $jobId );
-		if ( $job && $job->ate_comm_retry_count ) {
+
+		if ( isset( $job->ate_comm_retry_count ) && $job->ate_comm_retry_count ) {
 			Storage::add( Entry::retryJob( $jobId,
 				[
 					'retry_count' => $job->ate_comm_retry_count

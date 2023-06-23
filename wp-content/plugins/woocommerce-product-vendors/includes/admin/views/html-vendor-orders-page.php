@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php esc_html_e( 'Orders', 'woocommerce-product-vendors' ); ?>
 		<?php 
 			if ( ! empty( $_REQUEST['s'] ) ) {
-				echo '<span class="subtitle">' . esc_html__( 'Search results for', 'woocommerce-product-vendors' ) . ' "' . sanitize_text_field( $_REQUEST['s'] ) . '"</span>';
+				echo '<span class="subtitle">' . esc_html__( 'Search results for', 'woocommerce-product-vendors' ) . ' "' . sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) . '"</span>';
 			} 
 		?>
 	</h2>

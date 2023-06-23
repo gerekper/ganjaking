@@ -1387,5 +1387,18 @@ function redsys_return_dserrors() {
 		'190'      => 'Denegación emisor',
 		'904'      => 'Problema con la configuración de su comercio. Dirigirse a la entidad.',
 		'915'      => 'El titular ha cancelado la operación de pago.',
+		'BIZ00000' => 'Operación realizada correctamente.',
+		'BIZ00001' => 'Parámetro de entrada obligatorio no completado.',
+		'BIZ00002' => 'El formato de algún parámetro es incorrecto.',
+		'BIZ00003' => 'No se encontró el elemento.',
+		'BIZ00005' => 'Error interno del sistema.',
+		'BIZ00006' => 'Error de seguridad 3DES o MAC X9.19',
+		'BIZ00007' => 'Operación no permitida.',
+		'BIZ00008' => 'Beneficiario no encontrado.',
+		'BIZ00009' => 'Ordenante no encontrado.',
+		'BIZ00202' => 'Funcionalidad aún no implementada.',
+		'BIZ00213' => 'Error de autenticación en la petición recibida. Fallo en secuencia de seguridad.',
+		'BIZ00224' => 'La respuesta de la entidad a la autenticación por RTP es KO.',
+		'BIZ00225' => 'La autenticación por request to pay no ha finalizado con éxito.',
 	);
 }

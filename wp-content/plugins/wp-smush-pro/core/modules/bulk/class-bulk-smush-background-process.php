@@ -99,5 +99,7 @@ class Bulk_Smush_Background_Process extends Background_Process {
 				Helper::logger()->info( sprintf( 'Bulk Smush completed for %s, and reporting email is disabled.', get_site_url() ) );
 			}
 		}
+
+		do_action( 'wp_smush_bulk_smush_completed' );
 	}
 }

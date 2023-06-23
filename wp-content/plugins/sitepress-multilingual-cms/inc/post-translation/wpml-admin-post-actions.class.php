@@ -138,8 +138,8 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 			$duplicate_featured = isset( $_POST['wpml_duplicate_featured'] )
 				? filter_var( $_POST['wpml_duplicate_featured'], FILTER_SANITIZE_NUMBER_INT ) : false;
 
-			update_post_meta( $original_post_id, self::DUPLICATE_MEDIA_META_KEY, (int) $duplicate_media );
-			update_post_meta( $original_post_id, self::DUPLICATE_FEATURED_META_KEY, (int) $duplicate_featured );
+			update_post_meta( (int) $original_post_id, self::DUPLICATE_MEDIA_META_KEY, (int) $duplicate_media );
+			update_post_meta( (int) $original_post_id, self::DUPLICATE_FEATURED_META_KEY, (int) $duplicate_featured );
 		} else {
 			$this->sync_media_options_with_original_or_global_settings( $post_id, $source_language );
 		}

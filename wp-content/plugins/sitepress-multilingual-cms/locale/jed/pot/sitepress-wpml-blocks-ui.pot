@@ -27,31 +27,41 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:354
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:346
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:42
+msgid "px"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:347
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:46
+msgid "%"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:358
 msgid "Dimensions"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:361
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:365
 msgid "BLOCK"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:367
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:371
 msgid "Block margin"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:384
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:388
 msgid "Block padding"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:402
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:406
 msgid "LANGUAGE"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:408
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:412
 msgid "Language spacing"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:421
+#: src/js/blocks/LanguageSwitcher/Components/Dimensions/Control.js:425
 msgid "Language padding"
 msgstr ""
 
@@ -71,23 +81,23 @@ msgstr ""
 msgid "Display language name in"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:102
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:113
 msgid "Style"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:44
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:55
 msgid "Flag settings"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:48
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:59
 msgid "Width"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:51
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:62
 msgid "Height"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:83
+#: src/js/blocks/LanguageSwitcher/Components/Flag/Control.js:94
 msgid "Spacing"
 msgstr ""
 
@@ -141,69 +151,94 @@ msgstr ""
 msgid "Current language background"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:141
-msgid "Small"
+#: src/js/blocks/LanguageSwitcher/attributes/display.js:5
+msgid "Full name"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:146
+#: src/js/blocks/LanguageSwitcher/attributes/display.js:9
+msgid "Code"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/layout.js:24
+msgid "Justify items left"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/layout.js:29
+msgid "Justify items center"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/layout.js:34
+msgid "Justify items right"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/layout.js:39
+msgid "Justify items space between"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/layout.js:47
+msgid "Horizontal"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/layout.js:52
+msgid "Vertical"
+msgstr ""
+
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:14
 msgid "Normal"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:151
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:19
 msgid "Medium"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:156
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:24
 msgid "Large"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:161
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:29
 msgid "X-Large"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:167
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:35
 msgid "Ab"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:171
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:39
 msgid "AB"
 msgstr ""
 
-#: src/js/blocks/LanguageSwitcher/constants.js:175
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:43
 msgid "ab"
 msgstr ""
 
+#: src/js/blocks/LanguageSwitcher/attributes/typography.js:9
+msgid "Small"
+msgstr ""
+
 #: src/js/blocks/LanguageSwitcher/index.js:36
-#: src/js/blocks/NavigationLanguageSwitcher/index.js:29
 msgid "Displays the WPML Language Switcher."
 msgstr ""
 
 #: src/js/blocks/LanguageSwitcher/index.js:42
-#: src/js/blocks/NavigationLanguageSwitcher/index.js:36
+#: src/js/blocks/NavigationLanguageSwitcher/index.js:47
 msgid "Language Switcher"
 msgstr ""
 
 #: src/js/blocks/LanguageSwitcher/index.js:43
-#: src/js/blocks/NavigationLanguageSwitcher/index.js:37
+#: src/js/blocks/NavigationLanguageSwitcher/index.js:48
 msgid "displays the WPML Language Switcher"
 msgstr ""
 
-#: src/js/blocks/NavigationLanguageSwitcher/index.js:27
+#: src/js/blocks/NavigationLanguageSwitcher/index.js:30
+msgid ""
+"Displays the WPML Language Switcher. <br/> Learn <a>how to translate this "
+"block</a>."
+msgstr ""
+
+#: src/js/blocks/NavigationLanguageSwitcher/index.js:38
 msgid "Navigation Language Switcher"
 msgstr ""
 
-#: src/js/blocks/Shared/Controls/PanelSettingsDropdown.js:70
+#: src/js/blocks/Shared/Controls/PanelSettingsDropdown.js:64
 msgid "Reset all"
-msgstr ""
-
-#: src/js/blocks/Shared/Controls/SliderWithInput.js:48
-msgid "Minimum value is : "
-msgstr ""
-
-#: src/js/blocks/Shared/Controls/SliderWithInput.js:51
-msgid "Maximum value is : "
-msgstr ""
-
-#: src/js/blocks/Shared/Controls/SliderWithInput.js:55
-msgid "Value must be a number!"
 msgstr ""

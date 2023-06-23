@@ -6,13 +6,10 @@
  * @version 1.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 ob_start();
 
 woocommerce_variable_add_to_cart();
 
-echo str_replace( array( '<form','</form>', 'method="post"', "enctype='multipart/form-data'" ), array( '<div', '</div>', '', '' ), ob_get_clean() );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo str_replace( array( '<form', '</form>', 'method="post"', "enctype='multipart/form-data'" ), array( '<div', '</div>', '', '' ), ob_get_clean() );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped

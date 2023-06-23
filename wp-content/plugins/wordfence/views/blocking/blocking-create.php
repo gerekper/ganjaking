@@ -10,9 +10,9 @@ $wfBlockRange = filter_input(INPUT_GET, 'wfBlockRange', FILTER_DEFAULT, FILTER_R
 				<th class="wf-right wf-padding-add-right"><?php echo wp_kses(__('<span class="wf-hidden-xs">Block </span>Type', 'wordfence'), array('span'=>array('class'=>array()))); ?></th>
 				<td class="wf-block-type">
 					<ul id="wf-block-type" class="wf-nav wf-nav-pills wf-nav-pills-bordered wf-nav-pills-connected">
-						<li><a href="#" data-value="ip-address" data-new-button="<?php esc_attr_e('Block<span class="wf-hidden-xs"> this IP Address</span>', 'wordfence'); ?>" role="button"><?php echo wp_kses(__('IP<span class="wf-hidden-xs"> Address</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a></li>
-						<li><a href="#" data-value="country" data-new-button="<?php esc_attr_e('Block<span class="wf-hidden-xs"> the Selected Countries</span>', 'wordfence'); ?>" data-edit-button="<?php esc_attr_e('Update<span class="wf-hidden-xs"> Block</span>', 'wordfence'); ?>" role="button"><?php esc_html_e('Country', 'wordfence'); ?></a></li>
-						<li<?php echo $wfBlockRange ? ' class="wf-active"' : '' ?>><a href="#" data-value="custom-pattern" data-new-button="<?php esc_attr_e('Block<span class="wf-hidden-xs"> Visitors Matching this Pattern</span>', 'wordfence'); ?>" role="button"><?php echo wp_kses(__('<span class="wf-hidden-xs">Custom </span>Pattern', 'wordfence'), array('span'=>array('class'=>array()))); ?></a></li>
+						<li><a href="#" data-value="ip-address" data-new-button="<?php echo esc_attr(wp_kses(/* translators: word order may be altered as long as HTML remains around "this IP Address" */ __('Block<span class="wf-hidden-xs"> this IP Address</span>', 'wordfence'), array('span' => array('class' => array())))); ?>" role="button"><?php echo wp_kses(/* translators: word order may be altered as long as HTML remains around "Address" */ __('IP<span class="wf-hidden-xs"> Address</span>', 'wordfence'), array( 'span' => array( 'class' => array() ))); ?></a></li>
+						<li><a href="#" data-value="country" data-new-button="<?php echo esc_attr(wp_kses(/* translators: word order may be altered as long as HTML remains around "the Selected Countries" */ __('Block<span class="wf-hidden-xs"> the Selected Countries</span>', 'wordfence'), array('span' => array('class' => array())))); ?>" data-edit-button="<?php echo esc_attr(wp_kses(/* translators: word order may be reversed as long as HTML remains around "Block" */ __('Update<span class="wf-hidden-xs"> Block</span>', 'wordfence'), array('span' => array('class' => array())))); ?>" role="button"><?php esc_html_e('Country', 'wordfence'); ?></a></li>
+						<li<?php echo $wfBlockRange ? ' class="wf-active"' : '' ?>><a href="#" data-value="custom-pattern" data-new-button="<?php echo esc_attr(wp_kses(/* translators: word order may be altered as long as HTML remains around "Visitors Matching this Pattern" */ __('Block<span class="wf-hidden-xs"> Visitors Matching this Pattern</span>', 'wordfence'), array('span' => array('class' => array())))); ?>" role="button"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "Custom" */ __('<span class="wf-hidden-xs">Custom </span>Pattern', 'wordfence'), array('span'=>array('class'=>array()))); ?></a></li>
 					</ul>
 					<script type="application/javascript">
 						(function($) {
@@ -150,7 +150,7 @@ $wfBlockRange = filter_input(INPUT_GET, 'wfBlockRange', FILTER_DEFAULT, FILTER_R
 				</td>
 			</tr>
 			<tr class="wf-block-add-country" style="display: none;">
-				<th class="wf-right wf-padding-add-right wf-padding-add-top-small"><?php echo wp_kses(__('Countries<span class="wf-hidden-xs"> to Block</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?><br><a href="#" id="wf-block-country-countries-popup" role="button"><?php echo wp_kses(__('Pick<span class="wf-hidden-xs"> from List</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a></th>
+				<th class="wf-right wf-padding-add-right wf-padding-add-top-small"><?php echo wp_kses(/* translators: word order may be altered as long as HTML remains around "to Block" */ __('Countries<span class="wf-hidden-xs"> to Block</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?><br><a href="#" id="wf-block-country-countries-popup" role="button"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "from List" */ __('Pick<span class="wf-hidden-xs"> from List</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a></th>
 				<td class="wf-option-text wf-padding-add-top-small">
 					<select id="wf-block-country-countries" multiple>
 					<?php
@@ -209,7 +209,7 @@ $wfBlockRange = filter_input(INPUT_GET, 'wfBlockRange', FILTER_DEFAULT, FILTER_R
 	</li>
 	<li class="<?php echo (wfConfig::get('isPaid') ? 'wf-block-add-common' : 'wf-block-add-ip wf-block-add-pattern'); ?>" style="display: none;">
 		<div class="wf-right wf-padding-add-top wf-padding-add-bottom">
-			<a id="wf-block-add-cancel" class="wf-btn wf-btn-default wf-btn-callout-subtle" href="#" role="button"><?php esc_html_e('Cancel', 'wordfence'); ?></a>&nbsp;&nbsp;<a id="wf-block-add-save" class="wf-btn wf-btn-primary wf-btn-callout-subtle wf-disabled" href="#"><?php echo wp_kses(__('Block<span class="wf-hidden-xs"> Visitors Matching this</span> Pattern', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
+			<a id="wf-block-add-cancel" class="wf-btn wf-btn-default wf-btn-callout-subtle" href="#" role="button"><?php esc_html_e('Cancel', 'wordfence'); ?></a>&nbsp;&nbsp;<a id="wf-block-add-save" class="wf-btn wf-btn-primary wf-btn-callout-subtle wf-disabled" href="#"><?php echo wp_kses(/* translators: word order may be altered as long as HTML remains around "Visitors Matching this" */ __('Block<span class="wf-hidden-xs"> Visitors Matching this</span> Pattern', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
 			<script type="application/javascript">
 				(function($) {
 					$(function() {

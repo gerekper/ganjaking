@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.4.0
+ * @version 2.4.6
  */
 
 // Exit if accessed directly.
@@ -43,7 +43,7 @@ if ( ! wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' 
 
 	if ( $input_args[ 'max_value' ] && $input_args[ 'min_value' ] === $input_args[ 'max_value' ] ) { ?>
 
-		<p class="required-quantity"><?php echo wp_kses_post( $input_args[ 'required_text' ] ); ?></span></p>
+		<p class="required-quantity"><?php echo wp_kses_post( $input_args[ 'required_text' ] ); ?></p>
 		
 	<?php
 	}

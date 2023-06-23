@@ -6,7 +6,16 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
-= 3.13.0 ( 2023-05-30 )
+= 3.13.1 ( 2023-06-13 ) =
+- Improvement: Better memory management during scans
+- Fix: Dot added to file path when year and month directories disabled
+- Fix: Compatibility issue with WP.com
+- Fix: Rename config functionality not working
+- Fix: Compatibility issue with WP Offload Media
+- Fix: PHP warnings
+- Fix: Duplicate query
+
+= 3.13.0 ( 2023-05-30 ) =
 - New: Scan for detecting changes in the media library
 - Improvement: Performance improvements on large sites
 - Improvement: Code refactoring

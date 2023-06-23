@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Advanced": [
             "Avanzato"
@@ -108,8 +107,29 @@
          "Current language background": [
             "Sfondo lingua corrente"
          ],
-         "Small": [
-            "Piccolo"
+         "Full name": [
+            "Nome completo"
+         ],
+         "Code": [
+            "Codice"
+         ],
+         "Justify items left": [
+            "Allinea gli elementi a sinistra"
+         ],
+         "Justify items center": [
+            "Allinea gli elementi al centro"
+         ],
+         "Justify items right": [
+            "Allinea gli elementi a destra"
+         ],
+         "Justify items space between": [
+            "Allinea gli elementi con spazio tra le righe"
+         ],
+         "Horizontal": [
+            "Orizzontale"
+         ],
+         "Vertical": [
+            "Verticale"
          ],
          "Normal": [
             "Normale"
@@ -123,6 +143,9 @@
          "X-Large": [
             "Extra large"
          ],
+         "Small": [
+            "Piccolo"
+         ],
          "Displays the WPML Language Switcher.": [
             "Mostra il selettore lingua WPML."
          ],
@@ -132,20 +155,14 @@
          "displays the WPML Language Switcher": [
             "mostra il selettore lingua WPML"
          ],
+         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
+            "Mostra il selettore della lingua WPML. <br/> Scopri <a>come tradurre questo blocco</a>."
+         ],
          "Navigation Language Switcher": [
             "Selettore lingua di navigazione"
          ],
          "Reset all": [
             "Azzera tutto"
-         ],
-         "Minimum value is : ": [
-            "Il valore minimo è:"
-         ],
-         "Maximum value is : ": [
-            "Il valore massimo è:"
-         ],
-         "Value must be a number!": [
-            "Il valore deve essere un numero!"
          ]
       }
    }

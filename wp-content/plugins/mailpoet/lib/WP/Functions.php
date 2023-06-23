@@ -75,12 +75,18 @@ class Functions {
     return add_image_size($name, $width, $height, $crop);
   }
 
-  public function addMenuPage($pageTitle, $menuTitle, $capability, $menuSlug, callable $function = null, $iconUrl = '', $position = null) {
-    if (is_null($function)) {
-      $function = function () {
-      };
-    }
-    return add_menu_page($pageTitle, $menuTitle, $capability, $menuSlug, $function, $iconUrl, $position);
+  /**
+   * @param string $pageTitle
+   * @param string $menuTitle
+   * @param string $capability
+   * @param string $menuSlug
+   * @param callable|'' $callback
+   * @param string $iconUrl
+   * @param int $position
+   * @return string
+   */
+  public function addMenuPage($pageTitle, $menuTitle, $capability, $menuSlug, $callback = '', $iconUrl = '', $position = null) {
+    return add_menu_page($pageTitle, $menuTitle, $capability, $menuSlug, $callback, $iconUrl, $position);
   }
 
   public function addQueryArg($key, $value = false, $url = false) {
@@ -95,8 +101,18 @@ class Functions {
     return add_shortcode($tag, $callback);
   }
 
-  public function addSubmenuPage($parentSlug, $pageTitle, $menuTitle, $capability, $menuSlug, callable $function) {
-    return add_submenu_page($parentSlug, $pageTitle, $menuTitle, $capability, $menuSlug, $function);
+  /**
+   * @param string $parentSlug
+   * @param string $pageTitle
+   * @param string $menuTitle
+   * @param string $capability
+   * @param string $menuSlug
+   * @param callable|'' $callback
+   * @param int $position
+   * @return string|false
+   */
+  public function addSubmenuPage($parentSlug, $pageTitle, $menuTitle, $capability, $menuSlug, $callback = '', $position = null) {
+    return add_submenu_page($parentSlug, $pageTitle, $menuTitle, $capability, $menuSlug, $callback, $position);
   }
 
   public function adminUrl($path = '', $scheme = 'admin') {

@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.2.0
- * @version  2.4.0
+ * @version  2.4.6
  */
 
 // Exit if accessed directly.
@@ -54,29 +54,34 @@ function wc_mnm_get_child_input_name( $container_id, $child_id = null ) {
  */
 function wc_mnm_get_quantity_message( $container ) {
 
-	$min_container_size = $container->get_min_container_size();
-	$max_container_size = $container->get_max_container_size();
 	$message = '';
 
-	// No items required.
-	if ( $min_container_size === 0 ) {
-		$message = '';
-		// Fixed container size.
-	} else if ( $min_container_size > 0 && $max_container_size > 0 && $min_container_size == $max_container_size ) {
-		// translators: %d quantity to select.
-		$message = sprintf( _nx( 'Please select %d item to continue&hellip;', 'Please select %d items to continue&hellip;', $min_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size );
-		// Required minimum and required maximum, but unequal min/max.
-	} else if ( $min_container_size > 0 && $max_container_size > 0 ) {
-		// translators: %1$d is minimum quantity to select. %2$d is maximum quantity to select.
-		$message = sprintf( _x( 'Please choose between %1$d and %2$d items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size, $max_container_size );
-		// Required minimum.
-	} else if ( $min_container_size > 0 ) {
-		// translators: %d minimum quantity to select.
-		$message = sprintf( _nx( 'Please choose at least %d item to continue&hellip;', 'Please choose at least %d items to continue&hellip;', $min_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size );
-		// Required maximum.
-	} else if ( $max_container_size > 0 ) {
-		// translators: %d maximum quantity to select.
-		$message = sprintf( _nx( 'Please choose fewer than %d item to continue&hellip;', 'Please choose fewer than %d items to continue&hellip;', $max_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $max_container_size );
+	if ( wc_mnm_is_product_container_type( $container ) ) {
+
+		$min_container_size = $container->get_min_container_size();
+		$max_container_size = $container->get_max_container_size();
+
+		// No items required.
+		if ( $min_container_size === 0 ) {
+			$message = '';
+			// Fixed container size.
+		} else if ( $min_container_size > 0 && $max_container_size > 0 && $min_container_size == $max_container_size ) {
+			// translators: %d quantity to select.
+			$message = sprintf( _nx( 'Please select %d item to continue&hellip;', 'Please select %d items to continue&hellip;', $min_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size );
+			// Required minimum and required maximum, but unequal min/max.
+		} else if ( $min_container_size > 0 && $max_container_size > 0 ) {
+			// translators: %1$d is minimum quantity to select. %2$d is maximum quantity to select.
+			$message = sprintf( _x( 'Please choose between %1$d and %2$d items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size, $max_container_size );
+			// Required minimum.
+		} else if ( $min_container_size > 0 ) {
+			// translators: %d minimum quantity to select.
+			$message = sprintf( _nx( 'Please choose at least %d item to continue&hellip;', 'Please choose at least %d items to continue&hellip;', $min_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size );
+			// Required maximum.
+		} else if ( $max_container_size > 0 ) {
+			// translators: %d maximum quantity to select.
+			$message = sprintf( _nx( 'Please choose fewer than %d item to continue&hellip;', 'Please choose fewer than %d items to continue&hellip;', $max_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $max_container_size );
+		}
+	
 	}
 
 	/**

@@ -12,9 +12,7 @@ function woocommerce_gravityforms_get_updated_price() {
 	$product_id   = isset( $_POST['product_id'] ) ? $_POST['product_id'] : 0;
 	$gform_total  = isset( $_POST['gform_total'] ) ? $_POST['gform_total'] : 0;
 
-	$product_data = null;
 	$product_data = wc_get_product( !empty($variation_id) ? $variation_id : $product_id );
-	//$product_data = wc_get_product(186);
 	if ( empty( $product_data ) ) {
 		die();
 	}
@@ -68,9 +66,9 @@ function woocommerce_gravityforms_get_updated_price() {
 
 	}
 
-	$price             = $discount_price ? $discount_price : $base_price;
-	$gform_final_total = $gforms_discount_price ? $gforms_discount_price : $price + $gform_total;
-	$gforms_final_options_total = $gforms_options_discount_price ? $gforms_options_discount_price : $gform_total;
+	$price             = $discount_price ?: $base_price;
+	$gform_final_total = $gforms_discount_price ?: $price + $gform_total;
+	$gforms_final_options_total = $gforms_options_discount_price ?: $gform_total;
 
 	$result = array(
 		'formattedBasePrice'      => apply_filters( 'woocommerce_gform_base_price', wc_price( $price ), $product_data ),

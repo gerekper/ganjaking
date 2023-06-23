@@ -115,10 +115,11 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			return;
 		}
 
-		$core         = WP_Smush::get_instance()->core();
-		$global_stats = $core->get_global_stats();
-		$class_names  = array( 'smush-conversion-savings' );
-		if ( empty( $global_stats['savings_conversion'] ) || ! isset( $global_stats['savings_conversion_human'] ) ) {
+		$core                     = WP_Smush::get_instance()->core();
+		$global_stats             = $core->get_global_stats();
+		$class_names              = array( 'smush-conversion-savings' );
+		$savings_conversion_human = ! empty( $global_stats['savings_conversion_human'] ) ? $global_stats['savings_conversion_human'] : '0 B';
+		if ( empty( $global_stats['savings_conversion'] ) ) {
 			$class_names[] = 'sui-hidden';
 		}
 
@@ -128,7 +129,7 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 				<?php esc_html_e( 'PNG to JPEG savings', 'wp-smushit' ); ?>
 			</span>
 			<span class="sui-list-detail wp-smush-stats">
-				<?php echo esc_html( $global_stats['savings_conversion_human'] ); ?>
+				<?php echo esc_html( $savings_conversion_human ); ?>
 			</span>
 		</li>
 		<?php

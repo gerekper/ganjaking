@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  8.8.0
+ * @version  8.9.0
  */
 
 class WC_CP_Cart {
@@ -1072,6 +1072,11 @@ class WC_CP_Cart {
 
 		if ( $composite_container_item = wc_cp_get_composited_cart_item_container( $cart_item ) ) {
 			$cart_item[ 'composite_data' ] = $composite_container_item[ 'composite_data' ];
+
+			// Sync updated cart item data -- see: 'WC_CP_Addons_Compatibility::preprocess_composited_cart_item_addon_data()'.
+			$contents                        = WC()->cart->get_cart_contents();
+			$contents[ $cart_item[ 'key' ] ] = $cart_item;
+			WC()->cart->set_cart_contents( $contents );
 		}
 
 		return $cart_item;
@@ -1648,6 +1653,9 @@ class WC_CP_Cart {
 				foreach ( wc_cp_get_composited_cart_items( $parent, WC()->cart->cart_contents, true ) as $composite_child_key ) {
 					WC()->cart->cart_contents[ $composite_child_key ][ 'composite_data' ][ $component_id ][ 'quantity' ] = $quantity / $parent_quantity;
 				}
+
+				// Set new composited cart item with updated quantity.
+				$cart_item_data = $this->set_composited_cart_item( $cart_item, $parent[ 'data' ] );
 
 			}
 		}

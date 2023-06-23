@@ -68,23 +68,31 @@ class Animated_Status_Controller extends Controller {
 			return;
 		}
 
-		if ( $media_item->is_animated() ) {
-			// Already marked as animated, no need to check again
+		if ( apply_filters( 'wp_smush_skip_image_animation_check', false, $attachment_id ) ) {
+			// The image is explicitly excluded from the animation check
+			return;
+		}
+
+		if ( $media_item->animated_meta_exists() ) {
+			// We already marked this item, no need to check again.
 			return;
 		}
 
 		if ( ! $media_item->has_animated_mime_type() ) {
-			// The media item is not even a GIF so no need to check
+			// The media item is not even a GIF so no need to check.
 			return;
 		}
 
 		$file_path   = $media_item->get_full_or_scaled_size()->get_file_path();
 		$is_animated = Helper::check_animated_file_contents( $file_path );
-		if ( $is_animated ) {
-			$this->logger->log( 'Setting animated meta value' );
-			$media_item->set_animated( $is_animated );
-			$media_item->save();
 
+		$this->logger->log( 'Setting animated meta value' );
+		$set_animated = $media_item->set_animated( $is_animated );
+		if ( $set_animated ) {
+			$media_item->save();
+		}
+
+		if ( $is_animated ) {
 			do_action( 'wp_smush_attachment_animated_status_changed', $attachment_id );
 		}
 	}

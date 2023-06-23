@@ -32,10 +32,6 @@ class WPML_TM_Records {
 		return $this->wpdb;
 	}
 
-	public function get_new_wpml_wp_cache( $group = '' ) {
-		return new WPML_WP_Cache( $group );
-	}
-
 	public function get_post_translations() {
 		return $this->wpml_post_translations;
 	}

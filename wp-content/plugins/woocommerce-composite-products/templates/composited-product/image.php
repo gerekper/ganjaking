@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 8.8.0
+ * @version 8.9.0
  */
 
 // Exit if accessed directly.
@@ -43,8 +43,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$html .= '</figure>';
 	}
 
-	$product_image_html = apply_filters( 'woocommerce_composited_product_image_html', $html, $product_id, $component );
+	echo apply_filters( 'woocommerce_composited_product_image_html', $html, $product_id, $component ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-	echo wp_kses_post( $product_image_html );
-
-?></div>
+	?></div>

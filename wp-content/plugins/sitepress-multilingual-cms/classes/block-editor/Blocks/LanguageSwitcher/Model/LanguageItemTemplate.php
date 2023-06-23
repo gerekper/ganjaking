@@ -11,36 +11,36 @@ class LanguageItemTemplate {
 	/** @var \DOMNode */
 	private $container;
 
-	/** @var null|LabelTemplateInterface */
+	/** @var ?LabelTemplateInterface */
 	private $labelTemplate;
 
 	/**
 	 * @param \DOMNode $template
 	 * @param \DOMNode $container
-	 * @param null|LabelTemplateInterface $labelTemplate
+	 * @param ?LabelTemplateInterface $labelTemplate
 	 */
-	public function __construct(\DOMNode $template, \DOMNode $container, LabelTemplateInterface $labelTemplate = null) {
+	public function __construct( \DOMNode $template, \DOMNode $container, LabelTemplateInterface $labelTemplate = null) {
 		$this->template = $template;
 		$this->container = $container;
 		$this->labelTemplate = $labelTemplate;
 	}
 
 	/**
-	 * @return \DOMNode
+	 * @return ?\DOMNode
 	 */
 	public function getTemplate() {
 		return $this->template;
 	}
 
 	/**
-	 * @return \DOMNode
+	 * @return ?\DOMNode
 	 */
 	public function getContainer() {
 		return $this->container;
 	}
 
 	/**
-	 * @return null|LabelTemplateInterface
+	 * @return ?LabelTemplateInterface
 	 */
 	public function getLabelTemplate() {
 		return $this->labelTemplate;

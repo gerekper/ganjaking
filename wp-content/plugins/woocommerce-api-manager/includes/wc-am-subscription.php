@@ -64,21 +64,27 @@ class WC_AM_Subscription {
 	/**
 	 * Get the subscription object.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 3.0 Check if wcs_get_subscription() function exists.
 	 *
 	 * @param int|WC_Subscription $subscription
 	 *
-	 * @return \WC_Subscription
+	 * @return false|\WC_Subscription
 	 */
 	public function get_subscription_object( $subscription ) {
-		return is_object( $subscription ) ? $subscription : wcs_get_subscription( $subscription );
+		if ( WCAM()->is_wc_subscriptions_active() && function_exists( 'wcs_get_subscription' ) ) {
+			return is_object( $subscription ) ? $subscription : wcs_get_subscription( $subscription );
+		}
+
+		return false;
 	}
 
 	/**
 	 * Returns the user subscription status fomratted for human eyes
 	 * For WooCommerce >= 2.0
 	 *
-	 * @since 1.3.9.8
+	 * @since   1.3.9.8
+	 * @updated 3.0 Check if wcs_get_subscription_status_name() function exists.
 	 *
 	 * @param int $post_id
 	 *
@@ -97,7 +103,7 @@ class WC_AM_Subscription {
 				AND 		post_type = %s
 			", absint( $post_id ), esc_attr( 'shop_subscription' ) ) );
 
-			if ( ! empty( $post_status ) ) {
+			if ( ! empty( $post_status ) && function_exists( 'wcs_get_subscription_status_name' ) ) {
 				$status = wcs_get_subscription_status_name( $post_status );
 			}
 
@@ -121,7 +127,7 @@ class WC_AM_Subscription {
 						", absint( $id ), esc_attr( 'shop_subscription' ) ) );
 					}
 
-					if ( ! empty( $post_status ) ) {
+					if ( ! empty( $post_status ) && function_exists( 'wcs_get_subscription_status_name' ) ) {
 						$status = wcs_get_subscription_status_name( $post_status );
 					}
 
@@ -194,7 +200,8 @@ class WC_AM_Subscription {
 	/**
 	 * Return the parent order ID depending on the subscription order type, i.e. 'parent', 'renewal'.
 	 *
-	 * @since 2.5.7
+	 * @since   2.5.7
+	 * @updated 3.0 Check if wcs_get_subscriptions_for_order() function exists.
 	 *
 	 * @param int|\WC_Order $order_id
 	 * @param Array         $order_type
@@ -215,16 +222,18 @@ class WC_AM_Subscription {
 				}
 			}
 
-			$subscriptions = wcs_get_subscriptions_for_order( $order->get_id(), array( 'order_type' => $order_type ) );
+			if ( function_exists( 'wcs_get_subscriptions_for_order' ) ) {
+				$subscriptions = wcs_get_subscriptions_for_order( $order->get_id(), array( 'order_type' => $order_type ) );
 
-			if ( ! WC_AM_FORMAT()->empty( $subscriptions ) ) {
-				foreach ( $subscriptions as $subscription ) {
-					if ( ! WC_AM_FORMAT()->empty( $subscription->get_parent_id() ) ) {
-						if ( WCAM()->get_db_cache() ) {
-							WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key, $subscription->get_parent_id(), WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+				if ( ! WC_AM_FORMAT()->empty( $subscriptions ) ) {
+					foreach ( $subscriptions as $subscription ) {
+						if ( ! WC_AM_FORMAT()->empty( $subscription->get_parent_id() ) ) {
+							if ( WCAM()->get_db_cache() ) {
+								WC_AM_SMART_CACHE()->set_or_get_cache( $related_order_key, $subscription->get_parent_id(), WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+							}
+
+							return $subscription->get_parent_id();
 						}
-
-						return $subscription->get_parent_id();
 					}
 				}
 			}
@@ -300,33 +309,43 @@ class WC_AM_Subscription {
 	/**
 	 * Returns the last subscription ID that contains the subscription object.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 3.0 Check if wcs_get_subscriptions_for_order() function exists.
 	 *
 	 * @param int|WC_Order $order_id The post_id of a shop_order post or an instance of a WC_Order object
 	 *
-	 * @return \WC_Subscription[]|null An array containing an object.
+	 * @return false|\WC_Subscription[]|null An array containing an object.
 	 */
 	public function get_last_subscription_for_order( $order_id ) {
 		/**
 		 * Storing sub in variable first avoids PHP notice:
 		 * Only variables should be passed by reference.
 		 */
-		$sub = wcs_get_subscriptions_for_order( $order_id );
+		if ( function_exists( 'wcs_get_subscriptions_for_order' ) ) {
+			$sub = wcs_get_subscriptions_for_order( $order_id );
 
-		return array_shift( $sub );
+			return array_shift( $sub );
+		}
+
+		return false;
 	}
 
 	/**
 	 * Returns a subscription array that contains the subscription object.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 3.0 Check if wcs_get_subscriptions_for_order() function exists.
 	 *
 	 * @param int|WC_Order $order_id The post_id of a shop_order post or an instance of a WC_Order object
 	 *
-	 * @return mixed An array containing an object.
+	 * @return false|\WC_Subscription[] An array containing an object.
 	 */
 	public function get_all_subscriptions_for_order( $order_id ) {
-		return wcs_get_subscriptions_for_order( $order_id );
+		if ( function_exists( 'wcs_get_subscriptions_for_order' ) ) {
+			return wcs_get_subscriptions_for_order( $order_id );
+		}
+
+		return false;
 	}
 
 	/**
@@ -948,6 +967,7 @@ class WC_AM_Subscription {
 	 *
 	 * @since   2.0
 	 * @updated 2.5 For WooCommerce HPOS.
+	 * @updated 3.0 Check if wcs_get_subscription_status_name() function exists.
 	 *
 	 * @param int|object $subscription
 	 *
@@ -957,10 +977,12 @@ class WC_AM_Subscription {
 		$subscription = $this->get_subscription_object( $subscription );
 
 		if ( is_object( $subscription ) ) {
-			$status = $this->is_user_subscription_active( wcs_get_subscription_status_name( $subscription->get_status( $subscription->get_id() ) ) );
+			if ( function_exists( 'wcs_get_subscription_status_name' ) ) {
+				$status = $this->is_user_subscription_active( wcs_get_subscription_status_name( $subscription->get_status( $subscription->get_id() ) ) );
 
-			if ( $status ) {
-				return true;
+				if ( ! WC_AM_FORMAT()->empty( $status ) ) {
+					return true;
+				}
 			}
 
 			return $subscription->has_status( array( 'active', 'pending-cancel' ) );
@@ -1022,7 +1044,8 @@ class WC_AM_Subscription {
 	/**
 	 * Verifies the user has an active subscription for a specific product.
 	 *
-	 * @since 2.3.9
+	 * @since   2.3.9
+	 * @updated 3.0 Check if wcs_get_users_subscriptions() function exists.
 	 *
 	 * @param int $user_id
 	 * @param int $product_id
@@ -1030,11 +1053,15 @@ class WC_AM_Subscription {
 	 * @return bool
 	 */
 	function user_has_active_product_subscription( $user_id, $product_id ) {
-		$subscriptions = wcs_get_users_subscriptions( $user_id );
+		if ( function_exists( 'wcs_get_users_subscriptions' ) ) {
+			$subscriptions = wcs_get_users_subscriptions( $user_id );
 
-		foreach ( $subscriptions as $subscription ) {
-			if ( $subscription->has_product( $product_id ) && ( $subscription->has_status( 'active' ) || $subscription->has_status( 'pending-cancel' ) ) ) {
-				return true;
+			if ( ! WC_AM_FORMAT()->empty( $subscriptions ) ) {
+				foreach ( $subscriptions as $subscription ) {
+					if ( $subscription->has_product( $product_id ) && ( $subscription->has_status( 'active' ) || $subscription->has_status( 'pending-cancel' ) ) ) {
+						return true;
+					}
+				}
 			}
 		}
 
@@ -1127,14 +1154,15 @@ class WC_AM_Subscription {
 	/**
 	 * Returns true if an order contains a subscription.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 3.0 Check if wcs_order_contains_subscription() function exists.
 	 *
 	 * @param $order WC_Order object or the ID of the order which the subscription was purchased in.
 	 *
 	 * @return bool
 	 */
 	public function order_contains_subscription( $order ) {
-		return wcs_order_contains_subscription( $order );
+		return function_exists( 'wcs_order_contains_subscription' ) && wcs_order_contains_subscription( $order );
 	}
 
 	/**

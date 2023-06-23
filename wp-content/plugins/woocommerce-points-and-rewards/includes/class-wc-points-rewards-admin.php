@@ -1083,7 +1083,13 @@ class WC_Points_Rewards_Admin {
 						// Only add points to paid or completed orders.
 						if ( $paid || 'completed' === $order->get_status() ) {
 
-							$wc_points_rewards->order->add_points_earned( $order );
+							$wc_points_rewards_order = $wc_points_rewards->get( 'order' );
+
+							if ( ! $wc_points_rewards_order instanceof WC_Points_Rewards_Order ) {
+								continue;
+							}
+
+							$wc_points_rewards_order->add_points_earned( $order );
 							$success_count++;
 						}
 					}

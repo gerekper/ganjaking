@@ -207,6 +207,12 @@ textarea.updraft_input--wide {
 	width: 100%;
 }
 
+textarea.updraft_input--code {
+	max-width: 560px;
+	width: 100%;
+	font-family: monospace;
+}
+
 #updraft-wrap .button-large {
 	font-size: 1.3em;
 }

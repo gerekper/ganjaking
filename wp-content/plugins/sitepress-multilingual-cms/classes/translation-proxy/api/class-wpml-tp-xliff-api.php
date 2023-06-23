@@ -31,7 +31,7 @@ class WPML_TP_XLIFF_API extends WPML_TP_API {
 		);
 
 		$result = $this->client->send_request( $request );
-		if ( ! $result || empty( $result ) || false === strpos( $result, 'xliff' ) ) {
+		if ( empty( $result ) || false === strpos( $result, 'xliff' ) ) {
 			throw new WPML_TP_API_Exception( 'XLIFF file could not be fetched for tp_job: ' . $tp_job_id, $request );
 		}
 

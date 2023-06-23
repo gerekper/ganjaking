@@ -30,7 +30,7 @@ if (!isset($collapseable)) {
 						<ul id="wf-option-exportOptions" class="wf-flex-horizontal wf-flex-vertical-xs wf-flex-full-width wf-add-top wf-add-bottom">
 							<li><?php esc_html_e('Export this site\'s Wordfence options for import on another site', 'wordfence'); ?> <a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_DASHBOARD_OPTION_EXPORT); ?>"  target="_blank" rel="noopener noreferrer" class="wf-inline-help"><i class="wf-fa wf-fa-question-circle-o" aria-hidden="true"></i><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></li>
 							<li class="wf-right wf-left-xs wf-padding-add-top-xs-small">
-								<a href="#" class="wf-btn wf-btn-primary wf-btn-callout-subtle" id="wf-export-options" role="button"><?php echo wp_kses(__('Export<span class="wf-hidden-xs"> Wordfence</span> Options', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
+								<a href="#" class="wf-btn wf-btn-primary wf-btn-callout-subtle" id="wf-export-options" role="button"><?php echo wp_kses(/* translators: word order may be altered as long as HTML remains around "Wordfence" */ __('Export<span class="wf-hidden-xs"> Wordfence</span> Options', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
 							</li>
 						</ul>
 					</li>
@@ -53,7 +53,7 @@ if (!isset($collapseable)) {
 							<li>
 								<ul class="wf-flex-horizontal wf-flex-full-width">
 									<li class="wf-right wf-left-xs" id="wf-license-controls">
-										<a href="#" class="wf-btn wf-btn-primary wf-btn-callout-subtle wf-disabled" id="wf-import-options" role="button"><?php echo wp_kses(__('Import<span class="wf-hidden-xs"> Wordfence</span> Options', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
+										<a href="#" class="wf-btn wf-btn-primary wf-btn-callout-subtle wf-disabled" id="wf-import-options" role="button"><?php echo wp_kses(/* translators: word order may be altered as long as HTML remains around "Wordfence" */ __('Import<span class="wf-hidden-xs"> Wordfence</span> Options', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
 									</li>
 								</ul>
 							</li>

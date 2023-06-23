@@ -336,15 +336,16 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 					</div>
 					<?php
 			} else {
-
+				/** @var array|null $icl_translation_filter */
+				/** @var string $page_links */
 				$page_links = paginate_links(
 					array(
 						'base'      => add_query_arg( 'paged', '%#%' ),
 						'format'    => '',
+						'total'     => (int) $wp_query->max_num_pages,
+						'current'   => (int) $paged,
 						'prev_text' => '&laquo;',
 						'next_text' => '&raquo;',
-						'total'     => $wp_query->max_num_pages,
-						'current'   => $paged,
 						'add_args'  => isset( $icl_translation_filter ) ? $icl_translation_filter : array(),
 					)
 				);
@@ -361,8 +362,8 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 					if ( $page_links ) {
 						$page_links_text = sprintf(
 							'<span class="displaying-num">' . esc_html__( 'Displaying %1$s&#8211;%2$s of %3$s', 'wpml-string-translation' ) . '</span>%4$s',
-							number_format_i18n( ( $paged - 1 ) * $wp_query->query_vars['posts_per_page'] + 1 ),
-							number_format_i18n( min( $paged * $wp_query->query_vars['posts_per_page'], $wp_query->found_posts ) ),
+							number_format_i18n( ( (int) $paged - 1 ) * $wp_query->query_vars['posts_per_page'] + 1 ),
+							number_format_i18n( min( (int) $paged * $wp_query->query_vars['posts_per_page'], $wp_query->found_posts ) ),
 							number_format_i18n( $wp_query->found_posts ),
 							$page_links
 						);
@@ -416,6 +417,14 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 				   value="<?php echo wp_create_nonce( 'icl_st_delete_strings_nonce' ); ?>"/>
 						<div id="wpml-st-package-incomplete"
 							 style="display:none;color:red;"><?php echo esc_html__( 'You have selected strings belonging to a package. Please select all strings from the affected package or unselect these strings.', 'wpml-string-translation' ); ?></div>
+						<div id="wpml-st-non-default-language-string" data-show="true" class="ant-alert ant-alert-warning ant-alert-warning-override"
+							 role="alert" style="display:none;">
+							<i class="ant-alert-icon otgs-ico otgs-ico-warning-o"></i>
+							<div class="ant-alert-content">
+								<div class="ant-alert-message"><?php echo esc_html__( 'Selected strings are not in the site\'s default language and will not be translated automatically if you\'re using the "Translate Everything Automatically" mode. Instead, after sending them for translation here, you need to go to the WPML -> Translations page and translate them manually.', 'wpml-string-translation' ); ?></div>
+								<div class="ant-alert-description"></div>
+							</div>
+						</div>
 			<input type="button" class="button button-secondary" id="icl_st_delete_selected"
 				   value="<?php echo esc_attr__( 'Delete selected strings', 'wpml-string-translation' ); ?>"
 				   data-confirm="<?php echo esc_attr__( "Are you sure you want to delete these strings?\nTheir translations will be deleted too.", 'wpml-string-translation' ); ?>"
@@ -659,7 +668,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 										<select name="icl_st_i_context">
 											<option value="">-------</option>
 											<?php foreach ( $available_contexts as $v ) : ?>
-											<option value="<?php echo esc_attr( $v ); ?>"
+											<option value="<?php echo esc_attr( (string) $v ); ?>"
 																	  <?php
 																		if ( $context_filter == $v ) :
 																			?>

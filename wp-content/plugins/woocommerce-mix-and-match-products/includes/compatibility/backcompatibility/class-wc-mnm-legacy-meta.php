@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.4.6
  */
 
 // Exit if accessed directly.
@@ -51,13 +51,32 @@ class WC_MNM_Legacy_Meta {
 			$meta = is_array( $meta ) && ! empty( $meta ) ? $meta : array();
 
 			foreach ( $meta as $item_key => $item_data ) {
-				$item_data = array_merge( $item_data, array( 'container_id' => $product->get_id() ) );
+
+				if ( is_array( $item_data ) ) {
+
+					$item_data = array_merge( $item_data, array( 'container_id' => $product->get_id() ) );
+
+				} else {
+
+					// Pre-1.10 data was stored as KEY => 1 due to an old error in save routine.
+					$product_id = intval( $item_key );
+
+					$parent_id = wp_get_post_parent_id( $product_id );
+
+					$item_data = array( 
+						'product_id'   => $parent_id > 0 ? $parent_id : $product_id,
+						'variation_id' => $parent_id > 0 ? $product_id : 0,
+						'container_id' => $product->get_id(),
+					);
+
+				}
 
 				$legacy_item = new WC_MNM_Child_Item( $item_data, $product );
 
 				if ( $legacy_item->exists() && $legacy_item->is_visible() ) {
 					$legacy_items[ 'product-' . $item_key ] = $legacy_item;
 				}
+
 			}
 
 			WC_Mix_and_Match_Helpers::cache_set( $product->get_id(), $legacy_items, 'child_items_legacy' );

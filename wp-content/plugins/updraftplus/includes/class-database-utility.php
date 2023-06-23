@@ -675,6 +675,59 @@ class UpdraftPlus_Database_Utility {
 	public static function esc_like($text) {
 		return function_exists('esc_like') ? esc_like($text) : addcslashes($text, '_%\\');
 	}
+
+	/**
+	 * Return installation or activation link of WP-Optimize plugin
+	 *
+	 * @return String
+	 */
+	public static function get_install_activate_link_of_wp_optimize_plugin() {
+		// If WP-Optimize is activated, then return empty.
+		if (class_exists('WP_Optimize')) return '';
+
+		// Generally it is 'wp-optimize/wp-optimize.php',
+		// but we can't assume that the user hasn't renamed the plugin folder - with 3 million UDP users and 1 million AIOWPS, there will be some who have.
+		$wp_optimize_plugin_file_rel_to_plugins_dir = UpdraftPlus_Database_Utility::get_wp_optimize_plugin_file_rel_to_plugins_dir();
+
+		// If UpdraftPlus is installed but not activated, then return activate link.
+		if ($wp_optimize_plugin_file_rel_to_plugins_dir) {
+			$activate_url = add_query_arg(array(
+				'_wpnonce'    => wp_create_nonce('activate-plugin_'.$wp_optimize_plugin_file_rel_to_plugins_dir),
+				'action'      => 'activate',
+				'plugin'      => $wp_optimize_plugin_file_rel_to_plugins_dir,
+			), network_admin_url('plugins.php'));
+
+			// If is network admin then add to link network activation.
+			if (is_network_admin()) {
+				$activate_url = add_query_arg(array('networkwide' => 1), $activate_url);
+			}
+			return sprintf('%s <a href="%s">%s</a>', __('WP-Optimize is installed but currently inactive.', 'updraftplus'), $activate_url, __('Follow this link to activate the WP-Optimize plugin.', 'updraftplus'));
+		}
+
+		// If WP-Optimize is neither activated nor installed then return the installation link
+		return '<a href="'.wp_nonce_url(self_admin_url('update.php?action=install-plugin&amp;updraftplus_noautobackup=1&amp;plugin=wp-optimize'), 'install-plugin_wp-optimize').'">'.__('Follow this link to install the WP-Optimize plugin.', 'updraftplus').'</a>';
+	}
+
+	/**
+	 * Get path to the WP-Optimize plugin file relative to the plugins directory.
+	 *
+	 * @return String|false path to the WP-Optimize plugin file relative to the plugins directory
+	 */
+	public static function get_wp_optimize_plugin_file_rel_to_plugins_dir() {
+		if (!function_exists('get_plugins')) {
+			include_once ABSPATH . '/wp-admin/includes/plugin.php';
+		}
+
+		$installed_plugins = get_plugins();
+		$installed_plugins_keys = array_keys($installed_plugins);
+		foreach ($installed_plugins_keys as $plugin_file_rel_to_plugins_dir) {
+			$temp_plugin_file_name = substr($plugin_file_rel_to_plugins_dir, strpos($plugin_file_rel_to_plugins_dir, '/') + 1);
+			if ('wp-optimize.php' == $temp_plugin_file_name) {
+				return $plugin_file_rel_to_plugins_dir;
+			}
+		}
+		return false;
+	}
 }
 
 class UpdraftPlus_WPDB_OtherDB_Utility extends wpdb {

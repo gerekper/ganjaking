@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Draft — Pending review": [
             "Concept - in afwachting van controle"
@@ -389,6 +388,10 @@
          ],
          "Synchronization with the Professional Translation service has failed": [
             "Synchronisatie met de Professionele Vertaalservice is mislukt"
+         ],
+         "%d translation has been downloaded": [
+            "%d vertaling is gedownload",
+            "%d vertalingen zijn gedownload"
          ],
          "Batch sync finished successfully!": [
             "Batch sync is voltooid!"

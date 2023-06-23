@@ -85,6 +85,8 @@ class WC_AM_Order {
 			$user_id = WC_AM_ORDER_DATA_STORE()->get_customer_id( $order );
 
 			if ( ! empty( $user_id ) ) {
+				$non_sub_order_updated = false;
+				$sub_order_updated     = false;
 				WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 				WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
 
@@ -97,12 +99,17 @@ class WC_AM_Order {
 				$non_sub_order_updated = $this->update_api_order( $order_id );
 
 				if ( ! empty( $non_sub_order_updated ) || ! empty( $sub_order_updated ) ) {
+					if ( ! empty( $non_sub_order_updated ) ) {
+						// To update API Resource after a renewal order.
+						$this->update_api_resource_after_renewal_order_completed( $order_id );
+					}
+
 					$this->delete_cache( $order_id );
 
 					/**
 					 * Returns the order_id for a new order or updated order.
 					 *
-					 * @since 2.4.7
+					 * @since   2.4.7
 					 */
 					do_action( 'wc_am_new_or_updated_order', $order_id );
 				}
@@ -113,9 +120,13 @@ class WC_AM_Order {
 	/**
 	 * Update only API Product items from the order.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 3.0 to return api_resource_id or 0.
 	 *
 	 * @param int $order_id
+	 *
+	 * @return int
+	 * @throws \Exception
 	 */
 	public function update_api_order( $order_id ) {
 		global $wpdb;
@@ -161,12 +172,15 @@ class WC_AM_Order {
 						WC_AM_PRODUCT_DATA_STORE()->update_missing_api_resource_product_id( $v[ 'product_id' ], $v[ 'parent_id' ] );
 					}
 
+					$new_access_expires     = ! empty( $v[ 'access_expires' ] ) ? (int) ( $v[ 'access_expires' ] * DAY_IN_SECONDS ) + $order_created_time : 0;
+					$current_access_expires = ! empty( $v[ 'old_access_expires' ] ) ? $v[ 'old_access_expires' ] + $new_access_expires : $new_access_expires;
+
 					$data = array(
 						'activation_ids'              => '',
 						'activations_total'           => 0,
 						'activations_purchased'       => ! empty( $v[ 'api_activations' ] ) ? (int) $v[ 'api_activations' ] : 0,
 						'activations_purchased_total' => ! empty( $v[ 'activations_total' ] ) ? (int) $v[ 'activations_total' ] : 0,
-						'access_expires'              => ! empty( $v[ 'access_expires' ] ) ? (int) ( $v[ 'access_expires' ] * DAY_IN_SECONDS + DAY_IN_SECONDS ) + (int) $order_created_time : 0,
+						'access_expires'              => (int) $current_access_expires,
 						'access_granted'              => (int) $order_created_time,
 						'item_qty'                    => ! empty( $v[ 'item_qty' ] ) ? (int) $v[ 'item_qty' ] : 0,
 						'master_api_key'              => (string) WC_AM_USER()->get_master_api_key( $v[ 'user_id' ] ),
@@ -286,16 +300,18 @@ class WC_AM_Order {
 			}
 		}
 
-		return ! empty( $updated );
+		return ! WC_AM_FORMAT()->empty( $updated );
 	}
 
 	/**
 	 * Update only WooCommerce Subscriptions API Product items from the order.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 3.0 to return api_resource_id or 0.
 	 *
 	 * @param int $order_id
 	 *
+	 * @return int
 	 * @throws \Exception
 	 */
 	public function update_wc_subscription_order( $order_id ) {
@@ -492,7 +508,7 @@ class WC_AM_Order {
 			}
 		}
 
-		return ! empty( $updated );
+		return ! WC_AM_FORMAT()->empty( $updated );
 	}
 
 	/**
@@ -1029,6 +1045,130 @@ class WC_AM_Order {
 						                                   'user_id'  => $user_id
 					                                   )
 				                                   ) );
+			}
+		}
+	}
+
+	/**
+	 * The API Resource of a renewal order item is updated with select data from the previous API Resource,
+	 * then the previous API Resource is deleted and cannot be rebuilt as it is expired.
+	 *
+	 * @since 3.0
+	 *
+	 * @param int $order_id
+	 *
+	 * @throws \Exception
+	 */
+	private function update_api_resource_after_renewal_order_completed( $order_id ) {
+		global $wpdb;
+
+		$current_api_resources = WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $order_id );
+
+		if ( ! WC_AM_FORMAT()->empty( $current_api_resources ) ) {
+			foreach ( $current_api_resources as $current_api_resource ) {
+				if ( ! WC_AM_FORMAT()->empty( $current_api_resource ) ) {
+					$is_renewed_api_resource          = ! WC_AM_FORMAT()->empty( wc_get_order_item_meta( $current_api_resource->order_item_id, '_wc_am_is_renewed_api_resource' ) );
+					$api_resource_renewal_not_updated = WC_AM_FORMAT()->empty( wc_get_order_item_meta( $current_api_resource->order_item_id, '_wc_am_api_resource_renewal_updated' ) );
+
+					if ( $is_renewed_api_resource && $api_resource_renewal_not_updated ) {
+						$previous_api_resource_object = wc_get_order_item_meta( $current_api_resource->order_item_id, '_wc_am_previous_api_resource_object' );
+
+						if ( ! WC_AM_FORMAT()->empty( $previous_api_resource_object ) && $current_api_resource->product_id === $previous_api_resource_object->product_id ) {
+							// From previous API Resource
+							$previous_activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_ids_by_api_resource_id( $previous_api_resource_object->api_resource_id );
+
+							if ( ! empty( $previous_activation_ids ) ) {
+								$updated = false;
+
+								$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+
+								// If not a downloadable product, set status to completed so activations are not messed up after renewal is completed.
+								if ( $order->get_status() == 'processing' ) {
+									$order->update_status( 'completed' );
+								}
+
+								// Delete the old API Resource to allow the unique Product Order API Key from the old API Resource to be copied to the new API Resource.
+								WC_AM_API_RESOURCE_DATA_STORE()->delete_api_resource_by_api_resource_id( $previous_api_resource_object->api_resource_id );
+
+								if ( count( $previous_activation_ids ) == $previous_api_resource_object->activations_total ) {
+									$data = array(
+										'activation_ids'              => WC_AM_FORMAT()->json_encode( $previous_activation_ids ),
+										'activations_total'           => $previous_api_resource_object->activations_total,
+										'activations_purchased'       => $previous_api_resource_object->activations_purchased,
+										'activations_purchased_total' => $previous_api_resource_object->activations_purchased_total,
+										'product_order_api_key'       => $previous_api_resource_object->product_order_api_key
+									);
+
+									$where = array(
+										'api_resource_id' => $current_api_resource->api_resource_id
+									);
+
+									$data_format = array(
+										'%s',
+										'%d',
+										'%s'
+									);
+
+									$where_format = array(
+										'%d'
+									);
+
+									$updated = $wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
+								}
+
+								if ( ! WC_AM_FORMAT()->empty( $updated ) ) {
+									$this->update_api_key_activations_after_order_completed( $previous_activation_ids, $current_api_resource );
+									// Flag old order item as expired.
+									wc_add_order_item_meta( $previous_api_resource_object->order_item_id, '_wc_am_is_expired_api_resource', 'yes' );
+									// Flag as updated, so it cannot be updated again.
+									wc_add_order_item_meta( $current_api_resource->order_item_id, '_wc_am_api_resource_renewal_updated', __( 'yes', 'woocommerce-api-manager' ) );
+									// Delete grace periods.
+									WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $previous_api_resource_object->api_resource_id );
+									// Remove the expired API Resource cache.
+									WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $previous_api_resource_object->order_id, false );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Updates select API Key activation data to match the API Resource data where the Product ID matches.
+	 *
+	 * @since 3.0
+	 *
+	 * @param array  $previous_activation_ids
+	 * @param object $current_api_resource
+	 */
+	private function update_api_key_activations_after_order_completed( $previous_activation_ids, $current_api_resource ) {
+		global $wpdb;
+
+		if ( ! empty( $previous_activation_ids ) && ! WC_AM_FORMAT()->empty( $current_api_resource ) ) {
+			foreach ( $previous_activation_ids as $previous_activation_id ) {
+				$data = array(
+					'api_resource_id' => $current_api_resource->api_resource_id,
+					'order_id'        => $current_api_resource->order_id,
+					'order_item_id'   => $current_api_resource->order_item_id
+				);
+
+				$where = array(
+					'activation_id' => $previous_activation_id
+				);
+
+				$data_format = array(
+					'%d',
+					'%d',
+					'%d'
+				);
+
+				$where_format = array(
+					'%d'
+				);
+
+				$wpdb->update( $wpdb->prefix . $this->api_activation_table, $data, $where, $data_format, $where_format );
 			}
 		}
 	}

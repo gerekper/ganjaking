@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.7.3
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -43,6 +43,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$html .= '</figure>';
 	}
 
-	echo apply_filters( 'woocommerce_bundled_product_image_html', $html, $product_id, $bundled_item );
+	echo apply_filters( 'woocommerce_bundled_product_image_html', $html, $product_id, $bundled_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 ?></div>

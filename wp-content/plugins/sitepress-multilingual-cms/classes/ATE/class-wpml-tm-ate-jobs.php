@@ -3,6 +3,7 @@
 use WPML\FP\Cast;
 use WPML\FP\Maybe;
 use WPML\TM\ATE\JobRecords;
+use WPML\TM\ATE\API\RequestException;
 use function WPML\FP\pipe;
 use function WPML\FP\partialRight;
 use WPML\FP\Obj;
@@ -66,7 +67,8 @@ class WPML_TM_ATE_Jobs {
 	 * @param string $xliff
 	 *
 	 * @return bool|int
-	 * @throws \Requests_Exception|Exception
+	 * @throws RequestException The job could not be loaded.
+	 * @throws \Exception When the xliff cannot be applied to the job.
 	 */
 	public function apply( $xliff ) {
 		$factory       = wpml_tm_load_job_factory();
@@ -74,7 +76,10 @@ class WPML_TM_ATE_Jobs {
 		$xliff_reader  = $xliff_factory->general_xliff_reader();
 		$job_data      = $xliff_reader->get_data( $xliff );
 		if ( is_wp_error( $job_data ) ) {
-			throw new Requests_Exception( $job_data->get_error_message(), $job_data->get_error_code() );
+			throw new RequestException(
+				$job_data->get_error_message(),
+				$job_data->get_error_code()
+			);
 		}
 
 		kses_remove_filters();
@@ -132,7 +137,7 @@ class WPML_TM_ATE_Jobs {
 	/**
 	 * getJobTargetLanguage :: void → ( object → string|null )
 	 *
-	 * @return callback
+	 * @return callable
 	 */
 	private function getJobTargetLanguage() {
 		// $getJobEntityById :: int -> \WPML_TM_Job_Entity|false

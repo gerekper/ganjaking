@@ -3,14 +3,16 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Choose the image file type for flags": [
             "Выберите тип файла изображения для флагов"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
             "Этот параметр влияет только на встроенные флаги WPML, а не на загруженные пользователем."
+         ],
+         "%s format": [
+            "формат %s"
          ],
          "Save": [
             "Сохранить"

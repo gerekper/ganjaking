@@ -14,7 +14,10 @@ use WPML\FP\Wrapper;
 use WPML\LIB\WP\Option as WPOption;
 use WPML\LIB\WP\User;
 use WPML\Setup\Endpoint\CheckTMAllowed;
+use WPML\Setup\Endpoint\CurrentStep;
 use WPML\TM\ATE\TranslateEverything\Pause\View as PauseTranslateEverything;
+use WPML\TM\ATE\TranslateEverything\TranslatableData\View as TranslatableData;
+use WPML\TM\ATE\TranslateEverything\TranslatableData\DataPreSetup;
 
 use WPML\TM\Menu\TranslationMethod\TranslationMethodSettings;
 use WPML\TranslationMode\Endpoint\SetTranslateEverything;
@@ -29,6 +32,12 @@ class Initializer {
 
 	public static function getData() {
 		$currentStep = Option::getCurrentStep();
+
+		if ( CurrentStep::STEP_HIGH_COSTS_WARNING === $currentStep ) {
+			// The user stopped the wizard on the high costs warning step.
+			// In this case we need to start the wizard one step before.
+			$currentStep = CurrentStep::STEP_TRANSLATION_SETTINGS;
+		}
 
 		$siteUrl = self::getSiteUrl();
 
@@ -65,6 +74,7 @@ class Initializer {
 					'addLanguages'           => Endpoint\AddLanguages::class,
 					'upload'                 => Upload::class,
 					'checkTMAllowed'         => CheckTMAllowed::class,
+					'translatableData'         => TranslatableData::class,
 				], TranslationRolesInitializer::getEndPoints() ),
 				'languages'            => [
 					'list'                  => Obj::values( Languages::withFlags( Languages::getAll( $userLang ) ) ),
@@ -96,6 +106,28 @@ class Initializer {
 					TranslationMethodSettings::getModeSettingsData(),
 					TranslationRolesInitializer::getTranslationData()
 				),
+
+				'license'                  => [
+					'actions'  => [
+						'registerSiteKey' => Endpoint\LicenseStep::ACTION_REGISTER_SITE_KEY,
+						'getSiteType'     => Endpoint\LicenseStep::ACTION_GET_SITE_TYPE,
+					],
+					'siteType' => [
+						'production'  => \OTGS_Installer_Subscription::SITE_KEY_TYPE_PRODUCTION,
+						'development' => \OTGS_Installer_Subscription::SITE_KEY_TYPE_DEVELOPMENT,
+					],
+				],
+
+				'translatableData'         => [
+					'actions' => [
+						'listTranslatables' => TranslatableData::ACTION_LIST_TRANSLATABLES,
+						'fetchData'         => TranslatableData::ACTION_FETCH_DATA,
+					],
+					'types'   => [
+						'postTypes'  => DataPreSetup::KEY_POST_TYPES,
+						'taxonomies' => DataPreSetup::KEY_TAXONOMIES,
+					],
+				],
 			],
 		];
 	}

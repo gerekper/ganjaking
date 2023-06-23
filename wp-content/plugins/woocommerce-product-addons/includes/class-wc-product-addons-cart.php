@@ -209,10 +209,30 @@ class WC_Product_Addons_Cart {
 			$ids = array();
 
 			foreach ( $values['addons'] as $addon ) {
-				$key           = $addon['name'];
+				$value         = $addon[ 'value' ];
 				$price_type    = $addon['price_type'];
 				$product       = $item->get_product();
 				$product_price = $product->get_price();
+
+				/*
+				 * Create a clone of the current cart item and set its price equal to the add-on price.
+				 * This will allow extensions to discount the add-on price.
+				 */
+				$cloned_product = WC_Product_Addons_Helper::create_product_with_filtered_addon_prices( $values[ 'data' ], $addon[ 'price' ] );
+				$addon['price'] = $cloned_product->get_price();
+
+				/*
+				 * Deprecated 'woocommerce_addons_add_price_to_name' since v6.4.0.
+				 * New filter: 'woocommerce_addons_add_price_to_value'
+				 *
+				 * Use this filter to display the price next to each selected add-on option.
+				 * By default, add-on prices show up only next to flat fee add-ons.
+				 *
+				 * @param boolean
+				 */
+				apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( false, $item ), '6.4.0', 'woocommerce_addons_add_order_price_to_value' );
+
+				$add_price_to_value = apply_filters_deprecated( 'woocommerce_addons_add_order_price_to_value', false, $item );
 
 				/*
 				 * For percentage based price type we want
@@ -228,27 +248,32 @@ class WC_Product_Addons_Cart {
 				} else {
 					$addon_price = $addon['price'];
 				}
+
+				$GLOBALS[ 'product' ] = $cloned_product;
+
 				$price = html_entity_decode(
-					strip_tags( wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon_price, $values['data'] ) ) ),
+					strip_tags( wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon_price ) ) ),
 					ENT_QUOTES,
 					get_bloginfo( 'charset' )
 				);
 
+				unset( $GLOBALS[ 'product' ] );
+
 				/*
 				 * If there is an add-on price, add the price of the add-on
-				 * to the label name.
+				 * to the selected option.
 				 */
-				if ( $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_name', true ) ) {
-					$key .= ' (' . $price . ')';
-				}
-
-				if ( 'custom_price' === $addon['field_type'] ) {
-					$addon['value'] = $addon['price'];
+				if ( 'flat_fee' === $price_type && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+					$value .= sprintf( _x( ' (+ %1$s)', 'flat fee addon price in order', 'woocommerce-product-addons' ), $price );
+				} elseif ( ( 'quantity_based' === $price_type || 'percentage_based' === $price_type ) && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+					$value .= sprintf( _x( ' (%1$s)', 'addon price in order', 'woocommerce-product-addons' ), $price );
+				} elseif ( 'custom_price' === $addon['field_type'] ) {
+					$value = sprintf( _x( ' (%1$s)', 'custom addon price in order', 'woocommerce-product-addons' ), $price );
 				}
 
 				$meta_data = [
-					'key'        => $key,
-					'value'      => $addon[ 'value' ],
+					'key'        => $addon[ 'name' ],
+					'value'      => $value,
 					'id'         => $addon[ 'id' ]
 				];
 				$meta_data = apply_filters( 'woocommerce_product_addons_order_line_item_meta', $meta_data, $addon, $item, $values );
@@ -273,6 +298,13 @@ class WC_Product_Addons_Cart {
 	 * @return array Cart item data
 	 */
 	public function re_add_cart_item_data( $cart_item_data, $item, $order ) {
+
+		// When renewing a subscription, add-on data are already part of $cart_item_data[ 'subscription_renewal' ][ 'custom_line_item_meta' ][ '_pao_ids' ].
+		// WooCommerce Subscriptions is responsible for rendering these add-ons.
+		if ( isset( $cart_item_data[ 'subscription_renewal' ] ) ) {
+			return $cart_item_data;
+		}
+
 		// Disable validation.
 		remove_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 999, 3 );
 
@@ -458,6 +490,7 @@ class WC_Product_Addons_Cart {
 			$cart_item_data['addons_price_before_calc']         = (float) $price;
 			$cart_item_data['addons_regular_price_before_calc'] = (float) $regular_price;
 			$cart_item_data['addons_sale_price_before_calc']    = (float) $sale_price;
+			$cart_item_data[ 'addons_flat_fees_sum' ]           = 0;
 
 			foreach ( $cart_item_data['addons'] as $addon ) {
 				$price_type  = $addon['price_type'];
@@ -465,15 +498,16 @@ class WC_Product_Addons_Cart {
 
 				switch ( $price_type ) {
 					case 'percentage_based':
-						$price         += (float) ( $cart_item_data['data']->get_price( 'edit' ) * ( $addon_price / 100 ) );
-						$regular_price += (float) ( $regular_price * ( $addon_price / 100 ) );
-						$sale_price    += (float) ( $sale_price * ( $addon_price / 100 ) );
+						$price         += (float) ( $cart_item_data['addons_price_before_calc'] * ( $addon_price / 100 ) );
+						$regular_price += (float) ( $cart_item_data['addons_regular_price_before_calc'] * ( $addon_price / 100 ) );
+						$sale_price    += (float) ( $cart_item_data['addons_sale_price_before_calc'] * ( $addon_price / 100 ) );
 						break;
 					case 'flat_fee':
-						$flat_fee       = $quantity > 0 ? (float) ( $addon_price / $quantity ) : 0;
-						$price         += $flat_fee;
-						$regular_price += $flat_fee;
-						$sale_price    += $flat_fee;
+						$flat_fee = $quantity > 0 ? (float) ( $addon_price / $quantity ) : 0;
+						$price                                    += $flat_fee;
+						$regular_price                            += $flat_fee;
+						$sale_price                               += $flat_fee;
+						$cart_item_data[ 'addons_flat_fees_sum' ] += $flat_fee;
 						break;
 					default:
 						$price         += (float) $addon_price;
@@ -546,7 +580,11 @@ class WC_Product_Addons_Cart {
 				'sale_price'    => $cart_item_data['addons_sale_price_before_calc'],
 			);
 
-			return $this->update_product_price( $cart_item_data, $quantity, $prices );
+			// Set new cart item data, when cart item quantity changes.
+			$cart_item_data             = $this->update_product_price( $cart_item_data, $quantity, $prices );
+			$contents                   = $cart->get_cart_contents();
+			$contents[ $cart_item_key ] = $cart_item_data;
+			$cart->set_cart_contents( $contents );
 		}
 	}
 
@@ -581,24 +619,63 @@ class WC_Product_Addons_Cart {
 	public function get_item_data( $other_data, $cart_item ) {
 		if ( ! empty( $cart_item['addons'] ) ) {
 			foreach ( $cart_item['addons'] as $addon ) {
-				$price = isset( $cart_item['addons_price_before_calc'] ) ? $cart_item['addons_price_before_calc'] : $addon['price'];
-				$name  = $addon['name'];
+
+				$price = isset( $cart_item[ 'addons_price_before_calc' ] ) ? $cart_item[ 'addons_price_before_calc' ] : $addon[ 'price' ];
+				$value = $addon[ 'value' ];
+
+				/*
+				 * Create a clone of the current cart item and set its price equal to the add-on price.
+				 * This will allow extensions to discount the add-on price.
+				 */
+				$cloned_cart_item = WC_Product_Addons_Helper::create_product_with_filtered_addon_prices( $cart_item[ 'data' ], $addon[ 'price' ] );
+				$addon[ 'price' ] = $cloned_cart_item->get_price();
+
+				/*
+				 * Deprecated 'woocommerce_addons_add_price_to_name' since v6.4.0.
+				 * New filter: 'woocommerce_addons_add_price_to_value'
+				 *
+				 * Use this filter to display the price next to each selected add-on option.
+				 * By default, add-on prices show up only next to flat fee add-ons.
+				 *
+				 * @param boolean
+				 */
+				apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( false, $cart_item ), '6.4.0', 'woocommerce_addons_add_cart_price_to_value' );
+
+				$add_price_to_value = apply_filters( 'woocommerce_addons_add_cart_price_to_value', false, $cart_item );
+
+				$GLOBALS[ 'product' ] = $cloned_cart_item;
 
 				if ( 0 == $addon['price'] ) {
-					$name .= '';
+					$value .= '';
 				} elseif ( 'percentage_based' === $addon['price_type'] && 0 == $price ) {
-					$name .= '';
-				} elseif ( 'percentage_based' !== $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_name', true ) ) {
-					$name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon['price'], $cart_item['data'], true ) ) . ')';
-				} else if ( apply_filters( 'woocommerce_addons_add_price_to_name', true ) ) {
+					$value .= '';
+				} elseif ( 'flat_fee' === $addon['price_type'] && $addon['price'] ) {
+
+					$addon_price = wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon[ 'price' ], $cart_item[ 'data' ], true ) );
+					$value      .= sprintf( _x( ' (+ %1$s)', 'flat fee addon price in cart', 'woocommerce-product-addons' ), $addon_price );
+
+				}  elseif ( 'custom_price' === $addon['field_type'] && $addon['price'] ) {
+
+					$addon_price        = wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon[ 'price' ], $cart_item[ 'data' ], true ) );
+					$value             .= sprintf( _x( ' (%1$s)', 'custom price addon price in cart', 'woocommerce-product-addons' ), $addon_price );
+					$addon[ 'display' ] = $value;
+				} elseif ( 'quantity_based' === $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+					$addon_price = wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon[ 'price' ], $cart_item[ 'data' ], true ) );
+					$value      .= sprintf( _x( ' (%1$s)', 'quantity based addon price in cart', 'woocommerce-product-addons' ), $addon_price );
+
+				} elseif ( 'percentage_based' === $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+
 					$_product = wc_get_product( $cart_item['product_id'] );
 					$_product->set_price( $price * ( $addon['price'] / 100 ) );
-					$name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
+					$addon_price = WC()->cart->get_product_price( $_product );
+					$value      .= sprintf( _x( ' (%1$s)', 'percentage based addon price in cart', 'woocommerce-product-addons' ), $addon_price );
 				}
 
+				unset( $GLOBALS[ 'product' ] );
+
 				$addon_data = array(
-					'name'    => $name,
-					'value'   => $addon['value'],
+					'name'    => $addon['name'],
+					'value'   => $value,
 					'display' => isset( $addon['display'] ) ? $addon['display'] : '',
 				);
 				$other_data[] = apply_filters( 'woocommerce_product_addons_get_item_data', $addon_data, $addon, $cart_item );

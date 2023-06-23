@@ -106,7 +106,7 @@ class WC_AM_Encryption {
 		$encrypted = openssl_encrypt( $data, $this->cipher_algo, $this->key_hash, 0, $this->auth_key );
 
 		if ( $encrypted === false ) {
-			throw new Exception( sprintf( 'Encryption failed: ', openssl_error_string() ) );
+			throw new Exception( sprintf( __( 'Encryption failed: %s', 'woocommerce-api-manager' ), openssl_error_string() ) );
 		}
 
 		return $encrypted;
@@ -126,7 +126,7 @@ class WC_AM_Encryption {
 		$decrypted = openssl_decrypt( $data, $this->cipher_algo, $this->key_hash, 0, $this->auth_key );
 
 		if ( $decrypted === false ) {
-			throw new Exception( sprintf( 'Encryption failed: ', openssl_error_string() ) );
+			throw new Exception( sprintf( __( 'Encryption failed: %s', 'woocommerce-api-manager' ), openssl_error_string() ) );
 		}
 
 		return $decrypted;

@@ -4,7 +4,7 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "From:": [
             "从："
@@ -109,7 +109,7 @@
             "国旗"
          ],
          "Flag file": [
-            "旗帜文件"
+            "国旗文件"
          ],
          "You just added  language. Next, select it as the site's default language or a translation language.": [
             "您刚刚添加了语言。接下来，选择它作为网站的默认语言或翻译语言。"

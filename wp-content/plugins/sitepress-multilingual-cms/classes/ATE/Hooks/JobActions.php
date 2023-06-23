@@ -56,11 +56,16 @@ class JobActions implements \IWPML_Action {
 		$this->apiClient->cancelJobs( $getIds( $jobs ) );
 	}
 
+	/**
+	 * @param array $oldLanguages
+	 * @return void
+	 */
 	public function hideJobsAfterRemoveLanguage( $oldLanguages ) {
 		$removedLanguages = Lst::diff( array_keys( $oldLanguages ), array_keys( Languages::getActive() ) );
 
 		if ( $removedLanguages ) {
 			$inProgressJobsSearchParams = self::getInProgressSearch()
+											  /** @phpstan-ignore-next-line */
 			                                  ->set_target_language( array_values( $removedLanguages ) );
 
 			$this->hideJobs( $inProgressJobsSearchParams );

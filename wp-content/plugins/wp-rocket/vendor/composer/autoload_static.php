@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb1cd267c1e89e60e4f3cc6f3d200ccdf
+class ComposerStaticInit39b1e8ca933e94008fcc912f60efbd6f
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -46,6 +46,16 @@ class ComposerStaticInitb1cd267c1e89e60e4f3cc6f3d200ccdf
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'C' => 
+        array (
+            'CloudFlare\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/cloudflare/cf-ip-rewrite/src',
+            ),
         ),
     );
 
@@ -108,9 +118,10 @@ class ComposerStaticInitb1cd267c1e89e60e4f3cc6f3d200ccdf
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb1cd267c1e89e60e4f3cc6f3d200ccdf::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb1cd267c1e89e60e4f3cc6f3d200ccdf::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb1cd267c1e89e60e4f3cc6f3d200ccdf::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit39b1e8ca933e94008fcc912f60efbd6f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit39b1e8ca933e94008fcc912f60efbd6f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit39b1e8ca933e94008fcc912f60efbd6f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit39b1e8ca933e94008fcc912f60efbd6f::$classMap;
 
         }, null, ClassLoader::class);
     }

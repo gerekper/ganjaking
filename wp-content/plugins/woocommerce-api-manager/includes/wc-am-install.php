@@ -575,11 +575,21 @@ class WC_AM_Install {
 		/**
 		 * Bypass trash and force deletion of the Lost API Key page.
 		 *
-		 * @since 2.0
+		 * @since   2.0
+		 * @updated 3.0 Replace get_page_by_title(), deprecated in WP 6.2, with get_posts() which calls WP_Query().
 		 */
-		$lost_api_key_id = get_page_by_title( 'Lost API Key' );
+		$lost_api_key_id = get_posts( array(
+			                              'post_type'              => 'page',
+			                              'title'                  => 'Lost API Key',
+			                              'post_status'            => 'all',
+			                              'numberposts'            => 1,
+			                              'update_post_term_cache' => false,
+			                              'update_post_meta_cache' => false,
+			                              'orderby'                => 'post_date ID',
+			                              'order'                  => 'ASC',
+		                              ) );
 
-		if ( ! is_null( $lost_api_key_id ) ) {
+		if ( ! empty( $lost_api_key_id ) ) {
 			wp_delete_post( $lost_api_key_id->ID, true );
 			delete_option( 'woocommerce_lost_license_page_id' );
 		} elseif ( get_option( 'woocommerce_lost_license_page_id' ) ) {
@@ -627,7 +637,7 @@ class WC_AM_Install {
 		 * @since 2.6
 		 */
 		if ( get_option( 'woocommerce_api_manager_grace_period' ) === false ) {
-			update_option( 'woocommerce_api_manager_grace_period', array( 'number' => 30, 'unit' => 'days' ) );
+			update_option( 'woocommerce_api_manager_grace_period', array( 'number' => 14, 'unit' => 'days' ) );
 		}
 
 		/**
@@ -650,6 +660,20 @@ class WC_AM_Install {
 		if ( get_option( 'woocommerce_api_manager_translate_software_add_on_queries' ) === false ) {
 			update_option( 'woocommerce_api_manager_translate_software_add_on_queries', 'no' );
 		}
+
+		/**
+		 * @since 3.0
+		 */
+		if ( get_option( 'woocommerce_api_manager_manual_renewal_period' ) === false ) {
+			update_option( 'woocommerce_api_manager_manual_renewal_period', array( 'number' => 2, 'unit' => 'months' ) );
+		}
+
+		/**
+		 * @since 3.0
+		 */
+		if ( get_option( 'woocommerce_api_manager_manual_renewal_discount' ) === false ) {
+			update_option( 'woocommerce_api_manager_manual_renewal_discount', 0 );
+		}
 	}
 
 	/**
@@ -660,6 +684,13 @@ class WC_AM_Install {
 			wp_schedule_event( time(), 'weekly', 'wc_am_weekly_event' );
 
 			update_option( 'woocommerce_api_manager_api_resoure_cleanup_data', 'yes' );
+		}
+
+		/**
+		 * @since 3.0
+		 */
+		if ( ! wp_next_scheduled( 'wc_am_daily_event' ) ) {
+			wp_schedule_event( time(), 'daily', 'wc_am_daily_event' );
 		}
 	}
 

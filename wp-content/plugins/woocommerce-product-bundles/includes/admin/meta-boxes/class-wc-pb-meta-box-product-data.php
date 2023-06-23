@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.16.0
+ * @version  6.21.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -279,7 +279,7 @@ class WC_PB_Meta_Box_Product_Data {
 		</div>
 		<div class="options_group bundle_type show_if_bundle">
 			<div class="form-field">
-				<label><?php _e( 'Bundle type', 'woocommerce-product-bundles' ); ?></label>
+				<label><?php esc_html_e( 'Bundle type', 'woocommerce-product-bundles' ); ?></label>
 				<ul class="bundle_type_options">
 					<?php
 					foreach ( $bundle_type_options as $type ) {
@@ -288,9 +288,10 @@ class WC_PB_Meta_Box_Product_Data {
 							$classes[] = 'selected';
 						}
 						?>
-						<li class="<?php echo implode( ' ', $classes ); ?>" >
-							<input type="radio"<?php echo $type[ 'checked' ] ?> name="_bundle_type" class="bundle_type_option" value="<?php echo $type[ 'value' ] ?>">
-							<?php echo wc_help_tip( '<strong>' . $type[ 'title' ] . '</strong> &ndash; ' . $type[ 'description' ] ); ?>
+						<li class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" >
+							<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<input type="radio"<?php echo $type[ 'checked' ]; ?> name="_bundle_type" class="bundle_type_option" value="<?php echo esc_attr( $type[ 'value' ] ); ?>">
+							<?php echo wc_help_tip( '<strong>' . $type[ 'title' ] . '</strong> &ndash; ' . $type[ 'description' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</li>
 						<?php
 					}
@@ -300,11 +301,11 @@ class WC_PB_Meta_Box_Product_Data {
 			<div class="wp-clearfix"></div>
 			<div id="message" class="inline notice">
 				<p>
-					<span class="assembled_notice_title"><?php _e( 'What happened to the shipping options?', 'woocommerce-product-bundles' ); ?></span>
+					<span class="assembled_notice_title"><?php esc_html_e( 'What happened to the shipping options?', 'woocommerce-product-bundles' ); ?></span>
 
 					<?php
 						/* translators: Unassambled bundle documentation link */
-						echo sprintf( __( 'The contents of this bundle preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> bundles do not have any shipping options to configure.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'shipping-options' ) );
+						echo wp_kses_post( sprintf( __( 'The contents of this bundle preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> bundles do not have any shipping options to configure.', 'woocommerce-product-bundles' ), esc_url( WC_PB()->get_resource_url( 'shipping-options' ) ) ) );
 					?>
 				</p>
 			</div>
@@ -962,9 +963,9 @@ class WC_PB_Meta_Box_Product_Data {
 			?><div class="override_variations">
 				<div class="form-field">
 					<label for="override_variations">
-						<?php echo __( 'Filter Variations', 'woocommerce-product-bundles' ); ?>
+						<?php echo esc_html__( 'Filter Variations', 'woocommerce-product-bundles' ); ?>
 					</label>
-					<input type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_variations ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][override_variations]" <?php echo ( 'yes' === $override_variations ? 'value="1"' : '' ); ?>/>
+					<input type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_variations ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][override_variations]" <?php echo ( 'yes' === $override_variations ? 'value="1"' : '' ); ?>/>
 					<?php echo wc_help_tip( __( 'Check to enable only a subset of the available variations.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 			</div>
@@ -978,7 +979,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 					if ( count( $variations ) < 50 ) {
 
-						?><select multiple="multiple" name="bundle_data[<?php echo $loop; ?>][allowed_variations][]" style="width: 95%;" data-placeholder="<?php _e( 'Choose variations&hellip;', 'woocommerce-product-bundles' ); ?>" class="sw-select2"> <?php
+						?><select multiple="multiple" name="bundle_data[<?php echo esc_attr( $loop ); ?>][allowed_variations][]" style="width: 95%;" data-placeholder="<?php esc_attr_e( 'Choose variations&hellip;', 'woocommerce-product-bundles' ); ?>" class="sw-select2"> <?php
 
 							foreach ( $variations as $variation_id ) {
 
@@ -994,7 +995,7 @@ class WC_PB_Meta_Box_Product_Data {
 									continue;
 								}
 
-								echo '<option value="' . $variation_id . '" ' . $selected . '>' . $variation_description . '</option>';
+								echo '<option value="' . esc_attr( $variation_id ) . '" ' . $selected . '>' . esc_html( $variation_description ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							}
 
 						?></select><?php
@@ -1017,7 +1018,7 @@ class WC_PB_Meta_Box_Product_Data {
 							}
 						}
 
-						?><select class="sw-select2-search--products" multiple="multiple" style="width: 95%;" name="bundle_data[<?php echo $loop; ?>][allowed_variations][]" data-placeholder="<?php _e( 'Search for variations&hellip;', 'woocommerce-product-bundles' ); ?>" data-action="woocommerce_search_bundled_variations" data-limit="500" data-include="<?php echo $product_id; ?>"><?php
+						?><select class="sw-select2-search--products" multiple="multiple" style="width: 95%;" name="bundle_data[<?php echo esc_attr( $loop ); ?>][allowed_variations][]" data-placeholder="<?php esc_attr_e( 'Search for variations&hellip;', 'woocommerce-product-bundles' ); ?>" data-action="woocommerce_search_bundled_variations" data-limit="500" data-include="<?php echo esc_attr( $product_id ); ?>"><?php
 							foreach ( $allowed_variations_descriptions as $allowed_variation_id => $allowed_variation_description ) {
 								echo '<option value="' . esc_attr( $allowed_variation_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $allowed_variation_description ) . '</option>';
 							}
@@ -1029,8 +1030,8 @@ class WC_PB_Meta_Box_Product_Data {
 
 			<div class="override_default_variation_attributes">
 				<div class="form-field">
-					<label for="override_default_variation_attributes"><?php echo __( 'Override Default Selections', 'woocommerce-product-bundles' ) ?></label>
-					<input type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_defaults ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][override_default_variation_attributes]" <?php echo ( 'yes' === $override_defaults ? 'value="1"' : '' ); ?>/>
+					<label for="override_default_variation_attributes"><?php echo esc_html__( 'Override Default Selections', 'woocommerce-product-bundles' ) ?></label>
+					<input type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_defaults ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][override_default_variation_attributes]" <?php echo ( 'yes' === $override_defaults ? 'value="1"' : '' ); ?>/>
 					<?php echo wc_help_tip( __( 'In effect for this bundle only. When <strong>Filter Variations</strong> is enabled, double-check your selections to make sure they correspond to an active variation.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 			</div>
@@ -1046,7 +1047,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 						$selected_value = isset( $default_attributes[ sanitize_title( $attribute->get_name() ) ] ) ? $default_attributes[ sanitize_title( $attribute->get_name() ) ] : '';
 
-						?><select name="bundle_data[<?php echo $loop; ?>][default_variation_attributes][<?php echo sanitize_title( $attribute->get_name() ); ?>]" data-current="<?php echo esc_attr( $selected_value ); ?>">
+						?><select name="bundle_data[<?php echo esc_attr( $loop ); ?>][default_variation_attributes][<?php echo esc_attr( sanitize_title( $attribute->get_name() ) ); ?>]" data-current="<?php echo esc_attr( $selected_value ); ?>">
 
 							<option value=""><?php echo esc_html( sprintf( __( 'No default %s&hellip;', 'woocommerce' ), wc_attribute_label( $attribute->get_name() ) ) ); ?></option><?php
 
@@ -1096,32 +1097,32 @@ class WC_PB_Meta_Box_Product_Data {
 
 		?><div class="quantity_min">
 			<div class="form-field">
-				<label for="item_quantity_min_<?php echo $loop; ?>"><?php echo __( 'Min Quantity', 'woocommerce-product-bundles' ); ?></label>
-				<input id="item_quantity_min_<?php echo $loop; ?>" type="number" class="item_quantity item_quantity_min" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_min]" value="<?php echo $item_quantity; ?>" step="<?php echo $step; ?>" min="0" />
+				<label for="item_quantity_min_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Min Quantity', 'woocommerce-product-bundles' ); ?></label>
+				<input id="item_quantity_min_<?php echo esc_attr( $loop ); ?>" type="number" class="item_quantity item_quantity_min" size="6" name="bundle_data[<?php echo esc_attr( $loop ); ?>][quantity_min]" value="<?php echo esc_attr( $item_quantity ); ?>" step="<?php echo esc_attr( $step ); ?>" min="0" />
 				<?php echo wc_help_tip( __( 'The minimum quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
 
 		<div class="quantity_max">
 			<div class="form-field">
-				<label for="item_quantity_max_<?php echo $loop; ?>"><?php echo __( 'Max Quantity', 'woocommerce-product-bundles' ); ?></label>
-				<input id="item_quantity_max_<?php echo $loop; ?>" type="number" class="item_quantity item_quantity_max" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_max]" value="<?php echo $item_quantity_max; ?>" step="<?php echo $step; ?>" min="<?php echo $item_quantity; ?>" />
+				<label for="item_quantity_max_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Max Quantity', 'woocommerce-product-bundles' ); ?></label>
+				<input id="item_quantity_max_<?php echo esc_attr( $loop ); ?>" type="number" class="item_quantity item_quantity_max" size="6" name="bundle_data[<?php echo esc_attr( $loop ); ?>][quantity_max]" value="<?php echo esc_attr( $item_quantity_max ); ?>" step="<?php echo esc_attr( $step ); ?>" min="<?php echo esc_attr( $item_quantity ); ?>" />
 				<?php echo wc_help_tip( __( 'The maximum quantity of this bundled product. Leave the field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
 
 		<div class="quantity_default">
 			<div class="form-field">
-				<label for="item_quantity_default_<?php echo $loop; ?>"><?php echo __( 'Default Quantity', 'woocommerce-product-bundles' ); ?></label>
-				<input id="item_quantity_default_<?php echo $loop; ?>" type="number" class="item_quantity item_quantity_default" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_default]" value="<?php echo $item_quantity_default; ?>" step="<?php echo $step; ?>" min="<?php echo $item_quantity; ?>" max="<?php echo $item_quantity_max; ?>" />
+				<label for="item_quantity_default_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Default Quantity', 'woocommerce-product-bundles' ); ?></label>
+				<input id="item_quantity_default_<?php echo esc_attr( $loop ); ?>" type="number" class="item_quantity item_quantity_default" size="6" name="bundle_data[<?php echo esc_attr( $loop ); ?>][quantity_default]" value="<?php echo esc_attr( $item_quantity_default ); ?>" step="<?php echo esc_attr( $step ); ?>" min="<?php echo esc_attr( $item_quantity ); ?>" max="<?php echo esc_attr( $item_quantity_max ); ?>" />
 				<?php echo wc_help_tip( __( 'The default quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
 
 		<div class="optional" data-is_optional_qty_zero="<?php echo ( 'yes' === $is_optional && 0 === $item_quantity ? 'yes' : 'no' ); ?>" <?php echo ( $item_quantity === 0 && 'yes' !== $is_optional ? 'style="display:none;"' : '' ); ?>">
 			<div class="form-field">
-				<label for="optional_<?php echo $loop; ?>"><?php echo __( 'Optional', 'woocommerce-product-bundles' ) ?></label>
-				<input id="optional_<?php echo $loop; ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $is_optional ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][optional]" <?php echo ( 'yes' === $is_optional ? 'value="1"' : '' ); ?>/>
+				<label for="optional_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Optional', 'woocommerce-product-bundles' ) ?></label>
+				<input id="optional_<?php echo esc_attr( $loop ); ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $is_optional ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][optional]" <?php echo ( 'yes' === $is_optional ? 'value="1"' : '' ); ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to mark the bundled product as optional.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
@@ -1130,8 +1131,8 @@ class WC_PB_Meta_Box_Product_Data {
 
 			<div class="shipped_individually">
 				<div class="form-field">
-					<label for="shipped_individually_<?php echo $loop; ?>"><?php echo __( 'Shipped Individually', 'woocommerce-product-bundles' ); ?></label>
-					<input id="shipped_individually_<?php echo $loop; ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $is_shipped_individually ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][shipped_individually]" <?php echo ( 'yes' === $is_shipped_individually ? 'value="1"' : '' ); ?>/>
+					<label for="shipped_individually_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Shipped Individually', 'woocommerce-product-bundles' ); ?></label>
+					<input id="shipped_individually_<?php echo esc_attr( $loop ); ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $is_shipped_individually ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][shipped_individually]" <?php echo ( 'yes' === $is_shipped_individually ? 'value="1"' : '' ); ?>/>
 					<?php echo wc_help_tip( __( 'Check this option if this bundled item is shipped separately from the bundle.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 			</div>
@@ -1140,16 +1141,16 @@ class WC_PB_Meta_Box_Product_Data {
 
 		<div class="priced_individually">
 			<div class="form-field">
-				<label for="priced_individually_<?php echo $loop; ?>"><?php echo __( 'Priced Individually', 'woocommerce-product-bundles' ); ?></label>
-				<input id="priced_individually_<?php echo $loop; ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $is_priced_individually ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][priced_individually]" <?php echo ( 'yes' === $is_priced_individually ? 'value="1"' : '' ); ?>/>
+				<label for="priced_individually_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Priced Individually', 'woocommerce-product-bundles' ); ?></label>
+				<input id="priced_individually_<?php echo esc_attr( $loop ); ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $is_priced_individually ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][priced_individually]" <?php echo ( 'yes' === $is_priced_individually ? 'value="1"' : '' ); ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to have the price of this bundled item added to the base price of the bundle.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
 
 		<div class="discount" <?php echo 'yes' === $is_priced_individually ? '' : 'style="display:none;"'; ?>>
 			<div class="form-field">
-				<label for="discount_<?php echo $loop; ?>"><?php echo __( 'Discount %', 'woocommerce-product-bundles' ); ?></label>
-				<input id="discount_<?php echo $loop; ?>" type="text" class="input-text item_discount wc_input_decimal" size="5" name="bundle_data[<?php echo $loop; ?>][discount]" value="<?php echo $item_discount; ?>" />
+				<label for="discount_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Discount %', 'woocommerce-product-bundles' ); ?></label>
+				<input id="discount_<?php echo esc_attr( $loop ); ?>" type="text" class="input-text item_discount wc_input_decimal" size="5" name="bundle_data[<?php echo esc_attr( $loop ); ?>][discount]" value="<?php echo esc_attr( $item_discount ); ?>" />
 				<?php echo wc_help_tip( __( 'Discount applied to the price of this bundled product when Priced Individually is checked. If the bundled product has a Sale Price, the discount is applied on top of the Sale Price.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div><?php
@@ -1184,48 +1185,48 @@ class WC_PB_Meta_Box_Product_Data {
 
 		?><div class="item_visibility">
 			<div class="form-field">
-				<label><?php _e( 'Visibility', 'woocommerce-product-bundles' ); ?></label>
+				<label><?php esc_html_e( 'Visibility', 'woocommerce-product-bundles' ); ?></label>
 				<div>
-					<input type="checkbox" class="checkbox visibility_product"<?php echo ( 'visible' === $visibility[ 'product' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][single_product_visibility]" <?php echo ( 'visible' === $visibility[ 'product' ] ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php _e( 'Product details', 'woocommerce-product-bundles' ); ?></span>
+					<input type="checkbox" class="checkbox visibility_product"<?php echo ( 'visible' === $visibility[ 'product' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][single_product_visibility]" <?php echo ( 'visible' === $visibility[ 'product' ] ? 'value="1"' : '' ); ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Product details', 'woocommerce-product-bundles' ); ?></span>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the bundled item in the single-product template of this bundle.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 				<div>
-					<input type="checkbox" class="checkbox visibility_cart"<?php echo ( 'visible' === $visibility[ 'cart' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][cart_visibility]" <?php echo ( 'visible' === $visibility[ 'cart' ] ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php _e( 'Cart/checkout', 'woocommerce-product-bundles' ); ?></span>
+					<input type="checkbox" class="checkbox visibility_cart"<?php echo ( 'visible' === $visibility[ 'cart' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][cart_visibility]" <?php echo ( 'visible' === $visibility[ 'cart' ] ? 'value="1"' : '' ); ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Cart/checkout', 'woocommerce-product-bundles' ); ?></span>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the bundled item in cart/checkout templates.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 				<div>
-					<input type="checkbox" class="checkbox visibility_order"<?php echo ( 'visible' === $visibility[ 'order' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][order_visibility]" <?php echo ( 'visible' === $visibility[ 'order' ] ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php _e( 'Order details', 'woocommerce-product-bundles' ); ?></span>
+					<input type="checkbox" class="checkbox visibility_order"<?php echo ( 'visible' === $visibility[ 'order' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][order_visibility]" <?php echo ( 'visible' === $visibility[ 'order' ] ? 'value="1"' : '' ); ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Order details', 'woocommerce-product-bundles' ); ?></span>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the bundled item in order-details and e-mail templates.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 			</div>
 		</div>
 		<div class="price_visibility" <?php echo $is_priced_individually ? '' : 'style="display:none;"'; ?>>
 			<div class="form-field">
-				<label><?php _e( 'Price Visibility', 'woocommerce-product-bundles' ); ?></label>
+				<label><?php esc_html_e( 'Price Visibility', 'woocommerce-product-bundles' ); ?></label>
 				<div class="price_visibility_product_wrapper">
-					<input type="checkbox" class="checkbox price_visibility_product"<?php echo ( 'visible' === $price_visibility[ 'product' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][single_product_price_visibility]" <?php echo ( 'visible' === $price_visibility[ 'product' ] ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php _e( 'Product details', 'woocommerce-product-bundles' ); ?></span>
+					<input type="checkbox" class="checkbox price_visibility_product"<?php echo ( 'visible' === $price_visibility[ 'product' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][single_product_price_visibility]" <?php echo ( 'visible' === $price_visibility[ 'product' ] ? 'value="1"' : '' ); ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Product details', 'woocommerce-product-bundles' ); ?></span>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the bundled-item price in the single-product template of this bundle.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 				<div class="price_visibility_cart_wrapper">
-					<input type="checkbox" class="checkbox price_visibility_cart"<?php echo ( 'visible' === $price_visibility[ 'cart' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][cart_price_visibility]" <?php echo ( 'visible' === $price_visibility[ 'cart' ] ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php _e( 'Cart/checkout', 'woocommerce-product-bundles' ); ?></span>
+					<input type="checkbox" class="checkbox price_visibility_cart"<?php echo ( 'visible' === $price_visibility[ 'cart' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][cart_price_visibility]" <?php echo ( 'visible' === $price_visibility[ 'cart' ] ? 'value="1"' : '' ); ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Cart/checkout', 'woocommerce-product-bundles' ); ?></span>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the bundled-item price in cart/checkout templates.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 				<div class="price_visibility_order_wrapper">
-					<input type="checkbox" class="checkbox price_visibility_order"<?php echo ( 'visible' === $price_visibility[ 'order' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][order_price_visibility]" <?php echo ( 'visible' === $price_visibility[ 'order' ] ? 'value="1"' : '' ); ?>/>
-					<span class="labelspan"><?php _e( 'Order details', 'woocommerce-product-bundles' ); ?></span>
+					<input type="checkbox" class="checkbox price_visibility_order"<?php echo ( 'visible' === $price_visibility[ 'order' ] ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][order_price_visibility]" <?php echo ( 'visible' === $price_visibility[ 'order' ] ? 'value="1"' : '' ); ?>/>
+					<span class="labelspan"><?php esc_html_e( 'Order details', 'woocommerce-product-bundles' ); ?></span>
 					<?php echo wc_help_tip( __( 'Controls the visibility of the bundled-item price in order-details and e-mail templates.', 'woocommerce-product-bundles' ) ); ?>
 				</div>
 			</div>
 		</div>
 		<div class="override_title">
 			<div class="form-field override_title">
-				<label for="override_title_<?php echo $loop; ?>"><?php echo __( 'Override Title', 'woocommerce-product-bundles' ) ?></label>
-				<input id="override_title_<?php echo $loop; ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_title ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][override_title]" <?php echo ( 'yes' === $override_title ? 'value="1"' : '' ); ?>/>
+				<label for="override_title_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Override Title', 'woocommerce-product-bundles' ) ?></label>
+				<input id="override_title_<?php echo esc_attr( $loop ); ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_title ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][override_title]" <?php echo ( 'yes' === $override_title ? 'value="1"' : '' ); ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to override the default product title.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
@@ -1234,13 +1235,13 @@ class WC_PB_Meta_Box_Product_Data {
 
 				$title = isset( $item_data[ 'title' ] ) ? $item_data[ 'title' ] : '';
 
-				?><textarea name="bundle_data[<?php echo $loop; ?>][title]" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $title ); ?></textarea>
+				?><textarea name="bundle_data[<?php echo esc_attr( $loop ); ?>][title]" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $title ); ?></textarea>
 			</div>
 		</div>
 		<div class="override_description">
 			<div class="form-field">
-				<label for="override_description_<?php echo $loop; ?>"><?php echo __( 'Override Short Description', 'woocommerce-product-bundles' ) ?></label>
-				<input id="override_description_<?php echo $loop; ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_description ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][override_description]" <?php echo ( 'yes' === $override_description ? 'value="1"' : '' ); ?>/>
+				<label for="override_description_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Override Short Description', 'woocommerce-product-bundles' ) ?></label>
+				<input id="override_description_<?php echo esc_attr( $loop ); ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $override_description ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][override_description]" <?php echo ( 'yes' === $override_description ? 'value="1"' : '' ); ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to override the default short product description.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
@@ -1249,13 +1250,13 @@ class WC_PB_Meta_Box_Product_Data {
 
 				$description = isset( $item_data[ 'description' ] ) ? $item_data[ 'description' ] : '';
 
-				?><textarea name="bundle_data[<?php echo $loop; ?>][description]" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea>
+				?><textarea name="bundle_data[<?php echo esc_attr( $loop ); ?>][description]" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea>
 			</div>
 		</div>
 		<div class="hide_thumbnail">
 			<div class="form-field">
-				<label for="hide_thumbnail_<?php echo $loop; ?>"><?php echo __( 'Hide Thumbnail', 'woocommerce-product-bundles' ) ?></label>
-				<input id="hide_thumbnail_<?php echo $loop; ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $hide_thumbnail ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][hide_thumbnail]" <?php echo ( 'yes' === $hide_thumbnail ? 'value="1"' : '' ); ?>/>
+				<label for="hide_thumbnail_<?php echo esc_attr( $loop ); ?>"><?php echo esc_html__( 'Hide Thumbnail', 'woocommerce-product-bundles' ) ?></label>
+				<input id="hide_thumbnail_<?php echo esc_attr( $loop ); ?>" type="checkbox" class="checkbox"<?php echo ( 'yes' === $hide_thumbnail ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][hide_thumbnail]" <?php echo ( 'yes' === $hide_thumbnail ? 'value="1"' : '' ); ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to hide the thumbnail image of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div><?php
@@ -1280,7 +1281,7 @@ class WC_PB_Meta_Box_Product_Data {
 			?><span class="item-id">
 				<?php
 				/* translators: Bundled item ID */
-				echo sprintf( _x( 'Item ID: %s', 'bundled product id', 'woocommerce-product-bundles' ), $item_data[ 'bundled_item' ]->get_id() ); ?>
+				echo sprintf( esc_html_x( 'Item ID: %s', 'bundled product id', 'woocommerce-product-bundles' ), esc_html( $item_data[ 'bundled_item' ]->get_id() ) ); ?>
 			</span><?php
 		}
 	}
@@ -1402,14 +1403,14 @@ class WC_PB_Meta_Box_Product_Data {
 		$tabs          = self::get_bundled_product_tabs();
 		$toggle        = 'closed';
 
-		?><div class="hr-section hr-section-components"><?php echo __( 'Bundled Products', 'woocommerce-composite-products' ); ?></div>
+		?><div class="hr-section hr-section-components"><?php echo esc_html__( 'Bundled Products', 'woocommerce-composite-products' ); ?></div>
 		<div class="wc-metaboxes-wrapper wc-bundle-metaboxes-wrapper <?php echo empty( $bundled_items ) ? 'wc-bundle-metaboxes-wrapper--boarding' : ''; ?>">
 
 			<div id="wc-bundle-metaboxes-wrapper-inner">
 
 				<p class="toolbar">
-					<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
-					<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
+					<a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce' ); ?></a>
+					<a href="#" class="expand_all"><?php esc_html_e( 'Expand all', 'woocommerce' ); ?></a>
 				</p>
 
 				<div class="wc-bundled-items wc-metaboxes"><?php
@@ -1469,9 +1470,9 @@ class WC_PB_Meta_Box_Product_Data {
 
 						?><div class="wc-bundled-items__boarding">
 							<div class="wc-bundled-items__boarding__message">
-								<h3><?php _e( 'Bundled Products', 'woocommerce-product-bundles' ); ?></h3>
-								<p><?php _e( 'You have not added any products to this bundle.', 'woocommerce-product-bundles' ); ?>
-								<br/><?php _e( 'Add some now?', 'woocommerce-product-bundles' ); ?>
+								<h3><?php esc_html_e( 'Bundled Products', 'woocommerce-product-bundles' ); ?></h3>
+								<p><?php esc_html_e( 'You have not added any products to this bundle.', 'woocommerce-product-bundles' ); ?>
+								<br/><?php esc_html_e( 'Add some now?', 'woocommerce-product-bundles' ); ?>
 								</p>
 							</div>
 						</div><?php
@@ -1489,15 +1490,15 @@ class WC_PB_Meta_Box_Product_Data {
 				 */
 				if ( apply_filters( 'woocommerce_bundled_item_legacy_add_input', false ) ) { ?>
 
-					<select class="sw-select2-search--products" id="bundled_product" style="width: 250px;" name="bundled_product" data-placeholder="<?php _e( 'Add a bundled product&hellip;', 'woocommerce-product-bundles' ); ?>" data-action="woocommerce_json_search_products" multiple="multiple" data-limit="500">
+					<select class="sw-select2-search--products" id="bundled_product" style="width: 250px;" name="bundled_product" data-placeholder="<?php esc_attr_e( 'Add a bundled product&hellip;', 'woocommerce-product-bundles' ); ?>" data-action="woocommerce_json_search_products" multiple="multiple" data-limit="500">
 						<option></option>
 					</select>
 
 				<?php } else { ?>
 
 					<div class="sw-expanding-button sw-expanding-button--large">
-						<span class="sw-title"><?php echo _x( 'Add Product', 'new bundled product button', 'woocommerce-product-bundles' ); ?></span>
-						<select class="sw-select2-search--products" id="bundled_product" name="bundled_product" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce-product-bundles' ); ?>" data-action="woocommerce_json_search_products" multiple="multiple" data-limit="500">
+						<span class="sw-title"><?php echo esc_html_x( 'Add Product', 'new bundled product button', 'woocommerce-product-bundles' ); ?></span>
+						<select class="sw-select2-search--products" id="bundled_product" name="bundled_product" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-product-bundles' ); ?>" data-action="woocommerce_json_search_products" multiple="multiple" data-limit="500">
 							<option></option>
 						</select>
 					</div>

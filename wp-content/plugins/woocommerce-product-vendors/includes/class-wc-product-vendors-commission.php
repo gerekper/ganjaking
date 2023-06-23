@@ -475,60 +475,63 @@ class WC_Product_Vendors_Commission {
 	 * @access public
 	 * @since 2.0.0
 	 * @version 2.0.0
-	 * @param int $order_id
+	 * @param int    $order_id
 	 * @param string $year
 	 * @param string $month
 	 * @param string $commission_status
-	 * @param int $vendor_id
+	 * @param int    $vendor_id
 	 * @return array $query
 	 */
 	public function csv_filtered_query( $order_id = '', $year = '', $month = '', $commission_status = '', $vendor_id = '' ) {
 		global $wpdb;
 
-		$query = array();
+		// Query WHERE.
+		$sql_where = array();
 
-		$sql = "SELECT commission.order_id, commission.order_date, commission.vendor_name, commission.product_name, commission.variation_attributes, commission.product_amount, commission.product_quantity, commission.product_shipping_amount, commission.product_shipping_tax_amount, commission.product_tax_amount, commission.product_commission_amount, commission.total_commission_amount, commission.commission_status, commission.paid_date FROM " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " AS commission";
-
-		$sql .= " WHERE 1=1";
-
-		// if order_id is set (search), we don't need other filters
-		// as search takes priority
+		// if order_id is set (search), we don't need other filters as search takes priority.
+		$order_id = absint( $order_id );
 		if ( $order_id ) {
-
-			$sql .= " AND commission.order_id = {$order_id}";
-
+			$sql_where[] = $wpdb->prepare( '`commission`.`order_id` = %d', $order_id );
 		} else {
+			$month = absint( $month );
+			$year  = absint( $year );
 
 			if ( $month && $year ) {
-
-				$time_filter = " AND MONTH( commission.order_date ) = {$month} AND YEAR( commission.order_date ) = {$year}";
-
-				$sql .= $time_filter;
+				$sql_where[] = $wpdb->prepare(
+					'MONTH( `commission`.`order_date` ) = %d AND YEAR( `commission`.`order_date` ) = %d',
+					$month,
+					$year
+				);
 			}
 
+			$commission_status = trim( $commission_status );
 			if ( $commission_status ) {
-				$commission_status = esc_sql( $commission_status );
-
-				$status_filter = " AND commission.commission_status = '{$commission_status}'";
-
-				$sql .= $status_filter;
+				$sql_where[] = $wpdb->prepare( '`commission`.`commission_status` = %s', $commission_status );
 			}
 
+			$vendor_id = absint( $vendor_id );
 			if ( $vendor_id ) {
-				$vendor = absint( $vendor_id );
-
-				$vendor_filter = " AND commission.vendor_id = '{$vendor}'";
-
-				$sql .= $vendor_filter;
+				$sql_where[] = $wpdb->prepare( '`commission`.`vendor_id` = %d', $vendor_id );
 			}
 		}
 
-		$query = $wpdb->get_results( $sql, ARRAY_A );
+		$sql_where = ( $sql_where ? ( ' WHERE ' . implode( ' AND ', $sql_where ) ) : '' );
 
-		// we need to unserialize possible variation attributes
-		$query = array_map( array( 'WC_Product_Vendors_Utils', 'unserialize_attributes' ), $query );
+		$items = $wpdb->get_results(
+			'SELECT `commission`.`order_id`, `commission`.`order_date`, `commission`.`vendor_name`,
+			`commission`.`product_name`, `commission`.`variation_attributes`, `commission`.`product_amount`,
+			`commission`.`product_quantity`, `commission`.`product_shipping_amount`,
+			`commission`.`product_shipping_tax_amount`, `commission`.`product_tax_amount`,
+			`commission`.`product_commission_amount`, `commission`.`total_commission_amount`,
+			`commission`.`commission_status`, `commission`.`paid_date`
+			FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE . ' AS `commission` ' . $sql_where, // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			ARRAY_A
+		);
 
-		// add column headers
+		// we need to unserialize possible variation attributes.
+		$items = array_map( array( 'WC_Product_Vendors_Utils', 'unserialize_attributes' ), $items );
+
+		// add column headers.
 		$headers = array(
 			__( 'Order ID', 'woocommerce-product-vendors' ),
 			__( 'Order Date', 'woocommerce-product-vendors' ),
@@ -545,19 +548,18 @@ class WC_Product_Vendors_Commission {
 			__( 'Commission Paid Status', 'woocommerce-product-vendors' ),
 			__( 'Commission Paid Date', 'woocommerce-product-vendors' ),
 		);
+		array_unshift( $items, $headers );
 
-		array_unshift( $query, $headers );
+		// convert the array to string recursively.
+		$items = implode( PHP_EOL, array_map( array( 'WC_Product_Vendors_Utils', 'convert2string' ), $items ) );
 
-		// convert the array to string recursively
-		$query = implode( PHP_EOL, array_map( array( 'WC_Product_Vendors_Utils', 'convert2string' ), $query ) );
-
-		return $query;
+		return $items;
 	}
 
 	/**
 	 * Should return commission id for order item.
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @param int $order_item_id Order item ID.
 	 * @param int $order_id Order ID.

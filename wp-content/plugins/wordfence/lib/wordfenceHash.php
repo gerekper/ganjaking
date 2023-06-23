@@ -269,40 +269,45 @@ class wordfenceHash {
 			$this->foldersEntered[$file->getRealPath()] = 1;
 			
 			$this->totalDirs++;
-			foreach (wfFileUtils::getContents($realPath) as $child) {
-				if (wfFileUtils::isCurrentOrParentDirectory($child)) {
-					continue;
-				}
-				try {
-					$child = $file->createChild($child);
-				}
-				catch (wfInvalidPathException $e) {
-					wordfence::status(4, 'info', sprintf(__("Ignoring invalid scan file child: %s", 'wordfence'), $e->getPath()));
-					continue;
-				}
-				if (is_file($child->getRealPath())) {
-					$relativeFile = $child->getWordpressPath();
-					if ($this->stoppedOnFile && $child->getRealPath() != $this->stoppedOnFile) {
+			try {
+				foreach (wfFileUtils::getContents($realPath) as $child) {
+					if (wfFileUtils::isCurrentOrParentDirectory($child)) {
 						continue;
 					}
-					
-					if (preg_match('/\.suspected$/i', $relativeFile)) { //Already iterating over all files in the search areas so generate this list here
-						wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Found .suspected file: %s", 'wordfence'), $relativeFile));
-						$this->suspectedFiles[$relativeFile] = 1;
+					try {
+						$child = $file->createChild($child);
 					}
-					
-					$this->_checkForTimeout($child, $indexedFiles);
-					if ($this->_shouldHashFile($child)) {
-						$indexedFiles[] = $child;
+					catch (wfInvalidPathException $e) {
+						wordfence::status(4, 'info', sprintf(__("Ignoring invalid scan file child: %s", 'wordfence'), $e->getPath()));
+						continue;
 					}
-					else {
-						wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping unneeded hash: %s", 'wordfence'), (string) $child));
+					if (is_file($child->getRealPath())) {
+						$relativeFile = $child->getWordpressPath();
+						if ($this->stoppedOnFile && $child->getRealPath() != $this->stoppedOnFile) {
+							continue;
+						}
+
+						if (preg_match('/\.suspected$/i', $relativeFile)) { //Already iterating over all files in the search areas so generate this list here
+							wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Found .suspected file: %s", 'wordfence'), $relativeFile));
+							$this->suspectedFiles[$relativeFile] = 1;
+						}
+
+						$this->_checkForTimeout($child, $indexedFiles);
+						if ($this->_shouldHashFile($child)) {
+							$indexedFiles[] = $child;
+						}
+						else {
+							wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping unneeded hash: %s", 'wordfence'), (string) $child));
+						}
+						$this->_serviceIndexQueue($indexedFiles);
 					}
-					$this->_serviceIndexQueue($indexedFiles);
+					elseif (is_dir($child->getRealPath())) {
+						$this->_dirIndex($child, $indexedFiles);
+					}
 				}
-				elseif (is_dir($child->getRealPath())) {
-					$this->_dirIndex($child, $indexedFiles);
-				}
+			}
+			catch (wfInaccessibleDirectoryException $e) {
+				wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping inaccessible directory: %s", 'wordfence'), (string) $file));
 			}
 			
 			$this->foldersProcessed[$realPath] = 1;

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Helpers
  * @since    1.0.0
- * @version  2.4.0
+ * @version  2.4.6
  */
 
 // Exit if accessed directly.
@@ -108,12 +108,21 @@ class WC_MNM_Helpers {
 	 * @return array
 	 */
 	public static function get_supported_product_types() {
+
+		$supported_types = array( 'simple', 'variation' );
+
+		// Legacy filter.
+		if ( has_filter( 'wc_mnm_supported_products' ) ) {
+			$supported_types = apply_filters( 'wc_mnm_supported_products', $supported_types );
+		}
+
 		/**
-		 * Supported types.
-		 *
+		 * Supported product types.
+		 * 
+		 * @since 2.4.6
 		 * @param  array
 		 */
-		return apply_filters( 'wc_mnm_supported_products', array( 'simple', 'variation' ) );
+		return apply_filters( 'wc_mnm_supported_product_types', $supported_types );
 	}
 
 	/**

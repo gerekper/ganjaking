@@ -336,7 +336,7 @@ if ( ! class_exists( 'WC_Drip_Settings' ) && class_exists( 'WC_Integration' ) ) 
 					}
 
 					// Cache the data for now
-					set_transient( 'wcdrip_campaigns', $all_campaigns, 86400 ); // 60 * 60 * 24 = 1 DAY
+					set_transient( 'wcdrip_campaigns', $all_campaigns, DAY_IN_SECONDS );
 
 				}
 

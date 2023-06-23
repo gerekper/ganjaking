@@ -213,13 +213,12 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 				$vendor            = '';
 
 				if ( ! empty( $_REQUEST['s'] ) ) {
-					$order_id = $_REQUEST['s'];
+					$order_id = absint( $_REQUEST['s'] );
 
 				} else {
 					if ( ! empty( $_REQUEST['m'] ) ) {
-
-						$year  = substr( $_REQUEST['m'], 0, 4 );
-						$month = substr( $_REQUEST['m'], 4, 2 );
+						$year  = filter_var( substr( $_REQUEST['m'], 0, 4 ), FILTER_SANITIZE_NUMBER_INT );
+						$month = filter_var( substr( $_REQUEST['m'], 4, 2 ), FILTER_SANITIZE_NUMBER_INT );
 					}
 
 					if ( ! empty( $_REQUEST['commission_status'] ) ) {
@@ -227,7 +226,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 					}
 
 					if ( ! empty( $_REQUEST['vendor'] ) ) {
-						$vendor = $_REQUEST['vendor'];
+						$vendor = absint( $_REQUEST['vendor'] );
 					}
 				}
 				?>

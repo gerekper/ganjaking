@@ -153,7 +153,7 @@ class WPML_PB_Integration {
 
 		// $isSavingPostWithREST :: int -> bool
 		$isSavingPostWithREST = function( $translatedPostId ) {
-			if ( ! in_array( $_SERVER['REQUEST_METHOD'], [ 'POST', 'PUT', 'PATCH' ] ) ) {
+			if ( ! in_array( $_SERVER['REQUEST_METHOD'], [ 'POST', 'PUT', 'PATCH' ], true ) ) {
 				return false;
 			}
 
@@ -170,8 +170,21 @@ class WPML_PB_Integration {
 			return $RESTPostId === $translatedPostId;
 		};
 
+		// $getGET :: string -> mixed
+		$getGET = Obj::prop( Fns::__, $_GET ); // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification
+
+		// $isBulkEditAction :: int -> bool
+		$isBulkEditAction = function( $id ) use ( $getGET ) {
+			$screenAction = 'edit-' . get_post_type( $id );
+			return $screenAction === $getGET( 'screen' )
+				&& 'edit' === $getGET( 'action' )
+				&& wpml_collect( (array) $getGET( 'post' ) )
+					->map( \WPML\FP\Cast::toInt() )
+					->contains( $id );
+		};
+
 		$isTranslationWithNativeEditor = ( 'editpost' === $getPOST( 'action' ) && (int) $getPOST( 'ID' ) === $translatedPostId )
-			|| ( $isQuickEditAction( $translatedPostId ) && WPML_PB_Last_Translation_Edit_Mode::is_native_editor( $translatedPostId ) )
+			|| ( ( $isQuickEditAction( $translatedPostId ) || $isBulkEditAction( $translatedPostId ) ) && WPML_PB_Last_Translation_Edit_Mode::is_native_editor( $translatedPostId ) )
 			|| $isSavingPostWithREST( $translatedPostId );
 
 		/**

@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "Από:"
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "Εσείς αποφασίζετε τις θα μεταφραστεί και ποιος θα το μεταφράσει"
          ],
-         "Translate it yourself": [
-            "Μεταφράστε το μόνοι σας"
+         "Translate yourself": [
+            "Μεταφράστε μόνοι σας"
          ],
-         "Assign it to translators that are users of your site": [
-            "Αναθέστε το σε μεταφραστές που είναι χρήστες του ιστότοπού σας"
+         "Use automatic translation on the content you choose": [
+            "Χρησιμοποιήστε αυτόματη μετάφραση στο περιεχόμενο που επιλέγετε"
          ],
-         "Send it to a professional translation service": [
-            "Στείλτε το σε μια επαγγελματική υπηρεσία μετάφρασης"
+         "Work with translators that are users of your site": [
+            "Συνεργαστείτε με μεταφραστές που είναι χρήστες του ιστότοπού σας"
          ],
          "or": [
             "ή"
          ],
-         "Translate it automatically using machine translation": [
-            "Μεταφράστε το αυτόματα χρησιμοποιώντας μηχανική μετάφραση"
+         "Send to professional translation services": [
+            "Αποστείλετε σε επαγγελματικές υπηρεσίες μετάφρασης"
          ],
          "user": [
             "χρήστη"
@@ -157,7 +156,7 @@
             "Δημιουργία ενός νέου %s και ορισμός του ως διαχειριστή μετάφρασης"
          ],
          "Cancel": [
-            "Άκυρο"
+            "Ακύρωση"
          ],
          "Add Translation Manager": [
             "Προσθήκη διαχειριστή μετάφρασης"
@@ -238,7 +237,7 @@
             "Τοποθεσία"
          ],
          "Code": [
-            "Κωδικός"
+            "Κώδικας"
          ],
          "The language will not be supported by automatic translations": [
             "Η γλώσσα δεν θα υποστηρίζεται από αυτόματες μεταφράσεις"
@@ -276,8 +275,14 @@
          "Please fill in the field": [
             "Συμπληρώστε το πεδίο"
          ],
+         "PNG, SVG, or JPG files": [
+            "Αρχεία PNG, SVG ή JPG"
+         ],
          "Save language": [
             "Αποθήκευση γλώσσας"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 pixel"
          ],
          "Read more about ": [
             "Διαβάστε περισσότερα για"
@@ -393,6 +398,88 @@
          "Language switcher customization": [
             "Προσαρμογή εναλλαγέα γλώσσας"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "Η τρέχουσα ρύθμισή σας θα χρησιμοποιεί πολλές μονάδες μετάφρασης"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "Αποφασίσατε να <b>Μεταφράζονται Όλα Αυτόματα</b> σε έναν <span class=\"warning\">ιστότοπο ανάπτυξης</span>"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "Αποφασίσατε να <b>Μεταφράζονται Όλα Αυτόματα:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "10.000 μονάδες ανατέθηκαν από προεπιλογή σε ιστότοπους ανάπτυξης"
+         ],
+         "posts, pages...": [
+            "αναρτήσεις, σελίδες..."
+         ],
+         "translated to": [
+            "μεταφράστηκε σε"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b> γλώσσα",
+            "<b>%1$d</b> γλώσσες"
+         ],
+         "will cost approximately": [
+            "θα κοστίσει περίπου"
+         ],
+         "credits": [
+            "μονάδες"
+         ],
+         "Loading details...": [
+            "Φόρτωση λεπτομερειών..."
+         ],
+         "Hide details": [
+            "Απόκρυψη λεπτομερειών"
+         ],
+         "Show details": [
+            "Προβολή λεπτομερειών"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "Η τρέχουσα ρύθμισή σας θα χρησιμοποιήσει περίπου <b>%s</b> μονάδες"
+         ],
+         "What do you want to do?": [
+            "Τι θέλετε να κάνετε;"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "Αφού αυτός είναι ένας ιστότοπος ανάπτυξης, ενδέχεται να μην θέλετε να ξοδέψετε μονάδες σε ψεύτικο περιεχόμενο."
+         ],
+         "Continue with this setup": [
+            "Συνέχεια με αυτή τη ρύθμιση"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "Το WPML θα μεταφράζει αυτόματα το περιεχόμενο του ιστότοπού σας. Όταν οι μονάδες σας τελειώσουν, μπορείτε να αγοράσετε περισσότερες ή να εγγραφείτε για πληρωμή pay-as-you-go για να συνεχίσετε να χρησιμοποιείτε την αυτόματη μετάφραση."
+         ],
+         "Make changes": [
+            "Πραγματοποίηση αλλαγών"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "Μπορείτε να χρησιμοποιήσετε λιγότερες μονάδες προσαρμόζοντας κάποιες από τις ρυθμίσεις που επιλέξατε κατά την εγκατάσταση."
+         ],
+         "Reduce the number of translation languages": [
+            "Μείωση του αριθμού γλωσσών μετάφρασης"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "Όσο περισσότερες γλώσσες έχετε στον ιστότοπό σας, τόσες περισσότερες μονάδες κοστίζει η μετάφραση. <b>Μπορείτε πάντα να προσθέσετε περισσότερες γλώσσες αργότερα.</b>"
+         ],
+         "Change site languages": [
+            "Αλλαγή γλωσσών ιστότοπου"
+         ],
+         "Change your translation mode": [
+            "Αλλαγή της λειτουργίας μετάφρασής σας"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "Η <b>Μετάφραση Όσων Επιλέγετε</b> σάς δίνει μεγαλύτερο έλεγχο στο τι μεταφράζεται και εξακολουθείτε να μπορείτε να χρησιμοποιήσετε την αυτόματη μετάφραση."
+         ],
+         "Change translation mode": [
+            "Αλλαγή λειτουργίας μετάφρασης"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "Δεν με πειράζει να χρησιμοποιώ τόσες μονάδες μετάφρασης,"
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "ας συνεχίσουμε και να μεταφράσουμε ολόκληρο τον ιστότοπο αυτόματα."
+         ],
          "Default language": [
             "Προεπιλεγμένη γλώσσα"
          ],
@@ -432,17 +519,17 @@
          "Are you ready to start translating now?": [
             "Είστε έτοιμοι να ξεκινήσετε τη μετάφραση τώρα;"
          ],
-         "Yes!": [
-            "Ναι!"
+         "Yes, start translating!": [
+            "Ναι, έναρξη μετάφρασης!"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "Έναρξη μετάφρασης του ιστότοπού μου τώρα. Το WPML θα χρησιμοποιήσει τις μονάδες αυτόματης μετάφρασής σας."
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "Το WPML θα μεταφράσει τον ιστότοπό σας για εσάς χρησιμοποιώντας μονάδες αυτόματης μετάφρασης."
          ],
-         "No. I need to do some changes first": [
-            "Όχι. Πρώτα θέλω να κάνω κάποιες αλλαγές"
+         "No, my content isn't finalized yet": [
+            "Όχι, το περιεχόμενό μου δεν έχει οριστικοποιηθεί ακόμη"
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "Όταν είστε έτοιμοι, μπορείτε να ξεκινήσετε την αυτόματη μετάφραση από τον Πίνακα Εργαλείων Διαχείρισης Μετάφρασης."
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "Όταν είστε έτοιμοι, ξεκινήστε την αυτόματη μετάφραση από τον Πίνακα Διαχείρισης Μεταφράσεων."
          ],
          "Improve your site’s translations using helpful plugins": [
             "Βελτιώστε τις μεταφράσεις του ιστοτόπου σας με χρήσιμες προσθήκες"
@@ -507,18 +594,6 @@
          "A new language could not be added correctly": [
             "Δεν ήταν εφικτή η προσθήκη νέας γλώσσας"
          ],
-         "Languages": [
-            "Γλώσσες"
-         ],
-         "URL Format": [
-            "Μορφή URL"
-         ],
-         "Register WPML": [
-            "Εγγραφή WPML"
-         ],
-         "Translation Mode": [
-            "Λειτουργία Μετάφρασης"
-         ],
          "Support": [
             "Υποστήριξη"
          ],
@@ -542,6 +617,18 @@
          ],
          "Finish": [
             "Τέλος"
+         ],
+         "Languages": [
+            "Γλώσσες"
+         ],
+         "URL Format": [
+            "Μορφή URL"
+         ],
+         "Register WPML": [
+            "Εγγραφή WPML"
+         ],
+         "Translation Mode": [
+            "Λειτουργία Μετάφρασης"
          ],
          "Settings": [
             "Ρυθμίσεις"

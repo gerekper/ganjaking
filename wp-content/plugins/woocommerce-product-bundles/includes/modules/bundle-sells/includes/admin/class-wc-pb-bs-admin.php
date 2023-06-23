@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin functions and filters.
  *
  * @class    WC_PB_BS_Admin
- * @version  6.16.0
+ * @version  6.21.0
  */
 class WC_PB_BS_Admin {
 
@@ -50,7 +50,7 @@ class WC_PB_BS_Admin {
 		?>
 		<div class="options_group hide_if_grouped hide_if_external hide_if_bundle">
 			<p class="form-field ">
-				<label for="bundle_sell_ids"><?php _e( 'Bundle-sells', 'woocommerce-product-bundles' ); ?></label>
+				<label for="bundle_sell_ids"><?php esc_html_e( 'Bundle-sells', 'woocommerce-product-bundles' ); ?></label>
 				<select class="wc-product-search" multiple="multiple" style="width: 50%;" id="bundle_sell_ids" name="bundle_sell_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_bundle_sells" data-exclude="<?php echo intval( $product_object->get_id() ); ?>" data-limit="100" data-sortable="true">
 					<?php
 
@@ -73,7 +73,7 @@ class WC_PB_BS_Admin {
 					/* translators: Additional notice details */
 					echo wc_help_tip( sprintf( __( 'Bundle-sells are optional products that can be selected and added to the cart along with this product. %s', 'woocommerce-product-bundles' ), $supported_product_types_disclaimer ) );
 				?>
-				<span class="bundle-sells-search-description"><?php echo class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) ? __( 'Supported product types: Simple, Simple subscription.', 'woocommerce-product-bundles' ) : __( 'Supports Simple products only.', 'woocommerce-product-bundles' ); ?></span>
+				<span class="bundle-sells-search-description"><?php echo class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) ? esc_html__( 'Supported product types: Simple, Simple subscription.', 'woocommerce-product-bundles' ) : esc_html__( 'Supports Simple products only.', 'woocommerce-product-bundles' ); ?></span>
 			</p>
 			<?php
 

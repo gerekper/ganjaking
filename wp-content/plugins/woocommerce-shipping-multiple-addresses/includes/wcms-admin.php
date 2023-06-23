@@ -59,6 +59,13 @@ class WC_MS_Admin {
 		) ) );
 
 		wp_enqueue_script( 'wcms-edit-user', plugins_url( 'assets/js/user-edit.min.js', WC_Ship_Multiple::FILE ), array( 'jquery' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+		wp_localize_script(
+			'wcms-edit-user',
+			'wcms_edit_user_params',
+			array(
+				'save_nonce' => wp_create_nonce( 'wcms_edit_user_shipping_address_save' ),
+			)
+		);
 	}
 
     /**
@@ -191,16 +198,38 @@ class WC_MS_Admin {
 	}
 
 	public function edit_user_shipping_address() {
-		$address = array();
-		parse_str( $_POST['data'], $address );
-		$index      = $_POST['index'];
-		$user_id    = $_POST['user'];
-		$user       = new WP_User( $user_id );
-		$addresses  = $this->wcms->address_book->get_user_addresses( $user, false );
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
 
-		// store the same values without the shipping_ prefix
+		if ( ! wp_verify_nonce( $nonce, 'wcms_edit_user_shipping_address_save' ) ) {
+			die( esc_html__( 'Permission denied: Security check failed', 'wc_shipping_multiple_address' ) );
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_shipping_multiple_address' ) );
+		}
+
+		$address = array();
+		$data    = isset( $_POST['data'] ) ? wp_unslash( $_POST['data'] ) : '';
+
+		if ( empty( $data ) ) {
+			die( esc_html__( 'No address data', 'wc_shipping_multiple_address' ) );
+		}
+
+		parse_str( $data, $address );
+
+		$index   = isset( $_POST['index'] ) ? sanitize_text_field( wp_unslash( $_POST['index'] ) ) : '';
+		$user_id = isset( $_POST['user'] ) ? sanitize_text_field( wp_unslash( $_POST['user'] ) ) : '';
+		$user    = get_user_by( 'ID', $user_id );
+
+		if ( false === $user ) {
+			die( esc_html__( 'User does not exists!', 'wc_shipping_multiple_address' ) );
+		}
+
+		$addresses = $this->wcms->address_book->get_user_addresses( $user, false );
+
+		// store the same values without the shipping_ prefix.
 		foreach ( $address as $key => $value ) {
-			$key = str_replace( 'wcms_', '', $key );
+			$key             = str_replace( 'wcms_', '', $key );
 			$address[ $key ] = $value;
 		}
 

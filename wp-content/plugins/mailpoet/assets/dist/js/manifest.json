@@ -8,6 +8,7 @@
   "admin.js": "admin.js",
   "automation.js": "automation.js",
   "automation_editor.js": "automation_editor.js",
+  "automation_analytics.js": "automation_analytics.js",
   "automation_templates.js": "automation_templates.js",
   "newsletter_editor.js": "newsletter_editor.js",
   "form_editor.js": "form_editor.js",

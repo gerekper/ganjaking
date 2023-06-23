@@ -4,13 +4,16 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "Choose the image file type for flags": [
             "Välj bildfilstyp för flaggor"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
             "Det här alternativet påverkar endast de inbyggda WPML-flaggorna, inte de anpassade flaggorna som laddats upp."
+         ],
+         "%s format": [
+            ""
          ],
          "Save": [
             "Spara"

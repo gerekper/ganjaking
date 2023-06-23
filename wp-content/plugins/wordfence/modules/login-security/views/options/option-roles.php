@@ -5,9 +5,9 @@ use WordfenceLS\Controller_Settings;
 use WordfenceLS\Text\Model_JavaScript;
 
 $states = array(
-	Controller_Settings::STATE_2FA_DISABLED => __('Disabled', 'wordfence-2fa'),
-	Controller_Settings::STATE_2FA_OPTIONAL => __('Optional', 'wordfence-2fa'),
-	Controller_Settings::STATE_2FA_REQUIRED => __('Required', 'wordfence-2fa')
+	Controller_Settings::STATE_2FA_DISABLED => __('Disabled', 'wordfence'),
+	Controller_Settings::STATE_2FA_OPTIONAL => __('Optional', 'wordfence'),
+	Controller_Settings::STATE_2FA_REQUIRED => __('Required', 'wordfence')
 );
 
 $gracePeriod = Controller_Settings::shared()->get_int(Controller_Settings::OPTION_REQUIRE_2FA_USER_GRACE_PERIOD, Controller_Settings::DEFAULT_REQUIRE_2FA_USER_GRACE_PERIOD);
@@ -20,12 +20,12 @@ foreach ($options as $option) {
 	}
 }
 
-$customerRoleWarning = __('Requiring 2FA for customers is not recommended as some customers may experience difficulties setting up or using two-factor authentication. Instead, using the "Optional" mode for users with the customer role is recommended which will allow customers to enable 2FA, but will not require them to do so.', 'wordfence-2fa');
+$customerRoleWarning = __('Requiring 2FA for customers is not recommended as some customers may experience difficulties setting up or using two-factor authentication. Instead, using the "Optional" mode for users with the customer role is recommended which will allow customers to enable 2FA, but will not require them to do so.', 'wordfence');
 
 ?>
 <ul class="wfls-option wfls-option-2fa-roles">
 	<li class="wfls-option-title">
-		<label><?php esc_html_e('2FA Roles', 'wordfence-2fa') ?></label>
+		<label><?php esc_html_e('2FA Roles', 'wordfence') ?></label>
 	</li>
 	<li class="wfls-option-content">
 		<ul>
@@ -50,28 +50,28 @@ $customerRoleWarning = __('Requiring 2FA for customers is not recommended as som
 		</ul>
 		<p id="wfls-customer-2fa-required-warning" class="wfls-notice" style="display: none;"><?php echo esc_html($customerRoleWarning) ?></p>
 		<?php if ($hasWoocommerce && !$woocommerceIntegrationEnabled): ?>
-			<p class="wfls-woocommerce-customer-integration-message"><small><?php esc_html_e('In order to use 2FA with the WooCommerce customer role, you must either enable the "WooCommerce integration" option or use the "wordfence_2fa_management" shortcode to provide customers with access to the 2FA management interface. The default interface is only available through WordPress admin pages which are not accessible to users in the customer role.', 'wordfence-2fa') ?></small></p>
+			<p class="wfls-woocommerce-customer-integration-message"><small><?php esc_html_e('In order to use 2FA with the WooCommerce customer role, you must either enable the "WooCommerce integration" option or use the "wordfence_2fa_management" shortcode to provide customers with access to the 2FA management interface. The default interface is only available through WordPress admin pages which are not accessible to users in the customer role.', 'wordfence') ?></small></p>
 		<?php endif ?>
 	</li>
 	<li class="wfls-2fa-grace-period-container">
-		<label for="wfls-2fa-grace-period" class="wfls-primary-label"><?php esc_html_e('Grace Period', 'wordfence-2fa') ?></label>
+		<label for="wfls-2fa-grace-period" class="wfls-primary-label"><?php esc_html_e('Grace Period', 'wordfence') ?></label>
 		<input id="wfls-2fa-grace-period" type="text" pattern="[0-9]+" value="<?php echo (int)$gracePeriod; ?>" class="wfls-option-input wfls-option-input-required" name="<?php echo esc_html(Controller_Settings::OPTION_REQUIRE_2FA_USER_GRACE_PERIOD) ?>" maxlength="2">
-		<label for="wfls-2fa-grace-period"><?php esc_html_e('days', 'wordfence-2fa') ?></label>
+		<label for="wfls-2fa-grace-period"><?php esc_html_e('days', 'wordfence') ?></label>
 		<div id="wfls-grace-period-zero-warning" style="display: none;">
-			<strong><?php esc_html_e('Setting the grace period to 0 will prevent users in roles where 2FA is required, including newly created users, from logging in if they have not already enabled two-factor authentication.', 'wordfence-2fa') ?></strong>
-			<a href="<?php echo esc_attr(\WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_ROLES)) ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Learn More', 'wordfence-2fa') ?></a>
+			<strong><?php esc_html_e('Setting the grace period to 0 will prevent users in roles where 2FA is required, including newly created users, from logging in if they have not already enabled two-factor authentication.', 'wordfence') ?></strong>
+			<a href="<?php echo esc_attr(\WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_ROLES)) ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Learn More', 'wordfence') ?></a>
 		</div>
-		<small><?php esc_html_e('For roles that require 2FA, users will have this many days to set up 2FA. Failure to set up 2FA during this period will result in the user losing account access. This grace period will apply to new users from the time of account creation. For existing users, this grace period will apply relative to the time at which the requirement is implemented. This grace period will not automatically apply to admins and must be manually enabled for each admin user.', 'wordfence-2fa') ?></small>
+		<small><?php esc_html_e('For roles that require 2FA, users will have this many days to set up 2FA. Failure to set up 2FA during this period will result in the user losing account access. This grace period will apply to new users from the time of account creation. For existing users, this grace period will apply relative to the time at which the requirement is implemented. This grace period will not automatically apply to admins and must be manually enabled for each admin user.', 'wordfence') ?></small>
 	</li>
 	<?php if (!empty($requiredRoles)): ?>
 	<li class="wfls-2fa-notification-action">
-		<h4><?php esc_html_e('2FA Notifications', 'wordfence-2fa') ?></h4>
+		<h4><?php esc_html_e('2FA Notifications', 'wordfence') ?></h4>
 		<p>
-			<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA. Select the desired role and optionally specify the URL to be sent in the email to setup 2FA. If left blank, the URL defaults to the standard wordpress login and Wordfence’s Two-Factor Authentication plugin page. For example, if using WooCommerce, input the relative URL of the account page.', 'wordfence-2fa') ?></small>
+			<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA. Select the desired role and optionally specify the URL to be sent in the email to setup 2FA. If left blank, the URL defaults to the standard wordpress login and Wordfence’s Two-Factor Authentication plugin page. For example, if using WooCommerce, input the relative URL of the account page.', 'wordfence') ?></small>
 			<a href="<?php echo \WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_2FA_NOTIFICATIONS) ?>" target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="<?php echo \WordfenceLS\Controller_WordfenceLS::shared()->should_use_core_font_awesome_styles() ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o'; ?>" aria-hidden="true"></i></a>
 		</p>
 		<div>
-			<label><?php esc_html_e('2FA Role', 'wordfence-2fa') ?></label>
+			<label><?php esc_html_e('2FA Role', 'wordfence') ?></label>
 			<select id="wfls-grace-period-notification-role">
 				<?php foreach ($requiredRoles as $role => $label): ?>
 				<option value="<?php echo esc_attr($role) ?>"><?php echo esc_html($label) ?></option>
@@ -79,10 +79,10 @@ $customerRoleWarning = __('Requiring 2FA for customers is not recommended as som
 			</select>
 		</div>
 		<div>
-			<label><?php esc_html_e('2FA Relative URL (optional)', 'wordfence-2fa') ?></label>
+			<label><?php esc_html_e('2FA Relative URL (optional)', 'wordfence') ?></label>
 			<input id="wfls-grace-period-notification-url" type="text" placeholder="ex: /my-account/">
 		</div>
-		<button class="wfls-btn wfls-btn-default wfls-btn-sm" id="wfls-send-grace-period-notification"><?php esc_html_e('Notify', 'wordfence-2fa') ?></button>
+		<button class="wfls-btn wfls-btn-default wfls-btn-sm" id="wfls-send-grace-period-notification"><?php esc_html_e('Notify', 'wordfence') ?></button>
 	</li>
 	<?php endif ?>
 </ul>
@@ -103,21 +103,21 @@ $customerRoleWarning = __('Requiring 2FA for customers is not recommended as som
 						};
 						if (response.limit_exceeded) {
 							settings.additional_buttons.push({
-								label: '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Send Anyway', 'wordfence-2fa')); ?>',
+								label: '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Send Anyway', 'wordfence')); ?>',
 								id: 'wfls-send-grace-period-notification-over-limit'
 							});
 						}
-						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Sending Notification', 'wordfence-2fa')); ?>', response.error, settings);
+						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Sending Notification', 'wordfence')); ?>', response.error, settings);
 					}
 					else {
-						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Notification Sent', 'wordfence-2fa')); ?>', response.confirmation);
+						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Notification Sent', 'wordfence')); ?>', response.confirmation);
 					}
 					if (request.notify_all) {
 						WFLS.panelClose();
 					}
 				},
 				function (error) {
-					WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Sending Notification', 'wordfence-2fa')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to send the notification. Please try again.', 'wordfence-2fa')); ?>');
+					WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Sending Notification', 'wordfence')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to send the notification. Please try again.', 'wordfence')); ?>');
 					if (request.notify_all) {
 						WFLS.panelClose();
 					}
@@ -158,16 +158,16 @@ $customerRoleWarning = __('Requiring 2FA for customers is not recommended as som
 			toggleCustomerRoleWarning();
 			if (isCustomerRoleRequired()) {
 				WFLS.displayModalMessage(
-					<?php Model_JavaScript::echo_string_literal(__('Not Recommended', 'wordfence-2fa')) ?>,
+					<?php Model_JavaScript::echo_string_literal(__('Not Recommended', 'wordfence')) ?>,
 					<?php Model_JavaScript::echo_string_literal($customerRoleWarning) ?>,
 					[
 						{
-							label: <?php Model_JavaScript::echo_string_literal(__('Make Optional', 'wordfence-2fa')) ?>,
+							label: <?php Model_JavaScript::echo_string_literal(__('Make Optional', 'wordfence')) ?>,
 							id: 'wfls-customer-role-warning-revert',
 							type: 'primary'
 						},
 						{
-							label: <?php Model_JavaScript::echo_string_literal(__('Proceed', 'wordfence-2fa')) ?>,
+							label: <?php Model_JavaScript::echo_string_literal(__('Proceed', 'wordfence')) ?>,
 							id: 'wfls-generic-modal-close',
 							type: 'danger'
 						}

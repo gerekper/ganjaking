@@ -2,7 +2,7 @@
 
 class WPML_Basket_Tab_Ajax {
 
-	/** @var  TranslationProxy_Project $project */
+	/** @var  TranslationProxy_Project|false $project */
 	private $project;
 
 	/** @var  WPML_Translation_Proxy_Basket_Networking $networking */
@@ -12,7 +12,7 @@ class WPML_Basket_Tab_Ajax {
 	private $basket;
 
 	/**
-	 * @param TranslationProxy_Project                 $project
+	 * @param TranslationProxy_Project|false           $project
 	 * @param WPML_Translation_Proxy_Basket_Networking $networking
 	 * @param WPML_Translation_Basket                  $basket
 	 */

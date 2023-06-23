@@ -5,10 +5,10 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
  */
 
 $selectOptions = array(
-	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_AUTOMATIC, 'label' => esc_html__('Use the most secure method to get visitor IP addresses. Prevents spoofing and works with most sites.', 'wordfence-2fa') . ' <strong>' . esc_html__('(Recommended)', 'wordfence-2fa') . '</strong>'),
-	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_REMOTE_ADDR, 'label' => esc_html__('Use PHP\'s built in REMOTE_ADDR and don\'t use anything else. Very secure if this is compatible with your site.', 'wordfence-2fa')),
-	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_X_FORWARDED_FOR, 'label' => esc_html__('Use the X-Forwarded-For HTTP header. Only use if you have a front-end proxy or spoofing may result.', 'wordfence-2fa')),
-	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_X_REAL_IP, 'label' => esc_html__('Use the X-Real-IP HTTP header. Only use if you have a front-end proxy or spoofing may result.', 'wordfence-2fa')),
+	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_AUTOMATIC, 'label' => esc_html__('Use the most secure method to get visitor IP addresses. Prevents spoofing and works with most sites.', 'wordfence') . ' <strong>' . esc_html__('(Recommended)', 'wordfence') . '</strong>'),
+	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_REMOTE_ADDR, 'label' => esc_html__('Use PHP\'s built in REMOTE_ADDR and don\'t use anything else. Very secure if this is compatible with your site.', 'wordfence')),
+	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_X_FORWARDED_FOR, 'label' => esc_html__('Use the X-Forwarded-For HTTP header. Only use if you have a front-end proxy or spoofing may result.', 'wordfence')),
+	array('value' => \WordfenceLS\Model_Request::IP_SOURCE_X_REAL_IP, 'label' => esc_html__('Use the X-Real-IP HTTP header. Only use if you have a front-end proxy or spoofing may result.', 'wordfence')),
 );
 ?>
 <ul class="wfls-flex-vertical wfls-flex-full-width">
@@ -16,7 +16,7 @@ $selectOptions = array(
 		<ul id="wfls-option-ip-source" class="wfls-option wfls-option-ip-source" data-option="<?php echo esc_attr(\WordfenceLS\Controller_Settings::OPTION_IP_SOURCE); ?>" data-original-value="<?php echo esc_attr(\WordfenceLS\Controller_Settings::shared()->get(\WordfenceLS\Controller_Settings::OPTION_IP_SOURCE)); ?>" data-text-area-option="<?php echo esc_attr(\WordfenceLS\Controller_Settings::OPTION_IP_TRUSTED_PROXIES); ?>" data-original-text-area-value="<?php echo esc_attr(\WordfenceLS\Controller_Settings::shared()->get(\WordfenceLS\Controller_Settings::OPTION_IP_TRUSTED_PROXIES)); ?>">
 			<li class="wfls-option-content wfls-no-right">
 				<ul class="wfls-flex-vertical wfls-flex-align-left">
-					<li class="wfls-option-title"><strong><?php esc_html_e('How to get IPs', 'wordfence-2fa'); ?></strong></li>
+					<li class="wfls-option-title"><strong><?php esc_html_e('How to get IPs', 'wordfence'); ?></strong></li>
 					<li>
 						<ul class="wfls-flex-vertical wfls-flex-align-left">
 							<li class="wfls-padding-add-left">
@@ -44,8 +44,8 @@ $selectOptions = array(
 				<ul>
 					<li class="wfls-option-title">
 						<ul class="wfls-flex-vertical wfls-flex-align-left">
-							<li><?php esc_html_e('Trusted Proxies', 'wordfence-2fa'); ?></li>
-							<li class="wfls-option-subtitle"><?php esc_html_e('These IPs (or CIDR ranges) will be ignored when determining the requesting IP via the X-Forwarded-For HTTP header. Enter one IP or CIDR range per line.', 'wordfence-2fa'); ?></li>
+							<li><?php esc_html_e('Trusted Proxies', 'wordfence'); ?></li>
+							<li class="wfls-option-subtitle"><?php esc_html_e('These IPs (or CIDR ranges) will be ignored when determining the requesting IP via the X-Forwarded-For HTTP header. Enter one IP or CIDR range per line.', 'wordfence'); ?></li>
 						</ul>
 					</li>
 					<li class="wfls-option-textarea">

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/tab-manager/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * The Default Tab Layout Admin UI and action handler for the WooCommerce Tab Manager plugin
@@ -50,7 +50,7 @@ function wc_tab_manager_render_layout_page() {
 			<div id="message" class="updated">
 				<p><strong><?php
 					/* translators: Placeholder: %s - updated notice (e.g. Tab layout updated, Tab layout saved, etc.) */
-					printf( esc_html__( 'Tabs layout %s', 'woocommerce-tab-manager' ), $_GET['result'] );
+					printf( esc_html__( 'Tabs layout %s', 'woocommerce-tab-manager' ), esc_html( $_GET['result'] ) );
 				?></strong></p>
 			</div>
 			<?php

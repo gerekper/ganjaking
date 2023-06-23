@@ -8,10 +8,9 @@
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-// Availability
+defined( 'ABSPATH' ) || exit;
+
+// Availability.
 $availability      = $product->get_availability();
 $availability_html = empty( $availability['availability'] ) ? '' : '<span class="stock ' . esc_attr( $availability['class'] ) . '">' . esc_html( $availability['availability'] ) . '</span>';
 

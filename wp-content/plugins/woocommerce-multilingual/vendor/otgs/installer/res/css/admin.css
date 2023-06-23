@@ -307,9 +307,7 @@ td.installer_checkbox {
 }
 
 .otgs_wp_installer_table .installer-repository-image {
-    padding: 8px 20px 25px;
-    min-width: 140px;
-    width: 10%;
+    padding: 8px 20px;
 }
 
 .remove_site_key_js:disabled,

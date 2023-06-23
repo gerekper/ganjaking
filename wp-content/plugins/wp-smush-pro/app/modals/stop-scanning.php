@@ -20,7 +20,7 @@
 						<?php esc_html_e( 'Close this dialog.', 'wp-smushit' ); ?>
 					</span>
 				</button>
-				<h3 class="sui-box-title sui-lg"><?php esc_html_e( 'Stop scanning Media library', 'wp-smushit' ); ?></h3>
+				<h3 class="sui-box-title sui-lg"><?php esc_html_e( 'Stop Scanning Media Library', 'wp-smushit' ); ?></h3>
 				<p class="sui-description">
 					<?php esc_html_e( 'Are you sure you want to cancel the media library scan? This is an irreversible process and will require a rescan for accurate statistics.', 'wp-smushit' ); ?>
 				</p>

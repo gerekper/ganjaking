@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 6.4.0
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -19,10 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( $hide_input ) {
 
 	?><div class="quantity <?php echo 'tabular' !== $layout ? 'quantity_hidden' : ''; ?>">
-		<input class="qty bundled_qty" type="hidden" name="<?php echo $input_name; ?>" value="<?php echo $quantity_min; ?>" /><?php
+		<input class="qty bundled_qty" type="hidden" name="<?php echo esc_attr( $input_name ); ?>" value="<?php echo esc_attr( $quantity_min ); ?>" /><?php
 
 		if ( 'tabular' === $layout && ( $quantity_min > 0 || $bundled_item->is_in_stock() ) ) {
-			echo $quantity_min;
+			echo esc_html( $quantity_min );
 		}
 
 	?></div><?php
@@ -38,5 +38,5 @@ if ( $hide_input ) {
 		'input_value' => isset( $_REQUEST[ $input_name ] ) ? absint( $_REQUEST[ $input_name ] ) : apply_filters( 'woocommerce_bundled_product_quantity', $quantity_default, $quantity_min, $quantity_max, $bundled_item )
 	), $bundled_item->product );
 
-	echo preg_replace( '/(class=\"[^\"]*qty)([\"\ ])/', '$1 bundled_qty$2', ob_get_clean() );
+	echo preg_replace( '/(class=\"[^\"]*qty)([\"\ ])/', '$1 bundled_qty$2', ob_get_clean() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }

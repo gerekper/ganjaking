@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "מ:"
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "אתה מחליט מה לתרגם ומי יתרגם את זה"
          ],
-         "Translate it yourself": [
-            "תרגם זאת בעצמך"
+         "Translate yourself": [
+            "תרגם בעצמך"
          ],
-         "Assign it to translators that are users of your site": [
-            "הקצה אותו למתרגמים שהם משתמשים באתר שלך"
+         "Use automatic translation on the content you choose": [
+            "השתמש בתרגום אוטומטי עבור התוכן שאתה בוחר"
          ],
-         "Send it to a professional translation service": [
-            "שלח זאת לשירות תרגום מקצועי"
+         "Work with translators that are users of your site": [
+            "עבוד עם מתרגמים שהם משתמשי האתר שלך"
          ],
          "or": [
             "או"
          ],
-         "Translate it automatically using machine translation": [
-            "תרגם זאת באופן אוטומטי באמצעות תרגום מכונה"
+         "Send to professional translation services": [
+            "שלח לשירותי תרגום מקצועיים"
          ],
          "user": [
             "משתמש"
@@ -399,6 +398,88 @@
          "Language switcher customization": [
             "התאמה אישית של מעביר השפה"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "ההגדרה הנוכחית שלך תשתמש בהרבה נקודות זיכוי לתרגום"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "החלטת ל<b>תרגם את הכל באופן אוטומטי</b> ב<span class=\"warning\">אתר פיתוח</span>"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "החלטת ל<b>תרגם את הכל באופן אוטומטי:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "10,000 נקודות זיכוי מוקצות כברירת מחדל לאתרי פיתוח"
+         ],
+         "posts, pages...": [
+            "פוסטים, דפים..."
+         ],
+         "translated to": [
+            "תורגם ל-"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b> שפה",
+            "<b>%1$d</b> שפות"
+         ],
+         "will cost approximately": [
+            "יעלה בערך"
+         ],
+         "credits": [
+            "נקודות זיכוי"
+         ],
+         "Loading details...": [
+            "טוען פרטים..."
+         ],
+         "Hide details": [
+            "הסתר פרטים"
+         ],
+         "Show details": [
+            "הצג פרטים"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "ההגדרה הנוכחית שלך תשתמש בערך ב-<b>%s</b> נקודות זיכוי"
+         ],
+         "What do you want to do?": [
+            "מה אתה רוצה לעשות?"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "מכיוון שזה אתר פיתוח, יתכן שלא תרצה להוציא כל-כך הרבה נקודות זיכוי על תוכן דמה."
+         ],
+         "Continue with this setup": [
+            "המשך בהגדרה זו"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "WPML יתרגם באופן אוטומטי את תוכן האתר. כאשר ייגמרו לך נקודות הזיכוי, תוכל לרכוש עוד או להירשם לאפשרות של שלם בהתאם לשימוש כדי להמשיך את השימוש בתרגום האוטומטי."
+         ],
+         "Make changes": [
+            "בצע שינויים"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "תוכל להשתמש בפחות נקודות זיכוי על-ידי כוונון חלק מההגדרות שבחרת במהלך ההגדרה."
+         ],
+         "Reduce the number of translation languages": [
+            "צמצם את מספר שפות התרגום"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "ככל שיהיו לך יותר שפות באתר, כך יהיה צורך ביותר נקודות זיכוי עבור התרגום. <b>תמיד תוכל להוסיף עוד שפות מאוחר יותר.</b>"
+         ],
+         "Change site languages": [
+            "שנה את שפות התאר"
+         ],
+         "Change your translation mode": [
+            "שנה את מצב התרגום"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "<b>תרגם מה שאתה בוחר</b> נותן לך יותר שליטה על מה שיתורגם, ועדיין תוכל להשתמש בתרגום אוטומטי."
+         ],
+         "Change translation mode": [
+            "שנה את מצב התרגום"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "מתאים לי להשתמש בכמות זו של נקודות זיכוי לתרגום."
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "הבה נתקדם ונתרגם את כל האתר באופן אוטומטי."
+         ],
          "Default language": [
             "שפת ברירת מחדל"
          ],
@@ -438,17 +519,17 @@
          "Are you ready to start translating now?": [
             "האם אתה מוכן להתחיל בתרגום עכשיו?"
          ],
-         "Yes!": [
-            "כן!"
+         "Yes, start translating!": [
+            "כן, התחל בתרגום!"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "התחל לתרגם את האתר שלי עכשיו. WPML ישתמש בנקודותה זיכוי של התרגום האוטומטי."
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "WPML יתרגם את האתר עבורך וישתמש בנקודות הזיכוי לתרגום אוטומטי.."
          ],
-         "No. I need to do some changes first": [
-            "לא. ראשית עלי לבצע מספר שינויים"
+         "No, my content isn't finalized yet": [
+            "לא, התוכן שלי עדיין לא סופי"
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "כאשר תהיה מוכן, תוכל להתחיל את התרגום האוטומטי מ'לוח הבקרה של ניהול התרגום'."
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "כאשר תהיה מוכן, התחל תרגום אוטומטי מ'לוח המחוונים של ניהול התרגום'."
          ],
          "Improve your site’s translations using helpful plugins": [
             "שפר את תרגומי האתר שלך באמצעות תוספים שימושיים"
@@ -513,18 +594,6 @@
          "A new language could not be added correctly": [
             "לא ניתן להוסיף שפה חדשה בהצלחה"
          ],
-         "Languages": [
-            "שפות"
-         ],
-         "URL Format": [
-            "תבנית כתובת URL"
-         ],
-         "Register WPML": [
-            "רשום את WPML"
-         ],
-         "Translation Mode": [
-            "מצב תרגום"
-         ],
          "Support": [
             "תמיכה"
          ],
@@ -548,6 +617,18 @@
          ],
          "Finish": [
             "סיים"
+         ],
+         "Languages": [
+            "שפות"
+         ],
+         "URL Format": [
+            "תבנית כתובת URL"
+         ],
+         "Register WPML": [
+            "רשום את WPML"
+         ],
+         "Translation Mode": [
+            "מצב תרגום"
          ],
          "Settings": [
             "הגדרות"

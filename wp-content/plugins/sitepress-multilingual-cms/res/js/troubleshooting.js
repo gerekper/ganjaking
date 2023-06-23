@@ -9,6 +9,7 @@ jQuery(function () {
     var restore_notifications_button = jQuery('#icl_restore_notifications');
     var restore_notifications_all_users = jQuery('#icl_restore_notifications_all_users');
     var sync_posts_taxonomies_button = jQuery('#wpml_sync_posts_taxonomies');
+    var ls_templates_update_domain_button = jQuery('#wpml_ls_templates_update_domain');
     remove_notifications_button.off('click');
     remove_notifications_button.on('click', remove_all_notifications);
     restore_notifications_button.off('click');

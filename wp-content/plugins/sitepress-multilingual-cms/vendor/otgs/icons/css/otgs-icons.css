@@ -1,9 +1,9 @@
 @font-face {
     font-family: "otgs-icons";
-    src: url("../fonts/otgs-icons.eot?31fff84f6fbeb0cd4b57253c17283420#iefix") format("embedded-opentype"),
-url("../fonts/otgs-icons.ttf?31fff84f6fbeb0cd4b57253c17283420") format("truetype"),
-url("../fonts/otgs-icons.woff?31fff84f6fbeb0cd4b57253c17283420") format("woff"),
-url("../fonts/otgs-icons.woff2?31fff84f6fbeb0cd4b57253c17283420") format("woff2");
+    src: url("../fonts/otgs-icons.eot?49e5d3e0aad3ed901389857c5c1533e7#iefix") format("embedded-opentype"),
+url("../fonts/otgs-icons.ttf?49e5d3e0aad3ed901389857c5c1533e7") format("truetype"),
+url("../fonts/otgs-icons.woff?49e5d3e0aad3ed901389857c5c1533e7") format("woff"),
+url("../fonts/otgs-icons.woff2?49e5d3e0aad3ed901389857c5c1533e7") format("woff2");
 }
 
 [class*="otgs-ico"] {
@@ -487,24 +487,6 @@ url("../fonts/otgs-icons.woff2?31fff84f6fbeb0cd4b57253c17283420") format("woff2"
 }
 .otgs-ico-youtube:before {
     content: "\f665";
-}
-.otgs-ico-fast:before {
-    content: "\f666";
-}
-.otgs-ico-generated:before {
-    content: "\f667";
-}
-.otgs-ico-guarantee-warning:before {
-    content: "\f668";
-}
-.otgs-ico-merge:before {
-    content: "\f669";
-}
-.otgs-ico-stop-circle-o:before {
-    content: "\f66a";
-}
-.otgs-ico-stop-circle:before {
-    content: "\f66b";
 }
 .otgs-ico-external-link:before {
     content: "\f101";

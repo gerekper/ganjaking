@@ -14,13 +14,24 @@ defined( 'ABSPATH' ) || exit;
 class WC_AM_Autoloader {
 
 	/**
+	 * Path to the includes directory.
+	 *
+	 * @since 3.0
+	 * @var string
+	 */
+	private $include_path = '';
+
+	/**
+	 * WC_AM_Autoloader constructor.
+	 *
 	 * @since   1.5
 	 * @updated 2.6 __autoload removed and is deprecated as of 7.2.0, and removed as of PHP 8.0.0.
-	 *
-	 * WC_AM_Autoloader constructor.
+	 * @updated 3.0 Added $this->include_path.
 	 */
 	public function __construct() {
 		spl_autoload_register( array( $this, 'autoload' ) );
+
+		$this->include_path = untrailingslashit( plugin_dir_path( WC_AM_PLUGIN_FILE ) ) . '/includes/';
 	}
 
 	/**
@@ -59,6 +70,7 @@ class WC_AM_Autoloader {
 	 * Autoload the class if it has not been loaded already.
 	 *
 	 * @since 1.5
+	 * @since 3.0 Add conditional checks before foreach and before loadfile().
 	 *
 	 * @param string $class_name
 	 */
@@ -68,16 +80,20 @@ class WC_AM_Autoloader {
 			$file = $this->get_file_name_from_class( $class_name );
 
 			$paths = array(
-				WCAM()->plugin_path() . '/includes/' . $file,
-				WCAM()->plugin_path() . '/includes/admin/' . $file,
-				WCAM()->plugin_path() . '/includes/admin/menus/' . $file,
-				WCAM()->plugin_path() . '/includes/api/' . $file,
-				WCAM()->plugin_path() . '/includes/data-stores/' . $file,
-				WCAM()->plugin_path() . '/includes/queue/' . $file,
+				$this->include_path . $file,
+				$this->include_path . 'admin/' . $file,
+				$this->include_path . 'admin/menus/' . $file,
+				$this->include_path . 'api/' . $file,
+				$this->include_path . 'data-stores/' . $file,
+				$this->include_path . 'queue/' . $file,
 			);
 
-			foreach ( $paths as $key => $path ) {
-				$this->load_file( $path );
+			if ( ! empty( $paths ) && ! empty( $file ) ) {
+				foreach ( $paths as $key => $path ) {
+					if ( ! $this->load_file( $file ) ) {
+						$this->load_file( $path );
+					}
+				}
 			}
 		}
 	}

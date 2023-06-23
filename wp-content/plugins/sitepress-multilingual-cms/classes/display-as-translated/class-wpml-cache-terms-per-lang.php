@@ -18,7 +18,7 @@ class WPML_Cache_Terms_Per_Lang implements IWPML_Action {
 
 	public function add_hooks() {
 		add_filter( 'get_the_terms', array( $this, 'terms_per_lang' ), 10, 3 );
-		add_action( 'clean_object_term_cache', array( $this, 'clear_cache' ), 10, 2 );
+		add_action( 'clean_object_term_cache', array( $this, 'clear_cache' ), 10, 1 );
 	}
 
 	/**

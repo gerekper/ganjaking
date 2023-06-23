@@ -1,12 +1,12 @@
 <?php
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 
-$errorMessage = __('Unable to Revoke Grace Period', 'wordfence-2fa');
+$errorMessage = __('Unable to Revoke Grace Period', 'wordfence');
 ?>
 <div class="wfls-add-top wfls-add-bottom wfls-grace-period-container">
 	<div class="wfls-grace-period-button-container">
 		<button class="wfls-btn wfls-btn-default" id="wfls-revoke-grace-period">
-			<?php esc_html_e('Revoke Grace Period', 'wordfence-2fa') ?>
+			<?php esc_html_e('Revoke Grace Period', 'wordfence') ?>
 		</button>
 
 	</div>
@@ -35,7 +35,7 @@ $errorMessage = __('Unable to Revoke Grace Period', 'wordfence-2fa');
 					WFLS.panelModal(
 						(WFLS.screenSize(500) ? '300px' : '400px'),
 						<?php echo json_encode($errorMessage) ?>,
-						<?php echo json_encode(__('An unexpected error occurred while attempting to revoke the grace period.', 'wordfence-2fa')) ?>
+						<?php echo json_encode(__('An unexpected error occurred while attempting to revoke the grace period.', 'wordfence')) ?>
 					);
 				}
 				else {

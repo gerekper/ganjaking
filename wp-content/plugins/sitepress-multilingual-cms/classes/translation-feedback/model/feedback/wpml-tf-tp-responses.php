@@ -100,7 +100,7 @@ class WPML_TF_TP_Responses {
 
 		if ( $this->is_api_feedback() && defined( 'OTG_TRANSLATION_PROXY_URL' ) ) {
 			$url = OTG_TRANSLATION_PROXY_URL . self::FEEDBACK_TP_URL_ENDPOINT;
-			$url = preg_replace( '/{feedback_id}/', $this->get_feedback_id(), $url );
+			$url = preg_replace( '/{feedback_id}/', (string) $this->get_feedback_id(), $url );
 		}
 
 		return $url;

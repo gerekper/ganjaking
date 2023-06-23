@@ -5,6 +5,7 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\AutomationTemplate;
 use MailPoet\Automation\Engine\Integration;
 use MailPoet\Automation\Engine\Registry;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction;
@@ -14,6 +15,7 @@ use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromL
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory;
 
 class MailPoetPremiumIntegration implements Integration {
   /** @var ContextFactory */
@@ -40,6 +42,9 @@ class MailPoetPremiumIntegration implements Integration {
   /** @var NotificationEmailAction */
   private $notificationEmailAction;
 
+  /** @var PremiumTemplatesFactory */
+  private $premiumTemplatesFactory;
+
   public function __construct(
     ContextFactory $contextFactory,
     UnsubscribeAction $unsubscribeAction,
@@ -48,7 +53,8 @@ class MailPoetPremiumIntegration implements Integration {
     AddToListAction $addToListAction,
     RemoveFromListAction $removeFromListAction,
     UpdateSubscriberAction $updateSubscriberAction,
-    NotificationEmailAction $notificationEmailAction
+    NotificationEmailAction $notificationEmailAction,
+    PremiumTemplatesFactory $premiumTemplatesFactory
   ) {
     $this->contextFactory = $contextFactory;
     $this->unsubscribeAction = $unsubscribeAction;
@@ -58,6 +64,7 @@ class MailPoetPremiumIntegration implements Integration {
     $this->removeFromListAction = $removeFromListAction;
     $this->updateSubscriberAction = $updateSubscriberAction;
     $this->notificationEmailAction = $notificationEmailAction;
+    $this->premiumTemplatesFactory = $premiumTemplatesFactory;
   }
 
   public function register(Registry $registry): void {
@@ -72,5 +79,17 @@ class MailPoetPremiumIntegration implements Integration {
     $registry->addAction($this->removeFromListAction);
     $registry->addAction($this->updateSubscriberAction);
     $registry->addAction($this->notificationEmailAction);
+
+    // remove free only templates
+    foreach ($registry->getTemplates() as $template) {
+      if ($template->getType() === AutomationTemplate::TYPE_FREE_ONLY) {
+        $registry->removeTemplate($template->getSlug());
+      }
+    }
+
+    // add/overwrite by premium templates
+    foreach ($this->premiumTemplatesFactory->createTemplates() as $template) {
+      $registry->addTemplate($template);
+    }
   }
 }

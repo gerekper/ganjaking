@@ -859,3 +859,79 @@ Change id #woocommerce-order-items to id #wc_am_items
 #wc_am_items .wc-order-totals .wc-order-edit-line-item-actions a {
     padding: 0;
 }
+
+/**
+ * Checkbox Toggle UI
+ */
+input[type="checkbox"].wcam-checkbox-ui-toggle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    -webkit-tap-highlight-color: transparent;
+
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+    position: relative;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    /*margin: 0 4px;*/
+    background: none;
+    box-shadow: none;
+}
+
+input[type="checkbox"].wcam-checkbox-ui-toggle:focus {
+    box-shadow: none;
+}
+
+input[type="checkbox"].wcam-checkbox-ui-toggle:after {
+    content: '';
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 18px;
+    text-indent: -14px;
+    color: #ffffff;
+    width: 37px;
+    height: 18px;
+    display: inline-block;
+    background-color: #a7aaad;
+    border-radius: 72px;
+    box-shadow: 0 0 12px rgb(0 0 0 / 15%) inset;
+}
+
+input[type="checkbox"].wcam-checkbox-ui-toggle:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    display: block;
+    position: absolute;
+    top: 0.1em;
+    left: 0.1em;
+    margin: 0;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+input[type="checkbox"].wcam-checkbox-ui-toggle:checked:before {
+    left: 20px;
+    margin: 0;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+input[type="checkbox"].wcam-checkbox-ui-toggle,
+input[type="checkbox"].wcam-checkbox-ui-toggle:before,
+input[type="checkbox"].wcam-checkbox-ui-toggle:after,
+input[type="checkbox"].wcam-checkbox-ui-toggle:checked:before,
+input[type="checkbox"].wcam-checkbox-ui-toggle:checked:after {
+    transition: ease .15s;
+}
+
+input[type="checkbox"].wcam-checkbox-ui-toggle:checked:after {
+    /*content: 'ON';*/
+    /*background-color: #2271b1;*/
+    background-color: #935687;
+    border: 0.2em solid #935687;
+}

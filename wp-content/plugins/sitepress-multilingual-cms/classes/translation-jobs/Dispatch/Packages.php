@@ -38,9 +38,9 @@ class Packages extends Elements {
 				}
 
 				$job = Jobs::getElementJob(
-					$package->ID,
-					$package->get_element_type_prefix() . '_' . $package->kind_slug,
-					$language
+					(int) $package->ID,
+					(string) $package->get_element_type_prefix() . '_' . $package->kind_slug,
+					(string) $language
 				);
 
 				if ( $job && ( self::isProgressJob( $job ) || self::isCompletedJob( $job ) && $howToHandleExisting === \WPML_TM_Translation_Batch::HANDLE_EXISTING_LEAVE ) ) {

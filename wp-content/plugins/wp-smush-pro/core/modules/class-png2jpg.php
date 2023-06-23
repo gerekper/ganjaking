@@ -47,24 +47,6 @@ class Png2jpg extends Abstract_Module {
 	 * @since 3.0
 	 */
 	public function init() {
-
-		// Only apply filters for PRO + activated PNG2JPG.
-		if ( $this->is_active() ) {
-			/**
-			 * Add a filter to check if the image should resmush.
-			 * While checking resmush, we priority to check PNG2JPG before checking resize
-			 * to optimize for the case, the site is activating S3 and doesn't save files on the server:
-			 * 1. If there is a PNG file, we will need to download it so when we check with resize, we don't need to download it again.
-			 * 2. If there is not a PNG file, we don't need to download this file,
-			 * and on resize method we will try to download the file content from url if it's necessary.
-			 */
-			//add_filter( 'wp_smush_should_resmush', array( $this, 'should_resmush' ), 9, 2 );
-
-			/**
-			 * Save can be convert to jpg status before resizing the image.
-			 */
-			add_filter( 'wp_smush_resize_sizes', array( $this, 'cache_can_be_converted_status' ), 0, 3 );
-		}
 	}
 
 	/**

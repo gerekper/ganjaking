@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "Langue source :"
@@ -79,7 +78,7 @@
             "Précédent"
          ],
          "Save": [
-            "Appliquer"
+            "Enregistrer"
          ],
          "Add a Translator": [
             "Ajouter un traducteur"
@@ -106,10 +105,10 @@
             "Le transfert du fichier %s a échoué."
          ],
          "Flag": [
-            "Drapeau"
+            "Indicateur"
          ],
          "Flag file": [
-            "Fichier drapeau"
+            "Fichier indicateur"
          ],
          "You just added  language. Next, select it as the site's default language or a translation language.": [
             "Vous venez d'ajouter une langue. À présent, sélectionnez-la comme la langue du site par défaut ou comme la langue de traduction."

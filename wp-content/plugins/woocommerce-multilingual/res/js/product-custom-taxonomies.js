@@ -56,7 +56,7 @@
                 }
 
                 if( response.bottom_html ){
-                    jQuery('.wcml-wrap .wrap').append( '<div class="icl_tt_main_bottom">'+response.bottom_html+'</div>' );
+                    jQuery('.wcml-wrap .wrap').append( '<div class="icl_tt_main_bottom">'+WCML.sanitize(response.bottom_html)+'</div>' );
                 }
             }
         });

@@ -35,7 +35,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: src/js/components/roles/CreateUser.js:138
+#: src/js/components/roles/CreateUser.js:137
 msgid "(required)"
 msgstr ""
 

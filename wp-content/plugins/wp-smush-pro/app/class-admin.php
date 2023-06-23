@@ -88,6 +88,8 @@ class Admin {
 
 		// Filter built-in wpmudev branding script.
 		add_filter( 'wpmudev_whitelabel_plugin_pages', array( $this, 'builtin_wpmudev_branding' ) );
+
+		add_action( 'wp_smush_header_notices', array( $this, 'show_php_deprecated_notice' ) );
 	}
 
 	/**
@@ -754,6 +756,29 @@ class Admin {
 				</a>
 			</p>
 		</div>
+		<?php
+	}
+
+	public function show_php_deprecated_notice() {
+		// Only show the deprecated notice for admin and only network side for MU site.
+		if ( ! current_user_can( 'manage_options' ) || ( is_multisite() && ! is_network_admin() )  ) {
+			return;
+		}
+
+		if ( $this->is_notice_dismissed( 'php_deprecated' ) ) {
+			return;
+		}
+
+		$php_version          = PHP_VERSION;
+		$required_php_version = '7.0';
+		if ( version_compare( $php_version, $required_php_version, '>=' ) ) {
+			return;
+		}
+		/* translators: %1$s: Current PHP version */
+		$error_message = sprintf( esc_html__( 'We have noticed that you are using PHP %1$s, which has reached its end of life and is now highly insecure. Smush will stop supporting PHP %1$s soon, please contact your hosting provider to switch to a more recent version of PHP.', 'wp-smushit' ), $php_version );
+		$error_message = '<p>' . $error_message . '</p>';
+		?>
+		<div role="alert" id="wp-smush-php-deprecated-notice" class="sui-notice wp-smush-dismissible-header-notice smush-dismissible-notice" data-dismiss-key="php_deprecated" data-message="<?php echo esc_attr( $error_message ); ?>" aria-live="assertive"></div>
 		<?php
 	}
 }

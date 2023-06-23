@@ -1227,6 +1227,28 @@
 		}
 	}
 
+	.smush-retry-scan-notice {
+		.sui-box-body {
+			padding-top:15px!important;
+			padding-bottom:20px!important;
+			.smush-retry-scan-notice-content {
+				.sui-notice {
+					margin-bottom: 15px;
+				}
+				> p {
+					padding: 0 25px;
+					font-size: 13px;
+					margin:0;
+					line-height: 22px;
+				}
+			}
+
+			.sui-notice-message {
+				text-align: left;
+			}
+		}
+	}
+
 	/**
 	 * Fixes the headers and footers with .sui-actions-right on mobiles.
 	 *

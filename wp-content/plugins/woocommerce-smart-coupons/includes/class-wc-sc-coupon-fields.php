@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -546,12 +546,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 
 				if ( isset( $_POST['sc_is_visible_storewide'] ) ) { // phpcs:ignore
 					$coupon->update_meta_data( 'sc_is_visible_storewide', $post_sc_is_visible_storewide );
-					delete_option( 'sc_display_global_coupons' ); // Since there's an update in storewide coupon, refresh the global coupon's list.
 				} else {
-					$old_sc_is_visible_storewide = $coupon->get_meta( 'sc_is_visible_storewide' );
-					if ( 'yes' === $old_sc_is_visible_storewide ) {
-						delete_option( 'sc_display_global_coupons' ); // Since there's an update in storewide coupon, refresh the global coupon's list.
-					}
 					$coupon->update_meta_data( 'sc_is_visible_storewide', 'no' );
 				}
 
@@ -791,7 +786,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 					</p>
 					<p class="form-field">
 						<label><?php echo esc_html__( 'with discount of', 'woocommerce-smart-coupons' ); ?></label>
-						<input type="number" step="0.01" name="wc_sc_product_discount_amount" value="<?php echo ( '' !== $discount_amount ) ? esc_attr( $discount_amount ) : ''; ?>" placeholder="<?php echo esc_attr__( '0.00', 'woocommerce-smart-coupons' ); ?>" style="width: 5em;">
+						<input type="number" step="<?php echo esc_attr( ( 1 / ( pow( 10, wc_get_price_decimals() ) ) ) ); ?>" name="wc_sc_product_discount_amount" value="<?php echo ( '' !== $discount_amount ) ? esc_attr( $discount_amount ) : ''; ?>" placeholder="<?php echo esc_attr__( '0.00', 'woocommerce-smart-coupons' ); ?>" style="width: 5em;">
 						<select name="wc_sc_product_discount_type">
 							<option value="percent" <?php selected( $discount_type, 'percent' ); ?>><?php echo esc_html__( '%', 'woocommerce-smart-coupons' ); ?></option>
 							<option value="flat" <?php selected( $discount_type, 'flat' ); ?>><?php echo esc_html( get_woocommerce_currency_symbol() ); ?></option>

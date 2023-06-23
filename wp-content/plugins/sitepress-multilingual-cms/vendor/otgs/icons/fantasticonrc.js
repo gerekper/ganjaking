@@ -194,11 +194,5 @@ module.exports = {
     'statistics': 63075,
     'table': 63076,
     'youtube': 63077,
-    'fast': 63078,
-    'generated': 63079,
-    'guarantee-warning': 63080,
-    'merge': 63081,
-    'stop-circle-o': 63082,
-    'stop-circle': 63083,
   }
 };

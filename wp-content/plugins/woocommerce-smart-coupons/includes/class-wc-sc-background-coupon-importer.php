@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -587,6 +587,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								$action_text  = ( ! empty( $woo_sc_action_data['name'] ) && 'download_csv' === $woo_sc_action_data['name'] ) ? __( 'generated', 'woocommerce-smart-coupons' ) : __( 'added', 'woocommerce-smart-coupons' );
 								break;
 						}
+						update_option( 'wc_sc_update_existing_coupons', 'no', 'no' );
 
 						$coupon_text = array();
 						if ( 'send_store_credit' === $background_coupon_process_result['action'] ) {
@@ -621,6 +622,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 									<?php
 								}
 							} else {
+								delete_option( 'skipped_tasks_count_woo_sc' );
 								delete_option( 'wc_sc_background_coupon_process_result' );
 							}
 							?>
@@ -758,6 +760,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				}
 
 				delete_option( 'woo_sc_action_data' );
+				delete_option( 'skipped_tasks_count_woo_sc' );
 				delete_option( 'wc_sc_background_coupon_process_result' );
 				exit();
 
@@ -1123,7 +1126,6 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								unlink( $csvfilename ); // phpcs:ignore
 							}
 							update_option( 'woo_sc_is_email_imported_coupons', 'no', 'no' );
-							update_option( 'wc_sc_update_existing_coupons', 'no', 'no' );
 							delete_option( 'bulk_coupon_action_woo_sc' );
 
 							update_option( 'wc_sc_background_coupon_process_result', $coupon_background_process_result, 'no' );

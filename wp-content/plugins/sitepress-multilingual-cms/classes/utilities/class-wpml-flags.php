@@ -101,10 +101,10 @@ class WPML_Flags {
 			? ' class="' . implode( ' ',  $css_classes ) . '"'
 			: '';
 
-		return '<img' . $class_attribute . ' 
+		return '<img' . $class_attribute . '
 					width="' . Obj::propOr( 18, 0, $size ) . '"
-					height="' . Obj::propOr( 12, 1, $size ) . '" 
-					src="' . esc_url( $url ) . '" 
+					height="' . Obj::propOr( 12, 1, $size ) . '"
+					src="' . esc_url( $url ) . '"
 					alt="' . esc_attr( sprintf( __( 'Flag for %s', 'sitepress' ), $lang_code ) ) . '"
 				/>';
 	}
@@ -123,7 +123,13 @@ class WPML_Flags {
 			$allowed_file_types = array( 'gif', 'jpeg', 'png', 'svg' );
 		}
 
-		$files = array_keys( $this->filesystem->dirlist( $this->get_wpml_flags_directory(), false ) );
+		$files = $this->filesystem->dirlist( $this->get_wpml_flags_directory(), false );
+
+		if ( ! $files ) {
+			return [];
+		}
+
+		$files = array_keys( $files );
 
 		$result = $this->filter_flag_files( $allowed_file_types, $files );
 		sort( $result );
@@ -199,7 +205,7 @@ class WPML_Flags {
 		$base_url_parts = wp_parse_url( $base_url );
 
 		$base_url_path_components = array();
-		if ( array_key_exists( 'path', $base_url_parts ) ) {
+		if ( $base_url_parts && array_key_exists( 'path', $base_url_parts ) ) {
 			$base_url_path_components = explode( '/', untrailingslashit( $base_url_parts['path'] ) );
 		}
 

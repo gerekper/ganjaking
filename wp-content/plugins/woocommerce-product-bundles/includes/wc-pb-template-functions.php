@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    4.11.0
+ * @version  6.21.0
  */
 
 // Exit if accessed directly.
@@ -135,7 +136,7 @@ function wc_pb_template_add_to_cart_button( $bundle = false ) {
 	if ( isset( $_GET[ 'update-bundle' ] ) ) {
 		$updating_cart_key = wc_clean( $_GET[ 'update-bundle' ] );
 		if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-			echo '<input type="hidden" name="update-bundle" value="' . $updating_cart_key . '" />';
+			echo '<input type="hidden" name="update-bundle" value="' . esc_attr( $updating_cart_key ) . '" />';
 		}
 	}
 
@@ -283,7 +284,8 @@ function wc_pb_template_bundled_item_details_wrapper_open( $bundled_item, $bundl
 		WC_PB()->display->incr_grid_layout_pos( $bundled_item );
 	}
 
-	echo '<' . $el . ' class="' . implode( ' ' , $classes ) . '"' . $style . ' >';
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo '<' . $el . ' class="' . esc_attr( implode( ' ', $classes ) ) . '"' . $style . ' >';
 }
 
 /**
@@ -380,7 +382,7 @@ function wc_pb_template_bundled_item_details_wrapper_close( $bundled_item, $bund
 		$el = 'li';
 	}
 
-	echo '</' . $el . '>';
+	echo '</' . $el . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -608,8 +610,8 @@ function wc_pb_template_before_bundled_items( $bundle ) {
 		?><table cellspacing="0" class="<?php echo esc_attr( implode( ' ', $table_classes ) ); ?>">
 			<thead>
 				<th class="bundled_item_col bundled_item_images_head"></th>
-				<th class="bundled_item_col bundled_item_details_head"><?php _e( 'Product', 'woocommerce-product-bundles' ); ?></th>
-				<th class="bundled_item_col bundled_item_qty_head"><?php _e( 'Quantity', 'woocommerce-product-bundles' ); ?></th>
+				<th class="bundled_item_col bundled_item_details_head"><?php esc_html_e( 'Product', 'woocommerce-product-bundles' ); ?></th>
+				<th class="bundled_item_col bundled_item_qty_head"><?php esc_html_e( 'Quantity', 'woocommerce-product-bundles' ); ?></th>
 			</thead>
 			<tbody><?php
 

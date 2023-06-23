@@ -16,6 +16,7 @@ class Account {
 	public static function getCredits() {
 		return WordPress::handleError( make( \WPML_TM_AMS_API::class )->getCredits() )
 		                ->filter( Fns::identity() )
+						/** @phpstan-ignore-next-line */
 		                ->map( Fns::tap( OptionManager::update( 'TM', 'Account::credits' ) ) )
 		                ->bimap( Fns::always( [ 'error' => 'communication error' ] ), Fns::identity() );
 	}

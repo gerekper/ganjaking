@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb7f32083228a1a54510835a7a36c65d1
+class ComposerStaticInit88362a57cc33ba1adc89fe7b6a6b54bf
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -43,6 +43,7 @@ class ComposerStaticInitb7f32083228a1a54510835a7a36c65d1
         'WCML\\Block\\Convert\\Converter\\ProductsByAttributes' => __DIR__ . '/../..' . '/classes/Block/Convert/Converter/ProductsByAttributes.php',
         'WCML\\Block\\Convert\\Hooks' => __DIR__ . '/../..' . '/classes/Block/Convert/Hooks.php',
         'WCML\\CLI\\Hooks' => __DIR__ . '/../..' . '/classes/CLI/Hooks.php',
+        'WCML\\COT\\Hooks' => __DIR__ . '/../..' . '/classes/COT/Hooks.php',
         'WCML\\Compatibility\\AdventureTours\\Factory' => __DIR__ . '/../..' . '/compatibility/AdventureTours/Factory.php',
         'WCML\\Compatibility\\Aurum\\Factory' => __DIR__ . '/../..' . '/compatibility/Aurum/Factory.php',
         'WCML\\Compatibility\\Aurum\\MulticurrencyHooks' => __DIR__ . '/../..' . '/compatibility/Aurum/MulticurrencyHooks.php',
@@ -112,6 +113,8 @@ class ComposerStaticInitb7f32083228a1a54510835a7a36c65d1
         'WCML\\Compatibility\\YithWcQuickView\\Factory' => __DIR__ . '/../..' . '/compatibility/YithWcQuickView/Factory.php',
         'WCML\\Compatibility\\YithWcQuickView\\MulticurrencyHooks' => __DIR__ . '/../..' . '/compatibility/YithWcQuickView/MulticurrencyHooks.php',
         'WCML\\Container\\Config' => __DIR__ . '/../..' . '/classes/Container/Config.php',
+        'WCML\\DisplayAsTranslated\\FrontendHooksFactory' => __DIR__ . '/../..' . '/classes/DisplayAsTranslated/FrontendHooksFactory.php',
+        'WCML\\DisplayAsTranslated\\ProductCatHooks' => __DIR__ . '/../..' . '/classes/DisplayAsTranslated/ProductCatHooks.php',
         'WCML\\Email\\Settings\\Hooks' => __DIR__ . '/../..' . '/classes/Email/Settings/Hooks.php',
         'WCML\\HomeScreen\\Factory' => __DIR__ . '/../..' . '/classes/HomeScreen/Factory.php',
         'WCML\\HomeScreen\\Hooks' => __DIR__ . '/../..' . '/classes/HomeScreen/Hooks.php',
@@ -331,13 +334,14 @@ class ComposerStaticInitb7f32083228a1a54510835a7a36c65d1
         'WCML_Settings_UI' => __DIR__ . '/../..' . '/inc/template-classes/class-wcml-settings-ui.php',
         'WCML_Setup' => __DIR__ . '/../..' . '/classes/wcml-setup/class-wcml-setup.php',
         'WCML_Setup_Attributes_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-attributes-ui.php',
+        'WCML_Setup_Display_As_Translated_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-display-as-translated-ui.php',
         'WCML_Setup_Footer_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-footer.php',
         'WCML_Setup_Handlers' => __DIR__ . '/../..' . '/classes/wcml-setup/class-wcml-setup-handlers.php',
         'WCML_Setup_Header_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-header.php',
         'WCML_Setup_Introduction_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-introduction-ui.php',
         'WCML_Setup_Multi_Currency_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php',
         'WCML_Setup_Notice_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-notice.php',
-        'WCML_Setup_Ready_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-ready-ui.php',
+        'WCML_Setup_Step' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-step.php',
         'WCML_Setup_Store_Pages_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-store-pages-ui.php',
         'WCML_Setup_Translation_Options_UI' => __DIR__ . '/../..' . '/inc/template-classes/setup/class-wcml-setup-translation-options-ui.php',
         'WCML_Setup_UI' => __DIR__ . '/../..' . '/classes/wcml-setup/class-wcml-setup-ui.php',
@@ -405,9 +409,9 @@ class ComposerStaticInitb7f32083228a1a54510835a7a36c65d1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb7f32083228a1a54510835a7a36c65d1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb7f32083228a1a54510835a7a36c65d1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb7f32083228a1a54510835a7a36c65d1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit88362a57cc33ba1adc89fe7b6a6b54bf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit88362a57cc33ba1adc89fe7b6a6b54bf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit88362a57cc33ba1adc89fe7b6a6b54bf::$classMap;
 
         }, null, ClassLoader::class);
     }

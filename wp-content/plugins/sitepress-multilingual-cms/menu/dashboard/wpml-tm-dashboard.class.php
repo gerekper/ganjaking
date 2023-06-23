@@ -400,19 +400,19 @@ class WPML_TM_Dashboard {
 		$postsLimit = $this->get_limit_retrieved_posts_value();
 
 		$sql      = "SELECT DISTINCT
-				 st_table.ID, 
-				 st_table.kind_slug, 
-				 st_table.title, 
-				 wpml_translations.element_type, 
-				 wpml_translations.language_code, 
+				 st_table.ID,
+				 st_table.kind_slug,
+				 st_table.title,
+				 wpml_translations.element_type,
+				 wpml_translations.language_code,
 				 wpml_translations.source_language_code,
-				 wpml_translations.trid 
+				 wpml_translations.trid
 				 FROM {$string_packages_table} AS st_table
-				 LEFT JOIN {$translations_table} AS wpml_translations 
-				 ON wpml_translations.element_id=st_table.ID OR wpml_translations.element_id = null 
-				 WHERE 1 = 1 {$where} 
+				 LEFT JOIN {$translations_table} AS wpml_translations
+				 ON wpml_translations.element_id=st_table.ID OR wpml_translations.element_id = null
+				 WHERE 1 = 1 {$where}
 				 GROUP BY st_table.ID
-				 ORDER BY st_table.ID ASC 
+				 ORDER BY st_table.ID ASC
 				 LIMIT {$postsLimit}";
 
 		$sql      = apply_filters( 'wpml_tm_dashboard_external_type_sql_query', $sql, $args );
@@ -435,7 +435,7 @@ class WPML_TM_Dashboard {
 		 *
 		 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-616
 		 */
-		$this->found_documents += count( $packages );
+		$this->found_documents += is_array( $packages ) ? count( $packages ) : 0;
 
 		return $results;
 	}
@@ -576,7 +576,7 @@ class WPML_TM_Dashboard {
 			SELECT trid
 			FROM {$prefix}icl_translations translations
 			INNER JOIN {$prefix}icl_translation_status translation_status ON translation_status.translation_id = translations.translation_id
-			WHERE ( $needsUpdatePart translation_status.status = 0 ) 
+			WHERE ( $needsUpdatePart translation_status.status = 0 )
 		";
 		if ( $language ) {
 			$query .= $this->language_where( $language );

@@ -192,11 +192,11 @@ function wpml_get_default_widget_title( $id ) {
  *
  * @param string|array $context           The context for the string
  * @param string       $name              A name to help the translator understand what’s being translated
- * @param string       $value             The string value
+ * @param string|array $value             The string or array value
  * @param bool         $allow_empty_value This param is not being used
  * @param string       $source_lang       The language of the registered string. Defaults to 'en'
  *
- * @return int string_id of the just registered string or the id found in the database corresponding to the
+ * @return int|false|null string_id of the just registered string or the id found in the database corresponding to the
  *             input parameters
  * @throws \WPML\Auryn\InjectionException
  */
@@ -204,7 +204,7 @@ function icl_register_string( $context, $name, $value, $allow_empty_value = fals
 	global $WPML_String_Translation;
 
 	if ( ! $name ) {
-		$name = md5( $value );
+		$name = md5( is_array( $value ) ? (string) json_encode( $value ) : $value );
 	}
 
 	$strings_language    = $WPML_String_Translation->get_current_string_language( $name );
@@ -215,6 +215,11 @@ function icl_register_string( $context, $name, $value, $allow_empty_value = fals
 	} else {
 		$string_id = null;
 	}
+
+	/**
+	 * Action runs after string is registered
+	 */
+	do_action( 'wpml_st_string_registered' );
 
 	return $string_id;
 }
@@ -250,7 +255,7 @@ add_action( 'wpml_register_single_string', 'wpml_register_single_string_action',
 /**
  * @param string|array $context
  * @param string       $name
- * @param bool         $value
+ * @param bool|string  $value
  * @param bool         $allow_empty_value
  * @param null|bool    $has_translation
  * @param null|string  $target_lang
@@ -374,7 +379,7 @@ function icl_unregister_string( $context, $name ) {
 		/**
 		 * This action is is fired before several strings are deleted at once.
 		 *
-		 * @param array Here containing only the single string that is deleted.
+		 * @param array $string_ids Here containing only the single string that is deleted.
 		 *
 		 * @since 3.0.0
 		 */
@@ -394,6 +399,11 @@ function icl_unregister_string( $context, $name ) {
 			)
 		);
 	}
+
+	/**
+	 * Action that fires after string is unregistered
+	 */
+	do_action( 'wpml_st_string_unregistered' );
 
 	/**
 	 * This action is is fired when a string is deleted.
@@ -429,11 +439,16 @@ function wpml_unregister_string_multi( array $string_ids ) {
 	$wpdb->query( "DELETE FROM {$wpdb->prefix}icl_string_positions WHERE string_id IN ({$str})" );
 
 	/**
-	 * This action is is fired when several strings are deleted at once.
+	 * This action is fired when several strings are deleted at once.
 	 *
 	 * @param array $string_ids
 	 */
 	do_action( 'icl_st_unregister_string_multi', $string_ids );
+
+	/**
+	 * Action that fires after strings are unregistered
+	 */
+	do_action( 'wpml_st_string_unregistered' );
 }
 
 /**
@@ -480,7 +495,7 @@ function wpml_translate_single_string_filter( $original_value, $context, $name, 
  * @api
  * @since 3.2
  */
-add_filter( 'wpml_translate_single_string', 'wpml_translate_single_string_filter', 10, 6 );
+add_filter( 'wpml_translate_single_string', 'wpml_translate_single_string_filter', 10, 5 );
 
 /**
  * Retrieve a string translation
@@ -581,9 +596,9 @@ function icl_update_string_translation(
 }
 
 /**
- * @param string     $string
- * @param string     $context
- * @param bool|false $name
+ * @param string       $string
+ * @param string       $context
+ * @param string|false $name
  *
  * @return int
  * @throws \WPML\Auryn\InjectionException
@@ -788,16 +803,16 @@ function icl_sw_filters_gettext_with_context( $translation, $text, $_gettext_con
  * @param string       $translation
  * @param string       $single
  * @param string       $plural
- * @param string       $number
- * @param string|array $domain
- * @param string|false $_gettext_context
+ * @param string|int   $number
+ * @param string       $domain
+ * @param string       $_gettext_context
  *
  * @return string
  * @throws \WPML\Auryn\InjectionException
  * @deprecated since WPML ST 3.0.0
  *
  */
-function icl_sw_filters_ngettext( $translation, $single, $plural, $number, $domain, $_gettext_context = false ) {
+function icl_sw_filters_ngettext( $translation, $single, $plural, $number, $domain, $_gettext_context ) {
 	if ( $number == 1 ) {
 		return icl_sw_filters_gettext_with_context( $translation, $single, $_gettext_context, $domain );
 	} else {
@@ -828,7 +843,14 @@ function icl_sw_filters_nxgettext( $translation, $single, $plural, $number, $_ge
 function icl_st_register_user_strings_all() {
 	global $sitepress, $authordata;
 	$wpml_translated_users = new WPML_ST_User_Fields( $sitepress, $authordata );
-	return $wpml_translated_users->init_register_strings();
+	$processedIds = $wpml_translated_users->init_register_strings();
+
+	/**
+	 * Actions runs after user strings are registered
+	 */
+	do_action( 'wpml_st_string_registered' );
+
+	return $processedIds;
 }
 
 function icl_st_update_string_actions( $context, $name, $old_value, $new_value, $force_complete = false ) {
@@ -838,6 +860,11 @@ function icl_st_update_string_actions( $context, $name, $old_value, $new_value, 
 
 		$string_update = new WPML_ST_String_Update( $wpdb );
 		$string_update->update_string( $context, $name, $old_value, $new_value, $force_complete );
+
+		/**
+		 * Action that runs after registered strings are updated
+		 */
+		do_action( 'wpml_st_string_updated' );
 	}
 }
 
@@ -938,6 +965,9 @@ function _icl_st_get_options_writes( $path ) {
 	static $found_writes = array();
 	if ( is_dir( $path ) ) {
 		$dh = opendir( $path );
+		if ( ! $dh ) {
+			return $found_writes;
+		}
 		while ( $file = readdir( $dh ) ) {
 			if ( $file == '.' || $file == '..' ) {
 				continue;
@@ -945,7 +975,7 @@ function _icl_st_get_options_writes( $path ) {
 			if ( is_dir( $path . '/' . $file ) ) {
 				_icl_st_get_options_writes( $path . '/' . $file );
 			} elseif ( preg_match( '#(\.php|\.inc)$#i', $file ) ) {
-				$content = file_get_contents( $path . '/' . $file );
+				$content = (string) file_get_contents( $path . '/' . $file );
 				$int     = preg_match_all( '#(add|update)_option\(([^,]+),([^)]+)\)#im', $content, $matches );
 				if ( $int ) {
 					foreach ( $matches[2] as $m ) {

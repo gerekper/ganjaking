@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 6.3.0
+ * @version 6.4.0
  * @package woocommerce-product-addons
  */
 
@@ -26,7 +26,11 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 	$price_raw    = apply_filters( 'woocommerce_product_addons_price_raw', $addon_price, $addon );
 
 	if ( 'percentage_based' === $price_type ) {
-		$price_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_price',
 			$adjust_price && $price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 			$addon,
@@ -34,7 +38,11 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 			$addon_type
 		) : '';
 	} else {
-		$price_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_price',
 			$adjust_price && $price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$addon,

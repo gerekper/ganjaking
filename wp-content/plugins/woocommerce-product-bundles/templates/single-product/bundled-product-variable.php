@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 6.3.3
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div class="cart bundled_item_cart_content" data-title="<?php echo esc_attr( $bundled_item->get_title() ); ?>" data-product_title="<?php echo esc_attr( $bundled_item->get_product()->get_title() ); ?>" data-visible="<?php echo $bundled_item->is_visible() ? 'yes' : 'no'; ?>" data-optional_suffix="<?php echo esc_attr( $bundled_item->get_optional_suffix() ); ?>" data-optional="<?php echo $bundled_item->is_optional() ? 'yes' : 'no'; ?>" data-type="<?php echo $bundled_product->get_type(); ?>" data-product_variations="<?php echo htmlspecialchars( json_encode( $bundled_product_variations ) ); ?>" data-bundled_item_id="<?php echo $bundled_item->get_id(); ?>" data-custom_data="<?php echo esc_attr( json_encode( $custom_product_data ) ); ?>" data-product_id="<?php echo $bundled_product_id; ?>" data-bundle_id="<?php echo $bundle_id; ?>" <?php echo $bundled_item->is_optional() && ! $bundled_item->is_optional_checked() ? 'style="display:none"' : ''; ?>>
+?><div class="cart bundled_item_cart_content" data-title="<?php echo esc_attr( $bundled_item->get_title() ); ?>" data-product_title="<?php echo esc_attr( $bundled_item->get_product()->get_title() ); ?>" data-visible="<?php echo $bundled_item->is_visible() ? 'yes' : 'no'; ?>" data-optional_suffix="<?php echo esc_attr( $bundled_item->get_optional_suffix() ); ?>" data-optional="<?php echo $bundled_item->is_optional() ? 'yes' : 'no'; ?>" data-type="<?php echo esc_attr( $bundled_product->get_type() ); ?>" data-product_variations="<?php echo wc_esc_json( json_encode( $bundled_product_variations ) ); ?>" data-bundled_item_id="<?php echo esc_attr( $bundled_item->get_id() ); ?>" data-custom_data="<?php echo wc_esc_json( json_encode( $custom_product_data ) ); ?>" data-product_id="<?php echo esc_attr( $bundled_product_id ); ?>" data-bundle_id="<?php echo esc_attr( $bundle_id ); ?>" <?php echo $bundled_item->is_optional() && ! $bundled_item->is_optional_checked() ? 'style="display:none"' : ''; ?>>
 	<table class="variations" cellspacing="0">
 		<tbody><?php
 
@@ -26,18 +26,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				?><tr class="attribute_options <?php echo $is_attribute_value_configurable ? 'attribute_value_configurable' : 'attribute_value_static' ; ?>" data-attribute_label="<?php echo esc_attr( wc_attribute_label( $attribute_name ) ); ?>">
 					<td class="label">
-						<label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ) . '_' . $bundled_item->get_id(); ?>"><?php
+						<label for="<?php echo esc_attr( sanitize_title( $attribute_name ) . '_' . $bundled_item->get_id() ); ?>"><?php
 
-							echo wc_attribute_label( $attribute_name );
+							echo wc_attribute_label( $attribute_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 							if ( $is_attribute_value_configurable ) {
-								?> <abbr class="required" title="<?php _e( 'Required option', 'woocommerce-product-bundles' ); ?>">*</abbr><?php
+								?> <abbr class="required" title="<?php esc_attr_e( 'Required option', 'woocommerce-product-bundles' ); ?>">*</abbr><?php
 							}
 
 						?></label>
 					</td>
 					<td class="value"><?php
 
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo wc_pb_template_bundled_variation_attribute_options( array(
 							'options'      => $options,
 							'attribute'    => $attribute_name,

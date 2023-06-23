@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="WooCommerce Coding Standards">
 	<description>WooCommerce Points and Rewards ruleset.</description>
-	
+
 	<!-- Configs -->
 	<config name="minimum_supported_wp_version" value="4.7" />
 	<config name="testVersion" value="7.2-" />
@@ -10,7 +10,7 @@
 	<rule ref="WooCommerce-Core">
 		<!-- We don't require conforming to WP file naming -->
 		<exclude name="WordPress.Files.FileName"/>
-		
+
 		<!-- Rules related to comments. We will come back to implementing these rules-->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
 		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
@@ -18,7 +18,7 @@
 		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>
 		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
-		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+		<exclude name="Squiz.Commenting.FileComment"/>
 		<exclude name="WooCommerce.Commenting.CommentHooks.MissingSinceComment"/>
 		<exclude name="WooCommerce.Commenting.CommentHooks.MissingHookComment"/>
 	</rule>

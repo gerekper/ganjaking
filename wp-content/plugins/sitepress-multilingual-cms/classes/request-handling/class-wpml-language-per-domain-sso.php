@@ -357,14 +357,14 @@ class WPML_Language_Per_Domain_SSO {
 	}
 
 	/**
-	 * @param string      $prefix
-	 * @param string|null $domain
-	 * @param string|null $token
+	 * @param string                $prefix
+	 * @param string|null           $domain
+	 * @param string|int|null|false $token
 	 *
 	 * @return string
 	 */
 	private function create_transient_key( $prefix, $domain = null, $token = null ) {
-		return $prefix . ( $token !== null ? $token : '' ) . ( $domain ? '_' . $this->get_hash( $domain ) : '' );
+		return $prefix . ( $token ? (string) $token : '' ) . ( $domain ? '_' . $this->get_hash( $domain ) : '' );
 	}
 
 	/**

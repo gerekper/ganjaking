@@ -148,6 +148,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => $baseDir . '/src/integrations/admin/cornerstone-taxonomy-column-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Crawl_Settings_Integration' => $baseDir . '/src/deprecated/integrations/admin/crawl-settings-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration' => $baseDir . '/src/integrations/admin/inclusive-language-column-integration.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Filter_Integration' => $baseDir . '/src/integrations/admin/inclusive-language-filter-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration' => $baseDir . '/src/integrations/admin/inclusive-language-taxonomy-column-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Integrations_Page' => $baseDir . '/src/deprecated/integrations/admin/integrations-page.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration' => $baseDir . '/src/integrations/admin/keyword-integration.php',

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/tab-manager/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use \SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use \SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * WooCommerce Tab Manager main class.
@@ -34,7 +34,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '1.14.2';
+	const VERSION = '1.16.0';
 
 	/** @var \WC_Tab_Manager single instance of this plugin */
 	protected static $instance;
@@ -68,9 +68,10 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
+			[
 				'text_domain' => 'woocommerce-tab-manager',
-			)
+				'supports_hpos' => true,
+			]
 		);
 
 		// allow direct linking to tabs

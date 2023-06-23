@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Advanced": [
             "Geavanceerd"
@@ -108,8 +107,29 @@
          "Current language background": [
             "Huidige taalachtergrond"
          ],
-         "Small": [
-            "Klein"
+         "Full name": [
+            "Volledige naam"
+         ],
+         "Code": [
+            "Code"
+         ],
+         "Justify items left": [
+            "Rechtvaardig items links"
+         ],
+         "Justify items center": [
+            "Rechtvaardig items midden"
+         ],
+         "Justify items right": [
+            "Rechtvaardig items rechts"
+         ],
+         "Justify items space between": [
+            "Rechtvaardig items met tussenruimte"
+         ],
+         "Horizontal": [
+            "Horizontaal"
+         ],
+         "Vertical": [
+            "Verticaal"
          ],
          "Normal": [
             "Normaal"
@@ -123,6 +143,9 @@
          "X-Large": [
             "Zeer groot"
          ],
+         "Small": [
+            "Klein"
+         ],
          "Displays the WPML Language Switcher.": [
             "Geeft de WPML-taalschakelaar weer."
          ],
@@ -132,20 +155,14 @@
          "displays the WPML Language Switcher": [
             "geeft de WPML Taalschakelaar weer"
          ],
+         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
+            "Toont de WPML taalswitcher. <br/> Leer <a>hoe dit blok te vertalen</a>."
+         ],
          "Navigation Language Switcher": [
             "Navigatie Taal Schakelaar"
          ],
          "Reset all": [
             "Alles opnieuw instellen"
-         ],
-         "Minimum value is : ": [
-            "De minimumwaarde is :"
-         ],
-         "Maximum value is : ": [
-            "De maximumwaarde is :"
-         ],
-         "Value must be a number!": [
-            "De waarde moet een getal zijn!"
          ]
       }
    }

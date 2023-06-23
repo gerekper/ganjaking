@@ -154,12 +154,12 @@ class TranslationProxy {
 	}
 
 	/**
-	 * @return bool|TranslationProxy_Project
+	 * @return TranslationProxy_Project|false
 	 */
 	public static function get_current_project() {
 		$translation_service = self::get_current_service();
 
-		if ( $translation_service ) {
+		if ( $translation_service && ! is_wp_error( $translation_service ) ) {
 			return new TranslationProxy_Project( $translation_service, 'xmlrpc', self::get_tp_client() );
 		}
 		return false;
@@ -405,7 +405,7 @@ class TranslationProxy {
 	}
 
 	/**
-	 * @param bool|TranslationProxy_Service|WP_Error $service
+	 * @param bool|stdClass|TranslationProxy_Service|WP_Error $service
 	 *
 	 * @return bool
 	 * @throws \InvalidArgumentException
@@ -453,9 +453,10 @@ class TranslationProxy {
 	}
 
 	/**
-	 * @return bool|TranslationProxy_Service|WP_Error
+	 * @return stdClass|WP_Error|false
 	 */
 	public static function get_current_service() {
+		/** @var SitePress $sitepress */
 		global $sitepress;
 
 		/** @var TranslationProxy_Service $ts */

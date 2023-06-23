@@ -96,7 +96,7 @@ class Jobs {
 			SELECT COUNT(jobs.job_id) 
 			FROM {$wpdb->prefix}icl_translate_job jobs		
 			INNER JOIN {$wpdb->prefix}icl_translation_status translation_status ON translation_status.rid = jobs.rid
-			INNER JOIN wp_icl_translations translations ON translations.translation_id = translation_status.translation_id
+			INNER JOIN {$wpdb->prefix}icl_translations translations ON translations.translation_id = translation_status.translation_id
 			WHERE jobs.editor = %s AND jobs.automatic = 1 AND translation_status.status = %d AND translations.source_language_code = %s
 		";
 

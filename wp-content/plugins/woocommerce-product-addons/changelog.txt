@@ -1,5 +1,24 @@
 *** Product Addons Changelog ***
 
+2023-06-21 - version 6.4.2
+* Fix - Resolved a PHP warning triggered when adding a Bundle/Composite without any container-level add-ons to the block-based cart.
+
+2023-06-19 - version 6.4.1
+* Fix - Fixed an issue that prevented add-on totals from updating in Variable Products when a tax suffix was used.
+* Fix - Fixed an issue that made add-ons show up twice in the cart when renewing a subscription.
+
+2023-06-13 - version 6.4.0
+* Tweak - Important: The price of flat fee add-ons is no longer added to the per unit product price in the cart, but directly to the product total. 
+* Tweak - Important: The add-on prices in the cart are now displayed next to the selected add-on options, instead of the add-on name. 
+* Tweak - Important: The 'woocommerce_addons_add_price_to_name' filter is now deprecated. Use 'woocommerce_addons_add_product_price_to_value' or 'woocommerce_addons_add_cart_price_to_value' or 'woocommerce_addons_add_order_price_to_value' instead. 
+* Tweak - Important: Requires Product Bundles 6.20.0+ and Composite Products 8.9.0+.
+* Tweak - The prices of flat fee add-ons are now prefixed with a '+' sign in the cart/order templates to indicate that these prices are not included in the per unit product price. 
+* Tweak - The prices of quantity/percentage based add-ons are now hidden by default in the cart/order templates, as they are already included in the  per unit product prices. To reveal them, use the 'woocommerce_addons_add_cart_price_to_value' or 'woocommerce_addons_add_order_price_to_value' filter.
+* Tweak - Added basic telemetry using Tracks.
+
+2023-06-01 - version 6.3.2
+* Fix - Fixed styling for dismissible admin notices.
+
 2023-05-29 - version 6.3.1
 * New - Introduced block theme support on existing frontend templates.
 * Fix - Improvements in global styles compatibility.

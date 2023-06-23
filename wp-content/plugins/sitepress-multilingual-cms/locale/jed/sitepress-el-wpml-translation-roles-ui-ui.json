@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "Από:"
@@ -64,7 +63,7 @@
             "Δημιουργία ενός νέου %s και ορισμός του ως διαχειριστή μετάφρασης"
          ],
          "Cancel": [
-            "Άκυρο"
+            "Ακύρωση"
          ],
          "Add Translation Manager": [
             "Προσθήκη διαχειριστή μετάφρασης"
@@ -145,7 +144,7 @@
             "Τοποθεσία"
          ],
          "Code": [
-            "Κωδικός"
+            "Κώδικας"
          ],
          "The language will not be supported by automatic translations": [
             "Η γλώσσα δεν θα υποστηρίζεται από αυτόματες μεταφράσεις"
@@ -183,8 +182,14 @@
          "Please fill in the field": [
             "Συμπληρώστε το πεδίο"
          ],
+         "PNG, SVG, or JPG files": [
+            "Αρχεία PNG, SVG ή JPG"
+         ],
          "Save language": [
             "Αποθήκευση γλώσσας"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 pixel"
          ],
          "Read more about ": [
             "Διαβάστε περισσότερα για"

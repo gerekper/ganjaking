@@ -2,7 +2,7 @@
 /**
  * Admin View: Create Booking (Page/Step 2).
  *
- * @since x.x.x
+ * @since 1.15.75
  *
  * @package WooCommerce Bookings
  */

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.9.0
+ * @version     4.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -432,8 +432,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						if ( 'smart_coupon' === $discount_type ) {
 
 							$coupon_amount    = $this->get_amount( $smart_coupon, true, $order );
-							$discount_amount  = round( ( $coupon_amount - $smart_coupons_contribution[ $code ] ), get_option( 'woocommerce_price_num_decimals', 2 ) );
-							$credit_remaining = max( 0, $discount_amount );
+							$credit_remaining = round( ( $coupon_amount - $smart_coupons_contribution[ $code ] ), get_option( 'woocommerce_price_num_decimals', 2 ) );
+							$credit_remaining = max( 0, $credit_remaining );
 
 							// Allow 3rd party plugin to modify the remaining balance of the store credit.
 							$credit_remaining = apply_filters(

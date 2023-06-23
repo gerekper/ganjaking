@@ -17,7 +17,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 /**
  * Extends the store public API with bundle related data for each bundle parent and child item.
  *
- * @version 6.17.2
+ * @version 6.20.0
  */
 class WC_PB_Store_API {
 
@@ -323,9 +323,14 @@ class WC_PB_Store_API {
 			return;
 		}
 
+		do_action( 'woocommerce_store_api_before_bundle_aggregated_totals_calculation', $item_data, $cart_item );
+
 		$item_data[ 'prices' ]->raw_prices[ 'price' ]         = self::prepare_money_response( WC_PB()->display->get_container_cart_item_price_amount( $cart_item, 'price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
 		$item_data[ 'prices' ]->raw_prices[ 'regular_price' ] = self::prepare_money_response( WC_PB()->display->get_container_cart_item_price_amount( $cart_item, 'regular_price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
 		$item_data[ 'prices' ]->raw_prices[ 'sale_price' ]    = self::prepare_money_response( WC_PB()->display->get_container_cart_item_price_amount( $cart_item, 'sale_price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
+
+		do_action( 'woocommerce_store_api_after_bundle_aggregated_totals_calculation', $item_data, $cart_item );
+
 	}
 
 	/**

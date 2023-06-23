@@ -282,17 +282,17 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 		}
 
 		/**
-		 * Settings Wrapper
-		 * @return  array
-		 * @since   1.0.0
+		 * Settings Wrapper.
 		 *
-		 * @deprecated
+		 * @since1.0.0
+		 * @deprecated 1.2.0
+		 *
+		 * @return array
 		 */
 		public function wrapper() {
-			_deprecated_function( 'WC_Drip_Events::wrapper', 'wcdrip_get_settings', '1.3.0' );
+			_deprecated_function( 'WC_Drip_Events::wrapper', 'wcdrip_get_settings', '1.2.0' );
 			return wcdrip_get_settings();
-	    }
-
+		}
 	}
 
 }

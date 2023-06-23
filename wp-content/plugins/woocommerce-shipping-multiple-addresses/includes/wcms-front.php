@@ -116,8 +116,18 @@ class WC_MS_Front {
 		wp_enqueue_script( 'jquery-tiptip', plugins_url( 'assets/js/jquery.tiptip.min.js', WC_Ship_Multiple::FILE ), array( 'jquery', 'jquery-ui-core' ) );
 
 		wp_enqueue_script( 'modernizr', plugins_url( 'assets/js/modernizr.min.js', WC_Ship_Multiple::FILE ) );
-		wp_enqueue_script( 'multiple_shipping_checkout', plugins_url( 'assets/js/woocommerce-checkout.min.js', WC_Ship_Multiple::FILE ), array( 'woocommerce', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-mouse' ) );
 
+		$id                = wc_get_page_id( 'multiple_addresses' );
+		$reset_url         = add_query_arg( array( 'wcms_reset_address' => true ), wc_get_checkout_url() );
+		$modify_addr_link  = get_permalink( $id );
+		$add_addr_link     = add_query_arg( 'cart', 1, get_permalink( $id ) );
+		$sess_item_address = wcms_session_get( 'cart_item_addresses' );
+		$sess_cart_address = wcms_session_get( 'cart_addresses' );
+		$has_item_address  = ( ! wcms_session_isset( 'cart_item_addresses' ) || empty( $sess_item_address ) ) ? false : true;
+		$has_cart_address  = ( ! wcms_session_isset( 'cart_addresses' ) || empty( $sess_cart_address ) ) ? false : true;
+		$no_multi_address  = ( ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() );
+
+		wp_enqueue_script( 'multiple_shipping_checkout', plugins_url( 'assets/js/woocommerce-checkout.min.js', WC_Ship_Multiple::FILE ), array( 'woocommerce', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-mouse' ) );
 		wp_localize_script(
 			'multiple_shipping_checkout',
 			'WCMS',
@@ -131,6 +141,17 @@ class WC_MS_Front {
 					'countries'         => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
 					'select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
 					'_wcmsnonce'        => wp_create_nonce( 'wcms-action_' . WC()->session->get_customer_unique_id() ),
+					'not_eligible_wcms' => ( ! $this->wcms->cart->cart_is_eligible_for_multi_shipping() ),
+					'has_item_address'  => $has_item_address,
+					'has_cart_address'  => $has_cart_address,
+					'no_multi_address'  => $no_multi_address,
+					'reset_url'         => esc_url( $reset_url ),
+					'modify_addr_link'  => esc_url( $modify_addr_link ),
+					'add_addr_link'     => esc_url( $add_addr_link ),
+					'save_nonce'        => wp_create_nonce( 'wcms_save_billing_fields_nonce' ),
+					'modify_title_text' => esc_html__( 'Shipping Address', 'wc_shipping_multiple_address' ),
+					'modify_addr_text'  => esc_html__( 'Modify/Add Address', 'wc_shipping_multiple_address' ),
+					'reset_addr_text'   => esc_html__( 'Reset Address', 'wc_shipping_multiple_address' ),
 				)
 			)
 		);

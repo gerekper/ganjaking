@@ -122,7 +122,7 @@ class WC_Product_Vendors_Shortcodes {
 			'vendors' => $vendors,
 			'atts'    => $atts,
 		);
-		return wc_get_template_html( 'shortcode-vendor-list.php', $template_data, 'woocommerce-product-vendors', WC_PRODUCT_VENDORS_TEMPLATES_PATH );
+		return wc_get_template_html( 'shortcode-vendor-list.php', $template_data, 'woocommerce-product-vendors', WC_PRODUCT_VENDORS_TEMPLATES_PATH ); // nosemgrep:audit.php.wp.security.xss.shortcode-attr
 	}
 }
 

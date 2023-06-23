@@ -42,21 +42,17 @@ add_action( 'wc_mnm_category_caption', 'wc_mnm_category_title', 10, 2 );
 add_action( 'wc_mnm_category_caption', 'wc_mnm_category_description', 20, 2 );
 
 // Display thumbnails.
-if ( wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) ) {
-	add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail_open', 10, 2 );
-	add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail', 20, 2 );
-	add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail_close', 30, 2 );
-}
+add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail_open', 10, 2 );
+add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail', 20, 2 );
+add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail_close', 30, 2 );
 
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_details_open', 40, 2 );
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_title', 50, 2 );
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_data_details', 55, 2 );
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_attributes', 60, 2 );
 
-// Maybe display short description.
-if ( wc_string_to_bool( get_option( 'wc_mnm_display_short_description', 'no' ) ) ) {
-	add_action( 'wc_mnm_child_item_details', 'wc_mnm_child_item_short_description', 63, 2 );
-}
+// Display short description.
+add_action( 'wc_mnm_child_item_details', 'wc_mnm_child_item_short_description', 63, 2 );
 
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_price', 65, 2 );
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_stock_remaining', 67, 2 );
@@ -68,10 +64,8 @@ add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_section_clo
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_details_wrapper_close', 110, 2 );
 
 // Plus/minus buttons.
-if ( wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) ) {
-	add_action( 'wc_mnm_before_child_items', 'wc_mnm_add_plus_minus_buttons' );
-	add_action( 'wc_mnm_after_child_items', 'wc_mnm_remove_plus_minus_buttons' );
-}
+add_action( 'wc_mnm_before_child_items', 'wc_mnm_add_plus_minus_buttons' );
+add_action( 'wc_mnm_after_child_items', 'wc_mnm_remove_plus_minus_buttons' );
 
 // Backcompatibility Functions.
 add_action( 'woocommerce_mix-and-match_add_to_cart', '_wc_mnm_add_template_backcompatibility', -10 );

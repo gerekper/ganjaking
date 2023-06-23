@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.3.0
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( $bundled_item->is_priced_individually() ) {
-	?><span class="price"><?php echo $bundled_item->product->get_price_html(); ?></span><?php
+	?><span class="price"><?php echo wp_kses_post( $bundled_item->product->get_price_html() ); ?></span><?php
 	/**
 	* 'woocommerce_bundles_after_bundled_item_price' action.
 	*

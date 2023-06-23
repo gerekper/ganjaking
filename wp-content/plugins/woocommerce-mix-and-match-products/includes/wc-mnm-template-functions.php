@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  2.4.0
+ * @version  2.4.6
  */
 
 // Exit if accessed directly.
@@ -336,6 +336,11 @@ function wc_mnm_template_child_item_details_wrapper_open( $child_item, $product 
  */
 function wc_mnm_template_child_item_thumbnail_open( $child_item, $product ) {
 
+	// Check whether or not to display thumbnails.
+	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) || ! wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) ) {
+		return;
+	}
+
 	/**
 	 * Wrapping classes.
 	 *
@@ -369,7 +374,7 @@ function wc_mnm_template_child_item_thumbnail_open( $child_item, $product ) {
 function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 
 	// Check whether or not to display thumbnails.
-	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) || ! wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) ) {
 		return;
 	}
 
@@ -437,7 +442,7 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 function wc_mnm_template_child_item_thumbnail_close( $child_item, $product ) {
 
 	// Check whether or not to display thumbnails.
-	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) || ! wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) ) {
 		return;
 	}
 
@@ -587,7 +592,7 @@ function wc_mnm_template_child_item_price( $child_item, $product ) {
  */
 function wc_mnm_template_child_item_stock_remaining( $child_item, $product ) {
 
-	if ( $child_item->get_product()->is_purchasable() && $child_item->get_product()->is_in_stock() ) {
+	if ( $product->is_in_stock() && $child_item->get_product()->is_purchasable() && $child_item->get_product()->is_in_stock() ) {
 		echo wp_kses_post( $child_item->get_availability_html() );
 	}
 
@@ -823,6 +828,33 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
  */
 function wc_mnm_template_container_status( $product ) {
 
+	if ( isset( $_GET['update-container'] ) ) {
+		$updating_cart_key = wc_clean( $_GET['update-container'] );
+		if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
+			echo '<input type="hidden" name="update-container" value="' . $updating_cart_key . '" />';
+		}
+	}
+
+	wc_get_template(
+		'single-product/mnm-container-status.php',
+		array(
+			'product'            => $product,
+			'purchasable_notice' => wc_mnm_template_get_purchasable_notice( $product ),
+		),
+		'',
+		WC_Mix_and_Match()->plugin_path() . '/templates/'
+	);
+
+}
+
+/**
+ * Get the purchasable notice.
+ * 
+ * @since 2.5.0
+ *
+ * @param obj WC_Mix_and_Match product of parent product
+ */
+function wc_mnm_template_get_purchasable_notice( $product ) {
 	$purchasable_notice = _x( 'This product is currently unavailable.', '[Frontend]', 'woocommerce-mix-and-match-products' );
 
 	if ( ! $product->is_purchasable() && current_user_can( 'manage_woocommerce' ) ) {
@@ -843,25 +875,8 @@ function wc_mnm_template_container_status( $product ) {
 		}
 	}
 
-	if ( isset( $_GET['update-container'] ) ) {
-		$updating_cart_key = wc_clean( $_GET['update-container'] );
-		if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-			echo '<input type="hidden" name="update-container" value="' . $updating_cart_key . '" />';
-		}
-	}
-
-	wc_get_template(
-		'single-product/mnm-container-status.php',
-		array(
-			'product'            => $product,
-			'purchasable_notice' => $purchasable_notice,
-		),
-		'',
-		WC_Mix_and_Match()->plugin_path() . '/templates/'
-	);
-
+	return $purchasable_notice;
 }
-
 
 /**
  * Get the Add to Cart button.
@@ -891,6 +906,10 @@ function wc_mnm_template_add_to_cart_button( $product ) {
 */
 function wc_mnm_child_item_short_description( $child_item, $product ) {
 
+	if ( ! wc_string_to_bool( get_option( 'wc_mnm_display_short_description', 'no' ) ) ) {
+		return;
+	}
+
 	global $post;
 	$backup_post = $post;
 
@@ -916,8 +935,10 @@ function wc_mnm_child_item_short_description( $child_item, $product ) {
  * @since  2.4.0
  */
 function wc_mnm_add_plus_minus_buttons() {
-	add_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_minus_button' );
-	add_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_plus_button', 20 );	
+	if ( wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) ) {
+		add_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_minus_button' );
+		add_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_plus_button', 20 );
+	}
 }
 
 /**
@@ -926,8 +947,10 @@ function wc_mnm_add_plus_minus_buttons() {
  * @since  2.4.0
  */
 function wc_mnm_remove_plus_minus_buttons() {
-	remove_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_minus_button' );
-	remove_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_plus_button', 20 );
+	if ( wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) ) {
+		remove_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_minus_button' );
+		remove_action( 'woocommerce_after_quantity_input_field', 'wc_mnm_template_quantity_plus_button', 20 );
+	}
 }
 
 /**

@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 2.8.1
+ * @version 3.0.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -94,10 +94,10 @@ if ( ! empty( $user_id ) ) {
                         <th class="<?php echo esc_attr( 'api-manager-key' ); ?>"><span
                                     class="nobr" style="white-space: nowrap;"><?php esc_html_e( 'Product Order API Key', 'woocommerce-api-manager' ); ?></span></th>
 					<?php } ?>
-                    <th class="<?php echo esc_attr( 'api-manager-expire' ); ?>"><span
-                                class="nobr"><?php esc_html_e( 'Expires', 'woocommerce-api-manager' ); ?></span></th>
                     <th class="<?php echo esc_attr( 'api-manager-activation' ); ?>"><span
                                 class="nobr"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></span></th>
+                    <th class="<?php echo esc_attr( 'api-manager-expire' ); ?>"><span
+                                class="nobr"><?php esc_html_e( 'Next Payment', 'woocommerce-api-manager' ); ?></span></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -147,6 +147,19 @@ if ( ! empty( $user_id ) ) {
 						$total_activations           = WC_AM_API_RESOURCE_DATA_STORE()->get_total_activations( $master_api_key_resources );
 						$product_order_api_key       = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_product_order_api_key( $order_id, $product_id );
 
+						$is_expired           = WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires );
+						$grace_period_expired = WC_AM_GRACE_PERIOD()->is_expired( $resource->api_resource_id );
+
+						if ( $resource->sub_id != 0 ) {
+							$end_date = WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ? WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $order_id ) : '';
+
+							$next_paymnent = ( WC_AM_SUBSCRIPTION()->has_next_payment_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'next_payment', 'site' ) ) : __( 'Pending Cancellation on ', 'woocommerce-api-manager' ) . '<br>' . $end_date;
+						} elseif ( $resource->access_expires > 0 ) {
+							$next_paymnent = $is_expired && ! $grace_period_expired ? __( 'Renewable until: ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_GRACE_PERIOD()->get_expiration( $resource->api_resource_id ), true ) : WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires, true );
+						} else {
+							$next_paymnent = __( 'Lifetime Subscription', 'woocommerce-api-manager' );
+						}
+
 						if ( is_object( $order ) ) {
 							/**
 							 * WC Subscriptions Only API Keys
@@ -158,7 +171,7 @@ if ( ! empty( $user_id ) ) {
 								?>
                                 <tr class="order">
                                     <td class="api-manager-product">
-                                        <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php echo esc_attr( $product_title ) ?></a>
+                                        <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php esc_html_e( $product_title ) ?></a>
                                     </td>
                                     <td class="api-manager-product-id">
 										<?php
@@ -170,18 +183,21 @@ if ( ! empty( $user_id ) ) {
 											<?php echo esc_attr( $product_order_api_key ); ?>
                                         </td>
 									<?php } ?>
-                                    <td class="api-manager-expire" style="white-space: nowrap;">
-										<?php
-										esc_html_e( ( WC_AM_SUBSCRIPTION()->has_end_date_by_sub( $resource->sub_id ) ) ? date_i18n( wc_date_format(), WC_AM_SUBSCRIPTION()->get_subscription_time_by_sub_id( $resource->sub_id, 'end', 'site' ) ) : _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) );
-										?>
-                                    </td>
                                     <td class="api-manager-activations">
 										<?php
 										if ( ! $hide_product_order_api_keys ) {
-											echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $resource->activations_purchased_total );
+											echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . absint( $resource->activations_purchased_total );
 										} else {
-											echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $total_activations_purchased );
+											echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . absint( $total_activations_purchased );
 										} ?>
+                                    </td>
+                                    <td class="api-manager-expire" style="white-space: nowrap;">
+										<?php
+										esc_html_e( $next_paymnent );
+										?>
+                                        <hr>
+                                        <a href="<?php echo esc_url( wc_get_endpoint_url( 'view-subscription', $resource->sub_id, wc_get_page_permalink( 'myaccount' ) ) ) ?>"
+                                           class="woocommerce-button button view"><?php echo esc_html_x( 'View', 'view a subscription', 'woocommerce-subscriptions' ); ?></a>
                                     </td>
                                 </tr>
 								<?php
@@ -192,34 +208,63 @@ if ( ! empty( $user_id ) ) {
 								?>
                                 <tr class="order">
                                     <td class="api-manager-product">
-                                        <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php echo esc_attr( $product_title ) ?></a>
+                                        <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>"><?php esc_html_e( $product_title ) ?></a>
                                     </td>
                                     <td class="api-manager-product-id">
 										<?php echo absint( $product_id ); ?>
                                     </td>
 									<?php if ( ! $hide_product_order_api_keys ) { ?>
                                         <td class="api-manager-license-key">
-											<?php echo esc_attr( $product_order_api_key ); ?>
+											<?php
+											if ( $is_expired && ! $grace_period_expired ) {
+												esc_html_e( $next_paymnent );
+
+												$discount = get_option( 'woocommerce_api_manager_manual_renewal_discount' );
+
+												if ( ! empty( $discount ) ) {
+													?>
+                                                    <hr><?php
+													printf( esc_html__( 'At a %s discount.', 'woocommerce-api-manager' ), $discount . '%' );
+												}
+											} else {
+												echo esc_attr( $product_order_api_key );
+											}
+											?>
                                         </td>
 									<?php } ?>
-                                    <td class="api-manager-expire" style="white-space: nowrap;">
-										<?php
-										if ( WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires ?? false ) ) {
-											$expires = __( 'Expired', 'woocommerce-api-manager' );
-										} else {
-											$expires = $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
-										}
-
-										esc_html_e( $expires );
-										?>
-                                    </td>
                                     <td class="api-manager-activations">
 										<?php
 										if ( ! $hide_product_order_api_keys ) {
-											echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $resource->activations_purchased_total );
+											echo esc_attr_e( $resource->activations_total ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . absint( $resource->activations_purchased_total );
 										} else {
-											echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . esc_attr( $total_activations_purchased );
+											echo esc_attr_e( $total_activations ) . esc_html_e( ' out of ', 'woocommerce-api-manager' ) . absint( $total_activations_purchased );
 										} ?>
+                                    </td>
+                                    <td class="api-manager-expire" style="white-space: nowrap;">
+										<?php
+										$item_quantity = 1;
+
+										if ( $resource->refund_qty < $resource->item_qty ) {
+											$item_quantity = $resource->item_qty - $resource->refund_qty;
+										}
+
+										if ( $is_expired && ! $grace_period_expired ) {
+										esc_html_e( 'Expired', 'woocommerce-api-manager' );
+										?>
+                                        <hr>
+                                        <p class="order-again">
+                                            <a href="<?php echo esc_url( WC_AM_URL()->api_resource_renewal_url_my_account( $resource->api_resource_id, $product_id, $item_quantity ) ) ?>"
+                                               class="button"><?php esc_html_e( 'Renew', 'woocommerce-api-manager' ) . '</a></p>';
+												} elseif ( WC_AM_RENEW_SUBSCRIPTION()->is_manual_renweal_period( $resource->access_expires, $resource->api_resource_id ) ) {
+												esc_html_e( $next_paymnent );
+												?>
+                                                <hr>
+                                                <p class="order-again">
+                                                    <a href="<?php echo esc_url( WC_AM_URL()->api_resource_renewal_url_my_account( $resource->api_resource_id, $product_id, $item_quantity ) ) ?>"
+                                                       class="button"><?php esc_html_e( 'Renew', 'woocommerce-api-manager' ) . '</a></p>';
+														} else {
+															esc_html_e( $next_paymnent );
+														} ?>
                                     </td>
                                 </tr>
 								<?php
@@ -235,15 +280,7 @@ if ( ! empty( $user_id ) ) {
                                         <tr class="api-manager-domains">
                                             <td colspan="3" style="border-right: 0; padding-left: 5em;">
 												<?php
-												echo '<a href="' . esc_url( WC_AM_URL()->nonce_url( array(
-													                                                    'delete_activation' => '1',
-													                                                    'instance'          => $activation_info->instance,
-													                                                    'order_id'          => $activation_info->order_id,
-													                                                    'sub_parent_id'     => $activation_info->sub_parent_id,
-													                                                    'api_key'           => $activation_info->api_key,
-													                                                    'product_id'        => $activation_info->product_id,
-													                                                    'user_id'           => $user_id
-												                                                    ) ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
+												echo '<a href="' . esc_url( WC_AM_URL()->delete_api_key_activation_my_account( $activation_info->instance, $activation_info->order_id, $activation_info->sub_parent_id, $activation_info->api_key, $activation_info->product_id, $user_id ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', esc_html__( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
 
 												if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
 													// If $object is a URL, then remove the trailing slash.
@@ -252,12 +289,12 @@ if ( ! empty( $user_id ) ) {
 													?>
                                                     <a style="text-align:left; vertical-align: middle; border-left: 0; padding-left: 1.5em;"
                                                        href="<?php echo esc_url( $activation_info->object ); ?>"
-                                                       target="_blank"><?php echo WC_AM_URL()->remove_url_prefix( $object ); ?></a><span
-                                                            style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+                                                       target="_blank"><?php esc_html_e( WC_AM_URL()->remove_url_prefix( $object ) ); ?></a><span
+                                                            style="vertical-align: middle; padding-left: 1.5em;"><?php echo esc_html__( ' Activated on ', 'woocommerce-api-manager' ) . esc_html( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
 													<?php
 												} else { ?>
                                                     <span
-                                                            style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+                                                            style="vertical-align: middle;"><?php echo esc_html( $activation_info->object ) . esc_html__( ' Activated on ', 'woocommerce-api-manager' ) . esc_html( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
 													<?php
 												} ?>
                                             </td>
@@ -269,15 +306,7 @@ if ( ! empty( $user_id ) ) {
                                         <tr class="api-manager-domains">
                                             <td colspan="4" style="border-right: 0; padding-left: 5em;">
 												<?php
-												echo '<a href="' . esc_url( WC_AM_URL()->nonce_url( array(
-													                                                    'delete_activation' => '1',
-													                                                    'instance'          => $activation_info->instance,
-													                                                    'order_id'          => $activation_info->order_id,
-													                                                    'sub_parent_id'     => $activation_info->sub_parent_id,
-													                                                    'api_key'           => $activation_info->api_key,
-													                                                    'product_id'        => $activation_info->product_id,
-													                                                    'user_id'           => $user_id
-												                                                    ) ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
+												echo '<a href="' . esc_url( WC_AM_URL()->delete_api_key_activation_my_account( $activation_info->instance, $activation_info->order_id, $activation_info->sub_parent_id, $activation_info->api_key, $activation_info->product_id, $user_id ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
 
 												if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
 													// If $object is a URL, then remove the trailing slash.
@@ -286,12 +315,12 @@ if ( ! empty( $user_id ) ) {
 													?>
                                                     <a style="text-align:left; vertical-align: middle; border-left: 0; padding-left: 1.5em;"
                                                        href="<?php echo esc_url( $activation_info->object ); ?>"
-                                                       target="_blank"><?php echo WC_AM_URL()->remove_url_prefix( $object ); ?></a><span
-                                                            style="vertical-align: middle; padding-left: 1.5em;"><?php echo ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+                                                       target="_blank"><?php esc_html_e( WC_AM_URL()->remove_url_prefix( $object ) ); ?></a><span
+                                                            style="vertical-align: middle; padding-left: 1.5em;"><?php echo esc_html__( ' Activated on ', 'woocommerce-api-manager' ) . esc_html( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
 													<?php
 												} else { ?>
                                                     <span
-                                                            style="vertical-align: middle;"><?php echo $activation_info->object . ' Activated on ' . esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
+                                                            style="vertical-align: middle;"><?php echo esc_html( $activation_info->object ) . esc_html__( ' Activated on ', 'woocommerce-api-manager' ) . esc_html( WC_AM_FORMAT()->unix_timestamp_to_date( $activation_info->activation_time ) ); ?></span>
 													<?php
 												} ?>
                                             </td>

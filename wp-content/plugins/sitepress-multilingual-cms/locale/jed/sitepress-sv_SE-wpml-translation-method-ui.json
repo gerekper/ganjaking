@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Ett fel inträffade när du försökte pausa den automatiska översättningen. Försök igen senare eller kontakta supporten."
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "Du bestämmer vad som ska översättas och vem som ska översätta det"
          ],
-         "Translate it yourself": [
-            "Översätt det själv"
+         "Translate yourself": [
+            "Översätt själv"
          ],
-         "Assign it to translators that are users of your site": [
-            "Tilldela det till översättare som använder din webbplats"
+         "Use automatic translation on the content you choose": [
+            "Använd automatisk översättning på det innehåll du väljer"
          ],
-         "Send it to a professional translation service": [
-            "Skicka det till en professionell översättningstjänst"
+         "Work with translators that are users of your site": [
+            "Arbeta med översättare som är användare på din webbplats"
          ],
          "or": [
             "eller"
          ],
-         "Translate it automatically using machine translation": [
-            "Översätt automatiskt med maskinöversättning"
+         "Send to professional translation services": [
+            "Skicka till professionella översättningstjänster"
          ],
          "Save settings": [
             "Spara inställningar"
@@ -398,7 +397,7 @@
             "Läs mer om"
          ],
          "The name of your language as it will appear on your site's language switcher.": [
-            "Namnet på ditt språk som det kommer att visas på din webbplats språk växlaren."
+            "Namnet på språket så som det kommer att visas på webbplatsens språkväxlare."
          ],
          "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
             "Ett unikt värde som identifierar språket i databasen och URL. Språkskoden kan inte ändras när den har sparats."
@@ -484,6 +483,12 @@
          "Learn more": [
             "Läs mer"
          ],
+         "On": [
+            "På"
+         ],
+         "Off": [
+            "Från"
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "Du måste använda den <b>Avancerade översättningsredigeraren</b> om du vill översätta ditt innehåll automatiskt."
          ],
@@ -505,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "Låt WPML göra översättningen åt dig."
          ],
-         "You need to have a valid account in order to continue.": [
-            "Du måste ha ett giltigt konto för att fortsätta."
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "Om du vill använda automatisk översättning ska du <a>anmäla dig till pay-as-you-go</a> eller <a2>tilldela krediter till din webbplats</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "Ett fel inträffade när kreditguiden skulle läsas in."

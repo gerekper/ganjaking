@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Addons Compatibility.
  *
- * @version  6.18.0
+ * @version  6.21.0
  */
 class WC_PB_Addons_Compatibility {
 
@@ -146,8 +146,8 @@ class WC_PB_Addons_Compatibility {
 
 		?><div class="disable_addons">
 			<div class="form-field">
-				<label for="disable_addons"><?php echo __( 'Disable Add-Ons', 'woocommerce-product-bundles' ) ?></label>
-				<input type="checkbox" class="checkbox"<?php echo ( $disable_addons ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo $loop; ?>][disable_addons]" <?php echo ( $disable_addons ? 'value="1"' : '' ); ?>/>
+				<label for="disable_addons"><?php echo esc_html__( 'Disable Add-Ons', 'woocommerce-product-bundles' ) ?></label>
+				<input type="checkbox" class="checkbox"<?php echo ( $disable_addons ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][disable_addons]" <?php echo ( $disable_addons ? 'value="1"' : '' ); ?>/>
 				<?php echo wc_help_tip( __( 'Check this option to disable any Product Add-Ons associated with this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div><?php
@@ -408,6 +408,7 @@ class WC_PB_Addons_Compatibility {
 
 				// Read original % values from parent item.
 				$addons_data = ! empty( $bundle_container_item[ 'stamp' ][ $bundled_item_id ][ 'addons' ] ) ? $bundle_container_item[ 'stamp' ][ $bundled_item_id ][ 'addons' ] : array();
+				$flat_fees   = 0;
 
 				foreach ( $addons_data as $addon_key => $addon ) {
 
@@ -417,10 +418,13 @@ class WC_PB_Addons_Compatibility {
 						$cart_item[ 'addons' ][ $addon_key ][ 'price' ]  = 0.0;
 					} elseif ( 'flat_fee' === $addon[ 'price_type' ] ) {
 						$cart_item[ 'data' ]->bundled_price_offset += (float) $addon[ 'price' ] / $cart_item[ 'quantity' ];
+						$flat_fees                                 += (float) $addon[ 'price' ] / $cart_item[ 'quantity' ];
 					} else {
 						$cart_item[ 'data' ]->bundled_price_offset += (float) $addon[ 'price' ];
 					}
 				}
+
+				$cart_item[ 'addons_flat_fees_sum' ] = $flat_fees;
 			}
 
 		} else {

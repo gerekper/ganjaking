@@ -38,6 +38,9 @@ class WPML_TM_Jobs_Search_Params {
 	/** @var int */
 	private $id;
 
+	/** @var int[] */
+	private $ids;
+
 	/** @var string[] */
 	private $title;
 
@@ -116,6 +119,7 @@ class WPML_TM_Jobs_Search_Params {
 			'job_types',
 			'local_job_id',
 			'id',
+			'ids',
 			'title',
 			'batch_name',
 			'source_language',
@@ -317,6 +321,24 @@ class WPML_TM_Jobs_Search_Params {
 	 */
 	public function set_id( $id ) {
 		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * @return int[]
+	 */
+	public function get_ids() {
+		return $this->ids;
+	}
+
+	/**
+	 * @param int[] $ids
+	 *
+	 * @return self
+	 */
+	public function set_ids( array $ids ) {
+		$this->ids = array_map( 'intval', $ids );
 
 		return $this;
 	}

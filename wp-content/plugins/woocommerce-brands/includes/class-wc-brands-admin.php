@@ -532,7 +532,8 @@ class WC_Brands_Admin {
 	 * Add brand base permalink setting.
 	 */
 	public function add_brand_base_setting() {
-		if ( ! $screen = get_current_screen() || 'options-permalink' !== $screen->id ) {
+		$screen = get_current_screen();
+		if ( ! $screen || 'options-permalink' !== $screen->id ) {
 			return;
 		}
 

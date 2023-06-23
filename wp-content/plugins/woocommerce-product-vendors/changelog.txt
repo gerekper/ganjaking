@@ -1,5 +1,10 @@
 *** Product Vendors Changelog ***
 
+2023-06-14 - version 2.1.79
+* Dev - Coding standards updates.
+* Dev - Added new GitHub Workflow to run Quality Insights Toolkit tests.
+* Fix - Rework query logic in Commissions export.
+
 2023-05-19 - version 2.1.78
 * Dev - Resolve PHPCS warnings.
 * Fix - Rework query logic in Commissions screen.

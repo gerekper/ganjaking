@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds hooks for Product Add-Ons Compatibility.
  *
- * @version  8.8.0
+ * @version  8.9.0
  */
 class WC_CP_Addons_Compatibility {
 
@@ -455,6 +455,7 @@ class WC_CP_Addons_Compatibility {
 
 				// Read original % values from parent item.
 				$addons_data = ! empty( $composite_container_item[ 'composite_data' ][ $component_id ][ 'addons' ] ) ? $composite_container_item[ 'composite_data' ][ $component_id ][ 'addons' ] : array();
+				$flat_fees   = 0;
 
 				foreach ( $addons_data as $addon_key => $addon ) {
 
@@ -464,10 +465,13 @@ class WC_CP_Addons_Compatibility {
 						$cart_item[ 'addons' ][ $addon_key ][ 'price' ]  = 0.0;
 					} elseif ( 'flat_fee' === $addon[ 'price_type' ] ) {
 						$cart_item[ 'data' ]->composited_price_offset += (float) $addon[ 'price' ] / $cart_item[ 'quantity' ];
+						$flat_fees                                    += (float) $addon[ 'price' ] / $cart_item[ 'quantity' ];
 					} else {
 						$cart_item[ 'data' ]->composited_price_offset += (float) $addon[ 'price' ];
 					}
 				}
+
+				$cart_item[ 'addons_flat_fees_sum' ] = $flat_fees;
 			}
 
 		} else {

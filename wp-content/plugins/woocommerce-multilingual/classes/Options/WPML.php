@@ -10,7 +10,7 @@ class WPML {
 	/** @return bool */
 	public static function shouldTranslateEverything() {
 		return method_exists( Option::class, 'shouldTranslateEverything' )
-		       && Option::shouldTranslateEverything();
+			&& Option::shouldTranslateEverything();
 	}
 
 	/**
@@ -21,6 +21,19 @@ class WPML {
 		if ( method_exists( Automatic::class, 'set' ) ) {
 			Automatic::set( $postType, $state );
 		}
+	}
+
+	/**
+	 * @param string $postType
+	 *
+	 * @return bool
+	 */
+	public static function isAutomatic( $postType ) {
+		if ( method_exists( Automatic::class, 'isAutomatic' ) ) {
+			return Automatic::isAutomatic( $postType );
+		}
+
+		return false;
 	}
 
 	/**

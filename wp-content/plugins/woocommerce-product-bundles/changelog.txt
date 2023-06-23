@@ -1,5 +1,14 @@
 *** WooCommerce Product Bundles ***
 
+2023.06.19 - version 6.21.0
+* Fix - Important: Security improvements.
+* Fix - Fixed an issue that charged subscription bundled items add-ons twice.
+
+2023.06.13 - version 6.20.0
+* Tweak - Removed add-on flat fees from per unit product prices in the cart. Requires Product Add-Ons v6.4.0.
+* New - Introduced 'woocommerce_store_api_before_bundle_aggregated_totals_calculation' and 'woocommerce_store_api_after_bundle_aggregated_totals_calculation' actions.
+* Fix - Fixed an issue that required customers to select mandatory items for optional bundled items that hadn't been selected.
+
 2023.05.29 - version 6.19.0
 * New - Introduced block theme support on existing frontend templates.
 * New - Added support for blocks-based notices styling.

@@ -46,6 +46,11 @@ class Png2Jpg_Controller extends Controller {
 	 */
 	private $fs;
 
+	/**
+	 * @var Settings
+	 */
+	private $settings;
+
 	public static function get_instance() {
 		if ( empty( self::$instance ) ) {
 			self::$instance = new self();
@@ -60,6 +65,7 @@ class Png2Jpg_Controller extends Controller {
 		$this->media_item_cache = Media_Item_Cache::get_instance();
 		$this->helper           = new Png2Jpg_Helper();
 		$this->fs               = new File_System();
+		$this->settings         = Settings::get_instance();
 
 		$this->register_filter( 'wp_smush_optimizations', array(
 			$this,
@@ -85,8 +91,7 @@ class Png2Jpg_Controller extends Controller {
 			'maybe_update_transparent_status_before_optimization',
 		) );
 
-		$settings = Settings::get_instance();
-		if ( ! $settings->is_png2jpg_module_active() ) {
+		if ( ! $this->settings->is_png2jpg_module_active() ) {
 			return;
 		}
 		$this->register_action( 'init', array( $this, 'add_fallback_png_rewrite_rules' ) );
@@ -224,6 +229,15 @@ class Png2Jpg_Controller extends Controller {
 	}
 
 	private function maybe_update_transparent_status( $attachment_id ) {
+		// We are checking the status of the resize module here because the resize module destroys transparency information.
+		$is_resize_module_active  = $this->settings->is_resize_module_active();
+		$is_png2jpg_module_active = $this->settings->is_png2jpg_module_active();
+
+		$transparency_check_required = $is_png2jpg_module_active || $is_resize_module_active;
+		if ( ! $transparency_check_required ) {
+			return;
+		}
+
 		$media_item = $this->media_item_cache->get( $attachment_id );
 		if ( ! $media_item->is_valid() ) {
 			$this->logger->error( 'Tried to check transparent value but encountered a problem with the media item' );
@@ -231,20 +245,25 @@ class Png2Jpg_Controller extends Controller {
 			return;
 		}
 
+		if ( apply_filters( 'wp_smush_skip_image_transparency_check', false, $attachment_id ) ) {
+			// The image is explicitly excluded from the transparency check
+			return;
+		}
+
 		if ( ! $media_item->is_png() ) {
-			// The media item is not even a png so no need to check
+			// The media item is not even a png so no need to check.
 			return;
 		}
 
 		if ( $media_item->transparent_meta_exists() ) {
-			// Already checked, no need to check again
+			// Already checked, no need to check again.
 			return;
 		}
 
 		$this->logger->log( 'Setting transparent meta value' );
 
-		$file_path       = $media_item->get_full_or_scaled_size()->get_file_path();
-		$is_transparent  = $this->helper->is_transparent( $file_path );
+		$full_size       = $media_item->get_full_or_scaled_size();
+		$is_transparent  = $this->helper->is_transparent( $full_size->get_file_path(), $full_size->get_width(), $full_size->get_height() );
 		$set_transparent = $media_item->set_transparent( $is_transparent );
 		if ( $set_transparent ) {
 			$media_item->save();

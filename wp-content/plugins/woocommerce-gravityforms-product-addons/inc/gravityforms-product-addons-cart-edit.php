@@ -19,6 +19,7 @@ class WC_GFPA_Cart_Edit {
 		), 99, 3 );
 
 		add_filter( 'gform_pre_render', array( $this, 'on_gform_pre_render' ), 99, 1 );
+		add_filter( 'gform_pre_render', array( $this, 'on_gform_pre_render_reorder' ), 98, 1 );
 
 		add_action( 'woocommerce_add_to_cart', array( $this, 'on_woocommerce_add_to_cart' ), 99, 6 );
 	}
@@ -66,15 +67,39 @@ class WC_GFPA_Cart_Edit {
 				$form     = $this->gfee_pre_render( $form, $entry, $entry_id, array() );
 
 			}
-
-
 		}
 
 		return $form;
-
-
 	}
 
+	public function on_gform_pre_render_reorder( $form ) {
+		$order_id      = isset( $_GET['wc_gforms_reorder_id'] ) ? $_GET['wc_gforms_reorder_id'] : false;
+		$order_item_id = isset( $_GET['wc_gforms_reorder_item_id'] ) ? $_GET['wc_gforms_reorder_item_id'] : false;
+
+		if ( $order_id && $order_item_id && empty( $_POST ) ) {
+			$order = wc_get_order( $order_id );
+			if ( $order ) {
+				//Make sure the order belongs to the current user
+				if ( $order->get_user_id() != get_current_user_id() ) {
+					return $form;
+				}
+
+				$order_item = $order->get_item( $order_item_id );
+				if ( $order_item ) {
+					//Check the order item has a lead and data
+					$form_submission_history = $order_item->get_meta( '_gravity_forms_history' );
+					if ( empty( $form_submission_history ) ) {
+						return $form;
+					}
+
+					$lead_data = $form_submission_history['_gravity_form_lead'] ?? false;
+					$form      = $this->gfee_pre_render( $form, $lead_data, false, array() );
+				}
+			}
+		}
+
+		return $form;
+	}
 
 	public function gfee_pre_render( $form, $entry, $entry_id, $exclude_fields = array() ) {
 

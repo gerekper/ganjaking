@@ -113,7 +113,7 @@ class WPML_Troubleshooting_Terms_Menu {
 		$term_names = array();
 
 		$nonce = Sanitize::stringProp( '_icl_nonce', $_POST );
-		if ( ! wp_verify_nonce( $nonce, 'update_term_names_nonce' ) ) {
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'update_term_names_nonce' ) ) {
 			die( 'Wrong Nonce' );
 		}
 

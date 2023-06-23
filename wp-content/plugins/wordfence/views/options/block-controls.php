@@ -34,7 +34,7 @@ if (isset($backLabel) && !isset($backLabelHTML)) {
 			</li>
 			<?php if (!isset($suppressControls) || !$suppressControls): ?>
 			<li class="wf-right">
-				<a id="wf-restore-defaults" class="wf-btn wf-btn-default wf-btn-callout-subtle" href="#" data-restore-defaults-section="<?php echo esc_attr($restoreDefaultsSection); ?>" role="button"><?php echo wp_kses(__('<span class="wf-hidden-xs">Restore </span>Defaults', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>&nbsp;&nbsp;<a id="wf-cancel-changes" class="wf-btn wf-btn-default wf-btn-callout-subtle wf-disabled" href="#" role="button"><?php echo wp_kses(__('Cancel<span class="wf-hidden-xs wf-hidden-sm"> Changes</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>&nbsp;&nbsp;<a id="wf-save-changes" class="wf-btn wf-btn-primary wf-btn-callout-subtle wf-disabled" href="#" role="button"><?php echo wp_kses(__('Save<span class="wf-hidden-xs wf-hidden-sm"> Changes</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
+				<a id="wf-restore-defaults" class="wf-btn wf-btn-default wf-btn-callout-subtle" href="#" data-restore-defaults-section="<?php echo esc_attr($restoreDefaultsSection); ?>" role="button"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "Restore" */ __('<span class="wf-hidden-xs">Restore </span>Defaults', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>&nbsp;&nbsp;<a id="wf-cancel-changes" class="wf-btn wf-btn-default wf-btn-callout-subtle wf-disabled" href="#" role="button"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "Changes" */ __('Cancel<span class="wf-hidden-xs wf-hidden-sm"> Changes</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>&nbsp;&nbsp;<a id="wf-save-changes" class="wf-btn wf-btn-primary wf-btn-callout-subtle wf-disabled" href="#" role="button"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "Changes" */ __('Save<span class="wf-hidden-xs wf-hidden-sm"> Changes</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
 			</li>
 			<?php endif; ?>
 		</ul>
@@ -77,7 +77,7 @@ if (isset($backLabel) && !isset($backLabelHTML)) {
 		'title' => __('Confirm Restore Defaults', 'wordfence'),
 		'message' => $restoreDefaultsMessage,
 		'primaryButton' => array('id' => 'wf-restore-defaults-prompt-cancel', 'label' => __('Cancel', 'wordfence'), 'link' => '#'),
-		'secondaryButtons' => array(array('id' => 'wf-restore-defaults-prompt-confirm', 'labelHTML' => wp_kses(__('Restore<span class="wf-hidden-xs"> Defaults</span>', 'wordfence'), array('span'=>array('class'=>array()))), 'link' => '#')),
+		'secondaryButtons' => array(array('id' => 'wf-restore-defaults-prompt-confirm', 'labelHTML' => wp_kses(/* translators: word order may be reversed as long as HTML remains around "Restore" */ __('Restore<span class="wf-hidden-xs"> Defaults</span>', 'wordfence'), array('span'=>array('class'=>array()))), 'link' => '#')),
 	))->render();
 	?>
 </script>

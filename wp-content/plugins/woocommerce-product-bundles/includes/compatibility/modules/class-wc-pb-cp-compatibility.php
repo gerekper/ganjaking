@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version  6.17.2
+ * @version  6.21.0
  */
 class WC_PB_CP_Compatibility {
 
@@ -536,7 +536,7 @@ class WC_PB_CP_Compatibility {
 		if ( $product->contains( 'subscriptions' ) ) {
 
 			?><div class="woocommerce-error"><?php
-				echo __( 'This item cannot be purchased at the moment.', 'woocommerce-product-bundles' );
+				echo esc_html__( 'This item cannot be purchased at the moment.', 'woocommerce-product-bundles' );
 			?></div><?php
 
 			return false;

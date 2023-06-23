@@ -36,11 +36,11 @@ class WPML_Canonicals_Hooks {
 		) {
 			add_action( 'template_redirect', array( $this, 'redirect_pages_from_root_to_default_lang_dir' ) );
 		} elseif ( WPML_LANGUAGE_NEGOTIATION_TYPE_PARAMETER === $lang_negotiation ) {
-			add_action( 'redirect_canonical', array( $this, 'prevent_redirection_with_translated_paged_content' ) );
+			add_filter( 'redirect_canonical', array( $this, 'prevent_redirection_with_translated_paged_content' ) );
 		}
 
 		if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && strpos( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) !== false ) {
-			add_action( 'redirect_canonical', array( $this, 'maybe_fix_nginx_redirection_callback' ) );
+			add_filter( 'redirect_canonical', array( $this, 'maybe_fix_nginx_redirection_callback' ) );
 		}
 	}
 
@@ -55,7 +55,7 @@ class WPML_Canonicals_Hooks {
 			$actual_uri     = preg_replace( '#^' . $install_subdir . '#', '', $current_uri );
 			$actual_uri     = '/' . ltrim( $actual_uri, '/' );
 
-			if ( 0 !== strpos( $actual_uri, '/' . $lang ) ) {
+			if ( is_string( $install_subdir ) && 0 !== strpos( $actual_uri, '/' . $lang ) ) {
 				$canonical_uri = trailingslashit( $install_subdir ) . $lang . $actual_uri;
 				$canonical_uri = user_trailingslashit( $canonical_uri );
 				$this->sitepress->get_wp_api()->wp_safe_redirect( $canonical_uri, 301 );
@@ -69,7 +69,11 @@ class WPML_Canonicals_Hooks {
 	 * @return bool|string
 	 */
 	public function maybe_fix_nginx_redirection_callback( $redirect ) {
-		if ( is_front_page() ) {
+		$home_url = trailingslashit( get_home_url() );
+		// To check if there are any parameters and don't override if they are.
+		$url_param = strpos( $redirect, '?' );
+
+		if ( is_front_page() && ( $home_url !== $redirect ) && ( false === $url_param ) ) {
 			$redirect = false;
 		}
 

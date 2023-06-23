@@ -58,7 +58,7 @@ if (!isset($collapseable)) {
 								'value' => wfConfig::get('scan_force_ipv4_start') ? 1 : 0,
 								'title' => __('Use only IPv4 to start scans', 'wordfence'),
 								'subtitle' =>  __('This option requires cURL. (This may have no effect on some old PHP or cURL versions.)', 'wordfence'),
-								'helpLink' => null,
+								'helpLink' => wfSupportController::supportURL(wfSupportController::ITEM_SCAN_OPTION_USE_ONLY_IPV4),
 								'premium' => false,
 								'disabled' => !wfUtils::isCurlSupported()
 							))->render();

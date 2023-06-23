@@ -61,7 +61,7 @@ class __TwigTemplate_4e0ede03c63347844b541c798d581116f05e6725f71ff37333dec655706
     <td class=\"help\">
       <span class=\"woocommerce-help-tip\" data-tip=\"";
         // line 14
-        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\I18n']->translate("What method is used to sent out newsletters?"), "html_attr");
+        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\I18n']->translate("What method is used to send out newsletters?"), "html_attr");
         echo "\"></span>
     </td>
     <td>";

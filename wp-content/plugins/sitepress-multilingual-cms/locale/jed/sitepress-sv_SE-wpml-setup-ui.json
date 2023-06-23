@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "Från:"
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "Du bestämmer vad som ska översättas och vem som ska översätta det"
          ],
-         "Translate it yourself": [
-            "Översätt det själv"
+         "Translate yourself": [
+            "Översätt själv"
          ],
-         "Assign it to translators that are users of your site": [
-            "Tilldela det till översättare som använder din webbplats"
+         "Use automatic translation on the content you choose": [
+            "Använd automatisk översättning på det innehåll du väljer"
          ],
-         "Send it to a professional translation service": [
-            "Skicka det till en professionell översättningstjänst"
+         "Work with translators that are users of your site": [
+            "Arbeta med översättare som är användare på din webbplats"
          ],
          "or": [
             "eller"
          ],
-         "Translate it automatically using machine translation": [
-            "Översätt automatiskt med maskinöversättning"
+         "Send to professional translation services": [
+            "Skicka till professionella översättningstjänster"
          ],
          "user": [
             "användare"
@@ -289,7 +288,7 @@
             "Läs mer om"
          ],
          "The name of your language as it will appear on your site's language switcher.": [
-            "Namnet på ditt språk som det kommer att visas på din webbplats språk växlaren."
+            "Namnet på språket så som det kommer att visas på webbplatsens språkväxlare."
          ],
          "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
             "Ett unikt värde som identifierar språket i databasen och URL. Språkskoden kan inte ändras när den har sparats."
@@ -399,6 +398,88 @@
          "Language switcher customization": [
             "Anpassning av språkväxlaren"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "Din nuvarande inställning kommer att använda en hel del översättningskrediter"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "Du bestämde dig för att <b>översätta allt automatiskt</b> på en <span class=\"warning\"> utvecklingsplats</span>"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "Du bestämde dig för att <b>översätta allt automatiskt:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "10 000 krediter tilldelade som standard till utvecklingsplatser"
+         ],
+         "posts, pages...": [
+            "inlägg, sidor..."
+         ],
+         "translated to": [
+            "översatt till"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b> språk",
+            "<b>%1$d</b> språk"
+         ],
+         "will cost approximately": [
+            "kommer att kosta cirka"
+         ],
+         "credits": [
+            "krediter"
+         ],
+         "Loading details...": [
+            "Laddar detaljer..."
+         ],
+         "Hide details": [
+            "Dölj detaljer"
+         ],
+         "Show details": [
+            "Visa detaljer"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "Din nuvarande uppsättning kommer att använda ungefär <b>%s</b> krediter"
+         ],
+         "What do you want to do?": [
+            "Vad vill du göra?"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "Eftersom detta är en utvecklingswebbplats vill du kanske inte använda krediter på dummyinnehåll."
+         ],
+         "Continue with this setup": [
+            "Fortsätt med denna uppsättning"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "WPML översätter automatiskt innehållet på din webbplats. När dina krediter tar slut kan du köpa mer eller registrera dig för pay-as-you-go för att fortsätta använda automatisk översättning."
+         ],
+         "Make changes": [
+            "Gör ändringar"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "Du kan använda färre krediter genom att justera några av de inställningar du valde under uppsättningen."
+         ],
+         "Reduce the number of translation languages": [
+            "Minska antalet språk för översättning"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "Ju fler språk du har på din webbplats, desto fler krediter kostar det att översätta. <b>Du kan alltid lägga till fler spark senare.</b>"
+         ],
+         "Change site languages": [
+            "Ändra spark på webbplatsen"
+         ],
+         "Change your translation mode": [
+            "Ändra ditt översättningsmodus"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "<b>Översätt vad du väljer</b> ger dig mer kontroll över vad som ska översättas, och du kan fortfarande använda automatisk översättning."
+         ],
+         "Change translation mode": [
+            "Ändra översättningsmodus"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "Det är OK för mig att använda så många översättningskrediter,"
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "låt oss fortsätta och översätta hela webbplatsen automatiskt."
+         ],
          "Default language": [
             "Standardspråk"
          ],
@@ -438,17 +519,17 @@
          "Are you ready to start translating now?": [
             "Är du redo att börja översätta nu?"
          ],
-         "Yes!": [
-            "Ja!"
+         "Yes, start translating!": [
+            "Ja, börja med översättningen!"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "Börja översätta min webbplats nu. WPML kommer att använda dina krediter för automatisk översättning."
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "WPML översätter din webbplats för dig med hjälp av dina automatiska översättningskrediter."
          ],
-         "No. I need to do some changes first": [
-            "Nej. Jag behöver göra några ändringar först"
+         "No, my content isn't finalized yet": [
+            "Nej, mitt innehåll är inte färdigt ännu"
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "När du är klar kan du starta automatisk översättning från kontrollpanelen för översättningshantering."
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "När du är redo startar du den automatiska översättningen från från Instrumentpanelen för översättningshantering."
          ],
          "Improve your site’s translations using helpful plugins": [
             "Förbättra webbplatsens översättningar med hjälp av praktiska plugins"
@@ -513,18 +594,6 @@
          "A new language could not be added correctly": [
             "Ett nytt språk kunde inte läggas till korrekt"
          ],
-         "Languages": [
-            "Språk"
-         ],
-         "URL Format": [
-            "URL-format"
-         ],
-         "Register WPML": [
-            "Registrera WPML"
-         ],
-         "Translation Mode": [
-            "Översättningsläge"
-         ],
          "Support": [
             "Support"
          ],
@@ -548,6 +617,18 @@
          ],
          "Finish": [
             "Slutför"
+         ],
+         "Languages": [
+            "Språk"
+         ],
+         "URL Format": [
+            "URL-format"
+         ],
+         "Register WPML": [
+            "Registrera WPML"
+         ],
+         "Translation Mode": [
+            "Översättningsläge"
          ],
          "Settings": [
             "Inställningar"

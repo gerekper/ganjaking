@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Automation\Engine\Data\Subject as SubjectData;
 use MailPoet\Automation\Engine\Integration\Payload;
 use MailPoet\Automation\Engine\Integration\Subject;
+use MailPoet\Automation\Integrations\WooCommerce\Fields\OrderFieldsFactory;
 use MailPoet\Automation\Integrations\WooCommerce\Payloads\OrderPayload;
 use MailPoet\NotFoundException;
 use MailPoet\Validator\Builder;
@@ -23,10 +24,15 @@ class OrderSubject implements Subject {
 
   private $woocommerce;
 
+  /** @var OrderFieldsFactory */
+  private $orderFieldsFactory;
+
   public function __construct(
-    Helper $woocommerce
+    Helper $woocommerce,
+    OrderFieldsFactory $orderFieldsFactory
   ) {
     $this->woocommerce = $woocommerce;
+    $this->orderFieldsFactory = $orderFieldsFactory;
   }
 
   public function getName(): string {
@@ -54,6 +60,6 @@ class OrderSubject implements Subject {
   }
 
   public function getFields(): array {
-    return [];
+    return $this->orderFieldsFactory->getFields();
   }
 }

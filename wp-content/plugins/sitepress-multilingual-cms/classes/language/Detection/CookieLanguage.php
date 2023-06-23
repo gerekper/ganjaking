@@ -28,7 +28,7 @@ class CookieLanguage {
 	}
 
 	public function getBackendCookieName() {
-		return 'wp-wpml_current_admin_language_' . md5( $this->get_cookie_domain() );
+		return 'wp-wpml_current_admin_language_' . md5( (string) $this->get_cookie_domain() );
 	}
 
 	public function getFrontendCookieName() {

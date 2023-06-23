@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Si è verificato un errore nella messa in pausa della tua traduzione automatica. Riprova più tardi o contatta la nostra assistenza."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "Come vuoi tradurre?"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "Puoi tradurre automaticamente il contenuto solo dalla tua lingua principale (%s) in altre lingue. Usa il selettore delle lingue nella parte alta di questa pagina per passare a %s."
-         ],
          "Assign to a translator": [
             "Assegna a un traduttore"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "Non ti servono crediti di traduzione per tradurre il contenuto da te."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "Puoi tradurre automaticamente solo il contenuto dalla lingua predefinita del tuo sito (inglese) alle altre lingue del tuo sito. Per procedere, deseleziona il contenuto nelle lingue secondarie del tuo sito."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "Puoi tradurre automaticamente il contenuto solo dalla tua lingua principale (%s) in altre lingue. Usa il selettore delle lingue nella parte alta di questa pagina per passare a %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "Il contenuto selezionato include elementi che erano stati creati originariamente in questa lingua. Per procedere, deseleziona questi elementi."
+         ],
+         "Add to Translation Queue": [
+            "Aggiungi alla coda di traduzione"
          ],
          "Select a post or page to translate": [
             "Seleziona un post o una pagina da tradurre"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "Il contenuto selezionato è già tradotto"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "Il contenuto selezionato include elementi in una lingua diversa dalla lingua predefinita del tuo sito."
          ],
          "Choose at least one translation action": [
             "Seleziona almeno un'azione di traduzione"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "Aggiungi al carrello di traduzione"
          ],
-         "Add to Translation Queue": [
-            "Aggiungi alla coda di traduzione"
-         ],
          "One more thing...": [
             "Un'ultima cosa..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "Non eseguire nessuna azione"
          ],
-         "You need credits to use automatic translation.": [
-            "Ti servono dei crediti per usare la traduzione automatica."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "Per assegnare il contenuto a un traduttore, prima di tutto <a href=\"%s\" target=\"_blank\">aggiungi un traduttore</a> o <a href=\"%s\" target=\"_blank\">connettiti a un servizio di traduzione</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "Ti servono dei crediti per usare la traduzione automatica."
          ],
          "Translators Tab": [
             "Scheda Traduttori"
@@ -217,10 +225,10 @@
             "<s>%s</s>: Vi sono campi codificati base64 in questo documento"
          ],
          "Hide details": [
-            "Nascondi i dettagli"
+            "Nascondi dettagli"
          ],
          "Show details": [
-            "Mostra i dettagli"
+            "Mostra dettagli"
          ]
       }
    }

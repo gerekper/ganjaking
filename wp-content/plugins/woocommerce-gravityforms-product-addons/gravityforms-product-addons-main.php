@@ -74,6 +74,14 @@ class WC_GFPA_Main {
 		//Modify Add to Cart Buttons
 		add_action( 'init', array( $this, 'get_gravity_products' ) );
 
+
+		//Require Helper Classes / Functions
+		require 'inc/gravityforms-product-addons-hook-manager.php';
+		require 'inc/gravityforms-product-addons-helpers-entry.php';
+		require 'inc/gravityforms-product-addons-submission-helpers.php';
+		require 'inc/gravityforms-product-addons-field-helpers.php';
+
+
 		//Register the admin controller.
 		require 'admin/gravityforms-product-addons-admin.php';
 		WC_GFPA_Admin_Controller::register();
@@ -84,6 +92,7 @@ class WC_GFPA_Main {
 		require 'inc/gravityforms-product-addons-bulk-variations.php';
 		require 'inc/gravityforms-product-addons-cart.php';
 		require 'inc/gravityforms-product-addons-cart-edit.php';
+		require 'inc/gravityforms-product-addons-cart-validation.php';
 		require 'inc/gravityforms-product-addons-reorder.php';
 		require 'inc/gravityforms-product-addons-entry.php';
 		require 'inc/gravityforms-product-addons-export.php';
@@ -94,6 +103,7 @@ class WC_GFPA_Main {
 
 		WC_GFPA_Cart::register();
 		WC_GFPA_Cart_Edit::register();
+		WC_GFPA_Cart_Validation::register();
 		WC_GFPA_Reorder::register();
 		WC_GFPA_Display::register();
 		WC_GFPA_FieldValues::register();
@@ -206,7 +216,6 @@ class WC_GFPA_Main {
 		$product_ids = array();
 
 		if ( $post && preg_match_all( '/\[products +.*?((ids=.+?)|(name=.+?))\]/is', $post->post_content, $matches, PREG_SET_ORDER ) ) {
-			$ajax = false;
 			foreach ( $matches as $match ) {
 				//parsing shortcode attributes
 				$attr       = shortcode_parse_atts( $match[1] );
@@ -236,15 +245,15 @@ class WC_GFPA_Main {
 					$enqueue           = true;
 					$gravity_form_data = $this->get_gravity_form_data( $post_id );
 					if ( $gravity_form_data && is_array( $gravity_form_data ) ) {
-						gravity_form_enqueue_scripts( $gravity_form_data['id'], false );
+						gravity_form_enqueue_scripts( $gravity_form_data['id'], $gravity_form_data['is_ajax'] ?? false );
 
-						if ( isset( $gravity_form_data['bulk_id'] ) && ! empty( $gravity_form_data['bulk_id'] ) ) {
-							gravity_form_enqueue_scripts( $gravity_form_data['bulk_id'], false );
+						if ( ! empty( $gravity_form_data['bulk_id'] ) ) {
+							gravity_form_enqueue_scripts( $gravity_form_data['bulk_id'], $gravity_form_data['is_ajax'] ?? false );
 						}
 
 						$prices[ $_product->get_id() ]      = wc_get_price_to_display( $_product );
 						$suffixes[ $_product->get_id() ]    = $_product->get_price_suffix();
-						$use_ajax[ $_product->get_id() ]    = apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false );
+						$use_ajax[ $_product->get_id() ]    = $gravity_form_data['is_ajax'] ?? false;
 						$use_anchors[ $_product->get_id() ] = $gravity_form_data['disable_anchor'] != 'yes';
 
 						if ( $_product->has_child() ) {
@@ -368,11 +377,7 @@ class WC_GFPA_Main {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		if ( WC_GFPA_Compatibility::is_wc_version_gte_2_5() ) {
-			wp_register_script( 'accounting', WC()->plugin_url() . '/assets/js/accounting/accounting' . $suffix . '.js', array( 'jquery' ), '0.4.2' );
-		} else {
-			wp_register_script( 'accounting', WC()->plugin_url() . '/assets/js/admin/accounting' . $suffix . '.js', array( 'jquery' ), '0.4.2' );
-		}
+		wp_register_script( 'accounting', WC()->plugin_url() . '/assets/js/accounting/accounting' . $suffix . '.js', array( 'jquery' ), '0.4.2' );
 
 		wp_enqueue_script( 'wc-gravityforms-product-addons', WC_GFPA_Main::plugin_url() . '/assets/js/gravityforms-product-addons.js', array(
 			'jquery',
@@ -488,12 +493,46 @@ class WC_GFPA_Main {
 		return plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) );
 	}
 
+	public function get_gravity_form_reorder_data( int $post_id, array $working_data = [] ) {
+		$current_data = $this->get_gravity_form_data( $post_id );
+
+		if ( ! is_array( $current_data ) ) {
+			return false;
+		}
+
+		// Add in any new key / values from the current data.
+		foreach ( $current_data as $key => $value ) {
+			if ( ! isset( $working_data[ $key ] ) ) {
+				$working_data[ $key ] = $value;
+			}
+		}
+
+		// Return the data, filtered.
+		return apply_filters( 'woocommerce_gforms_get_product_reorder_form_data', $working_data, $post_id );
+	}
+
 	public function get_gravity_form_data( $post_id, $context = 'single' ) {
 		$product = wc_get_product( $post_id );
 		$data    = false;
 		if ( $product ) {
 			$data = $product->get_meta( '_gravity_form_data' );
 		}
+
+
+
+		// New defaults since 3.5.0
+		$validation_message = apply_filters( 'woocommerce_gforms_validation_message', __( 'There was a problem with your submission. Please review the fields below.', 'woocommerce-gravityforms-product-addons' ), $post_id, $context );
+
+		$defaults = [
+			'reorder_processing'       => 'resubmit', // 'resubmit', 'revalidate', 'none'
+			'reorder_hydrate_defaults' => 'yes',
+			'use_ajax'                 => 'no',
+			'is_ajax'                  => false,
+			'show_wc_notices'          => 'yes',
+			'validation_message'	   => $validation_message,
+		];
+
+		$data = wp_parse_args( $data, $defaults );
 
 		$data = apply_filters( 'woocommerce_gforms_get_product_form_data', $data, $post_id, $context );
 		if ( $data ) {
@@ -512,7 +551,30 @@ class WC_GFPA_Main {
 			$data                     = array_merge( $data, $structured_data_settings );
 		}
 
-		return $data;
+		if ( isset( $data['id'] ) ) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function get_form_field_hash( int $form_id ): string {
+		global $wpdb;
+		$hash = false;
+		if ( class_exists( 'GFFormsModel' ) && class_exists( 'GFAPI' ) ) {
+			$form = GFAPI::get_form( $form_id );
+			//Get the gravity form meta db table.
+			$table_name = GFFormsModel::get_meta_table_name();
+
+			//Get the display_meta column from the gravity form meta db table.
+			$form_row = $wpdb->get_row( $wpdb->prepare( "SELECT display_meta FROM {$table_name} WHERE form_id=%d", $form_id ), ARRAY_A );
+			// Loading main form object (supports serialized strings as well as JSON strings)
+			$form   = GFFormsModel::unserialize( rgar( $form_row, 'display_meta' ) );
+			$fields = $form['fields'] = is_array( rgar( $form, 'fields' ) ) ? array_values( $form['fields'] ) : array();
+			$hash   = md5( wp_json_encode( $fields ) );
+		}
+
+		return $hash;
 	}
 
 }

@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Podczas próby wstrzymania tłumaczenia automatycznego wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z naszym działem pomocy."
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "To ty decydujesz, co ma być tłumaczone i kto będzie to tłumaczył"
          ],
-         "Translate it yourself": [
+         "Translate yourself": [
             "Przetłumacz samodzielnie"
          ],
-         "Assign it to translators that are users of your site": [
-            "Zleć pracę tłumaczom, którzy są użytkownikami Twojej witryny"
+         "Use automatic translation on the content you choose": [
+            "Skorzystaj z opcji tłumaczeń automatycznych dla wybranych treści."
          ],
-         "Send it to a professional translation service": [
-            "Wyślij do profesjonalnej usługi tłumaczeniowej"
+         "Work with translators that are users of your site": [
+            "Współpracuj z tłumaczami, którzy korzystają z Twojej witryny"
          ],
          "or": [
             "lub"
          ],
-         "Translate it automatically using machine translation": [
-            "Przetłumacz automatycznie, korzystając z tłumaczenia maszynowego"
+         "Send to professional translation services": [
+            "Wyślij do profesjonalnego biura tłumaczeń"
          ],
          "Save settings": [
             "Zapisz ustawienia"
@@ -484,6 +483,12 @@
          "Learn more": [
             "Dowiedz się więcej"
          ],
+         "On": [
+            "Wł."
+         ],
+         "Off": [
+            "Wył."
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "Jeżeli chcesz tłumaczyć swoje treści automatycznie, musisz skorzystać z  <b>Zaawansowanego Edytora Tłumaczeń</b>."
          ],
@@ -505,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "Pozwól WPML wykonać tłumaczenie za Ciebie."
          ],
-         "You need to have a valid account in order to continue.": [
-            "Aby kontynuować, musisz posiadać aktywne konto."
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "Aby użyć tłumaczenia automatycznego, <a>zarejestruj się do systemu pay-as-you-go</a> lub <a2>doładuj konto na swojej stronie</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "Podczas wczytywania kreatora kredytów wystąpił błąd."

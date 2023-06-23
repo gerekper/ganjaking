@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    1.10.0
- * @version  2.0.0
+ * @version  2.4.4
  */
 
 // Exit if accessed directly.
@@ -197,7 +197,7 @@ class WC_Mix_and_Match_REST_API {
 	 */
 	public static function prepare_product_response( $response, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$response->data['mnm_layout_override']     = $product->has_layout_override();
 			$response->data['mnm_layout']              = $product->get_layout();
 			$response->data['mnm_form_location']       = $product->get_add_to_cart_form_location();
@@ -242,13 +242,24 @@ class WC_Mix_and_Match_REST_API {
 		$child_items = $product->get_child_items();
 		$response_items = array();
 		foreach( $child_items as $child_item ) {
-			$response_items[] = array(
-				'child_item_id' => $child_item->get_id(),
-				'child_id'      => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
-				'product_id'    => $child_item->get_product_id(),
-				'variation_id'  => $child_item->get_variation_id(),
-			);
+
+			/**
+			 * Individual child item REST response.
+			 *
+			 * @since 2.4.4
+			 *
+			 * @param array $response
+			 * @param  obj WC_MNM_Child_Item $child_item of child item
+			 * @param  obj WC_Product_Mix_and_Match $product
+			 */	
+			$response_items[] = apply_filters( 'wc_mnm_child_item_rest_response', array(
+				'child_item_id'      => $child_item->get_id(),
+				'child_id'           => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
+				'product_id'         => $child_item->get_product_id(),
+				'variation_id'       => $child_item->get_variation_id(),		
+			), $child_item, $product );
 		}
+
 		return $response_items;
 	}
 

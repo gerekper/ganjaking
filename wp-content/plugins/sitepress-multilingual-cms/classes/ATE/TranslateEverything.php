@@ -33,14 +33,14 @@ class TranslateEverything {
 	 * @var UntranslatedPosts
 	 */
 	private $untranslatedPosts;
-	
+
 	const LOCK_RELEASE_TIMEOUT = 2 * MINUTE_IN_SECONDS;
 	const QUEUE_SIZE = 15;
 
 	public function __construct( UntranslatedPosts $untranslatedPosts ) {
 		$this->untranslatedPosts = $untranslatedPosts;
 	}
-	
+
 	public function run(
 		Collection $data,
 		Actions $actions
@@ -150,7 +150,7 @@ class TranslateEverything {
 	/**
 	 * Checks if Translate Everything is processed for a given Post Type and Language.
 	 *
-	 * @param string $postType
+	 * @param string|bool $postType
 	 * @param string $language
 	 *
 	 * @return bool

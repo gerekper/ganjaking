@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 		 * @param int $order_id order id.
 		 * @return void html of smart coupon UI
 		 */
-		public function render_used_store_credits_details( $order_id ) {
+		public function render_used_store_credits_details( $order_id = 0 ) {
 			?>
 			<style type="text/css">
 				#order_sc_store_credit_line_items tbody tr:first-child td {
@@ -145,26 +145,31 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 							url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
 							type: 'POST',
 							data: data
-						})
-					})
+						});
+					});
+
 				});
 
 			</script>
 
 			<tbody id="order_sc_store_credit_line_items">
 			<?php
-			$order       = ( function_exists( 'wc_get_order' ) ) ? wc_get_order( $order_id ) : null;
-			$tax_data    = ( function_exists( 'wc_tax_enabled' ) && wc_tax_enabled() && is_object( $order ) && is_callable( array( $order, 'get_taxes' ) ) ) ? $order->get_taxes() : array();
-			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items( 'coupon' ) : array();
-			$i           = 1;
+			$order                      = ( function_exists( 'wc_get_order' ) && ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+			$order_total                = $this->is_callable( $order, 'get_total' ) ? $order->get_total() : 0;
+			$order_items                = ( is_object( $order ) && $this->is_callable( $order, 'get_items' ) ) ? $order->get_items( 'coupon' ) : array();
+			$tax_data                   = ( function_exists( 'wc_tax_enabled' ) && wc_tax_enabled() && is_object( $order ) && $this->is_callable( $order, 'get_taxes' ) ) ? $order->get_taxes() : array();
+			$smart_coupons_contribution = $this->is_callable( $order, 'get_meta' ) ? $order->get_meta( 'smart_coupons_contribution' ) : array();
+			$i                          = 1;
 			if ( ! empty( $order_items ) ) {
-				$item_titles = array_map(
+				$is_apply_before_tax = get_option( 'woocommerce_smart_coupon_apply_before_tax', 'no' );
+				$is_old_sc_order     = $this->is_old_sc_order( $order_id );
+				$item_titles         = array_map(
 					function( $item ) {
 						return ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
 					},
 					$order_items
 				);
-				$posts       = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
+				$posts               = $this->get_post_by_title( $item_titles, OBJECT, 'shop_coupon' );
 				foreach ( $order_items as $item_id => $item ) {
                     $order_discount_amount = $sc_refunded_discount = $sc_refunded_discount_tax = $order_discount_tax_amount = 0; // phpcs:ignore
 					$coupon_code           = ( $this->is_callable( $item, 'get_name' ) ) ? $item->get_name() : '';
@@ -199,15 +204,18 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 										<input type="hidden" name="sc_refund_nonce" id="sc_refund_nonce" value="<?php echo esc_attr( wp_create_nonce( 'sc_refund_nonce' ) ); ?>">
 									</td>
 									<td colspan="2">
-										<div class="refund" style="display: none; padding-top: 15px;">
-											<input type="checkbox" name="sc_auto_fill_refund" class="sc_auto_fill_refund" id="sc_auto_fill_refund">
-											<label for="sc_auto_fill_refund"><?php echo esc_html_e( 'Auto-fill refund amount', 'woocommerce-smart-coupons' ); ?></label>
-										</div>
+										<?php if ( true === $is_old_sc_order || 'yes' === $is_apply_before_tax ) { ?>
+											<div class="refund" style="display: none; padding-top: 15px;">
+												<input type="checkbox" name="sc_auto_fill_refund" class="sc_auto_fill_refund" id="sc_auto_fill_refund">
+												<label for="sc_auto_fill_refund"><?php echo esc_html_e( 'Auto-fill refund amount', 'woocommerce-smart-coupons' ); ?></label>
+											</div>
+										<?php } ?>
 									</td>
 									<?php
 									if ( ! empty( $tax_data ) ) {
+										$tax_data_count = count( $tax_data );
 										?>
-									<td>
+									<td colspan="<?php echo esc_attr( ( $tax_data_count ) ); ?>">
 									</td>
 										<?php
 									}
@@ -218,10 +226,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 							$i++;
 
 							if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
-								$order_discount_amount     = $this->get_order_item_meta( $item_id, 'discount_amount', true );
-								$sc_refunded_discount      = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-								$sc_refunded_discount_tax  = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
-								$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true );
+								$order_discount_amount     = (float) $this->get_order_item_meta( $item_id, 'discount_amount', true );
+								$sc_refunded_discount      = (float) $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
+								$sc_refunded_discount_tax  = (float) $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
+								$order_discount_tax_amount = (float) $this->get_order_item_meta( $item_id, 'discount_amount_tax', true );
 							}
 
 							?>
@@ -258,22 +266,27 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 
 										if ( ! empty( $sc_refunded_discount ) ) {
 											?>
-											<small class="refunded"><?php echo esc_html( $sc_refunded_discount ); ?></small>
+											<small class="refunded"><?php echo wp_kses_post( wc_price( $sc_refunded_discount ) ); ?></small>
 											<?php
 										}
+
+										$max_refund_limit = $order_discount_amount - $sc_refunded_discount;
 										?>
 									</div>
 									<div class="edit" style="display: none;">
 										<input type="text" name="sc_store_credit_cost[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" value="<?php echo esc_attr( $order_discount_amount ); ?>" class="sc_line_total wc_input_price">
 									</div>
-									<div class="refund" style="display: none;">
-										<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc wc_input_price">
-										<input type="hidden" name="order_used_total_sc_amount[<?php echo esc_attr( $coupon_id ); ?>]" value="<?php echo esc_attr( $order_discount_amount ); ?>" class="order_used_total_sc_amount">
-										<input type="hidden" name="order_used_item_id[<?php echo esc_attr( $item_id ); ?>]" value="<?php echo esc_attr( $item_id ); ?>" class="order_sc_item_id">
-									</div>
+									<?php if ( $sc_refunded_discount < $order_discount_amount ) { ?>
+										<div class="refund" style="display: none;">
+											<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc wc_input_price" max="<?php echo esc_attr( $max_refund_limit ); ?>" <?php ( ( 'yes' !== $is_apply_before_tax ) ? esc_attr_e( 'readonly' ) : '' ); ?>>
+											<input type="hidden" name="order_used_total_sc_amount[<?php echo esc_attr( $coupon_id ); ?>]" value="<?php echo esc_attr( $order_discount_amount ); ?>" class="order_used_total_sc_amount">
+											<input type="hidden" name="order_used_item_id[<?php echo esc_attr( $item_id ); ?>]" value="<?php echo esc_attr( $item_id ); ?>" class="order_sc_item_id">
+										</div>
+									<?php } ?>
 								</td>
 								<?php
 								if ( ! empty( $tax_data ) ) {
+									$tax_data_count = count( $tax_data );
 									?>
 									<td class="line_tax" width="1%">
 										<div class="view">
@@ -284,18 +297,25 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 
 											if ( ! empty( $sc_refunded_discount_tax ) ) {
 												?>
-												<small class="refunded"><?php echo esc_html( $sc_refunded_discount_tax ); ?></small>
+												<small class="refunded"><?php echo wp_kses_post( wc_price( $sc_refunded_discount_tax ) ); ?></small>
 												<?php
 											}
+
+											$max_refund_tax_limit = $order_discount_tax_amount - $sc_refunded_discount_tax;
 											?>
 										</div>
 										<div class="edit" style="display: none;">
 											<input type="text" name="sc_store_credit_cost[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" value="<?php echo esc_attr( $order_discount_tax_amount ); ?>" class="sc_line_total wc_input_price">
 										</div>
-										<div class="refund" style="display: none;">
-											<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc_tax wc_input_price">
-										</div>
+										<?php if ( $sc_refunded_discount_tax < $order_discount_tax_amount ) { ?>
+											<div class="refund" style="display: none;">
+												<input type="text" name="refund_sc_store_credit_line_total[<?php echo esc_attr( $coupon_id ); ?>]" placeholder="0" class="refund_used_sc_tax wc_input_price" max="<?php echo esc_attr( $max_refund_tax_limit ); ?>" <?php ( ( 'yes' !== $is_apply_before_tax ) ? esc_attr_e( 'readonly' ) : '' ); ?>>
+											</div>
+										<?php } ?>
 									</td>
+									<?php if ( $tax_data_count > 1 ) { ?>
+										<td colspan="<?php echo esc_attr( ( $tax_data_count - 1 ) ); ?>"></td>
+									<?php } ?>
 								<?php } ?>
 								<td class="wc-order-edit-line-item">
 								</td>
@@ -307,6 +327,96 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 			}
 			?>
 			</tbody>
+			<?php if ( ! $this->is_old_sc_order( $order_id ) ) { ?>
+			<script type="text/javascript">
+				jQuery(function(){
+					function wc_sc_reload_refund_amount() {
+						var order_total              = '<?php echo esc_html( $order_total ); ?>';
+						var refund_amount            = jQuery('#refund_amount').val();
+						var wc_sc_refund_line_total = 0;
+						var wc_sc_refund_line_tax = 0;
+						jQuery('.line_cost .refund .refund_line_total').each(function() {
+							wc_sc_refund_line_total += Number(accounting.formatNumber(
+								jQuery(this).val(),
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							));
+						});
+						jQuery('.line_tax .refund .refund_line_tax').each(function() {
+							wc_sc_refund_line_tax += Number(accounting.formatNumber(
+								jQuery(this).val(),
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							));
+						});
+						jQuery('.refund_used_sc').each(function(){
+							var max_limit = jQuery(this).attr('max');
+							wc_sc_refund_line_total = Number(accounting.formatNumber(
+								wc_sc_refund_line_total,
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							));
+							var new_refund_amount = Math.min( wc_sc_refund_line_total, max_limit );
+							jQuery(this).val( accounting.formatNumber(
+								new_refund_amount,
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							) );
+							wc_sc_refund_line_total -= new_refund_amount;
+						});
+						jQuery('.refund_used_sc_tax').each(function(){
+							var max_limit = jQuery(this).attr('max');
+							wc_sc_refund_line_tax = Number(accounting.formatNumber(
+								wc_sc_refund_line_tax,
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							));
+							var new_refund_amount = Math.min( wc_sc_refund_line_tax, max_limit );
+							jQuery(this).val( accounting.formatNumber(
+								new_refund_amount,
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							) );
+							wc_sc_refund_line_tax -= new_refund_amount;
+						});
+						refund_amount = wc_sc_refund_line_total + wc_sc_refund_line_tax;
+						if ( refund_amount > 0 ) {
+							refund_amount = Math.min(refund_amount, order_total);
+						}
+
+						jQuery('button.do-api-refund, button.do-manual-refund').find('.wc-order-refund-amount .amount' ).text( accounting.formatMoney( refund_amount, {
+							symbol:    woocommerce_admin_meta_boxes.currency_format_symbol,
+							decimal:   woocommerce_admin_meta_boxes.currency_format_decimal_sep,
+							thousand:  woocommerce_admin_meta_boxes.currency_format_thousand_sep,
+							precision: woocommerce_admin_meta_boxes.currency_format_num_decimals,
+							format:    woocommerce_admin_meta_boxes.currency_format
+						} ) );
+
+						if ( refund_amount <= 0 ) {
+							jQuery('#refund_amount').val('');
+							jQuery('button.do-api-refund').hide();
+						} else {
+							jQuery('#refund_amount').val( accounting.formatNumber(
+								refund_amount,
+								woocommerce_admin_meta_boxes.currency_format_num_decimals,
+								'',
+								woocommerce_admin.mon_decimal_point
+							) );
+							jQuery('button.do-api-refund').show();
+						}
+					}
+					jQuery(document).on('change', '#refund_amount', function(){
+						wc_sc_reload_refund_amount();
+					});
+				});
+			</script>
+			<?php } ?>
 			<?php
 		}
 
@@ -408,6 +518,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 		 * @return void revoke refund html
 		 */
 		public function render_refunded_store_credits_details( $order_id ) {
+			global $store_credit_label;
 			?>
 			<style type="text/css">
 				#woocommerce-order-items .wc-order-edit-line-item-actions .delete_wc_sc_refund::before {
@@ -498,6 +609,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 			$order = wc_get_order( $order_id );
 
 			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items( 'coupon' ) : array();
+			$tax_data    = ( function_exists( 'wc_tax_enabled' ) && wc_tax_enabled() && is_object( $order ) && is_callable( array( $order, 'get_taxes' ) ) ) ? $order->get_taxes() : array();
 			if ( ! empty( $order_items ) ) {
 				$item_titles = array_map(
 					function( $item ) {
@@ -515,8 +627,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 					$coupon_title          = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
 					$coupon                = new WC_Coupon( $coupon_id );
 					if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
-						$sc_refunded_discount     = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-						$sc_refunded_discount_tax = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
+						$sc_refunded_discount     = (float) $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
+						$sc_refunded_discount_tax = (float) $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
 						$sc_refunded_user         = $this->get_order_item_meta( $item_id, 'sc_refunded_user_id', true );
 						$sc_refunded_timestamp    = $this->get_order_item_meta( $item_id, 'sc_refunded_timestamp', true );
 					}
@@ -547,7 +659,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 										printf(
 											/* translators: 1: refund id 2: refund date 3: username */
 											esc_html__( 'Refund %1$s - %2$s by %3$s', 'woocommerce-smart-coupons' ),
-											esc_html( 'Store Credit Coupon - ' . $coupon_title ),
+											sprintf( '%s - %s', ( ! empty( $store_credit_label['singular'] ) ? esc_html( $store_credit_label['singular'] ) : esc_html__( 'Store Credit', 'woocommerce-smart-coupons' ) ), esc_html( $coupon_title ) ),
 											esc_html( $this->format_date( $sc_refunded_timestamp ) ),
 											sprintf(
 												'<abbr class="refund_by" title="%1$s">%2$s</abbr>',
@@ -560,7 +672,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 										printf(
 											/* translators: 1: refund id 2: refund date */
 											esc_html__( 'Refund %1$s - %2$s', 'woocommerce-smart-coupons' ),
-											esc_html( 'Store Credit Coupon -' . $coupon_title ),
+											sprintf( '%s - %s', ( ! empty( $store_credit_label['singular'] ) ? esc_html( $store_credit_label['singular'] ) : esc_html__( 'Store Credit', 'woocommerce-smart-coupons' ) ), esc_html( $coupon_title ) ),
 											esc_html( $this->format_date( $sc_refunded_timestamp ) )
 										);
 									}
@@ -583,8 +695,14 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 									</div>
 								</td>
 
-								<?php if ( wc_tax_enabled() ) : ?>
+								<?php if ( ! empty( $tax_data ) ) : ?>
 									<td class="line_tax" width="1%"></td>
+									<?php
+									$tax_data_count = count( $tax_data );
+									if ( $tax_data_count > 1 ) {
+										?>
+									<td colspan="<?php echo esc_attr( $tax_data_count - 1 ); ?>"></td>
+									<?php } ?>
 								<?php endif; ?>
 
 								<td class="wc-order-edit-line-item">

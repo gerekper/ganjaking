@@ -4,13 +4,13 @@
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-tab-manager/
  * Documentation URI: https://docs.woocommerce.com/document/tab-manager/
  * Description: A product tab manager for WooCommerce
- * Version: 1.14.2
+ * Version: 1.16.0
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
  * Text Domain: woocommerce-tab-manager
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package     WC-Tab-Manager
  * @author      SkyVerge
  * @category    Plugin
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 132195:89a9ac74850855cfe772b4b4ee1e31e0
  * WC requires at least: 3.9.4
- * WC tested up to: 6.8.0
+ * WC tested up to: 7.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -37,16 +37,16 @@ class WC_Tab_Manager_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.0';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Tab Manager';

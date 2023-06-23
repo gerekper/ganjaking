@@ -314,6 +314,19 @@ function WC_AM_PRODUCT_DATA_STORE() {
 WC_AM_PRODUCT_DATA_STORE();
 
 /**
+ * Returns the WC_AM_Renew_Subscription class object.
+ *
+ * @since 3.0
+ *
+ * @return \WC_AM_Renew_Subscription
+ */
+function WC_AM_RENEW_SUBSCRIPTION() {
+	return WC_AM_Renew_Subscription::instance();
+}
+
+WC_AM_RENEW_SUBSCRIPTION();
+
+/**
  * Returns the WC_AM_Smart_Cache class object
  *
  * @since 2.0.12

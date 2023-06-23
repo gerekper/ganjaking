@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Προέκυψε ένα σφάλμα κατά την απόπειρα παύσης της Αυτόματης Μετάφρασής σας. Δοκιμάστε ξανά αργότερα ή επικοινωνήστε το τμήμα υποστήριξής μας."
@@ -85,7 +84,7 @@
             "Χρειάζεστε μονάδες για να ξεκινήσετε να μεταφράζετε τα πάντα."
          ],
          "Cancel": [
-            "Άκυρο"
+            "Ακύρωση"
          ],
          "Start translating everything": [
             "Έναρξη μετάφρασης όλων"
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "Εσείς αποφασίζετε τις θα μεταφραστεί και ποιος θα το μεταφράσει"
          ],
-         "Translate it yourself": [
-            "Μεταφράστε το μόνοι σας"
+         "Translate yourself": [
+            "Μεταφράστε μόνοι σας"
          ],
-         "Assign it to translators that are users of your site": [
-            "Αναθέστε το σε μεταφραστές που είναι χρήστες του ιστότοπού σας"
+         "Use automatic translation on the content you choose": [
+            "Χρησιμοποιήστε αυτόματη μετάφραση στο περιεχόμενο που επιλέγετε"
          ],
-         "Send it to a professional translation service": [
-            "Στείλτε το σε μια επαγγελματική υπηρεσία μετάφρασης"
+         "Work with translators that are users of your site": [
+            "Συνεργαστείτε με μεταφραστές που είναι χρήστες του ιστότοπού σας"
          ],
          "or": [
             "ή"
          ],
-         "Translate it automatically using machine translation": [
-            "Μεταφράστε το αυτόματα χρησιμοποιώντας μηχανική μετάφραση"
+         "Send to professional translation services": [
+            "Αποστείλετε σε επαγγελματικές υπηρεσίες μετάφρασης"
          ],
          "Save settings": [
             "Αποθήκευση ρυθμίσεων"
@@ -347,7 +346,7 @@
             "Τοποθεσία"
          ],
          "Code": [
-            "Κωδικός"
+            "Κώδικας"
          ],
          "The language will not be supported by automatic translations": [
             "Η γλώσσα δεν θα υποστηρίζεται από αυτόματες μεταφράσεις"
@@ -385,8 +384,14 @@
          "Please fill in the field": [
             "Συμπληρώστε το πεδίο"
          ],
+         "PNG, SVG, or JPG files": [
+            "Αρχεία PNG, SVG ή JPG"
+         ],
          "Save language": [
             "Αποθήκευση γλώσσας"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 pixel"
          ],
          "Read more about ": [
             "Διαβάστε περισσότερα για"
@@ -478,6 +483,12 @@
          "Learn more": [
             "Μάθετε περισσότερα"
          ],
+         "On": [
+            "Ενεργό"
+         ],
+         "Off": [
+            "Ανενεργό"
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "Πρέπει να χρησιμοποιήσετε τον <b>Προηγμένο Επεξεργαστή Μετάφρασης</b> αν θέλετε να μεταφράζετε το περιεχόμενό σας αυτόματα."
          ],
@@ -499,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "Αφήστε το WPML να κάνει τη μετάφραση για εσάς."
          ],
-         "You need to have a valid account in order to continue.": [
-            "Πρέπει να έχετε έναν έγκυρο λογαριασμό για να συνεχίσετε."
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "Για χρήση της αυτόματης μετάφρασης, <a>εγγραφείτε για πληρωμή ανάλογα με τη χρήση</a> ή <a2>αναθέστε μονάδες στον ιστότοπό σας</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "Προέκυψε ένα σφάλμα κατά τη φόρτωση του οδηγού μονάδων."

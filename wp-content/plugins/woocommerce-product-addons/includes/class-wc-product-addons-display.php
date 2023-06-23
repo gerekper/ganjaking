@@ -41,6 +41,13 @@ class WC_Product_Addons_Display {
 		add_filter( 'woocommerce_product_supports', array( $this, 'ajax_add_to_cart_supports' ), 10, 3 );
 		add_filter( 'woocommerce_is_purchasable', array( $this, 'prevent_purchase_at_grouped_level' ), 10, 2 );
 
+		// Cart
+		// Removes the cost of flat fee add-ons from the displayed price in the cart before any plugin had a chance to discount it.
+		add_filter( 'woocommerce_cart_item_price', array( $this, 'remove_flat_fees_from_cart_item_price' ), -PHP_INT_MAX, 3 );
+
+		// Re-adds the cost of flat fee add-ons to the displayed price in the cart after all plugins had a chance to discount it.
+		add_filter( 'woocommerce_cart_item_price', array( $this, 'add_flat_fees_to_cart_item_price' ), PHP_INT_MAX, 3 );
+
 		// View order.
 		add_filter( 'woocommerce_order_item_display_meta_value', array( $this, 'fix_file_uploaded_display' ), 10, 3 );
 
@@ -601,6 +608,133 @@ class WC_Product_Addons_Display {
 			$purchasable = false;
 		}
 		return $purchasable;
+	}
+
+	/**
+	 * Removes the cost of flat fee add-ons from the displayed price in the cart.
+	 *
+	 * @param string $price_html
+	 * @param array  $cart_item
+	 * @param string $cart_item_key
+	 * @return bool
+	 */
+	public function remove_flat_fees_from_cart_item_price( $price_html, $cart_item, $cart_item_key ) {
+
+		if ( isset( $cart_item[ 'addons_flat_fees_sum' ] ) && ! empty( $cart_item[ 'addons_flat_fees_sum' ] ) ) {
+
+			// Composite Products compatibility: remove flat fees from the price offset that Composite Products uses to calculate discounted prices.
+			if ( isset( $cart_item[ 'data' ]->composited_price_offset ) ) {
+
+				$cart_item[ 'data' ]->composited_price_offset -= $cart_item[ 'addons_flat_fees_sum' ];
+
+			// Product Bundles compatibility: remove flat fees from the price offset that Product Bundles uses to calculate discounted prices.
+			} elseif ( isset( $cart_item[ 'data' ]->bundled_price_offset ) ) {
+
+				$cart_item[ 'data' ]->bundled_price_offset -= $cart_item[ 'addons_flat_fees_sum' ];
+
+			} else {
+
+				// Get price data.
+				$product_price         = $cart_item[ 'data' ]->get_price( 'edit' );
+				$product_regular_price = $cart_item[ 'data' ]->get_regular_price( 'edit' );
+				$product_sale_price    = $cart_item[ 'data' ]->get_sale_price( 'edit' );
+
+				// Subtract flat fees from product prices and set new prices to the product object.
+				$product_price         = $product_price - $cart_item[ 'addons_flat_fees_sum' ];
+				$product_regular_price = $product_regular_price - $cart_item[ 'addons_flat_fees_sum' ];
+
+				$cart_item[ 'data' ]->set_price( $product_price );
+				$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
+
+				if ( '' !== $product_sale_price ) {
+					$product_sale_price = $product_sale_price - $cart_item[ 'addons_flat_fees_sum' ];
+					$cart_item[ 'data' ]->set_sale_price( $product_sale_price );
+				}
+			}
+
+			/**
+			 * All Products for WooCommerce Subscriptions compatibility.
+			 *
+			 * If All Products for WooCommerce Subscriptions shouldn't discount add-ons, then remove flat fees from the price offset used to
+			 * calculate discounts.
+			 */
+			if ( class_exists( 'WCS_ATT_Integration_PAO' ) && class_exists( 'WCS_ATT_Product' ) ) {
+				if ( ! WCS_ATT_Integration_PAO::discount_addons( $cart_item[ 'data' ] ) ) {
+					$runtime_meta = WCS_ATT_Product::get_runtime_meta( $cart_item[ 'data' ], 'price_offset' );
+					if ( '' !== $runtime_meta ) {
+						WCS_ATT_Product::set_runtime_meta( $cart_item[ 'data' ], 'price_offset', $runtime_meta - $cart_item[ 'addons_flat_fees_sum' ] );
+					}
+				}
+			}
+
+			// Generate a new cart item price HTML output based on prices excluding flat fees.
+			$price_html = WC()->cart->get_product_price( $cart_item[ 'data' ] );
+		}
+
+		return $price_html;
+	}
+
+	/**
+	 * Re-adds the cost of flat fee add-ons to the cart item price.
+	 *
+	 * @param string $price_html
+	 * @param array  $cart_item
+	 * @param string $cart_item_key
+	 * @return bool
+	 */
+	public function add_flat_fees_to_cart_item_price( $price_html, $cart_item, $cart_item_key ) {
+
+		if ( isset( $cart_item[ 'addons_flat_fees_sum' ] ) && ! empty( $cart_item[ 'addons_flat_fees_sum' ] ) ) {
+
+			// Composite Products compatibility: re-add flat fees to the price offset that Composite Products uses to calculate discounted prices.
+			if ( isset( $cart_item[ 'data' ]->composited_price_offset ) ) {
+
+				$cart_item[ 'data' ]->composited_price_offset += $cart_item[ 'addons_flat_fees_sum' ];
+
+			// Product Bundles compatibility: re-add flat fees to the price offset that Product Bundles uses to calculate discounted prices.
+			} elseif ( isset( $cart_item[ 'data' ]->bundled_price_offset ) ) {
+
+				$cart_item[ 'data' ]->bundled_price_offset += $cart_item[ 'addons_flat_fees_sum' ];
+
+			} else {
+
+				// Get price data.
+				$product_price         = $cart_item[ 'data' ]->get_price( 'edit' );
+				$product_regular_price = $cart_item[ 'data' ]->get_regular_price( 'edit' );
+				$product_sale_price    = $cart_item[ 'data' ]->get_sale_price( 'edit' );
+
+				// Re-add flat fees to product prices and set new prices to the product object.
+				$product_price         = $product_price + $cart_item[ 'addons_flat_fees_sum' ];
+				$product_regular_price = $product_regular_price + $cart_item[ 'addons_flat_fees_sum' ];
+
+				$cart_item[ 'data' ]->set_price( $product_price );
+				$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
+
+				if ( '' !== $product_sale_price ) {
+					$product_sale_price = $product_sale_price + $cart_item[ 'addons_flat_fees_sum' ];
+					$cart_item[ 'data' ]->set_sale_price( $product_sale_price );
+				}
+			}
+
+			/**
+			 * All Products for WooCommerce Subscriptions compatibility.
+			 *
+			 * If All Products for WooCommerce Subscriptions shouldn't discount add-ons, then
+			 * re-add flat fees to the price offset All Products for WooCommerce Subscriptions uses to calculate discounts, after
+			 * all discounts have been calculated.
+			 *
+			 */
+			if ( class_exists( 'WCS_ATT_Integration_PAO' ) && class_exists( 'WCS_ATT_Product' ) ) {
+				if ( ! WCS_ATT_Integration_PAO::discount_addons( $cart_item[ 'data' ] ) ) {
+					$runtime_meta = WCS_ATT_Product::get_runtime_meta( $cart_item[ 'data' ], 'price_offset' );
+					if ( '' !== $runtime_meta ) {
+						WCS_ATT_Product::set_runtime_meta( $cart_item[ 'data' ], 'price_offset', $runtime_meta + $cart_item[ 'addons_flat_fees_sum' ] );
+					}
+				}
+			}
+		}
+
+		return $price_html;
 	}
 
 	/**

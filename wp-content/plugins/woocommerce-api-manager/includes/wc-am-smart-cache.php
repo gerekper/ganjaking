@@ -353,7 +353,6 @@ class WC_AM_Smart_Cache {
 	 * @param bool  $refresh
 	 *
 	 * @version 2.2.0
-	 *
 	 */
 	public function delete_cache( $data, $refresh = false ) {
 		/**

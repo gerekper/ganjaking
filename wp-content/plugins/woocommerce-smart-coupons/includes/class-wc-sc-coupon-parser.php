@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.1
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -345,17 +345,19 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 			$postmeta  = wp_parse_args( $postmeta, $this->postmeta_defaults );
 			$term_data = wp_parse_args( $term_data, $this->term_defaults );
 
+			$all_discount_types = wc_get_coupon_types();
+
 			if ( ! empty( $postmeta['discount_type'] ) ) {
-				$discount_type = $postmeta['discount_type'];
+				$discount_type = __( $postmeta['discount_type'], 'woocommerce' ); // phpcs:ignore
 			} else {
 				if ( $this->is_wc_gte_30() ) {
-					$discount_type = 'Percentage discount';
+					$discount_type = __( 'Percentage discount', 'woocommerce' );
 				} else {
-					$discount_type = 'Cart % Discount';
+					$discount_type = __( 'Cart % Discount', 'woocommerce' );
 				}
 			}
 
-			$all_discount_types = wc_get_coupon_types();
+			$discount_type = ( ! empty( $discount_type ) && in_array( $discount_type, $all_discount_types, true ) ) ? $discount_type : $postmeta['discount_type'];
 
 			// discount types.
 			if ( ! empty( $discount_type ) ) {

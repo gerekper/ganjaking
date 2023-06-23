@@ -349,8 +349,8 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		}
 
 		// Additional image sizes.
-		$image_sizes = $this->settings->get_setting( 'wp-smush-image_sizes' );
-		$sizes       = WP_Smush::get_instance()->core()->image_dimensions();
+		$image_sizes  = $this->settings->get_setting( 'wp-smush-image_sizes' );
+		$sizes        = WP_Smush::get_instance()->core()->image_dimensions();
 
 		$all_selected = false === $image_sizes || count( $image_sizes ) === count( $sizes );
 		?>
@@ -400,33 +400,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 					</div>
 				</div>
 			</div>
-		<?php endif; ?>
-		<?php if ( has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' ) ) : ?>
-			<?php
-			$text = sprintf( /* translators: %1$s - <a>, %2$s - </a> */
-				esc_html__( "We noticed Jetpack's %1\$sSite Accelerator%2\$s is active with the “Speed up image load times” option enabled. Since Site Accelerator completely offloads intermediate thumbnail sizes (they don't exist in your Media Library), Smush can't optimize those images.", 'wp-smushit' ),
-				'<a href="https://jetpack.com/support/site-accelerator/" target="_blank">',
-				'</a>'
-			);
-
-			if ( WP_Smush::is_pro() ) {
-				$text .= ' ' . sprintf( /* translators: %1$s - <a>, %2$s - </a> */
-					esc_html__( 'You can still optimize your %1$sOriginal Images%2$s if you want to.', 'wp-smushit' ),
-					'<a href="#wp-smush-original">',
-					'</a>'
-				);
-			}
-			?>
-			<div class="sui-notice sui-notice-warning" style="margin-top: -20px">
-				<div class="sui-notice-content">
-					<div class="sui-notice-message">
-						<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
-						<p><?php echo wp_kses_post( $text ); ?></p>
-					</div>
-				</div>
-			</div>
-		<?php endif; ?>
-		<?php
+		<?php endif;
 	}
 
 	/**

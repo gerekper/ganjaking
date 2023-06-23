@@ -6,6 +6,7 @@ use WPML\FP\Fns;
 use WPML\FP\Obj;
 use WPML\ATE\Proxies\Widget;
 use WPML\TM\ATE\NoCreditPopup;
+use WPML\LIB\WP\User;
 use function WPML\Container\make;
 
 /**
@@ -91,7 +92,7 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 	 * @return string|array
 	 */
 	public function get_capabilities() {
-		return array( WPML_Manage_Translations_Role::CAPABILITY, 'manage_options' );
+		return [ User::CAP_MANAGE_TRANSLATIONS, User::CAP_ADMINISTRATOR, User::CAP_MANAGE_OPTIONS ];
 	}
 
 	/**

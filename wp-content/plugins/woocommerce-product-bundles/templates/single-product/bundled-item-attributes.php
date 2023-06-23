@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.10.1
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<h4 class="bundled_product_attributes_title"><?php echo $title; ?></h4>
+<h4 class="bundled_product_attributes_title"><?php echo wp_kses_post( $title ); ?></h4>
 <?php
 
 wc_get_template( 'single-product/product-attributes.php', array(

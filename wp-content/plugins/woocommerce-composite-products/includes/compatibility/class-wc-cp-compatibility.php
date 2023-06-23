@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.8.0
+ * @version  8.9.0
  */
 class WC_CP_Compatibility {
 
@@ -83,7 +83,7 @@ class WC_CP_Compatibility {
 		$this->required = array(
 			'pb'     => '6.14.0',
 			'ci'     => '1.2.4',
-			'pao'    => '6.0.0',
+			'pao'    => '6.4.0',
 			'blocks' => '7.2.0',
 			'mmq'    => '3.0.0'
 		);

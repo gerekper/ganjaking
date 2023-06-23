@@ -1,4 +1,24 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2023.06.19 - version 3.5.0
+    * Update: Track a hash of the gravity form's fields for use in the check_cart_items function.
+    * Update: Added check_cart_items which will run checks to make sure the form has not been modified since the user added an item to their cart.
+    * Update: On reorder, allow for the option of revalidating or resubmitting the form.
+    * Update: Add a wc_notice during cart validation if invalid.
+              This helps with AJAX add to cart features from themes and other plugins which don't properly handle the return value of the woocommerce_add_to_cart_validation function.
+    * Update: WC and WP Updates.
+    * New: Added filter, woocommerce_gforms_check_cart_items, to allow disabling the check_cart_items function.
+    * New: New options for the woocommerce_gforms_get_product_form_data filter.
+                reorder_processing: ['revalidate', 'resubmit', 'none'] - Determines what to do when a user reorders a product. Defaults to revalidate.
+                reorder_hydrate_defaults: [true, false] - Determines if the form should be hydrated with the default values from the form if needed to resubmit the entry. Defaults to true.
+
+2023.05.04 - version 3.4.5
+    * Update: Perform some validation on the entry data before allowing reordering.
+              Validation is performed by GFAPI::validate_form( $form['id'], $entry_data );
+              File uploads are mocked so that they pass validation.
+              Any changes to the forms product fields, required fields, etc, will cause validation to fail, by design.
+              This is to prevent the user from accidentally reordering a product with options that are no longer valid.
+    * Update:  WC and WP Updates.
+
 2023.05.04 - version 3.4.4
     * Fix: Fix for Nested Forms by toggling AJAX only when the parent form is rendered.
     * Fix: Resolve warnings regarding $err_level

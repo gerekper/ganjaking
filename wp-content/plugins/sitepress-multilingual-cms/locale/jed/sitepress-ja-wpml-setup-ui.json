@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "翻訳前："
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "何を翻訳するか、誰が翻訳するかを決定できます"
          ],
-         "Translate it yourself": [
+         "Translate yourself": [
             "自分で翻訳する"
          ],
-         "Assign it to translators that are users of your site": [
-            "サイトのユーザーである翻訳者に割り当てる"
+         "Use automatic translation on the content you choose": [
+            "選択したコンテンツに自動翻訳を使用する"
          ],
-         "Send it to a professional translation service": [
-            "プロの翻訳サービスに送信する"
+         "Work with translators that are users of your site": [
+            "あなたのサイトのユーザーである翻訳者と一緒に取り組む"
          ],
          "or": [
             "または"
          ],
-         "Translate it automatically using machine translation": [
-            "機械翻訳で自動的に翻訳する"
+         "Send to professional translation services": [
+            "専門翻訳サービスに送る"
          ],
          "user": [
             "ユーザー"
@@ -399,6 +398,88 @@
          "Language switcher customization": [
             "言語スイッチャーカスタマイゼーション"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "現在のセットアップは、たくさんの翻訳クレジットを使用するようになっています。"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "<b>開発サイト</b>で<span class=\"warning\">全てを自動翻訳する</span>と決定しました"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "以下が決定されました。<b>全てを自動翻訳する:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "デフォルトにより、開発サイトに10,000クレジットが割り当てられました"
+         ],
+         "posts, pages...": [
+            "投稿、ページ..."
+         ],
+         "translated to": [
+            "翻訳後"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b>言語",
+            "<b>%1$d</b>言語"
+         ],
+         "will cost approximately": [
+            "のおおよそのコスト"
+         ],
+         "credits": [
+            "クレジット"
+         ],
+         "Loading details...": [
+            "詳細を読み込んでいます..."
+         ],
+         "Hide details": [
+            "詳細を隠す"
+         ],
+         "Show details": [
+            "詳細を表示"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "現在のセットアップは約<b>%s</b>クレジットを使用します"
+         ],
+         "What do you want to do?": [
+            "何をしますか？"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "これは開発サイトなので、ダミーコンテンツにクレジットを使用しないことをお薦めします。"
+         ],
+         "Continue with this setup": [
+            "セットアップを続ける"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "WPML は、サイトンコンテンツを自動翻訳します。クレジットが無くなったとき自動翻訳を使用し続けるには、さらにクレジットを購入するか、利用時払いに登録できます。"
+         ],
+         "Make changes": [
+            "変更する"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "セットアップ中に選択した設定を調整することにより、クレジットの使用を削減できます。"
+         ],
+         "Reduce the number of translation languages": [
+            "翻訳言語数を削減する"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "サイトに言語が多ければ多いほど、より多くの翻訳クレジットが必要になります。<b>言語は常に後で追加できます。</b>　"
+         ],
+         "Change site languages": [
+            "サイト言語を変更する"
+         ],
+         "Change your translation mode": [
+            "翻訳モードを変更する"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "<b>選択したものを翻訳する</b>何を翻訳するかについてのコントロールを容易にし、自動翻訳も使用できます。"
+         ],
+         "Change translation mode": [
+            "翻訳モードを変更する"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "この翻訳クレジット数を使用しても大丈夫です。"
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "このまま続けてサイト全体を自動翻訳してください。"
+         ],
          "Default language": [
             "デフォルト言語"
          ],
@@ -438,17 +519,17 @@
          "Are you ready to start translating now?": [
             "今すぐ翻訳を開始する準備はできましたか？"
          ],
-         "Yes!": [
-            "はい！"
+         "Yes, start translating!": [
+            "はい、翻訳を開始してください！"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "今すぐマイ サイトの翻訳を開始します。WPML では、自動翻訳クレジットを使用します。"
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "WPML は、自動翻訳クレジットを使用してあなたのサイトを翻訳します。"
          ],
-         "No. I need to do some changes first": [
-            "いいえ。まずいくつか変更を行う必要があります"
+         "No, my content isn't finalized yet": [
+            "いいえ、私のコンテンツはまだ最終ではありません"
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "準備ができたら、[Translation Management (翻訳管理)] ダッシュボードから自動翻訳を開始できます。"
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "準備ができたら、Translation Management ダッシュボードから自動翻訳を開始してください。"
          ],
          "Improve your site’s translations using helpful plugins": [
             "便利なプラグインを使ってサイトの翻訳を改善"
@@ -513,18 +594,6 @@
          "A new language could not be added correctly": [
             "新しい言語が正しく追加されません"
          ],
-         "Languages": [
-            "言語"
-         ],
-         "URL Format": [
-            "URL形式"
-         ],
-         "Register WPML": [
-            "WPMLを登録"
-         ],
-         "Translation Mode": [
-            "翻訳モード"
-         ],
          "Support": [
             "サポート"
          ],
@@ -548,6 +617,18 @@
          ],
          "Finish": [
             "終了する"
+         ],
+         "Languages": [
+            "言語"
+         ],
+         "URL Format": [
+            "URL形式"
+         ],
+         "Register WPML": [
+            "WPMLを登録"
+         ],
+         "Translation Mode": [
+            "翻訳モード"
          ],
          "Settings": [
             "設定"

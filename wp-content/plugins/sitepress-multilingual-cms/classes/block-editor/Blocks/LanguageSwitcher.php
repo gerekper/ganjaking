@@ -27,13 +27,16 @@ class LanguageSwitcher {
 		$this->render = $render;
 	}
 
+	/**
+	 * Returns the data that needs to be localized in the JS script.
+	 * @return array
+	 */
 	public function register() {
 
 		$this->registerLanguageSwitcherBlock();
 		$this->registerNavigationLanguageSwitcherBlock();
 
-		Hooks::onAction( 'enqueue_block_editor_assets' )
-		     ->then( [ $this, 'registerLanguageSwitcherAssets' ] );
+		return $this->getLanguageSwitcherLocalisedData();
 	}
 
 	private function registerLanguageSwitcherBlock() {
@@ -90,11 +93,7 @@ class LanguageSwitcher {
 		return $shortcodeAPI->callback( [] );
 	}
 
-	public function registerLanguageSwitcherAssets() {
-		$this->registerLanguageSwitcherGlobalData();
-	}
-
-	private function registerLanguageSwitcherGlobalData() {
+	private function getLanguageSwitcherLocalisedData() {
 		$languages = Obj::values( Languages::withFlags( Languages::getActive() ) );
 		$activeLanguage = Lst::find( Relation::propEq( 'code', Languages::getCurrentCode() ), $languages );
 		$data      = [
@@ -102,7 +101,7 @@ class LanguageSwitcher {
 			'activeLanguage' => $activeLanguage,
 			'isRtl'			 => Languages::isRtl( strval( Obj::prop( 'code', $activeLanguage ) ) ),
 		];
-		wp_localize_script( Loader::SCRIPT_NAME, 'WPML_LS_SETTINGS', $data );
+		return ['languageSwitcher' => $data ];
 	}
 
 }

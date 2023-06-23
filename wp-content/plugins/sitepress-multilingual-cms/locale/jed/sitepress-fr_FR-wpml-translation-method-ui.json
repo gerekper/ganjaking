@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Une erreur est survenue en mettant la Traduction automatique sur pause. Veuillez réessayer plus tard ou contactez notre assistance."
@@ -82,7 +81,7 @@
             "La traduction automatique fait appel à des crédits. %1$sEn savoir plus sur les crédits de traduction automatique%2$s"
          ],
          "You need credits to start translating everything.": [
-            "Il vous faut des crédits pour commencer à traduire."
+            "Des crédits sont requis pour commencer à traduire."
          ],
          "Cancel": [
             "Annuler"
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "C'est vous qui décidez quoi traduire et qui va traduire"
          ],
-         "Translate it yourself": [
-            "Traduire soi-même"
+         "Translate yourself": [
+            "Traduire vous-même"
          ],
-         "Assign it to translators that are users of your site": [
-            "Assigner aux traducteurs qui sont des utilisateurs de votre site"
+         "Use automatic translation on the content you choose": [
+            "Utilisez la traduction automatique pour les contenus que vous sélectionnez."
          ],
-         "Send it to a professional translation service": [
-            "Envoyer à un service de traduction professionnel"
+         "Work with translators that are users of your site": [
+            "Travaillez avec les traducteurs qui sont des utilisateurs de votre site"
          ],
          "or": [
             "ou"
          ],
-         "Translate it automatically using machine translation": [
-            "Traduire automatiquement à l'aide de la traduction automatique"
+         "Send to professional translation services": [
+            "Envoyer à des services de traduction professionnels"
          ],
          "Save settings": [
             "Sauvegarder les paramètres"
@@ -281,7 +280,7 @@
             "Précédent"
          ],
          "Save": [
-            "Appliquer"
+            "Enregistrer"
          ],
          "Add a Translator": [
             "Ajouter un traducteur"
@@ -308,10 +307,10 @@
             "Le transfert du fichier %s a échoué."
          ],
          "Flag": [
-            "Drapeau"
+            "Indicateur"
          ],
          "Flag file": [
-            "Fichier drapeau"
+            "Fichier indicateur"
          ],
          "You just added  language. Next, select it as the site's default language or a translation language.": [
             "Vous venez d'ajouter une langue. À présent, sélectionnez-la comme la langue du site par défaut ou comme la langue de traduction."
@@ -484,6 +483,12 @@
          "Learn more": [
             "En savoir plus"
          ],
+         "On": [
+            "Activé"
+         ],
+         "Off": [
+            "Desactivé"
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "Si vous souhaitez faire traduire vos contenus automatiquement, utilisez l’<b>Éditeur de traduction avancé</b>."
          ],
@@ -505,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "Confiez vos traductions à WPML."
          ],
-         "You need to have a valid account in order to continue.": [
-            "Vous devez détenir un compte valide pour pouvoir poursuivre."
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "Pour utiliser la traduction automatique, <a>abonnez-vous au paiement à l’utilisation</a> ou <a2>assignez des crédits à votre site</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "Une erreur est survenue en chargeant l’assistant de crédit."

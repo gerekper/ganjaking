@@ -23,6 +23,18 @@ msgstr ""
 msgid "Cancel in-progress automatic jobs"
 msgstr ""
 
+#: src/js/troubleshooting/lsTemplates/UpdateDomain.js:31
+msgid "Domain name has been updated"
+msgstr ""
+
+#: src/js/troubleshooting/lsTemplates/UpdateDomain.js:33
+msgid "Domain name update has been failed"
+msgstr ""
+
+#: src/js/troubleshooting/lsTemplates/UpdateDomain.js:41
+msgid "Update domain name in language switcher settings"
+msgstr ""
+
 #: src/js/troubleshooting/refreshLicense/RefreshLicense.js:14
 msgid "Refresh license data to recognise license update"
 msgstr ""

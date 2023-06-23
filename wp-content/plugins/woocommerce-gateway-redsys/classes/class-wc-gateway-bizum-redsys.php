@@ -8,7 +8,7 @@
  * @link https://joseconti.com
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2013 José Conti.
+ * @copyright 2013-2023 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -34,7 +34,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		$this->testurlws            = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntrada?wsdl';
 		$this->testsha256           = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
 		$this->testmode             = WCRed()->get_redsys_option( 'testmode', 'bizumredsys' );
-		$this->method_title         = __( 'Bizum (by José Conti)', 'woocommerce-redsys' );
+		$this->method_title         = __( 'Bizum redirection (by José Conti)', 'woocommerce-redsys' );
 		$this->method_description   = __( 'Bizum works redirecting customers to Bizum.', 'woocommerce-redsys' );
 		$this->not_use_https        = WCRed()->get_redsys_option( 'not_use_https', 'bizumredsys' );
 		$this->notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_' . $this->id, home_url( '/' ) );

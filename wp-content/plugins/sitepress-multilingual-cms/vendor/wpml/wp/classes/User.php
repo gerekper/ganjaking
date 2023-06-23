@@ -9,6 +9,9 @@ use WPML\FP\Fns;
 class User {
 	const CAP_MANAGE_TRANSLATIONS = 'manage_translations';
 	const CAP_MANAGE_OPTIONS = 'manage_options';
+	const CAP_ADMINISTRATOR = 'administrator';
+	const CAP_TRANSLATE = 'translate';
+	const CAP_MANAGE_TRANSLATION_MANAGEMENT = 'wpml_manage_translation_management';
 
 	/**
 	 * @return int
@@ -150,7 +153,7 @@ class User {
 	 * @param ?\WP_User $user User to check. Using current user if not defined.
 	 */
 	public static function canManageTranslations( \WP_User $user = null ) {
-		return self::hasCap( self::CAP_MANAGE_TRANSLATIONS, $user );
+		return self::hasCap( self::CAP_MANAGE_TRANSLATIONS, $user ) || self::isAdministrator( $user );
 	}
 
 	/**
@@ -161,5 +164,14 @@ class User {
 	 */
 	public static function canManageOptions( \WP_User $user = null ) {
 		return self::hasCap( self::CAP_MANAGE_OPTIONS, $user );
+	}
+
+	/**
+	 * @param \WP_User|null $user User to check. Using current user if not defined.
+	 *
+	 * @return bool
+	 */
+	public static function isAdministrator( \WP_User $user = null ) {
+		return self::hasCap( self::CAP_ADMINISTRATOR, $user );
 	}
 }

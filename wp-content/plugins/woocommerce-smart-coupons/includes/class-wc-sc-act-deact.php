@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -189,6 +189,8 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 				update_site_option( 'wc_sc_migrate_site_options', 'no' );
 			}
 
+			$woocommerce_smart_coupon->maybe_sync_orders_prior_to_800();
+
 		}
 
 		/**
@@ -197,6 +199,8 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 		 * Delete option 'sc_display_global_coupons' if exists
 		 */
 		public static function smart_coupon_deactivate() {
+			global $woocommerce_smart_coupon;
+
 			if ( get_option( 'sc_display_global_coupons' ) !== false ) {
 				delete_option( 'sc_display_global_coupons' );
 			}
@@ -204,6 +208,19 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 				delete_option( 'sc_flushed_rules' );
 			}
 			self::clear_cache();
+
+			if ( ! is_object( $woocommerce_smart_coupon ) || ! is_a( $woocommerce_smart_coupon, 'WC_Smart_Coupons' ) || ! is_callable( array( $woocommerce_smart_coupon, 'update_post_meta' ) ) ) {
+				if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
+					if ( file_exists( WP_PLUGIN_DIR . '/woocommerce-smart-coupons/includes/class-wc-smart-coupons.php' ) ) {
+						include_once WP_PLUGIN_DIR . '/woocommerce-smart-coupons/includes/class-wc-smart-coupons.php';
+					}
+					if ( class_exists( 'WC_Smart_Coupons' ) && is_callable( array( 'WC_Smart_Coupons', 'get_instance' ) ) ) {
+						$woocommerce_smart_coupon = WC_Smart_Coupons::get_instance();
+					}
+				}
+			}
+
+			$woocommerce_smart_coupon->record_latest_800_order();
 		}
 
 		/**

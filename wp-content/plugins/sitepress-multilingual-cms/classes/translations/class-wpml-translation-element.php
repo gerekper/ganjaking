@@ -159,7 +159,7 @@ abstract class WPML_Translation_Element extends WPML_SP_User {
 	abstract function get_type( $element = null );
 
 	/**
-	 * @param null|stdClass $element_data null, or a standard object containing at least the `translation_id`, `language_code`, `element_id`, `source_language_code`, `element_type`, and `original` properties.
+	 * @param null|object $element_data null, or a standard object containing at least the `translation_id`, `language_code`, `element_id`, `source_language_code`, `element_type`, and `original` properties.
 	 *
 	 * @return WPML_Translation_Element
 	 */

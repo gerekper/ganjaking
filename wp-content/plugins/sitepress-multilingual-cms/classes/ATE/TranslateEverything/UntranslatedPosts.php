@@ -2,6 +2,7 @@
 
 namespace WPML\TM\ATE\TranslateEverything;
 
+use WPML\Element\API\Languages;
 use WPML\FP\Cast;
 use WPML\FP\Fns;
 use WPML\FP\Lst;
@@ -40,15 +41,23 @@ class UntranslatedPosts {
 			
 			LEFT JOIN {$wpdb->postmeta} postmeta ON postmeta.post_id = posts.ID AND postmeta.meta_key = %s
 			
-			WHERE original_element.element_type = %s and original_element.source_language_code IS NULL AND (
-			        translation_status.status IS NULL OR translation_status.status IN ({$acceptableStatuses}) OR translation_status.needs_update = 1
-			) AND posts.post_status IN ( 'publish', 'inherit' )
+			WHERE original_element.element_type = %s 
+			  	AND original_element.source_language_code IS NULL
+			    AND original_element.language_code = %s
+			    AND ( translation_status.status IS NULL OR translation_status.status IN ({$acceptableStatuses}) OR translation_status.needs_update = 1) 
+			    AND posts.post_status IN ( 'publish', 'inherit' )
 			AND ( postmeta.meta_value IS NULL OR postmeta.meta_value = 'no' )
 			ORDER BY original_element.element_id, languages.code
 			LIMIT %d
 		";
 
-		$result = $wpdb->get_results( $wpdb->prepare( $sql, \WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE, 'post_' . $postType, $queueSize ), ARRAY_N );
+		$result = $wpdb->get_results( $wpdb->prepare(
+			$sql,
+			\WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE,
+			'post_' . $postType,
+			Languages::getDefaultCode(),
+			$queueSize
+		), ARRAY_N );
 
 		return Fns::map( Obj::evolve( [ 0 => Cast::toInt() ] ), $result );
 	}

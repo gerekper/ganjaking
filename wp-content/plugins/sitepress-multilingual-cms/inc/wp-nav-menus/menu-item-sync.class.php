@@ -280,8 +280,9 @@ class WPML_Menu_Item_Sync extends WPML_Menu_Sync_Functionality {
 						);
 						if ( isset( $item_translations[ $language ] ) ) {
 							$translated_item = get_post( $item_translations[ $language ]->element_id );
-							if ( $translated_item->post_title != $name ) {
+							if ( $translated_item && $translated_item->post_title != $name ) {
 								$translated_item->post_title = $name;
+								/** @phpstan-ignore-next-line WP doc issue. */
 								wp_update_post( $translated_item );
 							}
 						}

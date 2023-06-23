@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Advanced": [
             "Zaawansowane"
@@ -108,8 +107,29 @@
          "Current language background": [
             "Tło dla bieżącego języka"
          ],
-         "Small": [
-            "Mała"
+         "Full name": [
+            "Pełne imię i nazwisko"
+         ],
+         "Code": [
+            "Kod"
+         ],
+         "Justify items left": [
+            "Wyrównaj do lewej"
+         ],
+         "Justify items center": [
+            "Wyśrodkuj"
+         ],
+         "Justify items right": [
+            "Wyrównaj do prawej"
+         ],
+         "Justify items space between": [
+            "Wyjustuj"
+         ],
+         "Horizontal": [
+            "Poziomy"
+         ],
+         "Vertical": [
+            "Pionowy"
          ],
          "Normal": [
             "Normalny"
@@ -123,6 +143,18 @@
          "X-Large": [
             "X-Duży"
          ],
+         "Ab": [
+            "Ab"
+         ],
+         "AB": [
+            "AB"
+         ],
+         "ab": [
+            "ab"
+         ],
+         "Small": [
+            "Mała"
+         ],
          "Displays the WPML Language Switcher.": [
             "Wyświetla Przełącznik Języków WPML."
          ],
@@ -132,20 +164,14 @@
          "displays the WPML Language Switcher": [
             "wyświetla Przełącznik Języków WPML."
          ],
+         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
+            "Wyświetla przełącznik języka WPML. <br/> Dowiedz się, <a>jak przetłumaczyć ten blok</a>."
+         ],
          "Navigation Language Switcher": [
             "Przełącznik Nawigacji Języków"
          ],
          "Reset all": [
             "Resetuj wszystko"
-         ],
-         "Minimum value is : ": [
-            "Wartość minimalna to : "
-         ],
-         "Maximum value is : ": [
-            "Wartość maksymalna to : "
-         ],
-         "Value must be a number!": [
-            "Wartość musi być liczbą!"
          ]
       }
    }

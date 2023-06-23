@@ -1,14 +1,12 @@
 <?php
 /**
- * @package		WooCommerce One Page Checkout
- * @subpackage	Easy Pricing Tables
- * @category	Template Class
+ * @package     WooCommerce One Page Checkout
+ * @subpackage  Easy Pricing Tables
+ * @category    Template Class
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 
@@ -51,16 +49,18 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 	public function display_shortcode_selection_fields() {
 
 		// Get all Easy Pricing Tables posts that have been created
-		$easy_pricing_tables = get_posts( array(
-			'posts_per_page' => -1,
-			'post_type' => 'easy-pricing-table',
-		));
-?>
+		$easy_pricing_tables = get_posts(
+			array(
+				'posts_per_page' => -1,
+				'post_type'      => 'easy-pricing-table',
+			)
+		);
+		?>
 	<fieldset id="wcopc_easy_pricing_table_fields" style="margin: 1em 0;">
 		<label for="wcopc_easy_pricing_table_id" style="width: 70px; display: inline-block;"><?php esc_html_e( 'Pricing Table:', 'woocommerce-one-page-checkout' ); ?></label>
 		<?php if ( ! empty( $easy_pricing_tables ) ) : ?>
 		<select id="wcopc_easy_pricing_table_id" style="width: 75%;">
-			<?php foreach( $easy_pricing_tables as $easy_pricing_table ) : ?>
+			<?php foreach ( $easy_pricing_tables as $easy_pricing_table ) : ?>
 			<option value="<?php echo esc_attr( $easy_pricing_table->ID ); ?>"><?php echo esc_html( $easy_pricing_table->post_title ); ?></option>
 			<?php endforeach; ?>
 		</select>
@@ -68,7 +68,7 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 			<span><?php esc_html_e( 'No pricing tables available.', 'woocommerce-one-page-checkout' ); ?>
 		<?php endif; ?>
 	</fieldset>
-<?php
+		<?php
 	}
 
 	private static function is_easy_pricing_tables_active() {
@@ -80,7 +80,7 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 			'/easy-pricing-tables-premium.php',
 		);
 
-		foreach( $easy_pricing_table_plugin_slugs as $plugin_slug ) {
+		foreach ( $easy_pricing_table_plugin_slugs as $plugin_slug ) {
 			$plugin_strlen = strlen( $plugin_slug );
 			foreach ( PP_One_Page_Checkout::$active_plugins as $key => $plugin ) {
 				if ( substr( $plugin, $plugin_strlen * -1 ) === $plugin_slug || substr( $key, $plugin_strlen * -1 ) === $plugin_slug ) {

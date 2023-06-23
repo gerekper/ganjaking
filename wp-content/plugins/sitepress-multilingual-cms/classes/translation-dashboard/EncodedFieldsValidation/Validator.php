@@ -6,6 +6,7 @@ use WPML\FP\Fns;
 use WPML\FP\Logic;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
+use WPML\FP\Str;
 use WPML\LIB\WP\Post;
 use WPML\TM\TranslationDashboard\SentContentMessages;
 use function WPML\FP\invoke;
@@ -130,9 +131,17 @@ class Validator {
 		};
 
 		$isFieldEncoded = function ( $field ) {
+			$decodedFieldData = base64_decode( $field['data'] );
+
 			return array_key_exists( 'format', $field )
-			       && 'base64' === $field['format']
-			       && $this->encoding_validation->is_base64( base64_decode( $field['data'] ) );
+			             && 'base64' === $field['format']
+			             && $this->encoding_validation->is_base64_with_100_chars_or_more( $decodedFieldData );
+
+			/**
+			 * @todo : we should handle not to block the whole job from being translated but instead we should exclude the problematic field from the job and send it to be translated without that field.
+			 * @todo check Youtrack ticket
+			 * @see : https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-1694
+			 */
 		};
 
 		$getInvalidFieldData = function ( $field, $slug ) {
@@ -186,7 +195,7 @@ class Validator {
 		 */
 		$tryToGetError = function ( $package ) use ( $getInvalidFieldData ) {
 			$invalidFields = \wpml_collect( Obj::propOr( [], 'string_data', $package ) )
-				->filter( [ $this->encoding_validation, 'is_base64' ] )
+				->filter( [ $this->encoding_validation, 'is_base64_with_100_chars_or_more' ] )
 				->map( $getInvalidFieldData )
 				->values()
 				->toArray();

@@ -1041,6 +1041,12 @@ class WoocommerceGpfFeedItem {
 			$done_primary_image = true;
 		}
 
+		$lifestyle_media_id = $this->general_product->get_meta( 'woocommerce_gpf_lifestyle_media_id', true );
+		if ( ! empty( $lifestyle_media_id ) && ! empty( $this->image_sources[ $lifestyle_media_id ] ) ) {
+			$this->lifestyle_image_link = $this->image_sources[ $lifestyle_media_id ]['url'];
+
+		}
+
 		// Get the list of image IDs to exclude.
 		$excluded_ids = $this->general_product->get_meta( 'woocommerce_gpf_excluded_media_ids', true );
 		if ( empty( $excluded_ids ) || ! is_array( $excluded_ids ) ) {
@@ -1054,6 +1060,7 @@ class WoocommerceGpfFeedItem {
 				continue;
 			}
 			// Skip if this is the primary ID as we've already set it outside the loop.
+			// Note: lifestyle image ID is not excluded from here since that is Google-feed specific.
 			if ( (int) $image['id'] === (int) $primary_media_id ) {
 				continue;
 			}

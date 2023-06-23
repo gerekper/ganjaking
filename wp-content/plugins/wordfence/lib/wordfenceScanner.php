@@ -341,104 +341,85 @@ class wordfenceScanner {
 					
 					$treatAsBinary = ($isPHP || $isHTML || $options['scansEnabled_scanImages']);
 					if ($options['scansEnabled_fileContents']) {
-						if ($treatAsBinary && wfUtils::strpos($data, '$allowed'.'Sites') !== false && wfUtils::strpos($data, "define ('VER"."SION', '1.") !== false && wfUtils::strpos($data, "TimThum"."b script created by") !== false) {
-							$this->addResult(array(
-								'type' => 'file',
-								'severity' => wfIssues::SEVERITY_CRITICAL,
-								'ignoreP' => $record->realPath,
-								'ignoreC' => $fileSum,
-								'shortMsg' => __('File is an old version of TimThumb which is vulnerable.', 'wordfence'),
-								'longMsg' => __('This file appears to be an old version of the TimThumb script which makes your system vulnerable to attackers. Please upgrade the theme or plugin that uses this or remove it.', 'wordfence') . $extraMsg,
-								'data' => array_merge(array(
-									'file' => $file,
-									'realFile' => $record->realPath,
-									'shac' => $record->SHAC,
-									'highSense' => $options['scansEnabled_highSense']
-								), $dataForFile),
-							));
-							break;
-						}
-						else {
-							$allCommonStrings = $this->patterns['commonStrings'];
-							$commonStringsFound = array_fill(0, count($allCommonStrings), null); //Lazily looked up below
-							
-							$regexMatched = false;
-							foreach ($this->patterns['rules'] as $rule) {
-								$stoppedOnSignature = $record->stoppedOnSignature;
-								if (!empty($stoppedOnSignature)) { //Advance until we find the rule we stopped on last time
-									//wordfence::status(4, 'info', "Searching for malware scan resume point (". $stoppedOnSignature . ") at rule " . $rule[0]);
-									if ($stoppedOnSignature == $rule[0]) {
-										$record->updateStoppedOn('', $currentPosition);
-										wordfence::status(4, 'info', sprintf(/* translators: Malware signature rule ID. */ __('Resuming malware scan at rule %s.', 'wordfence'), $rule[0]));
-									}
-									continue;
+						$allCommonStrings = $this->patterns['commonStrings'];
+						$commonStringsFound = array_fill(0, count($allCommonStrings), null); //Lazily looked up below
+
+						$regexMatched = false;
+						foreach ($this->patterns['rules'] as $rule) {
+							$stoppedOnSignature = $record->stoppedOnSignature;
+							if (!empty($stoppedOnSignature)) { //Advance until we find the rule we stopped on last time
+								//wordfence::status(4, 'info', "Searching for malware scan resume point (". $stoppedOnSignature . ") at rule " . $rule[0]);
+								if ($stoppedOnSignature == $rule[0]) {
+									$record->updateStoppedOn('', $currentPosition);
+									wordfence::status(4, 'info', sprintf(/* translators: Malware signature rule ID. */ __('Resuming malware scan at rule %s.', 'wordfence'), $rule[0]));
 								}
-								
-								$type = (isset($rule[4]) && !empty($rule[4])) ? $rule[4] : 'server';
-								$logOnly = (isset($rule[5]) && !empty($rule[5])) ? $rule[5] : false;
-								$commonStringIndexes = (isset($rule[8]) && is_array($rule[8])) ? $rule[8] : array();
-								if ($type == 'server' && !$treatAsBinary) { continue; }
-								else if (($type == 'both' || $type == 'browser') && $isJS) { $extraMsg = ''; }
-								else if (($type == 'both' || $type == 'browser') && !$treatAsBinary) { continue; }
-								
-								if (!$first && substr($rule[2], 0, 1) == '^') {
-									//wordfence::status(4, 'info', "Skipping malware signature ({$rule[0]}) because it only applies to the file beginning.");
-									continue;
+								continue;
+							}
+
+							$type = (isset($rule[4]) && !empty($rule[4])) ? $rule[4] : 'server';
+							$logOnly = (isset($rule[5]) && !empty($rule[5])) ? $rule[5] : false;
+							$commonStringIndexes = (isset($rule[8]) && is_array($rule[8])) ? $rule[8] : array();
+							if ($type == 'server' && !$treatAsBinary) { continue; }
+							else if (($type == 'both' || $type == 'browser') && $isJS) { $extraMsg = ''; }
+							else if (($type == 'both' || $type == 'browser') && !$treatAsBinary) { continue; }
+
+							if (!$first && substr($rule[2], 0, 1) == '^') {
+								//wordfence::status(4, 'info', "Skipping malware signature ({$rule[0]}) because it only applies to the file beginning.");
+								continue;
+							}
+
+							foreach ($commonStringIndexes as $i) {
+								if ($commonStringsFound[$i] === null) {
+									$s = $allCommonStrings[$i];
+									$commonStringsFound[$i] = (preg_match('/' . $s . '/i', $data) == 1);
 								}
-								
-								foreach ($commonStringIndexes as $i) {
-									if ($commonStringsFound[$i] === null) {
-										$s = $allCommonStrings[$i];
-										$commonStringsFound[$i] = (preg_match('/' . $s . '/i', $data) == 1);
-									}
-									
-									if (!$commonStringsFound[$i]) {
-										//wordfence::status(4, 'info', "Skipping malware signature ({$rule[0]}) due to short circuit.");
-										continue 2;
-									}
-								}
-								
-								/*if (count($commonStringIndexes) > 0) {
-									wordfence::status(4, 'info', "Processing malware signature ({$rule[0]}) because short circuit matched.");
-								}*/
-								
-								if (preg_match('/(' . $rule[2] . ')/iS', $data, $matches, PREG_OFFSET_CAPTURE)) {
-									$customMessage = isset($rule[9]) ? $rule[9] : __('This file appears to be installed or modified by a hacker to perform malicious activity. If you know about this file you can choose to ignore it to exclude it from future scans.', 'wordfence');
-									$matchString = $matches[1][0];
-									$matchOffset = $matches[1][1];
-									$beforeString = wfWAFUtils::substr($data, max(0, $matchOffset - 100), $matchOffset - max(0, $matchOffset - 100));
-									$afterString = wfWAFUtils::substr($data, $matchOffset + strlen($matchString), 100);
-									if (!$logOnly) {
-										$this->addResult(array(
-											'type' => 'file',
-											'severity' => wfIssues::SEVERITY_CRITICAL,
-											'ignoreP' => $record->realPath,
-											'ignoreC' => $fileSum,
-											'shortMsg' => sprintf(__('File appears to be malicious or unsafe: %s', 'wordfence'), esc_html($record->getDisplayPath())),
-											'longMsg' => $customMessage . ' ' . sprintf(__('The matched text in this file is: %s', 'wordfence'), '<strong style="color: #F00;" class="wf-split-word">' . wfUtils::potentialBinaryStringToHTML((wfUtils::strlen($matchString) > 200 ? wfUtils::substr($matchString, 0, 200) . '...' : $matchString)) . '</strong>') . ' ' . '<br><br>' . sprintf(/* translators: Scan result type. */ __('The issue type is: %s', 'wordfence'), '<strong>' . esc_html($rule[7]) . '</strong>') . '<br>' . sprintf(/* translators: Scan result description. */ __('Description: %s', 'wordfence'), '<strong>' . esc_html($rule[3]) . '</strong>') . $extraMsg,
-											'data' => array_merge(array(
-												'file' => $file,
-												'realFile' => $record->realPath,
-												'shac' => $record->SHAC,
-												'highSense' => $options['scansEnabled_highSense']
-											), $dataForFile),
-										));
-									}
-									$regexMatched = true;
-									$this->scanEngine->recordMetric('malwareSignature', $rule[0], array('file' => substr($file, 0, 255), 'match' => substr($matchString, 0, 65535), 'before' => $beforeString, 'after' => $afterString, 'md5' => $record->newMD5, 'shac' => $record->SHAC), false);
-									break;
-								}
-								
-								if ($forkObj->shouldFork()) {
-									$record->updateStoppedOn($rule[0], $currentPosition);
-									fclose($fh);
-									
-									wordfence::status(4, 'info', sprintf(/* translators: Malware signature rule ID. */ __('Forking during malware scan (%s) to ensure continuity.', 'wordfence'), $rule[0]));
-									$forkObj->fork(); //exits
+
+								if (!$commonStringsFound[$i]) {
+									//wordfence::status(4, 'info', "Skipping malware signature ({$rule[0]}) due to short circuit.");
+									continue 2;
 								}
 							}
-							if ($regexMatched) { break; }
+
+							/*if (count($commonStringIndexes) > 0) {
+								wordfence::status(4, 'info', "Processing malware signature ({$rule[0]}) because short circuit matched.");
+							}*/
+
+							if (preg_match('/(' . $rule[2] . ')/iS', $data, $matches, PREG_OFFSET_CAPTURE)) {
+								$customMessage = isset($rule[9]) ? $rule[9] : __('This file appears to be installed or modified by a hacker to perform malicious activity. If you know about this file you can choose to ignore it to exclude it from future scans.', 'wordfence');
+								$matchString = $matches[1][0];
+								$matchOffset = $matches[1][1];
+								$beforeString = wfWAFUtils::substr($data, max(0, $matchOffset - 100), $matchOffset - max(0, $matchOffset - 100));
+								$afterString = wfWAFUtils::substr($data, $matchOffset + strlen($matchString), 100);
+								if (!$logOnly) {
+									$this->addResult(array(
+										'type' => 'file',
+										'severity' => wfIssues::SEVERITY_CRITICAL,
+										'ignoreP' => $record->realPath,
+										'ignoreC' => $fileSum,
+										'shortMsg' => sprintf(__('File appears to be malicious or unsafe: %s', 'wordfence'), esc_html($record->getDisplayPath())),
+										'longMsg' => $customMessage . ' ' . sprintf(__('The matched text in this file is: %s', 'wordfence'), '<strong style="color: #F00;" class="wf-split-word">' . wfUtils::potentialBinaryStringToHTML((wfUtils::strlen($matchString) > 200 ? wfUtils::substr($matchString, 0, 200) . '...' : $matchString)) . '</strong>') . ' ' . '<br><br>' . sprintf(/* translators: Scan result type. */ __('The issue type is: %s', 'wordfence'), '<strong>' . esc_html($rule[7]) . '</strong>') . '<br>' . sprintf(/* translators: Scan result description. */ __('Description: %s', 'wordfence'), '<strong>' . esc_html($rule[3]) . '</strong>') . $extraMsg,
+										'data' => array_merge(array(
+											'file' => $file,
+											'realFile' => $record->realPath,
+											'shac' => $record->SHAC,
+											'highSense' => $options['scansEnabled_highSense']
+										), $dataForFile),
+									));
+								}
+								$regexMatched = true;
+								$this->scanEngine->recordMetric('malwareSignature', $rule[0], array('file' => substr($file, 0, 255), 'match' => substr($matchString, 0, 65535), 'before' => $beforeString, 'after' => $afterString, 'md5' => $record->newMD5, 'shac' => $record->SHAC), false);
+								break;
+							}
+
+							if ($forkObj->shouldFork()) {
+								$record->updateStoppedOn($rule[0], $currentPosition);
+								fclose($fh);
+
+								wordfence::status(4, 'info', sprintf(/* translators: Malware signature rule ID. */ __('Forking during malware scan (%s) to ensure continuity.', 'wordfence'), $rule[0]));
+								$forkObj->fork(); //exits
+							}
 						}
+						if ($regexMatched) { break; }
 						if ($treatAsBinary && $options['scansEnabled_highSense']) {
 							$badStringFound = false;
 							if (strpos($data, $this->patterns['badstrings'][0]) !== false) {

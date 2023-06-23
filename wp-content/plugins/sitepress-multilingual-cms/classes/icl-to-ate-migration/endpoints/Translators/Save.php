@@ -18,6 +18,8 @@ use function WPML\Container\make;
 use function WPML\FP\invoke;
 use function WPML\FP\partialRight;
 use WPML\TranslationRoles\SaveUser;
+use WPML_Language_Pair_Records;
+
 use function WPML\FP\pipe;
 
 class Save extends SaveUser {
@@ -48,9 +50,9 @@ class Save extends SaveUser {
 			$translator = \wpml_collect( $translator );
 
 			return self::getUser( \wpml_collect( $translator ) )
-				->map( Fns::tap( invoke( 'add_cap' )->with( \WPML_Translator_Role::CAPABILITY ) ) )
+				->map( Fns::tap( invoke( 'add_cap' )->with( \WPML\LIB\WP\User::CAP_TRANSLATE ) ) )
 				->map( Obj::prop( 'ID' ) )
-				->map( Fns::tap( partialRight( [ make( \WPML_Language_Pair_Records::class ), 'store_active' ], $translator->get( 'languagePairs' ) ) ) )
+				->map( Fns::tap( partialRight( [ make( WPML_Language_Pair_Records::class ), 'store_active' ], $translator->get( 'languagePairs' ) ) ) )
 				->bimap( $handleError, Fns::always( $translator->get( 'user' )['email'] ) );
 		};
 	}

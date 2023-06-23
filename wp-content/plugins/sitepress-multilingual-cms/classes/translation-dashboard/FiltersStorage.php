@@ -13,8 +13,9 @@ class FiltersStorage {
 	public static function get() {
 		$result = [];
 
-		if ( isset( $_COOKIE['wp-translation_dashboard_filter'] ) ) {
-			parse_str( Sanitize::stringProp( 'wp-translation_dashboard_filter', $_COOKIE ), $result );
+		$dashboard_filter = Sanitize::stringProp( 'wp-translation_dashboard_filter', $_COOKIE );
+		if ( $dashboard_filter ) {
+			parse_str( $dashboard_filter, $result );
 		}
 
 		return $result;

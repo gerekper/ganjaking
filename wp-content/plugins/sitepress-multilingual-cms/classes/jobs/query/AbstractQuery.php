@@ -192,6 +192,7 @@ abstract class AbstractQuery implements Query {
 		}
 
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_id() );
+		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_ids() );
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_local_job_ids() );
 		$query_builder->set_numeric_value_filter(
 			'original_translations.element_id',

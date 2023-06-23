@@ -3,10 +3,10 @@
 namespace OTGS\Installer\CommercialTab;
 
 class DownloadsList {
-	public static function getDownloadRow( $download_id, $download, $site_key, $repository_id, $checked = false ) {
+	public static function getDownloadRow( $download_id, $download, $site_key, $repository_id ) {
 		$url = OTGS_Installer()->append_site_key_to_download_url( $download['url'], $site_key, $repository_id );
 
-		$download_data = base64_encode( json_encode( [
+		$download_data = base64_encode( (string) json_encode( [
 			'url'           => $url,
 			'slug'          => $download['slug'],
 			'nonce'         => wp_create_nonce( 'install_plugin_' . $url ),
@@ -16,9 +16,6 @@ class DownloadsList {
 		$disabled = ( OTGS_Installer()->plugin_is_installed( $download['name'], $download['slug'], $download['version'] )
 		              && ! OTGS_Installer()->plugin_is_embedded_version( $download['name'], $download['slug'] )
 		              || OTGS_Installer()->dependencies->cant_download( $repository_id ) ) ? 'disabled="disabled"' : '';
-		$checked = $checked && $disabled === ''
-			? ' checked'
-			: '';
 
 		$upToDateClass = '';
 		if ( $v = OTGS_Installer()->plugin_is_installed( $download['name'], $download['slug'] ) ) {
@@ -57,7 +54,7 @@ class DownloadsList {
 		return '<tr>
 	                <td class="installer_checkbox">
 	                    <label>
-	                    <input type="checkbox" name="downloads[]" value="' . $download_data . '" data-slug="' . $download['slug'] . '" ' . $disabled . $checked .' />&nbsp;
+	                    <input type="checkbox" name="downloads[]" value="' . $download_data . '" data-slug="' . $download['slug'] . '" ' . $disabled . ' />&nbsp;
 	                    </label>
 	                </td>
 	                <td class="installer_plugin_name">' . $download['name'] . '</td>

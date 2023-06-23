@@ -2,18 +2,9 @@
 
 use WCML\Options\WPML;
 
-class WCML_Setup_Translation_Options_UI extends WCML_Templates_Factory {
+class WCML_Setup_Translation_Options_UI extends WCML_Setup_Step {
 
-	private $woocommerce_wpml;
-	private $next_step_url;
-
-	public function __construct( $woocommerce_wpml, $next_step_url ) {
-		parent::__construct();
-
-		$this->woocommerce_wpml = $woocommerce_wpml;
-		$this->next_step_url    = $next_step_url;
-
-	}
+	const SLUG = 'translation-options-1';
 
 	public function get_model() {
 
@@ -24,52 +15,26 @@ class WCML_Setup_Translation_Options_UI extends WCML_Templates_Factory {
 											&& 1 === $custom_posts_unlocked['product']
 											&& WPML_CONTENT_TYPE_DISPLAY_AS_IF_TRANSLATED === $custom_posts_sync['product'];
 
-		$model = [
-			'strings'                          => [
-				'step_id'                     => 'translation_options_step',
-				'heading'                     => __( 'Translation Options', 'woocommerce-multilingual' ),
-				'description'                 => __( 'How do you want to translate and display your products in secondary languages?', 'woocommerce-multilingual' ),
-				'tooltip_translate_everything' => sprintf(
-					/* translators: %1$s/%2$s are opening and closing HTML strong tags and %3$s/%4$s are opening and closing HTML link tags */
-					__( 'This option is only available when using %1$sTranslate Everything%2$s mode. %3$sRead More →%4$s', 'woocommerce-multilingual' ),
-					'<strong>',
-					'</strong>',
-					'<a target="blank" class="wpml-external-link" rel="noopener" href="' . WCML_Tracking_Link::getWcmlMainDoc( '#translating-your-products-automatically' ) . '">',
-					'</a>'
-				),
-				'label_translate_everything'  => __( 'Translate all products automatically as I create and edit them.', 'woocommerce-multilingual' ),
-				'label_translate_some'        => __( "I'll choose which products to translate. Only show translated products.", 'woocommerce-multilingual' ),
-				'label_display_as_translated' => sprintf(
-					/* translators: %1$s and %2$s are opening and closing HTML link tags */
-					__(
-						'I\'ll choose which products to translate. If products don\'t have translations, %1$sshow them as untranslated%2$s.',
-						'woocommerce-multilingual'
-					),
-					'<a target="blank" class="wpml-external-link" rel="noopener" href="' . WCML_Tracking_Link::getWcmlDisplayAsTranslatedDoc() . '">',
-					'</a>'
-				),
+		return [
+			'strings'                => [
+				'step_id'                          => 'translation_options_step',
+				'heading'                          => __( 'How do you want to translate your products?', 'woocommerce-multilingual' ),
+				'label_translate_everything'       => __( 'Translate all products automatically', 'woocommerce-multilingual' ),
+				'description_translate_everything' => __( 'WPML will start translating all your products for you right away.', 'woocommerce-multilingual' ),
+				'label_translate_some'             => __( 'Choose which products to translate', 'woocommerce-multilingual' ),
+				'description_translate_some'       => __( 'You can still use automatic translation, but you decide what gets translated and how.', 'woocommerce-multilingual' ),
 				/* translators: %1$s and %2$s are opening and closing HTML strong tags */
-				'description_footer'          => __( 'To change this later, go to %1$sWPML &raquo; Settings.%2$s', 'woocommerce-multilingual' ),
-				'continue'                    => __( 'Continue', 'woocommerce-multilingual' ),
+				'description_footer'               => __( 'You can change these settings later by going to %1$sWPML &raquo; Settings.%2$s', 'woocommerce-multilingual' ),
+				'label_choose'                     => __( 'Choose', 'woocommerce-multilingual' ),
+				'continue'                         => __( 'Continue', 'woocommerce-multilingual' ),
+				'go_back'                          => __( 'Go back', 'woocommerce-multilingual' ),
 			],
-			'is_translate_some_mode'           => ! WPML::shouldTranslateEverything(),
-			'is_display_as_translated_checked' => $is_display_as_translated_checked,
-			'continue_url'                     => $this->next_step_url,
-		];
-
-		return $model;
-
-	}
-
-	protected function init_template_base_dir() {
-		$this->template_paths = [
-			WCML_PLUGIN_PATH . '/templates/',
+			'continue_url'           => $this->next_step_url,
+			'go_back_url'            => $this->previous_step_url,
 		];
 	}
 
 	public function get_template() {
 		return '/setup/translation-options.twig';
 	}
-
-
 }

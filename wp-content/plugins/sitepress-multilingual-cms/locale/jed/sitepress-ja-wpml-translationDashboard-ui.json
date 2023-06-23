@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "自動翻訳を一時停止しようとしたときにエラーが発生しました。少したってからもう一度お試しいただくか、当社サポートまでお問い合わせください。"
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "どのように翻訳しますか？"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "コンテンツの自動翻訳は、主要言語 (%s) からほかの言語へのみが可能です。このページの上部にある言語切り替え機能を使用して、%s に切り替えてください。"
-         ],
          "Assign to a translator": [
             "翻訳者に割り当てる"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "翻訳クレジットがなくても、ご自身でコンテンツを翻訳することができます。"
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "サイトのデフォルト言語（英語）からサイトの他言語へのみ自動翻訳できます。続けるには、サイトの第2言語のコンテンツを選択解除してください。"
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "コンテンツの自動翻訳は、主要言語 (%s) からほかの言語へのみが可能です。このページの上部にある言語切り替え機能を使用して、%s に切り替えてください。"
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "この言語で作ったアイテムを含むコンテンツを選択してください。続けるには、他のアイテムは選択解除してください。"
+         ],
+         "Add to Translation Queue": [
+            "翻訳キューに追加する"
          ],
          "Select a post or page to translate": [
             "翻訳する記事またはページを選択する"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "選択されたコンテンツはすでに翻訳されています"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "サイトのデフォルト言語以外の言語にあるアイテムがコンテンツとして選択されました。"
          ],
          "Choose at least one translation action": [
             "翻訳アクションを一つ以上選択してください"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "翻訳バスケットに追加する"
          ],
-         "Add to Translation Queue": [
-            "翻訳キューに追加する"
-         ],
          "One more thing...": [
             "もうひとつ..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "何もしない"
          ],
-         "You need credits to use automatic translation.": [
-            "自動翻訳を利用するにはクレジットが必要です。"
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "翻訳者にコンテンツを割り当てるには、まず、[<a href=\"%s\" target=\"_blank\">翻訳者を追加</a>] または [<a href=\"%s\" target=\"_blank\">翻訳サービスに接続</a>] します。"
+         ],
+         "You need credits to use automatic translation.": [
+            "自動翻訳を利用するにはクレジットが必要です。"
          ],
          "Translators Tab": [
             "トランスレータータブ"

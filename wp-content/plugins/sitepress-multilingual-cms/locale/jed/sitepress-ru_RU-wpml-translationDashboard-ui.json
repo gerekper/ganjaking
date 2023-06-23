@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Произошла ошибка при попытке приостановить Автоматический перевод. Повторите попытку позже или свяжитесь с нашей службой поддержки."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "Как вы хотите перевести?"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "Вы можете переводить автоматически только контент с вашего основного языка (%s) на другие языки. Используйте переключатель языка в верхней части этой страницы, чтобы переключиться на %s."
-         ],
          "Assign to a translator": [
             "Назначить переводчику"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "Вам не нужны переводческие кредиты, чтобы перевести контент самостоятельно."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "Автоматический перевод применяется только к языку вашего сайта по умолчанию (английский) при переводе на другие языки. Исключите контент на других языках, чтобы продолжить."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "Вы можете переводить автоматически только контент с вашего основного языка (%s) на другие языки. Используйте переключатель языка в верхней части этой страницы, чтобы переключиться на %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "В выбранный контент включены элементы, созданные изначально на этом языке. Исключите эти элементы, чтобы продолжить."
+         ],
+         "Add to Translation Queue": [
+            "Добавить в Очередь переводов"
          ],
          "Select a post or page to translate": [
             "Выберите публикацию или страницу для перевода"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "Выбранный контент уже переведен"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "В выбранный контент включены элементы на других языках."
          ],
          "Choose at least one translation action": [
             "Выберите минимум одно действие перевода"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "Добавить в Корзину переводов"
          ],
-         "Add to Translation Queue": [
-            "Добавить в Очередь переводов"
-         ],
          "One more thing...": [
             "Еще кое-что..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "Ничего не делать"
          ],
-         "You need credits to use automatic translation.": [
-            "Вам нужны кредиты, чтобы использовать автоматический перевод."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "Чтобы назначить контент переводчику, сначала <a href=\"%s\" target=\"_blank\">добавьте переводчика</a> или <a href=\"%s\" target=\"_blank\">подключитесь к службе переводов</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "Вам нужны кредиты, чтобы использовать автоматический перевод."
          ],
          "Translators Tab": [
             "Вкладка «Переводчики»"

@@ -420,7 +420,7 @@ class WCML_WC_Strings {
 						// Prepend the shop page to shop breadcrumbs
 						if ( $key === 0 ) {
 
-							if ( $breadcrumbs[1][1] != get_post_type_archive_link( 'product' ) ) {
+							if ( isset( $breadcrumbs[1][1] ) && $breadcrumbs[1][1] != get_post_type_archive_link( 'product' ) ) {
 
 								if ( get_home_url() === $breadcrumbs[0][1] ) {
 									$breadcrumbs_buff[ $i ] = $breadcrumb;

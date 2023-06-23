@@ -32,7 +32,7 @@ class WPML_TM_Post_Edit_Notices_Factory {
 			new WPML_Translation_Element_Factory( $sitepress, new WPML_WP_Cache() ),
 			new WPML_TM_ATE(),
 			new WPML_TM_Rest_Job_Translator_Name(),
-			new WPML_TM_Rest_Jobs_Translation_Service( new WPML_WP_Cache() )
+			new WPML_TM_Rest_Jobs_Translation_Service()
 		);
 	}
 }

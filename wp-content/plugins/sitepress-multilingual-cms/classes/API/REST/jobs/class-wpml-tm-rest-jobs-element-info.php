@@ -129,7 +129,7 @@ class WPML_TM_Rest_Jobs_Element_Info {
 		$generalType = substr(
 			$job->get_element_type(),
 			0,
-			strpos( $job->get_element_type(), '_' )
+			strpos( $job->get_element_type(), '_' ) ?: 0
 		);
 
 		switch ( $generalType ) {

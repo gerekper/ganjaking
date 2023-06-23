@@ -79,15 +79,22 @@ class WC_Points_Rewards_Extend_Store_Endpoint {
 	 */
 	public static function extend_cart_data() {
 		global $wc_points_rewards;
-		$cart_max_points               = (int) $wc_points_rewards->cart->calculate_cart_max_points();
+
+		$wc_points_rewards_cart = $wc_points_rewards->get( 'cart' );
+
+		if ( ! $wc_points_rewards_cart instanceof WC_Points_Rewards_Cart_Checkout ) {
+			return [];
+		}
+
+		$cart_max_points               = (int) $wc_points_rewards_cart->calculate_cart_max_points();
 		$data                          = [
 			'cart_max_points' => $cart_max_points,
 		];
 		$redeem_points_message         = wp_strip_all_tags(
-			$wc_points_rewards->cart->generate_redeem_points_message()
+			$wc_points_rewards_cart->generate_redeem_points_message()
 		);
 		$earn_points_message           = wp_strip_all_tags(
-			$wc_points_rewards->cart->generate_earn_points_message(),
+			$wc_points_rewards_cart->generate_earn_points_message(),
 			'<a><b><strong><i><em><small><sub><del><ins><mark><sup><h1><h2><h3><h4><h5><h6><img>'
 		);
 		$data['earn_points_message']   = null !== $earn_points_message ? $earn_points_message : '';

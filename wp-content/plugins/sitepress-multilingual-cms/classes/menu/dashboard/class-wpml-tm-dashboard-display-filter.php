@@ -324,7 +324,10 @@ class WPML_TM_Dashboard_Display_Filter {
                 <?php _e( 'Translate other content', 'wpml-translation-management' ); ?>
             </h2>
             <p class="wpml-tm-dashboard-paragraph-extra-space-bottom">
-                <?php echo sprintf( __( 'WPML is automatically translating published %s.', 'wpml-translation-management' ), $postTypes ); ?>
+			<?php
+			/** @phpstan-ignore-next-line */
+			echo sprintf( __( 'WPML is automatically translating published %s.', 'wpml-translation-management' ), $postTypes );
+			?>
                 <br />
                 <?php _e( 'To translate other content, select your items for translation and your preferred translation options below.', 'wpml-translation-management' ); ?>
             </p>

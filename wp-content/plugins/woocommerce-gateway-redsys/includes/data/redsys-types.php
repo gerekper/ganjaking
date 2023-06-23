@@ -29,5 +29,6 @@ function redsys_return_types() {
 		'directdebitredsys',
 		'webserviceredsys',
 		'paygold',
+		'bizumcheckout',
 	);
 }

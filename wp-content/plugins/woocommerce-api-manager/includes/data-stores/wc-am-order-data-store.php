@@ -582,6 +582,7 @@ class WC_AM_Order_Data_Store {
 	 * @param int $order_id
 	 *
 	 * @return array
+	 * @throws \Exception
 	 */
 	public function get_line_item_data_from_order( $order_id ) {
 		$values = array();
@@ -593,6 +594,10 @@ class WC_AM_Order_Data_Store {
 
 			if ( WC_AM_FORMAT()->count( $get_items ) > 0 ) {
 				foreach ( $get_items as $item_id => $item ) {
+					// Line item has been renewed on a new order, so this API Resource has expired.
+					if ( ! empty( wc_get_order_item_meta( $item_id, '_wc_am_is_expired_api_resource' ) ) ) {
+						continue;
+					}
 					/**
 					 * $item->get_id() is the order_item_id.
 					 */
@@ -620,17 +625,21 @@ class WC_AM_Order_Data_Store {
 								continue;
 							}
 
-							$values[ 'user_id' ]           = $this->get_customer_id( $order );
-							$values[ 'order_item_id' ]     = ! empty( $item_id ) ? (int) $item_id : 0;
-							$values[ 'variation_id' ]      = $variation_id;
-							$values[ 'parent_id' ]         = $parent_product_id;
-							$values[ 'product_id' ]        = $product_id;
-							$values[ 'access_expires' ]    = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $values[ 'product_id' ] );
-							$api_product_activations       = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
-							$values[ 'api_activations' ]   = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
-							$product_object                = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
-							$values[ 'product_title' ]     = is_object( $product_object ) ? $product_object->get_title() : '';
-							$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
+							// Add time remaing from old access expires if this is a renewal item.
+							$old_access_expires = wc_get_order_item_meta( $item_id, '_wc_am_access_expires_time_to_add' );
+
+							$values[ 'user_id' ]            = $this->get_customer_id( $order );
+							$values[ 'order_item_id' ]      = ! empty( $item_id ) ? (int) $item_id : 0;
+							$values[ 'variation_id' ]       = $variation_id;
+							$values[ 'parent_id' ]          = $parent_product_id;
+							$values[ 'product_id' ]         = $product_id;
+							$values[ 'access_expires' ]     = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $values[ 'product_id' ] );
+							$values[ 'old_access_expires' ] = ( ! empty( $old_access_expires ) ) ? $old_access_expires : 0;
+							$api_product_activations        = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
+							$values[ 'api_activations' ]    = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
+							$product_object                 = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
+							$values[ 'product_title' ]      = is_object( $product_object ) ? $product_object->get_title() : '';
+							$values[ 'activations_total' ]  = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
 
 							if ( empty( $values[ 'api_activations' ] ) ) {
 								$values[ 'api_activations' ]   = apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );

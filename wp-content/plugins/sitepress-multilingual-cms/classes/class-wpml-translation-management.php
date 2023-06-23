@@ -2,6 +2,7 @@
 
 use WPML\TM\ATE\ClonedSites\Lock as AteApiLock;
 use function WPML\Container\make;
+use WPML\LIB\WP\User;
 
 /**
  * Class WPML_Translation_Management
@@ -59,13 +60,10 @@ class WPML_Translation_Management {
 	public function init() {
 		global $wpdb;
 
-		$this->disableAllAdminNotices();
+		$this->disableAllNonWPMLNotices();
 
 		$template_service_loader        = new WPML_Twig_Template_Loader( array( WPML_TM_PATH . '/templates/tm-menus/' ) );
-		$wp_roles                       = wp_roles();
-		$manager_records                = new WPML_Translation_Manager_Records( $wpdb, new WPML_WP_User_Query_Factory(), $wp_roles );
-		$translator_records             = new WPML_Translator_Records( $wpdb, new WPML_WP_User_Query_Factory(), $wp_roles );
-		$this->wpml_tm_menus_management = new WPML_TM_Menus_Management( $template_service_loader->get_template(), $manager_records, $translator_records );
+		$this->wpml_tm_menus_management = new WPML_TM_Menus_Management( $template_service_loader->get_template() );
 
 		$mcs_factory = new WPML_TM_Scripts_Factory();
 		$mcs_factory->init_hooks();
@@ -320,13 +318,11 @@ class WPML_Translation_Management {
 		}
 		$menu_label = __( 'Translation Management', 'wpml-translation-management' );
 
-		$is_translation_manager = current_user_can( WPML_Manage_Translations_Role::CAPABILITY );
-
 		$menu               = array();
 		$menu['order']      = 90;
 		$menu['page_title'] = $menu_label;
 		$menu['menu_title'] = $menu_label;
-		$menu['capability'] = $is_translation_manager ? WPML_Manage_Translations_Role::CAPABILITY : 'wpml_manage_translation_management';
+		$menu['capability'] = $this->get_required_cap_based_on_current_user_role();
 		$menu['menu_slug']  = WPML_TM_FOLDER . self::PAGE_SLUG_MANAGEMENT;
 		$menu['function']   = array( $this, 'management_page' );
 
@@ -348,14 +344,8 @@ class WPML_Translation_Management {
 		if ( 'WPML' !== $menu_id ) {
 			return;
 		}
-		$wp_api = $this->sitepress->get_wp_api();
 
-		$is_translation_manager = $wp_api->current_user_can( WPML_Manage_Translations_Role::CAPABILITY );
-
-		$can_manage_translation_management = $is_translation_manager ||
-											 $wp_api->current_user_can( 'wpml_manage_translation_management' );
-		$has_language_pairs                = (bool) $this->tm_instance->get_current_translator()->language_pairs
-											 === true;
+		$can_manage_translation_management = User::canManageTranslations() || User::hasCap( User::CAP_MANAGE_TRANSLATION_MANAGEMENT );
 
 		$menu               = array();
 		$menu['order']      = 400;
@@ -366,10 +356,11 @@ class WPML_Translation_Management {
 		$menu['icon_url']   = ICL_PLUGIN_URL . '/res/img/icon16.png';
 
 		if ( $can_manage_translation_management ) {
-			$menu['capability'] = $is_translation_manager ? WPML_Manage_Translations_Role::CAPABILITY : 'wpml_manage_translation_management';
+			$menu['capability'] = $this->get_required_cap_based_on_current_user_role();
 			do_action( 'wpml_admin_menu_register_item', $menu );
 		} else {
-			$menu['capability'] = $has_language_pairs ? WPML_Translator_Role::CAPABILITY : '';
+			$has_language_pairs = (bool) $this->tm_instance->get_current_translator()->language_pairs;
+			$menu['capability'] = $has_language_pairs ? User::CAP_TRANSLATE : '';
 			$menu               = apply_filters( 'wpml_menu_page', $menu );
 			do_action( 'wpml_admin_menu_register_item', $menu );
 		}
@@ -398,13 +389,11 @@ class WPML_Translation_Management {
 		}
 		$menu_label = __( 'Settings', 'wpml-translation-management' );
 
-		$is_translation_manager = current_user_can( WPML_Manage_Translations_Role::CAPABILITY );
-
 		$menu               = array();
 		$menu['order']      = 9900; // see WPML_Main_Admin_Menu::MENU_ORDER_SETTINGS
 		$menu['page_title'] = $menu_label;
 		$menu['menu_title'] = $menu_label;
-		$menu['capability'] = $is_translation_manager ? WPML_Manage_Translations_Role::CAPABILITY : 'wpml_manage_translation_management';
+		$menu['capability'] = $this->get_required_cap_based_on_current_user_role();
 		$menu['menu_slug']  = WPML_TM_FOLDER . self::PAGE_SLUG_SETTINGS;
 		$menu['function']   = array( $this, 'settings_page' );
 
@@ -630,12 +619,12 @@ class WPML_Translation_Management {
 	private function add_pre_tm_init_admin_hooks() {
 		add_action( 'init', array( $this, 'automatic_service_selection_action' ) );
 		add_action( 'translation_service_authentication', array( $this, 'translation_service_authentication' ) );
-		add_action( 'trashed_post', array( $this, 'trashed_post_actions' ), 10, 2 );
+		add_action( 'trashed_post', array( $this, 'trashed_post_actions' ), 10, 1 );
 		add_action( 'wp_ajax_wpml-flush-website-details-cache', array( 'TranslationProxy_Translator', 'flush_website_details_cache_action' ) );
-		add_action( 'wpml_updated_translation_status', array( 'TranslationProxy_Batch', 'maybe_assign_generic_batch' ), 10, 2 );
+		add_action( 'wpml_updated_translation_status', array( 'TranslationProxy_Batch', 'maybe_assign_generic_batch' ), 10, 1 );
 
 		add_filter( 'translation_service_js_data', array( $this, 'translation_service_js_data' ) );
-		add_filter( 'wpml_string_status_text', array( 'WPML_Remote_String_Translation', 'string_status_text_filter' ), 10, 3 );
+		add_filter( 'wpml_string_status_text', array( 'WPML_Remote_String_Translation', 'string_status_text_filter' ), 10, 2 );
 	}
 
 	/**
@@ -730,21 +719,45 @@ class WPML_Translation_Management {
 	 *
 	 * Nevertheless, there are a few cases when we want to make an exception.
 	 *
-	 * The first one is for the message displayed by Installer, when a site is moved to the new URL. We ask the user whether it is moved site or a clone.
-	 * It is checked by `AteApiLock::isLocked()` condition.
+	 * Therefore, we load all notices which are defined by WPML via "wpml_get_admin_notices()" interface.
+	 * Moreover, you can enforce a notice to be displayed by adding it to the "wpml_tm_dashboard_notices" filter.
 	 *
 	 * Additionally, we have the cases when TM Dashboard is completely disabled. In this case, we want to display the notice about it.
 	 * It is checked by `apply_filters( 'wpml_tm_lock_ui', false )` condition.
 	 *
 	 * @return void
 	 */
-	private function disableAllAdminNotices() {
-		if ( \WPML\UIPage::isTMDashboard( $_GET ) && ! AteApiLock::isLocked() ) {
+	private function disableAllNonWPMLNotices() {
+		if ( \WPML\UIPage::isTMDashboard( $_GET ) ) {
 			add_action( 'admin_head', function () {
 				if ( ! apply_filters( 'wpml_tm_lock_ui', false ) ) {
 					remove_all_actions( 'admin_notices' );
+					wpml_get_admin_notices()->add_admin_notices_action(); // Restore WPML admin notices.
+
+					foreach ( (array) apply_filters( 'wpml_tm_dashboard_notices', [] ) as $notice ) {
+						if ( is_callable( $notice ) ) {
+							add_action( 'admin_notices', $notice );
+						}
+					}
 				}
 			}, 1 );
 		}
+	}
+
+	/**
+	 * If a user should have either "administrator" or "manage_translations" or "wpml_manage_translation_management" capability
+	 * to access a TM Dashboard tab.
+	 *
+	 * @return string
+	 */
+	private function get_required_cap_based_on_current_user_role() {
+		$capability = User::CAP_MANAGE_TRANSLATION_MANAGEMENT;
+		if ( User::hasCap( User::CAP_ADMINISTRATOR ) ) {
+			$capability = User::CAP_ADMINISTRATOR;
+		} else if ( User::hasCap( User::CAP_MANAGE_TRANSLATIONS ) ) {
+			$capability = User::CAP_MANAGE_TRANSLATIONS;
+		}
+
+		return $capability;
 	}
 }

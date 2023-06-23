@@ -265,7 +265,7 @@ abstract class WPML_Element_Translation extends WPML_WPDB_User {
 					$element_id
 				);
 			}
-			$sql      = $this->build_sql( $trid_snippet );
+			$sql      = $this->build_sql( (string) $trid_snippet );
 			$elements = $this->wpdb->get_results( $sql, ARRAY_A );
 			$this->populate_cache( $elements );
 			if ( $element_id && ! isset( $this->translations[ $element_id ] ) ) {

@@ -35,6 +35,10 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 
 		Hooks::onFilter( 'user_has_cap', 10, 3 )
 		     ->then( spreadArgs( function ( $userCaps, $requiredCaps, $args ) {
+				 /** @var array $userCaps */
+				 /** @var array $requiredCaps */
+				 /** @var array $args */
+
 			     if ( Relation::propEq( 0, 'edit_post', $args ) ) {
 				     $translator = Translators::getCurrent();
 
@@ -64,6 +68,10 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 
 			     return $allowedTranslators;
 		     } ) );
+
+		if ( $this->isCurrentPageReviewPostTypeTemplate() ) {
+			Hooks::onFilter( 'pre_render_block', 10, 2 )->then( spreadArgs( [ $this, 'onPreRenderBlock' ] ) );
+		}
 	}
 
 	private static function canEditLanguage( $translator, $job ) {
@@ -172,7 +180,7 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 				'completedInATE'      => $this->isCompletedInATE( $_GET ),
 				'isReturningFromATE'  => (bool) Obj::prop( 'editFromReviewPage', $_GET ),
 				'clickedBackInATE'    => (bool) Obj::prop( 'back', $_GET ),
-				'needsUpdate'         => Relation::propEq( 'review_status', ReviewStatus::EDITING, $job ),
+				'needsUpdate'         => is_object( $job ) ? Relation::propEq( 'review_status', ReviewStatus::EDITING, $job ) : false,
 				'previousTranslation' => Sanitize::stringProp( 'previousTranslation', $_GET ),
 				'backUrl'             => Obj::prop( 'returnUrl', $_GET ),
 				'endpoints'           => [
@@ -184,7 +192,10 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 	}
 
 	/**
-	 * @param array{complete_no_changes: string|null} $params
+	 * Returns completed status based on key 'complete_no_changes' in $params.
+	 * Returns NOT_COMPLETED if 'complete_no_changes' is not set.
+	 *
+	 * @param array $params
 	 *
 	 * @return string
 	 */
@@ -240,5 +251,33 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 		$returnParam = \add_query_arg( [ 'editFromReviewPage' => 1 ], $returnParam );
 
 		return $returnParam;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isCurrentPageReviewPostTypeTemplate() {
+		$queryVars = [];
+		if ( isset( $_SERVER['QUERY_STRING'] ) ) {
+			parse_str( $_SERVER['QUERY_STRING'], $queryVars );
+		}
+
+		return Obj::has( 'wpmlReviewPostType', $queryVars ) && 'wp_template' === $queryVars['wpmlReviewPostType'];
+	}
+
+	/**
+	 * This filter is called from WP core /wp-includes/blocks.php right before block is rendered.
+	 * If anything other than null is returned from this filter that value is used as final block rendered value without calling actual block render function.
+	 *
+	 * @param string|null $preRenderedContent Pre-rendered context for the block.
+	 * @param array       $blockParams Block params being rendered.
+	 *
+	 * @return string|null $context
+	 */
+	public function onPreRenderBlock( $preRenderedContent, $blockParams ) {
+		// Fixes error 'postId is not defined' in WP core when context vars are removed for posts with 'wp_template' type.
+		if ( is_array( $blockParams ) && 'core/comments' === $blockParams['blockName'] && $this->isCurrentPageReviewPostTypeTemplate() ) {
+			return '';
+		}
 	}
 }

@@ -67,7 +67,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @used-by WC_Booking_Cart_Manager::validate_booking_order()
 	 *
-	 * @since x.x.x
+	 * @since 1.15.76
 	 *
 	 * @var bool TRUE will include in-cart booking and FALSE will exclude in-car booking. Default: TRUE
 	 */
@@ -79,7 +79,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @used-by WC_Booking_Cart_Manager::validate_booking_order()
 	 *
-	 * @since   x.x.x
+	 * @since   1.15.76
 	 *
 	 * @var WC_Booking[].
 	 */
@@ -1532,7 +1532,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	/**
 	 * Check the resources availability against all the blocks.
 	 *
-	 * @since x.x.x Pass check_in_cart booking product property value.
+	 * @since 1.15.76 Pass check_in_cart booking product property value.
 	 *              Include checkout bookings in the query, if $confirmed_checkout_order_item set.
 	 *              This help to check if the booking is available for the same time slot.
 	 *
@@ -2119,7 +2119,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	/**
 	 * Returns available blocks from a range of blocks by looking at existing bookings.
 	 *
-	 * @since   x.x.x Pass check_in_cart booking product property value.
+	 * @since   1.15.76 Pass check_in_cart booking product property value.
 	 *              Include checkout bookings in the query, if $confirmed_checkout_order_item set.
 	 *              This help to check if the booking is available for the same time slot.
 	 *
@@ -2322,7 +2322,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	/**
 	 * Get existing bookings in a given date range
 	 *
-	 * @since x.x.x Pass check_in_cart booking product property value.
+	 * @since 1.15.76 Pass check_in_cart booking product property value.
 	 *              Include checkout bookings in the query, if $confirmed_checkout_order_item set.
 	 *              This help to check if the booking is available for the same time slot.
 	 *

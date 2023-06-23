@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "自動翻訳を一時停止しようとしたときにエラーが発生しました。少したってからもう一度お試しいただくか、当社サポートまでお問い合わせください。"
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "何を翻訳するか、誰が翻訳するかを決定できます"
          ],
-         "Translate it yourself": [
+         "Translate yourself": [
             "自分で翻訳する"
          ],
-         "Assign it to translators that are users of your site": [
-            "サイトのユーザーである翻訳者に割り当てる"
+         "Use automatic translation on the content you choose": [
+            "選択したコンテンツに自動翻訳を使用する"
          ],
-         "Send it to a professional translation service": [
-            "プロの翻訳サービスに送信する"
+         "Work with translators that are users of your site": [
+            "あなたのサイトのユーザーである翻訳者と一緒に取り組む"
          ],
          "or": [
             "または"
          ],
-         "Translate it automatically using machine translation": [
-            "機械翻訳で自動的に翻訳する"
+         "Send to professional translation services": [
+            "専門翻訳サービスに送る"
          ],
          "Save settings": [
             "設定を保存する"
@@ -484,6 +483,12 @@
          "Learn more": [
             "詳しい情報を学ぶ"
          ],
+         "On": [
+            "オン"
+         ],
+         "Off": [
+            "オフ"
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "コンテンツを自動的に翻訳する場合は、<b>高度な翻訳エディター</b>を使用する必要があります。"
          ],
@@ -505,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "WPML に翻訳を任せます。"
          ],
-         "You need to have a valid account in order to continue.": [
-            "続行するには、有効なアカウントが必要です。"
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "自動翻訳を使用するには、 <a>利用時払いに登録する</a> か <a2>サイトにクレジットを割り当ててください</a2>。"
          ],
          "There was an error when loading the credit wizard.": [
             "クレジット ウィザードの読み込み中にエラーが発生しました。"

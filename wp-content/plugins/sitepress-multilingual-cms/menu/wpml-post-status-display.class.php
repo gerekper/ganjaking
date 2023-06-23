@@ -104,7 +104,7 @@ class WPML_Post_Status_Display {
 		 *
 		 * @since 4.2.0
 		 *
-		 * @param string HTML link
+		 * @param string $html_link
 		 * @param int    $post_id
 		 * @param string $lang
 		 * @param int    $trid
@@ -143,11 +143,12 @@ class WPML_Post_Status_Display {
 		 *
 		 * @deprecated since 4.2.0, use `wpml_css_class_to_translation` instead
 		 *
-		 * @param string $old_icon
-		 * @param int    $post_id
-		 * @param string $lang
-		 * @param int    $trid
-		 * @param string $css_class
+		 * @param string|false $old_icon
+		 * @param int          $post_id
+		 * @param string       $lang
+		 * @param int          $trid
+		 * @param string       $css_class
+		 *
 		 */
 		$old_icon = apply_filters( 'wpml_icon_to_translation', $old_icon, $post_id, $lang, $trid, $css_class );
 

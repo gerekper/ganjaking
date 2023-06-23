@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Sending for translation": [
             "Ter vertalingen versturen"
@@ -72,6 +71,9 @@
          "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
             "Je taal, %s, moet gekoppeld zijn aan een ondersteunde taal om automatische vertaling te kunnen gebruiken.",
             "De volgende talen op je site moeten worden gekoppeld aan een ondersteunde taal om automatische vertaling te kunnen gebruiken: %s"
+         ],
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            "Inhoud in die talen: %s, kan niet automatisch worden vertaald, tenzij je ze in een andere taal dan de standaardtaal omzet."
          ],
          "%d translation waiting for review": [
             "%d vertaling wacht op controle",

@@ -44,8 +44,10 @@ jQuery(function($){
         'add_new_attribute',
         'product_attributes .remove_row',
         'add_attribute',
+        'add_custom_attribute',
         'select_all_attributes',
         'select_no_attributes',
+        'wc-attribute-search',
         'edit-visibility'
     ];
     buttons = buttons.concat( non_standard_fields.classes );

@@ -960,7 +960,8 @@ class WC_AM_API_Resource_Data_Store {
 	/**
 	 * Returns the API Resource if and only if it is active.
 	 *
-	 * @since 2.5.5
+	 * @since   2.5.5
+	 * @updated 3.0 To apply grace period to WC and AM Subscriptions.
 	 *
 	 * @param array $resource
 	 *
@@ -970,7 +971,6 @@ class WC_AM_API_Resource_Data_Store {
 	private function get_active_resource( $resource ) {
 		$is_wc_sub            = false;
 		$is_expired           = WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires );
-		$grace_period_exists  = WC_AM_GRACE_PERIOD()->exists( $resource->api_resource_id );
 		$grace_period_expired = WC_AM_GRACE_PERIOD()->is_expired( $resource->api_resource_id );
 
 		/**
@@ -1007,39 +1007,31 @@ class WC_AM_API_Resource_Data_Store {
 		}
 
 		// Delete activations for expired non-Subscription API Keys.
-		if ( $is_expired ) {
-			if ( $grace_period_exists && $grace_period_expired ) {
-				WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
-				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
-				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
-			} elseif ( ! $grace_period_exists ) {
-				WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
-				$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
-			}
-
+		if ( $is_expired && $grace_period_expired ) {
+			WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
+			WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
+			$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
 			$this->delete_inactive_resource_cache( $resource );
 
 			return array();
-		} elseif ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) && $is_wc_sub ) {
+		} elseif ( WCAM()->get_wc_subs_exist() && ! empty( $resource->sub_id ) && $is_wc_sub && ! empty( $resource->sub_item_id ) ) {
 			$is_item_on_sub = WC_AM_SUBSCRIPTION()->is_subscription_line_item_on_subscription( $resource->sub_item_id, $resource->sub_id );
 			$is_active      = WC_AM_SUBSCRIPTION()->is_subscription_for_order_active( $resource->sub_id );
 
 			// Delete activations for expired Subscription API Keys, or removed line items.
-			if ( ! $is_item_on_sub || ! $is_active ) {
-				if ( $grace_period_exists && $grace_period_expired ) {
+			if ( $is_item_on_sub && $is_active ) {
+				return $resource;
+			} elseif ( ! $is_item_on_sub || ! $is_active ) {
+				if ( $grace_period_expired ) {
 					WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $resource->api_resource_id );
 					WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
 					$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
-				} elseif ( ! $grace_period_exists ) {
-					WC_AM_API_ACTIVATION_DATA_STORE()->delete_all_api_key_activations_by_api_resource_id( $resource->api_resource_id );
-					$this->delete_api_resource_by_api_resource_id( $resource->api_resource_id );
+					$this->delete_inactive_resource_cache( $resource );
 				}
-
-				$this->delete_inactive_resource_cache( $resource );
-			} elseif ( $is_item_on_sub && $is_active ) {
-				return $resource;
 			}
-		} elseif ( ! $is_expired ) {
+		} elseif ( $is_expired && ! $grace_period_expired ) {
+			return $resource;
+		} elseif ( ! $is_expired && ! $grace_period_expired ) {
 			return $resource;
 		}
 
@@ -1175,10 +1167,12 @@ class WC_AM_API_Resource_Data_Store {
 	 * @param int $order_id
 	 * @param int $product_id
 	 *
-	 * @return false|int
+	 * @return false|object
 	 */
 	public function get_item_quantity_and_refund_quantity_by_order_id_and_product_id( $order_id, $product_id ) {
-		$this->get_api_resource_by_order_id_and_product_id( $order_id, $product_id );
+		_deprecated_function( 'WC_AM_FORMAT()->get_item_quantity_and_refund_quantity_by_order_id_and_product_id()', '3.0', 'WC_AM_FORMAT()->get_api_resource_by_order_id_and_product_id()' );
+
+		return $this->get_api_resource_by_order_id_and_product_id( $order_id, $product_id );
 	}
 
 	/**
@@ -1189,7 +1183,7 @@ class WC_AM_API_Resource_Data_Store {
 	 * @param int $order_id
 	 * @param int $product_id
 	 *
-	 * @return false|int
+	 * @return false|object
 	 */
 	public function get_api_resource_by_order_id_and_product_id( $order_id, $product_id ) {
 		global $wpdb;
@@ -1844,7 +1838,50 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
-	 * Return true if has Product ID and Order ID.
+	 * Returns an object of api_resource_ids that will expire before a given date.
+	 *
+	 * @since 3.0
+	 *
+	 * @param int $number_of_days Number of days before expiration.
+	 *
+	 * @return object|false
+	 */
+	public function get_api_resource_ids_by_access_expires_number_of_days_before_expiration( $number_of_days ) {
+		global $wpdb;
+
+		$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
+			SELECT api_resource_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE TIMESTAMPDIFF(DAY, NOW(), FROM_UNIXTIME(access_expires) ) = %d
+			
+		", $number_of_days ) );
+
+		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+	}
+
+	/**
+	 * Returns an object of api_resource_ids a number of days after the expiration date.
+	 *
+	 * @since 3.0
+	 *
+	 * @param int $number_of_days Number of days after expiration.
+	 *
+	 * @return object|false
+	 */
+	public function get_api_resource_ids_by_access_expires_number_of_days_after_expiration( $number_of_days ) {
+		global $wpdb;
+
+		$api_resource_ids = $wpdb->get_results( $wpdb->prepare( "
+			SELECT api_resource_id
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE TIMESTAMPDIFF(DAY, NOW() - INTERVAL 1 DAY, FROM_UNIXTIME(access_expires) ) = %d
+		", $number_of_days ) );
+
+		return ! WC_AM_FORMAT()->empty( $api_resource_ids ) ? $api_resource_ids : false;
+	}
+
+	/**
+	 * Return true there is a Product ID and Order ID.
 	 *
 	 * @since 2.4.3
 	 *

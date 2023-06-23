@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 26-May-2023 using Strauss.
+ * Modified by woocommerce on 14-June-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 declare(strict_types=1);

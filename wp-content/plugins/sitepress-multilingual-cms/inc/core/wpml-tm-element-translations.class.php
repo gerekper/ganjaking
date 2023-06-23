@@ -144,7 +144,7 @@ class WPML_TM_Element_Translations extends WPML_TM_Record_User {
 			$element_type_prefix = $this->fallback_type_prefix( $trid );
 		}
 
-		$this->cache_job( $trid, $lang, $job_id, $status, $needs_update, $element_type_prefix );
+		$this->cache_job( (int) $trid, $lang, $job_id, $status, $needs_update, $element_type_prefix );
 
 		return $res;
 	}

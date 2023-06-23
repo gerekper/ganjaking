@@ -61,8 +61,8 @@ class WC_AM_Download_Handler {
 			$this->download_error( esc_html__( 'Invalid download link.', 'woocommerce-api-manager' ) );
 		}
 
-		$hash_name = $_GET[ 'hname' ];
-		$password  = $_GET[ 'hkey' ];
+		$hash_name = wc_clean( $_GET[ 'hname' ] );
+		$password  = wc_clean( $_GET[ 'hkey' ] );
 		$expires   = (int) $_GET[ 'hexpires' ];
 
 		// Check if hash is expired.
@@ -600,7 +600,7 @@ class WC_AM_Download_Handler {
 			$message .= ' <a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward">' . esc_html__( 'Go to shop', 'woocommerce-api-manager' ) . '</a>';
 		}
 
-		wp_die( $message, $title, array( 'response' => $status ) );
+		wp_die( $message, esc_html( $title ), array( 'response' => esc_html( $status ) ) );
 	}
 
 } // end of class

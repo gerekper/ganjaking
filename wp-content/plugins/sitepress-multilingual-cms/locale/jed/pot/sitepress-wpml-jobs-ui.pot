@@ -326,16 +326,16 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: src/js/jobs/components/columns.js:108
+#: src/js/jobs/components/columns.js:113
 #: src/js/jobs/model/store/columnsManagement.js:90
 msgid "Batch name"
 msgstr ""
 
-#: src/js/jobs/components/columns.js:175
+#: src/js/jobs/components/columns.js:184
 msgid "Filter by %s"
 msgstr ""
 
-#: src/js/jobs/components/columns.js:64
+#: src/js/jobs/components/columns.js:66
 #: src/js/jobs/model/store/columnsManagement.js:71
 msgid "Title"
 msgstr ""
@@ -537,10 +537,16 @@ msgstr ""
 msgid "Synchronization with the Professional Translation service has failed"
 msgstr ""
 
-#: src/js/jobs/model/store/translationBatchSync.js:19
+#: src/js/jobs/model/store/translationBatchSync.js:68
+msgid "%d translation has been downloaded"
+msgid_plural "%d translations have been downloaded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/js/jobs/model/store/translationBatchSync.js:83
 msgid "Batch sync finished successfully!"
 msgstr ""
 
-#: src/js/jobs/model/store/translationBatchSync.js:22
+#: src/js/jobs/model/store/translationBatchSync.js:88
 msgid "Batch sync couldn't be finished"
 msgstr ""

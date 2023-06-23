@@ -24,6 +24,8 @@ class WCML_Tracking_Link {
 	const WCML_SUBSCRIPTIONS_DOC       = 'https://wpml.org/documentation/woocommerce-extensions-compatibility/translating-woocommerce-subscriptions-woocommerce-multilingual/';
 	const WCML_CUSTOM_PRODUCT_TABS     = 'https://wpml.org/plugin/custom-product-tabs-for-woocommerce/';
 
+	const UTM_TERM_WIZARD = 'wcml-setup-wizard';
+
 	/**
 	 * @param string       $link
 	 * @param string|false $id     e.g. '#some-section'.
@@ -106,20 +108,22 @@ class WCML_Tracking_Link {
 
 	/**
 	 * @param false|string $id e.g. '#some-section'.
+	 * @param array        $params
 	 *
 	 * @return string
 	 */
-	public static function getWcmlMainDoc( $id = false ) {
-		return self::generate( self::WCML_MAIN_DOC, $id );
+	public static function getWcmlMainDoc( $id = false, $params = [] ) {
+		return self::generate( self::WCML_MAIN_DOC, $id, $params );
 	}
 
 	/**
 	 * @param false|string $id e.g. '#some-section'.
+	 * @param array        $params
 	 *
 	 * @return string
 	 */
-	public static function getWcmlMultiCurrencyDoc( $id = false ) {
-		return self::generate( self::WCML_MULTI_CURRENCY_DOC, $id );
+	public static function getWcmlMultiCurrencyDoc( $id = false, $params = [] ) {
+		return self::generate( self::WCML_MULTI_CURRENCY_DOC, $id, $params );
 	}
 
 	/**
@@ -130,10 +134,12 @@ class WCML_Tracking_Link {
 	}
 
 	/**
+	 * @param array $params
+	 *
 	 * @return string
 	 */
-	public static function getWcmlDisplayAsTranslatedDoc() {
-		return self::generate( self::WCML_DISPLAY_AS_TRANSLATED_DOC );
+	public static function getWcmlDisplayAsTranslatedDoc( $params = [] ) {
+		return self::generate( self::WCML_DISPLAY_AS_TRANSLATED_DOC, false, $params );
 	}
 
 	/**

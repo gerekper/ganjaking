@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "אירעה שגיאה בעת ניסיון להשהות את התרגום האוטומטי. נסה שוב מאוחר יותר או צור קשר עםהתמיכה."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "כיצד אתה רוצה לתרגם?"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "אתה יכול לתרגם תוכן באופן אוטומטי רק מהשפה הראשית שלך (%s) לשפות אחרות. השתמש במחליף השפה שבראש דף זה כדי לעבור אל %s."
-         ],
          "Assign to a translator": [
             "הקצה למתרגם"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "אינך צריך נקודות זכות לתרגום כדי לתרגם תוכן בעצמך."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "ניתן לבצע תרגום אוטומטי רק משפת ברירת המחדל של האתר (אנגלית) אל השפות האחרות של האתר. בטל בחירה של תוכן בשפות המשניות של האתר כדי להמשיך."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "אתה יכול לתרגם תוכן באופן אוטומטי רק מהשפה הראשית שלך (%s) לשפות אחרות. השתמש במחליף השפה שבראש דף זה כדי לעבור אל %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "התוכן שנבחר כולל פריטים שנוצרו במקור השפה זו. בטל פריטים אלו כדי להתקדם."
+         ],
+         "Add to Translation Queue": [
+            "הוסף לתור לתרגום"
          ],
          "Select a post or page to translate": [
             "בחר פוסט או דף לתרגום"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "בחר תוכן שכבר תורגם"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "התוכן שנבחר כולל פריטים בשפה שאינה שפת ברירת המחדל של האתר."
          ],
          "Choose at least one translation action": [
             "בחר לפחות פעולת תרגום אחת"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "הוסף לסל התרגום"
          ],
-         "Add to Translation Queue": [
-            "הוסף לתור לתרגום"
-         ],
          "One more thing...": [
             "עוד דבר אחד..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "אל תעשה כלום"
          ],
-         "You need credits to use automatic translation.": [
-            "אתה זקוק לנקודות זכות כדי להשתמש בתרגום אוטומטי."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "כדי להקצות תוכן למתרגם, ראשית <a href=\"%s\" target=\"_blank\">הוסף מתרגם</a> או <a href=\"%s\" target=\"_blank\">התחבר לשירות תרגום</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "אתה זקוק לנקודות זכות כדי להשתמש בתרגום אוטומטי."
          ],
          "Translators Tab": [
             "הכרטיסייה 'מתרגמים'"

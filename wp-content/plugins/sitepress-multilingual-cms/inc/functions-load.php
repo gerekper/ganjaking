@@ -12,7 +12,8 @@ use function WPML\Container\make;
 require_once __DIR__ . '/wpml_load_request_handler.php';
 
 function wpml_is_setup_complete() {
-	return (bool) Obj::prop( 'setup_complete', get_option( 'icl_sitepress_settings', [] ) );
+	$settings = WPML\LIB\WP\Option::getOrAttemptRecovery( 'icl_sitepress_settings', [] );
+	return is_array( $settings ) && Obj::prop( 'setup_complete', $settings );
 }
 
 /**
@@ -68,10 +69,12 @@ function load_essential_globals( $is_admin = null ) {
 
 	wpml_load_post_translation( $admin, $settings );
 	$wpml_term_translations = new WPML_Term_Translation( $wpdb );
-	$domain_validation      = filter_input( INPUT_GET, '____icl_validate_domain' ) ? 1 : false;
-	$domain_validation      = filter_input( INPUT_GET, '____icl_validate_directory' ) ? 2 : $domain_validation;
-	$url_converter          = load_wpml_url_converter( $settings, $domain_validation, $default_lang_code );
-	$directory              = $domain_validation === 2 || ( is_multisite() && ! is_subdomain_install() );
+	$wpml_term_translations->add_hooks();
+
+	$domain_validation = filter_input( INPUT_GET, '____icl_validate_domain' ) ? 1 : false;
+	$domain_validation = filter_input( INPUT_GET, '____icl_validate_directory' ) ? 2 : $domain_validation;
+	$url_converter     = load_wpml_url_converter( $settings, $domain_validation, $default_lang_code );
+	$directory         = 2 === $domain_validation || ( is_multisite() && ! is_subdomain_install() );
 	if ( $domain_validation ) {
 		echo wpml_validate_host( $_SERVER['REQUEST_URI'], $url_converter, $directory );
 		exit;

@@ -3,6 +3,11 @@
 namespace Smush\Core;
 
 class Server_Utils {
+	/**
+	 * @var string
+	 */
+	private $mysql_version;
+
 	public function get_server_type() {
 		if ( empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
 			return '';
@@ -14,7 +19,7 @@ class Server_Utils {
 		}
 
 		$server_software = array_map( 'strtolower', $server_software );
-		$is_nginx        = $this->array_has_needle( $server_software, 'nginx' );		  						 		  		 			
+		$is_nginx        = $this->array_has_needle( $server_software, 'nginx' );
 		if ( $is_nginx ) {
 			return 'nginx';
 		}
@@ -58,12 +63,18 @@ class Server_Utils {
 	}
 
 	public function get_mysql_version() {
-		global $wpdb;
-
-		return $wpdb->get_var( 'SELECT VERSION()' );
+		if ( ! $this->mysql_version ) {
+			global $wpdb;
+			$this->mysql_version = $wpdb->db_version();
+		}
+		return $this->mysql_version;
 	}
 
 	public function get_max_execution_time() {
 		return (int) ini_get( 'max_execution_time' );
+	}
+
+	public function get_user_agent() {
+		return ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) : '';
 	}
 }

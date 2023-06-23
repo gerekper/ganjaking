@@ -33,49 +33,47 @@ msgid "Save"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguage.js:101
-msgid "Add languages and start translating"
+msgid "Add new languages"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguage.js:102
-msgid "Add language and start translating"
+msgid "Add new language"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguage.js:105
-msgid "Never mind. Don't add new languages"
+msgid "Never mind - don't add new languages"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguage.js:106
-msgid "Never mind. Don't add new language"
+msgid "Never mind - don't add new language"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguage.js:98
-msgid "Choose Content to Automatically Translate into New Language"
+msgid "Choose which content to translate into the new language"
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguageDialog.js:23
 msgid ""
-"Automatically translate all of my existing posts and pages right now, plus "
-"new content as I create it."
+"Automatically translate all my posts and pages, plus new content as I "
+"create it."
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguageDialog.js:24
 msgid "Only automatically translate new content."
 msgstr ""
 
-#: src/js/languages/components/ConfirmNewLanguageDialog.js:27
-msgid ""
-"You are using <a>Translate Everything</a> mode, which translates your site "
-"content automatically."
+#: src/js/languages/components/ConfirmNewLanguageDialog.js:26
+msgid "Which content do you want to translate into the new language?"
 msgstr ""
 
-#: src/js/languages/components/ConfirmNewLanguageDialog.js:33
+#: src/js/languages/components/ConfirmNewLanguageDialog.js:29
 msgid ""
-"Which content do you want to automatically translate into your newly-added "
-"language?"
+"When you unpause automatic translation, this content will be <a>translated "
+"automatically</a>."
 msgstr ""
 
 #: src/js/languages/components/ConfirmNewLanguageDialog.js:62
 msgid ""
-"You can translate existing content from the Translation Management "
-"Dashboard."
+"You can still translate existing content any time from the Translation "
+"Management Dashboard."
 msgstr ""

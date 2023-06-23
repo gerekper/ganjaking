@@ -69,10 +69,7 @@ class WPML_Media_Attachments_Duplication {
 	}
 
 	public function add_settings_hooks() {
-		if ( User::getCurrent() && (
-			User::getCurrent()->has_cap( 'wpml_manage_media_translation' )
-			|| User::getCurrent()->has_cap( WPML_Manage_Translations_Role::CAPABILITY )
-			)
+		if ( User::getCurrent() && ( User::canManageTranslations() || User::hasCap( 'wpml_manage_media_translation' ) )
 		) {
 			add_action('wp_ajax_wpml_media_set_content_defaults', array($this, 'wpml_media_set_content_defaults') );
 		}
@@ -255,6 +252,7 @@ class WPML_Media_Attachments_Duplication {
 		$content_defaults = $settings['new_content_settings'];
 		if ( $override_always_translate_media || $content_defaults['always_translate_media'] ) {
 
+			/** @var SitePress $sitepress */
 			global $sitepress;
 
 			$original_attachment_id = false;
@@ -383,9 +381,9 @@ class WPML_Media_Attachments_Duplication {
 	}
 
 	/**
-	 * @param int    $attachment_id
-	 * @param int    $parent_id
-	 * @param string $target_language
+	 * @param int            $attachment_id
+	 * @param int|false|null $parent_id
+	 * @param string         $target_language
 	 *
 	 * @return int|null
 	 */
@@ -515,7 +513,7 @@ class WPML_Media_Attachments_Duplication {
 			}
 
 			// checking - if set duplicate media
-			if ( get_post_meta( $src_id, '_wpml_media_duplicate', true ) ) {
+			if ( $src_id && get_post_meta( (int) $src_id, '_wpml_media_duplicate', true ) ) {
 				// duplicate media before first save
 				$this->duplicate_post_attachments( $pidd, $_GET['trid'], $src_lang, $this->sitepress->get_language_for_element( $pidd, 'post_' . $post_type ) );
 			}
@@ -767,6 +765,7 @@ class WPML_Media_Attachments_Duplication {
 						$translated_attachment = get_post( $translation_attachment_id );
 						if ( $translated_attachment && ! $translated_attachment->post_parent ) {
 							$translated_attachment->post_parent = $pidd;
+							/** @phpstan-ignore-next-line (WP doc issue) */
 							wp_update_post( $translated_attachment );
 						}
 					}
@@ -1087,7 +1086,7 @@ class WPML_Media_Attachments_Duplication {
 		if ( $attachments ) {
 			foreach ( $attachments as $attachment ) {
 				$lang = $this->sitepress->get_element_language_details( $attachment->ID, 'post_attachment' );
-				$this->translate_attachments( $attachment->ID, $lang->language_code, true );
+				$this->translate_attachments( $attachment->ID, ( is_object( $lang ) && property_exists( $lang, 'language_code' ) ) ? $lang->language_code : null, true );
 			}
 		}
 
@@ -1095,7 +1094,7 @@ class WPML_Media_Attachments_Duplication {
 		if ( $response['left'] ) {
 			$response['message'] = sprintf( esc_html__( 'Translating media. %d left', 'sitepress' ), $response['left'] );
 		} else {
-			$response['message'] = sprintf( esc_html__( 'Translating media: done!', 'sitepress' ), $response['left'] );
+			$response['message'] = __( 'Translating media: done!', 'sitepress' );
 		}
 
 		if ( $outputResult ) {
@@ -1201,11 +1200,11 @@ class WPML_Media_Attachments_Duplication {
 		 * We join with the wp_postmeta table to also retrieve any related data of attachments in this table,
 		 * we only need the related data when the wp_postmeta.metavalue is null or != 1 because if it equals 1 then it doesn't need to be processed again
 		 */
-		$limitedAttachmentsWithMetaDataQuery = "SELECT posts.ID, post_meta.post_id, post_meta.meta_key, post_meta.meta_value 
-		FROM {$this->wpdb->posts} AS posts 
-		LEFT JOIN {$this->wpdb->postmeta} AS post_meta 
-		ON posts.ID = post_meta.post_id AND post_meta.meta_key = %s 
-		WHERE posts.post_type = %s AND (post_meta.meta_value IS NULL OR post_meta.meta_value != %d) 
+		$limitedAttachmentsWithMetaDataQuery = "SELECT posts.ID, post_meta.post_id, post_meta.meta_key, post_meta.meta_value
+		FROM {$this->wpdb->posts} AS posts
+		LEFT JOIN {$this->wpdb->postmeta} AS post_meta
+		ON posts.ID = post_meta.post_id AND post_meta.meta_key = %s
+		WHERE posts.post_type = %s AND (post_meta.meta_value IS NULL OR post_meta.meta_value != %d)
 		LIMIT %d";
 
 		$limitedAttachmentsWithMetaDataQueryPrepared = $this->wpdb->prepare( $limitedAttachmentsWithMetaDataQuery,
@@ -1258,14 +1257,14 @@ class WPML_Media_Attachments_Duplication {
 			 */
 			$attachmentsWithMetaData = $this->wpdb->get_results( $limitedAttachmentsWithMetaDataQueryPrepared );
 
-			if ( count( $attachmentsWithMetaData ) ) {
+			if ( is_array( $attachmentsWithMetaData ) && count( $attachmentsWithMetaData ) ) {
 
 				/**
 				 * Filtering data to separate existing and non-existing attachments with metdata
 				 */
 				list( $notExistingMetaAttachmentIds, $existingAttachmentsWithMetaData ) = \WPML\FP\Lst::partition( $attachmentHasNoMetaData, $attachmentsWithMetaData );
 
-				if ( count( $notExistingMetaAttachmentIds ) ) {
+				if ( is_array( $notExistingMetaAttachmentIds ) && count( $notExistingMetaAttachmentIds ) ) {
 
 					/**
 					 * If we have attachments with no related data in wp_postmeta table, we start inserting values for it in wp_postmeta
@@ -1275,6 +1274,7 @@ class WPML_Media_Attachments_Duplication {
 					$notExistingAttachmentsIds = \WPML\FP\Lst::pluck( 'ID', $notExistingMetaAttachmentIds );
 
 					// Preparing placeholders to be used in INSERT query
+					/** @phpstan-ignore-next-line */
 					$attachmentMetaValuesPlaceholders = implode( ',', \WPML\FP\Lst::repeat( '(%d, %s, %d)', count( $notExistingAttachmentsIds ) ) );
 
 					// Preparing INSERT query
@@ -1282,6 +1282,7 @@ class WPML_Media_Attachments_Duplication {
 					$insertAttachmentsMetaQuery .= $attachmentMetaValuesPlaceholders;
 
 					// Preparing values to be inserted, at his point they're in separate arrays
+					/** @phpstan-ignore-next-line */
 					$insertAttachmentsMetaValues = array_map( $prepareInsertAttachmentsMetaValues, $notExistingAttachmentsIds );
 					// Merging all values together in one array to be used wpdb->prepare function so each value is placed in a placeholder
 					$insertAttachmentsMetaValues = array_merge( ...$insertAttachmentsMetaValues );
@@ -1479,7 +1480,7 @@ class WPML_Media_Attachments_Duplication {
 		if ( $post_types ) {
 			$this->wpdb->query(
 				"INSERT INTO {$this->wpdb->postmeta} (post_id, meta_key, meta_value)
-				SELECT ID, '{$meta_key}', '0' FROM {$this->wpdb->posts} 
+				SELECT ID, '{$meta_key}', '0' FROM {$this->wpdb->posts}
 				LEFT JOIN {$this->wpdb->postmeta} on ID = post_id AND meta_key = '{$meta_key}'
 				WHERE post_id IS NULL AND post_status='publish' AND post_type IN ('" . join( "','", $post_types ) . "')"
 			);

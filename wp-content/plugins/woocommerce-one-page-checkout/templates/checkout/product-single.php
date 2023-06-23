@@ -6,9 +6,7 @@
  * @version 1.7.1
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 global $post;
 
@@ -34,7 +32,12 @@ foreach ( $products as $single_product_id => $single_product ) :
 				do_action( 'woocommerce_before_single_product_summary' );
 			?>
 
-			<div class="summary entry-summary product-item <?php if ( wcopc_get_products_prop( $product, 'in_cart' ) ) { echo 'selected'; } ?>">
+			<div class="summary entry-summary product-item
+			<?php
+			if ( wcopc_get_products_prop( $product, 'in_cart' ) ) {
+				echo 'selected'; }
+			?>
+			">
 
 				<?php
 					woocommerce_template_single_title();

@@ -97,7 +97,7 @@ class WPML_ST_Translations_File_Registration {
 			$file_path_pattern = $this->get_file_path_pattern( $file_path, $original_domain );
 
 			foreach ( $this->active_languages as $lang_data ) {
-				$file_path_in_lang = sprintf( $file_path_pattern, $lang_data['default_locale'] );
+				$file_path_in_lang = sprintf( (string) $file_path_pattern, $lang_data['default_locale'] );
 				$this->register_single_file( $registration_domain, $file_path_in_lang );
 			}
 		} catch ( Exception $e ) {
@@ -111,7 +111,7 @@ class WPML_ST_Translations_File_Registration {
 	 * @param string $file_path
 	 * @param string $original_domain
 	 *
-	 * @return string|string[]|null
+	 * @return string|null
 	 * @throws InvalidArgumentException
 	 */
 	private function get_file_path_pattern( $file_path, $original_domain ) {

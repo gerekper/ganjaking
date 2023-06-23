@@ -36,7 +36,7 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 								</ul>
 							</li>
 							<li class="wf-right wf-flex-vertical-xs">
-								<a href="#" id="blocks-bulk-unblock" class="wf-btn wf-btn-callout wf-btn-default" role="button"><?php esc_html_e('Unblock', 'wordfence'); ?></a>&nbsp;&nbsp;<a href="#" id="blocks-bulk-make-permanent" class="wf-btn wf-btn-callout wf-btn-default"><?php esc_html_e('Make Permanent', 'wordfence'); ?></a>&nbsp;&nbsp;<a href="<?php echo wfUtils::siteURLRelative(); ?>?_wfsf=blockedIPs&amp;nonce=<?php echo wp_create_nonce('wp-ajax'); ?>" id="blocks-export-ips" class="wf-btn wf-btn-callout wf-btn-default"><?php echo wp_kses(__('Export<span class="wf-hidden-xs"> All IPs</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
+								<a href="#" id="blocks-bulk-unblock" class="wf-btn wf-btn-callout wf-btn-default" role="button"><?php esc_html_e('Unblock', 'wordfence'); ?></a>&nbsp;&nbsp;<a href="#" id="blocks-bulk-make-permanent" class="wf-btn wf-btn-callout wf-btn-default"><?php esc_html_e('Make Permanent', 'wordfence'); ?></a>&nbsp;&nbsp;<a href="<?php echo wfUtils::siteURLRelative(); ?>?_wfsf=blockedIPs&amp;nonce=<?php echo wp_create_nonce('wp-ajax'); ?>" id="blocks-export-ips" class="wf-btn wf-btn-callout wf-btn-default"><?php echo wp_kses(/* translators: word order may be altered as long as HTML remains around "All IPs" */ __('Export<span class="wf-hidden-xs"> All IPs</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
 							</li>
 						</ul>
 						<div class="wf-block wf-block-no-padding wf-block-no-header wf-active wf-no-bottom wf-overflow-y-auto-xs">

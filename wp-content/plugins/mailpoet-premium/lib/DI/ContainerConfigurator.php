@@ -36,6 +36,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationStorage::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationStatisticsStorage::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Hooks::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Templates\AutomationBuilder::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Validation\AutomationValidator::class);
     $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject::class);
     $this->registerFreeService($container, \MailPoet\Config\AccessControl::class);
@@ -60,7 +61,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoetVendor\Doctrine\ORM\EntityManager::class);
     $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
     $this->registerFreeService($container, \MailPoet\Util\License\Features\Subscribers::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Templates\AutomationBuilder::class);
     $this->registerFreeService($container, \MailPoet\Mailer\MailerFactory::class);
     $this->registerFreeService($container, \MailPoet\Settings\SettingsController::class);
 
@@ -83,7 +83,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     // Automation - MailPoet Premium integration
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction::class)->setPublic(true);
@@ -91,6 +90,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\NotificationEmailAction::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory::class)->setPublic(true);
 
     // Automation - WooCommerce integration
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration::class)->setPublic(true);

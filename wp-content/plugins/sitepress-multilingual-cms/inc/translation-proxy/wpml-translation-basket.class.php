@@ -151,7 +151,7 @@ class WPML_Translation_Basket {
 	/**
 	 * Returns a unique name derived from an input name for a Translation Proxy Basket
 	 *
-	 * @param bool     $name
+	 * @param string   $name
 	 * @param bool|int $max_length
 	 *
 	 * @return bool|string

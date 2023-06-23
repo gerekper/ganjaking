@@ -6,10 +6,20 @@ if (!defined('ABSPATH')) exit;
 
 
 use DateTimeZone;
+use WP_Comment;
+use WP_Error;
 use WP_Locale;
+use WP_Post;
+use WP_Term;
 use WP_User;
+use wpdb;
 
 class WordPress {
+  public function getWpdb(): wpdb {
+    global $wpdb;
+    return $wpdb;
+  }
+
   public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): bool {
     return add_action($hookName, $callback, $priority, $acceptedArgs);
   }
@@ -48,5 +58,27 @@ class WordPress {
   public function getWpLocale(): WP_Locale {
     global $wp_locale;
     return $wp_locale;
+  }
+
+  /** @return WP_Post[]|int[] */
+  public function getPosts(array $args = null): array {
+    return get_posts($args);
+  }
+
+  /**
+   * @param string|array $args
+   * @return WP_Comment[]|int[]|int
+   */
+  public function getComments($args = '') {
+    return get_comments($args);
+  }
+
+  /**
+   * @param array|string $args
+   * @param array|string $deprecated
+   * @return WP_Term[]|int[]|string[]|string|WP_Error
+   */
+  public function getTerms($args = [], $deprecated = '') {
+    return get_terms($args, $deprecated);
   }
 }

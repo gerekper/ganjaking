@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-26T15:05:29+00:00\n"
+"POT-Creation-Date: 2023-06-14T17:15:37+00:00\n"
 "PO-Revision-Date: 2023-05-17 09:54:26+0000\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -197,12 +197,12 @@ msgid "Booked: "
 msgstr "Reservados: "
 
 #. translators: 1: minimum duration 2: duration unit
-#: includes/data-objects/class-wc-product-booking.php:2439
+#: includes/data-objects/class-wc-product-booking.php:2463
 msgid "The minimum duration is %1$d %2$s"
 msgstr "La duración mínima es de %1$d %2$s"
 
 #. translators: 1: maximum duration 2: duration unit
-#: includes/data-objects/class-wc-product-booking.php:2424
+#: includes/data-objects/class-wc-product-booking.php:2436
 msgid "The maximum duration is %1$d %2$s"
 msgstr "La duración máxima es de %1$d %2$s"
 
@@ -631,7 +631,7 @@ msgstr[1] "noches"
 
 #: includes/booking-form/class-wc-booking-form.php:311
 #: includes/data-objects/class-wc-product-booking.php:2413
-#: includes/data-objects/class-wc-product-booking.php:2428
+#: includes/data-objects/class-wc-product-booking.php:2440
 #: includes/wc-bookings-functions.php:1280
 msgid "minute"
 msgid_plural "minutes"
@@ -640,7 +640,7 @@ msgstr[1] "minuto"
 
 #: includes/booking-form/class-wc-booking-form.php:313
 #: includes/data-objects/class-wc-product-booking.php:2415
-#: includes/data-objects/class-wc-product-booking.php:2430
+#: includes/data-objects/class-wc-product-booking.php:2442
 #: includes/wc-bookings-functions.php:1277
 msgid "hour"
 msgid_plural "hours"
@@ -655,7 +655,7 @@ msgstr[1] "semanas"
 
 #: includes/booking-form/class-wc-booking-form.php:317
 #: includes/data-objects/class-wc-product-booking.php:2419
-#: includes/data-objects/class-wc-product-booking.php:2434
+#: includes/data-objects/class-wc-product-booking.php:2446
 #: includes/wc-bookings-functions.php:1266
 msgid "month"
 msgid_plural "months"
@@ -1034,54 +1034,54 @@ msgstr "%d de %b de %Y a las %I:%M %p"
 msgid "Booking &ndash; %s"
 msgstr "Reserva; %s"
 
-#: includes/data-objects/class-wc-product-booking.php:2540
+#: includes/data-objects/class-wc-product-booking.php:2564
 msgid "Sorry, the selected block is not available"
 msgstr "Lo sentimos, el bloque seleccionado no está disponible"
 
 #. translators: 1: person name 2: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2521
+#: includes/data-objects/class-wc-product-booking.php:2545
 msgid "The minimum %1$s per group is %2$d"
 msgstr "El mínimo de %1$s por grupo es de %2$d"
 
 #. translators: 1: person name 2: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2515
+#: includes/data-objects/class-wc-product-booking.php:2539
 msgid "The maximum %1$s per group is %2$d"
 msgstr "El máximo de %1$s por grupo es de %2$d"
 
 #. translators: 1: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2504
+#: includes/data-objects/class-wc-product-booking.php:2528
 msgid "The minimum persons per group is %d"
 msgstr "El mínimo de personas por grupo es de %d"
 
 #. translators: 1: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2500
+#: includes/data-objects/class-wc-product-booking.php:2524
 msgid "The maximum persons per group is %d"
 msgstr "El máximo de personas por grupo es de %d"
 
-#: includes/data-objects/class-wc-product-booking.php:2490
+#: includes/data-objects/class-wc-product-booking.php:2514
 msgid "Sorry, bookings cannot start on this day."
 msgstr "Lo siento, las reservas no pueden comenzar este día."
 
 #. translators: 1: maximum date
-#: includes/data-objects/class-wc-product-booking.php:2481
+#: includes/data-objects/class-wc-product-booking.php:2505
 msgid "The latest booking possible is currently %s."
 msgstr "La reserva posible más tarde actualmente es %s."
 
 #. translators: 1: minimum date
-#: includes/data-objects/class-wc-product-booking.php:2472
+#: includes/data-objects/class-wc-product-booking.php:2496
 msgid "The earliest booking possible is currently %s."
 msgstr "La reserva posible más temprana actualmente es %s."
 
-#: includes/data-objects/class-wc-product-booking.php:2451
-#: includes/data-objects/class-wc-product-booking.php:2454
+#: includes/data-objects/class-wc-product-booking.php:2475
+#: includes/data-objects/class-wc-product-booking.php:2478
 msgid "You must choose a future date and time."
 msgstr "Debes elegir una fecha y hora futura."
 
-#: includes/data-objects/class-wc-product-booking.php:2448
+#: includes/data-objects/class-wc-product-booking.php:2472
 msgid "Time is required - please choose one above"
 msgstr "Se requiere un horario - por favor, elige uno arriba"
 
-#: includes/data-objects/class-wc-product-booking.php:2445
+#: includes/data-objects/class-wc-product-booking.php:2469
 msgid "Date is required - please choose one above"
 msgstr "Se requiere una fecha - por favor, elige una arriba"
 
@@ -1684,7 +1684,7 @@ msgstr "+%1$1s por %2$2s"
 
 #: includes/booking-form/class-wc-booking-form.php:315
 #: includes/data-objects/class-wc-product-booking.php:2417
-#: includes/data-objects/class-wc-product-booking.php:2432
+#: includes/data-objects/class-wc-product-booking.php:2444
 #: includes/wc-bookings-functions.php:1270
 msgid "day"
 msgid_plural "days"
@@ -1693,7 +1693,7 @@ msgstr[1] "días"
 
 #: includes/booking-form/class-wc-booking-form.php:319
 #: includes/data-objects/class-wc-product-booking.php:2421
-#: includes/data-objects/class-wc-product-booking.php:2436
+#: includes/data-objects/class-wc-product-booking.php:2448
 msgid "block"
 msgid_plural "blocks"
 msgstr[0] "bloque"

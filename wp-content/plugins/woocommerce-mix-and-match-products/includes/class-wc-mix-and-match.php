@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.4.3';
+	public $version = '2.4.6';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -166,8 +166,8 @@ class WC_Mix_and_Match {
 		WC_MNM_Customizer::get_instance();
 		WC_Mix_and_Match_Cart::get_instance();
 
-		// Include theme-level hooks and actions files.
-		add_action( 'template_redirect', array( $this, 'theme_includes' ), -10 );
+		// Include theme-level hooks and actions files. (re-test with Variable MNM)
+		add_action( 'after_setup_theme', array( $this, 'theme_includes' ), 11 );
 
 		/**
 		 * WooCommerce Mix and Match is fully loaded.

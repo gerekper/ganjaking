@@ -33,6 +33,7 @@ class WPML_Elementor_Integration_Factory {
 				\WPML\PB\Elementor\Hooks\Editor::class,
 				\WPML\PB\Elementor\Hooks\WordPressWidgets::class,
 				\WPML\PB\Elementor\Hooks\Templates::class,
+				\WPML\PB\Elementor\Hooks\CssCache::class,
 				\WPML_PB_Fix_Maintenance_Query::class,
 			)
 		);

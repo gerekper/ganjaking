@@ -1,14 +1,12 @@
 <?php
 /**
- * @package		WooCommerce One Page Checkout
- * @subpackage	Bookings Extension Compatibility
- * @category	Template Class
+ * @package     WooCommerce One Page Checkout
+ * @subpackage  Bookings Extension Compatibility
+ * @category    Template Class
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class to hold bookings compat functionality until merge with the main extension for dev purposes
@@ -29,17 +27,17 @@ class WCOPC_Compat_Bookings {
 	/**
 	 * OPC Single-product bookings add-to-cart template
 	 *
-	 * @param  int  $opc_post_id
+	 * @param  int $opc_post_id
 	 * @return void
 	 */
 	public static function opc_single_add_to_cart_booking( $opc_post_id ) {
 
 		global $product;
 
-		// Prepare form
+		// Prepare form.
 		$booking_form = new WC_Booking_Form( $product );
 
-		// Get template
+		// Get template.
 		wc_get_template( 'single-product/add-to-cart/booking.php', array( 'booking_form' => $booking_form ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
 	}
 

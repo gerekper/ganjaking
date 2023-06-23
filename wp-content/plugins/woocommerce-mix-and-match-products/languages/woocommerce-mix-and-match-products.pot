@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 2.4.3\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 2.4.6\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2023-03-02 15:45:18+00:00\n"
+"POT-Creation-Date: 2023-06-13 15:00:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -293,39 +293,39 @@ msgid ""
 "database upgrade%2$s. Please take appropriate backups."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:444
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:443
 msgid "Select products"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:450
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:449
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:482
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:481
 msgid "Select categories"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:488
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:487
 msgid "Search for a category&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:520
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:519
 msgid "Pricing mode"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:523
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:522
 msgid "Fixed &mdash; the price never changes"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:524
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:523
 msgid "Per-item &mdash; the price depends on the selections"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:549
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:548
 msgid "Per-Item Shipping"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:551
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:550
 msgid ""
 "If your Mix-and-Match product consists of items that are assembled or "
 "packaged together, leave this option un-ticked and go to the Shipping tab "
@@ -334,15 +334,15 @@ msgid ""
 "original shipping weight and dimensions."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:618
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:617
 msgid "Please select at least one category to use for this Mix and Match product."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:620
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:619
 msgid "Please select at least one product to use for this Mix and Match product."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:631
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:630
 msgid ""
 "Your changes have not been saved &ndash; please wait for the "
 "<strong>WooCommerce Mix and Match Data Update</strong> routine to complete "
@@ -350,13 +350,13 @@ msgid ""
 "ones."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:664
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:663
 msgid ""
 "You cannot add the Mix and Match container product as part of the Mix and "
 "Match container's contents."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:682
+#: includes/admin/meta-boxes/class-wc-mnm-meta-box-product-data.php:681
 msgid ""
 "You have added an unsupported product type to your Mix and Match allowed "
 "contents. Please see the <a target=\"_blank\" href=\"%s\">documentation</a> "
@@ -400,61 +400,63 @@ msgstr ""
 msgid "Share feedback"
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:126
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:127
 #: includes/admin/views/html-notice-update-2x00.php:36
 #: includes/admin/views/html-notice-update.php:29
 msgid "Update Database"
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:135
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:136
 #: includes/admin/views/html-notice-update-2x00.php:39
 #: includes/admin/views/html-notice-update.php:32
 msgid "Learn more about updates"
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:153
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:154
 msgid "WooCommerce Mix and Match database update required"
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:155
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:156
 msgid ""
 "WooCommerce Mix and Match has been updated! To keep things running "
 "smoothly, we have to update your database to the newest version."
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:156
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:157
 msgid ""
 "The database update process runs in the background and may take a little "
 "while, so please be patient."
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:190
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:191
 msgid "You can manually run queued updates here."
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:190
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:191
 msgid "View progress →"
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:193
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:194
 msgid "WooCommerce Mix and Match database update in progress"
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:194
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:195
 msgid ""
 "The database is updating in the background. The database update process may "
 "take a little while, so please be patient."
 msgstr ""
 
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:228
-msgid "Thanks!"
-msgstr ""
-
-#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:244
-msgid "WooCommerce Mix and Match database update done"
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:229
+#: includes/admin/views/html-notice-updated-2x00.php:21
+#: includes/admin/views/html-notice-updated.php:28
+msgid "Dismiss"
 msgstr ""
 
 #: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:245
+msgid "WooCommerce Mix and Match database update done"
+msgstr ""
+
+#: includes/admin/notes/class-wc-mnm-notes-run-db-update.php:246
 msgid "Database update complete. Thank you for updating to the latest version!"
 msgstr ""
 
@@ -476,11 +478,6 @@ msgid ""
 "recommend you take a backup of your database first. If you are using any "
 "custom snippets or mini-extensions, you should also test them against 2.0 "
 "in staging before updating in production."
-msgstr ""
-
-#: includes/admin/views/html-notice-updated-2x00.php:21
-#: includes/admin/views/html-notice-updated.php:28
-msgid "Dismiss"
 msgstr ""
 
 #: includes/admin/views/html-notice-updated-2x00.php:23
@@ -574,7 +571,7 @@ msgid "Set to true to delete the child item with the specified child item ID."
 msgstr ""
 
 #: includes/api/class-wc-mnm-rest-api.php:132
-#: includes/api/class-wc-mnm-rest-api.php:468
+#: includes/api/class-wc-mnm-rest-api.php:479
 msgid "Child product ID."
 msgstr ""
 
@@ -615,87 +612,87 @@ msgstr ""
 msgid "Shipping weight calculation mode."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:328
+#: includes/api/class-wc-mnm-rest-api.php:339
 #. translators: %d is the child item ID.
 msgid "Child item ID #%d does not exist in mix and match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:346
+#: includes/api/class-wc-mnm-rest-api.php:357
 #. translators: %d is the product|variation ID.
 msgid "Child product or variation ID #%d does not exist in mix and match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:368
+#: includes/api/class-wc-mnm-rest-api.php:379
 #. translators: %d is the product|variation ID.
 msgid "Product or variation ID #%d is invalid."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:374
+#: includes/api/class-wc-mnm-rest-api.php:385
 #. translators: %d is the product|variation ID.
 msgid "Cannot add product ID #%d to contents for itself."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:380
+#: includes/api/class-wc-mnm-rest-api.php:391
 #. translators: %d is the product|variation ID.
 msgid ""
 "Product or variation ID #%d not a supported product type for Mix and Match "
 "contents."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:446
+#: includes/api/class-wc-mnm-rest-api.php:457
 msgid ""
 "Item ID of parent line item, applicable if the item is part of a mix and "
 "match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:452
+#: includes/api/class-wc-mnm-rest-api.php:463
 msgid ""
 "Item IDs of mix and match child line items, applicable if the item is a mix "
 "and match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:461
+#: includes/api/class-wc-mnm-rest-api.php:472
 msgid ""
 "Mix and match configuration array. Must be defined when adding a mix and "
 "match-type line item to an order, to ensure child line items are added to "
 "the order as well."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:473
+#: includes/api/class-wc-mnm-rest-api.php:484
 msgid "Chosen child item quantity."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:478
+#: includes/api/class-wc-mnm-rest-api.php:489
 msgid "Chosen variation ID, if applicable."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:576
+#: includes/api/class-wc-mnm-rest-api.php:587
 msgid ""
 "The submitted mix and match container configuration could not be added to "
 "this order."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:581
+#: includes/api/class-wc-mnm-rest-api.php:592
 msgid "A mix and match container with this ID does not exist."
 msgstr ""
 
-#: includes/api/class-wc-mnm-store-api.php:156
+#: includes/api/class-wc-mnm-store-api.php:162
 msgid "Cart item key of mix and match product that contains this item."
 msgstr ""
 
-#: includes/api/class-wc-mnm-store-api.php:162
+#: includes/api/class-wc-mnm-store-api.php:168
 msgid "List of cart item keys grouped by this mix and match product."
 msgstr ""
 
-#: includes/api/class-wc-mnm-store-api.php:168
+#: includes/api/class-wc-mnm-store-api.php:174
 msgid "Mix and Match product data."
 msgstr ""
 
-#: includes/api/class-wc-mnm-store-api.php:174
+#: includes/api/class-wc-mnm-store-api.php:180
 msgid "ID of this child item."
 msgstr ""
 
-#: includes/api/class-wc-mnm-store-api.php:515
+#: includes/api/class-wc-mnm-store-api.php:521
 msgid ""
 "This product is part of a mix and match container and cannot be removed "
 "independently."
@@ -1178,15 +1175,15 @@ msgstr ""
 msgid "Error deleting Mix and Match product child items."
 msgstr ""
 
-#: includes/wc-mnm-core-functions.php:254
-#: includes/wc-mnm-core-functions.php:303
+#: includes/wc-mnm-core-functions.php:259
+#: includes/wc-mnm-core-functions.php:308
 msgid ""
 "get_order() is not callable on the supplied $order_item. No $order object "
 "given."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:785
-#: includes/wc-mnm-template-functions.php:834
+#: includes/wc-mnm-template-functions.php:790
+#: includes/wc-mnm-template-functions.php:866
 msgid ""
 "The Mix and Match database is updating in the background. During this time, "
 "all mix and match products on your site will be unavailable. If this "
@@ -1194,8 +1191,8 @@ msgid ""
 "with our support team. Note: This message is visible to store managers only."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:787
-#: includes/wc-mnm-template-functions.php:836
+#: includes/wc-mnm-template-functions.php:792
+#: includes/wc-mnm-template-functions.php:868
 msgid ""
 "&quot;%1$s&quot; is not purchasable because it is missing a base price. To "
 "give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data "
@@ -1203,8 +1200,8 @@ msgid ""
 "Note: This message is visible to store managers only."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:789
-#: includes/wc-mnm-template-functions.php:838
+#: includes/wc-mnm-template-functions.php:794
+#: includes/wc-mnm-template-functions.php:870
 msgid ""
 "Please make sure that this product has allowed contents defined and that "
 "those products have a price and/or are in stock. WooCommerce does not allow "
@@ -1212,11 +1209,11 @@ msgid ""
 "to store managers only."
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:939
+#: includes/wc-mnm-template-functions.php:962
 msgid "Reduce quantity"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:950
+#: includes/wc-mnm-template-functions.php:973
 msgid "Increase quantity"
 msgstr ""
 
@@ -1272,7 +1269,7 @@ msgctxt "label for the system status page"
 msgid "Outdated Templates"
 msgstr ""
 
-#: includes/api/class-wc-mnm-store-api.php:274
+#: includes/api/class-wc-mnm-store-api.php:280
 #: includes/class-wc-mnm-display.php:354
 msgctxt "edit in cart link text"
 msgid "Edit selections"
@@ -1662,7 +1659,7 @@ msgctxt "[Frontend]"
 msgid "&quot;%s&quot; cannot  be added to the cart as configured."
 msgstr ""
 
-#: includes/wc-mnm-core-functions.php:67
+#: includes/wc-mnm-core-functions.php:70
 #. translators: %d quantity to select.
 msgctxt "[Frontend]"
 msgid "Please select %d item to continue&hellip;"
@@ -1670,14 +1667,14 @@ msgid_plural "Please select %d items to continue&hellip;"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-mnm-core-functions.php:71
+#: includes/wc-mnm-core-functions.php:74
 #. translators: %1$d is minimum quantity to select. %2$d is maximum quantity to
 #. select.
 msgctxt "[Frontend]"
 msgid "Please choose between %1$d and %2$d items to continue&hellip;"
 msgstr ""
 
-#: includes/wc-mnm-core-functions.php:75
+#: includes/wc-mnm-core-functions.php:78
 #. translators: %d minimum quantity to select.
 msgctxt "[Frontend]"
 msgid "Please choose at least %d item to continue&hellip;"
@@ -1685,7 +1682,7 @@ msgid_plural "Please choose at least %d items to continue&hellip;"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-mnm-core-functions.php:79
+#: includes/wc-mnm-core-functions.php:82
 #. translators: %d maximum quantity to select.
 msgctxt "[Frontend]"
 msgid "Please choose fewer than %d item to continue&hellip;"
@@ -1703,20 +1700,20 @@ msgctxt "[Frontend]"
 msgid "Quantity"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:630
+#: includes/wc-mnm-template-functions.php:635
 #. translators: %1$d: Quantity, %2$s: Product name.
 msgctxt "[Frontend]"
 msgid "&times;%1$d <span class=\"screen-reader-text\">%2$s</span>"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:637
+#: includes/wc-mnm-template-functions.php:642
 #. translators: %1$d: Quantity, %2$s: Product name.
 msgctxt "[Frontend]"
 msgid "Add %1$d <span class=\"screen-reader-text\">%2$s</span>"
 msgstr ""
 
-#: includes/wc-mnm-template-functions.php:777
-#: includes/wc-mnm-template-functions.php:826
+#: includes/wc-mnm-template-functions.php:782
+#: includes/wc-mnm-template-functions.php:858
 msgctxt "[Frontend]"
 msgid "This product is currently unavailable."
 msgstr ""
@@ -1772,12 +1769,12 @@ msgctxt "woocommerce-mix-and-match-products"
 msgid "Free!"
 msgstr ""
 
-#: includes/class-wc-mnm-helpers.php:153
+#: includes/class-wc-mnm-helpers.php:162
 msgctxt "[Frontend] product title x quantity"
 msgid "%1$s &times; %2$d"
 msgstr ""
 
-#: includes/class-wc-mnm-helpers.php:155
+#: includes/class-wc-mnm-helpers.php:164
 msgctxt "[Frontend] quantity x product title"
 msgid "%1$d &times; %2$s"
 msgstr ""

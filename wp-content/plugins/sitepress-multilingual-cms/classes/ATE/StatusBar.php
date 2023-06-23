@@ -26,7 +26,7 @@ class StatusBar {
 	 */
 	public static function add_hooks( $hasAutomaticJobsInProgress = false, $needsReviewCount = 0, $hasBackgroundTasksInProgress = false ) {
 		if (
-			User::getCurrent()->has_cap( \WPML_Manage_Translations_Role::CAPABILITY )
+			User::canManageTranslations()
 			&& ( Option::shouldTranslateEverything() || $hasAutomaticJobsInProgress || $needsReviewCount > 0 || $hasBackgroundTasksInProgress )
 		) {
 			Hooks::onAction( 'admin_bar_menu', 999 )

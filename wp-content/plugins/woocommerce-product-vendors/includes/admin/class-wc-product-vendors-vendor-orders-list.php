@@ -266,7 +266,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 	 * @return bool
 	 */
 	public function status_dropdown( $post_type ) {
-		$commission_status = isset( $_REQUEST['commission_status'] ) ? sanitize_text_field( $_REQUEST['commission_status'] ) : '';
+		$commission_status = isset( $_REQUEST['commission_status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['commission_status'] ) ) : '';
 	?>
 		<select name="commission_status">
 			<option <?php selected( $commission_status, '' ); ?> value=''><?php esc_html_e( 'Show all Commission Statuses', 'woocommerce-product-vendors' ); ?></option>
@@ -582,7 +582,7 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 	 * @return bool
 	 */
 	public function process_bulk_action() {
-		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-orders' ) ) {
+		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-orders' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 			return;
 		}
 
@@ -655,11 +655,11 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 	public function print_column_headers( $with_id = true ) {
 		list( $columns, $hidden, $sortable ) = $this->get_column_info();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 		$current_url = remove_query_arg( 'paged', $current_url );
 
 		if ( isset( $_REQUEST['orderby'] ) ) {
-			$current_orderby = $_REQUEST['orderby'];
+			$current_orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
 		} else {
 			$current_orderby = '';
 		}

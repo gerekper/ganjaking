@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Advanced": [
             "詳細"
@@ -108,8 +107,29 @@
          "Current language background": [
             "現在の言語バックグラウンド"
          ],
-         "Small": [
-            "小"
+         "Full name": [
+            "氏名"
+         ],
+         "Code": [
+            "コード"
+         ],
+         "Justify items left": [
+            "アイテムを左寄せにする"
+         ],
+         "Justify items center": [
+            "アイテムを中央寄せする"
+         ],
+         "Justify items right": [
+            "アイテムを右寄せにする"
+         ],
+         "Justify items space between": [
+            "アイテムを両端揃えにする"
+         ],
+         "Horizontal": [
+            "水平"
+         ],
+         "Vertical": [
+            "垂直"
          ],
          "Normal": [
             "普通"
@@ -123,6 +143,18 @@
          "X-Large": [
             "X-Large"
          ],
+         "Ab": [
+            "Ab"
+         ],
+         "AB": [
+            "AB"
+         ],
+         "ab": [
+            "ab"
+         ],
+         "Small": [
+            "小"
+         ],
          "Displays the WPML Language Switcher.": [
             "WPML 言語切り替え機能を表示します。"
          ],
@@ -132,20 +164,14 @@
          "displays the WPML Language Switcher": [
             "WPML 言語切り替え機能を表示します"
          ],
+         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
+            "WPML 言語スイッチャーを表示する。 <br/> このブロックの翻訳方法を <a>学ぶ</a>。"
+         ],
          "Navigation Language Switcher": [
             "ナビゲーション言語切り替え機能"
          ],
          "Reset all": [
             "すべてをリセット"
-         ],
-         "Minimum value is : ": [
-            "最小値は:"
-         ],
-         "Maximum value is : ": [
-            "最大値は:"
-         ],
-         "Value must be a number!": [
-            "値は数字である必要があります！"
          ]
       }
    }

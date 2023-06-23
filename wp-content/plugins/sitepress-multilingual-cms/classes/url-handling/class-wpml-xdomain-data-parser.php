@@ -100,7 +100,7 @@ class WPML_XDomain_Data_Parser {
 			if ( WPML_XDOMAIN_DATA_GET == $this->settings['xdomain_data'] ) {
 				$xdomain_data_request = Sanitize::stringProp( 'xdomain_data', $_GET );
 			} elseif ( WPML_XDOMAIN_DATA_POST == $this->settings['xdomain_data'] ) {
-				$xdomain_data_request = urldecode( Sanitize::stringProp( 'xdomain_data', $_POST ) );
+				$xdomain_data_request = urldecode( (string) Sanitize::stringProp( 'xdomain_data', $_POST ) );
 			}
 
 			if ( $xdomain_data_request ) {

@@ -46,6 +46,21 @@ class WC_AM_Background_Events {
 		if ( get_option( 'woocommerce_api_manager_api_resoure_cleanup_data' ) == 'yes' ) {
 			add_action( 'wc_am_weekly_event', array( $this, 'queue_weekly_event' ) );
 		}
+
+		add_action( 'wc_am_daily_event', array( $this, 'queue_daily_event' ) );
+	}
+
+	/**
+	 * Run daily scheduled events.
+	 *
+	 * @since 3.0
+	 */
+	public function queue_daily_event() {
+		$this->queue_subscription_30_day_expiration_notification();
+		$this->queue_subscription_7_day_expiration_notification();
+		$this->queue_subscription_1_day_expiration_notification();
+		$this->background_process->push_to_queue( array( 'task' => 'sub_expire_notification' ) );
+		$this->background_process->save()->dispatch();
 	}
 
 	/**
@@ -92,6 +107,117 @@ class WC_AM_Background_Events {
 
 			update_option( 'wc_software_add_on_data_added', 'yes' );
 		}
+	}
+
+	/**
+	 * Queue send_subscription_30_day_expiration_notification().
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	private function queue_subscription_30_day_expiration_notification() {
+		$api_resource_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_ids_by_access_expires_number_of_days_before_expiration( 30 );
+
+		if ( is_array( $api_resource_ids ) && ! empty( $api_resource_ids ) ) {
+			foreach ( $api_resource_ids as $key => $api_resource_id ) {
+				if ( ! empty( $api_resource_id ) ) {
+					$this->background_process->push_to_queue( array(
+						                                          'task'                                           => 'send_subscription_30_day_expiration_notification',
+						                                          'subscription_30_day_expiration_api_resource_id' => $api_resource_id
+					                                          ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Sends 30 day subscription expiration notification email.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	public function send_subscription_30_day_expiration_notification( $api_resource_id ) {
+		$this->send_subscription_expiration_notification( $api_resource_id );
+	}
+
+	/**
+	 * Queue send_subscription_7_day_expiration_notification().
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	private function queue_subscription_7_day_expiration_notification() {
+		$api_resource_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_ids_by_access_expires_number_of_days_before_expiration( 7 );
+
+		if ( is_array( $api_resource_ids ) && ! empty( $api_resource_ids ) ) {
+			foreach ( $api_resource_ids as $key => $api_resource_id ) {
+				if ( ! empty( $api_resource_id ) ) {
+					$this->background_process->push_to_queue( array(
+						                                          'task'                                          => 'send_subscription_7_day_expiration_notification',
+						                                          'subscription_7_day_expiration_api_resource_id' => $api_resource_id
+					                                          ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Sends 7 day subscription expiration notification email.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	public function send_subscription_7_day_expiration_notification( $api_resource_id ) {
+		$this->send_subscription_expiration_notification( $api_resource_id );
+	}
+
+	/**
+	 * Queue send_subscription_1_day_after_expiration_notification().
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	private function queue_subscription_1_day_expiration_notification() {
+		$api_resource_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_ids_by_access_expires_number_of_days_after_expiration( 1 );
+
+		if ( is_array( $api_resource_ids ) && ! empty( $api_resource_ids ) ) {
+			foreach ( $api_resource_ids as $key => $api_resource_id ) {
+				// The $api_resource_id must also have a Grace Period since this is sent after the API Resource has expired.
+				if ( ! empty( $api_resource_id ) && WC_AM_GRACE_PERIOD()->exists( $api_resource_id ) ) {
+					$this->background_process->push_to_queue( array(
+						                                          'task'                                                => 'send_subscription_1_day_after_expiration_notification',
+						                                          'subscription_1_day_after_expiration_api_resource_id' => $api_resource_id
+					                                          ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Sends 1 day subscription expiration notification email after the expiration.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	public function send_subscription_1_day_after_expiration_notification( $api_resource_id ) {
+		$this->send_subscription_expiration_notification( $api_resource_id );
+	}
+
+	/**
+	 * Sends subscription expiration notification email.
+	 *
+	 * Runs in the background.
+	 *
+	 * @since 3.0
+	 */
+	public function send_subscription_expiration_notification( $api_resource_id ) {
+		WC_AM_EMAILS()->send_subscription_expiration_notification( $api_resource_id );
 	}
 
 	/**
@@ -356,7 +482,7 @@ class WC_AM_Background_Events {
 
 		if ( ! empty( $product_id ) && ! empty( $order_id ) ) {
 			$current_product_activations      = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $product_id );
-			$item_quanity_and_refund_quantity = WC_AM_API_RESOURCE_DATA_STORE()->get_item_quantity_and_refund_quantity_by_order_id_and_product_id( $order_id, $product_id );
+			$item_quanity_and_refund_quantity = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resource_by_order_id_and_product_id( $order_id, $product_id );
 			$activations_purchased_total      = $current_product_activations * absint( $item_quanity_and_refund_quantity->item_qty - $item_quanity_and_refund_quantity->refund_qty );
 
 			$data = array(

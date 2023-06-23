@@ -141,8 +141,8 @@ class Media_Item extends Smush_File {
 			? WP_SMUSH_PREMIUM_MAX_BYTES
 			: WP_SMUSH_MAX_BYTES;
 		$this->set_size_limit( $size_limit );
-		$this->array_utils = new Array_Utils();
-		$this->fs          = new File_System();
+		$this->array_utils  = new Array_Utils();
+		$this->fs           = new File_System();
 	}
 
 	public function size_limit_exceeded() {
@@ -259,6 +259,14 @@ class Media_Item extends Smush_File {
 		return '';
 	}
 
+	public function get_relative_file_dir() {
+		$relative_file_dir = dirname( $this->get_relative_file_path() );
+		if ( '.' === $relative_file_dir ) {
+			return '';
+		}
+		return untrailingslashit( $relative_file_dir );
+	}
+
 	/**
 	 * The relative file path e.g. 2023/05/image.png
 	 *
@@ -342,14 +350,17 @@ class Media_Item extends Smush_File {
 	}
 
 	private function prepare_sizes() {
-		$metadata_sizes   = $this->get_wp_metadata_sizes();
 		$media_item_sizes = array();
+
+		$metadata_sizes = $this->get_wp_metadata_sizes();
 		foreach ( $metadata_sizes as $size_key => $metadata_size ) {
 			$registered_size = $this->array_utils->ensure_array( $this->get_registered_wp_size( $size_key ) );
 			$metadata_size   = $this->array_utils->ensure_array( $metadata_size );
 			$size            = $this->initialize_size( $size_key, array_merge( $registered_size, $metadata_size ) );
 
-			$media_item_sizes[ $size_key ] = $size;
+			if ( $size ) {
+				$media_item_sizes[ $size_key ] = $size;
+			}
 		}
 
 		$scaled_size = $this->prepare_scaled_size();
@@ -546,6 +557,10 @@ class Media_Item extends Smush_File {
 	 * @see Animated_Status_Controller
 	 */
 	public function is_animated() {
+		if ( ! $this->has_animated_mime_type() ) {
+			return false;
+		}
+
 		if ( is_null( $this->animated ) ) {
 			$this->animated = (bool) $this->get_post_meta( self::ANIMATED_META_KEY );
 		}
@@ -553,25 +568,36 @@ class Media_Item extends Smush_File {
 		return $this->animated;
 	}
 
+	/**
+	 * @param $animated
+	 *
+	 * @return bool
+	 */
 	public function set_animated( $animated ) {
-		$this->animated = (bool) $animated;
+		if ( ! $this->has_animated_mime_type() ) {
+			return false;
+		}
 
+		$this->animated = (bool) $animated;
 		$this->set_outdated( self::ANIMATED_META_KEY );
+
+		return true;
 	}
 
 	/**
 	 * @return void
 	 */
 	private function update_animated_meta() {
-		if ( ! $this->is_outdated( self::ANIMATED_META_KEY ) ) {
-			return;
+		if ( $this->is_outdated( self::ANIMATED_META_KEY ) ) {
+			update_post_meta( $this->get_id(), self::ANIMATED_META_KEY, $this->is_animated() ? 1 : 0 );
 		}
+	}
 
-		if ( $this->is_animated() ) {
-			update_post_meta( $this->get_id(), self::ANIMATED_META_KEY, $this->is_animated() );
-		} else {
-			delete_post_meta( $this->get_id(), self::ANIMATED_META_KEY );
-		}
+	public function animated_meta_exists() {
+		$animated_meta_value = $this->get_post_meta( self::ANIMATED_META_KEY );
+
+		// Post meta default is empty string so a bool means there is a row in the meta table
+		return is_numeric( $animated_meta_value );
 	}
 
 	/**
@@ -797,7 +823,7 @@ class Media_Item extends Smush_File {
 	public function get_dir() {
 		$upload_dir = wp_upload_dir();
 		$basedir    = untrailingslashit( $upload_dir['basedir'] );
-		$file_dir   = untrailingslashit( dirname( $this->get_relative_file_path() ) );
+		$file_dir   = $this->get_relative_file_dir();
 
 		return "$basedir/$file_dir/";
 	}
@@ -805,7 +831,7 @@ class Media_Item extends Smush_File {
 	public function get_base_url() {
 		$upload_dir     = wp_upload_dir();
 		$upload_dir_url = untrailingslashit( $upload_dir['baseurl'] );
-		$file_dir       = untrailingslashit( dirname( $this->get_relative_file_path() ) );
+		$file_dir       = $this->get_relative_file_dir();
 
 		return "$upload_dir_url/$file_dir/";
 	}
@@ -901,7 +927,7 @@ class Media_Item extends Smush_File {
 			);
 		}
 
-		$short_dir = untrailingslashit( dirname( $this->get_relative_file_path() ) );
+		$short_dir = $this->get_relative_file_dir();
 		$main_size = $this->get_main_size();
 		$new_meta  = array(
 			'file'     => "$short_dir/{$main_size->get_file_name()}",

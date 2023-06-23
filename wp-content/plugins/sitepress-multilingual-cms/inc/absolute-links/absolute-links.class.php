@@ -65,7 +65,7 @@ class AbsoluteLinks {
 			md5( $source_text ),
 			md5( implode( '', $alp_broken_links ) ),
 		];
-		$cache_key      = md5( wp_json_encode( $cache_key_args ) );
+		$cache_key      = md5( (string) wp_json_encode( $cache_key_args ) );
 		$cache_group    = '_process_generic_text';
 		$found          = false;
 
@@ -299,13 +299,13 @@ class AbsoluteLinks {
 									}
 									$alp_broken_links[ $alp_matches[2][ $k ] ]['suggestions'][] = [
 										'absolute' => '/' . ltrim( $url_parts['path'], '/' ) . '?' . $qvid . '=' . $post_suggestion->ID,
-										'perma'    => '/' . ltrim( str_replace( site_url(), '', get_permalink( $post_suggestion->ID ) ), '/' ),
+										'perma'    => '/' . ltrim( str_replace( site_url(), '', (string) get_permalink( $post_suggestion->ID ) ), '/' ),
 									];
 								}
 							}
 						}
 					} elseif ( $category_name ) {
-						if ( false !== strpos( $category_name, '/' ) ) {
+						if ( is_string( $category_name ) && false !== strpos( $category_name, '/' ) ) {
 							$splits             = explode( '/', $category_name );
 							$category_name      = array_pop( $splits );
 							$category_parent    = array_pop( $splits );
@@ -460,8 +460,8 @@ class AbsoluteLinks {
 		$default_language = $sitepress->get_default_language();
 
 		$cache_keys   = [ $current_language, $default_language ];
-		$cache_keys[] = md5( wp_json_encode( $active_languages ) );
-		$cache_keys[] = md5( wp_json_encode( $rewrite ) );
+		$cache_keys[] = md5( (string) wp_json_encode( $active_languages ) );
+		$cache_keys[] = md5( (string) wp_json_encode( $rewrite ) );
 		$cache_key    = implode( ':', $cache_keys );
 		$cache_group  = 'all_rewrite_rules';
 		$cache_found  = false;

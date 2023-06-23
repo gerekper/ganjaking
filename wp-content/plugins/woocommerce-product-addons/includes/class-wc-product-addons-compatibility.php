@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_PAO_Compatibility
- * @version  6.3.0
+ * @version  6.4.0
  */
 class WC_PAO_Compatibility {
 
@@ -74,8 +74,9 @@ class WC_PAO_Compatibility {
 	public function __construct() {
 
 		$this->required = array(
-			'pb'     => '6.18.0',
-			'cp'     => '8.7.0'
+			'pb'     => '6.20.0',
+			'cp'     => '8.9.0',
+			'blocks' => '7.2.0',
 		);
 
 		// Initialize.
@@ -96,6 +97,9 @@ class WC_PAO_Compatibility {
 			add_action( 'admin_init', array( $this, 'check_required_versions' ) );
 		}
 
+		// Load modules.
+		add_action( 'plugins_loaded', array( $this, 'module_includes' ), 100 );
+
 	}
 
 	/**
@@ -106,6 +110,35 @@ class WC_PAO_Compatibility {
 	 */
 	public static function core_includes() {
 		require_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/core/class-wc-product-addons-core-compatibility.php' );
+	}
+
+	/**
+	 * Load compatibility classes.
+	 *
+	 * @return void
+	 */
+	public function module_includes() {
+
+		$module_paths = array();
+
+		// WooCommerce Cart/Checkout Blocks support.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) >= 0 ) {
+			$module_paths[ 'blocks' ] = WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/compatibility/modules/class-wc-product-addons-blocks-compatibility.php';
+		}
+
+		/**
+		 * 'woocommerce_product_addons_compatibility_modules' filter.
+		 *
+		 * Use this to filter the required compatibility modules.
+		 *
+		 * @since  6.4.0
+		 * @param  array $module_paths
+		 */
+		$this->modules = apply_filters( 'woocommerce_product_addons_compatibility_modules', $module_paths );
+
+		foreach ( $this->modules as $name => $path ) {
+			require_once( $path );
+		}
 	}
 
 	/**
@@ -149,6 +182,20 @@ class WC_PAO_Compatibility {
 				$extension_url  = 'https://woocommerce.com/products/composite-products/';
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Add-ons</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-addons' ), $extension, $extension_url, $extension_full, $required_version );
 				WC_PAO_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'cp_lt_' . $required_version, 'type' => 'warning' ) );
+			}
+		}
+
+		// Blocks feature plugin check.
+		if ( defined( 'WC_BLOCKS_IS_FEATURE_PLUGIN' ) ) {
+			$required_version = $this->required[ 'blocks' ];
+			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) < 0 ) {
+
+				$plugin     = __( 'WooCommerce Blocks', 'woocommerce-product-addons' );
+				$plugin_url = 'https://woocommerce.com/products/woocommerce-gutenberg-products-block/';
+				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
+				$notice = sprintf( __( 'The installed version of <strong>%1$s</strong> does not support <strong>Product Add-ons</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-addons' ), $plugin, $plugin_url, $plugin, $required_version );
+
+				WC_PAO_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'blocks_lt_' . $required_version, 'type' => 'warning' ) );
 			}
 		}
 	}

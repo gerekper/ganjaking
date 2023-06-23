@@ -261,13 +261,9 @@ import {GlobalStats, UpsellManger} from "../common/globalStats";
                 SmushProgress.hideBulkSmushDescription();
                 // Show completed message.
                 this.showCompletedMessage();
-                this.trackBulkSmushCompleted();
 
                 // Reset the progress when we finish so the next smushing starts from zero.
                 SmushProgress.update(0, GlobalStats.getBoStats().total_items);
-            },
-            trackBulkSmushCompleted() {
-                mixPanel.trackBulkSmushCompleted( GlobalStats.getGlobalStats() );
             },
             completeBulk() {
                 // Sync Stats.

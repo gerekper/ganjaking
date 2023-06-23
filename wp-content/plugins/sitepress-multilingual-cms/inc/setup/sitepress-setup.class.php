@@ -368,7 +368,7 @@ class SitePress_Setup {
 
 		// check if the term already exists
 		if ( $tr_term !== 0 && $tr_term !== null ) {
-			$tmp = get_term( $tr_term['term_taxonomy_id'], 'category', ARRAY_A );
+			$tmp = get_term( (int) $tr_term['term_taxonomy_id'], 'category', ARRAY_A );
 		} else {
 			$tmp = wp_insert_term( $tr_cat, 'category' );
 		}

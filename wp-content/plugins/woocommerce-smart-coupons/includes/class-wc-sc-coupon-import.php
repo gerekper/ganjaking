@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.0
+ * @version     2.9.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -304,7 +304,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				}
 			}
 
-			// Proceed only if there is no any file permission error.
+			// Proceed only if there is not any file permission error.
 			if ( true !== $permission_error ) {
 				if ( ( ! empty( $post_smart_coupons_generate_action ) && ( 'woo_sc_is_email_imported_coupons' === $post_smart_coupons_generate_action || 'send_store_credit' === $post_smart_coupons_generate_action ) ) || ( isset( $_POST['woo_sc_is_email_imported_coupons'] ) ) ) {
 					update_option( 'woo_sc_is_email_imported_coupons', 'yes', 'no' );

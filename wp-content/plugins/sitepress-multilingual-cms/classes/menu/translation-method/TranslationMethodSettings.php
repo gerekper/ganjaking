@@ -92,10 +92,24 @@ class TranslationMethodSettings {
 	public static function getModeSettingsData() {
 		$defaultServiceName = self::getDefaultTranslationServiceName();
 		Option::setDefaultTranslationMode( ! empty( $defaultServiceName ) );
+		$translationMethod = null;
 
-		$translationMethod = Option::shouldTranslateEverything( Option::getTranslateEverythingDefaultInSetup( ! empty( $defaultServiceName ) ) )
-			? 'automatic'
-			: 'manual';
+		// User selected translation method.
+		$userSelectedTranslationMethod = Option::shouldTranslateEverything( 'unknown' );
+
+		if ( true === $userSelectedTranslationMethod ) {
+			// User selected Translate Everything.
+			$translationMethod = 'automatic';
+		} elseif ( false === $userSelectedTranslationMethod ) {
+			// User selected Translate Some.
+			$translationMethod = 'manual';
+		} else {
+			// No user selection.
+			if ( ! empty( $defaultServiceName ) ) {
+				// Pre-select "Translate Some" if a Translation Service is defined.
+				$translationMethod = 'manual';
+			}
+		}
 
 		return [
 			'whoModes'           => Option::getTranslationMode(),

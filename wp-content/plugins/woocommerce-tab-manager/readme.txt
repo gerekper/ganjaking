@@ -1,9 +1,9 @@
 === WooCommerce Tab Manager ===
 Author: skyverge
 Tags: woocommerce
-Requires at least: 5.2
-Tested up to: 6.0.1
-Requires PHP: 7.0
+Requires at least: 5.6
+Tested up to: 6.2.2
+Requires PHP: 7.4
 
 A product tab manager for WooCommerce
 

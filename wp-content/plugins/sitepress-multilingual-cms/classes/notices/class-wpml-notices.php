@@ -465,7 +465,7 @@ class WPML_Notices {
 	}
 
 	public function init_hooks() {
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		$this->add_admin_notices_action();
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), \WPML_Admin_Scripts_Setup::PRIORITY_ENQUEUE_SCRIPTS + 1 );
 		add_action( 'wp_ajax_otgs-hide-notice', array( $this, 'wp_ajax_hide_notice' ) );
 		add_action( 'wp_ajax_otgs-dismiss-notice', array( $this, 'wp_ajax_dismiss_notice' ) );
@@ -473,6 +473,13 @@ class WPML_Notices {
 		add_action( 'otgs_add_notice', array( $this, 'add_notice' ), 10, 2 );
 		add_action( 'otgs_remove_notice', array( $this, 'remove_notice' ), 10, 2 );
 		add_action( 'otgs_remove_notice_group', array( $this, 'remove_notice_group' ), 10, 1 );
+	}
+
+	/**
+	 * @return void
+	 */
+	public function add_admin_notices_action() {
+		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
 	}
 
 	private function filter_invalid_notices( $notices ) {

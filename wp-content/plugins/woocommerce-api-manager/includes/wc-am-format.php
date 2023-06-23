@@ -35,7 +35,7 @@ class WC_AM_Format {
 	private function __construct() { }
 
 	/**
-	 * Display a human friendly time diff for a given timestamp, e.g. "In 12 hours" or "12 hours ago".
+	 * Display a human-readable time diff for a given timestamp, e.g. "In 12 hours" or "12 hours ago".
 	 *
 	 * @since 2.0
 	 *

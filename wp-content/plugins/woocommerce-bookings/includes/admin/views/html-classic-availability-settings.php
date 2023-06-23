@@ -14,7 +14,7 @@ if (
 	// Save the field values.
 	if ( ! empty( $_POST['bookings_availability_submitted'] ) ) {
 		if ( ! empty( $_POST['wc_booking_availability_deleted'] ) ) {
-			$deleted_ids = array_filter( explode( ',', wc_clean( wp_unslash( $_POST['wc_booking_availability_deleted'] ) ) ) );
+			$deleted_ids = array_map( 'absint', explode( ',', wc_clean( wp_unslash( $_POST['wc_booking_availability_deleted'] ) ) ) );
 
 			foreach ( $deleted_ids as $delete_id ) {
 				if ( current_user_can( 'delete_global_availability', $delete_id ) ) {

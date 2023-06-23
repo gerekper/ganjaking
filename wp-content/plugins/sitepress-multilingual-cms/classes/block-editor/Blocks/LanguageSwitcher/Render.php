@@ -37,9 +37,6 @@ class Render {
 		$context                  = $parentBlock->context;
 		$languageSwitcherTemplate = $this->parser->parse( $blockAttrs, $savedHTML, $parentBlock, $context );
 
-		if ( ! $languageSwitcherTemplate ) {
-			return '';
-		}
 
 		$languageSwitcher = $this->repository->getCurrentLanguageSwitcher();
 
@@ -243,6 +240,10 @@ class Render {
 	 */
 	private function getBodyHTML( $DOMDocument ) {
 		$html = $DOMDocument->saveHTML();
+
+		if ( ! $html ) {
+			return '';
+		}
 
 		$start = strpos( $html, '<body>' );
 		$end   = strpos( $html, '</body>' );

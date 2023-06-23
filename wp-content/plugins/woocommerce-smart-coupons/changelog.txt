@@ -1,5 +1,28 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.06.16 - version 8.0.0
+* New: Tested up to WooCommerce 7.8.0
+* New: Store credit applying to the order using WooCommerce coupon discount API when 'Apply before tax' is disabled
+* New: Automatically adjust the refund amount that will be refunded first to the store credit applied to the order, on the order edit page
+* New: Method 'is_sc_gte' for comparing with the current version of the plugin
+* Fix: Option 'sc_display_global_coupons' resetting on any coupon update
+* Fix: Admin notification messages related to coupon bulk generation, import, export
+* Tweak: Replaced the use of __() with _x() at a few instances
+* Tweak: Try to exit early from a few method
+* Developer: New filter 'wc_sc_max_url_coupons_limit' for setting maximum number of coupons that can be applied via URL at one time
+* Update: For store credit, add columns in the order edit page under order item's list based on the number of tax rates
+* Update: Removed option 'Auto-fill refund amount' that appears while refunding an order & the order has store credit, on the order edit page 
+* Update: Add currency to the amount that is refunded to store credits on order edit page
+* Update: Display refund amount field for store credit only if some amount is left to be refunded, on the order edit page
+* Update: Set max limit on the refund amount field for store credit
+* Update: Use the label set for store credit in the refund row, on the order edit page
+* Update: Set human-readable label for order item meta added by the Smart Coupons plugin (e.g. '_wc_sc_product_source')
+* Update: Set a few order item meta added by Smart Coupons plugin as hidden
+* Update: Translate field 'discount_type' when coupon is imported via CSV for setting correct discount type for the coupon
+* Update: Coupon actions field 'with discount of' will follow the WooCommerce setting for 'Number of decimals'
+* Update: Added support for fetching serialized data for options
+* Update: Spellcheck: replace 'Funtion' with 'Function' and 'appplied' with 'applied'
+
 2023.06.02 - version 7.12.0
 * New: Tested up to WooCommerce 7.7.2
 * New: Show linked coupons to a product on the products listing page (dashboard)

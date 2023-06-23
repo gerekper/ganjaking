@@ -34,9 +34,10 @@ class WPML_TM_ATE_AMS_Endpoints {
 	/**
 	 * AMS CLONED SITES
 	 */
-	const ENDPOINTS_SITE_COPY    = '/api/wpml/websites/copy';
-	const ENDPOINTS_SITE_MOVE    = '/api/wpml/websites/move';
-	const ENDPOINTS_SITE_CONFIRM = '/api/wpml/websites/confirm';
+	const ENDPOINTS_SITE_COPY       = '/api/wpml/websites/copy';
+	const ENDPOINTS_SITE_MOVE       = '/api/wpml/websites/move';
+	const ENDPOINTS_SITE_CONFIRM    = '/api/wpml/websites/confirm';
+	const ENDPOINTS_COPY_ATTACHED   = '/api/wpml/websites/copy_attached';
 
 	/**
 	 * ATE
@@ -99,7 +100,7 @@ class WPML_TM_ATE_AMS_Endpoints {
 		if ( $query_string ) {
 			$url_parts = wp_parse_url( $url );
 			$query     = array();
-			if ( array_key_exists( 'query', $url_parts ) ) {
+			if ( $url_parts && array_key_exists( 'query', $url_parts ) ) {
 				parse_str( $url_parts['query'], $query );
 			}
 
@@ -214,6 +215,14 @@ class WPML_TM_ATE_AMS_Endpoints {
 	 */
 	public function get_ams_site_copy() {
 		return $this->get_endpoint_url( self::SERVICE_AMS, self::ENDPOINTS_SITE_COPY );
+	}
+
+	/**
+	 * @return string
+	 * @throws \InvalidArgumentException
+	 */
+	public function get_ams_copy_attached() {
+		return $this->get_endpoint_url( self::SERVICE_AMS, self::ENDPOINTS_COPY_ATTACHED );
 	}
 
 	/**

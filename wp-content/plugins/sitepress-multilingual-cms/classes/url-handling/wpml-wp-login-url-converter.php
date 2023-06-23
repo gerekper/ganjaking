@@ -53,7 +53,7 @@ class WPLoginUrlConverter implements \IWPML_Action {
 
 		if ( self::isEnabled() ) {
 			add_filter( 'logout_url', [ $this, 'convert_user_logout_url' ] );
-			add_filter( 'logout_redirect', [ $this, 'convert_default_redirect_url' ], 2, 10 );
+			add_filter( 'logout_redirect', [ $this, 'convert_default_redirect_url' ], 2, 2 );
 		}
 
 		add_action( 'generate_rewrite_rules', [ $this, 'generate_rewrite_rules' ] );
@@ -91,7 +91,8 @@ class WPLoginUrlConverter implements \IWPML_Action {
 
 	public function redirect_to_login_url_with_lang() {
 		$sitePath              = Obj::propOr( '', 'path', parse_url( site_url() ) );
-		$requestUriWithoutPath = Str::trimPrefix( $sitePath, $_SERVER['REQUEST_URI'] );
+		/** @var string $requestUriWithoutPath */
+		$requestUriWithoutPath = Str::trimPrefix( (string) $sitePath, (string) $_SERVER['REQUEST_URI'] );
 
 		$converted_url = site_url( $requestUriWithoutPath, 'login' );
 		if (

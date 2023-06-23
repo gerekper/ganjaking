@@ -114,7 +114,7 @@ class WC_MNM_Customizer {
 		$wp_customize->add_section(
 			'wc_mnm',
 			array(
-				'title' => __( 'Mix and Match Products', 'woocommerce-mix-and-match-products' ),
+				'title' => esc_html__( 'Mix and Match Products', 'woocommerce-mix-and-match-products' ),
 				'priority' => 21,
 				'panel' => 'woocommerce',
 			)
@@ -138,7 +138,7 @@ class WC_MNM_Customizer {
 				$wp_customize,
 				'wc_mnm_layout',
 				array(
-					'label'       => __( 'Contents layout', 'woocommerce-mix-and-match-products' ),
+					'label'       => esc_html__( 'Contents layout', 'woocommerce-mix-and-match-products' ),
 					'section'     => 'wc_mnm',
 					'settings'    => 'wc_mnm_layout',
 					'choices'     => WC_Product_Mix_and_Match::get_layout_options(),
@@ -165,8 +165,8 @@ class WC_MNM_Customizer {
 				'wc_mnm_number_columns',
 				array(
 					'type'        => 'kia-range',
-					'label'    => __( 'Number of columns', 'woocommerce-mix-and-match-products' ),
-					'description' => __( 'How many products should be shown per row?', 'woocommerce-mix-and-match-products' ),
+					'label'    => esc_html__( 'Number of columns', 'woocommerce-mix-and-match-products' ),
+					'description' => esc_html__( 'How many products should be shown per row?', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'settings' => 'wc_mnm_number_columns',
 					'input_attrs' => array(
@@ -196,7 +196,7 @@ class WC_MNM_Customizer {
 				$wp_customize,
 				'wc_mnm_add_to_cart_form_location',
 				array(
-					'label'    => __( 'Add to cart location', 'woocommerce-mix-and-match-products' ),
+					'label'    => esc_html__( 'Add to cart location', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'settings' => 'wc_mnm_add_to_cart_form_location',
 					'choices'     => WC_Product_Mix_and_Match::get_add_to_cart_form_location_options(),
@@ -223,7 +223,7 @@ class WC_MNM_Customizer {
 				$wp_customize,
 				'wc_mnm_display_thumbnail',
 				array(
-					'label'    => __( 'Display thumbnail', 'woocommerce-mix-and-match-products' ),
+					'label'    => esc_html__( 'Display thumbnail', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'type'     => 'kia-toggle',
 					'settings' => 'wc_mnm_display_thumbnail',
@@ -250,7 +250,7 @@ class WC_MNM_Customizer {
 				$wp_customize,
 				'wc_mnm_display_short_description',
 				array(
-					'label'    => __( 'Display short description', 'woocommerce-mix-and-match-products' ),
+					'label'    => esc_html__( 'Display short description', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'type'     => 'kia-toggle',
 					'settings' => 'wc_mnm_display_short_description',
@@ -277,8 +277,8 @@ class WC_MNM_Customizer {
 				$wp_customize,
 				'wc_mnm_mobile_optimized_layout',
 				array(
-					'label'    => __( 'Apply enhanced mobile layout', 'woocommerce-mix-and-match-products' ),
-					'description' => __( 'May conflict with your theme styles.', 'woocommerce-mix-and-match-products' ),
+					'label'    => esc_html__( 'Apply enhanced mobile layout', 'woocommerce-mix-and-match-products' ),
+					'description' => esc_html__( 'May conflict with your theme styles.', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'type'     => 'kia-toggle',
 					'settings' => 'wc_mnm_mobile_optimized_layout',
@@ -305,8 +305,8 @@ class WC_MNM_Customizer {
 				$wp_customize,
 				'wc_mnm_display_plus_minus_buttons',
 				array(
-					'label'    => __( 'Display plus/minus buttons', 'woocommerce-mix-and-match-products' ),
-					'description' => __( 'May conflict with your theme styles.', 'woocommerce-mix-and-match-products' ),
+					'label'    => esc_html__( 'Display plus/minus buttons', 'woocommerce-mix-and-match-products' ),
+					'description' => esc_html__( 'May conflict with your theme styles.', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'type'     => 'kia-toggle',
 					'settings' => 'wc_mnm_display_plus_minus_buttons',

@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.8.5\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.8.6\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2023-05-23 12:19:57+00:00\n"
+"POT-Creation-Date: 2023-06-12 16:55:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,12 +54,12 @@ msgid "Address is already in your address book"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:28
-#: includes/wcms-order.php:379 woocommerce-shipping-multiple-addresses.php:517
+#: includes/wcms-order.php:389 woocommerce-shipping-multiple-addresses.php:517
 msgid "Address"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:65
-#: includes/wcms-order.php:753 templates/address-block.php:27
+#: includes/wcms-order.php:763 templates/address-block.php:27
 msgid "Edit"
 msgstr ""
 
@@ -77,113 +77,125 @@ msgstr ""
 msgid "Save Address"
 msgstr ""
 
-#: includes/wcms-admin.php:58 includes/wcms-front.php:132
-#: includes/wcms-front.php:147
+#: includes/wcms-admin.php:58 includes/wcms-front.php:142
+#: includes/wcms-front.php:168
 msgid "Select an option&hellip;"
 msgstr ""
 
-#: includes/wcms-admin.php:105 includes/wcms-privacy.php:154
+#: includes/wcms-admin.php:112 includes/wcms-privacy.php:154
 msgid "Multiple Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-admin.php:106
+#: includes/wcms-admin.php:113
 msgid "Page contents: [woocommerce_select_multiple_addresses] Parent: \"Checkout\""
 msgstr ""
 
-#: includes/wcms-admin.php:125
+#: includes/wcms-admin.php:132
 msgid "Account Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-admin.php:126
+#: includes/wcms-admin.php:133
 msgid "Page contents: [woocommerce_account_addresses] Parent: \"My Account\""
 msgstr ""
 
-#: includes/wcms-admin.php:144
+#: includes/wcms-admin.php:151
 msgid "Shipping address deleted"
 msgstr ""
 
-#: includes/wcms-admin.php:153 templates/my-account-addresses.php:3
+#: includes/wcms-admin.php:160 templates/my-account-addresses.php:3
 msgid "Other Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-admin.php:156
+#: includes/wcms-admin.php:163
 msgid "View Addresses"
 msgstr ""
 
-#: includes/wcms-cart.php:180 settings.php:177
-msgid "Remove"
+#: includes/wcms-admin.php:204 includes/wcms-checkout.php:185
+#: includes/wcms-order.php:49
+msgid "Permission denied: Security check failed"
 msgstr ""
 
-#: includes/wcms-cart.php:221 templates/shipping-address-table.php:55
+#: includes/wcms-admin.php:208
+msgid "Permission denied: Not enough capability"
+msgstr ""
+
+#: includes/wcms-admin.php:215
+msgid "No address data"
+msgstr ""
+
+#: includes/wcms-admin.php:225
+msgid "User does not exists!"
+msgstr ""
+
+#: includes/wcms-cart.php:107 templates/shipping-address-table.php:55
 msgid "Duplicate Cart"
 msgstr ""
 
-#: includes/wcms-checkout.php:188 includes/wcms-checkout.php:209
-#: templates/shipping-address-table.php:69
-msgid "Shipping Address"
-msgstr ""
-
-#: includes/wcms-checkout.php:192 includes/wcms-checkout.php:213
-msgid "Modify/Add Address"
-msgstr ""
-
-#: includes/wcms-checkout.php:192 includes/wcms-checkout.php:213
-msgid "Reset Address"
-msgstr ""
-
-#: includes/wcms-checkout.php:303
+#: includes/wcms-checkout.php:208
 msgid "Stored Addresses"
 msgstr ""
 
-#: includes/wcms-checkout.php:305
+#: includes/wcms-checkout.php:210
 msgid "Select an address to use&hellip;"
 msgstr ""
 
-#: includes/wcms-checkout.php:504 includes/wcms-checkout.php:506
+#: includes/wcms-checkout.php:409 includes/wcms-checkout.php:411
 msgid "One or more items has no shipping address."
 msgstr ""
 
-#: includes/wcms-front.php:288
+#: includes/wcms-front.php:152 templates/shipping-address-table.php:69
+msgid "Shipping Address"
+msgstr ""
+
+#: includes/wcms-front.php:153
+msgid "Modify/Add Address"
+msgstr ""
+
+#: includes/wcms-front.php:154
+msgid "Reset Address"
+msgstr ""
+
+#: includes/wcms-front.php:309
 msgid "Shipping address %d"
 msgstr ""
 
-#: includes/wcms-front.php:398
+#: includes/wcms-front.php:419
 msgid "%s is a required field."
 msgstr ""
 
-#: includes/wcms-front.php:415
+#: includes/wcms-front.php:436
 msgid "Please enter a valid postcode / ZIP."
 msgstr ""
 
-#: includes/wcms-front.php:424
+#: includes/wcms-front.php:445
 msgid "%s is not a valid phone number."
 msgstr ""
 
-#: includes/wcms-front.php:431
+#: includes/wcms-front.php:452
 msgid "%s is not a valid email address."
 msgstr ""
 
-#: includes/wcms-front.php:458
+#: includes/wcms-front.php:479
 msgid "Address added successfully."
 msgstr ""
 
-#: includes/wcms-front.php:461
+#: includes/wcms-front.php:482
 msgid "Address changed successfully."
 msgstr ""
 
-#: includes/wcms-front.php:532
+#: includes/wcms-front.php:553
 msgid "Delete address"
 msgstr ""
 
-#: includes/wcms-front.php:550
+#: includes/wcms-front.php:571
 msgid "Deleted address"
 msgstr ""
 
-#: includes/wcms-front.php:552
+#: includes/wcms-front.php:573
 msgid "Address could not be found"
 msgstr ""
 
-#: includes/wcms-front.php:570
+#: includes/wcms-front.php:591
 msgid "Add address"
 msgstr ""
 
@@ -229,110 +241,110 @@ msgstr ""
 msgid "Invalid shipment status"
 msgstr ""
 
-#: includes/wcms-order.php:201
+#: includes/wcms-order.php:211
 msgid "Ships to multiple addresses"
 msgstr ""
 
-#: includes/wcms-order.php:374
+#: includes/wcms-order.php:384
 msgid "Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-order.php:378 multi-shipping.php:138 settings.php:47
+#: includes/wcms-order.php:388 multi-shipping.php:138 settings.php:47
 msgid "Products"
 msgstr ""
 
-#: includes/wcms-order.php:381
+#: includes/wcms-order.php:391
 msgid "Notes"
 msgstr ""
 
-#: includes/wcms-order.php:431 includes/wcms-order.php:490
+#: includes/wcms-order.php:441 includes/wcms-order.php:500
 #. translators: %s is replaced with the package date.
 msgid "Delivery date: %s"
 msgstr ""
 
-#: includes/wcms-order.php:452
+#: includes/wcms-order.php:462
 msgid "This order ships to multiple addresses."
 msgstr ""
 
-#: includes/wcms-order.php:461
+#: includes/wcms-order.php:471
 #. translators: %d is replaced with the address index.
 msgid "Address %d"
 msgstr ""
 
-#: includes/wcms-order.php:464
+#: includes/wcms-order.php:474
 msgid "Products:"
 msgstr ""
 
-#: includes/wcms-order.php:474
+#: includes/wcms-order.php:484
 msgid "Address:"
 msgstr ""
 
-#: includes/wcms-order.php:512
+#: includes/wcms-order.php:522
 msgid "Ships to multiple addresses "
 msgstr ""
 
-#: includes/wcms-order.php:532
+#: includes/wcms-order.php:542
 msgid "Order Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-order.php:659
+#: includes/wcms-order.php:669
 msgid "Pending"
 msgstr ""
 
-#: includes/wcms-order.php:660 includes/wcms-order.php:665
+#: includes/wcms-order.php:670 includes/wcms-order.php:675
 msgid "Completed"
 msgstr ""
 
-#: includes/wcms-order.php:662
+#: includes/wcms-order.php:672
 msgid "GO"
 msgstr ""
 
-#: includes/wcms-order.php:665
+#: includes/wcms-order.php:675
 msgid "Change"
 msgstr ""
 
-#: includes/wcms-order.php:692
+#: includes/wcms-order.php:702
 msgid "Do you want to send an email to the customer?"
 msgstr ""
 
-#: includes/wcms-order.php:969 multi-shipping.php:183
+#: includes/wcms-order.php:979 multi-shipping.php:183
 msgid "Part of your order has been shipped"
 msgstr ""
 
-#: includes/wcms-order.php:997
+#: includes/wcms-order.php:1007
 msgid ""
 "Hi there. Part of your recent order on %s has been completed. Your order "
 "details are shown below for your reference:"
 msgstr ""
 
-#: includes/wcms-order.php:999
+#: includes/wcms-order.php:1009
 msgid "Order:"
 msgstr ""
 
-#: includes/wcms-order.php:1023 templates/pip-template-body.php:118
+#: includes/wcms-order.php:1033 templates/pip-template-body.php:118
 #: templates/pip-template-body.php:204 templates/shipping-address-table.php:66
 #: woocommerce-shipping-multiple-addresses.php:517
 msgid "Product"
 msgstr ""
 
-#: includes/wcms-order.php:1024 templates/pip-template-body.php:119
+#: includes/wcms-order.php:1034 templates/pip-template-body.php:119
 #: templates/pip-template-body.php:205 templates/shipping-address-table.php:67
 msgid "Quantity"
 msgstr ""
 
-#: includes/wcms-order.php:1059
+#: includes/wcms-order.php:1069
 msgid "Download %d:"
 msgstr ""
 
-#: includes/wcms-order.php:1061
+#: includes/wcms-order.php:1071
 msgid "Download:"
 msgstr ""
 
-#: includes/wcms-order.php:1092 templates/pip-template-body.php:55
+#: includes/wcms-order.php:1102 templates/pip-template-body.php:55
 msgid "Billing address"
 msgstr ""
 
-#: includes/wcms-order.php:1096 templates/pip-template-body.php:75
+#: includes/wcms-order.php:1106 templates/pip-template-body.php:75
 msgid "Shipping address"
 msgstr ""
 
@@ -656,6 +668,10 @@ msgstr ""
 
 #: settings.php:122
 msgid "Save Changes"
+msgstr ""
+
+#: settings.php:177
+msgid "Remove"
 msgstr ""
 
 #: templates/address-form.php:4

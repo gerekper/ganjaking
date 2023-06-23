@@ -2,11 +2,13 @@
 /**
  * The Template for displaying checkbox field.
  *
- * @version 6.0.0
+ * @version 6.4.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
  */
+
+global $product;
 
 $addon_required = WC_Product_Addons_Helper::is_addon_required( $addon );
 ?>
@@ -26,8 +28,13 @@ foreach ( $addon['options'] as $i => $option ) {
 	$restriction_data  = WC_Product_Addons_Helper::get_restriction_data( $addon );
 
 	if ( 'percentage_based' === $price_type ) {
-		$price_display     = $price_raw;
-		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		$price_display = $price_raw;
+
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_for_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 			$option,
@@ -35,7 +42,11 @@ foreach ( $addon['options'] as $i => $option ) {
 			'checkbox'
 		) : '';
 	} else {
-		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_for_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$option,

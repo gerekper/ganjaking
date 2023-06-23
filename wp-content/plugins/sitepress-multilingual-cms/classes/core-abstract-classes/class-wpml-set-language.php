@@ -197,11 +197,11 @@ class WPML_Set_Language extends WPML_Full_Translation_API {
 	/**
 	 * Inserts a new row into icl_translations
 	 *
-	 * @param int    $el_id
-	 * @param int    $trid
-	 * @param string $el_type
-	 * @param string $language_code
-	 * @param string $src_language_code
+	 * @param int       $el_id
+	 * @param int|false $trid
+	 * @param string    $el_type
+	 * @param string    $language_code
+	 * @param string    $src_language_code
 	 *
 	 * @return int Translation ID of the new row
 	 */

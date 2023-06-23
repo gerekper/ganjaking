@@ -1,5 +1,11 @@
 *** Brands Changelog ***
 
+2023-06-13 - version 1.6.52
+* Tweak - WC 7.8 compatibility.
+
+2023-06-02 - version 1.6.51
+* Fix - Incorrect screen check condition .
+
 2023-05-30 - version 1.6.50
 * Fix - Add initial playwright e2e smoke test.
 * Fix - Adds nonce verification before saving product brand base permalink setting.

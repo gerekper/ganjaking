@@ -297,7 +297,7 @@ class WPML_TM_REST_Jobs extends WPML_REST_Base {
 	 * @return array|string
 	 */
 	public function get_allowed_capabilities( WP_REST_Request $request ) {
-		return array( WPML_Manage_Translations_Role::CAPABILITY, WPML_Translator_Role::CAPABILITY );
+		return [ User::CAP_ADMINISTRATOR, User::CAP_MANAGE_TRANSLATIONS, User::CAP_TRANSLATE ];
 	}
 
 	/**

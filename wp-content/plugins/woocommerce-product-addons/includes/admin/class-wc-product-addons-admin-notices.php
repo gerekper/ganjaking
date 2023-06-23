@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Add-Ons admin notices handling.
  *
  * @class    WC_PAO_Admin_Notices
- * @version  6.3.0
+ * @version  6.3.2
  */
 class WC_PAO_Admin_Notices {
 
@@ -189,7 +189,7 @@ class WC_PAO_Admin_Notices {
 			foreach ( $notices as $notice ) {
 
 				$notice_classes = array( 'wc_pao_notice', 'notice', 'notice-' . $notice[ 'type' ] );
-				$dismiss_attr   = $notice[ 'dismiss_class' ] ? 'data-dismiss_class="' . $notice[ 'dismiss_class' ] . '"' : '';
+				$dismiss_attr   = $notice[ 'dismiss_class' ] ? ' data-dismiss_class="' . $notice[ 'dismiss_class' ] . '"' : '';
 
 				if ( $notice[ 'dismiss_class' ] ) {
 					$notice_classes[] = $notice[ 'dismiss_class' ];

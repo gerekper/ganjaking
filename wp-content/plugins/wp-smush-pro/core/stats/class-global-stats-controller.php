@@ -52,6 +52,10 @@ class Global_Stats_Controller extends Controller {
 			$this,
 			'adjust_global_stats_for_attachment',
 		) );
+		$this->register_action( 'wp_smush_membership_status_changed', array(
+			$this->global_stats,
+			'mark_as_outdated',
+		), 10, 2 );
 		$this->register_action( 'wp_ajax_wp_smush_get_global_stats', array( $this, 'ajax_get_global_stats' ) );
 	}
 

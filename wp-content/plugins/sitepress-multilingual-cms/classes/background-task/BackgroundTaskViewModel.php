@@ -14,7 +14,7 @@ class BackgroundTaskViewModel {
 	 * @param BackgroundTask    $backgroundTask
 	 * @param bool              $getLock
 	 *
-	 * @return array{
+	 * @return ?array{
 	 *     isPaused: bool,
 	 *     progressTotal: int,
 	 *     progressDone: int,
@@ -28,11 +28,17 @@ class BackgroundTaskViewModel {
 	 * }
 	 **/
 	public static function get( $backgroundTask, $getLock = false ) {
-		/** @var TaskEndpointInterface $endpointInstance */
-		$endpointInstance   = make( $backgroundTask->getTaskType() );
+		$className = $backgroundTask->getTaskType();
 
-		$endpointLock       = make( 'WPML\Utilities\Lock', [ ':name' => $backgroundTask->getTaskType() ] );
-		$hasLock            = $getLock ? $endpointLock->create( $endpointInstance->getLockTime() ) : false;
+		if ( ! class_exists( $className ) ) {
+			return;
+		}
+
+		/** @var TaskEndpointInterface $endpointInstance */
+		$endpointInstance = make( $className );
+
+		$endpointLock = make( 'WPML\Utilities\Lock', [ ':name' => $backgroundTask->getTaskType() ] );
+		$hasLock      = $getLock ? $endpointLock->create( $endpointInstance->getLockTime() ) : false;
 
 		return [
 			'isPaused'      => $backgroundTask->isStatusPaused(),

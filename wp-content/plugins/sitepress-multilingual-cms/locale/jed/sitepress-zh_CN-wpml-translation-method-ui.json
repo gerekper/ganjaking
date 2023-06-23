@@ -4,7 +4,7 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "尝试暂停自动翻译时出错。请稍后再试或联系支持人员。"
@@ -24,17 +24,38 @@
          "Insufficient funds": [
             "资金不足"
          ],
+         "Translate Everything Automatically - running": [
+            "自动翻译所有内容 - 运行中"
+         ],
+         "Translate Everything Automatically - active": [
+            "自动翻译所有内容 - 活动"
+         ],
          "Pause": [
             "暂停"
+         ],
+         "Pause automatic translation": [
+            "暂停自动翻译"
          ],
          "WPML will finish in-progress translations but won't translate anything new.": [
             "WPML 将完成正在进行的翻译，但不会翻译任何新内容。"
          ],
+         "Translate Everything Automatically is paused": [
+            "自动翻译所有内容已暂停"
+         ],
+         "Translate Everything Automatically - paused": [
+            "自动翻译所有内容 – 已暂停"
+         ],
          "Resume": [
             "恢复"
          ],
+         "Start automatic translation": [
+            "开始自动翻译"
+         ],
          "This uses %scredits%s to translate your existing content and anything you add or change later.": [
             "这将使用%s积分%s来翻译你的现有内容及后来添加或修改的任何内容。"
+         ],
+         "Start translating everything automatically": [
+            "开始自动翻译所有内容"
          ],
          "WPML will translate any new content you create into %1$s.": [
             "WPML 会将你创建的任何新内容翻译成 %1$s。"
@@ -42,8 +63,17 @@
          "WPML will translate all new future content to %1$s and keep translations up to date when you make changes.": [
             "WPML 会将所有未来的新内容翻译成 %1$s 并会在你做出更改时对翻译进行最新。"
          ],
+         "Do you want to translate existing content, too?": [
+            "你是否也想翻译现有内容？"
+         ],
          "Yes, translate all new and existing content": [
             "是，翻译所有新内容和现有内容"
+         ],
+         "No, only translate new content": [
+            "不，只翻译新内容"
+         ],
+         "You can translate existing content from the Translation Management Dashboard": [
+            "你可以从翻译管理仪表板翻译现有内容"
          ],
          "Connection Error. Please wait a minute and reload this page. If the problem continues, please contact WPML support.": [
             "连接错误。请稍等重新加载此页面。如果问题仍然存在，请联系 WPML 支持。"
@@ -57,6 +87,9 @@
          "Cancel": [
             "取消"
          ],
+         "Start translating everything": [
+            "开始翻译所有内容"
+         ],
          "%1$d language": [
             "%1$d 语言",
             "%1$d 语言"
@@ -66,6 +99,9 @@
          ],
          "All new future content": [
             "所有未来的新内容"
+         ],
+         "Translate Everything Automatically - stopped": [
+            "自动翻译所有内容 - 已停止"
          ],
          "Fix it": [
             "修复它"
@@ -124,11 +160,17 @@
          "Publish right away but mark as not reviewed so I can take a look later": [
             "立即发布但标记为未审阅，以便我稍后检查"
          ],
+         "Publish right away without reviewing": [
+            "不审校直接发布"
+         ],
          "Who will translate?": [
             "谁来翻译？"
          ],
          "Only myself": [
             "仅我自己"
+         ],
+         "You will be the sole translator for this site.": [
+            "你将是该网站的唯一翻译者。"
          ],
          "Users of this site": [
             "本网站的用户"
@@ -154,6 +196,12 @@
          "You will choose a user of this site and delegate the setup of translators to him/her. Choose this option when you are building a website for a client, who will set up translator users or choose a translation service.": [
             "您将选择此网站的一名用户并将译员的设置委派给他/她。在为客户构建网站时请选择此选项，客户将设置译员用户或选择翻译服务。"
          ],
+         "Translate Everything Automatically": [
+            "自动翻译所有内容"
+         ],
+         "Let WPML do the translating for you": [
+            "让 WPML 为你翻译"
+         ],
          "Translates all your published content automatically": [
             "自动翻译你发布的所有内容"
          ],
@@ -163,8 +211,14 @@
          "Instantly translates new content and updates translations whenever you edit a page or post": [
             "每当你编辑页面或贴文时立即翻译新内容并更新翻译"
          ],
+         "You can review translations before publishing or hire professional reviewers": [
+            "你可以在发布前审校翻译或聘请专业审校员"
+         ],
          "Affordable and fast": [
             "价格实惠且快速"
+         ],
+         "How would you like to translate the content?": [
+            "你想如何翻译该内容？"
          ],
          "Choose": [
             "选择"
@@ -175,20 +229,20 @@
          "You decide what to translate and who'll translate it": [
             "你决定翻译什么内容及由谁来翻译"
          ],
-         "Translate it yourself": [
-            "自己翻译"
+         "Translate yourself": [
+            ""
          ],
-         "Assign it to translators that are users of your site": [
-            "将其分配给你的网站用户作为翻译人员"
+         "Use automatic translation on the content you choose": [
+            ""
          ],
-         "Send it to a professional translation service": [
-            "将其发送给专业翻译服务"
+         "Work with translators that are users of your site": [
+            ""
          ],
          "or": [
             "或"
          ],
-         "Translate it automatically using machine translation": [
-            "使用机器翻译自动翻译"
+         "Send to professional translation services": [
+            ""
          ],
          "Save settings": [
             "保存设置"
@@ -257,7 +311,7 @@
             "国旗"
          ],
          "Flag file": [
-            "旗帜文件"
+            "国旗文件"
          ],
          "You just added  language. Next, select it as the site's default language or a translation language.": [
             "您刚刚添加了语言。接下来，选择它作为网站的默认语言或翻译语言。"
@@ -394,6 +448,12 @@
          "What are the languages of your site?": [
             "您的网站使用什么语言？"
          ],
+         "Automatic translation": [
+            "自动翻译"
+         ],
+         "What should happen with your automatically translated content": [
+            "你的自动翻译内容应该如何处理"
+         ],
          "%d credits/word": [
             "%d 积分/字"
          ],
@@ -415,14 +475,32 @@
          "Drag & drop to sort from the most to the least preferred engine.": [
             "拖放以从最喜欢到最不喜欢排序引擎。"
          ],
+         "Choose the tone of your automatic translations.": [
+            "选择自动翻译的语气。"
+         ],
          "Read more": [
             "阅读更多"
          ],
          "Learn more": [
             "了解更多信息"
          ],
+         "On": [
+            ""
+         ],
+         "Off": [
+            ""
+         ],
+         "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
+            "如果你想自动翻译你的内容，则须使用<b>高级翻译编辑器</b>。"
+         ],
+         "You currently use a translation service to translate your content. To translate your site automatically, first disconnect your translation service in your %1$sTranslation Management settings%2$s.": [
+            "你目前使用翻译服务来翻译你的内容。要自动翻译你的网站，请先在你的%1$s 翻译管理设置%2$s中断开你的翻译服务。"
+         ],
          "Translation Mode": [
             "翻译模式"
+         ],
+         "How to translate your site's content": [
+            "如何翻译网站内容"
          ],
          "Change mode": [
             "更改模式"
@@ -430,8 +508,11 @@
          "You decide what to translate and who’ll translate it.": [
             "你决定翻译什么内容以及由谁来翻译。"
          ],
-         "You need to have a valid account in order to continue.": [
-            "你需要有一个有效的帐户才能继续。"
+         "Let WPML do the translating for you.": [
+            "让 WPML 为你翻译。"
+         ],
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "要使用自动翻译，请<a>注册pay-as-you-go</a>或<a2>为你的网站分配积分</a2>。"
          ],
          "There was an error when loading the credit wizard.": [
             "加载积分向导时出错。"
@@ -442,17 +523,32 @@
          "You decided to:": [
             "你已决定:"
          ],
+         "Translate everything <b>automatically</b>": [
+            "<b>自动</b>翻译所有内容"
+         ],
          "Pay for credits as you go": [
             "按需支付积分"
          ],
          "Assign credits to your site on WPML.org": [
             "为你在 WPML.org 上的网站分配积分"
          ],
+         "Review translations <b>after</b> publishing.": [
+            "<b>在发布后</b>审校翻译。"
+         ],
+         "Review translations <b>before</b> publishing.": [
+            "<b>在发布前</b>审校翻译。"
+         ],
+         "Publish translations <b>without</b> review.": [
+            "<b>不审校</b>发布翻译。"
+         ],
          "Translate only <b>future</b> content.": [
             "仅翻译<b>未来</b>的内容。"
          ],
          "Translate <b>current</b> and <b>future</b> content.": [
             "翻译<b>当前</b>和<b>未来</b>内容。"
+         ],
+         "Translate all my current content plus new content as I create it.": [
+            "翻译我当前的所有内容以及我创建的新内容。"
          ],
          "Only translate new content I create starting now.": [
             "从现在开始只翻译我创建的新内容。"

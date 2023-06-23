@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Ett fel inträffade när du försökte pausa den automatiska översättningen. Försök igen senare eller kontakta supporten."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "Hur vill du översätta?"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "Du kan bara översätta innehåll automatiskt från ditt primära språk (%s) till andra språk. Använd språkväxlaren högst upp på den här sidan för att byta till %s."
-         ],
          "Assign to a translator": [
             "Tilldela en översättare"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "Du behöver inga översättningskrediter för att översätta innehåll dig själv."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "Du kan bara översätta innehåll automatiskt från webbplatsens standardspråk (engelska) till webbplatsens andra språk. Avmarkera innehåll på webbplatsens sekundära språk för att fortsätta."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "Du kan bara översätta innehåll automatiskt från ditt primära språk (%s) till andra språk. Använd språkväxlaren högst upp på den här sidan för att byta till %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "Valt innehåll omfattar objekt som ursprungligen skapades på detta språk. Avmarkera dessa objekt för att fortsätta."
+         ],
+         "Add to Translation Queue": [
+            "Lägg till i översättningskön"
          ],
          "Select a post or page to translate": [
             "Välj ett inlägg eller en sida som ska översättas"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "Det valda innehållet är redan översatt"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "Valt innehåll inkluderar objekt på ett annat språk än din webbplats standardspråk."
          ],
          "Choose at least one translation action": [
             "Välj minst en översättningsåtgärd"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "Lägg till i översättningskorgen"
          ],
-         "Add to Translation Queue": [
-            "Lägg till i översättningskön"
-         ],
          "One more thing...": [
             "En sak till..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "Gör ingenting"
          ],
-         "You need credits to use automatic translation.": [
-            "Du behöver krediter för att använda automatisk översättning."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "Om du vill tilldela en översättare innehåll ska du först <a href=\"%s\" target=\"_blank\">läggä till en översättare</a> eller <a href=\"%s\" target=\"_blank\">ansluta till en översättningstjänst</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "Du behöver krediter för att använda automatisk översättning."
          ],
          "Translators Tab": [
             "Fliken Översättare"

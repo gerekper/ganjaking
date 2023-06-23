@@ -26,7 +26,7 @@ class WPML_Term_Display_As_Translated_Adjust_Count {
     ) {
         if (
             ! isset( $GLOBALS['wp_version'] )
-            || version_compare( $GLOBALS['wp_version'], 6.0, '<' )
+			|| version_compare( $GLOBALS['wp_version'], '6.0', '<' )
         ) {
             // Only needed since WP 6.0.
             return;
@@ -39,31 +39,28 @@ class WPML_Term_Display_As_Translated_Adjust_Count {
 
 		$this->sitepress                        = $sitepress;
 		$this->wpdb                             = $wpdb;
-        $this->taxonomies_display_as_translated =
-            $sitepress->get_display_as_translated_taxonomies();
+        $this->taxonomies_display_as_translated = $sitepress->get_display_as_translated_taxonomies();
 
-        // The final hook needs to be on the generic 'get_term', but the logic
-        // should only run when categories are fetched.
-        add_filter(
-            'get_categories_taxonomy',
-            [ $this, 'add_get_term_adjust_count' ]
-        );
+		// The final hook needs to be on the generic 'get_term', but the logic
+		// should only run when categories or tags are fetched.
+		add_filter( 'get_term', [ $this, 'add_get_term_adjust_count' ], 10, 2 );
 	}
 
-    public function add_get_term_adjust_count( $taxonomy ) {
-        if ( ! in_array( $taxonomy, $this->taxonomies_display_as_translated, true ) ) {
-            // Display as translated is not enabled for this taxonomy.
-            return $taxonomy;
-        }
+	public function add_get_term_adjust_count( $term, $taxonomy ) {
 
-        // Adjust the count on the get_term filter.
-        add_filter( 'get_term', [ $this, 'get_term_adjust_count' ] );
+		if ( ! in_array( $taxonomy, $this->taxonomies_display_as_translated, true ) ) {
+			// Display as translated is not enabled for this taxonomy.
+			return $term;
+		}
 
-        // This is the next hook triggered to remove the previous filter again.
-        add_filter( 'get_terms', [ $this, 'remove_get_term_adjust_count' ] );
+		// Adjust the count on the get_term filter.
+		add_filter( 'get_term', [ $this, 'get_term_adjust_count' ] );
 
-        return $taxonomy;
-    }
+		// This is the next hook triggered to remove the previous filter again.
+		add_filter( 'get_terms', [ $this, 'remove_get_term_adjust_count' ] );
+
+		return $term;
+	}
 
     public function remove_get_term_adjust_count( $terms ) {
         remove_filter( 'get_term', [ $this, 'get_term_adjust_count' ] );
@@ -79,8 +76,8 @@ class WPML_Term_Display_As_Translated_Adjust_Count {
 		$table_prefix = $this->wpdb->prefix;
 
         $originalTermCount = (int) $this->wpdb->get_var(
-           $this->wpdb->prepare( "
-                SELECT
+            $this->wpdb->prepare(
+				"SELECT
                 (
                     SELECT term_taxonomy.count
                     FROM {$table_prefix}term_taxonomy term_taxonomy
@@ -94,10 +91,11 @@ class WPML_Term_Display_As_Translated_Adjust_Count {
                     ON t.term_id = tt.term_id
                 LEFT JOIN {$table_prefix}icl_translations icl_t
                     ON icl_t.element_id = tt.term_taxonomy_id
-                WHERE t.term_id = %d
+                WHERE t.term_id = %d AND icl_t.element_type = %s
                 ",
-			   $this->sitepress->get_default_language(),
-			   $term->term_id
+				$this->sitepress->get_default_language(),
+				$term->term_id,
+				'tax_' . $term->taxonomy
             )
         );
 

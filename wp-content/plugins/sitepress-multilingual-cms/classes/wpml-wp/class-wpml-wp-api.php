@@ -75,14 +75,15 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	 * @return false|string
 	 */
 	public function get_post_status( $ID = '' ) {
+		$ID = is_string( $ID ) ? (int) $ID : $ID;
 		return get_post_status( $ID );
 	}
 
 	/**
 	 * Wrapper for \get_term_link
 	 *
-	 * @param  object|int|string $term
-	 * @param string            $taxonomy
+	 * @param WP_Term|int|string $term
+	 * @param string             $taxonomy
 	 *
 	 * @return string|WP_Error
 	 */
@@ -119,7 +120,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	 * @return false|string
 	 */
 	public function add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' ) {
-
+		/** @phpstan-ignore-next-line WP doc issue. */
 		return add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
 	}
 
@@ -135,7 +136,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	 * @return string
 	 */
 	public function add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function = '', $icon_url = '', $position = null ) {
-
+		/** @phpstan-ignore-next-line WP doc issue. */
 		return add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 	}
 

@@ -47,11 +47,11 @@ jQuery( function($){
 
                     if (response.success) {
                         $('#exchange-rates-success').fadeIn();
-                        $('#update-rates-time .time').html( response.last_updated );
+                        $('#update-rates-time .time').text( response.last_updated );
                     }else{
                         if( response.error ){
-                            var serviceErrorWrap = $('#service-error-' + response.service );
-                            serviceErrorWrap.html( response.error ).fadeIn();
+                            var serviceErrorWrap = $('#service-error-' + response.service.replace(/[^\w]/g, '') );
+                            serviceErrorWrap.text( response.error ).fadeIn();
                         }
                     }
 
@@ -59,7 +59,7 @@ jQuery( function($){
                     updateButton.prop('disabled', false);
 
                     for( code in response.rates ){
-                        $('#currency_row_' + code + ' span.rate').hide().html( response.rates[code] ).fadeIn('slow');
+                        $('#currency_row_' + code.replace(/[^\w]/g, '') + ' span.rate').hide().text( response.rates[code] ).fadeIn('slow');
                     }
 
                 }

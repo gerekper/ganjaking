@@ -20,24 +20,11 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_AM_Menus {
 
+	private $api_manager_customers;
+	private $wc_am_customers_table_list;
+
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'menus' ), 9 );
-	}
-
-	/**
-	 * Customers Menu.
-	 *
-	 * @since 2.8
-	 */
-	public function menus() {
-		$api_manager_customers = add_menu_page( __( 'API Manager', 'woocommerce-api-manager' ), __( 'API Manager', 'woocommerce-api-manager' ), 'manage_options', 'wcam_api_manager_customers', null, 'dashicons-admin-network', '58.0' );
-
-		add_submenu_page( 'wcam_api_manager_customers', __( 'API Customers', 'woocommerce-api-manager' ), __( 'API Customers', 'woocommerce-api-manager' ), 'manage_options', 'wcam_api_manager_customers', array(
-			$this,
-			'customers_page'
-		) );
-
-		add_action( "load-$api_manager_customers", array( $this, 'add_screen_options' ) );
 		add_filter( 'set-screen-option', array( $this, 'set_screen_option' ), 10, 3 );
 	}
 
@@ -46,18 +33,36 @@ class WC_AM_Menus {
 	 *
 	 * @since 2.8
 	 */
+	public function menus() {
+		add_menu_page( __( 'API Manager', 'woocommerce-api-manager' ), __( 'API Manager', 'woocommerce-api-manager' ), 'manage_options', 'wcam_api_manager_customers', null, 'dashicons-admin-network', '58.0' );
+
+		$this->api_manager_customers = add_submenu_page( 'wcam_api_manager_customers', __( 'API Customers', 'woocommerce-api-manager' ), __( 'API Customers', 'woocommerce-api-manager' ), 'manage_options', 'wcam_api_manager_customers', array(
+			$this,
+			'customers_page'
+		) );
+
+		add_action( 'load-' . $this->api_manager_customers, array( $this, 'add_screen_options' ) );
+	}
+
+	/**
+	 * Customers Menu.
+	 *
+	 * @since 2.8
+	 */
 	public function customers_page() {
-		global $wc_am_customers_table_list;
 		?>
         <div class="wrap">
-            <h2><?php _e( 'API Customers', 'woocommerce-api-manager' ); ?><a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) ); ?>"
-                                                                             class="page-title-action"><?php esc_html_e( 'Settings', 'woocommerce-api-manager' ); ?></a></h2>
-			<?php
-			$wc_am_customers_table_list->prepare_items();
-			// Search box form in display_tablenav()
-			$wc_am_customers_table_list->display();
-			?>
-        </div>
+            <h1 class="wp-heading-inline"><?php esc_html_e( 'API Customers', 'woocommerce-api-manager' ); ?><span class="page-title-action" style="margin-left: 2em; text-decoration: none;"><a
+                            style="text-decoration: none;"
+                            href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) ); ?>"><?php esc_html_e( 'Settings', 'woocommerce-api-manager' ); ?></a></span></h1>
+            <hr class="wp-header-end">
+            <form method="post">
+				<?php
+				$this->wc_am_customers_table_list->prepare_items();
+				// Search box form in display_tablenav()
+				$this->wc_am_customers_table_list->display();
+				?>
+        </div></form>
 		<?php
 	}
 
@@ -67,11 +72,9 @@ class WC_AM_Menus {
 	 * @since 2.8
 	 */
 	public function add_screen_options() {
-		global $wc_am_customers_table_list;
-
 		$screen = get_current_screen();
 
-		if ( ! is_object( $screen ) || $screen->id != 'toplevel_page_wcam_api_manager_customers' ) {
+		if ( ! is_object( $screen ) || $screen->id != $this->api_manager_customers ) {
 			return;
 		}
 
@@ -83,7 +86,7 @@ class WC_AM_Menus {
 
 		add_screen_option( 'per_page', $args );
 
-		$wc_am_customers_table_list = new WC_AM_Customers_Table_List();
+		$this->wc_am_customers_table_list = new WC_AM_Customers_Table_List();
 	}
 
 	/**

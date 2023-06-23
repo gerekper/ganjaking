@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "Vanuit:"
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "Jij beslist wat er wordt vertaald en wie het vertaalt."
          ],
-         "Translate it yourself": [
-            "Vertaal het zelf"
+         "Translate yourself": [
+            "Zelf vertalen"
          ],
-         "Assign it to translators that are users of your site": [
-            "Toewijzen aan vertalers die gebruikers zijn van je site"
+         "Use automatic translation on the content you choose": [
+            "Gebruik automatische vertaling op de inhoud die je kiest"
          ],
-         "Send it to a professional translation service": [
-            "Stuur het naar een professionele vertaaldienst"
+         "Work with translators that are users of your site": [
+            "Werk met vertalers die gebruikers zijn van je site"
          ],
          "or": [
             "of"
          ],
-         "Translate it automatically using machine translation": [
-            "Automatisch vertalen met behulp van machinevertaling"
+         "Send to professional translation services": [
+            "Stuur naar professionele vertaaldiensten"
          ],
          "user": [
             "gebruiker"
@@ -289,7 +288,7 @@
             "Lees meer over"
          ],
          "The name of your language as it will appear on your site's language switcher.": [
-            "De naam van je taal zoals die zal verschijnen op de taal-switcher van je site."
+            "De naam van je taal zoals die zal verschijnen op de taalschakelaar van je site."
          ],
          "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
             "Een unieke waarde die de taal identificeert in de database en URL. Eenmaal opgeslagen, kan de taalcode niet meer worden gewijzigd."
@@ -399,6 +398,88 @@
          "Language switcher customization": [
             "Aanpassing van de taalschakelaar"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "Je huidige setup gebruikt veel vertaal credits"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "Je hebt besloten om <b>Alles automatisch te vertalen</b> op een <span class=\"warning\">development site</span>"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "Je hebt besloten om <b>Alles automatisch te vertalen:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "10.000 credits standaard toegewezen aan ontwikkelings sites"
+         ],
+         "posts, pages...": [
+            "berichten, pagina's..."
+         ],
+         "translated to": [
+            "vertaald naar het"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b> taal",
+            "<b>%1$d</b> talen"
+         ],
+         "will cost approximately": [
+            "kost ongeveer"
+         ],
+         "credits": [
+            "credits"
+         ],
+         "Loading details...": [
+            "Details laden..."
+         ],
+         "Hide details": [
+            "Details verbergen"
+         ],
+         "Show details": [
+            "Details weergeven"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "Je huidige setup gebruikt ongeveer <b>%s</b> credits."
+         ],
+         "What do you want to do?": [
+            "Wat wil je doen?"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "Aangezien dit een ontwikkelingssite is, wil je misschien geen credits uitgeven aan dummy-inhoud."
+         ],
+         "Continue with this setup": [
+            "Ga door met deze setup"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "WPML vertaalt automatisch de inhoud van je site. Als je credits op zijn, kun je er meer kopen of je aanmelden voor pay-as-you-go om de automatische vertaling te blijven gebruiken."
+         ],
+         "Make changes": [
+            "Breng wijzigingen aan"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "Je kunt minder credits gebruiken door enkele van de bij de setup gekozen instellingen aan te passen."
+         ],
+         "Reduce the number of translation languages": [
+            "Verminder het aantal vertaaltalen"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "Hoe meer talen je op je site hebt, hoe meer credits het kost om te vertalen. <b>Je kunt later altijd meer talen toevoegen.</b>"
+         ],
+         "Change site languages": [
+            "Wijzig de talen van je site"
+         ],
+         "Change your translation mode": [
+            "Wijzig je vertaalmodus"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "<b>Vertaal wat je kiest</b> geeft je meer controle over wat er vertaald wordt, en je kunt nog steeds automatische vertaling gebruiken."
+         ],
+         "Change translation mode": [
+            "Wijzig vertaalmodus"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "Ik ben akkoord met zoveel vertaalcredits,"
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "laten we doorgaan en de hele site automatisch vertalen."
+         ],
          "Default language": [
             "Standaard taal"
          ],
@@ -438,17 +519,17 @@
          "Are you ready to start translating now?": [
             "Ben je klaar om te beginnen met vertalen?"
          ],
-         "Yes!": [
-            "Ja!"
+         "Yes, start translating!": [
+            "Ja, begin met vertalen!"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "Begin nu met het vertalen van mijn site. WPML zal je automatische vertaalcredits gebruiken."
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "WPML zal je site voor je vertalen met behulp van je automatische vertaalcredits."
          ],
-         "No. I need to do some changes first": [
-            "Nee. Ik moet eerst wat wijzigingen aanbrengen"
+         "No, my content isn't finalized yet": [
+            "Nee, mijn inhoud is nog niet af..."
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "Als je er klaar voor bent, kun je de automatische vertaling starten vanuit het Vertaalbeheer-dashboard."
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "Als je klaar bent, start je de automatische vertaling vanuit het Translation Management Dashboard."
          ],
          "Improve your site’s translations using helpful plugins": [
             "Verbeter de vertalingen van je site met behulp van slimme plugins"
@@ -513,18 +594,6 @@
          "A new language could not be added correctly": [
             "Een nieuwe taal kon niet foutloos worden toegevoegd"
          ],
-         "Languages": [
-            "Talen"
-         ],
-         "URL Format": [
-            "URL-indeling"
-         ],
-         "Register WPML": [
-            "Registreer WPML"
-         ],
-         "Translation Mode": [
-            "Vertaalmodus"
-         ],
          "Support": [
             "Support"
          ],
@@ -548,6 +617,18 @@
          ],
          "Finish": [
             "Voltooien"
+         ],
+         "Languages": [
+            "Talen"
+         ],
+         "URL Format": [
+            "URL-indeling"
+         ],
+         "Register WPML": [
+            "Registreer WPML"
+         ],
+         "Translation Mode": [
+            "Vertaalmodus"
          ],
          "Settings": [
             "Instellingen"

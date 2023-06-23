@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.6.0
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="woocommerce-variation-add-to-cart variations_button bundled_item_after_cart_details bundled_item_button">
-	<input type="hidden" class="variation_id" name="<?php echo $bundle_fields_prefix . 'bundle_variation_id_' . $bundled_item->get_id(); ?>" value=""/><?php
+	<input type="hidden" class="variation_id" name="<?php echo esc_attr( $bundle_fields_prefix . 'bundle_variation_id_' . $bundled_item->get_id() ); ?>" value=""/><?php
 
 	/**
 	 * 'woocommerce_after_bundled_item_cart_details' hook.

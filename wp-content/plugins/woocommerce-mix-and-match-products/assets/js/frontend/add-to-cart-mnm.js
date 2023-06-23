@@ -396,48 +396,36 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 * Attach child-item-level event handlers.
 		 */
 		this.bind_child_item_event_handlers = function (child_item) {
+			
+			/**
+			 * Update totals upon changing quantities.
+			 */
+			child_item.$mnm_item_qty
+				.on( 'input.wc-mnm-form', function () {
+					clearTimeout(child_item.child_item_timer);
+					var $input = $(this);
+					child_item.child_item_timer = setTimeout(
+						function () {
+							$input.trigger('change.wc-mnm-form');
+						},
+						500
+					);
 
-			child_item.$self
+				} )
+				.on( 'change.wc-mnm-form' , function () {
+					child_item.update_quantity();
+				} );
 
-				/**
-				 * Update totals upon changing quantities.
-				 */
-				.on(
-					'input.wc-mnm-form',
-					':input.qty',
-					function () {
-						clearTimeout(child_item.child_item_timer);
-						var $input = $(this);
-						child_item.child_item_timer = setTimeout(
-							function () {
-								$input.trigger('change.wc-mnm-form');
-							},
-							500
-						);
+			/**
+			 * Plus/minus handlers.
+			 */
+			child_item.$minus_button.on( 'click.wc-mnm-form', function () {
+				child_item.decrease_quantity();
+			} );
 
-					}
-				)
-				.on(
-					'change.wc-mnm-form',
-					':input.qty',
-					function () {
-						child_item.update_quantity();
-					}
-				)
-				.on(
-					'click.wc-mnm-form',
-					'.button--minus',
-					function () {
-						child_item.decrease_quantity();
-					}
-				)
-				.on(
-					'click.wc-mnm-form',
-					'.button--plus',
-					function () {
-						child_item.increase_quantity();
-					}
-				);
+			child_item.$plus_button.on( 'click.wc-mnm-form', function () {
+				child_item.increase_quantity();
+			} );
 
 		};
 
@@ -821,7 +809,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 			this.price_data = [];
 
 			if (this.$mnm_data.data('price_data')) {
-				this.price_data = this.$mnm_data.data('price_data');
+				try {
+					this.price_data = JSON.parse(this.$mnm_data.data('price_data'));
+				} catch (e) {
+					this.price_data = this.$mnm_data.data('price_data');
+				}
 			}
 
 			this.container_size = 0;
@@ -1611,7 +1603,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		this.validate = function(qty) {
 
 			// Restrict to min/max limits.
-			var current_qty = 'undefined' !== typeof qty ? parseFloat(qty): this.get_quantity(),
+			var current_qty = 'undefined' !== typeof qty && parseFloat(qty) ? parseFloat(qty): this.get_quantity(),
 			new_qty         = current_qty,
 			prev_qty        = this.get_prev_quantity(),
 			min             = parseFloat(this.$mnm_item_qty.attr('min')),
@@ -1637,8 +1629,14 @@ jQuery.fn.wc_get_mnm_script = function () {
 				// Prevent over-filling container.
 				case container_max > 0 && potential_size > container_max:
 
+					// Handle overfull container.
+					if ( container_size > container_max ) {
+
+						new_qty = Math.min( prev_qty - (container_size - container_max), max);
+                        new_qty = new_qty > 0 ? new_qty : 0;
+
 					// Space left to fill.
-					if ( container_size < container_max ) {
+					} else if ( container_size < container_max ) {
 						new_qty = Math.min(container_max - container_size, max);
 
 						// No space left in container, reset to previous.

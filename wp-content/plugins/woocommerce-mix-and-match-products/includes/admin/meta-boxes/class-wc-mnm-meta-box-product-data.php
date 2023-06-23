@@ -422,11 +422,10 @@ class WC_MNM_Meta_Box_Product_Data {
 		// Generate some data for the select2 input.
 		$child_items = 'products' === $mnm_product_object->get_content_source( 'edit' )  ? $mnm_product_object->get_child_items( 'edit' ) : array();
 
-		// Exclude all but simple and variation products.
-		$product_types = wc_get_product_types();
-		unset( $product_types['simple'] );
-		unset( $product_types['variation'] );
-		$product_types = array_keys( $product_types );
+		// Exclude all but supported types.	
+		$product_types   = array_keys( wc_get_product_types() );
+		$supported_types = WC_MNM_Helpers::get_supported_product_types();
+		$exclude_types   = array_diff( $product_types, $supported_types );
 
 		$values = array();
 		foreach ( $child_items as $child_item ) {
@@ -449,7 +448,7 @@ class WC_MNM_Meta_Box_Product_Data {
 				'data-sortable'     => 'sortable',
 				'data-placeholder'  => __( 'Search for a product&hellip;', 'woocommerce-mix-and-match-products' ),
 				'data-action'       => 'woocommerce_json_search_products_and_variations',
-				'data-exclude_type' => join( ",", $product_types ),
+				'data-exclude_type' => join( ",", $exclude_types ),
 			),
 		);
 

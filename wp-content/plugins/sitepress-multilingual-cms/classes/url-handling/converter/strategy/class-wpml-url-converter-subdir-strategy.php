@@ -167,7 +167,7 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 	}
 
 	/**
-	 * @return string|bool
+	 * @return string|false
 	 */
 	private function get_root_url() {
 		if ( null === $this->root_url ) {

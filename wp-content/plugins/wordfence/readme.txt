@@ -4,7 +4,7 @@ Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute f
 Requires at least: 3.9
 Requires PHP: 5.5
 Tested up to: 6.2
-Stable tag: 7.9.3
+Stable tag: 7.10.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,26 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.10.0 - June 21, 2023 =
+* Improvement: Added translation support for strings from login security plugin
+* Improvement: Added translator notes regarding word order and hidden text
+* Improvement: Added translation support for additional strings
+* Improvement: Prevented scans from failing if unreadable directories are encountered
+* Improvement: Added help link to IPv4 scan option
+* Improvement: Updated scan result text to clarify meaning of plugins removed from wordpress.org
+* Improvement: Made "Increased Attack Rate" emails actionable
+* Improvement: Updated GeoIP database
+* Improvement: Updated JavaScript libraries
+* Fix: Corrected IPv6 address expansion
+* Fix: Ensured long request payloads for malicious requests are recorded in live traffic
+* Fix: Prevented "commands out of sync" database error messages when the database connection has failed
+* Fix: Prevented rare JSON encoding issues from breaking free license registration
+* Fix: Prevented PHP notice from being logged when request parameter is missing
+* Fix: Prevented deprecation warning in PHP 8.1
+* Change: Moved detection for old TimThumb files to malware signature
+* Change: Moved translation file from .po to .pot
+* Change: Renamed "Macedonia" to "North Macedonia, Republic of"
 
 = 7.9.3 - May 31, 2023 =
 * Improvement: Added exception handling to prevent WAF errors from being fatal

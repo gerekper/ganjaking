@@ -6,4 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CloudFlare\\' => array($vendorDir . '/cloudflare/cf-ip-rewrite/src'),
 );

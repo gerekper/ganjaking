@@ -10,7 +10,7 @@ function icl_upgrade_2_0_0_steps( $step, $stepper ) {
 	$default_language = $sitepress->get_default_language();
 
 	define( 'ICL_TM_DISABLE_ALL_NOTIFICATIONS', true ); // make sure no notifications are being sent
-	ini_set( 'max_execution_time', 300 );
+	ini_set( 'max_execution_time', '300' );
 
 	$post_types = array_keys( $wp_post_types );
 	foreach ( $post_types as $pt ) {

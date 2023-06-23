@@ -784,7 +784,7 @@ class WC_Points_Rewards_Cart_Checkout {
 	/**
 	 * Returns the max amount of points that can be applied to the cart.
 	 *
-	 * @returns integer The maximum number of points that can be applied to the cart.
+	 * @return integer The maximum number of points that can be applied to the cart.
 	 * @since 1.7.0
 	 */
 	public function calculate_cart_max_points() {

@@ -40,7 +40,7 @@ class Posts extends Elements {
 					continue;
 				}
 
-				$job = Jobs::getElementJob( $post->ID, 'post_' . $post->post_type, $language );
+				$job = Jobs::getElementJob( (int) $post->ID, 'post_' . $post->post_type, (string) $language );
 				if ( self::shouldJobBeIgnoredBecauseIsCompleted( $job, $howToHandleExisting, $translateAutomatically ) ) {
 					continue;
 				}

@@ -124,9 +124,6 @@
 
 			if( in_array( $order->get_status(), $order_status_array ) ) {
 				WC_pdf_functions::woocommerce_completed_order_create_invoice( $order_id );
-
-				// Maybe send PDF_Invoice_Admin_PDF_Invoice when invoice is created
-				// WC_pdf_functions::maybe_send_admin_email_on_creation( $order_id );
 			}
 
 		}
@@ -173,6 +170,10 @@
 			foreach( $order_status_array as $order_status ) {
 				add_action( 'woocommerce_order_status_' . $order_status, array( 'WC_pdf_functions','woocommerce_completed_order_create_invoice' ) );
 				add_action( 'woocommerce_order_status_pending_to_' . $order_status . '_notification', array( 'WC_pdf_functions','woocommerce_completed_order_create_invoice' ) );
+
+				if( $order_status === 'completed' ) {
+					add_action( 'woocommerce_order_status_completed_notification', array( 'WC_pdf_functions','woocommerce_completed_order_create_invoice' ) );
+				}
 			}
 
 			// Completed Renewal Order

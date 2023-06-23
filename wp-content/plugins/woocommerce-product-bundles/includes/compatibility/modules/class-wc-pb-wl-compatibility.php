@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Wishlists Compatibility.
  *
- * @version  5.10.0
+ * @version  6.21.0
  */
 class WC_PB_Wishlists_Compatibility {
 
@@ -128,7 +128,7 @@ class WC_PB_Wishlists_Compatibility {
 					continue;
 				}
 
-				echo '<dt class="bundled_title_meta wishlist_bundled_title_meta">' . $bundled_product->get_title() . ' <strong class="bundled_quantity_meta wishlist_bundled_quantity_meta product-quantity">&times; ' . $bundled_item_data[ 'quantity' ] . '</strong></dt>';
+				echo '<dt class="bundled_title_meta wishlist_bundled_title_meta">' . wp_kses_post( $bundled_product->get_title() ) . ' <strong class="bundled_quantity_meta wishlist_bundled_quantity_meta product-quantity">&times; ' . esc_html( $bundled_item_data[ 'quantity' ] ) . '</strong></dt>';
 
 				if ( ! empty ( $bundled_item_data[ 'attributes' ] ) ) {
 
@@ -164,11 +164,11 @@ class WC_PB_Wishlists_Compatibility {
 
 						$attributes = $attributes . $label . ': ' . $attribute_value . ', ';
 					}
-					echo '<dd class="bundled_attribute_meta wishlist_bundled_attribute_meta">' . rtrim( $attributes, ', ' ) . '</dd>';
+					echo '<dd class="bundled_attribute_meta wishlist_bundled_attribute_meta">' . wp_kses_post( rtrim( $attributes, ', ' ) ) . '</dd>';
 				}
 			}
 			echo '</dl>';
-			echo '<p class="bundled_notice wishlist_component_notice">' . __( '*', 'woocommerce-product-bundles' ) . '&nbsp;&nbsp;<em>' . __( 'For up-to-date pricing details, please add the product to your cart.', 'woocommerce-product-bundles' ) . '</em></p>';
+			echo '<p class="bundled_notice wishlist_component_notice">' . esc_html__( '*', 'woocommerce-product-bundles' ) . '&nbsp;&nbsp;<em>' . esc_html__( 'For up-to-date pricing details, please add the product to your cart.', 'woocommerce-product-bundles' ) . '</em></p>';
 		}
 	}
 

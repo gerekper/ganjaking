@@ -538,6 +538,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Returns an authorized API client.
 	 *
+	 * @since 1.16.02 Decryption of access token before setting it to client.
 	 * @return GoogleClient the authorized client object
 	 */
 	protected function get_client() {
@@ -571,8 +572,15 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 			if ( $access_token && isset( $access_token['access_token'] ) ) {
 				unset( $access_token['refresh_token'] ); // unset this since we store it in an option.
-				$access_token['access_token'] = WC_Bookings_Encryption::instance()->encrypt( $access_token['access_token'] );
+
+				// Encrypt the access token before storing it in the transient.
+				$decrypted_access_token       = $access_token['access_token'];
+				$access_token['access_token'] = WC_Bookings_Encryption::instance()->encrypt( $decrypted_access_token );
+
 				set_transient( 'wc_bookings_gcalendar_access_token', $access_token, self::TOKEN_TRANSIENT_TIME );
+
+				// Decrypt the access token before setting it on the client.
+				$access_token['access_token'] = $decrypted_access_token;
 			} else {
 				$this->log(
 					sprintf(

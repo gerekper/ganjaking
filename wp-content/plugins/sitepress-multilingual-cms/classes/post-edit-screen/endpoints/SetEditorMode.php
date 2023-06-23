@@ -33,9 +33,12 @@ class SetEditorMode implements IHandler {
 
 			case 'all_posts_of_type':
 				$post_type = get_post_type( $postId );
-				$tmSettings[ WPML_TM_Post_Edit_TM_Editor_Mode::TM_KEY_FOR_POST_TYPE_USE_NATIVE ][ $post_type ] = $useNativeEditor;
-				$this->sitepress->set_setting( 'translation-management', $tmSettings, true );
-				WPML_TM_Post_Edit_TM_Editor_Mode::delete_all_posts_option( $post_type );
+
+				if ( $post_type ) {
+					$tmSettings[ WPML_TM_Post_Edit_TM_Editor_Mode::TM_KEY_FOR_POST_TYPE_USE_NATIVE ][ $post_type ] = $useNativeEditor;
+					$this->sitepress->set_setting( 'translation-management', $tmSettings, true );
+					WPML_TM_Post_Edit_TM_Editor_Mode::delete_all_posts_option( $post_type );
+				}
 				break;
 
 			case 'this_post':

@@ -169,7 +169,7 @@ class WC_AM_API_Activation_Data_Store {
 	}
 
 	/**
-	 * Returns the api_resource_id for the Associated API Key using the activation_id.
+	 * Returns the api_resource_id using the activation_id.
 	 *
 	 * @since 2.0
 	 *
@@ -956,20 +956,26 @@ class WC_AM_API_Activation_Data_Store {
 	 * @since 2.0
 	 */
 	public function delete_my_account_activation() {
-		if ( isset( $_GET[ 'delete_activation' ] ) && isset( $_GET[ 'instance' ] ) && isset( $_GET[ '_wpnonce' ] ) ) {
-			if ( wp_verify_nonce( $_GET[ '_wpnonce' ] ) === false ) {
+		$request = wc_clean( $_REQUEST );
+
+		if ( ! empty( $request[ 'wcam_delete_activation' ] ) && ! empty( $request[ 'instance' ] ) && ! empty( $request[ '_wpnonce' ] ) ) {
+			if ( ! wp_verify_nonce( $request[ '_wpnonce' ], 'wcam_delete_activation' ) ) {
 				wc_add_notice( esc_html__( 'The activation could not be deleted.', 'woocommerce-api-manager' ), 'error' );
+
+				wp_safe_redirect( esc_url( $this->get_api_keys_url() ) );
+
+				exit();
 			}
 
-			$result = $this->delete_api_key_activation_by_instance_id( wc_clean( $_GET[ 'instance' ] ) );
+			$result = $this->delete_api_key_activation_by_instance_id( $request[ 'instance' ] );
 
 			$to_delete = array(
-				'instance'      => $_GET[ 'instance' ],
-				'order_id'      => $_GET[ 'order_id' ],
-				'sub_parent_id' => $_GET[ 'sub_parent_id' ],
-				'api_key'       => $_GET[ 'api_key' ],
-				'product_id'    => $_GET[ 'product_id' ],
-				'user_id'       => $_GET[ 'user_id' ]
+				'instance'      => $request[ 'instance' ],
+				'order_id'      => $request[ 'order_id' ],
+				'sub_parent_id' => $request[ 'sub_parent_id' ],
+				'api_key'       => $request[ 'api_key' ],
+				'product_id'    => $request[ 'product_id' ],
+				'user_id'       => $request[ 'user_id' ]
 			);
 
 			/**

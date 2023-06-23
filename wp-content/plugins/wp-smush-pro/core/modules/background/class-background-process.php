@@ -505,6 +505,8 @@ abstract class Background_Process extends Async_Request {
 	 * @return void
 	 */
 	public function start( $tasks ) {
+		$this->do_action( 'before_start' );
+
 		$total_items = count( $tasks );
 		$this->status->start( $total_items );
 
@@ -594,5 +596,9 @@ abstract class Background_Process extends Async_Request {
 
 	protected function attempt_restart_during_health_check() {
 		return true;
+	}
+
+	public function get_identifier() {
+		return $this->identifier;
 	}
 }

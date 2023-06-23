@@ -6,6 +6,7 @@ use WPML\TM\API\Basket;
 use WPML\TM\ATE\ClonedSites\Lock as AteApiLock;
 use WPML\TM\Menu\TranslationBasket\Utility;
 use WPML\TM\Menu\TranslationServices\Section;
+use WPML\LIB\WP\User;
 use function WPML\Container\make;
 
 class WPML_TM_Menus_Management extends WPML_TM_Menus {
@@ -14,12 +15,6 @@ class WPML_TM_Menus_Management extends WPML_TM_Menus {
 
 	/** @var IWPML_Template_Service $template_service */
 	private $template_service;
-
-	/** @var WPML_Translation_Manager_Records $manager_records */
-	private $manager_records;
-
-	/** @var WPML_Translator_Records $translator_records */
-	private $translator_records;
 
 	private $active_languages;
 	private $translatable_types;
@@ -42,14 +37,8 @@ class WPML_TM_Menus_Management extends WPML_TM_Menus {
 	 */
 	private $admin_sections;
 
-	public function __construct(
-		IWPML_Template_Service $template_service,
-		WPML_Translation_Manager_Records $manager_records,
-		WPML_Translator_Records $translator_records
-	) {
+	public function __construct( IWPML_Template_Service $template_service ) {
 		$this->template_service   = $template_service;
-		$this->manager_records    = $manager_records;
-		$this->translator_records = $translator_records;
 
 		$this->admin_sections = WPML\Container\make( 'WPML_TM_Admin_Sections' );
 		$this->admin_sections->init_hooks();
@@ -111,12 +100,12 @@ class WPML_TM_Menus_Management extends WPML_TM_Menus {
 	}
 
 	private function build_dashboard_item() {
-		$this->tab_items['dashboard'] = array(
+		$this->tab_items['dashboard'] = [
 			'caption'          => __( 'Dashboard', 'wpml-translation-management' ),
-			'current_user_can' => array( WPML_Manage_Translations_Role::CAPABILITY, 'manage_options' ),
-			'callback'         => array( $this, 'build_content_dashboard' ),
+			'current_user_can' => [ User::CAP_ADMINISTRATOR, User::CAP_MANAGE_TRANSLATIONS ],
+			'callback'         => [ $this, 'build_content_dashboard' ],
 			'order'            => 100,
-		);
+		];
 	}
 
 	public function build_content_dashboard() {
@@ -476,12 +465,12 @@ class WPML_TM_Menus_Management extends WPML_TM_Menus {
 
 		if ( $basket_items_count > 0 ) {
 
-			$this->tab_items['basket'] = array(
+			$this->tab_items['basket'] = [
 				'caption'          => $this->build_basket_item_caption( $basket_items_count ),
-				'current_user_can' => WPML_Manage_Translations_Role::CAPABILITY,
-				'callback'         => array( $this, 'build_content_basket' ),
+				'current_user_can' => [ User::CAP_ADMINISTRATOR, User::CAP_MANAGE_TRANSLATIONS ],
+				'callback'         => [ $this, 'build_content_basket' ],
 				'order'            => 101,
-			);
+			];
 
 		}
 	}
@@ -638,13 +627,13 @@ class WPML_TM_Menus_Management extends WPML_TM_Menus {
 		$jobs_count      = $jobs_repository->get_count( new WPML_TM_Jobs_Search_Params() );
 
 		if ( $jobs_count ) {
-			$this->tab_items['jobs'] = array(
+			$this->tab_items['jobs'] = [
 				'caption'          => __( 'Jobs', 'wpml-translation-management' ),
-				'current_user_can' => WPML_Manage_Translations_Role::CAPABILITY,
-				'callback'         => array( $this, 'build_content_translation_jobs' ),
+				'current_user_can' => [ User::CAP_ADMINISTRATOR, User::CAP_MANAGE_TRANSLATIONS ],
+				'callback'         => [ $this, 'build_content_translation_jobs' ],
 				'order'            => 100000,
-                'visible'           => ! Option::shouldTranslateEverything(),
-			);
+				'visible'          => ! Option::shouldTranslateEverything(),
+			];
 		}
 	}
 

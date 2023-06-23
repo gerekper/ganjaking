@@ -8450,7 +8450,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', 'Ds_MerchantData: ' . $dsmechandata );
 			$this->log->add( 'redsys', 'Ds_ErrorCode: ' . $dserrorcode );
 			$this->log->add( 'redsys', 'Ds_PayMethod: ' . $dpaymethod );
-			if ( $redsys_txnid ) {
+			if ( ! empty( $redsys_txnid ) ) {
 				$this->log->add( 'redsys', 'Ds_Merchant_Cof_Txnid: ' . $redsys_txnid );
 			}
 			$this->log->add( 'redsys', '$token_type: R' );

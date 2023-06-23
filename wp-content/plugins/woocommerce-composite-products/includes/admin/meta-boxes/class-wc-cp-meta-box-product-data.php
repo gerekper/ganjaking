@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.8.0
+ * @version  8.8.2
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -740,7 +740,8 @@ class WC_CP_Meta_Box_Product_Data {
 
 						$option_selected = in_array( $component_id, $hidden_components ) ? 'selected="selected"' : '';
 						$option_display  = ! $append_id ? $component_title : sprintf( '%1$s (#%2$s)', $component_title, $component_id );
-						echo '<option ' . esc_attr( $option_selected ) . 'value="' . esc_attr( $component_id ) . '">' . esc_html( $option_display ) . '</option>';
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo '<option ' . $option_selected . 'value="' . esc_attr( $component_id ) . '">' . esc_html( $option_display ) . '</option>';
 					}
 
 				?></select>

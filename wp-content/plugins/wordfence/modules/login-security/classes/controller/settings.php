@@ -199,19 +199,19 @@ class Controller_Settings {
 				$parsed = array_filter(array_map(function($s) { return trim($s); }, preg_split('/[\r\n]/', $value)));
 				foreach ($parsed as $entry) {
 					if (!Controller_Whitelist::shared()->is_valid_range($entry)) {
-						return sprintf(__('The IP/range %s is invalid.', 'wordfence-2fa'), esc_html($entry));
+						return sprintf(__('The IP/range %s is invalid.', 'wordfence'), esc_html($entry));
 					}
 				}
 				return true;
 			case self::OPTION_IP_SOURCE:
 				if (!in_array($value, array(Model_Request::IP_SOURCE_AUTOMATIC, Model_Request::IP_SOURCE_REMOTE_ADDR, Model_Request::IP_SOURCE_X_FORWARDED_FOR, Model_Request::IP_SOURCE_X_REAL_IP))) {
-					return __('An invalid IP source was provided.', 'wordfence-2fa');
+					return __('An invalid IP source was provided.', 'wordfence');
 				}
 				return true;
 			case self::OPTION_REQUIRE_2FA_GRACE_PERIOD:
 				$gracePeriodEnd = strtotime($value);
 				if ($gracePeriodEnd <= \WordfenceLS\Controller_Time::time()) {
-					return __('The grace period end time must be in the future.', 'wordfence-2fa');
+					return __('The grace period end time must be in the future.', 'wordfence');
 				}
 				return true;
 			case self::OPTION_REMEMBER_DEVICE_DURATION:
@@ -233,11 +233,11 @@ class Controller_Settings {
 					
 					$data = wp_remote_retrieve_body($response);
 					if (strpos($data, 'grecaptcha') === false) {
-						return __('Unable to validate the reCAPTCHA site key. Please check the key and try again.', 'wordfence-2fa');
+						return __('Unable to validate the reCAPTCHA site key. Please check the key and try again.', 'wordfence');
 					}
 					return true;
 				}
-				return sprintf(__('An error was encountered while validating the reCAPTCHA site key: %s', 'wordfence-2fa'), $response->get_error_message());
+				return sprintf(__('An error was encountered while validating the reCAPTCHA site key: %s', 'wordfence'), $response->get_error_message());
 			case self::OPTION_REQUIRE_2FA_USER_GRACE_PERIOD:
 				return is_numeric($value) && $value >= 0 && $value <= self::MAX_REQUIRE_2FA_USER_GRACE_PERIOD;
 		}

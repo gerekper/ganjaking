@@ -50,6 +50,7 @@ class WC_Booking_Form {
 			'check_availability_against' => $this->product->get_check_start_block_only() ? 'start' : '',
 			'duration_type'              => $this->product->get_duration_type(),
 			'duration_unit'              => $this->product->get_duration_unit(),
+			'resource_ids'               => $this->product->get_resource_ids(),
 			'resources_assignment'       => ! $this->product->has_resources() ? 'customer' : $this->product->get_resources_assignment(),
 			'product_id'                 => $this->product->get_id(),
 			'default_availability'       => $this->product->get_default_availability(),

@@ -26,7 +26,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 	public function register_styles() {
 		wp_register_style( 'otgs-dialogs', ICL_PLUGIN_URL . '/res/css/otgs-dialogs.css', array( 'wp-jquery-ui-dialog' ), ICL_SITEPRESS_VERSION );
 		wp_register_style( 'wpml-dialog', ICL_PLUGIN_URL . '/res/css/dialog.css', array( 'otgs-dialogs' ), ICL_SITEPRESS_VERSION );
-		wp_register_style( 'wpml-wizard', ICL_PLUGIN_URL . '/res/css/wpml-wizard.css', null, ICL_SITEPRESS_VERSION );
+		wp_register_style( 'wpml-wizard', ICL_PLUGIN_URL . '/res/css/wpml-wizard.css', [], ICL_SITEPRESS_VERSION );
 	}
 
 	private function print_js_globals() {

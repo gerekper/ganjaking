@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "حدث خطأ أثناء محاولة إيقاف ترجمتك الآلية مؤقتًا. يُرجى إعادة المحاولة لاحقًا أو التواصل مع فريق الدعم لدينا."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "كيف ترغب في الترجمة؟"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "يمكنك فقط ترجمة المحتوى آليًا من لغتك الأساسية (%s) إلى اللغات الأخرى. استخدم محوّل اللغة في قمة هذه الصفحة للتحويل إلى %s."
-         ],
          "Assign to a translator": [
             "تعيين إلى مترجم"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "لست في حاجة إلى نقاط رصيد الترجمة لترجمة المحتوى بنفسك."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "يمكنك فقط ترجمة المحتوى آليًا من اللغة الافتراضية لموقعك (اللغة الإنجليزية) إلى اللغات الأخرى للموقع. قم بإلغاء تحديد المحتوى باللغات الثانوية لموقعك للمتابعة."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "يمكنك فقط ترجمة المحتوى آليًا من لغتك الأساسية (%s) إلى اللغات الأخرى. استخدم محوّل اللغة في قمة هذه الصفحة للتحويل إلى %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "المحتوى المحدد يشتمل على العناصر التي تم إنشاؤها أصلًا بهذه اللغة. قم بإلغاء تحديد تلك العناصر للمتابعة."
+         ],
+         "Add to Translation Queue": [
+            "إضافة إلى قائمة مهام الترجمة"
          ],
          "Select a post or page to translate": [
             "تحديد مقال أو صفحة لترجمته"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "المحتوى المحدد مترجم بالفعل"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "المحتوى المحدد يشتمل على العناصر بلغة أخرى غير اللغة الافتراضية لموقعك."
          ],
          "Choose at least one translation action": [
             "اختر إجراء ترجمة واحد على الأقل"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "إضافة إلى سلة الترجمة"
          ],
-         "Add to Translation Queue": [
-            "إضافة إلى قائمة مهام الترجمة"
-         ],
          "One more thing...": [
             "هناك شيء آخر..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "عدم فعل شيء"
          ],
-         "You need credits to use automatic translation.": [
-            "أنت في حاجة إلى نقاط رصيد لاستخدام خدمة الترجمة الآلية."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "لتعيين المحتوى إلى مترجم، قم أولًا <a href=\"%s\" target=\"_blank\">بإضافة مترجم</a> أو <a href=\"%s\" target=\"_blank\">الربط بإحدى خدمات الترجمة</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "أنت في حاجة إلى نقاط رصيد لاستخدام خدمة الترجمة الآلية."
          ],
          "Translators Tab": [
             "علامة التبويب 'المترجمون'"

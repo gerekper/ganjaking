@@ -2,6 +2,9 @@
 
 namespace WPML\TM\ATE\ClonedSites;
 
+use WPML\FP\Fns;
+use WPML\FP\Lst;
+use WPML\FP\Str;
 use WPML\UIPage;
 
 class ApiCommunication {
@@ -29,15 +32,32 @@ class ApiCommunication {
 			if ( isset( $parsedResponse['errors'] ) ) {
 				$this->handleClonedDetection( $parsedResponse['errors'] );
 			}
-			return new \WP_Error( self::SITE_CLONED_ERROR, 'Site Moved or Copied - Action Required' );
+			$errorMessage = sprintf(
+				__( self::SITE_MOVED_OR_COPIED_MESSAGE, 'sitepress-multilingual-cms' ),
+				UIPage::getTMDashboard(),
+				self::SITE_MOVED_OR_COPIED_DOCS_URL
+			);
+
+			return new \WP_Error( self::SITE_CLONED_ERROR, $errorMessage );
 		}
 
 		return $response;
 	}
 
-	public function checkCloneSiteLock() {
-		if ( Lock::isLocked() ) {
-			$errorMessage = sprintf( __( self::SITE_MOVED_OR_COPIED_MESSAGE, 'sitepress-multilingual-cms' ),
+	/**
+	 * @param string $endpointUrl
+	 *
+	 * @return \WP_Error|null
+	 */
+	public function checkCloneSiteLock( $endpointUrl = '' ) {
+		$isOnWhiteList = function ( $endpointUrl ) {
+			$endpointsWhitelist = \apply_filters( 'wpml_ate_locked_endpoints_whitelist', [] );
+
+			return (bool) Lst::find( Str::includes( Fns::__, $endpointUrl ), $endpointsWhitelist );
+		};
+
+		if ( Lock::isLocked() && ! $isOnWhiteList( $endpointUrl ) ) {
+			$errorMessage = sprintf( __( self::SITE_MOVED_OR_COPIED_MESSAGE, 'sitepress' ),
 				UIPage::getTMDashboard(),
 				self::SITE_MOVED_OR_COPIED_DOCS_URL
 			);
@@ -46,10 +66,6 @@ class ApiCommunication {
 		}
 
 		return null;
-	}
-
-	public function unlockClonedSite() {
-		return $this->lock->unlock();
 	}
 
 	private function handleClonedDetection( $error_data ) {

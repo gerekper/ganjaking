@@ -1,5 +1,11 @@
 *** WC Coupon Campaigns ***
 
+2023-06-13 - version 1.2.4
+* Tweak - WC 7.8 compatibility.
+
+2023-05-02 - version 1.2.3
+* Tweak - WC 7.7 compatibility.
+
 2023-04-26 - version 1.2.2
 * Fix - Confirm to `semgrep` standards.
 

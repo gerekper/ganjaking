@@ -903,7 +903,7 @@ if (!isset($sendingDiagnosticEmail)) {
 		'title' => __('Confirm Restore Defaults', 'wordfence'),
 		'message' => __('Are you sure you want to restore the default Diagnostics settings? This will undo any custom changes you have made to the options on this page.', 'wordfence'),
 		'primaryButton' => array('id' => 'wf-restore-defaults-prompt-cancel', 'label' => __('Cancel', 'wordfence'), 'link' => '#'),
-		'secondaryButtons' => array(array('id' => 'wf-restore-defaults-prompt-confirm', 'labelHTML' => wp_kses(__('Restore<span class="wf-hidden-xs"> Defaults</span>', 'wordfence'), array('span'=>array('class'=>array()))), 'link' => '#')),
+		'secondaryButtons' => array(array('id' => 'wf-restore-defaults-prompt-confirm', 'labelHTML' => wp_kses(/* translators: word order may be reversed as long as HTML remains around "Defaults" */ __('Restore<span class="wf-hidden-xs"> Defaults</span>', 'wordfence'), array('span'=>array('class'=>array()))), 'link' => '#')),
 	))->render();
 	?>
 </script>

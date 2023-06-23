@@ -75,7 +75,7 @@ class Measurement_Protocol_API extends Framework\SV_WC_API_Base {
 	 */
 	public function collect(array $data): bool {
 
-		if (! $this->measurement_id || ! $this->api_secret) {
+		if (! $this->measurement_id || ! $this->api_secret || empty( $data['client_id'] )) {
 			return false;
 		}
 

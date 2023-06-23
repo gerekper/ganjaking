@@ -400,7 +400,9 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 				}
 			}
 		} catch (wfWAFStorageEngineMySQLiException $e) {
-			error_log($e);
+			if (WFWAF_DEBUG) {
+				error_log($e);
+			}
 		}
 	}
 

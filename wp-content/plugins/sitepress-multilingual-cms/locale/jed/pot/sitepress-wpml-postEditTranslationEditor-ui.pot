@@ -7,6 +7,13 @@ msgstr ""
 msgid "WPML Translation Editor"
 msgstr ""
 
+#: src/js/postEditTranslationEditor/components/PostTranslationEditorSettings.js:67
+msgid ""
+"Use only when you want to translate content from one of the few plugins "
+"that are not compatible with WPML’s translation editor or  if you would "
+"like to create different designs for the same page in different languages."
+msgstr ""
+
 #: src/js/postEditTranslationEditor/components/PostTranslationEditorSettings.js:68
 msgid "WordPress Editor"
 msgstr ""

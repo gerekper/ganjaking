@@ -137,17 +137,37 @@ class WPML_TM_Dashboard_Document_Row {
 
 				$name  = $check_field_name . '[' . $current_document->ID . '][checked]';
 				$value = $current_document->ID;
+
+				$originalElement          = \WPML\Element\API\Translations::getOriginal( $current_document->ID, $current_document->translation_element_type );
+				$documentOriginalLangCode = Obj::propOr( false, 'language_code', $originalElement );
+				$isOriginalInPrimaryLang  = (int) ( $documentOriginalLangCode === \WPML\Element\API\Languages::getDefaultCode() );
 				?>
 				<?php
-				if ( Obj::propOr(false, 'is_blocked_by_filter', $current_document) ) {
+				if ( Obj::propOr( false, 'is_blocked_by_filter', $current_document ) ) {
 					?>
-					<div class="js-otgs-popover-tooltip" data-tippy-content="<?php echo esc_attr( $tooltip_content ); ?>">
-						<input type="checkbox" disabled="disabled" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */echo $checked; ?> />
+					<div class="js-otgs-popover-tooltip"
+						 data-tippy-content="<?php echo esc_attr( $tooltip_content ); ?>">
+						<input
+							type="checkbox"
+							disabled="disabled"
+							data-wpml-is-original-in-primary-lang="<?php echo $isOriginalInPrimaryLang ?>"
+							data-wpml-original-lang-code="<?php echo $documentOriginalLangCode ?>"
+							value="<?php echo esc_attr( $value ); ?>"
+							name="<?php echo esc_attr( $name ); ?>"
+							<?php /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+							echo $checked; ?> />
 					</div>
 					<?php
 				} else {
 					?>
-					<input type="checkbox" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */echo $checked; ?> />
+					<input
+						type="checkbox"
+						data-wpml-is-original-in-primary-lang="<?php echo $isOriginalInPrimaryLang ?>"
+						data-wpml-original-lang-code="<?php echo $documentOriginalLangCode ?>"
+						value="<?php echo esc_attr( $value ); ?>"
+						name="<?php echo esc_attr( $name ); ?>"
+						<?php /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+						echo $checked; ?> />
 					<?php
 				}
 				?>
@@ -330,11 +350,11 @@ class WPML_TM_Dashboard_Document_Row {
 						<a class="otgs-ico-refresh wpml-sync-and-download-translation"
 						   data-element-id="<?php echo $current_document->ID; ?>"
 						   data-element-type="<?php echo esc_attr( $element_type ); ?>"
-						   data-jobs="<?php echo htmlspecialchars( json_encode( array_values( $jobs ) ) ); ?>"
+						   data-jobs="<?php echo htmlspecialchars( (string) json_encode( array_values( $jobs ) ) ); ?>"
 						   data-icons="
 						   <?php
 							echo htmlspecialchars(
-								json_encode(
+								(string) json_encode(
 									array(
 										'completed' => $iclTranslationManagement->status2icon_class( ICL_TM_COMPLETE, false ),
 										'canceled'  => $iclTranslationManagement->status2icon_class( ICL_TM_NOT_TRANSLATED, false ),

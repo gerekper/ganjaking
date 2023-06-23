@@ -298,7 +298,7 @@ class Editor {
 		if ( array_key_exists( 'return_url', $params ) ) {
 			$return_url = filter_var( $params['return_url'], FILTER_SANITIZE_URL );
 
-			$return_url_parts = wp_parse_url( $return_url );
+			$return_url_parts = wp_parse_url( (string) $return_url );
 
 			$admin_url       = get_admin_url();
 			$admin_url_parts = wp_parse_url( $admin_url );

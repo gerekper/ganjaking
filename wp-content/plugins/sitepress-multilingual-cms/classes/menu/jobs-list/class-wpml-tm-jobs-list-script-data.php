@@ -66,7 +66,7 @@ class WPML_TM_Jobs_List_Script_Data {
 		}
 
 		if ( ! $services ) {
-			$services = new WPML_TM_Jobs_List_Services( WPML_TM_Rest_Jobs_Translation_Service::create() );
+			$services = new WPML_TM_Jobs_List_Services( new  WPML_TM_Rest_Jobs_Translation_Service() );
 		}
 
 		if ( ! $translated_by_filters ) {

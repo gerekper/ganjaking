@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "אירעה שגיאה בעת ניסיון להשהות את התרגום האוטומטי. נסה שוב מאוחר יותר או צור קשר עםהתמיכה."
@@ -229,20 +228,20 @@
          "You decide what to translate and who'll translate it": [
             "אתה מחליט מה לתרגם ומי יתרגם את זה"
          ],
-         "Translate it yourself": [
-            "תרגם זאת בעצמך"
+         "Translate yourself": [
+            "תרגם בעצמך"
          ],
-         "Assign it to translators that are users of your site": [
-            "הקצה אותו למתרגמים שהם משתמשים באתר שלך"
+         "Use automatic translation on the content you choose": [
+            "השתמש בתרגום אוטומטי עבור התוכן שאתה בוחר"
          ],
-         "Send it to a professional translation service": [
-            "שלח זאת לשירות תרגום מקצועי"
+         "Work with translators that are users of your site": [
+            "עבוד עם מתרגמים שהם משתמשי האתר שלך"
          ],
          "or": [
             "או"
          ],
-         "Translate it automatically using machine translation": [
-            "תרגם זאת באופן אוטומטי באמצעות תרגום מכונה"
+         "Send to professional translation services": [
+            "שלח לשירותי תרגום מקצועיים"
          ],
          "Save settings": [
             "שמור הגדרות"
@@ -484,6 +483,12 @@
          "Learn more": [
             "מידע נוסף"
          ],
+         "On": [
+            "מופעל"
+         ],
+         "Off": [
+            "כבוי"
+         ],
          "You must use the <b>Advanced Translation Editor</b> if you want to translate your content automatically.": [
             "עליך להשתמש ב<b>עורך התרגום המתקדם</b> אם אתה רוצה לתרגם את התוכן שלך באופן אוטומטי."
          ],
@@ -505,8 +510,8 @@
          "Let WPML do the translating for you.": [
             "אפשר ל-WPML לבצע עבורך את התרגום."
          ],
-         "You need to have a valid account in order to continue.": [
-            "תזדקק לחשבון בתוקף כדי להמשיך."
+         "To use automatic translation, <a>sign up for pay-as-you-go</a> or <a2>assign credits to your site</a2>.": [
+            "כדי להשתמש בתרגום אוטומטי, <a>הירשם לשלם בהתאם להתקדמות</a> או <a2>הקצה נקודות זכות לאתר שלך</a2>."
          ],
          "There was an error when loading the credit wizard.": [
             "אירעה שגיאה בעת טעינת אשף נקודות הזכות."

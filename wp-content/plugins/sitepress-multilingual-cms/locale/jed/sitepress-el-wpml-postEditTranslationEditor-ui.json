@@ -3,11 +3,13 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "WPML Translation Editor": [
             "Επεξεργαστής Μεταφράσεων WPML"
+         ],
+         "Use only when you want to translate content from one of the few plugins that are not compatible with WPML’s translation editor or  if you would like to create different designs for the same page in different languages.": [
+            "Χρησιμοποιήστε το μόνο όταν θέλετε να μεταφράσετε περιεχόμενο από μία από τις λίγες προσθήκες που δεν είναι συμβατές με τον επεξεργαστή μετάφρασης του WPML ή αν θέλετε να δημιουργήσετε διαφορετικά σχέδια για την ίδια σελίδα σε διαφορετικές γλώσσες."
          ],
          "WordPress Editor": [
             "Επεξεργαστής WordPress"
@@ -19,7 +21,7 @@
             "Εφαρμογή"
          ],
          "Cancel": [
-            "Άκυρο"
+            "Ακύρωση"
          ],
          "This %s": [
             "Αυτό το %s"

@@ -37,7 +37,7 @@ class WC_Product_Vendors_Store_Reports {
 		$name  = sanitize_title( str_replace( '_', '-', $name ) );
 		$class = 'WC_Product_Vendors_Store_Report_' . str_replace( '-', '_', $name );
 
-		include_once( apply_filters( 'wcpv_store_reports_path', 'class-wc-product-vendors-store-report-' . $name . '.php', $name, $class ) );
+		include_once( apply_filters( 'wcpv_store_reports_path', 'class-wc-product-vendors-store-report-' . $name . '.php', $name, $class ) ); // nosemgrep:audit.php.lang.security.file.inclusion-arg
 
 		if ( ! class_exists( $class ) ) {
 			return;

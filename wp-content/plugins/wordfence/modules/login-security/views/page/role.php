@@ -2,20 +2,20 @@
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 ?>
 <?php if (is_multisite()): ?>
-	<p><em>(<?php esc_html_e('This page only shows users and roles on the main site of this network', 'wordfence-2fa') ?>)</em></p>
+	<p><em>(<?php esc_html_e('This page only shows users and roles on the main site of this network', 'wordfence') ?>)</em></p>
 <?php endif ?>
 <div class="wfls-block wfls-always-active wfls-flex-item-full-width wfls-add-bottom">
 	<?php if ($requiredAt === false): ?>
 	<div class="wfls-block-content">
-		<p><?php echo esc_html(sprintf(__('2FA is not required for the %s role', 'wordfence-2fa'), $roleTitle)) ?></p>
+		<p><?php echo esc_html(sprintf(__('2FA is not required for the %s role', 'wordfence'), $roleTitle)) ?></p>
 	</div>
 	<?php elseif (empty($users)): ?>
 	<div class="wfls-block-content">
 		<p>
 		<?php if ($page == 1): ?>
-			<?php echo esc_html(sprintf(__('No users found in the %s state for the %s role', 'wordfence-2fa'), $stateTitle, $roleTitle)) ?>
+			<?php echo esc_html(sprintf(__('No users found in the %s state for the %s role', 'wordfence'), $stateTitle, $roleTitle)) ?>
 		<?php else: ?>
-			<?php echo esc_html(sprintf(__('Page %d is out of range', 'wordfence-2fa'), $page)) ?>
+			<?php echo esc_html(sprintf(__('Page %d is out of range', 'wordfence'), $page)) ?>
 		<?php endif ?>
 		</p>
 	</div>
@@ -32,7 +32,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 					<?php if ($user->required_at): ?>
 					<?php echo esc_html(\WordfenceLS\Controller_Time::format_local_time('F j, Y g:i A', $user->required_at)) ?>
 					<?php else: ?>
-					<?php esc_html_e('N/A', 'wordfence-2fa'); ?>
+					<?php esc_html_e('N/A', 'wordfence'); ?>
 					<?php endif ?>
 				</td>
 			</tr>
@@ -43,7 +43,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 				<?php if ($page > 1): ?>
 					<a href="<?php echo esc_attr(add_query_arg($pageKey, $page-1) . "#$stateKey") ?>"><span class="dashicons dashicons-arrow-left-alt2"></span></a>
 				<?php endif ?>
-				<strong class="wfls-page-indicator"><?php esc_html_e('Page ', 'wordfence-2fa') ?><?php echo (int) $page ?></strong>
+				<strong class="wfls-page-indicator"><?php esc_html_e('Page ', 'wordfence') ?><?php echo (int) $page ?></strong>
 				<?php if (!$lastPage): ?>
 					<a href="<?php echo esc_attr(add_query_arg($pageKey, $page+1) . "#$stateKey") ?>"><span class="dashicons dashicons-arrow-right-alt2"></span></a>
 				<?php endif ?>

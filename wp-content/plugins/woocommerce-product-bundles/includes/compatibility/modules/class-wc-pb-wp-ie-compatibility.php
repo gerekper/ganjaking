@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Data is imported again using the WC_Bundled_Item_Data class.
  * Supports import of existing v4 data from post meta.
  *
- * @version 5.0.0
+ * @version  6.21.0
  */
 class WC_PB_WP_IE_Compatibility {
 
@@ -65,8 +65,8 @@ class WC_PB_WP_IE_Compatibility {
 
 				?>
 				<wp:postmeta>
-					<wp:meta_key><?php echo wxr_cdata( '_bundled_items_db_data' ); ?></wp:meta_key>
-					<wp:meta_value><?php echo wxr_cdata( $item_data ); ?></wp:meta_value>
+					<wp:meta_key><?php echo wxr_cdata( '_bundled_items_db_data' ); ?></wp:meta_key><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<wp:meta_value><?php echo wxr_cdata( $item_data ); ?></wp:meta_value><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</wp:postmeta>
 				<?php
 			}

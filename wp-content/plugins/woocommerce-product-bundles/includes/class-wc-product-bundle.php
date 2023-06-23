@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.15.4
+ * @version  6.21.0
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -1427,7 +1427,7 @@ class WC_Product_Bundle extends WC_Product {
 		$url = $this->is_purchasable() && $this->is_in_stock() && ! $this->has_options() ? remove_query_arg( 'added-to-cart', add_query_arg( 'add-to-cart', $this->get_id() ) ) : get_permalink( $this->get_id() );
 
 		/** WC core filter. */
-		return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $this );
+		return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $this ); // nosemgrep: audit.php.wp.security.xss.query-arg
 	}
 
 	/**
@@ -1503,7 +1503,7 @@ class WC_Product_Bundle extends WC_Product {
 			}
 		}
 
-		return $permalink;
+		return $permalink; // nosemgrep: audit.php.wp.security.xss.query-arg
 	}
 
 	/*

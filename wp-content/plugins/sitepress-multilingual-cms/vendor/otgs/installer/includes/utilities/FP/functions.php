@@ -7,11 +7,11 @@ namespace OTGS\Installer\FP;
  * predefined left arguments passed to partial
  *
  * @param callable $function
- * @param mixed ...
+ * @param mixed ...$args
  *
  * @return callable
  */
-function partial( callable $function, $dummy ) {
+function partial( callable $function, $args ) {
 	$args = array_slice( func_get_args(), 1 );
 
 	return function () use ( $function, $args ) {
@@ -111,10 +111,10 @@ function gatherArgs( callable $fn ) {
  *
  * @param string $fnName
  *
- * @return Invoker
+ * @return _Invoker
  */
 function invoke( $fnName ) {
-	return new Invoker( $fnName );
+	return new _Invoker( $fnName );
 }
 
 /**

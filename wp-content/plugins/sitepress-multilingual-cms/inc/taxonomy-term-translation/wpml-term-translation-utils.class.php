@@ -44,6 +44,9 @@ class WPML_Term_Translation_Utils extends WPML_SP_User {
 
 			foreach ( $taxonomies as $tax ) {
 				$terms_on_original = wp_get_object_terms( $original_post_id, $tax );
+				if ( is_wp_error ( $terms_on_original ) ) {
+					continue;
+				}
 
 				if ( ! $this->sitepress->is_translated_taxonomy( $tax ) ) {
 					if ( $this->sitepress->get_setting( 'sync_post_taxonomies' ) ) {
@@ -63,7 +66,8 @@ class WPML_Term_Translation_Utils extends WPML_SP_User {
 		}
 
 		remove_filter( 'wpml_disable_term_adjust_id', $returnTrue );
-		clean_object_term_cache( $original_post_id, get_post_type( $original_post_id ) );
+		$post_type = get_post_type( $original_post_id );
+		$post_type && clean_object_term_cache( $original_post_id, $post_type );
 	}
 
 	/**

@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Draft — Pending review": [
             "Entwurf — Überprüfung steht aus"
@@ -389,6 +388,10 @@
          ],
          "Synchronization with the Professional Translation service has failed": [
             "Die Synchronisierung mit dem professionellen Übersetzungsdienst ist fehlgeschlagen."
+         ],
+         "%d translation has been downloaded": [
+            "%d Übersetzung heruntergeladen",
+            "%d Übersetzungen heruntergeladen"
          ],
          "Batch sync finished successfully!": [
             "Batch-Synchronisierung erfolgreich abgeschlossen!"

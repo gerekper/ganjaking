@@ -34,7 +34,7 @@ class WCAM_Events_Background_Process extends WC_AM_Background_Process {
 	/**
 	 * Code to execute for each item in the queue
 	 *
-	 * @param string $item Queue item to iterate over.
+	 * @param array $item Queue item to iterate over.
 	 *
 	 * @return bool
 	 */
@@ -70,6 +70,15 @@ class WCAM_Events_Background_Process extends WC_AM_Background_Process {
 				break;
 			case 'add_wc_software_add_on_data':
 				WC_AM_BACKGROUND_EVENTS()->add_wc_software_add_on_data( absint( $item[ 'wc_software_add_on_data_key_id' ] ) );
+				break;
+			case 'send_subscription_30_day_expiration_notification':
+				WC_AM_BACKGROUND_EVENTS()->send_subscription_30_day_expiration_notification( absint( $item[ 'subscription_30_day_expiration_api_resource_id' ] ) );
+				break;
+			case 'send_subscription_7_day_expiration_notification':
+				WC_AM_BACKGROUND_EVENTS()->send_subscription_7_day_expiration_notification( absint( $item[ 'subscription_7_day_expiration_api_resource_id' ] ) );
+				break;
+			case 'send_subscription_1_day_after_expiration_notification':
+				WC_AM_BACKGROUND_EVENTS()->send_subscription_1_day_after_expiration_notification( absint( $item[ 'subscription_1_day_after_expiration_api_resource_id' ] ) );
 				break;
 		}
 

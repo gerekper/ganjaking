@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Sending for translation": [
             "Αποστολή για μετάφραση"
@@ -72,6 +71,9 @@
          "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
             "Η γλώσσα σας, %s, πρέπει να έχει αντιστοιχιστεί με μια υποστηριζόμενη γλώσσα, για να χρησιμοποιηθεί αυτόματη μετάφραση.",
             "Οι ακόλουθες γλώσσες στον ιστότοπό σας πρέπει να έχουν αντιστοιχιστεί με μια υποστηριζόμενη γλώσσα, για να χρησιμοποιηθεί αυτόματη μετάφραση: %s"
+         ],
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            "Περιεχόμενο σε αυτές τις γλώσσες: %s, δεν μπορεί να μεταφραστεί αυτόματα εκτός αν τα αντιστοιχίσετε με μια γλώσσα που διαφέρει από την προεπιλεγμένη."
          ],
          "%d translation waiting for review": [
             "%d μετάφραση αναμένει αναθεώρηση",
@@ -219,7 +221,7 @@
             "Χρειάζεστε μονάδες για να ξεκινήσετε να μεταφράζετε τα πάντα."
          ],
          "Cancel": [
-            "Άκυρο"
+            "Ακύρωση"
          ],
          "Start translating everything": [
             "Έναρξη μετάφρασης όλων"

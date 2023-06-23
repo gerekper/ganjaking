@@ -437,7 +437,7 @@ class SitePress_EditLanguages {
 									<?php endif; ?>
 									<?php _e( 'Custom flag', 'sitepress' ); ?>
 								</label>
-								<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo esc_attr( $this->max_file_size ); ?>"/>
+								<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo esc_attr( (string) $this->max_file_size ); ?>"/>
 
 								<div class="wpml-edit-languages-flag-upload-wrapper"
 									<?php
@@ -804,7 +804,7 @@ class SitePress_EditLanguages {
 
 	/**
 	 * @param array<string,string|array<string,string>> $data
-	 * @param int                                       $id
+	 * @param int|string                                $id
 	 *
 	 * @return int
 	 */
@@ -845,7 +845,7 @@ class SitePress_EditLanguages {
 	}
 	/**
 	 * @param array<string,string|array<string,string>> $data
-	 * @param int                                       $id
+	 * @param int|string                                $id
 	 *
 	 * @return bool
 	 */
@@ -1369,7 +1369,8 @@ class SitePress_EditLanguages {
 		$displayErrorMsg = function ( $languageNames ) {
 			$this->set_errors( sprintf(
 				__( 'The language mapping could not be saved for languages: %s', 'sitepress-multilingual-cms' ),
-				Lst::join( ', ', $languageNames )
+				/** @phpstan-ignore-next-line */
+				Lst::join( ', ', (array) $languageNames )
 			) );
 		};
 		$logError        = pipe( $findErrors, $getSourceNames, $displayErrorMsg );

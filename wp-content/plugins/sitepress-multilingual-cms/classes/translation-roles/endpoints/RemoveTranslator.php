@@ -43,6 +43,6 @@ class RemoveTranslator extends Remove {
 	}
 
 	protected static function getCap() {
-		return \WPML_Translator_Role::CAPABILITY;
+		return User::CAP_TRANSLATE;
 	}
 }

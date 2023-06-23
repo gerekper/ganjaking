@@ -4,7 +4,7 @@ namespace OTGS\Installer\Templates\Repository;
 
 class RegisteredButtons {
 
-	public static function render( $model, $showUpdateButton = true ) {
+	public static function render( $model ) {
 		$disabled           = '';
 		$title              = '';
 		if ( \WP_Installer::get_repository_hardcoded_site_key( $model->repoId ) ) {
@@ -22,7 +22,7 @@ class RegisteredButtons {
 				<?php printf( __( "Unregister %s from this site", 'installer' ), $model->productName ) ?>
 			</a>&nbsp;
 
-			<?php if ( $showUpdateButton && ! $model->expired && $model->displayCheckForUpdates ): ?>
+			<?php if ( ! $model->expired && $model->displayCheckForUpdates ): ?>
 				<a class="update_site_key_js otgs-installer-notice-status-item-btn"
 				   data-repository="<?php echo $model->repoId ?>"
 				   data-nonce="<?php echo $model->updateSiteKeyNonce; ?>"

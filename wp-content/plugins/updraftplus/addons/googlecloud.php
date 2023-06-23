@@ -458,7 +458,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		if (headers_sent()) {
 			$this->log(__('Authentication could not go ahead, because something else on your site is breaking it. Try disabling your other plugins and switching to a default theme. (Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins. Turning off any debugging settings may also help).', 'updraftplus'), 'error');
 		} else {
-			header('Location: https://accounts.google.com/o/oauth2/auth?'.http_build_query($params, null, '&'));
+			header('Location: https://accounts.google.com/o/oauth2/auth?'.http_build_query($params, '', '&'));
 		}
 	}
 	

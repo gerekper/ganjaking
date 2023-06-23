@@ -1028,6 +1028,11 @@ class Stats {
 			$resize_savings,
 			$resize_savings >= 1024 ? 1 : 0
 		);
+		$conversion_savings            = (int) $array_utils->get_array_value( $stats, 'conversion_savings' );
+		$conversion_savings_human      = size_format(
+			$conversion_savings,
+			$conversion_savings >= 1024 ? 1 : 0
+		);
 
 		list( $percent_optimized, $percent_metric, $grade ) = $this->get_grade_data( $remaining_count, $image_attachment_count, $skipped_count );
 
@@ -1050,7 +1055,8 @@ class Stats {
 			'human_bytes'             => $human_bytes,
 			'savings_resize'          => $resize_savings,
 			'savings_resize_human'    => $resize_savings_human,
-			'savings_conversion'      => (int) $array_utils->get_array_value( $stats, 'conversion_savings' ),
+			'savings_conversion'      => $conversion_savings,
+			'savings_conversion_human'=> $conversion_savings_human,
 			'savings_dir_smush'       => $this->dir_stats,
 			'savings_percent'         => $savings_percent > 0 ? number_format_i18n( $savings_percent, 1 ) : 0,
 			'percent_grade'           => $grade,

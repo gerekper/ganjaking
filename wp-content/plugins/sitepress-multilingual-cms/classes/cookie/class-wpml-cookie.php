@@ -14,7 +14,7 @@ class WPML_Cookie {
 	public function set_cookie( $name, $value, $expires, $path, $domain, $HTTPOnly  = false, $sameSite = null ) {
 		wp_cache_add_non_persistent_groups( __CLASS__ );
 
-		$entryHash = md5( wp_json_encode( [ $name, $value, $path, $domain, $HTTPOnly, $sameSite ] ) );
+		$entryHash = md5( (string) wp_json_encode( [ $name, $value, $path, $domain, $HTTPOnly, $sameSite ] ) );
 
 		if ( wp_cache_get( $name, __CLASS__ ) !== $entryHash ) {
 			$this->handle_cache_plugins( $name );

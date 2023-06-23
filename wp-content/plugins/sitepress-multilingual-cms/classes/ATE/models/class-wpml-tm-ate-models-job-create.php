@@ -28,6 +28,8 @@ class WPML_TM_ATE_Models_Job_Create {
 	public $ate_ams_console_url;
 	/** @var int */
 	public $existing_ate_id;
+	/** @var int */
+	public $wpml_chars_count;
 
 	/**
 	 * WPML_TM_ATE_Models_Job_Create constructor.

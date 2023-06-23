@@ -299,12 +299,15 @@ function _icl_trash_restore_prompt() {
 		$post = get_post( intval( $_GET['post'] ) );
 		if ( isset( $post->post_status ) && $post->post_status == 'trash' ) {
 			$post_type_object = get_post_type_object( $post->post_type );
+			$delete_post_url  = get_delete_post_link( $post->ID, '', true );
 
-			$delete_post_link  = '<a href="' . esc_url( get_delete_post_link( $post->ID, '', true ) ) . '">' . esc_html__( 'delete it permanently', 'sitepress' ) . '</a>';
-			$restore_post_link = '<a href="' . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $post->ID ) ), 'untrash-post_' . $post->ID ) . '">' . esc_html__( 'restore', 'sitepress' ) . '</a>';
-			$ret               = '<p>' . sprintf( esc_html__( 'This translation is currently in the trash. You need to either %1$s or %2$s it in order to continue.' ), $delete_post_link, $restore_post_link );
+			if ( is_string( $delete_post_url ) ) {
+				$delete_post_link  = '<a href="' . esc_url( $delete_post_url ) . '">' . esc_html__( 'delete it permanently', 'sitepress' ) . '</a>';
+				$restore_post_link = '<a href="' . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $post->ID ) ), 'untrash-post_' . $post->ID ) . '">' . esc_html__( 'restore', 'sitepress' ) . '</a>';
+				$ret               = '<p>' . sprintf( esc_html__( 'This translation is currently in the trash. You need to either %1$s or %2$s it in order to continue.' ), $delete_post_link, $restore_post_link );
 
-			wp_die( $ret );
+				wp_die( $ret );
+			}
 		}
 	}
 }
@@ -320,7 +323,7 @@ function _icl_trash_restore_prompt() {
  * @deprecated 3.2 use 'wpml_admin_make_duplicates' action instead
  */
 function icl_makes_duplicates( $master_post_id ) {
-	wpml_admin_make_post_duplicates_action( $master_post_id );
+	wpml_admin_make_post_duplicates_action( (int) $master_post_id );
 }
 
 /**
@@ -363,7 +366,7 @@ function wpml_admin_make_post_duplicates_action( $master_post_id ) {
  * @deprecated 3.2 use 'wpml_make_post_duplicates' action instead
  */
 function icl_makes_duplicates_public( $master_post_id ) {
-	wpml_make_post_duplicates_action( $master_post_id );
+	wpml_make_post_duplicates_action( (int) $master_post_id );
 }
 
 /**
@@ -703,6 +706,11 @@ function repair_el_type_collate() {
  * @param int    $component
  *
  * @return array|string|int|null
+ *
+ * @phpstan-return ($component is -1
+ *  ? array|null
+ *  : ($component is PHP_URL_PORT ? int|null : string|null)
+ *  )
  */
 function wpml_parse_url( $url, $component = -1 ) {
 	$ret = null;

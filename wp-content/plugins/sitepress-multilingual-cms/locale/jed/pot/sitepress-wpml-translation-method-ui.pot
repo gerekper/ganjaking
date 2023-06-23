@@ -191,7 +191,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: src/js/components/roles/CreateUser.js:138
+#: src/js/components/roles/CreateUser.js:137
 msgid "(required)"
 msgstr ""
 
@@ -342,15 +342,15 @@ msgid "You decide what to translate and who'll translate it"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:74
-msgid "Translate it yourself"
+msgid "Translate yourself"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:77
-msgid "Assign it to translators that are users of your site"
+msgid "Use automatic translation on the content you choose"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:80
-msgid "Send it to a professional translation service"
+msgid "Work with translators that are users of your site"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:81
@@ -358,7 +358,7 @@ msgid "or"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/SelectMethod.js:83
-msgid "Translate it automatically using machine translation"
+msgid "Send to professional translation services"
 msgstr ""
 
 #: src/js/components/settings/TranslationMode/Wizard.js:129
@@ -674,7 +674,7 @@ msgstr ""
 msgid "What should happen with your automatically translated content"
 msgstr ""
 
-#: src/js/translation-method/compontents/Sections/AutomaticTranslations/TranslationEngineSettings.js:111
+#: src/js/translation-method/compontents/Sections/AutomaticTranslations/TranslationEngineSettings.js:116
 msgid "%d credits/word"
 msgstr ""
 
@@ -719,6 +719,14 @@ msgstr ""
 msgid "Learn more"
 msgstr ""
 
+#: src/js/translation-method/compontents/Sections/AutomaticTranslations/TranslationEngineSettings.js:92
+msgid "On"
+msgstr ""
+
+#: src/js/translation-method/compontents/Sections/AutomaticTranslations/TranslationEngineSettings.js:93
+msgid "Off"
+msgstr ""
+
 #: src/js/translation-method/compontents/Sections/TranslationModeSection.js:25
 msgid ""
 "You must use the <b>Advanced Translation Editor</b> if you want to "
@@ -753,11 +761,13 @@ msgstr ""
 msgid "Let WPML do the translating for you."
 msgstr ""
 
-#: src/js/translation-method/compontents/Settings/Wizard/TranslateEverything/StepATECredits.js:16
-msgid "You need to have a valid account in order to continue."
+#: src/js/translation-method/compontents/Settings/Wizard/TranslateEverything/StepATECredits.js:19
+msgid ""
+"To use automatic translation, <a>sign up for pay-as-you-go</a> or "
+"<a2>assign credits to your site</a2>."
 msgstr ""
 
-#: src/js/translation-method/compontents/Settings/Wizard/TranslateEverything/StepATECredits.js:21
+#: src/js/translation-method/compontents/Settings/Wizard/TranslateEverything/StepATECredits.js:31
 msgid "There was an error when loading the credit wizard."
 msgstr ""
 
@@ -856,19 +866,19 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: src/js/translation-method/store.js:128
+#: src/js/translation-method/store.js:135
 msgid "Settings saved successfully"
 msgstr ""
 
-#: src/js/translation-method/store.js:153
+#: src/js/translation-method/store.js:160
 msgid "Could not load translation engines"
 msgstr ""
 
-#: src/js/translation-method/store.js:173
+#: src/js/translation-method/store.js:180
 msgid "Could not update engine"
 msgstr ""
 
-#: src/js/translation-method/store.js:203
+#: src/js/translation-method/store.js:209
 msgid "Could not save review mode"
 msgstr ""
 

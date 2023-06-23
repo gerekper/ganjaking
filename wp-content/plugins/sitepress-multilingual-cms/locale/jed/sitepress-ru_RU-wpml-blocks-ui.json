@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Advanced": [
             "Расширенный"
@@ -108,8 +107,29 @@
          "Current language background": [
             "Фон текущего языка"
          ],
-         "Small": [
-            "Маленький"
+         "Full name": [
+            "Имя и фамилия"
+         ],
+         "Code": [
+            "Код"
+         ],
+         "Justify items left": [
+            "Выровнять по левому краю"
+         ],
+         "Justify items center": [
+            "Выровнять по центру"
+         ],
+         "Justify items right": [
+            "Выровнять по правому краю"
+         ],
+         "Justify items space between": [
+            "Выровнять по длине строки"
+         ],
+         "Horizontal": [
+            "Горизонтальный"
+         ],
+         "Vertical": [
+            "Вертикальный"
          ],
          "Normal": [
             "Обычная"
@@ -123,6 +143,9 @@
          "X-Large": [
             "X-большой"
          ],
+         "Small": [
+            "Маленький"
+         ],
          "Displays the WPML Language Switcher.": [
             "Отображает Переключатель языка WPML."
          ],
@@ -132,20 +155,14 @@
          "displays the WPML Language Switcher": [
             "отображает Переключатель языка WPML."
          ],
+         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
+            "Отображает переключатель языков в WPML. <br/> Узнать, <a>как перевести этот блок</a>."
+         ],
          "Navigation Language Switcher": [
             "Переключатель языка навигации"
          ],
          "Reset all": [
             "Сбросить все"
-         ],
-         "Minimum value is : ": [
-            "Минимальное значение:"
-         ],
-         "Maximum value is : ": [
-            "Максимальное значение:"
-         ],
-         "Value must be a number!": [
-            "Значение должно быть числом!"
          ]
       }
    }

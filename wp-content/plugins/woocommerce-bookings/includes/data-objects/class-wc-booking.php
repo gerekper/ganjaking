@@ -260,7 +260,7 @@ class WC_Booking extends WC_Bookings_Data {
 	/**
 	 * Mark the confirmed bookings' order as complete if the total is zero.
 	 *
-	 * @since x.x.x
+	 * @since 1.15.59
 	 */
 	public function mark_confirmed_order_complete_when_total_zero() {
 		$order = $this->get_order();
@@ -293,7 +293,7 @@ class WC_Booking extends WC_Bookings_Data {
 		 * @param string 'completed' The order status.
 		 * @param WC_Order $order
 		 *
-		 * @since x.x.x
+		 * @since 1.15.59
 		 */
 		$status = apply_filters( 'woocommerce_bookings_zero_order_status', 'completed', $order );
 

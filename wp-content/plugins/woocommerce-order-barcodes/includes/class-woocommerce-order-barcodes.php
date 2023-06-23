@@ -262,13 +262,10 @@ class WooCommerce_Order_Barcodes {
 	 * @return  void
 	 */
 	public function save_barcode() {
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
 
-		if( ! current_user_can( 'manage_woocommerce' ) ) {
-			exit;
-		}
-
-		if( ! isset( $_POST['order_id'] ) ) {
-			exit;
+		if ( ! wp_verify_nonce( $nonce, 'wc_order_barcodes_save_barcode_nonce' ) || ! current_user_can( 'manage_woocommerce' ) || ! isset( $_POST['order_id'] ) ) {
+			die( esc_html__( 'Permission denied: Security check failed', 'woocommerce-order-barcodes' ) );
 		}
 
 		$this->update_order_meta( intval( $_POST['order_id'] ) );

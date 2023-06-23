@@ -103,11 +103,11 @@ if ( $icl_menus_sync->is_preview ) {
 		<input id="icl_msync_submit"
 			   class="button-primary"
 			   type="button"
-			   value="<?php esc_attr_e( 'Apply changes' ); ?>"
+			   value="<?php esc_attr_e( 'Apply changes', 'sitepress' ); ?>"
 			   data-message="<?php esc_attr_e( 'Syncing menus %1 of %2', 'sitepress' ); ?>"
 			   data-message-complete="<?php esc_attr_e( 'The selected menus have been synchonized.', 'sitepress' ); ?>"
 			<?php echo $icl_menu_sync_submit_disabled; ?> />&nbsp;
-		<input id="icl_msync_cancel" class="button-secondary" type="button" value="<?php _e( 'Cancel' ); ?>"/>
+		<input id="icl_msync_cancel" class="button-secondary" type="button" value="<?php _e( 'Cancel', 'sitepress' ); ?>"/>
 		<span id="icl_msync_message"></span>
 	</p>
 		<?php wp_nonce_field( '_icl_nonce_menu_sync', '_icl_nonce_menu_sync' ); ?>

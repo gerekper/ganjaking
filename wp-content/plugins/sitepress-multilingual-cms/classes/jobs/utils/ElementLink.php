@@ -43,7 +43,7 @@ class ElementLink {
 
 	/**
 	 * @param \WPML_TM_Post_Job_Entity $job
-	 * @param string|null $elementId
+	 * @param string|int|null $elementId
 	 *
 	 * @return mixed|string|void
 	 */

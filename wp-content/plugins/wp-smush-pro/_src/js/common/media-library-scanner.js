@@ -130,41 +130,40 @@ export default class MediaLibraryScanner {
 		this.scanProgress.resetCancelButtonOnFailure();
 	}
 
-	showErrorProgressNotice( ) {
-		let errorMessage = this.getErrorProgressMessage();
-		const recheckImagesLink = this.getRecheckImagesHTMLLink();
-		if ( recheckImagesLink ) {
-			errorMessage += '<br/>' + recheckImagesLink;
-		}
-		WP_Smush.helpers.showNotice(
-			errorMessage,
-			{
-				showdismiss: true,
-				autoclose: false,
-			}
-		);
-	}
-
 	getErrorProgressMessage() {
-		return __( 'Unfortunately the scan could not be completed due to an unknown error.', 'wp-smushit' );
-	}
-
-	getRecheckImagesHTMLLink() {
-		const canTriggerScan = document.querySelector( '.wp-smush-scan' );
-		const restartScanText = __( 'Please restart the scan', 'wp-smushit' );
-		if ( canTriggerScan ) {
-			const closeNoticeAndTriggerScan = "WP_Smush.helpers.closeNotice();document.querySelector( '.wp-smush-scan' ).click();";
-			return `<a href="#" onclick="${ closeNoticeAndTriggerScan }">${ restartScanText }</a>`;
-		}
-		if ( wp_smush_msgs.recheck_images_link ) {
-			return `<a href="${ wp_smush_msgs.recheck_images_link }">${ restartScanText }</a>`;
-		}
+		return __( 'Unfortunately the scan hit an error due to limited resources on your site, we have adjusted the scan to use fewer resources the next time.', 'wp-smushit' );
 	}
 
 	onDead( stats ) {
 		this.clearProgressTimeout();
 		this.closeProgressBar();
 		this.closeStopScanningModal();
+		this.showRetryScanModal();
+	}
+
+	showRetryScanModal() {
+		const retryScanModalElement = document.getElementById( 'smush-retry-scan-notice' );
+		if ( ! window.SUI || ! retryScanModalElement ) {
+			return;
+		}
+
+		retryScanModalElement.querySelector('.smush-retry-scan-notice-button').onclick = (e) => {
+			window.SUI.closeModal( 'smush-retry-scan-notice' );
+			const recheckImagesBtn = document.querySelector( '.wp-smush-scan' );
+			if ( ! recheckImagesBtn ) {
+				return;
+			}
+
+			e.preventDefault();
+			recheckImagesBtn.click();
+		}
+
+		window.SUI.openModal(
+			'smush-retry-scan-notice',
+			'wpbody-content',
+			undefined,
+			false
+		);
 	}
 
 	onCompleted( stats ) {
@@ -210,7 +209,6 @@ export default class MediaLibraryScanner {
 			const stats = response.data;
 
 			if ( stats.is_dead ) {
-				this.showErrorProgressNotice();
 				this.onDead( response.data );
 				return;
 			}
@@ -218,18 +216,21 @@ export default class MediaLibraryScanner {
 			this.beforeUpdateStatus( stats );
 
 			this.updateProgress( stats ).then( () => {
+				this.scanProgress.increaseDurationToHaveChangeOnProgress( new Date().getTime() - startTime );
+
 				const isCompleted = stats?.is_completed;
 				if ( isCompleted ) {
 					this.onCompleted( stats );
+					return;
 				}
 				const isCancelled = stats?.is_cancelled;
 				if ( isCancelled ) {
 					this.onCancelled( stats );
+					return;
 				}
-				this.scanProgress.increaseDurationToHaveChangeOnProgress( new Date().getTime() - startTime );
-			} );
 
-			this.progressTimeoutId = setTimeout( () => this.autoSyncStatus(), this.autoSyncDuration );
+				this.progressTimeoutId = setTimeout( () => this.autoSyncStatus(), this.autoSyncDuration );
+			} );
 		} );
 	}
 

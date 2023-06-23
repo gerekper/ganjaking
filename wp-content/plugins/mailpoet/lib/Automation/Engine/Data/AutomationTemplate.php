@@ -8,16 +8,16 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\RuntimeException;
 
 class AutomationTemplate {
-
   public const TYPE_DEFAULT = 'default';
   public const TYPE_FREE_ONLY = 'free-only';
   public const TYPE_PREMIUM = 'premium';
   public const TYPE_COMING_SOON = 'coming-soon';
 
-  public const CATEGORY_WELCOME = 1;
-  public const CATEGORY_ABANDONED_CART = 2;
-  public const CATEGORY_REENGAGEMENT = 3;
-  public const CATEGORY_WOOCOMMERCE = 4;
+  public const CATEGORY_WELCOME = 'welcome';
+  public const CATEGORY_ABANDONED_CART = 'abandoned-cart';
+  public const CATEGORY_REENGAGEMENT = 'reengagement';
+  public const CATEGORY_WOOCOMMERCE = 'woocommerce';
+
   public const ALL_CATEGORIES = [
     self::CATEGORY_WELCOME,
     self::CATEGORY_ABANDONED_CART,
@@ -28,23 +28,28 @@ class AutomationTemplate {
   /** @var string */
   private $slug;
 
-  /** @var int */
+  /** @var string */
   private $category;
 
   /** @var string */
-  private $type;
+  private $name;
 
   /** @var string */
   private $description;
 
-  /** @var Automation */
-  private $automation;
+  /** @var callable(): Automation */
+  private $automationFactory;
 
+  /** @var string */
+  private $type;
+
+  /** @param callable(): Automation $automationFactory */
   public function __construct(
     string $slug,
-    int $category,
+    string $category,
+    string $name,
     string $description,
-    Automation $automation,
+    callable $automationFactory,
     string $type = self::TYPE_DEFAULT
   ) {
     if (!in_array($category, self::ALL_CATEGORIES)) {
@@ -52,8 +57,9 @@ class AutomationTemplate {
     }
     $this->slug = $slug;
     $this->category = $category;
+    $this->name = $name;
     $this->description = $description;
-    $this->automation = $automation;
+    $this->automationFactory = $automationFactory;
     $this->type = $type;
   }
 
@@ -62,10 +68,10 @@ class AutomationTemplate {
   }
 
   public function getName(): string {
-    return $this->automation->getName();
+    return $this->name;
   }
 
-  public function getCategory(): int {
+  public function getCategory(): string {
     return $this->category;
   }
 
@@ -77,8 +83,8 @@ class AutomationTemplate {
     return $this->description;
   }
 
-  public function getAutomation(): Automation {
-    return $this->automation;
+  public function createAutomation(): Automation {
+    return ($this->automationFactory)();
   }
 
   public function toArray(): array {
@@ -88,7 +94,6 @@ class AutomationTemplate {
       'category' => $this->getCategory(),
       'type' => $this->getType(),
       'description' => $this->getDescription(),
-      'automation' => $this->getAutomation()->toArray(),
     ];
   }
 }

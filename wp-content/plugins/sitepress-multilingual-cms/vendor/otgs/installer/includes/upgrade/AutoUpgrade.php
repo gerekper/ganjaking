@@ -32,7 +32,7 @@ class AutoUpgrade {
 			'modifyAutoUpdatePluginsOption',
 		], 10, 2 );
 
-		add_filter( 'plugin_auto_update_setting_html', [ $this, 'modifyAutoUpdateSettingHtml' ], 10, 3 );
+		add_filter( 'plugin_auto_update_setting_html', [ $this, 'modifyAutoUpdateSettingHtml' ], 10, 2 );
 	}
 
 	/**

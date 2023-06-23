@@ -68,6 +68,7 @@ class Sync extends Base {
 		$lock    = make( SyncLock::class );
 		$lockKey = $lock->create( $request->get_param( 'lockKey' ) );
 		if ( $lockKey ) {
+			/** @var Result $result */
 			$result          = make( Process::class )->run( $args );
 			$result->lockKey = $lockKey;
 
@@ -75,7 +76,9 @@ class Sync extends Base {
 				Logic::complement( $this->findSyncedJob( $result->jobs ) ),
 				$this->getJobStatuses( $request->get_param( 'jobIds' ), $request->get_param( 'returnUrl' ) )
 			);
-			$result     = $this->createResultWithJobs( Lst::concat( $result->jobs, $jobsFromDB ), $result );
+
+			/** @phpstan-ignore-next-line */
+			$result = $this->createResultWithJobs( Lst::concat( $result->jobs, $jobsFromDB ), $result );
 		} else {
 			$result = $this->createResultWithJobs( $this->getJobStatuses( $request->get_param( 'jobIds' ), $request->get_param( 'returnUrl' ) ) );
 		}
@@ -83,6 +86,9 @@ class Sync extends Base {
 		return (array) $result;
 	}
 
+	/**
+	 * @return array
+	 */
 	private function getJobStatuses( $wpmlJobIds, $returnUrl ) {
 		if ( ! $wpmlJobIds ) {
 			return [];

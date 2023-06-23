@@ -3,14 +3,19 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "You can choose which posts to translate from the <strong>Translation Management Dashboard</strong>.": [
             "Você pode escolher quais posts traduzir através do <strong>painel do Translation Management</strong>."
          ],
-         "Yes, translate all of these posts automatically": [
-            "Sim, traduzir todos esses posts automaticamente"
+         "Yes, translate <b>existing</b> and <b>future</b> content automatically": [
+            "Sim, traduzir conteúdo <b>existente</b> e <b>futuro</b> automaticamente"
+         ],
+         "Yes, but only translate <b>future</b> content automatically": [
+            "Sim, mas apenas traduzir conteúdo <b>futuro</b> automaticamente"
+         ],
+         "Yes, translate <b>future</b> content automatically": [
+            "Sim, traduzir conteúdo <b>futuro</b> automaticamente"
          ],
          "No, I want to translate some of these posts, but not all": [
             "Não, quero traduzir alguns desses posts, mas não todos"
@@ -24,15 +29,6 @@
          "Please try again in a few minutes. If the problem persists, please contact %sWPML support%s.": [
             "Tente novamente daqui a alguns minutos. Se o problema continuar, entre em contato com %so suporte do WPML%s."
          ],
-         "Save": [
-            "Salvar"
-         ],
-         "Please confirm this translation setting": [
-            "Confirme essa configuração de tradução"
-         ],
-         "Your site is set to translate all content automatically. When you make <PostTypesNames /> translatable, WPML will automatically translate the <NumberOfItems /> existing items.": [
-            "Seu site está configurado para traduzir todo conteúdo automaticamente. Quando você tornar <PostTypesNames /> traduzíveis, o WPML vai traduzir automaticamente os <NumberOfItems /> itens existentes."
-         ],
          "Are you OK with paying for this?": [
             "Você concorda em pagar por isso?"
          ],
@@ -41,6 +37,19 @@
          ],
          "Make translatable": [
             "Tornar traduzível"
+         ],
+         "Save": [
+            "Salvar"
+         ],
+         "Please confirm this translation setting": [
+            "Confirme essa configuração de tradução"
+         ],
+         "Your site is set to translate all content automatically. When you make <PostTypesNames /> translatable, WPML will automatically translate the %1$d existing item.": [
+            "Seu site está configurado para traduzir todo o conteúdo automaticamente. Ao tornar <PostTypesNames /> traduzível, o WPML traduzirá automaticamente o item existente de %1$d.",
+            "Seu site está configurado para traduzir todo o conteúdo automaticamente. Ao tornar <PostTypesNames /> traduzível, o WPML traduzirá automaticamente os itens existentes de %1$d ."
+         ],
+         "Your site is set to translate all content automatically. When you make <PostTypesNames /> translatable, WPML will automatically translate all future content.": [
+            "Seu site está configurado para traduzir todo o conteúdo automaticamente. Ao tornar <PostTypesNames /> traduzível, o WPML traduzirá automaticamente todo o conteúdo futuro."
          ]
       }
    }

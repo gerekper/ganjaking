@@ -72,7 +72,10 @@ class WPML_Widgets_Support_Frontend implements IWPML_Action {
 	 * @return array|bool
 	 */
 	public function display( $instance ) {
-		if ( ! $instance || $this->it_must_display( $instance ) ) {
+		if (
+			! $instance ||
+			( is_array( $instance ) && $this->it_must_display( $instance ) )
+		) {
 			return $instance;
 		}
 

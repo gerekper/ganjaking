@@ -363,7 +363,7 @@ class WPML_LS_Settings {
 
 	/**
 	 * @param string $slot_group
-	 * @param string $slot_slug
+	 * @param string|int $slot_slug
 	 *
 	 * @return WPML_LS_Slot
 	 */
@@ -661,7 +661,7 @@ class WPML_LS_Settings {
 	/**
 	 * Find in which sidebar a language switcher instance is set
 	 *
-	 * @param string $widget_to_find
+	 * @param mixed $widget_to_find
 	 *
 	 * @return bool|string
 	 */

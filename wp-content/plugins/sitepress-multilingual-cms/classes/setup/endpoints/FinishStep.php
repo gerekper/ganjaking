@@ -81,7 +81,7 @@ class FinishStep implements IHandler {
 
 	private static function setCurrentUserToTranslateAllLangs() {
 		$currentUser = User::getCurrent();
-		$currentUser->add_cap( \WPML_Translator_Role::CAPABILITY );
+		$currentUser->add_cap( \WPML\LIB\WP\User::CAP_TRANSLATE );
 		User::updateMeta( $currentUser->ID, \WPML_TM_Wizard_Options::ONLY_I_USER_META, true );
 
 		make( \WPML_Language_Pair_Records::class )->store(

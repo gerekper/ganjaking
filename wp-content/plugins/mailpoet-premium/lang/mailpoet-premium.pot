@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.18.0\n"
+"Project-Id-Version: MailPoet Premium 4.19.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-05T12:15:03+00:00\n"
+"POT-Creation-Date: 2023-06-19T16:19:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -268,30 +268,32 @@ msgstr ""
 msgid "Custom field '%1$s' with ID '%2$d' expects type '%3$s' but type '%4$s' was provided."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:44
-msgid "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going."
-msgstr ""
-
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:49
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:31
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:38
 msgid "Welcome series for new subscribers"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:59
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:94
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:32
+msgid "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:41
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:68
 msgid "Welcome email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:66
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:101
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:43
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:70
 msgid "Follow-up email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:79
-msgid "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information."
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:58
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:65
+msgid "Welcome series for new WordPress users"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php:84
-msgid "Welcome series for new WordPress users"
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:59
+msgid "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information."
 msgstr ""
 
 #: lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartTrigger.php:56

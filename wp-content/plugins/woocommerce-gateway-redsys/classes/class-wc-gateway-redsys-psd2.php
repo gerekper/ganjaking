@@ -8,7 +8,7 @@
  * @link https://joseconti.com
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2013 José Conti.
+ * @copyright 2013-2023 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -43,53 +43,58 @@ class WC_Gateway_Redsys_PSD2 {
 	 * @return string
 	 */
 	public function clean_data( $out ) {
+		$replacements = array(
+			'Á' => 'A',
+			'À' => 'A',
+			'Ä' => 'A',
+			'É' => 'E',
+			'È' => 'E',
+			'Ë' => 'E',
+			'Í' => 'I',
+			'Ì' => 'I',
+			'Ï' => 'I',
+			'Ó' => 'O',
+			'Ò' => 'O',
+			'Ö' => 'O',
+			'Ú' => 'U',
+			'Ù' => 'U',
+			'Ü' => 'U',
+			'á' => 'a',
+			'à' => 'a',
+			'ä' => 'a',
+			'é' => 'e',
+			'è' => 'e',
+			'ë' => 'e',
+			'í' => 'i',
+			'ì' => 'i',
+			'ï' => 'i',
+			'ó' => 'o',
+			'ò' => 'o',
+			'ö' => 'o',
+			'ú' => 'u',
+			'ù' => 'u',
+			'ü' => 'u',
+			'Ñ' => 'N',
+			'ñ' => 'n',
+			'&' => '-',
+			'<' => ' ',
+			'>' => ' ',
+			'/' => ' ',
+			'"' => ' ',
+			"'" => ' ',
+			'"' => ' ',
+			'?' => ' ',
+			'¿' => ' ',
+			'º' => ' ',
+			'ª' => ' ',
+			'#' => ' ',
+			'&' => ' ',
+			'@' => ' ',
+		);
 
-		$out = str_replace( 'Á', 'A', $out );
-		$out = str_replace( 'À', 'A', $out );
-		$out = str_replace( 'Ä', 'A', $out );
-		$out = str_replace( 'É', 'E', $out );
-		$out = str_replace( 'È', 'E', $out );
-		$out = str_replace( 'Ë', 'E', $out );
-		$out = str_replace( 'Í', 'I', $out );
-		$out = str_replace( 'Ì', 'I', $out );
-		$out = str_replace( 'Ï', 'I', $out );
-		$out = str_replace( 'Ó', 'O', $out );
-		$out = str_replace( 'Ò', 'O', $out );
-		$out = str_replace( 'Ö', 'O', $out );
-		$out = str_replace( 'Ú', 'U', $out );
-		$out = str_replace( 'Ù', 'U', $out );
-		$out = str_replace( 'Ü', 'U', $out );
-		$out = str_replace( 'á', 'a', $out );
-		$out = str_replace( 'à', 'a', $out );
-		$out = str_replace( 'ä', 'a', $out );
-		$out = str_replace( 'é', 'e', $out );
-		$out = str_replace( 'è', 'e', $out );
-		$out = str_replace( 'ë', 'e', $out );
-		$out = str_replace( 'í', 'i', $out );
-		$out = str_replace( 'ì', 'i', $out );
-		$out = str_replace( 'ï', 'i', $out );
-		$out = str_replace( 'ó', 'o', $out );
-		$out = str_replace( 'ò', 'o', $out );
-		$out = str_replace( 'ö', 'o', $out );
-		$out = str_replace( 'ú', 'u', $out );
-		$out = str_replace( 'ù', 'u', $out );
-		$out = str_replace( 'ü', 'u', $out );
-		$out = str_replace( 'Ñ', 'N', $out );
-		$out = str_replace( 'ñ', 'n', $out );
-		$out = str_replace( '&', '-', $out );
-		$out = str_replace( '<', ' ', $out );
-		$out = str_replace( '>', ' ', $out );
-		$out = str_replace( '/', ' ', $out );
-		$out = str_replace( '"', ' ', $out );
-		$out = str_replace( "'", ' ', $out );
-		$out = str_replace( '"', ' ', $out );
-		$out = str_replace( '?', ' ', $out );
-		$out = str_replace( '¿', ' ', $out );
-		$out = str_replace( 'º', ' ', $out );
-		$out = str_replace( 'ª', ' ', $out );
-		$out = str_replace( '#', ' ', $out );
-		$out = str_replace( '&', ' ', $out );
-		$out = str_replace( '@', ' ', $out );
+		foreach ( $replacements as $search => $replacement ) {
+			$out = str_replace( $search, $replacement, $out );
+		}
 
 		return $out;
 	}
@@ -160,9 +165,7 @@ class WC_Gateway_Redsys_PSD2 {
 		$adress_ship['shipAddrLine1']    = $order->get_billing_address_1();
 		$adress_ship['shipAddrLine2']    = $order->get_billing_address_2();
 		$adress_ship['shipAddrCity']     = $order->get_billing_city();
-		$adress_ship['shipAddrState']    = strtolower( $order->get_billing_state() );
 		$adress_ship['shipAddrPostCode'] = $order->get_billing_postcode();
-		$adress_ship['shipAddrCountry']  = strtolower( $order->get_billing_country() );
 		return $adress_ship;
 	}
 	/**
@@ -172,20 +175,20 @@ class WC_Gateway_Redsys_PSD2 {
 	 */
 	public function addr_match( $order ) {
 
-		$adress_ship_ship_addr_line1     = $order->get_billing_address_1();
-		$adress_ship_ship_addr_line2     = $order->get_billing_address_2();
-		$adress_ship_ship_addr_city      = $order->get_billing_city();
-		$adress_ship_ship_addr_state     = strtolower( $order->get_billing_state() );
-		$adress_ship_ship_addr_post_code = $order->get_billing_postcode();
-		$adress_ship_ship_addr_country   = strtolower( $order->get_billing_country() );
+		if ( ! empty( $order->get_address( 'billing' ) ) ) {
+			$adress_bill_bill_addr_line1     = $order->get_billing_address_1();
+			$adress_bill_bill_addr_line2     = $order->get_billing_address_2();
+			$adress_bill_bill_addr_city      = $order->get_billing_city();
+			$adress_bill_bill_addr_post_code = $order->get_billing_postcode();
+		} else {
+			return 'Y';
+		}
 
 		if ( $order->has_shipping_address() ) {
-			$adress_bill_bill_addr_line1     = $order->get_shipping_address_1();
-			$adress_bill_bill_addr_line2     = $order->get_shipping_address_2();
-			$adress_bill_bill_addr_city      = $order->get_shipping_city();
-			$adress_bill_bill_addr_post_code = $order->get_shipping_postcode();
-			$adress_bill_bill_addr_state     = strtolower( $order->get_shipping_state() );
-			$adress_bill_bill_addr_countr    = strtolower( $order->get_shipping_country() );
+			$adress_ship_ship_addr_line1     = $order->get_shipping_address_1();
+			$adress_ship_ship_addr_line2     = $order->get_shipping_address_2();
+			$adress_ship_ship_addr_city      = $order->get_shipping_city();
+			$adress_ship_ship_addr_post_code = $order->get_shipping_postcode();
 		} else {
 			return 'Y';
 		}
@@ -194,9 +197,7 @@ class WC_Gateway_Redsys_PSD2 {
 			$adress_ship_ship_addr_line1 === $adress_bill_bill_addr_line1 &&
 			$adress_ship_ship_addr_line2 === $adress_bill_bill_addr_line2 &&
 			$adress_ship_ship_addr_city === $adress_bill_bill_addr_city &&
-			$adress_ship_ship_addr_state === $adress_bill_bill_addr_state &&
-			$adress_ship_ship_addr_post_code === $adress_bill_bill_addr_post_code &&
-			$adress_ship_ship_addr_country === $adress_bill_bill_addr_countr
+			$adress_ship_ship_addr_post_code === $adress_bill_bill_addr_post_code
 		) {
 			return 'Y';
 		} else {
@@ -765,8 +766,10 @@ class WC_Gateway_Redsys_PSD2 {
 			'chAccAgeInd' => $ch_acc_age_ind,
 		);
 		if ( $order->has_shipping_address() ) {
-			$acct_info['shipAddressUsage']    = $ship_address_usage;
-			$acct_info['shipAddressUsageInd'] = $ship_address_usage_ind;
+			if ( isset( $acct_info['shipAddressUsage'] ) && isset( $acct_info['shipAddressUsageInd'] ) ) {
+				$acct_info['shipAddressUsage']    = $ship_address_usage;
+				$acct_info['shipAddressUsageInd'] = $ship_address_usage_ind;
+			}
 		}
 		if ( is_user_logged_in() ) {
 			$acct_info['chAccDate']         = $usr_registered;
@@ -793,22 +796,7 @@ class WC_Gateway_Redsys_PSD2 {
 		if ( $order->get_billing_postcode() !== '' ) {
 			$ds_merchant_emv3ds['billAddrPostCode'] = $this->clean_data( $order->get_billing_postcode() );
 		}
-		if ( $order->get_shipping_state() !== '' ) {
-			$state = $this->get_state_code( strtoupper( $this->clean_data( $order->get_shipping_state() ) ) );
-			if ( $state ) {
-				$ds_merchant_emv3ds['billAddrState'] = $state;
-			}
-		}
-		if ( $order->get_billing_state() !== '' ) {
-			$state = $this->get_state_code( strtoupper( $this->clean_data( $order->get_billing_state() ) ) );
-			if ( $state ) {
-				$ds_merchant_emv3ds['billAddrState'] = $state;
-			}
-		}
-		if ( $order->get_billing_country() !== '' ) {
-			$ds_merchant_emv3ds['billAddrCountry'] = WCRed()->get_country_codes_3( $order->get_billing_country() );
-		}
-		$ds_merchant_emv3ds['Email']    = $this->get_email( $order );
+		$ds_merchant_emv3ds['email']    = $this->get_email( $order );
 		$ds_merchant_emv3ds['acctInfo'] = $acct_info;
 		if ( $this->get_homephone( $order ) !== '' && $order->get_billing_country() !== '' ) {
 			$ds_merchant_emv3ds['homePhone'] = array(
@@ -831,15 +819,6 @@ class WC_Gateway_Redsys_PSD2 {
 
 			if ( $order->get_shipping_postcode() !== '' ) {
 				$ds_merchant_emv3ds['shipAddrPostCode'] = $this->clean_data( $order->get_shipping_postcode() );
-			}
-			if ( $order->get_shipping_state() !== '' ) {
-				$state = $this->get_state_code( strtoupper( $this->clean_data( $order->get_shipping_state() ) ) );
-				if ( $state ) {
-					$ds_merchant_emv3ds['shipAddrState'] = $state;
-				}
-			}
-			if ( $order->get_shipping_country() !== '' ) {
-				$ds_merchant_emv3ds['shipAddrCountry'] = WCRed()->get_country_codes_3( $order->get_shipping_country() );
 			}
 		}
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {

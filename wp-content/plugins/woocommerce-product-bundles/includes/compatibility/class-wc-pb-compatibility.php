@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.18.2
+ * @version  6.21.0
  */
 class WC_PB_Compatibility {
 
@@ -73,7 +73,7 @@ class WC_PB_Compatibility {
 	 * @since 5.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class WC_PB_Compatibility {
 	 * @since 5.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class WC_PB_Compatibility {
 		// Define dependencies.
 		$this->required = array(
 			'cp'     => '8.4.0',
-			'pao'    => '6.0.0',
+			'pao'    => '6.4.0',
 			'topatc' => '1.0.3',
 			'bd'     => '1.3.1',
 			'blocks' => '7.2.0',

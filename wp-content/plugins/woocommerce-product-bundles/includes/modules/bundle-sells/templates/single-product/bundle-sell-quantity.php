@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.8.0
+ * @version  6.21.0
  */
 
 // Exit if accessed directly.
@@ -17,4 +17,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<input class="bundled_qty" type="hidden" name="<?php echo $input_name; ?>" value="1" />
+<input class="bundled_qty" type="hidden" name="<?php echo esc_attr( $input_name ); ?>" value="1" />

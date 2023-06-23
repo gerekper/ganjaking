@@ -3,11 +3,13 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "WPML Translation Editor": [
             "WPML Translation Editor"
+         ],
+         "Use only when you want to translate content from one of the few plugins that are not compatible with WPML’s translation editor or  if you would like to create different designs for the same page in different languages.": [
+            "Alleen gebruiken als je inhoud wilt vertalen van een van de weinige plugins die niet compatibel zijn met de vertaaleditor van WPML of als je verschillende ontwerpen voor dezelfde pagina in verschillende talen wilt aanmaken."
          ],
          "WordPress Editor": [
             "WordPress Editor"

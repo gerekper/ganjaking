@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "From:": [
             "С:"
@@ -129,20 +128,20 @@
          "You decide what to translate and who'll translate it": [
             "Вы сами решаете, что переводить и кто это будет переводить"
          ],
-         "Translate it yourself": [
-            "Переведите это сами"
+         "Translate yourself": [
+            "Самостоятельный перевод"
          ],
-         "Assign it to translators that are users of your site": [
-            "Назначьте это переводчикам, которые являются пользователями вашего сайта"
+         "Use automatic translation on the content you choose": [
+            "Пользуйтесь автоматическим переводом определенного контента"
          ],
-         "Send it to a professional translation service": [
-            "Отправьте это в службу профессионального перевода"
+         "Work with translators that are users of your site": [
+            "Сотрудничайте с переводчиками, являющимися пользователями вашего сайта"
          ],
          "or": [
             "или"
          ],
-         "Translate it automatically using machine translation": [
-            "Переведите это автоматически с помощью машинного перевода"
+         "Send to professional translation services": [
+            "Отправляйте профессиональным переводческим сервисам"
          ],
          "user": [
             "пользователя"
@@ -399,6 +398,88 @@
          "Language switcher customization": [
             "Настройка переключателя языка"
          ],
+         "Your current setup will use a lot of translation credits": [
+            "Ваши текущие настройки используют много кредитов"
+         ],
+         "You decided to <b>Translate Everything Automatically</b> on a <span class=\"warning\">development site</span>": [
+            "Вы решили <b>Переводить все автоматически</b> в <span class=\"warning\">тестовой версии сайта</span>"
+         ],
+         "You decided to <b>Translate Everything Automatically:</b>": [
+            "Вы решили <b>Переводить все автоматически:</b>"
+         ],
+         "10,000 credits assigned by default to development sites": [
+            "10 000 кредитов предназначены по умолчанию для тестовых версий сайтов"
+         ],
+         "posts, pages...": [
+            "публикации, страницы..."
+         ],
+         "translated to": [
+            "переведено на"
+         ],
+         "<b>%1$d</b> language": [
+            "<b>%1$d</b> язык",
+            "<b>%1$d</b> языки"
+         ],
+         "will cost approximately": [
+            "будет(-ут) стоить приблизительно"
+         ],
+         "credits": [
+            "кредита(-ов)"
+         ],
+         "Loading details...": [
+            "Загрузка информации..."
+         ],
+         "Hide details": [
+            "Скрыть детали"
+         ],
+         "Show details": [
+            "Показать детали"
+         ],
+         "Your current setup will use approximately <b>%s</b> credits": [
+            "В соответствии с вашими текущими настройками будут использованы приблизительно <b>%s</b> кредита(-ов)"
+         ],
+         "What do you want to do?": [
+            "Что вы хотите сделать?"
+         ],
+         "Since this is a development site, you may not want to spend credits on dummy content.": [
+            "Поскольку это тестовая версия сайта, вы можете не захотеть использовать кредиты на временный контент."
+         ],
+         "Continue with this setup": [
+            "Продолжить с этими настройками"
+         ],
+         "WPML will automatically translate your site’s content. When your credits run out, you can purchase more or sign up for pay-as-you-go to continue using automatic translation.": [
+            "WPML будет автоматически переводить контент сайта. Когда ваши кредиты закончатся, вы сможете купить их или перейти на оплату по факту pay-as-you-go, чтобы продолжить пользоваться автоматическим переводом."
+         ],
+         "Make changes": [
+            "Внести изменения"
+         ],
+         "You can use fewer credits by adjusting some of the settings you selected during setup.": [
+            "Вы можете использовать меньше кредитов, изменив некоторые настройки, выбранные при регистрации."
+         ],
+         "Reduce the number of translation languages": [
+            "Уменьшить количество языков"
+         ],
+         "The more languages you have on your site, the more credits it costs to translate. <b>You can always add more languages later.</b>": [
+            "Чем больше языков на вашем сайте, тем больше кредитов будет стоить их перевод. <b>Вы всегда можете добавить языки позже.</b>"
+         ],
+         "Change site languages": [
+            "Изменить языки сайта"
+         ],
+         "Change your translation mode": [
+            "Измените режим перевода"
+         ],
+         "<b>Translate What You Choose</b> gives you more control over what gets translated, and you can still use automatic translation.": [
+            "<b>Перевод указанного контента</b> предоставляет вам больше контроля над материалом для перевода, при этом вы все равно можете пользоватся автоматическим переводом."
+         ],
+         "Change translation mode": [
+            "Изменить режим перевода"
+         ],
+         "I'm OK with using this many translation credits,": [
+            "Меня устраивает такое количество кредитов за перевод,"
+         ],
+         "let's proceed and translate the whole site automatically.": [
+            "поэтому весь сайт можно переводить автоматически."
+         ],
          "Default language": [
             "Язык по умолчанию"
          ],
@@ -438,17 +519,17 @@
          "Are you ready to start translating now?": [
             "Вы готовы начать переводить прямо сейчас?"
          ],
-         "Yes!": [
-            "Да!"
+         "Yes, start translating!": [
+            "Да, начать перевод!"
          ],
-         "Start translating my site now. WPML will use your automatic translation credits.": [
-            "Начать переводить мой сайт прямо сейчас. WPML будет использовать ваши кредиты автоматического перевода."
+         "WPML will translate your site for you using your automatic translation credits.": [
+            "WPML сделает перевод сайта, использовав ваши кредиты за автоматический перевод."
          ],
-         "No. I need to do some changes first": [
-            "Нет. Сначала мне нужно внести некоторые изменения"
+         "No, my content isn't finalized yet": [
+            "Нет, мой контент пока не готов"
          ],
-         "When you’re ready, you can start automatic translation from the Translation Management Dashboard.": [
-            "Когда вы будете готовы, вы можете запустить автоматический перевод с Панели управления переводами."
+         "When you're ready, start automatic translation from the Translation Management Dashboard.": [
+            "Когда вы будете готовы, запустите автоматический перевод из Панели управления переводами."
          ],
          "Improve your site’s translations using helpful plugins": [
             "Сделайте переводы своего сайта лучше с помощью полезных плагинов"
@@ -513,18 +594,6 @@
          "A new language could not be added correctly": [
             "Не удалось корректно добавить новый язык"
          ],
-         "Languages": [
-            "Языки"
-         ],
-         "URL Format": [
-            "URL-формат"
-         ],
-         "Register WPML": [
-            "Регистрация WPML"
-         ],
-         "Translation Mode": [
-            "Режим перевода"
-         ],
          "Support": [
             "Поддержка"
          ],
@@ -548,6 +617,18 @@
          ],
          "Finish": [
             "Готово"
+         ],
+         "Languages": [
+            "Языки"
+         ],
+         "URL Format": [
+            "URL-формат"
+         ],
+         "Register WPML": [
+            "Регистрация WPML"
+         ],
+         "Translation Mode": [
+            "Режим перевода"
          ],
          "Settings": [
             "Настройки"

@@ -123,7 +123,7 @@ class Parser {
 	/**
 	 * @param \DOMXPath $DOMXpath
 	 *
-	 * @return LabelTemplateInterface
+	 * @return ?LabelTemplateInterface
 	 */
 	private function getLanguageItemlabel( $DOMXpath, $XPathPrefix ) {
 		foreach ( static::LABEL_TYPES as $labelTypeClass ) {
@@ -133,6 +133,8 @@ class Parser {
 				return $labelType;
 			}
 		}
+
+		return null;
 	}
 
 	private function maybeFixFontFamilyInStyle( $blockHTML ) {

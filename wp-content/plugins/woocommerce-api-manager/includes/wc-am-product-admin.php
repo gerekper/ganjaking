@@ -223,14 +223,16 @@ class WC_AM_Product_Admin {
 	 * @since 2.0
 	 */
 	public function remove_variations() {
-		if ( isset( $_POST[ 'variation_id' ] ) ) { // removing single variation
+		$post = wc_clean( $_POST );
+
+		if ( isset( $post[ 'variation_id' ] ) ) { // removing single variation
 			check_ajax_referer( 'delete-variation', 'security' );
 
-			$variation_ids = array( $_POST[ 'variation_id' ] );
+			$variation_ids = array( $post[ 'variation_id' ] );
 		} else {  // Removing multiple variations.
 			check_ajax_referer( 'delete-variations', 'security' );
 
-			$variation_ids = (array) $_POST[ 'variation_ids' ];
+			$variation_ids = (array) $post[ 'variation_ids' ];
 		}
 
 		foreach ( $variation_ids as $index => $variation_id ) {
@@ -243,10 +245,10 @@ class WC_AM_Product_Admin {
 					wp_trash_post( $variation_id );
 
 					// Prevent WooCommerce from deleting the variation.
-					if ( isset( $_POST[ 'variation_id' ] ) ) {
+					if ( isset( $post[ 'variation_id' ] ) ) {
 						die();
 					} else {
-						unset( $_POST[ 'variation_ids' ][ $index ] );
+						unset( $post[ 'variation_ids' ][ $index ] );
 					}
 				}
 			}
@@ -391,7 +393,7 @@ class WC_AM_Product_Admin {
 
 		if ( ! in_array( $product_type, array( 'grouped', 'external' ) ) ) {
 			?>
-			<li class="api_tab show_if_api"><a href="#api_data"><span><?php esc_html_e( 'API', 'woocommerce-api-manager' ); ?></span></a></li>
+            <li class="api_tab show_if_api"><a href="#api_data"><span><?php esc_html_e( 'API', 'woocommerce-api-manager' ); ?></span></a></li>
 			<?php
 		}
 	}
@@ -411,11 +413,11 @@ class WC_AM_Product_Admin {
 			$this->define_fields();
 			?>
 
-			<div id="api_data" class="panel woocommerce_options_panel">
-				<div id="api_chbx" class="options_group show_if_variable" style="padding:2em">
-					<strong
-						class="attribute_name"><?php esc_html_e( 'All data below is copied to all variations, unless the checkbox is selected per variation labeled "Set API options for this variable product only." Activation limit, not listed below, must be set per variation.', 'woocommerce-api-manager' ) ?></strong>
-				</div>
+            <div id="api_data" class="panel woocommerce_options_panel">
+                <div id="api_chbx" class="options_group show_if_variable" style="padding:2em">
+                    <strong
+                            class="attribute_name"><?php esc_html_e( 'All data below is copied to all variations, unless the checkbox is selected per variation labeled "Set API options for this variable product only." Activation limit, not listed below, must be set per variation.', 'woocommerce-api-manager' ) ?></strong>
+                </div>
 
 				<?php
 
@@ -519,7 +521,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Documentation link for My Account.', 'woocommerce-api-manager' ) . '</span>';
@@ -538,7 +540,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'A description of the software.', 'woocommerce-api-manager' ) . '</span>';
@@ -557,7 +559,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Changes in the software.', 'woocommerce-api-manager' ) . '</span>';
@@ -576,7 +578,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'How to install the software.', 'woocommerce-api-manager' ) . '</span>';
@@ -595,7 +597,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Frequently Asked Questions.', 'woocommerce-api-manager' ) . '</span>';
@@ -614,7 +616,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Screenshots of the software.', 'woocommerce-api-manager' ) . '</span>';
@@ -633,7 +635,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) {
-					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>';
+					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Other details or special facts.', 'woocommerce-api-manager' ) . '</span>';
@@ -642,7 +644,7 @@ class WC_AM_Product_Admin {
 				echo '</div>';
 
 				?>
-			</div>
+            </div>
 
 			<?php
 
@@ -701,11 +703,11 @@ class WC_AM_Product_Admin {
 		" );
 
 			?>
-			<script type="text/javascript">
+            <script type="text/javascript">
                 jQuery('input#_is_api').click(function () {
                     alert('<?php echo esc_js( __( 'A checked, and saved, API checkbox CANNOT be unchecked later. This product will remain a permanent API Manager product, and CANNOT be deleted from the store. This product will be made available as an API Resource on existing, and future, purchases.', 'woocommerce-api-manager' ) ); ?>');
                 });
-			</script>
+            </script>
 			<?php
 
 			WCAM()->wc_am_print_js( "jQuery('select.wc-am-select').selectWoo({allowClear:true}); " );
@@ -741,7 +743,7 @@ class WC_AM_Product_Admin {
 		}
 		?>
 
-		<style>
+        <style>
             .woocommerce-help-tip {
                 color: #666;
                 display: inline-block;
@@ -753,55 +755,55 @@ class WC_AM_Product_Admin {
                 vertical-align: middle;
                 width: 16px;
             }
-		</style>
+        </style>
 
-		<div class="show_if_api">
-			<p class="api_var_heading form-row form-row-full">
+        <div class="show_if_api">
+            <p class="api_var_heading form-row form-row-full">
 				<?php esc_html_e( 'API Manager Options', 'woocommerce-api-manager' ); ?>
-			</p>
+            </p>
 
-			<div>
-				<p class="form-row">
-					<label>
-					<span><input type="checkbox" class="am_checkbox api_global_data_set_var<?php echo $loop; ?>"
-					             name="_api_data_is_global_override[<?php echo $loop; ?>]"
-					             value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_data_is_global_override' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Set API options for this variable product only.', 'woocommerce-api-manager' ); ?>
+            <div>
+                <p class="form-row">
+                    <label>
+					<span><input type="checkbox" class="am_checkbox api_global_data_set_var<?php esc_attr_e( $loop ); ?>"
+                                 name="_api_data_is_global_override[<?php esc_attr_e( $loop ); ?>]"
+                                 value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_data_is_global_override' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Set API options for this variable product only.', 'woocommerce-api-manager' ); ?>
                         <span class="woocommerce-help-tip"
                               data-tip="<?php esc_html_e( 'The information set here will only apply to this variable product.', 'woocommerce-api-manager' ); ?>"
 						   </span></span>
-					</label>
-				</p>
-				<p class="form-row">
-					<label>
-					<span><input type="checkbox" id="_api_activations_unlimited_var<?php echo $loop; ?>"
-					             name="_api_activations_unlimited_var[<?php echo $loop; ?>]"
-					             value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations_unlimited' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Unlimited Activations', 'woocommerce-api-manager' ); ?>
+                    </label>
+                </p>
+                <p class="form-row">
+                    <label>
+					<span><input type="checkbox" id="_api_activations_unlimited_var<?php esc_attr_e( $loop ); ?>"
+                                 name="_api_activations_unlimited_var[<?php esc_attr_e( $loop ); ?>]"
+                                 value='yes' <?php checked( sanitize_text_field( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations_unlimited' ) ), 'yes' ); ?> /> <?php esc_html_e( 'Unlimited Activations', 'woocommerce-api-manager' ); ?>
                         <span class="woocommerce-help-tip"
                               data-tip="<?php esc_html_e( 'Enable for unlimited number of activations.', 'woocommerce-api-manager' ); ?>"
 						   </span></span>
-					</label>
-				</p>
-			</div>
-			<div id="api_override_chkbx<?php echo $loop; ?>">
-				<p class="form-row form-row-first" id="_api_activations_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Activation Limit:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                                    data-tip="<?php esc_html_e( 'Limits the number of API Key activations. Default is 1 when left empty. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to match the new value.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="number" name="_api_activations_var[<?php echo $loop; ?>]" step="1" min="1"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations' ) ); ?>"
-					       placeholder="<?php esc_html_e( '1', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                    </label>
+                </p>
+            </div>
+            <div id="api_override_chkbx<?php esc_attr_e( $loop ); ?>">
+                <p class="form-row form-row-first" id="_api_activations_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Activation Limit:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                        data-tip="<?php esc_html_e( 'Limits the number of API Key activations. Default is 1 when left empty. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to match the new value.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="number" name="_api_activations_var[<?php esc_attr_e( $loop ); ?>]" step="1" min="1"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations' ) ); ?>"
+                           placeholder="<?php esc_html_e( '1', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-last">
-					<label for="api_resources_product_id<?php echo $loop; ?>"><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?> <span
-							class="woocommerce-help-tip"
-							data-tip="<?php esc_html_e( 'Unique ID used to indentify this API resource. Do NOT delete this product.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_resource_product_id[<?php echo $loop; ?>]"
-					       id="api_resources_product_id<?php echo $loop; ?>"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_resource_product_id' ) ); ?>"
-					       readonly/>
-				</p>
+                <p class="form-row form-row-last">
+                    <label for="api_resources_product_id<?php esc_attr_e( $loop ); ?>"><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?> <span
+                                class="woocommerce-help-tip"
+                                data-tip="<?php esc_html_e( 'Unique ID used to indentify this API resource. Do NOT delete this product.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_resource_product_id[<?php esc_attr_e( $loop ); ?>]"
+                           id="api_resources_product_id<?php esc_attr_e( $loop ); ?>"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_resource_product_id' ) ); ?>"
+                           readonly/>
+                </p>
 
 				<?php
 
@@ -819,96 +821,96 @@ class WC_AM_Product_Admin {
 					) ) && ! $is_wc_sub ) :
 					$expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
 					?>
-					<p class="form-row form-row-first">
-						<label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-						                                                                                      data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to recalculate using this new value.', 'woocommerce-api-manager' ); ?>"
-							</span></label>
-						<input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
-						       value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
-						       placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
-					</p>
+                    <p class="form-row form-row-first">
+                        <label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                              data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to recalculate using this new value.', 'woocommerce-api-manager' ); ?>"
+                            </span></label>
+                        <input type="number" name="_access_expires_var[<?php esc_attr_e( $loop ); ?>]" step="1" min="1"
+                               value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
+                               placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
+                    </p>
 				<?php
 				endif;
 				?>
 
-				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                                  data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-last show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                      data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_upgrade_notice_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                           data-tip="<?php esc_html_e( 'The current software version number, which triggers an update notification if the customer has an older version installed.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_new_version_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_new_version' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'e.g. 1.2.5', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-first show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                               data-tip="<?php esc_html_e( 'The current software version number, which triggers an update notification if the customer has an older version installed.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_new_version_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_new_version' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'e.g. 1.2.5', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Version Required:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                                    data-tip="<?php esc_html_e( 'The minimum version of platform/framework, such as WordPress, required to run the software.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_version_required_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_version_required' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'e.g. 3.3', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-last show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Version Required:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                        data-tip="<?php esc_html_e( 'The minimum version of platform/framework, such as WordPress, required to run the software.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_version_required_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_version_required' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'e.g. 3.3', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Version Tested Up To:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                                        data-tip="<?php esc_html_e( 'The highest version of platform/framework, such as WordPress, the software has been tested on.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_tested_up_to_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_tested_up_to' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'e.g. 4.0', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-first show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Version Tested Up To:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                            data-tip="<?php esc_html_e( 'The highest version of platform/framework, such as WordPress, the software has been tested on.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_tested_up_to_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_tested_up_to' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'e.g. 4.0', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Requires PHP Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                                        data-tip="<?php esc_html_e( 'Minimum version of PHP software requires.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_requires_php_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_requires_php' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'e.g. 7.3', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-last show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Requires PHP Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                            data-tip="<?php esc_html_e( 'Minimum version of PHP software requires.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_requires_php_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_requires_php' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'e.g. 7.3', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Last Updated:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                                data-tip="<?php esc_html_e( 'The date the software was last updated.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_last_updated_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_last_updated' ) ); ?>"
-					       class="wc_api_last_updated_var"
-					       placeholder="<?php esc_html_e( 'YYYY-MM-DD', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-first show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Last Updated:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                    data-tip="<?php esc_html_e( 'The date the software was last updated.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_last_updated_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_last_updated' ) ); ?>"
+                           class="wc_api_last_updated_var"
+                           placeholder="<?php esc_html_e( 'YYYY-MM-DD', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Author:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                          data-tip="<?php esc_html_e( 'The name of the software author.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_author_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_author' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'Todd Lahman', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-last show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Author:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                              data-tip="<?php esc_html_e( 'The name of the software author.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_author_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_author' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'Todd Lahman', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-					<label><?php esc_html_e( 'Page URL:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-					                                                                            data-tip="<?php esc_html_e( 'The software page URL.', 'woocommerce-api-manager' ); ?>"
-						</span></label>
-					<input type="text" name="_api_plugin_url_var[<?php echo $loop; ?>]"
-					       value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_plugin_url' ) ); ?>"
-					       placeholder="<?php esc_html_e( 'http://myplugin.com', 'woocommerce-api-manager' ); ?>"/>
-				</p>
+                <p class="form-row form-row-first show_if_api_global_data_set_var<?php esc_attr_e( $loop ); ?> api_global_data_set_hide_onload_var<?php esc_attr_e( $loop ); ?>">
+                    <label><?php esc_html_e( 'Page URL:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                data-tip="<?php esc_html_e( 'The software page URL.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_plugin_url_var[<?php esc_attr_e( $loop ); ?>]"
+                           value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_plugin_url' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'http://myplugin.com', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 				<?php
-				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_description_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_description_var_field' ) . '"><label for="' . esc_attr( '_api_description_var[' . $loop . ']' ) . '">' . esc_html__( 'Description', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'A description of the software, and how it works.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_description_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_description_var_field' ) . '"><label for="' . esc_attr( '_api_description_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Description', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'A description of the software, and how it works.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_description' ) );
 				$desc_args = array(
-					'name'             => '_api_description_var[' . $loop . ']',
-					'id'               => '_api_description_var[' . $loop . ']',
+					'name'             => '_api_description_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_description_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -917,7 +919,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -925,11 +927,11 @@ class WC_AM_Product_Admin {
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
 				echo '</p>';
 
-				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_changelog_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_changelog_var_field' ) . '"><label for="' . esc_attr( '_api_changelog_var[' . $loop . ']' ) . '">' . esc_html__( 'Changelog', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'A list of changes to the software that should be grouped by date.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_changelog_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_changelog_var_field' ) . '"><label for="' . esc_attr( '_api_changelog_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Changelog', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'A list of changes to the software that should be grouped by date.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_changelog' ) );
 				$desc_args = array(
-					'name'             => '_api_changelog_var[' . $loop . ']',
-					'id'               => '_api_changelog_var[' . $loop . ']',
+					'name'             => '_api_changelog_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_changelog_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -938,7 +940,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -946,11 +948,11 @@ class WC_AM_Product_Admin {
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Recommended)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
 				echo '</p>';
 
-				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_installation_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_installation_var_field' ) . '"><label for="' . esc_attr( '_api_installation_var[' . $loop . ']' ) . '">' . esc_html__( 'Installation', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Instructions on how to install the software, and notes regarding installation.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_installation_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_installation_var_field' ) . '"><label for="' . esc_attr( '_api_installation_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Installation', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Instructions on how to install the software, and notes regarding installation.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_installation' ) );
 				$desc_args = array(
-					'name'             => '_api_installation_var[' . $loop . ']',
-					'id'               => '_api_installation_var[' . $loop . ']',
+					'name'             => '_api_installation_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_installation_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -959,7 +961,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -967,11 +969,11 @@ class WC_AM_Product_Admin {
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
 				echo '</p>';
 
-				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_faq_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_faq_var_field' ) . '"><label for="' . esc_attr( '_api_faq_var[' . $loop . ']' ) . '">' . esc_html__( 'FAQ', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Frequently Asked Questions about the software.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_faq_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_faq_var_field' ) . '"><label for="' . esc_attr( '_api_faq_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'FAQ', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Frequently Asked Questions about the software.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_faq' ) );
 				$desc_args = array(
-					'name'             => '_api_faq_var[' . $loop . ']',
-					'id'               => '_api_faq_var[' . $loop . ']',
+					'name'             => '_api_faq_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_faq_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -980,7 +982,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -988,11 +990,11 @@ class WC_AM_Product_Admin {
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
 				echo '</p>';
 
-				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_screenshots_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_screenshots_var_field' ) . '"><label for="' . esc_attr( '_api_screenshots_var[' . $loop . ']' ) . '">' . esc_html__( 'Screenshots', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Screenshots of the software.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_screenshots_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_screenshots_var_field' ) . '"><label for="' . esc_attr( '_api_screenshots_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Screenshots', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Screenshots of the software.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_screenshots' ) );
 				$desc_args = array(
-					'name'             => '_api_screenshots_var[' . $loop . ']',
-					'id'               => '_api_screenshots_var[' . $loop . ']',
+					'name'             => '_api_screenshots_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_screenshots_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -1001,7 +1003,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -1009,11 +1011,11 @@ class WC_AM_Product_Admin {
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
 				echo '</p>';
 
-				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_other_notes_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_other_notes_var_field' ) . '"><label for="' . esc_attr( '_api_other_notes_var[' . $loop . ']' ) . '">' . esc_html__( 'Other Notes', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Other notes about the software.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_other_notes_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_other_notes_var_field' ) . '"><label for="' . esc_attr( '_api_other_notes_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Other Notes', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Other notes about the software.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_other_notes' ) );
 				$desc_args = array(
-					'name'             => '_api_other_notes_var[' . $loop . ']',
-					'id'               => '_api_other_notes_var[' . $loop . ']',
+					'name'             => '_api_other_notes_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_other_notes_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -1022,7 +1024,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -1030,11 +1032,11 @@ class WC_AM_Product_Admin {
 				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
 				echo '</p>';
 
-				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . $loop . ' api_global_data_set_hide_onload_var' . $loop . ' ' . esc_attr( '_api_product_documentation_var[' . $loop . ']' ) . '_field ' . esc_attr( '_api_product_documentation_var_field' ) . '"><label for="' . esc_attr( '_api_product_documentation_var[' . $loop . ']' ) . '">' . esc_html__( 'My Account Documentation', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Documentation link for My Account dashboard.', 'woocommerce-api-manager' ) . '"></span></label>';
+				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_product_documentation_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_product_documentation_var_field' ) . '"><label for="' . esc_attr( '_api_product_documentation_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'My Account Documentation', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Documentation link for My Account dashboard.', 'woocommerce-api-manager' ) . '"></span></label>';
 				$doc       = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_product_documentation' ) );
 				$desc_args = array(
-					'name'             => '_api_product_documentation_var[' . $loop . ']',
-					'id'               => '_api_product_documentation_var[' . $loop . ']',
+					'name'             => '_api_product_documentation_var[' . esc_attr( $loop ) . ']',
+					'id'               => '_api_product_documentation_var[' . esc_attr( $loop ) . ']',
 					'sort_column'      => 'menu_order',
 					'sort_order'       => 'ASC',
 					'show_option_none' => ' ',
@@ -1043,7 +1045,7 @@ class WC_AM_Product_Admin {
 				);
 
 				if ( ! empty( $doc ) ) :
-					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a></span>';
+					echo '<span>&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a></span>';
 				endif;
 
 				echo '</label><br>';
@@ -1052,8 +1054,8 @@ class WC_AM_Product_Admin {
 				echo '</p>';
 				?>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
 		<?php
 		WCAM()->wc_am_print_js( "
@@ -1067,35 +1069,35 @@ class WC_AM_Product_Admin {
 
 			/* API Variable Variable Product Writepanel Checkboxes */
 
-			jQuery('input.api_global_data_set_var" . $loop . "').change(function() {
-				if (jQuery('input.api_global_data_set_var" . $loop . "').is(':checked')) {
-					jQuery('.api_global_data_set_hide_onload_var" . $loop . "').show();
+			jQuery('input.api_global_data_set_var" . esc_attr( $loop ) . "').change(function() {
+				if (jQuery('input.api_global_data_set_var" . esc_attr( $loop ) . "').is(':checked')) {
+					jQuery('.api_global_data_set_hide_onload_var" . esc_attr( $loop ) . "').show();
 				} else {
-					jQuery('.api_global_data_set_hide_onload_var" . $loop . "').hide();
+					jQuery('.api_global_data_set_hide_onload_var" . esc_attr( $loop ) . "').hide();
 				}
 			});
 
-			jQuery('input.api_global_data_set_var" . $loop . "').trigger('change');
+			jQuery('input.api_global_data_set_var" . esc_attr( $loop ) . "').trigger('change');
 
-			jQuery('#api_override_chkbx" . $loop . "').on('change', 'input.api_global_data_set_var" . $loop . "', function() {
-				jQuery('.show_if_api_global_data_set_var" . $loop . "').hide();
+			jQuery('#api_override_chkbx" . esc_attr( $loop ) . "').on('change', 'input.api_global_data_set_var" . esc_attr( $loop ) . "', function() {
+				jQuery('.show_if_api_global_data_set_var" . esc_attr( $loop ) . "').hide();
 
 				if (jQuery(this).is(':checked')) {
-					jQuery('.show_if_api_global_data_set_var" . $loop . "').show();
+					jQuery('.show_if_api_global_data_set_var" . esc_attr( $loop ) . "').show();
 				}
 			});
 
 			/* Hide Activation Limit if set for Unlimited Activations */
 
-			jQuery('input#_api_activations_unlimited_var" . $loop . "').change(function() {
-                if (jQuery('input#_api_activations_unlimited_var" . $loop . "').is(':checked')) {
-                    jQuery('#_api_activations_var" . $loop . "').hide();
+			jQuery('input#_api_activations_unlimited_var" . esc_attr( $loop ) . "').change(function() {
+                if (jQuery('input#_api_activations_unlimited_var" . esc_attr( $loop ) . "').is(':checked')) {
+                    jQuery('#_api_activations_var" . esc_attr( $loop ) . "').hide();
                 } else {
-                    jQuery('#_api_activations_var" . $loop . "').show();
+                    jQuery('#_api_activations_var" . esc_attr( $loop ) . "').show();
                 }
 			});
 
-			jQuery('input#_api_activations_unlimited_var" . $loop . "').trigger('change');
+			jQuery('input#_api_activations_unlimited_var" . esc_attr( $loop ) . "').trigger('change');
 
 		" );
 

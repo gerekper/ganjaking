@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Sending for translation": [
             "قيد الإرسال للترجمة"
@@ -72,6 +71,9 @@
          "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
             "يجب تعيين لغتك، %s، إلى لغة مدعومة لكي تستخدم خدمة الترجمة الآلية.",
             "يجب تعيين اللغات التالية على موقعك إلى لغة مدعومة لكي تستخدم خدمة الترجمة الآلية: %s"
+         ],
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            "المحتوى بتلك اللغات: لا يمكن ترجمة %s آليًا إلا إذا قمت بتعيينها إلى لغة تختلف عن اللغة الافتراضية."
          ],
          "%d translation waiting for review": [
             "%d ترجمة في انتظار المراجعة",

@@ -4,7 +4,7 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "Draft — Pending review": [
             "草稿 — 等候审阅"
@@ -20,6 +20,9 @@
          ],
          "Cancel job": [
             "取消工作"
+         ],
+         "Continue reviewing": [
+            "继续审校"
          ],
          "Start downloading XLIFF file": [
             "开始下载XLIFF文件"
@@ -93,6 +96,12 @@
          "Published — Pending review": [
             "已发布 — 待审核"
          ],
+         "Published — Review in progress": [
+            "已发布 — 审校中"
+         ],
+         "Draft — Review in progress": [
+            "草稿 — 审校中"
+         ],
          "Needs update": [
             "需要更新"
          ],
@@ -107,6 +116,9 @@
          ],
          "(no title)": [
             "（无标题）"
+         ],
+         "Automatic translation": [
+            "自动翻译"
          ],
          "TP ID: %d": [
             "TP ID：%d"
@@ -177,6 +189,9 @@
          "Sort ascending": [
             "升序"
          ],
+         "Cancel sorting": [
+            "取消排序"
+         ],
          "The bulk action is running...": [
             "批量操作正在运行..."
          ],
@@ -222,6 +237,9 @@
          "Batch name": [
             "批量名称"
          ],
+         "Filter by %s": [
+            "按 %s 筛选"
+         ],
          "Title": [
             "标题"
          ],
@@ -242,6 +260,9 @@
          ],
          "This action does not apply to any of the selected translation jobs": [
             "此操作不适用于任何选定的翻译工作"
+         ],
+         "Translations have been downloaded": [
+            "翻译已下载"
          ],
          "Translation has been downloaded": [
             "翻译已下载"
@@ -368,6 +389,10 @@
          ],
          "Synchronization with the Professional Translation service has failed": [
             "与专业翻译服务同步失败"
+         ],
+         "%d translation has been downloaded": [
+            "",
+            "%d translations have been downloaded"
          ],
          "Batch sync finished successfully!": [
             "批量同步成功完成！"

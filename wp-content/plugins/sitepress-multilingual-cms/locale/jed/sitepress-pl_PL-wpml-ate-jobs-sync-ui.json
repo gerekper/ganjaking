@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Sending for translation": [
             "Wysyłam do tłumaczenia"
@@ -72,6 +71,9 @@
          "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
             "Aby korzystać z tłumaczenia automatycznego, Twój język, %s, musi być zmapowany do obsługiwanego języka.",
             "W celu korzystania z tłumaczenia automatycznego, następujące języki w Twojej witrynie muszą być zmapowane do obsługiwanego języka: %s"
+         ],
+         "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
+            "Zawartość w tych językach: %s, nie może być automatycznie tłumaczona, chyba że mapujesz je na język inny niż domyślny."
          ],
          "%d translation waiting for review": [
             "%d tłumaczenie oczekuje na korektę",

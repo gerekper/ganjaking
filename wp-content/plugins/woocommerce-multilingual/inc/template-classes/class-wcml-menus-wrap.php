@@ -106,18 +106,18 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 				'taxonomies'        => [
 					'product_cat' => [
 						'name'            => __( 'Categories', 'woocommerce-multilingual' ),
-						'title'           => ! $this->woocommerce_wpml->terms->is_fully_translated( 'product_cat' ) ? __( 'You have untranslated terms!', 'woocommerce-multilingual' ) : '',
+						'title'           => $this->show_untranslated_taxonomy_warning( 'product_cat' ) ? __( 'You have untranslated terms!', 'woocommerce-multilingual' ) : '',
 						'active'          => $current_tab == 'product_cat' ? 'nav-tab-active' : '',
 						'url'             => admin_url( 'admin.php?page=wpml-wcml&tab=product_cat' ),
-						'translated'      => $this->woocommerce_wpml->terms->is_fully_translated( 'product_cat' ),
+						'warning'         => $this->show_untranslated_taxonomy_warning( 'product_cat' ),
 						'is_translatable' => is_taxonomy_translated( 'product_cat' ),
 					],
 					'product_tag' => [
 						'name'            => __( 'Tags', 'woocommerce-multilingual' ),
-						'title'           => ! $this->woocommerce_wpml->terms->is_fully_translated( 'product_tag' ) ? __( 'You have untranslated terms!', 'woocommerce-multilingual' ) : '',
+						'title'           => $this->show_untranslated_taxonomy_warning( 'product_tag' ) ? __( 'You have untranslated terms!', 'woocommerce-multilingual' ) : '',
 						'active'          => $current_tab == 'product_tag' ? 'nav-tab-active' : '',
 						'url'             => admin_url( 'admin.php?page=wpml-wcml&tab=product_tag' ),
-						'translated'      => $this->woocommerce_wpml->terms->is_fully_translated( 'product_tag' ),
+						'warning'         => $this->show_untranslated_taxonomy_warning( 'product_tag' ),
 						'is_translatable' => is_taxonomy_translated( 'product_tag' ),
 					],
 				],
@@ -125,21 +125,21 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 					'name'       => __( 'Custom Taxonomies', 'woocommerce-multilingual' ),
 					'active'     => $current_tab == 'custom-taxonomies' ? 'nav-tab-active' : '',
 					'url'        => admin_url( 'admin.php?page=wpml-wcml&tab=custom-taxonomies' ),
-					'translated' => ! $this->product_extra_taxonomies || ( isset( $this->selected_taxonomy ) && $this->woocommerce_wpml->terms->is_fully_translated( $this->selected_taxonomy->name ) ),
+					'warning'    => $this->product_extra_taxonomies && ( isset( $this->selected_taxonomy ) && $this->show_untranslated_taxonomy_warning( $this->selected_taxonomy->name ) ),
 					'show'       => ! empty( $this->product_extra_taxonomies ),
 				],
 				'attributes'        => [
 					'name'       => __( 'Attributes', 'woocommerce-multilingual' ),
 					'active'     => $current_tab == 'product-attributes' ? 'nav-tab-active' : '',
 					'url'        => admin_url( 'admin.php?page=wpml-wcml&tab=product-attributes' ),
-					'translated' => $this->woocommerce_wpml->attributes->is_attributes_fully_translated(),
+					'warning'    => $this->show_untranslated_attributes_warning(),
 				],
 				'shipping_classes'  => [
 					'name'            => __( 'Shipping Classes', 'woocommerce-multilingual' ),
-					'title'           => ! $this->woocommerce_wpml->terms->is_fully_translated( 'product_shipping_class' ) ? __( 'You have untranslated terms!', 'woocommerce-multilingual' ) : '',
+					'title'           => $this->show_untranslated_taxonomy_warning( 'product_shipping_class' ) ? __( 'You have untranslated terms!', 'woocommerce-multilingual' ) : '',
 					'active'          => $current_tab == 'product_shipping_class' ? 'nav-tab-active' : '',
 					'url'             => admin_url( 'admin.php?page=wpml-wcml&tab=product_shipping_class' ),
-					'translated'      => $this->woocommerce_wpml->terms->is_fully_translated( 'product_shipping_class' ),
+					'warning'         => $this->show_untranslated_taxonomy_warning( 'product_shipping_class' ),
 					'is_translatable' => is_taxonomy_translated( 'product_shipping_class' ),
 				],
 				'settings'          => [
@@ -273,5 +273,19 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 
 	}
 
+	/**
+	 * @param string $taxonomy
+	 *
+	 * @return bool
+	 */
+	private function show_untranslated_taxonomy_warning( $taxonomy ) {
+		return ! ( WCML_Setup::is_product_automatically_translated() || $this->woocommerce_wpml->terms->is_fully_translated( $taxonomy ) );
+	}
 
+	/**
+	 * @return bool
+	 */
+	private function show_untranslated_attributes_warning() {
+		return ! ( WCML_Setup::is_product_automatically_translated() || $this->woocommerce_wpml->attributes->is_attributes_fully_translated() );
+	}
 }

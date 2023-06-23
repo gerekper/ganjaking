@@ -75,7 +75,9 @@ abstract class DOMHandle {
 			$search       = '/(")(' . $search_value . ')(")/';
 			$translation  = esc_attr( $translation );
 		} else {
-			$search_value = preg_quote( $element->nodeValue, '/' );
+			$replace_full_html_node_content = $element->childNodes->length > 0 && $originalValue;
+
+			$search_value = preg_quote( $replace_full_html_node_content ? $originalValue : $element->nodeValue, '/' );
 			$search       = '/(>)(' . $search_value . ')(<)/';
 		}
 

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    2.0.0
- * @version  2.3.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -69,6 +69,7 @@ class WC_MNM_Store_API {
 			return;
 		}
 
+		// Extend Cart Item Data.
 		woocommerce_store_api_register_endpoint_data(
 			array(
 				'endpoint'        => CartItemSchema::IDENTIFIER,
@@ -78,7 +79,12 @@ class WC_MNM_Store_API {
 				'schema_type'     => ARRAY_A,
 			)
 		);
+		
 	}
+
+	/*-----------------------------------------------------------------------------------*/
+	/*  Cart Item Functions                                                             */
+	/*-----------------------------------------------------------------------------------*/
 
 	/**
 	 * Register parent/child product data into cart/items endpoint.
@@ -146,7 +152,7 @@ class WC_MNM_Store_API {
 	}
 
 	/**
-	 * Register subscription product schema into cart/items endpoint.
+	 * Register mix and match product schema into cart/items endpoint.
 	 *
 	 * @return array Registered schema.
 	 */

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.19.0
+ * @version  6.21.0
  */
 class WC_PB_Cart {
 
@@ -62,7 +62,7 @@ class WC_PB_Cart {
 	 * @since 5.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class WC_PB_Cart {
 	 * @since 5.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-product-bundles' ), '5.0.0' );
 	}
 
 	/*
@@ -1049,6 +1049,11 @@ class WC_PB_Cart {
 
 		if ( $bundle_container_item = wc_pb_get_bundled_cart_item_container( $cart_item ) ) {
 			$cart_item[ 'stamp' ] = $bundle_container_item[ 'stamp' ];
+
+			// Sync updated cart item data -- see: 'WC_PB_Addons_Compatibility::preprocess_bundled_cart_item_addon_data()'.
+			$contents                        = WC()->cart->get_cart_contents();
+			$contents[ $cart_item[ 'key' ] ] = $cart_item;
+			WC()->cart->set_cart_contents( $contents );
 		}
 
 		return $cart_item;
@@ -1705,6 +1710,9 @@ class WC_PB_Cart {
 				foreach ( wc_pb_get_bundled_cart_items( $parent_item, false, true ) as $child_key ) {
 					WC()->cart->cart_contents[ $child_key ][ 'stamp' ][ $bundled_item_id ][ 'quantity' ] = $quantity / $parent_quantity;
 				}
+
+				// Set new bundled cart item with updated quantity.
+				$cart_item_data = $this->set_bundled_cart_item( $cart_item, $parent_item[ 'data' ] );
 
 				/**
 				 * 'woocommerce_bundle_cart_stamp_changed' filter.

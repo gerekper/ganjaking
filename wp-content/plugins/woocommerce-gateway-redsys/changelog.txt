@@ -1,5 +1,21 @@
 *** Redsys Gateway Change Log ***
 
+2023.06.19 - version 21.1.0
+
+* NEW: Bizum in the Checkout.
+* UPDATE: InSite was not redirecting to the checkout under certain error flows.
+* UPDATE: Translated many strings.
+
+2023.06.18 - version 21.0.2
+
+* UPDATE: Declared compatibility with WooCommerce 7.8.
+* FIX: Fixed refunds with InSite.
+* FIX: Fixed TRA with InSite.
+
+2023.06.15 - version 21.0.1
+
+* FIX: Fixed a problem with Italy. This update is mandatory!
+
 2023.05.30 - version 21.0.0
 
 * NEW: Added catalan front translation for InSite.

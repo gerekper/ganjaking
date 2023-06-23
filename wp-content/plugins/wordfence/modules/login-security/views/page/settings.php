@@ -2,7 +2,7 @@
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 ?>
 <div class="wfls-save-banner wfls-nowrap wfls-padding-add-right-responsive">
-	<a href="#" id="wfls-cancel-changes" class="wfls-btn wfls-btn-sm wfls-btn-default wfls-disabled"><?php echo wp_kses(__('Cancel<span class="wfls-visible-sm-inline"> Changes</span>', 'wordfence-2fa'), array('span'=>array('class'=>array()))); ?></a>&nbsp;&nbsp;<a href="#" id="wfls-save-changes" class="wfls-btn wfls-btn-sm wfls-btn-primary wfls-disabled"><?php echo wp_kses(__('Save<span class="wfls-visible-sm-inline"> Changes</span>', 'wordfence-2fa'), array('span'=>array('class'=>array()))); ?></a>
+	<a href="#" id="wfls-cancel-changes" class="wfls-btn wfls-btn-sm wfls-btn-default wfls-disabled"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "Changes" */ __('Cancel<span class="wfls-visible-sm-inline"> Changes</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>&nbsp;&nbsp;<a href="#" id="wfls-save-changes" class="wfls-btn wfls-btn-sm wfls-btn-primary wfls-disabled"><?php echo wp_kses(/* translators: word order may be reversed as long as HTML remains around "Changes" */ __('Save<span class="wfls-visible-sm-inline"> Changes</span>', 'wordfence'), array('span'=>array('class'=>array()))); ?></a>
 </div>
 <div id="wfls-settings" class="wfls-flex-row wfls-flex-row-wrappable wfls-flex-row-equal-heights">
 	<!-- begin status content -->

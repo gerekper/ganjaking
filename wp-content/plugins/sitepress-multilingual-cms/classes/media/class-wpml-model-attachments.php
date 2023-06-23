@@ -60,7 +60,7 @@ class WPML_Model_Attachments {
 
 	/**
 	 * @param WP_Post|null $attachment
-	 * @param int $parent_id_of_attachement
+	 * @param int|false|null $parent_id_of_attachement
 	 * @param string $target_language
 	 *
 	 * @return int|null
@@ -146,6 +146,7 @@ class WPML_Model_Attachments {
 			unset( $GLOBALS['wp_filter']['add_attachment'] );
 		}
 
+		/** @phpstan-ignore-next-line (WP doc issue) */
 		$duplicated_attachment_id = wp_insert_post( $post );
 		if ( ! is_int( $duplicated_attachment_id ) ) {
 			$duplicated_attachment_id = 0;

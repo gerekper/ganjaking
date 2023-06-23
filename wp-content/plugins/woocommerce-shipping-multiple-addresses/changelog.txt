@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2023-06-12 - version 3.8.6
+* Update - Security update
+
 2023-05-23 - version 3.8.5
 * Fix - User cannot choose default address when setting up the multiple addresses.
 

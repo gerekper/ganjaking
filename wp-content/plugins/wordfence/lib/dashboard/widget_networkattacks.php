@@ -78,14 +78,14 @@ STYLING;
 											},
 											options: {
 												scales: {
-													yAxes: [{
+													y: {
+														beginAtZero: true,
 														ticks: {
-															beginAtZero: true,
 															callback: function(value, index, values) {
 																return value.toLocaleString();
 															}
 														}
-													}]
+													}
 												},
 												tooltips: {
 													callbacks: {
@@ -122,14 +122,14 @@ STYLING;
 											},
 											options: {
 												scales: {
-													yAxes: [{
+													y: {
+														beginAtZero: true,
 														ticks: {
-															beginAtZero: true,
 															callback: function(value, index, values) {
 																return value.toLocaleString();
 															}
 														}
-													}]
+													}
 												},
 												tooltips: {
 													callbacks: {
@@ -166,14 +166,14 @@ STYLING;
 											},
 											options: {
 												scales: {
-													yAxes: [{
+													y: {
+														beginAtZero: true,
 														ticks: {
-															beginAtZero: true,
 															callback: function(value, index, values) {
 																return value.toLocaleString();
 															}
 														}
-													}]
+													}
 												},
 												tooltips: {
 													callbacks: {

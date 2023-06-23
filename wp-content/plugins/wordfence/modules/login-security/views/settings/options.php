@@ -6,7 +6,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 		<div class="wfls-block-header wfls-block-header-border-bottom">
 			<div class="wfls-block-header-content">
 				<div class="wfls-block-title">
-					<h3><?php esc_html_e('2FA', 'wordfence-2fa'); ?></h3>
+					<h3><?php esc_html_e('2FA', 'wordfence'); ?></h3>
 				</div>
 			</div>
 		</div>
@@ -20,7 +20,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						$options[] = array(
 							'role' => 'super-admin',
 							'name' => 'enabled-roles.super-admin',
-							'title' => __('Super Administrator', 'wordfence-2fa'),
+							'title' => __('Super Administrator', 'wordfence'),
 							'editable' => true,
 							'allow_disabling' => false,
 							'state' => \WordfenceLS\Controller_Settings::shared()->get_required_2fa_role_activation_time('super-admin') !== false ? 'required' : 'optional'
@@ -48,8 +48,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_REMEMBER_DEVICE_ENABLED) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Allow remembering device for 30 days', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('If enabled, users with 2FA enabled may choose to be prompted for a code only once every 30 days per device.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Allow remembering device for 30 days', 'wordfence') . '</strong>'),
+						'subtitle' => __('If enabled, users with 2FA enabled may choose to be prompted for a code only once every 30 days per device.', 'wordfence'),
 					))->render();
 					?>
 				</li>
@@ -58,11 +58,11 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 					echo \WordfenceLS\Model_View::create('options/option-switch', array(
 						'optionName' => \WordfenceLS\Controller_Settings::OPTION_XMLRPC_ENABLED,
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_XMLRPC_ENABLED) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Require 2FA for XML-RPC call authentication', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('If enabled, XML-RPC calls that require authentication will also require a valid 2FA code to be appended to the password. You must choose the "Skipped" option if you use the WordPress app, the Jetpack plugin, or other services that require XML-RPC.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Require 2FA for XML-RPC call authentication', 'wordfence') . '</strong>'),
+						'subtitle' => __('If enabled, XML-RPC calls that require authentication will also require a valid 2FA code to be appended to the password. You must choose the "Skipped" option if you use the WordPress app, the Jetpack plugin, or other services that require XML-RPC.', 'wordfence'),
 						'states' => array(
-							array('value' => '0', 'label' => __('Skipped', 'wordfence-2fa')),
-							array('value' => '1', 'label' => __('Required', 'wordfence-2fa')),
+							array('value' => '0', 'label' => __('Skipped', 'wordfence')),
+							array('value' => '1', 'label' => __('Required', 'wordfence')),
 						),
 						'noSpacer' => true,
 						'alignment' => 'wfls-right',
@@ -76,8 +76,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '0',
 						'disabledValue' => '1',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_ALLOW_XML_RPC) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Disable XML-RPC authentication', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('If disabled, XML-RPC requests that attempt authentication will be rejected, whether the user has 2FA enabled or not.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Disable XML-RPC authentication', 'wordfence') . '</strong>'),
+						'subtitle' => __('If disabled, XML-RPC requests that attempt authentication will be rejected, whether the user has 2FA enabled or not.', 'wordfence'),
 					))->render();
 					?>
 				</li>
@@ -91,7 +91,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 		<div class="wfls-block-header wfls-block-header-border-bottom">
 			<div class="wfls-block-header-content">
 				<div class="wfls-block-title">
-					<h3><?php esc_html_e('WooCommerce & Custom Integrations', 'wordfence-2fa'); ?></h3>
+					<h3><?php esc_html_e('WooCommerce & Custom Integrations', 'wordfence'); ?></h3>
 				</div>
 			</div>
 		</div>
@@ -104,8 +104,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('WooCommerce integration', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('When enabled, reCAPTCHA and 2FA prompt support will be added to WooCommerce login and registration forms in addition to the default WordPress forms. Testing WooCommerce forms after enabling this feature is recommended to ensure plugin compatibility.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('WooCommerce integration', 'wordfence') . '</strong>'),
+						'subtitle' => __('When enabled, reCAPTCHA and 2FA prompt support will be added to WooCommerce login and registration forms in addition to the default WordPress forms. Testing WooCommerce forms after enabling this feature is recommended to ensure plugin compatibility.', 'wordfence'),
 					))->render();
 					?>
 				</li>
@@ -116,8 +116,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_ACCOUNT_INTEGRATION) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Show Wordfence 2FA menu on WooCommerce Account page', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('When enabled, a Wordfence 2FA tab will be added to the WooCommerce account menu which will provide access for users to manage 2FA settings outside of the WordPress admin area. Testing the WooCommerce account interface after enabling this feature is recommended to ensure theme compatibility.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Show Wordfence 2FA menu on WooCommerce Account page', 'wordfence') . '</strong>'),
+						'subtitle' => __('When enabled, a Wordfence 2FA tab will be added to the WooCommerce account menu which will provide access for users to manage 2FA settings outside of the WordPress admin area. Testing the WooCommerce account interface after enabling this feature is recommended to ensure theme compatibility.', 'wordfence'),
 						'helpLink' => \WordfenceLS\Controller_Support::supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_OPTION_WOOCOMMERCE_ACCOUNT_INTEGRATION),
 						'disabled' => !\WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION),
 						'child' => true
@@ -131,8 +131,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_ENABLE_SHORTCODE) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('2FA management shortcode', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('When enabled, the "wordfence_2fa_management" shortcode may be used to provide access for users to manage 2FA settings on custom pages.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('2FA management shortcode', 'wordfence') . '</strong>'),
+						'subtitle' => __('When enabled, the "wordfence_2fa_management" shortcode may be used to provide access for users to manage 2FA settings on custom pages.', 'wordfence'),
 						'helpLink' => \WordfenceLS\Controller_Support::supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_OPTION_SHORTCODE)
 					))->render();
 					?>
@@ -144,8 +144,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->should_stack_ui_columns() ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Use single-column layout for WooCommerce/shortcode 2FA management interface', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('When enabled, the 2FA management interface embedded through the WooCommerce integration or via a shortcode will use a vertical stacked layout as opposed to horizontal columns. Adjust this setting as appropriate to match your theme. This may be overridden using the "stacked" attribute for individual shortcodes.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Use single-column layout for WooCommerce/shortcode 2FA management interface', 'wordfence') . '</strong>'),
+						'subtitle' => __('When enabled, the 2FA management interface embedded through the WooCommerce integration or via a shortcode will use a vertical stacked layout as opposed to horizontal columns. Adjust this setting as appropriate to match your theme. This may be overridden using the "stacked" attribute for individual shortcodes.', 'wordfence'),
 						'helpLink' => \WordfenceLS\Controller_Support::supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_OPTION_STACK_UI_COLUMNS)
 					))->render();
 					?>
@@ -160,7 +160,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 		<div class="wfls-block-header wfls-block-header-border-bottom">
 			<div class="wfls-block-header-content">
 				<div class="wfls-block-title">
-					<h3><?php esc_html_e('reCAPTCHA', 'wordfence-2fa'); ?></h3>
+					<h3><?php esc_html_e('reCAPTCHA', 'wordfence'); ?></h3>
 				</div>
 			</div>
 		</div>
@@ -185,8 +185,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_CAPTCHA_TEST_MODE) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Run reCAPTCHA in test mode', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('While in test mode, reCAPTCHA will score login and registration requests but not actually block them. The scores will be recorded and can be used to select a human/bot threshold value.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Run reCAPTCHA in test mode', 'wordfence') . '</strong>'),
+						'subtitle' => __('While in test mode, reCAPTCHA will score login and registration requests but not actually block them. The scores will be recorded and can be used to select a human/bot threshold value.', 'wordfence'),
 					))->render();
 					?>
 				</li>
@@ -200,7 +200,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 		<div class="wfls-block-header wfls-block-header-border-bottom">
 			<div class="wfls-block-header-content">
 				<div class="wfls-block-title">
-					<h3><?php esc_html_e('General', 'wordfence-2fa'); ?></h3>
+					<h3><?php esc_html_e('General', 'wordfence'); ?></h3>
 				</div>
 			</div>
 		</div>
@@ -211,9 +211,9 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 					echo \WordfenceLS\Model_View::create('options/option-textarea', array(
 						'textOptionName' => \WordfenceLS\Controller_Settings::OPTION_2FA_WHITELISTED,
 						'textValue' => implode("\n", \WordfenceLS\Controller_Settings::shared()->whitelisted_ips()),
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Allowlisted IP addresses that bypass 2FA and reCAPTCHA', 'wordfence-2fa') . '</strong>'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Allowlisted IP addresses that bypass 2FA and reCAPTCHA', 'wordfence') . '</strong>'),
 						'alignTitle' => 'top',
-						'subtitle' => __('Allowlisted IPs must be placed on separate lines. You can specify ranges using the following formats: 127.0.0.1/24, 127.0.0.[1-100], or 127.0.0.1-127.0.1.100.', 'wordfence-2fa'),
+						'subtitle' => __('Allowlisted IPs must be placed on separate lines. You can specify ranges using the following formats: 127.0.0.1/24, 127.0.0.[1-100], or 127.0.0.1-127.0.1.100.', 'wordfence'),
 						'subtitlePosition' => 'value',
 						'noSpacer' => true,
 					))->render();
@@ -239,8 +239,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->are_login_history_columns_enabled() ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Show last login column on WP Users page', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('When enabled, the last login timestamp will be displayed for each user on the WP Users page. When used in conjunction with reCAPTCHA, the most recent score will also be displayed for each user.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Show last login column on WP Users page', 'wordfence') . '</strong>'),
+						'subtitle' => __('When enabled, the last login timestamp will be displayed for each user on the WP Users page. When used in conjunction with reCAPTCHA, the most recent score will also be displayed for each user.', 'wordfence'),
 					))->render();
 					?>
 				</li>
@@ -251,8 +251,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 						'enabledValue' => '1',
 						'disabledValue' => '0',
 						'value' => \WordfenceLS\Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_DELETE_ON_DEACTIVATION) ? '1': '0',
-						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Delete Login Security tables and data on deactivation', 'wordfence-2fa') . '</strong>'),
-						'subtitle' => __('If enabled, all settings and 2FA records will be deleted on deactivation. If later reactivated, all users that previously had 2FA active will need to set it up again.', 'wordfence-2fa'),
+						'title' => new \WordfenceLS\Text\Model_HTML('<strong>' . esc_html__('Delete Login Security tables and data on deactivation', 'wordfence') . '</strong>'),
+						'subtitle' => __('If enabled, all settings and 2FA records will be deleted on deactivation. If later reactivated, all users that previously had 2FA active will need to set it up again.', 'wordfence'),
 					))->render();
 					?>
 				</li>

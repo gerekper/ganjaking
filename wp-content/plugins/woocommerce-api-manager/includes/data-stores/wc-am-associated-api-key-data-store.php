@@ -58,7 +58,22 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$api_key_exists = $wpdb->get_var( $wpdb->prepare( $sql, $api_key ) );
 
-		return ! empty( $api_key_exists );
+		return ! WC_AM_FORMAT()->empty( $api_key_exists );
+	}
+
+	/**
+	 * Returns true if the Associated API Key exists and is assigned to an active API Resource.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $api_key
+	 *
+	 * @return bool
+	 */
+	public function is_associated_api_key_assigned_to_api_resource( $api_key ) {
+		$api_resource_id = $this->get_api_resource_id_by_associated_api_key( $api_key );
+
+		return ! WC_AM_FORMAT()->empty( $api_resource_id ) && WC_AM_API_RESOURCE_DATA_STORE()->api_resource_id_exists( $api_resource_id );
 	}
 
 	/**
@@ -81,7 +96,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$associated_api_key_id = $wpdb->get_var( $wpdb->prepare( $sql, $api_key ) );
 
-		return ! empty( $associated_api_key_id ) ? (int) $associated_api_key_id : false;
+		return ! WC_AM_FORMAT()->empty( $associated_api_key_id ) ? (int) $associated_api_key_id : false;
 	}
 
 	/**
@@ -119,7 +134,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$result = $wpdb->get_row( $wpdb->prepare( $sql, $api_key ) );
 
-		return ! empty( $result ) ? $result : false;
+		return ! WC_AM_FORMAT()->empty( $result ) ? $result : false;
 	}
 
 	/**
@@ -152,7 +167,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 			}
 		}
 
-		return ! empty( $activation_id_list ) ? $activation_id_list : false;
+		return ! WC_AM_FORMAT()->empty( $activation_id_list ) ? $activation_id_list : false;
 	}
 
 	/**
@@ -171,10 +186,9 @@ class WC_AM_Associated_API_Key_Data_Store {
 			SELECT api_resource_id
 			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 			WHERE associated_api_key = %s
-			LIMIT 1
 		", $associated_api_key ) );
 
-		return ! empty( $api_resource_id ) ? $api_resource_id : false;
+		return ! WC_AM_FORMAT()->empty( $api_resource_id ) ? $api_resource_id : false;
 	}
 
 	/**
@@ -207,7 +221,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 			}
 		}
 
-		return ! empty( $activation_id_list ) ? $activation_id_list : false;
+		return ! WC_AM_FORMAT()->empty( $activation_id_list ) ? $activation_id_list : false;
 	}
 
 	/**
@@ -225,7 +239,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 			FROM {$wpdb->prefix}" . $this->associated_api_key_table . "
 		" );
 
-		return ! empty( $associated_api_key_count ) ? $associated_api_key_count : 0;
+		return ! WC_AM_FORMAT()->empty( $associated_api_key_count ) ? $associated_api_key_count : 0;
 	}
 
 	/**
@@ -286,7 +300,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 			}
 		}
 
-		return ! empty( $update );
+		return ! WC_AM_FORMAT()->empty( $update );
 	}
 
 	/**
@@ -323,7 +337,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
 
-		return ! empty( $update );
+		return ! WC_AM_FORMAT()->empty( $update );
 	}
 
 	/**
@@ -359,7 +373,7 @@ class WC_AM_Associated_API_Key_Data_Store {
 
 		$update = $wpdb->update( $wpdb->prefix . $this->associated_api_key_table, $data, $where, $data_format, $where_format );
 
-		return ! empty( $update );
+		return ! WC_AM_FORMAT()->empty( $update );
 	}
 
 	/**

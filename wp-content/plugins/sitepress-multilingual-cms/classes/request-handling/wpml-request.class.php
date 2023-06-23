@@ -10,6 +10,7 @@
  */
 
 use WPML\Language\Detection\CookieLanguage;
+use WPML\UrlHandling\WPLoginUrlConverterRules;
 
 abstract class WPML_Request {
 
@@ -72,6 +73,14 @@ abstract class WPML_Request {
 	 * @return string|false language code that can be determined from the currently requested URI.
 	 */
 	public function get_request_uri_lang() {
+		/**
+		 * Avoid returning language from URL when wpml_should_skip_saving_language_in_cookies filter hook returns TRUE
+		 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-1544
+		 */
+		if ( apply_filters( 'wpml_should_skip_saving_language_in_cookies', false ) ) {
+			return false;
+		}
+
 		$req_url = isset( $_SERVER['HTTP_HOST'] )
 			? untrailingslashit( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) : '';
 

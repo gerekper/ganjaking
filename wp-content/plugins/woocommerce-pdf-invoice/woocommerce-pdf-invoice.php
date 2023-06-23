@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce PDF Invoices
 Plugin URI: https://woocommerce.com/products/pdf-invoices/
 Description: Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page. 
-Version: 4.18.0
+Version: 4.18.2
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.5.0
@@ -47,7 +47,7 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     /**
      * Defines
      */
-    define( 'PDFVERSION' , '4.18.0' );
+    define( 'PDFVERSION' , '4.18.2' );
     define( 'PDFLANGUAGE', 'woocommerce-pdf-invoice' );
     define( 'PDFSETTINGS' , admin_url( 'admin.php?page=woocommerce_pdf' ) );
     define( 'PDFSUPPORTURL' , 'http://support.woothemes.com/' );
@@ -158,6 +158,10 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
             add_filter( 'wc_customer_order_export_csv_order_headers', array( $this, 'add_pdf_invoice_to_csv_export_column_headers' ) );
             add_filter( 'wc_customer_order_export_csv_order_row', array( $this, 'add_pdf_invoice_to_csv_export_column_data' ), 10, 3 );
             add_filter( 'wc_customer_order_export_xml_order_data', array( $this, 'add_pdf_invoice_to_xml_export_column_data' ), 10, 3 );
+
+            add_filter( 'bulk_actions-edit-shop_order', array( $this, 'shop_order_bulk_actions' ) );
+            add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_shop_order_bulk_actions' ), 10, 3 );
+            add_action( 'admin_notices', array( $this, 'bulk_pdf_export_admin_notice' ), 0 );
 
         }
 
@@ -397,6 +401,88 @@ order allow,deny
             return $new_order_data;
         }
 
+        /**
+         * [shop_order_bulk_actions description]
+         * @param  [type] $actions [description]
+         * @return [type]          [description]
+         */
+        public function shop_order_bulk_actions( $actions ) {
+
+            if ( isset( $actions['edit'] ) ) {
+                unset( $actions['edit'] );
+            }
+
+            $actions['pdf_bulk_export'] = __( 'Bulk Export PDFs', 'woocommerce' );
+
+            return $actions;
+
+        }
+
+        /**
+         * [handle_shop_order_bulk_actions description]
+         * @param  [type] $redirect_to [description]
+         * @param  [type] $action      [description]
+         * @param  [type] $ids         [description]
+         * @return [type]              [description]
+         */
+        public function handle_shop_order_bulk_actions( $redirect_to, $action, $ids ) {
+
+            // Bail out if this is not the pdf_bulk_export.
+            if ( $action === 'pdf_bulk_export' && class_exists("ZipArchive") ) {
+
+                $pdf_export     = new WC_pdf_export();
+                $redirect_to    = $pdf_export->handle_shop_order_bulk_actions( $redirect_to, $action, $ids );
+
+                return esc_url_raw( $redirect_to );
+            }
+        }
+
+        /**
+         * Show confirmation message that order status changed for number of orders.
+         */
+        public function bulk_pdf_export_admin_notice() {
+            global $post_type, $pagenow;
+
+            // Bail out if not on shop order list page
+            if ( !isset( $post_type ) || 'edit.php' !== $pagenow || 'shop_order' !== $post_type ) {
+                return;
+            }
+
+            $export_log = $_REQUEST;
+
+            if( isset( $_REQUEST['pdf_export'] ) ) {
+
+                // Set the temp directory
+                $pdftemp    = sys_get_temp_dir();
+                $upload_dir = wp_upload_dir();
+                if ( file_exists( $upload_dir['basedir'] . '/woocommerce_pdf_invoice/index.html' ) ) {
+                    $pdftemp = $upload_dir['basedir'] . '/woocommerce_pdf_invoice';
+                }
+
+                // Logging
+                $export_log['Temp'] = $pdftemp;
+
+                // Bulk Download
+                $zip_status = get_transient( '_pdf_export_status' );
+                $zip_file   = get_transient( '_pdf_export_zip_file' );
+                $changed    = get_transient( '_pdf_export_changed' );
+
+                if( isset( $zip_status ) && $zip_status == 0 ) {
+
+                    $number = isset( $changed ) ? absint( $changed ) : 0;
+                    /* translators: %s: orders count */
+                    echo '<div class="updated"><p>' . sprintf( _n( '%s invoice added to zip file.', '%s invoices added to zip file.', $number, 'woocommerce-pdf-invoice' ), number_format_i18n( $number ) ) . '</p><p>' . sprintf( __( 'Download the zipfile from <a href="%1$s/%2$s.zip">%3$s.zip</a>', 'woocommerce-pdf-invoice' ), $upload_dir['baseurl'].'/woocommerce_pdf_invoice', $zip_file, $zip_file ) . '</p></div>';
+                            
+                } else {
+                    echo '<div class="error"><p>' . __('Zip file creation failed. Check the log in the WooCommerce System Status logs tab.', 'woocommerce-pdf-invoice') . '</p></div>';
+                }
+            }
+
+            delete_transient( '_pdf_export_status' );
+            delete_transient( '_pdf_export_zip_file' );
+            delete_transient( '_pdf_export_changed' );
+            
+        }
 
     } // WC_pdf_admin
 

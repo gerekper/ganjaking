@@ -1,10 +1,3 @@
-<?php
-
-$wpml_core_plugin               = new OTGS_Installer_WPML_Core_Plugin();
-$is_wpml = $repository_id === 'wpml';
-$is_wpml_active = $wpml_core_plugin->is_active();
-$show_check_for_update_button = ! $is_wpml || $is_wpml_active;
-?>
 <?php if((!$this->repository_has_subscription($repository_id) && $match = $this->get_matching_cp($repository)) && $match['exp']): ?>
 <p class="alignright installer_highlight"><strong><?php printf('Price offers available until %s', date_i18n(get_option( 'date_format' ), $match['exp'])) ?></strong></p>
 <?php endif; ?>
@@ -54,8 +47,9 @@ $model                      = (object) [
 					\OTGS\Installer\Templates\Repository\LegacyFree::render( $model );
 				} else {
 					$this->show_subscription_renew_warning( $repository_id, $subscription_type );
-					\OTGS\Installer\Templates\Repository\Registered::render( $model, $show_check_for_update_button );
+					\OTGS\Installer\Templates\Repository\Registered::render( $model );
 				}
+
 			}
 			?>
         </td>
@@ -80,43 +74,8 @@ $model                      = (object) [
 		<?php if ( ! $model->expired ): ?>
 			<td>
 				<p><strong><?php echo $package['name'] ?></strong></p>
-                <?php if( $is_wpml && ! $is_wpml_active && ! $package['products'] ) {
-					$strings_only_load_core = $wpml_core_plugin->is_installed()
-                        ? [
-                                'get_started' => __( 'Get started by activating the <b>WPML Multilingual CMS plugin</b>.', 'installer' ),
-                                'button' => __( 'Activate WPML Multilingual CMS', 'installer' ),
-                                'progress' =>  __( 'Activating... please wait.', 'installer' )
-                        ]
-                        : [
-							    'get_started' => __( 'Get started by downloading the <b>WPML Multilingual CMS plugin</b>.', 'installer' ),
-							    'button' => __( 'Download and activate WPML Multilingual CMS', 'installer' ),
-							    'progress' =>  __( 'Downloading... please wait. The WPML setup wizard will start automatically once the download finishes.', 'installer' )
-						];
-
-                    ?>
-                    <div id="otgs-installer-wpml-only-install-core">
-                        <p>
-                            <?php echo $strings_only_load_core['get_started'] ?>
-                            <br />
-						    <?php echo __( 'This starts the WPML setup wizard and detects which other WPML components you need for your site.', 'installer' ) ?>
-                        </p>
-                        <div id="otgs-installer-wpml-only-error" style="display:none; background: #f6ebea; border-left: 5px solid #bd4c42; padding: 15px; margin-top: 15px"></div>
-                        <div style="margin: 5px 0 20px 0">
-                            <button id="otgs-installer-wpml-only-button" class="button-primary" onClick="otgs_wp_installer.wpml_core_install_and_start_setup(this)">
-                                <?php echo $strings_only_load_core['button'] ?>
-                            </button>
-
-                            <p id="otgs-installer-wpml-only-downloading" style="font-weight: bold; display: none; line-height: 20px; margin-top: 20px;">
-                                <span class="spinner" style="visibility: visible; display:inline-block; float:none; vertical-align: top; margin: 0 5px 0 0"></span>
-                                <?php echo $strings_only_load_core['progress'] ?>
-                            </p>
-                        </div>
-                    </div>
-
-                <?php } else { ?>
-                    <p><?php echo $package['description'] ?></p>
-                <?php }
-				if ( $package['products'] ): ?>
+				<p><?php echo $package['description'] ?></p>
+				<?php if ( $package['products'] ): ?>
 					<?php foreach ( $package['products'] as $product ):
 						if ( $product['shouldDisplay'] ):?>
                             <ul class="installer-products-list" style="display:inline">
@@ -130,21 +89,9 @@ $model                      = (object) [
 				<?php endif; ?>
 
 				<?php
- 				if ( $package['downloads'] ) {
-					if( $is_wpml && ! $is_wpml_active ) { ?>
-						<button id="otgs-installer-wpml-plugins-show" class="button-link" onClick="otgs_wp_installer.wpml_show_all_plugins()">
-							<?php _e( 'I know which components I need and want to download them all now.', 'installer' ) ?>
-						</button>
-						<div id="otgs-installer-wpml-plugins" style="display: none;">
-				<?php
-					}
-
-							WP_Installer_Channels()->load_channel_selector( $repository_id, $package['downloads'] );
-							include $this->plugin_path() . '/templates/downloads-list.php';
-
-					if( ! $is_wpml && ! $is_wpml_active ) {
-						echo '</div>';
-					}
+				if ( $package['downloads'] ) {
+					WP_Installer_Channels()->load_channel_selector( $repository_id, $package['downloads'] );
+					include $this->plugin_path() . '/templates/downloads-list.php';
 				}
 				?>
 

@@ -6,15 +6,20 @@
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 ?>
 <ul id="checkout-products">
-	<?php foreach( $products as $product ) : ?>
-	<li class="product-item <?php if ( wcopc_get_products_prop( $product, 'in_cart' ) ) echo 'selected'; ?>" >
-		<?php wc_get_template( 'checkout/add-to-cart/radio.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );; ?>
+	<?php foreach ( $products as $product ) : ?>
+	<li class="product-item
+		<?php
+		if ( wcopc_get_products_prop( $product, 'in_cart' ) ) {
+			echo 'selected';}
+		?>
+	" >
+		<?php
+		wc_get_template( 'checkout/add-to-cart/radio.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );
+		?>
 		<?php echo wp_kses_post( $product->get_title() ); ?>
 		<?php if ( $product->is_type( 'variation' ) ) : ?>
 			<?php $attribute_string = sprintf( '&nbsp;(%s)', wc_get_formatted_variation( $product->get_variation_attributes(), true ) ); ?>
@@ -29,9 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="dash">&nbsp;&mdash;&nbsp;</span>
 		<?php if ( $product->is_in_stock() ) { ?>
 		<span itemprop="price" class="price"><?php echo $product->get_price_html(); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-		<?php } else {
-		wc_get_template( 'checkout/add-to-cart/availability.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );
-		} ?>
+			<?php
+		} else {
+			wc_get_template( 'checkout/add-to-cart/availability.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );
+		}
+		?>
 	</li>
 	<?php endforeach; // end of the loop. ?>
 </ul>

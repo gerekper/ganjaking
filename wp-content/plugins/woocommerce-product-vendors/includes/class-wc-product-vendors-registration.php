@@ -68,7 +68,22 @@ class WC_Product_Vendors_Registration {
 	 * @return bool
 	 */
 	public function registration_ajax() {
-		$this->registration_form_validation( $_POST['form_items'] );
+		if ( ! isset( $_POST['form_items'] ) ) {
+			return false;
+		}
+		if ( ! is_array( $_POST['form_items'] ) ) {
+			parse_str( $_POST['form_items'], $form_items ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- POST data will be sanitized and unslashed below.
+		} else {
+			$form_items = $_POST['form_items']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- POST data will be sanitized and unslashed below.
+		}
+
+		$form_items = array_map(
+			function( $item ) {
+				return sanitize_text_field( wp_unslash( $item ) );
+			},
+			$form_items // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- POST data is both sanitized and unslashed above.
+		);
+		$this->registration_form_validation( $form_items );
 
 		return true;
 	}
@@ -98,18 +113,12 @@ class WC_Product_Vendors_Registration {
 	public function registration_form_validation( $form_items = array() ) {
 		global $errors;
 
-		if ( ! is_array( $form_items ) ) {
-			parse_str( $_POST['form_items'], $form_items );
-		}
-
-		$form_items = array_map( 'sanitize_text_field', $form_items );
-
 		if ( ! isset( $form_items ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
-		if ( ! wp_verify_nonce( $_POST['ajaxRegistrationNonce'], '_wc_product_vendors_registration_nonce' ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+		if ( ! isset( $_POST['ajaxRegistrationNonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ajaxRegistrationNonce'] ) ), '_wc_product_vendors_registration_nonce' ) ) {
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		// handle form submission/validation

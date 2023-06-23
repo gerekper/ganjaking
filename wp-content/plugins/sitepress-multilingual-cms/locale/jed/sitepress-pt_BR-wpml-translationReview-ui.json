@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Accepted": [
             "Aceito"
@@ -20,6 +19,9 @@
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
             "Desligue para não carregar automaticamente a próxima tradução após concluir esta revisão."
+         ],
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Ative para carregar automaticamente a próxima tradução após finalizar esta."
          ],
          "Edit": [
             "Editar"

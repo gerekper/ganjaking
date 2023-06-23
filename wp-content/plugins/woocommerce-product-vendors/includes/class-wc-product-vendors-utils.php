@@ -1528,7 +1528,7 @@ class WC_Product_Vendors_Utils {
 	 * @return string
 	 */
 	public static function get_paypal_webhook_notification_url() {
-		return add_query_arg( 'wc-api', 'wc_product_vendors_paypal', trailingslashit( get_home_url() ) );
+		return esc_url_raw( add_query_arg( 'wc-api', 'wc_product_vendors_paypal', trailingslashit( get_home_url() ) ) ); // nosemgrep:audit.php.wp.security.xss.query-arg
 	}
 
 	/**
@@ -1602,6 +1602,8 @@ class WC_Product_Vendors_Utils {
 	 * @return string
 	 */
 	public static function get_commission_date_sql_query_from_range( $range, $start_date = '', $end_date = '' ) {
+		global $wpdb;
+
 		$sql = '';
 
 		switch ( $range ) {
@@ -1620,7 +1622,7 @@ class WC_Product_Vendors_Utils {
 				break;
 
 			case 'custom' :
-				$sql .= " AND DATE( commission.order_date ) BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+				$sql .= $wpdb->prepare( ' AND DATE( commission.order_date ) BETWEEN %s AND %s', $start_date, $end_date );
 				break;
 
 			case '7day' :
@@ -1653,7 +1655,7 @@ class WC_Product_Vendors_Utils {
 
 	/* * Calculate the total tax refunded for a line item.
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @param WC_Order_Item $item  Order item id.
 	 * @param WC_Order      $order Order.
@@ -1673,7 +1675,7 @@ class WC_Product_Vendors_Utils {
 	/**
 	 * Gets the count of order items (only need shipping).
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @param WC_Order $order Order object.
 	 *
@@ -1697,7 +1699,7 @@ class WC_Product_Vendors_Utils {
 	/**
 	 * Gets the count of refunded order items (only need shipping).
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @param WC_Order $order Order object.
 	 *
@@ -1725,7 +1727,7 @@ class WC_Product_Vendors_Utils {
 	/**
 	 * Calculate the total shipping charges for refunded order item.
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @return array
 	 */

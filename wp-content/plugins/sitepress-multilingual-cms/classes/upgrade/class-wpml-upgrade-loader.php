@@ -21,6 +21,7 @@ use WPML\TM\Upgrade\Commands\AddAteCommunicationRetryColumnToTranslationStatus;
 use WPML\TM\Upgrade\Commands\AddAteSyncCountToTranslationJob;
 use WPML\TM\Upgrade\Commands\ResetTranslatorOfAutomaticJobs;
 use WPML\Upgrade\Commands\CreateBackgroundTaskTable;
+use WPML\Upgrade\Commands\RemoveTmWcmlPromotionNotice;
 
 /**
  * Class WPML_Upgrade_Loader
@@ -142,6 +143,7 @@ class WPML_Upgrade_Loader implements IWPML_Action {
 			$this->factory->create_command_definition( 'WPML_TM_Add_TP_Revision_And_TS_Status_Columns_To_Translation_Status', [ $this->upgrade_schema ], array( 'admin', 'ajax', 'front-end' ) ),
 			$this->factory->create_command_definition( 'WPML_TM_Add_TP_Revision_And_TS_Status_Columns_To_Core_Status', [ $this->upgrade_schema ], array( 'admin', 'ajax', 'front-end' ) ),
 			$this->factory->create_command_definition( RemoveEndpointsOption::class, [], [ 'admin', 'ajax', 'front-end' ] ),
+			$this->factory->create_command_definition( RemoveTmWcmlPromotionNotice::class, [], [ 'admin' ] ),
 		];
 
 		$upgrade = new WPML_Upgrade( $commands, $this->sitepress, $this->factory );

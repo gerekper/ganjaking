@@ -723,7 +723,7 @@ class WCML_Products {
 					$is_original_product = $this->woocommerce_wpml->products->is_original_product( $product_id );
 					if ( ! $is_original_product ) {
 						$meta_keys_to_filter[] = '_thumbnail_id';
-						if ( 'product' === $post_type && is_product() ) {
+						if ( 'product' === $post_type && is_single() ) {
 							$meta_keys_to_filter[] = '_product_image_gallery';
 						}
 					}

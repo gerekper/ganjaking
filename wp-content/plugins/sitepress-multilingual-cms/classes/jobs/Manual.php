@@ -4,14 +4,13 @@
 namespace WPML\TM\Jobs;
 
 use WPML\Element\API\PostTranslations;
-use WPML\FP\Fns;
+use WPML\FP\Lst;
 use WPML\FP\Maybe;
 use WPML\FP\Obj;
+use WPML\FP\Relation;
 use WPML\LIB\WP\User;
 use WPML\Records\Translations as TranslationRecords;
 use WPML\TM\API\Jobs;
-use function WPML\FP\curryN;
-use function WPML\FP\invoke;
 use function WPML\FP\pipe;
 
 class Manual {
@@ -29,15 +28,35 @@ class Manual {
 		if ( $trid && $targetLanguageCode && ( $updateNeeded || ! $jobId ) ) {
 			$postId = $this->getOriginalPostId( $trid );
 
+			// if $jobId is not a truthy value this means that a new translation is going to be created in $targetLanguageCode (the + icon is clicked in posts list page)
+			// and in this case we try to get the post id that exists in $sourceLangCode
+			// @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-1934
+			if ( ! $jobId ) {
+				$postId = $this->getPostIdInLang( $trid, $sourceLangCode ) ?: $postId;
+			}
+
 			if ( $postId && $this->can_user_translate( $sourceLangCode, $targetLanguageCode, $postId ) ) {
-				return $this->markJobAsManual( $this->createLocalJob( $postId, $targetLanguageCode, $elementType ) );
+				return $this->markJobAsManual( $this->createLocalJob( $postId, $sourceLangCode, $targetLanguageCode, $elementType ) );
 			}
 		}
+
 		return $jobId ? $this->markJobAsManual( wpml_tm_load_job_factory()->get_translation_job_as_active_record( $jobId ) ) : null;
 	}
 
 	private function getOriginalPostId( $trid ) {
 		return Obj::prop( 'element_id', TranslationRecords::getSourceByTrid( $trid ) );
+	}
+
+	/**
+	 * @param string|int $trid
+	 * @param string $lang
+	 *
+	 * @return string|int
+	 */
+	private function getPostIdInLang( $trid, $lang ) {
+		$getElementId = pipe( Lst::find( Relation::propEq( 'language_code', $lang ) ), Obj::prop( 'element_id' ) );
+
+		return $getElementId( TranslationRecords::getByTrid( $trid ) );
 	}
 
 	/**
@@ -58,7 +77,7 @@ class Manual {
 			$job = Jobs::getTridJob( $trid, $languageCode );
 		}
 
-		if ( $job ) {
+		if ( is_object( $job ) ) {
 			return [
 				$jobId,
 				Obj::prop( 'trid', $job ),
@@ -91,14 +110,15 @@ class Manual {
 	}
 
 	/**
-	 * @param $originalPostId
-	 * @param $targetLangCode
-	 * @param $elementType
+	 * @param int $originalPostId
+	 * @param string $sourceLangCode
+	 * @param string $targetLangCode
+	 * @param string $elementType
 	 *
 	 * @return \WPML_Translation_Job|null
 	 */
-	private function createLocalJob( $originalPostId, $targetLangCode, $elementType ) {
-		$jobId = wpml_tm_load_job_factory()->create_local_job( $originalPostId, $targetLangCode, null, $elementType );
+	private function createLocalJob( $originalPostId, $sourceLangCode, $targetLangCode, $elementType ) {
+		$jobId = wpml_tm_load_job_factory()->create_local_job( $originalPostId, $targetLangCode, null, $elementType, Jobs::SENT_MANUALLY, $sourceLangCode );
 
 		return Maybe::fromNullable( $jobId )
 		            ->map( [ wpml_tm_load_job_factory(), 'get_translation_job_as_active_record' ] )

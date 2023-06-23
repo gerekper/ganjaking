@@ -338,15 +338,13 @@ class WPML_TM_Translation_Status_Display {
 	}
 
 	private function shouldUseTMEditor( $postId ) {
-		static $fn;
-		if ( ! $fn ) {
-			$fn = Fns::memorize( function ( $postId ) {
-				list( $useTmEditor, $isWpmlEditorBlocked, $reason ) = \WPML_TM_Post_Edit_TM_Editor_Mode::get_editor_settings( $this->sitepress, $postId );
-				return $useTmEditor && ! $isWpmlEditorBlocked;
-			} );
+		static $cachedKeys;
+		if ( ! isset( $cachedKeys[ $postId ] ) ) {
+			list( $useTmEditor, $isWpmlEditorBlocked, $reason ) = \WPML_TM_Post_Edit_TM_Editor_Mode::get_editor_settings( $this->sitepress, $postId );
+			$cachedKeys[ $postId ]                              = $useTmEditor && ! $isWpmlEditorBlocked;
 		}
 
-		return $fn( $postId );
+		return $cachedKeys[ $postId ];
 	}
 
 	/**
@@ -519,10 +517,13 @@ class WPML_TM_Translation_Status_Display {
 	 * @return bool
 	 */
 	private function isTranslateEverythingInProgress( $trid, $postId, $language ) {
-		return Option::shouldTranslateEverything()
+		/** @var string $postType */
+		$postType = Post::getType( $postId );
+		return $postType
+			   && Option::shouldTranslateEverything()
 		       && ! Option::isPausedTranslateEverything()
 		       && $this->shouldAutoTranslate( $trid, $postId, $language )
-		       && ! TranslateEverything::isEverythingProcessedForPostTypeAndLanguage( Post::getType( $postId ), $language )
+		       && ! TranslateEverything::isEverythingProcessedForPostTypeAndLanguage( $postType, $language )
 		       && Lst::includes( Post::getType( $postId ), PostTypes::getAutomaticTranslatable() );
 	}
 

@@ -107,10 +107,10 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
 			if ( ! empty( $this->vendor_id ) ) {
-				$results = $wpdb->get_results( $wpdb->prepare( $sql, $this->vendor_id ) );
+				$results = $wpdb->get_results( $wpdb->prepare( $sql, $this->vendor_id ) ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 
 			} else {
-				$results = $wpdb->get_results( $sql );
+				$results = $wpdb->get_results( $sql ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 			}
 
 			set_transient( $transient_name, $results, DAY_IN_SECONDS );
@@ -337,9 +337,9 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
 			if ( ! empty( $this->vendor_id ) ) {
-				$results = $wpdb->get_results( $wpdb->prepare( $sql, $this->vendor_id ) );
+				$results = $wpdb->get_results( $wpdb->prepare( $sql, $this->vendor_id ) ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 			} else {
-				$results = $wpdb->get_results( $sql );
+				$results = $wpdb->get_results( $sql ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 			}
 
 			set_transient( $transient_name, $results, DAY_IN_SECONDS );

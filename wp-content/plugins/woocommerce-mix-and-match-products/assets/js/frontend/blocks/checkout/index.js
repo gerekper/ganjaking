@@ -1,9 +1,18 @@
 /**
  * External dependencies
+ * NB: registerCheckoutFilters was "graduated" in Woo 7.5.0 or Woo Blocks 9.6.0
  */
-import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
+import {
+	__experimentalRegisterCheckoutFilters as experimentalFilters,
+	registerCheckoutFilters as graduatedFilters,
+} from '@woocommerce/blocks-checkout';
 
-__experimentalRegisterCheckoutFilters( 'mix-and-match', {
+const registerCheckoutFilters =
+	typeof graduatedFilters !== 'undefined'
+		? graduatedFilters
+		: experimentalFilters;
+
+registerCheckoutFilters( 'mix-and-match', {
 
 	itemName: ( context, { mix_and_match }, { cartItem } ) => {
 

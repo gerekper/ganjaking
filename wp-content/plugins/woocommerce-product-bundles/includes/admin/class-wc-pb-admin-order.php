@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles edit-order functions and filters.
  *
  * @class    WC_PB_Admin_Order
- * @version  6.14.1
+ * @version  6.21.0
  */
 class WC_PB_Admin_Order {
 
@@ -268,7 +268,7 @@ class WC_PB_Admin_Order {
 							</article>
 							<footer>
 								<div class="inner">
-									<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Done', 'woocommerce-product-bundles' ); ?></button>
+									<button id="btn-ok" class="button button-primary button-large"><?php esc_html_e( 'Done', 'woocommerce-product-bundles' ); ?></button>
 								</div>
 							</footer>
 						</section>

@@ -379,7 +379,7 @@ class Helper {
 		if ( is_array( $meta ) ) {
 
 			// Walk through each items and format.
-			array_walk_recursive( $meta, array( 'self', 'format_attachment_meta_item' ) );
+			array_walk_recursive( $meta, array( self::class, 'format_attachment_meta_item' ) );
 		}
 
 		return $meta;

@@ -184,7 +184,28 @@ class WPML_Save_Translation_Data_Action extends WPML_Translation_Job_Helper_With
 
 					$new_post_id = wpml_get_create_post_helper()->insert_post( $postarr, $job->language_code );
 
+					$link = get_edit_post_link( $new_post_id );
+					if ( '' === $link ) {
+						// the current user can't edit so just include permalink.
+						$link = get_permalink( $new_post_id );
+					}
+
+					if ( ! $element_id ) {
+						$wpdb->delete(
+							$wpdb->prefix . 'icl_translations',
+							array(
+								'element_id'   => $new_post_id,
+								'element_type' => 'post_' . $postarr['post_type'],
+							)
+						);
+						$wpdb->update( $wpdb->prefix . 'icl_translations', array( 'element_id' => $new_post_id ), array( 'translation_id' => $translation_id ) );
+						$user_message = __( 'Translation added: ', 'wpml-translation-management' ) . '<a href="' . $link . '">' . $postarr['post_title'] . '</a>.';
+					} else {
+						$user_message = __( 'Translation updated: ', 'wpml-translation-management' ) . '<a href="' . $link . '">' . $postarr['post_title'] . '</a>.';
+					}
+
 					icl_cache_clear( $postarr['post_type'] . 's_per_language' ); // clear post counter per language in cache
+					do_action( 'wpml_pro_translation_after_post_save', $new_post_id );
 
 					// set taxonomies for users with limited caps
 					if ( ! current_user_can( 'manage-categories' ) && ! empty( $postarr['tax_input'] ) ) {
@@ -240,26 +261,6 @@ class WPML_Save_Translation_Data_Action extends WPML_Translation_Job_Helper_With
 						\WPML\TM\Settings\Repository::getCustomFields()
 					);
 
-					$link = get_edit_post_link( $new_post_id );
-					if ( $link == '' ) {
-						// the current user can't edit so just include permalink
-						$link = get_permalink( $new_post_id );
-					}
-
-					if ( ! $element_id ) {
-						$wpdb->delete(
-							$wpdb->prefix . 'icl_translations',
-							array(
-								'element_id'   => $new_post_id,
-								'element_type' => 'post_' . $postarr['post_type'],
-							)
-						);
-						$wpdb->update( $wpdb->prefix . 'icl_translations', array( 'element_id' => $new_post_id ), array( 'translation_id' => $translation_id ) );
-						$user_message = __( 'Translation added: ', 'wpml-translation-management' ) . '<a href="' . $link . '">' . $postarr['post_title'] . '</a>.';
-					} else {
-						$user_message = __( 'Translation updated: ', 'wpml-translation-management' ) . '<a href="' . $link . '">' . $postarr['post_title'] . '</a>.';
-					}
-
 					// set stickiness
 					// is the original post a sticky post?
 					$sticky_posts       = get_option( 'sticky_posts' );
@@ -297,7 +298,7 @@ class WPML_Save_Translation_Data_Action extends WPML_Translation_Job_Helper_With
 				// Must be after save terms otherwise it gets lost.
 				if ( $sitepress->get_setting( 'sync_post_format' ) ) {
 					$_wp_post_format = get_post_format( $original_post->ID );
-					set_post_format( $new_post_id, $_wp_post_format );
+					$_wp_post_format && set_post_format( $new_post_id, $_wp_post_format );
 				}
 
 				do_action( 'icl_pro_translation_completed', $new_post_id, $data['fields'], $job );

@@ -121,7 +121,7 @@ class WPML_Post_Translation_Job extends WPML_Element_Translation_Job {
 			$new_term = $new_term_action->execute();
 
 			foreach ( TermMeta::getTermMeta( $this->get_id(), $term->term_taxonomy_id ) as $meta ) {
-				update_term_meta( $new_term['term_taxonomy_id'], FieldId::getTermMetaKey( $meta->field_type ), $meta->field_data_translated );
+				update_term_meta( $new_term['term_id'], FieldId::getTermMetaKey( (string) $meta->field_type ), $meta->field_data_translated );
 			}
 		}
 
@@ -156,18 +156,22 @@ class WPML_Post_Translation_Job extends WPML_Element_Translation_Job {
 	 * @return string
 	 */
 	public function get_type_title() {
-		$post_type = get_post_type_object( $this->get_post_type() );
+		$post_type = $this->get_post_type();
+		if ( ! $post_type ) {
+			return '';
+		}
+		$post_type = get_post_type_object( $post_type );
 
 		return $post_type->labels->singular_name;
 	}
 
 	/**
-	 * @return string
+	 * @return string|false
 	 */
 	public function get_post_type() {
 		$original_post = $this->get_original_document();
 
-		return $original_post->post_type;
+		return $original_post ? $original_post->post_type : false;
 	}
 
 	protected function load_resultant_element_id() {

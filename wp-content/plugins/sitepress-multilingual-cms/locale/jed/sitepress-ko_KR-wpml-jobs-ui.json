@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Draft — Pending review": [
             "초안 — 검토 대기중"
@@ -20,6 +19,9 @@
          ],
          "Cancel job": [
             "작업 취소"
+         ],
+         "Continue reviewing": [
+            "계속 검토"
          ],
          "Start downloading XLIFF file": [
             "XLIFF 파일 다운로드 시작"
@@ -93,6 +95,12 @@
          "Published — Pending review": [
             "게시됨 — 리뷰 대기 중"
          ],
+         "Published — Review in progress": [
+            "게시됨 — 검토 진행 중"
+         ],
+         "Draft — Review in progress": [
+            "초안 — 검토 진행 중"
+         ],
          "Needs update": [
             "업데이트해야 합니다"
          ],
@@ -107,6 +115,9 @@
          ],
          "(no title)": [
             "(제목 없음)"
+         ],
+         "Automatic translation": [
+            "자동 번역"
          ],
          "TP ID: %d": [
             "TP ID: %d"
@@ -177,6 +188,9 @@
          "Sort ascending": [
             "오름차순 정렬"
          ],
+         "Cancel sorting": [
+            "정렬 취소"
+         ],
          "The bulk action is running...": [
             "일괄 작업이 실행 중입니다..."
          ],
@@ -222,6 +236,9 @@
          "Batch name": [
             "배치 작업 이름"
          ],
+         "Filter by %s": [
+            "%s 기준 필터링"
+         ],
          "Title": [
             "제목"
          ],
@@ -242,6 +259,9 @@
          ],
          "This action does not apply to any of the selected translation jobs": [
             "이 작업은 선택한 번역 작업에 적용되지 않습니다"
+         ],
+         "Translations have been downloaded": [
+            "번역이 다운로드되었습니다"
          ],
          "Translation has been downloaded": [
             "번역이 다운로드되었습니다"
@@ -368,6 +388,10 @@
          ],
          "Synchronization with the Professional Translation service has failed": [
             "전문 번역 서비스와 동기화하지 못했습니다"
+         ],
+         "%d translation has been downloaded": [
+            "%d개의 번역이 다운로드되었습니다",
+            "%d개의 번역이 다운로드되었습니다"
          ],
          "Batch sync finished successfully!": [
             "일괄 동기화가 성공적으로 완료되었습니다!"

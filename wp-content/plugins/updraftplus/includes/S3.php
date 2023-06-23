@@ -1273,68 +1273,6 @@ class UpdraftPlus_S3 {
 	}
 
 	/**
-	 * Get upload POST parameters for form uploads
-	 *
-	 * @param string  $bucket Bucket name
-	 * @param string  $uriPrefix Object URI prefix
-	 * @param string  $acl ACL constant
-	 * @param integer $lifetime Lifetime in seconds
-	 * @param integer $maxFileSize Maximum file size in bytes (default 5MB)
-	 * @param string  $successRedirect Redirect URL or 200 / 201 status code
-	 * @param array   $amzHeaders Array of x-amz-meta-* headers
-	 * @param array   $headers Array of request headers or content type as a string
-	 * @param boolean $flashVars Includes additional "Filename" variable posted by Flash
-	 *
-	 * @return object
-	 */
-	public function getHttpUploadPostParams($bucket, $uriPrefix = '', $acl = self::ACL_PRIVATE, $lifetime = 3600,
-	$maxFileSize = 5242880, $successRedirect = "201", $amzHeaders = array(), $headers = array(), $flashVars = false) {
-		// Create policy object
-		$policy = new stdClass;
-		$policy->expiration = gmdate('Y-m-d\TH:i:s\Z', (time() + $lifetime));
-		$policy->conditions = array();
-		$obj = new stdClass; $obj->bucket = $bucket; array_push($policy->conditions, $obj);
-		$obj = new stdClass; $obj->acl = $acl; array_push($policy->conditions, $obj);
-
-		$obj = new stdClass; // 200 for non-redirect uploads
-		if (is_numeric($successRedirect) && in_array((int)$successRedirect, array(200, 201)))
-			$obj->success_action_status = (string)$successRedirect;
-		else // URL
-			$obj->success_action_redirect = $successRedirect;
-		array_push($policy->conditions, $obj);
-
-		if (self::ACL_PUBLIC_READ !== $acl)
-			array_push($policy->conditions, array('eq', '$acl', $acl));
-
-		array_push($policy->conditions, array('starts-with', '$key', $uriPrefix));
-		if ($flashVars) array_push($policy->conditions, array('starts-with', '$Filename', ''));
-		foreach (array_keys($headers) as $headerKey)
-			array_push($policy->conditions, array('starts-with', '$'.$headerKey, ''));
-		foreach ($amzHeaders as $headerKey => $headerVal) {
-			$obj = new stdClass;
-			$obj->{$headerKey} = (string)$headerVal;
-			array_push($policy->conditions, $obj);
-		}
-		array_push($policy->conditions, array('content-length-range', 0, $maxFileSize));
-		$policy = base64_encode(str_replace('\/', '/', json_encode($policy)));
-
-		// Create parameters
-		$params = new stdClass;
-		$params->AWSAccessKeyId = $this->__accessKey;
-		$params->key = $uriPrefix.'${filename}';
-		$params->acl = $acl;
-		$params->policy = $policy; unset($policy);
-		$params->signature = $this->__getHash($params->policy);
-		if (is_numeric($successRedirect) && in_array((int)$successRedirect, array(200, 201)))
-			$params->success_action_status = (string)$successRedirect;
-		else
-			$params->success_action_redirect = $successRedirect;
-		foreach ($headers as $headerKey => $headerVal) $params->{$headerKey} = (string)$headerVal;
-		foreach ($amzHeaders as $headerKey => $headerVal) $params->{$headerKey} = (string)$headerVal;
-		return $params;
-	}
-
-	/**
 	 * Get MIME type for file
 	 *
 	 * @internal Used to get mime types

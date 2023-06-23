@@ -10,6 +10,7 @@ use MailPoet\Automation\Integrations\WooCommerce\Subjects\AbandonedCartSubject;
 use MailPoet\Automation\Integrations\WooCommerce\Subjects\CustomerSubject;
 use MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderStatusChangeSubject;
 use MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderSubject;
+use MailPoet\Automation\Integrations\WooCommerce\SubjectTransformers\WordPressUserSubjectToWooCommerceCustomerSubjectTransformer;
 use MailPoet\Automation\Integrations\WooCommerce\Triggers\OrderStatusChangedTrigger;
 
 class WooCommerceIntegration {
@@ -32,13 +33,21 @@ class WooCommerceIntegration {
   /** @var ContextFactory */
   private $contextFactory;
 
+  /** @var WordPressUserSubjectToWooCommerceCustomerSubjectTransformer */
+  private $wordPressUserToWooCommerceCustomerTransformer;
+
+  /** @var WooCommerce */
+  private $wooCommerce;
+
   public function __construct(
     OrderStatusChangedTrigger $orderStatusChangedTrigger,
     AbandonedCartSubject $abandonedCartSubject,
     OrderStatusChangeSubject $orderStatusChangeSubject,
     OrderSubject $orderSubject,
     CustomerSubject $customerSubject,
-    ContextFactory $contextFactory
+    ContextFactory $contextFactory,
+    WordPressUserSubjectToWooCommerceCustomerSubjectTransformer $wordPressUserToWooCommerceCustomerTransformer,
+    WooCommerce $wooCommerce
   ) {
     $this->orderStatusChangedTrigger = $orderStatusChangedTrigger;
     $this->abandonedCartSubject = $abandonedCartSubject;
@@ -46,9 +55,14 @@ class WooCommerceIntegration {
     $this->orderSubject = $orderSubject;
     $this->customerSubject = $customerSubject;
     $this->contextFactory = $contextFactory;
+    $this->wordPressUserToWooCommerceCustomerTransformer = $wordPressUserToWooCommerceCustomerTransformer;
+    $this->wooCommerce = $wooCommerce;
   }
 
   public function register(Registry $registry): void {
+    if (!$this->wooCommerce->isWooCommerceActive()) {
+      return;
+    }
 
     $registry->addContextFactory('woocommerce', function () {
       return $this->contextFactory->getContextData();
@@ -59,5 +73,6 @@ class WooCommerceIntegration {
     $registry->addSubject($this->orderStatusChangeSubject);
     $registry->addSubject($this->customerSubject);
     $registry->addTrigger($this->orderStatusChangedTrigger);
+    $registry->addSubjectTransformer($this->wordPressUserToWooCommerceCustomerTransformer);
   }
 }

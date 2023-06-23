@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 4.2.0
+ * @version 6.21.0
  */
 
 // Exit if accessed directly.
@@ -21,5 +21,5 @@ if ( ! $description ) {
 }
 
 ?><div class="bundled_product_excerpt product_excerpt"><?php
-		echo $description;
+		echo wp_kses_post( $description );
 ?></div>

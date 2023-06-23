@@ -524,7 +524,7 @@ class WC_Product_Vendors_Order {
 	/**
 	 * Update commission data when refunds performed.
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @param int $order_id Order ID.
 	 * @param int $refund_id Refund ID.
@@ -693,7 +693,7 @@ class WC_Product_Vendors_Order {
 	/**
 	 * Should return serialize value of product variation.
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @param WC_Product $product Product object.
 	 *
@@ -724,7 +724,7 @@ class WC_Product_Vendors_Order {
 	/**
 	 * Should fully refund vendor commission.
 	 *
-	 * @since x.x.x
+	 * @since 2.1.74
 	 *
 	 * @return void
 	 */

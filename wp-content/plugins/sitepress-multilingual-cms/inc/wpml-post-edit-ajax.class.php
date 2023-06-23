@@ -36,18 +36,17 @@ class WPML_Post_Edit_Ajax {
 
 		$new_term_object = self::save_term_ajax( $sitepress, $lang, $taxonomy, $slug, $name, $trid, $description, $meta_data );
 		$sitepress->get_wp_api()->wp_send_json_success( $new_term_object );
-
 	}
 
 	/**
-	 * @param \SitePress          $sitepress
-	 * @param string              $lang
-	 * @param string              $taxonomy
-	 * @param string              $slug
-	 * @param string              $name
-	 * @param int                 $trid
-	 * @param string              $description
-	 * @param array<string,mixed> $meta_data
+	 * @param \SitePress           $sitepress
+	 * @param ?string|false        $lang
+	 * @param ?string|false        $taxonomy
+	 * @param ?string|false        $slug
+	 * @param ?string|false        $name
+	 * @param ?int|false           $trid
+	 * @param ?string              $description
+	 * @param ?array<string,mixed> $meta_data
 	 *
 	 * @return \WP_Term|false
 	 */
@@ -263,6 +262,8 @@ class WPML_Post_Edit_Ajax {
 
 				$result = $to;
 			}
+
+			\WPML\LIB\WP\Cache::clearMemoizedFunction( 'get_source_language_by_trid', (int) $trid );
 		}
 
 		wp_send_json_success( $result );

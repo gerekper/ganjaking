@@ -123,7 +123,7 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 					'ajax_set_xliff_options',
 				),
 				10,
-				2
+				0
 			);
 			if ( ! $this->sitepress->get_setting( 'xliff_newlines' ) ) {
 				$this->sitepress->set_setting( 'xliff_newlines', WPML_XLIFF_TM_NEWLINES_ORIGINAL, true );
@@ -156,7 +156,7 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 						'translation_queue_after_display',
 					),
 					10,
-					2
+					1
 				);
 				add_action(
 					'wpml_translator_notification',
@@ -240,6 +240,7 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 
 		if ( isset( $tm_settings['notification']['include_xliff'] ) && $tm_settings['notification']['include_xliff'] ) {
 			$xliff_version = $this->get_user_xliff_version();
+			$xliff_version = $xliff_version ?: WPML_XLIFF_DEFAULT_VERSION;
 			$xliff_file    = $this->get_xliff_file( $job_id, $xliff_version );
 			$temp_dir      = get_temp_dir();
 			$file_name     = $temp_dir . get_bloginfo( 'name' ) . '-translation-job-' . $job_id . '.xliff';
@@ -288,12 +289,15 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 		foreach ( $attachments as $index => $attachment ) {
 			if ( in_array( $attachment, $this->attachments, true ) ) {
 				$fh         = fopen( $attachment, 'r' );
-				$xliff_file = fread( $fh, filesize( $attachment ) );
-				fclose( $fh );
-				$archive->addFile( $xliff_file, basename( $attachment ) );
 
-				unset( $attachments[ $index ] );
-				$found = true;
+				if ( $fh ) {
+					$xliff_file = fread( $fh, (int) filesize( $attachment ) );
+					fclose( $fh );
+					$archive->addFile( $xliff_file, basename( $attachment ) );
+
+					unset( $attachments[ $index ] );
+					$found = true;
+				}
 			}
 		}
 
@@ -303,9 +307,11 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 			$temp_dir     = get_temp_dir();
 			$file_name    = $temp_dir . $this->get_zip_name_from_jobs( array_keys( $this->attachments ) );
 			$fh           = fopen( $file_name, 'w' );
-			fwrite( $fh, $archive_data );
-			fclose( $fh );
-			$attachments[] = $file_name;
+			if ( $fh ) {
+				fwrite( $fh, $archive_data );
+				fclose( $fh );
+				$attachments[] = $file_name;
+			}
 		}
 
 		return $attachments;
@@ -438,9 +444,12 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 			return false;
 		} elseif ( isset( $file['tmp_name'] ) && $file['tmp_name'] ) {
 			$fh   = fopen( $file['tmp_name'], 'r' );
-			$data = fread( $fh, 4 );
-			fclose( $fh );
-			if ( $data[0] == 'P' && $data[1] == 'K' && $data[2] == chr( 03 ) && $data[3] == chr( 04 ) ) {
+			$data = false;
+			if ( $fh ) {
+				$data = fread( $fh, 4 );
+				fclose( $fh );
+			}
+			if ( $data && $data[0] == 'P' && $data[1] == 'K' && $data[2] == chr( 03 ) && $data[3] == chr( 04 ) ) {
 				if ( class_exists( 'ZipArchive' ) ) {
 					$z     = new ZipArchive();
 					$zopen = $z->open( $file['tmp_name'], 4 );
@@ -455,6 +464,9 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 							$this->error = new WP_Error( 'stat_failed', __( 'Could not retrieve file from archive.', 'wpml-translation-management' ) );
 
 							return false;
+						}
+						if ( $this->is_directory( $info['name'] ) ) {
+							continue;
 						}
 						$content = $z->getFromIndex( $i );
 						if ( false === (bool) $content ) {
@@ -484,6 +496,9 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 					}
 					$empty_files = array();
 					foreach ( $archive_files as $content ) {
+						if ( $this->is_directory( $content['filename'] ) ) {
+							continue;
+						}
 						if ( false === (bool) $content['content'] ) {
 							$empty_files[] = $content['filename'];
 						}
@@ -497,13 +512,15 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 				}
 			} else {
 				$fh   = fopen( $file['tmp_name'], 'r' );
-				$data = fread( $fh, $file['size'] );
-				fclose( $fh );
-				$contents[ $file['name'] ] = $data;
+				if ( $fh ) {
+					$data = fread( $fh, $file['size'] );
+					fclose( $fh );
+					$contents[ $file['name'] ] = $data;
+				}
 			}
 
 			foreach ( $contents as $name => $content ) {
-				if ( $this->validate_file_name( $name ) ) {
+				if ( $this->validate_file_name( (string) $name ) ) {
 					list( $job, $job_data ) = $this->validate_file( $name, $content, $current_user );
 					if ( null !== $this->error ) {
 						return $job_data;
@@ -776,10 +793,20 @@ class WPML_TM_Xliff_Frontend extends WPML_TM_Xliff_Shared {
 	/**
 	 * Get user xliff version
 	 *
-	 * @return bool|string
+	 * @return string|false
 	 */
 	private function get_user_xliff_version() {
 
 		return $this->sitepress->get_setting( 'tm_xliff_version', false );
+	}
+
+	/**
+	 * Check if argument is a directory
+	 *
+	 * @param string $path
+	 * @return bool
+	 */
+	private function is_directory( $path ) {
+		return '/' === substr( $path, -1 );
 	}
 }

@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Draft — Pending review": [
             "Черновик — Ожидает проверки"
@@ -389,6 +388,10 @@
          ],
          "Synchronization with the Professional Translation service has failed": [
             "Синхронизация со службой профессионального перевода не удалась"
+         ],
+         "%d translation has been downloaded": [
+            "%d перевод загружен",
+            "%d перевода(-ов) загружено"
          ],
          "Batch sync finished successfully!": [
             "Синхронизация партии успешно завершена!"

@@ -92,7 +92,7 @@ class WC_Booking_Cart_Manager {
 	/**
 	 * Should validate booking product order for booking for checkout block.
 	 *
-	 * @since x.x.x
+	 * @since 1.15.76
 	 *
 	 * @param WP_Error $errors
 	 * @param WC_Cart  $cart
@@ -111,7 +111,7 @@ class WC_Booking_Cart_Manager {
 	/**
 	 * Should validate booking product order for booking for legacy checkout.
 	 *
-	 * @since x.x.x
+	 * @since 1.15.76
 	 *
 	 * @param WP_Error $errors
 	 * @param WC_Cart  $cart
@@ -128,7 +128,7 @@ class WC_Booking_Cart_Manager {
 	 * Booking availability validates without in-cart bookings.
 	 * This helps to reduce race condition: https://github.com/woocommerce/woocommerce-bookings/issues/3324
 	 *
-	 * @since x.x.x
+	 * @since 1.15.76
 	 *
 	 * @return void
 	 */

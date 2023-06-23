@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Preparing...": [
             "Förbereder..."
@@ -20,6 +19,15 @@
          ],
          "Cancel in-progress automatic jobs": [
             "Avbryt pågående automatiska jobb"
+         ],
+         "Domain name has been updated": [
+            "Domännamnet har uppdaterats"
+         ],
+         "Domain name update has been failed": [
+            "Uppdatering av domännamnet har misslyckats"
+         ],
+         "Update domain name in language switcher settings": [
+            "Uppdatera domännamnet i språkväxlarens inställningar"
          ],
          "Refresh license data to recognise license update": [
             "Uppdatera licensdata för att identifiera licensuppdatering"

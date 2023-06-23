@@ -13,7 +13,7 @@ class WPML_TM_REST_Jobs_Factory extends WPML_REST_Factory_Loader {
 			wpml_tm_get_jobs_repository( true, false, true ),
 			new WPML_TM_Rest_Jobs_Criteria_Parser(),
 			new WPML_TM_Rest_Jobs_View_Model(
-				WPML_TM_Rest_Jobs_Translation_Service::create(),
+				new WPML_TM_Rest_Jobs_Translation_Service(),
 				new WPML_TM_Rest_Jobs_Element_Info(
 					new WPML_TM_Rest_Jobs_Package_Helper_Factory()
 				),

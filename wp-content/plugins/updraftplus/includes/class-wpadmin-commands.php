@@ -208,23 +208,27 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 
 			// Check this backup set has a incremental_sets array e.g may have been created before this array was introduced
 			if (isset($backups[$timestamp]['incremental_sets'])) {
-				$incremental_sets = array_keys($backups[$timestamp]['incremental_sets']);
-				// Check if there are more than one timestamp in the incremental set
-				if (1 < count($incremental_sets)) {
-					$incremental_select_html = '<div class="notice updraft-restore-option"><label>'.__('This backup set contains incremental backups of your files; please select the time you wish to restore your files to', 'updraftplus').': </label>';
-					$incremental_select_html .= '<select name="updraft_incremental_restore_point" id="updraft_incremental_restore_point">';
-					$incremental_sets = array_reverse($incremental_sets);
-					$first_timestamp = $incremental_sets[0];
-					
-					foreach ($incremental_sets as $set_timestamp) {
-						$pretty_date = get_date_from_gmt(gmdate('Y-m-d H:i:s', (int) $set_timestamp), 'M d, Y G:i');
-						$esc_pretty_date = esc_attr($pretty_date);
-						$incremental_select_html .= '<option value="'.$set_timestamp.'" '.selected($set_timestamp, $first_timestamp, false).'>'.$esc_pretty_date.'</option>';
-					}
+				if (isset($elements['db']) && 1 === count($elements)) {
+					// Don't show the incremental dropdown if the user only selects 'database'
+				} else {
+					$incremental_sets = array_keys($backups[$timestamp]['incremental_sets']);
+					// Check if there are more than one timestamp in the incremental set
+					if (1 < count($incremental_sets)) {
+						$incremental_select_html = '<div class="notice updraft-restore-option"><label>'.__('This backup set contains incremental backups of your files; please select the time you wish to restore your files to', 'updraftplus').': </label>';
+						$incremental_select_html .= '<select name="updraft_incremental_restore_point" id="updraft_incremental_restore_point">';
+						$incremental_sets = array_reverse($incremental_sets);
+						$first_timestamp = $incremental_sets[0];
+						
+						foreach ($incremental_sets as $set_timestamp) {
+							$pretty_date = get_date_from_gmt(gmdate('Y-m-d H:i:s', (int) $set_timestamp), 'M d, Y G:i');
+							$esc_pretty_date = esc_attr($pretty_date);
+							$incremental_select_html .= '<option value="'.$set_timestamp.'" '.selected($set_timestamp, $first_timestamp, false).'>'.$esc_pretty_date.'</option>';
+						}
 
-					$incremental_select_html .= '</select>';
-					$incremental_select_html .= '</div>';
-					$info['addui'] = empty($info['addui']) ? $incremental_select_html : $info['addui'].'<br>'.$incremental_select_html;
+						$incremental_select_html .= '</select>';
+						$incremental_select_html .= '</div>';
+						$info['addui'] = empty($info['addui']) ? $incremental_select_html : $info['addui'].'<br>'.$incremental_select_html;
+					}
 				}
 			}
 

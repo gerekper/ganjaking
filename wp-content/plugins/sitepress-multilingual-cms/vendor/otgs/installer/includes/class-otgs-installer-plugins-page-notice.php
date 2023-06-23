@@ -69,6 +69,7 @@ class OTGS_Installer_Plugins_Page_Notice {
 	 * @return array
 	 */
 	private function get_model( $notice ) {
+		/** @var WP_Plugins_List_Table $wp_list_table */
 		$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
 
 		list( $tr_classes, $notice_classes ) = $this->get_classes();
@@ -136,6 +137,7 @@ class OTGS_Installer_Plugins_Page_Notice {
 	}
 
 	private function get_toolset_lite_notice_model( $plugin_name ) {
+		/** @var WP_Plugins_List_Table $wp_list_table */
 		$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
 
 		list( $tr_classes, $notice_classes ) = $this->get_classes();

@@ -1,62 +1,4 @@
 var otgs_wp_installer = {
-    elWpmlPluginsList: null,
-    elWpmlBtnShowPluginsList: null,
-    elWpmlInstallOnlyCore: null,
-    elWpmlInstallOnlyCoreBtnDownload: null,
-    elWpmlInstallDownloading: null,
-    elWpmlInstallError: null,
-    elWpmlDownloadQuery: null,
-
-    wpml_show_all_plugins: function() {
-        otgs_wp_installer.elWpmlPluginsList.style.display='block'
-        otgs_wp_installer.elWpmlBtnShowPluginsList.remove()
-        otgs_wp_installer.elWpmlInstallOnlyCore.remove()
-    },
-
-    wpml_core_install_and_start_setup: function() {
-        otgs_wp_installer.elWpmlPluginsList.remove()
-        otgs_wp_installer.elWpmlBtnShowPluginsList.remove()
-        otgs_wp_installer.elWpmlInstallOnlyCoreBtnDownload.remove();
-        otgs_wp_installer.elWpmlInstallDownloading.style.display='block'
-
-        jQuery.ajax(
-            {
-                url: ajaxurl,
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    action: 'installer_download_plugin',
-                    data: otgs_wp_installer.elWpmlDownloadQuery,
-                    wpml_core_install: 1
-                },
-                success: function( response ) {
-                    if( response.success ) {
-                        if( response.install ) {
-                            // The 'install' is only set after the plugin was downloaded but not activated.
-                            // Calling this same endpoint again will activate the plugin.
-                            otgs_wp_installer.wpml_core_install_and_start_setup();
-                        } else if( response.plugin_id && response.wpml_core_install ) {
-                            // Plugin is active.
-                            if( response.wpml_core_install.url ) {
-                                window.open( response.wpml_core_install.url, '_self' );
-                            } else if ( response.wpml_core_install.error ) {
-                                otgs_wp_installer.wpml_core_install_show_error( response.wpml_core_install.error )
-                            }
-                        }
-                    } else {
-                       otgs_wp_installer.wpml_core_install_show_error( response.message )
-                    }
-                }
-            }
-        );
-    },
-
-    wpml_core_install_show_error: function( msg ) {
-        otgs_wp_installer.elWpmlInstallDownloading.remove();
-        otgs_wp_installer.elWpmlInstallError.innerHTML = msg;
-        otgs_wp_installer.elWpmlInstallError.style.display='block'
-    },
-
     sanitize: function (s) {
         if (typeof s === 'string' || s instanceof String) {
             return s.replace(/<script[^>]*?>.*?<\/script>/gi, '').replace(/<[\/\!]*?[^<>]*?>/gi, '').replace(/<style[^>]*?>.*?<\/style>/gi, '').replace(/<![\s\S]*?--[ \t\n\r]*>/gi, '').replace(/&nbsp;/g, '');
@@ -68,15 +10,6 @@ var otgs_wp_installer = {
     plugins_update_XHR: {},
 
     init: function () {
-        if( document.getElementById('otgs-installer-wpml-only-install-core') ) {
-            otgs_wp_installer.elWpmlInstallOnlyCore = document.getElementById('otgs-installer-wpml-only-install-core')
-            otgs_wp_installer.elWpmlInstallOnlyCoreBtnDownload = document.getElementById('otgs-installer-wpml-only-button')
-            otgs_wp_installer.elWpmlDownloadQuery = document.querySelector('[data-slug="sitepress-multilingual-cms"]').value
-            otgs_wp_installer.elWpmlPluginsList = document.getElementById('otgs-installer-wpml-plugins')
-            otgs_wp_installer.elWpmlBtnShowPluginsList = document.getElementById('otgs-installer-wpml-plugins-show')
-            otgs_wp_installer.elWpmlInstallDownloading = document.getElementById('otgs-installer-wpml-only-downloading')
-            otgs_wp_installer.elWpmlInstallError = document.getElementById('otgs-installer-wpml-only-error')
-        }
 
         jQuery('.otgs_wp_installer_table').on('click', '.enter_site_key_js', otgs_wp_installer.show_site_key_form);
         jQuery('.otgs_wp_installer_table').on('click', '.cancel_site_key_js', otgs_wp_installer.hide_site_key_form);

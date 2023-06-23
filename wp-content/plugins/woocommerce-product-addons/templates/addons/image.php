@@ -2,11 +2,13 @@
 /**
  * The Template for displaying image swatches field.
  *
- * @version 6.3.0
+ * @version 6.4.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
  */
+
+global $product;
 
 $loop             = 0;
 $field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
@@ -79,7 +81,11 @@ foreach ( $addon['options'] as $i => $option ) {
 		$price_type = ! empty( $option['price_type'] ) ? $option['price_type'] : '';
 		$label      = ! empty( $option['label'] ) ? $option['label'] : '';
 
-		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
+		apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( true, $product ), '6.4.0', 'woocommerce_addons_add_product_price_to_value' );
+
+		$add_price_to_value = apply_filters( 'woocommerce_addons_add_product_price_to_value', true, $product );
+
+		$price_for_display = $add_price_to_value ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$option,

@@ -42,7 +42,7 @@ class MediaTranslationEditorLayout implements \IWPML_Action {
 					'fields'     => $media_field,
 				];
 
-				$image       = wp_get_attachment_image_src( $attachment_id, [ 100, 100 ] );
+				$image       = wp_get_attachment_image_src( (int) $attachment_id, [ 100, 100 ] );
 				$image_field = [
 					'field_type' => 'wcml-image',
 					'divider'    => $media_field !== end( $media_fields ),

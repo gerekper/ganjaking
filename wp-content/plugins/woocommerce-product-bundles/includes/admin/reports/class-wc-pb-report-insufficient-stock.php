@@ -20,7 +20,7 @@ if ( ! class_exists( 'WC_Report_Stock' ) ) {
  *
  * Handles reporting of bundles with an "Insufficient stock" status.
  *
- * @version  6.14.1
+ * @version  6.21.0
  */
 class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 
@@ -34,7 +34,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 	 * No items found text.
 	 */
 	public function no_items() {
-		_e( 'No products found with insufficient stock.', 'woocommerce-product-bundles' );
+		esc_html_e( 'No products found with insufficient stock.', 'woocommerce-product-bundles' );
 	}
 
 	/**
@@ -218,7 +218,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 				}
 			}
 
-			echo $title;
+			echo esc_html( $title );
 
 		} elseif ( 'bundle_title' === $column_name ) {
 
@@ -230,7 +230,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 
 		} elseif ( 'required_stock_level' === $column_name ) {
 
-			echo $item->bundled_item->get_quantity();
+			echo esc_html( $item->bundled_item->get_quantity() );
 
 		} else {
 			parent::column_default( $item, $column_name );

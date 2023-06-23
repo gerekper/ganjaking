@@ -41,6 +41,7 @@ class Initializer {
 			'data' => [
 				'endpoints'   => self::getEndPoints(),
 				'languages'   => self::getLanguagesData(),
+				/** @phpstan-ignore-next-line */
 				'translation' => self::getTranslationData( User::withEditLink() ),
 			]
 		];

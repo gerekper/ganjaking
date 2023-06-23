@@ -356,6 +356,8 @@ class WCML_Orders {
 			&& ! $order->get_meta( self::KEY_LANGUAGE )
 		) {
 			$order->add_meta_data( self::KEY_LANGUAGE, $this->sitepress->get_current_language(), true );
+
+			wp_cache_delete( $order->generate_meta_cache_key( $order->get_id(), 'orders' ), 'orders' );
 		}
 	}
 
@@ -476,7 +478,17 @@ class WCML_Orders {
 		}
 	}
 
+	/**
+	 * @param array                  $files
+	 * @param \WC_Order_Item_Product $item
+	 * @param \WC_Order|false        $object
+	 *
+	 * @return array
+	 */
 	public function filter_downloadable_product_items( $files, $item, $object ) {
+		if ( ! $object ) {
+			return $files;
+		}
 
 		$order_language = self::getLanguage( $object->get_id() );
 

@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Ocurrió un error al intentar pausar la Traducción automática. Inténtelo de nuevo más tarde o póngase en contacto con nuestro soporte."
@@ -90,9 +89,6 @@
          "How do you want to translate?": [
             "¿Cómo desea traducir?"
          ],
-         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
-            "Traduzca contenido de forma automática desde su idioma principal (%s) a otros idiomas. Use el selector de idioma ubicado en la parte superior de esta página para cambiar al %s."
-         ],
          "Assign to a translator": [
             "Asignar a un traductor"
          ],
@@ -101,6 +97,18 @@
          ],
          "You do not need translation credits to translate content yourself.": [
             "No necesita créditos para traducción para traducir contenido usted mismo."
+         ],
+         "You can only automatically translate content from your site's default language (English), to your site's other languages. Deselect content in your site's secondary languages to proceed.": [
+            "Solo puede traducir automáticamente el contenido del idioma predeterminado de su sitio (inglés) a los demás idiomas de su sitio. Anule la selección del contenido en los idiomas secundarios del sitio para continuar."
+         ],
+         "You can only automatically translate content from your primary language (%s) to other languages. Use the language switcher at the top of this page to switch to %s.": [
+            "Traduzca contenido de forma automática desde su idioma principal (%s) a otros idiomas. Use el selector de idioma ubicado en la parte superior de esta página para cambiar al %s."
+         ],
+         "Selected content includes items that were originally created in this language. Deselect these items to proceed.": [
+            "El contenido seleccionado incluye elementos que se crearon originalmente en este idioma. Anule la selección de estos elementos para continuar."
+         ],
+         "Add to Translation Queue": [
+            "Agregar a la Cola de traducción"
          ],
          "Select a post or page to translate": [
             "Seleccione una entrada o página para traducir"
@@ -113,6 +121,9 @@
          ],
          "Selected content is already translated": [
             "El contenido seleccionado ya está traducido"
+         ],
+         "Selected content includes items in a language other than your site's default language.": [
+            "El contenido seleccionado incluye elementos en un idioma que no es el idioma predeterminado del sitio."
          ],
          "Choose at least one translation action": [
             "Elija al menos una acción de traducción"
@@ -135,9 +146,6 @@
          "Add to Translation Basket": [
             "Agregar al pedido de traducción"
          ],
-         "Add to Translation Queue": [
-            "Agregar a la Cola de traducción"
-         ],
          "One more thing...": [
             "Una cosa más..."
          ],
@@ -159,11 +167,11 @@
          "Do nothing": [
             "No hacer nada"
          ],
-         "You need credits to use automatic translation.": [
-            "Necesita créditos para usar la traducción automática."
-         ],
          "To assign content to a translator, first <a href=\"%s\" target=\"_blank\">add a translator</a> or <a href=\"%s\" target=\"_blank\">connect to a translation service</a>.": [
             "Para asignar contenido a un traductor, primero debe <a href=\"%s\" target=\"_blank\">agregar un traductor</a> o <a href=\"%s\" target=\"_blank\">conectarse a un servicio de traducción</a>."
+         ],
+         "You need credits to use automatic translation.": [
+            "Necesita créditos para usar la traducción automática."
          ],
          "Translators Tab": [
             "Pestaña Traductores"

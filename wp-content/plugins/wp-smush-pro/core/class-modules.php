@@ -23,6 +23,7 @@ use Smush\Core\S3\S3_Controller;
 use Smush\Core\Smush\Smush_Controller;
 use Smush\Core\Stats\Global_Stats_Controller;
 use Smush\Core\Webp\Webp_Controller;
+use Smush\Core\Photon\Photon_Controller;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -159,7 +160,7 @@ class Modules {
 		$library_scanner = new Ajax_Media_Library_Scanner();
 		$library_scanner->init();
 
-		$background_lib_scanner = new Background_Media_Library_Scanner();
+		$background_lib_scanner = Background_Media_Library_Scanner::get_instance();
 		$background_lib_scanner->init();
 
 		$media_library_watcher = new Media_Library_Watcher();
@@ -182,6 +183,9 @@ class Modules {
 
 		$optimization_controller = new Optimization_Controller();
 		$optimization_controller->init();
+
+		$photon_controller = new Photon_Controller();
+		$photon_controller->init();
 	}
 
 }

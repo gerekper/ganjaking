@@ -12,8 +12,6 @@ class WC_MS_Cart {
 
         // duplicate cart POST
         add_action( 'template_redirect', array($this, 'duplicate_cart_post') );
-        add_action( 'wp_ajax_wc_duplicate_cart', array( $this, 'duplicate_cart_ajax' ) );
-        add_action( 'wp_ajax_nopriv_wc_duplicate_cart', array( $this, 'duplicate_cart_ajax' ) );
 
         add_action( 'woocommerce_cart_totals_after_shipping', array(&$this, 'remove_shipping_calculator') );
 
@@ -77,118 +75,6 @@ class WC_MS_Cart {
             wp_redirect( get_permalink( wc_get_page_id('multiple_addresses') ) );
             exit;
         }
-    }
-
-    public function duplicate_cart_ajax() {
-        $this->load_cart_files();
-
-        $checkout   = WC()->checkout;
-        $cart       = WC()->cart;
-        $user       = wp_get_current_user();
-
-        $shipFields = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
-        $address    = $_POST['address'];
-        $add_id     = ( isset($_POST['address_id']) && !empty($_POST['address_id']) ) ? $_POST['address_id'] : false;
-
-        $add = $this->duplicate_cart();
-
-        $addresses = $this->wcms->address_book->get_user_addresses( $user );
-
-        if ( $add_id !== false ) {
-            $address    = $addresses[$add_id];
-            $id         = $add_id;
-        } else {
-            $address    = $_POST['address'];
-            $id         = rand(100,1000);
-        }
-
-        foreach ( $address as $key => $value ) {
-            $new_key = str_replace( 'shipping_', '', $key);
-            $address[$new_key] = $value;
-        }
-
-        $formatted_address  = wcms_get_formatted_address( $address );
-        $json_address       = wp_json_encode( $address );
-
-        if ( $user->ID > 0 ) {
-            $vals = '';
-            foreach ($address as $key => $value) {
-                $vals .= $value;
-            }
-
-            $md5 = md5($vals);
-            $saved = false;
-
-            foreach ($addresses as $addr) {
-                $vals = '';
-                if( !is_array($addr) ) { continue; }
-                foreach ($addr as $key => $value) {
-                    $vals .= $value;
-                }
-                $addrMd5 = md5($vals);
-
-                if ($md5 == $addrMd5) {
-                    // duplicate address!
-                    $saved = true;
-                    break;
-                }
-            }
-
-            if (! $saved && ! $add_id ) {
-                // address is unique, save!
-                $id = count($addresses);
-                $addresses[] = $address;
-
-                $this->wcms->address_book->save_user_addresses( $user->ID, $addresses );
-            }
-        }
-
-        $html = '
-            <div class="account-address">
-                <address>'. $formatted_address .'</address>
-                <div style="display: none;">';
-
-        ob_start();
-        foreach ($shipFields as $key => $field) {
-            $val = ( isset( $address[ $key ] ) ) ? $address[ $key ] : '';
-            $key .= '_' . $id;
-
-            woocommerce_form_field( $key, $field, $val );
-        }
-
-        do_action( 'woocommerce_after_checkout_shipping_form', $checkout);
-        $html .= ob_get_clean();
-
-        $html .= '
-                    <input type="hidden" name="addresses[]" value="'. $id .'" />
-                    <textarea style="display:none;">'. $json_address .'</textarea>
-                </div>
-
-                <ul class="items-column" id="items_column_'. $id .'">';
-
-        foreach ( $add as $product ) {
-            $html .= '
-                <li data-product-id="'. $product['id'] .'" data-key="'. $product['key'] .'" class="address-item address-item-'. $product['id'] .' address-item-key-'. $product['key'] .'">
-                    <span class="qty">'. $product['qty'] .'</span>
-                    <h3 class="title">'. apply_filters( 'wcms_product_title', get_the_title($product['id']), $product ) .'</h3>
-                    '. WC_MS_Compatibility::get_item_data( $product['content'] );
-
-            for ($item_qty = 0; $item_qty < $product['qty']; $item_qty++):
-                $html .= '<input type="hidden" name="items_'. $id.'[]" value="'. $product['key'] .'">';
-            endfor;
-
-            $html .= '<a class="remove" href="#"><img style="width: 16px; height: 16px;" src="'. plugins_url('images/delete.png', self::FILE) .'" class="remove" title="'. __('Remove', 'wc_shipping_multiple_address') .'"></a>
-                </li>';
-
-        }
-
-        $html .= '    </ul>
-            </div>
-            ';
-
-        $return = wp_json_encode( array( 'ack' => 'OK', 'id' => $id, 'html' => $html ) );
-        die($return);
-        exit;
     }
 
 	/**

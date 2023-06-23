@@ -7,16 +7,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		'.smush-dismissible-notice .smush-dismiss-notice-button'
 	);
 	dismissNoticeButton.forEach((button) => {
-		button.addEventListener('click', dismissNotice);
+		button.addEventListener('click', handleDismissNotice);
 	});
 
-	function dismissNotice(event) {
+	function handleDismissNotice(event) {
 		event.preventDefault();
 
 		const button = event.target;
 		const notice = button.closest('.smush-dismissible-notice');
 		const key = notice.getAttribute('data-key');
 
+		dismissNotice( key, notice );
+	}
+
+	function dismissNotice( key, notice ) {
 		const xhr = new XMLHttpRequest();
 		xhr.open(
 			'POST',
@@ -34,4 +38,46 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 		xhr.send();
 	}
+
+
+	// Show header notices.
+	const handleHeaderNotice = () => {
+		const headerNotice = document.querySelector('.wp-smush-dismissible-header-notice');
+		if ( ! headerNotice || ! headerNotice.id ) {
+			return;
+		}
+
+		const { dismissKey, message } = headerNotice.dataset;
+		if ( ! dismissKey || ! message ) {
+			return;
+		}
+
+		headerNotice.onclick = (e) => {
+			const classList = e.target.classList;
+			const isDismissButton = classList && ( classList.contains('sui-icon-check') || classList.contains('sui-button-icon') );
+			if ( ! isDismissButton ) {
+				return;
+			}
+			dismissNotice( dismissKey );
+		}
+
+		const noticeOptions = {
+			type: 'warning',
+			icon: 'info',
+			dismiss: {
+				show: true,
+				label: wp_smush_msgs.noticeDismiss,
+				tooltip: wp_smush_msgs.noticeDismissTooltip,
+			},
+		};
+
+		window.SUI.openNotice(
+			headerNotice.id,
+			message,
+			noticeOptions
+		);
+	}
+
+	handleHeaderNotice();
+	
 });

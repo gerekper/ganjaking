@@ -6,9 +6,7 @@
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( $product->is_in_stock() ) {
 
@@ -23,8 +21,7 @@ if ( $product->is_in_stock() ) {
 	do_action( 'wcopc_after_add_to_cart_button', $product );
 
 } else {
-	
+
 	wc_get_template( 'checkout/add-to-cart/availability.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );
 
-} ?>
-
+}

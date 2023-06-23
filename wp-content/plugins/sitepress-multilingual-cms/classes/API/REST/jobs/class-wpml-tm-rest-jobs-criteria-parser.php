@@ -67,7 +67,7 @@ class WPML_TM_Rest_Jobs_Criteria_Parser {
 			}
 		}
 
-		foreach ( [ 'local_job_ids', 'title', 'target_language', 'batch_name' ] as $key ) {
+		foreach ( [ 'ids', 'local_job_ids', 'title', 'target_language', 'batch_name' ] as $key ) {
 			$value = (string) $request->get_param( $key );
 			if ( strlen( $value ) ) {
 				$params->{'set_' . $key}( explode( ',', $value ) );
@@ -103,8 +103,8 @@ class WPML_TM_Rest_Jobs_Criteria_Parser {
 			$to   = $request->get_param( $date_range_value . '_to' );
 
 			if ( $from || $to ) {
-				$from = $from ? new DateTime( $from ) : $from;
-				$to   = $to ? new DateTime( $to ) : $to;
+				$from = $from ? new DateTime( $from ) : null;
+				$to   = $to ? new DateTime( $to ) : null;
 
 				if ( $from && $to && $from > $to ) {
 					continue;

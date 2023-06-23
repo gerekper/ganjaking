@@ -76,6 +76,8 @@ class Str {
 		self::macro( 'tail', self::sub( 1 ) );
 
 		self::macro( 'pos', curryN( 2, function( $needle, $haystack ) {
+			$haystack = ( is_null( $haystack ) ) ? '' : $haystack;
+
 			if ( function_exists( 'mb_strpos' ) ) {
 				return mb_strpos( $haystack, $needle );
 			}

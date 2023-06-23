@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    5.7.9
+ * @version  6.21.0
  */
 
 // Exit if accessed directly.
@@ -27,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( version_compare( $debug_data[ 'db_version' ], WC_PB()->plugin_version( true ), '==' ) ) {
 					echo '<mark class="yes">' . esc_html( $debug_data[ 'db_version' ] ) . '</mark>';
 				} else {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html( $debug_data[ 'db_version' ] ) . ' - ' . __( 'Database version mismatch.', 'woocommerce-product-bundles' ) . '</mark>';
+					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html( $debug_data[ 'db_version' ] ) . ' - ' . esc_html__( 'Database version mismatch.', 'woocommerce-product-bundles' ) . '</mark>';
 				}
 			?>
 			</td>
@@ -43,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  				} elseif ( '' === $debug_data[ 'loopback_test_result' ] ) {
  					echo '<mark class="no">&ndash;</mark>';
  				} else {
- 					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . __( 'Loopback test failed.', 'woocommerce-product-bundles' ) . '</mark>';
+ 					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Loopback test failed.', 'woocommerce-product-bundles' ) . '</mark>';
  				}
  			?>
  			</td>

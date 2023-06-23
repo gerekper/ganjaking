@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Draft — Pending review": [
             "טיוטה - ממתינה לבדיקה"
@@ -389,6 +388,10 @@
          ],
          "Synchronization with the Professional Translation service has failed": [
             "הזנכרון עם השירות 'תרגום מקצועי' נכשל"
+         ],
+         "%d translation has been downloaded": [
+            "בוצעה הורדה של תרגום %d",
+            "בוצעה הורדה של %d תרגומים"
          ],
          "Batch sync finished successfully!": [
             "אצוות סנכרון הסתיימה בהךלחה!"

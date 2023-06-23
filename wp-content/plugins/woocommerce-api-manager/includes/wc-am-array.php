@@ -100,7 +100,7 @@ class WC_AM_Array {
 
 		foreach ( $array2 as $key => &$value ) {
 			if ( is_array( $value ) && isset( $merged [ $key ] ) && is_array( $merged [ $key ] ) ) {
-				$merged [ $key ] = array_merge_recursive_distinct( $merged [ $key ], $value );
+				$merged [ $key ] = $this->array_merge_recursive_distinct( $merged [ $key ], $value );
 			} else {
 				$merged [ $key ] = $value;
 			}

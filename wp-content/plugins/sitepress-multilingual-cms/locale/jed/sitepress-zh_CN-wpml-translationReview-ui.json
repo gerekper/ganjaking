@@ -4,7 +4,7 @@
       "messages": {
          "": {
             "domain": "messages",
-            "lang": "en"
+            "lang": "no"
          },
          "Accepted": [
             "已接受"
@@ -20,6 +20,9 @@
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
             "关闭此选项可在完成此审阅后不自动加载下一个翻译。"
+         ],
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "开启可在完成后自动加载下一个翻译。"
          ],
          "Edit": [
             "编辑"

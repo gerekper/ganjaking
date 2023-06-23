@@ -2,6 +2,7 @@
 namespace WPML\ATE\Proxies;
 
 use WPML\API\Sanitize;
+use WPML\LIB\WP\User;
 
 class Widget implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 	const QUERY_VAR_ATE_WIDGET_SCRIPT = 'wpml-app';
@@ -28,9 +29,7 @@ class Widget implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 	 * @return string|void
 	 */
 	public function get_script() {
-		if (
-			! current_user_can( \WPML_Manage_Translations_Role::CAPABILITY ) &&
-			! current_user_can( 'manage_options' ) ) {
+		if ( ! User::canManageTranslations() ) {
 			return false;
 		}
 

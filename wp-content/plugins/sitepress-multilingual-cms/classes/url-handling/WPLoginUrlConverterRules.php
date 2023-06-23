@@ -11,9 +11,24 @@ class WPLoginUrlConverterRules implements \IWPML_Action {
 	const MARKED_FOR_UPDATE = true;
 	const UNMARKED = false;
 
+	const SKIP_SAVING_LANG_IN_COOKIES_KEY = 'skip_saving_language_cookie';
+
 	const UPDATE_RULES_KEY = 'wpml_login_page_translation_update_rules';
 
 	public function add_hooks() {
+		/**
+		 * Filter hook that checks existence of skip_saving_language_cookie key in $_GET and whether its value is 'true'.
+		 * According to that we make decision to save language code in cookies or not
+		 */
+		add_filter( 'wpml_should_skip_saving_language_in_cookies', function ( $forceSkipSavingLangInCookies ) {
+			if ( $forceSkipSavingLangInCookies ) {
+				return true;
+			}
+
+			return isset( $_GET[ WPLoginUrlConverterRules::SKIP_SAVING_LANG_IN_COOKIES_KEY ] )
+			       && $_GET[ WPLoginUrlConverterRules::SKIP_SAVING_LANG_IN_COOKIES_KEY ] === 'true';
+		} );
+		
 		if ( Option::getOr( self::UPDATE_RULES_KEY, self::UNMARKED ) ) {
 			add_filter( 'init', [ self::class, 'update' ] );
 		}
@@ -57,9 +72,18 @@ class WPLoginUrlConverterRules implements \IWPML_Action {
 
 		/** @var \WPML_URL_Converter $urlConverter */
 		$urlConverter = make( \WPML_URL_Converter::class );
-		$newUrl = $urlConverter->convert_url( wp_login_url(), $translationLangs[0] );
+		$newUrl       = $urlConverter->convert_url( wp_login_url(), $translationLangs[0] );
 
-		$loginResponseCode = wp_remote_retrieve_response_code( wp_remote_get( $newUrl ) );
+		/**
+		 * We pass SKIP_SAVING_LANG_IN_COOKIES_KEY to avoid saving the language code in $sitepress and cookies in this case
+		 * @see https://onthegosystems.myjetbrains.com/youtrack/issue/wpmldev-1544
+		 */
+		$loginResponseCode = wp_remote_retrieve_response_code( wp_remote_get( $newUrl, [
+			'body' => [
+				self::SKIP_SAVING_LANG_IN_COOKIES_KEY => 'true'
+			]
+		] ) );
+
 		if ( 200 !== $loginResponseCode ) {
 			WPLoginUrlConverter::disable();
 		}

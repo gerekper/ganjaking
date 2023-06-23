@@ -127,6 +127,13 @@ class Option {
 		self::setTranslateEverythingCompleted( $completed );
 	}
 
+	public static function removePostTypeFromCompleted( $postType ) {
+		$completed = self::getTranslateEverythingCompleted();
+		unset( $completed[ $postType ] );
+
+		self::setTranslateEverythingCompleted( $completed );
+	}
+
 	public static function removeLanguageFromCompleted( $language ) {
 		$removeLanguage = Fns::map( Fns::reject( Relation::equals( $language ) ) );
 

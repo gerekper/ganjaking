@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.4.1
+ * @version     2.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -365,7 +365,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		}
 
 		/**
-		 * Funtion to register the coupon importer
+		 * Function to register the coupon importer
 		 */
 		public function woocommerce_coupon_admin_init() {
 
@@ -474,7 +474,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		}
 
 		/**
-		 * Funtion to perform importing of coupon from csv file
+		 * Function to perform importing of coupon from csv file
 		 */
 		public function coupon_importer() {
 

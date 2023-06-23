@@ -1,5 +1,23 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.06.13 - version 2.4.6
+* Update: Tested up to WooCommerce 7.7.0.
+* Fix: Use `registerCheckoutFilters` graduated filter in Blocks plugin.
+* Fix: Use WC_MNM_Helpers:get_supported_product_types() to define excluded product types automatically in metabox product selector.
+* Fix: Allow input quantity to decrease if the container is overfill for any reason.
+* Fix: Update single-product/mnm/mnm-product-quantity.php template to remove errant </span> markup.
+* Fix: Legacy meta class fatal error when trying to read Pre-1.10 data.
+* Fix: Hide child item's stock remaining when parent is out of stock. #499.
+* Dev: Rename `wc_mnm_supported_products` filter to `wc_mnm_supported_product_types`
+
+2023.04.24 - version 2.4.5
+* Fix: Compatibility with Astra theme's quick view feature.
+* Dev: Move conditional logic for customizer settings to their respective callback functions for broader compatibility.
+
+2023.04.24 - version 2.4.4
+* New: Add `wc_mnm_child_item_rest_response` filter to customize REST response of child items.
+* Fix: Change front end script event listeners to catch pure Javascript events on the quantity inputs.
+
 2023.03.02 - version 2.4.3
 * Fix: Vertical alignment of quantity inputs in grid mode (for most themes).
 * Fix: Tweak WoodMart theme module to support different column numbers.

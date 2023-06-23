@@ -435,8 +435,11 @@ class WPML_TM_Xliff_Writer {
 	 */
 	private function generate_xliff_file( $xliff_content ) {
 		$file = fopen( 'php://temp', 'rb+' );
-		fwrite( $file, $xliff_content );
-		rewind( $file );
+
+		if ( $file ) {
+			fwrite( $file, $xliff_content );
+			rewind( $file );
+		}
 
 		return $file;
 	}

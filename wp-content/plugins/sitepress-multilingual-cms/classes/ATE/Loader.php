@@ -121,7 +121,7 @@ class Loader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 				'urls'                        => self::getUrls( $ateTab ),
 				'jobIdPlaceHolder'            => self::JOB_ID_PLACEHOLDER,
 				'languages'                   => $isAteActive ? $getLanguages() : [],
-				'isTranslationManager'        => User::getCurrent()->has_cap( \WPML_Manage_Translations_Role::CAPABILITY ),
+				'isTranslationManager'        => User::canManageTranslations(),
 
 				'jobsToSync'                  => $jobsToSync,
 				'anyJobsExist'                => $anyJobsExist,
@@ -150,7 +150,7 @@ class Loader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	 * @return string
 	 */
 	public static function getNotEnoughCreditPopup() {
-		$isTranslationManager = User::getCurrent()->has_cap( \WPML_Manage_Translations_Role::CAPABILITY );
+		$isTranslationManager = User::canManageTranslations();
 
 		$content = $isTranslationManager
 			? __(
@@ -193,7 +193,7 @@ class Loader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	}
 
 	private static function getAteData( $ateJobIds ) {
-		if ( User::getCurrent()->has_cap( \WPML_Manage_Translations_Role::CAPABILITY ) ) {
+		if ( User::canManageTranslations() ) {
 			/** @var NoCreditPopup $noCreditPopup */
 			$noCreditPopup = make( NoCreditPopup::class );
 

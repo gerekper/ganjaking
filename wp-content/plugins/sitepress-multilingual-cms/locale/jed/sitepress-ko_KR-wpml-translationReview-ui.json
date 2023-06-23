@@ -3,8 +3,7 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages",
-            "lang": "en"
+            "domain": "messages"
          },
          "Accepted": [
             "승인됨"
@@ -20,6 +19,9 @@
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
             "이 검토를 마친 후에 다음 번역을 자동으로 로드하지 않도록 끕니다."
+         ],
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "이 작업을 마친 후 다음 번역을 자동으로 로드하려면 활성화합니다."
          ],
          "Edit": [
             "편집"

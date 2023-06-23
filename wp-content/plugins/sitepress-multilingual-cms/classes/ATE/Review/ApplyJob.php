@@ -61,12 +61,15 @@ class ApplyJob implements \IWPML_Backend_Action, \IWPML_REST_Action, \IWPML_AJAX
 			Obj::prop( 'post_modified' )
 		] );
 
+		/** @var callable $isNotNull */
+		$isNotNull = Logic::isNotNull();
+
 		$setPostStatus = pipe(
 			Maybe::of(),
 			Fns::filter( $isHoldToReviewMode ),
 			Fns::filter( $shouldTranslationBeReviewed ),
 			Fns::map( Post::get() ),
-			Fns::filter( Logic::isNotNull() ),
+			Fns::filter( $isNotNull ),
 			Fns::filter( $isPostNewlyCreated ),
 			Fns::map( Obj::prop( 'ID' ) ),
 			Fns::map( Post::setStatus( Fns::__, 'draft' ) )

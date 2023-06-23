@@ -25,7 +25,7 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 		require_once WPML_ST_PATH . '/inc/potx.php';
 
 		foreach ( $_POST['files'] as $file ) {
-			$file = Sanitize::string( $file );
+			$file = (string) Sanitize::string( $file );
 			if ( $this->file_hashing->hash_changed( $file ) ) {
 				_potx_process_file( $file, 0, array( $this, 'store_results' ), '_potx_save_version', $this->get_default_domain() );
 				$this->add_scanned_file( $file );

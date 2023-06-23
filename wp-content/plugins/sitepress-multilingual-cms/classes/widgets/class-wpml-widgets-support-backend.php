@@ -64,7 +64,7 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 		 *
 		 * @since 4.5.3
 		 *
-		 * @param bool If display should be disabled (default: false)
+		 * @param bool $is_disabled If display should be disabled (default: false)
 		 */
 		if ( apply_filters( 'wpml_widget_language_selector_disable', false ) ) {
 			return;

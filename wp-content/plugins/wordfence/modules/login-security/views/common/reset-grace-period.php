@@ -4,17 +4,17 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 if (!isset($defaultGracePeriod))
 	$defaultGracePeriod = \WordfenceLS\Controller_Settings::shared()->get_user_2fa_grace_period();
 $defaultGracePeriod = max($defaultGracePeriod, 1);
-$errorMessage = $gracePeriod === null ? __('Unable to Activate Grace Period', 'wordfence-2fa') : __('Unable to Reset Grace Period', 'wordfence-2fa');
+$errorMessage = $gracePeriod === null ? __('Unable to Activate Grace Period', 'wordfence') : __('Unable to Reset Grace Period', 'wordfence');
 ?>
 <div class="wfls-add-top wfls-add-bottom wfls-grace-period-container">
 	<div class="wfls-grace-period-input-container">
-		<label for="wfls-user-grace-period-override" style="display: none"><?php esc_html_e('Grace Period Override', 'wordfence-2fa') ?></label>
+		<label for="wfls-user-grace-period-override" style="display: none"><?php esc_html_e('Grace Period Override', 'wordfence') ?></label>
 		<input type="text" id="wfls-user-grace-period-override" maxlength="2" pattern="[0-9]+" value="<?php echo (int) $defaultGracePeriod ?>">
-		<label for="wfls-user-grace-period-override"><?php esc_html_e('days', 'wordfence-2fa') ?></label>
+		<label for="wfls-user-grace-period-override"><?php esc_html_e('days', 'wordfence') ?></label>
 	</div>
 	<div class="wfls-grace-period-button-container">
 		<button class="wfls-btn wfls-btn-default" id="wfls-reset-grace-period">
-			<?php echo $gracePeriod === null ? esc_html__('Activate Grace Period', 'wordfence-2fa') : esc_html__('Reset Grace Period', 'wordfence-2fa') ?>
+			<?php echo $gracePeriod === null ? esc_html__('Activate Grace Period', 'wordfence') : esc_html__('Reset Grace Period', 'wordfence') ?>
 		</button>
 
 	</div>
@@ -45,7 +45,7 @@ $errorMessage = $gracePeriod === null ? __('Unable to Activate Grace Period', 'w
 					WFLS.panelModal(
 						(WFLS.screenSize(500) ? '300px' : '400px'),
 						<?php echo json_encode($errorMessage) ?>,
-						<?php echo json_encode($gracePeriod === null ? __('An unexpected error occurred while attempting to activate the grace period.', 'wordfence-2fa') : __('An unexpected error occurred while attempting to reset the grace period.', 'wordfence-2fa')) ?>
+						<?php echo json_encode($gracePeriod === null ? __('An unexpected error occurred while attempting to activate the grace period.', 'wordfence') : __('An unexpected error occurred while attempting to reset the grace period.', 'wordfence')) ?>
 					);
 				}
 				else {

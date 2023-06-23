@@ -392,9 +392,9 @@ abstract class WPML_Translation_Job extends WPML_Translation_Job_Helper {
 	protected function generate_lang_text() {
 		$this->maybe_load_basic_data();
 
-		return $this->lang_code_to_name( $this->get_source_language_code() )
+		return $this->lang_code_to_name( (string) $this->get_source_language_code() )
 			   . html_entity_decode( ' &raquo; ' )
-			   . $this->lang_code_to_name( $this->get_language_code() );
+			   . $this->lang_code_to_name( (string) $this->get_language_code() );
 	}
 
 	/**

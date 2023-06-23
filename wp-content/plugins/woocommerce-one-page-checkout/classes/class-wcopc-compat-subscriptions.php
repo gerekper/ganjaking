@@ -1,14 +1,12 @@
 <?php
 /**
- * @package		WooCommerce One Page Checkout
- * @subpackage	Subscriptions Extension Compatibility
- * @category	Template Class
+ * @package     WooCommerce One Page Checkout
+ * @subpackage  Subscriptions Extension Compatibility
+ * @category    Template Class
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class to hold subscriptions compat functionality until merge with the main extension for dev purposes
@@ -51,6 +49,7 @@ class WCOPC_Compat_Subscriptions {
 				'item'                => absint( $_GET['item'] ),
 				'_wcsnonce'           => isset( $_GET['_wcsnonce'] ) ? sanitize_text_field( $_GET['_wcsnonce'] ) : '',
 			);
+
 			$wcopc_script_data['ajax_url'] = esc_url_raw( add_query_arg( $switch_args, $wcopc_script_data['ajax_url'] ) );
 		}
 		// PHPCS:Enable

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa
+class ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -163,6 +163,7 @@ class ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-taxonomy-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Crawl_Settings_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/crawl-settings-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-column-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Filter_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-filter-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-taxonomy-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Integrations_Page' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/integrations-page.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/keyword-integration.php',
@@ -229,9 +230,9 @@ class ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7ed2e037463a3dda3d1e4f1507cec9fa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559::$classMap;
 
         }, null, ClassLoader::class);
     }

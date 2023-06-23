@@ -102,7 +102,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 	public function delete_post_actions( $post_id, $keep_db_entries = false ) {
 		$post_type            = get_post_type( $post_id );
 		$post_type_exceptions = array( 'nav_menu_item' );
-		if ( in_array( $post_type, $post_type_exceptions ) ) {
+		if ( ! $post_type || in_array( $post_type, $post_type_exceptions ) ) {
 			return;
 		}
 
@@ -266,7 +266,8 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 				}
 				$data[ 'post_status' ] = $post_status;
 				$wpdb->update ( $wpdb->posts, $data, array( 'ID' => $translated_pid ) );
-				wp_schedule_single_event( strtotime( $post_date_gmt . '+1 second' ), 'publish_future_post', array( $translated_pid ) );
+				$time = strtotime( $post_date_gmt . '+1 second' );
+				$time && wp_schedule_single_event( $time, 'publish_future_post', array( $translated_pid ) );
 			}
 			if ( $post_password !== null ) {
 				$wpdb->update ( $wpdb->posts, array( 'post_password' => $post_password ), array( 'ID' => $translated_pid ) );
@@ -289,7 +290,8 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 			}
 			$this->sync_with_translations ( $translated_pid );
 		}
-		$this->maybe_fix_translated_parent( get_post_type( $post_id ) );
+		$post_type = get_post_type( $post_id );
+		$post_type && $this->maybe_fix_translated_parent( $post_type );
 
 		if ( $menu_order !== null && (bool) $translated_ids !== false ) {
 			$query = $wpdb->prepare(

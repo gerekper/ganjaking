@@ -94,7 +94,7 @@ class WC_AM_URL {
 	 * @see   https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
 	 *
 	 * URL changes:
-	 * @see https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
+	 * @see   https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
 	 *
 	 * @since 2.1
 	 *
@@ -235,9 +235,7 @@ class WC_AM_URL {
 	 * @return string
 	 */
 	public function nonce_url( $args ) {
-		$action_url = wp_nonce_url( esc_url_raw( add_query_arg( $args ) ) );
-
-		return $action_url;
+		return wp_nonce_url( esc_url_raw( add_query_arg( $args ) ) );
 	}
 
 	/**
@@ -394,6 +392,53 @@ class WC_AM_URL {
 	 */
 	public function is_home() {
 		return is_front_page();
+	}
+
+	/**
+	 * Generate the renewal URL.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $api_resource_id
+	 * @param string $product_id
+	 * @param string $item_quantity
+	 *
+	 * @return string
+	 */
+	public function api_resource_renewal_url_my_account( $api_resource_id, $product_id, $item_quantity ) {
+		$args = array(
+			'renew_api_resource'            => 1,
+			'wc_am_is_renewed_api_resource' => 'yes',
+			'api_resource_id'               => $api_resource_id,
+			'product_id'                    => $product_id,
+			'item_quantity'                 => $item_quantity
+		);
+
+		return wp_nonce_url( add_query_arg( $args, home_url( '/' ) ), 'renew_api_resource' );
+	}
+
+	/**
+	 * Generate the renewal URL.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $api_resource_id
+	 * @param string $product_id
+	 *
+	 * @return string
+	 */
+	public function delete_api_key_activation_my_account( $instance, $order_id, $sub_parent_id, $api_key, $product_id, $user_id ) {
+		$args = array(
+			'wcam_delete_activation' => 1,
+			'instance'               => $instance,
+			'order_id'               => $order_id,
+			'sub_parent_id'          => $sub_parent_id,
+			'api_key'                => $api_key,
+			'product_id'             => $product_id,
+			'user_id'                => $user_id
+		);
+
+		return wp_nonce_url( add_query_arg( $args, home_url( '/' ) ), 'wcam_delete_activation' );
 	}
 
 }

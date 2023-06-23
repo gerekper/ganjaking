@@ -30,7 +30,22 @@ class Background_Media_Library_Scanner extends Controller {
 	 */
 	private $global_stats;
 
-	public function __construct() {
+	/**
+	 * Static instance
+	 *
+	 * @var self
+	 */
+	private static $instance;
+
+	public static function get_instance() {
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	private function __construct() {
 		$this->scanner            = new Media_Library_Scanner();
 		$this->logger             = Helper::logger();
 		$this->global_stats       = Global_Stats::get();
@@ -178,5 +193,9 @@ class Background_Media_Library_Scanner extends Controller {
 		}
 
 		return $status;
+	}
+
+	public function get_background_process() {
+		return $this->background_process;
 	}
 }

@@ -109,6 +109,42 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 	private $sftp_began_at;
 
 	/**
+	 * Class constructor
+	 */
+	public function __construct() {
+		add_filter('updraftplus_settings_validation_errors_before_save', array($this, 'settings_validation_errors_before_save'), 10, 2);
+	}
+
+	/**
+	 * Filter to check if submitted SFTP key is valid
+	 * Called by UpdraftPlus_Admin save_settings
+	 *
+	 * @param  Array $error_messages
+	 * @param  Array $settings       Settings that are going to be saved
+	 *
+	 * @return Array $error_messages
+	 */
+	public function settings_validation_errors_before_save($error_messages, $settings) {
+		global $updraftplus;
+
+		foreach ($settings as $key => $value) {
+			if ('updraft_sftp' !== $key) continue;
+
+			foreach ($value['settings'] as $sftp_setting) {
+				if (!empty($sftp_setting['key'])) {
+					$is_valid_key = $this->validate_key($sftp_setting['key'], true);
+
+					if (is_wp_error($is_valid_key)) {
+						$error_messages[] = sprintf('<strong>%s: %s</strong>: %s', $updraftplus->backup_methods[$this->get_id()], $sftp_setting['instance_label'], $is_valid_key->get_error_message());
+					}
+				}
+			}
+		}
+
+		return $error_messages;
+	}
+
+	/**
 	 * Set up the connection, change directory to the configured directory, and return a connection object
 	 *
 	 * @return WP_Error|Net_SSH2|Net_SCP
@@ -424,18 +460,12 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 		$this->ssh = new $connection_class($host, $port, $timeout);
 
 		if (!empty($key)) {
-			$updraftplus->ensure_phpseclib('Crypt_RSA');
-			$updraftplus->ensure_phpseclib('Math_BigInteger');
-			$rsa = new Crypt_RSA();
-			if (false === $rsa->loadKey($key)) {
-				if (preg_match('/Encryption: (.+)/i', $key, $matches)) {
-					$encryption = trim($matches[1]);
-					if ('none' !== $encryption) return new WP_Error('no_key_passphrase', __("The key provided is encrypted. You need to provide the unencrypted key (see: https://updraftplus.com/faqs/why-must-i-use-a-non-encrypted-sftp-key/).", 'updraftplus'));
-				}
-				if (empty($pass)) return new WP_Error('no_load_key', __('The key provided was not in a valid format, or was corrupt.', 'updraftplus'));
-			} else {
-				$pass = $rsa;
-			}
+			$is_valid_key = $this->validate_key($key, false);
+
+			if (is_wp_error($is_valid_key)) return $is_valid_key;
+			if (false === $is_valid_key && empty($pass)) return new WP_Error('no_load_key', __('The key provided was not in a valid format, or was corrupt.', 'updraftplus'));
+			
+			$pass = $is_valid_key;
 		}
 
 		// See: https://github.com/phpseclib/phpseclib/issues/1271#issuecomment-390417276 . Default is 10s.
@@ -561,7 +591,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 			<tr class="{{get_template_css_classes true}}">
 				<th>{{input_key_label}}:</th>
 				<td>
-					<textarea title="{{input_key_title}}" class="updraft_input--wide udc-wd-600" rows="4" data-updraft_settings_test="key" id="{{get_template_input_attribute_value "id" "key"}}" name="{{get_template_input_attribute_value "name" "key"}}">{{key}}</textarea>
+					<textarea title="{{input_key_title}}" class="updraft_input--code udc-wd-600" rows="4" data-updraft_settings_test="key" id="{{get_template_input_attribute_value "id" "key"}}" name="{{get_template_input_attribute_value "name" "key"}}">{{key}}</textarea>
 					<br><em>{{input_key_title}}</em>
 				</td>
 			</tr>
@@ -782,6 +812,40 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Function to check if the SFTP key is valid or not
+	 *
+	 * @param String  $key            - The SFTP key to check
+	 * @param Boolean $return_boolean - Whether to return the success result as boolean or CryptRSA
+	 *
+	 * @return WP_Error|Crypt_RSA|Boolean
+	 */
+	private function validate_key($key, $return_boolean) {
+		global $updraftplus;
+
+		// Load required library to validate the key
+		$updraftplus->ensure_phpseclib('Crypt_RSA');
+		$updraftplus->ensure_phpseclib('Math_BigInteger');
+
+		$rsa = new Crypt_RSA();
+
+		try {
+			if (false === $rsa->loadKey($key)) {
+				if (preg_match('/Encryption: (.+)/i', $key, $matches)) {
+					$encryption = trim($matches[1]);
+					if ('none' !== $encryption) return new WP_Error('no_key_passphrase', __("The key provided is encrypted. You need to provide the unencrypted key (see: https://updraftplus.com/faqs/why-must-i-use-a-non-encrypted-sftp-key/).", 'updraftplus'));
+				}
+			}
+		} catch (Exception $e) {
+			return new WP_Error('no_load_key', __('The key provided was not in a valid format, or was corrupt.', 'updraftplus'));
+		} catch (Error $e) { // phpcs:ignore PHPCompatibility.Classes.NewClasses.errorFound -- The Error class does not exist in PHP below 5.6.
+			return new WP_Error('no_load_key', __('The key provided was not in a valid format, or was corrupt.', 'updraftplus'));
+		}
+
+		if ($return_boolean) return true;
+		return $rsa;
 	}
 
 	/**

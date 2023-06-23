@@ -15,7 +15,6 @@ class WC_MS_Checkout {
         add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'free_shipping_is_available_for_package' ), 10, 3 );
 
         add_filter( 'woocommerce_package_rates', array($this, 'remove_multishipping_from_methods'), 10, 2 );
-        add_action( 'woocommerce_before_checkout_shipping_form', array( $this, 'before_shipping_form' ) );
         add_action( 'woocommerce_before_checkout_shipping_form', array( $this, 'display_set_addresses_button' ), 5 );
         add_action( 'woocommerce_before_checkout_shipping_form', array( $this, 'render_user_addresses_dropdown' ) );
         add_action( 'wp_ajax_wcms_ajax_save_billing_fields', array( $this, 'save_billing_fields' ) );
@@ -155,111 +154,6 @@ class WC_MS_Checkout {
         return $rates;
     }
 
-    function before_shipping_form($checkout = null) {
-
-        if ( !$this->wcms->cart->cart_is_eligible_for_multi_shipping() ) {
-            return;
-        }
-
-        $id        = wc_get_page_id( 'multiple_addresses' );
-		$reset_url = add_query_arg( array( 'wcms_reset_address' => true ), wc_get_checkout_url() );
-
-        $sess_item_address = wcms_session_get( 'cart_item_addresses' );
-        $sess_cart_address = wcms_session_get( 'cart_addresses' );
-        $has_item_address = (!wcms_session_isset( 'cart_item_addresses' ) || empty($sess_item_address)) ? false : true;
-        $has_cart_address = (!wcms_session_isset( 'cart_addresses' ) || empty($sess_cart_address)) ? false : true;
-        $inline = false;
-
-        if ( $has_item_address ) {
-            $inline = 'jQuery(function() {
-                    var col = jQuery("#customer_details .col-2");
-
-                    jQuery("#shiptobilling").hide();
-                    jQuery(".woocommerce-shipping-fields").find("#shiptobilling-checkbox")
-                        .attr("checked", true)
-                        .hide();
-
-                    // WC2.1+
-                    jQuery(".woocommerce-shipping-fields").find("#ship-to-different-address-checkbox")
-                        .attr("checked", false)
-                        .hide();
-                    jQuery(".woocommerce-shipping-fields").find("h3#ship-to-different-address")
-                        .hide();
-                    jQuery(".woocommerce-shipping-fields").prepend("<h3 id=\'ship-to-multiple\'>'. __('Shipping Address', 'wc_shipping_multiple_address') .'</h3>");
-
-                    jQuery(".woocommerce-shipping-fields").find(".shipping_address").remove();
-
-                    jQuery(\'<p><a href=\"'. esc_url( get_permalink( $id ) ) .'\" class=\"button button-primary\">'. esc_html__( 'Modify/Add Address', 'wc_shipping_multiple_address' ) .'</a> <a href=\"'. esc_url( $reset_url ) .'\" class=\"button button-primary\">'. esc_html__( 'Reset Address', 'wc_shipping_multiple_address' ) .'</a></p>\').insertAfter("#customer_details .col-2 h3:first");
-                });';
-
-        } elseif ( $has_cart_address ) {
-            $inline = 'jQuery(function() {
-                    var col = jQuery("#customer_details .col-2");
-
-                    jQuery(col).find("#shiptobilling-checkbox")
-                        .attr("checked", true)
-                        .hide();
-
-                    // WC2.1+
-                    jQuery(".woocommerce-shipping-fields").find("#ship-to-different-address-checkbox")
-                        .attr("checked", false)
-                        .hide();
-                    jQuery(".woocommerce-shipping-fields").find("h3#ship-to-different-address")
-                        .hide();
-                    jQuery(".woocommerce-shipping-fields").prepend("<h3 id="ship-to-multiple">'. __('Shipping Address', 'wc_shipping_multiple_address') .'</h3>");
-
-                    jQuery(".woocommerce-shipping-fields").find(".shipping_address").remove();
-
-                    jQuery(\'<p><a href=\"'. esc_url( add_query_arg( 'cart', 1, get_permalink( $id ) ) ) .'\" class=\"button button-primary\">'. esc_html__( 'Modify/Add Address', 'wc_shipping_multiple_address' ) .'</a> <a href=\"'. esc_url( $reset_url ) .'\" class=\"button button-primary\">'. esc_html__( 'Reset Address', 'wc_shipping_multiple_address' ) .'</a></p>\').insertAfter("#customer_details .col-2 h3:first");
-
-                });';
-
-        } elseif ( ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {
-			$page_id = wc_get_page_id( 'multiple_addresses' );
-			$inline  = '
-				var col = jQuery("#customer_details .col-2");
-
-				jQuery(col).find("#shiptobilling-checkbox")
-					.attr("checked", true)
-					.hide();
-
-				jQuery( "#wcms_set_addresses" ).on( "click", function( evt ) {
-
-					evt.preventDefault();
-					var ajax_url 		= WCMS.ajaxurl;
-					var billing_container = jQuery(".woocommerce-billing-fields");
-
-					var post_data 	= {
-						"action"             : "wcms_ajax_save_billing_fields",
-						"billing_first_name" : billing_container.find("#billing_first_name").val(),
-						"billing_last_name"  : billing_container.find("#billing_last_name").val(),
-						"billing_company"    : billing_container.find("#billing_company").val(),
-						"billing_country"    : billing_container.find("#billing_country").val(),
-						"billing_address_1"  : billing_container.find("#billing_address_1").val(),
-						"billing_address_2"  : billing_container.find("#billing_address_2").val(),
-						"billing_city"       : billing_container.find("#billing_city").val(),
-						"billing_state"      : billing_container.find("#billing_state").val(),
-						"billing_postcode"   : billing_container.find("#billing_postcode").val(),
-						"billing_phone"      : billing_container.find("#billing_phone").val(),
-						"billing_email"      : billing_container.find("#billing_email").val()
-					};
-
-					jQuery.ajax({
-						method: "POST",
-						url: ajax_url,
-						data: post_data,
-						success : function( res ) {
-							window.location = "' . esc_url( get_permalink( $page_id ) ) . '";
-						}
-					});
-				});';
-		}
-
-        if ( $inline ) {
-            wc_enqueue_js( $inline );
-        }
-    }
-
 	public function display_set_addresses_button( $checkout ) {
 		if ( is_checkout() && ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {
 			
@@ -282,6 +176,17 @@ class WC_MS_Checkout {
 	}
 
 	public function save_billing_fields() {
+		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'wcms_save_billing_fields_nonce' ) ) {
+			wp_send_json(
+				array(
+					'result'  => 'error',
+					'message' => esc_html__( 'Permission denied: Security check failed', 'wc_shipping_multiple_address' ),
+				)
+			);
+		}
+
 		foreach ( WC()->checkout->get_checkout_fields( 'billing' ) as $key => $field ) {
 			if (  is_callable( array( WC()->customer, "set_{$key}" ) ) ) {
 				WC()->customer->{"set_{$key}"}( wc_clean( $_POST[ $key ] ) );

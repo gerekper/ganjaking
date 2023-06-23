@@ -1211,7 +1211,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 				}
 
 				// Check addons validity.
-				if ( bundled_item.addons_form && ! bundled_item.addons_form.validation.validate() ) {
+				if ( bundled_item.is_selected() && bundled_item.addons_form && ! bundled_item.addons_form.validation.validate() ) {
 
 					if ( bundled_item.has_pending_required_addons() ) {
 
@@ -1527,8 +1527,8 @@ jQuery.fn.wc_get_bundle_script = function() {
 				var product_qty             = bundled_item.is_sold_individually() && price_data.quantities[ bundled_item.bundled_item_id ] > 0 ? 1 : price_data.quantities[ bundled_item.bundled_item_id ] * qty,
 					product_id              = bundled_item.get_product_type() === 'variable' ? bundled_item.get_variation_id() : bundled_item.get_product_id(),
 					tax_ratios              = price_data.prices_tax[ bundled_item.bundled_item_id ],
-					regular_price           = price_data.regular_prices[ bundled_item.bundled_item_id ] + price_data.regular_addons_prices[ bundled_item.bundled_item_id ],
-					price                   = price_data.prices[ bundled_item.bundled_item_id ] + price_data.addons_prices[ bundled_item.bundled_item_id ],
+					regular_price           = bundled_item.is_subscription() ? price_data.regular_prices[ bundled_item.bundled_item_id ] : price_data.regular_prices[ bundled_item.bundled_item_id ] + price_data.regular_addons_prices[ bundled_item.bundled_item_id ],
+					price                   = bundled_item.is_subscription() ? price_data.prices[ bundled_item.bundled_item_id ] : price_data.prices[ bundled_item.bundled_item_id ] + price_data.addons_prices[ bundled_item.bundled_item_id ],
 					regular_recurring_price = price_data.regular_recurring_prices[ bundled_item.bundled_item_id ] + price_data.regular_addons_prices[ bundled_item.bundled_item_id ],
 					recurring_price         = price_data.recurring_prices[ bundled_item.bundled_item_id ] + price_data.addons_prices[ bundled_item.bundled_item_id ],
 					totals                  = {

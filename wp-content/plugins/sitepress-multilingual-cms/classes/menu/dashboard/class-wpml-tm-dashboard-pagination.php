@@ -65,8 +65,8 @@ class WPML_TM_Dashboard_Pagination {
 				'format'    => '',
 				'prev_text' => '&laquo;',
 				'next_text' => '&raquo;',
-				'total'     => $total_pages,
-				'current'   => $paged,
+				'total'     => (int) $total_pages,
+				'current'   => (int) $paged,
 			)
 		);
 		if ( $page_links ) {

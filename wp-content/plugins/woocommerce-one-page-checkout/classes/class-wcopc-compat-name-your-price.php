@@ -1,14 +1,12 @@
 <?php
 /**
- * @package		WooCommerce One Page Checkout
- * @subpackage	Name Your Price Extension Compatibility
- * @category	Compatibility Class
- * @version 	2.2.0
+ * @package     WooCommerce One Page Checkout
+ * @subpackage  Name Your Price Extension Compatibility
+ * @category    Compatibility Class
+ * @version     2.2.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class to hold Name Your Price compat functionality
@@ -33,7 +31,7 @@ class WCOPC_Compat_Name_Your_Price {
 			add_filter( 'wc_nyp_get_posted_price', array( __CLASS__, 'nyp_input_initial_value' ), 10, 2 );
 
 			// Set the suffix on the the forms.
-			add_filter( 'wc_nyp_price_input_attributes', array( __CLASS__, 'add_suffix_to_input' ), 10 , 3 );
+			add_filter( 'wc_nyp_price_input_attributes', array( __CLASS__, 'add_suffix_to_input' ), 10, 3 );
 
 			if ( isset( WC_Name_Your_Price()->display ) ) {
 				// Load the NYP scripts with OPC scripts.
@@ -46,11 +44,11 @@ class WCOPC_Compat_Name_Your_Price {
 	/**
 	 * Maybe add to the OPC suffix.
 	 *
-	 * @since	2.0.0
+	 * @since   2.0.0
 	 *
-	 * @param array $args
+	 * @param array      $args
 	 * @param WC_Product $product
-	 * @param string $suffix
+	 * @param string     $suffix
 	 * @return array
 	 */
 	public static function add_suffix_to_input( $args, $product, $suffix ) {
@@ -63,10 +61,10 @@ class WCOPC_Compat_Name_Your_Price {
 	/**
 	 * Display Price Input in OPC templates.
 	 *
-	 * @since	1.5.0
+	 * @since   1.5.0
 	 *
-	 * @param	obj $product
-	 * @return	void
+	 * @param   obj $product
+	 * @return  void
 	 */
 	public static function opc_nyp_price_input( $product = false ) {
 
@@ -87,10 +85,10 @@ class WCOPC_Compat_Name_Your_Price {
 	 * Sets a unique suffix for unique NYP products in OPC templates.
 	 * The suffix is set and re-set globally before validating and adding to cart.
 	 *
-	 * @since	1.5.0
+	 * @since   1.5.0
 	 *
-	 * @param  	string  $suffix
-	 * @param  	int     $nyp_id
+	 * @param   string $suffix
+	 * @param   int    $nyp_id
 	 * @return  string
 	 */
 	public static function nyp_cart_suffix( $suffix, $nyp_id ) {
@@ -111,10 +109,10 @@ class WCOPC_Compat_Name_Your_Price {
 	/**
 	 * Modifies the price input if the item is in the OPC cart
 	 *
-	 * @since	1.7.5
+	 * @since   1.7.5
 	 *
-	 * @param  	string     $price
-	 * @param  	WC_Product $product
+	 * @param   string     $price
+	 * @param   WC_Product $product
 	 * @return  string
 	 */
 	public static function nyp_input_initial_value( $price, $product ) {
@@ -125,7 +123,6 @@ class WCOPC_Compat_Name_Your_Price {
 			if ( isset( $cart_item['nyp'] ) ) {
 				$price = $cart_item['nyp'];
 			}
-
 		}
 
 		return $price;
@@ -142,13 +139,12 @@ class WCOPC_Compat_Name_Your_Price {
 	 * Sets a unique prefix for unique NYP products in OPC templates.
 	 * The prefix is set and re-set globally before validating and adding to cart.
 	 *
-	 * @since	1.5.0
+	 * @since   1.5.0
 	 * @deprecated 1.7.5
 	 *
-	 * @param  	string  $prefix
-	 * @param  	int     $nyp_id
+	 * @param   string $prefix
+	 * @param   int    $nyp_id
 	 * @return  string
-	 *
 	 */
 	public static function nyp_cart_prefix( $prefix, $nyp_id ) {
 		wc_deprecated_function( __METHOD__, '1.7.5', 'WCOPC_Compat_Name_Your_Price::nyp_cart_suffix' );
@@ -158,11 +154,11 @@ class WCOPC_Compat_Name_Your_Price {
 	/**
 	 * Maybe swap default price input with OPC function that adds prefix.
 	 *
-	 * @since	1.5.0
+	 * @since   1.5.0
 	 * @deprecated 2.2.0
 	 *
-	 * @param	obj $product
-	 * @return	void
+	 * @param   obj $product
+	 * @return  void
 	 */
 	public static function maybe_swap_nyp_price_input() {
 		wc_deprecated_function( __METHOD__, '2.2.0', 'Removed with no replacement.' );
@@ -174,11 +170,11 @@ class WCOPC_Compat_Name_Your_Price {
 	/**
 	 * Swap default price input with OPC function that adds prefix.
 	 *
-	 * @since	1.6.0
+	 * @since   1.6.0
 	 * @deprecated 2.2.0
 	 *
-	 * @param	obj $product
-	 * @return	void
+	 * @param   obj $product
+	 * @return  void
 	 */
 	public static function swap_nyp_price_input() {
 		wc_deprecated_function( __METHOD__, '2.2.0', 'Removed with no replacement.' );

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Print Invoices & Packing Lists Integration.
  *
- * @version  5.10.2
+ * @version  6.21.0
  */
 class WC_PB_PIP_Compatibility {
 
@@ -376,7 +376,7 @@ class WC_PB_PIP_Compatibility {
 						$assembled_item_meta_html = '<dl class="variation assembled"><dt>' . __( 'Packaged in:', 'woocommerce-product-bundles' ) . '</dt><dd>' . $parent_item->get_name() . '</dd></dl>';
 					}
 
-					echo apply_filters( 'wc_pip_pick-list_order_item_meta_assembled_in_bundle', $assembled_item_meta_html, $item_id, $item, $parent_item );
+					echo wp_kses_post( apply_filters( 'wc_pip_pick-list_order_item_meta_assembled_in_bundle', $assembled_item_meta_html, $item_id, $item, $parent_item ) );
 				}
 			}
 		}
