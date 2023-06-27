@@ -1,5 +1,8 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.06.27 - version 2.4.7
+* Fix: PHP Fatal error: Uncaught Error: Attempt to modify property "data" in REST API product response in PHP 8.1.
+
 2023.06.13 - version 2.4.6
 * Update: Tested up to WooCommerce 7.7.0.
 * Fix: Use `registerCheckoutFilters` graduated filter in Blocks plugin.

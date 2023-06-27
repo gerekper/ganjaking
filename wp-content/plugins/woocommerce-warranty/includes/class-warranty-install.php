@@ -16,7 +16,7 @@ class Warranty_Install {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'admin_init', array( $this, 'check_version' ) );
 		add_action( 'admin_init', array( $this, 'actions' ), 1 );
-		register_activation_hook( __FILE__, array( $this, 'install' ) );
+		register_activation_hook( WooCommerce_Warranty::$plugin_file, array( $this, 'install' ) );
 	}
 
 	/**

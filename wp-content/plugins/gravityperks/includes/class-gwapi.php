@@ -23,6 +23,11 @@ class GWAPI {
 
 	private $_product_update_data = null;
 
+	/**
+	 * @var string The slug of the plugin sending the request.
+	 */
+	public $slug;
+
 	const TRANSIENT_EXPIRATION = 43200; //60 * 60 * 12 = 12 hours
 
 	function __construct( $args ) {
@@ -269,13 +274,14 @@ class GWAPI {
 	* @param mixed $_transient_data
 	*/
 	public function pre_set_site_transient_update_plugins_filter( $_transient_data ) {
+		// Force check on initial request, but not subsequent requests through this filter.
+		static $force_check = null;
 
-		/* Make sure this is only ran once. */
-		remove_filter( 'pre_set_site_transient_update_plugins', array( $this, 'pre_set_site_transient_update_plugins_filter' ), 99 );
+		if ( $force_check === null ) {
+			$force_check = rgget( 'force-check' ) == 1;
+		}
 
-		$force_check = rgget( 'force-check' ) == 1;
-
-		GravityPerks::log_debug( 'pre_set_site_transient_update_plugins_filter() start. Retrieves download package for individual prodyct auto-updates.' );
+		GravityPerks::log_debug( 'pre_set_site_transient_update_plugins_filter() start. Retrieves download package for individual product auto-updates.' );
 
 		if ( ! is_object( $_transient_data ) ) {
 			$_transient_data = new stdClass;
@@ -335,6 +341,8 @@ class GWAPI {
 		$this->_product_update_data = $product_update_data;
 
 		GravityPerks::log_debug( 'pre_set_site_transient_update_plugins_filter() end. Returning update data.' . print_r( $_transient_data, true ) );
+
+		$force_check = false;
 
 		return $_transient_data;
 	}
@@ -481,6 +489,7 @@ class GWAPI {
 
 	public function get_api_status() {
 		return 200;
+
 		return $this->request( array(
 			'action' => 'get_api_status',
 			'cache'  => false,

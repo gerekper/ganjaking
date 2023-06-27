@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -154,12 +154,18 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 
 			<tbody id="order_sc_store_credit_line_items">
 			<?php
-			$order                      = ( function_exists( 'wc_get_order' ) && ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
-			$order_total                = $this->is_callable( $order, 'get_total' ) ? $order->get_total() : 0;
-			$order_items                = ( is_object( $order ) && $this->is_callable( $order, 'get_items' ) ) ? $order->get_items( 'coupon' ) : array();
-			$tax_data                   = ( function_exists( 'wc_tax_enabled' ) && wc_tax_enabled() && is_object( $order ) && $this->is_callable( $order, 'get_taxes' ) ) ? $order->get_taxes() : array();
-			$smart_coupons_contribution = $this->is_callable( $order, 'get_meta' ) ? $order->get_meta( 'smart_coupons_contribution' ) : array();
-			$i                          = 1;
+			$order       = ( function_exists( 'wc_get_order' ) && ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+			$order_total = $this->is_callable( $order, 'get_total' ) ? $order->get_total() : 0;
+			$order_items = ( is_object( $order ) && $this->is_callable( $order, 'get_items' ) ) ? $order->get_items( 'coupon' ) : array();
+			$tax_data    = ( function_exists( 'wc_tax_enabled' ) && wc_tax_enabled() && is_object( $order ) && $this->is_callable( $order, 'get_taxes' ) ) ? $order->get_taxes() : array();
+
+			if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
+				include_once 'class-wc-sc-order-fields.php';
+			}
+			$sc_order_fields            = WC_SC_Order_Fields::get_instance();
+			$total_credit_used_in_order = $sc_order_fields->get_total_credit_used_in_order( $order );
+
+			$i = 1;
 			if ( ! empty( $order_items ) ) {
 				$is_apply_before_tax = get_option( 'woocommerce_smart_coupon_apply_before_tax', 'no' );
 				$is_old_sc_order     = $this->is_old_sc_order( $order_id );
@@ -327,7 +333,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 			}
 			?>
 			</tbody>
-			<?php if ( ! $this->is_old_sc_order( $order_id ) ) { ?>
+			<?php if ( ! $this->is_old_sc_order( $order_id ) && $total_credit_used_in_order > 0 ) { ?>
 			<script type="text/javascript">
 				jQuery(function(){
 					function wc_sc_reload_refund_amount() {

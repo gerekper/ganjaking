@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    1.10.0
- * @version  2.4.4
+ * @version  2.4.7
  */
 
 // Exit if accessed directly.
@@ -197,35 +197,39 @@ class WC_Mix_and_Match_REST_API {
 	 */
 	public static function prepare_product_response( $response, $product ) {
 
+		$data = $response->get_data();
+
 		if ( wc_mnm_is_product_container_type( $product ) ) {
-			$response->data['mnm_layout_override']     = $product->has_layout_override();
-			$response->data['mnm_layout']              = $product->get_layout();
-			$response->data['mnm_form_location']       = $product->get_add_to_cart_form_location();
-			$response->data['mnm_content_source']      = $product->get_content_source();
-			$response->data['mnm_child_category_ids']  = $product->get_child_category_ids();
-			$response->data['mnm_min_container_size']  = $product->get_min_container_size();
-			$response->data['mnm_max_container_size']  = $product->get_max_container_size();
-			$response->data['mnm_priced_per_product']  = $product->is_priced_per_product();
-			$response->data['mnm_packing_mode']        = $product->get_packing_mode();
-			$response->data['mnm_shipped_per_product'] = ! $product->is_packed_together();
-			$response->data['mnm_weight_cumulative']   = $product->is_weight_cumulative();
-			$response->data['mnm_discount']            = $product->get_discount();
-			$response->data['mnm_child_items']         = self::prepare_child_items_response( $product );
+			$data['mnm_layout_override']     = $product->has_layout_override();
+			$data['mnm_layout']              = $product->get_layout();
+			$data['mnm_form_location']       = $product->get_add_to_cart_form_location();
+			$data['mnm_content_source']      = $product->get_content_source();
+			$data['mnm_child_category_ids']  = $product->get_child_category_ids();
+			$data['mnm_min_container_size']  = $product->get_min_container_size();
+			$data['mnm_max_container_size']  = $product->get_max_container_size();
+			$data['mnm_priced_per_product']  = $product->is_priced_per_product();
+			$data['mnm_packing_mode']        = $product->get_packing_mode();
+			$data['mnm_shipped_per_product'] = ! $product->is_packed_together();
+			$data['mnm_weight_cumulative']   = $product->is_weight_cumulative();
+			$data['mnm_discount']            = $product->get_discount();
+			$data['mnm_child_items']         = self::prepare_child_items_response( $product );
 		} else {
-			$response->data['mnm_layout_override']     = '';
-			$response->data['mnm_layout']              = '';
-			$response->data['mnm_form_location']       = '';
-			$response->data['mnm_content_source']      = '';
-			$response->data['mnm_child_category_ids']  = '';
-			$response->data['mnm_min_container_size']  = '';
-			$response->data['mnm_max_container_size']  = '';
-			$response->data['mnm_priced_per_product']  = '';
-			$response->data['mnm_packing_mode']        = '';
-			$response->data['mnm_shipped_per_product'] = '';
-			$response->data['mnm_weight_cumulative']   = '';
-			$response->data['mnm_discount']            = '';
-			$response->data['mnm_child_items']         = '';
+			$data['mnm_layout_override']     = '';
+			$data['mnm_layout']              = '';
+			$data['mnm_form_location']       = '';
+			$data['mnm_content_source']      = '';
+			$data['mnm_child_category_ids']  = '';
+			$data['mnm_min_container_size']  = '';
+			$data['mnm_max_container_size']  = '';
+			$data['mnm_priced_per_product']  = '';
+			$data['mnm_packing_mode']        = '';
+			$data['mnm_shipped_per_product'] = '';
+			$data['mnm_weight_cumulative']   = '';
+			$data['mnm_discount']            = '';
+			$data['mnm_child_items']         = '';
 		}
+
+		$response->set_data( $data );
 
 		return $response;
 	}

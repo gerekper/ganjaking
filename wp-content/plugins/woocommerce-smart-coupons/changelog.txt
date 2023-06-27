@@ -1,8 +1,15 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.06.23 - version 8.1.0
+* Fix: Refund amount blocked on the order edit page, even when store credit is not applied to that order
+* Fix: When bulk generating coupons with multiple values for 'Exclude products', only the first value is getting saved
+* Fix: When importing coupons with multiple values for 'Exclude products' via CSV file, only the first value is getting saved
+* Fix: 'Fixed cart discount' coupon amount changed when a coupon is applied to an order and when the plugin [WooCommerce Multi-Currency](https://woocommerce.com/products/multi-currency/) OR the plugin [Price Based on Country for WooCommerce](https://wordpress.org/plugins/woocommerce-product-price-based-on-countries/) is active
+* Update: POT file
+
 2023.06.16 - version 8.0.0
 * New: Tested up to WooCommerce 7.8.0
-* New: Store credit applying to the order using WooCommerce coupon discount API when 'Apply before tax' is disabled
+* New: Store credit applying to an order using WooCommerce coupon discount API when 'Apply before tax' is disabled
 * New: Automatically adjust the refund amount that will be refunded first to the store credit applied to the order, on the order edit page
 * New: Method 'is_sc_gte' for comparing with the current version of the plugin
 * Fix: Option 'sc_display_global_coupons' resetting on any coupon update
@@ -22,6 +29,7 @@
 * Update: Coupon actions field 'with discount of' will follow the WooCommerce setting for 'Number of decimals'
 * Update: Added support for fetching serialized data for options
 * Update: Spellcheck: replace 'Funtion' with 'Function' and 'appplied' with 'applied'
+* Update: POT file
 
 2023.06.02 - version 7.12.0
 * New: Tested up to WooCommerce 7.7.2

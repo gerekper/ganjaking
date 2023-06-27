@@ -80,8 +80,14 @@ defined( 'ABSPATH' ) || exit;
 						<form method="get" action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>">
 							<ul class="order-items">
 								<?php
+								$can_create_request = false;
+
 								foreach ( $this_order->get_items() as $item_idx => $item ) :
 									$item_id = ( isset( $item['product_id'] ) ) ? $item['product_id'] : $item['id'];
+
+									if ( ! current_user_can( 'manage_woocommerce' ) && class_exists( 'WC_Product_Vendors_Utils' ) && WC_Product_Vendors_Utils::is_vendor() && ! WC_Product_Vendors_Utils::can_logged_in_user_manage_order_item( $item_idx ) ) {
+										continue;
+									}
 
 									// variation support.
 									if ( isset( $item['variation_id'] ) && $item['variation_id'] > 0 ) {
@@ -97,6 +103,8 @@ defined( 'ABSPATH' ) || exit;
 									if ( $max < 1 ) {
 										continue;
 									}
+
+									$can_create_request = true;
 									?>
 									<li>
 										<input type="checkbox" name="idx[]" value="<?php echo esc_attr( $item_idx ); ?>" />
@@ -111,7 +119,7 @@ defined( 'ABSPATH' ) || exit;
 							</ul>
 							<input type="hidden" name="page" value="warranties-new" />
 							<input type="hidden" name="order_id" value="<?php echo esc_attr( $this_order->get_id() ); ?>" />
-							<input type="submit" class="button" value="<?php esc_attr_e( 'Create Request', 'wc_warranty' ); ?>" />
+							<input type="submit" <?php echo ( ! $can_create_request ) ? 'disabled' : ''; ?> class="button" value="<?php esc_attr_e( 'Create Request', 'wc_warranty' ); ?>" />
 						</form>
 					</td>
 					<td class="order_id column-order_date"><?php echo esc_html( $this_order->get_date_created()->date( 'Y-m-d H:i:s' ) ); ?></td>

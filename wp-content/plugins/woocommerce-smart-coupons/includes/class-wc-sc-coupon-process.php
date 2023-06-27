@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.0.0
+ * @version     4.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -504,7 +504,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 					$coupon_code           = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
 					$smart_coupon          = new WC_Coupon( $coupon_id );
 					if ( is_a( $smart_coupon, 'WC_Coupon' ) ) {
-						$coupon_amount = $this->get_amount( $smart_coupon );
+
 						if ( $this->is_wc_gte_30() ) {
 							if ( ! is_object( $smart_coupon ) || ! is_callable( array( $smart_coupon, 'get_id' ) ) ) {
 								continue;
@@ -523,6 +523,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						}
 
 						if ( 'smart_coupon' === $discount_type ) {
+							$coupon_amount             = $this->get_amount( $smart_coupon );
 							$order_discount_amount     = $this->get_order_item_meta( $item_id, 'discount_amount', true );
 							$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true );
 
@@ -846,14 +847,14 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						$is_free_shipping = ( $coupon->get_free_shipping() ) ? 'yes' : 'no';
 						$discount_type    = $coupon->get_discount_type();
 						$coupon_code      = $coupon->get_code();
+						$coupon_amount    = ( $this->is_callable( $coupon, 'get_amount' ) ) ? $coupon->get_amount() : 0;
 					} else {
 						$coupon_id        = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 						$is_free_shipping = ( ! empty( $coupon->free_shipping ) ) ? $coupon->free_shipping : '';
 						$discount_type    = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 						$coupon_code      = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
+						$coupon_amount    = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 					}
-
-					$coupon_amount = $this->get_amount( $coupon, true, $order );
 
 					$auto_generation_of_code = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'auto_generate_coupon' ) : get_post_meta( $coupon_id, 'auto_generate_coupon', true );
 
@@ -977,6 +978,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						$coupon_receiver_email = ( ! empty( $temp_gift_card_receivers_emails[ $coupon_id ][0] ) ) ? $temp_gift_card_receivers_emails[ $coupon_id ][0] : $gift_certificate_sender_email;
 
 						$sc_disable_email_restriction = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'sc_disable_email_restriction' ) : get_post_meta( $coupon_id, 'sc_disable_email_restriction', true );
+						$is_update_email_restrictions = false;
 
 						if ( ( 'no' === $sc_disable_email_restriction || empty( $sc_disable_email_restriction ) ) ) {
 							$old_customers_email_ids = ( $this->is_callable( $coupon, 'get_email_restrictions' ) ) ? (array) maybe_unserialize( $coupon->get_email_restrictions() ) : (array) maybe_unserialize( get_post_meta( $coupon_id, 'customer_email', true ) );
@@ -1024,11 +1026,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 									$action_args              = array(
 										'auto_generate'  => 'no',
 										'coupon_id'      => $coupon_id,
-										'parent_id'      => $coupon_id, // Parent coupon id.
+										'parent_id'      => $coupon_id,                  // Parent coupon id.
 										'order_id'       => $order_id,
 										'receiver_email' => $coupon_receiver_email,
 										'message_index_key' => $sender_message_index_key,
-										'ref_key'        => uniqid(), // A unique timestamp key to relate action schedulers with their coupons.
+										'ref_key'        => uniqid(),                    // A unique timestamp key to relate action schedulers with their coupons.
 									);
 									$is_scheduled             = $this->schedule_coupon_email( $action_args, $sending_timestamp );
 									if ( ! $is_scheduled ) {
@@ -1045,7 +1047,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 									$sending_timestamp = ( ! empty( $sending_timestamps[ $coupon_id ][ $i ] ) ) ? $sending_timestamps[ $coupon_id ][ $i ] : '';
 									// Add receiver email to coupon only if it is not scheduled otherwise it would be added by action scheduler later on.
 									if ( ! ( 'yes' === $schedule_gift_sending && $this->is_valid_timestamp( $sending_timestamp ) ) ) {
-										$old_customers_email_ids[] = $coupon_receiver_email;
+										$old_customers_email_ids[]    = $coupon_receiver_email;
+										$is_update_email_restrictions = true;
 									}
 								}
 							}
@@ -1055,11 +1058,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 							if ( false !== $key ) {
 								unset( $old_customers_email_ids[ $key ] );
+								$is_update_email_restrictions = true;
 							}
 						}
 
-						if ( ( 'no' === $sc_disable_email_restriction || empty( $sc_disable_email_restriction ) ) ) {
-							if ( $this->is_callable( $coupon, 'update_meta_data' ) && $this->is_callable( $coupon, 'save' ) ) {
+						if ( ( 'no' === $sc_disable_email_restriction || empty( $sc_disable_email_restriction ) ) && true === $is_update_email_restrictions ) {
+							if ( $this->is_callable( $coupon, 'set_defaults' ) && $this->is_callable( $coupon, 'set_email_restrictions' ) && $this->is_callable( $coupon, 'save' ) ) {
+								$coupon->set_defaults(); // This is to make sure that no other changes done to $coupon will be saved. Because this functionality is only to update 'email_restrictions'.
 								$coupon->set_email_restrictions( $old_customers_email_ids );
 								$coupon->save();
 							} else {

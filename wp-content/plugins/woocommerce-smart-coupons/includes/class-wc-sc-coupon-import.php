@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.1
+ * @version     3.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -574,7 +574,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 									if ( true === $has_setter ) {
 										if ( in_array( $key, array( 'individual_use', 'free_shipping', 'exclude_sale_items' ), true ) ) {
 											$value = $this->wc_string_to_bool( maybe_unserialize( $meta_value ) );
-										} elseif ( in_array( $key, array( 'product_ids', 'exclude_product_ids' ), true ) ) {
+										} elseif ( in_array( $key, array( 'product_ids', 'exclude_product_ids', 'excluded_product_ids' ), true ) ) {
 											$value = maybe_unserialize( $meta_value );
 											if ( ! is_array( $value ) ) {
 												if ( false !== strpos( $value, ',' ) ) {

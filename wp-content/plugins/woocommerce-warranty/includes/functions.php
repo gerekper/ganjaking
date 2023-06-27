@@ -526,18 +526,26 @@ function warranty_count_quantity_used( $order_id, $product_id, $idx ) {
 	$items = $order->get_items();
 	$used  = 0;
 
-	if ( isset( $items[ $idx ] ) ) {
-		$warranties = warranty_search( $order_id, $product_id, $idx );
+	if ( ! isset( $items[ $idx ] ) ) {
+		return $used;
+	}
 
-		if ( $warranties ) {
-			foreach ( $warranties as $warranty ) {
-				$warranty = warranty_load( $warranty->ID );
+	$warranties = warranty_search( $order_id, $product_id, $idx );
 
-				foreach ( $warranty['products'] as $warranty_product ) {
-					if ( (int) $warranty_product['order_item_index'] === (int) $idx ) {
-						$used += $warranty_product['quantity'];
-					}
-				}
+	if ( ! $warranties ) {
+		return $used;
+	}
+
+	foreach ( $warranties as $warranty ) {
+		$warranty = warranty_load( $warranty->ID );
+
+		if ( empty( $warranty['products'] ) ) {
+			continue;
+		}
+
+		foreach ( $warranty['products'] as $warranty_product ) {
+			if ( intval( $warranty_product['order_item_index'] ) === intval( $idx ) ) {
+				$used += $warranty_product['quantity'];
 			}
 		}
 	}
@@ -1797,4 +1805,35 @@ function warranty_request_get_data() {
 	}
 
 	return $data;
+}
+
+/**
+ * Get WC order object from warranty request id.
+ *
+ * @param Int $request_id Warranty request ID.
+ *
+ * @return WC_Order.
+ */
+function warranty_get_order_from_request_id( $request_id ) {
+	$order    = false;
+	$warranty = get_post( $request_id, ARRAY_A );
+
+	if ( ! isset( $warranty['post_type'] )  ) {
+		return false;
+	}
+
+	if ( 'warranty_request' !== $warranty['post_type'] ) {
+		return false;
+	}
+
+	$defaults = array( 'order_id' => '' );
+
+	$warranty = wp_parse_args( $warranty, $defaults );
+	$order    = wc_get_order( $warranty['order_id'] );
+
+	if ( ! $order instanceof WC_Order ) {
+		return false;
+	}
+
+	return $order;
 }

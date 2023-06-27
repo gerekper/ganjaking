@@ -268,13 +268,14 @@ jQuery( function( $ ) {
 			}
 		};
 
-	var $shipping_data_container  = $bundled_products_panel.parent().find( '#shipping_product_data' ),
-		$virtual_checkbox         = $( 'input#_virtual' ),
-		virtual_checkbox_init_val = $virtual_checkbox.prop( 'checked' ),
-		is_virtual_checkbox_dirty = false,
-		$virtual_bundle_checkbox  = $( 'input#_virtual_bundle' ),
-		$bundle_type_container    = $shipping_data_container.find( '.options_group.bundle_type' ),
-		$bundle_type_options      = $bundle_type_container.find( '.bundle_type_options li' );
+	var $shipping_data_container     = $bundled_products_panel.parent().find( '#shipping_product_data' ),
+		$virtual_checkbox            = $( 'input#_virtual' ),
+		virtual_checkbox_init_val    = $virtual_checkbox.prop( 'checked' ),
+		is_virtual_checkbox_dirty    = false,
+		$virtual_bundle_checkbox     = $( 'input#_virtual_bundle' ),
+		$bundle_type_container       = $shipping_data_container.find( '.options_group.bundle_type' ),
+		$bundle_type_options         = $bundle_type_container.find( '.bundle_type_options li' ),
+		$sold_individually_container = $( '#_sold_individually' ).closest( '.form-field' );
 
 	$.fn.wc_bundles_select2 = function() {
 		$( document.body ).trigger( 'wc-enhanced-select-init' );
@@ -284,7 +285,10 @@ jQuery( function( $ ) {
 	$( '.bundle_stock_msg' ).appendTo( '._manage_stock_field .description' );
 
 	// Hide the default "Sold Individually" field.
-	$( '#_sold_individually' ).closest( '.form-field' ).addClass( 'hide_if_bundle' );
+	$sold_individually_container.addClass( 'hide_if_bundle' );
+
+	// Hide Sold Individually tooltip that was introduced in WC 6.8.
+	$sold_individually_container.siblings( '.woocommerce-help-tip' ).addClass( 'hide_if_bundle' );
 
 	// Hide the "Grouping" field.
 	$( '#linked_product_data .grouping.show_if_simple, #linked_product_data .form-field.show_if_grouped' ).addClass( 'hide_if_bundle' );

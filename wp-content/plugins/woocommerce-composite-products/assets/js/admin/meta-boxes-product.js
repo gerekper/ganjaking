@@ -56,13 +56,14 @@ jQuery( function( $ ) {
 
 		configuration_save_xhr = false;
 
-	var $shipping_data_container    = $components_panel.parent().find( '#shipping_product_data' ),
-		$virtual_checkbox           = $( 'input#_virtual' ),
-		$virtual_composite_checkbox = $( 'input#_virtual_composite' ),
-		virtual_checkbox_init_val   = $virtual_checkbox.prop( 'checked' ),
-		is_virtual_checkbox_dirty   = false,
-		$composite_type_container   = $shipping_data_container.find( '.options_group.composite_type' ),
-		$composite_type_options     = $composite_type_container.find( '.bto_type_options li' );
+	var $shipping_data_container     = $components_panel.parent().find( '#shipping_product_data' ),
+		$virtual_checkbox            = $( 'input#_virtual' ),
+		$virtual_composite_checkbox  = $( 'input#_virtual_composite' ),
+		virtual_checkbox_init_val    = $virtual_checkbox.prop( 'checked' ),
+		is_virtual_checkbox_dirty    = false,
+		$composite_type_container    = $shipping_data_container.find( '.options_group.composite_type' ),
+		$composite_type_options      = $composite_type_container.find( '.bto_type_options li' ),
+		$sold_individually_container = $( '#_sold_individually' ).closest( '.form-field' );
 
 	// Prepare layout classes.
 	$.each( wc_composite_admin_params.layouts, function( index, layout ) {
@@ -73,7 +74,10 @@ jQuery( function( $ ) {
 	$( '.composite_stock_msg' ).appendTo( '._manage_stock_field .description' );
 
 	// Hide the default "Sold Individually" field.
-	$( '#_sold_individually' ).closest( '.form-field' ).addClass( 'hide_if_composite' );
+	$sold_individually_container.addClass( 'hide_if_composite' );
+
+	// Hide Sold Individually tooltip that was introduced in WC 6.8.
+	$sold_individually_container.siblings( '.woocommerce-help-tip' ).addClass( 'hide_if_composite' );
 
 	// Hide the "Grouping" field.
 	$( '#linked_product_data .grouping.show_if_simple, #linked_product_data .form-field.show_if_grouped' ).addClass( 'hide_if_composite' );

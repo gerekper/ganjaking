@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 2.4.6\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 2.4.7\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2023-06-13 15:00:47+00:00\n"
+"POT-Creation-Date: 2023-06-21 21:12:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -571,7 +571,7 @@ msgid "Set to true to delete the child item with the specified child item ID."
 msgstr ""
 
 #: includes/api/class-wc-mnm-rest-api.php:132
-#: includes/api/class-wc-mnm-rest-api.php:479
+#: includes/api/class-wc-mnm-rest-api.php:483
 msgid "Child product ID."
 msgstr ""
 
@@ -612,67 +612,67 @@ msgstr ""
 msgid "Shipping weight calculation mode."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:339
+#: includes/api/class-wc-mnm-rest-api.php:343
 #. translators: %d is the child item ID.
 msgid "Child item ID #%d does not exist in mix and match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:357
+#: includes/api/class-wc-mnm-rest-api.php:361
 #. translators: %d is the product|variation ID.
 msgid "Child product or variation ID #%d does not exist in mix and match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:379
+#: includes/api/class-wc-mnm-rest-api.php:383
 #. translators: %d is the product|variation ID.
 msgid "Product or variation ID #%d is invalid."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:385
+#: includes/api/class-wc-mnm-rest-api.php:389
 #. translators: %d is the product|variation ID.
 msgid "Cannot add product ID #%d to contents for itself."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:391
+#: includes/api/class-wc-mnm-rest-api.php:395
 #. translators: %d is the product|variation ID.
 msgid ""
 "Product or variation ID #%d not a supported product type for Mix and Match "
 "contents."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:457
+#: includes/api/class-wc-mnm-rest-api.php:461
 msgid ""
 "Item ID of parent line item, applicable if the item is part of a mix and "
 "match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:463
+#: includes/api/class-wc-mnm-rest-api.php:467
 msgid ""
 "Item IDs of mix and match child line items, applicable if the item is a mix "
 "and match container."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:472
+#: includes/api/class-wc-mnm-rest-api.php:476
 msgid ""
 "Mix and match configuration array. Must be defined when adding a mix and "
 "match-type line item to an order, to ensure child line items are added to "
 "the order as well."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:484
+#: includes/api/class-wc-mnm-rest-api.php:488
 msgid "Chosen child item quantity."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:489
+#: includes/api/class-wc-mnm-rest-api.php:493
 msgid "Chosen variation ID, if applicable."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:587
+#: includes/api/class-wc-mnm-rest-api.php:591
 msgid ""
 "The submitted mix and match container configuration could not be added to "
 "this order."
 msgstr ""
 
-#: includes/api/class-wc-mnm-rest-api.php:592
+#: includes/api/class-wc-mnm-rest-api.php:596
 msgid "A mix and match container with this ID does not exist."
 msgstr ""
 

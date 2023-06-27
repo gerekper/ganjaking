@@ -120,8 +120,7 @@ class License {
 			return;
 		}
 
-		$key = 'GPL001122334455AA6677BB8899CC000';
-		$type = 'Pro';
+		$key = wp_mail_smtp()->get_license_key();
 
 		// Only if we have the key.
 		if ( empty( $key ) ) {
@@ -198,8 +197,8 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options, $echo = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$key         = wp_mail_smtp()->get_license_key();
-		$type        = wp_mail_smtp()->get_license_type();
+		$key  = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
+		$type = 'Pro';
 		$license     = $options->get_group( 'license' );
 		$is_expired  = isset( $license['is_expired'] ) && $license['is_expired'] === true;
 		$is_disabled = isset( $license['is_disabled'] ) && $license['is_disabled'] === true;
@@ -233,9 +232,7 @@ class License {
 				<?php endif; ?>
 
 				<?php if ( empty( $key ) ) : ?>
-				//	<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
-				//		<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
-				//	</button>
+					
 				<?php else : ?>
 					<button type="button" id="wp-mail-smtp-setting-license-key-deactivate" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey">
 						<?php esc_html_e( 'Remove Key', 'wp-mail-smtp-pro' ); ?>
@@ -508,6 +505,7 @@ class License {
 	 * @return string|bool
 	 */
 	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+
 		$options = new Options();
 		$all_opt = $options->get_all();
 		$all_opt['license']['type'] = 'pro';
@@ -516,6 +514,7 @@ class License {
 		$all_opt['license']['is_invalid'] = false;
 		$options->set( $all_opt );
 		return;
+
 		$validate = $this->perform_remote_request( 'validate-key', [ 'tgm-updater-key' => $key ] );
 		$options  = Options::init();
 		$all_opt  = $options->get_all();
@@ -675,7 +674,7 @@ class License {
 		$raw_settings            = $options->get_all_raw();
 		$raw_settings['license'] = [
 			'key'  => '',
-			'type' => 'Pro',
+			'type' => 'lite',
 		];
 
 		$options->set( $raw_settings );
@@ -700,6 +699,8 @@ class License {
 	 */
 	public function notices( $below_h2 = false ) {
 		return;
+
+
 		// Only users with sufficient capability can see the notices.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;

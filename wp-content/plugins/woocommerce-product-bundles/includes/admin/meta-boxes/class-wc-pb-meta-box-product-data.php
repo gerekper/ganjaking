@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.21.0
+ * @version  6.21.1
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -127,18 +127,18 @@ class WC_PB_Meta_Box_Product_Data {
 		}
 
 		// Provide context to the "Sold Individually" option.
-		woocommerce_wp_select( array(
+		woocommerce_wp_radio( array(
 			'id'            => '_wc_pb_sold_individually',
 			'wrapper_class' => 'show_if_bundle',
 			'label'         => __( 'Sold individually', 'woocommerce' ),
 			'options'       => array(
 				'no'            => __( 'No', 'woocommerce-product-bundles' ),
 				'product'       => __( 'Yes', 'woocommerce-product-bundles' ),
-				'configuration' => __( 'Matching configurations only', 'woocommerce-product-bundles' )
+				'configuration' => __( 'Matching configurations', 'woocommerce-product-bundles' )
 			),
 			'value'         => $value,
 			'desc_tip'      => 'true',
-			'description'   => __( 'Allow only one of this bundle to be bought in a single order. Choose the <strong>Matching configurations only</strong> option to only prevent <strong>identically configured</strong> bundles from being purchased together.', 'woocommerce-product-bundles' )
+			'description'   => __( 'Allow only one of this bundle to be bought in a single order. Choose the <strong>Matching configurations</strong> option to prevent customers from purchasing <strong>identically configured</strong> bundles in the same order.', 'woocommerce-product-bundles' )
 		) );
 	}
 
@@ -200,7 +200,12 @@ class WC_PB_Meta_Box_Product_Data {
 		global $post;
 
 		?><span class="bundle_stock_msg show_if_bundle">
-				<?php echo wc_help_tip( __( 'By default, the sale of a product within a bundle has the same effect on its stock as an individual sale. There are no separate inventory settings for bundled items. However, managing stock at bundle level can be very useful for allocating bundle stock quota, or for keeping track of bundled item sales.', 'woocommerce-product-bundles' ) ); ?>
+			<?php echo wp_kses_post(
+					sprintf(
+							__( 'Enable this option to track stock for this SKU only. This option does not affect the inventory management of bundled products. <a class="bundles-inventory-learn-more-link" href="%1$s" target="_blank" rel="noreferrer">Learn more</a>', 'woocommerce-product-bundles' ),
+							esc_url( 'https://woocommerce.com/document/bundles/bundles-configuration/#managing-stock' )
+						)
+					); ?>
 		</span><?php
 	}
 
@@ -227,8 +232,13 @@ class WC_PB_Meta_Box_Product_Data {
 			$product_bundle_object = $product_object;
 		}
 
-		$options[ 'downloadable' ][ 'wrapper_class' ] .= ' show_if_bundle';
-		$options[ 'virtual' ][ 'wrapper_class' ]      .= ' hide_if_bundle';
+		if ( isset( $options[ 'downloadable' ][ 'wrapper_class' ] ) ) {
+			$options[ 'downloadable' ][ 'wrapper_class' ] .= ' show_if_bundle';
+		}
+
+		if ( isset( $options[ 'virtual' ][ 'wrapper_class' ] ) ) {
+			$options[ 'virtual' ][ 'wrapper_class' ] .= ' hide_if_bundle';
+		}
 
 		/*
 		 * Instead of adding this, another approach here would be to use the vanilla 'Virtual' box to set the 'virtual_bundle' prop for Bundles.
@@ -299,13 +309,11 @@ class WC_PB_Meta_Box_Product_Data {
 				</ul>
 			</div>
 			<div class="wp-clearfix"></div>
-			<div id="message" class="inline notice">
+			<div id="message" class="inline notice woocommerce-message">
 				<p>
-					<span class="assembled_notice_title"><?php esc_html_e( 'What happened to the shipping options?', 'woocommerce-product-bundles' ); ?></span>
-
 					<?php
 						/* translators: Unassambled bundle documentation link */
-						echo wp_kses_post( sprintf( __( 'The contents of this bundle preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> bundles do not have any shipping options to configure.', 'woocommerce-product-bundles' ), esc_url( WC_PB()->get_resource_url( 'shipping-options' ) ) ) );
+						echo wp_kses_post( sprintf( __( '<a href="%s" target="_blank">Unassembled</a> bundles do not have any shipping options to configure. The contents of this bundle preserve their dimensions, weight and shipping classes.', 'woocommerce-product-bundles' ), esc_url( WC_PB()->get_resource_url( 'shipping-options' ) ) ) );
 					?>
 				</p>
 			</div>
@@ -1470,7 +1478,6 @@ class WC_PB_Meta_Box_Product_Data {
 
 						?><div class="wc-bundled-items__boarding">
 							<div class="wc-bundled-items__boarding__message">
-								<h3><?php esc_html_e( 'Bundled Products', 'woocommerce-product-bundles' ); ?></h3>
 								<p><?php esc_html_e( 'You have not added any products to this bundle.', 'woocommerce-product-bundles' ); ?>
 								<br/><?php esc_html_e( 'Add some now?', 'woocommerce-product-bundles' ); ?>
 								</p>

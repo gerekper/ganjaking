@@ -1,5 +1,12 @@
 *** WooCommerce Product Bundles ***
 
+2023.06.22 - version 6.21.1
+* Fix - Removed duplicate tooltip under Product Data > Inventory.
+* Tweak - Changed the Product Data > Inventory > Sold Individually dropdown to radio buttons for Product Bundles. 
+* Tweak - Re-designed the Product Data > Bundled Products and Product Data > Shipping empty states. 
+* Tweak - Updated tooltip messages under Product Data > Inventory. 
+* Fix - Fixed error that was triggered when creating a new product, tracking was enabled and WooCommerce 7.8 was active.
+
 2023.06.19 - version 6.21.0
 * Fix - Important: Security improvements.
 * Fix - Fixed an issue that charged subscription bundled items add-ons twice.

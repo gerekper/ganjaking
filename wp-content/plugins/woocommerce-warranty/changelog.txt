@@ -1,5 +1,9 @@
 *** Warranty Requests Changelog ***
 
+2023-06-22 - version 2.2.0
+* Update - Security update.
+* Tweak  - WC tested up to 7.8
+
 2023-05-31 - version 2.1.9
 * Fix    - Incorrect colspan on .inline-edit-row td on WC orders table.
 * Update - Security update.

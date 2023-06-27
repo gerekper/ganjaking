@@ -63,6 +63,10 @@ class Warranty_Ajax {
 			die( esc_html__( 'Security check', 'wc_warranty' ) );
 		}
 
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		$get_data  = warranty_request_get_data();
 		$term      = isset( $get_data['term'] ) ? $get_data['term'] : false;
 		$all_users = array();
@@ -91,6 +95,10 @@ class Warranty_Ajax {
 					'%' . $term . '%'
 				)
 			);
+		}
+
+		if ( class_exists( 'WC_Product_Vendors_Utils' ) && apply_filters( 'warranty_use_product_vendor_query', WC_Product_Vendors_Utils::is_vendor() ) ) {
+			$results = self::get_product_vendor_users( $term );
 		}
 
 		if ( $results ) {
@@ -128,6 +136,53 @@ class Warranty_Ajax {
 	}
 
 	/**
+	 * Get product vendor users.
+	 *
+	 * @param String $term Search keyword.
+	 *
+	 * @return Array of User.
+	 */
+	public static function get_product_vendor_users( $term ) {
+		global $wpdb;
+
+		if ( ! class_exists( 'WC_Product_Vendors_Utils' ) ) {
+			return false;
+		}
+
+		if ( is_numeric( $term ) ) {
+			$db_prepare = $wpdb->prepare(
+				"
+			SELECT a.*
+			FROM {$wpdb->users} a, {$wpdb->usermeta} b
+			WHERE a.ID = b.user_id
+			AND b.meta_key = '_wcpv_customer_of'
+			AND b.meta_value LIKE %s
+			AND ID LIKE %s",
+				'%' . $wpdb->esc_like( WC_Product_Vendors_Utils::get_logged_in_vendor() ) . '%',
+				$wpdb->esc_like( $term ) . '%'
+			);
+		} else {
+			$db_prepare = $wpdb->prepare(
+				"
+			SELECT a.*
+			FROM {$wpdb->users} a, {$wpdb->usermeta} b
+			WHERE a.ID = b.user_id
+			AND b.meta_key = '_wcpv_customer_of'
+			AND b.meta_value LIKE %s
+			AND ( a.user_email LIKE %s
+			OR a.user_login LIKE %s
+			OR a.display_name LIKE %s )",
+				'%' . $wpdb->esc_like( WC_Product_Vendors_Utils::get_logged_in_vendor() ) . '%',
+				'%' . $wpdb->esc_like( $term ) . '%',
+				'%' . $wpdb->esc_like( $term ) . '%',
+				'%' . $wpdb->esc_like( $term ) . '%'
+			);
+		}
+
+		return $wpdb->get_results( $db_prepare );
+	}
+
+	/**
 	 * AJAX handler for searching for existing email addresses
 	 *
 	 * This method looks for partial user_email and/or display_name matches,
@@ -145,6 +200,10 @@ class Warranty_Ajax {
 
 		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_search_for_email_nonce' ) ) {
 			die( esc_html__( 'Security check', 'wc_warranty' ) );
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
 		}
 
 		$get_data            = warranty_request_get_data();
@@ -267,6 +326,16 @@ class Warranty_Ajax {
 			die( esc_html__( 'Security check', 'wc_warranty' ) );
 		}
 
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
+		$order = warranty_get_order_from_request_id( $request_id );
+
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $request_id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
+		}
+
 		if ( 'change_status' === $type ) {
 
 			$new_status = $post_data['status'];
@@ -289,8 +358,17 @@ class Warranty_Ajax {
 	public static function update_request_status() {
 		check_admin_referer( 'warranty_update_status' );
 
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		$new_status = isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : '';
 		$request_id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+		$order      = warranty_get_order_from_request_id( $request_id );
+
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $request_id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
+		}
 
 		warranty_update_request( $request_id, array( 'status' => $new_status ) );
 
@@ -309,12 +387,16 @@ class Warranty_Ajax {
 	public static function delete_request() {
 		check_admin_referer( 'warranty_delete' );
 
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		$request = warranty_request_data();
+		$id      = isset( $request['id'] ) ? absint( $request['id'] ) : 0;
+		$order   = warranty_get_order_from_request_id( $id );
 
-		$id = isset( $request['id'] ) ? absint( $request['id'] ) : 0;
-
-		if ( ! warranty_user_has_access( wp_get_current_user(), false, $id ) ) {
-			return false;
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
 		}
 		wp_delete_post( $id, true );
 
@@ -330,13 +412,18 @@ class Warranty_Ajax {
 		$nonce      = isset( $request['security'] ) ? sanitize_text_field( $request['security'] ) : '';
 		$user       = wp_get_current_user();
 		$note       = isset( $request['note'] ) ? $request['note'] : '';
+		$order      = warranty_get_order_from_request_id( $request_id );
 
 		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_add_note_nonce_' . $request_id ) ) {
-			die;
+			die( esc_html__( 'Security check', 'wc_warranty' ) );
 		}
 
-		if ( ! warranty_load( $request_id ) ) {
-			die;
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $request_id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
 		}
 
 		$data = array(
@@ -371,7 +458,17 @@ class Warranty_Ajax {
 		$nonce      = isset( $request['security'] ) ? sanitize_text_field( $request['security'] ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, 'wc_warranty_delete_note_nonce_' . $note ) ) {
-			die;
+			die( esc_html__( 'Security check', 'wc_warranty' ) );
+		}
+
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
+		$order = warranty_get_order_from_request_id( $request_id );
+
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $request_id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
 		}
 
 		wp_delete_comment( $note, true );
@@ -405,7 +502,16 @@ class Warranty_Ajax {
 			wp_send_json(
 				array(
 					'status'  => 'ERROR',
-					'message' => 'Invalid referrer. Please reload the page and try again',
+					'message' => esc_html__( 'Invalid referrer. Please reload the page and try again', 'wc_warranty' ),
+				)
+			);
+		}
+
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			wp_send_json(
+				array(
+					'status'  => 'ERROR',
+					'message' => esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ),
 				)
 			);
 		}
@@ -449,7 +555,17 @@ class Warranty_Ajax {
 	public static function return_inventory() {
 		check_admin_referer( 'warranty_return_inventory' );
 
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		$request_id = absint( $_REQUEST['id'] );
+
+		$order = warranty_get_order_from_request_id( $request_id );
+
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $request_id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
+		}
 
 		warranty_return_product_stock( $request_id );
 
@@ -476,8 +592,18 @@ class Warranty_Ajax {
 	public static function refund_item() {
 		check_admin_referer( 'warranty_update' );
 
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		$request_id = absint( $_REQUEST['id'] );
 		$amount     = ! empty( $_REQUEST['amount'] ) ? $_REQUEST['amount'] : null;
+
+		$order = warranty_get_order_from_request_id( $request_id );
+
+		if ( ! warranty_user_has_access( wp_get_current_user(), $order, $request_id ) ) {
+			die( esc_html__( 'Permission denied: does not have access to warranty record', 'wc_warranty' ) );
+		}
 
 		$refund = warranty_refund_item( $request_id, $amount );
 
@@ -508,7 +634,7 @@ class Warranty_Ajax {
 	/**
 	 * Update a product's warranty details and return the new warranty string/description
 	 */
-	public function product_warranty_update() {
+	public static function product_warranty_update() {
 		$post_data = warranty_request_post_data();
 
 		// Make sure we have an integer for the product ID.
@@ -530,6 +656,16 @@ class Warranty_Ajax {
 				array(
 					'success' => false,
 					'message' => esc_html__( 'Security token does not match.', 'woocommerce-warranty' ),
+				)
+			);
+			die();
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ),
 				)
 			);
 			die();
@@ -626,6 +762,16 @@ class Warranty_Ajax {
 			);
 		}
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'data'    => array(),
+					'message' => esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ),
+				)
+			);
+		}
+
 		$warranties = Warranty_Settings::get_category_warranties_from_post();
 		update_option( 'wc_warranty_categories', $warranties );
 
@@ -672,6 +818,14 @@ class Warranty_Ajax {
 
 		if ( ! wp_verify_nonce( $nonce, 'warranty_migrate_products_nonce' ) ) {
 			wp_send_json( array( 'error' => esc_html__( 'Security token does not match.', 'woocommerce-warranty' ) ) );
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json(
+				array(
+					'error' => esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ),
+				)
+			);
 		}
 
 		$_wp_using_ext_object_cache_previous = $_wp_using_ext_object_cache;
@@ -771,6 +925,15 @@ class Warranty_Ajax {
 
 		if ( false === check_ajax_referer( 'shipping_label_image_file_upload', 'security', false ) ) {
 			wp_send_json( $response );
+		}
+
+		if ( ! current_user_can( 'manage_warranties' ) ) {
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ),
+				)
+			);
 		}
 
 		// Try to get the uploaded file.

@@ -69,6 +69,10 @@ class PrintPreview {
 			return;
 		}
 
+		if ( ! current_user_can( wp_mail_smtp()->get_admin()->get_logs_access_capability() ) ) {
+			wp_die( esc_html__( 'Access rejected.', 'wp-mail-smtp-pro' ) );
+		}
+
 		?>
 		<!doctype html>
 		<html>

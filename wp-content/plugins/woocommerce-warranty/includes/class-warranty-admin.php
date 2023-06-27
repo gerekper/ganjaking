@@ -701,32 +701,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 					if ( ! empty( $get_data['search_key'] ) && ! empty( $get_data['search_term'] ) ) {
 						$searched = true;
-
-						if ( 'customer' === $get_data['search_key'] ) {
-							if ( is_email( $get_data['search_term'] ) ) {
-								$sql = $wpdb->prepare(
-									"SELECT DISTINCT post_id AS id
-									FROM {$wpdb->postmeta} pm, {$wpdb->posts} p
-									WHERE pm.post_id = p.ID
-									AND pm.meta_key = '_billing_email'
-									AND pm.meta_value LIKE %s",
-									$get_data['search_term']
-								);
-							} else {
-								$sql = $wpdb->prepare(
-									"SELECT DISTINCT post_id AS id
-									FROM {$wpdb->postmeta} pm, {$wpdb->posts} p
-									WHERE pm.post_id = p.ID
-									AND pm.meta_key = '_customer_user'
-									AND pm.meta_value LIKE %s",
-									$get_data['search_term']
-								);
-							}
-
-							$orders = $wpdb->get_col( $sql );
-						} else {
-							$orders = array_unique( array_merge( $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT ID AS id FROM {$wpdb->posts} WHERE post_type = 'shop_order' AND ID LIKE %s", $get_data['search_term'] . '%' ) ), $wpdb->get_col( $wpdb->prepare( "SELECT post_id AS id FROM {$wpdb->postmeta} WHERE meta_key = '_order_number' AND meta_value LIKE %s", $get_data['search_term'] . '%' ) ) ) );
-						}
+						$orders   = $this->get_orders( $get_data['search_key'], $get_data['search_term'] );
 					} elseif ( isset( $get_data['order_id'] ) && isset( $get_data['idx'] ) ) {
 						$form_view = true;
 					}
@@ -749,6 +724,125 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			}
 
 			do_action( 'warranty_page_controller' );
+		}
+
+		/**
+		 * Get orders data based on search key and search keyword.
+		 *
+		 * @param String $key  Search key.
+		 * @param String $term Search keyword.
+		 *
+		 * @return Array.
+		 */
+		public function get_orders( $key, $term ) {
+			global $wpdb;
+
+			if ( class_exists( 'WC_Product_Vendors_Utils' ) && apply_filters( 'warranty_use_product_vendor_query', WC_Product_Vendors_Utils::is_vendor() ) ) {
+				if ( 'customer' === $key ) {
+					if ( is_email( $term ) ) {
+						$sql = $wpdb->prepare(
+							"SELECT DISTINCT post_id AS id
+							FROM {$wpdb->postmeta} pm, {$wpdb->posts} p, " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " c
+							WHERE pm.post_id = p.ID
+							AND c.order_id = p.ID
+							AND c.vendor_id = %d
+							AND pm.meta_key = '_billing_email'
+							AND pm.meta_value LIKE %s",
+							WC_Product_Vendors_Utils::get_logged_in_vendor(),
+							$term
+						);
+					} else {
+						$sql = $wpdb->prepare(
+							"SELECT DISTINCT post_id AS id
+							FROM {$wpdb->postmeta} pm, {$wpdb->posts} p, " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " c
+							WHERE pm.post_id = p.ID
+							AND c.order_id = p.ID
+							AND c.vendor_id = %d
+							AND pm.meta_key = '_customer_user'
+							AND pm.meta_value LIKE %s",
+							WC_Product_Vendors_Utils::get_logged_in_vendor(),
+							$term
+						);
+					}
+					return $wpdb->get_col( $sql );
+				} else {
+					return array_unique(
+						array_merge(
+							$wpdb->get_col(
+								$wpdb->prepare(
+									"SELECT DISTINCT p.ID AS id
+									FROM {$wpdb->posts} p, " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " c
+									WHERE p.ID = c.order_id
+									AND c.vendor_id = %d
+									AND p.post_type = 'shop_order'
+									AND p.ID LIKE %s",
+									WC_Product_Vendors_Utils::get_logged_in_vendor(),
+									$term . '%'
+								)
+							),
+							$wpdb->get_col(
+								$wpdb->prepare(
+									"SELECT m.post_id AS id
+									FROM {$wpdb->postmeta} m, " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " c
+									WHERE m.post_id = c.order_id
+									AND c.vendor_id = %d
+									AND m.meta_key = '_order_number'
+									AND m.meta_value LIKE %s",
+									WC_Product_Vendors_Utils::get_logged_in_vendor(),
+									$term . '%'
+								)
+							)
+						)
+					);
+				}
+			}
+
+			if ( 'customer' === $key ) {
+				if ( is_email( $term ) ) {
+					$sql = $wpdb->prepare(
+						"SELECT DISTINCT post_id AS id
+						FROM {$wpdb->postmeta} pm, {$wpdb->posts} p
+						WHERE pm.post_id = p.ID
+						AND pm.meta_key = '_billing_email'
+						AND pm.meta_value LIKE %s",
+						$term
+					);
+				} else {
+					$sql = $wpdb->prepare(
+						"SELECT DISTINCT post_id AS id
+						FROM {$wpdb->postmeta} pm, {$wpdb->posts} p
+						WHERE pm.post_id = p.ID
+						AND pm.meta_key = '_customer_user'
+						AND pm.meta_value LIKE %s",
+						$term
+					);
+				}
+
+				return $wpdb->get_col( $sql );
+			} else {
+				return array_unique(
+					array_merge(
+						$wpdb->get_col(
+							$wpdb->prepare(
+								"SELECT DISTINCT ID AS id 
+								FROM {$wpdb->posts}
+								WHERE post_type = 'shop_order'
+								AND ID LIKE %s",
+								$term . '%'
+							)
+						),
+						$wpdb->get_col(
+							$wpdb->prepare(
+								"SELECT post_id AS id
+								FROM {$wpdb->postmeta}
+								WHERE meta_key = '_order_number'
+								AND meta_value LIKE %s",
+								$term . '%'
+							)
+						)
+					)
+				);
+			}
 		}
 
 		/**

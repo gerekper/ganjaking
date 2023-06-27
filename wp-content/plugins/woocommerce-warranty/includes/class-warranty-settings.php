@@ -502,6 +502,10 @@ class Warranty_Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( 'warranty_emails' === $value['type'] ) {
 			$emails = self::get_warranty_emails_from_post();
 
@@ -512,6 +516,10 @@ class Warranty_Settings {
 	public function update_permissions( $value ) {
 		if ( empty( $value['type'] ) ) {
 			return;
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
 		}
 
 		if ( 'warranty_permissions' === $value['type'] ) {
@@ -526,6 +534,10 @@ class Warranty_Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( 'multi_status' === $value['type'] ) {
 			$statuses = self::get_multi_status_from_post( $value['id'] );
 
@@ -536,6 +548,10 @@ class Warranty_Settings {
 	public function update_form_builder( $value ) {
 		if ( empty( $value['type'] ) ) {
 			return;
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
 		}
 
 		if ( 'warranty_form_builder' === $value['type'] ) {
@@ -550,6 +566,10 @@ class Warranty_Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( 'warranty_categories_table' === $value['type'] ) {
 			$warranties = self::get_category_warranties_from_post();
 
@@ -562,6 +582,10 @@ class Warranty_Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( 'warranty_addons_table' === $value['type'] ) {
 			$addons = self::get_default_addons_from_post();
 
@@ -570,6 +594,10 @@ class Warranty_Settings {
 	}
 
 	public function warranty_emails_posted_value( $value, $option, $raw_value ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( $option['type'] == 'warranty_emails' ) {
 			$value = self::get_warranty_emails_from_post();
 		}
@@ -578,6 +606,10 @@ class Warranty_Settings {
 	}
 
 	public function permissions_posted_value( $value, $option, $raw_value ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( $option['type'] == 'warranty_permissions' ) {
 			$value = self::get_warranty_permissions_from_post();
 		}
@@ -586,6 +618,10 @@ class Warranty_Settings {
 	}
 
 	public function multi_status_posted_value( $value, $option, $raw_value ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( $option['type'] == 'multi_status' ) {
 			$value = self::get_multi_status_from_post( $option['id'] );
 		}
@@ -594,6 +630,10 @@ class Warranty_Settings {
 	}
 
 	public function form_builder_posted_value( $value, $option, $raw_value ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( $option['type'] == 'warranty_form_builder' ) {
 			$value = self::get_form_builder_from_post();
 		}
@@ -602,6 +642,10 @@ class Warranty_Settings {
 	}
 
 	public function default_addons_posted_value( $value, $option, $raw_value ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			die( esc_html__( 'Permission denied: Not enough capability', 'wc_warranty' ) );
+		}
+
 		if ( $option['type'] == 'warranty_addons_table' ) {
 			$value = self::get_default_addons_from_post();
 		}
@@ -988,7 +1032,7 @@ class Warranty_Settings {
 
 	public static function get_warranty_permissions_from_post() {
 		$statuses    = warranty_get_statuses();
-		$users       = isset( $_POST['permission'] ) ? $_POST['permission'] : array();
+		$users       = isset( $_POST['permission'] ) ? wc_clean( wp_unslash( $_POST['permission'] ) ) : array();
 		$permissions = array();
 
 		foreach ( $statuses as $status ) {

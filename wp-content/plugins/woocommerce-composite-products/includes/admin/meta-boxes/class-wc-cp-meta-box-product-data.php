@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.8.2
+ * @version  8.9.1
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -283,17 +283,17 @@ class WC_CP_Meta_Box_Product_Data {
 		}
 
 		// Extend "Sold Individually" options to account for different configurations.
-		woocommerce_wp_select( array(
+		woocommerce_wp_radio( array(
 			'id'            => '_bto_sold_individually',
 			'wrapper_class' => 'show_if_composite',
 			'label'         => __( 'Sold individually', 'woocommerce' ),
 			'options'       => array(
 				'no'            => __( 'No', 'woocommerce-composite-products' ),
 				'product'       => __( 'Yes', 'woocommerce-composite-products' ),
-				'configuration' => __( 'Matching configurations only', 'woocommerce-composite-products' )
+				'configuration' => __( 'Matching configurations', 'woocommerce-composite-products' )
 			),
 			'value'         => $value,
-			'description'   => __( 'Allow only one of this item (or only one of each unique configuration of this item) to be bought in a single order.', 'woocommerce-composite-products' ),
+			'description'   => __( 'Allow only one of this composite to be bought in a single order. Choose the <strong>Matching configurations</strong> option to prevent customers from purchasing <strong>identically configured</strong> composites in the same order.', 'woocommerce-composite-products' ),
 			'desc_tip'      => 'true'
 		) );
 	}
@@ -498,7 +498,6 @@ class WC_CP_Meta_Box_Product_Data {
 						?>
 						<div class="bto_boarding__components">
 							<div class="bto_boarding__components__message">
-								<h3><?php esc_html_e( 'Components', 'woocommerce-composite-products' ); ?></h3>
 								<p><?php
 									/* translators: Documentation link. */
 									echo wp_kses_post( sprintf( __( 'Components are the <a href="%s" target="_blank">building blocks</a> of every Composite Product.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'guide' ) ) ) ); ?>
@@ -568,12 +567,11 @@ class WC_CP_Meta_Box_Product_Data {
 				</ul>
 			</div>
 			<div class="wp-clearfix"></div>
-			<div id="message" class="inline notice">
+			<div id="message" class="inline notice woocommerce-message">
 				<p>
-					<span class="assembled_notice_title"><?php esc_html_e( 'What happened to the shipping options?', 'woocommerce-composite-products' ); ?></span>
 					<?php
 						/* translators: Documentation link. */
-						echo wp_kses_post( sprintf( __( 'The contents of this composite product preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> composite products do not have any shipping options to configure.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'shipping-options' ) ) ) ); ?>
+						echo wp_kses_post( sprintf( __( '<a href="%s" target="_blank">Unassembled</a> composite products do not have any shipping options to configure. The contents of this composite product preserve their dimensions, weight and shipping classes.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'shipping-options' ) ) ) ); ?>
 				</p>
 			</div>
 		<?php
@@ -1994,7 +1992,12 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function composite_stock_info() {
 		?><span class="composite_stock_msg show_if_composite">
-				<?php echo wc_help_tip( __( 'By default, the sale of a product within a composite has the same effect on its stock as an individual sale. There are no separate inventory settings for composited items. However, managing stock at composite level can be very useful for allocating composite stock quota, or for keeping track of composited item sales.', 'woocommerce-composite-products' ) ); ?>
+				<?php echo wp_kses_post(
+					sprintf(
+							__( 'Enable this option to track stock for this SKU only. This option does not affect the inventory management of composited products. <a class="composites-inventory-learn-more-link" href="%1$s" target="_blank" rel="noreferrer">Learn more</a>', 'woocommerce-composite-products' ),
+							esc_url( 'https://woocommerce.com/document/composite-products/composite-products-configuration/#inventory' )
+						)
+					); ?>
 		</span><?php
 	}
 
@@ -2272,7 +2275,6 @@ class WC_CP_Meta_Box_Product_Data {
 							} else {
 								?><div class="bto_boarding__scenarios bto_scenarios__boarding--scenarios_empty">
 									<div class="bto_boarding__scenarios__message">
-										<h3><?php esc_html_e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
 										<p><?php esc_html_e( 'Use Scenarios to conditionally hide Components and Component Options.', 'woocommerce-composite-products' ); ?>
 										<br/><?php
 											/* translators: %1$s: Documentation link, %2$s: Support link. */
@@ -2292,7 +2294,6 @@ class WC_CP_Meta_Box_Product_Data {
 
 						?><div class="bto_boarding__scenarios bto_scenarios__boarding--components_empty">
 							<div class="bto_boarding__scenarios__message">
-								<h3><?php esc_html_e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
 								<p><?php
 									/* translators: Documentation link. */
 									echo wp_kses_post( sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'guide' ) ) ) ); ?>
@@ -2356,7 +2357,6 @@ class WC_CP_Meta_Box_Product_Data {
 
 									?><div class="bto_boarding__states bto_state__boarding--state_empty">
 										<div class="bto_boarding__states__message">
-											<h3><?php esc_html_e( 'States', 'woocommerce-composite-products' ); ?></h3>
 											<p><?php esc_html_e( 'Use States to specify combinations of Component Options that can be bought together.', 'woocommerce-composite-products' ); ?>
 											<br/><?php
 												/* translators: %1$s: Documentation link, %2$s: Support link. */
@@ -2376,7 +2376,6 @@ class WC_CP_Meta_Box_Product_Data {
 
 							?><div class="bto_boarding__states bto_states__boarding--components_empty">
 								<div class="bto_boarding__states__message">
-									<h3><?php esc_html_e( 'States', 'woocommerce-composite-products' ); ?></h3>
 									<p><?php echo wp_kses_post( sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'guide' ) ) ) ); ?>
 									<br/><?php
 										/* translators: Documentation link. */
@@ -2416,8 +2415,13 @@ class WC_CP_Meta_Box_Product_Data {
 
 		self::set_global_object_data( $composite_product_object );
 
-		$options[ 'virtual' ][ 'wrapper_class' ]      .= ' hide_if_composite';
-		$options[ 'downloadable' ][ 'wrapper_class' ] .= ' show_if_composite';
+		if ( isset( $options[ 'virtual' ][ 'wrapper_class' ] ) ) {
+			$options[ 'virtual' ][ 'wrapper_class' ] .= ' hide_if_composite';
+		}
+
+		if ( isset( $options[ 'downloadable' ][ 'wrapper_class' ] ) ) {
+			$options[ 'downloadable' ][ 'wrapper_class' ] .= ' show_if_composite';
+		}
 
 		/*
  		 * Instead of adding this, another approach here would be to use the vanilla 'Virtual' box to set the 'virtual_composite' prop for Composites.
