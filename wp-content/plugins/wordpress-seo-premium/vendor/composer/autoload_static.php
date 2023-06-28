@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559
+class ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -151,6 +151,7 @@ class ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559
         'Yoast\\WP\\SEO\\Premium\\Generated\\Cached_Container' => __DIR__ . '/../..' . '/src/generated/container.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper' => __DIR__ . '/../..' . '/src/helpers/current-page-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper' => __DIR__ . '/../..' . '/src/helpers/prominent-words-helper.php',
+        'Yoast\\WP\\SEO\\Premium\\Helpers\\Version_Helper' => __DIR__ . '/../..' . '/src/helpers/version-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper' => __DIR__ . '/../..' . '/src/deprecated/helpers/zapier-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks' => __DIR__ . '/../..' . '/src/deprecated/initializers/crawl-cleanup-permalinks.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key' => __DIR__ . '/../..' . '/src/initializers/index-now-key.php',
@@ -175,6 +176,7 @@ class ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/replacement-variables-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/settings-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/thank-you-page-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Premium_Notification' => __DIR__ . '/../..' . '/src/integrations/admin/update-premium-notification.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/workouts-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Zapier_Notification_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/zapier-notification-integration.php',
@@ -230,9 +232,9 @@ class ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc5b5652021dc77dfc0c52f7cfb33a559::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc::$classMap;
 
         }, null, ClassLoader::class);
     }

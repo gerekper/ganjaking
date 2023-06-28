@@ -105,7 +105,11 @@ class Inclusive_Language_Taxonomy_Column_Integration implements Integration_Inte
 		}
 
 		$columns[ self::INCLUSIVE_LANGUAGE_COLUMN_NAME ] = \sprintf(
-			'<span class="yoast-column-inclusive-language yoast-column-header-has-tooltip" data-tooltip-text="%1$s"><span class="screen-reader-text">%2$s</span></span>',
+			'<span class="yoast-tooltip yoast-tooltip-n yoast-tooltip-alt" data-label="%1$s">
+				<span class="yoast-column-inclusive-language yoast-column-header-has-tooltip">
+					<span class="screen-reader-text">%2$s</span>
+				</span>
+			</span>',
 			\esc_attr__( 'Inclusive language score', 'wordpress-seo-premium' ),
 			\esc_html__( 'Inclusive language score', 'wordpress-seo-premium' )
 		);

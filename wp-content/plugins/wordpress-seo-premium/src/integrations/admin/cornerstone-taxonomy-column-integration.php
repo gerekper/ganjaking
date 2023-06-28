@@ -94,7 +94,11 @@ class Cornerstone_Taxonomy_Column_Integration implements Integration_Interface {
 		}
 
 		$columns[ self::CORNERSTONE_COLUMN_NAME ] = \sprintf(
-			'<span class="yoast-column-cornerstone yoast-column-header-has-tooltip" data-tooltip-text="%1$s"><span class="screen-reader-text">%2$s</span></span>',
+			'<span class="yoast-tooltip yoast-tooltip-n yoast-tooltip-alt" data-label="%1$s">
+				<span class="yoast-column-cornerstone yoast-column-header-has-tooltip">
+					<span class="screen-reader-text">%2$s</span>
+				</span>
+			</span>',
 			\esc_attr__( 'Is this cornerstone content?', 'wordpress-seo-premium' ),
 			\esc_html__( 'Cornerstone content', 'wordpress-seo-premium' )
 		);

@@ -171,10 +171,10 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	/**
 	 * Offer to create a redirect from the term that is about to get deleted.
 	 *
-	 * @param int $term_id The term id that will be deleted.
+	 * @param int $term_taxonomy_id The term taxonomy id that will be deleted.
 	 */
-	public function detect_term_delete( $term_id ) {
-		$term = \get_term( $term_id );
+	public function detect_term_delete( $term_taxonomy_id ) {
+		$term = \get_term_by( 'term_taxonomy_id', (int) $term_taxonomy_id );
 
 		if ( ! $term || is_wp_error( $term ) ) {
 			return;
