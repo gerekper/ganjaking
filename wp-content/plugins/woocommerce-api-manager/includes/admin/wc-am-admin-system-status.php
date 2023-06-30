@@ -534,7 +534,7 @@ class WC_AM_Admin_System_Status {
 		$debug_data[ 'wc_api_manager_next_api_resource_cleanup_scheduled' ] = array(
 			'name'      => _x( 'Next API Resources Cleanup Scheduled', 'Next Resources Cleanup Scheduled, Label on WooCommerce -> System Status page', 'woocommerce-api-manager' ),
 			'label'     => 'Next API Resources Cleanup Scheduled',
-			'note'      => ( ! empty( $next_cleanup ) ) ? wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) : __( 'Not scheduled.', 'woocommerce-api-manager' ),
+			'note'      => ( ! empty( $next_cleanup ) ) ? '<code>' . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) . '</code>' : __( 'Not scheduled.', 'woocommerce-api-manager' ),
 			'mark'      => '',
 			'mark_icon' => '',
 		);

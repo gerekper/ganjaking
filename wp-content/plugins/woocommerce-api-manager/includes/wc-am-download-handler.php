@@ -122,7 +122,7 @@ class WC_AM_Download_Handler {
 				$parsed_file_path = $this->parse_file_path( $file_path );
 
 				if ( $parsed_file_path ) {
-					$download_range = $this->get_download_range( @filesize( $parsed_file_path[ 'file_path' ] ) );
+					$download_range = $this->get_download_range( @filesize( $parsed_file_path[ 'file_path' ] ) ); // WPCS: input var ok.
 
 					if ( ! $download_range[ 'is_range_request' ] ) {
 						$download->track_download( $current_user_id > 0 ? $current_user_id : null, ! empty( $ip_address ) ? $ip_address : null );
@@ -600,7 +600,7 @@ class WC_AM_Download_Handler {
 			$message .= ' <a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward">' . esc_html__( 'Go to shop', 'woocommerce-api-manager' ) . '</a>';
 		}
 
-		wp_die( $message, esc_html( $title ), array( 'response' => esc_html( $status ) ) );
+		wp_die( $message, esc_html( $title ), array( 'response' => esc_html( $status ) ) ); // WPCS: XSS ok.
 	}
 
 } // end of class

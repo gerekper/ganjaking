@@ -217,7 +217,9 @@ class WC_AM_Background_Events {
 	 * @since 3.0
 	 */
 	public function send_subscription_expiration_notification( $api_resource_id ) {
-		WC_AM_EMAILS()->send_subscription_expiration_notification( $api_resource_id );
+		if ( ! empty( $api_resource_id ) ) {
+			WC_AM_EMAILS()->send_subscription_expiration_notification( $api_resource_id );
+		}
 	}
 
 	/**
@@ -367,7 +369,7 @@ class WC_AM_Background_Events {
 	 * @param int $api_resource_id
 	 */
 	public function cleanup_expired_grace_periods( $api_resource_id ) {
-		if ( ! WC_AM_API_RESOURCE_DATA_STORE()->api_resource_id_exists( $api_resource_id ) ) {
+		if ( ! empty( $api_resource_id ) && ! WC_AM_API_RESOURCE_DATA_STORE()->api_resource_id_exists( $api_resource_id ) ) {
 			WC_AM_GRACE_PERIOD()->delete_expiration_by_api_resource_id( $api_resource_id );
 		}
 	}
@@ -385,40 +387,42 @@ class WC_AM_Background_Events {
 	 * @throws \Exception
 	 */
 	public function queue_add_new_api_product_orders( $product_id ) {
-		$order_ids = WC_AM_ORDER_DATA_STORE()->get_all_order_ids_by_meta_value( $product_id );
+		if ( ! empty( $product_id ) ) {
+			$order_ids = WC_AM_ORDER_DATA_STORE()->get_all_order_ids_by_meta_value( $product_id );
 
-		if ( ! empty( $order_ids ) ) {
-			foreach ( $order_ids as $key => $order_id ) {
-				$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
+			if ( ! empty( $order_ids ) ) {
+				foreach ( $order_ids as $key => $order_id ) {
+					$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 
-				if ( is_object( $order ) ) {
-					$user_id = WC_AM_ORDER_DATA_STORE()->get_customer_id( $order );
-					$items   = $order->get_items();
+					if ( is_object( $order ) ) {
+						$user_id = WC_AM_ORDER_DATA_STORE()->get_customer_id( $order );
+						$items   = $order->get_items();
 
-					if ( ! empty( $user_id ) && WC_AM_FORMAT()->count( $items ) > 0 ) {
-						foreach ( $items as $item_id => $item ) {
-							$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item );
-							$variation_id      = $item->get_variation_id();
-							$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
+						if ( ! empty( $user_id ) && WC_AM_FORMAT()->count( $items ) > 0 ) {
+							foreach ( $items as $item_id => $item ) {
+								$parent_product_id = WC_AM_PRODUCT_DATA_STORE()->get_parent_product_id( $item );
+								$variation_id      = $item->get_variation_id();
+								$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
 
-							if ( $is_api && ( WC_AM_ORDER_DATA_STORE()->has_status_completed( $order ) || ( WCAM()->get_grant_access_after_payment() && WC_AM_ORDER_DATA_STORE()->has_status_processing( $order ) ) ) ) {
-								$item_product_id = ! empty( $variation_id ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $variation_id ) ? $variation_id : $item->get_product_id();
+								if ( $is_api && ( WC_AM_ORDER_DATA_STORE()->has_status_completed( $order ) || ( WCAM()->get_grant_access_after_payment() && WC_AM_ORDER_DATA_STORE()->has_status_processing( $order ) ) ) ) {
+									$item_product_id = ! empty( $variation_id ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $variation_id ) ? $variation_id : $item->get_product_id();
 
-								if ( $item_product_id == $product_id ) {
-									// The order has an API Product.
-									$this->background_process->push_to_queue( array(
-										                                          'task'                                => 'add_new_api_product_orders',
-										                                          'order_id_add_new_api_product_orders' => $order_id
-									                                          ) );
+									if ( $item_product_id == $product_id ) {
+										// The order has an API Product.
+										$this->background_process->push_to_queue( array(
+											                                          'task'                                => 'add_new_api_product_orders',
+											                                          'order_id_add_new_api_product_orders' => $order_id
+										                                          ) );
 
-									break;
+										break;
+									}
 								}
 							}
 						}
 					}
-				}
 
-				unset( $order );
+					unset( $order );
+				}
 			}
 		}
 	}
@@ -438,7 +442,9 @@ class WC_AM_Background_Events {
 	 * @throws \Exception
 	 */
 	public function add_new_api_product_orders( $order_id ) {
-		WC_AM_ORDER()->update_order( $order_id );
+		if ( ! empty( $order_id ) ) {
+			WC_AM_ORDER()->update_order( $order_id );
+		}
 	}
 
 	/**
@@ -451,16 +457,18 @@ class WC_AM_Background_Events {
 	 * @param int $product_id
 	 */
 	public function queue_update_api_resource_activations_for_product( $product_id ) {
-		$order_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
+		if ( ! empty( $product_id ) ) {
+			$order_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
 
-		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
-			foreach ( $order_ids as $order_id ) {
-				if ( ! empty( $order_id ) ) {
-					$this->background_process->push_to_queue( array(
-						                                          'task'                                                   => 'update_api_resource_activations_for_product',
-						                                          'product_id_update_api_resource_activations_for_product' => $product_id,
-						                                          'order_id_update_api_resource_activations_for_product'   => $order_id
-					                                          ) );
+			if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
+				foreach ( $order_ids as $order_id ) {
+					if ( ! empty( $order_id ) ) {
+						$this->background_process->push_to_queue( array(
+							                                          'task'                                                   => 'update_api_resource_activations_for_product',
+							                                          'product_id_update_api_resource_activations_for_product' => $product_id,
+							                                          'order_id_update_api_resource_activations_for_product'   => $order_id
+						                                          ) );
+					}
 				}
 			}
 		}
@@ -525,19 +533,21 @@ class WC_AM_Background_Events {
 	 * @param int $product_id
 	 */
 	public function queue_update_api_resource_access_expires_for_product( $product_id ) {
-		// Value set on Product edit for API Access Expires.
-		$product_access_expires = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_access_expires' );
-		$order_ids              = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
+		if ( ! empty( $product_id ) ) {
+			// Value set on Product edit for API Access Expires.
+			$product_access_expires = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_access_expires' );
+			$order_ids              = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
 
-		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
-			foreach ( $order_ids as $order_id ) {
-				if ( ! empty( $order_id ) ) {
-					$this->background_process->push_to_queue( array(
-						                                          'task'                                                                  => 'update_api_resource_access_expires_for_product',
-						                                          'product_id_update_api_resource_access_expires_for_product'             => $product_id,
-						                                          'order_id_update_api_resource_access_expires_for_product'               => $order_id,
-						                                          'product_access_expires_update_api_resource_access_expires_for_product' => $product_access_expires
-					                                          ) );
+			if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
+				foreach ( $order_ids as $order_id ) {
+					if ( ! empty( $order_id ) ) {
+						$this->background_process->push_to_queue( array(
+							                                          'task'                                                                  => 'update_api_resource_access_expires_for_product',
+							                                          'product_id_update_api_resource_access_expires_for_product'             => $product_id,
+							                                          'order_id_update_api_resource_access_expires_for_product'               => $order_id,
+							                                          'product_access_expires_update_api_resource_access_expires_for_product' => $product_access_expires
+						                                          ) );
+					}
 				}
 			}
 		}
@@ -558,36 +568,39 @@ class WC_AM_Background_Events {
 	public function update_api_resource_access_expires_for_product( $product_id, $order_id, $product_access_expires ) {
 		global $wpdb;
 
-		// Time when order created.
-		$order_created_time = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $order_id );
-		// Value when API Access for the API Resource will expire.
-		$line_item_access_expires = ! empty( $product_access_expires ) ? absint( ( (int) $product_access_expires * DAY_IN_SECONDS ) + $order_created_time ) : 0;
+		if ( ! empty( $product_id ) && ! empty( $order_id ) ) {
 
-		$data = array(
-			'access_expires' => $line_item_access_expires
-		);
+			// Time when order created.
+			$order_created_time = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $order_id );
+			// Value when API Access for the API Resource will expire.
+			$line_item_access_expires = ! empty( $product_access_expires ) ? absint( ( (int) $product_access_expires * DAY_IN_SECONDS ) + $order_created_time ) : 0;
 
-		$where = array(
-			'order_id'   => $order_id,
-			'product_id' => $product_id,
-			'sub_id'     => 0
-		);
+			$data = array(
+				'access_expires' => $line_item_access_expires
+			);
 
-		$data_format = array(
-			'%d'
-		);
+			$where = array(
+				'order_id'   => $order_id,
+				'product_id' => $product_id,
+				'sub_id'     => 0
+			);
 
-		$where_format = array(
-			'%d',
-			'%d',
-			'%d'
-		);
+			$data_format = array(
+				'%d'
+			);
 
-		$updated = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+			$where_format = array(
+				'%d',
+				'%d',
+				'%d'
+			);
 
-		if ( ! empty( $updated ) ) {
-			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
-			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+			$updated = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+
+			if ( ! empty( $updated ) ) {
+				WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
+				WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+			}
 		}
 	}
 

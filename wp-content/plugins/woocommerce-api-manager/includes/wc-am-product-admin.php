@@ -524,7 +524,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Documentation link for My Account.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Documentation link for My Account.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-field ' . esc_attr( '_api_description' ) . '_field ' . esc_attr( '_api_description_field' ) . '"><label for="' . esc_attr( '_api_description' ) . '">' . esc_html__( 'Description', 'woocommerce-api-manager' ) . '</label>';
@@ -543,7 +543,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'A description of the software.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'A description of the software.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-field ' . esc_attr( '_api_changelog' ) . '_field ' . esc_attr( '_api_changelog_field' ) . '"><label for="' . esc_attr( '_api_changelog' ) . '">' . esc_html__( 'Changelog', 'woocommerce-api-manager' ) . '</label>';
@@ -562,7 +562,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Changes in the software.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Changes in the software.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-field ' . esc_attr( '_api_installation' ) . '_field ' . esc_attr( '_api_installation_field' ) . '"><label for="' . esc_attr( '_api_installation' ) . '">' . esc_html__( 'Installation', 'woocommerce-api-manager' ) . '</label>';
@@ -581,7 +581,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'How to install the software.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'How to install the software.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-field ' . esc_attr( '_api_faq' ) . '_field ' . esc_attr( '_api_faq_field' ) . '"><label for="' . esc_attr( '_api_faq' ) . '">' . esc_html__( 'FAQ', 'woocommerce-api-manager' ) . '</label>';
@@ -600,7 +600,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Frequently Asked Questions.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Frequently Asked Questions.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-field ' . esc_attr( '_api_screenshots' ) . '_field ' . esc_attr( '_api_screenshots_field' ) . '"><label for="' . esc_attr( '_api_screenshots' ) . '">' . esc_html__( 'Screenshots', 'woocommerce-api-manager' ) . '</label>';
@@ -619,7 +619,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Screenshots of the software.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Screenshots of the software.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-field ' . esc_attr( '_api_other_notes' ) . '_field ' . esc_attr( '_api_other_notes_field' ) . '"><label for="' . esc_attr( '_api_other_notes' ) . '">' . esc_html__( 'Other Notes', 'woocommerce-api-manager' ) . '</label>';
@@ -638,7 +638,7 @@ class WC_AM_Product_Admin {
 					echo '&nbsp;<a href="' . esc_url( admin_url( 'post.php?post=' . $doc ) ) . '&action=edit" target="_blank" ><span style="text-decoration:none; font-size: large; vertical-align: middle;" class="dashicons dashicons-admin-links"></span></a>';
 				}
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Other details or special facts.', 'woocommerce-api-manager' ) . '</span>';
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip;', 'woocommerce-api-manager' ) . "' data-width='50%' class='wc-am-select' id=", wp_dropdown_pages( $desc_args ) ) . '<span class="description">' . esc_html__( 'Other details or special facts.', 'woocommerce-api-manager' ) . '</span>'; // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '</div>';
@@ -924,7 +924,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_changelog_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_changelog_var_field' ) . '"><label for="' . esc_attr( '_api_changelog_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Changelog', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'A list of changes to the software that should be grouped by date.', 'woocommerce-api-manager' ) . '"></span></label>';
@@ -945,7 +945,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Recommended)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Recommended)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_installation_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_installation_var_field' ) . '"><label for="' . esc_attr( '_api_installation_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Installation', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Instructions on how to install the software, and notes regarding installation.', 'woocommerce-api-manager' ) . '"></span></label>';
@@ -966,7 +966,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_faq_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_faq_var_field' ) . '"><label for="' . esc_attr( '_api_faq_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'FAQ', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Frequently Asked Questions about the software.', 'woocommerce-api-manager' ) . '"></span></label>';
@@ -987,7 +987,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_screenshots_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_screenshots_var_field' ) . '"><label for="' . esc_attr( '_api_screenshots_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Screenshots', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Screenshots of the software.', 'woocommerce-api-manager' ) . '"></span></label>';
@@ -1008,7 +1008,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-row form-row-first show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_other_notes_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_other_notes_var_field' ) . '"><label for="' . esc_attr( '_api_other_notes_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'Other Notes', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Other notes about the software.', 'woocommerce-api-manager' ) . '"></span></label>';
@@ -1029,7 +1029,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 
 				echo '<p class="form-row form-row-last show_if_api_global_data_set_var' . esc_attr( $loop ) . ' api_global_data_set_hide_onload_var' . esc_attr( $loop ) . ' ' . esc_attr( '_api_product_documentation_var[' . esc_attr( $loop ) . ']' ) . '_field ' . esc_attr( '_api_product_documentation_var_field' ) . '"><label for="' . esc_attr( '_api_product_documentation_var[' . esc_attr( $loop ) . ']' ) . '">' . esc_html__( 'My Account Documentation', 'woocommerce-api-manager' ) . '<span class="woocommerce-help-tip" data-tip="' . esc_html__( 'Documentation link for My Account dashboard.', 'woocommerce-api-manager' ) . '"></span></label>';
@@ -1050,7 +1050,7 @@ class WC_AM_Product_Admin {
 
 				echo '</label><br>';
 
-				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) );
+				echo str_replace( ' id=', " data-placeholder='" . esc_html__( 'Select a page &hellip; (Optional)', 'woocommerce-api-manager' ) . "' data-width='100%' class='wc-am-var-select' id=", wp_dropdown_pages( $desc_args ) ); // WPCS: XSS ok.
 				echo '</p>';
 				?>
 

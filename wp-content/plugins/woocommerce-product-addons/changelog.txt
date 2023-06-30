@@ -1,5 +1,12 @@
 *** Product Addons Changelog ***
 
+2023-06-27 - version 6.4.3
+* Tweak - Important: Updated the 'addon-start' template and added the tax status data attribute.
+* Fix - Fixed an issue that made tax suffixes show up in non-taxable products with add-ons.
+* Fix - Fixed a PHP warning triggered by a duplication of the 'apply_filters_deprecated' call.
+* Fix - Resolved an issue that prevented some of the selected checkbox from being added to the cart when ordering again.
+* Fix - Resolved an issue that threw a validation error when renewing a subscription with required add-ons.
+
 2023-06-21 - version 6.4.2
 * Fix - Resolved a PHP warning triggered when adding a Bundle/Composite without any container-level add-ons to the block-based cart.
 

@@ -48,7 +48,7 @@ final class WC_AM_Debug_Tools {
 		$tools[ 'wc_am_queue_api_resources_cleanup' ] = array(
 			'name'     => __( 'API Resources Cleanup', 'woocommerce-api-manager' ),
 			'button'   => __( 'Cleanup API Resources', 'woocommerce-api-manager' ),
-			'desc'     => sprintf( '%s%s%s%s%s', __( 'This cleanup process will delete any API Resources that have expired, or no longer exist as line items on orders or subscriptions. Related API Key activations will also be deleted.', 'woocommerce-api-manager' ), '<br><strong class="red">', __( 'Note: ', 'woocommerce-api-manager' ), '</strong>', ( ! empty( $next_cleanup ) ) ? __( 'The cleanup process will run automatically next on ', 'woocommerce-api-manager' ) . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) : __( 'The cleanup process is not scheduled to automatically run.', 'woocommerce-api-manager' ) ),
+			'desc'     => sprintf( '%s%s%s%s%s', __( 'This cleanup process will delete any API Resources that have expired, or no longer exist as line items on orders or subscriptions. Related API Key activations will also be deleted.', 'woocommerce-api-manager' ), '<br><strong class="red">', __( 'Note: ', 'woocommerce-api-manager' ), '</strong>', ( ! empty( $next_cleanup ) ) ? __( 'The cleanup process will run automatically next on ', 'woocommerce-api-manager' ) . '<code>' . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) . '</code>' : __( 'The cleanup process is not scheduled to automatically run.', 'woocommerce-api-manager' ) ),
 			'callback' => array( $this, 'queue_cleanup_event' ),
 		);
 

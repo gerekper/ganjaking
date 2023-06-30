@@ -1,5 +1,8 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2023.06.27 - version 1.15.2
+* Tweak - Re-designed the Product Data > Restrictions empty state. 
+
 2023.06.01 - version 1.15.1
 * Fix - Fixed styling for dismissible admin notices.
 

@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * WC_Product_Addons_Cart class.
+ *
+ * @class    WC_Product_Addons_Cart
+ * @version  6.4.3
  */
 class WC_Product_Addons_Cart {
 	/**
@@ -232,7 +235,7 @@ class WC_Product_Addons_Cart {
 				 */
 				apply_filters_deprecated( 'woocommerce_addons_add_price_to_name', array( false, $item ), '6.4.0', 'woocommerce_addons_add_order_price_to_value' );
 
-				$add_price_to_value = apply_filters_deprecated( 'woocommerce_addons_add_order_price_to_value', false, $item );
+				$add_price_to_value = apply_filters( 'woocommerce_addons_add_order_price_to_value', false, $item );
 
 				/*
 				 * For percentage based price type we want
@@ -299,14 +302,14 @@ class WC_Product_Addons_Cart {
 	 */
 	public function re_add_cart_item_data( $cart_item_data, $item, $order ) {
 
+		// Disable validation.
+		remove_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 999, 3 );
+
 		// When renewing a subscription, add-on data are already part of $cart_item_data[ 'subscription_renewal' ][ 'custom_line_item_meta' ][ '_pao_ids' ].
 		// WooCommerce Subscriptions is responsible for rendering these add-ons.
 		if ( isset( $cart_item_data[ 'subscription_renewal' ] ) ) {
 			return $cart_item_data;
 		}
-
-		// Disable validation.
-		remove_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 999, 3 );
 
 		// Get addon data.
 		$product_addons   = WC_Product_Addons_Helper::get_product_addons( $item['product_id'] );
@@ -705,7 +708,6 @@ class WC_Product_Addons_Cart {
 					} else {
 						$value[] = sanitize_title( $meta_value );
 					}
-					break;
 				}
 			}
 		} elseif( 'select' === $type ) {

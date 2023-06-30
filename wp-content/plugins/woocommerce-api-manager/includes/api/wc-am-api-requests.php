@@ -814,7 +814,7 @@ class WC_AM_API_Requests {
 				if ( $information_response_trans !== false ) {
 					nocache_headers();
 
-					die( serialize( apply_filters( 'wc_api_manager_info_response', $information_response_trans ) ) );
+					die( serialize( apply_filters( 'wc_api_manager_info_response', $information_response_trans ) ) ); // @codingStandardsIgnoreLine.
 				}
 			} else {
 				$information_data_trans       = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_data_name );
@@ -857,7 +857,7 @@ class WC_AM_API_Requests {
 					if ( $information_response_trans !== false ) {
 						nocache_headers();
 
-						die( serialize( apply_filters( 'wc_api_manager_info_response', $information_response_trans ) ) );
+						die( serialize( apply_filters( 'wc_api_manager_info_response', $information_response_trans ) ) ); // @codingStandardsIgnoreLine.
 					}
 				} else {
 					$information_data_trans       = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_data_name );
@@ -981,7 +981,7 @@ class WC_AM_API_Requests {
 
 			nocache_headers();
 
-			die( serialize( apply_filters( 'wc_api_manager_info_response', $response ) ) );
+			die( serialize( apply_filters( 'wc_api_manager_info_response', $response ) ) ); // @codingStandardsIgnoreLine.
 		} else {
 			if ( $is_active && $this->send_response_data ) {
 				$data[ 'product' ] = $product_data;
@@ -1078,7 +1078,7 @@ class WC_AM_API_Requests {
 				if ( $update_response_trans !== false ) {
 					nocache_headers();
 
-					die( serialize( apply_filters( 'wc_api_manager_api_update_response', $update_response_trans ) ) );
+					die( serialize( apply_filters( 'wc_api_manager_api_update_response', $update_response_trans ) ) ); // @codingStandardsIgnoreLine.
 				}
 			} else {
 				$update_data_trans       = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_data_name );
@@ -1139,7 +1139,7 @@ class WC_AM_API_Requests {
 					if ( $update_response_trans !== false ) {
 						nocache_headers();
 
-						die( serialize( apply_filters( 'wc_api_manager_api_update_response', $update_response_trans ) ) );
+						die( serialize( apply_filters( 'wc_api_manager_api_update_response', $update_response_trans ) ) ); // @codingStandardsIgnoreLine.
 					}
 				} else {
 					$update_data_trans       = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_data_name );
@@ -1282,7 +1282,7 @@ class WC_AM_API_Requests {
 
 			nocache_headers();
 
-			die( serialize( apply_filters( 'wc_api_manager_api_update_response', $response ) ) );
+			die( serialize( apply_filters( 'wc_api_manager_api_update_response', $response ) ) ); // @codingStandardsIgnoreLine.
 		} else { // JSON response
 			if ( $is_active && $this->send_response_data ) {
 				$data[ 'product' ] = $product_data;
@@ -1585,7 +1585,7 @@ class WC_AM_API_Requests {
 
 		nocache_headers();
 
-		die( serialize( $response ) );
+		die( serialize( $response ) ); // @codingStandardsIgnoreLine.
 	}
 
 	/**

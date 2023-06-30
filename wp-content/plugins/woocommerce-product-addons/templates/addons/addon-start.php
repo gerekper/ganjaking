@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 6.4.0
+ * @version 6.4.3
  * @package woocommerce-product-addons
  */
 
@@ -19,6 +19,7 @@ $required               = ! empty( $addon['required'] ) ? $addon['required'] : '
 $has_per_person_pricing = ( isset( $addon['wc_booking_person_qty_multiplier'] ) && 1 === $addon['wc_booking_person_qty_multiplier'] ) ? true : false;
 $has_per_block_pricing  = ( ( isset( $addon['wc_booking_block_qty_multiplier'] ) && 1 === $addon['wc_booking_block_qty_multiplier'] ) || ( isset( $addon['wc_accommodation_booking_block_qty_multiplier'] ) && 1 === $addon['wc_accommodation_booking_block_qty_multiplier'] ) ) ? true : false;
 $product_title          = $product->get_name();
+$is_taxable             = $product->is_taxable();
 
 if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_price' !== $addon_type ) {
 	$price_prefix = 0 < $addon_price ? '+' : '';
@@ -53,7 +54,7 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 }
 ?>
 
-<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>">
+<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?> wc-pao-addon-id-<?php echo esc_attr( sanitize_title( $addon[ 'id' ] ) ); ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>" data-product-tax-status="<?php echo $is_taxable ? 'taxable' : 'none'; ?>">
 
 	<?php do_action( 'wc_product_addon_start', $addon ); ?>
 

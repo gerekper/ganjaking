@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
-    <p><?php printf( esc_html__( 'Hi %s,', 'woocommerce-api-manager' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+    <p><?php esc_html_e( sprintf( __( 'Hi %s,', 'woocommerce-api-manager' ), $order->get_billing_first_name() ) ); ?></p>
     <p>
 		<?php
 		$item_quantity = 1;
@@ -34,7 +34,9 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 			$item_quantity = $api_resource->item_qty - $api_resource->refund_qty;
 		}
 
-		printf( esc_html__( 'An access renewal link for your API Product has been prepared for you on %s. Here is a link to renew your API Product access when you’re ready: %s', 'woocommerce-api-manager' ), esc_html( get_bloginfo( 'name', 'display' ) ), '<a href="' . esc_url( WC_AM_URL()->api_resource_renewal_url_my_account( $api_resource->api_resource_id, $api_resource->product_id, $item_quantity ) ) . '">' . esc_html__( 'Renew', 'woocommerce-api-manager' ) . '</a>' );
+		esc_html_e( sprintf( __( 'An access renewal link for your API Product has been prepared for you on %s. Here is a link to renew your API Product access when you’re ready: ', 'woocommerce-api-manager' ), get_bloginfo( 'name', 'display' ) ) );
+
+		echo '<a href="' . esc_url( WC_AM_URL()->api_resource_renewal_url_my_account( $api_resource->api_resource_id, $api_resource->product_id, $item_quantity ) ) . '">' . esc_html__( 'Renew', 'woocommerce-api-manager' ) . '</a>';
 		?>
     </p>
     <p>
@@ -43,7 +45,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 		$grace_period_expired = WC_AM_GRACE_PERIOD()->is_expired( $api_resource->api_resource_id );
 
 		if ( $is_expired && ! $grace_period_expired ) {
-			printf( esc_html__( 'The API Product is renewable until: %s', 'woocommerce-api-manager' ), WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_GRACE_PERIOD()->get_expiration( $api_resource->api_resource_id ), false ) );
+			esc_html_e( sprintf( __( 'The API Product is renewable until: %s', 'woocommerce-api-manager' ), WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_GRACE_PERIOD()->get_expiration( $api_resource->api_resource_id ) ) ) );
 		}
 		?>
     </p>
@@ -51,13 +53,15 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 		<?php
 		$my_account_url = wc_get_endpoint_url( 'api-keys', '', wc_get_page_permalink( 'myaccount' ) );
 
-		printf( esc_html__( 'The access renewal link has an expiration time. If the link stops working, use this link to login to your account to renew the API Product: %s', 'woocommerce-api-manager' ), '<a href="' . esc_url( $my_account_url ) . '">' . esc_html__( 'Renew', 'woocommerce-api-manager' ) . '</a>' );
+		esc_html_e( sprintf( __( 'The access renewal link has an expiration time. If the link stops working, use this link to login to your account to renew the API Product: ', 'woocommerce-api-manager' ) ) );
+
+		echo '<a href="' . esc_url( $my_account_url ) . '">' . esc_html__( 'Renew', 'woocommerce-api-manager' ) . '</a>';
 		?>
     </p>
 <?php $discount = get_option( 'woocommerce_api_manager_manual_renewal_discount' );
 if ( ! empty( $discount ) ) {
 	?><p><?php
-	printf( esc_html__( 'If you renew before your API Product access expires you will get a %s discount.', 'woocommerce-api-manager' ), $discount . '%' );
+	esc_html_e( sprintf( __( 'If you renew before your API Product access expires you will get a %s discount.', 'woocommerce-api-manager' ), $discount . '%' ) );
 	?></p><?php
 }
 ?>

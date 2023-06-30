@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for SATT-enabled product types.
  *
  * @class    WCS_ATT_Meta_Box_Product_Data
- * @version  4.1.0
+ * @version  4.1.2
  */
 class WCS_ATT_Meta_Box_Product_Data {
 
@@ -136,7 +136,6 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 				?><div class="apfs_boarding__schemes">
 					<div class="apfs_boarding__schemes__message">
-						<h3><?php esc_html_e( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></h3>
 						<p><?php esc_html_e( 'Add some custom subscription plans to this product.', 'woocommerce-all-products-for-subscriptions' ); ?>
 						<br/><?php esc_html_e( 'These plans will override your global subscription plans.', 'woocommerce-all-products-for-subscriptions' ); ?>
 						</p>

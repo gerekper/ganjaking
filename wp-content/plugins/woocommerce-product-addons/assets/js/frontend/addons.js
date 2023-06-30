@@ -913,8 +913,9 @@
 				 * Then, display one line item for each selected addon followed by each price (given that one exists).
 				 */
 				if ( formatted_sub_total ) {
-					var product_name  = self.$form.find( '.wc-pao-addon-container' ).data( 'product-name' ),
-						product_price = self.formatMoney( product_total_price );
+					var product_name       = self.$form.find( '.wc-pao-addon-container' ).data( 'product-name' ),
+						product_price      = self.formatMoney( product_total_price ),
+						product_tax_status = self.$form.find( '.wc-pao-addon-container' ).data( 'product-tax-status' );
 
 					/**
 					 * Bookings compatibility code.
@@ -1027,6 +1028,7 @@
 
 					// A suffix is present, but no special labels are used - meaning we don't need to figure out any other special values - just display the plain text value
 					if (
+						'taxable' === product_tax_status &&
 						! has_custom_price_with_taxes &&
 						false === woocommerce_addons_params.price_display_suffix.indexOf( '{price_including_tax}' ) > -1 &&
 						false === woocommerce_addons_params.price_display_suffix.indexOf( '{price_excluding_tax}' ) > -1

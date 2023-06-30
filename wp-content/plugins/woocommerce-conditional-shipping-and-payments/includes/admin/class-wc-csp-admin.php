@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.15.0
+ * @version  1.15.2
  */
 class WC_CSP_Admin {
 
@@ -431,7 +431,6 @@ class WC_CSP_Admin {
 					?>
 					<div class="woocommerce_restrictions__boarding">
 						<div class="woocommerce_restrictions__boarding__message product_level_boarding">
-							<h3><?php esc_attr_e( 'Restrictions', 'woocommerce-conditional-shipping-and-payments' ); ?></h3>
 							<p><?php esc_attr_e( 'This product does not exclude any shipping or payment options.', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
 						</div>
 					</div>

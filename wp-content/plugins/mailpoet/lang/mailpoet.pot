@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.19.0\n"
+"Project-Id-Version: MailPoet 4.20.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-19T16:25:23+00:00\n"
+"POT-Creation-Date: 2023-06-27T15:27:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -4387,11 +4387,11 @@ msgid "Select custom field"
 msgstr ""
 
 #: views/segments.html:141
-msgid "# of opens"
+msgid "number of opens"
 msgstr ""
 
 #: views/segments.html:142
-msgid "# of machine-opens"
+msgid "number of machine-opens"
 msgstr ""
 
 #: views/segments.html:143
@@ -4588,7 +4588,7 @@ msgid "1 segment was permanently deleted."
 msgstr ""
 
 #: views/segments.html:217
-msgid "# of orders"
+msgid "number of orders"
 msgstr ""
 
 #: views/segments.html:219
@@ -4877,7 +4877,7 @@ msgid "WooCommerce"
 msgstr ""
 
 #: views/settings_translations.html:2
-#: lib/Config/Hooks.php:515
+#: lib/Config/Hooks.php:521
 #: lib/Config/Menu.php:412
 #: lib/Config/Menu.php:413
 #: assets/dist/js/admin.js:2
@@ -8010,7 +8010,7 @@ msgid "Can not update automation with ID '%d' because users are currently active
 msgstr ""
 
 #: lib/Automation/Engine/Exceptions/Exception.php:27
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:64
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:66
 msgid "Unknown error."
 msgstr ""
 
@@ -8059,71 +8059,71 @@ msgstr ""
 msgid "Trigger must be a direct descendant of automation root"
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:76
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:78
 msgid "This is a required field."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:84
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:86
 msgid "This field is not well formed."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:86
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:88
 msgid "Please add more items."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:88
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:90
 msgid "Please remove some items."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:90
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:92
 msgid "Please remove duplicate items."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:92
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:94
 msgid "This value is out of bounds."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:94
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:96
 msgid "This value is not long enough."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:96
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:98
 msgid "This value is too long."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:98
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:100
 msgid "This value is not well formed."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:100
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:102
 msgid "This value does not match the expected format."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:102
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:104
 msgid "This value is not matching the correct times."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:104
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:106
 msgid "This value is not a hex formatted color."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:106
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:108
 msgid "This value is not a date."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:108
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:110
 msgid "This value is not an email address."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:110
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:112
 msgid "This value is not an IP address."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:112
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:114
 msgid "This value is not an UUID."
 msgstr ""
 
-#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:131
+#: lib/Automation/Engine/Validation/AutomationRules/ValidStepRule.php:133
 msgid "Some steps are not valid"
 msgstr ""
 
@@ -8662,15 +8662,15 @@ msgstr ""
 msgid "MailPoet version update is in progress, please refresh the page in a minute."
 msgstr ""
 
-#: lib/Config/Hooks.php:455
+#: lib/Config/Hooks.php:461
 msgid "MailPoet Newsletter"
 msgstr ""
 
-#: lib/Config/Hooks.php:499
+#: lib/Config/Hooks.php:505
 msgid "Give feedback"
 msgstr ""
 
-#: lib/Config/Hooks.php:515
+#: lib/Config/Hooks.php:521
 msgid "View MailPoet settings"
 msgstr ""
 
@@ -9602,31 +9602,46 @@ msgid "No identifiable information is otherwise tracked outside this website exc
 msgstr ""
 
 #: lib/Config/PrivacyPolicy.php:45
-msgid "MailPoet creates and stores two cookies if you are using WooCommerce and MailPoet together. Those cookies are:"
+msgid "Below is a list of cookies that may be generated by MailPoet (note that some cookies are only utilized when WooCommerce is installed and activated):"
 msgstr ""
 
 #. translators: %s is the name of the cookie.
 #: lib/Config/PrivacyPolicy.php:49
 #: lib/Config/PrivacyPolicy.php:58
+#: lib/Config/PrivacyPolicy.php:67
+#: lib/Config/PrivacyPolicy.php:78
 msgid "Cookie name: %s"
 msgstr ""
 
 #. translators: %s is the number of days.
 #: lib/Config/PrivacyPolicy.php:52
 #: lib/Config/PrivacyPolicy.php:61
+#: lib/Config/PrivacyPolicy.php:70
 msgid "Cookie expiry: %s days."
 msgstr ""
 
 #: lib/Config/PrivacyPolicy.php:54
-msgid "Cookie description: The purpose of this cookie is to track which newsletter sent from your website has acquired a click-through and a subsequent purchase in your WooCommerce store."
+msgid "Cookie description: The purpose of this cookie is to track the last time a subscriber viewed any page on the site."
 msgstr ""
 
 #: lib/Config/PrivacyPolicy.php:63
-msgid "Cookie description: The purpose of this cookie is to track a user that has abandoned their cart in your WooCommerce store to then be able to send them an abandoned cart newsletter from MailPoet."
+msgid "Cookie description: The purpose of this cookie is to track which newsletter sent from your website has acquired a click-through and a subsequent purchase in your WooCommerce store."
 msgstr ""
 
-#: lib/Config/PrivacyPolicy.php:66
+#: lib/Config/PrivacyPolicy.php:72
+msgid "Cookie description: The purpose of this cookie is to track subscriber engagement. It is used when the user logs in, signs up in a form, confirms subscription to a newsletter, or places an order through WooCommerce."
+msgstr ""
+
+#: lib/Config/PrivacyPolicy.php:74
 msgid "Note: User must be opted-in and a confirmed subscriber."
+msgstr ""
+
+#: lib/Config/PrivacyPolicy.php:80
+msgid "Cookie expiry: the expiration date varies and can be set per form."
+msgstr ""
+
+#: lib/Config/PrivacyPolicy.php:82
+msgid "Cookie description: This cookie is used to track if a user has previously dismissed a specific form, preventing the re-display of the form until the cookie's expiration date. It is applicable for popup, slide-in, or fixed bar forms."
 msgstr ""
 
 #. translators: %1$s is the name of the render, %2$s the folder path, %3$s the error message.

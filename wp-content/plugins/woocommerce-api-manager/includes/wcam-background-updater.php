@@ -4,10 +4,10 @@
  *
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle DB updates in the background.
  *
- * @package     WooCommerce API Manager/Background Updater
+ * @since       2.0
  * @author      Todd Lahman LLC
  * @copyright   Copyright (c) Todd Lahman LLC
- * @since       2.0
+ * @package     WooCommerce API Manager/Background Updater
  */
 defined( 'ABSPATH' ) || exit;
 
@@ -30,6 +30,8 @@ class WCAM_Background_Updater extends WP_Background_Process {
 	 * Dispatch updater.
 	 *
 	 * Updater will still run via cron job if this fails for any reason.
+	 *
+	 * @return array|WP_Error
 	 */
 	public function dispatch() {
 		$dispatched = parent::dispatch();

@@ -28,10 +28,10 @@ class WC_AM_Customers_Table_List extends WP_List_Table {
 
 		// Set parent defaults
 		parent::__construct( array(
-			                     'singular' => __( 'API Customer', 'woocommerce-api-manager' ),
-			                     'plural'   => __( 'API Customers', 'woocommerce-api-manager' ),
-			                     'ajax'     => false
-		                     ) );
+			'singular' => __( 'API Customer', 'woocommerce-api-manager' ),
+			'plural'   => __( 'API Customers', 'woocommerce-api-manager' ),
+			'ajax'     => false
+		) );
 	}
 
 	/**
@@ -166,35 +166,51 @@ class WC_AM_Customers_Table_List extends WP_List_Table {
 		$orderby               = ! empty( $request[ 'orderby' ] ) ? $request[ 'orderby' ] : 'access_granted';
 		$order                 = empty( $request[ 'order' ] ) || $request[ 'order' ] === 'asc' ? 'DESC' : 'ASC';
 		$order_id              = ! empty( $request[ 'order_id' ] ) ? absint( $request[ 'order_id' ] ) : '';
-		$where                 = array( 'WHERE 1=1' );
+
+		/**
+		 * Array values
+		 */
+		$order_by_order_num       = 0;
+		$search_by_order_id_num   = 0;
+		$search_by_email_num      = 0;
+		$search_by_product_id_num = 0;
 
 		if ( $order_id ) {
-			$where[] = ' AND order_id = ' . absint( $order_id );;
+			$order_by_order_num = $order_id;
 		}
 
 		// Search box filters.
 		if ( ! empty( $request[ 's' ] ) && array_key_exists( 's', $request ) ) {
 			$query_var = $request[ 's' ];
 
-			$where[] = ' AND order_id = ' . absint( $query_var );
+			$search_by_order_id_num = $query_var;
 
 			if ( is_email( $query_var ) ) {
 				$user_obj = get_user_by( 'email', $query_var ) ?? null;
 
 				if ( ! WC_AM_FORMAT()->empty( $user_obj ) ) {
-					$where[] = ' OR user_id = ' . absint( $user_obj->ID );
+					$search_by_email_num = $user_obj->ID;
 				}
 			} else {
-				$where[] = ' OR product_id = ' . absint( $query_var );
+				$search_by_product_id_num = $query_var;
 			}
 		}
 
-		if ( count( $where ) > 1 ) {
-			$where = implode( ' ', $where );
-		}
+		/**
+		 * To prevent Array to string conversion.
+		 */
+		$where = array(
+			'WHERE 1=1',
+			! empty( $order_by_order_num ) ? ' AND order_id = ' . absint( $order_by_order_num ) : '',
+			! empty( $search_by_order_id_num ) ? ' AND order_id = ' . absint( $search_by_order_id_num ) : '',
+			! empty( $search_by_email_num ) ? ' OR user_id = ' . absint( $search_by_email_num ) : '',
+			! empty( $search_by_product_id_num ) ? ' OR product_id = ' . absint( $search_by_product_id_num ) : ''
+		);
+
+		$where = implode( ' ', $where );
 
 		$this->items = $wpdb->get_results( $wpdb->prepare( "
-			SELECT api_resource_id, user_id, activations_total, activations_purchased_total, access_expires, access_granted, product_order_api_key, product_title, product_id, order_id, sub_id
+			SELECT api_resource_id, user_id, activations_total, activations_purchased_total, access_expires, access_granted, product_title, product_id, order_id, sub_id
 			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
 			$where
 			ORDER BY `{$orderby}` {$order} LIMIT %d, %d
@@ -202,10 +218,10 @@ class WC_AM_Customers_Table_List extends WP_List_Table {
 
 		// Pagination
 		$this->set_pagination_args( array(
-			                            'total_items' => $total_items,
-			                            'total_pages' => ceil( $total_items / $per_page ),
-			                            'per_page'    => $per_page
-		                            ) );
+			'total_items' => $total_items,
+			'total_pages' => ceil( $total_items / $per_page ),
+			'per_page'    => $per_page
+		) );
 	}
 
 	/**

@@ -39,34 +39,45 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 		}
 
 		// translators: %s placeholder is title
-		echo sprintf( esc_html_x( 'Product: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $product_object->get_title() ) . "\n";
+		esc_html_e( sprintf( __( 'Product: %s', 'woocommerce-api-manager' ), $product_object->get_title() ) );
+		echo "\n";
 
 		if ( ! $hide_product_order_api_keys ) {
 			// translators: %s placeholder is Product Order Api Key
-			echo sprintf( esc_html_x( 'Product Order API Key(s): %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $resource->product_order_api_key ) . "\n";
+			esc_html_e( sprintf( __( 'Product Order API Key(s): %s', 'woocommerce-api-manager' ), $resource->product_order_api_key ) );
+			echo "\n";
 		}
 
 		// translators: %s placeholder is Product ID
-		echo sprintf( esc_html_x( 'Product ID: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), absint( $resource->product_id ) ) . "\n";
+		esc_html_e( sprintf( __( 'Product ID: %s', 'woocommerce-api-manager' ), absint( $resource->product_id ) ) );
+		echo "\n";
 		// translators: %s placeholder is Activations
-		echo sprintf( esc_html_x( 'Activations: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), absint( $resource->activations_purchased_total ) ) . "\n";
+		esc_html_e( sprintf( __( 'Activations: %s', 'woocommerce-api-manager' ), absint( $resource->activations_purchased_total ) ) );
+		echo "\n";
 		// translators: %s placeholder is Expires date and time
-		echo sprintf( esc_html_x( 'Expires: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), $expires ) . "\n";
+		esc_html_e( sprintf( __( 'Expires: %s', 'woocommerce-api-manager' ), $expires ) );
+		echo "\n";
 
 		echo esc_html( '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' ) . "\n\n";
 	}
 
 	if ( ! $hide_master_api_key ) {
 		// translators: %s placeholder is Master API Key
-		echo sprintf( esc_html_x( 'Master API Key: %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) . "\n";
+		esc_html_e( sprintf( __( 'Master API Key: %s', 'woocommerce-api-manager' ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) );
+		echo "\n\n";
 
-		echo "\n" . esc_html__( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ) . "\n";
+		esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' );
+		echo "\n";
 	}
 
 	if ( $order->has_downloadable_item() ) {
+		echo "\n";
 		// translators: %s placeholder is My Account > API Downloads -> URL
-		echo "\n" . sprintf( esc_html_x( 'Click here to login and download your file(s): %s', 'in plain emails for API Product information', 'woocommerce-api-manager' ), esc_url( wc_get_endpoint_url( 'api-downloads', '', wc_get_page_permalink( 'myaccount' ) ) ) ) . "\n";
+		esc_html_e( __( 'Click here to login and download your file(s):', 'woocommerce-api-manager' ) );
+
+		echo esc_url( wc_get_endpoint_url( 'api-downloads', '', wc_get_page_permalink( 'myaccount' ) ) ) . "\n";
 	}
 
-	echo "\n" . esc_html( '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_' ) . "\n\n";
+	echo "\n" . esc_html( '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_' );
+	echo "\n\n";
 }

@@ -224,7 +224,7 @@ if ( ! empty( $user_id ) ) {
 												if ( ! empty( $discount ) ) {
 													?>
                                                     <hr><?php
-													printf( esc_html__( 'At a %s discount.', 'woocommerce-api-manager' ), $discount . '%' );
+													esc_html_e( sprintf( __( 'At a %s discount.', 'woocommerce-api-manager' ), $discount . '%' ) );
 												}
 											} else {
 												echo esc_attr( $product_order_api_key );
@@ -280,7 +280,7 @@ if ( ! empty( $user_id ) ) {
                                         <tr class="api-manager-domains">
                                             <td colspan="3" style="border-right: 0; padding-left: 5em;">
 												<?php
-												echo '<a href="' . esc_url( WC_AM_URL()->delete_api_key_activation_my_account( $activation_info->instance, $activation_info->order_id, $activation_info->sub_parent_id, $activation_info->api_key, $activation_info->product_id, $user_id ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', esc_html__( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
+												echo '<a href="' . esc_url( WC_AM_URL()->delete_api_key_activation_my_account( $activation_info->instance, $activation_info->order_id, $activation_info->sub_parent_id, $activation_info->api_key, $activation_info->product_id, $user_id ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . esc_html( apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) ) . '</a>';
 
 												if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
 													// If $object is a URL, then remove the trailing slash.
@@ -306,7 +306,7 @@ if ( ! empty( $user_id ) ) {
                                         <tr class="api-manager-domains">
                                             <td colspan="4" style="border-right: 0; padding-left: 5em;">
 												<?php
-												echo '<a href="' . esc_url( WC_AM_URL()->delete_api_key_activation_my_account( $activation_info->instance, $activation_info->order_id, $activation_info->sub_parent_id, $activation_info->api_key, $activation_info->product_id, $user_id ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) . '</a>';
+												echo '<a href="' . esc_url( WC_AM_URL()->delete_api_key_activation_my_account( $activation_info->instance, $activation_info->order_id, $activation_info->sub_parent_id, $activation_info->api_key, $activation_info->product_id, $user_id ) ) . '" style="float: left;" class="button ' . sanitize_html_class( 'delete' ) . '">' . esc_html( apply_filters( 'wc_api_manager_my_account_delete', __( 'Delete', 'woocommerce-api-manager' ) ) ) . '</a>';
 
 												if ( filter_var( $activation_info->object, FILTER_VALIDATE_URL ) ) {
 													// If $object is a URL, then remove the trailing slash.

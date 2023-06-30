@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Add-Ons.
  *
  * @class    WCS_ATT_Integration_PAO
- * @version  4.1.0
+ * @version  4.1.1
  */
 class WCS_ATT_Integration_PAO {
 
@@ -200,14 +200,6 @@ class WCS_ATT_Integration_PAO {
 		}
 
 		if ( ! WCS_ATT_Product::is_subscription( $cart_item[ 'data' ] ) ) {
-			return $cart_item;
-		}
-
-		/*
-		 * If PB/CP has already moved add-ons price calculations away from session load, let it handle everything.
-		 * Remember PB/CP is filtering prices before APFS, so it reapplies add-on prices in time.
-		 */
-		if ( isset( $cart_item[ 'data' ]->bundled_price_offset ) || isset( $cart_item[ 'data' ]->composited_price_offset ) ) {
 			return $cart_item;
 		}
 

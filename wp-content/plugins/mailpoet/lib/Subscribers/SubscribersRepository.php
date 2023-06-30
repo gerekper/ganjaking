@@ -5,6 +5,7 @@ namespace MailPoet\Subscribers;
 if (!defined('ABSPATH')) exit;
 
 
+use DateTimeInterface;
 use MailPoet\Config\SubscriberChangesNotifier;
 use MailPoet\Doctrine\Repository;
 use MailPoet\Entities\SegmentEntity;
@@ -290,6 +291,21 @@ class SubscribersRepository extends Repository {
     return count($ids);
   }
 
+  public function bulkUpdateLastSendingAt(array $ids, DateTimeInterface $dateTime): int {
+    if (empty($ids)) {
+      return 0;
+    }
+    $this->entityManager->createQueryBuilder()
+      ->update(SubscriberEntity::class, 's')
+      ->set('s.lastSendingAt', ':lastSendingAt')
+      ->where('s.id IN (:ids)')
+      ->setParameter('lastSendingAt', $dateTime)
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->execute();
+    return count($ids);
+  }
+
   public function findWpUserIdAndEmailByEmails(array $emails): array {
     return $this->entityManager->createQueryBuilder()
       ->select('s.wpUserId AS wp_user_id, LOWER(s.email) AS email')
@@ -343,12 +359,56 @@ class SubscribersRepository extends Repository {
   }
 
   public function maybeUpdateLastEngagement(SubscriberEntity $subscriberEntity): void {
-    $now = CarbonImmutable::createFromTimestamp((int)$this->wp->currentTime('timestamp'));
+    $now = $this->getCurrentDateTime();
     // Do not update engagement if was recently updated to avoid unnecessary updates in DB
     if ($subscriberEntity->getLastEngagementAt() && $subscriberEntity->getLastEngagementAt() > $now->subMinute()) {
       return;
     }
     // Update last engagement
+    $subscriberEntity->setLastEngagementAt($now);
+    $this->flush();
+  }
+
+  public function maybeUpdateLastOpenAt(SubscriberEntity $subscriberEntity): void {
+    $now = $this->getCurrentDateTime();
+    // Avoid unnecessary DB calls
+    if ($subscriberEntity->getLastOpenAt() && $subscriberEntity->getLastOpenAt() > $now->subMinute()) {
+      return;
+    }
+    $subscriberEntity->setLastOpenAt($now);
+    $subscriberEntity->setLastEngagementAt($now);
+    $this->flush();
+  }
+
+  public function maybeUpdateLastClickAt(SubscriberEntity $subscriberEntity): void {
+    $now = $this->getCurrentDateTime();
+    // Avoid unnecessary DB calls
+    if ($subscriberEntity->getLastClickAt() && $subscriberEntity->getLastClickAt() > $now->subMinute()) {
+      return;
+    }
+    $subscriberEntity->setLastClickAt($now);
+    $subscriberEntity->setLastEngagementAt($now);
+    $this->flush();
+  }
+
+  public function maybeUpdateLastPurchaseAt(SubscriberEntity $subscriberEntity): void {
+    $now = $this->getCurrentDateTime();
+    // Avoid unnecessary DB calls
+    if ($subscriberEntity->getLastPurchaseAt() && $subscriberEntity->getLastPurchaseAt() > $now->subMinute()) {
+      return;
+    }
+    $subscriberEntity->setLastPurchaseAt($now);
+    $subscriberEntity->setLastEngagementAt($now);
+    $this->flush();
+  }
+
+  public function maybeUpdateLastPageViewAt(SubscriberEntity $subscriberEntity): void {
+    $now = $this->getCurrentDateTime();
+    // Avoid unnecessary DB calls
+    if ($subscriberEntity->getLastPageViewAt() && $subscriberEntity->getLastPageViewAt() > $now->subMinute()) {
+      return;
+    }
+    $subscriberEntity->setLastPageViewAt($now);
     $subscriberEntity->setLastEngagementAt($now);
     $this->flush();
   }
@@ -503,5 +563,9 @@ class SubscribersRepository extends Repository {
     });
 
     return count($subscribers);
+  }
+
+  private function getCurrentDateTime(): CarbonImmutable {
+    return CarbonImmutable::createFromTimestamp((int)$this->wp->currentTime('timestamp'));
   }
 }

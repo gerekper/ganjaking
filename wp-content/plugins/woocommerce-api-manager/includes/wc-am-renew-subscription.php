@@ -55,7 +55,7 @@ class WC_AM_Renew_Subscription {
 	public function renew_api_resource() {
 		$request = wc_clean( $_REQUEST );
 
-		if ( ! empty( $request[ '_wpnonce' ] ) && ! empty( $request[ 'renew_api_resource' ] ) && ! wp_verify_nonce( $request[ '_wpnonce' ], 'renew_api_resource' ) ) {
+		if ( ! empty( $request[ '_wpnonce' ] ) && ! wp_verify_nonce( wc_clean( $_REQUEST[ '_wpnonce' ] ), 'renew_api_resource' ) && ! empty( $request[ 'renew_api_resource' ] ) ) { // WPCS: input var ok, CSRF ok.
 			wc_add_notice( __( 'Nonce security check failed.', 'woocommerce-api-manager' ), 'error' );
 
 			return;

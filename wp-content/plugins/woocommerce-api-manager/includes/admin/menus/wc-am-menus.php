@@ -52,9 +52,11 @@ class WC_AM_Menus {
 	public function customers_page() {
 		?>
         <div class="wrap">
-            <h1 class="wp-heading-inline"><?php esc_html_e( 'API Customers', 'woocommerce-api-manager' ); ?><span class="page-title-action" style="margin-left: 2em; text-decoration: none;"><a
+            <h1 class="wp-heading-inline"><?php esc_html_e( 'API Customers', 'woocommerce-api-manager' ); ?><span
+                        class="page-title-action" style="margin-left: 2em; text-decoration: none;"><a
                             style="text-decoration: none;"
-                            href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) ); ?>"><?php esc_html_e( 'Settings', 'woocommerce-api-manager' ); ?></a></span></h1>
+                            href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) ); ?>"><?php esc_html_e( 'Settings', 'woocommerce-api-manager' ); ?></a></span>
+            </h1>
             <hr class="wp-header-end">
             <form method="post">
 				<?php

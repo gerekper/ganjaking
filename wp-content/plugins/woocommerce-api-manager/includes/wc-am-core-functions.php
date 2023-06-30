@@ -183,6 +183,19 @@ function WC_AM_ASSOCIATED_API_KEY_DATA_STORE() {
 }
 
 /**
+ * Returns the WC_AM_Background_Events class object.
+ *
+ * @since 2.5.5
+ *
+ * @return \WC_AM_Background_Events
+ */
+function WC_AM_BACKGROUND_EVENTS() {
+	return WC_AM_Background_Events::instance();
+}
+
+WC_AM_BACKGROUND_EVENTS();
+
+/**
  * Returns the WC_AM_Download_Handler class object
  *
  * @since 2.0
@@ -205,19 +218,6 @@ WC_AM_DOWNLOAD_HANDLER();
 function WC_AM_ENCRYPTION() {
 	return WC_AM_Encryption::instance();
 }
-
-/**
- * Returns the WC_AM_Background_Events class object.
- *
- * @since 2.5.5
- *
- * @return \WC_AM_Background_Events
- */
-function WC_AM_BACKGROUND_EVENTS() {
-	return WC_AM_Background_Events::instance();
-}
-
-WC_AM_BACKGROUND_EVENTS();
 
 /**
  * Returns the WC_AM_Encryption class object

@@ -9,7 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * WC_Product_Addons_Cart_Ajax class.
+ * WC_Product_Addons_Cart_Ajax class
+ *
+ * @class    WC_Product_Addons_Cart_Ajax
+ * @version  6.4.3
  */
 class WC_Product_Addons_Cart_Ajax {
 
@@ -48,6 +51,14 @@ class WC_Product_Addons_Cart_Ajax {
 			wp_send_json( array(
 				'result' => 'ERROR',
 				'html'   => 'invalid-product',
+			) );
+		}
+
+		// Ensure that the product is taxable.
+		if ( ! $product->is_taxable() ) {
+			wp_send_json( array(
+				'result' => 'ERROR',
+				'html'   => 'non-taxable-product',
 			) );
 		}
 

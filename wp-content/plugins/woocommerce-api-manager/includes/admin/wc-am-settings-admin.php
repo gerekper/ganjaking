@@ -51,7 +51,10 @@ class WC_AM_Settings_Admin {
 		add_action( 'woocommerce_settings_' . $this->tab_name, array( $this, 'api_manager_settings_page' ) );
 		add_action( 'woocommerce_update_options_' . $this->tab_name, array( $this, 'update_api_manager_settings' ) );
 		// Custom Amazon S3 Secret Access Key form field that is encrypted and decrypted
-		add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_api_manager_amazon_s3_secret_access_key', array( $this, 'encrypt_secret_key' ), 10, 2 ); // 2 out of 3 used
+		add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_api_manager_amazon_s3_secret_access_key', array(
+			$this,
+			'encrypt_secret_key'
+		), 10, 2 ); // 2 out of 3 used
 		add_action( 'woocommerce_admin_field_wc_am_s3_secret_key', array( $this, 'secret_key_field' ) );
 	}
 
@@ -71,11 +74,10 @@ class WC_AM_Settings_Admin {
 	}
 
 	/**
-	 * Uses the WooCommerce admin fields API to output settings via the @see woocommerce_admin_fields() function.
+	 * Uses the WooCommerce admin fields API to output settings via the @uses  $this->get_settings()
+	 * @uses  woocommerce_admin_fields()
 	 *
 	 * @since 1.3
-	 * @uses  $this->get_settings()
-	 * @uses  woocommerce_admin_fields()
 	 */
 	public function api_manager_settings_page() {
 		global $current_section;
@@ -137,25 +139,22 @@ class WC_AM_Settings_Admin {
 		);
 
 		$access_key_id = array(
-			'name'     => __( 'Access Key ID', 'woocommerce-api-manager' ),
-			'desc'     => __( 'The Amazon Web Services Access Key ID.', 'woocommerce-api-manager' ),
-			'tip'      => '',
-			'id'       => $this->option_prefix . '_amazon_s3_access_key_id',
-			'css'      => 'min-width:250px;',
-			'default'  => '',
-			'type'     => 'text',
-			'desc_tip' => false
+			'name'    => __( 'Access Key ID', 'woocommerce-api-manager' ),
+			'desc'    => __( 'The Amazon Web Services Access Key ID.', 'woocommerce-api-manager' ),
+			'id'      => $this->option_prefix . '_amazon_s3_access_key_id',
+			'css'     => 'min-width:250px;',
+			'default' => '',
+			'type'    => 'text'
 		);
 
 		$secret_access_key = array(
 			'name'     => __( 'Secret Access Key', 'woocommerce-api-manager' ),
 			'desc'     => __( 'The Amazon Web Services Secret Access Key is securely encrypted in the database.', 'woocommerce-api-manager' ),
-			'tip'      => '',
+			'desc_tip' => __( 'The Amazon Web Services Secret Access Key.', 'woocommerce-api-manager' ),
 			'id'       => $this->option_prefix . '_amazon_s3_secret_access_key',
 			'css'      => 'min-width:250px;',
 			'default'  => '',
-			'type'     => 'wc_am_s3_secret_key',
-			'desc_tip' => __( 'The Amazon Web Services Secret Access Key.', 'woocommerce-api-manager' )
+			'type'     => 'wc_am_s3_secret_key'
 		);
 
 		if ( defined( 'WC_AM_AWS3_ACCESS_KEY_ID' ) && defined( 'WC_AM_AWS3_SECRET_ACCESS_KEY' ) ) {
@@ -185,11 +184,11 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'     => __( 'Amazon S3 Region', 'woocommerce-api-manager' ),
 					'desc'     => __( 'The Amazon S3 Region where files are stored.', 'woocommerce-api-manager' ),
+					'desc_tip' => __( 'The region is required.', 'woocommerce-api-manager' ),
 					'id'       => $this->option_prefix . '_aws_s3_region',
 					'default'  => 'us-east-1',
 					'type'     => 'select',
-					'options'  => $aws_s3_regions,
-					'desc_tip' => __( 'The region is required.', 'woocommerce-api-manager' )
+					'options'  => $aws_s3_regions
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_amazon_s3_sec' ),
@@ -204,22 +203,20 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'     => __( 'URL Expire Time', 'woocommerce-api-manager' ),
 					'desc'     => __( 'Expiration time in days, for Amazon S3 and local server WooCommerce URLs.', 'woocommerce-api-manager' ),
+					'desc_tip' => __( 'Sets the time limit in days before a secure URL will expire. If a download begins before the expiration time limit is reached, the download will continue until complete.', 'woocommerce-api-manager' ),
 					'id'       => $this->option_prefix . '_url_expire',
 					'default'  => 1,
 					'type'     => 'select',
-					'options'  => apply_filters( 'wc_api_manager_url_expire_time', array_combine( range( 1, 7, 1 ), range( 1, 7, 1 ) ) ),
-					'desc_tip' => __( 'Sets the time limit in days before a secure URL will expire. If a download begins before the expiration time limit is reached, the download will continue until complete.', 'woocommerce-api-manager' )
+					'options'  => apply_filters( 'wc_api_manager_url_expire_time', array_combine( range( 1, 7, 1 ), range( 1, 7, 1 ) ) )
 				),
 
 				array(
-					'name'     => __( 'Save to Dropbox App Key', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( 'This creates a Save to Dropbox link in the My Account > My API Downloads section. Create an App Key %shere%s.', 'woocommerce-api-manager' ), '<a href="' . esc_url( 'https://www.dropbox.com/developers/apps/create' ) . '" target="blank">', '</a>' ),
-					'tip'      => '',
-					'id'       => $this->option_prefix . '_dropbox_dropins_saver',
-					'css'      => 'min-width:250px;',
-					'default'  => '',
-					'type'     => 'text',
-					'desc_tip' => false
+					'name'    => __( 'Save to Dropbox App Key', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( 'This creates a Save to Dropbox link in the My Account > My API Downloads section. Create an App Key %shere%s.', 'woocommerce-api-manager' ), '<a href="' . esc_url( 'https://www.dropbox.com/developers/apps/create' ) . '" target="blank">', '</a>' ),
+					'id'      => $this->option_prefix . '_dropbox_dropins_saver',
+					'css'     => 'min-width:250px;',
+					'default' => '',
+					'type'    => 'text'
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_download_links_sec' ),
@@ -235,7 +232,6 @@ class WC_AM_Settings_Admin {
 					'name'    => __( 'Product Order API Keys', 'woocommerce-api-manager' ),
 					'desc'    => sprintf( esc_html__( '%sHide the Product Order API Keys on My Account > API Keys tab screen. Hide if customers must use only the Master API Key.', 'woocommerce-api-manager' ), '<br>' ),
 					'id'      => $this->option_prefix . '_hide_product_order_api_keys',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -246,7 +242,6 @@ class WC_AM_Settings_Admin {
 					'name'    => __( 'Master API Key', 'woocommerce-api-manager' ),
 					'desc'    => sprintf( esc_html__( '%sHide the Master API Key on My Account > API Keys tab screen if customers must use only the Product Order API Keys.%sCannot be hidden if the Product Order API Keys are also hidden.', 'woocommerce-api-manager' ), '<br>', '<br>' ),
 					'id'      => $this->option_prefix . '_hide_master_key',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -276,7 +271,7 @@ class WC_AM_Settings_Admin {
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_grace_period_sec' ),
 
 				array(
-					'name' => __( 'Renewals', 'woocommerce-api-manager' ),
+					'name' => __( 'WC AM Renewals', 'woocommerce-api-manager' ),
 					'type' => 'title',
 					'desc' => '',
 					'id'   => $this->option_prefix . '_manual_renewal_period_title'
@@ -284,7 +279,7 @@ class WC_AM_Settings_Admin {
 
 				array(
 					'title'       => __( 'Manual Renewal Period', 'woocommerce-api-manager' ),
-					'desc'        => sprintf( esc_html__( 'Time interval before a renewable API Manager Subscription expires, plus the grace period, and when the manual renewal period begins.%sThis is when the My Account > API Keys > Renew button will become visible and the first renewal reminder email is sent.%sFor example, if set for 2 months, an annual WC AM Subscription would begin its renewal period 2 months before it expires, plus the grace period after the expiration date.', 'woocommerce-api-manager' ), '<br>', '<br>' ),
+					'desc'        => sprintf( esc_html__( 'The time interval between when the manual renewal period begins and before a renewable API Manager Subscription expires, plus the grace period.%sThis is when the My Account > API Keys > Renew button will become visible.%sFor example, if set for 2 months, an annual WC AM Subscription would begin its renewal period 2 months before it expires, plus the grace period after the expiration date.%sAutomated renewal reminder emails are sent 30 days and 7 days before the expiration date, and 1 day after the expiration date if there is a grace period value of 2 days or greater.', 'woocommerce-api-manager' ), '<br>', '<br>', '<br>' ),
 					'desc_tip'    => __( 'Only applies to WooComerce API Manager Subscriptions.', 'woocommerce-api-manager' ),
 					'id'          => $this->option_prefix . '_manual_renewal_period',
 					'type'        => 'relative_date_selector',
@@ -299,15 +294,33 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'     => __( 'Manual Renewal Discount', 'woocommerce-api-manager' ),
 					'desc'     => __( 'This is the percentage discount applied to manually renewed API Manager Subscriptions.', 'woocommerce-api-manager' ),
-					'tip'      => '',
+					'desc_tip' => __( 'Only applies to WooComerce API Manager Subscriptions.', 'woocommerce-api-manager' ),
 					'id'       => $this->option_prefix . '_manual_renewal_discount',
 					'css'      => 'width:60px;',
 					'default'  => '',
-					'type'     => 'text',
-					'desc_tip' => false
+					'type'     => 'text'
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_manual_renewal_period_sec' ),
+
+				array(
+					'name' => __( 'API Resources Cleanup', 'woocommerce-api-manager' ),
+					'type' => 'title',
+					'desc' => '',
+					'id'   => $this->option_prefix . '_api_resource_cleanup'
+				),
+
+				array(
+					'name'    => __( 'Schedule API Resources Cleanup', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sSchedule the weekly cleanup of expired API Resources and related API Key activations. %s%s', 'woocommerce-api-manager' ), '<br>', ( ! empty( $next_cleanup ) ) ? __( 'The cleanup process will run automatically next on ', 'woocommerce-api-manager' ) . '<code>' . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) . '</code>' : __( 'The cleanup process is not scheduled to automatically run.', 'woocommerce-api-manager' ), '<br>' ),
+					'id'      => $this->option_prefix . '_api_resoure_cleanup_data',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
+				),
+
+				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_resource_cleanup_sec' ),
 
 				array(
 					'name' => __( 'API Doc Tabs', 'woocommerce-api-manager' ),
@@ -319,7 +332,6 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'    => __( 'Description', 'woocommerce-api-manager' ),
 					'id'      => $this->option_prefix . '_description',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -329,7 +341,6 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'    => __( 'Installation', 'woocommerce-api-manager' ),
 					'id'      => $this->option_prefix . '_installation',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -339,7 +350,6 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'    => __( 'FAQ', 'woocommerce-api-manager' ),
 					'id'      => $this->option_prefix . '_faq',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -349,7 +359,6 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'    => __( 'Screenshots', 'woocommerce-api-manager' ),
 					'id'      => $this->option_prefix . '_screenshots',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -359,7 +368,6 @@ class WC_AM_Settings_Admin {
 				array(
 					'name'    => __( 'Other Notes', 'woocommerce-api-manager' ),
 					'id'      => $this->option_prefix . '_other_notes',
-					'default' => 'no',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -369,26 +377,6 @@ class WC_AM_Settings_Admin {
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_doc_tabs_sec' ),
 
 				array(
-					'name' => __( 'API Resources Cleanup', 'woocommerce-api-manager' ),
-					'type' => 'title',
-					'desc' => '',
-					'id'   => $this->option_prefix . '_api_resource_cleanup'
-				),
-
-				array(
-					'name'     => __( 'Schedule API Resources Cleanup', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( '%sSchedule the weekly cleanup of expired API Resources and related API Key activations. %s%s', 'woocommerce-api-manager' ), '<br>', ( ! empty( $next_cleanup ) ) ? __( 'The cleanup process will run automatically next on ', 'woocommerce-api-manager' ) . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) : __( 'The cleanup process is not scheduled to automatically run.', 'woocommerce-api-manager' ), '<br>' ),
-					'id'       => $this->option_prefix . '_api_resoure_cleanup_data',
-					'type'     => 'checkbox',
-					'class'    => 'wcam-checkbox-ui-toggle',
-					'desc_tip' => '',
-					'default'  => 'no',
-					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
-				),
-
-				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_resource_cleanup_sec' ),
-
-				array(
 					'name' => __( 'API Response', 'woocommerce-api-manager' ),
 					'type' => 'title',
 					'desc' => '',
@@ -396,14 +384,13 @@ class WC_AM_Settings_Admin {
 				),
 
 				array(
-					'name'     => __( 'Send API Resource Data', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( '%sSending extended resource data in API responses is not required, and will slow down response time.<br>Recommended Off.', 'woocommerce-api-manager' ), '<br>' ),
-					'id'       => $this->option_prefix . '_api_response_data',
-					'type'     => 'checkbox',
-					'class'    => 'wcam-checkbox-ui-toggle',
-					'desc_tip' => '',
-					'default'  => 'no',
-					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
+					'name'    => __( 'Send API Resource Data', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sSending extended resource data in API responses is not required, and will slow down response time.<br>Recommended Off.', 'woocommerce-api-manager' ), '<br>' ),
+					'id'      => $this->option_prefix . '_api_response_data',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_debug_sec' ),
@@ -416,36 +403,33 @@ class WC_AM_Settings_Admin {
 				),
 
 				array(
-					'name'     => __( 'API Request Log', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( '%sLogs query events inside %s Log file size %s %sView Log%s', 'woocommerce-api-manager' ), '<br>', '<code>' . basename( wc_get_log_file_path( 'wc-am-api-request-log' ) ) . '</code><br>', esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-query-log' ) ) ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) . '">', '</a>' ),
-					'id'       => $this->option_prefix . '_api_debug_log',
-					'type'     => 'checkbox',
-					'class'    => 'wcam-checkbox-ui-toggle',
-					'desc_tip' => '',
-					'default'  => 'no',
-					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
+					'name'    => __( 'API Request Log', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sLogs query events inside %s Log file size %s %sView Log%s', 'woocommerce-api-manager' ), '<br>', '<code>' . basename( wc_get_log_file_path( 'wc-am-api-request-log' ) ) . '</code><br>', esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-query-log' ) ) ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) . '">', '</a>' ),
+					'id'      => $this->option_prefix . '_api_debug_log',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
 				),
 
 				array(
-					'name'     => __( 'API Error Log', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( '%sLogs error events inside %s Log file size %s %sView Log%s', 'woocommerce-api-manager' ), '<br>', '<code>' . basename( wc_get_log_file_path( 'wc-am-api-error-log' ) ) . '</code><br>', esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-error-log' ) ) ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) . '">', '</a>' ),
-					'id'       => $this->option_prefix . '_api_error_log',
-					'type'     => 'checkbox',
-					'class'    => 'wcam-checkbox-ui-toggle',
-					'desc_tip' => '',
-					'default'  => 'no',
-					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
+					'name'    => __( 'API Error Log', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sLogs error events inside %s Log file size %s %sView Log%s', 'woocommerce-api-manager' ), '<br>', '<code>' . basename( wc_get_log_file_path( 'wc-am-api-error-log' ) ) . '</code><br>', esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-error-log' ) ) ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) . '">', '</a>' ),
+					'id'      => $this->option_prefix . '_api_error_log',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
 				),
 
 				array(
-					'name'     => __( 'API Response Log', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( '%sLogs response events inside %s Log file size %s %sView Log%s', 'woocommerce-api-manager' ), '<br>', '<code>' . basename( wc_get_log_file_path( 'wc-am-api-response-log' ) ) . '</code><br>', esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-response-log' ) ) ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) . '">', '</a>' ),
-					'id'       => $this->option_prefix . '_api_response_log',
-					'type'     => 'checkbox',
-					'class'    => 'wcam-checkbox-ui-toggle',
-					'desc_tip' => '',
-					'default'  => 'no',
-					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
+					'name'    => __( 'API Response Log', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sLogs response events inside %s Log file size %s %sView Log%s', 'woocommerce-api-manager' ), '<br>', '<code>' . basename( wc_get_log_file_path( 'wc-am-api-response-log' ) ) . '</code><br>', esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-response-log' ) ) ), '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) . '">', '</a>' ),
+					'id'      => $this->option_prefix . '_api_response_log',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_response_sec' ),
@@ -458,15 +442,13 @@ class WC_AM_Settings_Admin {
 				),
 
 				array(
-					'name'     => __( 'WC Software Add-On', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( esc_html__( '%sWhen this option is selected the API Manager will listen for HTTP(s) API queries intended for the WooCommerce Software Add-On plugin.%sThe WC Software Add-On plugin can be deleted after its data has been imported into the API Manager.%s%sNote:%s The import tool will not run unless this option is selected. Go to %sTools%s to Import the WC Software Add-On Data into the API Manager.', 'woocommerce-api-manager' ), '<br>', '<br>', '<br>', '<strong class="red">', '</strong>', '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=tools' ) . '">', '</a>' ),
-					'id'       => $this->option_prefix . '_translate_software_add_on_queries',
-					'default'  => 'no',
-					'type'     => 'checkbox',
-					'class'    => 'wcam-checkbox-ui-toggle',
-					'desc_tip' => '',
-					'default'  => 'no',
-					'options'  => array( 'yes' => 'On', 'no' => 'Off' )
+					'name'    => __( 'WC Software Add-On', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sWhen this option is selected the API Manager will listen for HTTP(s) API queries intended for the WooCommerce Software Add-On plugin.%sThe WC Software Add-On plugin can be deleted after its data has been imported into the API Manager.%s%sNote:%s The import tool will not run unless this option is selected. Go to %sTools%s to Import the WC Software Add-On Data into the API Manager.', 'woocommerce-api-manager' ), '<br>', '<br>', '<br>', '<strong class="red">', '</strong>', '<a href="' . esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=tools' ) . '">', '</a>' ),
+					'id'      => $this->option_prefix . '_translate_software_add_on_queries',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_transitions_sec' ),
@@ -487,11 +469,11 @@ class WC_AM_Settings_Admin {
 	}
 
 	/**
-	 * Uses the WooCommerce options API to save settings via the @see woocommerce_update_options() function.
+	 * Uses the WooCommerce options API to save settings via the @uses  $this->get_settings()
+	 * @uses  woocommerce_update_options()
+	 * @see   woocommerce_update_options() function.
 	 *
 	 * @since 1.3
-	 * @uses  $this->get_settings()
-	 * @uses  woocommerce_update_options()
 	 */
 	public function update_api_manager_settings() {
 		global $current_section;
@@ -558,7 +540,8 @@ class WC_AM_Settings_Admin {
                     <label for="<?php echo wp_kses_post( $field[ 'id' ] ); ?>"><?php echo esc_attr( $field[ 'name' ] ); ?></label>
                 </th>
                 <td class="forminp forminp-password">
-                    <input name="<?php echo esc_attr( $field[ 'id' ] ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" type="password"
+                    <input name="<?php echo esc_attr( $field[ 'id' ] ); ?>"
+                           id="<?php echo esc_attr( $field[ 'id' ] ); ?>" type="password"
                            style="<?php echo esc_attr( isset( $field[ 'css' ] ) ? $field[ 'css' ] : '' ); ?>"
                            value="<?php echo esc_attr( WC_AM_ENCRYPTION()->decrypt( $field_val ) ); ?>"
                            class="<?php echo esc_attr( isset( $field[ 'class' ] ) ? $field[ 'class' ] : '' ); ?>">

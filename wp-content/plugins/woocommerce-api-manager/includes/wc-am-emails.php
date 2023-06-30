@@ -44,9 +44,7 @@ class WC_AM_Emails {
 	 * @since 3.0
 	 */
 	public function register_email__classes( $email_classes ) {
-		require_once( 'emails/wc-am-email-expiring-subscription.php' );
-
-		$email_classes[ 'WC_AM_Email_Expiring_Subscription' ] = new WC_AM_Email_Expiring_Subscription();
+		$email_classes[ 'WCAM_Email_Expiring_Subscription' ] = require_once( 'emails/wcam-email-expiring-subscription.php' );
 
 		return $email_classes;
 	}
@@ -59,8 +57,13 @@ class WC_AM_Emails {
 	 * @param int $api_resource_id
 	 */
 	public function send_subscription_expiration_notification( $api_resource_id ) {
-		$mailer = WC()->mailer()->get_emails()[ 'WC_AM_Email_Expiring_Subscription' ];
-		$mailer->trigger( $api_resource_id );
+		if ( ! empty( $api_resource_id ) ) {
+			/**
+			 * @var WCAM_Email_Expiring_Subscription $mailer
+			 */
+			$mailer = WC()->mailer()->get_emails()[ 'WCAM_Email_Expiring_Subscription' ];
+			$mailer->trigger( $api_resource_id );
+		}
 	}
 }
 
