@@ -1,6 +1,6 @@
 /*
  * Eventon Full Calendar styles
- * @version 2.0.2
+ * @version 2.0.4
  */ 
 
 /* fonts */
@@ -359,6 +359,7 @@
 		display:flex; justify-content: center; align-items: center;
 		bottom: 3px; overflow: hidden;padding:5px;
 	}
+	.evoFC_nextto.evoFC .evofc_day.has_events span.day_evs{flex-direction: row;}
 	.evoFC_nextto.evoFC .eventon_fullcal {
 		width: 50%;
 		float:left;

@@ -227,7 +227,9 @@ jQuery(document).ready(function($){
 							if(evS < SU && O.hasClass('d_1')) _day_class += ' strpr';
 
 
-							var _content = "<i class='"+ ED.uID +" "+_day_class+"' style='background-color:"+ ED.hex_color +"; color:"+_color+"' title='"+ ED.event_title +"'>"+ ED.event_title +"</i>";
+							var _event_title = ED.event_title;		
+
+							var _content = "<i class='"+ ED.uID +" "+_day_class+"' style='background-color:"+ ED.hex_color +"; color:"+_color+"' title='"+ _event_title +"'>"+ _event_title +"</i>";
 
 							// if previous date has same event
 							if(O.prev().find('i.'+ ED.uID ).length>0){
@@ -293,9 +295,7 @@ jQuery(document).ready(function($){
 				});
 			}
 
-
 			if(SC.load_fullmonth=='no') load_correct_events( CAL, type);
-
 
 			// trigger
 			$('body').trigger('evofc_calendar_populated',[ CAL , type]);
@@ -469,7 +469,9 @@ jQuery(document).ready(function($){
 							_events_html += "<li style='border-left-color:#"+ ED.hex_color +"'>"+ ED.event_title +"</li>";	
 							_C++;
 						});
-						if( _C>2){
+
+						// show more events text only for events more than 3
+						if( R.count > 3){
 							_events_html += "<li>+ "+ CAL.evo_get_global({S1:'txt',S2:'more'}) +"</li>";	
 						}
 						CAL.find('.evofc_ttle_events').html( _events_html );
@@ -615,7 +617,9 @@ jQuery(document).ready(function($){
 				if(data_arg.direction =='none' && ajaxtype != 'today'){
 					
 					populate_grid_boxes_with_events( CAL ,'noanimate');
-					load_correct_events( CAL ,'init');
+					
+					if(SC.load_fullmonth=='no') load_correct_events( CAL ,'init');
+					
 					strip.attr({'data-multiplier':'0'});
 				
 				}else{

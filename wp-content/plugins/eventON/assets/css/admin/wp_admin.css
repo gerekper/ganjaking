@@ -1,12 +1,12 @@
 /**
  * EventON wp-admin all styles
- * @version 4.4
+ * @version 4.4.2
  */
 
 :root{
 	--evo_color_1: #202124;
-	--evo_color_3: #fed584;
-	--evo_color_4: #00aafb;
+	--evo_color_second: #fed584;
+	--evo_color_prime: #00aafb;
 	--evo_color_white: #ffffff;
 	--evo_main_font: 'Noto Sans', arial;
 	--evo_border_c:#e0e0e0;
@@ -210,7 +210,7 @@
 		.evo_admin_btn.btn_secondary{	background-color: #ffc656;color:#fff;	}
 		.evo_admin_btn.btn_grey{	background-color: #b3b3b3;color:#fff;	}
 		.evo_admin_btn.btn_red{	background-color: #ff4d4d;color:#fff;	}
-		.evo_admin_btn.btn_blue{	background-color: var(--evo_color_prim);color:#fff;	} /* @since 4.4 */
+		.evo_admin_btn.btn_blue{	background-color: var(--evo_color_prime);color:#fff;	} /* @since 4.4 */
 		.evo_admin_btn.btn_triad{background-color:#b1b1b1;color:#fff;}
 		.evo_admin_btn.btn_triad:hover{background-color:#A0A0A0;color:#fff;}
 		.evo_admin_btn.btn_tritiary{background-color:#487e8a;color:#fff;}
@@ -731,7 +731,7 @@
 	    color:    #EED1B5;
 	}
 	#meta_tabs a{cursor:pointer}
-	#meta_tabs a.evcal_5{background-color: #fed548	}
+	#meta_tabs a.evcal_5{background-color: var(--evo_color_second)	}
 	.postbox hr{background-color:#DFDFDF;border:none;height:1px;border-bottom:1px solid #fff}
 
 	#evcal_5 .notice {
@@ -949,8 +949,8 @@
 	    text-transform: uppercase;
 	    border-radius: 4px 4px 0 0
 	}
-	.evo_addons_page .addon.activated{background-color: var(--evo_color_4);}
-	.evo_addons_page .addon.main.activated{background-color: var(--evo_color_4);}
+	.evo_addons_page .addon.activated{background-color: var(--evo_color_prime);}
+	.evo_addons_page .addon.main.activated{background-color: var(--evo_color_prime);}
 	.evo_addons_page .addon.justactivate{background-color: #B2DCEC;}
 	.evo_addons_page .addon.activated.hasupdate{background-color: #a5e29a;}
 	.evo_addons_page .addon:hover{opacity: 0.8;}
@@ -1013,35 +1013,35 @@
 
 /*-- language page--*/
 	.evoLANG_section_header:hover{background-color: #f4f4f4;color: #3d3d3d;}
-	.evoLANG_section_header.open:before{
+	.evoLANG_section_header.open:after{
 		border-width: 5px 5px 0 5px;
-		border-color: #828282 transparent transparent transparent;
+		border-color: #787c82 transparent transparent transparent;
 		margin-top: 6px;
-		margin-left: -18px;
 	}
-	.evoLANG_section_header:before{
-		margin-left: -16px;
+	.evoLANG_section_header:after{
 		margin-top: 3px;
 		position: absolute;
 		content:"";
 		width: 0px;
 		height: 0px;
 		border-style: solid;
-		border-width: 5px 0 5px 5px;
-		border-color: transparent transparent transparent #b3b3b3;
+		border-width: 0 5px 5px 5px;
+		border-color: transparent transparent #787c82 transparent;
+		right:20px;
 	}	
 	.evoLANG_section_header{
 		border-top: 1px solid #d9d7d7;
 		position: relative;
-		padding: 6px 20px 6px 25px;
-		background-color: #eeeeee;
+		padding: 10px 20px 10px 25px;
 		font-size: 14px;
 		cursor: pointer;
 		margin: 0 -12px;
 	}
 	.evo_settings_togbox{display: none;}
-	.evo_settings_togbox{margin:0 -12px 0 -12px; padding: 15px;
+	.evo_settings_togbox{
+		margin:10px; padding: 30px;
 		background-color: #fff;
+		border:1px solid #dedede;
 	}
 	.evcal_lang_box input.evcal_lang{
 		background-color:var(--evo_settings_lang_bgc); color:#000;
@@ -1062,9 +1062,7 @@
 
 
 	.eventon_custom_lang_lines{margin-top: 10px;}
-	.evcal_lang_box input.evcal_lang:hover, .evcal_lang_box input.evcal_lang:focus{
-		background-color:#fed584;
-	}
+
 
 	.evcal_lang_box { 
 		display: flex;
@@ -1075,28 +1073,15 @@
 	    margin-bottom: 10px;
 	}
 	.evcal_admin_meta .evcal_lang_p{margin:0;padding:0 3px;     flex: 1 0 auto;	}
-	.eventon_custom_lang_line:hover{border-color:#fed584}
-	.eventon_custom_lang_line:hover .eventon_cl_label_out{background-color:#fed584}
-	.eventon_custom_lang_line.onfocus{
-		border-color:#f4e3d3
-	}
-	.eventon_custom_lang_line.onfocus .eventon_cl_label_out{
-		color: #b07235;
-		border-color:#f4e3d3;
-		background-color:#f4e3d3;
-	}
-	.eventon_custom_lang_line.onfocus .eventon_cl_label{color: #000;} 
+	.eventon_custom_lang_line:hover{border-color:#fed584;background-color:#fed584}
+	
 	.eventon_custom_lang_line{
-		border:1px solid var(--evo_settings_lang_bgc); 
-		background-color: #fff;
+		border-top:1px solid var(--evo_settings_lang_bgc); 
 		position:relative;
-		-webkit-border-radius: 3px;
-		border-radius: 20px;
-		margin-bottom:3px;
 		display:flex; 
 	}
 	.eventon_custom_lang_line.dup{position: relative;}
-	.eventon_custom_lang_line.dup .eventon_cl_label_out{padding-left: 70px;}
+	.eventon_custom_lang_line.dup .eventon_cl_label_out{padding-left: 80px;}
 	.eventon_custom_lang_line.dup:before{
 		content: "Duplicate";
 	    position: absolute;
@@ -1112,33 +1097,32 @@
 	.eventon_cl_label_out, .eventon_cl_input{float:left}
 	.eventon_cl_label_out{
 		width:38%;
-		background-color:var(--evo_settings_lang_bgc);
 		margin:0;
-		text-align:right;
-		box-sizing:border-box;
-		border-radius: 20px 0 0 20px
+		box-sizing:border-box; display: flex;
 	}
 	.evcal_admin_meta .eventon_cl_label{
-		padding:5px; margin:0;color: #fff;font-size:12px;
+		padding:5px; margin:0;
 	}
 	.evo_settings_togbox .eventon_cl_input:focus{
 		outline:none; border:none; box-shadow:none;
 	}
 	.evo_settings_togbox .eventon_cl_input{
-		font-size: 12px;
-		color: #808080;
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
 		margin:0;
-		padding:4px 6px;
+		padding:4px 15px;
 		width:60%;
 		border:none;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		-ms-box-sizing: border-box;
 		box-sizing: border-box;	
+		background-color: #e8e8e8;
+	    border-radius: 10px;
+	    margin: 5px 0;
 	}
+	.evo_settings_togbox .evoLANG_subsec .eventon_cl_input{background-color: #d5d5d5;}
 	.evcal_admin_meta .eventon_cl_legend{
 		margin:0 0 2px;
 		padding-bottom: 4px;
@@ -1148,7 +1132,7 @@
 		font-style: italic;
 	}
 	.evoLANG_subheader{
-		color: #808080; padding: 5px 0; text-transform: uppercase;
+		color: #3c3c3c; padding: 5px 0; font-size: 14px;
 	}
 	.evoLANG_subsec{background-color: #eaeaea;
     padding: 10px;margin-bottom: 10px; border-radius: 8px;}

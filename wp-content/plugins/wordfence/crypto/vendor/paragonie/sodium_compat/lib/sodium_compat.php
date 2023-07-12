@@ -392,7 +392,8 @@ if (!is_callable('\\Sodium\\crypto_kx')) {
             $my_secret,
             $their_public,
             $client_public,
-            $server_public
+            $server_public,
+            true
         );
     }
 }
@@ -778,6 +779,10 @@ if (!is_callable('\\Sodium\\memzero')) {
      * @return void
      * @throws \SodiumException
      * @throws \TypeError
+     *
+     * @psalm-suppress MissingParamType
+     * @psalm-suppress MissingReturnType
+     * @psalm-suppress ReferenceConstraintViolation
      */
     function memzero(&$str)
     {

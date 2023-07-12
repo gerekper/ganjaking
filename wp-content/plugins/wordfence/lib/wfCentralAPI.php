@@ -276,7 +276,7 @@ class wfCentralAuthenticatedAPIRequest extends wfCentralAPIRequest {
 	}
 
 	public function fetchToken() {
-		require_once(WORDFENCE_PATH . '/crypto/vendor/paragonie/sodium_compat/autoload-fast.php');
+		require_once(WORDFENCE_PATH . '/lib/sodium_compat_fast.php');
 
 		$defaultArgs = array(
 			'timeout' => 6,
@@ -551,34 +551,195 @@ class wfCentral {
 	 * @param array $data
 	 * @param callable|null $alertCallback
 	 */
-	public static function sendSecurityEvent($event, $data = array(), $alertCallback = null) {
+	public static function sendSecurityEvent($event, $data = array(), $alertCallback = null, $sendImmediately = false) {
+		return self::sendSecurityEvents(array(array('type' => $event, 'data' => $data, 'event_time' => microtime(true))), $alertCallback, $sendImmediately);
+	}
+	
+	public static function sendSecurityEvents($events, $alertCallback = null, $sendImmediately = false) {
+		if (empty($events)) {
+			return true;
+		}
+		
+		if (!$sendImmediately && defined('DISABLE_WP_CRON') && DISABLE_WP_CRON) {
+			$sendImmediately = true;
+		}
+		
 		$alerted = false;
 		if (!self::pluginAlertingDisabled() && is_callable($alertCallback)) {
 			call_user_func($alertCallback);
 			$alerted = true;
 		}
-
-		$siteID = wfConfig::get('wordfenceCentralSiteID');
-		$request = new wfCentralAuthenticatedAPIRequest('/site/' . $siteID . '/security-events', 'POST', array(
-			'data' => array(
-				array(
-					'type'       => 'security-event',
+		
+		if ($sendImmediately) {
+			$payload = array();
+			foreach ($events as $e) {
+				$payload[] = array(
+					'type' => 'security-event',
 					'attributes' => array(
-						'type'       => $event,
-						'data'       => $data,
-						'event_time' => microtime(true),
+						'type' => $e['type'],
+						'data' => $e['data'],
+						'event_time' => $e['event_time'],
 					),
-				),
-			),
-		));
-		try {
-			// Attempt to send the security event to Central.
-			$response = $request->execute();
-		} catch (wfCentralAPIException $e) {
-			// If we didn't alert previously, notify the user now in the event Central is down.
-			if (!$alerted && is_callable($alertCallback)) {
-				call_user_func($alertCallback);
+				);
 			}
+			
+			$siteID = wfConfig::get('wordfenceCentralSiteID');
+			$request = new wfCentralAuthenticatedAPIRequest('/site/' . $siteID . '/security-events', 'POST', array(
+				'data' => $payload,
+			));
+			try {
+				// Attempt to send the security events to Central.
+				$response = $request->execute();
+			}
+			catch (wfCentralAPIException $e) {
+				// If we didn't alert previously, notify the user now in the event Central is down.
+				if (!$alerted && is_callable($alertCallback)) {
+					call_user_func($alertCallback);
+				}
+				return false;
+			}
+		}
+		else {
+			$wfdb = new wfDB();
+			$table_wfSecurityEvents = wfDB::networkTable('wfSecurityEvents');
+			$query = "INSERT INTO {$table_wfSecurityEvents} (`type`, `data`, `event_time`, `state`, `state_timestamp`) VALUES ";
+			$query .= implode(', ', array_fill(0, count($events), "('%s', '%s', %f, 'new', NOW())"));
+			
+			$immediateSendTypes = array('adminLogin',
+										'adminLoginNewLocation',
+										'nonAdminLogin',
+										'nonAdminLoginNewLocation',
+										'wordfenceDeactivated',
+										'wafDeactivated',
+										'autoUpdate');
+			$args = array();
+			foreach ($events as $e) {
+				$sendImmediately = $sendImmediately || in_array($e['type'], $immediateSendTypes);
+				$args[] = $e['type'];
+				$args[] = json_encode($e['data']);
+				$args[] = $e['event_time'];
+			}
+			$wfdb->queryWriteArray($query, $args);
+			
+			if (($ts = self::isScheduledSecurityEventCronOverdue()) || $sendImmediately) {
+				if ($ts) {
+					self::unscheduleSendPendingSecurityEvents($ts);
+				}
+				self::sendPendingSecurityEvents();
+			}
+			else {
+				self::scheduleSendPendingSecurityEvents();
+			}
+		}
+		
+		return true;
+	}
+	
+	public static function sendPendingSecurityEvents() {
+		$wfdb = new wfDB();
+		$table_wfSecurityEvents = wfDB::networkTable('wfSecurityEvents');
+		
+		$rawEvents = $wfdb->querySelect("SELECT * FROM {$table_wfSecurityEvents} WHERE `state` = 'new' ORDER BY `id` ASC LIMIT 100");
+
+		if (empty($rawEvents))
+			return;
+
+		$ids = array();
+		$events = array();
+		foreach ($rawEvents as $r) {
+			$ids[] = intval($r['id']);
+			$events[] = array(
+				'type' => $r['type'],
+				'data' => json_decode($r['data'], true),
+				'event_time' => $r['event_time'],
+			);
+		}
+		
+		$idParam = '(' . implode(', ', $ids) . ')';
+		$wfdb->queryWrite("UPDATE {$table_wfSecurityEvents} SET `state` = 'sending', `state_timestamp` = NOW() WHERE `id` IN {$idParam}");
+		if (self::sendSecurityEvents($events, null, true)) {
+			$wfdb->queryWrite("UPDATE {$table_wfSecurityEvents} SET `state` = 'sent', `state_timestamp` = NOW() WHERE `id` IN {$idParam}");
+			
+			self::checkForUnsentSecurityEvents();
+		}
+		else {
+			$wfdb->queryWrite("UPDATE {$table_wfSecurityEvents} SET `state` = 'new', `state_timestamp` = NOW() WHERE `id` IN {$idParam}");
+			self::scheduleSendPendingSecurityEvents();
+		}
+	}
+	
+	public static function scheduleSendPendingSecurityEvents() {
+		if (!defined('DONOTCACHEDB')) { define('DONOTCACHEDB', true); }
+		$notMainSite = is_multisite() && !is_main_site();
+		if ($notMainSite) {
+			global $current_site;
+			switch_to_blog($current_site->blog_id);
+		}
+		if (!wp_next_scheduled('wordfence_batchSendSecurityEvents')) {
+			wp_schedule_single_event(time() + 300, 'wordfence_batchSendSecurityEvents');
+		}
+		if ($notMainSite) {
+			restore_current_blog();
+		}
+	}
+	
+	public static function unscheduleSendPendingSecurityEvents($timestamp) {
+		if (!defined('DONOTCACHEDB')) { define('DONOTCACHEDB', true); }
+		$notMainSite = is_multisite() && !is_main_site();
+		if ($notMainSite) {
+			global $current_site;
+			switch_to_blog($current_site->blog_id);
+		}
+		if (!wp_next_scheduled('wordfence_batchSendSecurityEvents')) {
+			wp_unschedule_event($timestamp, 'wordfence_batchSendSecurityEvents');
+		}
+		if ($notMainSite) {
+			restore_current_blog();
+		}
+	}
+	
+	public static function isScheduledSecurityEventCronOverdue() {
+		if (!defined('DONOTCACHEDB')) { define('DONOTCACHEDB', true); }
+		$notMainSite = is_multisite() && !is_main_site();
+		if ($notMainSite) {
+			global $current_site;
+			switch_to_blog($current_site->blog_id);
+		}
+		
+		$overdue = false;
+		if ($ts = wp_next_scheduled('wordfence_batchSendSecurityEvents')) {
+			if ((time() - $ts) > 900) {
+				$overdue = $ts;
+			}
+		}
+		
+		if ($notMainSite) {
+			restore_current_blog();
+		}
+		
+		return $overdue;
+	}
+	
+	public static function checkForUnsentSecurityEvents() {
+		$wfdb = new wfDB();
+		$table_wfSecurityEvents = wfDB::networkTable('wfSecurityEvents');
+		$wfdb->queryWrite("UPDATE {$table_wfSecurityEvents} SET `state` = 'new', `state_timestamp` = NOW() WHERE `state` = 'sending' AND `state_timestamp` < DATE_SUB(NOW(), INTERVAL 30 MINUTE)");
+		
+		$count = $wfdb->querySingle("SELECT COUNT(*) AS cnt FROM {$table_wfSecurityEvents} WHERE `state` = 'new'");
+		if ($count) {
+			self::scheduleSendPendingSecurityEvents();
+		}
+	}
+	
+	public static function trimSecurityEvents() {
+		$wfdb = new wfDB();
+		$table_wfSecurityEvents = wfDB::networkTable('wfSecurityEvents');
+		$count = $wfdb->querySingle("SELECT COUNT(*) AS cnt FROM {$table_wfSecurityEvents}");
+		if ($count > 20000) {
+			$wfdb->truncate($table_wfSecurityEvents); //Similar behavior to other logged data, assume possible DoS so truncate
+		}
+		else if ($count > 1000) {
+			$wfdb->queryWrite("DELETE FROM {$table_wfSecurityEvents} ORDER BY id ASC LIMIT %d", $count - 1000);
 		}
 	}
 

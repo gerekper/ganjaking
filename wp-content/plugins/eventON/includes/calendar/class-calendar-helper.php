@@ -3,7 +3,7 @@
  * helper functions for calendar
  *
  * @class 		evo_cal_help
- * @version		4.2
+ * @version		4.4.2
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -175,10 +175,7 @@ class evo_cal_help {
 					if($sm_site=='EmailShare'){
 						$url = $sm_site_val['url'];
 
-						// removed urlencode on title
-						$title 		= str_replace('+','%20',($post_title));
-						$title 		= str_replace('&','%26',($title));
-						$title 		= str_replace('#038;','',($title));
+						$title = $post_title;
 
 						//echo $title;
 						$mailtocontent = '';

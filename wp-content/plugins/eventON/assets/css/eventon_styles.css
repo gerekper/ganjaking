@@ -1,8 +1,22 @@
 /**
  * Primary Styles for EventON Calendar Front-end
- * @version		4.3
+ * @version		4.4.2
  */
 
+
+/* ROOT */
+	:root{
+		--evo_font_1:'Figtree','Montserrat', sans-serif;
+		--evo_font_2:'Noto Sans',arial;
+		--evo_font_weight: 800;
+		--evo_color_1:#202124;
+		--evo_color_2:#656565;
+		--evo_boxcolor_1:#f0f0f0;
+		--evo_linecolor_1:#d4d4d4;
+		--evo_color_link:#656565;
+		--evo_color_prime: #00aafb;
+		--evo_color_second: #fed584;
+	}
 
 /*-- transition --*/
 	#evcal_list .eventon_list_event .desc_trig, 
@@ -91,17 +105,7 @@
 		.borderr30{border-radius: 30px;}
 
 /*-- calendar general styles --*/
-	:root{
-		--evo_font_1:'Figtree','Montserrat', sans-serif;
-		--evo_font_2:'Noto Sans',arial;
-		--evo_font_weight: 800;
-		--evo_color_1:#202124;
-		--evo_color_2:#656565;
-		--evo_boxcolor_1:#f0f0f0;
-		--evo_linecolor_1:#d4d4d4;
-		--evo_color_link:#656565;
-	}
-
+	
 	/* border */
 	.evo_borderb{border-bottom:1px solid var(--evo_linecolor_1) }
 
@@ -315,7 +319,7 @@
 		border-radius: 20px;
 		border:none;
 		color:#fff;
-		background: #237ebd;
+		background: var(--evo_color_prime);
 		font-style: normal;
 		cursor: pointer;
 		line-height: 1
@@ -2989,8 +2993,9 @@
 		    background-color: #f7f7f7!important;
 		}
 		body .evorow .evo_loading_bar{background-color: #e6e6e6!important}
-		body .evorow .evo_loading_bar:before{background: linear-gradient(90deg, 
-    transparent 0%, rgb(239 239 239 / 50%) 50%, transparent 100%)}
+		body .evorow .evo_loading_bar:before{
+			background: linear-gradient(90deg, 
+    transparent 0%, rgb(239 239 239 / 75%) 50%, transparent 100%)}
 		.evo_loading_bar.wid_90{width: 90%}
 		.evo_loading_bar.wid_80{width: 80%}
 		.evo_loading_bar.wid_70{width: 70%}
@@ -2998,7 +3003,9 @@
 		.evo_loading_bar.wid_40{width: 40%}
 		.evo_loading_bar.wid_30{width: 30%}
 		.evo_loading_bar.wid_25{width: 25%}
-		.evo_loading_bar.hi_50{ height: 30px;flex: 0 1 50px;}
+		.evo_loading_bar.hi_150{ height: 150px;flex: 0 1 150px;}
+		.evo_loading_bar.hi_100{ height: 100px;flex: 0 1 100px;}
+		.evo_loading_bar.hi_50{ height: 50px;flex: 0 1 50px;}
 		.evo_loading_bar.hi_30{ height: 30px;flex: 0 1 30px;}
 		.evo_loading_bar:before{
 			content:"";

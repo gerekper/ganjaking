@@ -55,9 +55,9 @@ if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
 
 $RandomCompatDIR = dirname(__FILE__);
 
-require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'byte_safe_strings.php';
-require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'cast_to_int.php';
-require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'error_polyfill.php';
+require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'byte_safe_strings.php';
+require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'cast_to_int.php';
+require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'error_polyfill.php';
 
 if (!is_callable('random_bytes')) {
     /**
@@ -77,9 +77,9 @@ if (!is_callable('random_bytes')) {
     if (extension_loaded('libsodium')) {
         // See random_bytes_libsodium.php
         if (PHP_VERSION_ID >= 50300 && is_callable('\\Sodium\\randombytes_buf')) {
-            require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_libsodium.php';
+            require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'random_bytes_libsodium.php';
         } elseif (method_exists('Sodium', 'randombytes_buf')) {
-            require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_libsodium_legacy.php';
+            require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'random_bytes_libsodium_legacy.php';
         }
     }
 
@@ -118,7 +118,7 @@ if (!is_callable('random_bytes')) {
             // place, that is not helpful to us here.
 
             // See random_bytes_dev_urandom.php
-            require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_dev_urandom.php';
+            require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'random_bytes_dev_urandom.php';
         }
         // Unset variables after use
         $RandomCompat_basedir = null;
@@ -160,7 +160,7 @@ if (!is_callable('random_bytes')) {
         extension_loaded('mcrypt')
     ) {
         // See random_bytes_mcrypt.php
-        require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_mcrypt.php';
+        require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'random_bytes_mcrypt.php';
     }
     $RandomCompatUrandom = null;
 
@@ -183,9 +183,10 @@ if (!is_callable('random_bytes')) {
         if (!in_array('com', $RandomCompat_disabled_classes)) {
             try {
                 $RandomCompatCOMtest = new COM('CAPICOM.Utilities.1');
-                if (method_exists($RandomCompatCOMtest, 'GetRandom')) {
+                /** @psalm-suppress TypeDoesNotContainType */
+                if (is_callable(array($RandomCompatCOMtest, 'GetRandom'))) {
                     // See random_bytes_com_dotnet.php
-                    require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_com_dotnet.php';
+                    require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'random_bytes_com_dotnet.php';
                 }
             } catch (com_exception $e) {
                 // Don't try to use it.
@@ -220,7 +221,7 @@ if (!is_callable('random_bytes')) {
 }
 
 if (!is_callable('random_int')) {
-    require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_int.php';
+    require_once $RandomCompatDIR.DIRECTORY_SEPARATOR.'random_int.php';
 }
 
 $RandomCompatDIR = null;

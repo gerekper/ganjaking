@@ -301,7 +301,7 @@ class evo_settings_settings{
 							array('id'=>'evo_timeF_v','type'=>'text','name'=>__('Date/Time Format','eventon'), 
 								'default'=>'F j(l) g:ia'),
 							array('id'=>'evcal_api_mu_note','type'=>'note',
-								'name'=>__('Refer to guide for acceptable date/time format values: php <a href="http://php.net/manual/en/function.date.php" target="_blank">date()</a> You can use {} to add constants to the date/time format eg. F j(l) g{hr} i{min}','eventon')),
+								'name'=>__('Refer to guide for acceptable date/time format values: php <a href="http://php.net/manual/en/function.date.php" target="_blank">date()</a> You can use {} to add constants to the date/time format eg. F j(l) g{hr} i{min}. NOTE: Setting a custom time format will stop hide end time and all day event times from working as default.','eventon')),
 							array('id'=>'evo_timeF','type'=>'end_afterstatement'),
 
 						array('id'=>'evo_show_localtime','type'=>'yesno',

@@ -1,7 +1,7 @@
 <?php
 /**
 * Calendar single event's html structure 
-* @version 4.4.1
+* @version 4.4.2
 */
 
 class EVO_Cal_Event_Structure{
@@ -1380,9 +1380,7 @@ class EVO_Cal_Event_Structure{
 
 							// event details
 								$summary = EVO()->frontend->filter_evo_content(get_post_field('post_content',$event_id));
-
-							$title 		= str_replace('+','%20',urlencode($post_title));
-							$titleCOUNT = $post_title;
+							
 							$summary = (!empty($summary)? urlencode(eventon_get_normal_excerpt($summary, 16)): '--');
 							$imgurl = $img_src? urlencode($img_src[0]):'';
 							

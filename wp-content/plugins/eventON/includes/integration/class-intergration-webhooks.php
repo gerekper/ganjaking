@@ -1,7 +1,7 @@
 <?php 
 /**
  * EventON webhooks integration	
- * @version 4.1
+ * @version 4.5
  */
 
 class EVO_WebHooks{
@@ -91,6 +91,13 @@ class EVO_WebHooks{
 					<p class='evo_field_label'><?php _e('Fields passed on to webhook','eventon');?></p>
 					<p class='evo_field_container' data-d=''>-</p>
 				</div>
+				<?php 
+
+				// data to fill fields passed on to the webhook @since 4.5
+				$webhook_data = array( 'whdata' => apply_filters('evo_webhooks_data', array() ) );
+
+				?>
+				<div class='evo_elm_webhooks_data' <?php echo $HELP->array_to_html_data( $webhook_data );?>></div>
 				<p><span class='evo_btn save_webhook_config ' style='margin-right: 10px'><?php _e('Save Changes','eventon');?></span></p>	
 
 			<?php endif;?>

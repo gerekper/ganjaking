@@ -86,7 +86,7 @@ class Controller_WordfenceLS {
 
 	public function _wordpress_init() {
 		if (!WORDFENCE_LS_FROM_CORE)
-			load_plugin_textdomain('wordfence-2fa', false, WORDFENCE_LS_PATH . 'languages');
+			load_plugin_textdomain('wordfence-login-security', false, WORDFENCE_LS_PATH . 'languages');
 		if ($this->is_shortcode_enabled())
 			add_shortcode(self::SHORTCODE_2FA_MANAGEMENT, array($this, '_handle_user_2fa_management_shortcode'));
 	}
@@ -341,7 +341,8 @@ END
 					'Wordfence 2FA Code' => __('Wordfence 2FA Code', 'wordfence'),
 					'Remember for 30 days' => __('Remember for 30 days', 'wordfence'),
 					'Log In' => __('Log In', 'wordfence'),
-					'<strong>ERROR</strong>: An error was encountered while trying to authenticate. Please try again.' => wp_kses(__('<strong>ERROR</strong>: An error was encountered while trying to authenticate. Please try again.', 'wordfence'), array('strong' => array()))
+					'<strong>ERROR</strong>: An error was encountered while trying to authenticate. Please try again.' => wp_kses(__('<strong>ERROR</strong>: An error was encountered while trying to authenticate. Please try again.', 'wordfence'), array('strong' => array())),
+					'The Wordfence 2FA Code can be found within the authenticator app you used when first activating two-factor authentication. You may also use one of your recovery codes.' => __('The Wordfence 2FA Code can be found within the authenticator app you used when first activating two-factor authentication. You may also use one of your recovery codes.', 'wordfence')
 				))
 				->setTranslationObjectName('WFLS_LOGIN_TRANSLATIONS')
 				->enqueue();

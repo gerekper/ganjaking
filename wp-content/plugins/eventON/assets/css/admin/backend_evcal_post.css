@@ -1,15 +1,12 @@
 /**
  * all event post types and taxonomy styles
- * @version 4.2.3
+ * @version 4.4.2
  */
 
 
 
 /* hide location and organizer tag boxes */
 	#tagsdiv-event_location, #tagsdiv-event_organizer{display: none;}
-
-/* buttons within black boxes */	
-	.evomb_body p.yesno_row{display: block;}
 
 /* general */
 	.evoadmin_eventedit_boxhead{display: flex; justify-content: space-between;}
@@ -169,7 +166,6 @@
 	}
 	.evomdt_selection li i:hover{opacity: 1;}
 /* event post specific settngs */
-	.evo_event_opts label{padding-left: 50px;}
 	.evo_event_opts p.yesno_leg_line{padding-top: 0; margin-top: 0;}
 
 /** User interaction **/
@@ -318,7 +314,7 @@
 		display: inline-block;
 	    margin: 0px;
 	    text-transform: uppercase;
-	    background-color: var(--evo_color_3);
+	    background-color: var(--evo_color_second);
 	    color: var(--evo_color_1);
 	    padding: 1px 5px;
 	    margin-right: 5px;

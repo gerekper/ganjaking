@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create a full grid calendar with a month view of eventON events.
  Author: Ashan Jay
- Version: 2.0.3
+ Version: 2.0.5
  Author URI: http://www.ashanjay.com/
- Requires at least: 5.0
- Tested up to: 5.9
+ Requires at least: 6.0
+ Tested up to: 6.2.2
  */
  
 class EventON_full_cal{
 	
-	public $version='2.0.3';
-	public $eventon_version = '4.0.2';
+	public $version='2.0.5';
+	public $eventon_version = '4.4';
 	public $name = 'FullCal';
 		
 	public $is_running_fc =false;
@@ -22,7 +22,7 @@ class EventON_full_cal{
 	public $addon_data = array();
 	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
 	private $urls;
-	public $template_url ;
+	public $template_url, $frontend, $shortcodes;
 
 	// Instanace
 	protected static $_instance = null;
@@ -77,13 +77,11 @@ class EventON_full_cal{
 		function init(){	
 			include_once( 'includes/class-frontend.php' );
 			include_once( 'includes/class-shortcode.php' );
+			include_once( 'includes/class-ajax.php' );
 			
 			if ( is_admin() )
 				include_once( 'includes/admin/admin-init.php' );
 
-			if ( defined('DOING_AJAX') ){
-				include_once( 'includes/class-ajax.php' );
-			}
 
 			$this->shortcodes = new evo_fc_shortcode();
 			$this->frontend = new evofc_frontend();

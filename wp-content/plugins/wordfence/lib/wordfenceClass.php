@@ -178,6 +178,8 @@ class wordfence {
 
 		wfRateLimit::trimData();
 
+		wfCentral::checkForUnsentSecurityEvents();
+
 		wfVersionCheckController::shared()->checkVersionsAndWarn();
 	}
 	private static function keyAlert($msg){
@@ -312,6 +314,8 @@ class wordfence {
 		} else if($count2 > $maxRows){
 			$wfdb->queryWrite("delete from {$table_wfLogins} order by ctime asc limit %d", ($count2 - $maxRows));
 		}
+
+		wfCentral::trimSecurityEvents();
 
 		$table_wfReverseCache = wfDB::networkTable('wfReverseCache');
 		$wfdb->queryWrite("delete from {$table_wfReverseCache} where unix_timestamp() - lastUpdate > 86400");
@@ -1368,6 +1372,8 @@ SQL
 
 		add_action('wordfence_batchReportBlockedAttempts', 'wordfence::wfsnBatchReportBlockedAttempts');
 		add_action('wordfence_batchReportFailedAttempts', 'wordfence::wfsnBatchReportFailedAttempts');
+
+		add_action('wordfence_batchSendSecurityEvents', 'wfCentral::sendPendingSecurityEvents');
 
 		if (wfConfig::get('other_hideWPVersion')) {
 			add_filter('update_feedback', 'wordfence::restoreReadmeForUpgrade');
@@ -9513,7 +9519,7 @@ if (file_exists(__DIR__.%1$s)) {
 		// Step 2: Makes POST request to `/central/api/wf/site/<guid>` endpoint passing in the new public key.
 		// Uses JWT from auth grant endpoint as auth.
 
-		require_once(WORDFENCE_PATH . '/crypto/vendor/paragonie/sodium_compat/autoload-fast.php');
+		require_once(WORDFENCE_PATH . '/lib/sodium_compat_fast.php');
 
 		$accessToken = wfConfig::get('wordfenceCentralAccessToken');
 		if (!$accessToken) {

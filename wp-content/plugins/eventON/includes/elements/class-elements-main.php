@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 4.3.5
+ * @version 4.4.2
 
 Items //
 print_date_time_selector
@@ -890,7 +890,8 @@ class EVO_General_Elements{
 			'evo_color_1' => '202124',
 			'evo_color_2' => '656565',
 			'evo_color_link' => '656565',
-			'evo_color_prim' => '00aafb',
+			'evo_color_prime' => '00aafb',
+			'evo_color_second' => 'fed584',
 		);
 		return $preset_data;
 	}

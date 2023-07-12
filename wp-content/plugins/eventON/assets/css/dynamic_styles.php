@@ -125,7 +125,7 @@
 			),
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'evcal_gen_btn_fc',	'default'=>'ffffff'),
-				array('css'=>'background:#$', 'var'=>'evcal_gen_btn_bgc',	'default'=>'237ebd')
+				array('css'=>'background:#$', 'var'=>'evcal_gen_btn_bgc',	'default'=>$evo_color_prime)
 			)	
 		),
 		array(
@@ -137,7 +137,7 @@
 			),
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'evcal_gen_btn_fcx',	'default'=>'fff'),
-				array('css'=>'background:#$', 'var'=>'evcal_gen_btn_bgcx',	'default'=>'237ebd')
+				array('css'=>'background:#$', 'var'=>'evcal_gen_btn_bgcx',	'default'=>$evo_color_prime)
 			)	
 		),
 		array(

@@ -11,9 +11,14 @@ class ComposerStaticInite213e65b2dafae4ad799b13fe0d36f8e
         '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->classMap = ComposerStaticInite213e65b2dafae4ad799b13fe0d36f8e::$classMap;
 
         }, null, ClassLoader::class);
     }

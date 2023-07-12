@@ -1,5 +1,12 @@
 Full Cal (FC) addon for EventON Plugin
 ====================================
+v 2.0.5 (2023-7-6)
+FIXED: eventON 4.4 compatibility
+
+v 2.0.4 (2022-9-27)
+FIXED: load full month not showing all events after filter
+FIXED: grid popup with day names showing more when there is only 3 events
+
 v 2.0.3 (2022-2-2)
 ADDED: js trigger evofc_calendar_populated
 FIXED: Show edit event button for each event effecting event title

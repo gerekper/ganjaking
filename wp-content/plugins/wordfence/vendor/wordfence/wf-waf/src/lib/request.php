@@ -348,6 +348,40 @@ class wfWAFRequest implements wfWAFRequestInterface {
 		return $request;
 	}
 
+	private static function extractFileProperty($key, $property) {
+		$extracted = array();
+		if (is_array($property)) {
+			foreach ($property as $nestedKey => $value) {
+				$nestedKey = "{$key}[" . var_export($nestedKey, true) . ']';
+				foreach (self::extractFileProperty($nestedKey, $value) as $nested) {
+					$extracted[] = $nested;
+				}
+			}
+		}
+		else if (is_string($property) || is_int($property)) {
+			$extracted[] = array(
+				$key,
+				$property
+			);
+		}
+		return $extracted;
+	}
+
+	private static function flattenFiles($files) {
+		$flat = array();
+		foreach ($files as $baseKey => $file) {
+			foreach ($file as $property => $value) {
+				foreach (self::extractFileProperty($baseKey, $value) as $extracted) {
+					list($finalKey, $finalValue) = $extracted;
+					if (!array_key_exists($finalKey, $flat))
+						$flat[$finalKey] = array();
+					$flat[$finalKey][$property] = $finalValue;
+				}
+			}
+		}
+		return $flat;
+	}
+
 	/**
 	 * @param wfWAFRequest|null $request
 	 * @return wfWAFRequest
@@ -387,7 +421,7 @@ class wfWAFRequest implements wfWAFRequestInterface {
 		
 		$request->setQueryString(wfWAFUtils::stripMagicQuotes($_GET));
 		$request->setCookies(wfWAFUtils::stripMagicQuotes($_COOKIE));
-		$request->setFiles(wfWAFUtils::stripMagicQuotes($_FILES));
+		$request->setFiles(wfWAFUtils::stripMagicQuotes(self::flattenFiles($_FILES)));
 
 		if (!empty($_FILES)) {
 			$fileNames = array();
@@ -945,9 +979,6 @@ FORM;
 
 				foreach ($this->getFiles() as $param => $file) {
 					$name = array_key_exists('name', $file) ? $file['name'] : '';
-					if (is_array($name)) {
-						continue; // TODO: implement files as arrays
-					}
 					$mime = array_key_exists('type', $file) ? $file['type'] : '';
 					$value = '';
 					$lenToRead = $maxRequestLen - (wfWAFUtils::strlen($request) + wfWAFUtils::strlen($body) + 1);

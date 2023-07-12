@@ -13,7 +13,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 		</div>
 	</div>
 	<div class="wfls-block-content wfls-padding-add-bottom">
-		<p>Scan the code below with your authenticator app to add this account. Some authenticator apps also allow you to type in the text version instead.</p>
+		<p><?php esc_html_e('Scan the code below with your authenticator app to add this account. Some authenticator apps also allow you to type in the text version instead.', 'wordfence') ?></p>
 		<div id="wfls-qr-code"></div>
 		<p class="wfls-center wfls-no-bottom"><input id="wfls-qr-code-text" class="wfls-center" type="text" value="<?php echo esc_attr($initializationData->get_base32_secret()); ?>" onclick="this.select();" size="32" readonly></p>
 	</div>

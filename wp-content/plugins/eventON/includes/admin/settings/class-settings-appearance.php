@@ -20,7 +20,9 @@ class evoadmin_set_appearance{
 				,array('id'=>'evoapp_code_1', 'type'=>'customcode','code'=>$this->appearance_theme_selector(), )
 				,array('id'=>'fc_mcolor','type'=>'multicolor','name'=>__('Multiple colors','eventon'),
 					'variations'=>array(
-						array('id'=>'evcal_hexcode', 'default'=>$evo_color_prim, 'name'=>__('Primary Default Color','eventon')),						
+						array('id'=>'evcal_hexcode', 'default'=>$evo_color_prime, 'name'=>__('Primary Default Color','eventon')),						
+						array('id'=>'evcal_hexcode_2', 'default'=>$evo_color_second, 
+							'name'=>__('Secondary Default Color','eventon')),						
 						
 						array('id'=>'evoclr_1', 'default'=>$evo_color_1, 'name'=>'Primary Text Color'),
 						array('id'=>'evoclr_2', 'default'=>$evo_color_2, 'name'=>'Secondary Text Color'),
@@ -302,9 +304,9 @@ class evoadmin_set_appearance{
 
 					array('id'=>'fs_fonti3','type'=>'fontation','name'=>__('Primary Button Colors','eventon'),
 						'variations'=>array(
-							array('id'=>'evcal_gen_btn_bgc', 'name'=>__('Background Color','eventon'), 'type'=>'color', 'default'=>'237ebd'),							
+							array('id'=>'evcal_gen_btn_bgc', 'name'=>__('Background Color','eventon'), 'type'=>'color', 'default'=> $evo_color_prime),							
 							array('id'=>'evcal_gen_btn_fc', 'name'=>__('Text Color','eventon'), 'type'=>'color', 'default'=>'ffffff'),
-							array('id'=>'evcal_gen_btn_bgcx', 'name'=>__('Background Hover Color','eventon'), 'type'=>'color', 'default'=>'237ebd'),
+							array('id'=>'evcal_gen_btn_bgcx', 'name'=>__('Background Hover Color','eventon'), 'type'=>'color', 'default'=> $evo_color_prime),
 							array('id'=>'evcal_gen_btn_fcx', 'name'=>__('Hover Text Color','eventon'), 'type'=>'color', 'default'=>'ffffff'),
 						)
 					),

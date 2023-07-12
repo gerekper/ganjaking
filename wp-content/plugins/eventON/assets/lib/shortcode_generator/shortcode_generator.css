@@ -1,6 +1,6 @@
 /* 
 Shortcode Generator 
-@version 4.3.5
+@version 4.4.2
 */
 
 :root{
@@ -123,6 +123,7 @@ Shortcode Generator
     }
     .ajdePOSH_insert:hover{opacity:0.8}
     .fieldline{
+        display: flex;
         border-bottom:1px solid #ededed;
         padding:8px 10px;
         position: relative;
@@ -199,9 +200,7 @@ Shortcode Generator
         padding-bottom: 4px;
         display: block;
     }
-    .ajdePOSH_inner .ajde_yn_btn{
-        position: absolute;
-    }
+    
     .evolb_content input.short.ajdePOSH_input {
         display: inline-block;
         margin-right: 5px;

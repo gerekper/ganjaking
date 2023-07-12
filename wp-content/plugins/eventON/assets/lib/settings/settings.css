@@ -1,6 +1,6 @@
 /**
  * AJDE backender styles
- * @version 4.2.3
+ * @version 4.4.2
  */
 
 /* General Appearace */
@@ -635,7 +635,7 @@
 	.customization_right_in p.color{line-height: 170%;display: flex;}
 	.row_multicolor{display: flex;flex-wrap: wrap;align-items: center;}
 	.row_multicolor .acus_line em{padding-right: 0px;}
-	.row_multicolor .acus_line{margin-right: -10px}
+	.row_multicolor .acus_line{margin-right: 5px}
 	.row_multicolor .colorselector{	width: 40px; height: 40px;	}
 	.row_multicolor .multicolor_alt{margin-left: 25px;}
 	

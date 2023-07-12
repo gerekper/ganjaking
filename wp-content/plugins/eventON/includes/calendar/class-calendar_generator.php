@@ -495,7 +495,7 @@ class EVO_generator {
 					// GET: eventTop and eventCard for each event in order
 					$event_data = $this->generate_event_data(
 						$event_list_array, 	
-						$focus_start_date_range,
+						$focus_start_date_range
 					);
 
 					$_EC = count($event_list_array);

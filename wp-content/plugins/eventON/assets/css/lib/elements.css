@@ -1,6 +1,6 @@
 /* 
  * EventON Elements CSS 
- * @version 4.4.1
+ * @version 4.4.2
     General
     Lightbox Select Field
     Select in a row
@@ -8,7 +8,7 @@
 */
 
 :root{
-    --evo_color_prim: #00aafb;
+    --evo_color_prime: #00aafb;
 }   
 /* General */
     .evo_elm_row p.evo_field_container input{
@@ -25,7 +25,7 @@
 
 /* yes no button */
     .ajde_yn_btn {
-        background-color: var(--evo_color_prim);
+        background-color: var(--evo_color_prime);
         height: 24px;
         width: 40px;
         overflow: hidden;
@@ -44,8 +44,7 @@
         background-color: #c5c5c5;
         border-color: #d9d7d7;
     }
-    .ajde_yn_btn.absolute{position: absolute;}
-    .ajde_yn_btn_label{padding-left: 50px; line-height: 1.8;}
+    .ajde_yn_btn_label{padding-left: 10px; line-height: 1.8;}
     .ajde_yn_btn .btn_inner:before,.ajde_yn_btn .btn_inner:after{
         top: 0;
         position: absolute;     
@@ -58,11 +57,10 @@
         padding-left: 20px;
         padding-right: 20px;
         padding-top: 0;
-        height: 24px;
         width: 22px;
         display: block;
         margin:0;
-        margin-left: -17px;
+        margin-left: -15px;
         border:none;
         background:none;
         box-sizing:content-box;
@@ -70,13 +68,12 @@
     .ajde_yn_btn.NO .btn_inner{margin-left: -1px;}
     .catchHandle, .yesno_row .catchHandle{
         background-color: #fff;
-        height: 18px;width: 18px;
-        padding-top: 4px;       
+        height: 15px;width: 15px;      
         display: block;
         padding-left: 0;
         border-radius: 12px;
         box-sizing: border-box;
-        margin-top: 3px;
+        margin-top: 4px;
     }
     .catchHandle:before, .yesno_row .catchHandle:before{
         content:"";
@@ -96,15 +93,10 @@
         -o-transition: all .2s ease;
         transition: all .2s ease;
     }
-    .yesno_row span.field_name, .yesno_row label{   padding-left: 50px; line-height: 1.8; 
-        /*pointer-events:none;*/
-    }
+    .yesno_row span.field_name, .yesno_row label{ padding-left:10px; line-height: 1.8;     }
     .evo_lightbox .yesno_row span.field_name{padding-left: 10px;}
     .evo_inside .yesno_row span.field_name{pointer-events:auto;}
-    .yesno_row .ajde_yn_btn {
-        position: absolute;
-        padding: 0;
-    }
+    .yesno_row .ajde_yn_btn { padding: 0;}
 
 /* icon selector on taxonomy page */
     .ajde_fa_icons_selector {
@@ -471,5 +463,5 @@
     .evo_meta_elements .evo_elm_row .evo_field_container.visi .evo_elm_color{margin-right: 10px}
 
 /* general meta boxes */
-    .evo_elm_row.yesno_row{display: flex; padding:5px 0;}
+    .evo_elm_row.yesno_row, .yesno_row{display: flex; padding:5px 0;}
     .evo_elm_row.yesno_row .field_name{margin-bottom: 10px;}

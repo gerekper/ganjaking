@@ -86,6 +86,10 @@ class wfDB {
 			return $wpdb->query(func_get_arg(0));
 		}
 	}
+	public function queryWriteArray($query, $array) {
+		global $wpdb;
+		return $wpdb->query($wpdb->prepare($query, $array));
+	}
 	public function flush(){ //Clear cache
 		global $wpdb;
 		$wpdb->flush();

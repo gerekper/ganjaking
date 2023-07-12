@@ -453,6 +453,7 @@ class wfWAFRuleLogicalOperator implements wfWAFRuleInterface {
 }
 
 class wfWAFPhpBlock {
+	public $open = false;
 	public $echoTag;
 	public $shortTag;
 	public $openParentheses = 0, $closedParentheses = 0;

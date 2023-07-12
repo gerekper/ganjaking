@@ -4,7 +4,7 @@ Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute f
 Requires at least: 3.9
 Requires PHP: 5.5
 Tested up to: 6.2
-Stable tag: 7.10.0
+Stable tag: 7.10.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,14 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.10.1 - July 12, 2023 =
+* Improvement: Added support for processing arrays of files in the WAF
+* Improvement: Refactored security event processing to send events in bulk
+* Improvement: Updated bundled sodium_compat and random_compat libraries
+* Fix: Prevented deprecation warning caused by dynamic property creation
+* Fix: Added translation support for additional strings
+* Change: Adjusted Wordfence registration UI
 
 = 7.10.0 - June 21, 2023 =
 * Improvement: Added translation support for strings from login security plugin

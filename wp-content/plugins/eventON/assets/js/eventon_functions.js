@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.3.5
+ * @version: 4.4.2
  */
 (function($){
 
@@ -114,8 +114,8 @@
 				beforeSend: function(){
 					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO, el ]);
 					if( LB && OO.lightbox_loader){
-						LB.find('.ajde_popup_text').addClass( 'loading');
-						LB.find('.evolb_content').addClass( 'loading');
+						LB.find('.ajde_popup_text').addClass( 'evoloading loading');
+						LB.find('.evolb_content').addClass( 'evoloading loading');
 					}
 					if( OO.loader_el){
 						$( OO.loader_el ).addClass('evoloading loading');
@@ -159,8 +159,8 @@
 				},complete:function(){
 					$('body').trigger('evo_ajax_complete_' + OO.uid ,[ OO , el ]);
 					if( LB && OO.lightbox_loader){
-						LB.find('.ajde_popup_text').removeClass( 'loading');
-						LB.find('.evolb_content').removeClass( 'loading');
+						LB.find('.ajde_popup_text').removeClass( 'evoloading loading');
+						LB.find('.evolb_content').removeClass( 'evoloading loading');
 					}
 					if( OO.loader_el){
 						$( OO.loader_el ).removeClass('evoloading loading');
@@ -197,11 +197,14 @@
   			var ajax_url = el.evo_get_ajax_url({a: OO.ajax_action, e: OO.end, type: OO.ajax_type});
 
 			form.ajaxSubmit({
-				beforeSubmit: function(){	
-					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO ]);
+				beforeSubmit: function(opt, xhr){	
+					console.log(xhr);
+					console.log(opt);
+					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO , xhr, opt]); // 4.4.2
 					if( LB && OO.lightbox_loader) LB.evo_lightbox_start_inloading();
 				},
-				dataType: 	'json',	url: ajax_url,	type: 	'POST',
+				dataType: 	'json',	
+				url: ajax_url,	type: 	'POST',
 				success:function(data){
 
 					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data, el ]);	
