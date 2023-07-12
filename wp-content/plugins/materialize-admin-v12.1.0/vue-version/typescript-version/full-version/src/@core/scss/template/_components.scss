@@ -1,0 +1,217 @@
+@use "@core/scss/base/mixins" as mixins_elevation;
+@use "@configured-variables" as variables;
+
+// 👉 Avatar
+.v-avatar {
+  font-size: 1.125rem;
+}
+
+$alert-icon-size: 22px;
+$alert-prominent-icon-size: 38px;
+
+// 👉 Alert
+.v-alert {
+  &:not(.v-alert--prominent) {
+    .v-icon {
+      block-size: $alert-icon-size !important;
+      font-size: $alert-icon-size !important;
+      inline-size: $alert-icon-size !important;
+    }
+  }
+
+  &.v-alert--prominent {
+    .v-icon {
+      block-size: $alert-prominent-icon-size !important;
+      font-size: $alert-prominent-icon-size !important;
+      inline-size: $alert-prominent-icon-size !important;
+    }
+  }
+}
+
+// 👉 Chip
+.v-chip.v-chip--size-small {
+  --v-chip-size: 0.8125rem !important;
+  --v-chip-height: 1.5rem !important;
+
+  font-size: 0.8125rem !important;
+}
+
+// 👉 Expansion panels
+.v-expansion-panel-title,
+.v-expansion-panel-title--active,
+.v-expansion-panel-title:hover,
+.v-expansion-panel-title:focus,
+.v-expansion-panel-title:focus-visible,
+.v-expansion-panel-title--active:focus,
+.v-expansion-panel-title--active:hover {
+  .v-expansion-panel-title__overlay {
+    opacity: 0 !important;
+  }
+}
+
+.v-expansion-panel {
+  .v-expansion-panel__shadow {
+    @include mixins_elevation.elevation(1);
+  }
+}
+
+.v-expansion-panels {
+  :first-child {
+    border-start-end-radius: variables.$expansion-panel-border-radius-custom;
+    border-start-start-radius: variables.$expansion-panel-border-radius-custom;
+  }
+
+  :last-child {
+    border-end-end-radius: variables.$expansion-panel-border-radius-custom;
+    border-end-start-radius: variables.$expansion-panel-border-radius-custom;
+  }
+}
+
+// 👉 Set Elevation when panel open
+.v-expansion-panels:not(.v-expansion-panels--variant-accordion) {
+  .v-expansion-panel.v-expansion-panel--active {
+    .v-expansion-panel__shadow {
+      @include mixins_elevation.elevation(3);
+    }
+  }
+}
+
+// 👉 VMenu
+.v-menu.v-overlay {
+  .v-overlay__content {
+    .v-list {
+      .v-list-item--density-default.v-list-item--one-line {
+        min-block-size: 2.25rem !important;
+        padding-block: 6px !important;
+      }
+    }
+  }
+}
+
+// 👉 Switch
+.v-switch {
+  .v-selection-control:not(.v-selection-control--dirty) .v-switch__thumb {
+    color: variables.$switch-thumb-inactive-color !important;
+  }
+}
+
+// 👉 Tab with pill support
+.v-tabs:not(.v-tabs-pill) {
+  &.v-tabs--vertical {
+    border-inline-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  }
+}
+
+.v-tab__slider {
+  inset-inline-end: 0;
+  inset-inline-start: unset;
+}
+
+.v-tabs.v-tabs-pill:not(.v-tabs--stacked) {
+  .v-btn {
+    border-radius: 0.5rem !important;
+    block-size: 38px !important;
+  }
+}
+
+// 👉 Table
+.v-table {
+  color: rgba(var(--v-theme-on-background), var(--v-medium-emphasis-opacity)) !important;
+
+  th {
+    color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity)) !important;
+    font-size: 0.75rem;
+    font-weight: 500 !important;
+    letter-spacing: 0.17px !important;
+    text-transform: uppercase !important;
+
+    .v-data-table-header__content {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .v-selection-control {
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity)) !important;
+    font-size: 1rem;
+  }
+}
+
+// // 👉 Timeline
+.v-timeline {
+  .v-timeline-item__body {
+    overflow: hidden;
+  }
+
+  .v-timeline-item:not(:last-child) {
+    .v-timeline-item__body {
+      margin-block-end: 0.625rem;
+    }
+  }
+}
+
+// 👉 added box shadow
+/* stylelint-disable-next-line no-descending-specificity */
+.v-timeline-item {
+  .v-timeline-divider__dot {
+    .v-timeline-divider__inner-dot {
+      box-shadow: 0 0 0 0.1875rem rgb(var(--v-theme-on-surface-variant));
+
+      @each $color-name in variables.$theme-colors-name {
+
+        &.bg-#{$color-name} {
+          box-shadow: 0 0 0 0.1875rem rgba(var(--v-theme-#{$color-name}), 0.12);
+        }
+      }
+    }
+  }
+}
+
+// 👉 Timeline Outlined style
+.v-timeline-variant-outlined.v-timeline {
+  .v-timeline-divider__dot {
+    .v-timeline-divider__inner-dot {
+      box-shadow: inset 0 0 0 0.125rem rgb(var(--v-theme-on-surface-variant));
+
+      @each $color-name in variables.$theme-colors-name {
+        background-color: rgb(var(--v-theme-surface)) !important;
+
+        &.bg-#{$color-name} {
+          box-shadow: inset 0 0 0 0.125rem rgb(var(--v-theme-#{$color-name}));
+        }
+      }
+    }
+  }
+}
+
+// 👉 V-tooltip
+.v-tooltip {
+  /* stylelint-disable-next-line no-descending-specificity */
+  .v-overlay__content {
+    font-weight: 500 !important;
+  }
+}
+
+// 👉 Slider
+.v-slider-thumb {
+  .v-slider-thumb__label {
+    background-color: variables.$slider-thumb-label-color !important;
+    color: rgb(var(--v-theme-on-primary)) !important;
+    font-weight: 500 !important;
+  }
+
+  .v-slider-thumb__label::before {
+    color: variables.$slider-thumb-label-color;
+  }
+}
+
+// 👉 Datatable
+.v-data-table {
+  th {
+    background: rgb(var(--v-table-header-background)) !important;
+  }
+
+  .v-data-table-footer {
+    margin-block-start: 1rem;
+  }
+}

@@ -84,7 +84,7 @@ class UpdraftPlus_ftp_wrapper {
 			}
 		}
 
-		// From here on, $file_size is only used for logging calculations. We want to avoid divsion by zero.
+		// From here on, $file_size is only used for logging calculations. We want to avoid division by zero.
 		$file_size = max($file_size, 1);
 
 		if (!$fh = fopen($local_file_path, 'rb')) return false;

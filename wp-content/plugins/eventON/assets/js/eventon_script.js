@@ -1103,9 +1103,10 @@ jQuery(document).ready(function($){
 			if( obj.data('runjs')){
 				$('body').trigger('evo_load_single_event_content',[ SC.event_id, OO.other_data.obj]);
 			}
-			
+
 			// countdown
 			LIGHTBOX_content.find('.evo_countdowner').each(function(){
+				var obj = $(this);
 				obj.removeClass('evo_cd_on');
 				obj.evo_countdown();
 			});
@@ -1134,6 +1135,7 @@ jQuery(document).ready(function($){
 
 				// countdown
 				LIGHTBOX_content.find('.evo_countdowner').each(function(){
+					var obj = $(this);
 					obj.removeClass('evo_cd_on');
 					obj.evo_countdown();
 				});
@@ -1143,10 +1145,16 @@ jQuery(document).ready(function($){
 		;
 
 		// open event as lightbox / U 4.3.3
-		function eventon_open_event_lightbox( SC_data, obj, CAL){			
+		function eventon_open_event_lightbox( SC_data, obj, CAL){	
+
 
 			const cancel_class = ( obj.hasClass('cancel_event')) ? ' cancel_event':'';
-				
+			
+			// generate a random ID for this 
+				maximum = 99;
+				minimum = 10;
+				var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+
 			// AJAX via lightbox
 			if(SC_data.ux_val == '3a'){
 
@@ -1177,7 +1185,7 @@ jQuery(document).ready(function($){
 				CAL.evo_lightbox_open({
 					uid:'evo_open_eventcard_lightbox',
 					//uid:'load_single_eventcard_content_3a',
-					lbc:'evo_eventcard',
+					lbc:'evo_eventcard_'+ randomnumber,
 					end:'client',
 					content: new_content,
 					ajax:'yes',
@@ -1199,7 +1207,7 @@ jQuery(document).ready(function($){
 								
 				CAL.evo_lightbox_open({
 					uid:'evo_open_eventcard_lightbox',
-					lbc:'evo_eventcard',
+					lbc:'evo_eventcard_'+ randomnumber,
 					end:'client',
 					content: '<div class="evopop_top">'+ obj.html() +'</div>' + content,
 					other_data: {
@@ -2245,6 +2253,11 @@ jQuery(document).ready(function($){
 			map_id_elm = LB.find('.evo_trigger_map');
 			
 			map_id_elm.evo_load_gmap();
+
+			// run countdown timers
+			LB.find('.evo_countdowner').each(function(){
+				$(this).evo_countdown();
+			});
 			
 		});
 		
@@ -2464,10 +2477,12 @@ jQuery(document).ready(function($){
 
 			var ajax_results = OBJ.evo_admin_get_ajax({
 				'ajaxdata': {
-					action: 		'eventon_search_evo_events',
+					//action: 		'eventon_search_evo_events',
 					search: 		SearchVal,
 					shortcode:  	Evosearch.find('span.data').data('sc')					
 				},
+				ajax_type:'endpoint',
+				ajax_action:'eventon_search_evo_events',
 				'uid':'evo_get_search_results',
 				end: 'client'
 			});

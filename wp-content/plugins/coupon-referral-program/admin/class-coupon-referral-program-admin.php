@@ -292,23 +292,23 @@ class Coupon_Referral_Program_Admin {
 		if ( 'referal_config' === $current_section ) {
 			$settings = array(
 				array(
-					'title' => esc_html__( 'Referral signup discount for referee', 'coupon-referral-program' ),
+					'title' => esc_html__( 'Referral signup discount configuration for referrer', 'coupon-referral-program' ),
 					'type'  => 'title',
 				),
 				// Referee discount.
 				array(
 					'title'    => __( 'Enable/Disable discount', 'coupon-referral-program' ),
-					'desc'     => __( 'Referral signup discount for referee', 'coupon-referral-program' ),
+					'desc'     => __( 'Referral signup discount for referrer', 'coupon-referral-program' ),
 					'default'  => 'no',
 					'type'     => 'checkbox',
 					'id'       => 'mwb_crp_refree_discount_enable',
-					'desc_tip' => __( 'By using this setting you can give the discount coupon for referee when referred user signup using referral link.', 'coupon-referral-program' ),
+					'desc_tip' => __( 'By using this setting you can give the discount coupon to referrer when referred user signup using referral link.', 'coupon-referral-program' ),
 				),
 				array(
-					'title'             => __( 'Enter discount for referee', 'coupon-referral-program' ),
+					'title'             => __( 'Enter discount for referrer', 'coupon-referral-program' ),
 					'default'           => 1,
 					'type'              => 'number',
-					'desc_tip'          => __( 'The value you enter will be set as discount coupon amount for referee.', 'coupon-referral-program' ),
+					'desc_tip'          => __( 'The value you enter will be set as discount coupon amount for referrer.', 'coupon-referral-program' ),
 					'id'                => 'refree_discount_value',
 					'class'             => 'mwb_crp_input_val',
 					'custom_attributes' => array( 'min' => 1 ),
@@ -322,35 +322,35 @@ class Coupon_Referral_Program_Admin {
 						'mwb_cpr_fixed'   => __( 'Fixed', 'coupon-referral-program' ),
 						'mwb_cpr_percent' => __( 'Percentage', 'coupon-referral-program' ),
 					),
-					'desc_tip' => __( 'Select the type for your signup discount coupon for referee when referred user signup using referred link.' ),
+					'desc_tip' => __( 'Select the type for your signup discount coupon for referee when referred user signup using referred link.', 'coupon-referral-program' ),
 					'desc'     => __( 'The referee will get the selected coupon type on the referral signup.', 'coupon-referral-program' ),
 				),
 				array(
-					'title'             => __( 'Discount on the nth referral sign-up', 'coupon-referral-program' ),
-					'default'           => '',
-					'type'              => 'number',
-					'desc_tip'          => __( 'The value you enter will be set as the nth sign-up coupon for the Referee. If it is blank then on every referral, the referee will get the coupon', 'coupon-referral-program' ),
-					'id'                => 'nth_signup_discount_value',
-					'desc'     => __( 'Referee gets a coupon for every nth sign-up only.', 'coupon-referral-program' ),
-					'class'             => 'mwb_crp_input_val',
+					'title'    => __( 'Discount on the nth referral sign-up', 'coupon-referral-program' ),
+					'default'  => '',
+					'type'     => 'number',
+					'desc_tip' => __( 'The value you enter will be set as the nth sign-up coupon for the Referee. If it is blank then on every referral, the referee will get the coupon', 'coupon-referral-program' ),
+					'id'       => 'nth_signup_discount_value',
+					'desc'     => __( 'Referrer gets a coupon for every nth sign-up only.', 'coupon-referral-program' ),
+					'class'    => 'mwb_crp_input_val',
 				),
 				array(
 					'type' => 'sectionend',
 				),
 				array(
-					'title' => __( 'Referral configuration', 'coupon-referral-program' ),
+					'title' => __( 'Referral purchase discount configuration for referrer', 'coupon-referral-program' ),
 					'type'  => 'title',
 				),
 				array(
 					'title'   => __( 'Enable discount coupon on referral purchase.', 'coupon-referral-program' ),
-					'desc'    => __( 'Enable this setting to allow the customer to get the coupon on referral purchase ', 'coupon-referral-program' ),
+					'desc'    => __( 'Enable this setting to allow the referrer to get the coupon on referral purchase ', 'coupon-referral-program' ),
 					'default' => 'yes',
 					'type'    => 'checkbox',
 					'id'      => 'mwb_crp_enable_referal_purchase',
 				),
 				array(
 					'title'   => __( 'Enable special discount coupon on first referral purchase.', 'coupon-referral-program' ),
-					'desc'    => __( 'Enable this setting to allow the customer to get the special discount coupon on first referral purchase ', 'coupon-referral-program' ),
+					'desc'    => __( 'Enable this setting to allow the referrer to get the special discount coupon on first referral purchase ', 'coupon-referral-program' ),
 					'default' => 'no',
 					'type'    => 'checkbox',
 					'id'      => 'mwb_crp_enable_first_referal_purchase',
@@ -419,8 +419,8 @@ class Coupon_Referral_Program_Admin {
 						'mwb_cpr_fixed'   => __( 'Fixed', 'coupon-referral-program' ),
 						'mwb_cpr_percent' => __( 'Percentage', 'coupon-referral-program' ),
 					),
-					'desc_tip' => __( 'Select the type for your referral purchase discount coupon for referee.', 'coupon-referral-program' ),
-					'desc'     => __( 'The referee will get the selected coupon type on the referral purchase.', 'coupon-referral-program' ),
+					'desc_tip' => __( 'Select the type for your referral purchase discount coupon for referrer.', 'coupon-referral-program' ),
+					'desc'     => __( 'The referrer will get the selected coupon type on the referral purchase.', 'coupon-referral-program' ),
 
 				),
 				array(
@@ -436,22 +436,30 @@ class Coupon_Referral_Program_Admin {
 					'type' => 'sectionend',
 				),
 				array(
-					'title' => __( 'Referee Gets Coupon', 'coupon-referral-program' ),
+					'title' => __( 'Referrer Gets Coupon', 'coupon-referral-program' ),
 					'type'  => 'title',
 				),
 				array(
-					'title'             => __( 'Number of times referee gets coupon on new user joining', 'coupon-referral-program' ),
+					'title'             => __( 'Number of times referrer gets coupon on new user joining', 'coupon-referral-program' ),
 					'default'           => '',
 					'type'              => 'number',
 					'custom_attributes' => array( 'min' => '0' ),
 					'id'                => 'mwb_crp_total_number_referred_users',
 					'class'             => 'mwb_crp_input_val',
-					'desc_tip'          => __( 'Enter how many time referee get coupon when new users signup using him/her referral link. By default, it will be unlimited for blank field', 'coupon-referral-program' ),
+					'desc_tip'          => __( 'Enter how many time referrer get discount coupon when new users signup using referral link. By default, it will be unlimited for the blank value', 'coupon-referral-program' ),
+				),
+				array(
+					'title'             => __( 'Minimum order total amount for Referral purchase coupon discount', 'coupon-referral-program' ),
+					'default'           => '',
+					'type'              => 'number',
+					'custom_attributes' => array( 'min' => '0' ),
+					'id'                => 'mwb_crp_min_order_limit_referred_users',
+					'class'             => 'mwb_crp_input_val',
+					'desc_tip'          => __( 'Enter minimum order total amount for the referrer to get the discount coupon on the referral purchase. By default, there will be no restriction for the blank value', 'coupon-referral-program' ),
 				),
 				array(
 					'type' => 'sectionend',
 				),
-
 			);
 		}
 		if ( 'display' === $current_section ) {
@@ -542,7 +550,6 @@ class Coupon_Referral_Program_Admin {
 					'default'  => '[crp_referral_link]',
 					'id'       => 'mwb_crp_referral_link',
 				),
-
 				array(
 					'title'    => __( 'Use this shortcode for the referral code', 'coupon-referral-program' ),
 					'type'     => 'text',
@@ -550,33 +557,29 @@ class Coupon_Referral_Program_Admin {
 					'default'  => '[crp_referral_code]',
 					'id'       => 'mwb_crp_referral_code',
 				),
-
 				array(
-					'title'    => __( 'Use this shortcode for the referral tab', 'coupon-referral-program' ),
+					'title'    => __( 'Use this shortcode for the customer referral dashboard', 'coupon-referral-program' ),
 					'type'     => 'text',
-					'desc_tip' => __( 'You can use the given shortcode anywhere you want, it will display the referral tab', 'coupon-referral-program' ),
-					'default'  => '[crp_referral_tab]',
-					'id'       => 'mwb_crp_referral_tab',
+					'desc_tip' => __( 'You can use the given shortcode anywhere you want, it will display the customer referral dashboard', 'coupon-referral-program' ),
+					'default'  => '[crp_referral_dashboard]',
+					'id'       => 'mwb_crp_referral_dashboard',
 				),
-
 				array(
-					'title'    => __( 'Referral Tab Text', 'coupon-referral-program' ),
+					'title'    => __( 'Referral Dashboard Text', 'coupon-referral-program' ),
 					'type'     => 'textarea',
 					'id'       => 'referral_tab_text',
 					'class'    => 'mwb_crp_input_val',
-					'desc_tip' => __( 'Enter the text you want to show on the referral tab', 'coupon-referral-program' ),
+					'desc_tip' => __( 'Enter the text you want to show on the referral dashboard', 'coupon-referral-program' ),
 					'value'    => get_option( 'referral_tab_text' ) ? get_option( 'referral_tab_text' ) : esc_html__( 'Refer your friends and you’ll earn discounts on their purchases', 'coupon-referral-program' ),
 				),
-
 				array(
-					'title'    => __( 'Signup PopUp Text', 'coupon-referral-program' ),
+					'title'    => __( 'Referral Popup Text', 'coupon-referral-program' ),
 					'type'     => 'textarea',
 					'id'       => 'signup_popup_text',
 					'class'    => 'mwb_crp_input_val',
-					'desc_tip' => __( 'Enter the text you want to show in the sign up popup. The empty field value will allow to show default content. You can use {crp_referral_code}, {crp_referral_link} shortcodes.', 'coupon-referral-program' ),
+					'desc_tip' => __( 'Enter the text you want to show in the referral popup. The empty field value will allow to show the default content. You can use {crp_referral_code}, {crp_referral_link} shortcodes.', 'coupon-referral-program' ),
 					'value'    => get_option( 'signup_popup_text' ),
 				),
-
 				array(
 					'type' => 'sectionend',
 				),
@@ -807,15 +810,52 @@ class Coupon_Referral_Program_Admin {
 					'id'      => 'mwb_crp_woo_subscriptions_enable',
 				),
 				array(
-					'title'    => __( 'Apply coupons', 'woocommerce' ),
+					'title'    => __( 'Apply coupons', 'coupon-referral-program' ),
 					'id'       => 'mwb_crp_apply_all_coupon_on_subscription',
 					'default'  => 'yes',
 					'type'     => 'radio',
 					'options'  => array(
-						'yes' => __( 'All coupons', 'coupon-referral-program' ),
-						'no'  => __( 'Allow customer to choose', 'coupon-referral-program' ),
+						'yes'           => __( 'All coupons', 'coupon-referral-program' ),
+						'no'            => __( 'Allow customer to choose', 'coupon-referral-program' ),
 					),
 					'desc_tip' => __( 'Select the “All Coupons” option to employ all coupons or “Single Coupon” to employ a single coupon for the next recurring payment of the subscription.', 'coupon-referral-program' ),
+				),
+				array(
+					'title'   => __( 'Enable/Disable Discount for First Renewal Only', 'coupon-referral-program' ),
+					'desc'    => __( 'Allow coupon discount applicable for the first renewal only.', 'coupon-referral-program' ),
+					'default' => 'no',
+					'type'    => 'checkbox',
+					'id'      => 'mwb_crp_woo_subscriptions_discount_first_renewal',
+				),
+				array(
+					'type' => 'sectionend',
+				),
+				array(
+					'title' => __( 'Give coupon discount when referred customer paid after free trial ended', 'coupon-referral-program' ),
+					'type'  => 'title',
+					'id'    => 'wps_crp_discount_after_free_trial',
+				),
+				array(
+					'title'   => __( 'Enable/Disable', 'coupon-referral-program' ),
+					'default' => 'no',
+					'type'    => 'checkbox',
+					'id'      => 'mwb_crp_discount_free_trial_ended',
+				),
+				array(
+					'title'   => __( 'Coupon Discount amount', 'coupon-referral-program' ),
+					'default' => '1',
+					'type'    => 'number',
+					'id'      => 'wps_crp_free_trial_coupon_amount',
+				),
+				array(
+					'title'    => __( 'Discount Coupon type', 'coupon-referral-program' ),
+					'default'  => 1,
+					'type'     => 'select',
+					'id'       => 'wps_crp_free_trial_coupon_type',
+					'options'  => array(
+						'mwb_cpr_fixed'   => __( 'Fixed', 'coupon-referral-program' ),
+						'mwb_cpr_percent' => __( 'Percentage', 'coupon-referral-program' ),
+					),
 				),
 				array(
 					'type' => 'sectionend',

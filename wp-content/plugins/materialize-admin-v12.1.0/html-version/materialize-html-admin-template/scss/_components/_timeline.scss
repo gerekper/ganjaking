@@ -1,0 +1,387 @@
+// Timeline
+// *******************************************************************************
+
+@import '../../scss/_custom-variables/libs';
+
+.timeline {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    > *:first-child {
+      margin-right: 0.5rem;
+    }
+    // d-flex justify-content-between flex-sm-row flex-column
+  }
+
+  // Timeline Item
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+
+    .timeline-event {
+      position: relative;
+      width: 100%;
+      min-height: $timeline-item-min-height;
+      background-color: $timeline-item-bg-color;
+      border-radius: $timeline-item-border-radius;
+      padding: $timeline-item-padding-y $timeline-item-padding-x $timeline-item-padding-y - 0.5;
+
+      &:before {
+        position: absolute;
+        top: 0.75rem;
+        left: 32px;
+        right: 100%;
+        width: 0;
+        height: 0;
+        border-top: 1rem solid transparent;
+        border-right: 1rem solid;
+        border-left: 0 solid;
+        border-bottom: 1rem solid transparent;
+        border-left-color: $timeline-item-bg-color;
+        border-right-color: $timeline-item-bg-color;
+        color: $black;
+        margin-left: -3rem;
+        content: '';
+      }
+
+      .timeline-event-time {
+        position: absolute;
+        top: 1.2rem;
+        font-size: $timeline-event-time-size;
+        color: $timeline-event-time-color;
+      }
+    }
+
+    // Timeline indicator with icon when use fullscreen timeline
+    .timeline-indicator {
+      position: absolute;
+      left: -1rem;
+      // @include ltr-style {
+      // }
+      // @include rtl-style {
+      //   left: -0.6875rem;
+      // }
+      top: 0.64rem;
+      z-index: 2;
+      height: $timeline-indicator-size;
+      width: $timeline-indicator-size;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: shift-color($timeline-point-color, $timeline-point-indicator-bg-scale, $body-bg);
+      box-shadow: 0 0 0 10px $body-bg;
+      // Icons
+      i {
+        color: $timeline-point-color;
+      }
+    }
+
+    // Timeline Point Indicator
+    .timeline-point {
+      position: absolute;
+      left: -0.37rem;
+      top: 0;
+      z-index: 2;
+      display: block;
+      height: $timeline-point-size;
+      width: $timeline-point-size;
+      border-radius: 50%;
+      background-color: $timeline-point-color;
+      box-shadow: 0 0 0 10px $card-bg;
+    }
+
+    // Transparent Timeline Item
+    &.timeline-item-transparent {
+      .timeline-event {
+        top: -1.4rem;
+        background-color: transparent;
+
+        @include ltr-style {
+          padding-left: 0;
+        }
+
+        &.timeline-event-shadow {
+          padding-left: 2rem;
+        }
+
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // Timeline outline
+  &.timeline-outline {
+    .timeline-item {
+      .timeline-point {
+        outline: unset;
+        background-color: $card-bg !important;
+        border: 2px solid $primary;
+      }
+    }
+  }
+  // Timeline Center
+  &.timeline-center {
+    &:before {
+      left: 50%;
+      height: 97%;
+    }
+
+    .timeline-item {
+      width: 50%;
+      clear: both;
+
+      &.timeline-item-left,
+      &:nth-of-type(odd):not(.timeline-item-left):not(.timeline-item-right) {
+        float: left;
+        padding-left: 0;
+        padding-right: 3rem;
+        border-left: 0;
+        border-right: 2px solid $timeline-border-color;
+        .timeline-event {
+          .timeline-event-time {
+            right: -10.2rem;
+          }
+
+          &:before {
+            right: -15px;
+            left: auto;
+            border-left-width: 16px;
+            border-right-width: 0;
+          }
+        }
+
+        .timeline-point {
+          left: 100%;
+        }
+      }
+
+      &.timeline-item-right,
+      &:nth-of-type(even):not(.timeline-item-left):not(.timeline-item-right) {
+        float: right;
+        right: 2px;
+        padding-left: 3rem;
+        border-left: 2px solid $timeline-border-color;
+
+        .timeline-event-time {
+          left: -10.2rem;
+        }
+
+        .timeline-point {
+          left: 0;
+        }
+      }
+
+      .timeline-point {
+        left: 50%;
+        margin-left: -0.6875rem;
+      }
+      .timeline-point-indicator {
+        left: 50%;
+        margin-left: -0.3125rem;
+      }
+    }
+  }
+
+  // Advance card timeline styles
+  &.card-timeline {
+    &::before {
+      height: 83%;
+    }
+  }
+}
+
+// LTR only
+@include ltr-only {
+  .timeline-item {
+    border-left: 2px solid $timeline-border-color;
+  }
+}
+
+// RTL
+@include rtl-only {
+  .timeline:not(.timeline-center) {
+    .timeline-item {
+      border-right: 2px solid $timeline-border-color;
+    }
+    &:before {
+      right: -1px;
+      left: auto;
+    }
+
+    .timeline-item {
+      padding-left: 0;
+      padding-right: 3rem;
+
+      .timeline-event {
+        &:before {
+          right: -1rem;
+          left: auto;
+          border-left-width: 1rem;
+          border-right-width: 0;
+        }
+      }
+
+      &.timeline-item-transparent {
+        .timeline-event {
+          padding-right: 0;
+        }
+      }
+
+      .timeline-point {
+        right: -0.46rem;
+        left: auto;
+      }
+      .timeline-indicator {
+        right: -0.75rem;
+        left: auto;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .timeline.timeline-center .timeline-item {
+    &.timeline-item-left,
+    &:nth-of-type(odd):not(.timeline-item-left):not(.timeline-item-right) {
+      .timeline-indicator {
+        left: calc(100% - calc(#{$timeline-indicator-size}/ 2));
+      }
+    }
+  }
+}
+// To Change Timeline Center's Alignment om small Screen
+@include media-breakpoint-down(md) {
+  .timeline {
+    &.timeline-center {
+      &:before {
+        left: 1rem;
+      }
+
+      &:after {
+        left: 0;
+      }
+
+      .timeline-item {
+        border-right: 0 !important;
+        left: 1rem;
+        &:not(:last-child) {
+          border-left: 2px solid $timeline-border-color !important;
+        }
+        float: left !important;
+        width: 100%;
+        padding-left: 3.5rem !important;
+        padding-right: 1.5rem !important;
+
+        .timeline-event {
+          &:before {
+            right: 100% !important;
+            border-right-width: 1rem !important;
+            border-left-width: 0 !important;
+          }
+
+          .timeline-event-time {
+            top: -1.7rem;
+            left: 0 !important;
+            right: auto !important;
+          }
+        }
+
+        .timeline-point {
+          left: -0.7rem !important;
+          margin-left: 0 !important;
+        }
+        .timeline-point-indicator {
+          left: 0 !important;
+          margin-left: -0.3125rem !important;
+        }
+      }
+    }
+  }
+
+  // RTL: Timeline Center's Alignment om small Screen
+  @include rtl-only {
+    .timeline {
+      &.timeline-center {
+        &:before {
+          left: auto;
+          right: 1rem;
+        }
+        .timeline-item {
+          border-left: 0 !important;
+          right: 1rem !important;
+          &:not(:last-child) {
+            border-right: 2px solid $timeline-border-color !important;
+          }
+        }
+
+        .timeline-item {
+          float: right !important;
+          width: 100%;
+          padding-right: 3.5rem !important;
+          padding-left: 1.5rem !important;
+
+          .timeline-event {
+            &:before {
+              left: 100% !important;
+              right: -1rem !important;
+              border-left-width: 1rem !important;
+              border-right-width: 0 !important;
+            }
+
+            .timeline-event-time {
+              top: -1.2rem;
+              right: 0 !important;
+              left: auto !important;
+            }
+          }
+
+          .timeline-point {
+            right: -0.7rem !important;
+            margin-right: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .timeline .timeline-item .timeline-indicator {
+    @include rtl-style {
+      left: auto;
+      right: -1rem;
+    }
+  }
+}
+@include media-breakpoint-down(sm) {
+  .timeline {
+    .timeline-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+// For Contextual Colors
+@each $color, $value in $theme-colors {
+  @if $color !=primary and $color !=light {
+    @include template-timeline-point-variant(
+      '.timeline-point-#{$color}',
+      if($color== 'dark' and $dark-style, $light, $value)
+    );
+    @include template-timeline-indicator-variant(
+      '.timeline-indicator-#{$color}',
+      if($color== 'dark' and $dark-style, $light, $value)
+    );
+  }
+}

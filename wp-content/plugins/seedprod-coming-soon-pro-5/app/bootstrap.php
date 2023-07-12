@@ -248,6 +248,62 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 					'all'
 				);
 			}
+
+			// Load EDD default styles if EDD is active
+			if ( in_array( 'easy-digital-downloads/easy-digital-downloads.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || in_array( 'easy-digital-downloads-pro/easy-digital-downloads.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+				$css_suffix = is_rtl() ? '-rtl.min.css' : '.min.css';
+				$url        = trailingslashit( EDD_PLUGIN_URL ) . 'assets/css/edd' . $css_suffix;
+
+				wp_enqueue_style(
+					'seedprod-edd-general',
+					str_replace( array( 'http:', 'https:' ), '', $url ),
+					'',
+					defined( 'EDD_VERSION' ) ? EDD_VERSION : null,
+					'all'
+				);
+
+				global $post;
+				wp_enqueue_script( 'edd-ajax' );
+
+				// Load AJAX scripts, if enabled
+				if ( ! edd_is_ajax_disabled() ) {
+					// Get position in cart of current download
+					$position = isset( $post->ID )
+						? edd_get_item_position_in_cart( $post->ID )
+						: -1;
+
+					if ( ( ! empty( $post->post_content ) && ( has_shortcode( $post->post_content, 'purchase_link' ) || has_shortcode( $post->post_content, 'downloads' ) ) ) || is_post_type_archive( 'download' ) ) {
+						$has_purchase_links = true;
+					} else {
+						$has_purchase_links = false;
+					}
+
+					wp_localize_script(
+						'edd-ajax',
+						'edd_scripts',
+						apply_filters(
+							'edd_ajax_script_vars',
+							array(
+								'ajaxurl'                 => esc_url_raw( edd_get_ajax_url() ),
+								'position_in_cart'        => $position,
+								'has_purchase_links'      => $has_purchase_links,
+								'already_in_cart_message' => __( 'You have already added this item to your cart', 'easy-digital-downloads' ), // Item already in the cart message
+								'empty_cart_message'      => __( 'Your cart is empty', 'easy-digital-downloads' ), // Item already in the cart message
+								'loading'                 => __( 'Loading', 'easy-digital-downloads' ), // General loading message
+								'select_option'           => __( 'Please select an option', 'easy-digital-downloads' ), // Variable pricing error with multi-purchase option enabled
+								'is_checkout'             => '1',
+								'default_gateway'         => edd_get_default_gateway(),
+								'redirect_to_checkout'    => ( edd_straight_to_checkout() || edd_is_checkout() ) ? '1' : '0',
+								'checkout_page'           => esc_url_raw( edd_get_checkout_uri() ),
+								'permalinks'              => get_option( 'permalink_structure' ) ? '1' : '0',
+								'quantities_enabled'      => edd_item_quantities_enabled(),
+								'taxes_enabled'           => edd_use_taxes() ? '1' : '0', // Adding here for widget, but leaving in checkout vars for backcompat
+								'current_page'            => get_the_ID(),
+							)
+						)
+					);
+				}
+			}
 		}
 
 		if ( strpos( $hook_suffix, 'seedprod_pro_template' ) !== false ) {
@@ -719,12 +775,13 @@ function seedprod_pro_get_jed_locale_data( $domain ) {
 		$locale[ $msgid ] = $entry->translations;
 	}
 
-	// If any of the translated strings incorrectly contains HTML line breaks, we need to return or else the admin is no longer accessible.
+	// If any of the translated strings incorrectly contains HTML line breaks i.e. <br>, we need to return or else the admin is no longer accessible.
 	// https://github.com/awesomemotive/aioseo/issues/2074
-	$json = wp_json_encode( $locale );
-	if ( preg_match( '/<br[\s\/\\\\]*>/', $json ) ) {
-		return array();
-	}
+	// Commented out incase we need to use this in the future.
+	// $json = wp_json_encode( $locale );
+	// if ( preg_match( '/<br[\s\/\\\\]*>/', $json ) ) {
+	// 	return array();
+	// }
 
 	return $locale;
 }

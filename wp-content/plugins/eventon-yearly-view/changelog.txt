@@ -1,5 +1,13 @@
 Yearly View (YV) addon for EventON Plugin
 ====================================
+v 0.7 (2023-6-20)
+FIXED: EventON 4.4 compatibility
+FIXED: yearlyview arrow and month name formatting
+
+v 0.6 (2022-2-28)
+FIXED: compatibility with colorful eventtop styles
+UPDATED: loading animation for the year grid
+
 v 0.5 (2020-9-24)
 FIXED: open in new window not working with yearlyview
 FIXED: yearlyview integration with eventon primary and secondary fonts

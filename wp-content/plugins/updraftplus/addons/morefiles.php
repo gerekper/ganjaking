@@ -130,7 +130,7 @@ class UpdraftPlus_Addons_MoreFiles {
 			}
 		}
 
-		return array('error' => 'UpdraftPlus: no such file or diretory (' . $fullpath . '): if the file does exist please make sure it is readable by the server.');
+		return array('error' => 'UpdraftPlus: no such file or directory (' . $fullpath . '): if the file does exist please make sure it is readable by the server.');
 	}
 	
 	public function fileinfo_more($data, $ind) {

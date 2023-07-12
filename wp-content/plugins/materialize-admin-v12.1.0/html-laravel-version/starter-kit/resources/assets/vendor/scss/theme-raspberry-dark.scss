@@ -1,0 +1,89 @@
+@import './_components/include-dark';
+@import './_theme/common';
+@import './_theme/libs';
+@import './_theme/pages';
+
+$primary-color: #e30b5c;
+
+body {
+  background: $body-bg;
+}
+
+.bg-body {
+  background: $body-bg !important;
+}
+
+@include template-common-theme($primary-color);
+@include template-libs-theme($primary-color);
+@include template-pages-theme($primary-color);
+
+// Navbar
+// ---------------------------------------------------------------------------
+
+@include template-navbar-style('.bg-navbar-theme', $card-bg, $color: $headings-color, $active-color: $headings-color);
+
+.layout-horizontal .layout-navbar {
+  box-shadow: 0 1px 0 $border-color;
+}
+
+// Menu
+// ---------------------------------------------------------------------------
+
+@include template-menu-style(
+  '.bg-menu-theme',
+  $body-bg,
+  $color: $headings-color,
+  $active-color: $headings-color,
+  $border: transparent,
+  $active-bg: $primary-color
+);
+@include media-breakpoint-up(xl) {
+  .layout-menu-collapsed.layout-menu-hover .bg-menu-theme {
+    box-shadow: $box-shadow-lg;
+  }
+}
+.bg-menu-theme {
+  &.menu-horizontal {
+    background-color: rgba($card-bg, 0.9) !important;
+    .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub {
+      background: $card-bg;
+    }
+  }
+}
+
+// Footer
+// ---------------------------------------------------------------------------
+@include template-footer-style('.bg-footer-theme', $body-bg, $color: $body-color, $active-color: $headings-color);
+
+// Component styles
+// ---------------------------------------------------------------------------
+
+// card
+.card {
+  box-shadow: none;
+  border: $border-width solid $card-border-color;
+}
+
+// Accordion
+.accordion {
+  .accordion-item {
+    border-top: $accordion-border-width solid $accordion-border-color;
+  }
+}
+
+// default form wizard style
+
+.bs-stepper:not(.wizard-modern) {
+  border: 1px solid $border-color;
+  border-radius: $card-border-radius;
+}
+
+// modern form wizard style
+
+.bs-stepper.wizard-modern {
+  .bs-stepper-content {
+    box-shadow: none !important;
+    border: 1px solid $border-color;
+    border-radius: $card-border-radius;
+  }
+}

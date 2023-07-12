@@ -6,52 +6,24 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions/AJAX
- * @version     4.4
+ * @version     4.4.1
  */
 
-class evo_ajax{
+class EVO_AJAX{
 	/**
 	 * Hook into ajax events
 	 */
 
 	private $helper;
 
-	public function __construct(){
+	public static function init(){
 
 		add_action( 'init', array( __CLASS__, 'define_ajax' ), 0 );
 		add_action( 'template_redirect', array( __CLASS__, 'do_evo_ajax' ), 0 );
-
-		$ajax_events = array(
-			'init_load'=>'init_load',			
-			'ajax_events_data'=>'ajax_events_data',			
-			'get_events'=>'main_ajax_call',			
-			//'the_ajax_hook'=>'main_ajax_call',			
-			'load_event_content'=>'load_event_content',
-			'load_single_eventcard_content'=>'load_single_eventcard_content',
-			'ics_download'=>'eventon_ics_download',			
-			'export_events_ics'=>'export_events_ics',
-			'search_evo_events'=>'search_evo_events',
-			'get_local_event_time'=>'get_local_event_time',
-			'refresh_now_cal'=>'refresh_now_cal',
-			'record_mod_joined'=>'record_mod_joined',
-			'refresh_elm'=>'refresh_elm',
-			'gen_trig_ajax'=>'gen_trig_ajax',
-			'get_tax_card_content'=>'get_tax_card_content',
-
-		);
-		foreach ( $ajax_events as $ajax_event => $class ) {
-			$prepend = ( in_array($ajax_event, array('the_ajax_hook','evo_dynamic_css','the_post_ajax_hook_3','the_post_ajax_hook_2')) )? '': 'eventon_';
-			add_action( 'wp_ajax_'. $prepend . $ajax_event, array( $this, $class ) );
-			add_action( 'wp_ajax_nopriv_'. $prepend . $ajax_event, array( $this, $class ) );
-
-			// EVO AJAX can be used for frontend ajax requests.
-			add_action( 'evo_ajax_' . $prepend . $ajax_event, array( $this , $class ) );
-		}
-
-		$this->helper = new evo_helper();
+		self::add_ajax_events();
 
 		// deprecating in 4.5
-		add_filter('evo_ajax_general_send_results',array($this, 'general_send_req'), 10,2);
+		add_filter('evo_ajax_general_send_results',array(__CLASS__, 'general_send_req'), 10,2);
 	}	
 
 	// AJAX via endpoints @since 4.4
@@ -110,10 +82,40 @@ class evo_ajax{
 			// phpcs:enable
 		}
 
+	// AJAX events
+		public static function add_ajax_events(){
+			$ajax_events = array(
+			'init_load'=>'init_load',			
+			'ajax_events_data'=>'ajax_events_data',			
+			'get_events'=>'main_ajax_call',			
+			//'the_ajax_hook'=>'main_ajax_call',			
+			'load_event_content'=>'load_event_content',
+			'load_single_eventcard_content'=>'load_single_eventcard_content',
+			'ics_download'=>'eventon_ics_download',			
+			'export_events_ics'=>'export_events_ics',
+			'search_evo_events'=>'search_evo_events',
+			'get_local_event_time'=>'get_local_event_time',
+			'refresh_now_cal'=>'refresh_now_cal',
+			'record_mod_joined'=>'record_mod_joined',
+			'refresh_elm'=>'refresh_elm',
+			'gen_trig_ajax'=>'gen_trig_ajax',
+			'get_tax_card_content'=>'get_tax_card_content',
+
+		);
+		foreach ( $ajax_events as $ajax_event => $class ) {
+			$prepend = ( in_array($ajax_event, array('the_ajax_hook','evo_dynamic_css','the_post_ajax_hook_3','the_post_ajax_hook_2')) )? '': 'eventon_';
+			add_action( 'wp_ajax_'. $prepend . $ajax_event, array( __CLASS__, $class ) );
+			add_action( 'wp_ajax_nopriv_'. $prepend . $ajax_event, array( __CLASS__, $class ) );
+
+			// EVO AJAX can be used for frontend ajax requests.
+			add_action( 'evo_ajax_' . $prepend . $ajax_event, array( __CLASS__ , $class ) );
+		}
+		}
+
 	// Initial load
-		function init_load($return = false){
+		public static function init_load($return = false){
 			
-			$post_data = $this->helper->recursive_sanitize_array_fields( $_POST);	
+			$post_data = EVO()->helper->recursive_sanitize_array_fields( $_POST);	
 
 			// init load calendar events
 			$CALS = array();
@@ -121,7 +123,7 @@ class evo_ajax{
 				foreach($post_data['cals'] as $calid=>$CD){
 					if(!isset( $CD['sc'])) continue;
 
-					$SC = $this->helper->sanitize_array( $CD['sc'] );
+					$SC = EVO()->helper->sanitize_array( $CD['sc'] );
 
 					$CALS[$calid]['sc'] = $SC;
 
@@ -139,8 +141,11 @@ class evo_ajax{
 				}
 			}
 
+
 			$global = isset($post_data['global'])? 
-				$this->helper->sanitize_array( $post_data['global'] ): array();
+				EVO()->helper->sanitize_array( $post_data['global'] ): array();
+
+
 
 			$R =  apply_filters('evo_init_ajax_data', array(
 				'cal_def'=> EVO()->calendar->helper->get_calendar_defaults(),
@@ -165,43 +170,42 @@ class evo_ajax{
 				'terms'=> array(),
 			), $global);
 
-			if($return){ return $R; }else{ echo json_encode($R);	}
-			exit;
+			wp_send_json( $R );
 
 		}
 
 	// General ajax call - added 3.1
-		public function gen_trig_ajax(){
+		public static function gen_trig_ajax(){
 
-			$PP = $this->helper->sanitize_array( $_POST );
+			$PP = EVO()->helper->sanitize_array( $_POST );
 
 			if(!wp_verify_nonce($PP['nn'], 'eventon_nonce')) {echo 'Evo Nonce Failed!'; exit;}
 		
-			echo json_encode(
+			wp_send_json(
 				apply_filters('evo_ajax_general_send_results', array('status'=>'good'), $PP)
-			);exit;			
+			);			
 		}
 
 	// get taxonomy lightbox card details
-		function get_tax_card_content(){
-			$post = $this->helper->sanitize_array( $_POST );
+		public static function get_tax_card_content(){
+			$post = EVO()->helper->sanitize_array( $_POST );
 			
 			// event organizer
 			if( $post['tax'] == 'event_organizer'){
 				$tax = new EVO_Event_Tax();
 
-				echo json_encode(					
+				wp_send_json(					
 					array(
 						'status'=>'good',
 						'content'=> $tax->get_organizer_lightbox_content( $post ) 
 					)
-				);exit;
+				);
 			}
 		}
 
 	// Primary function to load event data 
-		function main_ajax_call(){
-			$postdata = $this->helper->sanitize_array( $_POST );
+		public static function main_ajax_call(){
+			$postdata = EVO()->helper->sanitize_array( $_POST );
 
 			$shortcode_args = $focused_month_num = $focused_year = '';
 			$status = 'GOOD';
@@ -279,7 +283,8 @@ class evo_ajax{
 				$content = EVO()->evo_generator->_generate_events();
 
 			// RETURN VALUES
-				echo json_encode( apply_filters('evo_ajax_query_returns', array(
+				wp_send_json( 
+					apply_filters('evo_ajax_query_returns', array(
 					'status'=> 					$status,
 					'json'=> 					$content['data'],	
 					'html'=>					$content['html'],				
@@ -291,21 +296,21 @@ class evo_ajax{
 					),
 					
 				), 
-				$SC, $content) );exit;
+				$SC, $content) );
 		}
 
 	// AJAX Events data
 		function ajax_events_data(){
-			$postdata = $this->helper->sanitize_array( $_POST );
+			$postdata = EVO()->helper->sanitize_array( $_POST );
 
 			$SC = isset($postdata['shortcode']) ? $postdata['shortcode']: array();
 			EVO()->calendar->shortcode_args = $SC;
 		}
 
 	// Now Calendar
-		public function refresh_now_cal(){
+		public static function refresh_now_cal(){
 
-			$PP = $this->helper->sanitize_array( $_POST );
+			$PP = EVO()->helper->sanitize_array( $_POST );
 
 			$calnow = new Evo_Calendar_Now();
 
@@ -321,22 +326,24 @@ class evo_ajax{
 			$calnow->get_body( true );
 			$html = ob_get_clean();
 
-			echo json_encode(array(
-				'status'=>'good',
-				'html'=> $html,
-			)); exit;
+			wp_send_json(
+				array(
+					'status'=>'good',
+					'html'=> $html,
+				)
+			);
 		}
 
 	// refresh elements
-		public function refresh_elm(){
+		public static function refresh_elm(){
 
-			$PP = $this->helper->sanitize_array( $_POST );
+			$PP = EVO()->helper->sanitize_array( $_POST );
 
-			echo json_encode($this->get_refresh_elm_data( $PP )); exit;			
+			wp_send_json($this->get_refresh_elm_data( $PP ));	
 		}
 
 		//get ajax refresh element's data array
-		public function get_refresh_elm_data($PP, $type ='ajax'){
+		public static function get_refresh_elm_data($PP, $type ='ajax'){
 			$response = array();
 
 			if(isset($PP['evo_data']) && is_array($PP['evo_data']) ){
@@ -369,7 +376,7 @@ class evo_ajax{
 		}
 
 	// record moderator joined for virtual events
-		public function record_mod_joined(){			
+		public static function record_mod_joined(){			
 
 			if(!isset($_POST['eid'])) return false;
 			if(!isset($_POST['ri'])) return false;
@@ -378,7 +385,7 @@ class evo_ajax{
 
 			if(!wp_verify_nonce($_POST['nonce'], 'eventon_nonce')) {echo 'nonce failed'; exit;}
 
-			$postdata = $this->helper->sanitize_array( $_POST );
+			$postdata = EVO()->helper->sanitize_array( $_POST );
 
 			$EVENT = new EVO_Event( (int)$postdata['eid'], (int)$postdata['eid'] );
 
@@ -387,44 +394,40 @@ class evo_ajax{
 
 			$EVENT->record_mod_joined($joined);
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good',
 				'msg'=> ( $joined =='in' ? __('Recorded as moderator joined','eventon') : 
 						__('Recorded as moderator left','eventon') )
-			)); exit;
+			));
 		}
 
 
 	// Load single event content
 	// @2.6.13
-		function load_event_content(){
+		public static function load_event_content(){
 
 			if(!isset($_POST['eid'])) return false;
 			if(!isset($_POST['nonce'])) return false;
 
 			if(!wp_verify_nonce($_POST['nonce'], 'eventon_nonce')) {echo 'nonce failed'; exit;} // nonce verification
 
-			$postdata = $this->helper->sanitize_array( $_POST );
+			$postdata = EVO()->helper->sanitize_array( $_POST );
 			
 			$EVENT = new EVO_Event($postdata['eid']);
-			echo json_encode(
+			wp_send_json(
 				apply_filters('evo_single_event_content_data',array(), $EVENT)
-			);exit;
+			);
 		}
 
 	// load single eventcard content
 	// @ 2.9.2
-		public function load_single_eventcard_content(){
-			$postdata = $this->helper->sanitize_array( $_POST );
+		public static function load_single_eventcard_content(){
+			$postdata = EVO()->helper->sanitize_array( $_POST );
 
 			$event_id = (int) $postdata['event_id'];
 			$ri = (int) $postdata['ri'];
 
-			$SC = array();
-			
-			if( isset($postdata['SC']) ) $SC = $postdata['SC'];
-			if( isset($postdata['sc']) ) $SC = $postdata['sc'];
-			
+			$SC = isset($post_data['SC']) ? $post_data['SC'] : array();
 			$lang = isset($SC['lang'])? $SC['lang']:'L1';
 
 			$SC['show_exp_evc'] = 'yes';
@@ -433,10 +436,11 @@ class evo_ajax{
 
 			if($event_data && is_array($event_data)) $event_data = $event_data[0];
 
-			echo json_encode(array(
+			wp_send_json(
+				array(
 				'status'=>'good',
 				'content'=> $event_data['content']
-			)); exit;
+			)); 
 		}
 
 	// OUTPUT: json headers
@@ -446,12 +450,12 @@ class evo_ajax{
 
 	// ICS file generation for add to calendar buttons
 	// @updated 4.3
-		function eventon_ics_download(){
+		public static function eventon_ics_download(){
 
 			if( !isset( $_GET['event_id'])) return false;
 
-			// verify nonce
-				if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_ics_oneevent')) die('Security Check Failed!');
+			// verify nonce - temp commented in 4.4.1
+				//if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_ics_oneevent')) die('Security Check Failed!');
 
 			$event_id = (int)( sanitize_text_field( $_GET['event_id']) );
 			$ri = isset($_GET['ri'])? (int)( sanitize_text_field($_GET['ri']) ) : 0;
@@ -482,13 +486,13 @@ class evo_ajax{
 
 			echo "END:VCALENDAR";
 			
-			exit;
+			wp_die();
 
 		}
 
 	// download all event data as ICS
 	// @updated 4.3
-		function export_events_ics(){
+		public static function export_events_ics(){
 			
 			if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_download_events')) die('Nonce Security Failed.');
 
@@ -518,14 +522,14 @@ class evo_ajax{
 
 				}
 				echo "END:VCALENDAR";
-				exit;
+				wp_die();
 
 			endif;
 		}
 
 	// get event time based on local time on browswr
-		function get_local_event_time(){
-			$post_data = $this->helper->recursive_sanitize_array_fields( $_POST );
+		public static function get_local_event_time(){
+			$post_data = EVO()->helper->recursive_sanitize_array_fields( $_POST );
 			
 			$datetime = new evo_datetime();
 			$offset = $datetime->get_UTC_offset();
@@ -534,103 +538,98 @@ class evo_ajax{
 
 			$newunix = $object->evvals['evcal_srow'][0] + ($offset + $brosweroffset);
 			echo date('Y-m-d h:ia', $newunix);
+			wp_die();
 		}
 
 
 	// Search results for ajax search of events from search box
-	function search_evo_events(){
+		public static function search_evo_events(){
+			
+			$postdata = EVO()->helper->sanitize_array( $_POST );
+
+			$searchfor = isset($postdata['search']) ? $postdata['search'] :'';
+			$shortcode = isset($postdata['shortcode']) ? $postdata['shortcode']: array();
 		
-		$postdata = $this->helper->sanitize_array( $_POST );
+			$searchfor = str_replace("'","\'", $searchfor);
 
-		$searchfor = isset($postdata['search']) ? $postdata['search'] :'';
-		$shortcode = isset($postdata['shortcode']) ? $postdata['shortcode']: array();
-	
-		$searchfor = str_replace("\'",'', $searchfor);
-
-		// if search all events regardless of date
-			if( !empty($shortcode['search_all'] ) && $shortcode['search_all']=='yes'){
-				$DD = EVO()->calendar->DD;
-				$DD->modify('first day of this month'); $DD->setTime(0,0,0);
-				$DD->modify('-15 years');
+			
+			// if search all events regardless of date
+				if( !empty($shortcode['search_all'] ) && $shortcode['search_all']=='yes'){
+					$DD = EVO()->calendar->DD;
+					$DD->modify('first day of this month'); $DD->setTime(0,0,0);
+					$DD->modify('-15 years');
+					
+					$__focus_start_date_range = $DD->format('U');
+					
+					$DD->modify('+30 years');
+					$__focus_end_date_range = $DD->format('U');
 				
-				$__focus_start_date_range = $DD->format('U');
+				}else{
+					$current_timestamp = current_time('timestamp');
+
+					// restrained time unix
+						$number_of_months = !empty($shortcode['number_of_months'])? $shortcode['number_of_months']:12;
+						$month_dif = '+';
+						$unix_dif = strtotime($month_dif.($number_of_months-1).' months', $current_timestamp);
+
+						$restrain_monthN = ($number_of_months>0)?				
+							date('n',  $unix_dif):
+							date('n',$current_timestamp);
+
+						$restrain_year = ($number_of_months>0)?				
+							date('Y', $unix_dif):
+							date('Y',$current_timestamp);			
+
+					// upcoming events list 
+						$restrain_day = date('t', mktime(0, 0, 0, $restrain_monthN+1, 0, $restrain_year));
+						$__focus_start_date_range = $current_timestamp;
+						$__focus_end_date_range =  mktime(23,59,59,($restrain_monthN),$restrain_day, ($restrain_year));
+				}
+			
+
+			// Add extra arguments to shortcode arguments			
+				$new_arguments = array(
+					'focus_start_date_range'=>$__focus_start_date_range,
+					'focus_end_date_range'=>$__focus_end_date_range,
+					's'=>$searchfor,
+					'search_all'=> (isset($shortcode['search_all'])? $shortcode['search_all']:'no')
+				);
+
+				$args = (!empty($args) && is_array($args))? 
+					wp_parse_args($new_arguments, $args): $new_arguments;
+
+				// merge passed shortcode values
+					if(!empty($shortcode))
+						$args= wp_parse_args($shortcode, $args);
+
+				EVO()->calendar->process_arguments($args);
+
+				$content = EVO()->calendar->body->get_calendar_header(
+					array(
+						'date_header'=>false,
+						'sortbar'=>true,
+						'range_start'=>$__focus_start_date_range,
+						'range_end'=>$__focus_end_date_range,
+						'header_title'=>'',
+						'send_unix'=>true
+					)
+				);
+
+				$content .= EVO()->calendar->_generate_events('html');
 				
-				$DD->modify('+30 years');
-				$__focus_end_date_range = $DD->format('U');
-			
-			}else{
-				$current_timestamp = current_time('timestamp');
-
-				// restrained time unix
-					$number_of_months = !empty($shortcode['number_of_months'])? $shortcode['number_of_months']:12;
-					$month_dif = '+';
-					$unix_dif = strtotime($month_dif.($number_of_months-1).' months', $current_timestamp);
-
-					$restrain_monthN = ($number_of_months>0)?				
-						date('n',  $unix_dif):
-						date('n',$current_timestamp);
-
-					$restrain_year = ($number_of_months>0)?				
-						date('Y', $unix_dif):
-						date('Y',$current_timestamp);			
-
-				// upcoming events list 
-					$restrain_day = date('t', mktime(0, 0, 0, $restrain_monthN+1, 0, $restrain_year));
-					$__focus_start_date_range = $current_timestamp;
-					$__focus_end_date_range =  mktime(23,59,59,($restrain_monthN),$restrain_day, ($restrain_year));
-			}
-		
-
-		// Add extra arguments to shortcode arguments			
-			$new_arguments = array(
-				'focus_start_date_range'=>$__focus_start_date_range,
-				'focus_end_date_range'=>$__focus_end_date_range,
-				's'=>$searchfor,
-				'search_all'=> (isset($shortcode['search_all'])? $shortcode['search_all']:'no')
-			);
-
-			$args = (!empty($args) && is_array($args))? 
-				wp_parse_args($new_arguments, $args): $new_arguments;
-
-			// merge passed shortcode values
-				if(!empty($shortcode))
-					$args= wp_parse_args($shortcode, $args);
-
-			EVO()->calendar->process_arguments($args);
-
-			$content = EVO()->calendar->body->get_calendar_header(
-				array(
-					'date_header'=>false,
-					'sortbar'=>true,
-					'range_start'=>$__focus_start_date_range,
-					'range_end'=>$__focus_end_date_range,
-					'header_title'=>'',
-					'send_unix'=>true
-				)
-			);
-
-			$content .= EVO()->calendar->_generate_events('html');
-			
-			$content .= EVO()->calendar->body->get_calendar_footer();
-			
-			echo json_encode(array(
-				'content'=>$content,
-				'range'=> date('Y-m-d', $__focus_start_date_range).' '.date('Y-m-d', $__focus_end_date_range)
-			));
-			exit;
-
-	}
+				$content .= EVO()->calendar->body->get_calendar_footer();
+				
+				wp_send_json(array(
+					'content'=>$content,
+					'range'=> date('Y-m-d', $__focus_start_date_range).' '.date('Y-m-d', $__focus_end_date_range)
+				));
+		}
 
 	// deprecating
-	function general_send_req($a1, $post){
+	public static function general_send_req($a1, $post){
 		return $a1;
 	}
 
-	/* dynamic styles */
-		/*function eventon_dymanic_css(){
-			//global $foodpress_menus;
-			require('admin/inline-styles.php');
-			exit;
-		}*/
-
 }
+
+EVO_AJAX::init();

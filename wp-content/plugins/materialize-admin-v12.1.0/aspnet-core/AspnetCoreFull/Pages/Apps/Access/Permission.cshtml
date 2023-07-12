@@ -1,0 +1,56 @@
+@page
+@model AspnetCoreFull.Pages.Apps.Access.PermissionModel
+@{
+  ViewData["Title"] = "Permission - Apps";
+}
+
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+<link rel="stylesheet" href="~/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+<script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+<script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+<script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+}
+
+@section PageScripts {
+<script src="~/js/app-access-permission.dist.js"></script>
+<script src="~/js/modal-add-permission.dist.js"></script>
+<script src="~/js/modal-edit-permission.dist.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="fw-semibold pt-3 mb-1">Permissions List</h4>
+
+<p class="mb-4">Each category (Basic, Professional, and Business) includes the four predefined roles shown below.</p>
+
+
+<!-- Permission Table -->
+<div class="card">
+  <div class="card-datatable table-responsive">
+    <table class="datatables-permissions table">
+      <thead class="table-light">
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Name</th>
+          <th>Assigned To</th>
+          <th>Created Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+<!--/ Permission Table -->
+
+
+<!-- Modal -->
+@await Html.PartialAsync("../_Partials/_Modals/ModalAddPermission")
+@await Html.PartialAsync("../_Partials/_Modals/ModalEditPermission")
+<!-- /Modal -->

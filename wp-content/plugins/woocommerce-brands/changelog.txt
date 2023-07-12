@@ -1,5 +1,12 @@
 *** Brands Changelog ***
 
+2023-07-04 - version 1.6.54
+* Fix  - Returns empty array instead of null.
+* Fix - Corrects backlink to 'Go to Brands' in success notice on Edit Brand page .
+
+2023-06-28 - version 1.6.53
+* Tweak - WC 7.9 compatibility.
+
 2023-06-13 - version 1.6.52
 * Tweak - WC 7.8 compatibility.
 

@@ -1,0 +1,219 @@
+// Bootstrap Select
+// *******************************************************************************
+
+@use '../../scss/_bootstrap-extended/include' as light;
+@use '../../scss/_bootstrap-extended/include-dark' as dark;
+@import '../../scss/_custom-variables/libs';
+@import '~bootstrap-select/sass/bootstrap-select.scss';
+
+// Common Styles
+.bootstrap-select *,
+.bootstrap-select .dropdown-toggle:focus {
+  outline: 0 !important;
+}
+.bootstrap-select {
+  .dropdown-toggle {
+    transition: none;
+    padding: calc(light.$input-padding-y - light.$input-border-width)
+      calc(light.$input-padding-x - light.$input-border-width);
+    box-shadow: none !important;
+    &.show {
+      padding: calc(light.$input-padding-y - light.$input-focus-border-width)
+        calc(light.$input-padding-x - light.$input-focus-border-width);
+    }
+    // Form floating styling (using btn padding-x for )
+    .form-floating & {
+      padding: light.$form-floating-padding-y light.$form-floating-padding-x;
+      &.show {
+        padding: calc(
+            light.$form-floating-padding-y - calc(light.$input-focus-border-width - light.$input-border-width)
+          )
+          calc(light.$form-floating-padding-x - calc(light.$input-focus-border-width - light.$input-border-width));
+      }
+    }
+    &:after {
+      transform: rotate(45deg) translateY(-50%);
+      position: absolute;
+      right: 13px;
+      top: 50%;
+
+      @include app-rtl {
+        left: 13px;
+        right: auto;
+      }
+    }
+  }
+
+  // For header dropdown close btn
+  .dropdown-menu .popover-header {
+    display: flex;
+    align-items: center;
+    button {
+      border: none;
+      font-size: light.$h4-font-size;
+      background: transparent;
+      padding-bottom: 0.125rem;
+    }
+  }
+}
+
+// Floating (outline) label position on focus
+.form-floating:has(.bootstrap-select) {
+  label {
+    width: auto !important;
+    height: auto !important;
+    padding: 0 light.$input-focus-border-width !important;
+    transform: light.$form-floating-outline-label-transform;
+    opacity: 1;
+    @include app-ltr {
+      margin-left: light.$form-floating-padding-y;
+    }
+    @include app-rtl {
+      margin-right: light.$form-floating-padding-y;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      height: light.add(light.$input-focus-border-width, light.$input-border-width);
+      width: 100%;
+      left: 0;
+      top: 0.6rem;
+      z-index: -1;
+    }
+  }
+}
+
+.bootstrap-select.dropup .dropdown-toggle:after {
+  transform: rotate(-45deg) translateY(-50%);
+}
+
+// Menu Position
+.bootstrap-select.show-tick .dropdown-menu {
+  li a {
+    position: relative;
+  }
+  // RTL
+  @include app-rtl {
+    li a span.text {
+      margin-left: 2.125rem;
+      margin-right: 0;
+    }
+  }
+
+  .selected span.check-mark {
+    display: block;
+    right: 1rem;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+    line-height: 1;
+
+    @include app-rtl {
+      left: 1rem;
+      right: auto;
+    }
+  }
+}
+
+// To remove ripple effect
+.bootstrap-select .dropdown-menu.inner .selected .waves-ripple {
+  display: none !important;
+}
+
+.bootstrap-select:not(.input-group-btn),
+.bootstrap-select[class*='col-'] {
+  display: block;
+}
+
+html[class] .bootstrap-select.form-select {
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+// RTL
+
+@include app-rtl(false) {
+  .bootstrap-select .dropdown-toggle .filter-option {
+    float: right;
+    right: 0;
+    left: auto;
+    text-align: right;
+    padding-left: inherit;
+    padding-right: 0;
+    margin-left: -100%;
+    margin-right: 0;
+  }
+  // Fix: Subtext rtl support
+  .bootstrap-select .filter-option-inner-inner {
+    float: right;
+  }
+  .bootstrap-select .dropdown-menu li small.text-muted,
+  .bootstrap-select .filter-option small.text-muted {
+    position: relative;
+    top: 2px;
+    padding-left: 0;
+    padding-right: 0.5em;
+    float: left;
+  }
+
+  .bootstrap-select .dropdown-toggle .filter-option-inner {
+    padding-left: inherit;
+    padding-right: 0;
+  }
+}
+
+// Light style
+@if $enable-light-style {
+  .light-style {
+    .bootstrap-select {
+      background-color: light.$input-bg;
+      .dropdown-toggle {
+        border-radius: light.$border-radius;
+        border: light.$input-border-width solid light.$input-border-color;
+        &:not(.show):hover {
+          border-color: light.$input-border-color;
+        }
+      }
+      .dropdown-menu {
+        .notify {
+          background: light.$popover-bg;
+          border: light.$input-border-width solid light.$popover-border-color;
+        }
+        .popover-header button {
+          color: light.$body-color;
+        }
+      }
+    }
+  }
+}
+
+// Dark Style
+@if $enable-dark-style {
+  .dark-style {
+    .bootstrap-select {
+      background-color: dark.$input-bg;
+      .dropdown-toggle {
+        color: dark.$input-color;
+        &:hover {
+          color: dark.$input-color;
+        }
+        border: dark.$input-border-width solid dark.$input-border-color;
+        border-radius: dark.$border-radius;
+        &:not(.show):hover {
+          border-color: dark.$input-border-color;
+        }
+      }
+      .dropdown-menu {
+        .notify {
+          background: dark.$popover-bg;
+          border: dark.$input-border-width solid dark.$popover-border-color;
+        }
+        .popover-header button {
+          color: dark.$body-color;
+        }
+      }
+    }
+  }
+}

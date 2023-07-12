@@ -1,0 +1,14 @@
+// Progress
+// *******************************************************************************
+
+// RTL
+// *******************************************************************************
+
+@include rtl-only {
+  .progress-bar-striped {
+    @include gradient-striped(rgba($white, 0.15), -45deg);
+  }
+  .progress-bar-animated {
+    animation-direction: reverse;
+  }
+}

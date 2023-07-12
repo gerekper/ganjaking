@@ -176,12 +176,18 @@ class Permalink_Manager_Core_Functions {
 
 				// In case of multiple elements using the same URI, the function will follow the "permalink_manager_duplicates_priority" filter value to determine whether terms or posts should be ignored
 				if ( $duplicates_priority ) {
-					$duplicated_uris = array_keys( $all_uris, $uri );
+					$duplicated_uris    = array_keys( $all_uris, $uri );
+					$duplicates_removed = 0;
+					$duplicates_count   = count( $duplicated_uris );
 
-					if ( count( $duplicated_uris ) > 1 ) {
+					if ( $duplicates_count > 1 ) {
 						foreach ( $duplicated_uris as $duplicated_uri_id ) {
 							if ( ( $duplicates_priority == 'posts' && ! is_numeric( $duplicated_uri_id ) ) || ( $duplicates_priority !== 'posts' && is_numeric( $duplicated_uri_id ) ) ) {
-								$excluded_ids[] = $duplicated_uri_id;
+								$duplicates_removed++;
+
+								if ( $duplicates_removed < $duplicates_count ) {
+									$excluded_ids[] = $duplicated_uri_id;
+								}
 							}
 						}
 					}
@@ -837,11 +843,11 @@ class Permalink_Manager_Core_Functions {
 		/**
 		 * 5. WWW prefix | SSL mismatch redirect
 		 */
-		if ( ! empty( $permalink_manager_options['general']['sslwww_redirect'] ) ) {
+		if ( ! empty( $permalink_manager_options['general']['sslwww_redirect'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ) {
 			$home_url_has_www      = ( strpos( $home_url, 'www.' ) !== false ) ? true : false;
 			$requested_url_has_www = ( strpos( $_SERVER['HTTP_HOST'], 'www.' ) !== false ) ? true : false;
 			$home_url_has_ssl      = ( strpos( $home_url, 'https' ) !== false ) ? true : false;
-			
+
 			if ( ( $home_url_has_www !== $requested_url_has_www ) || ( ! is_ssl() && $home_url_has_ssl !== false ) ) {
 				$new_uri           = ltrim( $old_uri, '/' );
 				$correct_permalink = sprintf( "%s/%s", $home_url, $new_uri );

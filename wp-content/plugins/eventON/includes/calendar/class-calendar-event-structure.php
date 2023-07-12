@@ -1,7 +1,7 @@
 <?php
 /**
 * Calendar single event's html structure 
-* @version 4.4
+* @version 4.4.1
 */
 
 class EVO_Cal_Event_Structure{
@@ -1210,19 +1210,21 @@ class EVO_Cal_Event_Structure{
 											$x = isset($id[1])? $id[1]:'0';
 											$time = $EE->get_formatted_smart_time($x);
 
-											$imgs = $EE->get_image_urls();
-											
-											$img_bg_url = '';
 
-											$img_html = '<span class="noimg" style="background-color:#'. $EE->get_hex() .'"></span>';
-											if($imgs){
-												$img_bg_url = $imgs['full'];
-												$img_html = '<span class="" style="background-image: url('. $imgs['full'].')"></span>';
+											$img_bg_url = '';
+											$__a_class = '';
+
+											// if event image to be visible
+											if( !$EVENT->check_yn('_evo_relevs_hide_img')){
+												$__a_class = 'hasimg';
+												$imgs = $EE->get_image_urls();
+												if($imgs){
+													$img_bg_url = $imgs['full'];
+												}
 											}
 
-											
 											$rel_events[ $I .'.'. $EE->get_start_time() ] =  
-												"<a style='background-color:#{$EE->get_hex()}; background-image: url({$img_bg_url}) ' href='". $EE->get_permalink($x). "'>
+												"<a class='{$__a_class}' style='background-color:#{$EE->get_hex()}; background-image: url({$img_bg_url}) ' href='". $EE->get_permalink($x). "'>
 												<h4 class='evo_h4'>{$N}</h4>
 												<em><i class='fa fa-clock-o'></i> {$time}</em>
 												</a>";

@@ -230,7 +230,7 @@ if (is_multisite()) {
 		}
 
 		/**
-		 * This is the function outputing the HTML for our options page
+		 * This is the function outputting the HTML for our options page
 		 */
 		public static function options_printpage() {
 			if (!self::user_can_manage()) {

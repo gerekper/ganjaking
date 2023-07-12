@@ -1087,6 +1087,26 @@ function perfmatters_settings() {
         )
     );
 
+    if(!empty($perfmatters_tools['show_advanced'])) {
+
+        //lazy load parent exclusions
+        add_settings_field(
+            'lazy_loading_parent_exclusions', 
+            perfmatters_title(__('Exclude by Parent Selector', 'perfmatters'), 'lazy_loading_parent_exclusions', 'https://perfmatters.io/docs/lazy-load-wordpress/#exclude-parent-selector'),
+            'perfmatters_print_input', 
+            'perfmatters_options', 
+            'lazyload', 
+            array(
+                'section' => 'lazyload',
+                'id' => 'lazy_loading_parent_exclusions',
+                'input' => 'textarea',
+                'textareatype' => 'oneperline',
+                'placeholder' => 'example-div-class',
+                'tooltip' => __('Exclude specific images from lazy loading by adding any unique portion of an attribute string (class="example") from a parent container. Format: one per line', 'perfmatters')
+            )
+        );
+    }
+
     //threshold
     add_settings_field(
         'threshold', 
@@ -2336,6 +2356,7 @@ function perfmatters_sanitize_options($values) {
     $sections_one_per_line = array(
         'lazyload' => array(
             'lazy_loading_exclusions',
+            'lazy_loading_parent_exclusions',
             'css_background_selectors'
         ),
         'assets' => array(

@@ -1,0 +1,33 @@
+// Timeline
+// *******************************************************************************
+
+// Timeline point
+@mixin template-timeline-point-variant($point-color, $background) {
+  .timeline {
+    #{$point-color} {
+      background-color: $background !important;
+      outline: 3px solid rgba($background, 0.12);
+    }
+
+    // Timeline-outline styles
+    &.timeline-outline {
+      #{$point-color} {
+        border: 2px solid $background !important;
+      }
+    }
+  }
+}
+
+@mixin template-timeline-indicator-variant($indicator-color, $background) {
+  $color: $background;
+  $background: shift-color($background, $timeline-point-indicator-bg-scale, $body-bg);
+
+  .timeline {
+    #{$indicator-color} {
+      background-color: $background !important;
+      i {
+        color: $color !important;
+      }
+    }
+  }
+}

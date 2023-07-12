@@ -1,0 +1,135 @@
+@import './_components/include';
+@import './_theme/common';
+@import './_theme/libs';
+@import './_theme/pages';
+
+$primary-color: #666cff;
+$body-bg: $white;
+
+body {
+  background: $body-bg;
+}
+
+.bg-body {
+  background: $body-bg !important;
+}
+
+@include template-common-theme($primary-color);
+@include template-libs-theme($primary-color);
+@include template-pages-theme($primary-color);
+
+// Navbar
+// ---------------------------------------------------------------------------
+
+@include template-navbar-style('.bg-navbar-theme', $body-bg, $color: $headings-color, $active-color: $headings-color);
+
+.layout-navbar-fixed .window-scrolled .layout-navbar {
+  box-shadow: none !important;
+  border: 1px solid $border-color;
+  border-top-width: 0;
+}
+.layout-horizontal .layout-navbar {
+  box-shadow: 0 1px 0 $border-color;
+}
+.layout-navbar-fixed .layout-page:not(.window-scrolled) .layout-navbar.navbar-detached .search-input {
+  background: $body-bg;
+}
+
+// Menu
+// ---------------------------------------------------------------------------
+
+@include template-menu-style(
+  '.bg-menu-theme',
+  $body-bg,
+  $color: $headings-color,
+  $active-color: $headings-color,
+  $active-bg: $primary-color
+);
+
+@include media-breakpoint-up(xl) {
+  .layout-menu {
+    box-shadow: 0 0 0 1px $border-color;
+  }
+}
+
+.layout-menu-horizontal {
+  box-shadow: 0 -1px 0 $border-color inset !important;
+}
+.bg-menu-theme {
+  &.menu-horizontal {
+    background-color: rgba($card-bg, 0.9) !important;
+    .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub {
+      background: $card-bg;
+    }
+  }
+}
+.timeline .timeline-item .timeline-event:after {
+  content: '';
+}
+
+// Footer
+// ---------------------------------------------------------------------------
+@include template-footer-style('.bg-footer-theme', $body-bg, $color: $body-color, $active-color: $headings-color);
+
+.layout-footer-fixed .menu-vertical ~ .layout-page .content-footer .footer-container,
+.layout-footer-fixed .layout-horizontal .content-footer {
+  box-shadow: none !important;
+  border: 1px solid $border-color;
+  border-bottom-width: 0;
+}
+
+// Component styles
+// ---------------------------------------------------------------------------
+
+// card
+.card {
+  box-shadow: none;
+  border: $border-width solid $card-border-color;
+}
+
+// Accordion
+.accordion {
+  .accordion-item {
+    box-shadow: none !important;
+    border: $accordion-border-width solid $accordion-border-color;
+    margin-top: -1px;
+    &:not(.active):not(:first-child) .accordion-header {
+      border-top: none;
+    }
+  }
+}
+
+//Kanban-item
+.kanban-item {
+  box-shadow: none !important;
+  border: $border-width solid $card-border-color;
+}
+// default form wizard style
+.bs-stepper:not(.wizard-modern) {
+  border: 1px solid $border-color;
+  box-shadow: none !important;
+  .tab-content {
+    border: none !important;
+  }
+}
+
+// modern form wizard style
+.bs-stepper.wizard-modern {
+  .bs-stepper-content {
+    box-shadow: none !important;
+    border: 1px solid $border-color;
+  }
+}
+
+// Card Statistics Swiper styles
+.swiper-container {
+  border: 1px solid $border-color;
+  box-shadow: none !important;
+}
+// Tabs
+.nav-pills {
+  ~ .tab-content {
+    border: 1px solid $border-color !important;
+    box-shadow: none;
+  }
+}

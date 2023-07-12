@@ -2,21 +2,21 @@
 /**
  * EventON Setup
  *
- * @since 4.4
+ * @since 4.4.1
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.4';
+	public $version = '4.4.1';
 	
 	
 	public $template_url;
 	public $print_scripts=false;
 
 	public $lang = 'L1';
-	public $assets_path, $cal, $calendar, $evo_generator, $frontend,$mdt,$temp,$shortcodes,$ajax,$rest,$cron,$elements,$shortcode_gen,$lightbox,$gen_int,$evosv,$webhooks,$ajde, $evo_admin, $taxonomies;
+	public $assets_path, $cal, $calendar, $evo_generator, $frontend,$mdt,$temp,$shortcodes,$ajax,$rest,$cron,$elements,$shortcode_gen,$lightbox,$gen_int,$evosv,$webhooks,$ajde, $evo_admin, $taxonomies, $helper;
 
 
 	// setup one instance of eventon
@@ -173,9 +173,7 @@ final class EventON {
 	}	
 
 	// include classes for frontend files
-	public function frontend_includes(){
-		
-	}
+		public function frontend_includes(){}
 
 	/**
 	 * Function used to Init Eventon Template Functions - This makes them pluggable by plugins and themes.
@@ -208,7 +206,6 @@ final class EventON {
 		$this->mdt				= new evo_mdt();
 		$this->temp 			= new EVO_Temp();
 		$this->shortcodes		= new EVO_Shortcodes();	
-		$this->ajax 			= new evo_ajax();
 		
 		$this->rest				= new EVO_Rest_API();
 		$this->cron 			= new evo_cron();
@@ -221,6 +218,7 @@ final class EventON {
 		$this->evosv 			= new Evo_Cal_Schedule(); 
 
 		$this->webhooks 		= new EVO_WebHooks();
+		$this->helper 			= new evo_helper();
 
 
 		$GLOBALS['evo_shortcode_box'] = $this->shortcode_gen;

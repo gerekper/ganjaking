@@ -1,0 +1,75 @@
+@import './_components/include';
+@import './_theme/common';
+@import './_theme/libs';
+@import './_theme/pages';
+
+$primary-color: #666cff;
+$body-bg: #f7f7f9;
+
+body {
+  background: $body-bg;
+}
+
+.bg-body {
+  background: $body-bg !important;
+}
+
+@include template-common-theme($primary-color);
+@include template-libs-theme($primary-color);
+@include template-pages-theme($primary-color);
+
+// Navbar
+// ---------------------------------------------------------------------------
+@include template-navbar-style('.bg-navbar-theme', $card-bg, $color: $body-color, $active-color: $headings-color);
+
+.layout-horizontal .layout-navbar {
+  box-shadow: 0 1px 0 $border-color;
+}
+
+// Menu
+// ---------------------------------------------------------------------------
+@include template-menu-style(
+  '.bg-menu-theme',
+  #282a42,
+  $color: #eaeaffde,
+  $active-color: #eaeaffde,
+  $active-bg: $primary-color
+);
+
+.app-brand .layout-menu-toggle {
+  svg {
+    color: #eaeaffde;
+  }
+}
+.menu-inner > .menu-header::before {
+  background-color: #464963 !important;
+}
+.bg-menu-theme {
+  &.menu-vertical {
+    .menu-item:not(.active) .menu-link:hover {
+      background-color: rgba($body-bg, 0.05);
+      color: #eaeaffde;
+    }
+    .menu-item.open {
+      > .menu-link {
+        background-color: rgba($body-bg, 0.08);
+        color: #eaeaffde;
+      }
+    }
+  }
+  &.menu-horizontal {
+    .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub {
+      background: #282a42;
+    }
+    .menu-inner > .menu-item .menu-sub .menu-item.active > .menu-link.menu-toggle {
+      background-color: rgba($body-bg, 0.08);
+    }
+    .menu-item .menu-link:hover {
+      background-color: rgba($body-bg, 0.05);
+      color: #eaeaffde;
+    }
+  }
+}
+// Footer
+// ---------------------------------------------------------------------------
+@include template-footer-style('.bg-footer-theme', $body-bg, $color: $body-color, $active-color: $headings-color);

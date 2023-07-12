@@ -2,7 +2,7 @@
 
 ## To use in a new plugin:
 
-- Include and instanciate `Updraft_Checkout_Embed`
+- Include and instantiate `Updraft_Checkout_Embed`
 
 ```php
 if (!class_exists('Updraft_Checkout_Embed')) include_once (UPDRAFTPLUS_DIR.'/includes/checkout-embed/class-udp-checkout-embed.php');

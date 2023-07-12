@@ -39,7 +39,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 * : File entities which will be backed up. Multiple file entities names should separate by comma (,).
 	 *
 	 * [--include-tables=<include-tables>]
-	 * : Tables which will be backed up.  You should backup all tables unless you are an expert in the internals of the WordPress database. Multiple table names seperated by comma (,). If include-tables is not added in command, All tables will be backed up
+	 * : Tables which will be backed up.  You should backup all tables unless you are an expert in the internals of the WordPress database. Multiple table names separated by comma (,). If include-tables is not added in command, All tables will be backed up
 	 * ---
 	 * default: all
 	 * ---
@@ -665,7 +665,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 * ---
 	 *
 	 * [--db-decryption-phrase=<db-decryption-phrase>]
-	 * : If databse is encypted in the backup, Please give database decryption phrase
+	 * : If database is encrypted in the backup, Please give database decryption phrase
 	 *
 	 * [--over-write-wp-config=<over-write-wp-config>]
 	 * : Whether wp-config.php file will be overwritten or not. This option will work if you have installed the "More files" addon.
@@ -883,7 +883,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	/**
 	 * Displays error message for relevant addon is not exist for a given option to command
 	 *
-	 * @param string $option        Option passed to coomand which is not supported without addon
+	 * @param string $option        Option passed to command which is not supported without addon
 	 * @param string $addon_title   Addon title
 	 * @param string $addon_buy_url Addon buy link which is not filtered for affiliate
 	 */
@@ -913,7 +913,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	}
 	
 	/**
-	 * Get valid restore componenets
+	 * Get valid restore components
 	 *
 	 * @return Array An array which have valid restore components as values
 	 */
@@ -1198,7 +1198,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 			}
 		}
 		if ($wp_only) {
-			WP_CLI::success(__('The UpdraftClone boot process for an empty WordPress install has begun.', 'updraftplus') . ' ' . __('You will recieve an email when it completes.', 'updraftplus'));
+			WP_CLI::success(__('The UpdraftClone boot process for an empty WordPress install has begun.', 'updraftplus') . ' ' . __('You will receive an email when it completes.', 'updraftplus'));
 		}
 
 		// reset the secret token, this can change if we have been given one from the queue
@@ -1224,7 +1224,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 		);
 		$this->commands->backupnow($params);
 		
-		WP_CLI::success(__('The UpdraftClone boot process has started.', 'updraftplus') . ' ' . __('The creation of your data for creating the clone should now begin, and you will recieve an email when it completes.', 'updraftplus'));
+		WP_CLI::success(__('The UpdraftClone boot process has started.', 'updraftplus') . ' ' . __('The creation of your data for creating the clone should now begin, and you will receive an email when it completes.', 'updraftplus'));
 	}
 }
 

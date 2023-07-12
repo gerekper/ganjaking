@@ -995,3 +995,6 @@ outline: 0;
 .wps_crp_email_button{
   border-radius: 3px !important;
 }
+a.mwb-coupon-view-btn{
+  margin-top: 5px;
+}

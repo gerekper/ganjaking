@@ -1,6 +1,7 @@
 <?php 
 /**
 * ADMIN Class
+* @version 0.5
 */
 
 class EVOIA_Admin{
@@ -27,6 +28,8 @@ class EVOIA_Admin{
 
 		foreach ( $my_post_types as $my_post_type ) {
 			if($my_post_type == 'ajde_events') continue;
+
+			EVO()->elements->load_colorpicker();
 
 			add_meta_box(
 				'evoia_mb',
@@ -63,7 +66,7 @@ class EVOIA_Admin{
 		$wp_date_format = get_option('date_format');
 
 		?>
-		<div id='evo_include' class='evo_meta_elements' style='display:<?php echo $POST->check_yn('_evo_inc') ?'block':'none';?>; border-top: 1px solid #e0e0e0; background: #efefef;margin: 15px -14px -15px; padding: 20px;'>
+		<div id='evo_include' class='evo_meta_elements' style='display:<?php echo $POST->check_yn('_evo_inc') ?'block':'none';?>; background: #efefef;border-radius:10px;padding: 20px;'>
 
 			<h4>Select the date range to include</h4>
 			
@@ -136,7 +139,8 @@ class EVOIA_Admin{
 					array(
 						'id'=>'evcal_event_color',
 						'type'=>'colorpicker',
-						'name'=> __('Color to use for this post', 'eventon').' '.$POST->get_meta('evcal_event_color'),
+						'support_input'=> true,
+						'name'=> __('Color to use for this post', 'eventon'),
 						'value'=> $POST->get_meta('evcal_event_color'),
 					),
 					array(
@@ -237,9 +241,9 @@ class EVOIA_Admin{
 		$default['eventon-include-anything'] = array(
 			'id'=> EVOIA()->id,
 			'name'=> EVOIA()->name,
-			'link'=>'http://www.myeventon.com/addons/repeat-customizer',
-			'download'=>'http://www.myeventon.com/addons/repeat-customizer',
-			'desc'=>'Customize repeating event data for individual repeat instance separately',
+			'link'=>'https://www.myeventon.com/addons/include-anything/',
+			'download'=>'https://www.myeventon.com/addons/include-anything/',
+			'desc'=>'Include any posts inside eventON calendar seamlessly',
 		);
 		return $default;
 	}

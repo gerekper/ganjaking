@@ -215,7 +215,7 @@ jQuery(function($) {
 	}
 
 	/**
-	 * This function will update the time in the front end that we last recived data, after 120 seconds call the resume restore notice
+	 * This function will update the time in the front end that we last received data, after 120 seconds call the resume restore notice
 	 */
 	function updraft_restore_update() {
 		var current_time = Math.round(Date.now() / 1000);

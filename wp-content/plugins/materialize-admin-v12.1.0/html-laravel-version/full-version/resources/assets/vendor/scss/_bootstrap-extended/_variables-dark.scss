@@ -1,0 +1,242 @@
+// Variables
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+//
+// (C) Custom variables for extended components of bootstrap only
+
+// ! _variable-dark.scss file overrides _variable.scss file.
+
+// * Colors
+// *******************************************************************************
+
+// scss-docs-start gray-color-variables
+$white: #fff !default;
+$black: #141521 !default;
+
+$base: #eaeaff !default;
+$gray-25: rgba($base, 0.015) !default; // (C)
+$gray-50: rgba($base, 0.03) !default; // (C)
+$gray-100: rgba($base, 0.06) !default;
+$gray-200: rgba($base, 0.12) !default;
+$gray-300: rgba($base, 0.22) !default;
+$gray-400: rgba($base, 0.38) !default;
+$gray-500: rgba($base, 0.5) !default;
+$gray-600: rgba($base, 0.6) !default;
+$gray-700: rgba($base, 0.7) !default;
+$gray-800: rgba($base, 0.8) !default;
+$gray-900: rgba($base, 0.87) !default;
+// scss-docs-end gray-color-variables
+
+// scss-docs-start gray-colors-map
+$grays: (
+  '25': $gray-25,
+  '50': $gray-50
+) !default;
+// scss-docs-end gray-colors-map
+
+// scss-docs-start color-variables
+$blue: #26c6f9 !default;
+$indigo: #666cff !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #ff4d49 !default;
+$orange: #fdb528 !default;
+$yellow: #ffd950 !default;
+$green: #72e128 !default;
+$teal: #20c997 !default;
+$cyan: #28c3d7 !default;
+// scss-docs-end color-variables
+
+// scss-docs-start theme-color-variables
+$primary: $indigo !default;
+$secondary: #6d788d !default;
+$success: $green !default;
+$info: $blue !default;
+$warning: $orange !default;
+$danger: $red !default;
+$light: #46445b !default;
+$dark: #d7d5ec !default;
+$gray: $gray-100 !default; // (C)
+// scss-docs-end theme-color-variables
+
+// scss-docs-start theme-colors-map
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+  'gray': $gray
+) !default;
+// scss-docs-end theme-colors-map
+
+$color-scheme: 'dark' !default; // (C)
+
+// * Body
+// *******************************************************************************
+
+$body-bg: #282a42 !default;
+$rgba-to-hex-bg: #30334e !default; // (C)
+$body-color: rgba-to-hex($gray-600, $rgba-to-hex-bg) !default;
+$rgba-to-hex-bg-inverted: rgb(160, 149, 149) !default; // (C)
+
+// * Components
+// *******************************************************************************
+
+$alert-color-scale: -10% !default;
+
+// $border-color: rgba-to-hex(rgba($white, 0.1), $rgba-to-hex-bg) !default;
+// $border-inner-color: rgba-to-hex(rgba($white, 0.09), $rgba-to-hex-bg) !default; // (C)
+$border-color: rgba-to-hex($gray-200, $rgba-to-hex-bg) !default;
+$border-inner-color: rgba($white, 0.09) !default; // (C)
+
+// scss-docs-start box-shadow-variables
+$box-shadow: 0 0.25rem 0.5rem rgba(#15151c, 0.55) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba(#15151c, 0.4) !default;
+$box-shadow-lg: 0 0.625rem 0.875rem rgba(#15151c, 0.5) !default;
+// scss-docs-end box-shadow-variables
+
+$floating-component-border-color: rgba($white, 0.05) !default; // (C)
+// $floating-component-shadow: 0 1px 16px 1px rgba($white, 0.09) !default; // (C)
+$floating-component-shadow: 0px 5px 5px -3px rgba($black, 0.2), 0px 8px 10px 1px rgba($black, 0.14),
+  0px 3px 14px 2px rgba($black, 0.12) !default; // (C)
+
+// * Typography
+// *******************************************************************************
+
+$text-muted: rgba-to-hex($gray-400, $rgba-to-hex-bg) !default;
+$text-muted-hover: rgba-to-hex($white, $rgba-to-hex-bg) !default; // (C)
+
+$text-light: rgba-to-hex($gray-500, $rgba-to-hex-bg) !default; // (C)
+$text-lighter: rgba-to-hex($gray-400, $rgba-to-hex-bg) !default; // (C)
+$text-lightest: rgba-to-hex($gray-300, $rgba-to-hex-bg) !default; // (C)
+
+$headings-color: rgba-to-hex($gray-900, $rgba-to-hex-bg) !default;
+
+// * Tables
+// *******************************************************************************
+
+$table-bg-scale: -80% !default;
+$table-hover-bg-factor: 0.05 !default;
+$table-hover-bg: rgba($base, $table-hover-bg-factor) !default;
+
+$table-striped-bg-factor: 0.025 !default;
+$table-striped-bg: rgba-to-hex(rgba($white, $table-striped-bg-factor), $rgba-to-hex-bg) !default;
+
+$table-hover-bg-factor: 0.75 !default;
+$table-active-bg-factor: 0.75 !default;
+
+$table-border-color: rgba-to-hex($gray-300, $rgba-to-hex-bg) !default;
+$table-group-separator-color: $table-border-color !default;
+
+$component-active-bg: $white !default;
+
+// * Pagination
+// *******************************************************************************
+
+$pagination-border-color: $text-lightest !default;
+$pagination-focus-bg: rgba-to-hex(rgba($base, 0.05), $rgba-to-hex-bg) !default;
+$pagination-disabled-border-color: rgba-to-hex(rgba($base, 0.12), $rgba-to-hex-bg) !default;
+
+// * Cards
+// *******************************************************************************
+
+$card-bg: #30334e !default;
+$card-border-color: $border-color !default;
+$card-box-shadow: 0 0.125rem 0.625rem 0 rgba($black, 0.18) !default;
+
+// * Accordion
+// *******************************************************************************
+
+$accordion-bg: $card-bg !default;
+
+// * Buttons
+// *******************************************************************************
+
+$btn-box-shadow: 0px 4px 8px -4px rgba($black, 0.42) !default;
+
+$btn-fab-box-shadow: 0px 3px 5px -1px rgba($black, 0.2), 0px 5px 8px rgba($black, 0.14), 0px 1px 14px rgba($black, 0.12) !default;
+$btn-fab-active-box-shadow: 0px 7px 8px -4px rgba($black, 0.2), 0px 12px 17px 2px rgba($black, 0.14),
+  0px 5px 22px 4px rgba($black, 0.12) !default;
+
+// * Forms
+// *******************************************************************************
+
+$input-bg: $card-bg !default;
+$input-disabled-bg: rgba-to-hex(rgba($white, 0.05), $rgba-to-hex-bg) !default;
+
+// $input-border-color: rgba($white, 0.15) !default;
+$input-border-color: rgba-to-hex(rgba($white, 0.15), $rgba-to-hex-bg) !default;
+
+$input-placeholder-color: rgba-to-hex($gray-400, $rgba-to-hex-bg) !default;
+
+$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='transparent' stroke='#{$input-border-color}'/></svg>") !default;
+$form-switch-color: $input-border-color !default;
+$form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>") !default;
+
+$form-select-bg: $input-bg !default;
+$form-select-indicator: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAYCAYAAACfpi8JAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTVFQzBCN0RGNTVGMTFFOUFGQzlGNTU5RTcxM0NFRDciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTVFQzBCN0VGNTVGMTFFOUFGQzlGNTU5RTcxM0NFRDciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxNUVDMEI3QkY1NUYxMUU5QUZDOUY1NTlFNzEzQ0VENyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxNUVDMEI3Q0Y1NUYxMUU5QUZDOUY1NTlFNzEzQ0VENyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ph4clTQAAAB2SURBVHjaYnB29f4PwgwDDJgYBgkYdQg6YCFF8f///0ejZtQhlIAGUDIiEzdQ2yGNZOhrpLZDyHFMI1QPTdIIsY6BO4KWiZWQY1AcQetcg8sxGI6gR/ZFdwxWR5BcxFPgGGxsujsErwNGi/hRh4w6ZMg7BCDAAEbbI1RCvUysAAAAAElFTkSuQmCC') !default;
+$form-select-indicator-rtl: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAYCAYAAACfpi8JAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NURGRjU3MkVGNTVGMTFFOUFGQzlGNTU5RTcxM0NFRDciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NURGRjU3MkZGNTVGMTFFOUFGQzlGNTU5RTcxM0NFRDciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxNUVDMEI3RkY1NUYxMUU5QUZDOUY1NTlFNzEzQ0VENyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxNUVDMEI4MEY1NUYxMUU5QUZDOUY1NTlFNzEzQ0VENyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrIk1EIAAABySURBVHja7NTRCoAwCAVQi33a6KmPcl/uqseRa4iugntBEMbgPKiLiNCbydt+AVb6SAABBBALhI8SY7E3pBj+Fm8IGTCuiHZGRjHuiLthfcKEILSt0TBhiN76tphQxJnUeWOlnw6ZAsCJBwSQ30OqAAMAEgghhNTBYMwAAAAASUVORK5CYII=') !default;
+
+$form-range-thumb-bg: rgba-to-hex(rgba($white, 0.5), $rgba-to-hex-bg) !default;
+
+// * Navs
+// *******************************************************************************
+
+$nav-link-color: $body-color !default;
+$nav-tabs-link-active-bg: $card-bg !default;
+$nav-tabs-link-active-border-color: $nav-tabs-link-active-bg !default;
+
+// * Navbar
+// *******************************************************************************
+
+$navbar-light-hover-color: #4e5155 !default;
+$navbar-light-active-color: #4e5155 !default;
+$navbar-light-disabled-color: rgba($black, 0.2) !default;
+
+// * Dropdowns
+// *******************************************************************************
+
+// $dropdown-bg: rgba-to-hex($gray-200, $rgba-to-hex-bg) !default;
+$dropdown-bg: $card-bg !default;
+$dropdown-divider-bg: $border-inner-color !default;
+
+$dropdown-link-hover-bg: $gray-100 !default;
+
+// * Tooltips
+// *******************************************************************************
+
+$tooltip-bg: rgba-to-hex($gray-200, $rgba-to-hex-bg) !default;
+
+// * Toasts
+// *******************************************************************************
+
+$toast-box-shadow: 0px 4px 24px -2px rgba($black, 0.8) !default;
+
+// * Modals
+// *******************************************************************************
+
+$modal-content-bg: $card-bg !default;
+$modal-content-box-shadow-xs: 0 0.3125rem 1.25rem rgba(21, 21, 28, 0.4);
+// * List group
+// *******************************************************************************
+
+$list-group-border-color: rgba-to-hex($gray-200, $rgba-to-hex-bg) !default;
+$list-group-item-bg-scale: -88% !default;
+$list-group-item-bg-hover-scale: 10% !default; //  (c)
+
+$list-group-hover-bg: rgba-to-hex(rgba($base, 0.05), $rgba-to-hex-bg) !default;
+
+// Close
+// *******************************************************************************
+$btn-close-color: $white !default;
+
+$kbd-color: $dark !default;
+
+// Config
+$rtl-support: false !default;
+$dark-style: true !default;

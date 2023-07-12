@@ -582,7 +582,7 @@
 			// start tour
 			main_tour.start();
 
-			// go back to fisrt tab
+			// go back to first tab
 			if (updraftplus_tour_i18n.show_tab_on_load) {
 				$(updraftplus_tour_i18n.show_tab_on_load).trigger('click');
 			} else {

@@ -40,7 +40,7 @@ class UpdraftPlus_Temporary_Clone_User_Notice {
 	 *
 	 * @param object $user - the user login object
 	 *
-	 * @return object|WP_Error - retruns the logged in user or a WP_Error stopping non admin logins
+	 * @return object|WP_Error - returns the logged in user or a WP_Error stopping non admin logins
 	 */
 	public function wp_authenticate_user($user) {
 		// The WP_User object does not exist in WP 3.2, so we don't check for that

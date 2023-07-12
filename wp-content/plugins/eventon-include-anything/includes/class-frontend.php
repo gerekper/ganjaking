@@ -1,7 +1,7 @@
 <?php
 /**
  * front-end
- * @version 	0.1
+ * @version 	0.4
  */
 
 class EVOIA_Frontend{
@@ -15,7 +15,7 @@ class EVOIA_Frontend{
 		add_filter('evo_wp_query_post_type_if', array($this, 'wp_query_if'),10,2);
 
 		add_filter('evo_event_etop_class_names', array($this, 'event_class_names'),10,3);
-		add_filter('evo_event_etop_felds_array', array($this, 'event_etop_data'),10,3);
+		add_filter('evoet_data_structure', array($this, 'event_etop_data'),10,3);
 		add_filter('evodata_title', array($this, 'etop_title'),10,2);
 		add_filter('evodata_subtitle', array($this, 'etop_subtitle'),10,2);
 		add_filter('evo_event_data_array', array($this, 'event_data'),10,3);
@@ -104,16 +104,23 @@ class EVOIA_Frontend{
 		return $text;
 
 	}
-	public function event_etop_data($arr, $EVENT, $cal){
+	public function event_etop_data($arr, $eventdata, $EVENT){
 
-		$SC = $this->SC = $cal->shortcode_args;
+		$SC = $this->SC = EVO()->calendar->shortcode_args;
 
 		if(!isset($SC['include_any'])) return $arr;
 		if(isset($SC['include_any']) && $SC['include_any'] != 'yes') return $arr;
 
 		if( $EVENT->post_type != 'ajde_events'){
-			$arr['belowtitle'] = false;
-			$arr['day_block'] = false;
+
+			foreach($arr as $ck=>$col){
+				foreach($col as $dk=>$data){
+					if( !isset( $arr[ $ck ] )) continue;
+					if( !isset( $arr[ $ck ][$dk] )) continue;
+					if( $dk == 'day_block' ) unset($arr[ $ck ][$dk]);
+					if( $dk == 'time_expand' ) unset($arr[ $ck ][$dk]);
+				}
+			}
 		} 
 
 		return $arr;

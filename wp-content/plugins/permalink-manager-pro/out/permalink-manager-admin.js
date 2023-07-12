@@ -274,7 +274,9 @@ jQuery(document).ready(function() {
 	if(jQuery('#permalink-manager .settings-tabs').length > 0) {
 		var tab_id = window.location.hash.substring(1);
 
-		pm_load_settings_tab(tab_id);
+		if (tab_id) {
+			pm_load_settings_tab(tab_id);
+		}
 	}
 
 	function pm_load_settings_tab(tab_id) {

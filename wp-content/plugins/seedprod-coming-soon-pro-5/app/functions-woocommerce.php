@@ -3,6 +3,89 @@
 
 
 /**
+ * WooCommerce Cart fragment
+ *
+ * @see seedprod_pro_cart_link_fragment()
+ */
+add_filter( 'woocommerce_add_to_cart_fragments', 'seedprod_pro_cart_link_fragment' );
+
+if ( ! function_exists( 'seedprod_pro_woo_cart_available' ) ) {
+	/**
+	 * Validates whether the Woo Cart instance is available in the request
+	 *
+	 * @since 2.6.0
+	 * @return boolean
+	 */
+	function seedprod_pro_woo_cart_available() {
+		$woo = WC();
+		return $woo instanceof \WooCommerce && $woo->cart instanceof \WC_Cart;
+	}
+}
+
+if ( ! function_exists( 'seedprod_pro_cart_link_fragment' ) ) {
+	/**
+	 * Cart Fragments
+	 * Ensure cart contents update when products are added to the cart via AJAX
+	 *
+	 * @param  array $fragments Fragments to refresh via AJAX.
+	 * @return array            Fragments to refresh via AJAX
+	 */
+	function seedprod_pro_cart_link_fragment( $fragments ) {
+		global $woocommerce;
+
+		ob_start();
+		seedprod_pro_cart_link();
+		$fragments['span.sp-menu-cart-item-count'] = ob_get_clean();
+
+		ob_start();
+		seedprod_pro_cart_items_total();
+		$fragments['span.sp-menu-cart-button-text'] = ob_get_clean();
+
+		return $fragments;
+	}
+}
+
+if ( ! function_exists( 'seedprod_pro_cart_link' ) ) {
+	/**
+	 * Cart Link
+	 * Displayed a link to the cart including the number of items present and the cart total
+	 *
+	 * @return void
+	 * @since  1.0.0
+	 */
+	function seedprod_pro_cart_link() {
+		if ( ! seedprod_pro_woo_cart_available() ) {
+			return;
+		}
+		?>
+			<span class="sp-text-xs sp-text-white sp-bg-red sp-menu-cart-item-count">
+				<?php echo wp_kses_post( WC()->cart->get_cart_contents_count() ); ?>
+			</span>
+		<?php
+	}
+}
+
+if ( ! function_exists( 'seedprod_pro_cart_items_total' ) ) {
+	/**
+	 * Cart Link
+	 * Displayed a link to the cart including the number of items present and the cart total
+	 *
+	 * @return void
+	 * @since  1.0.0
+	 */
+	function seedprod_pro_cart_items_total() {
+		if ( ! seedprod_pro_woo_cart_available() ) {
+			return;
+		}
+		?>
+			<span class="sp-menu-cart-button-text">
+				<?php echo wp_kses_post( WC()->cart->get_cart_subtotal() ); ?>
+			</span>
+		<?php
+	}
+}
+
+/**
  * Render WooCommerce Custom Products Grid Shortcode for Builder Preview
  */
 function seedprod_pro_render_shortcode_wc_custom_products_grid() {

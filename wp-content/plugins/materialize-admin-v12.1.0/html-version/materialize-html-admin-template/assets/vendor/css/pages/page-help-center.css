@@ -1,0 +1,36 @@
+.help-center-header {
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  min-height: 300px !important;
+}
+.help-center-header .input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 55%;
+}
+@media (max-width: 575.98px) {
+  .help-center-header .input-wrapper {
+    max-width: 70%;
+  }
+}
+
+.help-center-contact-us {
+  border-bottom-right-radius: 0.625rem;
+  border-bottom-left-radius: 0.625rem;
+}
+
+.light-style .help-center-header {
+  background: url("../../../img/pages/header-light.png");
+}
+.light-style .bg-help-center {
+  background-color: #f4f4f6;
+}
+
+.dark-style .help-center-header {
+  background: url("../../../img/pages/header-dark.png");
+}
+.dark-style .bg-help-center {
+  background-color: #3b3e59;
+}

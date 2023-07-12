@@ -170,7 +170,8 @@ class Preload
         if(!empty($matches)) {
 
             $exclusions = apply_filters('perfmatters_critical_image_exclusions', array(
-                ';base64'
+                ';base64',
+                'w3.org'
             ));
 
             $count = 0;

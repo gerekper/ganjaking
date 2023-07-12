@@ -86,7 +86,8 @@ class JS
 					'lazyLoadInstance',
 					'lazysizes',
 					'customize-support',
-					'fastclick'
+					'fastclick',
+					'jqueryParams'
 				);
 
 				if(!empty(Config::$options['assets']['delay_js_quick_exclusions'])) {

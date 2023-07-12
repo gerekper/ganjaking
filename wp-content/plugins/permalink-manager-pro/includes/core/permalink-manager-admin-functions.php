@@ -542,7 +542,7 @@ class Permalink_Manager_Admin_Functions {
 			$html .= "<ul class=\"subsubsub\">";
 			foreach ( $fields as $tab_name => $tab ) {
 				$active_class = ( $active_tab === $tab_name ) ? 'current' : '';
-				$html         .= sprintf( "<li><a href=\"%s\" class=\"%s\" data-tab=\"%s\">%s</a></li>", "#pm_tab_{$tab_name}", $active_class, $tab_name, $tab['section_name'] );
+				$html         .= sprintf( "<li><a href=\"%s\" class=\"%s\" data-tab=\"%s\">%s</a></li>", "#{$tab_name}", $active_class, $tab_name, $tab['section_name'] );
 			}
 			$html .= "</ul>";
 		}
@@ -867,11 +867,17 @@ class Permalink_Manager_Admin_Functions {
 		if ( ! empty( $element->ID ) ) {
 			$id                = $element_id = $element->ID;
 			$native_slug       = $element->post_name;
+
+			$auto_update_val = get_post_meta( $id, "auto_update_uri", true );
+
 			$is_draft          = ( ! empty( $element->post_status ) && ( in_array( $element->post_status, array( 'draft', 'auto-draft' ) ) ) ) ? true : false;
 			$is_draft_excluded = Permalink_Manager_Helper_Functions::is_draft_excluded( $element );
 			$is_front_page     = Permalink_Manager_Helper_Functions::is_front_page( $id );
 
-			$auto_update_val = get_post_meta( $id, "auto_update_uri", true );
+			// Allow users force the URI Editor to appear for drafts and auto-drafts
+			if ( $is_draft_excluded && $is_draft ) {
+				$is_draft_excluded = apply_filters( 'permalink_manager_auto_draft_hide_editor', $is_draft_excluded, $element, $gutenberg );
+			}
 
 			// Get URIs
 			$uri         = Permalink_Manager_URI_Functions_Post::get_post_uri( $id, true, $is_draft );
@@ -894,7 +900,11 @@ class Permalink_Manager_Admin_Functions {
 
 		// If the draft is excluded do not display the contents of URI Editor
 		if ( ! empty( $is_draft_excluded ) ) {
-			$alert = sprintf( __( 'The custom permalink cannot be edited due to the <a href="%s" target="_blank">Permalink Manager settings</a> ("<strong>Exclude drafts & pending posts</strong>") and the post status not allowing it.', 'permalink-manager' ), self::get_admin_url( '&section=settings#exclusion' ) );
+			if ( ! empty( $element->post_status ) && $element->post_status == 'auto-draft' ) {
+				$alert = __( 'Save your post to activate the permalink editor and make changes to the custom permalink.', 'permalink-manager' );
+			} else {
+				$alert = sprintf( __( 'The custom permalink cannot be edited due to the <a href="%s" target="_blank">Permalink Manager settings</a> ("<strong>Exclude drafts & pending posts</strong>") and the post status not allowing it.', 'permalink-manager' ), self::get_admin_url( '&section=settings#exclusion' ) );
+			}
 
 			$html = ( ! $gutenberg ) ? "<div class=\"permalink-manager-edit-uri-box\">" : "<div class=\"permalink-manager-gutenberg permalink-manager-edit-uri-box\">";
 			$html .= sprintf( '<p class="uri_locked">%s</p>', $alert );

@@ -104,7 +104,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 	/**
 	 * This method gives template string to the page for the extra storage options.
 	 *
-	 * @param  Object $existing_partial_template_str - partial templete string to which this outputted template appended
+	 * @param  Object $existing_partial_template_str - partial template string to which this outputted template appended
 	 *
 	 * @return String - the partial template, ready for substitutions to be carried out
 	 */

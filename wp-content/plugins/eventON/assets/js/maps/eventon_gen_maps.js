@@ -26,7 +26,7 @@
 		};
 		var options = $.extend({}, defaults, opt); 
 
-		console.log(options);
+		//console.log(options);
 
 		var geocoder;
 
@@ -135,7 +135,6 @@
 				options.zoomlevel = (typeof zoom !== 'undefined' && zoom !== false)? parseInt(zoom):12;				
 				options.scroll = SC.mapscroll;	
 				options.mapformat = SC.mapformat;	
-
 													
 				code.draw_map();
 			},
@@ -180,7 +179,7 @@
 				}
 
 				//console.log(myOptions);
-
+				//console.log(options);
 				
 				var map_canvas = document.getElementById(options.map_canvas_id);
 				map = new google.maps.Map(map_canvas, myOptions);

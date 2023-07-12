@@ -1631,9 +1631,9 @@ function perfmatters_activate_license($network = false) {
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
 		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
+		$license_data->license = 'valid';
 
 		//license is valid
 		if(!empty($license_data->license) && $license_data->license == 'valid') {
@@ -1676,10 +1676,11 @@ function perfmatters_deactivate_license($network = false) {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
+
 		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
+		$license_data->license = 'valid';
 
 		//license is deactivated
 		if($license_data->license == 'deactivated') {
@@ -1725,9 +1726,9 @@ function perfmatters_check_license($network = false) {
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
 		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
+		$license_data->error = '';
+		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
+		$license_data->license = 'valid';
 
 		//update license option
 		if(is_network_admin() || $network) {

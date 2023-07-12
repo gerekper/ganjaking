@@ -313,6 +313,8 @@ class CSS
             '.dialog-type-lightbox',
             '.dialog-widget-content',
             '.lazyloaded',
+            '.elementor-motion-effects-container',
+            '.elementor-motion-effects-layer',
             '.ast-header-break-point', //astra
             '.dropdown-nav-special-toggle', //kadence
             'rs-fw-forcer' //rev slider

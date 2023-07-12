@@ -82,6 +82,14 @@
 .month_box .day_box{font-weight: normal;}
 .evo_lightboxes .evoyv_lightbox{z-index: 94000}
 
+/* loading */
+	.evoYV .evo_ajax_load_events{display: none}
+	.evoYV .evo_ajax_load_events.evoyv_pre_loader{display: flex}
+	.evoyv_pre_loader{display:flex; flex-direction: row; flex-wrap: wrap; justify-content: 
+		space-between;align-items: flex-start;position: relative;}
+	.evoyv_pre_loader em{height: 180px; width:33.3%; margin: 0; display: flex}
+	.evoyv_pre_loader span{    height: auto;   margin: 0 10px 10px 0;   flex: 1;}
+
 /* tool tips */
 	.evoyv_tip{
 		position: absolute;
@@ -184,9 +192,9 @@
 /* responsive */
 	@media (max-width: 600px){
 		.evoyv_title_tip{max-width: 150px}
-		.evoyv_month{	width: 50%;}
+		.evoyv_month, .evoyv_pre_loader em{	width: 50%;}
 	}
 	@media (max-width: 480px){
-		.evoyv_month{	width: 100%;}
+		.evoyv_month, .evoyv_pre_loader em{	width: 100%;}
 		.evoyv_month_in{padding-right: 0px;}
 	}	

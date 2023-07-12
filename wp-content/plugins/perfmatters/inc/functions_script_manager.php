@@ -267,6 +267,31 @@ function perfmatters_script_manager_load_master_array() {
 		unset($master_array['plugins']['perfmatters']);
 	}
 
+	//sorting function
+	function perfmatters_compare_array_items(&$items, $key) {
+		uasort($items, function($a, $b) use ($key) {
+			return strcmp($a[$key], $b[$key]);
+		});
+	}
+
+	//sort plugins + themes by name
+	perfmatters_compare_array_items($master_array['plugins'], 'name');
+	perfmatters_compare_array_items($master_array['themes'], 'name');
+
+	//sort assets by handle in each category
+	foreach($master_array as $category => $data) {
+		if($category !== 'misc') {
+			foreach($data as $key => $details) {
+				if(!empty($details['assets'])) {
+					perfmatters_compare_array_items($master_array[$category][$key]['assets'], 'handle');
+				}
+			}
+		}
+		elseif(!empty($details['assets'])) {
+			perfmatters_compare_array_items($master_array[$category]['assets'], 'handle');
+		}
+	}
+
 	$master_array = array('resources' => $master_array, 'requires' => $requires);
 
 	return $master_array;

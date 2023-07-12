@@ -369,7 +369,7 @@ class UpdraftPlus_Addon_MoreDatabase {
 	 * @param  string $file           this is the file name of the db zip to be encrypted
 	 * @param  string $encryption     This is the encryption word (salting) to be used when encrypting the data
 	 * @param  string $whichdb        This specifies the correct DB
-	 * @param  string $whichdb_suffix This spcifies the DB suffix
+	 * @param  string $whichdb_suffix This specifies the DB suffix
 	 * @return string                 returns the encrypted file name
 	 */
 	public function encrypt_file($result, $file, $encryption, $whichdb, $whichdb_suffix) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.

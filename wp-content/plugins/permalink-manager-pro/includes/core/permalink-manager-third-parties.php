@@ -615,8 +615,8 @@ class Permalink_Manager_Third_Parties {
 	 */
 	function woocommerce_cot_compatibility() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) && method_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil', 'declare_compatibility' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'permalink-manager' );
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'permalink-manager-pro' );
+			$plugin_name = strtok( PERMALINK_MANAGER_BASENAME, '/' );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $plugin_name );
 		}
 	}
 

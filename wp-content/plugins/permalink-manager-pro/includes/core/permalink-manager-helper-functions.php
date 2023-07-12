@@ -344,10 +344,11 @@ class Permalink_Manager_Helper_Functions {
 	 *
 	 * @param WP_Post|int $post
 	 * @param bool $draft_check
+	 * @param bool $strict_draft_check
 	 *
 	 * @return bool
 	 */
-	public static function is_post_excluded( $post = null, $draft_check = false ) {
+	public static function is_post_excluded( $post = null, $draft_check = false, $strict_draft_check = false ) {
 		$post = ( is_integer( $post ) ) ? get_post( $post ) : $post;
 
 		// 1. Check if post type is disabled
@@ -365,7 +366,7 @@ class Permalink_Manager_Helper_Functions {
 
 		// D. Check if post is a "draft", "pending", removed
 		if ( $draft_check ) {
-			return self::is_draft_excluded( $post );
+			return self::is_draft_excluded( $post, $strict_draft_check );
 		}
 
 		return false;
@@ -375,17 +376,18 @@ class Permalink_Manager_Helper_Functions {
 	 * Check if specific post is a draft (or pending)
 	 *
 	 * @param WP_Post|int $post
+	 * @param bool $strict_draft_check
 	 *
 	 * @return bool
 	 */
-	public static function is_draft_excluded( $post = null ) {
+	public static function is_draft_excluded( $post = null, $strict_draft_check = false ) {
 		global $permalink_manager_options;
 
 		$post = ( is_integer( $post ) ) ? get_post( $post ) : $post;
 
 		// Check if post is a "draft", "pending" or moved to trash
 		if ( ! empty( $post->post_status ) ) {
-			if ( ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) ) {
+			if ( ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) || $strict_draft_check ) {
 				$post_statuses = ( $permalink_manager_options["general"]["ignore_drafts"] == 2 ) ? array( 'draft', 'pending' ) : array( 'draft' );
 
 				if ( in_array( $post->post_status, $post_statuses ) ) {

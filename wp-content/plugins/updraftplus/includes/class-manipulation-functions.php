@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) die('No direct access.');
 class UpdraftPlus_Manipulation_Functions {
 
 	/**
-	 * Replace last occurence
+	 * Replace last occurrence
 	 *
 	 * @param  String  $search         The value being searched for, otherwise known as the needle
 	 * @param  String  $replace        The replacement value that replaces found search values
@@ -209,7 +209,7 @@ class UpdraftPlus_Manipulation_Functions {
 	 *
 	 * @param array   $str_arr1                  array of strings
 	 * @param array   $str_arr2                  array of strings
-	 * @param boolean $match_until_first_numeric only match until first numeric occurence
+	 * @param boolean $match_until_first_numeric only match until first numeric occurrence
 	 * @return string matching str which will be best for replacement
 	 */
 	public static function get_matching_str_from_array_elems($str_arr1, $str_arr2, $match_until_first_numeric = true) {
@@ -220,7 +220,7 @@ class UpdraftPlus_Manipulation_Functions {
 				$str1_str_length = strlen($str1);
 				$temp_str1_chars = str_split($str1);
 				$temp_partial_str = '';
-				// The flag is for whether non-numeric character passed after numeric character occurence in str1. For ex. str1 is utf8mb4, the flag wil be true when parsing m after utf8.
+				// The flag is for whether non-numeric character passed after numeric character occurrence in str1. For ex. str1 is utf8mb4, the flag wil be true when parsing m after utf8.
 				$numeric_char_pass_flag = false;
 				$char_position_in_str1 = 0;
 				while ($char_position_in_str1 < $str1_str_length) {

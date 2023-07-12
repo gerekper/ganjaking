@@ -14,7 +14,7 @@
  * Plugin Name:       Coupon Referral Program
  * Plugin URI:        https://woocommerce.com/products/coupon-referral-program/
  * Description:       <code><strong>Coupon Referral Program</strong></code> extension is mainly to install a referral program on your site and share the discount coupons in return.
- * Version:           1.6.8
+ * Version:           1.6.9
  * Author:            WP Swings
  * Developer:         WP Swings
  * Developer URI:     https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
@@ -22,9 +22,9 @@
  * Domain Path:       /languages
  * Woo: 3820066:337863f09a287f1aaa7ad10d885a170e
  * Requires at least: 5.5.0
- * Tested up to: 6.2.0
+ * Tested up to: 6.2.2
  * WC requires at least: 5.5.0
- * WC tested up to: 7.5.1
+ * WC tested up to: 7.8.2
  *
  * Copyright:         © 2009-2022 WooCommerce.
  * License:           GNU General Public License v3.0
@@ -56,7 +56,7 @@ if ( $activated ) {
 	/** Define plugin constants.  */
 	function define_coupon_referral_program_constants() {
 
-		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_VERSION', '1.6.8' );
+		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_VERSION', '1.6.9' );
 		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_DIR_PATH', plugin_dir_path( __FILE__ ) );
 		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_DIR_URL', plugin_dir_url( __FILE__ ) );
 	}
@@ -153,10 +153,11 @@ if ( $activated ) {
 		);
 		return array_merge( $setting_link, $links );
 	}
-	// SIGNUPNOTIFICATION .
 	add_shortcode( 'signup_notification', 'mwb_crp_signup_notification' );
 
-	/** Signup notification . */
+	/**
+	 * Signup notification.
+	 */
 	function mwb_crp_signup_notification() {
 		$public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.0.0' );
 		if ( $public_obj->check_signup_is_enable() && ! is_user_logged_in() ) {
@@ -252,8 +253,8 @@ if ( $activated ) {
 	function mwb_crp_plugin_row_meta( $links, $file ) {
 		if ( strpos( $file, 'coupon-referral-program/coupon-referral-program.php' ) !== false ) {
 			$new_links = array(
-				'doc'      => '<a href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Documentation.svg" class="wps-info-img" alt="documentation image">Documentation</a>',
-				'support'  => '<a href="https://woocommerce.com/my-account/create-a-ticket/" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Support.svg" class="wps-info-img" alt="support image">Support</a>',
+				'doc'      => '<a href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Documentation.svg" class="wps-info-img" alt="documentation image">' . __( 'Documentation', 'coupon-referral-program' ) . '</a>',
+				'support'  => '<a href="https://woocommerce.com/my-account/create-a-ticket/" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Support.svg" class="wps-info-img" alt="support image">' . __( 'Support', 'coupon-referral-program' ) . '</a>',
 			);
 
 			$links = array_merge( $links, $new_links );

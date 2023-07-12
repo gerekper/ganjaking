@@ -1,0 +1,55 @@
+// * Help center
+// *******************************************************************************
+
+@use '../_bootstrap-extended/include' as light;
+@use '../_bootstrap-extended/include-dark' as dark;
+@import '../_custom-variables/pages';
+
+$help-center-min-height: 300px !default;
+
+.help-center-header {
+  @include light.border-top-radius(light.$border-radius-lg);
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  min-height: $help-center-min-height !important;
+
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: calc(100% - 45%);
+  }
+
+  @include light.media-breakpoint-down(sm) {
+    .input-wrapper {
+      max-width: calc(100% - 30%);
+    }
+  }
+}
+
+.help-center-contact-us {
+  @include light.border-bottom-radius(light.$border-radius-lg);
+}
+
+//Light style
+@if $enable-light-style {
+  .light-style {
+    .help-center-header {
+      background: url('../../../img/pages/header-light.png');
+    }
+    .bg-help-center {
+      background-color: light.rgba-to-hex(light.$gray-100, light.$rgba-to-hex-bg);
+    }
+  }
+}
+
+//Dark style
+@if $enable-dark-style {
+  .dark-style {
+    .help-center-header {
+      background: url('../../../img/pages/header-dark.png');
+    }
+    .bg-help-center {
+      background-color: dark.rgba-to-hex(dark.$gray-100, dark.$rgba-to-hex-bg);
+    }
+  }
+}

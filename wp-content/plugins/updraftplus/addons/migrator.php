@@ -1248,7 +1248,7 @@ class UpdraftPlus_Addons_Migrator {
 					$tablename = $table[0];
 
 					// For migration only. This method is called from Advanced Tools > Search / replace database too.
-					if (!empty($this->restore_options) && !in_array($tablename, $this->restore_options['tables_to_restore']))
+					if (!empty($this->restore_options) && !empty($this->restore_options['tables_to_restore']) && !in_array($tablename, $this->restore_options['tables_to_restore']))
 						continue;
 
 					$stripped_table = substr($tablename, strlen($import_table_prefix));

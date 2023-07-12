@@ -2,7 +2,7 @@
 /**
  * dynamic styles for front end
  *
- * @updated 	4.3
+ * @updated 	4.4.1
  * @package		eventon/Styles
  * @author 		AJDE
  */
@@ -11,7 +11,8 @@
 	// Load variables
 	$opt= get_option('evcal_options_evcal_1');
 	
-	extract( EVO()->elements->get_def_css() );
+	$evo_css_vars = EVO()->elements->get_def_css();
+	extract( $evo_css_vars );
 	
 
 	// complete styles array
@@ -27,35 +28,35 @@
 		array(
 			'item'=>apply_filters('evo_styles_primary_font',
 				'.ajde_evcal_calendar .calendar_header p,
-		.eventon_events_list .eventon_list_event .evoet_cx span.evoet_dayblock span, 
-		.evo_pop_body .evoet_cx span.evoet_dayblock span,
-		.ajde_evcal_calendar .evcal_evdata_row .evcal_evdata_cell h3.evo_h3,
-		.evo_lightbox_content h3.evo_h3, h2.evo_h2, h3.evo_h3,h4.evo_h4,
-		body .ajde_evcal_calendar h4.evo_h4, 
-		.evo_content_in h4.evo_h4,
-		.evo_metarow_ICS .evcal_evdata_cell p a,
-		.eventon_events_list .eventon_list_event .evoet_cx span.evcal_desc2, 
-		.eventon_list_event .evoet_cx span.evcal_event_title,
-		.evoet_cx span.evcal_desc2,	
-		.evo_metarow_ICS .evcal_evdata_cell p a, 
-		.evo_metarow_learnMICS .evcal_col50 .evcal_evdata_cell p a,
-		.eventon_list_event .evo_metarow_locImg p.evoLOCtxt .evo_loc_text_title,		
-		.evo_clik_row .evo_h3,
-		.evotax_term_card .evotax_term_details h2, 
-		.evotax_term_card h3.evotax_term_subtitle,
-		.ajde_evcal_calendar .evo_sort_btn,
-		.eventon_main_section  #evcal_cur,	
-		.ajde_evcal_calendar .calendar_header p.evo_month_title,		
-		.ajde_evcal_calendar .eventon_events_list .evcal_month_line p,
-		.eventon_events_list .eventon_list_event .evcal_cblock,			
-		.ajde_evcal_calendar .evcal_month_line,
-		.eventon_event .event_excerpt_in h3,
-		.ajde_evcal_calendar .evo_footer_nav p.evo_month_title,
-		.evo_eventon_live_now_section h3,
-		.evo_tab_view .evo_tabs p.evo_tab,
-		.evo_metarow_virtual .evo_live_now_tag,
-		.evo_page_body .evo_sin_page .evosin_event_title'
-	),
+			.eventon_events_list .eventon_list_event .evoet_cx span.evoet_dayblock span, 
+			.evo_pop_body .evoet_cx span.evoet_dayblock span,
+			.ajde_evcal_calendar .evcal_evdata_row .evcal_evdata_cell h3.evo_h3,
+			.evo_lightbox_content h3.evo_h3, h2.evo_h2, h3.evo_h3,h4.evo_h4,
+			body .ajde_evcal_calendar h4.evo_h4, 
+			.evo_content_in h4.evo_h4,
+			.evo_metarow_ICS .evcal_evdata_cell p a,
+			.eventon_events_list .eventon_list_event .evoet_cx span.evcal_desc2, 
+			.eventon_list_event .evoet_cx span.evcal_event_title,
+			.evoet_cx span.evcal_desc2,	
+			.evo_metarow_ICS .evcal_evdata_cell p a, 
+			.evo_metarow_learnMICS .evcal_col50 .evcal_evdata_cell p a,
+			.eventon_list_event .evo_metarow_locImg p.evoLOCtxt .evo_loc_text_title,		
+			.evo_clik_row .evo_h3,
+			.evotax_term_card .evotax_term_details h2, 
+			.evotax_term_card h3.evotax_term_subtitle,
+			.ajde_evcal_calendar .evo_sort_btn,
+			.eventon_main_section  #evcal_cur,	
+			.ajde_evcal_calendar .calendar_header p.evo_month_title,		
+			.ajde_evcal_calendar .eventon_events_list .evcal_month_line p,
+			.eventon_events_list .eventon_list_event .evcal_cblock,			
+			.ajde_evcal_calendar .evcal_month_line,
+			.eventon_event .event_excerpt_in h3,
+			.ajde_evcal_calendar .evo_footer_nav p.evo_month_title,
+			.evo_eventon_live_now_section h3,
+			.evo_tab_view .evo_tabs p.evo_tab,
+			.evo_metarow_virtual .evo_live_now_tag,
+			.evo_page_body .evo_sin_page .evosin_event_title'
+		),
 			'css'=>'font-family:$', 
 			'type'=>'font_name',
 			'var'=>'evcal_font_fam',	
@@ -403,14 +404,10 @@
 				array('css'=>'background-color:#$', 'var'=>'evcal__jm011H','default'=>'e2e2e2'),			
 			)			
 		),array(
-			'item'=>'.ajde_evcal_calendar .calendar_header .evcal_arrows:before,
-	.evo_footer_nav .evcal_arrows:before',
+			'item'=>'.ajde_evcal_calendar .calendar_header .evcal_arrows:before,.evo_footer_nav .evcal_arrows:before',
 			'css'=>'border-color:#$', 'var'=>'evcal__jm01A','default'=>'737373'
 		),array(
-			'item'=>'.ajde_evcal_calendar .calendar_header .evcal_arrows.evcal_btn_next:hover:before,
-.ajde_evcal_calendar .calendar_header .evcal_arrows.evcal_btn_prev:hover:before,
-	.evo_footer_nav .evcal_arrows.evcal_btn_prev:hover:before,
-	.evo_footer_nav .evcal_arrows.evcal_btn_next:hover:before',
+			'item'=>'.ajde_evcal_calendar .calendar_header .evcal_arrows.evcal_btn_next:hover:before,.ajde_evcal_calendar .calendar_header .evcal_arrows.evcal_btn_prev:hover:before,.evo_footer_nav .evcal_arrows.evcal_btn_prev:hover:before,.evo_footer_nav .evcal_arrows.evcal_btn_next:hover:before',
 			'css'=>'border-color:#$', 'var'=>'evcal__jm01AH','default'=>'e2e2e2'
 		)
 		,array(
@@ -581,8 +578,8 @@
 				'item'=>'body .EVOSR_section a.evo_do_search:hover, body a.evosr_search_btn:hover, .evo_search_bar_in a.evosr_search_btn:hover',
 				'css'=>'color:#$', 'var'=>'evosr_5',	'default'=>'bbbbbb'
 			),array(
-				'item'=>'.EVOSR_section input, .evo_search_bar input','multicss'=>array(
-					array('css'=>'border-color:#$', 'var'=>'evosr_1','default'=>'ededed'),
+				'item'=>'body .EVOSR_section input[type=text], .evo_search_bar input[type=text]','multicss'=>array(
+					array('css'=>'border-color:#$', 'var'=>'evosr_1','default'=>$evo_color_1),
 					array('css'=>'background-color:#$', 'var'=>'evosr_2','default'=>'ffffff')
 				)	
 			),
@@ -593,19 +590,13 @@
 				)	
 			),
 			array(
-				'item'=>'.evosr_blur','multicss'=>array(
-					array('css'=>'background-color:#$', 'var'=>'evo_001a','default'=>'e6e6e6'),
-					array('css'=>'color:#$', 'var'=>'evo_001b','default'=>'ffffff')
-				)	
-			),
-			array(
 				'item'=>'.evo_search_results_count span','multicss'=>array(
 					array('css'=>'background-color:#$', 'var'=>'evosr_9','default'=>$evo_color_1),
 					array('css'=>'color:#$', 'var'=>'evosr_10','default'=>'ffffff')
 				)	
 			),array(
-				'item'=>'.EVOSR_section input:hover, .evo_search_bar input:hover',
-				'css'=>'color:#$', 'var'=>'evosr_3',	'default'=>'c5c5c5'
+				'item'=>'body .EVOSR_section input[type=text]:hover, .evo_search_bar input[type=text]:hover',
+				'css'=>'border-color:#$', 'var'=>'evosr_3',	'default'=>'c5c5c5'
 			),array(
 				'item'=>'.evo_search_results_count',
 				'css'=>'color:#$', 'var'=>'evosr_8',	'default'=>'14141E'
@@ -647,7 +638,8 @@
     			'css'=>'color:#$', 'var'=>'evo_noe_2c',	'default'=>$evo_color_1
 			)
 			
-	));
+	), 
+	$evo_css_vars);
 
 	
 	if(sizeof($style_array)>0){

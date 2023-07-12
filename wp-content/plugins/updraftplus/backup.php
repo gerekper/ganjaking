@@ -453,7 +453,7 @@ class UpdraftPlus_Backup {
 	}
 
 	/**
-	 * This function will check if backup archives exist and have a usable manifest if so it will atempt to send them for upload
+	 * This function will check if backup archives exist and have a usable manifest if so it will attempt to send them for upload
 	 *
 	 * @param String  $file     - the name of the zip file
 	 * @param String  $whichone - the entity type
@@ -1025,7 +1025,7 @@ class UpdraftPlus_Backup {
 						$prune_it_before_filter = $prune_it;
 						if (!$is_autobackup) $prune_it = apply_filters('updraftplus_prune_or_not', $prune_it, 'files', $backup_datestamp, $entity, $file_entities_backups_found[$entity], $rule, $group_id);
 
-						// The "more than maximum to keep?" counter should not be increased until we actually know that the set is being kept. Before verison 1.11.22, we checked this before running the filter, which resulted in the counter being increased for sets that got pruned via the filter (i.e. not kept) - and too many backups were thus deleted
+						// The "more than maximum to keep?" counter should not be increased until we actually know that the set is being kept. Before version 1.11.22, we checked this before running the filter, which resulted in the counter being increased for sets that got pruned via the filter (i.e. not kept) - and too many backups were thus deleted
 						if (!$prune_it && !$is_autobackup) {
 							if ($file_entities_backups_found[$entity] >= $updraft_retain) {
 								$this->log_with_db_occasionally("$entity: over retain limit ($updraft_retain); will delete this file entity");
@@ -1307,7 +1307,7 @@ class UpdraftPlus_Backup {
 	 * Find the zip files in a given directory for a given nonce
 	 *
 	 * @param String $dir		  - directory to look in
-	 * @param Strign $match_nonce - backup ID to match
+	 * @param String $match_nonce - backup ID to match
 	 *
 	 * @return Array
 	 */
@@ -2215,7 +2215,7 @@ class UpdraftPlus_Backup {
 
 		$where_array = apply_filters('updraftplus_backup_table_sql_where', array(), $table_name, $this);
 		if ('win' === strtolower(substr(PHP_OS, 0, 3))) {
-			// On Windows, the PHP escapeshellarg() replaces % char with white space, so we change the % char to [percent_sign] but change it back later after escapeshellarg finish processsing it
+			// On Windows, the PHP escapeshellarg() replaces % char with white space, so we change the % char to [percent_sign] but change it back later after escapeshellarg finish processing it
 			$where_array = str_replace('%', '[percent_sign]', $where_array);
 		}
 		$where = '';
@@ -2906,7 +2906,7 @@ class UpdraftPlus_Backup {
 	}
 
 	/**
-	 * Encrypts the file if the option is set; returns the basename of the file (according to whether it was encrypted or nto)
+	 * Encrypts the file if the option is set; returns the basename of the file (according to whether it was encrypted or not)
 	 *
 	 * @param String $file - file to encrypt
 	 *
@@ -3336,7 +3336,7 @@ class UpdraftPlus_Backup {
 	 *         "2021/04/*.tmp" // wildcard pattern that excludes all files/directories ending with `optimise` anywhere in their names in the `2021/04` directory
 	 *     ]
 	 *
-	 * @return Array an array of wilcard patterns
+	 * @return Array an array of wildcard patterns
 	 *
 	 * After the $exclude has gone through the regex parsing step, only excluded items containing valid wildcard patterns got captured and will return them in an array in a format like below:
 	 *
@@ -3656,12 +3656,12 @@ class UpdraftPlus_Backup {
 		$time_counting_ended = time();
 
 		// Cache the file scan, if it looks like it'll be useful
-		// We use gzip to reduce the size as on hosts which limit disk I/O, the cacheing may make things worse
+		// We use gzip to reduce the size as on hosts which limit disk I/O, the caching may make things worse
 		// || 'others' == $whichone
 		if (('uploads' == $whichone || 'others' == $whichone) && !$error_occurred && function_exists('gzopen') && function_exists('gzwrite')) {
 			$cache_file_base = $this->zip_basename.'-cachelist-'.$this->makezip_if_altered_since;
 
-			// Just approximate - we're trying to avoid an otherwise-unpredictable PHP fatal error. Cacheing only happens if file enumeration took a long time - so presumably there are very many.
+			// Just approximate - we're trying to avoid an otherwise-unpredictable PHP fatal error. Caching only happens if file enumeration took a long time - so presumably there are very many.
 			$memory_needed_estimate = 0;
 			foreach ($this->zipfiles_batched as $k => $v) {
 				$memory_needed_estimate += strlen($k)+strlen($v)+12;
@@ -3783,7 +3783,7 @@ class UpdraftPlus_Backup {
 		$destination = $this->updraft_dir.'/'.$destination_base;
 
 		// ZipArchive::addFile sometimes fails - there's nothing when we expected something.
-		// Did not used to have || $error_occured here. But it is better to retry, than to simply warn the user to check his logs.
+		// Did not used to have || $error_occurred here. But it is better to retry, than to simply warn the user to check his logs.
 		if (((file_exists($destination) || $this->index == $original_index) && @filesize($destination) < 90 && 'UpdraftPlus_ZipArchive' == $this->use_zip_object) || ($error_occurred && $retry_on_error)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 			// This can be made more sophisticated if feedback justifies it. Currently we just switch to PclZip. But, it may have been a BinZip failure, so we could then try ZipArchive if that is available. If doing that, make sure that an infinite recursion isn't made possible.
 			$updraftplus->log("makezip_addfiles(".$this->use_zip_object.") apparently failed (file=".basename($destination).", type=$whichone, size=".filesize($destination).") - retrying with PclZip");
@@ -3940,7 +3940,7 @@ class UpdraftPlus_Backup {
 	 * We batch up the files, rather than do them one at a time. So we are more efficient than open,one-write,close.
 	 * To call into here, the array $this->zipfiles_batched must be populated (keys=paths, values=add-to-zip-as values). It gets reset upon exit from here.
 	 *
-	 * @param Boolean $warn_on_failures See if it warns on faliures or not
+	 * @param Boolean $warn_on_failures See if it warns on failures or not
 	 *
 	 * @return Boolean|WP_Error
 	 */
@@ -3957,7 +3957,7 @@ class UpdraftPlus_Backup {
 		$maxzipbatch = $updraftplus->jobdata_get('maxzipbatch', 26214400);
 		if ((int) $maxzipbatch < 1024) $maxzipbatch = 26214400;
 
-		// Short-circuit the null case, because we want to detect later if something useful happenned
+		// Short-circuit the null case, because we want to detect later if something useful happened
 		if (0 == count($this->zipfiles_dirbatched) && 0 == count($this->zipfiles_batched)) return true;
 
 		// If on PclZip, then if possible short-circuit to a quicker method (makes a huge time difference - on a folder of 1500 small files, 2.6s instead of 76.6)
@@ -4194,7 +4194,7 @@ class UpdraftPlus_Backup {
 
 						// Need to make sure that something_useful_happened() is always called
 
-						// How long since the current run began? If it's taken long (and we're in danger of not making it at all), or if that is forseeable in future because of general slowness, then we should reduce the parameters.
+						// How long since the current run began? If it's taken long (and we're in danger of not making it at all), or if that is foreseeable in future because of general slowness, then we should reduce the parameters.
 						if (!$something_useful_sizetest) {
 							UpdraftPlus_Job_Scheduler::something_useful_happened();
 						} else {
@@ -4281,7 +4281,7 @@ class UpdraftPlus_Backup {
 							}
 
 							// Detect excessive slowness
-							// Don't do this until we're on at least resumption 7, as we want to allow some time for things to settle down and the maxiumum time to be accurately known (since reducing the batch size unnecessarily can itself cause extra slowness, due to PHP's usage of temporary zip files)
+							// Don't do this until we're on at least resumption 7, as we want to allow some time for things to settle down and the maximum time to be accurately known (since reducing the batch size unnecessarily can itself cause extra slowness, due to PHP's usage of temporary zip files)
 
 							// We use a percentage-based system as much as possible, to avoid the various criteria being in conflict with each other (i.e. a run being both 'slow' and 'fast' at the same time, which is increasingly likely as max_time gets smaller).
 

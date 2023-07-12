@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/address-validation/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 /**
  * WooCommerce Address Validation main plugin class.
@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.10.0';
+	const VERSION = '2.11.0';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;
@@ -51,6 +51,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 	/** @var bool debug mode status */
 	protected $is_debug_mode;
 
+
 	/**
 	 * Sets up the plugin main class.
 	 *
@@ -61,9 +62,10 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain' => 'woocommerce-address-validation',
-			)
+			[
+				'text_domain'   => 'woocommerce-address-validation',
+				'supports_hpos' => true,
+			]
 		);
 
 		spl_autoload_register( array( $this, 'autoload_providers' ) );

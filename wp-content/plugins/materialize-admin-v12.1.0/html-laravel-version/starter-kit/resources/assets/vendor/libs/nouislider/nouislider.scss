@@ -1,0 +1,405 @@
+@use '../../scss/_bootstrap-extended/include' as light;
+@use '../../scss/_bootstrap-extended/include-dark' as dark;
+@import '~nouislider/dist/nouislider';
+@import '../../scss/_custom-variables/libs';
+@import 'mixins';
+
+$noUiSlider-handle-color: #fff !default;
+$noUiSlider-handle-width: 1.25rem !default;
+$noUiSlider-handle-height: 1.25rem !default;
+$noUiSlider-bar-height: 0.25rem !default;
+$noUiSlider-vertical-height: 13.125rem !default;
+$noUiSlider-tick-size: 0.5rem !default;
+$noUiSlider-tick-label-font-size: 0.625rem !default;
+
+.noUi-target {
+  direction: ltr !important;
+  position: relative;
+  border-width: 0;
+  box-shadow: none;
+}
+
+.noUi-target,
+.noUi-target * {
+  touch-action: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.noUi-connects {
+  height: $noUiSlider-bar-height;
+}
+
+.noUi-base,
+.noUi-connects {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.noUi-horizontal .noUi-origin {
+  height: 0;
+
+  @include app-ltr {
+    left: auto;
+    right: 0;
+  }
+}
+
+.noUi-vertical .noUi-origin {
+  width: 0;
+}
+
+.noUi-handle {
+  backface-visibility: hidden;
+  outline: none !important;
+  position: absolute;
+  box-shadow: none;
+  border: none;
+  transition: all 0.2s;
+
+  &:before,
+  &:after {
+    display: none;
+  }
+}
+
+.noUi-touch-area {
+  height: 100%;
+  width: 100%;
+}
+
+.noUi-state-tap .noUi-connect,
+.noUi-state-tap .noUi-origin {
+  transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+}
+
+.noUi-state-drag * {
+  cursor: inherit !important;
+}
+
+// Slider size and handle placement
+
+.noUi-horizontal {
+  height: $noUiSlider-bar-height;
+}
+
+.noUi-horizontal .noUi-handle {
+  left: -($noUiSlider-handle-width * 0.5);
+  width: $noUiSlider-handle-width;
+  height: $noUiSlider-handle-height;
+  top: ($noUiSlider-bar-height - $noUiSlider-handle-height) * 0.5;
+
+  @include app-ltr {
+    right: -($noUiSlider-handle-width * 0.5);
+    left: auto;
+  }
+}
+
+.noUi-vertical {
+  width: $noUiSlider-bar-height;
+}
+
+.noUi-vertical .noUi-handle {
+  bottom: -($noUiSlider-handle-height);
+  width: $noUiSlider-handle-height;
+  height: $noUiSlider-handle-width;
+  right: ($noUiSlider-bar-height - $noUiSlider-handle-height) * 0.5;
+}
+
+// Styling
+.noUi-target {
+  border-radius: 10rem;
+}
+
+// Handles and cursors
+.noUi-draggable {
+  cursor: ew-resize;
+}
+
+.noUi-vertical .noUi-draggable {
+  cursor: ns-resize;
+}
+
+.noUi-handle {
+  border-radius: 10rem;
+  background: $noUiSlider-handle-color;
+  cursor: pointer;
+}
+
+// Disabled state
+[disabled] .noUi-connect {
+  opacity: 0.3;
+}
+
+[disabled] .noUi-handle {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+[disabled].noUi-target,
+[disabled].noUi-handle,
+[disabled] .noUi-handle {
+  cursor: not-allowed;
+}
+
+// Base
+.noUi-pips,
+.noUi-pips * {
+  box-sizing: border-box;
+}
+
+.noUi-pips {
+  color: #999;
+  position: absolute;
+}
+
+// Values
+.noUi-value {
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
+  font-size: $noUiSlider-tick-label-font-size;
+}
+
+// Markings
+.noUi-marker {
+  position: absolute;
+}
+
+// Horizontal layout
+.noUi-pips-horizontal {
+  left: 0;
+  top: 100%;
+  padding: (($noUiSlider-handle-height - $noUiSlider-bar-height) * 0.5 + 0.375rem) 0 0 0;
+  height: 5rem;
+  width: 100%;
+}
+
+.noUi-value-horizontal {
+  padding-top: 0.125rem;
+  transform: translate(-50%, 50%);
+
+  @include app-rtl {
+    transform: translate(50%, 50%);
+  }
+}
+
+.noUi-marker-horizontal.noUi-marker {
+  height: $noUiSlider-tick-size;
+  width: 1px;
+}
+
+@include app-rtl(false) {
+  .noUi-horizontal {
+    .noUi-origin {
+      left: 0;
+    }
+  }
+}
+
+// Vertical layout
+.noUi-pips-vertical {
+  top: 0;
+  left: 100%;
+  padding: 0 0 0 (($noUiSlider-handle-height - $noUiSlider-bar-height) * 0.5 + 0.375rem);
+  height: 100%;
+
+  @include app-rtl {
+    right: 100%;
+    left: auto;
+  }
+}
+
+.noUi-value-vertical {
+  padding-left: $noUiSlider-tick-size + 0.375rem;
+  transform: translate(0, 50%);
+
+  @include app-rtl {
+    right: 100%;
+    padding-right: $noUiSlider-tick-size + 0.375rem;
+    padding-left: 0;
+  }
+}
+
+@include app-rtl(false) {
+  .noUi-marker-vertical {
+    right: 100%;
+  }
+}
+
+.noUi-marker-vertical.noUi-marker {
+  width: $noUiSlider-tick-size;
+  height: 1px;
+}
+
+// Tooltips
+.noUi-tooltip {
+  position: absolute;
+  display: block;
+  padding: 0.35rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  line-height: 1;
+  transition: transform 0.2s;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    clear: both;
+  }
+}
+
+.noUi-horizontal .noUi-tooltip {
+  bottom: 125%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  &::after {
+    content: '';
+    left: 30%;
+    top: 1.25rem;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+  }
+}
+
+.noUi-vertical .noUi-tooltip {
+  top: 50%;
+  right: 125%;
+  transform: translate(-10%, -50%);
+
+  &::after {
+    content: '';
+    top: 14%;
+    right: -5px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    @include app-rtl {
+      left: -14px;
+      right: auto;
+    }
+  }
+
+  @include app-rtl {
+    right: auto;
+    left: 125%;
+    transform: translate(10%, -50%);
+  }
+}
+
+// Light style
+@if $enable-light-style {
+  .light-style {
+    $noUiSlider-default-bg: light.$gray-400;
+    $noUiSlider-tick-label-color: light.$text-light;
+    .noUi-target:not(disabled) {
+      .noUi-handle {
+        box-shadow: light.$form-range-thumb-box-shadow;
+      }
+    }
+    [disabled] {
+      &.noUi-target {
+        background: light.$form-range-track-disabled-bg;
+      }
+      .noUi-handle {
+        background: light.$form-range-thumb-disabled-bg;
+      }
+    }
+
+    .noUi-value {
+      color: $noUiSlider-tick-label-color;
+    }
+    .noUi-marker {
+      background: $noUiSlider-tick-label-color;
+    }
+
+    .noUi-tooltip {
+      font-size: light.$small-font-size;
+      color: light.$tooltip-color;
+      border: none;
+      background: light.$tooltip-bg;
+    }
+    .noUi-horizontal .noUi-tooltip {
+      &::after {
+        border-top: 8px solid light.$tooltip-bg;
+      }
+    }
+    .noUi-vertical .noUi-tooltip {
+      &::after {
+        border-left: 8px solid light.$tooltip-bg;
+      }
+    }
+    @include app-rtl-style {
+      .noUi-vertical .noUi-tooltip {
+        &::after {
+          border-right: 8px solid light.$tooltip-bg;
+          border-left: 8px solid transparent;
+        }
+      }
+    }
+
+    @each $color, $value in light.$theme-colors {
+      @if $color !=primary {
+        @include nouislider-variant('.noUi-#{$color}', $value);
+      }
+    }
+  }
+}
+
+@if $enable-dark-style {
+  .dark-style {
+    $noUiSlider-default-bg: dark.$gray-400;
+    $noUiSlider-tick-label-color: dark.$text-light;
+    .noUi-target:not(disabled) {
+      .noUi-handle {
+        box-shadow: dark.$form-range-thumb-box-shadow;
+      }
+    }
+    [disabled] {
+      &.noUi-target {
+        background: dark.$form-range-track-disabled-bg;
+      }
+      .noUi-handle {
+        background: dark.$form-range-thumb-disabled-bg;
+      }
+    }
+
+    .noUi-value {
+      color: $noUiSlider-tick-label-color;
+    }
+    .noUi-marker {
+      background: $noUiSlider-tick-label-color;
+    }
+
+    .noUi-tooltip {
+      font-size: dark.$small-font-size;
+      color: dark.$tooltip-color;
+      border: none;
+      background: dark.$tooltip-bg;
+    }
+    .noUi-horizontal .noUi-tooltip {
+      &::after {
+        border-top: 8px solid dark.$tooltip-bg;
+      }
+    }
+    .noUi-vertical .noUi-tooltip {
+      &::after {
+        border-left: 8px solid dark.$tooltip-bg;
+      }
+    }
+    @include app-rtl-style {
+      .noUi-vertical .noUi-tooltip {
+        &::after {
+          border-right: 8px solid dark.$tooltip-bg;
+          border-left: 8px solid transparent;
+        }
+      }
+    }
+    @each $color, $value in dark.$theme-colors {
+      @if $color !=primary {
+        @include nouislider-variant('.noUi-#{$color}', $value);
+      }
+    }
+  }
+}

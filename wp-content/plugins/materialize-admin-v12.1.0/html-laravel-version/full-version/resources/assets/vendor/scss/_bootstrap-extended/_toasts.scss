@@ -1,0 +1,47 @@
+// Toasts
+// *******************************************************************************
+
+.bs-toast[class^='bg-'],
+.bs-toast[class*=' bg-'] {
+  border: none;
+}
+
+.toast.bs-toast {
+  z-index: $zindex-toast;
+}
+.toast-header {
+  border-bottom: $border-width solid $toast-header-border-color;
+  .btn-close {
+    background-image: str-replace(str-replace($btn-close-bg, '#{$btn-close-color}', $text-muted), '#', '%23');
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0.875rem;
+    background-size: 0.75rem;
+  }
+}
+.toast-container {
+  --#{$prefix}toast-zindex: 9;
+}
+// RTL close btn style
+@include rtl-only {
+  .toast-header {
+    .btn-close {
+      margin-left: $toast-padding-x * -0.5;
+      margin-right: $toast-padding-x;
+    }
+  }
+}
+// Bootstrap Toasts Example
+.toast-ex {
+  position: fixed;
+  top: 4.1rem;
+  right: 0.5rem;
+  @include rtl-style {
+    left: 0.5rem;
+    right: auto;
+  }
+}
+// Placement Toast example
+.toast-placement-ex {
+  position: fixed;
+}

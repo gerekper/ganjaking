@@ -3,7 +3,7 @@
  * EVO_generator class.
  *
  * @class 		EVO_generator
- * @version		4.3.3
+ * @version		4.4.1
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -50,8 +50,11 @@ class EVO_generator {
 	public $JSON_event_data = array();
 
 	public $event_types = 3;
-
 	public $debug = 1;
+
+	// calendar attributes
+	public $ID;
+
 
 	/**	Construction function	 */
 		public function __construct(){
@@ -161,6 +164,7 @@ class EVO_generator {
 
 			$default_arguments = $this->shell->get_supported_shortcode_atts();
 
+
 			// if there are arguments passed for processing
 			if(!empty($args) && is_array($args)){
 
@@ -244,6 +248,8 @@ class EVO_generator {
 
 			// pluggable hook for the processed args
 			$this->shortcode_args = apply_filters('eventon_process_after_shortcodes', $this->shortcode_args);
+
+			$this->ID = $this->shortcode_args['cal_id'];
 
 			return $this->shortcode_args;
 		}
@@ -373,8 +379,6 @@ class EVO_generator {
 
 			$event_list_array = $this->filtering->move_important_events_up( $event_list_array );
 
-
-
 			// apply event list filters in stages
 			$event_list_array = $this->filtering->apply_filters_to_event_list($event_list_array,'past_future');
 
@@ -487,17 +491,20 @@ class EVO_generator {
 					
 					$new_events_data = $event_list_array;
 
+
 					// GET: eventTop and eventCard for each event in order
 					$event_data = $this->generate_event_data(
 						$event_list_array, 	
-						$focus_start_date_range
+						$focus_start_date_range,
 					);
 
 					$_EC = count($event_list_array);
 					$_m = $DD->format('n');
 					$_y = $DD->format('Y');
 
+
 					$_HTML = $this->filtering->no_more_events_add($event_data, $A);
+
 
 					if( $sep_month == 'yes'){ // for event list with one month
 						$content.= "<div class='evcal_month_line' data-d='eml_{$_m}_{$_y}'><p>".eventon_returnmonth_name_by_num($_m). ($show_year == 'yes'? ' '.$_y:'') ."</p></div>";
@@ -508,10 +515,12 @@ class EVO_generator {
 						$content .= $_HTML;
 					}
 				}
+
 			}
 
+
 			$this->events_list = $this->JSON_event_data = $new_events_data;
-			
+				
 
 			$RR = apply_filters('evo_generate_events_results', array(
 				'html'=> $content,
@@ -1116,6 +1125,8 @@ class EVO_generator {
 			);
 			$_event_date_HTML = array();
 
+			EVO()->cal->set_cur('evcal_1');
+
 			// INITIAL variables
 
 				$SC = $this->shortcode_args;
@@ -1520,13 +1531,15 @@ class EVO_generator {
 				// Intials
 					$__repeatInterval = $this->helper->get_ri_for_event($event_);
 
+
 					$EVO_Event = $EVENT = $this->EVENT = new EVO_Event($event_['event_id'], $event_['event_pmv'] , $__repeatInterval);
+
 					$EVO_Event->get_event_post(); // load event post data
+
 					$EVO_Event->set_lang( $cal_lang );
 					$is_recurring_event = $EVO_Event->is_repeating_event();
 
 					$event_ = $this->_convert_to_readable_eventdata($event_, $EVENT);
-
 
 				// All event structure data
 					$EventData = array();
@@ -1560,6 +1573,7 @@ class EVO_generator {
 					$EventData['event_title'] = $EVENT->post_title;			
 			
 					$_eventInClasses[] = $eventcard_script_class;
+
 
 				// set how a single event would interact
 					$event_ux_val = $event_ux_val_raw = $EVO_Event->get_prop('_evcal_exlink_option')? $EVO_Event->get_prop('_evcal_exlink_option'):1;
@@ -1977,14 +1991,17 @@ class EVO_generator {
 					$EventData['eventtop_day_block'] = true;
 					$EventData['evvals'] = $ev_vals;
 					$EventData['ri'] = $__repeatInterval;
+
 										
 					// CONSTRUCT event top html
 					$eventtop_html =  $structure->get_event_top(  $EventData, $eventtop_fields );						
 					$eventtop_html = apply_filters('eventon_eventtop_html',$eventtop_html);
 					//$eventtop_html = '';
 
+
 				// (---) hook for addons
 					$html_info_line = apply_filters('eventon_event_cal_short_info_line', $eventtop_html);
+
 
 				// BUILD EVENT CARD					
 					$_eventcard = $_eventcard_old = apply_filters('eventon_eventcard_array', $_eventcard, $ev_vals, $event_id, $__repeatInterval, $EVENT);
@@ -2031,6 +2048,7 @@ class EVO_generator {
 				// SCHEME SEO		
 					$__scheme_attributes = ($show_schema) ?"itemscope itemtype='http://schema.org/Event'":'';
 					$__scheme_data = $structure->get_schema($EventData, $_eventcard);
+
 				
 				// CLASES - attribute
 					$_eventClasses [] = 'eventon_list_event';
@@ -2067,6 +2085,7 @@ class EVO_generator {
 						$_eventAttr['style'][] = "display:none; ";
 						$_eventClasses[] = 'evSL';
 					}
+
 
 					$eventbefore = '';
 					$p_elm_styles = array();
@@ -2212,6 +2231,8 @@ class EVO_generator {
 							$_eventInAttr['target'] = '_blank';
 						}						
 					}
+
+
 
 				$attsIn = $this->helper->get_attrs( apply_filters('evo_cal_eventtop_in_attrs',$_eventInAttr, $EVENT->ID, $EVENT));
 

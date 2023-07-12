@@ -217,7 +217,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 			return $status;
 
 		} else {
-			// An unhandled error occured
+			// An unhandled error occurred
 			$status['error'] = 'update_failed';
 			return $status;
 		}
@@ -312,7 +312,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 			return $status;
 			
 		} else {
-			// An unhandled error occured
+			// An unhandled error occurred
 			$status['error'] = 'update_failed';
 			return $status;
 		}
@@ -408,7 +408,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 			return $status;
 
 		} else {
-			// An unhandled error occured
+			// An unhandled error occurred
 			$status['error'] = 'update_failed';
 			return $status;
 		}
@@ -448,7 +448,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 		} elseif (is_bool($result) && $result) {
 			$status['error'] = 'up_to_date';
 		} else {
-			// An unhandled error occured
+			// An unhandled error occurred
 			$status['error'] = 'update_failed';
 		}
 

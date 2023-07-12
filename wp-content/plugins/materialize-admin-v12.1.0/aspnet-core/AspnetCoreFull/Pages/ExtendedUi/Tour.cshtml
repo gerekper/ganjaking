@@ -1,0 +1,32 @@
+@page
+@model AspnetCoreFull.Pages.ExtendedUi.TourModel
+@{
+  ViewData["Title"] = "Shepherd tour - Extended UI";
+}
+@section VendorStyles{
+<link rel="stylesheet" href="~/vendor/libs/shepherd/shepherd.dist.css" />
+}
+@section VendorScripts{
+<script src="~/vendor/libs/shepherd/shepherd.dist.js"></script>
+}
+@section PageScripts{
+<script src="~/js/extended-ui-tour.dist.js"></script>
+}
+@* ************** Content ************** *@
+
+<h4 class="fw-bold py-3 mb-4">
+  <span class="text-muted fw-light">Extended UI /</span> Shepherd tour
+</h4>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card tour-card">
+      <h5 class="card-header">Tour</h5>
+      <div class="card-body">
+        <button class="btn btn-primary" id="shepherd-example">
+          Start tour
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

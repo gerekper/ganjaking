@@ -9,9 +9,9 @@
 
 			document.getElementById("mwb_crp_referral_code").setAttribute("readonly", true);
 		}
-		if(document.getElementById("mwb_crp_referral_tab")) {
+		if(document.getElementById("mwb_crp_referral_dashboard")) {
 
-			document.getElementById("mwb_crp_referral_tab").setAttribute("readonly", true);
+			document.getElementById("mwb_crp_referral_dashboard").setAttribute("readonly", true);
 
 		}
 

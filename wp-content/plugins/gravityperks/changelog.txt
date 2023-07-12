@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.2
+
+	- Fixed an issue where certain security restrictions may block admin access to managing Perks.
+
 ## 2.3.1
 
 	- Fixed deprecation notices in PHP 8.2.

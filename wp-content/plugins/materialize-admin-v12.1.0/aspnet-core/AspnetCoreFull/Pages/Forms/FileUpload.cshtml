@@ -1,0 +1,61 @@
+@page
+@model AspnetCoreFull.Pages.Forms.FileUploadModel
+@{
+  ViewData["Title"] = "File Upload - Forms";
+}
+
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+}
+
+@section PageScripts {
+<script src="~/js/forms-file-upload.dist.js"></script>
+}
+@* ************** Content ************** *@
+
+<h4 class="fw-bold py-3 mb-4">
+  <span class="text-muted fw-light">Forms /</span> File upload
+</h4>
+
+<div class="row">
+  <!-- Basic  -->
+  <div class="col-12">
+    <div class="card mb-4">
+      <h5 class="card-header">Basic</h5>
+      <div class="card-body">
+        <form action="/upload" class="dropzone needsclick" id="dropzone-basic">
+          <div class="dz-message needsclick">
+            Drop files here or click to upload
+            <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+          </div>
+          <div class="fallback">
+            <input name="file" type="file" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Basic  -->
+  <!-- Multi  -->
+  <div class="col-12">
+    <div class="card">
+      <h5 class="card-header">Multiple</h5>
+      <div class="card-body">
+        <form action="/upload" class="dropzone needsclick" id="dropzone-multi">
+          <div class="dz-message needsclick">
+            Drop files here or click to upload
+            <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+          </div>
+          <div class="fallback">
+            <input name="file" type="file" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Multi  -->
+</div>

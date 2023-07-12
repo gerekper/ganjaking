@@ -26,7 +26,7 @@ class Automatic_Upgrader_Skin_Main extends WP_Upgrader_Skin {
 	 * Request filesystem credentials
 	 *
 	 * @param bool   $error 					   Check if there is an error: default is false
-	 * @param string $context 					   Context for credentails
+	 * @param string $context 					   Context for credentials
 	 * @param bool   $allow_relaxed_file_ownership Check if relaxed file ownership is allowed
 	 * @return bool
 	 */

@@ -820,15 +820,10 @@ class Permalink_Manager_URI_Functions_Post {
 	 * @param int $post_id Term ID.
 	 */
 	function new_post_uri( $post_id ) {
-		global $post, $permalink_manager_uris, $permalink_manager_options;
+		global $permalink_manager_uris, $permalink_manager_options;
 
 		// Do not trigger if post is a revision or imported via WP All Import (URI should be set after the post meta is added)
 		if ( wp_is_post_revision( $post_id ) || ( ! empty( $_REQUEST['page'] ) && $_REQUEST['page'] == 'pmxi-admin-import' ) ) {
-			return;
-		}
-
-		// Prevent language mismatch in MultilingualPress plugin
-		if ( is_admin() && ! empty( $post->ID ) && $post->ID != $post_id ) {
 			return;
 		}
 
@@ -839,6 +834,11 @@ class Permalink_Manager_URI_Functions_Post {
 
 		// Do not do anything if post is auto-saved
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		// Do not process REST API requests originating from Gutenberg JS functions
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_SERVER['HTTP_REFERER'] ) && ( strpos( $_SERVER['HTTP_REFERER'], 'wp-admin/post' ) !== false ) ) {
 			return;
 		}
 
@@ -855,7 +855,7 @@ class Permalink_Manager_URI_Functions_Post {
 		$post_object = get_post( $post_id );
 
 		// Check if post is allowed
-		if ( empty( $post_object->post_type ) || empty( $post_object->post_title ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true ) ) {
+		if ( empty( $post_object->post_type ) || empty( $post_object->post_title ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true, true ) ) {
 			return;
 		}
 
@@ -948,8 +948,8 @@ class Permalink_Manager_URI_Functions_Post {
 		$native_uri  = self::get_default_post_uri( $post_id, true );
 		$old_uri     = ( isset( $permalink_manager_uris[ $post->ID ] ) ) ? $permalink_manager_uris[ $post->ID ] : $native_uri;
 
-		// Use default URI if URI is cleared by user OR URI should be automatically updated
-		$new_uri = ( ( $_POST['custom_uri'] == '' ) || $auto_update_uri == 1 ) ? $default_uri : Permalink_Manager_Helper_Functions::sanitize_title( $_POST['custom_uri'], true );
+		// If the post is not draft AND "auto-update" mode is enabled OR the custom permalink field is empty, use default custom permalink
+		$new_uri = ( ( $_POST['custom_uri'] == '' || $auto_update_uri == 1 ) && ! in_array( $post->post_status, array( 'draft', 'auto-draft' ) ) ) ? $default_uri : Permalink_Manager_Helper_Functions::sanitize_title( $_POST['custom_uri'], true );
 
 		// Save or remove "Auto-update URI" settings
 		if ( ! empty( $auto_update_uri_current ) ) {

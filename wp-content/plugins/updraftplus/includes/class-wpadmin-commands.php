@@ -746,7 +746,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 	 * When character set and collate both are unsupported at restoration time and if user change anyone substitution dropdown from both, Other substitution select box value should be change respectively. To achieve this functionality, Ajax calls comes here.
 	 *
 	 * @param  Array $params this is an array of parameters sent via ajax it can include the following:
-	 * collate_change_on_charset_selection_data - It is data in serialize form which is need for choose other dropdown option value. It contains below elemts data:
+	 * collate_change_on_charset_selection_data - It is data in serialize form which is need for choose other dropdown option value. It contains below elements data:
 	 * 	db_supported_collations - All collations supported by current database. This is result of 'SHOW COLLATION' query
 	 * 	db_unsupported_collate_unique - Unsupported collates unique array
 	 * 	db_collates_found - All collates found in database backup file
@@ -779,7 +779,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 		if (empty($similar_type_collate)) {
 			$similar_type_collate = $this->_updraftplus->get_similar_collate_based_on_ocuurence_count($db_collates_found, $db_supported_collations, $updraft_restorer_collate);
 		}
-		// Default collation for changed charcter set
+		// Default collation for changed character set
 		if (empty($similar_type_collate)) {
 			$charset_row = $GLOBALS['wpdb']->get_row($GLOBALS['wpdb']->prepare("SHOW CHARACTER SET LIKE '%s'", $updraft_restorer_charset));
 			if (null !== $charset_row && !empty($charset_row->{'Default collation'})) {

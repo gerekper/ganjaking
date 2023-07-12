@@ -1053,11 +1053,16 @@ class UpdraftPlus_Commands {
 		$response = $updraftplus->get_updraftplus_clone()->ajax_process_login($params, false);
 		
 		if (isset($response['status']) && 'authenticated' == $response['status']) {
+			UpdraftPlus::load_checkout_embed();
+
+			global $updraftplus_checkout_embed;
+			$checkout_url = $updraftplus_checkout_embed->get_product('updraftplus-clone-tokens', UpdraftPlus_Options::admin_page_url().'?page=updraftplus&tab=migrate');
+
 			$tokens = isset($response['tokens']) ? $response['tokens'] : 0;
 			$content = '<div class="updraftclone-main-row">';
 			$content .= '<div class="updraftclone-tokens">';
 			$content .= '<p>' . __("Available temporary clone tokens:", "updraftplus") . ' <span class="tokens-number">' . esc_html($tokens) . '</span></p>';
-			$content .= '<p><a href="'.$updraftplus->get_url('buy-tokens').'">'.__('You can buy more temporary clone tokens here.', 'updraftplus').'</a></p>';
+			$content .= '<p><a href="'.esc_attr($checkout_url).'">'.__('You can buy more temporary clone tokens here.', 'updraftplus').'</a></p>';
 			$content .= '</div>';
 			
 			if (0 != $response['tokens']) {
@@ -1155,7 +1160,7 @@ class UpdraftPlus_Commands {
 	}
 
 	/**
-	 * This function will get the clone netowrk info HTML for the passed in clone URL
+	 * This function will get the clone network info HTML for the passed in clone URL
 	 *
 	 * @param array $params - the parameters for the call
 	 *

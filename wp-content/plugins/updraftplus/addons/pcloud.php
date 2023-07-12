@@ -280,7 +280,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	}
 
 	/**
-	 * This method gets a list of files from the remote stoage that match the string passed in and returns an array of backups
+	 * This method gets a list of files from the remote storage that match the string passed in and returns an array of backups
 	 *
 	 * @param String $match a substring to require (tested via strpos() !== false).
 	 *
@@ -737,7 +737,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	 * This basically reproduces the relevant bits of bootstrap.php from the SDK
 	 *
 	 * @return object
-	 * @throws Exception Throws standart exception.
+	 * @throws Exception Throws standard exception.
 	 */
 	public function bootstrap() {
 

@@ -1,0 +1,43 @@
+@import '../../scss/_bootstrap-extended/include';
+@mixin select2-variant($background, $color: null) {
+  $color: if($color, $color, color-contrast($background));
+
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background: $background !important;
+    color: $color !important;
+  }
+}
+
+@mixin select2-validation-state($state, $border) {
+  .is-#{$state} .select2-container--default .select2-selection,
+  .is-#{$state}.select2-container--default .select2-selection {
+    border-width: $input-focus-border-width;
+    border-color: $border !important;
+  }
+}
+
+@mixin select2-theme($background, $color: null) {
+  $color: if($color, $color, color-contrast($background));
+
+  .select2-container--default {
+    .select2-results__option--highlighted[aria-selected] {
+      background-color: $background !important;
+      color: $color !important;
+    }
+
+    &.select2-container--focus .select2-selection,
+    &.select2-container--open .select2-selection {
+      border-width: $input-focus-border-width;
+      border-color: $background !important;
+    }
+  }
+  .form-floating.select2-focus {
+    label {
+      color: $background;
+    }
+  }
+
+  .select2-primary {
+    @include select2-variant($background, $color);
+  }
+}

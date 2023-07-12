@@ -9,6 +9,7 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/class-seedprod-notifications.php';
 // helper functions
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-woocommerce.php';
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-edd.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/sitelogo-functions.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/templateparts.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-post-info.php';
@@ -22,6 +23,11 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-lp.php';
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-theme-template.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-woocommerce-template-tags.php';
+
+
+
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-theme-template.php';
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-edd-template-tags.php';
 
 
 

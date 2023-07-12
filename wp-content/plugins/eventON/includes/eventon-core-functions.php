@@ -1145,6 +1145,9 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 					$def_dow = $DD->format('w');
 				}
 
+				// initial month and year
+				$init_month_year = $DD->format('F Y');
+
 				// for each repeat times
 				$count = 1; $debug = '';
 				for($x =0; $x < $repeat_count; $x++){
@@ -1160,64 +1163,73 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 						// add original event time
 						if( $x == 0) $repeat_intervals[ ] = array($unix_S, $unix_E);
 
-						$DD->modify('first day of this month');
+						$DD->modify('first day of '. $init_month_year);
 
-						if($x>0) $DD->modify("+{$repeat_gap} month");				
+						if($x>0){
+							$month_increment = $x * $repeat_gap;
+							$DD->modify("+{$month_increment} month");	
+						} 			
 						
 
 						// for each day of week
 						$monthly_repeat_days = $postdata['evo_rep_WK'];					
 						$monthly_repeat_days = is_array($monthly_repeat_days) ? $monthly_repeat_days : explode(',', $monthly_repeat_days);	
 
+						// if NO day of the week is set
+						if( empty( $monthly_repeat_days )) continue;
 
-						if(!empty($monthly_repeat_days)){
 
-							$current_month_year = $DD->format('F Y');
+						$current_month_year = $DD->format('F Y');
+						$DD->modify('last day of '. $current_month_year);
+						$month_end_unix = $DD->format('U');
 
-							foreach($monthly_repeat_days as $d){
+						// for each day of the week
+						foreach($monthly_repeat_days as $d){
 
-								if(empty($d)) continue;							
+							if(empty($d)) continue;							
 
-								$day_name = $day_names[ str_replace('_', '', $d)  ];
+							$day_name = $day_names[ str_replace('_', '', $d)  ];
 
-								// if week of month set
-								if( !empty($monthly_wom)){
+							// if week of month set
+							if( !empty($monthly_wom)){
 
-									$monthly_wom = is_array($monthly_wom)? $monthly_wom:  explode(',', $monthly_wom);	
+								$monthly_wom = is_array($monthly_wom)? $monthly_wom:  explode(',', $monthly_wom);	
 
-									foreach($monthly_wom as $week_om){
+								foreach($monthly_wom as $week_om){
 
-										$DD->modify( $week_names[ $week_om ] .' '. $day_name. ' of '. $current_month_year );
-										$DD->setTime( $event_hour, $event_min);
-										$new_unix_S = $DD->format('U');
-
-										//$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $current_month_year.'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
-
-										// Add the new unix values
-										if($new_unix_S < $unix_S) continue;
-										
-										$repeat_intervals[] = array( 
-											$new_unix_S, 
-											($new_unix_S + $event_duration) 
-										);
-
-										//$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $DD->format('F Y').'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
-									}
-
-								// no week of month set = default to first
-								}else{
-
-									$DD->modify( $week_names[ $def_wom ] .' '. $day_name. ' of '. $DD->format('F Y'));
+									$DD->modify( $week_names[ $week_om ] .' '. $day_name. ' of '. $current_month_year );
 									$DD->setTime( $event_hour, $event_min);
-
 									$new_unix_S = $DD->format('U');
+
+									// if new start is not is current month
+									if( $new_unix_S > $month_end_unix ) continue;
+
+									//$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $current_month_year.'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
 
 									// Add the new unix values
 									if($new_unix_S < $unix_S) continue;
-									if( !eventon_repeat_interval_exists($repeat_intervals,$new_unix_S, ($new_unix_S + $event_duration) ) )
-										$repeat_intervals[] = array( $new_unix_S, ($new_unix_S + $event_duration) );
+									
+									$repeat_intervals[] = array( 
+										$new_unix_S, 
+										($new_unix_S + $event_duration) 
+									);
 
+									//$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $DD->format('F Y').'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
 								}
+
+							// no week of month set = default to first
+							}else{
+
+								$DD->modify( $week_names[ $def_wom ] .' '. $day_name. ' of '. $DD->format('F Y'));
+								$DD->setTime( $event_hour, $event_min);
+
+								$new_unix_S = $DD->format('U');
+
+								// Add the new unix values
+								if($new_unix_S < $unix_S) continue;
+								if( !eventon_repeat_interval_exists($repeat_intervals,$new_unix_S, ($new_unix_S + $event_duration) ) )
+									$repeat_intervals[] = array( $new_unix_S, ($new_unix_S + $event_duration) );
+
 							}
 						}
 						

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-22 00:12+0000\n"
+"POT-Creation-Date: 2023-06-28 09:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -225,8 +225,8 @@ msgstr ""
 msgid "Author (publish_posts)"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:907
-#: includes/core/permalink-manager-admin-functions.php:919
+#: includes/core/permalink-manager-admin-functions.php:917
+#: includes/core/permalink-manager-admin-functions.php:929
 msgid "Auto-update \"Custom permalink\""
 msgstr ""
 
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Clear/leave the field empty to use the default permalink."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:935
+#: includes/core/permalink-manager-admin-functions.php:945
 msgid "Close: "
 msgstr ""
 
@@ -307,7 +307,7 @@ msgstr ""
 #: includes/core/permalink-manager-uri-functions-post.php:775
 #: includes/core/permalink-manager-uri-functions-tax.php:594
 #: includes/core/permalink-manager-admin-functions.php:826
-#: includes/core/permalink-manager-admin-functions.php:953
+#: includes/core/permalink-manager-admin-functions.php:963
 msgid "Custom permalink"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr ""
 msgid "Debug data"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:972
+#: includes/core/permalink-manager-admin-functions.php:982
 msgid "Default custom permalink"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr ""
 msgid "Disable (Permalink Manager redirect functions)"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:921
+#: includes/core/permalink-manager-admin-functions.php:931
 msgid "Disable custom permalink (disallow further changes)"
 msgstr ""
 
@@ -402,12 +402,12 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:911
-#: includes/core/permalink-manager-admin-functions.php:917
+#: includes/core/permalink-manager-admin-functions.php:921
+#: includes/core/permalink-manager-admin-functions.php:927
 msgid "Don't auto-update \"Custom permalink\""
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:918
+#: includes/core/permalink-manager-admin-functions.php:928
 msgid ""
 "Don't auto-update \"Custom permalink\" and exclude from the "
 "\"Regenerate/reset\" tool"
@@ -417,7 +417,7 @@ msgstr ""
 msgid "Don't auto-update custom permalinks (default mode)"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:909
+#: includes/core/permalink-manager-admin-functions.php:919
 msgid "Don't save/generate custom permalinks"
 msgstr ""
 
@@ -593,7 +593,7 @@ msgstr ""
 msgid "https://permalinkmanager.pro?utm_source=plugin"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:958
+#: includes/core/permalink-manager-admin-functions.php:968
 msgid ""
 "If 'auto-update mode' is turned on, the 'Custom permalink' field will be "
 "automatically changed to 'Default custom permalink' (displayed below) after "
@@ -816,7 +816,7 @@ msgstr ""
 msgid "Maciej Bis"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:1019
+#: includes/core/permalink-manager-admin-functions.php:1029
 msgid "Manage redirects"
 msgstr ""
 
@@ -825,7 +825,7 @@ msgstr ""
 msgid "Mode"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:966
+#: includes/core/permalink-manager-admin-functions.php:976
 msgid "Native slug"
 msgstr ""
 
@@ -893,11 +893,11 @@ msgid ""
 "be found here</a>."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:982
+#: includes/core/permalink-manager-admin-functions.php:992
 msgid "Original WordPress permalink (redirected):"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:982
+#: includes/core/permalink-manager-admin-functions.php:992
 msgid "Original WordPress permalink:"
 msgstr ""
 
@@ -919,9 +919,9 @@ msgstr ""
 #: includes/core/permalink-manager-admin-functions.php:112
 #: includes/core/permalink-manager-admin-functions.php:112
 #: includes/core/permalink-manager-admin-functions.php:823
-#: includes/core/permalink-manager-admin-functions.php:930
-#: includes/core/permalink-manager-admin-functions.php:935
-#: includes/core/permalink-manager-admin-functions.php:936
+#: includes/core/permalink-manager-admin-functions.php:940
+#: includes/core/permalink-manager-admin-functions.php:945
+#: includes/core/permalink-manager-admin-functions.php:946
 msgid "Permalink Manager"
 msgstr ""
 
@@ -955,7 +955,7 @@ msgid ""
 msgstr ""
 
 #: includes/views/permalink-manager-settings.php:47
-#: includes/core/permalink-manager-admin-functions.php:958
+#: includes/core/permalink-manager-admin-functions.php:968
 msgid "Permalink update"
 msgstr ""
 
@@ -1162,7 +1162,7 @@ msgstr ""
 msgid "Save old custom permalinks as extra redirects"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:993
+#: includes/core/permalink-manager-admin-functions.php:1003
 msgid "Save permalink"
 msgstr ""
 
@@ -1172,6 +1172,12 @@ msgstr ""
 
 #: includes/views/permalink-manager-settings.php:272
 msgid "Save settings"
+msgstr ""
+
+#: includes/core/permalink-manager-admin-functions.php:904
+msgid ""
+"Save your post to activate the permalink editor and make changes to the "
+"custom permalink."
 msgstr ""
 
 #: includes/views/permalink-manager-uri-editor-tax.php:152
@@ -1291,7 +1297,7 @@ msgid ""
 "The above permalink will be automatically updated and is locked for editing."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:897
+#: includes/core/permalink-manager-admin-functions.php:906
 #, php-format
 msgid ""
 "The custom permalink cannot be edited due to the <a href=\"%s\" "
@@ -1303,11 +1309,11 @@ msgstr ""
 msgid "The custom permalinks array has not been stored in the database yet."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:947
+#: includes/core/permalink-manager-admin-functions.php:957
 msgid "The custom URI cannot be edited on frontpage."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:966
+#: includes/core/permalink-manager-admin-functions.php:976
 msgid ""
 "The native slug is by default automatically used in native permalinks (when "
 "Permalink Manager is disabled)."
@@ -1340,7 +1346,7 @@ msgid ""
 "blackfriday</strong> are equivalent."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:950
+#: includes/core/permalink-manager-admin-functions.php:960
 msgid ""
 "The URL above is displayed in read-only mode. To enable editing, change the "
 "\"<strong>Permalink update</strong>\" setting to <em>Don't auto-update "
@@ -1357,7 +1363,7 @@ msgstr ""
 msgid "Third party plugins"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:1136
+#: includes/core/permalink-manager-admin-functions.php:1146
 #, php-format
 msgid ""
 "This functionality is available only in <a href=\"%s\" target=\"_blank\">"
@@ -1478,7 +1484,7 @@ msgstr ""
 msgid "URI Editor role capability"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:973
+#: includes/core/permalink-manager-admin-functions.php:983
 msgid "Use \"Default custom permalink\""
 msgstr ""
 
@@ -1490,7 +1496,7 @@ msgstr ""
 msgid "Use default settings"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:915
+#: includes/core/permalink-manager-admin-functions.php:925
 #, php-format
 msgid "Use global settings [%s]"
 msgstr ""

@@ -1,0 +1,27 @@
+@{
+  TempData.Keep();
+  string? currentPage = Convert.ToString(ViewContext.RouteData.Values["Page"])!;
+  ViewData["containerNav"] ??= "container-fluid";
+}
+
+<!-- Menu -->
+<aside id="layout-menu" class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
+  <div class='@ViewData["containerNav"] d-flex h-100'>
+    @* ! Starter Kit menu-items *@
+    <ul class="menu-inner py-1">
+      <li class='menu-item@(currentPage == "/Index" ? " active" : "")'>
+        <a asp-page="/Index" class="menu-link">
+          <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+          <div data-i18n="Page 1">Page 1</div>
+        </a>
+      </li>
+      <li class='menu-item@(currentPage == "/Page2" ? " active" : "")'>
+        <a asp-page="/Page2" class="menu-link">
+          <i class="menu-icon tf-icons mdi mdi-file-outline"></i>
+          <div data-i18n="Page 2">Page 2</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- / Menu -->

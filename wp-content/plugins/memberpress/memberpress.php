@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Pro
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.11.6
+Version: 1.11.7
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
@@ -416,6 +416,18 @@ set_site_transient( 'mepr_all_addons', json_encode( [
             'description' => 'MemberPress Quaderno',
             'list_title' => 'Quaderno',
             'cover_image' => 'https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-developer-tools.png'
+        ]
+    ],
+'memberpress-order-bumps' => [
+        'product_name' => 'MemberPress Order Bumps',
+        'product_slug' => 'memberpress-order-bumps',
+        'installable' => true,
+        'extra_info' => [
+            'main_file' => 'memberpress-order-bumps/main.php',
+            'directory' => 'memberpress-order-bumps',
+            'description' => 'MemberPress Order Bumps',
+            'list_title' => 'Order Bumps',
+            'cover_image' => 'https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-order-bumps.png'
         ]
     ],
     'affiliate-royale-mp' => [

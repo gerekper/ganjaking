@@ -1092,7 +1092,7 @@ class Updraft_Restorer {
 	 * @param  string  $package        The file name of the encrypted File
 	 * @param  boolean $delete_package the file can be removed before going off to the restore stage (this is just incase the user dont want to proceed)
 	 * @param  boolean $type 		   Check if the type is true or false
-	 * @return string                  Returns success or Fail depending on errors and restors DB
+	 * @return string                  Returns success or Fail depending on errors and restores DB
 	 */
 	public function unpack_package($package, $delete_package = true, $type = false) {
 
@@ -1834,7 +1834,7 @@ class Updraft_Restorer {
 					$dirlist = $wp_filesystem->dirlist($working_dir, true, true);
 					if (is_array($dirlist)) {
 						$updraftplus->log(__('Files found:', 'updraftplus'), 'notice-restore');
-						foreach ($dirlist as $name => $struc) {
+						foreach (array_keys($dirlist) as $name) {
 							$updraftplus->log("* $name", 'notice-restore');
 						}
 					} else {
@@ -2269,8 +2269,8 @@ class Updraft_Restorer {
 		$dirlist = $wp_filesystem->dirlist($working_dir, true, false);
 		if (is_array($dirlist)) {
 			$move_from = false;
-			foreach ($dirlist as $name => $struc) {
-				if (isset($struc['type']) && 'd' != $struc['type']) continue;
+			foreach ($dirlist as $name => $struct) {
+				if (isset($struct['type']) && 'd' != $struct['type']) continue;
 				if (false === $move_from) {
 					if (isset($fdirnames[$name])) {
 						$move_from = $working_dir . "/".$name;
@@ -2445,7 +2445,7 @@ class Updraft_Restorer {
 			$this->new_table_name = $import_table_prefix.$this->table_name;
 		} else {
 			$this->new_table_name = $this->old_table_prefix ? UpdraftPlus_Manipulation_Functions::str_replace_once($this->old_table_prefix, $import_table_prefix, $this->table_name) : $this->table_name;
-			// if we have a different prefix but the table name has not changed after the replace then we are dealing with a table that does not use the WordPress table prefix, in order for an Atmoic restore to work on this table we need to attach our temporary prefix
+			// if we have a different prefix but the table name has not changed after the replace then we are dealing with a table that does not use the WordPress table prefix, in order for an Atomic restore to work on this table we need to attach our temporary prefix
 			if (!$this->rename_forbidden && $this->old_table_prefix && $this->new_table_name == $this->table_name) {
 				$non_wp_table = true;
 				$this->new_table_name = $import_table_prefix.$this->table_name;
@@ -3250,7 +3250,7 @@ class Updraft_Restorer {
 
 				$non_wp_table = false;
 				
-				// if we have a different prefix but the table name has not changed after the replace then we are dealing with a table that does not use the WordPress table prefix, in order for an Atmoic restore to work on this table we need to attach our temporary prefix
+				// if we have a different prefix but the table name has not changed after the replace then we are dealing with a table that does not use the WordPress table prefix, in order for an Atomic restore to work on this table we need to attach our temporary prefix
 				if (!$this->rename_forbidden && $this->old_table_prefix && $this->new_table_name == $this->table_name) {
 					$non_wp_table = true;
 					$this->new_table_name = $import_table_prefix.$this->table_name;
@@ -3307,7 +3307,7 @@ class Updraft_Restorer {
 
 				$this->new_table_name = $this->old_table_prefix ? UpdraftPlus_Manipulation_Functions::str_replace_once($this->old_table_prefix, $import_table_prefix, $this->table_name) : $this->table_name;
 				
-				// if we have a different prefix but the table name has not changed after the replace then we are dealing with a table that does not use the WordPress table prefix, in order for an Atmoic restore to work on this table we need to attach our temporary prefix
+				// if we have a different prefix but the table name has not changed after the replace then we are dealing with a table that does not use the WordPress table prefix, in order for an Atomic restore to work on this table we need to attach our temporary prefix
 				if (!$this->rename_forbidden && $this->old_table_prefix && $this->new_table_name == $this->table_name) {
 					$non_wp_table = true;
 					$this->new_table_name = $import_table_prefix.$this->table_name;
@@ -3392,19 +3392,19 @@ class Updraft_Restorer {
 					$updraftplus->log_restore_update(array('type' => 'state', 'stage' => 'db', 'data' => array('stage' => 'stored_routine', 'routine_name' => preg_replace('/^`?(.+?)`?$/i', "$1", trim(str_replace('``', '`', $routine_matches[1]))))));
 					if ($this->stored_routine_supported['is_binary_logging_enabled'] && !$this->stored_routine_supported['is_function_creators_trusted'] && !isset($this->continuation_data['old_log_bin_trust_function_creators']) && is_null($old_log_bin_trust_function_creators)) {
 						// it's a new restoration
-						// no matter what the database server is and the priviliges the current DB user has, if the binary logging is enabled, log_bin_trust_function_creators is set to off and DB current, we could end up getting the below error when restoring routines
+						// no matter what the database server is and the privileges the current DB user has, if the binary logging is enabled, log_bin_trust_function_creators is set to off and DB current, we could end up getting the below error when restoring routines
 						// ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
 						// we need to set the log_bin_trust_function_creators "ON" so that the db server will treat all functions as deterministic safe functions.
 						// https://mariadb.com/kb/en/library/binary-logging-of-stored-routines/
 						// https://dev.mysql.com/doc/refman/8.0/en/stored-programs-logging.html
 						// if the DB current user is a non super admin, binary logging is enabled and log_bin_trust_function_creators is set to OFF/0 it will produce this error "(You do not have the SUPER privilege and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)"
-						// the log_bin_tust_function_creators variable is a global variable that should only be changed with caution because other plugins may also use it for some purpose, this can lead to an inaccurate value of log_bin_trust_function_creators especially if the restoration failed and the resumption could not be triggered
+						// the log_bin_trust_function_creators variable is a global variable that should only be changed with caution because other plugins may also use it for some purpose, this can lead to an inaccurate value of log_bin_trust_function_creators especially if the restoration failed and the resumption could not be triggered
 						$old_log_bin_trust_function_creators = $this->set_log_bin_trust_function_creators('ON');
 						if (is_wp_error($old_log_bin_trust_function_creators)) {
 							$updraftplus->log('set_log_bin_trust_function_creators(ON): '.$old_log_bin_trust_function_creators);
 						} else {
 							$updraftplus->log('log_bin_trust_function_creators value has been set to: ON');
-							// we also need to store the original value of the log_bin_trust_function_creator variable to UDP jobdata so that if something goes wrong in the restoration, we're stil able in a earlier time to set this global variable back to what it was (register_shutdown_function seems to be the good one)
+							// we also need to store the original value of the log_bin_trust_function_creator variable to UDP jobdata so that if something goes wrong in the restoration, we're still able in a earlier time to set this global variable back to what it was (register_shutdown_function seems to be the good one)
 							$updraftplus->jobdata_set('old_log_bin_trust_function_creators', $old_log_bin_trust_function_creators);
 							$updraftplus->log('The original value of log_bin_trust_function_creators variable has been successfully added to UDP jobdata');
 						}
@@ -3505,7 +3505,7 @@ class Updraft_Restorer {
 							$sql_line = str_replace($table_name, $new_table_name, $sql_line);
 						}
 					}
-					// by default during an atomic restoration, the last created table is renamed at the end of the restoration process (@see the `if ($this->restoring_table)` code at the end of this method), tipically the DB server will throw an error when creating a view that requires a table that doesn't exist in the database
+					// by default during an atomic restoration, the last created table is renamed at the end of the restoration process (@see the `if ($this->restoring_table)` code at the end of this method), typically the DB server will throw an error when creating a view that requires a table that doesn't exist in the database
 					if ($this->restoring_table) {
 						$final_table_name = $this->maybe_rename_restored_table();
 						$this->restored_table($final_table_name, $this->final_import_table_prefix, $this->old_table_prefix, $this->table_engine);
@@ -3576,7 +3576,7 @@ class Updraft_Restorer {
 			if (is_string($old_log_bin_trust_function_creators) && '' !== $old_log_bin_trust_function_creators) {
 				$this->set_log_bin_trust_function_creators($old_log_bin_trust_function_creators);
 				// no need to check the return value of the set_log_bin_trust_function_creators here as if it is an wp error it has been handled already and this block of code wont be executed
-				$updraftplus->log("log_bin_trust_function_creators variable has been resetted: ".$old_log_bin_trust_function_creators);
+				$updraftplus->log("log_bin_trust_function_creators variable has been reset: ".$old_log_bin_trust_function_creators);
 				// unset the old_log_bin_trust_function_creators index from the continuation_data so that the on_shutdown function won't check it again
 				unset($this->continuation_data['old_log_bin_trust_function_creators']);
 				// also delete the old_log_bin_trust_function_creators jobdata to prevent the on_shutdown function accessing and deleting it twice
@@ -3868,7 +3868,7 @@ class Updraft_Restorer {
 	
 	/**
 	 * UPDATE is sql_type=5 (not used in the function, but used in Migrator and so noted here for reference)
-	 * $import_table_prefix is only use in one place in this function (long INSERTs), and otherwise need/should not be supplied
+	 * $import_table_prefix is only use in one place in this function (long INSERTTs), and otherwise need/should not be supplied
 	 *
 	 * SQL Types:
 	 * 1 DROP

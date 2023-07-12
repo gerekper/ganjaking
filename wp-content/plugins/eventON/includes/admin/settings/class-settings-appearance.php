@@ -115,7 +115,7 @@ class evoadmin_set_appearance{
 					)),
 					array('id'=>'evors','type'=>'fontation','name'=>__('Search Field','eventon'),
 							'variations'=>array(
-							array('id'=>'evosr_1', 'name'=>__('Border Color','eventon'),'type'=>'color', 'default'=>'EDEDED'),
+							array('id'=>'evosr_1', 'name'=>__('Border Color','eventon'),'type'=>'color', 'default'=>$evo_color_1),
 							array('id'=>'evosr_2', 'name'=>__('Background Color','eventon'),'type'=>'color', 'default'=>'F2F2F2'),
 							array('id'=>'evosr_3', 'name'=>__('Border Color (Hover)','eventon'),'type'=>'color', 'default'=>'c5c5c5')	
 						)

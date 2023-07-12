@@ -1,0 +1,94 @@
+// Accordions
+// *******************************************************************************
+
+@each $color, $value in $theme-colors {
+  @if $color != primary {
+    // Mixins of different Advance Styling
+    @include template-accordion-header-variant('.accordion-header-#{$color}', $value);
+  }
+}
+
+// accordion without icon
+.accordion {
+  &.accordion-without-arrow {
+    .accordion-button::after {
+      background-image: none !important;
+    }
+  }
+}
+.accordion {
+  .accordion-body {
+    padding-top: calc($accordion-body-padding-y/2);
+  }
+}
+
+.accordion-button.collapsed:focus {
+  box-shadow: none;
+}
+
+.accordion-header {
+  font-weight: $font-weight-normal;
+  line-height: 1.54;
+}
+
+.accordion-item {
+  transition: $accordion-transition;
+  transition-property: margin-top, margin-bottom, border-radius, border;
+  box-shadow: 0px 2px 1px -1px rgba($black, 0.2), 0px 1px 1px 0px rgba($black, 0.14), 0px 1px 3px 0px rgba($black, 0.12);
+  border: 0;
+
+  &:not(.active):not(:first-child) {
+    .accordion-header {
+      border-top: $accordion-border-width solid $accordion-border-color;
+    }
+  }
+  &.active {
+    box-shadow: 0px 4px 8px -4px rgba($black, 0.42);
+    &:not(:first-child) {
+      margin-top: $spacer;
+    }
+    &:not(:last-child) {
+      margin-bottom: $spacer;
+    }
+  }
+}
+
+// Accordion border radius
+.accordion-button {
+  @include font-size(1rem);
+
+  @include border-top-radius($accordion-border-radius);
+  &.collapsed {
+    @include border-radius($accordion-border-radius);
+  }
+  &:not(.collapsed) {
+    box-shadow: none;
+  }
+}
+
+// Accordion Popout Variant
+.accordion-popout {
+  .accordion-item {
+    transition: margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    &:not(.active) {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+}
+
+// RTL
+// *******************************************************************************
+
+@include rtl-only {
+  .accordion-button {
+    text-align: right;
+    &::after {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    &:not(.collapsed)::after {
+      transform: rotate(180deg);
+    }
+  }
+}

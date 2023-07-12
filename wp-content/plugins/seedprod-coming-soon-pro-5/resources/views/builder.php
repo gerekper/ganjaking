@@ -246,19 +246,45 @@ $template_preview_path = 'https://assets.seedprod.com/preview-';
 // Get user personalization preferences.
 $user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
 
-if ( empty( $user_personalization_preferences ) ) {
+// Preference array.
+$user_personalization_preferences_schema = array(
+	'show_templatetag_settings'             => true,
+	'show_woocommerce_templatetag_settings' => true,
+	'show_edd_templatetag_settings'         => true,
+	'show_entry_settings'                   => true,
+	'show_entry_settings_2'                 => true,
+	'show_entry_settings_4'                 => true,
+	'show_entry_settings_5'                 => true,
+	'show_entry_settings_3'                 => false,
+	'show_entry_settings_6'                 => true,
+	'show_layoutnav'                        => false,
+);
+
+// Check if DB array has all the keys.
+$get_array_keys = array_keys( $user_personalization_preferences_schema );
+
+/**
+ * Check if array keys exist func.
+ *
+ * @param array $keys  Array of keys.
+ * @param array $array Array of keys.
+ * @return boolean
+ */
+function array_keys_exists( array $keys, array $array ) {
+	$diff = array_diff_key( array_flip( $keys ), $array );
+	return count( $diff ) === 0;
+}
+
+$decoded_personalization_preferences = json_decode( $user_personalization_preferences, true ); // assoc array.
+
+if ( ! $user_personalization_preferences || empty( $user_personalization_preferences ) ) {
 	// Set default settings.
-	$user_personalization_preferences = array(
-		'show_templatetag_settings'             => true,
-		'show_woocommerce_templatetag_settings' => true,
-		'show_entry_settings'                   => true,
-		'show_entry_settings_2'                 => true,
-		'show_entry_settings_4'                 => true,
-		'show_entry_settings_5'                 => true,
-		'show_entry_settings_3'                 => false,
-		'show_layoutnav'                        => false,
-	);
-	add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences ), true );
+	add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), true );
+	$user_personalization_preferences = json_decode( get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true ) );
+} elseif ( ! array_keys_exists( $get_array_keys, $decoded_personalization_preferences ) ) {
+	update_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences_schema ), $user_personalization_preferences );
+	// Get updated settings.
+	$user_personalization_preferences = json_decode( get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true ) );
 } else {
 	$user_personalization_preferences = json_decode( $user_personalization_preferences );
 }
@@ -586,6 +612,13 @@ $seedprod_data = array(
 		$seedprod_data['wc_active'] = false;
 	}
 
+	// Check if Easy Digital Downloads is active
+	if ( in_array( 'easy-digital-downloads/easy-digital-downloads.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || in_array( 'easy-digital-downloads-pro/easy-digital-downloads.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		$seedprod_data['edd_active'] = true;
+	} else {
+		$seedprod_data['edd_active'] = false;
+	}
+
 	// Get translations
 	$seedprod_data['translations_pro'] = seedprod_pro_get_jed_locale_data( 'seedprod-pro' );
 
@@ -599,11 +632,11 @@ $seedprod_data = array(
 	jQuery('link[href*="forms.css"]').remove();
 	jQuery('link[href*="common.css"]').remove();
 
-	
+
 	xdLocalStorage.init({
 		iframeUrl:'https://assets.seedprod.com/cross-domain-local-storage/cross-domain-local-storage.html',
 		initCallback: function () {
-			
+
 			xdLocalStorage.getItem('seedprod_section_data', function (data) {
 					if(data.value=='' || data.value==null){
 						seedprod_store.seedprod_copy_paste_enabled= false;
@@ -625,15 +658,15 @@ $seedprod_data = array(
 	}
 
 	function getxdLocalStorageKeyValue(key){
-		
+
 		xdLocalStorage.getItem(key, function (data) {
 			seedprod_section_data = JSON.parse(data.value);
 		});
 
 	}
-	
+
 	function getxdLocalStorageValue(){
-		
+
 		xdLocalStorage.getItem('seedprod_section_data', function (data) {
 			seedprod_section_data = JSON.parse(data.value);
 		});

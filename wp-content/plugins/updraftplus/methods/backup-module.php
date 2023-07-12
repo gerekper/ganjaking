@@ -777,7 +777,7 @@ abstract class UpdraftPlus_BackupModule {
 	 * This function is a wrapper and will call $updraftplus->log(), the backup modules should use this so we can add information to the log lines to do with the remote storage and instance settings.
 	 *
 	 * @param string  $line       - the log line
-	 * @param string  $level      - the log level: notice, warning, error. If suffixed with a hypen and a destination, then the default destination is changed too.
+	 * @param string  $level      - the log level: notice, warning, error. If suffixed with a hyphen and a destination, then the default destination is changed too.
 	 * @param boolean $uniq_id    - each of these will only be logged once
 	 * @param boolean $skip_dblog - if true, then do not write to the database
 	 *

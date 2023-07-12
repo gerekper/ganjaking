@@ -862,7 +862,7 @@ class EVO_General_Elements{
 			}
 
 			// input field
-			$input = "<input {$inputAttr} type='hidden' name='{$args['id']}' value='{$input_value}'/>";
+			$input = "<input id='{$args['id']}_input' {$inputAttr} type='hidden' name='{$args['id']}' value='{$input_value}'/>";
 		}
 
 		$guide = '';
@@ -872,7 +872,7 @@ class EVO_General_Elements{
 
 		$label = '';
 		if(!empty($args['label']))
-			$label = "<label class='ajde_yn_btn_label evo_elm' for='{$args['id']}'>{$args['label']}{$guide}</label>";
+			$label = "<label class='ajde_yn_btn_label evo_elm' for='{$args['id']}_input'>{$args['label']}{$guide}</label>";
 
 		// nesting
 			$nesting_start = $nesting_end = '';

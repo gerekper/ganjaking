@@ -17,7 +17,7 @@ class evo_cal_body{
 
 	// construct the calendar body 
 		public function __construct(){
-			$this->cal = EVO()->evo_generator;
+			$this->cal = EVO()->calendar;
 			$this->rtl = (!empty($this->cal->evopt1['evo_rtl'])  && $this->cal->evopt1['evo_rtl']=='yes')? true: false;			
 		}
 
@@ -170,7 +170,7 @@ class evo_cal_body{
 			// random cal id
 				$cal_id = (empty($cal_id))? rand(100,900): $cal_id;
 				$cal_id = str_replace(' ', '-', $cal_id);
-				$this->cal->cal_id = $cal_id;
+				$this->cal->cal_id = $this->cal->ID = $cal_id;
 
 
 			ob_start();

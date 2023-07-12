@@ -3,7 +3,7 @@
 Plugin Name: SeedProd Pro
 Plugin URI: https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=plugin-uri-link
 Description: The Easiest WordPress Drag & Drop Page Builder that allows you to build your webiste, create Landing Pages, Coming Soon Pages, Maintenance Mode Pages and more.
-Version:  6.15.12
+Version:  6.15.13.1
 Author: SeedProd
 Author URI: https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=author-uri-link
 Text Domain: seedprod-pro
@@ -17,7 +17,7 @@ License: GPLv2 or later
 
 define( 'SEEDPROD_PRO_BUILD', 'pro' );
 define( 'SEEDPROD_PRO_SLUG', 'seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php' );
-define( 'SEEDPROD_PRO_VERSION', '6.15.12' );
+define( 'SEEDPROD_PRO_VERSION', '6.15.13.1' );
 define( 'SEEDPROD_PRO_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 // Example output: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/seedprod/
 define( 'SEEDPROD_PRO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -33,6 +33,7 @@ if ( defined( 'SEEDPROD_LOCAL_JS' ) ) {
 	define( 'SEEDPROD_PRO_WEB_API_URL', 'https://app.seedprod.com/' );
 	define( 'SEEDPROD_PRO_BACKGROUND_DOWNLOAD_API_URL', 'https://api.seedprod.com/v3/background_download' );
 }
+
 add_action( 'plugins_loaded', function() {
 update_option( 'seedprod_user_id', wp_get_current_user() );
 update_option( 'seedprod_api_token', 'api_token');
@@ -81,7 +82,6 @@ register_rest_route( 'seedprod/v1', '/templates', [
 ] );
 
 } );
-
 
 /**
  * Load Translation
@@ -182,7 +182,25 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/routes.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/load_controller.php';
 /* start-remove-for-free */
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-posts-block.php';
+//require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/translations.php';
+
+/**
+ * Load Translations
+ */
+//add_action( 'init', 'seedprod_pro_translations' );
+function seedprod_pro_translations() {
+	$translations = new SEEDPRODTranslations(
+		'plugin',
+		'seedprod-pro',
+		'https://translations.seedprod.com/packages/seedprod-pro/packages.json'
+	);
+	$translations->init();
+}
+
+
 /* end-remove-for-free */
+
+
 
 /**
  * Maybe Migrate

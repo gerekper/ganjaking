@@ -217,7 +217,7 @@ abstract class UpdraftCentral_Host {
 	 * @param Integer $errno   Error number
 	 * @param String  $errstr  Error string
 	 * @param String  $errfile Error file
-	 * @param String  $errline Line number where the error occured
+	 * @param String  $errline Line number where the error occurred
 	 *
 	 * @return string|bool
 	 */
@@ -295,7 +295,7 @@ abstract class UpdraftCentral_Host {
 	 * @param Integer $errno   Error number
 	 * @param String  $errstr  Error string
 	 * @param String  $errfile Error file
-	 * @param String  $errline Line number where the error occured
+	 * @param String  $errline Line number where the error occurred
 	 *
 	 * @return bool
 	 */

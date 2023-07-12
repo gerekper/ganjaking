@@ -217,8 +217,10 @@ class Coupon_Referral_Program {
 			$this->loader->add_filter( 'woocommerce_registration_errors', $plugin_public, 'mwb_crp_prevent_user_resgiration', 10, 3 );
 
 			$this->loader->add_filter( 'woocommerce_product_tabs', $plugin_public, 'wps_crp_add_custom_tabs' );
-		}
 
+			// Give the coupon discount when the referred customer paid after the free trial ended.
+			$this->loader->add_filter( 'wcs_renewal_order_created', $plugin_public, 'wps_crp_discount_free_trial_ended', 99, 2 );
+		}
 	}
 	/**
 	 *  Inlcude the email classes

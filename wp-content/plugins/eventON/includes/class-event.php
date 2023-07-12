@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.4
+ * @version 4.4.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -67,7 +67,7 @@ class EVO_Event extends EVO_Data_Store{
 			$this->post_status = $post->post_status;
 
 			// validate post is indeed event
-			if( 'ajde_events' !== $this->post_type) return false;
+			//if( 'ajde_events' !== $this->post_type) return false;
 		}
 
 		$this->event_data = $this->meta_data;

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/address-validation/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 /**
  * Address Validation Handler class
@@ -404,6 +404,7 @@ class WC_Address_Validation_Handler {
 		return apply_filters( 'wc_address_validation_validation_required', $validation_required );
 	}
 
+
 	/**
 	 * Is smarty street api retired
 	 *
@@ -411,14 +412,14 @@ class WC_Address_Validation_Handler {
 	 * @return boolean
 	 */
 	public static function is_smarty_street_retired() {
-
 		$current_date = strtotime( wp_date( 'd-m-Y' ) );
 
 		// Make sure date according the WordPress time zone.
-		$smarty_retire_date =  strtotime( wp_date( 'd-m-Y', strtotime( '04-10-2022' ) ) );
+		$smarty_retire_date = strtotime( wp_date( 'd-m-Y', strtotime( '04-10-2022' ) ) );
 
 		return $current_date >= $smarty_retire_date;
 	}
+
 
 	/**
 	 * Set the default provider if needed
@@ -429,11 +430,11 @@ class WC_Address_Validation_Handler {
 
 		$active_provider = get_option( 'wc_address_validation_active_provider', '' );
 
-		if( self::is_smarty_street_retired() && 'WC_Address_Validation_Provider_SmartyStreets' == $active_provider ) {
+		if ( self::is_smarty_street_retired() && 'WC_Address_Validation_Provider_SmartyStreets' == $active_provider ) {
 			update_option( 'wc_address_validation_active_provider', 'WC_Address_Validation_Provider_Addressy' );
 			update_option( 'wc_address_validation_smartystreets_retired_message','true' );
-
 		}
 	}
+
 
 }

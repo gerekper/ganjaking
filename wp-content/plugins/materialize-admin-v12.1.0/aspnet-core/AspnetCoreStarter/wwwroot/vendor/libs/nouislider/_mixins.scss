@@ -1,0 +1,25 @@
+@mixin nouislider-variant($parent, $background) {
+  #{$parent}.noUi-target {
+    // If slider is not disabled
+    &:not([disabled]) {
+      background: rgba($background, 0.4);
+      .noUi-connect {
+        background: $background;
+      }
+
+      .noUi-handle {
+        background: $background;
+        &:hover {
+          box-shadow: 0 0 0 8px rgba($background, 0.15);
+        }
+        &:active {
+          box-shadow: 0 0 0 10px rgba($background, 0.2);
+        }
+      }
+    }
+  }
+}
+
+@mixin nouislider-theme($background) {
+  @include nouislider-variant('', $background);
+}

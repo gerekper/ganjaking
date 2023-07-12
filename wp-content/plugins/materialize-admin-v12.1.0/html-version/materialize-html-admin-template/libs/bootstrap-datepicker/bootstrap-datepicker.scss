@@ -1,0 +1,352 @@
+@use '../../scss/_bootstrap-extended/include' as light;
+@use '../../scss/_bootstrap-extended/include-dark' as dark;
+@import '../../scss/_custom-variables/libs';
+
+$datepicker-arrow-size: 0.5rem !default;
+$datepicker-item-width: 2.188rem !default;
+$datepicker-item-height: 2.05rem !default;
+$white: #fff;
+
+.datepicker {
+  direction: ltr;
+  //! FIX: We can't use dropdown animation here
+  animation: none !important;
+  &.dropdown-menu {
+    padding: 0;
+    margin: 0;
+  }
+
+  .next,
+  .prev {
+    color: transparent !important;
+    position: relative;
+  }
+
+  .next::after,
+  .prev::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: $datepicker-arrow-size;
+    width: $datepicker-arrow-size;
+    border-radius: 0;
+    border-style: solid;
+    transform: rotate(-45deg);
+    transform-origin: left;
+  }
+
+  .next::after {
+    margin-left: -$datepicker-arrow-size * 0.5;
+    border-width: 0 1px 1px 0;
+
+    @include app-rtl {
+      transform: rotate(-45deg);
+      border-width: 1px 0 0 1px;
+      margin-left: 0;
+    }
+  }
+
+  .prev::after {
+    border-width: 1px 0 0 1px;
+
+    @include app-rtl {
+      transform: rotate(-45deg);
+      border-width: 0 1px 1px 0;
+      margin-left: -$datepicker-arrow-size * 0.5;
+    }
+  }
+
+  &.datepicker-rtl {
+    direction: rtl;
+
+    table tr td span {
+      float: right;
+    }
+  }
+
+  @include app-rtl {
+    direction: rtl;
+  }
+}
+
+.datepicker table {
+  user-select: none;
+  margin: 0;
+  overflow: hidden;
+  border-radius: light.$border-radius;
+  tbody {
+    //! FIX: padding or margin top will not work in table
+    &:before {
+      content: '@';
+      display: block;
+      line-height: 6px;
+      text-indent: -99999px;
+    }
+  }
+}
+
+.datepicker table tr td,
+.datepicker table tr th {
+  width: $datepicker-item-width;
+  height: $datepicker-item-height;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+
+  &.dow {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+}
+
+.datepicker table tr td {
+  border-radius: light.$border-radius-pill;
+  &.day:hover,
+  &.focused {
+    cursor: pointer;
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    cursor: default;
+    background: none;
+  }
+
+  &.range {
+    border-radius: 0 !important;
+  }
+
+  // span.month,
+  // span.year {
+  //   margin: 0 0.5rem;
+  // }
+
+  &.range-start:not(.range-end) {
+    @include app-ltr {
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+
+    @include app-rtl {
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+    }
+  }
+
+  &.range-end:not(.range-start) {
+    @include app-ltr {
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+    }
+
+    @include app-rtl {
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+  }
+
+  &.selected,
+  &.selected:hover,
+  &.selected.highlighted {
+    color: $white;
+  }
+}
+
+.datepicker table tr td span {
+  display: block;
+  float: left;
+  width: 3.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  cursor: pointer;
+
+  &.disabled,
+  &.disabled:hover {
+    background: none;
+    cursor: default;
+  }
+
+  @include app-rtl {
+    float: right;
+  }
+}
+.datepicker .datepicker-switch,
+.datepicker .prev,
+.datepicker .next,
+.datepicker tfoot tr th {
+  cursor: pointer;
+}
+
+// styling for calendar-week cells
+.datepicker .cw {
+  font-weight: light.$font-weight-semibold;
+}
+
+.datepicker-months table,
+.datepicker-years table,
+.datepicker-decades table,
+.datepicker-centuries table {
+  width: (3.375rem * 3) + 2.625rem;
+
+  td {
+    padding: 0 0 1.25rem 1.25rem;
+
+    @include app-rtl {
+      padding: 0 1.25rem 1.25rem 0;
+    }
+  }
+}
+
+.datepicker-dropdown {
+  left: 0;
+  top: 0;
+  padding: 0;
+}
+
+.input-daterange input {
+  text-align: center;
+}
+
+// Light style
+@if $enable-light-style {
+  .light-style {
+    .datepicker-dropdown {
+      z-index: light.$zindex-popover !important;
+    }
+
+    .datepicker {
+      &.datepicker-inline {
+        table {
+          box-shadow: light.$floating-component-shadow;
+        }
+      }
+
+      .next::after,
+      .prev::after {
+        color: light.$headings-color;
+      }
+
+      table {
+        thead {
+          background: light.$dropdown-bg;
+          tr,
+          td {
+            color: light.$headings-color;
+          }
+        }
+        tr td,
+        tr th {
+          &.new {
+            color: light.$text-light;
+          }
+        }
+
+        tr td {
+          &.old,
+          &.disabled {
+            color: light.$text-light;
+          }
+
+          &.day:hover,
+          &.focused {
+            background: light.$gray-100;
+            color: light.$body-color;
+          }
+        }
+      }
+    }
+
+    .datepicker table tr td span {
+      border-radius: light.$border-radius;
+
+      &:hover,
+      &.focused {
+        background: light.$gray-50;
+      }
+
+      &.disabled,
+      &.disabled:hover {
+        color: light.$text-light;
+      }
+
+      &.old,
+      &.new {
+        color: light.$text-light;
+      }
+    }
+  }
+}
+
+// Dark style
+@if $enable-dark-style {
+  .dark-style {
+    .datepicker-dropdown {
+      z-index: dark.$zindex-popover !important;
+    }
+
+    .datepicker {
+      &.datepicker-inline {
+        table {
+          box-shadow: dark.$floating-component-shadow;
+        }
+      }
+
+      .next::after,
+      .prev::after {
+        color: dark.$headings-color;
+      }
+
+      table {
+        thead {
+          background: dark.$dropdown-bg;
+          tr,
+          td {
+            color: dark.$body-color;
+          }
+        }
+        tr td,
+        tr th {
+          &.new {
+            color: dark.$text-light;
+          }
+        }
+
+        tr td {
+          color: dark.$body-color;
+
+          &.old,
+          &.disabled {
+            color: dark.$text-lightest;
+          }
+
+          &.day:hover,
+          &.focused {
+            background: dark.$gray-100;
+            color: dark.$body-color;
+          }
+        }
+      }
+    }
+
+    .datepicker table tr td span {
+      border-radius: dark.$border-radius;
+
+      &:hover,
+      &.focused {
+        background: dark.$input-bg;
+      }
+
+      &.disabled,
+      &.disabled:hover {
+        color: dark.$text-light;
+      }
+
+      &.old,
+      &.new {
+        color: dark.$text-light;
+      }
+    }
+  }
+}

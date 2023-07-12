@@ -1,0 +1,3 @@
+<template>
+  <VRating hover />
+</template>

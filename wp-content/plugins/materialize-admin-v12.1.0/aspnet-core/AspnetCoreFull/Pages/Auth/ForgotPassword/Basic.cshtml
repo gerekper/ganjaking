@@ -1,0 +1,63 @@
+@page
+@model AspnetCoreFull.Pages.Auth.ForgotPassword.BasicModel
+@{
+  Layout = "Layouts/_BlankLayout";
+  ViewData["Title"] = "Forgot Password Basic - Pages";
+}
+
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/formvalidation/dist/css/formValidation.min.css">
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+<script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+<script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/page-auth.dist.css">
+}
+
+@section PageScripts {
+<script src="~/js/pages-auth.dist.js"></script>
+}
+@* ************** Content ************** *@
+
+<div class="position-relative">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner py-4">
+
+      <!-- Logo -->
+      <div class="card p-2">
+        <!-- Forgot Password -->
+        <div class="app-brand justify-content-center mt-5">
+          <a href="/" class="app-brand-link gap-2">
+            <span class="app-brand-logo demo">@await Html.PartialAsync("../_Partials/_Macros")</span>
+            <span class="app-brand-text demo text-heading fw-bold">@TempData.Peek("appName")</span>
+          </a>
+        </div>
+        <!-- /Logo -->
+        <div class="card-body mt-2">
+          <h4 class="mb-2">Forgot Password? 🔒</h4>
+          <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
+          <form id="formAuthentication" class="mb-3" action="/Auth/ResetPassword/Basic" method="GET">
+            <div class="form-floating form-floating-outline mb-3">
+              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
+              <label>Email</label>
+            </div>
+            <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+          </form>
+          <div class="text-center">
+            <a href="/Auth/Login/Basic" class="d-flex align-items-center justify-content-center">
+              <i class="mdi mdi-chevron-left scaleX-n1-rtl mdi-24px"></i>
+              Back to login
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- /Forgot Password -->
+      <img alt="mask" src="~/img/illustrations/auth-basic-forgot-password-mask-light.png" class="authentication-image d-none d-lg-block" data-app-light-img="illustrations/auth-basic-forgot-password-mask-light.png" data-app-dark-img="illustrations/auth-basic-forgot-password-mask-dark.png" />
+    </div>
+  </div>
+</div>

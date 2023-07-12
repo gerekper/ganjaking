@@ -1,0 +1,44 @@
+// * Cards Analytics
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_custom-variables/pages';
+
+// Total Transaction Styles
+
+#totalTransactionChart {
+  .apexcharts-series[rel='2'] {
+    transform: translateX(5px);
+  }
+}
+
+// Weekly Sales styles
+#weeklySalesChart {
+  .apexcharts-series[rel='2'] {
+    transform: translateY(-8px);
+  }
+}
+
+// Project Timeline Rtl styles
+#projectTimelineChart {
+  .apexcharts-canvas {
+    .apexcharts-yaxis {
+      text {
+        @include app-rtl() {
+          text-anchor: end;
+        }
+      }
+    }
+  }
+}
+
+// Sales Country Rtl styles
+#salesCountryChart {
+  .apexcharts-data-labels {
+    text {
+      @include app-rtl() {
+        text-anchor: end;
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+/.phpunit.cache
+/node_modules
+
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+
+# .env
+.env.backup
+.env.production
+.phpunit.result.cache
+
+docker-compose.override.yml
+
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+package-lock.log
+/.fleet
+/.idea
+/.vscode
+
+/public/css
+/public/js
+/public/mix-manifest.json
+# But not these files...
+!/public/assets/*
+/public/assets/js
+/public/assets/css
+/public/assets/vendor

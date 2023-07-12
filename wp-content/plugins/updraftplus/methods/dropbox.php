@@ -376,7 +376,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 	}
 
 	/**
-	 * This method gets a list of files from the remote stoage that match the string passed in and returns an array of backups
+	 * This method gets a list of files from the remote storage that match the string passed in and returns an array of backups
 	 *
 	 * @param  String $match a substring to require (tested via strpos() !== false)
 	 * @return Array
@@ -1007,7 +1007,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		if (defined('UPDRAFTPLUS_CUSTOM_DROPBOX_APP') && UPDRAFTPLUS_CUSTOM_DROPBOX_APP) $callback = $callbackhome;
 		
 		$instance_id = $this->get_instance_id();
-		// Instantiate the Encrypter and storage objects
+		// Instantiate the Encryptor and storage objects
 		$encrypter = new Dropbox_Encrypter('ThisOneDoesNotMatterBeyondLength');
 
 		// Instantiate the storage

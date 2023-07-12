@@ -244,7 +244,7 @@ abstract class UpdraftPlus_RemoteSend {
 	}
 
 	/**
-	 * This function will return a response to the remote site to acknowledge that we have recieved the upload_complete message and if this is a clone it call the ready_for_restore action
+	 * This function will return a response to the remote site to acknowledge that we have received the upload_complete message and if this is a clone it call the ready_for_restore action
 	 *
 	 * @param string $response       - a string response
 	 * @param array  $data           - an array of data

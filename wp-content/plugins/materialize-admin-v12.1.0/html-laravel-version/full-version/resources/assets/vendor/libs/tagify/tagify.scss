@@ -1,0 +1,183 @@
+@use '../../scss/_bootstrap-extended/include' as light;
+@use '../../scss/_bootstrap-extended/include-dark' as dark;
+@import '../../scss/_custom-variables/libs';
+
+@import 'mixins';
+
+// Height clac to match form-control height
+$tag-line-height: 1.5rem !default;
+$tag-spacer: light.px-to-rem(floor(light.rem-to-px((light.$input-height - $tag-line-height) * 0.4))) !default;
+
+// Override tagify vars
+$tag-remove: light.$danger !default;
+$tag-remove-btn-bg--hover: darken($tag-remove, 5) !default;
+$tag-invalid-color: $tag-remove !default;
+$tag-invalid-bg: rgba($tag-remove, 0.5) !default;
+
+$tag-avatar-size: 22px !default;
+$tag-avatar-select-size: 36px !default;
+
+//! Tagify $tag-bg custom color to match with dark and light layout
+$tag-bg: rgb(light.$text-light, 0.5) !default;
+
+@import '~@yaireo/tagify/src/tagify';
+
+@import 'tagify-users-list';
+@import 'tagify-inline-suggestion';
+@import 'tagify-email-list';
+
+.tagify {
+  &.form-control {
+    transition: none;
+    padding: calc(light.$input-focus-border-width - light.$input-border-width) $tag-spacer $tag-spacer !important;
+  }
+
+  &.tagify--focus,
+  &.form-control:focus {
+    padding: 0 calc($tag-spacer - light.$input-border-width) calc($tag-spacer - light.$input-border-width) !important;
+    border-width: light.$input-focus-border-width;
+  }
+  &__tag,
+  &__input {
+    margin: $tag-spacer $tag-spacer 0 0 !important;
+    line-height: 1;
+  }
+  &__input {
+    line-height: $tag-line-height;
+    &:empty::before {
+      top: 4px;
+    }
+  }
+  &__tag {
+    > div {
+      line-height: $tag-line-height;
+      padding: 0 0 0 $tag-spacer;
+    }
+    &__removeBtn {
+      margin-right: $tag-spacer;
+      margin-left: $tag-spacer * 0.5;
+    }
+    &:hover:not([readonly]),
+    &:focus {
+      div::before {
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+      }
+    }
+  }
+  &[readonly]:not(.tagify--mix) .tagify__tag > div {
+    padding: 0 $tag-spacer 0 $tag-spacer !important;
+  }
+  &__input {
+    padding: 0;
+  }
+}
+// Floating (outline) label position on focus
+.form-floating {
+  .tagify {
+    &.form-control {
+      padding-top: calc(light.$form-floating-padding-y - $tag-spacer) !important;
+    }
+    &.tagify--focus,
+    &.form-control:focus {
+      padding-top: calc(light.$form-floating-padding-y - $tag-spacer - 1px) !important;
+    }
+  }
+}
+
+//RTL
+@include app-rtl(false) {
+  .tagify {
+    &__tag,
+    &__input {
+      margin: $tag-spacer 0 0 $tag-spacer;
+    }
+
+    &__tag {
+      > div {
+        padding: 0 $tag-spacer 0 0;
+      }
+      &__removeBtn {
+        margin-left: $tag-spacer;
+        margin-right: $tag-spacer * 0.5;
+      }
+    }
+  }
+}
+
+// Light styles
+@if $enable-light-style {
+  .light-style {
+    .tagify {
+      &__tag {
+        > div::before {
+          box-shadow: 0 0 0 1.1em light.rgba-to-hex(light.$gray-200) inset;
+        }
+        &:hover:not([readonly]),
+        &:focus {
+          div::before {
+            box-shadow: 0 0 0 1.1em light.rgba-to-hex(light.$gray-200) inset;
+          }
+        }
+      }
+      &:hover:not([readonly]) {
+        border-color: light.$input-border-color;
+      }
+      &__input::before {
+        color: light.$input-placeholder-color !important;
+      }
+      &__dropdown {
+        box-shadow: light.$dropdown-box-shadow;
+        &__wrapper {
+          background: light.$dropdown-bg;
+          border-color: light.$dropdown-border-color;
+        }
+      }
+    }
+  }
+}
+
+// Dark styles
+@if $enable-dark-style {
+  .dark-style {
+    .tagify {
+      &__tag {
+        > div {
+          &::before {
+            box-shadow: 0 0 0 1.1em dark.$body-bg inset;
+          }
+          .tagify__tag-text {
+            color: dark.$input-color;
+          }
+        }
+        &:hover:not([readonly]),
+        &:focus {
+          div::before {
+            box-shadow: 0 0 0 1.1em dark.$body-bg inset;
+          }
+        }
+        &__removeBtn {
+          color: dark.$input-color;
+        }
+      }
+      &:hover:not([readonly]) {
+        border-color: dark.$input-border-color;
+      }
+      &__input::before {
+        color: dark.$input-placeholder-color !important;
+      }
+      &__dropdown {
+        box-shadow: light.$dropdown-box-shadow;
+        &__wrapper {
+          background: dark.$dropdown-bg;
+          border-color: dark.$dropdown-border-color;
+        }
+      }
+    }
+  }
+}
+
+//! Added in last as it was getting override
+@import 'tagify-email-list';

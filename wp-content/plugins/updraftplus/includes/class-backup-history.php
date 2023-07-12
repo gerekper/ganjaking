@@ -233,7 +233,7 @@ class UpdraftPlus_Backup_History {
 		$changed = UpdraftPlus_Options::update_updraft_option('updraft_backup_history', $backup_history, $use_cache, 'no');
 
 		if (!$changed && '' !== $wpdb->last_error && $wpdb_previous_last_error != $wpdb->last_error) {
-			// if an error occured, there is a possibility if this error is caused by invalid characters found in 'label'
+			// if an error occurred, there is a possibility if this error is caused by invalid characters found in 'label'
 			foreach ($backup_history as $btime => $bdata) {
 				if (isset($bdata['label'])) {
 					// try removing invalid characters from 'label'

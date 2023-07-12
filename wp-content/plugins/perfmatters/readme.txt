@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.2.2
-Stable tag: 2.1.1
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,20 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.1.3 - 07.02.2023 =
+* Fixed an issue that was preventing existing Script Manager settings from showing up in certain instances.
+* Translation updates.
+
+= 2.1.2 - 06.29.2023 =
+* Added new lazy loading advanced option to Exclude Images by Parent Selector.
+* Added built-in exclusion to Delay JS for jqueryParams inline script to prevent load order issues.
+* Added additional built-in exclusions to Remove Unused CSS for better compatibility with Elementor.
+* Added HTTPS check to PERFMATTERS_CACHE_URL definition.
+* Updated Script Manager UI to sort plugins alphabetically by plugin name as well as assets inside each individual section alphabetically by script handle.
+* Fixed an issue where plugins without any enqueued scripts would not always show up in the Script Manager (MU Mode) after visiting the global view. 
+* Updated background processing library to version 1.1.0.
+* Translation updates.
 
 = 2.1.1 - 05.31.2023 =
 * Added WP-CLI support for managing plugin license key activation.

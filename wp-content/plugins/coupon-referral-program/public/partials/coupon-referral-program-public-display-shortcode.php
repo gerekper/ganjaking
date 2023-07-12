@@ -289,6 +289,46 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
 			endif;
 			endforeach;
 			endif;
+
+	if ( ! empty( $this->wps_crp_get_paid_referal_trial_ended_coupons( $user_id ) ) ) :
+		foreach ( $this->wps_crp_get_paid_referal_trial_ended_coupons( $user_id ) as $coupon_code => $subcription_id ) :
+			$crp_user_id = $user_id;
+			$coupon      = new WC_Coupon( $coupon_code );
+			$order_id    = get_post_meta( $coupon->get_id(), 'coupon_created_to', true );
+			if ( 'publish' === $coupon->get_status() && $this->mwb_crp_validate_coupon( $coupon ) ) :
+				$html .= '<tr>
+				<td data-th="' . esc_html__( 'Coupon ', 'coupon-referral-program' ) . '">
+					<div class="mwb-crp-coupon-code"><p id="mwb' . esc_html( $coupon_code ) . '">' . esc_html( $coupon->get_code() ) . '</p>
+						<span class="mwb-crp-coupon-amount">';
+				if ( 'fixed_cart' === $coupon->get_discount_type() ) {
+					$html .= wp_kses_post( wc_price( $coupon->get_amount() ) );
+				} else {
+					$html .= esc_html( $coupon->get_amount() ) . '%';
+				}
+				$html .= '</span> <img class="mwb-crp-coupon-scissors" src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'public/images/scissors.png" alt="scissor icon"> <span class="mwb-crp-coupon-wrap">
+							<button class="mwb-crp-coupon-btn-copy" data-clipboard-target="#mwb' . esc_html( $coupon_code ) . '" aria-label="copied">
+								<span class="mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copy', 'coupon-referral-program' ) . '</span>
+								<span class="mwb-crp-coupon-tooltiptext-copied mwb-crp-coupon-tooltiptext">' . esc_html__( 'Copied', 'coupon-referral-program' ) . '</span>
+								<img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/copy.png" alt="copy icon">
+							</button>
+						</span>
+					</div>
+				</td>
+				<td data-th="' . esc_html__( 'Coupon Created', 'coupon-referral-program' ) . '">' . esc_html( $this->mwb_crp_get_transalted_coupon_created_date( $coupon ) ) . '</td>
+				<td data-th="' . esc_html__( 'Expiry Date', 'coupon-referral-program' ) . '">' . esc_html( $this->mwb_crp_get_transalted_coupon_exp_date( $coupon ) ) . '</td>
+				<td data-th="' . esc_html__( 'Event', 'coupon-referral-program' ) . '">' . esc_html__( 'Trial ended discount for subscription', 'coupon-referral-program' ) . ' #' . $subcription_id . '</td>
+				<td data-th="' . esc_html__( 'Referred Users', 'coupon-referral-program' ) . '">';
+				if ( get_userdata( $crp_user_id ) ) {
+					$display_name = get_userdata( $crp_user_id )->data->display_name;
+				} else {
+					$display_name = esc_html__( 'User has been deleted', 'coupon-referral-program' );
+				}
+				$html .= $display_name . '</td>
+				<td data-th="' . esc_html__( 'Usage Count', 'coupon-referral-program' ) . '">' . esc_html( $coupon->get_usage_count() ) . '</td>
+	</tr>';
+	endif;
+	endforeach;
+	endif;
 			// End referal purchase coupon on guest user via referal code.
 		$html .= '</tbody>
 	</table>

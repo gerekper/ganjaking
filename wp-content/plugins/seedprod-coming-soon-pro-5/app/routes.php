@@ -66,9 +66,9 @@ function seedprod_pro_create_menus() {
 
 	add_submenu_page(
 		'seedprod_pro',
-		__('Setup', 'seedprod-pro'),
-		__('Setup', 'seedprod-pro'),
-		apply_filters('seedprod_setup_menu_capability', 'edit_others_posts'),
+		__( 'Setup', 'seedprod-pro' ),
+		__( 'Setup', 'seedprod-pro' ),
+		apply_filters( 'seedprod_setup_menu_capability', 'edit_others_posts' ),
 		'seedprod_pro_setup',
 		'seedprod_pro_setup_page'
 	);
@@ -93,16 +93,16 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_subscribers_page'
 	);
 
-    //if ('lite' === SEEDPROD_PRO_BUILD) {
-        add_submenu_page(
-            'seedprod_pro',
-            __('Pop-ups', 'seedprod-pro'),
-            __('Pop-ups', 'seedprod-pro'),
-            apply_filters('seedprod_popup_menu_capability', 'edit_others_posts'),
-            'seedprod_pro_popup',
-            'seedprod_pro_popup_page'
-        );
-    //}
+	//if ('lite' === SEEDPROD_PRO_BUILD) {
+		add_submenu_page(
+			'seedprod_pro',
+			__( 'Pop-ups', 'seedprod-pro' ),
+			__( 'Pop-ups', 'seedprod-pro' ),
+			apply_filters( 'seedprod_popup_menu_capability', 'edit_others_posts' ),
+			'seedprod_pro_popup',
+			'seedprod_pro_popup_page'
+		);
+	//}
 
 	add_submenu_page(
 		'seedprod_pro',
@@ -162,6 +162,12 @@ function seedprod_pro_create_menus() {
 		);
 		// add class
 		add_action( 'admin_footer', 'seedprod_pro_upgrade_link_class' );
+
+		/**
+		 * Add class to upgrade link
+		 *
+		 * @since 5.0
+		 */
 		function seedprod_pro_upgrade_link_class() {
 			echo "<script>jQuery(function($) { $('#sp-lite-admin-menu__upgrade').parent().parent().addClass('sp-lite-admin-menu__upgrade_wrapper')});</script>";
 		}
@@ -203,7 +209,7 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_debug_page'
 	);
 
-	add_submenu_page( 
+	add_submenu_page(
 		'themes.php',
 		__( 'Theme Builder', 'seedprod-pro' ),
 		__( 'Theme Builder', 'seedprod-pro' ),
@@ -224,9 +230,9 @@ function seedprod_pro_remove_menus() {
 	remove_submenu_page( 'seedprod_pro', 'sp_pro_importexport' );
 	remove_submenu_page( 'seedprod_pro', 'sp_pro_debug' );
 	$dimiss_setup = get_option( 'seedprod_dismiss_setup' );
-    if ( !empty( $dimiss_setup ) ) {
+	if ( ! empty( $dimiss_setup ) ) {
 		remove_submenu_page( 'seedprod_pro', 'seedprod_pro_setup' );
-    }
+	}
 }
 
 /**
@@ -392,27 +398,26 @@ function seedprod_pro_redirect_to_site() {
 
 	//  setup page
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_setup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if( !empty( $_GET[ 'sp_setup_dismiss' ] ) ){
+		if ( ! empty( $_GET['sp_setup_dismiss'] ) ) {
 			update_option( 'seedprod_dismiss_setup', 1 );
 		}
 
 		$dimiss_setup = get_option( 'seedprod_dismiss_setup' );
 
-		if( !empty( $dimiss_setup ) ){
+		if ( ! empty( $dimiss_setup ) ) {
 			wp_safe_redirect( 'admin.php?page=seedprod_pro#/' );
 			exit();
-		}else{
+		} else {
 			wp_safe_redirect( 'admin.php?page=seedprod_pro#/setup' );
 			exit();
 		}
-
 	}
 
 	//  popups
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_popup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if( is_plugin_active( 'optinmonster/optin-monster-wp-api.php' ) ) {
+		if ( is_plugin_active( 'optinmonster/optin-monster-wp-api.php' ) ) {
 			wp_safe_redirect( 'admin.php?page=optin-monster-dashboard' );
-		}else{
+		} else {
 			wp_safe_redirect( 'admin.php?page=seedprod_pro&sp_om=1#/popups' );
 		}
 		exit();
@@ -556,6 +561,64 @@ function seedprod_pro_render_wc_template_tags() {
 	exit;
 }
 
+/**
+ * Preview EDD Template Tags.
+ */
+function seedprod_pro_render_edd_template_tags() {
+	if ( check_ajax_referer( 'seedprod_nonce' ) ) {
+		if ( ! current_user_can( apply_filters( 'seedprod_builder_preview_render_capability', 'edit_others_posts' ) ) ) {
+			return;
+		}
+
+		// Check if the EDD Instance exists.
+		if ( ! in_array( 'easy-digital-downloads/easy-digital-downloads.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && ! in_array( 'easy-digital-downloads-pro/easy-digital-downloads.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			return;
+		}
+
+		$content = '';
+		if ( ! empty( $_POST['edd_template_tag'] ) ) {
+			$edd_template_tag = sanitize_text_field( wp_unslash( $_POST['edd_template_tag'] ) );
+
+			$args = array(
+				'posts_per_page' => 1,
+				'post_type'      => 'download',
+			);
+
+			// Updating current query.
+			$the_query = new WP_Query( $args );
+
+			// The Loop
+			if ( $the_query->have_posts() ) {
+				while ( $the_query->have_posts() ) {
+					$the_query->the_post();
+
+					$id       = get_the_ID();
+					$download = edd_get_download( $id );
+
+					if ( ! $download || ! is_a( $download, 'EDD_Download' ) ) {
+						return '';
+					}
+
+					$content = do_shortcode( $edd_template_tag );
+				}
+			}
+
+			/* Restore original Post Data */
+			wp_reset_postdata();
+
+			if ( ! empty( $content ) ) {
+				do_action( 'wp_print_footer_scripts' );
+				do_action( 'wp_footer' );
+			}
+		}
+
+		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		exit();
+	}
+	exit;
+}
+
 
 if ( defined( 'DOING_AJAX' ) ) {
 	
@@ -565,6 +628,12 @@ if ( defined( 'DOING_AJAX' ) ) {
 	add_action( 'wp_ajax_seedprod_pro_render_shortcode', 'seedprod_pro_render_shortcode' );
 	add_action( 'wp_ajax_seedprod_pro_render_templatetag', 'seedprod_pro_render_templatetag' );
 	add_action( 'wp_ajax_seedprod_pro_render_wc_template_tags', 'seedprod_pro_render_wc_template_tags' );
+	add_action( 'wp_ajax_seedprod_pro_render_edd_template_tags', 'seedprod_pro_render_edd_template_tags' );
+	add_action( 'wp_ajax_seedprod_pro_render_shortcode_edd_downloads_grid', 'seedprod_pro_render_shortcode_edd_downloads_grid' );
+	add_action( 'wp_ajax_seedprod_pro_render_shortcode_edd_buy_now_button', 'seedprod_pro_render_shortcode_edd_buy_now_button' );
+	add_action( 'wp_ajax_seedprod_pro_edd_checkout_purchase_form', 'seedprod_pro_edd_checkout_purchase_form' );
+	add_action( 'wp_ajax_seedprod_pro_render_shortcode_edd_cart', 'seedprod_pro_render_shortcode_edd_cart' );
+	add_action( 'wp_ajax_seedprod_pro_render_shortcode_edd_checkout', 'seedprod_pro_render_shortcode_edd_checkout' );
 	
 
 	add_action( 'wp_ajax_seedprod_pro_dismiss_settings_lite_cta', 'seedprod_pro_dismiss_settings_lite_cta' );
@@ -656,6 +725,10 @@ if ( defined( 'DOING_AJAX' ) ) {
 	add_action( 'wp_ajax_seedprod_pro_get_woocommerce_product_taxonomy', 'seedprod_pro_get_woocommerce_product_taxonomy' );
 	add_action( 'wp_ajax_seedprod_pro_get_woocommerce_product_attributes', 'seedprod_pro_get_woocommerce_product_attributes' );
 	add_action( 'wp_ajax_seedprod_pro_get_woocommerce_product_attribute_terms', 'seedprod_pro_get_woocommerce_product_attribute_terms' );
+
+	// EDD.
+	add_action( 'wp_ajax_seedprod_pro_get_edd_downloads', 'seedprod_pro_get_edd_downloads' );
+	add_action( 'wp_ajax_seedprod_pro_get_edd_download_taxonomy', 'seedprod_pro_get_edd_download_taxonomy' );
 
 	
 	// Subscribe Callback
@@ -836,29 +909,32 @@ function seedprod_pro_add_plugin_featured( $plugin_slug, $res ) {
 		} // foreach
 	}
 
-if ($plugin_info = get_transient('seedprod-plugin-info-' . $plugin_slug)) {
-	array_splice($res->plugins,4,0,array($plugin_info));
-	//array_unshift($res->plugins, $plugin_info);
-} else {
-	$plugin_info = plugins_api('plugin_information', array(
-	'slug'   => $plugin_slug,
-	'is_ssl' => is_ssl(),
-	'fields' => array(
-		'banners'           => true,
-		'reviews'           => true,
-		'downloaded'        => true,
-		'active_installs'   => true,
-		'icons'             => true,
-		'short_description' => true,
-	)
-	));
-	if (!is_wp_error($plugin_info)) {
-	$res->plugins = array_merge(array($plugin_info), $res->plugins);
-	set_transient('seedprod-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
+	if ( $plugin_info = get_transient( 'seedprod-plugin-info-' . $plugin_slug ) ) {
+		array_splice( $res->plugins, 4, 0, array( $plugin_info ) );
+		//array_unshift($res->plugins, $plugin_info);
+	} else {
+		$plugin_info = plugins_api(
+			'plugin_information',
+			array(
+				'slug'   => $plugin_slug,
+				'is_ssl' => is_ssl(),
+				'fields' => array(
+					'banners'           => true,
+					'reviews'           => true,
+					'downloaded'        => true,
+					'active_installs'   => true,
+					'icons'             => true,
+					'short_description' => true,
+				),
+			)
+		);
+		if ( ! is_wp_error( $plugin_info ) ) {
+			$res->plugins = array_merge( array( $plugin_info ), $res->plugins );
+			set_transient( 'seedprod-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7 );
+		}
 	}
-}
 
-return $res;
+	return $res;
 } // add_plugin_featured
 
 
@@ -869,11 +945,11 @@ add_filter( 'admin_body_class', 'seedprod_pro_admin_body_class' );
  * Adds one or more classes to the body tag in the dashboard.
  *
  * @link https://wordpress.stackexchange.com/a/154951/17187
- * @param  String $classes Current body classes.
- * @return String          Altered body classes.
+ * @param  string $classes Current body classes.
+ * @return string          Altered body classes.
  */
 function seedprod_pro_admin_body_class( $classes ) {
-	if( !empty( $_GET['sp_om'] ) &&  $_GET['sp_om'] == 1){
+	if ( ! empty( $_GET['sp_om'] ) && $_GET['sp_om'] == 1 ) {
 		return "$classes sp_om";
 	}
 	return $classes;

@@ -1,0 +1,60 @@
+// Breadcrumbs
+// *******************************************************************************
+
+.breadcrumb-item,
+.breadcrumb-item a {
+  color: $breadcrumb-color;
+
+  &:hover,
+  &:focus {
+    color: $breadcrumb-active-color;
+  }
+}
+
+.breadcrumb-item.active a {
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+  }
+}
+
+// Breadcrumb divider styles
+.breadcrumb-style1,
+.breadcrumb-style2 {
+  .breadcrumb-item + .breadcrumb-item::before {
+    font-family: Material Design Icons;
+  }
+}
+.breadcrumb-style1 .breadcrumb-item + .breadcrumb-item::before {
+  content: '\F0142';
+  line-height: $line-height-lg;
+}
+.breadcrumb-style2 .breadcrumb-item + .breadcrumb-item::before {
+  content: '\F0CE0';
+}
+
+// RTL
+// *******************************************************************************
+
+@include rtl-only {
+  .breadcrumb-item + .breadcrumb-item {
+    padding-right: $breadcrumb-item-padding-x;
+    padding-left: 0;
+
+    &::before {
+      content: '#{$breadcrumb-divider-flipped}';
+      padding-right: 0;
+      padding-left: $breadcrumb-item-padding-x;
+      float: right;
+    }
+  }
+  // Breadcrumb divider style Icons
+  .breadcrumb-style1 .breadcrumb-item + .breadcrumb-item::before {
+    content: '\F0141';
+  }
+  .breadcrumb-style2 .breadcrumb-item + .breadcrumb-item::before {
+    content: '\F0CDE';
+  }
+}

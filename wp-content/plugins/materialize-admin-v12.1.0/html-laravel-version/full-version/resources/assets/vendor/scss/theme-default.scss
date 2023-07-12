@@ -1,0 +1,56 @@
+@import './_components/include';
+@import './_theme/common';
+@import './_theme/libs';
+@import './_theme/pages';
+
+$primary-color: #666cff;
+$body-bg: #f7f7f9;
+
+body {
+  background: $body-bg;
+}
+
+.bg-body {
+  background: $body-bg !important;
+}
+
+@include template-common-theme($primary-color);
+@include template-libs-theme($primary-color);
+@include template-pages-theme($primary-color);
+
+// Navbar
+// ---------------------------------------------------------------------------
+@include template-navbar-style('.bg-navbar-theme', $card-bg, $color: $headings-color, $active-color: $headings-color);
+
+.layout-horizontal .layout-navbar {
+  box-shadow: 0 1px 0 $border-color;
+}
+
+// Menu
+// ---------------------------------------------------------------------------
+
+@include template-menu-style(
+  '.bg-menu-theme',
+  $body-bg,
+  $color: $headings-color,
+  $active-color: $headings-color,
+  $border: transparent,
+  $active-bg: $primary-color
+);
+@include media-breakpoint-up(xl) {
+  .layout-menu-collapsed.layout-menu-hover .bg-menu-theme {
+    box-shadow: $box-shadow-lg;
+  }
+}
+.bg-menu-theme {
+  &.menu-horizontal {
+    background-color: rgba($card-bg, 0.9) !important;
+    .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub {
+      background: $card-bg;
+    }
+  }
+}
+
+// Footer
+// ---------------------------------------------------------------------------
+@include template-footer-style('.bg-footer-theme', $body-bg, $color: $body-color, $active-color: $headings-color);

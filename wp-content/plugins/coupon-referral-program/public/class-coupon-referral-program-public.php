@@ -60,7 +60,7 @@ class Coupon_Referral_Program_Public {
 		}
 		add_shortcode( 'crp_referral_link', array( $this, 'mwb_crp_referral_link_shortcode' ) );
 		add_shortcode( 'crp_referral_code', array( $this, 'mwb_crp_referral_code_shortcode' ) );
-		add_shortcode( 'crp_referral_tab', array( $this, 'mwb_crp_referral_tab_shortcode' ) );
+		add_shortcode( 'crp_referral_dashboard', array( $this, 'mwb_crp_referral_dashboard_shortcode' ) );
 		// ===========Add Rewrite Rule============
 		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules
 		add_rewrite_endpoint( 'referral_coupons', EP_PAGES );
@@ -177,7 +177,7 @@ class Coupon_Referral_Program_Public {
 				'apply'             => __( 'Apply', 'coupon-referral-program' ),
 				'empty_email'       => __( 'Email Field is empty', 'coupon-referral-program' ),
 				'invalid_email'     => __( 'Invalid Email', 'coupon-referral-program' ),
-				'is_shortcode_post' => has_shortcode( $post->post_content, 'crp_referral_tab' ),
+				'is_shortcode_post' => isset( $post->post_content ) ? has_shortcode( $post->post_content, 'crp_referral_tab' ) : false,
 			);
 
 			wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array( 'jquery' ), $this->version, true );
@@ -221,7 +221,6 @@ class Coupon_Referral_Program_Public {
 			include_once COUPON_REFERRAL_PROGRAM_DIR_PATH . 'modal/referral-program-notify.php';
 		}
 		include_once COUPON_REFERRAL_PROGRAM_DIR_PATH . 'modal/apply-coupon-on-subscriptions.php';
-
 	}
 	/**
 	 * Get custom style of the button.
@@ -1061,7 +1060,7 @@ class Coupon_Referral_Program_Public {
 	}
 
 	/**
-	 * Reward the Discount Coupon to the referree on the purchasing of referred user.
+	 * Reward the Discount Coupon to the referrer on the purchasing of referred user.
 	 *
 	 * @since 1.0.0
 	 * @param mixed $order_id .
@@ -1095,6 +1094,11 @@ class Coupon_Referral_Program_Public {
 				if ( $this->check_share_vai_referal_code() ) {
 					$this->mwb_crp_referal_purchase_discount_by_referal_coupon( $order );
 				}
+				// check if the minimum order limit exceed
+				if ( $this->wps_crp_minimum_order_total_limit( $order ) ) {
+					return;
+				}
+
 				/*======= Reward the Discount only if the User has minimum number of Order has been placed from the Limit  =======*/
 				if ( $already_placed_orders <= $restrict_no_of_order ) {
 					$refree_id          = get_user_meta( $user_id, 'mwb_cpr_user_referred_by', true );
@@ -1177,6 +1181,8 @@ class Coupon_Referral_Program_Public {
 		$crp_get_utilize_coupon_amount      = $this->get_utilize_coupon_amount( $user_id );
 		$mwb_crp_get_referal_signup_coupon  = $this->mwb_crp_get_referal_signup_coupon( $user_id );
 		$referral_purchase_coupons_on_guest = $this->get_referral_purchase_coupons_on_guest( $user_id );
+		$wps_crp_trial_ended_discount       = $this->wps_crp_get_paid_referal_trial_ended_coupons( $user_id );
+
 
 		if ( $this->check_array_is_not_empty( $coupons ) ) {
 			foreach ( $coupons as $item_id => $item ) {
@@ -1208,6 +1214,15 @@ class Coupon_Referral_Program_Public {
 				/*Check is referral signup coupon is applied or not*/
 				if ( $this->check_array_is_not_empty( $referral_purchase_coupons_on_guest ) ) {
 					foreach ( $referral_purchase_coupons_on_guest as $coupon_id => $email_id ) {
+						if ( $coupon_obj->get_id() == $coupon_id ) {
+							$crp_get_utilize_coupon_amount = (float) $crp_get_utilize_coupon_amount + (float) $item->get_discount();
+						}
+					}
+				}
+
+				/*  trial ended discount coupon */
+				if ( $this->check_array_is_not_empty( $wps_crp_trial_ended_discount ) ) {
+					foreach ( $wps_crp_trial_ended_discount as $coupon_id => $sub_id ) {
 						if ( $coupon_obj->get_id() == $coupon_id ) {
 							$crp_get_utilize_coupon_amount = (float) $crp_get_utilize_coupon_amount + (float) $item->get_discount();
 						}
@@ -1517,7 +1532,6 @@ class Coupon_Referral_Program_Public {
 		unset( $items['customer-logout'] );
 		$items['referral_coupons'] = __( 'Referrals', 'coupon-referral-program' );
 		$items['customer-logout']  = $logout;
-
 		return $items;
 	}
 
@@ -1549,6 +1563,7 @@ class Coupon_Referral_Program_Public {
 		$signup_coupon                     = $this->get_signup_coupon( $user_id );
 		$referral_purchase_coupons         = $this->get_referral_purchase_coupons( $user_id );
 		$mwb_crp_get_referal_signup_coupon = $this->mwb_crp_get_referal_signup_coupon( $user_id );
+		$wps_trial_ended                   = $this->wps_crp_get_paid_referal_trial_ended_coupons( $user_id );
 		$mwb_referred_user                 = array();
 		$mwb_crp_total_earn                = 0;
 		$mwb_coupon_count                  = 0;
@@ -1580,6 +1595,15 @@ class Coupon_Referral_Program_Public {
 			if ( 'publish' === get_post_status( $signup_coupon['singup'] ) ) {
 				$mwb_crp_total_earn += $coupon->get_amount();
 				$mwb_coupon_count++;
+			}
+		}
+		if ( ! empty( $wps_trial_ended ) && is_array( $wps_trial_ended ) ) {
+			foreach ( $wps_trial_ended as $coupon_code => $subid ) {
+				$coupon  = new WC_Coupon( $coupon_code );
+				if ( 'publish' === $coupon->get_status() ) {
+					$mwb_crp_total_earn += $coupon->get_amount();
+					$mwb_coupon_count++;
+				}
 			}
 		}
 		if ( empty( $mwb_referred_user ) ) {
@@ -1683,6 +1707,14 @@ class Coupon_Referral_Program_Public {
 	 */
 	public function mwb_crp_change_renewal_order_total( $renewal_order, $subscription ) {
 		global $woocommerce;
+
+		// Allow the discount for the first renewal only.
+		if ( $this->wps_crp_discount_first_renewal_only() ) {
+			$renewal_orders = $subscription->get_related_orders( 'ids', 'renewal' );
+			if ( is_array( $renewal_orders ) && count( $renewal_orders ) > 1 ) {
+				return $renewal_order;
+			}
+		}
 		/*Get the renewal order total amount*/
 		$order_total = $renewal_order->get_subtotal();
 		$order_id    = $renewal_order->get_id();
@@ -2609,7 +2641,7 @@ class Coupon_Referral_Program_Public {
 	}
 
 	/** Add referral tab shortcode */
-	public function mwb_crp_referral_tab_shortcode() {
+	public function mwb_crp_referral_dashboard_shortcode() {
 		return include_once COUPON_REFERRAL_PROGRAM_DIR_PATH . 'public/partials/coupon-referral-program-public-display-shortcode.php';
 	}
 
@@ -2658,5 +2690,97 @@ class Coupon_Referral_Program_Public {
 			$allow = true;
 		}
 		return $allow;
+	}
+
+	/**
+	 * This function check minimum order total limit.
+	 * 
+	 * @param object $order order object .
+	 */
+	public function wps_crp_minimum_order_total_limit( $order ) {
+		$minimum_referred_order_total = get_option( 'mwb_crp_min_order_limit_referred_users', 0 );
+		if ( ! empty( $minimum_referred_order_total ) ) {
+			if ( ! empty( $minimum_referred_order_total ) && $order->get_total() < $minimum_referred_order_total ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Allow to apply discount for first renewal order only. 
+	 */
+	public function wps_crp_discount_first_renewal_only() {
+		$first_discount = get_option( 'mwb_crp_woo_subscriptions_discount_first_renewal', 'no' );
+		if ( 'yes' === $first_discount ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * Give the coupon discount when the referred customer paid after the free trial ended.
+	 * 
+	 * @param array $renewal_order .
+	 * @param object $subscription .
+	 */
+	public function wps_crp_discount_free_trial_ended( $renewal_order, $subscription ) {
+
+		$enable = get_option( 'mwb_crp_discount_free_trial_ended' );
+		if ( 'yes' === $enable ) {
+			$user_id          = $subscription->get_user_id();
+			$referred_user_id = get_user_meta( $user_id, 'mwb_cpr_user_referred_by', true );
+			$parent_id        = $subscription->get_parent_id();
+			
+			if ( $parent_id && $referred_user_id ) {
+				$parent_order = wc_get_order( $parent_id );
+				$order_total  = (float) $parent_order->get_total();
+				if ( empty( $order_total ) ) {
+					$get_renewal_orders = $subscription->get_related_orders();
+					if ( is_array( $get_renewal_orders ) && count( $get_renewal_orders ) == 2 ) {
+						$coupon_amount = get_option( 'wps_crp_free_trial_coupon_amount' ) ? get_option( 'wps_crp_free_trial_coupon_amount' ) : 1;
+						$coupon_type   = get_option( 'wps_crp_free_trial_coupon_type' );
+
+						$user                  = get_user_by( 'ID', $user_id );
+						$user_email            = $this->get_user_email( $user );
+						$coupon_description    = 'Trial ended discount for subscription  #' . $subscription->get_id();
+						$mwb_cpr_coupon_length = $this->mwb_get_coupon_length();
+						$mwb_cpr_coupon_expiry = $this->mwb_get_coupon_expiry();
+						$expirydate            = $this->mwb_expiry_date_saved( $mwb_cpr_coupon_expiry );
+						$mwb_cpr_code          = $this->mwb_cpr_coupon_generator( $mwb_cpr_coupon_length );
+
+						$this->mwb_cpr_create_coupons( $mwb_cpr_code, $coupon_amount, $user_id, $coupon_type, $expirydate, $coupon_description, $user_email );
+
+						$mwb_crp_referral_trial_ended_array = array();
+						$mwb_crp_trial_ended_coupon       = get_user_meta( $user_id, 'wps_crp_referral_trial_ended_coupon', true );
+						if ( ! empty( $mwb_crp_trial_ended_coupon ) ) {
+							$mwb_crp_trial_ended_coupon[ $mwb_cpr_code ] = $subscription->get_id();
+							update_user_meta( $user_id, 'wps_crp_referral_trial_ended_coupon', $mwb_crp_trial_ended_coupon );
+						} else {
+							$mwb_crp_referral_trial_ended_array[ $mwb_cpr_code ] = $subscription->get_id();
+							update_user_meta( $user_id, 'wps_crp_referral_trial_ended_coupon', $mwb_crp_referral_trial_ended_array );
+						}
+					}
+				}
+			}
+		}
+		return $renewal_order;
+	}
+
+	/**
+	 * Get paid referred customer trial ended coupons
+	 *
+	 * @name get_signup_coupon
+	 * @since 1.6.9
+	 * @param int $user_id .
+	 * @return $mwb_crp_referal_trial_ended_coupons .
+	 */
+	public function wps_crp_get_paid_referal_trial_ended_coupons( $user_id ) {
+		$mwb_crp_referal_trial_ended_coupons = get_user_meta( $user_id, 'wps_crp_referral_trial_ended_coupon', true );
+		if ( empty( $mwb_crp_referal_trial_ended_coupons ) ) {
+			$mwb_crp_referal_trial_ended_coupons = array();
+		}
+		return $mwb_crp_referal_trial_ended_coupons;
+
 	}
 }

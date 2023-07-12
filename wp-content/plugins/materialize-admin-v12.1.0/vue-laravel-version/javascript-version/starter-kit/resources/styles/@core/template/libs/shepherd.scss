@@ -1,0 +1,84 @@
+@use "shepherd.js/dist/css/shepherd.css";
+@use "@styles/variables/_vuetify.scss" as variables;
+
+.shepherd-button {
+  border-radius: variables.$button-border-radius;
+  font-size: variables.$button-font-size;
+  font-weight: variables.$button-font-weight;
+  margin-inline-end: 0.75rem;
+  padding-block: 0.25rem;
+  padding-inline: 1rem;
+}
+
+.shepherd-footer {
+  background: rgb(var(--v-theme-background));
+  padding-block: 0.5rem 1rem;
+  padding-inline: 1rem;
+}
+
+.shepherd-element .shepherd-content .shepherd-header {
+  background: rgb(var(--v-theme-background));
+  padding-block: 1rem 0;
+  padding-inline: 1rem;
+}
+
+.shepherd-element .shepherd-content .shepherd-header .shepherd-title {
+  color: rgb(var(--v-theme-on-background));
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.shepherd-text {
+  padding: 1rem;
+  background: rgb(var(--v-theme-background));
+  color: rgb(var(--v-theme-on-background));
+  font-size: variables.$card-text-font-size;
+}
+
+.shepherd-cancel-icon {
+  color: rgba(var(--v-theme-on-background), var(--v-disabled-opacity)) !important;
+  font-size: 1.5rem;
+}
+
+.shepherd-element[data-popper-placement^="bottom"] {
+  margin-block-start: 0.75rem !important;
+}
+
+.shepherd-element[data-popper-placement^="top"] {
+  margin-block-start: -0.75rem !important;
+}
+
+.shepherd-element[data-popper-placement^="right"] {
+  margin-inline-start: 0.75rem !important;
+}
+
+.shepherd-element[data-popper-placement^="left"] {
+  margin-inline-end: 0.75rem !important;
+}
+
+.shepherd-element[data-popper-placement] {
+  .shepherd-arrow::before {
+    background: rgb(var(--v-theme-background)) !important;
+  }
+}
+
+.shepherd-element {
+  border-radius: variables.$card-border-radius;
+  background: transparent;
+}
+
+.nextBtnClass,
+.nextBtnClass:not(:disabled):hover {
+  background: rgb(var(--v-theme-primary));
+}
+
+.backBtnClass,
+.backBtnClass:not(:disabled):hover {
+  background: rgba(var(--v-theme-secondary), var(--v-medium-emphasis-opacity));
+}
+
+@media screen and (max-width: 600px) {
+  .shepherd-element {
+    max-inline-size: 75vw;
+  }
+}

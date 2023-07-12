@@ -290,6 +290,7 @@ class LazyLoad
 
 		//replace image tags
 		if(!empty(Config::$options['lazyload']['lazy_loading'])) {
+			$html = self::lazyload_parent_exclusions($html, $buffer);
 			$html = self::lazyload_pictures($html, $buffer);
 			$html = self::lazyload_background_images($html, $buffer);
 			$html = self::lazyload_images($html, $buffer);
@@ -335,7 +336,7 @@ class LazyLoad
 				$styles.= '.wp-has-aspect-ratio .wp-block-embed__wrapper{position:relative;}.wp-has-aspect-ratio .perfmatters-lazy-youtube{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;padding-bottom:0}';
 			}
 		}
-
+ 
 		//fade in effect
 		if(!empty(Config::$options['lazyload']['fade_in'])) {
 			$styles.= '.perfmatters-lazy.pmloaded,.perfmatters-lazy.pmloaded>img,.perfmatters-lazy>img.pmloaded,.perfmatters-lazy[data-ll-status=entered]{animation:' . apply_filters('perfmatters_fade_in_speed', 500) . 'ms pmFadeIn}@keyframes pmFadeIn{0%{opacity:0}100%{opacity:1}}';
@@ -630,6 +631,49 @@ class LazyLoad
 					$html = str_replace($selector[0], $selector_lazyload, $html);
 
 					unset($selector_lazyload);
+				}
+			}
+		}
+
+		return $html;
+	}
+
+	//mark images inside parent exclusions as no-lazy
+	private static function lazyload_parent_exclusions($html, $buffer) {
+
+		if(!empty(Config::$options['lazyload']['lazy_loading_parent_exclusions'])) {
+
+			//match all selectors
+			preg_match_all('#<(div|section|figure)(\s[^>]*?(' . implode('|', Config::$options['lazyload']['lazy_loading_parent_exclusions']) . ').*?)>.*?<img.*?<\/\g1>#is', $buffer, $selectors, PREG_SET_ORDER);
+
+			if(!empty($selectors)) {
+
+				foreach($selectors as $selector) {
+
+					//match all img tags
+					preg_match_all('#<img([^>]+?)\/?>#is', $selector[0], $images, PREG_SET_ORDER);
+
+					if(!empty($images)) {
+
+						//remove any duplicate images
+						$images = array_unique($images, SORT_REGULAR);
+
+						//loop through images
+				        foreach($images as $image) {
+
+				        	$image_atts = Utilities::get_atts_array($image[1]);
+
+				        	$image_atts['class'] = !empty($image_atts['class']) ? $image_atts['class'] . ' ' . 'no-lazy' : 'no-lazy';
+
+				            //replace video attributes string
+							$new_image = str_replace($image[1], ' ' . Utilities::get_atts_string($image_atts), $image[0]);
+
+							//replace video with placeholder
+							$html = str_replace($image[0], $new_image, $html);
+
+							unset($new_image);
+				        }
+					}
 				}
 			}
 		}

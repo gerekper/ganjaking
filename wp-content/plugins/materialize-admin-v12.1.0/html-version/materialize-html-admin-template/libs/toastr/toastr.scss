@@ -1,0 +1,174 @@
+@use '../../scss/_bootstrap-extended/include' as light;
+@use '../../scss/_bootstrap-extended/include-dark' as dark;
+@import '../../scss/_custom-variables/libs';
+@import '../../node_modules/toastr/toastr.scss';
+
+#toast-container {
+  > div {
+    padding: 12px 10px 12px 40px !important;
+    opacity: 1;
+
+    @include app-rtl {
+      direction: rtl;
+      background-position: center right 0.9375rem;
+      padding: 12px 40px 12px 10px !important;
+    }
+  }
+  .toast-header {
+    .btn-close {
+      background-size: 0.6rem;
+    }
+  }
+  &.toast-top-left {
+    @include app-rtl {
+      right: 12px;
+      left: auto;
+    }
+  }
+  &.toast-top-right {
+    @include app-rtl {
+      left: 12px;
+      right: auto;
+    }
+  }
+  &.toast-bottom-left {
+    @include app-rtl {
+      right: 12px;
+      left: auto;
+    }
+  }
+  &.toast-bottom-right {
+    @include app-rtl {
+      left: 12px;
+      right: auto;
+    }
+  }
+  &.toast-top-full-width,
+  &.toast-bottom-full-width {
+    &#toast-container > div {
+      @include app-rtl {
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+  > .toast {
+    max-width: 100%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+  }
+  &.toast-bottom-full-width > div,
+  &.toast-top-full-width > div {
+    width: 100%;
+    margin-bottom: 0;
+    border-radius: 0 !important;
+  }
+
+  > .toast-info {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2326c6f9'%3E%3Ctitle%3Einformation%3C/title%3E%3Cpath d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E") !important;
+    background-position: 0.75rem 0.85rem;
+  }
+  > .toast-error {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff4d49'%3E%3Ctitle%3Ealert-circle%3C/title%3E%3Cpath d='M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E") !important;
+    background-position: 0.75rem 0.85rem;
+  }
+  > .toast-success {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2372e128'%3E%3Ctitle%3Echeck-circle%3C/title%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z' /%3E%3C/svg%3E") !important;
+    background-position: 0.75rem 0.85rem;
+  }
+  > .toast-warning {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fdb528'%3E%3Ctitle%3Ealert%3C/title%3E%3Cpath d='M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z' /%3E%3C/svg%3E") !important;
+    background-position: 0.75rem 0.85rem;
+  }
+}
+// for full width toasts
+#toast-container:not(.toast-bottom-full-width, .toast-top-full-width) > div {
+  width: 20em !important;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: auto;
+  top: 0;
+  opacity: 0.15;
+  height: 0.1875rem;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=15);
+  filter: alpha(opacity=15);
+
+  @include app-rtl {
+    left: auto;
+    right: 0;
+  }
+}
+
+.toast-close-button {
+  position: absolute;
+  right: 0.25rem !important;
+  top: 0;
+  text-shadow: none;
+  color: inherit !important;
+
+  @include app-rtl {
+    left: 0.25rem !important;
+    right: auto !important;
+  }
+}
+
+// Light style
+@if $enable-light-style {
+  .light-style {
+    #toast-container {
+      z-index: light.$zindex-notification;
+
+      .toast-close-button {
+        font-weight: light.$close-font-weight;
+      }
+
+      > div {
+        box-shadow: light.$modal-content-box-shadow-xs !important;
+        border-radius: light.$border-radius;
+      }
+
+      > .toast-success,
+      .toast-error,
+      .toast-info,
+      .toast-warning {
+        color: light.$headings-color;
+        background-color: light.$card-bg;
+      }
+    }
+  }
+}
+
+// Dark style
+@if $enable-dark-style {
+  .dark-style {
+    #toast-container {
+      z-index: dark.$zindex-notification;
+
+      .toast-close-button {
+        font-weight: dark.$close-font-weight;
+        color: dark.$text-muted !important;
+      }
+      .toast-title {
+        color: dark.$headings-color;
+      }
+
+      > div {
+        box-shadow: dark.$modal-content-box-shadow-xs !important;
+        border-radius: dark.$border-radius;
+      }
+      .toast-progress {
+        background-color: dark.$white;
+      }
+
+      > .toast-success,
+      .toast-error,
+      .toast-info,
+      .toast-warning {
+        color: dark.$headings-color;
+        background-color: dark.$card-bg;
+      }
+    }
+  }
+}

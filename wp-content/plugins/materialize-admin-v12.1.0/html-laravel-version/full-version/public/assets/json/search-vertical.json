@@ -1,0 +1,750 @@
+{
+  "pages": [
+    {
+      "name": "Dashboard Analytics",
+      "icon": "mdi-home-outline",
+      "url": "/"
+    },
+    {
+      "name": "Dashboard eCommerce",
+      "icon": "mdi-home-outline",
+      "url": "dashboard/ecommerce"
+    },
+    {
+      "name": "Dashboard CRM",
+      "icon": "mdi-home-outline",
+      "url": "dashboard/crm"
+    },
+    {
+      "name": "Layout Collapsed menu",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/collapsed-menu"
+    },
+    {
+      "name": "Layout Content navbar",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/content-navbar"
+    },
+    {
+      "name": "Layout Content nav + Sidebar",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/content-navbar-with-sidebar"
+    },
+    {
+      "name": "Layout Without menu",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/without-menu"
+    },
+    {
+      "name": "Layout Without navbar",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/without-navbar"
+    },
+    {
+      "name": "Layout Fluid",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/fluid"
+    },
+    {
+      "name": "Layout Container",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/container"
+    },
+    {
+      "name": "Layout Blank",
+      "icon": "mdi-window-maximize",
+      "url": "layouts/blank"
+    },
+    {
+      "name": "User Management",
+      "icon": "mdi-account-outline",
+      "url": "laravel/user-management"
+    },
+    {
+      "name": "Email",
+      "icon": "mdi-email-outline",
+      "url": "app/email"
+    },
+    {
+      "name": "Chat",
+      "icon": "mdi-message-outline",
+      "url": "app/chat"
+    },
+    {
+      "name": "Calendar",
+      "icon": "mdi-calendar-blank-outline",
+      "url": "app/calendar"
+    },
+    {
+      "name": "Kanban",
+      "icon": "mdi-view-grid-outline",
+      "url": "app/kanban"
+    },
+    {
+      "name": "User List",
+      "icon": "mdi-format-list-checkbox",
+      "url": "app/user/list"
+    },
+    {
+      "name": "User View - Account",
+      "icon": "mdi-account-outline",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "User View - Security",
+      "icon": "mdi-shield-account-outline",
+      "url": "app/user/view/security"
+    },
+    {
+      "name": "User View - Billing & Plans",
+      "icon": "mdi-file-document-outline",
+      "url": "app/user/view/billing"
+    },
+    {
+      "name": "User View - Notifications",
+      "icon": "mdi-checkbox-blank-badge-outline",
+      "url": "app/user/view/notifications"
+    },
+    {
+      "name": "User View - Connections",
+      "icon": "mdi-link-variant",
+      "url": "app/user/view/connections"
+    },
+    {
+      "name": "Roles",
+      "icon": "mdi-security",
+      "url": "app/access-roles"
+    },
+    {
+      "name": "Permission",
+      "icon": "mdi-block-helper",
+      "url": "app/access-permission"
+    },
+    {
+      "name": "Invoice List",
+      "icon": "mdi-format-list-checkbox",
+      "url": "app/invoice/list"
+    },
+    {
+      "name": "Invoice Preview",
+      "icon": "mdi-file-document-outline",
+      "url": "app/invoice/preview"
+    },
+    {
+      "name": "Invoice Edit",
+      "icon": "mdi-pencil-outline",
+      "url": "app/invoice/edit"
+    },
+    {
+      "name": "Invoice Add",
+      "icon": "mdi-account-plus-outline",
+      "url": "app/invoice/add"
+    },
+    {
+      "name": "User Profile",
+      "icon": "mdi-account-circle-outline",
+      "url": "pages/profile-user"
+    },
+    {
+      "name": "User Profile - Teams",
+      "icon": "mdi-account-group-outline",
+      "url": "pages/profile-teams"
+    },
+    {
+      "name": "User Profile - Projects",
+      "icon": "mdi-view-grid-outline",
+      "url": "pages/profile-projects"
+    },
+    {
+      "name": "User Profile - Connections",
+      "icon": "mdi-link-variant",
+      "url": "pages/profile-connections"
+    },
+    {
+      "name": "Account Settings - Account",
+      "icon": "mdi-account-outline",
+      "url": "pages/account-settings-account"
+    },
+    {
+      "name": "Account Settings - Security",
+      "icon": "mdi-shield-account-outline",
+      "url": "pages/account-settings-security"
+    },
+    {
+      "name": "Account Settings - Billing & Plans",
+      "icon": "mdi-file-document-outline",
+      "url": "pages/account-settings-billing"
+    },
+    {
+      "name": "Account Settings - Notifications",
+      "icon": "mdi-checkbox-blank-badge-outline",
+      "url": "pages/account-settings-notifications"
+    },
+    {
+      "name": "Account Settings - Connections",
+      "icon": "mdi-link-variant",
+      "url": "pages/account-settings-connections"
+    },
+    {
+      "name": "FAQ",
+      "icon": "mdi-help-circle-outline",
+      "url": "pages/faq"
+    },
+    {
+      "name": "Help Center Landing",
+      "icon": "mdi-help-circle-outline",
+      "url": "pages/help-center-landing"
+    },
+    {
+      "name": "Help Center Categories",
+      "icon": "mdi-help-circle-outline",
+      "url": "pages/help-center-categories"
+    },
+    {
+      "name": "Help Center Article",
+      "icon": "mdi-help-circle-outline",
+      "url": "pages/help-center-article"
+    },
+    {
+      "name": "Pricing",
+      "icon": "mdi-file-document-outline",
+      "url": "pages/pricing"
+    },
+    {
+      "name": "Error",
+      "icon": "mdi-alert-circle-outline",
+      "url": "pages/misc-error"
+    },
+    {
+      "name": "Under Maintenance",
+      "icon": "mdi-medical-bag",
+      "url": "pages/misc-under-maintenance"
+    },
+    {
+      "name": "Coming Soon",
+      "icon": "mdi-clock-outline",
+      "url": "pages/misc-comingsoon"
+    },
+    {
+      "name": "Not Authorized",
+      "icon": "mdi-account-remove-outline",
+      "url": "pages/misc-not-authorized"
+    },
+    {
+      "name": "Server Error",
+      "icon": "mdi-server-remove",
+      "url": "pages/misc-server-error"
+    },
+    {
+      "name": "Login Basic",
+      "icon": "mdi-login",
+      "url": "auth/login-basic"
+    },
+    {
+      "name": "Login Cover",
+      "icon": "mdi-login",
+      "url": "auth/login-cover"
+    },
+    {
+      "name": "Register Basic",
+      "icon": "mdi-account-plus-outline",
+      "url": "auth/register-basic"
+    },
+    {
+      "name": "Register Cover",
+      "icon": "mdi-account-plus-outline",
+      "url": "auth/register-cover"
+    },
+    {
+      "name": "Register Multi-steps",
+      "icon": "mdi-account-plus-outline",
+      "url": "auth/register-multisteps"
+    },
+    {
+      "name": "Verify Email Basic",
+      "icon": "mdi-email-outline",
+      "url": "auth/verify-email-basic"
+    },
+    {
+      "name": "Verify Email Cover",
+      "icon": "mdi-email-outline",
+      "url": "auth/verify-email-cover"
+    },
+    {
+      "name": "Reset Password Basic",
+      "icon": "mdi-help-circle-outline",
+      "url": "auth/reset-password-basic"
+    },
+    {
+      "name": "Reset Password Cover",
+      "icon": "mdi-help-circle-outline",
+      "url": "auth/reset-password-cover"
+    },
+    {
+      "name": "Forgot Password Basic",
+      "icon": "mdi-help",
+      "url": "auth/forgot-password-basic"
+    },
+    {
+      "name": "Forgot Password Cover",
+      "icon": "mdi-help",
+      "url": "auth/forgot-password-cover"
+    },
+    {
+      "name": "Two Steps Verification Basic",
+      "icon": "mdi-help",
+      "url": "auth/two-steps-basic"
+    },
+    {
+      "name": "Two Steps Verification Cover",
+      "icon": "mdi-help",
+      "url": "auth/two-steps-cover"
+    },
+    {
+      "name": "Modal Examples",
+      "icon": "mdi-open-in-app",
+      "url": "modal-examples"
+    },
+    {
+      "name": "Checkout Wizard",
+      "icon": "mdi-cart-outline",
+      "url": "wizard/ex-checkout"
+    },
+    {
+      "name": "Property Listing Wizard",
+      "icon": "mdi-home-city-outline",
+      "url": "wizard/ex-property-listing"
+    },
+    {
+      "name": "Create Deal Wizard",
+      "icon": "mdi-gift-outline",
+      "url": "wizard/ex-create-deal"
+    },
+    {
+      "name": "Icons",
+      "icon": "mdi-cube-outline",
+      "url": "icons/icons-mdi"
+    },
+    {
+      "name": "Basic Cards",
+      "icon": "mdi-card-bulleted-outline",
+      "url": "cards/basic"
+    },
+    {
+      "name": "Advance Cards",
+      "icon": "mdi-id-card",
+      "url": "cards/advance"
+    },
+    {
+      "name": "Statistics Cards",
+      "icon": "mdi-chart-line",
+      "url": "cards/statistics"
+    },
+    {
+      "name": "Analytics Cards",
+      "icon": "mdi-chart-line",
+      "url": "cards/analytics"
+    },
+    {
+      "name": "Gamifications Cards",
+      "icon": "mdi-layers-outline",
+      "url": "cards/gamifications"
+    },
+    {
+      "name": "Actions Cards",
+      "icon": "mdi-mouse",
+      "url": "cards/actions"
+    },
+    {
+      "name": "Accordion",
+      "icon": "mdi-arrow-collapse",
+      "url": "ui/accordion"
+    },
+    {
+      "name": "Alerts",
+      "icon": "mdi-alert-circle-outline",
+      "url": "ui/alerts"
+    },
+    {
+      "name": "Badges",
+      "icon": "mdi-checkbox-blank-badge-outline",
+      "url": "ui/badges"
+    },
+    {
+      "name": "Buttons",
+      "icon": "mdi-plus-box-outline",
+      "url": "ui/buttons"
+    },
+    {
+      "name": "Carousel",
+      "icon": "mdi-image-outline",
+      "url": "ui/carousel"
+    },
+    {
+      "name": "Collapse",
+      "icon": "mdi-arrow-collapse",
+      "url": "ui/collapse"
+    },
+    {
+      "name": "Dropdowns",
+      "icon": "mdi-archive-arrow-down-outline",
+      "url": "ui/dropdowns"
+    },
+    {
+      "name": "Footer",
+      "icon": "mdi-dock-bottom",
+      "url": "ui/footer"
+    },
+    {
+      "name": "List Groups",
+      "icon": "mdi-format-list-checkbox",
+      "url": "ui/list-groups"
+    },
+    {
+      "name": "Modals",
+      "icon": "mdi-window-maximize",
+      "url": "ui/modals"
+    },
+    {
+      "name": "Navbar",
+      "icon": "mdi-dock-top",
+      "url": "ui/navbar"
+    },
+    {
+      "name": "Offcanvas",
+      "icon": "mdi-window-maximize",
+      "url": "ui/offcanvas"
+    },
+    {
+      "name": "Pagination &amp; Breadcrumbs",
+      "icon": "mdi-chevron-double-right",
+      "url": "ui/pagination-breadcrumbs"
+    },
+    {
+      "name": "Progress",
+      "icon": "mdi-tune",
+      "url": "ui/progress"
+    },
+    {
+      "name": "Spinners",
+      "icon": "mdi-reload",
+      "url": "ui/spinners"
+    },
+    {
+      "name": "Tabs &amp; Pills",
+      "icon": "mdi-tab",
+      "url": "ui/tabs-pills"
+    },
+    {
+      "name": "Toasts",
+      "icon": "mdi-message-processing-outline",
+      "url": "ui/toasts"
+    },
+    {
+      "name": "Tooltips &amp; Popovers",
+      "icon": "mdi-message-processing-outline",
+      "url": "ui/tooltips-popovers"
+    },
+    {
+      "name": "Typography",
+      "icon": "mdi-format-size",
+      "url": "ui/typography"
+    },
+    {
+      "name": "Avatar",
+      "icon": "mdi-account-circle-outline",
+      "url": "extended/ui-avatar"
+    },
+    {
+      "name": "BlockUI",
+      "icon": "mdi-fullscreen",
+      "url": "extended/ui-blockui"
+    },
+    {
+      "name": "Drag &amp; Drop",
+      "icon": "mdi-content-copy",
+      "url": "extended/ui-drag-and-drop"
+    },
+    {
+      "name": "Media Player",
+      "icon": "mdi-music",
+      "url": "extended/ui-media-player"
+    },
+    {
+      "name": "Perfect Scrollbar",
+      "icon": "mdi-swap-vertical",
+      "url": "extended/ui-perfect-scrollbar"
+    },
+    {
+      "name": "Star Ratings",
+      "icon": "mdi-star-outline",
+      "url": "extended/ui-star-ratings"
+    },
+    {
+      "name": "SweetAlert2",
+      "icon": "mdi-alert-circle-outline",
+      "url": "extended/ui-sweetalert2"
+    },
+    {
+      "name": "Text Divider",
+      "icon": "mdi-format-vertical-align-center",
+      "url": "extended/ui-text-divider"
+    },
+    {
+      "name": "Timeline Basic",
+      "icon": "mdi-arrow-expand-horizontal",
+      "url": "extended/ui-timeline-basic"
+    },
+    {
+      "name": "Timeline Fullscreen",
+      "icon": "mdi-arrow-expand-horizontal",
+      "url": "extended/ui-timeline-fullscreen"
+    },
+    {
+      "name": "Tour",
+      "icon": "mdi-send-variant-outline",
+      "url": "extended/ui-tour"
+    },
+    {
+      "name": "Treeview",
+      "icon": "mdi-source-fork mdi-rotate-180",
+      "url": "extended/ui-treeview"
+    },
+    {
+      "name": "Miscellaneous",
+      "icon": "mdi-sitemap-outline",
+      "url": "extended/ui-misc"
+    },
+    {
+      "name": "Basic Inputs",
+      "icon": "mdi-form-dropdown",
+      "url": "forms/basic-inputs"
+    },
+    {
+      "name": "Input groups",
+      "icon": "mdi-form-select",
+      "url": "forms/input-groups"
+    },
+    {
+      "name": "Custom Options",
+      "icon": "mdi-circle-outline",
+      "url": "forms/custom-options"
+    },
+    {
+      "name": "Editors",
+      "icon": "mdi-file-document-edit-outline",
+      "url": "forms/editors"
+    },
+    {
+      "name": "File Upload",
+      "icon": "mdi-upload-outline",
+      "url": "forms/file-upload"
+    },
+    {
+      "name": "Pickers",
+      "icon": "mdi-calendar-range",
+      "url": "forms/pickers"
+    },
+    {
+      "name": "Select &amp; Tags",
+      "icon": "mdi-form-select",
+      "url": "forms/selects"
+    },
+    {
+      "name": "Sliders",
+      "icon": "mdi-tune",
+      "url": "forms/sliders"
+    },
+    {
+      "name": "Switches",
+      "icon": "mdi-toggle-switch-outline",
+      "url": "forms/switches"
+    },
+    {
+      "name": "Extras",
+      "icon": "mdi-plus-box-outline",
+      "url": "forms/extras"
+    },
+    {
+      "name": "Vertical Form",
+      "icon": "mdi-file-document-outline",
+      "url": "form/layouts-vertical"
+    },
+    {
+      "name": "Horizontal Form",
+      "icon": "mdi-file-document-outline",
+      "url": "form/layouts-horizontal"
+    },
+    {
+      "name": "Sticky Actions",
+      "icon": "mdi-file-document-outline",
+      "url": "form/layouts-sticky"
+    },
+    {
+      "name": "Numbered Wizard",
+      "icon": "mdi-transit-connection-horizontal",
+      "url": "form/wizard-numbered"
+    },
+    {
+      "name": "Icons Wizard",
+      "icon": "mdi-transit-connection-horizontal",
+      "url": "form/wizard-icons"
+    },
+    {
+      "name": "Form Validation",
+      "icon": "mdi-checkbox-marked-circle-outline",
+      "url": "form/validation"
+    },
+    {
+      "name": "Tables",
+      "icon": "mdi-table",
+      "url": "tables/basic"
+    },
+    {
+      "name": "Datatable Basic",
+      "icon": "mdi-table",
+      "url": "tables/datatables-basic"
+    },
+    {
+      "name": "Datatable Advanced",
+      "icon": "mdi-table",
+      "url": "tables/datatables-advanced"
+    },
+    {
+      "name": "Datatable Extensions",
+      "icon": "mdi-table",
+      "url": "tables/datatables-extensions"
+    },
+    {
+      "name": "Apex Charts",
+      "icon": "mdi-chart-line",
+      "url": "charts/apex"
+    },
+    {
+      "name": "ChartJS",
+      "icon": "mdi-poll",
+      "url": "charts/chartjs"
+    },
+    {
+      "name": "Leaflet Maps",
+      "icon": "mdi-map-outline",
+      "url": "maps/leaflet"
+    }
+  ],
+  "files": [
+    {
+      "name": "Class Attendance",
+      "subtitle": "By Tommy Shelby",
+      "src": "img/icons/misc/search-xls.png",
+      "meta": "17kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Passport Image",
+      "subtitle": "By William Budd",
+      "src": "img/icons/misc/search-jpg.png",
+      "meta": "35kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Class Notes",
+      "subtitle": "By Laurel Lance",
+      "src": "img/icons/misc/search-doc.png",
+      "meta": "153kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Receipt",
+      "subtitle": "By Donnie Darko",
+      "src": "img/icons/misc/search-jpg.png",
+      "meta": "25kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Social Guide",
+      "subtitle": "By Ryan Middleton",
+      "src": "img/icons/misc/search-doc.png",
+      "meta": "39kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Expenses",
+      "subtitle": "By Slade Wilson",
+      "src": "img/icons/misc/search-xls.png",
+      "meta": "15kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Documentation",
+      "subtitle": "By Walter White",
+      "src": "img/icons/misc/search-doc.png",
+      "meta": "200kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Avatar",
+      "subtitle": "By Ross Geller",
+      "src": "img/icons/misc/search-jpg.png",
+      "meta": "100kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Data",
+      "subtitle": "By Erik Foreman",
+      "src": "img/icons/misc/search-xls.png",
+      "meta": "5kb",
+      "url": "javascript:;"
+    },
+    {
+      "name": "Gardening Guide",
+      "subtitle": "By Jerry Seinfeld",
+      "src": "img/icons/misc/search-doc.png",
+      "meta": "25kb",
+      "url": "javascript:;"
+    }
+  ],
+  "members": [
+    {
+      "name": "John Doe",
+      "subtitle": "Admin",
+      "src": "img/avatars/1.png",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "Micheal Clarke",
+      "subtitle": "Customer",
+      "src": "img/avatars/2.png",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "Melina Gibson",
+      "subtitle": "Staff",
+      "src": "img/avatars/5.png",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "Anna Strong",
+      "subtitle": "Staff",
+      "src": "img/avatars/7.png",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "Stephanie Gould",
+      "subtitle": "Customer",
+      "src": "img/avatars/3.png",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "David Budd",
+      "subtitle": "Admin",
+      "src": "img/avatars/10.png",
+      "url": "app/user/view/account"
+    },
+    {
+      "name": "Mark Shepiro",
+      "subtitle": "Admin",
+      "src": "img/avatars/12.png",
+      "url": "app/user/view/account"
+    }
+  ]
+}

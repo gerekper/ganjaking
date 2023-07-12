@@ -16,7 +16,7 @@
  * get_object_to_stream() and put_object() take an open filehandle
  * argument for streaming data out of or into Cloud Files.
  *
- * Requres PHP 5.x (for Exceptions and OO syntax)
+ * Requires PHP 5.x (for Exceptions and OO syntax)
  *
  * See COPYING for license information.
  *
@@ -145,7 +145,7 @@ class UpdraftPlus_CF_Http
         $this->response_reason = NULL;
 
         # Curl connections array - since there is no way to "re-set" the
-        # connection paramaters for a cURL handle, we keep an array of
+        # connection parameters for a cURL handle, we keep an array of
         # the unique use-cases and funnel all of those same type
         # requests through the appropriate curl connection.
         #

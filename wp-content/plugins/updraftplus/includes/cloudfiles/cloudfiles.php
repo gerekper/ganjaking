@@ -56,7 +56,7 @@
  *
  * See the included tests directory for additional sample code.
  *
- * Requres PHP 5.x (for Exceptions and OO syntax) and PHP's cURL module.
+ * Requires PHP 5.x (for Exceptions and OO syntax) and PHP's cURL module.
  *
  * It uses the supporting "cloudfiles_http.php" module for HTTP(s) support and
  * allows for connection re-use and streaming of content into/out of Cloud Files
@@ -90,7 +90,7 @@ require_once(UPDRAFTPLUS_DIR."/includes/cloudfiles/cloudfiles_http.php");
  * $auth = new CF_Authentication("username", "api_key");
  *
  * # NOTE: For UK Customers please specify your AuthURL Manually
- * # There is a Predfined constant to use EX:
+ * # There is a Predefined constant to use EX:
  * #
  * # $auth = new CF_Authentication("username, "api_key", NULL, UK_AUTHURL);
  * # Using the UK_AUTHURL keyword will force the api to use the UK AuthUrl.
@@ -370,7 +370,7 @@ class UpdraftPlus_CF_Connection
      *
      * </code>
      *
-     * If the environement variable RACKSPACE_SERVICENET is defined it will
+     * If the environment variable RACKSPACE_SERVICENET is defined it will
      * force to connect via the servicenet.
      *
      * @param obj $cfs_auth previously authenticated CF_Authentication instance
@@ -490,7 +490,7 @@ class UpdraftPlus_CF_Connection
         }
         if (strlen($container_name) > MAX_CONTAINER_NAME_LEN) {
             throw new SyntaxException(sprintf(
-                "Container name exeeds %d bytes.",
+                "Container name exceeds %d bytes.",
                 MAX_CONTAINER_NAME_LEN));
         }
 
@@ -1250,7 +1250,7 @@ class UpdraftPlus_CF_Container
      *
      * $public_container = $conn->get_container("public");
      *
-     * # Disable CDN accessability
+     * # Disable CDN accessibility
      * # ... still cached up to a month based on previous example
      * #
      * $public_container->make_private();
@@ -1300,7 +1300,7 @@ class UpdraftPlus_CF_Container
      *
      * $public_container = $conn->get_container("public");
      *
-     * # Display CDN accessability
+     * # Display CDN accessibility
      * #
      * $public_container->is_public() ? print "Yes" : print "No";
      * </code>
@@ -1806,7 +1806,7 @@ class UpdraftPlus_CF_Container
     /**
      * Helper function to create "path" elements for a given Object name
      *
-     * Given an Object whos name contains '/' path separators, this function
+     * Given an Object whose name contains '/' path separators, this function
      * will create the "directory marker" Objects of one byte with the
      * Content-Type of "application/directory".
      *
@@ -2491,7 +2491,7 @@ class UpdraftPlus_CF_Object
      * Cloud Files to perform end-to-end verification.  Omitting the ETag forces
      * the user to handle any data integrity checks.
      *
-     * @param string $etag MD5 checksum hexidecimal string
+     * @param string $etag MD5 checksum hexadecimal string
      */
     function set_etag($etag)
     {
@@ -2504,7 +2504,7 @@ class UpdraftPlus_CF_Object
      *
      * Accessor method for reading Object's private ETag attribute.
      *
-     * @return string MD5 checksum hexidecimal string
+     * @return string MD5 checksum hexadecimal string
      */
     function getETag()
     {
@@ -2523,7 +2523,7 @@ class UpdraftPlus_CF_Object
      * compute yourself the md5 before if you have it.
      *
      * @param filename|obj|string $data filename, open resource, or string
-     * @return string MD5 checksum hexidecimal string
+     * @return string MD5 checksum hexadecimal string
      */
     function compute_md5sum(&$data)
     {

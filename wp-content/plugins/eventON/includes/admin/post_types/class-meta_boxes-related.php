@@ -1,7 +1,7 @@
 <?php
 /**
- * Event Edit Meta box Health Guidance
- * @4.0.3
+ * Event Edit Meta box Related Events
+ * @4.4.1
  */
 
 
@@ -56,5 +56,16 @@ echo "<div class='evcal_data_block_style1'>
 		);
 	?>
 	<span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> ><?php _e('Add related event','eventon');?></span>
+
+	<?php 
+	// option to hide related event images
+	echo EVO()->elements->get_element(array(
+		'type'=>'yesno',
+		'id'=>'_evo_relevs_hide_img',
+		'value'=> $EVENT->get_prop('_evo_relevs_hide_img'),
+		'name'=> __('Hide related event image','eventon'),
+		'tooltip'=> __('This will show related events without the event image.','eventon')
+	));
+	?>
 
 <?php echo "</div></div>";

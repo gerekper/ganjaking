@@ -1,0 +1,15 @@
+﻿@page
+@model AspnetCoreFull.Pages.IndexModel
+@{
+  ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+  <h1 class="display-4">Welcome Test Page</h1>
+  <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+  <ul class="list-unstyled d-flex justify-content-center gap-3">
+    <li><a asp-page="/Authentication/Login">Login</a></li>
+    <li><a asp-page="/Privacy">Privacy</a></li>
+    <li><a asp-page="/Error">Error</a></li>
+  </ul>
+</div>

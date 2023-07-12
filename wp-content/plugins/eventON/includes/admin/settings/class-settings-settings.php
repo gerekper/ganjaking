@@ -1,7 +1,7 @@
 <?php
 /**
   * evo settings class
-  * @version 4.4
+  * @version 4.4.1
   */
 class evo_settings_settings{
 	private $evcal_opt;
@@ -80,43 +80,7 @@ class evo_settings_settings{
 						'type'=>'yesno',
 						'name'=>__('Disable ICS file special character encoding','eventon'), 
 						'legend'=>__('This will disable html special character dencoding for all ics downloaded files for events','eventon')
-					),
-					
-					array('type'=>'sub_section_open','name'=>__('Autonomous Functions' ,'eventon')),
-
-						array('id'=>'evcal_move_trash','type'=>'yesno','name'=>__('Auto move events to trash when the event date is past','eventon'), 'legend'=>__('This will move events to trash when the event end date is past current date. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
-						array('id'=>'evcal_mark_completed','type'=>'yesno','name'=>__('Set all past events as completed','eventon'), 'legend'=>__('This will set all the past events as completed. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
-					array('type'=>'sub_section_close'),
-
-					array('type'=>'sub_section_open','name'=>__('WP EventON Core Settings' ,'eventon')),					
-
-						array('id'=>'evo_content_filter','type'=>'dropdown','name'=>__('Select calendar event content filter type','eventon'),'legend'=>__('This will disable the use of the_content filter on event details and custom field values.','eventon'), 'options'=>array( 
-							'evo'=>__('EventON Content Filter','eventon'),
-							'def'=>__('Default WordPress Filter','eventon'),
-							'none'=>__('No Filter','eventon')
-						)),
-						array('id'=>'evo_settings_query_type',
-							'type'=>'dropdown',
-							'name'=>__('Select event calendar WP Query method','eventon'),
-							'legend'=>__('This will set how the wp_query is run to load events. Depending on the method you choose, it may speed up calendar and restrict the events loaded into calendar based on date range. The date Event posts are created is not the same as event date.','eventon'),
-							'options'=>array(
-								'default'=>__('Query all the event posts','eventon'),
-								'this_year'=>__('Query only the event posts created this year','eventon'),
-								'6months'=>__('Query only the event posts created within last 6 months','eventon'),
-								'last_5months'=>__('Query only the event posts created within last 5 months','eventon'),
-								'last_4months'=>__('Query only the event posts created within last 4 months','eventon'),
-								'last_3months'=>__('Query only the event posts created within last 3 months','eventon'),
-								'last_2months'=>__('Query only the event posts created within last 2 months','eventon'),
-								'this_month'=>__('Query only the event posts created this month','eventon')
-							)
-						),
-						array('id'=>'evo_sanitize_html',
-							'type'=>'yesno',
-							'name'=>__('Enable sanitizing HTML content for event data','eventon'), 
-							'legend'=>__('Enabling this will sanitize HTML content using evo_helper()->sanitize_html() function and remove unsupported html content. By default any HTML content is allowed.','eventon')
-						),
-					array('type'=>'sub_section_close'),
-
+					),					
 					array('type'=>'sub_section_open','name'=>__('Search Engine Structured Data' ,'eventon')),
 						array('id'=>'evo_schema','type'=>'yesno','name'=>__('Remove schema data from calendar','eventon'), 'legend'=>__('Schema microdata helps in google and other search engines find events in special event data format. With this option you can remove those microdata from showing up on front-end calendar.','eventon'),'afterstatement'=>'evo_schema'),
 
@@ -217,6 +181,7 @@ class evo_settings_settings{
 						'name'=>sprintf(__('Looking for additional functionality including event tickets, frontend event submissions, RSVP to events, photo gallery and more? <br/><a href="%s" style="margin-top:5px;"target="_blank" class="evo_admin_btn btn_triad">Check out eventON addons</a>' ,'eventon'), 'http://www.myeventon.com/addons/')
 					),
 			))),
+			
 			array(
 				'id'=>'evcal_005',
 				'name'=>__('Google Maps API Settings','eventon'),
@@ -557,8 +522,7 @@ class evo_settings_settings{
 				'tab_name'=>__('EventCard Design','eventon'),
 				'icon'=>'pencil-ruler',
 				'fields'=>array(
-					array('id'=>'evcal__note','type'=>'customcode','code'=>$this->eventcard_meta_fields()),
-					
+					array('id'=>'evcal__note','type'=>'customcode','code'=>$this->eventcard_meta_fields()),					
 				)
 			)
 			// custom meta fields
@@ -645,6 +609,55 @@ class evo_settings_settings{
 					'tab_name'=> __('Single Events','eventon'),
 					'icon'=>'calendar',
 					'fields'=> $this->single_events()
+				),
+
+			// Advanced - moved since 4.4.1
+				array(
+					'id'=>'evcal_001_advance',
+					'name'=>__('Advanced Settings','eventon'),
+					'tab_name'=>__('Advanced Settings','eventon'),
+					'icon'=>'laptop-code',
+					'fields'=>array(
+					array('type'=>'sub_section_open','name'=>__('WP EventON Core Settings' ,'eventon')),					
+
+						array('id'=>'evo_content_filter','type'=>'dropdown','name'=>__('Select calendar event content filter type','eventon'),'legend'=>__('This will disable the use of the_content filter on event details and custom field values.','eventon'), 'options'=>array( 
+							'evo'=>__('EventON Content Filter','eventon'),
+							'def'=>__('Default WordPress Filter','eventon'),
+							'none'=>__('No Filter','eventon')
+						)),
+						array('id'=>'evo_settings_query_type',
+							'type'=>'dropdown',
+							'name'=>__('Select event calendar WP Query method','eventon'),
+							'legend'=>__('This will set how the wp_query is run to load events. Depending on the method you choose, it may speed up calendar and restrict the events loaded into calendar based on date range. The date Event posts are created is not the same as event date.','eventon'),
+							'options'=>array(
+								'default'=>__('Query all the event posts','eventon'),
+								'this_year'=>__('Query only the event posts created this year','eventon'),
+								'6months'=>__('Query only the event posts created within last 6 months','eventon'),
+								'last_5months'=>__('Query only the event posts created within last 5 months','eventon'),
+								'last_4months'=>__('Query only the event posts created within last 4 months','eventon'),
+								'last_3months'=>__('Query only the event posts created within last 3 months','eventon'),
+								'last_2months'=>__('Query only the event posts created within last 2 months','eventon'),
+								'this_month'=>__('Query only the event posts created this month','eventon')
+							)
+						),
+						array('id'=>'evo_sanitize_html',
+							'type'=>'yesno',
+							'name'=>__('Enable sanitizing HTML content for event data','eventon'), 
+							'legend'=>__('Enabling this will sanitize HTML content using evo_helper()->sanitize_html() function and remove unsupported html content. By default any HTML content is allowed.','eventon')
+						),
+						/*array('id'=>'evo_enable_endpoint_ajax',
+							'type'=>'yesno',
+							'name'=>__('Enable endpoint AJAX calls on front-end.','eventon'), 
+							'legend'=>__('Enabling this will use endpoint REST-API based AJAX calls to load calendar data, instead of classic admin_ajax.php method. This method has shown to improve calendar speed. Since v4.4','eventon')
+						),*/
+					array('type'=>'sub_section_close'),
+					array('type'=>'sub_section_open','name'=>__('Autonomous Functions' ,'eventon')),
+
+						array('id'=>'evcal_move_trash','type'=>'yesno','name'=>__('Auto move events to trash when the event date is past','eventon'), 'legend'=>__('This will move events to trash when the event end date is past current date. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
+						array('id'=>'evcal_mark_completed','type'=>'yesno','name'=>__('Set all past events as completed','eventon'), 'legend'=>__('This will set all the past events as completed. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
+					array('type'=>'sub_section_close'),
+
+					)
 				),
 
 			// third party APIs

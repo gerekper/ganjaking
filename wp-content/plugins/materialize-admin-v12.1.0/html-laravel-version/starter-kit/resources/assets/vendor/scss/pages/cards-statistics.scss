@@ -1,0 +1,139 @@
+// * Cards Advance
+// *******************************************************************************
+
+@use '../_bootstrap-extended/include' as light;
+@use '../_bootstrap-extended/include-dark' as dark;
+@import '../_custom-variables/pages';
+
+// Card Advance carousel styles
+.swiper-container {
+  // card with bg color
+  border-radius: light.$border-radius-lg;
+
+  &.swiper-sales {
+    .sales-text-bg {
+      padding: 0.17rem 0.5rem;
+      border-radius: light.$border-radius-sm;
+      min-width: 36px;
+      text-align: center;
+    }
+  }
+  .swiper-wrapper {
+    .swiper-slide {
+      padding: 1.5rem;
+      white-space: nowrap;
+      .weekly-sales-text-bg-primary {
+        padding: 0.25rem 0.65rem;
+        border-radius: light.$border-radius-sm;
+        min-width: 40px;
+        text-align: center;
+        background-color: light.rgba-to-hex(rgba(dark.$primary, 0.85), light.$rgba-to-hex-bg-inverted);
+      }
+    }
+  }
+  // bullet color for swiper with card bg
+  &.swiper-container-horizontal > .swiper-pagination-bullets {
+    .swiper-pagination-bullet {
+      background: rgba(dark.$base, 0.26) !important;
+
+      &.swiper-pagination-bullet-active {
+        background: light.$white !important;
+      }
+    }
+  }
+  // bullet color for swiper with bg primary
+  &.swiper-container-horizontal > .swiper-pagination-bullets {
+    bottom: auto;
+    top: 1rem;
+    @include app-ltr() {
+      right: 1rem;
+      text-align: right;
+      left: unset;
+    }
+    @include app-rtl() {
+      left: 1rem;
+      text-align: left;
+      right: unset;
+    }
+
+    .swiper-pagination-bullet {
+      opacity: unset;
+    }
+  }
+}
+
+@if $enable-light-style {
+  .light-style {
+    .swiper-container {
+      background-color: light.$card-bg;
+      box-shadow: light.$card-box-shadow;
+
+      &.swiper-sales {
+        &.swiper-container-horizontal > .swiper-pagination-bullets {
+          .swiper-pagination-bullet {
+            background: rgba(light.$black, 0.26) !important;
+            &.swiper-pagination-bullet-active {
+              background: light.$primary !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@if $enable-dark-style {
+  .dark-style {
+    .swiper-container {
+      background-color: dark.$card-bg;
+      box-shadow: dark.$card-box-shadow;
+
+      &.swiper-sales {
+        &.swiper-container-horizontal > .swiper-pagination-bullets {
+          .swiper-pagination-bullet {
+            background: rgba(dark.$base, 0.26) !important;
+            &.swiper-pagination-bullet-active {
+              background: dark.$primary !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// For responsive carousel
+@include light.media-breakpoint-up(md) {
+  .swiper-container {
+    .swiper-wrapper {
+      .swiper-slide {
+        .weekly-sales-img {
+          position: absolute;
+          top: 14%;
+          @include app-ltr() {
+            right: 3%;
+          }
+          @include app-rtl() {
+            left: 3%;
+          }
+        }
+      }
+    }
+  }
+}
+@include light.media-breakpoint-up(xxl) {
+  .swiper-container {
+    .swiper-wrapper {
+      .swiper-slide {
+        .weekly-sales-img {
+          @include app-ltr() {
+            right: 4%;
+          }
+          @include app-rtl() {
+            left: 4%;
+          }
+        }
+      }
+    }
+  }
+}

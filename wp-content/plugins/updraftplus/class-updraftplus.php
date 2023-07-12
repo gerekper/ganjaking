@@ -110,6 +110,7 @@ class UpdraftPlus {
 			'UpdraftPlus_Storage_Methods_Interface' => 'includes/class-storage-methods-interface.php',
 			'UpdraftPlus_Job_Scheduler' => 'includes/class-job-scheduler.php',
 			'UpdraftPlus_HTTP_Error_Descriptions' => 'includes/class-http-error-descriptions.php',
+			'UpdraftPlus_Database_Utility' => 'includes/class-database-utility.php'
 		);
 		
 		foreach ($load_classes as $class => $relative_path) {
@@ -6280,6 +6281,38 @@ class UpdraftPlus {
 	 */
 	private function get_site_name() {
 		return preg_replace('/^www\./i', '', strtolower(parse_url(network_site_url(), PHP_URL_HOST)));
+	}
+
+	/**
+	 * Function to load Updraft_Checkout_Embed
+	 *
+	 * @return void
+	 */
+	public static function load_checkout_embed() {
+		global $updraftplus_checkout_embed;
+		if (!class_exists('Updraft_Checkout_Embed')) updraft_try_include_file('includes/checkout-embed/class-udp-checkout-embed.php', 'include_once');
+
+		// Create an empty list (useful for testing, thanks to the filter below)
+		$checkout_embed_products = array();
+
+		// get products from JSON file.
+		$checkout_embed_product_file = UPDRAFTPLUS_DIR.'/includes/checkout-embed/products.json';
+		if (file_exists($checkout_embed_product_file)) {
+			$checkout_embed_products = json_decode(file_get_contents($checkout_embed_product_file));
+		} else {
+			throw new Exception(sprintf("The %s file is missing.", $checkout_embed_product_file));
+		}
+
+		$checkout_embed_products = apply_filters('updraftplus_checkout_embed_products', $checkout_embed_products);
+
+		if (!empty($checkout_embed_products)) {
+			$updraftplus_checkout_embed = new Updraft_Checkout_Embed(
+				'updraftplus',                                              // plugin name
+				UpdraftPlus_Options::admin_page_url().'?page=updraftplus', 	// return url
+				$checkout_embed_products,                                   // products list
+				UPDRAFTPLUS_URL.'/includes'                                 // base_url
+			);
+		}
 	}
 	
 	/**

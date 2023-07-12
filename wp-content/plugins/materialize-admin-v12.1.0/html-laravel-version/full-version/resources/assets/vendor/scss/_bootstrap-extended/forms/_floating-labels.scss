@@ -1,0 +1,189 @@
+// Floating Labels
+// *******************************************************************************
+
+// Floating label (Filled)
+.form-floating:not(.form-floating-outline) {
+  > .form-control,
+  > .form-control-plaintext,
+  > .form-select {
+    background-color: $form-floating-input-bg;
+    border: 0;
+    border-bottom: 1px solid $input-border-color;
+    @include border-bottom-start-radius(0);
+    @include border-bottom-end-radius(0);
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      padding: $form-floating-input-padding-t $form-floating-padding-x $form-floating-input-padding-b
+        $form-floating-padding-x;
+      &::placeholder {
+        color: $input-placeholder-color;
+      }
+    }
+    // Duplicated because `:-webkit-autofill` invalidates other selectors when grouped
+    &:-webkit-autofill {
+      padding: $form-floating-input-padding-t $form-floating-padding-x calc($form-floating-input-padding-b - 1px)
+        $form-floating-padding-x;
+    }
+  }
+  // Transform bottom bordered
+  > .form-control:focus,
+  > .form-select:focus {
+    ~ .form-floating-focused {
+      transform: scaleX(1);
+    }
+  }
+}
+// Floating label (Filled) border bottom
+.form-floating-focused {
+  position: relative;
+  top: -1px;
+  z-index: 9;
+  display: block;
+  width: 100%;
+  height: $input-focus-border-width;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  transform: scaleX(0);
+}
+
+// Floating label (Outlined)
+.form-floating.form-floating-outline {
+  > .form-control,
+  > .form-select {
+    &:focus {
+      border-width: $input-focus-border-width;
+    }
+    &:focus,
+    &:not(:placeholder-shown) {
+      padding-top: $form-floating-padding-y;
+      padding-bottom: $form-floating-padding-y;
+      &::placeholder {
+        color: $input-placeholder-color;
+      }
+      // Floating (outline) label position on focus
+      ~ label {
+        width: auto;
+        height: auto;
+        padding: 0 $input-focus-border-width;
+        margin-left: $form-floating-padding-y;
+        transform: $form-floating-outline-label-transform;
+        opacity: 1;
+        &:after {
+          content: '';
+          position: absolute;
+          height: 0.5rem;
+          width: 100%;
+          left: 0;
+          top: 0.35rem;
+          z-index: -1;
+        }
+      }
+    }
+    // Duplicated because `:-webkit-autofill` invalidates other selectors when grouped
+    &:-webkit-autofill {
+      padding-top: $form-floating-padding-y;
+      padding-bottom: $form-floating-padding-y;
+      ~ label {
+        transform: $form-floating-outline-label-transform;
+        opacity: 1;
+      }
+    }
+  }
+
+  // Form control padding on focus
+  &:focus-within {
+    > .form-control:first-child,
+    > .form-select:first-child {
+      padding: $form-floating-padding-y calc($form-floating-padding-x - 1px);
+    }
+  }
+
+  // Input group (not first-child) floating (outline) label position
+  .input-group & {
+    &:not(:first-child) {
+      > .form-control:focus,
+      > .form-control:not(:placeholder-shown),
+      > .form-select {
+        ~ label {
+          padding: 0 $input-focus-border-width !important;
+          margin-left: calc($input-focus-border-width * -1);
+          transform: $form-floating-outline-label-transform;
+        }
+      }
+    }
+  }
+}
+
+// Fie Upload : Floating label File
+.form-floating {
+  .form-control {
+    &::file-selector-button {
+      padding: $form-floating-padding-y $form-floating-padding-x;
+      margin: (-$form-floating-padding-y) (-$form-floating-padding-x);
+      margin-inline-end: $form-floating-padding-x;
+    }
+  }
+}
+
+// RTL
+@include rtl-only {
+  // Floating label (Filled)
+  .form-floating:not(.form-floating-outline) {
+    > label {
+      right: 0;
+      left: inherit;
+      transform-origin: 100% 0;
+    }
+
+    > .form-control:focus,
+    > .form-control:not(:placeholder-shown),
+    > .form-select {
+      ~ label {
+        transform: $form-floating-label-transform-rtl;
+      }
+    }
+
+    > .form-control:-webkit-autofill {
+      ~ label {
+        transform: $form-floating-label-transform-rtl;
+      }
+    }
+  }
+
+  // Floating label (Outlined)
+  .form-floating.form-floating-outline {
+    > label {
+      right: 0;
+      left: inherit;
+      transform-origin: 100% 0;
+    }
+    // Floating (outline) label position
+    > .form-control:focus,
+    > .form-control:not(:placeholder-shown),
+    > .form-select {
+      ~ label {
+        margin-right: $form-floating-padding-y;
+        margin-left: 0px;
+        transform: $form-floating-outline-label-transform-rtl;
+      }
+    }
+
+    > .form-control:-webkit-autofill {
+      ~ label {
+        transform: $form-floating-outline-label-transform-rtl;
+      }
+    }
+  }
+  .input-group {
+    .form-floating.form-floating-outline:not(:first-child) {
+      > .form-control:focus,
+      > .form-control:not(:placeholder-shown),
+      > .form-select {
+        ~ label {
+          margin-right: calc($input-focus-border-width * -1);
+          transform: $form-floating-outline-label-transform-rtl;
+        }
+      }
+    }
+  }
+}

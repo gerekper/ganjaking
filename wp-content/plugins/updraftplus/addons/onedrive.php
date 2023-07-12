@@ -258,7 +258,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 			return false;
 		}
 		
-		// At this point, the upload has suceeded despite expectation of failure
+		// At this point, the upload has succeeded despite expectation of failure
 		$updraftplus->log_remove_warning('onedrive_expect_to_fail');
 		return true;
 	}
@@ -648,7 +648,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 		/*
 			To save calls to the AUth server, Checking from the saved details (in $opts) from the last OneDrive call
 			and to see if there needs to be a new call or to re-use the values.  This also double Checks to see
-			if the access_token_timeout is set. if this is a new setup, this would never be set and therfore
+			if the access_token_timeout is set. if this is a new setup, this would never be set and therefore
 			initial a first request in order to be saved back to $opts for future calls.
 		*/
 		if (!isset($opts['access_token_timeout']) || time() > $opts['access_token_timeout']) {
@@ -705,7 +705,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 			}
 			/**
 			 * Before proceeding, check to make sure no errors returned from OneDrive or CloudFlare.
-			 * If no refresh_token returned, disply Errrors
+			 * If no refresh_token returned, display Errors
 			 */
 			$http_code = wp_remote_retrieve_response_code($result);
 			if ($http_code >= 400) {

@@ -1,0 +1,29 @@
+@page
+@model AspnetCoreFull.Pages.Pages.Misc.NotAuthorizedModel
+@{
+  Layout = "Layouts/_BlankLayout";
+  ViewData["Title"] = "Not Authorized - Pages";
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/page-misc.dist.css">
+}
+
+@* ************** Content ************** *@
+<!-- Not Authorized -->
+<div class="misc-wrapper">
+  <h1 class="mb-2 mx-2" style="font-size: 6rem;">401</h1>
+  <h4 class="mb-2 fw-semibold">You are not authorized! 🔐</h4>
+  <p class="mb-2 mx-2">You don’t have permission to access this page. Go Home!</p>
+  <div class="d-flex justify-content-center mt-5">
+    <img src="~/img/illustrations/misc-not-authorized-object.png" alt="misc-not-authorized" class="img-fluid misc-object d-none d-lg-inline-block" width="190">
+    <img src="~/img/illustrations/misc-bg-light.png" alt="misc-not-authorized" class="misc-bg d-none d-lg-inline-block" data-app-light-img="illustrations/misc-bg-light.png" data-app-dark-img="illustrations/misc-bg-dark.png">
+    <div class="d-flex flex-column align-items-center">
+      <img src="~/img/illustrations/misc-not-authorized-illustration.png" alt="misc-not-authorized" class="img-fluid zindex-1" width="160">
+      <div>
+        <a href="/" class="btn btn-primary text-center my-4">Back to home</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Not Authorized -->

@@ -426,7 +426,7 @@ class WC_Brands_Admin {
 	 */
 	public function product_columns( $columns ) {
 		if ( empty( $columns ) ) {
-			return;
+			return $columns;
 		}
 
 		$column_index  = 'taxonomy-product_brand';
@@ -448,7 +448,7 @@ class WC_Brands_Admin {
 	 */
 	function columns( $columns ) {
 		if ( empty( $columns ) ) {
-			return;
+			return $columns;
 		}
 
 		$new_columns = array();

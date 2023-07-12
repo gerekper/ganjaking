@@ -1,0 +1,17 @@
+// Accordion
+// *******************************************************************************
+
+// Header text color accordion
+@mixin template-accordion-header-variant($parent, $background) {
+  .accordion {
+    &#{$parent} {
+      .accordion-item {
+        &.active {
+          .accordion-button {
+            color: $background !important;
+          }
+        }
+      }
+    }
+  }
+}

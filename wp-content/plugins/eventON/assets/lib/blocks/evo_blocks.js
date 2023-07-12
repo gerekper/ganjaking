@@ -1,6 +1,6 @@
 /**
 EventON Gutenberg Blocks
-@version 4.4
+@version 4.4.1
 **/
 
 
@@ -19,6 +19,10 @@ var blockStyle = { backgroundColor: 'transparent', color: '#808080', padding: '2
 var blockEditor = wp.blockEditor;
 var components = wp.components;
 var shortcode = wp.shortcode;
+
+// validate
+if( wp.blocks === undefined ) return;
+if( wp.blocks.registerBlockType === undefined ) return;
 
 wp.blocks.registerBlockType( 'eventon-blocks/evo-eventon-main', {
     title: 'EventON',

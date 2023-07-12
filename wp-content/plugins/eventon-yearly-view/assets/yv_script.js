@@ -1,6 +1,6 @@
 /**
  * Javascript: Eventon YV
- * @version 0.1
+ * @version 0.6
  */
 jQuery(document).ready(function($){
 
@@ -269,7 +269,7 @@ jQuery(document).ready(function($){
 				TD['day'] = $(this).data('d');
 				TD['month'] = $(this).closest('.month_box').data('m');
 
-				
+
 
 				// get events from evnet list
 				events = $(this).data('ev');
@@ -285,10 +285,15 @@ jQuery(document).ready(function($){
 				html = get_evo_temp_processed_html( TD , 'evoyv_lb');
 
 
-				$('.evoyv_lightbox').evo_append_lb({C: html});
+				$('.evoyv_lightbox').evo_append_lb({C: html, CAL: CAL});
 
 				$('.evoyv_lightbox').find('.eventon_list_event').show();
 				$('.evoyv_lightbox').evo_show_lb({calid: CAL.attr('id')});
+
+				// cev and sev classes
+				if( CAL.hasClass('cev')){
+					$('.evoyv_lightbox').find('.eventon_list_event').addClass('cev');
+				}
 
 			})			
 		;

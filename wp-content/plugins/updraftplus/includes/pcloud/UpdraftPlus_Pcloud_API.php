@@ -318,7 +318,7 @@ class UpdraftPlus_Pcloud_API {
 	 * @param array    $offset       - you can create real chunked download using this offset param.
 	 *
 	 * @return int
-	 * @throws Exception Throws standart exception.
+	 * @throws Exception Throws standard exception.
 	 */
 	public function download($file_id, $archive_file = null, $options = array(), $offset = 0) {
 
@@ -464,8 +464,8 @@ class UpdraftPlus_Pcloud_API {
 	/**
 	 * Upload - write content chunk
 	 *
-	 * @param string $content - String content to be writen.
-	 * @param array  $params  - Additinal request params.
+	 * @param string $content - String content to be written.
+	 * @param array  $params  - Additional request params.
 	 *
 	 * @return WP_Error - returns a WP_Error if something goes wrong
 	 */

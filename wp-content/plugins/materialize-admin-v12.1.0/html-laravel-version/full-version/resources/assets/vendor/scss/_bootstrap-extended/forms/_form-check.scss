@@ -1,0 +1,116 @@
+// Checkboxes and Radios
+// *******************************************************************************
+.form-check-input {
+  cursor: $form-check-label-cursor;
+}
+
+.form-check {
+  position: relative;
+}
+
+// Only for checkbox and radio (not for bs default switch)
+//? .dt-checkboxes-cell class is used for DataTables checkboxes
+.form-check:not(.form-switch),
+.dt-checkboxes-cell {
+  // Material shadow
+  .form-check-input {
+    position: relative;
+    transition: all 0.2s;
+    &::after {
+      content: '';
+      position: absolute;
+      top: -(px-to-rem(floor(rem-to-px(((($line-height-base * $font-size-base) - 1.125rem) * 0.5)))));
+      left: -2.5px;
+      z-index: 1;
+      display: block;
+      width: $form-check-input-width;
+      height: $form-check-input-width;
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.2s;
+      transform-origin: center;
+      transform: scale(0) translateZ(0);
+    }
+
+    @include rtl-style {
+      &::after {
+        right: -2.5px;
+        left: auto;
+      }
+    }
+  }
+
+  // Checkbox and Radio bg size for animation transition
+  .form-check-input[type='checkbox'] {
+    background-size: 1.375rem;
+    &:not(:checked):not(:indeterminate) {
+      background-size: 0rem;
+    }
+  }
+  .form-check-input[type='radio'] {
+    background-size: 1rem;
+    &:not(:checked) {
+      background-size: 0.75rem;
+    }
+  }
+  // Material shadow display on hover & active
+  .form-check-input {
+    &:active,
+    &:hover {
+      &::after {
+        opacity: 1;
+        transform: scale(2) translateZ(0);
+      }
+    }
+
+    &:disabled,
+    &[disabled] {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+// RTL Style
+@include rtl-only {
+  .form-check {
+    padding-left: 0;
+    padding-right: $form-check-padding-start;
+  }
+  .form-check .form-check-input {
+    float: right;
+    margin-left: 0;
+    margin-right: $form-check-padding-start * -1;
+  }
+}
+
+// Switches
+// *******************************************************************************
+
+// RTL Style
+@include rtl-only {
+  .form-switch {
+    padding-left: 0;
+    padding-right: $form-switch-padding-start;
+    .form-check-input {
+      margin-left: 0;
+      margin-right: $form-switch-padding-start * -1;
+      background-position: right center;
+      &:checked {
+        background-position: $form-switch-checked-bg-position-rtl;
+      }
+    }
+  }
+  .form-check-inline {
+    margin-right: 0;
+    margin-left: $form-check-inline-margin-end;
+  }
+}
+
+// Contextual colors for form check
+@each $color, $value in $theme-colors {
+  @if $color != primary {
+    @include template-material-form-check-variant('.form-check-#{$color}', $value);
+  }
+}

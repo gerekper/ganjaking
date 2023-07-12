@@ -1,7 +1,7 @@
 <?php 
 /**
  * EventON Lightboxes for back and front
- * @version 4.2
+ * @version 4.4.1
  */
 
 class EVO_Lightboxes{
@@ -42,7 +42,7 @@ class EVO_Lightboxes{
 							<div class="evo_content_inin">
 								<div class="evo_lightbox_content">
 									<div class='evo_lb_closer'>
-										<a class='evolbclose <?php echo !empty($lb['CLclosebtn'])? $lb['CLclosebtn']:'';?>'>X</a>
+										<span class='evolbclose <?php echo !empty($lb['CLclosebtn'])? $lb['CLclosebtn']:'';?>'>X</span>
 									</div>
 									<div class='evo_lightbox_body <?php echo !empty($lb['CLin'])? $lb['CLin']:'';?>'><?php echo !empty($lb['content'])? $lb['content']:'';?> </div>
 								</div>

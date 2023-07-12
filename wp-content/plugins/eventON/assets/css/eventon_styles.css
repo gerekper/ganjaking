@@ -2262,8 +2262,7 @@
 		font-size: 14px;
 		margin-bottom:5px;
 	}
-	.evcal_evdata_row .evcal_evdata_cell p
-	{font-size: 11px;line-height:140%;}
+	.evcal_evdata_row .evcal_evdata_cell p{line-height:140%;}
 	.evo_lightbox p{line-height: 140%}
 
 /* local event time */
@@ -2959,7 +2958,7 @@
 		    -ms-transform: translateY(0);
 		    transform: translateY(0);
 		    opacity: 1;
-		    color:#808080;
+		    color: var(--evo_color_1);
 		}
 	/* lightbox version 4.2 */
 		.evo_lightbox.client .evolb_header{
@@ -3057,7 +3056,7 @@
 		.ajde_evcal_calendar.bub #evcal_list{display: flex;  flex-wrap: wrap; margin-top:10px;position:relative;}
 		.ajde_evcal_calendar.bub #evcal_list .eventon_list_event{margin:0 10px 10px 0;}
 		.ajde_evcal_calendar.bub #evcal_list .eventon_list_event a{
-			border-radius: 20px; padding:10px;}
+			border-radius: 20px; padding:20px;}
 
 		.ajde_evcal_calendar.bub #evcal_list.sep_months {flex-direction: column;}
 		.ajde_evcal_calendar.bub #evcal_list.sep_months .sep_month_events {
@@ -3591,7 +3590,7 @@
 		padding: 8px 0;
 	}
 	.evo_search_bar{
-		height: 35px;
+		height: 37px;
 		display: block;
 		overflow: hidden;
 		margin-top: 5px;
@@ -3603,17 +3602,17 @@
 		position: absolute;	
 		bottom: 0;
 		width: 100%;
-		height: 35px;	
+		height: 37px;	
 	}
 	.evo_search_bar_in a.evosr_search_btn{
-		top: 4px; right: 10px;
+		top: 0px; right: 0px;
 		height: 100%; font-size: 16px;
 	}
 	.evo_search_bar_in a.evosr_search_btn:hover{color: #cccccc;}
 	.evo_search_bar input:focus{border:none;}
 	.evo_search_bar input, .evo_search_bar input[type=text]{
 		background-color: #F2F2F2; box-shadow: none;
-		border:1px solid #EDEDED;
+		border:2px solid var(--evo_color_1);
 		width: 100%;
 		padding:8px 15px;
 		font: 14px arial;
@@ -3651,7 +3650,8 @@
     	line-height: 1.5;
     	margin:0;
 	}
-	.EVOSR_section input:hover, .EVOSR_section input:focus,.EVOSR_section input:active, .evo_search_bar input:hover {border:1px solid #c5c5c5;outline:none;}
+	.EVOSR_section input:hover, .EVOSR_section input:focus,.EVOSR_section input:active, 
+	.evo_search_bar input:hover {border:2px solid #c5c5c5;outline:none;}
 	.EVOSR_section a.evo_do_search, a.evosr_search_btn{
 		position: absolute;
 		right: 0px;top: 0px;
@@ -3957,7 +3957,7 @@
 	    .ajdeToolTip em{display:none;}
 
 	/* purchase box */
-		.evo_purchase_box{ background-color: #fff3dd;padding:15px;border-radius: 12px;}
+		.evo_purchase_box{ background-color: #f3f3f3;padding:15px;border-radius: 12px;}
 		.evo_purchase_box .purchase_section .brb{border-bottom: 1px solid #c1c1c1;}
 		.evo_purchase_box .purchase_section span.right{float:right; margin-left: 10px;}
 		.evo_purchase_box .purchase_section p{margin: 0;}
@@ -4134,7 +4134,12 @@
 
 	/* live view */
 	.evo_eventon_now_next .evo_countdowner{display: inline-block;}
-	.evo_eventon_now .desc_trig.hasFtIMG{flex-direction: column;}
-	.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a .ev_ftImg{width: 100%; height:250px;}
+	.evo_eventon_now .desc_trig.hasFtIMG{flex-direction: column;border:20px solid transparent!important;}
+	.evo_eventon_now .desc_trig.hasFtIMG .evoet_c1{margin-right: 0}
+	.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a .ev_ftImg{width: 100%; height:250px;margin-bottom: 10px;}
 	.evo_eventon_live_now_section .evo_eventon_now .ajde_evcal_calendar.cev.sev #evcal_list a .evo_info{width: auto}
+
+	/* schedule view */
+	.evosv_grid .row{flex-direction: row;margin-left: 120px}
+	.evosv_grid .row .evosv_items .evosv_event{min-width: 100%; margin-top: 10px;}
 }

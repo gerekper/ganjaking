@@ -151,7 +151,7 @@ This file contains changelog entries that are not contained in the main readme.t
 * TWEAK: If PHP reports the current memory limit as a non-positive integer, do not display any message to the user about a low memory limit
 * TWEAK: If the user deletes their Google API project, then show clearer information on what to do when a backup fails
 * TWEAK: If you changed your OneDrive client ID, UD will now more clearly advise you of the need to re-authenticate
-* COMPATABILITY: Updated the OneDrive authentication procedure to make it compatible with the new Microsoft Developer Apps
+* COMPATIBILITY: Updated the OneDrive authentication procedure to make it compatible with the new Microsoft Developer Apps
 
 = 1.12.18 - 03/Aug/2016 =
 
@@ -176,7 +176,7 @@ This file contains changelog entries that are not contained in the main readme.t
 
 * TWEAK: Log FTP progress upload less often (slight resource usage improvement)
 * TWEAK: For multi-archive backup sets, the HTML title attribute of download buttons had unnecessary duplicated information
-* TWEAK: Improve OneDrive performance by cacheing directory listings
+* TWEAK: Improve OneDrive performance by caching directory listings
 * TWEAK: Detect and handle a case in which OneDrive incorrectly reports a file as incompletely uploaded
 * FIX: OneDrive scanning of large directories for existing backup sets was only detecting the first 200 files
 
@@ -185,7 +185,7 @@ This file contains changelog entries that are not contained in the main readme.t
 * TWEAK: S3 now supports the new Mumbai region
 * TWEAK: If the user enters an AWS/S3 access key that looks prima facie invalid, then mention this in the error output
 * TWEAK: Make the message that the user is shown in the case of no network connectivity to updraftplus.com when connecting for updates (paid versions) clearer
-* TWEAK: Extend cacheing of enumeration of uploads that was introduced in 1.11.1 to other data in wp-content also
+* TWEAK: Extend caching of enumeration of uploads that was introduced in 1.11.1 to other data in wp-content also
 * TWEAK: Avoid fatal error in Migrator if running via WP-CLI with the USER environment variable unset
 * TWEAK: When DB_CHARSET is defined but empty, treat it the same as if undefined
 * TWEAK: Add updraftplus_remotesend_udrpc_object_obtained action hook, allowing customisation of HTTP transport options for remote sending
@@ -195,7 +195,7 @@ This file contains changelog entries that are not contained in the main readme.t
 * TWEAK: Patch Labelauty to be friendly to screen-readers
 * TWEAK: Suppress the UD updates check on paid versions that immediately follows a WP automatic core security update
 * TWEAK: Handle missing UpdraftCentral command classes more elegantly
-* FEATURE: Endpoint handlers for forthcoming updates and user mangement features in UpdraftCentral
+* FEATURE: Endpoint handlers for forthcoming updates and user management features in UpdraftCentral
 * TRANSLATIONS: Remove bundled German (de_DE) translation, since this is now retrieved from wordpress.org
 * FIX: Fix inaccurate reporting of the current Vault quota usage in the report email
 * FIX: Fix logic errors in processing return codes when no direct MySQL/MySQLi connection was possible in restoring that could cause UpdraftPlus to wrongly conclude that restoring was not possible
@@ -776,7 +776,7 @@ https://updraftplus.com/shop/updraftplus-premium/)
 button
 * TWEAK: Detect select/poll lengthy timeouts when uploading to Dropbox, and
 prevent overlapping activity
-* TWEAK: Add constant UPDRAFTPLUS_NOAUTOBACKUPS to programatically disable the
+* TWEAK: Add constant UPDRAFTPLUS_NOAUTOBACKUPS to programmatically disable the
 automatic backups add-on
 * TWEAK: Rename UpdraftPlus Dropbox class, to avoid clash with Ninja Forms
 upload add-on
@@ -1187,7 +1187,7 @@ term_relationships table (which can never have URLs in it)
 
 * FIX: Various small fixes to the initial release of 1.8.1
 * TWEAK: Restorer now switches theme if database is restored to indicate a
-non-existent theme, and Migrator temporarily disables cacheing plugins during
+non-existent theme, and Migrator temporarily disables caching plugins during
 Migration
 * TWEAK: Improve handling of MySQL's maximum packet size - attempt to raise
 it, and leave some margin
@@ -1488,7 +1488,7 @@ error (rather than continue and likely have many more)
 some faulty PHP installs
 * TWEAK: Allow an extra attempt if in "over-time" - allows recovery from
 transient errors (e.g. cloud service temporary outage) in over-time.
-* TWEAK: Work-around WP installs with broken cacheing setups where cache
+* TWEAK: Work-around WP installs with broken caching setups where cache
 deletion is not working
 * TWEAK: If ZipArchive::close() fails, then log the list of files we were
 trying to add at the time
@@ -1847,7 +1847,7 @@ cancelled
 operation on it, which may not be permitted)
 * Use WordPress's native HTTP functions for greater reliability when
 performing Google Drive authorisation
-* Deal with WP-Cron racey double events (abort superceeded backups)
+* Deal with WP-Cron racey double events (abort superseded backups)
 * Allow user to download logs from admin interface
 
 = 1.0.5 - 12/13/2012 =

@@ -571,7 +571,7 @@ class UpdraftPlus_Addon_Reporting {
 
 		$jobdata['service'] = empty($jobdata['service']) ? array() : $updraftplus->get_canonical_service_list($jobdata['service']);
 
-		// I was thinking not to check the the nonce fisrt, but at this point I believe we should only generate a valid link
+		// I was thinking not to check the the nonce first, but at this point I believe we should only generate a valid link
 		$download_link = is_array($jobdata) && !empty($jobdata['backup_time']) && !empty($this->file_nonce) && empty($jobdata['service']);
 
 		if ($download_link) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * REST API for event access
- * @version 4.4
+ * @version 4.4.1
  */
 
 class EVO_Rest_API{
@@ -44,7 +44,6 @@ class EVO_Rest_API{
 
 			return apply_filters('evo_ajax_rest_'. $action, array('html'=>'test'), $params);
 
-			//$response = EVO()->ajax->callback( $params['evo-ajax'] , $nonce);
 
 		}else{
 			$response = array(

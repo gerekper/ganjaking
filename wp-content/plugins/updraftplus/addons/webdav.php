@@ -1002,7 +1002,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		switch ($result->getStatus()) {
 			case 200:
 				// server doesn't support range requests
-				// TODO we should add some sort of cacheing here - inherited from initial commit
+				// TODO we should add some sort of caching here - inherited from initial commit
 				$data = substr($data, $start, $count);
 				break;
 
@@ -1149,7 +1149,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		(TODO: maybe we should do a HTTP version check first?) - inherited from initial commit
 
 		we *could* emulate partial PUT support by adding local
-		cacheing but for now we don't want to as it adds a lot
+		caching but for now we don't want to as it adds a lot
 		of complexity and storage overhead to the client ...
 		*/
 

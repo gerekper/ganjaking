@@ -229,7 +229,7 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 	 * @return Boolean - a boolean value to indicate success or failure of the chunked upload finish call
 	 */
 	public function chunked_upload_finish($file) {
-		$this->log("all chunks uploaded; now commmitting blob blocks");
+		$this->log("all chunks uploaded; now committing blob blocks");
 		// Commit the blocks to create the blob
 
 		$opts = $this->get_options();

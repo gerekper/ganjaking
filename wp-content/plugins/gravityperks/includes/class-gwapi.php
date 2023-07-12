@@ -441,6 +441,7 @@ class GWAPI {
 
 	public function get_license_data( $flush = false ) {
 		return array('license'=>'valid','item_name'=>urlencode($this->get_product_name()),'perk_limit'=>0,'price_name'=>'Pro');
+
 		return $this->request( array(
 			'action'     => 'check_license',
 			'method'     => 'POST',

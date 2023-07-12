@@ -3,7 +3,7 @@
  * evo_frontend class for front and backend.
  *
  * @class 		evo_frontend
- * @version		4.3.2
+ * @version		4.4.1
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -159,7 +159,7 @@ class evo_frontend {
 				'evo_general_params', 
 				apply_filters('evo_ajax_script_data', array( 
 					'ajaxurl' => admin_url( 'admin-ajax.php' ) , 
-					'evo_ajax_url' => evo_ajax::get_endpoint('%%endpoint%%') , 
+					'evo_ajax_url' => evo_ajax::get_endpoint('%%endpoint%%'), 
 					'ajax_method' => 'ajax',
 					'rest_url'=> EVO_Rest_API::get_rest_api('%%endpoint%%'),
 					'n' => wp_create_nonce( 'eventon_nonce' ),					
@@ -226,6 +226,7 @@ class evo_frontend {
 
 			// pluggable
 				do_action('evo_register_other_styles_scripts');
+
 		}
 
 		// google fonts
@@ -253,13 +254,12 @@ class evo_frontend {
 		}
 		
 		public function register_evo_dynamic_styles(){
-			$opt= $this->evo_options;
-			if(  evo_settings_val('evcal_css_head',  $opt, true)){
+			if(  !EVO()->cal->check_yn('evcal_css_head','evcal_1') ){
 				if(is_multisite()) {
 					$uploads = wp_upload_dir();
 					$dynamic_style_url = $uploads['baseurl'] . '/eventon_dynamic_styles.css';					
 				} else {
-					$dynamic_style_url = EVO()->assets_path. 'css/eventon_dynamic_styles.css';					
+					$dynamic_style_url = EVO()->assets_path. 'css/eventon_dynamic_styles.css';	
 				}
 
 				$dynamic_style_url = str_replace(array('http:','https:'), '',$dynamic_style_url);
@@ -269,11 +269,10 @@ class evo_frontend {
 		}
 		
 		public function load_dynamic_evo_styles(){
-			$opt= $this->evo_options;
-
+			
 			// if write dynamic styles into the page
-			if(evo_settings_val('evcal_css_head', $opt)){
-				
+			if( EVO()->cal->check_yn('evcal_css_head','evcal_1')){
+
 				$dynamic_css = get_option('evo_dyn_css');
 				if(!empty($dynamic_css)){
 
@@ -344,8 +343,8 @@ class evo_frontend {
 
 		// styles
 		public function load_default_evo_styles(){
-			$opt= $this->evo_options;
-			if(empty($opt['evo_googlefonts']) || $opt['evo_googlefonts'] =='no'){
+			
+			if(!EVO()->cal->check_yn('evo_googlefonts')){
 				wp_enqueue_style( 'evcal_google_fonts' );
 			}
 
@@ -354,7 +353,7 @@ class evo_frontend {
 				wp_enqueue_style( 'evcal_cal_default');	
 				wp_enqueue_style( 'evo_addon_styles');	
 			}
-			if(empty($opt['evo_fontawesome']) || $opt['evo_fontawesome'] =='no')
+			if(!EVO()->cal->check_yn('evo_fontawesome','evcal_1'))
 				wp_enqueue_style( 'evo_font_icons' );
 
 			// Addon styles will be loaded to page at this point
