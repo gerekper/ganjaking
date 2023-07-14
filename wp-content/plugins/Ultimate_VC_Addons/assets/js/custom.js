@@ -144,7 +144,7 @@
 	} );
 
 	//Common on window scroll event
-	jQuery( window ).scroll( function () {
+	jQuery( window ).on( 'scroll', function () {
 		const $hideOnMobile = jQuery( '.ult-no-mobile' ).length;
 		if (
 			! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -267,7 +267,7 @@
 				flip_box_resize();
 			}
 		);
-		jQuery( window ).resize( function () {
+		jQuery( window ).on( 'resize', function () {
 			flip_resize_count++;
 			setTimeout( function () {
 				flip_time_resize++;
@@ -278,7 +278,7 @@
 		} );
 		const tiid = 0;
 		let mason_des = 0;
-		jQuery( window ).resize( function () {
+		jQuery( window ).on( 'resize', function () {
 			ib_responsive();
 			jQuery( '.csstime.smile-icon-timeline-wrap' ).each( function () {
 				timeline_icon_setting( jQuery( this ) );
@@ -593,7 +593,7 @@
 				}, 0 );
 			}
 		} );
-		jQuery( '.ubtn' ).focusout( function () {
+		jQuery( '.ubtn' ).on( 'focusout', function () {
 			const $this = jQuery( this );
 			$this.removeClass( 'no-ubtn-shadow' );
 			if ( $this.is( '.shd-left' ) != '' ) $this.css( { right: 'auto' } );
@@ -1203,7 +1203,7 @@ jQuery( document ).ready( function () {
 	jQuery( window ).on( 'load', function () {
 		interactive_banner2();
 	} );
-	jQuery( window ).resize( function () {
+	jQuery( window ).on( 'resize', function () {
 		interactive_banner2();
 	} );
 
@@ -1339,15 +1339,15 @@ jQuery( document ).ready( function () {
 	jQuery( window ).on( 'load', function () {
 		resize_uvc_map();
 	} );
-	jQuery( window ).resize( function () {
+	jQuery( window ).on( 'resize', function () {
 		resize_uvc_map();
 	} );
-	jQuery( '.ui-tabs' ).bind( 'tabsactivate', function ( event, ui ) {
+	jQuery( '.ui-tabs' ).on( 'tabsactivate', function ( event, ui ) {
 		if ( jQuery( this ).find( '.ultimate-map-wrapper' ).length > 0 ) {
 			resize_uvc_map();
 		}
 	} );
-	jQuery( '.ui-accordion' ).bind(
+	jQuery( '.ui-accordion' ).on(
 		'accordionactivate',
 		function ( event, ui ) {
 			if ( jQuery( this ).find( '.ultimate-map-wrapper' ).length > 0 ) {

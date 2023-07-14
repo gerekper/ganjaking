@@ -14,7 +14,7 @@ class WC_Bookings_Cost_Calculation {
 	/**
 	 * Calculate costs from posted values
 	 * @param  array $data
-	 * @return string cost
+	 * @return string|WP_Error cost
 	 */
 	public static function calculate_booking_cost( $data, $product ) {
 		// Get costs
@@ -71,6 +71,7 @@ class WC_Bookings_Cost_Calculation {
 			// handle day buffers
 			if ( ! in_array( $product->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
 				$buffer_days = WC_Bookings_Controller::find_buffer_day_blocks( $product );
+				$buffer_days = array_keys( $buffer_days );
 				$contains_buffer_days = false;
 				// Evaluate costs for each booked block
 				for ( $block = 0; $block < $blocks_booked; $block ++ ) {
@@ -89,13 +90,13 @@ class WC_Bookings_Cost_Calculation {
 				}
 
 				if ( $contains_buffer_days ) {
-					$block_duration_string = $block_duration;
-					if ( 'week' === $block_unit ) {
-						$block_duration_string = $block_duration * 7;
-					}
-
-					/* translators: 1: block duration days */
-					return new WP_Error( 'Error', sprintf( __( 'The duration of this booking must be at least %s days.', 'woocommerce-bookings' ), $block_duration_string ) );
+					return new WP_Error(
+						'Error',
+						__(
+							'It looks like these days are booked and no longer available, please try again with different days.',
+							'woocommerce-bookings'
+						)
+					);
 				}
 			}
 		}

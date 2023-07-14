@@ -32,7 +32,7 @@ global $wp_version;
 		<div class="date-selector-popover">
 			<div class="current_month">
 				<a id="wc-bookings-datepicker-container-month">
-					<?php echo current_time( 'F Y' ); ?>
+					<?php echo esc_html( current_time( 'F Y' ) ); ?>
 					<span> ▾ </span>
 				</a>
 			</div>

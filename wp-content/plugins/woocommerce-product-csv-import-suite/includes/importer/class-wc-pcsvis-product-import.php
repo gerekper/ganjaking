@@ -68,7 +68,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		$regenerate_thumbnail = apply_filters( 'woocommerce_background_image_regeneration', true );
 
 		if ( ! empty( $_POST['delimiter'] ) ) {
-			$this->delimiter = stripslashes( trim( $_POST['delimiter'] ) );
+			$this->delimiter = trim( $this->clean_unslash( $_POST['delimiter'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 
 		if ( ! $this->delimiter )
@@ -95,7 +95,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				if ( $this->handle_upload() )
 					$this->import_options();
 				else
-					_e( 'Error with handle_upload!', 'woocommerce-product-csv-import-suite' );
+					esc_html_e( 'Error with handle_upload!', 'woocommerce-product-csv-import-suite' );
 			break;
 			case 2 :
 				$this->header();
@@ -105,7 +105,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				$this->id = (int) $_POST['import_id'];
 
 				if ( $this->file_url_import_enabled )
-					$this->file_url = esc_attr( $_POST['import_url'] );
+					$this->file_url = esc_attr( $this->clean_unslash( $_POST['import_url'] ) );  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 				if ( $this->id )
 					$file = get_attached_file( $this->id );
@@ -125,10 +125,10 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 						<thead>
 							<tr>
 								<th class="status">&nbsp;</th>
-								<th class="row"><?php _e( 'Row', 'woocommerce-product-csv-import-suite' ); ?></th>
-								<th><?php _e( 'SKU', 'woocommerce-product-csv-import-suite' ); ?></th>
-								<th><?php _e( 'Product', 'woocommerce-product-csv-import-suite' ); ?></th>
-								<th class="reason"><?php _e( 'Status Msg', 'woocommerce-product-csv-import-suite' ); ?></th>
+								<th class="row"><?php esc_html_e( 'Row', 'woocommerce-product-csv-import-suite' ); ?></th>
+								<th><?php esc_html_e( 'SKU', 'woocommerce-product-csv-import-suite' ); ?></th>
+								<th><?php esc_html_e( 'Product', 'woocommerce-product-csv-import-suite' ); ?></th>
+								<th class="reason"><?php esc_html_e( 'Status Msg', 'woocommerce-product-csv-import-suite' ); ?></th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -157,16 +157,16 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 								var data = {
 									_ajax_nonce:       '<?php echo esc_js( wp_create_nonce( 'csv-import-ajax' ) ); ?>',
 									action:            'woocommerce_csv_import_request',
-									file:              '<?php echo addslashes( $file ); ?>',
-									mapping:           decodeURIComponent('<?php echo rawurlencode( wp_json_encode( $_POST['map_to'] ) ); ?>'),
+									file:              '<?php echo esc_js( $file ); ?>',
+									mapping:           decodeURIComponent('<?php echo rawurlencode( wp_json_encode( $this->clean_unslash( $_POST['map_to'] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized ?>'),
 									delimiter:         '<?php echo esc_js( $this->delimiter ); ?>',
-									merge_empty_cells: '<?php echo $this->merge_empty_cells; ?>',
+									merge_empty_cells: '<?php echo esc_js( $this->merge_empty_cells ); ?>',
 									start_pos:         start_pos,
 									end_pos:           end_pos,
 								};
 
 								return $.ajax({
-									url:        '<?php echo add_query_arg( array( 'import_page' => $this->import_page, 'step' => '3', 'merge' => ! empty( $_GET['merge'] ) ? '1' : '0' ), admin_url( 'admin-ajax.php' ) ); ?>',
+									url:        decodeURIComponent('<?php echo rawurlencode( add_query_arg( array( 'import_page' => $this->import_page, 'step' => '3', 'merge' => ! empty( $_GET['merge'] ) ? '1' : '0' ), admin_url( 'admin-ajax.php' ) ) ); ?>'),
 									data:       data,
 									type:       'POST',
 									success:    function( response ) {
@@ -221,7 +221,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 											} catch(err) {}
 
 										} else {
-											$('#import-progress tbody').append( '<tr class="error"><td class="status" colspan="5">' + '<?php _e( 'AJAX Error', 'woocommerce-product-csv-import-suite' ); ?>' + '</td></tr>' );
+											$('#import-progress tbody').append( '<tr class="error"><td class="status" colspan="5">' + '<?php esc_html_e( 'AJAX Error', 'woocommerce-product-csv-import-suite' ); ?>' + '</td></tr>' );
 										}
 
 										var w = $(window);
@@ -254,7 +254,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 							$import_count      = 0;
 
 							// Get CSV positions
-							if ( ( $handle = fopen( $file, "r" ) ) !== FALSE ) {
+							if ( ( $handle = fopen( $file, "r" ) ) !== FALSE ) { // nosemgrep: audit.php.lang.security.file.phar-deserialization
 
 								while ( ( $postmeta = fgetcsv( $handle, 0, $this->delimiter ) ) !== FALSE ) {
 									$count++;
@@ -266,13 +266,13 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 										$import_count      ++;
 
 										// Import rows between $previous_position $position
-						            	?>rows.push( [ <?php echo $previous_position; ?>, <?php echo $position; ?> ] ); <?php
+						            	?>rows.push( [ <?php echo esc_js( $previous_position ); ?>, <?php echo esc_js( $position ); ?> ] ); <?php
 						            }
 		  						}
 
 		  						// Remainder
 		  						if ( $count > 0 ) {
-		  							?>rows.push( [ <?php echo $position; ?>, '' ] ); <?php
+		  							?>rows.push( [ <?php echo esc_js( $position ); ?>, '' ] ); <?php
 		  							$import_count      ++;
 		  						}
 
@@ -285,7 +285,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 							import_rows( data[0], data[1] );
 
 							$('body').on( 'woocommerce_csv_import_request_complete', function() {
-								if ( done_count == <?php echo $import_count; ?> ) {
+								if ( done_count == <?php echo esc_js( $import_count ); ?> ) {
 
 									if ( attachments.length ) {
 
@@ -349,7 +349,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 								var data = {
 									_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'csv-import-ajax' ) ); ?>',
 									action: 'woocommerce_csv_import_request',
-									file: '<?php echo $file; ?>',
+									file: '<?php echo esc_js( $file ); ?>',
 									processed_terms: processed_terms,
 									processed_posts: processed_posts,
 									post_orphans: post_orphans,
@@ -358,7 +358,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 								};
 
 								$.ajax({
-									url: '<?php echo add_query_arg( array( 'import_page' => $this->import_page, 'step' => '4', 'merge' => ! empty( $_GET['merge'] ) ? 1 : 0 ), admin_url( 'admin-ajax.php' ) ); ?>',
+									url:        decodeURIComponent('<?php echo urlencode( add_query_arg( array( 'import_page' => $this->import_page, 'step' => '4', 'merge' => ! empty( $_GET['merge'] ) ? 1 : 0 ), admin_url( 'admin-ajax.php' ) ) ); ?>'),
 									data:       data,
 									type:       'POST',
 									success:    function( response ) {
@@ -372,7 +372,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 					</script>
 					<?php
 				} else {
-					echo '<p class="error">' . __( 'Error finding uploaded file!', 'woocommerce-product-csv-import-suite' ) . '</p>';
+					echo '<p class="error">' . esc_html__( 'Error finding uploaded file!', 'woocommerce-product-csv-import-suite' ) . '</p>';
 				}
 			break;
 			case 3 :
@@ -396,7 +396,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 					$this->perform_file_path_checks( $file );
 				} catch ( Throwable $e ) {
 					WC_Product_CSV_Import_Suite::log( __( 'Invalid filepath specified during import.', 'woocommerce-product-csv-import-suite' ) );
-					exit( __( 'Error finding uploaded file!', 'woocommerce-product-csv-import-suite' ) );
+					exit( esc_html__( 'Error finding uploaded file!', 'woocommerce-product-csv-import-suite' ) );
 				}
 
 				$mapping   = json_decode( stripslashes( $_POST['mapping'] ), true );
@@ -417,7 +417,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				$results['crosssell_skus']  = $this->crosssell_skus;
 
 				echo "<!--WC_START-->";
-				echo function_exists( 'wc_esc_json' ) ? wc_esc_json( wp_json_encode( $results ), true ) : wp_specialchars( wp_json_encode( $results ), ENT_QUOTES, 'UTF-8', true );
+				echo wc_esc_json( wp_json_encode( $results ), true );
 				echo "<!--WC_END-->";
 				exit;
 			break;
@@ -440,18 +440,20 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				@flush();
 				$wpdb->hide_errors();
 
-				$this->processed_terms = isset( $_POST['processed_terms'] ) ? $_POST['processed_terms'] : array();
-				$this->processed_posts = isset( $_POST['processed_posts']) ? $_POST['processed_posts'] : array();
-				$this->post_orphans    = isset( $_POST['post_orphans']) ? $_POST['post_orphans'] : array();
-				$this->crosssell_skus  = isset( $_POST['crosssell_skus']) ? array_filter( (array) $_POST['crosssell_skus'] ) : array();
-				$this->upsell_skus     = isset( $_POST['upsell_skus']) ? array_filter( (array) $_POST['upsell_skus'] ) : array();
+				$this->processed_terms = map_deep( $_POST['processed_terms'] ?? array(), array( $this, 'clean_unslash' ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$this->processed_posts = map_deep( $_POST['processed_posts'] ?? array(), array( $this, 'clean_unslash' ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$this->post_orphans    = map_deep( $_POST['post_orphans'] ?? array(), array( $this, 'clean_unslash' ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				// nosemgrep: audit.php.lang.misc.array-filter-no-callback
+				$this->crosssell_skus  = array_filter( map_deep( $_POST['crosssell_skus'] ?? array(), array( $this, 'clean_unslash' ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				// nosemgrep: audit.php.lang.misc.array-filter-no-callback
+				$this->upsell_skus     = array_filter( map_deep( $_POST['upsell_skus'] ?? array(), array( $this, 'clean_unslash' ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-				_e( 'Cleaning up...', 'woocommerce-product-csv-import-suite' ) . ' ';
+				esc_html_e( 'Cleaning up...', 'woocommerce-product-csv-import-suite' ) . ' ';
 
 				wp_defer_term_counting( true );
 				wp_defer_comment_counting( true );
 
-				_e( 'Clearing transients...', 'woocommerce-product-csv-import-suite' ) . ' ';
+				esc_html_e( 'Clearing transients...', 'woocommerce-product-csv-import-suite' ) . ' ';
 
 				// reset transients for products
 				wc_delete_product_transients();
@@ -486,12 +488,12 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 
 				echo 'Reticulating Splines...' . ' '; // Easter egg
 
-				_e( 'Backfilling parents...', 'woocommerce-product-csv-import-suite' ) . ' ';
+				esc_html_e( 'Backfilling parents...', 'woocommerce-product-csv-import-suite' ) . ' ';
 
 				$this->backfill_parents();
 
 				if ( ! empty( $this->upsell_skus ) ) {
-					_e( 'Linking upsells...', 'woocommerce-product-csv-import-suite' ) . ' ';
+					esc_html_e( 'Linking upsells...', 'woocommerce-product-csv-import-suite' ) . ' ';
 
 					foreach ( $this->upsell_skus as $post_id => $skus ) {
 						$this->link_product_skus( 'upsell', $post_id, $skus );
@@ -499,7 +501,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				}
 
 				if ( ! empty( $this->crosssell_skus ) ) {
-					_e( 'Linking crosssells...', 'woocommerce-product-csv-import-suite' ) . ' ';
+					esc_html_e( 'Linking crosssells...', 'woocommerce-product-csv-import-suite' ) . ' ';
 
 					foreach ( $this->crosssell_skus as $post_id => $skus ) {
 						$this->link_product_skus( 'crosssell', $post_id, $skus );
@@ -508,7 +510,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 
 				if ( 'woocommerce_variation_csv' === $this->import_page && ! empty( $this->processed_posts ) ) {
 
-					_e( 'Syncing variations...', 'woocommerce-product-csv-import-suite' ) . ' ';
+					esc_html_e( 'Syncing variations...', 'woocommerce-product-csv-import-suite' ) . ' ';
 
 					foreach ( $parents as $parent ) {
 						WC_Product_Variable::sync( $parent );
@@ -516,7 +518,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				}
 
 				// SUCCESS
-				_e( 'Finished. Import complete.', 'woocommerce-product-csv-import-suite' );
+				esc_html_e( 'Finished. Import complete.', 'woocommerce-product-csv-import-suite' );
 
 				$this->import_end();
 				exit;
@@ -571,7 +573,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		    fclose( $handle );
 		}
 
-		$merge = (!empty($_GET['merge']) && $_GET['merge']) ? 1 : 0;
+		$merge = $this->clean_unslash( $_GET['merge'] ?? '' ) ? 1 : 0; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$taxonomies = get_taxonomies( '', 'names' );
 
@@ -683,7 +685,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 
 		if ( isset( $file['error'] ) ) {
 			/* translators: placeholder is upload error from WP */
-			throw new Exception( sprintf( __( 'Sorry, there has been an error: %s.', 'woocommerce-product-csv-import-suite' ), $file['error'] ) );
+			throw new Exception( sprintf( esc_html__( 'Sorry, there has been an error: %s.', 'woocommerce-product-csv-import-suite' ), $file['error'] ) );
 		}
 
 		$this->id = (int) $file['id'];
@@ -700,8 +702,9 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 * @version 1.10.13
 	 */
 	protected function handle_initial_path_file_check() {
-		$this->perform_file_path_checks( WP_CONTENT_DIR . $_POST['file_url'] );
-		$this->file_url = esc_attr( $_POST['file_url'] );
+		$file_url = wc_clean( wp_unslash( $_POST['file_url'] ) );
+		$this->perform_file_path_checks( WP_CONTENT_DIR . $file_url );
+		$this->file_url = esc_attr( $file_url );
 	}
 
 	/**
@@ -714,23 +717,23 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 */
 	private function perform_file_path_checks( string $filepath ) {
 		if ( 'phar' === strtolower( (string) parse_url( $filepath, PHP_URL_SCHEME ) ) ){
-			throw new Exception( __( 'Sorry, filepath must not be within a PHAR executable.', 'woocommerce-product-csv-import-suite' ) );
+			throw new Exception( esc_html__( 'Sorry, filepath must not be within a PHAR executable.', 'woocommerce-product-csv-import-suite' ) );
 		}
 
 		if ( ! $this->is_within_content_dir( $filepath ) ) {	/* translators: placeholder is base directory (WP_CONTENT_DIR) */
-			throw new Exception( sprintf( __( 'Sorry, there has been an error: filepath must exist inside %s.', 'woocommerce-product-csv-import-suite' ), WP_CONTENT_DIR ) );
+			throw new Exception( sprintf( esc_html__( 'Sorry, there has been an error: filepath must exist inside %s.', 'woocommerce-product-csv-import-suite' ), WP_CONTENT_DIR ) );
 		}
 
 		if ( ! file_exists( $filepath ) ) {
 			/* translators: placeholder is file path */
-			throw new Exception( sprintf( __( 'Sorry, there has been an error: %s does not exist.', 'woocommerce-product-csv-import-suite' ), $filepath ) );
+			throw new Exception( sprintf( esc_html__( 'Sorry, there has been an error: %s does not exist.', 'woocommerce-product-csv-import-suite' ), $filepath ) );
 		}
 
 		if ( ! $this->is_acceptable_csv_file( $filepath ) ) {
 			$mime_types = implode( ', ', $this->get_acceptable_csv_mime_types() );
 
 			/* translators: placeholder is comma-separated of accepted mime-types for import (e.g. 'text/csv') */
-			throw new Exception( sprintf( __( 'File must have .csv extension with acceptable mime types (%s)', 'woocommerce-product-csv-import-suite' ), $mime_types ) );
+			throw new Exception( sprintf( esc_html__( 'File must have .csv extension with acceptable mime types (%s)', 'woocommerce-product-csv-import-suite' ), $mime_types ) );
 		}
 	}
 
@@ -1301,7 +1304,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		}
 
 		if ( $merging ) {
-			// Fix _price meta loosing for any variable products 
+			// Fix _price meta loosing for any variable products
 			$product = wc_get_product( $processing_product_id );
 			if ( is_object( $product ) && $product->is_type( 'variable' ) ) {
 				$data_store = WC_Data_Store::load( 'product-' . $product->get_type() );
@@ -1581,7 +1584,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	// Display import page title
 	public function header() {
 		echo '<div class="wrap"><div class="icon32" id="icon-woocommerce-importer"><br></div>';
-		echo '<h2>' . ( empty( $_GET['merge'] ) ? __( 'Import Products', 'woocommerce-product-csv-import-suite' ) : __( 'Merge Products', 'woocommerce-product-csv-import-suite' ) ) . '</h2>';
+		echo '<h2>' . ( empty( $_GET['merge'] ) ? esc_html__( 'Import Products', 'woocommerce-product-csv-import-suite' ) : esc_html__( 'Merge Products', 'woocommerce-product-csv-import-suite' ) ) . '</h2>';
 	}
 
 	// Close div.wrap
@@ -1689,5 +1692,16 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				'application/txt',
 			)
 		);
+	}
+
+	/**
+	 * Sanitize request input value.
+	 *
+	 * @since 1.10.60
+	 * @param mixed $value The request value to be sanitized.
+	 * @return mixed Sanitized value.
+	 */
+	public function clean_unslash( $value ) {
+		return wc_clean( wp_unslash( $value ) );
 	}
 }

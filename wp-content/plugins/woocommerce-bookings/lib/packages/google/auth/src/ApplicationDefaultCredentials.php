@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -173,6 +173,11 @@ class ApplicationDefaultCredentials
             $httpHandler = HttpHandlerFactory::build($client);
         }
 
+        if (is_null($quotaProject)) {
+            // if a quota project isn't specified, try to get one from the env var
+            $quotaProject = CredentialsLoader::quotaProjectFromEnv();
+        }
+
         if (!is_null($jsonKey)) {
             if ($quotaProject) {
                 $jsonKey['quota_project_id'] = $quotaProject;
@@ -318,10 +323,9 @@ class ApplicationDefaultCredentials
      */
     private static function notFound()
     {
-        $msg = 'Could not load the default credentials. Browse to ';
-        $msg .= 'https://developers.google.com';
-        $msg .= '/accounts/docs/application-default-credentials';
-        $msg .= ' for more information';
+        $msg = 'Your default credentials were not found. To set up ';
+        $msg .= 'Application Default Credentials, see ';
+        $msg .= 'https://cloud.google.com/docs/authentication/external/set-up-adc';
 
         return $msg;
     }

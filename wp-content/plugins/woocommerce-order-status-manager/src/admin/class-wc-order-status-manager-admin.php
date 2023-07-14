@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Admin class
@@ -209,15 +209,19 @@ class WC_Order_Status_Manager_Admin {
 
 
 	/**
-	 * Initialize the admin, adding actions to properly display and handle
-	 * the Order Status and Email custom post type add/edit pages
+	 * Initialize the admin, adding actions to properly display and handle the Order Status and Email custom post type add/edit pages.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0.0
 	 */
 	public function init() {
 		global $pagenow, $typenow;
 
-		if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow || 'edit.php' === $pagenow ) {
+		// it's too early to check for get_current_screen unfortunately so the framework method won't work in this particular instance
+		$is_hpos_orders_screen =  isset( $_GET['page'] ) && $_GET['page'] === 'wc-orders' && Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled();
+
+		if ( $is_hpos_orders_screen || 'post-new.php' === $pagenow || 'post.php' === $pagenow || 'edit.php' === $pagenow ) {
 
 			if ( 'wc_order_status' === $typenow || ( isset( $_GET['post'] ) && 'wc_order_status' === get_post_type( $_GET['post'] ) ) ) {
 				require_once( wc_order_status_manager()->get_plugin_path() . '/src/admin/class-wc-order-status-manager-admin-order-statuses.php' );
@@ -229,7 +233,8 @@ class WC_Order_Status_Manager_Admin {
 				$this->admin_order_statuses = new WC_Order_Status_Manager_Admin_Order_Status_Emails();
 			}
 
-			if ( 'shop_order' === $typenow || ( isset( $_GET['post'] ) && 'shop_order' === get_post_type( $_GET['post'] ) ) ) {
+			// accounts for HPOS enabled sites
+			if ( $is_hpos_orders_screen || ( 'shop_order' === $typenow || ( isset( $_GET['post'] ) && 'shop_order' === get_post_type( $_GET['post'] ) ) ) ) {
 				require_once( wc_order_status_manager()->get_plugin_path() . '/src/admin/class-wc-order-status-manager-admin-orders.php' );
 				$this->admin_orders = new WC_Order_Status_Manager_Admin_Orders();
 			}

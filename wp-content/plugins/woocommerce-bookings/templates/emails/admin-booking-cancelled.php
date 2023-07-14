@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/bookings-templates/
- * @author  Automattic
+ * @package WooCommerce_Bookings
  * @version 1.10.0
  * @since   1.7.8
  */
@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Allows users to filter text in email header
+ *
+ * @since 1.0.0
+ */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 
@@ -30,7 +35,19 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 		<?php if ( $booking->get_product() ) : ?>
 			<tr>
 				<th scope="row" style="text-align:left; border: 1px solid #eee;"><?php esc_html_e( 'Booked Product', 'woocommerce-bookings' ); ?></th>
-				<td style="text-align:left; border: 1px solid #eee;"><?php wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ], 'sent_to_admin' => true ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH ); ?></td>
+				<td style="text-align:left; border: 1px solid #eee;">
+				<?php
+				wc_get_template(
+					'order/admin/booking-display.php',
+					array(
+						'booking_ids'   => array( $booking->get_id() ),
+						'sent_to_admin' => true,
+					),
+					'woocommerce-bookings',
+					WC_BOOKINGS_TEMPLATE_PATH
+				);
+				?>
+																		</td>
 			</tr>
 		<?php endif; ?>
 		<tr>
@@ -38,13 +55,13 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 			<td style="text-align:left; border: 1px solid #eee;"><?php echo esc_html( $booking->get_id() ); ?></td>
 		</tr>
 		<?php
-		$resource = $booking->get_resource();
+		$resource       = $booking->get_resource();
 		$resource_label = $booking->get_product()->get_resource_label();
 
 		if ( $booking->has_resources() && $resource ) :
 			?>
 			<tr>
-				<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php echo ( '' !== $resource_label ) ? esc_html( $resource_label ) : esc_html__( 'Booking Type', 'woocommerce-bookings' ); ?></th>
+				<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php echo esc_html( ( '' !== $resource_label ) ? $resource_label : __( 'Booking Type', 'woocommerce-bookings' ) ); ?></th>
 				<td style="text-align:left; border: 1px solid #eee;"><?php echo esc_html( $resource->post_title ); ?></td>
 			</tr>
 		<?php endif; ?>
@@ -64,12 +81,12 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 		<?php endif; ?>
 		<?php if ( $booking->has_persons() ) : ?>
 			<?php
-			foreach ( $booking->get_persons() as $id => $qty ) :
+			foreach ( $booking->get_persons() as $bid => $qty ) :
 				if ( 0 === $qty ) {
 					continue;
 				}
 
-				$person_type = ( 0 < $id ) ? get_the_title( $id ) : __( 'Person(s)', 'woocommerce-bookings' );
+				$person_type = ( 0 < $bid ) ? get_the_title( $bid ) : __( 'Person(s)', 'woocommerce-bookings' );
 				?>
 				<tr>
 					<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php echo esc_html( $person_type ); ?></th>
@@ -82,9 +99,23 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 
 <p>
 <?php
+$edit_booking_url  = admin_url( 'post.php?post=' . $booking->get_id() . '&action=edit' );
+$edit_booking_link = sprintf(
+	'<a href="%1$s">%2$s</a>',
+	esc_url( $edit_booking_url ),
+	__( 'Edit booking', 'woocommerce-bookings' )
+);
+
 /* translators: 1: a href to booking */
-echo wp_kses_post( make_clickable( sprintf( __( 'You can view and edit this booking in the dashboard here: %s', 'woocommerce-bookings' ), admin_url( 'post.php?post=' . $booking->get_id() . '&action=edit' ) ) ) );
+echo wp_kses_post( sprintf( __( 'You can view and edit this booking in the dashboard here: %s', 'woocommerce-bookings' ), $edit_booking_link ) );
 ?>
 </p>
 
-<?php do_action( 'woocommerce_email_footer', $email ); ?>
+<?php
+/**
+ * Allows users to filter text in email footer
+ *
+ * @since 1.0.0
+ */
+do_action( 'woocommerce_email_footer', $email );
+?>

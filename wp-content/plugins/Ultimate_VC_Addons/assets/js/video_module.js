@@ -55,11 +55,14 @@
 			if ( 'icon' == play[ j ] ) {
 				$( '.ultv-video' )
 					.find( ' .ultv-video__outer-wrap' )
-					.hover(
+					.on(
+						'mouseenter',
 						function () {
 							const $this = $( this );
 							$this.css( 'color', $this.data( 'hoverbg' ) );
 						},
+					).on(
+						'mouseleave',
 						function () {
 							const $this = $( this );
 							$this.css( 'color', $this.data( 'iconbg' ) );
@@ -69,13 +72,16 @@
 				if ( 'uv_iframe' == video[ j ] ) {
 					$( '.ultv-video' )
 						.find( ' .ultv-video__outer-wrap' )
-						.hover(
+						.on(
+							'mouseenter',
 							function () {
 								const $this = $( this );
 								$this.find( ' .ultv-youtube-icon-bg' ).css( {
 									fill: $this.data( 'defaulthoverbg' ),
 								} );
 							},
+						).on(
+							'mouseleave',
 							function () {
 								const $this = $( this );
 								$this
@@ -86,13 +92,16 @@
 				} else if ( 'vimeo_video' == video[ j ] ) {
 					$( '.ultv-video' )
 						.find( ' .ultv-video__outer-wrap' )
-						.hover(
+						.on(
+							'mouseenter',
 							function () {
 								const $this = $( this );
 								$this.find( ' .ultv-vimeo-icon-bg' ).css( {
 									fill: $this.data( 'defaulthoverbg' ),
 								} );
 							},
+						).on(
+							'mouseleave',
 							function () {
 								const $this = $( this );
 								$this
@@ -104,7 +113,7 @@
 			}
 		}
 		ultvideo();
-		$( window ).resize( function ( e ) {
+		$( window ).on( 'resize', function ( e ) {
 			ultvideo();
 		} );
 	} );

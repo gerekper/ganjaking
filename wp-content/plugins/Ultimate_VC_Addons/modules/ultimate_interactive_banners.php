@@ -499,7 +499,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banners' ) ) {
 			if ( '' != $utl_interactive_banner_settings['banner_title_font_family'] ) {
 				$bfamily = get_ultimate_font_family( $utl_interactive_banner_settings['banner_title_font_family'] );
 				if ( '' !== $bfamily ) {
-					$banner_title_style_inline = 'font-family:\'' . $bfamily . '\';';
+					$banner_title_style_inline = 'font-family:\'' . esc_attr( $bfamily ) . '\';';
 				}
 			}
 			$banner_title_style_inline .= get_ultimate_font_style( $utl_interactive_banner_settings['banner_title_style'] );
@@ -535,18 +535,18 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banners' ) ) {
 			if ( '' != $utl_interactive_banner_settings['banner_desc_font_family'] ) {
 				$bdfamily = get_ultimate_font_family( $utl_interactive_banner_settings['banner_desc_font_family'] );
 				if ( '' !== $bdfamily ) {
-					$banner_desc_style_inline = 'font-family:\'' . $bdfamily . '\';';
+					$banner_desc_style_inline = 'font-family:\'' . esc_attr( $bdfamily ) . '\';';
 				}
 			}
 			$banner_desc_style_inline .= get_ultimate_font_style( $utl_interactive_banner_settings['banner_desc_style'] );
 			// Responsive param.
 
 			if ( is_numeric( $utl_interactive_banner_settings['banner_desc_font_size'] ) ) {
-				$utl_interactive_banner_settings['banner_desc_font_size'] = 'desktop:' . $utl_interactive_banner_settings['banner_desc_font_size'] . 'px;';
+				$utl_interactive_banner_settings['banner_desc_font_size'] = 'desktop:' . intval( $utl_interactive_banner_settings['banner_desc_font_size'] ) . 'px;';
 			}
 
 			if ( is_numeric( $utl_interactive_banner_settings['banner_desc_line_height'] ) ) {
-				$utl_interactive_banner_settings['banner_desc_line_height'] = 'desktop:' . $utl_interactive_banner_settings['banner_desc_line_height'] . 'px;';
+				$utl_interactive_banner_settings['banner_desc_line_height'] = 'desktop:' . intval( $utl_interactive_banner_settings['banner_desc_line_height'] ) . 'px;';
 			}
 
 			$interactive_banner_desc_1_args      = array(
@@ -581,11 +581,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banners' ) ) {
 			$rel              = ( isset( $href['rel'] ) && '' !== $href['rel'] ) ? esc_attr( $href['rel'] ) : '';
 			$banner_top_style = '';
 			if ( '' != $utl_interactive_banner_settings['banner_height'] && '' != $utl_interactive_banner_settings['banner_height_val'] ) {
-				$banner_top_style = 'height:' . $utl_interactive_banner_settings['banner_height_val'] . 'px;';
+				$banner_top_style = 'height:' . esc_attr( $utl_interactive_banner_settings['banner_height_val'] ) . 'px;';
 			}
 
-			$utl_interactive_banner_settings['heading_tag'] = ( isset( $utl_interactive_banner_settings['heading_tag'] ) && '' != trim( $utl_interactive_banner_settings['heading_tag'] ) ) ? $utl_interactive_banner_settings['heading_tag'] : 'h2';
-			if ( 'p' == $utl_interactive_banner_settings['heading_tag'] ) {
+			$utl_interactive_banner_settings['heading_tag'] = ( isset( $utl_interactive_banner_settings['heading_tag'] ) && '' != trim( $utl_interactive_banner_settings['heading_tag'] ) ) ? esc_html( sanitize_key( $utl_interactive_banner_settings['heading_tag'] ) ) : 'h2';
+			if ( 'p' == esc_attr( sanitize_key( $utl_interactive_banner_settings['heading_tag'] ) ) ) {
 					$banner_title_style_inline .= 'transform: none;';
 			}
 
@@ -594,17 +594,17 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banners' ) ) {
 				$output .= "\n\t" . '<img src="' . esc_url( apply_filters( 'ultimate_images', $img ) ) . '" alt="' . esc_attr( $alt ) . '">';
 			}
 			if ( '' !== $utl_interactive_banner_settings['banner_title'] ) {
-				$output .= "\n\t" . '<' . $utl_interactive_banner_settings['heading_tag'] . ' ' . $interactive_banner_1_data_list . ' class="title-' . esc_attr( $utl_interactive_banner_settings['banner_title_location'] ) . ' bb-top-title ult-responsive" style="' . esc_attr( $banner_title_style_inline ) . '">' . $utl_interactive_banner_settings['banner_title'];
+				$output .= "\n\t" . '<' . esc_attr( sanitize_key( $utl_interactive_banner_settings['heading_tag'] ) ) . ' ' . $interactive_banner_1_data_list . ' class="title-' . esc_attr( $utl_interactive_banner_settings['banner_title_location'] ) . ' bb-top-title ult-responsive" style="' . esc_attr( $banner_title_style_inline ) . '">' . $utl_interactive_banner_settings['banner_title'];
 				if ( 'with_heading' == $utl_interactive_banner_settings['icon_disp'] || 'both' == $utl_interactive_banner_settings['icon_disp'] ) {
 					$output .= $icon;
 				}
-				$output .= '</' . $utl_interactive_banner_settings['heading_tag'] . '>';
+				$output .= '</' . esc_attr( sanitize_key( $utl_interactive_banner_settings['heading_tag'] ) ) . '>';
 			}
 			$utl_interactive_banner_settings['banner_overlay_bg_color'] = 'background:' . $utl_interactive_banner_settings['banner_overlay_bg_color'] . ';';
 			$output .= "\n\t" . '<div class="mask ' . esc_attr( $utl_interactive_banner_settings['banner_opacity'] ) . '-background" style="' . esc_attr( $utl_interactive_banner_settings['banner_overlay_bg_color'] ) . '">';
 			if ( 'with_description' == $utl_interactive_banner_settings['icon_disp'] || 'both' == $utl_interactive_banner_settings['icon_disp'] ) {
 				if ( '' !== $utl_interactive_banner_settings['banner_icon'] ) {
-					$output .= "\n\t\t" . '<div class="bb-back-icon">' . $icon . '</div>';
+					$output .= "\n\t\t" . '<div class="bb-back-icon">' . esc_attr( $icon ) . '</div>';
 					$output .= "\n\t\t" . '<p class="" style="' . esc_attr( $banner_desc_style_inline ) . '">' . $utl_interactive_banner_settings['banner_desc'] . '</p>';
 				}
 			} else {

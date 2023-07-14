@@ -106,18 +106,18 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 			if ( '' != $ult_info_box_settings['title_font'] ) {
 				$font_family = get_ultimate_font_family( $ult_info_box_settings['title_font'] );
 				if ( '' != $font_family ) {
-					$title_style .= 'font-family:\'' . $font_family . '\';';
+					$title_style .= 'font-family:\'' . esc_attr( $font_family ) . '\';';
 				}
 			}
 			if ( '' != $ult_info_box_settings['title_font_style'] ) {
-				$title_style .= get_ultimate_font_style( $ult_info_box_settings['title_font_style'] );
+				$title_style .= esc_attr( get_ultimate_font_style( $ult_info_box_settings['title_font_style'] ) );
 			}
 
 			if ( is_numeric( $ult_info_box_settings['title_font_size'] ) ) {
-				$ult_info_box_settings['title_font_size'] = 'desktop:' . $ult_info_box_settings['title_font_size'] . 'px;';
+				$ult_info_box_settings['title_font_size'] = 'desktop:' . esc_attr( $ult_info_box_settings['title_font_size'] ) . 'px;';
 			}
 			if ( is_numeric( $ult_info_box_settings['title_font_line_height'] ) ) {
-				$ult_info_box_settings['title_font_line_height'] = 'desktop:' . $ult_info_box_settings['title_font_line_height'] . 'px;';
+				$ult_info_box_settings['title_font_line_height'] = 'desktop:' . esc_attr( $ult_info_box_settings['title_font_line_height'] ) . 'px;';
 			}
 			$info_box_id        = 'Info-box-wrap-' . wp_rand( 1000, 9999 );
 			$info_box_args      = array(
@@ -137,18 +137,18 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 			if ( '' != $ult_info_box_settings['desc_font'] ) {
 				$font_family = get_ultimate_font_family( $ult_info_box_settings['desc_font'] );
 				if ( '' !== $font_family ) {
-					$desc_style .= 'font-family:\'' . $font_family . '\';';
+					$desc_style .= 'font-family:\'' . esc_attr( $font_family ) . '\';';
 				}
 			}
 			if ( '' != $ult_info_box_settings['desc_font_style'] ) {
-				$desc_style .= get_ultimate_font_style( $ult_info_box_settings['desc_font_style'] );
+				$desc_style .= esc_attr( get_ultimate_font_style( $ult_info_box_settings['desc_font_style'] ) );
 			}
 
 			if ( is_numeric( $ult_info_box_settings['desc_font_size'] ) ) {
-				$ult_info_box_settings['desc_font_size'] = 'desktop:' . $ult_info_box_settings['desc_font_size'] . 'px;';
+				$ult_info_box_settings['desc_font_size'] = 'desktop:' . esc_attr( $ult_info_box_settings['desc_font_size'] ) . 'px;';
 			}
 			if ( is_numeric( $ult_info_box_settings['desc_font_line_height'] ) ) {
-				$ult_info_box_settings['desc_font_line_height'] = 'desktop:' . $ult_info_box_settings['desc_font_line_height'] . 'px;';
+				$ult_info_box_settings['desc_font_line_height'] = 'desktop:' . esc_attr( $ult_info_box_settings['desc_font_line_height'] ) . 'px;';
 			}
 
 			$info_box_desc_args      = array(
@@ -160,7 +160,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 			);
 			$info_box_desc_data_list = get_ultimate_vc_responsive_media_css( $info_box_desc_args );
 			if ( '' != $ult_info_box_settings['desc_font_color'] ) {
-				$desc_style .= 'color:' . $ult_info_box_settings['desc_font_color'] . ';';
+				$desc_style .= 'color:' . esc_attr( $ult_info_box_settings['desc_font_color'] ) . ';';
 			}
 
 			$box_style      = '';
@@ -173,13 +173,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 					$box_style .= 'border-color:' . $ult_info_box_settings['box_border_color'] . ';';
 				}
 				if ( '' != $ult_info_box_settings['box_border_style'] ) {
-					$box_style .= 'border-style:' . $ult_info_box_settings['box_border_style'] . ';';
+					$box_style .= 'border-style:' . esc_attr( $ult_info_box_settings['box_border_style'] ) . ';';
 				}
 				if ( '' != $ult_info_box_settings['box_border_width'] ) {
-					$box_style .= 'border-width:' . $ult_info_box_settings['box_border_width'] . 'px;';
+					$box_style .= 'border-width:' . intval( $ult_info_box_settings['box_border_width'] ) . 'px;';
 				}
 				if ( '' != $ult_info_box_settings['box_bg_color'] ) {
-					$box_style .= 'background-color:' . $ult_info_box_settings['box_bg_color'] . ';';
+					$box_style .= 'background-color:' . esc_attr( $ult_info_box_settings['box_bg_color'] ) . ';';
 				}
 			}
 			$html .= '<div id="' . esc_attr( $info_box_id ) . '" class="aio-icon-box ' . esc_attr( $ex_class ) . '" style="' . esc_attr( $box_style ) . '" ' . $box_style_data . ' >';
@@ -204,7 +204,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 							$link_sufix  = '</a>';
 						}
 					}
-					$html .= $link_prefix . '<' . $ult_info_box_settings['heading_tag'] . ' class="aio-icon-title ult-responsive" ' . $info_box_data_list . ' style="' . esc_attr( $title_style ) . '">' . $ult_info_box_settings['title'] . '</' . $ult_info_box_settings['heading_tag'] . '>' . $link_sufix;
+					$html .= $link_prefix . '<' . esc_attr( sanitize_key( $ult_info_box_settings['heading_tag'] ) ) . ' class="aio-icon-title ult-responsive" ' . $info_box_data_list . ' style="' . esc_attr( $title_style ) . '">' . $ult_info_box_settings['title'] . '</' . esc_attr( sanitize_key( $ult_info_box_settings['heading_tag'] ) ) . '>' . $link_sufix;
 					$html .= '</div> <!-- header -->';
 				}
 				if ( 'right' !== $ult_info_box_settings['pos'] ) {
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 							$link_sufix  = '</a>';
 						}
 					}
-					$html .= $link_prefix . '<' . $ult_info_box_settings['heading_tag'] . ' class="aio-icon-title ult-responsive" ' . $info_box_data_list . ' style="' . esc_attr( $title_style ) . '">' . $ult_info_box_settings['title'] . '</' . $ult_info_box_settings['heading_tag'] . '>' . $link_sufix;
+					$html .= $link_prefix . '<' . esc_attr( sanitize_key( $ult_info_box_settings['heading_tag'] ) ) . ' class="aio-icon-title ult-responsive" ' . $info_box_data_list . ' style="' . esc_attr( $title_style ) . '">' . $ult_info_box_settings['title'] . '</' . esc_attr( sanitize_key( $ult_info_box_settings['heading_tag'] ) ) . '>' . $link_sufix;
 					$html .= '</div> <!-- header -->';
 				}
 				if ( '' !== $content ) {

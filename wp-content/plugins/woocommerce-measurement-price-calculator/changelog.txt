@@ -1,4 +1,9 @@
-*** WooCommerce Measurement Price Calculator Changelog ***
+*** WooCommerce Measurement Price Calculator Changelog ***		       
+       	 	 	       	    	  	      	     	    	  
+2023.07.11 - version 3.22.0 
+ * Fix - Resolve a compatibility issue with some third party plugins causing fatal errors when saving product data
+ * Fix - Resolve issues with calculations for perimeter and surface area measurements
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
 
 2023.01.12 - version 3.21.1
  * Fix - Compatibility with WC 6.6+ comma decimal separator handling

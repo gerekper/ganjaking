@@ -326,20 +326,20 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Grid' ) ) {
 			$opts        = explode( ',', $ult_woocomposer_cat_grid_shortcode['options'] );
 
 			if ( '' !== $ult_woocomposer_cat_grid_shortcode['color_categories'] ) {
-				$size .= 'color:' . $ult_woocomposer_cat_grid_shortcode['color_categories'] . ';';
+				$size .= 'color:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['color_categories'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_cat_grid_shortcode['color_categories_bg'] ) {
-				$size .= 'background:' . $ult_woocomposer_cat_grid_shortcode['color_categories_bg'] . ';';
+				$size .= 'background:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['color_categories_bg'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_cat_grid_shortcode['size_cat'] ) {
-				$size .= 'font-size:' . $ult_woocomposer_cat_grid_shortcode['size_cat'] . 'px;';
+				$size .= 'font-size:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['size_cat'] ) . 'px;';
 			}
 
 			if ( '' !== $ult_woocomposer_cat_grid_shortcode['color_cat_count_bg'] ) {
-				$count_style .= 'background:' . $ult_woocomposer_cat_grid_shortcode['color_cat_count_bg'] . ';';
+				$count_style .= 'background:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['color_cat_count_bg'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_cat_grid_shortcode['color_cat_count_color'] ) {
-				$count_style .= 'color:' . $ult_woocomposer_cat_grid_shortcode['color_cat_count_color'] . ';';
+				$count_style .= 'color:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['color_cat_count_color'] ) . ';';
 			}
 
 			if ( isset( $atts['ids'] ) ) {
@@ -353,8 +353,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Grid' ) ) {
 			$parent     = in_array( 'parent', $opts ) ? '' : 0;
 
 			if ( '' !== $ult_woocomposer_cat_grid_shortcode['border_style'] ) {
-				$border .= 'border:' . $ult_woocomposer_cat_grid_shortcode['border_size'] . 'px ' . $ult_woocomposer_cat_grid_shortcode['border_style'] . ' ' . $ult_woocomposer_cat_grid_shortcode['border_color'] . ';';
-				$border .= 'border-radius:' . $ult_woocomposer_cat_grid_shortcode['border_radius'] . 'px;';
+				$border .= 'border:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['border_size'] ) . 'px ' . $ult_woocomposer_cat_grid_shortcode['border_style'] . ' ' . $ult_woocomposer_cat_grid_shortcode['border_color'] . ';';
+				$border .= 'border-radius:' . esc_attr( $ult_woocomposer_cat_grid_shortcode['border_radius'] ) . 'px;';
 			}
 			// get terms and workaround WP bug with parents/pad counts.
 			$args = array(
@@ -421,9 +421,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Grid' ) ) {
 					}
 					?>
 					">
-						<div class="wcmp-product wcmp-img-<?php echo $ult_woocomposer_cat_grid_shortcode['img_animate']; ?> wcmp-cat-<?php echo $ult_woocomposer_cat_grid_shortcode['design_style'] . ' animated ' . $ult_woocomposer_cat_grid_shortcode['product_animation']; ?>" style="<?php echo $border; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+						<div class="wcmp-product wcmp-img-<?php echo esc_attr( $ult_woocomposer_cat_grid_shortcode['img_animate'] ); ?> wcmp-cat-<?php echo esc_attr( $ult_woocomposer_cat_grid_shortcode['design_style'] ) . ' animated ' . esc_attr( $ult_woocomposer_cat_grid_shortcode['product_animation'] ); ?>" style="<?php echo esc_attr( $border ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 						<?php do_action( 'woocommerce_before_subcategory', $category ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" style="text-align:<?php echo $ult_woocomposer_cat_grid_shortcode['text_align']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;">
+						<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" style="text-align:<?php echo esc_attr( $ult_woocomposer_cat_grid_shortcode['text_align'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;">
 							<div class="wcmp-product-image">
 							<?php
 								/**
@@ -434,12 +434,12 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Grid' ) ) {
 								do_action( 'woocommerce_before_subcategory_title', $category );
 							?>
 							</div><!--.wcmp-product-image-->
-							<h3 style="<?php echo $size; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+							<h3 style="<?php echo esc_attr( $size ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 								<?php
 									echo $category->name;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 								if ( $category->count > 0 ) {
-									echo apply_filters( 'woocommerce_subcategory_count_html', ' <mark class="count" style="' . $count_style . '">' . $category->count . ' ' . $ult_woocomposer_cat_grid_shortcode['cat_count'] . '</mark>', $category ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									echo apply_filters( 'woocommerce_subcategory_count_html', ' <mark class="count" style="' . esc_attr( $count_style ) . '">' . $category->count . ' ' . $ult_woocomposer_cat_grid_shortcode['cat_count'] . '</mark>', $category ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								}
 								?>
 							</h3>
@@ -462,7 +462,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Grid' ) ) {
 
 			woocommerce_reset_loop();
 
-			return '<div class="woocommerce columns-' . $ult_woocomposer_cat_grid_shortcode['columns'] . '">' . ob_get_clean() . '</div>';
+			return '<div class="woocommerce columns-' . esc_attr( $ult_woocomposer_cat_grid_shortcode['columns'] ) . '">' . ob_get_clean() . '</div>';
 		}//end woocomposer_grid_shortcode()
 
 	} /* end class Ultimate_VC_Addons_WooComposer_Cat_Grid */

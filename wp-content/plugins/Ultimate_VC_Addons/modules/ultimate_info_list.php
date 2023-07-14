@@ -264,20 +264,20 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
 						/* title */
 			if ( '' != $ult_info_list_item['title_font'] ) {
 				$font_family  = get_ultimate_font_family( $ult_info_list_item['title_font'] );
-				$title_style .= 'font-family:\'' . $font_family . '\';';
+				$title_style .= 'font-family:\'' . esc_attr( $font_family ) . '\';';
 			}
 			if ( '' != $ult_info_list_item['title_font_style'] ) {
 				$title_style .= get_ultimate_font_style( $ult_info_list_item['title_font_style'] );
 			}
 			if ( is_numeric( $ult_info_list_item['title_font_size'] ) ) {
-				$ult_info_list_item['title_font_size'] = 'desktop:' . $ult_info_list_item['title_font_size'] . 'px;';
+				$ult_info_list_item['title_font_size'] = 'desktop:' . intval( $ult_info_list_item['title_font_size'] ) . 'px;';
 			}
 			if ( is_numeric( $ult_info_list_item['title_font_line_height'] ) ) {
-				$ult_info_list_item['title_font_line_height'] = 'desktop:' . $ult_info_list_item['title_font_line_height'] . 'px;';
+				$ult_info_list_item['title_font_line_height'] = 'desktop:' . intval( $ult_info_list_item['title_font_line_height'] ) . 'px;';
 			}
 			$info_list_id        = 'Info-list-wrap-' . wp_rand( 1000, 9999 );
 			$info_list_args      = array(
-				'target'      => '#' . $info_list_id . ' ' . $ult_info_list_item['heading_tag'], // set targeted element e.g. unique class/id etc.
+				'target'      => '#' . esc_attr( $info_list_id ) . ' ' . esc_attr( sanitize_key( $ult_info_list_item['heading_tag'] ) ), // set targeted element e.g. unique class/id etc.
 				'media_sizes' => array(
 					'font-size'   => $ult_info_list_item['title_font_size'], // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
 					'line-height' => $ult_info_list_item['title_font_line_height'],
@@ -286,22 +286,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
 			$info_list_data_list = get_ultimate_vc_responsive_media_css( $info_list_args );
 
 			if ( '' != $ult_info_list_item['title_font_color'] ) {
-				$title_style .= 'color:' . $ult_info_list_item['title_font_color'] . ';';
+				$title_style .= 'color:' . esc_attr( $ult_info_list_item['title_font_color'] ) . ';';
 			}
 
 			/* description */
 			if ( '' != $ult_info_list_item['desc_font'] ) {
 				$font_family = get_ultimate_font_family( $ult_info_list_item['desc_font'] );
-				$desc_style .= 'font-family:\'' . $font_family . '\';';
+				$desc_style .= 'font-family:\'' . esc_attr( $font_family ) . '\';';
 			}
 			if ( '' != $ult_info_list_item['desc_font_style'] ) {
 				$desc_style .= get_ultimate_font_style( $ult_info_list_item['desc_font_style'] );
 			}
 			if ( is_numeric( $ult_info_list_item['desc_font_size'] ) ) {
-				$ult_info_list_item['desc_font_size'] = 'desktop:' . $ult_info_list_item['desc_font_size'] . 'px;';
+				$ult_info_list_item['desc_font_size'] = 'desktop:' . intval( $ult_info_list_item['desc_font_size'] ) . 'px;';
 			}
 			if ( is_numeric( $ult_info_list_item['desc_font_line_height'] ) ) {
-				$ult_info_list_item['desc_font_line_height'] = 'desktop:' . $ult_info_list_item['desc_font_line_height'] . 'px;';
+				$ult_info_list_item['desc_font_line_height'] = 'desktop:' . intval( $ult_info_list_item['desc_font_line_height'] ) . 'px;';
 			}
 			$info_list_desc_args      = array(
 				'target'      => '#' . $info_list_id . ' .icon_description_text', // set targeted element e.g. unique class/id etc.
@@ -313,16 +313,16 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
 			$info_list_desc_data_list = get_ultimate_vc_responsive_media_css( $info_list_desc_args );
 
 			if ( '' != $ult_info_list_item['desc_font_color'] ) {
-				$desc_style .= 'color:' . $ult_info_list_item['desc_font_color'] . ';';
+				$desc_style .= 'color:' . esc_attr( $ult_info_list_item['desc_font_color'] ) . ';';
 			}
 			if ( 'none' !== $ult_info_list_item['animation'] ) {
-				$css_trans = 'data-animation="' . $ult_info_list_item['animation'] . '" data-animation-delay="03"';
+				$css_trans = 'data-animation="' . esc_attr( $ult_info_list_item['animation'] ) . '" data-animation-delay="03"';
 			}
 			if ( $this->connector_animate ) {
 				$connector_trans = 'data-animation="' . $this->connector_animate . '" data-animation-delay="03"';
 			}
 			if ( '' != $icon_color ) {
-				$ico_col = 'style="color:' . $icon_color . '";';
+				$ico_col = 'style="color:' . esc_attr( $icon_color ) . '";';
 			}
 			if ( '' != $icon_bg_color ) {
 				$style .= 'background:' . $icon_bg_color . ';  color:' . $icon_bg_color . ';';
@@ -357,15 +357,15 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
 			$output .= $icon_html;
 			$output .= '<div class="icon_description" id="' . esc_attr( $info_list_id ) . '" style="font-size:' . esc_attr( $this->icon_size ) . 'px;">';
 			if ( '' != $ult_info_list_item['list_title'] ) {
-				$output .= '<' . $ult_info_list_item['heading_tag'] . ' class="ult-responsive info-list-heading" ' . $info_list_data_list . ' style="' . esc_attr( $title_style ) . '">';
+				$output .= '<' . esc_attr( sanitize_key( $ult_info_list_item['heading_tag'] ) ) . ' class="ult-responsive info-list-heading" ' . esc_attr( $info_list_data_list ) . ' style="' . esc_attr( $title_style ) . '">';
 				if ( $is_link && 'title' == $ult_info_list_item['info_list_link_apply'] ) {
 					$output .= '<a ' . Ultimate_VC_Addons::uavc_link_init( $url, $target, $link_title, $rel ) . '>' . $ult_info_list_item['list_title'] . '</a>';
 				} else {
 					$output .= $ult_info_list_item['list_title'];
 				}
-				$output .= '</' . $ult_info_list_item['heading_tag'] . '>';
+				$output .= '</' . esc_attr( sanitize_key( $ult_info_list_item['heading_tag'] ) ) . '>';
 			}
-			$output .= '<div class="icon_description_text ult-responsive" ' . $info_list_desc_data_list . ' style="' . esc_attr( $desc_style ) . '">' . wpb_js_remove_wpautop( $content, true ) . '</div>';
+			$output .= '<div class="icon_description_text ult-responsive" ' . esc_attr( $info_list_desc_data_list ) . ' style="' . esc_attr( $desc_style ) . '">' . wpb_js_remove_wpautop( $content, true ) . '</div>';
 			$output .= '</div>';
 			$output .= '<div class="icon_list_connector" ' . $connector_trans . ' style="' . esc_attr( $this->connect_color_style ) . '"></div>';
 			if ( $is_link && 'container' == $ult_info_list_item['info_list_link_apply'] ) {

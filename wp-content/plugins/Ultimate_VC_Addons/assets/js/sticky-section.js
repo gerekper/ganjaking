@@ -8,14 +8,14 @@ jQuery( document ).ready( function ( $ ) {
 	inside_row_();
 	sticky_relocate();
 
-	_window.resize( function () {
+	_window.on( 'resize', function () {
 		resize_flag = 0;
 		_windowsize = _window.width();
 		sticky_relocate();
 		//inside_row_();
 	} );
 
-	_window.bind( 'scroll', function () {
+	_window.on( 'scroll', function () {
 		sticky_relocate();
 	} );
 
@@ -37,7 +37,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 
 			/*var fullwidth_row = false; //for Browser full width row
-      
+
       if ( $this.parents('.upb-background-text').length ){ // has parent
         fullwidth_row = true;
       }*/
@@ -96,13 +96,13 @@ jQuery( document ).ready( function ( $ ) {
       }
 
       var fullwidth_row = false; //for Browser full width row
-      
+
       if ( $this.parents('.upb-background-text').length ){ // has parent
         fullwidth_row = true;
       }
       var global_height = 0; //for resize
       var gutter = ult_sticky.data('gutter');
-      
+
       var gutter_class = ult_sticky.data('sticky_gutter_class');
       var gutter_id = ult_sticky.data('sticky_gutter_id');
       var mobile = ult_sticky.data('mobile');
@@ -114,7 +114,7 @@ jQuery( document ).ready( function ( $ ) {
         var self_offset = $this.parent().offset().top;
         //alert(parent_offset);
         $this.addClass("ult_stick_to_row");
-        
+
         parent.addClass("ult_s_container");
         //alert(parent);
         //alert(mobile);
@@ -328,10 +328,10 @@ jQuery( document ).ready( function ( $ ) {
           {
             //var scroll_flag = -1;
             var temp_top = "";
-            if( window_top > div_top) { 
+            if( window_top > div_top) {
               //scroll_flag = 0;
-              temp_top = window_top-div_top; 
-            } else { 
+              temp_top = window_top-div_top;
+            } else {
              // alert();
               temp_top = 0;
             }
@@ -344,7 +344,7 @@ jQuery( document ).ready( function ( $ ) {
             } else{
               div_height = div_height - temp_top;
             }
-            
+
             $this.find('.ult-space').css('height', div_height);
           }*/
 		} );

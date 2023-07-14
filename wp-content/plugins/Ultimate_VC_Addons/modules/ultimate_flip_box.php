@@ -943,7 +943,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 			if ( 'custom' == $ult_flip_settings['icon_type'] ) {
 				$ult_flip_settings['icon_style'] = 'none';
 			}
-			$flip_icon   = do_shortcode( '[just_icon icon_type="' . esc_attr( $ult_flip_settings['icon_type'] ) . '" icon="' . esc_attr( $ult_flip_settings['icon'] ) . '" icon_img="' . esc_attr( $ult_flip_settings['icon_img'] ) . '" img_width="' . esc_attr( $ult_flip_settings['img_width'] ) . '" icon_size="' . esc_attr( $ult_flip_settings['icon_size'] ) . '" icon_color="' . esc_attr( $ult_flip_settings['icon_color'] ) . '" icon_style="' . esc_attr( $ult_flip_settings['icon_style'] ) . '" icon_color_bg="' . esc_attr( $ult_flip_settings['icon_color_bg'] ) . '" icon_color_border="' . esc_attr( $ult_flip_settings['icon_color_border'] ) . '"  icon_border_style="' . esc_attr( $ult_flip_settings['icon_border_style'] ) . '" icon_border_size="' . esc_attr( $ult_flip_settings['icon_border_size'] ) . '" icon_border_radius="' . esc_attr( $ult_flip_settings['icon_border_radius'] ) . '" icon_border_spacing="' . esc_attr( $ult_flip_settings['icon_border_spacing'] ) . '" icon_link="' . esc_attr( $ult_flip_settings['icon_link'] ) . '" icon_animation="' . esc_attr( $ult_flip_settings['icon_animation'] ) . '"]' );
+			$flip_icon   = do_shortcode( '[just_icon icon_type="' . esc_attr( $ult_flip_settings['icon_type'] ) . '" icon="' . esc_attr( $ult_flip_settings['icon'] ) . '" icon_img="' . esc_attr( $ult_flip_settings['icon_img'] ) . '" img_width="' . esc_attr( $ult_flip_settings['img_width'] ) . '" icon_size="' . esc_attr( intval( $ult_flip_settings['icon_size'] ) ) . '" icon_color="' . esc_attr( $ult_flip_settings['icon_color'] ) . '" icon_style="' . esc_attr( $ult_flip_settings['icon_style'] ) . '" icon_color_bg="' . esc_attr( $ult_flip_settings['icon_color_bg'] ) . '" icon_color_border="' . esc_attr( $ult_flip_settings['icon_color_border'] ) . '"  icon_border_style="' . esc_attr( $ult_flip_settings['icon_border_style'] ) . '" icon_border_size="' . esc_attr( intval( $ult_flip_settings['icon_border_size'] ) ) . '" icon_border_radius="' . esc_attr( intval( $ult_flip_settings['icon_border_radius'] ) ) . '" icon_border_spacing="' . esc_attr( intval( $ult_flip_settings['icon_border_spacing'] ) ) . '" icon_link="' . esc_attr( $ult_flip_settings['icon_link'] ) . '" icon_animation="' . esc_attr( $ult_flip_settings['icon_animation'] ) . '"]' );
 			$css_trans   = '';
 			$icon_border = '';
 			$box_border  = '';
@@ -959,11 +959,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 			}
 
 			if ( is_numeric( $ult_flip_settings['title_font_size'] ) ) {
-				$ult_flip_settings['title_font_size'] = 'desktop:' . $ult_flip_settings['title_font_size'] . 'px;';
+				$ult_flip_settings['title_font_size'] = 'desktop:' . esc_attr( intval( $ult_flip_settings['title_font_size'] ) ) . 'px;';
 			}
 
 			if ( is_numeric( $ult_flip_settings['title_font_line_height'] ) ) {
-				$ult_flip_settings['title_font_line_height'] = 'desktop:' . $ult_flip_settings['title_font_line_height'] . 'px;';
+				$ult_flip_settings['title_font_line_height'] = 'desktop:' . esc_attr( intval( $ult_flip_settings['title_font_line_height'] ) ) . 'px;';
 			}
 			$flip_box_id       = 'flip-box-wrap-' . wp_rand( 1000, 9999 );
 			$ult_flip_box_args = array(
@@ -985,10 +985,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 			}
 
 			if ( is_numeric( $ult_flip_settings['desc_font_size'] ) ) {
-				$ult_flip_settings['desc_font_size'] = 'desktop:' . $ult_flip_settings['desc_font_size'] . 'px;';
+				$ult_flip_settings['desc_font_size'] = 'desktop:' . intval( $ult_flip_settings['desc_font_size'] ) . 'px;';
 			}
 			if ( is_numeric( $ult_flip_settings['desc_font_line_height'] ) ) {
-				$ult_flip_settings['desc_font_line_height'] = 'desktop:' . $ult_flip_settings['desc_font_line_height'] . 'px;';
+				$ult_flip_settings['desc_font_line_height'] = 'desktop:' . intval( $ult_flip_settings['desc_font_line_height'] ) . 'px;';
 			}
 
 			$ult_flip_box_args_desc = array(
@@ -1002,7 +1002,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 
 			if ( 'none' !== $ult_flip_settings['icon_border_style'] ) {
 				$icon_border .= 'border-style: ' . $ult_flip_settings['icon_border_style'] . ';';
-				$icon_border .= 'border-width: ' . $ult_flip_settings['icon_border_size'] . 'px;';
+				$icon_border .= 'border-width: ' . intval( $ult_flip_settings['icon_border_size'] ) . 'px;';
 			}
 			$box_style_data = '';
 			if ( 'ifb-custom-height' == $ult_flip_settings['height_type'] ) {
@@ -1018,7 +1018,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 				}
 				if ( 'none' !== $ult_flip_settings['box_border_style'] ) {
 					if ( '' != $ult_flip_settings['border_radius_box'] ) {
-						$box_border_radius .= 'border-radius: ' . $ult_flip_settings['border_radius_box'] . 'px;';
+						$box_border_radius .= 'border-radius: ' . intval( $ult_flip_settings['border_radius_box'] ) . 'px;';
 					}
 				}
 				if ( 'none' !== $animation ) {
@@ -1067,9 +1067,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 				if ( '' != $ult_flip_settings['border_color'] ) {
 					$border_front      = 'border-color:' . $ult_flip_settings['border_color'] . ';';
 					$border_back       = 'border-color:' . $ult_flip_settings['border_color'] . ';';
-					$box_border        = 'border-width: ' . $ult_flip_settings['border_size'] . 'px;';
+					$box_border        = 'border-width: ' . intval( $ult_flip_settings['border_size'] ) . 'px;';
 					$box_border       .= 'border-style: solid;';
-					$box_border_radius = 'border-radius: ' . $ult_flip_settings['border_radius'] . 'px;';
+					$box_border_radius = 'border-radius: ' . intval( $ult_flip_settings['border_radius'] ) . 'px;';
 				}
 			}
 
@@ -1088,25 +1088,25 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 							<div class="ifb-flip-box-section ' . esc_attr( $verticalcont ) . '">
 							';
 			if ( '' !== $ult_flip_settings['icon'] || '' !== $ult_flip_settings['icon_img'] ) {
-					$output .= '<div class="flip-box-icon">' . $flip_icon . '</div>';
+					$output .= '<div class="flip-box-icon">' . ( $flip_icon ) . '</div>';
 			}
 			if ( '' != $ult_flip_settings['block_title_front'] ) {
-				$output .= '<' . $ult_flip_settings['front_heading_tag'] . ' class="ult-responsive flipbox_heading" ' . $data_list . ' style="' . esc_attr( $front_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_front'] . '</' . $ult_flip_settings['front_heading_tag'] . '>';
+				$output .= '<' . esc_attr( sanitize_key( $ult_flip_settings['front_heading_tag'] ) ) . ' class="ult-responsive flipbox_heading" ' . esc_attr( $data_list ) . ' style="' . esc_attr( $front_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_front'] . '</' . esc_attr( sanitize_key( $ult_flip_settings['front_heading_tag'] ) ) . '>';
 			}
 			if ( '' != $ult_flip_settings['block_desc_front'] ) {
-				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . $data_list_desc . ' style="' . esc_attr( $desc_style ) . esc_attr( $front_text ) . esc_attr( $frontd_text ) . '"><p>' . $ult_flip_settings['block_desc_front'] . '</p></div>';
+				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . esc_attr( $data_list_desc ) . ' style="' . esc_attr( $desc_style ) . esc_attr( $front_text ) . esc_attr( $frontd_text ) . '"><p>' . $ult_flip_settings['block_desc_front'] . '</p></div>';
 			}
 					$output .= '</div></div><!-- END .front -->
 						<div class="ifb-face ifb-back" style="' . esc_attr( $b_style ) . ' ' . esc_attr( $box_border ) . ' ' . esc_attr( $border_back ) . ' ' . esc_attr( $box_border_radius ) . '">
 							<div class="ifb-flip-box-section ' . esc_attr( $verticalcont ) . '">';
 			if ( '' != $ult_flip_settings['block_title_back'] ) {
-				$output .= '<' . $ult_flip_settings['back_heading_tag'] . ' class="ult-responsive flipbox_heading" ' . $data_list . ' style="' . esc_attr( $back_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_back'] . '</' . $ult_flip_settings['back_heading_tag'] . '>';
+				$output .= '<' . esc_attr( sanitize_key( $ult_flip_settings['back_heading_tag'] ) ) . ' class="ult-responsive flipbox_heading" ' . esc_attr( $data_list ) . ' style="' . esc_attr( $back_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_back'] . '</' . esc_attr( sanitize_key( $ult_flip_settings['back_heading_tag'] ) ) . '>';
 			}
 			if ( '' != $ult_flip_settings['block_desc_back'] ) {
 				if ( '' !== $ult_flip_settings['button_link'] ) {
 					$output .= '<div class="ifb-desc-back">';
 				}
-				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . $data_list_desc . ' style="' . esc_attr( $desc_style ) . esc_attr( $back_text ) . esc_attr( $backd_text ) . '"><p>' . $ult_flip_settings['block_desc_back'] . '</p></div>';
+				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . esc_attr( $data_list_desc ) . ' style="' . esc_attr( $desc_style ) . esc_attr( $back_text ) . esc_attr( $backd_text ) . '"><p>' . $ult_flip_settings['block_desc_back'] . '</p></div>';
 				if ( '' !== $ult_flip_settings['button_link'] ) {
 					$output .= '</div>';
 				}

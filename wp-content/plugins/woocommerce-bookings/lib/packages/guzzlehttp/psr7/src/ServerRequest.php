@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -150,10 +150,10 @@ class ServerRequest extends Request implements ServerRequestInterface
         foreach (array_keys($files['tmp_name']) as $key) {
             $spec = [
                 'tmp_name' => $files['tmp_name'][$key],
-                'size'     => $files['size'][$key],
-                'error'    => $files['error'][$key],
-                'name'     => $files['name'][$key],
-                'type'     => $files['type'][$key],
+                'size'     => $files['size'][$key] ?? null,
+                'error'    => $files['error'][$key] ?? null,
+                'name'     => $files['name'][$key] ?? null,
+                'type'     => $files['type'][$key] ?? null,
             ];
             $normalizedFiles[$key] = self::createUploadedFileFromSpec($spec);
         }

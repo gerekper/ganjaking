@@ -223,38 +223,38 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewList' ) ) {
 			$pricing_style                  = '';
 			$rating_style                   = '';
 			if ( '' !== $ult_woocomposer_list_shortcode['img_size'] ) {
-				$style .= 'width:' . $ult_woocomposer_list_shortcode['img_size'] . 'px; height:' . $ult_woocomposer_list_shortcode['img_size'] . 'px;';
+				$style .= 'width:' . esc_attr( $ult_woocomposer_list_shortcode['img_size'] ) . 'px; height:' . esc_attr( $ult_woocomposer_list_shortcode['img_size'] ) . 'px;';
 			}
 			if ( '' !== $ult_woocomposer_list_shortcode['title_color'] ) {
-				$title_style .= 'color:' . $ult_woocomposer_list_shortcode['title_color'] . ';';
+				$title_style .= 'color:' . esc_attr( $ult_woocomposer_list_shortcode['title_color'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_list_shortcode['title_font'] ) {
-				$title_style .= 'font-size:' . $ult_woocomposer_list_shortcode['title_font'] . 'px;';
+				$title_style .= 'font-size:' . esc_attr( $ult_woocomposer_list_shortcode['title_font'] ) . 'px;';
 			}
 
 			if ( '' !== $ult_woocomposer_list_shortcode['img_border'] ) {
-				$style .= 'border-style:' . $ult_woocomposer_list_shortcode['img_border'] . ';';
+				$style .= 'border-style:' . esc_attr( $ult_woocomposer_list_shortcode['img_border'] ) . ';';
 				if ( '' !== $ult_woocomposer_list_shortcode['border_size'] ) {
-					$style .= 'border-width:' . $ult_woocomposer_list_shortcode['border_size'] . 'px;';
+					$style .= 'border-width:' . esc_attr( $ult_woocomposer_list_shortcode['border_size'] ) . 'px;';
 				}
 				if ( '' !== $ult_woocomposer_list_shortcode['border_color'] ) {
-					$style .= 'border-color:' . $ult_woocomposer_list_shortcode['border_color'] . ';';
+					$style .= 'border-color:' . esc_attr( $ult_woocomposer_list_shortcode['border_color'] ) . ';';
 				}
 				if ( '' !== $ult_woocomposer_list_shortcode['border_radius'] ) {
-					$style .= 'border-radius:' . $ult_woocomposer_list_shortcode['border_radius'] . 'px;';
+					$style .= 'border-radius:' . esc_attr( $ult_woocomposer_list_shortcode['border_radius'] ) . 'px;';
 				}
 			}
 			if ( '' !== $ult_woocomposer_list_shortcode['price_font'] ) {
-				$pricing_style .= 'font-size:' . $ult_woocomposer_list_shortcode['price_font'] . 'px;';
+				$pricing_style .= 'font-size:' . esc_attr( $ult_woocomposer_list_shortcode['price_font'] ) . 'px;';
 			}
 			if ( '' !== $ult_woocomposer_list_shortcode['price_color'] ) {
-				$pricing_style .= 'color:' . $ult_woocomposer_list_shortcode['price_color'] . ';';
+				$pricing_style .= 'color:' . esc_attr( $ult_woocomposer_list_shortcode['price_color'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_list_shortcode['rating_color'] ) {
-				$rating_style .= 'color:' . $ult_woocomposer_list_shortcode['rating_color'] . ';';
+				$rating_style .= 'color:' . esc_attr( $ult_woocomposer_list_shortcode['rating_color'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_list_shortcode['rating_font'] ) {
-				$rating_style .= 'font-size:' . $ult_woocomposer_list_shortcode['rating_font'] . 'px;';
+				$rating_style .= 'font-size:' . esc_attr( $ult_woocomposer_list_shortcode['rating_font'] ) . 'px;';
 			}
 			$post_count = '12';
 			$output    .= '<div class="woocomposer_list woocommerce">';
@@ -377,7 +377,7 @@ if ( 'top_rated_products' == $display_type ) {
 				);
 			}
 			$query   = new WP_Query( $args );
-			$output .= '<ul class="wcmp-product-list wcmp-img-' . $ult_woocomposer_list_shortcode['img_position'] . ' ' . $order . '">';
+			$output .= '<ul class="wcmp-product-list wcmp-img-' . esc_attr( $ult_woocomposer_list_shortcode['img_position'] ) . ' ' . $order . '">';
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) :
 					$query->the_post();
@@ -396,13 +396,13 @@ if ( 'top_rated_products' == $display_type ) {
 
 							$output     .= '<a href="' . get_permalink( $product_id ) . '">';
 							$product_img = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'full' );
-							$output     .= '<img style="' . $style . '" src="' . $product_img[0] . '"/>';
-							$output     .= '<span style="' . $title_style . '">' . $product_title . '</span>';
+							$output     .= '<img style="' . esc_attr( $style ) . '" src="' . $product_img[0] . '"/>';
+							$output     .= '<span style="' . esc_attr( $title_style ) . '">' . $product_title . '</span>';
 							$output     .= '</a>';
 					if ( 'top_rated_products' == $display_type ) {
-						$output .= '<div style="' . $rating_style . '">' . $rating . '</div>';
+						$output .= '<div style="' . esc_attr( $rating_style ) . '">' . $rating . '</div>';
 					}
-							$output .= '<span class="amount" style="' . $pricing_style . '">' . $price . '</span>';
+							$output .= '<span class="amount" style="' . esc_attr( $pricing_style ) . '">' . $price . '</span>';
 					$output         .= '</li>';
 				endwhile;
 			endif;

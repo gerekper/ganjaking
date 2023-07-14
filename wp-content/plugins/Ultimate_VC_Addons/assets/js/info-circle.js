@@ -16,7 +16,7 @@ jQuery( document ).ready( function () {
 		jQuery( this ).attr( 'data-first-height', xh );
 	} );
 
-	jQuery( window ).resize( function () {
+	jQuery( window ).on( 'resize', function () {
 		resizedd++;
 		make_info_circle( '.info-c-full-br', resizedd );
 		calculate_clipped_circle();
@@ -48,7 +48,8 @@ jQuery( document ).ready( function () {
 		if ( jQuery( this ).data( 'focus-on' ) == 'hover' ) {
 			jQuery( this )
 				.find( '.icon-circle-list .info-circle-icons' )
-				.hover(
+				.on(
+					'mouseenter',
 					function () {
 						const obj = jQuery( this );
 						jQuery( this )
@@ -56,6 +57,8 @@ jQuery( document ).ready( function () {
 							.attr( 'data-slide-true', 'false' );
 						show_next_info_circle( obj );
 					},
+				).on(
+					'mouseleave',
 					function () {}
 				);
 		}
@@ -690,10 +693,13 @@ function part_circle_icon( selector ) {
 jQuery( window ).on( 'load', function () {
 	jQuery( '.info-c-full-br' ).each( function () {
 		if ( jQuery( this ).attr( 'data-slide-true' ) == 'on' ) {
-			jQuery( this ).hover(
+			jQuery( this ).on(
+				'mouseenter',
 				function () {
 					jQuery( this ).attr( 'data-slide-true', 'off' );
 				},
+			).on(
+				'mouseleave',
 				function () {
 					jQuery( this ).attr( 'data-slide-true', 'on' );
 					//info_circle_slide((jQuery(this).data('slide-duration'))*(1000),jQuery(this));

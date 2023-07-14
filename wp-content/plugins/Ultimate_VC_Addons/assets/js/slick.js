@@ -1033,7 +1033,7 @@
 				.attr( { 'aria-hidden': 'true', tabindex: '-1' } )
 				.find( 'a, input, button, select' )
 				.attr( { tabindex: '-1' } ),
-				b.$slideTrack.attr( 'role', 'listbox' ),
+				b.$slideTrack.attr( { role:"listbox", "aria-label":"tracker" } );
 				b.$slides
 					.not( b.$slideTrack.find( '.slick-cloned' ) )
 					.each( function ( c ) {

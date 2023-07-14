@@ -28,7 +28,7 @@
 					<label for="product"><?php esc_html_e( 'Limit to parent ID(s)', 'woocommerce-product-csv-import-suite' ); ?></label>
 				</th>
 				<td>
-					<input type="text" name="product_limit" id="product_limit" placeholder="<?php esc_attr_e( 'N/A', 'woocommerce-product-csv-import-suite' ); ?>" class="input-text" /> <span class="description"><?php _e( 'Comma separate IDs', 'woocommerce-product-csv-import-suite' ); ?></span>
+					<input type="text" name="product_limit" id="product_limit" placeholder="<?php esc_attr_e( 'N/A', 'woocommerce-product-csv-import-suite' ); ?>" class="input-text" /> <span class="description"><?php esc_html_e( 'Comma separate IDs', 'woocommerce-product-csv-import-suite' ); ?></span>
 				</td>
 			</tr>
 			<tr>
@@ -38,14 +38,14 @@
 				<td>
 					<select id="columns" name="columns[]" data-placeholder="<?php esc_attr_e( 'All Columns', 'woocommerce-product-csv-import-suite' ); ?>" class="wc-enhanced-select" multiple="multiple">
 						<?php
-							foreach ( $variation_columns as $key => $column ) {
-								echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $column ) . '</option>';
-							}
-							echo '<option value="images">' . esc_html__( 'Images (featured and gallery)', 'woocommerce-product-csv-import-suite' ) . '</option>';
-							echo '<option value="taxonomies">' . esc_html__( 'Taxonomies (cat/tags/shipping-class)', 'woocommerce-product-csv-import-suite' ) . '</option>';
-							echo '<option value="meta">' . esc_html__( 'Meta (custom fields)', 'woocommerce-product-csv-import-suite' ) . '</option>';
+						foreach ( $variation_columns as $key => $column ) {
+							echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $column ) . '</option>';
+						}
+						echo '<option value="images">' . esc_html__( 'Images (featured and gallery)', 'woocommerce-product-csv-import-suite' ) . '</option>';
+						echo '<option value="taxonomies">' . esc_html__( 'Taxonomies (cat/tags/shipping-class)', 'woocommerce-product-csv-import-suite' ) . '</option>';
+						echo '<option value="meta">' . esc_html__( 'Meta (custom fields)', 'woocommerce-product-csv-import-suite' ) . '</option>';
 						?>
-						</select>
+					</select>
 				</td>
 			</tr>
 			<tr>

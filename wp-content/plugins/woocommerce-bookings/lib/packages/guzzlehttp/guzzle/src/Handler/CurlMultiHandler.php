@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -170,7 +170,8 @@ class CurlMultiHandler
             \usleep(250);
         }
 
-        while (\curl_multi_exec($this->_mh, $this->active) === \CURLM_CALL_MULTI_PERFORM);
+        while (\curl_multi_exec($this->_mh, $this->active) === \CURLM_CALL_MULTI_PERFORM) {
+        }
 
         $this->processMessages();
     }

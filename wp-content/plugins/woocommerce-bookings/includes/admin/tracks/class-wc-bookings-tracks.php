@@ -1,5 +1,11 @@
 <?php
 /**
+ * Tracks in Bookings.
+ *
+ * @package WooCommerce Bookings
+ */
+
+/**
  * Bookings-specific Tracks implementation.
  */
 class WC_Bookings_Tracks {
@@ -22,6 +28,7 @@ class WC_Bookings_Tracks {
 			'WC_Bookings_Calendar_Tracking',
 			'WC_Bookings_Notification_Tracking',
 			'WC_Bookings_Resources_Tracking',
+			'WC_Bookings_Templates_Tracking',
 		);
 
 		foreach ( $tracking_classes as $tracking_class ) {

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * Main WooCommerce Measurement Price Calculator class.
@@ -32,7 +32,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
  */
 class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
-	const VERSION = '3.21.1';
+	const VERSION = '3.22.0';
 
 	/** @var WC_Measurement_Price_Calculator single instance of this plugin */
 	protected static $instance;
@@ -69,9 +69,10 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain' => 'woocommerce-measurement-price-calculator',
-			)
+			[
+				'text_domain'   => 'woocommerce-measurement-price-calculator',
+				'supports_hpos' => true,
+			]
 		);
 
 		// include required files

@@ -1,0 +1,471 @@
+{
+  "products": [
+    {
+      "slug": "tutoring",
+      "name": "Tutoring",
+      "short_description": "Useful when scheduling 30 minute sessions during part-time availability at weekday nights and weekend midday.",
+      "scenario": "Useful when scheduling 30 minute sessions during part-time availability at weekday nights and weekend midday.",
+      "features_utilized": [
+        "Custom hour ranges"
+      ],
+      "products_used": [
+        "WooCommerce",
+        "WooCommerce Bookings"
+      ],
+      "product_thumbnail": "bookings-tutoring.png",
+      "front_end_display": "bookings-tutoring-FE.png",
+      "is_virtual": false,
+      "duration": 1,
+      "duration_unit": "hour",
+      "duration_type": "fixed",
+      "qty": 1,
+      "default_date_availability": "not-available",
+      "cost": 25,
+      "block_cost": 0,
+      "display_cost": "",
+      "availability": {
+        "time1": {
+          "type": "time:1",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "19:00",
+          "to": "21:00"
+        },
+        "time2": {
+          "type": "time:2",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "19:00",
+          "to": "21:00"
+        },
+        "time3": {
+          "type": "time:3",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "19:00",
+          "to": "21:00"
+        },
+        "time4": {
+          "type": "time:4",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "19:00",
+          "to": "21:00"
+        },
+        "time5": {
+          "type": "time:5",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "19:00",
+          "to": "21:00"
+        },
+        "time6": {
+          "type": "time:6",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "12:00",
+          "to": "14:00"
+        },
+        "time7": {
+          "type": "time:7",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "12:00",
+          "to": "14:00"
+        }
+      }
+    },
+    {
+      "slug": "tourist-activity",
+      "name": "Tourist Activity",
+      "short_description": "Booking daily tours for an activity? This is your starting point. You can book tours with vary cost and types of guest.",
+      "scenario": "OPTION A: You're offering a tour with a maximum capacity of 25 people. Tours are daily and each last two hours. The tour prices differ for adults and children so you have set up two pricing groups.<br><br>OPTION B: You provide tours that can accommodate up to 25 people. They are daily two-hour tours. You put together two pricing categories due to the tour costs for adults and kids being different.",
+      "features_utilized": [
+        "Maximum capacity per tour (persons)",
+        "Varying ticket price based on age (cost)",
+        "Multiple events on certain days (resource availability)"
+      ],
+      "products_used": [
+        "WooCommerce",
+        "WooCommerce Bookings"
+      ],
+      "product_thumbnail": "product-1.png",
+      "front_end_display": "product-1-FE.png",
+      "back_end_display": "product-1-BE-1.png",
+      "is_virtual": true,
+      "duration": 2,
+      "duration_unit": "hour",
+      "duration_type": "fixed",
+      "qty": 25,
+      "default_date_availability": "non-available",
+      "availability": {
+        "time1": {
+          "type": "time",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "10:00",
+          "to": "12:00"
+        },
+        "time2": {
+          "type": "time",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "14:00",
+          "to": "16:00"
+        },
+        "time3": {
+          "type": "time",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "18:00",
+          "to": "20:00"
+        }
+      },
+      "has_persons": true,
+      "has_person_types": true,
+      "has_person_qty_multiplier": false,
+      "has_person_cost_multiplier": true,
+      "min_persons": 1,
+      "max_persons": 25,
+      "person_types": {
+        "person1": {
+          "name": "Adults (Sample person)",
+          "cost": 25,
+          "block_cost": 0,
+          "description": "",
+          "min": 1,
+          "max": 25
+        },
+        "person2": {
+          "name": "Children (18 and under) (Sample person)",
+          "cost": 20,
+          "block_cost": 0,
+          "description": "",
+          "min": 1,
+          "max": 20
+        }
+      }
+    },
+    {
+      "slug": "equipment-rental",
+      "name": "Equipment Rental",
+      "short_description": "This template helps you set up a party supply store that rents out two types of tables as well as chairs.",
+      "scenario": "This template helps you set up a party supply store that rents out two types of tables as well as chairs.",
+      "features_utilized": [
+        "Multiple table types & Black chairs (resources)",
+        "Qty (persons)"
+      ],
+      "products_used": [
+        "WooCommerce",
+        "WooCommerce Bookings"
+      ],
+      "product_thumbnail": "bookings-party-equipment-rental.png",
+      "front_end_display": "bookings-party-equipment-rental-FE.png",
+      "is_virtual": true,
+      "duration": 1,
+      "duration_unit": "day",
+      "duration_type": "fixed",
+      "qty": 1,
+      "default_date_availability": "available",
+      "cost": 0,
+      "block_cost": 0,
+      "display_cost": "",
+      "has_resources": true,
+      "resources_assignment": "customer",
+      "resources": {
+        "1": {
+          "name": "60\" round table (Sample resource)",
+          "qty": 10,
+          "base_cost": 12,
+          "block_cost": 0
+        },
+        "2": {
+          "name": "8' rectangular table (Sample resource)",
+          "qty": 10,
+          "base_cost": 15,
+          "block_cost": 0
+        },
+        "3": {
+          "name": "Black folding chairs (Sample resource)",
+          "qty": 180,
+          "base_cost": 1.5,
+          "block_cost": 0
+        }
+      },
+      "has_persons": true,
+      "has_person_types": true,
+      "has_person_qty_multiplier": true,
+      "has_person_cost_multiplier": true,
+      "min_persons": 1,
+      "max_persons": 180,
+      "person_types": {
+        "person1": {
+          "name": "Qty (Sample person)",
+          "cost": 0,
+          "block_cost": 0,
+          "description": "",
+          "min": 0,
+          "max": 180
+        }
+      }
+    },
+    {
+      "slug": "hair-salon",
+      "name": "Hair Salon",
+      "short_description": "This template is set up for multiple stylist to be booked with optional services for 1 hour on a set schedule, Monday through Friday.",
+      "scenario": "OPTION A: Your hair salon or barber shop is booking appointments from 9 am to 8 pm, Monday through Friday. Each stylist or barber has one hour-long appointment to book. Also, each stylist or barber offers a variety of services that your customers can choose from.<br><br>OPTION B: Monday through Friday, from 9 am to 8 pm, appointments may be booked in your hair salon or barbershop. Throughout the day hour-long appointments are available per stylist or barber. Additionally, each stylist or barber may offer a range of care to choose from.",
+      "features_utilized": [
+        "Multiple stylists (resources)",
+        "Each with their own offerings and schedules (resources availability)",
+        "That fit into the salon’s working hours (global availability)"
+      ],
+      "products_used": [
+        "WooCommerce",
+        "WooCommerce Bookings"
+      ],
+      "product_thumbnail": "product-2.png",
+      "front_end_display": "product-2-FE.png",
+      "back_end_display": "product-2-BE-3.png",
+      "is_virtual": false,
+      "duration": 1,
+      "duration_unit": "hour",
+      "duration_type": "fixed",
+      "qty": 1,
+      "default_date_availability": "non-available",
+      "availability": {
+        "time1": {
+          "type": "time:1",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "09:00",
+          "to": "20:00"
+        },
+        "time2": {
+          "type": "time:2",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "09:00",
+          "to": "20:00"
+        },
+        "time3": {
+          "type": "time:3",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "09:00",
+          "to": "20:00"
+        },
+        "time4": {
+          "type": "time:4",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "09:00",
+          "to": "20:00"
+        },
+        "time5": {
+          "type": "time:5",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "09:00",
+          "to": "20:00"
+        },
+        "time6": {
+          "type": "time:6",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "08:00",
+          "to": "16:00"
+        },
+        "time7": {
+          "type": "time:7",
+          "bookable": "yes",
+          "priority": 10,
+          "from": "08:00",
+          "to": "16:00"
+        }
+      },
+      "has_resources": true,
+      "resources_assignment": "customer",
+      "resources": {
+        "1": {
+          "name": "Laurena (Sample resource)",
+          "qty": 1,
+          "base_cost": 35,
+          "block_cost": 0
+        },
+        "2": {
+          "name": "Shane (Sample resource)",
+          "qty": 1,
+          "base_cost": 25,
+          "block_cost": 0
+        },
+        "3": {
+          "name": "Steve (Sample resource)",
+          "qty": 1,
+          "base_cost": 20,
+          "block_cost": 0
+        },
+        "4": {
+          "name": "Joel (Sample resource)",
+          "qty": 1,
+          "base_cost": 30,
+          "block_cost": 0
+        }
+      }
+    },
+    {
+      "slug": "boat-cruise",
+      "name": "Boat Cruise",
+      "short_description": "This option is configured for selecting cruises with varying cabins sizes and prices, amenities, and dates.",
+      "scenario": "You manage a cruise line and want to present passengers the option to book rooms for either a particular length of time or the entire 10-day itinerary. Your prices and cabin occupancy sizes vary. On holidays, there are rate increases.",
+      "features_utilized": [
+        "Cabin Types (resources)",
+        "Cabin Inventory (resources availability)",
+        "Occupancy Rates (persons)",
+        "Discounts (costs)"
+      ],
+      "products_used": [
+        "WooCommerce",
+        "WooCommerce Bookings"
+      ],
+      "product_thumbnail": "product-3.png",
+      "front_end_display": "product-3-FE.png",
+      "back_end_display": "product-3-BE-4.png",
+      "is_virtual": false,
+      "duration": 1,
+      "duration_unit": "day",
+      "duration_type": "customer",
+      "min_duration": 1,
+      "max_duration": 10,
+      "qty": 1,
+      "default_date_availability": "available",
+      "cost": 0,
+      "block_cost": 0,
+      "display_cost": "",
+      "pricing": {
+        "days-range": {
+          "type": "days",
+          "from": 1,
+          "to": 7,
+          "cost": 250,
+          "modifier": "plus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        },
+        "persons-vise": {
+          "type": "persons",
+          "from": 2,
+          "to": 2,
+          "cost": 50,
+          "modifier": "minus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        },
+        "custom1": {
+          "type": "custom",
+          "from": "2018-07-04",
+          "to": "2018-07-04",
+          "cost": 45,
+          "modifier": "plus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        },
+        "custom2": {
+          "type": "custom",
+          "from": "2018-11-22",
+          "to": "2018-11-22",
+          "cost": 45,
+          "modifier": "plus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        },
+        "custom3": {
+          "type": "custom",
+          "from": "2018-12-25",
+          "to": "2018-12-25",
+          "cost": 45,
+          "modifier": "plus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        }
+      },
+      "has_resources": true,
+      "resources_assignment": "customer",
+      "resources": {
+        "1": {
+          "name": "Cabin - With Window (Sample resource)",
+          "qty": 1,
+          "base_cost": 0,
+          "block_cost": 100
+        },
+        "2": {
+          "name": "Cabin - No Window (Sample resource)",
+          "qty": 1,
+          "base_cost": 0,
+          "block_cost": 0
+        }
+      },
+      "has_persons": true,
+      "has_person_types": true,
+      "has_person_qty_multiplier": true,
+      "has_person_cost_multiplier": true,
+      "min_persons": 1,
+      "max_persons": 2,
+      "person_types": {
+        "person1": {
+          "name": "Numbner of Persons (Sample person)",
+          "cost": 0,
+          "block_cost": 0,
+          "description": "Sharing 1 cabin",
+          "min": 0,
+          "max": 2
+        }
+      }
+    },
+    {
+      "slug": "room-rental",
+      "name": "Room Rental",
+      "short_description": "If you want to rent out a room or entire house, then this template will help set up check-in and check-out rental blocks.",
+      "scenario": "If you want to rent out a room or entire house, then this template will help set up check-in and check-out rental blocks.",
+      "features_utilized": [
+        "Different prices for weekends"
+      ],
+      "products_used": [
+        "WooCommerce",
+        "WooCommerce Bookings"
+      ],
+      "product_thumbnail": "bookings-room-rental.png",
+      "front_end_display": "bookings-room-rental-FE.png",
+      "is_virtual": false,
+      "duration": 1,
+      "duration_unit": "day",
+      "duration_type": "customer",
+      "min_duration": 1,
+      "max_duration": 7,
+      "qty": 5,
+      "default_date_availability": "available",
+      "cost": 0,
+      "block_cost": 0,
+      "display_cost": "",
+      "pricing": {
+        "weekdays-cost": {
+          "type": "days",
+          "from": 1,
+          "to": 5,
+          "cost": 99,
+          "modifier": "plus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        },
+        "weekend-cost": {
+          "type": "days",
+          "from": 6,
+          "to": 7,
+          "cost": 199,
+          "modifier": "plus",
+          "base_cost": 0,
+          "base_modifier": "plus"
+        }
+      }
+    }
+  ]
+}

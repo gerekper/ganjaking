@@ -40,7 +40,7 @@ class WC_Bookings_Single_Export {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'export_product_with_global_rules' ) ) {
+		if ( ! wp_verify_nonce( wc_clean( wp_unslash( $_GET['_wpnonce'] ?? '' ) ), 'export_product_with_global_rules' ) ) {
 			wp_die( esc_html__( 'Unauthorised request, please try again.', 'woocommerce-bookings' ) );
 		}
 
@@ -129,7 +129,7 @@ class WC_Bookings_Single_Export {
 
 			$this->trigger_download( $prepared_json, 'booking-product-' . $product_id . '-with-global-rules' );
 		} catch ( Exception $e ) {
-			wp_die( $e->getMessage() );
+			wp_die( esc_html( $e->getMessage() ) );
 		}
 	}
 
@@ -154,7 +154,7 @@ class WC_Bookings_Single_Export {
 
 			return $global_rules_json;
 		} catch ( Exception $e ) {
-			wp_die( $e->getMessage() );
+			wp_die( esc_html( $e->getMessage() ) );
 		}
 	}
 

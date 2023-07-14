@@ -483,19 +483,23 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewCarousel' ) ) {
 			$output .= '</div>';
 			$uid     = uniqid();
 
-			$output  .= '<div id="woo-carousel-' . $uid . '" class="woocomposer_carousel">';
-			$template = 'design-loop-' . $ult_woocomposer_carousel['product_style'] . '.php';
-			require_once $template;
-			$function = 'woocomposer_loop_' . $ult_woocomposer_carousel['product_style'];
-			$output  .= $function( $atts, 'carousel' );
-			$output  .= '</div>';
-			$output  .= '<script>
+			$output        .= '<div id="woo-carousel-' . esc_attr( $uid ) . '" class="woocomposer_carousel">';
+			$product_style  = sanitize_file_name( $ult_woocomposer_carousel['product_style'] );
+			$allowed_styles = array( 'style01', 'style02', 'style03' );
+			$template       = 'design-loop-' . $product_style . '.php';
+			if ( in_array( $product_style, $allowed_styles ) && file_exists( $template ) ) {
+				require_once $template;
+				$function = 'woocomposer_loop_' . $product_style;
+				$output  .= $function( $atts, 'carousel' );
+			}
+			$output .= '</div>';
+			$output .= '<script>
 						jQuery(document).ready(function(){
 							var columns = jQuery("#woo-carousel-' . $uid . ' > .woocomposer").data("columns");
-							var slides_scroll_opt = "' . $ult_woocomposer_carousel['scroll_opts'] . '";
+							var slides_scroll_opt = "' . esc_attr( $ult_woocomposer_carousel['scroll_opts'] ) . '";
 							var slides_to_scroll;
 							if(slides_scroll_opt == "custom"){
-								slides_to_scroll = ' . $ult_woocomposer_carousel['slides_to_scroll'] . ';
+								slides_to_scroll = ' . absint( $ult_woocomposer_carousel['slides_to_scroll'] ) . ';
 							} else {
 								slides_to_scroll = columns;
 							}
@@ -506,10 +510,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewCarousel' ) ) {
 											infinite: ' . $infinite . ',
 											slidesToShow: columns,
 											slidesToScroll: slides_to_scroll,
-											speed: ' . $ult_woocomposer_carousel['scroll_speed'] . ',
+											speed: ' . intval( $ult_woocomposer_carousel['scroll_speed'] ) . ',
 											dots: ' . $dots . ',
 											autoplay: ' . $autoplay . ',
-											autoplaySpeed: ' . $ult_woocomposer_carousel['autoplay_speed'] . ',
+											autoplaySpeed: ' . intval( $ult_woocomposer_carousel['autoplay_speed'] ) . ',
 											responsive: [{
 												breakpoint: 1024,
 												settings: {
@@ -537,10 +541,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewCarousel' ) ) {
 							var carousel_set = "{infinite: ' . $infinite . ',\
 								slidesToShow: columns,\
 								slidesToScroll: slides_to_scroll,\
-								speed: ' . $ult_woocomposer_carousel['scroll_speed'] . ',\
+								speed: ' . intval( $ult_woocomposer_carousel['scroll_speed'] ) . ',\
 								dots: ' . $dots . ',\
 								autoplay: ' . $autoplay . ',\
-								autoplaySpeed: ' . $ult_woocomposer_carousel['autoplay_speed'] . ',\
+								autoplaySpeed: ' . intval( $ult_woocomposer_carousel['autoplay_speed'] ) . ',\
 								responsive: [{\
 									breakpoint: 1024,\
 									settings: {\

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -33,10 +33,10 @@ class RedirectMiddleware
      * @var array
      */
     public static $defaultSettings = [
-        'max'             => 5,
-        'protocols'       => ['http', 'https'],
-        'strict'          => false,
-        'referer'         => false,
+        'max' => 5,
+        'protocols' => ['http', 'https'],
+        'strict' => false,
+        'referer' => false,
         'track_redirects' => false,
     ];
 

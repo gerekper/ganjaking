@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * Product Data Panel - General Tab
@@ -66,7 +66,16 @@ add_action( 'woocommerce_process_product_meta', 'wc_measurement_price_calculator
  */
 function wc_measurement_price_calculator_process_product_meta( $post_id, $post ) {
 
-	apply_filters('the_post', 'wc_measurement_fix_post_decimals_values_to_database');
+	$postContent = $_POST;
+
+	// Formats decimal values for database storage
+	array_map( function( $field ) use ( &$postContent ) {
+
+		$postContent[ $field ] = str_replace( '.', ',', $postContent[ $field ] );
+
+	}, ['_area', '_volume'] );
+
+	$_POST = $postContent;
 
 	$is_virtual = isset( $_POST['_virtual'] ) ? 'yes' : 'no';
 
@@ -98,6 +107,18 @@ function wc_measurement_price_calculator_process_product_meta( $post_id, $post )
 	}
 }
 
+/**
+ * Formats decimal values to be accepted by the database.
+ *
+ * @since 3.21.1
+ * @deprecated since 3.22.0
+ *
+ * @return void
+ */
+function wc_measurement_fix_post_decimals_values_to_database() {
+
+	wc_deprecated_function( __METHOD__, '3.22.0' );
+}
 
 // add a minimum price field to simple products under the 'General' tab
 add_action( 'woocommerce_product_options_pricing', 'wc_measurement_price_calculator_product_minimum_price' );
@@ -141,26 +162,4 @@ function wc_measurement_price_calculator_product_minimum_price_save( $post_id ) 
 
 		update_post_meta( $post_id, '_wc_measurement_price_calculator_min_price', $_POST['_wc_measurement_price_calculator_min_price'] );
 	}
-}
-
-//Formats decimal values to be accepted by the database
-add_filter('the_post', 'wc_measurement_fix_post_decimals_values_to_database');
-
-/**
- * Formats decimal values to be accepted by the database
- *
- * @since 3.21.1
- * @return void
- */
-function wc_measurement_fix_post_decimals_values_to_database() {
-
-	$postContent = $_POST;
-
-	array_map( function( $field ) use ( &$postContent ) {
-
-		$postContent[$field] = str_replace('.', ',', $postContent[$field]);
-
-	}, ['_area', '_volume'] );
-
-	$_POST = $postContent;
 }

@@ -403,16 +403,19 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewProduct' ) ) {
 			if ( function_exists( 'wc_print_notices' ) ) {
 				wc_print_notices();
 			}
-			$output .= ob_get_clean();
-			$output .= '</div>';
+			$output        .= ob_get_clean();
+			$output        .= '</div>';
+			$product_style  = sanitize_file_name( $ult_woocomposer_product['product_style'] );
+			$allowed_styles = array( 'style01', 'style02', 'style03' );
+			$template       = wp_normalize_path( 'design-single-' . $product_style . '.php' );
 
-			$template = 'design-single-' . $ult_woocomposer_product['product_style'] . '.php';
-			require_once $template;
-
-			$function = 'woocomposer_single_' . $ult_woocomposer_product['product_style'];
-
-			$output .= $function( $atts );
-
+			if ( in_array( $product_style, $allowed_styles ) && file_exists( $template ) ) {
+				require_once $template;
+				$function = 'woocomposer_single_' . $product_style;
+				if ( function_exists( $function ) ) {
+					$output .= $function( $atts );
+				}
+			}
 			return $output;
 
 		}

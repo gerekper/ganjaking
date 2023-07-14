@@ -17,7 +17,7 @@ class WC_PCSVIS_Exporter {
 		$current_offset              = ! empty( $_POST['offset'] ) ? intval( $_POST['offset'] ) : 0;
 		$csv_columns                 = $post_type == 'product' ? include( 'data/data-post-columns.php' ) : include( 'data/data-variation-columns.php' );
 		$product_taxonomies          = get_object_taxonomies( $post_type, 'name' );
-		$export_columns              = ! empty( $_POST['columns'] ) ? $_POST['columns'] : '';
+		$export_columns              = ! empty( $_POST['columns'] ) ? wc_clean( wp_unslash( $_POST['columns'] ) ) : '';
 		$include_hidden_meta         = ! empty( $_POST['include_hidden_meta'] ) ? true : false;
 		$product_limit               = ! empty( $_POST['product_limit'] ) ? sanitize_text_field( $_POST['product_limit'] ) : '';
 		$exclude_hidden_meta_columns = include( 'data/data-hidden-meta-columns.php' );
@@ -210,7 +210,7 @@ class WC_PCSVIS_Exporter {
 				if ( count( $sortby ) === count( $products ) ) {
 					array_multisort( $sortby, SORT_ASC, $products );
 				}
-			}	
+			}
 
 			if ( ! $products || is_wp_error( $products ) ) {
 				break;

@@ -1,5 +1,6 @@
 jQuery( document ).ready( function () {
-	jQuery( '.ult_colorlink' ).hover(
+	jQuery( '.ult_colorlink' ).on(
+		'mouseenter',
 		function () {
 			const style = jQuery( this ).data( 'style' );
 
@@ -47,6 +48,8 @@ jQuery( document ).ready( function () {
 					.css( 'background', bghover );
 			}
 		},
+	).on(
+		'mouseleave',
 		function () {
 			const style = jQuery( this ).data( 'style' );
 
@@ -83,7 +86,7 @@ jQuery( document ).ready( function () {
 					.find( '.ult_btn10_span' )
 					.css( 'background', bgcolor );
 			}
-		}
+		},
 	);
 } );
 
@@ -93,7 +96,7 @@ jQuery( window ).on( 'load', function () {
 jQuery( document ).ready( function ( $ ) {
 	ult_creative_link_ht();
 } );
-jQuery( window ).resize( function ( event ) {
+jQuery( window ).on( 'resize', function ( event ) {
 	ult_creative_link_ht();
 } );
 

@@ -1,3 +1,12 @@
+3.19.15 - 13 July 2023
+- Improvement: Enhancing security by preventing the exploitation of Shortcode attributes. Props to Patchstack for privately reporting it to our team.
+- Improvement: Advanced Carousel - Added correct accessibility ARIA labels for the slider, with proper accessible names.
+- Improvement: Counter - Assigned unique ID values to the counter-div.
+
+3.19.14 - 6 January 2023
+- Improvement: Handled jQuery deprecated functions.
+- Fix: PHP 8.x compatibility.
+
 3.19.13 - 28 November 2022
 - Improvement - Fonts related warning in google page speed insights due to custom fonts.
 - Fix: Customizer layout breaks due to conflict with astra pro plugin.

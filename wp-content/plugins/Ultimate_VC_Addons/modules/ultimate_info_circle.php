@@ -329,22 +329,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_Circle' ) ) {
 				$icon_type_class = 'ult-info-circle-img';
 			}
 			if ( '' != $ult_info_circle_settings['icon_bg_color'] ) {
-				$style .= 'background:' . $ult_info_circle_settings['icon_bg_color'] . ';';
+				$style .= 'background:' . esc_attr( $ult_info_circle_settings['icon_bg_color'] ) . ';';
 			} else {
 				$ult_info_circle_settings['el_class'] .= ' info-circle-icon-without-background ';
 			}
 			if ( '' != $ult_info_circle_settings['icon_color'] ) {
-				$style .= 'color:' . $ult_info_circle_settings['icon_color'] . ';';
+				$style .= 'color:' . esc_attr( $ult_info_circle_settings['icon_color'] ) . ';';
 			}
 			if ( '' != $ult_info_circle_settings['icon_br_padding'] ) {
-				$padding_style = 'data-padding-style=' . $ult_info_circle_settings['icon_br_padding'];
-				$style        .= 'padding:' . $ult_info_circle_settings['icon_br_padding'] . 'px;';
+				$padding_style = 'data-padding-style=' . esc_attr( $ult_info_circle_settings['icon_br_padding'] );
+				$style        .= 'padding:' . esc_attr( $ult_info_circle_settings['icon_br_padding'] ) . 'px;';
 
 			}
 			if ( 'none' != $ult_info_circle_settings['icon_br_style'] && '' != $ult_info_circle_settings['icon_br_width'] && '' != $ult_info_circle_settings['icon_border_color'] ) {
-				$style .= 'border-style:' . $ult_info_circle_settings['icon_br_style'] . ';';
-				$style .= 'border-width:' . $ult_info_circle_settings['icon_br_width'] . 'px;';
-				$style .= 'border-color:' . $ult_info_circle_settings['icon_border_color'] . ';';
+				$style .= 'border-style:' . esc_attr( $ult_info_circle_settings['icon_br_style'] ) . ';';
+				$style .= 'border-width:' . intval( $ult_info_circle_settings['icon_br_width'] ) . 'px;';
+				$style .= 'border-color:' . esc_attr( $ult_info_circle_settings['icon_border_color'] ) . ';';
 			}
 			$href = vc_build_link( $ult_info_circle_settings['ilink'] );
 			if ( ! empty( $href['url'] ) ) {
@@ -353,12 +353,12 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_Circle' ) ) {
 				$target     = ( isset( $href['target'] ) && '' !== $href['target'] ) ? esc_attr( trim( $href['target'] ) ) : '';
 				$link_title = ( isset( $href['title'] ) && '' !== $href['title'] ) ? esc_attr( $href['title'] ) : '';
 				$rel        = ( isset( $href['rel'] ) && '' !== $href['rel'] ) ? esc_attr( $href['rel'] ) : '';
-				$output    .= '<div class="info-circle-icons ' . esc_attr( $ult_info_circle_settings['el_class'] ) . '" style="' . esc_attr( $style ) . '" ' . $padding_style . '><div class="info-circle-link">
+				$output    .= '<div class="info-circle-icons ' . esc_attr( $ult_info_circle_settings['el_class'] ) . '" style="' . esc_attr( $style ) . '" ' . esc_attr( $padding_style ) . '><div class="info-circle-link">
 								<a class="info-circle-href" ' . Ultimate_VC_Addons::uavc_link_init( $url, $target, $link_title, $rel ) . '></a>';
 				$output    .= $icon_html;
 				$output    .= '</div></div>';
 			} else {
-				$output .= '<div class="info-circle-icons ' . $ult_info_circle_settings['el_class'] . '" style="' . esc_attr( $style ) . '" ' . $padding_style . '>';
+				$output .= '<div class="info-circle-icons ' . esc_attr( $ult_info_circle_settings['el_class'] ) . '" style="' . esc_attr( $style ) . '" ' . esc_attr( $padding_style ) . '>';
 				$output .= $icon_html;
 				$output .= '</div>';
 			}

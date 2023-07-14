@@ -664,8 +664,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Swatch_Book' ) ) {
 				$this->swatch_width = $ult_swatch_settings['swatch_width'];
 			}
 			if ( '' !== $ult_swatch_settings['swatch_height'] ) {
-				$style              .= 'height:' . $ult_swatch_settings['swatch_height'] . 'px;';
-				$this->swatch_height = $ult_swatch_settings['swatch_height'];
+				$style              .= 'height:' . esc_attr( $ult_swatch_settings['swatch_height'] ) . 'px;';
+				$this->swatch_height = esc_attr( $ult_swatch_settings['swatch_height'] );
 			}
 
 			if ( '' !== $ult_swatch_settings['swatch_main_strip_highlight_font_size'] ) {
@@ -761,7 +761,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Swatch_Book' ) ) {
 				}
 					$swatch_options .= 'closeIdx : ' . esc_attr( $ult_swatch_settings['swatch_init_closed'] ) . ',';
 					$output         .= 'jQuery( "#ulsb-container-' . esc_attr( $uid ) . '" ).swatchbook( {
-									' . $swatch_options . '
+									' . wp_json_encode( $swatch_options ) . '
 									easing : "ease-out",
 									proximity : 40,
 								} );';
@@ -771,7 +771,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Swatch_Book' ) ) {
 						var ult_strip = jQuery(".highlight-strip");
 						ult_strip.each(function(index, element) {
 							var strip_main_text = jQuery(this).children(".strip_main_text").outerHeight();
-							var height = ' . esc_attr( $ult_swatch_settings['swatch_height'] ) . '-strip_main_text;
+							var height = ' . intval( $ult_swatch_settings['swatch_height'] ) . '-strip_main_text;
 							jQuery(this).children(".strip_highlight_text").css("height",height);
 						});
 					});';

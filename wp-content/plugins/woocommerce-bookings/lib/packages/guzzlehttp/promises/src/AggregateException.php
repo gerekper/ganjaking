@@ -2,9 +2,11 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
+
+declare(strict_types=1);
 
 namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise;
 
@@ -13,7 +15,7 @@ namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise;
  */
 class AggregateException extends RejectionException
 {
-    public function __construct($msg, array $reasons)
+    public function __construct(string $msg, array $reasons)
     {
         parent::__construct(
             $reasons,

@@ -2,7 +2,7 @@
 /**
  * @license Apache-2.0
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -21,7 +21,6 @@ $classMap = [
     'Automattic\WooCommerce\Bookings\Vendor\Google\\Utils\\UriTemplate' => 'Automattic_WooCommerce_Bookings_Vendor_Google_Utils_UriTemplate',
     'Automattic\WooCommerce\Bookings\Vendor\Google\\AuthHandler\\Guzzle6AuthHandler' => 'Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_Guzzle6AuthHandler',
     'Automattic\WooCommerce\Bookings\Vendor\Google\\AuthHandler\\Guzzle7AuthHandler' => 'Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_Guzzle7AuthHandler',
-    'Automattic\WooCommerce\Bookings\Vendor\Google\\AuthHandler\\Guzzle5AuthHandler' => 'Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_Guzzle5AuthHandler',
     'Automattic\WooCommerce\Bookings\Vendor\Google\\AuthHandler\\AuthHandlerFactory' => 'Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_AuthHandlerFactory',
     'Automattic\WooCommerce\Bookings\Vendor\Google\\Http\\Batch' => 'Automattic_WooCommerce_Bookings_Vendor_Google_Http_Batch',
     'Automattic\WooCommerce\Bookings\Vendor\Google\\Http\\MediaFileUpload' => 'Automattic_WooCommerce_Bookings_Vendor_Google_Http_MediaFileUpload',
@@ -56,9 +55,6 @@ if (\false) {
     {
     }
     class Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_AuthHandlerFactory extends \Automattic\WooCommerce\Bookings\Vendor\Google\AuthHandler\AuthHandlerFactory
-    {
-    }
-    class Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_Guzzle5AuthHandler extends \Automattic\WooCommerce\Bookings\Vendor\Google\AuthHandler\Guzzle5AuthHandler
     {
     }
     class Automattic_WooCommerce_Bookings_Vendor_Google_AuthHandler_Guzzle6AuthHandler extends \Automattic\WooCommerce\Bookings\Vendor\Google\AuthHandler\Guzzle6AuthHandler

@@ -46,7 +46,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		'pricing'                    => array(),
 		'qty'                        => 1,
 		'requires_confirmation'      => false,
-		'resource_label'              => '',
+		'resource_label'             => '',
 		'resource_base_costs'        => array(),
 		'resource_block_costs'       => array(),
 		'resource_ids'               => array(),
@@ -83,7 +83,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @var WC_Booking[].
 	 */
-	public $confirmed_order_bookings = [];
+	public $confirmed_order_bookings = array();
 
 	/**
 	 * Merges booking product data into the parent object.
@@ -130,6 +130,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 	/**
 	 * Get price HTML
+	 *
 	 * @param string $price
 	 * @return string
 	 */
@@ -138,19 +139,25 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 		if ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) ) {
 			if ( function_exists( 'wc_get_price_excluding_tax' ) ) {
-				$display_price = wc_get_price_including_tax( $this, array(
-					'qty' => 1,
-					'price' => $base_price,
-				) );
+				$display_price = wc_get_price_including_tax(
+					$this,
+					array(
+						'qty'   => 1,
+						'price' => $base_price,
+					)
+				);
 			} else {
 				$display_price = $this->get_price_including_tax( 1, $base_price );
 			}
 		} else {
 			if ( function_exists( 'wc_get_price_excluding_tax' ) ) {
-				$display_price = wc_get_price_excluding_tax( $this, array(
-					'qty' => 1,
-					'price' => $base_price,
-				) );
+				$display_price = wc_get_price_excluding_tax(
+					$this,
+					array(
+						'qty'   => 1,
+						'price' => $base_price,
+					)
+				);
 			} else {
 				$display_price = $this->get_price_excluding_tax( 1, $base_price );
 			}
@@ -249,6 +256,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 	/**
 	 * Set has_persons.
+	 *
 	 * @param boolean $value
 	 */
 	public function set_has_persons( $value ) {
@@ -957,10 +965,11 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	}
 	/**
 	 * Add a Person_Type ID to the existing list of ids.
+	 *
 	 * @param WC_Product_Booking_Person_Type $person_type
 	 */
 	public function add_person_type( $person_type ) {
-		$person_types = $this->get_person_types();
+		$person_types   = $this->get_person_types();
 		$person_types[] = $person_type;
 		$this->set_person_types( $person_types );
 	}
@@ -986,10 +995,11 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 	/**
 	 * Add resource ID to the existing list of ids.
+	 *
 	 * @param int $id
 	 */
 	public function add_resource_id( $id ) {
-		$ids = $this->get_resource_ids();
+		$ids   = $this->get_resource_ids();
 		$ids[] = $id;
 		$this->set_resource_ids( $ids );
 	}
@@ -1318,11 +1328,22 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * @return mixed $buffer_period
 	 */
 	public function get_buffer_period_minutes() {
-		$buffer_period = $this->get_buffer_period();
-
 		// If exists always treat booking_period in minutes.
-		if ( ! empty( $buffer_period ) && 'hour' === $this->get_duration_unit() ) {
-			$buffer_period = $buffer_period * 60;
+		$buffer_period = $this->get_buffer_period();
+		if ( $buffer_period ) {
+			$duration_unit = $this->get_duration_unit();
+			switch ( $duration_unit ) {
+				case 'day':
+					$buffer_period = $buffer_period * DAY_IN_SECONDS;
+					break;
+				case 'hour':
+					$buffer_period = $buffer_period * HOUR_IN_SECONDS;
+					break;
+				default:
+					$buffer_period = $buffer_period * MINUTE_IN_SECONDS;
+					break;
+			}
+			$buffer_period = $buffer_period / MINUTE_IN_SECONDS; // Convert into minutes.
 		}
 
 		return $buffer_period;
@@ -1336,8 +1357,8 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * @return bool|int
 	 */
 	public function get_available_quantity( $resource_id = '' ) {
-		$booking_resource      = $resource_id ? $this->get_resource( $resource_id ) : null;
-		$available_qty         = $this->has_resources() && $booking_resource && $booking_resource->has_qty() ? $booking_resource->get_qty() : $this->get_qty();
+		$booking_resource = $resource_id ? $this->get_resource( $resource_id ) : null;
+		$available_qty    = $this->has_resources() && $booking_resource && $booking_resource->has_qty() ? $booking_resource->get_qty() : $this->get_qty();
 		return apply_filters( 'woocommerce_bookings_get_available_quantity', $available_qty, $this, $booking_resource );
 	}
 
@@ -1373,7 +1394,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		$id = absint( $id );
 
 		if ( $id ) {
-			$transient_name = 'book_res_' . md5( http_build_query( array( $id, $this->get_id(), WC_Cache_Helper::get_transient_version( 'bookings' ) ) ) );
+			$transient_name  = 'book_res_' . md5( http_build_query( array( $id, $this->get_id(), WC_Cache_Helper::get_transient_version( 'bookings' ) ) ) );
 			$relationship_id = WC_Bookings_Cache::get( $transient_name );
 
 			if ( false === $relationship_id ) {
@@ -1551,16 +1572,49 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		// Get duration interval in minutes.
 		$interval = $this->get_time_interval_in_minutes();
 
-		$bookings_end_date = $end_date - 1;
+		// Get the buffer period in minutes & seconds.
+		$buffer_period            = $this->get_buffer_period_minutes();
+		$buffer_period_in_seconds = $buffer_period * 60;
+
+		// Just naming with '*_with_buffer' however we'll add buffer time below only if adjacent buffer is enabled.
+		// For hours or minutes, the start time should be a second more,
+		// otherwise we end up adding extra booking that ends on :00, so let's make it :01.
+		$start_date_with_buffer = $start_date + 1;
+
+		// For hours or minutes, the end time should be a second less,
+		// otherwise we end up adding extra booking that starts on :00, so le'ts make it :59
+		// For the days, its not required to change the end time because the end time is already exlusive (i.e. :59)
+		// So removing one more second won't affect the days, but it will become :58 from :59, it does not matter.
+		$end_date_with_buffer = $end_date + $buffer_period_in_seconds - 1;
 
 		// If we have an adjacent buffer then look for bookings till the end time + buffer time.
+		$adjacent_buffer_period = $adjacent_buffer_period_in_seconds = 0;
 		if ( $this->get_apply_adjacent_buffer() ) {
-			$bookings_end_date += $this->get_buffer_period_minutes() * 60;
+			// If adjacent buffer is enabled, push the start time backward twice of the actual buffer.
+			// This will bring the existing bookings in our radar.
+			$start_date_with_buffer            = $start_date_with_buffer - ( $buffer_period_in_seconds * 2 );
+			$adjacent_buffer_period            = $buffer_period;
+			$adjacent_buffer_period_in_seconds = $adjacent_buffer_period * 60;
+
+			// Same for the end time, it should be pushed twice of the buffer.
+			// And also re-add the removed second above. Because now we want the end time
+			// inclusive to get the existing bookings that are starting on :00.
+			// Re-adding a second is only useful for mintues or hour durations,
+			// days does not get affected as they are already :58, so they'll become :59.
+			$end_date_with_buffer = $end_date_with_buffer + $adjacent_buffer_period_in_seconds + 1;
 		}
 
+		$blocks = $this->get_blocks_in_range( $start_date, $end_date, $intervals, $resource_id );
+
+		if ( empty( $blocks ) || ! in_array( $start_date, $blocks ) ) {
+			return false;
+		}
+
+		// Getting bookings including the buffer period to respect the buffer in booked slots.
+		// We will consider buffer period as a booking to avoide overbooking.
 		$existing_bookings = WC_Booking_Data_Store::get_bookings_in_date_range(
-			$start_date + 1,
-			$bookings_end_date,
+			$start_date_with_buffer,
+			$end_date_with_buffer,
 			$this->has_resources() && $resource_id ? $resource_id : $this->get_id(),
 			$this->check_in_cart
 		);
@@ -1570,41 +1624,51 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			array_merge( $existing_bookings, $this->confirmed_order_bookings ) :
 			$existing_bookings;
 
-		$blocks = $this->get_blocks_in_range( $start_date, $end_date, $intervals, $resource_id );
-
-		if ( empty( $blocks ) || ! in_array( $start_date, $blocks ) ) {
-			return false;
-		}
-
-		$blocks = array_unique( array_merge( array_map( function( $booking ) {
-			return $booking->get_start();
-		}, $existing_bookings ), $blocks ) );
+		$blocks = array_unique(
+			array_merge(
+				array_map(
+					function( $booking ) {
+						return $booking->get_start();
+					},
+					$existing_bookings
+				),
+				$blocks
+			)
+		);
 
 		$original_available_qty = $this->get_available_quantity( $booking_resource );
+		$interval_with_buffer   = $interval + $buffer_period + $adjacent_buffer_period;
 
 		// Check all blocks availability
-		$available_qtys    = array();
+		$available_qtys = array();
 		foreach ( $blocks as $block ) {
 			// Initially, for every minute block, there will be 0 bookings.
+			$block_start         = $block - $adjacent_buffer_period_in_seconds; // Covering the buffer time.
 			$block_minutes_array = wc_bookings_get_block_minutes_array( $block, $interval );
 			$qty_booked_in_block = $block_minutes_array;
 
 			foreach ( $existing_bookings as $existing_booking ) {
-
 				// Skip the block if it's not intersected by a booking.
-				if ( ! $existing_booking->is_intersecting_block( $block, strtotime( "+{$interval} minutes", $block ) ) ) {
+				if ( ! $existing_booking->is_intersecting_block( $block_start, strtotime( "+{$interval_with_buffer} minutes", $block_start ) ) ) {
 					continue;
 				}
-				$existing_booking_product    = $existing_booking->get_product();
-				$qty_to_add                  = $existing_booking_product->has_person_qty_multiplier() ? $existing_booking->get_persons_total() : 1;
+				$existing_booking_product = $existing_booking->get_product();
+				$qty_to_add               = $existing_booking_product->has_person_qty_multiplier() ? $existing_booking->get_persons_total() : 1;
+
+				// Apply the buffer only if the existing booking is from the same product.
+				$same_product                      = $this->get_id() === $existing_booking_product->get_id();
+				$buffer_period_in_seconds          = $same_product ? $buffer_period_in_seconds : 0;
+				$adjacent_buffer_period_in_seconds = $same_product ? $adjacent_buffer_period_in_seconds : 0;
+
 				// The call to `is_within_block` above will ensure we have cached data.
-				$existing_booking_block      = $existing_booking->get_start_cached();
+				$existing_booking_block = $existing_booking->get_start_cached() - $adjacent_buffer_period_in_seconds;
+
 				/*
 				 * We use ceil to round up intervals that are 1 second shorter then a full minute.
 				 * This happens for example for a day interval where one day is basically 24h -1s.
 				 * That one second is subtracted in order not to overlap in calculations with the other interval.
 				 */
-				$existing_booking_interval   = ceil( ( $existing_booking->get_end_cached() - $existing_booking_block ) / MINUTE_IN_SECONDS );
+				$existing_booking_interval   = ceil( ( $existing_booking->get_end_cached() + $buffer_period_in_seconds - $existing_booking_block ) / MINUTE_IN_SECONDS );
 				$booking_block_minutes_array = wc_bookings_get_block_minutes_array( $existing_booking_block, $existing_booking_interval );
 				if ( $this->has_resources() ) {
 					if ( $existing_booking->get_resource_id() === absint( $resource_id ) || ( ! $booking_resource->has_qty() && $existing_booking->get_resource() && ! $existing_booking->get_resource()->has_qty() ) ) {
@@ -1621,25 +1685,34 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 				$display_available_qty = $available_qty > 0 ? $available_qty : 0;
 
 				if ( in_array( $this->get_duration_unit(), array( 'hour', 'minute' ) ) ) {
-					return new WP_Error( 'Error', sprintf(
+					return new WP_Error(
+						'Error',
+						sprintf(
 						/* translators: 1: available quantity */
-						_n( 'There is a maximum of %d place remaining', 'There are a maximum of %d places remaining', $display_available_qty , 'woocommerce-bookings' ),
-						$display_available_qty
-					) );
+							_n( 'There is a maximum of %d place remaining', 'There are a maximum of %d places remaining', $display_available_qty, 'woocommerce-bookings' ),
+							$display_available_qty
+						)
+					);
 				} elseif ( ! $available_qty ) {
-					return new WP_Error( 'Error', sprintf(
+					return new WP_Error(
+						'Error',
+						sprintf(
 						/* translators: 1: available quantity 2: booking block date */
-						_n( 'There is a maximum of %1$d place remaining on %2$s', 'There are a maximum of %1$d places remaining on %2$s', $display_available_qty , 'woocommerce-bookings' ),
-						$display_available_qty,
-						date_i18n( wc_bookings_date_format(), $block )
-					) );
+							_n( 'There is a maximum of %1$d place remaining on %2$s', 'There are a maximum of %1$d places remaining on %2$s', $display_available_qty, 'woocommerce-bookings' ),
+							$display_available_qty,
+							date_i18n( wc_bookings_date_format(), $block )
+						)
+					);
 				} else {
-					return new WP_Error( 'Error', sprintf(
+					return new WP_Error(
+						'Error',
+						sprintf(
 						/* translators: 1: available quantity 2: booking block date */
-						_n( 'There is a maximum of %1$d place remaining on %2$s', 'There are a maximum of %1$d places remaining on %2$s', $display_available_qty , 'woocommerce-bookings' ),
-						$display_available_qty,
-						date_i18n( wc_bookings_date_format(), $block )
-					) );
+							_n( 'There is a maximum of %1$d place remaining on %2$s', 'There are a maximum of %1$d places remaining on %2$s', $display_available_qty, 'woocommerce-bookings' ),
+							$display_available_qty,
+							date_i18n( wc_bookings_date_format(), $block )
+						)
+					);
 				}
 			}
 
@@ -1654,10 +1727,10 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @param       $start_date
 	 * @param       $end_date
-	 * @param array $intervals
-	 * @param int   $resource_id
-	 * @param array $booked
-	 * @param bool  $get_past_times
+	 * @param array      $intervals
+	 * @param int        $resource_id
+	 * @param array      $booked
+	 * @param bool       $get_past_times
 	 *
 	 * @return array
 	 */
@@ -1701,27 +1774,27 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @param $start_date
 	 * @param $end_date
-	 * @param integer $resource_id
-	 * @param array $bookings { $booking[0] start and $booking[1] end }
+	 * @param integer    $resource_id
+	 * @param array      $bookings { $booking[0] start and $booking[1] end }
 	 *
 	 * @return array
 	 */
 	public function get_blocks_in_range_for_day( $start_date, $end_date, $resource_id, $bookings ) {
-		$blocks = array();
-		$available_qty    = $this->get_available_quantity( $resource_id );
+		$blocks        = array();
+		$available_qty = $this->get_available_quantity( $resource_id );
 
 		// get booked days with a counter to specify how many bookings on that date
 		$booked_days_with_count = array();
 		foreach ( $bookings as $booking ) {
-			$booking_start = $booking[0];
-			$booking_end   = $booking[1];
+			$booking_start       = $booking[0];
+			$booking_end         = $booking[1];
 			$current_booking_day = $booking_start;
 
 			// < because booking end depicts an end of a day and not a start for a new day.
 			while ( $current_booking_day < $booking_end ) {
 				$date = date( 'Y-m-d', $current_booking_day );
 
-				if ( isset( $booked_days_with_count[ $date  ] ) ) {
+				if ( isset( $booked_days_with_count[ $date ] ) ) {
 					$booked_days_with_count[ $date ]++;
 				} else {
 					$booked_days_with_count[ $date ] = 1;
@@ -1757,7 +1830,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @param $start_date
 	 * @param $end_date
-	 * @param integer $resource_id
+	 * @param integer    $resource_id
 	 *
 	 * @return array
 	 */
@@ -1817,7 +1890,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * @param $start_date
 	 * @param $end_date
 	 * @param $intervals
-	 * @param integer $resource_id
+	 * @param integer        $resource_id
 	 * @param $booked
 	 * @param $get_past_times
 	 *
@@ -1835,12 +1908,12 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		$end_date                 = $this->get_max_allowed_date_into_the_future( $end_date );
 
 		// Get available slot start times.
-		$minutes_booked     = $this->get_unavailable_minutes( $booked );
+		$minutes_booked = $this->get_unavailable_minutes( $booked );
 
 		// Looping day by day look for available blocks
 		// using `<=` instead of `<` because https://github.com/woothemes/woocommerce-bookings/issues/325
 		while ( $check_date <= $end_date ) {
-			$bookable_minutes_for_date  = array_merge( $default_bookable_minutes, WC_Product_Booking_Rule_Manager::get_minutes_from_rules( $sorted_rules, $check_date ) );
+			$bookable_minutes_for_date = array_merge( $default_bookable_minutes, WC_Product_Booking_Rule_Manager::get_minutes_from_rules( $sorted_rules, $check_date ) );
 
 			if ( ! $this->get_default_availability() ) {
 				// From an array of minutes for a day, remove all minutes before first block time.
@@ -1852,8 +1925,8 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 				);
 			}
 
-			$bookable_start_and_end     = $this->get_bookable_minute_start_and_end( $bookable_minutes_for_date );
-			$blocks                     = $this->get_bookable_minute_blocks_for_date( $check_date, $start_date, $end_date, $bookable_start_and_end, $intervals, $resource_id, $minutes_booked, $get_past_times );
+			$bookable_start_and_end = $this->get_bookable_minute_start_and_end( $bookable_minutes_for_date );
+			$blocks                 = $this->get_bookable_minute_blocks_for_date( $check_date, $start_date, $end_date, $bookable_start_and_end, $intervals, $resource_id, $minutes_booked, $get_past_times );
 
 			$block_start_times_in_range = array_merge( $blocks, $block_start_times_in_range );
 			$check_date                 = strtotime( '+1 day', $check_date );// Move to the next day
@@ -1863,10 +1936,11 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 	/**
 	 * From an array of minutes for a day remove all minutes before first block time.
+	 *
 	 * @since 1.10.0
 	 *
 	 * @param array $bookable_minutes
-	 * @param int $first_block_minutes
+	 * @param int   $first_block_minutes
 	 *
 	 * @return array $minutes
 	 */
@@ -1932,8 +2006,8 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 */
 	public function get_unavailable_minutes( $booked ) {
 		$minutes_not_available = array();
-		$buffer = ( $this->get_buffer_period_minutes() ?: 0 ) * 60;
-		$has_adjacent_buffer = $this->get_apply_adjacent_buffer();
+		$buffer                = ( $this->get_buffer_period_minutes() ?: 0 ) * 60;
+		$has_adjacent_buffer   = $this->get_apply_adjacent_buffer();
 
 		foreach ( $booked as $booked_block ) {
 			$start = $booked_block[0];
@@ -1972,7 +2046,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * @param $end_date
 	 * @param $bookable_ranges
 	 * @param $intervals
-	 * @param integer $resource_id
+	 * @param integer               $resource_id
 	 * @param $minutes_not_available
 	 * @param $get_past_times
 	 *
@@ -1984,17 +2058,17 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		$blocks = array();
 
 		// boring interval stuff
-		$interval              = $intervals[0];
-		$base_interval         = $intervals[1];
+		$interval      = $intervals[0];
+		$base_interval = $intervals[1];
 
 		// get a time stamp to check from
 		// and get a time stamp to check to
 		$product_min_date = $this->get_min_date();
 		$product_max_date = $this->get_max_date();
 
-		$min_check_from     = strtotime( "+{$product_min_date['value']} {$product_min_date['unit']}", current_time( 'timestamp' ) );
-		$max_check_to       = strtotime( "+{$product_max_date['value']} {$product_max_date['unit']}", current_time( 'timestamp' ) );
-		$min_date           = wc_bookings_get_min_timestamp_for_day( $start_date, $product_min_date['value'], $product_min_date['unit'] );
+		$min_check_from = strtotime( "+{$product_min_date['value']} {$product_min_date['unit']}", current_time( 'timestamp' ) );
+		$max_check_to   = strtotime( "+{$product_max_date['value']} {$product_max_date['unit']}", current_time( 'timestamp' ) );
+		$min_date       = wc_bookings_get_min_timestamp_for_day( $start_date, $product_min_date['value'], $product_min_date['unit'] );
 
 		$available_qty      = $this->get_available_quantity( $resource_id );
 		$current_time_stamp = current_time( 'timestamp' );
@@ -2015,7 +2089,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			$range_end   = $minutes[1];
 			if ( 'hour' === $this->get_duration_unit() ) {
 				// Adding 1 minute to round up to a full hour.
-				$range_end  += 1;
+				$range_end += 1;
 			}
 
 			$range_start_time        = strtotime( "midnight +{$range_start} minutes", $check_date );
@@ -2055,7 +2129,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 				}
 
 				// Make sure minute & hour blocks are not past minimum & max booking settings.
-				if ( ( $end_time < $min_check_from || $start_time > $max_check_to ) && ! $get_past_times ) {
+				if ( ( $start_time < $min_check_from || $end_time > $max_check_to ) && ! $get_past_times ) {
 					continue;
 				}
 
@@ -2088,14 +2162,14 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			}
 		}
 
-		return  $blocks;
+		return $blocks;
 	}
 
 	/**
 	 * Find available and booked blocks for specific resources (if any) and return them as array.
 	 *
-	 * @param  array  $blocks
-	 * @param  array  $intervals
+	 * @param  array   $blocks
+	 * @param  array   $intervals
 	 * @param  integer $resource_id
 	 * @param  integer $from The starting date for the set of blocks
 	 * @param  integer $to
@@ -2106,7 +2180,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		$default_interval = 'hour' === $this->get_duration_unit() ? $this->get_duration() * 60 : $this->get_duration();
 		$intervals        = array( $default_interval, $default_interval );
 
-		if( in_array( $this->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
+		if ( in_array( $this->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
 			return wc_bookings_get_time_slots( $this, $blocks, $intervals, $resource_id, $from, $to, $include_sold_out );
 		}
 
@@ -2134,13 +2208,16 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * @return array The available blocks array
 	 */
 	public function get_available_blocks( $args ) {
-		$args = wp_parse_args( $args, array(
-			'blocks'      => array(),
-			'intervals'   => array(),
-			'resource_id' => 0,
-			'from'        => 0,
-			'to'          => 0,
-		) );
+		$args = wp_parse_args(
+			$args,
+			array(
+				'blocks'      => array(),
+				'intervals'   => array(),
+				'resource_id' => 0,
+				'from'        => 0,
+				'to'          => 0,
+			)
+		);
 
 		$blocks      = $args['blocks'];
 		$intervals   = $args['intervals'];
@@ -2206,7 +2283,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			// Generate arrays that contain information about what blocks to unset
 			if ( $this->has_resources() && ! $resource_id ) {
 
-				$resources       = $this->get_resources();
+				$resources = $this->get_resources();
 
 				// Loop all resources
 				foreach ( $resources as $resource ) {
@@ -2214,7 +2291,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 					$available_times = array_merge( $available_times, $times );
 				}
 			} else {
-				$bookings = isset( $resources_booked[ $resource_id ] ) ? $resources_booked[ $resource_id ] : $resources_booked[0];
+				$bookings        = isset( $resources_booked[ $resource_id ] ) ? $resources_booked[ $resource_id ] : $resources_booked[0];
 				$available_times = array_merge( $available_times, $this->get_blocks_in_range( $start_date, $end_date, array( $interval, $base_interval ), $resource_id, $bookings ) );
 			}
 		}
@@ -2239,8 +2316,8 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	/**
 	 * Get the availability of all resources
 	 *
-	 * @param string $start_date
-	 * @param string $end_date
+	 * @param string  $start_date
+	 * @param string  $end_date
 	 * @param integer $qty
 	 * @return array| WP_Error
 	 */
@@ -2277,7 +2354,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @deprecated since 1.9.14
 	 * @param array $rules
-	 * @param int $check_date
+	 * @param int   $check_date
 	 *
 	 * @return array $bookable_minutes
 	 */
@@ -2309,9 +2386,9 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * Return an array of resources which can be booked for a defined start/end date
 	 *
 	 * @deprecated Replaced with wc_bookings_get_block_availability_for_range
-	 * @param  string $start_date
-	 * @param  string $end_date
-	 * @param  string $resource_id
+	 * @param  string  $start_date
+	 * @param  string  $end_date
+	 * @param  string  $resource_id
 	 * @param  integer $qty being booked
 	 * @return bool|WP_ERROR if no blocks available, or int count of bookings that can be made, or array of available resources
 	 */
@@ -2349,7 +2426,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	/**
 	 * Check a time against the time specific availability rules
 	 *
-	 * @param  string       $block_start_time timestamp to check
+	 * @param  string $block_start_time timestamp to check
 	 * @param  string $block_end_time   timestamp to check
 	 * @return bool available or not
 	 */
@@ -2359,7 +2436,6 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 	/**
 	 * Check a date against the availability rules
-	 *
 	 *
 	 * @param  string $check_date date to check
 	 *
@@ -2371,8 +2447,9 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 	/**
 	 * Find available blocks and return HTML for the user to choose a block. Used in class-wc-bookings-ajax.php
-	 * @param  array  $blocks
-	 * @param  array  $intervals
+	 *
+	 * @param  array   $blocks
+	 * @param  array   $intervals
 	 * @param  integer $resource_id
 	 * @param  string  $from The starting date for the set of blocks
 	 * @return string
@@ -2540,7 +2617,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 					}
 
 					$person_min = $person->get_min();
-					if ( is_numeric( $person_min ) && $person_qty  < $person_min ) {
+					if ( is_numeric( $person_min ) && $person_qty < $person_min ) {
 						/* translators: 1: person name 2: minimum persons */
 						return new WP_Error( 'Error', sprintf( __( 'The minimum %1$s per group is %2$d', 'woocommerce-bookings' ), $person->post_title, $person_min ) );
 					}
@@ -2582,7 +2659,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			return $end_date;
 		}
 
-		$max_end_date     = strtotime( "+{$product_max_date['value']} {$product_max_date['unit']}", current_time( 'timestamp' ) );
+		$max_end_date = strtotime( "+{$product_max_date['value']} {$product_max_date['unit']}", current_time( 'timestamp' ) );
 		return $end_date > $max_end_date ? $max_end_date : $end_date;
 	}
 

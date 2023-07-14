@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -19,7 +19,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
  * necessary. Subclasses are also responsible for storing and retrieving
  * cookies from a file, database, etc.
  *
- * @link https://docs.python.org/2/library/cookielib.html Inspiration
+ * @see https://docs.python.org/2/library/cookielib.html Inspiration
  * @extends \IteratorAggregate<SetCookie>
  */
 interface CookieJarInterface extends \Countable, \IteratorAggregate

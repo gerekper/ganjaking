@@ -4,21 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8795b284e25bb3a0c04f5a53bc5b1d8e
+class ComposerStaticInit40871198b28813204d81fd73ce23dd4d
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
-            'SkyVerge\\Math\\Tests\\' => 20,
             'SkyVerge\\Math\\' => 14,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'SkyVerge\\Math\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/skyverge/math/tests',
-        ),
         'SkyVerge\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/skyverge/math/src',
@@ -32,9 +27,9 @@ class ComposerStaticInit8795b284e25bb3a0c04f5a53bc5b1d8e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8795b284e25bb3a0c04f5a53bc5b1d8e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8795b284e25bb3a0c04f5a53bc5b1d8e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8795b284e25bb3a0c04f5a53bc5b1d8e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit40871198b28813204d81fd73ce23dd4d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit40871198b28813204d81fd73ce23dd4d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit40871198b28813204d81fd73ce23dd4d::$classMap;
 
         }, null, ClassLoader::class);
     }

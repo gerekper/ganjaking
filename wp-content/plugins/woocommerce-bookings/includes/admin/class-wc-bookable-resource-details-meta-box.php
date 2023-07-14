@@ -197,7 +197,7 @@ class WC_Bookable_Resource_Details_Meta_Box {
 	 * @param  WP_Post $post
 	 */
 	public function meta_box_save( $post_id, $post ) {
-		if ( ! isset( $_POST['bookable_resource_details_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['bookable_resource_details_meta_box_nonce'], 'bookable_resource_details_meta_box' ) ) {
+		if ( ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['bookable_resource_details_meta_box_nonce'] ?? '' ) ), 'bookable_resource_details_meta_box' ) ) {
 			return $post_id;
 		}
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {

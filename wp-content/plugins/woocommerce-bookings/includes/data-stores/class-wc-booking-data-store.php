@@ -77,8 +77,8 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 		// Action Scheduler will be used to update new availability.
 		// Add some meta to track that this product requires updating.
 		$product_id = filter_input( INPUT_POST, 'add-to-cart', FILTER_SANITIZE_NUMBER_INT );
-		$min_date   = isset( $_POST['min_date'] ) ? strtotime( $_POST['min_date'] ) : '';
-		$max_date   = isset( $_POST['max_date'] ) ? strtotime( $_POST['max_date'] ) : '';
+		$min_date   = isset( $_POST['min_date'] ) ? strtotime( wc_clean( wp_unslash( $_POST['min_date'] ) ) ) : '';
+		$max_date   = isset( $_POST['max_date'] ) ? strtotime( wc_clean( wp_unslash( $_POST['max_date'] ) ) ) : '';
 
 		// If $min_date or $max_date are somehow was not updated by the JS, stop and clear transient.
 		if ( $product_id && $min_date && $max_date ) {
@@ -103,7 +103,7 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 				WC_Bookings_Cache::delete_booking_slots_transient();
 			} else {
 				// Call the function with an extra argument to prepare data and schedule an event later.
-				WC_Bookings_Controller::find_booked_day_blocks( (int) $_POST['add-to-cart'], $min_date, $max_date, 'Y-n-j', $_POST['timezone_offset'], array(), 'action-scheduler-helper' );
+				WC_Bookings_Controller::find_booked_day_blocks( (int) $_POST['add-to-cart'], $min_date, $max_date, 'Y-n-j', wc_clean( wp_unslash( $_POST['timezone_offset'] ) ), array(), 'action-scheduler-helper' );
 			}
 		} else {
 			WC_Bookings_Cache::delete_booking_slots_transient();

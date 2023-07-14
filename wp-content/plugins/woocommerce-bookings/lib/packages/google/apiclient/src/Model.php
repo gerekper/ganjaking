@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -297,7 +297,7 @@ class Model implements \ArrayAccess
         $keyType = $key . "Type";
 
         // ensure keyType is a valid class
-        if (property_exists($this, $keyType) && class_exists($this->$keyType)) {
+        if (property_exists($this, $keyType) && $this->$keyType !== null && class_exists($this->$keyType)) {
             return $this->$keyType;
         }
     }

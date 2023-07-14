@@ -376,7 +376,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 			$is_vc_49_plus            = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
 
 			// Default Design Editor.
-			$ribbon_design_style_css = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $ult_rib_settings['css_ribbon_design'], ' ' ), 'ultimate_ribbons', $atts );
+			$ribbon_design_style_css = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( sanitize_key( $ult_rib_settings['css_ribbon_design'] ), ' ' ), 'ultimate_ribbons', $atts );
 
 			$ribbon_design_style_css = esc_attr( $ribbon_design_style_css );
 
@@ -389,7 +389,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 			}
 
 			if ( '' != $ult_rib_settings['ribbon_alignment'] ) {
-				$rib_align = 'text-align:' . esc_attr( $ult_rib_settings['ribbon_alignment'] ) . ';';
+				$rib_align = 'text-align:' . esc_attr( sanitize_key( $ult_rib_settings['ribbon_alignment'] ) ) . ';';
 			}
 			if ( '' != $ult_rib_settings['ribbon_width'] ) {
 				if ( 'auto' == $ult_rib_settings['ribbon_width'] ) {
@@ -398,7 +398,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 					$rib_width .= 'full';
 				} elseif ( 'custom' == $ult_rib_settings['ribbon_width'] ) {
 					$rib_width .= 'custom';
-					$ribc_width = 'width:calc(' . esc_attr( $ult_rib_settings['custom_width'] ) . 'px - 7em)';
+					$ribc_width = 'width:calc(' . esc_attr( sanitize_text_field( $ult_rib_settings['custom_width'] ) ) . 'px - 7em)';
 				}
 			}
 
@@ -414,9 +414,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 				$ult_rib_settings['icon_color'] = 'color:' . esc_attr( $ult_rib_settings['icon_color'] ) . ';';
 			}
 			if ( '' != $ult_rib_settings['rib_wing_color'] ) {
-				$rib_left_color  = 'border-top-color:' . esc_attr( $ult_rib_settings['rib_wing_color'] ) . ';';
-				$rib_left_color .= 'border-bottom-color:' . esc_attr( $ult_rib_settings['rib_wing_color'] ) . ';';
-				$rib_left_color .= 'border-right-color:' . esc_attr( $ult_rib_settings['rib_wing_color'] ) . ';';
+				$rib_left_color  = 'border-top-color:' . esc_attr( sanitize_hex_color( $ult_rib_settings['rib_wing_color'] ) ) . ';';
+				$rib_left_color .= 'border-bottom-color:' . esc_attr( sanitize_hex_color( $ult_rib_settings['rib_wing_color'] ) ) . ';';
+				$rib_left_color .= 'border-right-color:' . esc_attr( sanitize_hex_color( $ult_rib_settings['rib_wing_color'] ) ) . ';';
 
 				$rib_right_color  = 'border-top-color:' . esc_attr( $ult_rib_settings['rib_wing_color'] ) . ';';
 				$rib_right_color .= 'border-bottom-color:' . esc_attr( $ult_rib_settings['rib_wing_color'] ) . ';';
@@ -475,8 +475,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 
 			$output     .= '<div id="' . esc_attr( $id ) . '" class="ultr-ribbon ' . esc_attr( $ribbon_design_style_css ) . ' ' . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $id ) . ' ' . esc_attr( $ult_rib_settings['el_class'] ) . '">';
 				$output .= '<div class="ult-ribbon-wrap" style= "' . esc_attr( $rib_align ) . '">
-					<' . $ult_rib_settings['heading_tag'] . ' class="ult-ribbon ' . esc_attr( $rib_width ) . ' ' . esc_attr( $rib_media ) . '" style="' . esc_attr( $ribc_width ) . '">
-						<span class="ult-left-ribb ' . esc_attr( $ult_rib_settings['ribbon_wings'] ) . ' ' . esc_attr( $ult_rib_settings['rib_shadow'] ) . '" style= "' . esc_attr( $rib_left_color ) . '"><i class="' . $ult_rib_settings['left_icon'] . '" style="' . esc_attr( $ult_rib_settings['icon_color'] ) . '"></i></span>
+					<' . esc_attr( sanitize_key( $ult_rib_settings['heading_tag'] ) ) . ' class="ult-ribbon ' . esc_attr( $rib_width ) . ' ' . esc_attr( $rib_media ) . '" style="' . esc_attr( $ribc_width ) . '">
+						<span class="ult-left-ribb ' . esc_attr( $ult_rib_settings['ribbon_wings'] ) . ' ' . esc_attr( $ult_rib_settings['rib_shadow'] ) . '" style= "' . esc_attr( $rib_left_color ) . '"><i class="' . esc_attr( $ult_rib_settings['left_icon'] ) . '" style="' . esc_attr( $ult_rib_settings['icon_color'] ) . '"></i></span>
 						<span class="ult-ribbon-text ' . esc_attr( $ult_rib_settings['ribbon_wings'] ) . '" style= "' . esc_attr( $ult_rib_settings['ribbon_color'] ) . '">';
 			if ( 'yes' == $ult_rib_settings['ribbon_stitching'] ) {
 				$output .= '<div class="ult-ribbon-stitches-top"></div>'; }
@@ -486,7 +486,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 				$output .= '<div class="ult-ribbon-stitches-bottom"></div>';}
 						$output .= '</span>';
 					$output     .= '<span class="ult-right-ribb  ' . esc_attr( $ult_rib_settings['ribbon_wings'] ) . ' ' . esc_attr( $ult_rib_settings['rib_shadow'] ) . '" style= "' . esc_attr( $rib_right_color ) . '"><i class="' . esc_attr( $ult_rib_settings['right_icon'] ) . '" style="' . esc_attr( $ult_rib_settings['icon_color'] ) . '"></i></span>
-					</' . $ult_rib_settings['heading_tag'] . '>
+					</' . esc_attr( sanitize_key( $ult_rib_settings['heading_tag'] ) ) . '>
 				</div>';
 			$output             .= '</div>';
 

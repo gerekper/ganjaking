@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -141,5 +141,15 @@ class UserRefreshCredentials extends CredentialsLoader implements GetQuotaProjec
     public function getQuotaProject()
     {
         return $this->quotaProject;
+    }
+
+    /**
+     * Get the granted scopes (if they exist) for the last fetched token.
+     *
+     * @return string|null
+     */
+    public function getGrantedScope()
+    {
+        return $this->auth->getGrantedScope();
     }
 }

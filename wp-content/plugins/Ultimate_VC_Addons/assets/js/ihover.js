@@ -9,7 +9,7 @@
 			ult_ihover_init();
 		} );
 	} );
-	$( window ).resize( function () {
+	$( window ).on( 'resize', function () {
 		ult_ihover_init();
 	} );
 	function responsive_sizes( el, ww, h, w, rh, rw ) {

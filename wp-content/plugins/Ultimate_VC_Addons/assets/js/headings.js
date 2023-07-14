@@ -2,14 +2,14 @@
 	$jh = $.noConflict();
 	$jh( document ).ready( function ( e ) {
 		ultimate_headings_init();
-		$jh( window ).resize( function ( e ) {
+		$jh( window ).on( 'resize', function ( e ) {
 			ultimate_headings_init();
 		} );
 	} );
 	$( window ).on( 'load', function ( e ) {
 		ultimate_headings_init();
 		//trigger on click of exp section
-		jQuery( '.ult_exp_section' ).select( function () {
+		jQuery( '.ult_exp_section' ).on( 'select', function () {
 			const slength = jQuery( this ).parent().find( '.uvc-heading' )
 				.length;
 			if ( slength > 0 ) {

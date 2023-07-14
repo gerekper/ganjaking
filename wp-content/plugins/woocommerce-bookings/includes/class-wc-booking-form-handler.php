@@ -27,13 +27,13 @@ class WC_Booking_Form_Handler {
 			}
 
 			$booking_can_cancel = $booking->has_status( get_wc_booking_statuses( 'cancel' ) );
-			$redirect           = $_GET['redirect'];
+			$redirect           = esc_url_raw( $_GET['redirect'] );
 
 			if ( $booking->get_customer_id() !== get_current_user_id() ) {
 				wc_add_notice( __( 'Invalid booking.', 'woocommerce-bookings' ), 'error' );
 			} elseif ( $booking->has_status( 'cancelled' ) ) {
 				// Already cancelled - take no action
-			} elseif ( $booking_can_cancel && $booking->get_id() == $booking_id && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], "woocommerce-bookings-cancel_booking_{$booking->get_id()}" ) ) {
+			} elseif ( $booking_can_cancel && $booking->get_id() == $booking_id && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], "woocommerce-bookings-cancel_booking_{$booking->get_id()}" ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				// Cancel the booking
 				$booking->update_status( 'cancelled' );
 				WC_Cache_Helper::get_transient_version( 'bookings', true );

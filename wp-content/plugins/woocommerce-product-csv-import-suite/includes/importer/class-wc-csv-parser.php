@@ -191,7 +191,7 @@ class WC_CSV_Parser {
 		$attributes  = $default_attributes = $gpf_data = null;
 
 		// Merging
-		$merging = ( ! empty( $_GET['merge'] ) && $_GET['merge'] ) ? true : false;
+		$merging = ! empty( wc_clean( wp_unslash( $_GET['merge'] ?? '' ) ) );
 
 		// Is variation
 		$is_variation = false;

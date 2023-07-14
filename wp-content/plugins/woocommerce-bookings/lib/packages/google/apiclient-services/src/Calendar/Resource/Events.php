@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -200,6 +200,17 @@ class Events extends \Automattic\WooCommerce\Bookings\Vendor\Google\Service\Reso
    * always be returned in the email field for the organizer, creator and
    * attendees, even if no real email address is available (i.e. a generated, non-
    * working value will be provided).
+   * @opt_param string eventTypes Event types to return. Optional. Possible values
+   * are: - "default"  - "focusTime"  - "outOfOffice"This parameter can be
+   * repeated multiple times to return events of different types. Currently, this
+   * is the only allowed value for this field:  - ["default", "focusTime",
+   * "outOfOffice"] This value will be the default.
+   *
+   * If you're enrolled in the Working Location developer preview program, in
+   * addition to the default value above you can also set the "workingLocation"
+   * event type:  - ["default", "focusTime", "outOfOffice", "workingLocation"]  -
+   * ["workingLocation"] Additional combinations of these 4 event types will be
+   * made available in later releases. Developer Preview.
    * @opt_param string iCalUID Specifies an event ID in the iCalendar format to be
    * provided in the response. Optional. Use this if you want to search for an
    * event by its iCalendar ID.
@@ -418,6 +429,17 @@ class Events extends \Automattic\WooCommerce\Bookings\Vendor\Google\Service\Reso
    * always be returned in the email field for the organizer, creator and
    * attendees, even if no real email address is available (i.e. a generated, non-
    * working value will be provided).
+   * @opt_param string eventTypes Event types to return. Optional. Possible values
+   * are: - "default"  - "focusTime"  - "outOfOffice"This parameter can be
+   * repeated multiple times to return events of different types. Currently, this
+   * is the only allowed value for this field:  - ["default", "focusTime",
+   * "outOfOffice"] This value will be the default.
+   *
+   * If you're enrolled in the Working Location developer preview program, in
+   * addition to the default value above you can also set the "workingLocation"
+   * event type:  - ["default", "focusTime", "outOfOffice", "workingLocation"]  -
+   * ["workingLocation"] Additional combinations of these 4 event types will be
+   * made available in later releases. Developer Preview.
    * @opt_param string iCalUID Specifies an event ID in the iCalendar format to be
    * provided in the response. Optional. Use this if you want to search for an
    * event by its iCalendar ID.

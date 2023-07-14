@@ -467,7 +467,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 			$autoplay    = 'false';
 			$dots        = 'false';
 			if ( '' !== $ult_woocomposer_carousel_cat_shortcode['product_animation'] ) {
-				$ult_woocomposer_carousel_cat_shortcode['product_animation'] = 'animated ' . $ult_woocomposer_carousel_cat_shortcode['product_animation'] . ' ';
+				$ult_woocomposer_carousel_cat_shortcode['product_animation'] = 'animated ' . esc_attr( $ult_woocomposer_carousel_cat_shortcode['product_animation'] ) . ' ';
 			}
 			$uid = uniqid();
 			$ult_woocomposer_carousel_cat_shortcode['advanced_opts'] = explode( ',', $ult_woocomposer_carousel_cat_shortcode['advanced_opts'] );
@@ -481,20 +481,20 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 				$dots = 'true';
 			}
 			if ( '' !== $ult_woocomposer_carousel_cat_shortcode['color_categories'] ) {
-				$size .= 'color:' . $ult_woocomposer_carousel_cat_shortcode['color_categories'] . ';';
+				$size .= 'color:' . esc_attr( $ult_woocomposer_carousel_cat_shortcode['color_categories'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_carousel_cat_shortcode['color_categories_bg'] ) {
-				$size .= 'background:' . $ult_woocomposer_carousel_cat_shortcode['color_categories_bg'] . ';';
+				$size .= 'background:' . esc_attr( $ult_woocomposer_carousel_cat_shortcode['color_categories_bg'] ) . ';';
 			}
 			if ( '' !== $ult_woocomposer_carousel_cat_shortcode['size_cat'] ) {
-				$size .= 'font-size:' . $ult_woocomposer_carousel_cat_shortcode['size_cat'] . 'px;';
+				$size .= 'font-size:' . esc_attr( $ult_woocomposer_carousel_cat_shortcode['size_cat'] ) . 'px;';
 			}
 
 			if ( '' !== $ult_woocomposer_carousel_cat_shortcode['color_cat_count_color'] ) {
-				$count_style .= 'background:' . $ult_woocomposer_carousel_cat_shortcode['color_cat_count_color'] . ';';
+				$count_style .= 'background:' . esc_attr( $ult_woocomposer_carousel_cat_shortcode['color_cat_count_color'] ) . ';';
 			}
-			if ( '' !== $ult_woocomposer_carousel_cat_shortcode['slides_to_scroll'] ) {
-				$count_style .= 'color:' . $ult_woocomposer_carousel_cat_shortcode['slides_to_scroll'] . ';';
+			if ( '' !== intval( $ult_woocomposer_carousel_cat_shortcode['slides_to_scroll'] ) ) {
+				$count_style .= 'color:' . esc_attr( intval( $ult_woocomposer_carousel_cat_shortcode['slides_to_scroll'] ) ) . ';';
 			}
 
 			if ( isset( $atts['ids'] ) ) {
@@ -539,7 +539,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 				$product_categories = array_slice( $product_categories, 0, $ult_woocomposer_carousel_cat_shortcode['number'] );
 			}
 
-			$woocommerce_loop['columns'] = $ult_woocomposer_carousel_cat_shortcode['columns'];
+			$woocommerce_loop['columns'] = esc_attr( intval( $ult_woocomposer_carousel_cat_shortcode['columns'] ) );
 
 			ob_start();
 
@@ -551,11 +551,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 
 				foreach ( $product_categories as $category ) {
 					$vc_span = '';
-					if ( '2' == $ult_woocomposer_carousel_cat_shortcode['columns'] ) {
+					if ( '2' == intval( $ult_woocomposer_carousel_cat_shortcode['columns'] ) ) {
 						$vc_span = 'vc_span6 wpb_column column_container';
-					} elseif ( '3' == $ult_woocomposer_carousel_cat_shortcode['columns'] ) {
+					} elseif ( '3' == intval( $ult_woocomposer_carousel_cat_shortcode['columns'] ) ) {
 						$vc_span = 'vc_span4 wpb_column column_container';
-					} elseif ( '4' == $ult_woocomposer_carousel_cat_shortcode['columns'] ) {
+					} elseif ( '4' == intval( $ult_woocomposer_carousel_cat_shortcode['columns'] ) ) {
 						$vc_span = 'vc_span3 wpb_column column_container';
 					}
                     // @codingStandardsIgnoreStart
@@ -583,7 +583,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 					}
 					?>
 						" style="<?php ?>">
-                        <div class="wcmp-product wcmp-img-<?php echo $ult_woocomposer_carousel_cat_shortcode['img_animate']; ?> woocommerce wcmp-cat-<?php echo $ult_woocomposer_carousel_cat_shortcode['design_style']; ?>">
+                        <div class="wcmp-product wcmp-img-<?php echo esc_attr( $ult_woocomposer_carousel_cat_shortcode['img_animate'] ); ?> woocommerce wcmp-cat-<?php echo esc_attr( $ult_woocomposer_carousel_cat_shortcode['design_style'] ); ?>">
 							<?php do_action( 'woocommerce_before_subcategory', $category ); ?>
 							<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" style="text-align:<?php echo $text_align; ?>;">
 								<div class="wcmp-product-image">     
@@ -591,11 +591,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 									do_action( 'woocommerce_before_subcategory_title', $category );
 								?>
 								</div><!--.wcmp-product-image-->.
-								<h3 style="<?php echo $size; ?>">
+								<h3 style="<?php echo esc_attr( $size ); ?>">
 									<?php
 										echo $category->name;
 									if ( $category->count > 0 ) {
-										echo apply_filters( 'woocommerce_subcategory_count_html', ' <mark class="count" style="' . $count_style . '">' . $category->count . ' ' . $ult_woocomposer_carousel_cat_shortcode['cat_count'] . '</mark>', $category );
+										echo apply_filters( 'woocommerce_subcategory_count_html', ' <mark class="count" style="' . esc_attr( $count_style ) . '">' . $category->count . ' ' . esc_attr( $ult_woocomposer_carousel_cat_shortcode['cat_count'] ) . '</mark>', $category );
 									}
 									?>
 								</h3>
@@ -617,13 +617,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 			<script type="text/javascript">
 			jQuery(document).ready(function(e) {
 				jQuery("#woo-carousel-<?php echo $uid; ?> > .woocomposer").slick({
-					infinite: <?php echo $infinite; ?>,
-					slidesToShow:  <?php echo $ult_woocomposer_carousel_cat_shortcode['columns']; ?>,
-					slidesToScroll: <?php echo $ult_woocomposer_carousel_cat_shortcode['slides_to_scroll']; ?>,
-					speed: <?php echo $ult_woocomposer_carousel_cat_shortcode['scroll_speed']; ?>,
-					dots: <?php echo $dots; ?>,
-					autoplay: <?php echo $autoplay; ?>,
-					autoplaySpeed: <?php echo $ult_woocomposer_carousel_cat_shortcode['autoplay_speed']; ?>,<?php // @codingStandardsIgnoreEnd ?>
+					infinite: <?php echo esc_js( $infinite ); ?>,
+					slidesToShow:  '<?php echo esc_js( $ult_woocomposer_carousel_cat_shortcode['columns'] ); ?>',
+					slidesToScroll: '<?php echo esc_js( $ult_woocomposer_carousel_cat_shortcode['slides_to_scroll'] ); ?>',
+					speed: '<?php echo esc_js( $ult_woocomposer_carousel_cat_shortcode['scroll_speed'] ); ?>',
+					dots: <?php echo esc_js( $dots ); ?>,
+					autoplay: <?php echo esc_js( $autoplay ); ?>,
+					autoplaySpeed: '<?php echo esc_js( $ult_woocomposer_carousel_cat_shortcode['autoplay_speed'] ); ?>',<?php // @codingStandardsIgnoreEnd ?>
 					responsive: [{
 						breakpoint: 1024,
 						settings: {
@@ -649,8 +649,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 			});
 			</script>
 			<?php
-			$output  = '<div id="woo-carousel-' . $uid . '" class="woocommerce woocomposer_carousel wcmp-cat-carousel">';
-			$output .= '<div class="woocomposer" data-columns="' . $ult_woocomposer_carousel_cat_shortcode['columns'] . '">';
+			$output  = '<div id="woo-carousel-' . esc_attr( $uid ) . '" class="woocommerce woocomposer_carousel wcmp-cat-carousel">';
+			$output .= '<div class="woocomposer" data-columns="' . esc_attr( intval( $ult_woocomposer_carousel_cat_shortcode['columns'] ) ) . '">';
 			$output .= ob_get_clean();
 			$output .= '</div>';
 			$output .= '</div>';

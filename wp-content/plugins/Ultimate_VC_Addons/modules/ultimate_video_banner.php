@@ -306,22 +306,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Video_Banner' ) ) {
 			if ( '' != $ult_vb_settings['title_font_family'] ) {
 				$ult_vb_settings['title_font_family'] = get_ultimate_font_family( $ult_vb_settings['title_font_family'] );
 				if ( $ult_vb_settings['title_font_family'] ) {
-					$uavc_title_style_inline .= 'font-family:\'' . $ult_vb_settings['title_font_family'] . '\';';
+					$uavc_title_style_inline .= 'font-family:\'' . esc_attr( $ult_vb_settings['title_font_family'] ) . '\';';
 				}
 			}
 			// main heading font style.
 			$uavc_title_style_inline .= get_ultimate_font_style( $ult_vb_settings['title_font_style'] );
 			// attach font size if set.
 			if ( '' != $ult_vb_settings['title_font_size'] ) {
-				$uavc_title_style_inline .= 'font-size:' . $ult_vb_settings['title_font_size'] . 'px;';
+				$uavc_title_style_inline .= 'font-size:' . esc_attr( $ult_vb_settings['title_font_size'] ) . 'px;';
 			}
 			// attach font color if set.
 			if ( '' != $ult_vb_settings['title_color'] ) {
-				$uavc_title_style_inline .= 'color:' . $ult_vb_settings['title_color'] . ';';
+				$uavc_title_style_inline .= 'color:' . esc_attr( $ult_vb_settings['title_color'] ) . ';';
 			}
 			// line height.
 			if ( '' != $ult_vb_settings['title_line_height'] ) {
-				$uavc_title_style_inline .= 'line-height:' . $ult_vb_settings['title_line_height'] . 'px;';
+				$uavc_title_style_inline .= 'line-height:' . esc_attr( $ult_vb_settings['title_line_height'] ) . 'px;';
 			}
 
 			/* ---- description styles ---- */
@@ -329,22 +329,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Video_Banner' ) ) {
 			if ( '' != $ult_vb_settings['desc_font_family'] ) {
 				$ult_vb_settings['desc_font_family'] = get_ultimate_font_family( $ult_vb_settings['desc_font_family'] );
 				if ( $ult_vb_settings['desc_font_family'] ) {
-					$uavc_desc_style_inline .= 'font-family:\'' . $ult_vb_settings['desc_font_family'] . '\';';
+					$uavc_desc_style_inline .= 'font-family:\'' . esc_attr( $ult_vb_settings['desc_font_family'] ) . '\';';
 				}
 			}
 			// desc font style.
 			$uavc_desc_style_inline .= get_ultimate_font_style( $ult_vb_settings['desc_font_style'] );
 			// attach font size if set.
 			if ( '' != $ult_vb_settings['desc_font_size'] ) {
-				$uavc_desc_style_inline .= 'font-size:' . $ult_vb_settings['desc_font_size'] . 'px;';
+				$uavc_desc_style_inline .= 'font-size:' . esc_attr( $ult_vb_settings['desc_font_size'] ) . 'px;';
 			}
 			// attach font color if set.
 			if ( '' != $ult_vb_settings['desc_color'] ) {
-				$uavc_desc_style_inline .= 'color:' . $ult_vb_settings['desc_color'] . ';';
+				$uavc_desc_style_inline .= 'color:' . esc_attr( $ult_vb_settings['desc_color'] ) . ';';
 			}
 			// line height.
 			if ( '' != $ult_vb_settings['desc_line_height'] ) {
-				$uavc_desc_style_inline .= 'line-height:' . $ult_vb_settings['desc_line_height'] . 'px;';
+				$uavc_desc_style_inline .= 'line-height:' . esc_attr( $ult_vb_settings['desc_line_height'] ) . 'px;';
 			}
 
 			if ( '' != $ult_vb_settings['video_banner_placeholder'] ) {
@@ -356,7 +356,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Video_Banner' ) ) {
 
 			$output = '<div id="' . esc_attr( $video_id ) . '" class="' . esc_attr( $vc_css_class ) . ' ult-video-banner ult-vdo-effect ' . esc_attr( $ult_vb_settings['video_banner_effect'] ) . ' utl-video-banner-item ult-responsive" ' . $banner_height_responsive_data . ' data-current-time="' . esc_attr( $ult_vb_settings['video_banner_start_time'] ) . '" data-placeholder="' . esc_attr( $placeholder ) . '" style="' . esc_attr( $placeholder_css ) . '">';
 			if ( '' != $ult_vb_settings['video_banner_mp4_link'] || '' != $ult_vb_settings['video_banner_webm_ogg_link'] ) :
-				$output .= '<video autoplay loop ' . $ult_vb_settings['video_banner_mute'] . ' poster="' . esc_attr( $placeholder ) . '">';
+				$output .= '<video autoplay loop ' . esc_attr( sanitize_html_class( $ult_vb_settings['video_banner_mute'] ) ) . ' poster="' . esc_attr( $placeholder ) . '">';
 				if ( '' != $ult_vb_settings['video_banner_mp4_link'] ) {
 					$output .= '<source src="' . esc_attr( $ult_vb_settings['video_banner_mp4_link'] ) . '" type="video/mp4">';
 				}

@@ -475,11 +475,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Modals' ) ) {
 			}
 
 			if ( '' != $ult_modal_box_settings['img_size'] && 'popup-edge-top-right' == $ult_modal_box_settings['close_icon_position'] ) {
-				$img_edge_position = 'top:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;right:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;';
+				$img_edge_position = 'top:-' . ( (int) $ult_modal_box_settings['img_size'] / 2 + (int) $custom_padding_img ) . 'px;right:-' . ( (int) $ult_modal_box_settings['img_size'] / 2 + (int) $custom_padding_img ) . 'px;';
 			}
 
 			if ( '' != $ult_modal_box_settings['img_size'] && 'popup-edge-top-left' == $ult_modal_box_settings['close_icon_position'] ) {
-				$img_edge_position = 'top:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;left:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;';
+				$img_edge_position = 'top:-' . ( (int) $ult_modal_box_settings['img_size'] / 2 + (int) $custom_padding_img ) . 'px;left:-' . ( (int) $ult_modal_box_settings['img_size'] / 2 + (int) $custom_padding_img ) . 'px;';
 			}
 
 			if ( 'popup-top-right' == $ult_modal_box_settings['close_icon_position'] || 'popup-top-left' == $ult_modal_box_settings['close_icon_position']

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -161,9 +161,7 @@ class ServiceAccountCredentials extends CredentialsLoader implements
             'additionalClaims' => $additionalClaims,
         ]);
 
-        $this->projectId = isset($jsonKey['project_id'])
-            ? $jsonKey['project_id']
-            : null;
+        $this->projectId = $jsonKey['project_id'] ?? null;
     }
 
     /**

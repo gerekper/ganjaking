@@ -18,7 +18,7 @@
  *
  * @package     WC-Order-Status-Manager
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Order_Status_Manager\Integration;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Integration class for WooCommerce Subscriptions.

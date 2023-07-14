@@ -60,16 +60,16 @@ if ( ! class_exists( 'Ultimate_VC_Addons_IHover' ) ) {
 
 			// Shape.
 			$shape = '';
-			if ( '' != $ult_ihover_setting['thumb_shape'] ) :
-				$uavc_glob_ihover_shape = $ult_ihover_setting['thumb_shape'];
-				$shape                  = ' data-shape="' . $ult_ihover_setting['thumb_shape'] . '" ';
+			if ( '' != $ult_ihover_setting['thumb_shape'] && preg_match( '/^[a-zA-Z0-9_\-]+$/', $ult_ihover_setting['thumb_shape'] ) ) :
+				$uavc_glob_ihover_shape = sanitize_key( $ult_ihover_setting['thumb_shape'] );
+				$shape                  = ' data-shape="' . esc_attr( $ult_ihover_setting['thumb_shape'] ) . '" ';
 			endif;
 
 			// Height/Width.
 			$width  = '';
 			$height = '';
 			if ( '' != $ult_ihover_setting['thumb_height_width'] ) :
-				$uavc_glob_thumb_height_width = $ult_ihover_setting['thumb_height_width'];
+				$uavc_glob_thumb_height_width = intval( $ult_ihover_setting['thumb_height_width'] );
 				$width                        = ' data-width="' . esc_attr( $ult_ihover_setting['thumb_height_width'] ) . '" ';
 				$height                       = ' data-height="' . esc_attr( $ult_ihover_setting['thumb_height_width'] ) . '" ';
 			endif;
@@ -84,21 +84,21 @@ if ( ! class_exists( 'Ultimate_VC_Addons_IHover' ) ) {
 
 			// Gutter Width.
 			if ( '' != $ult_ihover_setting['gutter_width'] ) :
-				$uavc_glob_gutter_width = $ult_ihover_setting['gutter_width'];
+				$uavc_glob_gutter_width = intval( $ult_ihover_setting['gutter_width'] );
 			endif;
 
 			// Extra Class.
 			$ex_class = '';
 			if ( '' != $ult_ihover_setting['el_class'] ) :
-				$ex_class = $ult_ihover_setting['el_class'];
+				$ex_class = esc_attr( $ult_ihover_setting['el_class'] );
 			endif;
 
 			$container_style = '';
 			if ( '' != $ult_ihover_setting['align'] ) {
-				$container_style = 'text-align:' . $ult_ihover_setting['align'] . '; ';}
+				$container_style = 'text-align:' . esc_attr( $ult_ihover_setting['align'] ) . '; ';}
 
 			$output .= '<div class="ult-ih-container ' . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $ex_class ) . ' " >';
-			$output .= '	<ul class="ult-ih-list " ' . $shape . '' . $width . '' . $height . '' . $res_width . '' . $res_height . ' style="' . esc_attr( $container_style ) . '">';
+			$output .= '	<ul class="ult-ih-list " ' . wp_kses_data( $shape ) . '' . $width . '' . $height . '' . $res_width . '' . $res_height . ' style="' . esc_attr( $container_style ) . '">';
 			$output .= do_shortcode( $content );
 			$output .= '	</ul>';
 			$output .= '</div>';
@@ -197,6 +197,7 @@ endif;
 
 			$spacer_line_style = '';
 			$spacer_style      = '';
+
 			if ( '' != $ult_ihover_settings['spacer_border'] ) {
 				$spacer_line_style .= 'border-style:' . $ult_ihover_settings['spacer_border'] . ';';
 				if ( '' != $ult_ihover_settings['spacer_border_color'] ) {

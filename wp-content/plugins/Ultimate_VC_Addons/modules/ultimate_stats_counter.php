@@ -735,7 +735,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Stats_Counter' ) ) {
 			$ic_position = 'stats-' . $ult_sc_settings['icon_position'];
 			$ic_class    = 'aio-icon-' . $ult_sc_settings['icon_position'];
 			$output      = '<div class="stats-block ' . esc_attr( $ic_position ) . ' ' . esc_attr( $class ) . ' ' . esc_attr( $ult_sc_settings['css_stat_counter'] ) . '">';
-				$id      = 'counter_' . uniqid( wp_rand() );
+			$id          = 'counter_' . uniqid( wp_rand() );
+
 			if ( '' == $ult_sc_settings['counter_sep'] ) {
 				$ult_sc_settings['counter_sep'] = 'none';
 			}
@@ -753,7 +754,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Stats_Counter' ) ) {
 			if ( '' !== $ult_sc_settings['counter_suffix'] ) {
 				$output .= '<div class="counter_suffix mycust ult-responsive" ' . $stats_counter_sufpref_data_list . ' style="' . esc_attr( $counter_font ) . ' ' . esc_attr( $suf_pref_style ) . '">' . $ult_sc_settings['counter_suffix'] . '</div>';
 			}
-					$output .= '<div id="' . $id . '" ' . $stats_counter_data_list . ' class="stats-text ult-responsive" style="' . esc_attr( $ult_sc_settings['title_font'] ) . ' ' . esc_attr( $counter_color ) . ' ' . esc_attr( $title_style ) . '">' . $ult_sc_settings['counter_title'] . '</div>';
+					$output .= '<div id="title-' . esc_attr( $id ) . '" ' . $stats_counter_data_list . ' class="stats-text ult-responsive" style="' . esc_attr( $ult_sc_settings['title_font'] ) . ' ' . esc_attr( $counter_color ) . ' ' . esc_attr( $title_style ) . '">' . $ult_sc_settings['counter_title'] . '</div>';
 				$output     .= '</div>';
 			if ( 'right' == $ult_sc_settings['icon_position'] ) {
 				$output .= '<div class="' . esc_attr( $ic_class ) . '">' . $stats_icon . '</div>';

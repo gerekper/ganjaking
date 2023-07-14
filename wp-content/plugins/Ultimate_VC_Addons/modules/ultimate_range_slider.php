@@ -92,7 +92,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 				$temp_array   = array();
 				$temp_border  = str_replace( '|', '', $ult_range_settings['title_border'] );
 				$title_style .= $temp_border;
-				$title_style .= '' == $ult_range_settings['title_box_color'] ? '' : 'background:' . $ult_range_settings['title_box_color'] . '; ';
+				$title_style .= '' == $ult_range_settings['title_box_color'] ? '' : 'background:' . esc_attr( $ult_range_settings['title_box_color'] ) . '; ';
 				$temp_array   = explode( ';', $temp_border );
 
 				if ( is_array( $temp_array ) ) {
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 						if ( strpos( $value, 'border-width:' ) !== false ) {
 							$value        = str_replace( 'border-width:', '', $value );
 							$value        = str_replace( 'px', '', $value );
-							$value        = $value + 7;
+							$value        = intval( $value ) + 7;
 							$arrow_style .= ' border-width:' . $value . 'px; ';
 							$arrow_style .= 'margin-left:-' . $value . 'px; ';
 						} elseif ( strpos( $value, 'border-color:' ) !== false ) {
@@ -113,7 +113,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 				$arrow_style .= "'";
 			}
 
-			$title_style .= '' !== $ult_range_settings['title_padding'] ? ' ' . $ult_range_settings['title_padding'] . ';' : '';
+			$title_style .= '' !== $ult_range_settings['title_padding'] ? ' ' . intval( $ult_range_settings['title_padding'] ) . ';' : '';
 			// title box custom width.
 			$center_class       = '';
 			$title_box_width_t  = '';
@@ -125,11 +125,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 				$title_box_width_t  = '' !== $ult_range_settings['title_box_width'] ? $ult_range_settings['title_box_width'] : '115';
 				$title_box_height_t = '' !== $ult_range_settings['title_box_height'] ? $ult_range_settings['title_box_height'] : '115';
 
-				$title_style .= ' width:' . $title_box_width_t . 'px;';
-				$title_style .= ' height:' . $title_box_height_t . 'px;';
+				$title_style .= ' width:' . intval( $title_box_width_t ) . 'px;';
+				$title_style .= ' height:' . intval( $title_box_height_t ) . 'px;';
 
 				// apply this time padding to slider for tooltip adjustment.
-				$slider_padding = ' style = "padding:' . $title_box_height_t . 'px ' . ( ( $title_box_width_t / 2 ) + 10 ) . 'px 35px;"';
+				$slider_padding = ' style = "padding:' . esc_attr( $title_box_height_t ) . 'px ' . esc_attr( ( $title_box_width_t / 2 ) + 10 ) . 'px 35px;"';
 
 			}
 
@@ -154,7 +154,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 			// title.
 			if ( '' !== $ult_range_settings['title_font'] ) {
 				$title_font_family = function_exists( 'get_ultimate_font_family' ) ? get_ultimate_font_family( $ult_range_settings['title_font'] ) : '';
-				$title_style      .= 'font-family:' . $title_font_family . ';';
+				$title_style      .= 'font-family:' . esc_attr( $title_font_family ) . ';';
 			}
 			if ( '' !== $ult_range_settings['title_font_style'] ) {
 				$title_style .= $ult_range_settings['title_font_style'];
@@ -216,7 +216,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 			$desc_data = '' !== $ult_range_settings['adaptive_height'] ? ' data-adaptive_height = ' . esc_attr( $ult_range_settings['adaptive_height'] ) . ' ' : '';
 
 			// typogrphy data end.
-			$output .= '<div id="' . esc_attr( $id ) . '" class="ult-rs-wrapper"><div id="ult-range-slider " ' . $slider_padding . ' class="ult-rslider-container ult-responsive ' . esc_attr( $ult_range_settings['el_class'] ) . '" ' . $steps_data . $slider_color_data . $slider_size_data . $arrow_style . $title_box_data . $desc_data . ' ' . $title_responsive . '>';
+			$output .= '<div id="' . esc_attr( $id ) . '" class="ult-rs-wrapper"><div id="ult-range-slider " ' . esc_attr( $slider_padding ) . ' class="ult-rslider-container ult-responsive ' . esc_attr( $ult_range_settings['el_class'] ) . '" ' . $steps_data . $slider_color_data . $slider_size_data . esc_attr( $arrow_style ) . $title_box_data . $desc_data . ' ' . $title_responsive . '>';
 			if ( isset( $ult_range_settings['slider_data'] ) ) {
 				foreach ( $ult_range_settings['slider_data'] as $slider_datas ) {
 
@@ -225,7 +225,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 						// $output .= '<div class = "ult-tooltip ult-title'.$title_count.'" ><div class = "ult-tooltip-inner"'.$title_style.'>'.$slider_datas["slider_title"]; " '.$main_heading_responsive
 						// $output .= '</div></div>';
 
-						$output .= '<div class = "ult-tooltip ' . esc_attr( $none_style ) . ' ult-title' . esc_attr( $title_count ) . '" ' . $title_style . '><span class="ult-content ' . esc_attr( $center_class ) . '">' . $slider_datas['slider_title'];
+						$output .= '<div class = "ult-tooltip ' . esc_attr( $none_style ) . ' ult-title' . esc_attr( $title_count ) . '" ' . esc_attr( $title_style ) . '><span class="ult-content ' . esc_attr( $center_class ) . '">' . $slider_datas['slider_title'];
 						$output .= '</span></div>';
 					}
 					++$title_count;

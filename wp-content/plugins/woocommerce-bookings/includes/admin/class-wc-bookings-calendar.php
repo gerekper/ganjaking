@@ -40,8 +40,9 @@ class WC_Bookings_Calendar {
 		$product_filter  = isset( $_REQUEST['filter_bookings_product'] ) ? absint( $_REQUEST['filter_bookings_product'] ) : '';
 		$resource_filter = isset( $_REQUEST['filter_bookings_resource'] ) ? absint( $_REQUEST['filter_bookings_resource'] ) : '';
 		$default_view    = wp_is_mobile() ? 'schedule' : 'day';
-		$view            = isset( $_REQUEST['view'] ) && in_array( $_REQUEST['view'], self::CALENDAR_VIEWS ) ? $_REQUEST['view'] : $default_view;
-		$booking_filter = array();
+		$request_view    = wc_clean( wp_unslash( $_REQUEST['view'] ?? '' ) );
+		$view            = in_array( $request_view, self::CALENDAR_VIEWS, true ) ? $request_view : $default_view;
+		$booking_filter  = array();
 		if ( $product_filter ) {
 			array_push( $booking_filter, $product_filter );
 		}
@@ -487,14 +488,14 @@ class WC_Bookings_Calendar {
 			}
 
 			// Add attr for booking status label.
-			$attr_data['data-status'] = $status;
+			$attr_data['data-status'] = esc_attr( $status );
 
 			$css_classes = array( 'daily_view_booking' );
 			if ( $event instanceof WC_Global_Availability ) {
 				$css_classes[] = 'no_availability';
 			}
 
-			echo $this->render_li_element( $attr_data, $assigned_colors[ $event->get_id() ], $css_classes );
+			echo $this->render_li_element( $attr_data, $assigned_colors[ $event->get_id() ], $css_classes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 

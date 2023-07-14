@@ -634,20 +634,27 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Pricing_Table' ) ) {
 					$atts
 				);
 			$output                 = '';
-			require_once __ULTIMATE_ROOT__ . '/templates/pricing/pricing-' . $ult_price_settings['design_style'] . '.php';
-			$design_func = 'ult_price_generate_' . $ult_price_settings['design_style'];
-			$output     .= $design_func( $atts, $content );
-			$is_preset   = false; // Display settings for Preset.
+			$design_style           = sanitize_file_name( $ult_price_settings['design_style'] );
+			$allowed_styles         = array( 'design01', 'design02', 'design03', 'design04', 'design05', 'design06' );
+			$design_file            = wp_normalize_path( __ULTIMATE_ROOT__ . '/templates/pricing/pricing-' . $design_style . '.php' );
+			if ( in_array( $design_style, $allowed_styles ) && file_exists( $design_file ) ) {
+				require_once $design_file;
+				$design_func = 'ult_price_generate_' . $design_style;
+				if ( function_exists( $design_func ) ) {
+					$output .= $design_func( $atts, $content );
+				}
+			}
+			$is_preset = false; // Display settings for Preset.
 			if ( isset( $_GET['preset'] ) ) { // PHPCS:ignore:WordPress.Security.NonceVerification.Recommended
 				$is_preset = true;
 			}
 			if ( $is_preset ) {
 				$text = 'array ( ';
 				foreach ( $atts as $key => $att ) {
-					$text .= '<br/>	\'' . $key . '\' => \'' . $att . '\',';
+					$text .= '<br/>	\'' . esc_html( $key ) . '\' => \'' . esc_html( $att ) . '\',';
 				}
 				if ( '' != $content ) {
-					$text .= '<br/>	\'content\' => \'' . $content . '\',';
+					$text .= '<br/>	\'content\' => \'' . esc_html( $content ) . '\',';
 				}
 				$text   .= '<br/>)';
 				$output .= '<pre>';

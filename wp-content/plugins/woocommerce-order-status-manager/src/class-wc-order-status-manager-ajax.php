@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Order Status Manager AJAX handler
@@ -134,8 +134,9 @@ class WC_Order_Status_Manager_AJAX {
 	/**
 	 * Delete order status
 	 *
-	 * When deleting a custom order status check if there are orders
-	 * using the status to be deleted to prompt for a reassignment
+	 * When deleting a custom order status check if there are orders using the status to be deleted to prompt for a reassignment.
+	 *
+	 * @internal
 	 *
 	 * @since 1.3.0
 	 */
@@ -151,15 +152,18 @@ class WC_Order_Status_Manager_AJAX {
 
 			if ( $existing_orders = $status->has_orders( array( 'nopaging' => true, 'posts_per_page' => -1 ) ) ) {
 
-				// Prompt for confirmation and status reassignment popup
+				$orders_screen_status_query_arg = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled()
+					? [ 'status' => $status->get_slug( true ) ]
+					: [ 'post_status' => $status->get_slug( true ) ];
+
+				$orders_screen_by_status = add_query_arg( $orders_screen_status_query_arg, Framework\SV_WC_Order_Compatibility::get_orders_screen_url() );
+
+				// prompt for confirmation and status reassignment popup
 				wp_send_json_error( array(
 					'status_slug'  => $status->get_slug(),
 					'status_name'  => $status->get_name(),
 					'orders_count' => $existing_orders,
-					'orders_link'  => add_query_arg( array(
-						'post_status' => $status->get_slug( true ),
-						'post_type'   => 'shop_order',
-					), get_admin_url( null, 'edit.php' ) ),
+					'orders_link'  => $orders_screen_by_status,
 				) );
 
 			} else {

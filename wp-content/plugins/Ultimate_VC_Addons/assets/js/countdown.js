@@ -1,7 +1,7 @@
 /*! http://keith-wood.name/countdown.html
 	Countdown for jQuery v2.1.0.
 	Written by Keith Wood (wood.keith{at}optusnet.com.au) January 2008.
-	Available under the MIT (http://keith-wood.name/licence.html) license. 
+	Available under the MIT (http://keith-wood.name/licence.html) license.
 	Please attribute the author if you use it. */
 
 (function($) { // Hide scope, no $ conflict
@@ -27,7 +27,7 @@
 		@augments JQPlugin
 		@example $(selector).countdown({until: +300}) */
 	$.JQPlugin.createPlugin({
-	
+
 		/** The name of the plugin.
 			@default 'ult_countdown' */
 		name: pluginName,
@@ -60,7 +60,7 @@
   });
   return time;
 } */
-			
+
 		/** Countdown tick callback.
 			Used with the {@linkcode module:Countdown~defaultOptions|onTick} option and
 			triggered on every {@linkcode module:Countdown~defaultOptions|tickInterval} ticks of the countdown.
@@ -85,7 +85,7 @@
 			@example whichLabels: function(num) {
   return (num === 1 ? 1 : (num >= 2 && num <= 4 ? 2 : 0));
 } */
-			
+
 		/** Default settings for the plugin.
 			@property {Date|number|string} [until] The date/time to count down to, or number of seconds
 						offset from now, or string of amounts and units for offset(s) from now:
@@ -320,7 +320,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 						}
 					}
 					if (self._eqNull(serverSync[2])) { // Recalculate if missing
-						var serverResult = ($.isFunction(inst.options.serverSync) ?
+						var serverResult = (typeof inst.options.serverSync === "function" ?
 							inst.options.serverSync.apply(this, []) : null);
 						serverSync[2] =
 							(serverResult ? new Date().getTime() - serverResult.getTime() : 0) - serverSync[1];
@@ -403,7 +403,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 				return;
 			}
 			elem.html(this._generateHTML(inst)).toggleClass(this._rtlClass, inst.options.isRTL);
-			if (inst._hold !== 'pause' && $.isFunction(inst.options.onTick)) {
+			if ( inst._hold !== 'pause' && typeof inst.options.onTick === "function" ) {
 				var periods = inst._hold !== 'lap' ? inst._periods :
 					this._calculatePeriods(inst, inst._show, inst.options.significant, new Date());
 				if (inst.options.tickInterval === 1 ||
@@ -418,7 +418,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 				inst._expiring = true;
 				if (this._hasElem(elem[0]) || inst.options.alwaysExpire) {
 					this._removeElem(elem[0]);
-					if ($.isFunction(inst.options.onExpiry)) {
+					if (typeof inst.options.onExpiry === "function") {
 						inst.options.onExpiry.apply(elem[0], []);
 					}
 					if (inst.options.expiryText) {
@@ -455,7 +455,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 				}
 			}
 		},
-		
+
 		/** Determine whether or not a value is equivalent to <code>null</code>.
 			@private
 			@param {object} value The value to test.
@@ -485,7 +485,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 				serverOffset = (inst.options.serverSync ? serverEntry : 0);
 			}
 			else {
-				var serverResult = ($.isFunction(inst.options.serverSync) ?
+				var serverResult = (typeof inst.options.serverSync === "function" ?
 					inst.options.serverSync.apply(elem[0], []) : null);
 				now = new Date();
 				serverOffset = (serverResult ? now.getTime() - serverResult.getTime() : 0);
@@ -570,7 +570,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 					inst[inst._since ? '_since' : '_until'] =
 						this._determineTime(sign + inst._periods[0] + 'y' +
 							sign + inst._periods[1] + 'o' + sign + inst._periods[2] + 'w' +
-							sign + inst._periods[3] + 'd' + sign + inst._periods[4] + 'h' + 
+							sign + inst._periods[3] + 'd' + sign + inst._periods[4] + 'h' +
 							sign + inst._periods[5] + 'm' + sign + inst._periods[6] + 's');
 					this._addElem(elem);
 				}
@@ -632,7 +632,7 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 							day += parseInt(matches[1], 10) * 7;
 							break;
 						case 'o':
-							month += parseInt(matches[1], 10); 
+							month += parseInt(matches[1], 10);
 							day = Math.min(day, self._getDaysInMonth(year, month));
 							break;
 						case 'y':
@@ -726,8 +726,8 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 				inst.options.compact, inst.options.significant, showSignificant) :
 				((inst.options.compact ? // Compact version
 				'<span class="' + this._rowClass + ' ' + this._amountClass +
-				(inst._hold ? ' ' + this._holdingClass : '') + '">' + 
-				showCompact(Y) + showCompact(O) + showCompact(W) + showCompact(D) + 
+				(inst._hold ? ' ' + this._holdingClass : '') + '">' +
+				showCompact(Y) + showCompact(O) + showCompact(W) + showCompact(D) +
 				(show[H] ? this._minDigits(inst, inst._periods[H], 2) : '') +
 				(show[M] ? (show[H] ? inst.options.timeSeparator : '') +
 				this._minDigits(inst, inst._periods[M], 2) : '') +

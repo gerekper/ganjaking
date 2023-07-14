@@ -22,7 +22,7 @@ class WC_Bookings_Admin {
 		add_action( 'admin_init', array( $this, 'include_meta_box_handlers' ) );
 		add_action( 'admin_init', array( $this, 'redirect_new_add_booking_url' ) );
 		add_filter( 'product_type_options', array( $this, 'product_type_options' ) );
-		add_filter( 'product_type_selector' , array( $this, 'product_type_selector' ) );
+		add_filter( 'product_type_selector', array( $this, 'product_type_selector' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'styles_and_scripts' ) );
 		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'booking_data' ) );
 		add_filter( 'product_type_options', array( $this, 'booking_product_type_options' ) );
@@ -50,7 +50,7 @@ class WC_Bookings_Admin {
 	 */
 	public function bookings_debug_tools( $tools ) {
 		$bookings_tools = array(
-			'clean_person_types' => array(
+			'clean_person_types'             => array(
 				'name'     => __( 'Clean unused Person Types from DB', 'woocommerce-bookings' ),
 				'button'   => __( 'Clean Person Types', 'woocommerce-bookings' ),
 				'desc'     => __( 'This tool will clean the person types that are not used by any booking or a product.', 'woocommerce-bookings' ),
@@ -132,7 +132,7 @@ class WC_Bookings_Admin {
 			return $pricing;
 		}
 
-		foreach ( array_keys( $_POST['wc_booking_pricing_type'] ) as $i ) {
+		foreach ( array_keys( $_POST['wc_booking_pricing_type'] ) as $i ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$pricing[ $i ]['type']          = wc_clean( $_POST['wc_booking_pricing_type'][ $i ] );
 			$pricing[ $i ]['cost']          = wc_clean( $_POST['wc_booking_pricing_cost'][ $i ] );
 			$pricing[ $i ]['modifier']      = wc_clean( $_POST['wc_booking_pricing_cost_modifier'][ $i ] );
@@ -192,32 +192,34 @@ class WC_Bookings_Admin {
 		$person_types = array();
 
 		if ( isset( $_POST['person_id'] ) && isset( $_POST['_wc_booking_has_persons'] ) ) {
-			$person_ids         = $_POST['person_id'];
-			$person_menu_order  = $_POST['person_menu_order'];
-			$person_name        = $_POST['person_name'];
-			$person_cost        = $_POST['person_cost'];
-			$person_block_cost  = $_POST['person_block_cost'];
-			$person_description = $_POST['person_description'];
-			$person_min         = $_POST['person_min'];
-			$person_max         = $_POST['person_max'];
-			$max_loop           = max( array_keys( $_POST['person_id'] ) );
+			$person_ids         = array_map( 'absint', $_POST['person_id'] );
+			$person_menu_order  = array_map( 'absint', $_POST['person_menu_order'] );
+			$person_name        = wc_clean( wp_unslash( $_POST['person_name'] ) );
+			$person_cost        = wc_clean( wp_unslash( $_POST['person_cost'] ) );
+			$person_block_cost  = wc_clean( wp_unslash( $_POST['person_block_cost'] ) );
+			$person_description = wc_clean( wp_unslash( $_POST['person_description'] ) );
+			$person_min         = wc_clean( wp_unslash( $_POST['person_min'] ) );
+			$person_max         = wc_clean( wp_unslash( $_POST['person_max'] ) );
+			$max_loop           = max( array_keys( $person_ids ) );
 
 			for ( $i = 0; $i <= $max_loop; $i ++ ) {
 				if ( ! isset( $person_ids[ $i ] ) ) {
 					continue;
 				}
-				$person_id   = absint( $person_ids[ $i ] );
+				$person_id   = $person_ids[ $i ];
 				$person_type = new WC_Product_Booking_Person_Type( $person_id );
-				$person_type->set_props( array(
-					'name'        => wc_clean( stripslashes( $person_name[ $i ] ) ),
-					'description' => wc_clean( stripslashes( $person_description[ $i ] ) ),
-					'sort_order'  => absint( $person_menu_order[ $i ] ),
-					'cost'        => wc_clean( $person_cost[ $i ] ),
-					'block_cost'  => wc_clean( $person_block_cost[ $i ] ),
-					'min'         => wc_clean( $person_min[ $i ] ),
-					'max'         => wc_clean( $person_max[ $i ] ),
-					'parent_id'   => $product->get_id(),
-				) );
+				$person_type->set_props(
+					array(
+						'name'        => $person_name[ $i ],
+						'description' => $person_description[ $i ],
+						'sort_order'  => $person_menu_order[ $i ],
+						'cost'        => $person_cost[ $i ],
+						'block_cost'  => $person_block_cost[ $i ],
+						'min'         => $person_min[ $i ],
+						'max'         => $person_max[ $i ],
+						'parent_id'   => $product->get_id(),
+					)
+				);
 				$person_types[] = $person_type;
 			}
 		}
@@ -233,18 +235,15 @@ class WC_Bookings_Admin {
 		$resources = array();
 
 		if ( isset( $_POST['resource_id'] ) && isset( $_POST['_wc_booking_has_resources'] ) ) {
-			$resource_ids         = $_POST['resource_id'];
-			$resource_menu_order  = $_POST['resource_menu_order'];
-			$resource_base_cost   = $_POST['resource_cost'];
-			$resource_block_cost  = $_POST['resource_block_cost'];
-			$max_loop             = max( array_keys( $_POST['resource_id'] ) );
-			$resource_base_costs  = array();
-			$resource_block_costs = array();
+			$resource_ids         = array_map( 'absint', $_POST['resource_id'] );
+			$resource_menu_order  = array_map( 'absint', $_POST['resource_menu_order'] );
+			$resource_base_cost   = wc_clean( wp_unslash( $_POST['resource_cost'] ) );
+			$resource_block_cost  = wc_clean( wp_unslash( $_POST['resource_block_cost'] ) );
 
-			foreach ( $resource_menu_order as $key => $value ) {
+			foreach ( array_keys( $resource_menu_order ) as $key ) {
 				$resources[ absint( $resource_ids[ $key ] ) ] = array(
-					'base_cost'  => wc_clean( $resource_base_cost[ $key ] ),
-					'block_cost' => wc_clean( $resource_block_cost[ $key ] ),
+					'base_cost'  => $resource_base_cost[ $key ],
+					'block_cost' => $resource_block_cost[ $key ],
 				);
 			}
 		}
@@ -271,56 +270,58 @@ class WC_Bookings_Admin {
 		$duration                  = 'hour' === $duration_unit && 24 < $duration && 'non-available' === $default_date_availability ? 24 : $duration;
 
 		$resources = $this->get_posted_resources( $product );
-		$product->set_props( array(
-			'apply_adjacent_buffer'      => isset( $_POST['_wc_booking_apply_adjacent_buffer'] ),
-			'availability'               => $this->get_posted_availability(),
-			'block_cost'                 => wc_clean( $_POST['_wc_booking_block_cost'] ),
-			'buffer_period'              => wc_clean( $_POST['_wc_booking_buffer_period'] ),
-			'calendar_display_mode'      => wc_clean( $_POST['_wc_booking_calendar_display_mode'] ),
-			'cancel_limit_unit'          => wc_clean( $_POST['_wc_booking_cancel_limit_unit'] ),
-			'cancel_limit'               => wc_clean( $_POST['_wc_booking_cancel_limit'] ),
-			'check_start_block_only'     => 'start' === $_POST['_wc_booking_check_availability_against'],
-			'cost'                       => wc_clean( $_POST['_wc_booking_cost'] ),
-			'default_date_availability'  => wc_clean( $default_date_availability ),
-			'display_cost'               => wc_clean( $_POST['_wc_display_cost'] ),
-			'duration_type'              => wc_clean( $_POST['_wc_booking_duration_type'] ),
-			'duration_unit'              => wc_clean( $duration_unit ),
-			'duration'                   => wc_clean( $duration ),
-			'enable_range_picker'        => isset( $_POST['_wc_booking_enable_range_picker'] ),
-			'first_block_time'           => wc_clean( $_POST['_wc_booking_first_block_time'] ),
-			'has_person_cost_multiplier' => isset( $_POST['_wc_booking_person_cost_multiplier'] ),
-			'has_person_qty_multiplier'  => isset( $_POST['_wc_booking_person_qty_multiplier'] ),
-			'has_person_types'           => isset( $_POST['_wc_booking_has_person_types'] ),
-			'has_persons'                => isset( $_POST['_wc_booking_has_persons'] ),
-			'has_resources'              => isset( $_POST['_wc_booking_has_resources'] ),
-			'has_restricted_days'        => isset( $_POST['_wc_booking_has_restricted_days'] ),
-			'max_date_unit'              => wc_clean( $_POST['_wc_booking_max_date_unit'] ),
-			'max_date_value'             => wc_clean( $_POST['_wc_booking_max_date'] ),
-			'max_duration'               => wc_clean( $_POST['_wc_booking_max_duration'] ),
-			'max_persons'                => wc_clean( $_POST['_wc_booking_max_persons_group'] ),
-			'min_date_unit'              => wc_clean( $_POST['_wc_booking_min_date_unit'] ),
-			'min_date_value'             => wc_clean( $_POST['_wc_booking_min_date'] ),
-			'min_duration'               => wc_clean( $_POST['_wc_booking_min_duration'] ),
-			'min_persons'                => wc_clean( $_POST['_wc_booking_min_persons_group'] ),
-			'person_types'               => $this->get_posted_person_types( $product ),
-			'pricing'                    => $this->get_posted_pricing(),
-			'qty'                        => wc_clean( $_POST['_wc_booking_qty'] ),
-			'requires_confirmation'      => isset( $_POST['_wc_booking_requires_confirmation'] ),
-			'resource_label'             => wc_clean( $_POST['_wc_booking_resource_label'] ),
-			'resource_base_costs'        => wp_list_pluck( $resources, 'base_cost' ),
-			'resource_block_costs'       => wp_list_pluck( $resources, 'block_cost' ),
-			'resource_ids'               => array_keys( $resources ),
-			'resources_assignment'       => wc_clean( $_POST['_wc_booking_resources_assignment'] ),
-			'restricted_days'            => isset( $_POST['_wc_booking_restricted_days'] ) ? wc_clean( $_POST['_wc_booking_restricted_days'] ) : '',
-			'user_can_cancel'            => isset( $_POST['_wc_booking_user_can_cancel'] ),
-		) );
+		$product->set_props(
+			array(
+				'apply_adjacent_buffer'      => isset( $_POST['_wc_booking_apply_adjacent_buffer'] ),
+				'availability'               => $this->get_posted_availability(),
+				'block_cost'                 => wc_clean( $_POST['_wc_booking_block_cost'] ),
+				'buffer_period'              => wc_clean( $_POST['_wc_booking_buffer_period'] ),
+				'calendar_display_mode'      => wc_clean( $_POST['_wc_booking_calendar_display_mode'] ),
+				'cancel_limit_unit'          => wc_clean( $_POST['_wc_booking_cancel_limit_unit'] ),
+				'cancel_limit'               => wc_clean( $_POST['_wc_booking_cancel_limit'] ),
+				'check_start_block_only'     => 'start' === $_POST['_wc_booking_check_availability_against'],
+				'cost'                       => wc_clean( $_POST['_wc_booking_cost'] ),
+				'default_date_availability'  => wc_clean( $default_date_availability ),
+				'display_cost'               => wc_clean( $_POST['_wc_display_cost'] ),
+				'duration_type'              => wc_clean( $_POST['_wc_booking_duration_type'] ),
+				'duration_unit'              => wc_clean( $duration_unit ),
+				'duration'                   => wc_clean( $duration ),
+				'enable_range_picker'        => isset( $_POST['_wc_booking_enable_range_picker'] ),
+				'first_block_time'           => wc_clean( $_POST['_wc_booking_first_block_time'] ),
+				'has_person_cost_multiplier' => isset( $_POST['_wc_booking_person_cost_multiplier'] ),
+				'has_person_qty_multiplier'  => isset( $_POST['_wc_booking_person_qty_multiplier'] ),
+				'has_person_types'           => isset( $_POST['_wc_booking_has_person_types'] ),
+				'has_persons'                => isset( $_POST['_wc_booking_has_persons'] ),
+				'has_resources'              => isset( $_POST['_wc_booking_has_resources'] ),
+				'has_restricted_days'        => isset( $_POST['_wc_booking_has_restricted_days'] ),
+				'max_date_unit'              => wc_clean( $_POST['_wc_booking_max_date_unit'] ),
+				'max_date_value'             => wc_clean( $_POST['_wc_booking_max_date'] ),
+				'max_duration'               => wc_clean( $_POST['_wc_booking_max_duration'] ),
+				'max_persons'                => wc_clean( $_POST['_wc_booking_max_persons_group'] ),
+				'min_date_unit'              => wc_clean( $_POST['_wc_booking_min_date_unit'] ),
+				'min_date_value'             => wc_clean( $_POST['_wc_booking_min_date'] ),
+				'min_duration'               => wc_clean( $_POST['_wc_booking_min_duration'] ),
+				'min_persons'                => wc_clean( $_POST['_wc_booking_min_persons_group'] ),
+				'person_types'               => $this->get_posted_person_types( $product ),
+				'pricing'                    => $this->get_posted_pricing(),
+				'qty'                        => wc_clean( $_POST['_wc_booking_qty'] ),
+				'requires_confirmation'      => isset( $_POST['_wc_booking_requires_confirmation'] ),
+				'resource_label'             => wc_clean( $_POST['_wc_booking_resource_label'] ),
+				'resource_base_costs'        => wp_list_pluck( $resources, 'base_cost' ),
+				'resource_block_costs'       => wp_list_pluck( $resources, 'block_cost' ),
+				'resource_ids'               => array_keys( $resources ),
+				'resources_assignment'       => wc_clean( $_POST['_wc_booking_resources_assignment'] ),
+				'restricted_days'            => isset( $_POST['_wc_booking_restricted_days'] ) ? wc_clean( $_POST['_wc_booking_restricted_days'] ) : '',
+				'user_can_cancel'            => isset( $_POST['_wc_booking_user_can_cancel'] ),
+			)
+		);
 	}
 
 	/**
 	 * Init product edit tabs.
 	 */
 	public function init_tabs() {
-		add_filter( 'woocommerce_product_data_tabs', array( $this, 'register_tab' ) );
+		add_filter( 'woocommerce_product_data_tabs', array( $this, 'register_tab' ), 9 );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'booking_panels' ) );
 	}
 
@@ -331,7 +332,21 @@ class WC_Bookings_Admin {
 	 * @return array
 	 */
 	public function register_tab( $tabs ) {
-		$tabs['bookings_resources'] = array(
+		global $post;
+
+		// Check if the post status is not 'publish'
+		if ( $post->post_status !== 'publish' ) {
+			$tabs['bookings_templates']    = array(
+				'label'  => __( 'Templates', 'woocommerce-bookings' ),
+				'target' => 'bookings_templates',
+				'class'  => array(
+					'show_if_booking',
+				),
+				'priority' => 1,
+			);
+		}
+
+		$tabs['bookings_resources']    = array(
 			'label'  => __( 'Resources', 'woocommerce-bookings' ),
 			'target' => 'bookings_resources',
 			'class'  => array(
@@ -345,21 +360,21 @@ class WC_Bookings_Admin {
 				'show_if_booking',
 			),
 		);
-		$tabs['bookings_pricing'] = array(
+		$tabs['bookings_pricing']      = array(
 			'label'  => __( 'Costs', 'woocommerce-bookings' ),
 			'target' => 'bookings_pricing',
 			'class'  => array(
 				'show_if_booking',
 			),
 		);
-		$tabs['bookings_persons'] = array(
+		$tabs['bookings_persons']      = array(
 			'label'  => __( 'Persons', 'woocommerce-bookings' ),
 			'target' => 'bookings_persons',
 			'class'  => array(
 				'show_if_booking',
 			),
 		);
-		$tabs['bookings_export'] = array(
+		$tabs['bookings_export']       = array(
 			'label'  => __( 'Export', 'woocommerce-bookings' ),
 			'target' => 'bookings_export',
 			'class'  => array(
@@ -523,6 +538,7 @@ class WC_Bookings_Admin {
 
 	/**
 	 * Tweak product type options
+	 *
 	 * @param  array $options
 	 * @return array
 	 */
@@ -582,6 +598,7 @@ class WC_Bookings_Admin {
 
 		wp_enqueue_script( 'wc_bookings_admin_js' );
 
+		include 'views/html-booking-templates.php';
 		include 'views/html-booking-resources.php';
 		include 'views/html-booking-availability.php';
 		include 'views/html-booking-pricing.php';
@@ -647,6 +664,9 @@ class WC_Bookings_Admin {
 			'post'                          => isset( $post->ID ) ? $post->ID : '',
 			'plugin_url'                    => WC()->plugin_url(),
 			'ajax_url'                      => admin_url( 'admin-ajax.php' ),
+			'nonce'                         => array(
+				'wc_bookings_get_product_template' => wp_create_nonce( 'wc_bookings_get_product_template' ),
+			),
 			'calendar_image'                => WC_BOOKINGS_PLUGIN_URL . '/dist/images/calendar.png',
 			'i18n_view_details'             => esc_js( __( 'View details', 'woocommerce-bookings' ) ),
 			'i18n_customer'                 => esc_js( __( 'Customer', 'woocommerce-bookings' ) ),
@@ -680,8 +700,8 @@ class WC_Bookings_Admin {
 		wp_localize_script( 'wc_bookings_admin_edit_booking_js', 'wc_bookings_admin_edit_booking_params', $params );
 
 		$params = array(
-			'wc_bookings_invalid_min_duration'  => esc_html__( 'Minimum duration needs to be less than or equal to maximum duration.', 'woocommerce-bookings' ),
-			'wc_bookings_invalid_max_duration'  => esc_html__( 'Maximum duration needs to be greater than or equal to the minimum duration.', 'woocommerce-bookings' ),
+			'wc_bookings_invalid_min_duration' => esc_html__( 'Minimum duration needs to be less than or equal to maximum duration.', 'woocommerce-bookings' ),
+			'wc_bookings_invalid_max_duration' => esc_html__( 'Maximum duration needs to be greater than or equal to the minimum duration.', 'woocommerce-bookings' ),
 		);
 
 		wp_localize_script( 'wc_bookings_admin_edit_bookable_product_js', 'wc_bookings_admin_edit_booking_params', $params );
@@ -689,26 +709,30 @@ class WC_Bookings_Admin {
 
 	/**
 	 * Add extra product type options
+	 *
 	 * @param  array $options
 	 * @return array
 	 */
 	public function booking_product_type_options( $options ) {
-		return array_merge( $options, array(
-			'wc_booking_has_persons' => array(
-				'id'            => '_wc_booking_has_persons',
-				'wrapper_class' => 'show_if_booking',
-				'label'         => __( 'Has persons', 'woocommerce-bookings' ),
-				'description'   => __( 'Enable this if this bookable product can be booked by a customer defined number of persons.', 'woocommerce-bookings' ),
-				'default'       => 'no',
-			),
-			'wc_booking_has_resources' => array(
-				'id'            => '_wc_booking_has_resources',
-				'wrapper_class' => 'show_if_booking',
-				'label'         => __( 'Has resources', 'woocommerce-bookings' ),
-				'description'   => __( 'Enable this if this bookable product has multiple bookable resources, for example room types or instructors.', 'woocommerce-bookings' ),
-				'default'       => 'no',
-			),
-		) );
+		return array_merge(
+			$options,
+			array(
+				'wc_booking_has_persons'   => array(
+					'id'            => '_wc_booking_has_persons',
+					'wrapper_class' => 'show_if_booking',
+					'label'         => __( 'Has persons', 'woocommerce-bookings' ),
+					'description'   => __( 'Enable this if this bookable product can be booked by a customer defined number of persons.', 'woocommerce-bookings' ),
+					'default'       => 'no',
+				),
+				'wc_booking_has_resources' => array(
+					'id'            => '_wc_booking_has_resources',
+					'wrapper_class' => 'show_if_booking',
+					'label'         => __( 'Has resources', 'woocommerce-bookings' ),
+					'description'   => __( 'Enable this if this bookable product has multiple bookable resources, for example room types or instructors.', 'woocommerce-bookings' ),
+					'default'       => 'no',
+				),
+			)
+		);
 	}
 
 	/**

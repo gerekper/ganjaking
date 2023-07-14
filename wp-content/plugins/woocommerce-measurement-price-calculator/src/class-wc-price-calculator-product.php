@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * Measurement Price Calculator Product Helper Class
@@ -354,12 +354,12 @@ class WC_Price_Calculator_Product {
 			 */
 			$surface_area = apply_filters( 'wc_measurement_price_calculator_measurement_surface_area', $surface_area, $product );
 
-			$measurement  = new \WC_Price_Calculator_Measurement( get_option( 'woocommerce_dimension_unit' ), $surface_area, 'area', __( 'Surface Area', 'woocommerce-measurement-price-calculator' ) );
+			$measurement  = new \WC_Price_Calculator_Measurement( get_option( 'woocommerce_area_unit' ), $surface_area, 'area', __( 'Surface Area', 'woocommerce-measurement-price-calculator' ) );
 		}
 
 		// if no measurement, just create a default empty one
 		if ( ! $measurement ) {
-			$measurement = new \WC_Price_Calculator_Measurement( get_option( 'woocommerce_dimension_unit' ), 0, 'area', __( 'Surface Area', 'woocommerce-measurement-price-calculator' ) );
+			$measurement = new \WC_Price_Calculator_Measurement( get_option( 'woocommerce_area_unit' ), 0, 'area', __( 'Surface Area', 'woocommerce-measurement-price-calculator' ) );
 		}
 
 		return $measurement;

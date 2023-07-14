@@ -125,7 +125,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Sticky_Section' ) ) {
 			if ( 'customwidth' == $ult_sticky_settings['sticky_width'] ) {
 
 				if ( '' != $ult_sticky_settings['sticky_custom_width'] ) {
-					if ( strpos( $ult_sticky_settings['sticky_custom_width'], 'px' ) !== false || strpos( $ult_sticky_settings['sticky_custom_width'], 'em' ) !== false || strpos( $ult_sticky_settings['sticky_custom_width'], '%' ) !== false ) {
+					if ( preg_match( '/^[\d\.]+(px|em|%)?$/', $ult_sticky_settings['sticky_custom_width'] ) ) {
 						$ult_sticky_settings['sticky_custom_width'] .= " data-sticky_customwidth= '" . esc_attr( $ult_sticky_settings['sticky_custom_width'] );
 					} else {
 						$ult_sticky_settings['sticky_custom_width'] .= " data-sticky_customwidth= '" . esc_attr( $ult_sticky_settings['sticky_custom_width'] ) . 'px';
@@ -138,13 +138,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Sticky_Section' ) ) {
 			}
 
 			// sticky bahviour.
-			$stick_behaviour_data = '' != $ult_sticky_settings['stick_behaviour'] ? " data-stick_behaviour= '" . esc_attr( $ult_sticky_settings['stick_behaviour'] ) . "'" : " data-stick_behaviour= 'stick_with_scroll_row'";
+			$stick_behaviour_data = '' != $ult_sticky_settings['stick_behaviour'] ? " data-stick_behaviour= '" . sanitize_key( esc_attr( $ult_sticky_settings['stick_behaviour'] ) ) . "'" : " data-stick_behaviour= 'stick_with_scroll_row'";
 
 			// permanent data.
 			if ( 'stick_permanent' == $ult_sticky_settings['stick_behaviour'] ) {
-				$left_right_postion = " data-lr_position= '" . esc_attr( $ult_sticky_settings['sticky_position_lr'] ) . "' ";
+				$left_right_postion = " data-lr_position= '" . sanitize_key( esc_attr( $ult_sticky_settings['sticky_position_lr'] ) ) . "' ";
 				if ( '' != $ult_sticky_settings['permanent_lr'] ) {
-					if ( strpos( $ult_sticky_settings['permanent_lr'], 'px' ) !== false || strpos( $ult_sticky_settings['permanent_lr'], 'em' ) !== false || strpos( $ult_sticky_settings['permanent_lr'], '%' ) !== false ) {
+					if ( preg_match( '/^\d+(px|em|%)?$/', $ult_sticky_settings['permanent_lr'] ) ) {
 						$left_right_postion .= " data-lr_value= '" . esc_attr( $ult_sticky_settings['permanent_lr'] );
 					} else {
 						$left_right_postion .= " data-lr_value= '" . esc_attr( $ult_sticky_settings['permanent_lr'] ) . 'px';
@@ -156,19 +156,19 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Sticky_Section' ) ) {
 				$left_right_postion .= "'";
 			}
 
-			$custom_data  = '' != $ult_sticky_settings['sticky_gutter'] ? " data-gutter= '" . esc_attr( $ult_sticky_settings['sticky_gutter'] ) . "'" : '';
+			$custom_data  = '' != $ult_sticky_settings['sticky_gutter'] ? " data-gutter= '" . intval( esc_attr( $ult_sticky_settings['sticky_gutter'] ) ) . "'" : '';
 			$custom_data .= $stick_behaviour_data;
 			$custom_data .= $left_right_postion;
 			$custom_data .= $sticky_gutter_class . ' ' . $sticky_gutter_id;
-			$custom_data .= '' != $ult_sticky_settings['sticky_width'] ? " data-sticky_width= '" . esc_attr( $ult_sticky_settings['sticky_width'] ) . "'" : '';
+			$custom_data .= '' != $ult_sticky_settings['sticky_width'] ? " data-sticky_width= '" . sanitize_key( $ult_sticky_settings['sticky_width'] ) . "'" : '';
 			$custom_data .= $ult_sticky_settings['sticky_custom_width'];
-			$custom_data .= '' != $ult_sticky_settings['sticky_position'] ? " data-sticky_position= '" . esc_attr( $ult_sticky_settings['sticky_position'] ) . "'" : " data-sticky_position= 'top'";
+			$custom_data .= '' != $ult_sticky_settings['sticky_position'] ? " data-sticky_position= '" . sanitize_key( $ult_sticky_settings['sticky_position'] ) . "'" : " data-sticky_position= 'top'";
 			$custom_data .= $data_mobile;
 			$custom_data .= $data_support;
 
 			$output  = '<div class="ult_row_spacer">';
 			$output .= '<div class="ult-sticky-anchor">';
-			$output .= '<div class="ult-sticky-section ult-sticky ' . esc_attr( $ult_sticky_settings['el_class'] ) . '" ' . $custom_data . '>';
+			$output .= '<div class="ult-sticky-section ult-sticky ' . esc_attr( $ult_sticky_settings['el_class'] ) . '" ' . esc_attr( $custom_data ) . '>';
 			$output .= do_shortcode( $content );
 			$output .= '</div>';
 			$output .= '<div class="ult-space"></div>';

@@ -7,7 +7,7 @@
 		flip_box_set_auto_height();
 	} );
 
-	$( window ).resize( function ( a ) {
+	$( window ).on( 'resize', function ( a ) {
 		flip_box_set_auto_height();
 	} );
 

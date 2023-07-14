@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * Measurement Price Calculator Compatibility Class
@@ -57,15 +57,12 @@ class WC_Price_Calculator_Compatibility {
 			add_filter( 'wc_measurement_price_calculator_product_loop_url', array( $this, 'quick_view_product_url' ), 10, 2 );
 		}
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.6' ) && Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.8' ) ) {
-			add_filter( 'woocommerce_order_item_get__reduced_stock', [ $this, 'skip_automatic_stock_adjustment' ], 10, 2 );
-		} else {
-			add_filter( 'woocommerce_prevent_adjust_line_item_product_stock', [ $this, 'prevent_auto_stock_adjustment' ], 10, 2 ); // WC 3.8+ only
-		}
+		// Prevent automatic stock adjustment on order item save for inventory-calculated items
+		add_filter( 'woocommerce_prevent_adjust_line_item_product_stock', [ $this, 'prevent_auto_stock_adjustment' ], 10, 2 );
 	}
 
 
-	/**
+		/**
 	 * Add the pricing calculator and quantity input if the user can view the price
 	 *
 	 * @since 3.7.0
@@ -227,20 +224,21 @@ class WC_Price_Calculator_Compatibility {
 	/**
 	 * Disables automatic stock adjustment in function \wc_maybe_adjust_line_item_product_stock which is added in WC 3.6
 	 *
+	 * This method was introduced to support WooCommerce versions between 3.6 and 3.8 and has been deprecated.
+	 *
 	 * @internal
 	 *
 	 * @since 3.16.1
+	 * @deprecated since 3.22.0
+	 * @TODO remove this deprecated method by July 2024 or by version 4.0.0 {unfulvio 2023-07-10}
 	 *
-	 * @param int|float $reduced_stock
-	 * @param WC_Order_Item_Product $order_product
-	 *
+	 * @param int|float|bool $reduced_stock
+	 * @param WC_Order_Item_Product|null $order_product
 	 * @return int|float|bool
 	 */
-	public function skip_automatic_stock_adjustment( $reduced_stock, $order_product ) {
+	public function skip_automatic_stock_adjustment( $reduced_stock, $order_product = null ) {
 
-		if ( did_action( 'woocommerce_before_save_order_items' ) && \WC_Price_Calculator_Product::pricing_calculator_inventory_enabled( $order_product->get_product() ) ) {
-			return false;
-		}
+		wc_deprecated_function( __METHOD__, '3.22.0' );
 
 		return $reduced_stock;
 	}

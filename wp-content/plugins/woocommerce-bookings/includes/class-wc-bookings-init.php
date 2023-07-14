@@ -33,6 +33,9 @@ class WC_Bookings_Init {
 
 		// Create action schedules or custom migration functions.
 		add_action( 'init', array( $this, 'booking_migrations' ), 10 );
+
+		// Add a new custom quick add menu item for bookable products.
+		add_filter( 'admin_bar_menu', array( $this, 'wp_admin_bar_new_content_menu' ), 999 );
 	}
 
 	/**
@@ -305,10 +308,58 @@ class WC_Bookings_Init {
 	}
 
 	/**
+	 * Add a new custom add new item.
+	 *
+	 * @since 2.0.0
+	 *
+	 * return false or void.
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar
+	 *
+	 */
+	public function wp_admin_bar_new_content_menu( WP_Admin_Bar $wp_admin_bar ) {
+		// Check if the current user has the capability to manage WooCommerce.
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
+
+		// Create your custom menu item
+		$custom_menu_item = array(
+			'parent' => 'new-content',
+			'id'     => 'new-bookable-product',
+			'title'  => __( 'Bookable product', 'woocommerce-bookings' ),
+			'href'   => admin_url( 'post-new.php?post_type=product&bookable_product=1' ),
+		);
+
+		// Get the existing menu items
+		$menu_items = $wp_admin_bar->get_nodes();
+
+		// Find the position of the item with ID "add-new-product"
+		$add_new_product_position = - 1;
+		foreach ( $menu_items as $position => $menu_item ) {
+			if ( 'new-product' === $menu_item->id ) {
+				$add_new_product_position = $position;
+				break;
+			}
+		}
+
+		// Re-add the menu items with the new custom menu item inserted.
+		foreach ( $menu_items as $position => $menu_item ) {
+			$wp_admin_bar->remove_menu( $menu_item->id );
+			$wp_admin_bar->add_node( $menu_item );
+
+			// Insert the custom menu item after the item with ID "add-new-product".
+			if ( $position === $add_new_product_position ) {
+				$wp_admin_bar->add_node( $custom_menu_item );
+			}
+		}
+	}
+
+	/**
 	 * Bookable Products filtered under the Analytics page.
 	 *
 	 * @param array $args Query arguments.
-	 * 
+	 *
 	 * @return array Updated query arguments.
 	 */
 	public function analytics_products_query_args( $args ) {
@@ -337,9 +388,9 @@ class WC_Bookings_Init {
 						'compare' => 'NOT EXISTS',
 					),
 				);
-			}					
+			}
 		}
-	
+
 		return $args;
 	}
 
@@ -348,7 +399,7 @@ class WC_Bookings_Init {
 	 *
 	 * @param array $clauses The existing clauses.
 	 * @param array $context The context of the clause.
-	 * 
+	 *
 	 * @return array Updated clauses.
 	 */
 	public function analytics_clauses_join( $clauses, $context ) {
@@ -368,7 +419,7 @@ class WC_Bookings_Init {
 	 *
 	 * @param array $clauses The existing clauses.
 	 * @param array $context The context of the clause.
-	 * 
+	 *
 	 * @return array Updated clauses.
 	 */
 	public function analytics_clauses_where( $clauses, $context ) {

@@ -8,7 +8,7 @@
  * @author Rémi Lanvin <remi@cloudconnected.fr>
  * @link https://github.com/rlanvin/php-rrule
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -215,7 +215,7 @@ trait RRuleTrait
 			$date = new \DateTime($date->format('Y-m-d H:i:s'), $date->getTimezone());
 		}
 		else {
-			$date->setTime(
+			$date = $date->setTime(
 				$date->format('H'),
 				$date->format('i'),
 				$date->format('s'),

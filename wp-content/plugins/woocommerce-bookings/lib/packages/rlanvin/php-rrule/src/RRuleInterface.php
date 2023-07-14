@@ -8,7 +8,7 @@
  * @author Rémi Lanvin <remi@cloudconnected.fr>
  * @link https://github.com/rlanvin/php-rrule
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -52,7 +52,7 @@ interface RRuleInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 	 * 
 	 * @param mixed $date
 	 * @param int $index The index (starts at 1)
-	 * @return DateTimeInterface|null
+	 * @return \DateTimeInterface|null
 	 */
 	public function getNthOccurrenceAfter($date, $index);
 
@@ -71,7 +71,7 @@ interface RRuleInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 	 * 
 	 * @param mixed $date
 	 * @param int $index The index (starts at 1)
-	 * @return DateTimeInterface|null
+	 * @return \DateTimeInterface|null
 	 */
 	public function getNthOccurrenceBefore($date, $index);
 
@@ -80,7 +80,7 @@ interface RRuleInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 	 * 
 	 * @param mixed $date
 	 * @param int $index 0 returns the date, positive integer returns index in the future, negative in the past
-	 * @return DateTimeInterface|null
+	 * @return \DateTimeInterface|null
 	 */
 	public function getNthOccurrenceFrom($date, $index);
 

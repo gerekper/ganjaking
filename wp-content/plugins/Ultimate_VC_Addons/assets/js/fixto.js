@@ -606,8 +606,8 @@ var fixto = (function ($, window, document) {
             this._onscroll();
 
             // Attach event listeners
-            $(window).bind('scroll', this._proxied_onscroll);
-            $(this._toresize).bind('resize', this._proxied_onresize);
+            $(window).on('scroll', this._proxied_onscroll);
+            $(this._toresize).on('resize', this._proxied_onresize);
         },
 
         _destroy: function() {

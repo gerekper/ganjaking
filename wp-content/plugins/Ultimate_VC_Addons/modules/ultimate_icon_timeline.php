@@ -1495,8 +1495,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Timeline' ) ) {
 			$header  = '';
 			$header .= '<div class="timeline-header-block" ' . $header_block_style . '>
 							<div class="timeline-header" id="' . esc_attr( $timeline_featured_id ) . '"  style="">';
-			$header .= '<' . $ult_timeline_feat_settings['heading_tag'] . '
-			 class="ult-timeline-title ult-responsive"  ' . $data_list . ' style="' . esc_attr( $title_style ) . '">' . $ult_timeline_feat_settings['time_title'] . '</' . $ult_timeline_feat_settings['heading_tag'] . '>';
+			$header .= '<' . esc_attr( sanitize_key( $ult_timeline_feat_settings['heading_tag'] ) ) . '
+			 class="ult-timeline-title ult-responsive"  ' . $data_list . ' style="' . esc_attr( $title_style ) . '">' . $ult_timeline_feat_settings['time_title'] . '</' . esc_attr( sanitize_key( $ult_timeline_feat_settings['heading_tag'] ) ) . '>';
 			if ( '' != $ult_timeline_feat_settings['time_link_apply'] && 'title' == $ult_timeline_feat_settings['time_link_apply'] ) {
 				$header = $link_prefix . $header . $link_sufix;
 			}
@@ -1587,7 +1587,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Timeline' ) ) {
 			$html                       = '';
 			$custom_style               = '';
 			$bg_cls                     = '';
-			$box_icon                   = do_shortcode( '[just_icon icon_type="' . esc_attr( $ult_timeline_item_settings['icon_type'] ) . '" icon="' . esc_attr( $ult_timeline_item_settings['icon'] ) . '" icon_img="' . esc_attr( $ult_timeline_item_settings['icon_img'] ) . '" img_width="' . esc_attr( $ult_timeline_item_settings['img_width'] ) . '" icon_size="' . esc_attr( $ult_timeline_item_settings['icon_size'] ) . '" icon_color="' . esc_attr( $ult_timeline_item_settings['icon_color'] ) . '" icon_style="' . esc_attr( $ult_timeline_item_settings['icon_style'] ) . '" icon_color_bg="' . esc_attr( $ult_timeline_item_settings['icon_color_bg'] ) . '" icon_color_border="' . esc_attr( $ult_timeline_item_settings['icon_color_border'] ) . '"  icon_border_style="' . esc_attr( $ult_timeline_item_settings['icon_border_style'] ) . '" icon_border_size="' . esc_attr( $ult_timeline_item_settings['icon_border_size'] ) . '" icon_border_radius="' . esc_attr( $ult_timeline_item_settings['icon_border_radius'] ) . '" icon_border_spacing="' . esc_attr( $ult_timeline_item_settings['icon_border_spacing'] ) . '" icon_link="' . esc_attr( $ult_timeline_item_settings['icon_link'] ) . '" icon_animation="' . esc_attr( $ult_timeline_item_settings['icon_animation'] ) . '"]' );
+			$box_icon                   = do_shortcode( '[just_icon icon_type="' . esc_attr( sanitize_key( $ult_timeline_item_settings['icon_type'] ) ) . '" icon="' . esc_attr( sanitize_key( $ult_timeline_item_settings['icon'] ) ) . '" icon_img="' . esc_attr( $ult_timeline_item_settings['icon_img'] ) . '" img_width="' . esc_attr( $ult_timeline_item_settings['img_width'] ) . '" icon_size="' . esc_attr( $ult_timeline_item_settings['icon_size'] ) . '" icon_color="' . esc_attr( $ult_timeline_item_settings['icon_color'] ) . '" icon_style="' . esc_attr( $ult_timeline_item_settings['icon_style'] ) . '" icon_color_bg="' . esc_attr( $ult_timeline_item_settings['icon_color_bg'] ) . '" icon_color_border="' . esc_attr( $ult_timeline_item_settings['icon_color_border'] ) . '"  icon_border_style="' . esc_attr( $ult_timeline_item_settings['icon_border_style'] ) . '" icon_border_size="' . esc_attr( $ult_timeline_item_settings['icon_border_size'] ) . '" icon_border_radius="' . esc_attr( $ult_timeline_item_settings['icon_border_radius'] ) . '" icon_border_spacing="' . esc_attr( $ult_timeline_item_settings['icon_border_spacing'] ) . '" icon_link="' . esc_attr( $ult_timeline_item_settings['icon_link'] ) . '" icon_animation="' . esc_attr( $ult_timeline_item_settings['icon_animation'] ) . '"]' );
 			if ( '' == $ult_timeline_item_settings['icon_color_bg'] ) {
 				$bg_cls .= 'tl-icon-no-bg';
 			}
@@ -1684,7 +1684,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Timeline' ) ) {
 				$header_link_prefix = '<a ' . Ultimate_VC_Addons::uavc_link_init( $url, $target, $link_title, $rel ) . ' class="link-title">';
 				$header_link_suffix = '</a>';
 			}
-			$header .= '<' . $ult_timeline_item_settings['heading_tag'] . ' class="ult-timeline-title ult-responsive" ' . $Item_data_list . ' style="' . esc_attr( $title_style ) . '">' . $header_link_prefix . $ult_timeline_item_settings['time_title'] . $header_link_suffix . '</' . $ult_timeline_item_settings['heading_tag'] . '>';// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			$header .= '<' . esc_attr( sanitize_key( $ult_timeline_item_settings['heading_tag'] ) ) . ' class="ult-timeline-title ult-responsive" ' . $Item_data_list . ' style="' . esc_attr( $title_style ) . '">' . $header_link_prefix . $ult_timeline_item_settings['time_title'] . $header_link_suffix . '</' . esc_attr( sanitize_key( $ult_timeline_item_settings['heading_tag'] ) ) . '>';// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			$header .= '<div class="ult-responsive timeline-item-spt" ' . $Item_desc_data_list . ' style="' . esc_attr( $desc_style ) . '">' . do_shortcode( $content ) . '</div>';// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			if ( '' != $ult_timeline_item_settings['time_link_apply'] && 'more' == $ult_timeline_item_settings['time_link_apply'] ) {
 				$header = $header . '<p>' . $link_prefix . $ult_timeline_item_settings['time_read_text'] . $link_sufix . '</p>';

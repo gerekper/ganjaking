@@ -710,20 +710,25 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_Table' ) ) {
 					$atts
 				);
 			$output                   = '';
-			require_once __ULTIMATE_ROOT__ . '/templates/info-tables/info-table-' . $ult_infotbl_settings['design_style'] . '.php';
-			$design_func = 'ult_info_table_generate_' . $ult_infotbl_settings['design_style'];
-			$output     .= $design_func( $atts, $content );
-			$is_preset   = false; // Display settings for Preset.
+			$design_style             = sanitize_file_name( $ult_infotbl_settings['design_style'] );
+			$allowed_styles           = array( 'design01', 'design02', 'design03', 'design04', 'design05', 'design06' );
+			$file_path                = wp_normalize_path( __ULTIMATE_ROOT__ . '/templates/info-tables/info-table-' . $design_style . '.php' );
+			if ( in_array( $design_style, $allowed_styles ) && file_exists( $file_path ) ) {
+				require_once $file_path;
+				$design_func = 'ult_info_table_generate_' . $design_style;
+				$output     .= $design_func( $atts, $content );
+			}
+			$is_preset = false; // Display settings for Preset.
 			if ( isset( $_GET['preset'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$is_preset = true;
 			}
 			if ( $is_preset ) {
 				$text = 'array ( ';
 				foreach ( $atts as $key => $att ) {
-					$text .= '<br/>	\'' . $key . '\' => \'' . $att . '\',';
+					$text .= '<br/>	\'' . esc_html( $key ) . '\' => \'' . esc_html( $att ) . '\',';
 				}
 				if ( '' != $content ) {
-					$text .= '<br/>	\'content\' => \'' . $content . '\',';
+					$text .= '<br/>	\'content\' => \'' . esc_html( $content ) . '\',';
 				}
 				$text   .= '<br/>)';
 				$output .= '<pre>';

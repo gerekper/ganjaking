@@ -1,15 +1,15 @@
-# Copyright (C) 2022 Brainstorm Force
+# Copyright (C) 2023 Brainstorm Force
 # This file is distributed under the GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for WPBakery Page Builder 3.19.13\n"
+"Project-Id-Version: Ultimate Addons for WPBakery Page Builder 3.19.15\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/Ultimate_VC_Addons\n"
-"POT-Creation-Date: 2022-11-28 06:00:29+00:00\n"
+"POT-Creation-Date: 2023-07-13 07:12:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -809,7 +809,7 @@ msgstr ""
 msgid "Info Banner"
 msgstr ""
 
-#: admin/modules.php:54 modules/ultimate_ihover.php:496
+#: admin/modules.php:54 modules/ultimate_ihover.php:497
 msgid "iHover"
 msgstr ""
 
@@ -1013,7 +1013,7 @@ msgstr ""
 #: modules/ultimate_content_box.php:333 modules/ultimate_dual_colors.php:123
 #: modules/ultimate_google_maps.php:332 modules/ultimate_google_trends.php:171
 #: modules/ultimate_headings.php:589 modules/ultimate_hightlight_box.php:434
-#: modules/ultimate_ihover.php:571 modules/ultimate_info_banner.php:503
+#: modules/ultimate_ihover.php:572 modules/ultimate_info_banner.php:503
 #: modules/ultimate_pricing_tables.php:246
 #: modules/ultimate_range_slider.php:356 modules/ultimate_ribbons.php:208
 #: modules/ultimate_sticky_section.php:341 modules/ultimate_tab.php:1300
@@ -1025,7 +1025,7 @@ msgstr ""
 #: modules/ultimate_content_box.php:335 modules/ultimate_dual_colors.php:125
 #: modules/ultimate_google_maps.php:334 modules/ultimate_google_trends.php:173
 #: modules/ultimate_headings.php:591 modules/ultimate_hightlight_box.php:436
-#: modules/ultimate_ihover.php:573 modules/ultimate_info_banner.php:505
+#: modules/ultimate_ihover.php:574 modules/ultimate_info_banner.php:505
 #: modules/ultimate_pricing_tables.php:248
 #: modules/ultimate_range_slider.php:358 modules/ultimate_ribbons.php:210
 #: modules/ultimate_sticky_section.php:343 modules/ultimate_tab.php:751
@@ -1395,7 +1395,7 @@ msgstr ""
 #: modules/ultimate_hotspot.php:526 modules/ultimate_hotspot.php:748
 #: modules/ultimate_icon_timeline.php:610
 #: modules/ultimate_icon_timeline.php:1045 modules/ultimate_icons.php:185
-#: modules/ultimate_ihover.php:817 modules/ultimate_info_banner.php:285
+#: modules/ultimate_ihover.php:818 modules/ultimate_info_banner.php:285
 #: modules/ultimate_info_box.php:472 modules/ultimate_info_circle.php:978
 #: modules/ultimate_info_tables.php:316 modules/ultimate_just_icon.php:171
 #: modules/ultimate_list_icon.php:201 modules/ultimate_modals.php:921
@@ -1511,8 +1511,8 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:364
 #: modules/ultimate_icon_timeline.php:433
 #: modules/ultimate_icon_timeline.php:799
-#: modules/ultimate_icon_timeline.php:868 modules/ultimate_ihover.php:989
-#: modules/ultimate_ihover.php:1041 modules/ultimate_info_banner.php:342
+#: modules/ultimate_icon_timeline.php:868 modules/ultimate_ihover.php:990
+#: modules/ultimate_ihover.php:1042 modules/ultimate_info_banner.php:342
 #: modules/ultimate_info_banner.php:401 modules/ultimate_info_banner.php:460
 #: modules/ultimate_info_box.php:755 modules/ultimate_info_box.php:813
 #: modules/ultimate_info_circle.php:746 modules/ultimate_info_circle.php:796
@@ -1626,8 +1626,8 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:371
 #: modules/ultimate_icon_timeline.php:440
 #: modules/ultimate_icon_timeline.php:806
-#: modules/ultimate_icon_timeline.php:875 modules/ultimate_ihover.php:996
-#: modules/ultimate_ihover.php:1048 modules/ultimate_info_banner.php:349
+#: modules/ultimate_icon_timeline.php:875 modules/ultimate_ihover.php:997
+#: modules/ultimate_ihover.php:1049 modules/ultimate_info_banner.php:349
 #: modules/ultimate_info_banner.php:408 modules/ultimate_info_banner.php:467
 #: modules/ultimate_info_box.php:762 modules/ultimate_info_box.php:820
 #: modules/ultimate_info_circle.php:752 modules/ultimate_info_circle.php:802
@@ -1666,8 +1666,8 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:379
 #: modules/ultimate_icon_timeline.php:448
 #: modules/ultimate_icon_timeline.php:814
-#: modules/ultimate_icon_timeline.php:883 modules/ultimate_ihover.php:1004
-#: modules/ultimate_ihover.php:1056 modules/ultimate_info_banner.php:356
+#: modules/ultimate_icon_timeline.php:883 modules/ultimate_ihover.php:1005
+#: modules/ultimate_ihover.php:1057 modules/ultimate_info_banner.php:356
 #: modules/ultimate_info_banner.php:415 modules/ultimate_info_banner.php:474
 #: modules/ultimate_info_box.php:770 modules/ultimate_info_box.php:828
 #: modules/ultimate_info_circle.php:759 modules/ultimate_info_circle.php:809
@@ -1704,8 +1704,8 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:394
 #: modules/ultimate_icon_timeline.php:463
 #: modules/ultimate_icon_timeline.php:829
-#: modules/ultimate_icon_timeline.php:898 modules/ultimate_ihover.php:1019
-#: modules/ultimate_ihover.php:1071 modules/ultimate_info_banner.php:371
+#: modules/ultimate_icon_timeline.php:898 modules/ultimate_ihover.php:1020
+#: modules/ultimate_ihover.php:1072 modules/ultimate_info_banner.php:371
 #: modules/ultimate_info_banner.php:430 modules/ultimate_info_banner.php:489
 #: modules/ultimate_info_box.php:785 modules/ultimate_info_box.php:843
 #: modules/ultimate_info_circle.php:774 modules/ultimate_info_circle.php:824
@@ -2272,8 +2272,8 @@ msgstr ""
 #: modules/ultimate_headings.php:254 modules/ultimate_headings.php:290
 #: modules/ultimate_headings.php:567 modules/ultimate_hotspot.php:719
 #: modules/ultimate_hotspot.php:737 modules/ultimate_hotspot.php:803
-#: modules/ultimate_icon_timeline.php:1177 modules/ultimate_ihover.php:948
-#: modules/ultimate_ihover.php:960 modules/ultimate_ihover.php:972
+#: modules/ultimate_icon_timeline.php:1177 modules/ultimate_ihover.php:949
+#: modules/ultimate_ihover.php:961 modules/ultimate_ihover.php:973
 #: modules/ultimate_image_separator.php:133
 #: modules/ultimate_info_circle.php:411 modules/ultimate_parallax.php:1264
 #: modules/ultimate_range_slider.php:394 modules/ultimate_range_slider.php:413
@@ -2289,9 +2289,9 @@ msgstr ""
 #: modules/ultimate_fancy_text.php:93 modules/ultimate_headings.php:267
 #: modules/ultimate_hightlight_box.php:69 modules/ultimate_hotspot.php:722
 #: modules/ultimate_hotspot.php:738 modules/ultimate_hotspot.php:804
-#: modules/ultimate_hotspot.php:867 modules/ultimate_ihover.php:566
-#: modules/ultimate_ihover.php:951 modules/ultimate_ihover.php:963
-#: modules/ultimate_ihover.php:975 modules/ultimate_image_separator.php:151
+#: modules/ultimate_hotspot.php:867 modules/ultimate_ihover.php:567
+#: modules/ultimate_ihover.php:952 modules/ultimate_ihover.php:964
+#: modules/ultimate_ihover.php:976 modules/ultimate_image_separator.php:151
 #: modules/ultimate_info_banner.php:112 modules/ultimate_info_circle.php:414
 #: modules/ultimate_just_icon.php:299 modules/ultimate_modals.php:775
 #: modules/ultimate_range_slider.php:395 modules/ultimate_range_slider.php:414
@@ -2315,8 +2315,8 @@ msgstr ""
 #: modules/ultimate_headings.php:255 modules/ultimate_headings.php:292
 #: modules/ultimate_headings.php:568 modules/ultimate_hotspot.php:720
 #: modules/ultimate_hotspot.php:739 modules/ultimate_hotspot.php:805
-#: modules/ultimate_icon_timeline.php:1178 modules/ultimate_ihover.php:949
-#: modules/ultimate_ihover.php:961 modules/ultimate_ihover.php:973
+#: modules/ultimate_icon_timeline.php:1178 modules/ultimate_ihover.php:950
+#: modules/ultimate_ihover.php:962 modules/ultimate_ihover.php:974
 #: modules/ultimate_image_separator.php:134
 #: modules/ultimate_info_circle.php:412 modules/ultimate_parallax.php:1265
 #: modules/ultimate_range_slider.php:396 modules/ultimate_range_slider.php:415
@@ -2332,9 +2332,9 @@ msgstr ""
 #: modules/ultimate_fancy_text.php:92 modules/ultimate_headings.php:266
 #: modules/ultimate_hightlight_box.php:68 modules/ultimate_hotspot.php:721
 #: modules/ultimate_hotspot.php:740 modules/ultimate_hotspot.php:806
-#: modules/ultimate_hotspot.php:865 modules/ultimate_ihover.php:565
-#: modules/ultimate_ihover.php:950 modules/ultimate_ihover.php:962
-#: modules/ultimate_ihover.php:974 modules/ultimate_image_separator.php:150
+#: modules/ultimate_hotspot.php:865 modules/ultimate_ihover.php:566
+#: modules/ultimate_ihover.php:951 modules/ultimate_ihover.php:963
+#: modules/ultimate_ihover.php:975 modules/ultimate_image_separator.php:150
 #: modules/ultimate_info_banner.php:111 modules/ultimate_info_circle.php:413
 #: modules/ultimate_just_icon.php:298 modules/ultimate_modals.php:774
 #: modules/ultimate_range_slider.php:397 modules/ultimate_range_slider.php:416
@@ -2401,7 +2401,7 @@ msgstr ""
 msgid "Spread"
 msgstr ""
 
-#: modules/ultimate_content_box.php:288 modules/ultimate_ihover.php:937
+#: modules/ultimate_content_box.php:288 modules/ultimate_ihover.php:938
 msgid "Spacing"
 msgstr ""
 
@@ -2758,7 +2758,7 @@ msgid "Text Line Height"
 msgstr ""
 
 #: modules/ultimate_dual_button.php:746 modules/ultimate_dual_button.php:1520
-#: modules/ultimate_icon_timeline.php:215 modules/ultimate_ihover.php:801
+#: modules/ultimate_icon_timeline.php:215 modules/ultimate_ihover.php:802
 #: modules/ultimate_info_circle.php:572 modules/ultimate_info_circle.php:932
 #: modules/ultimate_info_list.php:620 modules/ultimate_link.php:537
 msgid "Border Style"
@@ -3324,7 +3324,7 @@ msgstr ""
 
 #: modules/ultimate_dual_colors.php:77 modules/ultimate_dual_colors.php:96
 #: modules/ultimate_dual_colors.php:115 modules/ultimate_flip_box.php:584
-#: modules/ultimate_hightlight_box.php:89 modules/ultimate_ihover.php:738
+#: modules/ultimate_hightlight_box.php:89 modules/ultimate_ihover.php:739
 #: modules/ultimate_info_circle.php:998 modules/ultimate_info_list.php:875
 #: modules/ultimate_team.php:912
 msgid "Link"
@@ -3350,7 +3350,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:152 modules/ultimate_flip_box.php:411
 #: modules/ultimate_flip_box.php:503 modules/ultimate_headings.php:85
 #: modules/ultimate_icon_timeline.php:337
-#: modules/ultimate_icon_timeline.php:772 modules/ultimate_ihover.php:602
+#: modules/ultimate_icon_timeline.php:772 modules/ultimate_ihover.php:603
 #: modules/ultimate_info_banner.php:65 modules/ultimate_info_box.php:571
 #: modules/ultimate_info_list.php:771 modules/ultimate_info_tables.php:143
 #: modules/ultimate_info_tables.php:170
@@ -3365,7 +3365,7 @@ msgstr ""
 #: modules/ultimate_fancy_text.php:442 modules/ultimate_fancy_text.php:460
 #: modules/ultimate_flip_box.php:414 modules/ultimate_flip_box.php:506
 #: modules/ultimate_headings.php:88 modules/ultimate_icon_timeline.php:340
-#: modules/ultimate_icon_timeline.php:775 modules/ultimate_ihover.php:605
+#: modules/ultimate_icon_timeline.php:775 modules/ultimate_ihover.php:606
 #: modules/ultimate_info_banner.php:68 modules/ultimate_info_box.php:574
 #: modules/ultimate_info_list.php:774 modules/ultimate_info_tables.php:146
 #: modules/ultimate_info_tables.php:173
@@ -3382,7 +3382,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:156 modules/ultimate_fancy_text.php:443
 #: modules/ultimate_flip_box.php:415 modules/ultimate_flip_box.php:507
 #: modules/ultimate_headings.php:89 modules/ultimate_icon_timeline.php:341
-#: modules/ultimate_icon_timeline.php:776 modules/ultimate_ihover.php:606
+#: modules/ultimate_icon_timeline.php:776 modules/ultimate_ihover.php:607
 #: modules/ultimate_info_banner.php:69 modules/ultimate_info_box.php:575
 #: modules/ultimate_info_list.php:775 modules/ultimate_info_tables.php:147
 #: modules/ultimate_info_tables.php:174
@@ -3397,7 +3397,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:157 modules/ultimate_fancy_text.php:444
 #: modules/ultimate_flip_box.php:416 modules/ultimate_flip_box.php:508
 #: modules/ultimate_icon_timeline.php:342
-#: modules/ultimate_icon_timeline.php:777 modules/ultimate_ihover.php:607
+#: modules/ultimate_icon_timeline.php:777 modules/ultimate_ihover.php:608
 #: modules/ultimate_info_banner.php:70 modules/ultimate_info_box.php:576
 #: modules/ultimate_info_list.php:776 modules/ultimate_info_tables.php:148
 #: modules/ultimate_info_tables.php:175
@@ -3410,7 +3410,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:158 modules/ultimate_fancy_text.php:446
 #: modules/ultimate_flip_box.php:417 modules/ultimate_flip_box.php:509
 #: modules/ultimate_headings.php:91 modules/ultimate_icon_timeline.php:343
-#: modules/ultimate_icon_timeline.php:778 modules/ultimate_ihover.php:608
+#: modules/ultimate_icon_timeline.php:778 modules/ultimate_ihover.php:609
 #: modules/ultimate_info_banner.php:72 modules/ultimate_info_box.php:577
 #: modules/ultimate_info_list.php:777 modules/ultimate_info_tables.php:149
 #: modules/ultimate_info_tables.php:177
@@ -3425,7 +3425,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:159 modules/ultimate_fancy_text.php:447
 #: modules/ultimate_flip_box.php:418 modules/ultimate_flip_box.php:510
 #: modules/ultimate_headings.php:92 modules/ultimate_icon_timeline.php:344
-#: modules/ultimate_icon_timeline.php:779 modules/ultimate_ihover.php:609
+#: modules/ultimate_icon_timeline.php:779 modules/ultimate_ihover.php:610
 #: modules/ultimate_info_banner.php:73 modules/ultimate_info_box.php:578
 #: modules/ultimate_info_list.php:778 modules/ultimate_info_tables.php:150
 #: modules/ultimate_interactive_banner_2.php:71
@@ -3438,7 +3438,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:160 modules/ultimate_fancy_text.php:448
 #: modules/ultimate_flip_box.php:419 modules/ultimate_flip_box.php:511
 #: modules/ultimate_headings.php:93 modules/ultimate_icon_timeline.php:345
-#: modules/ultimate_icon_timeline.php:780 modules/ultimate_ihover.php:610
+#: modules/ultimate_icon_timeline.php:780 modules/ultimate_ihover.php:611
 #: modules/ultimate_info_banner.php:74 modules/ultimate_info_box.php:579
 #: modules/ultimate_info_list.php:779 modules/ultimate_info_tables.php:151
 #: modules/ultimate_info_tables.php:178
@@ -3453,7 +3453,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:161 modules/ultimate_flip_box.php:420
 #: modules/ultimate_flip_box.php:512 modules/ultimate_headings.php:94
 #: modules/ultimate_icon_timeline.php:346
-#: modules/ultimate_icon_timeline.php:781 modules/ultimate_ihover.php:611
+#: modules/ultimate_icon_timeline.php:781 modules/ultimate_ihover.php:612
 #: modules/ultimate_info_box.php:580 modules/ultimate_info_list.php:780
 #: modules/ultimate_info_tables.php:152 modules/ultimate_info_tables.php:179
 #: modules/ultimate_interactive_banner_2.php:73
@@ -3467,7 +3467,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:162 modules/ultimate_fancy_text.php:449
 #: modules/ultimate_flip_box.php:421 modules/ultimate_flip_box.php:513
 #: modules/ultimate_headings.php:95 modules/ultimate_icon_timeline.php:347
-#: modules/ultimate_icon_timeline.php:782 modules/ultimate_ihover.php:612
+#: modules/ultimate_icon_timeline.php:782 modules/ultimate_ihover.php:613
 #: modules/ultimate_info_banner.php:75 modules/ultimate_info_box.php:581
 #: modules/ultimate_info_list.php:781 modules/ultimate_info_tables.php:153
 #: modules/ultimate_info_tables.php:180
@@ -3482,7 +3482,7 @@ msgstr ""
 #: modules/ultimate_dual_colors.php:163 modules/ultimate_fancy_text.php:450
 #: modules/ultimate_flip_box.php:422 modules/ultimate_flip_box.php:514
 #: modules/ultimate_headings.php:96 modules/ultimate_icon_timeline.php:348
-#: modules/ultimate_icon_timeline.php:783 modules/ultimate_ihover.php:613
+#: modules/ultimate_icon_timeline.php:783 modules/ultimate_ihover.php:614
 #: modules/ultimate_info_banner.php:76 modules/ultimate_info_box.php:582
 #: modules/ultimate_info_list.php:782 modules/ultimate_info_tables.php:154
 #: modules/ultimate_info_tables.php:181
@@ -3496,7 +3496,7 @@ msgstr ""
 
 #: modules/ultimate_dual_colors.php:165 modules/ultimate_flip_box.php:424
 #: modules/ultimate_flip_box.php:516 modules/ultimate_icon_timeline.php:350
-#: modules/ultimate_icon_timeline.php:785 modules/ultimate_ihover.php:615
+#: modules/ultimate_icon_timeline.php:785 modules/ultimate_ihover.php:616
 #: modules/ultimate_info_box.php:584 modules/ultimate_info_list.php:784
 #: modules/ultimate_info_tables.php:156
 #: modules/ultimate_interactive_banners.php:77
@@ -3529,8 +3529,8 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:706
 #: modules/ultimate_icon_timeline.php:1028
 #: modules/ultimate_icon_timeline.php:1141 modules/ultimate_icons.php:167
-#: modules/ultimate_icons.php:291 modules/ultimate_ihover.php:805
-#: modules/ultimate_ihover.php:887 modules/ultimate_info_box.php:455
+#: modules/ultimate_icons.php:291 modules/ultimate_ihover.php:806
+#: modules/ultimate_ihover.php:888 modules/ultimate_info_box.php:455
 #: modules/ultimate_info_box.php:685 modules/ultimate_info_circle.php:535
 #: modules/ultimate_info_circle.php:575 modules/ultimate_info_circle.php:654
 #: modules/ultimate_info_circle.php:668 modules/ultimate_info_circle.php:935
@@ -3659,7 +3659,7 @@ msgstr ""
 
 #: modules/ultimate_expandable_section.php:509
 #: modules/ultimate_flip_box.php:365 modules/ultimate_flip_box.php:441
-#: modules/ultimate_flip_box.php:532 modules/ultimate_ihover.php:756
+#: modules/ultimate_flip_box.php:532 modules/ultimate_ihover.php:757
 #: modules/ultimate_interactive_banner_2.php:270
 #: modules/ultimate_range_slider.php:371
 msgid "Title Color"
@@ -3880,7 +3880,7 @@ msgstr ""
 
 #: modules/ultimate_fancy_text.php:91 modules/ultimate_headings.php:265
 #: modules/ultimate_hightlight_box.php:67 modules/ultimate_hotspot.php:866
-#: modules/ultimate_ihover.php:564 modules/ultimate_image_separator.php:149
+#: modules/ultimate_ihover.php:565 modules/ultimate_image_separator.php:149
 #: modules/ultimate_info_banner.php:110 modules/ultimate_info_banner.php:158
 #: modules/ultimate_just_icon.php:297 modules/ultimate_modals.php:773
 #: modules/ultimate_ribbons.php:135 modules/ultimate_team.php:846
@@ -4197,7 +4197,7 @@ msgid "Color of title text."
 msgstr ""
 
 #: modules/ultimate_flip_box.php:377 modules/ultimate_flip_box.php:454
-#: modules/ultimate_flip_box.php:545 modules/ultimate_ihover.php:763
+#: modules/ultimate_flip_box.php:545 modules/ultimate_ihover.php:764
 #: modules/ultimate_interactive_banner_2.php:279
 #: modules/ultimate_range_slider.php:472
 msgid "Description Color"
@@ -4348,7 +4348,7 @@ msgid ""
 msgstr ""
 
 #: modules/ultimate_flip_box.php:696 modules/ultimate_icon_timeline.php:356
-#: modules/ultimate_icon_timeline.php:791 modules/ultimate_ihover.php:982
+#: modules/ultimate_icon_timeline.php:791 modules/ultimate_ihover.php:983
 #: modules/ultimate_info_box.php:748
 msgid "Title settings"
 msgstr ""
@@ -4359,7 +4359,7 @@ msgid "Font Line Height"
 msgstr ""
 
 #: modules/ultimate_flip_box.php:750 modules/ultimate_icon_timeline.php:425
-#: modules/ultimate_icon_timeline.php:860 modules/ultimate_ihover.php:1034
+#: modules/ultimate_icon_timeline.php:860 modules/ultimate_ihover.php:1035
 #: modules/ultimate_info_box.php:806
 msgid "Description settings"
 msgstr ""
@@ -4986,7 +4986,7 @@ msgid "Select text source."
 msgstr ""
 
 #: modules/ultimate_headings.php:74 modules/ultimate_icon_timeline.php:328
-#: modules/ultimate_icon_timeline.php:763 modules/ultimate_ihover.php:594
+#: modules/ultimate_icon_timeline.php:763 modules/ultimate_ihover.php:595
 #: modules/ultimate_info_box.php:562 modules/ultimate_info_circle.php:860
 #: modules/ultimate_info_list.php:762 modules/ultimate_link.php:388
 #: modules/ultimate_tab.php:1277 modules/ultimate_team.php:904
@@ -5086,7 +5086,7 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:79 modules/ultimate_icon_timeline.php:219
 #: modules/ultimate_icon_timeline.php:594
 #: modules/ultimate_icon_timeline.php:1029 modules/ultimate_icons.php:168
-#: modules/ultimate_ihover.php:804 modules/ultimate_ihover.php:881
+#: modules/ultimate_ihover.php:805 modules/ultimate_ihover.php:882
 #: modules/ultimate_info_banner.php:264 modules/ultimate_info_box.php:456
 #: modules/ultimate_info_box.php:686 modules/ultimate_info_circle.php:536
 #: modules/ultimate_info_circle.php:576 modules/ultimate_info_circle.php:936
@@ -5108,7 +5108,7 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:80 modules/ultimate_icon_timeline.php:220
 #: modules/ultimate_icon_timeline.php:595
 #: modules/ultimate_icon_timeline.php:1030 modules/ultimate_icons.php:169
-#: modules/ultimate_ihover.php:882 modules/ultimate_info_banner.php:265
+#: modules/ultimate_ihover.php:883 modules/ultimate_info_banner.php:265
 #: modules/ultimate_info_box.php:457 modules/ultimate_info_box.php:687
 #: modules/ultimate_info_circle.php:537 modules/ultimate_info_circle.php:577
 #: modules/ultimate_info_circle.php:937 modules/ultimate_info_list.php:625
@@ -5130,7 +5130,7 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:78 modules/ultimate_icon_timeline.php:221
 #: modules/ultimate_icon_timeline.php:596
 #: modules/ultimate_icon_timeline.php:1031 modules/ultimate_icons.php:170
-#: modules/ultimate_ihover.php:883 modules/ultimate_info_banner.php:266
+#: modules/ultimate_ihover.php:884 modules/ultimate_info_banner.php:266
 #: modules/ultimate_info_box.php:458 modules/ultimate_info_box.php:688
 #: modules/ultimate_info_circle.php:538 modules/ultimate_info_circle.php:578
 #: modules/ultimate_info_circle.php:938 modules/ultimate_info_list.php:626
@@ -5152,7 +5152,7 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:222
 #: modules/ultimate_icon_timeline.php:597
 #: modules/ultimate_icon_timeline.php:1032 modules/ultimate_icons.php:171
-#: modules/ultimate_ihover.php:884 modules/ultimate_info_banner.php:267
+#: modules/ultimate_ihover.php:885 modules/ultimate_info_banner.php:267
 #: modules/ultimate_info_box.php:459 modules/ultimate_info_box.php:689
 #: modules/ultimate_info_circle.php:579 modules/ultimate_info_circle.php:939
 #: modules/ultimate_info_list.php:627 modules/ultimate_info_tables.php:303
@@ -5171,7 +5171,7 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:223
 #: modules/ultimate_icon_timeline.php:598
 #: modules/ultimate_icon_timeline.php:1033 modules/ultimate_icons.php:172
-#: modules/ultimate_ihover.php:885 modules/ultimate_info_box.php:460
+#: modules/ultimate_ihover.php:886 modules/ultimate_info_box.php:460
 #: modules/ultimate_info_box.php:690 modules/ultimate_info_circle.php:580
 #: modules/ultimate_info_circle.php:940 modules/ultimate_info_list.php:628
 #: modules/ultimate_info_tables.php:304 modules/ultimate_just_icon.php:159
@@ -5191,7 +5191,7 @@ msgstr ""
 #: modules/ultimate_icon_timeline.php:224
 #: modules/ultimate_icon_timeline.php:599
 #: modules/ultimate_icon_timeline.php:1034 modules/ultimate_icons.php:173
-#: modules/ultimate_ihover.php:886 modules/ultimate_info_box.php:461
+#: modules/ultimate_ihover.php:887 modules/ultimate_info_box.php:461
 #: modules/ultimate_info_box.php:691 modules/ultimate_info_circle.php:581
 #: modules/ultimate_info_circle.php:941 modules/ultimate_info_list.php:629
 #: modules/ultimate_info_tables.php:305 modules/ultimate_just_icon.php:160
@@ -5681,7 +5681,7 @@ msgid "Provide the title for this timeline item."
 msgstr ""
 
 #: modules/ultimate_icon_timeline.php:415
-#: modules/ultimate_icon_timeline.php:850 modules/ultimate_ihover.php:630
+#: modules/ultimate_icon_timeline.php:850 modules/ultimate_ihover.php:631
 #: modules/ultimate_info_banner.php:84 modules/ultimate_info_box.php:591
 #: modules/ultimate_info_circle.php:925 modules/ultimate_info_list.php:857
 #: modules/ultimate_interactive_banner_2.php:83 modules/ultimate_team.php:835
@@ -5813,307 +5813,307 @@ msgstr ""
 msgid "Enter your tooltip text here."
 msgstr ""
 
-#: modules/ultimate_ihover.php:504
+#: modules/ultimate_ihover.php:505
 msgid "Image hover effects with information."
 msgstr ""
 
-#: modules/ultimate_ihover.php:509
+#: modules/ultimate_ihover.php:510
 msgid "Thumbnail Shape"
 msgstr ""
 
-#: modules/ultimate_ihover.php:519
+#: modules/ultimate_ihover.php:520
 msgid "Thumbnail Height & Width"
 msgstr ""
 
-#: modules/ultimate_ihover.php:528
+#: modules/ultimate_ihover.php:529
 msgid "Responsive Size"
 msgstr ""
 
-#: modules/ultimate_ihover.php:534
+#: modules/ultimate_ihover.php:535
 msgid "Add responsive size below 768px."
 msgstr ""
 
-#: modules/ultimate_ihover.php:542
+#: modules/ultimate_ihover.php:543
 msgid "Responsive Thumbnail Height & Width"
 msgstr ""
 
-#: modules/ultimate_ihover.php:553
+#: modules/ultimate_ihover.php:554
 msgid "Spacing Between Two Thumbnails"
 msgstr ""
 
-#: modules/ultimate_ihover.php:561
+#: modules/ultimate_ihover.php:562
 msgid "iHover Alignment"
 msgstr ""
 
-#: modules/ultimate_ihover.php:582
+#: modules/ultimate_ihover.php:583
 msgid "iHover Item"
 msgstr ""
 
-#: modules/ultimate_ihover.php:621 modules/ultimate_modals.php:714
+#: modules/ultimate_ihover.php:622 modules/ultimate_modals.php:714
 msgid "Upload Image"
 msgstr ""
 
-#: modules/ultimate_ihover.php:624
+#: modules/ultimate_ihover.php:625
 msgid "Upload image."
 msgstr ""
 
-#: modules/ultimate_ihover.php:633
+#: modules/ultimate_ihover.php:634
 msgid "Provide the description for the iHover."
 msgstr ""
 
-#: modules/ultimate_ihover.php:641
+#: modules/ultimate_ihover.php:642
 msgid "Hover Effect"
 msgstr ""
 
-#: modules/ultimate_ihover.php:645
+#: modules/ultimate_ihover.php:646
 msgid "Effect 1"
 msgstr ""
 
-#: modules/ultimate_ihover.php:646
+#: modules/ultimate_ihover.php:647
 msgid "Effect 2"
 msgstr ""
 
-#: modules/ultimate_ihover.php:647
+#: modules/ultimate_ihover.php:648
 msgid "Effect 3"
 msgstr ""
 
-#: modules/ultimate_ihover.php:648
+#: modules/ultimate_ihover.php:649
 msgid "Effect 4"
 msgstr ""
 
-#: modules/ultimate_ihover.php:649
+#: modules/ultimate_ihover.php:650
 msgid "Effect 5"
 msgstr ""
 
-#: modules/ultimate_ihover.php:650
+#: modules/ultimate_ihover.php:651
 msgid "Effect 6"
 msgstr ""
 
-#: modules/ultimate_ihover.php:651
+#: modules/ultimate_ihover.php:652
 msgid "Effect 7"
 msgstr ""
 
-#: modules/ultimate_ihover.php:652
+#: modules/ultimate_ihover.php:653
 msgid "Effect 8"
 msgstr ""
 
-#: modules/ultimate_ihover.php:653
+#: modules/ultimate_ihover.php:654
 msgid "Effect 9"
 msgstr ""
 
-#: modules/ultimate_ihover.php:654
+#: modules/ultimate_ihover.php:655
 msgid "Effect 10"
 msgstr ""
 
-#: modules/ultimate_ihover.php:655
+#: modules/ultimate_ihover.php:656
 msgid "Effect 11"
 msgstr ""
 
-#: modules/ultimate_ihover.php:656
+#: modules/ultimate_ihover.php:657
 msgid "Effect 12"
 msgstr ""
 
-#: modules/ultimate_ihover.php:657
+#: modules/ultimate_ihover.php:658
 msgid "Effect 13"
 msgstr ""
 
-#: modules/ultimate_ihover.php:658
+#: modules/ultimate_ihover.php:659
 msgid "Effect 14"
 msgstr ""
 
-#: modules/ultimate_ihover.php:659
+#: modules/ultimate_ihover.php:660
 msgid "Effect 15"
 msgstr ""
 
-#: modules/ultimate_ihover.php:660
+#: modules/ultimate_ihover.php:661
 msgid "Effect 16"
 msgstr ""
 
-#: modules/ultimate_ihover.php:661
+#: modules/ultimate_ihover.php:662
 msgid "Effect 17"
 msgstr ""
 
-#: modules/ultimate_ihover.php:662
+#: modules/ultimate_ihover.php:663
 msgid "Effect 18"
 msgstr ""
 
-#: modules/ultimate_ihover.php:663
+#: modules/ultimate_ihover.php:664
 msgid "Effect 19"
 msgstr ""
 
-#: modules/ultimate_ihover.php:664
+#: modules/ultimate_ihover.php:665
 msgid "Effect 20"
 msgstr ""
 
-#: modules/ultimate_ihover.php:666
+#: modules/ultimate_ihover.php:667
 msgid "Select the Hover Effect for iHover."
 msgstr ""
 
-#: modules/ultimate_ihover.php:671 modules/ultimate_ihover.php:704
-#: modules/ultimate_ihover.php:719
+#: modules/ultimate_ihover.php:672 modules/ultimate_ihover.php:705
+#: modules/ultimate_ihover.php:720
 msgid "Hover Effect Direction"
 msgstr ""
 
-#: modules/ultimate_ihover.php:674
+#: modules/ultimate_ihover.php:675
 msgid "Towards Left"
 msgstr ""
 
-#: modules/ultimate_ihover.php:675
+#: modules/ultimate_ihover.php:676
 msgid "Towards Right"
 msgstr ""
 
-#: modules/ultimate_ihover.php:676
+#: modules/ultimate_ihover.php:677
 msgid "Towards Top"
 msgstr ""
 
-#: modules/ultimate_ihover.php:677
+#: modules/ultimate_ihover.php:678
 msgid "Towards Bottom"
 msgstr ""
 
-#: modules/ultimate_ihover.php:679 modules/ultimate_ihover.php:710
-#: modules/ultimate_ihover.php:725
+#: modules/ultimate_ihover.php:680 modules/ultimate_ihover.php:711
+#: modules/ultimate_ihover.php:726
 msgid "Select the Hover Effect Direction for iHover."
 msgstr ""
 
-#: modules/ultimate_ihover.php:688
+#: modules/ultimate_ihover.php:689
 msgid "Hover Effect Scale"
 msgstr ""
 
-#: modules/ultimate_ihover.php:691
+#: modules/ultimate_ihover.php:692
 msgid "Scale Up"
 msgstr ""
 
-#: modules/ultimate_ihover.php:692
+#: modules/ultimate_ihover.php:693
 msgid "Scale Down"
 msgstr ""
 
-#: modules/ultimate_ihover.php:693
+#: modules/ultimate_ihover.php:694
 msgid "Scale Down Up"
 msgstr ""
 
-#: modules/ultimate_ihover.php:695
+#: modules/ultimate_ihover.php:696
 msgid "Select the Hover Effect Scale for iHover."
 msgstr ""
 
-#: modules/ultimate_ihover.php:707 modules/ultimate_parallax.php:731
+#: modules/ultimate_ihover.php:708 modules/ultimate_parallax.php:731
 msgid "Top to Bottom"
 msgstr ""
 
-#: modules/ultimate_ihover.php:708 modules/ultimate_parallax.php:732
+#: modules/ultimate_ihover.php:709 modules/ultimate_parallax.php:732
 msgid "Bottom to Top"
 msgstr ""
 
-#: modules/ultimate_ihover.php:722 modules/ultimate_parallax.php:729
+#: modules/ultimate_ihover.php:723 modules/ultimate_parallax.php:729
 msgid "Left to Right"
 msgstr ""
 
-#: modules/ultimate_ihover.php:723 modules/ultimate_parallax.php:730
+#: modules/ultimate_ihover.php:724 modules/ultimate_parallax.php:730
 msgid "Right to Left"
 msgstr ""
 
-#: modules/ultimate_ihover.php:734
+#: modules/ultimate_ihover.php:735
 msgid "On Click"
 msgstr ""
 
-#: modules/ultimate_ihover.php:737
+#: modules/ultimate_ihover.php:738
 msgid "Do Nothing"
 msgstr ""
 
-#: modules/ultimate_ihover.php:744
+#: modules/ultimate_ihover.php:745
 msgid "Apply Link to:"
 msgstr ""
 
-#: modules/ultimate_ihover.php:747
+#: modules/ultimate_ihover.php:748
 msgid "Provide the link for iHover."
 msgstr ""
 
-#: modules/ultimate_ihover.php:770
+#: modules/ultimate_ihover.php:771
 msgid "iHover Background Color"
 msgstr ""
 
-#: modules/ultimate_ihover.php:777
+#: modules/ultimate_ihover.php:778
 msgid "Thumbnail Border Styling"
 msgstr ""
 
-#: modules/ultimate_ihover.php:789
+#: modules/ultimate_ihover.php:790
 msgid "Spinner Border Styling"
 msgstr ""
 
-#: modules/ultimate_ihover.php:807
+#: modules/ultimate_ihover.php:808
 msgid "Select Thumbnail Border Style for iHover."
 msgstr ""
 
-#: modules/ultimate_ihover.php:829
+#: modules/ultimate_ihover.php:830
 msgid "Spinner - Top-Left"
 msgstr ""
 
-#: modules/ultimate_ihover.php:832
+#: modules/ultimate_ihover.php:833
 msgid "Select Spinner - Top-Left Border Color."
 msgstr ""
 
-#: modules/ultimate_ihover.php:842
+#: modules/ultimate_ihover.php:843
 msgid "Spinner - Bottom-Right"
 msgstr ""
 
-#: modules/ultimate_ihover.php:845
+#: modules/ultimate_ihover.php:846
 msgid "Select Spinner - Bottom Right Border Color."
 msgstr ""
 
-#: modules/ultimate_ihover.php:855 modules/ultimate_info_circle.php:948
+#: modules/ultimate_ihover.php:856 modules/ultimate_info_circle.php:948
 msgid "Border Thickness"
 msgstr ""
 
-#: modules/ultimate_ihover.php:870
+#: modules/ultimate_ihover.php:871
 msgid "Heading & Description Divider"
 msgstr ""
 
-#: modules/ultimate_ihover.php:878
+#: modules/ultimate_ihover.php:879
 msgid "Divider - Style"
 msgstr ""
 
-#: modules/ultimate_ihover.php:889
+#: modules/ultimate_ihover.php:890
 msgid "Select Heading & Description's Divider Border Style."
 msgstr ""
 
-#: modules/ultimate_ihover.php:895
+#: modules/ultimate_ihover.php:896
 msgid "Divider - Border Color"
 msgstr ""
 
-#: modules/ultimate_ihover.php:898
+#: modules/ultimate_ihover.php:899
 msgid "Select Divider Border Color."
 msgstr ""
 
-#: modules/ultimate_ihover.php:908
+#: modules/ultimate_ihover.php:909
 msgid "Divider - Line Width (optional)"
 msgstr ""
 
-#: modules/ultimate_ihover.php:912
+#: modules/ultimate_ihover.php:913
 msgid "Width of Divider Border. Default: 100%;"
 msgstr ""
 
-#: modules/ultimate_ihover.php:922
+#: modules/ultimate_ihover.php:923
 msgid "Divider - Border Thickness"
 msgstr ""
 
-#: modules/ultimate_ihover.php:926
+#: modules/ultimate_ihover.php:927
 msgid "Height of Divider Border."
 msgstr ""
 
-#: modules/ultimate_ihover.php:939
+#: modules/ultimate_ihover.php:940
 msgid ""
 "Add Space Between Title, Divider and Description. Just put only numbers in "
 "textbox. All values will consider in px."
 msgstr ""
 
-#: modules/ultimate_ihover.php:945
+#: modules/ultimate_ihover.php:946
 msgid "Title Margins"
 msgstr ""
 
-#: modules/ultimate_ihover.php:957
+#: modules/ultimate_ihover.php:958
 msgid "Divider Margins"
 msgstr ""
 
-#: modules/ultimate_ihover.php:969
+#: modules/ultimate_ihover.php:970
 msgid "Description Margins"
 msgstr ""
 

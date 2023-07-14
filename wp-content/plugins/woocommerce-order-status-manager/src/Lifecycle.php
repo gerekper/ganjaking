@@ -18,7 +18,7 @@
  *
  * @package     WC-Order-Status-Manager
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Order_Status_Manager;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Plugin lifecycle handler.
@@ -56,6 +56,8 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 			'1.6.1',
 			'1.11.4',
 			'1.13.1',
+			'1.15.1',
+			'1.15.2',
 		];
 	}
 
@@ -230,6 +232,70 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 			update_option( 'wc_order_status_manager_show_paid_pending_status_notice', 'yes' );
 		}
+	}
+
+
+	/**
+	 * Regenerates download permissions for paid orders.
+	 *
+	 * In v1.15.0 there was a bug where the download permissions were not being regenerated for orders moved to paid status.
+	 *
+	 * @see \WC_Order_Status_Manager_Order_Statuses::regenerate_download_permissions()
+	 *
+	 * @internal
+	 * @since 1.15.1
+	 *
+	 * @param string|mixed|null $installed_version
+	 * @return void
+	 */
+	public function upgrade_to_1_15_1( $installed_version = null ) : void {
+
+		// this bug only affected v1.15.0
+		if ( $installed_version && '1.15.0' !== $installed_version ) {
+			return;
+		}
+
+		// this bug only affected orders placed after v1.15.0 was released
+		$orders = wc_get_orders([
+			'type'      => 'shop_order',
+			'date_paid' => '>=2023-07-03',
+			'limit'     => -1,
+		]);
+
+		$order_statuses = $this->get_plugin()->get_order_statuses_instance();
+
+		if ( ! $orders || ! $order_statuses ) {
+			return;
+		}
+
+		foreach ( $orders as $order ) {
+			if ( $order instanceof \WC_Order_Refund ) {
+				continue;
+			}
+
+			$order_statuses->regenerate_download_permissions( $order->get_id(), $order->get_status(), $order->get_status(), $order );
+		}
+	}
+
+
+	/**
+	 * Ensures that the v1.15.1 upgrade routine executes without errors.
+	 *
+	 * This is because the original v1.15.1 routine did not exclude order refunds from the query and may have triggered errors and not completed successfully.
+	 *
+	 * @since 1.15.2
+	 *
+	 * @param $installed_version
+	 * @return void
+	 */
+	public function upgrade_to_1_15_2( $installed_version = null ) {
+
+		// only re-apply the 1.15.1 upgrade routine if it was not completed successfully the first time - upgrading from 1.15.0 would still run the routine
+		if ( $installed_version !== '1.15.1' ) {
+			return;
+		}
+
+		$this->upgrade_to_1_15_1( '1.15.0' );
 	}
 
 

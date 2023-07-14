@@ -487,45 +487,47 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 
 			$border_css       = '';
 			$gmap_design_css  = '';
-			$gmap_design_css  = $ult_google_settings['gmap_margin'];
-			$gmap_design_css .= $ult_google_settings['gmap_padding'];
-			$marker_lat       = $ult_google_settings['lat'];
-			$marker_lng       = $ult_google_settings['lng'];
+			$gmap_design_css  = sanitize_html_class( $ult_google_settings['gmap_margin'] );
+			$gmap_design_css .= sanitize_html_class( $ult_google_settings['gmap_padding'] );
+
+			$marker_lat       = "'" . floatval( esc_js( $ult_google_settings['lat'] ) ) . "'";
+			$marker_lng       = "'" . floatval( esc_js( $ult_google_settings['lng'] ) ) . "'";
+
 			if ( 'default_self' == $ult_google_settings['marker_icon'] ) {
-				$icon_url = UAVC_URL . 'assets/img/icon-marker-pink.png';
+				$icon_url = esc_url( UAVC_URL . 'assets/img/icon-marker-pink.png' );
 			} elseif ( 'default' == $ult_google_settings['marker_icon'] ) {
 				$icon_url = '';
 			} else {
-				$icon_url = apply_filters( 'ult_get_img_single', $ult_google_settings['icon_img'], 'url' );
+				$icon_url = esc_url( apply_filters( 'ult_get_img_single', $ult_google_settings['icon_img'], 'url' ) );
 			}
 			$id                              = 'map_' . uniqid();
 			$wrap_id                         = 'wrap_' . $id;
-			$ult_google_settings['map_type'] = strtoupper( $ult_google_settings['map_type'] );
+			$ult_google_settings['map_type'] = sanitize_key( strtoupper( esc_attr( $ult_google_settings['map_type'] ) ) );
 			$ult_google_settings['width']    = ( substr( $ult_google_settings['width'], -1 ) != '%' && substr( $ult_google_settings['width'], -2 ) != 'px' ? $ult_google_settings['width'] . 'px' : $ult_google_settings['width'] );
 			$map_height                      = ( substr( $ult_google_settings['height'], -1 ) != '%' && substr( $ult_google_settings['height'], -2 ) != 'px' ? $ult_google_settings['height'] . 'px' : $ult_google_settings['height'] );
 
 			$margin_css = '';
 			if ( 'none' != $ult_google_settings['top_margin'] ) {
-				$margin_css = $ult_google_settings['top_margin'];
+				$margin_css = intval( $ult_google_settings['top_margin'] );
 			}
 
 			if ( '' != $ult_google_settings['map_border_style'] ) {
-				$border_css .= 'border-style:' . $ult_google_settings['map_border_style'] . ';';
+				$border_css .= 'border-style:' . sanitize_text_field( $ult_google_settings['map_border_style'] ) . ';';
 			}
 			if ( '' != $ult_google_settings['map_color_border'] ) {
-				$border_css .= 'border-color:' . $ult_google_settings['map_color_border'] . ';';
+				$border_css .= 'border-color:' . sanitize_text_field( $ult_google_settings['map_color_border'] ) . ';';
 			}
 			if ( '' != $ult_google_settings['map_border_size'] ) {
-				$border_css .= 'border-width:' . $ult_google_settings['map_border_size'] . 'px;';
+				$border_css .= 'border-width:' . absint( $ult_google_settings['map_border_size'] ) . 'px;';
 			}
 			if ( '' != $ult_google_settings['map_radius'] ) {
-				$border_css .= 'border-radius:' . $ult_google_settings['map_radius'] . 'px;';
+				$border_css .= 'border-radius:' . absint( $ult_google_settings['map_radius'] ) . 'px;';
 			}
 			if ( 'map_vc_template_value' == $ult_google_settings['map_vc_template'] ) {
 				$ult_google_settings['el_class'] .= 'uvc-boxed-layout';
 			}
 
-			$output .= "<div id='" . esc_attr( $wrap_id ) . "' class='ultimate-map-wrapper " . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $ult_google_settings['el_class'] ) . "' style='" . esc_attr( $gmap_design_css ) . ' ' . ( '' != $map_height ? 'height:' . $map_height . ';' : '' ) . "'><div id='" . esc_attr( $id ) . "' data-map_override='" . esc_attr( $ult_google_settings['map_override'] ) . "' class='ultimate_google_map wpb_content_element " . esc_attr( $margin_css ) . "'" . ( '' != $ult_google_settings['width'] || '' != $map_height ? " style='" . esc_attr( $border_css ) . ( '' != $ult_google_settings['width'] ? 'width:' . esc_attr( $ult_google_settings['width'] ) . ';' : '' ) . ( '' != $map_height ? 'height:' . esc_attr( $map_height ) . ';' : '' ) . "'" : '' ) . '></div></div>';
+			$output .= "<div id='" . esc_attr( $wrap_id ) . "' class='ultimate-map-wrapper " . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $ult_google_settings['el_class'] ) . "' style='" . esc_attr( $gmap_design_css ) . ' ' . ( '' != $map_height ? 'height:' . esc_attr( $map_height ) . ';' : '' ) . "'><div id='" . esc_attr( $id ) . "' data-map_override='" . esc_attr( $ult_google_settings['map_override'] ) . "' class='ultimate_google_map wpb_content_element " . esc_attr( $margin_css ) . "'" . ( '' != $ult_google_settings['width'] || '' != $map_height ? " style='" . esc_attr( $border_css ) . ( '' != $ult_google_settings['width'] ? 'width:' . esc_attr( $ult_google_settings['width'] ) . ';' : '' ) . ( '' != $map_height ? 'height:' . esc_attr( $map_height ) . ';' : '' ) . "'" : '' ) . '></div></div>';
 
 			if ( 'disable' == $ult_google_settings['scrollwheel'] ) {
 				$ult_google_settings['scrollwheel'] = 'false';
@@ -538,36 +540,38 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
   			'use strict';
 			var map_$id = null;
 			var coordinate_$id;
-			var isDraggable = $(document).width() > 641 ? " . $ult_google_settings['dragging_desktop'] . ' : ' . $ult_google_settings['dragging'] . ";
+			var isDraggable = $(document).width() > 641 ? '" . esc_js( $ult_google_settings['dragging_desktop'] ) . "' : '" . esc_js( $ult_google_settings['dragging'] ) . "';
 			try
 			{
 				var map_$id = null;
 				var coordinate_$id;
-				coordinate_$id=new google.maps.LatLng(" . $ult_google_settings['lat'] . ', ' . $ult_google_settings['lng'] . ');
+				coordinate_$id = new google.maps.LatLng(" . floatval( esc_js( $ult_google_settings['lat'] ) ) . ', ' . floatval( esc_js( $ult_google_settings['lng'] ) ) . ');
 				var mapOptions=
 				{
-					zoom: ' . $ult_google_settings['zoom'] . ",
+					zoom: ' . intval( $ult_google_settings['zoom'] ) . ",
 					center: coordinate_$id,
 					scaleControl: true,
-					streetViewControl: " . $ult_google_settings['streetviewcontrol'] . ',
-					mapTypeControl: ' . $ult_google_settings['maptypecontrol'] . ',
-					panControl: ' . $ult_google_settings['pancontrol'] . ',
-					zoomControl: ' . $ult_google_settings['zoomcontrol'] . ',
-					scrollwheel: ' . $ult_google_settings['scrollwheel'] . ',
+					streetViewControl: " . ( esc_js( $ult_google_settings['streetviewcontrol'] ) ? 'true' : 'false' ) . ',
+					mapTypeControl: \'' . esc_js( $ult_google_settings['maptypecontrol'] ) . '\',
+					panControl: \'' . esc_js( $ult_google_settings['pancontrol'] ) . '\',
+					zoomControl: \'' . esc_js( $ult_google_settings['zoomcontrol'] ) . '\',
+					scrollwheel: \'' . esc_js( $ult_google_settings['scrollwheel'] ) . '\',
 					draggable: isDraggable,
 					zoomControlOptions: {
-						position: google.maps.ControlPosition.' . $ult_google_settings['zoomcontrolposition'] . '
+						position: google.maps.ControlPosition.' . esc_js( sanitize_key( $ult_google_settings['zoomcontrolposition'] ) ) . '
 					},';
 			if ( '' == $ult_google_settings['map_style'] ) {
-				$output .= 'mapTypeId: google.maps.MapTypeId.' . $ult_google_settings['map_type'] . ',';
+				$output .= 'mapTypeId: google.maps.MapTypeId.' . esc_js( sanitize_key( $ult_google_settings['map_type'] ) ) . ',';
 			} else {
 				$output .= ' mapTypeControlOptions: {
-					  		mapTypeIds: [google.maps.MapTypeId.' . $ult_google_settings['map_type'] . ", 'map_style']
+							mapTypeIds: [google.maps.MapTypeId.' . esc_js( sanitize_key( $ult_google_settings['map_type'] ) ) . ", 'map_style']
 						}";
 			}
 				$output .= '};';
 			if ( '' !== $ult_google_settings['map_style'] ) {
-				$output .= 'var styles = ' . rawurldecode( base64_decode( wp_strip_all_tags( $ult_google_settings['map_style'] ) ) ) . '; var styledMap = new google.maps.StyledMapType(styles,{name: "Styled Map"});'; //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+				$map_style = wp_json_encode( $ult_google_settings['map_style'] );
+				$styles    = json_decode( $map_style, true );
+				$output   .= 'var styles = ' . json_encode( $styles ) . '; var styledMap = new google.maps.StyledMapType(styles,{name: "Styled Map"});'; //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			}
 				$output .= "var map_$id = new google.maps.Map(document.getElementById('$id'),mapOptions);";
 			if ( '' !== $ult_google_settings['map_style'] ) {
@@ -588,7 +592,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 
 				if ( '' !== trim( $content ) ) {
 					$output .= "var infowindow = new google.maps.InfoWindow();
-							infowindow.setContent('<div class=\"map_info_text\" style=\'color:#000;\'>" . trim( preg_replace( '/\s+/', ' ', do_shortcode( $content ) ) ) . "</div>');";
+							infowindow.setContent('<div class=\"map_info_text\" style=\'color:#000;\'>" . esc_js( trim( preg_replace( '/\s+/', ' ', do_shortcode( $content ) ) ) ) . "</div>');";
 
 					if ( 'off' == $ult_google_settings['infowindow_open'] ) {
 						$output .= "infowindow.open(map_$id,marker_$id);";
@@ -604,12 +608,12 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 			catch(e){};
 			jQuery(document).ready(function($){
 				google.maps.event.trigger(map_$id, 'resize');
-				$(window).resize(function(){
+				$(window).on('resize', function(){
 					google.maps.event.trigger(map_$id, 'resize');
 					if(map_$id!=null)
 						map_$id.setCenter(coordinate_$id);
 				});
-				$('.ui-tabs').bind('tabsactivate', function(event, ui) {
+				$('.ui-tabs').on('tabsactivate', function(event, ui) {
 				   if($(this).find('.ultimate-map-wrapper').length > 0)
 					{
 						setTimeout(function(){
@@ -617,7 +621,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 						},200);
 					}
 				});
-				$('.ui-accordion').bind('accordionactivate', function(event, ui) {
+				$('.ui-accordion').on('accordionactivate', function(event, ui) {
 				   if($(this).find('.ultimate-map-wrapper').length > 0)
 					{
 						setTimeout(function(){
@@ -630,7 +634,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 						$(window).trigger('resize');
 					},200);
 				});
-				$('.ult_exp_section').select(function(){
+				$('.ult_exp_section').on('select', function(){
 					if($(map_$id).parents('.ult_exp_section'))
 					{
 						setTimeout(function(){

@@ -24,7 +24,7 @@ jQuery( document ).ready( function ( $ ) {
 			temp_mobile = '';
 
 		if ( typeof n !== 'undefined' || n != null ) {
-			$.each( $.parseJSON( n ), function ( i, v ) {
+			$.each( JSON.parse( n ), function ( i, v ) {
 				// set css property
 				const css_prop = i;
 				if ( typeof v !== 'undefined' && v != null ) {

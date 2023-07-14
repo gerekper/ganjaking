@@ -250,7 +250,7 @@ $global_availability_rule_per_page = $show_google_event ? 250 : count( $global_a
 
 		<!-- These fields will be used to lazy load availability rules. -->
 		<input type="hidden" name="can-lazy-load-availability-rules" value="<?php echo absint( $can_lazy_load_availability_rules ); ?>" disabled>
-		<input type="hidden" name="lazy_load_availability_rules_nonce" value="<?php echo wp_create_nonce( 'lazy_load_availability_rules' ); ?>" disabled>
+		<input type="hidden" name="lazy_load_availability_rules_nonce" value="<?php echo esc_attr( wp_create_nonce( 'lazy_load_availability_rules' ) ); ?>" disabled>
 		<input type="hidden" name="availability-rules-per-page" value="<?php echo absint( $global_availability_rule_per_page ); ?>" disabled>
 	</p>
 </form>

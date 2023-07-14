@@ -8,7 +8,7 @@
  * @author Rémi Lanvin <remi@cloudconnected.fr>
  * @link https://github.com/rlanvin/php-rrule
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -2189,6 +2189,11 @@ class RRule implements RRuleInterface
 			$parts['bymonth'] = strtr(self::i18nSelect($i18n['bymonth'], count($tmp)), array(
 				'%{months}' => self::i18nList($tmp, $i18n['and'])
 			));
+
+			if ($freq_str == 'yearly') {
+				// if a yearly frequency is being displayed by month, then switch "of the year" text to be monthly
+				$freq_str = 'monthly';
+			}
 		}
 
 		if (not_empty($this->rule['BYWEEKNO'])) {

@@ -153,15 +153,13 @@ class WC_Bookings_Ajax {
 	 * @return array Array of blocks
 	 */
 	public function get_booking_month_blocks() {
-		$nonce = $_POST['security'];
-
-		if ( ! wp_verify_nonce( $nonce, 'show_available_month_blocks' ) ) {
+		if ( ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['security'] ) ), 'show_available_month_blocks' ) ) {
 			// This nonce is not valid.
 			wp_send_json_error( esc_html__( 'Please refresh the page and try again.', 'woocommerce-bookings' ) );
 		}
 
 		$posted = array();
-		parse_str( $_POST['form'], $posted );
+		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$details_missing_alert = __( 'Error: The booking product details are missing.', 'woocommerce-bookings' );
 
@@ -226,9 +224,9 @@ class WC_Bookings_Ajax {
 	public function calculate_costs() {
 		$posted = array();
 
-		parse_str( $_POST['form'], $posted );
+		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$booking_id = $posted['add-to-cart'];
+		$booking_id = absint( $posted['add-to-cart'] );
 		$product    = wc_get_product( $booking_id );
 		$booking    = get_wc_product_booking( $product );
 
@@ -284,13 +282,13 @@ class WC_Bookings_Ajax {
 
 		// clean posted data
 		$posted = array();
-		parse_str( $_POST['form'], $posted );
+		parse_str( $_POST['form'], $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( empty( $posted['add-to-cart'] ) ) {
 			return false;
 		}
 
 		// Product Checking
-		$booking_id   = $posted['add-to-cart'];
+		$booking_id   = absint( $posted['add-to-cart'] );
 		$product      = get_wc_product_booking( wc_get_product( $booking_id ) );
 		if ( ! $product ) {
 			return false;
@@ -366,9 +364,7 @@ class WC_Bookings_Ajax {
 	 * @return HTML
 	 */
 	public function get_end_time_html() {
-		$nonce = $_POST['security'];
-
-		if ( ! wp_verify_nonce( $nonce, 'get_end_time_html' ) ) {
+		if ( ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['security'] ) ), 'get_end_time_html' ) ) {
 			// This nonce is not valid.
 			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-bookings' ) );
 		}

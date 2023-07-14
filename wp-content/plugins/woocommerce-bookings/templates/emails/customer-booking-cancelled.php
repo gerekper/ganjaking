@@ -51,7 +51,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 		if ( $booking->has_resources() && $resource ) :
 			?>
 			<tr>
-				<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php echo ( '' !== $resource_label ) ? esc_html( $resource_label ) : esc_html__( 'Booking Type', 'woocommerce-bookings' ); ?></th>
+				<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php echo esc_html( ( '' !== $resource_label ) ? $resource_label : __( 'Booking Type', 'woocommerce-bookings' ) ); ?></th>
 				<td style="text-align:left; border: 1px solid #eee;"><?php echo esc_html( $resource->post_title ); ?></td>
 			</tr>
 		<?php endif; ?>

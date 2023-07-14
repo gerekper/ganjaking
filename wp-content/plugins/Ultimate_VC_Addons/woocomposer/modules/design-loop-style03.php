@@ -81,21 +81,21 @@ function woocomposer_loop_style03( $atts, $element ) {
 	$image_size = apply_filters( 'single_product_large_thumbnail_size', 'shop_single' );
 
 	if ( '' !== $ult_dls_03_settings['sale_price'] ) {
-		$sale_price_size = 'font-size:' . $ult_dls_03_settings['sale_price'] . 'px;';
+		$sale_price_size = 'font-size:' . intval( $ult_dls_03_settings['sale_price'] ) . 'px;';
 	}
 
 	if ( '' !== $ult_dls_03_settings['border_style'] ) {
-		$border .= 'border:' . $ult_dls_03_settings['border_size'] . 'px ' . $ult_dls_03_settings['border_style'] . ' ' . $ult_dls_03_settings['border_color'] . ';';
-		$border .= 'border-radius:' . $ult_dls_03_settings['border_radius'] . 'px;';
+		$border .= 'border:' . intval( $ult_dls_03_settings['border_size'] ) . 'px ' . esc_attr( $ult_dls_03_settings['border_style'] ) . ' ' . esc_attr( $ult_dls_03_settings['border_color'] ) . ';';
+		$border .= 'border-radius:' . intval( $ult_dls_03_settings['border_radius'] ) . 'px;';
 	}
 	if ( '' !== $ult_dls_03_settings['color_product_desc_bg'] ) {
-		$desc_style .= 'background:' . $ult_dls_03_settings['color_product_desc_bg'] . ';';
+		$desc_style .= 'background:' . esc_attr( $ult_dls_03_settings['color_product_desc_bg'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_product_desc'] ) {
-		$desc_style .= 'color:' . $ult_dls_03_settings['color_product_desc'] . ';';
+		$desc_style .= 'color:' . esc_attr( $ult_dls_03_settings['color_product_desc'] ) . ';';
 	}
 
-	$ult_dls_03_settings['img_animate'] = 'wcmp-img-' . $ult_dls_03_settings['img_animate'];
+	$ult_dls_03_settings['img_animate'] = 'wcmp-img-' . sanitize_key( $ult_dls_03_settings['img_animate'] );
 
 	$ult_dls_03_settings['advanced_opts'] = explode( ',', $ult_dls_03_settings['advanced_opts'] );
 	if ( in_array( 'infinite', $ult_dls_03_settings['advanced_opts'] ) ) {
@@ -111,46 +111,46 @@ function woocomposer_loop_style03( $atts, $element ) {
 	$columns      = 3;
 
 	if ( '' !== $ult_dls_03_settings['color_heading'] ) {
-		$heading_style = 'color:' . $ult_dls_03_settings['color_heading'] . ';';
+		$heading_style = 'color:' . esc_attr( $ult_dls_03_settings['color_heading'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['size_title'] ) {
-		$heading_style .= 'font-size:' . $ult_dls_03_settings['size_title'] . 'px;';
+		$heading_style .= 'font-size:' . esc_attr( $ult_dls_03_settings['size_title'] ) . 'px;';
 	}
 	if ( '' !== $ult_dls_03_settings['color_categories'] ) {
-		$cat_style = 'color:' . $ult_dls_03_settings['color_categories'] . ';';
+		$cat_style = 'color:' . esc_attr( $ult_dls_03_settings['color_categories'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['size_cat'] ) {
-		$cat_style .= 'font-size:' . $ult_dls_03_settings['size_cat'] . 'px;';
+		$cat_style .= 'font-size:' . esc_attr( $ult_dls_03_settings['size_cat'] ) . 'px;';
 	}
 	if ( '' !== $ult_dls_03_settings['color_price'] ) {
-		$price_style = 'color:' . $ult_dls_03_settings['color_price'] . ';';
+		$price_style = 'color:' . esc_attr( $ult_dls_03_settings['color_price'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['size_price'] ) {
-		$price_style .= 'font-size:' . $ult_dls_03_settings['size_price'] . 'px;';
+		$price_style .= 'font-size:' . esc_attr( $ult_dls_03_settings['size_price'] ) . 'px;';
 	}
 	if ( '' !== $ult_dls_03_settings['color_rating'] ) {
-		$rating_style .= 'color:' . $ult_dls_03_settings['color_rating'] . ';';
+		$rating_style .= 'color:' . esc_attr( $ult_dls_03_settings['color_rating'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_rating_bg'] ) {
-		$rating_style .= 'background:' . $ult_dls_03_settings['color_rating_bg'] . ';';
+		$rating_style .= 'background:' . esc_attr( $ult_dls_03_settings['color_rating_bg'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_quick_bg'] ) {
-		$view_bg_style = 'background:' . $ult_dls_03_settings['color_quick_bg'] . ';';
+		$view_bg_style = 'background:' . esc_attr( $ult_dls_03_settings['color_quick_bg'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_quick'] ) {
-		$view_style = 'color:' . $ult_dls_03_settings['color_quick'] . ';';
+		$view_style = 'color:' . esc_attr( $ult_dls_03_settings['color_quick'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_cart_bg'] ) {
-		$cart_bg_style = 'background:' . $ult_dls_03_settings['color_cart_bg'] . ';';
+		$cart_bg_style = 'background:' . esc_attr( $ult_dls_03_settings['color_cart_bg'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_cart'] ) {
-		$cart_style = 'color:' . $ult_dls_03_settings['color_cart'] . ';';
+		$cart_style = 'color:' . esc_attr( $ult_dls_03_settings['color_cart'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_on_sale_bg'] ) {
-		$label_style = 'background:' . $ult_dls_03_settings['color_on_sale_bg'] . ';';
+		$label_style = 'background:' . esc_attr( $ult_dls_03_settings['color_on_sale_bg'] ) . ';';
 	}
 	if ( '' !== $ult_dls_03_settings['color_on_sale'] ) {
-		$label_style .= 'color:' . $ult_dls_03_settings['color_on_sale'] . ';';
+		$label_style .= 'color:' . esc_attr( $ult_dls_03_settings['color_on_sale'] ) . ';';
 	}
 
 	$elemets    = explode( ',', $ult_dls_03_settings['display_elements'] );
@@ -288,7 +288,7 @@ if ( 'top_rated_products' == $display_type ) {
 			$query->the_post();
 			$product_id = get_the_ID();
 			$uid        = uniqid();
-			$output    .= '<div id="product-' . $uid . '" class="' . $class . ' wpb_column column_container wooproduct" data-animation="animated ' . $ult_dls_03_settings['product_animation'] . '">';
+			$output    .= '<div id="product-' . $uid . '" class="' . $class . ' wpb_column column_container wooproduct" data-animation="animated ' . esc_attr( $ult_dls_03_settings['product_animation'] ) . '">';
 			if ( 'carousel' == $element ) {
 				$output .= '<div class="wcmp-carousel-item">';
 			}
@@ -320,7 +320,7 @@ if ( 'top_rated_products' == $display_type ) {
 				$categories = $product->get_categories( ', ', '<span class="posted_in">' . $cat_count . ' ', '.</span>' );
 				$tags       = $product->get_tags( ', ', '<span class="tagged_as">' . $tag_count . ' ', '.</span>' );
 
-				$output .= "\n" . '<div class="wcmp-product woocommerce wcmp-' . $ult_dls_03_settings['product_style'] . ' ' . $ult_dls_03_settings['img_animate'] . '" style="' . $border . ' ' . $desc_style . '">';
+				$output .= "\n" . '<div class="wcmp-product woocommerce wcmp-' . esc_attr( $ult_dls_03_settings['product_style'] ) . ' ' . esc_attr( $ult_dls_03_settings['img_animate'] ) . '" style="' . esc_attr( $border ) . ' ' . esc_attr( $desc_style ) . '">';
 
 				$output .= "\n\t" . '<div class="wcmp-product-image">';
 				if ( empty( $attachment_ids ) && count( $attachment_ids ) > 1 && 'carousel' == $ult_dls_03_settings['product_img_disp'] ) {
@@ -354,40 +354,40 @@ if ( 'top_rated_products' == $display_type ) {
 				}
 
 				if ( '' !== $on_sale ) {
-					$output .= "\n" . '<div class="wcmp-onsale ' . $ult_dls_03_settings['on_sale_alignment'] . ' ' . $ult_dls_03_settings['on_sale_style'] . '"><span class="onsale" style="' . $label_style . ' ' . $sale_price_size . '">' . $on_sale . '</span></div>';
+					$output .= "\n" . '<div class="wcmp-onsale ' . esc_attr( $ult_dls_03_settings['on_sale_alignment'] ) . ' ' . esc_attr( $ult_dls_03_settings['on_sale_style'] ) . '"><span class="onsale" style="' . esc_attr( $label_style ) . ' ' . esc_attr( $sale_price_size ) . '">' . $on_sale . '</span></div>';
 				}
 				if ( 'OutOfStock' == $stock ) {
 					$output .= "\n" . '<span class="wcmp-out-stock">' . __( 'Out Of Stock!', 'woocomposer' ) . '</span>';
 				}
 					$output .= '</div>';
 				if ( '' !== $ult_dls_03_settings['text_align'] ) {
-					$text_align_style = 'text-align:' . $ult_dls_03_settings['text_align'] . ';';
+					$text_align_style = 'text-align:' . esc_attr( $ult_dls_03_settings['text_align'] ) . ';';
 				}
-					$output .= "\n\t" . '<div class="wcmp-product-desc" style="' . $text_align_style . '">';
+					$output .= "\n\t" . '<div class="wcmp-product-desc" style="' . esc_attr( $text_align_style ) . '">';
 					$output .= '<a href="' . get_permalink( $product_id ) . '">';
-					$output .= "\n\t\t" . '<h2 style="' . $heading_style . '">' . $product_title . '</h2>';
+					$output .= "\n\t\t" . '<h2 style="' . esc_attr( $heading_style ) . '">' . $product_title . '</h2>';
 					$output .= '</a>';
 
 				if ( in_array( 'category', $elemets ) ) {
-					$output .= '<h5 style="' . $cat_style . '">';
+					$output .= '<h5 style="' . esc_attr( $cat_style ) . '">';
 					if ( '' !== $categories ) {
 						$output .= $categories;
 						$output .= $tags;
 					}
 					$output .= '</h5>';
 				}
-					$output     .= "\n\t\t" . '<div class="wcmp-price"><span class="price" style="' . $price_style . '">' . $price . '</span></div>';
+					$output     .= "\n\t\t" . '<div class="wcmp-price"><span class="price" style="' . esc_attr( $price_style ) . '">' . $price . '</span></div>';
 					$output     .= '<div class="wcmp-style3-cart-block">';/*Class Start wcmp-style3-cart-block*/
-						$output .= '<div class="wcmp-add-to-cart" style="' . $cart_bg_style . '"><a style="' . $cart_style . '" title="Add to Cart" href="?add-to-cart=' . $product_id . '" rel="nofollow" data-product_id="' . $product_id . '" data-product_sku="" class="button add_to_cart_button product_type_simple">Add to Cart</a></div>';
+						$output .= '<div class="wcmp-add-to-cart" style="' . esc_attr( $cart_bg_style ) . '"><a style="' . esc_attr( $cart_style ) . '" title="Add to Cart" href="?add-to-cart=' . $product_id . '" rel="nofollow" data-product_id="' . $product_id . '" data-product_sku="" class="button add_to_cart_button product_type_simple">Add to Cart</a></div>';
 				if ( in_array( 'reviews', $elemets ) ) {
-					$output .= "\n" . '<div class="wcmp-star-ratings" style="' . $rating_style . '">' . $rating . '</div>';
+					$output .= "\n" . '<div class="wcmp-star-ratings" style="' . esc_attr( $rating_style ) . '">' . $rating . '</div>';
 				}
 				if ( in_array( 'quick', $elemets ) ) {
-					$output .= '<div class="wcmp-quick-view ' . $quick_view_class . '" style="' . $view_bg_style . '"><a style="' . $view_style . '" title="Quick View" href="' . get_permalink( $product_id ) . '"><i class="wooicon-plus32"></i></a></div>';
+					$output .= '<div class="wcmp-quick-view ' . $quick_view_class . '" style="' . esc_attr( $view_bg_style ) . '"><a style="' . esc_attr( $view_style ) . '" title="Quick View" href="' . get_permalink( $product_id ) . '"><i class="wooicon-plus32"></i></a></div>';
 				}
 						$output .= '</div>';/*Class End wcmp-style3-cart-block*/
 				if ( in_array( 'description', $elemets ) ) {
-					$output .= "\n\t\t" . '<div class="wcmp-product-content" style="' . $desc_style . '">' . $product_desc . '</div>';
+					$output .= "\n\t\t" . '<div class="wcmp-product-content" style="' . esc_attr( $desc_style ) . '">' . $product_desc . '</div>';
 				}
 
 						$output .= "\n\t" . '</div>';

@@ -3,15 +3,15 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.16.02
+ * Version: 2.0.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
  * Tested up to: 6.2
- * Requires at least: 5.8
- * WC tested up to: 7.7.0
- * WC requires at least: 6.8
+ * Requires at least: 6.1
+ * WC tested up to: 7.8.0
+ * WC requires at least: 7.2
  * Requires PHP: 7.2
  *
  * Copyright: © 2023 WooCommerce
@@ -88,7 +88,7 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.16.02' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '2.0.0' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 	define( 'WC_BOOKINGS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -371,6 +371,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 
 			if ( is_admin() ) {
 				new WC_Bookings_Menus();
+				new WC_Bookings_Templates();
 				new WC_Bookings_Report_Dashboard();
 				new WC_Bookings_WC_Status_Dashboard();
 				new WC_Bookings_Admin();
@@ -443,14 +444,12 @@ add_filter( 'woocommerce_translations_updates_for_woocommerce-bookings', '__retu
 /**
  * Gets block-based features initialized.
  */
-if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
-	add_action(
-		'woocommerce_blocks_loaded',
-		function() {
-			if ( WC_BOOKINGS_GUTENBERG_EXISTS ) {
-				require_once WC_BOOKINGS_ABSPATH . 'includes/blocks/class-wc-bookings-blocks.php';
-				new WC_Bookings_Blocks_Integration();
-			};
-		}
-	);
-}
+add_action(
+	'woocommerce_blocks_loaded',
+	function() {
+		if ( WC_BOOKINGS_GUTENBERG_EXISTS ) {
+			require_once WC_BOOKINGS_ABSPATH . 'includes/blocks/class-wc-bookings-blocks.php';
+			new WC_Bookings_Blocks_Integration();
+		};
+	}
+);

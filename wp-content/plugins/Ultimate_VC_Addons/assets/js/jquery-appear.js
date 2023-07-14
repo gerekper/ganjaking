@@ -71,7 +71,7 @@
 				//is this supposed to happen only once?
 				if ( settings.one ) {
 					//remove the check
-					w.unbind( 'scroll', check );
+					w.off( 'scroll', check );
 					const i = $.inArray( check, $.fn.bsf_appear.checks );
 					if ( i >= 0 ) $.fn.bsf_appear.checks.splice( i, 1 );
 				}
@@ -83,7 +83,7 @@
 				t.one( 'bsf_appear', settings.data, modifiedFn );
 			else t.bind( 'bsf_appear', settings.data, modifiedFn );
 			//check whenever the window scrolls
-			w.scroll( check );
+			w.on( 'scroll', check );
 			//check whenever the dom changes
 			$.fn.bsf_appear.checks.push( check );
 			//check now

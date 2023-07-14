@@ -145,7 +145,7 @@ $end_time               = strtotime( "+{$end_padding} day midnight", strtotime( 
 							$timestamp_date = date( 'Y-m-d', $timestamp );
 							$is_today       = $timestamp_date === $current_date;
 							?>
-							<td width="14.285%" class="<?php echo $class_names ?>" data-timestamp="<?php echo $timestamp ?>">
+							<td width="14.285%" class="<?php echo esc_attr( $class_names ); ?>" data-timestamp="<?php echo esc_attr( $timestamp ); ?>">
 								<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=booking_calendar&tab=calendar&calendar_day=' . date( 'Y-m-d', $timestamp ) ) ); ?>"<?php
 								echo ' class="day_link';
 								if ( $is_today ) {

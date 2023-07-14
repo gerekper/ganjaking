@@ -119,7 +119,7 @@ function visible( element ) {
 		}).length;
 }
 
-$.extend( $.expr[ ":" ], {
+$.extend( $.expr.pseudos, {
 	data: $.expr.createPseudo ?
 		$.expr.createPseudo(function( dataName ) {
 			return function( elem ) {
@@ -358,7 +358,7 @@ $.widget = function( name, base, prototype ) {
 	}
 
 	// create selector for plugin
-	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
+	$.expr.pseudos[ fullName.toLowerCase() ] = function( elem ) {
 		return !!$.data( elem, fullName );
 	};
 
@@ -393,7 +393,7 @@ $.widget = function( name, base, prototype ) {
 	// inheriting from
 	basePrototype.options = $.widget.extend( {}, basePrototype.options );
 	$.each( prototype, function( prop, value ) {
-		if ( !$.isFunction( value ) ) {
+		if ( !typeof value === "function" ) {
 			proxiedPrototype[ prop ] = value;
 			return;
 		}
@@ -502,7 +502,7 @@ $.widget.bridge = function( name, object ) {
 					return $.error( "cannot call methods on " + name + " prior to initialization; " +
 						"attempted to call method '" + options + "'" );
 				}
-				if ( !$.isFunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
+				if ( !typeof instance[options] === "function" || options.charAt( 0 ) === "_" ) {
 					return $.error( "no such method '" + options + "' for " + name + " widget instance" );
 				}
 				methodValue = instance[ options ].apply( instance, args );
@@ -811,7 +811,7 @@ $.Widget.prototype = {
 		}
 
 		this.element.trigger( event, data );
-		return !( $.isFunction( callback ) &&
+		return !( typeof callback === "function" &&
 			callback.apply( this.element[0], [ event ].concat( data ) ) === false ||
 			event.isDefaultPrevented() );
 	}
@@ -869,7 +869,7 @@ var widget = $.widget;
 
 
 var mouseHandled = false;
-$( document ).mouseup( function() {
+$( document ).on( 'mouseup', function() {
 	mouseHandled = false;
 });
 
@@ -5112,7 +5112,7 @@ color.fn = jQuery.extend( color.prototype, {
 		}
 
 		var inst = this,
-			type = jQuery.type( red ),
+			type = typeof red,
 			rgba = this._rgba = [];
 
 		// more than 1 argument specified - assume ( red, green, blue, alpha )
@@ -5398,7 +5398,7 @@ each( spaces, function( spaceName, space ) {
 		}
 
 		var ret,
-			type = jQuery.type( value ),
+			type = typeof value,
 			arr = ( type === "array" || type === "object" ) ? value : arguments,
 			local = this[ cache ].slice();
 
@@ -5426,7 +5426,7 @@ each( spaces, function( spaceName, space ) {
 			return;
 		}
 		color.fn[ key ] = function( value ) {
-			var vtype = jQuery.type( value ),
+			var vtype = typeof value,
 				fn = ( key === "alpha" ? ( this._hsla ? "hsla" : "rgba" ) : spaceName ),
 				local = this[ fn ](),
 				cur = local[ prop.idx ],
@@ -5438,7 +5438,7 @@ each( spaces, function( spaceName, space ) {
 
 			if ( vtype === "function" ) {
 				value = value.call( this, cur );
-				vtype = jQuery.type( value );
+				vtype = typeof value;
 			}
 			if ( value == null && prop.empty ) {
 				return this;
@@ -5465,7 +5465,7 @@ color.hook = function( hook ) {
 				var parsed, curElem,
 					backgroundColor = "";
 
-				if ( value !== "transparent" && ( jQuery.type( value ) !== "string" || ( parsed = stringParse( value ) ) ) ) {
+				if ( value !== "transparent" && ( typeof value !== "string" || ( parsed = stringParse( value ) ) ) ) {
 					value = color( parsed || value );
 					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
 						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
@@ -5940,7 +5940,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 	}
 
 	// catch (effect, callback)
-	if ( $.isFunction( options ) ) {
+	if ( typeof options === "function" ) {
 		callback = options;
 		speed = null;
 		options = {};
@@ -5954,7 +5954,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 	}
 
 	// catch (effect, options, callback)
-	if ( $.isFunction( speed ) ) {
+	if ( typeof speed === "function" ) {
 		callback = speed;
 		speed = null;
 	}
@@ -5987,7 +5987,7 @@ function standardAnimationOption( option ) {
 	}
 
 	// Complete callback
-	if ( $.isFunction( option ) ) {
+	if ( typeof option === "function" ) {
 		return true;
 	}
 
@@ -6026,10 +6026,10 @@ $.fn.extend({
 				mode = args.mode;
 
 			function done() {
-				if ( $.isFunction( complete ) ) {
+				if ( typeof complete === "function" ) {
 					complete.call( elem[0] );
 				}
-				if ( $.isFunction( next ) ) {
+				if ( typeof next === "function" ) {
 					next();
 				}
 			}

@@ -486,16 +486,19 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_GridView' ) ) {
 			if ( function_exists( 'wc_print_notices' ) ) {
 				wc_print_notices();
 			}
-			$output .= ob_get_clean();
-			$output .= '</div>';
-			$uid     = uniqid();
-			$output  = '<div id="woo-grid-' . $uid . '" class="woocomposer_grid">';
-
-			$template = 'design-loop-' . $ult_woocomposer_grid_shortcode['product_style'] . '.php';
-			require_once $template;
-			$function = 'woocomposer_loop_' . $ult_woocomposer_grid_shortcode['product_style'];
-			$output  .= $function( $atts, 'grid' );
-			$output  .= "\n" . '</div>';
+			$output        .= ob_get_clean();
+			$output        .= '</div>';
+			$uid            = uniqid();
+			$output         = '<div id="woo-grid-' . esc_attr( $uid ) . '" class="woocomposer_grid">';
+			$product_style  = sanitize_file_name( $ult_woocomposer_grid_shortcode['product_style'] );
+			$allowed_styles = array( 'style01', 'style02', 'style03' );
+			$template       = wp_normalize_path( 'design-loop-' . $product_style . '.php' );
+			if ( in_array( $product_style, $allowed_styles ) && file_exists( $template ) ) {
+				require_once $template;
+				$function = 'woocomposer_loop_' . $product_style;
+				$output  .= $function( $atts, 'grid' );
+			}
+			$output .= "\n" . '</div>';
 			return $output;
 		}//end woocomposer_grid_shortcode()
 

@@ -672,7 +672,15 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 					),
 					$atts
 				);
-			$uid                 = uniqid( wp_rand() );
+			foreach ( $ult_uc_settings as &$setting ) {
+				if ( is_numeric( $setting ) ) {
+					$setting = intval( $setting );
+				} else {
+					$setting = sanitize_text_field( $setting );
+					$setting = esc_js( $setting );
+				}
+			}
+			$uid = esc_attr( uniqid( wp_rand() ) );
 
 			$settings     = '';
 			$responsive   = '';
@@ -695,11 +703,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 				$slide_to_mob                       = 1;
 			}
 
-			$arr_style .= 'color:' . $ult_uc_settings['arrow_color'] . '; font-size:' . $ult_uc_settings['arrow_size'] . 'px;';
+			$arr_style .= 'color:' . esc_attr( $ult_uc_settings['arrow_color'] ) . '; font-size:' . esc_attr( $ult_uc_settings['arrow_size'] ) . 'px;';
 			if ( 'circle-bg' == $ult_uc_settings['arrow_style'] || 'square-bg' == $ult_uc_settings['arrow_style'] ) {
-				$arr_style .= 'background:' . $ult_uc_settings['arrow_bg_color'] . ';';
+				$arr_style .= 'background:' . esc_attr( $ult_uc_settings['arrow_bg_color'] ) . ';';
 			} elseif ( 'circle-border' == $ult_uc_settings['arrow_style'] || 'square-border' == $ult_uc_settings['arrow_style'] ) {
-				$arr_style .= 'border:' . $ult_uc_settings['border_size'] . 'px solid ' . $ult_uc_settings['arrow_border_color'] . ';';
+				$arr_style .= 'border:' . esc_attr( $ult_uc_settings['border_size'] ) . 'px solid ' . esc_attr( $ult_uc_settings['arrow_border_color'] ) . ';';
 			}
 
 			if ( 'off' !== $ult_uc_settings['dots'] && '' !== $ult_uc_settings['dots'] ) {
@@ -711,10 +719,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 				$settings .= 'autoplay: true,';
 			}
 			if ( '' !== $ult_uc_settings['autoplay_speed'] ) {
-				$settings .= 'autoplaySpeed: ' . $ult_uc_settings['autoplay_speed'] . ',';
+				$settings .= 'autoplaySpeed: "' . esc_attr( $ult_uc_settings['autoplay_speed'] ) . '",';
 			}
 			if ( '' !== $ult_uc_settings['speed'] ) {
-				$settings .= 'speed: ' . $ult_uc_settings['speed'] . ',';
+				$settings .= 'speed: "' . esc_attr( $ult_uc_settings['speed'] ) . '",';
 			}
 			if ( 'off' !== $ult_uc_settings['infinite_loop'] && '' !== $ult_uc_settings['infinite_loop'] ) {
 				$settings .= 'infinite: true,';
@@ -744,10 +752,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 			}
 
 			if ( '' !== $ult_uc_settings['slide_to_scroll'] ) {
-				$settings .= 'slidesToScroll:' . $ult_uc_settings['slide_to_scroll'] . ',';
+				$settings .= "slidesToScroll:'" . esc_attr( $ult_uc_settings['slide_to_scroll'] ) . "',";
 			}
 			if ( '' !== $ult_uc_settings['slides_on_desk'] ) {
-				$settings .= 'slidesToShow:' . $ult_uc_settings['slides_on_desk'] . ',';
+				$settings .= "slidesToShow:'" . esc_attr( $ult_uc_settings['slides_on_desk'] ) . "',";
 			}
 			if ( '' == $ult_uc_settings['slides_on_mob'] ) {
 				$ult_uc_settings['slides_on_mob'] = $ult_uc_settings['slides_on_desk'];
@@ -818,22 +826,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 							{
 							  breakpoint: 1026,
 							  settings: {
-								slidesToShow: ' . $ult_uc_settings['slides_on_desk'] . ',
-								slidesToScroll: ' . $ult_uc_settings['slide_to_scroll'] . ', ' . $infinite . ' ' . $dot_display . '
+								slidesToShow: \'' . esc_js( $ult_uc_settings['slides_on_desk'] ) . '\',
+								slidesToScroll: \'' . esc_js( $ult_uc_settings['slide_to_scroll'] ) . '\', ' . $infinite . ' ' . $dot_display . '
 							  }
 							},
 							{
 							  breakpoint: 1025,
 							  settings: {
-								slidesToShow: ' . $ult_uc_settings['slides_on_tabs'] . ',
-								slidesToScroll: ' . $slide_to_tab . '
+								slidesToShow: \'' . esc_js( $ult_uc_settings['slides_on_tabs'] ) . '\',
+								slidesToScroll: \'' . esc_js( $slide_to_tab ) . '\'
 							  }
 							},
 							{
 							  breakpoint: 760,
 							  settings: {
-								slidesToShow: ' . $ult_uc_settings['slides_on_mob'] . ',
-								slidesToScroll: ' . $slide_to_mob . '
+								slidesToShow: \'' . esc_js( $ult_uc_settings['slides_on_mob'] ) . '\',
+								slidesToScroll: \'' . esc_js( $slide_to_mob ) . '\'
 							  }
 							}
 						],';

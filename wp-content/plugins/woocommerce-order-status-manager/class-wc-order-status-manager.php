@@ -18,13 +18,13 @@
  *
  * @package     WC-Order-Status-Manager
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * # WooCommerce Order Status Manager Main Plugin Class
@@ -39,7 +39,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.14.0';
+	const VERSION = '1.15.2';
 
 	/** @var \WC_Order_Status_Manager single instance of this plugin */
 	protected static $instance;
@@ -85,9 +85,10 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain' => 'woocommerce-order-status-manager',
-			)
+			[
+				'supports_hpos' => true,
+				'text_domain'   => 'woocommerce-order-status-manager',
+			]
 		);
 
 		// functions required before we hook into init
@@ -240,14 +241,14 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	/**
 	 * Rename custom order statuses with custom labels
 	 *
-	 * We run this filter callback for both
-	 * 'woocommerce_register_shop_order_post_statuses'
-	 * and 'wc_order_statuses'
+	 * We run this filter callback for both 'woocommerce_register_shop_order_post_statuses' and 'wc_order_statuses'.
 	 *
-	 * This callback needs to run before init as it hooks
-	 * into WooCommerce post status registration
+	 * This callback needs to run before init as it hooks into WooCommerce post status registration.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @internal
+	 *
 	 * @param array $order_statuses Associative array of order statuses
 	 * @return array
 	 */
@@ -597,8 +598,12 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 				<ul>
 					<li>
 						<?php
+
+						$orders_url = Framework\SV_WC_Order_Compatibility::get_orders_screen_url();
+
 						/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
-						echo sprintf( __( '%1$sReassign orders%2$s with a custom status to a WooCommerce core status.', 'woocommerce-order-status-manager' ), '<a href="/wp-admin/edit.php?post_type=shop_order">', '</a>' );
+						echo sprintf( __( '%1$sReassign orders%2$s with a custom status to a WooCommerce core status.', 'woocommerce-order-status-manager' ),'<a href="'. esc_url( $orders_url ) . '">', '</a>' );
+
 						?>
 					</li>
 					<li>

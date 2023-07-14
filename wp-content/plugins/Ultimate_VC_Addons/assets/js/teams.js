@@ -1,5 +1,6 @@
 jQuery( document ).ready( function () {
-	jQuery( '.ult-team.ult-social-icon' ).hover(
+	jQuery( '.ult-team.ult-social-icon' ).on(
+		'mouseenter',
 		function () {
 			const icon_color = jQuery( this ).data( 'iconcolor' );
 			const icon_hover = jQuery( this ).data( 'iconhover' );
@@ -10,6 +11,8 @@ jQuery( document ).ready( function () {
 				jQuery( this ).css( 'color', '' );
 			}
 		},
+	).on(
+		'mouseleave',
 		function () {
 			const icon_color = jQuery( this ).data( 'iconcolor' );
 			const icon_hover = jQuery( this ).data( 'iconhover' );
@@ -22,7 +25,8 @@ jQuery( document ).ready( function () {
 		}
 	);
 
-	jQuery( '.ult-style-2' ).hover(
+	jQuery( '.ult-style-2' ).on(
+		'mouseenter',
 		function () {
 			const self = jQuery( this )
 				.find( ' .ult-team-member-image' )
@@ -30,6 +34,8 @@ jQuery( document ).ready( function () {
 			const hover_opacity = self.data( 'hover_opacity' );
 			self.children( 'img' ).css( 'opacity', hover_opacity );
 		},
+	).on(
+		'mouseleave',
 		function () {
 			const self = jQuery( this )
 				.find( ' .ult-team-member-image' )
@@ -39,7 +45,8 @@ jQuery( document ).ready( function () {
 		}
 	);
 
-	jQuery( '.ult-style-3' ).hover(
+	jQuery( '.ult-style-3' ).on(
+		'mouseenter',
 		function () {
 			const self = jQuery( this )
 				.find( ' .ult-team-member-image' )
@@ -47,6 +54,8 @@ jQuery( document ).ready( function () {
 			const hover_opacity = self.data( 'hover_opacity' );
 			self.find( 'img' ).css( 'opacity', hover_opacity );
 		},
+	).on(
+		'mouseleave',
 		function () {
 			const self = jQuery( this )
 				.find( ' .ult-team-member-image' )
@@ -115,7 +124,7 @@ jQuery( document ).ready( function () {
 		}
 	);
 
-	jQuery( window ).resize( function () {
+	jQuery( window ).on( 'resize', function () {
 		Ult_ResponsiveStyle();
 		set_Top_Description();
 	} );

@@ -2,9 +2,11 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
+
+declare(strict_types=1);
 
 namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise;
 
@@ -12,40 +14,32 @@ final class Is
 {
     /**
      * Returns true if a promise is pending.
-     *
-     * @return bool
      */
-    public static function pending(PromiseInterface $promise)
+    public static function pending(PromiseInterface $promise): bool
     {
         return $promise->getState() === PromiseInterface::PENDING;
     }
 
     /**
      * Returns true if a promise is fulfilled or rejected.
-     *
-     * @return bool
      */
-    public static function settled(PromiseInterface $promise)
+    public static function settled(PromiseInterface $promise): bool
     {
         return $promise->getState() !== PromiseInterface::PENDING;
     }
 
     /**
      * Returns true if a promise is fulfilled.
-     *
-     * @return bool
      */
-    public static function fulfilled(PromiseInterface $promise)
+    public static function fulfilled(PromiseInterface $promise): bool
     {
         return $promise->getState() === PromiseInterface::FULFILLED;
     }
 
     /**
      * Returns true if a promise is rejected.
-     *
-     * @return bool
      */
-    public static function rejected(PromiseInterface $promise)
+    public static function rejected(PromiseInterface $promise): bool
     {
         return $promise->getState() === PromiseInterface::REJECTED;
     }

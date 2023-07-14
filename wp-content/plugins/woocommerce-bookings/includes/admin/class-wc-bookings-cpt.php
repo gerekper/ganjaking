@@ -135,7 +135,7 @@ class WC_Bookings_CPT {
 
 			// Is user allowed to edit booking?
 			if ( ! $booking || ! current_user_can( "edit_$this->type", $booking->get_id() ) ) {
-				wp_die( __( 'Sorry, you are not allowed to edit this item.', 'woocommerce-bookings' ) );
+				wp_die( esc_html( __( 'Sorry, you are not allowed to edit this item.', 'woocommerce-bookings' ) ) );
 			}
 
 			// Update booking only if another user is not editing it.
@@ -421,7 +421,7 @@ class WC_Bookings_CPT {
 				$output .= '<option value="' . absint( $filter_id ) . '" ';
 
 				if ( isset( $_REQUEST['filter_bookings'] ) ) {
-					$output .= selected( $filter_id, $_REQUEST['filter_bookings'], false );
+					$output .= selected( absint( $filter_id ), absint( $_REQUEST['filter_bookings'] ), false );
 				}
 
 				$output .= '>' . esc_html( $filter ) . '</option>';
@@ -445,7 +445,7 @@ class WC_Bookings_CPT {
 			if ( ! empty( $_REQUEST['filter_bookings'] ) && empty( $query->query_vars['suppress_filters'] ) ) {
 				$query->query_vars['meta_query'] = array(
 					array(
-						'key'   => get_post_type( $_REQUEST['filter_bookings'] ) === 'bookable_resource' ? '_booking_resource_id' : '_booking_product_id',
+						'key'   => get_post_type( wc_clean( $_REQUEST['filter_bookings'] ) ) === 'bookable_resource' ? '_booking_resource_id' : '_booking_product_id',
 						'value' => absint( $_REQUEST['filter_bookings'] ),
 					),
 				);

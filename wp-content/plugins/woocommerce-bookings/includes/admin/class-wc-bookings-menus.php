@@ -1,5 +1,7 @@
 <?php
 
+use Automattic\WooCommerce\Admin\PageController;
+
 /**
  * WC_Bookings_Menus.
  */
@@ -11,6 +13,7 @@ class WC_Bookings_Menus {
 		add_action( 'current_screen', array( $this, 'buffer' ) );
 		add_filter( 'woocommerce_screen_ids', array( $this, 'woocommerce_screen_ids' ) );
 		add_action( 'admin_menu', array( $this, 'remove_default_add_booking_url' ), 10 );
+		add_action( 'admin_menu', array( $this, 'register_pages' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 49 );
 		add_filter( 'menu_order', array( $this, 'menu_order' ), 20 );
 		add_filter( 'admin_url', array( $this, 'add_new_booking_url' ), 10, 2 );
@@ -30,20 +33,24 @@ class WC_Bookings_Menus {
 	/**
 	 * Screen IDS.
 	 *
-	 * @param  array  $ids
+	 * @param  array $ids
 	 * @return array
 	 */
 	public function woocommerce_screen_ids( $ids ) {
-		return array_merge( $ids, array(
-			'edit-wc_booking',
-			'edit-bookable_resource',
-			'bookable_resource',
-			'wc_booking',
-			'wc_booking_page_booking_calendar',
-			'wc_booking_page_booking_notification',
-			'wc_booking_page_create_booking',
-			'wc_booking_page_wc_bookings_settings',
-		) );
+		return array_merge(
+			$ids,
+			array(
+				'edit-wc_booking',
+				'edit-bookable_resource',
+				'bookable_resource',
+				'wc_booking',
+				'wc_booking_page_wc_bookings_product_templates',
+				'wc_booking_page_booking_calendar',
+				'wc_booking_page_booking_notification',
+				'wc_booking_page_create_booking',
+				'wc_booking_page_wc_bookings_settings',
+			)
+		);
 	}
 
 	/**
@@ -66,15 +73,91 @@ class WC_Bookings_Menus {
 	 * Add a submenu for managing bookings pages.
 	 */
 	public function admin_menu() {
-		$create_booking_page = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Add Booking', 'woocommerce-bookings' ), __( 'Add Booking', 'woocommerce-bookings' ), 'edit_wc_bookings', 'create_booking', array( $this, 'create_booking_page' ) );
-		$calendar_page       = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Calendar', 'woocommerce-bookings' ), __( 'Calendar', 'woocommerce-bookings' ), 'edit_wc_bookings', 'booking_calendar', array( $this, 'calendar_page' ) );
-		$notification_page   = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Send Notification', 'woocommerce-bookings' ), __( 'Send Notification', 'woocommerce-bookings' ), 'edit_wc_bookings', 'booking_notification', array( $this, 'notifications_page' ) );
-		$settings_page       = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Settings', 'woocommerce-bookings' ), __( 'Settings', 'woocommerce-bookings' ), 'manage_bookings_settings', 'wc_bookings_settings', array( $this, 'settings_page' ) );
+		global $submenu;
 
-		// Add action for screen options on this new page
+		$create_booking_page  = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Add Booking', 'woocommerce-bookings' ), __( 'Add Booking', 'woocommerce-bookings' ), 'edit_wc_bookings', 'create_booking', array( $this, 'create_booking_page' ) );
+		$calendar_page        = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Calendar', 'woocommerce-bookings' ), __( 'Calendar', 'woocommerce-bookings' ), 'edit_wc_bookings', 'booking_calendar', array( $this, 'calendar_page' ) );
+		$notification_page    = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Send Notification', 'woocommerce-bookings' ), __( 'Send Notification', 'woocommerce-bookings' ), 'edit_wc_bookings', 'booking_notification', array( $this, 'notifications_page' ) );
+		$settings_page        = add_submenu_page( 'edit.php?post_type=wc_booking', __( 'Settings', 'woocommerce-bookings' ), __( 'Settings', 'woocommerce-bookings' ), 'manage_bookings_settings', 'wc_bookings_settings', array( $this, 'settings_page' ) );
+
+		// Add action for screen options on this new page.
 		add_action( 'admin_print_scripts-' . $create_booking_page, array( $this, 'create_booking_page_scripts' ) );
 		add_action( 'admin_print_scripts-' . $calendar_page, array( $this, 'calendar_page_scripts' ) );
 		add_action( 'admin_print_scripts-' . $settings_page, array( $this, 'settings_page_scripts' ) );
+	}
+
+	/**
+	 * Registers bookings pages.
+	 *
+	 * @since 2.0.0
+	 */
+	public function register_pages() {
+		$bookings_pages = self::get_bookings_pages();
+
+		$controller = PageController::get_instance();
+		foreach ( $bookings_pages as $bookings_page ) {
+			if ( ! is_null( $bookings_page ) ) {
+				$controller->connect_page( $bookings_page );
+			}
+		}
+	}
+
+	/**
+	 * Get bookings pages.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Data for the bookings pages.
+	 */
+	public static function get_bookings_pages() {
+		$bookings_pages = array(
+			array(
+				'id'        => 'edit-wc_booking',
+				'screen_id' => 'edit-wc_booking',
+				'title'     => __( 'Bookings', 'woocommerce-bookings' ),
+			),
+			array(
+				'id'        => 'wc_booking_page_create_booking',
+				'screen_id' => 'wc_booking_page_create_booking',
+				'title'     => __( 'Create Booking', 'woocommerce-bookings' ),
+			),
+			array(
+				'id'        => 'edit-bookable_resource',
+				'screen_id' => 'edit-bookable_resource',
+				'title'     => __( 'Resources', 'woocommerce-bookings' ),
+			),
+			array(
+				'id'        => 'wc_booking_page_wc_bookings_product_templates',
+				'screen_id' => 'wc_booking_page_wc_bookings_product_templates',
+				'title'     => __( 'WooCommerce Bookings', 'woocommerce-bookings' ),
+			),
+			array(
+				'id'        => 'wc_booking_page_booking_calendar',
+				'screen_id' => 'wc_booking_page_booking_calendar',
+				'title'     => __( 'Calendar', 'woocommerce-bookings' ),
+			),
+			array(
+				'id'        => 'wc_booking_page_booking_notification',
+				'screen_id' => 'wc_booking_page_booking_notification',
+				'title'     => __( 'Notification', 'woocommerce-bookings' ),
+			),
+			array(
+				'id'        => 'wc_booking_page_wc_bookings_settings',
+				'screen_id' => 'wc_booking_page_wc_bookings_settings',
+				'title'     => __( 'Settings', 'woocommerce-bookings' ),
+			),
+		);
+
+		/**
+		 * Filter for the bookings pages used in the menu.
+		 *
+		 * @param array $bookings_pages Data for the bookings pages.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @return array filtered data for the bookings pages.
+		 */
+		return apply_filters( 'woocommerce_bookings_page_items', $bookings_pages );
 	}
 
 	/**
@@ -89,7 +172,7 @@ class WC_Bookings_Menus {
 	 * Create booking page.
 	 */
 	public function create_booking_page() {
-		require_once( 'class-wc-bookings-create.php' );
+		require_once 'class-wc-bookings-create.php';
 		$page = new WC_Bookings_Create();
 		$page->output();
 	}
@@ -149,7 +232,7 @@ class WC_Bookings_Menus {
 
 					// Add .ics file
 					if ( isset( $_POST['notification_ics'] ) ) {
-						$generate = new WC_Bookings_ICS_Exporter;
+						$generate      = new WC_Bookings_ICS_Exporter();
 						$attachments[] = $generate->get_booking_ics( $booking );
 					}
 
@@ -168,7 +251,7 @@ class WC_Bookings_Menus {
 
 		$booking_products = WC_Bookings_Admin::get_booking_products();
 
-		include( 'views/html-notifications-page.php' );
+		include 'views/html-notifications-page.php';
 	}
 
 	/**
@@ -191,44 +274,47 @@ class WC_Bookings_Menus {
 	public function settings_page() {
 		wp_enqueue_script( 'wc_bookings_admin_js' );
 
-		$tabs_metadata = apply_filters( 'woocommerce_bookings_settings_page', array(
-			'availability' => array(
-				'name'          => __( 'Store Availability', 'woocommerce-bookings' ),
-				'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=availability' ),
-				'capability'    => 'read_global_availability',
-				'generate_html' => function() {
+		$tabs_metadata = apply_filters(
+			'woocommerce_bookings_settings_page',
+			array(
+				'availability' => array(
+					'name'          => __( 'Store Availability', 'woocommerce-bookings' ),
+					'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=availability' ),
+					'capability'    => 'read_global_availability',
+					'generate_html' => function() {
 
-					if ( defined( 'WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR' ) && WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR ) {
-						$saved_view = get_option( 'wc_bookings_store_availability_view_setting', 'calendar' );
-						$view = isset( $_GET['view'] ) ? wc_clean( $_GET['view'] ) : $saved_view;
+						if ( defined( 'WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR' ) && WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR ) {
+							$saved_view = get_option( 'wc_bookings_store_availability_view_setting', 'calendar' );
+							$view = isset( $_GET['view'] ) ? wc_clean( $_GET['view'] ) : $saved_view;
 
-						if ( 'classic' === $view ) {
-							// Save chosen view to db.
-							update_option( 'wc_bookings_store_availability_view_setting', 'classic' );
-							include 'views/html-classic-availability-settings.php';
+							if ( 'classic' === $view ) {
+								// Save chosen view to db.
+								update_option( 'wc_bookings_store_availability_view_setting', 'classic' );
+								include 'views/html-classic-availability-settings.php';
+							} else {
+								// Save chosen view to db.
+								update_option( 'wc_bookings_store_availability_view_setting', 'calendar' );
+								include 'views/html-store-availability-settings.php';
+							}
 						} else {
-							// Save chosen view to db.
-							update_option( 'wc_bookings_store_availability_view_setting', 'calendar' );
-							include 'views/html-store-availability-settings.php';
+							include 'views/html-classic-availability-settings.php';
 						}
-					} else {
-						include 'views/html-classic-availability-settings.php';
-					}
-				},
-			),
-			'timezones'    => array(
-				'name'          => __( 'Timezones', 'woocommerce-bookings' ),
-				'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=timezones' ),
-				'capability'    => 'manage_bookings_timezones',
-				'generate_html' => 'WC_Bookings_Timezone_Settings::generate_form_html',
-			),
-			'connection'   => array(
-				'name'          => __( 'Calendar Connection', 'woocommerce-bookings' ),
-				'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=connection' ),
-				'capability'    => 'manage_bookings_connection',
-				'generate_html' => 'WC_Bookings_Google_Calendar_Connection::generate_form_html',
-			),
-		) );
+					},
+				),
+				'timezones'    => array(
+					'name'          => __( 'Timezones', 'woocommerce-bookings' ),
+					'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=timezones' ),
+					'capability'    => 'manage_bookings_timezones',
+					'generate_html' => 'WC_Bookings_Timezone_Settings::generate_form_html',
+				),
+				'connection'   => array(
+					'name'          => __( 'Calendar Connection', 'woocommerce-bookings' ),
+					'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=connection' ),
+					'capability'    => 'manage_bookings_connection',
+					'generate_html' => 'WC_Bookings_Google_Calendar_Connection::generate_form_html',
+				),
+			)
+		);
 
 		include 'views/html-settings-page.php';
 	}
@@ -263,6 +349,7 @@ class WC_Bookings_Menus {
 
 	/**
 	 * Filters the add new booking url to point to our custom page
+	 *
 	 * @param string $url original url
 	 * @param string $path requested path that we can match against
 	 * @return string new url

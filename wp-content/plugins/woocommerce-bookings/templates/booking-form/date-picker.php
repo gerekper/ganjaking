@@ -31,7 +31,7 @@ $month_before_day = strpos( __( 'F j, Y', 'woocommerce-bookings' ), 'F' ) < strp
 	<?php
 	if ( 'always_visible' !== $display ):
 		?>
-	<span class="label"><?php echo $label; ?></span>:
+	<span class="label"><?php echo esc_html( $label ); ?></span>:
 	<?php endif; ?>
 	<div class="wc-bookings-date-picker-date-fields">
 		<?php if ( 'customer' === $duration_type && $is_range_picker_enabled ) : ?>

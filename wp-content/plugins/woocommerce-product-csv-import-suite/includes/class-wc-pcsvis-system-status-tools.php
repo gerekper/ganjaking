@@ -59,7 +59,8 @@ class WC_PCSVIS_System_Status_Tools {
 			LEFT JOIN {$wpdb->posts} wp ON wp.ID = tr.object_id
 			WHERE wp.ID IS NULL" );
 
-		echo '<div class="updated"><p>' . sprintf( __( '%d Products Deleted', 'woocommerce-product-csv-import-suite' ), ( $result + $result2 ) ) . '</p></div>';
+		// translators: %d is product count.
+		echo '<div class="updated"><p>' . sprintf( esc_html__( '%d Products Deleted', 'woocommerce-product-csv-import-suite' ), esc_html( $result + $result2 ) ) . '</p></div>';
 	}
 
 	/**
@@ -81,7 +82,8 @@ class WC_PCSVIS_System_Status_Tools {
 			LEFT JOIN {$wpdb->posts} wp ON wp.ID = tr.object_id
 			WHERE wp.ID IS NULL" );
 
-		echo '<div class="updated"><p>' . sprintf( __( '%d Variations Deleted', 'woocommerce-product-csv-import-suite' ), $result ) . '</p></div>';
+		// translators: %d is variation count.
+		echo '<div class="updated"><p>' . esc_html( sprintf( __( '%d Variations Deleted', 'woocommerce-product-csv-import-suite' ), $result ) ) . '</p></div>';
 	}
 
 	/**
@@ -96,7 +98,8 @@ class WC_PCSVIS_System_Status_Tools {
 			LEFT JOIN {$wpdb->posts} wp ON wp.ID = products.post_parent
 			WHERE wp.ID IS NULL AND products.post_type = 'product_variation';" ) );
 
-		echo '<div class="updated"><p>' . sprintf( __( '%d Variations Deleted', 'woocommerce-product-csv-import-suite' ), $result ) . '</p></div>';
+		// translators: %d is variation count.
+		echo '<div class="updated"><p>' . esc_html( sprintf( __( '%d Variations Deleted', 'woocommerce-product-csv-import-suite' ), $result ) ) . '</p></div>';
 	}
 }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SkyVerge\Math\Internal\Calculator;
 
 use SkyVerge\Math\Internal\Calculator;
@@ -8,56 +10,76 @@ use SkyVerge\Math\Internal\Calculator;
  * Calculator implementation built around the bcmath library.
  *
  * @internal
+ *
+ * @psalm-immutable
  */
 class BcMathCalculator extends Calculator
 {
     /**
      * {@inheritdoc}
      */
-    public function add($a, $b)
+    public function add(string $a, string $b) : string
     {
-        return bcadd($a, $b, 0);
+        return \bcadd($a, $b, 0);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function sub($a, $b)
+    public function sub(string $a, string $b) : string
     {
-        return bcsub($a, $b, 0);
+        return \bcsub($a, $b, 0);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function mul($a, $b)
+    public function mul(string $a, string $b) : string
     {
-        return bcmul($a, $b, 0);
+        return \bcmul($a, $b, 0);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @psalm-suppress InvalidNullableReturnType
+     * @psalm-suppress NullableReturnStatement
+     */
+    public function divQ(string $a, string $b) : string
+    {
+        return \bcdiv($a, $b, 0);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @psalm-suppress InvalidNullableReturnType
+     * @psalm-suppress NullableReturnStatement
+     */
+    public function divR(string $a, string $b) : string
+    {
+        if (version_compare(PHP_VERSION, '7.2') >= 0) {
+            return \bcmod($a, $b, 0);
+        }
+
+        return \bcmod($a, $b);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function divQ($a, $b)
+    public function divQR(string $a, string $b) : array
     {
-        return bcdiv($a, $b, 0);
-    }
+        $q = \bcdiv($a, $b, 0);
 
-    /**
-     * {@inheritdoc}
-     */
-    public function divR($a, $b)
-    {
-        return bcmod($a, $b);
-    }
+        if (version_compare(PHP_VERSION, '7.2') >= 0) {
+            $r = \bcmod($a, $b, 0);
+        } else {
+            $r = \bcmod($a, $b);
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function divQR($a, $b)
-    {
-        $q = bcdiv($a, $b, 0);
-        $r = bcmod($a, $b);
+        assert($q !== null);
+        assert($r !== null);
 
         return [$q, $r];
     }
@@ -65,8 +87,24 @@ class BcMathCalculator extends Calculator
     /**
      * {@inheritdoc}
      */
-    public function pow($a, $e)
+    public function pow(string $a, int $e) : string
     {
-        return bcpow($a, $e, 0);
+        return \bcpow($a, (string) $e, 0);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function modPow(string $base, string $exp, string $mod) : string
+    {
+        return \bcpowmod($base, $exp, $mod, 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function sqrt(string $n) : string
+    {
+        return \bcsqrt($n, 0);
     }
 }

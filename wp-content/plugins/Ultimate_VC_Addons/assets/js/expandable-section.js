@@ -3,7 +3,7 @@
 jQuery( document ).ready( function () {
 	jQuery( '.ult_exp_content' ).hide();
 	//toggle the componenet with class msg_body
-	jQuery( '.ult_exp_section' ).click( function () {
+	jQuery( '.ult_exp_section' ).on( 'click', function () {
 		const effect = jQuery( this ).data( 'effect' );
 
 		jQuery( this ).toggleClass( 'ult_active_section' );
@@ -36,7 +36,7 @@ jQuery( document ).ready( function () {
 		);
 	} );
 
-	jQuery( '.ult_exp_section' ).select( function () {
+	jQuery( '.ult_exp_section' ).on( 'select', function () {
 		const title = jQuery( this ).data( 'title' );
 		const title1 = jQuery( this ).data( 'newtitle' );
 		const icn = jQuery( this ).data( 'icon' );
@@ -117,7 +117,8 @@ jQuery( document ).ready( function () {
 } );
 
 jQuery( document ).ready( function () {
-	jQuery( '.ult_exp_section' ).hover(
+	jQuery( '.ult_exp_section' ).on(
+		'mouseenter',
 		function () {
 			const texthover = jQuery( this ).data( 'texthover' );
 			const ihover = jQuery( this ).data( 'ihover' );
@@ -142,6 +143,8 @@ jQuery( document ).ready( function () {
 					.css( { 'border-color': icnhvrborder } );
 			}
 		},
+	).on(
+		'mouseleave',
 		function () {
 			const textcolor = jQuery( this ).data( 'textcolor' );
 			const icncolor = jQuery( this ).data( 'icncolor' );
@@ -170,13 +173,16 @@ jQuery( document ).ready( function () {
 		}
 	);
 
-	jQuery( '.ult_exp_content' ).hover(
+	jQuery( '.ult_exp_content' ).on(
+		'mouseenter',
 		function () {
 			const bg = jQuery( this )
 				.parent()
 				.find( '.ult_exp_section' )
 				.data( 'cnthvrbg' );
 		},
+	).on(
+		'mouseleave',
 		function () {
 			const bg1 = jQuery( this )
 				.parent()
@@ -243,14 +249,14 @@ jQuery( document ).ready( function () {
 		} );
 	}
 
-	jQuery( window ).resize( function () {
+	jQuery( window ).on( 'resize', function () {
 		resize_ult_section();
 	} );
 	resize_ult_section();
 } );
 
 jQuery( document ).ready( function () {
-	jQuery( '.ult_exp_section' ).select( function () {
+	jQuery( '.ult_exp_section' ).on( 'select', function () {
 		//console.log("jo");
 		const ht = jQuery( this ).data( 'height' );
 

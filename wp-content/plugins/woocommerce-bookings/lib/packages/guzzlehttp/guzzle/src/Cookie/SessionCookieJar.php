@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -77,7 +77,7 @@ class SessionCookieJar extends CookieJar
                 $this->setCookie(new SetCookie($cookie));
             }
         } elseif (\strlen($data)) {
-            throw new \RuntimeException("Invalid cookie data");
+            throw new \RuntimeException('Invalid cookie data');
         }
     }
 }

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * # Order Status
@@ -374,14 +374,13 @@ class WC_Order_Status_Manager_Order_Status {
 		// Check if status has been registered
 		if ( $this->get_slug() && get_post_status_object( $post_status ) ) {
 
-			$posts = new WP_Query( wp_parse_args( $args, array(
-				'fields'         => 'ids',
-				'post_type'      => 'shop_order',
-				'post_status'    => $post_status,
-				'posts_per_page' => 1,
-			) ) );
+			$posts = wc_get_orders( [
+				'return' => 'ids',
+				'limit'  => 1,
+				'status' => [ $post_status ],
+			]  );
 
-			$has_orders = $posts->post_count;
+			$has_orders = ! empty( $posts );
 		}
 
 		return $has_orders;

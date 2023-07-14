@@ -1205,7 +1205,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * @return void
 	 */
 	public function oauth_redirect() {
-		$valid_nonce = isset( $_REQUEST['nonce'] ) ? wp_verify_nonce( $_REQUEST['nonce'], 'wc_bookings_google_calendar_wooconnect' ) : false;
+		$valid_nonce = isset( $_REQUEST['nonce'] ) ? wp_verify_nonce( $_REQUEST['nonce'], 'wc_bookings_google_calendar_wooconnect' ) : false; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( ! current_user_can( 'manage_options' ) || ! $valid_nonce ) {
 			wp_die( esc_html__( 'Permission denied!', 'woocommerce-bookings' ) );
@@ -1268,8 +1268,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			$this->log(
 				sprintf(
 					'Google Oauth failed with "%s", "%s"',
-					isset( $_GET['error'] ) ? $_GET['error'] : '',
-					isset( $_GET['error_description'] ) ? $_GET['error_description'] : ''
+					wc_clean( $_GET['error'] ?? '' ),
+					wc_clean( $_GET['error_description'] ?? '' )
 				),
 				array(),
 				WC_Log_Levels::ERROR
@@ -1314,7 +1314,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 */
 	public function oauth_redirect_custom() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( __( 'Permission denied!', 'woocommerce-bookings' ) );
+			wp_die( esc_html( __( 'Permission denied!', 'woocommerce-bookings' ) ) );
 		}
 
 		$redirect_args = array(
@@ -1368,7 +1368,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			exit;
 		}
 
-		wp_die( __( 'Invalid request!', 'woocommerce-bookings' ) );
+		wp_die( esc_html( __( 'Invalid request!', 'woocommerce-bookings' ) ) );
 	}
 
 	/**
@@ -1663,7 +1663,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		return (
 			! empty( $_POST['wc_bookings_details_meta_box_nonce'] )
 			&&
-			wp_verify_nonce( $_POST['wc_bookings_details_meta_box_nonce'], 'wc_bookings_details_meta_box' )
+			wp_verify_nonce( $_POST['wc_bookings_details_meta_box_nonce'], 'wc_bookings_details_meta_box' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		);
 	}
 

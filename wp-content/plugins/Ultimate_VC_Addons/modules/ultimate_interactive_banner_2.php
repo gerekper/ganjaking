@@ -453,8 +453,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
 				$title_bg .= 'background:' . $ult_interactive_banner_2_settings['banner_title_bg'] . ';';
 			}
 
-			$img = apply_filters( 'ult_get_img_single', $ult_interactive_banner_2_settings['banner_image'], 'url' );
-			$alt = apply_filters( 'ult_get_img_single', $ult_interactive_banner_2_settings['banner_image'], 'alt' );
+			$img = apply_filters( 'ult_get_img_single', sanitize_text_field( $ult_interactive_banner_2_settings['banner_image'] ), 'url' );
+			$alt = apply_filters( 'ult_get_img_single', sanitize_text_field( $ult_interactive_banner_2_settings['banner_image'] ), 'alt' );
 			if ( '' !== $ult_interactive_banner_2_settings['banner_link'] ) {
 				$href = vc_build_link( $ult_interactive_banner_2_settings['banner_link'] );
 
@@ -469,26 +469,26 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
 			if ( '' != $ult_interactive_banner_2_settings['banner_title_font_family'] ) {
 				$bfamily = get_ultimate_font_family( $ult_interactive_banner_2_settings['banner_title_font_family'] );
 				if ( '' != $bfamily ) {
-					$banner_title_style_inline = 'font-family:\'' . $bfamily . '\';';
+					$banner_title_style_inline = 'font-family:\'' . esc_attr( $bfamily ) . '\';';
 				}
 			}
 			$banner_title_style_inline .= get_ultimate_font_style( $ult_interactive_banner_2_settings['banner_title_style'] );
 
 			if ( is_numeric( $ult_interactive_banner_2_settings['banner_title_font_size'] ) ) {
-				$ult_interactive_banner_2_settings['banner_title_font_size'] = 'desktop:' . $ult_interactive_banner_2_settings['banner_title_font_size'] . 'px;';
+				$ult_interactive_banner_2_settings['banner_title_font_size'] = 'desktop:' . intval( $ult_interactive_banner_2_settings['banner_title_font_size'] ) . 'px;';
 			}
 
 			if ( is_numeric( $ult_interactive_banner_2_settings['banner_title_line_height'] ) ) {
-				$ult_interactive_banner_2_settings['banner_title_line_height'] = 'desktop:' . $ult_interactive_banner_2_settings['banner_title_line_height'] . 'px;';
+				$ult_interactive_banner_2_settings['banner_title_line_height'] = 'desktop:' . intval( $ult_interactive_banner_2_settings['banner_title_line_height'] ) . 'px;';
 			}
 
-			$interactive_banner_id = 'interactive-banner-wrap-' . wp_rand( 1000, 9999 );
+			$interactive_banner_id = 'interactive-banner-wrap-' . absint( wp_rand( 1000, 9999 ) );
 
 			$interactive_banner_args = array(
-				'target'      => '#' . $interactive_banner_id . ' .ult-new-ib-title', // set targeted element e.g. unique class/id etc.
+				'target'      => '#' . esc_attr( $interactive_banner_id ) . ' .ult-new-ib-title', // set targeted element e.g. unique class/id etc.
 				'media_sizes' => array(
-					'font-size'   => $ult_interactive_banner_2_settings['banner_title_font_size'], // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
-					'line-height' => $ult_interactive_banner_2_settings['banner_title_line_height'],
+					'font-size'   => sanitize_text_field( $ult_interactive_banner_2_settings['banner_title_font_size'] ), // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
+					'line-height' => sanitize_text_field( $ult_interactive_banner_2_settings['banner_title_line_height'] ),
 				),
 			);
 
@@ -546,7 +546,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
 				$banner_title_style_inline .= 'color:' . $ult_interactive_banner_2_settings['banner_color_title'] . ';';
 			}
 
-			if ( 'span' == $ult_interactive_banner_2_settings['heading_tag'] ) {
+			if ( 'span' == esc_attr( sanitize_key( $ult_interactive_banner_2_settings['heading_tag'] ) ) ) {
 				$banner_title_style_inline .= 'display: block';
 			}
 
@@ -563,14 +563,14 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
 				$href = '';
 			}
 
-			$ult_interactive_banner_2_settings['heading_tag'] = ( isset( $ult_interactive_banner_2_settings['heading_tag'] ) && trim( $ult_interactive_banner_2_settings['heading_tag'] ) != '' ) ? $ult_interactive_banner_2_settings['heading_tag'] : 'h2';
+			$ult_interactive_banner_2_settings['heading_tag'] = ( isset( $ult_interactive_banner_2_settings['heading_tag'] ) && trim( $ult_interactive_banner_2_settings['heading_tag'] ) != '' ) ? esc_html( sanitize_key( $ult_interactive_banner_2_settings['heading_tag'] ) ) : 'h2';
 
 			$output .= '<div class="ult-new-ib ult-ib-effect-' . esc_attr( $ult_interactive_banner_2_settings['banner_style'] ) . ' ' . esc_attr( $ult_interactive_banner_2_settings['el_class'] ) . ' ' . esc_attr( $min_height_class ) . ' ' . esc_attr( $css_ib2_styles ) . '" ' . $responsive . ' style="' . esc_attr( $banner_style_inline ) . '" data-opacity="' . esc_attr( $ult_interactive_banner_2_settings['image_opacity'] ) . '" data-hover-opacity="' . esc_attr( $ult_interactive_banner_2_settings['image_opacity_on_hover'] ) . '" ' . $banner_min_height . '>';
 			if ( '' !== $img ) {
 				$output .= '<img class="ult-new-ib-img" style="' . esc_attr( $img_style ) . '" alt="' . esc_attr( $alt ) . '" src="' . esc_url( apply_filters( 'ultimate_images', $img ) ) . '" ' . $img_min_height . ' ' . $img_max_height . ' />';
 			}
 			$output .= '<div id="' . esc_attr( $interactive_banner_id ) . '" class="ult-new-ib-desc" style="' . esc_attr( $title_bg ) . '">';
-			$output .= '<' . $ult_interactive_banner_2_settings['heading_tag'] . ' class="ult-new-ib-title ult-responsive" ' . $interactive_banner_data_list . ' style="' . esc_attr( $banner_title_style_inline ) . '">' . $ult_interactive_banner_2_settings['banner_title'] . '</' . $ult_interactive_banner_2_settings['heading_tag'] . '>';
+			$output .= '<' . esc_attr( sanitize_key( $ult_interactive_banner_2_settings['heading_tag'] ) ) . ' class="ult-new-ib-title ult-responsive" ' . $interactive_banner_data_list . ' style="' . esc_attr( $banner_title_style_inline ) . '">' . $ult_interactive_banner_2_settings['banner_title'] . '</' . esc_attr( sanitize_key( $ult_interactive_banner_2_settings['heading_tag'] ) ) . '>';
 			if ( '' != $ult_interactive_banner_2_settings['banner_desc'] ) {
 				$output .= '<div class="ult-new-ib-content ult-responsive" ' . $interactive_banner_desc_data_list . ' style="' . esc_attr( $banner_desc_style_inline ) . '"><p>' . $ult_interactive_banner_2_settings['banner_desc'] . '</p></div>';
 			}

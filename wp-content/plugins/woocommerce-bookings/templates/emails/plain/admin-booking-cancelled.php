@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/bookings-templates/
- * @author  Automattic
+ * @package WooCommerce_Bookings
  * @version 1.8.0
  * @since   1.7.8
  */
@@ -28,7 +28,7 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"
 
 /* translators: 1: booking product title */
 echo esc_html( __( 'Booked: %s', 'woocommerce-bookings' ) );
-wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ] ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
+wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => array( $booking->get_id() ) ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
 echo "\n";
 
 /* translators: 1: booking id */
@@ -52,12 +52,12 @@ if ( wc_should_convert_timezone( $booking ) ) {
 }
 
 if ( $booking->has_persons() ) {
-	foreach ( $booking->get_persons() as $id => $qty ) {
+	foreach ( $booking->get_persons() as $bid => $qty ) {
 		if ( 0 === $qty ) {
 			continue;
 		}
 
-		$person_type = ( 0 < $id ) ? get_the_title( $id ) : __( 'Person(s)', 'woocommerce-bookings' );
+		$person_type = ( 0 < $bid ) ? get_the_title( $bid ) : __( 'Person(s)', 'woocommerce-bookings' );
 		/* translators: 1: person type 2: quantity */
 		echo esc_html( sprintf( __( '%1$s: %2$d', 'woocommerce-bookings' ), $person_type, $qty ) ) . "\n";
 	}
@@ -65,7 +65,19 @@ if ( $booking->has_persons() ) {
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-/* translators: 1: a href to booking */
-echo wp_kses_post( make_clickable( sprintf( __( 'You can view and edit this booking in the dashboard here: %s', 'woocommerce-bookings' ), admin_url( 'post.php?post=' . $booking->get_id() . '&action=edit' ) ) ) );
+$edit_booking_url  = admin_url( 'post.php?post=' . $booking->get_id() . '&action=edit' );
+$edit_booking_link = sprintf(
+	'<a href="%1$s">%2$s</a>',
+	esc_url( $edit_booking_url ),
+	__( 'Edit booking', 'woocommerce-bookings' )
+);
 
+/* translators: 1: a href to booking */
+echo wp_kses_post( sprintf( __( 'You can view and edit this booking in the dashboard here: %s', 'woocommerce-bookings' ), $edit_booking_link ) );
+
+/**
+ * Allows users to filter text in email footer
+ *
+ * @since 1.0.0
+ */
 echo esc_html( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

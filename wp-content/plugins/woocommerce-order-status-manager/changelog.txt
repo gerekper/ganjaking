@@ -1,4 +1,13 @@
-*** WooCommerce Order Status Manager Changelog ***
+*** WooCommerce Order Status Manager Changelog ***		       	       
+ 	 	       	    	  	      	     	    	  	 
+2023.07.11 - version 1.15.2
+ * Fix - Do not query order refunds when generating download permissions in upgrade routine
+
+2023.07.07 - version 1.15.1
+ * Fix - Ensure download links populate for paid orders that contain digital downloads
+
+2023.07.04 - version 1.15.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
 
 2022.11.29 - version 1.14.0
  * Misc - Require PHP 7.4 and WordPress 5.6

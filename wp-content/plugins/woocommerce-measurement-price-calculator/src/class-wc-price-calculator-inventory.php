@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * Pricing calculator inventory handling
@@ -88,15 +88,12 @@ class WC_Price_Calculator_Inventory {
 		add_filter( 'woocommerce_cart_shipping_packages',          array( $this, 'cart_shipping_packages' ) );
 
 		// filter the backordered quantity item meta label to reference measurement unit
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gt( '3.2' ) ) {
-			add_filter( 'woocommerce_backordered_item_meta_name', array( $this, 'get_backordered_item_meta_name' ), 20, 2 );
-		} else {
-			add_filter( 'woocommerce_backordered_item_meta_name', array( $this, 'get_backordered_item_meta_name' ), 20, 1 );
-		}
+		add_filter( 'woocommerce_backordered_item_meta_name', [ $this, 'get_backordered_item_meta_name' ], 20, 2 );
 
+		// handle stock adjustments for calculated inventory products
 		if ( is_admin() || wp_doing_ajax() ) {
-			add_filter( 'woocommerce_reduce_order_stock_quantity',  array( $this, 'admin_manage_order_stock' ), 10, 2 );
-			add_filter( 'woocommerce_restore_order_stock_quantity', array( $this, 'admin_manage_order_stock' ), 10, 2 );
+			add_filter( 'woocommerce_reduce_order_stock_quantity',  [ $this, 'admin_manage_order_stock' ], 10, 2 );
+			add_filter( 'woocommerce_restore_order_stock_quantity', [ $this, 'admin_manage_order_stock' ], 10, 2 );
 		}
 	}
 
@@ -559,47 +556,13 @@ class WC_Price_Calculator_Inventory {
 	 *
 	 * @since 3.0
 	 *
-	 * @param string $backordered_text the backordered text
-	 * @param null|\WC_Order_Item_Product $item the backordered item (available in callback from WC 3.2 onwards)
+	 * @param string|mixed $backordered_text the backordered text
+	 * @param \WC_Order_Item_Product|mixed $item the backordered item
 	 * @return string the backordered text, including units if available
 	 */
 	public function get_backordered_item_meta_name( $backordered_text, $item = null ) {
 
-		// TODO the $item argument will be added from WC 3.2 onwards, remove hook BC when 3.2 is the minimum required version {FN 2017-07-26}
-		if ( empty( $item ) ) {
-
-			$cart_contents = WC()->cart->get_cart();
-			$regular_items = 0;
-			$pricing_units = array();
-
-			// in WC < 3.2 we have no context where the 'Backordered' label is printed so we can make some assumption based on cart contents
-			foreach ( $cart_contents as $key => $cart_item ) {
-				if ( \WC_Price_Calculator_Product::pricing_calculator_inventory_enabled( $cart_item['data'] ) ) {
-					$settings        = new \WC_Price_Calculator_Settings( $cart_item['data'] );
-					$pricing_units[] = $settings->get_pricing_unit();
-				} else {
-					$regular_items++;
-				}
-			}
-
-			if ( 0 === $regular_items ) {
-
-				// all cart items are MPC items
-				if ( count( array_count_values( $pricing_units ) ) > 1 ) {
-					// there are at least two different pricing units
-					$backordered_text = __( 'Backordered measure', 'woocommerce-measurement-price-calculator' );
-				} else {
-					// there is only one pricing unit being used across one or more MPC items
-					$backordered_text .= sprintf( ' (%s)', current( $pricing_units ) );
-				}
-
-			} elseif ( count( $pricing_units ) > 0 ) {
-
-				// there are both regular items and one or more MPC items
-				$backordered_text = __( 'Backordered quantity or measure', 'woocommerce-measurement-price-calculator' );
-			}
-
-		} elseif ( $item instanceof \WC_Order_Item_Product && \WC_Price_Calculator_Product::pricing_calculator_inventory_enabled( $item->get_product() ) ) {
+		if ( is_string( $backordered_text ) && $item instanceof \WC_Order_Item_Product && \WC_Price_Calculator_Product::pricing_calculator_inventory_enabled( $item->get_product() ) ) {
 
 			$settings = new \WC_Price_Calculator_Settings( $item->get_product() );
 

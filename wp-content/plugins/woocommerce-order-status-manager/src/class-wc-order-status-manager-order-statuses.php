@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Order Status Manager Order Statuses class
@@ -60,7 +60,7 @@ class WC_Order_Status_Manager_Order_Statuses {
 		add_filter( 'woocommerce_order_is_paid_statuses', array( $this, 'order_paid_statuses' ) );
 
 		// grant download permissions on custom paid statuses
-		add_action( 'woocommerce_order_status_changed', array( $this, 'regenerate_download_permissions' ), 10, 3 );
+		add_action( 'woocommerce_order_status_changed', [ $this, 'regenerate_download_permissions' ], 10, 4 );
 
 		// add statuses that require payment (and thus can be cancelled)
 		add_filter( 'woocommerce_valid_order_statuses_for_payment', [ $this, 'order_needs_payment_statuses' ] );
@@ -436,30 +436,46 @@ class WC_Order_Status_Manager_Order_Statuses {
 
 
 	/**
-	 * Grant download permissions on custom paid order statuses
+	 * Grants download permissions on custom paid order statuses.
+	 *
+	 * @internal
 	 *
 	 * @since 1.6.1
 	 *
 	 * @param int $order_id WC_Order id
-	 * @param string $old_order_status Old order status
-	 * @param string $new_order_status New order status
+	 * @param string|mixed $old_order_status Old order status
+	 * @param string|mixed $new_order_status New order status
+	 * @param WC_Order|mixed|null $order WC_Order object
 	 */
-	public function regenerate_download_permissions( $order_id, $old_order_status, $new_order_status ) {
+	public function regenerate_download_permissions( $order_id, $old_order_status, $new_order_status, $order = null ) {
 		global $wpdb;
 
 		$paid_order_statuses = $this->order_paid_statuses();
 
-		if ( ! empty( $paid_order_statuses ) && in_array( $new_order_status, $paid_order_statuses, true ) ) {
+		if ( $order_id && ! empty( $paid_order_statuses ) && in_array( $new_order_status, $paid_order_statuses, true ) ) {
 
-			delete_post_meta( $order_id, '_download_permissions_granted' );
+			if ( ! $order instanceof WC_Order ) {
+				$order = wc_get_order( $order_id );
+			}
+
+			if ( $order ) {
+
+				// accounts for old and new handling of download permissions
+				if ( method_exists( $order, 'set_download_permissions_granted' ) ) {
+					$order->set_download_permissions_granted( false );
+				}
+
+				$order->delete_meta_data( '_download_permissions_granted' );
+				$order->save();
+			}
 
 			$wpdb->delete(
 				$wpdb->prefix . 'woocommerce_downloadable_product_permissions',
-				array( 'order_id' => $order_id ),
-				array( '%d' )
+				[ 'order_id' => $order_id ],
+				[ '%d' ]
 			);
 
-			wc_downloadable_product_permissions( $order_id );
+			wc_downloadable_product_permissions( $order_id, true );
 		}
 	}
 
@@ -609,37 +625,52 @@ class WC_Order_Status_Manager_Order_Statuses {
 
 
 	/**
-	 * Handle order status slug change
+	 * Handles order status slug changes.
 	 *
-	 * This function will find any orders with the previous slug
-	 * and update them with the new slug. It also updates the slug
-	 * in any "next statuses".
+	 * This function will find any orders with the previous slug and update them with the new slug.
+	 * It also updates the slug in any "next statuses".
+	 *
+	 * @internal
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param int $post_id the order status post id
 	 * @param \WP_Post $post the order status post object
 	 */
 	public function handle_slug_change( $post_id, \WP_Post $post ) {
+		global $wpdb;
 
-		// Check if the previous slug was stored
+		// check if the previous slug was stored
 		if ( ! $this->_previous_order_status_slug ) {
 			return;
 		}
 
 		$order_status = new WC_Order_Status_Manager_Order_Status( $post_id );
 
-		global $wpdb;
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
 
-		$wpdb->query( $wpdb->prepare( "
-			UPDATE {$wpdb->posts}
-			SET post_status = %s
-			WHERE post_type = 'shop_order'
-			AND post_status = %s
-		", $order_status->get_slug( true ), 'wc-' . $this->_previous_order_status_slug ) );
+			$orders_table = $wpdb->prefix . 'wc_orders';
 
-		// If any other order statuses have specified this status
-		// as a 'next status', update the slug in their meta, so that
-		// the 'next status' keeps functioning
+			$wpdb->query( $wpdb->prepare( "
+				UPDATE {$orders_table}
+				SET status = %s
+				WHERE status = %s
+			", $order_status->get_slug( true ), 'wc-' . $this->_previous_order_status_slug ) );
+
+		} else {
+
+			$orders_table = $wpdb->posts;
+
+			$wpdb->query( $wpdb->prepare( "
+				UPDATE {$orders_table}
+				SET post_status = %s
+				WHERE post_type = 'shop_order'
+				AND post_status = %s
+			", $order_status->get_slug( true ), 'wc-' . $this->_previous_order_status_slug ) );
+		}
+
+		// If any other order statuses have specified this status as a 'next status',
+		// update the slug in their meta, so that the 'next status' keeps functioning.
 		$rows = $wpdb->get_results( $wpdb->prepare( "
 			SELECT pm.post_id
 			FROM {$wpdb->postmeta} pm
@@ -666,21 +697,22 @@ class WC_Order_Status_Manager_Order_Statuses {
 
 
 	/**
-	 * Handle deleting an order status
+	 * Handles deleting an order status.
 	 *
-	 * Will assign all orders that have the to-be deleted status
-	 * a replacement status, which defaults to `wc-on-hold`.
+	 * Will assign all orders that have the to-be deleted status a replacement status, which defaults to `wc-on-hold`.
 	 * Also removes the status form any next statuses.
 	 *
+	 * @internal
+	 *
 	 * @since 1.0.0
+	 *
 	 * @param int $post_id the order status post id
 	 * @param string $replacement_status the new status to assign (optional, default: on hold)
 	 */
 	public function handle_order_status_delete( $post_id, $replacement_status = 'on-hold' ) {
-
 		global $wpdb;
 
-		// Bail out if not an order status or not published
+		// bail out if not an order status or not published
 		if ( 'wc_order_status' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
 			return;
 		}
@@ -709,10 +741,25 @@ class WC_Order_Status_Manager_Order_Statuses {
 		$new_status_name = $new_status->get_name();
 		$old_status_name = $order_status->get_name();
 
-		$order_rows = $wpdb->get_results( $wpdb->prepare( "
-			SELECT ID FROM {$wpdb->posts}
-			WHERE post_type = 'shop_order' AND post_status = %s
-		", $order_status->get_slug( true ) ), ARRAY_A );
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+			$orders_table = $wpdb->prefix . 'wc_orders';
+			$order_rows = $wpdb->get_results( $wpdb->prepare( "
+				SELECT ID
+				FROM {$orders_table}
+				WHERE status = %s
+			", $order_status->get_slug( true ) ), ARRAY_A );
+
+		} else {
+
+			$orders_table = $wpdb->posts;
+			$order_rows = $wpdb->get_results( $wpdb->prepare( "
+				SELECT ID
+				FROM {$orders_table}
+				WHERE post_type = 'shop_order'
+				  AND post_status = %s
+			", $order_status->get_slug( true ) ), ARRAY_A );
+		}
 
 		$num_updated = 0;
 
@@ -730,8 +777,7 @@ class WC_Order_Status_Manager_Order_Statuses {
 			}
 		}
 
-		// If any other order statuses have specified this status
-		// as a 'next status', remove it from there
+		// if any other order statuses have specified this status as a 'next status', remove it from there
 		$rows = $wpdb->get_results( $wpdb->prepare( "
 			SELECT pm.post_id
 			FROM {$wpdb->postmeta} pm
@@ -760,11 +806,11 @@ class WC_Order_Status_Manager_Order_Statuses {
 
 			/* translators: Placeholders: %d is the number of orders changed, %1$s is the old order status, %2$s is the new order status  */
 			$message = sprintf( _n(
-					'%d order that was previously %1$s is now %2$s.',
-					'%d orders that were previously %1$s are now %2$s.',
-					$num_updated,
-					'woocommerce-order-status-manager'
-				), $num_updated, esc_html( $old_status_name ), esc_html( $new_status_name ) );
+				'%d order that was previously %1$s is now %2$s.',
+				'%d orders that were previously %1$s are now %2$s.',
+				$num_updated,
+				'woocommerce-order-status-manager'
+			), $num_updated, esc_html( $old_status_name ), esc_html( $new_status_name ) );
 
 			wc_order_status_manager()->get_message_handler()->add_message( $message );
 		}

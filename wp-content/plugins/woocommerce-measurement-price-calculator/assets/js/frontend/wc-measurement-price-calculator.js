@@ -368,17 +368,47 @@ jQuery( function( $ ) {
 					return false;
 				}
 
-				// convert to the common measurement unit so as we multiply measurements together to dervice an area or volume, we do so in a single known "common" unit
+				// convert to the common measurement unit so as we multiply measurements together to derive an area or volume, we do so in a single known "common" unit
 				measurementValue = convertUnits( measurementValue, el.data( 'unit' ), el.data( 'common-unit' ) );
 
-				if ( ! totalMeasurement ) {
-					// first or single measurement
-					totalMeasurement = measurementValue;
+				if ( 'area-linear' === wc_price_calculator_params.measurement_type ) {
+
+					if ( ! totalMeasurement ) {
+						// first measurement
+						totalMeasurement = 2 * measurementValue;
+					} else {
+						// combine with the second addend to get the perimeter measurement
+						totalMeasurement += 2 * measurementValue;
+					}
+
+				} else if ( 'area-surface' === wc_price_calculator_params.measurement_type ) {
+
+					// calculate surface area only once
+					if ( ! totalMeasurement ) {
+
+						var length = standardizeInput( $( '#length_needed' ).val() );
+						length     = convertUnits( convertToFloat( length ), $( '#length_needed' ).data( 'unit' ), $( '#length_needed' ).data( 'common-unit' ) );
+
+						var width = standardizeInput( $( '#width_needed' ).val() );
+						width     = convertUnits( convertToFloat( width ), $( '#width_needed' ).data( 'unit' ), $( '#width_needed' ).data( 'common-unit' ) );
+
+						var height = standardizeInput( $( '#height_needed' ).val() );
+						height     = convertUnits( convertToFloat( height ), $( '#height_needed' ).data( 'unit' ), $( '#height_needed' ).data( 'common-unit' ) );
+
+						totalMeasurement = 2 * ( length * width + width * height + length * height );
+
+						return;
+					}
 				} else {
-					// multiply to get either the area or volume measurement
-					totalMeasurement *= measurementValue;
+					if ( ! totalMeasurement ) {
+						// first or single measurement
+						totalMeasurement = measurementValue;
+					} else {
+						// multiply to get either the area or volume measurement
+						totalMeasurement *= measurementValue;
+					}
 				}
-			});
+			} );
 
 			if ( totalMeasurement ) {
 				// convert the product measurement to total measurement units

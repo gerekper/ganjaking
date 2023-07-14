@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.59\n"
+"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.60\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-csv-import-suite\n"
-"POT-Creation-Date: 2023-06-06 19:12:44+00:00\n"
+"POT-Creation-Date: 2023-07-03 15:23:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,40 +23,47 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/class-wc-pcsvis-admin-screen.php:39
+#: includes/class-wc-pcsvis-admin-screen.php:40
+#. translators: $1 and $2: opening and closing code tags.
 msgid ""
-"CSV Import Suite requires the function <code>mb_detect_encoding</code> to "
-"import and export CSV files. Please ask your hosting provider to enable "
-"this function."
+"CSV Import Suite requires the function %1$smb_detect_encoding%2$s to import "
+"and export CSV files. Please ask your hosting provider to enable this "
+"function."
 msgstr ""
 
-#: includes/class-wc-pcsvis-admin-screen.php:47
-#: includes/class-wc-pcsvis-admin-screen.php:61
+#: includes/class-wc-pcsvis-admin-screen.php:48
+#: includes/class-wc-pcsvis-admin-screen.php:62
 msgid "CSV Import Suite"
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:45
+#: includes/class-wc-pcsvis-ajax-handler.php:46
+#. translators: %s is image ID.
 msgid "Failed resize: %s is an invalid image ID."
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:48
+#: includes/class-wc-pcsvis-ajax-handler.php:50
 msgid "Your user account doesn't have permission to resize images"
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:53
+#: includes/class-wc-pcsvis-ajax-handler.php:56
+#. translators: %s is file path.
 msgid "The originally uploaded image file cannot be found at %s"
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:62
+#: includes/class-wc-pcsvis-ajax-handler.php:66
 msgid "Unknown failure reason."
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:67
-msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
+#: includes/class-wc-pcsvis-ajax-handler.php:72
+#. translators: $1: quote character, $2: image title, $3: image ID, $4: number
+#. of seconds.
+msgid "%1$s%2$s%1$s (ID %3$s) was successfully resized in %4$s seconds."
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:74
-msgid "&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
+#: includes/class-wc-pcsvis-ajax-handler.php:80
+#. translators: $1: quote character, $2: image title, $3: image ID, $4: error
+#. message.
+msgid "%1$s%2$s%1$s (ID %3$s) failed to resize. The error message was: %4$s"
 msgstr ""
 
 #: includes/class-wc-pcsvis-system-status-tools.php:22
@@ -95,12 +102,14 @@ msgstr ""
 msgid "This tool will delete variations which have no parent."
 msgstr ""
 
-#: includes/class-wc-pcsvis-system-status-tools.php:62
+#: includes/class-wc-pcsvis-system-status-tools.php:63
+#. translators: %d is product count.
 msgid "%d Products Deleted"
 msgstr ""
 
-#: includes/class-wc-pcsvis-system-status-tools.php:84
-#: includes/class-wc-pcsvis-system-status-tools.php:99
+#: includes/class-wc-pcsvis-system-status-tools.php:86
+#: includes/class-wc-pcsvis-system-status-tools.php:102
+#. translators: %d is variation count.
 msgid "%d Variations Deleted"
 msgstr ""
 
@@ -178,7 +187,7 @@ msgid "Row"
 msgstr ""
 
 #: includes/importer/class-wc-pcsvis-product-import.php:129
-#: includes/importer/views/html-import-options.php:95
+#: includes/importer/views/html-import-options.php:100
 msgid "SKU"
 msgstr ""
 
@@ -213,282 +222,282 @@ msgstr ""
 msgid "Invalid filepath specified during import."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:449
+#: includes/importer/class-wc-pcsvis-product-import.php:451
 msgid "Cleaning up..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:454
+#: includes/importer/class-wc-pcsvis-product-import.php:456
 msgid "Clearing transients..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:489
+#: includes/importer/class-wc-pcsvis-product-import.php:491
 msgid "Backfilling parents..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:494
+#: includes/importer/class-wc-pcsvis-product-import.php:496
 msgid "Linking upsells..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:502
+#: includes/importer/class-wc-pcsvis-product-import.php:504
 msgid "Linking crosssells..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:511
+#: includes/importer/class-wc-pcsvis-product-import.php:513
 msgid "Syncing variations..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:519
+#: includes/importer/class-wc-pcsvis-product-import.php:521
 msgid "Finished. Import complete."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:586
+#: includes/importer/class-wc-pcsvis-product-import.php:588
 msgid "Processing products."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:600
+#: includes/importer/class-wc-pcsvis-product-import.php:602
 msgid "Finished processing products."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:614
+#: includes/importer/class-wc-pcsvis-product-import.php:616
 msgid "Parsing products CSV."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:621
+#: includes/importer/class-wc-pcsvis-product-import.php:623
 msgid "Finished parsing products CSV."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:686
+#: includes/importer/class-wc-pcsvis-product-import.php:688
 #. translators: placeholder is upload error from WP
 msgid "Sorry, there has been an error: %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:717
+#: includes/importer/class-wc-pcsvis-product-import.php:720
 msgid "Sorry, filepath must not be within a PHAR executable."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:721
+#: includes/importer/class-wc-pcsvis-product-import.php:724
 #. translators: placeholder is base directory (WP_CONTENT_DIR)
 msgid "Sorry, there has been an error: filepath must exist inside %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:726
+#: includes/importer/class-wc-pcsvis-product-import.php:729
 #. translators: placeholder is file path
 msgid "Sorry, there has been an error: %s does not exist."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:733
+#: includes/importer/class-wc-pcsvis-product-import.php:736
 #. translators: placeholder is comma-separated of accepted mime-types for
 #. import (e.g. 'text/csv')
 msgid "File must have .csv extension with acceptable mime types (%s)"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:921
+#: includes/importer/class-wc-pcsvis-product-import.php:924
 msgid "Product already processed"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:922
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:65
+#: includes/importer/class-wc-pcsvis-product-import.php:925
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:66
 msgid "> Post ID already processed. Skipping."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:928
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:70
+#: includes/importer/class-wc-pcsvis-product-import.php:931
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:71
 msgid "Skipping auto-draft"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:929
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:71
+#: includes/importer/class-wc-pcsvis-product-import.php:932
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:72
 msgid "> Skipping auto-draft."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:937
+#: includes/importer/class-wc-pcsvis-product-import.php:940
 msgid "Product already exists"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:938
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:123
+#: includes/importer/class-wc-pcsvis-product-import.php:941
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:124
 msgid "> &#8220;%s&#8221; already exists."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:943
+#: includes/importer/class-wc-pcsvis-product-import.php:946
 msgid "Importing post ID conflicts with an existing post ID"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:944
+#: includes/importer/class-wc-pcsvis-product-import.php:947
 msgid "> &#8220;%s&#8221; ID already exists."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:952
+#: includes/importer/class-wc-pcsvis-product-import.php:955
 msgid "Post is not a product"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:953
+#: includes/importer/class-wc-pcsvis-product-import.php:956
 msgid "> &#8220;%s&#8221; is not a product."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:963
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:97
+#: includes/importer/class-wc-pcsvis-product-import.php:966
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:98
 msgid "> Merging post ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1032
+#: includes/importer/class-wc-pcsvis-product-import.php:1035
 msgid "> Failed to update product %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1040
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:108
+#: includes/importer/class-wc-pcsvis-product-import.php:1043
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:109
 msgid "> Merged post data: "
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1078
+#: includes/importer/class-wc-pcsvis-product-import.php:1081
 msgid "> Inserting %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1100
+#: includes/importer/class-wc-pcsvis-product-import.php:1103
 msgid "Failed to import product"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1101
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:147
+#: includes/importer/class-wc-pcsvis-product-import.php:1104
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:148
 msgid "Failed to import product &#8220;%s&#8221;"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1109
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:151
+#: includes/importer/class-wc-pcsvis-product-import.php:1112
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:152
 msgid "> Inserted - post ID is %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1159
+#: includes/importer/class-wc-pcsvis-product-import.php:1162
 msgid "> > Image exists - skipping %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1185
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:223
+#: includes/importer/class-wc-pcsvis-product-import.php:1188
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:224
 msgid "> > Importing image \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1199
+#: includes/importer/class-wc-pcsvis-product-import.php:1202
 msgid "> > Imported image \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1218
+#: includes/importer/class-wc-pcsvis-product-import.php:1221
 msgid "> > Error importing image \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1225
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:251
+#: includes/importer/class-wc-pcsvis-product-import.php:1228
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:252
 msgid "> > Images set"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1313
+#: includes/importer/class-wc-pcsvis-product-import.php:1316
 msgid "> Finished merging post ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1316
+#: includes/importer/class-wc-pcsvis-product-import.php:1319
 msgid "> Finished importing post ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1422
-#: includes/importer/class-wc-pcsvis-product-import.php:1448
+#: includes/importer/class-wc-pcsvis-product-import.php:1425
+#: includes/importer/class-wc-pcsvis-product-import.php:1451
 msgid "Invalid file type"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1431
+#: includes/importer/class-wc-pcsvis-product-import.php:1434
 msgid "Local image did not exist!"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1461
+#: includes/importer/class-wc-pcsvis-product-import.php:1464
 msgid "> > Inserted image attachment \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1526
+#: includes/importer/class-wc-pcsvis-product-import.php:1529
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1584
+#: includes/importer/class-wc-pcsvis-product-import.php:1587
 #: includes/views/html-admin-screen.php:4
-#: includes/views/import/html-import-products.php:7
+#: includes/views/import/html-import-products.php:12
 msgid "Import Products"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1584
-#: includes/views/import/html-import-products.php:7
+#: includes/importer/class-wc-pcsvis-product-import.php:1587
+#: includes/views/import/html-import-products.php:12
 msgid "Merge Products"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:58
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:59
 msgid "No product variation parent set"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:59
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:60
 msgid "> Skipping - no post parent set."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:64
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:65
 msgid "Product variation already processed"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:79
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:80
 msgid "Variation parent does not exist"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:80
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:81
 msgid "> Variation parent does not exist! (#%d)"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:86
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:87
 msgid "Post is not a product variation"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:87
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:88
 msgid "> &#8220;%s&#8221; is not a product variation."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:110
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:111
 msgid "> Failed to merge post data: "
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:122
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:123
 msgid "Variation already exists"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:129
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:130
 msgid "> Inserting variation."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:145
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:146
 msgid "Failed to import product variation"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:155
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:156
 msgid "Variation #%s of %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:217
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:218
 msgid "> > Old images processed"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:303
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:304
 msgid "> Finished merging variation ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:306
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:307
 msgid "> Finished importing variation ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:362
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:363
 msgid "Parsing product variations CSV."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:369
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:370
 msgid "Finished parsing product variations CSV."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:382
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:383
 msgid "Import Product Variations"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product_variation-import.php:382
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:383
 msgid "Merge Product Variations"
 msgstr ""
 
@@ -515,33 +524,34 @@ msgstr ""
 msgid "Choose a file from your computer:"
 msgstr ""
 
-#: includes/importer/views/html-import-greeting.php:20
-#: includes/importer/views/html-import-variation-greeting.php:20
+#: includes/importer/views/html-import-greeting.php:23
+#: includes/importer/views/html-import-variation-greeting.php:23
+#. translators: %s is file size.
 msgid "Maximum size: %s"
 msgstr ""
 
-#: includes/importer/views/html-import-greeting.php:26
-#: includes/importer/views/html-import-variation-greeting.php:26
+#: includes/importer/views/html-import-greeting.php:31
+#: includes/importer/views/html-import-variation-greeting.php:31
 msgid "OR enter path to file:"
 msgstr ""
 
-#: includes/importer/views/html-import-greeting.php:34
-#: includes/importer/views/html-import-variation-greeting.php:34
+#: includes/importer/views/html-import-greeting.php:39
+#: includes/importer/views/html-import-variation-greeting.php:39
 msgid "Delimiter"
 msgstr ""
 
-#: includes/importer/views/html-import-greeting.php:38
+#: includes/importer/views/html-import-greeting.php:43
 msgid "Merge empty cells"
 msgstr ""
 
-#: includes/importer/views/html-import-greeting.php:39
+#: includes/importer/views/html-import-greeting.php:44
 msgid ""
 "Check this box to merge empty cells - otherwise (when merging) the empty "
 "cells will be ignored when importing things such as attributes."
 msgstr ""
 
-#: includes/importer/views/html-import-greeting.php:44
-#: includes/importer/views/html-import-variation-greeting.php:40
+#: includes/importer/views/html-import-greeting.php:49
+#: includes/importer/views/html-import-variation-greeting.php:45
 msgid "Upload file and import"
 msgstr ""
 
@@ -565,316 +575,322 @@ msgstr ""
 msgid "Example Column Value"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:27
-msgid "Taxonomy: <strong>%s</strong>"
+#: includes/importer/views/html-import-options.php:28
+#. translators: $1 and $2: opening and closing strong tags, $3: taxonomy name.
+msgid "Taxonomy: %1$s%3$s%2$s"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:32
-msgid "Custom Field: <strong>%s</strong>"
+#: includes/importer/views/html-import-options.php:34
+#. translators: $1 and $2: opening and closing strong tags, $3: custom field.
+msgid "Custom Field: %1$s%3$s%2$s"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:37
-msgid "Product Attribute: <strong>%s</strong>"
+#: includes/importer/views/html-import-options.php:40
+#. translators: $1 and $2: opening and closing strong tags, $3: attribute name.
+msgid "Product Attribute: %1$s%3$s%2$s"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:42
-msgid "Product Attribute Data: <strong>%s</strong>"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:47
-msgid "Product Attribute default value: <strong>%s</strong>"
+#: includes/importer/views/html-import-options.php:46
+#. translators: $1 and $2: opening and closing strong tags, $3: Attribute data.
+msgid "Product Attribute Data: %1$s%3$s%2$s"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:52
+#. translators: $1 and $2: opening and closing strong tags, $3: Attribute
+#. default value.
+msgid "Product Attribute default value: %1$s%3$s%2$s"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:57
 msgid "Do not import"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:53
+#: includes/importer/views/html-import-options.php:58
 msgid "Images/Gallery"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:54
+#: includes/importer/views/html-import-options.php:59
 msgid "Custom Field with column name"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:55
+#: includes/importer/views/html-import-options.php:60
 msgid "Taxonomies"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:63
+#: includes/importer/views/html-import-options.php:68
 #: includes/views/export/html-export-products.php:39
 msgid "Attributes"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:71
+#: includes/importer/views/html-import-options.php:76
 msgid "Map to parent (variations and grouped products)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:72
+#: includes/importer/views/html-import-options.php:77
 msgid "By ID"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:73
+#: includes/importer/views/html-import-options.php:78
 msgid "By SKU"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:75
+#: includes/importer/views/html-import-options.php:80
 msgid "Post data"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:91
+#: includes/importer/views/html-import-options.php:96
 msgid "Product data"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:92
-#: includes/importer/views/html-import-options.php:93
-#: includes/importer/views/html-import-options.php:94
+#: includes/importer/views/html-import-options.php:97
+#: includes/importer/views/html-import-options.php:98
+#: includes/importer/views/html-import-options.php:99
 msgid "Type"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:96
-#: includes/importer/views/html-import-options.php:97
+#: includes/importer/views/html-import-options.php:101
+#: includes/importer/views/html-import-options.php:102
 msgid "Visibility"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:98
-#: includes/importer/views/html-import-options.php:99
-#: includes/importer/views/html-import-options.php:100
-#: includes/importer/views/html-import-options.php:101
-msgid "Inventory"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:102
 #: includes/importer/views/html-import-options.php:103
 #: includes/importer/views/html-import-options.php:104
 #: includes/importer/views/html-import-options.php:105
-msgid "Price"
+#: includes/importer/views/html-import-options.php:106
+msgid "Inventory"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:106
 #: includes/importer/views/html-import-options.php:107
 #: includes/importer/views/html-import-options.php:108
 #: includes/importer/views/html-import-options.php:109
-msgid "Dimensions"
-msgstr ""
-
 #: includes/importer/views/html-import-options.php:110
-#: includes/importer/views/html-import-options.php:111
-msgid "Tax"
+msgid "Price"
 msgstr ""
 
+#: includes/importer/views/html-import-options.php:111
 #: includes/importer/views/html-import-options.php:112
 #: includes/importer/views/html-import-options.php:113
 #: includes/importer/views/html-import-options.php:114
-#: includes/importer/views/html-import-options.php:115
-msgid "Related Products"
+msgid "Dimensions"
 msgstr ""
 
+#: includes/importer/views/html-import-options.php:115
 #: includes/importer/views/html-import-options.php:116
+msgid "Tax"
+msgstr ""
+
 #: includes/importer/views/html-import-options.php:117
 #: includes/importer/views/html-import-options.php:118
 #: includes/importer/views/html-import-options.php:119
+#: includes/importer/views/html-import-options.php:120
+msgid "Related Products"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:121
+#: includes/importer/views/html-import-options.php:122
+#: includes/importer/views/html-import-options.php:123
+#: includes/importer/views/html-import-options.php:124
 msgid "Downloads"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:116
+#: includes/importer/views/html-import-options.php:121
 msgid "(WC 2.0.x)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:117
+#: includes/importer/views/html-import-options.php:122
 msgid "(WC 2.1+)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:120
-#: includes/importer/views/html-import-options.php:121
+#: includes/importer/views/html-import-options.php:125
+#: includes/importer/views/html-import-options.php:126
 msgid "External"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:125
+#: includes/importer/views/html-import-options.php:130
 msgid "Google Product Feed"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:126
+#: includes/importer/views/html-import-options.php:131
 msgid "Adwords grouping"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:127
+#: includes/importer/views/html-import-options.php:132
 msgid "Adwords labels"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:128
+#: includes/importer/views/html-import-options.php:133
 msgid "Adult content"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:129
+#: includes/importer/views/html-import-options.php:134
 msgid "Age Group"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:130
+#: includes/importer/views/html-import-options.php:135
 msgid "Availability"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:131
+#: includes/importer/views/html-import-options.php:136
 msgid "Availability date"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:132
+#: includes/importer/views/html-import-options.php:137
 msgid "Brand"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:133
+#: includes/importer/views/html-import-options.php:138
 msgid "Bundle indicator"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:134
+#: includes/importer/views/html-import-options.php:139
 msgid "Color"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:135
+#: includes/importer/views/html-import-options.php:140
 msgid "Condition"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:136
+#: includes/importer/views/html-import-options.php:141
 msgid "Cost of goods sold"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:137
+#: includes/importer/views/html-import-options.php:142
 msgid "Custom label 0"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:138
+#: includes/importer/views/html-import-options.php:143
 msgid "Custom label 1"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:139
+#: includes/importer/views/html-import-options.php:144
 msgid "Custom label 2"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:140
+#: includes/importer/views/html-import-options.php:145
 msgid "Custom label 3"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:141
+#: includes/importer/views/html-import-options.php:146
 msgid "Custom label 4"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:142
+#: includes/importer/views/html-import-options.php:147
 msgid "Delivery label"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:143
+#: includes/importer/views/html-import-options.php:148
 msgid "Energy efficiency class"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:144
+#: includes/importer/views/html-import-options.php:149
 msgid "Energy efficiency class (min)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:145
+#: includes/importer/views/html-import-options.php:150
 msgid "Energy efficiency class (max)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:146
+#: includes/importer/views/html-import-options.php:151
 msgid "Energy label image link"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:147
+#: includes/importer/views/html-import-options.php:152
 msgid "Excluded destination"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:148
+#: includes/importer/views/html-import-options.php:153
 msgid "Exclude Product"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:149
+#: includes/importer/views/html-import-options.php:154
 msgid "Gender"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:150
+#: includes/importer/views/html-import-options.php:155
 msgid "Google-funded promotion eligibility"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:151
+#: includes/importer/views/html-import-options.php:156
 msgid "Google Product Category"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:152
+#: includes/importer/views/html-import-options.php:157
 msgid "Global Trade Item Number (GTIN)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:153
+#: includes/importer/views/html-import-options.php:158
 msgid "Included destination"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:154
+#: includes/importer/views/html-import-options.php:159
 msgid "Handling time (min)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:155
+#: includes/importer/views/html-import-options.php:160
 msgid "Handling time (max)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:156
+#: includes/importer/views/html-import-options.php:161
 msgid "Manufacturer Part Number (MPN)"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:157
+#: includes/importer/views/html-import-options.php:162
 msgid "Material"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:158
+#: includes/importer/views/html-import-options.php:163
 msgid "Multipack"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:159
+#: includes/importer/views/html-import-options.php:164
 msgid "Pattern"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:160
+#: includes/importer/views/html-import-options.php:165
 msgid "Product Type"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:161
+#: includes/importer/views/html-import-options.php:166
 msgid "Promotion ID"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:162
+#: includes/importer/views/html-import-options.php:167
 msgid "Purchase quantity limit"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:163
+#: includes/importer/views/html-import-options.php:168
 msgid "Return address label identifier"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:164
+#: includes/importer/views/html-import-options.php:169
 msgid "Return policy label identifier"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:165
+#: includes/importer/views/html-import-options.php:170
 msgid "Sell on Google quantity"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:166
+#: includes/importer/views/html-import-options.php:171
 msgid "Size"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:167
+#: includes/importer/views/html-import-options.php:172
 msgid "Size type"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:168
+#: includes/importer/views/html-import-options.php:173
 msgid "Size system"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:169
+#: includes/importer/views/html-import-options.php:174
 msgid "Unit pricing measure"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:170
+#: includes/importer/views/html-import-options.php:175
 msgid "Unit pricing base measure"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:186
+#: includes/importer/views/html-import-options.php:191
 msgid "Submit"
 msgstr ""
 
@@ -986,17 +1002,19 @@ msgstr ""
 msgid "Export Variations"
 msgstr ""
 
-#: includes/views/html-getting-started.php:3
+#: includes/views/html-getting-started.php:6
+#. translators: $1 and $2: opening and closing string tags, $3: mdash
+#. character.
 msgid ""
-"<strong>Product CSV Import Suite</strong> &#8211; Before getting started "
-"prepare your CSV files"
+"%1$sProduct CSV Import Suite%2$s %3$s Before getting started prepare your "
+"CSV files"
 msgstr ""
 
-#: includes/views/html-getting-started.php:5
+#: includes/views/html-getting-started.php:10
 msgid "Documentation"
 msgstr ""
 
-#: includes/views/html-getting-started.php:5
+#: includes/views/html-getting-started.php:10
 msgid "Sample CSV"
 msgstr ""
 
@@ -1010,12 +1028,13 @@ msgid ""
 "using this tool."
 msgstr ""
 
-#: includes/views/import/html-import-products.php:5
+#: includes/views/import/html-import-products.php:8
+#. translators: $1 and $2: opening and closing code tags.
 msgid ""
 "Upload a CSV from your computer. Click import to import your CSV as new "
 "products (existing products will be skipped), or click merge to merge "
-"products. Importing requires the <code>post_title</code> column, whilst "
-"merging requires <code>sku</code> or <code>id</code>."
+"products. Importing requires the %1$spost_title%2$s column, whilst merging "
+"requires %1$ssku%2$s or %1$sid%2$s."
 msgstr ""
 
 #: includes/views/import/html-import-variations.php:3
@@ -1026,19 +1045,19 @@ msgstr ""
 msgid "Import and add variations to your variable products using this tool."
 msgstr ""
 
-#: includes/views/import/html-import-variations.php:5
+#: includes/views/import/html-import-variations.php:8
+#. translators: $1 and $2: opening and closing code tags.
 msgid ""
-"Each row must be mapped to a variable product via a "
-"<code>post_parent</code> or <code>parent_sku</code> column in order to "
-"import successfully. Merging also requires a <code>sku</code> or "
-"<code>id</code> column."
+"Each row must be mapped to a variable product via a %1$spost_parent%2$s or "
+"%1$sparent_sku%2$s column in order to import successfully. Merging also "
+"requires a %1$ssku%2$s or %1$sid%2$s column."
 msgstr ""
 
-#: includes/views/import/html-import-variations.php:6
+#: includes/views/import/html-import-variations.php:11
 msgid "Import Variations"
 msgstr ""
 
-#: includes/views/import/html-import-variations.php:6
+#: includes/views/import/html-import-variations.php:11
 msgid "Merge Variations"
 msgstr ""
 

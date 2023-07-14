@@ -1,4 +1,18 @@
-*** WooCommerce Bookings Changelog ***
+*** WooCommerce Bookings Changelog ***		       	       	 	 
+       	    	  	      	     	    	  	 
+2023-07-13 - version 2.0.0
+* Add - Enhanced store owner and new bookable product on-boarding experience.
+* Add - Tracks support for product templates.
+* Dev - Bump WooCommerce "tested up to" version 7.8.
+* Dev - Bump WooCommerce minimum supported version from 6.8 to 7.2.
+* Dev - Bump WordPress minimum supported version from 5.8 to 6.1.
+* Dev - Resolve coding standard issues.
+* Dev - Fix broken e2e tests. Update the playwright npm package and WordPress version.
+* Fix - Bookings across the dateline now respect max bookings per block.
+* Fix - Issue where Min/Max block bookable settings were not working as expected.
+* Fix - Respect buffering and prevent overbooking.
+* Fix - Template output functions.
+* Fix - User-friendly booking link text in new order email.
 
 2023-06-14 - version 1.16.02
 * Dev - Bump WooCommerce "tested up to" version to 7.7.

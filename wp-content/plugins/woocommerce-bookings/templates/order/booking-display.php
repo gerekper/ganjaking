@@ -67,7 +67,7 @@ if ( $booking_ids ) {
 					<strong class="wc-booking-summary-number">
 						<?php
 						/* translators: 1: booking id */
-						printf( esc_html__( 'Booking #%s', 'woocommerce-bookings' ), (string) $booking->get_id() );
+						echo esc_html( sprintf( __( 'Booking #%s', 'woocommerce-bookings' ), (string) $booking->get_id() ) );
 						?>
 						<span class="status-<?php echo esc_attr( $booking->get_status() ); ?>">
 							<?php echo esc_html( wc_bookings_get_status_label( $booking->get_status() ) ); ?>

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Order Status Manager Orders Admin
@@ -50,7 +50,11 @@ class WC_Order_Status_Manager_Admin_Orders {
 		add_action( 'admin_head', array( $this, 'custom_order_status_icons' ) );
 
 		// add custom bulk actions and replace core labels with custom labels
-		add_filter( 'bulk_actions-edit-shop_order', [ $this, 'add_bulk_actions' ], 999, 1 );
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			add_filter( 'bulk_actions-woocommerce_page_wc-orders', [ $this, 'add_bulk_actions' ], 999, 1 );
+		} else {
+			add_filter( 'bulk_actions-edit-shop_order', [ $this, 'add_bulk_actions' ], 999, 1 );
+		}
 
 		add_filter( 'woocommerce_order_actions', array( $this, 'custom_email_order_actions' ) );
 

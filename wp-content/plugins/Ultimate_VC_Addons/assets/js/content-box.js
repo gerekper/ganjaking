@@ -26,12 +26,15 @@
 				$( el ).data( 'hover_box_shadow' ) ||
 				$( el ).css( 'box-shadow' );
 
-			$( el ).hover(
+			$( el ).on(
+				'mouseenter',
 				function () {
 					$( el ).css( 'background-color', hover_bg_color );
 					$( el ).css( 'border-color', hover_border_color );
 					$( el ).css( 'box-shadow', hover_box_shadow );
-				},
+				}
+			).on(
+				'mouseleave',
 				function () {
 					$( el ).css( 'background-color', normal_bg_color );
 					$( el ).css( 'border-color', normal_border_color );

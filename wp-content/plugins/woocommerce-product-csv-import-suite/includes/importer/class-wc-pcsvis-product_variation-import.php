@@ -5,6 +5,7 @@
  * @package WordPress
  * @subpackage Importer
  */
+
 if ( ! class_exists( 'WC_PCSVIS_Product_Import' ) ) {
 	return;
 }
@@ -379,7 +380,7 @@ class WC_PCSVIS_Product_Variation_Import extends WC_PCSVIS_Product_Import {
 	// Display import page title
 	function header() {
 		echo '<div class="wrap"><div class="icon32" id="icon-woocommerce-importer"><br></div>';
-		echo '<h2>' . ( empty( $_GET['merge'] ) ? __( 'Import Product Variations', 'woocommerce-product-csv-import-suite' ) : __( 'Merge Product Variations', 'woocommerce-product-csv-import-suite' ) ) . '</h2>';
+		echo '<h2>' . ( empty( $_GET['merge'] ) ? esc_html__( 'Import Product Variations', 'woocommerce-product-csv-import-suite' ) : esc_html__( 'Merge Product Variations', 'woocommerce-product-csv-import-suite' ) ) . '</h2>';
 	}
 
 	/**

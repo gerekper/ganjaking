@@ -523,7 +523,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 
 			$ult_ft_settings['fancytext_trans'] = '';
 
-			$id = uniqid( wp_rand() );
+			$id = esc_attr( uniqid( wp_rand() ) );
 
 				$ult_ft_settings = shortcode_atts(
 					array(
@@ -564,7 +564,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 					),
 					$atts
 				);
-
+			foreach ( $ult_ft_settings as &$output ) {
+					$output = sanitize_text_field( $output );
+			}
 			$vc_version    = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
 			$is_vc_49_plus = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
 
@@ -577,7 +579,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 
 			$css_design_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $ult_ft_settings['css_fancy_design'], ' ' ), 'ultimate_fancytext', $atts );
 
-			$css_design_style = esc_attr( $css_design_style );
+			$css_design_style = sanitize_key( esc_attr( $css_design_style ) );
 
 			if ( '' != $ult_ft_settings['strings_font_family'] ) {
 				$font_family = get_ultimate_font_family( $ult_ft_settings['strings_font_family'] );
@@ -599,10 +601,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 			$fancy_text_id = 'uvc-type-wrap-' . wp_rand( 1000, 9999 );
 
 			if ( is_numeric( $ult_ft_settings['strings_font_size'] ) ) {
-				$ult_ft_settings['strings_font_size'] = 'desktop:' . $ult_ft_settings['strings_font_size'] . 'px;';
+				$ult_ft_settings['strings_font_size'] = 'desktop:' . esc_attr( $ult_ft_settings['strings_font_size'] ) . 'px;';
 			}
 			if ( is_numeric( $ult_ft_settings['strings_line_height'] ) ) {
-				$ult_ft_settings['strings_line_height'] = 'desktop:' . $ult_ft_settings['strings_line_height'] . 'px;';
+				$ult_ft_settings['strings_line_height'] = 'desktop:' . esc_attr( $ult_ft_settings['strings_line_height'] ) . 'px;';
 			}
 
 			$fancy_args = array(
@@ -633,14 +635,14 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 			$prefsuf_data_list  = get_ultimate_vc_responsive_media_css( $fancy_prefsuf_args );
 
 			if ( '' != $ult_ft_settings['sufpref_color'] ) {
-				$prefsuf_style .= 'color:' . $ult_ft_settings['sufpref_color'] . ';';
+				$prefsuf_style .= 'color:' . esc_attr( $ult_ft_settings['sufpref_color'] ) . ';';
 			}
 			if ( '' != $ult_ft_settings['sufpref_bg_color'] ) {
-				$prefsuf_style .= 'background :' . $ult_ft_settings['sufpref_bg_color'] . ';';
+				$prefsuf_style .= 'background :' . esc_attr( $ult_ft_settings['sufpref_bg_color'] ) . ';';
 			}
 
 			if ( '' != $ult_ft_settings['fancytext_align'] ) {
-				$string_align_style .= 'text-align:' . $ult_ft_settings['fancytext_align'] . ';';
+				$string_align_style .= 'text-align:' . esc_attr( $ult_ft_settings['fancytext_align'] ) . ';';
 			}
 
 			// Order of replacement.
@@ -672,16 +674,16 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 			}
 			// Fancy Text Transform.
 			if ( '' != $ult_ft_settings['fancypre_trans'] ) {
-				$fancy_trans = 'text-transform: ' . $ult_ft_settings['fancypre_trans'] . ';';
+				$fancy_trans = 'text-transform: ' . esc_attr( $ult_ft_settings['fancypre_trans'] ) . ';';
 			}
 
 			if ( '' != $ult_ft_settings['fancytext_trans'] ) {
-				$fancyt_trans = 'text-transform: ' . $ult_ft_settings['fancytext_trans'] . ';';
+				$fancyt_trans = 'text-transform: ' . esc_attr( $ult_ft_settings['fancytext_trans'] ) . ';';
 			}
 
 			$ultimate_js = get_option( 'ultimate_js' );
 
-			$output = '<' . $ult_ft_settings['fancytext_tag'] . ' id="' . esc_attr( $fancy_text_id ) . '" ' . $data_list . ' class="uvc-type-wrap ' . esc_attr( $css_design_style ) . ' ' . esc_attr( $is_vc_49_plus ) . ' ult-responsive ' . esc_attr( $ult_ft_settings['ex_class'] ) . ' uvc-wrap-' . esc_attr( $id ) . '" style="' . esc_attr( $string_align_style ) . '">';
+			$output = '<' . sanitize_key( $ult_ft_settings['fancytext_tag'] ) . ' id="' . esc_attr( $fancy_text_id ) . '" ' . $data_list . ' class="uvc-type-wrap ' . esc_attr( $css_design_style ) . ' ' . esc_attr( $is_vc_49_plus ) . ' ult-responsive ' . esc_attr( $ult_ft_settings['ex_class'] ) . ' uvc-wrap-' . esc_attr( $id ) . '" style="' . esc_attr( $string_align_style ) . '">';
 
 			if ( '' != trim( $ult_ft_settings['fancytext_prefix'] ) ) {
 				$output .= '<span ' . $prefsuf_data_list . ' class="ultimate-' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . '-prefix mycustfancy ult-responsive" style="' . esc_attr( $prefsuf_style ) . ' ' . esc_attr( $fancy_trans ) . '">' . esc_html( ltrim( $ult_ft_settings['fancytext_prefix'] ) ) . '</span>';
@@ -705,14 +707,14 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 				} else {
 					$direction = 'up';
 				}
-				$output .= '<div id="vticker-' . esc_attr( $id ) . '" ' . $data_list . ' class="ultimate-vticker ' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . ' ' . esc_attr( $valign ) . ' ' . esc_attr( $inherit_font_size ) . '" style="' . esc_attr( $vticker_inline ) . ' ' . esc_attr( $string_inline_style ) . ' ' . esc_attr( $fancyt_trans ) . '"><ul>';
+				$output .= '<div id="vticker-' . esc_attr( $id ) . '" ' . esc_attr( $data_list ) . ' class="ultimate-vticker ' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . ' ' . esc_attr( $valign ) . ' ' . esc_attr( $inherit_font_size ) . '" style="' . esc_attr( $vticker_inline ) . ' ' . esc_attr( $string_inline_style ) . ' ' . esc_attr( $fancyt_trans ) . '"><ul>';
 				foreach ( $lines as $key => $line ) {
 					if ( 0 == $key ) {
 						$style = 'style="opacity:1"';
 					} else {
 						$style = 'style="opacity:0"';
 					}
-					$output .= '<li ' . $style . '>' . wp_strip_all_tags( $line ) . '</li>';
+					$output .= '<li ' . esc_attr( $style ) . '>' . wp_strip_all_tags( $line ) . '</li>';
 				}
 					$output .= '</ul></div>';
 			} else {
@@ -748,11 +750,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 									$("#vticker-' . esc_attr( $id ) . '").easyTicker({
 										direction: "up",
 										easing: "swing",
-										speed: ' . esc_attr( $ult_ft_settings['strings_tickerspeed'] ) . ',
-										interval: ' . esc_attr( $ult_ft_settings['ticker_wait_time'] ) . ',
+										speed: "' . esc_attr( $ult_ft_settings['strings_tickerspeed'] ) . '",
+										interval: "' . esc_attr( $ult_ft_settings['ticker_wait_time'] ) . '",
 										height: "auto",
-										visible: ' . esc_attr( $ult_ft_settings['ticker_show_items'] ) . ',
-										mousePause: ' . esc_attr( $ult_ft_settings['ticker_hover_pause'] ) . ',
+										visible: "' . esc_attr( $ult_ft_settings['ticker_show_items'] ) . '",
+										mousePause: "' . esc_attr( $ult_ft_settings['ticker_hover_pause'] ) . '",
 										controls: {
 											up: "",
 											down: "",
@@ -772,13 +774,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 								if( typeof jQuery("#typed-' . esc_attr( $id ) . '").typed == "function"){
 									$("#typed-' . esc_attr( $id ) . '").typed({
 										strings: ' . $strings . ',
-										typeSpeed: ' . esc_attr( $ult_ft_settings['strings_textspeed'] ) . ',
-										backSpeed: ' . esc_attr( $ult_ft_settings['strings_backspeed'] ) . ',
-										startDelay: ' . esc_attr( $ult_ft_settings['strings_startdelay'] ) . ',
-										backDelay: ' . esc_attr( $ult_ft_settings['strings_backdelay'] ) . ',
-										loop: ' . esc_attr( $ult_ft_settings['typewriter_loop'] ) . ',
+										typeSpeed: "' . esc_attr( $ult_ft_settings['strings_textspeed'] ) . '",
+										backSpeed: "' . esc_attr( $ult_ft_settings['strings_backspeed'] ) . '",
+										startDelay: "' . esc_attr( $ult_ft_settings['strings_startdelay'] ) . '",
+										backDelay: "' . esc_attr( $ult_ft_settings['strings_backdelay'] ) . '",
+										loop: "' . esc_attr( $ult_ft_settings['typewriter_loop'] ) . '",
 										loopCount: false,
-										showCursor: ' . esc_attr( $ult_ft_settings['typewriter_cursor'] ) . ',
+										showCursor: "' . esc_attr( $ult_ft_settings['typewriter_cursor'] ) . '",
 										cursorChar: "' . esc_attr( $ult_ft_settings['typewriter_cursor_text'] ) . '",
 										attr: null
 									});

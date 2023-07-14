@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -90,6 +90,7 @@ class PrepareBodyMiddleware
         // The expect header is unconditionally enabled
         if ($expect === true) {
             $modify['set_headers']['Expect'] = '100-Continue';
+
             return;
         }
 

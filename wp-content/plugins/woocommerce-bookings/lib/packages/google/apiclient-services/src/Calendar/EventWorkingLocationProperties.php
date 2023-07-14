@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Modified by woocommerce on 14-June-2023 using Strauss.
+ * Modified by woocommerce on 12-July-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -30,6 +30,10 @@ class EventWorkingLocationProperties extends \Automattic\WooCommerce\Bookings\Ve
   public $homeOffice;
   protected $officeLocationType = EventWorkingLocationPropertiesOfficeLocation::class;
   protected $officeLocationDataType = '';
+  /**
+   * @var string
+   */
+  public $type;
 
   /**
    * @param EventWorkingLocationPropertiesCustomLocation
@@ -72,6 +76,20 @@ class EventWorkingLocationProperties extends \Automattic\WooCommerce\Bookings\Ve
   public function getOfficeLocation()
   {
     return $this->officeLocation;
+  }
+  /**
+   * @param string
+   */
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  /**
+   * @return string
+   */
+  public function getType()
+  {
+    return $this->type;
   }
 }
 

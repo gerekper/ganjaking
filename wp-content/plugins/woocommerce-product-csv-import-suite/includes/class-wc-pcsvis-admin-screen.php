@@ -36,7 +36,8 @@ class WC_PCSVIS_Admin_Screen {
 	 */
 	public function admin_notices() {
 		if ( ! function_exists( 'mb_detect_encoding' ) ) {
-			echo '<div class="error"><p>' . __( 'CSV Import Suite requires the function <code>mb_detect_encoding</code> to import and export CSV files. Please ask your hosting provider to enable this function.', 'woocommerce-product-csv-import-suite' ) . '</p></div>';
+			// translators: $1 and $2: opening and closing code tags.
+			echo '<div class="error"><p>' . sprintf( esc_html__( 'CSV Import Suite requires the function %1$smb_detect_encoding%2$s to import and export CSV files. Please ask your hosting provider to enable this function.', 'woocommerce-product-csv-import-suite' ), '<code>', '</code>' ) . '</p></div>';
 		}
 	}
 
